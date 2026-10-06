@@ -1,3 +1,5 @@
+@import '../../src/renderer/design-system.css';
+html {background:var(--bg);color:var(--text);}
 body {margin:0; font-family:"Noto Sans SC Variable",sans-serif;}
 .review-loading,.review-home {max-width:38rem;margin:18vh auto;padding:2rem;line-height:1.8;}
 .review-home h1 {font-size:1.7rem;font-weight:570;}

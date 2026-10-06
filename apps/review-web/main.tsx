@@ -4,8 +4,6 @@ import {preloadPublicMap} from './storage';
 import {CampusMapAdapter} from '../../src/main/mapService';
 import {emptyRoute, type MapRouteQuery} from '../../src/shared/map-v2';
 import '@fontsource-variable/noto-sans-sc';
-import '../../src/renderer/design-system.css';
-import './review.css';
 
 const scenes = {'overview':'校园全景','top-down':'俯视','oblique':'空间斜视','route-demo':'步行路线','building-focus':'建筑聚焦'} as const;
 type Scene = keyof typeof scenes;
@@ -26,7 +24,6 @@ async function start() {
   const {MapSheet} = await import('../../src/renderer/map/CampusMap');
   const requested = new URL(location.href).searchParams.get('scene');
   const scene:Scene = requested && requested in scenes ? requested as Scene : 'overview';
-  document.documentElement.dataset.theme = new URL(location.href).searchParams.get('theme') === 'dark' ? 'dark' : 'light';
   const from = service.search('东3',5).find(p=>p.displayName.includes('东3'));
   const to = service.search('西1',5).find(p=>p.displayName.includes('西1'));
   const focus = service.point('way/161324040');

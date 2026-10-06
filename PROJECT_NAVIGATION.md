@@ -4,7 +4,7 @@ This is the current file/call-chain map for the complete product. The map remain
 | Task | Canonical entry and chain |
 | --- | --- |
 | Desktop startup | package.json → scripts/dev.mjs → scripts/build-electron.mjs → src/main/main.ts; BrowserWindow loads src/renderer/main.tsx / App.tsx through main/preload.ts |
-| Review startup | apps/review-web/index.html → main.tsx → public storage adapter → the same src/main/mapService.ts and src/renderer/map/CampusMap.tsx |
+| Review startup | apps/review-web/index.html applies the query theme and loads review.css / the shared design stylesheet before main.tsx → public storage adapter → the same src/main/mapService.ts and src/renderer/map/CampusMap.tsx |
 | Chat/model orchestration | App.tsx → preload.ts IPC → main.ts → harness.ts → runtime/hermes.ts → runtime/hermes/sidecar.py → pinned upstream AIAgent; provider.ts performs host model transport |
 | Tools/capabilities | main/tools.ts → runtime/coordinator.ts → capabilities/broker.ts → builtin.ts / campus-query.ts / research.ts / spatial.ts; main/zjuAdapter.ts invokes an explicitly installed external connector |
 | Memory | main/memory/model.ts and service.ts → runtime/context.ts / policy.ts → storage/repository.ts; store.ts owns the database, controls.ts the explicit user control path |
