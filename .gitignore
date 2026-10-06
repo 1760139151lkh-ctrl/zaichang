@@ -13,6 +13,7 @@
 !/PROJECT_NAVIGATION.md
 !/README.md
 !/THIRD_PARTY_NOTICES.md
+!/apps/review-web/hosting.json
 !/apps/review-web/index.html
 !/apps/review-web/main.tsx
 !/apps/review-web/review.css
@@ -40,7 +41,14 @@
 !/docs/ASSET_PROVENANCE.md
 !/docs/CLOUD_REVIEW.md
 !/docs/CURRENT_STATUS.md
+!/docs/DEPLOYMENT.md
 !/docs/PRODUCT_CONTRACT.md
+!/docs/review/building-focus.jpg
+!/docs/review/compatibility.jpg
+!/docs/review/oblique.jpg
+!/docs/review/overview.jpg
+!/docs/review/route-demo.jpg
+!/docs/review/top-down.jpg
 !/examples/campus.example.json
 !/index.html
 !/licenses/Canvas-MIT.txt
@@ -68,6 +76,7 @@
 !/scripts/check-review.mjs
 !/scripts/desktop-smoke.mjs
 !/scripts/dev.mjs
+!/scripts/export-review.mjs
 !/scripts/import-map-v2.mjs
 !/scripts/import-map.mjs
 !/scripts/map-geometry.d.mts
