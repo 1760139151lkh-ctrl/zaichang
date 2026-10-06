@@ -28,8 +28,10 @@ jobs:
       - run: npm ci
       - run: npm run setup
       - run: npm run build
-      - run: npm test
       - run: npm run test:hermes
+      - run: npm test
+        env:
+          ZAICHANG_DEBUG_TEST: '1'
       - run: node scripts/desktop-smoke.mjs
         if: runner.os == 'Windows'
       - run: node scripts/pdf-smoke.mjs
