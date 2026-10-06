@@ -8,9 +8,14 @@ export async function preloadPublicMap() {
   await Promise.all(names.map(async name => {
     const response = await fetch(new URL('map/' + name + '.gz', document.baseURI));
     if (!response.ok) throw new Error('地图资料未能载入：' + name);
-    if (!response.body) throw new Error('地图资料未能载入：' + name);
-    const decompressed=new Response(response.body.pipeThrough(new DecompressionStream('gzip')));
-    files.set('map/' + name, new Uint8Array(await decompressed.arrayBuffer()));
+    const received=new Uint8Array(await response.arrayBuffer());
+    // Some static hosts send Content-Encoding:gzip, so fetch already decoded
+    // the file. Other hosts expose the compressed asset as application/gzip.
+    const compressed=received[0]===0x1f&&received[1]===0x8b;
+    const bytes=compressed
+      ? new Uint8Array(await new Response(new Blob([received]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer())
+      : received;
+    files.set('map/' + name, bytes);
   }));
 }
 export function readFileSync(name:string, encoding?:string):any {
