@@ -166,7 +166,8 @@ def bootstrap():
                 raise PermissionError("sidecar_persistence_forbidden")
             target = Path(file).resolve()
             if not any(target == allowed or target.is_relative_to(allowed) for allowed in roots):
-                raise PermissionError("sidecar_private_read_forbidden")
+                diagnostic = ":" + str(target) if os.environ.get("ZAICHANG_HERMES_DEBUG") == "1" else ""
+                raise PermissionError("sidecar_private_read_forbidden" + diagnostic)
         if event in ("os.remove", "os.rename", "os.rmdir", "os.mkdir"):
             raise PermissionError("sidecar_mutation_forbidden")
     # Imports may initialize static caches, but contain no user payload. Their
