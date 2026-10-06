@@ -350,7 +350,8 @@ def main():
             history = agent.context_compressor.compress([{"role": "system", "content": payload["system"]}, *history], force=True)
         result = agent.run_conversation(payload["userMessage"], conversation_history=history, task_id=START["run_id"])
         if result.get("error") or result.get("failed") or result.get("completed") is False:
-            emit("run.error", {"code": "engine_incomplete", "interrupted": bool(result.get("interrupted")), "apiCalls": result.get("api_calls")})
+            diagnostic = {"diagnostic": str(result.get("error", ""))[:1500]} if os.environ.get("ZAICHANG_HERMES_DEBUG") == "1" else {}
+            emit("run.error", {"code": "engine_incomplete", "interrupted": bool(result.get("interrupted")), "apiCalls": result.get("api_calls"), **diagnostic})
             agent.close()
             return 1
         emit("run.final", {"content": result.get("final_response", ""), "messages": result.get("messages", []), "interrupted": result.get("interrupted", False), "compactions": agent.context_compressor.compression_count})

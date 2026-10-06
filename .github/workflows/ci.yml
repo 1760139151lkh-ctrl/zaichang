@@ -29,6 +29,9 @@ jobs:
       - run: npm run setup
       - run: npm run build
       - run: npm run test:hermes
+        env:
+          ZAICHANG_TEST: '1'
+          ZAICHANG_DEBUG_TEST: '1'
       - run: npm test
         env:
           ZAICHANG_DEBUG_TEST: '1'
