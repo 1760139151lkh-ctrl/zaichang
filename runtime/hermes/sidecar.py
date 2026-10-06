@@ -176,9 +176,8 @@ def bootstrap():
     from openai import OpenAI
     import tempfile
     tempfile.gettempdir()  # Static OS probe before accepting any run content into AIAgent.
-    import platform
-    if sys.platform.startswith("linux"):
-        platform.freedesktop_os_release()  # Cache SDK's static OS header before the file fence.
+    from openai._base_client import get_platform
+    get_platform()  # Cache SDK's lazy OS metadata before the file fence.
     sys.addaudithook(audit)
 
     class HostBoundary:
