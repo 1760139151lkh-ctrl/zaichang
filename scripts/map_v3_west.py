@@ -897,7 +897,11 @@ def west_models(geometries,to_wgs):
                 return dx*u[0]+dy*u[1],dx*v[0]+dy*v[1]
             cross=surface_polygons(transform(silver_local,plan_poly(silver_cross[fid])).difference(g))
             body(m,cross,h);glazed_bays(m,cross,h);arm_roof(m,cross,h+.34,pitch,rise)
-            display=source.union(transform(world,cross))
+            # Compose full operands once in their shared calculation frame.
+            # Re-adding a clipped difference after an affine round trip can
+            # retain a zero-area boundary return that crosses on WGS export.
+            # Mesh parts still use the same cross; no source/height fit changes.
+            display=source.union(plan_poly(silver_cross[fid]))
             basis='银泉7/8：2021校方总平面图、2022官方鸟瞰与实际查看高德卫星支持院落及中间横向楼翼；原7幢真实斜翼保留，新增横翼仅用于显示。小片区方案/源轮廓对应的独立检查差异约2至8米，不作为测绘精度；22米级屋高、窗格与内部楼翼尺度概化，原地面障碍、接入和路网不变，不补真实门。'
         else:
             display=source

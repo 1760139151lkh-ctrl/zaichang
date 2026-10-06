@@ -133,6 +133,16 @@ for (const f of geo.features) {
     leisure: t.leisure,
     sport: t.sport,
     surface: t.surface,
+    // Retain source facts independently of cartographic pixel widths. A tag
+    // is not a current measurement or an unconditional access permission.
+    width: t.width,
+    access: t.access,
+    foot: t.foot,
+    bicycle: t.bicycle,
+    motorVehicle: t.motor_vehicle,
+    motorroad: t.motorroad,
+    accessConditional: t['access:conditional'],
+    footConditional: t['foot:conditional'],
     hoops: t.hoops,
     lanes: t.lanes,
     building: t.building,
