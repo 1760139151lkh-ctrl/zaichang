@@ -1262,8 +1262,6 @@ export class Harness {
               ? `已核实此前提交成功：${redactCredentials([...confirmedPriorEffects].join('、'))}。还有部分结果未能核清；请查看对应的当前记录，不要重复提交未核清的操作。`
               : error.message
             : friendlyError(error);
-      if (process.env.ZAICHANG_TEST === '1' && process.env.ZAICHANG_DEBUG_TEST === '1')
-        console.error('Isolated Harness diagnostic:', error instanceof Error ? error.name : 'Error', redactCredentials(error instanceof Error ? error.message : String(error)));
       message.content += (message.content ? '\n\n' : '') + reason;
       message.steps = message.steps.map((s) =>
         s.status === 'running'

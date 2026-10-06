@@ -66,7 +66,6 @@ export function runHermes(input: HermesRun): Promise<HermesResult> {
   environment.PYTHONDONTWRITEBYTECODE = '1';
   environment.HERMES_HOME = path.join(root, '.runtime', 'hermes-home');
   environment.ZAICHANG_HERMES_HOST = '1';
-  if(process.env.ZAICHANG_TEST === '1' && process.env.ZAICHANG_DEBUG_TEST === '1') environment.ZAICHANG_HERMES_DEBUG = '1';
   const identity = { version: 1, run_id: input.runId, parent_run_id: input.parentRunId || null, epoch: input.epoch, task_version: input.taskVersion };
   return new Promise((resolve, reject) => {
     const child = spawn(python, ['-I', '-X', 'utf8', '-B', script], { cwd: root, env: environment, windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] });

@@ -166,8 +166,7 @@ def bootstrap():
                 raise PermissionError("sidecar_persistence_forbidden")
             target = Path(file).resolve()
             if not any(target == allowed or target.is_relative_to(allowed) for allowed in roots):
-                diagnostic = ":" + str(target) if os.environ.get("ZAICHANG_HERMES_DEBUG") == "1" else ""
-                raise PermissionError("sidecar_private_read_forbidden" + diagnostic)
+                raise PermissionError("sidecar_private_read_forbidden")
         if event in ("os.remove", "os.rename", "os.rmdir", "os.mkdir"):
             raise PermissionError("sidecar_mutation_forbidden")
     # Imports may initialize static caches, but contain no user payload. Their
@@ -177,6 +176,9 @@ def bootstrap():
     from openai import OpenAI
     import tempfile
     tempfile.gettempdir()  # Static OS probe before accepting any run content into AIAgent.
+    import platform
+    if sys.platform.startswith("linux"):
+        platform.freedesktop_os_release()  # Cache SDK's static OS header before the file fence.
     sys.addaudithook(audit)
 
     class HostBoundary:
@@ -351,8 +353,7 @@ def main():
             history = agent.context_compressor.compress([{"role": "system", "content": payload["system"]}, *history], force=True)
         result = agent.run_conversation(payload["userMessage"], conversation_history=history, task_id=START["run_id"])
         if result.get("error") or result.get("failed") or result.get("completed") is False:
-            diagnostic = {"diagnostic": str(result.get("error", ""))[:1500]} if os.environ.get("ZAICHANG_HERMES_DEBUG") == "1" else {}
-            emit("run.error", {"code": "engine_incomplete", "interrupted": bool(result.get("interrupted")), "apiCalls": result.get("api_calls"), **diagnostic})
+            emit("run.error", {"code": "engine_incomplete", "interrupted": bool(result.get("interrupted")), "apiCalls": result.get("api_calls")})
             agent.close()
             return 1
         emit("run.final", {"content": result.get("final_response", ""), "messages": result.get("messages", []), "interrupted": result.get("interrupted", False), "compactions": agent.context_compressor.compression_count})
