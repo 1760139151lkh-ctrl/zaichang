@@ -1,0 +1,85 @@
+/* Warm neutrals carry content. Yellow is reserved for focus and selected relations. */
+:root {
+  color-scheme: light dark;
+  --font-body: 'Noto Sans SC Variable', 'Microsoft YaHei UI', 'Segoe UI', sans-serif;
+  --font-display: var(--font-body);
+  --bg: #f8f7f3;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --sidebar: #efeee9;
+  --wash: #efeee9;
+  --text: #282722;
+  --text-secondary: #66635b;
+  --text-tertiary: #747065;
+  --muted: var(--text-secondary);
+  --muted-strong: #48453d;
+  --border: #dcd9cf;
+  --separator: #e7e4db;
+  --accent: #38362e;
+  --accent-hover: #1e1d18;
+  --accent-ink: #ffffff;
+  --accent-soft: #f1e9d2;
+  --accent-dim: #a18c53;
+  --focus: #9d7b27;
+  --highlight: #d3b96d;
+  --danger: #73521b;
+  --danger-soft: #f4ecd7;
+  --success: #5c594e;
+  --warning: #785b20;
+  --warning-soft: #f6efdb;
+  --info: #66635b;
+  --control-surface: var(--surface);
+  --control-border: var(--border);
+  --control-disabled: var(--wash);
+  --control-disabled-text: #827f75;
+  --radius: 8px;
+  --radius-object: 12px;
+  --control-height: 40px;
+  --shadow: 0 16px 56px #302a2014, 0 2px 8px #302a200a;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --fast: 120ms;
+  --enter: 220ms;
+  --sidebar-width: 216px;
+  --content-width: min(1020px, calc(100% - 88px));
+  --reading-width: min(860px, calc(100% - 88px));
+  --reading-size: calc(clamp(16px, 0.3vw + 12px, 18px) * var(--reading-scale, 1));
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #1c1c1a;
+  --surface: #282825;
+  --surface-raised: #33332e;
+  --sidebar: #20201d;
+  --wash: #2b2b27;
+  --text: #eeece5;
+  --text-secondary: #bdb9ad;
+  --text-tertiary: #a7a293;
+  --muted-strong: #d7d3c5;
+  --border: #49483f;
+  --separator: #39382f;
+  --accent: #e5e0d0;
+  --accent-hover: #faf6e8;
+  --accent-ink: #2c2a20;
+  --accent-soft: #3b3524;
+  --accent-dim: #a38e54;
+  --focus: #d8bd72;
+  --highlight: #d8bd72;
+  --danger: #dec580;
+  --danger-soft: #413821;
+  --success: #cbc5b2;
+  --warning: #dcc37d;
+  --warning-soft: #3e3725;
+  --info: #bdb9ad;
+  --control-disabled-text: #989383;
+  --shadow: 0 16px 56px #0004, 0 2px 8px #0002;
+}
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+@media (prefers-contrast: more) {
+  :root {
+    --border: var(--text-secondary);
+    --separator: var(--text-secondary);
+    --text-tertiary: var(--text-secondary);
+  }
+}

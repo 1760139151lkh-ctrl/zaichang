@@ -1,0 +1,462 @@
+{
+  "schema": "campus-residential-observations/v1",
+  "reviewedAt": "2026-10-03",
+  "sources": {
+    "officialGuide": {
+      "url": "https://map.zju.edu.cn/index",
+      "imageId": "6c9a7e8eac30f3d4",
+      "dateLabel": "2022-10-28；是页面标注，不保证每个对象现状",
+      "cropRecord": "artifacts/map-v3/critical-research/original-crops.json"
+    },
+    "amap": {
+      "url": "https://uri.amap.com/marker?position=120.0777982%2C30.30984605&name=紫云宿舍片区&coordinate=wgs84&callnative=0",
+      "observed": "实际查看平面和放大卫星，支持五座短条楼、连接和院落关系；旁边仍显示旧露天网球，影像年代未知。"
+    },
+    "baidu": {
+      "url": "https://map.baidu.com/search/浙江大学紫云学园",
+      "observed": "实际检索紫云楼群，公开地点与官方/高德位置吻合；旧“学园已关闭”POI不能作为楼栋现状或校园通行结论。"
+    },
+    "baishaFieldStudy": {
+      "url": "https://pdf.hanspub.org/design20180200000_42901207.pdf",
+      "date": "2018-06-19",
+      "pages": "印刷46—47页（PDF第3—4页）",
+      "observed": "原作者实地研究明确白沙3、4舍各7层，底层玻璃门厅连接；门厅东侧延伸区域吊顶高4.2米。提议新增跃层与景观的方案不当作已经建成。"
+    },
+    "lantianWaterNotice": {
+      "url": "https://zulg.zju.edu.cn/info/1036/100697.htm",
+      "date": "2026-07-21",
+      "observed": "校方停水范围列蓝田学园一至六层，且蓝田1舍OSM已有6层；结合官方图楼群立面层次支持六层级概化，不声称此通知测量了全部屋高。"
+    },
+    "danyangGallery": {
+      "url": "https://www.zju.edu.cn/2020/0410/c49635a2051432/pagem.htm",
+      "date": "2020-04-10",
+      "observed": "原文明确2019-12-02丹阳3、4舍连廊二楼育人中心办公室。只确认二楼存在，不将其解释为精确总层数或屋高。"
+    },
+    "danyangRenovation": {
+      "url": "https://zulg.zju.edu.cn/info/1021/3523.htm",
+      "date": "2019-11-04",
+      "observed": "原文确认丹阳3-4连廊办公区域、青溪1/2浴室为已完成修缮；不推为新楼或新室内通路。"
+    }
+  },
+  "assessment": "按原作者现场记录、校方当前文字、官方固定鸟瞰、公开地面影像与稳定地面轮廓比较；不按地图品牌数投票。建筑组团的体量/连廊/屋面组成有图像支持；多数精确屋高仍未知。",
+  "auxiliaryWings": {
+    "ids": [
+      "way/237808342",
+      "way/305829554",
+      "way/302556946",
+      "way/305829556"
+    ],
+    "displayRoofM": 8.05,
+    "actualHeightM": null,
+    "basis": "官方鸟瞰可见四处较低后翼，新生指引 https://zjuers.com/welcome/dorms/lantian/ 明确蓝1、3、4、6有辅楼与侧面入口、一二层空间；不将其推为恰好两层。轮廓从原C形占地后侧窄翼取得，只作8米级概化，不补侧门或室内道路。"
+  },
+  "bodies": [
+    {
+      "id": "way/161393397",
+      "name": "紫云1舍",
+      "group": "yunfeng",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/161393402",
+      "name": "紫云2舍",
+      "group": "yunfeng",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/161393431",
+      "name": "紫云3舍",
+      "group": "yunfeng",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/161393434",
+      "name": "紫云4舍",
+      "group": "yunfeng",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/161393432",
+      "name": "紫云5舍",
+      "group": "yunfeng",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/288874062",
+      "name": "碧峰1舍",
+      "group": "yunfeng",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/288874061",
+      "name": "碧峰2舍",
+      "group": "yunfeng",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/288874065",
+      "name": "碧峰3舍",
+      "group": "yunfeng",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/288874064",
+      "name": "碧峰4舍",
+      "group": "yunfeng",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/288874063",
+      "name": "碧峰5舍",
+      "group": "yunfeng",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/237808342",
+      "name": "蓝田1舍",
+      "group": "lantian",
+      "displayHeightM": 18,
+      "actualHeightM": null,
+      "documentedLevels": 6,
+      "basis": "source-levels-estimate",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/543883197",
+      "name": "蓝田2舍",
+      "group": "lantian",
+      "displayHeightM": 18,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/305829554",
+      "name": "蓝田3舍",
+      "group": "lantian",
+      "displayHeightM": 18,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/302556946",
+      "name": "蓝田4舍",
+      "group": "lantian",
+      "displayHeightM": 18,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/305829555",
+      "name": "蓝田5舍",
+      "group": "lantian",
+      "displayHeightM": 18,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/305829556",
+      "name": "蓝田6舍",
+      "group": "lantian",
+      "displayHeightM": 18,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/305829557",
+      "name": "丹阳1舍",
+      "group": "danqing",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/305829558",
+      "name": "丹阳2舍",
+      "group": "danqing",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/306105480",
+      "name": "丹阳3,4舍",
+      "group": "danqing",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。",
+      "lowerLink": {
+        "betweenLocalY": [
+          -6.5,
+          12.85
+        ],
+        "displayRoofM": 6.6,
+        "actualHeightM": null,
+        "basis": "官方鸟瞰与高德卫星可见两条主楼和较低连接。丹阳3-4连廊二楼由学校2020报道与后勤2019竣工报道确认；青溪为图像层次依据。6.6米为显示比例，非测量；连接分界依同一源轮廓凹角，不新增楼门或可通行边。"
+      }
+    },
+    {
+      "id": "way/306105481",
+      "name": "丹阳5舍",
+      "group": "danqing",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/306105482",
+      "name": "丹阳6舍",
+      "group": "danqing",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/306105489",
+      "name": "青溪1,2舍",
+      "group": "danqing",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。",
+      "lowerLink": {
+        "betweenLocalY": [
+          -4.9,
+          12.8
+        ],
+        "displayRoofM": 6.6,
+        "actualHeightM": null,
+        "basis": "官方鸟瞰与高德卫星可见两条主楼和较低连接。丹阳3-4连廊二楼由学校2020报道与后勤2019竣工报道确认；青溪为图像层次依据。6.6米为显示比例，非测量；连接分界依同一源轮廓凹角，不新增楼门或可通行边。"
+      }
+    },
+    {
+      "id": "way/306105490",
+      "name": "青溪3,4舍",
+      "group": "danqing",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。",
+      "lowerLink": {
+        "betweenLocalY": [
+          -10.8,
+          7.8
+        ],
+        "displayRoofM": 6.6,
+        "actualHeightM": null,
+        "basis": "官方鸟瞰与高德卫星可见两条主楼和较低连接。丹阳3-4连廊二楼由学校2020报道与后勤2019竣工报道确认；青溪为图像层次依据。6.6米为显示比例，非测量；连接分界依同一源轮廓凹角，不新增楼门或可通行边。"
+      }
+    },
+    {
+      "id": "way/408887340",
+      "name": "翠柏1舍",
+      "group": "baisha",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/408887350",
+      "name": "翠柏2舍",
+      "group": "baisha",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/408887347",
+      "name": "翠柏3舍",
+      "group": "baisha",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/408887316",
+      "name": "翠柏4舍",
+      "group": "baisha",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/306105473",
+      "name": "白沙1舍",
+      "group": "baisha",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/408887333",
+      "name": "白沙2舍",
+      "group": "baisha",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": null,
+      "basis": "image-proportioned",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/408887320",
+      "name": "白沙3舍",
+      "group": "baisha",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": 7,
+      "basis": "documented-levels-estimate",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    },
+    {
+      "id": "way/408887342",
+      "name": "白沙4舍",
+      "group": "baisha",
+      "displayHeightM": 21,
+      "actualHeightM": null,
+      "documentedLevels": 7,
+      "basis": "documented-levels-estimate",
+      "limitations": "保持原地面轮廓、孔洞和地点身份；楼高按文献/源层数或可见层次概化，楼梯屋面、女儿墙、窗口节奏为制图表达，非测绘构件或室内资料。"
+    }
+  ],
+  "connectors": [
+    {
+      "id": "way/306107364",
+      "name": "紫云1-2舍连廊",
+      "displayHeightM": 6.4,
+      "group": "yunfeng",
+      "actualHeightM": null,
+      "basis": "image-proportioned",
+      "observation": "官方鸟瞰和卫星均见两层级的低连接与局部玻璃屋盖；原OSM已有独立连接占地。"
+    },
+    {
+      "id": "way/306107363",
+      "name": "碧峰1-2舍连廊",
+      "displayHeightM": 6.4,
+      "group": "yunfeng",
+      "actualHeightM": null,
+      "basis": "image-proportioned",
+      "observation": "与紫云对应的独立低连接，原记录轮廓保留。"
+    },
+    {
+      "id": "way/408887346",
+      "name": "白沙3-4舍大厅",
+      "displayHeightM": 4.6,
+      "group": "baisha",
+      "actualHeightM": null,
+      "basis": "documented-ceiling-proportioned-roof",
+      "observation": "文献4.2米指局部地面至吊顶；4.6米屋面只是显示概化，两者不能混同。"
+    },
+    {
+      "id": "way/408887360",
+      "name": "白沙1-2舍大厅",
+      "displayHeightM": 4.6,
+      "group": "baisha",
+      "actualHeightM": null,
+      "basis": "image-proportioned",
+      "observation": "官方可见低屋盖，与本组团高楼分开；不套用白沙3-4大厅实测吊顶。"
+    },
+    {
+      "id": "way/408887354",
+      "name": "翠柏3-4舍大厅",
+      "displayHeightM": 4.6,
+      "group": "baisha",
+      "actualHeightM": null,
+      "basis": "image-proportioned",
+      "observation": "原记录独立连接和官方图较低屋盖，尺寸为比例概化。"
+    },
+    {
+      "id": "way/408887358",
+      "name": "翠柏1-2舍大厅",
+      "displayHeightM": 4.6,
+      "group": "baisha",
+      "actualHeightM": null,
+      "basis": "image-proportioned",
+      "observation": "原记录独立连接和官方图较低屋盖，尺寸为比例概化。"
+    }
+  ],
+  "groupAlignment": {
+    "danqing": {
+      "axisDeg": 8.589674601334226,
+      "maxDisplayShiftM": 1.5,
+      "actualBearingSurveyed": false,
+      "basis": "2026-10-04本轮实际查看官方danqing原裁切、高德100/50米卫星与平面，七个原地面对象主翼平行且保留校园斜置。方向取七源大于10米长边四倍角加权平均；不由斜视屋顶像素反推地面。原各自最小包围框给出7.598至10.409度，固化了源描点差异。固定质心、限定1.5米显示修正；不改公共地面或路网。",
+      "sources": [
+        "https://map.zju.edu.cn/index",
+        "https://uri.amap.com/marker?position=120.07941365%2C30.31113065&name=丹阳宿舍片区&coordinate=wgs84&callnative=0",
+        "https://map.baidu.com/search/浙江大学丹阳学园"
+      ],
+      "limitations": "百度实际返回丹青组团及楼号关系，但未返回可测量建筑细填充；只支持身份/片区，不计作细轮廓验证。高德影像年月未标，不能作为实时施工依据。"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Zaichang review",
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.13"
+    },
+    "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24.18.0"
+    }
+  },
+  "remoteUser": "vscode",
+  "postCreateCommand": "sudo npm install --global npm@11.16.0 && npm ci && python -m pip install --user uv==0.11.29",
+  "forwardPorts": [
+    5174,
+    4173
+  ],
+  "portsAttributes": {
+    "5174": {
+      "label": "Campus map review"
+    }
+  }
+}

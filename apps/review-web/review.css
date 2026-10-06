@@ -1,0 +1,12 @@
+body {margin:0; font-family:"Noto Sans SC Variable",sans-serif;}
+.review-loading,.review-home {max-width:38rem;margin:18vh auto;padding:2rem;line-height:1.8;}
+.review-home h1 {font-size:1.7rem;font-weight:570;}
+.review-home button {padding:.65rem 1.15rem;border:1px solid currentColor;border-radius:.6rem;background:transparent;color:inherit;cursor:pointer;}
+.review-scenes {display:flex;align-items:center;gap:.5rem;font-size:12px;margin-left:auto;}
+.review-scenes select {max-width:8rem;color:inherit;background:var(--surface,#f3f0e9);border:1px solid #a79c8038;border-radius:7px;padding:6px;}
+[data-review] .window-controls {display:none;}
+[data-review] .campus-v2-header {gap:14px;}
+[data-review] .campus-v2-location {display:none;}
+[data-review] .campus-v2-share-context {display:none;}
+[data-review] button[aria-label="定位到本机"], [data-review] .campus-v2-location-state {display:none;}
+@media (max-width:560px) {.review-scenes span {display:none;} .review-scenes select {max-width:6rem;} [data-review] .campus-v2-header {gap:6px;}}

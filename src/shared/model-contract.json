@@ -1,0 +1,7 @@
+{
+  "luna": {
+    "model": "gpt-6-luna",
+    "displayName": "GPT‑6‑Luna",
+    "providerId": "openai-app-server"
+  }
+}

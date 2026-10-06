@@ -1,0 +1,592 @@
+{
+  "schema": "campus-fidelity-observations/v1",
+  "reviewedAt": "2026-10-03",
+  "sources": {
+    "amap": "https://uri.amap.com/marker?position=120.0787%2C30.3059&name=%E5%AE%89%E4%B8%AD%E7%90%83%E5%9C%BA&coordinate=wgs84&callnative=0",
+    "baidu": "https://map.baidu.com/search/浙江大学安中排球场",
+    "officialFacilities": "https://tyys.zju.edu.cn/redir.php?catalog_id=172636",
+    "dome": "https://www.zju.edu.cn/2018/0118/c33135a1514038/pagem.htm",
+    "domeLocation": "https://zulg.zju.edu.cn/info/1036/2474.htm",
+    "officialGuide": "https://map.zju.edu.cn/index",
+    "basketballProportions": "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-official-rules-2024-v10a.pdf",
+    "tennisProportions": "https://www.itftennis.com/en/about-us/organisation/tennis-glossary/",
+    "volleyballProportions": "https://www.fivb.com/wp-content/uploads/2025/01/FIVB-Volleyball_Rules2025_2028-EN-v05.pdf"
+  },
+  "courtGroups": [
+    {
+      "id": "way/305829549",
+      "name": "安中网球场",
+      "sport": "tennis",
+      "columns": 4,
+      "rows": 2,
+      "axis": "north",
+      "basis": "高德与百度平面图均显示东侧大区为4列2排网球场；高德卫星可见相同场线分区。原OSM标为排球场，保留原名作来源记录而不作有效别名。学校介绍确认紫金港室外灯光网球8片。",
+      "limitations": "各图影像获取年月不明；场线采用规则比例适配已记录场区，不是现场逐线测量。"
+    },
+    {
+      "id": "way/305829552",
+      "name": "安中排球场",
+      "sport": "volleyball",
+      "columns": 4,
+      "rows": 2,
+      "axis": "north",
+      "basis": "高德、百度平面图与高德卫星均显示西侧小区为4列2排小场地，形态为排球场；原OSM将它与东侧网球场对调。官网旧2.5D仍画3片网球场，保留年代冲突。",
+      "limitations": "使用公开地图可见布局，不承诺当前开放状态或认证场地尺寸。"
+    },
+    {
+      "id": "way/1115890437",
+      "name": "紫金港东五人制足球场",
+      "sport": "soccer",
+      "smallSided": true,
+      "axis": "north",
+      "cells": [
+        {
+          "u": 0.19,
+          "v": 0.25,
+          "sizeM": [
+            36,
+            19
+          ]
+        },
+        {
+          "u": 0.19,
+          "v": 0.75,
+          "sizeM": [
+            36,
+            19
+          ]
+        },
+        {
+          "u": 0.55,
+          "v": 0.25,
+          "sizeM": [
+            36,
+            19
+          ]
+        },
+        {
+          "u": 0.55,
+          "v": 0.75,
+          "sizeM": [
+            36,
+            19
+          ]
+        },
+        {
+          "u": 0.9,
+          "v": 0.53,
+          "sizeM": [
+            40,
+            20
+          ],
+          "cross": true
+        }
+      ],
+      "basis": "2026-10-03实际查看高德平面图：北侧一片横置，南侧两排各两片纵置；学校场馆介绍确认紫金港五人制足球场5片，2022建成。",
+      "limitations": "分区与相对朝向来自公开地图；比赛线和缓冲区尺寸为贴合地面范围的简化表达，未现场测量。"
+    },
+    {
+      "id": "way/1112646411",
+      "name": "银泉足球场",
+      "aliases": [
+        "银泉足球场",
+        "紫金港西足球场"
+      ],
+      "sport": "soccer",
+      "columns": 2,
+      "rows": 1,
+      "axis": "short",
+      "basis": "浙大场馆介绍记载银泉足球场2022建成、共2片；2026-10-03实际查看高德平面图为两片相邻全场，官方鸟瞰亦呈双场。整体地块不能画成一片巨型足球场。",
+      "limitations": "保留原地面范围；各场边线按实际分区与规则比例表达，不作为实测尺寸或开放状态。"
+    }
+  ],
+  "indoorVenues": [
+    {
+      "id": "way/252088093",
+      "name": "紫云网球场（气膜馆）",
+      "aliases": [
+        "气膜馆",
+        "气膜网球馆",
+        "紫云网球场"
+      ],
+      "heightM": 18,
+      "heightBasis": "浙大2018-01-18报道：2017年建成，高约18米；约6000平方米、8片网球场。2020学校位置图与原OSM indoor=yes交叉定位。",
+      "modelBasis": "气膜曲面为简化表达；地面范围依据已记录室内场区，约18米高度有官方文字依据；曲率、屋顶边缘不是测绘模型。",
+      "courtCount": 8
+    }
+  ],
+  "tracks": {
+    "nominalLapM": 400,
+    "nominalBasis": "浙大场馆介绍明确东西田径场均配置400米标准跑道；此为名义场馆资料，不是派生几何长度或现场复测。",
+    "displayBasis": "沿原地面边界拟合共轴圆弧与相切直段，官方影像和2.5D用于区分跑道、场端铺装与延伸区。仅修显示曲线，原道路拓扑和原轮廓保留。",
+    "laneCount": null,
+    "laneObservations": {
+      "relation/14296233": {
+        "laneCount": 8,
+        "source": "https://tyys.zju.edu.cn/cgyy/uploads/picture/1376879231587.jpg",
+        "basis": "2026-10-03实际查看东田径场公开场馆原照，可辨8条分道；照片年代未提供。分道宽度采用均匀制图表达，不是实测。"
+      },
+      "way/161322822": {
+        "laneCount": null,
+        "basis": "西场预约页复用了东场照片；当前卫星分道线不清楚，不将东场道数套用西场。"
+      }
+    },
+    "infieldReview": {
+      "reviewedAt": "2026-10-04",
+      "ids": [
+        "way/817997262",
+        "way/817997263"
+      ],
+      "basis": "实际查看官方高分辨体育片区和高德50米卫星：两场草地各自位于本场跑道中间，共同长轴；看台和起跑延长区位于两场之间，不并入内场。西场旧源草地偏西约3.6米，旧拟合又用草地边角牵动跑道。新拟合只依据跑道边界，显示草地及全部场线在同一局部框架内对齐，保留原记录尺寸和地面原件。",
+      "amap": "https://uri.amap.com/marker?position=120.0770221455%2C30.3073561019&name=西田径场&coordinate=wgs84&callnative=0",
+      "limits": "高德卫星影像未标采集年月，外侧部分瓦片空白但双场目标完整可见；不声称现场现状、测绘精度、标准测量线或西场道数已确认。"
+    }
+  },
+  "conflicts": [
+    "官方网页页脚20221028不是每个图中对象的现状日期；2.5D把已经于2017建成的气膜馆仍画成露天网球。",
+    "官网安中排球场公开详情cgbh=44配篮球照片，不能独立确认排球布局。",
+    "北篮球场旧2.5D、2020学校位置图的南排全半场与逐对象源hoops不完全一致；新放大高德卫星支持两排各6全场、南排4半场+1全场。该影像仍把气膜馆画成露天网球，采集时间未知，不能据此保证现役篮架状态。"
+  ],
+  "buildingIdentities": [
+    {
+      "id": "way/161324040",
+      "name": "图书信息C楼",
+      "aliases": [
+        "图书信息C楼",
+        "图书信息中心C楼",
+        "行政楼（信息C楼）",
+        "行政楼",
+        "行政大楼",
+        "原管理学院办公楼"
+      ],
+      "basis": "浙大后勤物业问答明确行政大楼为图书信息中心C楼；2025-03-12停电公告分别列出A、B、C，官方校园WFS839/原定位917均落在基础图书馆西侧塔楼。原“管理学院/行政楼”作为历史来源保留。",
+      "sources": [
+        "https://zulg.zju.edu.cn/info/1296/8346.htm",
+        "https://zulg.zju.edu.cn/info/1036/86277.htm",
+        "https://map.zju.edu.cn/index"
+      ]
+    },
+    {
+      "id": "way/255623995",
+      "name": "蒙民伟楼",
+      "aliases": [
+        "蒙民伟楼",
+        "图书信息B楼",
+        "图书信息中心B楼",
+        "图书与信息B楼"
+      ],
+      "basis": "学校物业服务与2025后勤公告均将蒙民伟楼归属图书信息B楼；官方WFS824、原定位902也在藕舫路东侧该楼。原OSM名称混入C楼，已移除错误别名，未改变地面占地。",
+      "sources": [
+        "https://zulg.zju.edu.cn/guide/property.htm",
+        "https://zulg.zju.edu.cn/info/1036/86277.htm",
+        "https://map.zju.edu.cn/index"
+      ]
+    },
+    {
+      "id": "way/237812466",
+      "name": "基础图书馆",
+      "aliases": [
+        "基础图书馆",
+        "浙江大学基础图书馆",
+        "图书信息A楼",
+        "图书信息A楼（基础图书馆）",
+        "图书信息中心A楼"
+      ],
+      "basis": "沿学校现行物业资料和官方WFS830/原定位908对应的A楼，保留全称为别名，近景显示短名称。",
+      "sources": [
+        "https://zulg.zju.edu.cn/guide/property.htm",
+        "https://map.zju.edu.cn/index"
+      ]
+    },
+    {
+      "id": "way/322445520",
+      "name": "亚运热身馆",
+      "aliases": [
+        "亚运热身馆",
+        "热身馆",
+        "亚运会篮球比赛训练馆",
+        "紫金港热身馆"
+      ],
+      "basis": "校方2019改建公示、2023场馆建成照片和官方定位70000068均对应室内游泳馆东侧的原泳池附房；高德卫星可见已建八跨屋盖。将源未命名楼体与已有亚运热身馆参考点统一，保留原边界和旧ID。",
+      "sources": [
+        "https://www.zju.edu.cn/2019/1022/c33493a1726135/pagem.htm",
+        "https://tyys.zju.edu.cn/redir.php?catalog_id=172636",
+        "https://tyys.zju.edu.cn/attachments/2023-04/01-1682387347-194105.png",
+        "https://map.zju.edu.cn/index"
+      ]
+    },
+    {
+      "id": "way/1112645053",
+      "name": "北3教学楼",
+      "aliases": [
+        "北3教学楼",
+        "北教3",
+        "北教学楼3号楼",
+        "段永平教学楼3号楼"
+      ],
+      "basis": "源OSM误写北4；官方旧索引1008650明确东侧北教4，高德平面与百度北4检索对照均把西北U形单元标北3、东北单元标北4。结合校方北教组团位置核对后只改身份，稳定源轮廓和坐标不交换。",
+      "sources": [
+        "https://map.zju.edu.cn/index",
+        "https://uri.amap.com/marker?position=120.07208%2C30.30772&name=浙大北教学楼&coordinate=wgs84&callnative=0",
+        "https://map.baidu.com/search/浙江大学北教学楼4号楼"
+      ]
+    },
+    {
+      "id": "way/1112645054",
+      "name": "北4教学楼",
+      "aliases": [
+        "北4教学楼",
+        "北教4",
+        "北教学楼4号楼",
+        "段永平教学楼4号楼"
+      ],
+      "basis": "官方旧索引1008650北教4位于局部米坐标1473.3,1339.6，与东北U形单元相符；高德平面、百度北4检索同指该楼。源OSM北3/北4名称对调，保留原名作sourceCorrection，未更换地面、路网或个人绑定。",
+      "sources": [
+        "https://map.zju.edu.cn/index",
+        "https://uri.amap.com/marker?position=120.07208%2C30.30772&name=浙大北教学楼&coordinate=wgs84&callnative=0",
+        "https://map.baidu.com/search/浙江大学北教学楼4号楼"
+      ]
+    },
+    {
+      "id": "way/1462301204",
+      "name": "银泉1幢",
+      "aliases": [
+        "银泉1幢",
+        "银泉学园1幢",
+        "银泉学园1舍",
+        "银泉1舍"
+      ],
+      "basis": "方案/官方点位在此源占地；学园字样导致旧同名匹配未归并，保留原ID。 来源为校方2021方案、官方固定鸟瞰与西北研究记录；源地面ID保持。"
+    },
+    {
+      "id": "way/1302813126",
+      "name": "银泉7幢",
+      "aliases": [
+        "银泉7幢",
+        "银泉学园7舍",
+        "银泉学园7幢",
+        "银泉7舍"
+      ],
+      "basis": "方案编号7与官方鸟瞰/高德平面/当前OSM源逐位置对应；斜翼保持，官方参考点需重定向原源。 来源为校方2021方案、官方固定鸟瞰与西北研究记录；源地面ID保持。"
+    }
+  ],
+  "routeSemantics": {
+    "reviewedAt": "2026-10-03",
+    "corrections": [
+      "barrier=bollard不是步行门禁，不再因任意barrier而标为待核gate；实际gate/lift_gate/swing_gate仍保留待核。",
+      "covered=yes与tunnel=building_passage描述有顶或穿楼通道；在原有步行道路上不自动表示禁入。indoor=yes、真实权限/时段、门与断接仍独立处理。"
+    ],
+    "sources": [
+      "https://wiki.openstreetmap.org/wiki/Tag:barrier=bollard",
+      "https://wiki.openstreetmap.org/wiki/Key:covered",
+      "https://wiki.openstreetmap.org/wiki/Tag:tunnel=building_passage"
+    ],
+    "limits": "不由这些修正补画新通路，不取消实际门禁或通行限制。"
+  },
+  "bridgeApproaches": [
+    {
+      "way": "way/411343573",
+      "nodes": [
+        "4130342281",
+        "4130342278"
+      ],
+      "coordinates": [
+        [
+          120.0824331,
+          30.3015886
+        ],
+        [
+          120.0823791,
+          30.3015531
+        ]
+      ],
+      "sourceVersion": 1,
+      "reviewedAt": "2026-10-03",
+      "sourceSegmentM": 6.52,
+      "rawWaterOverlapM": 0.348,
+      "basis": "OSM原已记录步道；当前API同节点/坐标。端点只落入粗岸线约0.34米，官方鸟瞰可见桥头步道连续，高德同公开端点步行方案也通过南华园这座桥。只恢复此记录段，不在空白地面创造新边。",
+      "sources": [
+        "https://www.openstreetmap.org/way/411343573",
+        "https://map.zju.edu.cn/index",
+        "https://uri.amap.com/navigation?from=120.089338378907%2C30.300343153212%2CEast3&to=120.084774576823%2C30.302756618924%2CWest1&mode=walk&callnative=0"
+      ],
+      "coordinateNote": "URI步行端点为高德marker公开转换后的GCJ-02；产品本地几何仍为WGS84，没有混用。",
+      "limits": "这不是现场开放状态保证；原始OSM不覆盖，未来节点坐标改变须重新复核。"
+    }
+  ],
+  "sourceAssessment": {
+    "policy": "按来源可靠性、明确支持范围、资料年代、实景/示意与独立性综合判断；以下是审阅判断，不是统计校准概率。",
+    "northBasketball": {
+      "judgment": "supported-layout-current-status-unverified",
+      "chosen": "两排各6个完整场，南排4个半场与东端1个完整场",
+      "basis": "2020-06-21逐对象OSM hoops记录合计13全场/4半场；2026-10-03实际放大高德卫星，南排单端禁区与最东双端禁区可辨，与此布局相符。旧鸟瞰插图的不同画法不覆盖逐对象资料与影像支持。",
+      "source": "https://uri.amap.com/marker?position=120.0778%2C30.3091&name=云峰篮球场&coordinate=wgs84&callnative=0",
+      "limitations": "卫星具体采集时间未披露，旁边仍见露天网球而非2017建成气膜馆，不能用2026版权/访问日期证明影像为当前；场线布局采用较可信组合，现役篮架与开放状态未现场确认。"
+    },
+    "libraryIdentity": {
+      "judgment": "high",
+      "chosen": "A基础馆、B蒙民伟、C行政楼塔楼分别对应",
+      "basis": "校方2025公告、物业文档与官方空间参考点相互吻合；旧OSM混名较早且与楼层/位置矛盾。"
+    },
+    "cTowerHeight": {
+      "judgment": "provisional",
+      "renderMeters": 56,
+      "basis": "当前地面源height=56、levels=18，对象最后修订2018-10-16；校方2019文字确认至少有17层。79.05米是维基转引2009论文的数字，尚未读到原论文，不能把它当作已核实总高，也不能宣称56米实测。",
+      "unresolved": "不同资料可能采用楼身/建筑总高等不同口径；缺原文时保留这一分歧。"
+    },
+    "roofForm": {
+      "judgment": "supported-simplification",
+      "basis": "官方固定鸟瞰可识别圆角筒、环形冠顶、L形低楼和玻璃屋面；分格、檐口与玻璃网格只作概化，具体构件尺寸不作测量值。"
+    },
+    "bCourtyards": {
+      "judgment": "high-for-composition-provisional-for-dimensions",
+      "chosen": "东、西两个院落，西北圆形报告厅，低西翼与较高东翼分别表达",
+      "basis": "2026-10-03实际查看官方缓存鸟瞰原图和高德卫星，均可辨认两个院落及不同楼体层次；百度平面也保留两个开口，辅助核对。当前OSM只描外轮廓、没有内孔，将它整块等高拉起会把可见院落填满，因此不采用这一显示方式。没有把各商业图层假定为完全独立的数据来源。",
+      "sources": [
+        "https://map.zju.edu.cn/index",
+        "https://uri.amap.com/marker?position=120.0858%2C30.30555&name=图书信息楼群&coordinate=wgs84&callnative=0",
+        "https://map.baidu.com/search/浙江大学紫金港校区%20蒙民伟楼"
+      ],
+      "limitations": "两种图像具体采集年月不能由访问日期推得；主楼20米／6层沿用OSM，分翼高度和开口尺寸是图像支持的概化。南侧网格段按屋顶保留，未将不确定玻璃段挖成第三院落；不据显示开口补通路。"
+    },
+    "eastFiveComposition": {
+      "judgment": "supported-simplification",
+      "chosen": "主楼、院落、屋面连接、平台与弧形构架分开",
+      "basis": "2026-10-03实际查看官方固定鸟瞰局部和高德卫星，同见西部院落、东部大屋面上的小开口及外侧细弧构架。原OSM单一外轮廓的统一19米拉伸把外侧空间填为厚体块；显示模型改为分件表达。百度平面可辅助核对主体位置，不能证明构架高度。",
+      "sources": [
+        "https://map.zju.edu.cn/index",
+        "https://uri.amap.com/marker?position=120.08627805%2C30.3048736&name=东5教学楼&coordinate=wgs84&callnative=0",
+        "https://map.baidu.com/search/浙江大学紫金港校区%20蒙民伟楼"
+      ],
+      "limitations": "OSM对象最后修订2018-06-05，源19米／4层沿用但不当实测；平台层次、构架高度与支撑间距只是图像支持的概化。保持原地面障碍保守边界，不据显示平台或开口创造通路。"
+    },
+    "bridgeApproach": {
+      "judgment": "high-for-recorded-connectivity",
+      "basis": "源步道节点当前API一致、分米级岸线相交、官方可见连接与高德当前步行走法相互支持；不承诺现场实时开放。"
+    },
+    "eastTeachingComposition": {
+      "judgment": "supported-composition-approximate-fittings",
+      "chosen": "区分教室楼翼、低连廊、屋面采光带和楼梯间；保留东侧顺道路的斜收口",
+      "basis": "实际查看官方固定鸟瞰原切片、高德东一屋面卫星、百度东教平面。三者支持院落与分翼关系；卫星和导览均见靠路端部斜收，不能按所有建筑必须90度重画。浙大报2019-03-15和校方2022-07-06文章确认学生文化长廊为两层、连接东一至东四；报刊明确波浪廊顶。",
+      "sources": [
+        "https://map.zju.edu.cn/index",
+        "https://uri.amap.com/marker?position=120.08450738%2C30.30491206&name=浙江大学东1教学楼&coordinate=wgs84&callnative=0",
+        "https://map.baidu.com/search/浙江大学紫金港校区%20东一教学楼",
+        "https://zdjy.zju.edu.cn/review/toReview?dbID=23&dbName=ZHEJIANGDAXUEBAO&sysID=8638",
+        "https://www.zju.edu.cn/2022/0706/c69345a2601808/pagem.htm"
+      ],
+      "limits": "东一16米/五层、东二三层及若干7/9米连接段沿用源属性，均非实测。波幅节距、楼梯间和分格尺寸为图像概化；未将建模图案当精确构件清单，不据模型补入口、室内路网或开放时间。各影像具体采集年月未知，不以访问日期作现状保证。"
+    },
+    "poolComplex": {
+      "judgment": "built-form-supported-height-basis-separated",
+      "chosen": "西侧曲尺形游泳馆与东侧八跨热身馆分开；西侧屋顶有成组设备板，东馆屋盖向西降落、东侧七组V形柱",
+      "basis": "实际查看官方固定鸟瞰原切片、校方2022游泳馆配图与2023热身馆大图、高德卫星。卫星中两馆均已建成，可支持屋面结构但不将2026版权年份当拍摄日期。校方2019总平面/鸟瞰是方案，仅在建成照片也吻合的部分采用。游泳馆20.50米来自项目监理施工记录；热身馆精确高度仍未知。",
+      "sources": [
+        "https://map.zju.edu.cn/index",
+        "https://www.zju.edu.cn/2019/1022/c33493a1726135/pagem.htm",
+        "https://www.hzsfjs.com/news2/show/id/383.html",
+        "https://tyys.zju.edu.cn/attachments/2022-11/01-1669364624-187560.png",
+        "https://tyys.zju.edu.cn/attachments/2023-04/01-1682387347-194105.png",
+        "https://uri.amap.com/marker?position=120.0849%2C30.3101&name=浙大游泳馆片区&coordinate=wgs84&callnative=0"
+      ],
+      "limits": "屋面设备板类型、数量、精确分格、基座、檐口与构件尺寸为概化；未生成室内楼层或真实门。旧效果图中可能出现的庭院不凭文字二手转述挖孔，采用已查看的建成屋面。"
+    }
+  },
+  "reviewedBuildingHeights": [
+    {
+      "id": "way/519369449",
+      "heightM": 20.5,
+      "basis": "construction-document",
+      "description": "监理单位三方建设集团2016-12-20项目记录：室外地坪至屋面最高点20.50米；采用有明确口径的施工资料，非本次现场复测。",
+      "source": "https://www.hzsfjs.com/news2/show/id/383.html"
+    },
+    {
+      "id": "way/322445520",
+      "heightM": 24,
+      "basis": "image-proportioned",
+      "actualHeightM": null,
+      "description": "热身馆尚未取得明确实测高度。24米级显示体量按校方建成照片与相邻馆群比例概化；分跨、V形支撑和西侧下垂屋盖有图像依据，尺寸与曲率不作测量值。",
+      "source": "https://tyys.zju.edu.cn/attachments/2023-04/01-1682387347-194105.png"
+    }
+  ],
+  "waterReview": {
+    "reviewedAt": "2026-10-04",
+    "sources": [
+      {
+        "kind": "official-fixed-birdseye",
+        "url": "https://map.zju.edu.cn/index",
+        "imageDate": "2022-10-28",
+        "role": "识别形态与相对关系；中心湖景观表达和当前可见影像存在分歧，不能当作实测现状。"
+      },
+      {
+        "kind": "amap-planar-and-satellite",
+        "url": "https://ditu.amap.com/regeo?lng=120.078759494358&lat=30.301054416233&name=浙江大学中心湖&src=uriapi&callnative=0",
+        "observedAt": "2026-10-04",
+        "imageDate": null,
+        "role": "实际查看大岛、水域主轮廓和连通水系；采集年月未知，树冠也不等于地面岸线。"
+      },
+      {
+        "kind": "baidu-planar",
+        "url": "https://map.baidu.com/search/浙江大学紫金港校区中心湖",
+        "observedAt": "2026-10-04",
+        "imageDate": null,
+        "role": "实际放大看到西部渠道、中心湖岸湾和北支流；示意图不是测绘或开放证明。"
+      },
+      {
+        "kind": "procurement",
+        "url": "https://www.ccgp.gov.cn/cggg/zygg/gkzb/202512/t20251224_25985141.htm",
+        "publishedAt": "2025-12-24",
+        "role": "公告涉及驳岸、绿化、栈道；不证明本轮现状岸线或通行已经改变。"
+      },
+      {
+        "kind": "osm-history",
+        "url": "https://api.openstreetmap.org/api/0.6/relation/9772853/history",
+        "role": "已恢复并核实的前轮历史证据：2026-04-23关系修订只加名称，不能据此称岸线于2026实测。"
+      }
+    ],
+    "waters": [
+      {
+        "id": "relation/9772853",
+        "basis": "中心湖：原地面轮廓与高德平面、可见影像的大岛及连通水系相互参考。旧官方鸟瞰的景观小岛、精整驳岸与影像有分歧；影像年月及当前工程进度未知，不照搬规划小岛或栈道。显示缓弯距原边界不超过2米，保留岛洞、尖角与主要岸湾；选中线只沿同一可见水面的岸，不把采集分界画成堤坝。此显示不是现场测绘或通行依据。"
+      },
+      {
+        "id": "relation/7927357",
+        "basis": "启真湖：官方固定鸟瞰与当前公开地图用于核对湖面、岛屿、桥头和临水建筑关系，资料年代分开。显示水面先合并，再做距原边界不超过2米的有限缓弯；岛洞、硬转角和原地面路网保留。桥面的命中与湖面分开，水域参考点仅供浏览，不作为步行起终点；浮码头和室内连接未据外形补入路线。"
+      }
+    ],
+    "displayOnly": true,
+    "sourceGroundChanged": false,
+    "routingGeometryChanged": false,
+    "assessment": "按具体来源、采集年代、可见对象和坐标能力判断，不做品牌多数票，也不虚构数值置信度。"
+  },
+  "channelDisplay": {
+    "reviewedAt": "2026-10-05",
+    "basis": "原OSM已记录的地表水道，沿原中线补可辨认的河面示意；官方2.5D、高德平面与南岸卫星支持水系位置和尺度层次。宽度是制图比例，精确两岸线未取得；不将树木/屋顶遮挡反算为水岸，不修改原地理或路网。涵管不画成地表河面；显示边界不作路由障碍的新测绘依据。",
+    "bankSurveyed": false,
+    "sourceImageId": "6c9a7e8eac30f3d4",
+    "sourceLimit": "官方南部部分中线位置被树/高楼遮挡，颜色横断面只在局部可辨，未将自动采样当精确全岸。南岸高德50米影像实际成功取得；没有精确影像采集年月。",
+    "connectorPolicy": "新增的估计接入不准横跨已记录地表水道中线；涵管排除，原记录道路/桥段不因示意宽度被改写。",
+    "segments": [
+      {
+        "id": "way/288875637",
+        "illustrativeWidthM": 12
+      },
+      {
+        "id": "way/288875636",
+        "illustrativeWidthM": 18
+      },
+      {
+        "id": "way/288875633",
+        "illustrativeWidthM": 10
+      },
+      {
+        "id": "way/288875635",
+        "illustrativeWidthM": 6
+      },
+      {
+        "id": "way/288875639",
+        "illustrativeWidthM": 8
+      },
+      {
+        "id": "way/305829526",
+        "illustrativeWidthM": 8
+      },
+      {
+        "id": "way/839277220",
+        "illustrativeWidthM": 10
+      },
+      {
+        "id": "way/1083073678",
+        "illustrativeWidthM": 8
+      },
+      {
+        "id": "way/1083073680",
+        "illustrativeWidthM": 7
+      },
+      {
+        "id": "way/1083073693",
+        "illustrativeWidthM": 10
+      }
+    ]
+  },
+  "outdoorTraining": {
+    "id": "way/252088095",
+    "basis": "原源sport=climbing及校方2016攀岩照片、2022户外拓展报道。整个场区不作为实心建筑拉起；岩壁与12m高空柱确有文字依据，但各设施精确地面脚点未齐，不随机造柱/新门。",
+    "sources": [
+      "https://www.zju.edu.cn/2016/0622/c32859a93180/page.htm",
+      "https://www.zju.edu.cn/2022/0701/c69261a2600306/pagem.htm"
+    ]
+  },
+  "reviewedReferenceLinks": [
+    {
+      "id": "way/703251437",
+      "official": [
+        "hotmap_221027.1140"
+      ],
+      "legacy": [
+        "1008612"
+      ],
+      "basis": "成均苑4幢和成均苑4幢（人文大楼）是同一已建楼：精确楼号一致、官方参考在同一模型附近，括注造成旧匹配遗漏。"
+    },
+    {
+      "id": "way/703251440",
+      "official": [
+        "hotmap_221027.1206"
+      ],
+      "legacy": [],
+      "basis": "成均苑1幢（传媒大楼）与成均苑1幢身份一致；原名称括注不应另生成一个无楼体地点。"
+    },
+    {
+      "id": "way/703251463",
+      "official": [
+        "hotmap_221027.1212"
+      ],
+      "legacy": [
+        "1008622"
+      ],
+      "basis": "海纳苑3幢的心理大楼/心理系两种括注对应同一楼号与位置，保留完整别名。"
+    },
+    {
+      "id": "way/703248091",
+      "official": [
+        "hotmap_221027.1217"
+      ],
+      "legacy": [
+        "100867"
+      ],
+      "basis": "澄月学园5幢（留学生宿舍）与5舍同栋；不再保留两个独立位置参考。"
+    },
+    {
+      "id": "relation/9772899",
+      "official": [
+        "hotmap_221027.1218"
+      ],
+      "legacy": [],
+      "basis": "玉湖学园3舍与玉湖3舍同栋，学园修饰语曾导致未匹配，真实院落轮廓保持。"
+    },
+    {
+      "id": "way/982001090",
+      "official": [],
+      "legacy": [
+        "858"
+      ],
+      "basis": "港湾家园25幢：原官方与源面名称对应，参考点距源面中心约6米。"
+    },
+    {
+      "id": "way/982001088",
+      "official": [],
+      "legacy": [
+        "859"
+      ],
+      "basis": "港湾家园26幢：原官方与源面名称对应，参考点距源面中心约5米。"
+    },
+    {
+      "id": "way/982001089",
+      "official": [],
+      "legacy": [
+        "860"
+      ],
+      "basis": "港湾家园27幢：原官方与源面名称对应，参考点在该源面中心附近。"
+    }
+  ]
+}
