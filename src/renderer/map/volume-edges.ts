@@ -1,6 +1,7 @@
 import { MercatorCoordinate, type Map, type CustomLayerInterface, type CustomRenderMethodInput } from 'maplibre-gl';
 import type { FeatureCollection } from 'geojson';
 import type { MapPalette } from './map-theme';
+import { roofBoundaryEdges } from './mesh-geometry';
 
 /** Thin roof rims at the very same sourced heights as the native extrusion.
  * No invented floors, windows or roof plans. Shares the map depth buffer. */
@@ -20,13 +21,8 @@ export class VolumeEdges implements CustomLayerInterface {
     for(const f of data.features){
       const model=f.properties?.surfaceModel;
       if(model?.type==='authored-mesh'){
-        const edges=new globalThis.Map<string,{a:number[];b:number[];count:number}>(),first=vertices.length/8;
-        const key=(p:number[])=>p.map((v,i)=>v.toFixed(i<2?8:3)).join(',');
-        for(const part of model.parts)if(part.material==='roof')for(let i=0;i<part.vertices.length;i+=3){
-          const tri=part.vertices.slice(i,i+3) as number[][];
-          for(let j=0;j<3;j++){const a=tri[j],b=tri[(j+1)%3],k=[key(a),key(b)].sort().join('|'),prior=edges.get(k);if(prior)prior.count++;else edges.set(k,{a,b,count:1});}
-        }
-        for(const e of edges.values())if(e.count===1)segment(e.a,e.b);
+        const first=vertices.length/8;
+        for(const e of roofBoundaryEdges(model.parts))segment(e.a,e.b);
         this.groups.push({id:String(f.id),first,count:vertices.length/8-first,authored:true});continue;
       }
       const height=Number(f.properties?.heightM||0);if(f.properties?.kind!=='building'||!height||model)continue;

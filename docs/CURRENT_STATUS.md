@@ -11,6 +11,8 @@ Memory semantics and long-term model judgment are not certified by deterministic
 
 The map is a 2026-09-10 public-source snapshot with project V3 display refinements. Door access, opening hours, construction changes, exact roof heights, some southern banks and complete indoor routes remain uncertain. Dashed access is an estimate; the sport markings are illustrative. WebGL fallback is planar and cannot provide a spatial camera. Review has no device location or personal bindings.
 
+The mesh path rejects exactly collapsed triangles in its actual Float32 draw coordinates, while retaining thin and open surfaces. Repeated roof faces no longer cancel their outside rim. The shared loader restores the original island generator's missing parent IDs for 15 detail lines; source IDs and geometries are preserved. These mechanism repairs do not certify the source shapes, heights, image registration or full-map coverage.
+
 For the current clean-clone/CI/browser evidence and scope see docs/CLOUD_REVIEW.md; use the repository commit SHA in every subsequent review or change request.
 
 Repository verification covers deterministic host/memory/route mechanisms, the actual pinned Hermes engine with synthetic host responses, native Windows desktop startup and the patched native PDF reader. Live model semantics and real university-account results are not certified by these checks.

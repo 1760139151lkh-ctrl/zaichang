@@ -356,7 +356,9 @@ island_surfaces,island_marks,island_light,island_pole=island_landscape(to_wgs)
 for fid,ground,role,basis in island_surfaces:
  display['features'].append({'type':'Feature','id':fid,'properties':{'kind':'land','role':role,'scope':'campus','displayBasis':basis},'geometry':geographic(ground)})
 for fid,ground in island_marks:
- detail.append({'type':'Feature','id':fid,'properties':{'kind':'landscape-step'},'geometry':geographic(ground)})
+ parent_id='island/amphitheatre' if fid.startswith('island/amphitheatre-step-') else 'island/waterfront' if fid.startswith('island/waterfront-terrace-') else None
+ if parent_id is None:raise ValueError('Unmapped island detail: '+fid)
+ detail.append({'type':'Feature','id':fid,'properties':{'kind':'landscape-step','parentId':parent_id},'geometry':geographic(ground)})
 display['features'].append({'type':'Feature','id':'island/light-tower','properties':{'kind':'landscape-fixture','scope':'campus','surfaceModel':island_light},'geometry':geographic(Point(*island_pole))})
 fidelity['islandLandscape']={'basis':island_light['basis'],'sources':['https://map.zju.edu.cn/index','https://www.mianfeiwendang.com/doc/7e3f675a6801dfc7fce86f35/2'],'sourceImageId':'6c9a7e8eac30f3d4','cropOrigin':[5644,2486],'groundSamplingOnly':True,'routingGeometryChanged':False}
 observations=read(ASSETS/'venue-observations.json')
@@ -555,6 +557,11 @@ for f in display['features']:
   # and reduces parse/IPC size without changing acquired ground or road data.
   for vertices in materials.values():
    for vertex in vertices:vertex[:]=[round(vertex[0],8),round(vertex[1],8),round(vertex[2],3)]
+  # Serialization may collapse a pair of triangle corners. Such a face has
+  # no occupied area in any coordinate frame; retain every other vertex and
+  # every material/feature, including narrow and open surfaces.
+  for material,vertices in materials.items():
+   materials[material]=[p for i in range(0,len(vertices),3) for p in vertices[i:i+3] if not (vertices[i]==vertices[i+1] or vertices[i+1]==vertices[i+2] or vertices[i]==vertices[i+2])]
   model['parts']=[{'material':material,'vertices':vertices} for material,vertices in materials.items()]
 display['features'].sort(key=lambda f:0 if f['properties'].get('role')=='infield-surround' else 1)
 # Adjacent water polygons share one displayed surface; internal acquisition

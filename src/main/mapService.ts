@@ -13,6 +13,7 @@ import {
 import { WalkingGraph, metersBetween, classifyFix, inBounds } from '../shared/map-routing';
 import { fromLocal, toLocal, personalAccess } from './mapProfile';
 import { rankMapPoints } from '../shared/map-names';
+import { restoreLandscapeDetailParents } from '../shared/map-v3';
 export class CampusMapAdapter {
   private manifest: MapOverview;
   private points: MapPoint[];
@@ -79,7 +80,8 @@ export class CampusMapAdapter {
         this.official = facts.officialToCanonical || {};
         this.originalReferences=facts.originalLocatorReferences||{};this.sharedFacts=facts;
         this.geography=read('geography.geojson');
-        this.displayGeography=read('display-geography.geojson');this.sports=read('sports-details.geojson');
+        const display=read('display-geography.geojson');this.displayGeography=display;
+        this.sports=restoreLandscapeDetailParents(read('sports-details.geojson'),new Set(display.features.map((f:{id?:string|number})=>String(f.id))));
       } catch (error) {
         if (manifest.implementation === 'campus-map/v3') throw error;
       }

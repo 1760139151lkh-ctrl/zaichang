@@ -3,6 +3,7 @@ import type { FeatureCollection } from 'geojson';
 import type { MapPalette } from './map-theme';
 import { projectFace,triangleDepth,extrusionDepth } from './surface-picking';
 import type { LabelAnchor } from './label-anchors';
+import { drawableTriangle } from './mesh-geometry';
 
 type Vec=[number,number,number];
 type Group={id:string;material:string;first:number;count:number;faces:Vec[][];worldBounds?:number[];screen?:Float64Array;bounds?:number[]};
@@ -55,7 +56,7 @@ export class RoofSurfaces implements CustomLayerInterface {
       if(model?.type==='authored-mesh'){
         for(const part of model.parts){const first=vertices.length/6,faces:Vec[][]=[];
           for(let i=0;i<part.vertices.length;i+=3){const face:Vec[]=part.vertices.slice(i,i+3).map((p:number[])=>{const q=MercatorCoordinate.fromLngLat([p[0],p[1]],p[2]);return [q.x-this.origin.x,q.y-this.origin.y,q.z];});
-            faces.push(face);
+            if(drawableTriangle(face))faces.push(face);
           }
           const normals=authoredNormals(faces,part.material==='tile-roof'||part.material==='dome');
           faces.forEach((face,i)=>face.forEach((p,j)=>vertices.push(...p,...normals[i][j])));
@@ -84,12 +85,12 @@ export class RoofSurfaces implements CustomLayerInterface {
       for(let i=0;i<rings;i++)for(let j=0;j<sectors;j++){
         const t0=Math.max(.00001,i/rings*Math.PI/2),t1=(i+1)/rings*Math.PI/2,p0=j/sectors*2*Math.PI,p1=(j+1)/sectors*2*Math.PI;
         const q=[vertex(t0,p0),vertex(t1,p0),vertex(t1,p1),vertex(t0,p1)];
-        for(const ids of [[0,1,2],[0,2,3]]){faces.push(ids.map(k=>q[k].p));for(const k of ids)vertices.push(...q[k].p,...q[k].n);}
+        for(const ids of [[0,1,2],[0,2,3]]){const face=ids.map(k=>q[k].p);if(!drawableTriangle(face))continue;faces.push(face);for(const k of ids)vertices.push(...q[k].p,...q[k].n);}
       }
       this.groups.push({id:String(f.id),material:model.type==='elliptical-roof'?'roof':'dome',first,count:vertices.length/6-first,faces});
       if(model.type==='elliptical-roof'){
         const first=vertices.length/6,faces:Vec[][]=[];const lifted=(r:number,p:number):Vec=>{const edge=lensRadius(p),t=r<=edge?r/edge*.25:.25+(r-edge)/(1-edge)*.75;const q=position(Math.min(1,t)*Math.PI/2,p);q[2]+=c.meterInMercatorCoordinateUnits()*.04;return q;};
-        const quad=(q:Vec[])=>{for(const ids of [[0,1,2],[0,2,3]]){const face=ids.map(i=>q[i]);faces.push(face);for(const p of face)vertices.push(...p,0,0,1);}};
+        const quad=(q:Vec[])=>{for(const ids of [[0,1,2],[0,2,3]]){const face=ids.map(i=>q[i]);if(!drawableTriangle(face))continue;faces.push(face);for(const p of face)vertices.push(...p,0,0,1);}};
         // Quiet panel joints describe the observed radial roof construction.
         // Their density is cartographic material, not a surveyed member count.
         for(let j=0;j<48;j++){const phi=j/48*2*Math.PI,edge=lensRadius(phi);for(let i=0;i<16;i++){const r0=edge+(1-edge)*i/16,r1=edge+(1-edge)*(i+1)/16;quad([lifted(r0,phi-.0009),lifted(r1,phi-.0009),lifted(r1,phi+.0009),lifted(r0,phi+.0009)]);}}
@@ -98,7 +99,7 @@ export class RoofSurfaces implements CustomLayerInterface {
       }
       if(base){const first=vertices.length/6,faces:Vec[][]=[];
         for(let i=0;i<sectors;i++){const pa=position(Math.PI/2,i/sectors*2*Math.PI),pb=position(Math.PI/2,(i+1)/sectors*2*Math.PI),ga:Vec=[pa[0],pa[1],0],gb:Vec=[pb[0],pb[1],0];
-          const n=unit(cross(sub(pb,pa),sub(ga,pa)));for(const face of [[pa,pb,gb],[pa,gb,ga]]){faces.push(face);for(const p of face)vertices.push(...p,...n);}}
+          const n=unit(cross(sub(pb,pa),sub(ga,pa)));for(const face of [[pa,pb,gb],[pa,gb,ga]]){if(!drawableTriangle(face))continue;faces.push(face);for(const p of face)vertices.push(...p,...n);}}
         this.groups.push({id:String(f.id),material:'wall',first,count:vertices.length/6-first,faces});}
     }
     for(const group of this.groups){const b=[Infinity,Infinity,Infinity,-Infinity,-Infinity,-Infinity];for(const face of group.faces)for(const p of face)for(let i=0;i<3;i++){b[i]=Math.min(b[i],p[i]);b[i+3]=Math.max(b[i+3],p[i]);}group.worldBounds=b;}

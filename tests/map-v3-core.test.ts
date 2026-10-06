@@ -7,9 +7,47 @@ import { WalkingGraph } from '../src/shared/map-routing';
 import { CampusMapAdapter } from '../src/main/mapService';
 import { initialSelection, selectionReducer } from '../src/renderer/map/map-state';
 import type { MapGraph, MapPoint } from '../src/shared/map-v2';
+import { restoreLandscapeDetailParents } from '../src/shared/map-v3';
+import { drawableTriangle, roofBoundaryEdges, type MeshVertex } from '../src/renderer/map/mesh-geometry';
 const service=new CampusMapAdapter('assets/map-v2');
 const node=(id:string)=>({id,coordinate:[120.08,30.31] as [number,number]});
 const edge=(id:string,from:string,to:string,meters:number,extra={})=>({id,from,to,meters,way:'way/test',name:'',oneway:false,stairs:false,bridge:false,gate:false,...extra});
+
+test('零面积绘制面被拒绝，合法薄面、立墙和坏输入保持不同结果',()=>{
+ assert.equal(drawableTriangle([[0,0,0],[0,0,0],[1,1,1]]),false);
+ assert.equal(drawableTriangle([[0,0,0],[1,0,0],[2,0,0]]),false);
+ assert.equal(drawableTriangle([[0,0,0],[1,0,0],[1,1e-12,0]]),true);
+ assert.equal(drawableTriangle([[0,0,0],[0,1,0],[0,1,1]]),true);
+ assert.throws(()=>drawableTriangle([[0,0,0],[1,0,0],[NaN,1,0]]));
+ assert.throws(()=>drawableTriangle([[0,0,0],[1,0,0],[1e308,1,0]]));
+});
+test('重复屋顶三角面不消掉外边，共享三角剖分边不画成裂缝',()=>{
+ const a:MeshVertex=[0,0,1],b:MeshVertex=[1,0,1],c:MeshVertex=[1,1,1],d:MeshVertex=[0,1,1];
+ const edges=roofBoundaryEdges([{material:'roof',vertices:[a,b,c,a,c,d,c,b,a]}]);
+ const keys=edges.map(e=>[e.a.join(','),e.b.join(',')].sort().join('|'));
+ assert.equal(edges.length,4);assert.ok(!keys.includes([a.join(','),c.join(',')].sort().join('|')));
+ assert.equal(roofBoundaryEdges([{material:'wall',vertices:[a,b,c]}]).length,0);
+ assert.throws(()=>roofBoundaryEdges([{material:'roof',vertices:[a,b]}]));
+});
+test('现有岛上阶梯恢复到真实生成父对象，未知成员不能冒认归属',()=>{
+ const raw=JSON.parse(fs.readFileSync('assets/map-v2/sports-details.geojson','utf8'));
+ const display=JSON.parse(fs.readFileSync('assets/map-v2/display-geography.geojson','utf8'));
+ const parents=new Set<string>(display.features.map(f=>String(f.id)));
+ const original=JSON.stringify(raw),legacy=structuredClone(raw);
+ for(const f of legacy.features)if(f.properties.kind==='landscape-step')delete f.properties.parentId;
+ const restored=restoreLandscapeDetailParents(legacy,parents);
+ assert.deepEqual(restored.features.map(f=>f.id),raw.features.map(f=>f.id));
+ assert.deepEqual(restored.features.map(f=>f.geometry),raw.features.map(f=>f.geometry));
+ const steps=restored.features.filter(f=>f.properties.kind==='landscape-step');
+ assert.equal(steps.length,15);assert.ok(steps.every(f=>parents.has(f.properties.parentId)));
+ assert.ok(legacy.features.filter(f=>f.properties.kind==='landscape-step').every(f=>!f.properties.parentId));
+ assert.equal(JSON.stringify(raw),original);
+ const payload=JSON.parse(service.serializedDataset());
+ assert.ok(payload.sports.features.filter(f=>f.properties.kind==='landscape-step').every(f=>parents.has(f.properties.parentId)));
+ const unknown={features:[{id:'island/amphitheatre-step-99',properties:{kind:'landscape-step'}},{id:'unmapped-step',properties:{kind:'landscape-step'}}]};
+ assert.deepEqual(restoreLandscapeDetailParents(unknown,parents),unknown);
+ assert.deepEqual(restoreLandscapeDetailParents(legacy,new Set()),legacy);
+});
 
 test('接入较近不一定总路程较短；终点代价也参与全局比较',()=>{
  const graph:MapGraph={version:'fixture',nodes:['a','b','x','y'].map(node),edges:[edge('ax','a','x',100),edge('by','b','y',8),edge('xy','x','y',60)]};
