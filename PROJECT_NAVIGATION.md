@@ -21,6 +21,8 @@ This is the current file/call-chain map for the complete product. The map remain
 
 Map source and observation provenance is in docs/ASSET_PROVENANCE.md. Runtime uses the checked-in, hash-validated dataset and needs no external reference files. Optional data regeneration uses scripts/import-map.mjs, import-map-v2.mjs, build-map-v3.py and map_v3_*.py; it requires separately authorized official reference input through ZAICHANG_MAP_REFERENCE_DIR and Python geometry dependencies.
 
+Exact source structure maintenance: scripts/map_topology.py normalizes only nonoverlapping valid polygon members sharing an internal boundary, retaining the source relation/member mapping. scripts/normalize-map-topology.py reviews/applies that operation to the existing public snapshot, restores original detail parent IDs, and updates coherent component versions without rerunning image-derived modelling. Positive-area overlap, bad component rings and image alignment remain separate source-review obligations.
+
 There are no obsolete implementations inside this repository. Local research bundles, copies, archived packaging, past evaluation matrices and original Git history were excluded. They are historical/local evidence, not an alternative product entry.
 
 See docs/ARCHITECTURE.md for behavior, docs/CURRENT_STATUS.md for current limitations and docs/CLOUD_REVIEW.md for deterministic scene URLs.

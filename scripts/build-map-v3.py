@@ -21,6 +21,7 @@ from map_v3_commons import commons_models
 from map_v3_landscape import landscape_curves,island_landscape
 from map_v3_shores import reviewed_water_surface,named_water_display,channel_display
 from map_v3_landmarks import crescent_model,library_complex_models,east_five_model
+from map_topology import merge_shared_boundary
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1];ASSETS=ROOT/'assets/map-v2';PUBLIC=ROOT/'public/map-v2'
 def read(p):return json.loads(p.read_text(encoding='utf8'))
@@ -42,6 +43,13 @@ places=read(ASSETS/'places.json');by_place={p['id']:p for p in places};graph=rea
 reference=read(ASSETS/'official-coverage-reference.json')
 raw=json.loads(gzip.decompress((ASSETS/'source.osm.json.gz').read_bytes()));raw_by={e['type']+'/'+str(e['id']):e for e in raw['elements']}
 source_sha=hashlib.sha256((ASSETS/'source.osm.json.gz').read_bytes()).hexdigest()
+for f in features:
+ if f['properties'].get('kind')!='building' or f['geometry']['type']!='MultiPolygon':continue
+ fixed,normalization=merge_shared_boundary(shape(f['geometry']))
+ if normalization['result']=='NORMALIZED':
+  source_relation=raw_by[f['id']]
+  f['geometry']=mapping(fixed)
+  f['properties']['sourceOutlineMembers']=[{'sourceId':m['type']+'/'+str(m['ref']),'role':m['role']} for m in source_relation['members'] if m['type']=='way' and m['role'] in ['outer','inner']]
 geometries={f['id']:metric(f['geometry']) for f in features}
 changes=[];crosswalk={};held=[];venues=[];detail=[]
 fidelity=read(ASSETS/'fidelity-observations.json')
@@ -600,6 +608,12 @@ if water_display:
 
 # Retain one generator and one public fact directory. Both applications consume
 # this snapshot (and its explicit identity adapter), never hand-maintained twins.
+for f in display['features']:
+ if f['properties'].get('kind')!='building' or f['geometry']['type']!='MultiPolygon':continue
+ fixed,normalization=merge_shared_boundary(shape(f['geometry']))
+ if normalization['result']=='NORMALIZED':
+  f['geometry']=mapping(fixed)
+  f['properties']['sourceOutlineMembers']=by_feature[f['id']]['properties']['sourceOutlineMembers']
 with (ASSETS/'official-locator-source.tsv').open(encoding='utf8',newline='') as stream:
  legacy_references={r['id']:[float(r['e_m']),float(r['n_m'])] for r in csv.DictReader(stream,delimiter='\t')}
 for old,coordinate in list(legacy_references.items()):legacy_references['official/legacy/'+old]=coordinate

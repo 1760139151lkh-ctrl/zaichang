@@ -93,6 +93,8 @@
 !/scripts/map_v3_surfaces.py
 !/scripts/map_v3_teaching.py
 !/scripts/map_v3_west.py
+!/scripts/map_topology.py
+!/scripts/normalize-map-topology.py
 !/scripts/material-runtime.mjs
 !/scripts/pdf-smoke.mjs
 !/scripts/setup-desktop.mjs

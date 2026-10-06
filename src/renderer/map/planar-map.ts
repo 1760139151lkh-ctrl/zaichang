@@ -535,9 +535,10 @@ export class PlanarCampusMap {
   }
   private routeStyle(f: Feature): Style | Style[] {
     const p = this.palette;
-    if(f.get('preview')) return f.getGeometry() instanceof Point ? new Style({image:new CircleStyle({radius:6,fill:new Fill({color:p.halo}),stroke:new Stroke({color:p.text,width:2})})}) : new Style({stroke:new Stroke({color:p.text,width:4})});
+    if(f.get('preview')) return f.getGeometry() instanceof Point ? new Style({zIndex:4,image:new CircleStyle({radius:6,fill:new Fill({color:p.halo}),stroke:new Stroke({color:p.text,width:2})})}) : new Style({zIndex:4,stroke:new Stroke({color:p.text,width:4})});
     if (f.get('endpoint'))
       return new Style({
+        zIndex: 3,
         image: new CircleStyle({
           radius: f.get('endpoint') === 'A' ? 5 : 6,
           fill: new Fill({ color: f.get('endpoint') === 'A' ? p.halo : p.route }),
@@ -552,8 +553,8 @@ export class PlanarCampusMap {
         }),
       });
     return [
-      new Style({ stroke: new Stroke({ color: p.halo, width: 5.4, lineCap: 'round', lineJoin: 'round' }) }),
-      new Style({ stroke: new Stroke({ color: p.route, width: 2.6, lineCap: 'round', lineJoin: 'round',lineDash:f.get('estimated')?[5,5]:undefined }) }),
+      new Style({ zIndex: 1, stroke: new Stroke({ color: p.halo, width: 5.4, lineCap: 'round', lineJoin: 'round' }) }),
+      new Style({ zIndex: 2, stroke: new Stroke({ color: p.route, width: 2.6, lineCap: 'round', lineJoin: 'round',lineDash:f.get('estimated')?[5,5]:undefined }) }),
     ];
   }
   private hit(coordinate: number[]) {
