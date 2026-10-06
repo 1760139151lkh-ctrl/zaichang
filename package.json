@@ -22,7 +22,8 @@
     "package": "npm run build && node scripts/stage-hermes-runtime.mjs && electron-builder --config build/hermes-builder.json --win portable --x64",
     "map:import": "node scripts/import-map.mjs",
     "deepseek:check": "powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File scripts/with-deepseek-key.ps1 status",
-    "dev:deepseek": "powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File scripts/with-deepseek-key.ps1 run node scripts/dev.mjs"
+    "dev:deepseek": "powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File scripts/with-deepseek-key.ps1 run node scripts/dev.mjs",
+    "export:review": "node scripts/export-review.mjs"
   },
   "build": {
     "appId": "studio.zaichang.desktop",

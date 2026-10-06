@@ -1,7 +1,7 @@
 # 在场
 在场是本地桌面助手：通过对话处理校园查询、资料阅读、可纠正的记忆和本机安排，并提供紫金港交互地图。本仓库是完整产品的唯一可信源码；GitHub 的 main 与提交 SHA 是后续审查和交接基准。
 
-[在线地图预览](https://1760139151lkh-ctrl.github.io/zaichang/) · [云端审查入口](docs/CLOUD_REVIEW.md) · [架构与文件导航](PROJECT_NAVIGATION.md)
+[在线地图预览](https://zaichang-campus-review-20261006.sugary-loom-6961.chatgpt.site/) · [云端审查入口](docs/CLOUD_REVIEW.md) · [架构与文件导航](PROJECT_NAVIGATION.md)
 
 正式桌面入口：`src/main/main.ts` → `src/main/preload.ts` → `src/renderer/main.tsx`。地图位于 `src/renderer/map/`，桌面与 review-web 共用地图组件、相机、路由服务和数据。
 

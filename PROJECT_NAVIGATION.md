@@ -24,3 +24,6 @@ Map source and observation provenance is in docs/ASSET_PROVENANCE.md. Runtime us
 There are no obsolete implementations inside this repository. Local research bundles, copies, archived packaging, past evaluation matrices and original Git history were excluded. They are historical/local evidence, not an alternative product entry.
 
 See docs/ARCHITECTURE.md for behavior, docs/CURRENT_STATUS.md for current limitations and docs/CLOUD_REVIEW.md for deterministic scene URLs.
+
+Public artifact export/deployment: scripts/export-review.mjs, apps/review-web/hosting.json and docs/DEPLOYMENT.md. The generated static checkout is ignored work output; src/ remains the sole implementation.
+
