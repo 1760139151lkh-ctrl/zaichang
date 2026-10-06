@@ -14,6 +14,6 @@ for(const file of files) {
 const env=isolatedEnvironment('smoke');
 delete env.ZAICHANG_MODEL_TRANSPORT;
 env.ZAICHANG_RUNTIME_ROOT=process.cwd();
-const result=spawnSync(process.execPath,['--test',...entries],{stdio:'inherit',windowsHide:true,env});
+const result=spawnSync(process.execPath,['--test','--test-reporter=spec','--test-timeout=180000',...entries],{stdio:'inherit',windowsHide:true,env});
 if(result.error) throw result.error;
 process.exitCode=result.status??1;
