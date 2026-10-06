@@ -44,7 +44,7 @@ test('现有岛上阶梯恢复到真实生成父对象，未知成员不能冒�
  assert.equal(JSON.stringify(raw),original);
  const payload=JSON.parse(service.serializedDataset());
  assert.ok(payload.sports.features.filter(f=>f.properties.kind==='landscape-step').every(f=>parents.has(f.properties.parentId)));
- const unknown={features:[{id:'island/amphitheatre-step-99',properties:{kind:'landscape-step'}},{id:'unmapped-step',properties:{kind:'landscape-step'}}]};
+ const unknown={features:[{id:'island/amphitheatre-step-99',properties:{kind:'landscape-step'}},{id:'island/amphitheatre-step-01',properties:{kind:'landscape-step'}},{id:'island/waterfront-terrace-02',properties:{kind:'landscape-step'}},{id:'unmapped-step',properties:{kind:'landscape-step'}}]};
  assert.deepEqual(restoreLandscapeDetailParents(unknown,parents),unknown);
  assert.deepEqual(restoreLandscapeDetailParents(legacy,new Set()),legacy);
 });

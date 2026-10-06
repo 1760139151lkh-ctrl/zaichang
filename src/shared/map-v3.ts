@@ -1,14 +1,17 @@
 import type { LngLat,MapOverview,MapPoint } from './map-v2';
 
 type DetailFeature = { id?: string | number; properties: Record<string, unknown> | null };
+const legacyIslandParents=new Map<string,string>([
+  ...Array.from({length:12},(_,n)=>[`island/amphitheatre-step-${n}`,'island/amphitheatre'] as [string,string]),
+  ...Array.from({length:3},(_,n)=>[`island/waterfront-terrace-${n}`,'island/waterfront'] as [string,string]),
+]);
 /** Restore relationships omitted by the original island generator, without editing geometry. */
 export function restoreLandscapeDetailParents<T extends { features: DetailFeature[] }>(details:T, parentIds:ReadonlySet<string>):T {
   const result=structuredClone(details);
   for(const feature of result.features){
     const p=feature.properties,id=String(feature.id);
     if(!p||p.kind!=='landscape-step'||p.parentId)continue;
-    const step=/^island\/amphitheatre-step-(\d+)$/.exec(id),terrace=/^island\/waterfront-terrace-(\d+)$/.exec(id);
-    const parent=step&&Number(step[1])<12?'island/amphitheatre':terrace&&Number(terrace[1])<3?'island/waterfront':undefined;
+    const parent=legacyIslandParents.get(id);
     if(parent&&parentIds.has(parent))p.parentId=parent;
   }
   return result;
