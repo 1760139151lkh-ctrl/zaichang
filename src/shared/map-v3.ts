@@ -1,4 +1,4 @@
-import type { LngLat,MapOverview,MapPoint } from './map-v2';
+import type { LngLat,MapOverview,MapPoint,MapGraph } from './map-v2';
 
 type DetailFeature = { id?: string | number; properties: Record<string, unknown> | null };
 const legacyIslandParents=new Map<string,string>([
@@ -13,6 +13,46 @@ export function restoreLandscapeDetailParents<T extends { features: DetailFeatur
     if(!p||p.kind!=='landscape-step'||p.parentId)continue;
     const parent=legacyIslandParents.get(id);
     if(parent&&parentIds.has(parent))p.parentId=parent;
+  }
+  return result;
+}
+
+type RoadDisplayFeature = DetailFeature & { geometry: { type:string; coordinates?:unknown } | null };
+/** Keep the original source way while displaying only its default graph segments.
+ * A source-history way can contain both conditional and ordinary segments.
+ * This is a display derivation; it does not certify current physical access.
+ */
+export function restoreRecordedRoadDisplays<T extends { features:RoadDisplayFeature[] }>(display:T,graph:MapGraph):T {
+  const result={...display,features:[...display.features]},nodes=new Map(graph.nodes.map(n=>[n.id,n.coordinate]));
+  const byWay=new Map<string,MapGraph['edges']>();
+  for(const edge of graph.edges){
+    const edges=byWay.get(edge.way)||[];edges.push(edge);byWay.set(edge.way,edges);
+  }
+  for(let index=0;index<result.features.length;index++){
+    const feature=result.features[index];
+    const p=feature.properties;
+    if(!p||p.kind!=='source-history')continue;
+    const edges=byWay.get(String(feature.id))||[],ordinary=edges.filter(e=>!e.conditions?.length);
+    if(!ordinary.length)continue;
+    if(!feature.geometry||!['LineString','MultiLineString'].includes(feature.geometry.type))
+      throw new Error('Source road display requires line geometry');
+    const runs:{start:string;end:string;coordinates:LngLat[]}[]=[];
+    for(const edge of ordinary){
+      const from=nodes.get(edge.from),to=nodes.get(edge.to);
+      if(!from||!to||[from,to].some(c=>c.length!==2||!c.every(Number.isFinite)||Math.abs(c[0])>180||Math.abs(c[1])>90))
+        throw new Error('Source road display node is unavailable');
+      const run=runs.at(-1);
+      if(run?.end===edge.from){run.coordinates.push([...to]);run.end=edge.to;}
+      else if(run?.end===edge.to){run.coordinates.push([...from]);run.end=edge.from;}
+      else if(run?.start===edge.to){run.coordinates.unshift([...from]);run.start=edge.from;}
+      else if(run?.start===edge.from){run.coordinates.unshift([...to]);run.start=edge.to;}
+      else runs.push({start:edge.from,end:edge.to,coordinates:[[...from],[...to]]});
+    }
+    const geometry=runs.length===1
+      ? {type:'LineString',coordinates:runs[0].coordinates}
+      : {type:'MultiLineString',coordinates:runs.map(r=>r.coordinates)};
+    result.features[index]={...feature,geometry,properties:{...p,kind:'road',sourceDisplayKind:'source-history',
+      recordedDisplayEdgeIds:ordinary.map(e=>e.id),conditionalSourceEdgeIds:edges.filter(e=>e.conditions?.length).map(e=>e.id)}};
   }
   return result;
 }

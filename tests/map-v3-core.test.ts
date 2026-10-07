@@ -7,7 +7,7 @@ import { WalkingGraph } from '../src/shared/map-routing';
 import { CampusMapAdapter } from '../src/main/mapService';
 import { initialSelection, selectionReducer } from '../src/renderer/map/map-state';
 import type { MapGraph, MapPoint } from '../src/shared/map-v2';
-import { restoreLandscapeDetailParents } from '../src/shared/map-v3';
+import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays } from '../src/shared/map-v3';
 import { drawableTriangle, roofBoundaryEdges, type MeshVertex } from '../src/renderer/map/mesh-geometry';
 const service=new CampusMapAdapter('assets/map-v2');
 const node=(id:string)=>({id,coordinate:[120.08,30.31] as [number,number]});
@@ -53,6 +53,36 @@ test('接入较近不一定总路程较短；终点代价也参与全局比较',
  const graph:MapGraph={version:'fixture',nodes:['a','b','x','y'].map(node),edges:[edge('ax','a','x',100),edge('by','b','y',8),edge('xy','x','y',60)]};
  const found=new WalkingGraph(graph).shortest(['a','b'],['x','y'],false,new Map([['a',1],['b',10]]),new Map([['x',1],['y',4]]));
  assert.equal(found?.meters,22);assert.deepEqual(found?.nodeIds,['b','y']);
+});
+
+test('一条源路的普通外段不会被待核内段一起隐藏，原图和未知仍保留',()=>{
+ const raw=JSON.parse(fs.readFileSync('assets/map-v2/display-geography.geojson','utf8'));
+ const graph=JSON.parse(fs.readFileSync('assets/map-v2/network.json','utf8')) as MapGraph;
+ const before=JSON.stringify(raw),graphBefore=JSON.stringify(graph);
+ const restored=restoreRecordedRoadDisplays(raw,graph);
+ assert.equal(JSON.stringify(raw),before);assert.equal(JSON.stringify(graph),graphBefore);
+ assert.deepEqual(restored.features.map(f=>f.id),raw.features.map(f=>f.id));
+ const changed=restored.features.filter((f,i)=>JSON.stringify(f)!==JSON.stringify(raw.features[i]));
+ assert.deepEqual(changed.map(f=>f.id),['way/411343656']);
+ const f=changed[0],ordinary=graph.edges.filter(e=>e.way===f.id&&!e.conditions?.length),nodes=new Map(graph.nodes.map(n=>[n.id,n.coordinate]));
+ assert.equal(f.properties.kind,'road');assert.equal(f.properties.sourceDisplayKind,'source-history');
+ assert.deepEqual(f.properties.recordedDisplayEdgeIds,ordinary.map(e=>e.id));
+ assert.equal(f.properties.conditionalSourceEdgeIds.length,4);
+ assert.deepEqual(f.geometry.coordinates,[nodes.get(ordinary[0].from),...ordinary.map(e=>nodes.get(e.to))]);
+ assert.equal(restored.features.filter(f=>f.properties.kind==='source-history').length,14);
+ const payload=JSON.parse(service.serializedDataset());
+ assert.deepEqual(payload.geography.features.find(x=>x.id===f.id),f);
+ const fixture={features:[{id:'way/test',properties:{kind:'source-history'},geometry:{type:'LineString',coordinates:[[120.08,30.31],[120.081,30.31]]}}]};
+ const sample:MapGraph={version:'fixture',nodes:[{id:'a',coordinate:[120.08,30.31]},{id:'b',coordinate:[120.081,30.31]},{id:'c',coordinate:[120.082,30.31]},{id:'d',coordinate:[120.083,30.31]}],edges:[edge('ab','a','b',1),edge('bc','b','c',1,{conditions:['site_unverified']}),edge('cd','c','d',1)]};
+ const split=restoreRecordedRoadDisplays(fixture,sample).features[0];
+ assert.equal(split.geometry?.type,'MultiLineString');
+ assert.deepEqual(split.geometry?.coordinates,[[[120.08,30.31],[120.081,30.31]],[[120.082,30.31],[120.083,30.31]]]);
+ assert.deepEqual(restoreRecordedRoadDisplays(fixture,{...sample,edges:sample.edges.map(e=>({...e,conditions:['site_unverified']}))}),fixture);
+ assert.deepEqual(restoreRecordedRoadDisplays(fixture,{...sample,edges:[]}),fixture);
+ const reverse=restoreRecordedRoadDisplays(fixture,{...sample,edges:[edge('ba','b','a',1,{oneway:true}),edge('cb','c','b',1,{oneway:true})]}).features[0];
+ assert.equal(reverse.geometry?.type,'LineString');
+ assert.deepEqual(reverse.geometry?.coordinates,[[120.082,30.31],[120.081,30.31],[120.08,30.31]]);
+ assert.throws(()=>restoreRecordedRoadDisplays(fixture,{...sample,nodes:sample.nodes.filter(n=>n.id!=='a')}));
 });
 test('固定小图的Bellman-Ford与多起终点Dijkstra独立交叉验证',()=>{
  let seed=41729;const random=()=>((seed=(Math.imul(seed,1664525)+1013904223)>>>0)/2**32);

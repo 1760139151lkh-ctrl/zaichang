@@ -13,7 +13,7 @@ import {
 import { WalkingGraph, metersBetween, classifyFix, inBounds } from '../shared/map-routing';
 import { fromLocal, toLocal, personalAccess } from './mapProfile';
 import { rankMapPoints } from '../shared/map-names';
-import { restoreLandscapeDetailParents } from '../shared/map-v3';
+import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays } from '../shared/map-v3';
 export class CampusMapAdapter {
   private manifest: MapOverview;
   private points: MapPoint[];
@@ -108,6 +108,8 @@ export class CampusMapAdapter {
       this.baseGraph=graph;
       if (graph.version !== this.manifest.version) throw new Error('version');
       walking = new WalkingGraph(graph);
+      if (manifest.implementation === 'campus-map/v3')
+        this.displayGeography=restoreRecordedRoadDisplays(this.displayGeography as {features:any[]},graph);
     } catch {
       this.manifest = {
         ...this.manifest,
