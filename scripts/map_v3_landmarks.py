@@ -151,7 +151,8 @@ def east_five_model(source,to_wgs):
     m.facade_bands(main,[4.75,9.5,14.25]);m.facade_divisions(main,0,19,3.8)
     # The photographed western crosspiece closes the courtyard above the open
     # ground approach. Keeping it elevated avoids inventing a blocking wall.
-    bridge=box(0,18.8,4.8,39.5).difference(g)
+    crosspiece=box(0,18.8,4.8,39.5)
+    bridge=crosspiece.difference(g)
     m.face(bridge,19,'roof');m.sides(bridge,16.8,19,'glass')
     terrace=g.difference(box(-2,-2,98,56.2))
     m.face(terrace,19,'garden');m.sides(terrace,18.5,19,'wall')
@@ -170,7 +171,10 @@ def east_five_model(source,to_wgs):
     for strip in [box(8,2.8,45,5),box(8,51,45,53.2)]:
         strip=strip.intersection(main);m.face(strip,19.22,'glass')
         for x in np.arange(8,46,3.7):m.face(box(x-.1,0,x+.1,57).intersection(strip),19.28,'mullion')
-    display=g.difference(roof_opening).union(bridge)
+    # Compose the full existing operands once. Re-adding the clipped
+    # crosspiece creates a boundary return that becomes self-crossing when
+    # tiled to integer coordinates. The roof opening is disjoint from it.
+    display=g.union(crosspiece).difference(roof_opening)
     basis='东5教学楼：官方鸟瞰与高德卫星核对主体、内院、小开口、屋顶平台和外侧弧形构架；不再把整个弧形范围等高拉成厚实体。主体19米／4层沿用OSM；平台、架高、支撑及采光带为图像支持的简化，不是测绘或构件清单。西侧连接段保留为架空屋面，原地面障碍及路网未据此改变。'
     return transform(ground,display),{'type':'authored-mesh','parts':m.parts,'heightM':22.6,'basis':basis}
 
