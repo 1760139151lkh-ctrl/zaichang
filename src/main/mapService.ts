@@ -13,7 +13,7 @@ import {
 import { WalkingGraph, metersBetween, classifyFix, inBounds } from '../shared/map-routing';
 import { fromLocal, toLocal, personalAccess } from './mapProfile';
 import { rankMapPoints } from '../shared/map-names';
-import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, bridgeStatusUnverified } from '../shared/map-v3';
+import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, routeConditionWarning } from '../shared/map-v3';
 export class CampusMapAdapter {
   private manifest: MapOverview;
   private points: MapPoint[];
@@ -374,9 +374,10 @@ export class CampusMapAdapter {
     if(connectorM>0)warnings.push('虚线为楼栋参考点至路网的避障估计；未确认真实门或楼内通行。');
     if(estimateOnly)warnings.push('两处参考点接到同一路网位置；当前结果只有接入估计，没有已记录步行路段。');
     else if(estimateDominant)warnings.push('大部分距离来自楼栋参考点接入估计；只含很短的记录道路，不能据此确认实际走法。');
-    if(query.allowConditional && used.some(e=>e.conditions?.length))warnings.push(used.some(e=>e.conditions?.includes(bridgeStatusUnverified))
-      ? '这条假设路线经过历史桥位，桥的现状尚未核实。'
-      : '已按你的选择包含待核通路；这是假设路线，不代表门已开放。');
+    if(query.allowConditional){
+      const warning=routeConditionWarning([...used.flatMap(e=>e.conditions||[]),...(originAccess.conditions||[]),...(destinationAccess.conditions||[])]);
+      if(warning)warnings.push(warning);
+    }
     const result: MapRouteResult = {
       ...base,
       status: 'ready',

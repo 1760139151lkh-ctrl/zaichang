@@ -17,6 +17,27 @@ export function retainBridgeStatusConditions<T extends MapGraph>(graph:T,geograp
     ? {...edge,conditions:[...(edge.conditions||[]),bridgeStatusUnverified]}:edge)};
 }
 
+/** Explain the actual assumptions used by an edge or selected access point.
+ * A redevelopment or unknown condition must not become an opening-hours claim.
+ */
+export function routeConditionWarning(conditions:readonly string[]):string|undefined {
+  const remaining=new Set(conditions);
+  if(!remaining.size)return;
+  const descriptions:[string,string,string][]=[
+    [bridgeStatusUnverified,'历史桥位','这条假设路线经过历史桥位，桥的现状尚未核实。'],
+    ['redeveloped_site_access_unverified','重建片区的旧通路','这条假设路线经过重建片区，旧通路的现状尚未核实。'],
+    ['indoor_passage_unverified','室内通道','这条假设路线包含室内通道，当前通行条件尚未核实。'],
+    ['gate_opening_unverified','门禁','已按你的选择包含待核通路；这是假设路线，不代表门已开放。'],
+  ];
+  const labels:string[]=[];
+  for(const [id,label,single] of descriptions)if(remaining.has(id)){
+    if(conditions.every(c=>c===id))return single;
+    labels.push(label);remaining.delete(id);
+  }
+  if(remaining.size)labels.push('其他待核通路');
+  return `这条假设路线涉及${labels.join('、')}，相关通行现状尚未核实。`;
+}
+
 const legacyIslandParents=new Map<string,string>([
   ...Array.from({length:12},(_,n)=>[`island/amphitheatre-step-${n}`,'island/amphitheatre'] as [string,string]),
   ...Array.from({length:3},(_,n)=>[`island/waterfront-terrace-${n}`,'island/waterfront'] as [string,string]),

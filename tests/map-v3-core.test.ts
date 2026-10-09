@@ -7,7 +7,7 @@ import { WalkingGraph } from '../src/shared/map-routing';
 import { CampusMapAdapter } from '../src/main/mapService';
 import { initialSelection, selectionReducer } from '../src/renderer/map/map-state';
 import type { MapGraph, MapPoint } from '../src/shared/map-v2';
-import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, bridgeStatusUnverified } from '../src/shared/map-v3';
+import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, bridgeStatusUnverified, routeConditionWarning } from '../src/shared/map-v3';
 import { drawableTriangle, roofBoundaryEdges, type MeshVertex } from '../src/renderer/map/mesh-geometry';
 import { GroundFill, groundFillPolygons, groundFillCoordinate, groundFillNodes } from '../src/renderer/map/ground-fills';
 import { cartographyLayers } from '../src/renderer/map/cartography';
@@ -55,6 +55,31 @@ test('历史桥的来源状态不被开门假设覆盖，也不变成已确认�
  assert.deepEqual(result.edges[0].conditions,['gate_opening_unverified',bridgeStatusUnverified]);
  assert.equal(result.edges[0].bridge,false);assert.deepEqual(result.edges.slice(1),graph.edges.slice(1));
  assert.deepEqual(retainBridgeStatusConditions(result,geography),result);
+});
+
+test('重建通路和未知条件不被解释成门禁，多个条件保留各自疑点',()=>{
+ assert.equal(routeConditionWarning([]),undefined);
+ const site=routeConditionWarning(['redeveloped_site_access_unverified'])!;
+ assert.match(site,/重建片区/);assert.match(site,/旧通路/);assert.doesNotMatch(site,/门已开放/);
+ const mixed=routeConditionWarning([bridgeStatusUnverified,'gate_opening_unverified',bridgeStatusUnverified,'future_condition'])!;
+ assert.equal(mixed.match(/历史桥位/g)?.length,1);assert.match(mixed,/门禁/);assert.match(mixed,/其他待核通路/);
+ assert.doesNotMatch(routeConditionWarning(['future_condition'])!,/门禁|门已开放/);
+});
+
+test('同一路网点的零路段结果仍保留所选入口的假设条件',()=>{
+ const dir=fs.mkdtempSync(path.resolve('.test-data/map-route-conditions-'));
+ const manifest={...service.overview(),version:'conditional-access-fixture',implementation:undefined,componentHashes:undefined};
+ const entrance=(id:string,conditions:string[]):MapPoint=>({id,displayName:id,aliases:[],kind:'building',coordinate:[120.08,30.31],bounds:[120.08,30.31,120.08,30.31],
+  entrances:[],source:{url:'test://synthetic'},geometryStatus:'mapped',accessCandidates:[{id:id+'/access',nodeId:'shared',kind:'entrance',name:'测试入口',coordinate:[120.08,30.31],coordinates:[[120.08,30.31]],meters:0,source:'test://synthetic',conditions}]});
+ fs.writeFileSync(path.join(dir,'manifest.json'),JSON.stringify(manifest));
+ fs.writeFileSync(path.join(dir,'places.json'),JSON.stringify([entrance('a',['gate_opening_unverified']),entrance('b',[])]));
+ fs.writeFileSync(path.join(dir,'network.json'),JSON.stringify({version:manifest.version,nodes:[node('shared')],edges:[]}));
+ const adapter=new CampusMapAdapter(dir),query={from:{kind:'place' as const,id:'a'},to:{kind:'place' as const,id:'b'}};
+ assert.equal(adapter.route(query).status,'unknown_entrance');
+ const assumed=adapter.route({...query,allowConditional:true});
+ assert.equal(assumed.status,'ready');assert.equal(assumed.edgeIds.length,0);assert.equal(assumed.distance?.totalM,0);
+ assert.ok(assumed.warnings.some(w=>w.includes('假设路线')&&w.includes('门已开放')));
+ assert.equal(adapter.route(query).status,'unknown_entrance');
 });
 
 const exactFillArea2=(points:number[][])=>points.reduce((sum,p,i)=>{
