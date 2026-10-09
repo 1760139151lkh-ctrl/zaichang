@@ -12,6 +12,10 @@ const hoverValue:any=['coalesce',['feature-state','hoverValue'],0];
 const contact=(idle:string,active:string):any=>['interpolate',['linear'],hoverValue,0,idle,1,active];
 const context: any = ['==', ['get', 'scope'], 'context'];
 const round = { 'line-cap': 'round', 'line-join': 'round' };
+// A subdued outside segment must not paint its round end over the campus
+// continuation. Keep this ordering inside the existing ground-road layers;
+// the separate bridge layers still control their documented vertical order.
+const groundRoadLayout = { ...round, 'line-sort-key': ['case', context, 0, 1] };
 const footway: any = ['in', ['get', 'highway'], ['literal', ['path', 'footway', 'pedestrian', 'steps']]];
 const underground:any=['all',['==',['get','tunnel'],'yes'],['<',['to-number',['get','layer'],0],0]];
 const waterCulvert:any=['any',['==',['get','tunnel'],'culvert'],['<',['to-number',['get','layer'],0],0]];
@@ -53,8 +57,8 @@ export function cartographyLayers(p: MapPalette, direction: MapDirection): Layer
     // Roads are a legible ground surface, with a dark shoulder. Class widths
     // are cartographic emphasis, not measured physical road widths.
     {id:'paths',type:'line',source:'geography',minzoom:15.3,filter:['all',kind('road'),footway,['!=',['get','displayRole'],'venue-interior-road'],['!',underground]],layout:round,paint:{'line-color':zoom(15.3,dark?'#30332c':'#dfdbcf',17,pathInk),'line-width':roadWidth(true)}},
-    {id:'roads-case',type:'line',source:'geography',filter:['all',kind('road'),['!',footway],['!',underground]],layout:round,paint:{'line-color':['case',context,dark?'#20231e':'#ded9cd',dark?'#191c17':'#b5ae9d'],'line-width':zoom(13,1.2,16,3.8,19,11,21,30)}},
-    {id:'roads',type:'line',source:'geography',filter:['all',kind('road'),['!',footway],['!',underground]],layout:round,paint:{'line-color':['case',context,contextInk,roadInk],'line-width':roadWidth()}},
+    {id:'roads-case',type:'line',source:'geography',filter:['all',kind('road'),['!',footway],['!',underground]],layout:groundRoadLayout,paint:{'line-color':['case',context,dark?'#20231e':'#ded9cd',dark?'#191c17':'#b5ae9d'],'line-width':zoom(13,1.2,16,3.8,19,11,21,30)}},
+    {id:'roads',type:'line',source:'geography',filter:['all',kind('road'),['!',footway],['!',underground]],layout:groundRoadLayout,paint:{'line-color':['case',context,contextInk,roadInk],'line-width':roadWidth()}},
     {id:'underground-paths',type:'line',source:'geography',minzoom:17,filter:['all',kind('road'),footway,underground],layout:round,paint:{'line-color':p.minorRoad,'line-opacity':.48,'line-width':roadWidth(true),'line-dasharray':[2,3]}},
     {id:'bridge-ground',type:'line',source:'geography',filter:['all',kind('road'),['==',['get','bridge'],'yes']],layout:round,paint:{'line-color':['case',footway,pathInk,roadInk],'line-width':bridgeWidth()}},
     {id:'bridges',type:'line',source:'geography',filter:['all',kind('road'),['==',['get','bridge'],'yes']],layout:{'line-cap':'butt','line-join':'round'},paint:{'line-color':p.outline,'line-opacity':zoom(15,.2,17,.5,19,.65),'line-width':zoom(15,.35,19,.7),'line-offset':bridgeWidth(.46)}},

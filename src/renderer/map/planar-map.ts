@@ -435,10 +435,12 @@ export class PlanarCampusMap {
           lineCap: 'round',
           lineJoin: 'round',
         }),
-        zIndex: 2,
+        // Match the spatial renderer: subdued context ends sit below campus
+        // continuations, and bridge casings sit below every bridge foreground.
+        zIndex: (f.get('bridge') === 'yes' ? 2.3 : 2) + (context ? 0 : 0.1),
       });
       if (f.get('bridge') === 'yes')
-        style = [new Style({ stroke: new Stroke({ color: p.halo, width: width + 2.4 }), zIndex: 2 }), style];
+        style = [new Style({ stroke: new Stroke({ color: p.halo, width: width + 2.4 }), zIndex: 2.2 }), style];
     }
     if (style) this.styles.set(key, style);
     return style;
