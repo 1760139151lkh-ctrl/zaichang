@@ -13,6 +13,8 @@ import { cartographyLayers, type MapDirection } from './cartography';
 import { VolumeEdges } from './volume-edges';
 import { RoofSurfaces } from './roof-surfaces';
 import { GroundFill } from './ground-fills';
+import { endpointCaptionGap, mapFitInsets, measureCaptions, type FitInsets } from './fit-layout';
+import { nativeCaptionBounds } from './native-caption-bounds';
 import { labelAnchors as makeLabelAnchors,type LabelAnchor } from './label-anchors';
 import {namedWaterAreas,namedWaterShores,namedWaterHit} from './named-water';
 import type { SavedCamera, MapData, MapCallbacks } from './planar-map';
@@ -76,6 +78,7 @@ export class SpatialCampusMap {
   private labelOcclusionKey='';
   private lastCameraMove=-Infinity;
   private occlusionTimer?:ReturnType<typeof setTimeout>;
+  private routeFitRefine?:()=>void;
   private revealFrame=0;
   private routeKey="";
   private routeMeasures:{coordinate:LngLat;meters:number}[]=[];
@@ -384,25 +387,56 @@ export class SpatialCampusMap {
     const z=this.map.getZoom(),detail=this.detail?z>15.9:z>16.2,near=this.near?z>17.3:z>17.55,fine=this.fine?z>18.2:z>18.5;
     if(force||detail!==this.detail||near!==this.near||fine!==this.fine){this.detail=detail;this.near=near;this.fine=fine;this.map.setFilter('names',['all',['!', ['in',['get','kind'],['literal',detail?['water','area']:['water']]]],['<=',['get','priority'],fine?6:near?5:detail?2:1],['!', ['in',['get','id'],['literal',[this.origin,this.selected].filter(Boolean) as string[]]]]]);}
   }
-  takeControl(){this.ownership.take();this.map.stop();this.stopReveal();}
+  takeControl(){this.ownership.take();if(this.routeFitRefine){this.map.off('idle',this.routeFitRefine);this.routeFitRefine=undefined;}this.map.stop();this.stopReveal();}
   private duration(ms:number){return this.reduced.matches?0:ms;}
   zoom(delta:number,animate=true){this.takeControl();this.map.easeTo({zoom:this.map.getZoom()+delta,duration:animate?this.duration(160):0});}
   rotate(delta:number,animate=true){this.takeControl();this.map.easeTo({bearing:this.map.getBearing()-delta*180/Math.PI,duration:animate?this.duration(160):0});}
   north(animate=true){this.takeControl();this.map.easeTo({bearing:0,duration:animate?this.duration(220):0});}
   setPitch(pitch:number,animate=false){this.takeControl();this.map.easeTo({pitch:Math.max(0,Math.min(55,pitch)),duration:animate?this.duration(280):0});}
-  private padding(){
-    const rect=this.target.getBoundingClientRect(),bar=this.target.parentElement?.querySelector('.campus-v2-route')?.getBoundingClientRect();
-    // A desktop card occupies the left side. Treating it as a full-width
-    // bottom sheet threw away most of the usable map when fitting a view.
-    if(bar&&bar.width<rect.width*.52)return {top:110,right:76,bottom:60,left:Math.max(24,bar.right-rect.left+18)};
-    return {top:135,right:76,bottom:bar?Math.min(rect.height*.48,Math.max(75,rect.bottom-bar.top+16)):60,left:24};
+  private padding(caption?:FitInsets){return mapFitInsets(this.target,caption);}
+  private fit(bounds:number[],duration:number,maxZoom:number,caption?:FitInsets){
+    const w=this.target.clientWidth,h=this.target.clientHeight;if(!w||!h)return;
+    const box:[[number,number],[number,number]]=[[bounds[0],bounds[1]],[bounds[2],bounds[3]]];
+    const options={padding:this.padding(caption),duration,maxZoom,bearing:this.map.getBearing(),pitch:this.map.getPitch()};
+    const camera=this.map.cameraForBounds(box,options);if(!camera?.center||camera.zoom===undefined||!Number.isFinite(camera.zoom))return;
+    // maxBounds constrains the whole viewport, including the area behind
+    // cards. It must not push a correctly fitted route back under those cards.
+    // Extend navigation limits by the current/requested viewport footprints;
+    // the source AOI, coverage, geometry and coordinate bounds are untouched.
+    const b=this.data.manifest.bounds,allowed=new ml.LngLatBounds([b[0]-.01,b[1]-.01],[b[2]+.01,b[3]+.01]);
+    for(const [center,zoom] of [[this.map.getCenter(),this.map.getZoom()],[camera.center,camera.zoom]] as const){
+      const c=ml.MercatorCoordinate.fromLngLat(center),world=512*2**zoom,dx=(w/2+1)/world,dy=(h/2+1)/world;
+      allowed.extend(new ml.MercatorCoordinate(Math.max(0,c.x-dx),Math.min(1,c.y+dy)).toLngLat());
+      allowed.extend(new ml.MercatorCoordinate(Math.min(1,c.x+dx),Math.max(0,c.y-dy)).toLngLat());
+    }
+    this.map.setMinZoom(Math.min(this.map.getMinZoom(),Math.max(0,camera.zoom)));
+    this.map.setMaxBounds(allowed);
+    this.map.fitBounds(box,options);
   }
-  private fit(bounds:number[],duration:number,maxZoom:number){this.map.fitBounds([[bounds[0],bounds[1]],[bounds[2],bounds[3]]],{padding:this.padding(),duration,maxZoom,bearing:this.map.getBearing(),pitch:this.map.getPitch()});}
   overview(){this.takeControl();this.fit(this.data.manifest.campusBounds,this.duration(300),16.2);}
   focusPlace(p:MapPoint){this.takeControl();this.fit(p.bounds,this.duration(250),17.4);}
   fitRoute(result:MapRouteResult,ticket?:number){
     if(result.status!=='ready'||!result.coordinates.length||ticket!==undefined)return;
-    this.takeControl();const cs=result.coordinates;this.fit([Math.min(...cs.map(c=>c[0])),Math.min(...cs.map(c=>c[1])),Math.max(...cs.map(c=>c[0])),Math.max(...cs.map(c=>c[1]))],this.duration(300),17.7);
+    const expected=new Map([result.from,result.to].filter((p):p is MapPoint=>!!p).map(p=>[p.id,(this.points.get(p.id)||p).displayName]));
+    const caption=nativeCaptionBounds(this.map,expected)?.insets||measureCaptions([...expected.values()],
+      {font:'13px "Noto Sans SC Variable", "Microsoft YaHei", sans-serif',size:13,offsetY:-endpointCaptionGap,padding:2,marker:13.5,maxWidthEm:14,anchor:'bottom'});
+    this.takeControl();const ticketNow=this.ownership.ticket(),cs=result.coordinates;
+    const bounds=[Math.min(...cs.map(c=>c[0])),Math.min(...cs.map(c=>c[1])),Math.max(...cs.map(c=>c[0])),Math.max(...cs.map(c=>c[1]))];
+    this.fit(bounds,this.duration(300),17.7,caption);
+    // Initial glyph placement can arrive after the fit request. Check the
+    // actual text once idle, with at most two measured corrections. A newer
+    // user gesture, route, or disposal invalidates this request.
+    let corrections=0;
+    const refine=()=>{
+      this.routeFitRefine=undefined;
+      if(!this.ownership.accepts(ticketNow)||this.disposed||this.routeResult!==result)return;
+      const measured=nativeCaptionBounds(this.map,expected);if(!measured)return;
+      const p=this.padding(),w=this.target.clientWidth,h=this.target.clientHeight;
+      if(measured.boxes.every(b=>b[0]>=p.left&&b[1]>=p.top&&b[2]<=w-p.right&&b[3]<=h-p.bottom))return;
+      if(corrections++>=2)return;
+      this.fit(bounds,0,17.7,measured.insets);this.routeFitRefine=refine;this.map.once('idle',refine);
+    };
+    this.routeFitRefine=refine;this.map.once('idle',refine);
   }
   locate(fix:LocationFix,intro=false,ticket?:number){if(intro||ticket!==undefined&&!this.ownership.accepts(ticket))return;this.takeControl();this.map.easeTo({center:fix.coordinate,zoom:17.2,duration:this.duration(250)});}
   private keyboard(e:KeyboardEvent){

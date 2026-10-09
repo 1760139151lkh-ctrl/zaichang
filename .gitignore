@@ -223,6 +223,7 @@
 !/tests/harness/unit.test.ts
 !/tests/map-v2.test.ts
 !/tests/map-v3-core.test.ts
+!/tests/map-fit-layout.test.ts
 !/tests/pdf-smoke.ts
 !/tsconfig.json
 !/vite.config.ts

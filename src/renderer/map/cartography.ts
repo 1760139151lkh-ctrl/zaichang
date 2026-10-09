@@ -1,4 +1,5 @@
 import { defaultSportSurface, sportSurfaceTokens, type MapPalette } from './map-theme';
+import { endpointCaptionGap } from './fit-layout';
 import type { LayerSpecification } from 'maplibre-gl';
 
 // The study compares different readings of the same geography. Production uses
@@ -98,7 +99,7 @@ export function cartographyLayers(p: MapPalette, direction: MapDirection): Layer
     {id:'endpoint-stems',type:'line',source:'selection',filter:['all',['==',['geometry-type'],'LineString'],['!=',['get','kind'],'selection-water']],paint:{'line-color':p.route,'line-opacity':.7,'line-width':1}},
     {id:'endpoints',type:'circle',source:'selection',filter:kind('selection-marker'),paint:{'circle-radius':['case',['==',['get','role'],''],5,12],'circle-color':['case',['==',['get','role'],'A'],p.halo,p.route],'circle-stroke-color':p.route,'circle-stroke-width':1.5}},
     {id:'endpoint-letters',type:'symbol',source:'selection',filter:kind('selection-marker'),layout:{'text-field':['get','role'],'text-font':['Campus'],'text-size':11,'text-allow-overlap':true},paint:{'text-color':['case',['==',['get','role'],'A'],p.text,p.halo]}},
-    {id:'endpoint-names',type:'symbol',source:'selection',filter:kind('selection-name'),layout:{'text-field':['get','name'],'text-font':['Campus'],'text-size':13,'text-offset':['case',['boolean',['get','hasMarker'],false],['literal',[0,-2.1]],['literal',[0,0]]],'text-max-width':14,'text-allow-overlap':true,'text-pitch-alignment':'viewport','symbol-height-offset':0},paint:{'text-color':p.text,'text-halo-color':p.halo,'text-halo-width':2}},
+    {id:'endpoint-names',type:'symbol',source:'selection',filter:kind('selection-name'),layout:{'text-field':['get','name'],'text-font':['Campus'],'text-size':13,'text-anchor':['case',['boolean',['get','hasMarker'],false],'bottom','center'],'text-offset':['case',['boolean',['get','hasMarker'],false],['literal',[0,-endpointCaptionGap/13]],['literal',[0,0]]],'text-max-width':14,'text-allow-overlap':true,'text-pitch-alignment':'viewport','symbol-height-offset':0},paint:{'text-color':p.text,'text-halo-color':p.halo,'text-halo-width':2}},
     {id:'location-area',type:'fill',source:'location',filter:['==',['geometry-type'],'Polygon'],paint:{'fill-color':p.location,'fill-opacity':.08}},
     {id:'location-ring',type:'line',source:'location',filter:['==',['geometry-type'],'Polygon'],paint:{'line-color':p.location,'line-width':1,'line-opacity':.35}},
     {id:'location-dot',type:'circle',source:'location',filter:['==',['geometry-type'],'Point'],paint:{'circle-radius':5.5,'circle-color':p.location,'circle-stroke-color':p.halo,'circle-stroke-width':2}},

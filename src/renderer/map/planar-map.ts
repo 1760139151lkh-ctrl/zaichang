@@ -18,11 +18,13 @@ import { shiftKeyOnly } from 'ol/events/condition';
 import { easeOut } from 'ol/easing';
 import { unByKey } from 'ol/Observable';
 import { getCenter } from 'ol/extent';
+import { measureTextHeight } from 'ol/render/canvas';
 import type { Bounds, LocationFix, MapOverview, MapPoint, MapRouteResult, LngLat } from '../../shared/map-v2';
 import { CameraOwnership } from './map-state';
 import { darkMapPalette, lightMapPalette, sportSurfacePaint, type MapPalette } from './map-theme';
 import { geometryLayer } from './geometry-layer';
 import { planarGpuStyle } from './gpu-style';
+import { endpointCaptionGap, mapFitInsets, measureCaptions, wrapCaption, type FitInsets } from './fit-layout';
 
 export interface SavedCamera {
   center: number[];
@@ -180,6 +182,7 @@ export class PlanarCampusMap {
     });
     this.overlayLayer = new VectorLayer({
       source: this.highlight,
+      declutter: true,
       style: (f) => this.highlightStyle(f as Feature),
       updateWhileAnimating: true,
       updateWhileInteracting: true,
@@ -526,12 +529,16 @@ export class PlanarCampusMap {
         new Style({
           geometry: new Point(fromLonLat(endpoint||place.coordinate)),
           text: new Text({
-            text: (this.routeRoles&&!endpoint?role+' · ':'') + place.displayName,
+            text: endpoint ? wrapCaption(place.displayName,'500 12px "Noto Sans SC Variable", sans-serif',12,14) : (this.routeRoles?role+' · ':'') + place.displayName,
             font: '500 12px "Noto Sans SC Variable", sans-serif',
             fill: new Fill({ color: p.text }),
             stroke: new Stroke({ color: p.halo, width: 4 }),
             padding: [4, 5, 4, 5],
-            offsetY: endpoint?-30:-9,
+            offsetY: endpoint?-endpointCaptionGap:-9,
+            textBaseline: endpoint?'bottom':'middle',
+            // Selected names stay visible and reserve space before ordinary
+            // labels; their source identities are never filtered out.
+            declutterMode: 'obstacle',
             rotateWithView: false,
           }),
           zIndex: 20,
@@ -543,6 +550,7 @@ export class PlanarCampusMap {
             geometry: new Point(fromLonLat(e.coordinate)),
             image: new CircleStyle({
               radius: 3,
+              declutterMode: 'none',
               fill: new Fill({ color: e.connected ? p.selected : p.halo }),
               stroke: new Stroke({ color: p.selected, width: 1 }),
             }),
@@ -769,10 +777,9 @@ export class PlanarCampusMap {
       easing: easeOut,
     });
   }
-  private padding() {
-    const bar = this.target.parentElement?.querySelector('.campus-v2-route')?.getBoundingClientRect(),
-      rect = this.target.getBoundingClientRect();
-    return [140, 80, bar ? Math.max(80, rect.bottom - bar.top + 20) : 70, 30];
+  private padding(caption?: FitInsets) {
+    const p = mapFitInsets(this.target, caption);
+    return [p.top, p.right, p.bottom, p.left];
   }
   fitRoute(result: MapRouteResult, ticket?: number) {
     if (result.status !== 'ready' || !result.coordinates.length) return;
@@ -788,14 +795,20 @@ export class PlanarCampusMap {
       }
     const coords = fitCoordinates.map((c) => fromLonLat(c)),
       size = this.map.getSize()!,
-      pad = this.padding();
+      pad = this.padding(measureCaptions([result.from?.displayName, result.to?.displayName].filter((n): n is string => !!n),
+        { font: '500 12px "Noto Sans SC Variable", sans-serif', size: 12, offsetY: -endpointCaptionGap, padding: 5, horizontalPadding: 8, marker: 13.5, maxWidthEm: 14, anchor: 'bottom', lineHeightPx: measureTextHeight('500 12px "Noto Sans SC Variable", sans-serif') }));
     const visible = coords.every((c) => {
       const p = this.map.getPixelFromCoordinate(c);
       return p[0] >= pad[3] && p[0] <= size[0] - pad[1] && p[1] >= pad[0] && p[1] <= size[1] - pad[2];
     });
     if (visible && !wasAnimating) return;
     this.view.cancelAnimations();
-    this.view.fit(new MultiPoint(coords), {
+    const geometry = new MultiPoint(coords), rotated = geometry.clone();
+    rotated.rotate(-this.view.getRotation(), [0, 0]);
+    const resolution = this.view.getResolutionForExtent(rotated.getExtent(), [Math.max(1, size[0] - pad[1] - pad[3]), Math.max(1, size[1] - pad[0] - pad[2])]);
+    const requiredZoom = this.view.getZoomForResolution(resolution);
+    if (typeof requiredZoom === 'number' && Number.isFinite(requiredZoom)) this.view.setMinZoom(Math.max(0, Math.min(this.view.getMinZoom(), requiredZoom)));
+    this.view.fit(geometry, {
       padding: pad,
       maxZoom: 18.3,
       duration: this.duration(340),
