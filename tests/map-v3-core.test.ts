@@ -9,9 +9,70 @@ import { initialSelection, selectionReducer } from '../src/renderer/map/map-stat
 import type { MapGraph, MapPoint } from '../src/shared/map-v2';
 import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays } from '../src/shared/map-v3';
 import { drawableTriangle, roofBoundaryEdges, type MeshVertex } from '../src/renderer/map/mesh-geometry';
+import { GroundFill, groundFillPolygons, groundFillCoordinate, groundFillNodes } from '../src/renderer/map/ground-fills';
+import earcut from 'earcut';
 const service=new CampusMapAdapter('assets/map-v2');
 const node=(id:string)=>({id,coordinate:[120.08,30.31] as [number,number]});
 const edge=(id:string,from:string,to:string,meters:number,extra={})=>({id,from,to,meters,way:'way/test',name:'',oneway:false,stairs:false,bridge:false,gate:false,...extra});
+
+const exactFillArea2=(points:number[][])=>points.reduce((sum,p,i)=>{
+ const q=points[(i+1)%points.length],integer=(v:number)=>BigInt(v*2**149);
+ return sum+integer(p[0])*integer(q[1])-integer(q[0])*integer(p[1]);
+},0n);
+const absArea=(v:bigint)=>v<0n?-v:v;
+const drawnFillArea2=(vertices:ArrayLike<number>,indices:number[])=>{
+ let sum=0n;for(let i=0;i<indices.length;i+=3)sum+=absArea(exactFillArea2(indices.slice(i,i+3).map(k=>[vertices[k*2],vertices[k*2+1]])));
+ return sum;
+};
+
+test('西田径场窄铺装保留原坐标，填充不经过会折返的整数瓦片环',()=>{
+ const feature=(service.dataset().geography as any).features.find((f:any)=>f.id==='way/161322822:apron');
+ assert.ok(feature);const before=JSON.stringify(feature),polygons=groundFillPolygons(feature);
+ assert.equal(polygons.length,1);assert.ok(polygons[0].indices.length);
+ for(const p of polygons){const expected=absArea(exactFillArea2(p.rings[0]))-p.rings.slice(1).reduce((s,r)=>s+absArea(exactFillArea2(r)),0n);assert.equal(drawnFillArea2(p.vertices,p.indices),expected);}
+ assert.equal(JSON.stringify(feature),before);
+ // Synthetic self-crossing ring: the area predicate must reject it. Actual
+ // source-derived failure witnesses stay in the local audit, not this fixture.
+ const bad=[[0,0],[10,10],[0,10],[10,0],[0,0]];
+ assert.notEqual(drawnFillArea2(bad.flat(),earcut(bad.flat())),absArea(exactFillArea2(bad)));
+});
+
+test('地面填充保留合法院落孔洞与分离的多部件',()=>{
+ const feature:any={type:'Feature',id:'fixture/courtyard',properties:{kind:'building'},geometry:{type:'MultiPolygon',coordinates:[
+  [[[120.078,30.306],[120.0784,30.306],[120.0784,30.3064],[120.078,30.3064],[120.078,30.306]],[[120.0781,30.3061],[120.0781,30.3063],[120.0783,30.3063],[120.0783,30.3061],[120.0781,30.3061]]],
+  [[[120.079,30.306],[120.0791,30.306],[120.079,30.3061],[120.079,30.306]]]
+ ]}};
+ const polygons=groundFillPolygons(feature);assert.equal(polygons.length,2);assert.equal(polygons[0].rings.length,2);
+ for(const p of polygons){const expected=absArea(exactFillArea2(p.rings[0]))-p.rings.slice(1).reduce((s,r)=>s+absArea(exactFillArea2(r)),0n);assert.equal(drawnFillArea2(p.vertices,p.indices),expected);}
+ const p=polygons[0],outerArea=absArea(exactFillArea2(p.rings[0]));assert.notEqual(drawnFillArea2(p.vertices,p.indices),outerArea,'Filling the courtyard must fail');
+});
+
+test('同场馆已有交点在派生填充两侧共用，邻近独立边界不会被吸附',()=>{
+ const data:any=service.dataset().geography,nodes=groundFillNodes(data);
+ const edges=(polygons:ReturnType<typeof groundFillPolygons>)=>new Set(polygons.flatMap(p=>p.rings.flatMap(r=>r.slice(0,-1).map((a,i)=>[a.join(','),r[i+1].join(',')].sort().join('|')))));
+ for(const id of ['way/161322822','relation/14296233']){
+  const track=data.features.find((f:any)=>f.id===id),apron=data.features.find((f:any)=>f.id===id+':apron'),before=JSON.stringify(track);
+  const a=edges(groundFillPolygons(track)),b=edges(groundFillPolygons(apron)),noded=edges(groundFillPolygons(track,nodes.get(id)));
+  assert.ok([...noded].filter(e=>b.has(e)).length>[...a].filter(e=>b.has(e)).length,'Shared apron junctions must survive on both rings');
+  assert.equal(JSON.stringify(track),before);
+ }
+ const feature:any={type:'Feature',id:'fixture/near',properties:{kind:'building'},geometry:{type:'Polygon',coordinates:[[[120.078,30.306],[120.0784,30.306],[120.0784,30.3064],[120.078,30.3064],[120.078,30.306]]]}};
+ const plain=groundFillPolygons(feature),near=groundFillPolygons(feature,[{coordinate:[120.0782,30.306000001],owners:new Set(['fixture/neighbor'])}]);
+ assert.deepEqual(near,plain,'A nearby separate edge is not a shared node');
+ const fill=new GroundFill({id:'footprints',type:'fill',source:'geography'},{type:'FeatureCollection',features:[feature]},new Map());
+ assert.notEqual(fill.id,'footprints','Do not collide with a native tile bucket during feature-state updates');
+});
+
+test('地面拾取反解实际透视矩阵，拒绝相机后方与裁切外位置',()=>{
+ const matrix=new Float32Array([2,0,0,.25, 0,3,0,.125, 0,0,1,0, .1,-.2,0,1]);
+ const x=.2,y=-.1,w=matrix[3]*x+matrix[7]*y+matrix[15];
+ const screenX=((matrix[0]*x+matrix[4]*y+matrix[12])/w+1)*400;
+ const screenY=(1-(matrix[1]*x+matrix[5]*y+matrix[13])/w)*300;
+ const picked=groundFillCoordinate(matrix,800,600,screenX,screenY)!;
+ assert.ok(Math.abs(picked[0]-x)<1e-14&&Math.abs(picked[1]-y)<1e-14);
+ const behind=matrix.slice();behind[15]=-1;assert.equal(groundFillCoordinate(behind,800,600,400,300),undefined);
+ const clipped=matrix.slice();clipped[14]=5;assert.equal(groundFillCoordinate(clipped,800,600,400,300),undefined);
+});
 
 test('零面积绘制面被拒绝，合法薄面、立墙和坏输入保持不同结果',()=>{
  assert.equal(drawableTriangle([[0,0,0],[0,0,0],[1,1,1]]),false);

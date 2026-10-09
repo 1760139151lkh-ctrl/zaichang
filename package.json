@@ -52,7 +52,10 @@
   },
   "dependencies": {
     "@fontsource-variable/noto-sans-sc": "5.3.0",
+    "@maplibre/maplibre-gl-style-spec": "26.4.4",
     "@napi-rs/canvas": "1.0.6",
+    "@noble/hashes": "2.4.0",
+    "earcut": "3.2.4",
     "katex": "0.18.2",
     "lucide-react": "1.43.0",
     "maplibre-gl": "6.11.2",
@@ -64,8 +67,7 @@
     "rehype-katex": "7.0.1",
     "remark-gfm": "4.0.1",
     "remark-math": "6.0.0",
-    "zod": "4.5.4",
-    "@noble/hashes": "2.4.0"
+    "zod": "4.5.4"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

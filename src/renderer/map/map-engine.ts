@@ -12,6 +12,7 @@ import { PlanarCampusMap } from './planar-map';
 import { cartographyLayers, type MapDirection } from './cartography';
 import { VolumeEdges } from './volume-edges';
 import { RoofSurfaces } from './roof-surfaces';
+import { GroundFill } from './ground-fills';
 import { labelAnchors as makeLabelAnchors,type LabelAnchor } from './label-anchors';
 import {namedWaterAreas,namedWaterShores,namedWaterHit} from './named-water';
 import type { SavedCamera, MapData, MapCallbacks } from './planar-map';
@@ -66,6 +67,8 @@ export class SpatialCampusMap {
   private pendingLocation?:LocationFix;
   private rims?:VolumeEdges;
   private roofs?:RoofSurfaces;
+  private groundFills=new Map<string,GroundFill>();
+  private groundStates=new Map<string,Record<string,boolean|number>>();
   private labelAnchors=new Map<string,LabelAnchor>();
   private labelMode:'ground'|'roof'|'callout'='roof';
   private labelsRaised?:boolean;
@@ -96,6 +99,7 @@ export class SpatialCampusMap {
       if(this.disposed)return;
       this.loaded=true;
       if(this.pendingData){this.pendingData=false;this.source('geography',this.geography());this.source('names',this.names());this.source('sports',(this.data.sports||empty()) as FeatureCollection);}
+      this.installGroundFills();
       this.rims=new VolumeEdges(this.data.geography as FeatureCollection,this.palette);this.map.addLayer(this.rims,'route-glow');
       this.roofs=new RoofSurfaces(this.data.geography as FeatureCollection,this.palette);this.map.addLayer(this.roofs,'volume-rims');
       if(!saved&&!this.ownership.interacted)this.fit(this.data.manifest.campusBounds,0,16.2);
@@ -164,18 +168,33 @@ export class SpatialCampusMap {
     for(const p of this.points.values())if(!ids.has(p.id)&&p.personal)data.features.push({...point(p.coordinate,{kind:'reference',name:p.displayName,scope:'campus'}),id:p.id});
     return data;
   }
-  private style():ml.StyleSpecification {
+  private style(includeNativeGroundFills=false):ml.StyleSpecification {
     const p=this.palette,selected:any=['any',['boolean',['feature-state','selected'],false],['boolean',['feature-state','origin'],false]],hovered:any=['boolean',['feature-state','hover'],false];
     const sports=this.data.sports as FeatureCollection||empty();
-    const layers=cartographyLayers(p,this.direction);
+    const layers=cartographyLayers(p,this.direction).filter(layer=>includeNativeGroundFills||layer.type!=='fill'||!['geography','sports'].includes(layer.source));
     return {version:8,'font-faces':{Campus:latinFont},light:{anchor:'map',color:'#fff6e8',intensity:.42,position:[1.25,225,45]},sources:{geography:{type:'geojson',data:this.geography(),promoteId:'id',tolerance:.02,maxzoom:20},sports:{type:'geojson',data:sports,tolerance:.02,maxzoom:20},names:{type:'geojson',data:this.names(),promoteId:'id'},route:{type:'geojson',data:empty(),tolerance:0},selection:{type:'geojson',data:empty()},preview:{type:'geojson',data:empty(),tolerance:0},reveal:{type:'geojson',data:empty(),tolerance:0},entrances:{type:'geojson',data:empty()},location:{type:'geojson',data:empty()}},layers};
   }
-  private applyTheme(){const next=this.style();this.volumeOpacity=-1;for(const layer of next.layers)for(const [key,value] of Object.entries(layer.paint||{}))this.map.setPaintProperty(layer.id,key as Parameters<ml.Map['setPaintProperty']>[1],value);this.map.setLight(next.light!);this.refreshSelection();this.updateDetail(true);}
+  private installGroundFills(){
+    const layers=cartographyLayers(this.palette,this.direction);
+    for(const [i,specification] of layers.entries()){
+      if(specification.type!=='fill'||!['geography','sports'].includes(specification.source))continue;
+      const data=(specification.source==='geography'?this.data.geography:this.data.sports||empty()) as FeatureCollection;
+      const fill=new GroundFill(specification,data,this.groundStates);
+      const before=layers.slice(i+1).map(layer=>this.groundFills.get(layer.id)?.id||layer.id).find(id=>this.map.getLayer(id));
+      const previous=this.groundFills.get(specification.id);
+      if(previous&&this.map.getLayer(previous.id))this.map.removeLayer(previous.id);
+      this.map.addLayer(fill,before);this.groundFills.set(specification.id,fill);
+    }
+    this.target.dataset.groundRenderer='untiled-float32';
+  }
+  private applyTheme(){const next=this.style(true);this.volumeOpacity=-1;for(const layer of next.layers){const fill=this.groundFills.get(layer.id);if(fill&&layer.type==='fill')fill.updateStyle(layer);else for(const [key,value] of Object.entries(layer.paint||{}))this.map.setPaintProperty(layer.id,key as Parameters<ml.Map['setPaintProperty']>[1],value);}this.map.setLight(next.light!);this.refreshSelection();this.updateDetail(true);}
   private source(name:string,data:FeatureCollection){if(this.loaded&&!this.disposed)(this.map.getSource(name) as ml.GeoJSONSource)?.setData(data);}
   private hit(pixel:ml.Point,tolerance=0):MapPoint[]{
     if(!this.loaded)return [];
     const query=tolerance?[[pixel.x-tolerance,pixel.y-tolerance],[pixel.x+tolerance,pixel.y+tolerance]]:pixel;
-    const fs=this.map.queryRenderedFeatures(query as any,{layers:['names','endpoint-names','water-names','footprints','volumes','ghosts','sports-fill','references']});
+    const native=this.map.queryRenderedFeatures(query as any,{layers:['names','endpoint-names','water-names','volumes','ghosts','references']});
+    const ground=['footprints','sports-fill'].flatMap(id=>(this.groundFills.get(id)?.query(pixel.x,pixel.y,tolerance)||[]).map(f=>({...f,properties:{...f.properties,id:String(f.id)} as Record<string,any>,layer:{id}})));
+    const fs=[...native,...ground];
     const caption=fs.find(f=>['names','endpoint-names','water-names'].includes(f.layer.id)&&this.points.has(String(f.properties.id||f.id))&&!(f.layer.id==='names'&&this.hiddenNames.has(String(f.properties.id||f.id))));
     const captionPoint=caption&&this.points.get(String(caption.properties.id||caption.id));
     const geometries=fs.filter(f=>!['names','endpoint-names','water-names'].includes(f.layer.id)&&!this.ghostIds.includes(String(f.properties.id||f.id)));
@@ -200,11 +219,11 @@ export class SpatialCampusMap {
     }
     if(!ids.length){
       const bridge=this.map.queryRenderedFeatures(pixel,{layers:['bridge-ground']}).some(f=>f.properties.bridge==='yes');
-      if(!bridge&&this.map.queryRenderedFeatures(pixel,{layers:['water']}).length){const c=this.map.unproject(pixel),water=namedWaterHit(this.waterAreas,this.points,[c.lng,c.lat]);if(water)return [water];}
+      if(!bridge&&this.groundFills.get('water')?.query(pixel.x,pixel.y).length){const c=this.map.unproject(pixel),water=namedWaterHit(this.waterAreas,this.points,[c.lng,c.lat]);if(water)return [water];}
     }
     return ids.map(id=>this.points.get(id)!).sort((a,b)=>Number(b.kind==='building')-Number(a.kind==='building'));
   }
-  private state(id:string|undefined,value:Record<string,boolean|number>){if(id&&this.loaded)this.map.setFeatureState({source:'geography',id},value);}
+  private state(id:string|undefined,value:Record<string,boolean|number>){if(id&&this.loaded){this.groundStates.set(id,{...this.groundStates.get(id),...value});this.map.setFeatureState({source:'geography',id},value);}}
   private hover(p?:MapPoint){
     if(p?.id===this.hovered)return;clearTimeout(this.timer);this.callbacks.hover(undefined);
     if(this.hovered){this.state(this.hovered,{hover:false});const v=this.hoverMotion.get(this.hovered)?.value||0;this.hoverMotion.set(this.hovered,{value:v,target:0});}
@@ -246,6 +265,7 @@ export class SpatialCampusMap {
     this.stopReveal();this.source('preview',empty());
     for(const id of ['roof-surfaces','volume-rims'])if(this.map.getLayer(id))this.map.removeLayer(id);
     this.source('geography',this.geography());this.source('names',this.names());this.source('sports',(data.sports||empty()) as FeatureCollection);
+    this.installGroundFills();
     this.rims=new VolumeEdges(data.geography as FeatureCollection,this.palette);this.map.addLayer(this.rims,'route-glow');
     this.roofs=new RoofSurfaces(data.geography as FeatureCollection,this.palette);this.map.addLayer(this.roofs,'volume-rims');
     this.refreshSelection();this.updateDetail(true);this.updateOcclusion();

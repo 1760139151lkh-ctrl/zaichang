@@ -15,6 +15,8 @@ The mesh path rejects exactly collapsed triangles in its actual Float32 draw coo
 
 Ground road strokes draw subdued surrounding roads before campus roads, so their round ends do not cover campus continuations at shared junctions. The planar fallback uses the same priority and draws bridge casings below bridge foreground strokes. This changes display order only; road coordinates, recorded widths and routing remain unchanged.
 
+MapLibre ground fills use uncut local Float32 triangles instead of independently simplified integer tile rings. Existing shared junctions within a declared sports venue are inserted on both derived boundaries before triangulation; source files and physical dimensions are unchanged. The same triangles drive fill picking, including courtyard holes. The existing cartographic colors, opacities, layer order, camera and planar fallback remain in use. Native outlines and extrusions, source accuracy and the remaining all-map factual gates require their own checks; this renderer repair does not certify them.
+
 For the current clean-clone/CI/browser evidence and scope see docs/CLOUD_REVIEW.md; use the repository commit SHA in every subsequent review or change request.
 
 Repository verification covers deterministic host/memory/route mechanisms, the actual pinned Hermes engine with synthetic host responses, native Windows desktop startup and the patched native PDF reader. Live model semantics and real university-account results are not certified by these checks.

@@ -4,7 +4,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 import {gzipSync} from 'node:zlib';
 const mapFiles = ['manifest.json','places.json','network.json','geography.geojson','display-geography.geojson','sports-details.geojson','shared-facts.json','venues.json','source.osm.json.gz'];
-const licenseFiles=['ODbL-1.0.txt','NotoSansSC-OFL.txt','MapLibre-BSD-3-Clause.txt','OpenLayers-BSD-2-Clause.txt'];
+const licenseFiles=['ODbL-1.0.txt','NotoSansSC-OFL.txt','MapLibre-BSD-3-Clause.txt','MapLibre-Style-Spec.txt','Earcut-ISC.txt','OpenLayers-BSD-2-Clause.txt'];
 export default defineConfig({
   root:'apps/review-web',base:'./',publicDir:false,plugins:[react(),{
     name:'public-map-only',
