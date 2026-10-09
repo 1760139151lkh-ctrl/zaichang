@@ -505,16 +505,20 @@ export class PlanarCampusMap {
     ];
     const place = this.pointIndex.get(id);
     if (selected && place) {
+      const role=id===this.origin?'A':'B',route=this.activeRoute;
+      const endpoint=this.routeRoles&&route?.status==='ready'&&route.coordinates.length>=2&&
+        (role==='A'?route.from?.id===id:route.to?.id===id)
+        ? role==='A'?route.coordinates[0]:route.coordinates.at(-1)!:undefined;
       styles.push(
         new Style({
-          geometry: new Point(fromLonLat(place.coordinate)),
+          geometry: new Point(fromLonLat(endpoint||place.coordinate)),
           text: new Text({
-            text: (this.routeRoles ? id === this.origin ? 'A · ' : 'B · ' : '') + place.displayName,
+            text: (this.routeRoles&&!endpoint?role+' · ':'') + place.displayName,
             font: '500 12px "Noto Sans SC Variable", sans-serif',
             fill: new Fill({ color: p.text }),
             stroke: new Stroke({ color: p.halo, width: 4 }),
             padding: [4, 5, 4, 5],
-            offsetY: -9,
+            offsetY: endpoint?-30:-9,
             rotateWithView: false,
           }),
           zIndex: 20,
@@ -542,16 +546,14 @@ export class PlanarCampusMap {
       return new Style({
         zIndex: 3,
         image: new CircleStyle({
-          radius: f.get('endpoint') === 'A' ? 5 : 6,
+          radius: 12,
           fill: new Fill({ color: f.get('endpoint') === 'A' ? p.halo : p.route }),
           stroke: new Stroke({ color: p.route, width: 2 }),
         }),
         text: new Text({
           text: f.get('endpoint'),
-          offsetY: -17,
-          font: '600 12px sans-serif',
-          fill: new Fill({ color: p.text }),
-          stroke: new Stroke({ color: p.halo, width: 4 }),
+          font: '600 11px sans-serif',
+          fill: new Fill({ color: f.get('endpoint') === 'A' ? p.text : p.halo }),
         }),
       });
     return [
