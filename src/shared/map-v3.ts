@@ -1,6 +1,22 @@
 import type { LngLat,MapOverview,MapPoint,MapGraph } from './map-v2';
 
 type DetailFeature = { id?: string | number; properties: Record<string, unknown> | null };
+export const bridgeStatusUnverified = 'bridge_status_unverified';
+const inactiveBridgeValues = new Set(['abandoned','disused','demolished','dismantled','removed','razed']);
+
+/** Keep an explicit historical bridge tag separate from gate-opening assumptions.
+ * The tag is source evidence, not confirmation of the bridge's present state.
+ * Retain all graph members and existing conditions; do not invent a bridge flag.
+ */
+export function retainBridgeStatusConditions<T extends MapGraph>(graph:T,geography:{features:DetailFeature[]}):T {
+  const uncertain=new Set(geography.features.filter(feature=>{
+    const value=feature.properties?.bridge;
+    return typeof value==='string'&&inactiveBridgeValues.has(value.trim().toLowerCase());
+  }).map(feature=>String(feature.id)));
+  return {...graph,edges:graph.edges.map(edge=>uncertain.has(edge.way)&&!edge.conditions?.includes(bridgeStatusUnverified)
+    ? {...edge,conditions:[...(edge.conditions||[]),bridgeStatusUnverified]}:edge)};
+}
+
 const legacyIslandParents=new Map<string,string>([
   ...Array.from({length:12},(_,n)=>[`island/amphitheatre-step-${n}`,'island/amphitheatre'] as [string,string]),
   ...Array.from({length:3},(_,n)=>[`island/waterfront-terrace-${n}`,'island/waterfront'] as [string,string]),

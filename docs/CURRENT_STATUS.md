@@ -19,6 +19,8 @@ MapLibre ground fills use uncut local Float32 triangles instead of independently
 
 The planar fallback centers A/B letters inside route endpoint markers and places the corresponding name above the same endpoint. A missing or mismatched route retains the selected place's own anchor and role prefix. This separates the two labels without changing source coordinates, routes or ordinary place labels.
 
+An explicit inactive bridge tag in the source becomes a separate runtime route condition, alongside any gate-opening condition. Hypothetical routes retain that uncertainty and identify the historical bridge location in their warning. The loader preserves all nodes, edges, distances and original bridge flags; a historical tag is not a present-day access or structure survey.
+
 For the current clean-clone/CI/browser evidence and scope see docs/CLOUD_REVIEW.md; use the repository commit SHA in every subsequent review or change request.
 
 Repository verification covers deterministic host/memory/route mechanisms, the actual pinned Hermes engine with synthetic host responses, native Windows desktop startup and the patched native PDF reader. Live model semantics and real university-account results are not certified by these checks.

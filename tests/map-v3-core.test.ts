@@ -7,13 +7,27 @@ import { WalkingGraph } from '../src/shared/map-routing';
 import { CampusMapAdapter } from '../src/main/mapService';
 import { initialSelection, selectionReducer } from '../src/renderer/map/map-state';
 import type { MapGraph, MapPoint } from '../src/shared/map-v2';
-import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays } from '../src/shared/map-v3';
+import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, bridgeStatusUnverified } from '../src/shared/map-v3';
 import { drawableTriangle, roofBoundaryEdges, type MeshVertex } from '../src/renderer/map/mesh-geometry';
 import { GroundFill, groundFillPolygons, groundFillCoordinate, groundFillNodes } from '../src/renderer/map/ground-fills';
 import earcut from 'earcut';
 const service=new CampusMapAdapter('assets/map-v2');
 const node=(id:string)=>({id,coordinate:[120.08,30.31] as [number,number]});
 const edge=(id:string,from:string,to:string,meters:number,extra={})=>({id,from,to,meters,way:'way/test',name:'',oneway:false,stairs:false,bridge:false,gate:false,...extra});
+
+test('历史桥的来源状态不被开门假设覆盖，也不变成已确认桥梁',()=>{
+ const graph:MapGraph={version:'fixture',nodes:[node('a'),node('b')],edges:[
+  edge('old','a','b',20,{way:'way/old',gate:true,conditions:['gate_opening_unverified']}),
+  edge('active','a','b',30,{way:'way/active',bridge:true}),
+  edge('not-bridge','a','b',40,{way:'way/not-bridge'})]};
+ const geography={features:[{id:'way/old',properties:{bridge:'abandoned'}},{id:'way/active',properties:{bridge:'yes'}},{id:'way/not-bridge',properties:{bridge:'no'}}]};
+ const before=structuredClone(graph),result=retainBridgeStatusConditions(graph,geography);
+ assert.deepEqual(graph,before);assert.deepEqual(result.nodes,graph.nodes);
+ assert.deepEqual(result.edges.map(e=>e.id),graph.edges.map(e=>e.id));
+ assert.deepEqual(result.edges[0].conditions,['gate_opening_unverified',bridgeStatusUnverified]);
+ assert.equal(result.edges[0].bridge,false);assert.deepEqual(result.edges.slice(1),graph.edges.slice(1));
+ assert.deepEqual(retainBridgeStatusConditions(result,geography),result);
+});
 
 const exactFillArea2=(points:number[][])=>points.reduce((sum,p,i)=>{
  const q=points[(i+1)%points.length],integer=(v:number)=>BigInt(v*2**149);
