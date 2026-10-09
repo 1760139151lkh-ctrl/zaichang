@@ -20,7 +20,7 @@ import { unByKey } from 'ol/Observable';
 import { getCenter } from 'ol/extent';
 import type { Bounds, LocationFix, MapOverview, MapPoint, MapRouteResult, LngLat } from '../../shared/map-v2';
 import { CameraOwnership } from './map-state';
-import { darkMapPalette, lightMapPalette, type MapPalette } from './map-theme';
+import { darkMapPalette, lightMapPalette, sportSurfacePaint, type MapPalette } from './map-theme';
 import { geometryLayer } from './geometry-layer';
 import { planarGpuStyle } from './gpu-style';
 
@@ -378,9 +378,13 @@ export class PlanarCampusMap {
       highway = f.get('highway'),
       close = this.closeScale;
     const context = f.get('scope') === 'context';
+    const geometryType = f.getGeometry()?.getType();
+    const pedestrianArea = highway === 'pedestrian' && (geometryType === 'Polygon' || geometryType === 'MultiPolygon');
     const key = [
       kind,
       highway,
+      geometryType,
+      f.get('role'),
       close,
       this.detailedRoads,
       f.get('bridge'),
@@ -411,7 +415,10 @@ export class PlanarCampusMap {
         stroke: new Stroke({ color: gray(p.outline, 0.42), width: 0.7 }),
         zIndex: 0.5,
       });
-    if (kind === 'sport') style = new Style({fill:new Fill({color:f.get('role')==='running-track'?'#645d4b':'#3c4037'}),stroke:new Stroke({color:p.outline,width:.9}),zIndex:1});
+    if (kind === 'sport') {
+      const surface = sportSurfacePaint(p, f.get('role'));
+      style = new Style({fill:new Fill({color:gray(surface.color,surface.opacity)}),stroke:new Stroke({color:p.outline,width:.9}),zIndex:1});
+    }
     if (kind === 'land') style = new Style({ fill: new Fill({ color: gray(p.land, 0.7) }), zIndex: 0 });
     if (kind === 'area')
       style = new Style({
@@ -422,7 +429,13 @@ export class PlanarCampusMap {
       style = new Style({ stroke: new Stroke({ color: p.water, width: close ? 3.5 : 2 }), zIndex: 1 });
     if (kind === 'barrier' && close)
       style = new Style({ stroke: new Stroke({ color: p.barrier, width: 0.8 }), zIndex: 3 });
-    if (kind === 'road') {
+    if (kind === 'road' && pedestrianArea)
+      style = new Style({
+        fill: new Fill({ color: context ? gray(p.paving, 0.35) : p.paving }),
+        stroke: new Stroke({ color: gray(p.outline, 0.3), width: 0.65 }),
+        zIndex: 1.8,
+      });
+    if (kind === 'road' && !pedestrianArea) {
       const major = /^(primary|secondary|tertiary|residential|living_street)/.test(highway || '');
       const pathlike = /^(path|footway|pedestrian|steps)/.test(highway || '');
       if (!this.detailedRoads && pathlike) return;

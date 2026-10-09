@@ -16,7 +16,7 @@ This is the current file/call-chain map for the complete product. The map remain
 | Camera/input/animation | map-engine.ts / planar-map.ts; CameraOwnership and selectionReducer in map-state.ts; user gestures interrupt camera movement; route preview follows the same route coordinates |
 | Routing | main/mapService.ts route() → shared/map-routing.ts WalkingGraph.shortest; main/mapProfile.ts handles explicit local overlays and access candidates |
 | Public vs private map | mapService publicView(); desktop receives explicit profile directory only from main.ts; review never provides it. mapLocation.ts is desktop-native and absent from web review |
-| Fonts/icons/themes | package-locked Noto Sans SC / lucide-react; renderer/design-system.css, map-theme.ts and map CSS; assets/brand contains the project-created desktop mark |
+| Fonts/icons/themes | package-locked Noto Sans SC / lucide-react; renderer/design-system.css, map-theme.ts and map CSS; map-theme.ts shares paving colors and sport role paints between spatial and Canvas renderers; assets/brand contains the project-created desktop mark |
 | Build/deployment | package.json, tsconfig.json, vite.config.ts, vite.review.config.ts; .github/workflows/ci.yml and pages.yml; build outputs stay ignored |
 
 Map source and observation provenance is in docs/ASSET_PROVENANCE.md. Runtime uses the checked-in, hash-validated dataset and needs no external reference files. Optional data regeneration uses scripts/import-map.mjs, import-map-v2.mjs, build-map-v3.py and map_v3_*.py; it requires separately authorized official reference input through ZAICHANG_MAP_REFERENCE_DIR and Python geometry dependencies.

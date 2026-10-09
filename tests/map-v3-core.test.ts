@@ -10,10 +10,38 @@ import type { MapGraph, MapPoint } from '../src/shared/map-v2';
 import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, bridgeStatusUnverified } from '../src/shared/map-v3';
 import { drawableTriangle, roofBoundaryEdges, type MeshVertex } from '../src/renderer/map/mesh-geometry';
 import { GroundFill, groundFillPolygons, groundFillCoordinate, groundFillNodes } from '../src/renderer/map/ground-fills';
+import { cartographyLayers } from '../src/renderer/map/cartography';
+import { darkMapPalette, lightMapPalette } from '../src/renderer/map/map-theme';
+import { createExpression } from '@maplibre/maplibre-gl-style-spec';
 import earcut from 'earcut';
 const service=new CampusMapAdapter('assets/map-v2');
 const node=(id:string)=>({id,coordinate:[120.08,30.31] as [number,number]});
 const edge=(id:string,from:string,to:string,meters:number,extra={})=>({id,from,to,meters,way:'way/test',name:'',oneway:false,stairs:false,bridge:false,gate:false,...extra});
+
+test('人行道路面按面填充，保留孔洞并区别于同名线和电梯',()=>{
+ const rings=[[[120.078,30.306],[120.0784,30.306],[120.0784,30.3064],[120.078,30.3064],[120.078,30.306]],
+  [[120.0781,30.3061],[120.0781,30.3063],[120.0783,30.3063],[120.0783,30.3061],[120.0781,30.3061]]];
+ const area:any={type:'Feature',id:'fixture/plaza',properties:{kind:'road',highway:'pedestrian'},geometry:{type:'Polygon',coordinates:rings}};
+ const multi:any={...area,id:'fixture/multi',geometry:{type:'MultiPolygon',coordinates:[rings]}};
+ const line:any={...area,id:'fixture/path',geometry:{type:'LineString',coordinates:rings[0].slice(0,2)}};
+ const elevator:any={...area,id:'fixture/elevator',properties:{kind:'road',highway:'elevator'}};
+ const data:any={type:'FeatureCollection',features:[area,multi,line,elevator]},before=JSON.stringify(data);
+ for(const palette of [darkMapPalette,lightMapPalette])for(const direction of ['atlas','relief','focus'] as const){
+  const spec=cartographyLayers(palette,direction).find(layer=>layer.id==='pedestrian-areas');
+  assert.ok(spec&&spec.type==='fill');
+  const fill:any=new GroundFill(spec,data,new Map());
+  assert.deepEqual(fill.groups.map((group:any)=>group.feature.id),['fixture/plaza','fixture/multi']);
+  assert.ok(fill.groups.every((group:any)=>group.count>0));
+  const paths=cartographyLayers(palette,direction).find(layer=>layer.id==='paths');
+  assert.ok(paths&&'filter' in paths);
+  const filter=createExpression(paths.filter,'paths.filter');if(filter.result!=='success')throw Error('Path filter failed to compile');
+  assert.equal(filter.value.evaluate({zoom:18},{type:2,properties:line.properties}),true);
+  assert.equal(filter.value.evaluate({zoom:18},{type:3,properties:area.properties}),false);
+  assert.equal(filter.value.evaluate({zoom:18},{type:3,properties:{kind:'road',highway:'footway'}}),true);
+ }
+ assert.equal(groundFillPolygons(area)[0].rings.length,2);
+ assert.equal(JSON.stringify(data),before);
+});
 
 test('历史桥的来源状态不被开门假设覆盖，也不变成已确认桥梁',()=>{
  const graph:MapGraph={version:'fixture',nodes:[node('a'),node('b')],edges:[

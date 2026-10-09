@@ -1,6 +1,8 @@
 # Cloud review
 Open [the live public map](https://zaichang-campus-review-20261006.sugary-loom-6961.chatgpt.site/) first. This is the same V3 map implementation as desktop, with a public-file bridge and no personal assistant data.
 
+These hosted URLs refer to the existing publication. Subsequent local audit commits are not reflected there until deployment. Current local audit work still has unresolved source alignment, derivative-use permissions, physical heights/access and full-map review gates; the historical verification below does not certify those later changes or factual gates.
+
 | Scene | URL / result |
 | --- | --- |
 | overview | [?scene=overview](https://zaichang-campus-review-20261006.sugary-loom-6961.chatgpt.site/?scene=overview) — campus and surrounding source coverage |
@@ -15,7 +17,7 @@ Appearance should retain warm gray/gold ground surfaces, restrained highlights, 
 
 WebGL uses the available graphics implementation, including software rendering when the browser supplies it. When WebGL construction is unavailable the existing OpenLayers renderer uses the same public data and route results in a planar view. Space/oblique controls are absent there. An environment without any browser graphics/Canvas cannot offer a visual preview.
 
-Desktop-only: chat/Harness/model transport, personal memory/data/roles, campus accounts, native location/notifications, attachments/PDF worker and windows. Review has none of these and never reads host files, requests private API keys or university account data. It contains only procedural/vector map facts, ODbL source and licensed local font/engine assets.
+Desktop-only: chat/Harness/model transport, personal memory/data/roles, campus accounts, native location/notifications, attachments/PDF worker and windows. Review has none of these and never reads host files, requests private API keys or university account data. Its selected public artifact contains OSM-derived vectors, project display interpretations and local font/engine assets. Bundled software licenses do not establish extraction or derivative-map rights for every cartographic source; those source-use gates remain under audit.
 
 Reproduce with Node 24.18.0/npm 11.16.0: npm ci; npm run check; npm run build; npm run preview. Start development with npm run review. For desktop: install uv, npm run setup, npm run dev on Windows x64. Dev container: .devcontainer/devcontainer.json. Linux builds code/review; native desktop PDF staging and packaging are Windows-specific.
 

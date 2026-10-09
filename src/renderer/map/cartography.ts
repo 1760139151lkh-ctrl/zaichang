@@ -1,4 +1,4 @@
-import type { MapPalette } from './map-theme';
+import { defaultSportSurface, sportSurfaceTokens, type MapPalette } from './map-theme';
 import type { LayerSpecification } from 'maplibre-gl';
 
 // The study compares different readings of the same geography. Production uses
@@ -17,6 +17,7 @@ const round = { 'line-cap': 'round', 'line-join': 'round' };
 // the separate bridge layers still control their documented vertical order.
 const groundRoadLayout = { ...round, 'line-sort-key': ['case', context, 0, 1] };
 const footway: any = ['in', ['get', 'highway'], ['literal', ['path', 'footway', 'pedestrian', 'steps']]];
+const pedestrianArea: any = ['all', kind('road'), ['==', ['geometry-type'], 'Polygon'], ['==', ['get', 'highway'], 'pedestrian']];
 const underground:any=['all',['==',['get','tunnel'],'yes'],['<',['to-number',['get','layer'],0],0]];
 const waterCulvert:any=['any',['==',['get','tunnel'],'culvert'],['<',['to-number',['get','layer'],0],0]];
 const roadWidth = (minor = false): any => ['interpolate', ['exponential', 1.65], ['zoom'], 13, minor ? .3 : .6, 16, minor ? .9 : 2.3, 19, minor ? 2.8 : 9, 21, minor ? 8 : 28];
@@ -26,8 +27,8 @@ export function cartographyLayers(p: MapPalette, direction: MapDirection): Layer
   const relief = direction !== 'atlas', focus = direction === 'focus';
   const dark = p.text === '#eeeadf';
   const ground = dark ? '#232620' : '#edeae0';
-  const field = dark ? '#3b4037' : '#d9d9c9';
-  const track = dark ? '#706657' : '#cac0a9';
+  const sportColor = ['match', ['get','role'], ...Object.entries(sportSurfaceTokens).flatMap(([role, token]) => [role, p[token.color]]), p[defaultSportSurface.color]];
+  const sportOpacity = ['match', ['get','role'], ...Object.entries(sportSurfaceTokens).flatMap(([role, token]) => [role, token.opacity]), defaultSportSurface.opacity];
   const shadow = dark ? '#080b09' : '#8a8475';
   // Opaque, already toned road ink keeps independently acquired ways from
   // whitening their shared round caps. Fading each overlapping segment made
@@ -35,7 +36,7 @@ export function cartographyLayers(p: MapPalette, direction: MapDirection): Layer
   const roadInk=dark?'#5c5a50':'#aaa393',pathInk=dark?'#484b41':'#c9c3b2';
   const contextInk=dark?'#383a32':'#d6d1c4';
   const layers: any[] = [
-    {id:'land',type:'fill',source:'geography',filter:kind('land'),paint:{'fill-color':['match',['get','role'],'garden',dark?'#35382e':'#d6d8c6','paving',dark?'#434338':'#d8d3c3','stage',dark?'#665c47':'#bca985',ground],'fill-opacity':['match',['get','role'],'garden',.78,'paving',1,'stage',1,.22]}},
+    {id:'land',type:'fill',source:'geography',filter:kind('land'),paint:{'fill-color':['match',['get','role'],'garden',dark?'#35382e':'#d6d8c6','paving',p.paving,'stage',dark?'#665c47':'#bca985',ground],'fill-opacity':['match',['get','role'],'garden',.78,'paving',1,'stage',1,.22]}},
     {id:'garden-edge',type:'line',source:'geography',minzoom:16,filter:['all',kind('land'),['==',['get','role'],'garden']],layout:round,paint:{'line-color':p.outline,'line-opacity':.14,'line-width':.6}},
     {id:'areas',type:'line',source:'geography',filter:kind('area'),paint:{'line-color':p.outline,'line-opacity':.2,'line-width':.7,'line-dasharray':[2,8]}},
     {id:'water-depth',type:'line',source:'geography',filter:kind('water-surface'),layout:round,paint:{'line-color':shadow,'line-width':zoom(14,2,18,7),'line-blur':3,'line-opacity':relief?.55:0}},
@@ -46,7 +47,7 @@ export function cartographyLayers(p: MapPalette, direction: MapDirection): Layer
     {id:'water-culverts',type:'line',source:'geography',minzoom:17,filter:['all',kind('waterway'),waterCulvert],layout:round,paint:{'line-color':p.outline,'line-opacity':.18,'line-width':.75,'line-dasharray':[2,4]}},
     {id:'grounds',type:'fill',source:'geography',filter:kind('landmark'),paint:{'fill-color':p.land,'fill-opacity':.32}},
     {id:'landscape-steps',type:'line',source:'sports',filter:kind('landscape-step'),minzoom:17,layout:round,paint:{'line-color':p.outline,'line-opacity':zoom(17,0,18,.42,20,.62),'line-width':zoom(17,.4,20,.8)}},
-    {id:'sports-fill',type:'fill',source:'geography',filter:kind('sport'),paint:{'fill-color':['case',['==',['get','role'],'indoor-venue'],p.building,['in',['get','role'],['literal',['running-track','running-venue','track-apron']]],track,field],'fill-opacity':['case',['==',['get','role'],'court-group'],.35,['==',['get','role'],'court-runoff'],.42,['==',['get','role'],'track-apron'],.4,['==',['get','role'],'infield-surround'],.5,.78]}},
+    {id:'sports-fill',type:'fill',source:'geography',filter:kind('sport'),paint:{'fill-color':sportColor,'fill-opacity':sportOpacity}},
     {id:'court-inlays',type:'fill',source:'sports',filter:kind('court-inlay'),minzoom:16,paint:{'fill-color':dark?'#4d5245':'#c4c8b6','fill-opacity':zoom(16,0,17,.42,19,.64)}},
     {id:'sports-inset',type:'line',source:'geography',filter:kind('sport'),layout:round,paint:{'line-color':shadow,'line-width':zoom(16,1,19,4),'line-blur':1.2,'line-opacity':relief?.55:0}},
     {id:'sports-edge',type:'line',source:'geography',filter:kind('sport'),layout:round,paint:{'line-color':['case',selected,p.selected,contact(p.outline,p.hover)],'line-width':['case',selected,1.5,.8],'line-opacity':['case',selected,.95,['in',['get','role'],['literal',['court-runoff','court-group','track-apron']]],.22,.6]}},
@@ -56,7 +57,11 @@ export function cartographyLayers(p: MapPalette, direction: MapDirection): Layer
     {id:'athletic-lanes',type:'line',source:'sports',filter:kind('track-lane'),minzoom:16.5,layout:round,paint:{'line-color':p.text,'line-opacity':zoom(16.5,0,17,.25,18.6,.48,20,.68),'line-width':zoom(16.5,.45,18,.65,19,.8,20,1.1)}},
     // Roads are a legible ground surface, with a dark shoulder. Class widths
     // are cartographic emphasis, not measured physical road widths.
-    {id:'paths',type:'line',source:'geography',minzoom:15.3,filter:['all',kind('road'),footway,['!=',['get','displayRole'],'venue-interior-road'],['!',underground]],layout:round,paint:{'line-color':zoom(15.3,dark?'#30332c':'#dfdbcf',17,pathInk),'line-width':roadWidth(true)}},
+    // Acquired pedestrian polygons describe a surface, including its holes.
+    // Their boundaries are not centreline roads with an inferred width.
+    {id:'pedestrian-areas',type:'fill',source:'geography',filter:pedestrianArea,paint:{'fill-color':p.paving,'fill-opacity':['case',context,.35,1]}},
+    {id:'pedestrian-area-edges',type:'line',source:'geography',filter:pedestrianArea,paint:{'line-color':p.outline,'line-opacity':.3,'line-width':.65}},
+    {id:'paths',type:'line',source:'geography',minzoom:15.3,filter:['all',kind('road'),footway,['!',pedestrianArea],['!=',['get','displayRole'],'venue-interior-road'],['!',underground]],layout:round,paint:{'line-color':zoom(15.3,dark?'#30332c':'#dfdbcf',17,pathInk),'line-width':roadWidth(true)}},
     {id:'roads-case',type:'line',source:'geography',filter:['all',kind('road'),['!',footway],['!',underground]],layout:groundRoadLayout,paint:{'line-color':['case',context,dark?'#20231e':'#ded9cd',dark?'#191c17':'#b5ae9d'],'line-width':zoom(13,1.2,16,3.8,19,11,21,30)}},
     {id:'roads',type:'line',source:'geography',filter:['all',kind('road'),['!',footway],['!',underground]],layout:groundRoadLayout,paint:{'line-color':['case',context,contextInk,roadInk],'line-width':roadWidth()}},
     {id:'underground-paths',type:'line',source:'geography',minzoom:17,filter:['all',kind('road'),footway,underground],layout:round,paint:{'line-color':p.minorRoad,'line-opacity':.48,'line-width':roadWidth(true),'line-dasharray':[2,3]}},

@@ -19,6 +19,10 @@ MapLibre ground fills use uncut local Float32 triangles instead of independently
 
 The planar fallback centers A/B letters inside route endpoint markers and places the corresponding name above the same endpoint. A missing or mismatched route retains the selected place's own anchor and role prefix. This separates the two labels without changing source coordinates, routes or ordinary place labels.
 
+Pedestrian road polygons now use the shared paving color in both renderers, with all source holes retained. Their boundaries stay distinct from road centreline strokes. The Canvas style cache separates geometry types so a same-tag road line cannot inherit a polygon fill. Source coordinates, measured-width claims and routing remain unchanged.
+
+Sports surfaces share their existing role-based colors and opacity across the spatial map and Canvas fallback. The fallback no longer applies dark literals in the light theme, and its cache keeps tracks, court groups, runoffs and indoor venues distinct.
+
 An explicit inactive bridge tag in the source becomes a separate runtime route condition, alongside any gate-opening condition. Hypothetical routes retain that uncertainty and identify the historical bridge location in their warning. The loader preserves all nodes, edges, distances and original bridge flags; a historical tag is not a present-day access or structure survey.
 
 For the current clean-clone/CI/browser evidence and scope see docs/CLOUD_REVIEW.md; use the repository commit SHA in every subsequent review or change request.
