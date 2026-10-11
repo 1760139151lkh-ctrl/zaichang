@@ -1,6 +1,7 @@
 export interface FitInsets { top: number; right: number; bottom: number; left: number }
 export interface FitRect { left: number; top: number; right: number; bottom: number; width: number; height: number }
 export interface FitObstructions { top: FitRect[]; right: FitRect[]; bottom: FitRect[]; card?: FitRect }
+export interface LabelObstruction extends FitRect { id: string }
 export const fitControlGap = 10;
 export const endpointCaptionGap = 23.5; // 12px marker + 1.5px border + 10px text gap.
 const zeroInsets = (): FitInsets => ({ top: 0, right: 0, bottom: 0, left: 0 });
@@ -65,6 +66,12 @@ export function wrapCaption(text: string, font: string, size: number, maxWidthEm
   return captionLines(text, size * maxWidthEm, value => measurement?.measureText(value).width ?? Array.from(value).length * size).join('\n');
 }
 
+export function captionWidth(text:string,font:string):number {
+  measurement ??= document.createElement('canvas').getContext('2d');
+  if(measurement)measurement.font=font;
+  return Math.max(...text.split('\n').map(line=>measurement?.measureText(line).width??Array.from(line).length*12));
+}
+
 export function mapFitInsets(target: HTMLElement, caption?: FitInsets) {
   const root = target.parentElement, rect = target.getBoundingClientRect();
   const visible = (selector: string) => Array.from(root?.querySelectorAll<HTMLElement>(selector) || [])
@@ -78,4 +85,35 @@ export function mapFitInsets(target: HTMLElement, caption?: FitInsets) {
   }, caption);
   if (caption) target.dataset.fitLabelSpace = String(result.labelSpace);
   return result.padding;
+}
+
+/** Display-only occupancy, in CSS pixels relative to the map stage. */
+export function mapLabelObstructions(target: HTMLElement): LabelObstruction[] {
+  const bounds=target.getBoundingClientRect(),root=target.parentElement;
+  const seen=new Set<HTMLElement>();
+  const selectors=['.campus-v2-search','.campus-v2-results','.campus-v2-floating','.campus-v2-mode button','.campus-v2-mode span','.campus-v2-controls button','.campus-v2-route','.campus-v3-pitch','.campus-v2-attribution','.campus-v2-help','.campus-v2-scale'];
+  return selectors.flatMap((selector,s)=>Array.from(root?.querySelectorAll<HTMLElement>(selector)||[]).flatMap((element,i)=>{
+    if(seen.has(element))return [];seen.add(element);
+    const style=getComputedStyle(element),r=element.getBoundingClientRect();
+    if(style.display==='none'||style.visibility==='hidden'||!r.width||!r.height)return [];
+    const left=Math.max(0,r.left-bounds.left),top=Math.max(0,r.top-bounds.top),right=Math.min(bounds.width,r.right-bounds.left),bottom=Math.min(bounds.height,r.bottom-bounds.top);
+    return right>left&&bottom>top?[{id:`${s}-${i}`,left,top,right,bottom,width:right-left,height:bottom-top}]:[];
+  }));
+}
+
+export function observeLabelObstructions(target: HTMLElement,changed:()=>void):()=>void {
+  const root=target.parentElement;let frame=0,last='',disposed=false;
+  const refresh=()=>{frame=0;if(disposed)return;const next=JSON.stringify(mapLabelObstructions(target));if(next!==last){last=next;changed();}};
+  const schedule=()=>{if(!frame&&!disposed)frame=requestAnimationFrame(refresh);};
+  const resize=new ResizeObserver(schedule);resize.observe(target);if(root)resize.observe(root);
+  const mutation=new MutationObserver(schedule);if(root)mutation.observe(root,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style','hidden']});
+  schedule();return ()=>{disposed=true;cancelAnimationFrame(frame);resize.disconnect();mutation.disconnect();};
+}
+
+/** Try the nearest clear text position before ordinary decluttering. */
+export function captionControlOffset(pixel:number[],width:number,height:number,blockers:LabelObstruction[]):[number,number]|undefined {
+  const clear=(x:number,y:number)=>blockers.every(r=>pixel[0]+x+width/2<=r.left||pixel[0]+x-width/2>=r.right||pixel[1]+y+height/2<=r.top||pixel[1]+y-height/2>=r.bottom);
+  if(clear(0,0))return [0,0];
+  const candidates=blockers.flatMap(r=>[[r.left-pixel[0]-width/2-2,0],[r.right-pixel[0]+width/2+2,0],[0,r.top-pixel[1]-height/2-2],[0,r.bottom-pixel[1]+height/2+2]] as [number,number][]);
+  return candidates.filter(([x,y])=>Math.hypot(x,y)<=Math.max(60,width)&&clear(x,y)).sort((a,b)=>Math.hypot(...a)-Math.hypot(...b))[0];
 }

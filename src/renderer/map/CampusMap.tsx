@@ -229,6 +229,14 @@ export function MapSheet({
     // A subsequent drag/selection owns the view and cancels this pending fit.
     requestAnimationFrame(()=>{if(engine.current===map&&map.ownership.accepts(ticket))map.focusPlace(point);});
   }
+  function showWholeRoute(route:MapRouteResult){
+    const map=engine.current;if(!map)return;
+    user();map.takeControl();const ticket=map.ownership.ticket();
+    setRouteDetails(false);setPreview(undefined);
+    // The explicit overview needs the compact card's actual viewport space.
+    // A later user gesture still owns the camera and cancels this request.
+    requestAnimationFrame(()=>{if(engine.current===map&&map.ownership.accepts(ticket))map.fitRoute(route);});
+  }
   useEffect(() => {
     alive.current = true;
     const opener = document.activeElement as HTMLElement | null;
@@ -852,7 +860,7 @@ export function MapSheet({
 
               </div>
               {route.status === 'ready' && (
-                <button className="campus-v2-primary" onClick={() => engine.current?.fitRoute(route)}>
+                <button className="campus-v2-primary" onClick={() => showWholeRoute(route)}>
                   查看全路线
                   <Maximize size={15} />
                 </button>

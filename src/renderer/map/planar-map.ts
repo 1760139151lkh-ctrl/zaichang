@@ -24,7 +24,7 @@ import { CameraOwnership } from './map-state';
 import { darkMapPalette, lightMapPalette, sportSurfacePaint, type MapPalette } from './map-theme';
 import { geometryLayer } from './geometry-layer';
 import { planarGpuStyle } from './gpu-style';
-import { endpointCaptionGap, mapFitInsets, measureCaptions, wrapCaption, type FitInsets } from './fit-layout';
+import { endpointCaptionGap, mapFitInsets, mapLabelObstructions, observeLabelObstructions, captionControlOffset, captionWidth, measureCaptions, wrapCaption, type FitInsets, type LabelObstruction } from './fit-layout';
 
 export interface SavedCamera {
   center: number[];
@@ -89,6 +89,7 @@ export class PlanarCampusMap {
   private routeLayer: VectorLayer<VectorSource>;
   private locationLayer: VectorLayer<VectorSource>;
   private styles = new globalThis.Map<string, Style | Style[]>();
+  private labelBlockers:LabelObstruction[]=[];
   private observer: ResizeObserver;
   private cleanup: (() => void)[] = [];
   private renderCount = 0;
@@ -366,6 +367,7 @@ export class PlanarCampusMap {
       }
     });
     this.observer.observe(target);
+    this.cleanup.push(observeLabelObstructions(target,()=>{this.labelBlockers=mapLabelObstructions(target);this.labelLayer.changed();}));
     const visible = () => {
       if (document.visibilityState === 'visible') {
         this.map.updateSize();
@@ -470,7 +472,7 @@ export class PlanarCampusMap {
     if (kind === 'area' && !/紫金港|望月/.test(name)) return;
     if (kind === 'landmark') {
       const landmarkKey = `label/landmark/${name}`;
-      if (this.styles.has(landmarkKey)) return this.styles.get(landmarkKey) as Style;
+      if (this.styles.has(landmarkKey)) return this.map?this.positionLabel(f,this.styles.get(landmarkKey) as Style):this.styles.get(landmarkKey) as Style;
       const landmarkStyle = new Style({
         text: new Text({
           text: name,
@@ -483,10 +485,10 @@ export class PlanarCampusMap {
         zIndex: 18,
       });
       this.styles.set(landmarkKey, landmarkStyle);
-      return landmarkStyle;
+      return this.map?this.positionLabel(f,landmarkStyle):landmarkStyle;
     }
     const key = `label/${kind}/${name}`;
-    if (this.styles.has(key)) return this.styles.get(key) as Style;
+    if (this.styles.has(key)) return this.map?this.positionLabel(f,this.styles.get(key) as Style):this.styles.get(key) as Style;
     const style = new Style({
       text: new Text({
         text: name,
@@ -502,7 +504,23 @@ export class PlanarCampusMap {
       zIndex: kind === 'area' ? 10 : 5,
     });
     this.styles.set(key, style);
-    return style;
+    return this.map?this.positionLabel(f,style):style;
+  }
+  private positionLabel(f:Feature,style:Style,retain=false):Style|undefined {
+    if(!this.map||!this.labelBlockers.length)return style;
+    const geometry=style.getGeometry() instanceof Point?style.getGeometry():f.getGeometry(),text=style.getText();
+    if(!(geometry instanceof Point)||!text)return style;
+    const label=text.getText();if(typeof label!=='string')return style;
+    const font=text.getFont()||'11px sans-serif',padding=text.getPadding()||[0,0,0,0],stroke=text.getStroke()?.getWidth()||0;
+    // OL widens text rasters by two pixels for italic overhang, then rounds
+    // raster dimensions up. Include that ink box before its label padding.
+    const width=Math.ceil(captionWidth(label,font)+stroke+2)+padding[1]+padding[3],height=Math.ceil(measureTextHeight(font)*label.split('\n').length+stroke)+padding[0]+padding[2];
+    const pixel=this.map.getPixelFromCoordinate(geometry.getCoordinates()),x=text.getOffsetX()||0,y=text.getOffsetY()||0;
+    const centreY=y+(text.getTextBaseline()==='bottom'?-height/2:text.getTextBaseline()==='top'?height/2:0);
+    const offset=captionControlOffset([pixel[0]+x,pixel[1]+centreY],width,height,this.labelBlockers);
+    if(!offset)return retain?style:undefined;
+    if(!offset[0]&&!offset[1])return style;
+    const moved=style.clone(),caption=moved.getText()!;caption.setOffsetX(x+offset[0]);caption.setOffsetY(y+offset[1]);return moved;
   }
   private highlightStyle(f: Feature): Style[] {
     const p = this.palette,
@@ -525,8 +543,7 @@ export class PlanarCampusMap {
       const endpoint=this.routeRoles&&route?.status==='ready'&&route.coordinates.length>=2&&
         (role==='A'?route.from?.id===id:route.to?.id===id)
         ? role==='A'?route.coordinates[0]:route.coordinates.at(-1)!:undefined;
-      styles.push(
-        new Style({
+      const selectedCaption=new Style({
           geometry: new Point(fromLonLat(endpoint||place.coordinate)),
           text: new Text({
             text: endpoint ? wrapCaption(place.displayName,'500 12px "Noto Sans SC Variable", sans-serif',12,14) : (this.routeRoles?role+' · ':'') + place.displayName,
@@ -542,8 +559,8 @@ export class PlanarCampusMap {
             rotateWithView: false,
           }),
           zIndex: 20,
-        }),
-      );
+        });
+      styles.push(this.map?(this.positionLabel(f,selectedCaption,true)||selectedCaption):selectedCaption);
       for (const e of place.entrances.filter(e=>this.entrancesVisible||this.usedEntrances.has(e.id)))
         styles.push(
           new Style({
