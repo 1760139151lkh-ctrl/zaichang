@@ -4,9 +4,10 @@ import type { MapPalette } from './map-theme';
 import { projectFace,triangleDepth,extrusionDepth } from './surface-picking';
 import type { LabelAnchor } from './label-anchors';
 import { drawableTriangle } from './mesh-geometry';
+import { groundFillOrigin,groundFillPolygons } from './ground-fills';
 
 type Vec=[number,number,number];
-type Group={id:string;material:string;first:number;count:number;faces:Vec[][];worldBounds?:number[];screen?:Float64Array;bounds?:number[]};
+type Group={id:string;material:string;first:number;count:number;faces:Vec[][];extrusion?:boolean;worldBounds?:number[];screen?:Float64Array;bounds?:number[]};
 const cross=(a:Vec,b:Vec):Vec=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
 const sub=(a:Vec,b:Vec):Vec=>a.map((x,i)=>x-b[i]) as Vec;
 const unit=(v:Vec):Vec=>{const n=Math.hypot(...v)||1;return v.map(x=>x/n) as Vec;};
@@ -30,19 +31,19 @@ function authoredNormals(faces:Vec[][],smooth:boolean):Vec[][]{
   }));
 }
 
-/** Smooth simplified membrane, supported by the school's approximate height.
- * This is not a photogrammetric roof or an indoor model. */
+/** Existing roofs and simple volumes in the same uncut draw coordinate frame.
+ * Stored heights and authored proportions retain their original evidence limits. */
 export class RoofSurfaces implements CustomLayerInterface {
   id='roof-surfaces';type='custom' as const;renderingMode='3d' as const;
   private map?:Map;private gl?:WebGL2RenderingContext;private program?:WebGLProgram;
   private vao?:WebGLVertexArrayObject;private buffer?:WebGLBuffer;private vertices:Float32Array;
   private groups:Group[]=[];private active=new Set<string>();private ghost=new Set<string>();
   private hovered?:string;
-  private origin=MercatorCoordinate.fromLngLat([120.078,30.306]);private projectionKey='';
+  private origin=groundFillOrigin;private projectionKey='';
   private matrix?:number[];private heightFactor=0;private flatDepthBias=0;
   private nativeVolumes=new globalThis.Map<string,{top:Vec[][][];base:Vec[][][];worldBounds:number[];bounds?:number[]}>();
   private restore=()=>{if(this.gl)this.setup(this.gl);};
-  constructor(data:FeatureCollection,private palette:MapPalette){
+  constructor(data:FeatureCollection,private palette:MapPalette,private states=new globalThis.Map<string,Record<string,boolean|number>>(),private extrusionOpacity=.86){
     const vertices:number[]=[];
     for(const f of data.features){
       const model=f.properties?.surfaceModel;
@@ -52,6 +53,24 @@ export class RoofSurfaces implements CustomLayerInterface {
         const top=world(Number(f.properties.heightM)),base=world(Number(f.properties.minHeightM||0)),bounds=[Infinity,Infinity,Infinity,-Infinity,-Infinity,-Infinity];
         for(const p of [...top.flat(2),...base.flat(2)])for(let i=0;i<3;i++){bounds[i]=Math.min(bounds[i],p[i]);bounds[i+3]=Math.max(bounds[i+3],p[i]);}
         this.nativeVolumes.set(String(f.id),{top,base,worldBounds:bounds});
+        // The same uncut Float32 plan as the ground fill. Tile rounding must
+        // not collapse a short side into an undefined extrusion normal.
+        const first=vertices.length/6,faces:Vec[][]=[];
+        const add=(face:Vec[])=>{if(!drawableTriangle(face))return;faces.push(face);const normal=unit(cross(sub(face[1],face[0]),sub(face[2],face[0])));for(const p of face)vertices.push(...p,...normal);};
+        for(const [index,polygon] of groundFillPolygons(f).entries()){
+          const coordinates=polygons[index].flat(),v=polygon.vertices;
+          const at=(i:number,height:number):Vec=>[v[i*2],v[i*2+1],Math.fround(MercatorCoordinate.fromLngLat([coordinates[i][0],coordinates[i][1]],height).z)];
+          const roof=coordinates.map((_,i)=>at(i,Number(f.properties!.heightM))),floor=coordinates.map((_,i)=>at(i,Number(f.properties!.minHeightM||0)));
+          for(let i=0;i<polygon.indices.length;i+=3){const face=polygon.indices.slice(i,i+3).map(k=>roof[k]);if(cross(sub(face[1],face[0]),sub(face[2],face[0]))[2]<0)face.reverse();add(face);}
+          let offset=0;
+          for(const [ringIndex,ring] of polygon.rings.entries()){
+            const area=ring.slice(1).reduce((sum,p,i)=>sum+ring[i][0]*p[1]-p[0]*ring[i][1],0);
+            const outward=(area>0)===(ringIndex===0);
+            for(let i=1;i<ring.length;i++)for(const face of [[roof[offset+i-1],floor[offset+i],roof[offset+i]],[roof[offset+i-1],floor[offset+i-1],floor[offset+i]]]){if(!outward)face.reverse();add(face);}
+            offset+=ring.length;
+          }
+        }
+        this.groups.push({id:String(f.id),material:'extrusion',first,count:vertices.length/6-first,faces,extrusion:true});
       }
       if(model?.type==='authored-mesh'){
         for(const part of model.parts){const first=vertices.length/6,faces:Vec[][]=[];
@@ -137,9 +156,9 @@ export class RoofSurfaces implements CustomLayerInterface {
       // Only eight box corners during a camera gesture. Exact triangle
       // projection is deferred until a pointer actually enters this roof.
       const b=g.worldBounds!,bounds=[Infinity,Infinity,-Infinity,-Infinity];let front=0,behind=0,nearCut=false;
-      for(const x0 of [b[0],b[3]])for(const y0 of [b[1],b[4]])for(const z0 of [b[2],b[5]]){const z=z0*height,q=m[3]*x0+m[7]*y0+m[11]*z+m[15];
+      for(const x0 of [b[0],b[3]])for(const y0 of [b[1],b[4]])for(const z0 of [b[2],b[5]]){const z=z0*(g.extrusion?1:height),q=m[3]*x0+m[7]*y0+m[11]*z+m[15];
         if(q<=1e-8){behind++;continue;}front++;
-        const clipZ=m[2]*x0+m[6]*y0+m[10]*z+m[14]-z0*this.flatDepthBias*q;if(clipZ < -q || clipZ > q)nearCut=true;
+        const clipZ=m[2]*x0+m[6]*y0+m[10]*z+m[14]-z0*(g.extrusion?0:this.flatDepthBias)*q;if(clipZ < -q || clipZ > q)nearCut=true;
         const x=((m[0]*x0+m[4]*y0+m[8]*z+m[12])/q+1)*w/2,y=(1-(m[1]*x0+m[5]*y0+m[9]*z+m[13])/q)*h/2;
         bounds[0]=Math.min(bounds[0],x);bounds[1]=Math.min(bounds[1],y);bounds[2]=Math.max(bounds[2],x);bounds[3]=Math.max(bounds[3],y);}
       g.screen=undefined;g.bounds=front&&(behind||nearCut)?[-Infinity,-Infinity,Infinity,Infinity]:bounds;
@@ -149,13 +168,21 @@ export class RoofSurfaces implements CustomLayerInterface {
     gl.uniform1f(gl.getUniformLocation(this.program,'u_height'),height);
     gl.uniform1f(gl.getUniformLocation(this.program,'u_flat_bias'),this.flatDepthBias);
     const groups=this.groups.slice().sort((a,b)=>Number(this.ghost.has(a.id))-Number(this.ghost.has(b.id)));
+    // Depth first keeps a translucent prism from accumulating its hidden back
+    // faces. Cutaways deliberately retain the scene depth beneath them.
+    if(height){gl.colorMask(false,false,false,false);gl.uniform1f(gl.getUniformLocation(this.program,'u_height'),1);gl.uniform1f(gl.getUniformLocation(this.program,'u_flat_bias'),0);gl.uniform1f(gl.getUniformLocation(this.program,'u_ghost'),0);
+      for(const g of groups)if(g.extrusion&&!this.ghost.has(g.id))gl.drawArrays(gl.TRIANGLES,g.first,g.count);
+      gl.colorMask(true,true,true,true);}
     for(const g of groups){const bounds=g.bounds!;if(bounds[2]<0||bounds[3]<0||bounds[0]>w||bounds[1]>h)continue;
+      if(g.extrusion&&!height)continue;
+      gl.uniform1f(gl.getUniformLocation(this.program,'u_height'),g.extrusion?1:height);gl.uniform1f(gl.getUniformLocation(this.program,'u_flat_bias'),g.extrusion?0:this.flatDepthBias);
       gl.depthMask(!this.ghost.has(g.id));
       const dark=this.palette.text==='#eeeadf';const materials:Record<string,string>=dark?{dome:'#8a8576',roof:'#787466',skylight:'#97907d',glass:'#62695d',wall:'#787263',mullion:'#938a75',seam:'#5b5e52',garden:'#34372f'}:{dome:'#dedbd1',roof:'#d6d0c2',skylight:'#e3ddcd',glass:'#aab4a5',wall:'#bcb6a9',mullion:'#d9d1bd',seam:'#9d9d8d',garden:'#b7b9aa'};
       Object.assign(materials,dark?{'dorm-roof':'#716c5e','dorm-wall':'#777162','dorm-parapet':'#827b69','dorm-band':'#827b6a','dorm-glass':'#626b5e','dorm-window':'#454c40'}:{'dorm-roof':'#ccc5b4','dorm-wall':'#bcb5a3','dorm-parapet':'#dcd4c0','dorm-band':'#d5ceba','dorm-glass':'#a8b3a1','dorm-window':'#899789'});
       Object.assign(materials,dark?{'tile-roof':'#696757','stone-wall':'#817b6c','facade-recess':'#50574b','timber':'#4e493d','academic-window':'#626b5d'}:{'tile-roof':'#aaa591','stone-wall':'#ccc5b4','facade-recess':'#989e91','timber':'#958771','academic-window':'#9aa397'});
       const roofMaterial=['roof','tile-roof','dorm-roof'].includes(g.material);
-      const hex=materials[g.material]||materials.roof,accent=this.palette.selected,blend=this.active.has(g.id)?(roofMaterial?.09:.14):this.hovered===g.id?.05:0;
+      const hex=g.extrusion?(this.active.has(g.id)?dark?'#877c60':'#c7ae75':this.palette.building):materials[g.material]||materials.roof;
+      const accent=g.extrusion?this.palette.hover:this.palette.selected,blend=g.extrusion?(this.active.has(g.id)?0:Number(this.states.get(g.id)?.hoverValue||0)):this.active.has(g.id)?(roofMaterial?.09:.14):this.hovered===g.id?.05:0;
       const rgb=[1,3,5].map(i=>(parseInt(hex.slice(i,i+2),16)*(1-blend)+parseInt(accent.slice(i,i+2),16)*blend)/255);
       // A focused cutaway keeps the enclosing sides and fine rim structure.
       // Stacking translucent roof slabs would wash out the selected building
@@ -167,16 +194,16 @@ export class RoofSurfaces implements CustomLayerInterface {
       gl.uniform1f(gl.getUniformLocation(this.program,'u_crown'),['tile-roof','dorm-roof','garden'].includes(g.material)?0:.025);
       const texture=g.material==='dorm-band'||g.material==='dorm-window'||g.material==='academic-window';
       const nearTexture=Math.max(0,Math.min(1,(this.map.getZoom()-16.4)/1.5));
-      gl.uniform4f(gl.getUniformLocation(this.program,'u_color'),rgb[0],rgb[1],rgb[2],ghost?(detail?.17:.045):texture?nearTexture:1);gl.drawArrays(gl.TRIANGLES,g.first,g.count);}
+      gl.uniform4f(gl.getUniformLocation(this.program,'u_color'),rgb[0],rgb[1],rgb[2],ghost?(g.extrusion?height*.18:detail?.17:.045):g.extrusion?height*this.extrusionOpacity:texture?nearTexture:1);gl.drawArrays(gl.TRIANGLES,g.first,g.count);}
     gl.depthMask(false);gl.bindVertexArray(null);
   }
   /** Pick the visible roof triangles, including the raised silhouette. */
   pickHit(x:number,y:number,ignoreId?:string,includeGhost=true):{id:string;depth:number}|undefined {
     if(!this.map||!this.matrix)return;const m=this.matrix,w=this.map.getContainer().clientWidth,h=this.map.getContainer().clientHeight;
     let hit:{id:string;depth:number}|undefined;
-    for(const g of this.groups){if(g.id===ignoreId||!includeGhost&&this.ghost.has(g.id))continue;const b=g.bounds;if(!b||x<b[0]||y<b[1]||x>b[2]||y>b[3])continue;
+    for(const g of this.groups){if(g.id===ignoreId||g.extrusion&&!this.heightFactor||!includeGhost&&this.ghost.has(g.id))continue;const b=g.bounds;if(!b||x<b[0]||y<b[1]||x>b[2]||y>b[3])continue;
       if(!g.screen){const s:number[]=[];
-        for(const face of g.faces){const polygon=projectFace(face,m,w,h,this.heightFactor,this.flatDepthBias);for(let i=1;i<polygon.length-1;i++)s.push(...polygon[0],...polygon[i],...polygon[i+1]);}
+        for(const face of g.faces){const polygon=projectFace(face,m,w,h,g.extrusion?1:this.heightFactor,g.extrusion?0:this.flatDepthBias);for(let i=1;i<polygon.length-1;i++)s.push(...polygon[0],...polygon[i],...polygon[i+1]);}
         g.screen=new Float64Array(s);}
       const s=g.screen;
       for(let k=0;k<s.length;k+=9){

@@ -104,7 +104,7 @@ export class SpatialCampusMap {
       if(this.pendingData){this.pendingData=false;this.source('geography',this.geography());this.source('names',this.names());this.source('sports',(this.data.sports||empty()) as FeatureCollection);}
       this.installGroundFills();
       this.rims=new VolumeEdges(this.data.geography as FeatureCollection,this.palette);this.map.addLayer(this.rims,'route-glow');
-      this.roofs=new RoofSurfaces(this.data.geography as FeatureCollection,this.palette);this.map.addLayer(this.roofs,'volume-rims');
+      this.roofs=new RoofSurfaces(this.data.geography as FeatureCollection,this.palette,this.groundStates,this.direction==='focus'?.3:this.direction==='atlas'?.62:.86);this.map.addLayer(this.roofs,'volume-rims');
       if(!saved&&!this.ownership.interacted)this.fit(this.data.manifest.campusBounds,0,16.2);
       this.updateDetail();this.refreshSelection();this.route(this.routeResult);this.location(this.pendingLocation);
       target.dataset.ready='true';target.dataset.loadMs=(performance.now()-this.started).toFixed(1);callbacks.ready();this.report();
@@ -160,7 +160,7 @@ export class SpatialCampusMap {
     // properties for MapLibre, rather than cloning it just to throw it away.
     const data=collection((this.data.geography as FeatureCollection).features.map(f=>{
       const {surfaceModel,...properties}=f.properties||{};
-      return {...f,geometry:structuredClone(f.geometry),properties:{...structuredClone(properties),...(surfaceModel?{surfaceModel:true}:{}),id:String(f.id)}};
+      return {...f,geometry:structuredClone(f.geometry),properties:{...structuredClone(properties),...(surfaceModel?{surfaceModel:true}:properties.kind==='building'&&Number(properties.heightM)>0?{untiledVolume:true}:{}),id:String(f.id)}};
     }));
     const ids=new Set(data.features.map(f=>String(f.id)));
     for(const f of data.features){f.properties={...f.properties,id:String(f.id)};
@@ -342,8 +342,8 @@ export class SpatialCampusMap {
     this.ghostIds=next;
     this.rims?.update(this.palette,[this.selected,this.origin].filter(Boolean) as string[],next);
     this.roofs?.update(this.palette,[this.selected,this.origin].filter(Boolean) as string[],next,this.hovered);
-    this.map.setFilter('volumes',['all',kind('building'),['!', ['has','surfaceModel']],['>',['coalesce',['get','heightM'],0],0],['!', ['in',['id'],['literal',next]]]]);
-    this.map.setFilter('ghosts',['all',kind('building'),['!', ['has','surfaceModel']],['in',['id'],['literal',next]]]);
+    this.map.setFilter('volumes',['all',kind('building'),['!', ['has','surfaceModel']],['!', ['has','untiledVolume']],['>',['coalesce',['get','heightM'],0],0],['!', ['in',['id'],['literal',next]]]]);
+    this.map.setFilter('ghosts',['all',kind('building'),['!', ['has','surfaceModel']],['!', ['has','untiledVolume']],['in',['id'],['literal',next]]]);
   }
   private updateNameOcclusion(){
     if(!this.loaded||!this.roofs)return;

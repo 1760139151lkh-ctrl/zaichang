@@ -3,7 +3,7 @@ import type { FeatureCollection } from 'geojson';
 import type { MapPalette } from './map-theme';
 import { roofBoundaryEdges } from './mesh-geometry';
 
-/** Thin roof rims at the very same sourced heights as the native extrusion.
+/** Thin roof rims at the very same stored heights as the building volumes.
  * No invented floors, windows or roof plans. Shares the map depth buffer. */
 export class VolumeEdges implements CustomLayerInterface {
   id='volume-rims';type='custom' as const;renderingMode='3d' as const;

@@ -55,7 +55,7 @@ function splitSharedRing(ring: Position[], nodes: SharedFillNode[], id: string):
 /** Triangulate the actual local Float32 draw coordinates, retaining every ring.
  * Native GeoJSON tile rounding can fold a narrow apron and independently
  * simplify opposite sides of the same boundary. These fills do neither.
- * Source geography, native outlines, extrusions and routing stay independent.
+ * Source geography, native outlines, volume heights and routing stay intact.
  */
 export function groundFillPolygons(feature: Feature, sharedNodes: SharedFillNode[] = []): FillPolygon[] {
   const geometry = feature.geometry;
