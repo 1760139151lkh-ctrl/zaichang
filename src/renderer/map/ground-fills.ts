@@ -52,20 +52,24 @@ function splitSharedRing(ring: Position[], nodes: SharedFillNode[], id: string):
   return result;
 }
 
+/** Shared uncut local Float32 rings for ground ink and polygon triangulation. */
+export function groundFillRings(feature: Feature, sharedNodes: SharedFillNode[] = []): XY[][][] {
+  const geometry = feature.geometry;
+  const polygons = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.type === 'MultiPolygon' ? geometry.coordinates : [];
+  return polygons.map(polygon => polygon.map(ring => (sharedNodes.length ? splitSharedRing(ring, sharedNodes, String(feature.id)) : ring).map(p => {
+    if (!p.slice(0, 2).every(Number.isFinite)) throw new Error('Invalid ground coordinate');
+    const q = MercatorCoordinate.fromLngLat([p[0], p[1]]);
+    return [Math.fround(q.x - groundFillOrigin.x), Math.fround(q.y - groundFillOrigin.y)];
+  })));
+}
+
 /** Triangulate the actual local Float32 draw coordinates, retaining every ring.
  * Native GeoJSON tile rounding can fold a narrow apron and independently
  * simplify opposite sides of the same boundary. These fills do neither.
- * Source geography, native outlines, volume heights and routing stay intact.
+ * Source geography, outline geometry, volume heights and routing stay intact.
  */
 export function groundFillPolygons(feature: Feature, sharedNodes: SharedFillNode[] = []): FillPolygon[] {
-  const geometry = feature.geometry;
-  const polygons = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.type === 'MultiPolygon' ? geometry.coordinates : [];
-  return polygons.map(polygon => {
-    const rings: XY[][] = polygon.map(ring => (sharedNodes.length ? splitSharedRing(ring, sharedNodes, String(feature.id)) : ring).map(p => {
-      if (!p.slice(0, 2).every(Number.isFinite)) throw new Error('Invalid ground coordinate');
-      const q = MercatorCoordinate.fromLngLat([p[0], p[1]]);
-      return [Math.fround(q.x - groundFillOrigin.x), Math.fround(q.y - groundFillOrigin.y)];
-    }));
+  return groundFillRings(feature, sharedNodes).map(rings => {
     const holes: number[] = [];
     let count = 0;
     for (const [i, ring] of rings.entries()) {

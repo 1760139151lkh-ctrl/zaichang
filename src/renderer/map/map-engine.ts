@@ -13,6 +13,7 @@ import { cartographyLayers, type MapDirection } from './cartography';
 import { VolumeEdges } from './volume-edges';
 import { RoofSurfaces } from './roof-surfaces';
 import { GroundFill } from './ground-fills';
+import { GroundStroke,groundStrokeLayers } from './ground-strokes';
 import { endpointCaptionGap, mapFitInsets, measureCaptions, type FitInsets } from './fit-layout';
 import { nativeCaptionBounds } from './native-caption-bounds';
 import { labelAnchors as makeLabelAnchors,type LabelAnchor } from './label-anchors';
@@ -70,6 +71,7 @@ export class SpatialCampusMap {
   private rims?:VolumeEdges;
   private roofs?:RoofSurfaces;
   private groundFills=new Map<string,GroundFill>();
+  private groundStrokes=new Map<string,GroundStroke>();
   private groundStates=new Map<string,Record<string,boolean|number>>();
   private labelAnchors=new Map<string,LabelAnchor>();
   private labelMode:'ground'|'roof'|'callout'='roof';
@@ -102,9 +104,8 @@ export class SpatialCampusMap {
       if(this.disposed)return;
       this.loaded=true;
       if(this.pendingData){this.pendingData=false;this.source('geography',this.geography());this.source('names',this.names());this.source('sports',(this.data.sports||empty()) as FeatureCollection);}
-      this.installGroundFills();
-      this.rims=new VolumeEdges(this.data.geography as FeatureCollection,this.palette);this.map.addLayer(this.rims,'route-glow');
-      this.roofs=new RoofSurfaces(this.data.geography as FeatureCollection,this.palette,this.groundStates,this.direction==='focus'?.3:this.direction==='atlas'?.62:.86);this.map.addLayer(this.roofs,'volume-rims');
+      this.installGroundLayers();
+      this.installSurfaces();
       if(!saved&&!this.ownership.interacted)this.fit(this.data.manifest.campusBounds,0,16.2);
       this.updateDetail();this.refreshSelection();this.route(this.routeResult);this.location(this.pendingLocation);
       target.dataset.ready='true';target.dataset.loadMs=(performance.now()-this.started).toFixed(1);callbacks.ready();this.report();
@@ -113,8 +114,25 @@ export class SpatialCampusMap {
     this.map.on('move',()=>{this.lastCameraMove=performance.now();this.updateDetail();this.report();});
     this.map.on('moveend',()=>this.scheduleOcclusion());
     this.map.on('error',e=>{target.dataset.lastError=String(e.error?.message||e.error);if(!this.loaded)callbacks.error?.('地图绘制资源未能载入；可以重新载入。');});
-    this.map.on('webglcontextlost',()=>{target.dataset.context='lost';});
-    this.map.on('webglcontextrestored',()=>{target.dataset.context='restored';this.map.triggerRepaint();});
+    this.map.on('webglcontextlost',()=>{this.loaded=false;target.dataset.context='lost';target.dataset.ready='false';});
+    this.map.on('webglcontextrestored',()=>{
+      if(this.disposed)return;
+      target.dataset.context='restoring';
+      // MapLibre rebuilds its serialized style, which cannot retain custom
+      // layers. Rebind the current public snapshot without changing the camera.
+      this.map.once('style.load',()=>{
+        if(this.disposed)return;
+        this.loaded=true;this.pendingData=false;this.volumeOpacity=-1;this.labelsRaised=undefined;this.labelOcclusionKey='';this.hiddenNames.clear();
+        // The rebuilt sources also lost their derived cutaway feature state.
+        // Recompute it even when the visible occluder IDs stay the same.
+        this.ghostIds=[];
+        this.installGroundLayers();this.installSurfaces();
+        for(const [id,state] of this.groundStates)this.map.setFeatureState({source:'geography',id},state);
+        this.refreshSelection();this.route(this.routeResult);this.location(this.pendingLocation);
+        target.dataset.context='restored';target.dataset.ready='true';this.report();
+      });
+      this.map.setStyle(this.style(),{diff:false});
+    });
     const take=()=>{target.focus({preventScroll:true});this.takeControl();callbacks.user();this.hover(undefined);};
     target.addEventListener('pointerdown',take,{capture:true});
     const wheel=(e:WheelEvent)=>{
@@ -171,27 +189,32 @@ export class SpatialCampusMap {
     for(const p of this.points.values())if(!ids.has(p.id)&&p.personal)data.features.push({...point(p.coordinate,{kind:'reference',name:p.displayName,scope:'campus'}),id:p.id});
     return data;
   }
-  private style(includeNativeGroundFills=false):ml.StyleSpecification {
+  private style(includeNativeGroundLayers=false):ml.StyleSpecification {
     const p=this.palette,selected:any=['any',['boolean',['feature-state','selected'],false],['boolean',['feature-state','origin'],false]],hovered:any=['boolean',['feature-state','hover'],false];
     const sports=this.data.sports as FeatureCollection||empty();
-    const layers=cartographyLayers(p,this.direction).filter(layer=>includeNativeGroundFills||layer.type!=='fill'||!['geography','sports'].includes(layer.source));
+    const layers=cartographyLayers(p,this.direction).filter(layer=>includeNativeGroundLayers||!((layer.type==='fill'&&['geography','sports'].includes(layer.source))||groundStrokeLayers.has(layer.id)));
     return {version:8,'font-faces':{Campus:latinFont},light:{anchor:'map',color:'#fff6e8',intensity:.42,position:[1.25,225,45]},sources:{geography:{type:'geojson',data:this.geography(),promoteId:'id',tolerance:.02,maxzoom:20},sports:{type:'geojson',data:sports,tolerance:.02,maxzoom:20},names:{type:'geojson',data:this.names(),promoteId:'id'},route:{type:'geojson',data:empty(),tolerance:0},selection:{type:'geojson',data:empty()},preview:{type:'geojson',data:empty(),tolerance:0},reveal:{type:'geojson',data:empty(),tolerance:0},entrances:{type:'geojson',data:empty()},location:{type:'geojson',data:empty()}},layers};
   }
-  private installGroundFills(){
+  private installGroundLayers(){
     const layers=cartographyLayers(this.palette,this.direction);
     for(const [i,specification] of layers.entries()){
-      if(specification.type!=='fill'||!['geography','sports'].includes(specification.source))continue;
-      const data=(specification.source==='geography'?this.data.geography:this.data.sports||empty()) as FeatureCollection;
-      const fill=new GroundFill(specification,data,this.groundStates);
-      const before=layers.slice(i+1).map(layer=>this.groundFills.get(layer.id)?.id||layer.id).find(id=>this.map.getLayer(id));
-      const previous=this.groundFills.get(specification.id);
+      const fill=specification.type==='fill'&&['geography','sports'].includes(specification.source),stroke=specification.type==='line'&&groundStrokeLayers.has(specification.id);
+      if(!fill&&!stroke)continue;
+      const data=(specification.source==='geography'?this.data.geography:specification.source==='sports'?this.data.sports||empty():empty()) as FeatureCollection;
+      const layer=fill?new GroundFill(specification as ml.FillLayerSpecification,data,this.groundStates):new GroundStroke(specification as ml.LineLayerSpecification,data,this.groundStates);
+      const before=layers.slice(i+1).map(layer=>this.groundFills.get(layer.id)?.id||this.groundStrokes.get(layer.id)?.id||layer.id).find(id=>this.map.getLayer(id));
+      const previous=this.groundFills.get(specification.id)||this.groundStrokes.get(specification.id);
       if(previous&&this.map.getLayer(previous.id))this.map.removeLayer(previous.id);
-      this.map.addLayer(fill,before);this.groundFills.set(specification.id,fill);
+      this.map.addLayer(layer,before);if(fill)this.groundFills.set(specification.id,layer as GroundFill);else this.groundStrokes.set(specification.id,layer as GroundStroke);
     }
     this.target.dataset.groundRenderer='untiled-float32';
   }
-  private applyTheme(){const next=this.style(true);this.volumeOpacity=-1;for(const layer of next.layers){const fill=this.groundFills.get(layer.id);if(fill&&layer.type==='fill')fill.updateStyle(layer);else for(const [key,value] of Object.entries(layer.paint||{}))this.map.setPaintProperty(layer.id,key as Parameters<ml.Map['setPaintProperty']>[1],value);}this.map.setLight(next.light!);this.refreshSelection();this.updateDetail(true);}
-  private source(name:string,data:FeatureCollection){if(this.loaded&&!this.disposed)(this.map.getSource(name) as ml.GeoJSONSource)?.setData(data);}
+  private installSurfaces(){
+    this.rims=new VolumeEdges(this.data.geography as FeatureCollection,this.palette);this.map.addLayer(this.rims,'route-glow');
+    this.roofs=new RoofSurfaces(this.data.geography as FeatureCollection,this.palette,this.groundStates,this.direction==='focus'?.3:this.direction==='atlas'?.62:.86);this.map.addLayer(this.roofs,'volume-rims');
+  }
+  private applyTheme(){const next=this.style(true);this.volumeOpacity=-1;for(const layer of next.layers){const fill=this.groundFills.get(layer.id),stroke=this.groundStrokes.get(layer.id);if(fill&&layer.type==='fill')fill.updateStyle(layer);else if(stroke&&layer.type==='line')stroke.updateStyle(layer);else for(const [key,value] of Object.entries(layer.paint||{}))this.map.setPaintProperty(layer.id,key as Parameters<ml.Map['setPaintProperty']>[1],value);}this.map.setLight(next.light!);this.refreshSelection();this.updateDetail(true);}
+  private source(name:string,data:FeatureCollection){if(this.loaded&&!this.disposed){(this.map.getSource(name) as ml.GeoJSONSource)?.setData(data);if(name==='selection')this.groundStrokes.get('selected-shore')?.updateData(data);}}
   private hit(pixel:ml.Point,tolerance=0):MapPoint[]{
     if(!this.loaded)return [];
     const query=tolerance?[[pixel.x-tolerance,pixel.y-tolerance],[pixel.x+tolerance,pixel.y+tolerance]]:pixel;
@@ -226,7 +249,7 @@ export class SpatialCampusMap {
     }
     return ids.map(id=>this.points.get(id)!).sort((a,b)=>Number(b.kind==='building')-Number(a.kind==='building'));
   }
-  private state(id:string|undefined,value:Record<string,boolean|number>){if(id&&this.loaded){this.groundStates.set(id,{...this.groundStates.get(id),...value});this.map.setFeatureState({source:'geography',id},value);}}
+  private state(id:string|undefined,value:Record<string,boolean|number>){if(id&&!this.disposed){this.groundStates.set(id,{...this.groundStates.get(id),...value});if(this.loaded)this.map.setFeatureState({source:'geography',id},value);}}
   private hover(p?:MapPoint){
     if(p?.id===this.hovered)return;clearTimeout(this.timer);this.callbacks.hover(undefined);
     if(this.hovered){this.state(this.hovered,{hover:false});const v=this.hoverMotion.get(this.hovered)?.value||0;this.hoverMotion.set(this.hovered,{value:v,target:0});}
@@ -268,10 +291,12 @@ export class SpatialCampusMap {
     this.stopReveal();this.source('preview',empty());
     for(const id of ['roof-surfaces','volume-rims'])if(this.map.getLayer(id))this.map.removeLayer(id);
     this.source('geography',this.geography());this.source('names',this.names());this.source('sports',(data.sports||empty()) as FeatureCollection);
-    this.installGroundFills();
-    this.rims=new VolumeEdges(data.geography as FeatureCollection,this.palette);this.map.addLayer(this.rims,'route-glow');
-    this.roofs=new RoofSurfaces(data.geography as FeatureCollection,this.palette);this.map.addLayer(this.roofs,'volume-rims');
-    this.refreshSelection();this.updateDetail(true);this.updateOcclusion();
+    this.installGroundLayers();
+    this.installSurfaces();
+    this.refreshSelection();this.updateDetail(true);
+    // Source tiles and the replacement surfaces need their first render before
+    // silhouette picking can refine the existing route cutaway.
+    this.map.once('idle',()=>{if(this.disposed)return;this.updateOcclusion();this.updateNameOcclusion();this.map.triggerRepaint();});
   }
   route(result?:MapRouteResult){
     this.routeResult=result;this.target.dataset.routeStatus=result?.status||'idle';this.source('preview',empty());
@@ -332,6 +357,8 @@ export class SpatialCampusMap {
     this.occlusionTimer=setTimeout(()=>{if(this.disposed)return;if(this.map.isMoving()){this.scheduleOcclusion();return;}this.updateOcclusion();this.updateNameOcclusion();this.map.triggerRepaint();},120);
   }
   private updateOcclusion(){
+    if(!this.loaded)return;
+    if(!this.roofs?.cameraKey){this.scheduleOcclusion();return;}
     if(this.map.isMoving()||performance.now()-this.lastCameraMove<110){this.scheduleOcclusion();return;}
     if(!this.loaded||this.disposed)return;const coords=this.routeResult?.status==='ready'?this.routeResult.coordinates:[];const ids=new Set<string>();
     if(this.map.getPitch()>5)for(let i=0;i<coords.length;i+=Math.max(1,Math.floor(coords.length/70))){const pixel=this.map.project(coords[i]);for(const f of this.map.queryRenderedFeatures(pixel,{layers:['volumes','ghosts']}))ids.add(String(f.properties.id||f.id));const roof=this.roofs?.pick(pixel.x,pixel.y);if(roof)ids.add(roof);}

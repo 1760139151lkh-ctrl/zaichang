@@ -37,7 +37,8 @@ import { WindowControls } from '../ui';
 
 const api = window.zaichang;
 let dataCache: MapData | undefined;
-let savedCamera: SavedCamera | undefined;
+let savedCamera: SavedCamera | undefined = import.meta.hot?.data.campusMapCamera;
+import.meta.hot?.dispose((data)=>{data.campusMapCamera=savedCamera;});
 let savedSelection: SelectionState | undefined;
 let entered = false;
 let sessionLocationEnabled = true;
@@ -147,6 +148,7 @@ export function MapSheet({
   const [pitch,setPitch]=useState(savedCamera?.pitch||0),[spaceControls,setSpaceControls]=useState(false),[preview,setPreview]=useState<number|undefined>(),[routeDetails,setRouteDetails]=useState(false),[collapsed,setCollapsed]=useState(false),[entrances,setEntrances]=useState(false);
   const [selectionNotice,setSelectionNotice]=useState('');
   const reviewRouteFramed = useRef(false);
+  const appliedReviewScene=useRef<typeof reviewScene>(undefined);
   const pitchValue=useRef(pitch);
   const [location, setLocation] = useState<LocationStatusResult>({
     status: 'idle',
@@ -340,6 +342,8 @@ export function MapSheet({
   }, [engineReady, selection.route, reviewScene]);
   useEffect(() => {
     if (!engineReady || !reviewScene || !engine.current) return;
+    if(appliedReviewScene.current===reviewScene)return;
+    appliedReviewScene.current=reviewScene;
     const current = engine.current;
     if ((reviewScene === 'oblique' || reviewScene === 'building-focus') && current.supportsSpace) {
       current.setPitch(42); current.rotate(-Math.PI / 12, false);
