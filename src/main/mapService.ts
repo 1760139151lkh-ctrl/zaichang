@@ -13,7 +13,7 @@ import {
 import { WalkingGraph, metersBetween, classifyFix, inBounds } from '../shared/map-routing';
 import { fromLocal, toLocal, personalAccess } from './mapProfile';
 import { rankMapPoints } from '../shared/map-names';
-import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, routeConditionWarning } from '../shared/map-v3';
+import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, retainPublishedPlaceAccessConditions, routeConditionWarning } from '../shared/map-v3';
 export class CampusMapAdapter {
   private manifest: MapOverview;
   private points: MapPoint[];
@@ -104,6 +104,7 @@ export class CampusMapAdapter {
         this.points = [];
         throw new Error('places');
       }
+      this.points=retainPublishedPlaceAccessConditions(this.points);
       const recordedGraph: MapGraph = read('network.json');
       const graph = retainBridgeStatusConditions(recordedGraph,this.geography);
       this.baseGraph=graph;

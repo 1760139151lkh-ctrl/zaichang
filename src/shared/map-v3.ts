@@ -1,4 +1,4 @@
-import type { LngLat,MapOverview,MapPoint,MapGraph } from './map-v2';
+import type { LngLat,MapOverview,MapPoint,MapGraph,MapAccessCandidate } from './map-v2';
 
 type DetailFeature = { id?: string | number; properties: Record<string, unknown> | null };
 export const bridgeStatusUnverified = 'bridge_status_unverified';
@@ -15,6 +15,32 @@ export function retainBridgeStatusConditions<T extends MapGraph>(graph:T,geograp
   }).map(feature=>String(feature.id)));
   return {...graph,edges:graph.edges.map(edge=>uncertain.has(edge.way)&&!edge.conditions?.includes(bridgeStatusUnverified)
     ? {...edge,conditions:[...(edge.conditions||[]),bridgeStatusUnverified]}:edge)};
+}
+
+/** Published gate restrictions remain uncertain until a reopening is verified.
+ * Expected completion, including possible early completion, is not that receipt.
+ * These named-place observations do not assign construction extents to roads.
+ */
+export const publishedPlaceAccessUncertainty = [{
+  placeId:'official/hotmap_221027.1264',
+  name:'东一门（游泳馆门）',
+  sourceUrl:'http://www.zwc.zju.edu.cn/2026/0930/c22012a3210902/page.htm',
+  publishedDate:'2026-09-30',scheduledStart:'2026-10-01',expectedCompletion:'2026-10-11',
+  conditions:['gate_opening_unverified'],
+}] as const;
+
+export function retainPublishedPlaceAccessConditions(points:MapPoint[]):MapPoint[] {
+  return points.map(point=>{
+    const observation=publishedPlaceAccessUncertainty.find(item=>item.placeId===point.id);
+    if(!observation)return point;
+    const candidates:MapAccessCandidate[]=point.accessCandidates??point.entrances.filter(e=>e.connected).map(e=>({
+      id:'entrance/'+e.id,nodeId:e.id,kind:'entrance',name:e.name,coordinate:e.coordinate,
+      coordinates:[e.coordinate],meters:0,source:e.source,
+    }));
+    return {...point,accessCandidates:candidates.map(candidate=>({...candidate,
+      conditions:[...new Set([...(candidate.conditions||[]),...observation.conditions])],
+    }))};
+  });
 }
 
 /** Explain the actual assumptions used by an edge or selected access point.
