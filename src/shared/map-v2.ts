@@ -133,6 +133,7 @@ export interface GraphEdge {
   buildingPassage?: boolean;
   reviewedApproach?: boolean;
   oneway: boolean;
+  foot?: string;
   conditions?: string[];
   sourceEdge?: string;
 }

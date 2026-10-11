@@ -17,6 +17,22 @@ export function retainBridgeStatusConditions<T extends MapGraph>(graph:T,geograp
     ? {...edge,conditions:[...(edge.conditions||[]),bridgeStatusUnverified]}:edge)};
 }
 
+/** Current source access applies only to the traced, unchanged source segments.
+ * A known foot prohibition cannot be opened by an unknown-passage hypothesis.
+ * Keep the original edges, coordinates and weights for provenance and display.
+ */
+export const publishedFootRestrictions = [{
+  way:'way/588262375',foot:'no',version:6,sourceTimestamp:'2026-09-29T08:04:59Z',
+  sourceUrl:'https://api.openstreetmap.org/api/0.6/way/588262375.json',
+  sourceSegments:['way/588262375:0','way/588262375:1','way/588262375:2','way/588262375:3'],
+}] as const;
+
+export function retainPublishedFootRestrictions<T extends MapGraph>(graph:T):T {
+  return {...graph,edges:graph.edges.map(edge=>publishedFootRestrictions.some(observation=>
+    observation.way===edge.way&&(observation.sourceSegments as readonly string[]).includes(edge.sourceEdge||edge.id))
+      ? {...edge,foot:'no'}:edge)};
+}
+
 /** Published gate restrictions remain uncertain until a reopening is verified.
  * Expected completion, including possible early completion, is not that receipt.
  * These named-place observations do not assign construction extents to roads.
