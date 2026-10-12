@@ -8,11 +8,17 @@ export function rankMapPoints(points:MapPoint[],query:string){
   const text=query.trim(),normalized=normalizeMapName(text);
   // A category/unit query can normalize to nothing. Match its literal words
   // instead of treating it as the empty browse query.
-  const normalize=normalized||!text?normalizeMapName:(value:string)=>value.trim().toLowerCase();
+  const literalCategory=!normalized&&!!text;
+  const normalize=literalCategory?(value:string)=>value.trim().toLowerCase():normalizeMapName;
   const q=normalized||text.toLowerCase();
   return points.filter(p=>!p.historicalReference||!!p.personal||p.id===query).map(p=>{
     const names=[p.displayName,...p.aliases].map(normalize);
-    const score=p.id===query?1000:normalize(p.displayName)===q?200:names.includes(q)?180:names.some(n=>n.startsWith(q))?100:names.some(n=>n.includes(q))?50:0;
+    const display=normalize(p.displayName);
+    // Specific public names lead category results; descriptor-only names and
+    // alias-only matches remain available without taking their place.
+    const score=p.id===query?1000:literalCategory
+      ?display.includes(q)?normalizeMapName(p.displayName)?200:100:names.some(n=>n.includes(q))?50:0
+      :display===q?200:names.includes(q)?180:names.some(n=>n.startsWith(q))?100:names.some(n=>n.includes(q))?50:0;
     return {p,score};
   }).filter(v=>v.score>0).sort((a,b)=>b.score-a.score||a.p.displayName.localeCompare(b.p.displayName,'zh-CN')).map(v=>v.p);
 }
