@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import {
   emptyRoute,
+  mapPointEndpoint,
   type MapCard,
   type MapPoint,
   type MapRouteResult,
@@ -394,12 +395,12 @@ export function MapSheet({
     dispatch({ type: 'loading', revision });
     const from =
       selection.mode === 'two' && selection.origin
-        ? { kind: 'place' as const, id: selection.origin.id }
+        ? mapPointEndpoint(selection.origin)
         : selection.mode === 'current' && locationRef.current.status === 'fresh'
           ? { kind: 'current' as const }
           : undefined;
     api
-      .mapRoute({ from, to: { kind: 'place', id: selection.destination.id }, version: data.manifest.version, profileRevision:data.manifest.profileRevision, avoidStairs:selection.avoidStairs,allowConditional:selection.allowConditional,originAccessId:selection.originAccessId,destinationAccessId:selection.destinationAccessId })
+      .mapRoute({ from, to: mapPointEndpoint(selection.destination), version: data.manifest.version, profileRevision:data.manifest.profileRevision, avoidStairs:selection.avoidStairs,allowConditional:selection.allowConditional,originAccessId:selection.originAccessId,destinationAccessId:selection.destinationAccessId })
       .then((route) => {
         if (!current || !alive.current) return;
         if(route.source.version && route.source.version!==data.manifest.version)return;
@@ -797,7 +798,7 @@ export function MapSheet({
             </div>
           )
         )}
-        {selection.mode==='browse' && p && <section className="campus-v3-place campus-v2-route campus-v2-obstruction" aria-label="地点详情"><div><strong>{p.displayName}</strong><button aria-label="收起地点详情" onClick={()=>setCollapsed(!collapsed)}>{collapsed?'展开':'收起'}</button></div>{!collapsed&&<><p>{p.roadReference?'已记录道路上的参考点；楼门仍待核实':p.kind==='water'?'水域仅供浏览；选岸边地点可比较路线':p.kind==='facility'?'场馆与相邻道路':p.geometryStatus==='reference-point'?(p.modelBasis?'建筑形态为示意；地面位置与入口待核实':p.source.url==='local-personal-profile'||p.personal?.referencePoint?'个人标记的位置；具体入口待核实':'官方参考位置，建筑轮廓尚未对应'):p.entrances.some(e=>e.connected)?'有已记录入口，可直接比较路线':p.accessCandidates?.length?'可以查看到附近的路线；实际门待核实':'入口位置尚待核实'}</p><div className="campus-v2-route-actions">{p.kind==='water'?<button onClick={()=>{user();dispatch({type:'two'});}}>选择岸边起点</button>:<><button onClick={()=>{user();dispatch({type:'two'});}}>从这里选路</button><button onClick={()=>{user();dispatch({type:'current'});}}>从本机位置出发</button>{p.entrances.length>0&&<button onClick={()=>{setEntrances(!entrances);engine.current?.showEntrances(!entrances);}}>{entrances?'收起入口':'查看入口'}</button>}</>}</div>{venue&&<details className="campus-v3-venue"><summary>跑道与场地资料</summary><p>{venue.nominalLapBasis}</p><p>{venue.lapBasis}</p><p>{venue.markingBasis}</p><p>{venue.laneBasis}</p><p>{venue.displayBasis}</p><small>未记录跑步，不生成圈数或完成状态。</small></details>}{p.waterBasis&&<details className="campus-v3-venue"><summary>水域与岸线资料</summary><p>{p.waterBasis}</p></details>}{(p.modelBasis||p.sourceCorrection)&&<details className="campus-v3-venue"><summary>{p.modelBasis?"建筑形态与资料":"场地资料"}</summary>{p.modelBasis&&<p>{p.modelBasis}</p>}{p.sourceCorrection&&<p>{p.sourceCorrection.basis}</p>}</details>}{p.personal?.note&&<p>{p.personal.note}</p>}</>}</section>}
+        {selection.mode==='browse' && p && <section className="campus-v3-place campus-v2-route campus-v2-obstruction" aria-label="地点详情"><div><strong>{p.displayName}</strong><button aria-label="收起地点详情" onClick={()=>setCollapsed(!collapsed)}>{collapsed?'展开':'收起'}</button></div>{!collapsed&&<>{!p.graphNodeId&&<p>{p.roadReference?'已记录道路上的参考点；楼门仍待核实':p.kind==='water'?'水域仅供浏览；选岸边地点可比较路线':p.kind==='facility'?'场馆与相邻道路':p.geometryStatus==='reference-point'?(p.modelBasis?'建筑形态为示意；地面位置与入口待核实':p.source.url==='local-personal-profile'||p.personal?.referencePoint?'个人标记的位置；具体入口待核实':'官方参考位置，建筑轮廓尚未对应'):p.entrances.some(e=>e.connected)?'有已记录入口，可直接比较路线':p.accessCandidates?.length?'可以查看到附近的路线；实际门待核实':'入口位置尚待核实'}</p>}<div className="campus-v2-route-actions">{p.kind==='water'?<button onClick={()=>{user();dispatch({type:'two'});}}>选择岸边起点</button>:<><button onClick={()=>{user();dispatch({type:'two'});}}>从这里选路</button><button onClick={()=>{user();dispatch({type:'current'});}}>从本机位置出发</button>{p.entrances.length>0&&<button onClick={()=>{setEntrances(!entrances);engine.current?.showEntrances(!entrances);}}>{entrances?'收起入口':'查看入口'}</button>}</>}</div>{venue&&<details className="campus-v3-venue"><summary>跑道与场地资料</summary><p>{venue.nominalLapBasis}</p><p>{venue.lapBasis}</p><p>{venue.markingBasis}</p><p>{venue.laneBasis}</p><p>{venue.displayBasis}</p><small>未记录跑步，不生成圈数或完成状态。</small></details>}{p.waterBasis&&<details className="campus-v3-venue"><summary>水域与岸线资料</summary><p>{p.waterBasis}</p></details>}{(p.modelBasis||p.sourceCorrection)&&<details className="campus-v3-venue"><summary>{p.modelBasis?"建筑形态与资料":"场地资料"}</summary>{p.modelBasis&&<p>{p.modelBasis}</p>}{p.sourceCorrection&&<p>{p.sourceCorrection.basis}</p>}</details>}{p.personal?.note&&<p>{p.personal.note}</p>}</>}</section>}
         {selection.mode!=='browse' && (p || selection.origin || selection.mode === 'two') && (
           <section
             className="campus-v2-route campus-v2-obstruction"

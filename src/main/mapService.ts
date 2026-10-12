@@ -13,7 +13,7 @@ import {
 import { WalkingGraph, metersBetween, classifyFix, inBounds } from '../shared/map-routing';
 import { fromLocal, toLocal, personalAccess } from './mapProfile';
 import { rankMapPoints } from '../shared/map-names';
-import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, retainPublishedFootRestrictions, retainPublishedPlaceAccessConditions, routeConditionWarning } from '../shared/map-v3';
+import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, retainPublishedFootRestrictions, retainPublishedRoadCorrespondenceConditions, retainPublishedPlaceAccessConditions, routeConditionWarning } from '../shared/map-v3';
 export class CampusMapAdapter {
   private manifest: MapOverview;
   private points: MapPoint[];
@@ -106,7 +106,7 @@ export class CampusMapAdapter {
       }
       this.points=retainPublishedPlaceAccessConditions(this.points);
       const recordedGraph: MapGraph = read('network.json');
-      const graph = retainPublishedFootRestrictions(retainBridgeStatusConditions(recordedGraph,this.geography));
+      const graph = retainPublishedFootRestrictions(retainPublishedRoadCorrespondenceConditions(retainBridgeStatusConditions(recordedGraph,this.geography)));
       this.baseGraph=graph;
       if (graph.version !== this.manifest.version) throw new Error('version');
       walking = new WalkingGraph(graph);
@@ -254,21 +254,25 @@ export class CampusMapAdapter {
       if (!n) return;
       return {
         id: `node/${n.id}`,
-        displayName: n.name || '已确认的道路点',
+        graphNodeId: n.id,
+        displayName: n.name || '道路点',
+        roadReference: {nodeId:n.id,roadName:n.name||this.walking.adjacency.get(n.id)?.find(e=>e.edge.name)?.edge.name||'道路点',forPlaceIds:[]},
         aliases: [],
         kind: 'node',
         coordinate: n.coordinate,
         bounds: [...n.coordinate, ...n.coordinate],
-        entrances: [
-          {
-            id: n.id,
+        entrances: [],
+        accessCandidates: [{
+            id: 'entrance/'+n.id,
+            nodeId: n.id,
+            kind: 'road-point',
             name: n.name || '道路点',
             coordinate: n.coordinate,
-            connected: true,
-            source: `https://www.openstreetmap.org/node/${n.id}`,
-          },
-        ],
-        source: { url: `https://www.openstreetmap.org/node/${n.id}` },
+            coordinates: [n.coordinate],
+            meters: 0,
+            source: /^\d+$/.test(n.id)?`https://www.openstreetmap.org/node/${n.id}`:'local-derived-map-node',
+        }],
+        source: /^\d+$/.test(n.id)?{url:`https://www.openstreetmap.org/node/${n.id}`}:{url:'local-derived-map-node',featureId:`${this.manifest.version}/node/${n.id}`},
         geometryStatus: 'mapped',
       };
     }

@@ -60,6 +60,22 @@ export function measureCaptions(texts: string[], layout: CaptionLayout): FitInse
   return captionInsets(texts, layout, text => measurement?.measureText(text).width ?? Array.from(text).length * layout.size);
 }
 
+/** Keep both endpoint names clear of the other name and marker. Retain the
+ * current side while it is clear so rotating a route does not flip its text.
+ */
+export function pairedCaptionSides(points:{pixel:number[];name:string}[],layout:CaptionLayout,current=[false,false]):boolean[] {
+  if(points.length!==2)return [false,false];
+  const sizes=points.map(p=>measureCaptions([p.name],{...layout,offsetY:0,marker:0,anchor:'bottom'}));
+  const boxes=(sides:boolean[])=>points.map(({pixel:[x,y]},i)=>{
+    const s=sizes[i],gap=endpointCaptionGap,pad=layout.padding;
+    return [x-s.left,sides[i]?y+gap-pad:y-gap-s.top,x+s.right,sides[i]?y+gap+s.top:y-gap+pad];
+  });
+  const intersects=(a:number[],b:number[])=>a[0]<b[2]&&a[2]>b[0]&&a[1]<b[3]&&a[3]>b[1];
+  const markers=points.map(({pixel:[x,y]})=>[x-layout.marker,y-layout.marker,x+layout.marker,y+layout.marker]);
+  const clear=(sides:boolean[])=>{const b=boxes(sides);return !intersects(b[0],b[1])&&!intersects(b[0],markers[1])&&!intersects(b[1],markers[0]);};
+  return [current,[false,false],[false,true],[true,false],[true,true]].find(clear)||current;
+}
+
 export function wrapCaption(text: string, font: string, size: number, maxWidthEm: number) {
   measurement ??= document.createElement('canvas').getContext('2d');
   if (measurement) measurement.font = font;

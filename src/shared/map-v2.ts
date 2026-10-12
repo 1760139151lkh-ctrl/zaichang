@@ -23,6 +23,7 @@ export interface MapAccessCandidate {
 }
 export interface MapPoint {
   id: string;
+  graphNodeId?: string;
   displayName: string;
   aliases: string[];
   scope?: 'campus' | 'context';
@@ -102,6 +103,13 @@ export interface LocationStatusResult {
   phoneConnected: false;
 }
 export type MapEndpoint = { kind: 'place' | 'node'; id: string } | { kind: 'current'; fix?: LocationFix };
+/** Retain explicit graph endpoints when a route is reopened in the map. */
+export function mapPointEndpoint(point:MapPoint):MapEndpoint {
+  const legacyNode=point.kind==='node'&&!point.scope&&!point.personal&&point.id.startsWith('node/')
+    &&point.entrances.some(e=>e.connected&&e.id===point.id.slice(5));
+  const id=point.graphNodeId||(legacyNode?point.id.slice(5):undefined);
+  return id&&point.id===`node/${id}`?{kind:'node',id}:{kind:'place',id:point.id};
+}
 export interface MapRouteQuery {
   from?: MapEndpoint;
   to?: MapEndpoint;

@@ -33,6 +33,44 @@ export function retainPublishedFootRestrictions<T extends MapGraph>(graph:T):T {
       ? {...edge,foot:'no'}:edge)};
 }
 
+/** The retained snapshot no longer matches these published node pairs or
+ * coordinates. This is unresolved correspondence, not evidence of closure.
+ * Segment IDs refer to the retained source version, not the new way's indices.
+ * Other segments, including unchanged pairs moved into another way, remain.
+ */
+export const publishedRoadCorrespondenceUncertainty = [{
+  way:'way/30529763',version:3,sourceTimestamp:'2026-09-11T02:00:02Z',
+  sourceUrl:'https://api.openstreetmap.org/api/0.6/way/30529763.json',
+  retainedSourceSegments:['way/30529763:11','way/30529763:12','way/30529763:13'],
+},{
+  way:'way/414673393',version:3,sourceTimestamp:'2026-09-11T02:00:02Z',
+  sourceUrl:'https://api.openstreetmap.org/api/0.6/way/414673393.json',
+  retainedSourceSegments:['way/414673393:5','way/414673393:6'],
+},{
+  way:'way/414673399',version:2,sourceTimestamp:'2026-09-11T02:00:02Z',
+  sourceUrl:'https://api.openstreetmap.org/api/0.6/way/414673399.json',
+  retainedSourceSegments:['way/414673399:2','way/414673399:3'],
+},{
+  way:'way/519457904',version:10,sourceTimestamp:'2026-09-24T05:58:11Z',
+  sourceUrl:'https://api.openstreetmap.org/api/0.6/way/519457904.json',
+  retainedSourceSegments:['way/519457904:2'],
+},{
+  way:'way/588262373',version:6,sourceTimestamp:'2026-09-28T08:41:52Z',
+  sourceUrl:'https://api.openstreetmap.org/api/0.6/way/588262373.json',
+  retainedSourceSegments:['way/588262373:11'],
+}] as const;
+
+export const roadCorrespondenceUnverified = 'road_correspondence_unverified';
+export function retainPublishedRoadCorrespondenceConditions<T extends MapGraph>(graph:T):T {
+  // These segment indices belong to this snapshot. A regenerated graph needs
+  // its own correspondence review rather than inheriting the old indices.
+  if(graph.version!=='campus-v3-821201a9341b6e41')return graph;
+  return {...graph,edges:graph.edges.map(edge=>publishedRoadCorrespondenceUncertainty.some(observation=>
+    observation.way===edge.way&&(observation.retainedSourceSegments as readonly string[]).includes(edge.sourceEdge||edge.id))
+      &&!edge.conditions?.includes(roadCorrespondenceUnverified)
+        ? {...edge,conditions:[...(edge.conditions||[]),roadCorrespondenceUnverified]}:edge)};
+}
+
 /** Published gate restrictions remain uncertain until a reopening is verified.
  * Expected completion, including possible early completion, is not that receipt.
  * These named-place observations do not assign construction extents to roads.

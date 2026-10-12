@@ -14,7 +14,7 @@ import { VolumeEdges } from './volume-edges';
 import { RoofSurfaces } from './roof-surfaces';
 import { GroundFill } from './ground-fills';
 import { GroundStroke,groundStrokeLayers } from './ground-strokes';
-import { endpointCaptionGap, mapFitInsets, mapLabelObstructions, observeLabelObstructions, measureCaptions, type FitInsets } from './fit-layout';
+import { endpointCaptionGap, pairedCaptionSides, mapFitInsets, mapLabelObstructions, observeLabelObstructions, measureCaptions, type FitInsets } from './fit-layout';
 import { nativeCaptionBounds } from './native-caption-bounds';
 import { labelAnchors as makeLabelAnchors,type LabelAnchor } from './label-anchors';
 import {namedWaterAreas,namedWaterShores,namedWaterHit} from './named-water';
@@ -49,6 +49,9 @@ export class SpatialCampusMap {
   private disposed=false;
   private selected?:string;
   private origin?:string;
+  private selectionPoints=new Map<string,MapPoint>();
+  private captionEntries:Feature[]=[];
+  private captionSides:boolean[]=[false,false];
   private routeRoles=true;
   private hovered?:string;
   private hoverFrame=0;
@@ -114,7 +117,7 @@ export class SpatialCampusMap {
       target.dataset.ready='true';target.dataset.loadMs=(performance.now()-this.started).toFixed(1);callbacks.ready();this.report();
     });
     this.map.on('render',()=>{if(this.disposed)return;target.dataset.renders=String(++this.renders);this.updateNameOcclusion();this.report();});
-    this.map.on('move',()=>{this.lastCameraMove=performance.now();this.updateDetail();this.updateLabelObstructions();this.report();});
+    this.map.on('move',()=>{this.lastCameraMove=performance.now();this.updateDetail();this.updateCaptionSides();this.updateLabelObstructions();this.report();});
     this.map.on('moveend',()=>this.scheduleOcclusion());
     this.map.on('error',e=>{target.dataset.lastError=String(e.error?.message||e.error);if(!this.loaded)callbacks.error?.('地图绘制资源未能载入；可以重新载入。');});
     this.map.on('webglcontextlost',()=>{this.loaded=false;target.dataset.context='lost';target.dataset.ready='false';});
@@ -241,11 +244,14 @@ export class SpatialCampusMap {
   private hit(pixel:ml.Point,tolerance=0):MapPoint[]{
     if(!this.loaded)return [];
     const query=tolerance?[[pixel.x-tolerance,pixel.y-tolerance],[pixel.x+tolerance,pixel.y+tolerance]]:pixel;
-    const native=this.map.queryRenderedFeatures(query as any,{layers:['names','endpoint-names','browse-name','water-names','volumes','ghosts','references']});
+    const native=this.map.queryRenderedFeatures(query as any,{layers:['names','endpoint-names','browse-name','water-names','endpoints','volumes','ghosts','references']});
     const ground=['footprints','sports-fill'].flatMap(id=>(this.groundFills.get(id)?.query(pixel.x,pixel.y,tolerance)||[]).map(f=>({...f,properties:{...f.properties,id:String(f.id)} as Record<string,any>,layer:{id}})));
     const fs=[...native,...ground];
-    const caption=fs.find(f=>['names','endpoint-names','browse-name','water-names'].includes(f.layer.id)&&this.points.has(String(f.properties.id||f.id))&&!(f.layer.id==='names'&&this.hiddenNames.has(String(f.properties.id||f.id))));
-    const captionPoint=caption&&this.points.get(String(caption.properties.id||caption.id));
+    const marker=fs.find(f=>f.layer.id==='endpoints');
+    const markedPoint=marker&&this.selectionPoint(String(marker.properties.id||marker.id));
+    if(markedPoint)return [markedPoint];
+    const caption=fs.find(f=>['names','endpoint-names','browse-name','water-names'].includes(f.layer.id)&&!!this.selectionPoint(String(f.properties.id||f.id))&&!(f.layer.id==='names'&&this.hiddenNames.has(String(f.properties.id||f.id))));
+    const captionPoint=caption&&this.selectionPoint(String(caption.properties.id||caption.id));
     const geometries=fs.filter(f=>!['names','endpoint-names','browse-name','water-names'].includes(f.layer.id)&&!this.ghostIds.includes(String(f.properties.id||f.id)));
     // A temporary cutaway reveals the object below it. Its subdued caption
     // remains an explicit way to select the occluder itself.
@@ -284,14 +290,18 @@ export class SpatialCampusMap {
       for(const [id,v] of this.hoverMotion){v.value+=(v.target-v.value)*blend;if(Math.abs(v.target-v.value)<.01)v.value=v.target;else active=true;this.state(id,{hoverValue:v.value});if(!v.value&&!v.target)this.hoverMotion.delete(id);}
       if(active)this.hoverFrame=requestAnimationFrame(step);};step(last);
   }
-  select(destination?:MapPoint,origin?:MapPoint,routeRoles=true){this.state(this.selected,{selected:false});this.state(this.origin,{origin:false});this.selected=destination?.id;this.origin=origin?.id;this.routeRoles=routeRoles;this.refreshSelection();this.updateOcclusion();}
+  private selectionPoint(id:string){const point=this.selectionPoints.get(id);return point?.graphNodeId?point:this.points.get(id)||point;}
+  select(destination?:MapPoint,origin?:MapPoint,routeRoles=true){this.state(this.selected,{selected:false});this.state(this.origin,{origin:false});this.selected=destination?.id;this.origin=origin?.id;this.selectionPoints=new Map([destination,origin].filter((p):p is MapPoint=>!!p).map(p=>[p.id,p]));this.captionSides=[false,false];this.routeRoles=routeRoles;this.refreshSelection();this.updateOcclusion();}
+  private pairedSides(){return pairedCaptionSides(this.captionEntries.map(f=>{const p=this.map.project((f.geometry as GeoJSON.Point).coordinates as LngLat);return {pixel:[p.x,p.y],name:String(f.properties?.name||'')};}),{font:'13px "Noto Sans SC Variable", "Microsoft YaHei", sans-serif',size:13,offsetY:0,padding:2,marker:13.5,maxWidthEm:14},this.captionSides);}
+  private updateCaptionSides(){if(!this.loaded||!this.routeRoles)return;const next=this.pairedSides();if(next.some((v,i)=>v!==this.captionSides[i])){this.captionSides=next;this.refreshSelection();}}
   private refreshSelection(){
-    this.state(this.selected,{selected:true});this.state(this.origin,{origin:true});
+    if(!this.selectionPoints.get(this.selected||'')?.graphNodeId)this.state(this.selected,{selected:true});
+    if(!this.selectionPoints.get(this.origin||'')?.graphNodeId)this.state(this.origin,{origin:true});
     this.rims?.update(this.palette,[this.selected,this.origin].filter(Boolean) as string[],this.ghostIds);
     this.roofs?.update(this.palette,[this.selected,this.origin].filter(Boolean) as string[],this.ghostIds,this.hovered);
-    const fs:Feature[]=[];for(const [role,id] of [['A',this.origin],['B',this.selected]]){const p=id&&this.points.get(id);if(p){
+    const fs:Feature[]=[];for(const [role,id] of [['A',this.origin],['B',this.selected]]){const p=id&&this.selectionPoint(id);if(p){
       const access=this.routeResult?.status==='ready'?(role==='A'?this.routeResult.originAccess:this.routeResult.destinationAccess):undefined,coordinate=access?.kind==='entrance'?access.coordinate:p.coordinate;
-      const anchor=this.routeRoles||this.labelMode==='ground'?undefined:this.labelAnchors.get(p.id);
+      const anchor=this.routeRoles||this.labelMode==='ground'||p.graphNodeId?undefined:this.labelAnchors.get(p.id);
       const hasBodyLabel=!!anchor&&(p.kind==='building'||!!p.modelBasis)&&p.geometryStatus==='mapped'&&!p.personal?.referencePoint;
       const water=!this.routeRoles&&p.kind==='water',shore=water&&this.waterShores.get(p.id);
       if(shore)fs.push({...shore,properties:{kind:'selection-water'}});
@@ -299,6 +309,8 @@ export class SpatialCampusMap {
       if(hasMarker)fs.push(point(coordinate,{id:p.id,kind:'selection-marker',role:this.routeRoles?role:''}));
       fs.push(point(anchor?.coordinate||coordinate,{id:p.id,kind:'selection-name',name:this.routeRoles?p.displayName:this.caption(p),role:this.routeRoles?role:'',hasMarker,labelHeight:anchor?.height||0}));
     }}
+    this.captionEntries=this.routeRoles?fs.filter(f=>f.properties?.kind==='selection-name'):[];
+    this.captionSides=this.pairedSides();this.captionEntries.forEach((f,i)=>{f.properties!.captionBelow=this.captionSides[i];});
     this.source('selection',collection(fs));this.refreshEntrances();this.updateDetail(true);
   }
   updatePlaces(places:MapPoint[]){this.points=new Map(places.map(p=>[p.id,p]));this.labelAnchors=makeLabelAnchors(this.data.geography as FeatureCollection,places);this.labelOcclusionKey='';this.source('names',this.names());this.source('geography',this.geography());this.refreshSelection();}

@@ -24,7 +24,7 @@ import { CameraOwnership } from './map-state';
 import { darkMapPalette, lightMapPalette, sportSurfacePaint, type MapPalette } from './map-theme';
 import { geometryLayer } from './geometry-layer';
 import { planarGpuStyle } from './gpu-style';
-import { endpointCaptionGap, mapFitInsets, mapLabelObstructions, observeLabelObstructions, captionControlOffset, captionWidth, measureCaptions, wrapCaption, type FitInsets, type LabelObstruction } from './fit-layout';
+import { endpointCaptionGap, pairedCaptionSides, mapFitInsets, mapLabelObstructions, observeLabelObstructions, captionControlOffset, captionWidth, measureCaptions, wrapCaption, type FitInsets, type LabelObstruction } from './fit-layout';
 
 export interface SavedCamera {
   center: number[];
@@ -67,6 +67,8 @@ export class PlanarCampusMap {
   private locationSource = new VectorSource();
   private selected?: string;
   private origin?: string;
+  private selectionPoints = new globalThis.Map<string,MapPoint>();
+  private captionSides:boolean[]=[false,false];
   private routeRoles=true;
   private entrancesVisible=false;
   private usedEntrances=new Set<string>();
@@ -537,12 +539,18 @@ export class PlanarCampusMap {
         zIndex: 10,
       }),
     ];
-    const place = this.pointIndex.get(id);
+    const supplied=this.selectionPoints.get(id);
+    const place = supplied?.graphNodeId?supplied:this.pointIndex.get(id)||supplied;
     if (selected && place) {
       const role=id===this.origin?'A':'B',route=this.activeRoute;
       const endpoint=this.routeRoles&&route?.status==='ready'&&route.coordinates.length>=2&&
         (role==='A'?route.from?.id===id:route.to?.id===id)
         ? role==='A'?route.coordinates[0]:route.coordinates.at(-1)!:undefined;
+      if(endpoint&&route?.from&&route.to){this.captionSides=pairedCaptionSides([
+        {pixel:this.map.getPixelFromCoordinate(fromLonLat(route.coordinates[0])),name:route.from.displayName},
+        {pixel:this.map.getPixelFromCoordinate(fromLonLat(route.coordinates.at(-1)!)),name:route.to.displayName},
+      ],{font:'500 12px "Noto Sans SC Variable", sans-serif',size:12,offsetY:0,padding:4,horizontalPadding:5,marker:13.5,maxWidthEm:14,lineHeightPx:measureTextHeight('500 12px "Noto Sans SC Variable", sans-serif')},this.captionSides);}
+      const below=!!endpoint&&this.captionSides[role==='A'?0:1];
       const selectedCaption=new Style({
           geometry: new Point(fromLonLat(endpoint||place.coordinate)),
           text: new Text({
@@ -551,8 +559,8 @@ export class PlanarCampusMap {
             fill: new Fill({ color: p.text }),
             stroke: new Stroke({ color: p.halo, width: 4 }),
             padding: [4, 5, 4, 5],
-            offsetY: endpoint?-endpointCaptionGap:-9,
-            textBaseline: endpoint?'bottom':'middle',
+            offsetY: endpoint?(below?endpointCaptionGap:-endpointCaptionGap):-9,
+            textBaseline: endpoint?(below?'top':'bottom'):'middle',
             // Selected names stay visible and reserve space before ordinary
             // labels; their source identities are never filtered out.
             declutterMode: 'obstacle',
@@ -600,6 +608,12 @@ export class PlanarCampusMap {
     ];
   }
   private hit(coordinate: number[]) {
+    const selected=this.map.forEachFeatureAtPixel(this.map.getPixelFromCoordinate(coordinate),(feature,layer)=>{
+      if(layer!==this.overlayLayer&&layer!==this.routeLayer)return;
+      const role=feature.get('endpoint'),id=role==='A'?this.origin:role==='B'?this.selected:String(feature.getId());
+      const point=id?this.selectionPoints.get(id):undefined;return point?.graphNodeId?point:undefined;
+    });
+    if(selected)return [selected];
     return this.source
       .getFeaturesAtCoordinate(coordinate)
       .filter(
@@ -645,7 +659,8 @@ export class PlanarCampusMap {
     this.highlight.clear();
     for (const id of new Set([this.selected, this.origin, this.hovered, ...this.hoverLevels.keys()]))
       if (id) {
-        const feature = this.source.getFeatureById(id);
+        const supplied=this.selectionPoints.get(id);
+        const feature = supplied?.graphNodeId?new Feature(new Point(fromLonLat(supplied.coordinate))):this.source.getFeatureById(id);
         if (feature) {
           const copy = feature.clone();
           copy.setId(id);
@@ -657,6 +672,8 @@ export class PlanarCampusMap {
     this.routeRoles=routeRoles;
     this.selected = destination?.id;
     this.origin = origin?.id;
+    this.selectionPoints=new globalThis.Map([destination,origin].filter((p):p is MapPoint=>!!p).map(p=>[p.id,p]));
+    this.captionSides=[false,false];
     this.refreshHighlights();
     this.labelLayer.changed();
   }
