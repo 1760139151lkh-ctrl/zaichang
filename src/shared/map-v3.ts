@@ -51,13 +51,21 @@ export const publishedRoadCorrespondenceUncertainty = [{
   sourceUrl:'https://api.openstreetmap.org/api/0.6/way/414673399.json',
   retainedSourceSegments:['way/414673399:2','way/414673399:3'],
 },{
-  way:'way/519457904',version:10,sourceTimestamp:'2026-09-24T05:58:11Z',
+  way:'way/519457904',version:11,sourceTimestamp:'2026-10-12T13:25:47Z',
   sourceUrl:'https://api.openstreetmap.org/api/0.6/way/519457904.json',
   retainedSourceSegments:['way/519457904:2'],
 },{
   way:'way/588262373',version:6,sourceTimestamp:'2026-09-28T08:41:52Z',
   sourceUrl:'https://api.openstreetmap.org/api/0.6/way/588262373.json',
   retainedSourceSegments:['way/588262373:11'],
+},{
+  way:'way/795492605',version:5,sourceTimestamp:'2026-10-12T13:25:47Z',
+  sourceUrl:'https://api.openstreetmap.org/api/0.6/way/795492605.json',
+  retainedSourceSegments:['way/795492605:9'],
+},{
+  way:'way/1364957150',version:4,sourceTimestamp:'2026-10-12T13:25:47Z',
+  sourceUrl:'https://api.openstreetmap.org/api/0.6/way/1364957150.json',
+  retainedSourceSegments:['way/1364957150:2'],
 }] as const;
 
 export const roadCorrespondenceUnverified = 'road_correspondence_unverified';

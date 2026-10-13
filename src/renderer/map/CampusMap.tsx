@@ -888,7 +888,7 @@ export function MapSheet({
               <label><input type="checkbox" checked={!!selection.avoidStairs} onChange={e=>dispatch({type:'options',avoidStairs:e.target.checked})}/>避开台阶</label>
               <label><input type="checkbox" checked={!!selection.allowConditional} onChange={e=>dispatch({type:'options',allowConditional:e.target.checked})}/>作为假设查看待核通路</label>
               {[['origin',selection.origin],['destination',p]].map(([role,value])=>{const place=value as MapPoint|undefined;const endpoint=role as 'origin'|'destination';const choices=place?.accessCandidates?.filter(a=>a.kind==='entrance')||[];return place&&<div key={endpoint}><strong>{endpoint==='origin'?'出发':'抵达'} · {place.displayName}</strong>{place.roadReference?<p>已记录的道路点，未把它当作楼门。</p>:choices.length?<label>入口 <select aria-label={endpoint==='origin'?'选择出发入口':'选择抵达入口'} value={(endpoint==='origin'?selection.originAccessId:selection.destinationAccessId)||''} onChange={e=>dispatch({type:'access',endpoint,id:e.target.value||undefined})}><option value="">比较全部合格入口</option>{choices.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</select></label>:<p>实际门未核实；虚线只表示避障接入估计。</p>}</div>;})}
-              <button onClick={()=>{setEntrances(!entrances);engine.current?.showEntrances(!entrances);}}>{entrances?'收起入口标记':'查看已记录入口'}</button>
+              {!!(selection.origin?.entrances.length||p?.entrances.length)&&<button onClick={()=>{setEntrances(!entrances);engine.current?.showEntrances(!entrances);}}>{entrances?'收起入口标记':'查看已记录入口'}</button>}
               {selection.mode==='two'&&<button onClick={()=>{user();dispatch({type:'current'});}}>从本机位置出发</button>}
               {route.warnings.map((warning,i)=><p key={i}>{warning}</p>)}
             </div>}
