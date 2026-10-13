@@ -25,6 +25,8 @@ import { darkMapPalette, lightMapPalette, sportSurfacePaint, type MapPalette } f
 import { geometryLayer } from './geometry-layer';
 import { planarGpuStyle } from './gpu-style';
 import { endpointCaptionGap, pairedCaptionSides, mapFitInsets, mapLabelObstructions, observeLabelObstructions, captionControlOffset, captionWidth, measureCaptions, wrapCaption, type FitInsets, type LabelObstruction } from './fit-layout';
+import { namedWaterAreas, namedWaterHit } from './named-water';
+import type { FeatureCollection, Feature as WaterFeature } from 'geojson';
 
 import type { SavedCamera, MapData, MapCallbacks } from './map-types';
 export type { SavedCamera, MapData, MapCallbacks } from './map-types';
@@ -40,6 +42,8 @@ export class PlanarCampusMap {
   readonly view: View;
   readonly ownership = new CameraOwnership();
   private source: VectorSource;
+  private waterAreas: WaterFeature[];
+  private bridges: Feature[];
   private highlight = new VectorSource();
   private routeSource = new VectorSource();
   private locationSource = new VectorSource();
@@ -88,6 +92,8 @@ export class PlanarCampusMap {
       featureProjection: 'EPSG:3857',
     });
     this.source = new VectorSource({ features, wrapX: false });
+    this.waterAreas = namedWaterAreas(data.geography as FeatureCollection);
+    this.bridges = features.filter(f => f.get('kind') === 'road' && f.get('bridge') === 'yes');
     for (const feature of features)
       for (const key of ['highway', 'bridge', 'tunnel'])
         if (feature.get(key) === undefined) feature.set(key, '', true);
@@ -580,13 +586,22 @@ export class PlanarCampusMap {
     ];
   }
   private hit(coordinate: number[]) {
-    const selected=this.map.forEachFeatureAtPixel(this.map.getPixelFromCoordinate(coordinate),(feature,layer)=>{
-      if(layer!==this.overlayLayer&&layer!==this.routeLayer)return;
-      const role=feature.get('endpoint'),id=role==='A'?this.selection.origin:role==='B'?this.selection.selected:String(feature.getId());
-      const point=this.selection.point(id,this.pointIndex);return point?.graphNodeId?point:undefined;
+    const pixel = this.map.getPixelFromCoordinate(coordinate);
+    const caption = this.map.forEachFeatureAtPixel(pixel,(feature,layer,geometry)=>{
+      // The callback supplies the actual drawn geometry. A selected polygon's
+      // fill must not capture a click meant for a building or bridge beneath it.
+      if (!(geometry instanceof Point)) return;
+      const role = feature.get('endpoint');
+      if (layer === this.routeLayer && (role === 'A' || role === 'B')) {
+        if (!this.selection.routeEnd(role,this.activeRoute,this.pointIndex)) return;
+        const point = this.selection.point(role === 'A' ? this.selection.origin : this.selection.selected,this.pointIndex);
+        return point && { point, explicit: true };
+      }
+      const id = layer === this.labelLayer ? feature.get('sourceId') : layer === this.overlayLayer ? String(feature.getId()) : undefined;
+      const point = this.selection.point(id,this.pointIndex);
+      return point && { point, explicit: layer === this.overlayLayer };
     });
-    if(selected)return [selected];
-    return this.source
+    const bodies = this.source
       .getFeaturesAtCoordinate(coordinate)
       .filter(
         (f) => ['building', 'landmark', 'sport'].includes(f.get('kind')) || String(f.getId()) === 'way/322644186',
@@ -594,6 +609,25 @@ export class PlanarCampusMap {
       .map((f) => this.pointIndex.get(String(f.getId())))
       .filter((p): p is MapPoint => !!p)
       .sort((a, b) => (a.kind === 'building' ? 0 : 1) - (b.kind === 'building' ? 0 : 1));
+    const building = bodies.find(p => p.kind === 'building');
+    if (caption && (caption.explicit || !building || caption.point.id === building.id)) return [caption.point];
+    if (bodies.length) return bodies;
+    const water = namedWaterHit(this.waterAreas,this.pointIndex,toLonLat(coordinate) as LngLat);
+    return water && !this.bridgeAt(coordinate,pixel) ? [water] : [];
+  }
+  private bridgeAt(coordinate: number[], pixel: number[]) {
+    const resolution = this.view.getResolution()!;
+    return this.bridges.some(feature => {
+      const style = this.baseStyle(feature,resolution), geometry = feature.getGeometry();
+      if (!style || !geometry) return false;
+      const styles = Array.isArray(style) ? style : [style];
+      if (styles.some(s => !!s.getFill()) && geometry.intersectsCoordinate(coordinate)) return true;
+      const width = Math.max(0,...styles.map(s => s.getStroke()?.getWidth() || 0));
+      const closest = this.map.getPixelFromCoordinate(geometry.getClosestPoint(coordinate));
+      // CSS stroke width, including the existing round caps and bridge casing;
+      // this is a display hit region, never a physical road-width claim.
+      return Math.hypot(pixel[0]-closest[0],pixel[1]-closest[1]) <= width/2;
+    });
   }
   private cancelTooltip() {
     clearTimeout(this.hoverTimer);
