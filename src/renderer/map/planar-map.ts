@@ -19,37 +19,15 @@ import { easeOut } from 'ol/easing';
 import { unByKey } from 'ol/Observable';
 import { getCenter } from 'ol/extent';
 import { measureTextHeight } from 'ol/render/canvas';
-import type { Bounds, LocationFix, MapOverview, MapPoint, MapRouteResult, LngLat } from '../../shared/map-v2';
-import { CameraOwnership } from './map-state';
+import type { Bounds, LocationFix, MapPoint, MapRouteResult, LngLat } from '../../shared/map-v2';
+import { CameraOwnership, SelectedMapPoints } from './map-state';
 import { darkMapPalette, lightMapPalette, sportSurfacePaint, type MapPalette } from './map-theme';
 import { geometryLayer } from './geometry-layer';
 import { planarGpuStyle } from './gpu-style';
 import { endpointCaptionGap, pairedCaptionSides, mapFitInsets, mapLabelObstructions, observeLabelObstructions, captionControlOffset, captionWidth, measureCaptions, wrapCaption, type FitInsets, type LabelObstruction } from './fit-layout';
 
-export interface SavedCamera {
-  center: number[];
-  resolution: number;
-  rotation: number;
-  pitch?: number;
-  scale?: { meters: number; width: number; reference: string };
-}
-export interface MapData {
-  manifest: MapOverview;
-  places: MapPoint[];
-  geography: object;
-  sports?: object;
-  venues?: import('../../shared/map-v3').MapVenue[];
-}
-export interface MapCallbacks {
-  choose: (p: MapPoint) => void;
-  candidates: (ps: MapPoint[]) => void;
-  hover: (p?: MapPoint) => void;
-  blank: () => void;
-  camera: (camera: SavedCamera) => void;
-  user: () => void;
-  ready: () => void;
-  error?: (message: string) => void;
-}
+import type { SavedCamera, MapData, MapCallbacks } from './map-types';
+export type { SavedCamera, MapData, MapCallbacks } from './map-types';
 const gray = (hex: string, alpha: number) => {
   const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
   return `rgba(${r},${g},${b},${alpha})`;
@@ -65,13 +43,9 @@ export class PlanarCampusMap {
   private highlight = new VectorSource();
   private routeSource = new VectorSource();
   private locationSource = new VectorSource();
-  private selected?: string;
-  private origin?: string;
-  private selectionPoints = new globalThis.Map<string,MapPoint>();
+  private selection = new SelectedMapPoints();
   private captionSides:boolean[]=[false,false];
-  private routeRoles=true;
   private entrancesVisible=false;
-  private usedEntrances=new Set<string>();
   private activeRoute?:MapRouteResult;
   private hovered?: string;
   private hoverLevels = new globalThis.Map<string, number>();
@@ -466,7 +440,7 @@ export class PlanarCampusMap {
     return style;
   }
   private labelStyle(f: Feature, res: number): Style | undefined {
-    if (f.get('sourceId') === this.selected || f.get('sourceId') === this.origin) return;
+    if (f.get('sourceId') === this.selection.selected || f.get('sourceId') === this.selection.origin) return;
     const kind = f.get('kind'),
       name = f.get('name') as string;
     if (kind === 'building' && !this.detailedNames && !/图书馆|博物馆|体育|食堂/.test(name)) return;
@@ -527,7 +501,7 @@ export class PlanarCampusMap {
   private highlightStyle(f: Feature): Style[] {
     const p = this.palette,
       id = String(f.getId()),
-      selected = id === this.selected || id === this.origin,
+      selected = id === this.selection.selected || id === this.selection.origin,
       a = selected ? 1 : this.hoverLevels.get(id) || 0;
     const styles = [
       new Style({
@@ -539,13 +513,10 @@ export class PlanarCampusMap {
         zIndex: 10,
       }),
     ];
-    const supplied=this.selectionPoints.get(id);
-    const place = supplied?.graphNodeId?supplied:this.pointIndex.get(id)||supplied;
+    const place = this.selection.point(id,this.pointIndex);
     if (selected && place) {
-      const role=id===this.origin?'A':'B',route=this.activeRoute;
-      const endpoint=this.routeRoles&&route?.status==='ready'&&route.coordinates.length>=2&&
-        (role==='A'?route.from?.id===id:route.to?.id===id)
-        ? role==='A'?route.coordinates[0]:route.coordinates.at(-1)!:undefined;
+      const role=id===this.selection.origin?'A':'B',route=this.activeRoute;
+      const endpoint=this.selection.routeEnd(role,route,this.pointIndex)?.coordinate;
       if(endpoint&&route?.from&&route.to){this.captionSides=pairedCaptionSides([
         {pixel:this.map.getPixelFromCoordinate(fromLonLat(route.coordinates[0])),name:route.from.displayName},
         {pixel:this.map.getPixelFromCoordinate(fromLonLat(route.coordinates.at(-1)!)),name:route.to.displayName},
@@ -554,7 +525,7 @@ export class PlanarCampusMap {
       const selectedCaption=new Style({
           geometry: new Point(fromLonLat(endpoint||place.coordinate)),
           text: new Text({
-            text: endpoint ? wrapCaption(place.displayName,'500 12px "Noto Sans SC Variable", sans-serif',12,14) : (this.routeRoles?role+' · ':'') + place.displayName,
+            text: endpoint ? wrapCaption(place.displayName,'500 12px "Noto Sans SC Variable", sans-serif',12,14) : (this.selection.routeRoles?role+' · ':'') + place.displayName,
             font: '500 12px "Noto Sans SC Variable", sans-serif',
             fill: new Fill({ color: p.text }),
             stroke: new Stroke({ color: p.halo, width: 4 }),
@@ -569,7 +540,8 @@ export class PlanarCampusMap {
           zIndex: 20,
         });
       styles.push(this.map?(this.positionLabel(f,selectedCaption,true)||selectedCaption):selectedCaption);
-      for (const e of place.entrances.filter(e=>this.entrancesVisible||this.usedEntrances.has(e.id)))
+      const used = this.selection.routeEnd(role,route,this.pointIndex)?.access;
+      for (const e of place.entrances.filter(e=>this.entrancesVisible||used?.kind==='entrance'&&used.nodeId===e.id))
         styles.push(
           new Style({
             geometry: new Point(fromLonLat(e.coordinate)),
@@ -610,8 +582,8 @@ export class PlanarCampusMap {
   private hit(coordinate: number[]) {
     const selected=this.map.forEachFeatureAtPixel(this.map.getPixelFromCoordinate(coordinate),(feature,layer)=>{
       if(layer!==this.overlayLayer&&layer!==this.routeLayer)return;
-      const role=feature.get('endpoint'),id=role==='A'?this.origin:role==='B'?this.selected:String(feature.getId());
-      const point=id?this.selectionPoints.get(id):undefined;return point?.graphNodeId?point:undefined;
+      const role=feature.get('endpoint'),id=role==='A'?this.selection.origin:role==='B'?this.selection.selected:String(feature.getId());
+      const point=this.selection.point(id,this.pointIndex);return point?.graphNodeId?point:undefined;
     });
     if(selected)return [selected];
     return this.source
@@ -657,9 +629,9 @@ export class PlanarCampusMap {
   }
   private refreshHighlights() {
     this.highlight.clear();
-    for (const id of new Set([this.selected, this.origin, this.hovered, ...this.hoverLevels.keys()]))
+    for (const id of new Set([this.selection.selected, this.selection.origin, this.hovered, ...this.hoverLevels.keys()]))
       if (id) {
-        const supplied=this.selectionPoints.get(id);
+        const supplied=this.selection.point(id,this.pointIndex);
         const feature = supplied?.graphNodeId?new Feature(new Point(fromLonLat(supplied.coordinate))):this.source.getFeatureById(id);
         if (feature) {
           const copy = feature.clone();
@@ -669,16 +641,13 @@ export class PlanarCampusMap {
       }
   }
   select(destination?: MapPoint, origin?: MapPoint,routeRoles=true) {
-    this.routeRoles=routeRoles;
-    this.selected = destination?.id;
-    this.origin = origin?.id;
-    this.selectionPoints=new globalThis.Map([destination,origin].filter((p):p is MapPoint=>!!p).map(p=>[p.id,p]));
+    this.selection.set(destination,origin,routeRoles);
     this.captionSides=[false,false];
     this.refreshHighlights();
     this.labelLayer.changed();
   }
   route(result: MapRouteResult) {
-    this.activeRoute=result;this.usedEntrances=new Set([result.originEntrance?.id,result.destinationEntrance?.id].filter((x):x is string=>!!x));this.refreshHighlights();
+    this.activeRoute=result;this.refreshHighlights();
     this.routeSource.clear();
     this.target.dataset.routeStatus = result.status;
     if (result.status !== 'ready' || result.coordinates.length < 2) return;

@@ -1,4 +1,52 @@
-import { emptyRoute, type MapPoint, type MapRouteResult } from '../../shared/map-v2';
+import { emptyRoute, mapPointEndpoint, type MapPoint, type MapRouteResult } from '../../shared/map-v2';
+
+/** Graph endpoints belong to the route graph, not the named-place catalog.
+ * The route service validates them against the current dataset on recalculation.
+ */
+function rebindPoint(point: MapPoint | undefined, places: Map<string, MapPoint>) {
+  if (!point) return undefined;
+  return mapPointEndpoint(point).kind === 'node' ? point : places.get(point.id);
+}
+
+/** Current endpoint identity shared by the spatial and compatibility renderers. */
+export class SelectedMapPoints {
+  private destination?: MapPoint;
+  private start?: MapPoint;
+  routeRoles = true;
+
+  get selected() { return this.destination?.id; }
+  get origin() { return this.start?.id; }
+
+  set(destination?: MapPoint, origin?: MapPoint, routeRoles = true) {
+    this.destination = destination;
+    this.start = origin;
+    this.routeRoles = routeRoles;
+  }
+
+  point(id: string | undefined, places: Map<string, MapPoint>) {
+    if (!id) return undefined;
+    const supplied = this.start?.id === id ? this.start : this.destination?.id === id ? this.destination : undefined;
+    return rebindPoint(supplied, places) || places.get(id) || supplied;
+  }
+
+  entries(places: Map<string, MapPoint>) {
+    return (['A', 'B'] as const).flatMap(role => {
+      const point = this.point(role === 'A' ? this.origin : this.selected, places);
+      return point ? [{ role, point }] : [];
+    });
+  }
+
+  routeEnd(role: 'A' | 'B', route: MapRouteResult | undefined, places: Map<string, MapPoint>) {
+    if (!this.routeRoles || route?.status !== 'ready' || route.coordinates.length < 2) return undefined;
+    const point = this.point(role === 'A' ? this.origin : this.selected, places);
+    const routed = role === 'A' ? route.from : route.to;
+    if (!point || !routed || point.id !== routed.id || mapPointEndpoint(point).kind !== mapPointEndpoint(routed).kind) return undefined;
+    return {
+      coordinate: role === 'A' ? route.coordinates[0] : route.coordinates.at(-1)!,
+      access: role === 'A' ? route.originAccess : route.destinationAccess,
+    };
+  }
+}
 export interface SelectionState {
   mode: 'browse' | 'current' | 'two';
   stage: 'browse' | 'origin' | 'destination';
@@ -65,7 +113,7 @@ export function selectionReducer(s: SelectionState, a: SelectionAction): Selecti
     case 'rebind': {
       const byId=new Map(a.places.map(p=>[p.id,p]));
       for(const p of a.places)for(const old of p.legacyIds||[])byId.set(old,p);
-      return {...next,origin:s.origin&&byId.get(s.origin.id),destination:s.destination&&byId.get(s.destination.id)};
+      return {...next,origin:rebindPoint(s.origin,byId),destination:rebindPoint(s.destination,byId)};
     }
     case 'origin':
       return { ...next, mode: 'two', stage: 'origin' };

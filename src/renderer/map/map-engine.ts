@@ -6,7 +6,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import { fromLonLat, toLonLat } from 'ol/proj';
 import type { LocationFix, MapPoint, MapRouteResult, LngLat } from '../../shared/map-v2';
 import { metersBetween } from '../../shared/map-routing';
-import { CameraOwnership } from './map-state';
+import { CameraOwnership, SelectedMapPoints } from './map-state';
 import { darkMapPalette, lightMapPalette, type MapPalette } from './map-theme';
 import { PlanarCampusMap } from './planar-map';
 import { cartographyLayers, type MapDirection } from './cartography';
@@ -18,8 +18,8 @@ import { endpointCaptionGap, pairedCaptionSides, mapFitInsets, mapLabelObstructi
 import { nativeCaptionBounds } from './native-caption-bounds';
 import { labelAnchors as makeLabelAnchors,type LabelAnchor } from './label-anchors';
 import {namedWaterAreas,namedWaterShores,namedWaterHit} from './named-water';
-import type { SavedCamera, MapData, MapCallbacks } from './planar-map';
-export type { SavedCamera, MapData, MapCallbacks } from './planar-map';
+import type { SavedCamera, MapData, MapCallbacks } from './map-types';
+export type { SavedCamera, MapData, MapCallbacks } from './map-types';
 export { PlanarCampusMap } from './planar-map';
 export type CampusMapEngine = SpatialCampusMap | PlanarCampusMap;
 ml.setWorkerUrl(workerUrl);
@@ -47,12 +47,9 @@ export class SpatialCampusMap {
   private loaded=false;
   private pendingData=false;
   private disposed=false;
-  private selected?:string;
-  private origin?:string;
-  private selectionPoints=new Map<string,MapPoint>();
+  private selection = new SelectedMapPoints();
   private captionEntries:Feature[]=[];
   private captionSides:boolean[]=[false,false];
-  private routeRoles=true;
   private hovered?:string;
   private hoverFrame=0;
   private hoverMotion=new Map<string,{value:number;target:number}>();
@@ -78,6 +75,7 @@ export class SpatialCampusMap {
   private groundStates=new Map<string,Record<string,boolean|number>>();
   private occupancyKey='';
   private occupancyImages=new Set<string>();
+  private occupancyCleanupPending=false;
   private labelAnchors=new Map<string,LabelAnchor>();
   private labelMode:'ground'|'roof'|'callout'='roof';
   private labelsRaised?:boolean;
@@ -218,8 +216,20 @@ export class SpatialCampusMap {
       features.push(point(coordinate,{kind:'control-occupancy',image,offset:[(box.left+box.right)/2-centre.x,(box.top+box.bottom)/2-centre.y]}));
     }
     this.source('control-occupancy',collection(features));
-    for(const image of this.occupancyImages)if(!images.has(image)&&this.map.hasImage(image))this.map.removeImage(image);
     this.occupancyImages=images;
+    // setData updates worker tiles asynchronously. Old symbol buckets can
+    // still request their images until the replacement tiles finish rendering.
+    // One idle callback always uses the latest reservation set, even after
+    // several camera or DOM updates during the same gesture.
+    if(!this.occupancyCleanupPending){
+      this.occupancyCleanupPending=true;
+      this.map.once('idle',()=>{
+        this.occupancyCleanupPending=false;
+        if(this.disposed||!this.loaded)return;
+        for(const image of this.map.listImages())
+          if(image.startsWith('control-occupancy-')&&!this.occupancyImages.has(image))this.map.removeImage(image);
+      });
+    }
   }
   private installGroundLayers(){
     const layers=cartographyLayers(this.palette,this.direction);
@@ -262,7 +272,7 @@ export class SpatialCampusMap {
       if(captionPoint&&(['endpoint-names','browse-name'].includes(caption?.layer.id||'')||captionPoint.id===roof.id||this.ghostIds.includes(captionPoint.id)))return [captionPoint];
       return this.points.has(roof.id)?[this.points.get(roof.id)!]:[];
     }
-    const ids=[...new Set(geometries.filter(f=>f.layer.id!=='references'||String(f.id)===this.selected||String(f.id)===this.origin).map(f=>String(f.properties.venueId||f.properties.id||f.id)).filter(id=>this.points.has(id)))];
+    const ids=[...new Set(geometries.filter(f=>f.layer.id!=='references'||String(f.id)===this.selection.selected||String(f.id)===this.selection.origin).map(f=>String(f.properties.venueId||f.properties.id||f.id)).filter(id=>this.points.has(id)))];
     // A long caption's hit box must not steal a click inside its neighbouring
     // building. Captions remain direct targets on their own body or background.
     const visibleBuilding=ids.find(id=>this.points.get(id)?.kind==='building');
@@ -283,33 +293,33 @@ export class SpatialCampusMap {
     if(p?.id===this.hovered)return;clearTimeout(this.timer);this.callbacks.hover(undefined);
     if(this.hovered){this.state(this.hovered,{hover:false});const v=this.hoverMotion.get(this.hovered)?.value||0;this.hoverMotion.set(this.hovered,{value:v,target:0});}
     this.hovered=p?.id;
-    this.roofs?.update(this.palette,[this.selected,this.origin].filter(Boolean) as string[],this.ghostIds,this.hovered);
+    this.roofs?.update(this.palette,[this.selection.selected,this.selection.origin].filter(Boolean) as string[],this.ghostIds,this.hovered);
     if(p){this.state(p.id,{hover:true});this.hoverMotion.set(p.id,{value:this.hoverMotion.get(p.id)?.value||0,target:1});this.timer=setTimeout(()=>{if(!this.disposed&&this.hovered===p.id)this.callbacks.hover(p);},220);}
     cancelAnimationFrame(this.hoverFrame);let last=performance.now();
     const step=(now:number)=>{if(this.disposed)return;const blend=this.reduced.matches?1:1-Math.exp(-Math.max(16,now-last)/42);last=now;let active=false;
       for(const [id,v] of this.hoverMotion){v.value+=(v.target-v.value)*blend;if(Math.abs(v.target-v.value)<.01)v.value=v.target;else active=true;this.state(id,{hoverValue:v.value});if(!v.value&&!v.target)this.hoverMotion.delete(id);}
       if(active)this.hoverFrame=requestAnimationFrame(step);};step(last);
   }
-  private selectionPoint(id:string){const point=this.selectionPoints.get(id);return point?.graphNodeId?point:this.points.get(id)||point;}
-  select(destination?:MapPoint,origin?:MapPoint,routeRoles=true){this.state(this.selected,{selected:false});this.state(this.origin,{origin:false});this.selected=destination?.id;this.origin=origin?.id;this.selectionPoints=new Map([destination,origin].filter((p):p is MapPoint=>!!p).map(p=>[p.id,p]));this.captionSides=[false,false];this.routeRoles=routeRoles;this.refreshSelection();this.updateOcclusion();}
+  private selectionPoint(id:string){return this.selection.point(id,this.points);}
+  select(destination?:MapPoint,origin?:MapPoint,routeRoles=true){this.state(this.selection.selected,{selected:false});this.state(this.selection.origin,{origin:false});this.selection.set(destination,origin,routeRoles);this.captionSides=[false,false];this.refreshSelection();this.updateOcclusion();}
   private pairedSides(){return pairedCaptionSides(this.captionEntries.map(f=>{const p=this.map.project((f.geometry as GeoJSON.Point).coordinates as LngLat);return {pixel:[p.x,p.y],name:String(f.properties?.name||'')};}),{font:'13px "Noto Sans SC Variable", "Microsoft YaHei", sans-serif',size:13,offsetY:0,padding:2,marker:13.5,maxWidthEm:14},this.captionSides);}
-  private updateCaptionSides(){if(!this.loaded||!this.routeRoles)return;const next=this.pairedSides();if(next.some((v,i)=>v!==this.captionSides[i])){this.captionSides=next;this.refreshSelection();}}
+  private updateCaptionSides(){if(!this.loaded||!this.selection.routeRoles)return;const next=this.pairedSides();if(next.some((v,i)=>v!==this.captionSides[i])){this.captionSides=next;this.refreshSelection();}}
   private refreshSelection(){
-    if(!this.selectionPoints.get(this.selected||'')?.graphNodeId)this.state(this.selected,{selected:true});
-    if(!this.selectionPoints.get(this.origin||'')?.graphNodeId)this.state(this.origin,{origin:true});
-    this.rims?.update(this.palette,[this.selected,this.origin].filter(Boolean) as string[],this.ghostIds);
-    this.roofs?.update(this.palette,[this.selected,this.origin].filter(Boolean) as string[],this.ghostIds,this.hovered);
-    const fs:Feature[]=[];for(const [role,id] of [['A',this.origin],['B',this.selected]]){const p=id&&this.selectionPoint(id);if(p){
-      const access=this.routeResult?.status==='ready'?(role==='A'?this.routeResult.originAccess:this.routeResult.destinationAccess):undefined,coordinate=access?.kind==='entrance'?access.coordinate:p.coordinate;
-      const anchor=this.routeRoles||this.labelMode==='ground'||p.graphNodeId?undefined:this.labelAnchors.get(p.id);
+    if(!this.selectionPoint(this.selection.selected||'')?.graphNodeId)this.state(this.selection.selected,{selected:true});
+    if(!this.selectionPoint(this.selection.origin||'')?.graphNodeId)this.state(this.selection.origin,{origin:true});
+    this.rims?.update(this.palette,[this.selection.selected,this.selection.origin].filter(Boolean) as string[],this.ghostIds);
+    this.roofs?.update(this.palette,[this.selection.selected,this.selection.origin].filter(Boolean) as string[],this.ghostIds,this.hovered);
+    const fs:Feature[]=[];for(const {role,point:p} of this.selection.entries(this.points)){
+      const coordinate=this.selection.routeEnd(role,this.routeResult,this.points)?.coordinate||p.coordinate;
+      const anchor=this.selection.routeRoles||this.labelMode==='ground'||p.graphNodeId?undefined:this.labelAnchors.get(p.id);
       const hasBodyLabel=!!anchor&&(p.kind==='building'||!!p.modelBasis)&&p.geometryStatus==='mapped'&&!p.personal?.referencePoint;
-      const water=!this.routeRoles&&p.kind==='water',shore=water&&this.waterShores.get(p.id);
+      const water=!this.selection.routeRoles&&p.kind==='water',shore=water&&this.waterShores.get(p.id);
       if(shore)fs.push({...shore,properties:{kind:'selection-water'}});
-      const hasMarker=this.routeRoles||(!hasBodyLabel&&!water);
-      if(hasMarker)fs.push(point(coordinate,{id:p.id,kind:'selection-marker',role:this.routeRoles?role:''}));
-      fs.push(point(anchor?.coordinate||coordinate,{id:p.id,kind:'selection-name',name:this.routeRoles?p.displayName:this.caption(p),role:this.routeRoles?role:'',hasMarker,labelHeight:anchor?.height||0}));
-    }}
-    this.captionEntries=this.routeRoles?fs.filter(f=>f.properties?.kind==='selection-name'):[];
+      const hasMarker=this.selection.routeRoles||(!hasBodyLabel&&!water);
+      if(hasMarker)fs.push(point(coordinate,{id:p.id,kind:'selection-marker',role:this.selection.routeRoles?role:''}));
+      fs.push(point(anchor?.coordinate||coordinate,{id:p.id,kind:'selection-name',name:this.selection.routeRoles?p.displayName:this.caption(p),role:this.selection.routeRoles?role:'',hasMarker,labelHeight:anchor?.height||0}));
+    }
+    this.captionEntries=this.selection.routeRoles?fs.filter(f=>f.properties?.kind==='selection-name'):[];
     this.captionSides=this.pairedSides();this.captionEntries.forEach((f,i)=>{f.properties!.captionBelow=this.captionSides[i];});
     this.source('selection',collection(fs));this.refreshEntrances();this.updateDetail(true);
   }
@@ -346,7 +356,8 @@ export class SpatialCampusMap {
   showEntrances(visible:boolean){this.entrancesVisible=visible;this.refreshEntrances();}
   private refreshEntrances(){
     const fs:Feature[]=[];const route=this.routeResult;
-    for(const [role,id,used] of [['A',this.origin,route?.originAccess],['B',this.selected,route?.destinationAccess]] as const){const p=id&&this.points.get(id);if(!p)continue;
+    for(const {role,point:p} of this.selection.entries(this.points)){
+      const used=this.selection.routeEnd(role,route,this.points)?.access;
       for(const entrance of p.entrances){const active=used?.kind==='entrance'&&used.nodeId===entrance.id;if(active||this.entrancesVisible)fs.push(point(entrance.coordinate,{active,name:role+' · '+entrance.name}));}}
     this.source('entrances',collection(fs));
   }
@@ -397,13 +408,13 @@ export class SpatialCampusMap {
     if(this.map.isMoving()||performance.now()-this.lastCameraMove<110){this.scheduleOcclusion();return;}
     if(!this.loaded||this.disposed)return;const coords=this.routeResult?.status==='ready'?this.routeResult.coordinates:[];const ids=new Set<string>();
     if(this.map.getPitch()>5)for(let i=0;i<coords.length;i+=Math.max(1,Math.floor(coords.length/70))){const pixel=this.map.project(coords[i]);for(const f of this.map.queryRenderedFeatures(pixel,{layers:['volumes','ghosts']}))ids.add(String(f.properties.id||f.id));const roof=this.roofs?.pick(pixel.x,pixel.y);if(roof)ids.add(roof);}
-    if(this.labelMode!=='ground'&&!this.routeRoles&&this.selected&&this.map.getPitch()>=12){const anchor=this.labelAnchors.get(this.selected);if(anchor){const id=this.roofs?.labelOccluder(anchor,this.selected,true);if(id)ids.add(id);}}
+    if(this.labelMode!=='ground'&&!this.selection.routeRoles&&this.selection.selected&&this.map.getPitch()>=12){const anchor=this.labelAnchors.get(this.selection.selected);if(anchor){const id=this.roofs?.labelOccluder(anchor,this.selection.selected,true);if(id)ids.add(id);}}
     const next=[...ids].sort();if(next.join()===this.ghostIds.join())return;
     for(const id of this.ghostIds)if(!ids.has(id))this.map.setFeatureState({source:'names',id},{nameEmphasis:1});
     for(const id of next)this.map.setFeatureState({source:'names',id},{nameEmphasis:.42});
     this.ghostIds=next;
-    this.rims?.update(this.palette,[this.selected,this.origin].filter(Boolean) as string[],next);
-    this.roofs?.update(this.palette,[this.selected,this.origin].filter(Boolean) as string[],next,this.hovered);
+    this.rims?.update(this.palette,[this.selection.selected,this.selection.origin].filter(Boolean) as string[],next);
+    this.roofs?.update(this.palette,[this.selection.selected,this.selection.origin].filter(Boolean) as string[],next,this.hovered);
     this.map.setFilter('volumes',['all',kind('building'),['!', ['has','surfaceModel']],['!', ['has','untiledVolume']],['>',['coalesce',['get','heightM'],0],0],['!', ['in',['id'],['literal',next]]]]);
     this.map.setFilter('ghosts',['all',kind('building'),['!', ['has','surfaceModel']],['!', ['has','untiledVolume']],['in',['id'],['literal',next]]]);
   }
@@ -414,11 +425,11 @@ export class SpatialCampusMap {
     // Native labels still move with the camera; only their occlusion verdict
     // is retained through the gesture and refreshed immediately after it.
     if(this.map.isMoving()||performance.now()-this.lastCameraMove<110)return;
-    const key=[this.roofs.cameraKey,this.labelMode,this.selected,this.origin,this.ghostIds.join(),this.near,this.detail,this.fine].join('|');
+    const key=[this.roofs.cameraKey,this.labelMode,this.selection.selected,this.selection.origin,this.ghostIds.join(),this.near,this.detail,this.fine].join('|');
     if(key===this.labelOcclusionKey)return;this.labelOcclusionKey=key;
     const hidden=new Set<string>();
     if(this.labelMode!=='ground'&&this.map.getPitch()>=12)for(const p of this.points.values()){
-      if(p.id===this.selected||p.id===this.origin||p.kind==='water'||p.kind==='area'||p.displayName.startsWith('未命名')||this.namePriority(p)>(this.fine?6:this.near?5:this.detail?2:1))continue;
+      if(p.id===this.selection.selected||p.id===this.selection.origin||p.kind==='water'||p.kind==='area'||p.displayName.startsWith('未命名')||this.namePriority(p)>(this.fine?6:this.near?5:this.detail?2:1))continue;
       const anchor=this.labelAnchors.get(p.id);if(anchor&&this.roofs.labelOccluder(anchor,p.id))hidden.add(p.id);
     }
     for(const id of this.hiddenNames)if(!hidden.has(id))this.map.setFeatureState({source:'names',id},{labelVisible:1});
@@ -447,7 +458,7 @@ export class SpatialCampusMap {
     const raised=this.labelMode!=='ground'&&this.map.getPitch()>.6;
     if(raised!==this.labelsRaised){this.labelsRaised=raised;for(const id of ['names','endpoint-names','browse-name'])this.map.setLayoutProperty(id,'symbol-height-offset',raised?['coalesce',['get','labelHeight'],0]:0);}
     const z=this.map.getZoom(),detail=this.detail?z>15.9:z>16.2,near=this.near?z>17.3:z>17.55,fine=this.fine?z>18.2:z>18.5;
-    if(force||detail!==this.detail||near!==this.near||fine!==this.fine){this.detail=detail;this.near=near;this.fine=fine;this.map.setFilter('names',['all',['!', ['in',['get','kind'],['literal',detail?['water','area']:['water']]]],['<=',['get','priority'],fine?6:near?5:detail?2:1],['!', ['in',['get','id'],['literal',[this.origin,this.selected].filter(Boolean) as string[]]]]]);}
+    if(force||detail!==this.detail||near!==this.near||fine!==this.fine){this.detail=detail;this.near=near;this.fine=fine;this.map.setFilter('names',['all',['!', ['in',['get','kind'],['literal',detail?['water','area']:['water']]]],['<=',['get','priority'],fine?6:near?5:detail?2:1],['!', ['in',['get','id'],['literal',[this.selection.origin,this.selection.selected].filter(Boolean) as string[]]]]]);}
   }
   takeControl(){this.ownership.take();if(this.routeFitRefine){this.map.off('idle',this.routeFitRefine);this.routeFitRefine=undefined;}this.map.stop();this.stopReveal();}
   private duration(ms:number){return this.reduced.matches?0:ms;}
