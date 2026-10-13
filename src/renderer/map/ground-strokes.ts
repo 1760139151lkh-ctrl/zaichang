@@ -16,7 +16,7 @@ const inks = new WeakMap<WebGL2RenderingContext, Ink>();
 export const groundStrokeLayers = new Set([
   'garden-edge', 'water-depth', 'shore', 'sports-inset', 'sports-edge',
   'pedestrian-area-edges', 'building-soft-shadow', 'building-edges', 'roof-light',
-  'selection-aura', 'selected-shore',
+  'selection-aura', 'selected-shore', 'selected-part',
 ]);
 
 function expression(value: unknown, key: string, property?: PaintKey): StyleExpression {

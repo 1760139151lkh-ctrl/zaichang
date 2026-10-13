@@ -250,7 +250,7 @@ export class SpatialCampusMap {
     this.roofs=new RoofSurfaces(this.data.geography as FeatureCollection,this.palette,this.groundStates,this.direction==='focus'?.3:this.direction==='atlas'?.62:.86);this.map.addLayer(this.roofs,'volume-rims');
   }
   private applyTheme(){const next=this.style(true);this.volumeOpacity=-1;for(const layer of next.layers){const fill=this.groundFills.get(layer.id),stroke=this.groundStrokes.get(layer.id);if(fill&&layer.type==='fill')fill.updateStyle(layer);else if(stroke&&layer.type==='line')stroke.updateStyle(layer);else for(const [key,value] of Object.entries(layer.paint||{}))this.map.setPaintProperty(layer.id,key as Parameters<ml.Map['setPaintProperty']>[1],value);}this.map.setLight(next.light!);this.refreshSelection();this.updateDetail(true);}
-  private source(name:string,data:FeatureCollection){if(this.loaded&&!this.disposed){(this.map.getSource(name) as ml.GeoJSONSource)?.setData(data);if(name==='selection')this.groundStrokes.get('selected-shore')?.updateData(data);}}
+  private source(name:string,data:FeatureCollection){if(this.loaded&&!this.disposed){(this.map.getSource(name) as ml.GeoJSONSource)?.setData(data);if(name==='selection')for(const id of ['selected-shore','selected-part'])this.groundStrokes.get(id)?.updateData(data);}}
   private hit(pixel:ml.Point,tolerance=0):MapPoint[]{
     if(!this.loaded)return [];
     const query=tolerance?[[pixel.x-tolerance,pixel.y-tolerance],[pixel.x+tolerance,pixel.y+tolerance]]:pixel;
@@ -315,6 +315,11 @@ export class SpatialCampusMap {
       const hasBodyLabel=!!anchor&&(p.kind==='building'||!!p.modelBasis)&&p.geometryStatus==='mapped'&&!p.personal?.referencePoint;
       const water=!this.selection.routeRoles&&p.kind==='water',shore=water&&this.waterShores.get(p.id);
       if(shore)fs.push({...shore,properties:{kind:'selection-water'}});
+      // Display grouping does not remove this source entity. Outline its own
+      // retained plan on selection, without redirecting its identity, adopting
+      // the parent's physical relationship or inventing a replacement volume.
+      const part=!p.personal?.referencePoint&&(this.data.geography as FeatureCollection).features.find(f=>String(f.id)===p.id&&f.properties?.kind==='building-part');
+      if(part)fs.push({...part,properties:{id:p.id,kind:'selection-building-part'}});
       const hasMarker=this.selection.routeRoles||(!hasBodyLabel&&!water);
       if(hasMarker)fs.push(point(coordinate,{id:p.id,kind:'selection-marker',role:this.selection.routeRoles?role:''}));
       fs.push(point(anchor?.coordinate||coordinate,{id:p.id,kind:'selection-name',name:this.selection.routeRoles?p.displayName:this.caption(p),role:this.selection.routeRoles?role:'',hasMarker,labelHeight:anchor?.height||0}));
