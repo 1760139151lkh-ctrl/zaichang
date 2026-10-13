@@ -1,5 +1,61 @@
 import type { LngLat,MapOverview,MapPoint,MapGraph,MapAccessCandidate } from './map-v2';
 
+interface OfficialCorrespondence {
+  id: string;
+  basis?: string;
+  source?: string;
+  offsetM?: number;
+  reportedBasis?: string;
+  identityStatus?: 'unverified' | 'reference-only';
+  evidence?: { kind: 'recorded-link' | 'name-spatial-candidate' | 'reference-only'; locator?: string };
+}
+interface ReferenceLink { id: string; official?: string[]; legacy?: string[] }
+interface CorrespondenceFacts {
+  officialToCanonical?: Record<string, OfficialCorrespondence>;
+  fidelityObservations?: {
+    reviewedReferenceLinks?: ReferenceLink[];
+    westArchitectureObservations?: {
+      silverSupplement?: { canonicalCorrectionsForIntegration?: { id: string; officialIds?: string[] }[] };
+    };
+  };
+}
+
+/** A retained lookup target is not proof that the source and building are one
+ * physical entity. In particular, an alias made by the same nearby-point
+ * match cannot confirm that match. Keep the IDs and search data, preserve the
+ * original assertion, and distinguish recorded links from heuristic matches.
+ * Recorded links still require current source and physical qualification. */
+export function retainUnverifiedOfficialCorrespondences<T extends CorrespondenceFacts>(facts:T):T {
+  const reviewed = new Map<string, { id:string; locator:string }>();
+  for (const [index, link] of (facts.fidelityObservations?.reviewedReferenceLinks || []).entries()) {
+    const locator = `shared-facts.json#/fidelityObservations/reviewedReferenceLinks/${index}`;
+    for (const id of link.official || []) reviewed.set('wfs/' + id, { id:link.id, locator });
+    for (const id of link.legacy || []) reviewed.set(id, { id:link.id, locator });
+  }
+  const corrections = facts.fidelityObservations?.westArchitectureObservations?.silverSupplement?.canonicalCorrectionsForIntegration || [];
+  for (const [index, link] of corrections.entries()) {
+    const locator = `shared-facts.json#/fidelityObservations/westArchitectureObservations/silverSupplement/canonicalCorrectionsForIntegration/${index}`;
+    for (const id of link.officialIds || []) reviewed.set('wfs/' + id, { id:link.id, locator });
+  }
+  const officialToCanonical = Object.fromEntries(Object.entries(facts.officialToCanonical || {}).map(([id, record]) => {
+    if (record.basis === 'official reference only; footprint not identified' ||
+        record.basis === 'legacy official reference only; footprint not identified') {
+      return [id, { ...record, identityStatus:'reference-only', evidence:{ kind:'reference-only' } }];
+    }
+    if (record.basis !== 'public name/spatial correspondence' &&
+        record.basis !== 'legacy official name and nearby ground location') return [id, record];
+    const link = reviewed.get(id), recorded = link?.id === record.id;
+    return [id, {
+      ...record,
+      reportedBasis:record.basis,
+      basis:recorded ? 'recorded link; physical identity unverified' : 'retained name/spatial candidate; physical identity unverified',
+      identityStatus:'unverified',
+      evidence:recorded ? { kind:'recorded-link', locator:link.locator } : { kind:'name-spatial-candidate' },
+    }];
+  }));
+  return { ...facts, officialToCanonical };
+}
+
 type DetailFeature = { id?: string | number; properties: Record<string, unknown> | null };
 export const bridgeStatusUnverified = 'bridge_status_unverified';
 const inactiveBridgeValues = new Set(['abandoned','disused','demolished','dismantled','removed','razed']);

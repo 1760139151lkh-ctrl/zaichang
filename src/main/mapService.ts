@@ -13,7 +13,7 @@ import {
 import { WalkingGraph, metersBetween, classifyFix, inBounds } from '../shared/map-routing';
 import { fromLocal, toLocal, personalAccess } from './mapProfile';
 import { rankMapPoints } from '../shared/map-names';
-import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, retainPublishedFootRestrictions, retainPublishedRoadCorrespondenceConditions, retainPublishedPlaceAccessConditions, routeConditionWarning } from '../shared/map-v3';
+import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, retainPublishedFootRestrictions, retainPublishedRoadCorrespondenceConditions, retainPublishedPlaceAccessConditions, retainUnverifiedOfficialCorrespondences, routeConditionWarning } from '../shared/map-v3';
 export class CampusMapAdapter {
   private manifest: MapOverview;
   private points: MapPoint[];
@@ -74,7 +74,7 @@ export class CampusMapAdapter {
       }
       this.points = read('places.json');
       try {
-        const facts = read('shared-facts.json');
+        const facts = retainUnverifiedOfficialCorrespondences(read('shared-facts.json'));
         if (facts.version !== manifest.version) throw new Error('Shared fact version mismatch');
         this.redirects = facts.legacyPlaceRedirects || {};
         this.official = facts.officialToCanonical || {};
@@ -199,7 +199,7 @@ export class CampusMapAdapter {
   serializedDataset():string {this.refreshProfile();return JSON.stringify({manifest:this.manifest,places:this.points,geography:this.displayGeography,sports:this.sports,venues:this.sharedFacts?.venues||[]});}
   /** Public model tools must not inherit the local UI's private profile. */
   publicView(){return this.options.profileDirectory?(this.publicAdapter ||= new CampusMapAdapter(this.directory)):this;}
-  sharedSnapshot(){this.refreshProfile();return {manifest:this.overview(),places:this.allPoints(),facts:this.sharedFacts};}
+  sharedSnapshot(){this.refreshProfile();return {manifest:this.overview(),places:this.allPoints(),facts:structuredClone(this.sharedFacts)};}
   verificationGraph(){this.refreshProfile();return structuredClone(this.walking.graph);}
   routeReferences(query:MapRouteQuery,references:{id:string;name:string;coordinate:[number,number]}[]){
     this.refreshProfile();
