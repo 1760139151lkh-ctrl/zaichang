@@ -2,7 +2,7 @@
 
 **[下载 Windows 最新版](https://github.com/1760139151lkh-ctrl/zaichang/releases/latest)** · [0.3.0 便携版 EXE](https://github.com/1760139151lkh-ctrl/zaichang/releases/download/v0.3.0/Zaichang-0.3.0-Windows.exe) · [SHA-256 校验文件](https://github.com/1760139151lkh-ctrl/zaichang/releases/download/v0.3.0/SHA256SUMS.txt)
 
-当前桌面发布：**v0.3.0 · 2026-10-18 · Windows x64**，构建源码 `74e099a`。下载 EXE 后直接运行，内含锁定的 Hermes、Python 和 PDF 运行时；版本、检查范围与复现命令见[发布说明](docs/DEPLOYMENT.md#latest-windows-release)。
+当前桌面发布：**v0.3.0 · 2026-10-18 · Windows x64**，构建源码 `74e099a`。下载 EXE 后直接运行，启动时会先自解压随包的 Hermes、Python 和 PDF 运行时，本机核查中需等待数分钟；版本、检查范围与复现命令见[发布说明](docs/DEPLOYMENT.md#latest-windows-release)。
 
 > **前端视觉设计请先看：[图片来源对话（完整原文）](前端视觉创新设计/图片来源对话.md) · [图像与页面对应](前端视觉创新设计/图像与页面对应.md) · [全部图片与路径](FRONTEND_DESIGN.md)**
 >
