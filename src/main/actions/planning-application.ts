@@ -4,6 +4,7 @@ import type { Action } from '../../shared/types';
 import { HarnessError, type ScopeData } from '../../shared/harness';
 import { canonical } from '../runtime/semantics';
 import { calendarPlanFingerprint, draftCalendarPlan, planningDraftInput } from './planning-draft';
+import { planningDayBounds } from './planning-days';
 
 export const planningPlanRefSchema = z.object({ planId: z.string().uuid(), blockId: z.string().min(1).max(160) }).strict();
 export const planningRecoveryInput = z.object({ planId: z.string().uuid() }).strict();
@@ -189,6 +190,7 @@ export class PlanningApplicationService {
     if (lastApplied?.kind === 'work' && (ticket.input.restMinutes > 0 || ticket.input.transitionMinutes.max > 0 || ticket.input.travelTimes.length > 0)) return null;
     const acceptedWork = ticket.units.filter(unit => unit.kind === 'work' && ticket.applied.some(applied => applied.blockId === unit.blockId));
     const scheduled = new Map<string, { minutes: number; end: number }>();
+    const scheduledBlocks: Draft['blocks'] = [];
     for (const unit of acceptedWork) {
       const block = ticket.output.blocks.find(value => value.taskId === unit.taskId && value.segment === unit.segment)!;
       const previous = scheduled.get(block.taskId) || { minutes: 0, end: 0 };
@@ -196,6 +198,7 @@ export class PlanningApplicationService {
       if (acceptedWork.some(other => other !== unit && other.taskId === unit.taskId && other.segment === unit.segment && other.blockId.localeCompare(unit.blockId) < 0)) continue;
       const segmentUnits = ticket.units.filter(other => other.kind === 'work' && other.taskId === unit.taskId && other.segment === unit.segment);
       if (!segmentUnits.every(other => acceptedWork.includes(other))) return null;
+      scheduledBlocks.push(block);
       scheduled.set(block.taskId, { minutes: previous.minutes + block.durationMinutes, end: Math.max(previous.end, Date.parse(block.reservedEnd)) });
     }
     const fullyScheduled = new Set(ticket.input.tasks.filter(task => (scheduled.get(task.id)?.minutes || 0) === task.durationMinutes.max).map(task => task.id));
@@ -209,6 +212,15 @@ export class PlanningApplicationService {
     });
     if (!tasks.length) return null;
     return { ...structuredClone(ticket.input), tasks,
+      dailyBudgets: ticket.input.dailyBudgets.map(budget => {
+        if (budget.maxScheduledMinutes === undefined) return structuredClone(budget);
+        const bounds = planningDayBounds(budget.date, ticket.input.timeZone);
+        const scheduledMinutes = scheduledBlocks.reduce((sum, block) => sum + Math.max(0,
+          Math.min(Date.parse(block.end), Date.parse(bounds.to)) - Math.max(Date.parse(block.start), Date.parse(bounds.from))) / minute, 0);
+        // Existing adopted work is now calendar busy. It must also consume the
+        // original plan's net-work allowance when only the remainder is redrafted.
+        return { ...budget, maxScheduledMinutes: Math.max(0, budget.maxScheduledMinutes - scheduledMinutes) };
+      }),
       maxScheduledMinutes: Math.max(0, ticket.input.maxScheduledMinutes - [...scheduled.values()].reduce((sum, value) => sum + value.minutes, 0)) };
   }
 

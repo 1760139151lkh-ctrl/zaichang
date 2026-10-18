@@ -187,3 +187,9 @@ Thumbs.db
 !/assets/design/generated/2026-10-18-companion-evolution/*.png
 !/assets/design/generated/2026-10-18-companion-evolution/manifest.json
 !/assets/design/generated/2026-10-18-companion-evolution/prompts.md
+
+# Image-first daily rhythm references; design-only, outside runtime packaging.
+!/assets/design/generated/2026-10-18-personal-memory/daily-rhythm-a.png
+!/assets/design/generated/2026-10-18-personal-memory/daily-rhythm-b.png
+!/assets/design/generated/2026-10-18-personal-memory/daily-rhythm-prompts.txt
+!/assets/design/generated/2026-10-18-personal-memory/daily-rhythm-manifest.json

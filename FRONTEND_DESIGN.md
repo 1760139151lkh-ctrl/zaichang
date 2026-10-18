@@ -8,9 +8,15 @@
 
 当前逐图对应与续作：[DESIGN_IMAGE_COVERAGE](docs/DESIGN_IMAGE_COVERAGE.md)。新增查找、托付详情和理解变化三张图：[窗边续作](assets/design/generated/2026-10-18-windowlight/)。
 
-## 当前续作：个人陪伴、日程与对话场景
+## 当前续作：每天的余地
 
-本轮从尚未合并的 `c7cff22884fe9a3050879067dd49012f685d8cfd` 继续。先完成后端合并检查（258 项通过），再生成并逐张查看以下四张 GPT Image 设计图，随后实施前端。当前页面正在接线与实际窗口观察；设计图本身不代表功能已完成，最终范围以 [CURRENT_STATUS](docs/CURRENT_STATUS.md) 为准。最新用户要求与历史资料的关系见 [本轮需求整理](docs/source-materials/2026-10-18/continuation-requirements.md)。
+最新批次从已合并的 `4edd922` 继续，先完成记忆／主动性／日程后端，再生成两版日节奏图，比较后采用[日期条＋单日展开](assets/design/generated/2026-10-18-personal-memory/daily-rhythm-a.png)。[双日纸页](assets/design/generated/2026-10-18-personal-memory/daily-rhythm-b.png)保留为比较来源；不照搬重复时间轴、右侧暖句或示例数据。提示词、哈希、尺寸与选用记录见[manifest](assets/design/generated/2026-10-18-personal-memory/daily-rhythm-manifest.json)。
+
+日节奏沿用原对话与输入，按真实宿主日账选择日期，时段可接着聊；角色卡可先编辑再放入草稿，环境旧快照与缺测保持准确呈现。记忆仍在后台工作，不新增常驻记忆工程面板。实际宽窄、主题、草稿、冲突与来源边界见[当前状态](docs/CURRENT_STATUS.md#personal-memory-continuity)，图片不作为功能或手机产品完成证明。
+
+## 上一批：个人陪伴、日程与对话场景
+
+上一批从当时未合并的 `c7cff22884fe9a3050879067dd49012f685d8cfd` 继续；这些成果现在已合入main。其顺序是先后端合并检查，再生成以下四张 GPT Image 设计图，随后实施前端。本批已接续并实际观察相关界面；设计图本身不代表功能完成，范围以 [CURRENT_STATUS](docs/CURRENT_STATUS.md) 为准。需求与历史资料关系见[来源归档](docs/source-materials/2026-10-18/README.md)。
 
 | 设计依据 | 交互落点 |
 | --- | --- |

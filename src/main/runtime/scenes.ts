@@ -221,7 +221,7 @@ export class SceneService {
     if (!label) throw new HarnessError('selection_target', '选择的对象与这份画面不相符，请重新选择。');
     return { ...input, label, source: scene.source, ...(record ? { record: structuredClone(record) } : {}), ...(timeBlock ? { timeBlock: structuredClone(timeBlock), timeZone: scene.kind === 'planning' ? scene.window.timeZone : undefined } : {}),
       ...(environmentSample ? { environmentSample: structuredClone(environmentSample), timeZone: scene.kind === 'environment' ? scene.timeZone : undefined } : {}),
-      selectedAt: this.store.kernel.clock.now(), meaning: '用户在当前对话界面明确选中的临时引用/试算；不是当前位置、到达证明、已接受的安排、长期偏好或行动授权。校园记录保留查询时刻，不代表之后没有变化；日期只确定当天，下午的具体起止时间仍以原话和真实日程核对。规划块及planRefs只是当时草案，采用前重新核查现有票据、覆盖与完整占用；旧画面不会恢复过期票据。小时温度对应时刻，降水对应标明的前一小时，空气指数保留自己的制式；都不是现场观察或个人运动安全结论。' };
+      selectedAt: this.store.kernel.clock.now(), meaning: '用户在当前对话界面明确选中的临时引用/试算；不是当前位置、到达证明、已接受的安排、长期偏好或行动授权。校园记录保留查询时刻，不代表之后没有变化；日期只确定当天，下午的具体起止时间仍以原话和真实日程核对。规划块及planRefs只是当时草案，采用前重新核查现有票据、覆盖与完整占用；跨日画面部分的originalRange保留原时段，planRefs仍指完整采用单位，不能只采用切片而省掉其他占用。旧画面不会恢复过期票据。小时温度对应时刻，降水对应标明的前一小时，空气指数保留自己的制式；都不是现场观察或个人运动安全结论。' };
   }
   summaries(handle: ScopeHandle, sessionId: string, runId?: string, attached?: SceneRef) {
     const available = this.available(handle, sessionId, runId, attached), recent = available.slice(-6);

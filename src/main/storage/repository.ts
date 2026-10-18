@@ -34,6 +34,7 @@ export interface PrivacyFence {
   deletedConversationIds?: string[];
 }
 export type FaultInjector = (point: string) => void;
+export type SourceRestrictionSnapshot = ReadonlyMap<string, { metadata: string; wholeSource: boolean }>;
 const parse = <T>(row: Row | undefined): T | undefined => (row ? JSON.parse(String(row.payload)) : undefined);
 const placeholders = (values: readonly unknown[]) => values.map(() => '?').join(',') || 'NULL';
 const queryGrams = (query: string) => {
@@ -508,6 +509,31 @@ export class KernelRepository {
         rangeUnknown: !spans.length, effectiveFrom: dates[0] || null };
     });
   }
+  /** Host-only, body-free baseline for child work. Future local changes enter
+   * the active snapshot when they take effect; whole-source stops fail closed. */
+  sourceRestrictionSnapshot(handle: ScopeHandle): SourceRestrictionSnapshot {
+    const f = this.filter(handle), values = new Map<string, { metadata: string; wholeSource: boolean }>();
+    const rows = this.db.prepare(`SELECT r.id AS event_id,r.version AS source_version,x.predicate,x.operation,x.replacement_event_id,
+      s.content_version,s.start_cp,s.end_cp,s.effective_from
+      FROM h_evidence r JOIN h_source_restrictions x ON x.event_id=r.id
+      LEFT JOIN h_source_restriction_spans s ON s.event_id=x.event_id AND s.predicate=x.predicate
+      WHERE ${f.sql} AND r.status!='deleted'
+        AND (x.predicate='*' OR s.event_id IS NULL OR s.effective_from IS NULL OR julianday(s.effective_from) IS NULL OR julianday(s.effective_from)<=julianday(?))
+      ORDER BY r.id,x.predicate,s.content_version,s.start_cp,s.end_cp,s.effective_from`).all(...f.params, this.clock.now());
+    for (const row of rows) {
+      const id = String(row.event_id), prior = values.get(id);
+      values.set(id, { metadata: (prior?.metadata || '') + JSON.stringify({ sourceVersion: row.source_version,
+        predicate: row.predicate, operation: row.operation, replacementEventId: row.replacement_event_id,
+        contentVersion: row.content_version, start: row.start_cp, end: row.end_cp, effectiveFrom: row.effective_from }) + '\n',
+        wholeSource: !!prior?.wholeSource || row.predicate === '*' });
+    }
+    return values;
+  }
+  sourceRestrictionsChanged(handle: ScopeHandle, baseline: SourceRestrictionSnapshot, evidenceIds: readonly string[]) {
+    const current = this.sourceRestrictionSnapshot(handle);
+    return evidenceIds.some(id => current.get(id)?.wholeSource
+      || current.get(id)?.metadata !== baseline.get(id)?.metadata);
+  }
   restrictSource(handle: ScopeHandle, eventId: string, predicate: string, operation: string, replacementEventId: string | null,
     ranges: { contentVersion: number; start: number; end: number }[], effectiveFrom: string) {
     if (!this.evidence(handle, eventId)) throw new HarnessError('source_forbidden', '不能修改此来源的使用范围。');
@@ -535,6 +561,22 @@ export class KernelRepository {
       this.recordAccess(handle, row, 'evidence');
       return parse<EvidenceEvent>(row)!;
     });
+  }
+  /** Original-source browsing is independent of extraction and literal search.
+   * Keyset pagination fixes the upper sequence while rechecking current policy. */
+  evidenceBrowsePage(handle: ScopeHandle, options: { sourceIds: string[]; receivedFrom?: string; receivedBefore?: string;
+    snapshot: number; before: number; limit: number }): EvidenceEvent[] {
+    const f = this.filter(handle);
+    if (!options.sourceIds.length) return [];
+    const rows = this.db.prepare(`SELECT r.* FROM h_evidence r WHERE ${f.sql} AND r.status!='deleted'
+      AND r.source IN (${placeholders(options.sourceIds)}) AND r.seq<=? AND r.seq<?
+      ${options.receivedFrom ? 'AND julianday(r.received_at)>=julianday(?)' : ''}
+      ${options.receivedBefore ? 'AND julianday(r.received_at)<julianday(?)' : ''}
+      AND NOT EXISTS(SELECT 1 FROM h_source_restrictions x WHERE x.event_id=r.id AND x.predicate='*')
+      ORDER BY r.seq DESC LIMIT ?`).all(...f.params, ...options.sourceIds, options.snapshot, options.before,
+        ...(options.receivedFrom ? [options.receivedFrom] : []), ...(options.receivedBefore ? [options.receivedBefore] : []),
+        Math.max(1, Math.min(options.limit, 51)));
+    return rows.map(row => { this.recordAccess(handle, row, 'source_browse'); return parse<EvidenceEvent>(row)!; });
   }
   sessionEvidence(handle: ScopeHandle, sessionId: string, limit = 4): EvidenceEvent[] {
     const f = this.filter(handle);
@@ -720,7 +762,7 @@ export class KernelRepository {
     return this.db.prepare(`SELECT e.id,e.received_at,e.source,e.purpose,json_extract(e.payload,'$.interpretationTimeZone') AS time_zone
       FROM h_evidence e LEFT JOIN h_memory_recovery q ON q.event_id=e.id
       WHERE e.owner=? AND e.workspace=? AND e.subject=? AND e.world='real'
-        AND e.infer=1 AND e.retain='purpose_scoped' AND e.status='active' AND json_extract(e.payload,'$.speaker')='user'
+        AND e.infer=1 AND e.retain='purpose_scoped' AND e.status IN ('active','redacted') AND json_extract(e.payload,'$.speaker')='user'
         AND (e.expires_at IS NULL OR julianday(e.expires_at)>julianday(?))
         AND (? IS NULL OR e.id=?) AND (q.due_at IS NULL OR julianday(q.due_at)<=julianday(?))
         AND NOT EXISTS(SELECT 1 FROM h_source_restrictions x WHERE x.event_id=e.id AND x.predicate='*')
@@ -1481,7 +1523,12 @@ export class KernelRepository {
         ),
       );
       const affected = new Set<string>(),
-        redactedSources = new Set<string>();
+        redactedSources = new Set<string>(),
+        redactedRanges = new Map<string, { contentVersion: number; start: number; end: number }[]>();
+      const recordRedaction = (eventId: string, contentVersion: number, start: number, end: number) => {
+        redactedSources.add(eventId);
+        redactedRanges.set(eventId, [...(redactedRanges.get(eventId) || []), { contentVersion, start, end }]);
+      };
       for (const span of fence.spans || []) {
         const event = parse<EvidenceEvent>(
           this.db.prepare('SELECT payload FROM h_evidence WHERE id=?').get(span.eventId),
@@ -1490,7 +1537,9 @@ export class KernelRepository {
         const original = event?.text ?? (legacy ? String(legacy.content) : undefined);
         if (original === undefined) continue;
         const chars = Array.from(original);
-        for (let i = span.start; i < Math.min(span.end, chars.length); i++) chars[i] = '█';
+        const start = event && event.contentVersion !== span.contentVersion ? 0 : span.start,
+          end = event && event.contentVersion !== span.contentVersion ? chars.length : span.end;
+        for (let i = start; i < Math.min(end, chars.length); i++) chars[i] = '█';
         const text = chars.join('');
         if (event) {
           event.text = text;
@@ -1499,7 +1548,7 @@ export class KernelRepository {
             .prepare('UPDATE h_evidence SET content=?,status=?,payload=? WHERE id=?')
             .run(text, event.status, JSON.stringify(event), event.id);
           this.replaceIndex('evidence', event.id, text);
-          redactedSources.add(event.id);
+          recordRedaction(event.id, event.contentVersion, start, end);
         }
         this.redactLegacyMessage(span.eventId, text);
       }
@@ -1527,14 +1576,27 @@ export class KernelRepository {
             .run(event.text, event.status, JSON.stringify(event), eid);
           this.replaceIndex('evidence', eid, event.text);
           this.redactLegacyMessage(eid, event.text);
-          redactedSources.add(eid);
-          this.db.prepare("UPDATE h_spans SET status='no_personal_fact',indexed=1 WHERE event_id=?").run(eid);
+          recordRedaction(eid, event.contentVersion, Number(ref.start_cp), Number(ref.end_cp));
         }
         this.removeAssertion(id);
         for (const dependent of this.invalidate(id, 'source_deleted', preserved)) affected.add(dependent);
         this.db.prepare('DELETE FROM h_work WHERE id=?').run(id);
         this.db.prepare('DELETE FROM h_sync_operations WHERE object_id=?').run(id);
       }
+      // A different assertion can contain the same private passage under a
+      // different predicate. Remove overlapping/unknown claims and their
+      // derived payloads, while retaining claims located wholly elsewhere.
+      for (const [eventId, ranges] of redactedRanges) {
+        for (const row of this.db.prepare('SELECT assertion_id,start_cp,end_cp FROM h_assertion_evidence WHERE event_id=?').all(eventId)) {
+          const id = String(row.assertion_id);
+          this.db.prepare('DELETE FROM h_assertion_versions WHERE id=? AND revision!=(SELECT revision FROM h_assertions WHERE id=?)').run(id, id);
+          if (row.start_cp !== null && row.end_cp !== null
+            && !ranges.some(range => range.start < Number(row.end_cp) && range.end > Number(row.start_cp))) continue;
+          this.removeAssertion(id);
+          for (const dependent of this.invalidate(id, 'source_redacted', preserved)) affected.add(dependent);
+        }
+      }
+      const directlyDeletedEvents = new Set(eventIds);
       const roots = [...eventIds, ...redactedSources, ...fence.sourceIds],
         visited = new Set<string>();
       while (roots.length) {
@@ -1546,6 +1608,13 @@ export class KernelRepository {
           .all(root)) {
           const id = String(row.event_id);
           if (id === root || redactedSources.has(id)) continue;
+          const event = parse<EvidenceEvent>(this.db.prepare('SELECT payload FROM h_evidence WHERE id=?').get(id));
+          const ranges = redactedRanges.get(root), locator = event?.locator;
+          // A host-bound exact projection outside the erased range remains
+          // independent. Unlocated summaries still fail closed.
+          if (!eventIds.has(root) && ranges?.length && event?.parentEventId === root && locator?.kind === 'text'
+            && ranges.every(range => range.contentVersion === locator.contentVersion
+              && (range.end <= locator.startCodePoint || range.start >= locator.endCodePoint))) continue;
           if (!eventIds.has(id)) {
             eventIds.add(id);
             roots.push(id);
@@ -1593,7 +1662,7 @@ export class KernelRepository {
           this.db.prepare('SELECT payload FROM h_evidence WHERE id=?').get(id),
         );
         if (event) {
-          if (event.parentEventId) {
+          if (event.parentEventId && directlyDeletedEvents.has(id)) {
             const parent = parse<EvidenceEvent>(
               this.db.prepare('SELECT payload FROM h_evidence WHERE id=?').get(event.parentEventId),
             );
@@ -1642,6 +1711,7 @@ export class KernelRepository {
       }
       for (const id of affected) {
         if (preserved.has(id)) continue;
+        this.removeAssertion(id);
         const calendar = this.db.prepare('SELECT agenda_id,revision FROM h_calendar_versions WHERE id=?').get(id);
         if (calendar) {
           this.db.prepare("DELETE FROM agenda WHERE id=? AND COALESCE(json_extract(payload,'$.revision'),1)=?").run(String(calendar.agenda_id), Number(calendar.revision));

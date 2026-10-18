@@ -27,7 +27,7 @@ import { projectMapModelResult, projectMapRoute, projectMapValue } from './map-m
 import { CollaborationService, collaborationInput, independentChoiceInput } from './collaboration';
 import { BasisService, basisInput } from './basis';
 import { CooperationService } from './cooperation';
-import { AttentionService, attentionControlInput, helpDecisionInput } from './attention';
+import { AttentionService, attentionControlInput, helpDecisionInput, helpDiscoveryInput } from './attention';
 import { registerResearch } from '../capabilities/research';
 import { MaterialService, registerMaterials } from '../materials/service';
 import { SpatialService, spaceControlInput, type VisualObservation } from './spatial';
@@ -296,8 +296,8 @@ const specs: SpecDefinition[] = [
     schema: attentionControlInput, grant: 'work:write', mutates: true,
   },
   {
-    name: 'inspect_help', description: '发现并读取当前范围内已经准备好的资料、候选机会及明确限制。不知道材料ID时省略id分页列出精确ID、版本、状态、标题和材料时效，列表不含正文；精确复制ID再读取完整材料与依据，可跨对话找回，无需读取人物记忆。记录区分生成、展示、系统提交、打开和反馈。若要把真实材料放在当前对话，用decide_help的reuseArtifact和presentInConversation，不重新调查相同事实。',
-    schema: z.object({ id: z.string().max(160).optional(), offset: z.number().int().nonnegative().default(0), limit: z.number().int().min(1).max(12).default(5) }).strict(), grant: 'evidence:read',
+    name: 'inspect_help', description: '发现并读取当前范围内已经准备好的资料、候选机会及明确限制。不知道材料ID时省略id，可按query、relatedTo精确事项/托付ID、statuses与最近判断时间from/to筛选后分页；旧但相关材料不会被最新几项挡住。列表只给精确ID、版本、状态、标题和时效，不含正文；精确复制ID再读取完整材料与依据，可跨对话找回，无需读取人物记忆。暂停、失效或过期记录仅供核对历史，不代表当前可用。记录区分生成、展示、系统提交、打开和反馈。若要把真实材料放在当前对话，用decide_help的reuseArtifact和presentInConversation，不重新调查相同事实。',
+    schema: helpDiscoveryInput, grant: 'evidence:read',
   },
   {
     name: 'decide_help', description: '对已读取的机会比较直接帮助、真实安静准备、等待、问一个关键问题或不介入。先检查最近帮助与限制；换措辞、换事件ID不是新理由。prepare须引用真实工具观察ID或机会中已经提供的外部材料ID，并提供具体产物；已经有材料不必重复读取。通知另受渠道、次数、版本和时效约束。没有实际产物不称准备好。',
@@ -347,8 +347,8 @@ const specs: SpecDefinition[] = [
   },
   {
     name: 'search_context',
-    description: '需要理解用户前情、条件或过去理由时主动检索，不必等用户说“查记忆”。query保留问题，relatedQueries由你按语义补充不同表述、语言及必要条件，宿主融合召回；零词面重合或词义不明时用mode=scan分页查看当前合法理解，再按完整条件判断。原文独立可查，旧措辞可沿更正找到新来源。返回候选、依赖缺口和后续分页，不是已确认的适用结论；不适用的资料不要用于判断。',
-    schema: z.object({ query: z.string().min(1).max(400), relatedQueries: z.array(z.string().min(1).max(400)).max(5).optional().describe('模型提出的同义、跨语言或决策依赖查询，不是新增事实。'), mode: z.enum(['search', 'scan']).optional().describe('search进行多路检索；scan不要求字面匹配，按offset分页读取当前合法有效的理解候选。'), at: z.string().datetime({ offset: true }).optional(), offset: z.number().int().min(0).optional(), hardOffset: z.number().int().min(0).optional(), limit: z.number().int().min(1).max(20).optional() }).strict(),
+    description: '需要理解用户前情、条件或过去理由时主动取证，不必等用户说“查记忆”。query保留问题，relatedQueries补充语义表达；mode=scan浏览合法现行理解。仍缺线索或可能漏提取时用mode=browse按来源/收到时间浏览原文定位页：不要求query字面命中，不依赖已提取断言，按read入口展开正文。browse复用nextCursor且不改来源/时间，新增原文不挤动旧页；预览不代表完整事实。旧措辞可沿更正找到新来源。结果是候选与覆盖，不是适用结论。',
+    schema: z.object({ query: z.string().min(1).max(400), relatedQueries: z.array(z.string().min(1).max(400)).max(5).optional().describe('模型提出的同义、跨语言或决策依赖查询，不是新增事实。'), mode: z.enum(['search', 'scan', 'browse']).optional().describe('search多路检索；scan按offset浏览有效理解；browse无词面条件地浏览原文定位预览，query只表达调查目的。'), at: z.string().datetime({ offset: true }).optional(), sourceIds: z.array(z.string().min(1).max(160)).min(1).max(16).optional().describe('仅browse：精确来源ID，必须在本轮允许范围；不填则浏览当前允许的持久来源。'), receivedFrom: z.string().datetime({ offset: true }).optional().describe('仅browse：收到原文时间的下界（含），不是事实生效时间。'), receivedBefore: z.string().datetime({ offset: true }).optional().describe('仅browse：收到原文时间的上界（不含）。'), cursor: z.string().min(1).max(160).optional().describe('仅browse：上一页nextCursor，继续时可省略相同来源/时间条件；30分钟或进程重启后重新开始。'), offset: z.number().int().min(0).optional(), hardOffset: z.number().int().min(0).optional(), limit: z.number().int().min(1).max(20).optional() }).strict(),
     grant: 'evidence:read',
   },
   {
@@ -1491,11 +1491,10 @@ export class RuntimeCoordinator {
     }
     if (name === 'inspect_help') {
       this.attention.expire();
-      const rows = args.id ? this.repo.work(handle, undefined, args.id).filter(record => record.data.type === 'help_opportunity')
-        : session.background ? this.attention.pending(handle, args.limit)
-        : this.repo.workData(handle, ['help_opportunity'], { statuses: ['candidate', 'waiting', 'prepared', 'question_ready', 'notification_queued'], offset: args.offset, limit: args.limit + 1, respectSourceBindings: true });
-      const hasMore = !args.id && !session.background && rows.length > args.limit;
-      const candidates = args.id ? rows : rows.slice(0, args.limit);
+      const discovery = !args.id ? this.attention.discoverHelp(handle, args, session.background
+        ? this.attention.pending(handle, Number.MAX_SAFE_INTEGER) : undefined) : undefined;
+      const candidates = args.id ? this.repo.work(handle, undefined, args.id).filter(record => record.data.type === 'help_opportunity') : discovery!.items;
+      const hasMore = discovery?.hasMore || false;
       const discoveryOnly = !args.id && !session.background;
       const value = { items: candidates.map(record => {
         if (discoveryOnly) {
@@ -1511,7 +1510,9 @@ export class RuntimeCoordinator {
         if (contract.enhancements?.applicability === false) item.basisUses = [];
         return item;
       }),
-        coverage: { offset: args.offset, hasMore, nextOffset: hasMore ? args.offset + args.limit : null, scope: 'currently permitted active help and prepared materials' },
+        coverage: { offset: args.offset, hasMore, nextOffset: discovery?.nextOffset || null, scope: 'currently permitted help and prepared materials',
+          filters: { query: args.query || null, relatedTo: args.relatedTo || null, statuses: args.statuses || ['candidate', 'waiting', 'prepared', 'question_ready', 'notification_queued'], from: args.from || null, to: args.to || null },
+          timeMeaning: 'from包含、to不包含，筛选最近判断时间；尚未判断时筛选建立时间。未命中可换表述或省略query分页查看，不能据此判断没有相关准备。' },
         discoveryOnly, meaning: '这里只是机会、实际材料与历史，未新增用户义务。' };
       const modelView = projectMapValue(value);
       if (session.pack) this.context.recordTool(session.pack, { status: 'fresh', sourceId: 'work:self', data: JSON.parse(JSON.stringify(value)), fetchedAt: this.repo.clock.now(), simulated: false },
@@ -1611,6 +1612,25 @@ export class RuntimeCoordinator {
       }
       this.context.recordObjects(session.pack, [...restored.items, ...restored.relatedOptions, ...restored.relatedRecords, ...restored.basisUses], 'work');
       const frames = restored.items.filter(item => item.data.type === 'collaboration_frame');
+      const reports = frames.flatMap(frame => (Array.isArray(frame.data.decisionExperiences) ? frame.data.decisionExperiences : [])
+        .flatMap(entry => {
+          const source = entry && typeof entry === 'object' && !Array.isArray(entry)
+            ? entry.source as { eventId?: unknown; contentVersion?: unknown; quote?: unknown } | undefined : undefined;
+          if (typeof source?.eventId !== 'string' || typeof source.quote !== 'string') return [];
+          const event = this.repo.evidence(handle, source.eventId);
+          return event && event.contentVersion === source.contentVersion ? [event] : [];
+        }));
+      // Reports are independently readable references, rather than permanent
+      // dependencies of the whole matter. Once their words reach this model,
+      // they still belong in its real source/version boundary.
+      if (session.pack && reports.length) {
+        const receipt = session.pack.receipt;
+        receipt.providedEvidenceIds = [...new Set([...receipt.providedEvidenceIds, ...reports.map(event => event.id)])];
+        receipt.providedSourceIds = [...new Set([...(receipt.providedSourceIds || []), ...reports.map(event => event.sourceId)])];
+        receipt.providedObjectVersions = [...new Map([...receipt.providedObjectVersions,
+          ...reports.map(event => ({ id: event.id, revision: event.contentVersion, kind: 'evidence' as const }))]
+          .map(ref => [ref.kind + ':' + ref.id, ref])).values()];
+      }
       const matter = frames.length === 1 ? frames[0] : undefined;
       const prefetch = matter && session.pack && contract.memoryMode === 'relevant' && contract.enhancements?.prefetch !== false
         ? this.context.prefetchForMatter(session.pack, matter, session.ingress.authoredText) : undefined;
@@ -1619,18 +1639,23 @@ export class RuntimeCoordinator {
       const restoredIds = [...new Set([...restored.items, ...restored.relatedOptions, ...restored.relatedRecords].map(record => record.id))];
       const syncObjectOffset = args.syncObjectOffset || 0, syncObjectIds = restoredIds.slice(syncObjectOffset, syncObjectOffset + 24);
       const syncChanges = this.repo.pendingSyncForWork(handle, syncObjectIds, args.syncOffset, args.syncLimit);
-      return { ...restored, cooperationHistory, syncChanges: { ...syncChanges,
+      const result = { ...restored, cooperationHistory, syncChanges: { ...syncChanges,
         objectCoverage: { returned: syncObjectIds.length, totalMatches: restoredIds.length,
           nextOffset: syncObjectOffset + syncObjectIds.length < restoredIds.length ? syncObjectOffset + syncObjectIds.length : null,
           complete: syncObjectOffset + syncObjectIds.length >= restoredIds.length },
         meaning: '仅这些已恢复且本轮可读对象的当前版本未应用修改。提议不等于权威选择或已同步；冲突须由用户决定，不自动覆盖、预约或外发。历史/旧权限操作不在此页，空结果不证明其它设备已同步；这也不证明真实手机硬件已经接通。' }, ...(prefetch ? { contextualCandidates: prefetch } : {}) };
+      if (session.pack) this.context.recordTool(session.pack, { status: restored.status === 'fresh' ? 'fresh' : 'known_absent',
+        sourceId: 'work:self', data: JSON.parse(JSON.stringify(result)), fetchedAt: this.repo.clock.now(), simulated: false },
+      'restore_collaboration', handle.id, result, undefined, true);
+      return result;
     }
     if (name === 'search_context') return this.context.prefetch(session.pack || await this.compile(session, false, signal), args.query, args.at, args.offset, args.limit, args.hardOffset, session.background ? event => {
       const view = session.attentionEvidenceViews?.[event.id];
       if (!view) return event;
       if (event.contentVersion !== view.contentVersion || codePointSlice(event.text, view.sourceStart, view.sourceEnd) !== view.quote) return undefined;
       return { ...event, text: view.quote };
-    } : undefined, { relatedQueries: args.relatedQueries, mode: args.mode });
+    } : undefined, { relatedQueries: args.relatedQueries, mode: args.mode, sourceIds: args.sourceIds,
+      receivedFrom: args.receivedFrom, receivedBefore: args.receivedBefore, cursor: args.cursor });
     if (name === 'read_assistant_history') {
       const rows = this.repo.assistantHistory(handle, { id: args.id, query: args.query, limit: args.id ? 1 : 8 });
       const result = { status: rows.length ? 'fresh' : 'not_found', items: rows.map(row => {

@@ -2,8 +2,10 @@ import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import type { Action } from '../../shared/types';
 import { HarnessError } from '../../shared/harness';
+import { calendarDate } from '../../shared/calendar';
 import { expandAgenda } from './calendar';
-import { dayBounds, canonical } from '../runtime/semantics';
+import { addDate, dateInZone, dayBounds, canonical } from '../runtime/semantics';
+import { planningDayBounds } from './planning-days';
 
 const instant = z.string().datetime({ offset: true });
 const minutes = z.number().int().min(0).max(1440);
@@ -37,13 +39,19 @@ export const planningDraftInput = z.object({
   startPlaceId: id.optional(), endPlaceId: id.optional(),
   maxScheduledMinutes: z.number().int().min(0).max(44640).default(240).describe('本次窗口的工作量上限；默认有限预算不是对用户能力的判断。'),
   reserveMinutes: z.number().int().min(0).max(44640).default(30).describe('本次窗口至少保留的自由时间，不创建待办或完成义务。'),
+  dailyBudgets: z.array(z.object({
+    date: calendarDate,
+    maxScheduledMinutes: z.number().min(0).max(44640).optional().describe('该本地日期内本次新增净工作分钟上限，与窗口总上限同时生效；不含已有承诺、准备收尾、转场或休息，也不冒充全天工作总量。跨午夜恢复时可保留小数分钟。'),
+    reserveMinutes: z.number().int().min(0).max(44640).optional().describe('该本地日期与本次窗口交集内，扣除已有忙碌、保护窗口及新增完整占用后至少留下的空白；不默认睡眠或现实空闲。'),
+  }).strict().refine(value => value.maxScheduledMinutes !== undefined || value.reserveMinutes !== undefined, '每日预算需要工作上限或保留空白。')).max(32).default([]).describe('仅本次明确选择的逐日限制，按timeZone的自然日计算，跨午夜按真实分钟拆账；没有列出的日期不添加默认限制。'),
   energyWindows: z.array(windowSchema.extend({ capacity: z.enum(['low', 'medium', 'high']), sourceId: id, sourceVersion: z.string().max(160).optional() }).strict()).max(64).default([]),
 }).strict();
 
 type Input = z.infer<typeof planningDraftInput>;
 type Task = Input['tasks'][number];
 type Interval = { start: number; end: number };
-type Occupied = Interval & { id: string; kind: 'fixed' | 'protected' | 'task'; title?: string; placeId?: string };
+type PlanningDay = Interval & { date: string; budget?: Input['dailyBudgets'][number] };
+type Occupied = Interval & { id: string; kind: 'fixed' | 'protected' | 'task'; title?: string; placeId?: string; unknownEnd?: boolean };
 type Cost = { minutes: number; minMinutes: number; unknown: string[]; sources: string[] };
 type Transfer = Interval & { fromId: string | null; toId: string | null; travel: Cost; restMinutes: number };
 type Candidate = { start: number; end: number; reservedStart: number; reservedEnd: number; before: Cost; after: Cost; restBefore: number; restAfter: number; preferred: boolean; unknown: string[] };
@@ -89,6 +97,34 @@ function freeIntervals(occupied: Interval[], bounds: Interval): Interval[] {
 function intersect(a: Interval, b: Interval): Interval | undefined {
   const start = Math.max(a.start, b.start), end = Math.min(a.end, b.end);
   return end > start ? { start, end } : undefined;
+}
+const intervalMinutes = (interval: Interval, bounds: Interval) => Math.max(0, Math.min(interval.end, bounds.end) - Math.max(interval.start, bounds.start)) / minute;
+const workMinutesIn = (work: Interval[], bounds: Interval) => work.reduce((sum, value) => sum + intervalMinutes(value, bounds), 0);
+const freeMinutesIn = (occupied: Interval[], bounds: Interval) => freeIntervals(occupied, bounds).reduce((sum, value) => sum + (value.end - value.start) / minute, 0);
+
+function planningDays(input: Input, bounds: Interval): PlanningDay[] {
+  if (new Set(input.dailyBudgets.map(value => value.date)).size !== input.dailyBudgets.length)
+    throw new HarnessError('planning_day_budget', '同一本地日期提供了多份预算，请先统一本次选择。');
+  const result: PlanningDay[] = [];
+  const lastDate = dateInZone(iso(bounds.end - 1), input.timeZone);
+  for (let date = dateInZone(iso(bounds.start), input.timeZone); date <= lastDate; date = addDate(date, 1)) {
+    const day = planningDayBounds(date, input.timeZone), clipped = intersect(bounds, { start: Date.parse(day.from), end: Date.parse(day.to) });
+    if (clipped) result.push({ ...clipped, date, budget: input.dailyBudgets.find(value => value.date === date) });
+  }
+  if (input.dailyBudgets.some(value => !result.some(day => day.date === value.date)))
+    throw new HarnessError('planning_day_budget', '每日预算日期不在本次时区和规划窗口内，请核对日期。');
+  return result;
+}
+
+/** The largest contiguous productive prefix allowed by every declared day cap. */
+function dailyWorkCapacity(start: number, length: number, days: PlanningDay[], work: Interval[]) {
+  let end = start + length * minute;
+  for (const day of days) {
+    if (day.budget?.maxScheduledMinutes === undefined || start >= day.end || end <= day.start) continue;
+    const available = Math.max(0, day.budget.maxScheduledMinutes - workMinutesIn(work, day));
+    if (intervalMinutes({ start, end }, day) > available) end = Math.min(end, Math.max(start, day.start) + available * minute);
+  }
+  return Math.max(0, Math.floor((end - start) / minute + 1e-8));
 }
 function validateInput(input: Input) {
   const bounds = asInterval({ start: input.from, end: input.to }, '规划');
@@ -167,7 +203,7 @@ function transferReservations(input: Input, occupied: Occupied[], bounds: Interv
   return result;
 }
 
-function candidates(task: Task, remaining: number, workBudget: number, earliest: number, input: Input, occupied: Occupied[], bounds: Interval): Candidate[] {
+function candidates(task: Task, remaining: number, workBudget: number, earliest: number, input: Input, occupied: Occupied[], bounds: Interval, days: PlanningDay[], work: Interval[]): Candidate[] {
   const taskBounds = { start: Math.max(bounds.start, earliest, task.earliestStart ? Date.parse(task.earliestStart) : bounds.start), end: Math.min(bounds.end, task.deadline ? Date.parse(task.deadline) : bounds.end) };
   const allowed = task.allowedWindows === undefined ? [taskBounds] : merge(task.allowedWindows.map(value => asInterval(value, '任务窗口'))).flatMap(value => { const intersection = intersect(value, taskBounds); return intersection ? [intersection] : []; });
   const levels = { low: 1, medium: 2, high: 3 };
@@ -190,10 +226,16 @@ function candidates(task: Task, remaining: number, workBudget: number, earliest:
       const usable = intersect({ start: earliestCore, end: latestCore }, { start: valid.start + task.setupMinutes * minute, end: valid.end - task.cleanupMinutes * minute });
       if (!usable) continue;
       // Include preferred starts and boundaries of known energy; all choices are checked again below.
-      const starts = unique([String(usable.start), ...preferences.filter(value => overlap(value, usable)).map(value => String(Math.max(usable.start, value.start))), ...energy.filter(value => overlap(value, usable)).map(value => String(Math.max(usable.start, value.start)))]).map(Number);
+      const dayStarts = input.dailyBudgets.length ? days.flatMap(day => [day.start, day.end,
+        ...(day.budget?.maxScheduledMinutes !== undefined ? [day.end - Math.max(0, day.budget.maxScheduledMinutes - workMinutesIn(work, day)) * minute] : [])])
+        .filter(value => value >= usable.start && value < usable.end) : [];
+      const starts = unique([String(usable.start), ...preferences.filter(value => overlap(value, usable)).map(value => String(Math.max(usable.start, value.start))), ...energy.filter(value => overlap(value, usable)).map(value => String(Math.max(usable.start, value.start))), ...dayStarts.map(String)]).map(Number);
       for (const start of starts) {
         const capacity = Math.floor((usable.end - start) / minute);
         let length = task.splittable ? Math.min(remaining, capacity, workBudget, task.maximumChunkMinutes ?? Infinity) : remaining;
+        const dailyCapacity = dailyWorkCapacity(start, length, days, work);
+        if (task.splittable) length = Math.min(length, dailyCapacity);
+        else if (dailyCapacity < length) continue;
         const minimum = task.minimumChunkMinutes || (task.splittable ? Math.min(30, task.durationMinutes.max) : task.durationMinutes.max);
         if (task.splittable && remaining > length && remaining - length < minimum) length = remaining - minimum;
         if (length < minimum || length > capacity) continue;
@@ -211,8 +253,10 @@ function candidates(task: Task, remaining: number, workBudget: number, earliest:
 /** Constructive, bounded and read-only: failure to place is not a proof of global infeasibility. */
 export function draftCalendarPlan(items: Action[], raw: unknown) {
   const input = planningDraftInput.parse(raw), bounds = validateInput(input);
+  const days = planningDays(input, bounds);
   // Look outside the requested window for adjacent commitments whose transfers cross the edge.
   const expansion = expandAgenda(items.filter(item => !item.done), iso(bounds.start - 1440 * minute), iso(bounds.end + 1440 * minute), input.timeZone);
+  const issues = [...expansion.issues];
   const occupied: Occupied[] = [];
   const localSources: { sourceId: string; sourceVersion: string; occurrenceId: string }[] = [];
   for (const row of expansion.items) {
@@ -221,20 +265,25 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
     const allDay = item.allDayDate ? dayBounds(item.allDayDate, item.timeZone || input.timeZone) : undefined;
     const start = Date.parse(allDay?.from || item.startsAt || '');
     if (!Number.isFinite(start)) continue;
+    const unknownEnd = !allDay && !item.durationMinutes;
     const end = allDay ? Date.parse(allDay.to) : item.durationMinutes ? start + item.durationMinutes * minute : bounds.end;
-    occupied.push({ id: item.occurrenceId, kind: 'fixed', title: item.title, start, end, placeId: item.planning?.placeId });
+    // The numeric end only reserves conservative accounting space. Keep the
+    // original uncertainty so a view never presents it as an observed end.
+    occupied.push({ id: item.occurrenceId, kind: 'fixed', title: item.title, start, end, placeId: item.planning?.placeId, ...(unknownEnd ? { unknownEnd: true } : {}) });
+    if (unknownEnd && start < bounds.end && !issues.some(issue => issue.status === 'unknown_end' && issue.id === item.id && Date.parse(String(issue.startsAt)) === start))
+      issues.push({ id: item.id, occurrenceId: item.occurrenceId, status: 'unknown_end', startsAt: iso(start) });
     localSources.push({ sourceId: item.id, sourceVersion: String(item.revision || 1), occurrenceId: item.occurrenceId });
   }
   // Unknown-duration occurrences preceding the requested window are reported as issues, not items.
   for (const issue of expansion.issues) if (issue.status === 'unknown_end' && typeof issue.startsAt === 'string') {
     const item = items.find(value => value.id === issue.id);
-    if (item && (!item.planning || item.planning.state === 'accepted') && (!item.kind || ['event', 'time_block'].includes(item.kind))) occupied.push({ id: String(issue.id), kind: 'fixed', title: item.title, start: Date.parse(issue.startsAt), end: bounds.end, placeId: item.planning?.placeId });
+    if (item && (!item.planning || item.planning.state === 'accepted') && (!item.kind || ['event', 'time_block'].includes(item.kind))) occupied.push({ id: String(issue.id), kind: 'fixed', title: item.title, start: Date.parse(issue.startsAt), end: bounds.end, placeId: item.planning?.placeId, unknownEnd: true });
   }
-  for (const value of input.busy) occupied.push({ id: value.sourceId, kind: 'fixed', title: value.title, start: Date.parse(value.start), end: value.end ? Date.parse(value.end) : bounds.end, placeId: value.placeId });
+  for (const value of input.busy) occupied.push({ id: value.sourceId, kind: 'fixed', title: value.title, start: Date.parse(value.start), end: value.end ? Date.parse(value.end) : bounds.end, placeId: value.placeId, ...(value.end === null ? { unknownEnd: true } : {}) });
   for (const [index, value] of input.protectedWindows.entries()) occupied.push({ ...asInterval(value, '保护窗口'), id: `protected:${index}`, kind: 'protected' });
   const baseOccupied = occupied.map(value => ({ ...value }));
   const initialFreeMinutes = freeIntervals(occupied, bounds).reduce((sum, value) => sum + (value.end - value.start) / minute, 0);
-  const baseUnknown = sourceIssues(input, expansion.issues);
+  const baseUnknown = sourceIssues(input, issues);
   if (input.busy.some(value => value.end === null)) baseUnknown.push('外部忙碌区间存在未知结束，按窗口结束保守占用。');
   const cycles = dependencyCycles(input.tasks), completed = new Set(input.completedTaskIds);
   const byId = new Map(input.tasks.map(value => [value.id, value])), finished = new Map<string, number>();
@@ -260,16 +309,21 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
     while (remaining > 0) {
       if (blocks.length >= maxSegments) { fail(task, remaining, 'segment_limit', '本次方案已达到256个工作段的计算上限；保留剩余工作量，请缩短规划窗口或选择更长的有效工作段。'); break; }
       if (workMinutes >= input.maxScheduledMinutes) { fail(task, remaining, 'budget_or_reserve', '已达到本次工作量上限，保留其余任务而不追加追赶义务。'); break; }
-      const options = candidates(task, remaining, input.maxScheduledMinutes - workMinutes, lastEnd, input, occupied, bounds);
-      if (!options.length) { fail(task, remaining, 'no_placement_found', '在当前承诺、允许窗口、精力限制、连续时长和转换成本下，本次构造没有找到可用位置；这不是全局无解证明。'); break; }
+      const scheduledWork = blocks.map(block => ({ start: Date.parse(block.start), end: Date.parse(block.end) }));
+      const options = candidates(task, remaining, input.maxScheduledMinutes - workMinutes, lastEnd, input, occupied, bounds, days, scheduledWork);
+      if (!options.length) { fail(task, remaining, 'no_placement_found', `在当前承诺、允许窗口、精力限制、连续时长${input.dailyBudgets.length ? '、每日工作预算' : ''}和转换成本下，本次构造没有找到可用位置；这不是全局无解证明。`); break; }
       const fits = (value: Candidate) => {
         const length = (value.end - value.start) / minute;
         const projectedOccupied: Occupied[] = [...occupied, { start: value.reservedStart, end: value.reservedEnd, id: `${task.id}:${segment + 1}`, kind: 'task', placeId: task.placeId }];
         const transfers = transferReservations(input, projectedOccupied, bounds);
         if (!transfers) return { fits: false, freeDeficit: Infinity };
         const projected = freeIntervals([...projectedOccupied, ...transfers], bounds).reduce((sum, free) => sum + (free.end - free.start) / minute, 0);
-        return { fits: workMinutes + length <= input.maxScheduledMinutes && projected >= input.reserveMinutes,
-          freeDeficit: Math.max(0, input.reserveMinutes - projected, workMinutes + length - input.maxScheduledMinutes) };
+        const dailyDeficit = Math.max(0, ...days.filter(day => day.budget).flatMap(day => [
+          (day.budget!.reserveMinutes ?? 0) - freeMinutesIn([...projectedOccupied, ...transfers], day),
+          day.budget!.maxScheduledMinutes === undefined ? 0 : workMinutesIn([...scheduledWork, value], day) - day.budget!.maxScheduledMinutes,
+        ]));
+        return { fits: workMinutes + length <= input.maxScheduledMinutes && projected >= input.reserveMinutes && dailyDeficit <= 1e-8,
+          freeDeficit: Math.max(0, input.reserveMinutes - projected, workMinutes + length - input.maxScheduledMinutes, dailyDeficit) };
       };
       let candidate: Candidate | undefined;
       for (const option of options) {
@@ -277,13 +331,27 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
         if (check.fits) { candidate = option; break; }
         if (!task.splittable || !Number.isFinite(check.freeDeficit)) continue;
         const minimum = task.minimumChunkMinutes || Math.min(30, task.durationMinutes.max);
+        if (input.dailyBudgets.length) {
+          const resized = (length: number) => ({ ...option, end: option.start + length * minute, reservedEnd: option.start + (length + task.cleanupMinutes) * minute });
+          if (!fits(resized(minimum)).fits) continue;
+          // A bounded prefix search can free several local dates, unlike simply
+          // subtracting one day's deficit from the tail of a multi-day block.
+          let low = minimum, high = Math.floor((option.end - option.start) / minute);
+          while (low < high) {
+            const middle = Math.ceil((low + high) / 2);
+            if (fits(resized(middle)).fits) low = middle; else high = middle - 1;
+          }
+          if (remaining > low && remaining - low < minimum) low = remaining - minimum;
+          if (low >= minimum && fits(resized(low)).fits) { candidate = resized(low); break; }
+          continue;
+        }
         let length = (option.end - option.start) / minute - Math.ceil(check.freeDeficit);
         if (remaining > length && remaining - length < minimum) length = remaining - minimum;
         if (length < minimum) continue;
         const shorter = { ...option, end: option.start + length * minute, reservedEnd: option.start + (length + task.cleanupMinutes) * minute };
         if (fits(shorter).fits) { candidate = shorter; break; }
       }
-      if (!candidate) { fail(task, remaining, 'budget_or_reserve', '本次工作量上限或保留空白不足以容纳这一段；未把休息和自由时间填满。'); break; }
+      if (!candidate) { fail(task, remaining, 'budget_or_reserve', '本次窗口或每日工作量上限、保留空白不足以容纳这一段；未把休息和自由时间填满。'); break; }
       const length = (candidate.end - candidate.start) / minute;
       blocks.push({ taskId: task.id, title: task.title, start: iso(candidate.start), end: iso(candidate.end), durationMinutes: length,
         reservedStart: iso(candidate.reservedStart), reservedEnd: iso(candidate.reservedEnd), ...(task.placeId ? { placeId: task.placeId } : {}), segment: ++segment,
@@ -306,7 +374,18 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
     block.restAfterMinutes = next?.kind === 'task' ? input.restMinutes : 0;
     block.conditions = unique([...block.conditions.filter(value => !value.startsWith('地点')), ...block.travelBefore.unknown, ...block.travelAfter.unknown]);
   }
-  const allUnknown = unique([...baseUnknown, ...blocks.flatMap(value => value.conditions)]);
+  const daySummaries = days.map(day => {
+    const scheduledMinutes = workMinutesIn(blocks.map(block => ({ start: Date.parse(block.start), end: Date.parse(block.end) })), day);
+    const freeMinutes = freeMinutesIn([...occupied, ...transfers], day), initialFreeMinutes = freeMinutesIn(baseOccupied, day);
+    const reserveShortfallMinutes = Math.max(0, (day.budget?.reserveMinutes ?? 0) - freeMinutes);
+    return { date: day.date, from: iso(day.start), to: iso(day.end), timeZone: input.timeZone,
+      budget: day.budget || null, scheduledMinutes, initialFreeMinutes, freeMinutes,
+      occupiedMinutes: (day.end - day.start) / minute - freeMinutes,
+      reserveShortfallMinutes, status: reserveShortfallMinutes > 1e-8 ? 'existing_commitments_exceed_reserve' : 'within_declared_budget',
+      meaning: '工作分钟仅计本次新增净工作，跨本地午夜拆账；空白已扣除已有承诺、保护窗口、准备收尾及共享转场休息，不代表现实空闲或全天可用精力。' };
+  });
+  const allUnknown = unique([...baseUnknown, ...blocks.flatMap(value => value.conditions),
+    ...daySummaries.filter(day => day.reserveShortfallMinutes > 1e-8).map(day => `${day.date}的已有承诺和保护窗口已无法留下本次要求的空白，未自动移动它们；须调整原安排或本次留白要求。`)]);
   const calendarFingerprint = calendarPlanFingerprint(items);
   const sourceRevisions = [...localSources, ...[
     ...input.busy, ...input.travelTimes, ...input.energyWindows, ...input.tasks.filter(value => value.sourceId),
@@ -317,13 +396,13 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
     window: { from: input.from, to: input.to, timeZone: input.timeZone },
     strategy: 'dependency_ready_priority_deadline_constructive', optimality: 'not_claimed', limits: { maxWorkSegments: maxSegments },
     calendarFingerprint, planFingerprint: hash({ input, calendarFingerprint }), sourceRevisions,
-    sourceCoverage: [{ sourceId: 'local-agenda', status: expansion.coverage.complete ? 'complete' : 'partial', reason: '仅本机已登记的具体实例，不证明所有现实承诺或精力。' }, ...input.sourceCoverage.filter(value => value.sourceId !== 'local-agenda')],
-    effectivePreferences: { restMinutes: input.restMinutes, transitionMinutes: input.transitionMinutes, maxScheduledMinutes: input.maxScheduledMinutes, reserveMinutes: input.reserveMinutes,
+    sourceCoverage: [{ sourceId: 'local-agenda', status: issues.length === 0 ? 'complete' : 'partial', reason: '仅本机已登记的具体实例，不证明所有现实承诺或精力。' }, ...input.sourceCoverage.filter(value => value.sourceId !== 'local-agenda')],
+    effectivePreferences: { restMinutes: input.restMinutes, transitionMinutes: input.transitionMinutes, maxScheduledMinutes: input.maxScheduledMinutes, reserveMinutes: input.reserveMinutes, dailyBudgets: input.dailyBudgets,
       taskRhythms: input.tasks.filter(task => task.maximumChunkMinutes !== undefined || task.minimumChunkMinutes !== undefined).map(task => ({ taskId: task.id, splittable: task.splittable, minimumChunkMinutes: task.minimumChunkMinutes ?? (task.splittable ? Math.min(30, task.durationMinutes.max) : task.durationMinutes.max), maximumChunkMinutes: task.maximumChunkMinutes ?? null })) },
     blocks, unscheduled, fixedCommitments: baseOccupied.filter(value => value.kind === 'fixed').map(value => ({ ...value, start: iso(value.start), end: iso(value.end) })),
     protectedWindows: input.protectedWindows, transitions: transfers.map(value => ({ ...value, start: iso(value.start), end: iso(value.end) })),
     freeWindows: freeIntervals([...occupied, ...transfers], bounds).map(value => ({ start: iso(value.start), end: iso(value.end), minutes: (value.end - value.start) / minute, meaning: '已保留工作、准备、清理、转场、休息和保护窗口后的空白；现实可用性仍取决于声明的来源与条件。' })),
-    initialFreeMinutes, scheduledMinutes: workMinutes, conditions: allUnknown, issues: expansion.issues,
+    initialFreeMinutes, scheduledMinutes: workMinutes, daySummaries, conditions: allUnknown, issues,
     feasibility: !blocks.length && unscheduled.length ? 'no_plan_constructed' : allUnknown.length ? 'conditional' : unscheduled.length ? 'partial_for_declared_sources' : 'verified_for_declared_sources',
     completeness: unscheduled.length ? 'partial' : 'all_tasks_placed', accepted: false, applied: false,
     acceptanceProposals: blocks.map(block => ({ taskId: block.taskId, segment: block.segment, dependsOn: byId.get(block.taskId)!.dependsOn,

@@ -16,19 +16,29 @@ export interface WorkflowAvailability {
   reason?: string;
 }
 export type WorkflowResolver = (requirement: WorkflowRequirement) => WorkflowAvailability | undefined;
+type WorkflowRequirementKey = `${WorkflowRequirement['kind']}:${string}`;
+interface WorkflowRequirementGroup {
+  id: string;
+  mode: 'all' | 'any';
+  purpose: string;
+  members: WorkflowRequirementKey[];
+  optional?: boolean;
+  coverageNote?: string;
+}
 interface WorkflowSkill {
   id: string;
   version: string;
   name: string;
   description: string;
   requirements: WorkflowRequirement[];
+  requirementGroups?: WorkflowRequirementGroup[];
   instructions: string;
 }
 
 const skills: readonly WorkflowSkill[] = [
   {
-    id: 'memory-investigation', version: '1', name: '找回前情与核对记忆',
-    description: '跨轮接续、记得理由和例外、处理矛盾或更正；先找相关原文，再沿时间展开。可把独立的旧事调查交给有界只读子任务。',
+    id: 'memory-investigation', version: '2', name: '找回前情与核对记忆',
+    description: '跨轮接续、记得理由和例外、处理矛盾或更正；检索理解及未提取原文，必要时按来源和收到时间浏览，再展开正文。可把独立的旧事调查交给有界只读子任务。',
     requirements: [
       { kind: 'tool', name: 'search_context', purpose: '寻找有来源的理解和未提取原文' },
       { kind: 'tool', name: 'read_evidence', purpose: '展开原话、前后文和长文未读部分' },
@@ -38,6 +48,7 @@ const skills: readonly WorkflowSkill[] = [
     ],
     instructions: `从当前原话决定需要找回哪件事、哪个理由或哪次选择；当前材料足够时直接继续，不为每句话查记忆。先保留当前纠正，再用 search_context 检索相关内容。搜索结果只是候选；核对人物、现实或假设、当时日期、适用条件、来源及当前状态。需要时用 read_understanding 取得整条理解，用 read_evidence 按 nextOffset 继续读取原文；片段没提到不等于原文没有。跨轮理由沿原文定位展开前后文，不靠相邻话题猜同一对象。
 没有命中时换同义表述、旧对象名或时间界限，并检查搜索覆盖；已有记录可查时不立即让用户重讲。来源不准读则保留这个准确缺口，不扩大用途。旧日程、学校计次等当前业务事实回读对应业务能力，记忆只提供历史理由和条件。
+仍缺线索、用词不同或原文可能尚未提取时，可用 search_context 的 mode=browse 浏览当前许可原文；query表达调查目的，不要求正文词面命中。按需要给sourceIds和receivedFrom/receivedBefore，筛选的是收到原文的时间，不冒充其中事情发生的时间。定位页只有previewOnly预览，先按返回的read入口用read_evidence展开完整条件和更正，不能把预览当事实。用coverage.nextCursor作为下一次cursor继续，保留同一来源和收到时间范围，不用offset跳页；当前快照固定，新增原文不挤动旧页，删除和撤权仍立即核查。空的partial页若仍有nextCursor，表示这次有限扫描尚未到可见结果或末尾，可以继续，不代表没有记忆；预算不足则缩小limit沿原游标重试，游标过期或重启后在当前范围重新开始。浏览完成只覆盖本次合法来源范围，不证明现实已全部了解。
 独立而复杂的历史调查可以用 delegate：任务中写清要回答的问题、允许来源、必要原文ID、时间范围、已知纠正和停止条件；只给必要上下文。要求返回事实与推断分开、每条事实的证据ID和定位、时间、条件、冲突、仍未查到什么以及是否受预算截断。简单的两三次读取直接完成。子任务不能改记忆、日历、角色或授权；父助手必须消费结果，核对当前版本，不能把相同原文的多个转述算作独立证据。失效或迟到结果不恢复撤回的结论。
 用户说“忘掉这条判断，原话留着”时，按精确对象和用途执行已有隐私入口，不自动删除原聊天或独立已接受安排。只把足以支持本次任务的已核前情带回自然对话，不向用户倾倒记忆管理步骤。`,
   },
@@ -60,7 +71,7 @@ const skills: readonly WorkflowSkill[] = [
 用户只在倾诉或说今晚不安排时，可以不规划。固定提醒遵守自己的约定；减少普通建议不自动取消已经明确设定的提醒。`,
   },
   {
-    id: 'contextual-outing', version: '1', name: '把出行准备妥当',
+    id: 'contextual-outing', version: '2', name: '把出行准备妥当',
     description: '按当下意图自然结合地点、课次、路线与所需天气窗口；检查起点质量、数据覆盖和到达余量，安静准备可用材料。',
     requirements: [
       { kind: 'capability', name: 'map.relations', purpose: '按稳定地点和起点质量准备版本化路线' },
@@ -70,6 +81,12 @@ const skills: readonly WorkflowSkill[] = [
       { kind: 'capability', name: 'situation.read', purpose: '按出行用途核对具体承诺和时间', optional: true },
       { kind: 'capability', name: 'map.location_status', purpose: '确实需要时检查已经共享的设备观察质量', optional: true,
         coverageNote: '设备观察不等于本人所在处；本机Windows位置不能称为手机实时GPS。' },
+      { kind: 'tool', name: 'map_location_status', purpose: '通过同一宿主能力读取定位状态，不启动定位', optional: true },
+    ],
+    requirementGroups: [
+      { id: 'location-status', mode: 'any', purpose: '按需读取同一定位能力状态', optional: true,
+        members: ['capability:map.location_status', 'tool:map_location_status'],
+        coverageNote: '两个入口均调用map.location_status；任一可用即可读取状态，不代表已有有效位置或已启动定位。' },
     ],
     instructions: `用户问出行或有效托付涉及地点变化时，主动发现并使用相关能力，不等用户点名“地图、天气、GPS”。先利用原话给出的起点和目的地；只有位置会改变结论且当前范围允许时才读取已有设备位置，能用公共参考地点满足天气问题就不读取精确私人坐标。不因一句“在路上”自动创建导航任务。
 核对目的地稳定ID、具体发生时间、起点来源/精度/时间与地图版本。地点名字查不到时继续发现能力或缩短名称，不能编ID。map.relations 的估计连接、步行条件、入口未知和交通模式须保留；不能把现有步行图换说成骑行或无障碍精确ETA。教室换楼使旧路线失效，应按新版本重算。
@@ -77,7 +94,7 @@ const skills: readonly WorkflowSkill[] = [
 先准备真实可复用的路线和合理出发余量，再决定当前聊天呈现、等合适窗口提起还是安静保留。后台准备不抢镜头；展示地图不代表到达、接受安排或发送通知。展示前复核依赖；只把会改变用户选择的限制自然说明。`,
   },
   {
-    id: 'campus-sports', version: '1', name: '核对体育次数与运动窗口',
+    id: 'campus-sports', version: '2', name: '核对体育次数与运动窗口',
     description: '查询真实体育记录、计次规则与期限；结合已知日程和天气比较运动窗口，区分有效次数、尝试次数和未核实自述。',
     requirements: [
       { kind: 'capability', name: 'campus.query', purpose: '发现体育资源、字段及真实账户记录',
@@ -87,6 +104,11 @@ const skills: readonly WorkflowSkill[] = [
       { kind: 'capability', name: 'situation.read', purpose: '在用户要求安排时查询相关时间窗', optional: true },
       { kind: 'capability', name: 'weather.lookup', purpose: '在安排户外活动时比较所需窗口预报', optional: true },
       { kind: 'capability', name: 'planning.preview', purpose: '检验自愿运动方案，不自动写入日历', optional: true },
+    ],
+    requirementGroups: [
+      { id: 'imported-records', mode: 'all', purpose: '学校当前查询不可用时，先核对已导入的体育或规则材料', optional: true,
+        members: ['capability:campus.imported_lookup'],
+        coverageNote: '仅覆盖用户已导入材料，不等价于学校当前有效次数查询；本轮自述也可直接作有条件计算的依据。' },
     ],
     instructions: `用户询问跑步次数或已授权关注体育进度时，先发现当前 campus.query 的resources/schema，读取学校实际支持的体育记录。明确学期、统计截止、适用规则、有效次数、待审核、被拒绝和记录分页覆盖；接口名或体育分类不是“已查到有效跑步次数”的证据。不把不同计次口径相加，不把学校考试或实践总览当跑步明细。
 账户未连接、该资源无权限或接口没有计次字段时，分别说明准确缺口。可使用已获准的本地导入或本轮用户给出的数字继续做条件计算，明确其依据；不为读取次数去索取密码，也不伪造学校认证。后续真实连接器应返回记录ID、版本、学期、有效性、分母规则、覆盖和观察时间。
@@ -220,11 +242,30 @@ export function readWorkflowSkill(id: string, resolve?: WorkflowResolver) {
       state: 'unknown' as const, reason: '尚未核对本轮工具范围与实际连接；读取指南不代表这些能力已可调用。',
     }),
   }));
+  const requirementKey = (requirement: WorkflowRequirement): WorkflowRequirementKey => `${requirement.kind}:${requirement.name}`;
+  const byKey = new Map(requirements.map(requirement => [requirementKey(requirement), requirement]));
+  const groups: WorkflowRequirementGroup[] = [
+    { id: 'primary', mode: 'all', purpose: '该方法基础流程的已知能力', members: requirements.filter(item => !item.optional).map(requirementKey) },
+    ...structuredClone(skill.requirementGroups || []),
+  ];
+  const requirementGroups = groups.map(group => {
+    const members = group.members.map(key => {
+      const requirement = byKey.get(key);
+      if (!requirement) throw new Error(`工作方法${skill.id}引用了未声明的能力要求。`);
+      return { key, available: requirement.availability.state === 'available' };
+    });
+    const satisfied = group.mode === 'all' ? members.every(item => item.available) : members.some(item => item.available);
+    return { ...group, satisfied,
+      availableMembers: members.filter(item => item.available).map(item => item.key),
+      unavailableMembers: members.filter(item => !item.available).map(item => item.key) };
+  });
   return {
     ...descriptor(skill), status: 'read' as const, instructions: skill.instructions,
-    requirements, guidanceOnly: true as const,
-    readiness: requirements.every(item => item.optional || item.availability.state === 'available')
+    requirements, requirementGroups, guidanceOnly: true as const,
+    readiness: requirementGroups.every(group => group.optional || group.satisfied)
       ? 'ready_for_known_requirements' as const : 'conditional' as const,
+    availablePaths: requirementGroups.filter(group => group.satisfied).map(group => ({ id: group.id, purpose: group.purpose, ...(group.coverageNote ? { coverageNote: group.coverageNote } : {}) })),
+    readinessMeaning: '总体状态核对基础要求；all组需全部入口可用，any组只在所述同一用途的等价入口中任选一个。可用的补充路径可先做，但不替代基础路径的来源覆盖；每项真实连接与权限状态仍在requirements中，入口可用不证明已经读取或完成。',
     limitation: '可用只表示本轮已知工具入口和连接可用；具体查询覆盖、事实新鲜度及动作授权仍由实际能力和宿主逐次核验。指南可以只采用所需部分，不是强制流程。',
   };
 }

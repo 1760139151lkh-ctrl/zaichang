@@ -1,10 +1,11 @@
 import type { Assertion, EvidenceEvent, ScopeHandle } from '../../shared/harness';
 import type { KernelRepository } from '../storage/repository';
+import type { EvidenceBrowseOptions } from './browse';
 
 /** Queries come from the reasoning model, never a hard-coded intent/synonym table. */
-export interface RecallOptions {
+export interface RecallOptions extends EvidenceBrowseOptions {
   relatedQueries?: string[];
-  mode?: 'search' | 'scan';
+  mode?: 'search' | 'scan' | 'browse';
 }
 export type EvidenceProjection = (event: EvidenceEvent) => EvidenceEvent | undefined;
 

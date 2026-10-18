@@ -1,0 +1,105 @@
+{
+  "createdDate": "2026-10-18",
+  "purpose": "Two competitive design-only compositions for multi-day planning rhythm. Representative content is a design example, not implementation verification.",
+  "mode": "built-in image_gen__imagegen",
+  "calls": 2,
+  "transparentBackground": false,
+  "prompts": {
+    "path": "daily-rhythm-prompts.txt",
+    "sha256": "71467363b1570f7989ebcf9e3a7a7d9a7c8056888b4a4dbe9f23a1aa3e3887be"
+  },
+  "references": [
+    {
+      "role": "Existing planning screen; editing/material reference",
+      "path": "../2026-10-18-companion-evolution/planning.png",
+      "sha256": "0ffce3d3fde88913e26bd8c137b0d6267c984fc9b8418fb76b5cacfe2efa5748"
+    },
+    {
+      "role": "Original today screen; identity/navigation reference",
+      "path": "../../../../前端视觉创新设计/图片/在场：今天，慢慢安排-7.png",
+      "sha256": "32240c8219b7e9a8feb941cf53f14206dae670c45bf3b1b50b94668f907d5d7e"
+    }
+  ],
+  "content": {
+    "days": [
+      "2026-10-19",
+      "2026-10-20"
+    ],
+    "dailyBudget": {
+      "from": "14:00",
+      "to": "18:00",
+      "minutes": 240
+    },
+    "netReadingMinutes": 90,
+    "occupiedWithPreparationRestMinutes": 135,
+    "unarrangedKnownCalendarMinutes": 105,
+    "blocks": [
+      {
+        "from": "14:00",
+        "to": "14:15",
+        "label": "准备好书和笔记",
+        "minutes": 15
+      },
+      {
+        "from": "14:15",
+        "to": "15:45",
+        "label": "读书",
+        "minutes": 90
+      },
+      {
+        "from": "15:45",
+        "to": "15:55",
+        "label": "收一收",
+        "minutes": 10
+      },
+      {
+        "from": "15:55",
+        "to": "16:15",
+        "label": "歇一会儿",
+        "minutes": 20
+      },
+      {
+        "from": "16:15",
+        "to": "18:00",
+        "label": "还未安排",
+        "minutes": 105
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "path": "daily-rhythm-a.png",
+      "structure": "Two-date strip with one selected day expanded",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1665045,
+      "sha256": "1147dd64f07eaa19c08517105fc597f877ff6c1398d8333def93c815e1a2eee0",
+      "generationReference": "exec-584b304d-a908-4f6c-900c-8683f48ad52e.png"
+    },
+    {
+      "path": "daily-rhythm-b.png",
+      "structure": "Two-day paper spread with selected Monday expanded and Tuesday compact",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1868686,
+      "sha256": "d4442630f13372a6aafc18e7d80d8462e48395a32c62ac3bb113cfa6c8539e0c",
+      "generationReference": "exec-6a6a249f-fd28-4310-9350-1ae81b18485d.png"
+    }
+  ],
+  "inspection": {
+    "viewedReferences": true,
+    "viewedGeneratedOutputs": true,
+    "observations": [
+      "Both outputs preserve existing chat/today/keep navigation, warm ivory/windowlight identity, concrete times, reading90, preparation/tidy/rest, and unarranged105.",
+      "Both show a selected reading interval as the contextual conversation chip above the ordinary composer.",
+      "A has a single clear selected-day timeline and a quiet right-side sentence; it also inherited the reference subtitle and is visually calmer at the cost of extra copy.",
+      "B permits direct two-day comparison without mixing dates but repeats the vertical time rail on the compact day, an artifact to avoid if implemented.",
+      "Generated compositions are static; they establish no functional, responsive, motion or persistence outcome."
+    ]
+  },
+  "recommendation": "Prefer A's selected-date interaction and one-day timeline for scalability, borrow B's day-grouped paper continuity if desired; omit A's inherited explanatory subtitle/right sentence in implementation if not needed.",
+  "cleanup": "No task-created caches or temporary scripts; generated source images retained.",
+  "selected": "daily-rhythm-a.png",
+  "adopted": "Selected-date strip and one-day timeline, host day summaries and exact block selection; omitted the decorative right sentence and duplicated helper copy. Cross-day display parts preserve originalRange and complete planRefs.",
+  "runtimeAsset": false
+}

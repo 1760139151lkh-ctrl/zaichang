@@ -5,11 +5,12 @@ import type { KernelRepository } from '../storage/repository';
 import type { WorkService } from './work';
 import type { ActionRuntime } from '../actions/runtime';
 import type { BasisService } from './basis';
+import { canonical, codePointSlice, locateQuote } from './semantics';
 
 const citation = z.object({ eventId: z.string().max(160), quote: z.string().min(1).max(4000) }).strict();
 const supportedText = z.object({ text: z.string().max(1200), source: citation }).strict();
 export const collaborationInput = z.object({
-  operation: z.enum(['frame', 'request', 'progress', 'repair', 'withdraw', 'choose']),
+  operation: z.enum(['frame', 'request', 'progress', 'repair', 'withdraw', 'choose', 'experience']),
   selectedOptionId: z.string().max(160).nullable().optional().describe('choose专用：用户本轮明确采用的现有稳定方案ID；明确撤销选择时为null。找回、比较、询问或助手建议不能算采用。只更新当前事项的选择，不登记日程或对外执行。'),
   id: z.string().max(160).optional(), expectedRevision: z.number().int().positive().optional(),
   expectedOptionRevision: z.number().int().positive().optional().describe('choose时已读方案的版本；不保存聊天的独立业务选择必须提交。'),
@@ -30,6 +31,14 @@ export const collaborationInput = z.object({
   reason: z.string().max(1000).optional(),
   actionId: z.string().max(160).optional(),
   affectedIds: z.array(z.string().max(160)).max(24).optional(),
+  experience: z.object({
+    kind: z.enum(['rejection', 'attempt_report', 'outcome_report', 'reassessment']).describe('只记录用户原话中的当时理由或报告。打算尝试不等于已经尝试，助手建议不等于实际结果；报告没有升级为外部核实。'),
+    optionId: z.string().min(1).max(160), expectedOptionRevision: z.number().int().positive(),
+    validWhen: z.string().min(1).max(1000).optional().describe('source.quote中逐字引用的适用条件；没有明确条件时省略，不概括或猜成永久偏好。'),
+    stopWhen: z.string().min(1).max(1000).optional().describe('source.quote中逐字引用的停止或重新考虑条件；未知时省略。'),
+    recheckAt: z.string().datetime({ offset: true }).nullable().optional().describe('助手建议的重评时间元数据，不是用户承诺或实际发生时间；不创建提醒。没有合适时点时省略。'),
+    reassesses: z.string().min(1).max(160).optional().describe('reassessment必须指向同一事项、同一方案的已有经验ID；新报告不自动证明旧条件已失效。'),
+  }).strict().optional(),
 }).strict();
 export const independentChoiceInput = z.object({
   operation: z.literal('choose'), id: z.string().min(1).max(160), expectedRevision: z.number().int().positive(),
@@ -48,14 +57,80 @@ export class CollaborationService {
     return evidence;
   }
 
+  private experienceSource(scope: ScopeHandle, source: z.infer<typeof citation>, version?: number) {
+    this.work.policy.require(scope, 'evidence:read');
+    const event = this.cite(scope, source), range = locateQuote(event.text, source.quote);
+    if (version !== undefined && event.contentVersion !== version)
+      throw new HarnessError('experience_source_changed', '这段原话已改变，需要重新读取当时的依据。');
+    const now = Date.parse(this.repo.clock.now());
+    if (this.repo.sourceRestrictions(scope, event.id).some(restriction =>
+      (!restriction.effectiveFrom || Date.parse(restriction.effectiveFrom) <= now) &&
+      (restriction.predicate === '*' || restriction.rangeUnknown || restriction.ranges.some(span =>
+        span.contentVersion !== event.contentVersion || span.start < range.end && span.end > range.start))))
+      throw new HarnessError('experience_source_changed', '这段原话对应的理解已被更正，不能再次记成当前理由；无关片段仍可使用。');
+    return { event, range };
+  }
+
+  private experiences(scope: ScopeHandle, frame: WorkRecord) {
+    this.work.policy.require(scope, 'evidence:read');
+    const entries = Array.isArray(frame.data.decisionExperiences) ? frame.data.decisionExperiences : [];
+    return entries.flatMap(value => {
+      const entry = value as Record<string, any>, source = entry.source as { eventId: string; contentVersion: number; start: number; end: number; quoteSha256?: string };
+      // Check the original scope before returning any quote, option title or
+      // condition. An unreadable old source is not recoverable from this copy.
+      if (!source || typeof source.eventId !== 'string') return [];
+      const event = this.repo.evidence(scope, source.eventId);
+      if (!event) return [];
+      const option = typeof entry.optionId === 'string' ? this.repo.work(scope, undefined, entry.optionId)[0] : undefined;
+      if (!option || !(frame.data.optionIds as string[] || []).includes(option.id)) return [];
+      const pointer = { id: entry.id, kind: entry.kind, optionId: entry.optionId, optionRevision: entry.optionRevision,
+        reportedAt: entry.reportedAt, recordedAt: entry.recordedAt, ...(entry.reassesses ? { reassesses: entry.reassesses } : {}),
+        requiresReassessment: true, verifiedOutcome: false };
+      if (source.contentVersion !== event.contentVersion || !Number.isInteger(source.start) || !Number.isInteger(source.end)
+        || source.start < 0 || source.end <= source.start || source.end > Array.from(event.text).length)
+        return [{ ...pointer, reviewReason: 'source_changed', meaning: '只保留历史记录身份；原文版本或定位已变化，没有沿旧副本恢复理由、条件或结果。' }];
+      const quote = codePointSlice(event.text, source.start, source.end);
+      // Partial forgetting deliberately retains the source version and masks
+      // only the deleted span. A locator must not reclassify that mask as a
+      // fresh user report, nor suppress another intact span in the same event.
+      if (!source.quoteSha256 || source.quoteSha256 !== createHash('sha256').update(quote).digest('hex'))
+        return [{ ...pointer, reviewReason: 'source_changed', meaning: '这段原话已删除或改变，只保留历史记录身份；没有从旧副本恢复正文、理由或条件。' }];
+      let reviewReason = 'current_conditions_unverified';
+      try { this.experienceSource(scope, { eventId: event.id, quote }, source.contentVersion); }
+      catch (error) {
+        if (!(error instanceof HarnessError) || error.code !== 'experience_source_changed') throw error;
+        return [{ ...pointer, reviewReason: 'source_changed', meaning: '这段原话对应的理解已更正，只保留历史记录身份；不再从经历副本输出旧理由或条件。' }];
+      }
+      if (option.revision !== entry.optionRevision) reviewReason = 'option_changed';
+      else if (typeof entry.recheckAt === 'string' && Date.parse(entry.recheckAt) <= Date.parse(this.repo.clock.now())) reviewReason = 'recheck_due';
+      const condition = (span: unknown) => {
+        const range = span as { start?: number; end?: number } | null;
+        return range && Number.isInteger(range.start) && Number.isInteger(range.end) && range.start! >= source.start && range.end! <= source.end
+          ? codePointSlice(event.text, range.start!, range.end!) : null;
+      };
+      return [{ ...pointer, source: { ...source, quote }, reportedText: quote, validWhen: condition(entry.validWhen), stopWhen: condition(entry.stopWhen),
+        recheckAt: entry.recheckAt ?? null, reviewTimeOrigin: 'assistant_proposed_recheck', observation: 'user_report', currentOptionRevision: option.revision, currentOptionStatus: option.status, reviewReason,
+        meaning: '这是用户当时的逐字报告或理由，保留原条件和时间；不是已核实的外部结果、永久偏好或当前拒绝。依据当前原话与条件重新判断，缺少新证据不证明原理由失效；不会自动采用方案或修改日程。' }];
+    });
+  }
+
   restore(scope: ScopeHandle, sessionId: string, query = '', offset = 0, limit = 8, relation: { relatedTo?: string; relatedOffset?: number } = {}) {
+    this.work.policy.require(scope, 'evidence:read');
     const selected = relation.relatedTo ? this.repo.work(scope, undefined, relation.relatedTo).filter(record => record.data.type === 'collaboration_frame' || record.kind === 'goal') : undefined;
     const { items, total, nextOffset } = selected ? { items: selected, total: selected.length, nextOffset: null } : this.repo.collaborationPage(scope, sessionId, query, offset, limit);
     const optionIds = new Set(items.flatMap(record => Array.isArray(record.data.optionIds) ? record.data.optionIds : []));
     const basisUses = items.filter(record => record.kind === 'episode' || record.kind === 'goal').flatMap(record => this.basis?.read(scope, record.id) || []);
-    const projected = items.map(record => {
-      if (record.data.type !== 'collaboration_frame' || !Array.isArray(record.data.tentativeUnderstanding) || !record.data.tentativeUnderstanding.length) return record;
-      return { ...record, data: { ...record.data, historicalInterpretations: record.data.tentativeUnderstanding, tentativeUnderstanding: [], interpretationUse: '这些是当时的解释，尚未证明现在适用。依据当前原话与basisUses重评；不要从旧解释推定今天的状态。' } };
+    const projected: WorkRecord[] = items.map(record => {
+      if (record.data.type !== 'collaboration_frame') return record;
+      const experiences = this.experiences(scope, record);
+      return { ...record, data: { ...record.data,
+        historicalInterpretations: Array.isArray(record.data.tentativeUnderstanding) ? record.data.tentativeUnderstanding : [], tentativeUnderstanding: [],
+        interpretationUse: '这些是当时的解释，尚未证明现在适用。依据当前原话与basisUses重评；不要从旧解释推定今天的状态。',
+        rejectionUse: 'rejectedOptions保留当时拒绝的原话、理由和条件；没有稳定方案ID的旧记录不自动配对。是否仍适用于本轮需要重评，不推导永久偏好。',
+        decisionExperiences: experiences,
+        decisionExperienceCoverage: { returned: experiences.length,
+          meaning: '只展开当前可读原文和方案；未展开或只剩历史标记不表示当时没有理由，不从旧副本补回正文。最多保存64条，不静默丢旧记录。' },
+      } };
     });
     const relatedOptions = [...optionIds].flatMap(id => this.repo.work(scope, undefined, String(id)));
     const parents = projected.filter(record => record.data.type === 'collaboration_frame' || record.kind === 'goal').map(record => record.id);
@@ -100,11 +175,56 @@ export class CollaborationService {
 
   update(scope: ScopeHandle, sessionId: string, input: z.infer<typeof collaborationInput>) {
     const args = collaborationInput.parse(input);
+    if (args.operation === 'experience') this.work.policy.require(scope, 'evidence:read');
     if (!args.source) throw new HarnessError('source_required', '需要指向原话，不能把建议自动变成你的任务。');
     const evidence = this.cite(scope, args.source);
     const old = args.id ? this.repo.work(scope, undefined, args.id)[0] : undefined;
     if (args.id && (!old || !['collaboration_frame', 'request_item'].includes(String(old.data.type)))) throw new HarnessError('work_missing', '没有找到本次相关事项。');
     if (old && args.expectedRevision !== old.revision) throw new HarnessError('version_conflict', '事项已改变，需要先读取当前版本。');
+    if (args.operation === 'experience') {
+      if (!old || old.data.type !== 'collaboration_frame' || !args.experience)
+        throw new HarnessError('experience_required', '先读取同一事项和已有方案，再留下当时的理由或报告。');
+      const input = args.experience, option = this.repo.work(scope, undefined, input.optionId)[0];
+      if (!option || !['option', 'plan'].includes(option.kind) || !(old.data.optionIds as string[] || []).includes(option.id)
+        || option.ownerId !== old.ownerId || option.workspaceId !== old.workspaceId || option.subjectId !== old.subjectId || option.worldId !== old.worldId
+        || (typeof option.data.episodeId === 'string' || typeof option.data.matterId === 'string') && option.data.episodeId !== old.id && option.data.matterId !== old.id)
+        throw new HarnessError('option_scope', '这个方案不属于当前事项，未保存它的经历。');
+      if (option.revision !== input.expectedOptionRevision) throw new HarnessError('version_conflict', '方案已变化，需要先读取当前版本。');
+      const history = Array.isArray(old.data.decisionExperiences) ? old.data.decisionExperiences : [];
+      const previous = input.reassesses ? history.find(value => (value as Record<string, any>).id === input.reassesses) as Record<string, any> | undefined : undefined;
+      if (input.kind === 'reassessment' && !previous || input.reassesses && (!previous || previous.optionId !== option.id))
+        throw new HarnessError('experience_reference', '重新考虑需要指向同一事项、同一方案的已有经历。');
+      if (input.kind !== 'reassessment' && input.reassesses)
+        throw new HarnessError('experience_reference', '只有重新考虑记录可以关联旧理由；结果报告不能覆盖旧经历。');
+      const { event, range } = this.experienceSource(scope, args.source);
+      const id = 'experience:' + createHash('sha256').update(`${old.id}\0${option.id}\0${input.kind}\0${event.id}\0${event.contentVersion}\0${args.source.quote}`).digest('hex');
+      for (const condition of [input.validWhen, input.stopWhen]) if (condition && !args.source.quote.includes(condition))
+        throw new HarnessError('experience_condition_source', '适用和停止条件须逐字来自这段用户原话；未知条件可以留空。');
+      const conditionRange = (text: string | undefined) => {
+        if (!text) return null;
+        const local = locateQuote(args.source!.quote, text);
+        return { start: range.start + local.start, end: range.start + local.end };
+      };
+      const entry = { id, kind: input.kind, optionId: option.id, optionRevision: option.revision,
+        source: { eventId: event.id, ...range, contentVersion: event.contentVersion, receivedAt: event.receivedAt,
+          quoteSha256: createHash('sha256').update(args.source.quote).digest('hex') },
+        reportedAt: event.receivedAt,
+        validWhen: conditionRange(input.validWhen), stopWhen: conditionRange(input.stopWhen),
+        recheckAt: input.recheckAt ?? null, reviewTimeOrigin: 'assistant_proposed_recheck',
+        ...(input.reassesses ? { reassesses: input.reassesses } : {}), observation: 'user_report', verifiedOutcome: false,
+      };
+      const duplicate = history.find(value => (value as Record<string, any>).id === id) as Record<string, any> | undefined;
+      if (duplicate) {
+        const { recordedAt: _recordedAt, ...prior } = duplicate;
+        if (canonical(prior) !== canonical(entry)) throw new HarnessError('experience_conflict', '同一段经历的条件或关联已经不同，未覆盖旧记录；新的说明请使用新的用户原话并关联重评。');
+        return old;
+      }
+      if (history.length >= 64) throw new HarnessError('experience_capacity', '这件事已有64条经历，原来的理由和条件都还在；未覆盖或截掉旧记录，本次没有保存。');
+      // The frame keeps only locators, never a second copy of private quotes
+      // or conditions. Losing one report must not make unrelated work unreadable.
+      return this.work.update(scope, old.id, old.revision, {
+        data: { ...old.data, decisionExperiences: [...history, { ...entry, recordedAt: this.repo.clock.now() }] } });
+    }
     if (args.operation === 'choose') {
       if (!old || old.data.type !== 'collaboration_frame' || args.selectedOptionId === undefined) throw new HarnessError('choice_required', '先读取当前事项及其方案，再指定选择。');
       const selectedOptionId = args.selectedOptionId;
@@ -121,7 +241,7 @@ export class CollaborationService {
       if (!args.frame) throw new HarnessError('frame_required', '共同理解内容未提供。');
       const sources = [evidence.id];
       for (const item of [...args.frame.confirmedFacts, ...args.frame.decisions, ...args.frame.rejectedOptions]) sources.push(this.cite(scope, item.source).id);
-      const pointers = Object.fromEntries(['optionIds', 'lastDisplayedOptionIds', 'referencedOptionId', 'focusSequence'].filter(key => old?.data[key] !== undefined).map(key => [key, old!.data[key]]));
+      const pointers = Object.fromEntries(['optionIds', 'lastDisplayedOptionIds', 'referencedOptionId', 'focusSequence', 'decisionExperiences'].filter(key => old?.data[key] !== undefined).map(key => [key, old!.data[key]]));
       const selection = old?.data.selection as { sourceEventId?: string } | undefined;
       if (selection?.sourceEventId && this.repo.evidence(scope, selection.sourceEventId)) {
         pointers.selectedOptionId = old!.data.selectedOptionId; pointers.selection = selection; sources.push(selection.sourceEventId);

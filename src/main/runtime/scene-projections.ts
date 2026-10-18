@@ -2,6 +2,8 @@ import { createHash, randomUUID } from 'node:crypto';
 import { weatherOutput } from '../capabilities/weather';
 import { airQualityOutput } from '../capabilities/air-quality';
 import type { EnvironmentScene, PlanningBlock, PlanningScene, SceneSource } from '../../shared/scenes';
+import { dateInZone } from './semantics';
+import { planningDayBounds } from '../actions/planning-days';
 
 type Result = { status: string; sourceId: string; data?: unknown; fetchedAt?: string; expiresAt?: string; coverage?: unknown };
 const text = (value: unknown, max = 400): string | undefined => typeof value === 'string' && value.trim() && value.length <= max ? value.trim() : undefined;
@@ -36,13 +38,45 @@ export function planningSnapshot(result: Result, capability: string, input: unkn
   const requiredSourceIds = [...new Set(externalSources.flatMap(row => text(row.sourceId, 160) && !['current', 'user-declared', 'local-agenda'].includes(row.sourceId) ? [row.sourceId as string] : []))];
   const conditions = [...messages(data.conditions), ...rows(data.conditions).filter(row => row.status !== 'satisfied').flatMap(row => text(row.condition) ? [row.condition as string] : []),
     ...sourceCoverage.filter(row => row.status !== 'complete').map(row => row.reason || `${row.sourceId} 的覆盖尚不完整。`),
-    ...(!rows(args?.sourceCoverage).length ? ['其他日程来源尚未声明覆盖，日历留白不能证明现实空闲。'] : []),
+    ...(capability === 'planning.preview' && !rows(args?.sourceCoverage).length ? ['其他日程来源尚未声明覆盖，日历留白不能证明现实空闲。'] : []),
     ...(rows(data.issues).length ? ['有未展开或结束时间未知的安排，留白须结合原记录核对。'] : [])];
   const draft = capability === 'planning.draft';
+  const minuteValue = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 44640;
+  const daySummaries: NonNullable<PlanningScene['daySummaries']> = [];
+  for (const day of rows(data.daySummaries)) {
+    if (!text(day.date, 10) || !/^\d{4}-\d{2}-\d{2}$/.test(day.date) || !instant(day.from) || !instant(day.to)
+      || Date.parse(day.to) <= Date.parse(day.from) || Date.parse(day.from) < Date.parse(data.window.from) || Date.parse(day.to) > Date.parse(data.window.to)
+      || !['scheduledMinutes', 'initialFreeMinutes', 'occupiedMinutes', 'freeMinutes', 'reserveShortfallMinutes'].every(key => minuteValue(day[key]))
+      || !['within_declared_budget', 'existing_commitments_exceed_reserve'].includes(day.status)) continue;
+    try {
+      const bounds = planningDayBounds(day.date, data.window.timeZone);
+      if (dateInZone(day.from, data.window.timeZone) !== day.date || Date.parse(day.from) < Date.parse(bounds.from) || Date.parse(day.to) > Date.parse(bounds.to)) continue;
+      const dayMinutes = (Date.parse(day.to) - Date.parse(day.from)) / 60000;
+      if (['scheduledMinutes', 'initialFreeMinutes', 'occupiedMinutes', 'freeMinutes'].some(key => day[key] > dayMinutes + .001)) continue;
+    } catch { continue; }
+    const budget = day.budget && typeof day.budget === 'object' ? {
+      ...(minuteValue(day.budget.maxScheduledMinutes) ? { maxScheduledMinutes: day.budget.maxScheduledMinutes as number } : {}),
+      ...(minuteValue(day.budget.reserveMinutes) ? { reserveMinutes: day.budget.reserveMinutes as number } : {}),
+    } : null;
+    daySummaries.push({ date: day.date, from: day.from, to: day.to,
+      scheduledMinutes: day.scheduledMinutes, initialFreeMinutes: day.initialFreeMinutes, occupiedMinutes: day.occupiedMinutes,
+      freeMinutes: day.freeMinutes, reserveShortfallMinutes: day.reserveShortfallMinutes, status: day.status,
+      budget: budget && Object.keys(budget).length ? budget : null });
+  }
+  if (rows(data.daySummaries).length) {
+    daySummaries.sort((a, b) => Date.parse(a.from) - Date.parse(b.from));
+    const complete = daySummaries.length === rows(data.daySummaries).length && new Set(daySummaries.map(day => day.date)).size === daySummaries.length
+      && Date.parse(daySummaries[0]?.from) === Date.parse(data.window.from) && Date.parse(daySummaries.at(-1)?.to || '') === Date.parse(data.window.to)
+      && daySummaries.every((day, index) => !index || Date.parse(day.from) === Date.parse(daySummaries[index - 1].to));
+    if (!complete) {
+      daySummaries.length = 0;
+      conditions.push('按天的范围还没对齐；先保留原来的完整时段继续商量。');
+    }
+  }
   if (draft) {
     for (const row of rows(data.fixedCommitments)) {
-      const unknownEnd = rows(data.issues).some(issue => issue.status === 'unknown_end' && issue.startsAt === row.start)
-        || rows(args?.busy).some(item => item.end === null && item.sourceId === row.id && item.start === row.start);
+      const unknownEnd = row.unknownEnd === true || rows(data.issues).some(issue => issue.status === 'unknown_end' && issue.id === row.id && Date.parse(issue.startsAt) === Date.parse(row.start))
+        || rows(args?.busy).some(item => item.end === null && item.sourceId === row.id && Date.parse(item.start) === Date.parse(row.start));
       add('busy', text(row.title, 160) || '已有安排', row.start, unknownEnd ? null : row.end,
         { ...(text(row.placeId, 160) ? { placeId: row.placeId } : {}), ...(unknownEnd ? { reason: '结束时间未知；规划保守地留到本次窗口结束。' } : {}) });
     }
@@ -55,7 +89,7 @@ export function planningSnapshot(result: Result, capability: string, input: unkn
       add('cleanup', '收尾', row.end, row.reservedEnd, details);
     }
     for (const row of rows(data.transitions)) add('transition', row.travel?.minutes && row.restMinutes ? '转场与休息' : row.travel?.minutes ? '转场' : '休息', row.start, row.end,
-      { reason: `转场 ${Number(row.travel?.minutes) || 0} 分钟，休息 ${Number(row.restMinutes) || 0} 分钟。` });
+      row.travel?.minutes && row.restMinutes ? { reason: `转场 ${Number(row.travel.minutes)} 分钟，休息 ${Number(row.restMinutes)} 分钟。` } : {});
     for (const row of rows(data.protectedWindows)) add('protected', '留白', row.start, row.end, { ...(text(row.reason) ? { reason: row.reason } : {}) });
     for (const row of rows(data.freeWindows)) add('free', '尚未安排', row.start, row.end, { ...(text(row.meaning) ? { reason: row.meaning } : {}) });
   } else {
@@ -66,6 +100,21 @@ export function planningSnapshot(result: Result, capability: string, input: unkn
     });
     for (const row of rows(data.alternatives)) conditions.push(...messages(row.unknown), ...messages(row.violations));
   }
+  if (daySummaries.length) {
+    const original = blocks.splice(0);
+    for (const block of original) {
+      if (block.end === null) { blocks.push(block); continue; }
+      for (const day of daySummaries) {
+        const start = Math.max(Date.parse(block.start), Date.parse(day.from));
+        const end = Math.min(Date.parse(block.end || data.window.to), Date.parse(day.to));
+        if (end <= start) continue;
+        const clipped = start !== Date.parse(block.start) || end !== Date.parse(block.end || data.window.to);
+        blocks.push({ ...block, id: clipped ? `${block.id}:${day.date}` : block.id,
+          start: new Date(start).toISOString(), end: block.end === null ? null : new Date(end).toISOString(),
+          ...(clipped ? { originalRange: { start: block.start, end: block.end } } : {}) });
+      }
+    }
+  }
   blocks.sort((a, b) => Date.parse(a.start) - Date.parse(b.start) || a.id.localeCompare(b.id));
   const adoption = data.adoption && typeof data.adoption === 'object' && text(data.adoption.status, 100)
     && Number.isInteger(data.adoption.totalSteps) && Number.isInteger(data.adoption.completedSteps)
@@ -74,6 +123,7 @@ export function planningSnapshot(result: Result, capability: string, input: unkn
   if (instant(data.expiresAt) && (!snapshotSource.expiresAt || Date.parse(data.expiresAt) < Date.parse(snapshotSource.expiresAt))) snapshotSource.expiresAt = data.expiresAt;
   return { kind: 'planning', id: randomUUID(), revision: 1, createdAt: now, source: snapshotSource, mode: draft ? 'draft' : 'preview',
     window: { from: data.window.from, to: data.window.to, timeZone: data.window.timeZone }, blocks, requiredSourceIds, sourceCoverage,
+    ...(daySummaries.length ? { daySummaries } : {}),
     conditions: [...new Set(conditions)], unscheduled: rows(data.unscheduled).map(row => ({ title: text(row.title, 160) || text(row.taskId, 160) || '未安排的事', reason: text(row.reason, 1200) || text(row.message, 1200) || '这次尚未排入。' })),
     ...(adoption ? { adoption } : {}), ...(text(data.planId, 160) ? { planId: data.planId as string } : {}), ...(instant(data.expiresAt) ? { expiresAt: data.expiresAt } : {}), applied: false };
 }

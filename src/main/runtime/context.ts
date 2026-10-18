@@ -26,6 +26,7 @@ import type { Completion } from '../provider';
 import { projectMapModelResult } from './map-model-view';
 import { expandRecallBundle, matchesVisibleQuery, multiQueryRecall, projectHistoricalEvidence, recallQueries, type EvidenceProjection, type RecallOptions } from '../memory/retrieval';
 import { buildContinuityIndex } from './continuity';
+import { EvidenceBrowser } from '../memory/browse';
 
 function grams(text: string) {
   const p = Array.from(text.toLowerCase()),
@@ -42,6 +43,7 @@ function lexical(query: string, text: string) {
   return score;
 }
 export class ContextCompiler {
+  private readonly evidenceBrowser = new EvidenceBrowser();
   private providerMetadata?: ProviderMetadata;
   private continuityRefresh?: () => void;
   constructor(
@@ -161,6 +163,25 @@ export class ContextCompiler {
     sourceProjection?: EvidenceProjection, recall: RecallOptions = {}) {
     const scope = this.policy.validate(pack.contract.scope), time = Date.parse(at);
     if (!Number.isFinite(time)) throw new HarnessError('invalid_time', '检索时间不合法。');
+    if (recall.mode !== 'browse' && (recall.cursor || recall.sourceIds || recall.receivedFrom || recall.receivedBefore))
+      throw new HarnessError('browse_mode_required', '来源、收到时间和浏览游标只用于mode=browse；未按普通关键词检索忽略这些限制。');
+    if (recall.mode === 'browse') {
+      if (offset || hardOffset) throw new HarnessError('browse_cursor_required', '原文浏览用cursor继续，不使用offset分页。');
+      if (!this.policy.can(pack.contract.scope, 'evidence:read'))
+        return { status: 'forbidden', originals: [], reason: '本轮不允许读取原文。' };
+      const value = this.evidenceBrowser.page(this.repo, pack.contract.scope, recall, Math.max(1, Math.min(limit, 20)), sourceProjection, pack.contract.budget.maxRows);
+      const serialized = canonical(value), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+      if (pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens)
+        return { status: 'partial', originals: [], reason: '原文定位页超过剩余上下文预算；游标尚未采用，可缩小limit或沿原游标重试。' };
+      pack.receipt.providedEvidenceIds = [...new Set([...pack.receipt.providedEvidenceIds, ...value.originals.map(event => event.id)])];
+      pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), ...value.originals.map(event => event.sourceId)])];
+      const versions = value.originals.map(event => ({ id: event.id, revision: event.contentVersion, kind: 'evidence' as const }));
+      pack.receipt.providedObjectVersions = [...new Map([...pack.receipt.providedObjectVersions, ...versions].map(version => [version.kind + ':' + version.id, version])).values()];
+      pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+      pack.data.retrievedContext = value;
+      this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+      return value;
+    }
     if (!scope.sources.includes('history:self') && !scope.sources.includes('profile:self'))
       return { status: 'forbidden', bundles: [], reason: '本轮资料范围不包括个人历史和记忆。' };
     if (recall.mode === 'scan' && !scope.sources.includes('profile:self'))

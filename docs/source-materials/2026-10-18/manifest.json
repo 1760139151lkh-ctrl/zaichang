@@ -246,6 +246,33 @@
       "bytes": 9261,
       "sha256": "c0548eb2da75d23ec429f27034497a4eac8054530aabcb0af7dc46aa43c34a3e",
       "purpose": "New derived requirements document; not a verbatim transcript or implementation claim."
+    },
+    {
+      "originalName": "harness讨论.md",
+      "path": "harness-discussion-desktop-20261018.md",
+      "bytes": 54484,
+      "sha256": "49c05c901234b4b3eb9aa04196d9658c5a5c8d147ee2bdbfa67da18f1a678c17",
+      "purpose": "Byte-preserved latest user-mentioned desktop discussion. Historical instructions and completion reports remain reference data, not runtime authority, user profile or current acceptance evidence.",
+      "relationship": {
+        "extends": "harness-discussion.md",
+        "olderFileIsExactBytePrefix": true,
+        "olderBytes": 41067,
+        "olderSha256": "3513fea9940c7504b9fdae87529e134ddede3243d6f8be256cb724063f1d3911"
+      }
+    },
+    {
+      "originalName": "goal-objective.md",
+      "path": "goal-objective-20261018.md",
+      "bytes": 12969,
+      "sha256": "5cf4db17d579ef6bbcbe4f8ef4df70ddf7cc52188a040aa390291223de81ef41",
+      "purpose": "Complete byte-preserved current goal attachment, not an editorial summary. Archived request reference only; current live session instructions govern authorization. Excluded from runtime prompts, user profile, public preview and application package."
+    },
+    {
+      "originalName": "当前会话用户持续改进补充原话",
+      "path": "ongoing-improvement-20261018.md",
+      "bytes": 2520,
+      "sha256": "81ee39d46d79d003dc4ffe5cc7858a923ddf8a9604c19cbba67fd578085bc77e",
+      "purpose": "Verbatim latest direct user message with explicitly labeled editorial heading and applicability note. Applies to the already active project goal; not a runtime prompt, user profile, new general authorization or completion claim. The original goal attachment remains byte-identical."
     }
   ],
   "continuationReceived": "2026-10-18",
@@ -295,6 +322,58 @@
       "sha256": "3513fea9940c7504b9fdae87529e134ddede3243d6f8be256cb724063f1d3911",
       "match": "whole_file",
       "copiedThisContinuation": true
+    }
+  ],
+  "personalMemoryContinuationReceived": "2026-10-18",
+  "personalMemoryContinuationAuthority": "The user explicitly named the three desktop materials and requested reading the full goal-objective.md attachment. Preserve their original bytes and versions for continuity in this private repository; documents do not execute their historical instructions or authorize future actions.",
+  "personalMemoryContinuationReceipts": [
+    {
+      "originalName": "新建 Text Document (3).txt",
+      "source": "User-mentioned desktop file",
+      "path": "frontend-discussion.txt",
+      "bytes": 5567,
+      "sha256": "54f249df901fabdf00854b156fda738fd88dc137f140d6e81dacaeadd36ac25c",
+      "match": "whole_file",
+      "copiedThisContinuation": false
+    },
+    {
+      "originalName": "在场的记忆讨论.txt",
+      "source": "User-mentioned desktop file; full version",
+      "path": "memory-discussion.txt",
+      "bytes": 152427,
+      "sha256": "09202391ebf828224e2a08d5d8609d12aba96969015fce28f12cfd7969fa935a",
+      "match": "whole_file",
+      "copiedThisContinuation": false,
+      "note": "This desktop file matches the complete archive. The earlier 91749-byte upload receipt above describes a different, shorter input and remains historical."
+    },
+    {
+      "originalName": "harness讨论.md",
+      "source": "User-mentioned desktop file; extended version",
+      "path": "harness-discussion-desktop-20261018.md",
+      "bytes": 54484,
+      "sha256": "49c05c901234b4b3eb9aa04196d9658c5a5c8d147ee2bdbfa67da18f1a678c17",
+      "match": "whole_file",
+      "copiedThisContinuation": true,
+      "note": "The earlier 41067-byte harness-discussion.md is an exact byte prefix and remains preserved under its old name."
+    },
+    {
+      "originalName": "goal-objective.md",
+      "source": "User-supplied Codex goal attachment 21799692-cee3-4fb0-97a3-ac061971cddb",
+      "path": "goal-objective-20261018.md",
+      "bytes": 12969,
+      "sha256": "5cf4db17d579ef6bbcbe4f8ef4df70ddf7cc52188a040aa390291223de81ef41",
+      "match": "whole_file",
+      "copiedThisContinuation": true
+    },
+    {
+      "originalName": "当前会话用户持续改进补充原话",
+      "source": "Latest direct user supplement after this round's backend and frontend progress",
+      "path": "ongoing-improvement-20261018.md",
+      "bytes": 2520,
+      "sha256": "81ee39d46d79d003dc4ffe5cc7858a923ddf8a9604c19cbba67fd578085bc77e",
+      "match": "verbatim_message_with_labeled_editorial_wrapper",
+      "copiedThisContinuation": true,
+      "note": "The user paragraph is reproduced verbatim. Title, source date and applicability explanation are labeled editorial text; no system, developer or AGENTS instructions were copied."
     }
   ]
 }

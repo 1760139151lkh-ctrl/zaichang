@@ -1,6 +1,6 @@
 # 运行架构
 
-本文描述 2026-10-18 当前 `src/` 的职责与运行接缝。入口和文件归属以 [PROJECT_NAVIGATION](../PROJECT_NAVIGATION.md) 为准；功能现状见 [CURRENT_STATUS](CURRENT_STATUS.md)，学生 Harness 的历史验收、迁移和未接入范围见 [STUDENT_HARNESS](STUDENT_HARNESS.md)。本轮需求与机制对应见 [HARNESS_EVOLUTION](HARNESS_EVOLUTION.md)，公开源码、论文与取舍见 [研究记录](research/HARNESS_RESEARCH_2026-10-18.md)。源码存在、已经接入、当前授权可用和真实业务完成分别判断。
+本文描述 2026-10-18 当前 `src/` 的职责与运行接缝。入口和文件归属以 [PROJECT_NAVIGATION](../PROJECT_NAVIGATION.md) 为准；功能现状见 [CURRENT_STATUS](CURRENT_STATUS.md)，学生 Harness 的历史验收、迁移和未接入范围见 [STUDENT_HARNESS](STUDENT_HARNESS.md)。本轮需求与机制对应见 [HARNESS_EVOLUTION](HARNESS_EVOLUTION.md)，个人记忆、连续性及本轮新增机制的源码取舍见 [本轮研究](research/PERSONAL_MEMORY_CONTINUITY_2026-10-18.md)，此前底座研究见 [HARNESS_RESEARCH](research/HARNESS_RESEARCH_2026-10-18.md)。源码存在、已经接入、当前授权可用和真实业务完成分别判断。
 
 ## 一个主助手，宿主保有执行权
 
@@ -42,6 +42,8 @@ flowchart LR
 
 方法说明任务怎样做、什么时候回读证据或检查回执；工具和能力负责实际执行。读取技能不安装软件、不执行脚本、不创建授权，也不证明来源覆盖完整。目录搜索只匹配文档，未命中不能被解释为现实没有该能力。模型仍可直接调用简单查询；复杂任务按实际需要读取方法，不设强制技能仪式或生活主题路由。体育分类存在也不证明已取得有效跑步计次，具体字段、学期、审核口径和分页须通过真实来源核对。
 
+方法输出同时保留逐项 `requirements` 与 `requirementGroups`：`all` 表示这些入口都需要，`any` 仅表示同一用途的等价入口，`availablePaths` 列出当前可先走的路径。学校账号未接入时，已导入材料路径仍可读取，但它不被说成学校当前记录；定位工具与其映射到的同一个能力可以作为替代入口，不能把覆盖不同的资料合并为等价事实。readiness 说明连接和调用入口，真实数据覆盖仍由每次读取核验。
+
 ## 来源、读取、传输、留存与版本
 
 scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、用途、受众、grants、留存、推断许可、隐私 epoch、策略版本和截止时间。模型只提出请求，宿主在编译、读取、提交和结果采用处复验。子任务只能收缩父范围，不能延长授权；重试不会自动续签。
@@ -54,11 +56,15 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 | 独立业务保存 | 笔记保存、日历登记、外发草稿和真正发送分别核验。不留聊天时，经过独立委托核验的本地动作可保留最小业务参数和回执；没有委托就不持久化提议。 |
 | 版本和失效 | 证据、work、日历、笔记和业务记录各有版本。依赖边绑定实际对象及版本；更正、删除、撤权、改期或到期使相应派生结果失效。摘要、缓存和迟到子任务不能让旧结果重新取得效力。 |
 
-[`KernelRepository`](../src/main/storage/repository.ts) 在 SQL 范围过滤和提交事务中执行这些边界，保存证据、派生记录、依赖、处理水位、动作意图及回执。隐私屏障推进 epoch/策略版本，取消在途工作并清空可复用上下文。遗忘沿依赖传播；明确只忘一条推断时保留原文，并防止按同一依据再次提取。恢复数据库必须携带当前隐私/权限屏障，旧备份不能恢复被撤回的用途。
+[`KernelRepository`](../src/main/storage/repository.ts) 在 SQL 范围过滤和提交事务中执行这些边界，保存证据、派生记录、依赖、处理水位、动作意图及回执。隐私屏障推进 epoch/策略版本，取消在途工作并清空可复用上下文。停用理解与遗忘来源是不同操作：前者可保留原话及历史限制；后者按已存来源定位遮除被遗忘片段，并清理同源重叠断言、旧断言版本和依赖派生，不能只删选中的一个 Assertion。精确且不相交的原话、理解和子片段继续保留；剩余原文可继续整理，提交时仍检查删除屏障，不能把遮字重新当成新证据。旧定位的版本不符或无法归因时保守清除相应来源，不猜位置。`MemoryService.forget` 同时处理同一 Assertion 历史修订的旧依据；恢复数据库必须携带当前屏障，旧备份不能恢复被遗忘内容。
 
 记忆检索先按权限、有效时间和验证状态形成可读集合，再排名分页；原文的已索引与尚未索引内容共同排名，分页不再局限于预先截取的前 50 条。关键词和字符片段检索仍有语义召回限制，分页完整不等于能理解任意同义表达。更正使用原证据版本与 Unicode 字符范围定位：受影响原话带历史/替代标记，未受影响的同段内容仍可检索；`BasisService` 使依赖已更正片段的解释及其准备失效。旧数据缺少范围时明确未知，不能伪造精确定位。
 
 [`memory/retrieval.ts`](../src/main/memory/retrieval.ts) 为真实 `search_context` 接入主模型提供的至多五个 `relatedQueries`：合并实际候选 ID，以排名融合排序，不生成新事实；强约束仍有独立页。每路候选窗口有 `rankingWindow` / `queryContinuations` 回执，深页通过单查询续读，不称全量召回。`mode:scan` 对当前合法、active、verified 且时间有效的断言分页，不绕过范围。prefetch 最多展开三层既有依赖及 24 个额外对象，并给出 `dependencyCoverage`；旧词命中历史原文时，`correctionFollowups` 沿精确 replacementEventId 找更正，不使旧断言复活。检索包与回执保留当前范围，受限投影不会回显范围外查询字符串。向量索引仍未接入，查询扩展的语义质量取决于主模型。
+
+[`memory/browse.ts`](../src/main/memory/browse.ts) 增加同一工具的 `mode:browse`：原文发现不要求字面命中、已提取断言或索引完成。`evidenceBrowsePage` 先按当前 scope、用途、精确来源和收到时间过滤，再按固定上界与 keyset 读页；收到时间不冒充事实有效时间。宿主随机游标只保存位置及范围，无原文、全库序号或总数，绑定当前身份、权限与隐私 epoch；30 分钟、进程重启或范围改变后须重开。期间新增事件不挤动原页，删除和撤权立即复验。每次最多扫描本轮 `maxRows` 与 200 的较小值；空 `partial` 页仍有 `nextCursor` 时可以继续，不能解释为没有记忆。
+
+浏览预览先应用授权片段投影，只给可见长度、`previewOnly`、来源/版本和 `read_evidence` 参数；不输出隐藏匹配、私有片段限制名或全集计数。预览不是完整条件，正文仍经当前权限读取。预算检查通过后才将预览来源及版本记入 context receipt；普通 search 不会静默忽略 browse 专属的来源/时间限制。原文浏览、断言扫描和多查询各有用途，均不证明开放世界条件已全部找齐。
 
 提取候选的幂等身份绑定原证据、片段和候选语义，不依赖模型数组顺序。预算耗尽或可重试中断保持 `pending`，已完成候选仍保留；语义失败与需要上下文另记，不无限重试。`h_memory_recovery` 持久保存尝试时间、下次恢复时间和瞬时失败次数，公平选取待处理原文并退避；恢复前仍检查来源、留存、主体、过期和限制。恢复队列没有续签旧授权的权力，也不承诺应用退出后继续整理。
 
@@ -71,13 +77,15 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 | 原始证据与人物理解 | [`memory/service.ts`](../src/main/memory/service.ts)、`memory/model.ts` 和 repository：原文、带条件/时间/主体的断言、支持与更正分开。自动提取在后台队列运行，候选经语义复核；提交时重验原证据、目标修订与当前隐私状态。分页、片段限制和持久恢复共同维护可继续读取的依据。相处建议和推断不能冒作用户明确设定。 |
 | 用户记事本 | [`notes/service.ts`](../src/main/notes/service.ts)、[`shared/notes.ts`](../src/shared/notes.ts)：独立原文、全文搜索、分页、CAS 编辑、历史、撤销和回收站。文档时间不自动成为正文里事情的发生时间，未知主体保持未知。保存笔记不自动生成日程或人物事实；删除笔记不连带取消独立已接受日历。 |
 | 用户设定的角色 | [`shared/persona.ts`](../src/shared/persona.ts)、`interaction.ts` 与 Store 设置：角色核心、用户例句、修订/恢复和纯角色模板，与五轴交互偏好共同作用。纯角色在关闭记忆时仍生效；旧 `guidance` 的混合私人内容保留私有原文，不能整段迁成常驻角色提示。预览例句是本地示例。 |
-| 事项与协作过程 | [`runtime/work.ts`](../src/main/runtime/work.ts)、`basis.ts`、`collaboration.ts`：目标、承诺、方案、对话事项、依据使用和未决条件，保留各自版本。任务步骤不等于生活承诺，空日历不等于有精力。 |
+| 事项与协作过程 | [`runtime/work.ts`](../src/main/runtime/work.ts)、`basis.ts`、`collaboration.ts`：目标、承诺、方案、对话事项、依据使用和未决条件，保留各自版本。同一事项的决策经历关联稳定方案和来源定位；用户报告不自动成为永久偏好、已接受选择或外部结果。任务步骤不等于生活承诺，空日历不等于有精力。 |
 | 日历与动作 | [`actions/calendar.ts`](../src/main/actions/calendar.ts)、`local-calendar.ts`、`runtime.ts`：日程实例、重复例外、批准、幂等意图、补偿和回执。`Store.writeAgendaProjection/deleteAction` 是本地共同写入口。 |
 | 关注与已准备材料 | [`runtime/attention.ts`](../src/main/runtime/attention.ts)、`work.ts`、`cooperation.ts`：明确托付、限制、机会、材料、参与选择和真实曝光。发现机会不自动通知；沉默、点击或采纳不被解释为满意度或新人格事实。 |
 | 附件与公开资源 | [`materials/service.ts`](../src/main/materials/service.ts)、`pdf.ts`、`worker.ts`、`capabilities/research.ts`：文件、分页、PDF/图像处理和带范围的继续读取句柄，不把整份大文件当作无限上下文。 |
 | 陪伴外观与阅读偏好 | renderer 的 [`companion.tsx`](../src/renderer/companion.tsx) / [`appearance.ts`](../src/renderer/appearance.ts)：本机 localStorage 中的形象、自选图片、窗景和阅读外观，与主机人格和SQLite业务数据分开。`SettingsPanel` 清理成功后调用 `resetCompanion`；导出/清理不能仅凭数据库回执推定覆盖全部窗口存储，新前端完整路径仍需自己的验收。 |
 
 角色预设现包含丰川祥子与若叶睦；[`shared/persona-portrayals.ts`](../src/shared/persona-portrayals.ts) 分开保存有限官方材料、项目演绎与出处。`selectCompanionPersona` 在明确操作下采用对应预设或保留已编辑人格，仍通过原有 expectedRevision 保存；换图不隐式更改角色。`previewPersonaCharacterCard` 将 Character Card V2 JSON 转为待审阅文字草稿，不执行系统提示覆盖、世界书、宏或脚本，不把虚构场景写成用户经历。后端函数存在与前端接线分别核对，原作忠实及长期风格仍需真实对话证据。
+
+`update_collaboration(operation=experience)` 在既有 frame 内保留拒绝理由、尝试报告、结果报告和重评，核对事项/方案版本及精确来源。持久项只存字符定位、版本、引文 hash、报告/记录时间和条件定位，不复制私人正文；重评关联同一方案的既有经历，助手建议的复查时间不创建提醒。恢复时按当前范围回读原文及方案，hash、片段、版本或使用限制变化只给安全历史标记，未受影响片段仍可用。实际展开的报告进入上下文来源/版本收据；`restore_collaboration` 经 `recordTool(...,hostRead=true)` 计入真实读取预算，超量不能把正文送入模型。单条经历不成为整个事项的永久来源前提，失去该报告不阻止独立事项继续更新。
 
 ## 持续托付与变化发现
 
@@ -95,6 +103,8 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 
 `inspect_help` 先返回有界轻索引，精确 ID 才读取材料与依据。前台 `decide_help.presentInConversation` 将真实准备绑定到消息的精确机会/材料修订；`Message.helpRefs` 复用既有资料组件。只有正文实际可见才写 `displayed` 并抑制同一修订的重复通知，单纯生成、发现或读取不算展示。
 
+`discoverHelp` 支持在当前可读机会中按查询词、精确 `relatedTo` 关联、状态和最近判断时间筛选，匹配后再分页，较早准备不会先被最新三项挤掉。文字查询仍是检索手段，未命中可去掉 query 浏览；不会按生活关键词决定工具权限。后台发现先沿原 `attention.pending` 的到期集合与公平顺序，再收窄筛选，不扩成其他机会的后台访问；发现过期/暂停项不恢复采用或通知权。
+
 [`runtime/continuity.ts`](../src/main/runtime/continuity.ts) 在初始 `ContextCompiler.compile` 中提供最多各三项 `preparedMaterials` 与 `openThreads`，附 `continuityCoverage`。跨会话仅在相关、本人、现实、私有且获准的 work/evidence 范围中出现；session_only 限当前会话，未核清用途、第三人、假设世界、群体或子代理不获得此索引。目录只含必要标题、ID、版本、时效和已有 nextStep，正文仍经 `inspect_help` / `restore_collaboration` 读取。构建前调用真实 `AttentionService.expire`；依赖变化、暂停、停止或到期后的旧准备不会通过标题进入上下文，实际来源并入回执。已 displayed/opened/seen 的同一 fingerprint 不重复主动候选，系统提交或送达不等于已看；材料仍可显式读取。
 
 后台决策中的 `materialWakes` 自身更新以同事务返回的前后版本回执衔接；此前或此后的独立托付编辑仍使旧运行失效。正常不介入使用真实 `declined` 完成状态。已有 `question_ready` 或 `notification_queued` 内容可经明确 reuseArtifact + presentInConversation 回到当前聊天：问题仍是问题，先复核原证据；排队提示取消对应可选通知，独立明确提醒保留，不因此重复调查或写日历。
@@ -107,6 +117,10 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 
 任务可显式提供 `maximumChunkMinutes`，配合可拆分许可、最小工作块和休息安排；未提供时不强制打断长时间思考。不能拆分却超过上限时保留全量未排工作，不擅自缩短。每段准备/收尾和段间休息都有真实占用；最多 256 个工作段，超过时留下明确余量，不宣称全局无解。
 
+可选 `dailyBudgets` 只约束本次指定本地日期，与全窗口工作上限/留白同时生效。每日 `maxScheduledMinutes` 仅计本次新增净工作，`reserveMinutes` 按原承诺、保护、新工作完整占用及最终共享转场/休息的区间并集扣除；不把日占用都称为工作，也不推断全天精力。跨午夜工作按真实分钟拆账，未授权拆段的工作仍是一块。已有承诺本身使留白不足时保留原对象、剩余工作及 shortfall，不能自动搬走承诺或制造次日追赶债。
+
+[`planning-days.ts`](../src/main/actions/planning-days.ts) 给日账与 Scene 共用真实自然日边界：午夜不存在时找该日第一实际瞬间、重复午夜取最早边界、被跳过日期为空，不假设固定 24 小时，也不改变普通日历对模糊事件时间的解析。`daySummaries` 保留窗口交集、净工作、真实占用和留白。未知结束的安排在核算中保守占到窗口末尾，但 `unknownEnd`／issue 保留到输出，不将数字占位冒充已知结束。
+
 `RuntimeCoordinator.planning` 持有 [`PlanningApplicationService`](../src/main/actions/planning-application.ts)，`planning.draft` 已接到该服务。服务把草案转为带 `planRef` 的有序保存单位：工作占用包含准备和收尾，转场/休息及显式保护窗口另有真实占用。它只签发短期校验票据，不授予保存权限；票据最长 15 分钟，若原 scope 更早到期则同时缩短。票据只在当前进程内存中，最多保留 50 份；重启、过期或淘汰后须回读真实日历重新规划，不能据票据消失推断此前没有保存。
 
 采用走既有 `prepare_action` 与授权链。准备动作前及 `LocalCalendarService.apply` 的实际 SQLite 保存事务内均调用 `validateSave`，核对完整参数、下一保存单位、整份日历指纹、身份/世界、隐私策略、来源范围、时效和条件。`ActionRuntime` 成功提交事务后才通过 `afterCommit` 推进计划进度；事务回滚不推进。进度记账失败不能把已经提交的真实动作改报失败，后续采用停止并要求重新核查。各步骤独立提交，结果可为部分完成，不是整批原子事务；已有单对象修改继续保留原 ID/revision。
@@ -114,6 +128,8 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 经受控动作链的普通本地保存也执行 `assertNoDetachedProposal`，拒绝移除 `planRef` 后仍匹配近期方案的常见复制。该检测限当前进程最近 50 份方案、同一 owner/设备/主体/世界/受众，以及标题、开始时刻、类型的参数摘要；它不是普遍的语义识别，不能保证识别改写标题或改动时刻的脱离方案，也不跨重启。带 `planRef` 的路径则要求完整保存参数与已核查单位一致，不能剥掉准备、休息或保护占用后仍声称按该方案采用。
 
 `planning.recover({planId})` 只读当前日历中的持久 planRef。完整票据、范围、版本和时效都仍成立时给出精确下一保存单位；发现删除、修改、重复或账本外同方案行则要求核查。重启后只报告当前观察到的行，总步数与遗漏保持未知，不重放旧写入。可精确核对的部分采用可以生成 remainingRequest：扣除工作分钟而非准备/休息，把已安排前置项转成时间约束，不当作实际完成；仍欠休息/转场或分段保存不完整时不生成会丢占用的简化请求。来源、时间和当前日历须重新核查后再生成草案。
+
+`remainingRequest` 还按同一自然日边界扣减已保存净工作的每日额度，不能恢复总预算时重置每日上限；已保存时段继续由真实日历占位。长期方案意图、原选择理由及未排任务的跨重启恢复仍是候选，未把内存票据持久化或延长成旧授权。
 
 外部 `sourceVersion` 的当前版本解析器尚未接入。带外部具体来源引用的方案可以构造，但只要版本无法复验，采用状态为 `blocked`；未知条件或不完整覆盖也不能伪装已核实。当前明确自述与外部来源覆盖分开处理，不能把外部记录改标为自述来宣称可用。接线存在与类型检查通过不等于真实模型、真实外部来源或逐项采用所有故障路径已经验收，最终证据以当前状态文档为准。
 
@@ -131,6 +147,8 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 
 只读子任务通过 Hermes 的委派接口获得实际按收缩范围编译的上下文、工具目录、相关原话、对象/权限版本、共享预算和取消条件。父助手采用并整合结果；子代理不能写日程、扩大来源或继续委派。结果交付与父任务消费时重新复验，撤权或对象变化后的迟到结果不进入有效父上下文。简单查询可直接读取或并发，委派不是固定前置阶段。
 
+子任务在 ContextCompiler 编译前保存 `sourceRestrictionSnapshot`。该基线只在宿主 Worker 内持有经 scope 筛选的限制元数据和版本，不含正文，不进入 prompt、模型 receipt 或持久存储，也不会在后续读取后重新基准化。已存在且未变化的局部历史限制不再使整个调查失败；只对实际提供给子模型的原文 ID 比较变化，新增/改变限制、未来限制开始生效或整源停止会拒绝旧报告。前台真实模型传输前后核对当前 actor 及实际引用的已产出/采用子报告，成稿复用时再次检查；后台沿 `validateBoundary`、交付和 `consume` 同样复核。原权限、对象依赖、取消及机会版本检查继续保留，失败只给安全失败信息，不把摘要当新证据。
+
 后台沿 [`background-delegation.ts`](../src/main/runtime/background-delegation.ts) 使用同一个锁定 Hermes 子任务协议。最多两个方向共享父任务预算，只读取原托付实际允许的片段与来源子集；每次模型/工具边界及父任务消费前检查机会、托付、权限和对象版本。子结果经过采用后，真实工具观察和证据回执才合并回父任务，子代理摘要本身不构成“已准备”的依据。暂停、纠正或停止可使在途报告失效，不因生成完成而自动获得发布权。此实现支持有界记忆深挖，不证明真实模型能在每次复杂调查中找齐证据。
 
 ## 对话 Scene 与公共地图
@@ -139,7 +157,9 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 
 `ConversationMap`、独立 `MapSheet` 与 review-web 共用 `MapSurface`、`CampusMapAdapter`、`WalkingGraph.shortest`、MapLibre 引擎和已有平面 fallback。地面地理/通行图与展示几何分开，`CameraOwnership` 取消被用户手势接管的旧异步视图。独立地图拥有本机定位轮询；公共地图本身不提供个人位置。模型路线副本由 [`map-model-view.ts`](../src/main/runtime/map-model-view.ts) 保留距离、入口、条件、警告和来源，去除重复绘图几何；完整路线仍供原地图绘制。原始读取字节与模型可见 token 分别计量。天气能力可返回小时窗口，当前 WeatherScene 仍是日级展示。
 
-公共 [`air-quality.ts`](../src/main/capabilities/air-quality.ts) 经 `air_quality.lookup` 接入既有天气适配器与 `weather:read`，只接受明确公开参考点，不接受设备定位观测。返回 Open-Meteo/CAMS 小时网格预报、PM2.5/PM10、US/European AQI、单位、覆盖和取回时间；缺测保持 null，制式或时间列异常拒绝当作可用结果。发布时间未知，参考点不是用户位置，US/EU AQI 不能写成中国官方 AQI。这是后端能力，没有新增空气页面或 Scene，也不能据此保证某人适宜运动。
+[`scene-projections.ts`](../src/main/runtime/scene-projections.ts) 从宿主规划结果投影 PlanningScene；按已核完整连续的 `daySummaries` 将有限结束的显示块分到各日，拆开的部分携带 `originalRange` 与完整 `planRefs`。点选仅引用同一宿主方案，不因显示拆块生成保存参数或拆分现实工作。日账缺项、重复、范围不连贯或边界不符时保留原完整块并说明缺口；未知结束保持 null，不按日界伪造终点。renderer 使用宿主日账显示工作、占用与留白，不自行计出另一套事实。小时天气和空气另经 EnvironmentScene 保留各自来源、单位与覆盖。
+
+公共 [`air-quality.ts`](../src/main/capabilities/air-quality.ts) 经 `air_quality.lookup` 接入既有天气适配器与 `weather:read`，只接受明确公开参考点，不接受设备定位观测。返回 Open-Meteo/CAMS 小时网格预报、PM2.5/PM10、US/European AQI、单位、覆盖和取回时间；缺测保持 null，制式或时间列异常拒绝当作可用结果。发布时间未知，参考点不是用户位置，US/EU AQI 不能写成中国官方 AQI。EnvironmentScene 是有限结果投影，不能据此保证某人适宜运动。
 
 review-web 仅替换公共地图存储边界，读取构建明确选定且校验哈希的公共文件；没有桌面 IPC、账号、助手状态、模型请求、私有文件、数据库或 profile 持久化。公共白名单以外的读取会拒绝。对话与网页预览共用现有地图实现。
 

@@ -13,7 +13,19 @@
 .life-scene-heading h3 { margin: 0; color: var(--text); font-size: 20px; font-weight: 540; line-height: 1.5; letter-spacing: .015em; }
 .life-scene-heading p { margin: 5px 0 0; color: var(--text-tertiary); font-size: 13px; line-height: 1.65; }
 .life-scene-date { flex-shrink: 0; padding-top: 7px; color: var(--text-tertiary); font-size: 12px; }
-.life-scene-day select { max-width: 160px; padding: 6px 8px; border: 1px solid var(--separator); border-radius: 8px; color: var(--text-secondary); background: var(--surface); font: inherit; font-size: 12px; }
+.planning-day-strip { display: flex; gap: 9px; overflow-x: auto; overscroll-behavior-inline: contain; padding-bottom: 8px; margin: -2px 0 19px; scrollbar-width: thin; }
+.planning-day-strip > button { flex: 1 0 205px; min-width: 0; display: flex; flex-direction: column; gap: 7px; padding: 12px 15px; border: 1px solid var(--separator); border-radius: 12px; background: transparent; color: var(--text-secondary); text-align: left; font: inherit; cursor: pointer; transition: background 150ms var(--ease), border-color 150ms var(--ease); }
+.planning-day-strip > button[aria-selected='true'] { border-color: var(--accent-dim); background: color-mix(in srgb, var(--accent-soft) 35%, transparent); color: var(--text); }
+.planning-day-strip > button:hover { background: color-mix(in srgb, var(--accent-soft) 25%, transparent); }
+.planning-day-strip > button:focus-visible { outline: 2px solid var(--focus); outline-offset: -3px; }
+.planning-day-name { font-size: 14px; font-weight: 520; }
+.planning-day-balance { font-size: 12px; line-height: 1.6; font-variant-numeric: tabular-nums; }
+.planning-day-balance > span { color: var(--text-tertiary); }
+.planning-day-overview { display: grid; grid-template-columns: 1fr auto; gap: 5px 12px; margin-bottom: 19px; color: var(--text-secondary); }
+.planning-day-overview > strong { color: var(--text); font-size: 14px; font-weight: 530; }
+.planning-day-overview > span { font-size: 12px; font-variant-numeric: tabular-nums; }
+.planning-day-overview > p { grid-column: 1 / -1; margin: 0; font-size: 12px; line-height: 1.8; }
+.planning-day-overview > .planning-day-shortfall { margin-top: 3px; color: var(--text-secondary); }
 .planning-timeline { display: grid; gap: 8px; }
 .planning-time-block { position: relative; display: grid; grid-template-columns: 128px 20px minmax(0,1fr); gap: 9px; width: 100%; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; font: inherit; }
 .planning-time-stamp { align-self: center; color: var(--text-secondary); font-size: 12px; font-variant-numeric: tabular-nums; line-height: 1.7; overflow-wrap: anywhere; }
@@ -79,6 +91,8 @@
 .environment-air-values dd { margin: 6px 0 0; font-size: 21px; font-weight: 460; font-variant-numeric: tabular-nums; }
 .environment-air-values dd small { color: var(--text-secondary); font-size: 10px; white-space: nowrap; }
 @container (max-width: 490px) {
+  .planning-day-strip > button { flex-basis: 185px; padding: 11px 12px; }
+  .planning-day-overview { grid-template-columns: 1fr; gap: 4px; }
   .life-scene-heading { flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
   .life-scene-heading h3 { font-size: 18px; }
   .life-scene-heading p { font-size: 12px; }

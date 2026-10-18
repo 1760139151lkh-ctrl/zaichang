@@ -72,6 +72,8 @@ export interface PlanningBlock {
   taskId?: string;
   reason?: string;
   usableMinutes?: { min: number; max: number };
+  /** A cross-day display part retains the full source interval and proposal identity. */
+  originalRange?: { start: string; end: string | null };
   /** These identify existing host proposals, never a browser-authored save payload. */
   planRefs?: { planId: string; blockId: string }[];
 }
@@ -80,6 +82,19 @@ export interface PlanningScene extends SceneBase {
   mode: 'preview' | 'draft';
   window: { from: string; to: string; timeZone: string };
   blocks: PlanningBlock[];
+  /** Host-calculated local days; the renderer never invents a daily budget. */
+  daySummaries?: {
+    date: string;
+    from: string;
+    to: string;
+    scheduledMinutes: number;
+    initialFreeMinutes: number;
+    occupiedMinutes: number;
+    freeMinutes: number;
+    budget: { maxScheduledMinutes?: number; reserveMinutes?: number } | null;
+    reserveShortfallMinutes: number;
+    status: 'within_declared_budget' | 'existing_commitments_exceed_reserve';
+  }[];
   requiredSourceIds: string[];
   sourceCoverage: { sourceId: string; status: string; reason?: string }[];
   conditions: string[];

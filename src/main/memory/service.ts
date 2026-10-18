@@ -424,10 +424,13 @@ export class MemoryService {
   }
   private validateCandidateSource(handle: ScopeHandle, event: EvidenceEvent, predicate: string, location?: { start: number; end: number }) {
     const current = this.repo.evidence(handle, event.id);
-    if (!current || current.status !== 'active')
+    if (!current || current.status === 'deleted')
       throw new HarnessError('source_suppressed', '原始来源已不可用，不能恢复旧理解。');
     if (canonical(current) !== canonical(event))
       throw new HarnessError('source_version_conflict', '审核期间原文或适用范围发生变化，请重读来源。');
+    if (location && this.repo.fences().some(fence => fence.kind === 'delete' && fence.spans?.some(span =>
+      span.eventId === current.id && (span.contentVersion !== current.contentVersion || span.start < location.end && span.end > location.start))))
+      throw new HarnessError('source_suppressed', '这段原文已经删除，不能重新提取；未删除的片段仍可使用。');
     if ([current.id, ...current.roots].some(id =>
       this.repo.db.prepare("SELECT 1 FROM h_source_restrictions WHERE event_id=? AND predicate IN (?, '*')").get(id, predicate)
       || this.repo.db.prepare("SELECT 1 FROM h_source_restrictions x JOIN h_evidence_roots r ON r.event_id=x.event_id WHERE r.root_id=? AND x.predicate IN (?, '*') LIMIT 1").get(id, predicate)))
@@ -693,7 +696,7 @@ export class MemoryService {
     if (this.paused) return;
     const event = this.repo.evidence(handle, eventId);
     if (!event) return;
-    if (!event.label.infer || event.speaker !== 'user' || event.status !== 'active') {
+    if (!event.label.infer || event.speaker !== 'user' || event.status === 'deleted') {
       this.repo.markSpans(handle, eventId, 'quote_or_hypothesis');
       return;
     }
@@ -904,14 +907,16 @@ export class MemoryService {
         !this.repo.work(scope).some((w) => w.id === id)
       )
         throw new HarnessError('target_missing', '请选择明确的现有内容来删除。');
-    const spans = ids
+    const currentLocators = ids
       .flatMap((id) =>
         this.repo.db
           .prepare(
             'SELECT ae.event_id,e.version,ae.start_cp,ae.end_cp FROM h_assertion_evidence ae JOIN h_evidence e ON e.id=ae.event_id WHERE assertion_id=?',
           )
-          .all(id),
-      )
+          .all(id).map(row => ({ assertionId: id, event_id: row.event_id, version: row.version,
+            start_cp: row.start_cp, end_cp: row.end_cp })),
+      );
+    const spans = currentLocators
       .filter((row) => row.start_cp !== null && row.end_cp !== null)
       .map((row) => ({
         eventId: String(row.event_id),
@@ -919,6 +924,31 @@ export class MemoryService {
         start: Number(row.start_cp),
         end: Number(row.end_cp),
       }));
+    const deletedSources = new Set(sourceIds);
+    for (const id of ids) {
+      const versions = this.repo.db.prepare('SELECT payload FROM h_assertion_versions WHERE id=? ORDER BY revision DESC').all(id)
+        .map(row => JSON.parse(String(row.payload)) as Assertion);
+      const current = versions[0], evidenceIds = new Set(versions.flatMap(version => version.evidenceIds));
+      for (const version of versions.slice(1)) for (const eventId of version.evidenceIds) {
+        const event = this.repo.evidence(scope, eventId);
+        if (!event) continue;
+        const ranges = this.repo.sourceRestrictions(scope, eventId).filter(restriction =>
+          restriction.predicate === version.predicate && restriction.replacementEventId && evidenceIds.has(restriction.replacementEventId))
+          .flatMap(restriction => restriction.ranges);
+        if (ranges.length) {
+          spans.push(...ranges.map(range => ({ eventId, ...range })));
+          continue;
+        }
+        // SUPPORT and other unchanged versions keep their current quote. A
+        // changed historical claim without an attributable locator cannot be
+        // erased by guessing where its former wording occurred.
+        const sameClaim = current && canonical({ text: version.text, value: version.value, conditions: version.conditions })
+          === canonical({ text: current.text, value: current.value, conditions: current.conditions });
+        if (sameClaim && currentLocators.some(locator => locator.assertionId === id && locator.event_id === eventId
+          && locator.start_cp !== null && locator.end_cp !== null)) continue;
+        deletedSources.add(eventId);
+      }
+    }
     for (const span of [...spans]) {
       const row = this.repo.db.prepare('SELECT payload FROM h_evidence WHERE id=?').get(span.eventId),
         event = row ? (JSON.parse(String(row.payload)) as EvidenceEvent) : undefined;
@@ -930,14 +960,14 @@ export class MemoryService {
           end: Math.min(event.locator.startCodePoint + span.end, event.locator.endCodePoint),
         });
     }
-    const fence = this.repo.establishFence({ kind: 'delete', objectIds: ids, sourceIds, spans: [...spans, ...controlSpans], ...conversationDeletion });
+    const fence = this.repo.establishFence({ kind: 'delete', objectIds: ids, sourceIds: [...deletedSources], spans: [...spans, ...controlSpans], ...conversationDeletion });
     this.policy.signalBarrier();
     this.repo.cleanupFence(fence);
     this.repo.checkpointPrivacy();
     return {
       epoch: fence.epoch,
       deletedObjectIds: ids,
-      sourceIds,
+      sourceIds: [...deletedSources],
       backupBarrier: true,
       externalCopiesRetracted: false,
     };

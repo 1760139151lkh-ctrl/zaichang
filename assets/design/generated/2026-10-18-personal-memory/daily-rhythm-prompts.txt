@@ -1,0 +1,62 @@
+Built-in image_gen prompts. Generated 2026-10-18. Image compositions only; representative planning content, not implementation evidence.
+
+===== daily-rhythm-a.png =====
+Use case: ui-mockup
+Asset type: high-fidelity desktop product interface concept, Variant A, for the existing Chinese personal companion app 在场.
+Primary request: Recompose the supplied planning reference into a polished multi-day planning rhythm interface. Preserve its warm windowlight, ivory paper, muted brown text and quiet gold interaction language. The second image is the identity/layout reference for the existing 今天 section. This is a genuine interface composition, not a marketing poster.
+
+Input images: Image 1 is the existing planning screen, used as edit target and visual/material reference. Image 2 is the existing 今天 screen, used only as the navigation/identity reference. Rebuild the body for the new task; do not reproduce the old single-day chat card.
+
+Canvas/composition: landscape 1536 by 1024. A large elegant desktop window on a very softly blurred warm sunlit desk background, with the actual app filling most of the image. Crisp, readable Chinese text and deliberate roomy spacing. No perspective distortion. Main app header shows a simple outlined door mark and 在场 at left, centered existing navigation 聊天 / 今天 / 留下, with 今天 selected in quiet gold, simple search and a tiny circular companion avatar at upper right. No large character illustration.
+
+Content-led structure, Variant A: a quiet horizontal two-date strip is the primary navigation beneath the title. The main content is ONE chosen day's spacious vertical timeline, with dates never mixed into a long list. At top left show the small date range 10月19日—20日 and the page title 这两天，慢慢安排。 Below it place two date choices: 周一 19 is selected using a warm gold circle and a fine underline, 周二 20 is unselected. Under each date show the compact factual summary 读书90分钟 · 未安排1小时45分. These are text facts, not KPI cards or rings.
+
+Chosen-day heading: 10月19日 周一. A quiet subline says 下午 14:00—18:00. Another small inline line says 读书90分钟 · 连同准备与休息2小时15分.
+The chosen day timeline uses five clearly separated rows along a fine vertical thread, with all exact intervals and labels:
+14:00—14:15, 准备好书和笔记, 15分钟.
+14:15—15:45, 读书, 90分钟.
+15:45—15:55, 收一收, 10分钟.
+15:55—16:15, 歇一会儿, 20分钟.
+16:15—18:00, 还未安排, 1小时45分.
+Selected 读书 row: subtle lavender-warm paper fill, thin quiet gold outline. Other occupied rows: pale oat paper, low boundaries. Rest: pale sage. Last unarranged interval: airy open cream area with a light dashed edge, not a task with a completion checkbox. Keep the times visible and aligned with the rows. Do not imply free time equals guaranteed availability or energy; use the accurate label 未安排 only.
+A restrained right-hand companion area can carry a single warm sentence 留下一段完整的时间，慢慢读。 and a tiny leaf drawing. It should remain mostly empty breathing room and must not become a sidebar of controls.
+At the bottom of the app, the selected object is attached to conversation as a small contextual chip: 10月19日 14:15—15:45 · 读书 followed by a tiny x. Immediately below is the normal message composer with paperclip, placeholder 接着说…… and a gold send arrow. The chip proves that a real time block can be selected and continued in chat; do not add an explanatory tooltip or instructions.
+
+Visual craft: tactile ivory paper, gentle windowlight at the edges, muted ink, warm gold, a small amount of lavender/sage, subtle grain, restrained hairline borders and soft shadows, elegant Chinese typography combining a delicate serif heading with clean highly readable body text. Content contrast must stay strong enough to read. Similar warmth and quiet intimacy as the reference; keep the original product's calm spaciousness.
+Constraints: show only the exact requested real content, no developer terms, no API, queue, version, verified, pending, no memory-management controls, no permanent tool controls, no work scores, no progress bars, no checklists, no dashboard cards, no disclaimer paragraphs, no device mockup, no mobile service, no added slogan, no watermark. Do not label the image Variant A.
+
+===== daily-rhythm-b.png =====
+Use case: ui-mockup
+Asset type: high-fidelity desktop product interface concept, Variant B, for the existing Chinese personal companion app 在场.
+Primary request: Recompose the supplied planning reference into a polished multi-day planning rhythm interface using an intimate paper-spread composition. Preserve its warm windowlight, ivory paper, muted brown text and quiet gold interaction language. The second image is the identity/layout reference for the existing 今天 section. This must be a genuinely different information structure from a date-strip plus one timeline, while supporting the same actual content and task.
+
+Input images: Image 1 is the existing planning screen, used as edit target and visual/material reference. Image 2 is the existing 今天 screen, used only as the navigation/identity reference. Rebuild the body for the new task; do not reproduce the old single-day chat card.
+
+Canvas/composition: landscape 1536 by 1024. A large elegant desktop app window occupies most of a softly blurred warm sunlit desk setting. The UI is front-on, crisp, legible, with no perspective distortion. Main app header shows a simple outlined door mark and 在场 at left, centered existing navigation 聊天 / 今天 / 留下, with 今天 selected in quiet gold, simple search and a tiny circular companion avatar at upper right. No large character illustration.
+
+Content-led structure, Variant B: two days appear together as a compact open paper spread with a fine central fold-like rule and generous whitespace, not separate dashboard cards and not a chronological soup. The selected Monday page is about two thirds of the content width and is expanded; the adjacent Tuesday page is about one third and is a legible compact day overview that can be selected. At top left show 10月19日—20日 and the title 这两天，慢慢安排。 A very small two-day leaf-shaped tab treatment or page-edge selection can indicate Monday selected, rather than a separate date strip.
+Both day headings must be prominent: 10月19日 周一 on the expanded left, 10月20日 周二 on the compact right. Both have the same factual budget 下午 14:00—18:00. A fine short gold underline marks the selected Monday page.
+Each day's quiet inline summary is 读书90分钟 · 未安排1小时45分. No statistics tiles, charts, rings, ratios or scores.
+
+Expanded Monday page shows a clean vertical rhythm with exact content:
+14:00—14:15, 准备好书和笔记, 15分钟.
+14:15—15:45, 读书, 90分钟.
+15:45—15:55, 收一收, 10分钟.
+15:55—16:15, 歇一会儿, 20分钟.
+16:15—18:00, 还未安排, 1小时45分.
+The selected 读书 row has a subtle lavender-warm paper fill and a fine quiet gold outline. Preparation and tidying are pale oat, rest pale sage, the final unarranged interval is open airy ivory with a very subtle dashed boundary and sufficient visual space. No checkboxes.
+
+Compact Tuesday page shows the SAME five real intervals and titles in a much lighter editorial treatment with aligned small times and generous readable text, not a fully duplicated set of boxed cards:
+14:00—14:15 准备好书和笔记
+14:15—15:45 读书 · 90分钟
+15:45—15:55 收一收
+15:55—16:15 歇一会儿
+16:15—18:00 还未安排 · 1小时45分
+The Tuesday overview is structurally distinct from Monday's expanded timeline: a quiet paper margin and slender rhythm thread, simple text rows, no selected row. All content fits without truncation. Keep the two days grouped by day, never alternating dates.
+Show the full occupied span through the block structure; if space permits include the tiny factual line 连同准备与休息2小时15分 beneath each day's date, without creating a metric panel.
+Do not imply that unarranged time guarantees real availability or energy; use the accurate label 未安排 only.
+
+At the bottom, continuous across the spread, show the small selected-object conversation chip 10月19日 14:15—15:45 · 读书 followed by a tiny x, then the ordinary message composer with paperclip, placeholder 接着说…… and a gold send arrow. This expresses selecting a concrete time block to continue in chat without any instruction text. Keep the companion tiny/corner if present, with no extra side panel.
+
+Visual craft: tactile ivory paper, warm edge windowlight, muted ink, quiet gold, restrained lavender and sage. Elegant Chinese headings, clean readable Chinese body text, refined aligned numerals. Subtle fine grain and shadows, no heavy nested cards. The paper-spread metaphor comes from proportions and shared page surface, not photorealistic notebook props. Calm, personal, literary, human; preserve existing 在场 identity and generous breathing room.
+Constraints: no developer terms, no API, queue, version, verified, pending, no memory controls, no permanent tools or settings, no work scores, no progress bars, no checklists, no disclaimer paragraphs, no mobile mockup/service, no added slogan, no watermark. Do not label the image Variant B.

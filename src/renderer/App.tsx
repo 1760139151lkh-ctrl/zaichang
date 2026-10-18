@@ -163,7 +163,7 @@ export function App() {
       setSceneSelectionLabel(record ? `接着聊「${record.title}」` : '接着聊这条校园消息');
     }else if(value.kind==='time_block' && scene?.kind==='planning'){
       const block = scene.blocks.find(block => block.id === value.blockId);
-      const time = block ? new Date(block.start).toLocaleTimeString('zh-CN',{timeZone:scene.window.timeZone,hour:'2-digit',minute:'2-digit',hour12:false}) : '';
+      const time = block ? new Date(block.start).toLocaleString('zh-CN',{timeZone:scene.window.timeZone,month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}) : '';
       setSceneSelectionLabel(block ? `${time} · ${block.label}，接着聊` : '接着聊这个时段');
     }else if(value.kind==='environment_sample' && scene?.kind==='environment'){
       const sample = scene.samples.find(sample => sample.id === value.sampleId);
@@ -195,7 +195,7 @@ export function App() {
   }
   const busy = starting || messages.some((m) => m.status === 'running');
   const empty = messages.length === 0;
-  const hasScene = !![...messages].reverse().find(message => message.role === 'assistant')?.views?.length;
+  const hasScene = messages.some(message => message.role === 'assistant' && !!message.views?.length);
   const atWindow = view === 'chat' && companion.presence === 'window' && (empty || (!focusChat && !hasScene));
   const previousConversation = state?.conversations.find(conversation => conversation.id !== sessionId);
   function useSuggestion(text: string) {

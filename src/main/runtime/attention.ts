@@ -17,6 +17,22 @@ import { campusQueryGrants, campusQueryInput, campusResources, validateCampusQue
 import { attentionListInput, attentionChangeInput, type AttentionControlItem, type AttentionControlPage, type AttentionChangeInput } from '../../shared/attention-control';
 
 const id = z.string().min(1).max(160);
+const helpDiscoveryStatuses = ['candidate', 'waiting', 'prepared', 'question_ready', 'notification_queued', 'paused', 'stale', 'expired', 'declined'] as const;
+export const helpDiscoveryInput = z.object({
+  id: id.optional(),
+  query: z.string().max(400).optional().describe('在当前可读机会的标题和已准备正文中找词；多个空白分隔的词按任一匹配。未命中时可换表述或省略query分页查看，不代表没有相关材料。'),
+  relatedTo: id.optional().describe('已知事项或托付的精确ID，沿实际关联找回准备；不靠标题猜关联。'),
+  statuses: z.array(z.enum(helpDiscoveryStatuses)).min(1).max(helpDiscoveryStatuses.length).optional().describe('省略时只发现仍活跃的机会和准备；可显式查看暂停、失效、过期或已放下的记录，但这些状态不是当前可用材料。'),
+  from: z.string().datetime({ offset: true }).optional().describe('最近判断时间的起点，包含；尚未判断时按建立时间。不是材料所讨论的日程日期。'),
+  to: z.string().datetime({ offset: true }).optional().describe('最近判断时间的终点，不包含；尚未判断时按建立时间。'),
+  offset: z.number().int().nonnegative().default(0),
+  limit: z.number().int().min(1).max(12).default(5),
+}).strict().superRefine((input, context) => {
+  if (input.from && input.to && Date.parse(input.from) >= Date.parse(input.to))
+    context.addIssue({ code: 'custom', path: ['to'], message: '结束时间须晚于开始时间。' });
+  if (input.id && (input.query !== undefined || input.relatedTo || input.statuses || input.from || input.to))
+    context.addIssue({ code: 'custom', path: ['id'], message: '精确读取用id；发现筛选时省略id。' });
+});
 const citation = z.object({ eventId: id.optional().describe('通常省略，由宿主按quote绑定唯一的本轮用户原话；填写时必须是精确的当前标识，不能用历史来源或猜测标识。'), quote: z.string().min(1).max(3000) }).strict();
 export const attentionControlInput = z.object({
   operation: z.enum(['follow', 'pause', 'once', 'avoid', 'stop', 'resume', 'feedback', 'read']),
@@ -841,6 +857,68 @@ export class AttentionService {
   available(handle: ScopeHandle, matterId?: string) {
     this.expire();
     return this.repo.workData(handle, ['help_opportunity'], { matterId, statuses: ['prepared', 'question_ready'], limit: 5 }).filter(item => !!item.data.artifact);
+  }
+
+  /** Search permitted records before paging matches. The caller projects only
+   * discovery metadata; exact reads and adoption keep their own fences. */
+  discoverHelp(handle: ScopeHandle, raw: z.input<typeof helpDiscoveryInput>, eligible?: readonly WorkRecord[]) {
+    const input = helpDiscoveryInput.parse(raw);
+    this.expire();
+    const terms = [...new Set((input.query || '').normalize('NFKC').trim().toLowerCase().split(/\s+/).filter(Boolean))];
+    const from = input.from ? Date.parse(input.from) : -Infinity, to = input.to ? Date.parse(input.to) : Infinity;
+    const cached = new Map<string, WorkRecord | undefined>();
+    const read = (objectId: string) => {
+      if (!cached.has(objectId)) cached.set(objectId, this.repo.work(handle, undefined, objectId)[0]);
+      return cached.get(objectId);
+    };
+    if (input.relatedTo && !read(input.relatedTo)) return { items: [], hasMore: false, nextOffset: null };
+    const related = (record: WorkRecord) => {
+      if (!input.relatedTo) return true;
+      const visited = new Set<string>(), pending = [record.id];
+      cached.set(record.id, record);
+      while (pending.length) {
+        const objectId = pending.pop()!;
+        if (visited.has(objectId)) continue;
+        visited.add(objectId);
+        if (objectId === input.relatedTo) return true;
+        const current = read(objectId);
+        if (!current) continue;
+        for (const key of ['bindingId', 'matterId']) if (typeof current.data[key] === 'string') pending.push(current.data[key]);
+      }
+      return false;
+    };
+    const found: WorkRecord[] = [];
+    let matched = 0;
+    const readPage = (offset: number) => this.repo.workData(handle, ['help_opportunity'], {
+      statuses: input.statuses || activeChoices, offset, limit: 100, respectSourceBindings: true,
+    });
+    const pages = function* () {
+      // Background callers retain the existing fair pending order as well as
+      // its due-only subset; filtering must not silently reorder that queue.
+      if (eligible) { yield eligible; return; }
+      for (let offset = 0; ; offset += 100) {
+        const rows = readPage(offset);
+        yield rows;
+        if (rows.length < 100) return;
+      }
+    };
+    for (const rows of pages()) {
+      for (const record of rows) {
+        if (input.statuses && !input.statuses.includes(record.status as typeof helpDiscoveryStatuses[number])) continue;
+        if (terms.length) {
+          const artifact = record.data.artifact as { title?: unknown; body?: unknown } | null;
+          const text = [record.title, artifact?.title, artifact?.body].filter(value => typeof value === 'string').join(' ').normalize('NFKC').toLowerCase();
+          if (!terms.some(term => text.includes(term))) continue;
+        }
+        if (!related(record)) continue;
+        const at = Date.parse(String(record.data.decidedAt || record.data.recordedAt || ''));
+        if ((input.from || input.to) && (!Number.isFinite(at) || at < from || at >= to)) continue;
+        if (matched++ < input.offset) continue;
+        found.push(record);
+        if (found.length > input.limit) return { items: found.slice(0, input.limit), hasMore: true, nextOffset: input.offset + input.limit };
+      }
+    }
+    return { items: found, hasMore: false, nextOffset: null };
   }
 
   private probeArguments(probe: z.infer<typeof attentionControlInput>['probe']) {

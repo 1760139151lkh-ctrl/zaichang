@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState, type MutableRefObject } from 'react';
-import { BookOpen, Download, LoaderCircle, Upload, Undo2 } from 'lucide-react';
+import { BookOpen, Download, LoaderCircle, Pencil, Upload, Undo2 } from 'lucide-react';
 import type { PersonaCore, PersonaState } from '../shared/persona';
 import {
   PERSONA_PRESETS,
   PERSONA_SCENARIOS,
   exportPersonaTemplate,
   importPersonaTemplate,
+  personaCoreSchema,
   personaPreset,
 } from '../shared/persona';
 import type { SettingsUpdate, State } from '../shared/types';
@@ -19,6 +20,14 @@ export interface PersonaDraft {
   beforeReplacement?: { expectedRevision: number; core: PersonaCore };
 }
 type PersonaCandidate = { core: PersonaCore; origin: string; external: boolean; ignoredFields?: string[] };
+export function samePersonaCore(left: PersonaCore, right: PersonaCore) {
+  const snapshot = (core: PersonaCore) => {
+    const value = personaCoreSchema.parse(core);
+    value.examples.sort((a, b) => a.scenario.localeCompare(b.scenario));
+    return JSON.stringify(value);
+  };
+  return snapshot(left) === snapshot(right);
+}
 export function PersonaEditor({
   persona,
   legacyGuidance,
@@ -46,11 +55,13 @@ export function PersonaEditor({
   const [undoRevision, setUndoRevision] = useState<number>();
   const [legacySelection, setLegacySelection] = useState('');
   const [candidate, setCandidate] = useState<PersonaCandidate>();
+  const [editingCandidate, setEditingCandidate] = useState(false);
+  const importButtonRef = useRef<HTMLButtonElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const importRevision = useRef(0);
   const core = editor.core;
   const locked = pending || saving;
-  const dirty = JSON.stringify(core) !== JSON.stringify(persona.core);
+  const dirty = !samePersonaCore(core, persona.core);
   const stale = editor.expectedRevision !== persona.revision;
   const selectedScene = PERSONA_SCENARIOS.find((entry) => entry.id === scenario)!;
   const response = core.examples.find((entry) => entry.scenario === scenario)?.response;
@@ -66,15 +77,27 @@ export function PersonaEditor({
     },
     [],
   );
+  function keepEditor(next: PersonaDraft) {
+    setEditor(next);
+    if (!next.beforeReplacement && next.expectedRevision === persona.revision && samePersonaCore(next.core, persona.core))
+      delete draft.current.persona;
+    else draft.current.persona = next;
+  }
   function replace(next: PersonaCore) {
     importRevision.current++;
     const nextEditor = { ...editor, core: next };
-    setEditor(nextEditor);
-    draft.current.persona = nextEditor;
+    keepEditor(nextEditor);
     setFeedback(undefined);
   }
   function patch(value: Partial<PersonaCore>) {
     replace({ ...core, ...value });
+  }
+  function previewCandidate(next: PersonaCandidate) {
+    setEditingCandidate(false);
+    setCandidate(next);
+  }
+  function patchCandidate(value: Partial<PersonaCore>) {
+    setCandidate(current => current ? { ...current, core: { ...current.core, ...value } } : current);
   }
   function acceptCandidate() {
     if (!candidate || locked) return;
@@ -84,14 +107,14 @@ export function PersonaEditor({
       core: candidate.core,
       beforeReplacement: { expectedRevision: editor.expectedRevision, core: structuredClone(editor.core) },
     };
-    setEditor(nextEditor); draft.current.persona = nextEditor; setCandidate(undefined);
+    keepEditor(nextEditor); setCandidate(undefined);
     setFeedback({ text: '已放进编辑草稿。可以继续调整，留下约定后才会生效。' });
   }
   function restoreReplacedDraft() {
     if (!editor.beforeReplacement || locked) return;
     importRevision.current++;
     const restored = structuredClone(editor.beforeReplacement);
-    setEditor(restored); draft.current.persona = restored;
+    keepEditor(restored);
     setFeedback({ text: '替换前的文字回来了，还没有改动已保存的约定。' });
   }
   function reset(next = persona) {
@@ -147,7 +170,7 @@ export function PersonaEditor({
             aria-pressed={core.presetId === preset.id}
             disabled={locked}
             onClick={() => dirty
-              ? setCandidate({ core: personaPreset(preset.id), origin: `${preset.label}预设`, external: false })
+              ? previewCandidate({ core: personaPreset(preset.id), origin: `${preset.label}预设`, external: false })
               : replace(personaPreset(preset.id))}
           >
             <strong>{preset.label}</strong>
@@ -279,7 +302,7 @@ export function PersonaEditor({
       {stale && (
         <div className="persona-conflict" role="alert">
           <p>这里已经有了新的约定（{persona.core.name || '在场'}）。你写的文字还在；继续使用这份草稿，下次保存会替换当前约定。</p>
-          <button type="button" className="text-button" disabled={locked} onClick={() => { const next = { ...editor, expectedRevision: persona.revision }; setEditor(next); draft.current.persona = next; setFeedback({ text: '草稿保留着。检查后再保存，就会成为新的约定。' }); }}>继续使用这份草稿</button>
+          <button type="button" className="text-button" disabled={locked} onClick={() => { const next = { ...editor, expectedRevision: persona.revision }; keepEditor(next); setFeedback({ text: '草稿保留着。检查后再保存，就会成为新的约定。' }); }}>继续使用这份草稿</button>
         </div>
       )}
       {feedback && (
@@ -309,10 +332,10 @@ export function PersonaEditor({
           </select>
         </div>
         <p className="persona-scene">{selectedScene.facts}</p>
-        <blockquote>{response || '这时，你希望我怎样回应？可以在左边写一句。'}</blockquote>
+        <blockquote>{response || '这时，你希望我怎样回应？'}</blockquote>
         <small>这里展示你写下的例句，方便一起调整语气。</small>
       </div>
-      <div className="persona-import-entry"><button className="text-button" disabled={locked} onClick={() => fileRef.current?.click()}><Upload size={15} />带来一份角色设定</button><small>支持在场设置和 Character Card V2 的 JSON 文件。</small></div>
+      <div className="persona-import-entry"><button ref={importButtonRef} className="text-button" disabled={locked} onClick={() => fileRef.current?.click()}><Upload size={15} />带来一份角色设定</button><small>支持在场设置和 Character Card V2 的 JSON 文件。</small></div>
       <details className="persona-details persona-manage">
         <summary>以前的约定与随身带走</summary>
         <div className="persona-details-body">
@@ -375,6 +398,7 @@ export function PersonaEditor({
             className="sr-only"
             ref={fileRef}
             type="file"
+            tabIndex={-1}
             accept="application/json,.json"
             aria-label="放入我的设置文件"
             onChange={async (event) => {
@@ -395,7 +419,7 @@ export function PersonaEditor({
                 }
                 if (importRevision.current !== importingRevision || draft.current.persona !== beforeImport)
                   return;
-                setCandidate(imported);
+                previewCandidate(imported);
               } catch (error) {
                 if (importRevision.current !== importingRevision) return;
                 setFeedback({ text: uiError(error), error: true });
@@ -431,19 +455,19 @@ export function PersonaEditor({
       </details>
         </aside>
       </div>
-      {candidate && <Modal title="先看看，再决定" onClose={() => setCandidate(undefined)} className="persona-import-dialog">
+      {candidate && <Modal title="先看看，再决定" onClose={() => setCandidate(undefined)} fallbackFocus={() => importButtonRef.current?.focus({ preventScroll: true })} className="persona-import-dialog">
         <div className="persona-import-body">
-        <div className="persona-import-intro"><span className="persona-import-mark"><BookOpen size={25} /></span><div><h3>{candidate.core.name || '还没起名字'}</h3><p>{candidate.origin}</p></div></div>
-        <p className="persona-import-lede">这份设定还没有生效。放进草稿后，你可以改成更喜欢的样子。</p>
+        <div className="persona-import-intro"><span className="persona-import-mark"><BookOpen size={25} /></span><div>{editingCandidate ? <label className="field-label">叫什么<input autoFocus aria-label="预览中的名字" value={candidate.core.name} maxLength={60} onChange={event => patchCandidate({ name: event.target.value })} /></label> : <h3>{candidate.core.name || '还没起名字'}</h3>}<p>{candidate.origin}</p></div></div>
+        <div className="persona-import-tools"><p className="persona-import-lede">这份设定还没有生效。</p><button type="button" className="text-button" aria-pressed={editingCandidate} onClick={() => setEditingCandidate(current => !current)}><Pencil size={14} />{editingCandidate ? '收起编辑' : '调整这份设定'}</button></div>
         <div className="persona-import-content">
-          <section><h4>怎样相处</h4><p>{candidate.core.description || '这份设定还没有写性格，可以在草稿里补上。'}</p></section>
-          {candidate.core.voice && <section><h4>说话的方式</h4><p>{candidate.core.voice}</p></section>}
-          {candidate.core.fictionalBackstory && <section><h4>虚构的背景</h4><p>{candidate.core.fictionalBackstory}</p></section>}
+          <section>{editingCandidate ? <label className="field-label">怎样相处<textarea aria-label="预览中的相处方式" rows={3} value={candidate.core.description} maxLength={4000} onChange={event => patchCandidate({ description: event.target.value })} /></label> : <><h4>怎样相处</h4><p>{candidate.core.description || '还没有写性格。'}</p></>}</section>
+          {(candidate.core.voice || editingCandidate) && <section>{editingCandidate ? <label className="field-label">说话的方式<textarea aria-label="预览中的说话方式" rows={3} value={candidate.core.voice} maxLength={1000} onChange={event => patchCandidate({ voice: event.target.value })} /></label> : <><h4>说话的方式</h4><p>{candidate.core.voice}</p></>}</section>}
+          {(candidate.core.fictionalBackstory || editingCandidate) && <section>{editingCandidate ? <label className="field-label">虚构的背景<textarea aria-label="预览中的虚构背景" rows={3} value={candidate.core.fictionalBackstory} maxLength={1000} onChange={event => patchCandidate({ fictionalBackstory: event.target.value })} /></label> : <><h4>虚构的背景</h4><p>{candidate.core.fictionalBackstory}</p></>}</section>}
         </div>
         {candidate.external && <p className="persona-import-note">这里只带入名字、性格与虚构背景。原卡的开场白、世界书和自动执行内容不会加入对话。</p>}
         {dirty && <p className="persona-import-note">你正在写的草稿会先留一份，替换后仍可恢复。</p>}
-        <div className="persona-import-actions"><button type="button" className="primary-button" disabled={locked} onClick={acceptCandidate}>{dirty ? '替换编辑草稿' : '放进编辑草稿'}</button><button type="button" className="text-button" onClick={() => setCandidate(undefined)}>先不换</button></div>
         </div>
+        <div className="persona-import-actions"><button type="button" className="primary-button" disabled={locked} onClick={acceptCandidate}>{dirty ? '替换编辑草稿' : '放进编辑草稿'}</button><button type="button" className="text-button" onClick={() => setCandidate(undefined)}>先不换</button></div>
       </Modal>}
     </section>
   );

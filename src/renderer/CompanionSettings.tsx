@@ -3,7 +3,7 @@ import { Check, ChevronDown, Heart, ImagePlus, LoaderCircle, Moon, Plus, Sliders
 import { personaPreset, selectCompanionPersona, type PersonaState, type PersonaUpdate } from '../shared/persona';
 import { characterPortrayal } from '../shared/persona-portrayals';
 import type { State } from '../shared/types';
-import type { PersonaDraft } from './PersonaEditor';
+import { samePersonaCore, type PersonaDraft } from './PersonaEditor';
 import { COMPANIONS, CompanionScene, WINDOW_LIGHT, companionName, useCompanion } from './companion';
 import { useAppearance } from './appearance';
 import { Switch, uiError } from './ui';
@@ -42,7 +42,7 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
   const hasPersonaDraft = !!draft.current.persona;
   const roleLocked = rolePending || saving || busy;
   const alreadyLinked = persona.core.visualBinding?.companionId === value.character;
-  const alreadyPreset = characterCore && JSON.stringify(persona.core) === JSON.stringify(characterCore);
+  const alreadyPreset = characterCore && samePersonaCore(persona.core, characterCore);
   const roleUnchanged = roleMode === 'preserve_role' ? alreadyLinked : alreadyPreset;
   const gallery = category === '我的收藏'
     ? [...COMPANIONS.filter(item => value.favorites.includes(item.id)), ...value.pictures]

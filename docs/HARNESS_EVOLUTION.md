@@ -1,6 +1,8 @@
 # 在场 Harness：记忆、主动照应与执行能力演进
 
-日期：2026-10-18。较早加固起始源码为 `e16d3fe575feb4edef72f42bc6a129bc3d6b58fe`；本轮继续实施从未合并的 `c7cff22884fe9a3050879067dd49012f685d8cfd` 开始。本文区分两阶段需求、修改与验证边界；全项目现状仍由 [CURRENT_STATUS](CURRENT_STATUS.md) 汇总，入口见 [PROJECT_NAVIGATION](../PROJECT_NAVIGATION.md)。逐项源码研究、版本和取舍见 [本轮研究记录](research/HARNESS_RESEARCH_2026-10-18.md)。
+日期：2026-10-18。较早加固起点为 `e16d3fe`，上一阶段从当时未合并的 `c7cff228` 开始；这些成果均已合入main。当前批次从 `4edd922` 继续，原文浏览、遗忘与子调查边界、决策经历、逐日预算和界面收口见[当前状态](CURRENT_STATUS.md#personal-memory-continuity)及[本批固定源码研究](research/PERSONAL_MEMORY_CONTINUITY_2026-10-18.md)。本文下方保留各阶段需求与机制，入口由[项目导航](../PROJECT_NAVIGATION.md)统一。总目标依[最新持续要求](source-materials/2026-10-18/ongoing-improvement-20261018.md)继续推进，不以批次交付结束。
+
+本批继续采用单一Hermes与现有证据／事项／日历所有者。完整原文不依赖提取或词面搜索才能被发现；更正与遗忘也覆盖同源、历史及派生。用户报告的经历保留条件和来源定位，不复制正文、不自动定性；子调查能使用初始已知历史限制，运行中变化仍拒收。跨天规划同时守住窗口与每日预算，未知结束与真实自然日不因排版被伪造；前端沿宿主快照显示与引用，不能绕开完整采用单位。
 
 ## 这次要解决的问题
 

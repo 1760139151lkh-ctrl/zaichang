@@ -7,12 +7,13 @@
 <a id="current-evolution"></a>
 ## 本轮续接：记忆、主动陪伴与对话体验
 
-先读[当前补充要求](docs/source-materials/2026-10-18/continuation-requirements.md) → [需求与实现明细](docs/HARNESS_EVOLUTION.md) → [当前状态与证据](docs/CURRENT_STATUS.md)。续接基线为 `c7cff228`。本轮后端阶段已结束，首轮合并检查258项通过；随后生成四组 GPT Image 方案，前端正在接入。用户明确取消了旧 Luna 全局门禁，仍要求后端→图像→前端的顺序，以及未验证项如实记录。
+先读[完整原始请求](docs/source-materials/2026-10-18/goal-objective-20261018.md)和[持续改进补充原话](docs/source-materials/2026-10-18/ongoing-improvement-20261018.md) → [需求与实现明细](docs/HARNESS_EVOLUTION.md) → [当前状态与证据](docs/CURRENT_STATUS.md)。此前从 `c7cff228` 完成过一轮后端与四组 GPT Image 方案；本次在合并后的 `4edd922` 上继续，补原文浏览/精确遗忘、决策经历、准备发现、逐日规划和技能依赖组，后端收口后改进已有规划/环境/角色界面并实际检查。检查数字与界面证据统一在状态文档记录，不借用旧轮结果。本次持续目标在阶段交付后继续研究与实施，不因前端收口而结束。
 
-[原始来源归档](docs/source-materials/2026-10-18/README.md)保留新版实施包、完整记忆讨论、Harness 讨论、动态对话与前端理念，以及逐文件哈希和五个附件回执。短版记忆上传是完整版的字节前缀，关系已记录；不要求用户重发资料。归档是私人设计输入，不是运行时本人画像。
+[原始来源归档](docs/source-materials/2026-10-18/README.md)保留实施包、完整记忆讨论、最新54,484字节桌面Harness讨论、完整goal附件、持续补充原话及动态/前端理念，逐文件字节/哈希与各轮回执分别记录。旧41,067字节Harness和早期短版记忆的前缀关系均保留；本次桌面记忆文件与完整归档相同，不重复复制。归档是私人参考，不是运行时指令或本人画像。
 
 | 本轮研究与审查 | 实施方向 |
 | --- | --- |
+| [个人记忆与生活连续性](docs/research/PERSONAL_MEMORY_CONTINUITY_2026-10-18.md) | 本次16域/12时间线交叉审计、原文浏览、精确遗忘、决策经历、准备发现/逐日承载及候选取舍；源码机制与语义/设备证据分开 |
 | [记忆](docs/research/MEMORY_EVOLUTION_2026-10-18.md) | 多查询、有限扫描、原始依据与纠正后续线索 |
 | [主动创新](docs/research/INITIATIVE_INNOVATION_2026-10-18.md) | 跨会话准备材料与未完事项的有限续接索引 |
 | [角色和方法](docs/research/PERSONA_TOOLS_2026-10-18.md) | 原作来源、可编辑演绎、显式形象绑定、角色卡草稿与十份按需方法 |
@@ -45,6 +46,7 @@
 | [CURRENT_STATUS](docs/CURRENT_STATUS.md) | 当前功能、接入程度、证据时间、进行中工作与真实缺口 |
 | [HARNESS_EVOLUTION](docs/HARNESS_EVOLUTION.md) | 个人助手需求、记忆/主动/日程/技能/角色细节、创新方向及分阶段实施顺序 |
 | [本轮补充要求](docs/source-materials/2026-10-18/continuation-requirements.md) | 当前用户意图、创新范围、后端→图像→前端、旧门禁覆盖及资料保真要求；研究见本页顶部 |
+| [完整goal与持续补充](docs/source-materials/2026-10-18/README.md) | 保真原始请求、最新用户持续改进原话及适用范围；阶段交付后继续非平凡优化，不把历史文件变成运行时授权 |
 | [2026-10-18 原始来源](docs/source-materials/2026-10-18/README.md) | 用户指定新版实施包及记忆、产品理念、动态界面、前端讨论原文；私人归档和逐文件哈希 |
 | [STUDENT_HARNESS](docs/STUDENT_HARNESS.md) | 学生生活联动、迁移回退、已完成验证及128条需求归属／T8边界 |
 | [CONVERSATION_SCENES](docs/CONVERSATION_SCENES.md) | Scene/View/语义选择、内嵌地图、天气及动态呈现契约 |
@@ -74,7 +76,7 @@
 | 用户可编辑笔记 | `NotesService`，原文/CAS/历史/回收站；内容不是自动人物断言或行动指令 |
 | 文字角色与交互偏好 | `shared/persona.ts`、`shared/interaction.ts` 和 Store settings；版本化明确设定，混合私人旧 guidance 留在私有迁移记录 |
 | 个人理解 | evidence/assertion、`memory/service.ts`；来源、条件、有效性、更正与遗忘，自动推断不改用户角色或权限 |
-| 目标、承诺、商量中的事和准备资料 | `runtime/work.ts`、`cooperation.ts`、`attention.ts` 和 release 存储；区分假设、邀请、接受、停用与实际展示 |
+| 目标、承诺、商量中的事和准备资料 | `runtime/work.ts`、`collaboration.ts`、`cooperation.ts`、`attention.ts` 和 release 存储；决策经历归原frame，用户报告、假设、邀请、接受、停用与实际展示分开 |
 | 本机安排与提醒 | `agenda`、`h_calendar_versions`、ActionRuntime 和 ReminderRuntime；同对象连续修订、明确提醒独立调度 |
 | 学校记录 | `storage/domains.ts` 与真实连接器；本地导入和账号来源分开，细分权限、覆盖与业务版本不得被摘要改写 |
 | 公共/私有空间 | 公共快照由 MapService 管理；个人地点绑定、设备位置和共享给模型的空间上下文另受范围控制 |
@@ -99,16 +101,18 @@
 | 原话控制、权限与用途 | `runtime/turn-controls.ts`、`controls.ts`、`policy.ts`、`read-purpose.ts`、`privacy-control.ts`、`action-delegation.ts`、`attention-boundary.ts`；发送前边界及每次实际操作均重新核查 |
 | 上下文、来源与用量 | `runtime/context.ts`、`basis.ts`、`observation-review.ts`、`completion-review.ts`、`model-usage.ts`；按任务检索原始证据，记录实际来源/对象版本/工具与模型回执 |
 | 工具发现与提供者 | `main/tools.ts` → `runtime/coordinator.ts` → `capabilities/broker.ts` → `builtin.ts` / `ports.ts` / 领域provider；共享预算和当前范围不交给插件自行扩大 |
-| 按需技能方法 | `runtime/skills.ts` → `discover_skills` / `read_skill`；十份有版本/hash的方法，动态核对工具、能力、权限与连接状态；读方法不执行代码 |
-| 后台只读子调查 | `harness.ts` → `runtime/background-delegation.ts` → 同一 Hermes children 协议；授权片段、来源子集、共享预算、调用边界与父采用复验 |
+| 按需技能方法 | `runtime/skills.ts` → `discover_skills` / `read_skill`；十份有版本/hash的方法，all/any依赖组和availablePaths保留各入口连接/权限与覆盖区别；读方法不执行代码 |
+| 后台只读子调查 | `harness.ts` → `runtime/background-delegation.ts` → 同一 Hermes children 协议；授权片段、来源子集、共享预算；host捕获局部更正baseline，实际读取来源出现新限制后在模型/父采用边界停止旧报告 |
 | 缓存与真实委派 | `capabilities/broker.ts`、`runtime/cooperation.ts`、`collaboration.ts`、`hermes.ts` 和 sidecar；独立等待者取消、版本快照、父代理消费与旧结果失效 |
-| 记忆与连续事项 | `memory/model.ts` / `service.ts` / `retrieval.ts` → `runtime/context.ts` / `work.ts` / `discourse.ts` → `storage/repository.ts`；多查询/扫描、证据展开、更正后续；`HarnessViews.tsx` 提供原话、更正、停用和忘记入口 |
-| 跨会话续接 | `runtime/continuity.ts` → `context.ts`；有限索引指向既有准备与事项，逐项核对来源/版本/范围，已看同版本不重复推荐，正文采用仍复验 |
+| 记忆与连续事项 | `memory/model.ts` / `service.ts` / `retrieval.ts` → `runtime/context.ts` / `work.ts` / `discourse.ts` → `storage/repository.ts`；多查询/扫描、证据展开、更正后续；精确遗忘清理重叠派生/可归因旧版本，保留同源独立片段及后续提取；`HarnessViews.tsx` 提供原话、更正、停用和忘记入口 |
+| 无字面依赖的原文浏览 | `search_context(mode=browse)` → `memory/browse.ts` → `storage/repository.ts` → `read_evidence`；许可来源/收到时间先筛，固定快照keyset cursor有界续页；仅给previewOnly，正文采用再查当前scope与版本 |
+| 决策经历与理由重评 | `update_collaboration(operation=experience)` → `runtime/collaboration.ts` → 原WorkRecord frame；稳定optionId、逐字条件locator、原文版本/hash、64条有界数组；恢复先核当前来源，不把用户报告变成已核实结果或新接受；实际展开引用进入context receipt |
+| 跨会话续接 | `runtime/continuity.ts` → `context.ts`；有限索引指向既有准备与事项，逐项核对来源/版本/范围；`inspect_help`可按query/精确relatedTo/状态/时间发现较早准备，正文采用仍复验，不以未列出当不存在 |
 | 记事本 | `shared/notes.ts` → `main/notes/service.ts` → `Store.notes` → notes IPC / scoped `manage_note` → `renderer/NotesPanel.tsx` / `notes.css`；`note_attention` 仅携带版本元数据 |
-| 文字人格与形象绑定 | `shared/persona.ts` / `persona-portrayals.ts` / `persona-card-import.ts` → Store版本更新 → `PersonaEditor.tsx` / `SettingsPanel.tsx` / `CompanionSettings.tsx`；显式保留角色或采用演绎，卡片仅成文字草稿，纯角色不依赖普通记忆开关 |
+| 文字人格与形象绑定 | `shared/persona.ts` / `persona-portrayals.ts` / `persona-card-import.ts` → Store版本更新 → `PersonaEditor.tsx` / `SettingsPanel.tsx` / `CompanionSettings.tsx`；显式保留角色或采用演绎，预览可编辑/拒绝/放入草稿，保存才生效；修订冲突保留稿，同内容不误判未保存，纯角色不依赖普通记忆开关 |
 | 本地安排与版本／撤销 | `shared/calendar.ts` → `actions/calendar.ts` / `local-calendar.ts` / `runtime.ts` → `Store.writeAgendaProjection` / `deleteAction`；`LifePanels.tsx` / `Workspace.tsx` / App动作卡回读真实状态 |
 | 情境、空闲与可行规划 | `capabilities/builtin.ts` → `actions/planning.ts` / `availability.ts`；`situation.read` 有界读取，`planning.preview` 计算冲突/未知并给版本绑定方案；接受后改原对象 |
-| 多任务日程与采用/恢复 | `planning.draft` / `planning.recover` → `actions/planning-draft.ts` / `planning-application.ts` → `prepare_action` / `local-calendar.ts` / `ActionRuntime`；分段上限、完整占用、短期票据、逐项采用及真实持久记录恢复；不恢复旧授权 |
+| 多任务日程与采用/恢复 | `planning.draft` / `planning.recover` → `actions/planning-draft.ts` / `planning-days.ts` / `planning-application.ts` → `prepare_action` / `local-calendar.ts` / `ActionRuntime`；逐日新增工作上限/真实占用留白、声明时区的自然日、unknownEnd、完整占用与剩余预算恢复；短期票据和逐项采用不恢复旧授权 |
 | 本地日历交接 | `shared/calendar-export.ts` → `preload.ts` / `main.ts` 的 `calendar:export` → `actions/calendar-export.ts` → `expandAgenda`；保存对话框后复验隐私/权限并回读当前安排，有限范围ICS，无联网/提醒；`Workspace.tsx` / `CalendarHandoff.tsx` 已接，实际验证范围见当前状态 |
 | 机会按时唤醒 | `runtime/opportunity-scheduler.ts` → `AttentionService.nextReviewAt/settleReview` → `Harness.reviewOpportunities`；单timer、公平选择、失败退避与周期对账，退出停止 |
 | 公共空气质量 | `capabilities/air-quality.ts` → `builtin.ts` 的 `air_quality.lookup`；复用公共天气参考点与权限，返回模型小时样本，非手机传感或校园实测 |
@@ -119,7 +123,7 @@
 | 校园记录与外部连接 | `zjuAdapter.ts`、`capabilities/campus-query.ts` / `campus-reference.ts` / `builtin.ts`、`storage/domains.ts`；独立受限子进程连接器、细分资源权限、导入/账号来源与覆盖 |
 | 公共研究 | `capabilities/research.ts` / `public-network.ts` → 公共搜索/网页/PDF读取；公开地址、域名限制和scope/URL/版本绑定的续读句柄 |
 | 天气 | `capabilities/weather.ts` → `builtin.ts` 的 `weather.lookup`；公开参考地点/时区/日期/小时窗口与缺字段覆盖，日级Scene不推导小时结果 |
-| 对话动态场景 | `shared/scenes.ts` → `runtime/scenes.ts` / `scene-projections.ts` / coordinator → `Message.scenes/views` → `presentation/AssistantPresentation.tsx`；地图共用 `ConversationMap` / `MapSurface`，另有日级天气、校园卡、新规划时间带与小时环境；`ChatInput.selection` 回传单一精确引用，新界面进行中 |
+| 对话动态场景 | `shared/scenes.ts` → `runtime/scenes.ts` / `scene-projections.ts` / coordinator → `Message.scenes/views` → `presentation/AssistantPresentation.tsx` / `LifeSceneViews.tsx`；地图共用既有surface；规划逐日显示、跨日originalRange保留，小时环境过期计时/选中可见/未知图标；`ChatInput.selection`和输入chip回传精确引用，不因切日或观看自动采用 |
 | 地图给模型的投影 | `runtime/map-model-view.ts` 保留语义、条件和来源并精简绘图几何；`context.ts` 分别计原始读取字节和实际model-view token；完整Scene/Bridge路线不变 |
 | 地图服务与路由 | `main/mapService.ts` / `mapStorage.ts` → `shared/map-v3.ts` / `map-v2.ts` → `shared/map-routing.ts`；验证组件hash、稳定ID、门点、估计接入、方向与通行条件 |
 | 定位、个人地点与共享 | `mapLocation.ts`、`mapProfile.ts`、`runtime/spatial.ts`、`capabilities/spatial.ts`；Windows设备观察、私人profile和向本轮模型共享分开；review没有这些输入 |

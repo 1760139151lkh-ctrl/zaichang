@@ -85,7 +85,7 @@ scene1 = WeatherScene("<scene-id>@<revision>")
 
 ## 陪伴形象与当前前端演进
 
-陪伴窗景与头像属于页面外观，不是 `SceneSnapshot`。`CompanionProvider` 从桌面启动加载；当前工作树的 `App`、导航与设置正接入 `CompanionScene`、`RestSpace` 和 `CompanionSettings`。形象图片、光线、大小、位置及动态偏好留在本机渲染器存储，不进入角色模板或场景工具事实。
+陪伴窗景与头像属于页面外观，不是 `SceneSnapshot`。`CompanionProvider` 从桌面启动加载，`App`、导航与设置已接入 `CompanionScene`、`RestSpace` 和 `CompanionSettings`。当前对话含结构化画面时，后续一条普通文字回复不会把大人物重新压到内容上；陪伴偏好仍保留，头像与窗光继续存在。形象图片、光线、大小、位置及动态偏好留在本机渲染器存储，不进入角色模板或场景工具事实。
 
 新导航的“聊天 / 今天 / 留下”、陪伴设置以及阅读布局正在同一工作树演进。已有源码路径不等于本轮重新走完全部新入口、图片导入/移除、休憩、窄窗、主题和动效；本轮学生闭环的实际地图、天气、笔记、人格与安排证据也不能自动覆盖后来加入的外观改动。当前挂载以 [App.tsx](../src/renderer/App.tsx)、[SettingsPanel.tsx](../src/renderer/SettingsPanel.tsx) 和 [main.tsx](../src/renderer/main.tsx) 为准。
 
@@ -100,7 +100,17 @@ scene1 = WeatherScene("<scene-id>@<revision>")
 3. 在组件库注册带 schema 和用途说明的组件，扩展 `SceneStack` 的允许项及宿主 DSL 编译。
 4. 将明确选择接回 `SemanticSelection`，保留试算与已接受安排的区别。真实写入沿用已有权限、版本检查与结果回执。
 
-不具备真实数据或执行能力的领域暂不注册空壳按钮。小时天气资料已接桌面读取，其专用画面仍未注册；实时空位、学校预约写入、手机定位、运动认证和跨设备同步分别需要自己的数据、权限与设备支持。
+不具备真实数据或执行能力的领域不注册空壳按钮。小时天气／空气现已注册 `EnvironmentScene`；实时空位、学校预约写入、手机定位、运动认证和跨设备同步分别需要自己的数据、权限与设备支持。
+
+## 日节奏与小时环境：当前实现
+
+`PlanningScene.daySummaries` 是宿主按本轮时区和真实自然日计算的可选投影，旧Scene可以没有它。逐日净工作、完整占用、空白与声明预算不由renderer另算。日期条只浏览同一Scene；点击时段仍提交精确scene/revision/blockId，再由宿主回读对象。
+
+有限跨日时段在宿主投影按日分割，`originalRange`保留完整来源区间，`planRefs`仍引用完整采用单位。画面上的50／40分钟不是两个获准动作，不能将原110分钟占用改写成其中一片后提交。未知结束保留`end:null`及条件，不能为了按天排版发明结束时刻。自然日可能为23／25／26小时或被跳过；日账范围不齐时保留原完整时段，不静默删除未覆盖的日期。
+
+`EnvironmentHours`保留天气和空气各自的小时／来源／制式；未知天气码使用虚线圆，不能暗示确定阴天。到`source.expiresAt`时以定时器切换为“先前查到的预报”，旧快照仍可作历史引用。小时／日期条仅在自身容器水平保持当前项可见，不抢聊天滚动或焦点；键盘可浏览并选择，用户输入草稿保持。
+
+本批先生成并比较[两版日节奏图](../assets/design/generated/2026-10-18-personal-memory/daily-rhythm-manifest.json)，采用A的日期条＋单日展开，删去重复辅助文案；精确时间与业务数据来自宿主。实际Electron宽／窄、晨光／夜色、日期／小时点选、草稿保存重开、环境缺测与过期已观察。真实模型是否选对工具与参与时机、手机系统及长期效果仍是不同证据层，见[当前状态](CURRENT_STATUS.md#personal-memory-continuity)。
 
 ## 源码与 API 核对依据
 

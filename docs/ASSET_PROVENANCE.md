@@ -1,6 +1,19 @@
 # Asset provenance
 
-Latest design references: [2026-10-18 companion evolution](../assets/design/generated/2026-10-18-companion-evolution/manifest.json), with [exact prompts](../assets/design/generated/2026-10-18-companion-evolution/prompts.md). Their inspected uses and exclusions are recorded in [DESIGN_IMAGE_COVERAGE](DESIGN_IMAGE_COVERAGE.md). They are design boards, not product data or evidence of completed UI behavior.
+Latest design references: [daily rhythm comparison](../assets/design/generated/2026-10-18-personal-memory/daily-rhythm-manifest.json) and the prior [companion evolution](../assets/design/generated/2026-10-18-companion-evolution/manifest.json). Their inspected uses and exclusions are recorded in [DESIGN_IMAGE_COVERAGE](DESIGN_IMAGE_COVERAGE.md). They are design boards, not product data or evidence of completed UI behavior.
+
+## 2026-10-18 daily rhythm design comparison
+
+Two separate built-in GPT Image calls produced the references in `assets/design/generated/2026-10-18-personal-memory/` after this batch's backend work. Both generated images and the existing planning/today references were visually inspected. The selected A composition uses a date strip and one expanded day; B retains the alternative paper-spread comparison. The implementation omits decorative prose, keeps the existing conversation/navigation, and uses host-calculated dates, daily summaries and block identities.
+
+| File | Dimensions | Bytes | SHA-256 |
+| --- | --- | --- | --- |
+| `daily-rhythm-a.png` | 1536 × 1024 | 1665045 | `1147dd64f07eaa19c08517105fc597f877ff6c1398d8333def93c815e1a2eee0` |
+| `daily-rhythm-b.png` | 1536 × 1024 | 1868686 | `d4442630f13372a6aafc18e7d80d8462e48395a32c62ac3bb113cfa6c8539e0c` |
+
+The sibling `daily-rhythm-prompts.txt` preserves exact prompts; `daily-rhythm-manifest.json` records source hashes, tool, outputs and selection. These are design references in the private source repository, not runtime images, geographic/business facts, official character artwork or evidence of a mobile product. Sample reading times are not the user's agenda. Product code and data render the actual UI; neither generated board is a page background or an application dependency. Project references use copied repository assets, not Codex runtime paths.
+
+## Existing runtime and reference assets
 
 | Asset | Source / transformation / redistribution treatment |
 | --- | --- |
