@@ -29,7 +29,9 @@ The exact public file/license selections are maintained in `vite.review.config.t
 
 At the user's explicit request, all 29 PNG outputs from one generation folder are archived without renaming or changing their bytes in `assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/`. `manifest.json` records each filename, byte size, dimensions and SHA-256. The files were visually inspected as generated window scenes, characters and interface concepts; they contain no observed real account credentials or private screenshots. This is an authorized backup in the existing private GitHub repository, not a new license grant or approval for public redistribution.
 
-The six runtime companion images keep their existing `src/renderer/assets/companion/` paths and imports. This archive is not imported by the product or included in the public-map build. Interface concepts are design references, not evidence of implemented behavior. Raw prompts and the local design/chat bundle remain local.
+The six runtime companion images keep their existing `src/renderer/assets/companion/` paths and imports. This archive is not imported by the product or included in the public-map build. Interface concepts are design references, not evidence of implemented behavior.
+
+The user subsequently explicitly requested that `前端视觉创新设计/` also be uploaded to this same private GitHub repository. That directory preserves two original Markdown documents, 45 original PNGs and two generation-record JSON files at their existing relative paths. This specific authorization supersedes the earlier local-only treatment of that design bundle and its prompts/source-path records; it does not authorize publishing other private research, credentials, account data or local databases. The design bundle remains excluded from application and public-map build inputs.
 
 ## Desktop companion file identities
 
