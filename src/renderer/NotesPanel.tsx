@@ -20,6 +20,7 @@ import {
 } from '../shared/notes';
 import { IconButton, PagePanel, uiError } from './ui';
 import { DEFAULT_TIME_ZONE, formatDateTime } from './time';
+import type { LocalSearchLocator } from '../shared/search';
 import './notes.css';
 
 type Editor = { note?: NoteDocument; title: string; body: string };
@@ -35,6 +36,27 @@ const editable = (note: NoteDocument): Editor => ({
   title: note.title,
   body: note.body,
 });
+
+function revealNoteMatch(control: HTMLInputElement | HTMLTextAreaElement, start: number, end: number) {
+  control.focus({ preventScroll: true });
+  control.setSelectionRange(start, end);
+  if (control instanceof HTMLTextAreaElement) {
+    // Native selection does not scroll an off-screen match into a textarea.
+    // Measure its actual wrapped lines with the same text metrics, without
+    // changing the note, caret contents or the editor's saved draft.
+    const style = window.getComputedStyle(control), mirror = document.createElement('div');
+    mirror.style.cssText = 'position:fixed;left:-100000px;top:0;visibility:hidden;white-space:pre-wrap;overflow-wrap:break-word;border:0;box-sizing:border-box;';
+    for (const property of ['font-family', 'font-size', 'font-weight', 'font-style', 'line-height', 'letter-spacing', 'word-spacing', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left', 'text-indent', 'tab-size']) mirror.style.setProperty(property, style.getPropertyValue(property));
+    mirror.style.width = `${control.clientWidth}px`;
+    mirror.append(document.createTextNode(control.value.slice(0, start)));
+    const mark = document.createElement('span');
+    mark.textContent = control.value.slice(start, end) || '\u200b';
+    mirror.append(mark); document.body.append(mirror);
+    control.scrollTop = Math.max(0, mark.offsetTop - control.clientHeight / 2);
+    mirror.remove();
+  }
+  control.scrollIntoView({ block: 'nearest' });
+}
 
 function NotesFrame({
   embedded,
@@ -66,6 +88,7 @@ export function NotesPanel({
   onClose,
   onUnsavedChange,
   active = true,
+  focus,
   embedded = false,
   bridge = window.zaichang as unknown as NotesBridge,
   timeZone = DEFAULT_TIME_ZONE,
@@ -73,6 +96,7 @@ export function NotesPanel({
   onClose: () => void;
   onUnsavedChange?: (unsaved: boolean) => void;
   active?: boolean;
+  focus?: { locator: Extract<LocalSearchLocator, { kind: 'note' }>; requestId: number };
   embedded?: boolean;
   bridge?: NotesBridge;
   timeZone?: string;
@@ -102,6 +126,7 @@ export function NotesPanel({
     listRequest = useRef(0),
     mounted = useRef(true);
   const host = useRef<HTMLDivElement>(null);
+  const focusRequest = useRef(0), focusPending = useRef<typeof focus>(undefined);
   const unsavedCallback = useRef(onUnsavedChange);
   unsavedCallback.current = onUnsavedChange;
   const dirty = isDirty(editor),
@@ -159,7 +184,29 @@ export function NotesPanel({
     if (active) void loadList();
   }, [state, appliedQuery, active]);
   useEffect(() => {
-    if (!active || busy || !editor?.note || isDirty(editor)) return;
+    if (!active || !focus || busy || focusRequest.current === focus.requestId) return;
+    focusRequest.current = focus.requestId;
+    focusPending.current = focus;
+    setState('active'); setQuery(''); setAppliedQuery('');
+    void open(focus.locator.noteId);
+  }, [active, focus, busy]);
+  useEffect(() => {
+    const pending = focusPending.current;
+    if (!active || busy || !pending || editor?.note?.id !== pending.locator.noteId) return;
+    focusPending.current = undefined;
+    if (isDirty(editor)) { setReceipt('你刚写下的内容还在，先接着这一版。'); return; }
+    if (editor.note.revision !== pending.locator.revision) { setReceipt('这一页后来改过，这里是现在的内容。'); return; }
+    const field = pending.locator.field === 'title' ? 'input.notes-title' : 'textarea.notes-body';
+    const control = host.current?.querySelector<HTMLInputElement | HTMLTextAreaElement>(field);
+    if (!control) return;
+    const text = pending.locator.field === 'title' ? editor.title : editor.body;
+    const points = Array.from(text);
+    const start = points.slice(0, pending.locator.offset).join('').length;
+    const end = points.slice(0, pending.locator.end).join('').length;
+    revealNoteMatch(control, start, end);
+  }, [editor, active, busy]);
+  useEffect(() => {
+    if (!active || busy || !editor?.note || isDirty(editor) || focusPending.current) return;
     const id = editor.note.id,
       revision = editor.note.revision,
       token = ++request.current;

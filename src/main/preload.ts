@@ -1,6 +1,9 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { Bridge, RunEvent } from '../shared/types';
 const bridge: Bridge = {
+  searchLocal: input => ipcRenderer.invoke('search:local', input),
+  searchResolve: input => ipcRenderer.invoke('search:resolve', input),
+  searchCancel: () => ipcRenderer.invoke('search:cancel'),
   materialsList: input => ipcRenderer.invoke('materials:list', input),
   materialsRead: input => ipcRenderer.invoke('materials:read', input),
   materialsCancel: () => ipcRenderer.invoke('materials:cancel'),
@@ -38,6 +41,8 @@ const bridge: Bridge = {
   cancelConnection: () => ipcRenderer.invoke('connection:cancel'),
   memory: (input) => ipcRenderer.invoke('memory', input),
   runtimeOverview: () => ipcRenderer.invoke('runtime:overview'),
+  attentionList: input => ipcRenderer.invoke('attention:list', input),
+  attentionChange: input => ipcRenderer.invoke('attention:change', input),
   adoptWorld: (input) => ipcRenderer.invoke('runtime:adopt-world', input),
   evidence: (id) => ipcRenderer.invoke('runtime:evidence', id),
   goal: (input) => ipcRenderer.invoke('runtime:goal', input),

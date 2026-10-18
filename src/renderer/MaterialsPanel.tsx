@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { ArrowLeft, BookOpen, ChevronLeft, ChevronRight, Download, FileText, FolderOpen, Image, List, LoaderCircle, Plus, Quote, Search, Type, X } from 'lucide-react';
 import type { TextAttachment } from '../shared/types';
 import { MATERIAL_LIMITS, type MaterialItem, type MaterialPage, type MaterialQuote, type MaterialTarget } from '../shared/materials';
+import type { LocalSearchLocator } from '../shared/search';
 import { uiError } from './ui';
 import './materials.css';
 
@@ -12,6 +13,7 @@ interface Props {
   boundary: string;
   compact?: boolean;
   draftEnabled?: boolean;
+  focus?: { locator: Extract<LocalSearchLocator, { kind: 'material' }>; requestId: number };
   onAttach: (attachment: TextAttachment) => boolean;
   onQuote: (quote: MaterialQuote) => boolean;
   onClose: () => void;
@@ -27,7 +29,7 @@ const readingError = (problem: unknown) => {
 };
 
 /** A view onto the host's original snapshots, never another material store. */
-export function MaterialsPanel({ pending, sessionId, boundary, compact = false, draftEnabled = true, onAttach, onQuote, onClose, children }: Props) {
+export function MaterialsPanel({ pending, sessionId, boundary, compact = false, draftEnabled = true, focus, onAttach, onQuote, onClose, children }: Props) {
   const [items, setItems] = useState<MaterialItem[]>([]);
   const [target, setTarget] = useState<MaterialTarget>();
   const [document, setDocument] = useState<MaterialPage>();
@@ -41,6 +43,8 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
   const request = useRef(0), selectionRequest = useRef(0), mounted = useRef(true);
   const prose = useRef<HTMLPreElement>(null), scroller = useRef<HTMLDivElement>(null);
   const boundaryRef = useRef(boundary);
+  const focusRequest = useRef(0);
+  const [highlight, setHighlight] = useState<Extract<LocalSearchLocator, { kind: 'material' }>>();
   const destination = useRef({ sessionId, boundary, enabled: draftEnabled });
   destination.current = { sessionId, boundary, enabled: draftEnabled };
   const pendingRef = pending?.resource;
@@ -52,7 +56,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     if (boundaryRef.current === boundary) return;
     boundaryRef.current = boundary;
     request.current++; selectionRequest.current++;
-    setDocument(undefined); setTarget(undefined); setItems([]); setQuote(undefined); setError('');
+    setDocument(undefined); setTarget(undefined); setItems([]); setQuote(undefined); setError(''); setHighlight(undefined);
     void api.materialsCancel();
   }, [boundary]);
   useEffect(() => { selectionRequest.current++; setChoosing(false); }, [sessionId]);
@@ -60,6 +64,15 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     if (!pendingRef) return;
     setPage(1); setOffset(0); setView(pendingRef.mediaType === 'application/pdf' ? 'page' : 'text');
   }, [pendingRef?.resourceId]);
+  useEffect(() => {
+    if (!focus || focusRequest.current === focus.requestId) return;
+    focusRequest.current = focus.requestId;
+    const locator = focus.locator;
+    setTarget({ kind: 'saved', resourceId: locator.resourceId });
+    setPage(locator.page || 1);
+    setOffset(locator.field === 'body' ? Math.max(0, locator.offset - 120) : 0);
+    setView('text'); setListOpen(false); setQuery(''); setHighlight(locator);
+  }, [focus]);
 
   useEffect(() => {
     let current = true;
@@ -90,8 +103,17 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
       .finally(() => { if (id === request.current) setLoading(false); });
     return () => { request.current++; void api.materialsCancel(); };
   }, [target, page, offset, view, boundary, retry]);
+  useEffect(() => {
+    if (!document || !highlight || document.item.resourceId !== highlight.resourceId) return;
+    if (document.item.sha256 !== highlight.sha256) {
+      setHighlight(undefined); setNotice('原文件已经换过，这里是现在的内容。'); return;
+    }
+    const mark = prose.current?.querySelector<HTMLElement>('.material-search-match');
+    mark?.scrollIntoView({ block: 'center' });
+  }, [document, highlight]);
 
   function open(item: MaterialItem, pendingItem = false) {
+    setHighlight(undefined);
     setPage(1); setOffset(0); setView(item.mediaType === 'application/pdf' ? 'page' : 'text');
     setTarget(pendingItem && pendingRef ? { kind: 'pending', reference: pendingRef } : { kind: 'saved', resourceId: item.resourceId });
     setListOpen(false); setQuery('');
@@ -145,6 +167,14 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
   const pendingItem: MaterialItem | undefined = pendingRef && { resourceId: pendingRef.resourceId, name: pendingRef.name, mediaType: pendingRef.mediaType, byteLength: pendingRef.byteLength, sha256: pendingRef.sha256 };
   const allItems = [...(pendingItem ? [pendingItem] : []), ...items.filter(item => item.resourceId !== pendingRef?.resourceId)];
   const visibleItems = allItems.filter(item => item.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
+  function originalText() {
+    if (!document) return null;
+    if (!highlight || highlight.field !== 'body' || document.item.resourceId !== highlight.resourceId
+      || document.item.sha256 !== highlight.sha256 || (highlight.page && document.page !== highlight.page)
+      || highlight.offset < document.start || highlight.end > document.end) return document.text;
+    const points = Array.from(document.text), start = highlight.offset - document.start, end = highlight.end - document.start;
+    return <>{points.slice(0, start).join('')}<mark className="material-search-match">{points.slice(start, end).join('')}</mark>{points.slice(end).join('')}</>;
+  }
   const index = <div className="materials-index">
     <div className="materials-index-heading"><strong>放在身边的资料</strong>{target && <button className="icon-button" aria-label="收起资料列表" onClick={() => setListOpen(false)}><X size={17} /></button>}</div>
     {allItems.length > 4 && <label className="materials-search"><Search size={16} /><input value={query} onChange={event => setQuery(event.target.value)} placeholder="找一份资料" aria-label="搜索资料文件名" /></label>}
@@ -183,7 +213,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
             <details><summary>看看原因</summary><p>{error}</p></details>
           </div> : document ? <>
             {document.image ? <div className="material-page-image"><img src={document.image.dataUrl} width={document.image.width} height={document.image.height} alt={`${document.item.name}，第 ${document.page} 页原文`} /></div>
-              : document.text ? <pre className="material-original" ref={prose} onMouseUp={captureSelection} onKeyUp={captureSelection} tabIndex={0}>{document.text}</pre>
+              : document.text ? <pre className="material-original" ref={prose} onMouseUp={captureSelection} onKeyUp={captureSelection} tabIndex={0}>{originalText()}</pre>
               : <div className="materials-scan"><BookOpen size={32} strokeWidth={1.25} /><h2>先看看这一页</h2><p>这一页没有可选中的文字。可以先看原页面，再说说你想问哪里。</p><button className="primary-button" onClick={() => { setView('page'); setOffset(0); }}>看原页面</button></div>}
             {document.needsVisual && document.text && <p className="materials-page-note">这一页还有图表，切到「页面」可以一起看。</p>}
           </> : null}

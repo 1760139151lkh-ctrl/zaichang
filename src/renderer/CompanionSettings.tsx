@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Check, ChevronDown, Heart, ImagePlus, Moon, Plus, SlidersHorizontal, Sun, Sunset, Trash2 } from 'lucide-react';
 import { COMPANIONS, CompanionScene, WINDOW_LIGHT, companionName, useCompanion } from './companion';
 import { useAppearance } from './appearance';
@@ -23,7 +23,7 @@ export function CompanionSettings() {
   const custom = value.pictures.find(item => item.id === value.character);
   const gallery = category === '我的收藏'
     ? [...COMPANIONS.filter(item => value.favorites.includes(item.id)), ...value.pictures]
-    : COMPANIONS.filter(item => category === '全部' || item.category === category);
+    : category === '全部' ? [...COMPANIONS, ...value.pictures] : COMPANIONS.filter(item => item.category === category);
   function perform(action: () => void) {
     setError('');
     try { action(); } catch (problem) {
@@ -71,7 +71,7 @@ export function CompanionSettings() {
       <div className="character-choices" role="group" aria-label="选择喜欢的形象">
         {gallery.map(character => <div className="character-card" key={character.id}>
           <button type="button" className="character-choice" aria-pressed={value.character === character.id} onClick={() => choose(character.id)}>
-            <span className={`character-picture ${character.id.startsWith('custom:') ? 'is-custom' : ''}`} style={{ backgroundImage: `url(${WINDOW_LIGHT.morning})` }}><img src={character.image} alt="" />{value.character === character.id && <span className="character-chosen"><Check size={13} /></span>}</span>
+            <span className={`character-picture ${character.id.startsWith('custom:') ? 'is-custom' : ''}`} style={{ backgroundImage: `url(${WINDOW_LIGHT.morning})`, ...('frame' in character ? { '--portrait-width': character.frame.portrait, '--portrait-top': character.frame.portraitTop, '--art-anchor': character.frame.anchor } : {}) } as CSSProperties}><img src={character.image} alt="" />{value.character === character.id && <span className="character-chosen"><Check size={13} /></span>}</span>
             <span>{companionName(value, character.id)}</span>
           </button>
           {!character.id.startsWith('custom:') && <button type="button" className="character-favorite" aria-label={`${value.favorites.includes(character.id) ? '不再收藏' : '收藏'}${companionName(value, character.id)}`} aria-pressed={value.favorites.includes(character.id)} onClick={() => perform(() => toggleFavorite(character.id))}><Heart size={14} fill={value.favorites.includes(character.id) ? 'currentColor' : 'none'} /></button>}

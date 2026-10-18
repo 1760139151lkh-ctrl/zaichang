@@ -462,22 +462,16 @@ export function AgendaView({
           className="today-entrusted"
         >
           <p className="today-entrusted-lede">放在这里的事，随时可以继续，也可以先歇一歇。</p>
-          {!!state.preparations?.length && (
-            <div className="today-prepared">
-              <PreparationShelf
-                inline
-                items={state.preparations}
-                timeZone={zone}
-                onState={onState}
-                onContinue={onContinue}
-              />
-            </div>
-          )}
           <WorkAndReceipts
+            key={`${state.privacyEpoch}:${state.policyRevision}`}
             onResume={onResume}
             onChanged={onChanged}
             onAttention={setAttention}
             currentActionIds={state.agenda.map((item) => item.effectActionId || item.id)}
+            preparations={state.preparations || []}
+            onState={onState}
+            onContinue={onContinue}
+            timeZone={zone}
           />
         </div>
       )}

@@ -12,13 +12,15 @@ import mutsumi from './assets/companion/mutsumi.png';
 import nagi from './assets/companion/nagi.png';
 import './companion.css';
 
+// The artwork mixes full figures and seated crops. These framing values keep
+// faces at a similar distance and anchor them in the same part of the window.
 export const COMPANIONS = [
-  { id: 'sakiko', name: '祥子', category: '二次元', image: sakiko, avatar: { left: '-42%', top: '-4%', width: '200%' } },
-  { id: 'mutsumi', name: '睦', category: '二次元', image: mutsumi, avatar: { left: '-48%', top: '-3%', width: '200%' } },
-  { id: 'mio', name: '澪', category: '插画', image: mio, avatar: { left: '-39%', top: '-2%', width: '205%' } },
-  { id: 'haruka', name: '遥', category: '插画', image: haruka, avatar: { left: '-49%', top: '-11%', width: '200%' } },
-  { id: 'saku', name: '朔', category: '插画', image: saku, avatar: { left: '-67%', top: '-2%', width: '210%' } },
-  { id: 'nagi', name: '凪', category: '写实', image: nagi, avatar: { left: '-46%', top: '-5%', width: '210%' } },
+  { id: 'sakiko', name: '祥子', category: '二次元', image: sakiko, frame: { height: '123%', top: '0%', anchor: '57%', portrait: '210%', portraitTop: '1%' }, avatar: { left: '-42%', top: '-4%', width: '200%' } },
+  { id: 'mutsumi', name: '睦', category: '二次元', image: mutsumi, frame: { height: '125%', top: '0%', anchor: '59%', portrait: '215%', portraitTop: '1%' }, avatar: { left: '-48%', top: '-3%', width: '200%' } },
+  { id: 'mio', name: '澪', category: '插画', image: mio, frame: { height: '100%', top: '0%', anchor: '42%', portrait: '180%', portraitTop: '1%' }, avatar: { left: '-39%', top: '-2%', width: '205%' } },
+  { id: 'haruka', name: '遥', category: '插画', image: haruka, frame: { height: '100%', top: '0%', anchor: '61%', portrait: '175%', portraitTop: '-7%' }, avatar: { left: '-49%', top: '-11%', width: '200%' } },
+  { id: 'saku', name: '朔', category: '插画', image: saku, frame: { height: '100%', top: '0%', anchor: '54%', portrait: '205%', portraitTop: '1%' }, avatar: { left: '-67%', top: '-2%', width: '210%' } },
+  { id: 'nagi', name: '凪', category: '写实', image: nagi, frame: { height: '130%', top: '3%', anchor: '54%', portrait: '220%', portraitTop: '1%' }, avatar: { left: '-46%', top: '-5%', width: '210%' } },
 ] as const;
 export const WINDOW_LIGHT = { morning, dusk, night };
 type CharacterId = (typeof COMPANIONS)[number]['id'] | 'light' | `custom:${string}`;
@@ -192,14 +194,16 @@ export function CompanionAvatar({ className = '', size = 34 }: { className?: str
 export function CompanionScene({ preview = false, quiet = false, immersive = false, placement }: { preview?: boolean; quiet?: boolean; immersive?: boolean; placement?: { scale: number; position: number } }) {
   const { value } = useCompanion();
   const image = selectedPicture(value);
-  const showFigure = !!image && (preview || immersive || value.presence === 'window') && value.presence !== 'hidden';
+  const frame = COMPANIONS.find(item => item.id === value.character)?.frame;
+  const showFigure = !!image && (immersive || value.presence === 'window') && value.presence !== 'hidden';
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [image]);
-  return <div className={`companion-scene ${preview ? 'is-preview' : ''} ${quiet ? 'is-quiet' : ''} ${immersive ? 'is-immersive' : ''} ${value.character.startsWith('custom:') ? 'has-custom-art' : ''}`} data-light={value.light} aria-hidden="true">
+  return <div className={`companion-scene ${preview ? 'is-preview' : ''} ${quiet || (preview && value.presence !== 'window') ? 'is-quiet' : ''} ${immersive ? 'is-immersive' : ''} ${value.character.startsWith('custom:') ? 'has-custom-art' : ''}`} data-light={value.light} aria-hidden="true">
     <div className="window-room room-day" style={{ backgroundImage: `url(${value.light === 'dusk' ? dusk : morning})` }} />
     <div className="window-room room-night" style={{ backgroundImage: `url(${night})` }} />
     <div className="window-wash" />
-    {showFigure && !failed && <div className="companion-figure" style={{ '--figure-scale': placement?.scale ?? value.scale, '--figure-position': `${placement?.position ?? value.position}%` } as CSSProperties}>
+    {preview && value.presence === 'corner' && <CompanionAvatar className="companion-preview-corner" size={40} />}
+    {showFigure && !failed && <div className="companion-figure" style={{ '--figure-scale': placement?.scale ?? value.scale, '--figure-position': `${placement?.position ?? value.position}%`, '--art-height': frame?.height, '--art-top': frame?.top, '--art-anchor': frame?.anchor, '--art-offset': value.character === 'saku' ? '8%' : '0%' } as CSSProperties}>
       <img key={image} src={image} alt="" onError={() => setFailed(true)} draggable={false} />
     </div>}
   </div>;

@@ -14,6 +14,7 @@ import { sceneRefSchema, type SceneRef, type SceneSnapshot } from '../../shared/
 import type { DomainChange } from '../storage/domains';
 import { addDate, dateInZone } from './semantics';
 import { campusQueryGrants, campusQueryInput, campusResources, validateCampusQuery } from '../capabilities/campus-query';
+import { attentionListInput, attentionChangeInput, type AttentionControlItem, type AttentionControlPage, type AttentionChangeInput } from '../../shared/attention-control';
 
 const id = z.string().min(1).max(160);
 const citation = z.object({ eventId: id.optional().describe('通常省略，由宿主按quote绑定唯一的本轮用户原话；填写时必须是精确的当前标识，不能用历史来源或猜测标识。'), quote: z.string().min(1).max(3000) }).strict();
@@ -111,6 +112,85 @@ export class AttentionService {
       }
       this.repo.setMeta('life_watch_migration_v1', { at: this.repo.clock.now(), migrated: rows.length });
     });
+  }
+
+  /** A paged native management projection, separate from model context and material reads. */
+  nativeList(handle: ScopeHandle, raw: unknown = {}): AttentionControlPage {
+    const input = attentionListInput.parse(raw || {});
+    this.policy.require(handle, 'evidence:read');
+    const management = this.managementScope(handle), scope = this.policy.validate(handle);
+    const records = this.repo.db.prepare(`SELECT id,revision,status FROM h_work WHERE owner=? AND workspace=? AND subject=?
+      AND world='real' AND audience='self' AND source='work:self'
+      AND json_extract(payload,'$.data.type') IN ('attention_focus','attention_rule') ORDER BY rowid DESC`)
+      .all(scope.principalId, scope.workspaceId, scope.principalId);
+    const version = createHash('sha256').update(canonical({ records, epoch: this.repo.epoch, policy: this.repo.policyRevision,
+      sources: [...scope.sources].sort(), grants: [...scope.grants].sort() })).digest('hex');
+    let offset = 0;
+    if (input.cursor) {
+      let cursor: { offset: number; version: string };
+      try {
+        cursor = z.object({ offset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER), version: z.string() }).strict()
+          .parse(JSON.parse(Buffer.from(input.cursor, 'base64url').toString('utf8')));
+      } catch { throw new HarnessError('invalid_page', '这页的位置没能找回来，重新翻开列表试试。'); }
+      if (cursor.version !== version) throw new HarnessError('attention_list_changed', '这些事有了变化，请重新翻开列表。');
+      offset = cursor.offset;
+    }
+    const page = this.repo.workData(management, ['attention_focus'], { limit: input.limit + 1, offset });
+    return { items: page.slice(0, input.limit).map(focus => this.nativeView(handle, focus)),
+      nextCursor: page.length > input.limit ? Buffer.from(JSON.stringify({ offset: offset + input.limit, version })).toString('base64url') : null };
+  }
+
+  nativeItem(handle: ScopeHandle, focusId: string): AttentionControlItem {
+    this.policy.require(handle, 'evidence:read');
+    const focus = this.repo.workData(this.managementScope(handle, focusId), ['attention_focus'], { id: focusId, limit: 1 })[0];
+    if (!focus) throw new HarnessError('attention_missing', '这件事已经不在这里了，重新看一眼列表吧。');
+    return this.nativeView(handle, focus);
+  }
+
+  private nativeView(handle: ScopeHandle, focus: WorkRecord): AttentionControlItem {
+    const scope = this.policy.validate(handle), rules = this.rules(handle, focus.id), now = Date.parse(this.repo.clock.now());
+    const sources = Array.isArray(focus.data.sources) ? focus.data.sources.filter((source): source is string => typeof source === 'string') : [];
+    const required = new Set<string>(sources.map(source => source === 'map:local' ? 'map:read' : source === 'weather:open-meteo' ? 'weather:read'
+      : source === 'profile:self' ? 'memory:read' : source.startsWith('campus:') ? 'campus:read' : 'evidence:read'));
+    const probe = focus.data.probe as { capability?: string } | null;
+    if (probe?.capability) for (const grant of this.broker.describe(probe.capability)?.requiredScopes || []) required.add(grant);
+    const permitted = sources.every(source => scope.sources.includes(source)) && [...required].every(grant => scope.grants.includes(grant));
+    const until = typeof focus.data.until === 'string' ? focus.data.until : null;
+    const expired = focus.status === 'expired' || !!until && Date.parse(until) <= now;
+    const ended = focus.status !== 'active' || rules.some(rule => rule.data.operation === 'stop');
+    const activeParent = this.bindingActive(this.managementScope(handle), focus);
+    const pauses = rules.filter(rule => rule.data.operation === 'pause');
+    const status: AttentionControlItem['status'] = expired ? 'expired' : ended ? 'ended' : pauses.length ? 'paused'
+      : !permitted || !activeParent ? 'unavailable' : 'active';
+    const controlVersion = createHash('sha256').update(canonical({ focus: { id: focus.id, revision: focus.revision, status: focus.status },
+      rules: rules.map(rule => ({ id: rule.id, revision: rule.revision, operation: rule.data.operation, until: rule.data.until })).sort((a, b) => a.id.localeCompare(b.id)),
+      status, activeParent, permitted, epoch: this.repo.epoch, policy: this.repo.policyRevision })).digest('hex');
+    return { id: focus.id, title: focus.title, revision: focus.revision, controlVersion, status, sources, until,
+      ...(typeof focus.data.sessionId === 'string' && focus.data.sessionId ? { sessionId: focus.data.sessionId } : {}),
+      channel: focus.data.channel === 'local_notification' ? 'local_notification' : 'in_app',
+      pauseRules: pauses.map(rule => ({ id: rule.id, revision: rule.revision, until: typeof rule.data.until === 'string' ? rule.data.until : null,
+        resumable: !expired && !ended && permitted && activeParent && rule.data.matterId === focus.id && !rule.data.targetOpportunityId })),
+      canPause: !expired && !ended && activeParent && !pauses.length,
+      canStop: !expired && !ended,
+      ...(!permitted ? { unavailableReason: 'source_permission' as const } : !activeParent && !expired && !ended ? { unavailableReason: 'parent_inactive' as const } : {}),
+    };
+  }
+
+  /** Called only after NativeControls records this exact user click as new evidence. */
+  nativeChange(handle: ScopeHandle, raw: AttentionChangeInput, source: { eventId: string; quote: string }): AttentionControlItem {
+    const input = attentionChangeInput.parse(raw), item = this.nativeItem(handle, input.id);
+    if (item.revision !== input.expectedRevision || item.controlVersion !== input.expectedControlVersion)
+      throw new HarnessError('revision_conflict', '这件事有了变化，先看看现在的约定再决定。');
+    if (input.operation === 'resume') {
+      const rule = item.pauseRules.find(rule => rule.id === input.ruleId && rule.revision === input.ruleRevision);
+      if (!rule?.resumable) throw new HarnessError('attention_not_resumable', '这次暂停现在不能解除。回到对话，我们重新看看原来的约定。');
+      this.control(handle, '', { operation: 'resume', targetId: rule.id, expectedRevision: rule.revision, source });
+    } else {
+      if (!(input.operation === 'pause' ? item.canPause : item.canStop))
+        throw new HarnessError('attention_ended', '这件事已经停下了，原来的约定不会重新开始。');
+      this.control(handle, '', { operation: input.operation, targetId: item.id, expectedRevision: item.revision, source });
+    }
+    return this.nativeItem(handle, input.id);
   }
 
   control(handle: ScopeHandle, sessionId: string, raw: z.infer<typeof attentionControlInput>, verified: { publicProbeHash?: string; expiryReview?: { requestedUntil: string; approved: boolean; reason: string }; includeHistory?: boolean; parentFocus?: string } = {}) {

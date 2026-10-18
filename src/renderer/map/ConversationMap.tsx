@@ -353,7 +353,7 @@ export function ConversationMap({
               ? ''
               : valid
                 ? `${distance(total)}${scene.journey.estimate ? ` · 道路约 ${scene.journey.estimate.walkingMinutes.min}–${scene.journey.estimate.walkingMinutes.max} 分钟` : ''}${dwell ? ` · 停留 ${dwell} 分钟` : ''}`
-                : '部分路段待核实'}
+                : '还有些路段不确定怎么走'}
           </small>
         </div>
         <button
@@ -419,7 +419,7 @@ export function ConversationMap({
                     >
                       {scene.journey.legs[index].route.distance
                         ? distance(scene.journey.legs[index].route.distance!.totalM)
-                        : '待核'}{' '}
+                        : '还不确定'}{' '}
                       →
                     </button>
                   )}
@@ -444,10 +444,10 @@ export function ConversationMap({
                   : route.status !== 'ready'
                     ? route.reason
                     : routeHasUnverifiedPassages(route)
-                      ? '含待核通路，按假设查看'
+                      ? '有些路还不确定能否走通，先按假设看看'
                       : route.distance?.connectorM
-                        ? '虚线为接入估计，实际入口待核'
-                        : '沿已记录的步行路网'}
+                        ? '虚线是估算的连接，到了附近请再确认入口'
+                        : '沿着图上有记录的步行道路'}
               </small>
             </div>
             {!!leg && (
@@ -487,19 +487,19 @@ export function ConversationMap({
           </div>
           {!!leg && (
             <details className="conversation-map-evidence">
-              <summary>入口与路线依据</summary>
+              <summary>看看入口和路线怎么来的</summary>
               <div>
                 <p>
-                  {route.from?.displayName}：{route.originEntrance?.name || '实际入口待核'}
+                  {route.from?.displayName}：{route.originEntrance?.name || '还不清楚从哪扇门进'}
                   <br />
-                  {route.to?.displayName}：{route.destinationEntrance?.name || '实际入口待核'}
+                  {route.to?.displayName}：{route.destinationEntrance?.name || '还不清楚从哪扇门进'}
                 </p>
                 {route.warnings.map((warning, index) => (
                   <p key={index}>{warning}</p>
                 ))}
                 <p>
                   地图资料：{scene.source.sourceDate?.slice(0, 10) || '见地图来源'}。
-                  {scene.journey.estimate?.estimatedAccessM ? '时间估计另计接入、楼内和现场通行。' : ''}
+                  {scene.journey.estimate?.estimatedAccessM ? '这个时间只算了图上的道路，走到入口、进楼和现场绕行还要另留些时间。' : ''}
                 </p>
                 <button
                   disabled={!ready}

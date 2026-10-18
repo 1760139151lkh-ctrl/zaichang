@@ -33,7 +33,36 @@ export interface WeatherScene extends SceneBase {
   timeZone: string;
   days: { date: string; weatherCode: number | null; maxC: number | null; minC: number | null; precipitationProbabilityMax: number | null }[];
 }
-export type SceneSnapshot = MapScene | WeatherScene;
+export interface CampusRecord {
+  /** Identity supplied by the campus source, scoped by this snapshot and domain. */
+  id: string;
+  title: string;
+  startsAt?: string;
+  endsAt?: string;
+  dateLabel?: string;
+  location?: string;
+  teachers?: string[];
+  credit?: string | number;
+  term?: string;
+  examType?: string;
+  seat?: string | number;
+  cancelled?: boolean;
+  rescheduled?: boolean;
+  timePrecision?: string;
+  sourceRevision?: number;
+}
+export interface CampusScene extends SceneBase {
+  kind: 'campus';
+  domain: 'courses' | 'schedule' | 'exams';
+  sourceLabel: string;
+  origin: 'zju_account' | 'legacy_import';
+  term?: string;
+  records: CampusRecord[];
+  /** Only the returned page, never an assertion that the whole term is loaded. */
+  total?: number;
+  complete: boolean;
+}
+export type SceneSnapshot = MapScene | WeatherScene | CampusScene;
 export interface PresentationView extends SceneRef {
   libraryVersion: 1;
   createdAt: string;
@@ -44,8 +73,8 @@ const id = z.string().min(1).max(160);
 export const sceneRefSchema = z.object({ id, revision: z.number().int().positive() }).strict();
 export const semanticSelectionSchema = z.object({
   sceneId: id, sceneRevision: z.number().int().positive(),
-  kind: z.enum(['place', 'date', 'leg']),
-  placeId: id.optional(), date: z.iso.date().optional(), legId: id.optional(),
+  kind: z.enum(['place', 'date', 'leg', 'record']),
+  placeId: id.optional(), date: z.iso.date().optional(), legId: id.optional(), recordId: id.optional(),
 }).strict();
 export type SemanticSelection = z.infer<typeof semanticSelectionSchema>;
 export interface VerifiedSelection extends SemanticSelection {
@@ -53,11 +82,12 @@ export interface VerifiedSelection extends SemanticSelection {
   source: SceneSource;
   selectedAt: string;
   meaning: string;
+  record?: CampusRecord;
 }
 export const sceneReference = (scene: SceneRef) => `${scene.id}@${scene.revision}`;
 
 /** A small, actual OpenUI library. No executable code or model-authored facts enter it. */
 export function sceneViewDsl(scenes: SceneSnapshot[], layout: 'stack' | 'compare') {
   return `root = SceneStack([${scenes.map((_, index) => `scene${index}`).join(', ')}], ${JSON.stringify(layout)})\n`
-    + scenes.map((scene, index) => `scene${index} = ${scene.kind === 'map' ? 'MapScene' : 'WeatherScene'}(${JSON.stringify(sceneReference(scene))})`).join('\n');
+    + scenes.map((scene, index) => `scene${index} = ${{ map: 'MapScene', weather: 'WeatherScene', campus: 'CampusScene' }[scene.kind]}(${JSON.stringify(sceneReference(scene))})`).join('\n');
 }

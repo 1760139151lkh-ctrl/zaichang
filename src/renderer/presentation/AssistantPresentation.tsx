@@ -19,6 +19,12 @@ import {
   CloudSnow,
   CloudSun,
   Droplets,
+  ArrowRight,
+  BookOpen,
+  CalendarDays,
+  ChevronDown,
+  Clock3,
+  MapPin,
   Sun,
 } from 'lucide-react';
 import { z } from 'zod/v4';
@@ -27,6 +33,7 @@ import './presentation.css';
 
 type MapSnapshot = Extract<SceneSnapshot, { kind: 'map' }>;
 type WeatherSnapshot = Extract<SceneSnapshot, { kind: 'weather' }>;
+type CampusSnapshot = Extract<SceneSnapshot, { kind: 'campus' }>;
 
 export interface AssistantPresentationProps {
   view: PresentationView;
@@ -113,7 +120,7 @@ const MapScene = defineComponent({
 const WeatherScene = defineComponent({
   name: 'WeatherScene',
   description:
-    '比较已查询的杭州按日预报并选择日期。仅使用已提供的场景 id@revision；按日降水概率不能推出小时天气或停雨时间。选择日期可供下一句引用，不会保存日程。',
+    '比较场景中所给地点的按日预报并选择日期。仅使用已提供的场景 id@revision；按日降水概率不能推出小时天气或停雨时间。选择日期可供下一句引用，不会保存日程。',
   props: z.object({ ref: z.string().min(1) }),
   component: ({ props }) => {
     const { context, scene } = useScene(props.ref, 'weather');
@@ -122,12 +129,24 @@ const WeatherScene = defineComponent({
   },
 });
 
+const CampusScene = defineComponent({
+  name: 'CampusScene',
+  description:
+    '展示已读取的校园课程或考试记录。ref 必须引用宿主快照；保留原时间、来源和读取范围。选择某条记录供下一句引用，不会写日历或读取更多资料。',
+  props: z.object({ ref: z.string().min(1) }),
+  component: ({ props }) => {
+    const { context, scene } = useScene(props.ref, 'campus');
+    if (!context || !scene || scene.kind !== 'campus') return <UnavailableScene />;
+    return <CampusRecords scene={scene} selection={context.selection} onSelect={context.onSelect} />;
+  },
+});
+
 const SceneStack = defineComponent({
   name: 'SceneStack',
   description:
-    '按交流需要组织已核验的地图和天气。stack 让不同领域自然接续；compare 仅在宽度足够时并排比较，地图仍保留可操作的空间。',
+    '按交流需要组织已核验的地图、天气和校园记录。stack 让不同领域自然接续；compare 仅在宽度足够时并排比较，地图仍保留可操作的空间。',
   props: z.object({
-    children: z.array(z.union([MapScene.ref, WeatherScene.ref])),
+    children: z.array(z.union([MapScene.ref, WeatherScene.ref, CampusScene.ref])),
     layout: z.enum(['stack', 'compare']).default('stack'),
   }),
   component: ({ props, renderNode }) => (
@@ -144,7 +163,7 @@ const SceneStack = defineComponent({
 /** A stable module-level library keeps parsing and mounted scene identity independent of text tokens. */
 export const assistantPresentationLibrary = createLibrary({
   root: 'SceneStack',
-  components: [SceneStack, MapScene, WeatherScene],
+  components: [SceneStack, MapScene, WeatherScene, CampusScene],
 });
 
 function UnavailableScene() {
@@ -243,7 +262,7 @@ function WeatherDays({
     <section className="presentation-weather" aria-label="按日天气预报" data-scene-id={scene.id}>
       <header className="presentation-weather-heading">
         <div>
-          <h3>杭州 · 按日天气</h3>
+          <h3>{scene.location} · 按日天气</h3>
           <span>
             {scene.days.length > 1
               ? `${scene.days[0]?.date.slice(5).replace('-', '/')} — ${scene.days.at(-1)?.date.slice(5).replace('-', '/')}`
@@ -300,6 +319,91 @@ function WeatherDays({
             更新
           </time>
         )}
+      </footer>
+    </section>
+  );
+}
+
+/** Offset-free campus times are already local source strings. Never feed them
+ * into Date's machine-local parser and silently move a class to another day. */
+function campusTime(value?: string, withYear = false) {
+  if (!value) return '';
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}.*(?:Z|[+-]\d{2}:\d{2})$/.test(value) && Number.isFinite(Date.parse(value))) {
+    return new Date(value).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', ...(withYear ? { year: 'numeric' } : {}), month: 'long', day: 'numeric', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false });
+  }
+  return value.replace('T', ' ').replace(/(\d{2}:\d{2}):00(?:\.000)?$/, '$1');
+}
+
+function CampusRecords({ scene, selection, onSelect }: {
+  scene: CampusSnapshot;
+  selection?: SemanticSelection | null;
+  onSelect: AssistantPresentationProps['onSelect'];
+}) {
+  const selectedId = selection?.kind === 'record' && selection.sceneId === scene.id && selection.sceneRevision === scene.revision ? selection.recordId : undefined;
+  const [browsedId, setBrowsedId] = useState(scene.records[0]?.id);
+  const [showAll, setShowAll] = useState(false);
+  const row = scene.records.find(record => record.id === browsedId) || scene.records[0];
+  const isExam = scene.domain === 'exams';
+  const Icon = isExam ? CalendarDays : BookOpen;
+  const noun = isExam ? '考试' : '课';
+  const heading = isExam ? '考试安排' : scene.domain === 'courses' ? '一起看看这些课' : '课表里的安排';
+  const choices = showAll ? scene.records : scene.records.slice(0, 5);
+  if (!row) return <UnavailableScene />;
+  return (
+    <section className="presentation-campus" aria-label={heading} data-scene-id={scene.id}>
+      <header className="presentation-campus-heading">
+        <Icon size={21} strokeWidth={1.5} aria-hidden="true" />
+        <h3>{heading}</h3>
+        {scene.term && <span className="presentation-campus-term">{scene.term}</span>}
+      </header>
+      {scene.records.length > 1 && <div className="presentation-campus-choices" role="group" aria-label={`选择想看的${noun}`}>
+        {choices.map(record => <button type="button" key={record.id} aria-pressed={record.id === row.id}
+          className={record.id === row.id ? 'is-active' : ''} onClick={() => setBrowsedId(record.id)}>
+          <span>{record.title}</span>
+          {record.startsAt && <small>{campusTime(record.startsAt)}</small>}
+        </button>)}
+        {scene.records.length > 5 && <button type="button" className="presentation-campus-more" aria-expanded={showAll} onClick={() => setShowAll(!showAll)}>
+          {showAll ? '收起一些' : `其余 ${scene.records.length - 5} 项`}<ChevronDown size={14} className={showAll ? 'is-open' : ''} />
+        </button>}
+      </div>}
+      <div className="presentation-campus-detail">
+        <div className="presentation-campus-main">
+          <h4>{row.title}</h4>
+          {row.cancelled && <p className="presentation-campus-change">这次{noun}已取消</p>}
+          {row.rescheduled && <p className="presentation-campus-change">课表中有调课，请留意下面的时间</p>}
+          {row.teachers?.length ? <p>{row.teachers.join('、')}</p> : null}
+          <div className="presentation-campus-meta">
+            {row.credit !== undefined && <span>{row.credit} 学分</span>}
+            {row.examType && <span>{row.examType}</span>}
+            {row.term && row.term !== scene.term && <span>{row.term}</span>}
+          </div>
+          <button type="button" className="presentation-campus-continue"
+            aria-pressed={selectedId === row.id}
+            onClick={() => onSelect({ sceneId: scene.id, sceneRevision: scene.revision, kind: 'record', recordId: row.id })}>
+            {selectedId === row.id ? '接着说，我在听' : `接着聊这${isExam ? '场考试' : '门课'}`}<ArrowRight size={16} aria-hidden="true" />
+          </button>
+        </div>
+        {(row.startsAt || row.dateLabel || row.location || row.seat !== undefined) && <div className="presentation-campus-when">
+          {(row.startsAt || row.dateLabel) && <div><Clock3 size={16} aria-hidden="true" /><p>
+            <strong>{campusTime(row.startsAt) || row.dateLabel}</strong>
+            {row.endsAt && <span>至 {campusTime(row.endsAt)}</span>}
+            {!row.startsAt && row.dateLabel && <span>具体时刻还没在这份资料里看到</span>}
+          </p></div>}
+          {row.location && <div><MapPin size={16} aria-hidden="true" /><p>{row.location}</p></div>}
+          {row.seat !== undefined && <p className="presentation-campus-seat">座位 {row.seat}</p>}
+        </div>}
+      </div>
+      <footer className="presentation-campus-footer">
+        <span>{scene.origin === 'legacy_import' ? '来自你带来的资料' : '来自校园资料'}{!scene.complete ? ' · 这次读到的部分' : ''}</span>
+        <details className="presentation-campus-source">
+          <summary>看看资料来自哪里<ChevronDown size={13} aria-hidden="true" /></summary>
+          <div>
+            <p>{scene.sourceLabel}</p>
+            {scene.source.fetchedAt ? <p><time dateTime={scene.source.fetchedAt}>{campusTime(scene.source.fetchedAt, true)}</time> 读取</p> : <p>这份资料没有附读取时间。</p>}
+            <p>{scene.total !== undefined && scene.total > scene.records.length ? `本次显示 ${scene.records.length} 项，查询中共有 ${scene.total} 项。` : `这里保留了这次读到的 ${scene.records.length} 项。`}</p>
+            {scene.origin === 'legacy_import' && <p>这是你带来的那份资料，之后的课程变动可以再一起核对。</p>}
+          </div>
+        </details>
       </footer>
     </section>
   );

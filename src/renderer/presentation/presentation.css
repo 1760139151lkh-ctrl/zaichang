@@ -154,6 +154,224 @@
   margin-top: 7px;
   font-size: 11px;
 }
+.presentation-campus {
+  min-width: 0;
+  padding: 22px 24px 17px;
+  border: 1px solid var(--separator);
+  border-radius: 19px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  box-shadow: 0 5px 22px #51463306;
+}
+.presentation-campus-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--text-secondary);
+}
+.presentation-campus-heading h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 560;
+}
+.presentation-campus-term {
+  margin-left: auto;
+  color: var(--text-tertiary);
+  font-size: 11px;
+}
+.presentation-campus-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 19px 0 5px;
+}
+.presentation-campus-choices button {
+  flex: 1 1 125px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 12px;
+  border: 1px solid var(--separator);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  transition: background var(--fast) var(--ease), border-color var(--fast) var(--ease);
+}
+.presentation-campus-choices button.is-active {
+  background: var(--accent-soft);
+  border-color: var(--accent-dim);
+  color: var(--text);
+}
+.presentation-campus-choices button:hover {
+  background: var(--wash);
+}
+.presentation-campus-choices small {
+  font-size: 10px;
+  color: var(--text-tertiary);
+}
+.presentation-campus-choices .presentation-campus-more {
+  flex: 0 1 auto;
+  flex-direction: row;
+  border-color: transparent;
+  font-size: 12px;
+}
+.presentation-campus-more .is-open {
+  transform: rotate(180deg);
+}
+.presentation-campus-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(175px, .85fr);
+  align-items: start;
+  gap: 22px;
+  padding: 24px 0 21px;
+}
+.presentation-campus-detail:not(:has(.presentation-campus-when)) {
+  grid-template-columns: minmax(0, 1fr);
+}
+.presentation-campus-main h4 {
+  margin: 0 0 9px;
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 540;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.presentation-campus-main > p {
+  margin: 6px 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.presentation-campus-main > .presentation-campus-change {
+  color: var(--text);
+}
+.presentation-campus-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  color: var(--text-tertiary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.presentation-campus-continue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 38px;
+  margin-top: 21px;
+  padding: 8px 14px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-dim);
+  border-radius: 10px;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background var(--fast) var(--ease);
+}
+.presentation-campus-continue:hover {
+  background: var(--wash);
+}
+.presentation-campus-continue[aria-pressed='true'] {
+  border-color: var(--focus);
+}
+.presentation-campus button:focus-visible,
+.presentation-campus summary:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+.presentation-campus-when {
+  padding: 16px;
+  border-radius: 13px;
+  background: var(--wash);
+  color: var(--text-secondary);
+}
+.presentation-campus-when > div {
+  display: flex;
+  align-items: start;
+  gap: 9px;
+}
+.presentation-campus-when > div + div {
+  margin-top: 13px;
+}
+.presentation-campus-when svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--text-tertiary);
+}
+.presentation-campus-when p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.presentation-campus-when strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 520;
+}
+.presentation-campus-when span {
+  display: block;
+  margin-top: 3px;
+  color: var(--text-tertiary);
+  font-size: 11px;
+}
+.presentation-campus-when .presentation-campus-seat {
+  padding-top: 10px;
+  padding-left: 25px;
+}
+.presentation-campus-footer {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 7px 18px;
+  padding-top: 13px;
+  border-top: 1px solid var(--separator);
+  color: var(--text-tertiary);
+  font-size: 11px;
+  line-height: 1.7;
+}
+.presentation-campus-source {
+  flex: 1 1 180px;
+  min-width: 0;
+}
+.presentation-campus-source summary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  cursor: pointer;
+  list-style: none;
+}
+.presentation-campus-source summary::-webkit-details-marker {
+  display: none;
+}
+.presentation-campus-source[open] {
+  flex-basis: 100%;
+}
+.presentation-campus-source[open] summary {
+  justify-content: flex-start;
+}
+.presentation-campus-source[open] summary > svg {
+  transform: rotate(180deg);
+}
+.presentation-campus-source > div {
+  padding-top: 8px;
+  overflow-wrap: anywhere;
+}
+.presentation-campus-source p {
+  margin: 3px 0;
+}
 @media (min-width: 1100px) {
   .presentation-scenes-compare {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -176,9 +394,24 @@
   .presentation-weather-days {
     grid-auto-columns: minmax(82px, 1fr);
   }
+  .presentation-campus {
+    padding: 18px 17px 14px;
+  }
+  .presentation-campus-detail {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 17px;
+    padding: 19px 0;
+  }
+  .presentation-campus-main h4 {
+    font-size: 20px;
+  }
+  .presentation-campus-continue {
+    margin-top: 15px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .presentation-weather-day {
+  .presentation-weather-day,
+  .presentation-campus button {
     transition: none;
   }
 }

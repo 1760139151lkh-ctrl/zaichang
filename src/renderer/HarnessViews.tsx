@@ -5,6 +5,7 @@ import type { Condition, EffectAction, EvidenceEvent, MemoryView } from '../shar
 import { IconButton, Modal, Switch, uiError } from './ui';
 import { formatDateTime, fromTimeInput, toTimeInput } from './time';
 import './entrusted.css';
+import { EntrustedPanel } from './EntrustedPanel';
 
 const api = window.zaichang;
 export const failureText = uiError;
@@ -736,11 +737,19 @@ export function WorkAndReceipts({
   onChanged,
   onAttention,
   currentActionIds,
+  preparations,
+  onState,
+  onContinue,
+  timeZone,
 }: {
   onResume: (sessionId: string) => void;
   onChanged: () => void;
   onAttention?: (count: number) => void;
   currentActionIds?: string[];
+  preparations: import('../shared/presentation').PreparationView[];
+  onState: (state: State) => void;
+  onContinue: (text: string) => void;
+  timeZone: string;
 }) {
   const [data, setData] = useState<RuntimeOverview>(),
     [error, setError] = useState(''),
@@ -807,34 +816,10 @@ export function WorkAndReceipts({
           receipts.at(-1)?.localStatus === 'local_saved',
       ) || [],
     failed = data?.actions.filter(({ action: a }) => a.status === 'failed_confirmed') || [];
-  const preparations = data?.work.filter((w) => w.kind === 'task' && w.data.adoptionItemId) || [];
-  const hasSecondary = !!(
-    unknown.length ||
-    localSaved.length ||
-    failed.length ||
-    goals.length ||
-    data?.worlds.length ||
-    preparations.length ||
-    episodes.length
-  );
-  if (data && !hasSecondary && !error)
-    return <p className="entrusted-empty">还没有需要跟进的事。想到了，就在对话里告诉我。</p>;
-  if (!data && !error)
-    return (
-      <p className="harness-muted" role="status">
-        看看我们一起留下的事…
-      </p>
-    );
+  const adoptedPreparations = data?.work.filter((w) => w.kind === 'task' && w.data.adoptionItemId) || [];
   return (
     <div className="work-receipts">
-      {!goals.length &&
-        !episodes.length &&
-        !unknown.length &&
-        !failed.length &&
-        !data?.worlds.length &&
-        !preparations.length && (
-          <p className="entrusted-empty">还没有一起跟进的事。想让在场留意什么，可以回到对话慢慢说。</p>
-        )}
+      <EntrustedPanel onResume={onResume} onChanged={onChanged} preparations={preparations} onState={onState} onContinue={onContinue} timeZone={timeZone} />
       {!!goals.length && (
         <section className="entrusted-goals">
           <h3>一起慢慢往前</h3>
@@ -1042,10 +1027,10 @@ export function WorkAndReceipts({
           ))}
         </section>
       )}
-      {!!preparations.length && (
+      {!!adoptedPreparations.length && (
         <section>
           <h3>先准备着</h3>
-          {preparations.map((w) => (
+          {adoptedPreparations.map((w) => (
             <div className="work-row" key={w.id}>
               <strong>{w.title}</strong>
               <small>从你的设想中留下，还没有开始行动</small>
@@ -1573,6 +1558,7 @@ export interface MemoryWorkspaceState {
   editorOpen: boolean;
   text: string;
   edit?: MemoryView;
+  previous?: string;
   operation: 'CORRECT' | 'SUPERSEDE' | 'ADD_EXCEPTION';
   from: string;
   until: string;
@@ -1609,7 +1595,7 @@ export function MemoryPanelSimple({
   const [data, setData] = useState<RuntimeOverview>();
   const [expandedId, setExpandedId] = useState('');
   const [sourceId, setSourceId] = useState('');
-  const { error, notice, pending, editorOpen, text, edit, operation, from, until } = workspace;
+  const { error, notice, pending, editorOpen, text, edit, previous, operation, from, until } = workspace;
   const change = <K extends keyof MemoryWorkspaceState>(key: K, value: MemoryWorkspaceState[K]) =>
     onWorkspace((current) => ({ ...current, [key]: value }));
   const setError = (value: string) => change('error', value);
@@ -1642,14 +1628,15 @@ export function MemoryPanelSimple({
     }
   }
 
-  function openEditor(memory?: MemoryView) {
+  function openEditor(memory?: MemoryView, sayAgain = false) {
     onWorkspace((current) => ({
       ...current,
-      edit: memory,
-      text: memory?.text || '',
+      edit: sayAgain ? undefined : memory,
+      previous: sayAgain ? memory?.text : undefined,
+      text: sayAgain ? '' : memory?.text || '',
       operation: 'CORRECT',
-      from: localTime(memory?.validFrom),
-      until: localTime(memory?.validTo),
+      from: sayAgain ? '' : localTime(memory?.validFrom),
+      until: sayAgain ? '' : localTime(memory?.validTo),
       editorOpen: true,
       error: '',
       notice: '',
@@ -1661,6 +1648,7 @@ export function MemoryPanelSimple({
     onWorkspace((current) => ({
       ...current,
       edit: undefined,
+      previous: undefined,
       text: '',
       from: '',
       until: '',
@@ -1707,7 +1695,8 @@ export function MemoryPanelSimple({
         >
           <span className="memory-row-copy">
             <strong>{memory.text}</strong>
-            {kind === 'archived' && <small>不再用来回答</small>}
+            {kind === 'archived' && <small>{memory.status === 'expired' ? '这段时间已经过去了' : '先放在一旁，不用来回答'}</small>}
+            {kind === 'current' && memory.validTo && <small>到 {date(memory.validTo)} 为止</small>}
           </span>
           <ChevronRight size={15} className={expanded ? 'rotated' : ''} />
         </button>
@@ -1736,6 +1725,11 @@ export function MemoryPanelSimple({
               </div>
             )}
             <div className="memory-detail-actions">
+              {kind === 'archived' && (
+                <button className="memory-detail-action" disabled={!!pending} onClick={() => openEditor(memory, true)}>
+                  <Pencil size={13} />重新说一遍
+                </button>
+              )}
               {kind === 'decision' && (
                 <button
                   className="memory-detail-action primary"
@@ -1769,7 +1763,7 @@ export function MemoryPanelSimple({
                   disabled={!!pending}
                 >
                   <Pencil size={13} />
-                  改正这条内容
+                  换个说法
                 </button>
               )}
               {kind === 'current' && (
@@ -1846,6 +1840,8 @@ export function MemoryPanelSimple({
           })
         }
       />
+      <div className={`memory-layout ${editorOpen ? 'is-editing' : ''}`}>
+      <div className="memory-records">
       {!!current.length && (
         <section className="memory-group-simple">
           <div className="memory-group-heading">
@@ -1908,6 +1904,7 @@ export function MemoryPanelSimple({
         </details>
       )}
       {!memories.length && <p className="memory-empty">我们可以从一句话开始，慢慢了解彼此。</p>}
+      </div>
       <div className={`memory-editor-simple ${editorOpen ? 'open' : ''}`}>
         {!editorOpen ? (
           <button
@@ -1944,13 +1941,14 @@ export function MemoryPanelSimple({
             }}
           >
             <div className="memory-editor-heading">
-              <strong>{edit ? '改正这条内容' : '想让我记住什么'}</strong>
+              <strong>{edit ? '让这份理解，更贴近你。' : '想让我记住什么'}</strong>
               <button type="button" className="text-button" onClick={closeEditor} disabled={!!pending}>
                 取消
               </button>
             </div>
+            {previous && <div className="memory-previous"><small>以前，你说过</small><p>{previous}</p><span>如果现在仍然重要，可以用今天的话重新告诉我。</span></div>}
             <label className="field-label">
-              {edit ? '改成什么' : '告诉在场一件小事'}
+              {edit ? '你现在想说的是' : '告诉在场一件小事'}
               <textarea
                 aria-label="偏好内容"
                 value={text}
@@ -1962,23 +1960,25 @@ export function MemoryPanelSimple({
               />
             </label>
             {edit && (
-              <label className="field-label">
-                变化方式
-                <select
-                  aria-label="理解修改方式"
-                  value={operation}
-                  onChange={(event) => change('operation', event.target.value as typeof operation)}
-                  disabled={!!pending}
-                >
-                  <option value="CORRECT">之前说错了，改正原理解</option>
-                  <option value="SUPERSEDE">现实有变化，从指定时间开始</option>
-                  <option value="ADD_EXCEPTION">原理解保留，补充这次例外</option>
-                </select>
-              </label>
+              <fieldset className="memory-change-options" disabled={!!pending}>
+                <legend>这次，是什么样的变化？</legend>
+                {([
+                  ['CORRECT', '之前理解错了', '用这句话改正之前的理解。'],
+                  ['SUPERSEDE', '从现在起，有些不同', '保留过去，从你选的时间开始改变。'],
+                  ['ADD_EXCEPTION', '只是这一次', '平时的偏好保留，这次例外有自己的期限。'],
+                ] as const).map(([value, label, detail]) => (
+                  <label key={value} className={operation === value ? 'selected' : ''}>
+                    <input type="radio" name="memory-change" value={value} checked={operation === value}
+                      onChange={() => change('operation', value)} />
+                    <span><strong>{label}</strong><small>{detail}</small></span>
+                  </label>
+                ))}
+              </fieldset>
             )}
             <details className="understanding-time" open={!!edit || undefined}>
               <summary>
-                适用时间 <span>可选</span>
+                {edit && operation === 'ADD_EXCEPTION' ? '这次例外，到什么时候' : edit && operation === 'SUPERSEDE' ? '从什么时候开始' : '适用时间'}
+                {(!edit || operation === 'CORRECT') && <span>可选</span>}
               </summary>
               <div className="understanding-dates">
                 <label className="field-label">
@@ -2008,10 +2008,11 @@ export function MemoryPanelSimple({
             </details>
             <button className="primary-button" disabled={!!pending || !text.trim()}>
               {pending === 'save' && <LoaderCircle size={14} className="spin" />}
-              {edit ? '保存修改' : '记住这件事'}
+              {edit ? operation === 'ADD_EXCEPTION' ? '记住这次例外' : '按新的理解来' : '记住这件事'}
             </button>
           </form>
         )}
+      </div>
       </div>
       {error && (
         <p role="alert" className="harness-inline-error">

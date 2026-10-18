@@ -2883,3 +2883,27 @@ summary::marker {
     border: 2px solid CanvasText;
   }
 }
+
+/* A thought can change without erasing the person who said it. */
+.memory-page:has(.memory-layout.is-editing) .page-content { width: min(1080px, calc(100% - 80px)); }
+.memory-layout.is-editing { display: grid; grid-template-columns: minmax(0, 1fr) 365px; gap: 48px; align-items: start; }
+.memory-layout.is-editing .memory-editor-simple { position: sticky; top: 18px; margin-top: 28px; padding: 26px; background: color-mix(in srgb, var(--surface) 88%, transparent); }
+.memory-layout .memory-records { min-width: 0; }
+.memory-layout .memory-editor-simple textarea { line-height: 1.9; min-height: 112px; }
+.memory-change-options { margin: 23px 0 0; padding: 0; border: 0; min-width: 0; }
+.memory-change-options legend { color: var(--text-secondary); font-size: 12px; margin-bottom: 11px; }
+.memory-change-options label { display: flex; align-items: flex-start; gap: 10px; padding: 12px 10px; margin: 3px -10px; border-radius: 10px; cursor: pointer; }
+.memory-change-options label.selected { background: var(--accent-soft); }
+.memory-change-options input { width: 15px; height: 15px; margin: 3px 0 0; accent-color: var(--accent); flex: none; }
+.memory-change-options strong { display: block; font-size: 13px; line-height: 1.6; font-weight: 500; color: var(--text); }
+.memory-change-options small { display: block; margin-top: 4px; font-size: 11px; line-height: 1.7; color: var(--text-secondary); }
+.memory-layout.is-editing .understanding-dates { grid-template-columns: 1fr; gap: 12px; }
+.memory-layout.is-editing .memory-editor-simple .primary-button { width: 100%; margin-top: 4px; }
+@media (max-width: 1050px) {
+  .memory-page:has(.memory-layout.is-editing) .page-content { width: var(--reading-width); }
+  .memory-layout.is-editing { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .memory-layout.is-editing .memory-editor-simple { position: static; }
+}
+.memory-previous { margin: 18px 0; padding: 14px 16px; border-left: 2px solid var(--accent-dim); background: var(--wash); border-radius: 0 9px 9px 0; }
+.memory-previous small, .memory-previous span { font-size: 11px; line-height: 1.7; color: var(--text-secondary); }
+.memory-previous p { font-size: 13px; line-height: 1.8; margin: 6px 0; }

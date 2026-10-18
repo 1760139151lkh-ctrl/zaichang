@@ -69,6 +69,8 @@
 | 任务／功能 | 入口与调用链 |
 | --- | --- |
 | 桌面启动与窗口生命周期 | `package.json` → `scripts/dev.mjs` / `scripts/build-electron.mjs` → `src/main/main.ts` → `preload.ts` → `src/renderer/main.tsx` / `App.tsx`；关闭握手保护未存草稿/笔记，退出结束计时器 |
+| 本机统一查找与定位 | `shared/search.ts` → `main/search.ts` → search IPC/Bridge → `LocalSearchPanel.tsx`；跳转前再次核对原文版本、范围与偏移，查询不送模型 |
+| 持续托付的直接控制 | `shared/attention-control.ts` → `NativeControls` / `AttentionService` → `EntrustedPanel.tsx`；有界分页、具体暂停记录、期限、来源与关联准备内容 |
 | 工作区、历史与直接操作 | `Navigation.tsx`、`Workspace.tsx`、`App.tsx`；导航只切换已有视图，业务状态通过 Bridge 回到宿主 |
 | 陪伴外观与安静空间 | `main.tsx` → `CompanionProvider` → `companion.tsx` / `CompanionSettings.tsx` / `companion.css`；二次元/插画/写实、收藏、多张自选图与改名；v2原子外观状态、少动态与 `RestSpace`，不修改文字人格 |
 | 对话与主模型 | `App.tsx` → `preload.ts` IPC → `main.ts` → `harness.ts` → `runtime/hermes.ts` → `runtime/hermes/sidecar.py` → 锁定 `AIAgent`；模型请求和工具返回宿主 |
@@ -89,7 +91,7 @@
 | 校园记录与外部连接 | `zjuAdapter.ts`、`capabilities/campus-query.ts` / `campus-reference.ts` / `builtin.ts`、`storage/domains.ts`；独立受限子进程连接器、细分资源权限、导入/账号来源与覆盖 |
 | 公共研究 | `capabilities/research.ts` / `public-network.ts` → 公共搜索/网页/PDF读取；公开地址、域名限制和scope/URL/版本绑定的续读句柄 |
 | 天气 | `capabilities/weather.ts` → `builtin.ts` 的 `weather.lookup`；公开参考地点/时区/日期/小时窗口与缺字段覆盖，日级Scene不推导小时结果 |
-| 对话动态场景 | `shared/scenes.ts` → `runtime/scenes.ts` / coordinator → `Message.scenes/views` → `presentation/AssistantPresentation.tsx` → `map/ConversationMap.tsx` / `MapSurface` 或日级天气；`ChatInput.selection` 回传精确引用 |
+| 对话动态场景 | `shared/scenes.ts` → `runtime/scenes.ts` / coordinator → `Message.scenes/views` → `presentation/AssistantPresentation.tsx` → `map/ConversationMap.tsx` / `MapSurface` 、日级天气或课程／课表／考试卡；`ChatInput.selection` 回传精确引用 |
 | 地图给模型的投影 | `runtime/map-model-view.ts` 保留语义、条件和来源并精简绘图几何；`context.ts` 分别计原始读取字节和实际model-view token；完整Scene/Bridge路线不变 |
 | 地图服务与路由 | `main/mapService.ts` / `mapStorage.ts` → `shared/map-v3.ts` / `map-v2.ts` → `shared/map-routing.ts`；验证组件hash、稳定ID、门点、估计接入、方向与通行条件 |
 | 定位、个人地点与共享 | `mapLocation.ts`、`mapProfile.ts`、`runtime/spatial.ts`、`capabilities/spatial.ts`；Windows设备观察、私人profile和向本轮模型共享分开；review没有这些输入 |

@@ -6,6 +6,7 @@ import type { RuntimeOverview } from '../../shared/types';
 import { HarnessError, objectId, personalLabel } from '../../shared/harness';
 import { hasCredentials } from './redaction';
 import { readReleaseArtifacts } from './release-store';
+import { attentionChangeInput, type AttentionControlItem, type AttentionControlPage } from '../../shared/attention-control';
 
 /** Trusted native controls. These are never registered as model or extension tools. */
 export class NativeControls {
@@ -13,6 +14,39 @@ export class NativeControls {
     readonly store: Store,
     readonly harness: Pick<Harness, 'running' | 'recoverPending'>,
   ) {}
+  private attentionScope(eventId?: string) {
+    const { runtime } = this.store;
+    if (runtime.presentation.public) throw new HarnessError('private_view_required', '先回到自己的页面，再看看这些托付。');
+    const settings = this.store.settings(), base = runtime.policy.validate(runtime.policy.hostScope());
+    return runtime.policy.hostScope({ sources: base.sources.filter(source =>
+      (settings.memoryEnabled || !['history:self', 'profile:self'].includes(source)) &&
+      (settings.weatherEnabled || source !== 'weather:open-meteo')),
+      currentEventIds: eventId ? [eventId] : [], infer: false });
+  }
+  private attentionSession(item: AttentionControlItem): AttentionControlItem {
+    if (item.sessionId && this.store.conversations().some(session => session.id === item.sessionId)) return item;
+    const { sessionId: _, ...withoutSession } = item;
+    return withoutSession;
+  }
+  attentionList(raw: unknown = {}): AttentionControlPage {
+    const page = this.store.runtime.attention.nativeList(this.attentionScope(), raw);
+    return { ...page, items: page.items.map(item => this.attentionSession(item)) };
+  }
+  attentionChange(raw: unknown): AttentionControlItem {
+    const input = attentionChangeInput.parse(raw), runtime = this.store.runtime, repo = this.store.kernel;
+    return repo.write(() => {
+      const item = runtime.attention.nativeItem(this.attentionScope(), input.id);
+      const text = input.operation === 'pause' ? `先暂停「${item.title}」这件托付。`
+        : input.operation === 'stop' ? `不再继续「${item.title}」这件托付。`
+          : `解除「${item.title}」中选中的这次暂停，沿用仍有效的原约定。`;
+      const eventId = randomUUID(), identity = repo.identity, scope = this.attentionScope(eventId);
+      const event = repo.ingest(scope, { id: eventId, ownerId: identity.principalId, workspaceId: identity.workspaceId,
+        subjectId: identity.principalId, worldId: 'real', sourceId: 'history:self', contentVersion: 1,
+        speaker: 'user', kind: 'user_control', authority: 'user_statement', roots: [eventId], text,
+        label: { ...personalLabel, infer: false }, receivedAt: repo.clock.now(), status: 'active' });
+      return this.attentionSession(runtime.attention.nativeChange(scope, input, { eventId: event.id, quote: text }));
+    });
+  }
   responseExposure(raw: unknown) {
     const input = z.object({ sessionId: objectId, messageId: objectId, event: z.enum(['displayed', 'opened']) }).strict().parse(raw);
     const message = this.store.messages(input.sessionId).find(message => message.id === input.messageId && message.role === 'assistant');

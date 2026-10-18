@@ -19,6 +19,7 @@ import { homedir } from 'node:os';
 import { pathToFileURL } from 'node:url';
 import { z } from 'zod';
 import { Store } from './store';
+import { LocalSearchService } from './search';
 import { DraftStore } from './storage/drafts';
 import { Harness } from './harness';
 import { ZjuAdapter } from './zjuAdapter';
@@ -135,6 +136,7 @@ function trusted(event: Electron.IpcMainInvokeEvent | Electron.IpcMainEvent) {
 function handle(name: string, fn: (data: any) => unknown | Promise<unknown>) {
   ipcMain.handle(name, async (event, data) => {
     trusted(event);
+    const boundary = store ? `${store.kernel.epoch}:${store.kernel.policyRevision}` : undefined;
     try {
       if (store && !store.runtime.presentation.permitsIpc(name)) throw new Error('当前为公开展示，请先回到私人视图操作个人内容。');
       const result = await fn(data);
@@ -144,6 +146,13 @@ function handle(name: string, fn: (data: any) => unknown | Promise<unknown>) {
       if (store && !store.runtime.presentation.permitsIpc(name)) throw new Error('当前为公开展示，这项私人操作的结果未交付。');
       if (error instanceof z.ZodError) throw new Error('请检查填写内容、长度和时间格式后重试。');
       throw error;
+    } finally {
+      // A withdrawal may have taken effect even if a later part of the request
+      // failed. Let every open view discard its old boundary in either case.
+      if (store && boundary !== undefined && boundary !== `${store.kernel.epoch}:${store.kernel.policyRevision}` &&
+        window && !window.isDestroyed() && !window.webContents.isDestroyed()) {
+        window.webContents.send('zaichang:event', { type: 'state', state: state() });
+      }
     }
   });
 }
@@ -199,6 +208,7 @@ app.whenReady().then(async () => {
   mkdirSync(dataDir, { recursive: true });
   keyPath = path.join(dataDir, 'deepseek-key.bin');
   store = new Store(path.join(dataDir, 'zaichang.sqlite'));
+  const localSearch = new LocalSearchService(store);
   // The explicit project entry point means this app session should use the
   // project model rather than silently falling back to the demo responder.
   // No request is sent until the user starts a conversation.
@@ -242,6 +252,11 @@ app.whenReady().then(async () => {
     return { kind: 'image', name: '官方俯瞰图', mimeType: 'image/jpeg', width: size.width, height: size.height, dataUrl };
   });
   handle('runtime:overview', () => controls.overview());
+  handle('search:local', value => localSearch.search(value));
+  handle('search:resolve', value => localSearch.resolve(value));
+  handle('search:cancel', () => localSearch.cancel());
+  handle('attention:list', value => controls.attentionList(value));
+  handle('attention:change', value => controls.attentionChange(value));
   handle('runtime:adopt-world', (value) => controls.adoptWorld(value));
   handle('runtime:evidence', (value) => controls.evidence(value));
   handle('runtime:goal', (value) => controls.goal(value));
@@ -290,7 +305,7 @@ app.whenReady().then(async () => {
   handle('presentation:surface', async value => {
     const mode = z.enum(['private', 'public']).parse(value);
     store.runtime.presentation.setSurface(mode);
-    if (mode === 'public') { mapLocation.cancel(); latestDeviceLocation = undefined; connectionController?.abort(); store.runtime.spatial.share({ enabled: false }); await harness.stop(); store.runtime.materials.endConversation(); }
+    if (mode === 'public') { localSearch.cancel(); mapLocation.cancel(); latestDeviceLocation = undefined; connectionController?.abort(); store.runtime.spatial.share({ enabled: false }); await harness.stop(); store.runtime.materials.endConversation(); }
     return state();
   });
   handle('presentation:select', value => {

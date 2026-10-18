@@ -2,6 +2,8 @@ import { Portal, IconButton, Modal, WindowControls, uiError } from './ui';
 import { SettingsPanel, type SettingsDraft } from './SettingsPanel';
 import { NotesPanel } from './NotesPanel';
 import { MaterialsPanel, type MaterialQuote } from './MaterialsPanel';
+import { LocalSearchPanel } from './LocalSearchPanel';
+import type { LocalSearchLocator } from '../shared/search';
 import './workspace-continuation.css';
 import { AgendaView, type WorkspaceView } from './Workspace';
 import { Navigation } from './Navigation';
@@ -23,8 +25,6 @@ import {
   CircleAlert,
   RotateCcw,
   Copy,
-  Trash2,
-  Search,
   ArrowUpRight,
   FileText,
   Paperclip,
@@ -107,6 +107,12 @@ export function App() {
   const [focusChat, setFocusChat] = useState(false);
   const [notesOpened, setNotesOpened] = useState(false);
   const [notesUnsaved, setNotesUnsaved] = useState(false);
+  const [searchTarget, setSearchTarget] = useState<{ locator: LocalSearchLocator; requestId: number }>();
+  const searchNavigation = useRef(0), locatedSearch = useRef(0);
+  useEffect(() => { setSearchTarget(undefined); }, [state?.privacyEpoch, state?.policyRevision]);
+  useEffect(() => {
+    if (searchTarget && view !== ({ conversation: 'chat', note: 'notes', material: 'materials' } as const)[searchTarget.locator.kind]) setSearchTarget(undefined);
+  }, [view]);
   useEffect(() => { if (view === 'notes') setNotesOpened(true); }, [view]);
   const viewRef = useRef(view);
   viewRef.current = view;
@@ -152,6 +158,9 @@ export function App() {
     else if(value.kind==='leg'&&scene?.kind==='map'){
       const leg=scene.journey.legs.find(leg=>leg.id===value.legId);
       setSceneSelectionLabel(leg?`${leg.route.from?.displayName} → ${leg.route.to?.displayName}`:'刚选的路段');
+    }else if(value.kind==='record' && scene?.kind==='campus'){
+      const record = scene.records.find(record => record.id === value.recordId);
+      setSceneSelectionLabel(record ? `接着聊「${record.title}」` : '接着聊这条校园消息');
     }else if(value.kind==='place'){
       setSceneSelectionLabel('刚选的地点');
       try{const places=await api.mapPlaces();
@@ -520,7 +529,7 @@ export function App() {
       setNavigating(false);
     }
   }
-  async function openConversation(id: string) {
+  async function openConversation(id: string, destination?: Extract<LocalSearchLocator, { kind: 'conversation' }>) {
     if (busy) {
       notify('先停止当前回复，再打开另一段对话。');
       return;
@@ -540,8 +549,14 @@ export function App() {
         }
         if (sessionRef.current && sessionRef.current !== id)
           updateState(await api.endConversation(sessionRef.current));
+        const readBoundary = boundaryRevision.current;
         const [next, saved, info] = await Promise.all([api.messages(id), api.draft(id), api.draftInfo(id)]);
-        if (token !== navigation.current) return;
+        if (token !== navigation.current || (destination && readBoundary !== boundaryRevision.current)) return;
+        if (destination && !next.some(message => message.id === destination.messageId)) {
+          notify('这句话已经不在原来的位置了，请重新找找。');
+          return;
+        }
+        setSearchTarget(destination ? { locator: destination, requestId: ++searchNavigation.current } : undefined);
         draftKey.current = id;
         replaceDraft(saved, false);
         setDraftSaved(info.persisted && !info.empty);
@@ -550,13 +565,39 @@ export function App() {
         setMessages(next);
         setPanel(null);
         setView('chat');
-        followRef.current = true;
+        followRef.current = !destination;
       });
     } finally {
       navigationPending.current = false;
       setNavigating(false);
     }
   }
+  async function openSearchResult(locator: LocalSearchLocator) {
+    if (surfaceMode.current === 'public' || navigationPending.current) return;
+    if (locator.kind === 'conversation') { await openConversation(locator.sessionId, locator); return; }
+    setSearchTarget({ locator, requestId: ++searchNavigation.current });
+    if (locator.kind === 'note') { setNotesOpened(true); setView('notes'); }
+    else { setView('materials'); setReadingPane('reader'); }
+    setPanel(null);
+  }
+  useEffect(() => {
+    if (!searchTarget || searchTarget.locator.kind !== 'conversation' || view !== 'chat'
+      || sessionId !== searchTarget.locator.sessionId || locatedSearch.current === searchTarget.requestId) return;
+    const targetId = searchTarget.locator.messageId;
+    const frame = requestAnimationFrame(() => {
+      const element = [...(scrollRef.current?.querySelectorAll<HTMLElement>('[data-message-id]') || [])].find(element => element.dataset.messageId === targetId);
+      if (!element) return;
+      locatedSearch.current = searchTarget.requestId;
+      followRef.current = false;
+      element.classList.add('search-returned');
+      element.focus({ preventScroll: true });
+      element.scrollIntoView({ block: 'center', behavior: prefersQuietMotion() ? 'instant' : 'smooth' });
+    });
+    return () => {
+      cancelAnimationFrame(frame);
+      scrollRef.current?.querySelectorAll('.search-returned').forEach(element => element.classList.remove('search-returned'));
+    };
+  }, [searchTarget, sessionId, view]);
   async function send(
     value = draftRef.current.text,
     consumeDraft = true,
@@ -1054,6 +1095,7 @@ export function App() {
         {view === 'materials' && state && <MaterialsPanel
           compact pending={attachment?.kind === 'text' ? attachment : null} sessionId={sessionId} draftEnabled={draftReady && !navigating}
           boundary={`${state.privacyEpoch}:${state.policyRevision}`}
+          focus={searchTarget?.locator.kind === 'material' ? { locator: searchTarget.locator, requestId: searchTarget.requestId } : undefined}
           onAttach={value => { if (!draftReady || navigating || navigationPending.current) return false; updateDraft({ attachment: value }); return true; }} onQuote={quoteMaterial} onClose={() => setView('chat')}
         />}
         <main className={`workspace ${empty && view !== 'materials' ? 'welcome' : 'conversation'}`}>
@@ -1143,7 +1185,7 @@ export function App() {
             onMap={(id) => void showPlace(id)}
           />
         )}
-        {notesOpened && state && <NotesPanel embedded key={state.privacyEpoch} active={view === 'notes'} onUnsavedChange={setNotesUnsaved} onClose={() => setView('chat')} timeZone={state.settings.timeZone} />}
+        {notesOpened && state && <NotesPanel embedded key={state.privacyEpoch} active={view === 'notes'} focus={searchTarget?.locator.kind === 'note' ? { locator: searchTarget.locator, requestId: searchTarget.requestId } : undefined} onUnsavedChange={setNotesUnsaved} onClose={() => setView('chat')} timeZone={state.settings.timeZone} />}
         {(view === 'settings' || view === 'memory' || view === 'companion') && state && (
           <SettingsPanel
             key={`${view}:${state.privacyEpoch}`}
@@ -1186,12 +1228,13 @@ export function App() {
         />
       )}
       {panel === 'history' && state && (
-        <HistoryPanel
+        <LocalSearchPanel
           state={state}
-          busy={busy}
+          busy={busy || navigating}
           onClose={() => setPanel(null)}
           onRestoreFocus={() => inputRef.current?.focus({ preventScroll: true })}
           onOpen={openConversation}
+          onSelect={openSearchResult}
           onDelete={async (id) => {
             await attempt(async () => {
               updateState(await api.deleteConversation(id));
@@ -1438,7 +1481,7 @@ function MessageView({
   }
   if (m.role === 'user')
     return (
-      <article className="user-message" aria-label="你的消息">
+      <article className="user-message" aria-label="你的消息" data-message-id={m.id} tabIndex={-1}>
         <div className="message-byline">
           你
           <span>
@@ -1564,7 +1607,7 @@ function MessageView({
     />
   ));
   return (
-    <article className="assistant-message" ref={article}>
+    <article className="assistant-message" ref={article} data-message-id={m.id} tabIndex={-1}>
       <div className="assistant-name">
         <CompanionAvatar size={31} />
         <span>在场</span>
@@ -2219,76 +2262,5 @@ function ActionCard({
         </p>
       )}
     </div>
-  );
-}
-
-function HistoryPanel({
-  state,
-  busy,
-  onClose,
-  onOpen,
-  onDelete,
-  onRestoreFocus,
-}: {
-  state: State;
-  busy: boolean;
-  onClose: () => void;
-  onOpen: (id: string) => void;
-  onDelete: (id: string) => void;
-  onRestoreFocus: () => void;
-}) {
-  const [query, setQuery] = useState(''),
-    [deleting, setDeleting] = useState('');
-  const list = state.conversations.filter((c) => c.title.toLowerCase().includes(query.toLowerCase()));
-  return (
-    <Modal title="历史对话" onClose={onClose} fallbackFocus={onRestoreFocus}>
-      <div className="panel-body">
-        <div className="search-box">
-          <Search size={16} />
-          <input
-            aria-label="搜索对话标题"
-            placeholder="搜索对话标题"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            autoFocus
-          />
-          <kbd>⌘ / Ctrl K</kbd>
-        </div>
-        {list.length ? (
-          <div className="history-list">
-            {list.map((c) => (
-              <div className="history-item" key={c.id}>
-                <button onClick={() => onOpen(c.id)} disabled={busy}>
-                  <span>{c.title}</span>
-                  <small>{formatDate(c.updatedAt, state.settings.timeZone)}</small>
-                </button>
-                {deleting === c.id ? (
-                  <div className="delete-confirm">
-                    <button onClick={() => onDelete(c.id)} disabled={busy}>
-                      删除
-                    </button>
-                    <button onClick={() => setDeleting('')}>取消</button>
-                  </div>
-                ) : (
-                  <IconButton
-                    label={`删除对话：${c.title}`}
-                    onClick={() => setDeleting(c.id)}
-                    disabled={busy}
-                  >
-                    <Trash2 size={15} />
-                  </IconButton>
-                )}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="panel-empty">
-            <History size={29} />
-            <h3>{query ? '没有找到这段对话。' : '故事，从第一次对话开始。'}</h3>
-            <p>{query ? '换一个标题关键词试试。' : '聊过的事会留在本机，需要时再回来。'}</p>
-          </div>
-        )}
-      </div>
-    </Modal>
   );
 }

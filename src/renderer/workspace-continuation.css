@@ -45,8 +45,41 @@
   .titlebar .primary-navigation { top:53px; }
   .titlebar .window-controls { padding-top:1px; }
   .titlebar .brand { padding-top:4px; }
+  .titlebar .brand > svg { display:block; width:20px; height:20px; }
   .titlebar .navigation-menu { top:43px; }
 }
 @media(prefers-reduced-motion:no-preference) {
   .retained-heading nav button { transition:color 160ms ease,border-color 160ms ease; }
+}
+
+/* On a tall, narrow window, give the welcome words their own quiet surface.
+   The chosen companion stays by the window above it, instead of competing
+   with a half-width composer. These rules never change saved preferences. */
+@media (max-width: 900px) and (min-height: 700px) {
+  .app-shell.has-window:has(.workspace.welcome) .welcome-inner {
+    width: calc(100% - 48px);
+    margin: auto 24px 24px;
+    padding: 25px 28px 21px;
+    border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+    border-radius: 25px;
+    background: color-mix(in srgb, var(--surface) 96%, transparent);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 12px 45px #221a1812;
+  }
+  .app-shell.has-window:has(.workspace.welcome) .welcome-date { margin: 0 0 12px; font-size: 12px; }
+  .app-shell.has-window:has(.workspace.welcome) .welcome h1 { margin: 0; font-size: 28px; line-height: 1.45; }
+  .app-shell.has-window:has(.workspace.welcome) .welcome-copy { margin: 10px 0 22px; font-size: 14px; }
+  .app-shell.has-window:has(.workspace.welcome) .welcome-next { margin-top: 18px; }
+  .app-shell.has-window:has(.workspace.welcome) > .app-main > .companion-scene .companion-figure {
+    height: 52%; width: 80%; right: -6%; bottom: 25%;
+  }
+  .app-shell.has-window:has(.workspace.welcome) > .app-main > .companion-scene .window-wash {
+    background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 18%, transparent), transparent 42%, var(--bg) 93%);
+  }
+}
+@media (max-width: 600px) and (min-height: 700px) {
+  .app-shell.has-window:has(.workspace.welcome) .welcome-inner { width: calc(100% - 32px); margin: auto 16px 18px; padding: 22px 22px 18px; border-radius: 23px; }
+  .app-shell.has-window:has(.workspace.welcome) .welcome h1 { font-size: 26px; }
+  .app-shell.has-window:has(.workspace.welcome) .welcome-next { gap: 15px; }
+  .app-shell.has-window:has(.workspace.welcome) .welcome-next > button + button { padding-left: 15px; }
 }
