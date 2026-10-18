@@ -62,6 +62,7 @@ export interface SelectionState {
 }
 export type SelectionAction =
   | { type: 'choose'; point: MapPoint }
+  | { type: 'start'; point: MapPoint }
   | { type: 'two' }
   | { type: 'origin' }
   | { type: 'destination' }
@@ -93,6 +94,10 @@ export function selectionReducer(s: SelectionState, a: SelectionAction): Selecti
   const { previous: _previous, ...snapshot } = s;
   const next = { ...s, previous: snapshot, revision: s.revision + 1, route: emptyRoute() };
   switch (a.type) {
+    case 'start':
+      return { ...next, mode: 'two', stage: a.point.kind==='water'?'origin':'destination',
+        origin:a.point.kind==='water'?undefined:a.point, destination:undefined,
+        originAccessId:undefined, destinationAccessId:undefined };
     case 'choose':
       return s.stage === 'origin'
         ? { ...next, origin: a.point, originAccessId: undefined, stage: s.destination ? 'browse' : 'destination' }

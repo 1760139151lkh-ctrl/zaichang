@@ -49,23 +49,31 @@ def pool_complex_models(geometries,to_wgs):
     def world(x,y,z=None):
         return center.x+np.asarray(x)*u[0]+np.asarray(y)*v[0],center.y+np.asarray(x)*u[1]+np.asarray(y)*v[1]
     m=SurfaceParts(to_wgs)
+    # The clipped height function has three planar slope regions. A triangle
+    # spanning their folds chords through a roof panel even when all of its
+    # vertices have correct heights. Split every roof skin at the same folds.
+    reach=upper.length
+    roof_regions=[transform(world,box(a,-reach,b,reach)) for a,b in [(-reach,-65),(-65,65),(65,reach)]]
+    def roof_face(poly,offset,material):
+        for region in roof_regions:
+            m.face(poly.intersection(region),lambda x,y:roof_height(x,y)+offset,material)
     m.sides(g,0,3.1,'wall');m.face(g,3.1,'roof')
     wall_to_roof(m,upper,3.1,roof_height,'glass')
     m.facade_divisions(upper,3.2,17.7,2.0,.14)
-    m.face(upper,roof_height,'roof')
+    roof_face(upper,0,'roof')
     rim=upper.difference(upper.buffer(-.32))
-    m.face(rim,lambda x,y:roof_height(x,y)+.12,'skylight')
+    roof_face(rim,.12,'skylight')
     # Two fields of dark roof equipment are visible on the built photograph
     # and satellite. Module counts/material notation are not an inventory.
     for x0,y0,x1,y1 in [(-43,9,-26,26),(-22,9,1,26),(5,9,26,26),(-8,-24,12,-7),(15,-24,39,-7)]:
         panels=transform(world,box(x0,y0,x1,y1)).intersection(upper.buffer(-2))
-        m.face(panels,lambda x,y:roof_height(x,y)+.17,'glass')
+        roof_face(panels,.17,'glass')
         for y in np.arange(y0,y1,1.45):
             joint=transform(world,box(x0,y-.07,x1,y+.07)).intersection(panels)
-            m.face(joint,lambda x,y:roof_height(x,y)+.21,'seam')
+            roof_face(joint,.21,'seam')
         for x in np.arange(x0,x1,6):
             joint=transform(world,box(x-.06,y0,x+.06,y1)).intersection(panels)
-            m.face(joint,lambda x,y:roof_height(x,y)+.22,'mullion')
+            roof_face(joint,.22,'mullion')
     basis='室内游泳馆：官方导览、校方2022建成配图和高德卫星核对曲尺形屋面、独立前庭与成组屋顶设备板。总高20.50米来自监理单位2016施工记录（室外地坪至屋面最高点），非本次现场复测。基座、缓坡、竖向分格及设备板节距为图像支持的概化；不按旧效果图二手文字虚挖内院，不生成室内泳道或楼层路线。'
     models.append((pool,g,{'type':'authored-mesh','parts':m.parts,'heightM':20.5,'basis':basis}))
 

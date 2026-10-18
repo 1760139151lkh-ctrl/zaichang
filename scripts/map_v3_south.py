@@ -1,8 +1,9 @@
 """Observed southern campus composition, separate from routing geography.
 
 The official 2022 birdseye gives visible massing, roof and court relationships.
-Its perspective does not supply measured heights or ground routes. All vertical
-dimensions below are explicit image proportions, not room/floor navigation.
+Its perspective does not supply measured heights or ground routes. Retained
+image proportions and the farm's separate cartographic height module remain
+unmeasured display interpretations, not room/floor navigation.
 """
 import math
 import numpy as np
@@ -11,6 +12,19 @@ from shapely.geometry.polygon import orient
 from shapely.ops import unary_union
 from shapely.affinity import rotate
 from map_v3_landmarks import SurfaceParts
+
+# A visual module for the existing agricultural teaching compound, explicitly
+# separate from surveyed heights or storey counts. Keep its acquired plans.
+FARM_STOREY_M = 3.5
+FARM_PRIOR_HEIGHTS = {
+    'way/504974789': [23.5, 27.2, 28.8],
+    'way/504974813': [22.0, 17.0, 23.6],
+    'way/504974811': [25.5, 25.58],
+    'way/504974817': [20.8, 24.2, 25.5, 27.1],
+    'way/504974784': [18.7, 24.5, 25.8],
+    'way/504974786': [8.0, 8.08],
+    'way/411343678': [23.0, 18.5, 24.04],
+}
 
 
 def south_models(geometries,to_wgs,observations):
@@ -67,7 +81,16 @@ def south_models(geometries,to_wgs,observations):
     def finish(fid,g,m,h,children=()):
         item=next(p for p in observations['objects'] if p['id']==fid)
         basis=item['basis']+' 高度、构件尺寸与分格为图像比例概化，精确总高未知；原地面、入口、个人配置及路网不由模型改写。'
-        out.append((fid,g,{'type':'authored-mesh','parts':m.parts,'heightM':h,'basis':basis},list(children)))
+        model={'type':'authored-mesh','parts':m.parts,'heightM':h,'basis':basis}
+        if fid in FARM_PRIOR_HEIGHTS:
+            model['basis']=item['basis']+' 楼体采用连贯的概化高度，分格仅用于辨认建筑；实际高度与层数待核实。'
+            model['massingInterpretation']={
+                'kind':'cartographic-proxy','verticalModuleM':FARM_STOREY_M,
+                'priorDisplayHeightsM':FARM_PRIOR_HEIGHTS[fid],
+                'sourceObservationBasis':item['basis'],'actualHeightM':None,
+                'basis':'Continuous wing heights and restrained roof detail; visual interpretation, not a physical height or storey claim.',
+            }
+        out.append((fid,g,model,list(children)))
 
     # Medicine: long city-facing bar, court wings, a taller north-east block,
     # and the actual elevated connector. A single 30m extrusion loses all four.
@@ -127,32 +150,43 @@ def south_models(geometries,to_wgs,observations):
     # Farm A/B/D retain the real diagonals and separate adjoining source wings.
     fid='way/504974789';g=geometries[fid];m=SurfaceParts(to_wgs)
     north=g.intersection(box(2780,298,2870,340));body=g.difference(north)
-    block(m,body,23.5,7);block(m,north,27.2,8);roof_cores(m,north,27.2,[(2847,318,5,4)])
-    finish(fid,g,m,28.8)
+    block(m,body,7*FARM_STOREY_M,7);block(m,north,8*FARM_STOREY_M,8)
+    finish(fid,g,m,8*FARM_STOREY_M+.08)
     fid='way/504974813';g=geometries[fid];m=SurfaceParts(to_wgs)
-    block(m,g,22.0,6);roof_cores(m,g,22.0,[(2768,397,6,5),(2816,435,5,4)])
-    annex='way/504974812';q=geometries[annex];block(m,q,17.0,5);finish(fid,g.union(q),m,23.6,[annex])
-    fid='way/504974811';g=geometries[fid];m=SurfaceParts(to_wgs);block(m,g,25.5,7);finish(fid,g,m,25.58)
-    fid='way/504974817';g=geometries[fid];m=SurfaceParts(to_wgs);block(m,g,20.8,6)
-    children=['way/504974816','way/504974815'];qs=[]
-    for child,h in zip(children,[24.2,25.5]):
-        q=geometries[child];qs.append(q);block(m,q,h,7);roof_cores(m,q,h,[(q.centroid.x,q.centroid.y,5,4)])
-    finish(fid,unary_union([g,*qs]),m,27.1,children)
+    block(m,g,6*FARM_STOREY_M,6)
+    annex='way/504974812';q=geometries[annex];block(m,q,5*FARM_STOREY_M,5);finish(fid,g.union(q),m,6*FARM_STOREY_M+.08,[annex])
+    fid='way/504974811';g=geometries[fid];m=SurfaceParts(to_wgs);block(m,g,7*FARM_STOREY_M,7);finish(fid,g,m,7*FARM_STOREY_M+.08)
+    fid='way/504974817';g=geometries[fid];m=SurfaceParts(to_wgs)
+    children=['way/504974816','way/504974815'];qs=[geometries[child] for child in children]
+    # This connected group reads as one folded wing around its courtyard.
+    # Union before extrusion avoids stacked full-height walls at source joins.
+    joined=unary_union([g,*qs]);block(m,joined,6*FARM_STOREY_M,6)
+    finish(fid,joined,m,6*FARM_STOREY_M+.08,children)
+    out[-1][2]['massingInterpretation']['displayTreatment']='One continuous illustrative roof level across the connected wings; all source plans and courtyard holes retained.'
 
     # C: two projecting blocks, a lower long spine and the dark stair cores.
     fid='way/504974784';g=geometries[fid];m=SurfaceParts(to_wgs)
     blocks=g.intersection(unary_union([box(2613,250,2649,298),box(2683,250,2721,297)]))
-    spine=g.difference(blocks);block(m,spine,18.7,5,'wall');block(m,blocks,24.5,7,'wall')
+    spine=g.difference(blocks);block(m,spine,5*FARM_STOREY_M,5,'wall');block(m,blocks,7*FARM_STOREY_M,7,'wall')
     for x,y in [(2618,266),(2641,265),(2689,264),(2713,263),(2601,306),(2665,304),(2732,303)]:
         core=box(x-1.6,y-3,x+1.6,y+3).intersection(g.buffer(.1,join_style='mitre'))
-        if core.area>2:m.sides(core,0,25.8,'facade-recess');m.face(core,25.8,'glass')
-    finish(fid,g,m,25.8)
-    fid='way/504974786';g=geometries[fid];m=SurfaceParts(to_wgs);block(m,g,8.0,2,'wall');finish(fid,g,m,8.08)
+        if core.area>2:
+            # A dark facade strip follows its supporting wing. A single tower
+            # height on the lower spine creates isolated, unsupported spikes.
+            for part,levels in [(core.intersection(blocks),7),(core.difference(blocks),5)]:
+                if not part.is_empty:
+                    m.sides(part,0,levels*FARM_STOREY_M,'facade-recess')
+                    m.face(part,levels*FARM_STOREY_M,'roof')
+    finish(fid,g,m,7*FARM_STOREY_M+.08)
+    fid='way/504974786';g=geometries[fid];m=SurfaceParts(to_wgs);block(m,g,2*FARM_STOREY_M,2,'wall');finish(fid,g,m,2*FARM_STOREY_M+.08)
 
-    # E's two genuinely oblique arms are retained, rather than squared off.
+    # E keeps its two oblique arms. One restrained step at their neck makes
+    # their relationship visible without turning every outline notch into a tier.
     fid='way/411343678';g=geometries[fid];m=SurfaceParts(to_wgs)
-    north=g.intersection(box(2600,432,2685,510));south=g.difference(north)
-    block(m,north,23.0,7);block(m,south,18.5,5);skylight(m,north,23,8,6);finish(fid,g,m,24.04)
+    north=g.intersection(box(2600,458,2685,510));south=g.difference(north)
+    block(m,north,6*FARM_STOREY_M,6);block(m,south,5*FARM_STOREY_M,5)
+    skylight(m,north,6*FARM_STOREY_M,8,6);finish(fid,g,m,6*FARM_STOREY_M+1.04)
+    out[-1][2]['massingInterpretation']['displayTreatment']='Two oblique arms with a single illustrative height step at their neck; not measured floor counts or height.'
 
     # The northern service building is separate from the redeveloped plot.
     fid='way/415697412';g=geometries[fid];m=SurfaceParts(to_wgs)

@@ -1,15 +1,18 @@
 import * as ml from 'maplibre-gl';
 import type { FeatureCollection, Feature, Position } from 'geojson';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
-import latinFont from '@fontsource-variable/noto-sans-sc/files/noto-sans-sc-latin-wght-normal.woff2?url';
+import fontUnicodeRanges from '@fontsource-variable/noto-sans-sc/unicode.json';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { fromLonLat, toLonLat } from 'ol/proj';
 import type { LocationFix, MapPoint, MapRouteResult, LngLat } from '../../shared/map-v2';
+import { mapRoutePointName } from '../../shared/map-v2';
 import { metersBetween } from '../../shared/map-routing';
+import { redundantReferenceCaptions } from '../../shared/map-names';
 import { CameraOwnership, SelectedMapPoints } from './map-state';
 import { darkMapPalette, lightMapPalette, type MapPalette } from './map-theme';
 import { PlanarCampusMap } from './planar-map';
-import { cartographyLayers, type MapDirection } from './cartography';
+import { cartographyLayers } from './cartography';
+import { buildingPassageFilter } from './road-semantics';
 import { VolumeEdges } from './volume-edges';
 import { RoofSurfaces } from './roof-surfaces';
 import { GroundFill } from './ground-fills';
@@ -23,6 +26,15 @@ export type { SavedCamera, MapData, MapCallbacks } from './map-types';
 export { PlanarCampusMap } from './planar-map';
 export type CampusMapEngine = SpatialCampusMap | PlanarCampusMap;
 ml.setWorkerUrl(workerUrl);
+const fontFiles=import.meta.glob<string>('../../../node_modules/@fontsource-variable/noto-sans-sc/files/*-wght-normal.woff2',{eager:true,query:'?url',import:'default'});
+const fontsByName=new Map(Object.entries(fontFiles).map(([file,url])=>[file.split('/').at(-1)!,url]));
+// A Latin subset must not claim every character and silently use a system
+// fallback for Chinese. These are the same packaged subsets used by the UI.
+const campusFontFaces=Object.entries(fontUnicodeRanges).map(([subset,range])=>{
+  const name=`noto-sans-sc-${subset.replaceAll('[','').replaceAll(']','')}-wght-normal.woff2`,url=fontsByName.get(name);
+  if(!url)throw new Error(`Missing campus font subset: ${name}`);
+  return {url,'unicode-range':range.split(',')};
+});
 const empty = (): FeatureCollection => ({type:'FeatureCollection',features:[]});
 const collection = (features: Feature[]): FeatureCollection => ({type:'FeatureCollection',features});
 const line = (coordinates: LngLat[], properties: Record<string,unknown> = {}): Feature => ({type:'Feature',geometry:{type:'LineString',coordinates},properties});
@@ -61,7 +73,7 @@ export class SpatialCampusMap {
   private detail=false;
   private near=false;
   private fine=false;
-  private volumeOpacity=-1;
+  private passageOpacity=-1;
   private renders=0;
   private cleanup:(()=>void)[]=[];
   private resize:ResizeObserver;
@@ -74,10 +86,10 @@ export class SpatialCampusMap {
   private groundStrokes=new Map<string,GroundStroke>();
   private groundStates=new Map<string,Record<string,boolean|number>>();
   private occupancyKey='';
+  private occupancyOffsets='';
   private occupancyImages=new Set<string>();
   private occupancyCleanupPending=false;
   private labelAnchors=new Map<string,LabelAnchor>();
-  private labelMode:'ground'|'roof'|'callout'='roof';
   private labelsRaised?:boolean;
   private hiddenNames=new Set<string>();
   private labelOcclusionKey='';
@@ -87,7 +99,8 @@ export class SpatialCampusMap {
   private revealFrame=0;
   private routeKey="";
   private routeMeasures:{coordinate:LngLat;meters:number}[]=[];
-  constructor(private target:HTMLDivElement,public data:MapData,private callbacks:MapCallbacks,saved?:SavedCamera,private direction:MapDirection='relief') {
+  private routeSpans:{coordinates:LngLat[];start:number;end:number;dashed:boolean;estimated:boolean}[]=[];
+  constructor(private target:HTMLDivElement,public data:MapData,private callbacks:MapCallbacks,saved?:SavedCamera) {
     this.points=new Map(data.places.map(p=>[p.id,p]));
     this.waterAreas=namedWaterAreas(data.geography as FeatureCollection);
     this.waterShores=namedWaterShores(data.geography as FeatureCollection);
@@ -126,12 +139,12 @@ export class SpatialCampusMap {
       // layers. Rebind the current public snapshot without changing the camera.
       this.map.once('style.load',()=>{
         if(this.disposed)return;
-        this.loaded=true;this.pendingData=false;this.volumeOpacity=-1;this.labelsRaised=undefined;this.labelOcclusionKey='';this.hiddenNames.clear();
+        this.loaded=true;this.pendingData=false;this.passageOpacity=-1;this.labelsRaised=undefined;this.labelOcclusionKey='';this.hiddenNames.clear();
         // The rebuilt sources also lost their derived cutaway feature state.
         // Recompute it even when the visible occluder IDs stay the same.
         this.ghostIds=[];
         this.installGroundLayers();this.installSurfaces();
-        this.occupancyKey='';this.updateLabelObstructions();
+        this.occupancyKey='';this.occupancyOffsets='';this.updateLabelObstructions();
         for(const [id,state] of this.groundStates)this.map.setFeatureState({source:'geography',id},state);
         this.refreshSelection();this.route(this.routeResult);this.location(this.pendingLocation);
         target.dataset.context='restored';target.dataset.ready='true';this.report();
@@ -169,7 +182,7 @@ export class SpatialCampusMap {
     this.cleanup.push(observeLabelObstructions(target,()=>this.updateLabelObstructions()));
   }
   private names():FeatureCollection {
-    return collection([...this.points.values()].filter(p=>!p.displayName.startsWith('未命名')&&!p.roadReference&&(!p.historicalReference||!!p.personal)).map(p=>{const anchor=this.labelMode==='ground'?undefined:this.labelAnchors.get(p.id);return {...point(anchor?.coordinate||p.coordinate,{id:p.id,name:this.caption(p),kind:p.kind,scope:p.scope,labelHeight:anchor?.height||0,surfaceLabel:!!p.modelBasis,priority:this.namePriority(p)}),id:p.id};}));
+    return collection([...this.points.values()].filter(p=>!p.displayName.startsWith('未命名')&&!p.roadReference&&(!p.historicalReference||!!p.personal)).map(p=>{const anchor=this.labelAnchors.get(p.id);return {...point(anchor?.coordinate||p.coordinate,{id:p.id,name:this.caption(p),kind:p.kind,scope:p.scope,labelHeight:anchor?.height||0,surfaceLabel:!!p.modelBasis,priority:this.namePriority(p)}),id:p.id};}));
   }
   private narrowLongName(p:MapPoint){return p.kind==='building'&&p.geometryStatus==='mapped'&&p.displayName.length>8&&Math.min((p.bounds[2]-p.bounds[0])*111320*Math.cos(p.coordinate[1]*Math.PI/180),(p.bounds[3]-p.bounds[1])*110574)<22;}
   private caption(p:MapPoint){
@@ -178,19 +191,16 @@ export class SpatialCampusMap {
     if(!this.narrowLongName(p))return local||p.displayName;
     return p.aliases.filter(n=>n.length>=2&&n.length<=6&&(n.match(/[\u3400-\u9fff]/g)?.length||0)>=2).sort((a,b)=>a.length-b.length)[0]||local||p.displayName;
   }
-  private namePriority(p:MapPoint){return this.narrowLongName(p)?6:p.scope==='context'?5:/图书馆|田径场|月牙楼|食堂|求是大讲堂/.test(p.displayName)?0:p.kind==='area'?1:p.geometryStatus==='reference-point'?4:2;}
+  private namePriority(p:MapPoint){return p.undergroundStation?1:this.narrowLongName(p)?6:p.scope==='context'?5:/图书馆|田径场|月牙楼|食堂|求是大讲堂/.test(p.displayName)?0:p.kind==='area'?1:p.geometryStatus==='reference-point'?4:2;}
   private geography():FeatureCollection {
     // The mesh belongs only to the custom GPU layer. Exclude it before copying
     // properties for MapLibre, rather than cloning it just to throw it away.
     const data=collection((this.data.geography as FeatureCollection).features.map(f=>{
       const {surfaceModel,...properties}=f.properties||{};
-      return {...f,geometry:structuredClone(f.geometry),properties:{...structuredClone(properties),...(surfaceModel?{surfaceModel:true}:properties.kind==='building'&&Number(properties.heightM)>0?{untiledVolume:true}:{}),id:String(f.id)}};
+      return {...f,geometry:structuredClone(f.geometry),properties:{...structuredClone(properties),id:String(f.id)}};
     }));
     const ids=new Set(data.features.map(f=>String(f.id)));
     for(const f of data.features){f.properties={...f.properties,id:String(f.id)};
-      // Custom roof geometry belongs to its GPU layer. Keeping large vertex
-      // arrays in tiled feature properties would copy them during hit queries.
-      if(f.properties.surfaceModel)f.properties.surfaceModel=true;
       const p=this.points.get(String(f.id));if(p&&f.geometry.type==='Point'){f.geometry.coordinates=p.coordinate;}}
     for(const p of this.points.values())if(!ids.has(p.id)&&p.personal)data.features.push({...point(p.coordinate,{kind:'reference',name:p.displayName,scope:'campus'}),id:p.id});
     return data;
@@ -198,14 +208,14 @@ export class SpatialCampusMap {
   private style(includeNativeGroundLayers=false):ml.StyleSpecification {
     const p=this.palette,selected:any=['any',['boolean',['feature-state','selected'],false],['boolean',['feature-state','origin'],false]],hovered:any=['boolean',['feature-state','hover'],false];
     const sports=this.data.sports as FeatureCollection||empty();
-    const layers=cartographyLayers(p,this.direction).filter(layer=>includeNativeGroundLayers||!((layer.type==='fill'&&['geography','sports'].includes(layer.source))||groundStrokeLayers.has(layer.id)));
-    return {version:8,'font-faces':{Campus:latinFont},light:{anchor:'map',color:'#fff6e8',intensity:.42,position:[1.25,225,45]},sources:{geography:{type:'geojson',data:this.geography(),promoteId:'id',tolerance:.02,maxzoom:20},sports:{type:'geojson',data:sports,tolerance:.02,maxzoom:20},names:{type:'geojson',data:this.names(),promoteId:'id'},route:{type:'geojson',data:empty(),tolerance:0},selection:{type:'geojson',data:empty()},preview:{type:'geojson',data:empty(),tolerance:0},reveal:{type:'geojson',data:empty(),tolerance:0},entrances:{type:'geojson',data:empty()},location:{type:'geojson',data:empty()},'control-occupancy':{type:'geojson',data:empty(),tolerance:0,maxzoom:24}},layers};
+    const layers=cartographyLayers(p).filter(layer=>includeNativeGroundLayers||!((layer.type==='fill'&&['geography','sports'].includes(layer.source))||groundStrokeLayers.has(layer.id)));
+    return {version:8,'font-faces':{Campus:campusFontFaces},light:{anchor:'map',color:'#fff6e8',intensity:.42,position:[1.25,225,45]},sources:{geography:{type:'geojson',data:this.geography(),promoteId:'id',tolerance:.02,maxzoom:20},sports:{type:'geojson',data:sports,tolerance:.02,maxzoom:20},names:{type:'geojson',data:this.names(),promoteId:'id'},route:{type:'geojson',data:empty(),tolerance:0},selection:{type:'geojson',data:empty()},preview:{type:'geojson',data:empty(),tolerance:0},reveal:{type:'geojson',data:empty(),tolerance:0},entrances:{type:'geojson',data:empty()},location:{type:'geojson',data:empty()},'control-occupancy':{type:'geojson',data:empty(),tolerance:0,maxzoom:24}},layers};
   }
   private updateLabelObstructions(){
     if(!this.loaded||this.disposed)return;
     const boxes=mapLabelObstructions(this.target),key=JSON.stringify([boxes,this.map.getCenter().toArray(),this.map.getZoom(),this.map.getBearing(),this.map.getPitch()]);
     if(key===this.occupancyKey)return;this.occupancyKey=key;
-    const images=new Set<string>(),features:Feature[]=[];
+    const images=new Set<string>(),features:Feature[]=[],offsets:any[]=['match',['get','image']];
     // A ground symbol away from the camera centre is perspective-scaled even
     // with viewport alignment. Keep each reservation at the view centre and
     // use its pixel offset, so its collision rectangle stays the DOM size.
@@ -213,8 +223,14 @@ export class SpatialCampusMap {
     for(const box of boxes){
       const width=Math.ceil(box.width),height=Math.ceil(box.height),image=`control-occupancy-${box.id}-${width}x${height}`;
       images.add(image);if(!this.map.hasImage(image))this.map.addImage(image,{width,height,data:new Uint8Array(width*height*4)});
-      features.push(point(coordinate,{kind:'control-occupancy',image,offset:[(box.left+box.right)/2-centre.x,(box.top+box.bottom)/2-centre.y]}));
+      features.push(point(coordinate,{kind:'control-occupancy',image}));
+      offsets.push(image,['literal',[(box.left+box.right)/2-centre.x,(box.top+box.bottom)/2-centre.y]]);
     }
+    // GeoJSON tiling serializes array properties as strings. Keep the pixel
+    // vectors in the style, or every reservation silently falls back to (0,0).
+    const offsetExpression:any=features.length?[...offsets,['literal',[0,0]]]:['literal',[0,0]];
+    const offsetKey=JSON.stringify(offsetExpression);
+    if(offsetKey!==this.occupancyOffsets){this.occupancyOffsets=offsetKey;this.map.setLayoutProperty('control-occupancy','icon-offset',offsetExpression);}
     this.source('control-occupancy',collection(features));
     this.occupancyImages=images;
     // setData updates worker tiles asynchronously. Old symbol buckets can
@@ -232,12 +248,12 @@ export class SpatialCampusMap {
     }
   }
   private installGroundLayers(){
-    const layers=cartographyLayers(this.palette,this.direction);
+    const layers=cartographyLayers(this.palette);
     for(const [i,specification] of layers.entries()){
       const fill=specification.type==='fill'&&['geography','sports'].includes(specification.source),stroke=specification.type==='line'&&groundStrokeLayers.has(specification.id);
       if(!fill&&!stroke)continue;
       const data=(specification.source==='geography'?this.data.geography:specification.source==='sports'?this.data.sports||empty():empty()) as FeatureCollection;
-      const layer=fill?new GroundFill(specification as ml.FillLayerSpecification,data,this.groundStates):new GroundStroke(specification as ml.LineLayerSpecification,data,this.groundStates);
+      const layer=fill?new GroundFill(specification as ml.FillLayerSpecification,data,this.groundStates):new GroundStroke(specification as ml.LineLayerSpecification,data,this.groundStates,specification.id==='water-depth');
       const before=layers.slice(i+1).map(layer=>this.groundFills.get(layer.id)?.id||this.groundStrokes.get(layer.id)?.id||layer.id).find(id=>this.map.getLayer(id));
       const previous=this.groundFills.get(specification.id)||this.groundStrokes.get(specification.id);
       if(previous&&this.map.getLayer(previous.id))this.map.removeLayer(previous.id);
@@ -247,14 +263,14 @@ export class SpatialCampusMap {
   }
   private installSurfaces(){
     this.rims=new VolumeEdges(this.data.geography as FeatureCollection,this.palette);this.map.addLayer(this.rims,'route-glow');
-    this.roofs=new RoofSurfaces(this.data.geography as FeatureCollection,this.palette,this.groundStates,this.direction==='focus'?.3:this.direction==='atlas'?.62:.86);this.map.addLayer(this.roofs,'volume-rims');
+    this.roofs=new RoofSurfaces(this.data.geography as FeatureCollection,this.palette,this.groundStates);this.map.addLayer(this.roofs,'volume-rims');
   }
-  private applyTheme(){const next=this.style(true);this.volumeOpacity=-1;for(const layer of next.layers){const fill=this.groundFills.get(layer.id),stroke=this.groundStrokes.get(layer.id);if(fill&&layer.type==='fill')fill.updateStyle(layer);else if(stroke&&layer.type==='line')stroke.updateStyle(layer);else for(const [key,value] of Object.entries(layer.paint||{}))this.map.setPaintProperty(layer.id,key as Parameters<ml.Map['setPaintProperty']>[1],value);}this.map.setLight(next.light!);this.refreshSelection();this.updateDetail(true);}
+  private applyTheme(){const next=this.style(true);this.passageOpacity=-1;for(const layer of next.layers){const fill=this.groundFills.get(layer.id),stroke=this.groundStrokes.get(layer.id);if(fill&&layer.type==='fill')fill.updateStyle(layer);else if(stroke&&layer.type==='line')stroke.updateStyle(layer);else for(const [key,value] of Object.entries(layer.paint||{}))this.map.setPaintProperty(layer.id,key as Parameters<ml.Map['setPaintProperty']>[1],value);}this.map.setLight(next.light!);this.refreshSelection();this.updateDetail(true);}
   private source(name:string,data:FeatureCollection){if(this.loaded&&!this.disposed){(this.map.getSource(name) as ml.GeoJSONSource)?.setData(data);if(name==='selection')for(const id of ['selected-shore','selected-part'])this.groundStrokes.get(id)?.updateData(data);}}
   private hit(pixel:ml.Point,tolerance=0):MapPoint[]{
     if(!this.loaded)return [];
     const query=tolerance?[[pixel.x-tolerance,pixel.y-tolerance],[pixel.x+tolerance,pixel.y+tolerance]]:pixel;
-    const native=this.map.queryRenderedFeatures(query as any,{layers:['names','endpoint-names','browse-name','water-names','endpoints','volumes','ghosts','references']});
+    const native=this.map.queryRenderedFeatures(query as any,{layers:['names','endpoint-names','browse-name','water-names','endpoints','references']});
     const ground=['footprints','sports-fill'].flatMap(id=>(this.groundFills.get(id)?.query(pixel.x,pixel.y,tolerance)||[]).map(f=>({...f,properties:{...f.properties,id:String(f.id)} as Record<string,any>,layer:{id}})));
     const fs=[...native,...ground];
     const marker=fs.find(f=>f.layer.id==='endpoints');
@@ -265,10 +281,8 @@ export class SpatialCampusMap {
     const geometries=fs.filter(f=>!['names','endpoint-names','browse-name','water-names'].includes(f.layer.id)&&!this.ghostIds.includes(String(f.properties.id||f.id)));
     // A temporary cutaway reveals the object below it. Its subdued caption
     // remains an explicit way to select the occluder itself.
-    let roof=this.roofs?.pickHit(pixel.x,pixel.y,undefined,false);
+    const roof=this.roofs?.pickHit(pixel.x,pixel.y,undefined,false);
     if(roof){
-      const native=new Set(geometries.filter(f=>f.layer.id==='volumes').map(f=>String(f.properties.id||f.id)));
-      for(const id of native){const depth=this.roofs!.nativeDepth(id,pixel.x,pixel.y);if(depth<roof.depth)roof={id,depth};}
       if(captionPoint&&(['endpoint-names','browse-name'].includes(caption?.layer.id||'')||captionPoint.id===roof.id||this.ghostIds.includes(captionPoint.id)))return [captionPoint];
       return this.points.has(roof.id)?[this.points.get(roof.id)!]:[];
     }
@@ -279,7 +293,7 @@ export class SpatialCampusMap {
     if(captionPoint&&(['endpoint-names','browse-name'].includes(caption?.layer.id||'')||captionPoint.id===visibleBuilding||this.ghostIds.includes(captionPoint.id)||!visibleBuilding))return [captionPoint];
     if(!visibleBuilding){
       const cutaway=this.roofs?.pickHit(pixel.x,pixel.y);
-      const id=cutaway&&this.ghostIds.includes(cutaway.id)?cutaway.id:fs.find(f=>f.layer.id==='ghosts')?.properties.id;
+      const id=cutaway&&this.ghostIds.includes(cutaway.id)?cutaway.id:undefined;
       if(id&&this.points.has(String(id)))return [this.points.get(String(id))!];
     }
     if(!ids.length){
@@ -310,8 +324,8 @@ export class SpatialCampusMap {
     this.rims?.update(this.palette,[this.selection.selected,this.selection.origin].filter(Boolean) as string[],this.ghostIds);
     this.roofs?.update(this.palette,[this.selection.selected,this.selection.origin].filter(Boolean) as string[],this.ghostIds,this.hovered);
     const fs:Feature[]=[];for(const {role,point:p} of this.selection.entries(this.points)){
-      const coordinate=this.selection.routeEnd(role,this.routeResult,this.points)?.coordinate||p.coordinate;
-      const anchor=this.selection.routeRoles||this.labelMode==='ground'||p.graphNodeId?undefined:this.labelAnchors.get(p.id);
+      const end=this.selection.routeEnd(role,this.routeResult,this.points),coordinate=end?.coordinate||p.coordinate;
+      const anchor=this.selection.routeRoles||p.graphNodeId?undefined:this.labelAnchors.get(p.id);
       const hasBodyLabel=!!anchor&&(p.kind==='building'||!!p.modelBasis)&&p.geometryStatus==='mapped'&&!p.personal?.referencePoint;
       const water=!this.selection.routeRoles&&p.kind==='water',shore=water&&this.waterShores.get(p.id);
       if(shore)fs.push({...shore,properties:{kind:'selection-water'}});
@@ -322,7 +336,7 @@ export class SpatialCampusMap {
       if(part)fs.push({...part,properties:{id:p.id,kind:'selection-building-part'}});
       const hasMarker=this.selection.routeRoles||(!hasBodyLabel&&!water);
       if(hasMarker)fs.push(point(coordinate,{id:p.id,kind:'selection-marker',role:this.selection.routeRoles?role:''}));
-      fs.push(point(anchor?.coordinate||coordinate,{id:p.id,kind:'selection-name',name:this.selection.routeRoles?p.displayName:this.caption(p),role:this.selection.routeRoles?role:'',hasMarker,labelHeight:anchor?.height||0}));
+      fs.push(point(anchor?.coordinate||coordinate,{id:p.id,kind:'selection-name',name:this.selection.routeRoles?mapRoutePointName(p,end?.access):this.caption(p),role:this.selection.routeRoles?role:'',hasMarker,labelHeight:anchor?.height||0}));
     }
     this.captionEntries=this.selection.routeRoles?fs.filter(f=>f.properties?.kind==='selection-name'):[];
     this.captionSides=this.pairedSides();this.captionEntries.forEach((f,i)=>{f.properties!.captionBelow=this.captionSides[i];});
@@ -350,20 +364,22 @@ export class SpatialCampusMap {
   }
   route(result?:MapRouteResult){
     this.routeResult=result;this.target.dataset.routeStatus=result?.status||'idle';this.source('preview',empty());
-    const fs:Feature[]=result?.status==='ready'?(result.segments?.map(s=>line(s.coordinates,{kind:s.kind}))||[line(result.coordinates,{kind:'network'})]):[];
+    const fs:Feature[]=result?.status==='ready'?(result.segments?.map(s=>line(s.coordinates,{kind:s.kind,unverified:!!s.conditions?.length}))||[line(result.coordinates,{kind:'network'})]):[];
     this.source('route',collection(fs));this.refreshSelection();this.updateOcclusion();
-    const key=result?.status==='ready'?result.coordinates.map(c=>c.join(',')).join(';'):'';
-    if(key!==this.routeKey){this.routeKey=key;this.stopReveal();this.routeMeasures=[];let total=0;
+    const key=result?.status==='ready'?result.coordinates.map(c=>c.join(',')).join(';'):'',changed=key!==this.routeKey;
+    if(changed){this.routeKey=key;this.stopReveal();this.routeMeasures=[];let total=0;
       for(const [i,coordinate] of (result?.coordinates||[]).entries()){if(i)total+=metersBetween(result!.coordinates[i-1],coordinate);this.routeMeasures.push({coordinate,meters:total});}
-      if(key&&this.loaded&&!this.reduced.matches)this.reveal();
     }
+    let vertex=0;
+    this.routeSpans=fs.map(feature=>{const coordinates=(feature.geometry as GeoJSON.LineString).coordinates as LngLat[],start=this.routeMeasures[vertex]?.meters||0,estimated=feature.properties?.kind==='estimate';vertex+=Math.max(0,coordinates.length-1);return {coordinates,start,end:this.routeMeasures[vertex]?.meters||start,dashed:estimated||!!feature.properties?.unverified,estimated};});
+    if(changed&&key&&this.loaded&&!this.reduced.matches)this.reveal();
   }
   showEntrances(visible:boolean){this.entrancesVisible=visible;this.refreshEntrances();}
   private refreshEntrances(){
     const fs:Feature[]=[];const route=this.routeResult;
     for(const {role,point:p} of this.selection.entries(this.points)){
       const used=this.selection.routeEnd(role,route,this.points)?.access;
-      for(const entrance of p.entrances){const active=used?.kind==='entrance'&&used.nodeId===entrance.id;if(active||this.entrancesVisible)fs.push(point(entrance.coordinate,{active,name:role+' · '+entrance.name}));}}
+      for(const entrance of p.entrances){const active=used?.entranceId===entrance.id||used?.kind==='entrance'&&used.nodeId===entrance.id;if(active||this.entrancesVisible)fs.push(point(entrance.coordinate,{active,name:role+' · '+entrance.name}));}}
     this.source('entrances',collection(fs));
   }
   // Interpolation follows every recorded bend; never takes a chord through a courtyard.
@@ -377,31 +393,21 @@ export class SpatialCampusMap {
   private reveal(){
     const start=performance.now(),total=this.routeMeasures.at(-1)?.meters||0;if(!total)return;
     const frame=(now:number)=>{if(this.disposed)return;const t=Math.min(1,(now-start)/640),a=Math.max(0,t-.09)*total,b=t*total;
-      this.source('reveal',collection([line([this.atDistance(a),...this.routeMeasures.filter(p=>p.meters>a&&p.meters<b).map(p=>p.coordinate),this.atDistance(b)])]));
+      this.source('reveal',collection(this.routeSpans.filter(s=>s.end>a&&s.start<b).map(s=>{
+        // Keep the same geometry origin and stroke width for dashed emphasis;
+        // clipping it resets dash phase and paints across the underlying gaps.
+        if(s.dashed)return line(s.coordinates,{dashed:true,estimated:s.estimated});
+        const from=Math.max(a,s.start),to=Math.min(b,s.end);
+        return line([this.atDistance(from),...this.routeMeasures.filter(p=>p.meters>from&&p.meters<to).map(p=>p.coordinate),this.atDistance(to)],{dashed:s.dashed});
+      })));
       if(t<1)this.revealFrame=requestAnimationFrame(frame);else this.stopReveal();};
     this.revealFrame=requestAnimationFrame(frame);
   }
   preview(progress?:number){
     this.stopReveal();const r=this.routeResult;if(progress===undefined||r?.status!=='ready'||!r.segments?.length){this.source('preview',empty());return;}
-    const target=Math.max(0,Math.min(1,progress))*(this.routeMeasures.at(-1)?.meters||0);let used=0;
-    const s=r.segments.find((s,i)=>{if(used+s.meters>=target||i===r.segments!.length-1)return true;used+=s.meters;return false;})!;
-    this.source('preview',collection([line(s.coordinates),point(this.atDistance(target),{name:'路线预览，非当前位置'})]));
-  }
-  /** Used only by the source-level visual study, never exposed as product settings. */
-  present(direction:MapDirection){this.direction=direction;this.target.dataset.direction=direction;if(this.loaded)this.applyTheme();}
-  /** A visual-study comparison; not a product preference or camera mutation. */
-  presentLabels(mode:'ground'|'roof'|'callout'){
-    this.labelMode=mode;this.labelsRaised=undefined;this.source('names',this.names());this.refreshSelection();this.updateOcclusion();
-    if(this.loaded){
-      if(mode==='callout'&&!this.map.hasImage('campus-label-stem')){
-        const stem=new Uint8Array(8*36*4);
-        for(let y=1;y<34;y++)for(let x=0;x<8;x++)if((y<29&&x>=3&&x<=4)||Math.hypot(x-3.5,y-30)<2.4)stem.set([255,255,255,255],(y*8+x)*4);
-        this.map.addImage('campus-label-stem',{width:8,height:36,data:stem},{pixelRatio:2,sdf:true});
-      }
-      const raised:any=['>', ['coalesce',['get','labelHeight'],0],0];
-      this.map.setLayoutProperty('names','text-offset',mode==='callout'?['case',raised,['literal',[0,-1.7]],['literal',[0,0]]]:[0,0]);
-      this.map.setLayoutProperty('names','icon-image',mode==='callout'?['case',raised,'campus-label-stem','']:undefined);
-    }
+    const target=Math.max(0,Math.min(1,progress))*(this.routeMeasures.at(-1)?.meters||0);
+    const s=this.routeSpans.find(s=>s.end>=target)||this.routeSpans.at(-1);if(!s)return;
+    this.source('preview',collection([line(s.coordinates,{dashed:s.dashed,estimated:s.estimated}),point(this.atDistance(target),{name:'路线预览，非当前位置'})]));
   }
   private scheduleOcclusion(){
     clearTimeout(this.occlusionTimer);
@@ -412,16 +418,14 @@ export class SpatialCampusMap {
     if(!this.roofs?.cameraKey){this.scheduleOcclusion();return;}
     if(this.map.isMoving()||performance.now()-this.lastCameraMove<110){this.scheduleOcclusion();return;}
     if(!this.loaded||this.disposed)return;const coords=this.routeResult?.status==='ready'?this.routeResult.coordinates:[];const ids=new Set<string>();
-    if(this.map.getPitch()>5)for(let i=0;i<coords.length;i+=Math.max(1,Math.floor(coords.length/70))){const pixel=this.map.project(coords[i]);for(const f of this.map.queryRenderedFeatures(pixel,{layers:['volumes','ghosts']}))ids.add(String(f.properties.id||f.id));const roof=this.roofs?.pick(pixel.x,pixel.y);if(roof)ids.add(roof);}
-    if(this.labelMode!=='ground'&&!this.selection.routeRoles&&this.selection.selected&&this.map.getPitch()>=12){const anchor=this.labelAnchors.get(this.selection.selected);if(anchor){const id=this.roofs?.labelOccluder(anchor,this.selection.selected,true);if(id)ids.add(id);}}
+    if(this.map.getPitch()>5)for(let i=0;i<coords.length;i+=Math.max(1,Math.floor(coords.length/70))){const pixel=this.map.project(coords[i]);const roof=this.roofs?.pick(pixel.x,pixel.y);if(roof)ids.add(roof);}
+    if(!this.selection.routeRoles&&this.selection.selected&&this.map.getPitch()>=12){const anchor=this.labelAnchors.get(this.selection.selected);if(anchor){const id=this.roofs?.labelOccluder(anchor,this.selection.selected,true);if(id)ids.add(id);}}
     const next=[...ids].sort();if(next.join()===this.ghostIds.join())return;
     for(const id of this.ghostIds)if(!ids.has(id))this.map.setFeatureState({source:'names',id},{nameEmphasis:1});
     for(const id of next)this.map.setFeatureState({source:'names',id},{nameEmphasis:.42});
     this.ghostIds=next;
     this.rims?.update(this.palette,[this.selection.selected,this.selection.origin].filter(Boolean) as string[],next);
     this.roofs?.update(this.palette,[this.selection.selected,this.selection.origin].filter(Boolean) as string[],next,this.hovered);
-    this.map.setFilter('volumes',['all',kind('building'),['!', ['has','surfaceModel']],['!', ['has','untiledVolume']],['>',['coalesce',['get','heightM'],0],0],['!', ['in',['id'],['literal',next]]]]);
-    this.map.setFilter('ghosts',['all',kind('building'),['!', ['has','surfaceModel']],['!', ['has','untiledVolume']],['in',['id'],['literal',next]]]);
   }
   private updateNameOcclusion(){
     if(!this.loaded||!this.roofs)return;
@@ -430,10 +434,10 @@ export class SpatialCampusMap {
     // Native labels still move with the camera; only their occlusion verdict
     // is retained through the gesture and refreshed immediately after it.
     if(this.map.isMoving()||performance.now()-this.lastCameraMove<110)return;
-    const key=[this.roofs.cameraKey,this.labelMode,this.selection.selected,this.selection.origin,this.ghostIds.join(),this.near,this.detail,this.fine].join('|');
+    const key=[this.roofs.cameraKey,this.selection.selected,this.selection.origin,this.ghostIds.join(),this.near,this.detail,this.fine].join('|');
     if(key===this.labelOcclusionKey)return;this.labelOcclusionKey=key;
     const hidden=new Set<string>();
-    if(this.labelMode!=='ground'&&this.map.getPitch()>=12)for(const p of this.points.values()){
+    if(this.map.getPitch()>=12)for(const p of this.points.values()){
       if(p.id===this.selection.selected||p.id===this.selection.origin||p.kind==='water'||p.kind==='area'||p.displayName.startsWith('未命名')||this.namePriority(p)>(this.fine?6:this.near?5:this.detail?2:1))continue;
       const anchor=this.labelAnchors.get(p.id);if(anchor&&this.roofs.labelOccluder(anchor,p.id))hidden.add(p.id);
     }
@@ -456,14 +460,27 @@ export class SpatialCampusMap {
     this.target.dataset.pixelRatio=String(this.map.getPixelRatio());this.target.dataset.camera=JSON.stringify({...camera,size:[w,h],projection:'EPSG:3857',moving:this.map.isMoving()});this.target.dataset.scale=JSON.stringify(camera.scale);this.callbacks.camera(camera);
   }
   private updateDetail(force=false){
-    if(!this.loaded)return;const alpha=Math.max(0,Math.min(1,this.map.getPitch()/12));if(Math.abs(alpha-this.volumeOpacity)>.008){this.volumeOpacity=alpha;for(const id of ['volumes','ghosts'])this.map.setLayoutProperty(id,'visibility',alpha===0?'none':'visible');this.map.setPaintProperty('volumes','fill-extrusion-opacity',alpha*(this.direction==='focus'?.3:this.direction==='atlas'?.62:.86));this.map.setPaintProperty('ghosts','fill-extrusion-opacity',alpha*.18);}
+    if(!this.loaded)return;
+    const alpha=Math.max(0,Math.min(1,this.map.getPitch()/12));
+    if(force||Math.abs(alpha-this.passageOpacity)>.008){
+      this.passageOpacity=alpha;
+      const passageInk=.55*alpha;
+      for(const id of ['covered-roads','underground-paths'])this.map.setPaintProperty(id,'line-opacity',['case',buildingPassageFilter,passageInk,.55]);
+      this.map.setPaintProperty('passage-overprint','line-opacity',.85*(1-alpha));
+    }
     // Native label elevation keeps the engine's collision placement and text
     // projection. Change its layout only when entering/leaving planar mode;
     // changing a global layout expression on every frame would reload tiles.
-    const raised=this.labelMode!=='ground'&&this.map.getPitch()>.6;
+    const raised=this.map.getPitch()>.6;
     if(raised!==this.labelsRaised){this.labelsRaised=raised;for(const id of ['names','endpoint-names','browse-name'])this.map.setLayoutProperty(id,'symbol-height-offset',raised?['coalesce',['get','labelHeight'],0]:0);}
     const z=this.map.getZoom(),detail=this.detail?z>15.9:z>16.2,near=this.near?z>17.3:z>17.55,fine=this.fine?z>18.2:z>18.5;
-    if(force||detail!==this.detail||near!==this.near||fine!==this.fine){this.detail=detail;this.near=near;this.fine=fine;this.map.setFilter('names',['all',['!', ['in',['get','kind'],['literal',detail?['water','area']:['water']]]],['<=',['get','priority'],fine?6:near?5:detail?2:1],['!', ['in',['get','id'],['literal',[this.selection.origin,this.selection.selected].filter(Boolean) as string[]]]]]);}
+    if(force||detail!==this.detail||near!==this.near||fine!==this.fine){
+      this.detail=detail;this.near=near;this.fine=fine;
+      const selected=[this.selection.origin,this.selection.selected].filter(Boolean) as string[];
+      const redundant=redundantReferenceCaptions(this.points.values(),new Set(selected));
+      this.map.setFilter('names',['all',['!', ['in',['get','kind'],['literal',detail?['water','area']:['water']]]],['<=',['get','priority'],fine?6:near?5:detail?2:1],['!', ['in',['get','id'],['literal',[...selected,...redundant]]]]]);
+      this.map.setFilter('water-names',['all',['==',['get','kind'],'water'],['!', ['in',['get','id'],['literal',selected]]]]);
+    }
   }
   takeControl(){this.ownership.take();if(this.routeFitRefine){this.map.off('idle',this.routeFitRefine);this.routeFitRefine=undefined;}this.map.stop();this.stopReveal();}
   private duration(ms:number){return this.reduced.matches?0:ms;}
@@ -495,7 +512,7 @@ export class SpatialCampusMap {
   focusPlace(p:MapPoint){this.takeControl();this.fit(p.bounds,this.duration(250),17.4);}
   fitRoute(result:MapRouteResult,ticket?:number){
     if(result.status!=='ready'||!result.coordinates.length||ticket!==undefined)return;
-    const expected=new Map([result.from,result.to].filter((p):p is MapPoint=>!!p).map(p=>[p.id,(this.points.get(p.id)||p).displayName]));
+    const expected=new Map([result.from,result.to].filter((p):p is MapPoint=>!!p).map(p=>[p.id,mapRoutePointName(this.points.get(p.id)||p,p.id===result.from?.id?result.originAccess:result.destinationAccess)]));
     const caption=nativeCaptionBounds(this.map,expected)?.insets||measureCaptions([...expected.values()],
       {font:'13px "Noto Sans SC Variable", "Microsoft YaHei", sans-serif',size:13,offsetY:-endpointCaptionGap,padding:2,marker:13.5,maxWidthEm:14,anchor:'bottom'});
     this.takeControl();const ticketNow=this.ownership.ticket(),cs=result.coordinates;

@@ -11,9 +11,9 @@ import {
   type MapAccessCandidate,
 } from '../shared/map-v2';
 import { WalkingGraph, metersBetween, classifyFix, inBounds } from '../shared/map-routing';
-import { fromLocal, toLocal, personalAccess } from './mapProfile';
+import { fromLocal, toLocal, estimateAccess } from './mapProfile';
 import { rankMapPoints } from '../shared/map-names';
-import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, retainPublishedFootRestrictions, retainPublishedRoadCorrespondenceConditions, retainPublishedPlaceAccessConditions, retainUnverifiedOfficialCorrespondences, routeConditionWarning } from '../shared/map-v3';
+import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, retainPublishedFootRestrictions, retainPublishedPlaceAccessConditions, retainUnverifiedOfficialCorrespondences, routeConditionWarning, qualifyUndergroundStations } from '../shared/map-v3';
 export class CampusMapAdapter {
   private manifest: MapOverview;
   private points: MapPoint[];
@@ -106,7 +106,14 @@ export class CampusMapAdapter {
       }
       this.points=retainPublishedPlaceAccessConditions(this.points);
       const recordedGraph: MapGraph = read('network.json');
-      const graph = retainPublishedFootRestrictions(retainPublishedRoadCorrespondenceConditions(retainBridgeStatusConditions(recordedGraph,this.geography)));
+      const qualifiedGraph = qualifyUndergroundStations(this.points,retainPublishedFootRestrictions(retainBridgeStatusConditions(recordedGraph,this.geography)),this.geography,this.displayGeography as {features:any[]},this.sharedFacts?.fidelityObservations?.undergroundStations||[]);
+      const supplementIds=new Set<string>((this.sharedFacts?.buildingSupplement?.members||[]).map((member:{id:string})=>member.id));
+      const missingAccess=new Set(this.points.filter(point=>point.undergroundStation||supplementIds.has(point.id)&&!point.accessCandidates?.length&&!point.accessReviewBasis).map(point=>point.id));
+      const graph=estimateAccess(this.points,qualifiedGraph,this.geography,missingAccess,'public');
+      if(missingAccess.size)this.manifest={...this.manifest,nodes:graph.nodes.length,edges:graph.edges.length,
+        entrances:this.points.reduce((n,p)=>n+p.entrances.length,0),connectedEntrances:this.points.reduce((n,p)=>n+p.entrances.filter(e=>e.connected).length,0),
+        routableBuildings:this.points.filter(p=>p.kind==='building'&&p.accessCandidates?.length).length,
+        estimatedAccessCandidates:this.points.reduce((n,p)=>n+(p.accessCandidates||[]).filter(a=>a.kind==='estimate').length,0)};
       this.baseGraph=graph;
       if (graph.version !== this.manifest.version) throw new Error('version');
       walking = new WalkingGraph(graph);
@@ -176,7 +183,7 @@ export class CampusMapAdapter {
         p.aliases = [...new Set([...p.aliases,label])];
       }
       for(const p of this.points) if(p.personal?.roles?.length) p.displayName=p.personal.roles.join(' / ')+' · '+p.displayName;
-      this.walking=new WalkingGraph(personalAccess(this.points,this.baseGraph,this.geography,moved));
+      this.walking=new WalkingGraph(estimateAccess(this.points,this.baseGraph,this.geography,moved));
       for(const p of this.points)if(p.nearbyRoadReferences)p.nearbyRoadReferences=p.nearbyRoadReferences.flatMap(ref=>{
         const point=this.byId.get(ref.id);if(!point?.roadReference)return [];
         const straightM=metersBetween(p.coordinate,point.coordinate);return straightM<=150?[{id:ref.id,straightM}]:[];
@@ -210,7 +217,7 @@ export class CampusMapAdapter {
         if(!r.id.startsWith('reference/')||!r.coordinate.every(Number.isFinite)||!inBounds(r.coordinate,this.manifest.bounds))throw new Error('参考点不在地图有效范围内。');
         return {id:r.id,displayName:r.name.slice(0,80),aliases:[],kind:'node',coordinate:r.coordinate,bounds:[...r.coordinate,...r.coordinate],entrances:[],accessCandidates:[],source:{url:'local-reference'},geometryStatus:'reference-point'};
       });
-      this.points=[...this.points,...added];this.byId=new Map(this.points.map(p=>[p.id,p]));this.walking=new WalkingGraph(personalAccess(this.points,this.walking.graph,this.geography,new Set(added.map(p=>p.id))));
+      this.points=[...this.points,...added];this.byId=new Map(this.points.map(p=>[p.id,p]));this.walking=new WalkingGraph(estimateAccess(this.points,this.walking.graph,this.geography,new Set(added.map(p=>p.id))));
       const route=this.route(query);return {route,graph:structuredClone(this.walking.graph)};
     } finally {this.points=prior.points;this.byId=prior.byId;this.walking=prior.walking;this.ephemeralDepth--;}
   }
@@ -319,7 +326,10 @@ export class CampusMapAdapter {
     if (from.id === to.id) return fail('same', '起点与终点是同一地点，无需绘制路线。');
     const access = (point: MapPoint, chosen?: string): MapAccessCandidate[] => {
       const recorded: MapAccessCandidate[] = point.accessCandidates ?? point.entrances.filter(e=>e.connected).map(e=>({id:'entrance/'+e.id,nodeId:e.id,kind:'entrance' as const,name:e.name,coordinate:e.coordinate,coordinates:[e.coordinate],meters:0,source:e.source}));
-      return recorded.filter(e=>(!chosen || e.id===chosen) && (query.allowConditional || !e.conditions?.length) && (!query.avoidStairs || !e.stairs));
+      const eligible=recorded.filter(e=>(!chosen || e.id===chosen || e.entranceId&&'entrance/'+e.entranceId===chosen) && (query.allowConditional || !e.conditions?.length) && (!query.avoidStairs || !e.stairs));
+      const cheapest=new Map<string,MapAccessCandidate>();
+      for(const candidate of eligible){const current=cheapest.get(candidate.nodeId);if(!current||candidate.meters<current.meters||candidate.meters===current.meters&&candidate.kind==='entrance')cheapest.set(candidate.nodeId,candidate);}
+      return [...cheapest.values()];
     };
     const a = access(from,query.originAccessId), b = access(to,query.destinationAccessId);
     if (!a.length || !b.length) {
@@ -341,7 +351,7 @@ export class CampusMapAdapter {
       result.warnings.push('没有合格的已记录入口或80米内避障接入；未用穿墙、穿水的直线补路。附近道路参考点是明确另选的起终点，不是楼门。');
       if (!a.length && b.length) result.conditionalOrigins = this.nearbyConnectedPlaces(from.id).filter(point => point.id !== to.id).flatMap(point => {
         const candidate = this.route({ from: { kind: 'place', id: point.id }, to: query.to, avoidStairs: query.avoidStairs });
-        if (candidate.status !== 'ready' || !candidate.distance || !candidate.originEntrance || !candidate.destinationEntrance) return [];
+        if (candidate.status !== 'ready' || !candidate.distance || !candidate.originEntrance || !candidate.destinationEntrance || candidate.originAccess?.kind!=='entrance' || candidate.destinationAccess?.kind!=='entrance') return [];
         const networkM = candidate.distance.networkM;
         const entrance = (value: NonNullable<MapRouteResult['originEntrance']>) => ({ id: value.id, name: value.name, connected: value.connected, source: value.source });
         return [{ id: point.id, label: point.displayName, originEntrance: entrance(candidate.originEntrance), destinationEntrance: entrance(candidate.destinationEntrance),
@@ -376,24 +386,23 @@ export class CampusMapAdapter {
     const warnings = ['按已记录且允许步行的路段长度计算；门禁、施工和实时通行请以现场为准。'];
     if (used.some((e) => e.stairs)) warnings.push('路线包含台阶。');
     if (used.some((e) => e.gate)) warnings.push('路线经过出入口，通行状态未实时核实。');
-    if(connectorM>0)warnings.push('虚线为楼栋参考点至路网的避障估计；未确认真实门或楼内通行。');
+    if(connectorM>0)warnings.push(from.undergroundStation||to.undergroundStation?'虚线为已记录出入口或参考点至路网的避障接入估计；现场连接与通行仍待核实。':'虚线为楼栋参考点至路网的避障估计；未确认真实门或楼内通行。');
+    if(from.undergroundStation||to.undergroundStation)warnings.push('步行至地铁出入口；不含进站和站内换乘，出入口开放状态未实时核实。');
     if(estimateOnly)warnings.push('两处参考点接到同一路网位置；当前结果只有接入估计，没有已记录步行路段。');
     else if(estimateDominant)warnings.push('大部分距离来自楼栋参考点接入估计；只含很短的记录道路，不能据此确认实际走法。');
-    if(query.allowConditional){
-      const warning=routeConditionWarning([...used.flatMap(e=>e.conditions||[]),...(originAccess.conditions||[]),...(destinationAccess.conditions||[])]);
-      if(warning)warnings.push(warning);
-    }
+    const assumptionWarning=routeConditionWarning([...used.flatMap(e=>e.conditions||[]),...(originAccess.conditions||[]),...(destinationAccess.conditions||[])]);
+    if(assumptionWarning)warnings.push(assumptionWarning);
     const result: MapRouteResult = {
       ...base,
       status: 'ready',
-      reason: estimateOnly?'只有接入估计；没有已记录的步行路段':estimateDominant?'主要为接入估计；实际入口与走法待核':connectorM>0?'当前路网与合格接入候选中的最短估计路线':from.roadReference||to.roadReference?'当前道路参考点与已记录接入之间的路网路线':'已知入口之间的路网最短路线',
+      reason: assumptionWarning?'包含待核通路的假设路线':estimateOnly?'只有接入估计；没有已记录的步行路段':estimateDominant?'主要为接入估计；实际入口与走法待核':connectorM>0?'当前路网与合格接入候选中的最短估计路线':from.roadReference||to.roadReference?'当前道路参考点与已记录接入之间的路网路线':'已知入口之间的路网最短路线',
       routeBasis: estimateOnly?'access_estimate_only':estimateDominant?'access_estimate_dominant':connectorM>0?'recorded_network_with_estimates':'recorded_network',
       coordinates,
       nodeIds: found.nodeIds,
       edgeIds: found.edgeIds,
       distance: { totalM: found.meters, networkM, connectorM },
-      originEntrance: originAccess.kind==='entrance'?from.entrances.find(e=>e.id===originAccess.nodeId):undefined,
-      destinationEntrance: destinationAccess.kind==='entrance'?to.entrances.find(e=>e.id===destinationAccess.nodeId):undefined,
+      originEntrance: from.entrances.find(e=>e.id===(originAccess.entranceId||(originAccess.kind==='entrance'?originAccess.nodeId:undefined))),
+      destinationEntrance: to.entrances.find(e=>e.id===(destinationAccess.entranceId||(destinationAccess.kind==='entrance'?destinationAccess.nodeId:undefined))),
       originAccess,destinationAccess,segments,
       warnings,
       elapsedMs: performance.now() - start,

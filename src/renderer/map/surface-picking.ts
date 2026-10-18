@@ -37,29 +37,3 @@ export function triangleDepth(x:number,y:number,a:SurfacePoint,b:SurfacePoint,c:
   const z=u*a[2]+v*b[2]+(1-u-v)*c[2];
   return Number.isFinite(z)&&z>=-1.000001&&z<=1.000001?z:Infinity;
 }
-
-function insideRing(x:number,y:number,ring:SurfacePoint[]):boolean {
-  let inside=false;
-  for(let i=0,j=ring.length-1;i<ring.length;j=i++){
-    const a=ring[i],b=ring[j];if((a[1]>y)!==(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])inside=!inside;
-  }
-  return inside;
-}
-
-export function extrusionDepth(x:number,y:number,top:SurfacePoint[][][],base:SurfacePoint[][][],m:number[],width:number,height:number):number {
-  let nearest=Infinity;
-  for(let p=0;p<top.length;p++){
-    const roofs=top[p].map(r=>projectFace(r,m,width,height));const outer=roofs[0];
-    if(outer.length>=3&&insideRing(x,y,outer)&&!roofs.slice(1).some(h=>insideRing(x,y,h))){
-      for(let i=1;i<outer.length-1;i++){
-        const z=triangleDepth(x,y,outer[0],outer[i],outer[i+1],false);
-        if(Number.isFinite(z)){nearest=Math.min(nearest,z);break;}
-      }
-    }
-    for(let r=0;r<top[p].length;r++)for(let i=1;i<top[p][r].length;i++){
-      const wall=projectFace([top[p][r][i-1],top[p][r][i],base[p][r][i],base[p][r][i-1]],m,width,height);
-      for(let j=1;j<wall.length-1;j++)nearest=Math.min(nearest,triangleDepth(x,y,wall[0],wall[j],wall[j+1]));
-    }
-  }
-  return nearest;
-}

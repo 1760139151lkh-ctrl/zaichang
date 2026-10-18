@@ -136,6 +136,8 @@ for (const f of geo.features) {
     // Retain source facts independently of cartographic pixel widths. A tag
     // is not a current measurement or an unconditional access permission.
     width: t.width,
+    service: t.service,
+    covered: t.covered,
     access: t.access,
     foot: t.foot,
     bicycle: t.bicycle,

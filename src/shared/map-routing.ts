@@ -70,6 +70,7 @@ class MinHeap {
   }
 }
 const prohibitedFootAccess = new Set(['no','private','customers','delivery','permit','destination','use_sidepath']);
+export function allowsFootAccess(foot?:string):boolean { return !prohibitedFootAccess.has(foot||''); }
 /** Multi-source / multi-target Dijkstra. No geometric intersection or nearest-node edges. */
 export class WalkingGraph {
   nodes: Map<string, MapGraph['nodes'][number]>;
@@ -109,7 +110,7 @@ export class WalkingGraph {
         if (cost + endCost < best) { best = cost + endCost; target = id; }
       }
       for (const { to, edge } of this.adjacency.get(id) || []) {
-        if (prohibitedFootAccess.has(edge.foot || '')) continue;
+        if (!allowsFootAccess(edge.foot)) continue;
         if (avoidStairs && edge.stairs) continue;
         if (!allowConditional && edge.conditions?.length) continue;
         const next = cost + edge.meters;

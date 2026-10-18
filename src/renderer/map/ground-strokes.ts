@@ -1,14 +1,14 @@
 import {MercatorCoordinate, type Map as MapLibreMap, type CustomLayerInterface, type CustomRenderMethodInput, type LineLayerSpecification} from 'maplibre-gl';
 import {Color, createExpression, latest, type StyleExpression, type StylePropertySpecification} from '@maplibre/maplibre-gl-style-spec';
 import type {Feature, FeatureCollection} from 'geojson';
-import {groundFillOrigin, groundFillRings, groundFillNodes} from './ground-fills';
+import {groundFillOrigin, groundFillRings, groundFillNodes, groundFillPolygons} from './ground-fills';
 
 type XY = [number, number];
 type StrokeState = Record<string, boolean | number>;
 type StrokeGroup = {feature: Feature; type: 2 | 3; rings: XY[][]; bounds: number[]; first: number; segments: number; count: number};
 type PaintKey = 'line-color' | 'line-opacity' | 'line-width' | 'line-blur';
 type Program = {program: WebGLProgram; uniforms: Record<string, WebGLUniformLocation | null>};
-type Ink = {line: Program; composite: Program; vao: WebGLVertexArrayObject; buffer: WebGLBuffer; texture: WebGLTexture; framebuffer: WebGLFramebuffer; width: number; height: number; owners: number};
+type Ink = {line: Program; composite: Program; clippedComposite: Program; vao: WebGLVertexArrayObject; buffer: WebGLBuffer; texture: WebGLTexture; framebuffer: WebGLFramebuffer; width: number; height: number; owners: number};
 const inks = new WeakMap<WebGL2RenderingContext, Ink>();
 
 /** Solid polygon ink and the selected shoreline use the same uncut plane as
@@ -101,10 +101,16 @@ function inkFor(gl: WebGL2RenderingContext): Ink {
       vec2 p=vec2((c*e-b*f)/det,(a*f-c*d)/det);vec4 clip=u_matrix*vec4(p,0.0,1.0);if(clip.w<=0.0||clip.z < -clip.w||clip.z > clip.w)discard;
       gl_FragDepth=gl_DepthRange.near+(clip.z/clip.w+1.0)*.5*gl_DepthRange.diff;color=ink;
     }`,['u_ink','u_matrix','u_offset']);
+  const clippedComposite=program(gl,`#version 300 es
+    precision highp float;layout(location=0) in vec2 a_position;uniform mat4 u_matrix;
+    void main(){gl_Position=u_matrix*vec4(a_position,0.0,1.0);}`,`#version 300 es
+    precision highp float;uniform sampler2D u_ink;uniform vec4 u_viewport;out vec4 color;
+    void main(){vec4 ink=texture(u_ink,(gl_FragCoord.xy-u_viewport.xy)/u_viewport.zw);if(ink.a==0.0)discard;color=ink;}`,
+    ['u_ink','u_matrix','u_viewport']);
   const vao=gl.createVertexArray()!,buffer=gl.createBuffer()!,texture=gl.createTexture()!,framebuffer=gl.createFramebuffer()!;
   gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,1,1,-1,-1,1,1,-1,1]),gl.STATIC_DRAW);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,8,0);gl.bindVertexArray(null);
   gl.bindTexture(gl.TEXTURE_2D,texture);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
-  const ink={line,composite,vao,buffer,texture,framebuffer,width:0,height:0,owners:old?.owners||0};inks.set(gl,ink);return ink;
+  const ink={line,composite,clippedComposite,vao,buffer,texture,framebuffer,width:0,height:0,owners:old?.owners||0};inks.set(gl,ink);return ink;
 }
 
 /** Source endpoints stay Float32 in the common local origin. The GPU expands
@@ -121,6 +127,9 @@ export class GroundStroke implements CustomLayerInterface {
   private vao?:WebGLVertexArrayObject;
   private buffer?:WebGLBuffer;
   private vertices=new Float32Array();
+  private clipVao?:WebGLVertexArrayObject;
+  private clipBuffer?:WebGLBuffer;
+  private clipVertices=new Float32Array();
   private groups:StrokeGroup[]=[];
   private data?:FeatureCollection;
   private color!:StyleExpression;
@@ -128,7 +137,7 @@ export class GroundStroke implements CustomLayerInterface {
   private width!:StyleExpression;
   private blur!:StyleExpression;
 
-  constructor(private specification:LineLayerSpecification,data:FeatureCollection,private states:Map<string,StrokeState>){
+  constructor(private specification:LineLayerSpecification,data:FeatureCollection,private states:Map<string,StrokeState>,private clipToFill=false){
     this.id='ground-stroke-'+specification.id;this.updateStyle(specification);this.updateData(data);
   }
   updateStyle(specification:LineLayerSpecification){
@@ -143,11 +152,15 @@ export class GroundStroke implements CustomLayerInterface {
   }
   updateData(data:FeatureCollection){
     this.data=data;
-    const filter=expression(this.specification.filter??true,`${this.id}.filter`),nodes=groundFillNodes(data),vertices:number[]=[];this.groups=[];
+    const filter=expression(this.specification.filter??true,`${this.id}.filter`),nodes=groundFillNodes(data),vertices:number[]=[],clipVertices:number[]=[];this.groups=[];
     const quad=(previous:XY,point:XY,next:XY,kind:number)=>{for(const [x,y] of [[-1,-1],[1,-1],[1,1],[-1,-1],[1,1],[-1,1]])vertices.push(...previous,...point,...next,x,y,kind);};
     for(const feature of data.features){
       const g=feature.geometry,type=g.type==='Polygon'||g.type==='MultiPolygon'?3:g.type==='LineString'||g.type==='MultiLineString'?2:undefined;
       if(!type||!filter.evaluate({zoom:0},{type,id:feature.id,properties:feature.properties||{}}))continue;
+      // The inset shore uses the exact water fill, including islands and holes.
+      // It changes screen-space shading, never the shore coordinates or depth.
+      if(this.clipToFill)for(const polygon of groundFillPolygons(feature,nodes.get(feature.properties?.venueId)))
+        for(const index of polygon.indices)clipVertices.push(polygon.vertices[index*2],polygon.vertices[index*2+1]);
       const rings:XY[][]=type===3?groundFillRings(feature,nodes.get(feature.properties?.venueId)).flat():
         (g.type==='LineString'?[g.coordinates]:g.type==='MultiLineString'?g.coordinates:[]).map(ring=>ring.map(p=>{const q=MercatorCoordinate.fromLngLat([p[0],p[1]]);return [Math.fround(q.x-groundFillOrigin.x),Math.fround(q.y-groundFillOrigin.y)];}));
       const first=vertices.length/9,bounds=[Infinity,Infinity,-Infinity,-Infinity],paths=[];
@@ -167,12 +180,14 @@ export class GroundStroke implements CustomLayerInterface {
       }
       this.groups.push({feature,type,rings,bounds,first,segments,count:vertices.length/9-first});
     }
-    this.vertices=new Float32Array(vertices);if(this.gl)this.upload(this.gl);this.map?.triggerRepaint();
+    this.vertices=new Float32Array(vertices);this.clipVertices=new Float32Array(clipVertices);if(this.gl)this.upload(this.gl);this.map?.triggerRepaint();
   }
   private upload(gl:WebGL2RenderingContext){
     if(this.buffer)gl.deleteBuffer(this.buffer);if(this.vao)gl.deleteVertexArray(this.vao);
     this.vao=gl.createVertexArray()!;gl.bindVertexArray(this.vao);this.buffer=gl.createBuffer()!;gl.bindBuffer(gl.ARRAY_BUFFER,this.buffer);gl.bufferData(gl.ARRAY_BUFFER,this.vertices,gl.STATIC_DRAW);
     for(const [location,size,offset] of [[0,2,0],[1,2,8],[2,2,16],[3,3,24]]){gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,size,gl.FLOAT,false,36,offset);}gl.bindVertexArray(null);
+    if(this.clipBuffer)gl.deleteBuffer(this.clipBuffer);if(this.clipVao)gl.deleteVertexArray(this.clipVao);
+    if(this.clipToFill){this.clipVao=gl.createVertexArray()!;gl.bindVertexArray(this.clipVao);this.clipBuffer=gl.createBuffer()!;gl.bindBuffer(gl.ARRAY_BUFFER,this.clipBuffer);gl.bufferData(gl.ARRAY_BUFFER,this.clipVertices,gl.STATIC_DRAW);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,8,0);gl.bindVertexArray(null);}
   }
   onAdd(map:MapLibreMap,gl:WebGL2RenderingContext){this.map=map;this.gl=gl;this.ink=inkFor(gl);this.ink.owners++;this.upload(gl);}
   render(gl:WebGL2RenderingContext,input:CustomRenderMethodInput){
@@ -191,7 +206,9 @@ export class GroundStroke implements CustomLayerInterface {
       gl.bindFramebuffer(gl.FRAMEBUFFER,ink.framebuffer);gl.viewport(0,0,ink.width,ink.height);gl.disable(gl.DEPTH_TEST);gl.disable(gl.STENCIL_TEST);gl.disable(gl.SCISSOR_TEST);gl.disable(gl.CULL_FACE);gl.depthMask(false);gl.enable(gl.BLEND);gl.blendEquation(gl.MAX);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
       const line=ink.line.uniforms;gl.useProgram(ink.line.program);gl.bindVertexArray(this.vao!);gl.uniformMatrix4fv(line.u_matrix,false,matrix);gl.uniform2f(line.u_size,width,height);gl.uniform2f(line.u_offset,translate[0],translate[1]);gl.uniform1f(line.u_width,previous[4]);gl.uniform1f(line.u_blur,previous[5]);gl.uniform1f(line.u_aa,width/ink.width*.5);gl.uniform1f(line.u_join,join);gl.uniform1f(line.u_cap,cap);gl.uniform1f(line.u_miter,Number(layout?.['line-miter-limit']??2));gl.uniform4fv(line.u_color,previous.slice(0,4));for(const range of ranges)gl.drawArrays(gl.TRIANGLES,range.first,range.count);
       gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffer);gl.viewport(viewport[0],viewport[1],viewport[2],viewport[3]);if(depth)gl.enable(gl.DEPTH_TEST);if(stencil)gl.enable(gl.STENCIL_TEST);if(scissor)gl.enable(gl.SCISSOR_TEST);gl.blendEquation(gl.FUNC_ADD);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);
-      const composite=ink.composite.uniforms;gl.useProgram(ink.composite.program);gl.bindVertexArray(ink.vao);gl.uniformMatrix4fv(composite.u_matrix,false,matrix);gl.uniform2f(composite.u_offset,translate[0],translate[1]);gl.uniform1i(composite.u_ink,0);gl.drawArrays(gl.TRIANGLES,0,6);
+      const pass=this.clipToFill?ink.clippedComposite:ink.composite,composite=pass.uniforms;gl.useProgram(pass.program);gl.bindVertexArray(this.clipToFill?this.clipVao!:ink.vao);gl.uniformMatrix4fv(composite.u_matrix,false,matrix);gl.uniform1i(composite.u_ink,0);
+      if(this.clipToFill)gl.uniform4f(composite.u_viewport,viewport[0],viewport[1],viewport[2],viewport[3]);else gl.uniform2f(composite.u_offset,translate[0],translate[1]);
+      gl.drawArrays(gl.TRIANGLES,0,this.clipToFill?this.clipVertices.length/2:6);
     };
     for(const group of this.groups){
       const feature={type:group.type,id:group.feature.id,properties:group.feature.properties||{}},state=this.states.get(String(group.feature.id))||{},globals={zoom};
@@ -208,6 +225,7 @@ export class GroundStroke implements CustomLayerInterface {
   }
   onRemove(map:MapLibreMap,gl:WebGL2RenderingContext){
     if(this.buffer)gl.deleteBuffer(this.buffer);if(this.vao)gl.deleteVertexArray(this.vao);
-    const ink=this.ink;if(ink&&!--ink.owners){gl.deleteProgram(ink.line.program);gl.deleteProgram(ink.composite.program);gl.deleteVertexArray(ink.vao);gl.deleteBuffer(ink.buffer);gl.deleteTexture(ink.texture);gl.deleteFramebuffer(ink.framebuffer);inks.delete(gl);}this.map=undefined;this.gl=undefined;this.ink=undefined;
+    if(this.clipBuffer)gl.deleteBuffer(this.clipBuffer);if(this.clipVao)gl.deleteVertexArray(this.clipVao);
+    const ink=this.ink;if(ink&&!--ink.owners){gl.deleteProgram(ink.line.program);gl.deleteProgram(ink.composite.program);gl.deleteProgram(ink.clippedComposite.program);gl.deleteVertexArray(ink.vao);gl.deleteBuffer(ink.buffer);gl.deleteTexture(ink.texture);gl.deleteFramebuffer(ink.framebuffer);inks.delete(gl);}this.map=undefined;this.gl=undefined;this.ink=undefined;
   }
 }

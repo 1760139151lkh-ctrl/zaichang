@@ -19,9 +19,10 @@ from map_v3_academic import academic_models
 from map_v3_south import south_models
 from map_v3_commons import commons_models
 from map_v3_landscape import landscape_curves,island_landscape
-from map_v3_shores import reviewed_water_surface,named_water_display,channel_display
-from map_v3_landmarks import crescent_model,library_complex_models,east_five_model
-from map_topology import merge_shared_boundary
+from map_v3_shores import water_display_surface,named_water_display,geographic_water_surface
+from map_v3_landmarks import crescent_model,library_complex_models,east_five_model,archives_model
+from map_topology import merge_shared_boundary,geojson_right_hand_rule,nonzero_surface_vertices
+from map_v3_building_supplement import supplemental_buildings
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1];ASSETS=ROOT/'assets/map-v2';PUBLIC=ROOT/'public/map-v2'
 def read(p):return json.loads(p.read_text(encoding='utf8'))
@@ -213,7 +214,7 @@ for p in places:
 # blocked by water, walls, unknown gates, and every other building footprint.
 build_ids=[f['id'] for f in features if f['properties']['kind']=='building'];builds=[geometries[i] for i in build_ids];btree=STRtree(builds)
 water=[geometries[f['id']] for f in features if f['properties']['kind']=='water'];wtree=STRtree(water)
-water_lines=[geometries[f['id']] for f in features if f['properties']['kind']=='waterway' and f['properties'].get('tunnel')!='culvert' and number(f['properties'].get('layer'))>=0]
+water_lines=[geometries[f['id']] for f in features if f['properties']['kind']=='waterway' and f['properties'].get('tunnel') not in ('culvert','yes')]
 wline_tree=STRtree(water_lines)
 review_tree=STRtree(unverified_site_areas)
 fences=[geometries[f['id']] for f in features if f['properties']['kind']=='barrier'];ftree=STRtree(fences)
@@ -413,11 +414,13 @@ for observed in observations['venues']:
  venue.update(nominalLapM=fidelity['tracks']['nominalLapM'],nominalLapBasis=fidelity['tracks']['nominalBasis'],displayBasis=fidelity['tracks']['displayBasis'],displaySourceImageId=observations['imageId'])
  lane=fidelity['tracks'].get('laneObservations',{}).get(observed['id'],{})
  venue['laneCount']=lane.get('laneCount');venue['laneBasis']=lane.get('basis','')
- if lane.get('laneCount'):
-  for lane_index in range(1,lane['laneCount']):
-   outline=inside.buffer((fit['outerRadiusM']-fit['innerRadiusM'])*lane_index/lane['laneCount'],quad_segs=80).exterior
-   detail.append({'type':'Feature','id':observed['id']+':lane-'+str(lane_index),'properties':{'kind':'track-lane','parentId':observed['id'],'basis':lane['basis']},'geometry':geographic(outline)})
- venue['markingBasis']='球场与外围缓冲区分离；场线按规则比例表达，具体涂线未实测。'+(f"分道按已记录的{lane['laneCount']}道图像依据表达。" if lane.get('laneCount') else '跑道道数未知，不生成虚假道数。')
+ paint_count=lane.get('laneCount') or fidelity['tracks']['schematicLaneCount']
+ paint_basis=lane['basis'] if lane.get('laneCount') else fidelity['tracks']['schematicLaneBasis']
+ venue.update(displayLaneCount=paint_count,displayLaneBasis=paint_basis)
+ for lane_index in range(1,paint_count):
+  outline=inside.buffer((fit['outerRadiusM']-fit['innerRadiusM'])*lane_index/paint_count,quad_segs=80).exterior
+  detail.append({'type':'Feature','id':observed['id']+':lane-'+str(lane_index),'properties':{'kind':'track-lane','parentId':observed['id'],'basis':paint_basis,'representationBasis':'observed-count' if lane.get('laneCount') else 'cartographic-proxy'},'geometry':geographic(outline)})
+ venue['markingBasis']='球场与外围缓冲区分离；场线按规则比例表达，具体涂线未实测。'+(f"分道按已记录的{lane['laneCount']}道图像依据表达。" if lane.get('laneCount') else fidelity['tracks']['schematicLaneBasis'])
 
 # The air-supported tennis hall is an indoor venue, not one giant outdoor court.
 for item in fidelity['indoorVenues']:
@@ -477,6 +480,9 @@ for fid,ground,model in pool_complex_models(geometries,to_wgs):
 residential=read(ASSETS/'residential-observations.json')
 fidelity['residentialObservations']=residential
 residential_ground={f['id']:metric(f['geometry']) for f in display['features'] if f['properties']['kind']=='building'}
+for item in residential['connectors']:
+ if item.get('recordedPassage'):
+  road_id=item['recordedPassage']['roadId'];residential_ground[road_id]=geometries[road_id]
 for item in residential['bodies']:
  if item['group'] in residential.get('groupAlignment',{}):residential_ground[item['id']]=geometries[item['id']]
 for fid,ground,model,item in residential_models(residential_ground,to_wgs,residential):
@@ -502,9 +508,11 @@ for fid,ground,model,children in academic_models(geometries,to_wgs):
 fidelity['southArchitectureObservations']=south_observations
 for fid,ground,model,children in south_models(geometries,to_wgs,south_observations):
  f=next(f for f in display['features'] if f['id']==fid)
- f['geometry']=geographic(ground);f['properties'].update(surfaceModel=model,displayBasis=model['basis'],heightM=model['heightM'],volumeBasis='image-proportioned',modelFamily='south-architecture',actualHeightM=None)
- by_feature[fid]['properties'].update(heightM=model['heightM'],volumeBasis='image-proportioned',heightBasis=model['basis'])
- by_place[fid].update(modelBasis=model['basis'],heightM=model['heightM'],volumeBasis='image-proportioned')
+ basis='cartographic-proxy' if model.get('massingInterpretation') else 'image-proportioned'
+ f['geometry']=geographic(ground);f['properties'].update(surfaceModel=model,displayBasis=model['basis'],heightM=model['heightM'],volumeBasis=basis,modelFamily='south-architecture',actualHeightM=None)
+ # An artistic height module belongs to the display, never the ground facts.
+ if basis!='cartographic-proxy':by_feature[fid]['properties'].update(heightM=model['heightM'],volumeBasis=basis,heightBasis=model['basis'])
+ by_place[fid].update(modelBasis=model['basis'],heightM=model['heightM'],volumeBasis=basis)
  if model.get('groundFootprintKnown') is False:
   by_place[fid].update(groundFootprintKnown=False,positionAccuracyM=None)
   f['properties'].update(groundFootprintKnown=False,positionAccuracyM=None)
@@ -532,6 +540,15 @@ for fid,ground,model,children,levels in west_models(geometries,to_wgs):
   part['properties'].update(kind='building-part',displayParentId=fid,displayBasis='原记录建筑分件按实看组成并入同组显示；原地面与路网ID独立保留')
  fidelity['landmarkModels'].append({'id':fid,'basis':model['basis'],'routingGeometryChanged':False,'displayParts':children})
 
+archive_id='way/895390958'
+if by_feature[archive_id]['properties']['version']!=2:raise ValueError('Archive site source needs a new display review')
+archive_ground,archive_model=archives_model(geometries[archive_id],to_wgs)
+archive_display=next(f for f in display['features'] if f['id']==archive_id)
+archive_display['geometry']=geographic(archive_ground)
+archive_display['properties'].update(surfaceModel=archive_model,displayBasis=archive_model['basis'],heightM=archive_model['heightM'],volumeBasis='cartographic-proxy',modelFamily='context-landmark',actualHeightM=None,groundFootprintKnown=False)
+by_place[archive_id].update(modelBasis=archive_model['basis'],heightM=archive_model['heightM'],volumeBasis='cartographic-proxy')
+fidelity['archivesModel']={'id':archive_id,'sourceVersion':2,**archive_model['massingInterpretation']}
+
 commons=read(ASSETS/'commons-observations.json')
 fidelity['commonsObservations']=commons
 display_geometries={f['id']:metric(f['geometry']) for f in display['features'] if f['properties']['kind'] in ['building','building-part']}
@@ -557,6 +574,7 @@ for f in display['features']:
 # batching only; it does not remove architectural detail or source geometry.
 for f in display['features']:
  model=f['properties'].get('surfaceModel')
+ if model and model.get('groundIsProjection'):f['properties']['groundIsProjection']=True
  if model and model.get('type')=='authored-mesh':
   materials={}
   for part in model['parts']:materials.setdefault(part['material'],[]).extend(part['vertices'])
@@ -565,46 +583,33 @@ for f in display['features']:
   # and reduces parse/IPC size without changing acquired ground or road data.
   for vertices in materials.values():
    for vertex in vertices:vertex[:]=[round(vertex[0],8),round(vertex[1],8),round(vertex[2],3)]
-  # Serialization may collapse a pair of triangle corners. Such a face has
-  # no occupied area in any coordinate frame; retain every other vertex and
-  # every material/feature, including narrow and open surfaces.
+  # Serialization and collapsed roof poles can produce empty triangles.
+  # Preserve every nonzero face, including narrow and open surfaces.
   for material,vertices in materials.items():
-   materials[material]=[p for i in range(0,len(vertices),3) for p in vertices[i:i+3] if not (vertices[i]==vertices[i+1] or vertices[i+1]==vertices[i+2] or vertices[i]==vertices[i+2])]
+   materials[material]=nonzero_surface_vertices(vertices)
   model['parts']=[{'material':material,'vertices':vertices} for material,vertices in materials.items()]
 display['features'].sort(key=lambda f:0 if f['properties'].get('role')=='infield-surround' else 1)
 # Adjacent water polygons share one displayed surface; internal acquisition
 # boundaries must not appear as dams or double shore lines. Identity and
 # routing still use each original water feature.
-water_display=[geometries[f['id']] for f in features if f['properties']['kind']=='water' and f['geometry']['type'] in ['Polygon','MultiPolygon']]
-channel_records=[]
-for record in fidelity.get('channelDisplay',{}).get('segments',[]):
- fid=record['id'];line=geometries[fid];prop=by_feature[fid]['properties']
- if prop.get('tunnel')=='culvert' or number(prop.get('layer'))<0:continue
- surface=channel_display(line,record['illustrativeWidthM'])
- # Do not paint a wide open-water ribbon through an acquired building. Such
- # source conflicts remain centreline-only in that small area, not invented
- # indoor canals or claims that the bank has been measured.
- nearby=[builds[int(i)] for i in btree.query(surface) if surface.intersects(builds[int(i)])]
- if nearby:surface=surface.difference(unary_union(nearby))
- water_display.append(surface)
+island_paving=unary_union([g for _,g,role,_ in island_surfaces if role=='paving'])
+water=unary_union([geometries[f['id']] for f in features if f['properties']['kind']=='water'])
+fidelity['islandLandscape']['sourceWaterOverlapM2']=round(water.intersection(island_paving).area,2)
+smooth,channel_records,road_margin_ids,shore_records,channel_policy=water_display_surface(
+ features,geometries,fidelity['channelDisplay'],island_paving,soften_source_curve)
+for record in channel_records:
+ fid=record['id']
  rendered=next(f for f in display['features'] if f['id']==fid)
- rendered['properties'].update(kind='waterway-source',displayBasis=fidelity['channelDisplay']['basis'])
- channel_records.append({**record,'bankSurveyed':False,'routingSourceChanged':False,'buildingConflictAreaM2':round(channel_display(line,record['illustrativeWidthM']).area-surface.area,2)})
+ rendered['properties'].update(kind='waterway',displayBasis=record['basis'],displayWidthM=record['illustrativeWidthM'],waterSurfaceId='display/water-surface')
 fidelity['channelDisplay']['generated']=channel_records
-if water_display:
- merged=unary_union(water_display)
- # The reviewed paved platforms sit at the island's water edge. Acquired
- # water was coarser here; retain it for routing, but do not paint water over
- # the clearly visible ground-level terraces in the display model.
- island_paving=unary_union([g for _,g,role,_ in island_surfaces if role=='paving'])
- fidelity['islandLandscape']['sourceWaterOverlapM2']=round(merged.intersection(island_paving).area,2)
- merged=merged.difference(island_paving)
- smooth,shore_records=reviewed_water_surface(merged,{fid:geometries[fid] for fid in ['relation/9772853','relation/7927357']},soften_source_curve)
- display['features'].append({'type':'Feature','id':'display/water-surface','properties':{'kind':'water-surface','role':'water-surface','displayBasis':'Union before shore refinement prevents false seams; no new connections or routing edges.'},'geometry':geographic(smooth if smooth.is_valid else merged)})
+fidelity['channelDisplay']['roadMarginIds']=road_margin_ids
+fidelity['channelDisplay']['continuityPolicy']=channel_policy
+if not smooth.is_empty:
+ display['features'].append({'type':'Feature','id':'display/water-surface','properties':{'kind':'water-surface','role':'water-surface','displayBasis':'Union before shore refinement prevents false seams; no new connections or routing edges.'},'geometry':mapping(geographic_water_surface(smooth,to_wgs))})
  for source_water in [f for f in features if f['properties']['kind']=='water' and f['id'] in by_place and f['geometry']['type'] in ['Polygon','MultiPolygon']]:
   fid=source_water['id'];hit,shore=named_water_display(geometries[fid],smooth)
   for suffix,g,role in [('water-hit',hit,'named-water-hit'),('water-shore',shore,'named-water-shore')]:
-   if not g.is_empty:display['features'].append({'type':'Feature','id':fid+':'+suffix,'properties':{'kind':role,'waterId':fid,'displayBasis':'Named identity on displayed water; shore emphasis excludes acquisition seams. Not a routing boundary.'},'geometry':geographic(g)})
+   if not g.is_empty:display['features'].append({'type':'Feature','id':fid+':'+suffix,'properties':{'kind':role,'waterId':fid,'displayBasis':'Named identity on displayed water; shore emphasis excludes acquisition seams. Not a routing boundary.'},'geometry':mapping(geographic_water_surface(g,to_wgs))})
 
 # Retain one generator and one public fact directory. Both applications consume
 # this snapshot (and its explicit identity adapter), never hand-maintained twins.
@@ -614,19 +619,42 @@ for f in display['features']:
  if normalization['result']=='NORMALIZED':
   f['geometry']=mapping(fixed)
   f['properties']['sourceOutlineMembers']=by_feature[f['id']]['properties']['sourceOutlineMembers']
+building_supplement=read(ASSETS/'building-supplement.json')
+supplement_features,supplement_places,supplement_facts=supplemental_buildings(building_supplement,places)
+features.extend(supplement_features);display['features'].extend(copy.deepcopy(supplement_features));places.extend(supplement_places)
+manifest['attribution']='© OpenStreetMap contributors · Overture Maps Foundation · Qian Shi et al.'
 with (ASSETS/'official-locator-source.tsv').open(encoding='utf8',newline='') as stream:
  legacy_references={r['id']:[float(r['e_m']),float(r['n_m'])] for r in csv.DictReader(stream,delimiter='\t')}
 for old,coordinate in list(legacy_references.items()):legacy_references['official/legacy/'+old]=coordinate
-version='campus-v3-'+hashlib.sha256(json.dumps([features,places,graph,venues,crosswalk,redirects,detail,display,legacy_references,source_sha,fidelity],sort_keys=True).encode()).hexdigest()[:16]
+# Normalize the completed exchange output before versioning. Mesh vertices,
+# source acquisitions and model construction keep their own conventions.
+for collection in [geography,display,{'features':detail}]:
+ for f in collection['features']:f['geometry']=geojson_right_hand_rule(f['geometry'])
+display_by_id={f['id']:f for f in display['features']}
+for context in fidelity.get('placeSearchContexts',[]):
+ for fid,name in context['members'].items():
+  p=by_place[fid]
+  p['aliases']=list(dict.fromkeys([*p.get('aliases',[]),*(prefix+name for prefix in context['prefixes'])]))
+# Explicit illustrative volumes belong only to display and place descriptions.
+# A later sourced height or authored model takes precedence over this proxy.
+for observation in fidelity.get('displayVolumeProxies',[]):
+ fid=observation['id'];p=display_by_id[fid]['properties']
+ if p.get('surfaceModel') or p.get('heightM',0)>0:continue
+ if p['kind']!='building' or observation['basis']!='cartographic-proxy':raise ValueError('Invalid display volume proxy: '+fid)
+ p.update(heightM=observation['heightM'],volumeBasis='cartographic-proxy',actualHeightM=None,displayBasis=observation['description'])
+ by_place[fid].update(heightM=observation['heightM'],volumeBasis='cartographic-proxy',modelBasis=observation['description'])
+version='campus-v3-'+hashlib.sha256(json.dumps([features,places,graph,venues,crosswalk,redirects,detail,display,legacy_references,source_sha,fidelity,building_supplement],sort_keys=True).encode()).hexdigest()[:16]
 graph['version']=version
 for v in venues:v['geometryVersion']=version
-manifest.update(version=version,implementation='campus-map/v3',buildings=sum(p['kind']=='building' for p in places),connectedEntrances=sum(e['connected'] for p in places for e in p['entrances']),selectable=len(places),features=len(features),nodes=len(graph['nodes']),edges=len(graph['edges']),routableBuildings=sum(p['kind']=='building' and bool(p['accessCandidates']) for p in places),estimatedAccessCandidates=candidate_count,sourceSha256=source_sha,sharedFacts='shared-facts.json',label='紫金港 · 已记录的周边',volumeCoverage=dict(collections.Counter(f['properties'].get('volumeBasis') for f in features if f['properties']['kind']=='building')))
-manifest['limitations']=['公开源快照，不是实时开放或现场测绘。','实线沿已记录路网；虚线为80米内避障接入估计，非已确认的门或室内通路。','门禁/时段待核的条件路段默认排除；空白地面不推为通路。','体量区分源高度、明确层数估计与图像支持的形态比例概化；精确高度未知如实标明，没有可用形态依据时保持轮廓，不提供室内导航。','学校资料记载东西田径场名义400米；显示曲线与参考环线不是认证测量线，不能用于精确跑道定位。']
+volume_coverage=collections.Counter(display_by_id.get(f['id'],f)['properties'].get('volumeBasis') for f in features if f['properties']['kind']=='building')
+manifest.update(version=version,implementation='campus-map/v3',buildings=sum(p['kind']=='building' for p in places),connectedEntrances=sum(e['connected'] for p in places for e in p['entrances']),selectable=len(places),features=len(features),nodes=len(graph['nodes']),edges=len(graph['edges']),routableBuildings=sum(p['kind']=='building' and bool(p['accessCandidates']) for p in places),estimatedAccessCandidates=candidate_count,sourceSha256=source_sha,sharedFacts='shared-facts.json',label='紫金港 · 已记录的周边',volumeCoverage=dict(volume_coverage))
+manifest['limitations']=['公开源快照，不是实时开放或现场测绘。','实线沿已记录路网；虚线为80米内避障接入估计，非已确认的门或室内通路。','门禁/时段待核的条件路段默认排除；空白地面不推为通路。','体量区分源高度、层数估计、图像概化与制图示意；示意体量不代表实测高度或建筑用途，不提供室内导航。','学校资料记载东西田径场名义400米；显示曲线与参考环线不是认证测量线，不能用于精确跑道定位。']
 facts={'schema':'zju-shared-facts/v3','version':version,'sourceSha256':source_sha,'sourceDate':manifest['sourceDate'],'coordinateSystem':{'geography':'EPSG:4326','order':['longitude','latitude'],'render':'EPSG:3857','locator':'EPSG:32651','originUtmM':[217000,3355200],'distance':'source haversine metres; candidate connector haversine metres','birdseye':'existing official fixed 30deg/45deg transform; no new raster fit'},'officialToCanonical':crosswalk,'legacyPlaceRedirects':redirects,'unmatchedOfficialIds':held,'venues':venues,'changes':changes,'accessPolicy':{'maxMeters':80,'maxCandidates':6,'minSeparationMeters':3,'unknownGates':'excluded by default','ownBuilding':'reference connector may cross own footprint, explicitly estimated','rejected':dict(rejected)}}
 facts['originalLocatorReferences']=legacy_references
 facts['displayInterpolation']=curve_checks
 facts['displayObservations']=display_observation
 facts['fidelityObservations']=fidelity
+facts['buildingSupplement']=supplement_facts
 facts['courtConstruction']=court_models
 facts['outlineRefinements']=outline_refinements
 facts['reviewedShoreDisplay']=shore_records
@@ -637,7 +665,7 @@ write(PUBLIC/'geography.geojson',geography);write(PUBLIC/'sports-details.geojson
 write(PUBLIC/'display-geography.geojson',display)
 write(PUBLIC/'venues.json',venues)
 write(ASSETS/'display-geography.geojson',display);write(ASSETS/'venues.json',venues)
-manifest['componentHashes']={name:hashlib.sha256((ASSETS/name).read_bytes()).hexdigest() for name in ['places.json','network.json','geography.geojson','display-geography.geojson','sports-details.geojson','venues.json','shared-facts.json']}
+manifest['componentHashes']={name:hashlib.sha256((ASSETS/name).read_bytes()).hexdigest() for name in ['places.json','network.json','geography.geojson','display-geography.geojson','sports-details.geojson','venues.json','shared-facts.json','building-supplement.json']}
 for folder in [ASSETS,PUBLIC]:write(folder/'manifest.json',manifest)
 print(json.dumps({'version':version,'places':len(places),'mappedOfficial':sum(not v['id'].startswith('official/') for v in crosswalk.values()),'heldReferences':len(held),'estimatedAccessCandidates':candidate_count,'routableBuildings':manifest['routableBuildings'],'knownEntranceBuildings':sum(p['kind']=='building' and any(e['connected'] for e in p['entrances']) for p in places),'sportMarkings':len(detail),'volumes':manifest['volumeCoverage'],'obstacleRejections':dict(rejected)},ensure_ascii=False))
 

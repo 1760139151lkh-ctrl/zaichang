@@ -4,6 +4,7 @@ export type LngLat = [number, number];
 export type Bounds = [number, number, number, number];
 export interface MapEntrance {
   id: string;
+  structureId?: string;
   name: string;
   coordinate: LngLat;
   connected: boolean;
@@ -11,6 +12,7 @@ export interface MapEntrance {
 }
 export interface MapAccessCandidate {
   id: string;
+  entranceId?: string;
   nodeId: string;
   kind: 'entrance' | 'estimate' | 'road-point';
   name: string;
@@ -23,6 +25,7 @@ export interface MapAccessCandidate {
 }
 export interface MapPoint {
   id: string;
+  undergroundStation?: boolean;
   graphNodeId?: string;
   displayName: string;
   aliases: string[];
@@ -38,7 +41,7 @@ export interface MapPoint {
   roadReference?: { nodeId: string; roadName: string; forPlaceIds: string[] };
   officialIds?: string[];
   legacyIds?: string[];
-  volumeBasis?: 'source-height' | 'levels-estimate' | 'footprint-only' | 'official-approximate-height' | 'construction-document' | 'image-proportioned';
+  volumeBasis?: 'source-height' | 'levels-estimate' | 'footprint-only' | 'official-approximate-height' | 'construction-document' | 'image-proportioned' | 'cartographic-proxy';
   heightM?: number;
   modelBasis?: string;
   accessReviewBasis?: string;
@@ -197,6 +200,13 @@ export interface MapRouteResult {
 export interface MapCard {
   kind: 'route';
   route: MapRouteResult;
+}
+export function routeHasUnverifiedPassages(route:MapRouteResult):boolean {
+  return route.status==='ready'&&Boolean(route.originAccess?.conditions?.length||route.destinationAccess?.conditions?.length||route.segments?.some(segment=>segment.conditions?.length));
+}
+export function mapRoutePointName(point:MapPoint|undefined,access?:MapAccessCandidate):string {
+  const entrance=point?.undergroundStation&&point.entrances.find(e=>e.id===(access?.entranceId||(access?.kind==='entrance'?access.nodeId:undefined)));
+  return point?(entrance?`${point.displayName} · ${entrance.name}`:point.displayName):'';
 }
 export function emptyRoute(reason = '选择一个地点，看看怎么走。'): MapRouteResult {
   return {

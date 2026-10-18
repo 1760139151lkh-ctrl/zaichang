@@ -77,7 +77,7 @@ export const supported: SemanticReview = {
 export function testDirectory(label: string) {
   const root = process.env.ZAICHANG_DATA_DIR;
   if (process.env.ZAICHANG_TEST !== '1' || !root || !process.env.ZAICHANG_TEST_ROOT)
-    throw new Error('Use scripts/test-harness.mjs: isolated test profile required.');
+    throw new Error('Run npm test: isolated test profile required.');
   const relative = path.relative(process.env.ZAICHANG_TEST_ROOT, root);
   if (!relative || relative.startsWith('..') || path.isAbsolute(relative))
     throw new Error('Refusing non-isolated test directory');

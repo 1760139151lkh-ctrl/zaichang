@@ -1,7 +1,52 @@
 """Exact structural normalization; no snapping, buffering or positional fit."""
-from shapely.geometry import MultiPolygon, Polygon
+import copy
+import math
+from shapely.geometry import MultiPolygon, Polygon, LinearRing, shape
 from shapely.geometry.polygon import orient
 from shapely.ops import unary_union
+
+
+def nonzero_surface_vertices(vertices):
+    """Keep every nonzero triangle; no area tolerance or coordinate changes."""
+    if len(vertices)%3:
+        raise ValueError('Surface vertices must contain complete triangles')
+    result=[]
+    for i in range(0,len(vertices),3):
+        face=vertices[i:i+3]
+        if any(len(p)!=3 or not all(math.isfinite(v) for v in p) for p in face):
+            raise ValueError('Surface coordinates must be finite XYZ positions')
+        a,b,c=face;u=[b[j]-a[j] for j in range(3)];v=[c[j]-a[j] for j in range(3)]
+        if any(u[j]*v[(j+1)%3]-u[(j+1)%3]*v[j]!=0 for j in range(3)):
+            result.extend(face)
+    return result
+
+
+def geojson_right_hand_rule(geometry):
+    """Order exported rings without changing any position or occupied region.
+
+    RFC7946 exterior rings are counterclockwise and holes clockwise. This is
+    an output contract; compatible readers may still accept older ring order.
+    Invalid input needs its own source/geometry repair, not silent make-valid.
+    """
+    if geometry['type'] not in ['Polygon', 'MultiPolygon']:
+        return geometry
+    if not shape(geometry).is_valid:
+        raise ValueError('Invalid polygon cannot be normalized by output ring order')
+    result=copy.deepcopy(geometry)
+    polygons=geometry['coordinates'] if geometry['type']=='MultiPolygon' else [geometry['coordinates']]
+    output=[]
+    for polygon in polygons:
+        rings=[]
+        for i,ring in enumerate(polygon):
+            if len(ring)<4 or ring[0]!=ring[-1]:
+                raise ValueError('Export ring must already be closed with at least four positions')
+            ordered=list(copy.deepcopy(ring))
+            if LinearRing(ring).is_ccw != (i==0):
+                ordered.reverse()
+            rings.append(ordered)
+        output.append(rings)
+    result['coordinates']=output if geometry['type']=='MultiPolygon' else output[0]
+    return result
 
 
 def vertices(geometry):

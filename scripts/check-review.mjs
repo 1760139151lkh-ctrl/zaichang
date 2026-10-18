@@ -11,8 +11,8 @@ function walk(folder) {
   }
 }
 walk(root);
-const maps=new Set(['manifest.json','places.json','network.json','geography.geojson','display-geography.geojson','sports-details.geojson','shared-facts.json','venues.json'].map(name=>name+'.gz').concat('source.osm.json.gz'));
-const licenses=new Set(['ODbL-1.0.txt','NotoSansSC-OFL.txt','MapLibre-BSD-3-Clause.txt','OpenLayers-BSD-2-Clause.txt','React-MIT.txt','ReactDOM-MIT.txt','Lucide-ISC.txt','Noble-Hashes-MIT.txt']);
+const maps=new Set(['manifest.json','places.json','network.json','geography.geojson','display-geography.geojson','sports-details.geojson','shared-facts.json','venues.json','building-supplement.json'].map(name=>name+'.gz').concat('source.osm.json.gz'));
+const licenses=new Set(['ODbL-1.0.txt','Building-data-attribution.txt','NotoSansSC-OFL.txt','MapLibre-BSD-3-Clause.txt','MapLibre-Style-Spec.txt','Earcut-ISC.txt','OpenLayers-BSD-2-Clause.txt','React-MIT.txt','ReactDOM-MIT.txt','Lucide-ISC.txt','Noble-Hashes-MIT.txt']);
 for(const file of files) {
   const relative=path.relative(root,file).replaceAll(path.sep,'/');
   assert(relative==='index.html'||relative.startsWith('assets/')||relative.startsWith('map/')&&maps.has(relative.slice(4))||relative.startsWith('licenses/')&&licenses.has(relative.slice(9)),'Unexpected deployed file: '+relative);

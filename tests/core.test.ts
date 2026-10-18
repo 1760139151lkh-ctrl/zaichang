@@ -45,7 +45,7 @@ function hostClient(client: DeepSeekClient, options?: CoreHostFixture) {
   return client;
 }
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
-function tmpdir(){if(process.env.ZAICHANG_TEST!=='1'||!process.env.ZAICHANG_DATA_DIR)throw new Error('Run through scripts/test.mjs with an isolated test directory.');return process.env.ZAICHANG_DATA_DIR;}
+function tmpdir(){if(process.env.ZAICHANG_TEST!=='1'||!process.env.ZAICHANG_DATA_DIR)throw new Error('Run npm test with an isolated test directory.');return process.env.ZAICHANG_DATA_DIR;}
 function message(sessionId: string, content: string, role: 'user' | 'assistant' = 'user'): Message {
   return {
     id: randomUUID(),

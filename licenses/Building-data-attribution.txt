@@ -1,0 +1,19 @@
+Building roofprint supplement
+
+Overture Maps Foundation, buildings theme, release 2026-09-23.1.
+https://docs.overturemaps.org/guides/buildings/
+Database license: Open Database License 1.0.
+https://opendatacommons.org/licenses/odbl/1-0/
+
+Upstream dataset:
+Qian Shi, Jiajun Zhu, Zhengyu Liu, Haonan Guo, Mengxi Liu, Zihong Liu,
+and Xiaoping Liu. A first high-quality vector data of buildings in East
+Asian countries based on a comprehensive large-scale mapping framework.
+Zenodo, published 22 July 2023. https://doi.org/10.5281/zenodo.8174931
+Licensed under Creative Commons Attribution 4.0 International:
+https://creativecommons.org/licenses/by/4.0/
+
+Changes: a bounded selection of roofprints, output polygon ring ordering,
+and separate illustrative display heights. Source coordinates and Overture
+GERS identifiers are retained. The supplement does not establish current
+building use, measured height, ground footprint or entrance access.

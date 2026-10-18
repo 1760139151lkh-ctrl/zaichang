@@ -120,6 +120,8 @@
     "nominalBasis": "浙大场馆介绍明确东西田径场均配置400米标准跑道；此为名义场馆资料，不是派生几何长度或现场复测。",
     "displayBasis": "沿原地面边界拟合共轴圆弧与相切直段，官方影像和2.5D用于区分跑道、场端铺装与延伸区。仅修显示曲线，原道路拓扑和原轮廓保留。",
     "laneCount": null,
+    "schematicLaneCount": 8,
+    "schematicLaneBasis": "分道采用示意分格，实际道数和场线尺寸待核实；不作为圈长或跑步统计依据。",
     "laneObservations": {
       "relation/14296233": {
         "laneCount": 8,
@@ -392,6 +394,354 @@
       "limits": "屋面设备板类型、数量、精确分格、基座、檐口与构件尺寸为概化；未生成室内楼层或真实门。旧效果图中可能出现的庭院不凭文字二手转述挖孔，采用已查看的建成屋面。"
     }
   },
+  "displayVolumeProxies": [
+    {
+      "id": "way/543896552",
+      "heightM": 3.5,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "蓝田3舍旁已记录的小型轮廓，采用低体量示意；用途、实际高度及与邻楼的归属关系待核实。",
+      "source": "https://www.openstreetmap.org/way/543896552",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false
+    },
+    {
+      "id": "way/1264055913",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1264055913",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1264055914",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1264055914",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1264055915",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1264055915",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1265054473",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1265054473",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1265054474",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1265054474",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1265054475",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1265054475",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1265054476",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1265054476",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1265054477",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1265054477",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1265054478",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1265054478",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1265054479",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1265054479",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1265054480",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1265054480",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1265054481",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1265054481",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1265054482",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1265054482",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1265054483",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1265054483",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1265054485",
+      "heightM": 36,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑北侧长条楼采用36米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1265054485",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1265054486",
+      "heightM": 36,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑北侧长条楼采用36米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1265054486",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1265054487",
+      "heightM": 36,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑北侧长条楼采用36米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1265054487",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1265054488",
+      "heightM": 36,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑北侧长条楼采用36米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1265054488",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1292316433",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1292316433",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1292316434",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1292316434",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1292316435",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1292316435",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1292316436",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1292316436",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1292316438",
+      "heightM": 72,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑东北侧斜向楼组采用72米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1292316438",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1292316439",
+      "heightM": 72,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑东北侧斜向楼组采用72米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1292316439",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1292316440",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1292316440",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1292316441",
+      "heightM": 60,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑点式楼组采用60米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1292316441",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1292316442",
+      "heightM": 72,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑东北侧斜向楼组采用72米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1292316442",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    },
+    {
+      "id": "way/1292316443",
+      "heightM": 72,
+      "basis": "cartographic-proxy",
+      "actualHeightM": null,
+      "description": "文鼎苑东北侧斜向楼组采用72米统一显示体量；这是按楼群关系作出的制图示意，单栋实高、层数与屋顶形式待核。",
+      "source": "https://www.openstreetmap.org/way/1292316443",
+      "sourceVersion": 1,
+      "sourceGeometryChanged": false,
+      "group": "wending-residential-display",
+      "inference": "按已记录轮廓的空间分组采用统一代理高度，不把平面形状当作实测高度证据。"
+    }
+  ],
   "reviewedBuildingHeights": [
     {
       "id": "way/519369449",
@@ -588,5 +938,606 @@
       ],
       "basis": "港湾家园27幢：原官方与源面名称对应，参考点在该源面中心附近。"
     }
-  ]
+  ],
+  "placeSearchContexts": [
+    {
+      "areaId": "way/673268452",
+      "sourceVersion": 1,
+      "prefixes": [
+        "文鼎苑",
+        "耀江文鼎苑"
+      ],
+      "members": {
+        "way/1264055913": "12幢",
+        "way/1264055914": "11幢",
+        "way/1264055915": "13幢",
+        "way/1264055916": "14幢",
+        "way/1265054473": "5幢",
+        "way/1265054474": "4幢",
+        "way/1265054475": "3幢",
+        "way/1265054476": "2幢",
+        "way/1265054477": "6幢",
+        "way/1265054478": "7幢",
+        "way/1265054479": "8幢",
+        "way/1265054480": "17幢",
+        "way/1265054481": "16幢",
+        "way/1265054482": "15幢",
+        "way/1265054483": "18幢",
+        "way/1265054485": "37幢",
+        "way/1265054486": "31幢",
+        "way/1265054487": "35幢",
+        "way/1265054488": "33幢",
+        "way/1292316433": "32幢",
+        "way/1292316434": "34幢",
+        "way/1292316435": "36幢",
+        "way/1292316436": "30幢",
+        "way/1292316438": "21幢",
+        "way/1292316439": "23幢",
+        "way/1292316440": "25幢",
+        "way/1292316441": "24幢",
+        "way/1292316442": "20幢",
+        "way/1292316443": "22幢"
+      },
+      "basis": "同一公开源中的楼号与住宅片区范围形成检索上下文；保留原楼号、ID和坐标，不合并地点，不证明物理归属或入口。",
+      "source": "https://www.openstreetmap.org/way/673268452"
+    }
+  ],
+  "undergroundStations": [
+    {
+      "id": "way/966723671",
+      "name": "蒋村",
+      "sourceVersion": 10,
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/way/966723671/full.json",
+      "sourceGeometryChanged": false,
+      "verticalRole": "underground-station",
+      "verticalRoleBasis": "https://hznews.hangzhou.com.cn/chengshi/content/2017-05/10/content_6546575_0.htm",
+      "entranceBasis": "Current OSM railway=subway_entrance nodes that are exact members of the retained station boundary; publication correspondence only. No nearest-station assignment.",
+      "entrances": [
+        {
+          "id": "9848212930",
+          "name": "B口",
+          "coordinate": [
+            120.0630062,
+            30.2975029
+          ],
+          "version": 2,
+          "source": "https://www.openstreetmap.org/node/9848212930",
+          "structureId": "way/1073571932",
+          "structureVersion": 2,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        },
+        {
+          "id": "9848212933",
+          "name": "A2口",
+          "coordinate": [
+            120.0649881,
+            30.29722
+          ],
+          "version": 2,
+          "source": "https://www.openstreetmap.org/node/9848212933",
+          "structureId": "way/1073571931",
+          "structureVersion": 2,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        },
+        {
+          "id": "9848212935",
+          "name": "E口",
+          "coordinate": [
+            120.064555,
+            30.2965907
+          ],
+          "version": 2,
+          "source": "https://www.openstreetmap.org/node/9848212935",
+          "structureId": "way/1073571933",
+          "structureVersion": 2,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        },
+        {
+          "id": "9848212936",
+          "name": "D口",
+          "coordinate": [
+            120.0630244,
+            30.2969426
+          ],
+          "version": 2,
+          "source": "https://www.openstreetmap.org/node/9848212936",
+          "structureId": "way/1073571934",
+          "structureVersion": 2,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        }
+      ],
+      "interiorWays": [
+        {
+          "id": "way/1073571942",
+          "version": 2
+        },
+        {
+          "id": "way/1073571943",
+          "version": 1
+        },
+        {
+          "id": "way/1073571944",
+          "version": 2
+        },
+        {
+          "id": "way/1073571945",
+          "version": 1
+        },
+        {
+          "id": "way/1073571946",
+          "version": 1
+        },
+        {
+          "id": "way/1073571947",
+          "version": 1
+        },
+        {
+          "id": "way/1073571948",
+          "version": 1
+        },
+        {
+          "id": "way/1073571951",
+          "version": 2
+        },
+        {
+          "id": "way/1073571952",
+          "version": 1
+        },
+        {
+          "id": "way/1073571953",
+          "version": 2
+        },
+        {
+          "id": "way/1073571954",
+          "version": 1
+        },
+        {
+          "id": "way/1073571957",
+          "version": 1
+        },
+        {
+          "id": "way/1083073712",
+          "version": 1
+        },
+        {
+          "id": "way/1083073719",
+          "version": 1
+        }
+      ],
+      "interiorBasis": "Unchanged source ways with tunnel=yes or culvert and negative layer intersecting the reviewed station; current tags and node coordinates rechecked. Retain as conditional indoor passages.",
+      "currentOpeningStatus": "unknown",
+      "physicalAccessAccepted": false
+    },
+    {
+      "id": "way/971825719",
+      "name": "三坝",
+      "sourceVersion": 12,
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/way/971825719/full.json",
+      "sourceGeometryChanged": false,
+      "verticalRole": "underground-station",
+      "verticalRoleBasis": "https://hznews.hangzhou.com.cn/chengshi/content/2019-06/25/content_7216183_0.htm",
+      "entranceBasis": "Current OSM railway=subway_entrance nodes that are exact members of the retained station boundary; publication correspondence only. No nearest-station assignment.",
+      "entrances": [
+        {
+          "id": "8301865286",
+          "name": "C口",
+          "coordinate": [
+            120.0929216,
+            30.3030734
+          ],
+          "version": 4,
+          "source": "https://www.openstreetmap.org/node/8301865286"
+        },
+        {
+          "id": "8301865290",
+          "name": "B3口",
+          "coordinate": [
+            120.09265,
+            30.3046041
+          ],
+          "version": 3,
+          "source": "https://www.openstreetmap.org/node/8301865290"
+        },
+        {
+          "id": "8301865289",
+          "name": "B4口",
+          "coordinate": [
+            120.0931041,
+            30.305499
+          ],
+          "version": 3,
+          "source": "https://www.openstreetmap.org/node/8301865289"
+        },
+        {
+          "id": "8301865291",
+          "name": "B1口",
+          "coordinate": [
+            120.093572,
+            30.3037767
+          ],
+          "version": 3,
+          "source": "https://www.openstreetmap.org/node/8301865291"
+        },
+        {
+          "id": "8301865287",
+          "name": "A口",
+          "coordinate": [
+            120.0939039,
+            30.3027134
+          ],
+          "version": 4,
+          "source": "https://www.openstreetmap.org/node/8301865287",
+          "structureId": "way/1030339687",
+          "structureVersion": 1,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        },
+        {
+          "id": "8301865284",
+          "name": "G1口",
+          "coordinate": [
+            120.0939635,
+            30.3022297
+          ],
+          "version": 3,
+          "source": "https://www.openstreetmap.org/node/8301865284"
+        },
+        {
+          "id": "8994709998",
+          "name": "F口",
+          "coordinate": [
+            120.0934753,
+            30.3009141
+          ],
+          "version": 3,
+          "source": "https://www.openstreetmap.org/node/8994709998"
+        },
+        {
+          "id": "8301865285",
+          "name": "D口",
+          "coordinate": [
+            120.0929781,
+            30.3018939
+          ],
+          "version": 3,
+          "source": "https://www.openstreetmap.org/node/8301865285"
+        }
+      ],
+      "interiorWays": [
+        {
+          "id": "way/971825717",
+          "version": 4
+        },
+        {
+          "id": "way/971825718",
+          "version": 4
+        },
+        {
+          "id": "way/972208185",
+          "version": 2
+        },
+        {
+          "id": "way/972208186",
+          "version": 2
+        },
+        {
+          "id": "way/972208187",
+          "version": 1
+        },
+        {
+          "id": "way/972208188",
+          "version": 1
+        },
+        {
+          "id": "way/972208189",
+          "version": 1
+        },
+        {
+          "id": "way/972208190",
+          "version": 1
+        },
+        {
+          "id": "way/972208191",
+          "version": 1
+        },
+        {
+          "id": "way/972208193",
+          "version": 1
+        },
+        {
+          "id": "way/972208194",
+          "version": 2
+        },
+        {
+          "id": "way/972208195",
+          "version": 1
+        },
+        {
+          "id": "way/972208196",
+          "version": 1
+        },
+        {
+          "id": "way/972208215",
+          "version": 2
+        },
+        {
+          "id": "way/972208216",
+          "version": 1
+        },
+        {
+          "id": "way/975512248",
+          "version": 1
+        },
+        {
+          "id": "way/1083073684",
+          "version": 1
+        },
+        {
+          "id": "way/1299949564",
+          "version": 1
+        }
+      ],
+      "interiorBasis": "Unchanged source ways with tunnel=yes or culvert and negative layer intersecting the reviewed station; current tags and node coordinates rechecked. Retain as conditional indoor passages.",
+      "currentOpeningStatus": "unknown",
+      "physicalAccessAccepted": false
+    },
+    {
+      "id": "way/971835787",
+      "name": "虾龙圩",
+      "sourceVersion": 9,
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/way/971835787/full.json",
+      "sourceGeometryChanged": false,
+      "verticalRole": "underground-station",
+      "verticalRoleBasis": "https://hznews.hangzhou.com.cn/chengshi/content/2017-12/22/content_6753629_2.htm",
+      "entranceBasis": "Current OSM railway=subway_entrance nodes that are exact members of the retained station boundary; publication correspondence only. No nearest-station assignment.",
+      "entrances": [
+        {
+          "id": "8301865264",
+          "name": "A口",
+          "coordinate": [
+            120.091645,
+            30.3126292
+          ],
+          "version": 3,
+          "source": "https://www.openstreetmap.org/node/8301865264",
+          "structureId": "way/1031595109",
+          "structureVersion": 1,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        },
+        {
+          "id": "8301865273",
+          "name": "D口",
+          "coordinate": [
+            120.091922,
+            30.3112649
+          ],
+          "version": 3,
+          "source": "https://www.openstreetmap.org/node/8301865273",
+          "structureId": "way/1031595107",
+          "structureVersion": 1,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        },
+        {
+          "id": "8301865272",
+          "name": "C口",
+          "coordinate": [
+            120.0914078,
+            30.3111873
+          ],
+          "version": 3,
+          "source": "https://www.openstreetmap.org/node/8301865272",
+          "structureId": "way/1031595108",
+          "structureVersion": 1,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        },
+        {
+          "id": "9507341997",
+          "name": "垂梯",
+          "coordinate": [
+            120.0910204,
+            30.3122801
+          ],
+          "version": 1,
+          "source": "https://www.openstreetmap.org/node/9507341997",
+          "structureId": "way/1031595106",
+          "structureVersion": 1,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        },
+        {
+          "id": "8301865271",
+          "name": "B口",
+          "coordinate": [
+            120.0910815,
+            30.3124502
+          ],
+          "version": 3,
+          "source": "https://www.openstreetmap.org/node/8301865271",
+          "structureId": "way/1031595105",
+          "structureVersion": 1,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        }
+      ],
+      "interiorWays": [],
+      "interiorBasis": "Unchanged source ways with tunnel=yes or culvert and negative layer intersecting the reviewed station; current tags and node coordinates rechecked. Retain as conditional indoor passages.",
+      "currentOpeningStatus": "unknown",
+      "physicalAccessAccepted": false
+    },
+    {
+      "id": "way/971835788",
+      "name": "三墩",
+      "sourceVersion": 8,
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/way/971835788/full.json",
+      "sourceGeometryChanged": false,
+      "verticalRole": "underground-station",
+      "verticalRoleBasis": "https://hznews.hangzhou.com.cn/chengshi/content/2015-04/08/content_5720242.htm",
+      "entranceBasis": "Current OSM railway=subway_entrance nodes that are exact members of the retained station boundary; publication correspondence only. No nearest-station assignment.",
+      "entrances": [
+        {
+          "id": "8288780974",
+          "name": "D口",
+          "coordinate": [
+            120.088725,
+            30.3217604
+          ],
+          "version": 3,
+          "source": "https://www.openstreetmap.org/node/8288780974",
+          "structureId": "way/1031595113",
+          "structureVersion": 1,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        },
+        {
+          "id": "8288780973",
+          "name": "A口",
+          "coordinate": [
+            120.088196,
+            30.3230989
+          ],
+          "version": 3,
+          "source": "https://www.openstreetmap.org/node/8288780973",
+          "structureId": "way/1031595110",
+          "structureVersion": 1,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        },
+        {
+          "id": "8288780972",
+          "name": "B口",
+          "coordinate": [
+            120.0876604,
+            30.3229457
+          ],
+          "version": 4,
+          "source": "https://www.openstreetmap.org/node/8288780972",
+          "structureId": "way/1031595111",
+          "structureVersion": 1,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        },
+        {
+          "id": "8994796283",
+          "name": "已记录出入口",
+          "coordinate": [
+            120.0876609,
+            30.3226086
+          ],
+          "version": 2,
+          "source": "https://www.openstreetmap.org/node/8994796283"
+        },
+        {
+          "id": "8288780975",
+          "name": "C口",
+          "coordinate": [
+            120.0882302,
+            30.321663
+          ],
+          "version": 3,
+          "source": "https://www.openstreetmap.org/node/8288780975",
+          "structureId": "way/1031595114",
+          "structureVersion": 1,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        }
+      ],
+      "interiorWays": [],
+      "interiorBasis": "Unchanged source ways with tunnel=yes or culvert and negative layer intersecting the reviewed station; current tags and node coordinates rechecked. Retain as conditional indoor passages.",
+      "currentOpeningStatus": "unknown",
+      "physicalAccessAccepted": false
+    },
+    {
+      "id": "way/971913608",
+      "name": "浙大紫金港",
+      "sourceVersion": 10,
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/way/971913608/full.json",
+      "sourceGeometryChanged": false,
+      "verticalRole": "underground-station",
+      "verticalRoleBasis": "https://hznews.hangzhou.com.cn/chengshi/content/2017-05/10/content_6546575_0.htm",
+      "entranceBasis": "Current OSM railway=subway_entrance nodes that are exact members of the retained station boundary; publication correspondence only. No nearest-station assignment.",
+      "entrances": [
+        {
+          "id": "8995490061",
+          "name": "A口",
+          "coordinate": [
+            120.0720342,
+            30.2966608
+          ],
+          "version": 3,
+          "source": "https://www.openstreetmap.org/node/8995490061",
+          "structureId": "way/1073571920",
+          "structureVersion": 2,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        },
+        {
+          "id": "9848212837",
+          "name": "C2口",
+          "coordinate": [
+            120.0728732,
+            30.2960369
+          ],
+          "version": 2,
+          "source": "https://www.openstreetmap.org/node/9848212837",
+          "structureId": "way/1073571925",
+          "structureVersion": 3,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        },
+        {
+          "id": "12347726362",
+          "name": "B2口",
+          "coordinate": [
+            120.0720018,
+            30.2957897
+          ],
+          "version": 1,
+          "source": "https://www.openstreetmap.org/node/12347726362",
+          "structureId": "way/1334667915",
+          "structureVersion": 1,
+          "structureBasis": "Exact shared source node on the recorded transportation canopy; permits an estimated exit from this same structure only. Not a surveyed walking connection."
+        },
+        {
+          "id": "9848212817",
+          "name": "B1口",
+          "coordinate": [
+            120.0712566,
+            30.2962739
+          ],
+          "version": 2,
+          "source": "https://www.openstreetmap.org/node/9848212817"
+        }
+      ],
+      "interiorWays": [
+        {
+          "id": "way/1073571922",
+          "version": 2
+        },
+        {
+          "id": "way/1073571923",
+          "version": 2
+        },
+        {
+          "id": "way/1073571924",
+          "version": 2
+        },
+        {
+          "id": "way/1073571927",
+          "version": 3
+        },
+        {
+          "id": "way/1073571930",
+          "version": 2
+        }
+      ],
+      "interiorBasis": "Unchanged source ways with tunnel=yes or culvert and negative layer intersecting the reviewed station; current tags and node coordinates rechecked. Retain as conditional indoor passages.",
+      "currentOpeningStatus": "unknown",
+      "physicalAccessAccepted": false
+    }
+  ],
+  "archivesModel": {
+    "id": "way/895390958",
+    "sourceVersion": 2,
+    "basis": "cartographic-proxy",
+    "sourceOutlineMeaning": "site-extent, not a single building footprint",
+    "reportedMainHeightM": 67.2,
+    "reportedMainLevels": 15,
+    "lowWingDisplayHeightM": 17.5,
+    "positionAndDimensionsMeasured": false,
+    "actualEntranceClearanceKnown": false,
+    "sourceUrl": "https://www.archina.com/index.php?a=show&g=works&id=159031&m=index",
+    "sourceGeometryChanged": false,
+    "displayTreatment": "Central stone tower and glazed crown, continuous low wings, open courts and east entrance portico."
+  }
 }

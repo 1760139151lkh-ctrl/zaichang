@@ -4,7 +4,7 @@ const files = new Map<string, Uint8Array>();
 const encoder = new TextEncoder(), decoder = new TextDecoder();
 /** Only build-selected public map assets are reachable. No host filesystem, profiles or persistence. */
 export async function preloadPublicMap() {
-  const names = ['manifest.json','places.json','network.json','geography.geojson','display-geography.geojson','sports-details.geojson','shared-facts.json','venues.json'];
+  const names = ['manifest.json','places.json','network.json','geography.geojson','display-geography.geojson','sports-details.geojson','shared-facts.json','venues.json','building-supplement.json'];
   await Promise.all(names.map(async name => {
     const response = await fetch(new URL('map/' + name + '.gz', document.baseURI));
     if (!response.ok) throw new Error('地图资料未能载入：' + name);

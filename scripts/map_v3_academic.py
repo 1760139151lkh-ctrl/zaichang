@@ -79,11 +79,20 @@ def academic_models(geometries,to_wgs):
     finish(fid,g.union(q),m,14,basis,[child])
     fid='way/306107369';g=shape(fid);m=parts();a,b,c,d=g.bounds
     wave=lambda x,y:5.7+.3*math.cos((y-b)*2*math.pi/22)
-    m.face(g,2.85,'roof');m.sides(g,0,2.85,'wall')
+    # The two gallery decks and their posts already supply the structure.
+    # A second full-height base prism blocked the recorded ground passage.
     for y in np.arange(b,d,1.2):m.face(g.intersection(box(a-1,y,c+1,min(d,y+1.2))),wave,'roof')
     gallery(m,g,5.4)
     basis='东3至东4间的已记录长廊段：学校2019资料描述两层学生长廊与波浪廊顶，官方鸟瞰及高德影像支持该段连接关系。只表达原地面记录；6米级体量、波幅和构件间距为概化，不补室内连通或门禁状态。'
     finish(fid,g,m,6.05,basis)
+    out[-1][2]['recordedPassage']={
+        'roadId':'way/478995282','tunnel':'building_passage','covered':'yes',
+        'sourceGeometryChanged':False,'measuredClearanceKnown':False,
+        'displayTreatment':'Retain existing decks and posts without a duplicate solid ground-storey prism.',
+        'priorModelBasis':basis,
+    }
+    out[-1][2]['basis']='东3至东4的双层长廊，底层按已记录的横穿通路保持通透。波浪廊顶、楼板与柱列为概化表达，实际高度与净空待核实。'
+    out[-1][2]['groundIsProjection']=True
     fid='way/306107376';g=shape(fid);m=parts();gallery(m,g,6.2)
     basis='东5至东6东7的原记录低长廊：官方固定鸟瞰可见抬起楼层和独立低连接，不将原窄廊拉成主楼高度。6米级比例与柱距概化；只显示既有地面对象，不从外壳补室内路网或新门。'
     finish(fid,g,m,6.2,basis)

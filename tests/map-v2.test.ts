@@ -176,7 +176,7 @@ test('every selectable object has a unique stable source ID and a valid geograph
     byId = new Map(features.map((f) => [String(f.getId()), f]));
   assert.equal(new Set(places.map((p) => p.id)).size, places.length);
   for (const p of places) {
-    assert.match(p.id, /^(way|relation|node)\/\d+$|^official\/(hotmap_221027\.|legacy\/)\d+$/);
+    assert.match(p.id, /^(way|relation|node)\/\d+$|^official\/(hotmap_221027\.|legacy\/)\d+$|^overture\/[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/);
     const f = byId.get(p.id);
     assert.ok(f, p.id);
     const venue=JSON.parse(fs.readFileSync('assets/map-v2/shared-facts.json','utf8')).venues.find(v=>v.id===p.id);

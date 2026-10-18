@@ -21,6 +21,8 @@ import {
 import {
   emptyRoute,
   mapPointEndpoint,
+  mapRoutePointName,
+  routeHasUnverifiedPassages,
   type MapCard,
   type MapPoint,
   type MapRouteResult,
@@ -81,8 +83,35 @@ function distanceLabel(m: number) {
 }
 function routeDistanceTitle(r:MapRouteResult) {
   const d=r.distance!;
-  const label=r.routeBasis==='access_estimate_dominant'?'接入估计为主':d.networkM===0&&d.connectorM>0?'接入估计':'步行';
+  const label=routeHasUnverifiedPassages(r)?'假设路线':r.routeBasis==='access_estimate_dominant'?'接入估计为主':d.networkM===0&&d.connectorM>0?'接入估计':'步行';
   return `${label} ${distanceLabel(d.totalM)}`;
+}
+function placeSearchDetail(p:MapPoint) {
+  if(p.undergroundStation)return '地铁 · 步行至出入口';
+  if(p.historicalReference&&!p.personal)return '旧图记录 · 现状待核';
+  if(p.kind==='facility')return '运动场地';
+  if(p.kind==='water')return '水域 · 仅供浏览';
+  if(p.geometryStatus==='reference-point') {
+    if(p.source.url==='local-personal-profile'||p.personal?.referencePoint)return '个人标记 · 入口待核';
+    return p.id.startsWith('official/legacy/')?'旧目录参考位置 · 轮廓待核':'参考位置 · 轮廓待核';
+  }
+  if(p.kind==='area')return '片区';
+  if(p.entrances.some(e=>e.connected))return '建筑 · 入口已连接';
+  return p.accessCandidates?.length?'建筑 · 接入估计，门待核':'建筑 · 接入待核实';
+}
+function placeStatusText(p:MapPoint) {
+  if(p.undergroundStation)return '步行至已记录出入口；开放状态以现场为准';
+  if(p.roadReference)return '已记录道路上的参考点；楼门仍待核实';
+  if(p.historicalReference&&!p.personal)return '旧图记录，当前地面与入口待核实';
+  if(p.kind==='water')return '水域仅供浏览；选岸边地点可比较路线';
+  if(p.kind==='facility')return '场馆与相邻道路';
+  if(p.geometryStatus==='reference-point') {
+    if(p.modelBasis)return '建筑形态为示意；地面位置与入口待核实';
+    if(p.source.url==='local-personal-profile'||p.personal?.referencePoint)return '个人标记的位置；具体入口待核实';
+    return p.id.startsWith('official/legacy/')?'旧目录中的参考位置，当前通行待核':'参考位置，具体通行待核';
+  }
+  if(p.entrances.some(e=>e.connected))return '有已记录入口，可直接比较路线';
+  return p.accessCandidates?.length?'可以查看到附近的路线；实际门待核实':'入口位置尚待核实';
 }
 export function MapRouteCard({ card, onOpen }: { card: MapCard; onOpen: () => void }) {
   const current = card.route?.schemaVersion === 'map-route/v2',
@@ -383,8 +412,11 @@ export function MapSheet({
   }, [engineReady]);
   useEffect(() => {
     if (engineReady) engine.current?.route(selection.mode==='browse' ? emptyRoute() : selection.route);
-    if (selection.mode==='browse') setPreview(undefined);
+    setPreview(undefined);
   }, [engineReady, selection.route, selection.mode]);
+  useEffect(() => {
+    if (engineReady) engine.current?.preview(preview===undefined?undefined:preview/100);
+  }, [engineReady, preview]);
   useEffect(() => {
     // A new dataset disposes the old engine before the next ready render.
     // React can still run this effect with the preceding ready flag in that
@@ -675,11 +707,7 @@ export function MapSheet({
                   >
                     <span>{point.displayName}</span>
                     <small>
-                      {point.kind === 'facility' ? '运动场地' : point.kind==='water' ? '水域 · 仅供浏览' : point.geometryStatus==='reference-point' ? (point.source.url==='local-personal-profile'||point.personal?.referencePoint?'个人标记 · 入口待核':'官方参考位置 · 轮廓待核') : point.kind === 'area'
-                        ? '片区'
-                        : point.entrances.some((e) => e.connected)
-                          ? '建筑 · 入口已连接'
-                          : point.accessCandidates?.length ? '建筑 · 接入估计，门待核' : '建筑 · 接入待核实'}
+                      {placeSearchDetail(point)}
                     </small>
                   </button>
                 ))}
@@ -798,7 +826,7 @@ export function MapSheet({
             </div>
           )
         )}
-        {selection.mode==='browse' && p && <section className="campus-v3-place campus-v2-route campus-v2-obstruction" aria-label="地点详情"><div><strong>{p.displayName}</strong><button aria-label="收起地点详情" onClick={()=>setCollapsed(!collapsed)}>{collapsed?'展开':'收起'}</button></div>{!collapsed&&<>{!p.graphNodeId&&<p>{p.roadReference?'已记录道路上的参考点；楼门仍待核实':p.kind==='water'?'水域仅供浏览；选岸边地点可比较路线':p.kind==='facility'?'场馆与相邻道路':p.geometryStatus==='reference-point'?(p.modelBasis?'建筑形态为示意；地面位置与入口待核实':p.source.url==='local-personal-profile'||p.personal?.referencePoint?'个人标记的位置；具体入口待核实':'参考位置，具体通行待核'):p.entrances.some(e=>e.connected)?'有已记录入口，可直接比较路线':p.accessCandidates?.length?'可以查看到附近的路线；实际门待核实':'入口位置尚待核实'}</p>}<div className="campus-v2-route-actions">{p.kind==='water'?<button onClick={()=>{user();dispatch({type:'two'});}}>选择岸边起点</button>:<><button onClick={()=>{user();dispatch({type:'two'});}}>从这里选路</button><button onClick={()=>{user();dispatch({type:'current'});}}>从本机位置出发</button>{p.entrances.length>0&&<button onClick={()=>{setEntrances(!entrances);engine.current?.showEntrances(!entrances);}}>{entrances?'收起入口':'查看入口'}</button>}</>}</div>{venue&&<details className="campus-v3-venue"><summary>跑道与场地资料</summary><p>{venue.nominalLapBasis}</p><p>{venue.lapBasis}</p><p>{venue.markingBasis}</p><p>{venue.laneBasis}</p><p>{venue.displayBasis}</p><small>未记录跑步，不生成圈数或完成状态。</small></details>}{p.waterBasis&&<details className="campus-v3-venue"><summary>水域与岸线资料</summary><p>{p.waterBasis}</p></details>}{(p.modelBasis||p.sourceCorrection)&&<details className="campus-v3-venue"><summary>{p.modelBasis?"建筑形态与资料":"场地资料"}</summary>{p.modelBasis&&<p>{p.modelBasis}</p>}{p.sourceCorrection&&<p>{p.sourceCorrection.basis}</p>}</details>}{p.personal?.note&&<p>{p.personal.note}</p>}</>}</section>}
+        {selection.mode==='browse' && p && <section className="campus-v3-place campus-v2-route campus-v2-obstruction" aria-label="地点详情"><div><strong>{p.displayName}</strong><button aria-label={collapsed?'展开地点详情':'收起地点详情'} onClick={()=>setCollapsed(!collapsed)}>{collapsed?'展开':'收起'}</button></div>{!collapsed&&<>{!p.graphNodeId&&<p>{placeStatusText(p)}</p>}<div className="campus-v2-route-actions">{p.kind==='water'?<button onClick={()=>{user();dispatch({type:'two'});}}>选择岸边起点</button>:<><button onClick={()=>{user();dispatch({type:'start',point:p});stage.current?.focus({preventScroll:true});}}>从这里选路</button><button onClick={()=>{user();dispatch({type:'current'});}}>从本机位置出发</button>{p.entrances.length>0&&<button onClick={()=>{setEntrances(!entrances);engine.current?.showEntrances(!entrances);}}>{entrances?'收起入口':'查看入口'}</button>}</>}</div>{venue&&<details className="campus-v3-venue"><summary>跑道与场地资料</summary><p>{venue.nominalLapBasis}</p><p>{venue.lapBasis}</p><p>{venue.markingBasis}</p><p>{venue.laneBasis}</p><p>{venue.displayBasis}</p><small>未记录跑步，不生成圈数或完成状态。</small></details>}{p.waterBasis&&<details className="campus-v3-venue"><summary>水域与岸线资料</summary><p>{p.waterBasis}</p></details>}{(p.modelBasis||p.sourceCorrection)&&<details className="campus-v3-venue"><summary>{p.modelBasis?"建筑形态与资料":"场地资料"}</summary>{p.modelBasis&&<p>{p.modelBasis}</p>}{p.sourceCorrection&&<p>{p.sourceCorrection.basis}</p>}</details>}{p.personal?.note&&<p>{p.personal.note}</p>}</>}</section>}
         {selection.mode!=='browse' && (p || selection.origin || selection.mode === 'two') && (
           <section
             className="campus-v2-route campus-v2-obstruction"
@@ -816,7 +844,7 @@ export function MapSheet({
               >
                 <span className="campus-v2-endpoint">A</span>
                 <span>
-                  {selection.mode === 'current' ? '本机位置' : selection.origin?.displayName || '选择起点'}
+                  {selection.mode === 'current' ? '本机位置' : mapRoutePointName(selection.origin,route.originAccess) || '选择起点'}
                 </span>
               </button>
               <button className="campus-v3-swap" aria-label="交换两端" title="交换两端" disabled={!selection.origin||!p} onClick={()=>{user();dispatch({type:'swap'});}}><ArrowLeftRight size={16}/></button>
@@ -827,11 +855,11 @@ export function MapSheet({
                 }}
               >
                 <span className="campus-v2-endpoint filled">B</span>
-                <span>{p?.displayName || '选择终点'}</span>
+                <span>{mapRoutePointName(p,route.destinationAccess) || '选择终点'}</span>
               </button>
-              <button aria-label={collapsed?'展开路线信息':'收起路线信息'} onClick={()=>setCollapsed(!collapsed)}>{collapsed?'展开':'收起'}</button>
+              <button aria-label={preview!==undefined?'结束预览':collapsed?'展开路线信息':'收起路线信息'} onClick={()=>preview!==undefined?setPreview(undefined):setCollapsed(!collapsed)}>{preview!==undefined?'结束':collapsed?'展开':'收起'}</button>
             </div>
-            {!collapsed && <>
+            {!collapsed && preview===undefined && <>
             {selectionNotice&&<p className="campus-v3-pick-hint" role="status">{selectionNotice}</p>}
             {choosingEndpoint ? <p className="campus-v3-pick-hint" role="status">{selection.stage==='origin'?'在地图上选起点 A':'再选一个地点作为终点 B'}，也可以搜索。</p> :
             <div className="campus-v2-route-main" aria-live="polite">
@@ -855,7 +883,7 @@ export function MapSheet({
                   {selection.stage === 'origin'
                     ? '请选择起点 A。'
                     : route.status === 'ready'
-                      ? route.distance?.connectorM ? `道路 ${distanceLabel(route.distance.networkM)} + 接入估计 ${distanceLabel(route.distance.connectorM)} · 虚线处门待核` : `${route.originEntrance?.name||'道路点'} → ${route.destinationEntrance?.name||'道路点'} · 已记录路网内最短`
+                      ? route.distance?.connectorM ? `道路 ${distanceLabel(route.distance.networkM)} + 接入估计 ${distanceLabel(route.distance.connectorM)} · 虚线待核` : `${route.originEntrance?.name||'道路点'} → ${route.destinationEntrance?.name||'道路点'} · ${routeHasUnverifiedPassages(route)?'含待核通路':'已记录路网内最短'}`
                       : route.reason}
                 </p>
 
@@ -868,7 +896,7 @@ export function MapSheet({
               )}
             </div>}
             <div className="campus-v2-route-actions">
-              {route.status==='ready'&&<button className="campus-v3-preview-toggle" onClick={()=>{const next=preview===undefined?0:undefined;setPreview(next);engine.current?.preview(next===undefined?undefined:next/100);}}><Route size={15}/>{preview===undefined?'沿路看看':'结束预览'}</button>}
+              {route.status==='ready'&&<button className="campus-v3-preview-toggle" onClick={()=>setPreview(0)}><Route size={15}/>沿路看看</button>}
               <button disabled={!selection.previous} onClick={()=>{user();dispatch({type:'undo'});}}>撤销上次选择</button>
               <button onClick={()=>{user();dispatch({type:'clear'});setPreview(undefined);}}>清除</button>
               {route.status==='error'&&<button onClick={()=>dispatch({type:'retry'})}>重试路线</button>}
@@ -880,14 +908,18 @@ export function MapSheet({
               {route.roadReferences.map(ref=><button key={ref.endpoint+ref.point.id} onClick={()=>{user();dispatch({type:ref.endpoint==='origin'?'origin':'destination'});dispatch({type:'choose',point:ref.point});}}><span>{ref.point.displayName}</span><small>距{ref.forPlace}参考点直线约{Math.round(ref.straightM)}米 · {ref.endpoint==='origin'?'改为起点':'改为终点'}</small></button>)}
             </details>}
             {route.status==='ready'&&(selection.origin?.roadReference||p?.roadReference)&&<p className="campus-v3-road-reference-note">{selection.origin?.roadReference?'起点':'终点'}位于已记录道路上；这段路线不包含到楼门的未知连接。</p>}
-            {preview!==undefined&&route.status==='ready'&&<div className="campus-v3-preview">
-              <label><span>路线预览</span><output>{distanceLabel((route.distance?.totalM||0)*preview/100)}</output><input aria-label="路线预览进度" type="range" min="0" max="100" value={preview} onChange={e=>{const v=Number(e.target.value);setPreview(v);engine.current?.preview(v/100);}}/><span>抵达</span></label>
-              <small>拖动，查看沿途走法。空心点是预览，相机保持当前视角。</small>
-            </div>}
             {routeDetails&&<div className="campus-v3-route-details">
               <label><input type="checkbox" checked={!!selection.avoidStairs} onChange={e=>dispatch({type:'options',avoidStairs:e.target.checked})}/>避开台阶</label>
               <label><input type="checkbox" checked={!!selection.allowConditional} onChange={e=>dispatch({type:'options',allowConditional:e.target.checked})}/>作为假设查看待核通路</label>
-              {[['origin',selection.origin],['destination',p]].map(([role,value])=>{const place=value as MapPoint|undefined;const endpoint=role as 'origin'|'destination';const choices=place?.accessCandidates?.filter(a=>a.kind==='entrance')||[];return place&&<div key={endpoint}><strong>{endpoint==='origin'?'出发':'抵达'} · {place.displayName}</strong>{place.roadReference?<p>已记录的道路点，未把它当作楼门。</p>:choices.length?<label>入口 <select aria-label={endpoint==='origin'?'选择出发入口':'选择抵达入口'} value={(endpoint==='origin'?selection.originAccessId:selection.destinationAccessId)||''} onChange={e=>dispatch({type:'access',endpoint,id:e.target.value||undefined})}><option value="">比较全部合格入口</option>{choices.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</select></label>:<p>实际门未核实；虚线只表示避障接入估计。</p>}</div>;})}
+              {[['origin',selection.origin],['destination',p]].map(([role,value])=>{
+                const place=value as MapPoint|undefined,endpoint=role as 'origin'|'destination';
+                const choices=[...new Map((place?.accessCandidates||[]).flatMap(candidate=>{
+                  if(candidate.entranceId){const entrance=place?.entrances.find(e=>e.id===candidate.entranceId);return entrance?[[`entrance/${entrance.id}`,entrance.name] as const]:[];}
+                  return candidate.kind==='entrance'?[[candidate.id,candidate.name] as const]:[];
+                })).entries()].sort((a,b)=>a[1].localeCompare(b[1],'zh-CN',{numeric:true}));
+                const used=endpoint==='origin'?route.originEntrance:route.destinationEntrance;
+                return place&&<div key={endpoint}><strong>{endpoint==='origin'?'出发':'抵达'} · {place.displayName}{place.undergroundStation&&used?' · '+used.name:''}</strong>{place.roadReference?<p>已记录的道路点，未把它当作楼门。</p>:choices.length?<label><select aria-label={endpoint==='origin'?'选择出发入口':'选择抵达入口'} value={(endpoint==='origin'?selection.originAccessId:selection.destinationAccessId)||''} onChange={e=>dispatch({type:'access',endpoint,id:e.target.value||undefined})}><option value="">比较全部合格入口</option>{choices.map(([id,name])=><option key={id} value={id}>{name}</option>)}</select></label>:<p>实际门未核实；虚线只表示避障接入估计。</p>}</div>;
+              })}
               {!!(selection.origin?.entrances.length||p?.entrances.length)&&<button onClick={()=>{setEntrances(!entrances);engine.current?.showEntrances(!entrances);}}>{entrances?'收起入口标记':'查看已记录入口'}</button>}
               {selection.mode==='two'&&<button onClick={()=>{user();dispatch({type:'current'});}}>从本机位置出发</button>}
               {route.warnings.map((warning,i)=><p key={i}>{warning}</p>)}
@@ -910,6 +942,9 @@ export function MapSheet({
               </details>
             )}
             </>}
+            {preview!==undefined&&route.status==='ready'&&<div className="campus-v3-preview">
+              <label><span>{routeHasUnverifiedPassages(route)?'假设预览':'路线预览'}</span><output>{distanceLabel((route.distance?.totalM||0)*preview/100)}</output><input autoFocus aria-label="路线预览进度" type="range" min="0" max="100" value={preview} onChange={e=>setPreview(Number(e.target.value))}/><span>抵达</span></label>
+            </div>}
           </section>
         )}
         <footer className="campus-v2-footer">
@@ -919,9 +954,9 @@ export function MapSheet({
             </div>
             <button
               className="campus-v2-attribution"
-              onClick={() => void api.openLink('https://www.openstreetmap.org/copyright')}
+              onClick={() => { setAbout(true); setHelp(false); }}
             >
-              © OpenStreetMap contributors · 场地参考浙大校园资料
+              {data?.manifest.attribution || '© OpenStreetMap contributors'} · 浙大校园资料
             </button>
           </div>
           <span ref={coverage} className="campus-v2-coverage" hidden>
@@ -981,7 +1016,7 @@ export function MapSheet({
                 <p>
                   未记录的建筑与道路没有用虚构图形补齐。地图之外仍可能有道路；现实门禁、施工和未标注限制不在本地快照内。
                 </p>
-                <p>建筑体量区分源高度、层数估计和按原设计／影像简化的模型；没有室内路线。气膜馆约18米来自学校介绍；月牙楼的坡面与双塔为有依据的简化表达，尺寸未实测。东西田径场资料记载名义400米；显示曲线不是认证测量线。倾斜视图的比例尺对应视野中心的横向地面。</p>
+                <p>建筑体量区分源高度、层数估计、形态概化和示意高度；没有室内路线。望月公寓新增轮廓来自 Overture 与 Qian Shi 等人的开放建筑资料，楼号、实高与入口待核。东西田径场资料记载名义400米；显示曲线不是认证测量线。倾斜视图的比例尺对应视野中心的横向地面。</p>
               </>
             )}
             <strong>{location.source === 'test' ? '测试位置（模拟）' : '这台 Windows 电脑的位置'}</strong>
@@ -1007,6 +1042,9 @@ export function MapSheet({
               </button>
               <button onClick={() => void api.openLink('https://www.openstreetmap.org/copyright')}>
                 OSM · ODbL 许可 ↗
+              </button>
+              <button onClick={() => void api.openLink('https://docs.overturemaps.org/attribution/')}>
+                建筑资料与许可 ↗
               </button>
             </div>
           </div>

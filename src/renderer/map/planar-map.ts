@@ -20,9 +20,12 @@ import { unByKey } from 'ol/Observable';
 import { getCenter } from 'ol/extent';
 import { measureTextHeight } from 'ol/render/canvas';
 import type { Bounds, LocationFix, MapPoint, MapRouteResult, LngLat } from '../../shared/map-v2';
+import { mapRoutePointName } from '../../shared/map-v2';
+import { redundantReferenceCaptions } from '../../shared/map-names';
 import { CameraOwnership, SelectedMapPoints } from './map-state';
-import { darkMapPalette, lightMapPalette, sportSurfacePaint, type MapPalette } from './map-theme';
+import { darkMapPalette, lightMapPalette, landSurfacePaint, sportSurfacePaint, type MapPalette } from './map-theme';
 import { geometryLayer } from './geometry-layer';
+import { isPedestrianHighway, isCoveredRoad, isMajorHighway, isBuildingPassage, isHistoricalBridge } from './road-semantics';
 import { planarGpuStyle } from './gpu-style';
 import { endpointCaptionGap, pairedCaptionSides, mapFitInsets, mapLabelObstructions, observeLabelObstructions, captionControlOffset, captionWidth, measureCaptions, wrapCaption, type FitInsets, type LabelObstruction } from './fit-layout';
 import { namedWaterAreas, namedWaterHit } from './named-water';
@@ -43,6 +46,8 @@ export class PlanarCampusMap {
   readonly ownership = new CameraOwnership();
   private source: VectorSource;
   private waterAreas: WaterFeature[];
+  private waterKind: 'water' | 'water-surface';
+  private waterDisplay = new globalThis.Map<string, { area?: Geometry; shore?: Geometry }>();
   private bridges: Feature[];
   private highlight = new VectorSource();
   private routeSource = new VectorSource();
@@ -70,13 +75,15 @@ export class PlanarCampusMap {
   private locationLayer: VectorLayer<VectorSource>;
   private styles = new globalThis.Map<string, Style | Style[]>();
   private labelBlockers:LabelObstruction[]=[];
+  private redundantNames=new Set<string>();
   private observer: ResizeObserver;
   private cleanup: (() => void)[] = [];
   private renderCount = 0;
   private lastScale = '';
   private detailedNames = false;
-  private detailedRoads = false;
   private closeScale = false;
+  private detailedSports = false;
+  private fineSports = false;
   private loadedAt = performance.now();
   private disposed = false;
   constructor(
@@ -85,18 +92,38 @@ export class PlanarCampusMap {
     private callbacks: MapCallbacks,
     saved?: SavedCamera,
   ) {
+    target.dataset.ready='false';delete target.dataset.graphicsFallbackReason;
     this.palette = document.documentElement.dataset.theme === 'dark' ? darkMapPalette : lightMapPalette;
     this.pointIndex = new globalThis.Map(data.places.map((p) => [p.id, p]));
-    const features = new GeoJSON().readFeatures(data.geography, {
+    this.redundantNames=redundantReferenceCaptions(this.pointIndex.values());
+    const format = new GeoJSON();
+    const features = format.readFeatures(data.geography, {
       dataProjection: 'EPSG:4326',
       featureProjection: 'EPSG:3857',
     });
+    if (data.sports) features.push(...format.readFeatures(data.sports, {
+      dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857',
+    }));
     this.source = new VectorSource({ features, wrapX: false });
     this.waterAreas = namedWaterAreas(data.geography as FeatureCollection);
+    this.waterKind = features.some(f => f.get('kind') === 'water-surface') ? 'water-surface' : 'water';
+    for (const feature of features) {
+      const kind = feature.get('kind'), id = feature.get('waterId');
+      if (!id || !['named-water-hit', 'named-water-shore'].includes(kind)) continue;
+      const display = this.waterDisplay.get(id) || {};
+      display[kind === 'named-water-hit' ? 'area' : 'shore'] = feature.getGeometry();
+      this.waterDisplay.set(id, display);
+    }
     this.bridges = features.filter(f => f.get('kind') === 'road' && f.get('bridge') === 'yes');
-    for (const feature of features)
-      for (const key of ['highway', 'bridge', 'tunnel'])
+    for (const feature of features) {
+      // Use the existing kind input for this derived styling role. Adding a
+      // geometry-type input can exceed the WebGL 1 stroke shader's limit.
+      const type=feature.getGeometry()?.getType();
+      if(feature.get('kind')==='road'&&feature.get('highway')==='pedestrian'&&(type==='Polygon'||type==='MultiPolygon'))
+        feature.set('kind','pedestrian-area',true);
+      for (const key of ['highway', 'bridge', 'tunnel', 'covered'])
         if (feature.get(key) === undefined) feature.set(key, '', true);
+    }
     const ext = transformExtent(data.manifest.bounds, 'EPSG:4326', 'EPSG:3857');
     const margin = 1200;
     this.view = new View({
@@ -121,8 +148,8 @@ export class PlanarCampusMap {
       this.baseLayer = new WebGLVectorLayer({
         className: 'campus-v2-geography-gl',
         source: this.source,
-        style: planarGpuStyle(this.palette, this.contrast.matches),
-        variables: { near: 0, paths: 0 },
+        style: planarGpuStyle(this.palette, this.contrast.matches, this.waterKind),
+        variables: { near: 0, sports: 0, equipment: 0 },
         disableHitDetection: true,
       });
       target.dataset.renderer = 'webgl-2d';
@@ -147,7 +174,7 @@ export class PlanarCampusMap {
             : g instanceof MultiPolygon
               ? g.getInteriorPoints().getCoordinates()[0]
               : undefined;
-        if (!anchor || f.get('kind') === 'road' || f.get('kind') === 'barrier') return null;
+        if (!anchor || ['road','pedestrian-area','barrier'].includes(f.get('kind'))) return null;
         return new Feature({
           geometry: new Point(anchor.slice(0, 2)),
           name: f.get('name'),
@@ -219,24 +246,18 @@ export class PlanarCampusMap {
       ]),
       moveTolerance: 5,
     });
-    const lost = (event: Event) => {
-      event.preventDefault();
-      queueMicrotask(() => {
-        if (this.disposed || this.geography) return;
-        this.view.cancelAnimations();
-        const old = this.baseLayer;
-        this.geography = geometryLayer(
-          this.source,
-          (f, r) => this.baseStyle(f, r),
-          () => this.styleRevision,
-        );
-        this.baseLayer = this.geography.layer;
-        this.map.getLayers().setAt(0, this.baseLayer);
-        old.dispose();
-        target.dataset.renderer = 'canvas-2d-fallback';
-        this.map.render();
-      });
+    const useCanvas = () => {
+      if (this.disposed || this.geography) return;
+      this.view.cancelAnimations();
+      const old = this.baseLayer;
+      this.geography = geometryLayer(this.source, (f, r) => this.baseStyle(f, r), () => this.styleRevision);
+      this.baseLayer = this.geography.layer;
+      this.map.getLayers().setAt(0, this.baseLayer);
+      old.dispose();
+      target.dataset.renderer = 'canvas-2d-fallback';
+      this.map.render();
     };
+    const lost = (event: Event) => { event.preventDefault();queueMicrotask(useCanvas); };
     target.addEventListener('webglcontextlost', lost, true);
     this.cleanup.push(() => target.removeEventListener('webglcontextlost', lost, true));
     if (!saved)
@@ -323,7 +344,7 @@ export class PlanarCampusMap {
       this.styles.clear();
       this.styleRevision++;
       if (this.baseLayer instanceof WebGLVectorLayer)
-        this.baseLayer.setStyle(planarGpuStyle(this.palette, this.contrast.matches));
+        this.baseLayer.setStyle(planarGpuStyle(this.palette, this.contrast.matches, this.waterKind));
       [this.baseLayer, this.labelLayer, this.overlayLayer, this.routeLayer, this.locationLayer].forEach((l) =>
         l.changed(),
       );
@@ -358,6 +379,16 @@ export class PlanarCampusMap {
     };
     document.addEventListener('visibilitychange', visible);
     this.cleanup.push(() => document.removeEventListener('visibilitychange', visible));
+    // A context probe can succeed while the actual style exceeds its limits.
+    // Compile the first frame here so that failure takes the same Canvas path
+    // as context loss, instead of leaving an empty asynchronous render loop.
+    try { this.map.renderSync(); }
+    catch (error) {
+      if (this.geography) { this.dispose();throw error; }
+      target.dataset.graphicsFallbackReason=error instanceof Error?error.message:String(error);
+      try { useCanvas();this.map.renderSync(); }
+      catch (fallbackError) { this.dispose();throw fallbackError; }
+    }
   }
   private baseStyle(f: Feature, res: number): Style | Style[] | undefined {
     const p = this.palette,
@@ -373,9 +404,11 @@ export class PlanarCampusMap {
       geometryType,
       f.get('role'),
       close,
-      this.detailedRoads,
+      this.detailedSports,
+      this.fineSports,
       f.get('bridge'),
       f.get('tunnel'),
+      f.get('covered'),
       context,
       this.contrast.matches,
     ].join('/');
@@ -396,60 +429,86 @@ export class PlanarCampusMap {
         stroke: new Stroke({ color: p.selected, width: 1.2, lineDash: [3, 2] }),
         zIndex: 12,
       });
-    if (kind === 'water')
-      style = new Style({
-        fill: new Fill({ color: p.water }),
-        stroke: new Stroke({ color: gray(p.outline, 0.42), width: 0.7 }),
-        zIndex: 0.5,
-      });
+    if (kind === this.waterKind)
+      style = [
+        new Style({ stroke: new Stroke({ color: gray(p.waterBank, 0.48), width: 1.4 }), zIndex: 0.3 }),
+        new Style({ fill: new Fill({ color: p.water }), zIndex: 0.5 }),
+      ];
     if (kind === 'sport') {
       const surface = sportSurfacePaint(p, f.get('role'));
       style = new Style({fill:new Fill({color:gray(surface.color,surface.opacity)}),stroke:new Stroke({color:p.outline,width:.9}),zIndex:1});
     }
-    if (kind === 'land') style = new Style({ fill: new Fill({ color: gray(p.land, 0.7) }), zIndex: 0 });
+    if (kind === 'court-inlay' && this.detailedSports)
+      style = new Style({ fill: new Fill({ color: gray(p.courtInlay, 0.5) }), zIndex: 1.1 });
+    if (this.detailedSports && ['marking','track-lane','net','equipment','landscape-step'].includes(kind)) {
+      if (kind === 'equipment' && !this.fineSports) return;
+      style = new Style({
+        stroke: new Stroke({
+          color: gray(kind === 'landscape-step' ? p.outline : p.text, kind === 'net' ? 0.55 : 0.42),
+          width: kind === 'net' ? 1 : kind === 'equipment' ? 1.1 : kind === 'track-lane' ? 0.7 : 0.8,
+          lineCap: 'round', lineJoin: 'round',
+        }),
+        zIndex: 1.5,
+      });
+    }
+    if (kind === 'land') {
+      const surface = landSurfacePaint(p, f.get('role'));
+      style = new Style({ fill: new Fill({ color: gray(surface.color, surface.opacity) }), zIndex: 0 });
+    }
     if (kind === 'area')
       style = new Style({
         stroke: new Stroke({ color: gray(p.outline, 0.23), width: 0.65, lineDash: [3, 5] }),
         zIndex: 0,
       });
-    if (kind === 'waterway')
-      style = new Style({ stroke: new Stroke({ color: p.water, width: close ? 3.5 : 2 }), zIndex: 1 });
+    if (kind === 'waterway') {
+      const covered = f.get('tunnel') === 'culvert' || f.get('tunnel') === 'yes';
+      style = new Style({
+        stroke: new Stroke({ color: covered ? gray(p.waterBank, .5) : p.water,
+          width: covered ? .9 : close ? 3.5 : 2, lineDash: covered ? [2, 3] : undefined,
+          lineCap: covered ? 'butt' : 'round' }),
+        zIndex: 0.4,
+      });
+    }
     if (kind === 'barrier' && close)
       style = new Style({ stroke: new Stroke({ color: p.barrier, width: 0.8 }), zIndex: 3 });
-    if (kind === 'road' && pedestrianArea)
+    if ((kind === 'road' || kind === 'pedestrian-area') && pedestrianArea)
       style = new Style({
         fill: new Fill({ color: context ? gray(p.paving, 0.35) : p.paving }),
         stroke: new Stroke({ color: gray(p.outline, 0.3), width: 0.65 }),
         zIndex: 1.8,
       });
     if (kind === 'road' && !pedestrianArea) {
-      const major = /^(primary|secondary|tertiary|residential|living_street)/.test(highway || '');
-      const pathlike = /^(path|footway|pedestrian|steps)/.test(highway || '');
-      if (!this.detailedRoads && pathlike) return;
+      const major = isMajorHighway(highway);
+      const pathlike = isPedestrianHighway(highway), covered = isCoveredRoad(f.get('tunnel'), f.get('covered'));
+      const historical = isHistoricalBridge(f.get('bridge'));
       const width = major ? (close ? 2.8 : 1.9) : pathlike ? (close ? 1.05 : 0.7) : 1.2;
       style = new Style({
         stroke: new Stroke({
-          color: gray(major ? p.road : p.minorRoad, context ? 0.36 : 1),
-          width: context ? width * 0.8 : width,
-          lineDash: f.get('tunnel') === 'yes' ? [3, 4] : highway === 'steps' ? [1, 2] : undefined,
-          lineCap: 'round',
+          color: historical ? gray(p.minorRoad,.8) : isBuildingPassage(f.get('tunnel'), f.get('covered')) ? gray(p.passage,.85)
+            : gray(pathlike ? p.minorRoad : context ? p.contextRoad : p.road, covered ? .55 : 1),
+          width,
+          lineDash: historical ? [1, 3] : covered ? [3, 4] : highway === 'steps' ? [1, 2] : undefined,
+          lineCap: historical || covered || highway === 'steps' ? 'butt' : 'round',
           lineJoin: 'round',
         }),
         // Match the spatial renderer: subdued context ends sit below campus
         // continuations, and bridge casings sit below every bridge foreground.
-        zIndex: (f.get('bridge') === 'yes' ? 2.3 : 2) + (context ? 0 : 0.1),
+        zIndex: (isBuildingPassage(f.get('tunnel'),f.get('covered')) ? 4 : covered ? 1.9 : f.get('bridge') === 'yes' ? 2.3 : 2) + (context ? 0 : 0.1),
       });
       if (f.get('bridge') === 'yes')
-        style = [new Style({ stroke: new Stroke({ color: p.halo, width: width + 2.4 }), zIndex: 2.2 }), style];
+        style = [new Style({ stroke: new Stroke({ color: p.roadCasing, width: width + 2.4, lineCap: 'butt', lineJoin: 'round' }), zIndex: 2.2 }), style];
     }
     if (style) this.styles.set(key, style);
     return style;
   }
   private labelStyle(f: Feature, res: number): Style | undefined {
     if (f.get('sourceId') === this.selection.selected || f.get('sourceId') === this.selection.origin) return;
+    const place=this.pointIndex.get(f.get('sourceId'));
+    if(place?.historicalReference&&!place.personal)return;
+    if (this.redundantNames.has(f.get('sourceId'))) return;
     const kind = f.get('kind'),
       name = f.get('name') as string;
-    if (kind === 'building' && !this.detailedNames && !/图书馆|博物馆|体育|食堂/.test(name)) return;
+    if (kind === 'building' && !place?.undergroundStation && !this.detailedNames && !/图书馆|博物馆|体育|食堂/.test(name)) return;
     if (kind === 'land' && res > 1.5) return;
     if (kind === 'area' && !/紫金港|望月/.test(name)) return;
     if (kind === 'landmark') {
@@ -509,29 +568,37 @@ export class PlanarCampusMap {
       id = String(f.getId()),
       selected = id === this.selection.selected || id === this.selection.origin,
       a = selected ? 1 : this.hoverLevels.get(id) || 0;
+    const place = this.selection.point(id,this.pointIndex);
+    const water = place?.kind === 'water' ? this.waterDisplay.get(id) : undefined;
     const styles = [
       new Style({
-        fill: new Fill({ color: gray(selected ? p.selected : p.hover, selected ? 0.22 : 0.18 * a) }),
-        stroke: new Stroke({
+        geometry: water?.area,
+        fill: place?.kind==='water'||place?.undergroundStation ? undefined : new Fill({ color: gray(selected ? p.selected : p.hover, selected ? 0.22 : 0.18 * a) }),
+        stroke: water?.shore ? undefined : new Stroke({
           color: gray(selected ? p.selected : p.hover, selected ? 1 : a),
           width: selected ? 1.45 : 1.1,
+          lineDash: place?.undergroundStation ? [3,4] : undefined,
         }),
         zIndex: 10,
       }),
     ];
-    const place = this.selection.point(id,this.pointIndex);
+    if (water?.shore) styles.push(new Style({
+      geometry: water.shore,
+      stroke: new Stroke({ color: gray(selected ? p.selected : p.hover, selected ? 1 : a), width: selected ? 1.45 : 1.1 }),
+      zIndex: 10,
+    }));
     if (selected && place) {
       const role=id===this.selection.origin?'A':'B',route=this.activeRoute;
-      const endpoint=this.selection.routeEnd(role,route,this.pointIndex)?.coordinate;
+      const end=this.selection.routeEnd(role,route,this.pointIndex),endpoint=end?.coordinate;
       if(endpoint&&route?.from&&route.to){this.captionSides=pairedCaptionSides([
-        {pixel:this.map.getPixelFromCoordinate(fromLonLat(route.coordinates[0])),name:route.from.displayName},
-        {pixel:this.map.getPixelFromCoordinate(fromLonLat(route.coordinates.at(-1)!)),name:route.to.displayName},
+        {pixel:this.map.getPixelFromCoordinate(fromLonLat(route.coordinates[0])),name:mapRoutePointName(route.from,route.originAccess)},
+        {pixel:this.map.getPixelFromCoordinate(fromLonLat(route.coordinates.at(-1)!)),name:mapRoutePointName(route.to,route.destinationAccess)},
       ],{font:'500 12px "Noto Sans SC Variable", sans-serif',size:12,offsetY:0,padding:4,horizontalPadding:5,marker:13.5,maxWidthEm:14,lineHeightPx:measureTextHeight('500 12px "Noto Sans SC Variable", sans-serif')},this.captionSides);}
       const below=!!endpoint&&this.captionSides[role==='A'?0:1];
       const selectedCaption=new Style({
           geometry: new Point(fromLonLat(endpoint||place.coordinate)),
           text: new Text({
-            text: endpoint ? wrapCaption(place.displayName,'500 12px "Noto Sans SC Variable", sans-serif',12,14) : (this.selection.routeRoles?role+' · ':'') + place.displayName,
+            text: endpoint ? wrapCaption(mapRoutePointName(place,end?.access),'500 12px "Noto Sans SC Variable", sans-serif',12,14) : (this.selection.routeRoles?role+' · ':'') + place.displayName,
             font: '500 12px "Noto Sans SC Variable", sans-serif',
             fill: new Fill({ color: p.text }),
             stroke: new Stroke({ color: p.halo, width: 4 }),
@@ -547,7 +614,7 @@ export class PlanarCampusMap {
         });
       styles.push(this.map?(this.positionLabel(f,selectedCaption,true)||selectedCaption):selectedCaption);
       const used = this.selection.routeEnd(role,route,this.pointIndex)?.access;
-      for (const e of place.entrances.filter(e=>this.entrancesVisible||used?.kind==='entrance'&&used.nodeId===e.id))
+      for (const e of place.entrances.filter(e=>this.entrancesVisible||used?.entranceId===e.id||used?.kind==='entrance'&&used.nodeId===e.id))
         styles.push(
           new Style({
             geometry: new Point(fromLonLat(e.coordinate)),
@@ -565,7 +632,7 @@ export class PlanarCampusMap {
   }
   private routeStyle(f: Feature): Style | Style[] {
     const p = this.palette;
-    if(f.get('preview')) return f.getGeometry() instanceof Point ? new Style({zIndex:4,image:new CircleStyle({radius:6,fill:new Fill({color:p.halo}),stroke:new Stroke({color:p.text,width:2})})}) : new Style({zIndex:4,stroke:new Stroke({color:p.text,width:4})});
+    if(f.get('preview')) return f.getGeometry() instanceof Point ? new Style({zIndex:4,image:new CircleStyle({radius:6,fill:new Fill({color:p.halo}),stroke:new Stroke({color:p.text,width:2})})}) : new Style({zIndex:4,stroke:new Stroke({color:p.text,width:f.get('dashed')?2.6:4,lineDash:f.get('dashed')?[5,5]:undefined,lineCap:f.get('unverified')?'butt':'round'})});
     if (f.get('endpoint'))
       return new Style({
         zIndex: 3,
@@ -582,7 +649,7 @@ export class PlanarCampusMap {
       });
     return [
       new Style({ zIndex: 1, stroke: new Stroke({ color: p.halo, width: 5.4, lineCap: 'round', lineJoin: 'round' }) }),
-      new Style({ zIndex: 2, stroke: new Stroke({ color: p.route, width: 2.6, lineCap: 'round', lineJoin: 'round',lineDash:f.get('estimated')?[5,5]:undefined }) }),
+      new Style({ zIndex: 2, stroke: new Stroke({ color: p.route, width: 2.6, lineCap: f.get('unverified')?'butt':'round', lineJoin: 'round',lineDash:f.get('estimated')||f.get('unverified')?[5,5]:undefined }) }),
     ];
   }
   private hit(coordinate: number[]) {
@@ -676,6 +743,7 @@ export class PlanarCampusMap {
   }
   select(destination?: MapPoint, origin?: MapPoint,routeRoles=true) {
     this.selection.set(destination,origin,routeRoles);
+    this.redundantNames=redundantReferenceCaptions(this.pointIndex.values(),new Set([destination?.id,origin?.id].filter(Boolean) as string[]));
     this.captionSides=[false,false];
     this.refreshHighlights();
     this.labelLayer.changed();
@@ -687,7 +755,7 @@ export class PlanarCampusMap {
     if (result.status !== 'ready' || result.coordinates.length < 2) return;
     const coords = result.coordinates.map((c) => fromLonLat(c));
     this.routeSource.addFeatures([
-      ...(result.segments?.map(s=>new Feature({geometry:new LineString(s.coordinates.map(c=>fromLonLat(c))),estimated:s.kind==='estimate'}))||[new Feature(new LineString(coords))]),
+      ...(result.segments?.map(s=>new Feature({geometry:new LineString(s.coordinates.map(c=>fromLonLat(c))),estimated:s.kind==='estimate',unverified:!!s.conditions?.length}))||[new Feature(new LineString(coords))]),
       new Feature({ geometry: new Point(coords[0]), endpoint: 'A' }),
       new Feature({ geometry: new Point(coords.at(-1)!), endpoint: 'B' }),
     ]);
@@ -724,10 +792,10 @@ export class PlanarCampusMap {
     const distance=Math.max(0,Math.min(1,progress))*(r.distance?.totalM||0);let used=0;
     const s=r.segments.find((s,i)=>{if(used+s.meters>=distance||i===r.segments!.length-1)return true;used+=s.meters;return false;})!;
     const t=s.meters?(distance-used)/s.meters:0,a=s.coordinates[0],b=s.coordinates.at(-1)!;
-    this.routeSource.addFeatures([new Feature({geometry:new LineString(s.coordinates.map(c=>fromLonLat(c))),preview:true}),new Feature({geometry:new Point(fromLonLat([a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t])),preview:true})]);
+    this.routeSource.addFeatures([new Feature({geometry:new LineString(s.coordinates.map(c=>fromLonLat(c))),preview:true,dashed:s.kind==='estimate'||!!s.conditions?.length,unverified:!!s.conditions?.length}),new Feature({geometry:new Point(fromLonLat([a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t])),preview:true})]);
   }
   showEntrances(visible: boolean) { this.entrancesVisible=visible;this.refreshHighlights(); }
-  updatePlaces(places: MapPoint[]) { this.pointIndex = new globalThis.Map(places.map(p=>[p.id,p])); this.refreshHighlights(); this.labelLayer.changed(); }
+  updatePlaces(places: MapPoint[]) { this.pointIndex = new globalThis.Map(places.map(p=>[p.id,p])); this.redundantNames=redundantReferenceCaptions(this.pointIndex.values(),new Set([this.selection.selected,this.selection.origin].filter(Boolean) as string[])); this.refreshHighlights(); this.labelLayer.changed(); }
   private reportCamera() {
     if (this.disposed || !this.view.getCenter()) return;
     const camera = this.snapshot(),
@@ -757,15 +825,17 @@ export class PlanarCampusMap {
   }
   private updateDetail() {
     const r = this.view.getResolution() || 5;
-    const before = [this.detailedNames, this.detailedRoads, this.closeScale].join('/');
+    const before = [this.detailedNames, this.closeScale, this.detailedSports, this.fineSports].join('/');
     this.detailedNames = this.detailedNames ? r < 4.15 : r < 3.5;
-    this.detailedRoads = this.detailedRoads ? r < 5.5 : r < 4.8;
     this.closeScale = this.closeScale ? r < 3.3 : r < 2.7;
-    if (before !== [this.detailedNames, this.detailedRoads, this.closeScale].join('/')) this.styleRevision++;
+    this.detailedSports = this.detailedSports ? r < 1 : r < 0.85;
+    this.fineSports = this.fineSports ? r < 0.29 : r < 0.25;
+    if (before !== [this.detailedNames, this.closeScale, this.detailedSports, this.fineSports].join('/')) this.styleRevision++;
     if (this.baseLayer instanceof WebGLVectorLayer)
       this.baseLayer.updateStyleVariables({
         near: this.closeScale ? 1 : 0,
-        paths: this.detailedRoads ? 1 : 0,
+        sports: this.detailedSports ? 1 : 0,
+        equipment: this.fineSports ? 1 : 0,
       });
   }
   takeControl() {
@@ -832,7 +902,7 @@ export class PlanarCampusMap {
       }
     const coords = fitCoordinates.map((c) => fromLonLat(c)),
       size = this.map.getSize()!,
-      pad = this.padding(measureCaptions([result.from?.displayName, result.to?.displayName].filter((n): n is string => !!n),
+      pad = this.padding(measureCaptions([mapRoutePointName(result.from,result.originAccess), mapRoutePointName(result.to,result.destinationAccess)].filter(Boolean),
         { font: '500 12px "Noto Sans SC Variable", sans-serif', size: 12, offsetY: -endpointCaptionGap, padding: 5, horizontalPadding: 8, marker: 13.5, maxWidthEm: 14, anchor: 'bottom', lineHeightPx: measureTextHeight('500 12px "Noto Sans SC Variable", sans-serif') }));
     const visible = coords.every((c) => {
       const p = this.map.getPixelFromCoordinate(c);

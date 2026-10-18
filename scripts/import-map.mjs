@@ -31,9 +31,9 @@ try{
  await fs.cp(path.join(root,'assets/map-v2'),path.join(scratch,'assets/map-v2'),{recursive:true});
  await fs.mkdir(path.join(scratch,'scripts'),{recursive:true});
  for(const name of await fs.readdir(path.join(root,'scripts'))){
-  if(name==='build-map-v3.py'||/^map_v3_.*\.py$/.test(name))await fs.writeFile(path.join(scratch,'scripts',name),await capture(path.join(root,'scripts',name)));
+  if(name==='build-map-v3.py'||name==='map_topology.py'||/^map_v3_.*\.py$/.test(name))await fs.writeFile(path.join(scratch,'scripts',name),await capture(path.join(root,'scripts',name)));
  }
- for(const name of ['core-reference.json','official-coverage-reference.json','official-locator-source.tsv','fidelity-observations.json','venue-observations.json','residential-observations.json','west-architecture-observations.json','south-architecture-observations.json']){
+ for(const name of ['core-reference.json','official-coverage-reference.json','official-locator-source.tsv','fidelity-observations.json','venue-observations.json','residential-observations.json','west-architecture-observations.json','south-architecture-observations.json','building-supplement.json']){
   const inputRoot = ['official-coverage-reference.json','official-locator-source.tsv'].includes(name) ? referenceRoot : path.join(root,'assets/map-v2');
   await fs.writeFile(path.join(scratch,'assets/map-v2',name),await capture(path.join(inputRoot,name)));
  }

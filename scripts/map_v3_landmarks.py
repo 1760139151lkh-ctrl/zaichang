@@ -9,7 +9,7 @@ import numpy as np
 from shapely import constrained_delaunay_triangles
 from shapely.geometry import Polygon,Point,LineString,box
 from shapely.geometry.polygon import orient
-from shapely.ops import transform,substring
+from shapely.ops import transform,substring,unary_union
 from map_v3_surfaces import soften_source_curve
 
 
@@ -51,6 +51,80 @@ class SurfaceParts:
                     p0=self.point(a.x,a.y,bottom);p1=self.point(b.x,b.y,bottom);q0=self.point(a.x,a.y,top);q1=self.point(b.x,b.y,top)
                     vertices.extend([p0,p1,q1,p0,q1,q0])
         if vertices:self.parts.append({'material':'mullion','vertices':vertices})
+
+
+def archives_model(site,to_wgs):
+    """A bounded display interpretation of a campus-scale source outline.
+
+    The published architect's photographs and site plan establish a central
+    tower, low connected wings, court openings and an east-facing entrance. Their
+    placement and low-wing dimensions below are cartographic proportions, not
+    traced/surveyed footprints. The source site and route facts stay intact.
+    """
+    north_west=np.array(site.exterior.coords[0]);north_east=np.array(site.exterior.coords[3])
+    u=north_east-north_west;span=np.linalg.norm(u);u/=span
+    v=np.array([u[1],-u[0]])
+    depth=max(np.dot(np.array(p)-north_west,v) for p in site.exterior.coords)
+    def local(x,y,z=None):
+        dx=np.asarray(x)-north_west[0];dy=np.asarray(y)-north_west[1]
+        return (dx*u[0]+dy*u[1])/span,(dx*v[0]+dy*v[1])/depth
+    def ground(x,y,z=None):
+        return north_west[0]+u[0]*np.asarray(x)*span+v[0]*np.asarray(y)*depth,north_west[1]+u[1]*np.asarray(x)*span+v[1]*np.asarray(y)*depth
+    boundary=transform(local,site)
+    tower=box(.43,.34,.62,.70)
+    # A continuous low body keeps its two small inner courts open. The larger
+    # western garden and eastern entrance forecourt remain outside the model.
+    low=unary_union([box(.17,.16,.79,.33),box(.28,.71,.79,.88),box(.69,.30,.79,.75),
+                     box(.41,.30,.46,.38),box(.41,.66,.46,.75),box(.59,.30,.71,.75)]).intersection(boundary)
+    low=low.difference(unary_union([box(.46,.19,.59,.34),box(.46,.70,.59,.78)]))
+    footprint=unary_union([low,tower])
+    entrance=box(.71,.43,.80,.62).intersection(low)
+    low,tower,footprint,entrance=[transform(ground,g) for g in [low,tower,footprint,entrance]]
+    m=SurfaceParts(to_wgs)
+    lower_height=17.5;shaft_height=57.5;top_height=67.2
+    m.sides(footprint.difference(entrance),0,10.5,'stone-wall')
+    m.sides(footprint,10.5,lower_height,'stone-wall')
+    m.face(entrance,10.5,'wall')
+    m.face(low.difference(tower),lower_height,'roof')
+    m.sides(tower,lower_height,shaft_height,'stone-wall')
+    m.sides(tower,shaft_height,top_height,'glass');m.face(tower,top_height,'roof')
+    m.sides(transform(ground,box(.7098,.43,.7102,.62)),.7,10.5,'glass')
+    m.sides(transform(ground,box(.6198,.496,.6202,.544)),lower_height,shaft_height,'glass')
+    # The low wings have tall recessed glazed bays between stone piers. Work in
+    # east/north metres so the shared wall winding and lighting stay correct.
+    skin=orient(footprint.buffer(.025,join_style='mitre'),sign=-1)
+    panes=[]
+    for ring in [skin.exterior,*skin.interiors]:
+        for a,b in zip(ring.coords,list(ring.coords)[1:]):
+            a=np.array(a);b=np.array(b);length=np.linalg.norm(b-a)
+            count=int(length/6)
+            if not count:continue
+            direction=(b-a)/length;pitch=length/count;width=min(4,pitch-1.2)
+            for index in range(count):
+                middle=a+direction*pitch*(index+.5)
+                bottom=11.5 if entrance.buffer(.06).covers(Point(*middle)) else 1.4
+                left=middle-direction*width/2;right=middle+direction*width/2
+                p0=m.point(*left,bottom);p1=m.point(*right,bottom);q0=m.point(*left,15.5);q1=m.point(*right,15.5)
+                panes.extend([p0,p1,q1,p0,q1,q0])
+    if panes:m.parts.append({'material':'glass','vertices':panes})
+    # The published description explicitly calls out vertical recessed seams.
+    # These lines express that rhythm, without claiming actual panel counts.
+    for x in np.linspace(.43,.62,12)[1:-1]:
+        for y in [.34,.70]:
+            strip=box(x-.00065,y-.0001,x+.00065,y+.0001)
+            m.sides(transform(ground,strip),lower_height,top_height,'facade-recess')
+    for y in np.linspace(.34,.70,12)[1:-1]:
+        for x in [.43,.62]:
+            strip=box(x-.0001,y-.0012,x+.0001,y+.0012)
+            m.sides(transform(ground,strip),lower_height,top_height,'facade-recess')
+    basis='高塔、低层裙房和院落按公开设计资料作比例示意。资料记载主楼15层、总高67.2米；裙房按17.5米示意，各部分位置、门廊与立面细节未经实地测量。实际出入口和院区内通行仍待核实。'
+    return footprint,{'type':'authored-mesh','parts':m.parts,'heightM':top_height,'basis':basis,
+        'groundIsProjection':True,'groundFootprintKnown':False,'massingInterpretation':{
+            'basis':'cartographic-proxy','sourceOutlineMeaning':'site-extent, not a single building footprint',
+            'reportedMainHeightM':67.2,'reportedMainLevels':15,'lowWingDisplayHeightM':lower_height,
+            'positionAndDimensionsMeasured':False,'actualEntranceClearanceKnown':False,
+            'sourceUrl':'https://www.archina.com/index.php?a=show&g=works&id=159031&m=index',
+            'sourceGeometryChanged':False,'displayTreatment':'Central stone tower and glazed crown, continuous low wings, open courts and east entrance portico.'}}
 
 
 def library_complex_models(geometries,to_wgs):
@@ -110,8 +184,19 @@ def library_complex_models(geometries,to_wgs):
     hall=body.intersection(box(-100,28,-14,110))
     west=body.difference(main.union(hall))
     m=SurfaceParts(lambda x,y:to_wgs(*ground_b(x,y)))
+    # The source service road passes below both low wings. Keep the roof and
+    # upper storeys continuous, but do not seal that crossing with wall faces.
+    # Width and clearance are cartographic proportions, not measured access.
+    passage=transform(local_b,geometries['way/479437312']).buffer(2,cap_style='flat')
     for part,height,material in [(main,20,'glass'),(west,11.5,'wall'),(hall,12.5,'glass')]:
-        m.sides(part,0,height,material);m.face(part,height,'roof')
+        opening=part.intersection(passage)
+        if opening.is_empty:
+            m.sides(part,0,height,material)
+        else:
+            m.sides(part.difference(passage),0,3.5,material)
+            m.sides(part,3.5,height,material)
+            m.face(opening,3.5,material)
+        m.face(part,height,'roof')
         m.face(part.difference(part.buffer(-.32)),height+.08,'skylight')
     # A short glazed section in the low southern wing is a roof, not a third
     # open courtyard. Its grid is material notation rather than window counts.
@@ -125,7 +210,12 @@ def library_complex_models(geometries,to_wgs):
     m.facade_divisions(main,0,20,3.6)
     m.face(courts,.12,'garden')
     b_basis='蒙民伟楼（B楼）：官方固定鸟瞰与高德卫星共同可见东、西两个院落、圆形报告厅及较低西翼；按同一楼轴分开表达，南侧玻璃段保留为屋顶。主楼20米／6层沿用OSM，西翼11.5米、报告厅12.5米及院落边界为图像支持的比例概化，非测绘尺寸。原地面障碍与楼下通道路网不改，院落不等于新开放通路。'
-    models.append((b_id,transform(ground_b,body),{'type':'authored-mesh','parts':m.parts,'heightM':20.08,'basis':b_basis}))
+    models.append((b_id,transform(ground_b,body),{'type':'authored-mesh','parts':m.parts,'heightM':20.08,
+        'basis':'蒙民伟楼：保留两处院落、报告厅和较低西翼，按已记录的楼下通道留出穿行口。主楼高度沿用来源记录；西翼比例、通道宽度和净空为示意。',
+        'groundIsProjection':True,
+        'recordedPassage':{'roadId':'way/479437312','tunnel':'building_passage','covered':'yes',
+            'displayWidthM':4,'displayClearanceM':3.5,'measuredWidthM':None,'measuredClearanceKnown':False,
+            'sourceGeometryChanged':False,'priorModelBasis':b_basis}}))
     return models
 
 

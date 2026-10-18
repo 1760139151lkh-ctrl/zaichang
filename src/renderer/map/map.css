@@ -35,7 +35,6 @@
 .campus-v3-preview { border-top:1px solid var(--cm-border);padding-top:8px; }
 .campus-v3-preview label { display:flex;gap:12px;align-items:center;min-height:44px; }
 .campus-v3-preview input { flex:1;min-width:80px;accent-color:var(--cm-strong); }
-.campus-v3-preview small { display:block;color:var(--cm-muted);line-height:1.6; }
 .campus-v3-preview button,.campus-v3-route-details > button { padding:10px 0;min-height:44px;text-align:left; }
 .campus-v3-venue { border-top:1px solid var(--cm-border);margin-top:10px;padding-top:10px; }
 .campus-v3-venue summary { cursor:pointer;min-height:44px;display:flex;align-items:center;font-size:12px; }

@@ -34,7 +34,17 @@ def residential_models(geometries,to_wgs,observations):
         is_hall=item in observations['connectors']
         if is_hall:
             # Each hall keeps its own recorded identity; it is not a new door.
-            m.sides(flat,0,height-.35,'dorm-glass')
+            passage=item.get('recordedPassage')
+            base=passage['displayClearanceM'] if passage else 0
+            m.sides(flat,base,height-.35,'dorm-glass')
+            if passage:
+                # Reuse the existing storey band as an illustrative lower
+                # deck. A recorded ground crossing cannot be a glass prism.
+                m.face(flat,base,'dorm-roof');m.sides(flat,base-.24,base,'dorm-wall')
+                crossing=transform(local,geometries[passage['roadId']]).buffer(passage['displaySupportExclusionWidthM']/2)
+                for x,y in [(a+.3,b+.3),(a+.3,d-.3),(c-.3,b+.3),(c-.3,d-.3)]:
+                    pier=box(x-.22,y-.22,x+.22,y+.22).intersection(flat)
+                    if not pier.is_empty and not pier.intersects(crossing):m.sides(pier,0,base-.24,'dorm-wall')
             m.face(flat,height-.35,'dorm-roof')
             rim=flat.difference(flat.buffer(-.24))
             m.sides(rim,height-.35,height,'dorm-parapet');m.face(rim,height,'dorm-parapet')
@@ -146,5 +156,9 @@ def residential_models(geometries,to_wgs,observations):
         if fid in ['way/237808342','way/305829554','way/302556946','way/305829556']:
             basis+='较低辅楼有官方鸟瞰与新生指引支持；8米级屋面只是图像比例概化，不用整体六层资料把辅楼等高拉起。'
         model={'type':'authored-mesh','parts':m.parts,'heightM':height+(0 if is_hall else 1.05),'basis':basis,'family':'residential'}
+        if is_hall and item.get('recordedPassage'):
+            model['recordedPassage']={**item['recordedPassage'],'priorModelBasis':basis,'sourceGeometryChanged':False}
+            model['basis']=item['name']+'：上层连通宿舍，底层按已记录的穿行通路留空。楼高、净空和柱位为示意。'
+            model['groundIsProjection']=True
         models.append((fid,g,model,item))
     return models

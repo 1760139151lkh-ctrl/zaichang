@@ -19,7 +19,7 @@ async function start() {
     mapLocationStatus:async()=>unavailable, mapLocate:async()=>unavailable, mapStopLocation:async()=>{},
     shareMapContext:async()=>{throw new Error('在线预览只浏览公开地图。');},
     window:()=>{},
-    openLink:async (url:string)=>{if (['https://www.openstreetmap.org/copyright','https://map.zju.edu.cn/index'].includes(url)) window.open(url,'_blank','noopener,noreferrer');},
+    openLink:async (url:string)=>{if (['https://www.openstreetmap.org/copyright','https://map.zju.edu.cn/index','https://docs.overturemaps.org/attribution/'].includes(url)) window.open(url,'_blank','noopener,noreferrer');},
   } as unknown as typeof window.zaichang;
   const {MapSheet} = await import('../../src/renderer/map/CampusMap');
   const requested = new URL(location.href).searchParams.get('scene');

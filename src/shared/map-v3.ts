@@ -57,8 +57,50 @@ export function retainUnverifiedOfficialCorrespondences<T extends Correspondence
 }
 
 type DetailFeature = { id?: string | number; properties: Record<string, unknown> | null };
+export interface UndergroundStationObservation {
+  id: string;
+  sourceVersion: number;
+  entrances: { id:string; name:string; coordinate:LngLat; source:string; structureId?:string; structureVersion?:number }[];
+  interiorWays: { id:string; version:number }[];
+}
+
+/** Only individually reviewed station records receive underground semantics.
+ * Source polygons remain retained facts; they are not ground obstacles or floors.
+ * An OSM entrance/graph link records a location, not current opening or access. */
+export function qualifyUndergroundStations(points:MapPoint[],graph:MapGraph,geography:{features:DetailFeature[]},display:{features:DetailFeature[]},observations:UndergroundStationObservation[]):MapGraph {
+  const sources=new Map(geography.features.map(feature=>[String(feature.id),feature.properties]));
+  for(const station of observations){
+    const source=sources.get(station.id);
+    if(source?.version!==station.sourceVersion||source.building!=='train_station'||!(Number(source.layer)<0))throw new Error('Underground station source changed');
+    for(const way of station.interiorWays){const source=sources.get(way.id);if(source?.version!==way.version||!(Number(source.layer)<0)||!['yes','culvert'].includes(String(source.tunnel)))throw new Error('Station passage source changed');}
+    for(const entrance of station.entrances)if(entrance.structureId&&sources.get(entrance.structureId)?.version!==entrance.structureVersion)throw new Error('Station entrance structure changed');
+  }
+  const stations=new Map(observations.map(item=>[item.id,item]));
+  const interiors=new Set(observations.flatMap(station=>station.interiorWays.map(way=>way.id)));
+  const nodes=new Map(graph.nodes.map(node=>[node.id,node]));
+  for(const feature of geography.features)if(stations.has(String(feature.id))&&feature.properties)feature.properties.undergroundStation=true;
+  for(const feature of display.features){
+    if(!feature.properties)continue;
+    if(stations.has(String(feature.id)))feature.properties.kind='underground-station';
+    else if(interiors.has(String(feature.id)))feature.properties.kind='station-interior';
+  }
+  for(const point of points){
+    const record=stations.get(point.id);if(!record)continue;
+    point.undergroundStation=true;
+    point.aliases=[...new Set([...point.aliases,point.displayName+'站',point.displayName+'地铁站'])];
+    point.entrances=record.entrances.map(entrance=>({...entrance,connected:entrance.coordinate.every((value,i)=>nodes.get(entrance.id)?.coordinate[i]===value)}));
+    point.accessCandidates=point.entrances.filter(entrance=>entrance.connected).map(entrance=>({
+      id:'entrance/'+entrance.id,entranceId:entrance.id,nodeId:entrance.id,kind:'entrance',name:entrance.name,
+      coordinate:entrance.coordinate,coordinates:[entrance.coordinate],meters:0,source:entrance.source,
+    }));
+    point.modelBasis='地下车站；轮廓只表示源数据中的站体范围。步行路线以已记录出入口为端点，不包含进站、乘车或站内换乘。';
+  }
+  return {...graph,edges:graph.edges.map(edge=>interiors.has(edge.way)
+    ? {...edge,conditions:[...new Set([...(edge.conditions||[]),'indoor_passage_unverified'])]}:edge)};
+}
+
 export const bridgeStatusUnverified = 'bridge_status_unverified';
-const inactiveBridgeValues = new Set(['abandoned','disused','demolished','dismantled','removed','razed']);
+export const inactiveBridgeValues: ReadonlySet<string> = new Set(['abandoned','disused','demolished','dismantled','removed','razed']);
 
 /** Keep an explicit historical bridge tag separate from gate-opening assumptions.
  * The tag is source evidence, not confirmation of the bridge's present state.
@@ -87,52 +129,6 @@ export function retainPublishedFootRestrictions<T extends MapGraph>(graph:T):T {
   return {...graph,edges:graph.edges.map(edge=>publishedFootRestrictions.some(observation=>
     observation.way===edge.way&&(observation.sourceSegments as readonly string[]).includes(edge.sourceEdge||edge.id))
       ? {...edge,foot:'no'}:edge)};
-}
-
-/** The retained snapshot no longer matches these published node pairs or
- * coordinates. This is unresolved correspondence, not evidence of closure.
- * Segment IDs refer to the retained source version, not the new way's indices.
- * Other segments, including unchanged pairs moved into another way, remain.
- */
-export const publishedRoadCorrespondenceUncertainty = [{
-  way:'way/30529763',version:3,sourceTimestamp:'2026-09-11T02:00:02Z',
-  sourceUrl:'https://api.openstreetmap.org/api/0.6/way/30529763.json',
-  retainedSourceSegments:['way/30529763:11','way/30529763:12','way/30529763:13'],
-},{
-  way:'way/414673393',version:3,sourceTimestamp:'2026-09-11T02:00:02Z',
-  sourceUrl:'https://api.openstreetmap.org/api/0.6/way/414673393.json',
-  retainedSourceSegments:['way/414673393:5','way/414673393:6'],
-},{
-  way:'way/414673399',version:2,sourceTimestamp:'2026-09-11T02:00:02Z',
-  sourceUrl:'https://api.openstreetmap.org/api/0.6/way/414673399.json',
-  retainedSourceSegments:['way/414673399:2','way/414673399:3'],
-},{
-  way:'way/519457904',version:11,sourceTimestamp:'2026-10-12T13:25:47Z',
-  sourceUrl:'https://api.openstreetmap.org/api/0.6/way/519457904.json',
-  retainedSourceSegments:['way/519457904:2'],
-},{
-  way:'way/588262373',version:6,sourceTimestamp:'2026-09-28T08:41:52Z',
-  sourceUrl:'https://api.openstreetmap.org/api/0.6/way/588262373.json',
-  retainedSourceSegments:['way/588262373:11'],
-},{
-  way:'way/795492605',version:5,sourceTimestamp:'2026-10-12T13:25:47Z',
-  sourceUrl:'https://api.openstreetmap.org/api/0.6/way/795492605.json',
-  retainedSourceSegments:['way/795492605:9'],
-},{
-  way:'way/1364957150',version:4,sourceTimestamp:'2026-10-12T13:25:47Z',
-  sourceUrl:'https://api.openstreetmap.org/api/0.6/way/1364957150.json',
-  retainedSourceSegments:['way/1364957150:2'],
-}] as const;
-
-export const roadCorrespondenceUnverified = 'road_correspondence_unverified';
-export function retainPublishedRoadCorrespondenceConditions<T extends MapGraph>(graph:T):T {
-  // These segment indices belong to this snapshot. A regenerated graph needs
-  // its own correspondence review rather than inheriting the old indices.
-  if(graph.version!=='campus-v3-821201a9341b6e41')return graph;
-  return {...graph,edges:graph.edges.map(edge=>publishedRoadCorrespondenceUncertainty.some(observation=>
-    observation.way===edge.way&&(observation.retainedSourceSegments as readonly string[]).includes(edge.sourceEdge||edge.id))
-      &&!edge.conditions?.includes(roadCorrespondenceUnverified)
-        ? {...edge,conditions:[...(edge.conditions||[]),roadCorrespondenceUnverified]}:edge)};
 }
 
 /** Published gate restrictions remain uncertain until a reopening is verified.
@@ -253,6 +249,8 @@ export interface MapVenue {
   nominalLapBasis?: string;
   laneCount: number | null;
   laneBasis?: string;
+  displayLaneCount?: number;
+  displayLaneBasis?: string;
   loop: { type: string; coordinates: LngLat[] } | null;
   geometricLoopM: number | null;
   lapBasis: string;
