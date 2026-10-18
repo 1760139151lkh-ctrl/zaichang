@@ -38,6 +38,7 @@ import { isEphemeral } from './runtime/policy';
 import { conditionSchema } from '../shared/harness';
 import { hasCredentials } from './runtime/redaction';
 import { NativeControls } from './runtime/controls';
+import { configureNetwork } from './network';
 import { materialReferenceSchema } from '../shared/materials';
 
 assertTestDataDirectory();
@@ -65,6 +66,8 @@ for (const name of [
   'DEEPSEEK_API_KEY',
 ])
   delete process.env[name];
+
+configureNetwork();
 
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true } },

@@ -12,7 +12,8 @@ import modelContract from '../shared/model-contract.json';
 export const LUNA_MODEL = modelContract.luna.model;
 export const LUNA_DISPLAY_NAME = modelContract.luna.displayName;
 export const LUNA_ENDPOINT = 'https://chatgpt.com/backend-api/codex/responses';
-export const LUNA_REQUEST_TIMEOUT_MS = 180_000;
+// Leave time for the host to return a receipt before Hermes' 175-second RPC deadline.
+export const LUNA_REQUEST_TIMEOUT_MS = 165_000;
 export const LUNA_SUBSTITUTE = { providerId: 'openai-app-server', model: LUNA_MODEL, temporaryTestSubstitute: true, replaces: 'deepseek-flash', reasoningEffort: 'max', requestTimeoutMs: LUNA_REQUEST_TIMEOUT_MS } as const;
 type Item = Record<string, any>;
 
@@ -149,7 +150,9 @@ export class AppServerLunaClient {
           if (event.type === 'response.output_item.done') items.push(event.item);
           if (event.response?.usage) {
             const value = event.response.usage;
-            usage = { prompt_tokens: value.input_tokens, completion_tokens: value.output_tokens, total_tokens: value.total_tokens, prompt_cache_hit_tokens: value.input_tokens_details?.cached_tokens || 0, providerId: LUNA_SUBSTITUTE.providerId, model: LUNA_MODEL };
+            usage = { prompt_tokens: value.input_tokens, completion_tokens: value.output_tokens, total_tokens: value.total_tokens,
+              ...(typeof value.input_tokens_details?.cached_tokens === 'number' ? { prompt_cache_hit_tokens: value.input_tokens_details.cached_tokens } : {}),
+              providerId: LUNA_SUBSTITUTE.providerId, model: LUNA_MODEL };
           }
           if (event.type === 'response.incomplete') throw new ProviderError('Luna 代测回复达到长度上限。', false, 'output_length', undefined, usage);
           if (event.type === 'error' || event.type === 'response.failed') throw new ProviderError('Luna 代测服务中断了本次请求。', false, 'protocol', undefined, usage);
@@ -247,7 +250,7 @@ function decodeProtocol(value: string): Item[] {
 
 export function lunaEnvironment(): NodeJS.ProcessEnv {
   const env: NodeJS.ProcessEnv = { RUST_LOG: 'off' };
-  for (const name of ['PATH', 'Path', 'SystemRoot', 'WINDIR', 'COMSPEC', 'USERPROFILE', 'HOMEDRIVE', 'HOMEPATH', 'APPDATA', 'LOCALAPPDATA', 'TEMP', 'TMP', 'HTTP_PROXY', 'HTTPS_PROXY', 'NO_PROXY', 'CODEX_HOME']) if (process.env[name]) env[name] = process.env[name];
+  for (const name of ['PATH', 'Path', 'SystemRoot', 'WINDIR', 'COMSPEC', 'USERPROFILE', 'HOMEDRIVE', 'HOMEPATH', 'APPDATA', 'LOCALAPPDATA', 'TEMP', 'TMP', 'HTTP_PROXY', 'HTTPS_PROXY', 'NO_PROXY', 'http_proxy', 'https_proxy', 'no_proxy', 'CODEX_HOME']) if (process.env[name]) env[name] = process.env[name];
   return env;
 }
 function lunaExecutable(): string {

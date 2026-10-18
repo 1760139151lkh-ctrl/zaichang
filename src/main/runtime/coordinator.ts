@@ -131,6 +131,7 @@ const lookUpSchema = z
     courseId: z.string().regex(/^\d{1,32}$/).optional(),
     query: z.string().max(100).optional(),
     days: z.number().int().min(1).max(7).optional(),
+    date: z.iso.date().optional(),
     from: z.string().datetime({ offset: true }).optional(),
     to: z.string().datetime({ offset: true }).optional(),
     at: z.string().datetime({ offset: true }).optional(),
@@ -1867,7 +1868,7 @@ export class RuntimeCoordinator {
         const purposeGrants = capability === 'campus.query' ? campusQueryGrants(validateCampusQuery(input)) : ['campus.lookup', 'campus.imported_lookup'].includes(capability) && domain && sensitive[domain]
           ? ['campus:' + sensitive[domain] + ':read'] : [];
         let readHandle = handle;
-        const publicRead = ['map.overview', 'map.search', 'map.reference_search', 'map.observe', 'map.location_status', 'research.read'].includes(capability) || capability === 'map.relations' && !(input as any)?.role && !['device_observation', 'shared_map_selection'].includes((input as any)?.originKind) || capability === 'campus.query' && ['resources', 'schema'].includes((input as any)?.operation);
+        const publicRead = ['map.overview', 'map.search', 'map.reference_search', 'map.observe', 'map.location_status', 'weather.lookup', 'research.read'].includes(capability) || capability === 'map.relations' && !(input as any)?.role && !['device_observation', 'shared_map_selection'].includes((input as any)?.originKind) || capability === 'campus.query' && ['resources', 'schema'].includes((input as any)?.operation);
         if (purposeGrants.length || session.ingress.requiresReadPurpose && !publicRead || capability === 'research.search') {
           const verdict = await callbacks.verifyReadPurpose?.({ capability: this.broker.describe(capability), arguments: input, ...(capability === 'research.search' ? { outgoingPublicQuery: true, requirement: '只有用户当前授权的公开检索词可外发；私人链接和无关原文不能变成公共搜索词。' } : {}) });
           if (!verdict?.allowed) return { status: 'forbidden' as const, sourceId: this.broker.describe(capability)?.sourceId || 'unknown', simulated: false, reason: verdict?.reason || '本轮尚未核清这些资料的用途。' };
@@ -1974,7 +1975,7 @@ export class RuntimeCoordinator {
       return call(args.capability, input);
     }
     if (args.source === 'history') return call('evidence.search', { query: args.query || '' });
-    if (args.source === 'weather') return call('weather.lookup', { days: args.days || 3 });
+    if (args.source === 'weather') return call('weather.lookup', { days: args.days || 3, ...(args.date ? { date: args.date } : {}) });
     if (args.source === 'map') return args.mode === 'overview' || args.mode === 'refresh' ? call('map.overview', {}) : call('map.search', { query: args.query || '' });
     if (args.source === 'local') return call('local.agenda.read', { query: args.query, from: args.from, to: args.to, timeZone: session.ingress.contract.timeZone });
     if (args.source === 'capability') {

@@ -477,7 +477,7 @@ export interface ContextReceipt {
   mechanismUses?: { prefetch: number; currentMatter: number; repairRejudge: number; closure: number };
   engine?: { name: string; commit: string; adapterSha256: string; python: string };
   delegations?: { id: string; parentId: string; title: string; status: 'queued' | 'running' | 'produced' | 'consumed' | 'failed' | 'cancelled'; sources?: string[]; currentEvidenceIds?: string[]; modelCalls: number; responses: number; toolCalls: number }[];
-  modelUsage?: { phase: string; inputTokens: number | null; outputTokens: number | null; usdMin: number | null; usdMax: number | null }[];
+  modelUsage?: { phase: string; inputTokens: number | null; cachedInputTokens?: number | null; outputTokens: number | null; usdMin: number | null; usdMax: number | null }[];
   id: string;
   runId: string;
   contractRevision: number;
@@ -493,7 +493,7 @@ export interface ContextReceipt {
   provider?: ProviderReceipt;
   /** Compatibility label; derived from the selected protocol, never a model default. */
   providerVersion: string;
-  toolAttempts: { id: string; capability: string; status: string; version: string }[];
+  toolAttempts: { id: string; capability: string; status: string; version: string; cache?: 'hit' | 'shared' | 'miss' }[];
   coverage: 'complete_for_candidate' | 'conditional' | 'blocked';
   budget: { estimatedTokens: number; readBytes: number; outputLimitAdjustments?: { requested: number; applied: number; actor: 'main' | 'child' }[] };
 }

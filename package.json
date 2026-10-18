@@ -11,6 +11,8 @@
     "setup": "node scripts/setup-desktop.mjs && npm run setup:hermes",
     "setup:hermes": "node scripts/setup-hermes.mjs",
     "dev": "node scripts/dev.mjs",
+    "dev:luna:test": "node scripts/run-luna-test.mjs scripts/dev.mjs",
+    "start:luna:test": "node scripts/run-luna-test.mjs node_modules/electron/cli.js .",
     "build": "npm run check && node scripts/build-map-bridge.mjs && vite build --logLevel warn && node scripts/build-electron.mjs && npm run build:review",
     "build:review": "vite build --config vite.review.config.ts --logLevel warn",
     "review": "vite --config vite.review.config.ts",

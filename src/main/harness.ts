@@ -602,9 +602,9 @@ export class Harness {
   private async run(run: RunSession, user: Message, message: Message, controller: AbortController) {
     const runtime = this.store.runtime,
       contract = run.ingress.contract;
-    // App Server substitution has higher per-request latency. Keep the same
-    // hard call/tool budgets and cancellation, with a bounded longer deadline.
-    const signal = AbortSignal.any([controller.signal, AbortSignal.timeout(usingLunaTestTransport() ? 480000 : 240000)]);
+    // The authority's actual expiry bounds this run for every transport.
+    const expiresAt = runtime.policy.validate(contract.scope).expiresAt;
+    const signal = AbortSignal.any([controller.signal, AbortSignal.timeout(Math.max(1, Date.parse(expiresAt) - Date.parse(this.store.kernel.clock.now())))]);
     run.signal = signal;
     let lastSave = 0;
     const publish = (force = false) => {
@@ -735,7 +735,7 @@ export class Harness {
           endCleanup: conversationPolicy.clearOnExit ? { status: 'registered', operation: 'clear_current_conversation_and_its_prior_chat', triggers: ['new_conversation', 'open_other_conversation', 'app_exit_or_restart_recovery'], completed: false, independentConfirmedActions: 'preserved' } : null,
           meaning: '本对话的保存设置已经生效。后续消息继续遵守，新建对话恢复常规保存。结束清理已设置好时，到达结束条件会自动清理，不需再建立删除动作，也不能提前遗忘；尚未结束，不能声称已经清除。向用户直接说明设置、时机和哪些安排保留，不复述宿主、控制契约等内部术语。' };
         const discussionScope = runtime.policy.validate(contract.scope);
-        const chainBoundary = JSON.stringify({ epoch: contract.privacyEpoch, policy: contract.policyRevision, sources: [...discussionScope.sources].sort(), subject: contract.subjectId, world: contract.worldId, audience: contract.audience, retention: contract.retention, memoryMode: contract.memoryMode, purpose: contract.purpose });
+        const chainBoundary = JSON.stringify({ epoch: contract.privacyEpoch, policy: contract.policyRevision, principal: discussionScope.principalId, workspace: discussionScope.workspaceId, grants: [...discussionScope.grants].sort(), infer: discussionScope.infer, provider: client.providerMetadata?.().providerId, model: client.providerMetadata?.().model, sources: [...discussionScope.sources].sort(), subject: contract.subjectId, world: contract.worldId, audience: contract.audience, retention: contract.retention, memoryMode: contract.memoryMode, purpose: contract.purpose });
         const previousChain = this.conversationChains.get(run.sessionId);
         const sameBoundaryChain = previousChain?.boundary === chainBoundary ? previousChain : undefined;
         const mayRecoverTaskMaterial = settings.memoryEnabled && run.ingress.ownerHistoryAllowed && run.ingress.controlProposal?.sources !== 'current_only' && !run.ingress.controlFallback && contract.memoryMode !== 'none' && discussionScope.audience === 'self';

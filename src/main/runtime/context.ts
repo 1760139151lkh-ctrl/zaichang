@@ -244,7 +244,7 @@ export class ContextCompiler {
   recordModelUsage(pack: ContextPack | undefined, usage: Completion['usage'], phase: string) {
     if (!pack) return;
     const cost = usageCost(usage);
-    (pack.receipt.modelUsage ||= []).push({ phase, inputTokens: usage?.prompt_tokens ?? null, outputTokens: usage?.completion_tokens ?? null, usdMin: cost?.usdMin ?? null, usdMax: cost?.usdMax ?? null });
+    (pack.receipt.modelUsage ||= []).push({ phase, inputTokens: usage?.prompt_tokens ?? null, cachedInputTokens: usage?.prompt_cache_hit_tokens ?? null, outputTokens: usage?.completion_tokens ?? null, usdMin: cost?.usdMin ?? null, usdMax: cost?.usdMax ?? null });
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
   }
   recordProviderRequest(
@@ -303,6 +303,7 @@ export class ContextCompiler {
         capability,
         status: result.status,
         version: attempt.version,
+        cache: attempt.cache,
       });
     const key =
       capability === 'campus.lookup'

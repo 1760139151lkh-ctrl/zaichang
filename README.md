@@ -27,4 +27,8 @@ npm run preview
 
 校园查询需要用户另行安装并授权的学生信息连接器（`ZAICHANG_ZJU_SOURCE`）。模型密钥在桌面连接界面私下输入、按系统机制保存。Windows 已授权的项目凭据也可用 `npm run deepseek:check` 和 `npm run dev:deepseek` 读取系统加密保存。仓库无个人资料；环境变量范例见 [.env.example](.env.example)。开发容器见 [.devcontainer/devcontainer.json](.devcontainer/devcontainer.json)。
 
+DeepSeek 额度不足时，可使用已登录 Codex 账号的 **GPT‑6 Luna Max 临时代测通道**：开发运行 `npm run dev:luna:test`，构建后运行 `npm run start:luna:test`。它只替换模型传输，天气、公共搜索、校园连接器、上下文、权限和动作仍由原 Harness / Hermes 执行；普通启动的生产默认仍是 DeepSeek。Node 请求优先遵守已有代理环境变量，Windows 未指定时沿用系统已开启的手动代理；PAC 配置不由此 Node 通道执行。
+
+天气支持杭州当地今天起七天及指定单日；公开搜索支持域名限制，偏题候选保持部分结果，关键结论须继续读取原来源。运行回执分别记录工具读取/缓存复用及模型报告的缓存 token；未报告和未命中分别表示未知与零，缓存不代表业务结果重新核实。
+
 已实现的范围和真实限制见 [CURRENT_STATUS](docs/CURRENT_STATUS.md)；运行机制见 [ARCHITECTURE](docs/ARCHITECTURE.md)。原始研究包、旧版本、个人数据库、施工日志、录像、构建输出及原始官方地图素材保留在本地，均未进入仓库。项目代码未授予开源许可；第三方和 OSM 数据许可见 [资产来源](docs/ASSET_PROVENANCE.md) 与 [第三方声明](THIRD_PARTY_NOTICES.md)。

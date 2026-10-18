@@ -9,6 +9,7 @@ import { HarnessError, type KnowledgeStatus } from '../../shared/harness';
 import { calendarFieldsSchema, localCalendarChangeSchema } from '../../shared/calendar';
 import { expandAgenda } from '../actions/calendar';
 import { campusQueryInput, validateCampusQuery, requireCampusQueryScope } from './campus-query';
+import { dateInZone } from '../runtime/semantics';
 
 export interface BuiltinConnections {
   map?: CampusMapAdapter;
@@ -458,6 +459,7 @@ export function registerBuiltins(
     manifest: manifest('campus-import', 'campus:local', [
       base('campus.imported_lookup', campusInput, campusImportOutput, ['campus:read']),
     ]),
+    connectionStatus: () => ({ connected: !!repo.getMeta('campus_import_metadata'), reason: '只读已导入的离线快照；它不代表当前校园账号。' }),
     invoke: async (_name, args, ctx) => {
       const metadata = repo.getMeta<{ institutionId: string; termId: string; source: string; updatedAt?: string }>(
         'campus_import_metadata',
@@ -540,11 +542,12 @@ export function registerBuiltins(
           .strict(),
         z.object({ matches: z.array(jsonObject) }).strict(),
         ['map:read'],
-        { subjects: ['self', 'other', 'fictional'] },
+        { subjects: ['self', 'other', 'fictional'], description: '按地点名、别名或类别检索当前紫金港公共地图；名称无需重复校区前缀。无匹配时缩短名称或查询别名，不能猜地点ID。' },
       ),
       base('map.route', routeInput, jsonObject, ['map:read'], { subjects: ['self', 'other', 'fictional'] }),
       base('map.location_status', z.object({}).strict(), jsonObject, ['map:read']),
     ]),
+    connectionStatus: () => ({ connected: !!connections.map && connections.map.overview().version !== 'unavailable', reason: connections.map ? undefined : '地图数据尚未装配。' }),
     invoke: (name, args) => {
       if (!connections.map)
         return {
@@ -594,6 +597,7 @@ export function registerBuiltins(
             .object({
               days: z.number().int().min(1).max(7).default(3),
               location: z.literal('Hangzhou').default('Hangzhou'),
+              date: z.iso.date().optional().describe('杭州当地日期YYYY-MM-DD。指定时只查询这一天，优先于days；仅支持今天起七天内。'),
             })
             .strict(),
           z
@@ -603,19 +607,21 @@ export function registerBuiltins(
               forecast: z
                 .object({
                   time: z.array(z.string()),
-                  weather_code: z.array(z.number()),
-                  temperature_2m_max: z.array(z.number()),
-                  temperature_2m_min: z.array(z.number()),
-                  precipitation_probability_max: z.array(z.number()),
+                  weather_code: z.array(z.number().nullable()),
+                  temperature_2m_max: z.array(z.number().nullable()),
+                  temperature_2m_min: z.array(z.number().nullable()),
+                  precipitation_probability_max: z.array(z.number().nullable()),
                 })
                 .strict(),
             })
             .strict(),
           ['weather:read'],
+          { version: '2', displayName: '杭州天气预报', description: '查询杭州城市参考坐标的天气，不读取用户位置。date指定杭州当地一天；不填时days为从今天开始的连续天数。仅支持今天起七天，缺测值保留为null。' },
         ),
       ],
       ['api.open-meteo.com'],
     ),
+    connectionStatus: () => ({ connected: connections.weatherEnabled(), reason: connections.weatherEnabled() ? undefined : '天气查询未开启。' }),
     invoke: async (_name, args, ctx) => {
       if (!connections.weatherEnabled())
         return {
@@ -625,28 +631,38 @@ export function registerBuiltins(
           simulated: false,
         };
       const url = new URL('https://api.open-meteo.com/v1/forecast');
+      const today = dateInZone(repo.clock.now(), 'Asia/Shanghai');
+      if (args.date && (args.date < today || Date.parse(args.date) - Date.parse(today) > 6 * 86400000))
+        throw new HarnessError('weather_window', '天气预报只覆盖杭州当地今天起七天内，所选日期超出范围。');
       url.search = new URLSearchParams({
         latitude: '30.2741',
         longitude: '120.1551',
         daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max',
         timezone: 'Asia/Shanghai',
-        forecast_days: String(args.days),
+        ...(args.date ? { start_date: args.date, end_date: args.date } : { forecast_days: String(args.days) }),
       }).toString();
       const response = await ctx.request(url.toString());
       if (!response.ok) throw new HarnessError('weather_failed', '天气服务未完成查询。');
       const data = (await response.json()) as any;
+      const times = data.daily?.time;
+      const columns = ['weather_code', 'temperature_2m_max', 'temperature_2m_min', 'precipitation_probability_max'];
+      if (!Array.isArray(times) || times.length !== (args.date ? 1 : args.days) || times[0] !== (args.date || today)
+        || columns.some(column => !Array.isArray(data.daily[column]) || data.daily[column].length !== times.length))
+        throw new HarnessError('weather_incomplete', '天气来源没有完整返回所选日期，不能当作已查到。');
+      const complete = columns.every(column => data.daily[column].every((value: unknown) => typeof value === 'number' && Number.isFinite(value)));
       return {
-        status: 'fresh',
+        status: complete ? 'fresh' : 'partial',
         sourceId: 'weather:open-meteo',
         data: { location: '杭州城市参考坐标（非用户定位）', timeZone: 'Asia/Shanghai', forecast: data.daily },
         fetchedAt: repo.clock.now(),
         expiresAt: new Date(Date.parse(repo.clock.now()) + 1800000).toISOString(),
         coverage: {
-          complete: true,
-          scope: 'Hangzhou forecast for ' + args.days + ' days',
+          complete,
+          scope: args.date ? 'Hangzhou forecast for ' + args.date : 'Hangzhou forecast for ' + args.days + ' days',
           until: data.daily?.time?.at(-1),
         },
         simulated: false,
+        ...(complete ? {} : { reason: '来源有缺测字段，null表示未知，不能视为零降水或已知温度。' }),
       };
     },
   });

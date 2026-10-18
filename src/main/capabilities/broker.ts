@@ -88,6 +88,7 @@ export interface InvocationAudit {
   scopeId: string;
   simulated: boolean;
   bytes: number;
+  cache?: 'hit' | 'shared' | 'miss';
 }
 const resultSchema = z
   .object({
@@ -117,7 +118,11 @@ export class CapabilityBroker {
   private active = new Set<AbortController>();
   readonly invocations: InvocationAudit[] = [];
   readonly rejections: { capability: string; code: string }[] = [];
-  private budgets = new Map<string, { calls: number; bytes: number }>();
+  private budgets = new WeakMap<ScopeHandle, { calls: number; bytes: number }>();
+  private audit(value: InvocationAudit) {
+    this.invocations.push(value);
+    if (this.invocations.length > 256) this.invocations.splice(0, this.invocations.length - 256);
+  }
   constructor(
     readonly policy: PolicyKernel,
     private fetcher: typeof fetch = fetch,
@@ -215,18 +220,23 @@ export class CapabilityBroker {
   }
   discover(handle: ScopeHandle) {
     const s = this.policy.validate(handle);
+    const subject = s.subjectId === s.principalId ? 'self' : s.subjectId.startsWith('fictional:') ? 'fictional' : 'other';
     return [...this.capabilities.keys()]
       .filter((name) => {
         const d = this.capabilities.get(name)!;
         return (
           d.definition.requiredScopes.every((g) => s.grants.includes(g)) &&
-          s.sources.includes(d.provider.manifest.sourceId)
+          s.sources.includes(d.provider.manifest.sourceId) &&
+          d.definition.subjects.includes(subject) &&
+          d.definition.worlds.includes(s.worldId === 'real' ? 'real' : 'scenario') &&
+          (d.provider.manifest.platforms.includes('*') || d.provider.manifest.platforms.includes(process.platform)) &&
+          (!s.child || d.definition.effect === 'read')
         );
       })
       .map((n) => this.describe(n)!);
   }
   catalog(handle: ScopeHandle, query = '', offset = 0, limit = 12) {
-    const scope = this.policy.validate(handle);
+    const eligible = new Set(this.discover(handle).map(item => item.name));
     const normalized = query.normalize('NFKC').toLowerCase();
     // CJK substrings help retrieve Chinese names. Splitting Latin words into
     // bigrams made "email" match "map" via "ma", producing unrelated pages.
@@ -240,7 +250,7 @@ export class CapabilityBroker {
       return { row, score: terms.reduce((score, term) => score + (text.includes(term) ? term.length : 0), 0) };
     }).filter(result => !query || result.score > 0).sort((a, b) => b.score - a.score).map(result => result.row);
     const items = rows.slice(offset, offset + limit).map(row => ({ ...row,
-      executable: row.connection.connected && row.requiredScopes.every(grant => scope.grants.includes(grant)) && scope.sources.includes(row.sourceId),
+      executable: row.connection.connected && eligible.has(row.name),
     }));
     return { items, nextOffset: offset + limit < rows.length ? offset + limit : null, total: rows.length, catalogOnly: true,
       coverage: { query, matchingOnly: !!query, returned: items.length, totalMatches: rows.length, meaning: 'This is a capability-description page. An omitted item in a filtered search is not proof it is absent. Described or connected does not mean an action ran.' },
@@ -370,6 +380,12 @@ export class CapabilityBroker {
         if (!row) throw new HarnessError('invalid_attempt', '核查标识不属于当前获准的动作。');
       }
       const fingerprint = canonical({
+        principal: s.principalId,
+        workspace: s.workspaceId,
+        grants: [...s.grants].sort(),
+        retention: s.retention,
+        infer: s.infer,
+        child: s.child,
         sources: s.sources,
         subject: s.subjectId,
         world: s.worldId,
@@ -381,22 +397,40 @@ export class CapabilityBroker {
         current: ['history:self', 'current'].includes(m.sourceId) ? s.currentEventIds : [],
       });
       const key = fingerprint + ':' + name + ':' + canonical(parsed);
-      const cached = !options.refresh && d.effect === 'read' ? this.cached.get(key) : undefined;
-      if (cached?.expiresAt && Date.parse(cached.expiresAt) > Date.parse(this.policy.repo.clock.now())) {
-        this.policy.validate(handle);
-        return structuredClone(cached);
-      }
-      const existing = d.effect === 'read' && !options.refresh ? this.inFlight.get(key) : undefined;
-      if (existing) {
-        const result = await existing;
-        signal.throwIfAborted();
-        this.policy.validate(handle);
-        return structuredClone(result);
-      }
-      const budget = this.budgets.get(handle.id) || { calls: 0, bytes: 0 };
+      const flightKey = handle.id + ':' + key;
+      const budget = this.budgets.get(handle) || { calls: 0, bytes: 0 };
       if (++budget.calls > (options.maxCalls || 12))
         throw new HarnessError('tool_budget', '本轮读取达到上限，请缩小范围。');
-      this.budgets.set(handle.id, budget);
+      this.budgets.set(handle, budget);
+      for (const [cachedKey, result] of this.cached)
+        if (!result.expiresAt || Date.parse(result.expiresAt) <= Date.parse(this.policy.repo.clock.now())) this.cached.delete(cachedKey);
+      if (options.refresh) this.cached.delete(key);
+      const reuse = (value: CapabilityResult, cache: 'hit' | 'shared') => {
+        signal.throwIfAborted();
+        this.policy.validate(handle);
+        if (this.capabilities.get(name) !== entry) throw new HarnessError('provider_changed', '来源版本已改变，请重新查询。');
+        const result = structuredClone(value), bytes = Buffer.byteLength(JSON.stringify(result));
+        if (bytes > d.maxBytes || budget.bytes + bytes > 180000) throw new HarnessError('output_budget', '来源内容过大，请缩小查询。');
+        budget.bytes += bytes;
+        if (result.status === 'fresh' && result.expiresAt && Date.parse(result.expiresAt) <= Date.parse(this.policy.repo.clock.now())) result.status = 'stale';
+        this.audit({ id: attemptId, capability: name, providerId: m.id, version: d.version, status: result.status, scopeId: handle.id, simulated: m.simulated, bytes, cache });
+        return result;
+      };
+      const cached = !options.refresh && d.effect === 'read' && s.retention !== 'session_only' ? this.cached.get(key) : undefined;
+      if (cached?.expiresAt && Date.parse(cached.expiresAt) > Date.parse(this.policy.repo.clock.now())) {
+        return reuse(cached, 'hit');
+      }
+      const existing = d.effect === 'read' && !options.refresh ? this.inFlight.get(flightKey) : undefined;
+      if (existing) {
+        let abort!: () => void;
+        const cancelled = new Promise<never>((_resolve, reject) => {
+          abort = () => reject(signal.reason);
+          signal.addEventListener('abort', abort, { once: true });
+          if (signal.aborted) abort();
+        });
+        try { return reuse(await Promise.race([existing, cancelled]), 'shared'); }
+        finally { signal.removeEventListener('abort', abort); }
+      }
       const controller = new AbortController(),
         abort = () => controller.abort(signal.reason);
       signal.addEventListener('abort', abort, { once: true });
@@ -448,6 +482,7 @@ export class CapabilityBroker {
           } else raw = await bounded(() => provider.invoke(name, parsed, invocation));
           controller.signal.throwIfAborted();
           this.policy.validate(handle);
+          if (this.capabilities.get(name) !== entry) throw new HarnessError('provider_changed', '来源版本已改变，请重新查询。');
           const bytes = Buffer.byteLength(JSON.stringify(raw));
           if (bytes > d.maxBytes || budget.bytes + bytes > 180000)
             throw new HarnessError('output_budget', '来源内容过大，请缩小查询。');
@@ -464,9 +499,11 @@ export class CapabilityBroker {
             result.status = 'stale';
           if (result.status === 'known_absent' && result.coverage?.complete !== true)
             throw new HarnessError('incomplete_absence', '不完整结果不能证明没有约束。');
-          if (d.effect === 'read' && result.status === 'fresh' && result.expiresAt)
+          if (d.effect === 'read' && s.retention !== 'session_only' && result.status === 'fresh' && result.expiresAt && this.inFlight.get(flightKey) === pending) {
             this.cached.set(key, structuredClone(result));
-          this.invocations.push({
+            while (this.cached.size > 64) this.cached.delete(this.cached.keys().next().value!);
+          }
+          this.audit({
             id: attemptId,
             capability: name,
             providerId: m.id,
@@ -475,17 +512,18 @@ export class CapabilityBroker {
             scopeId: handle.id,
             simulated: m.simulated,
             bytes,
+            cache: 'miss',
           });
           return result;
         } finally {
           clearTimeout(timer);
           signal.removeEventListener('abort', abort);
           this.active.delete(controller);
-          this.inFlight.delete(key);
+          if (this.inFlight.get(flightKey) === pending) this.inFlight.delete(flightKey);
         }
       };
       const pending = run();
-      if (d.effect === 'read') this.inFlight.set(key, pending);
+      if (d.effect === 'read') this.inFlight.set(flightKey, pending);
       return await pending;
     } catch (error) {
       if (signal.aborted) throw error;
@@ -496,6 +534,7 @@ export class CapabilityBroker {
             ? 'schema_rejected'
             : 'provider_failed';
       this.rejections.push({ capability: name, code });
+      if (this.rejections.length > 128) this.rejections.splice(0, this.rejections.length - 128);
       const forbidden = [
         'forbidden',
         'source_forbidden',
@@ -508,7 +547,7 @@ export class CapabilityBroker {
       ].includes(code);
       if (d.effect !== 'read' && !forbidden) throw error; // An action timeout must reach ActionRuntime as outcome_unknown.
       const status: KnowledgeStatus = forbidden ? 'forbidden' : 'failed';
-      this.invocations.push({
+      this.audit({
         id: attemptId,
         capability: name,
         providerId: m.id,

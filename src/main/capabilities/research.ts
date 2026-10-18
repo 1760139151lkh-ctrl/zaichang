@@ -26,28 +26,53 @@ export function parseSearchFeed(xml: string) {
   }).filter(item => { try { return new URL(item.url).protocol === 'https:'; } catch { return false; } });
 }
 
+function searchTerms(query: string) {
+  return [...new Set((query.normalize('NFKC').toLowerCase().match(/[\p{L}\p{N}_.:-]+/gu) || [])
+    .filter(term => term.length > 1 && !/^(?:site:|and$|or$)/.test(term)))];
+}
+function matchesTerm(text: string, term: string) {
+  if (text.includes(term)) return true;
+  // Retain close Chinese name variants such as an abbreviation expanded by
+  // the source. A short shared province prefix cannot pass this threshold.
+  if (!/^[\p{Script=Han}]{4,}$/u.test(term)) return false;
+  const points = Array.from(term), pairs = [...new Set(points.slice(0, -1).map((point, index) => point + points[index + 1]))];
+  return pairs.filter(pair => text.includes(pair)).length / pairs.length >= 0.75;
+}
+
 export function registerResearch(broker: CapabilityBroker, materials?: MaterialService) {
   const sourceId = 'web:public';
-  const cache = new Map<string, { title: string; text: string; staticComplete: boolean; url: string; hash: string; fetchedAt: string; epoch: number; scopeId: string; httpStatus: number; contentType: string; html: boolean; extraction?: unknown }>();
+  const cache = new Map<string, { id: string; title: string; text: string; staticComplete: boolean; url: string; hash: string; fetchedAt: string; epoch: number; scopeId: string; httpStatus: number; contentType: string; html: boolean; extraction?: unknown }>();
   broker.policy.onBarrier(() => cache.clear());
-  const base = { version: '1', output: z.record(z.string(), z.json()), effect: 'read' as const, requiredScopes: ['evidence:read'], subjects: ['self', 'other', 'fictional'] as ('self' | 'other' | 'fictional')[], worlds: ['real', 'scenario'] as ('real' | 'scenario')[], timeoutMs: 25000, maxBytes: 100000, supportsIdempotency: false, supportsInspect: false, supportsCancel: false };
+  const base = { version: '2', output: z.record(z.string(), z.json()), effect: 'read' as const, requiredScopes: ['evidence:read'], subjects: ['self', 'other', 'fictional'] as ('self' | 'other' | 'fictional')[], worlds: ['real', 'scenario'] as ('real' | 'scenario')[], timeoutMs: 25000, maxBytes: 100000, supportsIdempotency: false, supportsInspect: false, supportsCancel: false };
   broker.register({
-    manifest: { id: 'public-research', sourceId, version: '1', trust: 'bundled_reviewed', egressHosts: [], publicRead: true, platforms: ['*'], simulated: false, offline: 'unsupported', license: 'Project-owned reader; source text retains original rights', capabilities: [
-      { ...base, name: 'research.search', displayName: '搜索公开资料', description: '以当前问题获准的公开关键词寻找网页与原发布来源。私密链接、无关原文和登录信息不能成为检索词；摘要只是线索，重要规则继续research.read。', input: z.object({ query: z.string().min(1).max(300), limit: z.number().int().min(1).max(8).default(5) }).strict() },
+    manifest: { id: 'public-research', sourceId, version: '2', trust: 'bundled_reviewed', egressHosts: [], publicRead: true, platforms: ['*'], simulated: false, offline: 'unsupported', license: 'Project-owned reader; source text retains original rights', capabilities: [
+      { ...base, name: 'research.search', displayName: '搜索公开资料', description: '以当前问题获准的公开关键词寻找网页与原发布来源。domains可限定域名，宿主会核对实际结果域名。私密链接、无关原文和登录信息不能成为检索词；偏题或空候选不能证明不存在，重要规则继续research.read核对。', input: z.object({ query: z.string().trim().min(1).max(300), limit: z.number().int().min(1).max(8).default(5), domains: z.array(z.string().toLowerCase().regex(/^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,63}$/)).min(1).max(5).optional() }).strict() },
       { ...base, name: 'research.read', displayName: '阅读公开网页和文件', description: '读取公开HTTPS网页、文字/JSON/XML或PDF。文字按Unicode片段回读，PDF按页提供原文字层、表格候选或必要真实页面像素，绑定SHA/来源/观察时间。不能访问内网、学校登录会话或任意本机路径，不执行文档脚本。resourceId继续当前同版资料；动态网页仍只读静态正文。', input: z.object({ url: z.string().max(8192).optional(), resourceId: z.string().max(100).optional(), page: z.number().int().min(1).max(200).default(1), view: z.enum(['text', 'table', 'image']).default('text'), offset: z.number().int().min(0).max(2000000).default(0), limit: z.number().int().min(1).max(16000).default(8000) }).strict() },
     ] },
     invoke: async (name, args, context) => {
       const now = broker.policy.repo.clock.now(), scope = broker.policy.validate(context.scope);
       if (name === 'research.search') {
         if (hasCredentials(args.query) || /https?:\/\/\S+[?#]\S+/i.test(args.query)) throw new HarnessError('search_disclosure', '公开检索词不能携带登录信息或私密链接参数。');
-        const url = new URL('https://www.bing.com/search'); url.searchParams.set('q', args.query); url.searchParams.set('format', 'rss');
+        const domains: string[] = args.domains || [];
+        const query = domains.length ? `(${domains.map(domain => 'site:' + domain).join(' OR ')}) ${args.query}` : args.query;
+        const url = new URL('https://www.bing.com/search'); url.searchParams.set('q', query); url.searchParams.set('format', 'rss');
         const response = await context.request(url.href);
         if (!response.ok) return { status: 'failed', sourceId, reason: `公开搜索未取得候选（HTTP ${response.status}）。`, simulated: false,
           data: { httpStatus: response.status, finalUrl: response.url || url.href, targetResearchCompleted: false } };
-        const items = parseSearchFeed(await response.text()).slice(0, args.limit);
-        return { status: items.length ? 'fresh' : 'not_found', sourceId, fetchedAt: now, simulated: false,
-          data: { items, query: args.query, retrieval: 'Bing public RSS', httpStatus: response.status, finalUrl: response.url || url.href,
-            authority: 'search_candidates_only', targetResearchCompleted: false, notProofOfAbsence: true, nextStep: '关键规则和期限须打开原发布页，核对适用对象、学期与日期。' }, coverage: { complete: false, scope: 'bounded public search results' } };
+        const candidates = parseSearchFeed(await response.text()), terms = searchTerms(args.query);
+        const items = candidates.filter(item => !domains.length || domains.some(domain => {
+          const host = new URL(item.url).hostname; return host === domain || host.endsWith('.' + domain);
+        })).map(item => {
+          const text = (item.title + ' ' + item.snippet + ' ' + item.url).normalize('NFKC').toLowerCase();
+          const matchedTerms = terms.filter(term => matchesTerm(text, term));
+          return { ...item, matchedTerms, queryTermCoverage: terms.length ? matchedTerms.length / terms.length : 0 };
+        }).sort((a, b) => b.queryTermCoverage - a.queryTermCoverage).slice(0, args.limit);
+        const related = items.some(item => item.queryTermCoverage >= 0.5);
+        return { status: related ? 'fresh' : 'partial', sourceId, fetchedAt: now, simulated: false,
+          ...(!related ? { reason: '搜索已响应，但没有取得与查询词充分相符的候选；请细化关键词或直接打开已知原来源，不能据此断言不存在。' } : {}),
+          data: { items, query: args.query, domains, retrieval: 'Bing public RSS', httpStatus: response.status, finalUrl: response.url || url.href,
+            candidateCount: candidates.length, relevance: related ? 'lexical_candidates_only' : 'weak_or_empty_candidates',
+            authority: 'search_candidates_only', targetResearchCompleted: false, notProofOfAbsence: true, nextStep: '词面匹配不保证语义相关；关键规则和期限须打开原发布页，核对适用对象、学期与日期。' }, coverage: { complete: false, scope: 'bounded public search results' } };
       }
       const readPdf = async (resourceId: string) => {
         if (!materials) throw new HarnessError('public_type_unsupported', 'PDF读取组件尚未接入。');
@@ -69,15 +94,17 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
         }
         const body = await response.text(), html = /html/i.test(response.headers.get('content-type') || '');
         const parsed = html ? readableHtml(body) : { title: new URL(response.url || args.url).pathname.split('/').at(-1) || '文字资料', text: body, staticComplete: true };
-        material = { ...parsed, url: response.url || args.url, hash: createHash('sha256').update(body).digest('hex'), fetchedAt: now, epoch: scope.privacyEpoch, scopeId: context.scope.id,
+        const url = response.url || args.url, hash = createHash('sha256').update(body).digest('hex');
+        const id = 'resource:' + createHash('sha256').update(context.scope.id + ':' + url + ':' + hash).digest('hex');
+        material = { ...parsed, id, url, hash, fetchedAt: now, epoch: scope.privacyEpoch, scopeId: context.scope.id,
           httpStatus: response.status, contentType: response.headers.get('content-type') || '', html };
-        cache.set('resource:' + material.hash, material);
+        cache.set(material.id, material);
         while (cache.size > 16) cache.delete(cache.keys().next().value!);
       }
       const points = Array.from(material.text), end = Math.min(points.length, args.offset + args.limit);
       const complete = args.offset === 0 && end === points.length;
       return { status: complete ? 'fresh' : 'partial', sourceId, fetchedAt: material.fetchedAt, simulated: false, ...(material.staticComplete ? {} : { reason: '本次只有所列静态文字范围；未验证目标动态正文，不能由此判断其不存在。' }),
-        data: { resourceId: 'resource:' + material.hash, url: material.url, title: material.title, sha256: material.hash, text: points.slice(args.offset, end).join(''), offset: args.offset, nextOffset: end < points.length ? end : null,
+        data: { resourceId: material.id, url: material.url, title: material.title, sha256: material.hash, text: points.slice(args.offset, end).join(''), offset: args.offset, nextOffset: end < points.length ? end : null,
           coverage: { start: args.offset, end, total: points.length, complete, meaning: 'complete_only_for_extracted_static_range', extraction: 'static_text_no_client_scripts' },
           httpStatus: material.httpStatus, finalUrl: material.url, contentType: material.contentType,
           ...(material.html ? { pageObservation: material.extraction, targetBodyVerified: false, dynamicContent: 'not_executed', targetContentCompleteness: 'unknown' } : {}),
