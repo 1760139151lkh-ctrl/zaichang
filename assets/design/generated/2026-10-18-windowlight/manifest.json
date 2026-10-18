@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-18",
+  "generator": "GPT Image (built-in)",
+  "source": "User-directed image-first continuation after examining the original conversation, all 22 original images, 29 archived images and 11 earlier continuation boards.",
+  "based_on_commit": "e9f3860f27293ebc656240463a6a7d427a20d064",
+  "review": "Generated and visually reviewed before corresponding implementation. Representative scene text is not real account data.",
+  "files": [
+    {
+      "file": "find-the-original-words.png",
+      "design_brief": "Unified local search with conversation, note and material excerpts; exact return to original; warm empty state.",
+      "usage": "design reference; not imported as product data",
+      "bytes": 1552427,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "94681645b14c6fc92c779274c27f619ef24e6d228499b150eff8b921e606645a"
+    },
+    {
+      "file": "entrusted-living-detail.png",
+      "design_brief": "A continuing matter with source scope, deadline and delivery channel; distinct active, paused and expired states; continue from original conversation.",
+      "usage": "design reference; not imported as product data",
+      "bytes": 1553081,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "cf5b06164ffee4a02e908085fe24f7723464fbe11817bcc7fc2e3b85e9db15d8"
+    },
+    {
+      "file": "understanding-can-change.png",
+      "design_brief": "Quiet list of understanding, side editor for correction, lasting change and temporary exception; archived statements can be said anew.",
+      "usage": "design reference; not imported as product data",
+      "bytes": 1532038,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "d440b5050bdc4797092cbb2261ae8fb50f4ac8bea45c5a51599112fb54ffedbc"
+    }
+  ]
+}

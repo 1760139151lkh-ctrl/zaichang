@@ -143,3 +143,32 @@
     align-items: flex-start;
   }
 }
+
+/* The writing and the listening example stay together without a long form wall. */
+.persona-editor .persona-lede { color: var(--text-secondary); margin: 10px 0 26px; font-size: 14px; line-height: 1.8; }
+.persona-composition { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(280px, .9fr); gap: clamp(28px, 4vw, 60px); align-items: start; }
+.persona-writing, .persona-listening { min-width: 0; }
+.persona-writing > .field-label { margin: 20px 0; }
+.persona-writing > .persona-presets { margin-top: 0; gap: 10px; }
+.persona-preset { padding: 16px; border-radius: 13px; }
+.persona-preset strong { font-size: 14px; }
+.persona-preset > span { font-size: 12px; line-height: 1.7; }
+.persona-listening { position: sticky; top: 20px; }
+.persona-listening .persona-preview { margin: 0; border: 1px solid var(--separator); border-radius: 19px; padding: 28px; background: color-mix(in srgb, var(--surface) 78%, transparent); }
+.persona-listening .persona-preview-heading > strong { font-size: 19px; font-weight: 500; }
+.persona-listening .persona-preview-heading { flex-wrap: wrap; }
+.persona-listening .persona-preview-heading > select { border: 1px solid var(--separator); background: var(--wash); border-radius: 9px; font-size: 12px; padding: 8px; }
+.persona-listening .persona-scene { margin: 26px 0 15px; font-size: 13px; line-height: 1.9; }
+.persona-listening blockquote { padding: 20px; background: var(--accent-soft); border-radius: 15px; font-size: 15px; line-height: 1.95; }
+.persona-listening .persona-preview > small { color: var(--text-secondary); line-height: 1.8; margin-top: 16px; }
+.persona-listening .persona-manage { margin-top: 25px; padding: 0 4px; }
+.persona-writing .field-buttons { margin-top: 24px; flex-wrap: wrap; }
+.persona-editor .persona-details > summary { font-size: 13px; padding: 8px 0; }
+@media (max-width: 900px) {
+ .persona-composition { grid-template-columns: 1fr; }
+ .persona-listening { position: static; }
+}
+@media (max-width: 460px) {
+ .persona-writing .persona-presets { grid-template-columns: 1fr; }
+ .persona-listening .persona-preview { padding: 22px; }
+}

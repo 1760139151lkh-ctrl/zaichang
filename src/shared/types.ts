@@ -1,5 +1,7 @@
 import type { CalendarFields } from './calendar';
 import type { NotesBridge } from './notes';
+import type { MaterialsBridge } from './materials';
+import type { LocalSearchBridge } from './search';
 import { DEFAULT_INTERACTION, type InteractionPreferences } from './interaction';
 import { DEFAULT_PERSONA, type PersonaState, type PersonaUpdate } from './persona';
 
@@ -248,7 +250,7 @@ export interface RuntimeOverview {
   };
   storage: { atRestEncrypted: boolean; keyProtection: string };
 }
-export interface Bridge extends NotesBridge {
+export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge {
   editReleaseArtifact(input: { sessionId: string; messageId: string; id: string; expectedRevision: number; body: string }): Promise<Message>;
   recordResponseExposure(input: { sessionId: string; messageId: string; event: 'displayed' | 'opened' }): Promise<{ recorded: boolean }>;
   changeMatterSelection(input: import('./presentation').MatterSelectionInput): Promise<import('./presentation').MatterSelectionResult>;
@@ -290,6 +292,8 @@ export interface Bridge extends NotesBridge {
     conditions?: import('./harness').Condition;
   }): Promise<State>;
   runtimeOverview(): Promise<RuntimeOverview>;
+  attentionList(input?: import('./attention-control').AttentionListInput): Promise<import('./attention-control').AttentionControlPage>;
+  attentionChange(input: import('./attention-control').AttentionChangeInput): Promise<import('./attention-control').AttentionControlItem>;
   adoptWorld(input: {
     id: string;
     itemIds: string[];

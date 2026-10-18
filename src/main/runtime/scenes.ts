@@ -1,9 +1,67 @@
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import type { Store } from '../store';
 import type { PolicyKernel } from './policy';
 import { HarnessError, type ScopeHandle } from '../../shared/harness';
 import type { MapRouteResult } from '../../shared/map-v2';
-import { sceneViewDsl, semanticSelectionSchema, type MapScene, type PresentationView, type SceneRef, type SceneSnapshot, type SemanticSelection, type VerifiedSelection, type WeatherScene } from '../../shared/scenes';
+import { sceneViewDsl, semanticSelectionSchema, type CampusRecord, type CampusScene, type MapScene, type PresentationView, type SceneRef, type SceneSnapshot, type SemanticSelection, type VerifiedSelection, type WeatherScene } from '../../shared/scenes';
+
+/** A strict projection of the installed connector's named fields. No prose parsing,
+ * guessed course matches, aggregate rows, or model-authored facts enter a scene. */
+export function campusSnapshot(result: { status: string; sourceId: string; data?: unknown; fetchedAt?: string; expiresAt?: string; coverage?: { complete?: boolean } }, capability: string, input: unknown, now: string): CampusScene | undefined {
+  const request = input as Record<string, any> | undefined, data = result.data as Record<string, any> | undefined;
+  const account = result.sourceId === 'campus:zju-account', imported = result.sourceId === 'campus:local';
+  if (!data || !['fresh', 'partial', 'stale'].includes(result.status) || !account && !imported) return;
+  const query = capability === 'campus.query';
+  if (query && (!['quick', 'select'].includes(request?.operation) || request?.spec?.operation && request.spec.operation !== 'select' || request?.spec?.join || request?.spec?.resources?.length || request?.spec?.group_by?.length || request?.spec?.metrics?.length)) return;
+  if (!query && !['campus.lookup', 'campus.imported_lookup'].includes(capability)) return;
+  if (!query && (account && data.origin !== 'zju_account' || imported && data.origin !== 'legacy_import')) return;
+  if (query && !account) return;
+  const requested = query ? request?.resource || request?.spec?.resource : request?.domain;
+  const domain = requested === 'classes' ? 'schedule' : requested;
+  if (!['courses', 'schedule', 'exams'].includes(domain)) return;
+  if (data.domain && data.domain !== domain || data.resource && data.resource !== requested) return;
+  if (!Array.isArray(data.records) || !data.records.length || data.conflicts?.length) return;
+  const text = (value: unknown, limit = 400): string | undefined => typeof value === 'string' && value.trim() && value.length <= limit ? value.trim() : undefined;
+  const scalar = (value: unknown): string | number | undefined => typeof value === 'number' && Number.isFinite(value) ? value : text(value, 80);
+  const rows: CampusRecord[] = [];
+  for (const value of data.records.slice(0, 100)) {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) continue;
+    const rawId = imported ? value.id : domain === 'schedule' ? value.uid : domain === 'courses' ? value.key : value.id;
+    const id = typeof rawId === 'string' || typeof rawId === 'number' && Number.isFinite(rawId) ? text(String(rawId), 160) : undefined;
+    const title = text(imported ? value.title : domain === 'schedule' ? value.summary : value.name, 200);
+    if (!id || !title || rows.some(row => row.id === id)) continue;
+    const teachers = domain === 'courses' ? value.teachers : value.teacher;
+    const teacherNames = (Array.isArray(teachers) ? teachers : [teachers]).flatMap(teacher => text(teacher, 100) ? [text(teacher, 100)!] : []).slice(0, 12);
+    const version = imported ? data.materialVersions?.find((item: any) => item.id === id && item.domain === domain && item.sourceId === result.sourceId) : undefined;
+    rows.push({ id, title,
+      ...(text(imported ? value.startsAt : value.startTime, 80) ? { startsAt: text(imported ? value.startsAt : value.startTime, 80) } : {}),
+      ...(text(imported ? value.endsAt : value.endTime, 80) ? { endsAt: text(imported ? value.endsAt : value.endTime, 80) } : {}),
+      ...(text(value.dateLabel, 100) ? { dateLabel: text(value.dateLabel, 100) } : {}),
+      ...(text(value.location) ? { location: text(value.location) } : {}),
+      ...(teacherNames.length ? { teachers: teacherNames } : {}),
+      ...(scalar(value.credit) !== undefined ? { credit: scalar(value.credit) } : {}),
+      ...(text(value.semester_id, 80) ? { term: text(value.semester_id, 80) } : {}),
+      ...(domain === 'exams' && text(value.type, 80) ? { examType: text(value.type, 80) } : {}),
+      ...(domain === 'exams' && scalar(value.seat) !== undefined ? { seat: scalar(value.seat) } : {}),
+      ...(value.status === 'cancelled' ? { cancelled: true } : {}),
+      ...(value.rescheduled === true ? { rescheduled: true } : {}),
+      ...(text(value.time_precision, 80) ? { timePrecision: text(value.time_precision, 80) } : {}),
+      ...(Number.isInteger(version?.revision) && version.revision > 0 ? { sourceRevision: version.revision } : {}),
+    });
+  }
+  if (!rows.length) return;
+  const total = query ? data.total_matches : data.total;
+  const fetchedAt = result.fetchedAt && Number.isFinite(Date.parse(result.fetchedAt)) ? result.fetchedAt : '';
+  const term = text(data.termId === 'unspecified' ? undefined : data.termId || data.semester_id, 80);
+  return { kind: 'campus', id: randomUUID(), revision: 1, createdAt: now, domain,
+    source: { sourceId: result.sourceId, fetchedAt, expiresAt: result.expiresAt,
+      version: createHash('sha256').update(JSON.stringify({ sourceId: result.sourceId, fetchedAt, data })).digest('hex'), coverage: result.coverage },
+    sourceLabel: imported ? text(data.source, 200) || '导入的校园资料' : '浙江大学校园资料',
+    origin: imported ? 'legacy_import' : 'zju_account', ...(term ? { term } : {}), records: rows,
+    ...(typeof total === 'number' && Number.isInteger(total) && total >= rows.length ? { total } : {}),
+    complete: result.coverage?.complete === true && rows.length === data.records.length && data.next_offset == null && (typeof total !== 'number' || total === rows.length),
+  };
+}
 
 /** Host-verified snapshots stay in their conversation; no selection is indexed as memory. */
 export class SceneService {
@@ -15,7 +73,7 @@ export class SceneService {
   }
   private permitted(handle: ScopeHandle, scene: SceneSnapshot) {
     const scope = this.policy.validate(handle);
-    return scope.audience === 'self' && this.policy.can(handle, scene.kind === 'map' ? 'map:read' : 'weather:read')
+    return scope.audience === 'self' && this.policy.can(handle, scene.kind === 'map' ? 'map:read' : scene.kind === 'campus' ? 'campus:read' : 'weather:read')
       && scope.sources.includes(scene.source.sourceId);
   }
   all(sessionId: string): SceneSnapshot[] {
@@ -114,20 +172,29 @@ export class SceneService {
   view(scenes: SceneSnapshot[], layout: 'stack' | 'compare'): PresentationView {
     return { id: randomUUID(), revision: 1, libraryVersion: 1, createdAt: this.store.kernel.clock.now(), sceneRefs: scenes.map(({ id, revision }) => ({ id, revision })), dsl: sceneViewDsl(scenes, layout) };
   }
+  campus(sessionId: string, result: Parameters<typeof campusSnapshot>[0], capability: string, input: unknown, runId?: string, preparationOnly = false) {
+    const scene = campusSnapshot(result, capability, input, this.store.kernel.clock.now());
+    return scene ? this.remember(sessionId, scene, runId, preparationOnly) : undefined;
+  }
   selection(handle: ScopeHandle, sessionId: string, raw: SemanticSelection): VerifiedSelection {
     const input = semanticSelectionSchema.parse(raw), scene = this.get(handle, sessionId, { id: input.sceneId, revision: input.sceneRevision }, undefined, true);
     let label: string | undefined;
-    if (input.kind === 'date' && scene.kind === 'weather' && !input.placeId && !input.legId) label = scene.days.find(day => day.date === input.date)?.date;
-    if (input.kind === 'place' && scene.kind === 'map' && !input.date && !input.legId && input.placeId) {
+    let record: CampusRecord | undefined;
+    if (input.kind === 'date' && scene.kind === 'weather' && !input.placeId && !input.legId && !input.recordId) label = scene.days.find(day => day.date === input.date)?.date;
+    if (input.kind === 'place' && scene.kind === 'map' && !input.date && !input.legId && !input.recordId && input.placeId) {
       const map = this.store.runtime.connections.map, publicMap = map?.publicView?.() || map;
       label = publicMap?.point(input.placeId)?.displayName;
     }
-    if (input.kind === 'leg' && scene.kind === 'map' && !input.placeId && !input.date) {
+    if (input.kind === 'leg' && scene.kind === 'map' && !input.placeId && !input.date && !input.recordId) {
       const leg = scene.journey.legs.find(leg => leg.id === input.legId);
       if (leg) label = `${scene.journey.stops.find(stop => stop.id === leg.fromStopId)?.label} → ${scene.journey.stops.find(stop => stop.id === leg.toStopId)?.label}`;
     }
+    if (input.kind === 'record' && scene.kind === 'campus' && !input.placeId && !input.date && !input.legId) {
+      record = scene.records.find(item => item.id === input.recordId);
+      label = record?.title;
+    }
     if (!label) throw new HarnessError('selection_target', '选择的对象与这份画面不相符，请重新选择。');
-    return { ...input, label, source: scene.source, selectedAt: this.store.kernel.clock.now(), meaning: '用户在当前对话界面明确选中的临时引用/试算；不是当前位置、到达证明、已接受的安排、长期偏好或行动授权。日期只确定当天，下午的具体起止时间仍以原话和真实日程核对。' };
+    return { ...input, label, source: scene.source, ...(record ? { record: structuredClone(record) } : {}), selectedAt: this.store.kernel.clock.now(), meaning: '用户在当前对话界面明确选中的临时引用/试算；不是当前位置、到达证明、已接受的安排、长期偏好或行动授权。校园记录保留查询时刻，不代表之后没有变化；日期只确定当天，下午的具体起止时间仍以原话和真实日程核对。' };
   }
   summaries(handle: ScopeHandle, sessionId: string, runId?: string, attached?: SceneRef) {
     const available = this.available(handle, sessionId, runId, attached), recent = available.slice(-6);
@@ -136,6 +203,7 @@ export class SceneService {
     return selected.map(scene => scene.kind === 'map' ? { id: scene.id, revision: scene.revision, kind: scene.kind, source: scene.source,
       ...(scene.place ? { place: { id: scene.place.id, label: scene.place.displayName } } : {}),
       journey: { ...scene.journey, legs: scene.journey.legs.map(({ id, fromStopId, toStopId, route }) => ({ id, fromStopId, toStopId, status: route.status, distance: route.distance, warnings: route.warnings })) } }
+      : scene.kind === 'campus' ? { ...scene, records: scene.records.slice(0, 8), sceneRecordCount: scene.records.length, summaryOmittedRecords: Math.max(0, scene.records.length - 8) }
       : { ...scene });
   }
 }

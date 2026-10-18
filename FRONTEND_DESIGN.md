@@ -6,6 +6,8 @@
 
 配套说明：[图像与页面对应.md](前端视觉创新设计/图像与页面对应.md)，包括体验方向、原图编号、功能落点和补充场景。
 
+当前逐图对应与续作：[DESIGN_IMAGE_COVERAGE](docs/DESIGN_IMAGE_COVERAGE.md)。新增查找、托付详情和理解变化三张图：[窗边续作](assets/design/generated/2026-10-18-windowlight/)。
+
 ## 图片与素材
 
 - [图片/](前端视觉创新设计/图片/)：22 张原始视觉图，图号在文件名末尾。

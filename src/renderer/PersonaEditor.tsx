@@ -96,7 +96,7 @@ export function PersonaEditor({
         });
         if (draft.current.persona === submittedDraft) delete draft.current.persona;
         setUndoRevision(undefined);
-        setFeedback({ text: 'undoRevision' in update ? '已恢复所选角色版本' : '角色已保存' });
+        setFeedback({ text: 'undoRevision' in update ? '我们回到以前的约定了' : '以后就这样相处' });
       });
     } finally {
       setPending(false);
@@ -105,10 +105,13 @@ export function PersonaEditor({
   return (
     <section className="preference-section persona-editor">
       <div className="persona-heading">
-        <h3 className="section-title">助理角色</h3>
-        <span>{persona.core.name || '尚未命名'}</span>
+        <h3 className="section-title">你喜欢的相处方式</h3>
+        <span>{persona.core.name || '还没起名字'}</span>
       </div>
-      <div className="persona-presets" role="group" aria-label="选择角色起点">
+      <p className="persona-lede">形象可以换，相处的方式由你来写。</p>
+      <div className="persona-composition">
+        <div className="persona-writing">
+      <div className="persona-presets" role="group" aria-label="从哪种相处方式开始">
         {PERSONA_PRESETS.map((preset) => (
           <button
             key={preset.id}
@@ -124,20 +127,20 @@ export function PersonaEditor({
         ))}
       </div>
       <label className="field-label">
-        角色名字
+        叫什么
         <input
-          aria-label="角色名字"
+          aria-label="叫什么"
           value={core.name}
           maxLength={60}
           disabled={locked}
           onChange={(event) => patch({ name: event.target.value })}
-          placeholder="待设置"
+          placeholder="想到了再写也可以"
         />
       </label>
       <label className="field-label">
-        角色描述
+        你希望怎样相处
         <textarea
-          aria-label="角色描述"
+          aria-label="你希望怎样相处"
           value={core.description}
           maxLength={4000}
           rows={3}
@@ -147,7 +150,7 @@ export function PersonaEditor({
         />
       </label>
       <details className="persona-details">
-        <summary>角色细节与例句</summary>
+        <summary>再写细一点</summary>
         <div className="persona-details-body">
           <div className="preference-fields">
             <label>
@@ -158,7 +161,7 @@ export function PersonaEditor({
                 maxLength={60}
                 disabled={locked}
                 onChange={(event) => patch({ selfReference: event.target.value })}
-                placeholder="待设置"
+                placeholder="想到了再写也可以"
               />
             </label>
             <label>
@@ -169,18 +172,18 @@ export function PersonaEditor({
                 maxLength={100}
                 disabled={locked}
                 onChange={(event) => patch({ address: event.target.value })}
-                placeholder="待设置"
+                placeholder="想到了再写也可以"
               />
             </label>
           </div>
           <label className="field-label">
-            虚构身份或关系
+            角色中的身份或关系
             <input
               value={core.identity}
               maxLength={500}
               disabled={locked}
               onChange={(event) => patch({ identity: event.target.value })}
-              placeholder="待设置"
+              placeholder="想到了再写也可以"
             />
           </label>
           <label className="field-label">
@@ -191,18 +194,18 @@ export function PersonaEditor({
               rows={2}
               disabled={locked}
               onChange={(event) => patch({ voice: event.target.value })}
-              placeholder="待设置"
+              placeholder="想到了再写也可以"
             />
           </label>
           <label className="field-label">
-            虚构背景
+            角色中的故事
             <textarea
               value={core.fictionalBackstory}
               maxLength={1000}
               rows={2}
               disabled={locked}
               onChange={(event) => patch({ fictionalBackstory: event.target.value })}
-              placeholder="待设置"
+              placeholder="想到了再写也可以"
             />
           </label>
           {PERSONA_SCENARIOS.map((scene) => (
@@ -223,15 +226,45 @@ export function PersonaEditor({
                     ],
                   })
                 }
-                placeholder="待设置"
+                placeholder="想到了再写也可以"
               />
             </label>
           ))}
         </div>
       </details>
+      <div className="field-buttons">
+        <button
+          className="primary-button"
+          disabled={locked || busy || !dirty || stale}
+          onClick={() => void save({ expectedRevision: editor.expectedRevision, core })}
+        >
+          {locked && <LoaderCircle size={14} className="spin" />}留下这些约定
+        </button>
+        {(dirty || stale) && (
+          <button className="text-button" disabled={locked} onClick={() => reset()}>
+            先不改了
+          </button>
+        )}
+        {dirty && !stale && <small className="setting-hint">这次的想法还没留下</small>}
+      </div>
+      {stale && (
+        <p className="inline-status error" role="alert">
+          这里已经有了新的约定。你写的文字还在，可以先复制，再回到现在的约定继续改。
+        </p>
+      )}
+      {feedback && (
+        <p
+          className={`inline-status ${feedback.error ? 'error' : ''}`}
+          role={feedback.error ? 'alert' : 'status'}
+        >
+          {feedback.text}
+        </p>
+      )}
+        </div>
+        <aside className="persona-listening">
       <div className="persona-preview">
         <div className="persona-preview-heading">
-          <strong>表达预览</strong>
+          <strong>试着这样说</strong>
           <select
             aria-label="角色预览场景"
             value={scenario}
@@ -245,44 +278,16 @@ export function PersonaEditor({
           </select>
         </div>
         <p className="persona-scene">{selectedScene.facts}</p>
-        <blockquote>{response || '这个场景还没有例句。'}</blockquote>
-        <small>角色例句，不代表实际操作结果</small>
+        <blockquote>{response || '这时，你希望我怎样回应？可以在左边写一句。'}</blockquote>
+        <small>这里展示你写下的例句，方便一起调整语气。</small>
       </div>
-      <div className="field-buttons">
-        <button
-          className="primary-button"
-          disabled={locked || busy || !dirty || stale}
-          onClick={() => void save({ expectedRevision: editor.expectedRevision, core })}
-        >
-          {locked && <LoaderCircle size={14} className="spin" />}保存角色
-        </button>
-        {(dirty || stale) && (
-          <button className="text-button" disabled={locked} onClick={() => reset()}>
-            放弃修改
-          </button>
-        )}
-        {dirty && !stale && <small className="setting-hint">未保存</small>}
-      </div>
-      {stale && (
-        <p className="inline-status error" role="alert">
-          角色已在别处更新，请放弃当前修改后重新编辑。
-        </p>
-      )}
-      {feedback && (
-        <p
-          className={`inline-status ${feedback.error ? 'error' : ''}`}
-          role={feedback.error ? 'alert' : 'status'}
-        >
-          {feedback.text}
-        </p>
-      )}
       <details className="persona-details persona-manage">
-        <summary>版本与角色模板</summary>
+        <summary>以前的约定与随身带走</summary>
         <div className="persona-details-body">
           {persona.history.length > 0 && (
             <div className="persona-version-row">
               <label className="field-label">
-                恢复早先版本
+                以前怎样相处
                 <select
                   aria-label="角色历史版本"
                   value={undoRevision ?? ''}
@@ -291,13 +296,13 @@ export function PersonaEditor({
                     setUndoRevision(event.target.value ? Number(event.target.value) : undefined)
                   }
                 >
-                  <option value="">选择版本</option>
+                  <option value="">选一份以前的约定</option>
                   {[...persona.history].reverse().map((version) => (
                     <option key={version.revision} value={version.revision}>
-                      版本 {version.revision} · {version.core.name || '尚未命名'}
+                      第 {version.revision} 次约定 · {version.core.name || '还没起名字'}
                       {version.savedAt
                         ? ` · ${new Date(version.savedAt).toLocaleDateString('zh-CN')}`
-                        : ' · 初始设置'}
+                        : ' · 最初的约定'}
                     </option>
                   ))}
                 </select>
@@ -311,14 +316,14 @@ export function PersonaEditor({
                 }
               >
                 <Undo2 size={14} />
-                恢复版本
+                回到这份约定
               </button>
             </div>
           )}
           <div className="field-buttons">
             <button className="text-button" disabled={locked} onClick={() => fileRef.current?.click()}>
               <Upload size={14} />
-              导入角色模板
+              放入我的设置
             </button>
             <button
               className="text-button"
@@ -331,11 +336,11 @@ export function PersonaEditor({
                 anchor.download = 'zaichang-persona.json';
                 anchor.click();
                 setTimeout(() => URL.revokeObjectURL(url), 1000);
-                setFeedback({ text: '已导出当前角色，不含私人补充说明或记忆' });
+                setFeedback({ text: '这份相处设置已带走，私人补充和记忆仍留在这里' });
               }}
             >
               <Download size={14} />
-              导出当前角色
+              带走这份设置
             </button>
           </div>
           <input
@@ -343,7 +348,7 @@ export function PersonaEditor({
             ref={fileRef}
             type="file"
             accept="application/json,.json"
-            aria-label="导入角色模板文件"
+            aria-label="放入我的设置文件"
             onChange={async (event) => {
               const file = event.target.files?.[0];
               event.target.value = '';
@@ -351,12 +356,12 @@ export function PersonaEditor({
               const importingRevision = ++importRevision.current;
               const beforeImport = draft.current.persona;
               try {
-                if (file.size > 160_000) throw new Error('角色模板过大。');
+                if (file.size > 160_000) throw new Error('这份设置文件太大了，请选一份 160 KB 以内的 JSON 文件。');
                 const imported = importPersonaTemplate(await file.text());
                 if (importRevision.current !== importingRevision || draft.current.persona !== beforeImport)
                   return;
                 replace(imported);
-                setFeedback({ text: '模板已载入，保存后生效' });
+                setFeedback({ text: '这份设置放进来了。看看合不合心意，再留下。' });
               } catch (error) {
                 if (importRevision.current !== importingRevision) return;
                 setFeedback({ text: uiError(error), error: true });
@@ -365,7 +370,7 @@ export function PersonaEditor({
           />
           {legacyGuidance && (
             <details className="persona-legacy">
-              <summary>从原补充说明中选择角色文字</summary>
+              <summary>从以前写的话里挑一段</summary>
               <textarea
                 aria-label="原私人补充说明"
                 readOnly
@@ -381,15 +386,17 @@ export function PersonaEditor({
                 disabled={!legacySelection || locked}
                 onClick={() => {
                   patch({ description: legacySelection });
-                  setFeedback({ text: '选中文字已放入角色描述，保存后作为角色使用' });
+                  setFeedback({ text: '选中文字已放入你希望怎样相处，保存后作为角色使用' });
                 }}
               >
-                将选中文字用作角色描述
+                将选中文字用作你希望怎样相处
               </button>
             </details>
           )}
         </div>
       </details>
+        </aside>
+      </div>
     </section>
   );
 }

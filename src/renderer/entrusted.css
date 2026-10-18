@@ -1,0 +1,137 @@
+.today-entrusted .work-receipts {
+  display: grid;
+  gap: 28px;
+  margin-bottom: 22px;
+}
+.today-entrusted .work-receipts > section {
+  margin: 0;
+}
+.today-entrusted .work-receipts h3 {
+  font-size: 14px;
+  margin: 0 0 13px;
+  font-weight: 600;
+}
+.entrusted-goals {
+  display: grid;
+  gap: 12px;
+}
+.entrusted-goals h3 {
+  margin-bottom: 1px;
+}
+.work-receipts .entrusted-goal {
+  padding: 22px 24px;
+  border: 1px solid var(--separator);
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+}
+.work-receipts .entrusted-goal-active {
+  border-color: color-mix(in srgb, var(--accent) 22%, var(--separator));
+}
+.work-receipts .entrusted-goal-cancelled {
+  background: transparent;
+}
+.entrusted-source {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--separator);
+}
+.entrusted-source > summary {
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+.entrusted-source .evidence-preview {
+  margin-top: 14px;
+}
+.work-needs-care {
+  padding: 18px 22px 8px;
+  border-inline-start: 2px solid color-mix(in srgb, var(--accent) 42%, transparent);
+  background: color-mix(in srgb, var(--accent) 4%, transparent);
+  border-radius: 0 16px 16px 0;
+}
+.work-needs-care .work-row:last-child {
+  border-bottom: 0;
+}
+.work-history {
+  border-top: 1px solid var(--separator);
+  padding-top: 18px;
+}
+.work-history > summary {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  list-style: none;
+}
+.work-history > summary::before {
+  content: '›';
+  display: inline-block;
+  font-size: 18px;
+  transition: transform 160ms ease;
+}
+.work-history[open] > summary::before {
+  transform: rotate(90deg);
+}
+.work-history > summary span {
+  margin-left: auto;
+  font-size: 12px;
+}
+.entrusted-empty {
+  margin: 12px 0 32px;
+  padding: 32px 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.work-receipts .work-row .field-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-top: 16px;
+}
+.work-receipts .work-row-heading {
+  gap: 18px;
+}
+.work-receipts .work-row-heading strong {
+  font-size: 15px;
+  font-weight: 550;
+  line-height: 1.8;
+}
+.work-receipts .work-row p {
+  line-height: 1.85;
+}
+.work-receipts .work-row small {
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.work-receipts .resume-work {
+  padding: 18px 0;
+}
+.work-receipts .delivery-details {
+  margin-top: 2px;
+}
+.work-receipts .delivery-details summary {
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.work-receipts .delivery-details p {
+  line-height: 1.85;
+}
+@media (max-width: 620px) {
+  .work-receipts .entrusted-goal {
+    padding: 18px;
+  }
+  .work-receipts .work-row-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .work-receipts .work-needs-care {
+    padding: 16px 16px 6px;
+  }
+}

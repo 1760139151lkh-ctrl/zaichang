@@ -15,6 +15,7 @@ import { DEFAULT_INTERACTION } from '../shared/interaction';
 import { PersonaEditor, type PersonaDraft } from './PersonaEditor';
 import { CompanionSettings } from './CompanionSettings';
 import { useCompanion } from './companion';
+import './settings-refinement.css';
 
 const api = window.zaichang;
 export interface SettingsDraft {
@@ -60,10 +61,11 @@ export function SettingsPanel({
   initialTab = '连接',
 }: Props) {
   const [appearance, setAppearance] = useAppearance();
-  const { reset: resetCompanion } = useCompanion();
+  const { reset: resetCompanion, value: companion, update: updateCompanion } = useCompanion();
   const interaction = state.settings.interaction || DEFAULT_INTERACTION;
   const [tab, setTab] = useState(initialTab);
   const tabs = embedded ? ['陪伴', '交流', '偏好', '连接'] : ['陪伴', '交流', '偏好', '连接', '记忆'];
+  const tabNames: Record<string, string> = { 陪伴: '陪伴的样子', 交流: '怎么相处', 偏好: '阅读与节奏', 连接: '连接与资料', 记忆: '关于你' };
   const Frame = embedded ? PagePanel : Modal;
   const [key, setKey] = useState(draft.current.apiKey || '');
   const [guidance, setGuidance] = useState(draft.current.guidance ?? state.settings.guidance);
@@ -112,7 +114,7 @@ export function SettingsPanel({
         action,
         text:
           action === 'test' && testCancelled.current
-            ? '已取消测试'
+            ? '这次先不试了'
             : action === 'test' && errorText(e).includes('剩余事项')
               ? '连接暂时中断，请检查网络后重试'
               : errorText(e).replace(/[。.!！]+$/, ''),
@@ -151,12 +153,12 @@ export function SettingsPanel({
           ? '已登录'
           : connector.authStatus === 'failed'
             ? '需要重试'
-            : '待验证';
+            : '再试一下登录';
   return (
     <Frame
-      title={tab === '资料' ? '校园资料' : tab === '记忆' ? '关于你' : tab === '陪伴' ? '让这里，更像你喜欢的地方。' : tab === '交流' ? '怎么相处' : tab === '偏好' ? '按你的节奏来。' : '连接与资料'}
+      title={tab === '资料' ? '校园资料' : tab === '记忆' ? '关于你' : tab === '陪伴' ? '让这里，更像你喜欢的地方。' : tab === '交流' ? '怎么相处' : tab === '偏好' ? '按你的节奏来。' : state.settings.hasKey || lunaSubstitute ? '连接与资料' : '让我们聊起来。'}
       onClose={onClose}
-      className={`settings-panel ${initialTab === '记忆' ? 'memory-page' : ''} ${tab === '陪伴' || tab === '交流' ? 'settings-wide' : ''}`}
+      className={`settings-panel settings-refined ${initialTab === '记忆' ? 'memory-page' : ''} ${['陪伴', '交流', '偏好'].includes(tab) ? 'settings-wide' : ''} ${tab === '偏好' ? 'settings-rhythm' : tab === '交流' ? 'settings-conversation' : tab === '连接' ? 'settings-connect' : ''}`}
     >
       {tab === '资料' ? (
         <button ref={sourceBackRef} className="source-back text-button" onClick={() => changeTab('连接')}>
@@ -190,7 +192,7 @@ export function SettingsPanel({
                 }
               }}
             >
-              {t}
+              {tabNames[t]}
             </button>
           ))}
         </div>
@@ -214,16 +216,16 @@ export function SettingsPanel({
                 <h3>{lunaSubstitute ? state.modelRuntime?.displayName : 'DeepSeek'}</h3>
                 <p>
                   {lunaSubstitute
-                    ? '临时代测 · 生产默认仍为 DeepSeek'
+                    ? '当前使用 Luna，日常连接仍是 DeepSeek'
                     : state.settings.mode === 'deepseek' && state.settings.hasKey
-                      ? '连接配置已保存'
-                      : '连接后即可开始对话'}
+                      ? '密钥留好了。可以试着连接。'
+                      : '留下一把密钥，我们就可以聊起来。'}
                 </p>
               </div>
             </div>
             {lunaSubstitute ? (
               <div className="model-runtime-note">
-                <p>当前使用临时代测模型。你的资料范围、保存选择与操作权限保持一致。</p>
+                <p>这次使用 Luna。你选择的资料范围和保留方式仍然有效。</p>
                 <div className="field-buttons">
                   {state.settings.mode === 'demo' && (
                     <button
@@ -231,7 +233,7 @@ export function SettingsPanel({
                       disabled={disabled}
                       onClick={() => void update('enable-luna', { mode: 'deepseek' })}
                     >
-                      启用 Luna 临时代测
+                      使用这个连接
                     </button>
                   )}
                   <button
@@ -246,7 +248,7 @@ export function SettingsPanel({
                     }}
                   >
                     {pending === 'test' && <LoaderCircle size={14} className="spin" />}
-                    {pending === 'test' ? '正在检查…' : '检查临时代测连接'}
+                    {pending === 'test' ? '正在检查…' : '试着连接'}
                   </button>
                   {pending === 'test' && (
                     <button
@@ -256,16 +258,16 @@ export function SettingsPanel({
                         void api.cancelConnection();
                       }}
                     >
-                      取消检查
+                      先不试了
                     </button>
                   )}
                 </div>
                 {result(['test'])}
                 <details className="connection-technical">
-                  <summary>临时代测说明</summary>
+                  <summary>关于这次连接</summary>
                   <p>
                     通过 App Server 使用当前登录的 {state.modelRuntime?.displayName}。生产默认仍为
-                    DeepSeek；两者的测试记录与账户用量分开保存。
+                    DeepSeek；两种连接各自记录使用情况。
                   </p>
                 </details>
               </div>
@@ -277,7 +279,7 @@ export function SettingsPanel({
                     type="password"
                     value={key}
                     autoComplete="off"
-                    placeholder={state.settings.hasKey ? '已保存' : '输入密钥'}
+                    placeholder={state.settings.hasKey ? '已有密钥，想更换时在这里输入' : '粘贴你的 DeepSeek 密钥'}
                     onChange={(e) => {
                       setKey(e.target.value);
                       draft.current.apiKey = e.target.value;
@@ -296,16 +298,16 @@ export function SettingsPanel({
                         );
                         setKey('');
                         draft.current.apiKey = '';
-                        setFeedback({ action: 'save', text: '连接配置已保存' });
+                        setFeedback({ action: 'save', text: '密钥留好了。可以试着连接。' });
                       })
                     }
                   >
-                    {pending === 'save' && <LoaderCircle size={14} className="spin" />}连接 DeepSeek
+                    {pending === 'save' && <LoaderCircle size={14} className="spin" />}留下密钥
                   </button>
                 </div>
                 {result(['save', 'remove'])}
-                <details className="advanced connection-advanced">
-                  <summary>更多连接设置</summary>
+                <details className="advanced connection-advanced" open={!state.settings.hasKey}>
+                  <summary>试一试，或换一把密钥</summary>
                   <div className="advanced-body">
                     <div className="field-buttons">
                       <button
@@ -319,14 +321,14 @@ export function SettingsPanel({
                               action: 'test',
                               text:
                                 key || state.settings.mode !== 'deepseek'
-                                  ? '连接可用'
-                                  : `${text.replace(/[。.!！]+$/, '')}，连接可用`,
+                                  ? '可以聊起来了'
+                                  : `${text.replace(/[。.!！]+$/, '')}，可以聊起来了`,
                             });
                           });
                         }}
                       >
                         {pending === 'test' && <LoaderCircle size={14} className="spin" />}
-                        {pending === 'test' ? '正在测试…' : '测试连接'}
+                        {pending === 'test' ? '正在试着连接…' : '试着连接'}
                       </button>
                       {pending === 'test' && (
                         <button
@@ -336,7 +338,7 @@ export function SettingsPanel({
                             void api.cancelConnection();
                           }}
                         >
-                          取消测试
+                          先不试了
                         </button>
                       )}
                       {state.settings.hasKey && (
@@ -348,7 +350,7 @@ export function SettingsPanel({
                               onState(await api.deleteKey());
                               setKey('');
                               draft.current.apiKey = '';
-                              setFeedback({ action: 'remove', text: '连接密钥已移除' });
+                              setFeedback({ action: 'remove', text: '这把密钥已从电脑里移除' });
                             })
                           }
                         >
@@ -368,11 +370,11 @@ export function SettingsPanel({
                 onClick={() =>
                   void perform('demo', async () => {
                     onState(await api.saveSettings({ mode: 'demo' }));
-                    setFeedback({ action: 'demo', text: '已切换到本地示例' });
+                    setFeedback({ action: 'demo', text: '现在可以先看看在场的样子' });
                   })
                 }
               >
-                使用本地示例
+                先看看在场的样子
               </button>
             )}
             {result(['demo'])}
@@ -401,10 +403,10 @@ export function SettingsPanel({
                   </div>
                   <p>
                     {connectorReady
-                      ? '已用浙大账号连接，提问时会按需读取'
+                      ? '需要课表或其他校园资料时，我会按你的允许范围去看。'
                       : connector?.credentialsConfigured
-                        ? '登录信息已安全保存，再验证一次即可使用'
-                        : '使用浙大统一身份认证，不需要导入资料文件'}
+                        ? '登录信息还在，再试着登录一次吧。'
+                        : '用浙大账号登录后，可以在聊天里看课表等校园资料。'}
                   </p>
                 </div>
                 <button
@@ -423,9 +425,9 @@ export function SettingsPanel({
                   {pending === 'account-connect' ? (
                     <LoaderCircle size={14} className="spin" />
                   ) : connectorReady ? (
-                    '重新验证'
+                    '重新登录'
                   ) : connector?.credentialsConfigured ? (
-                    '验证登录'
+                    '试着登录'
                   ) : (
                     '登录浙大'
                   )}
@@ -441,7 +443,7 @@ export function SettingsPanel({
                       onClick={() =>
                         void perform('credentials', async () => {
                           onState(await api.configureCampusCredentials());
-                          setFeedback({ action: 'credentials', text: '登录信息已更新并通过验证' });
+                          setFeedback({ action: 'credentials', text: '现在可以按你的允许范围查看校园资料了' });
                         })
                       }
                     >
@@ -472,7 +474,7 @@ export function SettingsPanel({
                           onState(await api.disconnectCampusConnector());
                           setFeedback({
                             action: 'connector-disconnect',
-                            text: '校园资料已断开；登录信息仍安全保存在本机',
+                            text: '这次先不看校园资料了。登录信息还留在这台电脑。',
                           });
                         })
                       }
@@ -483,7 +485,7 @@ export function SettingsPanel({
                   <small>
                     登录信息由 Windows
                     当前用户加密保存；回答模型只会收到当前问题所需的资料，不会收到账号或密码。
-                    {connector.lastVerifiedAt ? ` 上次验证：${date(connector.lastVerifiedAt)}。` : ''}
+                    {connector.lastVerifiedAt ? ` 上次登录：${date(connector.lastVerifiedAt)}。` : ''}
                   </small>
                 </details>
               )}
@@ -501,8 +503,8 @@ export function SettingsPanel({
               <section className="campus-import-block">
                 <div className="connector">
                   <div>
-                    <strong>备用：导入旧快照</strong>
-                    <p>只用于迁移或离线查看，不会冒充浙大账号资料</p>
+                    <strong>手边已有一份校园资料</strong>
+                    <p>也可以打开以前保存的文件。学校的最新消息仍需登录后查看。</p>
                   </div>
                   <button
                     className="subtle-button"
@@ -514,7 +516,7 @@ export function SettingsPanel({
                           onState(next);
                           setFeedback({
                             action: 'import',
-                            text: '离线快照已导入；登录浙大账号后才会用于账号查询',
+                            text: '这份资料已打开。要看学校的最新消息，再登录账号。',
                           });
                         }
                       })
@@ -531,11 +533,11 @@ export function SettingsPanel({
                 </div>
                 {state.campus && (
                   <small className="campus-import-state">
-                    离线快照 · 更新于 {date(state.campus.updatedAt)}
+                    这份资料保存于 {date(state.campus.updatedAt)}
                   </small>
                 )}
                 <details className="campus-more">
-                  <summary>更多离线资料操作</summary>
+                  <summary>这份资料的其他操作</summary>
                   <div className="field-buttons">
                     <button
                       className="text-button"
@@ -543,12 +545,12 @@ export function SettingsPanel({
                       onClick={() =>
                         void perform('template', async () => {
                           if (await api.campusTemplate())
-                            setFeedback({ action: 'template', text: '模板已保存' });
+                            setFeedback({ action: 'template', text: '空白资料文件已留好，可以按里面的格式填写' });
                         })
                       }
                     >
                       <Download size={14} />
-                      下载导入模板
+                      带走一份空白格式
                     </button>
                     {state.campus && (
                       <button
@@ -557,11 +559,11 @@ export function SettingsPanel({
                         onClick={() =>
                           void perform('disconnect', async () => {
                             onState(await api.disconnectCampus());
-                            setFeedback({ action: 'disconnect', text: '离线快照已移除' });
+                            setFeedback({ action: 'disconnect', text: '这份旧资料已移除' });
                           })
                         }
                       >
-                        移除快照
+                        移除这份资料
                       </button>
                     )}
                   </div>
@@ -572,7 +574,7 @@ export function SettingsPanel({
               checked={state.settings.weatherEnabled}
               onChange={(v) => void update('weather', { weatherEnabled: v })}
               label="杭州天气"
-              detail="使用杭州城市参考坐标，不代表你的精确位置"
+              detail="查看杭州的天气，不读取你的位置。"
               disabled={!!pending || (busy && !state.settings.weatherEnabled)}
             />
             {result(['weather'])}
@@ -593,50 +595,54 @@ export function SettingsPanel({
               <PersonaEditor persona={state.settings.persona} legacyGuidance={state.settings.guidance} draft={draft} onState={onState} busy={busy || !!pending} saving={pending === 'persona'} perform={(operation) => perform('persona', operation)} />
               {result(['persona'])}
             </div>
-            <section className="preference-section" hidden={tab !== '偏好'}>
-              <h3 className="section-title">阅读与外观</h3>
-              <div className="preference-fields">
-                <label>
-                  外观
-                  <select
-                    aria-label="外观主题"
-                    value={appearance.theme}
-                    onChange={(event) =>
-                      setAppearance({ theme: event.target.value as typeof appearance.theme })
-                    }
-                  >
-                    <option value="system">跟随系统</option>
-                    <option value="light">浅色</option>
-                    <option value="dark">深色</option>
-                  </select>
-                </label>
-                <label>
-                  正文字号
-                  <select
-                    aria-label="正文字号"
-                    value={appearance.readingScale}
-                    onChange={(event) => setAppearance({ readingScale: Number(event.target.value) })}
-                  >
-                    <option value="1">标准</option>
-                    <option value="1.15">较大</option>
-                    <option value="1.3">更大</option>
-                  </select>
-                </label>
-                <label>
-                  内容间距
-                  <select
-                    aria-label="内容间距"
-                    value={appearance.density}
-                    onChange={(event) =>
-                      setAppearance({ density: event.target.value as typeof appearance.density })
-                    }
-                  >
-                    <option value="comfortable">舒展</option>
-                    <option value="compact">紧凑</option>
-                  </select>
-                </label>
+            {tab === '偏好' && <>
+              <p className="settings-lede">读得舒服，也聊得自在。</p>
+              <div className="rhythm-layout">
+                <div className="rhythm-controls">
+                  <section className="preference-section">
+                    <h3 className="section-title">阅读的样子</h3>
+                    <div className="rhythm-choice-row"><span>外观</span><div className="rhythm-segmented" role="group" aria-label="外观主题">
+                      {([['light', '晨光'], ['dark', '夜色'], ['system', '跟随系统']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={appearance.theme === value} onClick={() => setAppearance({ theme: value })}>{label}</button>)}
+                    </div></div>
+                    <div className="rhythm-choice-row"><span>正文字号</span><div className="rhythm-segmented" role="group" aria-label="正文字号">
+                      {([[1, '标准'], [1.15, '大一点'], [1.3, '再大一点']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={appearance.readingScale === value} onClick={() => setAppearance({ readingScale: value })}>{label}</button>)}
+                    </div></div>
+                    <div className="rhythm-choice-row"><span>内容间距</span><div className="rhythm-segmented" role="group" aria-label="内容间距">
+                      {([['comfortable', '舒展'], ['compact', '紧凑']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={appearance.density === value} onClick={() => setAppearance({ density: value })}>{label}</button>)}
+                    </div></div>
+                    <Switch label="少一点动态" detail="让画面安静一点。" checked={companion.reducedMotion} onChange={reducedMotion => updateCompanion({ reducedMotion })} />
+                  </section>
+                  <section className="preference-section initiative-section">
+                    <h3 className="section-title">希望我怎样陪着你</h3>
+                    <div className="initiative-choices" role="group" aria-label="主动帮助程度">
+                      {([
+                        ['quiet', '等你开口', '你想聊的时候，我们再接着说。'],
+                        ['prepare', '先把资料备好', '安静整理，等你想看时再打开。'],
+                        ['when_useful', '有值得说的事，再告诉你', '遇到与你有关的变化，再来和你商量。'],
+                      ] as const).map(([value, label, description]) => <button type="button" key={value} aria-pressed={interaction.initiative === value} disabled={!!pending} onClick={() => void update('initiative', { interaction: { ...interaction, initiative: value } })}>
+                        <span><strong>{label}</strong><small>{description}</small></span><span className="initiative-radio" aria-hidden="true" />
+                      </button>)}
+                    </div>
+                    <Switch label="留意你交给我的事" detail="关闭后，等你询问时再看。" checked={interaction.followup === 'meaningful_change'} disabled={!!pending} onChange={value => void update('followup', { interaction: { ...interaction, followup: value ? 'meaningful_change' : 'on_request' } })} />
+                    {result(['initiative', 'followup'])}
+                  </section>
+                </div>
+                <aside className="rhythm-preview-column" aria-label="阅读预览与提醒">
+                  <div className={`reading-feel-preview ${appearance.density === 'compact' ? 'is-compact' : ''}`} style={{ fontSize: `${16 * appearance.readingScale}px` }}>
+                    <span className="reading-preview-label">此刻的阅读感觉</span>
+                    <h3>从一个想法，<br />慢慢说起。</h3>
+                    <p>有时，先把问题留在纸上，也是一种继续。</p>
+                    <p>你可以慢慢想，我会在这里。等你想说的时候，我们再接着聊。</p>
+                    <div className="reading-preview-formula" aria-label="x(t)等于u(t)乘以c(t)">x(t) = u(t)c(t)</div>
+                  </div>
+                  <section className="preference-section reminder-preference">
+                    <h3 className="section-title">约好的提醒</h3>
+                    <Switch checked={state.settings.remindersEnabled} onChange={v => void update('reminders', { remindersEnabled: v })} label="提醒我的安排" detail="在场开着时，会提醒你约好的事。" disabled={!!pending || (busy && !state.settings.remindersEnabled)} />
+                    {result(['reminders'])}
+                  </section>
+                </aside>
               </div>
-            </section>
+            </>}
             <section className="preference-section" hidden={tab !== '交流'}>
               <h3 className="section-title">怎么交流</h3>
               <div className="preference-fields">
@@ -699,62 +705,6 @@ export function SettingsPanel({
               </div>
               {result(['interaction'])}
             </section>
-            <section className="preference-section" hidden={tab !== '偏好'}>
-              <h3 className="section-title">主动帮助</h3>
-              <div className="preference-fields">
-                <label>
-                  参与程度
-                  <select
-                    aria-label="主动帮助程度"
-                    value={interaction.initiative}
-                    disabled={!!pending}
-                    onChange={(event) =>
-                      void update('initiative', {
-                        interaction: {
-                          ...interaction,
-                          initiative: event.target.value as typeof interaction.initiative,
-                        },
-                      })
-                    }
-                  >
-                    <option value="quiet">等我开口</option>
-                    <option value="prepare">只备好资料，等我来看</option>
-                    <option value="when_useful">有实际价值时可以提醒</option>
-                  </select>
-                </label>
-                <label>
-                  什么时候留意
-                  <select
-                    aria-label="定期检查更新"
-                    value={interaction.followup}
-                    disabled={!!pending}
-                    onChange={(event) =>
-                      void update('followup', {
-                        interaction: {
-                          ...interaction,
-                          followup: event.target.value as typeof interaction.followup,
-                        },
-                      })
-                    }
-                  >
-                    <option value="on_request">我询问时再查</option>
-                    <option value="meaningful_change">留意我交给你的事</option>
-                  </select>
-                </label>
-              </div>
-              {result(['initiative', 'followup'])}
-            </section>
-            <section className="preference-section" hidden={tab !== '偏好'}>
-              <h3 className="section-title">提醒</h3>
-              <Switch
-                checked={state.settings.remindersEnabled}
-                onChange={(v) => void update('reminders', { remindersEnabled: v })}
-                label="提醒安排"
-                detail="仅在应用运行时提醒已设定时间的安排"
-                disabled={!!pending || (busy && !state.settings.remindersEnabled)}
-              />
-              {result(['reminders'])}
-            </section>
             <section className="preference-section" hidden={tab !== '交流'}>
               <h3 className="section-title">关于你的补充</h3>
               <label className="field-label behavior-label">
@@ -770,7 +720,7 @@ export function SettingsPanel({
                   placeholder="例如：先给结论，再给推导；保留我要求的细节"
                 />
               </label>
-              <p className="setting-note">随个性记忆权限使用，不会写入角色模板。</p>
+              <p className="setting-note">你允许参考个人记忆时才使用这些内容。带走角色设置时，不会带上它们。</p>
               <div className="field-buttons">
                 <button
                   className="primary-button"
@@ -778,26 +728,26 @@ export function SettingsPanel({
                   onClick={() =>
                     void perform('guidance', async () => {
                       onState(await api.saveSettings({ guidance }));
-                      setFeedback({ action: 'guidance', text: '回复偏好已保存' });
+                      setFeedback({ action: 'guidance', text: '以后就按这个意思聊' });
                     })
                   }
                 >
-                  {pending === 'guidance' && <LoaderCircle size={14} className="spin" />}保存偏好
+                  {pending === 'guidance' && <LoaderCircle size={14} className="spin" />}留下这些话
                 </button>
-                {guidance !== state.settings.guidance && <small className="setting-hint">未保存的修改</small>}
+                {guidance !== state.settings.guidance && <small className="setting-hint">这段话还没留下</small>}
               </div>
               {result(['guidance'])}
             </section>
             <details className="data-controls" hidden={tab !== '偏好'}>
               <summary className="section-title">留在这台电脑里的</summary>
               <div className="data-controls-body">
-                <details className="data-storage-detail"><summary>资料如何保留</summary><p>对话保存在这台电脑。聊天时，会把你允许使用的内容交给所连接的模型；本机数据库没有整体加密。</p></details>
+                <details className="data-storage-detail"><summary>资料如何保留</summary><p>对话保存在这台电脑。聊天时，会把你允许使用的内容交给所连接的模型；本机数据库没有整体加密。导出的资料包含对话、笔记和安排等内容，不包含自选人物图片与阅读外观。</p></details>
                 <button
                   className="text-button"
                   disabled={disabled}
                   onClick={() =>
                     void perform('export', async () => {
-                      if (await api.exportData()) setFeedback({ action: 'export', text: '资料已导出' });
+                      if (await api.exportData()) setFeedback({ action: 'export', text: '资料已放到你选择的位置' });
                     })
                   }
                 >
@@ -811,7 +761,7 @@ export function SettingsPanel({
                 {result(['export'])}
                 {clearConfirm ? (
                   <div className="clear-confirm">
-                    <p>这台电脑里的对话、记忆、安排、笔记和连接信息会被删除，无法找回。</p>
+                    <p>这台电脑里的对话、记忆、安排、笔记、连接信息和自选人物图片会被删除，无法找回。</p>
                     <button
                       className="danger-button"
                       disabled={disabled}
@@ -821,7 +771,7 @@ export function SettingsPanel({
                           resetCompanion();
                           draft.current = {};
                           onClear();
-                          notify('这里的资料已清空');
+                          notify('这台电脑里的资料已经清空');
                         })
                       }
                     >
@@ -838,7 +788,7 @@ export function SettingsPanel({
                     onClick={() => setClearConfirm(true)}
                   >
                     <Trash2 size={14} />
-                    清空本地资料
+                    清空这台电脑里的资料
                   </button>
                 )}
                 {result(['clear'])}

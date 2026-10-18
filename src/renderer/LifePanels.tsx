@@ -19,7 +19,13 @@ import type {
 } from '../shared/presentation';
 import { Modal, uiError } from './ui';
 import { RichText } from './RichText';
-import { DEFAULT_TIME_ZONE, formatDateTime, fromTimeInput, timeZoneLabel, toTimeInput } from './time';
+import {
+  DEFAULT_TIME_ZONE,
+  formatDateTime,
+  fromTimeInput,
+  timeZoneLabel,
+  toTimeInput,
+} from './time';
 
 const api = window.zaichang;
 const errorText = uiError;
@@ -38,44 +44,148 @@ export function AgendaEditor({
   onClose: () => void;
 }) {
   const zone = original.timeZone || timeZone;
-  const [title, setTitle] = useState(original.title),
-    [detail, setDetail] = useState(original.detail),
-    [time, setTime] = useState(toTimeInput(original.startsAt, zone)),
-    [duration, setDuration] = useState(original.durationMinutes ? String(original.durationMinutes) : ''),
-    [pending, setPending] = useState(false),
-    [error, setError] = useState('');
-  const [base, setBase] = useState(original);
+  const originalCivil = toTimeInput(original.startsAt, zone);
+  const anchorDate = original.allDayDate || originalCivil.slice(0, 10);
+  const [repeatScope, setRepeatScope] = useState<'once' | 'series'>(
+    original.recurrence ? 'once' : 'series',
+  );
+  const [occurrenceDate, setOccurrenceDate] = useState(anchorDate);
+  const firstException = original.exceptions?.find((item) => item.onDate === anchorDate);
+  const [title, setTitle] = useState(original.title);
+  const [detail, setDetail] = useState(firstException?.detail ?? original.detail);
+  const [time, setTime] = useState(
+    toTimeInput(firstException?.startsAt || original.startsAt, zone),
+  );
+  const [allDayDate, setAllDayDate] = useState(original.allDayDate || '');
+  const [duration, setDuration] = useState(
+    firstException?.durationMinutes === null
+      ? ''
+      : String(firstException?.durationMinutes ?? original.durationMinutes ?? ''),
+  );
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState('');
+  const [base] = useState(original);
+  const once = !!original.recurrence && repeatScope === 'once';
+  const previousException = original.exceptions?.find((item) => item.onDate === occurrenceDate);
+  const cancelledOccurrence = once && !!previousException?.cancelled;
+  const changed = !!current && (current.revision || 1) !== (base.revision || 1);
+
+  const editDrafts = useRef<Record<string, { time: string; detail: string; duration: string }>>({});
+  function rememberDraft() {
+    editDrafts.current[once ? `once:${occurrenceDate}` : 'series'] = { time, detail, duration };
+  }
+  function restoreDraft(key: string, date?: string) {
+    const exception = date ? original.exceptions?.find((item) => item.onDate === date) : undefined;
+    const saved = editDrafts.current[key];
+    setTime(
+      saved?.time ??
+        (exception?.startsAt
+          ? toTimeInput(exception.startsAt, zone)
+          : date && original.startsAt
+            ? `${date}T${originalCivil.slice(11)}`
+            : originalCivil),
+    );
+    setDetail(saved?.detail ?? exception?.detail ?? original.detail);
+    setDuration(
+      saved?.duration ??
+        (exception?.durationMinutes === null
+          ? ''
+          : String(exception?.durationMinutes ?? original.durationMinutes ?? '')),
+    );
+  }
+  function chooseOccurrence(date: string) {
+    rememberDraft();
+    setOccurrenceDate(date);
+    restoreDraft(`once:${date}`, date);
+    setError('');
+  }
+  function chooseScope(value: 'once' | 'series') {
+    rememberDraft();
+    setRepeatScope(value);
+    restoreDraft(
+      value === 'once' ? `once:${occurrenceDate}` : 'series',
+      value === 'once' ? occurrenceDate : undefined,
+    );
+    setError('');
+  }
+  function timeDescription(civil: string, minutes?: number, date?: string) {
+    if (date) return `${date.replaceAll('-', '.')} · 全天`;
+    if (!civil) return '还没选时间';
+    let end = '';
+    try {
+      const instant = fromTimeInput(civil, zone, original.startsAt);
+      if (instant && minutes)
+        end = ` — ${toTimeInput(new Date(Date.parse(instant) + minutes * 60000).toISOString(), zone).slice(11, 16)}`;
+    } catch {
+      /* An incomplete or ambiguous draft is explained by the existing save validation. */
+    }
+    return `${civil.slice(5, 10).replace('-', '月')}日 ${civil.slice(11, 16)}${end}`;
+  }
+  const beforeCivil =
+    once && original.startsAt
+      ? previousException?.startsAt
+        ? toTimeInput(previousException.startsAt, zone)
+        : `${occurrenceDate}T${originalCivil.slice(11)}`
+      : originalCivil;
+  const beforeDuration =
+    once && previousException?.durationMinutes === null
+      ? undefined
+      : once
+        ? (previousException?.durationMinutes ?? original.durationMinutes)
+        : original.durationMinutes;
   async function save(retry = false) {
     setPending(true);
     setError('');
     try {
       const version = retry ? current : base;
-      if (!version) throw new Error('这条安排已经移除。你的修改仍保留，可以复制后另作处理。');
-      onState(
-        await api.action({
-          action: 'save',
-          item: {
-            ...version,
-            title,
-            detail,
-            startsAt: fromTimeInput(time, zone, original.startsAt),
-            timeZone: zone,
-            durationMinutes: duration ? Number(duration) : undefined,
-          },
-        }),
-      );
+      if (!version) throw new Error('这条安排已经移除。你写的内容还在这里。');
+      if (cancelledOccurrence) throw new Error('这一次已经取消。想重新安排时，可以回到对话里说。');
+      const startsAt = original.allDayDate
+        ? undefined
+        : fromTimeInput(time, zone, previousException?.startsAt || original.startsAt);
+      let item: Action;
+      if (once) {
+        const exception = {
+          ...(version.exceptions || []).find((entry) => entry.onDate === occurrenceDate),
+          onDate: occurrenceDate,
+          ...(startsAt ? { startsAt } : {}),
+          ...(!original.allDayDate ? { durationMinutes: duration ? Number(duration) : null } : {}),
+          detail,
+        };
+        item = {
+          ...version,
+          exceptions: [
+            ...(version.exceptions || []).filter((entry) => entry.onDate !== occurrenceDate),
+            exception,
+          ],
+        };
+      } else {
+        item = {
+          ...version,
+          title: title.trim(),
+          detail,
+          startsAt,
+          timeZone: zone,
+          ...(original.allDayDate ? { allDayDate } : {}),
+          durationMinutes: duration ? Number(duration) : undefined,
+        };
+      }
+      onState(await api.action({ action: 'save', item }));
       onClose();
-    } catch (error) {
-      setError(errorText(error));
-      onState(await api.state());
+    } catch (caught) {
+      setError(errorText(caught));
+      try {
+        onState(await api.state());
+      } catch {
+        /* The edit remains available if refreshing is also unavailable. */
+      }
     } finally {
       setPending(false);
     }
   }
-  const changed = !!current && (current.revision || 1) !== (base.revision || 1);
   return (
     <Modal
-      title="修改这条安排"
+      title="把这件事，挪一挪。"
       onClose={() => {
         if (!pending) onClose();
       }}
@@ -89,66 +199,159 @@ export function AgendaEditor({
         }}
       >
         <label className="field-label">
-          事项标题
+          这件事
           <input
             autoFocus
             aria-label="安排标题"
             value={title}
             onChange={(event) => setTitle(event.target.value)}
             required
-            maxLength={120}
+            maxLength={160}
+            disabled={once}
           />
         </label>
+        {!!original.recurrence && (
+          <fieldset className="agenda-edit-repeat">
+            <legend>想改哪一段？</legend>
+            <label>
+              <input
+                type="radio"
+                name="repeat-scope"
+                checked={repeatScope === 'once'}
+                onChange={() => chooseScope('once')}
+              />
+              只改这一次
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="repeat-scope"
+                checked={repeatScope === 'series'}
+                onChange={() => chooseScope('series')}
+              />
+              整个重复安排
+            </label>
+            {once ? (
+              <label className="field-label">
+                哪一次
+                <input
+                  type="date"
+                  aria-label="选择重复安排的发生日期"
+                  value={occurrenceDate}
+                  onChange={(event) => chooseOccurrence(event.target.value)}
+                  required
+                />
+              </label>
+            ) : (
+              <p>名称、起始时间和说明会用于整个系列，单独改过的那几次仍保留。</p>
+            )}
+          </fieldset>
+        )}
+        <div className="agenda-edit-comparison" aria-label="时间前后对照">
+          <div>
+            <small>原来</small>
+            <strong>
+              {timeDescription(
+                beforeCivil,
+                beforeDuration,
+                original.allDayDate ? (once ? occurrenceDate : original.allDayDate) : undefined,
+              )}
+            </strong>
+          </div>
+          <span aria-hidden="true">→</span>
+          <div>
+            <small>现在</small>
+            <strong>
+              {timeDescription(
+                time,
+                duration ? Number(duration) : undefined,
+                original.allDayDate ? (once ? occurrenceDate : allDayDate) : undefined,
+              )}
+            </strong>
+          </div>
+        </div>
+        {original.allDayDate ? (
+          once ? (
+            <p className="agenda-all-day">这是一件全天的安排，可以单独改这次的说明。</p>
+          ) : (
+            <label className="field-label">
+              日期
+              <input
+                type="date"
+                aria-label="安排日期"
+                value={allDayDate}
+                onChange={(event) => setAllDayDate(event.target.value)}
+                required
+              />
+            </label>
+          )
+        ) : (
+          <div className="agenda-edit-time-fields">
+            <label className="field-label">
+              什么时候 · {timeZoneLabel(zone)}
+              <input
+                type="datetime-local"
+                step="1"
+                aria-label="安排开始时间"
+                value={time}
+                onChange={(event) => setTime(event.target.value)}
+                required={!!original.startsAt}
+              />
+            </label>
+            <label className="field-label">
+              留多久 · 分钟
+              <input
+                type="number"
+                aria-label="安排时长"
+                min="1"
+                max="1440"
+                placeholder="不定"
+                value={duration}
+                onChange={(event) => setDuration(event.target.value)}
+                required={!once && !!original.durationMinutes}
+              />
+            </label>
+          </div>
+        )}
         <label className="field-label">
-          开始时间（{timeZoneLabel(zone)}）
-          <input
-            type="datetime-local"
-            step="1"
-            aria-label="安排开始时间"
-            value={time}
-            onChange={(event) => setTime(event.target.value)}
-          />
-        </label>
-        <label className="field-label">
-          时长（分钟）
-          <input
-            type="number"
-            aria-label="安排时长"
-            min="1"
-            max="10080"
-            placeholder="尚未确定，留空即可"
-            value={duration}
-            onChange={(event) => setDuration(event.target.value)}
-          />
-        </label>
-        <label className="field-label">
-          补充说明
+          想补充的话
           <textarea
             aria-label="安排说明"
             value={detail}
             onChange={(event) => setDetail(event.target.value)}
             rows={3}
+            maxLength={1500}
           />
         </label>
-        {(error || changed) && (
+        {(error || changed || cancelledOccurrence) && (
           <div className="inline-problem" role="alert">
-            <p>{error || '这条安排已在别处修改，你正在编辑的文字仍保留。'}</p>
-            {current && (
+            <p>
+              {error ||
+                (cancelledOccurrence
+                  ? '这一次已经取消。想重新安排时，可以回到对话里说。'
+                  : '这件事刚在别处改过。下面保留着你的想法。')}
+            </p>
+            {changed && current && (
               <p>
-                现在保存的是：{current.title} ·{' '}
-                {current.startsAt
-                  ? formatDateTime(current.startsAt, current.timeZone || timeZone)
-                  : '时间未定'}
+                现在的安排：{current.title} ·{' '}
+                {current.allDayDate
+                  ? `${current.allDayDate} · 全天`
+                  : current.startsAt
+                    ? formatDateTime(current.startsAt, current.timeZone || timeZone)
+                    : '还没定时间'}
               </p>
             )}
           </div>
         )}
         <div className="field-buttons">
-          <button className="primary-button" disabled={pending || !title.trim() || !current}>
-            {pending ? '正在保存…' : changed ? '核对后，保存我的修改' : '保存安排修改'}
+          <button
+            className="primary-button"
+            disabled={pending || !title.trim() || !current || cancelledOccurrence}
+          >
+            {pending ? '我记一下…' : changed ? '看过了，按这里改' : '就这样安排'}
           </button>
           <button type="button" className="text-button" onClick={onClose} disabled={pending}>
-            取消
+            先不改
           </button>
         </div>
       </form>
@@ -185,7 +388,11 @@ export function PreparationShelf({
         if (!entries.some((entry) => entry.isIntersecting) || shown.current.has(key)) return;
         shown.current.add(key);
         void api
-          .helpAction({ id: current.id, expectedRevision: current.revision, operation: 'displayed' })
+          .helpAction({
+            id: current.id,
+            expectedRevision: current.revision,
+            operation: 'displayed',
+          })
           .then(onState)
           .catch((error) => setError(errorText(error)));
       },
@@ -195,11 +402,20 @@ export function PreparationShelf({
     return () => observer.disconnect();
   }, [current?.id, current?.revision, expanded]);
   if (!items.length) return null;
-  async function act(item: PreparationView, operation: 'opened' | 'dismiss' | 'once' | 'stop_topic') {
+  async function act(
+    item: PreparationView,
+    operation: 'opened' | 'dismiss' | 'once' | 'stop_topic',
+  ) {
     setPending(operation);
     setError('');
     try {
-      onState(await api.helpAction({ id: item.id, expectedRevision: item.revision, operation }));
+      onState(
+        await api.helpAction({
+          id: item.id,
+          expectedRevision: item.revision,
+          operation,
+        }),
+      );
       if (operation === 'dismiss' || operation === 'stop_topic') setOpened(undefined);
     } catch (error) {
       setError(errorText(error));
@@ -208,10 +424,17 @@ export function PreparationShelf({
     }
   }
   return (
-    <section className={`preparation-shelf ${expanded ? 'is-open' : ''}`} aria-label="可用帮助">
-      <button className="shelf-trigger" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}>
+    <section
+      className={`preparation-shelf ${expanded ? 'is-open' : ''}`}
+      aria-label="为你准备的资料"
+    >
+      <button
+        className="shelf-trigger"
+        aria-expanded={expanded}
+        onClick={() => setExpanded(!expanded)}
+      >
         <BookOpen size={15} />
-        <span>可用的资料</span>
+        <span>为你准备的</span>
         <ChevronDown size={14} />
       </button>
       {expanded && (
@@ -236,9 +459,9 @@ export function PreparationShelf({
                     <RichText text={item.body} />
                   </div>
                   <details className="material-detail">
-                    <summary>适用范围与来源</summary>
+                    <summary>这份准备，适合什么时候用</summary>
                     <p>
-                      这是一份准备材料，没有新增日程。有效至{' '}
+                      先放在这里供你参考，还没有加进安排。可以参考到{' '}
                       {new Date(item.expiresAt).toLocaleString('zh-CN', {
                         timeZone,
                         month: 'numeric',
@@ -246,7 +469,7 @@ export function PreparationShelf({
                         hour: '2-digit',
                         minute: '2-digit',
                       })}
-                      ；条件变化时会重新核对。
+                      。如果情况变了，会重新看看是否还适合。
                     </p>
                     {item.sources?.map((source, i) => (
                       <p key={i}>
@@ -260,7 +483,7 @@ export function PreparationShelf({
                       className="text-button"
                       onClick={() => onContinue(`接着这份「${item.title}」资料，我想说：`)}
                     >
-                      接着讨论
+                      接着聊这件事
                       <ArrowUpRight size={13} />
                     </button>
                     <button
@@ -271,12 +494,12 @@ export function PreparationShelf({
                       这份先收起
                     </button>
                     <details className="quiet-menu">
-                      <summary>跟进方式</summary>
+                      <summary>以后怎样陪你留意</summary>
                       <button disabled={!!pending} onClick={() => void act(item, 'once')}>
                         这件事只提醒一次
                       </button>
                       <button disabled={!!pending} onClick={() => void act(item, 'stop_topic')}>
-                        不再主动关注这件事
+                        不再主动提起这件事
                       </button>
                     </details>
                   </div>
@@ -308,7 +531,8 @@ export interface MatterInteraction {
   pending?: boolean;
   error?: string;
 }
-export type MatterInteractionUpdate = MatterInteraction | ((current: MatterInteraction) => MatterInteraction);
+export type MatterInteractionUpdate =
+  MatterInteraction | ((current: MatterInteraction) => MatterInteraction);
 
 export function MatterCard({
   matter,
@@ -327,7 +551,8 @@ export function MatterCard({
 }) {
   const choice = interaction?.choice ?? matter.selectedOptionId ?? '';
   const { undo, notice, pending, error } = interaction || {};
-  const changedElsewhere = interaction?.choice !== undefined && interaction.baseRevision !== matter.revision;
+  const changedElsewhere =
+    interaction?.choice !== undefined && interaction.baseRevision !== matter.revision;
   const selection = matter.options.find((option) => option.id === matter.selectedOptionId);
   async function change(input: MatterSelectionInput) {
     if (pending) return;
@@ -338,7 +563,9 @@ export function MatterCard({
       onInteraction({
         pending: true,
         undo: result.undo,
-        notice: input.optionId ? '选择已更新，没有新增日程。' : '已撤销这次选择，其他内容保留。',
+        notice: input.optionId
+          ? '就先这样选。还没有加进安排。'
+          : '这次先不选，其他内容还在。',
       });
     } catch (error) {
       onInteraction((current) => ({ ...current, error: errorText(error) }));
@@ -354,7 +581,9 @@ export function MatterCard({
         <strong>{matter.title}</strong>
       </div>
       {matter.needsReview && (
-        <p className="matter-review-note">这件事刚有改动，旧建议需要重新核对。你仍可直接修改当前选择。</p>
+        <p className="matter-review-note">
+          这件事有了新变化，原来的建议可能不再合适。你可以在下面重新选。
+        </p>
       )}
       <div className="matter-choice">
         <label>
@@ -385,19 +614,25 @@ export function MatterCard({
             className="primary-button"
             disabled={pending}
             onClick={() =>
-              void change({ id: matter.id, expectedRevision: matter.revision, optionId: choice || null })
+              void change({
+                id: matter.id,
+                expectedRevision: matter.revision,
+                optionId: choice || null,
+              })
             }
           >
-            {pending ? '正在保存…' : changedElsewhere ? '核对后，保存选择' : '保存选择'}
+            {pending ? '正在记下选择…' : changedElsewhere ? '看过变化，就这样选' : '就这样选'}
           </button>
         )}
       </div>
       {changedElsewhere && !error && (
-        <p className="inline-problem">这件事有了新的修改。你尚未保存的选择仍保留，请核对后再保存。</p>
+        <p className="inline-problem">
+          这件事刚刚有了新的修改。你刚选的仍在这里，看一看变化后，再决定要不要留下。
+        </p>
       )}
       {error ? (
         <p className="inline-problem" role="alert">
-          {error.replace('这份安排', '当前选择')} 你的选择仍在上面；核对后可再次保存。
+          {error.replace('这份安排', '当前选择')} 你刚选的仍在上面，想好后可以再试一次。
         </p>
       ) : (
         notice && (
@@ -443,7 +678,9 @@ export function DisplayReview({
   return (
     <Modal title="只展示下面这份内容" onClose={onClose} className="display-review">
       <div className="panel-body">
-        <p className="panel-intro">开始后，私人对话和其他页面会退出当前画面。你随时可以结束展示。</p>
+        <p className="panel-intro">
+          开始后，私人对话和其他页面会退出当前画面。你随时可以结束展示。
+        </p>
         <div className="display-review-content markdown">
           {surface.artifacts.map((item) => (
             <RichText key={item.id} text={item.body} publicSurface />

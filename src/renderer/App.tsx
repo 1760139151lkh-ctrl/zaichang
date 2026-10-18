@@ -1,6 +1,10 @@
 import { Portal, IconButton, Modal, WindowControls, uiError } from './ui';
 import { SettingsPanel, type SettingsDraft } from './SettingsPanel';
 import { NotesPanel } from './NotesPanel';
+import { MaterialsPanel, type MaterialQuote } from './MaterialsPanel';
+import { LocalSearchPanel } from './LocalSearchPanel';
+import type { LocalSearchLocator } from '../shared/search';
+import './workspace-continuation.css';
 import { AgendaView, type WorkspaceView } from './Workspace';
 import { Navigation } from './Navigation';
 import { CompanionAvatar, CompanionScene, RestSpace, prefersQuietMotion, useCompanion } from './companion';
@@ -21,8 +25,6 @@ import {
   CircleAlert,
   RotateCcw,
   Copy,
-  Trash2,
-  Search,
   ArrowUpRight,
   FileText,
   Paperclip,
@@ -100,10 +102,17 @@ export function App() {
   const [memoryNotice, setMemoryNotice] = useState<Memory | null>(null);
   const [panel, setPanel] = useState<Panel>(null);
   const [view, setView] = useState<WorkspaceView>('chat');
+  const [readingPane, setReadingPane] = useState<'reader' | 'chat'>('reader');
   const [resting, setResting] = useState(false);
   const [focusChat, setFocusChat] = useState(false);
   const [notesOpened, setNotesOpened] = useState(false);
   const [notesUnsaved, setNotesUnsaved] = useState(false);
+  const [searchTarget, setSearchTarget] = useState<{ locator: LocalSearchLocator; requestId: number }>();
+  const searchNavigation = useRef(0), locatedSearch = useRef(0);
+  useEffect(() => { setSearchTarget(undefined); }, [state?.privacyEpoch, state?.policyRevision]);
+  useEffect(() => {
+    if (searchTarget && view !== ({ conversation: 'chat', note: 'notes', material: 'materials' } as const)[searchTarget.locator.kind]) setSearchTarget(undefined);
+  }, [view]);
   useEffect(() => { if (view === 'notes') setNotesOpened(true); }, [view]);
   const viewRef = useRef(view);
   viewRef.current = view;
@@ -149,6 +158,9 @@ export function App() {
     else if(value.kind==='leg'&&scene?.kind==='map'){
       const leg=scene.journey.legs.find(leg=>leg.id===value.legId);
       setSceneSelectionLabel(leg?`${leg.route.from?.displayName} → ${leg.route.to?.displayName}`:'刚选的路段');
+    }else if(value.kind==='record' && scene?.kind==='campus'){
+      const record = scene.records.find(record => record.id === value.recordId);
+      setSceneSelectionLabel(record ? `接着聊「${record.title}」` : '接着聊这条校园消息');
     }else if(value.kind==='place'){
       setSceneSelectionLabel('刚选的地点');
       try{const places=await api.mapPlaces();
@@ -445,7 +457,7 @@ export function App() {
   useLayoutEffect(() => {
     const el = inputRef.current;
     const resize = () => {
-      if (!el?.isConnected) return;
+      if (!el?.isConnected || !el.getClientRects().length) return;
       const scrollTop = el.scrollTop;
       const caretAtEnd = document.activeElement === el && el.selectionStart === el.value.length;
       el.style.height = 'auto';
@@ -456,7 +468,7 @@ export function App() {
     resize();
     window.addEventListener('resize', resize);
     return () => window.removeEventListener('resize', resize);
-  }, [input, view]);
+  }, [input, view, readingPane]);
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
       if (surfaceMode.current === 'public') return;
@@ -517,7 +529,7 @@ export function App() {
       setNavigating(false);
     }
   }
-  async function openConversation(id: string) {
+  async function openConversation(id: string, destination?: Extract<LocalSearchLocator, { kind: 'conversation' }>) {
     if (busy) {
       notify('先停止当前回复，再打开另一段对话。');
       return;
@@ -537,8 +549,14 @@ export function App() {
         }
         if (sessionRef.current && sessionRef.current !== id)
           updateState(await api.endConversation(sessionRef.current));
+        const readBoundary = boundaryRevision.current;
         const [next, saved, info] = await Promise.all([api.messages(id), api.draft(id), api.draftInfo(id)]);
-        if (token !== navigation.current) return;
+        if (token !== navigation.current || (destination && readBoundary !== boundaryRevision.current)) return;
+        if (destination && !next.some(message => message.id === destination.messageId)) {
+          notify('这句话已经不在原来的位置了，请重新找找。');
+          return;
+        }
+        setSearchTarget(destination ? { locator: destination, requestId: ++searchNavigation.current } : undefined);
         draftKey.current = id;
         replaceDraft(saved, false);
         setDraftSaved(info.persisted && !info.empty);
@@ -547,13 +565,39 @@ export function App() {
         setMessages(next);
         setPanel(null);
         setView('chat');
-        followRef.current = true;
+        followRef.current = !destination;
       });
     } finally {
       navigationPending.current = false;
       setNavigating(false);
     }
   }
+  async function openSearchResult(locator: LocalSearchLocator) {
+    if (surfaceMode.current === 'public' || navigationPending.current) return;
+    if (locator.kind === 'conversation') { await openConversation(locator.sessionId, locator); return; }
+    setSearchTarget({ locator, requestId: ++searchNavigation.current });
+    if (locator.kind === 'note') { setNotesOpened(true); setView('notes'); }
+    else { setView('materials'); setReadingPane('reader'); }
+    setPanel(null);
+  }
+  useEffect(() => {
+    if (!searchTarget || searchTarget.locator.kind !== 'conversation' || view !== 'chat'
+      || sessionId !== searchTarget.locator.sessionId || locatedSearch.current === searchTarget.requestId) return;
+    const targetId = searchTarget.locator.messageId;
+    const frame = requestAnimationFrame(() => {
+      const element = [...(scrollRef.current?.querySelectorAll<HTMLElement>('[data-message-id]') || [])].find(element => element.dataset.messageId === targetId);
+      if (!element) return;
+      locatedSearch.current = searchTarget.requestId;
+      followRef.current = false;
+      element.classList.add('search-returned');
+      element.focus({ preventScroll: true });
+      element.scrollIntoView({ block: 'center', behavior: prefersQuietMotion() ? 'instant' : 'smooth' });
+    });
+    return () => {
+      cancelAnimationFrame(frame);
+      scrollRef.current?.querySelectorAll('.search-returned').forEach(element => element.classList.remove('search-returned'));
+    };
+  }, [searchTarget, sessionId, view]);
   async function send(
     value = draftRef.current.text,
     consumeDraft = true,
@@ -656,11 +700,22 @@ export function App() {
         .map((line) => '> ' + line)
         .join('\n') +
       '\n\n我想继续问：';
-    replaceDraft({
-      ...draftRef.current,
-      text: draftRef.current.text ? draftRef.current.text + '\n\n' + quote : quote,
-    });
+    const next = draftRef.current.text ? draftRef.current.text + '\n\n' + quote : quote;
+    if (next.length > LIMITS.draftText) { notify('这段有些长，可以少选一点，再接着聊。'); return; }
+    replaceDraft({ ...draftRef.current, text: next });
+    setReadingPane('chat');
     requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
+  }
+  function quoteMaterial(quote: MaterialQuote) {
+    if (!draftReady || navigating || navigationPending.current) return false;
+    const passage = `关于《${quote.name}》${quote.page ? `第 ${quote.page} 页` : ''}的这一段：\n` +
+      quote.text.split('\n').map(line => '> ' + line).join('\n') + '\n\n我想问：';
+    const next = draftRef.current.text ? draftRef.current.text + '\n\n' + passage : passage;
+    if (next.length > LIMITS.draftText) { notify('这段有些长，可以少选一点，再接着聊。'); return false; }
+    replaceDraft({ ...draftRef.current, text: next });
+    setReadingPane('chat');
+    requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
+    return true;
   }
   async function showPlace(placeId: string) {
     await attempt(async () => {
@@ -708,6 +763,7 @@ export function App() {
             )}
             <span>{attachment.name}</span>
             <small>{attachment.kind === 'image' ? '图片 · 随本条发送' : '随本条发送'}</small>
+            {attachment.kind === 'text' && attachment.resource && <button type="button" className="text-button" onClick={() => { setReadingPane('reader'); setView('materials'); }}>打开原文</button>}
             <IconButton label="移除附件" onClick={() => updateDraft({ attachment: null })}>
               <X size={14} />
             </IconButton>
@@ -973,7 +1029,7 @@ export function App() {
   const memoryHint = memoryNotice && (
     <div className="memory-notice" role="status">
       <span>
-        {(memoryNotice as Memory & { status?: string }).status === 'candidate' ? '待确认：' : '记住了：'}
+        {(memoryNotice as Memory & { status?: string }).status === 'candidate' ? '你愿意让我记住吗：' : '记住了：'}
         {memoryNotice.text}
       </span>
       <button
@@ -1023,8 +1079,27 @@ export function App() {
           />
           <WindowControls onClose={() => void requestClose()} />
         </header>
-        <main className={`workspace ${empty ? 'welcome' : 'conversation'}`} hidden={view !== 'chat'}>
-          {empty ? (
+        {(view === 'notes' || view === 'materials') && <div className="retained-heading">
+          <div><p>想留在身边的，都在这里。</p><h1>留下</h1></div>
+          <nav aria-label="留下的内容">
+            <button type="button" aria-current={view === 'notes' ? 'page' : undefined} onClick={() => setView('notes')}>笔记</button>
+            <button type="button" aria-current={view === 'materials' ? 'page' : undefined} onClick={() => { setView('materials'); setReadingPane('reader'); }}>资料</button>
+            <button type="button" onClick={() => setPanel('history')}>对话</button>
+          </nav>
+          {view === 'materials' && <div className="reading-pane-switch" aria-label="阅读与对话">
+            <button type="button" aria-pressed={readingPane === 'reader'} onClick={() => setReadingPane('reader')}>原文</button>
+            <button type="button" aria-pressed={readingPane === 'chat'} onClick={() => setReadingPane('chat')}>一起聊</button>
+          </div>}
+        </div>}
+        <div className={`conversation-space ${view === 'materials' ? 'with-materials' : ''}`} data-reading-pane={readingPane} hidden={view !== 'chat' && view !== 'materials'}>
+        {view === 'materials' && state && <MaterialsPanel
+          compact pending={attachment?.kind === 'text' ? attachment : null} sessionId={sessionId} draftEnabled={draftReady && !navigating}
+          boundary={`${state.privacyEpoch}:${state.policyRevision}`}
+          focus={searchTarget?.locator.kind === 'material' ? { locator: searchTarget.locator, requestId: searchTarget.requestId } : undefined}
+          onAttach={value => { if (!draftReady || navigating || navigationPending.current) return false; updateDraft({ attachment: value }); return true; }} onQuote={quoteMaterial} onClose={() => setView('chat')}
+        />}
+        <main className={`workspace ${empty && view !== 'materials' ? 'welcome' : 'conversation'}`}>
+          {empty && view !== 'materials' ? (
             <div className="welcome-inner">
               <p className="welcome-date">{new Date().toLocaleDateString('zh-CN', { timeZone: state?.settings.timeZone || DEFAULT_TIME_ZONE, weekday: 'long' })}</p>
               <h1>慢慢来，我在。</h1>
@@ -1053,7 +1128,7 @@ export function App() {
             <>
               <div className="conversation-heading">
                 <span>{state?.conversations.find(conversation => conversation.id === sessionId)?.title || '我们慢慢说'}</span>
-                {companion.presence === 'window' && !hasScene && <button type="button" className="text-button" aria-pressed={focusChat} onClick={() => setFocusChat(value => !value)}><BookOpen size={15} />{focusChat ? '回到窗边' : '安静阅读'}</button>}
+                {view === 'chat' && companion.presence === 'window' && !hasScene && <button type="button" className="text-button" aria-pressed={focusChat} onClick={() => setFocusChat(value => !value)}><BookOpen size={15} />{focusChat ? '回到窗边' : '安静阅读'}</button>}
               </div>
               <div
                 className="message-scroll"
@@ -1066,11 +1141,12 @@ export function App() {
                 }}
               >
                 <div className="messages">
+                  {empty && view === 'materials' && !input.trim() && <div className="reading-conversation-welcome"><BookOpen size={24} strokeWidth={1.2} /><h2>这一页，我们一起读。</h2><p>不明白的地方，可以选一段带过来。<br />想到哪里，就从哪里聊起。</p></div>}
                   {renderedMessages}
                   {activeMatter && (
                     <details className="current-matter">
                       <summary>
-                        接着处理「{activeMatter.title}」<ChevronRight size={14} />
+                        接着说「{activeMatter.title}」<ChevronRight size={14} />
                       </summary>
                       <MatterCard
                         matter={activeMatter}
@@ -1092,6 +1168,7 @@ export function App() {
             </>
           )}
         </main>
+        </div>
         {view === 'agenda' && state && (
           <AgendaView
             state={state}
@@ -1102,12 +1179,13 @@ export function App() {
             onChanged={() => void attempt(async () => updateState(await api.state()))}
             onClose={() => setView('chat')}
             onCompose={() => useSuggestion('帮我记一件事：')}
+            onContinue={useSuggestion}
             onState={updateState}
             onPresentMatter={(matter) => void prepareDisplay({ matter })}
             onMap={(id) => void showPlace(id)}
           />
         )}
-        {notesOpened && state && <NotesPanel key={state.privacyEpoch} active={view === 'notes'} onUnsavedChange={setNotesUnsaved} onClose={() => setView('chat')} timeZone={state.settings.timeZone} />}
+        {notesOpened && state && <NotesPanel embedded key={state.privacyEpoch} active={view === 'notes'} focus={searchTarget?.locator.kind === 'note' ? { locator: searchTarget.locator, requestId: searchTarget.requestId } : undefined} onUnsavedChange={setNotesUnsaved} onClose={() => setView('chat')} timeZone={state.settings.timeZone} />}
         {(view === 'settings' || view === 'memory' || view === 'companion') && state && (
           <SettingsPanel
             key={`${view}:${state.privacyEpoch}`}
@@ -1150,12 +1228,13 @@ export function App() {
         />
       )}
       {panel === 'history' && state && (
-        <HistoryPanel
+        <LocalSearchPanel
           state={state}
-          busy={busy}
+          busy={busy || navigating}
           onClose={() => setPanel(null)}
           onRestoreFocus={() => inputRef.current?.focus({ preventScroll: true })}
           onOpen={openConversation}
+          onSelect={openSearchResult}
           onDelete={async (id) => {
             await attempt(async () => {
               updateState(await api.deleteConversation(id));
@@ -1402,7 +1481,7 @@ function MessageView({
   }
   if (m.role === 'user')
     return (
-      <article className="user-message" aria-label="你的消息">
+      <article className="user-message" aria-label="你的消息" data-message-id={m.id} tabIndex={-1}>
         <div className="message-byline">
           你
           <span>
@@ -1451,12 +1530,12 @@ function MessageView({
         <span>
           {current?.title ||
             (m.status === 'cancelled'
-              ? '已停止处理'
+              ? '先停在这里'
               : m.status === 'error'
                 ? '有一步需要重新试试'
                 : hasBlocked
-                  ? '部分资料或步骤未完成'
-                  : '处理过程')}
+                  ? '还有一点没能完成'
+                  : '我刚才做了什么')}
         </span>
         <ChevronRight size={13} className={expanded ? 'rotated' : ''} />
       </button>
@@ -1476,7 +1555,7 @@ function MessageView({
                       {o.status === 'done' ? '✓' : o.status === 'blocked' ? '–' : '·'}
                     </span>
                     <span className="sr-only">
-                      {o.status === 'done' ? '已完成：' : o.status === 'blocked' ? '未完成：' : '处理中：'}
+                      {o.status === 'done' ? '已完成：' : o.status === 'blocked' ? '未完成：' : '还在继续：'}
                     </span>
                     {o.title}
                   </div>
@@ -1528,7 +1607,7 @@ function MessageView({
     />
   ));
   return (
-    <article className="assistant-message" ref={article}>
+    <article className="assistant-message" ref={article} data-message-id={m.id} tabIndex={-1}>
       <div className="assistant-name">
         <CompanionAvatar size={31} />
         <span>在场</span>
@@ -1882,7 +1961,7 @@ function ActionCard({
       const effectId = effect?.action?.id || action.effectActionId || action.id;
       const result = await onRevoke({ ...action, id: effectId });
       if (!result.ok) {
-        setActionError(result.error || '撤销没有完成，请重新核对。');
+        setActionError(result.error || '撤销没有完成，请再看看。');
         return;
       }
       setEffect(await api.actionState(action.effectActionId || action.id));
@@ -1951,7 +2030,7 @@ function ActionCard({
         <LoaderCircle size={18} className="spin" />
         <div>
           <strong>{action.title}</strong>
-          <small>正在核对保存结果…</small>
+          <small>看看这项安排有没有留住…</small>
         </div>
       </div>
     );
@@ -1964,7 +2043,7 @@ function ActionCard({
           <small>
             {savedItem.done ? '已完成' : cancellingOccurrence ? '已取消这一次' : restoringOccurrence ? '已恢复这一次' : savedItem.planning?.state === 'invitation' ? '已记录邀请' : savedItem.planning?.state === 'wish' ? '已保留愿望' : savedItem.planning?.state === 'proposed' ? '已保留方案' : isCalendarChange ? '已更新安排' : '已加入安排'}
             {savedItem.startsAt ? ` · ${formatDate(savedItem.startsAt, savedItem.timeZone || zone)} · ${timeZoneLabel(savedItem.timeZone || zone)}` : ''}
-            {action.coverage === 'conditional' ? ' · 条件待核对' : ''}
+            {action.coverage === 'conditional' ? ' · 还有条件未确定' : ''}
           </small>
           {actionError && (
             <p className="inline-problem" role="alert">
@@ -1976,7 +2055,7 @@ function ActionCard({
           className="text-button"
           onClick={() => void revoke()}
           disabled={disabled || revoking}
-          aria-label={`撤销本机登记：${action.title}`}
+          aria-label={`撤回这项安排：${action.title}`}
         >
           {revoking ? '正在撤销…' : '撤销'}
         </button>
@@ -2000,7 +2079,7 @@ function ActionCard({
                 : '这项安排的保存结果暂时无法核对。'}
           </p>
           <button className="text-button" onClick={onView} disabled={disabled}>
-            核对操作结果
+            看看结果
           </button>
         </div>
       </div>
@@ -2047,8 +2126,8 @@ function ActionCard({
               'cannot_cancel',
               'cancellation_unknown',
             ].includes(effect.action.status)
-              ? '结果待核查，请在安排中核对操作结果。'
-              : '这项建议的依据已经变化，确认前需要重新核对。'}
+              ? '还不确定这次有没有完成，先去安排里看看。'
+              : '情况有了变化，我们再看看这个安排。'}
           </p>
           <button
             className="text-button"
@@ -2072,8 +2151,8 @@ function ActionCard({
               'cannot_cancel',
               'cancellation_unknown',
             ].includes(effect.action.status)
-              ? '核对操作结果'
-              : '重新核对'}
+              ? '看看结果'
+              : '再看看'}
           </button>
         </div>
       </div>
@@ -2157,7 +2236,7 @@ function ActionCard({
             </>
           ) : (
             <>
-              {saving ? '正在保存…' : cancellingOccurrence ? '取消这次安排' : restoringOccurrence ? '恢复这次安排' : isCalendarChange ? deletingCalendarItem ? '移除这项安排' : '应用这次修改' : action.coverage === 'conditional' ? '保存为待核对安排' : '加入我的安排'}
+              {saving ? '正在保存…' : cancellingOccurrence ? '取消这次安排' : restoringOccurrence ? '恢复这次安排' : isCalendarChange ? deletingCalendarItem ? '移除这项安排' : '应用这次修改' : action.coverage === 'conditional' ? '先留作计划' : '加入我的安排'}
               <ArrowUpRight size={15} />
             </>
           )}
@@ -2178,81 +2257,10 @@ function ActionCard({
       </small>
       {action.coverage === 'conditional' && (
         <p className="action-conditions">
-          尚需核对：{[...new Set((action.missingNeeds || []).map(needName))].join('、') || '相关条件'}
-          。保存只记录在本机。
+          还想弄清楚：{[...new Set((action.missingNeeds || []).map(needName))].join('、') || '相关条件'}
+          。可以先把这个想法留在这台电脑上。
         </p>
       )}
     </div>
-  );
-}
-
-function HistoryPanel({
-  state,
-  busy,
-  onClose,
-  onOpen,
-  onDelete,
-  onRestoreFocus,
-}: {
-  state: State;
-  busy: boolean;
-  onClose: () => void;
-  onOpen: (id: string) => void;
-  onDelete: (id: string) => void;
-  onRestoreFocus: () => void;
-}) {
-  const [query, setQuery] = useState(''),
-    [deleting, setDeleting] = useState('');
-  const list = state.conversations.filter((c) => c.title.toLowerCase().includes(query.toLowerCase()));
-  return (
-    <Modal title="历史对话" onClose={onClose} fallbackFocus={onRestoreFocus}>
-      <div className="panel-body">
-        <div className="search-box">
-          <Search size={16} />
-          <input
-            aria-label="搜索对话标题"
-            placeholder="搜索对话标题"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            autoFocus
-          />
-          <kbd>⌘ / Ctrl K</kbd>
-        </div>
-        {list.length ? (
-          <div className="history-list">
-            {list.map((c) => (
-              <div className="history-item" key={c.id}>
-                <button onClick={() => onOpen(c.id)} disabled={busy}>
-                  <span>{c.title}</span>
-                  <small>{formatDate(c.updatedAt, state.settings.timeZone)}</small>
-                </button>
-                {deleting === c.id ? (
-                  <div className="delete-confirm">
-                    <button onClick={() => onDelete(c.id)} disabled={busy}>
-                      删除
-                    </button>
-                    <button onClick={() => setDeleting('')}>取消</button>
-                  </div>
-                ) : (
-                  <IconButton
-                    label={`删除对话：${c.title}`}
-                    onClick={() => setDeleting(c.id)}
-                    disabled={busy}
-                  >
-                    <Trash2 size={15} />
-                  </IconButton>
-                )}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="panel-empty">
-            <History size={29} />
-            <h3>{query ? '没有找到这段对话。' : '故事，从第一次对话开始。'}</h3>
-            <p>{query ? '换一个标题关键词试试。' : '聊过的事会留在本机，需要时再回来。'}</p>
-          </div>
-        )}
-      </div>
-    </Modal>
   );
 }

@@ -273,7 +273,7 @@ const specs: SpecDefinition[] = [
   },
   {
     name: 'present_view',
-    description: '按当前原话与真实结果决定直接呈现什么。sceneRefs只能引用availableScenes、map_route或weather.lookup返回的精确id/revision；组件目录为MapScene和WeatherScene，宿主生成真实OpenUI界面。layout=compare仅用于确有比较意义的两个结果。cameraIntent只改变观看，不改旅程、位置或安排；explain表示需要认识陌生道路时请求一次可中断空间讲解，用户手势立即接管；只问远近、赶时间或重复查看时用route直接给稳定全貌，不默认每次播放。用户手动浏览后，只有当前原话明确请求继续讲解、回到路线或看某处时，才以viewRequestQuote逐字引用该观看请求；模型自行组织呈现或更新路线不能借普通任务原话夺回镜头。观看引文不授权真实行动。选择日期后可接本地安排，但仍须按用户原话调用既有行动工具。历史天气保留原预测时刻，重用过期事实前重新查询。',
+    description: '按当前原话与真实结果决定直接呈现什么。sceneRefs只能引用availableScenes、map_route、weather.lookup或校园查询返回的精确id/revision；组件目录为MapScene、WeatherScene和CampusScene，宿主生成真实OpenUI界面。CampusScene只呈现实际取得的课程或考试记录；选择记录可接着聊，不自动写日历。layout=compare仅用于确有比较意义的两个结果。cameraIntent只改变观看，不改旅程、位置或安排；explain表示需要认识陌生道路时请求一次可中断空间讲解，用户手势立即接管；只问远近、赶时间或重复查看时用route直接给稳定全貌，不默认每次播放。用户手动浏览后，只有当前原话明确请求继续讲解、回到路线或看某处时，才以viewRequestQuote逐字引用该观看请求；模型自行组织呈现或更新路线不能借普通任务原话夺回镜头。观看引文不授权真实行动。选择日期后可接本地安排，但仍须按用户原话调用既有行动工具。历史天气保留原预测时刻，重用过期事实前重新查询。',
     schema: z.object({ sceneRefs: z.array(sceneRefSchema).min(1).max(3), layout: z.enum(['stack', 'compare']).default('stack'), cameraIntent: z.enum(['route', 'overview', 'destination', 'selection', 'explain']).optional(), viewRequestQuote: z.string().min(1).max(2000).optional().describe('仅引用本轮用户明确要求移动视角、继续讲解或回到路线的逐字原话；普通路线计算、数据更新或模型自行组织呈现时省略。不是行动授权。'), focusPlaceId: z.string().min(1).max(160).optional(), activeLegId: z.string().min(1).max(160).optional(), display: z.enum(['expanded', 'compact']).optional(), arrivalSourceQuote: z.string().min(1).max(2000).optional().describe('仅在用户当前原话明确报告已到达时，逐字引用实际陈述；不能引用预览完成、假设、否定或计划。宿主保留为用户报告，不冒充设备定位。') }).strict(),
   },
   {
@@ -977,8 +977,8 @@ export class RuntimeCoordinator {
     if (session.ingress.contract.audience === 'self' && !session.ingress.localOnly) {
       const sceneSessionId = session.sceneSessionId || session.sessionId;
       const availableScenes = this.scenes.summaries(session.ingress.contract.scope, sceneSessionId, session.ingress.contract.id, session.selection ? { id: session.selection.sceneId, revision: session.selection.sceneRevision } : undefined);
-      const presentationLibrary = { version: 1, components: ['MapScene: 可操作的校园总览、单点浏览、真实路线与多停靠旅程；view操作不改安排', 'WeatherScene: 所查公开参考位置的七天按日比较与日期选择；该画面不表达小时资料'],
-        method: '主模型依据当前需要选择map_route或取得weather.lookup，再用present_view引用精确sceneRef；无需用户要求渲染。地图路线查询即表示当前需要地图，会直接展开。用户手势接管后，只有本轮明确观看请求的viewRequestQuote能重新取得镜头；模型提出cameraIntent本身不代表用户要求移镜。已由present_view逐项展示的数据，正文保留结论、理由、必要差异与限制，不机械重复完整列表或表格；用户另要完整表格时按要求提供。旧事实保留查询时刻；临时界面选择不是长期记忆或行动授权。' };
+      const presentationLibrary = { version: 1, components: ['MapScene: 可操作的校园总览、单点浏览、真实路线与多停靠旅程；view操作不改安排', 'WeatherScene: 所查公开参考位置的七天按日比较与日期选择；该画面不表达小时资料', 'CampusScene: 实际读到的课程、课次或考试记录；保留来源与范围，选择记录供下一句引用，不保存日程'],
+        method: '主模型依据当前需要选择map_route、weather.lookup或校园查询，再用present_view引用精确sceneRef；无需用户要求渲染。地图路线查询即表示当前需要地图，会直接展开。校园画面只显示已取得的记录，不能从同名课程猜关联、下次上课或全学期覆盖。用户手势接管后，只有本轮明确观看请求的viewRequestQuote能重新取得镜头；模型提出cameraIntent本身不代表用户要求移镜。已由present_view逐项展示的数据，正文保留结论、理由、必要差异与限制，不机械重复完整列表或表格；用户另要完整表格时按要求提供。旧事实保留查询时刻；临时界面选择不是长期记忆或行动授权。' };
       const additions = { availableScenes, presentationLibrary, ...(session.selection ? { currentSelection: session.selection } : {}),
         ...(session.selectionUnavailable ? { currentSelectionUnavailable: '先前界面引用已不在本轮允许的来源或有效画面中，没有读取其对象与事实。继续处理当前独立请求；只有用户仍在指代该对象且影响结论时，再说明需要重新选择。' } : {}) };
       const serialized = canonical(additions), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
@@ -2283,6 +2283,14 @@ export class RuntimeCoordinator {
           return this.withMethodNotes(session, capability, { ...result, sceneRef: { id: scene.id, revision: scene.revision }, presentation: (result.data as any).hourly
             ? '按请求时间窗取得了小时预报及其覆盖；可以据此说明该窗口的不确定性。现有WeatherScene只展示日级概览，日期选择不自动保存日程。'
             : '若按日比较有助当前问题，用present_view引用此sceneRef。日期选择只是试算，不自动保存日程；这次日级结果不能支持逐小时结论。' });
+        }
+        if (['campus.lookup', 'campus.imported_lookup', 'campus.query'].includes(capability)) {
+          const scene = this.scenes.campus(session.sceneSessionId || session.sessionId, result, capability, effectiveInput, session.ingress.contract.id, session.background);
+          if (scene) {
+            if (session.pack) session.pack.data.availableScenes = this.scenes.summaries(handle, session.sceneSessionId || session.sessionId, session.ingress.contract.id);
+            return this.withMethodNotes(session, capability, { ...result, sceneRef: { id: scene.id, revision: scene.revision },
+              presentation: '可用present_view展示这次实际读到的课程或考试。卡片保留原来源、读取时间与范围；选择只为继续交流，不会保存安排。不能根据部分课次声称全学期完整、默认下一次上课或跨来源合并同名课程。' });
+          }
         }
         if (result.status === 'fresh' && (capability === 'map.overview' || capability === 'map.search' && (result.data as { matches?: unknown[] })?.matches?.length === 1)) {
           const placeId = capability === 'map.search' ? (result.data as { matches: { id: string }[] }).matches[0].id : undefined;

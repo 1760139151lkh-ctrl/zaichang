@@ -8,6 +8,7 @@ import {
   UserRound,
   Search,
   Sparkles,
+  BookOpen,
 } from 'lucide-react';
 import type { WorkspaceView } from './Workspace';
 import { CompanionAvatar } from './companion';
@@ -33,12 +34,17 @@ export function Navigation({
     trigger = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (!open) return;
-    host.current?.querySelector<HTMLButtonElement>('[role="menuitem"]')?.focus();
+    [...(host.current?.querySelectorAll<HTMLButtonElement>('[role="menuitem"]') || [])].find(item => !item.disabled && item.getClientRects().length > 0)?.focus();
     const outside = (event: PointerEvent) => {
       if (!host.current?.contains(event.target as Node)) setOpen(false);
     };
     document.addEventListener('pointerdown', outside);
-    return () => document.removeEventListener('pointerdown', outside);
+    const recoverFocus = () => {
+      if (host.current?.contains(document.activeElement) && (document.activeElement as HTMLElement).getClientRects().length) return;
+      [...(host.current?.querySelectorAll<HTMLButtonElement>('[role="menuitem"]') || [])].find(item => !item.disabled && item.getClientRects().length > 0)?.focus();
+    };
+    window.addEventListener('resize', recoverFocus);
+    return () => { document.removeEventListener('pointerdown', outside); window.removeEventListener('resize', recoverFocus); };
   }, [open]);
   const go = (action: () => void) => {
     setOpen(false);
@@ -52,11 +58,11 @@ export function Navigation({
         <button type="button" aria-current={view === 'agenda' ? 'page' : undefined} onClick={() => onView('agenda')}>今天</button>
         <button type="button" aria-current={view === 'notes' || view === 'materials' ? 'page' : undefined} onClick={() => onView('notes')}>留下</button>
       </div>
-      <button className="nav-button" aria-label="历史对话" title="历史对话 · Ctrl K" onClick={onHistory}>
+      <button className="nav-button nav-wide-only" aria-label="历史对话" title="历史对话 · Ctrl K" onClick={onHistory}>
         <Search size={19} />
       </button>
       <button
-        className="nav-button"
+        className="nav-button nav-wide-only"
         aria-label="新的对话"
         title="新的对话 · Ctrl N"
         onClick={onNew}
@@ -88,7 +94,7 @@ export function Navigation({
             role="menu"
             aria-label="更多功能"
             onKeyDown={(event) => {
-              const items = [...event.currentTarget.querySelectorAll<HTMLButtonElement>('[role="menuitem"]')];
+              const items = [...event.currentTarget.querySelectorAll<HTMLButtonElement>('[role="menuitem"]')].filter(item => !item.disabled && item.getClientRects().length > 0);
               const i = items.indexOf(document.activeElement as HTMLButtonElement);
               if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
                 event.preventDefault();
@@ -120,6 +126,8 @@ export function Navigation({
               }
             }}
           >
+            <button className="nav-narrow-only" role="menuitem" onClick={() => go(onHistory)}><Search size={18} /><span>我们聊过的</span></button>
+            <button className="nav-narrow-only" role="menuitem" onClick={() => go(onNew)} disabled={busy}><Pencil size={18} /><span>新的对话</span></button>
             <button role="menuitem" aria-current={view === 'companion' ? 'page' : undefined} onClick={() => go(() => onView('companion'))}>
               <Sparkles size={18} /><span>陪伴的样子</span>
             </button>
@@ -138,6 +146,10 @@ export function Navigation({
             <button role="menuitem" aria-current={view === 'notes' ? 'page' : undefined} onClick={() => go(() => onView('notes'))}>
               <NotebookPen size={18} />
               <span>记事本</span>
+            </button>
+            <button role="menuitem" aria-current={view === 'materials' ? 'page' : undefined} onClick={() => go(() => onView('materials'))}>
+              <BookOpen size={18} />
+              <span>一起读资料</span>
             </button>
             <button
               role="menuitem"

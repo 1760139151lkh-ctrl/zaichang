@@ -21,6 +21,8 @@
 !/assets/brand/mark.svg
 !/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/*.png
 !/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/manifest.json
+!/assets/design/generated/2026-10-18-continuation/*.png
+!/assets/design/generated/2026-10-18-continuation/manifest.json
 !/assets/map-v2/SOURCE.md
 !/前端视觉创新设计/*.md
 !/前端视觉创新设计/图片/*.png
@@ -155,3 +157,10 @@
 .DS_Store
 Thumbs.db
 /docs/review/
+
+# Image-first continuation and its owned behavior checks.
+!/assets/design/generated/2026-10-18-windowlight/*.png
+!/assets/design/generated/2026-10-18-windowlight/manifest.json
+!/tests/harness/attention-controls.test.ts
+!/tests/harness/campus-scenes.test.ts
+!/tests/harness/search.test.ts

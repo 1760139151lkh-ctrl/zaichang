@@ -6,6 +6,46 @@ import { Fixture, supported } from './support';
 import { Harness } from '../../src/main/harness';
 import { DeepSeekClient } from '../../src/main/provider';
 
+test('native material preview reads the selected original without binding, saving or admitting it to the model', async () => {
+  const f = new Fixture();
+  try {
+    const materials = f.store.runtime.materials;
+    const attachment = materials.stageBytes('手边的讲义.md', Buffer.from('原文第一行\n\n' + '甲😀乙'.repeat(6000)));
+    const target = { kind: 'pending' as const, reference: attachment.resource! };
+    const first = await materials.nativeReadPage({ target });
+    assert.equal(first.text, Array.from('原文第一行\n\n' + '甲😀乙'.repeat(6000)).slice(0, 16000).join(''));
+    assert.equal(first.nextOffset, 16000);
+    const rest = await materials.nativeReadPage({ target, offset: first.nextOffset });
+    assert.equal(rest.start, 16000); assert.equal(rest.nextOffset, null);
+    assert.equal(materials.nativeList().length, 0);
+    assert.equal(fs.existsSync(materials.directory), false);
+    assert.equal(f.repo.watermarks().received, 0);
+    await assert.rejects(materials.invokeLocal(f.scope(), 'materials.read', { resourceId: attachment.resource!.resourceId }, new AbortController().signal), /尚未发送/);
+    await assert.rejects(materials.nativeReadPage({ target: { ...target, reference: { ...target.reference, accessKey: '0'.repeat(64) } } }), /失效/);
+    materials.releasePending(attachment.resource);
+    await assert.rejects(materials.nativeReadPage({ target }), /失效/);
+  } finally { f.close(); }
+});
+
+test('saved native material reading follows its original source through restart and forgetting', async () => {
+  let f = new Fixture();
+  try {
+    const attachment = f.store.runtime.materials.stageBytes('原文.txt', Buffer.from('SOURCE_CANARY 原始文字\n保持换行'));
+    const run = f.store.runtime.begin('一起看看这份资料', 'reader-message', 'reader-session', new AbortController().signal, { material: attachment.resource });
+    f.store.runtime.finish(run);
+    const target = { kind: 'saved' as const, resourceId: attachment.resource!.resourceId };
+    assert.equal(f.store.runtime.materials.nativeList().length, 1);
+    assert.equal((await f.store.runtime.materials.nativeReadPage({ target })).text, 'SOURCE_CANARY 原始文字\n保持换行');
+    await assert.rejects(f.store.runtime.materials.nativeReadPage({ target: { kind: 'pending', reference: attachment.resource } }), /失效/);
+    f = f.restart();
+    assert.equal((await f.store.runtime.materials.nativeReadPage({ target })).text, 'SOURCE_CANARY 原始文字\n保持换行');
+    f.memory.forget(['reader-message']);
+    assert.equal(f.store.runtime.materials.nativeList().length, 0);
+    await assert.rejects(f.store.runtime.materials.nativeReadPage({ target }), /不在这里/);
+    assert.throws(() => f.store.runtime.materials.nativeOriginal(target), /不在这里/);
+  } finally { f.close(); }
+});
+
 function clientRecorder(requests: any[], controls: Record<string, unknown> = {}) {
   const { sources, ...wireControls } = controls;
   let projected = false;

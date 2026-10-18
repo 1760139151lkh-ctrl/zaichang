@@ -1,0 +1,152 @@
+{
+  "date": "2026-10-18",
+  "generator": "GPT Image (built-in)",
+  "source": "User-directed image-first design; previously generated product images supplied as style references where applicable. No official character artwork or account screenshots copied.",
+  "repository_scope": "Authorized development of this existing private repository. Named fictional character interpretations are not claimed as official artwork or original character IP. No public distribution approval is inferred.",
+  "review": "Each image visually inspected before implementation. Design scenes contain invented representative content, never account or geographic evidence. Raw prompts and local paths excluded.",
+  "files": [
+    {
+      "file": "campus-conversation-results.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1515062,
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "969079ae0f589c89d4e21cb2e89394e0fcc0b2b577b4026d4ac61b3739337a8a"
+    },
+    {
+      "file": "companion-gallery.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 2010761,
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "0e9311d576ee7ef3a4e36ed6c278f4e310b29844bea0ef429f9646e0bb7de948"
+    },
+    {
+      "file": "conversation-interruption-and-draft-return.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1718658,
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "11fb9f8b1b9ada3e73ed7c18e60e9b4137c4ff47e64784b1c80b27ebb9e610ad"
+    },
+    {
+      "file": "document-open-recovery.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1697563,
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "a0be644f45b610c5d6be4ffaddb187acb09cafc39fe7af9fb9f8a49546528197"
+    },
+    {
+      "file": "entrusted-detail.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1872052,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "3198556973556fcf8371817056e8ffa174dc7e5afad781b05b08ccabbdcba35c"
+    },
+    {
+      "file": "first-arrival-and-connection.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1757114,
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "f2c0e73d578729790f142f741cb0a909c88b3887a8c886b2def8f873ec717abb"
+    },
+    {
+      "file": "learning-workspace.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1723351,
+      "dimensions": [
+        1564,
+        1006
+      ],
+      "sha256": "e535b59b479a92785d786af602bdff9fcc5b2530f3769bd38743e7d48d12f3ad"
+    },
+    {
+      "file": "map-recovery.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1883481,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "8bbcf3b784e5645b7955c729d6aa2954a166900ccb912ba52c37c5c13a9f48b1"
+    },
+    {
+      "file": "plan-reschedule.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1485691,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "f611c015413ee85b588d8b77feee21b9ab56c2ef424338cd34b9ec26e5ea4851"
+    },
+    {
+      "file": "reading-rhythm-preferences.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1651584,
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "d14033e8865b2710de80c3feb8817a2262c2719a2180a1544d5fbdf9ccdf69b2"
+    },
+    {
+      "file": "source-revisit-scoped-recall.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1561468,
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "1f9ebc0e9427d6150eb61e24053a04d62ae662dd00d6eacb31584d9870bfd522"
+    },
+    {
+      "file": "src/renderer/assets/companion/sakiko.png",
+      "identity": "祥子：用户指定角色丰川祥子的二次元生成诠释",
+      "usage": "desktop optional companion; not public map",
+      "bytes": 1884998,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "sha256": "5408dd2e8cb3fd5adaa423b286bc5ff81cafe8a11c2ba855b31bb49bed06d2ff"
+    },
+    {
+      "file": "src/renderer/assets/companion/mutsumi.png",
+      "identity": "睦：用户指定角色若叶睦的二次元生成诠释",
+      "usage": "desktop optional companion; not public map",
+      "bytes": 1451380,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "sha256": "a5c32c4c895f8bc4442b6f7afad7fd62919e7908f398e10bdd20db325d92bae8"
+    },
+    {
+      "file": "src/renderer/assets/companion/nagi.png",
+      "identity": "凪：原创虚构成年写实人物",
+      "usage": "desktop optional companion; not public map",
+      "bytes": 1904257,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "sha256": "4fb87d776860c178c16c638b61e08cd275242d7ec5f455f60ea26bdb3b5634f5"
+    }
+  ]
+}
