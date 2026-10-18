@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type MutableRefObject } from 'react';
-import { Download, LoaderCircle, Upload, Undo2 } from 'lucide-react';
+import { BookOpen, Download, LoaderCircle, Upload, Undo2 } from 'lucide-react';
 import type { PersonaCore, PersonaState } from '../shared/persona';
 import {
   PERSONA_PRESETS,
@@ -9,13 +9,16 @@ import {
   personaPreset,
 } from '../shared/persona';
 import type { SettingsUpdate, State } from '../shared/types';
-import { uiError } from './ui';
+import { previewPersonaCharacterCard } from '../shared/persona-card-import';
+import { Modal, uiError } from './ui';
 import './persona.css';
 
 export interface PersonaDraft {
   expectedRevision: number;
   core: PersonaCore;
+  beforeReplacement?: { expectedRevision: number; core: PersonaCore };
 }
+type PersonaCandidate = { core: PersonaCore; origin: string; external: boolean; ignoredFields?: string[] };
 export function PersonaEditor({
   persona,
   legacyGuidance,
@@ -42,6 +45,7 @@ export function PersonaEditor({
   const [scenario, setScenario] = useState<(typeof PERSONA_SCENARIOS)[number]['id']>('departure');
   const [undoRevision, setUndoRevision] = useState<number>();
   const [legacySelection, setLegacySelection] = useState('');
+  const [candidate, setCandidate] = useState<PersonaCandidate>();
   const fileRef = useRef<HTMLInputElement>(null);
   const importRevision = useRef(0);
   const core = editor.core;
@@ -64,13 +68,31 @@ export function PersonaEditor({
   );
   function replace(next: PersonaCore) {
     importRevision.current++;
-    const nextEditor = { expectedRevision: editor.expectedRevision, core: next };
+    const nextEditor = { ...editor, core: next };
     setEditor(nextEditor);
     draft.current.persona = nextEditor;
     setFeedback(undefined);
   }
   function patch(value: Partial<PersonaCore>) {
     replace({ ...core, ...value });
+  }
+  function acceptCandidate() {
+    if (!candidate || locked) return;
+    importRevision.current++;
+    const nextEditor: PersonaDraft = {
+      expectedRevision: editor.expectedRevision,
+      core: candidate.core,
+      beforeReplacement: { expectedRevision: editor.expectedRevision, core: structuredClone(editor.core) },
+    };
+    setEditor(nextEditor); draft.current.persona = nextEditor; setCandidate(undefined);
+    setFeedback({ text: '已放进编辑草稿。可以继续调整，留下约定后才会生效。' });
+  }
+  function restoreReplacedDraft() {
+    if (!editor.beforeReplacement || locked) return;
+    importRevision.current++;
+    const restored = structuredClone(editor.beforeReplacement);
+    setEditor(restored); draft.current.persona = restored;
+    setFeedback({ text: '替换前的文字回来了，还没有改动已保存的约定。' });
   }
   function reset(next = persona) {
     importRevision.current++;
@@ -88,7 +110,12 @@ export function PersonaEditor({
     setFeedback(undefined);
     try {
       await perform(async () => {
-        const next = await window.zaichang.saveSettings({ personaUpdate: update });
+        let next: State;
+        try { next = await window.zaichang.saveSettings({ personaUpdate: update }); }
+        catch (problem) {
+          try { onState(await window.zaichang.state()); } catch { /* The editor keeps its own draft. */ }
+          throw problem;
+        }
         onState(next);
         setEditor({
           expectedRevision: next.settings.persona.revision,
@@ -119,7 +146,9 @@ export function PersonaEditor({
             className="persona-preset"
             aria-pressed={core.presetId === preset.id}
             disabled={locked}
-            onClick={() => replace(personaPreset(preset.id))}
+            onClick={() => dirty
+              ? setCandidate({ core: personaPreset(preset.id), origin: `${preset.label}预设`, external: false })
+              : replace(personaPreset(preset.id))}
           >
             <strong>{preset.label}</strong>
             <span>{preset.summary}</span>
@@ -248,9 +277,10 @@ export function PersonaEditor({
         {dirty && !stale && <small className="setting-hint">这次的想法还没留下</small>}
       </div>
       {stale && (
-        <p className="inline-status error" role="alert">
-          这里已经有了新的约定。你写的文字还在，可以先复制，再回到现在的约定继续改。
-        </p>
+        <div className="persona-conflict" role="alert">
+          <p>这里已经有了新的约定（{persona.core.name || '在场'}）。你写的文字还在；继续使用这份草稿，下次保存会替换当前约定。</p>
+          <button type="button" className="text-button" disabled={locked} onClick={() => { const next = { ...editor, expectedRevision: persona.revision }; setEditor(next); draft.current.persona = next; setFeedback({ text: '草稿保留着。检查后再保存，就会成为新的约定。' }); }}>继续使用这份草稿</button>
+        </div>
       )}
       {feedback && (
         <p
@@ -260,6 +290,7 @@ export function PersonaEditor({
           {feedback.text}
         </p>
       )}
+      {editor.beforeReplacement && <button className="text-button persona-draft-restore" disabled={locked} onClick={restoreReplacedDraft}><Undo2 size={13} />恢复替换前的草稿</button>}
         </div>
         <aside className="persona-listening">
       <div className="persona-preview">
@@ -281,6 +312,7 @@ export function PersonaEditor({
         <blockquote>{response || '这时，你希望我怎样回应？可以在左边写一句。'}</blockquote>
         <small>这里展示你写下的例句，方便一起调整语气。</small>
       </div>
+      <div className="persona-import-entry"><button className="text-button" disabled={locked} onClick={() => fileRef.current?.click()}><Upload size={15} />带来一份角色设定</button><small>支持在场设置和 Character Card V2 的 JSON 文件。</small></div>
       <details className="persona-details persona-manage">
         <summary>以前的约定与随身带走</summary>
         <div className="persona-details-body">
@@ -321,10 +353,6 @@ export function PersonaEditor({
             </div>
           )}
           <div className="field-buttons">
-            <button className="text-button" disabled={locked} onClick={() => fileRef.current?.click()}>
-              <Upload size={14} />
-              放入我的设置
-            </button>
             <button
               className="text-button"
               disabled={locked}
@@ -356,12 +384,18 @@ export function PersonaEditor({
               const importingRevision = ++importRevision.current;
               const beforeImport = draft.current.persona;
               try {
-                if (file.size > 160_000) throw new Error('这份设置文件太大了，请选一份 160 KB 以内的 JSON 文件。');
-                const imported = importPersonaTemplate(await file.text());
+                if (file.size > 600_000) throw new Error('这份设置文件太大了，请选一份 600 KB 以内的 JSON 文件。');
+                const text = await file.text();
+                let imported: PersonaCandidate;
+                const format = JSON.parse(text)?.format;
+                if (format === 'zaichang-persona-template') imported = { core: importPersonaTemplate(text), origin: file.name, external: false };
+                else {
+                  const preview = previewPersonaCharacterCard(text);
+                  imported = { core: preview.core, origin: file.name, external: true, ignoredFields: preview.ignoredFields };
+                }
                 if (importRevision.current !== importingRevision || draft.current.persona !== beforeImport)
                   return;
-                replace(imported);
-                setFeedback({ text: '这份设置放进来了。看看合不合心意，再留下。' });
+                setCandidate(imported);
               } catch (error) {
                 if (importRevision.current !== importingRevision) return;
                 setFeedback({ text: uiError(error), error: true });
@@ -397,6 +431,20 @@ export function PersonaEditor({
       </details>
         </aside>
       </div>
+      {candidate && <Modal title="先看看，再决定" onClose={() => setCandidate(undefined)} className="persona-import-dialog">
+        <div className="persona-import-body">
+        <div className="persona-import-intro"><span className="persona-import-mark"><BookOpen size={25} /></span><div><h3>{candidate.core.name || '还没起名字'}</h3><p>{candidate.origin}</p></div></div>
+        <p className="persona-import-lede">这份设定还没有生效。放进草稿后，你可以改成更喜欢的样子。</p>
+        <div className="persona-import-content">
+          <section><h4>怎样相处</h4><p>{candidate.core.description || '这份设定还没有写性格，可以在草稿里补上。'}</p></section>
+          {candidate.core.voice && <section><h4>说话的方式</h4><p>{candidate.core.voice}</p></section>}
+          {candidate.core.fictionalBackstory && <section><h4>虚构的背景</h4><p>{candidate.core.fictionalBackstory}</p></section>}
+        </div>
+        {candidate.external && <p className="persona-import-note">这里只带入名字、性格与虚构背景。原卡的开场白、世界书和自动执行内容不会加入对话。</p>}
+        {dirty && <p className="persona-import-note">你正在写的草稿会先留一份，替换后仍可恢复。</p>}
+        <div className="persona-import-actions"><button type="button" className="primary-button" disabled={locked} onClick={acceptCandidate}>{dirty ? '替换编辑草稿' : '放进编辑草稿'}</button><button type="button" className="text-button" onClick={() => setCandidate(undefined)}>先不换</button></div>
+        </div>
+      </Modal>}
     </section>
   );
 }

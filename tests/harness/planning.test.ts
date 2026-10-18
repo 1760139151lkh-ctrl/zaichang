@@ -87,6 +87,36 @@ test('only explicitly splittable tasks cross gaps; each segment preserves minimu
   assert.equal(draftCalendarPlan(calendar, input([task('work', 100)], { to: at('12:00') })).blocks.length, 0);
 });
 
+test('a requested focus rhythm divides work without losing effort, setup, cleanup or real breaks', () => {
+  const result = draftCalendarPlan([], input([task('read-and-prove', 180, { splittable: true, minimumChunkMinutes: 45, maximumChunkMinutes: 75, setupMinutes: 5, cleanupMinutes: 5 })], {
+    to: at('14:00'), restMinutes: 10, maxScheduledMinutes: 180, reserveMinutes: 0,
+  }));
+  assert.deepEqual(result.blocks.map(value => value.durationMinutes), [75, 60, 45]);
+  assert.equal(result.scheduledMinutes, 180);
+  assert.equal(result.completeness, 'all_tasks_placed');
+  assert.equal(result.transitions.reduce((sum, value) => sum + value.restMinutes, 0), 20);
+  assert.equal(result.freeWindows.reduce((sum, value) => sum + value.minutes, 0), 70);
+  for (const block of result.blocks) assert.equal((ms(block.reservedEnd) - ms(block.reservedStart)) / 60000, block.durationMinutes + 10);
+  for (const rest of result.transitions) for (const block of result.blocks) noOverlap(rest, { start: block.reservedStart, end: block.reservedEnd });
+});
+
+test('rhythm is opt-in; conflicting chunk bounds or missing split permission do not shorten work', () => {
+  assert.equal(draftCalendarPlan([], input([task('deep-work', 180)], { maxScheduledMinutes: 180 })).blocks.length, 1);
+  const noPermission = draftCalendarPlan([], input([task('deep-work', 180, { maximumChunkMinutes: 90 })], { maxScheduledMinutes: 180 }));
+  assert.equal(noPermission.blocks.length, 0);
+  assert.equal(noPermission.unscheduled[0].code, 'split_permission_required');
+  assert.equal(noPermission.unscheduled[0].remainingMinutes, 180);
+  assert.throws(() => draftCalendarPlan([], input([task('deep-work', 180, { splittable: true, minimumChunkMinutes: 120, maximumChunkMinutes: 90 })])), { code: 'planning_chunk' });
+});
+
+test('tiny requested segments stay bounded and preserve the unplaced remainder explicitly', () => {
+  const result = draftCalendarPlan([], input([task('tiny', 300, { splittable: true, minimumChunkMinutes: 1, maximumChunkMinutes: 1 })], { maxScheduledMinutes: 300 }));
+  assert.equal(result.blocks.length, 256);
+  assert.equal(result.scheduledMinutes, 256);
+  assert.equal(result.unscheduled[0].code, 'segment_limit');
+  assert.equal(result.unscheduled[0].remainingMinutes, 44);
+});
+
 test('partial predecessor does not unlock dependent; small remainder is not dropped', () => {
   const result = draftCalendarPlan([], input([task('work', 100, { splittable: true, minimumChunkMinutes: 30 }), task('after', 30, { dependsOn: ['work'] })], { maxScheduledMinutes: 50 }));
   assert.equal(result.scheduledMinutes, 50);

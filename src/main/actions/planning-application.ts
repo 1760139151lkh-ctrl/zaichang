@@ -6,6 +6,7 @@ import { canonical } from '../runtime/semantics';
 import { calendarPlanFingerprint, draftCalendarPlan, planningDraftInput } from './planning-draft';
 
 export const planningPlanRefSchema = z.object({ planId: z.string().uuid(), blockId: z.string().min(1).max(160) }).strict();
+export const planningRecoveryInput = z.object({ planId: z.string().uuid() }).strict();
 export type PlanningPlanRef = z.infer<typeof planningPlanRefSchema>;
 type Input = z.infer<typeof planningDraftInput>;
 type Draft = ReturnType<typeof draftCalendarPlan>;
@@ -30,7 +31,7 @@ export class PlanningApplicationService {
   // Only owner and irreversible parameter digests survive ticket expiry, bounded to 50 plans in this process.
   // This catches detached copies, not arbitrary semantic rewrites, and intentionally does not survive restart.
   private readonly recentProposals = new Map<string, { owner: Owner; keys: Set<string> }>();
-  constructor(private readonly clock: () => string, private readonly currentSourceVersion?: (sourceId: string) => string | number | null | undefined) {}
+  constructor(private readonly clock: () => string, private readonly currentSourceVersion?: (sourceId: string, scope: ScopeData) => string | number | null | undefined) {}
 
   prepare(scope: ScopeData, items: Action[], raw: unknown) {
     const now = this.now();
@@ -131,6 +132,86 @@ export class PlanningApplicationService {
     return result;
   }
 
+  /** Read the durable calendar after interruption. A stored planRef proves a row exists, never that an entire plan succeeded. */
+  recover(scope: ScopeData, currentItems: Action[], raw: unknown) {
+    const { planId } = planningRecoveryInput.parse(raw), now = this.now();
+    if (scope.worldId !== 'real' || scope.audience !== 'self' || scope.subjectId !== scope.principalId || scope.child || !scope.sources.includes('local-agenda') || !Number.isFinite(Date.parse(scope.expiresAt)) || Date.parse(scope.expiresAt) <= now)
+      throw new HarnessError('planning_scope', '恢复安排需要本人当前有效的真实世界本地日历读取范围。');
+    const ticket = this.tickets.get(planId);
+    if (ticket && !sameOwner(ticket.scope, scope)) throw new HarnessError('planning_scope', '方案属于另一身份或世界，不能读取或恢复。');
+    const observed = currentItems.flatMap(item => {
+      const ref = planningPlanRefSchema.safeParse((item as Action & { planRef?: unknown }).planRef);
+      return ref.success && ref.data.planId === planId ? [{ recordId: item.id, blockId: ref.data.blockId, title: item.title,
+        startsAt: item.startsAt ?? null, durationMinutes: item.durationMinutes ?? null, revision: item.revision ?? 1,
+        done: item.done === true, planningState: item.planning?.state ?? 'unknown' }] : [];
+    }).sort((a, b) => String(a.startsAt).localeCompare(String(b.startsAt)) || a.recordId.localeCompare(b.recordId));
+    let ledgerReadable = !!ticket, boundaryReason: string | null = null;
+    if (ticket) {
+      try { this.validateScope(ticket, scope); } catch { ledgerReadable = false; boundaryReason = '方案原有读取范围已改变；仅回读当前允许的真实日历，不恢复旧来源或原草案。'; }
+    }
+    const known = ledgerReadable ? ticket : undefined;
+    const changed = known?.applied.flatMap<{ blockId: string; recordId: string; status: 'missing' | 'changed' }>(applied => {
+      const item = currentItems.find(value => value.id === applied.recordId), unit = known.units.find(value => value.blockId === applied.blockId)!;
+      if (!item) return [{ ...applied, status: 'missing' as const }];
+      if (item.done || item.planning?.state !== 'accepted' || !this.unitMatches(item, unit)) return [{ ...applied, status: 'changed' as const }];
+      return [];
+    }) ?? [];
+    const duplicates = [...new Set(observed.map(value => value.blockId))].filter(blockId => observed.filter(value => value.blockId === blockId).length > 1);
+    const unrecorded = known ? observed.filter(value => !known.applied.some(applied => applied.recordId === value.recordId && applied.blockId === value.blockId)).map(value => value.recordId) : [];
+    const blockers = known ? this.adoptionBlockers(known, scope) : [];
+    const calendarChanged = !!known && calendarPlanFingerprint(currentItems) !== known.fingerprint;
+    const expired = !!known && known.expiresAt <= now;
+    const resumable = !!known && !expired && !known.invalidatedReason && !known.progressUncertain && !changed.length && !duplicates.length && !unrecorded.length && !calendarChanged && !blockers.length;
+    const next = resumable ? known.units[known.applied.length] : undefined;
+    // A continuation is computed from exact committed work, not from the number of saved rows: rest and setup are not work.
+    const remainingRequest = known && !changed.length && !duplicates.length && !unrecorded.length && !known.progressUncertain ? this.remainingRequest(known) : null;
+    return { planId, observed, observedCount: observed.length, calendarFingerprint: calendarPlanFingerprint(currentItems),
+      evidence: known ? 'current_calendar_and_process_ledger' : 'current_calendar_only',
+      totalSteps: known?.units.length ?? null, completedSteps: known?.applied.length ?? null,
+      changedSteps: changed, duplicateBlockIds: duplicates, unrecordedRowIds: unrecorded,
+      status: !known ? 'observed_only_recompute_required' : changed.length || duplicates.length || unrecorded.length || known.progressUncertain ? 'review_required' :
+        known.applied.length === known.units.length && !calendarChanged ? 'all_steps_present' : next ? 'can_continue_authorized_steps' : 'recompute_required',
+      nextProposal: next ? { ...structuredClone(next), capability: 'local.agenda.save', order: known!.applied.length + 1, requiresAuthorization: true, requiresPlanRevalidation: true } : null,
+      remainingRequest, blockers: [...blockers, ...(calendarChanged ? ['日历已有其他变化，不能继续采用旧票据。'] : []), ...(expired ? ['原票据已过期。'] : []), ...(boundaryReason ? [boundaryReason] : [])],
+      applied: false, atomic: false,
+      recoveryContract: '这里是当前真实日历回读，不执行写入。没有完整票据时总步骤与遗漏保持未知；不得重放旧参数。remainingRequest仅是扣除精确已保存工作后的重算起点，保留已保存安排与依赖时间；须更新当前时间和来源，再调用planning.draft。已保存不等于任务完成。',
+    };
+  }
+
+  private unitMatches(item: Action, unit: Unit) {
+    return Object.entries(unit.arguments).every(([key, value]) => canonical((item as unknown as Record<string, unknown>)[key]) === canonical(value));
+  }
+
+  private remainingRequest(ticket: Ticket): Input | null {
+    const lastApplied = ticket.units[ticket.applied.length - 1];
+    // If interruption happened before its rest/transfer, arithmetic on remaining work alone cannot preserve that boundary.
+    // Recovery still exposes the exact next unit while its live ticket is valid; after invalidation a fresh plan must repair it.
+    if (lastApplied?.kind === 'work' && (ticket.input.restMinutes > 0 || ticket.input.transitionMinutes.max > 0 || ticket.input.travelTimes.length > 0)) return null;
+    const acceptedWork = ticket.units.filter(unit => unit.kind === 'work' && ticket.applied.some(applied => applied.blockId === unit.blockId));
+    const scheduled = new Map<string, { minutes: number; end: number }>();
+    for (const unit of acceptedWork) {
+      const block = ticket.output.blocks.find(value => value.taskId === unit.taskId && value.segment === unit.segment)!;
+      const previous = scheduled.get(block.taskId) || { minutes: 0, end: 0 };
+      // One work segment can have several calendar units when setup/cleanup makes its reservation exceed 24 hours.
+      if (acceptedWork.some(other => other !== unit && other.taskId === unit.taskId && other.segment === unit.segment && other.blockId.localeCompare(unit.blockId) < 0)) continue;
+      const segmentUnits = ticket.units.filter(other => other.kind === 'work' && other.taskId === unit.taskId && other.segment === unit.segment);
+      if (!segmentUnits.every(other => acceptedWork.includes(other))) return null;
+      scheduled.set(block.taskId, { minutes: previous.minutes + block.durationMinutes, end: Math.max(previous.end, Date.parse(block.reservedEnd)) });
+    }
+    const fullyScheduled = new Set(ticket.input.tasks.filter(task => (scheduled.get(task.id)?.minutes || 0) === task.durationMinutes.max).map(task => task.id));
+    const tasks = ticket.input.tasks.filter(task => !fullyScheduled.has(task.id)).map(task => {
+      const accepted = scheduled.get(task.id), minutes = accepted?.minutes || 0;
+      const priorEnds = task.dependsOn.filter(value => fullyScheduled.has(value)).map(value => scheduled.get(value)!.end);
+      const prefixEnd = lastApplied ? Date.parse(lastApplied.arguments.startsAt) + lastApplied.arguments.durationMinutes * minute : 0;
+      const earliest = Math.max(task.earliestStart ? Date.parse(task.earliestStart) : Date.parse(ticket.input.from), accepted?.end || 0, prefixEnd, ...priorEnds);
+      return { ...structuredClone(task), durationMinutes: { min: Math.max(1, task.durationMinutes.min - minutes), max: task.durationMinutes.max - minutes },
+        earliestStart: new Date(earliest).toISOString(), dependsOn: task.dependsOn.filter(value => !fullyScheduled.has(value)) };
+    });
+    if (!tasks.length) return null;
+    return { ...structuredClone(ticket.input), tasks,
+      maxScheduledMinutes: Math.max(0, ticket.input.maxScheduledMinutes - [...scheduled.values()].reduce((sum, value) => sum + value.minutes, 0)) };
+  }
+
   private now() {
     const now = Date.parse(this.clock());
     if (!Number.isFinite(now)) throw new HarnessError('planning_clock', '无法核查方案时效，尚未保存。');
@@ -163,11 +244,16 @@ export class PlanningApplicationService {
     const blockers = [...ticket.output.conditions];
     if (!ticket.output.blocks.length) blockers.push('本次没有构造出可采用的工作安排。');
     if (scope.retention === 'session_only') blockers.push('本次仅会话保留范围不能写入长期日历。');
+    const checked = new Map<string, string | number | null | undefined>();
     for (const source of ticket.sources) {
       if (!scope.sources.includes(source.sourceId)) { blockers.push(`来源 ${source.sourceId} 不在当前读取范围。`); continue; }
       if (source.sourceVersion === null) { blockers.push(`来源 ${source.sourceId} 没有可复验版本。`); continue; }
       let current: string | number | null | undefined;
-      try { current = this.currentSourceVersion?.(source.sourceId); } catch { current = undefined; }
+      if (checked.has(source.sourceId)) current = checked.get(source.sourceId);
+      else {
+        try { current = this.currentSourceVersion?.(source.sourceId, scope); } catch { current = undefined; }
+        checked.set(source.sourceId, current);
+      }
       if (current === undefined || current === null) blockers.push(`来源 ${source.sourceId} 的当前版本尚不能复验，不能采用依赖该来源的方案。`);
       else if (String(current) !== source.sourceVersion) blockers.push(`来源 ${source.sourceId} 的版本已经改变，请重新读取并规划。`);
     }

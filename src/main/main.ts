@@ -43,6 +43,8 @@ import { configureNetwork } from './network';
 import { materialReferenceSchema, materialTargetSchema } from '../shared/materials';
 import { semanticSelectionSchema } from '../shared/scenes';
 import { createOpportunityScheduler } from './runtime/opportunity-scheduler';
+import { calendarExportInput } from '../shared/calendar-export';
+import { exportCalendarSnapshot } from './actions/calendar-export';
 
 assertTestDataDirectory();
 // The installed product owns a relocatable interpreter and pinned engine.
@@ -681,6 +683,23 @@ app.whenReady().then(async () => {
       width: size.width,
       height: size.height,
     };
+  });
+  handle('calendar:export', async value => {
+    const input = calendarExportInput.parse(value);
+    const epoch = store.kernel.epoch, revision = store.kernel.policyRevision;
+    // Validate the requested interval before opening the native picker; re-read after it closes.
+    exportCalendarSnapshot([], input, store.kernel.clock.now());
+    const result = await dialog.showSaveDialog(window!, {
+      title: '把安排带到日历里', defaultPath: '在场-我的安排.ics',
+      filters: [{ name: '日历文件', extensions: ['ics'] }],
+    });
+    if (result.canceled || !result.filePath) return { saved: false, count: 0, omitted: 0, reasons: [] };
+    if (epoch !== store.kernel.epoch || revision !== store.kernel.policyRevision || store.runtime.presentation.public)
+      throw new Error('资料范围刚刚变了，请回到私人视图重新选择。');
+    const snapshot = exportCalendarSnapshot(store.agenda(), input, store.kernel.clock.now());
+    if (!snapshot.count) return { saved: false, count: 0, omitted: snapshot.omitted, reasons: snapshot.reasons.length ? snapshot.reasons : ['这段时间还没有可以带走的安排。'] };
+    writeFileSync(result.filePath, snapshot.content, { encoding: 'utf8', mode: 0o600 });
+    return { saved: true, count: snapshot.count, omitted: snapshot.omitted, reasons: snapshot.reasons };
   });
   handle('data:export', async () => {
     const result = await dialog.showSaveDialog(window!, {

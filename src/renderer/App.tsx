@@ -161,6 +161,14 @@ export function App() {
     }else if(value.kind==='record' && scene?.kind==='campus'){
       const record = scene.records.find(record => record.id === value.recordId);
       setSceneSelectionLabel(record ? `接着聊「${record.title}」` : '接着聊这条校园消息');
+    }else if(value.kind==='time_block' && scene?.kind==='planning'){
+      const block = scene.blocks.find(block => block.id === value.blockId);
+      const time = block ? new Date(block.start).toLocaleTimeString('zh-CN',{timeZone:scene.window.timeZone,hour:'2-digit',minute:'2-digit',hour12:false}) : '';
+      setSceneSelectionLabel(block ? `${time} · ${block.label}，接着聊` : '接着聊这个时段');
+    }else if(value.kind==='environment_sample' && scene?.kind==='environment'){
+      const sample = scene.samples.find(sample => sample.id === value.sampleId);
+      const time = sample ? new Date(sample.at).toLocaleString('zh-CN',{timeZone:scene.timeZone,month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}) : '';
+      setSceneSelectionLabel(`${time} · 按这个${scene.domain==='weather'?'天气':'空气'}预报继续`);
     }else if(value.kind==='place'){
       setSceneSelectionLabel('刚选的地点');
       try{const places=await api.mapPlaces();

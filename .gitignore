@@ -176,3 +176,14 @@ Thumbs.db
 
 !tests/harness/planning-application.test.ts
 !/docs/source-materials/2026-10-18/harness-prompt-pack.zip
+
+# Companion continuity, source-aware recall, scene projections, and calendar handoff.
+!/tests/harness/calendar-export.test.ts
+!/tests/harness/continuity-index.test.ts
+!/tests/harness/memory-retrieval.test.ts
+!/tests/harness/persona-portrayals.test.ts
+!/tests/harness/conversation-evolution.test.ts
+
+!/assets/design/generated/2026-10-18-companion-evolution/*.png
+!/assets/design/generated/2026-10-18-companion-evolution/manifest.json
+!/assets/design/generated/2026-10-18-companion-evolution/prompts.md

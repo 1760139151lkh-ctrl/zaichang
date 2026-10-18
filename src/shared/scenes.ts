@@ -62,7 +62,59 @@ export interface CampusScene extends SceneBase {
   total?: number;
   complete: boolean;
 }
-export type SceneSnapshot = MapScene | WeatherScene | CampusScene;
+export interface PlanningBlock {
+  id: string;
+  kind: 'busy' | 'work' | 'setup' | 'cleanup' | 'transition' | 'protected' | 'free';
+  label: string;
+  start: string;
+  end: string | null;
+  placeId?: string;
+  taskId?: string;
+  reason?: string;
+  usableMinutes?: { min: number; max: number };
+  /** These identify existing host proposals, never a browser-authored save payload. */
+  planRefs?: { planId: string; blockId: string }[];
+}
+export interface PlanningScene extends SceneBase {
+  kind: 'planning';
+  mode: 'preview' | 'draft';
+  window: { from: string; to: string; timeZone: string };
+  blocks: PlanningBlock[];
+  requiredSourceIds: string[];
+  sourceCoverage: { sourceId: string; status: string; reason?: string }[];
+  conditions: string[];
+  unscheduled: { title: string; reason: string }[];
+  adoption?: { status: string; blockers: string[]; totalSteps: number; completedSteps: number };
+  planId?: string;
+  expiresAt?: string;
+  /** A picture of a calculation, never a receipt for saved calendar items. */
+  applied: false;
+}
+export interface EnvironmentSample {
+  id: string;
+  at: string;
+  temperatureC?: number | null;
+  precipitationProbability?: number | null;
+  precipitationMm?: number | null;
+  precipitationIntervalStart?: string;
+  weatherCode?: number | null;
+  pm2_5?: number | null;
+  pm10?: number | null;
+  usAqi?: number | null;
+  europeanAqi?: number | null;
+}
+export interface EnvironmentScene extends SceneBase {
+  kind: 'environment';
+  domain: 'weather' | 'air_quality';
+  location: string;
+  timeZone: string;
+  window: { from: string; to: string; complete: boolean };
+  samples: EnvironmentSample[];
+  limitations: string[];
+  forecastIssuedAt: null;
+  userLocation: false;
+}
+export type SceneSnapshot = MapScene | WeatherScene | CampusScene | PlanningScene | EnvironmentScene;
 export interface PresentationView extends SceneRef {
   libraryVersion: 1;
   createdAt: string;
@@ -73,8 +125,9 @@ const id = z.string().min(1).max(160);
 export const sceneRefSchema = z.object({ id, revision: z.number().int().positive() }).strict();
 export const semanticSelectionSchema = z.object({
   sceneId: id, sceneRevision: z.number().int().positive(),
-  kind: z.enum(['place', 'date', 'leg', 'record']),
+  kind: z.enum(['place', 'date', 'leg', 'record', 'time_block', 'environment_sample']),
   placeId: id.optional(), date: z.iso.date().optional(), legId: id.optional(), recordId: id.optional(),
+  blockId: id.optional(), sampleId: id.optional(),
 }).strict();
 export type SemanticSelection = z.infer<typeof semanticSelectionSchema>;
 export interface VerifiedSelection extends SemanticSelection {
@@ -83,11 +136,14 @@ export interface VerifiedSelection extends SemanticSelection {
   selectedAt: string;
   meaning: string;
   record?: CampusRecord;
+  timeBlock?: PlanningBlock;
+  environmentSample?: EnvironmentSample;
+  timeZone?: string;
 }
 export const sceneReference = (scene: SceneRef) => `${scene.id}@${scene.revision}`;
 
 /** A small, actual OpenUI library. No executable code or model-authored facts enter it. */
 export function sceneViewDsl(scenes: SceneSnapshot[], layout: 'stack' | 'compare') {
   return `root = SceneStack([${scenes.map((_, index) => `scene${index}`).join(', ')}], ${JSON.stringify(layout)})\n`
-    + scenes.map((scene, index) => `scene${index} = ${{ map: 'MapScene', weather: 'WeatherScene', campus: 'CampusScene' }[scene.kind]}(${JSON.stringify(sceneReference(scene))})`).join('\n');
+    + scenes.map((scene, index) => `scene${index} = ${{ map: 'MapScene', weather: 'WeatherScene', campus: 'CampusScene', planning: 'PlanningScene', environment: 'EnvironmentScene' }[scene.kind]}(${JSON.stringify(sceneReference(scene))})`).join('\n');
 }

@@ -217,6 +217,114 @@ test('version resolver changes invalidate external evidence and 15 minutes caps 
   } finally { f.close(); }
 });
 
+test('recovery reads real adopted units and offers only the next complete authorized step', async () => {
+  const f = new Fixture();
+  try {
+    const plan = await draft(f, input({ restMinutes: 10 }));
+    await save(f, plan.acceptanceProposals[0], 'recover-first');
+    const before = items(f);
+    const recovered = f.store.runtime.planning.recover(scopeData(f), before, { planId: plan.planId });
+    assert.equal(recovered.status, 'can_continue_authorized_steps');
+    assert.equal(recovered.observedCount, 1);
+    assert.equal(recovered.completedSteps, 1);
+    assert.equal(recovered.nextProposal?.kind, 'transition');
+    assert.equal(recovered.remainingRequest, null, 'cannot skip the not-yet-saved rest while deriving a continuation');
+    assert.deepEqual(items(f), before, 'recovery never writes');
+    await save(f, plan.acceptanceProposals[1], 'recover-rest');
+    const afterRest = f.store.runtime.planning.recover(scopeData(f), items(f), { planId: plan.planId });
+    assert.equal(afterRest.remainingRequest?.tasks.length, 1);
+    assert.equal(afterRest.remainingRequest?.tasks[0].id, 'b');
+    assert.deepEqual(afterRest.remainingRequest?.tasks[0].dependsOn, []);
+    assert.ok(Date.parse(afterRest.remainingRequest!.tasks[0].earliestStart!) >= Date.parse(plan.acceptanceProposals[2].arguments.startsAt));
+  } finally { f.close(); }
+});
+
+test('recovery derives remaining work from work minutes rather than reservations and never declares future work done', async () => {
+  const f = new Fixture();
+  try {
+    const plan = await draft(f, input({ tasks: [task('long', { durationMinutes: { min: 90, max: 120 }, splittable: true, minimumChunkMinutes: 30, maximumChunkMinutes: 60, setupMinutes: 5, cleanupMinutes: 5 }), task('follow', { dependsOn: ['long'] })], maxScheduledMinutes: 150 }));
+    await save(f, plan.acceptanceProposals[0], 'first-half');
+    f.store.saveAction(busy('changed-calendar', '11:30'));
+    const recovered = f.store.runtime.planning.recover(scopeData(f), items(f), { planId: plan.planId });
+    assert.equal(recovered.status, 'recompute_required');
+    assert.equal(recovered.nextProposal, null);
+    assert.deepEqual(recovered.remainingRequest!.tasks.find(value => value.id === 'long')?.durationMinutes, { min: 30, max: 60 });
+    assert.equal(recovered.remainingRequest!.maxScheduledMinutes, 90);
+    assert.deepEqual(recovered.remainingRequest!.tasks.find(value => value.id === 'follow')?.dependsOn, ['long']);
+    assert.deepEqual(recovered.remainingRequest!.completedTaskIds, []);
+    const fresh = f.store.runtime.planning.prepare(scopeData(f), items(f), recovered.remainingRequest);
+    assert.notEqual(fresh.planId, plan.planId);
+    assert.equal(fresh.blocks.filter(value => value.taskId === 'long').reduce((sum, value) => sum + value.durationMinutes, 0), 60);
+    assert.equal(items(f).length, 2);
+  } finally { f.close(); }
+});
+
+test('recovery after process restart reports only current rows and never invents total or resumable steps', async () => {
+  let f = new Fixture();
+  try {
+    const plan = await draft(f);
+    await save(f, plan.acceptanceProposals[0], 'durable-plan-row');
+    f = f.restart();
+    const recovered = f.store.runtime.planning.recover(scopeData(f), items(f), { planId: plan.planId });
+    assert.equal(recovered.status, 'observed_only_recompute_required');
+    assert.equal(recovered.evidence, 'current_calendar_only');
+    assert.equal(recovered.observedCount, 1);
+    assert.equal(recovered.observed[0].recordId, 'durable-plan-row');
+    assert.equal(recovered.totalSteps, null); assert.equal(recovered.completedSteps, null);
+    assert.equal(recovered.nextProposal, null); assert.equal(recovered.remainingRequest, null);
+    assert.equal(items(f).length, 1);
+  } finally { f.close(); }
+});
+
+test('planning.recover is reachable through the real read capability without writing or reusing a stale result', async () => {
+  const f = new Fixture();
+  try {
+    const plan = await draft(f);
+    const run = f.store.runtime.begin('看看刚才那个日程方案到底保存了哪些安排，先不要再保存。', 'recover-via-capability', 'planning-test', new AbortController().signal);
+    const recover = () => f.store.runtime.executeTool(run, 'look_up', { source: 'capability', capability: 'planning.recover', arguments: { planId: plan.planId } }, callbacks) as Promise<{ status: string; data: ReturnType<PlanningApplicationService['recover']> }>;
+    const first = await recover();
+    assert.equal(first.status, 'fresh'); assert.equal(first.data.observedCount, 0);
+    await save(f, plan.acceptanceProposals[0], 'saved-between-reads');
+    const second = await recover();
+    assert.equal(second.data.observedCount, 1);
+    assert.equal(second.data.observed[0].recordId, 'saved-between-reads');
+    assert.equal(items(f).length, 1);
+  } finally { f.close(); }
+});
+
+test('source versions are checked once per source with the current scope and inconsistent claims stay blocked', () => {
+  const f = new Fixture();
+  try {
+    const scope = scopeData(f); let calls = 0;
+    const service = new PlanningApplicationService(() => f.clock.now(), (sourceId, currentScope) => {
+      calls++; assert.equal(sourceId, 'history:self'); assert.equal(currentScope.privacyEpoch, scope.privacyEpoch); return '1';
+    });
+    const plan = service.prepare(scope, [], input({ tasks: [task('a', { sourceId: 'history:self', sourceVersion: '1' }), task('b', { sourceId: 'history:self', sourceVersion: '2' })] }));
+    assert.equal(calls, 1);
+    assert.equal(plan.adoption.status, 'blocked');
+    assert.throws(() => service.validateSave(scope, plan.acceptanceProposals[0].arguments.planRef, plan.acceptanceProposals[0].arguments, []), { code: 'planning_conditions_unverified' });
+    assert.equal(calls, 2);
+  } finally { f.close(); }
+});
+
+test('recovery treats deleted, moved and duplicate records as review conditions and checks current scope', async () => {
+  const f = new Fixture();
+  try {
+    const plan = await draft(f);
+    await save(f, plan.acceptanceProposals[0], 'edited-plan-row');
+    const original = items(f)[0];
+    const service = f.store.runtime.planning, scope = scopeData(f);
+    const missing = service.recover(scope, [], { planId: plan.planId });
+    assert.equal(missing.changedSteps[0].status, 'missing'); assert.equal(missing.remainingRequest, null);
+    const moved = service.recover(scope, [{ ...original, startsAt: at('10:30') }], { planId: plan.planId });
+    assert.equal(moved.status, 'review_required'); assert.equal(moved.changedSteps[0].status, 'changed');
+    const duplicated = service.recover(scope, [original, { ...original, id: 'copy' }], { planId: plan.planId });
+    assert.equal(duplicated.duplicateBlockIds.length, 1); assert.equal(duplicated.nextProposal, null);
+    assert.throws(() => service.recover({ ...scope, sources: [] }, items(f), { planId: plan.planId }), { code: 'planning_scope' });
+    assert.throws(() => service.recover({ ...scope, principalId: 'other', subjectId: 'other' }, items(f), { planId: plan.planId }), { code: 'planning_scope' });
+  } finally { f.close(); }
+});
+
 test('a committed plan row remains a known success when a simultaneous unrelated change invalidates the next step', () => {
   const f = new Fixture();
   try {

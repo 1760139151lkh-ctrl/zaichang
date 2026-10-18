@@ -164,6 +164,27 @@
 .persona-listening .persona-manage { margin-top: 25px; padding: 0 4px; }
 .persona-writing .field-buttons { margin-top: 24px; flex-wrap: wrap; }
 .persona-editor .persona-details > summary { font-size: 13px; padding: 8px 0; }
+.persona-draft-restore { font-size: 12px; gap: 7px; margin-top: 8px; }
+.persona-import-entry { margin: 23px 3px 0; }
+.persona-import-entry .text-button { font-size: 13px; gap: 8px; }
+.persona-import-entry small { display: block; margin: 6px 0 0; color: var(--text-secondary); font-size: 11px; line-height: 1.7; }
+dialog.panel.persona-import-dialog { width: min(570px, calc(100vw - 36px)); max-height: calc(100dvh - 36px); }
+.persona-import-body { padding: 26px 28px 28px; }
+.persona-conflict { margin-top: 18px; color: var(--text-secondary); font-size: 12px; line-height: 1.8; }
+.persona-conflict p { margin: 0 0 6px; }
+.persona-conflict .text-button { font-size: 12px; color: var(--accent); }
+.persona-import-intro { display: flex; gap: 18px; align-items: center; margin: 3px 0 22px; }
+.persona-import-mark { width: 62px; height: 72px; display: grid; place-items: center; border-radius: 15px; color: var(--accent); background: var(--accent-soft); flex-shrink: 0; }
+.persona-import-intro h3 { font-size: 24px; font-weight: 500; margin: 0 0 8px; }
+.persona-import-intro p { margin: 0; color: var(--text-secondary); font-size: 12px; overflow-wrap: anywhere; }
+.persona-import-lede { font-size: 13px; line-height: 1.8; color: var(--text-secondary); margin: 0 0 22px; }
+.persona-import-content { display: grid; gap: 20px; max-height: min(42vh, 420px); overflow-y: auto; padding: 3px 12px 4px 0; }
+.persona-import-content section + section { padding-top: 18px; border-top: 1px solid var(--separator); }
+.persona-import-content h4 { margin: 0 0 9px; font-size: 14px; font-weight: 550; }
+.persona-import-content p { margin: 0; font-size: 13px; color: var(--text-secondary); line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; }
+.persona-import-note { font-size: 12px; line-height: 1.8; color: var(--text-secondary); margin: 18px 0 0; }
+.persona-import-actions { display: flex; align-items: center; gap: 22px; margin-top: 24px; }
+.persona-import-actions .primary-button { flex: 1; justify-content: center; min-height: 43px; }
 @media (max-width: 900px) {
  .persona-composition { grid-template-columns: 1fr; }
  .persona-listening { position: static; }
@@ -171,4 +192,6 @@
 @media (max-width: 460px) {
  .persona-writing .persona-presets { grid-template-columns: 1fr; }
  .persona-listening .persona-preview { padding: 22px; }
+ .persona-import-body { padding: 22px; }
+ .persona-import-intro h3 { font-size: 21px; }
 }

@@ -208,7 +208,7 @@ export function SettingsPanel({
         }
       >
         {busy && tab === '连接' && <p className="busy-note">等这句话说完，就可以换一个连接。</p>}
-        {tab === '陪伴' && <CompanionSettings />}
+        {tab === '陪伴' && <CompanionSettings persona={state.settings.persona} draft={draft} onState={onState} busy={busy || !!pending} saving={pending === 'persona'} saveOperation={(operation) => perform('persona', operation)} onEditPersona={() => changeTab('交流')} />}
         {tab === '连接' && (
           <>
             <div className="section-heading">

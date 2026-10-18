@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import { z } from 'zod/v4';
 import type { PresentationView, SceneSnapshot, SemanticSelection } from '../../shared/scenes';
+import { EnvironmentHours, PlanningTime } from './LifeSceneViews';
 import './presentation.css';
 
 type MapSnapshot = Extract<SceneSnapshot, { kind: 'map' }>;
@@ -141,12 +142,33 @@ const CampusScene = defineComponent({
   },
 });
 
+const PlanningScene = defineComponent({
+  name: 'PlanningScene',
+  description: '展示宿主实际计算的时间带与保护留白。只能引用提供过的scene id@revision；选择时段供下一句引用，不采用方案、不保存日程。',
+  props: z.object({ ref: z.string().min(1) }),
+  component: ({ props }) => {
+    const { context, scene } = useScene(props.ref, 'planning');
+    if (!context || !scene || scene.kind !== 'planning') return <UnavailableScene />;
+    return <PlanningTime scene={scene} selection={context.selection} onSelect={context.onSelect} />;
+  },
+});
+const EnvironmentScene = defineComponent({
+  name: 'EnvironmentScene',
+  description: '展示真实小时天气或空气预报；引用精确场景。时刻与前一小时降水分开，空气指数保留制式，选择只供继续交流。',
+  props: z.object({ ref: z.string().min(1) }),
+  component: ({ props }) => {
+    const { context, scene } = useScene(props.ref, 'environment');
+    if (!context || !scene || scene.kind !== 'environment') return <UnavailableScene />;
+    return <EnvironmentHours scene={scene} selection={context.selection} onSelect={context.onSelect} />;
+  },
+});
+
 const SceneStack = defineComponent({
   name: 'SceneStack',
   description:
     '按交流需要组织已核验的地图、天气和校园记录。stack 让不同领域自然接续；compare 仅在宽度足够时并排比较，地图仍保留可操作的空间。',
   props: z.object({
-    children: z.array(z.union([MapScene.ref, WeatherScene.ref, CampusScene.ref])),
+    children: z.array(z.union([MapScene.ref, WeatherScene.ref, CampusScene.ref, PlanningScene.ref, EnvironmentScene.ref])),
     layout: z.enum(['stack', 'compare']).default('stack'),
   }),
   component: ({ props, renderNode }) => (
@@ -163,7 +185,7 @@ const SceneStack = defineComponent({
 /** A stable module-level library keeps parsing and mounted scene identity independent of text tokens. */
 export const assistantPresentationLibrary = createLibrary({
   root: 'SceneStack',
-  components: [SceneStack, MapScene, WeatherScene, CampusScene],
+  components: [SceneStack, MapScene, WeatherScene, CampusScene, PlanningScene, EnvironmentScene],
 });
 
 function UnavailableScene() {

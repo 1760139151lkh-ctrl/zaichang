@@ -3,7 +3,8 @@ import type { Store } from '../store';
 import type { PolicyKernel } from './policy';
 import { HarnessError, type ScopeHandle } from '../../shared/harness';
 import type { MapRouteResult } from '../../shared/map-v2';
-import { sceneViewDsl, semanticSelectionSchema, type CampusRecord, type CampusScene, type MapScene, type PresentationView, type SceneRef, type SceneSnapshot, type SemanticSelection, type VerifiedSelection, type WeatherScene } from '../../shared/scenes';
+import { sceneViewDsl, semanticSelectionSchema, type CampusRecord, type CampusScene, type EnvironmentSample, type MapScene, type PlanningBlock, type PresentationView, type SceneRef, type SceneSnapshot, type SemanticSelection, type VerifiedSelection, type WeatherScene } from '../../shared/scenes';
+import { environmentSnapshot, planningSnapshot } from './scene-projections';
 
 /** A strict projection of the installed connector's named fields. No prose parsing,
  * guessed course matches, aggregate rows, or model-authored facts enter a scene. */
@@ -73,8 +74,12 @@ export class SceneService {
   }
   private permitted(handle: ScopeHandle, scene: SceneSnapshot) {
     const scope = this.policy.validate(handle);
-    return scope.audience === 'self' && this.policy.can(handle, scene.kind === 'map' ? 'map:read' : scene.kind === 'campus' ? 'campus:read' : 'weather:read')
-      && scope.sources.includes(scene.source.sourceId);
+    return scope.audience === 'self' && this.policy.can(handle, scene.kind === 'map' ? 'map:read' : scene.kind === 'campus' ? 'campus:read' : scene.kind === 'planning' ? 'evidence:read' : 'weather:read')
+      && scope.sources.includes(scene.source.sourceId)
+      && (scene.kind !== 'planning' || scene.requiredSourceIds.every(sourceId => scope.sources.includes(sourceId)
+        && (!sourceId.startsWith('campus:') || this.policy.can(handle, 'campus:read'))
+        && (!sourceId.startsWith('weather:') || this.policy.can(handle, 'weather:read'))
+        && (!sourceId.startsWith('map:') || this.policy.can(handle, 'map:read'))));
   }
   all(sessionId: string): SceneSnapshot[] {
     const stored = this.store.messages(sessionId).flatMap(message => message.scenes || []);
@@ -176,25 +181,47 @@ export class SceneService {
     const scene = campusSnapshot(result, capability, input, this.store.kernel.clock.now());
     return scene ? this.remember(sessionId, scene, runId, preparationOnly) : undefined;
   }
+  planning(sessionId: string, result: Parameters<typeof planningSnapshot>[0], capability: string, input: unknown, runId?: string, preparationOnly = false) {
+    const scene = planningSnapshot(result, capability, input, this.store.kernel.clock.now());
+    return scene ? this.remember(sessionId, scene, runId, preparationOnly) : undefined;
+  }
+  environment(sessionId: string, result: Parameters<typeof environmentSnapshot>[0], capability: string, runId?: string, preparationOnly = false) {
+    const scene = environmentSnapshot(result, capability, this.store.kernel.clock.now());
+    return scene ? this.remember(sessionId, scene, runId, preparationOnly) : undefined;
+  }
   selection(handle: ScopeHandle, sessionId: string, raw: SemanticSelection): VerifiedSelection {
     const input = semanticSelectionSchema.parse(raw), scene = this.get(handle, sessionId, { id: input.sceneId, revision: input.sceneRevision }, undefined, true);
     let label: string | undefined;
     let record: CampusRecord | undefined;
-    if (input.kind === 'date' && scene.kind === 'weather' && !input.placeId && !input.legId && !input.recordId) label = scene.days.find(day => day.date === input.date)?.date;
-    if (input.kind === 'place' && scene.kind === 'map' && !input.date && !input.legId && !input.recordId && input.placeId) {
+    let timeBlock: PlanningBlock | undefined;
+    let environmentSample: EnvironmentSample | undefined;
+    const targets = [input.placeId, input.date, input.legId, input.recordId, input.blockId, input.sampleId].filter(value => value !== undefined);
+    if (targets.length !== 1) throw new HarnessError('selection_target', '选择的对象与这份画面不相符；每次引用只选择一个对象。');
+    if (input.kind === 'date' && scene.kind === 'weather') label = scene.days.find(day => day.date === input.date)?.date;
+    if (input.kind === 'place' && scene.kind === 'map' && input.placeId) {
       const map = this.store.runtime.connections.map, publicMap = map?.publicView?.() || map;
       label = publicMap?.point(input.placeId)?.displayName;
     }
-    if (input.kind === 'leg' && scene.kind === 'map' && !input.placeId && !input.date && !input.recordId) {
+    if (input.kind === 'leg' && scene.kind === 'map') {
       const leg = scene.journey.legs.find(leg => leg.id === input.legId);
       if (leg) label = `${scene.journey.stops.find(stop => stop.id === leg.fromStopId)?.label} → ${scene.journey.stops.find(stop => stop.id === leg.toStopId)?.label}`;
     }
-    if (input.kind === 'record' && scene.kind === 'campus' && !input.placeId && !input.date && !input.legId) {
+    if (input.kind === 'record' && scene.kind === 'campus') {
       record = scene.records.find(item => item.id === input.recordId);
       label = record?.title;
     }
+    if (input.kind === 'time_block' && scene.kind === 'planning') {
+      timeBlock = scene.blocks.find(block => block.id === input.blockId);
+      label = timeBlock ? `${timeBlock.label}（${timeBlock.start} 至 ${timeBlock.end || '结束时间未知'}）` : undefined;
+    }
+    if (input.kind === 'environment_sample' && scene.kind === 'environment') {
+      environmentSample = scene.samples.find(sample => sample.id === input.sampleId);
+      label = environmentSample ? `${scene.location} · ${environmentSample.at} 的${scene.domain === 'weather' ? '天气' : '空气'}预报` : undefined;
+    }
     if (!label) throw new HarnessError('selection_target', '选择的对象与这份画面不相符，请重新选择。');
-    return { ...input, label, source: scene.source, ...(record ? { record: structuredClone(record) } : {}), selectedAt: this.store.kernel.clock.now(), meaning: '用户在当前对话界面明确选中的临时引用/试算；不是当前位置、到达证明、已接受的安排、长期偏好或行动授权。校园记录保留查询时刻，不代表之后没有变化；日期只确定当天，下午的具体起止时间仍以原话和真实日程核对。' };
+    return { ...input, label, source: scene.source, ...(record ? { record: structuredClone(record) } : {}), ...(timeBlock ? { timeBlock: structuredClone(timeBlock), timeZone: scene.kind === 'planning' ? scene.window.timeZone : undefined } : {}),
+      ...(environmentSample ? { environmentSample: structuredClone(environmentSample), timeZone: scene.kind === 'environment' ? scene.timeZone : undefined } : {}),
+      selectedAt: this.store.kernel.clock.now(), meaning: '用户在当前对话界面明确选中的临时引用/试算；不是当前位置、到达证明、已接受的安排、长期偏好或行动授权。校园记录保留查询时刻，不代表之后没有变化；日期只确定当天，下午的具体起止时间仍以原话和真实日程核对。规划块及planRefs只是当时草案，采用前重新核查现有票据、覆盖与完整占用；旧画面不会恢复过期票据。小时温度对应时刻，降水对应标明的前一小时，空气指数保留自己的制式；都不是现场观察或个人运动安全结论。' };
   }
   summaries(handle: ScopeHandle, sessionId: string, runId?: string, attached?: SceneRef) {
     const available = this.available(handle, sessionId, runId, attached), recent = available.slice(-6);
@@ -204,6 +231,8 @@ export class SceneService {
       ...(scene.place ? { place: { id: scene.place.id, label: scene.place.displayName } } : {}),
       journey: { ...scene.journey, legs: scene.journey.legs.map(({ id, fromStopId, toStopId, route }) => ({ id, fromStopId, toStopId, status: route.status, distance: route.distance, warnings: route.warnings })) } }
       : scene.kind === 'campus' ? { ...scene, records: scene.records.slice(0, 8), sceneRecordCount: scene.records.length, summaryOmittedRecords: Math.max(0, scene.records.length - 8) }
+      : scene.kind === 'planning' ? { ...scene, blocks: scene.blocks.slice(0, 16), sceneBlockCount: scene.blocks.length, summaryOmittedBlocks: Math.max(0, scene.blocks.length - 16) }
+      : scene.kind === 'environment' ? { ...scene, samples: scene.samples.slice(0, 8), sceneSampleCount: scene.samples.length, summaryOmittedSamples: Math.max(0, scene.samples.length - 8) }
       : { ...scene });
   }
 }

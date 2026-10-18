@@ -650,12 +650,19 @@ export class AttentionService {
       throw new HarnessError('target_missing', '当前许可范围内没有这个材料或机会标识。没有改动资料；请省略id调用inspect_help重新发现，再精确复制id与revision，不要拼接或改写标识。');
     if (opportunity.revision !== input.expectedRevision)
       throw new HarnessError('revision_conflict', '这次机会已变，需要按当前条件重新判断。');
-    if (!['candidate', 'waiting', 'prepared'].includes(opportunity.status)) throw new HarnessError('opportunity_inactive', '该机会已退出或处理，不能继续旧动作。');
+    const presentingExisting = input.reuseArtifact && input.presentInConversation && ['question_ready', 'notification_queued'].includes(opportunity.status);
+    if (!['candidate', 'waiting', 'prepared'].includes(opportunity.status) && !presentingExisting) throw new HarnessError('opportunity_inactive', '该机会已退出或处理，不能继续旧动作。');
     const bindingId = String(opportunity.data.bindingId), rules = this.rules(handle, bindingId, String((opportunity.data.facts as any)?.objectId || ''), opportunity.id);
     const binding = this.repo.work(handle, undefined, bindingId)[0];
     if (!binding || !this.bindingActive(handle, binding)) throw new HarnessError('attention_stopped', '原托付或目标已经停止，不能发布旧准备。');
     if (rules.some(rule => ['pause', 'stop'].includes(String(rule.data.operation)))) throw new HarnessError('attention_paused', '这项可选帮助已暂停。');
-    const reused = input.reuseArtifact && opportunity.data.artifact && Array.isArray(opportunity.data.material) && opportunity.data.material.length ? opportunity.data.artifact as { title: string; body: string } : undefined;
+    const storedQuestionBasis = Array.isArray(opportunity.data.questionBasis) ? opportunity.data.questionBasis as { evidenceId: string; contentVersion: number; sourceId: string; readSource: string }[] : [];
+    const reusableQuestion = input.choice === 'ask' && storedQuestionBasis.length > 0 && storedQuestionBasis.every(basis => {
+      const event = this.repo.evidence(handle, basis.evidenceId);
+      return event?.status === 'active' && event.speaker === 'user' && event.contentVersion === basis.contentVersion
+        && !this.repo.db.prepare('SELECT 1 FROM h_source_restrictions WHERE event_id=? LIMIT 1').get(event.id);
+    });
+    const reused = input.reuseArtifact && opportunity.data.artifact && (Array.isArray(opportunity.data.material) && opportunity.data.material.length || reusableQuestion) ? opportunity.data.artifact as { title: string; body: string } : undefined;
     if (input.reuseArtifact && !reused) throw new HarnessError('artifact_missing', '没有实际已准备材料可复用。');
     if (input.presentInConversation && !['prepare', 'ask'].includes(input.choice)) throw new HarnessError('conversation_choice', '随当前交流呈现需选择prepare或ask，并提供真实材料。');
     if (reused) {
@@ -692,7 +699,7 @@ export class AttentionService {
     // A question can be grounded in the user's missing conditions alone.
     // Keep the original source/version while recording an already-authorized
     // current-event projection as current; this is never external material.
-    const questionBasis = input.choice === 'ask' && !material.length && !supplied.length && !reused
+    const questionBasis = reused && reusableQuestion ? storedQuestionBasis : input.choice === 'ask' && !material.length && !supplied.length && !reused
       ? [...new Set(opportunity.evidenceIds)].flatMap(id => {
         const event = this.repo.evidence(handle, id);
         return event?.speaker === 'user' && event.authority === 'user_statement' && event.status === 'active'
@@ -760,6 +767,8 @@ export class AttentionService {
         if (input.presentInConversation) conversationHelpRef = { id: next.id, revision: next.revision, helpRecordId: help.id };
         if (choice === 'notify') this.reminders.schedule({ id: next.id, title: input.artifact!.title, detail: '', startsAt: this.repo.clock.now() }, undefined, String(next.data.expiresAt), { kind: 'suggestion', producerId: next.id, helpRecordId: help.id });
       }
+      if (opportunity.status === 'notification_queued' && choice !== 'notify') this.reminders.cancel(next.id);
+      let mandateUpdate: { id: string; previousRevision: number; revision: number; operation: 'material_wakes' } | undefined;
       if (binding.data.type === 'attention_focus') {
         const current = this.repo.work(handle, undefined, binding.id)[0]!;
         const wakes = ((current.data.materialWakes || []) as unknown as MaterialWake[]).filter(wake => wake.opportunityId !== next.id);
@@ -776,9 +785,12 @@ export class AttentionService {
           wakes.push({ at: new Date(wakeAt).toISOString(), opportunityId: next.id, opportunityRevision: next.revision, ...(objectId ? { objectId } : {}),
             ...(choice === 'wait' ? { kind: 'wait', reconsiderAt: String(next.data.reconsiderAt) } : {}) });
         }
-        if (canonical(current.data.materialWakes || []) !== canonical(wakes)) this.work.update(handle, current.id, current.revision, { data: { ...current.data, materialWakes: z.json().parse(wakes) } });
+        if (canonical(current.data.materialWakes || []) !== canonical(wakes)) {
+          const updated = this.work.update(handle, current.id, current.revision, { data: { ...current.data, materialWakes: z.json().parse(wakes) } });
+          mandateUpdate = { id: current.id, previousRevision: current.revision, revision: updated.revision, operation: 'material_wakes' };
+        }
       }
-      return { status: next.status, id: next.id, revision: next.revision, choice, artifactExists: !!next.data.artifact, ...(conversationHelpRef ? { conversationHelpRef } : {}), reason: showExisting ? '原有材料已绑定当前交流，沿用同一帮助记录；实际展示仍等界面回执，不新增系统通知。' : duplicate ? '同一理由已经提供过帮助，换文案不会重新获得提醒资格。' : onceExhausted ? '这件事只提醒一次的范围已用完。' : inAppOnly ? '当前只保留应用内材料，没有发送通知。' : input.reason };
+      return { status: next.status, id: next.id, revision: next.revision, choice, artifactExists: !!next.data.artifact, ...(mandateUpdate ? { mandateUpdate } : {}), ...(conversationHelpRef ? { conversationHelpRef } : {}), reason: showExisting ? '原有材料已绑定当前交流；实际展示仍等界面回执，不新增系统通知。' : duplicate ? '同一理由已经提供过帮助，换文案不会重新获得提醒资格。' : onceExhausted ? '这件事只提醒一次的范围已用完。' : inAppOnly ? '当前只保留应用内材料，没有发送通知。' : input.reason };
     });
   }
 

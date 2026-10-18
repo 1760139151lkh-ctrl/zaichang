@@ -37,6 +37,7 @@ export interface Obligation {
   status: 'pending' | 'running' | 'done' | 'blocked';
 }
 export interface Action extends CalendarFields {
+  planRef?: { planId: string; blockId: string };
   effectActionId?: string;
   calendarChange?: { targetId: string; expectedRevision: number; operation: 'update' | 'delete' | 'change_occurrence'; occurrenceDate?: string; cancelled?: boolean };
   id: string;
@@ -345,6 +346,7 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
   action(input: { action: 'save' | 'delete' | 'done'; item: Action }): Promise<State>;
   attachText(): Promise<TextAttachment | null>;
   attachImage(): Promise<ImageAttachment | null>;
+  exportCalendar(input: import('./calendar-export').CalendarExportInput): Promise<import('./calendar-export').CalendarExportResult>;
   exportData(): Promise<boolean>;
   openLink(url: string): Promise<void>;
   copyText(text: string): Promise<void>;

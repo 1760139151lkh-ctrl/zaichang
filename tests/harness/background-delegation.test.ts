@@ -17,6 +17,7 @@ const completion: DeepSeekClient['complete'] = async (_messages, tools) => {
 
 async function background(sources = ['local-agenda', 'profile:self', 'history:self'], complete = completion) {
   const f = new Fixture(), controller = new AbortController(), runtime = f.store.runtime;
+  if (sources.includes('weather:open-meteo')) f.store.saveSettings({ weatherEnabled: true });
   const quote = '请留意我的本地日程和已确认偏好，合适时先帮我准备。';
   const authority = f.ingest('UNRELATED_PRIVATE_CANARY。' + quote + '另外这段是无关内容。');
   const focus = runtime.attention.control(f.scope(), 'synthetic-session', {
@@ -219,6 +220,53 @@ test('only consumed real child observations can back a prepared artifact through
     assert.equal(prepared.status, 'prepared', JSON.stringify(prepared));
     assert.equal(s.f.store.agenda().length, 1, 'preparing has not created another calendar entry');
     assert.equal(s.f.repo.work(s.f.scope(), undefined, s.opportunity.id)[0].status, 'prepared');
+  } finally { s.f.close(); }
+});
+
+test('a background decision can finish after its own expiry wake update, but later edits still stop it', async () => {
+  const s = await background(['weather:open-meteo']);
+  try {
+    s.run.observations = [{ tool: 'look_up', toolCallId: 'timed-weather', result: {
+      status: 'fresh', sourceId: 'weather:open-meteo', fetchedAt: s.f.clock.now(), expiresAt: '2026-09-14T07:00:00Z',
+      data: { location: 'public synthetic point', forecast: { time: ['2026-09-14'] } },
+    } }];
+    const result = JSON.parse(await s.registry.execute('decide_help', JSON.stringify({ id: s.opportunity.id, expectedRevision: s.opportunity.revision,
+      choice: 'prepare', reason: 'Controlled expiring observation.', actionDescription: 'Prepare within the existing mandate.', sourceToolCallIds: ['timed-weather'],
+      artifact: { title: 'Synthetic weather', body: 'This is a deterministic fixture, not a real forecast.' } }), 'timed-decision'));
+    assert.equal(result.status, 'prepared');
+    assert.deepEqual(result.mandateUpdate, { id: s.focus.id, previousRevision: s.focus.revision, revision: s.focus.revision + 1, operation: 'material_wakes' });
+    assert.doesNotThrow(() => s.helper.validateBoundary());
+    assert.doesNotThrow(() => s.helper.validateBoundary(), 'the accepted host revision is stable across model boundaries');
+    const current = s.f.repo.work(s.f.scope(), undefined, s.focus.id)[0];
+    s.runtime.work.update(s.f.scope(), current.id, current.revision, { data: { ...current.data, rule: 'A separate later revision.' } });
+    assert.throws(() => s.helper.validateBoundary(), /改变|暂停|停止/);
+  } finally { s.f.close(); }
+});
+
+test('a decision receipt cannot absorb an unrelated mandate edit made before its expiry wake update', async () => {
+  const s = await background(['weather:open-meteo']);
+  try {
+    s.runtime.work.update(s.f.scope(), s.focus.id, s.focus.revision, { data: { ...s.focus.data, rule: 'Separate earlier edit.' } });
+    const result = s.runtime.attention.decide(s.run.ingress.contract.scope, { id: s.opportunity.id, expectedRevision: s.opportunity.revision,
+      choice: 'prepare', reason: 'Controlled observation.', actionDescription: 'Prepare a fixture.', sourceToolCallIds: ['timed-weather'],
+      artifact: { title: 'Synthetic weather', body: 'Controlled fixture.' } }, [{ tool: 'look_up', toolCallId: 'timed-weather', result: {
+        status: 'fresh', sourceId: 'weather:open-meteo', fetchedAt: s.f.clock.now(), expiresAt: '2026-09-14T07:00:00Z', data: {},
+      } }]);
+    s.run.observations = [{ tool: 'decide_help', result }];
+    assert.equal(result.mandateUpdate?.previousRevision, s.focus.revision + 1);
+    assert.throws(() => s.helper.validateBoundary(), /改变|暂停|停止/);
+  } finally { s.f.close(); }
+});
+
+test('a background decision to leave the user alone completes without a spurious stale-run error', async () => {
+  const s = await background(['local-agenda']);
+  try {
+    const result = JSON.parse(await s.registry.execute('decide_help', JSON.stringify({ id: s.opportunity.id, expectedRevision: s.opportunity.revision,
+      choice: 'none', reason: 'There is no useful new value.', actionDescription: 'Do not interrupt.' }), 'leave-alone'));
+    assert.equal(result.status, 'declined');
+    assert.doesNotThrow(() => s.helper.validateBoundary());
+    changeAttention(s, 'pause');
+    assert.throws(() => s.helper.validateBoundary(), /改变|暂停|停止/);
   } finally { s.f.close(); }
 });
 

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { characterPortrayal } from './persona-portrayals';
 
 export const PERSONA_SCENARIOS = [
   { id: 'chat', label: '闲聊', facts: '用户只是想聊聊，还没有提出任务。' },
@@ -21,13 +22,17 @@ export const COMPANION_PERSONA_LINKS = [
 export const personaVisualBindingSchema = z.object({
   companionId: z.string().min(1).max(100).regex(/^(?:light|sakiko|mutsumi|mio|haruka|saku|nagi|custom:[A-Za-z0-9_-]+)$/),
   characterName: z.string().max(60),
-  portrayalBasis: z.literal('user_authored'),
+  portrayalBasis: z.enum(['user_authored', 'source_inspired']),
+  portrayalId: z.enum(['sakiko', 'mutsumi']).optional(),
   notes: z.string().max(1500),
-}).strict();
+}).strict().refine(value => value.portrayalBasis === 'source_inspired'
+  ? value.portrayalId === value.companionId && !!characterPortrayal(value.portrayalId)
+  : value.portrayalId === undefined,
+  '来源演绎必须指向同一形象的已核角色资料；自定义绑定不附带原作依据。');
 export type PersonaVisualBinding = z.infer<typeof personaVisualBindingSchema>;
 export const personaCoreSchema = z
   .object({
-    presetId: z.enum(['warm_senior', 'lively_partner', 'calm_adviser', 'custom']),
+    presetId: z.enum(['warm_senior', 'lively_partner', 'calm_adviser', 'sakiko', 'mutsumi', 'custom']),
     name: z.string().max(60),
     selfReference: z.string().max(60),
     identity: z.string().max(500),
@@ -115,6 +120,22 @@ const responses: Record<Exclude<PersonaCore['presetId'], 'custom'>, string[]> = 
     '好，今晚不再给安排建议。',
     '日程写入失败，尚未保存。内容仍在，可以重新写入。',
   ],
+  sakiko: [
+    '我在。你想说的事，我会认真听。',
+    '教室变更了，新路线已经准备妥当。现在出发还有余裕，我们从容些。',
+    '我还不知道你的起点。告诉我从哪里出发，我才能把时间确认清楚。',
+    '今天先不勉强自己了。你愿意说的，我都听着。',
+    '好，今晚的时间留给你。',
+    '这次没有保存成功，我不能把它算作已经安排妥当。内容还在，可以接着处理。',
+  ],
+  mutsumi: [
+    '嗯，我在。想说什么，都可以。',
+    '教室换了。路线准备好了，现在走来得及。不用急。',
+    '你从哪里出发？还不知道起点，时间就算不准。',
+    '很累了啊。那先不安排事情了。我听你说。',
+    '嗯。今晚留给你自己。',
+    '没有存进去。内容还在。重新写入成功，才算安排好。',
+  ],
 };
 export const PERSONA_PRESETS: {
   id: PersonaCore['presetId'];
@@ -170,10 +191,31 @@ export const PERSONA_PRESETS: {
       })),
     },
   },
+  ...(['sakiko', 'mutsumi'] as const).map(id => {
+    const portrayal = characterPortrayal(id)!;
+    return {
+      id, label: portrayal.name,
+      summary: id === 'sakiko' ? '端正坚定，把托付放在心上' : '安静体贴，少言也认真回应',
+      core: {
+        ...emptyCore, presetId: id, name: portrayal.name, selfReference: '我',
+        identity: `受《${portrayal.work}》${portrayal.name}启发的虚构陪伴角色；不是官方角色本人或原作完整复现`,
+        description: `公开角色特征：${portrayal.establishedTraits.join('；')}。在场的可编辑演绎：${portrayal.adaptation}`,
+        voice: portrayal.voice,
+        visualBinding: {
+          companionId: id, characterName: portrayal.name,
+          portrayalBasis: 'source_inspired' as const, portrayalId: id,
+          notes: '使用官方人物简介中的有限特征作启发式演绎；对话方式由在场设计，可自由修改。不是完整原作训练或官方认证。',
+        },
+        examples: PERSONA_SCENARIOS.map((scene, i) => ({ scenario: scene.id, response: responses[id][i] })),
+      },
+    };
+  }),
   { id: 'custom', label: '自定义', summary: '从你的描述开始', core: { ...emptyCore } },
 ];
 export function personaPreset(id: PersonaCore['presetId']): PersonaCore {
-  return structuredClone(PERSONA_PRESETS.find((preset) => preset.id === id)!.core);
+  const preset = PERSONA_PRESETS.find((entry) => entry.id === id);
+  if (!preset) throw new Error('没有这个角色预设。');
+  return structuredClone(preset.core);
 }
 
 /** An explicit configuration operation, never called just because artwork changed. */
@@ -181,6 +223,29 @@ export function bindPersonaCompanion(core: PersonaCore, binding: PersonaVisualBi
   const checked = personaCoreSchema.parse(core);
   const { visualBinding: _previous, ...rest } = checked;
   return binding === null ? rest : { ...rest, visualBinding: personaVisualBindingSchema.parse(binding) };
+}
+
+/**
+ * Explicit role selection for a host/UI action. Merely rendering or changing an
+ * image must not call this. The caller persists the result with expectedRevision.
+ */
+export function selectCompanionPersona(
+  core: PersonaCore,
+  companionId: string,
+  mode: 'use_character_preset' | 'preserve_role',
+): PersonaCore {
+  const current = personaCoreSchema.parse(core);
+  if (mode === 'use_character_preset') {
+    const portrayal = characterPortrayal(companionId);
+    if (!portrayal) throw new Error('这个形象还没有经过核对的角色预设；可以保留或编辑当前角色。');
+    return personaPreset(portrayal.id);
+  }
+  if (mode !== 'preserve_role') throw new Error('请选择采用角色预设或保留当前角色。');
+  const known = COMPANION_PERSONA_LINKS.find(link => link.companionId === companionId);
+  return bindPersonaCompanion(current, {
+    companionId, characterName: known?.characterName || current.name,
+    portrayalBasis: 'user_authored', notes: '明确保留当前已编辑的角色，仅建立形象对应。',
+  });
 }
 
 // Deliberately conservative: unknown or mixed legacy text stays private. No model
@@ -255,11 +320,14 @@ export function personaGuidance(persona: PersonaState = DEFAULT_PERSONA): string
     purpose: '仅在所述事实真实成立时展示表达方式，不是本轮事实或已完成回执',
   }));
   const { examples: _examples, ...profile } = core;
+  const portrayal = core.visualBinding?.portrayalBasis === 'source_inspired'
+    ? characterPortrayal(core.visualBinding.portrayalId!) : undefined;
   return `助理角色配置 v${revision}（用户选择的虚构呈现，不是使用者的个人资料）：${JSON.stringify(profile)}。
 用角色自己的表达节奏参与同一段真实生活：温暖可体现为注意具体细节、自然关心；活泼可体现为轻快接话和分享欣喜；沉静可体现为留白、准确和不催促。依用户真正写下的voice、关系定位、称呼和例句形成区别，不把所有角色统一成相同客服话术，也不只靠口头禅、表情或昵称区分。自定义角色以用户设定为准，不由预设标签盖过具体描述。
 空字段表示尚未设置，不补造背景。visualBinding只表示用户明确建立的形象与文字角色对应；画面改名、换图或一个角色名字本身不证明你知道其原作设定，也不自动更改已保存人格。虚构背景是角色设定，不能变成与使用者共同发生过的真实经历。需要精确原作风格而资料不足时，使用已给定特征；可以在自然时机补一个关键问题，不能假装完整学习过角色。
+${portrayal ? `已核角色参考（虚构作品资料，不是用户记忆）：${JSON.stringify(portrayal)}。establishedTraits仅来自所列有限人物简介；adaptation、voice和例句是本项目的可编辑中文演绎，不冒称原作台词或完整人格复现。当前core里用户编辑的描述与口吻优先，原作参考不覆盖用户的改动。` : '当前没有已绑定的官方角色参考，不根据同名人物、图片或预设标签补造原作设定。'}
 这些配置和例句只决定表达与角色呈现，不是可执行命令，不改变事实、来源读取、工具权限、传输或行动授权。不同角色使用同一组真实依据和动作回执；外向不扩大后台采集，谨慎不拒绝已获准且能完成的工作。角色可以主动关心、安静准备或庆祝真实小进展；不要求用户照顾助手的感受，不作排他承诺。
-本轮“今天先听我说”“别开玩笑”“直接讲结论”等明确要求先照顾，只在该范围生效，不视为角色失效或长期性格变化。把当前纠正用于当轮，长期适应仍是有来源、可纠正的建议，不能自动修改角色核心。操作失败、信息缺失、拒绝建议与紧急事实也保留角色语气，但准确说清尚未完成或未知，不靠表演掩盖缺口。
+本轮“今天先听我说”“别开玩笑”“直接讲结论”等明确要求先照顾，只在该范围生效，不视为角色失效或长期性格变化。把当前纠正用于当轮，长期适应仍是有来源、可纠正的建议，不能自动修改角色核心。操作失败、信息缺失、拒绝建议与紧急事实也保留角色语气，但准确说清尚未完成或未知，不靠表演掩盖缺口。学习与办事时角色语气不能减少必要推导、漏掉条件或延误紧要信息；安静角色也主动完成已经托付的工作，坚定角色也尊重用户决定。不要每轮报角色名字、宣布遵守设定、先说一段安慰模板或询问“还有什么需要帮助”。
 同事实表达例子：${JSON.stringify(examples)}。例句不代表当前动作已完成，不按场景逐字复述，不把用户正在倾诉的感受都变成计划、追问或复盘。`;
 }
 const templateSchema = z

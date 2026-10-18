@@ -1,11 +1,23 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { Check, ChevronDown, Heart, ImagePlus, Moon, Plus, SlidersHorizontal, Sun, Sunset, Trash2 } from 'lucide-react';
+import { useEffect, useRef, useState, type CSSProperties, type MutableRefObject } from 'react';
+import { Check, ChevronDown, Heart, ImagePlus, LoaderCircle, Moon, Plus, SlidersHorizontal, Sun, Sunset, Trash2, Undo2 } from 'lucide-react';
+import { personaPreset, selectCompanionPersona, type PersonaState, type PersonaUpdate } from '../shared/persona';
+import { characterPortrayal } from '../shared/persona-portrayals';
+import type { State } from '../shared/types';
+import type { PersonaDraft } from './PersonaEditor';
 import { COMPANIONS, CompanionScene, WINDOW_LIGHT, companionName, useCompanion } from './companion';
 import { useAppearance } from './appearance';
 import { Switch, uiError } from './ui';
 
 const categories = ['全部', '二次元', '插画', '写实', '我的收藏'] as const;
-export function CompanionSettings() {
+export function CompanionSettings({ persona, draft, onState, busy, saving, saveOperation, onEditPersona }: {
+  persona: PersonaState;
+  draft: MutableRefObject<{ persona?: PersonaDraft }>;
+  onState: (state: State) => void;
+  busy: boolean;
+  saving: boolean;
+  saveOperation: (operation: () => Promise<void>) => Promise<void>;
+  onEditPersona: () => void;
+}) {
   const { value, update, setPicture, removePicture, rename, toggleFavorite } = useCompanion();
   const [appearance, setAppearance] = useAppearance();
   const file = useRef<HTMLInputElement>(null);
@@ -16,11 +28,22 @@ export function CompanionSettings() {
   const [name, setName] = useState(() => companionName(value));
   const [placement, setPlacement] = useState({ scale: value.scale, position: value.position });
   const [adjusting, setAdjusting] = useState(false);
+  const [roleMode, setRoleMode] = useState<'use_character_preset' | 'preserve_role'>('preserve_role');
+  const [rolePending, setRolePending] = useState(false);
+  const [roleFeedback, setRoleFeedback] = useState<{ text: string; error?: boolean }>();
+  const [roleUndo, setRoleUndo] = useState<{ previous: number; saved: number }>();
   useEffect(() => () => { request.current++; }, []);
   useEffect(() => setName(companionName(value)), [value.character, value.names, value.pictures]);
   useEffect(() => setPlacement({ scale: value.scale, position: value.position }), [value.scale, value.position, value.character]);
   const isNight = appearance.theme === 'dark' || (appearance.theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
   const custom = value.pictures.find(item => item.id === value.character);
+  const portrayal = characterPortrayal(value.character);
+  const characterCore = portrayal ? personaPreset(portrayal.id) : undefined;
+  const hasPersonaDraft = !!draft.current.persona;
+  const roleLocked = rolePending || saving || busy;
+  const alreadyLinked = persona.core.visualBinding?.companionId === value.character;
+  const alreadyPreset = characterCore && JSON.stringify(persona.core) === JSON.stringify(characterCore);
+  const roleUnchanged = roleMode === 'preserve_role' ? alreadyLinked : alreadyPreset;
   const gallery = category === '我的收藏'
     ? [...COMPANIONS.filter(item => value.favorites.includes(item.id)), ...value.pictures]
     : category === '全部' ? [...COMPANIONS, ...value.pictures] : COMPANIONS.filter(item => item.category === category);
@@ -33,6 +56,8 @@ export function CompanionSettings() {
   function choose(character: typeof value.character) {
     request.current++; setOpening(false);
     perform(() => update({ character }));
+    setRoleMode(characterPortrayal(character) ? 'use_character_preset' : 'preserve_role');
+    setRoleFeedback(undefined);
   }
   async function importPicture(selected: File) {
     const id = ++request.current;
@@ -61,6 +86,24 @@ export function CompanionSettings() {
       try { update(placement); setError(''); } catch (problem) { setPlacement({ scale: value.scale, position: value.position }); setError(uiError(problem)); }
     }
   }
+  async function saveRole(input: PersonaUpdate, undo = false) {
+    if (roleLocked || draft.current.persona) return;
+    const previousRevision = persona.revision;
+    setRolePending(true); setRoleFeedback(undefined);
+    try {
+      await saveOperation(async () => {
+        try {
+          const next = await window.zaichang.saveSettings({ personaUpdate: input });
+          onState(next);
+          setRoleUndo(undo ? undefined : { previous: previousRevision, saved: next.settings.persona.revision });
+          setRoleFeedback({ text: undo ? '已经回到这次选择前的相处方式。' : `已经留下了${next.settings.persona.core.name || '现在'}的相处方式。` });
+        } catch (problem) {
+          setRoleFeedback({ text: uiError(problem), error: true });
+          try { onState(await window.zaichang.state()); } catch { /* Keep the failed choice reviewable. */ }
+        }
+      });
+    } finally { setRolePending(false); }
+  }
 
   return <section className="companion-settings" aria-label="陪伴的样子">
     <div className="companion-options">
@@ -87,6 +130,18 @@ export function CompanionSettings() {
         <button type="button" className="text-button" disabled={opening} onClick={() => file.current?.click()}><ImagePlus size={17} />{opening ? '正在打开图片…' : '用自己的图片'}</button>
         {category !== '我的收藏' && value.pictures.length > 0 && <button type="button" className="text-button" onClick={() => setCategory('我的收藏')}>看看我的收藏</button>}
       </div>
+      <section className="companion-role" aria-label="形象与相处方式">
+        <div className="companion-role-heading"><div><p>现在的相处方式 · {persona.core.name || '在场'}</p><h3>{portrayal ? '聊起来，也像她' : '留住熟悉的相处方式'}</h3></div>{alreadyLinked && <span className="companion-role-linked"><Check size={13} />已关联</span>}</div>
+        <p className="companion-role-intro">{portrayal ? '以公开人物特征为起点，也可以保留你已经写下的性格。' : '换了样子，也可以继续按你喜欢的方式聊天。'}</p>
+        <div className="companion-role-choices" role="group" aria-label="选择相处方式">
+          {portrayal && <button type="button" aria-pressed={roleMode === 'use_character_preset'} disabled={roleLocked} onClick={() => setRoleMode('use_character_preset')}><span className="companion-role-dot" /><strong>用{companionName(value)}的相处方式</strong><small>{portrayal.id === 'sakiko' ? '端正、坚定，把关心放在细节里。' : '安静、体贴，少言也认真回应。'}</small></button>}
+          <button type="button" aria-pressed={roleMode === 'preserve_role'} disabled={roleLocked} onClick={() => setRoleMode('preserve_role')}><span className="companion-role-dot" /><strong>保留我们现在的约定</strong><small>只关联形象，保留你写过的性格。</small></button>
+        </div>
+        {portrayal && roleMode === 'use_character_preset' && <blockquote className="companion-role-example">{characterCore?.examples.find(example => example.scenario === 'chat')?.response}</blockquote>}
+        {hasPersonaDraft ? <div className="companion-role-draft" role="status"><p>你还有一份没保存的相处设置，先把它留好再换吧。</p><button type="button" className="text-button" onClick={onEditPersona}>继续编辑草稿</button></div> : <div className="companion-role-actions"><button type="button" className="primary-button" disabled={roleLocked || !!roleUnchanged} onClick={() => void saveRole({ expectedRevision: persona.revision, core: selectCompanionPersona(persona.core, value.character, roleMode) })}>{rolePending && <LoaderCircle size={14} className="spin" />}{roleUnchanged ? '正在这样相处' : roleMode === 'use_character_preset' ? '采用这个角色' : '保留并关联形象'}</button><button type="button" className="text-button" disabled={roleLocked} onClick={onEditPersona}>编辑相处方式</button></div>}
+        {roleFeedback && <p className={`inline-status ${roleFeedback.error ? 'error' : ''}`} role={roleFeedback.error ? 'alert' : 'status'}>{roleFeedback.text}</p>}
+        {roleUndo && persona.revision === roleUndo.saved && <button type="button" className="text-button companion-role-undo" disabled={roleLocked || hasPersonaDraft} onClick={() => void saveRole({ expectedRevision: persona.revision, undoRevision: roleUndo.previous }, true)}><Undo2 size={13} />撤回这次选择</button>}
+      </section>
       <form className="companion-name" onSubmit={event => { event.preventDefault(); perform(() => rename(value.character, name)); }}>
         <label htmlFor="companion-display-name">怎么称呼这个形象</label>
         <div><input id="companion-display-name" value={name} maxLength={60} onChange={event => setName(event.target.value)} /><button type="submit" className="text-button" disabled={name.trim() === companionName(value)} aria-label="记住这个称呼"><Check size={17} /></button></div>

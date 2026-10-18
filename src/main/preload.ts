@@ -74,6 +74,7 @@ const bridge: Bridge = {
   action: (input) => ipcRenderer.invoke('action', input),
   attachText: () => ipcRenderer.invoke('text:attach'),
   attachImage: () => ipcRenderer.invoke('image:attach'),
+  exportCalendar: input => ipcRenderer.invoke('calendar:export', input),
   exportData: () => ipcRenderer.invoke('data:export'),
   openLink: (url) => ipcRenderer.invoke('link:open', url),
   copyText: (text) => ipcRenderer.invoke('text:copy', text),

@@ -38,7 +38,7 @@ flowchart LR
 
 ## 按需技能是方法层
 
-[`runtime/skills.ts`](../src/main/runtime/skills.ts) 提供六份经审核的内置方法：记忆调查、日程规划、结合情境的出行、校园体育查询、安静的主动帮助和动作恢复。`discover_skills` 按需返回目录，`read_skill` 返回方法正文、版本以及所需工具/能力当前的可用、未连接、未授权、未登记或未知状态。实际发现和读取接入 coordinator 的工具注册与范围检查。
+[`runtime/skills.ts`](../src/main/runtime/skills.ts) 提供十份有版本的内置方法：原有记忆调查、日程规划、结合情境的出行、校园体育查询、安静的主动帮助和动作恢复，增加角色表达、准备与返回、学习陪伴、选择调查。`discover_skills` 按需返回目录，`read_skill` 返回方法正文、版本以及所需工具/能力当前的可用、未连接、未授权、未登记或未知状态。实际发现和读取接入 coordinator 的工具注册与范围检查。
 
 方法说明任务怎样做、什么时候回读证据或检查回执；工具和能力负责实际执行。读取技能不安装软件、不执行脚本、不创建授权，也不证明来源覆盖完整。目录搜索只匹配文档，未命中不能被解释为现实没有该能力。模型仍可直接调用简单查询；复杂任务按实际需要读取方法，不设强制技能仪式或生活主题路由。体育分类存在也不证明已取得有效跑步计次，具体字段、学期、审核口径和分页须通过真实来源核对。
 
@@ -58,6 +58,8 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 
 记忆检索先按权限、有效时间和验证状态形成可读集合，再排名分页；原文的已索引与尚未索引内容共同排名，分页不再局限于预先截取的前 50 条。关键词和字符片段检索仍有语义召回限制，分页完整不等于能理解任意同义表达。更正使用原证据版本与 Unicode 字符范围定位：受影响原话带历史/替代标记，未受影响的同段内容仍可检索；`BasisService` 使依赖已更正片段的解释及其准备失效。旧数据缺少范围时明确未知，不能伪造精确定位。
 
+[`memory/retrieval.ts`](../src/main/memory/retrieval.ts) 为真实 `search_context` 接入主模型提供的至多五个 `relatedQueries`：合并实际候选 ID，以排名融合排序，不生成新事实；强约束仍有独立页。每路候选窗口有 `rankingWindow` / `queryContinuations` 回执，深页通过单查询续读，不称全量召回。`mode:scan` 对当前合法、active、verified 且时间有效的断言分页，不绕过范围。prefetch 最多展开三层既有依赖及 24 个额外对象，并给出 `dependencyCoverage`；旧词命中历史原文时，`correctionFollowups` 沿精确 replacementEventId 找更正，不使旧断言复活。检索包与回执保留当前范围，受限投影不会回显范围外查询字符串。向量索引仍未接入，查询扩展的语义质量取决于主模型。
+
 提取候选的幂等身份绑定原证据、片段和候选语义，不依赖模型数组顺序。预算耗尽或可重试中断保持 `pending`，已完成候选仍保留；语义失败与需要上下文另记，不无限重试。`h_memory_recovery` 持久保存尝试时间、下次恢复时间和瞬时失败次数，公平选取待处理原文并退避；恢复前仍检查来源、留存、主体、过期和限制。恢复队列没有续签旧授权的权力，也不承诺应用退出后继续整理。
 
 本人的现实私有关注另有最小管理范围：关闭记忆后仍能按真实名称定位和停止旧关注，但管理输出不含原始 rule/quote、旧聊天或准备正文。后台仅展开托付实际引用的授权片段；按原证据 ID 读取也受相同片段和版本限制。此管理通道不授予普通历史、人物资料或材料正文读取。
@@ -75,6 +77,8 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 | 附件与公开资源 | [`materials/service.ts`](../src/main/materials/service.ts)、`pdf.ts`、`worker.ts`、`capabilities/research.ts`：文件、分页、PDF/图像处理和带范围的继续读取句柄，不把整份大文件当作无限上下文。 |
 | 陪伴外观与阅读偏好 | renderer 的 [`companion.tsx`](../src/renderer/companion.tsx) / [`appearance.ts`](../src/renderer/appearance.ts)：本机 localStorage 中的形象、自选图片、窗景和阅读外观，与主机人格和SQLite业务数据分开。`SettingsPanel` 清理成功后调用 `resetCompanion`；导出/清理不能仅凭数据库回执推定覆盖全部窗口存储，新前端完整路径仍需自己的验收。 |
 
+角色预设现包含丰川祥子与若叶睦；[`shared/persona-portrayals.ts`](../src/shared/persona-portrayals.ts) 分开保存有限官方材料、项目演绎与出处。`selectCompanionPersona` 在明确操作下采用对应预设或保留已编辑人格，仍通过原有 expectedRevision 保存；换图不隐式更改角色。`previewPersonaCharacterCard` 将 Character Card V2 JSON 转为待审阅文字草稿，不执行系统提示覆盖、世界书、宏或脚本，不把虚构场景写成用户经历。后端函数存在与前端接线分别核对，原作忠实及长期风格仍需真实对话证据。
+
 ## 持续托付与变化发现
 
 `manage_attention` 保存当前用户明确的规则、来源、期限、渠道和停止条件。来源范围需要支持承诺的后续准备，不能只包含最初探测变化的来源；核验不足时由主助手补齐既有许可内的来源或收窄承诺。`probe` 是可选的具体读取方案，广义托付不依赖预填主题关键词或固定探查。
@@ -91,11 +95,17 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 
 `inspect_help` 先返回有界轻索引，精确 ID 才读取材料与依据。前台 `decide_help.presentInConversation` 将真实准备绑定到消息的精确机会/材料修订；`Message.helpRefs` 复用既有资料组件。只有正文实际可见才写 `displayed` 并抑制同一修订的重复通知，单纯生成、发现或读取不算展示。
 
+[`runtime/continuity.ts`](../src/main/runtime/continuity.ts) 在初始 `ContextCompiler.compile` 中提供最多各三项 `preparedMaterials` 与 `openThreads`，附 `continuityCoverage`。跨会话仅在相关、本人、现实、私有且获准的 work/evidence 范围中出现；session_only 限当前会话，未核清用途、第三人、假设世界、群体或子代理不获得此索引。目录只含必要标题、ID、版本、时效和已有 nextStep，正文仍经 `inspect_help` / `restore_collaboration` 读取。构建前调用真实 `AttentionService.expire`；依赖变化、暂停、停止或到期后的旧准备不会通过标题进入上下文，实际来源并入回执。已 displayed/opened/seen 的同一 fingerprint 不重复主动候选，系统提交或送达不等于已看；材料仍可显式读取。
+
+后台决策中的 `materialWakes` 自身更新以同事务返回的前后版本回执衔接；此前或此后的独立托付编辑仍使旧运行失效。正常不介入使用真实 `declined` 完成状态。已有 `question_ready` 或 `notification_queued` 内容可经明确 reuseArtifact + presentInConversation 回到当前聊天：问题仍是问题，先复核原证据；排队提示取消对应可选通知，独立明确提醒保留，不因此重复调查或写日历。
+
 ## 规划、批准和投递恢复
 
-[`builtin.ts`](../src/main/capabilities/builtin.ts) 注册 `situation.read`、`planning.preview` 与 `planning.draft`。`planning.preview` 复用 [`actions/planning.ts`](../src/main/actions/planning.ts) 计算当前状态、来源覆盖、冲突、可行时间、未知条件和版本绑定的提案。邀请、愿望、未接受方案与已接受承诺分开；只有 accepted 的适用日程占用承诺时间，未接受项不建提醒。未知结束不补造，时间值保留 UTC 并带声明时区的本地表达。预览只读；接受修改时通过原有动作链，对同一对象的 expectedRevision 做 CAS，撤销恢复原内容并产生新修订。
+[`builtin.ts`](../src/main/capabilities/builtin.ts) 注册 `situation.read`、`planning.preview`、`planning.draft` 与只读 `planning.recover`。`planning.preview` 复用 [`actions/planning.ts`](../src/main/actions/planning.ts) 计算当前状态、来源覆盖、冲突、可行时间、未知条件和版本绑定的提案。邀请、愿望、未接受方案与已接受承诺分开；只有 accepted 的适用日程占用承诺时间，未接受项不建提醒。未知结束不补造，时间值保留 UTC 并带声明时区的本地表达。预览只读；接受修改时通过原有动作链，对同一对象的 expectedRevision 做 CAS，撤销恢复原内容并产生新修订。
 
 新增 [`actions/planning-draft.ts`](../src/main/actions/planning-draft.ts) 是多任务草案构造器：处理时长区间、依赖、可用窗口、连续块、保护时间、准备/收拾、休息和有方向的交通成本，保留没排入的任务及原因。按声明时长上界留位，未知估时不填默认一小时；可移动但已接受的安排仍占位。输出包含日历及方案指纹、来源版本、条件、逐项动作参数和 `applied:false`，不宣称全局最优或现实全部可行。
+
+任务可显式提供 `maximumChunkMinutes`，配合可拆分许可、最小工作块和休息安排；未提供时不强制打断长时间思考。不能拆分却超过上限时保留全量未排工作，不擅自缩短。每段准备/收尾和段间休息都有真实占用；最多 256 个工作段，超过时留下明确余量，不宣称全局无解。
 
 `RuntimeCoordinator.planning` 持有 [`PlanningApplicationService`](../src/main/actions/planning-application.ts)，`planning.draft` 已接到该服务。服务把草案转为带 `planRef` 的有序保存单位：工作占用包含准备和收尾，转场/休息及显式保护窗口另有真实占用。它只签发短期校验票据，不授予保存权限；票据最长 15 分钟，若原 scope 更早到期则同时缩短。票据只在当前进程内存中，最多保留 50 份；重启、过期或淘汰后须回读真实日历重新规划，不能据票据消失推断此前没有保存。
 
@@ -103,11 +113,15 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 
 经受控动作链的普通本地保存也执行 `assertNoDetachedProposal`，拒绝移除 `planRef` 后仍匹配近期方案的常见复制。该检测限当前进程最近 50 份方案、同一 owner/设备/主体/世界/受众，以及标题、开始时刻、类型的参数摘要；它不是普遍的语义识别，不能保证识别改写标题或改动时刻的脱离方案，也不跨重启。带 `planRef` 的路径则要求完整保存参数与已核查单位一致，不能剥掉准备、休息或保护占用后仍声称按该方案采用。
 
+`planning.recover({planId})` 只读当前日历中的持久 planRef。完整票据、范围、版本和时效都仍成立时给出精确下一保存单位；发现删除、修改、重复或账本外同方案行则要求核查。重启后只报告当前观察到的行，总步数与遗漏保持未知，不重放旧写入。可精确核对的部分采用可以生成 remainingRequest：扣除工作分钟而非准备/休息，把已安排前置项转成时间约束，不当作实际完成；仍欠休息/转场或分段保存不完整时不生成会丢占用的简化请求。来源、时间和当前日历须重新核查后再生成草案。
+
 外部 `sourceVersion` 的当前版本解析器尚未接入。带外部具体来源引用的方案可以构造，但只要版本无法复验，采用状态为 `blocked`；未知条件或不完整覆盖也不能伪装已核实。当前明确自述与外部来源覆盖分开处理，不能把外部记录改标为自述来宣称可用。接线存在与类型检查通过不等于真实模型、真实外部来源或逐项采用所有故障路径已经验收，最终证据以当前状态文档为准。
 
 [`ActionRuntime`](../src/main/actions/runtime.ts) 将准备、批准、dispatch 意图、实际尝试、核查、取消和补偿分开。当前原话的明确本地委托可经独立核验直接保存；需要批准的提议先接受。外部写入还要求连接器声明可执行能力、授权与幂等/核查能力；起草外发内容、请求发送和真正发送成功分别记录。未接通的邮件、钉钉或学校写入不会因模型生成了文字就成为成功。
 
 [`ReminderRuntime`](../src/main/actions/reminders.ts) 使用持久调度、lease、fence 和投递意图；明确设定的提醒不被可选主动性预算吞掉。机会准备与业务提醒分别检查状态。`unknown` 先核查，不能盲重发；迟到回执只补证据，不重开已取消工作。`submitted_to_os`、来源送达和用户 seen 分别记录，桌面系统通知目前只提供前者。退出进程后轮询停止，重开时按账本恢复和复验，不能据此承诺关机或手机后台送达。
+
+[`actions/calendar-export.ts`](../src/main/actions/calendar-export.ts) 通过现有 `expandAgenda` 导出有限时间窗内已接受、未完成、非演示的本地安排快照为 ICS；实例 UID 稳定，实际时间用 UTC，全天结束日期排他，不占用时间的条目保留透明性。默认不带详情，不加邀请、网络订阅或提醒；时间不完整条目明确省略。`calendar:export` IPC 在原生保存框返回后复核隐私 epoch、策略版本与私人视图，再读取当前日历写文件。它不创建新的日历业务对象，也不是手机同步服务；系统日历真实导入与界面入口的验收分别记录。
 
 ## 缓存、在途共享与子代理
 
@@ -137,4 +151,4 @@ Luna 接现有 Codex 账号的单次 completion 传输，Hermes 继续运行主�
 
 常规构建生成 Electron、renderer、stdio 地图桥和隔离公共预览；Windows 打包另暂存锁定 Hermes/Python 与有许可的原生 PDF 运行时。依赖安装、编译、合成宿主检查、真实模型调用和业务成功各自验收。当前桌面不含 Android 工程、手机同步接口或已部署持续宿主；`ClockPort`、`DeliveryPort`、SQLite 与模型/工具回调是后续接入点。生产 DeepSeek、校园外部服务和手机生命周期仍需各自验收。
 
-本轮遵守后端先行：类型与机制检查只能证明相应边界，不能取代真实 Luna/生产模型、真实来源、长期记忆与人格质量验证。尚未接入的外部版本复验和未完成的实际模型验收不得被新界面包装成可用。当前不进入新增前端；后端相关链路与失败恢复验收后，新页面仍须先依项目设计理念用 GPT Image 生成方案，再实现并检查。既有桌面页面和旧验收记录不为本轮或未来手机/平板页面自动背书。
+本轮按用户最新补充执行后端 → GPT Image → 前端：先完成本轮可实施的后端机制与对应核查，再开始图像先行的页面工作；Luna 通道不可用或个别远期连接缺失不作为全面停止前端的门禁。类型、机制与合成宿主证据不能代替真实模型、真实来源或长期体验；未接外源复验、手机生命周期等只限制对应能力，界面不得把它们包装成已完成。最新需求与历史要求的关系见[本轮补充](source-materials/2026-10-18/continuation-requirements.md)。

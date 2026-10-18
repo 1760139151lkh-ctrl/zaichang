@@ -8,7 +8,7 @@
 }
 .app-shell .today-page .page-content {
   width: min(1040px, calc(100% - 88px));
-  padding: 44px 0 56px;
+  padding: 34px 0 56px;
 }
 .app-shell .today-page .page-heading {
   margin-bottom: 22px;
@@ -25,7 +25,7 @@
   width: fit-content;
   gap: 4px;
   padding: 4px;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
   background: color-mix(in srgb, var(--accent-soft) 52%, transparent);
   border-radius: 12px;
 }
@@ -102,7 +102,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 18px 0 24px;
+  margin: 12px 0 20px;
   padding: 10px 0 20px;
   border-bottom: 1px solid var(--separator);
 }
@@ -118,7 +118,7 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  min-height: 83px;
+  min-height: 74px;
   padding: 9px 4px 6px;
   border: 1px solid transparent;
   border-radius: 12px;
@@ -630,3 +630,57 @@ dialog.panel.agenda-editor {
     transition: none !important;
   }
 }
+
+/* A small handoff sheet stays beside the dates. Its output is a calendar copy. */
+.calendar-handoff { position: relative; }
+.calendar-handoff-trigger { white-space: nowrap; gap: 7px; }
+.calendar-handoff-trigger[aria-expanded='true'] { color: var(--accent); }
+.calendar-handoff-sheet,
+.calendar-handoff-result {
+  position: absolute;
+  z-index: 15;
+  top: calc(100% + 14px);
+  right: 0;
+  width: min(390px, calc(100vw - 48px));
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 18px 54px #33231824;
+  text-align: left;
+  animation: calendar-sheet-in 180ms ease-out;
+}
+.calendar-handoff-sheet { padding: 24px; }
+.calendar-handoff-heading { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.calendar-handoff-heading h2 { font: 400 25px/1.4 var(--font-display); margin: 0; }
+.calendar-handoff-heading .icon-button { flex: 0 0 28px; width: 28px; height: 28px; }
+.calendar-handoff-sheet > p { margin: 8px 0 22px; font-size: 13px; line-height: 1.8; color: var(--text-secondary); }
+.calendar-handoff-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.calendar-handoff-dates label { display: flex; flex-direction: column; gap: 7px; min-width: 0; font-size: 12px; color: var(--text-secondary); }
+.calendar-handoff-dates input { width: 100%; min-width: 0; border: 1px solid var(--border); border-radius: 9px; background: var(--bg); color: var(--text); padding: 10px 8px; font: inherit; font-size: 13px; }
+.calendar-handoff-sheet .calendar-handoff-zone { margin-top: 9px; font-size: 11px; color: var(--text-tertiary); }
+.calendar-handoff-details { display: flex; align-items: center; gap: 9px; margin: 22px 0; font-size: 14px; cursor: pointer; }
+.calendar-handoff-details input { accent-color: var(--accent); width: 17px; height: 17px; margin: 0; }
+.calendar-handoff-copy { border-top: 1px solid var(--separator); padding-top: 17px; color: var(--text-secondary); font-size: 12px; line-height: 1.8; }
+.calendar-handoff-actions { display: flex; gap: 18px; align-items: center; margin-top: 22px; }
+.calendar-handoff-actions .primary-button { flex: 1; min-height: 42px; justify-content: center; }
+.calendar-handoff-actions .text-button { white-space: nowrap; }
+.calendar-handoff-error { margin: 14px 0 0; font-size: 13px; line-height: 1.7; color: var(--text); border-left: 2px solid var(--accent); padding-left: 12px; }
+.calendar-handoff-result { padding: 17px 15px; display: flex; align-items: flex-start; gap: 10px; }
+.calendar-handoff-result > svg { color: var(--accent); flex-shrink: 0; margin-top: 3px; }
+.calendar-handoff-result > div { flex: 1; min-width: 0; }
+.calendar-handoff-result p { font-size: 13px; line-height: 1.7; margin: 0; }
+.calendar-handoff-result small { font-size: 12px; line-height: 1.7; color: var(--text-secondary); margin-top: 7px; }
+.calendar-handoff-result .icon-button { width: 24px; height: 24px; flex-shrink: 0; }
+@keyframes calendar-sheet-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 680px) {
+  .today-date-heading { flex-wrap: wrap; gap: 12px; }
+  .today-date-actions { width: 100%; gap: 18px; }
+  .calendar-handoff { margin-left: auto; }
+  .calendar-handoff-sheet { padding: 21px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .calendar-handoff-sheet, .calendar-handoff-result { animation: none; }
+}
+:root[data-motion='reduced'] .calendar-handoff-sheet,
+:root[data-motion='reduced'] .calendar-handoff-result { animation: none; }

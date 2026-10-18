@@ -275,7 +275,7 @@ const specs: SpecDefinition[] = [
   },
   {
     name: 'present_view',
-    description: '按当前原话与真实结果决定直接呈现什么。sceneRefs只能引用availableScenes、map_route、weather.lookup或校园查询返回的精确id/revision；组件目录为MapScene、WeatherScene和CampusScene，宿主生成真实OpenUI界面。CampusScene只呈现实际取得的课程或考试记录；选择记录可接着聊，不自动写日历。layout=compare仅用于确有比较意义的两个结果。cameraIntent只改变观看，不改旅程、位置或安排；explain表示需要认识陌生道路时请求一次可中断空间讲解，用户手势立即接管；只问远近、赶时间或重复查看时用route直接给稳定全貌，不默认每次播放。用户手动浏览后，只有当前原话明确请求继续讲解、回到路线或看某处时，才以viewRequestQuote逐字引用该观看请求；模型自行组织呈现或更新路线不能借普通任务原话夺回镜头。观看引文不授权真实行动。选择日期后可接本地安排，但仍须按用户原话调用既有行动工具。历史天气保留原预测时刻，重用过期事实前重新查询。',
+    description: '按当前原话与真实结果决定直接呈现什么。sceneRefs只能引用availableScenes或真实工具返回的精确id/revision；宿主支持MapScene、WeatherScene、CampusScene、PlanningScene和EnvironmentScene。PlanningScene展示既有规划计算、准备/转场/留白；选择时段不是接受，保存仍走原planRef与授权。EnvironmentScene展示真实小时天气或空气，保留覆盖和各自时段/单位，不代表现场或个人运动安全。CampusScene只呈现实际取得的课程或考试记录；选择记录可接着聊，不自动写日历。layout=compare仅用于确有比较意义的两个结果。cameraIntent只改变观看，不改旅程、位置或安排；explain表示需要认识陌生道路时请求一次可中断空间讲解，用户手势立即接管；只问远近、赶时间或重复查看时用route直接给稳定全貌，不默认每次播放。用户手动浏览后，只有当前原话明确请求继续讲解、回到路线或看某处时，才以viewRequestQuote逐字引用该观看请求；模型自行组织呈现或更新路线不能借普通任务原话夺回镜头。观看引文不授权真实行动。选择日期后可接本地安排，但仍须按用户原话调用既有行动工具。历史天气保留原预测时刻，重用过期事实前重新查询。',
     schema: z.object({ sceneRefs: z.array(sceneRefSchema).min(1).max(3), layout: z.enum(['stack', 'compare']).default('stack'), cameraIntent: z.enum(['route', 'overview', 'destination', 'selection', 'explain']).optional(), viewRequestQuote: z.string().min(1).max(2000).optional().describe('仅引用本轮用户明确要求移动视角、继续讲解或回到路线的逐字原话；普通路线计算、数据更新或模型自行组织呈现时省略。不是行动授权。'), focusPlaceId: z.string().min(1).max(160).optional(), activeLegId: z.string().min(1).max(160).optional(), display: z.enum(['expanded', 'compact']).optional(), arrivalSourceQuote: z.string().min(1).max(2000).optional().describe('仅在用户当前原话明确报告已到达时，逐字引用实际陈述；不能引用预览完成、假设、否定或计划。宿主保留为用户报告，不冒充设备定位。') }).strict(),
   },
   {
@@ -347,8 +347,8 @@ const specs: SpecDefinition[] = [
   },
   {
     name: 'search_context',
-    description: '当前问题需要个人前情、条件或过去理由时，检索相关断言及其完整例外/原文，原文未提取也可找到。候选不是结论，可以改查询或继续回读；不适用的资料不要用于判断。',
-    schema: z.object({ query: z.string().min(1).max(400), at: z.string().datetime({ offset: true }).optional(), offset: z.number().int().min(0).optional(), hardOffset: z.number().int().min(0).optional(), limit: z.number().int().min(1).max(20).optional() }).strict(),
+    description: '需要理解用户前情、条件或过去理由时主动检索，不必等用户说“查记忆”。query保留问题，relatedQueries由你按语义补充不同表述、语言及必要条件，宿主融合召回；零词面重合或词义不明时用mode=scan分页查看当前合法理解，再按完整条件判断。原文独立可查，旧措辞可沿更正找到新来源。返回候选、依赖缺口和后续分页，不是已确认的适用结论；不适用的资料不要用于判断。',
+    schema: z.object({ query: z.string().min(1).max(400), relatedQueries: z.array(z.string().min(1).max(400)).max(5).optional().describe('模型提出的同义、跨语言或决策依赖查询，不是新增事实。'), mode: z.enum(['search', 'scan']).optional().describe('search进行多路检索；scan不要求字面匹配，按offset分页读取当前合法有效的理解候选。'), at: z.string().datetime({ offset: true }).optional(), offset: z.number().int().min(0).optional(), hardOffset: z.number().int().min(0).optional(), limit: z.number().int().min(1).max(20).optional() }).strict(),
     grant: 'evidence:read',
   },
   {
@@ -580,6 +580,7 @@ export class RuntimeCoordinator {
     this.basis = new BasisService(repo, this.policy, this.work);
     this.cooperation = new CooperationService(repo, this.work);
     this.attention = new AttentionService(repo, this.policy, this.work, this.basis, this.cooperation, this.reminders, this.broker, () => store.settings().interaction);
+    this.context.setContinuityRefresh(() => this.attention.expire());
     this.collaboration = new CollaborationService(repo, this.work, this.actions, this.basis);
     this.observations = new ObservationPort(repo, this.policy, this.work, this.domains);
     this.sync = new SyncPort(repo, this.policy, this.work);
@@ -989,7 +990,7 @@ export class RuntimeCoordinator {
     if (session.ingress.contract.audience === 'self' && !session.ingress.localOnly) {
       const sceneSessionId = session.sceneSessionId || session.sessionId;
       const availableScenes = this.scenes.summaries(session.ingress.contract.scope, sceneSessionId, session.ingress.contract.id, session.selection ? { id: session.selection.sceneId, revision: session.selection.sceneRevision } : undefined);
-      const presentationLibrary = { version: 1, components: ['MapScene: 可操作的校园总览、单点浏览、真实路线与多停靠旅程；view操作不改安排', 'WeatherScene: 所查公开参考位置的七天按日比较与日期选择；该画面不表达小时资料', 'CampusScene: 实际读到的课程、课次或考试记录；保留来源与范围，选择记录供下一句引用，不保存日程'],
+      const presentationLibrary = { version: 1, components: ['MapScene: 可操作的校园总览、单点浏览、真实路线与多停靠旅程；view操作不改安排', 'WeatherScene: 所查公开参考位置的七天按日比较与日期选择；该画面不表达小时资料', 'CampusScene: 实际读到的课程、课次或考试记录；保留来源与范围，选择记录供下一句引用，不保存日程', 'PlanningScene: planning.preview/draft的时间带、准备、转场、休息与留白；点选仅引用，不保存或恢复过期方案', 'EnvironmentScene: weather.lookup小时窗口或air_quality.lookup真实样本；天气与空气各有来源、覆盖和单位，选时刻供下一句引用'],
         method: '主模型依据当前需要选择map_route、weather.lookup或校园查询，再用present_view引用精确sceneRef；无需用户要求渲染。地图路线查询即表示当前需要地图，会直接展开。校园画面只显示已取得的记录，不能从同名课程猜关联、下次上课或全学期覆盖。用户手势接管后，只有本轮明确观看请求的viewRequestQuote能重新取得镜头；模型提出cameraIntent本身不代表用户要求移镜。已由present_view逐项展示的数据，正文保留结论、理由、必要差异与限制，不机械重复完整列表或表格；用户另要完整表格时按要求提供。旧事实保留查询时刻；临时界面选择不是长期记忆或行动授权。' };
       const additions = { availableScenes, presentationLibrary, ...(session.selection ? { currentSelection: session.selection } : {}),
         ...(session.selectionUnavailable ? { currentSelectionUnavailable: '先前界面引用已不在本轮允许的来源或有效画面中，没有读取其对象与事实。继续处理当前独立请求；只有用户仍在指代该对象且影响结论时，再说明需要重新选择。' } : {}) };
@@ -998,8 +999,16 @@ export class RuntimeCoordinator {
         throw new HarnessError('scene_context_budget', '当前选择与画面来源超过本轮完整上下文预算，请缩小这次交流范围。');
       Object.assign(pack.data, additions);
       pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
-      pack.receipt.sceneReferences = availableScenes.map(scene => ({ id: scene.id, revision: scene.revision, sourceId: scene.source.sourceId, fetchedAt: scene.source.fetchedAt, ...(scene.source.expiresAt ? { expiresAt: scene.source.expiresAt } : {}) }));
-      pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), ...availableScenes.map(scene => scene.source.sourceId)])];
+      // A selected historical scene may be outside the recent summary window.
+      // Its derived sources still entered the model via currentSelection and
+      // must follow the reply into future history/privacy checks.
+      const selectedScene = session.selection ? this.scenes.get(session.ingress.contract.scope, sceneSessionId,
+        { id: session.selection.sceneId, revision: session.selection.sceneRevision }, session.ingress.contract.id, true) : undefined;
+      const receiptScenes = [...new Map([...availableScenes, ...(selectedScene ? [selectedScene] : [])]
+        .map(scene => [`${scene.id}@${scene.revision}`, scene])).values()];
+      pack.receipt.sceneReferences = receiptScenes.map(scene => ({ id: scene.id, revision: scene.revision, sourceId: scene.source.sourceId, fetchedAt: scene.source.fetchedAt, ...(scene.source.expiresAt ? { expiresAt: scene.source.expiresAt } : {}) }));
+      pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), ...receiptScenes.flatMap(scene =>
+        [scene.source.sourceId, ...(scene.kind === 'planning' ? scene.requiredSourceIds : [])])])];
       this.repo.saveReceipt(session.ingress.contract.scope, pack.receipt);
     }
     if (session.ingress.contract.audience !== 'self' && !session.ingress.replyToOwner) {
@@ -1621,7 +1630,7 @@ export class RuntimeCoordinator {
       if (!view) return event;
       if (event.contentVersion !== view.contentVersion || codePointSlice(event.text, view.sourceStart, view.sourceEnd) !== view.quote) return undefined;
       return { ...event, text: view.quote };
-    } : undefined);
+    } : undefined, { relatedQueries: args.relatedQueries, mode: args.mode });
     if (name === 'read_assistant_history') {
       const rows = this.repo.assistantHistory(handle, { id: args.id, query: args.query, limit: args.id ? 1 : 8 });
       const result = { status: rows.length ? 'fresh' : 'not_found', items: rows.map(row => {
@@ -2329,10 +2338,22 @@ export class RuntimeCoordinator {
         }
         if (capability === 'weather.lookup' && ['fresh', 'partial'].includes(result.status) && result.data) {
           const scene = this.scenes.weather(session.sceneSessionId || session.sessionId, result, session.ingress.contract.id, session.background);
+          const hourly = this.scenes.environment(session.sceneSessionId || session.sessionId, result, capability, session.ingress.contract.id, session.background);
           if (session.pack) session.pack.data.availableScenes = this.scenes.summaries(handle, session.sceneSessionId || session.sessionId, session.ingress.contract.id);
-          return this.withMethodNotes(session, capability, { ...result, sceneRef: { id: scene.id, revision: scene.revision }, presentation: (result.data as any).hourly
-            ? '按请求时间窗取得了小时预报及其覆盖；可以据此说明该窗口的不确定性。现有WeatherScene只展示日级概览，日期选择不自动保存日程。'
+          return this.withMethodNotes(session, capability, { ...result, sceneRef: { id: hourly?.id || scene.id, revision: hourly?.revision || scene.revision }, ...(hourly ? { dailySceneRef: { id: scene.id, revision: scene.revision } } : {}), presentation: hourly
+            ? 'sceneRef可用present_view显示小时窗口，dailySceneRef可显示按日概览；选样本供下一句引用。温度对应时刻，降水对应标明的前一小时，覆盖不全保留未知；不能推断分钟级停雨或现场状况。'
             : '若按日比较有助当前问题，用present_view引用此sceneRef。日期选择只是试算，不自动保存日程；这次日级结果不能支持逐小时结论。' });
+        }
+        if (capability === 'air_quality.lookup' || capability === 'planning.preview' || capability === 'planning.draft') {
+          const scene = capability === 'air_quality.lookup'
+            ? this.scenes.environment(session.sceneSessionId || session.sessionId, result, capability, session.ingress.contract.id, session.background)
+            : this.scenes.planning(session.sceneSessionId || session.sessionId, result, capability, effectiveInput, session.ingress.contract.id, session.background);
+          if (scene) {
+            if (session.pack) session.pack.data.availableScenes = this.scenes.summaries(handle, session.sceneSessionId || session.sessionId, session.ingress.contract.id);
+            return this.withMethodNotes(session, capability, { ...result, sceneRef: { id: scene.id, revision: scene.revision }, presentation: scene.kind === 'planning'
+              ? '可用present_view展示实际计算的时间带、准备、休息、转场与留白。点击只引用该时段，不自动采用。草案仍需保留原planRef及完整占用、检查覆盖与票据时效，经原有动作路径保存。'
+              : '可用present_view展示小时空气预报并选择时刻继续交流；PM单位与US/European AQI分别保留，不称中国官方AQI，不推断现场状态或保证适宜运动。' });
+          }
         }
         if (['campus.lookup', 'campus.imported_lookup', 'campus.query'].includes(capability)) {
           const scene = this.scenes.campus(session.sceneSessionId || session.sessionId, result, capability, effectiveInput, session.ingress.contract.id, session.background);

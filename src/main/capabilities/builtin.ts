@@ -10,7 +10,7 @@ import { calendarFieldsSchema, localCalendarChangeSchema } from '../../shared/ca
 import { expandAgenda, localStamp } from '../actions/calendar';
 import { campusQueryInput, validateCampusQuery, requireCampusQueryScope } from './campus-query';
 import { calendarCommitment, planningPreviewInput, previewCalendarPlan, planningDraftInput } from '../actions/planning';
-import type { PlanningApplicationService } from '../actions/planning-application';
+import { planningRecoveryInput, type PlanningApplicationService } from '../actions/planning-application';
 import { weatherInput, weatherOutput, weatherRequest, weatherResult } from './weather';
 import { airQualityInput, airQualityOutput, airQualityRequest, airQualityResult } from './air-quality';
 import { dateInZone, dayBounds } from '../runtime/semantics';
@@ -277,6 +277,7 @@ export function registerBuiltins(
   register({
     manifest: manifest('local-agenda', 'local-agenda', [
       base('planning.draft', planningDraftInput, jsonObject, ['evidence:read'], { version: '1', displayName: '编排多任务日程草案', description: '只读构造有依赖、期限、可拆分时长、精力、准备清理、转场休息和保护留白的草案；返回未排任务及原因。不会替用户接受或自动写日历。采用时按acceptanceProposals顺序完整保留planRef及参数，经现有prepare_action逐项核验授权；日历变化或未知条件会阻断采用，部分成功不冒充整组完成。' }),
+      base('planning.recover', planningRecoveryInput, jsonObject, ['evidence:read'], { version: '1', cacheScope: 'handle', worlds: ['real'], displayName: '接着安排未完成的计划', description: '按planId只读核对真实日历里已保存的步骤和当前票据；区分可继续、已经变化、已过期和重启后须重算，避免重复创建已成功的安排。不恢复旧授权，不直接提交。' }),
       base('planning.preview', planningPreviewInput, jsonObject, ['evidence:read'], { version: '1', displayName: '比较可行时段与安排修改', description: '读本地具体日历实例并复用区间计算，比较最多三个方案。固定承诺、可移动已接受块均保留；邀请、愿望、未接受方案不当成硬承诺。空白不等于现实空闲。返回原对象ID/revision绑定的save/change提议和冲突、天气/资源等未知；只读不提交，实际采用通过现有本地动作授权入口。' }),
       base('local.agenda.change', localCalendarChangeSchema, z.object({}).strict(), ['local:write'], { effect: 'local_write', worlds: ['real'], supportsIdempotency: true, supportsInspect: true, supportsCancel: true, description: '按对象版本修改、删除本地安排或更改单个重复实例；事务执行并支持受版本保护的撤销。' }),
       base('local.agenda.save', localActionInput, z.object({}).strict(), ['local:write'], {
@@ -298,9 +299,9 @@ export function registerBuiltins(
       if (name === 'local.agenda.save' || name === 'local.agenda.change')
         throw new HarnessError('transaction_required', '本地安排必须由受控事务提交。');
       policy.validate(ctx.scope);
-      if (name === 'planning.preview' || name === 'planning.draft') {
+      if (name === 'planning.preview' || name === 'planning.draft' || name === 'planning.recover') {
         const items = repo.db.prepare('SELECT payload FROM agenda').all().map(row => JSON.parse(String(row.payload)));
-        const data = name === 'planning.draft' ? planning.prepare(policy.validate(ctx.scope), items, args) : previewCalendarPlan(items, args);
+        const data = name === 'planning.draft' ? planning.prepare(policy.validate(ctx.scope), items, args) : name === 'planning.recover' ? planning.recover(policy.validate(ctx.scope), items, args) : previewCalendarPlan(items, args);
         return { status: 'fresh', sourceId: 'local-agenda', data: JSON.parse(JSON.stringify(data)), fetchedAt: repo.clock.now(),
           coverage: { complete: name === 'planning.preview' && 'issues' in data && data.issues.length === 0, scope: 'local calendar arithmetic only; external coverage and energy remain explicit conditions' }, simulated: false };
       }

@@ -15,6 +15,7 @@ const taskSchema = z.object({
   id, title: z.string().min(1).max(160), detail: z.string().max(1200).default(''),
   durationMinutes: duration.describe('剩余工作量区间；按max留位，min不是允许省略的工作。估时未知时先补证，不默填。'),
   splittable: z.boolean().default(false), minimumChunkMinutes: z.number().int().min(1).max(1440).optional(),
+  maximumChunkMinutes: z.number().int().min(1).max(1440).optional().describe('本次选择的单段工作上限，非医学建议；只有splittable=true才可拆段，段间按restMinutes保留休息，不减少总工作量。未提供则不强制打断连续思考。'),
   dependsOn: z.array(id).max(30).default([]), earliestStart: instant.optional(), deadline: instant.optional(),
   allowedWindows: z.array(windowSchema).max(64).optional(), preferredWindows: z.array(windowSchema).max(32).default([]),
   placeId: id.optional(), effort: z.enum(['low', 'medium', 'high']).optional(),
@@ -26,7 +27,7 @@ const taskSchema = z.object({
 export const planningDraftInput = z.object({
   from: instant, to: instant, timeZone: z.string().max(100).default('Asia/Shanghai'),
   tasks: z.array(taskSchema).max(30), completedTaskIds: z.array(id).max(100).default([]),
-  busy: z.array(z.object({ start: instant, end: instant.nullable(), sourceId: id, sourceVersion: z.string().max(160).optional(), placeId: id.optional() }).strict()).max(500).default([]),
+  busy: z.array(z.object({ start: instant, end: instant.nullable(), sourceId: id, sourceVersion: z.string().max(160).optional(), title: z.string().max(160).optional(), placeId: id.optional() }).strict()).max(500).default([]),
   sourceCoverage: z.array(z.object({ sourceId: id.describe('user-declared/current只表示本次明确自述，不替代外部连接器的覆盖。'), status: z.enum(['complete', 'partial', 'not_checked']), sourceVersion: z.string().max(160).optional(), reason: z.string().max(300).optional() }).strict()).max(30).default([]),
   conditions: z.array(condition).max(20).default([]),
   protectedWindows: z.array(windowSchema.extend({ reason: z.string().min(1).max(300) }).strict()).max(64).default([]),
@@ -42,11 +43,12 @@ export const planningDraftInput = z.object({
 type Input = z.infer<typeof planningDraftInput>;
 type Task = Input['tasks'][number];
 type Interval = { start: number; end: number };
-type Occupied = Interval & { id: string; kind: 'fixed' | 'protected' | 'task'; placeId?: string };
+type Occupied = Interval & { id: string; kind: 'fixed' | 'protected' | 'task'; title?: string; placeId?: string };
 type Cost = { minutes: number; minMinutes: number; unknown: string[]; sources: string[] };
 type Transfer = Interval & { fromId: string | null; toId: string | null; travel: Cost; restMinutes: number };
 type Candidate = { start: number; end: number; reservedStart: number; reservedEnd: number; before: Cost; after: Cost; restBefore: number; restAfter: number; preferred: boolean; unknown: string[] };
 const minute = 60000;
+const maxSegments = 256;
 const iso = (time: number) => new Date(time).toISOString();
 const hash = (value: unknown) => createHash('sha256').update(canonical(value)).digest('hex');
 const unique = (items: string[]) => [...new Set(items)];
@@ -98,6 +100,8 @@ function validateInput(input: Input) {
     if (value.max < value.min) throw new HarnessError('planning_duration', '时长上界不能小于下界。');
   for (const task of input.tasks) {
     if (task.durationMinutes.min < 1 || task.minimumChunkMinutes && task.minimumChunkMinutes > task.durationMinutes.max) throw new HarnessError('planning_duration', '任务时长须为正，最小分段不能超过总时长上界。');
+    if (task.maximumChunkMinutes && task.maximumChunkMinutes < (task.minimumChunkMinutes || (task.splittable ? Math.min(30, task.durationMinutes.max) : 1)))
+      throw new HarnessError('planning_chunk', '单段工作上限小于最小分段，请按本次真实偏好调整，不能默默缩短有效学习块。');
     if (task.earliestStart && task.deadline && Date.parse(task.deadline) <= Date.parse(task.earliestStart)) throw new HarnessError('planning_window', '任务截止须晚于最早开始。');
     for (const value of [...task.allowedWindows || [], ...task.preferredWindows]) asInterval(value, '任务窗口');
   }
@@ -189,7 +193,7 @@ function candidates(task: Task, remaining: number, workBudget: number, earliest:
       const starts = unique([String(usable.start), ...preferences.filter(value => overlap(value, usable)).map(value => String(Math.max(usable.start, value.start))), ...energy.filter(value => overlap(value, usable)).map(value => String(Math.max(usable.start, value.start)))]).map(Number);
       for (const start of starts) {
         const capacity = Math.floor((usable.end - start) / minute);
-        let length = task.splittable ? Math.min(remaining, capacity, workBudget) : remaining;
+        let length = task.splittable ? Math.min(remaining, capacity, workBudget, task.maximumChunkMinutes ?? Infinity) : remaining;
         const minimum = task.minimumChunkMinutes || (task.splittable ? Math.min(30, task.durationMinutes.max) : task.durationMinutes.max);
         if (task.splittable && remaining > length && remaining - length < minimum) length = remaining - minimum;
         if (length < minimum || length > capacity) continue;
@@ -218,15 +222,15 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
     const start = Date.parse(allDay?.from || item.startsAt || '');
     if (!Number.isFinite(start)) continue;
     const end = allDay ? Date.parse(allDay.to) : item.durationMinutes ? start + item.durationMinutes * minute : bounds.end;
-    occupied.push({ id: item.occurrenceId, kind: 'fixed', start, end, placeId: item.planning?.placeId });
+    occupied.push({ id: item.occurrenceId, kind: 'fixed', title: item.title, start, end, placeId: item.planning?.placeId });
     localSources.push({ sourceId: item.id, sourceVersion: String(item.revision || 1), occurrenceId: item.occurrenceId });
   }
   // Unknown-duration occurrences preceding the requested window are reported as issues, not items.
   for (const issue of expansion.issues) if (issue.status === 'unknown_end' && typeof issue.startsAt === 'string') {
     const item = items.find(value => value.id === issue.id);
-    if (item && (!item.planning || item.planning.state === 'accepted') && (!item.kind || ['event', 'time_block'].includes(item.kind))) occupied.push({ id: String(issue.id), kind: 'fixed', start: Date.parse(issue.startsAt), end: bounds.end, placeId: item.planning?.placeId });
+    if (item && (!item.planning || item.planning.state === 'accepted') && (!item.kind || ['event', 'time_block'].includes(item.kind))) occupied.push({ id: String(issue.id), kind: 'fixed', title: item.title, start: Date.parse(issue.startsAt), end: bounds.end, placeId: item.planning?.placeId });
   }
-  for (const value of input.busy) occupied.push({ id: value.sourceId, kind: 'fixed', start: Date.parse(value.start), end: value.end ? Date.parse(value.end) : bounds.end, placeId: value.placeId });
+  for (const value of input.busy) occupied.push({ id: value.sourceId, kind: 'fixed', title: value.title, start: Date.parse(value.start), end: value.end ? Date.parse(value.end) : bounds.end, placeId: value.placeId });
   for (const [index, value] of input.protectedWindows.entries()) occupied.push({ ...asInterval(value, '保护窗口'), id: `protected:${index}`, kind: 'protected' });
   const baseOccupied = occupied.map(value => ({ ...value }));
   const initialFreeMinutes = freeIntervals(occupied, bounds).reduce((sum, value) => sum + (value.end - value.start) / minute, 0);
@@ -249,8 +253,12 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
     if (blocked.length) { fail(task, task.durationMinutes.max, 'dependency_unplaced', '前置任务尚未完整安排，本次没有把后续工作提前。', blocked); continue; }
     const unavailable = [...input.conditions, ...task.conditions].filter(value => value.status === 'unavailable');
     if (unavailable.length) { fail(task, task.durationMinutes.max, 'condition_unavailable', unavailable.map(value => value.condition).join('；')); continue; }
+    if (!task.splittable && task.maximumChunkMinutes && task.durationMinutes.max > task.maximumChunkMinutes) {
+      fail(task, task.durationMinutes.max, 'split_permission_required', '总工作量超过本次单段上限，但任务尚未允许拆分；保留完整工作量，需调整上限或明确允许拆段。'); continue;
+    }
     let remaining = task.durationMinutes.max, lastEnd = Math.max(bounds.start, ...task.dependsOn.map(value => finished.get(value) || bounds.start)), segment = 0;
     while (remaining > 0) {
+      if (blocks.length >= maxSegments) { fail(task, remaining, 'segment_limit', '本次方案已达到256个工作段的计算上限；保留剩余工作量，请缩短规划窗口或选择更长的有效工作段。'); break; }
       if (workMinutes >= input.maxScheduledMinutes) { fail(task, remaining, 'budget_or_reserve', '已达到本次工作量上限，保留其余任务而不追加追赶义务。'); break; }
       const options = candidates(task, remaining, input.maxScheduledMinutes - workMinutes, lastEnd, input, occupied, bounds);
       if (!options.length) { fail(task, remaining, 'no_placement_found', '在当前承诺、允许窗口、精力限制、连续时长和转换成本下，本次构造没有找到可用位置；这不是全局无解证明。'); break; }
@@ -307,10 +315,11 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
   ].map(value => ({ sourceId: value.sourceId!, sourceVersion: value.sourceVersion || null, occurrenceId: null }))];
   return {
     window: { from: input.from, to: input.to, timeZone: input.timeZone },
-    strategy: 'dependency_ready_priority_deadline_constructive', optimality: 'not_claimed',
+    strategy: 'dependency_ready_priority_deadline_constructive', optimality: 'not_claimed', limits: { maxWorkSegments: maxSegments },
     calendarFingerprint, planFingerprint: hash({ input, calendarFingerprint }), sourceRevisions,
     sourceCoverage: [{ sourceId: 'local-agenda', status: expansion.coverage.complete ? 'complete' : 'partial', reason: '仅本机已登记的具体实例，不证明所有现实承诺或精力。' }, ...input.sourceCoverage.filter(value => value.sourceId !== 'local-agenda')],
-    effectivePreferences: { restMinutes: input.restMinutes, transitionMinutes: input.transitionMinutes, maxScheduledMinutes: input.maxScheduledMinutes, reserveMinutes: input.reserveMinutes },
+    effectivePreferences: { restMinutes: input.restMinutes, transitionMinutes: input.transitionMinutes, maxScheduledMinutes: input.maxScheduledMinutes, reserveMinutes: input.reserveMinutes,
+      taskRhythms: input.tasks.filter(task => task.maximumChunkMinutes !== undefined || task.minimumChunkMinutes !== undefined).map(task => ({ taskId: task.id, splittable: task.splittable, minimumChunkMinutes: task.minimumChunkMinutes ?? (task.splittable ? Math.min(30, task.durationMinutes.max) : task.durationMinutes.max), maximumChunkMinutes: task.maximumChunkMinutes ?? null })) },
     blocks, unscheduled, fixedCommitments: baseOccupied.filter(value => value.kind === 'fixed').map(value => ({ ...value, start: iso(value.start), end: iso(value.end) })),
     protectedWindows: input.protectedWindows, transitions: transfers.map(value => ({ ...value, start: iso(value.start), end: iso(value.end) })),
     freeWindows: freeIntervals([...occupied, ...transfers], bounds).map(value => ({ start: iso(value.start), end: iso(value.end), minutes: (value.end - value.start) / minute, meaning: '已保留工作、准备、清理、转场、休息和保护窗口后的空白；现实可用性仍取决于声明的来源与条件。' })),

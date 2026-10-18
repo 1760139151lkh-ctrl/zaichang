@@ -51,18 +51,27 @@ export class BackgroundDelegation {
     // A successful decision from this same host run may revise the opportunity
     // before Hermes asks for its final response. That exact receipt permits
     // completion; a later pause/change still has a different revision.
-    const ownDecision = current && this.run.observations?.some(observation => {
-      const result = observation.result as { id?: string; revision?: number; status?: string } | undefined;
+    const ownDecision = current && this.run.observations?.flatMap(observation => {
+      const result = observation.result as { id?: string; revision?: number; status?: string;
+        mandateUpdate?: { id: string; previousRevision: number; revision: number; operation: string } } | undefined;
       return observation.tool === 'decide_help' && result?.id === current.id && result.revision === current.revision
-        && result.status === current.status && ['prepared', 'question_ready', 'notification_queued', 'waiting', 'dismissed'].includes(current.status);
-    });
+        && result.status === current.status && ['prepared', 'question_ready', 'notification_queued', 'waiting', 'declined'].includes(current.status) ? [result] : [];
+    }).at(-1);
+    // A material expiry may schedule its next read in the same transaction.
+    // Accept only that host receipt's exact predecessor/successor pair. An
+    // unrelated edit before or after it must still stop this background run.
+    const ownMandateUpdate = ownDecision?.mandateUpdate;
+    const ownBindingRevision = !!binding && ownMandateUpdate?.operation === 'material_wakes'
+      && ownMandateUpdate.id === binding.id && ownMandateUpdate.previousRevision === this.opportunity.bindingRevision
+      && ownMandateUpdate.revision === binding.revision;
     if (contract.revision !== this.taskVersion || !current
       || !(current.revision === this.opportunity.revision && ['candidate', 'waiting'].includes(current.status) || ownDecision)
       || !binding || binding.status !== 'active'
-      || binding.revision !== this.opportunity.bindingRevision
+      || binding.revision !== this.opportunity.bindingRevision && !ownBindingRevision
       || this.runtime.attention.rules(contract.scope, binding.id, String((current.data.facts as any)?.objectId || ''), current.id)
         .some(rule => ['pause', 'stop'].includes(String(rule.data.operation))))
       throw new HarnessError('background_changed', '这项后台托付已暂停、停止或改变，旧调查不能继续采用。');
+    if (ownBindingRevision) this.opportunity.bindingRevision = binding.revision;
     return scope;
   }
   private validateWorker(worker: Worker) {

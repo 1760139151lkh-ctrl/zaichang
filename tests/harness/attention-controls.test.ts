@@ -20,6 +20,54 @@ function command(item: AttentionControlItem, operation: 'pause' | 'resume' | 'st
     ...(operation === 'resume' && rule ? { ruleId: rule.id, ruleRevision: rule.revision } : {}) };
 }
 
+test('a prepared question can be brought into a later conversation without becoming a researched artifact', () => {
+  const f = new Fixture();
+  try {
+    const runtime = f.store.runtime, focus = follow(f, '出门时机');
+    const opportunity = runtime.attention.offer(f.scope(), { bindingId: focus.id, watchId: 'question-fixture', evidenceId: focus.evidenceIds[0],
+      category: 'map', title: '询问出门时间', facts: {}, noveltyKey: 'question', expiresAt: '2026-09-14T08:00:00Z' })!;
+    const ready = runtime.attention.decide(f.scope(), { id: opportunity.id, expectedRevision: opportunity.revision, choice: 'ask',
+      reason: 'The departure time is unknown.', actionDescription: 'Ask for one useful condition.', artifact: { title: '出门时间', body: '你大概什么时候出门？' } });
+    assert.equal(ready.status, 'question_ready');
+    assert.throws(() => runtime.attention.decide(f.scope(), { id: opportunity.id, expectedRevision: ready.revision, choice: 'prepare',
+      reason: 'Cannot claim investigation.', actionDescription: 'Invalid fixture.', reuseArtifact: true, presentInConversation: true }), /实际已准备材料/);
+    const shown = runtime.attention.decide(f.scope(), { id: opportunity.id, expectedRevision: ready.revision, choice: 'ask',
+      reason: 'The user has returned to this matter.', actionDescription: 'Bring back the existing question.', reuseArtifact: true, presentInConversation: true });
+    assert.ok(shown.conversationHelpRef);
+    const retained = f.repo.work(f.scope(), undefined, opportunity.id)[0];
+    assert.ok((retained.data.questionBasis as unknown[]).length);
+    assert.deepEqual(retained.data.material, []);
+    const pause = f.ingest('这项关注先暂停。');
+    runtime.attention.control(f.scope(), '', { operation: 'pause', targetId: focus.id, source: { eventId: pause.id, quote: pause.text } });
+    const paused = f.repo.work(f.scope(), undefined, opportunity.id)[0];
+    assert.throws(() => runtime.attention.decide(f.scope(), { id: paused.id, expectedRevision: paused.revision, choice: 'ask',
+      reason: 'Old question cannot return.', actionDescription: 'Invalid fixture.', reuseArtifact: true, presentInConversation: true }), /退出|暂停|停止/);
+  } finally { f.close(); }
+});
+
+test('bringing a queued suggestion into conversation cancels that optional notification only', () => {
+  const f = new Fixture();
+  try {
+    f.store.saveSettings({ interaction: { ...f.store.settings().interaction, initiative: 'when_useful' } });
+    const runtime = f.store.runtime, focus = follow(f, '路线变化');
+    runtime.work.update(f.scope(), focus.id, focus.revision, { data: { ...focus.data, channel: 'local_notification' } });
+    const opportunity = runtime.attention.offer(f.scope(), { bindingId: focus.id, watchId: 'notify-fixture', evidenceId: focus.evidenceIds[0],
+      category: 'map', title: '已有路线材料', facts: {}, noveltyKey: 'notify', expiresAt: '2026-09-14T08:00:00Z' })!;
+    const queued = runtime.attention.decide(f.scope(), { id: opportunity.id, expectedRevision: opportunity.revision, choice: 'notify',
+      reason: 'Controlled new public fact.', actionDescription: 'Offer an optional preparation.', sourceToolCallIds: ['map-fixture'],
+      newValue: { explanation: 'A synthetic new fact.', evidenceIds: ['map-fixture'] }, artifact: { title: '路线材料', body: 'Synthetic public map observation.' } },
+      [{ tool: 'look_up', toolCallId: 'map-fixture', result: { status: 'fresh', sourceId: 'map:local', data: { fixture: true } } }]);
+    assert.equal(queued.status, 'notification_queued');
+    runtime.reminders.schedule({ id: 'independent-export-reminder', title: 'Independent reminder', detail: '', kind: 'reminder', startsAt: '2026-09-14T07:00:00Z' });
+    const shown = runtime.attention.decide(f.scope(), { id: opportunity.id, expectedRevision: queued.revision, choice: 'prepare',
+      reason: 'The user is already here.', actionDescription: 'Show the existing material.', reuseArtifact: true, presentInConversation: true });
+    assert.ok(shown.conversationHelpRef);
+    assert.equal(f.repo.db.prepare('SELECT status FROM h_jobs WHERE object_id=?').get(opportunity.id)?.status, 'cancelled');
+    assert.equal(f.repo.db.prepare('SELECT status FROM h_jobs WHERE object_id=?').get('independent-export-reminder')?.status, 'queued');
+    assert.equal(f.store.agenda().length, 0);
+  } finally { f.close(); }
+});
+
 test('native entrusted list pages every focus, excludes private bodies, and rejects changed cursors', () => {
   const f = new Fixture();
   try {

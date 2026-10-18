@@ -24,6 +24,8 @@ import type { ProviderReceipt } from '../../shared/harness';
 import { usageCost } from './model-usage';
 import type { Completion } from '../provider';
 import { projectMapModelResult } from './map-model-view';
+import { expandRecallBundle, matchesVisibleQuery, multiQueryRecall, projectHistoricalEvidence, recallQueries, type EvidenceProjection, type RecallOptions } from '../memory/retrieval';
+import { buildContinuityIndex } from './continuity';
 
 function grams(text: string) {
   const p = Array.from(text.toLowerCase()),
@@ -41,6 +43,7 @@ function lexical(query: string, text: string) {
 }
 export class ContextCompiler {
   private providerMetadata?: ProviderMetadata;
+  private continuityRefresh?: () => void;
   constructor(
     readonly repo: KernelRepository,
     readonly policy: PolicyKernel,
@@ -51,6 +54,9 @@ export class ContextCompiler {
   /** Bind only non-secret protocol facts; payloads and credentials never enter the receipt. */
   setProviderMetadata(metadata?: ProviderMetadata) {
     this.providerMetadata = metadata
+  }
+  setContinuityRefresh(refresh: () => void) {
+    this.continuityRefresh = refresh;
   }
   /** The main model chooses additional evidence; no word list creates needs. */
   initialNeeds(_contract: ContextContract, _text: string): Need[] { return []; }
@@ -71,14 +77,13 @@ export class ContextCompiler {
     const observationSummaries = recentObservations.map(event => ({ id: event.id, sourceId: event.sourceId, authority: event.authority, receivedAt: event.receivedAt, text: event.text,
       meaning: '与本对话关联的近期外部观察；只证明所述观察，不代表用户确认、喜欢或授权后续行动。' }));
     const currentMatter = sessionId && canReadHistory && !ingress.requiresReadPurpose && contract.enhancements?.currentMatter !== false && scope.sources.includes('work:self') ? this.repo.currentMatter(contract.scope, sessionId) : null;
-    const prepared = sessionId && canReadHistory && !ingress.requiresReadPurpose && contract.enhancements?.opportunities !== false && scope.sources.includes('work:self')
-      ? this.repo.workData(contract.scope, ['help_opportunity'], { sessionId, statuses: ['prepared', 'question_ready', 'notification_queued'], limit: 3 }) : [];
-    const preparedMaterials = prepared.map(record => ({ id: record.id, revision: record.revision, title: (record.data.artifact as any)?.title || record.title, expiresAt: record.data.expiresAt,
-      sceneRefs: (record.data.artifact as any)?.sceneRefs || [],
-      meaning: '已经实际准备的材料；不是日程或预约。用inspect_help按此ID读取正文、来源与当前版本，不必重新调查已核实的部分。' }));
+    const continuity = !ingress.requiresReadPurpose ? buildContinuityIndex(this.repo, contract, sessionId, this.continuityRefresh) : undefined;
+    const preparedMaterials = continuity?.preparedMaterials || [], openThreads = continuity?.openThreads || [];
+    const continuityData = { ...(preparedMaterials.length ? { preparedMaterials } : {}), ...(openThreads.length ? { openThreads } : {}),
+      ...(continuity ? { continuityCoverage: continuity.coverage } : {}) };
     const discovered = this.broker.discover(contract.scope);
     const capabilityDirectory = { items: discovered.slice(0, 24).map(item => ({ name: item.name, sourceId: item.sourceId, displayName: item.displayName, description: item.description, effect: item.effect, connected: item.connection.connected, connection: item.connection, executableInThisTurn: item.connection.connected && (item.effect === 'read' || contract.actionMode !== 'respond') })), more: discovered.length > 24, meaning: '仅是许可范围内的非敏感能力说明，没有读取资料或执行动作；存在、已连接、本轮允许执行、实际完成是不同事实。用look_up的capability目录继续搜索、分页或获取输入schema。' };
-    const text = canonical({ current: ingress.authoredText, attachments: currentEvents.filter(e => e.speaker === 'external'), history, ...(observationSummaries.length ? { recentObservations: observationSummaries } : {}), currentMatter, ...(preparedMaterials.length ? { preparedMaterials } : {}), capabilityDirectory });
+    const text = canonical({ current: ingress.authoredText, attachments: currentEvents.filter(e => e.speaker === 'external'), history, ...(observationSummaries.length ? { recentObservations: observationSummaries } : {}), currentMatter, ...continuityData, capabilityDirectory });
     const estimatedTokens = Math.ceil(Array.from(text).length / 1.4), readBytes = Buffer.byteLength(text);
     const blocked = estimatedTokens > contract.budget.maxTokens || readBytes > contract.budget.maxReadBytes;
     const evidenceIds = [...new Set([...currentEvents.map(e => e.id), ...history.filter(m => m.role === 'user').map(m => m.id), ...recentObservations.map(e => e.id)])];
@@ -87,8 +92,8 @@ export class ContextCompiler {
       id: randomUUID(), runId: contract.id, contractRevision: contract.revision,
       policyRevision: contract.policyRevision, privacyEpoch: contract.privacyEpoch,
       watermarks: this.repo.watermarks(), providedEvidenceIds: evidenceIds,
-      providedSourceIds: [...new Set([...currentEvents.map(e => e.sourceId), ...(history.length ? ['history:self'] : []), ...recentObservations.map(e => e.sourceId), ...(prepared.length || currentMatter ? ['work:self'] : [])])],
-      providedObjectVersions: [...currentEvents.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })), ...recentObservations.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })), ...prepared.map(record => ({ id: record.id, revision: record.revision, kind: 'work' as const })), ...(currentMatter ? [{ id: currentMatter.id, revision: currentMatter.revision, kind: 'work' as const }, ...currentMatter.optionPlaces.map(option => ({ id: option.id, revision: option.revision, kind: 'work' as const }))] : [])],
+      providedSourceIds: [...new Set([...currentEvents.map(e => e.sourceId), ...(history.length ? ['history:self'] : []), ...recentObservations.map(e => e.sourceId), ...(continuity?.providedSourceIds || []), ...(preparedMaterials.length || openThreads.length || currentMatter ? ['work:self'] : [])])],
+      providedObjectVersions: [...currentEvents.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })), ...recentObservations.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })), ...(continuity?.providedObjectVersions || []), ...(currentMatter ? [{ id: currentMatter.id, revision: currentMatter.revision, kind: 'work' as const }, ...currentMatter.optionPlaces.map(option => ({ id: option.id, revision: option.revision, kind: 'work' as const }))] : [])],
       needResults: [], excludedReasonCounts: Object.fromEntries(contract.excludedReasons.map(reason => [reason, 1])),
       providerVersion: this.providerMetadata ? `${this.providerMetadata.protocol}/${this.providerMetadata.protocolVersion}` : 'unknown',
       ...(this.providerMetadata ? { provider: { ...this.providerMetadata, limits: { ...this.providerMetadata.limits, hostContextTokens: contract.budget.maxTokens } } } : {}),
@@ -107,7 +112,7 @@ export class ContextCompiler {
           coverage: { calendar: 'not_queried', campus: 'not_queried', location: 'not_queried', weather: 'not_queried', energy: 'unknown' },
           read: '按当前任务发现并读取situation.read、planning.preview及相应来源；未查询、未覆盖、确实为空和当前可用精力分别判断。当前原话与更正优先于旧摘要，必要时展开原始条件。' },
         history, ...(observationSummaries.length ? { recentObservations: observationSummaries } : {}), ...(ingress.threadContextAllowed ? { historyUse: '仅作为同一对话里用户已提供的背景理解当前假设；不代表假设已在现实发生，也未读取本人长期画像或其他会话。' } : {}), currentSources: currentEvents.map(e => ({ id: e.id, sourceId: e.sourceId, authority: e.authority, text: e.text })),
-        currentMatter, ...(preparedMaterials.length ? { preparedMaterials } : {}), capabilityDirectory,
+        currentMatter, ...continuityData, capabilityDirectory,
         currentFacts: {}, correctionOverlay: [], workState: [], needs: [],
         coverage: receipt.coverage,
         limitations: blocked ? ['原话及必要前情超过本轮预算，尚未截断；需要分段处理或缩小范围。'] : [],
@@ -153,64 +158,68 @@ export class ContextCompiler {
   }
 
   prefetch(pack: ContextPack, query: string, at = pack.contract.now, offset = 0, limit = 8, hardOffset = 0,
-    sourceProjection?: (event: EvidenceEvent) => EvidenceEvent | undefined) {
+    sourceProjection?: EvidenceProjection, recall: RecallOptions = {}) {
     const scope = this.policy.validate(pack.contract.scope), time = Date.parse(at);
     if (!Number.isFinite(time)) throw new HarnessError('invalid_time', '检索时间不合法。');
     if (!scope.sources.includes('history:self') && !scope.sources.includes('profile:self'))
       return { status: 'forbidden', bundles: [], reason: '本轮资料范围不包括个人历史和记忆。' };
+    if (recall.mode === 'scan' && !scope.sources.includes('profile:self'))
+      return { status: 'forbidden', bundles: [], reason: '本轮范围不允许浏览个人理解候选。' };
+    const queries = recallQueries(query, recall.relatedQueries);
     const options = { at, verified: true };
-    const soft = scope.sources.includes('profile:self') ? this.repo.lexicalAssertionPage(pack.contract.scope, query, { ...options, strength: 'non_hard', offset, limit }) : { items: [], total: 0 };
-    const hard = scope.sources.includes('profile:self') ? this.repo.lexicalAssertionPage(pack.contract.scope, query, { ...options, strength: 'hard', offset: hardOffset, limit: 8 }) : { items: [], total: 0 };
+    const scan = recall.mode === 'scan';
+    const multi = !scan && queries.length > 1 ? multiQueryRecall(this.repo, pack.contract.scope, queries, at, offset, limit, hardOffset,
+      scope.sources.includes('profile:self'), scope.sources.includes('history:self')) : undefined;
+    const scanPage = scan ? this.repo.assertions(pack.contract.scope, { ...options, offset, limit: limit + 1 }) : [];
+    const soft = !multi && !scan && scope.sources.includes('profile:self') ? this.repo.lexicalAssertionPage(pack.contract.scope, query, { ...options, strength: 'non_hard', offset, limit }) : { items: [], total: 0 };
+    const hard = !multi && !scan && scope.sources.includes('profile:self') ? this.repo.lexicalAssertionPage(pack.contract.scope, query, { ...options, strength: 'hard', offset: hardOffset, limit: 8 }) : { items: [], total: 0 };
     // Strength controls priority within relevant candidates, not universal
     // applicability. Unrelated hard preferences must not enter every question.
-    const usableAt = (a: Assertion) => a.status === 'active' && a.verification === 'verified' &&
-      (!a.temporal.validFrom || Date.parse(a.temporal.validFrom) <= time) && (!a.temporal.validTo || Date.parse(a.temporal.validTo) > time);
-    const selected = [...hard.items, ...soft.items];
+    const selected = scan ? scanPage.slice(0, limit) : multi?.selected || [...hard.items, ...soft.items];
     const bundles = selected.flatMap(assertion => {
-      const related = [assertion, ...assertion.exceptionIds.map(id => this.repo.assertion(pack.contract.scope, id)).filter((a): a is Assertion => !!a && usableAt(a))];
-      const sourceIds = [...new Set(related.flatMap(a => a.evidenceIds))];
-      const originals = sourceIds.map(id => this.repo.evidence(pack.contract.scope, id)).filter((e): e is EvidenceEvent => !!e);
-      const sources = originals.map(event => sourceProjection ? sourceProjection(event) : event).filter((e): e is EvidenceEvent => !!e);
-      // A background quote grant does not authorize a derived summary of the
-      // rest of its source. Keep a bundle only when every supporting original
-      // is permitted in full, including the sources of its active exceptions.
-      if (sources.length !== sourceIds.length || sources.some((source, index) => source.id !== originals[index].id
-        || source.contentVersion !== originals[index].contentVersion || source.text !== originals[index].text)) return [];
-      return [{ assertions: related, sources: sources.map(e => {
-        const { use, restrictions } = this.repo.historicalEvidence(pack.contract.scope, e);
-        return { id: e.id, text: e.text, contentVersion: e.contentVersion, receivedAt: e.receivedAt, sourceId: e.sourceId, authority: e.authority, use, restrictions };
-      }) }];
+      const bundle = expandRecallBundle(this.repo, pack.contract.scope, assertion, at, sourceProjection);
+      return bundle ? [bundle] : [];
     });
-    const rawPage = scope.sources.includes('history:self') ? this.repo.lexicalEvidence(pack.contract.scope, query, limit + 1, offset) : [];
-    const queryPoints = Array.from(query.normalize('NFKC').toLowerCase());
-    const projectedQueryGrams = queryPoints.slice(0, -1).map((point, index) => point + queryPoints[index + 1]).filter(gram => !/[\s，。？！、；：]/.test(gram));
+    const rawPage = multi ? multi.raw : !scan && scope.sources.includes('history:self') ? this.repo.lexicalEvidence(pack.contract.scope, query, limit + 1, offset) : [];
     const raw = rawPage.slice(0, limit).flatMap(original => {
-      const event = sourceProjection ? sourceProjection(original) : original;
-      if (!event) return [];
-      const historical = this.repo.historicalEvidence(pack.contract.scope, event);
-      if (event.text === original.text) return [historical];
+      const historical = projectHistoricalEvidence(this.repo, pack.contract.scope, original, sourceProjection);
+      if (!historical) return [];
+      if (historical.text === original.text) return [historical];
       // Do not reveal even a search hit solely because the hidden part matched.
-      const visible = event.text.normalize('NFKC').toLowerCase();
-      if (!(projectedQueryGrams.length ? projectedQueryGrams.some(gram => visible.includes(gram)) : visible.includes(query.trim().toLowerCase()))) return [];
-      // Predicate names and replacement links can describe another passage.
-      // A partial authority view gets only a conservative use warning.
-      return [{ ...historical, restrictions: historical.restrictions.length ? [{ predicate: 'restricted_source_range', operation: 'RECHECK',
-        replacementEventId: null, ranges: [], rangeUnknown: true, effectiveFrom: null }] : [] }];
+      return queries.some(value => matchesVisibleQuery(value, historical.text)) ? [historical] : [];
     });
-    const value = { status: bundles.length || raw.length ? 'fresh' : 'not_found', bundles, originals: raw,
-      coverage: { candidatesOnly: true, at, nextOffset: soft.total > offset + limit || rawPage.length > limit ? offset + limit : null, nextHardOffset: hard.total > hardOffset + 8 ? hardOffset + 8 : null,
-        hardTotal: sourceProjection ? bundles.filter(bundle => bundle.assertions[0].strength === 'hard').length : hard.total,
-        hardTotalCoverage: sourceProjection ? 'visible_page' : 'all_candidates', vectorSearch: 'not_connected', hardConstraintsSeparate: true,
+    // Old wording can be the only search clue. Follow its exact correction link
+    // to the current source without reviving the superseded assertion.
+    const correctionIds = [...new Set(raw.flatMap(event => event.restrictions.flatMap(restriction => restriction.replacementEventId ? [restriction.replacementEventId] : [])))];
+    const correctionFollowups = correctionIds.slice(0, 16).flatMap(id => {
+      if (raw.some(event => event.id === id)) return [];
+      const event = this.repo.evidence(pack.contract.scope, id);
+      const view = event && projectHistoricalEvidence(this.repo, pack.contract.scope, event, sourceProjection);
+      return view ? [view] : [];
+    });
+    const value = { status: bundles.length || raw.length ? 'fresh' : 'not_found', bundles, originals: raw, correctionFollowups,
+      coverage: { candidatesOnly: true, at,
+        retrieval: scan ? 'model_candidate_scan' : queries.length > 1 ? 'model_multi_query_rrf' : 'lexical',
+        ...(!sourceProjection ? { queries } : {}),
+        nextOffset: scan ? scanPage.length > limit ? offset + limit : null : multi ? multi.nextOffset : soft.total > offset + limit || rawPage.length > limit ? offset + limit : null,
+        nextHardOffset: scan ? null : multi ? multi.nextHardOffset : hard.total > hardOffset + 8 ? hardOffset + 8 : null,
+        hardTotal: scan ? null : sourceProjection ? bundles.filter(bundle => bundle.assertions[0].strength === 'hard').length : multi?.hardTotal ?? hard.total,
+        hardTotalCoverage: scan || sourceProjection ? 'visible_page' : multi ? 'ranking_window' : 'all_candidates',
+        ...(multi ? { rankingWindow: multi.rankingWindow, queryContinuations: sourceProjection ? [] : multi.queryContinuations } : {}),
+        vectorSearch: 'not_connected', hardConstraintsSeparate: !scan,
+        correctionFollowupsComplete: correctionIds.length <= 16 && correctionIds.every(id => raw.some(event => event.id === id) || correctionFollowups.some(event => event.id === id)),
+        guidance: '由模型提出同义、跨语言和必要条件的relatedQueries；零词面重合仍可用mode=scan按页查看合法现行理解。候选未自动判定适用，未命中不证明没有记忆。多query的queryContinuations用单query继续，不把有界融合窗口当全集。',
         historicalOriginals: '局部更正的原文仍可发现；restrictions所指范围不得当作现行事实，未受影响的内容仍须核对语境。' } };
     const bytes = Buffer.byteLength(canonical(value)), tokens = Math.ceil(Array.from(canonical(value)).length / 1.4);
     if (pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens)
       return { status: 'partial', reason: '完整条件与来源超出当前预算，没有拆散条件或静默截断。请缩小查询或分段读原文。', candidates: bundles.flatMap(bundle => bundle.assertions).map(a => ({ id: a.id, preview: Array.from(a.text).slice(0, 100).join(''), previewOnly: true, length: Array.from(a.text).length, hard: a.strength === 'hard' })), originals: raw.map(e => ({ id: e.id, length: Array.from(e.text).length })) };
     pack.assertions = [...new Map([...pack.assertions, ...bundles.flatMap(b => b.assertions)].map(a => [a.id, a])).values()];
-    const ids = [...raw.map(e => e.id), ...bundles.flatMap(b => b.sources.map(e => e.id))];
+    const ids = [...raw.map(e => e.id), ...correctionFollowups.map(e => e.id), ...bundles.flatMap(b => b.sources.map(e => e.id))];
     pack.receipt.providedEvidenceIds = [...new Set([...pack.receipt.providedEvidenceIds, ...ids])];
-    pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), ...raw.map(e => e.sourceId), ...bundles.flatMap(b => b.sources.map(e => e.sourceId))])];
+    pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), ...raw.map(e => e.sourceId), ...correctionFollowups.map(e => e.sourceId), ...bundles.flatMap(b => b.sources.map(e => e.sourceId))])];
     const versions = [...pack.assertions.map(a => ({ id: a.id, revision: a.revision, kind: 'assertion' as const })),
       ...raw.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })),
+      ...correctionFollowups.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })),
       ...bundles.flatMap(bundle => bundle.sources.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })))];
     pack.receipt.providedObjectVersions = [...new Map([...pack.receipt.providedObjectVersions, ...versions].map(version => [version.kind + ':' + version.id, version])).values()];
     pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;

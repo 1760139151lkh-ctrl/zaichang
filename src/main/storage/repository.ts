@@ -823,8 +823,9 @@ export class KernelRepository {
   }
   assertions(
     handle: ScopeHandle,
-    options: { statuses?: string[]; predicate?: string; strength?: string; limit?: number } = {},
+    options: { statuses?: string[]; predicate?: string; strength?: string; limit?: number; offset?: number; at?: string; verified?: boolean } = {},
   ): Assertion[] {
+    if (options.at && !Number.isFinite(Date.parse(options.at))) throw new HarnessError('invalid_time', '检索时间不合法。');
     const f = this.filter(handle),
       e = this.filter(handle, 'e'),
       statuses = options.statuses || ['active'];
@@ -833,16 +834,20 @@ export class KernelRepository {
         `SELECT r.* FROM h_assertions r WHERE ${f.sql} AND r.status IN (${placeholders(statuses)})
       ${options.predicate ? 'AND r.predicate=?' : ''}
       ${options.strength ? "AND json_extract(r.payload,'$.strength')=?" : ''}
+      ${options.verified ? "AND json_extract(r.payload,'$.verification')='verified'" : ''}
+      ${options.at ? 'AND (r.valid_from IS NULL OR julianday(r.valid_from)<=julianday(?)) AND (r.valid_to IS NULL OR julianday(r.valid_to)>julianday(?))' : ''}
       AND NOT EXISTS(SELECT 1 FROM h_assertion_evidence ae JOIN h_evidence e ON e.id=ae.event_id WHERE ae.assertion_id=r.id AND (NOT (${e.sql}) OR e.status='deleted'))
-      ORDER BY r.revision DESC,r.rowid DESC LIMIT ?`,
+      ORDER BY r.revision DESC,r.rowid DESC,r.id LIMIT ? OFFSET ?`,
       )
       .all(
         ...f.params,
         ...statuses,
         ...(options.predicate ? [options.predicate] : []),
         ...(options.strength ? [options.strength] : []),
+        ...(options.at ? [options.at, options.at] : []),
         ...e.params,
         Math.min(options.limit || 200, 500),
+        Math.max(0, options.offset || 0),
       );
     return rows.map((row) => {
       this.recordAccess(handle, row, 'assertion');

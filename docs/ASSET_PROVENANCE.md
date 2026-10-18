@@ -1,5 +1,7 @@
 # Asset provenance
 
+Latest design references: [2026-10-18 companion evolution](../assets/design/generated/2026-10-18-companion-evolution/manifest.json), with [exact prompts](../assets/design/generated/2026-10-18-companion-evolution/prompts.md). Their inspected uses and exclusions are recorded in [DESIGN_IMAGE_COVERAGE](DESIGN_IMAGE_COVERAGE.md). They are design boards, not product data or evidence of completed UI behavior.
+
 | Asset | Source / transformation / redistribution treatment |
 | --- | --- |
 | Ground footprints, roads, nodes and walk graph | Bounded OpenStreetMap snapshot, source timestamp 2026-09-10. Editor personal fields removed. ODbL 1.0 applies to the source and derivative database; complete license in licenses/ODbL-1.0.txt, visible OSM attribution retained; raw machine-readable source at assets/map-v2/source.osm.json.gz and public map/source.osm.json.gz |
@@ -58,3 +60,18 @@ The gallery supports multiple user-selected local pictures, favorites and displa
 ## Windowlight continuation (2026-10-18)
 
 `assets/design/generated/2026-10-18-windowlight/` preserves three additional GPT Image design boards: local retrieval and return to the original words, the lifecycle of an entrusted matter, and correcting or restating an understanding. They were generated and viewed before their corresponding UI changes. The manifest records the baseline commit, design brief, dimensions and SHA-256. They are design references excluded from runtime and public-map inputs; scene contents are representative, not account data. No new runtime character asset was needed: the existing six optional figures were individually reframed.
+
+## Companion evolution design boards (2026-10-18)
+
+Four new boards were generated with built-in GPT Image after the combined backend check passed 258 tests, then each board was opened and visually inspected before its frontend implementation. They continue the unmerged `c7cff22884fe9a3050879067dd49012f685d8cfd` baseline. The directory `assets/design/generated/2026-10-18-companion-evolution/` retains the original PNG bytes, exact prompts and a manifest. This is the user's authorized private project design archive. These files are references; they are not imported into the desktop runtime asset graph or public-map entry. The associated UI is being implemented and observed; current delivery evidence belongs in [CURRENT_STATUS](CURRENT_STATUS.md).
+
+| File | Dimensions | Bytes | SHA-256 | Intended use |
+| --- | --- | --- | --- | --- |
+| `planning.png` | 1536 × 1024 | 1655167 | `0ffce3d3fde88913e26bd8c137b0d6267c984fc9b8418fb76b5cacfe2efa5748` | Inline planning timeline, work/rest/space distinction, selection near the existing composer |
+| `environment.png` | 1536 × 1024 | 1550587 | `0ecde0fe340bf4981eba00d7fa535d4bd0ae4332a9c6e2819a40e330c1a937e8` | Hourly weather and separate air observation with their own time/source presentation |
+| `persona.png` | 1536 × 1024 | 1981405 | `9a9bcdc6b028d2afb3bdfa0768db85f5a4a012a7f4da4eeeb4b1072183d0c0ef` | Deliberate image/persona choice and character-card preview before editing |
+| `calendar.png` | 1536 × 1024 | 1584767 | `a6634b60d518f5ca0fc95ab239338eaecff714aa33c4ff659e39efa86b3e9a27` | Date-range calendar-file handoff and alternative outcome state |
+
+Visual inspection identified generated details that must not become factual application content: the environment board's OpenAQ label, sample retrieval date and air/weather values; the persona board's invented biographical prose; the calendar board's sample tasks/counts and weekday/date mismatch. Existing navigation is retained instead of the generated extra sidebar. The planning board's phone-width inset is a wrapping reference, not a shipped mobile application. The calendar success inset is an alternative state that depends on actual host save results, not a success claim while a save is pending.
+
+The persona board depicts generated interpretations of requested fictional characters. It does not provide official character artwork, a canon biography or a public redistribution grant. Runtime companion images remain the previously documented assets; no figure is cropped from these boards into the shipped gallery. The representative scenes are not real private agenda/weather observations, and their preserved prompt text does not include user account credentials or personal calendar records.

@@ -23,6 +23,7 @@ import {
 import { DEFAULT_TIME_ZONE, timeZoneLabel, toTimeInput } from './time';
 import type { SharedMatterView } from '../shared/presentation';
 import './today.css';
+import { CalendarHandoff } from './CalendarHandoff';
 
 export type WorkspaceView =
   'chat' | 'agenda' | 'notes' | 'materials' | 'memory' | 'settings' | 'companion';
@@ -289,6 +290,7 @@ export function AgendaView({
                 }}
               />
             </label>
+            <CalendarHandoff date={selectedDate} timeZone={zone} />
           </div>
         </div>
         <div className="today-week" aria-label="这一周">
