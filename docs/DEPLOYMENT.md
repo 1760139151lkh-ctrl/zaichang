@@ -30,7 +30,24 @@ The earlier Windows hosting run used Git Bash and `TAR_OPTIONS=--force-local` to
 
 ## Desktop packaging is separate
 
-For the full product, follow `README.md` and the existing CI gates: `npm run setup`, `npm run build`, `npm test`, `npm run test:hermes`, and the Windows desktop/PDF checks when applicable. The current CI definition is `.github/workflows/ci.yml`; this document does not report a new execution of those commands.
+For the full product, follow `README.md` and the existing CI gates: `npm run setup`, `npm run build`, `npm test`, `npm run test:hermes`, and the Windows desktop/PDF checks when applicable. The current CI definition is `.github/workflows/ci.yml`; the dated release record below identifies the checks actually run.
 
 `npm run package` builds, runs `scripts/stage-hermes-runtime.mjs`, then invokes electron-builder with `build/hermes-builder.json` for Windows x64. Staging checks the pinned Hermes commit and recorded patch hashes, copies selected Git-tracked runtime sources and a relocatable Python runtime, stages the hash-locked PDF/canvas resources, and writes local build reports. These desktop resources, model transport and personal-data stores are excluded from the static Site. Staging is not a mobile/always-on service deployment, and packaged desktop artwork must satisfy the separate provenance boundary in [ASSET_PROVENANCE.md](ASSET_PROVENANCE.md).
+
+<a id="latest-windows-release"></a>
+## Latest Windows desktop release
+
+The latest desktop release is [v0.3.0](https://github.com/1760139151lkh-ctrl/zaichang/releases/tag/v0.3.0), built on 2026-10-18 from `74e099a2a3e23d0e7fffb075a1c1e22727976004`. [Latest release](https://github.com/1760139151lkh-ctrl/zaichang/releases/latest) is the stable download entry. Its assets are `Zaichang-0.3.0-Windows.exe` and `SHA256SUMS.txt`; binaries are Release assets rather than Git source blobs. This private repository requires repository access to download them.
+
+The Windows x64 portable EXE includes the pinned Hermes 0.21.2 runtime, Python 3.13.14 and the hash-locked PDF/canvas runtime. It runs without this checkout, a system Python installation or Codex. Model credentials and optional campus connectors remain configured separately through their existing private paths; user databases, credentials and local diagnostic evidence are not release assets.
+
+The exact local packaging command was:
+
+```sh
+npm run package -- --config.directories.output=release/zaichang-0.3.0-20261018-74e099a
+```
+
+The EXE and `win-unpacked/` are under that ignored output directory. The original default output and existing desktop shortcuts are unchanged. `v0.3.0` identifies the actual built source commit; later documentation-only commits do not change that artifact identity.
+
+Validation on this Windows checkout: type check, desktop/review build, 141 existing mechanism checks, 9 Hermes checks, public-artifact inspection, isolated Electron startup/map/memory entry and native PDF text/JPEG checks all passed. The packaged `app.asar` program also opened its home screen and the shared map (`campus-v3-f86b9ec6a26fb2b2`) with no page errors using an isolated profile. One existing host-tool Hermes check ran against the bundled runtime, and PDF describe/read/render ran against the bundled material runtime. These packaging checks did not call a real model or campus account, reaccept every frontend workflow, update the old desktop shortcut, or publish a new map Site.
 

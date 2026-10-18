@@ -107,7 +107,7 @@
 
 ## 地图数据与生成维护
 
-`package.json` records `release/life-fusion-map-v3-20261005-refinement-r3` as the Windows output directory. The previously recorded desktop shortcut targeted its `win-unpacked/在场.exe`; that record does not prove the current working tree has been repackaged or the shortcut now runs the latest source.
+当前 Windows 发布为 [v0.3.0](https://github.com/1760139151lkh-ctrl/zaichang/releases/tag/v0.3.0)，构建源码 `74e099a`，本地输出为 `release/zaichang-0.3.0-20261018-74e099a/`。最新下载入口和复现命令见 [DEPLOYMENT](docs/DEPLOYMENT.md#latest-windows-release)。`package.json` 仍保留原默认输出目录 `release/life-fusion-map-v3-20261005-refinement-r3`，本次打包用命令行覆盖到独立目录；旧快捷方式未改动，不能据此认定它运行最新版。
 
 Map source and observation provenance is in docs/ASSET_PROVENANCE.md. Runtime uses the checked-in, hash-validated dataset and needs no external reference files. Optional data regeneration uses scripts/import-map.mjs, import-map-v2.mjs, build-map-v3.py and map_v3_*.py; it requires separately authorized official reference input through ZAICHANG_MAP_REFERENCE_DIR and Python geometry dependencies.
 
