@@ -1,0 +1,48 @@
+{
+  "tool": "GPT Image (built-in)",
+  "date": "2026-10-18",
+  "items": [
+    {
+      "id": "morning",
+      "name": "窗景-晨光.png",
+      "product": "morning.png",
+      "prompt": "Edit this provided 在场 desktop design image into a clean, reusable BACKGROUND ART ASSET. Remove ALL interface chrome, logo, text, buttons, input box, and the anime woman completely. Reconstruct a beautifully coherent empty cozy window room in the same detailed soft painted-anime illustration style and warm colors. Landscape 1600x1000 composition. Left 55 percent is a softly illuminated ivory plaster wall with exceptionally calm negative space and a subtle diagonal window shadow, suitable for live application text laid over it later. Right 45 percent contains the tall window with linen curtains, a comfortable empty cream window seat, small wooden desk, plain unmarked books, ceramic cup, and leafy plant; outside the window a tranquil lake and faraway campus-like rooftops, no readable signs or precise geographical claims. Morning sunlight, gentle highlights, soft depth, warm and restful, not blurry or washed out. The scene should feel inviting even without a character. No people, no UI, no letters, no symbols, no logos, no watermark. Preserve rich illustrative quality on the right and unobtrusive text-safe space on the left. Opaque background.",
+      "source": "C:\\Users\\17601\\.codex\\generated_images\\01a14ed0-bc5b-7403-9599-b0c0f3c19589\\exec-28be50c2-0963-4d72-8a72-709828a17db6.png"
+    },
+    {
+      "id": "dusk",
+      "name": "窗景-暮色.png",
+      "product": "dusk.png",
+      "prompt": "Edit this exact empty cozy room background asset. Change ONLY the time of day and lighting from morning to warm late-afternoon dusk. Preserve the camera, wall, window, bench, curtains, desk, plants, cup and book positions precisely so an app can transition smoothly between the images. The left 55% remains calm uncluttered ivory-plaster negative space, now softly touched by peach and amber sunset light with delicate window shadows, still light enough for dark readable interface text. Through the right window, tranquil lake and campus-like rooftops under a muted rose-gold and lavender evening sky; warm reflected light on the same cream fabrics, elegant soft anime-painted detail. No people, no new objects, no UI, no text or readable book lettering, no logos, no watermark. Opaque landscape background, maintain the exact aspect ratio and composition.",
+      "source": "C:\\Users\\17601\\.codex\\generated_images\\01a14ed0-bc5b-7403-9599-b0c0f3c19589\\exec-e9aed088-a385-4ffb-951f-670afe3fa8f2.png"
+    },
+    {
+      "id": "night",
+      "name": "窗景-夜灯.png",
+      "product": "night.png",
+      "prompt": "Edit this exact empty cozy room background asset into its quiet NIGHT version. Preserve the camera, room architecture, window, bench, desk, plants, cup and book placement exactly for a seamless app mood change. Same beautiful detailed soft anime-painted illustration style. Left 55% is now deep warm charcoal #272529, a calm dark plaster wall with only very subtle reflected amber light, suitable for ivory interface text; keep it unobstructed. At right the same window shows a deep indigo rainy evening, fine rain droplets on glass, distant soft campus-like window lights reflected on the lake. A small warm reading lamp softly lights the cream cushions and wooden desk from near the far-right edge, inviting and serene, not gloomy or threatening. Keep the visual focus and cozy texture on the right. No people, no readable letters on books, no UI, no icons, no logos, no watermark. Opaque landscape, same aspect ratio and composition.",
+      "source": "C:\\Users\\17601\\.codex\\generated_images\\01a14ed0-bc5b-7403-9599-b0c0f3c19589\\exec-dd25c510-fafd-4534-a9cb-192c826c0520.png"
+    },
+    {
+      "id": "mio",
+      "name": "人物-澪.png",
+      "product": "mio.png",
+      "prompt": "Edit the provided reference into one isolated character illustration asset with a TRUE transparent alpha background. Preserve the original adult anime woman's identity: long softly flowing blue-lavender hair with a dark ribbon, warm amber eyes, gentle natural expression, cream knitted cardigan over a modest dark blue dress with tiny pale flowers. Remove every part of the app interface, all text, all logos, the room, window, furniture, cup and books. Depict just the same fully clothed character, seated comfortably in a three-quarter pose, upper body and lap visible, one hand relaxed near her cheek and the other resting naturally in her lap, softly smiling without exaggerated pose. Keep the beautifully detailed soft painted anime aesthetic, warm diffused window light, delicate linework, realistic fabric knitting detail. Character centered with generous transparent margin on every side, complete hair and arms, no clipped head or hands. Her silhouette should compose naturally on the right of a cozy desktop app background and also crop well into a circular avatar. No chair, no room, no solid color background, no haze or drop-shadow rectangle, no text, no watermark. Actual transparency is required.",
+      "source": "C:\\Users\\17601\\.codex\\generated_images\\01a14ed0-bc5b-7403-9599-b0c0f3c19589\\exec-111fa686-3524-4e0d-ba6c-868954d9936f.png"
+    },
+    {
+      "id": "haruka_r",
+      "name": "人物-遥.png",
+      "product": "haruka.png",
+      "prompt": "Precise background-extraction edit of this character image. Keep the woman herself exactly as she is: face, hair, light blue shirt, pose, hands and cream trousers. Remove ALL of the remaining grey/brown studio gradient, glow, haze and shadow surrounding her silhouette. The output must have fully transparent alpha outside the figure and opaque natural color inside the figure, with clean delicate hair edges. Do not make the character semi-transparent and do not keep a halo or feathered rectangle. Do not change the art style, facial features, clothing or pose. A clean reusable PNG cutout for compositing over a light or dark cozy room, no background, no furniture, no text, no watermark.",
+      "source": "C:\\Users\\17601\\.codex\\generated_images\\01a14ed0-bc5b-7403-9599-b0c0f3c19589\\exec-ce52f4d8-e606-4bae-9f1f-d90457c394e4.png"
+    },
+    {
+      "id": "saku",
+      "name": "人物-朔.png",
+      "product": "saku.png",
+      "prompt": "Edit this reference design image into one clean isolated character illustration asset: ONLY the original adult silver-haired anime man reading a book from the large preview on the right. Preserve his gentle facial features, softly tousled silver-grey hair, warm grey-green eyes, cream/beige knitted sweater and dark comfortable trousers. Keep the same relaxed seated pose, looking down at a small open book in his hands, upper body and lap visible. Match the beautifully detailed soft painted-anime aesthetic, warm diffused window light, delicate rendering, natural hands, fine knit texture, calm companionable presence. Remove the entire room, window seat, plants, cup, interface, all other portraits, every text and logo. TRUE transparent alpha background. Center the full upper body/lap character with transparent margin all around, no cropped head, arms, hands or book. No chair, no rectangular haze, no solid backdrop, no drop-shadow box, no text on the book cover, no watermark. It must layer naturally on an app background and also crop well as a face avatar. Fully clothed, modest adult figure.",
+      "source": "C:\\Users\\17601\\.codex\\generated_images\\01a14ed0-bc5b-7403-9599-b0c0f3c19589\\exec-ffc76d1e-0c63-42b9-8fc1-a59906ed2c4a.png"
+    }
+  ]
+}

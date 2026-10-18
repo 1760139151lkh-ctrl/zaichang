@@ -9,6 +9,8 @@
 !/.gitignore
 !/.npmrc
 !/.nvmrc
+!/.prettierignore
+!/.prettierrc.json
 !/AGENTS.md
 !/PROJECT_NAVIGATION.md
 !/README.md
@@ -22,7 +24,9 @@
 !/前端视觉创新设计/*.md
 !/前端视觉创新设计/图片/*.png
 !/前端视觉创新设计/素材/*.png
+!/前端视觉创新设计/素材/生成记录.json
 !/前端视觉创新设计/补充图稿/*.png
+!/前端视觉创新设计/补充图稿/生成记录.json
 !/assets/map-v2/commons-observations.json
 !/assets/map-v2/building-supplement.json
 !/assets/map-v2/core-reference.json
@@ -50,6 +54,13 @@
 !/runtime/hermes/lock.json
 !/runtime/hermes/sidecar.py
 !/scripts/build-electron.mjs
+!/scripts/audit-map-coverage.mjs
+!/scripts/build-brand.mjs
+!/scripts/build-official-coverage-reference.mjs
+!/scripts/check-deepseek-balance.mjs
+!/scripts/fetch-map-v2.mjs
+!/scripts/verify-map-optimality.py
+!/scripts/verify-zju-account.ts
 !/scripts/build-map-bridge.mjs
 !/scripts/build-map-v3.py
 !/scripts/check-review.mjs

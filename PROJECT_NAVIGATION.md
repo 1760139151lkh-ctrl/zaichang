@@ -31,12 +31,15 @@
 | [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES.md) | 第三方软件和数据许可索引；不修改 `licenses/` 上游原文 |
 | [地图 SOURCE](assets/map-v2/SOURCE.md) | 当前地图数据说明与有日期的历史研究观察；随源码提交，原始研究输入仍留本地 |
 | `assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/` | 用户指定的29张生成图片原文件归档，文件名与字节保留；`manifest.json` 记录尺寸与哈希，不是运行时依赖 |
+| `前端视觉创新设计/` | 用户明确要求上传的两份原始 Markdown、45张原图及两份生成记录；保留原相对路径，仅作设计与来源参考，不是生产提示词或另一套实现 |
 | `.agents/skills/project-navigation/SKILL.md` | 本机定位与索引方法；引用本导航，不承担运行时路由或授权 |
 | `.agents/skills/project-foundations/SKILL.md` | 本机使命与用户利益指引；当前策略与实现状态回到本导航 |
 | `.agents/skills/product-design/SKILL.md` | 本机体验设计方法；原则和实际采用／验证证据分开 |
 | [.env.example](.env.example) | 可选连接器和独立本机数据目录示例；不包含密钥或已登录账户 |
 
 `package.json`、`.nvmrc`、`.env.example`、`.devcontainer/`、`.github/workflows/` 和构建脚本是命令与工具链的实际依据；文档引用它们，不维护另一套配置。运行时 `prompts/` 属于产品行为输入；文档同步不会把研究包、场景答案或私人对话写入其中。
+
+其他随源码保留的维护工具：`build-brand.mjs` 生成品牌资源；`check-deepseek-balance.mjs` 与 `verify-zju-account.ts` 需另外配置凭据和对应账号授权，不能用于未经授权的测试。`audit-map-coverage.mjs`、`build-official-coverage-reference.mjs` 需要另行授权的本地参考输入；`verify-map-optimality.py` 是依赖本地路线样本与 Gurobi 的旧核查工具。`fetch-map-v2.mjs` 保留旧V2直接导入行为，不是当前地图刷新入口；当前入口仍为 `npm run map:import`。这些文件不参与普通构建或运行，不意味着已附带其本地资料或当前通过记录。
 
 <a id="user"></a>
 ## 用户相关对象与状态所有者
