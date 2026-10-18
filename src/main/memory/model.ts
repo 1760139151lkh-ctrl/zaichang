@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { createHash } from 'node:crypto';
 import {
   changeSchema,
   HarnessError,
@@ -130,11 +131,15 @@ export function bindModelSemantics(
     // malformed/over-eager model pair it with side-effecting changes.
     if (parsed.status !== 'candidate_emitted') parsed.changes = [];
     // Retain source roots and versioned worker idempotency; the extractor cannot manufacture a different owner or event.
-    parsed.changes = parsed.changes.map((c, i) => ({
-      ...c,
-      eventId: event.id,
-      idempotencyKey: `extract:${event.id}:${event.contentVersion}:${span.start}:v1:${i}`,
-    }));
+    parsed.changes = parsed.changes.map((c) => {
+      // A resumed model pass may reorder candidates. An array position is
+      // not a change identity: it can skip a new fact and duplicate a prior
+      // one after a partial commit. Bind retries to the actual proposal.
+      const { idempotencyKey: _modelKey, eventId: _modelEvent, expectedRevision: _snapshot, ...content } = c;
+      const fingerprint = createHash('sha256').update(canonical(content)).digest('hex');
+      return { ...c, eventId: event.id,
+        idempotencyKey: `extract:${event.id}:${event.contentVersion}:${span.start}:v2:${fingerprint}` };
+    });
     return { ...parsed, formatRepair };
   };
   memory.reviewer = async (

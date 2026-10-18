@@ -1,28 +1,39 @@
 import type { Action } from '../../shared/types';
-import type { EffectAction } from '../../shared/harness';
+import type { EffectAction, ScopeData } from '../../shared/harness';
 import { HarnessError } from '../../shared/harness';
 import { localCalendarChangeSchema } from '../../shared/calendar';
 import type { Store } from '../store';
 import type { ReminderRuntime } from './reminders';
 import { projectCalendarChange } from './calendar';
 import { canonical } from '../runtime/semantics';
+import type { PlanningApplicationService } from './planning-application';
 
-export interface LocalEffectResult { recordId: string; recordRevision?: number; previous: Action | null; current: Action | null; applied: boolean }
+export interface LocalEffectResult { recordId: string; recordRevision?: number; previous: Action | null; current: Action | null; applied: boolean; afterCommit?: () => void }
 
 /** Invoked inside ActionRuntime's transaction, after approval and preflight. */
 export class LocalCalendarService {
-  constructor(private store: Store, private reminders: ReminderRuntime) {}
+  constructor(private store: Store, private reminders: ReminderRuntime, private planning?: PlanningApplicationService) {}
+  private items(): Action[] { return this.store.db.prepare('SELECT payload FROM agenda').all().map(row => JSON.parse(String(row.payload))); }
   read(id: string): Action | undefined {
     const row = this.store.db.prepare('SELECT payload FROM agenda WHERE id=?').get(id);
     return row ? JSON.parse(String(row.payload)) : undefined;
   }
-  apply(projection: Action, effect?: EffectAction): LocalEffectResult {
+  apply(projection: Action, effect?: EffectAction, scope?: ScopeData): LocalEffectResult {
     if (!effect || effect.capability === 'local.agenda.save') {
+      if (Object.hasOwn(projection, 'planRef') && (!effect || !scope))
+        throw new HarnessError('planning_guard_missing', '方案采用不能绕过受控动作与当前范围，尚未保存。');
+      if (effect && scope) this.planning?.assertNoDetachedProposal(scope, effect.arguments);
+      const planRef = effect?.arguments.planRef as { planId: string; blockId: string } | undefined;
+      if (planRef) {
+        if (!scope || !this.planning) throw new HarnessError('planning_guard_missing', '草案采用需要当前规划校验，尚未保存。');
+        this.planning.validateSave(scope, planRef, effect!.arguments, this.items());
+      }
       const previous = this.read(projection.id) || null;
       const current = this.store.writeAgendaProjection({ ...projection, effectActionId: effect?.id || projection.id });
       if (current.planning && current.planning.state !== 'accepted') this.reminders.cancel(current.id);
       else this.reminders.schedule(current, effect?.goalId || projection.goalId);
-      return { recordId: projection.id, recordRevision: current.revision || 1, previous, current, applied: !previous || (previous.revision || 1) !== current.revision };
+      return { recordId: projection.id, recordRevision: current.revision || 1, previous, current, applied: !previous || (previous.revision || 1) !== current.revision,
+        ...(planRef ? { afterCommit: () => { this.planning!.committed(planRef, this.items()); } } : {}) };
     }
     const args = localCalendarChangeSchema.parse(effect.arguments), previous = this.read(args.targetId);
     if (!previous) {

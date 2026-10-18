@@ -36,6 +36,11 @@ export interface PrivacyFence {
 export type FaultInjector = (point: string) => void;
 const parse = <T>(row: Row | undefined): T | undefined => (row ? JSON.parse(String(row.payload)) : undefined);
 const placeholders = (values: readonly unknown[]) => values.map(() => '?').join(',') || 'NULL';
+const queryGrams = (query: string) => {
+  const points = Array.from(query.normalize('NFKC').toLowerCase());
+  return [...new Set(points.slice(0, -1).map((point, index) => point + points[index + 1])
+    .filter(gram => !/[\s，。？！、；：]/.test(gram)))];
+};
 const columns = `owner TEXT NOT NULL, workspace TEXT NOT NULL, subject TEXT NOT NULL, world TEXT NOT NULL,
  source TEXT NOT NULL, purpose TEXT NOT NULL, audience TEXT NOT NULL, sensitivity TEXT NOT NULL,
  retain TEXT NOT NULL, infer INTEGER NOT NULL, expires_at TEXT`;
@@ -63,6 +68,7 @@ export class KernelRepository {
     this.clock = clock;
     this.migrate();
     this.migrateCalendarVersions();
+    this.migrateSourceRestrictionSpans();
     this.db.exec(
       "INSERT INTO h_evidence_fts(h_evidence_fts,rank) VALUES('secure-delete',1); INSERT INTO h_assertion_fts(h_assertion_fts,rank) VALUES('secure-delete',1);",
     );
@@ -81,7 +87,7 @@ export class KernelRepository {
   private migrate() {
     this.db.exec('PRAGMA foreign_keys=ON; PRAGMA secure_delete=ON; PRAGMA busy_timeout=5000;');
     const version = Number(this.db.prepare('PRAGMA user_version').get()?.user_version || 0);
-    if (version > 5) throw new HarnessError('newer_schema', '资料来自更新版本，请使用相应版本打开。');
+    if (version > 6) throw new HarnessError('newer_schema', '资料来自更新版本，请使用相应版本打开。');
     if (version >= 4) return;
     if (version === 3) {
       this.migrateRoots();
@@ -258,7 +264,7 @@ export class KernelRepository {
     }
   }
   private migrateCalendarVersions() {
-    if (Number(this.db.prepare('PRAGMA user_version').get()?.user_version) === 5) return;
+    if (Number(this.db.prepare('PRAGMA user_version').get()?.user_version) >= 5) return;
     if (this.databasePath !== ':memory:' && Number(this.db.prepare('SELECT count(*) AS n FROM messages').get()?.n || 0)) {
       const backup = this.databasePath + '.pre-harness-v5.sqlite';
       if (!fs.existsSync(backup)) this.db.prepare('VACUUM INTO ?').run(backup);
@@ -267,6 +273,24 @@ export class KernelRepository {
     try {
       this.db.exec('CREATE TABLE h_calendar_versions(id TEXT PRIMARY KEY,agenda_id TEXT NOT NULL,revision INTEGER NOT NULL,UNIQUE(agenda_id,revision)); PRAGMA user_version=5;');
       this.db.prepare('INSERT INTO h_migrations VALUES(?,?,?,?)').run('calendar-provenance-v5', 5, this.clock.now(), JSON.stringify({ purpose: 'versioned local calendar provenance and safe compensation', rollback: 'pre-harness-v5 backup plus latest privacy fences' }));
+      this.db.exec('COMMIT');
+    } catch (error) { this.db.exec('ROLLBACK'); throw error; }
+  }
+  private migrateSourceRestrictionSpans() {
+    if (Number(this.db.prepare('PRAGMA user_version').get()?.user_version) >= 6) return;
+    this.db.exec('BEGIN IMMEDIATE');
+    try {
+      // Locators contain no copied source text. Keep the existing four-column
+      // restriction table compatible with source revocation and sync writers.
+      this.db.exec(`CREATE TABLE h_source_restriction_spans(
+        event_id TEXT NOT NULL,predicate TEXT NOT NULL,content_version INTEGER NOT NULL,
+        start_cp INTEGER NOT NULL,end_cp INTEGER NOT NULL,effective_from TEXT,
+        PRIMARY KEY(event_id,predicate,content_version,start_cp,end_cp),
+        FOREIGN KEY(event_id,predicate) REFERENCES h_source_restrictions(event_id,predicate) ON DELETE CASCADE);
+        CREATE TABLE h_memory_recovery(event_id TEXT PRIMARY KEY REFERENCES h_evidence(id) ON DELETE CASCADE,
+          last_attempt_at TEXT NOT NULL,due_at TEXT NOT NULL,transient_failures INTEGER NOT NULL,outcome TEXT NOT NULL);
+        PRAGMA user_version=6;`);
+      this.db.prepare('INSERT INTO h_migrations VALUES(?,?,?,?)').run('source-restriction-spans-v6', 6, this.clock.now(), JSON.stringify({ purpose: 'preserve exact corrected source ranges without suppressing independent facts', legacy: 'unknown ranges remain explicit' }));
       this.db.exec('COMMIT');
     } catch (error) { this.db.exec('ROLLBACK'); throw error; }
   }
@@ -473,6 +497,32 @@ export class KernelRepository {
     if (row) this.recordAccess(handle, row, 'evidence');
     return parse<EvidenceEvent>(row);
   }
+  sourceRestrictions(handle: ScopeHandle, eventId: string) {
+    if (!this.evidence(handle, eventId)) return [];
+    return this.db.prepare('SELECT predicate,operation,replacement_event_id FROM h_source_restrictions WHERE event_id=? ORDER BY predicate').all(eventId).map(row => {
+      const spans = this.db.prepare('SELECT content_version,start_cp,end_cp,effective_from FROM h_source_restriction_spans WHERE event_id=? AND predicate=? ORDER BY start_cp,end_cp').all(eventId, String(row.predicate));
+      const dates = spans.map(span => span.effective_from).filter((date): date is string => typeof date === 'string').sort();
+      return { predicate: String(row.predicate), operation: String(row.operation),
+        replacementEventId: row.replacement_event_id ? String(row.replacement_event_id) : null,
+        ranges: spans.map(span => ({ contentVersion: Number(span.content_version), start: Number(span.start_cp), end: Number(span.end_cp) })),
+        rangeUnknown: !spans.length, effectiveFrom: dates[0] || null };
+    });
+  }
+  restrictSource(handle: ScopeHandle, eventId: string, predicate: string, operation: string, replacementEventId: string | null,
+    ranges: { contentVersion: number; start: number; end: number }[], effectiveFrom: string) {
+    if (!this.evidence(handle, eventId)) throw new HarnessError('source_forbidden', '不能修改此来源的使用范围。');
+    this.write(() => {
+      this.db.prepare(`INSERT INTO h_source_restrictions VALUES(?,?,?,?) ON CONFLICT(event_id,predicate)
+        DO UPDATE SET operation=excluded.operation,replacement_event_id=excluded.replacement_event_id`).run(eventId, predicate, operation, replacementEventId);
+      for (const range of ranges) this.db.prepare(`INSERT INTO h_source_restriction_spans VALUES(?,?,?,?,?,?)
+        ON CONFLICT(event_id,predicate,content_version,start_cp,end_cp) DO UPDATE SET effective_from=min(effective_from,excluded.effective_from)`)
+        .run(eventId, predicate, range.contentVersion, range.start, range.end, effectiveFrom);
+    });
+  }
+  historicalEvidence(handle: ScopeHandle, event: EvidenceEvent) {
+    const restrictions = this.sourceRestrictions(handle, event.id);
+    return { ...event, use: restrictions.length ? 'historical_only' as const : 'source_evidence' as const, restrictions };
+  }
   evidenceList(handle: ScopeHandle, limit = 100, after = 0): EvidenceEvent[] {
     const f = this.filter(handle);
     const rows = this.db
@@ -589,8 +639,8 @@ export class KernelRepository {
       return parse<EvidenceEvent>(row)!;
     });
   }
-  searchEvidence(handle: ScopeHandle, query: string, limit = 12): EvidenceEvent[] {
-    const terms = [...new Set(query.trim().toLowerCase().split(/\s+/).filter(Boolean))].slice(0, 8);
+  searchEvidence(handle: ScopeHandle, query: string, limit = 12, offset = 0): EvidenceEvent[] {
+    const terms = [...new Set(query.trim().toLowerCase().split(/\s+/).filter(Boolean))];
     if (!terms.length) return [];
     const f = this.filter(handle),
       patterns = terms.map((t) => '%' + t.replace(/[\\%_]/g, '\\$&') + '%');
@@ -598,70 +648,62 @@ export class KernelRepository {
     const rows = this.db
       .prepare(
         `SELECT r.* FROM h_evidence r WHERE ${f.sql} AND r.status!='deleted'
-      AND NOT EXISTS(SELECT 1 FROM h_source_restrictions x WHERE x.event_id=r.id)
-      ${terms.map(() => "AND lower(r.content) LIKE ? ESCAPE '\\'").join(' ')} ORDER BY r.seq DESC LIMIT ?`,
+      AND NOT EXISTS(SELECT 1 FROM h_source_restrictions x WHERE x.event_id=r.id AND x.predicate='*')
+      AND NOT EXISTS(SELECT 1 FROM json_each(?) term WHERE lower(r.content) NOT LIKE term.value ESCAPE '\\')
+      ORDER BY r.seq DESC LIMIT ? OFFSET ?`,
       )
-      .all(...f.params, ...patterns, Math.min(limit, 50));
+      .all(...f.params, JSON.stringify(patterns), Math.max(1, Math.min(limit, 51)), Math.max(0, offset));
     return rows.map((row) => {
       this.recordAccess(handle, row, 'original_search');
       return parse<EvidenceEvent>(row)!;
     });
   }
-  lexicalEvidence(handle: ScopeHandle, query: string, limit = 12): EvidenceEvent[] {
-    const f = this.filter(handle),
-      points = Array.from(query.normalize('NFKC').toLowerCase()),
-      grams = [
-        ...new Set(
-          points
-            .slice(0, -1)
-            .map((p, i) => p + points[i + 1])
-            .filter((g) => !/[\s，。？！、；：]/.test(g)),
-        ),
-      ].slice(0, 64);
-    if (!grams.length) return this.searchEvidence(handle, query, limit);
-    const rows = this.db
-      .prepare(
-        `WITH eligible AS MATERIALIZED(SELECT r.id FROM h_evidence r WHERE ${f.sql} AND r.status!='deleted'
-      AND NOT EXISTS(SELECT 1 FROM h_source_restrictions x WHERE x.event_id=r.id))
-      SELECT r.*,count(*) AS matches FROM eligible a JOIN h_evidence r ON r.id=a.id JOIN h_grams g ON g.object_id=r.id
-      WHERE g.kind='evidence' AND g.gram IN (${placeholders(grams)}) GROUP BY r.id ORDER BY matches DESC,r.seq DESC LIMIT ?`,
-      )
-      .all(...f.params, ...grams, Math.min(limit, 50));
-    // A paused or failed index must not make related original passages vanish.
-    // Apply the identical SQL permission filter before matching unindexed text.
-    const pendingRows = this.db.prepare(
-      `WITH eligible AS MATERIALIZED(SELECT r.* FROM h_evidence r WHERE ${f.sql} AND r.status!='deleted'
-      AND NOT EXISTS(SELECT 1 FROM h_source_restrictions x WHERE x.event_id=r.id)
-      AND NOT EXISTS(SELECT 1 FROM h_grams g WHERE g.object_id=r.id AND g.kind='evidence'))
-      SELECT r.*,(${grams.map(() => 'CASE WHEN instr(lower(r.content),?)>0 THEN 1 ELSE 0 END').join('+')}) AS matches
-      FROM eligible r WHERE matches>0 ORDER BY matches DESC,r.seq DESC LIMIT ?`,
-    ).all(...f.params, ...grams, Math.min(limit, 50));
-    const combined = [...new Map([...rows, ...pendingRows].map(row => [row.id, row])).values()]
-      .sort((a, b) => Number(b.matches) - Number(a.matches) || Number(b.seq) - Number(a.seq)).slice(0, Math.min(limit, 50));
-    return combined.map((row) => {
+  lexicalEvidence(handle: ScopeHandle, query: string, limit = 12, offset = 0): EvidenceEvent[] {
+    const f = this.filter(handle), grams = queryGrams(query);
+    if (!grams.length) return this.searchEvidence(handle, query, limit, offset);
+    // Apply scope before matching, then rank indexed and unindexed originals
+    // together. OFFSET applies to the complete result set, never a top-50 pool.
+    const rows = this.db.prepare(`WITH query_grams AS MATERIALIZED(SELECT value AS gram FROM json_each(?)),
+      eligible AS MATERIALIZED(SELECT r.* FROM h_evidence r WHERE ${f.sql} AND r.status!='deleted'
+        AND NOT EXISTS(SELECT 1 FROM h_source_restrictions x WHERE x.event_id=r.id AND x.predicate='*')),
+      scores AS (
+        SELECT r.id,count(*) AS matches FROM eligible r JOIN h_grams g ON g.object_id=r.id
+          JOIN query_grams q ON q.gram=g.gram WHERE g.kind='evidence' GROUP BY r.id
+        UNION ALL
+        SELECT r.id,(SELECT count(*) FROM query_grams q WHERE instr(lower(r.content),q.gram)>0) AS matches FROM eligible r
+          WHERE NOT EXISTS(SELECT 1 FROM h_grams g WHERE g.object_id=r.id AND g.kind='evidence'))
+      SELECT r.*,scores.matches FROM eligible r JOIN scores ON scores.id=r.id WHERE scores.matches>0
+        ORDER BY CASE WHEN instr(lower(r.content),?)>0 THEN 1 ELSE 0 END DESC,scores.matches DESC,r.seq DESC
+        LIMIT ? OFFSET ?`).all(JSON.stringify(grams), ...f.params, query.trim().toLowerCase(), Math.max(1, Math.min(limit, 51)), Math.max(0, offset));
+    return rows.map((row) => {
       this.recordAccess(handle, row, 'lexical_search');
       return parse<EvidenceEvent>(row)!;
     });
   }
   lexicalAssertions(handle: ScopeHandle, query: string, limit = 24): Assertion[] {
-    const f = this.filter(handle),
-      points = Array.from(query.normalize('NFKC').toLowerCase()),
-      grams = [
-        ...new Set(
-          points
-            .slice(0, -1)
-            .map((p, i) => p + points[i + 1])
-            .filter((g) => !/[\s，。？！、；：]/.test(g)),
-        ),
-      ].slice(0, 64);
-    if (!grams.length) return [];
-    const rows = this.db
-      .prepare(
-        `WITH eligible AS MATERIALIZED(SELECT r.id FROM h_assertions r WHERE ${f.sql} AND r.status='active')
-      SELECT a.id,count(*) AS matches FROM eligible a JOIN h_grams g ON g.object_id=a.id WHERE g.kind='assertion' AND g.gram IN (${placeholders(grams)}) GROUP BY a.id ORDER BY matches DESC LIMIT ?`,
-      )
-      .all(...f.params, ...grams, Math.min(limit, 50));
-    return rows.map((row) => this.assertion(handle, String(row.id))).filter((a): a is Assertion => !!a);
+    return this.lexicalAssertionPage(handle, query, { limit }).items;
+  }
+  lexicalAssertionPage(handle: ScopeHandle, query: string,
+    options: { limit?: number; offset?: number; at?: string; strength?: 'hard' | 'non_hard'; verified?: boolean } = {}) {
+    const f = this.filter(handle), e = this.filter(handle, 'e'), grams = queryGrams(query);
+    if (!grams.length) return { items: [] as Assertion[], total: 0 };
+    if (options.at && !Number.isFinite(Date.parse(options.at))) throw new HarnessError('invalid_time', '检索时间不合法。');
+    // Permission, verification and valid-time eligibility precede ranking and
+    // pagination so stale or inaccessible high-score rows cannot crowd out truth.
+    const base = `WITH query_grams AS MATERIALIZED(SELECT value AS gram FROM json_each(?)),
+      eligible AS MATERIALIZED(SELECT r.id,r.rowid AS ordinal FROM h_assertions r WHERE ${f.sql} AND r.status='active'
+        AND NOT EXISTS(SELECT 1 FROM h_assertion_evidence ae JOIN h_evidence e ON e.id=ae.event_id
+          WHERE ae.assertion_id=r.id AND (NOT (${e.sql}) OR e.status='deleted'))
+        ${options.verified ? "AND json_extract(r.payload,'$.verification')='verified'" : ''}
+        ${options.at ? 'AND (r.valid_from IS NULL OR julianday(r.valid_from)<=julianday(?)) AND (r.valid_to IS NULL OR julianday(r.valid_to)>julianday(?))' : ''}
+        ${options.strength === 'hard' ? "AND r.strength='hard'" : options.strength === 'non_hard' ? "AND r.strength!='hard'" : ''}),
+      scored AS (SELECT a.id,a.ordinal,count(*) AS matches FROM eligible a JOIN h_grams g ON g.object_id=a.id
+        JOIN query_grams q ON q.gram=g.gram WHERE g.kind='assertion' GROUP BY a.id)`;
+    const params = [JSON.stringify(grams), ...f.params, ...e.params, ...(options.at ? [options.at, options.at] : [])];
+    const rows = this.db.prepare(`${base} SELECT *,count(*) OVER() AS total FROM scored ORDER BY matches DESC,ordinal DESC,id
+      LIMIT ? OFFSET ?`).all(...params, Math.max(1, Math.min(options.limit || 24, 51)), Math.max(0, options.offset || 0));
+    const total = rows.length ? Number(rows[0].total) : Number(this.db.prepare(`${base} SELECT count(*) AS total FROM scored`).get(...params)?.total || 0);
+    return { items: rows.map(row => this.assertion(handle, String(row.id))).filter((a): a is Assertion => !!a), total };
   }
   spans(handle: ScopeHandle, eventId: string): ProcessingSpan[] {
     if (!this.evidence(handle, eventId)) return [];
@@ -671,6 +713,37 @@ export class KernelRepository {
       )
       .all(eventId)
       .map((r) => ({ ...r, indexed: !!r.indexed }) as unknown as ProcessingSpan);
+  }
+  /** Host recovery queue: least-recently-attempted first, with durable backoff.
+   * A pending WAL entry is not permission to revive paused or restricted data. */
+  nextPendingMemory(eventId?: string) {
+    return this.db.prepare(`SELECT e.id,e.received_at,e.source,e.purpose,json_extract(e.payload,'$.interpretationTimeZone') AS time_zone
+      FROM h_evidence e LEFT JOIN h_memory_recovery q ON q.event_id=e.id
+      WHERE e.owner=? AND e.workspace=? AND e.subject=? AND e.world='real'
+        AND e.infer=1 AND e.retain='purpose_scoped' AND e.status='active' AND json_extract(e.payload,'$.speaker')='user'
+        AND (e.expires_at IS NULL OR julianday(e.expires_at)>julianday(?))
+        AND (? IS NULL OR e.id=?) AND (q.due_at IS NULL OR julianday(q.due_at)<=julianday(?))
+        AND NOT EXISTS(SELECT 1 FROM h_source_restrictions x WHERE x.event_id=e.id AND x.predicate='*')
+        AND NOT EXISTS(SELECT 1 FROM h_evidence_roots r JOIN h_source_restrictions x ON x.event_id=r.root_id WHERE r.event_id=e.id AND x.predicate='*')
+        AND EXISTS(SELECT 1 FROM h_spans s WHERE s.event_id=e.id AND s.status='pending')
+      ORDER BY COALESCE(q.last_attempt_at,''),e.seq LIMIT 1`).get(this.identity.principalId, this.identity.workspaceId,
+        this.identity.principalId, this.clock.now(), eventId || null, eventId || null, this.clock.now());
+  }
+  recordMemoryAttempt(eventId: string, outcome: 'budget' | 'retryable' | 'interrupted' | 'checked') {
+    const counts = this.db.prepare(`SELECT count(*) AS total,sum(status='pending') AS pending,sum(status='failed') AS failed,
+      sum(status='needs_context') AS needs_context FROM h_spans WHERE event_id=?`).get(eventId)!;
+    const pending = Number(counts.pending || 0), total = Number(counts.total || 0);
+    const status = pending ? 'pending' as const : counts.failed ? 'failed' as const : counts.needs_context ? 'needs_context' as const : 'complete' as const;
+    const previous = Number(this.db.prepare('SELECT transient_failures FROM h_memory_recovery WHERE event_id=?').get(eventId)?.transient_failures || 0);
+    const failures = outcome === 'retryable' ? Math.min(20, previous + 1) : 0;
+    const delay = pending ? outcome === 'retryable' ? Math.min(300000, 1000 * 2 ** (failures - 1)) : outcome === 'budget' ? 1000 : 0 : 0;
+    const deferredUntil = new Date(Date.parse(this.clock.now()) + delay).toISOString();
+    if (this.db.prepare('SELECT 1 FROM h_evidence WHERE id=?').get(eventId)) this.write(() => {
+      this.db.prepare(`INSERT INTO h_memory_recovery VALUES(?,?,?,?,?) ON CONFLICT(event_id) DO UPDATE SET
+        last_attempt_at=excluded.last_attempt_at,due_at=excluded.due_at,transient_failures=excluded.transient_failures,outcome=excluded.outcome`)
+        .run(eventId, this.clock.now(), deferredUntil, failures, outcome);
+    });
+    return { status, pending, total, deferredUntil: pending ? deferredUntil : null };
   }
   markSpans(handle: ScopeHandle, eventId: string, status: ProcessingStatus, spanIds?: string[]) {
     if (!this.evidence(handle, eventId)) throw new HarnessError('source_forbidden', '不能处理此来源。');

@@ -1,0 +1,326 @@
+import { createHash } from 'node:crypto';
+import { z } from 'zod';
+import type { Action } from '../../shared/types';
+import { HarnessError } from '../../shared/harness';
+import { expandAgenda } from './calendar';
+import { dayBounds, canonical } from '../runtime/semantics';
+
+const instant = z.string().datetime({ offset: true });
+const minutes = z.number().int().min(0).max(1440);
+const id = z.string().min(1).max(160);
+const windowSchema = z.object({ start: instant, end: instant }).strict();
+const duration = z.object({ min: minutes, max: minutes }).strict();
+const condition = z.object({ condition: z.string().min(1).max(300), status: z.enum(['satisfied', 'unknown', 'unavailable']), sourceId: id.optional(), sourceVersion: z.string().max(160).optional() }).strict();
+const taskSchema = z.object({
+  id, title: z.string().min(1).max(160), detail: z.string().max(1200).default(''),
+  durationMinutes: duration.describe('剩余工作量区间；按max留位，min不是允许省略的工作。估时未知时先补证，不默填。'),
+  splittable: z.boolean().default(false), minimumChunkMinutes: z.number().int().min(1).max(1440).optional(),
+  dependsOn: z.array(id).max(30).default([]), earliestStart: instant.optional(), deadline: instant.optional(),
+  allowedWindows: z.array(windowSchema).max(64).optional(), preferredWindows: z.array(windowSchema).max(32).default([]),
+  placeId: id.optional(), effort: z.enum(['low', 'medium', 'high']).optional(),
+  priority: z.number().int().min(0).max(10).default(0).describe('本次明确选择的优先顺序，不是人格/价值评分。'),
+  setupMinutes: minutes.default(0), cleanupMinutes: minutes.default(0),
+  conditions: z.array(condition).max(12).default([]), sourceId: id.optional(), sourceVersion: z.string().max(160).optional(),
+}).strict();
+
+export const planningDraftInput = z.object({
+  from: instant, to: instant, timeZone: z.string().max(100).default('Asia/Shanghai'),
+  tasks: z.array(taskSchema).max(30), completedTaskIds: z.array(id).max(100).default([]),
+  busy: z.array(z.object({ start: instant, end: instant.nullable(), sourceId: id, sourceVersion: z.string().max(160).optional(), placeId: id.optional() }).strict()).max(500).default([]),
+  sourceCoverage: z.array(z.object({ sourceId: id.describe('user-declared/current只表示本次明确自述，不替代外部连接器的覆盖。'), status: z.enum(['complete', 'partial', 'not_checked']), sourceVersion: z.string().max(160).optional(), reason: z.string().max(300).optional() }).strict()).max(30).default([]),
+  conditions: z.array(condition).max(20).default([]),
+  protectedWindows: z.array(windowSchema.extend({ reason: z.string().min(1).max(300) }).strict()).max(64).default([]),
+  restMinutes: z.number().int().min(0).max(120).default(10).describe('两个工作段之间额外保留的休息，不抵扣通勤；用户可调整，非医学规则。'),
+  transitionMinutes: duration.default({ min: 0, max: 0 }).describe('每次进入/离开边界的默认转换成本，明确地点对成本优先。'),
+  travelTimes: z.array(z.object({ fromPlaceId: id, toPlaceId: id, minutes: duration, sourceId: id, sourceVersion: z.string().max(160).optional() }).strict()).max(200).default([]),
+  startPlaceId: id.optional(), endPlaceId: id.optional(),
+  maxScheduledMinutes: z.number().int().min(0).max(44640).default(240).describe('本次窗口的工作量上限；默认有限预算不是对用户能力的判断。'),
+  reserveMinutes: z.number().int().min(0).max(44640).default(30).describe('本次窗口至少保留的自由时间，不创建待办或完成义务。'),
+  energyWindows: z.array(windowSchema.extend({ capacity: z.enum(['low', 'medium', 'high']), sourceId: id, sourceVersion: z.string().max(160).optional() }).strict()).max(64).default([]),
+}).strict();
+
+type Input = z.infer<typeof planningDraftInput>;
+type Task = Input['tasks'][number];
+type Interval = { start: number; end: number };
+type Occupied = Interval & { id: string; kind: 'fixed' | 'protected' | 'task'; placeId?: string };
+type Cost = { minutes: number; minMinutes: number; unknown: string[]; sources: string[] };
+type Transfer = Interval & { fromId: string | null; toId: string | null; travel: Cost; restMinutes: number };
+type Candidate = { start: number; end: number; reservedStart: number; reservedEnd: number; before: Cost; after: Cost; restBefore: number; restAfter: number; preferred: boolean; unknown: string[] };
+const minute = 60000;
+const iso = (time: number) => new Date(time).toISOString();
+const hash = (value: unknown) => createHash('sha256').update(canonical(value)).digest('hex');
+const unique = (items: string[]) => [...new Set(items)];
+const overlap = (a: Interval, b: Interval) => a.start < b.end && b.start < a.end;
+
+/** Includes additions/deletions and actual payload, not only the revision of a moved object. */
+export function calendarPlanFingerprint(items: Action[]) {
+  return hash([...items].sort((a, b) => a.id.localeCompare(b.id)));
+}
+export function assertDraftCalendarCurrent(items: Action[], expectedFingerprint: string) {
+  if (calendarPlanFingerprint(items) !== expectedFingerprint) throw new HarnessError('planning_stale', '日历在方案生成后已变化，请重新核查整个方案窗口，尚未写入。');
+}
+
+function asInterval(value: { start: string; end: string }, label: string): Interval {
+  const start = Date.parse(value.start), end = Date.parse(value.end);
+  if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) throw new HarnessError('planning_window', `${label}的起止范围无效。`);
+  return { start, end };
+}
+function merge(intervals: Interval[]): Interval[] {
+  const result: Interval[] = [];
+  for (const item of [...intervals].sort((a, b) => a.start - b.start || a.end - b.end)) {
+    const last = result.at(-1);
+    if (last && item.start <= last.end) last.end = Math.max(last.end, item.end);
+    else result.push({ ...item });
+  }
+  return result;
+}
+function freeIntervals(occupied: Interval[], bounds: Interval): Interval[] {
+  const result: Interval[] = [];
+  let cursor = bounds.start;
+  for (const item of merge(occupied.filter(item => overlap(item, bounds)))) {
+    if (item.start > cursor) result.push({ start: cursor, end: Math.min(item.start, bounds.end) });
+    cursor = Math.max(cursor, item.end);
+  }
+  if (cursor < bounds.end) result.push({ start: cursor, end: bounds.end });
+  return result;
+}
+function intersect(a: Interval, b: Interval): Interval | undefined {
+  const start = Math.max(a.start, b.start), end = Math.min(a.end, b.end);
+  return end > start ? { start, end } : undefined;
+}
+function validateInput(input: Input) {
+  const bounds = asInterval({ start: input.from, end: input.to }, '规划');
+  if (bounds.end - bounds.start > 31 * 86400000) throw new HarnessError('planning_window', '一次多任务规划最多覆盖31天，请分段保留真实条件。');
+  try { new Intl.DateTimeFormat('en', { timeZone: input.timeZone }); } catch { throw new HarnessError('time_zone', '规划时区不合法。'); }
+  if (new Set(input.tasks.map(task => task.id)).size !== input.tasks.length) throw new HarnessError('planning_task_id', '任务ID重复，不能区分计划与依赖。');
+  if (input.tasks.some(task => input.completedTaskIds.includes(task.id))) throw new HarnessError('planning_task_state', '同一任务不能同时声明待排和已完成。');
+  for (const value of [input.transitionMinutes, ...input.tasks.map(task => task.durationMinutes), ...input.travelTimes.map(item => item.minutes)])
+    if (value.max < value.min) throw new HarnessError('planning_duration', '时长上界不能小于下界。');
+  for (const task of input.tasks) {
+    if (task.durationMinutes.min < 1 || task.minimumChunkMinutes && task.minimumChunkMinutes > task.durationMinutes.max) throw new HarnessError('planning_duration', '任务时长须为正，最小分段不能超过总时长上界。');
+    if (task.earliestStart && task.deadline && Date.parse(task.deadline) <= Date.parse(task.earliestStart)) throw new HarnessError('planning_window', '任务截止须晚于最早开始。');
+    for (const value of [...task.allowedWindows || [], ...task.preferredWindows]) asInterval(value, '任务窗口');
+  }
+  for (const value of [...input.protectedWindows, ...input.energyWindows]) asInterval(value, '保护或精力窗口');
+  for (const value of input.busy) if (value.end) asInterval({ start: value.start, end: value.end }, '外部忙碌区间');
+  const pairs = input.travelTimes.map(item => `${item.fromPlaceId}\0${item.toPlaceId}`);
+  if (new Set(pairs).size !== pairs.length) throw new HarnessError('planning_travel', '同一有向地点对提供了冲突的多份转换成本，请先统一本次采用的版本。');
+  return bounds;
+}
+
+function travelCost(input: Input, from: string | undefined, to: string | undefined): Cost {
+  if (from && to && from === to) return { minutes: 0, minMinutes: 0, unknown: [], sources: [] };
+  const known = from && to ? input.travelTimes.find(item => item.fromPlaceId === from && item.toPlaceId === to) : undefined;
+  if (known) return { minutes: known.minutes.max, minMinutes: known.minutes.min, unknown: known.sourceVersion ? [] : ['地点转换依据未提供版本，采用前须重新核查。'], sources: [known.sourceId] };
+  return { minutes: input.transitionMinutes.max, minMinutes: input.transitionMinutes.min,
+    unknown: from || to ? ['地点间移动尚无完整的有向路线依据，当前使用声明的默认转换成本。'] : [], sources: [] };
+}
+
+function sourceIssues(input: Input, issues: unknown[]): string[] {
+  const declared = input.sourceCoverage.filter(value => value.sourceId !== 'local-agenda');
+  return unique([
+    ...(!declared.length ? ['其他日程来源未声明覆盖；本地空白不证明现实空闲。'] : declared.filter(value => value.status !== 'complete').map(value => value.reason || `${value.sourceId}尚未完整覆盖。`)),
+    ...input.conditions.filter(value => value.status !== 'satisfied').map(value => value.condition),
+    ...(issues.length ? ['本地日历存在未知结束时间或无法展开的具体实例。'] : []),
+    ...input.busy.filter(value => !value.sourceVersion).map(value => `${value.sourceId}忙碌区间没有版本，采用前须核查。`),
+    ...input.energyWindows.filter(value => !value.sourceVersion).map(value => `${value.sourceId}精力依据没有版本，采用前须核查当次状态。`),
+  ]);
+}
+
+function dependencyCycles(tasks: Task[]): Set<string> {
+  const byId = new Map(tasks.map(task => [task.id, task]));
+  const visited = new Set<string>(), visiting: string[] = [], cycles = new Set<string>();
+  const visit = (taskId: string) => {
+    const cycleAt = visiting.indexOf(taskId);
+    if (cycleAt >= 0) { for (const value of visiting.slice(cycleAt)) cycles.add(value); return; }
+    if (visited.has(taskId)) return;
+    visiting.push(taskId);
+    for (const dependency of byId.get(taskId)?.dependsOn || []) if (byId.has(dependency)) visit(dependency);
+    visiting.pop(); visited.add(taskId);
+  };
+  for (const task of tasks) visit(task.id);
+  return cycles;
+}
+
+/** Reserve each shared boundary once, even when both neighbouring tasks mention it. */
+function transferReservations(input: Input, occupied: Occupied[], bounds: Interval): Transfer[] | undefined {
+  const sequence = occupied.filter(value => value.kind !== 'protected').sort((a, b) => a.start - b.start || a.end - b.end);
+  const result: Transfer[] = [];
+  for (let index = 0; index <= sequence.length; index++) {
+    const left = sequence[index - 1], right = sequence[index];
+    if (left?.kind !== 'task' && right?.kind !== 'task') continue;
+    const start = Math.max(bounds.start, left?.end ?? bounds.start), end = Math.min(bounds.end, right?.start ?? bounds.end);
+    const travel = travelCost(input, left ? left.placeId : input.startPlaceId, right ? right.placeId : input.endPlaceId);
+    const restMinutes = left?.kind === 'task' && right?.kind === 'task' ? input.restMinutes : 0;
+    const length = (travel.minutes + restMinutes) * minute;
+    if (!length) continue;
+    if (end < start) return undefined;
+    const gaps = freeIntervals(occupied.filter(value => value.kind === 'protected'), { start, end });
+    const free = [...gaps].reverse().find(value => value.end - value.start >= length);
+    if (!free) return undefined;
+    result.push({ start: free.end - length, end: free.end, fromId: left?.id || null, toId: right?.id || null, travel, restMinutes });
+  }
+  return result;
+}
+
+function candidates(task: Task, remaining: number, workBudget: number, earliest: number, input: Input, occupied: Occupied[], bounds: Interval): Candidate[] {
+  const taskBounds = { start: Math.max(bounds.start, earliest, task.earliestStart ? Date.parse(task.earliestStart) : bounds.start), end: Math.min(bounds.end, task.deadline ? Date.parse(task.deadline) : bounds.end) };
+  const allowed = task.allowedWindows === undefined ? [taskBounds] : merge(task.allowedWindows.map(value => asInterval(value, '任务窗口'))).flatMap(value => { const intersection = intersect(value, taskBounds); return intersection ? [intersection] : []; });
+  const levels = { low: 1, medium: 2, high: 3 };
+  const energy = input.energyWindows.map(value => ({ ...asInterval(value, '精力窗口'), ...value, start: Date.parse(value.start), end: Date.parse(value.end) }));
+  const unsuitable = task.effort ? energy.filter(value => levels[value.capacity] < levels[task.effort!]) : [];
+  const free = freeIntervals([...occupied, ...unsuitable], taskBounds);
+  const preferences = task.preferredWindows.map(value => asInterval(value, '偏好窗口'));
+  const result: Candidate[] = [];
+  for (const gap of free) {
+    const previous = occupied.filter(value => value.end <= gap.start && value.kind !== 'protected').sort((a, b) => b.end - a.end)[0];
+    const next = occupied.filter(value => value.start >= gap.end && value.kind !== 'protected').sort((a, b) => a.start - b.start)[0];
+    const before = travelCost(input, previous?.placeId || input.startPlaceId, task.placeId);
+    const after = travelCost(input, task.placeId, next?.placeId || input.endPlaceId);
+    const restBefore = previous?.kind === 'task' ? input.restMinutes : 0;
+    const restAfter = next?.kind === 'task' ? input.restMinutes : 0;
+    const earliestCore = gap.start + (before.minutes + restBefore + task.setupMinutes) * minute;
+    const latestCore = gap.end - (after.minutes + restAfter + task.cleanupMinutes) * minute;
+    for (const valid of allowed) {
+      // A declared availability window includes preparation and cleanup, not only productive minutes.
+      const usable = intersect({ start: earliestCore, end: latestCore }, { start: valid.start + task.setupMinutes * minute, end: valid.end - task.cleanupMinutes * minute });
+      if (!usable) continue;
+      // Include preferred starts and boundaries of known energy; all choices are checked again below.
+      const starts = unique([String(usable.start), ...preferences.filter(value => overlap(value, usable)).map(value => String(Math.max(usable.start, value.start))), ...energy.filter(value => overlap(value, usable)).map(value => String(Math.max(usable.start, value.start)))]).map(Number);
+      for (const start of starts) {
+        const capacity = Math.floor((usable.end - start) / minute);
+        let length = task.splittable ? Math.min(remaining, capacity, workBudget) : remaining;
+        const minimum = task.minimumChunkMinutes || (task.splittable ? Math.min(30, task.durationMinutes.max) : task.durationMinutes.max);
+        if (task.splittable && remaining > length && remaining - length < minimum) length = remaining - minimum;
+        if (length < minimum || length > capacity) continue;
+        const end = start + length * minute;
+        const knownEnergy = task.effort ? merge(energy.filter(value => levels[value.capacity] >= levels[task.effort!]).map(value => ({ start: value.start, end: value.end }))).some(value => value.start <= start && value.end >= end) : true;
+        result.push({ start, end, reservedStart: start - task.setupMinutes * minute, reservedEnd: end + task.cleanupMinutes * minute,
+          before, after, restBefore, restAfter, preferred: preferences.some(value => value.start <= start && value.end >= end),
+          unknown: unique([...before.unknown, ...after.unknown, ...task.conditions.filter(value => value.status === 'unknown').map(value => value.condition), ...(knownEnergy ? [] : ['这段时间的可用精力尚无当前自述依据，安排仍待确认。'])]) });
+      }
+    }
+  }
+  return result.sort((a, b) => Number(b.preferred) - Number(a.preferred) || a.unknown.length - b.unknown.length || a.start - b.start || b.end - a.end);
+}
+
+/** Constructive, bounded and read-only: failure to place is not a proof of global infeasibility. */
+export function draftCalendarPlan(items: Action[], raw: unknown) {
+  const input = planningDraftInput.parse(raw), bounds = validateInput(input);
+  // Look outside the requested window for adjacent commitments whose transfers cross the edge.
+  const expansion = expandAgenda(items.filter(item => !item.done), iso(bounds.start - 1440 * minute), iso(bounds.end + 1440 * minute), input.timeZone);
+  const occupied: Occupied[] = [];
+  const localSources: { sourceId: string; sourceVersion: string; occurrenceId: string }[] = [];
+  for (const row of expansion.items) {
+    const item = row as unknown as Action & { occurrenceId: string; endsAt?: string | null; dateBounds?: { from: string; to: string } };
+    if (item.planning && item.planning.state !== 'accepted' || item.kind && !['event', 'time_block'].includes(item.kind)) continue;
+    const allDay = item.allDayDate ? dayBounds(item.allDayDate, item.timeZone || input.timeZone) : undefined;
+    const start = Date.parse(allDay?.from || item.startsAt || '');
+    if (!Number.isFinite(start)) continue;
+    const end = allDay ? Date.parse(allDay.to) : item.durationMinutes ? start + item.durationMinutes * minute : bounds.end;
+    occupied.push({ id: item.occurrenceId, kind: 'fixed', start, end, placeId: item.planning?.placeId });
+    localSources.push({ sourceId: item.id, sourceVersion: String(item.revision || 1), occurrenceId: item.occurrenceId });
+  }
+  // Unknown-duration occurrences preceding the requested window are reported as issues, not items.
+  for (const issue of expansion.issues) if (issue.status === 'unknown_end' && typeof issue.startsAt === 'string') {
+    const item = items.find(value => value.id === issue.id);
+    if (item && (!item.planning || item.planning.state === 'accepted') && (!item.kind || ['event', 'time_block'].includes(item.kind))) occupied.push({ id: String(issue.id), kind: 'fixed', start: Date.parse(issue.startsAt), end: bounds.end, placeId: item.planning?.placeId });
+  }
+  for (const value of input.busy) occupied.push({ id: value.sourceId, kind: 'fixed', start: Date.parse(value.start), end: value.end ? Date.parse(value.end) : bounds.end, placeId: value.placeId });
+  for (const [index, value] of input.protectedWindows.entries()) occupied.push({ ...asInterval(value, '保护窗口'), id: `protected:${index}`, kind: 'protected' });
+  const baseOccupied = occupied.map(value => ({ ...value }));
+  const initialFreeMinutes = freeIntervals(occupied, bounds).reduce((sum, value) => sum + (value.end - value.start) / minute, 0);
+  const baseUnknown = sourceIssues(input, expansion.issues);
+  if (input.busy.some(value => value.end === null)) baseUnknown.push('外部忙碌区间存在未知结束，按窗口结束保守占用。');
+  const cycles = dependencyCycles(input.tasks), completed = new Set(input.completedTaskIds);
+  const byId = new Map(input.tasks.map(value => [value.id, value])), finished = new Map<string, number>();
+  const blocks: { taskId: string; title: string; start: string; end: string; durationMinutes: number; reservedStart: string; reservedEnd: string; placeId?: string; segment: number; preferred: boolean; conditions: string[]; travelBefore: Cost; travelAfter: Cost; restBeforeMinutes: number; restAfterMinutes: number }[] = [];
+  const unscheduled: { taskId: string; title: string; remainingMinutes: number; code: string; reason: string; dependencyIds?: string[] }[] = [];
+  const fail = (task: Task, remaining: number, code: string, reason: string, dependencyIds?: string[]) => unscheduled.push({ taskId: task.id, title: task.title, remainingMinutes: remaining, code, reason, ...(dependencyIds ? { dependencyIds } : {}) });
+  let workMinutes = 0;
+  const pending = [...input.tasks].sort((a, b) => b.priority - a.priority || (a.deadline ? Date.parse(a.deadline) : bounds.end) - (b.deadline ? Date.parse(b.deadline) : bounds.end) || a.id.localeCompare(b.id));
+  while (pending.length) {
+    const index = pending.findIndex(task => cycles.has(task.id) || task.dependsOn.every(value => completed.has(value) || finished.has(value) || !pending.some(other => other.id === value)));
+    const task = pending.splice(index >= 0 ? index : 0, 1)[0];
+    const missing = task.dependsOn.filter(value => !byId.has(value) && !completed.has(value));
+    const blocked = task.dependsOn.filter(value => !completed.has(value) && !finished.has(value));
+    if (cycles.has(task.id)) { fail(task, task.durationMinutes.max, 'dependency_cycle', '前置任务形成环，请澄清真实先后关系。', task.dependsOn); continue; }
+    if (missing.length) { fail(task, task.durationMinutes.max, 'dependency_missing', '前置任务未提供，也没有已完成依据。', missing); continue; }
+    if (blocked.length) { fail(task, task.durationMinutes.max, 'dependency_unplaced', '前置任务尚未完整安排，本次没有把后续工作提前。', blocked); continue; }
+    const unavailable = [...input.conditions, ...task.conditions].filter(value => value.status === 'unavailable');
+    if (unavailable.length) { fail(task, task.durationMinutes.max, 'condition_unavailable', unavailable.map(value => value.condition).join('；')); continue; }
+    let remaining = task.durationMinutes.max, lastEnd = Math.max(bounds.start, ...task.dependsOn.map(value => finished.get(value) || bounds.start)), segment = 0;
+    while (remaining > 0) {
+      if (workMinutes >= input.maxScheduledMinutes) { fail(task, remaining, 'budget_or_reserve', '已达到本次工作量上限，保留其余任务而不追加追赶义务。'); break; }
+      const options = candidates(task, remaining, input.maxScheduledMinutes - workMinutes, lastEnd, input, occupied, bounds);
+      if (!options.length) { fail(task, remaining, 'no_placement_found', '在当前承诺、允许窗口、精力限制、连续时长和转换成本下，本次构造没有找到可用位置；这不是全局无解证明。'); break; }
+      const fits = (value: Candidate) => {
+        const length = (value.end - value.start) / minute;
+        const projectedOccupied: Occupied[] = [...occupied, { start: value.reservedStart, end: value.reservedEnd, id: `${task.id}:${segment + 1}`, kind: 'task', placeId: task.placeId }];
+        const transfers = transferReservations(input, projectedOccupied, bounds);
+        if (!transfers) return { fits: false, freeDeficit: Infinity };
+        const projected = freeIntervals([...projectedOccupied, ...transfers], bounds).reduce((sum, free) => sum + (free.end - free.start) / minute, 0);
+        return { fits: workMinutes + length <= input.maxScheduledMinutes && projected >= input.reserveMinutes,
+          freeDeficit: Math.max(0, input.reserveMinutes - projected, workMinutes + length - input.maxScheduledMinutes) };
+      };
+      let candidate: Candidate | undefined;
+      for (const option of options) {
+        const check = fits(option);
+        if (check.fits) { candidate = option; break; }
+        if (!task.splittable || !Number.isFinite(check.freeDeficit)) continue;
+        const minimum = task.minimumChunkMinutes || Math.min(30, task.durationMinutes.max);
+        let length = (option.end - option.start) / minute - Math.ceil(check.freeDeficit);
+        if (remaining > length && remaining - length < minimum) length = remaining - minimum;
+        if (length < minimum) continue;
+        const shorter = { ...option, end: option.start + length * minute, reservedEnd: option.start + (length + task.cleanupMinutes) * minute };
+        if (fits(shorter).fits) { candidate = shorter; break; }
+      }
+      if (!candidate) { fail(task, remaining, 'budget_or_reserve', '本次工作量上限或保留空白不足以容纳这一段；未把休息和自由时间填满。'); break; }
+      const length = (candidate.end - candidate.start) / minute;
+      blocks.push({ taskId: task.id, title: task.title, start: iso(candidate.start), end: iso(candidate.end), durationMinutes: length,
+        reservedStart: iso(candidate.reservedStart), reservedEnd: iso(candidate.reservedEnd), ...(task.placeId ? { placeId: task.placeId } : {}), segment: ++segment,
+        preferred: candidate.preferred, conditions: candidate.unknown, travelBefore: candidate.before, travelAfter: candidate.after, restBeforeMinutes: candidate.restBefore, restAfterMinutes: candidate.restAfter });
+      occupied.push({ start: candidate.reservedStart, end: candidate.reservedEnd, id: `${task.id}:${segment}`, kind: 'task', placeId: task.placeId });
+      workMinutes += length; remaining -= length; lastEnd = candidate.reservedEnd;
+    }
+    if (remaining === 0) finished.set(task.id, lastEnd);
+  }
+  blocks.sort((a, b) => Date.parse(a.start) - Date.parse(b.start));
+  const transfers = transferReservations(input, occupied, bounds) || [];
+  // Inserting a task changes neighbours; expose the final boundaries, never stale candidate routes.
+  const sequence = occupied.filter(value => value.kind !== 'protected').sort((a, b) => a.start - b.start || a.end - b.end);
+  for (const block of blocks) {
+    const index = sequence.findIndex(value => value.id === `${block.taskId}:${block.segment}`);
+    const previous = sequence[index - 1], next = sequence[index + 1];
+    block.travelBefore = travelCost(input, previous ? previous.placeId : input.startPlaceId, block.placeId);
+    block.travelAfter = travelCost(input, block.placeId, next ? next.placeId : input.endPlaceId);
+    block.restBeforeMinutes = previous?.kind === 'task' ? input.restMinutes : 0;
+    block.restAfterMinutes = next?.kind === 'task' ? input.restMinutes : 0;
+    block.conditions = unique([...block.conditions.filter(value => !value.startsWith('地点')), ...block.travelBefore.unknown, ...block.travelAfter.unknown]);
+  }
+  const allUnknown = unique([...baseUnknown, ...blocks.flatMap(value => value.conditions)]);
+  const calendarFingerprint = calendarPlanFingerprint(items);
+  const sourceRevisions = [...localSources, ...[
+    ...input.busy, ...input.travelTimes, ...input.energyWindows, ...input.tasks.filter(value => value.sourceId),
+    ...input.sourceCoverage.filter(value => !['local-agenda', 'user-declared', 'current'].includes(value.sourceId)),
+    ...input.conditions.filter(value => value.sourceId), ...input.tasks.flatMap(value => value.conditions.filter(condition => condition.sourceId)),
+  ].map(value => ({ sourceId: value.sourceId!, sourceVersion: value.sourceVersion || null, occurrenceId: null }))];
+  return {
+    window: { from: input.from, to: input.to, timeZone: input.timeZone },
+    strategy: 'dependency_ready_priority_deadline_constructive', optimality: 'not_claimed',
+    calendarFingerprint, planFingerprint: hash({ input, calendarFingerprint }), sourceRevisions,
+    sourceCoverage: [{ sourceId: 'local-agenda', status: expansion.coverage.complete ? 'complete' : 'partial', reason: '仅本机已登记的具体实例，不证明所有现实承诺或精力。' }, ...input.sourceCoverage.filter(value => value.sourceId !== 'local-agenda')],
+    effectivePreferences: { restMinutes: input.restMinutes, transitionMinutes: input.transitionMinutes, maxScheduledMinutes: input.maxScheduledMinutes, reserveMinutes: input.reserveMinutes },
+    blocks, unscheduled, fixedCommitments: baseOccupied.filter(value => value.kind === 'fixed').map(value => ({ ...value, start: iso(value.start), end: iso(value.end) })),
+    protectedWindows: input.protectedWindows, transitions: transfers.map(value => ({ ...value, start: iso(value.start), end: iso(value.end) })),
+    freeWindows: freeIntervals([...occupied, ...transfers], bounds).map(value => ({ start: iso(value.start), end: iso(value.end), minutes: (value.end - value.start) / minute, meaning: '已保留工作、准备、清理、转场、休息和保护窗口后的空白；现实可用性仍取决于声明的来源与条件。' })),
+    initialFreeMinutes, scheduledMinutes: workMinutes, conditions: allUnknown, issues: expansion.issues,
+    feasibility: !blocks.length && unscheduled.length ? 'no_plan_constructed' : allUnknown.length ? 'conditional' : unscheduled.length ? 'partial_for_declared_sources' : 'verified_for_declared_sources',
+    completeness: unscheduled.length ? 'partial' : 'all_tasks_placed', accepted: false, applied: false,
+    acceptanceProposals: blocks.map(block => ({ taskId: block.taskId, segment: block.segment, dependsOn: byId.get(block.taskId)!.dependsOn,
+      capability: 'local.agenda.save', arguments: { title: block.title, detail: byId.get(block.taskId)!.detail, kind: 'time_block', startsAt: block.start, durationMinutes: block.durationMinutes, timeZone: input.timeZone, planning: { state: 'accepted', flexibility: 'movable', ...(block.placeId ? { placeId: block.placeId } : {}) } },
+      applied: false, requiresAuthorization: true, requiresPlanRevalidation: true,
+    })),
+    acceptanceContract: '这些是待用户选择或已有适用授权的动作参数，不是已保存安排。采用前核查完整日历指纹和外部来源版本、重新验证全体计划；依赖顺序执行既有save/change，失败须报告真实部分结果。',
+  };
+}

@@ -552,15 +552,78 @@ export class AttentionService {
 
   pending(handle: ScopeHandle, limit = 5) {
     this.expire();
-    if (this.preferences?.().initiative === 'quiet') return [];
+    if (this.preferences?.().initiative === 'quiet' || this.preferences?.().followup === 'on_request') return [];
+    const all = this.records(handle, 'help_opportunity');
+    const lastReviewed = new Map<string, number>();
+    for (const item of all) {
+      const at = Date.parse(String(item.data.lastReviewAt || item.data.decidedAt || ''));
+      if (Number.isFinite(at)) lastReviewed.set(String(item.data.bindingId), Math.max(lastReviewed.get(String(item.data.bindingId)) || 0, at));
+    }
     return this.records(handle, 'help_opportunity', ['candidate', 'waiting']).filter(item =>
       (!item.data.reconsiderAt || Date.parse(String(item.data.reconsiderAt)) <= Date.parse(this.repo.clock.now())) &&
       !this.rules(handle, String(item.data.bindingId), String((item.data.facts as any)?.objectId || ''), item.id).some(rule => ['pause', 'stop'].includes(String(rule.data.operation))))
       .sort((a, b) => {
         const now = Date.parse(this.repo.clock.now());
-        const priority = (item: WorkRecord) => Math.min(Date.parse(String(item.data.expiresAt)), Date.parse(String(item.data.recordedAt)) + 3600000);
-        return Math.max(now, priority(a)) - Math.max(now, priority(b)) || Date.parse(String(a.data.recordedAt)) - Date.parse(String(b.data.recordedAt));
+        // A near expiry is an actual host deadline, not a model-generated
+        // importance score. Otherwise rotate mandates so a noisy source
+        // cannot occupy every available semantic review turn.
+        const urgent = (item: WorkRecord) => Date.parse(String(item.data.expiresAt)) <= now + 300000;
+        if (urgent(a) !== urgent(b)) return urgent(a) ? -1 : 1;
+        if (urgent(a)) return Date.parse(String(a.data.expiresAt)) - Date.parse(String(b.data.expiresAt));
+        return (lastReviewed.get(String(a.data.bindingId)) || 0) - (lastReviewed.get(String(b.data.bindingId)) || 0)
+          || Date.parse(String(a.data.recordedAt)) - Date.parse(String(b.data.recordedAt));
       }).slice(0, limit);
+  }
+
+  /** Persist retry timing for BOTH new and previously waiting work. A late
+   * failure cannot overwrite a newer decision, cancellation or correction. */
+  settleReview(handle: ScopeHandle, original: WorkRecord, error?: unknown) {
+    const current = this.repo.work(handle, undefined, original.id)[0];
+    if (!current || current.revision !== original.revision || !['candidate', 'waiting'].includes(current.status)) return;
+    const binding = this.repo.work(handle, undefined, String(current.data.bindingId))[0];
+    if (!binding || !this.bindingActive(handle, binding) ||
+      this.rules(handle, binding.id, String((current.data.facts as any)?.objectId || ''), current.id).some(rule => ['pause', 'stop'].includes(String(rule.data.operation)))) return;
+    const failures = error ? Math.min(12, Number(current.data.reviewFailures || 0) + 1) : 0;
+    const delay = error ? Math.min(900000, 30000 * 2 ** (failures - 1)) : 1800000;
+    const now = this.repo.clock.now();
+    this.work.update(handle, current.id, current.revision, { status: 'waiting', data: { ...current.data,
+      lastReviewAt: now, reviewFailures: failures,
+      reconsiderAt: new Date(Date.parse(now) + delay).toISOString(),
+      preparationStatus: error ? 'review_failed' : 'no_artifact_produced',
+      // Error bodies may contain provider responses or private tool material.
+      reviewFailure: error ? { at: now, code: error instanceof HarnessError ? error.code : error instanceof Error && error.name === 'AbortError' ? 'interrupted' : 'review_failed' } : null,
+    } });
+  }
+
+  /** The timer is disposable; these persisted records are the schedule. The
+   * caller may still reconcile periodically for new external source events. */
+  nextReviewAt(handle = this.policy.hostScope()): string | null {
+    this.expire();
+    if (this.preferences?.().initiative === 'quiet' || this.preferences?.().followup === 'on_request') return null;
+    const now = Date.parse(this.repo.clock.now()), times: number[] = [];
+    const add = (value: unknown) => { const time = Date.parse(String(value)); if (Number.isFinite(time)) times.push(Math.max(now, time)); };
+    for (const item of this.records(handle, 'help_opportunity', ['candidate', 'waiting'])) {
+      if (this.rules(handle, String(item.data.bindingId), String((item.data.facts as any)?.objectId || ''), item.id).some(rule => ['pause', 'stop'].includes(String(rule.data.operation)))) continue;
+      add(item.data.reconsiderAt || this.repo.clock.now());
+      // Expiry can release a full mandate queue before its next time node.
+      // Reconcile then so that capacity does not hide a shorter deadline.
+      add(item.data.expiresAt);
+    }
+    for (const focus of this.records(handle, 'attention_focus', ['active'])) {
+      if (!this.bindingActive(handle, focus) || this.rules(handle, focus.id).some(rule => ['pause', 'stop'].includes(String(rule.data.operation)))) continue;
+      const hasCapacity = this.records(handle, 'help_opportunity', ['candidate', 'waiting']).filter(item => item.data.bindingId === focus.id).length < 5;
+      if (hasCapacity && (focus.data.discoveryPending || focus.data.pendingProbe)) times.push(now);
+      const completed = (focus.data.completedWakes || []) as string[];
+      for (const at of (focus.data.wakeAt || []) as string[]) if (hasCapacity && !completed.includes(at)) add(at);
+      for (const wake of (focus.data.materialWakes || []) as unknown as MaterialWake[]) {
+        if (hasCapacity && !this.rules(handle, focus.id, wake.objectId, wake.opportunityId).some(rule => ['pause', 'stop'].includes(String(rule.data.operation)))) add(wake.at);
+      }
+      if (focus.data.probe && !focus.data.pendingProbe) add(focus.data.nextScanAt);
+    }
+    // A timed pause is itself a future decision boundary. It must not depend
+    // on the next arbitrary sixty-second poll to become eligible again.
+    for (const rule of this.records(handle, 'attention_rule', ['active'])) if (rule.data.until && Date.parse(String(rule.data.until)) > now) add(rule.data.until);
+    return times.length ? new Date(Math.min(...times)).toISOString() : null;
   }
 
   inspect(handle: ScopeHandle, opportunity: WorkRecord, includeHistory = true) {

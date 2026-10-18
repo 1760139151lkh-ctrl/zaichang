@@ -1,0 +1,221 @@
+import { createHash, randomUUID } from 'node:crypto';
+import { z } from 'zod';
+import type { Action } from '../../shared/types';
+import { HarnessError, type ScopeData } from '../../shared/harness';
+import { canonical } from '../runtime/semantics';
+import { calendarPlanFingerprint, draftCalendarPlan, planningDraftInput } from './planning-draft';
+
+export const planningPlanRefSchema = z.object({ planId: z.string().uuid(), blockId: z.string().min(1).max(160) }).strict();
+export type PlanningPlanRef = z.infer<typeof planningPlanRefSchema>;
+type Input = z.infer<typeof planningDraftInput>;
+type Draft = ReturnType<typeof draftCalendarPlan>;
+type SaveArguments = { title: string; detail: string; kind: 'time_block'; startsAt: string; durationMinutes: number; timeZone: string; planning: { state: 'accepted'; flexibility: 'fixed' | 'movable'; placeId?: string }; planRef: PlanningPlanRef };
+type Unit = { blockId: string; kind: 'work' | 'transition' | 'protected'; taskId?: string; segment?: number; arguments: SaveArguments };
+type SourceRevision = { sourceId: string; sourceVersion: string | null };
+type Owner = Pick<ScopeData, 'principalId' | 'workspaceId' | 'deviceId' | 'subjectId' | 'worldId' | 'audience'>;
+type Ticket = {
+  scope: ScopeData; input: Input; output: Draft; units: Unit[]; sources: SourceRevision[];
+  expiresAt: number; fingerprint: string; itemDigests: Map<string, string>; applied: { blockId: string; recordId: string }[];
+  invalidatedReason?: string;
+  progressUncertain?: boolean;
+};
+const minute = 60000;
+const ttl = 15 * minute;
+const sameOwner = (a: Owner, b: Owner) => (['principalId', 'workspaceId', 'deviceId', 'subjectId', 'worldId', 'audience'] as const).every(key => a[key] === b[key]);
+const digestItems = (items: Action[]) => new Map(items.map(item => [item.id, canonical(item)]));
+
+/** Short-lived validation ledger. No raw draft, scope or source is persisted. Restart invalidates every ticket. */
+export class PlanningApplicationService {
+  private readonly tickets = new Map<string, Ticket>();
+  // Only owner and irreversible parameter digests survive ticket expiry, bounded to 50 plans in this process.
+  // This catches detached copies, not arbitrary semantic rewrites, and intentionally does not survive restart.
+  private readonly recentProposals = new Map<string, { owner: Owner; keys: Set<string> }>();
+  constructor(private readonly clock: () => string, private readonly currentSourceVersion?: (sourceId: string) => string | number | null | undefined) {}
+
+  prepare(scope: ScopeData, items: Action[], raw: unknown) {
+    const now = this.now();
+    this.prune(now);
+    if (scope.worldId !== 'real' || scope.audience !== 'self' || scope.subjectId !== scope.principalId || scope.child || !scope.sources.includes('local-agenda'))
+      throw new HarnessError('planning_scope', '日程方案需要本人的真实世界本地日历读取范围。');
+    const input = planningDraftInput.parse(raw), output = draftCalendarPlan(items, input), planId = randomUUID();
+    const units = this.units(planId, input, output);
+    const sources = this.sourceRevisions(input);
+    const ticket: Ticket = { scope: structuredClone(scope), input, output, units, sources,
+      expiresAt: Math.min(now + ttl, Date.parse(scope.expiresAt)), fingerprint: output.calendarFingerprint,
+      itemDigests: digestItems(items), applied: [] };
+    if (!Number.isFinite(ticket.expiresAt) || ticket.expiresAt <= now) throw new HarnessError('planning_expired', '当前读取范围已经过期，请重新读取日程。');
+    while (this.tickets.size >= 50) this.tickets.delete(this.tickets.keys().next().value!);
+    this.tickets.set(planId, ticket);
+    const owner: Owner = { principalId: scope.principalId, workspaceId: scope.workspaceId, deviceId: scope.deviceId, subjectId: scope.subjectId, worldId: scope.worldId, audience: scope.audience };
+    const keys = new Set(units.map(unit => this.proposalKey(unit.arguments)!));
+    for (const block of output.blocks) keys.add(this.proposalKey({ title: block.title, startsAt: block.start, kind: 'time_block' })!);
+    while (this.recentProposals.size >= 50) this.recentProposals.delete(this.recentProposals.keys().next().value!);
+    this.recentProposals.set(planId, { owner, keys });
+    const adoptionBlockers = this.adoptionBlockers(ticket, scope);
+    return {
+      ...output, planId, expiresAt: new Date(ticket.expiresAt).toISOString(),
+      adoption: { status: adoptionBlockers.length ? 'blocked' : units.length ? 'ready_for_authorized_steps' : 'nothing_to_apply', blockers: adoptionBlockers,
+        atomic: false, completedSteps: 0, totalSteps: units.length, restartBehavior: 'ticket_invalidated_recompute_required' },
+      acceptanceProposals: units.map((unit, index) => ({ ...unit, capability: 'local.agenda.save', order: index + 1, applied: false, requiresAuthorization: true, requiresPlanRevalidation: true })),
+      acceptanceContract: '仅使用带planRef的精确参数，按order逐项经既有授权与事务保存。准备和清理并入工作占用，转场、休息和保护空白有独立真实占用。整组不是原子提交；每次保存前核查日历、身份、策略、时效与来源版本，任一项变化须重算，并保留明确的部分完成状态。重启后票据失效。',
+    };
+  }
+
+  /** Reject common copies that strip their planRef; invoke for every ordinary local save too. */
+  assertNoDetachedProposal(scope: ScopeData, raw: unknown) {
+    if (!raw || typeof raw !== 'object') return;
+    const args = raw as Record<string, unknown>;
+    if (args.planRef !== undefined) { planningPlanRefSchema.parse(args.planRef); return; } // The normal plan guard validates a supplied reference.
+    const key = this.proposalKey(args);
+    if (key && [...this.recentProposals.values()].some(value => sameOwner(value.owner, scope) && value.keys.has(key)))
+      throw new HarnessError('planning_reference_required', '这个安排来自本次规划草案，须完整保留planRef与占用参数；旧草案失效时请重新规划。');
+  }
+
+  /** Invoke both at preparation and immediately inside the eventual calendar transaction. */
+  validateSave(scope: ScopeData, rawRef: unknown, args: unknown, currentItems: Action[]) {
+    const ref = planningPlanRefSchema.parse(rawRef), ticket = this.ticket(ref.planId);
+    this.validateScope(ticket, scope);
+    const blockers = this.adoptionBlockers(ticket, scope);
+    if (blockers.length) throw new HarnessError('planning_conditions_unverified', blockers.join('；'));
+    if (calendarPlanFingerprint(currentItems) !== ticket.fingerprint) {
+      ticket.invalidatedReason = 'calendar_changed';
+      throw new HarnessError('planning_stale', '日历在本方案上一步之后已变化，请重新规划；已经保存的步骤保留，尚未保存的步骤没有执行。');
+    }
+    const next = ticket.units[ticket.applied.length];
+    if (!next || next.blockId !== ref.blockId) throw new HarnessError('planning_order', '这一步已采用或不符合方案顺序；不能跳过准备、转场、休息或保护占用。');
+    if (canonical(args) !== canonical(next.arguments)) throw new HarnessError('planning_parameters_changed', '保存参数与核查过的完整占用不同，请重新生成方案。');
+    return { planId: ref.planId, blockId: ref.blockId, status: 'validated', atomic: false,
+      completedSteps: ticket.applied.length, totalSteps: ticket.units.length, nextOrder: ticket.applied.length + 1 };
+  }
+
+  /** Call only after the outer SQLite transaction successfully commits. Failure must not erase its success receipt. */
+  committed(rawRef: unknown, currentItems: Action[]) {
+    const ref = planningPlanRefSchema.parse(rawRef), ticket = this.ticket(ref.planId);
+    const unit = ticket.units[ticket.applied.length];
+    if (!unit || unit.blockId !== ref.blockId) throw new HarnessError('planning_order', '方案采用账本的步骤顺序不一致，请重新核查当前日历。');
+    const current = digestItems(currentItems);
+    const matches = currentItems.filter(item => !ticket.itemDigests.has(item.id) && Object.entries(unit.arguments)
+      .every(([key, value]) => canonical((item as unknown as Record<string, unknown>)[key]) === canonical(value)));
+    // A concurrent change after a successful commit invalidates the remaining plan,
+    // but must not hide the exact step that is already present in the real calendar.
+    if (matches.length === 1) ticket.applied.push({ blockId: ref.blockId, recordId: matches[0].id });
+    else ticket.progressUncertain = true;
+    if (current.size !== ticket.itemDigests.size + 1 || [...ticket.itemDigests].some(([id, value]) => current.get(id) !== value)) {
+      ticket.invalidatedReason = 'commit_mismatch';
+      throw new HarnessError('planning_commit_mismatch', '日历提交结果超出本步骤，方案后续采用已停止，请按当前真实日历重算。');
+    }
+    if (matches.length !== 1) {
+      ticket.invalidatedReason = 'commit_mismatch';
+      throw new HarnessError('planning_commit_mismatch', '实际保存的占用与方案不一致，方案后续采用已停止。');
+    }
+    ticket.itemDigests = current;
+    ticket.fingerprint = calendarPlanFingerprint(currentItems);
+    return { planId: ref.planId, status: ticket.applied.length === ticket.units.length ? 'applied' : 'partially_applied', atomic: false,
+      completedSteps: ticket.applied.length, totalSteps: ticket.units.length, applied: structuredClone(ticket.applied),
+      nextBlockId: ticket.units[ticket.applied.length]?.blockId || null };
+  }
+
+  /** A progress receipt, not permission to write. Unknown/expired ledgers never imply zero completed writes. */
+  progress(rawRef: unknown) {
+    const ref = planningPlanRefSchema.parse(rawRef), ticket = this.tickets.get(ref.planId);
+    if (!ticket) return { planId: ref.planId, status: 'unavailable', progressKnown: false, atomic: false,
+      completedSteps: null, totalSteps: null, applied: [], nextBlockId: null,
+      reason: '票据不存在或应用已重启；不能据此推断没有保存，须读取真实日历。' };
+    const expired = ticket.expiresAt <= this.now();
+    const status = expired ? 'expired' : ticket.invalidatedReason ? 'invalidated' : ticket.applied.length === ticket.units.length ? 'applied' : ticket.applied.length ? 'partially_applied' : 'not_applied';
+    const result = { planId: ref.planId, status, progressKnown: !ticket.progressUncertain, completedStepsIsLowerBound: !!ticket.progressUncertain, atomic: false,
+      completedSteps: ticket.applied.length, totalSteps: ticket.units.length, applied: structuredClone(ticket.applied),
+      nextBlockId: expired || ticket.invalidatedReason ? null : ticket.units[ticket.applied.length]?.blockId || null,
+      reason: expired ? '方案票据已过期，后续须根据真实日历重算。' : ticket.invalidatedReason || null };
+    if (expired) this.tickets.delete(ref.planId);
+    return result;
+  }
+
+  private now() {
+    const now = Date.parse(this.clock());
+    if (!Number.isFinite(now)) throw new HarnessError('planning_clock', '无法核查方案时效，尚未保存。');
+    return now;
+  }
+  private proposalKey(args: Record<string, unknown>) {
+    if (typeof args.title !== 'string' || typeof args.startsAt !== 'string' || !Number.isFinite(Date.parse(args.startsAt))) return undefined;
+    return createHash('sha256').update(canonical({ title: args.title.trim(), startsAt: Date.parse(args.startsAt), kind: args.kind || 'time_block' })).digest('hex');
+  }
+  private prune(now: number) { for (const [key, value] of this.tickets) if (value.expiresAt <= now) this.tickets.delete(key); }
+  private ticket(id: string) {
+    const ticket = this.tickets.get(id);
+    if (!ticket) throw new HarnessError('planning_ticket_missing', '方案票据不存在或应用已重启，请根据当前日历重新生成方案。');
+    if (ticket.expiresAt <= this.now()) { this.tickets.delete(id); throw new HarnessError('planning_expired', '方案核查已过期，请重新生成；已经保存的步骤不受影响。'); }
+    if (ticket.invalidatedReason) throw new HarnessError('planning_stale', '方案采用已停止，须依据当前真实日历重新规划。');
+    return ticket;
+  }
+  private validateScope(ticket: Ticket, scope: ScopeData) {
+    if (!sameOwner(ticket.scope, scope) || scope.child || scope.retention === 'session_only')
+      throw new HarnessError('planning_scope', '方案所属身份、世界或保留策略不允许当前保存。');
+    if (scope.privacyEpoch !== ticket.scope.privacyEpoch || scope.policyRevision !== ticket.scope.policyRevision || ticket.scope.sources.some(source => !scope.sources.includes(source)))
+      throw new HarnessError('planning_policy_changed', '读取范围或隐私策略已改变，请重新生成方案。');
+    if (Date.parse(scope.expiresAt) <= this.now() || !Number.isFinite(Date.parse(scope.expiresAt))) throw new HarnessError('planning_expired', '当前范围已经过期，尚未保存。');
+  }
+  private sourceRevisions(input: Input): SourceRevision[] {
+    return [...input.busy, ...input.travelTimes, ...input.energyWindows, ...input.sourceCoverage.filter(value => !['local-agenda', 'user-declared', 'current'].includes(value.sourceId)), ...input.tasks.filter(value => value.sourceId), ...input.conditions.filter(value => value.sourceId), ...input.tasks.flatMap(value => value.conditions.filter(condition => condition.sourceId))]
+      .map(value => ({ sourceId: value.sourceId!, sourceVersion: value.sourceVersion || null }));
+  }
+  private adoptionBlockers(ticket: Ticket, scope: ScopeData): string[] {
+    const blockers = [...ticket.output.conditions];
+    if (!ticket.output.blocks.length) blockers.push('本次没有构造出可采用的工作安排。');
+    if (scope.retention === 'session_only') blockers.push('本次仅会话保留范围不能写入长期日历。');
+    for (const source of ticket.sources) {
+      if (!scope.sources.includes(source.sourceId)) { blockers.push(`来源 ${source.sourceId} 不在当前读取范围。`); continue; }
+      if (source.sourceVersion === null) { blockers.push(`来源 ${source.sourceId} 没有可复验版本。`); continue; }
+      let current: string | number | null | undefined;
+      try { current = this.currentSourceVersion?.(source.sourceId); } catch { current = undefined; }
+      if (current === undefined || current === null) blockers.push(`来源 ${source.sourceId} 的当前版本尚不能复验，不能采用依赖该来源的方案。`);
+      else if (String(current) !== source.sourceVersion) blockers.push(`来源 ${source.sourceId} 的版本已经改变，请重新读取并规划。`);
+    }
+    return [...new Set(blockers)];
+  }
+
+  private units(planId: string, input: Input, draft: Draft): Unit[] {
+    const units: Unit[] = [];
+    const add = (blockId: string, kind: Unit['kind'], title: string, detail: string, start: string, end: string, placeId?: string, taskId?: string, segment?: number) => {
+      const from = Date.parse(start), to = Date.parse(end);
+      // The existing save contract accepts at most 24 hours; preserve longer reservations as consecutive units.
+      for (let cursor = from, part = 0; cursor < to; part++) {
+        const next = Math.min(to, cursor + 1440 * minute), durationMinutes = (next - cursor) / minute;
+        if (!Number.isInteger(durationMinutes) || durationMinutes < 1) throw new HarnessError('planning_precision', '方案包含不足整分钟的占用，现有日历无法完整保存，请对齐到整分钟后重算。');
+        const id = `${blockId}:${part}`;
+        units.push({ blockId: id, kind, ...(taskId ? { taskId, segment } : {}), arguments: {
+          title: title.slice(0, 160), detail: detail.slice(0, 1500), kind: 'time_block', startsAt: new Date(cursor).toISOString(), durationMinutes, timeZone: input.timeZone,
+          planning: { state: 'accepted', flexibility: kind === 'work' ? 'movable' : 'fixed', ...(placeId ? { placeId } : {}) }, planRef: { planId, blockId: id },
+        } });
+        cursor = next;
+      }
+    };
+    for (const block of draft.blocks) {
+      const task = input.tasks.find(value => value.id === block.taskId)!;
+      const reservation = task.setupMinutes || task.cleanupMinutes ? `工作时间 ${block.start} 至 ${block.end}；本占用另含准备 ${task.setupMinutes} 分钟、收尾 ${task.cleanupMinutes} 分钟。` : '';
+      add(`work:${input.tasks.indexOf(task)}:${block.segment}`, 'work', block.title, [task.detail, reservation].filter(Boolean).join('\n'), block.reservedStart, block.reservedEnd, block.placeId, block.taskId, block.segment);
+    }
+    for (const [index, transfer] of draft.transitions.entries()) add(`transition:${index}`, 'transition', transfer.travel.minutes && transfer.restMinutes ? '转场与休息' : transfer.travel.minutes ? '转场' : '休息',
+      `保留转场 ${transfer.travel.minutes} 分钟、休息 ${transfer.restMinutes} 分钟。`, transfer.start, transfer.end);
+    // Merge protection overlaps and omit portions already occupied by accepted commitments.
+    const bounds = { start: Date.parse(input.from), end: Date.parse(input.to) };
+    const protection = input.protectedWindows.map(value => ({ start: Math.max(bounds.start, Date.parse(value.start)), end: Math.min(bounds.end, Date.parse(value.end)), reasons: [value.reason] })).filter(value => value.end > value.start).sort((a, b) => a.start - b.start);
+    const merged: typeof protection = [];
+    for (const value of protection) {
+      const previous = merged.at(-1);
+      if (previous && value.start <= previous.end) { previous.end = Math.max(previous.end, value.end); previous.reasons.push(...value.reasons); }
+      else merged.push({ ...value });
+    }
+    for (const [index, window] of merged.entries()) {
+      let available = [{ start: window.start, end: window.end }];
+      for (const fixed of draft.fixedCommitments) {
+        const a = Date.parse(fixed.start), b = Date.parse(fixed.end);
+        available = available.flatMap(value => b <= value.start || a >= value.end ? [value] : [
+          ...(a > value.start ? [{ start: value.start, end: a }] : []), ...(b < value.end ? [{ start: b, end: value.end }] : []),
+        ]);
+      }
+      for (const [part, value] of available.entries()) add(`protected:${index}:${part}`, 'protected', '留白', [...new Set(window.reasons)].join('；'), new Date(value.start).toISOString(), new Date(value.end).toISOString());
+    }
+    return units.sort((a, b) => Date.parse(a.arguments.startsAt) - Date.parse(b.arguments.startsAt) || a.blockId.localeCompare(b.blockId));
+  }
+}

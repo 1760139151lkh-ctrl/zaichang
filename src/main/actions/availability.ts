@@ -4,6 +4,8 @@ import { HarnessError } from '../../shared/harness';
 export function availableIntervals(input: {
   from: string; to: string; busy: { start: string; end: string | null }[];
   transitionMinutes: { min: number; max: number }; minimumBlockMinutes: number;
+  /** 1 preserves the original total-per-gap API; 2 means one cost on each side. */
+  transitionBoundaryCount?: 1 | 2;
 }) {
   const from = Date.parse(input.from), to = Date.parse(input.to);
   if (!Number.isFinite(from) || !Number.isFinite(to) || to <= from) throw new HarnessError('time_window', '时间范围不合法。');
@@ -26,7 +28,8 @@ export function availableIntervals(input: {
   for (const [start, end] of [...merged, [to, to] as [number, number]]) {
     if (start > cursor) {
       const minutes = (start - cursor) / 60000;
-      const usable = { min: Math.max(0, minutes - input.transitionMinutes.max), max: Math.max(0, minutes - input.transitionMinutes.min) };
+      const boundaryCount = input.transitionBoundaryCount || 1;
+      const usable = { min: Math.max(0, minutes - boundaryCount * input.transitionMinutes.max), max: Math.max(0, minutes - boundaryCount * input.transitionMinutes.min) };
       windows.push({ start: new Date(cursor).toISOString(), end: new Date(start).toISOString(), wallMinutes: minutes, usableMinutes: usable,
         fitsMinimum: usable.min >= input.minimumBlockMinutes ? 'yes' : usable.max < input.minimumBlockMinutes ? 'no' : 'uncertain' });
     }

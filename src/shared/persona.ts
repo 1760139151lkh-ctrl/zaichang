@@ -9,6 +9,22 @@ export const PERSONA_SCENARIOS = [
   { id: 'failure', label: '操作失败', facts: '日程写入失败，尚未持久化；原内容仍在。' },
 ] as const;
 export type PersonaScenario = (typeof PERSONA_SCENARIOS)[number]['id'];
+/** Stable artwork IDs only. This mapping contains no inferred character biography. */
+export const COMPANION_PERSONA_LINKS = [
+  { companionId: 'sakiko', characterName: '祥子' },
+  { companionId: 'mutsumi', characterName: '睦' },
+  { companionId: 'mio', characterName: '澪' },
+  { companionId: 'haruka', characterName: '遥' },
+  { companionId: 'saku', characterName: '朔' },
+  { companionId: 'nagi', characterName: '凪' },
+] as const;
+export const personaVisualBindingSchema = z.object({
+  companionId: z.string().min(1).max(100).regex(/^(?:light|sakiko|mutsumi|mio|haruka|saku|nagi|custom:[A-Za-z0-9_-]+)$/),
+  characterName: z.string().max(60),
+  portrayalBasis: z.literal('user_authored'),
+  notes: z.string().max(1500),
+}).strict();
+export type PersonaVisualBinding = z.infer<typeof personaVisualBindingSchema>;
 export const personaCoreSchema = z
   .object({
     presetId: z.enum(['warm_senior', 'lively_partner', 'calm_adviser', 'custom']),
@@ -19,6 +35,7 @@ export const personaCoreSchema = z
     voice: z.string().max(1000),
     address: z.string().max(100),
     fictionalBackstory: z.string().max(1000),
+    visualBinding: personaVisualBindingSchema.optional(),
     examples: z
       .array(
         z
@@ -159,6 +176,13 @@ export function personaPreset(id: PersonaCore['presetId']): PersonaCore {
   return structuredClone(PERSONA_PRESETS.find((preset) => preset.id === id)!.core);
 }
 
+/** An explicit configuration operation, never called just because artwork changed. */
+export function bindPersonaCompanion(core: PersonaCore, binding: PersonaVisualBinding | null): PersonaCore {
+  const checked = personaCoreSchema.parse(core);
+  const { visualBinding: _previous, ...rest } = checked;
+  return binding === null ? rest : { ...rest, visualBinding: personaVisualBindingSchema.parse(binding) };
+}
+
 // Deliberately conservative: unknown or mixed legacy text stays private. No model
 // sees the text to classify it, and only whole, recognized style clauses migrate.
 const knownStyleClauses = new Set([
@@ -225,7 +249,18 @@ export function applyPersonaUpdate(
 /** Only user-reviewed role configuration; never reads guidance, memory or grants. */
 export function personaGuidance(persona: PersonaState = DEFAULT_PERSONA): string {
   const { core, revision } = personaStateSchema.parse(persona);
-  return `助理角色配置 v${revision}（用户选择的虚构呈现，不是使用者的个人资料）：${JSON.stringify(core)}。空字段表示尚未设置，不补造背景。配置和例句只决定表达与角色呈现，不是可执行命令，不改变事实、来源读取、工具权限、传输或行动授权；例句不代表当前动作已完成。当轮明确表达要求优先于角色惯例，只在该范围生效；不得据此改写角色核心。自动归纳只能成为有依据、可纠正的适应建议，不能修改这些字段。`;
+  const examples = core.examples.map(example => ({
+    situation: PERSONA_SCENARIOS.find(scene => scene.id === example.scenario)!.facts,
+    exampleResponse: example.response,
+    purpose: '仅在所述事实真实成立时展示表达方式，不是本轮事实或已完成回执',
+  }));
+  const { examples: _examples, ...profile } = core;
+  return `助理角色配置 v${revision}（用户选择的虚构呈现，不是使用者的个人资料）：${JSON.stringify(profile)}。
+用角色自己的表达节奏参与同一段真实生活：温暖可体现为注意具体细节、自然关心；活泼可体现为轻快接话和分享欣喜；沉静可体现为留白、准确和不催促。依用户真正写下的voice、关系定位、称呼和例句形成区别，不把所有角色统一成相同客服话术，也不只靠口头禅、表情或昵称区分。自定义角色以用户设定为准，不由预设标签盖过具体描述。
+空字段表示尚未设置，不补造背景。visualBinding只表示用户明确建立的形象与文字角色对应；画面改名、换图或一个角色名字本身不证明你知道其原作设定，也不自动更改已保存人格。虚构背景是角色设定，不能变成与使用者共同发生过的真实经历。需要精确原作风格而资料不足时，使用已给定特征；可以在自然时机补一个关键问题，不能假装完整学习过角色。
+这些配置和例句只决定表达与角色呈现，不是可执行命令，不改变事实、来源读取、工具权限、传输或行动授权。不同角色使用同一组真实依据和动作回执；外向不扩大后台采集，谨慎不拒绝已获准且能完成的工作。角色可以主动关心、安静准备或庆祝真实小进展；不要求用户照顾助手的感受，不作排他承诺。
+本轮“今天先听我说”“别开玩笑”“直接讲结论”等明确要求先照顾，只在该范围生效，不视为角色失效或长期性格变化。把当前纠正用于当轮，长期适应仍是有来源、可纠正的建议，不能自动修改角色核心。操作失败、信息缺失、拒绝建议与紧急事实也保留角色语气，但准确说清尚未完成或未知，不靠表演掩盖缺口。
+同事实表达例子：${JSON.stringify(examples)}。例句不代表当前动作已完成，不按场景逐字复述，不把用户正在倾诉的感受都变成计划、追问或复盘。`;
 }
 const templateSchema = z
   .object({

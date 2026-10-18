@@ -4,6 +4,8 @@
 
 本文件是当前项目的入口、职责与文件索引，核对日期为 **2026-10-18**。以实际 checkout 和所述调用链为准；本轮源码包含学生 Harness、对话场景与前端演进，源码提交、线上部署和历史验收分别记录。[当前状态](docs/CURRENT_STATUS.md)维护功能与证据，[架构](docs/ARCHITECTURE.md)解释运行机制。
 
+**本轮后端工作的续接入口**：[需求与实现明细](docs/HARNESS_EVOLUTION.md) → [源码研究与方案取舍](docs/research/HARNESS_RESEARCH_2026-10-18.md) → [原始实施包、记忆和设计讨论](docs/source-materials/2026-10-18/README.md)。记忆优先，后端门槛通过后才读前端图片并开始页面；新增页面先 GPT Image。未完成项和已验证范围见当前状态，不要求用户重发来源。
+
 <a id="strategy"></a>
 ## 当前策略
 
@@ -25,6 +27,9 @@
 | [PRODUCT_CONTRACT](docs/PRODUCT_CONTRACT.md) | 设计理念、用户决定权、低负担体验及各类对象的产品边界 |
 | [ARCHITECTURE](docs/ARCHITECTURE.md) | 单主循环、上下文／工具／存储／行动与显示层机制 |
 | [CURRENT_STATUS](docs/CURRENT_STATUS.md) | 当前功能、接入程度、证据时间、进行中工作与真实缺口 |
+| [HARNESS_EVOLUTION](docs/HARNESS_EVOLUTION.md) | 最新个人助手需求、记忆/主动/日程/技能/角色细节、创新方向及后端先行门槛 |
+| [本轮源码研究](docs/research/HARNESS_RESEARCH_2026-10-18.md) | 多路独立研究实际读过的仓库版本、源码路径、问题、借鉴及拒绝照搬的理由 |
+| [2026-10-18 原始来源](docs/source-materials/2026-10-18/README.md) | 用户指定新版实施包及记忆、产品理念、动态界面、前端讨论原文；私人归档和逐文件哈希 |
 | [STUDENT_HARNESS](docs/STUDENT_HARNESS.md) | 学生生活联动、迁移回退、已完成验证及128条需求归属／T8边界 |
 | [CONVERSATION_SCENES](docs/CONVERSATION_SCENES.md) | Scene/View/语义选择、内嵌地图、天气及动态呈现契约 |
 | [CLOUD_REVIEW](docs/CLOUD_REVIEW.md) | 公共地图的本地/历史线上场景、操作和证据范围 |
@@ -78,12 +83,17 @@
 | 原话控制、权限与用途 | `runtime/turn-controls.ts`、`controls.ts`、`policy.ts`、`read-purpose.ts`、`privacy-control.ts`、`action-delegation.ts`、`attention-boundary.ts`；发送前边界及每次实际操作均重新核查 |
 | 上下文、来源与用量 | `runtime/context.ts`、`basis.ts`、`observation-review.ts`、`completion-review.ts`、`model-usage.ts`；按任务检索原始证据，记录实际来源/对象版本/工具与模型回执 |
 | 工具发现与提供者 | `main/tools.ts` → `runtime/coordinator.ts` → `capabilities/broker.ts` → `builtin.ts` / `ports.ts` / 领域provider；共享预算和当前范围不交给插件自行扩大 |
+| 按需技能方法 | `runtime/skills.ts` → `discover_skills` / `read_skill`；六份有版本/hash的方法，动态核对工具、能力、权限与连接状态；读方法不执行代码 |
+| 后台只读子调查 | `harness.ts` → `runtime/background-delegation.ts` → 同一 Hermes children 协议；授权片段、来源子集、共享预算、调用边界与父采用复验 |
 | 缓存与真实委派 | `capabilities/broker.ts`、`runtime/cooperation.ts`、`collaboration.ts`、`hermes.ts` 和 sidecar；独立等待者取消、版本快照、父代理消费与旧结果失效 |
 | 记忆与连续事项 | `memory/model.ts` / `service.ts` → `runtime/context.ts` / `work.ts` / `discourse.ts` → `storage/repository.ts`；`HarnessViews.tsx` 提供原话、更正、停用和忘记入口 |
 | 记事本 | `shared/notes.ts` → `main/notes/service.ts` → `Store.notes` → notes IPC / scoped `manage_note` → `renderer/NotesPanel.tsx` / `notes.css`；`note_attention` 仅携带版本元数据 |
 | 文字人格 | `shared/persona.ts` / `interaction.ts` → Store版本更新与旧guidance迁移 → `PersonaEditor.tsx` / `SettingsPanel.tsx`；`harness.ts` 在合法上下文注入纯角色，不依赖普通记忆开关 |
 | 本地安排与版本／撤销 | `shared/calendar.ts` → `actions/calendar.ts` / `local-calendar.ts` / `runtime.ts` → `Store.writeAgendaProjection` / `deleteAction`；`LifePanels.tsx` / `Workspace.tsx` / App动作卡回读真实状态 |
 | 情境、空闲与可行规划 | `capabilities/builtin.ts` → `actions/planning.ts` / `availability.ts`；`situation.read` 有界读取，`planning.preview` 计算冲突/未知并给版本绑定方案；接受后改原对象 |
+| 多任务日程与采用 | `planning.draft` → `actions/planning-draft.ts` / `planning-application.ts` → `prepare_action` / `local-calendar.ts` / `ActionRuntime`；完整占用、短期票据、整库指纹、事务内校验及成功后逐项进度 |
+| 机会按时唤醒 | `runtime/opportunity-scheduler.ts` → `AttentionService.nextReviewAt/settleReview` → `Harness.reviewOpportunities`；单timer、公平选择、失败退避与周期对账，退出停止 |
+| 公共空气质量 | `capabilities/air-quality.ts` → `builtin.ts` 的 `air_quality.lookup`；复用公共天气参考点与权限，返回模型小时样本，非手机传感或校园实测 |
 | 持久变化发现与托付 | Store日历/NotesService事务 outbox → `runtime/coordinator.ts` → `storage/domains.ts` journal/cursor/ack → `attention.ts` / `work.ts`；处理更新、tombstone、时间节点、暂停恢复和范围内新机会 |
 | 准备、投递与提醒恢复 | `runtime/attention.ts` / `cooperation.ts` → `actions/reminders.ts` / `runtime.ts` → h_jobs/h_deliveries；`PreparationShelf` / 消息helpRefs记录实际可见版本，明确提醒保留独立调度 |
 | 对外草稿与桌面公开展示 | `runtime/release-store.ts` / `release-composer.ts` / `release-projection.ts` / `redaction.ts` / `presentation.ts` → `LifePanels.tsx`；选定产物、内容复核和返回私聊，不自动发送消息 |

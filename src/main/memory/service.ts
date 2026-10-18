@@ -6,6 +6,7 @@ import type { KernelRepository, PrivacyFence } from '../storage/repository';
 import type { IngressDecision, PolicyKernel } from '../runtime/policy';
 import { canonical, codePointSlice, locateQuote } from '../runtime/semantics';
 import { hasCredentials } from '../runtime/redaction';
+import { ProviderError } from '../provider';
 
 export interface SemanticReview {
   supported: boolean;
@@ -132,6 +133,12 @@ export class MemoryService {
     if (Array.from(text).length <= max) return text;
     return codePointSlice(text, 0, max) + '…';
   }
+  /** Resource exhaustion is deferred work, never a verdict on the source. */
+  private retryableInterruption(error: unknown) {
+    return error instanceof HarnessError && error.code === 'memory_budget'
+      || error instanceof ProviderError && error.retryable
+      || error instanceof Error && error.name === 'TimeoutError';
+  }
   private contextTerms(value: string) {
     const normalized = value.normalize('NFKC').toLowerCase(),
       terms = new Set<string>();
@@ -162,6 +169,8 @@ export class MemoryService {
             id: candidate.id,
             speaker: candidate.speaker,
             text: this.clip(candidate.text, 420),
+            textLength: Array.from(candidate.text).length,
+            coverage: Array.from(candidate.text).length > 420 ? 'excerpt' as const : 'complete' as const,
             subjectId: candidate.subjectId,
             worldId: candidate.worldId,
             authority: candidate.authority,
@@ -179,6 +188,8 @@ export class MemoryService {
         .map((candidate) => ({
           ...candidate,
           text: this.clip(candidate.text, 420),
+          textLength: candidate.textLength ?? Array.from(candidate.text).length,
+          coverage: candidate.coverage === 'excerpt' || Array.from(candidate.text).length > 420 ? 'excerpt' as const : 'complete' as const,
         })),
       ...prior,
     ].filter((candidate, index, all) => all.findIndex((item) => item.id === candidate.id) === index);
@@ -411,7 +422,7 @@ export class MemoryService {
       return assertion;
     });
   }
-  private validateCandidateSource(handle: ScopeHandle, event: EvidenceEvent, predicate: string) {
+  private validateCandidateSource(handle: ScopeHandle, event: EvidenceEvent, predicate: string, location?: { start: number; end: number }) {
     const current = this.repo.evidence(handle, event.id);
     if (!current || current.status !== 'active')
       throw new HarnessError('source_suppressed', '原始来源已不可用，不能恢复旧理解。');
@@ -421,6 +432,11 @@ export class MemoryService {
       this.repo.db.prepare("SELECT 1 FROM h_source_restrictions WHERE event_id=? AND predicate IN (?, '*')").get(id, predicate)
       || this.repo.db.prepare("SELECT 1 FROM h_source_restrictions x JOIN h_evidence_roots r ON r.event_id=x.event_id WHERE r.root_id=? AND x.predicate IN (?, '*') LIMIT 1").get(id, predicate)))
       throw new HarnessError('source_suppressed', '这个旧来源的相关理解已停止使用，不能重新提取。');
+    // A renamed predicate is not a new source. Block the exact corrected
+    // passage while allowing independent facts elsewhere in the same event.
+    if (location && this.repo.db.prepare(`SELECT 1 FROM h_source_restriction_spans WHERE event_id=?
+      AND content_version=? AND start_cp<? AND end_cp>? LIMIT 1`).get(current.id, current.contentVersion, location.end, location.start))
+      throw new HarnessError('source_suppressed', '这段原文已经被更正或停止使用，不能换一个名称重新提取。');
   }
   async propose(
     handle: ScopeHandle,
@@ -441,8 +457,8 @@ export class MemoryService {
         throw new HarnessError('inference_forbidden', '这段内容不用于长期记忆。');
       const event = this.repo.evidence(handle, change.eventId);
       if (!event) throw new HarnessError('evidence_forbidden', '找不到有权使用的原始证据。');
-      this.validateCandidateSource(handle, event, change.predicate);
       const location = locateQuote(event.text, change.sourceQuote);
+      this.validateCandidateSource(handle, event, change.predicate, location);
       if (codePointSlice(event.text, location.start, location.end) !== change.sourceQuote)
         throw new HarnessError('locator_mismatch', '原文定位核验失败。');
       if (change.operation !== 'ADD' && !change.targetId) {
@@ -578,9 +594,12 @@ export class MemoryService {
       assertion.text = change.sourceQuote;
     this.repo.write(() => {
       this.policy.validate(handle);
+      // Capture locators before saveAssertion replaces the old evidence links.
+      const oldLocators = old ? this.repo.db.prepare(`SELECT ae.event_id,ae.start_cp,ae.end_cp,e.version FROM h_assertion_evidence ae
+        JOIN h_evidence e ON e.id=ae.event_id WHERE ae.assertion_id=?`).all(old.id) : [];
       // Review is asynchronous. A correction may have stopped this source
       // without changing the privacy epoch or this proposal's target revision.
-      this.validateCandidateSource(handle, event, change.predicate);
+      this.validateCandidateSource(handle, event, change.predicate, location);
       if (change.operation === 'SUPPORT' && old) {
         const roots = new Set(old.evidenceIds.flatMap((id) => this.repo.evidence(handle, id)?.roots || []));
         if (event.roots.every((r) => roots.has(r))) {
@@ -640,9 +659,10 @@ export class MemoryService {
         if (['CORRECT', 'RETRACT', 'EXPIRE', 'REFINE', 'SUPERSEDE'].includes(change.operation))
           for (const oldEvent of old.evidenceIds)
             if (oldEvent !== event.id)
-              this.repo.db
-                .prepare('INSERT OR REPLACE INTO h_source_restrictions VALUES(?,?,?,?)')
-                .run(oldEvent, old.predicate, change.operation, event.id);
+              this.repo.restrictSource(handle, oldEvent, old.predicate, change.operation, event.id,
+                oldLocators.filter(row => row.event_id === oldEvent && row.start_cp !== null && row.end_cp !== null)
+                  .map(row => ({ contentVersion: Number(row.version), start: Number(row.start_cp), end: Number(row.end_cp) })),
+                change.operation === 'SUPERSEDE' ? change.validFrom! : now);
         this.repo.invalidate(old.id, 'understanding_' + change.operation.toLowerCase());
       }
       this.repo.completeOperation('memory:' + change.idempotencyKey, change.operation, { id: assertion.id });
@@ -729,7 +749,7 @@ export class MemoryService {
             await this.propose(handle, { ...proposal, eventId: event.id }, signal, { reviewContext: context });
             retained++;
           } catch (error) {
-            if (signal.aborted || (error instanceof HarnessError && error.code === 'stale_scope'))
+            if (signal.aborted || this.retryableInterruption(error) || (error instanceof HarnessError && error.code === 'stale_scope'))
               throw error;
             if (error instanceof HarnessError && error.code === 'memory_not_needed') { originalOnly++; continue; }
             failed = true;
@@ -738,6 +758,14 @@ export class MemoryService {
         this.repo.markSpans(handle, eventId, failed ? 'needs_context' : originalOnly && !retained ? 'no_personal_fact' : extracted.status, [span.id]);
       } catch (error) {
         if (signal.aborted) throw error;
+        if (this.retryableInterruption(error)) {
+          // Some candidates in this span may already be committed. Their
+          // content-bound idempotency keys make the resumed pass safe.
+          // Stop now: spending the same exhausted budget on every later span
+          // would turn an operational interruption into permanent data loss.
+          this.repo.markSpans(handle, eventId, 'pending', [span.id]);
+          throw error;
+        }
         if (error instanceof HarnessError && error.code === 'invalid_semantic_json')
           this.extractionDiagnostics.push({
             eventId: event.id,
@@ -857,9 +885,10 @@ export class MemoryService {
         old.revision,
       );
       for (const source of old.evidenceIds)
-        this.repo.db
-          .prepare('INSERT OR REPLACE INTO h_source_restrictions VALUES(?,?,?,NULL)')
-          .run(source, old.predicate, 'DEACTIVATE');
+        this.repo.restrictSource(scope, source, old.predicate, 'DEACTIVATE', null,
+          this.repo.db.prepare(`SELECT ae.start_cp,ae.end_cp,e.version FROM h_assertion_evidence ae JOIN h_evidence e ON e.id=ae.event_id
+            WHERE ae.assertion_id=? AND ae.event_id=? AND ae.start_cp IS NOT NULL AND ae.end_cp IS NOT NULL`).all(old.id, source)
+            .map(row => ({ contentVersion: Number(row.version), start: Number(row.start_cp), end: Number(row.end_cp) })), this.repo.clock.now());
       this.repo.invalidate(id, 'understanding_deactivated');
       this.repo.setMeta('policy_revision', this.repo.policyRevision + 1);
     });

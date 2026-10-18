@@ -22,6 +22,7 @@ import {
 import { KernelRepository } from '../storage/repository';
 import { PolicyKernel, type IngressDecision, type InputControls } from './policy';
 import { ContextCompiler } from './context';
+import { listWorkflowSkills, readWorkflowSkill } from './skills';
 import { projectMapModelResult, projectMapRoute, projectMapValue } from './map-model-view';
 import { CollaborationService, collaborationInput, independentChoiceInput } from './collaboration';
 import { BasisService, basisInput } from './basis';
@@ -44,6 +45,7 @@ import { weatherInput } from '../capabilities/weather';
 import { ActionRuntime } from '../actions/runtime';
 import { localStamp, normalizeCalendarInput, projectCalendarChange } from '../actions/calendar';
 import { LocalCalendarService } from '../actions/local-calendar';
+import { PlanningApplicationService } from '../actions/planning-application';
 import { localCalendarChangeSchema } from '../../shared/calendar';
 import { noteListSchema, noteReadSchema, noteCreateSchema, noteUpdateSchema, noteStateSchema, noteUndoSchema, noteHistorySchema } from '../../shared/notes';
 import campusMethod from '../../../prompts/campus-tools.md';
@@ -350,6 +352,14 @@ const specs: SpecDefinition[] = [
     grant: 'evidence:read',
   },
   {
+    name: 'discover_skills', description: '按需查找已审核的工作方法。目录不读取个人资料、不执行代码、不增加权限。空query分页列出全部；搜索未命中不表示能力不存在，仍可直接调用其他合法工具。',
+    schema: z.object({ query: z.string().max(400).optional(), offset: z.number().int().nonnegative().optional(), limit: z.number().int().min(1).max(20).optional() }).strict(),
+  },
+  {
+    name: 'read_skill', description: '按目录中的精确ID读取工作方法及其所需工具在本轮的连接/授权状态。指南不是用户事实或新授权；只采用需要的步骤，不强制跑完整流程。',
+    schema: z.object({ id: z.string().min(1).max(100) }).strict(),
+  },
+  {
     name: 'restore_collaboration',
     description: '按需要恢复当前或跨会话事项、原话依据、暂定理解和未办请求。支持搜索和分页，并附已恢复对象的当前未同步/版本冲突修改；提议未应用，不能自动覆盖或当作已同步。不为问候或简单答复强制使用。',
     schema: z.object({ query: z.string().max(400).optional(), offset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional(), limit: z.number().int().min(1).max(20).optional(), relatedTo: z.string().min(1).max(160).optional().describe('已知事项ID；按实际关联读取该事项的工作记录，不靠标题关键词猜关联。'), relatedOffset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional().describe('关联工作记录的分页位置，使用relatedCoverage.nextOffset。'), syncOffset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional().describe('这一对象页中的未同步/冲突修改分页，使用syncChanges.nextOffset。'), syncLimit: z.number().int().min(1).max(20).optional(), syncObjectOffset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional().describe('仅已恢复对象的同步读取分页，使用syncChanges.objectCoverage.nextOffset；进入下一对象页时syncOffset从0开始。') }).strict(),
@@ -525,6 +535,7 @@ export class RuntimeCoordinator {
   readonly context: ContextCompiler;
   readonly actions: ActionRuntime;
   readonly calendar: LocalCalendarService;
+  readonly planning: PlanningApplicationService;
   readonly collaboration: CollaborationService;
   readonly basis: BasisService;
   readonly cooperation: CooperationService;
@@ -556,15 +567,16 @@ export class RuntimeCoordinator {
     this.materials = new MaterialService(repo, this.policy, (scope, id) => this.scopedEvidence(scope, id));
     this.domains.onChanged = () => this.work.staleWorlds();
     this.connections = { weatherEnabled: () => store.settings().weatherEnabled };
-    registerBuiltins(this.broker, this.policy, repo, this.domains, this.connections);
+    this.planning = new PlanningApplicationService(() => repo.clock.now());
+    registerBuiltins(this.broker, this.policy, repo, this.domains, this.connections, this.planning);
     registerResearch(this.broker, this.materials);
     registerMaterials(this.broker, this.materials);
     this.spatial = new SpatialService(this.policy, this.work, () => this.connections.map);
     registerSpatial(this.broker, this.spatial);
     this.context = new ContextCompiler(repo, this.policy, this.broker, this.domains, this.work);
     this.reminders = new ReminderRuntime(repo, this.policy);
-    this.calendar = new LocalCalendarService(store, this.reminders);
-    this.actions = new ActionRuntime(repo, this.policy, this.broker, (a, effect) => this.calendar.apply(a, effect), effect => this.calendar.undo(effect));
+    this.calendar = new LocalCalendarService(store, this.reminders, this.planning);
+    this.actions = new ActionRuntime(repo, this.policy, this.broker, (a, effect, scope) => this.calendar.apply(a, effect, scope), effect => this.calendar.undo(effect));
     this.basis = new BasisService(repo, this.policy, this.work);
     this.cooperation = new CooperationService(repo, this.work);
     this.attention = new AttentionService(repo, this.policy, this.work, this.basis, this.cooperation, this.reminders, this.broker, () => store.settings().interaction);
@@ -1082,7 +1094,7 @@ export class RuntimeCoordinator {
     return available
       .filter(
         (d) =>
-          (!session.background || ['look_up', 'read_evidence', 'inspect_help', 'decide_help', 'manage_attention', 'manage_note', 'resolve_time', 'calculate_available_time', 'map_overview', 'map_search', 'map_place', 'map_route', 'map_location_status'].includes(d.name)) &&
+          (!session.background || ['look_up', 'search_context', 'read_understanding', 'read_evidence', 'discover_skills', 'read_skill', 'delegate', 'inspect_help', 'decide_help', 'manage_attention', 'manage_note', 'resolve_time', 'calculate_available_time', 'map_overview', 'map_search', 'map_place', 'map_route', 'map_location_status'].includes(d.name)) &&
           (!child || (!d.mutates && d.name !== 'inspect_action' && d.name !== 'delegate' && d.name !== 'prepare_release' && d.name !== 'present_view')) &&
           (!d.grant || s.grants.includes(d.grant)) &&
           (d.name !== 'inspect_action' ||
@@ -1284,6 +1296,26 @@ export class RuntimeCoordinator {
     const definition = specs.find((d) => d.name === name)!,
       ownerProjection = name === 'propose_memory_change' && !this.policy.validate(handle).infer && this.currentOwnerProposalAllowed(session, child),
       args = (ownerProjection ? currentOwnerChangeSchema : session.ephemeral && name === 'update_collaboration' ? independentChoiceInput : definition.schema).parse(raw) as any;
+    if (name === 'discover_skills' || name === 'read_skill') {
+      const availableTools = new Set(this.toolSpecs(session, child).map(tool => tool.function.name));
+      const discoverable = new Set(this.broker.discover(handle).map(capability => capability.name));
+      const result = name === 'discover_skills' ? listWorkflowSkills(args) : readWorkflowSkill(args.id, requirement => {
+        if (requirement.kind === 'tool') return { state: availableTools.has(requirement.name) ? 'available' : 'not_authorized', reason: availableTools.has(requirement.name) ? undefined : '当前角色或范围未提供此工具。' };
+        const capability = this.broker.describe(requirement.name);
+        if (!capability) return { state: 'not_registered', reason: '能力尚未接入。' };
+        if (!discoverable.has(requirement.name)) return { state: 'not_authorized', sourceId: capability.sourceId, version: capability.version, reason: '当前来源或权限范围不包含这项能力。' };
+        return { state: capability.connection.connected ? 'available' : 'not_connected', sourceId: capability.sourceId, version: capability.version, reason: capability.connection.reason };
+      });
+      if (session.pack) {
+        const text = JSON.stringify(result), bytes = Buffer.byteLength(text), tokens = Math.ceil(Array.from(text).length / 1.4);
+        const budget = session.pack.receipt.budget;
+        if (budget.readBytes + bytes > contract.budget.maxReadBytes || budget.estimatedTokens + tokens > contract.budget.maxTokens)
+          throw new HarnessError('context_budget', '工作方法超出当前上下文预算，可继续直接使用已有工具。');
+        budget.readBytes += bytes; budget.estimatedTokens += tokens;
+        this.repo.saveReceipt(handle, session.pack.receipt);
+      }
+      return result;
+    }
     if (name === 'present_view') {
       if (child || session.background) throw new HarnessError('presentation_owner', '由主助手在当前交流中决定呈现；后台只准备。');
       if (new Set(args.sceneRefs.map((ref: { id: string; revision: number }) => ref.id)).size !== args.sceneRefs.length) throw new HarnessError('duplicate_scene', '同一画面不必重复呈现。');
@@ -1584,7 +1616,12 @@ export class RuntimeCoordinator {
           complete: syncObjectOffset + syncObjectIds.length >= restoredIds.length },
         meaning: '仅这些已恢复且本轮可读对象的当前版本未应用修改。提议不等于权威选择或已同步；冲突须由用户决定，不自动覆盖、预约或外发。历史/旧权限操作不在此页，空结果不证明其它设备已同步；这也不证明真实手机硬件已经接通。' }, ...(prefetch ? { contextualCandidates: prefetch } : {}) };
     }
-    if (name === 'search_context') return this.context.prefetch(session.pack || await this.compile(session, false, signal), args.query, args.at, args.offset, args.limit, args.hardOffset);
+    if (name === 'search_context') return this.context.prefetch(session.pack || await this.compile(session, false, signal), args.query, args.at, args.offset, args.limit, args.hardOffset, session.background ? event => {
+      const view = session.attentionEvidenceViews?.[event.id];
+      if (!view) return event;
+      if (event.contentVersion !== view.contentVersion || codePointSlice(event.text, view.sourceStart, view.sourceEnd) !== view.quote) return undefined;
+      return { ...event, text: view.quote };
+    } : undefined);
     if (name === 'read_assistant_history') {
       const rows = this.repo.assistantHistory(handle, { id: args.id, query: args.query, limit: args.id ? 1 : 8 });
       const result = { status: rows.length ? 'fresh' : 'not_found', items: rows.map(row => {
@@ -1612,6 +1649,12 @@ export class RuntimeCoordinator {
       const assertion = this.repo.assertion(handle, args.id);
       if (!assertion) return { status: 'not_found', reason: '当前范围内没有这条理解。' };
       const exceptions = assertion.exceptionIds.map(id => this.repo.assertion(handle, id)).filter(Boolean);
+      if (session.background && [assertion, ...exceptions].some(value => value?.evidenceIds.some(id => {
+        const view = session.attentionEvidenceViews?.[id];
+        if (!view) return false;
+        const source = this.repo.evidence(handle, id);
+        return !source || source.contentVersion !== view.contentVersion || source.text !== view.quote;
+      }))) return { status: 'forbidden', reason: '该理解依赖授权片段之外的原文，后台只能读取本项托付允许的片段。' };
       this.context.recordObjects(session.pack, [assertion, ...exceptions.filter((value): value is NonNullable<typeof value> => !!value)], 'assertion');
       return { status: assertion.status, assertion, exceptions, sourceIds: assertion.evidenceIds, meaning: '须结合本轮原话、生效时间和条件判断，不能把停用或待核验内容当当前事实。' };
     }
@@ -1746,8 +1789,8 @@ export class RuntimeCoordinator {
       const ephemeral = this.ephemeralEvents.get(args.id);
       let event = ephemeral && this.policy.validate(handle).currentEventIds.includes(args.id) ? ephemeral : this.repo.evidence(handle, args.id);
       const attentionView = session.background && event?.speaker === 'user' ? session.attentionEvidenceViews?.[event.id] : undefined;
-      if (session.background && event?.speaker === 'user') {
-        if (!attentionView || event.contentVersion !== attentionView.contentVersion || !event.text.includes(attentionView.quote)) throw new HarnessError('evidence_forbidden', '后台只可核对这项托付实际引用的授权片段。');
+      if (session.background && event?.speaker === 'user' && attentionView) {
+        if (event.contentVersion !== attentionView.contentVersion || codePointSlice(event.text, attentionView.sourceStart, attentionView.sourceEnd) !== attentionView.quote) throw new HarnessError('evidence_forbidden', '后台只可核对这项托付实际引用的授权片段。');
         event = { ...event, text: attentionView.quote };
       }
       if (
@@ -1767,7 +1810,8 @@ export class RuntimeCoordinator {
         text: codePointSlice(event.text, args.offset, Math.min(Array.from(event.text).length, args.offset + args.limit)),
         coverage: { start: args.offset, end: Math.min(Array.from(event.text).length, args.offset + args.limit), total: Array.from(event.text).length, complete: args.offset === 0 && args.limit >= Array.from(event.text).length },
         nextOffset: args.offset + args.limit < Array.from(event.text).length ? args.offset + args.limit : null,
-        use: this.repo.db.prepare('SELECT 1 FROM h_source_restrictions WHERE event_id=? LIMIT 1').get(event.id) ? 'historical_only' : 'source_evidence',
+        use: this.repo.sourceRestrictions(handle, event.id).length ? 'historical_only' : 'source_evidence',
+        restrictions: attentionView ? (this.repo.sourceRestrictions(handle, event.id).length ? [{ predicate: 'restricted_source_range', operation: 'RECHECK', replacementEventId: null, ranges: [], rangeUnknown: true, effectiveFrom: null }] : []) : this.repo.sourceRestrictions(handle, event.id),
         authority: event.authority,
         receivedAt: event.receivedAt,
         subjectId: event.subjectId,
@@ -1832,7 +1876,11 @@ export class RuntimeCoordinator {
           target: { id: target.id, kind: target.kind, revision: target.revision },
           recovery: '独立本地登记无需goalId；若确实依赖某个目标，应先读取该目标的准确ID与状态。' };
       }
+      this.planning.assertNoDetachedProposal(this.policy.validate(handle), args);
       Object.assign(args, normalizeCalendarInput(args, contract.timeZone));
+      this.planning.assertNoDetachedProposal(this.policy.validate(handle), args);
+      if (args.planRef) this.planning.validateSave(this.policy.validate(handle), args.planRef, args,
+        this.repo.db.prepare('SELECT payload FROM agenda').all().map(row => JSON.parse(String(row.payload))));
       if (contract.temporalAmbiguities.length)
         return {
           prepared: false,
@@ -1969,6 +2017,7 @@ export class RuntimeCoordinator {
           },
           notification: this.notificationStatus(item),
           undo: { actionId: executed.action.id, operation: 'cancel_local_action' },
+          ...(args.planRef ? { planProgress: this.planning.progress(args.planRef) } : {}),
         };
       }
       const prepared = this.actions.prepare(handle, {
@@ -1987,7 +2036,8 @@ export class RuntimeCoordinator {
         missingNeeds: verdict?.missing || [],
       };
       callbacks.action(item);
-      return { prepared: true, saved: false, status: 'awaiting_approval', item };
+      return { prepared: true, saved: false, status: 'awaiting_approval', item,
+        ...(args.planRef ? { planProgress: this.planning.progress(args.planRef) } : {}) };
     }
     if (name === 'set_plan') {
       const items = (args.items as Obligation[]).map((i) => ({
@@ -2173,7 +2223,7 @@ export class RuntimeCoordinator {
         const purposeGrants = capability === 'campus.query' ? campusQueryGrants(validateCampusQuery(input)) : ['campus.lookup', 'campus.imported_lookup'].includes(capability) && domain && sensitive[domain]
           ? ['campus:' + sensitive[domain] + ':read'] : [];
         let readHandle = handle;
-        const publicRead = ['map.overview', 'map.search', 'map.reference_search', 'map.observe', 'map.location_status', 'weather.lookup', 'research.read'].includes(capability) || capability === 'map.relations' && !(input as any)?.role && !['device_observation', 'shared_map_selection'].includes((input as any)?.originKind) || capability === 'campus.query' && ['resources', 'schema'].includes((input as any)?.operation);
+        const publicRead = ['map.overview', 'map.search', 'map.reference_search', 'map.observe', 'map.location_status', 'weather.lookup', 'air_quality.lookup', 'research.read'].includes(capability) || capability === 'map.relations' && !(input as any)?.role && !['device_observation', 'shared_map_selection'].includes((input as any)?.originKind) || capability === 'campus.query' && ['resources', 'schema'].includes((input as any)?.operation);
         if (purposeGrants.length || session.ingress.requiresReadPurpose && !publicRead || capability === 'research.search') {
           const verdict = await callbacks.verifyReadPurpose?.({ capability: this.broker.describe(capability), arguments: input, ...(capability === 'research.search' ? { outgoingPublicQuery: true, requirement: '只有用户当前授权的公开检索词可外发；私人链接和无关原文不能变成公共搜索词。' } : {}) });
           if (!verdict?.allowed) return { status: 'forbidden' as const, sourceId: this.broker.describe(capability)?.sourceId || 'unknown', simulated: false, reason: verdict?.reason || '本轮尚未核清这些资料的用途。' };

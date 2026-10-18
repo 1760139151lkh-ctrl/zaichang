@@ -164,3 +164,15 @@ Thumbs.db
 !/tests/harness/attention-controls.test.ts
 !/tests/harness/campus-scenes.test.ts
 !/tests/harness/search.test.ts
+
+# Backend continuity and planning regression checks.
+!/tests/harness/air-quality.test.ts
+!/tests/harness/background-delegation.test.ts
+!/tests/harness/basis-restrictions.test.ts
+!/tests/harness/memory-continuity.test.ts
+!/tests/harness/opportunity-scheduler.test.ts
+!/tests/harness/planning.test.ts
+!/tests/harness/workflow-skills.test.ts
+
+!tests/harness/planning-application.test.ts
+!/docs/source-materials/2026-10-18/harness-prompt-pack.zip

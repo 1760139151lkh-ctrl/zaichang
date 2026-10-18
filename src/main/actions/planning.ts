@@ -5,6 +5,7 @@ import { calendarFieldsSchema, localCalendarChangeSchema } from '../../shared/ca
 import { availableIntervals } from './availability';
 import { expandAgenda, localStamp, normalizeCalendarInput, projectCalendarChange } from './calendar';
 import { dayBounds, resolveLocalTime } from '../runtime/semantics';
+export { planningDraftInput, draftCalendarPlan, calendarPlanFingerprint, assertDraftCalendarCurrent } from './planning-draft';
 
 const instant = z.string().datetime({ offset: true });
 const fields = z.object({
@@ -15,7 +16,7 @@ const fields = z.object({
 export const planningPreviewInput = z.object({
   from: instant, to: instant, timeZone: z.string().max(100).default('Asia/Shanghai'),
   minimumBlockMinutes: z.number().int().min(1).max(1440).default(30),
-  transitionMinutes: z.object({ min: z.number().min(0).max(1440), max: z.number().min(0).max(1440) }).strict().default({ min: 0, max: 0 }),
+  transitionMinutes: z.object({ min: z.number().min(0).max(1440), max: z.number().min(0).max(1440) }).strict().default({ min: 0, max: 0 }).describe('每一侧的转换成本；空档与方案核验都分别扣除进入和离开两侧，不是两侧合计。'),
   busy: z.array(z.object({ start: instant, end: instant.nullable(), sourceId: z.string().min(1).max(160), sourceVersion: z.string().max(160).optional() }).strict()).max(500).default([]),
   sourceCoverage: z.array(z.object({ sourceId: z.string().min(1).max(160), status: z.enum(['complete', 'partial', 'not_checked']), reason: z.string().max(300).optional() }).strict()).max(20).default([]),
   conditions: z.array(z.object({ condition: z.string().min(1).max(300), status: z.enum(['satisfied', 'unknown', 'unavailable']), sourceId: z.string().max(160).optional() }).strict()).max(20).default([]),
@@ -50,9 +51,11 @@ export function previewCalendarPlan(items: Action[], raw: unknown) {
   const input = planningPreviewInput.parse(raw), fromMs = Date.parse(input.from), toMs = Date.parse(input.to);
   if (toMs <= fromMs || toMs - fromMs > 366 * 86400000) throw new HarnessError('time_window', '规划范围须有效且不超过一年。');
   try { new Intl.DateTimeFormat('en', { timeZone: input.timeZone }); } catch { throw new HarnessError('time_zone', '规划时区不合法。'); }
-  const active = items.filter(item => !item.done), expanded = expandAgenda(active, input.from, input.to, input.timeZone);
+  const assessmentFrom = new Date(fromMs - input.transitionMinutes.max * 60000).toISOString();
+  const assessmentTo = new Date(toMs + input.transitionMinutes.max * 60000).toISOString();
+  const active = items.filter(item => !item.done), expanded = expandAgenda(active, assessmentFrom, assessmentTo, input.timeZone);
   const busy = busyOf(expanded, input.timeZone, active), sourceCoverage = [{ sourceId: 'local-agenda', status: expanded.coverage.complete ? 'complete' : 'partial', reason: '仅本机已登记的具体实例；不代表全部校园、私人事项或可用精力。' }, ...input.sourceCoverage.filter(source => source.sourceId !== 'local-agenda')];
-  const gaps = availableIntervals({ ...input, busy: [...busy, ...input.busy] });
+  const gaps = availableIntervals({ ...input, busy: [...busy, ...input.busy], transitionBoundaryCount: 2 });
   const alternatives = input.alternatives.map(option => {
     let target: Action | undefined, proposed: Action | undefined;
     if (option.change) {
@@ -66,8 +69,12 @@ export function previewCalendarPlan(items: Action[], raw: unknown) {
     }
     const remaining = active.filter(item => item.id !== target?.id);
     // Expanding the changed series also retains every untouched occurrence.
-    const revised = expandAgenda([...remaining, ...(proposed && !proposed.done ? [proposed] : [])], input.from, input.to, input.timeZone);
-    const proposedOccurrences = proposed ? revised.items.filter(item => item.id === proposed.id && calendarCommitment(item as unknown as Action).occupiesTime) : [];
+    const revised = expandAgenda([...remaining, ...(proposed && !proposed.done ? [proposed] : [])], assessmentFrom, assessmentTo, input.timeZone);
+    const proposedOccurrences = proposed ? revised.items.filter(item => {
+      if (item.id !== proposed.id || !calendarCommitment(item as unknown as Action).occupiesTime) return false;
+      const interval = intervalOf(item, input.timeZone);
+      return !!interval && Date.parse(interval.start) < toMs && Date.parse(interval.end || input.to) > fromMs;
+    }) : [];
     const changedDate = option.change?.operation === 'change_occurrence' ? option.change.occurrenceDate : undefined;
     const affected = proposedOccurrences.filter(item => !changedDate || item.originalDate === changedDate);
     const revisedBusy = busyOf(revised, input.timeZone, [...remaining, ...(proposed ? [proposed] : [])]);

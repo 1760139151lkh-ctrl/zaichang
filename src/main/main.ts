@@ -42,6 +42,7 @@ import { NativeControls } from './runtime/controls';
 import { configureNetwork } from './network';
 import { materialReferenceSchema, materialTargetSchema } from '../shared/materials';
 import { semanticSelectionSchema } from '../shared/scenes';
+import { createOpportunityScheduler } from './runtime/opportunity-scheduler';
 
 assertTestDataDirectory();
 // The installed product owns a relocatable interpreter and pinned engine.
@@ -87,6 +88,7 @@ let closing = false;
 let draftCloseConfirmed = false;
 let connectionController: AbortController | undefined;
 let latestDeviceLocation: import('../shared/map-v2').LocationStatusResult | undefined;
+let opportunityScheduler: ReturnType<typeof createOpportunityScheduler> | undefined;
 function getKey() {
   if (projectDeepSeekKey) return projectDeepSeekKey;
   if (existsSync(keyPath)) {
@@ -147,6 +149,7 @@ function handle(name: string, fn: (data: any) => unknown | Promise<unknown>) {
       if (error instanceof z.ZodError) throw new Error('请检查填写内容、长度和时间格式后重试。');
       throw error;
     } finally {
+      opportunityScheduler?.wake();
       // A withdrawal may have taken effect even if a later part of the request
       // failed. Let every open view discard its old boundary in either case.
       if (store && boundary !== undefined && boundary !== `${store.kernel.epoch}:${store.kernel.policyRevision}` &&
@@ -228,6 +231,7 @@ app.whenReady().then(async () => {
     store,
     getKey,
     (event) => {
+      if (event.type === 'state') opportunityScheduler?.wake();
       if (!window || window.isDestroyed()) return;
       if (event.type === 'state') window.webContents.send('zaichang:event', { ...event, state: decorateState(event.state) });
       else if (event.type === 'message') { const message = store.runtime.presentation.message(event.message); if (message) window.webContents.send('zaichang:event', { ...event, message }); }
@@ -774,15 +778,22 @@ app.whenReady().then(async () => {
   const recoveryTimer = setInterval(() => {
     if (process.env.ZAICHANG_TEST !== '1') void harness.recoverPending();
   }, 30000);
-  const opportunityTimer = setInterval(() => {
-    if (process.env.ZAICHANG_TEST !== '1') void harness.reviewOpportunities();
-  }, 60000);
-  if (process.env.ZAICHANG_TEST !== '1') void harness.reviewOpportunities();
+  if (process.env.ZAICHANG_TEST !== '1') {
+    opportunityScheduler = createOpportunityScheduler({
+      nextReviewAt: () => store.runtime.attention.nextReviewAt(),
+      review: () => harness.reviewOpportunities(),
+      available: () => !harness.running && store.settings().mode === 'deepseek' && (usingLunaTestTransport() || !!getKey()),
+      // State changes bring forward newly registered deadlines; periodic
+      // reconciliation remains a recovery path for external source changes.
+    });
+    store.notes.onChanged(() => opportunityScheduler?.wake());
+    store.onAgendaChanged(() => opportunityScheduler?.wake());
+  }
   void store.runtime.reminders.runDue();
   app.on('will-quit', () => {
     clearInterval(reminderTimer);
     clearInterval(recoveryTimer);
-    clearInterval(opportunityTimer);
+    opportunityScheduler?.stop();
     store.close();
   });
 });

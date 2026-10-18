@@ -9,8 +9,10 @@ import { HarnessError, type KnowledgeStatus } from '../../shared/harness';
 import { calendarFieldsSchema, localCalendarChangeSchema } from '../../shared/calendar';
 import { expandAgenda, localStamp } from '../actions/calendar';
 import { campusQueryInput, validateCampusQuery, requireCampusQueryScope } from './campus-query';
-import { calendarCommitment, planningPreviewInput, previewCalendarPlan } from '../actions/planning';
+import { calendarCommitment, planningPreviewInput, previewCalendarPlan, planningDraftInput } from '../actions/planning';
+import type { PlanningApplicationService } from '../actions/planning-application';
 import { weatherInput, weatherOutput, weatherRequest, weatherResult } from './weather';
+import { airQualityInput, airQualityOutput, airQualityRequest, airQualityResult } from './air-quality';
 import { dateInZone, dayBounds } from '../runtime/semantics';
 
 export interface BuiltinConnections {
@@ -119,6 +121,7 @@ export const localActionInput = z
     startsAt: z.string().datetime({ offset: true }).optional(),
     durationMinutes: z.number().int().min(1).max(1440).optional(),
     demo: z.boolean().optional(),
+    planRef: z.object({ planId: z.string().min(1).max(160), blockId: z.string().min(1).max(160) }).strict().optional().describe('采用planning.draft返回的具体保存单位时完整保留；宿主再次核对参数、日历、权限、顺序和有效期。'),
   })
   .strict();
 const base = (
@@ -232,6 +235,7 @@ export function registerBuiltins(
   repo: KernelRepository,
   domains: DomainService,
   connections: BuiltinConnections,
+  planning: PlanningApplicationService,
 ) {
   const register = (provider: CapabilityProvider) =>
     broker.register(provider, { reviewed: true, source: 'bundled source review' });
@@ -272,6 +276,7 @@ export function registerBuiltins(
   });
   register({
     manifest: manifest('local-agenda', 'local-agenda', [
+      base('planning.draft', planningDraftInput, jsonObject, ['evidence:read'], { version: '1', displayName: '编排多任务日程草案', description: '只读构造有依赖、期限、可拆分时长、精力、准备清理、转场休息和保护留白的草案；返回未排任务及原因。不会替用户接受或自动写日历。采用时按acceptanceProposals顺序完整保留planRef及参数，经现有prepare_action逐项核验授权；日历变化或未知条件会阻断采用，部分成功不冒充整组完成。' }),
       base('planning.preview', planningPreviewInput, jsonObject, ['evidence:read'], { version: '1', displayName: '比较可行时段与安排修改', description: '读本地具体日历实例并复用区间计算，比较最多三个方案。固定承诺、可移动已接受块均保留；邀请、愿望、未接受方案不当成硬承诺。空白不等于现实空闲。返回原对象ID/revision绑定的save/change提议和冲突、天气/资源等未知；只读不提交，实际采用通过现有本地动作授权入口。' }),
       base('local.agenda.change', localCalendarChangeSchema, z.object({}).strict(), ['local:write'], { effect: 'local_write', worlds: ['real'], supportsIdempotency: true, supportsInspect: true, supportsCancel: true, description: '按对象版本修改、删除本地安排或更改单个重复实例；事务执行并支持受版本保护的撤销。' }),
       base('local.agenda.save', localActionInput, z.object({}).strict(), ['local:write'], {
@@ -293,11 +298,11 @@ export function registerBuiltins(
       if (name === 'local.agenda.save' || name === 'local.agenda.change')
         throw new HarnessError('transaction_required', '本地安排必须由受控事务提交。');
       policy.validate(ctx.scope);
-      if (name === 'planning.preview') {
+      if (name === 'planning.preview' || name === 'planning.draft') {
         const items = repo.db.prepare('SELECT payload FROM agenda').all().map(row => JSON.parse(String(row.payload)));
-        const data = previewCalendarPlan(items, args);
+        const data = name === 'planning.draft' ? planning.prepare(policy.validate(ctx.scope), items, args) : previewCalendarPlan(items, args);
         return { status: 'fresh', sourceId: 'local-agenda', data: JSON.parse(JSON.stringify(data)), fetchedAt: repo.clock.now(),
-          coverage: { complete: data.issues.length === 0, scope: 'local calendar arithmetic only; external coverage and energy remain explicit conditions' }, simulated: false };
+          coverage: { complete: name === 'planning.preview' && 'issues' in data && data.issues.length === 0, scope: 'local calendar arithmetic only; external coverage and energy remain explicit conditions' }, simulated: false };
       }
       const items = repo.db
         .prepare('SELECT payload FROM agenda')
@@ -646,10 +651,22 @@ export function registerBuiltins(
       base('weather.lookup', weatherInput, weatherOutput, ['weather:read'], {
         version: '3', displayName: '地点与时间窗天气预报', description: '按杭州、紫金港公共参考地点或明确公开参考坐标查询，不读取设备定位、不发送私人坐标。date查当地单日；from/to查小时覆盖并保留日级预报；只覆盖当地今天起七天。缺测为null，获取时间不是发布时间，校园分钟级天气与场地开放仍未知。缓存区分完整地点、时区和时间窗。',
       }),
-    ], ['api.open-meteo.com']),
+      base('air_quality.lookup', airQualityInput, airQualityOutput, ['weather:read'], {
+        version: '1', displayName: '公共参考地点空气质量预报', description: '按公开参考地点查询未来小时PM2.5、PM10、US AQI与European AQI，默认未来24小时。沿既有环境查询许可，不读取设备GPS；不同AQI制式不可混称中国官方AQI，预报不等于校园实测或个人运动安全保证。',
+      }),
+    ], ['api.open-meteo.com', 'air-quality-api.open-meteo.com']),
     connectionStatus: () => ({ connected: connections.weatherEnabled(), reason: connections.weatherEnabled() ? undefined : '天气查询未开启。' }),
-    invoke: async (_name, args, ctx) => {
+    invoke: async (name, args, ctx) => {
       if (!connections.weatherEnabled()) return { status: 'forbidden', sourceId: 'weather:open-meteo', reason: '天气查询未开启。', simulated: false };
+      if (name === 'air_quality.lookup') {
+        const query = airQualityRequest(args, repo.clock.now()), response = await ctx.request(query.url.toString());
+        if (!response.ok) throw new HarnessError('air_quality_failed', '空气质量服务未完成查询。');
+        const now = repo.clock.now(), result = airQualityResult(query, await response.json(), now);
+        return { status: result.complete ? 'fresh' : 'partial', sourceId: 'weather:open-meteo', data: result.data,
+          fetchedAt: now, expiresAt: new Date(Date.parse(now) + 1800000).toISOString(), simulated: false,
+          coverage: { complete: result.complete, scope: 'Public-reference CAMS forecast; US and European indices only', until: query.to },
+          ...(result.complete ? {} : { reason: '来源有缺测或小时覆盖不足，不能当作完整时段结论。' }) };
+      }
       const query = weatherRequest(args, repo.clock.now()), response = await ctx.request(query.url.toString());
       if (!response.ok) throw new HarnessError('weather_failed', '天气服务未完成查询。');
       const observedAt = repo.clock.now(), result = weatherResult(query, await response.json(), observedAt);
@@ -679,6 +696,8 @@ export function registerBuiltins(
           contentVersion: e.contentVersion,
           receivedAt: e.receivedAt,
           authority: e.authority,
+          use: repo.sourceRestrictions(ctx.scope, e.id).length ? 'historical_only' : 'source_evidence',
+          restrictions: repo.sourceRestrictions(ctx.scope, e.id),
         })),
       },
       fetchedAt: repo.clock.now(),

@@ -1,0 +1,237 @@
+{
+  "received": "2026-10-18",
+  "authorization": "User explicitly requested retaining supplied project sources in prominent project documentation during this session. Private repository only; excluded from public preview and application package.",
+  "files": [
+    {
+      "originalName": "zaichang-student-harness-prompt-pack-2026-10-18.zip",
+      "path": "harness-prompt-pack.zip",
+      "bytes": 233749,
+      "sha256": "c43c1c4dd02f2212a5f413ca33abad819902cc6169aea7e9f3c0c232c61a2b05",
+      "purpose": "User-supplied research/design reference; not runtime instructions or user profile"
+    },
+    {
+      "originalName": "01-txt",
+      "path": "memory-discussion.txt",
+      "bytes": 152427,
+      "sha256": "09202391ebf828224e2a08d5d8609d12aba96969015fce28f12cfd7969fa935a",
+      "purpose": "User-supplied research/design reference; not runtime instructions or user profile"
+    },
+    {
+      "originalName": "粘贴的 Markdown (1)(1).md",
+      "path": "product-philosophy.md",
+      "bytes": 28665,
+      "sha256": "3030c4dde17b1f05f5fbe58dba6e75b8044a380d6e12a3dc7459197ee73cbcad",
+      "purpose": "User-supplied research/design reference; not runtime instructions or user profile"
+    },
+    {
+      "originalName": "在场-对话内地图与动态界面-Codex完整提示词-20261018.txt",
+      "path": "conversation-scenes-prompt.txt",
+      "bytes": 48506,
+      "sha256": "4f209651467c303473e0c418ead6b2595329bdb5de3283952bd1150fb9f5b5aa",
+      "purpose": "User-supplied research/design reference; not runtime instructions or user profile"
+    },
+    {
+      "originalName": "新建 Text Document (3).txt",
+      "path": "frontend-discussion.txt",
+      "bytes": 5567,
+      "sha256": "54f249df901fabdf00854b156fda738fd88dc137f140d6e81dacaeadd36ac25c",
+      "purpose": "User-supplied research/design reference; not runtime instructions or user profile"
+    },
+    {
+      "originalName": "zaichang-student-harness/00-START-HERE.md",
+      "path": "harness-pack/00-START-HERE.md",
+      "bytes": 6745,
+      "sha256": "b5d55f3ca3e1e25156d749519e89bcd1a52b682137c7f9beb522a97733675318",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/01-CODEX-START-PROMPT.md",
+      "path": "harness-pack/01-CODEX-START-PROMPT.md",
+      "bytes": 10560,
+      "sha256": "90ffa04996911fbdaf938e50d113dbf369e6cb513764c8fe4db6774d8d060210",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/02-REPOSITORY-AUDIT.md",
+      "path": "harness-pack/02-REPOSITORY-AUDIT.md",
+      "bytes": 15433,
+      "sha256": "5f4498b584fa5dcbb71be985bc08dc9364aa66bd902f6c6fe8c6108ee2e57e06",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/03-HUMAN-AND-WORLD-MODEL.md",
+      "path": "harness-pack/03-HUMAN-AND-WORLD-MODEL.md",
+      "bytes": 22195,
+      "sha256": "16afd0cbcdfe8080d7d22282cbc18180a8bd499b7b517b131ec1317b516cd9f4",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/04-HARNESS-DESIGN.md",
+      "path": "harness-pack/04-HARNESS-DESIGN.md",
+      "bytes": 20080,
+      "sha256": "e357e9e5a3e0ccb75cc3b6d15a23309117618f331cca8422a8b0d65a581b3d62",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/05-MEMORY-CONTEXT-PERSONA.md",
+      "path": "harness-pack/05-MEMORY-CONTEXT-PERSONA.md",
+      "bytes": 15468,
+      "sha256": "7863892ff4275fe9176b23b1c2cb33a2fe9cc9c1eeeae0faf90e532e5339d47f",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/06-IMPLEMENTATION-AND-ACCEPTANCE.md",
+      "path": "harness-pack/06-IMPLEMENTATION-AND-ACCEPTANCE.md",
+      "bytes": 16159,
+      "sha256": "2beef8a5041d531f0bb774694718a5e2a016848babbd2fb19867e48f57df4f9b",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/07-RESEARCH-DECISIONS.md",
+      "path": "harness-pack/07-RESEARCH-DECISIONS.md",
+      "bytes": 45261,
+      "sha256": "0890d51bb660e791e219b59d7856b051af7258f2a4284bbc9e405c45c54f770c",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/08-SCENARIOS-128.md",
+      "path": "harness-pack/08-SCENARIOS-128.md",
+      "bytes": 89132,
+      "sha256": "c1e2f39dfe0e3de2c8d980fca9f193a1d322ff1ac530da3e3db59497d252f9de",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/09-REVIEW-AND-LIMITS.md",
+      "path": "harness-pack/09-REVIEW-AND-LIMITS.md",
+      "bytes": 5895,
+      "sha256": "af1d1b3c561a39c57ee09f2ffb82ba12398eb11ab1b20939dfae48f7380e433b",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/FILE-MANIFEST.json",
+      "path": "harness-pack/FILE-MANIFEST.json",
+      "bytes": 4639,
+      "sha256": "ec1407ed8308768272fed12fb4b91eba73d795864ebba2b12ead9878f3da61e7",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/contracts/design-types.ts",
+      "path": "harness-pack/contracts/design-types.ts",
+      "bytes": 6907,
+      "sha256": "87755b475be33fbe51efa2fd534fad8f2874c657c7e7f8090c72698d2ff57aed",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/evidence/attachment-intent-audit.md",
+      "path": "harness-pack/evidence/attachment-intent-audit.md",
+      "bytes": 36577,
+      "sha256": "134f5b625411a08bee0c6e12f2bcb80209a8134db1901a3552cf598fa7020235",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/evidence/cloud-restriction-probe.md",
+      "path": "harness-pack/evidence/cloud-restriction-probe.md",
+      "bytes": 2526,
+      "sha256": "6613b123a8a8385e99650f78e9ef8ee76ce1b454e4939017f255e78cab9cb6f2",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/evidence/current-memory-attention-audit.md",
+      "path": "harness-pack/evidence/current-memory-attention-audit.md",
+      "bytes": 34132,
+      "sha256": "678e8f57701acd539b567044747cc09b38bb4335aef73046c3e864f2232c773f",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/evidence/implementation-review.md",
+      "path": "harness-pack/evidence/implementation-review.md",
+      "bytes": 8839,
+      "sha256": "3217aeb0be31def401f9c88d9c2001afe45e759ce1eb45c34b8db10c2fe1adb6",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/evidence/package-validation.json",
+      "path": "harness-pack/evidence/package-validation.json",
+      "bytes": 1028,
+      "sha256": "d3e0fc31a8cfb86df38e701249d30b03cd53e7f05201e88c56bb0bb0f924e2e6",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/evidence/probe-cloud-restriction-results.json",
+      "path": "harness-pack/evidence/probe-cloud-restriction-results.json",
+      "bytes": 1012,
+      "sha256": "b1fadad802801995cc5990141fab5ae26125cf2f9de3ebd2725b05013abd90bd",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/evidence/probe-cloud-restriction.cjs",
+      "path": "harness-pack/evidence/probe-cloud-restriction.cjs",
+      "bytes": 2393,
+      "sha256": "6ad227573bee4a191f3b9d9db8ed7b58d58f684c1bc18dbf2d4756339098db5b",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/evidence/repo-retrieval-manifest.json",
+      "path": "harness-pack/evidence/repo-retrieval-manifest.json",
+      "bytes": 46391,
+      "sha256": "6e2c534b2ea786454cc320784763d993889c38c8c066cb36b2a77281b3ccf0c8",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/evidence/research-review.md",
+      "path": "harness-pack/evidence/research-review.md",
+      "bytes": 5065,
+      "sha256": "24a5f4dad1715aebf5bd13e5167f77f73d9a7ad72adb25583d6f4161d9afd02d",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/evidence/validate-package.py",
+      "path": "harness-pack/evidence/validate-package.py",
+      "bytes": 6943,
+      "sha256": "916354c66a63b7a769ecc967f56a9ea293784c30b3090f3a6ead0cd45c3744b9",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/examples/configuration-proposal.json",
+      "path": "harness-pack/examples/configuration-proposal.json",
+      "bytes": 2379,
+      "sha256": "899cdd055fc38542414e53f2b314efeb640de69f538f9765193e49a92c28331e",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/examples/persona-presets.json",
+      "path": "harness-pack/examples/persona-presets.json",
+      "bytes": 4361,
+      "sha256": "cf627c81f2b10e804b51d2a7277462a7771ccfcec7c1fde5772ae5d2bec624d4",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/scenarios/scenario-schema.json",
+      "path": "harness-pack/scenarios/scenario-schema.json",
+      "bytes": 3144,
+      "sha256": "ea8134e155ec5b41d4b2e1e848f25b3223746ceaeeb26bff93caf3ceb7eecf30",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/scenarios/scenarios.json",
+      "path": "harness-pack/scenarios/scenarios.json",
+      "bytes": 124976,
+      "sha256": "d906f0ce80ffb6879eb623eba9dffb00daad09057963a435e8eff82b96d1c8e4",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/scenarios/timelines-guide.md",
+      "path": "harness-pack/scenarios/timelines-guide.md",
+      "bytes": 8846,
+      "sha256": "ac3b25b3b8fc35cf18f80e6e9c9fcea256a9ebedbe6741b5df3373daa3801ed6",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    },
+    {
+      "originalName": "zaichang-student-harness/scenarios/timelines.json",
+      "path": "harness-pack/scenarios/timelines.json",
+      "bytes": 120906,
+      "sha256": "dd9dc2cbbb658dc78e9d6c7079604805351230f1ef489db1ba56cccb41078dbc",
+      "purpose": "Extracted reference; scripts are archived without execution"
+    }
+  ]
+}

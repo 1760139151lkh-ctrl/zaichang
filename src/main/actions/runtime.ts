@@ -8,6 +8,7 @@ import {
   type EffectAction,
   type EffectReceipt,
   type ScopeHandle,
+  type ScopeData,
 } from '../../shared/harness';
 import type { KernelRepository } from '../storage/repository';
 import type { PolicyKernel } from '../runtime/policy';
@@ -23,7 +24,7 @@ export class ActionRuntime {
     readonly repo: KernelRepository,
     readonly policy: PolicyKernel,
     readonly broker: CapabilityBroker,
-    private localWrite: (action: Action, effect?: EffectAction) => void | LocalEffectResult,
+    private localWrite: (action: Action, effect?: EffectAction, scope?: ScopeData) => void | LocalEffectResult,
     private localUndo?: (effect: EffectAction) => void,
   ) {
     // A terminated process cannot know whether a dispatched external effect succeeded.
@@ -436,8 +437,10 @@ export class ActionRuntime {
       revision: action.revision,
     });
     if (action.effect === 'local_write') {
+      let afterCommit: (() => void) | undefined;
+      let committedReceipt: EffectReceipt;
       try {
-        return this.repo.write(() => {
+        committedReceipt = this.repo.write(() => {
           this.preflight(handle, action!, approval);
           const local = this.localWrite({
             ...action!.arguments,
@@ -446,7 +449,8 @@ export class ActionRuntime {
             done: false,
             revision: action!.revision,
             approvalDigest: action!.digest,
-          } as Action, action!);
+          } as Action, action!, this.policy.validate(handle));
+          afterCommit = local?.afterCommit;
           const recordId = local?.recordId || id;
           const stored = this.repo.db.prepare('SELECT payload FROM agenda WHERE id=?').get(recordId);
           const current = stored ? JSON.parse(String(stored.payload)) as Action : undefined;
@@ -476,6 +480,11 @@ export class ActionRuntime {
         this.repo.write(() => this.put(action!));
         throw error;
       }
+      // This is an ephemeral plan cursor, not the authority for the saved
+      // business row. A bookkeeping failure must never relabel a committed
+      // local action as failed; the unchanged cursor rejects the next block.
+      try { afterCommit?.(); } catch { /* The next adoption requires a fresh draft. */ }
+      return committedReceipt;
     }
     try {
       const result = await this.broker.invoke(handle, action.capability, action.arguments, signal, {
