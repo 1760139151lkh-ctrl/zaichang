@@ -2,11 +2,18 @@ import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import type { ModelWireMessage, ToolSpec } from '../provider';
-import type { DelegatedTask } from '../../shared/harness';
+import { HarnessError, type DelegatedTask } from '../../shared/harness';
 
 export const HERMES_COMMIT = 'd595e636c83aa0b9606d4e914e1140ae9c796897';
 const MAX_FRAME = 16 * 1024 * 1024;
 export const HERMES_RPC_DEADLINE_MS = 175000;
+export interface HermesChildSnapshot {
+  privacyEpoch: number;
+  policyRevision: number;
+  taskVersion: number;
+  domainRevision: number;
+  objectVersions: { id: string; revision: number; kind?: string }[];
+}
 class RpcDeadlineError extends Error {
   readonly code = 'rpc_timeout';
   constructor() { super('这一步等待超时，结果尚未确认；已派发的操作需核对实际回执。'); }
@@ -33,9 +40,9 @@ export interface HermesRun {
   tool: (name: string, args: unknown, callId: string, agentId?: string, operationSignal?: AbortSignal) => Promise<unknown>;
   children?: {
     authorize: (args: unknown, callId: string, operationSignal?: AbortSignal) => Promise<void>;
-    open: (task: DelegatedTask, operationSignal?: AbortSignal) => Promise<{ id: string; system: string; tools: ToolSpec[] }>;
-    event: (id: string, status: 'running' | 'produced' | 'failed') => void;
-    result: (callId: string, result: unknown, operationSignal?: AbortSignal) => Promise<void>;
+    open: (task: DelegatedTask, operationSignal?: AbortSignal) => Promise<{ id: string; system: string; tools: ToolSpec[]; snapshot?: HermesChildSnapshot }>;
+    event: (id: string, status: 'running' | 'produced' | 'failed') => unknown;
+    result: (callId: string, result: unknown, operationSignal?: AbortSignal) => Promise<unknown>;
   };
   event?: (event: { kind: string; sequence: number; payload: unknown }) => void;
 }
@@ -71,6 +78,7 @@ export function runHermes(input: HermesRun): Promise<HermesResult> {
     const child = spawn(python, ['-I', '-X', 'utf8', '-B', script], { cwd: root, env: environment, windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] });
     let buffer: Buffer = Buffer.alloc(0), sequence = 0, sentSequence = 0, settled = false;
     const pending = new Set<Promise<void>>(), childIds = new Set<string>();
+    const childSnapshots = new Map<string, string>();
     const operations = new Map<string, AbortController>();
     const close = (reason: unknown = input.signal.reason || new DOMException('Hermes 已结束', 'AbortError')) => {
       for (const controller of operations.values()) controller.abort(reason);
@@ -97,6 +105,7 @@ export function runHermes(input: HermesRun): Promise<HermesResult> {
       if (frame.kind === 'run.error') throw new Error('Hermes 侧车失败：' + JSON.stringify(frame.payload));
       if (frame.kind === 'run.final') {
         await Promise.all([...pending]);
+        input.signal.throwIfAborted(); input.validate();
         settled = true;
         close();
         resolve(frame.payload as HermesResult);
@@ -106,6 +115,8 @@ export function runHermes(input: HermesRun): Promise<HermesResult> {
       if (!frame.request_id) throw new Error('Hermes 请求缺少配对标识。');
       const agentId = frame.payload.agent_id || input.runId;
       if (agentId !== input.runId && !childIds.has(agentId)) throw new Error('Hermes 子任务没有宿主许可。');
+      if (childSnapshots.has(agentId) && JSON.stringify(frame.payload.snapshot) !== childSnapshots.get(agentId))
+        throw new Error('Hermes 子任务快照与宿主批准的版本不匹配。');
       if (operations.has(frame.request_id)) throw new Error('重复的 Hermes 请求标识。');
       const controller = new AbortController();
       operations.set(frame.request_id, controller);
@@ -122,22 +133,30 @@ export function runHermes(input: HermesRun): Promise<HermesResult> {
         if (frame.kind === 'model.request') return input.model(frame.payload, operationSignal);
         if (frame.kind === 'tool.request') return input.tool(frame.payload.name, frame.payload.arguments, frame.payload.tool_call_id, agentId, operationSignal);
         if (frame.kind === 'delegate.authorize' && input.children && agentId === input.runId) {
-          await input.children.authorize(frame.payload.arguments, frame.payload.tool_call_id, operationSignal);
-          return { authorized: true };
+          try {
+            await input.children.authorize(frame.payload.arguments, frame.payload.tool_call_id, operationSignal);
+            return { authorized: true };
+          } catch (error) {
+            operationSignal.throwIfAborted(); input.validate();
+            return { authorized: false, error: { code: error instanceof HarnessError ? error.code : 'delegation_rejected',
+              message: error instanceof HarnessError ? error.message : '独立调查未获当前范围许可，请核对来源与任务。' } };
+          }
         }
         if (frame.kind === 'child.open' && input.children && agentId === input.runId) {
           const ticket = await input.children.open(frame.payload.task, operationSignal);
           operationSignal.throwIfAborted(); input.validate();
           if (childIds.has(ticket.id) || ticket.id === input.runId) throw new Error('重复的子任务标识。');
+          if (ticket.snapshot) childSnapshots.set(ticket.id, JSON.stringify(ticket.snapshot));
           childIds.add(ticket.id); return ticket;
         }
         if (['child.started', 'child.finished'].includes(frame.kind) && input.children && childIds.has(agentId)) {
-          input.children.event(agentId, frame.kind === 'child.started' ? 'running' : frame.payload.status === 'produced' ? 'produced' : 'failed');
-          return { received: true };
+          const status = frame.kind === 'child.started' ? 'running' : frame.payload.status === 'produced' ? 'produced' : 'failed';
+          const accepted = input.children.event(agentId, status);
+          return { received: true, status: ['running', 'produced', 'failed'].includes(String(accepted)) ? accepted : status };
         }
         if (frame.kind === 'delegate.result' && input.children && agentId === input.runId) {
-          await input.children.result(frame.payload.tool_call_id, frame.payload.result, operationSignal);
-          return { received: true };
+          const accepted = await input.children.result(frame.payload.tool_call_id, frame.payload.result, operationSignal);
+          return { received: true, result: accepted === undefined ? frame.payload.result : accepted };
         }
         throw new Error('未知或未授权的 Hermes 事件。');
       };

@@ -4,10 +4,10 @@ import { HarnessError } from '../../shared/harness';
 import { localCalendarChangeSchema } from '../../shared/calendar';
 import type { Store } from '../store';
 import type { ReminderRuntime } from './reminders';
-import { normalizeCalendarInput } from './calendar';
+import { projectCalendarChange } from './calendar';
 import { canonical } from '../runtime/semantics';
 
-export interface LocalEffectResult { recordId: string; previous: Action | null; current: Action | null; applied: boolean }
+export interface LocalEffectResult { recordId: string; recordRevision?: number; previous: Action | null; current: Action | null; applied: boolean }
 
 /** Invoked inside ActionRuntime's transaction, after approval and preflight. */
 export class LocalCalendarService {
@@ -19,10 +19,10 @@ export class LocalCalendarService {
   apply(projection: Action, effect?: EffectAction): LocalEffectResult {
     if (!effect || effect.capability === 'local.agenda.save') {
       const previous = this.read(projection.id) || null;
-      const current = { ...projection, effectActionId: effect?.id || projection.id };
-      this.store.writeAgendaProjection(current);
-      this.reminders.schedule(projection, effect?.goalId || projection.goalId);
-      return { recordId: projection.id, previous, current, applied: true };
+      const current = this.store.writeAgendaProjection({ ...projection, effectActionId: effect?.id || projection.id });
+      if (current.planning && current.planning.state !== 'accepted') this.reminders.cancel(current.id);
+      else this.reminders.schedule(current, effect?.goalId || projection.goalId);
+      return { recordId: projection.id, recordRevision: current.revision || 1, previous, current, applied: !previous || (previous.revision || 1) !== current.revision };
     }
     const args = localCalendarChangeSchema.parse(effect.arguments), previous = this.read(args.targetId);
     if (!previous) {
@@ -31,46 +31,34 @@ export class LocalCalendarService {
     }
     if ((previous.revision || 1) !== args.expectedRevision) throw new HarnessError('revision_conflict', '安排已在其他地方改变，请先读取当前版本。');
     if (args.operation === 'delete') {
-      this.reminders.cancel(args.targetId);
-      this.store.db.prepare('DELETE FROM agenda WHERE id=?').run(args.targetId);
-      return { recordId: args.targetId, previous, current: null, applied: true };
+      const deleted = this.store.deleteAction(args.targetId, effect.id);
+      return { recordId: args.targetId, recordRevision: deleted.revision, previous, current: null, applied: deleted.applied };
     }
-    let changed: Action;
-    if (args.operation === 'change_occurrence') {
-      if (!args.occurrenceDate || !previous.recurrence) throw new HarnessError('occurrence_missing', '单次修改需要指定系列和原发生日期。');
-      if (Object.keys(args.changes || {}).some(key => !['startsAt', 'durationMinutes', 'detail'].includes(key)))
-        throw new HarnessError('occurrence_fields', '单次例外只能改该次时间、时长或说明，不改变整个系列。');
-      if (args.changes?.startsAt === null) throw new HarnessError('occurrence_time', '单次事件不能抹掉开始时刻；不再发生时请取消该实例。');
-      const exception = { ...(previous.exceptions || []).find(item => item.onDate === args.occurrenceDate), onDate: args.occurrenceDate,
-        ...(args.cancelled !== undefined ? { cancelled: args.cancelled } : {}), ...(args.changes || {}) };
-      changed = { ...previous, exceptions: [...(previous.exceptions || []).filter(item => item.onDate !== args.occurrenceDate), exception] } as Action;
-    } else {
-      const value: Record<string, unknown> = { ...previous, ...args.changes };
-      for (const [key, field] of Object.entries(value)) if (field === null) delete value[key];
-      if (args.changes?.recurrence === null) delete value.exceptions;
-      changed = value as unknown as Action;
-    }
-    changed = normalizeCalendarInput(changed, this.store.settings().timeZone || 'Asia/Shanghai');
-    if (!previous.kind && !args.changes?.kind) delete changed.kind; // Keep the existing legacy reminder policy on edit.
+    let changed = projectCalendarChange(previous, args, this.store.settings().timeZone || 'Asia/Shanghai');
     if (canonical(changed) === canonical(previous)) return { recordId: args.targetId, previous, current: previous, applied: false };
     changed.revision = (previous.revision || 1) + 1;
     changed.effectActionId = effect.id;
     changed.approvalDigest = effect.digest;
-    this.store.writeAgendaProjection(changed);
-    if (changed.done || !(changed.remindAt || ((changed.kind === 'reminder' || !changed.kind) && changed.startsAt))) this.reminders.cancel(args.targetId);
-    else this.reminders.schedule(changed, changed.goalId, undefined, { restore: !!previous.done && !changed.done });
-    return { recordId: args.targetId, previous, current: changed, applied: true };
+    changed = this.store.writeAgendaProjection(changed);
+    if (changed.done || changed.planning && changed.planning.state !== 'accepted' || !(changed.remindAt || ((changed.kind === 'reminder' || !changed.kind) && changed.startsAt))) this.reminders.cancel(args.targetId);
+    // This transaction is an authorized current revision. Reusing a prior
+    // trigger (A→B→A or invitation→accepted) restores its cancelled job only
+    // when the reminder runtime has no existing submission receipt.
+    else this.reminders.schedule(changed, changed.goalId, undefined, { restore: true });
+    return { recordId: args.targetId, recordRevision: changed.revision, previous, current: changed, applied: (previous.revision || 1) !== changed.revision };
   }
   undo(effect: EffectAction) {
     const undo = effect.compensation;
-    if (!undo?.applied) return;
+    if (!undo) throw new HarnessError('undo_history_missing', '旧操作没有可核对的撤销版本，请从当前安排修改或删除。');
+    if (!undo.applied) return;
     const current = this.read(undo.targetId);
-    if ((current?.revision || 0) !== undo.expectedRevision) throw new HarnessError('undo_conflict', '安排已再次变化，不能用旧撤销覆盖它。');
-    this.reminders.cancel(undo.targetId);
-    if (!undo.previous) this.store.db.prepare('DELETE FROM agenda WHERE id=?').run(undo.targetId);
+    const currentRevision = this.store.agendaRevision(undo.targetId);
+    const legacyAbsentRevision = !current && undo.expectedRevision === 0 && undo.previous ? Number(undo.previous.revision || 1) : undo.expectedRevision;
+    if (currentRevision !== legacyAbsentRevision) throw new HarnessError('undo_conflict', '安排已再次变化，不能用旧撤销覆盖它。');
+    if (!undo.previous) this.store.deleteAction(undo.targetId, effect.id);
     else {
-      const restored = { ...undo.previous, revision: Math.max(Number(undo.previous.revision || 1), undo.expectedRevision) + 1 } as unknown as Action;
-      this.store.writeAgendaProjection(restored);
+      this.reminders.cancel(undo.targetId);
+      const restored = this.store.writeAgendaProjection({ ...undo.previous, revision: currentRevision + 1 } as unknown as Action);
       this.reminders.schedule(restored, restored.goalId, undefined, { restore: true });
     }
   }

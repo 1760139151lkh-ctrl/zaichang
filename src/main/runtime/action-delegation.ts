@@ -57,13 +57,15 @@ export async function checkBusinessChoice(
 }
 
 export async function checkLocalDelegation(
-  request: { current: { id: string; text: string }; history: { id: string; role: string; content: string }[]; action: unknown; now: string; timeZone: string; conversationRetention?: string; observations?: { tool: string; result: unknown; toolCallId?: string }[]; image?: import('../../shared/types').ImageAttachment },
+  request: { current: { id: string; text: string }; history: { id: string; role: string; content: string }[]; action: unknown; now: string; timeZone: string; conversationRetention?: string; observations?: { tool: string; result: unknown; toolCallId?: string }[]; image?: import('../../shared/types').ImageAttachment; selection?: import('../../shared/scenes').VerifiedSelection },
   complete: DeepSeekClient['complete'], signal: AbortSignal,
 ): Promise<DelegationVerdict> {
   const { $schema: _, ...parameters } = z.toJSONSchema(schema);
   const projected = { ...request, observations: observationsForReview(request.observations || []) };
   const tool: ToolSpec = { type: 'function', function: { name: 'verify_local_delegation', description: '检查拟执行的具体本地可撤销动作是否与当前明确委托一致，不签发外部授权。', parameters } };
   const messages: ModelWireMessage[] = [
+    ...((request.action as any)?.scope === 'optional_attention_only' && (request.action as any)?.operation === 'follow' ? [{ role: 'system' as const, content: '这是建立后续关注范围。sources约束以后准备所能读取的全部来源，不只是当前probe或最初变化的来源。按rule逐项核对所承诺的后续结果是否能由所列来源支持；业务记录本身不当然包含外部资料。如果缺少履约必需的资料来源，不能批准这个具体提案，说明缺口，让主助手在当前已有许可内修订来源或收窄承诺。不得自动授予、默认扩大或要求用户重新批准已经明确允许的来源。只限制通知或实际写入，不妨碍已明确委托的安静准备。' }] : []),
+    ...(request.selection ? [{ role: 'system' as const, content: 'selection是宿主验证的本对话界面引用，含精确对象、来源版本与事实时间，可解释当前原话的“这里”“那天”。它只提供参数指代，不授予写入许可，不放进basis；是否登记仍只依据用户原话。天气选日没有小时级预报，日期选中也没有确定下午的具体起止时间；按通常表达和当前明确参数核验，真正缺失时不编造。' }] : []),
     { role: 'system', content: '核对当前原话、允许的对话前情和拟执行的本地记录。判断用户是否明确委托这件事、日期/对象/参数是否相符、是否只是讨论或草稿、是否有尚未解决且会改变后果的歧义。聊天保留和业务记录是不同权限：不保存聊天不取消另行明确委托的本地登记，但事项参数只能含用户授权保存的必要业务内容，不复制私下原话、无关原因或“用户要求登记”等内部说明。非空detail必须由用户原话支持并属于业务记录本身；否则应拒绝该具体参数，允许模型用空detail重试。一次工具调用可以只办理明确委托中的一个独立对象；不要因为同一原话还有其他并列对象就要求当前记录一次包含全部对象，完整覆盖由主循环收尾核查。目标操作必须保留用户表达的持续性：pause只对应明确的暂时搁置或稍后继续；用户明确不再继续、放弃或取消时，拟执行pause不相符，应要求改为cancel。用户同时禁止业务写入时不得执行。情绪不取消明确委托，赞同措辞不等于批准发送，助手建议不等于用户同意。结束时间未知时可以只登记开始时刻，不编造时长。createNew=true必须得到明确创建重复副本的要求，重试或重复确认不算。execute_local的basis仅引用current或history中的用户逐字原话，并且缺失项为空；优先引用current的宿主id。assistantContextNotAuthorization仅用于理解对象，不得放进授权basis；可以引用用户前文决定及本轮确认。不要输出最终答复，调用指定核验工具。' },
     ...(typeof request.action === 'object' && request.action !== null && (request.action as { operation?: string }).operation === 'cancel' ? [{ role: 'system' as const, content: '本次拟核验的是cancel_action对所列动作ID的取消，不是执行该动作原有的外部写入。若所列动作尚处proposed、awaiting_approval或approved，当前用户明确说这唯一待执行步骤不要继续、由自己接手，或要求撤掉它，就可核准只取消这个尚未派发的本地动作状态；不用要求用户再说“取消批准”四字。这不证明外部效果已撤回，也不授权提交预约。仅询问状态、只要求不要重复已发生的提交、或确有多个同等可能对象而未指清时，不擅自取消；已派发的外部结果不能用本地取消工具当作现实撤回。核对当前原话与动作状态后按该操作本身给decision。' }] : []),
     { role: 'system', content: '对已明确委托的本地可撤销记录，按完整业务语境与通常的日常表达核对参数，不要求用户把每个常规省略都说成形式规格。真正需要澄清的是原话或前情提供了尚未解决的竞争解释、用户明确未定，或者拟写参数与已知事实不符；不能仅因理论上还想象得出另一种时段或读法就否定通常解释。日期和时间可按当前时区、日历及业务语境理解，拟记录应在结果中清楚显示，便于用户直接改正。明确的时段、否定、未定和不要登记等信息始终优先，不能被常见习惯覆盖；这也不授权任何额外副作用。' },

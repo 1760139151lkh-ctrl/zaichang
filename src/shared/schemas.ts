@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { DEEPSEEK_MODEL } from './types';
 import { calendarFieldsSchema } from './calendar';
 import { interactionSchema } from './interaction';
+import { personaUpdateSchema } from './persona';
 const timestamp = z.string().datetime({ offset: true });
 const event = z
   .object({
@@ -47,6 +48,7 @@ export const campusSchema = z.object({
 });
 export const actionSchema = z.object({
   effectActionId: z.string().max(160).optional(),
+  calendarChange: z.object({ targetId: z.string().min(1).max(160), expectedRevision: z.number().int().positive(), operation: z.enum(['update', 'delete', 'change_occurrence']), occurrenceDate: z.iso.date().optional(), cancelled: z.boolean().optional() }).strict().optional(),
   ...calendarFieldsSchema.shape,
   id: z.string().min(1).max(100),
   title: z.string().min(1).max(160),
@@ -67,6 +69,7 @@ export const actionSchema = z.object({
 export const settingsSchema = z
   .object({
     interaction: interactionSchema.optional(),
+    personaUpdate: personaUpdateSchema.optional(),
     model: z.literal(DEEPSEEK_MODEL).optional(),
     mode: z.enum(['demo', 'deepseek']).optional(),
     memoryEnabled: z.boolean().optional(),

@@ -84,7 +84,7 @@ export class PresentationService {
   preparations(): PreparationView[] {
     if (this.public) return [];
     return this.store.runtime.attention.available(this.store.runtime.policy.hostScope()).map(record => {
-      const artifact = record.data.artifact as { title: string; body: string };
+      const artifact = record.data.artifact as unknown as { title: string; body: string; scenes?: import('../../shared/scenes').SceneSnapshot[] };
       const sources = (Array.isArray(record.data.material) ? record.data.material : []).flatMap(material => {
         const value = material as { evidenceId?: string; sourceId?: string; observedAt?: string };
         const event = value.evidenceId ? this.store.kernel.evidence(this.store.runtime.policy.hostScope(), value.evidenceId) : undefined;
@@ -92,7 +92,7 @@ export class PresentationService {
         if (!sourceId) return [];
         return [{ label: sourceId === 'map:local' ? '校园步行地图' : sourceId === 'campus:local' ? '导入的校园资料' : sourceId.startsWith('campus:') ? '已连接的校园资料' : sourceId === 'web:public' ? '公开资料' : '本次提供或查询的资料', ...(value.observedAt || event?.receivedAt ? { at: value.observedAt || event!.receivedAt } : {}) }];
       });
-      return { id: record.id, revision: record.revision, matterId: String(record.data.matterId), title: artifact.title, body: artifact.body, expiresAt: String(record.data.expiresAt), kind: record.status === 'question_ready' ? 'question' : 'material', sources, ...(record.data.helpRecordId ? { helpRecordId: String(record.data.helpRecordId) } : {}) };
+      return { id: record.id, revision: record.revision, matterId: String(record.data.matterId), title: artifact.title, body: artifact.body, expiresAt: String(record.data.expiresAt), kind: record.status === 'question_ready' ? 'question' : 'material', sources, ...(artifact.scenes ? { scenes: artifact.scenes } : {}), ...(record.data.helpRecordId ? { helpRecordId: String(record.data.helpRecordId) } : {}) };
     });
   }
   state(value: State): State {

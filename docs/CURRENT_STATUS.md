@@ -1,8 +1,73 @@
-# Current status
+# 当前状态
 
-The Harness retains one pinned Hermes loop with host-owned model transport, capability discovery, permissions, read budgets, cancellation, evidence, memory and action receipts. GPT-6 Luna Max is available through explicit `dev:luna:test` / `start:luna:test` launch commands using the existing Codex account, without a DeepSeek key. Startup inherits explicit environment proxies or Windows' enabled manual proxy; PAC-only routing still needs an appropriate environment route. The account transport cannot enforce an output ceiling before upstream generation.
+核对日期：**2026-10-18**。本文件总结当前源码的功能、接入与验证范围；`package.json` 的产品版本为 0.3.0。本轮源码包含学生 Harness、对话场景和前端演进；源码同步不代表线上地图已更新，也不构成新的完整产品验收标签。
 
-Weather remains a Hangzhou city-reference forecast, now with an exact local-date query within the next seven days and explicit missing-field handling. Public search enforces requested result domains and reports weak/empty candidates as partial; lexical similarity is not semantic verification. Public resource continuation handles are scoped to the reader, URL and content version. Capability receipts distinguish fresh reads, cached hits and shared reads; model receipts retain reported prompt-cache tokens, leaving absent metrics unknown. These mechanisms do not certify long-term memory judgment or every remote service's current availability.
+## 全系统能力与实际证据
+
+“实现/接入”和“运行/验收”分别判断。下面的已验证行为有对应范围；它们不能证明所有开放语义、长期相处体验或外部连接都可靠。
+
+| 组成 | 当前实现/接入 | 已有运行证据与限制 |
+| --- | --- | --- |
+| 对话与连续上下文 | 单一 Hermes 主循环，进展更新/历史/停止、原话检索、事项续接、草稿及附件恢复；主回复正文经完成核查后呈现 | 现有机制检查和实际 Luna 会话已覆盖代表流程；不是所有长会话与开放问题质量保证，也不宣称主回复逐token流出 |
+| 来源、权限与隐私 | 模型传输、资料读取、用途、保留、推断和动作分开；主体/世界/受众及版本边界 | 当前原话限制、临时会话、撤权、纠正/遗忘及恢复有分层证据；整库未加密 |
+| 记忆 | 原始证据与带条件断言分开，更正、停用、忘记及派生失效 | 确定性隔离与若干实际语义流程已查；不能用测试数字证明通用长期理解 |
+| 记事本 | 独立原文、全文检索、长文分页、CAS编辑、版本/撤销/回收站，明确保存工具 | 已查重开、长文末尾、冲突、草稿、原生关闭和公开展示保护；不会自动排时段 |
+| 文字人格 | 三个可编辑预设/自定义、纯角色常驻、例句预览、保存/历史恢复、模板导入导出 | 私密旧guidance边界和关闭记忆已查；三预设实际同事实对照差异有限，未证明所有任务稳定可辨 |
+| 情境与规划 | 有界 `situation.read`、空闲覆盖、`planning.preview`；固定/可动/邀请/未接受分开 | 实际约饭与连续学习比较、方案接受和同对象回读已查；日历空白不等于精力或现实空闲 |
+| 日历与提醒 | 事件/待办/截止/提醒/时间块、时区、重复/例外、单调版本、同对象变更与撤销 | 实际保存/接受/重开、重复例外、删除恢复与旧撤销冲突有证据；本机完成不改变学校官方计次 |
+| 持续托付与机会 | 真实原话/来源/期限/停止条件；来源变化、陌生变化、时间节点、材料到期复核 | 无probe广义托付已真实收到课程地点变化并由 Luna 安静准备路线；暂停/停止/重启及混合可读范围分别核对 |
+| 帮助材料与投递 | prepare/wait/ask/notify/none、版本/过期/当前权限复核、消息helpRefs和实际展示回执 | 已查实际内联材料与抑制重复建议；提交、送达、已看不互相冒称，通知状态受OS能力限制 |
+| 缓存、并发与子代理 | 工具事实缓存、显式等价范围共享、独立等待者取消；真实delegate、快照/共享预算/父消费 | 实际公开天气共享读取、真实子代理与取消/迟到结果有回执；供应商未报告缓存指标时保持未知 |
+| 对话动态场景 | OpenUI 1.0.1有限组件库、Map/Weather Scene、精确版本视图和语义选择 | 实际地图多停靠/返程、选“这里”、日级天气选日期后保存安排等已查；不是任意UI生成/客户端工具执行器 |
+| 地图与空间 | 唯一公共地理/步行图，暖灰金空间地图、实际相机、同surface内嵌/聚焦、平面回退 | 总览/俯视/斜视/路线/建筑聚焦、平移缩放旋转/手动接管/真实无WebGL已查；现场通行、室内路线和全部事实精度未闭合 |
+| 天气与公开研究 | 公开参考地点、当地日期/小时窗口及覆盖；公共搜索、域名限制、网页/PDF续读 | 实际公开天气与小时窗口有回执；WeatherScene仍是日级且当前标题保留“杭州”，不宣称任意地点标题已适配；预报不是现场观测，偏题搜索仍可为partial |
+| 资料/PDF与图片 | 用户选定TXT/MD/PDF、原文/定位/检索、PDF文字层/表格候选/真实页面像素、图片输入与数学排版 | Windows原生PDF与实际资料流程有历史证据；无OCR和任意Office格式承诺，新的并排阅读工作区另见下节 |
+| 校园适配 | 本地导入与用户另装账号连接器、按资源细分权限/覆盖/回执 | 适配和隔离机制已接；没有本轮真实大学账号/全部分页资源验收，不把连接配置存在当作读取成功 |
+| 对外草稿与公开展示 | 受众投影、可编辑候选、选定内容与桌面公开展示/返回私聊 | 属于准备与显示，不等于邮件/钉钉发送；桌面展示也不是公开地图Site |
+| 外观与陪伴形象 | 阅读主题/密度/字号；新增形象/窗景/自选图/少动态/静坐组件与导航接入 | 新前端仍在实现与收敛，本轮只核对代码与已有设计记录；不将图稿或旧验收升级为整体验收 |
+
+入口和状态所有者见[项目导航](../PROJECT_NAVIGATION.md)，机制见[架构](ARCHITECTURE.md)，用户利益与设计方法见[产品约定](PRODUCT_CONTRACT.md)。
+
+<a id="frontend-evolution"></a>
+## 当前前端演进与动态界面
+
+已完成的对话内地图与动态界面沿用原 `App`、消息/输入、Hermes、工具和行动记录；`Message.scenes` 保存事实，`Message.views` 保存验证后的呈现。地图的旅程、每次停靠及有向路段各有身份，重复回到同一地点不会被合并丢失。地点、天气日期、路段的临时选择通过下一轮普通消息续接，不自动改日历或变为长期偏好。
+
+内嵌与聚焦共用一个挂载的地图surface，消息或步骤更新不重建地图，离屏释放绘图资源并保留占位/窗口内观看状态。手势、新原话、停止与卸载取消旧镜头；预览不等于设备移动或真实到达。历史显示当时快照，不隐式刷新成最新天气或课表。完整调用与边界见[对话场景](CONVERSATION_SCENES.md)。
+
+另一条前端工作正在落实“窗边的在场”：主导航“聊天／今天／留下”、头像菜单、可选陪伴形象/窗景、自选图片与减少动态；`CompanionProvider`、`companion.tsx`、`CompanionSettings.tsx` 等已落盘。它还覆盖首页/长对话、记事本、安排、学习原文与对话并排等体验。当前组件、接线和最终运行证据随该工作继续演进；本次文档同步没有运行该轮新前端，也没有将全套设计图记为功能全部完成。
+
+陪伴外观保存在 renderer localStorage，和主机中版本化文字人格、记忆、权限分开；`RestSpace` 是本窗口里的安静停留界面。SQLite 导出不包含这些自选图片与外观键。当前设置页已在主机清理成功后接入 `resetCompanion`，但一个数据库清理回执本身不能证明窗口图片和所有阅读偏好已删除；这条新前端完整清理路径仍待对应运行验收。内置图片的生成记录、文件对应和发布权利边界见[资产来源](ASSET_PROVENANCE.md)。
+
+## 运行条件与证据时间
+
+普通启动仍以 DeepSeek 为生产默认；测试通过显式 `dev:luna:test` / `start:luna:test` 使用已有Codex账号的 GPT‑6 Luna Max。代测只替换传输，Hermes、工具、资料范围和执行仍由宿主控制；没有 DeepSeek key 时的合法代测就绪与后台调度已接通。生产常量/协议、代测标识与锁定引擎定位见项目导航，不能把Luna链路当作通用生产ChatGPT登录。
+
+2026-10-18 学生Harness集成时，Node 24.18.0/npm 11.16.0 的类型检查、桌面与公共地图构建通过，现有122项检查和锁定Hermes的9项原生检查通过。实际模型仅使用Luna，未测试调用DeepSeek。该记录早于后续整套前端创新改动，**不代表当前进行中的前端已重新通过这些检查**；本次文档更新只做内容、来源、路径、命令与一致性核对。
+
+同日实际学生对话完成本地课程换楼、约饭与学习块比较、接受原对象修改、路线/小时天气、当前纠正、后台安静准备和停止后正常重开不复活。学习块保持同ID的90分钟，18:00改20:00并持久；广义托付不需可选轮询也收到课程变化并准备东3到东1的公共路线。模型用到的来源/版本、早期失败与修复回执保留本地，详见[STUDENT_HARNESS](STUDENT_HARNESS.md)。
+
+对话场景另有实际东3→西1、多停靠/返程、“这里”选择、用户自述到达、日级天气选日期后写入一小时本地安排的记录。静态机制、Hermes合成宿主、实际Luna合成生活事实、公开天气/地图、真实用户账号与设备的证据分开；128场景是需求覆盖，不是128项实际模型通过率。
+
+公共地图Site的既有105项机制检查/9项Hermes、clean-clone/CI/浏览器场景记录保留在[CLOUD_REVIEW](CLOUD_REVIEW.md)的历史发布区。本机当前构建、源码提交和线上部署身份分别管理。
+
+2026-10-18 源码同步前，当前 Windows checkout 的 `npm run check`、`npm test`（122/122）、`npm run test:hermes`（9/9）、`npm run build`、`node scripts/check-review.mjs`、`node scripts/desktop-smoke.mjs` 和 `node scripts/pdf-smoke.mjs` 均通过。Electron 隔离启动实际进入共享地图，版本为 `campus-v3-f86b9ec6a26fb2b2`，未报页面错误；Hermes 检查使用合成模型回调，没有调用 DeepSeek 或真实私人账号。Chrome 实际查看空间斜视、俯视、建筑聚焦与步行路线，操作了平移、缩放、旋转、路线全览及预览/退出；临时令本地页面的 WebGL 探针不可用后，实际进入 `canvas-2d-fallback` 并通过搜索重算同一965米路线，确认地图、标注和完整路线可见，随后恢复浏览器图形环境。这些是本轮源码与地图检查，不覆盖实际模型、真实校园账户、物理地物准确性或既有线上Site部署。
+
+## 未完成的生产连接与共有限制
+
+- 校园查询需要另装并私下认证的连接器。当前考试发布、逐次课表/临时例外、GPA规则、校园卡单位及每页覆盖须看具体资源契约；没有本轮真实账号读取证明。
+- 校园预约/选课/付款、邮件或钉钉发送、手机GPS/健康/同步、语音输入、通用生产ChatGPT登录没有完成的服务闭环。未接入时提供已有本地记录、手动起点或可审阅草稿，不伪造外部成功。
+- 桌面退出后机会轮询停止；没有托盘/远程持续宿主或手机常驻的当前保证。OS通知只能证明其实际回执等级，不能把提交写成送达或已读。
+- 数据库整体未加密；凭据按系统机制另存，不能由此推出正文加密。备份/恢复必须保留隐私fence，不能用旧备份恢复已忘资料。
+- 新前端外观localStorage和主机业务导出/清除覆盖不同；设置页新增的陪伴清理接线、新并排资料入口与整套视觉体验需另行验收。
+- PDF无OCR，搜索相关性和未读网页不能当事实核验。缺工具、来源未读、读取失败、结果部分与现实不存在分别表达。
+- 原生窗口拖动、部分系统缩放/输入法和不同设备上的长期使用仍需对应实机证据。已有机制检查不能替代真实相处反馈。
+
+迁移、回退和手机/外部宿主可行性见[学生Harness](STUDENT_HARNESS.md)。公开预览不含助手、账号、个人overlay、设备定位、笔记或模型服务；其构建与发布边界见[部署说明](DEPLOYMENT.md)。
+
+## 地图实现细节与事实边界
+
+以下保留当前地图工程的细项说明，避免全系统总览丢失既有地理、来源和显示责任。这些行为不等于现场测绘、入口开放或整图事实验收；数据源和再分发以[资产来源](ASSET_PROVENANCE.md)、[地图SOURCE](../assets/map-v2/SOURCE.md)及公共审查记录为准。
 
 The five reviewed metro stations (蒋村、三坝、虾龙圩、三墩、浙大紫金港) are treated as underground station references, so their source polygons no longer paint over streets as ground buildings. Their 26 exact source-boundary entrance nodes are available for walking endpoints and exit selection. Eight nodes already belong to the retained graph; missing exterior links remain explicit obstacle-checked estimates from the recorded entrance, including its own source-linked canopy. The 37 explicitly underground station ways remain retained and conditional, and are omitted from ordinary surface-road ink. Exit opening, station interiors and physical access are not certified; this is walking access, not transit routing.
 
@@ -10,14 +75,6 @@ Route endpoint names include the selected metro exit. At narrow widths, A and B 
 
 浙江省档案馆 now has an explicit display interpretation of a central tower, low connected wings, two court openings and an east-facing entrance. The published architect's description reports 15 levels and 67.2 metres for the main building; the 17.5-metre low wings, part positions, facade rhythm and entrance proportions are cartographic choices. The model remains `cartographic-proxy`, with unregistered building-part footprints and unknown actual entrance clearance. It replaces the site-sized display slab while retaining the original site record, place identity, reference point and estimated route access. Physical ground/entrance acceptance and reference derivative-use review remain open.
 This repository contains the complete implemented desktop product and the integrated V3 map. It is not a promise that every historical aspiration is implemented.
-
-Implemented: desktop chat/history/cancellation; host capability and permission routing; pinned Hermes engine/stdio; evidence and conditional derived memory with correction/retirement/forgetting; local calendar actions and reminders; TXT/MD/PDF material reader; native image input; campus read adapter; public web research; fixed-city weather adapter; shared spatial map, named-place selection and walking candidate routes.
-
-The campus adapter requires a separately installed and privately authenticated connector; code being present does not prove a current user's university session or every paginated resource. No account snapshot is in this repository. Field completeness, current exam publication, GPA/retake policy and campus-card units must be verified against real resource contracts. Search transport success does not guarantee search quality; dynamic scripts and OCR are not implemented.
-
-Real university booking/course submission/payment, email/DingTalk sending, mobile GPS/health/sync and speech capture have no completed production service chain. OS notification submission does not prove delivery, and closing the app does not guarantee reminders. The entire chat database is not encrypted. Native window dragging and some system scaling/IME behaviors need separate hardware checks. Automatic full-file UI retry remains limited.
-
-Memory semantics and long-term model judgment are not certified by deterministic tests. Earlier semantic acceptance failures are not converted to success by this repository's build. Current checks verify mechanism and data isolation at the reviewed commit; new live model claims require their provider/model, date and exact source version.
 
 The map is a 2026-09-10 public-source snapshot with project V3 display refinements. Door access, opening hours, construction changes, exact roof heights, some southern banks and complete indoor routes remain uncertain. Dashed access is an estimate; the sport markings are illustrative. WebGL fallback is planar and cannot provide a spatial camera. Review has no device location or personal bindings. Its existing theme is applied before data loading so loading, errors and the completed map share the same theme.
 
@@ -104,6 +161,3 @@ A route that actually uses an unresolved edge or access condition keeps the titl
 The shared mesh export and current-snapshot normalizer discard only exactly zero-area triangles, preserving all nonzero faces and material groups without changing plans, heights, identities or the road graph. The normalizer retains the supplementary building input in component hashes. These structural repairs do not establish physical building accuracy or full-map acceptance.
 
 For the current clean-clone/CI/browser evidence and scope see docs/CLOUD_REVIEW.md; use the repository commit SHA in every subsequent review or change request.
-
-Repository verification covers deterministic host/memory/route mechanisms, the actual pinned Hermes engine with synthetic host responses, native Windows desktop startup and the patched native PDF reader. Live model semantics and real university-account results are not certified by these checks.
-

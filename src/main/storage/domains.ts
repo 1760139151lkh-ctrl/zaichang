@@ -5,6 +5,7 @@ import {
   personalLabel,
   type DomainDelta,
   type DomainRecord,
+  type EvidenceEvent,
   type ScopeHandle,
 } from '../../shared/harness';
 import type { CampusSnapshot } from '../../shared/types';
@@ -14,6 +15,19 @@ import { canonical } from '../runtime/semantics';
 import { hasCredentials } from '../runtime/redaction';
 import { expandAgenda } from '../actions/calendar';
 import type { Action } from '../../shared/types';
+
+export interface DomainChange {
+  eventId: string;
+  sourceId: string;
+  domain: string;
+  institutionId: string;
+  termId: string;
+  objectId: string;
+  revision: number;
+  operation: 'upsert' | 'tombstone';
+  value: Record<string, unknown>;
+  observedAt: string;
+}
 
 export class DomainService {
   onChanged?: (handle: ScopeHandle, delta: DomainDelta) => void;
@@ -37,16 +51,29 @@ export class DomainService {
     }
     const fingerprint = createHash('sha256').update(canonical(delta)).digest('hex');
     if (this.repo.operation('domain:' + fingerprint)) return { status: 'duplicate' };
+    const sourceRevisionKey = (key: string) => 'domain-source-revision:' + createHash('sha256').update(canonical([scope.principalId, scope.workspaceId, delta.sourceId, delta.domain, delta.institutionId, delta.termId, key, delta.sourceRevision])).digest('hex');
+    // Opaque cursors are compared through fromCursor below. Without one, an
+    // older observed snapshot must not roll the current records backwards.
+    if (delta.fromCursor === undefined && delta.scopeKeys.some(key => {
+      const old = this.repo.db.prepare('SELECT payload FROM h_sync WHERE source=? AND domain=? AND institution=? AND term=? AND scope_key=?')
+        .get(delta.sourceId, delta.domain, delta.institutionId, delta.termId, key);
+      const previous = old && JSON.parse(String(old.payload));
+      const lastAcceptedAt = previous?.lastAcceptedAt || (previous?.completeness !== 'failed' ? previous?.observedAt || previous?.fetchedAt : undefined);
+      return previous && (Date.parse(lastAcceptedAt) > Date.parse(delta.observedAt || delta.fetchedAt) ||
+        delta.sourceRevision && previous.sourceRevision !== delta.sourceRevision && this.repo.operation(sourceRevisionKey(key)));
+    })) return { status: 'stale' };
+    let changed = false;
     this.repo.write(() => {
       // Failed/partial deltas retain unaffected domains and do not use absence as a tombstone.
       for (const key of delta.scopeKeys) {
         const old = this.repo.db
           .prepare(
-            'SELECT cursor FROM h_sync WHERE source=? AND domain=? AND institution=? AND term=? AND scope_key=?',
+            'SELECT cursor,payload FROM h_sync WHERE source=? AND domain=? AND institution=? AND term=? AND scope_key=?',
           )
           .get(delta.sourceId, delta.domain, delta.institutionId, delta.termId, key);
         if (delta.fromCursor !== undefined && old?.cursor !== delta.fromCursor)
           throw new HarnessError('cursor_conflict', '同步游标已变化，需要重新读取。');
+        const previousSync = old && JSON.parse(String(old.payload));
         this.repo.db
           .prepare(
             'INSERT INTO h_sync VALUES(?,?,?,?,?,?,?,?) ON CONFLICT(source,domain,institution,term,scope_key) DO UPDATE SET status=excluded.status,cursor=excluded.cursor,payload=excluded.payload',
@@ -65,8 +92,11 @@ export class DomainService {
               errors: delta.errors,
               scopeKeys: delta.scopeKeys,
               completeness: delta.completeness,
+              sourceRevision: delta.completeness === 'failed' ? previousSync?.sourceRevision : delta.sourceRevision,
+              lastAcceptedAt: delta.completeness === 'failed' ? previousSync?.lastAcceptedAt || (previousSync?.completeness !== 'failed' ? previousSync?.observedAt || previousSync?.fetchedAt : undefined) : delta.observedAt || delta.fetchedAt,
             }),
           );
+        if (delta.sourceRevision && delta.completeness !== 'failed' && !this.repo.operation(sourceRevisionKey(key))) this.repo.completeOperation(sourceRevisionKey(key), 'domain_source_revision', {});
       }
       if (delta.completeness === 'failed') {
         this.repo.completeOperation('domain:' + fingerprint, 'domain_failed', {});
@@ -79,8 +109,10 @@ export class DomainService {
             'SELECT revision,payload FROM h_domain WHERE id=? AND source=? AND domain=? AND institution=? AND term=?',
           )
           .get(record.recordId, delta.sourceId, delta.domain, delta.institutionId, delta.termId);
-        const revision = Number(old?.revision || 0) + 1;
         const previous = old ? (JSON.parse(String(old.payload)) as DomainRecord) : undefined;
+        const mergedValue = { ...previous?.value, ...record.value };
+        const semanticChange = !previous || previous.status !== (delta.completeness === 'complete' ? 'fresh' : 'unknown') || canonical(previous.value) !== canonical(mergedValue);
+        const revision = Number(old?.revision || 0) + (semanticChange ? 1 : 0);
         const value: DomainRecord = {
           id: record.recordId,
           sourceId: delta.sourceId,
@@ -89,7 +121,7 @@ export class DomainService {
           termId: delta.termId,
           revision,
           evidenceId: record.evidenceId,
-          value: { ...previous?.value, ...record.value },
+          value: mergedValue,
           status: delta.completeness === 'complete' ? 'fresh' : 'unknown',
           fetchedAt: delta.fetchedAt,
         };
@@ -121,7 +153,7 @@ export class DomainService {
             JSON.stringify(value),
           );
         this.repo.db
-          .prepare('INSERT INTO h_domain_versions VALUES(?,?,?,?,?,?,?)')
+          .prepare('INSERT OR IGNORE INTO h_domain_versions VALUES(?,?,?,?,?,?,?)')
           .run(
             record.recordId,
             delta.sourceId,
@@ -131,7 +163,11 @@ export class DomainService {
             revision,
             JSON.stringify(value),
           );
-        this.repo.invalidate('domain:' + delta.domain + ':' + record.recordId, 'domain_changed');
+        if (semanticChange) {
+          changed = true;
+          this.repo.invalidate('domain:' + delta.domain + ':' + record.recordId, 'domain_changed');
+          this.enqueueChange(handle, delta, value, 'upsert', e);
+        }
       }
       const removals = new Set(delta.tombstones);
       if (delta.completeness === 'complete') {
@@ -157,11 +193,20 @@ export class DomainService {
         }
       }
       for (const id of removals) {
+        const old = this.repo.db.prepare('SELECT payload,status FROM h_domain WHERE id=? AND source=? AND domain=? AND institution=? AND term=? AND owner=? AND workspace=? AND subject=? AND world=?')
+          .get(id, delta.sourceId, delta.domain, delta.institutionId, delta.termId, scope.principalId, scope.workspaceId, scope.subjectId, scope.worldId);
+        if (!old || old.status === 'known_absent') continue;
+        const previous = JSON.parse(String(old.payload)) as DomainRecord;
+        const removed: DomainRecord = { ...previous, revision: previous.revision + 1, status: 'known_absent', fetchedAt: delta.fetchedAt };
+        changed = true;
         this.repo.db
           .prepare(
-            "UPDATE h_domain SET status='known_absent' WHERE id=? AND source=? AND domain=? AND institution=? AND term=? AND owner=? AND workspace=? AND subject=? AND world=?",
+            "UPDATE h_domain SET status='known_absent',revision=?,fetched_at=?,payload=? WHERE id=? AND source=? AND domain=? AND institution=? AND term=? AND owner=? AND workspace=? AND subject=? AND world=?",
           )
           .run(
+            removed.revision,
+            delta.fetchedAt,
+            JSON.stringify(removed),
             id,
             delta.sourceId,
             delta.domain,
@@ -172,14 +217,83 @@ export class DomainService {
             scope.subjectId,
             scope.worldId,
           );
+        this.repo.db.prepare('INSERT INTO h_domain_versions VALUES(?,?,?,?,?,?,?)').run(id, delta.sourceId, delta.domain, delta.institutionId, delta.termId, removed.revision, JSON.stringify(removed));
         this.repo.invalidate('domain:' + delta.domain + ':' + id, 'domain_removed');
+        this.enqueueChange(handle, delta, removed, 'tombstone', this.repo.evidence(handle, previous.evidenceId));
       }
-      this.repo.setMeta('domain_revision', this.repo.domainRevision + 1);
+      if (changed) this.repo.setMeta('domain_revision', this.repo.domainRevision + 1);
       this.repo.completeOperation('domain:' + fingerprint, 'domain_delta', { domain: delta.domain });
-      this.repo.outbox('domain_changed', delta.domain);
+      if (changed) this.repo.outbox('domain_changed', delta.domain);
     });
-    this.onChanged?.(handle, delta);
+    this.repo.afterCommit(() => {
+      try { this.onChanged?.(handle, delta); }
+      catch (error) { this.repo.setMeta('domain_attention_wake_failure', { at: this.repo.clock.now(), code: error instanceof HarnessError ? error.code : 'wake_failed' }); }
+    });
     return { status: delta.completeness };
+  }
+
+  private enqueueChange(handle: ScopeHandle, delta: DomainDelta, record: DomainRecord, operation: DomainChange['operation'], basis?: EvidenceEvent) {
+    return this.journalChange(handle, { sourceId: delta.sourceId, domain: delta.domain, institutionId: delta.institutionId, termId: delta.termId, objectId: record.id, revision: record.revision, operation, value: record.value, observedAt: delta.observedAt || delta.fetchedAt }, basis);
+  }
+
+  /** Trusted storage adapters may journal metadata using the same scoped
+   * envelope; document bodies remain behind their own paged read capability. */
+  journalChange(handle: ScopeHandle, input: Omit<DomainChange, 'eventId'>, basis?: EvidenceEvent, roots: string[] = []) {
+    const scope = this.policy.validate(handle);
+    const eventId = 'domain-event:' + createHash('sha256').update(canonical([scope.principalId, scope.workspaceId, scope.subjectId, scope.worldId, input.sourceId, input.domain, input.institutionId, input.termId, input.objectId, input.revision, input.operation])).digest('hex');
+    const change: DomainChange = { ...input, eventId };
+    if (this.repo.evidence(handle, eventId)) return eventId;
+    this.repo.ingest(handle, { id: eventId, ownerId: scope.principalId, workspaceId: scope.workspaceId, subjectId: scope.subjectId, worldId: scope.worldId, sourceId: input.sourceId,
+      contentVersion: 1, text: canonical(change), speaker: 'external', kind: 'external_observation', authority: 'source_record',
+      roots: [...new Set([eventId, ...roots, ...(basis ? [basis.id, ...basis.roots] : [])])], label: { ...(basis?.label || personalLabel), infer: false }, receivedAt: this.repo.clock.now(), status: 'active' });
+    this.repo.outbox('domain_attention', eventId);
+    return eventId;
+  }
+
+  changeCurrent(handle: ScopeHandle, change: DomainChange) {
+    const scope = this.policy.validate(handle);
+    if (!scope.sources.includes(change.sourceId)) return false;
+    if (change.sourceId === 'local-agenda' && change.domain === 'agenda') {
+      if (scope.principalId !== this.repo.identity.principalId || scope.workspaceId !== this.repo.identity.workspaceId ||
+        scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self' || !scope.grants.includes('evidence:read')) return false;
+      const row = this.repo.db.prepare("SELECT COALESCE(json_extract(payload,'$.revision'),1) AS revision FROM agenda WHERE id=?").get(change.objectId);
+      if (row) return change.operation === 'upsert' && Number(row.revision) === change.revision;
+      const version = this.repo.db.prepare('SELECT max(revision) AS revision FROM h_calendar_versions WHERE agenda_id=?').get(change.objectId);
+      return change.operation === 'tombstone' && Number(version?.revision || 0) === change.revision;
+    }
+    const row = change.sourceId === 'notes:self' && change.domain === 'notes'
+      ? this.repo.db.prepare('SELECT revision FROM h_notes WHERE id=? AND owner=? AND workspace=?').get(change.objectId, scope.principalId, scope.workspaceId)
+      : this.repo.db.prepare('SELECT revision FROM h_domain WHERE id=? AND source=? AND domain=? AND institution=? AND term=? AND owner=? AND workspace=? AND subject=? AND world=?')
+        .get(change.objectId, change.sourceId, change.domain, change.institutionId, change.termId, scope.principalId, scope.workspaceId, scope.subjectId, scope.worldId);
+    return !!row && Number(row.revision) === change.revision;
+  }
+
+  /** The source update and event commit together. Only a successful consumer
+   * transaction acknowledges a row; deferred/failed rows survive restart. */
+  consumeChanges(handle: ScopeHandle, consume: (change: DomainChange) => boolean, limit = 64) {
+    this.policy.validate(handle);
+    const readCursor = this.repo.getMeta<number>('domain_attention_read_cursor', 0);
+    const rows = this.repo.db.prepare("SELECT rowid AS cursor,* FROM h_outbox WHERE kind='domain_attention' AND status='pending' AND epoch=? ORDER BY (rowid<=?),rowid LIMIT ?").all(this.repo.epoch, readCursor, limit);
+    let acknowledged = 0;
+    for (const row of rows) {
+      const event = this.repo.evidence(handle, String(row.object_id));
+      // Progress through attempted rows independently of the contiguous ack
+      // frontier. A full focus/source cannot starve unrelated later sources.
+      this.repo.setMeta('domain_attention_read_cursor', Number(row.cursor));
+      if (!event) continue;
+      try {
+        this.repo.write(() => {
+          if (!consume(JSON.parse(event.text) as DomainChange)) return;
+          this.repo.db.prepare("UPDATE h_outbox SET status='done' WHERE id=? AND status='pending'").run(String(row.id));
+          const frontier = this.repo.db.prepare("SELECT max(rowid) AS cursor FROM h_outbox WHERE kind='domain_attention' AND epoch=? AND status='done' AND rowid<COALESCE((SELECT min(rowid) FROM h_outbox WHERE kind='domain_attention' AND epoch=? AND status='pending'),9223372036854775807)").get(this.repo.epoch, this.repo.epoch);
+          this.repo.setMeta('domain_attention_cursor', Number(frontier?.cursor || 0));
+          acknowledged++;
+        });
+      } catch (error) {
+        this.repo.setMeta('domain_attention_failure', { cursor: Number(row.cursor), eventId: event.id, at: this.repo.clock.now(), code: error instanceof HarnessError ? error.code : 'consumer_failed' });
+      }
+    }
+    return { acknowledged, pending: Number(this.repo.db.prepare("SELECT count(*) AS n FROM h_outbox WHERE kind='domain_attention' AND status='pending' AND epoch=?").get(this.repo.epoch)?.n || 0) };
   }
   read(
     handle: ScopeHandle,

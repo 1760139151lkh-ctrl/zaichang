@@ -1,4 +1,4 @@
-import { emptyRoute, mapPointEndpoint, type MapPoint, type MapRouteResult } from '../../shared/map-v2';
+import { emptyRoute, mapPointEndpoint, type MapPoint, type MapRouteResult, type LngLat } from '../../shared/map-v2';
 
 /** Graph endpoints belong to the route graph, not the named-place catalog.
  * The route service validates them against the current dataset on recalculation.
@@ -152,9 +152,23 @@ export class CameraOwnership {
   revision = 0;
   interacted = false;
   alive = true;
+  private cancellations = new Set<() => void>();
   take() {
     this.interacted = true;
-    return ++this.revision;
+    return this.cancel();
+  }
+  /** Replacing an explanation cancels work without inventing a user gesture. */
+  cancel() {
+    this.revision++;
+    const callbacks = [...this.cancellations];
+    this.cancellations.clear();
+    callbacks.forEach(cancel => cancel());
+    return this.revision;
+  }
+  onCancel(ticket: number, cancel: () => void) {
+    if (!this.accepts(ticket)) { cancel(); return () => {}; }
+    this.cancellations.add(cancel);
+    return () => { this.cancellations.delete(cancel); };
   }
   ticket() {
     return this.revision;
@@ -164,6 +178,25 @@ export class CameraOwnership {
   }
   destroy() {
     this.alive = false;
-    this.revision++;
+    this.cancel();
   }
+}
+/** Context is the same recorded road geometry. Reversed and shared edges are
+ * drawn once, and the active leg always keeps the visual foreground. */
+export function contextRouteSegments(active:MapRouteResult|undefined,routes:MapRouteResult[]) {
+  const edgeKey=(a:LngLat,b:LngLat)=>{const left=a.join(','),right=b.join(',');return left<right?`${left};${right}`:`${right};${left}`;};
+  const activeEdges=new Set((active?.status==='ready'?active.coordinates:[]).slice(1).map((b,i)=>edgeKey(active!.coordinates[i],b)));
+  const edges=new Map<string,{coordinates:LngLat[];dashed:boolean;estimated:boolean}>();
+  for(const route of routes){
+    if(route.status!=='ready')continue;
+    for(const segment of route.segments||[{coordinates:route.coordinates,kind:'network' as const}]){
+      const estimated=segment.kind==='estimate',dashed=estimated||'conditions' in segment&&!!segment.conditions?.length;
+      for(let i=1;i<segment.coordinates.length;i++){
+        const a=segment.coordinates[i-1],b=segment.coordinates[i],key=edgeKey(a,b);if(activeEdges.has(key))continue;
+        const existing=edges.get(key);if(existing){existing.dashed ||= dashed;existing.estimated ||= estimated;}
+        else edges.set(key,{coordinates:[a,b],dashed,estimated});
+      }
+    }
+  }
+  return [...edges.values()];
 }

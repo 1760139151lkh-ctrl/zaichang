@@ -3,10 +3,12 @@ import { z } from 'zod';
 import { HarnessError, type ScopeHandle } from '../../shared/harness';
 import type { ImageAttachment } from '../../shared/types';
 import type { LocationStatusResult } from '../../shared/map-v2';
+import { routeHasUnverifiedPassages } from '../../shared/map-v2';
 import type { CampusMapAdapter } from '../mapService';
 import type { CampusReferenceAdapter, ImageCrop } from '../capabilities/campus-reference';
 import type { PolicyKernel } from './policy';
 import type { WorkService } from './work';
+import { projectMapRoute } from './map-model-view';
 
 const id = z.string().min(1).max(160);
 export const spatialInput = z.object({
@@ -14,6 +16,7 @@ export const spatialInput = z.object({
   originKind: z.enum(['given_places', 'user_statement', 'shared_map_selection', 'device_observation']).default('given_places'),
   role: z.string().max(50).optional(), source: z.object({ eventId: id, quote: z.string().min(1).max(2000) }).strict().optional(),
   mode: z.enum(['walk', 'bike']).default('walk'), avoidStairs: z.boolean().default(false), arrivalBy: z.string().datetime({ offset: true }).optional(),
+  departAt: z.string().datetime({ offset: true }).optional(), mapVersion: z.string().min(1).max(160).optional(),
 }).strict();
 export const spaceControlInput = z.object({
   operation: z.enum(['bind_role', 'alias', 'crosswalk', 'read']), role: z.string().min(1).max(50).optional(),
@@ -46,6 +49,7 @@ export class SpatialService {
     const scope = this.policy.require(handle, 'map:read');
     const input = spatialInput.parse(raw), map = this.map(), now = this.policy.repo.clock.now();
     if (!map) return { status: 'not_connected', reason: '地图未连接。' };
+    if (input.arrivalBy && input.departAt && Date.parse(input.arrivalBy) < Date.parse(input.departAt)) throw new HarnessError('route_time_window', '期望到达时刻不能早于出发时刻。');
     let fromId = input.fromId;
     if ((input.role || ['shared_map_selection', 'device_observation'].includes(input.originKind)) && (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self')) return { status: 'forbidden', reason: '个人地点与设备观察不能被套用到他人或假设场景；仍可使用明确给出的公开地点。' };
     if (input.role) {
@@ -74,10 +78,15 @@ export class SpatialService {
       }
     }
     if (!fromId) return { status: 'unknown', destination: input.toId, reason: '缺少起点；仍可先提供目的地事实，或按给定候选起点比较。' };
-    const route = map.route({ from: { kind: 'place', id: fromId }, to: { kind: 'place', id: input.toId }, avoidStairs: input.avoidStairs });
+    const route = map.route({ from: { kind: 'place', id: fromId }, to: { kind: 'place', id: input.toId }, avoidStairs: input.avoidStairs, version: input.mapVersion });
+    const materialId = 'route-material:' + createHash('sha256').update(JSON.stringify({ fromId, toId: input.toId, avoidStairs: input.avoidStairs, mode: input.mode, routeStatus: route.status, requestedMapVersion: input.mapVersion || null, mapVersion: route.source.version, profileRevision: route.profileRevision || null, originEvidence, departAt: input.departAt || null, arrivalBy: input.arrivalBy || null })).digest('hex');
     const summary = { namespace: 'osm-zju-v2', version: route.source.version, sourceDate: route.source.date,
       from: route.from ? { id: route.from.id, label: route.from.displayName } : null, to: route.to ? { id: route.to.id, label: route.to.displayName } : null,
-      originEvidence, coordinateEgress: false, warnings: route.warnings, unknown: ['楼内走到入口的时间', '排队、停车和当天门禁', '用户实际速度与途中停留'] };
+      materialId, preparedAt: now, mapVersion: route.source.version, profileRevision: route.profileRevision || null,
+      endpoints: { fromId: route.from?.id || fromId, toId: route.to?.id || input.toId },
+      originQuality: { kind: originEvidence.kind, establishesCurrentUserPosition: input.originKind === 'user_statement' ? 'user_report_only' : false, requiresRecheck: ['shared_map_selection', 'device_observation'].includes(input.originKind), observedAt: originEvidence.at || null },
+      cameraChanged: false, preparationOnly: true,
+      originEvidence, coordinateEgress: false, route: projectMapRoute(route), warnings: route.warnings, unknown: ['楼内走到入口的时间', '排队、停车和当天门禁', '用户实际速度与途中停留'] };
     if (route.status !== 'ready') {
       const conditionalRoutes = route.status === 'unknown_entrance' && input.mode === 'walk' ? (route.conditionalOrigins || []).map(candidate => ({
         from: { id: candidate.id, label: candidate.label },
@@ -85,15 +94,19 @@ export class SpatialService {
         networkMeters: candidate.networkM, estimateMinutes: candidate.minutes,
         condition: candidate.condition, originConnection: candidate.connection, guaranteedOnTime: false,
       })) : [];
-      return { ...summary, status: route.status === 'same' ? 'fresh' : 'partial', routeStatus: route.status, reason: route.reason,
-        conditionalRoutes, estimateBasis: '候选建筑是原地点附近的独立建筑；每段距离从该候选建筑自身列出的已记录连通入口起算，不是原地点的出口或用户当前位置。原地点到候选入口、楼内与当天通行仍未知，不能用已知路段保证全程赶上。' };
+      return { ...summary, status: route.status === 'same' ? 'fresh' : input.mapVersion && input.mapVersion !== route.source.version ? 'stale' : route.status === 'error' ? 'failed' : 'partial', routeStatus: route.status, reason: route.reason,
+        conditionalRoutes, estimateBasis: route.status === 'same' ? '起终点是同一地图地点；楼内移动与用户实际位置仍未知。' : conditionalRoutes.length ? '候选建筑是原地点附近的独立建筑；每段距离从该候选建筑自身列出的已记录连通入口起算，不是原地点的出口或用户当前位置。原地点到候选入口、楼内与当天通行仍未知，不能用已知路段保证全程赶上。' : '尚未确认完整路线；不能用缺失的路段计算抵达时刻。' };
     }
     const meters = route.distance!.networkM, minutes = { min: Math.ceil(meters / 90), max: Math.ceil(meters / 48) };
     const estimatedAccess=route.distance!.connectorM>0;
-    return { ...summary, status: estimatedAccess?'partial':'fresh', routeStatus: route.status, networkMeters: meters, connectorMeters:route.distance!.connectorM,totalEstimatedMeters:route.distance!.totalM,
+    const conditional = routeHasUnverifiedPassages(route), departure = input.departAt || now, timingAvailable = input.mode === 'walk' && !estimatedAccess && !conditional;
+    return { ...summary, status: estimatedAccess || conditional || input.mode !== 'walk' ? 'partial' : 'fresh', routeStatus: route.status, networkMeters: meters, connectorMeters:route.distance!.connectorM,totalEstimatedMeters:route.distance!.totalM,
       estimateMinutes: input.mode === 'walk' ? minutes : null, mode: input.mode,
       estimateBasis: input.mode === 'walk' ? estimatedAccess ? '时间仅按记录道路每分钟48–90米作条件估计；另含避障接入估计，真实门和楼内走法未确认，不给完整抵达时刻。' : '仅已记录入口到入口，以每分钟48–90米作条件估计，未测得用户速度。' : '当前仅有步行路网，未核实自行车通行和停车，不能冒用步行估计。',
-      arrivalWindow: input.mode === 'walk'&&!estimatedAccess ? { earliest: new Date(Date.parse(now) + minutes.min * 60000).toISOString(), latestBeforeUnknownCosts: new Date(Date.parse(now) + minutes.max * 60000).toISOString() } : null,
+      departAt: departure, departureBasis: input.departAt ? 'explicit_proposed_departure' : 'query_time_only',
+      arrivalWindow: timingAvailable ? { earliest: new Date(Date.parse(departure) + minutes.min * 60000).toISOString(), latestBeforeUnknownCosts: new Date(Date.parse(departure) + minutes.max * 60000).toISOString() } : null,
+      latestDepartureBeforeUnknownCosts: timingAvailable && input.arrivalBy ? new Date(Date.parse(input.arrivalBy) - minutes.max * 60000).toISOString() : null,
+      conditionalPassages: conditional,
       requestedArrivalBy: input.arrivalBy || null, guaranteedOnTime: false,
     };
   }

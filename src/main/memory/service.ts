@@ -411,6 +411,17 @@ export class MemoryService {
       return assertion;
     });
   }
+  private validateCandidateSource(handle: ScopeHandle, event: EvidenceEvent, predicate: string) {
+    const current = this.repo.evidence(handle, event.id);
+    if (!current || current.status !== 'active')
+      throw new HarnessError('source_suppressed', '原始来源已不可用，不能恢复旧理解。');
+    if (canonical(current) !== canonical(event))
+      throw new HarnessError('source_version_conflict', '审核期间原文或适用范围发生变化，请重读来源。');
+    if ([current.id, ...current.roots].some(id =>
+      this.repo.db.prepare("SELECT 1 FROM h_source_restrictions WHERE event_id=? AND predicate IN (?, '*')").get(id, predicate)
+      || this.repo.db.prepare("SELECT 1 FROM h_source_restrictions x JOIN h_evidence_roots r ON r.event_id=x.event_id WHERE r.root_id=? AND x.predicate IN (?, '*') LIMIT 1").get(id, predicate)))
+      throw new HarnessError('source_suppressed', '这个旧来源的相关理解已停止使用，不能重新提取。');
+  }
   async propose(
     handle: ScopeHandle,
     raw: unknown,
@@ -430,17 +441,7 @@ export class MemoryService {
         throw new HarnessError('inference_forbidden', '这段内容不用于长期记忆。');
       const event = this.repo.evidence(handle, change.eventId);
       if (!event) throw new HarnessError('evidence_forbidden', '找不到有权使用的原始证据。');
-      if (
-        [event.id, ...event.roots].some(
-          (id) =>
-            !!this.repo.db
-              .prepare(
-                "SELECT event_id FROM h_source_restrictions WHERE event_id=? AND predicate IN (?, '*')",
-              )
-              .get(id, change.predicate),
-        )
-      )
-        throw new HarnessError('source_suppressed', '这个旧来源的相关理解已停止使用，不能重新提取。');
+      this.validateCandidateSource(handle, event, change.predicate);
       const location = locateQuote(event.text, change.sourceQuote);
       if (codePointSlice(event.text, location.start, location.end) !== change.sourceQuote)
         throw new HarnessError('locator_mismatch', '原文定位核验失败。');
@@ -459,6 +460,16 @@ export class MemoryService {
       }
       let review = options.review;
       const oldTarget = change.targetId ? this.repo.assertion(handle, change.targetId) : undefined;
+      if (oldTarget && change.operation === 'SUPPORT') {
+        if (oldTarget.kind === 'legacy_unverified')
+          throw new HarnessError('support_unverified', '旧导入理解需先核实内容，不能只增加来源来确认。');
+        // SUPPORT adds evidence to the old claim. Review exactly that claim,
+        // rather than one set of fields and then writing a different one.
+        change = { ...change, predicate: oldTarget.predicate, value: oldTarget.value, text: oldTarget.text,
+          kind: oldTarget.kind, strength: oldTarget.strength, conditions: oldTarget.conditions,
+          validFrom: oldTarget.temporal.validFrom, validTo: oldTarget.temporal.validTo,
+          unresolvedTime: oldTarget.temporal.unresolvedExpression };
+      }
       // CORRECT already retains these bounds in the writer. Review that same
       // proposed time interval rather than rejecting an omitted restatement.
       // Conditions are never inherited here: changing them remains explicit.
@@ -489,6 +500,8 @@ export class MemoryService {
         review = await this.reviewer(change, event, signal, reviewContext);
       signal.throwIfAborted();
       this.policy.validate(handle);
+      if (change.operation === 'SUPPORT' && !options.trustedControl && review?.retention !== 'allowed')
+        throw new HarnessError('support_unverified', '新增来源的长期用途未核实，没有把它附为有效支持。');
       const existingTarget = !!change.targetId && !!this.repo.assertion(handle, change.targetId);
       const status = this.semanticGate(change, event, review, options.trustedControl, existingTarget);
       if (scope.privacyEpoch !== epoch)
@@ -565,6 +578,9 @@ export class MemoryService {
       assertion.text = change.sourceQuote;
     this.repo.write(() => {
       this.policy.validate(handle);
+      // Review is asynchronous. A correction may have stopped this source
+      // without changing the privacy epoch or this proposal's target revision.
+      this.validateCandidateSource(handle, event, change.predicate);
       if (change.operation === 'SUPPORT' && old) {
         const roots = new Set(old.evidenceIds.flatMap((id) => this.repo.evidence(handle, id)?.roots || []));
         if (event.roots.every((r) => roots.has(r))) {

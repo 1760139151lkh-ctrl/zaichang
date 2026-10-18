@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   CalendarDays,
-  ChevronDown,
-  History,
   MapPinned,
+  NotebookPen,
   Pencil,
   SlidersHorizontal,
   UserRound,
+  Search,
+  Sparkles,
 } from 'lucide-react';
 import type { WorkspaceView } from './Workspace';
+import { CompanionAvatar } from './companion';
 
 /** Navigation opens existing views; it never owns business data. */
 export function Navigation({
@@ -44,9 +46,14 @@ export function Navigation({
   };
   return (
     <nav className="top-navigation" aria-label="常用操作">
+      <div className="primary-navigation" aria-label="主要页面" data-view={view === 'materials' ? 'notes' : view}>
+        <span className="primary-selection" aria-hidden="true" />
+        <button type="button" aria-current={view === 'chat' ? 'page' : undefined} onClick={() => onView('chat')}>聊天</button>
+        <button type="button" aria-current={view === 'agenda' ? 'page' : undefined} onClick={() => onView('agenda')}>今天</button>
+        <button type="button" aria-current={view === 'notes' || view === 'materials' ? 'page' : undefined} onClick={() => onView('notes')}>留下</button>
+      </div>
       <button className="nav-button" aria-label="历史对话" title="历史对话 · Ctrl K" onClick={onHistory}>
-        <History size={18} />
-        <span>历史</span>
+        <Search size={19} />
       </button>
       <button
         className="nav-button"
@@ -56,13 +63,13 @@ export function Navigation({
         disabled={busy}
       >
         <Pencil size={17} />
-        <span>新对话</span>
       </button>
       <div className="navigation-menu-anchor" ref={host}>
         <button
           ref={trigger}
-          className={`nav-button ${open ? 'is-open' : ''}`}
+          className={`nav-button companion-menu-trigger ${open ? 'is-open' : ''}`}
           aria-label="更多功能"
+          title="陪伴与偏好"
           aria-haspopup="menu"
           aria-expanded={open}
           onClick={() => setOpen(!open)}
@@ -73,8 +80,7 @@ export function Navigation({
             }
           }}
         >
-          <span>更多</span>
-          <ChevronDown size={14} />
+          <CompanionAvatar size={35} />
         </button>
         {open && (
           <div
@@ -114,6 +120,9 @@ export function Navigation({
               }
             }}
           >
+            <button role="menuitem" aria-current={view === 'companion' ? 'page' : undefined} onClick={() => go(() => onView('companion'))}>
+              <Sparkles size={18} /><span>陪伴的样子</span>
+            </button>
             <button
               role="menuitem"
               aria-current={view === 'agenda' ? 'page' : undefined}
@@ -125,6 +134,10 @@ export function Navigation({
             <button role="menuitem" aria-label="打开校园地图" onClick={() => go(onMap)}>
               <MapPinned size={18} />
               <span>校园地图</span>
+            </button>
+            <button role="menuitem" aria-current={view === 'notes' ? 'page' : undefined} onClick={() => go(() => onView('notes'))}>
+              <NotebookPen size={18} />
+              <span>记事本</span>
             </button>
             <button
               role="menuitem"

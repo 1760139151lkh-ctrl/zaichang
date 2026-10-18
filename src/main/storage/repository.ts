@@ -929,16 +929,49 @@ export class KernelRepository {
       this.outbox('work_changed', work.id);
     });
   }
+  /** Prepared bodies carry the sources actually read, independently of the
+   * user's mandate. Legacy material is readable only when each source can be
+   * established from its stored receipt; a broad captured scope is no proof. */
+  private helpSourceFilter(handle: ScopeHandle) {
+    const scope = this.scope(handle);
+    const allowed = JSON.stringify(scope.sources.filter(source => scope.grants.includes(source === 'map:local' ? 'map:read'
+      : source === 'weather:open-meteo' ? 'weather:read' : source === 'profile:self' ? 'memory:read' : source.startsWith('campus:') ? 'campus:read' : 'evidence:read')));
+    return { sql: `(COALESCE(json_extract(r.payload,'$.data.type'),'') NOT IN ('help_opportunity','cooperation_record') OR (
+      (json_type(r.payload,'$.data.sourceIds') IS NULL OR json_type(r.payload,'$.data.sourceIds')='array')
+      AND NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.sourceIds') src WHERE src.type!='text' OR src.value NOT IN (SELECT value FROM json_each(?)))
+      AND (json_type(r.payload,'$.data.requiredGrants') IS NULL OR json_type(r.payload,'$.data.requiredGrants')='array')
+      AND NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.requiredGrants') permission WHERE permission.type!='text' OR permission.value NOT IN (SELECT value FROM json_each(?)))
+      AND ((NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.sourceIds') src WHERE src.value LIKE 'campus:%')
+        AND NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.material') material WHERE json_extract(material.value,'$.sourceId') LIKE 'campus:%'
+          OR EXISTS(SELECT 1 FROM json_each(material.value,'$.sourceIds') src WHERE src.value LIKE 'campus:%')
+          OR EXISTS(SELECT 1 FROM json_each(material.value,'$.versions') version WHERE json_extract(version.value,'$.sourceId') LIKE 'campus:%'))
+        AND NOT EXISTS(SELECT 1 FROM h_evidence evidence WHERE evidence.id IN (SELECT value FROM json_each(r.payload,'$.evidenceIds'))
+          AND evidence.source LIKE 'campus:%' AND json_extract(evidence.payload,'$.speaker')='external'))
+        OR (json_extract(r.payload,'$.data.materialGrantContractVersion')=1 AND json_type(r.payload,'$.data.requiredGrants')='array'
+          AND EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.requiredGrants') permission WHERE permission.value='campus:read')))
+      AND (((json_type(r.payload,'$.data.artifact') IS NULL OR json_type(r.payload,'$.data.artifact')='null')
+          AND (json_type(r.payload,'$.data.material') IS NULL OR json_type(r.payload,'$.data.material')='null' OR (json_type(r.payload,'$.data.material')='array' AND json_array_length(r.payload,'$.data.material')=0)))
+        OR (json_extract(r.payload,'$.data.materialSourceContractVersion')=1 AND json_type(r.payload,'$.data.sourceIds')='array' AND json_array_length(r.payload,'$.data.sourceIds')>0)
+        OR (json_type(r.payload,'$.data.material')='array' AND json_array_length(r.payload,'$.data.material')>0
+          AND NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.material') material WHERE NOT CASE
+            WHEN json_type(material.value,'$.noteId')='text' OR json_extract(material.value,'$.tool')='manage_note'
+              THEN 'notes:self' IN (SELECT value FROM json_each(?))
+            WHEN json_type(material.value,'$.evidenceId')='text'
+              THEN EXISTS(SELECT 1 FROM json_each(r.payload,'$.evidenceIds') ref WHERE ref.value=json_extract(material.value,'$.evidenceId'))
+            ELSE COALESCE(json_type(material.value,'$.sourceId')='text' AND json_extract(material.value,'$.sourceId')!='current'
+              AND json_extract(material.value,'$.sourceId') IN (SELECT value FROM json_each(?)),0) END))
+      )))`, params: [allowed, JSON.stringify(scope.grants), allowed, allowed] };
+  }
   work(handle: ScopeHandle, kind?: WorkRecord['kind'], id?: string): WorkRecord[] {
     const f = this.filter(handle),
-      e = this.filter(handle, 'e');
+      e = this.filter(handle, 'e'), sources = this.helpSourceFilter(handle);
     const rows = this.db
       .prepare(
-        `SELECT r.* FROM h_work r WHERE ${f.sql} ${kind ? 'AND r.kind=?' : ''} ${id ? 'AND r.id=?' : ''}
+        `SELECT r.* FROM h_work r WHERE ${f.sql} ${kind ? 'AND r.kind=?' : ''} ${id ? 'AND r.id=?' : ''} AND ${sources.sql}
       AND NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.evidenceIds') ref WHERE NOT EXISTS(SELECT 1 FROM h_evidence e WHERE e.id=ref.value AND ${e.sql} AND e.status!='deleted'))
       ORDER BY r.rowid DESC LIMIT 200`,
       )
-      .all(...f.params, ...(kind ? [kind] : []), ...(id ? [id] : []), ...e.params);
+      .all(...f.params, ...(kind ? [kind] : []), ...(id ? [id] : []), ...sources.params, ...e.params);
     return rows.map((r) => parse<WorkRecord>(r)!);
   }
   /** Bounded typed working records, with the same SQL-before-body scope and
@@ -947,8 +980,9 @@ export class KernelRepository {
     const limit = options.limit || 20, offset = options.offset || 0;
     if (!types.length || types.length > 12 || !Number.isInteger(limit) || limit < 1 || limit > 100 || !Number.isSafeInteger(offset) || offset < 0)
       throw new HarnessError('invalid_page', '工作记录的读取范围无效。');
-    const f = this.filter(handle), e = this.filter(handle, 'e');
+    const f = this.filter(handle), e = this.filter(handle, 'e'), sources = this.helpSourceFilter(handle);
     const rows = this.db.prepare(`SELECT r.* FROM h_work r WHERE ${f.sql}
+      AND ${sources.sql}
       AND json_extract(r.payload,'$.data.type') IN (SELECT value FROM json_each(?))
       ${options.id ? 'AND r.id=?' : ''}
       ${options.revision !== undefined ? 'AND r.revision=?' : ''}
@@ -957,7 +991,7 @@ export class KernelRepository {
       ${options.statuses ? 'AND r.status IN (SELECT value FROM json_each(?))' : ''}
       ${options.respectSourceBindings ? "AND NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.sourceIds') src WHERE src.value NOT IN (SELECT value FROM json_each(?)))" : ''}
       AND NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.evidenceIds') ref WHERE NOT EXISTS(SELECT 1 FROM h_evidence e WHERE e.id=ref.value AND ${e.sql} AND e.status!='deleted'))
-      ORDER BY r.rowid DESC LIMIT ? OFFSET ?`).all(...f.params, JSON.stringify(types), ...(options.id ? [options.id] : []), ...(options.revision !== undefined ? [options.revision] : []), ...(options.matterId ? [options.matterId] : []), ...(options.sessionId ? [options.sessionId] : []), ...(options.statuses ? [JSON.stringify(options.statuses)] : []), ...(options.respectSourceBindings ? [JSON.stringify(this.scope(handle).sources)] : []), ...e.params, limit, offset);
+      ORDER BY r.rowid DESC LIMIT ? OFFSET ?`).all(...f.params, ...sources.params, JSON.stringify(types), ...(options.id ? [options.id] : []), ...(options.revision !== undefined ? [options.revision] : []), ...(options.matterId ? [options.matterId] : []), ...(options.sessionId ? [options.sessionId] : []), ...(options.statuses ? [JSON.stringify(options.statuses)] : []), ...(options.respectSourceBindings ? [JSON.stringify(this.scope(handle).sources)] : []), ...e.params, limit, offset);
     for (const row of rows) this.recordAccess(handle, row, 'working_record');
     return rows.map(row => parse<WorkRecord>(row)!);
   }

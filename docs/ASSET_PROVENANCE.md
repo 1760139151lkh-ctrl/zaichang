@@ -1,4 +1,5 @@
 # Asset provenance
+
 | Asset | Source / transformation / redistribution treatment |
 | --- | --- |
 | Ground footprints, roads, nodes and walk graph | Bounded OpenStreetMap snapshot, source timestamp 2026-09-10. Editor personal fields removed. ODbL 1.0 applies to the source and derivative database; complete license in licenses/ODbL-1.0.txt, visible OSM attribution retained; raw machine-readable source at assets/map-v2/source.osm.json.gz and public map/source.osm.json.gz |
@@ -10,11 +11,35 @@
 | Official guide, Amap/Baidu/school photographs | Referenced for spatial cross-checks; original images, tiles, screenshots, website scripts/tokens and fonts are excluded from source and deployment. Public accessibility is not treated as a redistribution license |
 | Sports observations | Generated linework is illustrative, not measured court dimensions or a certified running course; no activity records or personal exercise locations |
 | Fonts | Package-locked Noto Sans SC, SIL OFL 1.1; KaTeX fonts under its MIT distribution. MapLibre uses the Noto package's Unicode-range metadata and the same packaged subset files as the UI. Local files with required notices; no third-party map font server |
-| Icons, logo | lucide-react, ISC license, and project-created assets/brand mark/icon. No borrowed product logos or unlicensed picture assets |
+| Icons, logo | lucide-react, ISC license, and project-created assets/brand mark/icon. This attribution does not cover the separate companion raster images below |
+| Desktop companion artwork | `src/renderer/companion.tsx` imports six local PNGs from `src/renderer/assets/companion/`: `morning`, `dusk`, `night`, `mio`, `haruka` and `saku`. A retained local design note and six-item generation manifest record these window/character assets as separately generated with `GPT Image (built-in)` on 2026-10-18. Each product PNG matches both its retained named asset and the manifest's original output byte-for-byte by SHA-256; the file identities are listed below. This establishes the inspected generation/copy chain, not ownership, input-reference rights or redistribution approval. Those rights still require separate review. The images enter the desktop Vite asset graph and may be included by desktop packaging; the public-map entry does not import the companion UI. Raw generation prompts, private output paths and the design/chat bundle remain local |
+| User-selected companion image | `CompanionSettings.tsx` reads the explicitly selected local PNG/JPEG/WebP, makes a bounded WebP copy and stores it with its name/preferences in desktop renderer localStorage. It is not a bundled default, shared map asset or permission to redistribute that image. These preferences are distinct from the versioned text persona in the host settings; user data and custom pictures stay out of Git, public preview and deployment |
 | Map engines | MapLibre BSD-3-Clause and OpenLayers BSD-2-Clause; licenses retained |
-| Hermes/Python/PDF/canvas | Hermes fetched at an immutable commit with frozen uv.lock and explicit host patches; Python runtime installed separately; PDFJS Apache-2.0, canvas MIT. Native binaries fetched through package-lock, not checked into Git |
-| Personal overlay | Excluded. Roles, renamed personal places, home/dormitory bindings, GPS fixes, private databases and memories are neither source nor preview data |
+| Conversation-scene frontend | Package-locked `@openuidev/react-lang` 1.0.1 and its installed OpenUI dependencies declare MIT; the upstream notice is retained verbatim in `licenses/OpenUI-MIT.txt`. Desktop uses the finite scene component library, not an additional chat shell or asset license. Its optional inspector/observability behavior is bounded in `src/renderer/presentation/`; this dependency is not imported by the public-map entry |
+| Hermes/Python/PDF/canvas | Hermes is pinned by `runtime/hermes/lock.json` with frozen uv.lock and recorded host patches. `stage-hermes-runtime.mjs` checks the pinned source and patch hashes, selects tracked sources, and stages a relocatable Python runtime plus static configuration. Node PDF/canvas binaries follow package-lock; their original CMap/font/WASM/ICC and embedded notices are retained by `material-runtime.mjs`. These generated Windows runtime assets are not checked into Git and never enter review-web |
+| Personal overlay | Excluded from public map data. Personal map role bindings, renamed places, home/dormitory references, GPS fixes, user-edited personas, notes, private databases, custom pictures and memories are not public preview or deployment inputs. Default text persona code is an application feature, not a personal map overlay |
 
-The reviewed map contains vector/procedural geometry, bounded factual source metadata, licensed font/engine assets and the ODbL source. No official raster or unlicensed reference file is redistributed. The 35 MB display JSON remains ordinary Git text, stored once; Git compression and HTTP transfer compression avoid a duplicate binary model or LFS pointer dependency.
+The reviewed public map contains vector/procedural geometry, bounded factual source metadata, licensed font/engine assets and the ODbL source. Official reference rasters, website scripts/tokens and raw local research inputs are excluded from its selected build inputs. This map-specific record does not certify all desktop image assets or close outstanding derivative-use rights. The large display JSON remains ordinary Git text, stored once; Git compression and HTTP transfer compression avoid a duplicate binary model or LFS pointer dependency.
 
 The generation scripts preserve route ground facts separately from appearance. Normal installation/build never downloads official reference material. Regeneration requires separately authorized references and may produce a new data version; do not treat a regenerated snapshot as already visually accepted.
+
+The exact public file/license selections are maintained in `vite.review.config.ts` and `scripts/check-review.mjs`; the browser read boundary is `apps/review-web/storage.ts`. Build success and the artifact check do not establish asset rights. Review the selected files and actual deployed version separately, following [DEPLOYMENT.md](DEPLOYMENT.md).
+
+## Generated design archive (2026-10-18)
+
+At the user's explicit request, all 29 PNG outputs from one generation folder are archived without renaming or changing their bytes in `assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/`. `manifest.json` records each filename, byte size, dimensions and SHA-256. The files were visually inspected as generated window scenes, characters and interface concepts; they contain no observed real account credentials or private screenshots. This is an authorized backup in the existing private GitHub repository, not a new license grant or approval for public redistribution.
+
+The six runtime companion images keep their existing `src/renderer/assets/companion/` paths and imports. This archive is not imported by the product or included in the public-map build. Interface concepts are design references, not evidence of implemented behavior. Raw prompts and the local design/chat bundle remain local.
+
+## Desktop companion file identities
+
+The 2026-10-18 local comparison found the following SHA-256 values for the product files. All six matched the corresponding local generation output and retained named asset. This comparison does not redistribute the source prompts/reference material or grant rights to generated or input artwork.
+
+| Product file | Retained asset identity | SHA-256 |
+| --- | --- | --- |
+| `morning.png` | 窗景·晨光 | `e304ff26879b67c6821a628428f0d1b784c368eaf28f563799a351a78bc4288d` |
+| `dusk.png` | 窗景·暮色 | `e818d1dc8c2c28e6a9d0ac729cc3cdc539ef63d81b282f76fe120f8840e62a3b` |
+| `night.png` | 窗景·夜灯 | `dab8185e3ca4b1f820c79ba441000e4d48bd2c529df476b7db4f64318afda00f` |
+| `mio.png` | 人物·澪 | `eabf255e455db46ef0770c884bbf3019247a9e0fb99d1b145cb7e505cf388ce5` |
+| `haruka.png` | 人物·遥 | `186ebcbb1d2a0c3ea8e115117ee3b16b0e69e47b56a4810f0f844b876f42a62a` |
+| `saku.png` | 人物·朔 | `3d4adef6c2f206f8d443bfcac9d768761309808559d66e219c9a98df4e59c2c7` |

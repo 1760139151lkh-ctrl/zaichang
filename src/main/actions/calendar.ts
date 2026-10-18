@@ -1,5 +1,5 @@
 import type { Action } from '../../shared/types';
-import { calendarFieldsSchema } from '../../shared/calendar';
+import { calendarFieldsSchema, localCalendarChangeSchema } from '../../shared/calendar';
 import { HarnessError } from '../../shared/harness';
 import { addDate, dateInZone, dayBounds, resolveLocalTime } from '../runtime/semantics';
 
@@ -51,18 +51,48 @@ export function normalizeCalendarInput<T extends { title: string; detail: string
     ...(input.startsAt ? { startsAt: new Date(input.startsAt).toISOString() } : {}) };
 }
 
+/** Shared projection for review and transaction commit; never mutates the stored object. */
+export function projectCalendarChange(previous: Action, raw: unknown, hostTimeZone: string): Action {
+  const args = localCalendarChangeSchema.parse(raw);
+  if (previous.id !== args.targetId || (previous.revision || 1) !== args.expectedRevision) throw new HarnessError('revision_conflict', '安排已改变，请先读取当前版本。');
+  if (args.operation === 'delete') throw new HarnessError('calendar_delete_projection', '删除没有新的日历投影。');
+  let changed: Action;
+  if (args.operation === 'change_occurrence') {
+    if (!args.occurrenceDate || !previous.recurrence) throw new HarnessError('occurrence_missing', '单次修改需要指定系列和原发生日期。');
+    if (Object.keys(args.changes || {}).some(key => !['startsAt', 'durationMinutes', 'detail'].includes(key))) throw new HarnessError('occurrence_fields', '单次例外只能改该次时间、时长或说明，不改变整个系列。');
+    if (args.changes?.startsAt === null) throw new HarnessError('occurrence_time', '单次事件不能抹掉开始时刻；不再发生时请取消该实例。');
+    const exception = { ...(previous.exceptions || []).find(item => item.onDate === args.occurrenceDate), onDate: args.occurrenceDate,
+      ...(args.cancelled !== undefined ? { cancelled: args.cancelled } : {}), ...(args.changes || {}) };
+    changed = { ...previous, exceptions: [...(previous.exceptions || []).filter(item => item.onDate !== args.occurrenceDate), exception] } as Action;
+  } else {
+    const value: Record<string, unknown> = { ...previous, ...args.changes };
+    for (const [key, field] of Object.entries(value)) if (field === null) delete value[key];
+    if (args.changes?.recurrence === null) delete value.exceptions;
+    changed = value as unknown as Action;
+  }
+  changed = normalizeCalendarInput(changed, hostTimeZone);
+  if (!previous.kind && !args.changes?.kind) delete changed.kind;
+  return changed;
+}
+
 /** Calendar calculation only: no effects, inferred duration, or school rules. */
 export function expandAgenda(items: Action[], from: string, to: string, fallbackTimeZone: string) {
   if (!Number.isFinite(Date.parse(from)) || !Number.isFinite(Date.parse(to)) || Date.parse(to) <= Date.parse(from)) throw new HarnessError('time_window', '查询时间窗不合法。');
   if (Date.parse(to) - Date.parse(from) > 366 * 86400000) throw new HarnessError('time_window', '请分段查询，单次不超过一年。');
   const occurrences: Record<string, unknown>[] = [], issues: Record<string, unknown>[] = [];
+  const unknownEnd = (item: Action, startsAt: string, date?: string) => {
+    const prior = issues.find(issue => issue.id === item.id && issue.status === 'unknown_end');
+    if (prior && Date.parse(String(prior.startsAt)) >= Date.parse(startsAt)) return;
+    if (prior) issues.splice(issues.indexOf(prior), 1);
+    issues.push({ id: item.id, ...(date ? { date } : {}), status: 'unknown_end', startsAt });
+  };
   for (const item of items.filter(item => !item.done)) {
     const zone = item.timeZone || fallbackTimeZone;
     if (!item.recurrence) {
       const bounds = item.allDayDate ? dayBounds(item.allDayDate, zone) : null;
       const start = bounds?.from || item.startsAt;
       const end = bounds?.to || (start && item.durationMinutes ? new Date(Date.parse(start) + item.durationMinutes * 60000).toISOString() : start);
-      if (start && !bounds && !item.durationMinutes && (!item.kind || item.kind === 'event') && Date.parse(start) < Date.parse(from) && dateInZone(start, zone) === dateInZone(from, zone)) issues.push({ id: item.id, status: 'unknown_end', startsAt: start });
+      if (start && !bounds && !item.durationMinutes && (!item.kind || item.kind === 'event') && Date.parse(start) < Date.parse(from)) unknownEnd(item, start);
       if (start && end && Date.parse(start) < Date.parse(to) && (start === end ? Date.parse(start) >= Date.parse(from) : Date.parse(end) > Date.parse(from))) occurrences.push({ ...item, occurrenceId: item.id, ...(bounds ? { dateBounds: bounds } : { endsAt: item.durationMinutes ? end : null }) });
       continue;
     }
@@ -78,13 +108,14 @@ export function expandAgenda(items: Action[], from: string, to: string, fallback
       const exception = item.exceptions?.find(entry => entry.onDate === date);
       if (exception?.cancelled) continue;
       const dateWindow = dayBounds(date, zone);
-      if (!exception?.startsAt && (Date.parse(dateWindow.to) <= Date.parse(from) || Date.parse(dateWindow.from) >= Date.parse(to))) continue;
+      const hasUnknownEnd = !item.allDayDate && !(exception?.durationMinutes === null ? undefined : exception?.durationMinutes ?? item.durationMinutes) && (!item.kind || item.kind === 'event');
+      if (!exception?.startsAt && (Date.parse(dateWindow.to) <= Date.parse(from) && !hasUnknownEnd || Date.parse(dateWindow.from) >= Date.parse(to))) continue;
       const stamp = item.allDayDate ? null : date + 'T' + localStamp(item.startsAt!, zone).slice(11);
       const resolved = exception?.startsAt ? { status: 'resolved', instants: [exception.startsAt] } : stamp ? resolveLocalTime(stamp, zone) : null;
       if (resolved && resolved.status !== 'resolved') { issues.push({ id: item.id, date, status: resolved.status, instants: resolved.instants }); continue; }
       const startsAt = resolved?.instants[0], durationMinutes = exception?.durationMinutes === null ? undefined : exception?.durationMinutes ?? item.durationMinutes;
       if (startsAt && (Date.parse(startsAt) >= Date.parse(to) || (durationMinutes ? Date.parse(startsAt) + durationMinutes * 60000 <= Date.parse(from) : Date.parse(startsAt) < Date.parse(from)))) {
-        if (!durationMinutes && (!item.kind || item.kind === 'event') && Date.parse(startsAt) < Date.parse(from) && dateInZone(startsAt, zone) === dateInZone(from, zone)) issues.push({ id: item.id, date, status: 'unknown_end', startsAt });
+        if (!durationMinutes && (!item.kind || item.kind === 'event') && Date.parse(startsAt) < Date.parse(from)) unknownEnd(item, startsAt, date);
         continue;
       }
       const occurrence: Record<string, unknown> = { ...item, occurrenceId: `${item.id}::${date}`, originalDate: date,

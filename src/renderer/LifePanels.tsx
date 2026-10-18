@@ -158,18 +158,20 @@ export function AgendaEditor({
 
 export function PreparationShelf({
   items,
+  inline = false,
   timeZone = DEFAULT_TIME_ZONE,
   onState,
   onContinue,
 }: {
   items: PreparationView[];
+  inline?: boolean;
   timeZone?: string;
   onState: (state: State) => void;
   onContinue: (text: string) => void;
 }) {
-  const [expanded, setExpanded] = useState(false),
+  const [expanded, setExpanded] = useState(inline),
     [visibleCount, setVisibleCount] = useState(5),
-    [opened, setOpened] = useState<string>(),
+    [opened, setOpened] = useState<string | undefined>(inline ? items[0]?.id : undefined),
     [pending, setPending] = useState(''),
     [error, setError] = useState('');
   const shown = useRef(new Set<string>()),

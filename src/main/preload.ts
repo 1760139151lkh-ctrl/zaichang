@@ -1,6 +1,13 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { Bridge, RunEvent } from '../shared/types';
 const bridge: Bridge = {
+  notesList: input => ipcRenderer.invoke('notes:list', input),
+  notesRead: input => ipcRenderer.invoke('notes:read', input),
+  notesCreate: input => ipcRenderer.invoke('notes:create', input),
+  notesUpdate: input => ipcRenderer.invoke('notes:update', input),
+  notesChangeState: input => ipcRenderer.invoke('notes:state', input),
+  notesUndo: input => ipcRenderer.invoke('notes:undo', input),
+  notesHistory: input => ipcRenderer.invoke('notes:history', input),
   editReleaseArtifact: input => ipcRenderer.invoke('release:edit', input),
   recordResponseExposure: input => ipcRenderer.invoke('response:exposure', input),
   changeMatterSelection: input => ipcRenderer.invoke('matter:selection', input),

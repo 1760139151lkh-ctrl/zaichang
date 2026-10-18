@@ -18,6 +18,14 @@ export const occurrenceExceptionSchema = z.object({
   durationMinutes: z.number().int().min(1).max(1440).nullable().optional(),
   detail: z.string().max(1500).optional(),
 }).strict();
+export const calendarPlanningSchema = z.object({
+  state: z.enum(['invitation', 'wish', 'proposed', 'accepted']),
+  flexibility: z.enum(['fixed', 'movable']),
+  sourceEventId: z.string().min(1).max(160).optional(),
+  sourceVersion: z.number().int().positive().optional(),
+  placeId: z.string().min(1).max(160).optional(),
+  constraints: z.array(z.string().min(1).max(300)).max(12).optional(),
+}).strict();
 export const calendarFieldsSchema = z.object({
   goalId: z.string().max(160).optional(),
   createNew: z.boolean().optional().describe('只有用户明确需要一个重复副本时才为true；重试或再次确认不使用。'),
@@ -27,6 +35,7 @@ export const calendarFieldsSchema = z.object({
   recurrence: recurrenceSchema.optional(),
   exceptions: z.array(occurrenceExceptionSchema).max(100).optional(),
   remindAt: z.string().datetime({ offset: true }).optional(),
+  planning: calendarPlanningSchema.optional().describe('区分未答应的邀请、愿望、未接受方案和已接受安排。旧对象缺失时沿用原已登记安排语义；movable只说明可提出移动方案，不授权自动调整。'),
 });
 export type CalendarFields = z.infer<typeof calendarFieldsSchema>;
 export const localCalendarChangeSchema = z.object({

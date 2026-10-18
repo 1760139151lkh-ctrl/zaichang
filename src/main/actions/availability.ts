@@ -7,7 +7,7 @@ export function availableIntervals(input: {
 }) {
   const from = Date.parse(input.from), to = Date.parse(input.to);
   if (!Number.isFinite(from) || !Number.isFinite(to) || to <= from) throw new HarnessError('time_window', '时间范围不合法。');
-  if (input.transitionMinutes.min < 0 || input.transitionMinutes.max < input.transitionMinutes.min || input.minimumBlockMinutes < 0) throw new HarnessError('time_cost', '转换时间或工作块下限不合法。');
+  if (![input.transitionMinutes.min, input.transitionMinutes.max, input.minimumBlockMinutes].every(Number.isFinite) || input.transitionMinutes.min < 0 || input.transitionMinutes.max < input.transitionMinutes.min || input.minimumBlockMinutes < 0) throw new HarnessError('time_cost', '转换时间或工作块下限不合法。');
   const unknownEnds: string[] = [];
   const busy = input.busy.map(interval => {
     const start = Date.parse(interval.start), end = interval.end ? Date.parse(interval.end) : to;

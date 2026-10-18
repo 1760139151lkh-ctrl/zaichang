@@ -31,12 +31,21 @@
     "appId": "studio.zaichang.desktop",
     "productName": "在场",
     "directories": {
-      "output": "release"
+      "output": "release/life-fusion-map-v3-20261005-refinement-r3"
     },
     "files": [
       "dist/**/*",
       "dist-electron/**/*",
-      "assets/map-v2/**/*",
+      "assets/map-v2/manifest.json",
+      "assets/map-v2/geography.geojson",
+      "assets/map-v2/display-geography.geojson",
+      "assets/map-v2/places.json",
+      "assets/map-v2/network.json",
+      "assets/map-v2/shared-facts.json",
+      "assets/map-v2/venues.json",
+      "assets/map-v2/sports-details.geojson",
+      "assets/map-v2/building-supplement.json",
+      "assets/map-v2/source.osm.json.gz",
       "assets/brand/icon.png",
       "licenses/**/*",
       "package.json"
@@ -57,6 +66,7 @@
     "@maplibre/maplibre-gl-style-spec": "26.4.4",
     "@napi-rs/canvas": "1.0.6",
     "@noble/hashes": "2.4.0",
+    "@openuidev/react-lang": "1.0.1",
     "earcut": "3.2.4",
     "katex": "0.18.2",
     "lucide-react": "1.43.0",

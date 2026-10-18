@@ -9,6 +9,7 @@ import {
   type Memory,
   type Message,
   type Settings,
+  type SettingsUpdate,
   type State,
 } from '../shared/types';
 import { terms } from '../shared/schemas';
@@ -17,11 +18,31 @@ import { RuntimeCoordinator } from './runtime/coordinator';
 import type { ClockPort, HostIdentity } from '../shared/harness';
 import { redactExport } from './runtime/redaction';
 import { assertTestStoreFile } from './testBoundary';
+import { applyPersonaUpdate, migratePersona, personaStateSchema } from '../shared/persona';
+import { NotesService } from './notes/service';
+import { canonical } from './runtime/semantics';
+
+export interface AgendaChange {
+  id: string; revision: number; operation: 'upsert' | 'tombstone'; at: string;
+  calendarVersionId: string; changedFields: string[];
+  kind?: Action['kind']; startsAt?: string; durationMinutes?: number;
+  timeZone?: string; allDayDate?: string; done?: boolean;
+  planning?: Pick<NonNullable<Action['planning']>, 'state' | 'flexibility'>;
+}
+function agendaBusinessValue(item: Action) {
+  const { revision: _revision, effectActionId: _effect, approvalDigest: _approval, saved: _saved,
+    coverage: _coverage, missingNeeds: _needs, calendarChange: _change, createNew: _copy, ...value } = item;
+  const instant = (at: string | undefined) => at && Number.isFinite(Date.parse(at)) ? new Date(at).toISOString() : at;
+  return { ...value, done: !!value.done, startsAt: instant(value.startsAt), remindAt: instant(value.remindAt),
+    exceptions: value.exceptions?.map(exception => ({ ...exception, startsAt: instant(exception.startsAt) })) };
+}
 
 export class Store {
   db: DatabaseSync;
   readonly kernel: KernelRepository;
+  readonly notes: NotesService;
   readonly runtime: RuntimeCoordinator;
+  private agendaListeners = new Set<(change: AgendaChange) => void>();
   constructor(path: string, options: { clock?: ClockPort; identity?: HostIdentity } = {}) {
     assertTestStoreFile(path);
     this.db = new DatabaseSync(path);
@@ -41,6 +62,7 @@ export class Store {
       CREATE TRIGGER IF NOT EXISTS messages_au AFTER UPDATE ON messages BEGIN INSERT INTO messages_fts(messages_fts,rowid,content) VALUES('delete', old.rowid, old.content); INSERT INTO messages_fts(rowid,content) VALUES(new.rowid,new.content); END;`);
     if (!hadHistoryIndex) this.db.exec("INSERT INTO messages_fts(messages_fts) VALUES('rebuild')");
     this.kernel = new KernelRepository(this.db, path, options.clock, options.identity);
+    this.notes = new NotesService(this.kernel);
     this.runtime = new RuntimeCoordinator(this, this.kernel);
     // A process exit also ends temporary conversations. The journal stores
     // only session IDs and controls, so recovery never needs private text.
@@ -75,15 +97,28 @@ export class Store {
   }
   settings(): Settings {
     const stored = this.meta<Partial<Settings>>('settings', {});
+    const parsedPersona = personaStateSchema.safeParse(stored.persona);
+    const persona = parsedPersona.success ? parsedPersona.data : migratePersona(stored.guidance);
+    if (!parsedPersona.success) {
+      // Preserve the exact pre-migration private text. It is never part of the
+      // role history, template, preview or always-on prompt projection.
+      if (stored.guidance && !this.meta<unknown>('legacy-private-guidance', null))
+        this.putMeta('legacy-private-guidance', { text: stored.guidance, classification: 'private_unreviewed', migratedAt: this.kernel?.clock.now() || new Date().toISOString() });
+      this.putMeta('settings', { ...stored, persona });
+    }
     return {
       ...DEFAULT_SETTINGS,
       ...stored,
       interaction: { ...DEFAULT_SETTINGS.interaction, ...stored.interaction },
+      persona,
       model: DEEPSEEK_MODEL,
       hasKey: false,
     };
   }
-  saveSettings(value: Partial<Settings>) {
+  saveSettings(value: SettingsUpdate) {
+    const { personaUpdate, apiKey: _apiKey, ...patch } = value;
+    const current = this.settings();
+    const persona = personaUpdate ? applyPersonaUpdate(current.persona, personaUpdate, this.kernel.clock.now()) : current.persona;
     if (this.runtime) {
       const previous = this.settings();
       if (value.weatherEnabled !== undefined && value.weatherEnabled !== previous.weatherEnabled) {
@@ -97,7 +132,7 @@ export class Store {
       if (value.interaction?.initiative === 'quiet' && previous.interaction.initiative !== 'quiet') this.runtime.attention.quietOptional();
       if (value.interaction?.initiative === 'prepare' && previous.interaction.initiative !== 'prepare') this.runtime.attention.keepPreparedInApp();
     }
-    this.putMeta('settings', { ...this.settings(), ...value, model: DEEPSEEK_MODEL, hasKey: false });
+    this.putMeta('settings', { ...this.settings(), ...patch, persona, model: DEEPSEEK_MODEL, hasKey: false });
   }
   session(id?: string, title = '新的对话'): string {
     if (id && this.db.prepare('SELECT id FROM sessions WHERE id=?').get(id)) return id;
@@ -221,34 +256,82 @@ export class Store {
       .map((r) => JSON.parse(String(r.payload)));
   }
   saveAction(item: Action) {
-    this.writeAgendaProjection(item);
-    this.runtime.reminders.schedule(item);
+    return this.kernel.write(() => {
+      const current = this.writeAgendaProjection(item);
+      this.runtime.reminders.schedule(current);
+      return current;
+    });
   }
-  writeAgendaProjection(item: Action) {
-    const offeredRow = this.db
-      .prepare(
-        "SELECT a.value FROM messages m,json_each(m.payload,'$.actions') a WHERE json_extract(a.value,'$.id')=? ORDER BY m.rowid DESC LIMIT 1",
-      )
-      .get(item.id);
-    const offered = offeredRow ? (JSON.parse(String(offeredRow.value)) as Action) : undefined;
-    const priorRow = this.db.prepare('SELECT payload FROM agenda WHERE id=?').get(item.id);
-    const prior = priorRow ? (JSON.parse(String(priorRow.payload)) as Action) : undefined;
-    const projection = {
-      ...item,
-      coverage: offered?.coverage || prior?.coverage || item.coverage,
-      missingNeeds: offered?.missingNeeds || prior?.missingNeeds || item.missingNeeds,
-      saved: true,
-    };
-    this.db
-      .prepare(
-        'INSERT INTO agenda(id,payload) VALUES(?,?) ON CONFLICT(id) DO UPDATE SET payload=excluded.payload',
-      )
-      .run(item.id, JSON.stringify(projection));
-    if (this.runtime) this.kernel.registerCalendarVersion(this.runtime.policy.hostScope(), item.id, item.revision || 1, item.effectActionId || item.id);
+  onAgendaChanged(callback: (change: AgendaChange) => void) {
+    this.agendaListeners.add(callback);
+    return () => this.agendaListeners.delete(callback);
   }
-  deleteAction(id: string) {
-    this.runtime.reminders.cancel(id);
-    this.db.prepare('DELETE FROM agenda WHERE id=?').run(id);
+  agendaRevision(id: string) {
+    const row = this.db.prepare(`SELECT max(revision) AS revision FROM (
+      SELECT revision FROM h_calendar_versions WHERE agenda_id=?
+      UNION ALL SELECT COALESCE(json_extract(payload,'$.revision'),1) FROM agenda WHERE id=?)`).get(id, id);
+    return Number(row?.revision || 0);
+  }
+  private journalAgendaChange(item: Action, revision: number, operation: AgendaChange['operation'], changedFields: string[], producerId?: string) {
+    const versionId = this.runtime
+      ? this.kernel.registerCalendarVersion(this.runtime.policy.hostScope(), item.id, revision, producerId || item.effectActionId || item.id)
+      : this.kernel.calendarVersionId(item.id, revision);
+    if (!this.runtime) this.db.prepare('INSERT OR IGNORE INTO h_calendar_versions VALUES(?,?,?)').run(versionId, item.id, revision);
+    const change: AgendaChange = { id: item.id, revision, operation, at: this.kernel.clock.now(), calendarVersionId: versionId, changedFields,
+      ...(item.kind ? { kind: item.kind } : {}), ...(item.startsAt ? { startsAt: item.startsAt } : {}),
+      ...(item.durationMinutes ? { durationMinutes: item.durationMinutes } : {}), ...(item.timeZone ? { timeZone: item.timeZone } : {}),
+      ...(item.allDayDate ? { allDayDate: item.allDayDate } : {}), done: !!item.done,
+      ...(item.planning ? { planning: { state: item.planning.state, flexibility: item.planning.flexibility } } : {}) };
+    this.kernel.outbox('agenda_attention', JSON.stringify(change));
+    this.kernel.afterCommit(() => {
+      for (const callback of this.agendaListeners) {
+        try {
+          const result = callback(change) as unknown;
+          if (result && typeof (result as PromiseLike<unknown>).then === 'function') void Promise.resolve(result).catch(() => undefined);
+        } catch { /* The committed outbox remains available to the durable consumer. */ }
+      }
+    });
+  }
+  writeAgendaProjection(item: Action): Action {
+    return this.kernel.write(() => {
+      const offeredRow = this.db
+        .prepare(
+          "SELECT a.value FROM messages m,json_each(m.payload,'$.actions') a WHERE json_extract(a.value,'$.id')=? ORDER BY m.rowid DESC LIMIT 1",
+        )
+        .get(item.id);
+      const offered = offeredRow ? (JSON.parse(String(offeredRow.value)) as Action) : undefined;
+      const priorRow = this.db.prepare('SELECT payload FROM agenda WHERE id=?').get(item.id);
+      const prior = priorRow ? (JSON.parse(String(priorRow.payload)) as Action) : undefined;
+      const projection: Action = {
+        ...item,
+        coverage: offered?.coverage || prior?.coverage || item.coverage,
+        missingNeeds: offered?.missingNeeds || prior?.missingNeeds || item.missingNeeds,
+        saved: true,
+      };
+      const before = prior ? agendaBusinessValue(prior) : undefined, after = agendaBusinessValue(projection);
+      if (before && canonical(before) === canonical(after)) return prior!;
+      const highWater = this.agendaRevision(item.id);
+      projection.revision = Math.max(highWater + 1, item.revision || 1);
+      this.db
+        .prepare(
+          'INSERT INTO agenda(id,payload) VALUES(?,?) ON CONFLICT(id) DO UPDATE SET payload=excluded.payload',
+        )
+        .run(item.id, JSON.stringify(projection));
+      const changedFields = [...new Set([...Object.keys(before || {}), ...Object.keys(after)])].filter(key => canonical((before as any)?.[key]) !== canonical((after as any)[key]));
+      this.journalAgendaChange(projection, projection.revision, 'upsert', changedFields);
+      return projection;
+    });
+  }
+  deleteAction(id: string, producerId?: string) {
+    return this.kernel.write(() => {
+      const row = this.db.prepare('SELECT payload FROM agenda WHERE id=?').get(id);
+      if (!row) return { previous: null, revision: this.agendaRevision(id), applied: false };
+      const previous = JSON.parse(String(row.payload)) as Action, revision = this.agendaRevision(id) + 1;
+      this.runtime.reminders.cancel(id);
+      this.db.prepare('DELETE FROM agenda WHERE id=?').run(id);
+      this.journalAgendaChange(previous, revision, 'tombstone', ['deleted'], producerId);
+      return { previous, revision, applied: true };
+    });
   }
   due(now: number): Action[] {
     return this.db
@@ -285,6 +368,7 @@ export class Store {
     this.runtime.policy.signalBarrier();
     this.kernel.cleanupFence(fence);
     this.kernel.write(() => {
+      this.notes.clear();
       for (const table of [
         'h_receipts',
         'h_attempts',
@@ -378,6 +462,7 @@ export class Store {
       memories: this.memories(),
       agenda: this.agenda(),
       campus: this.campus(),
+      notes: this.notes.export(),
       evidence: owned('h_evidence', labelFilter + " AND status!='deleted'"),
       assertions: owned('h_assertions', labelFilter),
       work: owned('h_work', labelFilter),

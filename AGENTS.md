@@ -1,14 +1,42 @@
-# Zaichang repository rules
-Read README.md, PROJECT_NAVIGATION.md, docs/CURRENT_STATUS.md; use docs/CLOUD_REVIEW.md for browser review and docs/PRODUCT_CONTRACT.md for map/product changes.
+# 在场仓库协作规则
 
-- src/ is the sole product implementation. Desktop and apps/review-web share src/renderer/map, src/main/mapService.ts, src/shared/map-routing.ts and assets/map-v2. Never create a second map implementation.
-- Keep the existing warm gray/gold, transparent spatial map and real camera controls. The old 2D-only/absolute neutral-gray requirements are obsolete.
-- Do not upload keys, cookies, accounts, .env, personal memories, databases, profiles, device coordinates, research/chat bundles, logs, generated builds, videos or reference images. Only explicitly reviewed, redistributable assets may enter Git or deployment.
-- Before committing inspect the tracked file set, size, local paths, secrets and asset provenance. Build artifacts are disposable and ignored. Stage explicit files; do not bulk-add the old workspace.
-- Review only deploys the public map. Never connect it to desktop data, credentials, model services or the university account. Browser storage must refuse all files outside the selected public map set.
-- Changes to maps require actual overview, top-down, oblique, route and building-focus checks. Test pan/zoom/rotation, interrupted camera movement and a realistic no-WebGL fallback when changing those paths. Few screenshots; no repeated recordings or enormous visual regression infrastructure.
-- Harness, memory and action results require source/permission/version checks and real receipts. Distinguish deterministic mechanism checks, live model/service results and unknowns. Do not re-label simulations as production success.
-- Production DeepSeek model/transport policy resides in src/shared/model-contract.json. Change it only with explicit authorization and current official contract verification. Hermes is pinned by runtime/hermes/lock.json; keep host permissions, budgets and storage authoritative.
-- 为节省测试成本并利用现有 ChatGPT 会员，测试阶段仅使用 GPT-6 Luna 作为 DeepSeek 的替代，禁止调用 DeepSeek 进行测试；最终产品仍以 DeepSeek 为主力模型。
-- Update PROJECT_NAVIGATION.md when entry points, responsibilities or build/deploy structure change. Update docs/CLOUD_REVIEW.md when scenes, URLs or browser/desktop differences change. Update product/status documentation for actual behavior or architecture changes, not routine work narration.
-- Retain current sources and recovery notes locally through substantial work; follow the user's context policy. Do not put local notes or pasted prompts into the remote repository.
+## 先读与定位
+
+先读 [README](README.md)、[PROJECT_NAVIGATION](PROJECT_NAVIGATION.md)、[CURRENT_STATUS](docs/CURRENT_STATUS.md)。行为与职责查 [ARCHITECTURE](docs/ARCHITECTURE.md)，产品取舍查 [PRODUCT_CONTRACT](docs/PRODUCT_CONTRACT.md)，对话地图和动态组件查 [CONVERSATION_SCENES](docs/CONVERSATION_SCENES.md)，浏览器审查查 [CLOUD_REVIEW](docs/CLOUD_REVIEW.md)。文档职责与功能入口由项目导航统一索引。
+
+- 先核实当前 checkout、未提交改动、实际调用链和证据时间；源码存在、接入、可用与验收通过分别记录。不要用旧截图、研究包或本地成功推定当前线上状态。
+- 保留其他对话的改动。共享文件按小块合并，不重置、覆盖或擅自重构其工作；正在进行的前端变化不自动继承上一轮验收。
+- 研究包、合成场景和旧方案是设计／验收输入，不是生产提示词、用户画像或第二套产品实现。
+
+## 单一实现与职责
+
+- `src/` 是唯一产品实现。Electron main 持有凭据、SQLite、权限和副作用；renderer 通过 `preload.ts` 的有限 Bridge/IPC 工作，不直接访问任意本机文件或私有服务。
+- 沿用 `harness.ts` → `runtime/hermes.ts` → 锁定 Python `AIAgent` 的单主循环。模型负责语义理解、调查和判断，宿主负责来源、用途、预算、取消、版本和提交边界。不要按生活场景关键词预先裁掉合法能力，也不要启用第二套事实记忆或后台代理循环。
+- 笔记原文、角色核心、带证据的个人理解、日历、外部账号记录和准备材料各归自己的状态所有者。角色／陪伴形象不增加权限，记下想法不自动排程；画面选择和路线预览不代表到达、接受方案或执行授权。
+- Desktop 与 `apps/review-web` 共用 `src/renderer/map`、`src/main/mapService.ts`、`src/shared/map-routing.ts` 和 `assets/map-v2`。对话地图复用同一 surface 和相机，不新建地图或聊天引擎。OpenUI 只显示经主机验证、绑定来源和版本的有限 Scene，不在客户端执行任意工具。
+- 当前生产默认常量在 `src/shared/types.ts`，DeepSeek 协议实现在 `src/main/provider.ts`，模型选择在 `src/main/model-selection.ts`；`src/shared/model-contract.json` 当前保存 Luna 代测标识。生产模型／传输变更须有明确授权和当前官方契约核实，不能只改文档或代测标识。
+- Hermes 固定由 `runtime/hermes/lock.json` 管理，不盲目升级。为节省测试成本并利用现有 ChatGPT 会员，实际模型测试仅使用 GPT-6 Luna 代替 DeepSeek，禁止测试调用 DeepSeek；普通产品仍以 DeepSeek 为主力模型。
+
+## 来源、动作与持续工作
+
+- 聊天保留、读取来源、模型传输、推断、笔记保存和业务写入分别控制。真正禁止出本机时不得先向云端分类；禁止网页搜索不等于禁止已获准的模型处理。
+- 读取、缓存、子代理、材料展示和实际动作均检查当前来源、权限、用途和版本；撤权、纠正、取消后，旧结果不得恢复已退出工作。公开地图与天气不自动等于设备观察或私人地点。
+- 广义托付绑定真实用户原话、来源、期限和停止条件；变化事件只提供事实，不扩大授权。持久队列保留版本、cursor/ack、删除及恢复；暂停／暂不可读可续消费，不能截掉尾项或复制私有正文来制造新证据。
+- 日历修改绑定原对象和预期版本；已有授权可直接执行，否则给可审阅的同对象方案。邀请、愿望和未接受方案不冒充已接受承诺。撤销产生新修订，旧撤销不能覆盖更新版本。
+- 明确的定时提醒独立于普通机会发现预算。`unknown`、OS 提交、送达、已看分别记录；结果未知先核查，不盲重发。关闭桌面进程后后台轮询停止，不承诺手机或关闭电脑后持续服务。
+
+## 体验与验证
+
+- 保留暖灰／克制金色、透明空间地图和真实俯视／斜视、平移／缩放／旋转控制；旧永久纯二维或绝对中性灰要求已废止。界面用用户语言，来源、失败与恢复按需可查，不以内部字段或工程看板占据主内容。
+- 地图相关变更实际检查总览、俯视、斜视、路线与建筑聚焦。改变输入／相机／回退时操作平移、缩放、旋转、中断和真实无 WebGL 回退。少量有用截图，不重复录像或搭大型视觉回归基础设施。
+- 功能、界面和体验按影响选择实际入口验证；文档与指令修改检查内容、引用、命令和一致性。按用户对测试开发的限制使用现有检查，不把“通过构建”当作实际模型、业务或界面验收。
+- 当前检查命令见 `package.json`：`check`、`test`、`test:hermes`、`build`；Windows 原生桌面／PDF 与公共 review 还有现有脚本，见部署文档。真实模型测试用独立合成数据目录，生产账号读取另需对应授权。
+- 明确区分静态检查、确定性状态、真实 Hermes＋合成宿主、实际 Luna＋合成生活事实、实际外部服务和用户体验。历史通过记录注明版本／日期／范围，不能升级为全部场景或当前前端验收。
+
+## 公共预览、资产与文档
+
+- Review 只发布公共地图，不连接桌面数据、凭据、模型或大学账号；浏览器 storage 必须拒绝所选公共地图集之外的文件。桌面公开展示模式也不等于云端部署。
+- 不上传密钥、cookies、账号、`.env`、个人记忆、数据库、profile、设备坐标、研究／聊天包、日志、构建、视频或参考图片。只有已审查且可再分发的资产可入 Git／部署；新增 UI 图像也需来源、用途和许可记录。
+- 提交前检查显式文件集、大小、本机路径、秘密和资产来源；只 stage 明确文件，不 bulk-add 旧工作区。构建输出是忽略产物；源码、必要依赖和可复核证据按各自边界保留。
+- 入口／职责／构建变化更新 `PROJECT_NAVIGATION.md`；产品原则更新 `PRODUCT_CONTRACT.md`；机制更新 `ARCHITECTURE.md`；真实能力、限制及证据更新 `CURRENT_STATUS.md`。对话 Scene、公共审查、部署及来源分别更新其专门文档，避免各文件维护互相矛盾的“当前状态”。
+- 重大工作期间本地保留当前源码和恢复资料，遵循用户上下文策略；本地笔记与粘贴提示不进入远程仓库。工具错误、等待或正常压缩不等于模型会话失败，按当前会话的严格失败／恢复规则处理。

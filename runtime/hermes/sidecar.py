@@ -192,7 +192,7 @@ def bootstrap():
             task = self.tasks[self.child_index]
             self.child_index += 1
             ticket = rpc("child.open", {"agent_id": self.agent.host_id, "task": task})
-            child = HostAgent({"agentId": ticket["id"], "system": ticket["system"], "tools": ticket["tools"], "thinking": "enabled", "maxIterations": 6, "maxOutputTokens": 4096}, iteration_budget=self.agent.iteration_budget)
+            child = HostAgent({"agentId": ticket["id"], "system": ticket["system"], "tools": ticket["tools"], "snapshot": ticket.get("snapshot"), "thinking": "enabled", "maxIterations": 6, "maxOutputTokens": 4096}, iteration_budget=self.agent.iteration_budget)
             self.children.append(ticket["id"])
             return child
 
@@ -200,26 +200,33 @@ def bootstrap():
             if name not in {t["function"]["name"] for t in self.tools}:
                 raise PermissionError("tool_not_in_host_catalog")
             if name == "delegate":
-                rpc("delegate.authorize", {"agent_id": self.agent.host_id, "arguments": args, "tool_call_id": call_id})
+                admission = rpc("delegate.authorize", {"agent_id": self.agent.host_id, "arguments": args, "tool_call_id": call_id})
+                if not admission.get("authorized"):
+                    return json.dumps({"status": "forbidden", "error": admission.get("error"), "meaning": "No worker was started; revise within the approved scope or explain the unavailable part."}, ensure_ascii=False)
                 from tools.delegate_tool import delegate_task
                 self.tasks = args["tasks"]
                 self.child_index = 0
                 self.children = []
                 result = json.loads(delegate_task(tasks=[{"goal": task["instruction"]} for task in self.tasks], parent_agent=self.agent, background=False))
-                for item in result.get("results", []):
+                for offset, item in enumerate(result.get("results", [])):
+                    index = item.get("task_index", offset)
+                    if isinstance(index, int) and 0 <= index < len(self.children):
+                        item["hostTaskId"] = self.children[index]
                     item["model"] = self.agent._host_model_identity["model"]
                     item["providerId"] = self.agent._host_model_identity["providerId"]
                     item["temporaryTestSubstitute"] = self.agent._host_model_identity.get("temporaryTestSubstitute", False)
                     if item.get("cost_status") == "unknown":
                         item["cost_usd"] = None
                 result["_host_children"] = list(self.children)
-                rpc("delegate.result", {"agent_id": self.agent.host_id, "tool_call_id": call_id, "result": result})
+                accepted = rpc("delegate.result", {"agent_id": self.agent.host_id, "tool_call_id": call_id, "result": result})
+                result = accepted.get("result", result)
                 return json.dumps(result, ensure_ascii=False)
-            return json.dumps(rpc("tool.request", {"agent_id": self.agent.host_id, "name": name, "arguments": args, "tool_call_id": call_id}), ensure_ascii=False)
+            return json.dumps(rpc("tool.request", {"agent_id": self.agent.host_id, "snapshot": self.agent._host_snapshot, "name": name, "arguments": args, "tool_call_id": call_id}), ensure_ascii=False)
 
     class HostAgent(AIAgent):
         def __init__(self, payload, iteration_budget=None):
             self.host_id = payload.get("agentId", START["run_id"])
+            self._host_snapshot = payload.get("snapshot")
             self._host_adapter = HostBoundary(payload["tools"])
             self._host_adapter.agent = self
             self._host_system = payload["system"]
@@ -289,7 +296,7 @@ def bootstrap():
             return serialized
 
         def _summarize(self, prompt):
-            result = rpc("model.request", {"agent_id": self.host_id, "phase": "compression", "model": self._host_model_identity["model"], "messages": [{"role": "user", "content": prompt}], "tools": [], "thinking": {"type": "enabled"}, "max_tokens": 8192})
+            result = rpc("model.request", {"agent_id": self.host_id, "snapshot": self._host_snapshot, "phase": "compression", "model": self._host_model_identity["model"], "messages": [{"role": "user", "content": prompt}], "tools": [], "thinking": {"type": "enabled"}, "max_tokens": 8192})
             text = result["assistant"].get("content")
             if not isinstance(text, str) or not text.strip():
                 raise RuntimeError("empty_compaction_summary")
@@ -301,7 +308,7 @@ def bootstrap():
 
         def _model_request(self, request):
             body = json.loads(request.content)
-            result = rpc("model.request", {**body, "model": self._host_model_identity["model"], "agent_id": self.host_id}, allow_error=True)
+            result = rpc("model.request", {**body, "model": self._host_model_identity["model"], "agent_id": self.host_id, "snapshot": self._host_snapshot}, allow_error=True)
             if result.get("_host_error"):
                 error = result["_host_error"]
                 code = error.get("code", "request_failed") if isinstance(error, dict) else "host_closed"
@@ -327,10 +334,13 @@ def bootstrap():
         def run_conversation(self, *args, **kwargs):
             child = self.host_id != START["run_id"]
             if child:
-                rpc("child.started", {"agent_id": self.host_id})
+                rpc("child.started", {"agent_id": self.host_id, "snapshot": self._host_snapshot})
             result = super().run_conversation(*args, **kwargs)
             if child:
-                rpc("child.finished", {"agent_id": self.host_id, "status": "produced" if result.get("completed") and not result.get("error") else "failed"})
+                status = "produced" if result.get("completed") and not result.get("error") else "failed"
+                accepted = rpc("child.finished", {"agent_id": self.host_id, "snapshot": self._host_snapshot, "status": status})
+                if status == "produced" and accepted.get("status") == "failed":
+                    result = {**result, "completed": False, "failed": True, "error": "host_child_snapshot_changed", "final_response": "", "messages": []}
             return result
 
     return HostAgent

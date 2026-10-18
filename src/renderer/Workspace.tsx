@@ -22,7 +22,7 @@ import { AgendaEditor, MatterCard, type MatterInteraction, type MatterInteractio
 import { DEFAULT_TIME_ZONE, timeZoneLabel } from './time';
 import type { SharedMatterView } from '../shared/presentation';
 
-export type WorkspaceView = 'chat' | 'agenda' | 'memory' | 'settings';
+export type WorkspaceView = 'chat' | 'agenda' | 'notes' | 'materials' | 'memory' | 'settings' | 'companion';
 
 function dayKey(value?: string, timeZone = DEFAULT_TIME_ZONE) {
   if (!value) return '没有指定时间';

@@ -47,6 +47,7 @@ export class ReminderRuntime {
   validateSuggestion?: (objectId: string) => boolean;
   canSubmitSuggestion?: () => boolean;
   onSubmitted?: (helpRecordId: string) => void;
+  onDelivery?: (helpRecordId: string, status: 'submitted_to_os' | 'provider_delivered' | 'seen' | 'unknown') => void;
   private recurringRefresh = new Map<string, string>();
   readonly submitted: { id: string; status: string }[] = [];
   constructor(
@@ -77,6 +78,7 @@ export class ReminderRuntime {
     this.repo.write(() => this.repo.setMeta('attention', next));
   }
   schedule(action: Action, goalId?: string, expiresAt?: string, options: { restore?: boolean; kind?: 'reminder' | 'suggestion'; producerId?: string; helpRecordId?: string } = {}) {
+    if (action.done || action.planning && action.planning.state !== 'accepted') { this.cancel(action.id); return; }
     const requestedAt = action.remindAt || (action.kind === 'reminder' || !action.kind ? action.startsAt : undefined);
     if (!requestedAt || action.done) return;
     if (goalId && this.repo.db.prepare('SELECT status FROM h_work WHERE id=?').get(goalId)?.status !== 'active') { this.cancel(action.id); return; }
@@ -92,7 +94,9 @@ export class ReminderRuntime {
         const payload = JSON.stringify({ title: action.title, startsAt, expiresAt: expiresAt || (recurring ? new Date(Date.parse(startsAt) + 3600000).toISOString() : undefined), recurring, helpRecordId: options.helpRecordId });
         this.repo.db.prepare('INSERT OR IGNORE INTO h_jobs(id,kind,object_id,goal_id,source,epoch,due_at,status,dedup_key,payload) VALUES(?,?,?,?,?,?,?,?,?,?)')
           .run(id, options.kind || 'reminder', action.id, goalId || null, options.kind === 'suggestion' ? 'work:self' : 'local-agenda', this.repo.epoch, startsAt, 'queued', key, payload);
-        if (options.restore) this.repo.db.prepare(`UPDATE h_jobs SET status='queued',fence=fence+1,lease_until=NULL WHERE dedup_key=? AND status='cancelled' AND NOT EXISTS(SELECT 1 FROM h_deliveries d WHERE d.job_id=h_jobs.id AND d.status IN ('submitted_to_os','provider_delivered','seen'))`).run(key);
+        // Even an unknown intent may already have reached the OS. Only a
+        // cancelled occurrence with no submission attempt can be requeued.
+        if (options.restore) this.repo.db.prepare(`UPDATE h_jobs SET status='queued',fence=fence+1,lease_until=NULL WHERE dedup_key=? AND status='cancelled' AND NOT EXISTS(SELECT 1 FROM h_deliveries d WHERE d.job_id=h_jobs.id)`).run(key);
         this.repo.db.prepare("UPDATE h_jobs SET payload=? WHERE dedup_key=? AND status='queued'").run(payload, key);
         const jobId = String(this.repo.db.prepare('SELECT id FROM h_jobs WHERE dedup_key=?').get(key)!.id);
         const handle = this.policy.hostScope();
@@ -105,6 +109,7 @@ export class ReminderRuntime {
   private maintainRecurring() {
     const rows = this.repo.db.prepare(`SELECT g.payload FROM agenda g LEFT JOIN h_actions a ON a.id=COALESCE(json_extract(g.payload,'$.effectActionId'),g.id) LEFT JOIN h_work goal ON goal.id=json_extract(g.payload,'$.goalId')
       WHERE json_extract(g.payload,'$.kind')='reminder' AND json_type(g.payload,'$.recurrence')='object' AND COALESCE(json_extract(g.payload,'$.done'),0)=0
+      AND (json_extract(g.payload,'$.planning.state') IS NULL OR json_extract(g.payload,'$.planning.state')='accepted')
       AND (a.id IS NULL OR a.status='succeeded') AND (json_extract(g.payload,'$.goalId') IS NULL OR goal.status='active') LIMIT 500`).all();
     for (const row of rows) {
       const action = JSON.parse(String(row.payload)) as Action;
@@ -159,6 +164,14 @@ export class ReminderRuntime {
         .get(kind, this.repo.clock.now(), this.repo.epoch) as unknown as Job | undefined;
       if (!row) return;
       const payload = JSON.parse(row.payload);
+      if (kind === 'reminder') {
+        const agenda = this.repo.db.prepare('SELECT payload FROM agenda WHERE id=?').get(row.object_id);
+        const action = agenda && JSON.parse(String(agenda.payload)) as Action | undefined;
+        if (action && (action.done || action.planning && action.planning.state !== 'accepted')) {
+          this.repo.db.prepare("UPDATE h_jobs SET status='cancelled',fence=fence+1,lease_until=NULL WHERE id=?").run(row.id);
+          return;
+        }
+      }
       if (kind === 'suggestion' && !this.validateSuggestion?.(row.object_id)) {
         this.repo.db.prepare("UPDATE h_jobs SET status='cancelled',fence=fence+1 WHERE id=?").run(row.id);
         return;
@@ -257,7 +270,7 @@ export class ReminderRuntime {
             job.id,
             'unknown',
             job.dedup_key,
-            JSON.stringify({ submittedAt: this.repo.clock.now(), fence: job.fence }),
+            JSON.stringify({ attemptedAt: this.repo.clock.now(), fence: job.fence }),
           ),
       );
       const result = await this.port.submit(
@@ -270,36 +283,41 @@ export class ReminderRuntime {
         (result.status === 'provider_delivered' && !this.port.capabilities.delivered)
       )
         throw new HarnessError('unsupported_receipt', '平台不能提供这种送达证明。');
-      this.repo.write(() => {
+      const committed = this.repo.write(() => {
         const latest = this.repo.db.prepare('SELECT fence,epoch,status FROM h_jobs WHERE id=?').get(job.id);
+        // A late receipt can add evidence to a cancelled occurrence. It never
+        // reopens that job, and a privacy epoch change still rejects it.
+        if (latest && Number(latest.epoch) === this.repo.epoch) this.repo.db
+          .prepare('UPDATE h_deliveries SET status=?,payload=? WHERE id=?')
+          .run(result.status, JSON.stringify({ ...result, attemptedAt: this.repo.clock.now(), ...(result.status !== 'unknown' ? { submittedAt: this.repo.clock.now() } : {}), fence: job.fence }), deliveryId);
         if (
           latest?.status !== 'leased' ||
           Number(latest.fence) !== job.fence ||
           Number(latest.epoch) !== this.repo.epoch
         )
-          return;
+          return false;
         this.repo.db
-          .prepare('UPDATE h_deliveries SET status=?,payload=? WHERE id=?')
-          .run(
-            result.status,
-            JSON.stringify({ ...result, submittedAt: this.repo.clock.now(), fence: job.fence }),
-            deliveryId,
-          );
-        this.repo.db
-          .prepare("UPDATE h_jobs SET status='done',lease_until=NULL WHERE id=? AND fence=?")
-          .run(job.id, job.fence);
+          .prepare('UPDATE h_jobs SET status=?,lease_until=NULL WHERE id=? AND fence=?')
+          .run(result.status === 'unknown' ? 'unknown' : 'done', job.id, job.fence);
         this.repo.setMeta(usageKey, { date, count: usage.count + 1, lastAt: this.repo.clock.now() });
+        return true;
       });
+      if (!committed) return;
       this.submitted.push({ id: job.id, status: result.status });
-      if (payload.helpRecordId) this.onSubmitted?.(String(payload.helpRecordId));
+      if (payload.helpRecordId) {
+        this.onDelivery?.(String(payload.helpRecordId), result.status);
+        if (result.status !== 'unknown') this.onSubmitted?.(String(payload.helpRecordId));
+      }
     } catch (error) {
-      this.repo.write(() =>
+      const changed = this.repo.write(() =>
         this.repo.db
           .prepare(
             "UPDATE h_jobs SET status='unknown',lease_until=NULL WHERE id=? AND fence=? AND status='leased'",
           )
           .run(job.id, job.fence),
       );
+      const payload = JSON.parse(job.payload);
+      if (changed.changes && payload.helpRecordId) this.onDelivery?.(String(payload.helpRecordId), 'unknown');
       if (signal.aborted) throw error;
     }
   }

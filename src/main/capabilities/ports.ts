@@ -552,6 +552,7 @@ export class WatchPort {
   signal(
     handle: ScopeHandle,
     input: { category: string; noveltyKey: string; facts: Record<string, any>; evidenceId: string },
+    onDeferred?: () => void,
   ) {
     const s = this.policy.validate(handle);
     if (!this.repo.evidence(handle, input.evidenceId))
@@ -570,8 +571,10 @@ export class WatchPort {
         evaluateCondition(watch.condition, input.facts) !== 'true'
       )
         continue;
-      const opportunity = this.attention?.offer(handle, { bindingId: String(row.goal_id), watchId: watch.id, title: watch.title,
+      const progress = this.attention?.acceptSignal(handle, { bindingId: String(row.goal_id), watchId: watch.id, title: watch.title,
         evidenceId: input.evidenceId, category: input.category, facts: input.facts, noveltyKey: input.noveltyKey, expiresAt: watch.actionableUntil });
+      if (progress && !progress.acknowledged) onDeferred?.();
+      const opportunity = progress?.opportunity;
       // Legacy standalone WatchPort callers remain discovery-only. No signal
       // can directly create a notification or grant itself a delivery channel.
       if (!opportunity) continue;

@@ -58,6 +58,8 @@ const config = { ...baseConfig, files: [...baseConfig.files,
   '!node_modules/@napi-rs/canvas{,/**/*}', '!node_modules/@napi-rs/canvas-win32-x64-msvc{,/**/*}'],
   extraResources: [...(baseConfig.extraResources || []),
     { from: target, to: 'hermes-runtime', filter: ['**/*', '**/.*', '**/.*/**'] },
-    { from: materialRuntime.path, to: 'material-runtime', filter: ['**/*'] }] };
+    { from: materialRuntime.path, to: 'material-runtime', filter: ['**/*'] },
+    // electron-builder omits a source root's node_modules; copy that subtree explicitly.
+    { from: path.join(materialRuntime.path, 'node_modules'), to: 'material-runtime/node_modules', filter: ['**/*'] }] };
 fs.writeFileSync('build/hermes-builder.json', JSON.stringify(config, null, 2));
 console.log(JSON.stringify({ staged: target, python: info.python, materialRuntime, packageConfig: 'build/hermes-builder.json' }));

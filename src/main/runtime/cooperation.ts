@@ -14,6 +14,7 @@ export interface HelpRecordInput {
   basisFingerprint: string;
   evidenceIds: string[];
   sourceIds?: string[];
+  requiredGrants?: string[];
   basisIds?: string[];
   resultRefs?: string[];
 }
@@ -31,10 +32,11 @@ export class CooperationService {
     const record = this.work.create(handle, 'feedback', input.title, {
       type: 'cooperation_record', sessionId: input.sessionId, matterId: input.matterId,
       sourceIds: (input.sourceIds || []).filter(source => !['current', 'history:self'].includes(source)),
+      ...(input.requiredGrants ? { materialGrantContractVersion: 1, requiredGrants: [...new Set(input.requiredGrants)] } : {}),
       responseId: input.responseId || null, opportunityId: input.opportunityId || null,
       reason: input.reason, actionDescription: input.actionDescription, basisFingerprint: input.basisFingerprint,
       basisIds: input.basisIds || [], resultRefs: input.resultRefs || [],
-      generatedAt: this.repo.clock.now(), displayedAt: null, submittedAt: null, openedAt: null,
+      generatedAt: this.repo.clock.now(), displayedAt: null, submittedAt: null, openedAt: null, deliveredAt: null, seenAt: null, deliveryStatus: 'not_submitted',
       explicitResponse: null, observedOutcome: null, satisfaction: 'unknown',
       feedbackMeaning: '生成、显示、系统提交、用户打开、明确反馈和现实结果分别记录；沉默不代表任何评价。',
     }, { id, status: 'generated', evidenceIds: input.evidenceIds });
@@ -55,6 +57,17 @@ export class CooperationService {
     const field = kind === 'displayed' ? 'displayedAt' : kind === 'opened' ? 'openedAt' : 'submittedAt';
     if (record.data[field]) return record;
     return this.work.update(handle, id, expectedRevision, { status: kind, data: { ...record.data, [field]: this.repo.clock.now() } });
+  }
+
+  delivery(handle: ScopeHandle, id: string, expectedRevision: number, status: 'submitted_to_os' | 'provider_delivered' | 'seen' | 'unknown') {
+    const record = this.repo.work(handle, undefined, id)[0];
+    if (!record || record.data.type !== 'cooperation_record') throw new HarnessError('help_missing', '没有这条帮助记录。');
+    const now = this.repo.clock.now();
+    return this.work.update(handle, id, expectedRevision, { data: { ...record.data, deliveryStatus: status,
+      ...(status === 'unknown' ? { deliveryUnknownAt: now } : { submittedAt: record.data.submittedAt || now }),
+      ...(['provider_delivered', 'seen'].includes(status) ? { deliveredAt: record.data.deliveredAt || now } : {}),
+      ...(status === 'seen' ? { seenAt: record.data.seenAt || now } : {}),
+    } });
   }
 
   feedback(handle: ScopeHandle, record: WorkRecord, input: { eventId: string; quote: string; response: string }) {

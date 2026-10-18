@@ -113,6 +113,7 @@ export function geometryLayer(
     }
     context.setTransform(1, 0, 0, 1, 0, 0);
     context.clearRect(0, 0, width, height);
+    context.save();
     const m = frame.coordinateToPixelTransform;
     context.setTransform(
       ratio * m[0],
@@ -136,6 +137,9 @@ export function geometryLayer(
         context.stroke(batch.path);
       }
     }
+    // OpenLayers may reuse this bare canvas for the following vector layers.
+    // Their pixel-based labels and route ink require an identity transform.
+    context.restore();
     canvas.dataset.batches = String(batches.length);
     return canvas;
   };

@@ -1,5 +1,7 @@
 import type { CalendarFields } from './calendar';
+import type { NotesBridge } from './notes';
 import { DEFAULT_INTERACTION, type InteractionPreferences } from './interaction';
+import { DEFAULT_PERSONA, type PersonaState, type PersonaUpdate } from './persona';
 
 export type StepStatus = 'running' | 'done' | 'blocked' | 'cancelled';
 export const DEEPSEEK_MODEL = 'deepseek-flash' as const;
@@ -34,6 +36,7 @@ export interface Obligation {
 }
 export interface Action extends CalendarFields {
   effectActionId?: string;
+  calendarChange?: { targetId: string; expectedRevision: number; operation: 'update' | 'delete' | 'change_occurrence'; occurrenceDate?: string; cancelled?: boolean };
   id: string;
   title: string;
   detail: string;
@@ -81,6 +84,7 @@ export interface ReleaseArtifact {
   supersedes?: { id: string; revision: number };
 }
 export interface Message {
+  helpRefs?: { id: string; revision: number; helpRecordId: string }[];
   cooperationId?: string;
   objectStates?: import('./presentation').ObjectPresentationState[];
   /** User-facing owner response before the host appends separately authored drafts. */
@@ -98,6 +102,8 @@ export interface Message {
   actions: Action[];
   demo?: boolean;
   mapCards?: import('./map-v2').MapCard[];
+  scenes?: import('./scenes').SceneSnapshot[];
+  views?: import('./scenes').PresentationView[];
   retention?: import('./harness').ContextContract['retention'];
   scopeSummary?: {
     retentionScope?: 'conversation';
@@ -135,6 +141,7 @@ export interface Draft {
 }
 export interface Settings {
   interaction: InteractionPreferences;
+  persona: PersonaState;
   model: typeof DEEPSEEK_MODEL;
   mode: 'demo' | 'deepseek';
   memoryEnabled: boolean;
@@ -144,6 +151,10 @@ export interface Settings {
   hasKey: boolean;
   timeZone?: string;
 }
+export type SettingsUpdate = Partial<Omit<Settings, 'hasKey' | 'persona'>> & {
+  apiKey?: string;
+  personaUpdate?: PersonaUpdate;
+};
 export interface CampusSnapshot {
   source: string;
   updatedAt: string;
@@ -237,7 +248,7 @@ export interface RuntimeOverview {
   };
   storage: { atRestEncrypted: boolean; keyProtection: string };
 }
-export interface Bridge {
+export interface Bridge extends NotesBridge {
   editReleaseArtifact(input: { sessionId: string; messageId: string; id: string; expectedRevision: number; body: string }): Promise<Message>;
   recordResponseExposure(input: { sessionId: string; messageId: string; event: 'displayed' | 'opened' }): Promise<{ recorded: boolean }>;
   changeMatterSelection(input: import('./presentation').MatterSelectionInput): Promise<import('./presentation').MatterSelectionResult>;
@@ -261,9 +272,10 @@ export interface Bridge {
     image?: ImageAttachment;
     material?: import('./materials').MaterialReference;
     controls?: TurnControls;
+    selection?: import('./scenes').SemanticSelection;
   }): Promise<{ sessionId: string }>;
   stop(): Promise<void>;
-  saveSettings(input: Partial<Omit<Settings, 'hasKey'>> & { apiKey?: string }): Promise<State>;
+  saveSettings(input: SettingsUpdate): Promise<State>;
   testConnection(input: { apiKey?: string }): Promise<string>;
   cancelConnection(): Promise<void>;
   deleteKey(): Promise<State>;
@@ -338,6 +350,7 @@ export interface Bridge {
 }
 export const DEFAULT_SETTINGS: Settings = {
   interaction: DEFAULT_INTERACTION,
+  persona: DEFAULT_PERSONA,
   model: DEEPSEEK_MODEL,
   mode: 'demo',
   memoryEnabled: true,

@@ -472,6 +472,7 @@ export interface ProviderReceipt {
   };
 }
 export interface ContextReceipt {
+  sceneReferences?: { id: string; revision: number; sourceId: string; fetchedAt: string; expiresAt?: string }[];
   materialReads?: { capability: string; resourceId: string; sha256: string; version: number; sourceEventId?: string; parentEventId?: string; page?: number; start?: number; end?: number; total?: number; complete: boolean; extraction?: string }[];
   imageRequests?: { requestId: string; sha256: string; source: 'upload' | 'tool'; version: string; accepted: boolean; role: string }[];
   mechanismUses?: { prefetch: number; currentMatter: number; repairRejudge: number; closure: number };
@@ -486,7 +487,8 @@ export interface ContextReceipt {
   watermarks: Watermarks;
   providedEvidenceIds: string[];
   providedSourceIds?: string[];
-  providedObjectVersions: { id: string; revision: number; kind?: 'evidence' | 'assertion' | 'work' | 'agenda' }[];
+  providedObjectVersions: { id: string; revision: number; kind?: 'evidence' | 'assertion' | 'work' | 'agenda' | 'domain';
+    sourceId?: string; domain?: string; institutionId?: string; termId?: string }[];
   needResults: { key: string; status: KnowledgeStatus }[];
   excludedReasonCounts: Record<string, number>;
   /** Full, non-secret provider/protocol facts for this run. */

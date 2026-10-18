@@ -8,7 +8,7 @@ import type { LocationFix, MapPoint, MapRouteResult, LngLat } from '../../shared
 import { mapRoutePointName } from '../../shared/map-v2';
 import { metersBetween } from '../../shared/map-routing';
 import { redundantReferenceCaptions } from '../../shared/map-names';
-import { CameraOwnership, SelectedMapPoints } from './map-state';
+import { CameraOwnership, SelectedMapPoints, contextRouteSegments } from './map-state';
 import { darkMapPalette, lightMapPalette, type MapPalette } from './map-theme';
 import { PlanarCampusMap } from './planar-map';
 import { cartographyLayers } from './cartography';
@@ -21,8 +21,8 @@ import { endpointCaptionGap, pairedCaptionSides, mapFitInsets, mapLabelObstructi
 import { nativeCaptionBounds } from './native-caption-bounds';
 import { labelAnchors as makeLabelAnchors,type LabelAnchor } from './label-anchors';
 import {namedWaterAreas,namedWaterShores,namedWaterHit} from './named-water';
-import type { SavedCamera, MapData, MapCallbacks } from './map-types';
-export type { SavedCamera, MapData, MapCallbacks } from './map-types';
+import type { SavedCamera, MapData, MapCallbacks, MapSurfaceOptions, MapMotionResult } from './map-types';
+export type { SavedCamera, MapData, MapCallbacks, MapSurfaceOptions, MapMotionResult } from './map-types';
 export { PlanarCampusMap } from './planar-map';
 export type CampusMapEngine = SpatialCampusMap | PlanarCampusMap;
 ml.setWorkerUrl(workerUrl);
@@ -42,9 +42,9 @@ const point = (coordinate: LngLat, properties: Record<string,unknown> = {}): Fea
 const kind = (name: string): any => ['==',['get','kind'],name];
 const rgba=(hex:string,a:number)=>`rgba(${parseInt(hex.slice(1,3),16)},${parseInt(hex.slice(3,5),16)},${parseInt(hex.slice(5,7),16)},${a})`;
 
-export function createCampusMap(target: HTMLDivElement,data: MapData,callbacks: MapCallbacks,saved?:SavedCamera):CampusMapEngine {
-  try { return new SpatialCampusMap(target,data,callbacks,saved); }
-  catch { target.replaceChildren();target.dataset.compatibility='WebGL不可用，已使用同一数据的平面视图';return new PlanarCampusMap(target,data,callbacks,saved); }
+export function createCampusMap(target: HTMLDivElement,data: MapData,callbacks: MapCallbacks,saved?:SavedCamera,options:MapSurfaceOptions={}):CampusMapEngine {
+  try { return new SpatialCampusMap(target,data,callbacks,saved,options); }
+  catch { target.replaceChildren();target.dataset.compatibility='WebGL不可用，已使用同一数据的平面视图';return new PlanarCampusMap(target,data,callbacks,saved,options); }
 }
 
 /** Data arrivals only change sources. Camera mutations require direct input or
@@ -67,6 +67,7 @@ export class SpatialCampusMap {
   private hoverMotion=new Map<string,{value:number;target:number}>();
   private timer?:ReturnType<typeof setTimeout>;
   private routeResult?:MapRouteResult;
+  private contextRouteResults:MapRouteResult[]=[];
   private entrancesVisible=false;
   private palette:MapPalette;
   private reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -96,11 +97,13 @@ export class SpatialCampusMap {
   private lastCameraMove=-Infinity;
   private occlusionTimer?:ReturnType<typeof setTimeout>;
   private routeFitRefine?:()=>void;
+  private routeMotion=false;
   private revealFrame=0;
+  private revealStop?:()=>void;
   private routeKey="";
   private routeMeasures:{coordinate:LngLat;meters:number}[]=[];
   private routeSpans:{coordinates:LngLat[];start:number;end:number;dashed:boolean;estimated:boolean}[]=[];
-  constructor(private target:HTMLDivElement,public data:MapData,private callbacks:MapCallbacks,saved?:SavedCamera) {
+  constructor(private target:HTMLDivElement,public data:MapData,private callbacks:MapCallbacks,saved?:SavedCamera,options:MapSurfaceOptions={}) {
     this.points=new Map(data.places.map(p=>[p.id,p]));
     this.waterAreas=namedWaterAreas(data.geography as FeatureCollection);
     this.waterShores=namedWaterShores(data.geography as FeatureCollection);
@@ -108,7 +111,14 @@ export class SpatialCampusMap {
     this.palette=document.documentElement.dataset.theme==='dark'?darkMapPalette:lightMapPalette;
     target.dataset.version=data.manifest.version;
     const center=saved?toLonLat(saved.center) as LngLat:[(data.manifest.campusBounds[0]+data.manifest.campusBounds[2])/2,(data.manifest.campusBounds[1]+data.manifest.campusBounds[3])/2] as LngLat;
+    const initial=options.initialRoute?.status==='ready'&&options.initialRoute.coordinates.length>1?options.initialRoute:undefined;
+    const initialPlace=initial?undefined:options.initialRoute?.to;
+    if(initialPlace)this.selection.set(initialPlace,undefined,false);
+    this.routeResult=initial;
+    const coordinates=initial?.coordinates;
+    const bounds=coordinates?[[Math.min(...coordinates.map(c=>c[0])),Math.min(...coordinates.map(c=>c[1]))],[Math.max(...coordinates.map(c=>c[0])),Math.max(...coordinates.map(c=>c[1]))]] as [[number,number],[number,number]]:initialPlace?[[initialPlace.bounds[0],initialPlace.bounds[1]],[initialPlace.bounds[2],initialPlace.bounds[3]]] as [[number,number],[number,number]]:undefined;
     this.map=new ml.Map({container:target,center,zoom:saved?Math.log2(78271.51696402048/saved.resolution):15.4,bearing:saved?-saved.rotation*180/Math.PI:0,pitch:saved?.pitch||0,
+      bounds:saved?undefined:bounds,fitBoundsOptions:{padding:mapFitInsets(target),maxZoom:initialPlace?17.4:17.7},
       pixelRatio:Math.min(2,devicePixelRatio),minZoom:12.5,maxZoom:20,maxPitch:55,bearingSnap:0,renderWorldCopies:false,attributionControl:false,
       canvasContextAttributes:{antialias:true},localIdeographFontFamily:'"Noto Sans SC Variable", "Microsoft YaHei", sans-serif',
       scrollZoom:false,doubleClickZoom:false,boxZoom:false,keyboard:false,style:this.style(),fadeDuration:this.reduced.matches?0:120,
@@ -123,7 +133,7 @@ export class SpatialCampusMap {
       this.installGroundLayers();
       this.installSurfaces();
       this.updateLabelObstructions();
-      if(!saved&&!this.ownership.interacted)this.fit(this.data.manifest.campusBounds,0,16.2);
+      if(!saved&&!this.ownership.interacted){if(initial)this.fitRoute(initial,this.ownership.ticket(),false);else if(initialPlace)this.fit(initialPlace.bounds,0,17.4);else this.fit(this.data.manifest.campusBounds,0,16.2);}
       this.updateDetail();this.refreshSelection();this.route(this.routeResult);this.location(this.pendingLocation);
       target.dataset.ready='true';target.dataset.loadMs=(performance.now()-this.started).toFixed(1);callbacks.ready();this.report();
     });
@@ -131,7 +141,7 @@ export class SpatialCampusMap {
     this.map.on('move',()=>{this.lastCameraMove=performance.now();this.updateDetail();this.updateCaptionSides();this.updateLabelObstructions();this.report();});
     this.map.on('moveend',()=>this.scheduleOcclusion());
     this.map.on('error',e=>{target.dataset.lastError=String(e.error?.message||e.error);if(!this.loaded)callbacks.error?.('地图绘制资源未能载入；可以重新载入。');});
-    this.map.on('webglcontextlost',()=>{this.loaded=false;target.dataset.context='lost';target.dataset.ready='false';});
+    this.map.on('webglcontextlost',()=>{this.cancelMotion();this.loaded=false;target.dataset.context='lost';target.dataset.ready='false';});
     this.map.on('webglcontextrestored',()=>{
       if(this.disposed)return;
       target.dataset.context='restoring';
@@ -154,7 +164,7 @@ export class SpatialCampusMap {
     const take=()=>{target.focus({preventScroll:true});this.takeControl();callbacks.user();this.hover(undefined);};
     target.addEventListener('pointerdown',take,{capture:true});
     const wheel=(e:WheelEvent)=>{
-      if(!this.loaded || e.defaultPrevented)return;
+      if(!this.loaded || e.defaultPrevented||options.cooperativeGestures&&!e.ctrlKey&&!e.metaKey)return;
       e.preventDefault();take();
       // Only wheel processing is replaced after comparison. Pan and pinch are
       // engine-native. No batch wait, chasing easing or queued reverse tail.
@@ -167,7 +177,7 @@ export class SpatialCampusMap {
     target.addEventListener('wheel',wheel,{passive:false});
     const keyboard=(e:KeyboardEvent)=>this.keyboard(e);target.addEventListener('keydown',keyboard);
     const leave=()=>this.hover(undefined);target.addEventListener('pointerleave',leave);
-    const blur=()=>{this.map.stop();this.hover(undefined);};window.addEventListener('blur',blur);
+    const blur=()=>{this.cancelMotion();this.hover(undefined);};window.addEventListener('blur',blur);
     this.cleanup.push(()=>target.removeEventListener('pointerdown',take,true),()=>target.removeEventListener('wheel',wheel),()=>target.removeEventListener('keydown',keyboard),()=>target.removeEventListener('pointerleave',leave),()=>window.removeEventListener('blur',blur));
     this.map.on('mousemove',e=>{if(this.map.isMoving())return;const points=this.hit(e.point);target.style.cursor=points.length?'pointer':'grab';this.hover(points[0]);});
     this.map.on('click',e=>{
@@ -177,7 +187,7 @@ export class SpatialCampusMap {
     });
     const theme=()=>{this.palette=document.documentElement.dataset.theme==='dark'?darkMapPalette:lightMapPalette;if(this.loaded)this.applyTheme();};
     const observer=new MutationObserver(theme);observer.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});this.cleanup.push(()=>observer.disconnect());
-    const reduced=()=>{if(this.reduced.matches)this.map.stop();};this.reduced.addEventListener('change',reduced);this.cleanup.push(()=>this.reduced.removeEventListener('change',reduced));
+    const reduced=()=>{if(this.reduced.matches)this.cancelMotion();};this.reduced.addEventListener('change',reduced);this.cleanup.push(()=>this.reduced.removeEventListener('change',reduced));
     this.resize=new ResizeObserver(()=>{if(!this.disposed){const ratio=Math.min(2,devicePixelRatio);if(Math.abs(this.map.getPixelRatio()-ratio)>.01)this.map.setPixelRatio(ratio);else this.map.resize();this.report();}});this.resize.observe(target);
     this.cleanup.push(observeLabelObstructions(target,()=>this.updateLabelObstructions()));
   }
@@ -209,7 +219,10 @@ export class SpatialCampusMap {
     const p=this.palette,selected:any=['any',['boolean',['feature-state','selected'],false],['boolean',['feature-state','origin'],false]],hovered:any=['boolean',['feature-state','hover'],false];
     const sports=this.data.sports as FeatureCollection||empty();
     const layers=cartographyLayers(p).filter(layer=>includeNativeGroundLayers||!((layer.type==='fill'&&['geography','sports'].includes(layer.source))||groundStrokeLayers.has(layer.id)));
-    return {version:8,'font-faces':{Campus:campusFontFaces},light:{anchor:'map',color:'#fff6e8',intensity:.42,position:[1.25,225,45]},sources:{geography:{type:'geojson',data:this.geography(),promoteId:'id',tolerance:.02,maxzoom:20},sports:{type:'geojson',data:sports,tolerance:.02,maxzoom:20},names:{type:'geojson',data:this.names(),promoteId:'id'},route:{type:'geojson',data:empty(),tolerance:0},selection:{type:'geojson',data:empty()},preview:{type:'geojson',data:empty(),tolerance:0},reveal:{type:'geojson',data:empty(),tolerance:0},entrances:{type:'geojson',data:empty()},location:{type:'geojson',data:empty()},'control-occupancy':{type:'geojson',data:empty(),tolerance:0,maxzoom:24}},layers};
+    layers.splice(layers.findIndex(layer=>layer.id==='route-case'),0,
+      {id:'context-route-line',type:'line',source:'route-context',filter:['!', ['get','dashed']],layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':p.secondaryText,'line-width':2,'line-opacity':.45}},
+      {id:'context-route-dashed',type:'line',source:'route-context',filter:['get','dashed'],layout:{'line-cap':'butt','line-join':'round'},paint:{'line-color':p.secondaryText,'line-width':1.7,'line-opacity':.45,'line-dasharray':[2,3]}});
+    return {version:8,'font-faces':{Campus:campusFontFaces},light:{anchor:'map',color:'#fff6e8',intensity:.42,position:[1.25,225,45]},sources:{geography:{type:'geojson',data:this.geography(),promoteId:'id',tolerance:.02,maxzoom:20},sports:{type:'geojson',data:sports,tolerance:.02,maxzoom:20},names:{type:'geojson',data:this.names(),promoteId:'id'},route:{type:'geojson',data:empty(),tolerance:0},'route-context':{type:'geojson',data:empty(),tolerance:0},selection:{type:'geojson',data:empty()},preview:{type:'geojson',data:empty(),tolerance:0},reveal:{type:'geojson',data:empty(),tolerance:0},entrances:{type:'geojson',data:empty()},location:{type:'geojson',data:empty()},'control-occupancy':{type:'geojson',data:empty(),tolerance:0,maxzoom:24}},layers};
   }
   private updateLabelObstructions(){
     if(!this.loaded||this.disposed)return;
@@ -345,6 +358,7 @@ export class SpatialCampusMap {
   updatePlaces(places:MapPoint[]){this.points=new Map(places.map(p=>[p.id,p]));this.labelAnchors=makeLabelAnchors(this.data.geography as FeatureCollection,places);this.labelOcclusionKey='';this.source('names',this.names());this.source('geography',this.geography());this.refreshSelection();}
   updateData(data:MapData){
     if(this.disposed)return;
+    this.cancelMotion();
     this.data=data;this.points=new Map(data.places.map(p=>[p.id,p]));
     this.target.dataset.version=data.manifest.version;
     this.waterAreas=namedWaterAreas(data.geography as FeatureCollection);this.waterShores=namedWaterShores(data.geography as FeatureCollection);
@@ -363,17 +377,22 @@ export class SpatialCampusMap {
     this.map.once('idle',()=>{if(this.disposed)return;this.updateOcclusion();this.updateNameOcclusion();this.map.triggerRepaint();});
   }
   route(result?:MapRouteResult){
+    if(this.routeResult!==result){
+      if(this.routeMotion)this.cancelMotion();
+      else {this.clearRouteFit();this.stopReveal();}
+    }
     this.routeResult=result;this.target.dataset.routeStatus=result?.status||'idle';this.source('preview',empty());
     const fs:Feature[]=result?.status==='ready'?(result.segments?.map(s=>line(s.coordinates,{kind:s.kind,unverified:!!s.conditions?.length}))||[line(result.coordinates,{kind:'network'})]):[];
     this.source('route',collection(fs));this.refreshSelection();this.updateOcclusion();
+    this.contextRoutes(this.contextRouteResults);
     const key=result?.status==='ready'?result.coordinates.map(c=>c.join(',')).join(';'):'',changed=key!==this.routeKey;
     if(changed){this.routeKey=key;this.stopReveal();this.routeMeasures=[];let total=0;
       for(const [i,coordinate] of (result?.coordinates||[]).entries()){if(i)total+=metersBetween(result!.coordinates[i-1],coordinate);this.routeMeasures.push({coordinate,meters:total});}
     }
     let vertex=0;
     this.routeSpans=fs.map(feature=>{const coordinates=(feature.geometry as GeoJSON.LineString).coordinates as LngLat[],start=this.routeMeasures[vertex]?.meters||0,estimated=feature.properties?.kind==='estimate';vertex+=Math.max(0,coordinates.length-1);return {coordinates,start,end:this.routeMeasures[vertex]?.meters||start,dashed:estimated||!!feature.properties?.unverified,estimated};});
-    if(changed&&key&&this.loaded&&!this.reduced.matches)this.reveal();
   }
+  contextRoutes(routes:MapRouteResult[]){this.contextRouteResults=routes;const segments=contextRouteSegments(this.routeResult,routes);this.source('route-context',collection(segments.map(s=>line(s.coordinates,{dashed:s.dashed,estimated:s.estimated}))));this.target.dataset.contextEdges=String(segments.length);}
   showEntrances(visible:boolean){this.entrancesVisible=visible;this.refreshEntrances();}
   private refreshEntrances(){
     const fs:Feature[]=[];const route=this.routeResult;
@@ -389,22 +408,30 @@ export class SpatialCampusMap {
     const a=ms[i-1],b=ms[i],t=(distance-a.meters)/(b.meters-a.meters||1);
     return [a.coordinate[0]+t*(b.coordinate[0]-a.coordinate[0]),a.coordinate[1]+t*(b.coordinate[1]-a.coordinate[1])];
   }
-  private stopReveal(){cancelAnimationFrame(this.revealFrame);this.revealFrame=0;this.source('reveal',empty());}
-  private reveal(){
-    const start=performance.now(),total=this.routeMeasures.at(-1)?.meters||0;if(!total)return;
-    const frame=(now:number)=>{if(this.disposed)return;const t=Math.min(1,(now-start)/640),a=Math.max(0,t-.09)*total,b=t*total;
-      this.source('reveal',collection(this.routeSpans.filter(s=>s.end>a&&s.start<b).map(s=>{
-        // Keep the same geometry origin and stroke width for dashed emphasis;
-        // clipping it resets dash phase and paints across the underlying gaps.
-        if(s.dashed)return line(s.coordinates,{dashed:true,estimated:s.estimated});
-        const from=Math.max(a,s.start),to=Math.min(b,s.end);
-        return line([this.atDistance(from),...this.routeMeasures.filter(p=>p.meters>from&&p.meters<to).map(p=>p.coordinate),this.atDistance(to)],{dashed:s.dashed});
-      })));
-      if(t<1)this.revealFrame=requestAnimationFrame(frame);else this.stopReveal();};
-    this.revealFrame=requestAnimationFrame(frame);
+  private stopReveal(){this.revealStop?.();cancelAnimationFrame(this.revealFrame);this.revealFrame=0;this.source('reveal',empty());}
+  private reveal(ticket:number):Promise<boolean>{
+    this.stopReveal();
+    const start=performance.now(),total=this.routeMeasures.at(-1)?.meters||0;
+    if(!total||this.reduced.matches)return Promise.resolve(this.ownership.accepts(ticket));
+    return new Promise(resolve=>{
+      let settled=false,unsubscribe=()=>{};
+      const finish=(completed:boolean)=>{if(settled)return;settled=true;unsubscribe();cancelAnimationFrame(this.revealFrame);this.revealFrame=0;this.revealStop=undefined;this.source('reveal',empty());resolve(completed);};
+      this.revealStop=()=>finish(false);unsubscribe=this.ownership.onCancel(ticket,this.revealStop);
+      if(settled)return;
+      const duration=Math.max(640,Math.min(1400,480+total*.65));
+      const frame=(now:number)=>{if(!this.ownership.accepts(ticket)){finish(false);return;}const t=Math.min(1,(now-start)/duration),a=Math.max(0,t-.12)*total,b=t*total;
+        this.source('reveal',collection(this.routeSpans.filter(s=>s.end>a&&s.start<b).map(s=>{
+          // Preserve the dash origin of estimated and conditional sections.
+          if(s.dashed)return line(s.coordinates,{dashed:true,estimated:s.estimated});
+          const from=Math.max(a,s.start),to=Math.min(b,s.end);
+          return line([this.atDistance(from),...this.routeMeasures.filter(p=>p.meters>from&&p.meters<to).map(p=>p.coordinate),this.atDistance(to)],{dashed:s.dashed});
+        })));
+        if(t<1)this.revealFrame=requestAnimationFrame(frame);else finish(true);};
+      this.revealFrame=requestAnimationFrame(frame);
+    });
   }
   preview(progress?:number){
-    this.stopReveal();const r=this.routeResult;if(progress===undefined||r?.status!=='ready'||!r.segments?.length){this.source('preview',empty());return;}
+    this.stopReveal();const r=this.routeResult;if(progress===undefined||r?.status!=='ready'||!this.routeSpans.length){this.source('preview',empty());return;}
     const target=Math.max(0,Math.min(1,progress))*(this.routeMeasures.at(-1)?.meters||0);
     const s=this.routeSpans.find(s=>s.end>=target)||this.routeSpans.at(-1);if(!s)return;
     this.source('preview',collection([line(s.coordinates,{dashed:s.dashed,estimated:s.estimated}),point(this.atDistance(target),{name:'路线预览，非当前位置'})]));
@@ -482,14 +509,49 @@ export class SpatialCampusMap {
       this.map.setFilter('water-names',['all',['==',['get','kind'],'water'],['!', ['in',['get','id'],['literal',selected]]]]);
     }
   }
-  takeControl(){this.ownership.take();if(this.routeFitRefine){this.map.off('idle',this.routeFitRefine);this.routeFitRefine=undefined;}this.map.stop();this.stopReveal();}
+  private clearRouteFit(){if(this.routeFitRefine){this.map.off('idle',this.routeFitRefine);this.routeFitRefine=undefined;}}
+  private stopMotion(){this.routeMotion=false;this.clearRouteFit();this.map.stop();this.stopReveal();this.target.dataset.motion='cancelled';}
+  takeControl(){const ticket=this.ownership.take();this.stopMotion();return ticket;}
+  cancelMotion(){this.ownership.cancel();this.stopMotion();}
+  restore(camera:SavedCamera){this.takeControl();this.map.jumpTo({center:toLonLat(camera.center) as LngLat,zoom:Math.log2(78271.51696402048/camera.resolution),bearing:-camera.rotation*180/Math.PI,pitch:camera.pitch||0});}
+  private cameraMotion(ticket:number,move:()=>void):Promise<boolean>{
+    if(!this.ownership.accepts(ticket))return Promise.resolve(false);
+    return new Promise(resolve=>{
+      let settled=false,unsubscribe=()=>{};
+      const finish=(completed:boolean)=>{if(settled)return;settled=true;this.map.off('moveend',ended);unsubscribe();resolve(completed);};
+      const ended=(event:ml.MapEventType['moveend'])=>{if((event as ml.MapEventType['moveend']&{cameraOwnership?:number}).cameraOwnership===ticket)finish(this.ownership.accepts(ticket));};
+      this.map.on('moveend',ended);unsubscribe=this.ownership.onCancel(ticket,()=>finish(false));
+      if(settled)return;
+      move();if(!this.map.isMoving())finish(this.ownership.accepts(ticket));
+    });
+  }
+  /** One semantic request owns all phases; every await ends on a real engine
+   * completion or the same ownership generation's cancellation signal. */
+  async explainRoute(result:MapRouteResult):Promise<MapMotionResult>{
+    if(this.disposed||!this.loaded||result.status!=='ready'||result.coordinates.length<2)return 'cancelled';
+    this.route(result);const ticket=this.takeControl();this.routeMotion=true;this.target.dataset.motionTicket=String(ticket);this.target.dataset.motion='overview';
+    if(!await this.cameraMotion(ticket,()=>this.fitRoute(result,ticket)))return 'cancelled';
+    this.target.dataset.motion='route';
+    if(!await this.reveal(ticket))return 'cancelled';
+    // A close final view has useful information only when the route actually
+    // identifies an entrance. Reference-to-road estimates keep their overview.
+    const access=result.destinationAccess,total=this.routeMeasures.at(-1)?.meters||0;
+    if(!this.reduced.matches&&access?.kind==='entrance'&&!access.conditions?.length&&total>200){
+      this.clearRouteFit();this.target.dataset.motion='entrance';
+      const cs=[this.atDistance(Math.max(0,total-110)),...this.routeMeasures.filter(p=>p.meters>=total-110).map(p=>p.coordinate),access.coordinate];
+      const bounds=[Math.min(...cs.map(c=>c[0])),Math.min(...cs.map(c=>c[1])),Math.max(...cs.map(c=>c[0])),Math.max(...cs.map(c=>c[1]))];
+      if(!await this.cameraMotion(ticket,()=>this.fit(bounds,this.duration(340),18.1,undefined,ticket)))return 'cancelled';
+    }
+    if(!this.ownership.accepts(ticket))return 'cancelled';
+    this.routeMotion=false;this.target.dataset.motion='completed';return 'completed';
+  }
   private duration(ms:number){return this.reduced.matches?0:ms;}
   zoom(delta:number,animate=true){this.takeControl();this.map.easeTo({zoom:this.map.getZoom()+delta,duration:animate?this.duration(160):0});}
   rotate(delta:number,animate=true){this.takeControl();this.map.easeTo({bearing:this.map.getBearing()-delta*180/Math.PI,duration:animate?this.duration(160):0});}
   north(animate=true){this.takeControl();this.map.easeTo({bearing:0,duration:animate?this.duration(220):0});}
   setPitch(pitch:number,animate=false){this.takeControl();this.map.easeTo({pitch:Math.max(0,Math.min(55,pitch)),duration:animate?this.duration(280):0});}
   private padding(caption?:FitInsets){return mapFitInsets(this.target,caption);}
-  private fit(bounds:number[],duration:number,maxZoom:number,caption?:FitInsets){
+  private fit(bounds:number[],duration:number,maxZoom:number,caption?:FitInsets,ticket?:number){
     const w=this.target.clientWidth,h=this.target.clientHeight;if(!w||!h)return;
     const box:[[number,number],[number,number]]=[[bounds[0],bounds[1]],[bounds[2],bounds[3]]];
     const options={padding:this.padding(caption),duration,maxZoom,bearing:this.map.getBearing(),pitch:this.map.getPitch()};
@@ -506,18 +568,20 @@ export class SpatialCampusMap {
     }
     this.map.setMinZoom(Math.min(this.map.getMinZoom(),Math.max(0,camera.zoom)));
     this.map.setMaxBounds(allowed);
-    this.map.fitBounds(box,options);
+    this.map.fitBounds(box,options,ticket===undefined?undefined:{cameraOwnership:ticket});
   }
   overview(){this.takeControl();this.fit(this.data.manifest.campusBounds,this.duration(300),16.2);}
   focusPlace(p:MapPoint){this.takeControl();this.fit(p.bounds,this.duration(250),17.4);}
-  fitRoute(result:MapRouteResult,ticket?:number){
-    if(result.status!=='ready'||!result.coordinates.length||ticket!==undefined)return;
+  fitRoute(result:MapRouteResult,ticket?:number,animate=true){
+    if(result.status!=='ready'||!result.coordinates.length||ticket!==undefined&&!this.ownership.accepts(ticket))return;
+    const ticketNow=ticket??this.takeControl();this.clearRouteFit();
+    if(ticket===undefined){this.routeMotion=true;this.target.dataset.motion='route-fit';}
     const expected=new Map([result.from,result.to].filter((p):p is MapPoint=>!!p).map(p=>[p.id,mapRoutePointName(this.points.get(p.id)||p,p.id===result.from?.id?result.originAccess:result.destinationAccess)]));
     const caption=nativeCaptionBounds(this.map,expected)?.insets||measureCaptions([...expected.values()],
       {font:'13px "Noto Sans SC Variable", "Microsoft YaHei", sans-serif',size:13,offsetY:-endpointCaptionGap,padding:2,marker:13.5,maxWidthEm:14,anchor:'bottom'});
-    this.takeControl();const ticketNow=this.ownership.ticket(),cs=result.coordinates;
+    const cs=result.coordinates;
     const bounds=[Math.min(...cs.map(c=>c[0])),Math.min(...cs.map(c=>c[1])),Math.max(...cs.map(c=>c[0])),Math.max(...cs.map(c=>c[1]))];
-    this.fit(bounds,this.duration(300),17.7,caption);
+    this.fit(bounds,animate?this.duration(300):0,17.7,caption,ticketNow);
     // Initial glyph placement can arrive after the fit request. Check the
     // actual text once idle, with at most two measured corrections. A newer
     // user gesture, route, or disposal invalidates this request.
@@ -529,7 +593,7 @@ export class SpatialCampusMap {
       const p=this.padding(),w=this.target.clientWidth,h=this.target.clientHeight;
       if(measured.boxes.every(b=>b[0]>=p.left&&b[1]>=p.top&&b[2]<=w-p.right&&b[3]<=h-p.bottom))return;
       if(corrections++>=2)return;
-      this.fit(bounds,0,17.7,measured.insets);this.routeFitRefine=refine;this.map.once('idle',refine);
+      this.fit(bounds,0,17.7,measured.insets,ticketNow);this.routeFitRefine=refine;this.map.once('idle',refine);
     };
     this.routeFitRefine=refine;this.map.once('idle',refine);
   }

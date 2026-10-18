@@ -40,6 +40,7 @@ import { hasCredentials } from './runtime/redaction';
 import { NativeControls } from './runtime/controls';
 import { configureNetwork } from './network';
 import { materialReferenceSchema } from '../shared/materials';
+import { semanticSelectionSchema } from '../shared/scenes';
 
 assertTestDataDirectory();
 // The installed product owns a relocatable interpreter and pinned engine.
@@ -278,6 +279,13 @@ app.whenReady().then(async () => {
   session.defaultSession.setPermissionRequestHandler((_w, _permission, callback) => callback(false));
   session.defaultSession.setPermissionCheckHandler(() => false);
   handle('state', state);
+  handle('notes:list', value => store.notes.list(value));
+  handle('notes:read', value => store.notes.read(value));
+  handle('notes:create', value => store.notes.create(value));
+  handle('notes:update', value => store.notes.update(value));
+  handle('notes:state', value => store.notes.changeState(value));
+  handle('notes:undo', value => store.notes.undo(value));
+  handle('notes:history', value => store.notes.history(value));
   handle('messages', (value) => store.runtime.presentation.public ? [] : store.messages(id.parse(value)).flatMap(message => { const safe = store.runtime.presentation.message(message); return safe ? [safe] : []; }));
   handle('presentation:surface', async value => {
     const mode = z.enum(['private', 'public']).parse(value);
@@ -329,6 +337,7 @@ app.whenReady().then(async () => {
         content: z.string().trim().min(1).max(LIMITS.message),
         image: imageAttachmentSchema.optional(),
         material: materialReferenceSchema.optional(),
+        selection: semanticSelectionSchema.optional(),
         controls: z
           .object({
             transmission: z.enum(['cloud_allowed', 'local_only']).optional(),
@@ -341,7 +350,7 @@ app.whenReady().then(async () => {
       })
       .strict()
       .parse(value);
-    return harness.start(input.sessionId, input.content, { ...input.controls, material: input.material }, input.image);
+    return harness.start(input.sessionId, input.content, { ...input.controls, material: input.material, selection: input.selection }, input.image);
   });
   handle('stop', () => harness.stop());
   handle('settings:save', (value) => {
@@ -681,7 +690,8 @@ app.whenReady().then(async () => {
   window.webContents.on('will-navigate', (event) => event.preventDefault());
   window.once('ready-to-show', () => window?.show());
   window.on('close', (event) => {
-    if (!draftCloseConfirmed && drafts.unsaved().length) {
+    // The renderer also owns notebook edits that have not been saved yet.
+    if (!draftCloseConfirmed && !window?.webContents.isDestroyed() && !window?.webContents.isCrashed() && !window?.webContents.isLoadingMainFrame()) {
       event.preventDefault();
       window?.webContents.send('zaichang:close-request');
       return;

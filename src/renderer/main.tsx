@@ -4,9 +4,11 @@ import { App } from './App';
 import '@fontsource-variable/noto-sans-sc';
 import './design-system.css';
 import { initializeAppearance } from './appearance';
+import { CompanionProvider, initializeCompanion } from './companion';
 initializeAppearance();
+initializeCompanion();
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <CompanionProvider><App /></CompanionProvider>
   </React.StrictMode>,
 );

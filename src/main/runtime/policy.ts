@@ -14,6 +14,7 @@ import { hasCredentials } from './redaction';
 import { localCloudRestriction, type TurnControlProposal } from './turn-controls';
 
 export interface InputControls {
+  selection?: import('../../shared/scenes').SemanticSelection;
   /** The product owner agent keeps responsibility for the complete request. */
   replyToOwner?: boolean;
   controlFallback?: boolean;
@@ -74,6 +75,7 @@ const baseSources = [
   'profile:self',
   'work:self',
   'local-agenda',
+  'notes:self',
   'campus:local',
   'campus:zju-account',
   'map:local',
@@ -359,7 +361,7 @@ export class PolicyKernel {
     const projectionSources = subjectId === this.repo.identity.principalId && worldId === 'real' && control?.release?.useAvailability && control.sources !== 'current_only' &&
       controls.memoryMode !== 'current_sources_only' && !control.uncertainControls.some(c => c.dimension === 'sources')
       ? ['campus:local', 'campus:zju-account', 'local-agenda'].filter(source => (!controls.sources || controls.sources.includes(source)) && !control.sourceExclusions.includes(source) && (!control.sourceAllowlist || control.sourceAllowlist.includes(source))) : [];
-    return { text, authoredText, attachment, contract, restriction: false, scenario, localOnly, threadContextAllowed, ownerHistoryAllowed, replyToOwner: controls.replyToOwner, controlFallback: controls.controlFallback, controlProposal: control, priorReleaseArtifacts: controls.priorReleaseArtifacts, releaseBrief: control?.release, priorReleasedDraft: controls.priorReleasedDraft, projectionSources, requiresReadPurpose: control?.subject === 'none' || control?.subject === 'mixed' || control?.world === 'mixed',
+    return { text, authoredText, attachment, contract, restriction: false, scenario, localOnly, threadContextAllowed, ownerHistoryAllowed, replyToOwner: controls.replyToOwner, controlFallback: controls.controlFallback, controlProposal: control, priorReleaseArtifacts: controls.priorReleaseArtifacts, releaseBrief: control?.release, priorReleasedDraft: controls.priorReleasedDraft, projectionSources, requiresReadPurpose: control?.subject === 'none' || control?.subject === 'mixed' || control?.world === 'mixed' || !!control?.scopedSourceLimits?.length,
       speechActs: [], interpretation, requestFragments: [], corrections: [], ownerProjectionAdmission: { memoryEnabled: settings.memoryEnabled, boundary: this.ownerProjectionBoundary } };
 
   }

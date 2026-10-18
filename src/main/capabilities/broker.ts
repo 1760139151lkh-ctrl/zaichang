@@ -23,6 +23,7 @@ export interface CapabilityResult<T = unknown> {
   expiresAt?: string;
   coverage?: { complete: boolean; scope: string; until?: string };
   reason?: string;
+  validation?: { target: 'arguments' | 'result'; issues: { path: string; code: string }[] };
   simulated: boolean;
 }
 export interface CapabilityDefinition {
@@ -41,6 +42,8 @@ export interface CapabilityDefinition {
   supportsIdempotency: boolean;
   supportsInspect: boolean;
   supportsCancel: boolean;
+  /** Equivalent-scope reuse is opt-in: continuation/visual handles may belong to one scope handle. */
+  cacheScope?: 'handle' | 'equivalent';
 }
 export interface CapabilityManifest {
   publicRead?: boolean;
@@ -90,6 +93,12 @@ export interface InvocationAudit {
   bytes: number;
   cache?: 'hit' | 'shared' | 'miss';
 }
+interface SharedInvocation {
+  controller: AbortController;
+  promise: Promise<CapabilityResult>;
+  waiters: Set<object>;
+  settled: boolean;
+}
 const resultSchema = z
   .object({
     status: knowledgeStatus,
@@ -103,9 +112,26 @@ const resultSchema = z
       .strict()
       .optional(),
     reason: z.string().max(500).optional(),
+    validation: z.object({ target: z.enum(['arguments', 'result']), issues: z.array(z.object({ path: z.string().max(160), code: z.string().max(60) }).strict()).max(6) }).strict().optional(),
     simulated: z.boolean(),
   })
   .strict();
+function validationIssues(error: z.ZodError) {
+  // Only bounded schema paths and issue codes cross back to the model. Zod
+  // messages can quote submitted values or unrecognized private field names.
+  return error.issues.slice(0, 6).map(issue => ({
+    path: issue.path.map(part => typeof part === 'number' ? `[${part}]` : typeof part === 'string' && /^[A-Za-z_][A-Za-z0-9_]{0,59}$/.test(part) ? part : '[field]').join('.').slice(0, 160) || '$',
+    code: issue.code,
+  }));
+}
+class CapabilityValidationError extends HarnessError {
+  readonly validation: NonNullable<CapabilityResult['validation']>;
+  constructor(target: 'arguments' | 'result', error: z.ZodError) {
+    super(target === 'arguments' ? 'invalid_arguments' : 'invalid_result',
+      target === 'arguments' ? '查询参数格式不符，请按能力字段修正后重试。' : '来源返回的数据格式不符合约定。', target === 'arguments' ? 'read' : 'never');
+    this.validation = { target, issues: validationIssues(error) };
+  }
+}
 export class CapabilityBroker {
   private providers = new Map<string, CapabilityProvider>();
   private capabilities = new Map<
@@ -114,7 +140,8 @@ export class CapabilityBroker {
   >();
   private recipes = new Map<string, Recipe[]>();
   private cached = new Map<string, CapabilityResult>();
-  private inFlight = new Map<string, Promise<CapabilityResult>>();
+  private readBackoff = new Map<string, { until: number; result: CapabilityResult }>();
+  private inFlight = new Map<string, SharedInvocation>();
   private active = new Set<AbortController>();
   readonly invocations: InvocationAudit[] = [];
   readonly rejections: { capability: string; code: string }[] = [];
@@ -123,6 +150,24 @@ export class CapabilityBroker {
     this.invocations.push(value);
     if (this.invocations.length > 256) this.invocations.splice(0, this.invocations.length - 256);
   }
+  private async waitFor(flight: SharedInvocation, signal: AbortSignal): Promise<CapabilityResult> {
+    signal.throwIfAborted();
+    const waiter = {};
+    flight.waiters.add(waiter);
+    let abort!: () => void;
+    const cancelled = new Promise<never>((_resolve, reject) => {
+      abort = () => reject(signal.reason);
+      signal.addEventListener('abort', abort, { once: true });
+      if (signal.aborted) abort();
+    });
+    try { return await Promise.race([flight.promise, cancelled]); }
+    finally {
+      signal.removeEventListener('abort', abort);
+      flight.waiters.delete(waiter);
+      if (!flight.settled && !flight.waiters.size)
+        flight.controller.abort(signal.reason || new DOMException('读取已没有等待者', 'AbortError'));
+    }
+  }
   constructor(
     readonly policy: PolicyKernel,
     private fetcher: typeof fetch = fetch,
@@ -130,6 +175,7 @@ export class CapabilityBroker {
     policy.onBarrier(() => {
       for (const c of this.active) c.abort(new HarnessError('stale_scope', '资料范围已改变。'));
       this.cached.clear();
+      this.readBackoff.clear();
       this.inFlight.clear();
     });
   }
@@ -171,6 +217,7 @@ export class CapabilityBroker {
     for (const c of p.manifest.capabilities) this.capabilities.delete(c.name);
     this.providers.delete(id);
     this.cached.clear();
+    this.readBackoff.clear();
   }
   registerRecipe(recipe: Recipe, review: { approved: boolean; reviewer: string }) {
     if (!review.approved || !review.reviewer || recipe.status !== 'reviewed')
@@ -326,9 +373,11 @@ export class CapabilityBroker {
       };
     const { definition: d, provider } = entry,
       m = provider.manifest;
+    let readKey: string | undefined, allowReadBackoff = false;
     try {
       signal.throwIfAborted();
       const s = this.policy.validate(handle);
+      allowReadBackoff = s.retention !== 'session_only';
       for (const grant of d.requiredScopes) this.policy.require(handle, grant);
       if (!s.sources.includes(m.sourceId))
         throw new HarnessError('source_forbidden', '此来源不在当前资料范围内。');
@@ -346,7 +395,11 @@ export class CapabilityBroker {
       if (d.effect !== 'read' && !options.actionAttempt && !options.inspectKey && !options.cancelKey)
         throw new HarnessError('approval_required', '请先确认具体动作。');
       if (s.child && d.effect !== 'read') throw new HarnessError('child_write', '只读子任务不能执行动作。');
-      const parsed = d.input.parse(args);
+      const checkedArguments = d.input.safeParse(args);
+      if (!checkedArguments.success) {
+        throw new CapabilityValidationError('arguments', checkedArguments.error);
+      }
+      const parsed = checkedArguments.data;
       if (options.actionAttempt) {
         const row = this.policy.repo.db
           .prepare(
@@ -379,25 +432,29 @@ export class CapabilityBroker {
           );
         if (!row) throw new HarnessError('invalid_attempt', '核查标识不属于当前获准的动作。');
       }
+      const domainRevision = this.policy.repo.domainRevision;
       const fingerprint = canonical({
+        provider: m.id, providerVersion: m.version, capabilityVersion: d.version,
+        handle: d.cacheScope === 'equivalent' ? undefined : handle.id,
         principal: s.principalId,
         workspace: s.workspaceId,
         grants: [...s.grants].sort(),
         retention: s.retention,
         infer: s.infer,
         child: s.child,
-        sources: s.sources,
+        sources: [...s.sources].sort(),
         subject: s.subjectId,
         world: s.worldId,
-        purposes: s.purposes,
+        purposes: [...s.purposes].sort(),
         audience: s.audience,
         epoch: s.privacyEpoch,
         revision: s.policyRevision,
-        domainRevision: this.policy.repo.domainRevision,
+        domainRevision,
         current: ['history:self', 'current'].includes(m.sourceId) ? s.currentEventIds : [],
       });
       const key = fingerprint + ':' + name + ':' + canonical(parsed);
-      const flightKey = handle.id + ':' + key;
+      if (d.effect === 'read') readKey = key;
+      const flightKey = key;
       const budget = this.budgets.get(handle) || { calls: 0, bytes: 0 };
       if (++budget.calls > (options.maxCalls || 12))
         throw new HarnessError('tool_budget', '本轮读取达到上限，请缩小范围。');
@@ -405,40 +462,36 @@ export class CapabilityBroker {
       for (const [cachedKey, result] of this.cached)
         if (!result.expiresAt || Date.parse(result.expiresAt) <= Date.parse(this.policy.repo.clock.now())) this.cached.delete(cachedKey);
       if (options.refresh) this.cached.delete(key);
-      const reuse = (value: CapabilityResult, cache: 'hit' | 'shared') => {
+      const reuse = (value: CapabilityResult, cache: 'hit' | 'shared' | 'miss') => {
         signal.throwIfAborted();
         this.policy.validate(handle);
         if (this.capabilities.get(name) !== entry) throw new HarnessError('provider_changed', '来源版本已改变，请重新查询。');
+        if (d.effect === 'read' && this.policy.repo.domainRevision !== domainRevision)
+          throw new HarnessError('source_changed', '资料版本已改变，请按最新状态重新查询。');
         const result = structuredClone(value), bytes = Buffer.byteLength(JSON.stringify(result));
         if (bytes > d.maxBytes || budget.bytes + bytes > 180000) throw new HarnessError('output_budget', '来源内容过大，请缩小查询。');
         budget.bytes += bytes;
         if (result.status === 'fresh' && result.expiresAt && Date.parse(result.expiresAt) <= Date.parse(this.policy.repo.clock.now())) result.status = 'stale';
-        this.audit({ id: attemptId, capability: name, providerId: m.id, version: d.version, status: result.status, scopeId: handle.id, simulated: m.simulated, bytes, cache });
+        if (cache !== 'miss') this.audit({ id: attemptId, capability: name, providerId: m.id, version: d.version, status: result.status, scopeId: handle.id, simulated: m.simulated, bytes, cache });
         return result;
       };
       const cached = !options.refresh && d.effect === 'read' && s.retention !== 'session_only' ? this.cached.get(key) : undefined;
       if (cached?.expiresAt && Date.parse(cached.expiresAt) > Date.parse(this.policy.repo.clock.now())) {
         return reuse(cached, 'hit');
       }
+      const unavailable = this.readBackoff.get(key);
+      if (unavailable && unavailable.until > Date.parse(this.policy.repo.clock.now()) && !options.refresh)
+        return reuse(unavailable.result, 'hit');
+      this.readBackoff.delete(key);
       const existing = d.effect === 'read' && !options.refresh ? this.inFlight.get(flightKey) : undefined;
-      if (existing) {
-        let abort!: () => void;
-        const cancelled = new Promise<never>((_resolve, reject) => {
-          abort = () => reject(signal.reason);
-          signal.addEventListener('abort', abort, { once: true });
-          if (signal.aborted) abort();
-        });
-        try { return reuse(await Promise.race([existing, cancelled]), 'shared'); }
-        finally { signal.removeEventListener('abort', abort); }
-      }
-      const controller = new AbortController(),
-        abort = () => controller.abort(signal.reason);
-      signal.addEventListener('abort', abort, { once: true });
+      if (existing && !existing.controller.signal.aborted) return reuse(await this.waitFor(existing, signal), 'shared');
+      const controller = new AbortController();
       const timer = setTimeout(
         () => controller.abort(new HarnessError('provider_timeout', '来源读取超时。')),
         d.timeoutMs,
       );
       this.active.add(controller);
+      const flight: SharedInvocation = { controller, promise: undefined!, waiters: new Set(), settled: false };
       const invocation = this.context(
         handle,
         name,
@@ -484,13 +537,22 @@ export class CapabilityBroker {
           this.policy.validate(handle);
           if (this.capabilities.get(name) !== entry) throw new HarnessError('provider_changed', '来源版本已改变，请重新查询。');
           const bytes = Buffer.byteLength(JSON.stringify(raw));
-          if (bytes > d.maxBytes || budget.bytes + bytes > 180000)
+          if (bytes > d.maxBytes)
             throw new HarnessError('output_budget', '来源内容过大，请缩小查询。');
-          budget.bytes += bytes;
-          const result = resultSchema.parse(raw) as CapabilityResult;
+          const checkedResult = resultSchema.safeParse(raw);
+          if (!checkedResult.success) {
+            throw new CapabilityValidationError('result', checkedResult.error);
+          }
+          const result = checkedResult.data as CapabilityResult;
           if (result.sourceId !== m.sourceId || result.simulated !== m.simulated)
             throw new HarnessError('provenance_mismatch', '来源或模拟状态不符合登记信息。');
-          if (result.data !== undefined) result.data = d.output.parse(result.data);
+          if (result.data !== undefined) {
+            const checkedData = d.output.safeParse(result.data);
+            if (!checkedData.success) {
+              throw new CapabilityValidationError('result', checkedData.error);
+            }
+            result.data = checkedData.data;
+          }
           if (
             result.status === 'fresh' &&
             result.expiresAt &&
@@ -499,32 +561,27 @@ export class CapabilityBroker {
             result.status = 'stale';
           if (result.status === 'known_absent' && result.coverage?.complete !== true)
             throw new HarnessError('incomplete_absence', '不完整结果不能证明没有约束。');
-          if (d.effect === 'read' && s.retention !== 'session_only' && result.status === 'fresh' && result.expiresAt && this.inFlight.get(flightKey) === pending) {
+          if (d.effect === 'read' && this.policy.repo.domainRevision !== domainRevision)
+            throw new HarnessError('source_changed', '资料版本已改变，请按最新状态重新查询。');
+          if (d.effect === 'read' && s.retention !== 'session_only' && result.status === 'fresh' && result.expiresAt && this.inFlight.get(flightKey) === flight) {
             this.cached.set(key, structuredClone(result));
             while (this.cached.size > 64) this.cached.delete(this.cached.keys().next().value!);
           }
-          this.audit({
-            id: attemptId,
-            capability: name,
-            providerId: m.id,
-            version: d.version,
-            status: result.status,
-            scopeId: handle.id,
-            simulated: m.simulated,
-            bytes,
-            cache: 'miss',
-          });
+          // A physical read still occurred when its first waiter cancelled
+          // and a sibling received the result. Preserve that distinct receipt.
+          this.audit({ id: attemptId, capability: name, providerId: m.id, version: d.version, status: result.status,
+            scopeId: handle.id, simulated: m.simulated, bytes, cache: 'miss' });
           return result;
         } finally {
+          flight.settled = true;
           clearTimeout(timer);
-          signal.removeEventListener('abort', abort);
           this.active.delete(controller);
-          if (this.inFlight.get(flightKey) === pending) this.inFlight.delete(flightKey);
+          if (this.inFlight.get(flightKey) === flight) this.inFlight.delete(flightKey);
         }
       };
-      const pending = run();
-      if (d.effect === 'read') this.inFlight.set(flightKey, pending);
-      return await pending;
+      flight.promise = run();
+      if (d.effect === 'read') this.inFlight.set(flightKey, flight);
+      return reuse(await this.waitFor(flight, signal), 'miss');
     } catch (error) {
       if (signal.aborted) throw error;
       const code =
@@ -542,6 +599,9 @@ export class CapabilityBroker {
         'approval_required',
         'invalid_attempt',
         'stale_scope',
+        'scope_expired',
+        'forged_scope',
+        'child_write',
         'egress_forbidden',
         'effect_mismatch',
       ].includes(code);
@@ -557,12 +617,19 @@ export class CapabilityBroker {
         simulated: m.simulated,
         bytes: 0,
       });
-      return {
+      const result: CapabilityResult = {
         status,
         sourceId: m.sourceId,
         reason: error instanceof HarnessError ? error.message : '来源返回无效或未完成的数据。',
+        ...(error instanceof CapabilityValidationError ? { validation: error.validation } : {}),
         simulated: m.simulated,
       };
+      if (readKey && allowReadBackoff
+        && ['provider_failed', 'provider_timeout', 'weather_failed', 'weather_incomplete'].includes(code)) {
+        this.readBackoff.set(readKey, { until: Date.parse(this.policy.repo.clock.now()) + 2000, result });
+        while (this.readBackoff.size > 64) this.readBackoff.delete(this.readBackoff.keys().next().value!);
+      }
+      return result;
     }
   }
   async runRecipes(contract: ContextContract, text: string, work: WorkService, signal: AbortSignal) {

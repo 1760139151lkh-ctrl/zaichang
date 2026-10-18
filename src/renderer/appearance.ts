@@ -31,9 +31,10 @@ function applyAppearance(value: Appearance) {
 }
 export function initializeAppearance() {
   applyAppearance(readAppearance());
-  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () =>
-    applyAppearance(readAppearance()),
-  );
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    applyAppearance(readAppearance());
+    window.dispatchEvent(new Event('appearance-change'));
+  });
 }
 export function useAppearance() {
   const [value, setValue] = useState(readAppearance);

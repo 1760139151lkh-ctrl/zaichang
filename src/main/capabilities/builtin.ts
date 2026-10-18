@@ -7,9 +7,11 @@ import type { PolicyKernel } from '../runtime/policy';
 import type { CapabilityBroker, CapabilityDefinition, CapabilityProvider, CapabilityResult } from './broker';
 import { HarnessError, type KnowledgeStatus } from '../../shared/harness';
 import { calendarFieldsSchema, localCalendarChangeSchema } from '../../shared/calendar';
-import { expandAgenda } from '../actions/calendar';
+import { expandAgenda, localStamp } from '../actions/calendar';
 import { campusQueryInput, validateCampusQuery, requireCampusQueryScope } from './campus-query';
-import { dateInZone } from '../runtime/semantics';
+import { calendarCommitment, planningPreviewInput, previewCalendarPlan } from '../actions/planning';
+import { weatherInput, weatherOutput, weatherRequest, weatherResult } from './weather';
+import { dateInZone, dayBounds } from '../runtime/semantics';
 
 export interface BuiltinConnections {
   map?: CampusMapAdapter;
@@ -96,6 +98,7 @@ const campusImportOutput = z
   .object({
     domain: z.string(),
     records: z.array(jsonObject),
+    materialVersions: z.array(jsonObject).optional(),
     conflicts: z.array(jsonObject).optional(),
     source: z.string(),
     institutionId: z.string(),
@@ -138,6 +141,7 @@ const base = (
   supportsIdempotency: false,
   supportsInspect: false,
   supportsCancel: false,
+  cacheScope: 'equivalent',
   ...extra,
 });
 const manifest = (
@@ -186,6 +190,13 @@ function sourceObservationAt(value: any): string | undefined {
     .sort((a, b) => Date.parse(a) - Date.parse(b));
   return candidates[0];
 }
+function calendarLocalTimes(item: Record<string, unknown>, fallbackTimeZone: string): Record<string, unknown> {
+  const timeZone = typeof item.timeZone === 'string' ? item.timeZone : fallbackTimeZone;
+  if (typeof item.startsAt !== 'string') return item.allDayDate ? { ...item, timeZone } : item;
+  const endsAt = typeof item.endsAt === 'string' ? item.endsAt : item.endsAt !== null && typeof item.durationMinutes === 'number'
+    ? new Date(Date.parse(item.startsAt) + item.durationMinutes * 60000).toISOString() : undefined;
+  return { ...item, timeZone, localStartsAt: localStamp(item.startsAt, timeZone), localEndsAt: endsAt ? localStamp(endsAt, timeZone) : null };
+}
 function safeRecord(value: unknown, depth = 0): any {
   if (depth > 12) return null;
   if (Array.isArray(value)) return value.slice(0, 100).map((v) => safeRecord(v, depth + 1));
@@ -225,7 +236,43 @@ export function registerBuiltins(
   const register = (provider: CapabilityProvider) =>
     broker.register(provider, { reviewed: true, source: 'bundled source review' });
   register({
+    manifest: manifest('situation', 'current', [base('situation.read', z.object({
+      from: z.string().datetime({ offset: true }), to: z.string().datetime({ offset: true }), timeZone: z.string().max(100).default('Asia/Shanghai'),
+      limit: z.number().int().min(1).max(20).default(8),
+    }).strict(), jsonObject, ['evidence:read'], { version: '2', worlds: ['real'], displayName: '读取有界当前情境', description: '按明确时间窗汇合当前范围允许的本地具体安排、已接受承诺、有效目标与已存课程/考试版本。日期实例附localStartsAt/localEndsAt和timeZone，保留原始UTC事实，未知结束为null。只读已授权来源，不自动读取全部笔记或个人历史；来源未覆盖、未读取和已知空白分开，日历空不证明现实空闲或精力充足。更完整资料仍按需读原能力。' })]),
+    invoke: (_name, args, ctx) => {
+      const scope = policy.validate(ctx.scope), now = repo.clock.now();
+      if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self') throw new HarnessError('situation_scope', '个人情境只在本人的现实私有范围内读取。');
+      if (Date.parse(args.to) <= Date.parse(args.from) || Date.parse(args.to) - Date.parse(args.from) > 31 * 86400000) throw new HarnessError('time_window', '情境读取须给出有效时间窗，单次不超过31天。');
+      const mayReadAgenda = scope.sources.includes('local-agenda');
+      const agenda = mayReadAgenda ? repo.db.prepare('SELECT payload FROM agenda').all().map(row => JSON.parse(String(row.payload))) : [];
+      const local = mayReadAgenda ? expandAgenda(agenda, args.from, args.to, args.timeZone) : undefined;
+      const localItems = (local?.items || []).map(item => calendarLocalTimes(item, args.timeZone));
+      const work = scope.sources.includes('work:self') ? repo.work(ctx.scope) : [];
+      const evidence = (ids: string[]) => ids.flatMap(id => { const source = repo.evidence(ctx.scope, id); return source ? [{ id: source.id, sourceId: source.sourceId, version: source.contentVersion, receivedAt: source.receivedAt, authority: source.authority }] : []; });
+      const goals = work.filter(item => item.kind === 'goal' && item.status === 'active').slice(0, args.limit).map(item => ({ id: item.id, revision: item.revision, title: item.title, status: item.status, data: item.data, sources: evidence(item.evidenceIds) }));
+      const commitments = work.filter(item => item.kind === 'commitment' && (['accepted', 'confirmed'].includes(item.status) || item.data.accepted === true) && !['cancelled', 'closed', 'stale', 'blocked'].includes(item.status)).slice(0, args.limit).map(item => ({ id: item.id, revision: item.revision, title: item.title, status: item.status, data: item.data, sources: evidence(item.evidenceIds) }));
+      const mayReadCampus = scope.grants.includes('campus:read') && scope.sources.some(source => ['campus:local', CAMPUS_ACCOUNT_SOURCE_ID].includes(source));
+      const campus = mayReadCampus ? ['schedule', 'exams'].map(domain => {
+        const result = domains.resolve(ctx.scope, domain, { from: args.from, to: args.to, limit: args.limit + 1 });
+        return { domain, status: result.status, completeForWindow: false, truncated: result.records.length > args.limit,
+          records: result.records.slice(0, args.limit).map(record => ({ ...record, value: safeRecord(calendarLocalTimes(record.value, args.timeZone)) })),
+          meaning: '只汇合已存且当前可读的具体来源记录；这次读取不触发联网同步，不能证明学校全量课次、例外或临时变化已覆盖。' };
+      }) : [];
+      const acceptedLocal = localItems.filter(item => calendarCommitment(item as any).state === 'accepted');
+      const dated = [...acceptedLocal.filter(item => calendarCommitment(item as any).occupiesTime).map(item => ({ ...item, sourceId: 'local-agenda' })),
+        ...campus.flatMap(domain => domain.records.filter(record => record.value.status !== 'cancelled' && typeof record.value.startsAt === 'string').map(record => ({ ...record.value, id: record.id, revision: record.revision, sourceId: record.sourceId, sourceStatus: record.status, fetchedAt: record.fetchedAt })))];
+      const next = dated.filter(item => typeof item.startsAt === 'string' && Date.parse(item.startsAt) >= Math.max(Date.parse(now), Date.parse(args.from))).sort((a, b) => Date.parse(String(a.startsAt)) - Date.parse(String(b.startsAt)))[0] || null;
+      const data = { now, timeZone: args.timeZone, window: { from: args.from, to: args.to }, nextAcceptedCommitment: next,
+        localAgenda: { status: mayReadAgenda ? local!.status : 'not_read', items: localItems.slice(0, args.limit), truncated: !!local && local.items.length > args.limit, issues: local?.issues.map(item => calendarLocalTimes(item, args.timeZone)) || [], sourceId: 'local-agenda' },
+        goals, commitments, campus, coverage: { localAgenda: mayReadAgenda ? 'local_registered_occurrences_only' : 'not_in_scope', work: scope.sources.includes('work:self') ? 'bounded_authorized_records' : 'not_in_scope', campus: mayReadCampus ? 'stored_records_only_not_live_complete' : 'not_in_scope', notes: 'not_read', location: 'not_read', weather: 'not_read', energy: 'unknown' },
+        unknown: ['日历空白不证明现实空闲，仍须核查相关来源覆盖。', '没有本人当前自述时，可用精力、意愿和情绪保持未知。', 'nextAcceptedCommitment仅是当前已读记录中下一项；未读来源仍可能有更早安排。'] };
+      return { status: 'fresh', sourceId: 'current', data: JSON.parse(JSON.stringify(data)), fetchedAt: now, coverage: { complete: false, scope: 'bounded allowed local situation; omitted sources remain unknown' }, simulated: false };
+    },
+  });
+  register({
     manifest: manifest('local-agenda', 'local-agenda', [
+      base('planning.preview', planningPreviewInput, jsonObject, ['evidence:read'], { version: '1', displayName: '比较可行时段与安排修改', description: '读本地具体日历实例并复用区间计算，比较最多三个方案。固定承诺、可移动已接受块均保留；邀请、愿望、未接受方案不当成硬承诺。空白不等于现实空闲。返回原对象ID/revision绑定的save/change提议和冲突、天气/资源等未知；只读不提交，实际采用通过现有本地动作授权入口。' }),
       base('local.agenda.change', localCalendarChangeSchema, z.object({}).strict(), ['local:write'], { effect: 'local_write', worlds: ['real'], supportsIdempotency: true, supportsInspect: true, supportsCancel: true, description: '按对象版本修改、删除本地安排或更改单个重复实例；事务执行并支持受版本保护的撤销。' }),
       base('local.agenda.save', localActionInput, z.object({}).strict(), ['local:write'], {
         effect: 'local_write',
@@ -239,13 +286,19 @@ export function registerBuiltins(
         z.object({ query: z.string().max(100).optional(), from: z.string().datetime({ offset: true }).optional(), to: z.string().datetime({ offset: true }).optional(), timeZone: z.string().max(100).optional() }).strict(),
         z.object({ items: z.array(jsonObject), issues: z.array(jsonObject).optional() }).strict(),
         ['evidence:read'],
-        { description: '按日期范围读取本地未完成安排。不填query可读取该时段全部有日期安排；query只对标题作逐字包含筛选，不解析日期、星期或事项类型。带query的空结果只说明标题不匹配，不能证明该日期没有安排。' },
+        { version: '2', description: '按日期范围读取本地未完成安排。日期实例附localStartsAt/localEndsAt和timeZone，保留原始UTC事实，未知结束为null。不填query可读取该时段全部有日期安排；query只对标题作逐字包含筛选，不解析日期、星期或事项类型。带query的空结果只说明标题不匹配，不能证明该日期没有安排。' },
       ),
     ]),
     invoke: (name, args, ctx) => {
       if (name === 'local.agenda.save' || name === 'local.agenda.change')
         throw new HarnessError('transaction_required', '本地安排必须由受控事务提交。');
       policy.validate(ctx.scope);
+      if (name === 'planning.preview') {
+        const items = repo.db.prepare('SELECT payload FROM agenda').all().map(row => JSON.parse(String(row.payload)));
+        const data = previewCalendarPlan(items, args);
+        return { status: 'fresh', sourceId: 'local-agenda', data: JSON.parse(JSON.stringify(data)), fetchedAt: repo.clock.now(),
+          coverage: { complete: data.issues.length === 0, scope: 'local calendar arithmetic only; external coverage and energy remain explicit conditions' }, simulated: false };
+      }
       const items = repo.db
         .prepare('SELECT payload FROM agenda')
         .all()
@@ -255,12 +308,12 @@ export function registerBuiltins(
         if (!args.from || !args.to) throw new HarnessError('time_window', '按时间查询需要明确起止范围。');
         const expanded = expandAgenda(items, args.from, args.to, args.timeZone || 'Asia/Shanghai');
         const titleFilter = args.query ? `; title contains ${JSON.stringify(args.query)}` : '; no title filter';
-        return { status: expanded.status, sourceId: 'local-agenda', data: { items: expanded.items, issues: expanded.issues }, coverage: { complete: expanded.coverage.complete, scope: `dated occurrences from ${args.from} to ${args.to}; undated tasks excluded${titleFilter}` }, fetchedAt: repo.clock.now(), simulated: false };
+        return { status: expanded.status, sourceId: 'local-agenda', data: { items: expanded.items.map(item => calendarLocalTimes(item, args.timeZone || 'Asia/Shanghai')), issues: expanded.issues.map(item => calendarLocalTimes(item, args.timeZone || 'Asia/Shanghai')) }, coverage: { complete: expanded.coverage.complete, scope: `dated occurrences from ${args.from} to ${args.to}; undated tasks excluded${titleFilter}` }, fetchedAt: repo.clock.now(), simulated: false };
       }
       return {
         status: items.length ? 'fresh' : 'known_absent',
         sourceId: 'local-agenda',
-        data: { items },
+        data: { items: items.map(item => calendarLocalTimes(item, args.timeZone || 'Asia/Shanghai')) },
         coverage: { complete: true, scope: `unfinished local agenda${args.query ? `; title contains ${JSON.stringify(args.query)}` : '; no title filter'}` },
         fetchedAt: repo.clock.now(),
         simulated: false,
@@ -502,6 +555,8 @@ export function registerBuiltins(
         data: {
           domain: args.domain,
           records: records.slice(0, args.limit).map((r) => safeRecord(r.value)),
+          materialVersions: records.slice(0, args.limit).map(record => ({ kind: 'domain', id: record.id, revision: record.revision, sourceId: record.sourceId,
+            domain: record.domain, institutionId: record.institutionId, termId: record.termId })),
           conflicts: result.conflicts.map((g) => ({ id: g[0].id, sources: g.map((r) => r.sourceId) })),
           source: metadata.source,
           institutionId: metadata.institutionId,
@@ -587,83 +642,21 @@ export function registerBuiltins(
     },
   });
   register({
-    manifest: manifest(
-      'weather',
-      'weather:open-meteo',
-      [
-        base(
-          'weather.lookup',
-          z
-            .object({
-              days: z.number().int().min(1).max(7).default(3),
-              location: z.literal('Hangzhou').default('Hangzhou'),
-              date: z.iso.date().optional().describe('杭州当地日期YYYY-MM-DD。指定时只查询这一天，优先于days；仅支持今天起七天内。'),
-            })
-            .strict(),
-          z
-            .object({
-              location: z.string(),
-              timeZone: z.string(),
-              forecast: z
-                .object({
-                  time: z.array(z.string()),
-                  weather_code: z.array(z.number().nullable()),
-                  temperature_2m_max: z.array(z.number().nullable()),
-                  temperature_2m_min: z.array(z.number().nullable()),
-                  precipitation_probability_max: z.array(z.number().nullable()),
-                })
-                .strict(),
-            })
-            .strict(),
-          ['weather:read'],
-          { version: '2', displayName: '杭州天气预报', description: '查询杭州城市参考坐标的天气，不读取用户位置。date指定杭州当地一天；不填时days为从今天开始的连续天数。仅支持今天起七天，缺测值保留为null。' },
-        ),
-      ],
-      ['api.open-meteo.com'],
-    ),
+    manifest: manifest('weather', 'weather:open-meteo', [
+      base('weather.lookup', weatherInput, weatherOutput, ['weather:read'], {
+        version: '3', displayName: '地点与时间窗天气预报', description: '按杭州、紫金港公共参考地点或明确公开参考坐标查询，不读取设备定位、不发送私人坐标。date查当地单日；from/to查小时覆盖并保留日级预报；只覆盖当地今天起七天。缺测为null，获取时间不是发布时间，校园分钟级天气与场地开放仍未知。缓存区分完整地点、时区和时间窗。',
+      }),
+    ], ['api.open-meteo.com']),
     connectionStatus: () => ({ connected: connections.weatherEnabled(), reason: connections.weatherEnabled() ? undefined : '天气查询未开启。' }),
     invoke: async (_name, args, ctx) => {
-      if (!connections.weatherEnabled())
-        return {
-          status: 'forbidden',
-          sourceId: 'weather:open-meteo',
-          reason: '天气查询未开启。',
-          simulated: false,
-        };
-      const url = new URL('https://api.open-meteo.com/v1/forecast');
-      const today = dateInZone(repo.clock.now(), 'Asia/Shanghai');
-      if (args.date && (args.date < today || Date.parse(args.date) - Date.parse(today) > 6 * 86400000))
-        throw new HarnessError('weather_window', '天气预报只覆盖杭州当地今天起七天内，所选日期超出范围。');
-      url.search = new URLSearchParams({
-        latitude: '30.2741',
-        longitude: '120.1551',
-        daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max',
-        timezone: 'Asia/Shanghai',
-        ...(args.date ? { start_date: args.date, end_date: args.date } : { forecast_days: String(args.days) }),
-      }).toString();
-      const response = await ctx.request(url.toString());
+      if (!connections.weatherEnabled()) return { status: 'forbidden', sourceId: 'weather:open-meteo', reason: '天气查询未开启。', simulated: false };
+      const query = weatherRequest(args, repo.clock.now()), response = await ctx.request(query.url.toString());
       if (!response.ok) throw new HarnessError('weather_failed', '天气服务未完成查询。');
-      const data = (await response.json()) as any;
-      const times = data.daily?.time;
-      const columns = ['weather_code', 'temperature_2m_max', 'temperature_2m_min', 'precipitation_probability_max'];
-      if (!Array.isArray(times) || times.length !== (args.date ? 1 : args.days) || times[0] !== (args.date || today)
-        || columns.some(column => !Array.isArray(data.daily[column]) || data.daily[column].length !== times.length))
-        throw new HarnessError('weather_incomplete', '天气来源没有完整返回所选日期，不能当作已查到。');
-      const complete = columns.every(column => data.daily[column].every((value: unknown) => typeof value === 'number' && Number.isFinite(value)));
-      return {
-        status: complete ? 'fresh' : 'partial',
-        sourceId: 'weather:open-meteo',
-        data: { location: '杭州城市参考坐标（非用户定位）', timeZone: 'Asia/Shanghai', forecast: data.daily },
-        fetchedAt: repo.clock.now(),
-        expiresAt: new Date(Date.parse(repo.clock.now()) + 1800000).toISOString(),
-        coverage: {
-          complete,
-          scope: args.date ? 'Hangzhou forecast for ' + args.date : 'Hangzhou forecast for ' + args.days + ' days',
-          until: data.daily?.time?.at(-1),
-        },
-        simulated: false,
-        ...(complete ? {} : { reason: '来源有缺测字段，null表示未知，不能视为零降水或已知温度。' }),
-      };
+      const observedAt = repo.clock.now(), result = weatherResult(query, await response.json(), observedAt);
+      return { status: result.complete ? 'fresh' : 'partial', sourceId: 'weather:open-meteo', data: result.data,
+        fetchedAt: observedAt, expiresAt: new Date(Math.min(Date.parse(observedAt) + 1800000, Date.parse(dayBounds(dateInZone(observedAt, query.location.timeZone), query.location.timeZone).to))).toISOString(),
+        coverage: { complete: result.complete, scope: `${query.location.label}; ${query.from} to ${query.to}; ${query.hourly ? 'hourly' : 'daily'} forecast`, until: query.to }, simulated: false,
+        ...(result.complete ? {} : { reason: '来源有缺测或未覆盖全部窗口，null和未覆盖部分保持未知。' }) };
     },
   });
   register({

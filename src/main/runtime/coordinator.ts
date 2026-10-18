@@ -22,6 +22,7 @@ import {
 import { KernelRepository } from '../storage/repository';
 import { PolicyKernel, type IngressDecision, type InputControls } from './policy';
 import { ContextCompiler } from './context';
+import { projectMapModelResult, projectMapRoute, projectMapValue } from './map-model-view';
 import { CollaborationService, collaborationInput, independentChoiceInput } from './collaboration';
 import { BasisService, basisInput } from './basis';
 import { CooperationService } from './cooperation';
@@ -31,16 +32,20 @@ import { MaterialService, registerMaterials } from '../materials/service';
 import { SpatialService, spaceControlInput, type VisualObservation } from './spatial';
 import { registerSpatial } from '../capabilities/spatial';
 import { PresentationService } from './presentation';
+import { SceneService } from './scenes';
+import { sceneRefSchema, type SceneSnapshot, type PresentationView, type VerifiedSelection, type MapScene } from '../../shared/scenes';
 import { campusQueryGrants, validateCampusQuery } from '../capabilities/campus-query';
 import { WorkService } from './work';
 import { MemoryService, currentOwnerChangeSchema } from '../memory/service';
 import { DomainService } from '../storage/domains';
 import { CapabilityBroker, type CapabilityResult } from '../capabilities/broker';
 import { registerBuiltins, localActionInput, type BuiltinConnections } from '../capabilities/builtin';
+import { weatherInput } from '../capabilities/weather';
 import { ActionRuntime } from '../actions/runtime';
-import { normalizeCalendarInput } from '../actions/calendar';
+import { localStamp, normalizeCalendarInput, projectCalendarChange } from '../actions/calendar';
 import { LocalCalendarService } from '../actions/local-calendar';
 import { localCalendarChangeSchema } from '../../shared/calendar';
+import { noteListSchema, noteReadSchema, noteCreateSchema, noteUpdateSchema, noteStateSchema, noteUndoSchema, noteHistorySchema } from '../../shared/notes';
 import campusMethod from '../../../prompts/campus-tools.md';
 import mapMethod from '../../../prompts/map-tools.md';
 import { availableIntervals } from '../actions/availability';
@@ -58,10 +63,15 @@ import {
 } from '../capabilities/ports';
 
 export interface RunSession {
+  selection?: VerifiedSelection;
+  selectionUnavailable?: boolean;
+  sceneSessionId?: string;
   appliedAttentionControls?: { quote: string; id: string }[];
   toolImages?: VisualObservation[];
   background?: boolean;
   releaseArtifacts?: import('../../shared/types').ReleaseArtifact[];
+  conversationHelpRefs?: { id: string; revision: number; helpRecordId: string }[];
+  attentionEvidenceViews?: Record<string, { quote: string; contentVersion: number; sourceStart: number; sourceEnd: number }>;
   dependencyNotices?: unknown[];
   methodNotes?: string[];
   budgetOwner?: RunSession;
@@ -91,6 +101,7 @@ export interface RuntimeCallbacks {
   action: (item: Action) => void;
   changed: () => void;
   mapCard?: (card: import('../../shared/map-v2').MapCard) => void;
+  present?: (scenes: SceneSnapshot[], view: PresentationView) => void;
   delegate: (tasks: DelegatedTask[], operationSignal?: AbortSignal) => Promise<unknown>;
 }
 const campusDomains = [
@@ -131,6 +142,7 @@ const lookUpSchema = z
     courseId: z.string().regex(/^\d{1,32}$/).optional(),
     query: z.string().max(100).optional(),
     days: z.number().int().min(1).max(7).optional(),
+    location: weatherInput.shape.location.optional(),
     date: z.iso.date().optional(),
     from: z.string().datetime({ offset: true }).optional(),
     to: z.string().datetime({ offset: true }).optional(),
@@ -247,6 +259,24 @@ function inferredReleaseFacts(value: string) {
 }
 const specs: SpecDefinition[] = [
   {
+    name: 'manage_note',
+    description: '用户自己的记事本，保存和读取完整原文，独立于长期记忆与日历。list/read/history只读；create/update/change_state/undo须当前明确委托及原话sourceQuote，不能把随口想法自动排程。读取按offset分页，可继续展开末尾条件。编辑/撤销使用实际expectedRevision，冲突先核对当前版本。',
+    schema: z.discriminatedUnion('operation', [
+      z.object({ operation: z.literal('list'), input: noteListSchema }),
+      z.object({ operation: z.literal('read'), input: noteReadSchema }),
+      z.object({ operation: z.literal('history'), input: noteHistorySchema }),
+      z.object({ operation: z.literal('create'), input: noteCreateSchema, sourceQuote: z.string().min(1).max(2000) }),
+      z.object({ operation: z.literal('update'), input: noteUpdateSchema, sourceQuote: z.string().min(1).max(2000) }),
+      z.object({ operation: z.literal('change_state'), input: noteStateSchema, sourceQuote: z.string().min(1).max(2000) }),
+      z.object({ operation: z.literal('undo'), input: noteUndoSchema, sourceQuote: z.string().min(1).max(2000) }),
+    ]), grant: 'evidence:read', mutates: true,
+  },
+  {
+    name: 'present_view',
+    description: '按当前原话与真实结果决定直接呈现什么。sceneRefs只能引用availableScenes、map_route或weather.lookup返回的精确id/revision；组件目录为MapScene和WeatherScene，宿主生成真实OpenUI界面。layout=compare仅用于确有比较意义的两个结果。cameraIntent只改变观看，不改旅程、位置或安排；explain表示需要认识陌生道路时请求一次可中断空间讲解，用户手势立即接管；只问远近、赶时间或重复查看时用route直接给稳定全貌，不默认每次播放。用户手动浏览后，只有当前原话明确请求继续讲解、回到路线或看某处时，才以viewRequestQuote逐字引用该观看请求；模型自行组织呈现或更新路线不能借普通任务原话夺回镜头。观看引文不授权真实行动。选择日期后可接本地安排，但仍须按用户原话调用既有行动工具。历史天气保留原预测时刻，重用过期事实前重新查询。',
+    schema: z.object({ sceneRefs: z.array(sceneRefSchema).min(1).max(3), layout: z.enum(['stack', 'compare']).default('stack'), cameraIntent: z.enum(['route', 'overview', 'destination', 'selection', 'explain']).optional(), viewRequestQuote: z.string().min(1).max(2000).optional().describe('仅引用本轮用户明确要求移动视角、继续讲解或回到路线的逐字原话；普通路线计算、数据更新或模型自行组织呈现时省略。不是行动授权。'), focusPlaceId: z.string().min(1).max(160).optional(), activeLegId: z.string().min(1).max(160).optional(), display: z.enum(['expanded', 'compact']).optional(), arrivalSourceQuote: z.string().min(1).max(2000).optional().describe('仅在用户当前原话明确报告已到达时，逐字引用实际陈述；不能引用预览完成、假设、否定或计划。宿主保留为用户报告，不冒充设备定位。') }).strict(),
+  },
+  {
     name: 'read_assistant_history', description: '需要核对助手以前说过或提供过什么时，按回复ID分页读原文，或用query寻找历史回复。返回的是助手当时的输出，不是用户偏好、现实结果或新授权；必要时对照原始用户证据与当前版本。',
     schema: z.object({ id: z.string().max(160).optional(), query: z.string().max(300).optional(), offset: z.number().int().min(0).default(0), limit: z.number().int().min(1).max(16000).default(8000) }).strict(), grant: 'evidence:read',
   },
@@ -260,12 +290,12 @@ const specs: SpecDefinition[] = [
   },
   {
     name: 'manage_attention',
-    description: '按用户明确原话管理获准关注、暂停、只提醒一次、禁止某种主动依据、停止或具体反馈。read列当前关注与限制；关注不是目标，默认仅应用内安静准备，不授予预约/发消息权限。并列限制分别处理：一个分句的时间范围不能自动传播给另一个停止使用某理由的分句；后者没有自己明确的结束时间时保持到用户另行改变，不为恢复可选打扰作有利推断。pause/avoid/once影响已有可选准备和队列，独立明确提醒保留。follow可绑定一个只读probe，半小时内最多有界检查；没有收益或新信息不出声。',
+    description: '按用户明确原话管理广义托付、暂停、只提醒一次、禁止某种主动依据、停止或具体反馈。follow可用all类别，后续来源内新变化由主模型理解；不要求逐项指定地图。wakeAt登记开放/下课等时间节点；probe.relativeDate把指定日期参数按每次运行时重算。后台follow只可targetId指向原托付，继承原话、来源、期限与渠道而派生关注。默认应用内准备，不授予预约/发消息权限。不同限制的时间范围分别处理；没有明确终点的停止持续到用户改变。独立明确提醒保留。',
     schema: attentionControlInput, grant: 'work:write', mutates: true,
   },
   {
-    name: 'inspect_help', description: '按需要查看候选机会、近期实际帮助及明确限制。记录区分生成、展示、系统提交、打开和反馈；没有回应保持未知。需要新资料可继续调用已获准只读能力，不必把机会变成用户目标。',
-    schema: z.object({ id: z.string().max(160).optional() }).strict(), grant: 'evidence:read',
+    name: 'inspect_help', description: '发现并读取当前范围内已经准备好的资料、候选机会及明确限制。不知道材料ID时省略id分页列出精确ID、版本、状态、标题和材料时效，列表不含正文；精确复制ID再读取完整材料与依据，可跨对话找回，无需读取人物记忆。记录区分生成、展示、系统提交、打开和反馈。若要把真实材料放在当前对话，用decide_help的reuseArtifact和presentInConversation，不重新调查相同事实。',
+    schema: z.object({ id: z.string().max(160).optional(), offset: z.number().int().nonnegative().default(0), limit: z.number().int().min(1).max(12).default(5) }).strict(), grant: 'evidence:read',
   },
   {
     name: 'decide_help', description: '对已读取的机会比较直接帮助、真实安静准备、等待、问一个关键问题或不介入。先检查最近帮助与限制；换措辞、换事件ID不是新理由。prepare须引用真实工具观察ID或机会中已经提供的外部材料ID，并提供具体产物；已经有材料不必重复读取。通知另受渠道、次数、版本和时效约束。没有实际产物不称准备好。',
@@ -299,7 +329,7 @@ const specs: SpecDefinition[] = [
   },
   {
     name: 'change_local_action',
-    description: '先读取本地安排取得稳定ID与revision，再按明确委托更新、删除或修改一个重复实例。change_occurrence只影响occurrenceDate对应的一次，其他周保留。提交前重验版本，返回真实回执和可撤销信息。',
+    description: '先读取本地安排取得稳定ID与revision。需要用户选择时准备同一对象的未应用修改卡；当前明确委托或已有授权覆盖时，宿主核验后更新、删除或修改一个重复实例。change_occurrence只影响occurrenceDate对应的一次，其他周保留。提交前重验版本，返回真实回执和可撤销信息。',
     schema: localCalendarChangeSchema, grant: 'local:write', mutates: true,
   },
   {
@@ -333,7 +363,7 @@ const specs: SpecDefinition[] = [
   {
     name: 'look_up',
     description:
-      '在本轮范围内查资料。source=capability且不填capability时搜索/分页能力目录，支持query、offset、limit；填写capability+describeOnly=true读取schema，填写arguments执行只读能力。campus具体查询须选domain，overview为明确的总览；未连接、无权限、部分覆盖均有实际状态。local读本地安排，history回查原文。不能指定他人身份或任意文件路径。',
+      '在本轮范围内查资料。source=capability且不填capability时搜索/分页能力目录，支持query、offset、limit；填写capability+describeOnly=true读取schema，填写arguments执行只读能力。weather可传公开location，date查日级，from/to查小时窗；小时问题应查询实际时间窗，日级结果不证明小时能力不可用。campus具体查询须选domain，overview为明确的总览；未连接、无权限、部分覆盖均有实际状态。local读本地安排，history回查原文。不能指定他人身份或任意文件路径。',
     schema: lookUpSchema,
   },
   {
@@ -472,7 +502,10 @@ const modelMapRouteParameters: Record<string, unknown> = {
     from: { anyOf: [{ type: 'object', properties: { kind: { type: 'string', enum: ['place', 'node'] }, id: { type: 'string', minLength: 1, maxLength: 100 } }, required: ['kind', 'id'], additionalProperties: false }, { type: 'object', properties: { kind: { type: 'string', const: 'current' } }, required: ['kind'], additionalProperties: false }] },
     to: { type: 'object', properties: { kind: { type: 'string', enum: ['place', 'node'] }, id: { type: 'string', minLength: 1, maxLength: 100 } }, required: ['kind', 'id'], additionalProperties: false },
     avoidStairs: { type: 'boolean' },
+    allowConditional: { type: 'boolean', description: '仅在用户明确试算未核通行条件时启用；真实条件与假设警告仍保留。' },
     version: { type: 'string' },
+    stops: { type: 'array', minItems: 2, maxItems: 8, items: { type: 'object', properties: { id: { type: 'string' }, placeId: { type: 'string' }, dwellMinutes: { type: 'number', minimum: 0, maximum: 1440 } }, required: ['placeId'], additionalProperties: false } },
+    journeyId: { type: 'string' }, expectedRevision: { type: 'integer' },
   },
   required: [],
   additionalProperties: false,
@@ -499,6 +532,7 @@ export class RuntimeCoordinator {
   readonly spatial: SpatialService;
   readonly materials: MaterialService;
   readonly presentation: PresentationService;
+  readonly scenes: SceneService;
   readonly reminders: ReminderRuntime;
   readonly connections: BuiltinConnections;
   readonly observations: ObservationPort;
@@ -541,16 +575,20 @@ export class RuntimeCoordinator {
     this.watches = new WatchPort(repo, this.policy, this.reminders, this.attention);
     this.reminders.beforeDispatch = () => this.attention.expire();
     this.reminders.validateSuggestion = id => this.attention.canNotify(id);
-    this.reminders.onSubmitted = id => {
+    this.reminders.onDelivery = (id, status) => {
       const scope = this.policy.hostScope(), record = this.repo.work(scope, undefined, id)[0];
-      if (record) this.cooperation.exposure(scope, id, record.revision, 'submitted');
+      if (record) this.cooperation.delivery(scope, id, record.revision, status);
     };
-    this.domains.onChanged = (scope, delta) => {
-      this.work.staleWorlds();
-      for (const record of delta.upserts.slice(0, 8)) this.watches.signal(scope, { category: delta.domain, noveltyKey: `${delta.sourceId}:${record.recordId}:${delta.toCursor || delta.fetchedAt}`, facts: { objectId: record.recordId, value: record.value }, evidenceId: record.evidenceId });
+    this.domains.onChanged = (_scope, delta) => {
+      if (delta.completeness !== 'failed') this.work.staleWorlds();
+      this.drainDomainChanges();
     };
+    this.attention.resumeChanges = scope => { this.drainDomainChanges(scope); };
+    this.store.notes.onChanged(() => { this.drainDomainChanges(); });
+    this.store.onAgendaChanged(() => { this.drainDomainChanges(); });
     this.entities = new EntityPort(repo, this.policy);
     this.presentation = new PresentationService(store);
+    this.scenes = new SceneService(store, this.policy);
     this.attention.migrateLegacyWatches();
     this.memory.migrateLegacy();
     const legacyCampus = store.meta<import('../../shared/types').CampusSnapshot | null>('campus', null);
@@ -575,6 +613,64 @@ export class RuntimeCoordinator {
     });
     this.resumePendingIndices();
     this.restoreConversationProjection();
+    this.drainDomainChanges();
+  }
+  drainDomainChanges(handle = this.policy.hostScope()) {
+    const scope = this.policy.validate(handle);
+    const agendaFocuses = this.repo.db.prepare(`SELECT id FROM h_work WHERE owner=? AND workspace=? AND subject=? AND world='real' AND audience='self' AND status='active'
+      AND json_extract(payload,'$.data.type')='attention_focus' AND (json_extract(payload,'$.data.until') IS NULL OR julianday(json_extract(payload,'$.data.until'))>julianday(?))
+      AND EXISTS(SELECT 1 FROM json_each(payload,'$.data.sources') source WHERE source.value='local-agenda')
+      AND NOT EXISTS(SELECT 1 FROM json_each(payload,'$.evidenceIds') ref LEFT JOIN h_evidence e ON e.id=ref.value WHERE e.id IS NULL OR e.status='deleted' OR julianday(e.expires_at)<=julianday(?))`)
+      .all(scope.principalId, scope.workspaceId, scope.principalId, this.repo.clock.now(), this.repo.clock.now());
+    const agendaWatches = this.repo.db.prepare(`SELECT w.goal_id AS id FROM h_watches w JOIN h_work g ON g.id=w.goal_id WHERE w.owner=? AND w.workspace=? AND w.status='active' AND g.status='active' AND w.epoch=?
+      AND g.subject=? AND g.world='real' AND g.audience='self' AND json_extract(w.payload,'$.eventCategory')='agenda' AND julianday(json_extract(w.payload,'$.actionableUntil'))>julianday(?)
+      AND NOT EXISTS(SELECT 1 FROM json_each(g.payload,'$.evidenceIds') ref LEFT JOIN h_evidence e ON e.id=ref.value WHERE e.id IS NULL OR e.status='deleted' OR julianday(e.expires_at)<=julianday(?))`)
+      .all(scope.principalId, scope.workspaceId, this.repo.epoch, scope.principalId, this.repo.clock.now(), this.repo.clock.now());
+    const readableAgendaConsumers = [...agendaFocuses, ...agendaWatches].map(row => !!this.repo.work(handle, undefined, String(row.id))[0]);
+    if (scope.sources.includes('local-agenda') && scope.principalId === this.repo.identity.principalId && scope.workspaceId === this.repo.identity.workspaceId &&
+      scope.subjectId === scope.principalId && scope.worldId === 'real' && scope.audience === 'self' && scope.grants.includes('evidence:read')) for (const row of this.repo.pending('agenda_attention')) {
+      this.repo.write(() => {
+        const change = JSON.parse(String(row.object_id)) as { id: string; revision: number; operation: 'upsert' | 'tombstone'; at: string; [key: string]: unknown };
+        if (typeof change.id !== 'string' || !Number.isSafeInteger(change.revision) || change.revision < 1 || !['upsert', 'tombstone'].includes(change.operation) || !Number.isFinite(Date.parse(change.at)))
+          throw new HarnessError('agenda_event_invalid', '本地安排的变化记录缺少有效版本或时间，保持待恢复。');
+        if (readableAgendaConsumers.length && !readableAgendaConsumers.some(Boolean)) return;
+        if (!readableAgendaConsumers.length) {
+          // The structural event remains in the durable source ledger. Without
+          // an authorized consumer, do not copy independent business writes
+          // into conversation evidence or advance its received watermark.
+          this.repo.db.prepare("UPDATE h_outbox SET status='done' WHERE id=?").run(String(row.id));
+          return;
+        }
+        const calendarVersionId = this.repo.calendarVersionId(change.id, change.revision);
+        const value: Record<string, unknown> = { agendaId: change.id, calendarVersionId, content: 'metadata_only', meaning: '本机安排的版本变化；需要正文或具体地点时按此安排读取当前版本，不等于新行动授权。' };
+        for (const key of ['kind', 'startsAt', 'durationMinutes', 'timeZone', 'allDayDate', 'done', 'changedFields']) if (change[key] !== undefined) value[key] = change[key];
+        if (change.planning && typeof change.planning === 'object') value.planning = Object.fromEntries(Object.entries(change.planning).filter(([key]) => ['state', 'flexibility'].includes(key)));
+        this.domains.journalChange(handle, { sourceId: 'local-agenda', domain: 'agenda', institutionId: 'local', termId: 'not_applicable', objectId: change.id,
+          revision: change.revision, operation: change.operation, observedAt: change.at, value }, undefined, [change.id, calendarVersionId]);
+        if (readableAgendaConsumers.every(Boolean)) this.repo.db.prepare("UPDATE h_outbox SET status='done' WHERE id=?").run(String(row.id));
+      });
+    }
+    // The note transaction stores only a revision key in its outbox. Recover
+    // that key before the ordinary event consumer, even after a process exit.
+    if (this.policy.validate(handle).sources.includes('notes:self')) for (const row of this.repo.pending('note_attention')) {
+      this.repo.write(() => {
+        const [noteId, revision] = JSON.parse(String(row.object_id)) as [string, number];
+        const note = this.repo.db.prepare(`SELECT json_extract(v.payload,'$.state') AS state,json_extract(v.payload,'$.operation') AS operation,json_extract(v.payload,'$.updatedAt') AS at
+          FROM h_note_versions v JOIN h_notes n ON n.id=v.note_id WHERE v.note_id=? AND v.revision=? AND n.owner=? AND n.workspace=?`)
+          .get(noteId, revision, this.repo.identity.principalId, this.repo.identity.workspaceId);
+        if (note) this.domains.journalChange(handle, { sourceId: 'notes:self', domain: 'notes', institutionId: 'local', termId: 'not_applicable', objectId: noteId, revision,
+          operation: note.state === 'deleted' ? 'tombstone' : 'upsert', observedAt: String(note.at),
+          value: { noteId, state: String(note.state), operation: String(note.operation), content: 'not_loaded', meaning: '用户可编辑文档发生变化；不是人物事实或排程指令，需要时用manage_note read回读当前正文。' } });
+        this.repo.db.prepare("UPDATE h_outbox SET status='done' WHERE id=?").run(String(row.id));
+      });
+    }
+    return this.domains.consumeChanges(handle, change => {
+      if (!this.domains.changeCurrent(handle, change)) return true;
+      let deferred = false;
+      this.watches.signal(handle, { category: change.domain, noveltyKey: change.eventId, facts: { objectId: change.objectId, operation: change.operation, value: change.value, revision: change.revision }, evidenceId: change.eventId }, () => { deferred = true; });
+      return this.attention.discover(handle, change) && !deferred &&
+        !(change.sourceId === 'local-agenda' && readableAgendaConsumers.some(readable => !readable));
+    });
   }
   private scopedEvidence(handle: ScopeHandle, id: string) {
     const scope = this.policy.validate(handle), ephemeral = this.ephemeralEvents.get(id);
@@ -682,9 +778,12 @@ export class RuntimeCoordinator {
     Object.assign(this.connections, value);
   }
   beginOpportunity(opportunity: import('../../shared/harness').WorkRecord, signal: AbortSignal): RunSession {
+    this.attention.expire();
+    const current = this.repo.work(this.policy.hostScope(), undefined, opportunity.id)[0];
+    if (!current || current.revision !== opportunity.revision || !['candidate', 'waiting'].includes(current.status)) throw new HarnessError('opportunity_inactive', '该机会已暂停、停止或改变，不能启动旧的后台准备。');
     const captured = opportunity.data.scope as { sources: string[]; epoch: number; policyRevision: number };
     if (!captured || captured.epoch !== this.repo.epoch) throw new HarnessError('stale_scope', '此机会的来源权限已改变。');
-    const sources = [...new Set(['current', 'work:self', ...captured.sources])];
+    const sources = [...new Set(['current', 'work:self', ...captured.sources.filter(source => this.store.settings().memoryEnabled || !['history:self', 'profile:self'].includes(source))])];
     const scope = this.policy.hostScope({ sources, currentEventIds: opportunity.evidenceIds, infer: false,
       grants: this.policy.grants().filter(grant => grant.endsWith(':read') || grant === 'work:write'),
     });
@@ -693,8 +792,20 @@ export class RuntimeCoordinator {
     ingress.contract.actionMode = 'respond';
     ingress.contract.retention = 'purpose_scoped';
     ingress.requiresReadPurpose = false;
-    const events = opportunity.evidenceIds.map(id => this.repo.evidence(scope, id)).filter((event): event is EvidenceEvent => !!event);
-    return { ingress, events, sessionId: 'background:' + opportunity.id, ephemeral: false, background: true, toolCalls: 0, modelCalls: 0, signal };
+    const binding = this.repo.work(scope, undefined, String(opportunity.data.bindingId))[0];
+    const authority = binding?.data.source as { eventId?: string; quote?: string } | undefined;
+    const attentionEvidenceViews: NonNullable<RunSession['attentionEvidenceViews']> = {};
+    const events = opportunity.evidenceIds.flatMap(id => {
+      const event = this.repo.evidence(scope, id);
+      if (!event) return [];
+      if (event.speaker !== 'user') return [event];
+      const quote = authority?.eventId === event.id ? authority.quote : undefined;
+      if (!quote || !event.text.includes(quote)) return [];
+      const index = event.text.indexOf(quote), sourceStart = Array.from(event.text.slice(0, index)).length;
+      attentionEvidenceViews[event.id] = { quote, contentVersion: event.contentVersion, sourceStart, sourceEnd: sourceStart + Array.from(quote).length };
+      return [{ ...event, text: quote }];
+    });
+    return { ingress, events, attentionEvidenceViews, sessionId: 'background:' + opportunity.id, sceneSessionId: String(opportunity.data.sessionId), ephemeral: false, background: true, toolCalls: 0, modelCalls: 0, signal };
   }
   begin(
     content: string,
@@ -828,6 +939,14 @@ export class RuntimeCoordinator {
         eventId,
       ]);
     }
+    let selection: VerifiedSelection | undefined, selectionUnavailable = false;
+    if (controls.selection) {
+      try { selection = this.scenes.selection(contract.scope, sessionId, controls.selection); }
+      catch (error) {
+        if (!(error instanceof HarnessError) || !['scene_unavailable', 'selection_target'].includes(error.code)) throw error;
+        selectionUnavailable = true;
+      }
+    }
     const session: RunSession = {
       ingress,
       events,
@@ -836,6 +955,7 @@ export class RuntimeCoordinator {
       signal,
       toolCalls: 0,
       modelCalls: 0,
+      ...(selection ? { selection } : {}), ...(selectionUnavailable ? { selectionUnavailable: true } : {}),
     };
     this.lastSession = session;
     return session;
@@ -854,6 +974,22 @@ export class RuntimeCoordinator {
     );
     signal.throwIfAborted(); this.policy.validate(session.ingress.contract.scope);
     session.pack = pack;
+    if (session.ingress.contract.audience === 'self' && !session.ingress.localOnly) {
+      const sceneSessionId = session.sceneSessionId || session.sessionId;
+      const availableScenes = this.scenes.summaries(session.ingress.contract.scope, sceneSessionId, session.ingress.contract.id, session.selection ? { id: session.selection.sceneId, revision: session.selection.sceneRevision } : undefined);
+      const presentationLibrary = { version: 1, components: ['MapScene: 可操作的校园总览、单点浏览、真实路线与多停靠旅程；view操作不改安排', 'WeatherScene: 所查公开参考位置的七天按日比较与日期选择；该画面不表达小时资料'],
+        method: '主模型依据当前需要选择map_route或取得weather.lookup，再用present_view引用精确sceneRef；无需用户要求渲染。地图路线查询即表示当前需要地图，会直接展开。用户手势接管后，只有本轮明确观看请求的viewRequestQuote能重新取得镜头；模型提出cameraIntent本身不代表用户要求移镜。已由present_view逐项展示的数据，正文保留结论、理由、必要差异与限制，不机械重复完整列表或表格；用户另要完整表格时按要求提供。旧事实保留查询时刻；临时界面选择不是长期记忆或行动授权。' };
+      const additions = { availableScenes, presentationLibrary, ...(session.selection ? { currentSelection: session.selection } : {}),
+        ...(session.selectionUnavailable ? { currentSelectionUnavailable: '先前界面引用已不在本轮允许的来源或有效画面中，没有读取其对象与事实。继续处理当前独立请求；只有用户仍在指代该对象且影响结论时，再说明需要重新选择。' } : {}) };
+      const serialized = canonical(additions), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+      if (pack.receipt.budget.readBytes + bytes > session.ingress.contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > session.ingress.contract.budget.maxTokens)
+        throw new HarnessError('scene_context_budget', '当前选择与画面来源超过本轮完整上下文预算，请缩小这次交流范围。');
+      Object.assign(pack.data, additions);
+      pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+      pack.receipt.sceneReferences = availableScenes.map(scene => ({ id: scene.id, revision: scene.revision, sourceId: scene.source.sourceId, fetchedAt: scene.source.fetchedAt, ...(scene.source.expiresAt ? { expiresAt: scene.source.expiresAt } : {}) }));
+      pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), ...availableScenes.map(scene => scene.source.sourceId)])];
+      this.repo.saveReceipt(session.ingress.contract.scope, pack.receipt);
+    }
     if (session.ingress.contract.audience !== 'self' && !session.ingress.replyToOwner) {
       session.pack.data.releaseSpec = this.releaseSpec(session, session.ingress.releaseBrief?.useAvailability
         ? { status: 'not_queried', required: 'availability_projection', meaning: '先读取明确时间窗的忙闲，再起草；不能猜测可约时间。' } : {});
@@ -907,13 +1043,13 @@ export class RuntimeCoordinator {
       available.push(
         {
           name: 'map_overview',
-          description: '查看已装配地图的范围与数据说明。',
+          description: '查看已装配公共地图的范围与数据说明，返回可供present_view引用的校园浏览sceneRef。不会自动展开；自由探索可用它，不需要创建路线或事项。',
           schema: z.object({}).strict(),
           grant: 'map:read',
         },
         {
           name: 'map_search',
-          description: '在现有地图检索地点，使用返回的稳定地点 ID。',
+          description: '在现有公共地图检索地点，使用返回的稳定地点ID。唯一匹配时附可由present_view展示的单点浏览sceneRef；不需要为了看一栋楼而创建路线。多个匹配保留真实区别，可用map_overview sceneRef+present_view.focusPlaceId看已核ID。',
           schema: z
             .object({ query: z.string().min(1).max(100), limit: z.number().int().min(1).max(10).optional() })
             .strict(),
@@ -921,13 +1057,16 @@ export class RuntimeCoordinator {
         },
         {
           name: 'map_route',
-          description: '计算现有步行网络上的路线并展示地图卡；未知入口、起点和不可达会明确返回。',
+          description: '按真实步行路网计算并直接展开对话地图。两点用from/to，多停靠用stops（2–8站；每次停靠独立id，允许A→B→A）；每条有向路段单独求路。继续旅程时给availableScenes里的journeyId与expectedRevision，保留已有停靠id，修改受影响部分。未知入口/不可达如实保留；观看改向用present_view，不改旅程。',
           schema: z
             .object({
               from: z.union([place, z.object({ kind: z.literal('current') }).strict()]).optional(),
               to: place.optional(),
               avoidStairs: z.boolean().optional(),
+              allowConditional: z.boolean().optional(),
               version: z.string().optional(),
+              stops: z.array(z.object({ id: z.string().min(1).max(160).optional(), placeId: z.string().min(1).max(160), dwellMinutes: z.number().min(0).max(1440).optional() }).strict()).min(2).max(8).optional(),
+              journeyId: z.string().min(1).max(160).optional(), expectedRevision: z.number().int().nonnegative().optional(),
             })
             .strict(),
           grant: 'map:read',
@@ -943,8 +1082,8 @@ export class RuntimeCoordinator {
     return available
       .filter(
         (d) =>
-          (!session.background || ['look_up', 'read_evidence', 'inspect_help', 'decide_help', 'resolve_time', 'calculate_available_time', 'map_overview', 'map_search', 'map_place', 'map_route', 'map_location_status'].includes(d.name)) &&
-          (!child || (!d.mutates && d.name !== 'inspect_action' && d.name !== 'delegate' && d.name !== 'prepare_release')) &&
+          (!session.background || ['look_up', 'read_evidence', 'inspect_help', 'decide_help', 'manage_attention', 'manage_note', 'resolve_time', 'calculate_available_time', 'map_overview', 'map_search', 'map_place', 'map_route', 'map_location_status'].includes(d.name)) &&
+          (!child || (!d.mutates && d.name !== 'inspect_action' && d.name !== 'delegate' && d.name !== 'prepare_release' && d.name !== 'present_view')) &&
           (!d.grant || s.grants.includes(d.grant)) &&
           (d.name !== 'inspect_action' ||
             (s.sources.includes('local-agenda') && contract.audience === 'self')) &&
@@ -1050,7 +1189,53 @@ export class RuntimeCoordinator {
         },
         capability = mapping[name];
       if (!capability) throw new HarnessError('tool_unavailable', '地图工具不可用。');
+      if (name === 'map_route') {
+        const definition = this.toolSpecs(session, child).find(spec => spec.function.name === name);
+        if (!definition) throw new HarnessError('tool_forbidden', '当前范围没有地图路线能力。');
+        const endpoint = z.object({ kind: z.enum(['place', 'node']), id: z.string().min(1).max(100) }).strict();
+        const args = z.object({ from: z.union([endpoint, z.object({ kind: z.literal('current') }).strict()]).optional(), to: endpoint.optional(), avoidStairs: z.boolean().optional(), allowConditional: z.boolean().optional(), version: z.string().optional(),
+          stops: z.array(z.object({ id: z.string().min(1).max(160).optional(), placeId: z.string().min(1).max(160), dwellMinutes: z.number().min(0).max(1440).optional() }).strict()).min(2).max(8).optional(), journeyId: z.string().min(1).max(160).optional(), expectedRevision: z.number().int().nonnegative().optional() }).strict().parse(raw);
+        const sceneSessionId = session.sceneSessionId || session.sessionId;
+        if (args.expectedRevision !== undefined && !args.journeyId) throw new HarnessError('journey_identity', '继续旅程需要同时给出精确journeyId和当前版本。');
+        const previous = args.journeyId ? this.scenes.available(handle, sceneSessionId, contract.id, session.selection ? { id: session.selection.sceneId, revision: session.selection.sceneRevision } : undefined).find((scene): scene is MapScene => scene.kind === 'map' && scene.journey.id === args.journeyId) : undefined;
+        if (args.journeyId && (!previous || args.expectedRevision !== previous.journey.revision)) throw new HarnessError('revision_conflict', '这段旅程已经变化，请先看availableScenes中的当前旅程版本。');
+        if (args.stops?.some(stop => stop.id && !previous?.journey.stops.some(old => old.id === stop.id && old.placeId === stop.placeId))) throw new HarnessError('stop_identity', '已有停靠id只能沿用该次停靠；新停靠省略id，同一地点再次出现也建立独立停靠。');
+        if (args.stops && (args.from || args.to)) throw new HarnessError('route_shape', '多停靠旅程使用stops；两点路线使用from/to，不能同时指定。');
+        const queries = args.stops ? args.stops.slice(1).map((stop, index) => ({ from: { kind: 'place' as const, id: args.stops![index].placeId }, to: { kind: 'place' as const, id: stop.placeId }, avoidStairs: args.avoidStairs, allowConditional: args.allowConditional, version: args.version }))
+          : [{ from: args.from, to: args.to, avoidStairs: args.avoidStairs, allowConditional: args.allowConditional, version: args.version }];
+        const results: CapabilityResult[] = [], attempts: (string | undefined)[] = [];
+        for (const query of queries) {
+          validate();
+          const result = await this.broker.invoke(handle, capability, query, signal, { maxCalls: contract.budget.toolCalls });
+          validate(); results.push(result);
+          attempts.push(this.broker.invocations.filter(attempt => attempt.scopeId === handle.id && attempt.capability === capability).at(-1)?.id);
+        }
+        const finish = (value: unknown) => {
+          return this.mapObservation(session, capability, value as CapabilityResult,
+            results.map((result, index) => ({ result, capability, scopeId: handle.id, attemptId: attempts[index] })));
+        };
+        const routes = results.map(result => result.data as import('../../shared/map-v2').MapRouteResult);
+        if (routes.some(route => !route?.from || !route.to)) return finish(args.stops ? {
+          status: routes.some(route => route?.status === 'ready' || route?.status === 'same') ? 'partial' : 'unknown', sourceId: 'map:local', simulated: results.some(result => result.simulated), journeyUpdated: false,
+          legs: results.map((result, index) => ({ fromPlaceId: args.stops![index].placeId, toPlaceId: args.stops![index + 1].placeId, status: result.status,
+            routeStatus: routes[index]?.status, reason: result.reason || routes[index]?.reason, distance: routes[index]?.distance, warnings: routes[index]?.warnings || [], source: routes[index]?.source,
+            route: routes[index] ? projectMapRoute(routes[index]) : null })),
+          reason: '至少一段还没有完整的稳定起终点，未用成功首段替代整个旅程，也未覆盖正在查看的旅程。逐段保留实际失败；先核对缺失地点再更新。',
+        } : results[0]);
+        const scene = this.scenes.map(sceneSessionId, routes, { previous, stops: args.stops, runId: contract.id, preparationOnly: session.background });
+        const sceneRef = { id: scene.id, revision: scene.revision };
+        const admitted = finish(args.stops ? { status: results.every(result => result.status === 'fresh') ? 'fresh' : 'partial', sourceId: 'map:local', simulated: results.some(result => result.simulated), fetchedAt: scene.source.fetchedAt, sceneRef,
+          journey: { ...scene.journey, legs: scene.journey.legs.map(({ id, fromStopId, toStopId, route }) => ({ id, fromStopId, toStopId, routeStatus: route.status, distance: route.distance, warnings: route.warnings, reason: route.reason,
+            route: projectMapRoute(route) })) },
+          meaning: '每段按真实有向步行路网独立计算；停靠和预览没有登记安排，也不证明实际出发或到达。' } : { ...results[0], sceneRef, journeyId: scene.journey.id, journeyRevision: scene.journey.revision });
+        validate();
+        if (!session.background && !child) callbacks.present?.([scene], this.scenes.view([scene], 'stack'));
+        if (!session.background && !child && !callbacks.present) callbacks.mapCard?.({ kind: 'route', route: routes[0] });
+        if (session.pack) session.pack.data.availableScenes = this.scenes.summaries(handle, sceneSessionId, contract.id);
+        return admitted;
+      }
       let result = await this.broker.invoke(handle, capability, raw, signal);
+      const mapReads = [{ result, capability, attemptId: this.broker.invocations.filter(attempt => attempt.scopeId === handle.id && attempt.capability === capability).at(-1)?.id }];
       if (capability === 'map.search' && result.status === 'fresh') {
         const query = typeof (raw as any)?.query === 'string' ? String((raw as any).query).trim() : '';
         const matches = (result.data as { matches?: Array<{ id?: string }> } | undefined)?.matches;
@@ -1071,29 +1256,66 @@ export class RuntimeCoordinator {
             const { source: _notAnExactOrigin, ...rest } = selected.args;
             const relation = await this.broker.invoke(handle, 'map.relations', { ...rest, fromId: matches[0].id, originKind: 'given_places' }, signal,
               { maxCalls: contract.budget.toolCalls });
+            mapReads.push({ result: relation, capability: 'map.relations', attemptId: this.broker.invocations.filter(attempt => attempt.scopeId === handle.id && attempt.capability === 'map.relations').at(-1)?.id });
             const data = relation.data as { conditionalRoutes?: unknown[]; estimateMinutes?: unknown } | undefined;
             if (['fresh', 'partial'].includes(relation.status) && (data?.estimateMinutes || data?.conditionalRoutes?.length)) {
               const conditional = { ...relation, status: 'partial' as const, coverage: { complete: false, scope: 'conditional_place_candidate_only' },
                 data: { ...data, originCandidate: { id: matches[0].id, query, sourceEventId: selected.eventId,
                   userPresenceConfirmed: false, originConnection: 'unknown' }, guaranteedOnTime: false,
                   candidateMeaning: '同轮后续地图搜索只找到一个与用户原话相符的地点；已知路段仅在先到其已记录入口后成立，不证明当前位置或楼内/当天通行。' } };
-              if (session.pack) this.context.recordTool(session.pack, conditional, 'map.relations', handle.id);
               result = { ...result, data: { ...(result.data as Record<string, unknown>), conditionalRelation: { ...conditional.data, status: conditional.status,
                 coverage: conditional.coverage, reason: conditional.reason } } };
             }
           }
         }
       }
-      if (session.pack) this.context.recordTool(session.pack, result, capability);
+      if (result.status === 'fresh' && (capability === 'map.overview' || capability === 'map.search' && (result.data as { matches?: unknown[] })?.matches?.length === 1)) {
+        const placeId = capability === 'map.search' ? (result.data as { matches: { id: string }[] }).matches[0].id : undefined;
+        const scene = this.scenes.browse(session.sceneSessionId || session.sessionId, { placeId, runId: contract.id, preparationOnly: session.background });
+        result = { ...result, sceneRef: { id: scene.id, revision: scene.revision } } as CapabilityResult;
+        if (session.pack) session.pack.data.availableScenes = this.scenes.summaries(handle, session.sceneSessionId || session.sessionId, contract.id);
+      }
       if (capability === 'map.route' && result.data)
         callbacks.mapCard?.({ kind: 'route', route: result.data as any });
-      return this.withMethodNotes(session, capability, result);
+      return this.mapObservation(session, capability, result, mapReads.map(read => ({ ...read, scopeId: handle.id })), 0);
     }
     const allowed = this.toolSpecs(session, child).some((s) => s.function.name === name);
     if (!allowed) throw new HarnessError('tool_forbidden', '该工具当前不可用或未授权。');
     const definition = specs.find((d) => d.name === name)!,
       ownerProjection = name === 'propose_memory_change' && !this.policy.validate(handle).infer && this.currentOwnerProposalAllowed(session, child),
       args = (ownerProjection ? currentOwnerChangeSchema : session.ephemeral && name === 'update_collaboration' ? independentChoiceInput : definition.schema).parse(raw) as any;
+    if (name === 'present_view') {
+      if (child || session.background) throw new HarnessError('presentation_owner', '由主助手在当前交流中决定呈现；后台只准备。');
+      if (new Set(args.sceneRefs.map((ref: { id: string; revision: number }) => ref.id)).size !== args.sceneRefs.length) throw new HarnessError('duplicate_scene', '同一画面不必重复呈现。');
+      const scenes = (args.sceneRefs as { id: string; revision: number }[]).map(ref => this.scenes.get(handle, session.sceneSessionId || session.sessionId, ref, contract.id, session.selection?.sceneId === ref.id && session.selection.sceneRevision === ref.revision));
+      for (let index = 0; index < scenes.length; index++) {
+        const scene = scenes[index];
+        if (scene.kind !== 'map' || !args.cameraIntent && !args.viewRequestQuote && !args.focusPlaceId && !args.activeLegId && !args.display && !args.arrivalSourceQuote) continue;
+        const publicMap = this.connections.map?.publicView?.() || this.connections.map;
+        if (args.focusPlaceId && !publicMap?.point(args.focusPlaceId)) throw new HarnessError('unknown_place', '观看目标不是当前公共地图中的稳定地点。');
+        if (args.activeLegId && !scene.journey.legs.some(leg => leg.id === args.activeLegId)) throw new HarnessError('unknown_leg', '这个路段不属于这段旅程。');
+        const viewRequestEvent = args.viewRequestQuote ? session.events.find(event => event.speaker === 'user' && event.text.includes(args.viewRequestQuote)) : undefined;
+        if (args.viewRequestQuote && !viewRequestEvent) throw new HarnessError('view_request_source', '移镜请求必须引用本轮真实用户原话；模型呈现指令不等于用户要求重新移动镜头。');
+        const requestsCamera = !!(args.cameraIntent || args.focusPlaceId);
+        if (requestsCamera && args.display === 'compact') throw new HarnessError('view_request_display', '收起地图与移动镜头不能同时执行；请只收起，或展开后查看目标。');
+        const cameraIntent = args.focusPlaceId ? 'selection' as const : args.cameraIntent || scene.cameraIntent;
+        const display = args.display || (viewRequestEvent && requestsCamera ? 'expanded' : scene.display);
+        const moveCamera = requestsCamera && display !== 'compact';
+        const arrivalEvent = args.arrivalSourceQuote ? session.events.find(event => event.speaker === 'user' && event.text.includes(args.arrivalSourceQuote)) : undefined;
+        if (args.arrivalSourceQuote && !arrivalEvent) throw new HarnessError('arrival_source', '到达说明必须来自本轮真实用户原话；路线预览不会产生到达信号。');
+        const latest = this.scenes.available(handle, session.sessionId, contract.id, session.selection ? { id: session.selection.sceneId, revision: session.selection.sceneRevision } : undefined).find(current => current.id === scene.id);
+        if (latest?.revision !== scene.revision) throw new HarnessError('revision_conflict', '这张地图已有新版本，先按当前画面继续。');
+        scenes[index] = this.scenes.remember(session.sessionId, { ...scene, revision: scene.revision + 1, cameraIntent,
+          cameraRequestId: moveCamera ? randomUUID() : undefined,
+          cameraUserRequested: moveCamera && !!viewRequestEvent,
+          focusPlaceId: args.focusPlaceId || (!args.cameraIntent || cameraIntent === 'selection' ? scene.focusPlaceId : undefined), ...(args.activeLegId ? { activeLegId: args.activeLegId } : {}), ...(display ? { display } : {}),
+          ...(!scene.journey.legs.length && args.focusPlaceId ? { place: publicMap!.point(args.focusPlaceId) } : {}),
+          ...(arrivalEvent ? { arrival: { kind: 'user_statement' as const, eventId: arrivalEvent.id, quote: args.arrivalSourceQuote, reportedAt: arrivalEvent.receivedAt } } : {}) }, contract.id);
+      }
+      validate(); const view = this.scenes.view(scenes, args.layout);
+      if (callbacks.present) { this.scenes.publish(view.sceneRefs); callbacks.present(scenes, view); }
+      return { status: 'presented', sceneRefs: view.sceneRefs, libraryVersion: 1, meaning: '只呈现已有可信结果；没有执行预约、日程或到达动作。' };
+    }
     if (name === 'execute_approved_action') {
       if (contract.actionMode === 'respond') return { status: 'not_executed', reason: '当前仅讨论或草拟，不执行已登记动作。' };
       const action = this.actions.get(handle, args.id);
@@ -1107,6 +1329,34 @@ export class RuntimeCoordinator {
       callbacks.changed();
       return { action: this.actions.get(handle, action.id), receipt, meaning: '只有核查回执能证明外部结果；不确定结果不能再次派发。' };
     }
+    if (name === 'manage_note') {
+      const service = this.store.notes;
+      const reading = ['list', 'read', 'history'].includes(args.operation);
+      if (session.background && !reading) throw new HarnessError('background_effect', '后台可按托付回读笔记，不能改动正文。');
+      if (reading && session.ingress.requiresReadPurpose) {
+        const verdict = await callbacks.verifyReadPurpose?.({ data: 'user_notebook', operation: args.operation, input: args.input });
+        if (!verdict?.allowed) return { status: 'forbidden', reason: verdict?.reason || '当前问题没有准入记事本。' };
+      }
+      if (reading) {
+        const value = args.operation === 'list' ? service.list(args.input, handle) : args.operation === 'read' ? service.read(args.input, handle) : service.history(args.input, handle);
+        if (session.pack) this.context.recordTool(session.pack, { status: 'fresh', sourceId: 'notes:self', data: JSON.parse(JSON.stringify(value)), fetchedAt: this.repo.clock.now(), simulated: false },
+          'manage_note.' + args.operation, handle.id, value, undefined, true);
+        return value;
+      }
+      if (contract.actionMode === 'respond' || session.ephemeral) return { status: 'draft_only', saved: false, reason: '本轮未允许保存这项独立笔记。' };
+      const source = session.events.find(event => event.speaker === 'user' && event.authority === 'user_statement' && event.text.includes(args.sourceQuote));
+      if (!source || !session.ingress.authoredText.includes(args.sourceQuote)) throw new HarnessError('current_source_required', '保存笔记需要当前用户原话。');
+      const verdict = await callbacks.verifyLocalDelegation?.({ targetKind: 'user_note', ...args, meaning: '只改用户明确请求的独立笔记，不改长期记忆、日历或通知。' });
+      if (verdict?.decision !== 'execute_local') return { status: 'needs_confirmation', saved: false, reason: verdict?.reason || '这项笔记修改还未核清。' };
+      signal.throwIfAborted(); this.policy.validate(handle);
+      const result = args.operation === 'create' ? service.create(args.input, handle, { via: 'conversation', eventId: source.id })
+        : args.operation === 'update' ? service.update(args.input, handle) : args.operation === 'change_state' ? service.changeState(args.input, handle) : service.undo(args.input, handle);
+      callbacks.changed();
+      // A mutation receipt must stay bounded even for a large original document.
+      const document = result.status === 'saved' ? result.note : result.current;
+      const { body: _body, ...metadata } = document;
+      return { status: result.status, saved: result.status === 'saved', note: metadata, meaning: '这是独立笔记；未排日程、未写人物记忆。正文可用read继续分页读取。' };
+    }
     if (name === 'manage_space') {
       if (args.operation !== 'read') {
         if (!args.source || !session.events.some(event => event.id === args.source.eventId && event.text.includes(args.source.quote))) throw new HarnessError('current_source_required', '个人地点修改需要当前原话。');
@@ -1118,16 +1368,22 @@ export class RuntimeCoordinator {
       }
       const result = this.spatial.control(handle, args); callbacks.changed(); return result;
     }
-    if (session.ingress.requiresReadPurpose && ['manage_attention', 'inspect_help', 'decide_help'].includes(name)) {
-      const verdict = await callbacks.verifyReadPurpose?.({ tool: name, arguments: args, data: 'current_matter_help_and_attention_limits', purpose: '用户要求停止/暂停既有关注时，需要最小当前标识才能使控制真正生效；这不是新增主动行为，也不读取其他生活资料。' });
+    if (session.ingress.requiresReadPurpose && (['inspect_help', 'decide_help'].includes(name) || name === 'manage_attention' && args.operation === 'read')) {
+      const verdict = await callbacks.verifyReadPurpose?.({ tool: name, arguments: args, data: name === 'manage_attention' ? 'requested_attention_control_metadata' : 'requested_prepared_help', purpose: name === 'manage_attention'
+        ? '仅核对本次明确请求建立、变更、暂停或停止的托付及其当前标识、来源范围、期限和既有停止限制，避免重复登记或越过用户控制；不是读取人物资料或无关关注正文。关注的写控制另需当前逐字依据，建立/恢复仍由独立本地委托核验。'
+        : '发现、核对或呈现用户当前明确请求的已准备资料；读取该材料及其证据、版本、期限和停止限制，不等于新增或修改托付，也不是读取无关人物记忆。用户不必先知道内部材料ID；未知ID的最小目录查找是完成展示请求的必要步骤。' });
       if (!verdict?.allowed) return { status: 'forbidden', reason: verdict?.reason || '当前问题尚未允许读取这些个人关注。' };
     }
     if (name === 'manage_attention') {
+      if (session.background && args.operation !== 'follow' && args.operation !== 'read') throw new HarnessError('background_attention', '后台只能读取托付或在原范围派生关注。');
+      const parentFocus = session.background && args.operation === 'follow' && args.targetId ? this.repo.work(handle, undefined, args.targetId)[0] : undefined;
+      if (session.background && args.operation === 'follow' && parentFocus?.data.type !== 'attention_focus') throw new HarnessError('focus_scope', '后台派生需要原有效托付的精确标识。');
       let publicProbeHash: string | undefined;
       let expiryReview: { requestedUntil: string; approved: boolean; reason: string } | undefined;
       if (args.operation !== 'read') {
+        if (parentFocus) args.source = parentFocus.data.source;
         const quote = args.source?.quote;
-        const matchingSources = typeof quote === 'string' && session.ingress.authoredText.includes(quote)
+        const matchingSources = typeof quote === 'string' && (parentFocus || session.ingress.authoredText.includes(quote))
           ? session.events.filter(event => event.speaker === 'user' && event.authority === 'user_statement' && event.text.includes(quote)) : [];
         const source = args.source?.eventId ? matchingSources.find(event => event.id === args.source.eventId) : matchingSources.length === 1 ? matchingSources[0] : undefined;
         if (!source) return { status: 'needs_current_source', controlApplied: false,
@@ -1137,7 +1393,7 @@ export class RuntimeCoordinator {
         // Restricting optional initiative grants no new capability or external
         // authority. The responsible assistant interprets the cited limit;
         // a second action classifier must not veto it as a calendar edit.
-        if (['follow', 'resume'].includes(args.operation)) {
+        if (['follow', 'resume'].includes(args.operation) && !parentFocus) {
           const verdict = await callbacks.verifyLocalDelegation?.({ scope: 'optional_attention_only', ...args });
           if (verdict?.decision !== 'execute_local') return { applied: false, reason: verdict?.reason || '尚未核清允许的具体范围。' };
         }
@@ -1163,7 +1419,7 @@ export class RuntimeCoordinator {
       }
       let result: ReturnType<AttentionService['control']>;
       try {
-        result = this.attention.control(handle, session.sessionId, args, { publicProbeHash, expiryReview, includeHistory: contract.enhancements?.cooperationHistory !== false });
+        result = this.attention.control(handle, parentFocus ? String(parentFocus.data.sessionId) : session.sessionId, args, { publicProbeHash, expiryReview, includeHistory: contract.enhancements?.cooperationHistory !== false, parentFocus: parentFocus?.id });
       } catch (error) {
         if (!(error instanceof HarnessError) || error.code !== 'target_missing') throw error;
         // Offer exact identities already disclosed in this run, rechecked under
@@ -1180,7 +1436,7 @@ export class RuntimeCoordinator {
         return { status: 'failed', error: error.message, code: error.code, needsExactTarget: true, controlApplied: false, currentTargets,
           reason: '提交的目标标识在当前许可范围内不存在，没有改动关注。若下列已读目标符合用户所指，精确复制targetId和expectedRevision后重试；不要重复错误标识，也不要把近似标识自动当作目标。没有合适目标时先读取当前关注或询问具体歧义。' };
       }
-      if ('kind' in result && result.data.type === 'attention_focus') this.watches.create(handle, {
+      if ('kind' in result && result.data.type === 'attention_focus' && !this.repo.db.prepare('SELECT id FROM h_watches WHERE id=?').get('watch:' + result.id)) this.watches.create(handle, {
         id: 'watch:' + result.id, bindingId: result.id, eventCategory: String(result.data.eventCategory),
         actionableUntil: String(result.data.until || new Date(Date.parse(contract.now) + 365 * 86400000).toISOString()),
         condition: always, channel: result.data.channel, title: result.title,
@@ -1193,11 +1449,41 @@ export class RuntimeCoordinator {
       return result;
     }
     if (name === 'inspect_help') {
-      const candidates = args.id ? this.repo.work(handle, undefined, args.id).filter(record => record.data.type === 'help_opportunity') : this.attention.pending(handle);
-      return { items: candidates.map(record => { const item = this.attention.inspect(handle, record, contract.enhancements?.cooperationHistory !== false); if (contract.enhancements?.applicability === false) item.basisUses = []; return item; }), meaning: '这里只是机会与实际历史，未新增用户义务。' };
+      this.attention.expire();
+      const rows = args.id ? this.repo.work(handle, undefined, args.id).filter(record => record.data.type === 'help_opportunity')
+        : session.background ? this.attention.pending(handle, args.limit)
+        : this.repo.workData(handle, ['help_opportunity'], { statuses: ['candidate', 'waiting', 'prepared', 'question_ready', 'notification_queued'], offset: args.offset, limit: args.limit + 1, respectSourceBindings: true });
+      const hasMore = !args.id && !session.background && rows.length > args.limit;
+      const candidates = args.id ? rows : rows.slice(0, args.limit);
+      const discoveryOnly = !args.id && !session.background;
+      const value = { items: candidates.map(record => {
+        if (discoveryOnly) {
+          const artifact = record.data.artifact as { title?: string; body?: string } | null | undefined;
+          const expiresAt = typeof record.data.expiresAt === 'string' ? record.data.expiresAt : null;
+          return { opportunity: { id: record.id, revision: record.revision, status: record.status,
+            title: artifact?.title || record.title, expiresAt,
+            materialAvailable: !!artifact?.body && ['prepared', 'question_ready', 'notification_queued'].includes(record.status),
+            materialExpired: expiresAt ? Date.parse(expiresAt) <= Date.parse(this.repo.clock.now()) : null },
+            meaning: '仅为当前许可范围内的发现信息。精确复制id，用inspect_help指定id读取正文、来源、版本和停止限制；不要拼接或改写标识。' };
+        }
+        const item = this.attention.inspect(handle, record, contract.enhancements?.cooperationHistory !== false);
+        if (contract.enhancements?.applicability === false) item.basisUses = [];
+        return item;
+      }),
+        coverage: { offset: args.offset, hasMore, nextOffset: hasMore ? args.offset + args.limit : null, scope: 'currently permitted active help and prepared materials' },
+        discoveryOnly, meaning: '这里只是机会、实际材料与历史，未新增用户义务。' };
+      const modelView = projectMapValue(value);
+      if (session.pack) this.context.recordTool(session.pack, { status: 'fresh', sourceId: 'work:self', data: JSON.parse(JSON.stringify(value)), fetchedAt: this.repo.clock.now(), simulated: false },
+        'inspect_help', handle.id, modelView, undefined, true);
+      return modelView;
     }
     if (name === 'decide_help') {
-      const result = this.attention.decide(handle, args, session.observations || []);
+      if (session.background && args.presentInConversation) throw new HarnessError('presentation_owner', '后台只准备；随对话呈现由前台当前回合绑定。');
+      const result = this.attention.decide(handle, args, session.observations || [], refs => refs.map(ref => this.scenes.get(handle, session.sceneSessionId || session.sessionId, ref, contract.id)));
+      if (result.conversationHelpRef) {
+        const previous = session.conversationHelpRefs || [];
+        session.conversationHelpRefs = [...previous.filter(ref => ref.id !== result.conversationHelpRef!.id), result.conversationHelpRef];
+      }
       callbacks.changed();
       return result;
     }
@@ -1425,8 +1711,21 @@ export class RuntimeCoordinator {
       if (!this.policy.validate(handle).sources.includes('local-agenda')) throw new HarnessError('forbidden', '本轮不能读取或修改本地安排。');
       const prior = this.calendar.read(args.targetId);
       if (!prior) return { applied: false, status: 'known_absent', sourceId: 'local-agenda', coverage: { complete: true, objectId: args.targetId }, reason: '这个本地对象已不存在。' };
+      if ((prior.revision || 1) !== args.expectedRevision) throw new HarnessError('revision_conflict', '原安排已更新，请先读取当前版本再提出修改。');
       const verdict = await callbacks.verifyLocalDelegation?.({ ...args, current: { id: prior.id, title: prior.title, startsAt: prior.startsAt, allDayDate: prior.allDayDate, durationMinutes: prior.durationMinutes, recurrence: prior.recurrence, revision: prior.revision || 1 } });
-      if (verdict?.decision !== 'execute_local') return { applied: false, status: 'needs_confirmation', reason: verdict?.reason || '还未核清具体修改。', missing: verdict?.missing || [] };
+      if (verdict?.decision !== 'execute_local') {
+        if (session.ephemeral || verdict?.decision === 'not_requested' || verdict?.decision === 'needs_clarification') return { applied: false, status: verdict?.decision || 'needs_confirmation', reason: verdict?.reason || '还未核清具体修改。', missing: verdict?.missing || [] };
+        const preview = calendarChangeDisplay(prior, args, contract.timeZone);
+        const proposal = this.actions.prepare(handle, { capability: 'local.agenda.change', arguments: args,
+          dependencies: [
+            ...session.events.map(event => ({ consumerId: 'pending', producerId: event.id, producerRevision: event.contentVersion, sensitivity: 'privacy' as const, invalidation: 'block' as const })),
+            { consumerId: 'pending', producerId: this.repo.registerCalendarVersion(handle, prior.id, prior.revision || 1, prior.effectActionId || prior.id), producerRevision: 0, sensitivity: 'privacy' as const, invalidation: 'block' as const },
+          ] });
+        const item: Action = { ...preview, id: proposal.id, effectActionId: proposal.id, saved: false, revision: proposal.revision, approvalDigest: proposal.digest,
+          calendarChange: { targetId: prior.id, expectedRevision: prior.revision || 1, operation: args.operation, ...(args.occurrenceDate ? { occurrenceDate: args.occurrenceDate } : {}), ...(args.cancelled !== undefined ? { cancelled: args.cancelled } : {}) } };
+        callbacks.action(item); callbacks.changed();
+        return { applied: false, prepared: true, status: 'awaiting_approval', item, before: prior, targetId: prior.id, expectedTargetRevision: prior.revision || 1, reason: verdict?.reason || '修改方案已准备，尚未改动原安排。' };
+      }
       const effectScope = session.ephemeral ? this.policy.localEffectScope(handle) : handle;
       const executed = await this.actions.directLocal(effectScope, {
         id: 'change:' + createHash('sha256').update(canonical({ eventId: session.events[0]?.id, args })).digest('hex'),
@@ -1445,7 +1744,12 @@ export class RuntimeCoordinator {
     }
     if (name === 'read_evidence') {
       const ephemeral = this.ephemeralEvents.get(args.id);
-      const event = ephemeral && this.policy.validate(handle).currentEventIds.includes(args.id) ? ephemeral : this.repo.evidence(handle, args.id);
+      let event = ephemeral && this.policy.validate(handle).currentEventIds.includes(args.id) ? ephemeral : this.repo.evidence(handle, args.id);
+      const attentionView = session.background && event?.speaker === 'user' ? session.attentionEvidenceViews?.[event.id] : undefined;
+      if (session.background && event?.speaker === 'user') {
+        if (!attentionView || event.contentVersion !== attentionView.contentVersion || !event.text.includes(attentionView.quote)) throw new HarnessError('evidence_forbidden', '后台只可核对这项托付实际引用的授权片段。');
+        event = { ...event, text: attentionView.quote };
+      }
       if (
         !event ||
         (!session.events.some((e) => e.id === event.id) && event.label.audience !== contract.audience)
@@ -1469,6 +1773,7 @@ export class RuntimeCoordinator {
         subjectId: event.subjectId,
         worldId: event.worldId,
         locator: event.locator,
+        ...(attentionView ? { projection: { kind: 'attention_authorization_quote', sourceStart: attentionView.sourceStart, sourceEnd: attentionView.sourceEnd, originalContentVersion: attentionView.contentVersion } } : {}),
       };
     }
     if (name === 'remember_preference' || name === 'propose_memory_change') {
@@ -1909,7 +2214,12 @@ export class RuntimeCoordinator {
           refresh: args.mode === 'refresh' || args.refresh,
           maxCalls: session.ingress.contract.budget.toolCalls,
         });
+        const rawResult = result;
+        const attemptId = this.broker.invocations.filter(attempt => attempt.scopeId === readHandle.id && attempt.capability === capability).at(-1)?.id;
         signal.throwIfAborted(); this.policy.validate(handle);
+        if (capability === 'weather.lookup' && result.status === 'forbidden' && !this.connections.weatherEnabled()) {
+          result = { ...result, reason: '天气查询开关目前关闭，本次未向天气服务发出请求。可在连接设置开启；开启后的默认地点是杭州城市公共参考坐标，不是用户定位。当前仍未取得预报。' };
+        }
         if (originCandidate && ['fresh', 'partial'].includes(result.status)) {
           const data = result.data as Record<string, unknown>;
           result = { ...result, status: 'partial', coverage: { complete: false, scope: 'conditional_place_candidate_only' },
@@ -1924,6 +2234,27 @@ export class RuntimeCoordinator {
         if (['materials.observe', 'research.read'].includes(capability) && ['fresh', 'partial'].includes(result.status) && typeof (result.data as any)?.observationId === 'string') {
           const visual = this.materials.visual(readHandle, (result.data as any).observationId);
           session.toolImages = [...(session.toolImages || []).filter(image => image.hash !== visual.hash), visual].slice(-2);
+        }
+        if (capability === 'map.route' || capability === 'map.relations') {
+          let view: unknown = result, displayScene: MapScene | undefined;
+          if (capability === 'map.route' && result.data) {
+            const route = result.data as import('../../shared/map-v2').MapRouteResult;
+            if (route.from && route.to) {
+              const scene = this.scenes.map(session.sceneSessionId || session.sessionId, [route], { runId: session.ingress.contract.id, preparationOnly: session.background });
+              displayScene = scene;
+              view = { ...result, sceneRef: { id: scene.id, revision: scene.revision }, journeyId: scene.journey.id, journeyRevision: scene.journey.revision };
+            }
+          }
+          const admitted = this.mapObservation(session, capability, view as CapabilityResult, [{ result: rawResult, capability, scopeId: readHandle.id, attemptId }]);
+          signal.throwIfAborted(); this.policy.validate(handle);
+          if (displayScene) {
+            if (!session.background && !this.policy.validate(handle).child) {
+              callbacks.present?.([displayScene], this.scenes.view([displayScene], 'stack'));
+              if (!callbacks.present) callbacks.mapCard?.({ kind: 'route', route: displayScene.journey.legs[0].route });
+            }
+            if (session.pack) session.pack.data.availableScenes = this.scenes.summaries(handle, session.sceneSessionId || session.sessionId, session.ingress.contract.id);
+          }
+          return admitted;
         }
         if (session.pack) {
           this.context.recordTool(session.pack, result, capability, readHandle.id);
@@ -1945,6 +2276,19 @@ export class RuntimeCoordinator {
             } });
             for (const grant of definition?.requiredScopes || []) this.repo.addDependency(handle, { consumerId: option.id, producerId: 'grant:' + grant, producerRevision: session.ingress.contract.policyRevision, sensitivity: 'privacy', invalidation: 'block' });
           }
+        }
+        if (capability === 'weather.lookup' && ['fresh', 'partial'].includes(result.status) && result.data) {
+          const scene = this.scenes.weather(session.sceneSessionId || session.sessionId, result, session.ingress.contract.id, session.background);
+          if (session.pack) session.pack.data.availableScenes = this.scenes.summaries(handle, session.sceneSessionId || session.sessionId, session.ingress.contract.id);
+          return this.withMethodNotes(session, capability, { ...result, sceneRef: { id: scene.id, revision: scene.revision }, presentation: (result.data as any).hourly
+            ? '按请求时间窗取得了小时预报及其覆盖；可以据此说明该窗口的不确定性。现有WeatherScene只展示日级概览，日期选择不自动保存日程。'
+            : '若按日比较有助当前问题，用present_view引用此sceneRef。日期选择只是试算，不自动保存日程；这次日级结果不能支持逐小时结论。' });
+        }
+        if (result.status === 'fresh' && (capability === 'map.overview' || capability === 'map.search' && (result.data as { matches?: unknown[] })?.matches?.length === 1)) {
+          const placeId = capability === 'map.search' ? (result.data as { matches: { id: string }[] }).matches[0].id : undefined;
+          const scene = this.scenes.browse(session.sceneSessionId || session.sessionId, { placeId, runId: session.ingress.contract.id, preparationOnly: session.background });
+          if (session.pack) session.pack.data.availableScenes = this.scenes.summaries(handle, session.sceneSessionId || session.sessionId, session.ingress.contract.id);
+          return this.withMethodNotes(session, capability, { ...result, sceneRef: { id: scene.id, revision: scene.revision } });
         }
         return this.withMethodNotes(session, capability, result);
       };
@@ -1975,7 +2319,8 @@ export class RuntimeCoordinator {
       return call(args.capability, input);
     }
     if (args.source === 'history') return call('evidence.search', { query: args.query || '' });
-    if (args.source === 'weather') return call('weather.lookup', { days: args.days || 3, ...(args.date ? { date: args.date } : {}) });
+    if (args.source === 'weather') return call('weather.lookup', { days: args.days || 3, ...(args.location ? { location: args.location } : {}),
+      ...(args.date ? { date: args.date } : {}), ...(args.from ? { from: args.from } : {}), ...(args.to ? { to: args.to } : {}) });
     if (args.source === 'map') return args.mode === 'overview' || args.mode === 'refresh' ? call('map.overview', {}) : call('map.search', { query: args.query || '' });
     if (args.source === 'local') return call('local.agenda.read', { query: args.query, from: args.from, to: args.to, timeZone: session.ingress.contract.timeZone });
     if (args.source === 'capability') {
@@ -2000,6 +2345,33 @@ export class RuntimeCoordinator {
     });
   }
 
+  private mapObservation(session: RunSession, capability: string, value: CapabilityResult,
+    reads: { result: CapabilityResult; capability: string; scopeId: string; attemptId?: string }[], modelIndex = reads.length - 1) {
+    const notesBefore = session.methodNotes ? [...session.methodNotes] : undefined;
+    const tokensBefore = session.pack?.receipt.budget.estimatedTokens;
+    const modelView = this.withMethodNotes(session, capability, projectMapModelResult(capability, value));
+    try {
+      let budgetError: HarnessError | undefined;
+      if (session.pack) for (const [index, read] of reads.entries()) {
+        try { this.context.recordTool(session.pack, read.result, read.capability, read.scopeId, index === modelIndex ? modelView : null, read.attemptId); }
+        catch (error) {
+          if (!(error instanceof HarnessError) || error.code !== 'read_budget') throw error;
+          budgetError ||= error;
+        }
+      }
+      if (budgetError) throw budgetError;
+      return modelView;
+    } catch (error) {
+      // Failed admission sends no model observation or method guide. Physical
+      // bytes and read receipts remain charged; the full scene remains usable.
+      session.methodNotes = notesBefore;
+      if (session.pack && tokensBefore !== undefined && error instanceof HarnessError && error.code === 'read_budget') {
+        session.pack.receipt.budget.estimatedTokens = tokensBefore;
+        this.repo.saveReceipt(session.ingress.contract.scope, session.pack.receipt);
+      }
+      throw error;
+    }
+  }
   private withMethodNotes(session: RunSession, capability: string, result: unknown) {
     const method = capability.startsWith('campus.') ? 'campus' : capability.startsWith('map.') ? 'map' : undefined;
     if (!method || session.methodNotes?.includes(method)) return result;
@@ -2013,22 +2385,27 @@ export class RuntimeCoordinator {
     if (pack.contract.enhancements?.repairRejudge === false) return [];
     this.policy.validate(pack.contract.scope);
     const versions = new Map<string, (typeof pack.receipt.providedObjectVersions)[number]>();
+    const versionKey = (ref: (typeof pack.receipt.providedObjectVersions)[number]) => ref.kind === 'domain'
+      ? canonical([ref.kind, ref.id, ref.sourceId, ref.domain, ref.institutionId, ref.termId]) : `${ref.kind}:${ref.id}`;
     for (const ref of pack.receipt.providedObjectVersions) {
-      const key = `${ref.kind}:${ref.id}`;
+      const key = versionKey(ref);
       if (!versions.has(key) || versions.get(key)!.revision < ref.revision) versions.set(key, ref);
     }
     const changed: unknown[] = [];
     for (const ref of versions.values()) {
-      if (ref.kind !== 'work' && ref.kind !== 'assertion' && ref.kind !== 'agenda') continue;
+      if (ref.kind !== 'work' && ref.kind !== 'assertion' && ref.kind !== 'agenda' && ref.kind !== 'domain') continue;
       const scope = this.policy.validate(pack.contract.scope);
       const rawCurrent = ref.kind === 'work' ? this.repo.work(pack.contract.scope, undefined, ref.id)[0] : ref.kind === 'agenda'
         ? scope.sources.includes('local-agenda') && scope.subjectId === scope.principalId && scope.audience === 'self' ? this.calendar.read(ref.id) : undefined
-        : this.repo.assertion(pack.contract.scope, ref.id);
+        : ref.kind === 'domain'
+          ? ref.sourceId && ref.domain && ref.institutionId && ref.termId && scope.sources.includes(ref.sourceId) && this.policy.can(pack.contract.scope, 'campus:read')
+            ? this.domains.read(pack.contract.scope, ref.domain, { id: ref.id, institutionId: ref.institutionId, termId: ref.termId, limit: 50 }).find(record => record.sourceId === ref.sourceId) : undefined
+          : this.repo.assertion(pack.contract.scope, ref.id);
       const current = ref.kind === 'agenda' && rawCurrent ? { ...rawCurrent, revision: rawCurrent.revision || 1 } : rawCurrent;
       if (!current && ref.revision === 0) continue;
       if (current && current.revision === ref.revision) continue;
       changed.push(current || { id: ref.id, status: 'not_available' });
-      for (const value of pack.receipt.providedObjectVersions) if (value.id === ref.id && value.kind === ref.kind) value.revision = current?.revision || 0;
+      for (const value of pack.receipt.providedObjectVersions) if (versionKey(value) === versionKey(ref)) value.revision = current?.revision || 0;
     }
     if (changed.length) {
       if (pack.receipt.mechanismUses) pack.receipt.mechanismUses.repairRejudge += changed.length;
@@ -2135,6 +2512,30 @@ export class RuntimeCoordinator {
       throw new HarnessError('revision_conflict', '你看到的动作版本已更新，请重新查看后确认。');
     if (action && item.approvalDigest !== undefined && item.approvalDigest !== action.digest)
       throw new HarnessError('approval_mismatch', '待确认内容已经变化，请重新查看。');
+    if (action?.capability === 'local.agenda.change') {
+      if (action.status === 'succeeded') return this.actions.receipts(handle, action.id).at(-1);
+      if (['dispatching', 'outcome_unknown', 'reconciling'].includes(action.status)) throw new HarnessError('inspect_first', '修改结果尚未确定，请先核查。', 'reconcile');
+      const args = localCalendarChangeSchema.parse(action.arguments), target = this.calendar.read(args.targetId);
+      if (!target || (target.revision || 1) !== args.expectedRevision) throw new HarnessError('revision_conflict', '原安排已经变化，请重新核对修改方案。');
+      if (args.operation !== 'delete') {
+        const displayed = calendarChangeDisplay(target, args, item.timeZone || target.timeZone || this.store.settings().timeZone || 'Asia/Shanghai');
+        const edits: Record<string, unknown> = {};
+        for (const key of ['title', 'detail', 'startsAt', 'durationMinutes', 'timeZone'] as const) {
+          if (canonical(item[key]) === canonical(displayed[key])) continue;
+          // The compact card edits only these fields. It never erases recurrence,
+          // reminders, planning state or other fields omitted by its controls.
+          if (args.operation === 'change_occurrence' && !['detail', 'startsAt', 'durationMinutes'].includes(key)) throw new HarnessError('occurrence_fields', '单次修改只调整这一次的时间、时长或说明。');
+          edits[key] = item[key] === undefined && ['startsAt', 'durationMinutes'].includes(key) ? null : item[key];
+        }
+        if (Object.keys(edits).length) {
+          const revised = localCalendarChangeSchema.parse({ ...args, changes: { ...args.changes, ...edits } });
+          projectCalendarChange(target, revised, item.timeZone || target.timeZone || this.store.settings().timeZone || 'Asia/Shanghai');
+          action = this.actions.revise(handle, action.id, action.revision, revised);
+        }
+      }
+      const approval = this.actions.approve(handle, action.id, action.digest, action.revision);
+      return this.actions.execute(handle, action.id, approval.id);
+    }
     if (!action) {
       // Only a genuine offered card or an existing local record can enter the legacy compatibility path.
       const offered = this.store.db
@@ -2169,6 +2570,19 @@ export class RuntimeCoordinator {
     return executed.receipt;
   }
 }
+function calendarChangeDisplay(previous: Action, args: z.infer<typeof localCalendarChangeSchema>, hostTimeZone: string): Action {
+  if (args.operation === 'delete') return previous;
+  const projected = projectCalendarChange(previous, args, hostTimeZone);
+  if (args.operation !== 'change_occurrence') return projected;
+  const exception = projected.exceptions!.find(item => item.onDate === args.occurrenceDate)!, zone = projected.timeZone || hostTimeZone;
+  const stamp = projected.startsAt ? `${args.occurrenceDate}T${localStamp(projected.startsAt, zone).slice(11)}` : undefined;
+  const resolved = stamp ? resolveLocalTime(stamp, zone) : undefined;
+  const startsAt = exception.startsAt || (resolved?.status === 'resolved' ? resolved.instants[0] : undefined);
+  if (stamp && !startsAt) throw new HarnessError('time_ambiguity', '这一次安排的本地时刻不存在或有歧义，请指定带时区的具体时刻。');
+  return { ...projected, detail: exception.detail ?? projected.detail, startsAt,
+    durationMinutes: exception.durationMinutes === null ? undefined : exception.durationMinutes ?? projected.durationMinutes,
+    ...(projected.allDayDate && !startsAt ? { allDayDate: args.occurrenceDate } : { allDayDate: undefined }) };
+}
 function localArgs(item: Action) {
   return {
     title: item.title,
@@ -2184,5 +2598,6 @@ function localArgs(item: Action) {
     ...(item.remindAt ? { remindAt: item.remindAt } : {}),
     ...(item.createNew ? { createNew: true } : {}),
     ...(item.goalId ? { goalId: item.goalId } : {}),
+    ...(item.planning ? { planning: item.planning } : {}),
   };
 }

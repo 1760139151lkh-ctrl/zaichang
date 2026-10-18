@@ -104,6 +104,13 @@ export class AppServerLunaClient {
       }
     }
     throw new ProviderError('Luna 代测连接暂时不可用。', false, 'transport');
+    } catch (error) {
+      if (signal.aborted && !callerSignal.aborted && !boundary.signal.aborted) {
+        const timeout = new ProviderError('这次 Luna 模型请求超时，尚未完成的部分可以继续处理。', false, 'request_timeout');
+        Object.assign(timeout, { transportAttempts: Number((error as any)?.transportAttempts || 1) });
+        throw timeout;
+      }
+      throw error;
     } finally { this.controllers.delete(boundary); }
   }
   private async completeOnce(messages: ModelWireMessage[], tools: ToolSpec[], callerSignal: AbortSignal, onText?: (text: string) => void, options?: CompletionOptions): Promise<Completion> {

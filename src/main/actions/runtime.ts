@@ -455,7 +455,7 @@ export class ActionRuntime {
           const expected = local?.current || (local?.current === null ? null : action!.arguments);
           if (expected && Object.entries(expected).some(([key, value]) => !['coverage', 'missingNeeds', 'approvalDigest'].includes(key) && canonical((current as any)?.[key]) !== canonical(value)))
             throw new HarnessError('local_verification', '本地记录与批准内容不一致，事务已回滚。');
-          if (local) action!.compensation = { targetId: recordId, expectedRevision: local.current?.revision || 0, previous: local.previous as any, applied: local.applied };
+          if (local) action!.compensation = { targetId: recordId, expectedRevision: local.recordRevision ?? local.current?.revision ?? 0, previous: local.previous as any, applied: local.applied };
           this.repo.fault?.('after_local_write_before_receipt');
           const receipt: EffectReceipt = {
             id: randomUUID(),
@@ -607,7 +607,7 @@ export class ActionRuntime {
       this.policy.require(handle, 'local:write');
       if (action.reason === 'prior_business_version_removed_with_conversation') throw new HarnessError('undo_history_deleted', '修改前的版本已随对话清除。当前安排仍保留，可从安排中按当前版本修改或删除。');
       this.repo.write(() => {
-        if (this.localUndo && action.compensation) this.localUndo(action);
+        if (this.localUndo) this.localUndo(action);
         else {
           this.repo.db.prepare('DELETE FROM agenda WHERE id=?').run(id);
           this.repo.db.prepare("UPDATE h_jobs SET status='cancelled',fence=fence+1 WHERE object_id=?").run(id);

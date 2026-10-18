@@ -8,6 +8,7 @@ export interface PreparationView {
   kind: 'material' | 'question';
   helpRecordId?: string;
   sources?: { label: string; at?: string }[];
+  scenes?: import('./scenes').SceneSnapshot[];
 }
 export interface SurfaceView {
   mode: 'private' | 'public';

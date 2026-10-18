@@ -9,14 +9,18 @@ import {
 import { ArrowLeft, Check, ChevronRight, Download, LoaderCircle, Pencil, Trash2, X } from 'lucide-react';
 import { IconButton, Modal, PagePanel, Switch, uiError } from './ui';
 import { MemoryPanelSimple, SourcePermissions, type MemoryWorkspaceState } from './HarnessViews';
-import type { Settings, State } from '../shared/types';
+import type { SettingsUpdate, State } from '../shared/types';
 import { useAppearance } from './appearance';
 import { DEFAULT_INTERACTION } from '../shared/interaction';
+import { PersonaEditor, type PersonaDraft } from './PersonaEditor';
+import { CompanionSettings } from './CompanionSettings';
+import { useCompanion } from './companion';
 
 const api = window.zaichang;
 export interface SettingsDraft {
   apiKey?: string;
   guidance?: string;
+  persona?: PersonaDraft;
 }
 interface Props {
   embedded?: boolean;
@@ -56,9 +60,10 @@ export function SettingsPanel({
   initialTab = '连接',
 }: Props) {
   const [appearance, setAppearance] = useAppearance();
+  const { reset: resetCompanion } = useCompanion();
   const interaction = state.settings.interaction || DEFAULT_INTERACTION;
   const [tab, setTab] = useState(initialTab);
-  const tabs = embedded ? ['连接', '偏好'] : ['连接', '记忆', '偏好'];
+  const tabs = embedded ? ['陪伴', '交流', '偏好', '连接'] : ['陪伴', '交流', '偏好', '连接', '记忆'];
   const Frame = embedded ? PagePanel : Modal;
   const [key, setKey] = useState(draft.current.apiKey || '');
   const [guidance, setGuidance] = useState(draft.current.guidance ?? state.settings.guidance);
@@ -128,7 +133,7 @@ export function SettingsPanel({
       </div>
     ) : null;
   }
-  async function update(action: string, settings: Partial<Settings>) {
+  async function update(action: string, settings: SettingsUpdate) {
     await perform(action, async () => {
       onState(await api.saveSettings(settings));
     });
@@ -149,9 +154,9 @@ export function SettingsPanel({
             : '待验证';
   return (
     <Frame
-      title={tab === '资料' ? '校园资料' : tab === '记忆' ? '关于你' : '连接与偏好'}
+      title={tab === '资料' ? '校园资料' : tab === '记忆' ? '关于你' : tab === '陪伴' ? '让这里，更像你喜欢的地方。' : tab === '交流' ? '怎么相处' : tab === '偏好' ? '按你的节奏来。' : '连接与资料'}
       onClose={onClose}
-      className={`settings-panel ${initialTab === '记忆' ? 'memory-page' : ''}`}
+      className={`settings-panel ${initialTab === '记忆' ? 'memory-page' : ''} ${tab === '陪伴' || tab === '交流' ? 'settings-wide' : ''}`}
     >
       {tab === '资料' ? (
         <button ref={sourceBackRef} className="source-back text-button" onClick={() => changeTab('连接')}>
@@ -200,7 +205,8 @@ export function SettingsPanel({
           tab === '资料' || initialTab === '记忆' ? undefined : `settings-tab-${tabs.indexOf(tab)}`
         }
       >
-        {busy && <p className="busy-note">连接设置需等本轮结束；停用记忆或资料权限会立即生效。</p>}
+        {busy && tab === '连接' && <p className="busy-note">等这句话说完，就可以换一个连接。</p>}
+        {tab === '陪伴' && <CompanionSettings />}
         {tab === '连接' && (
           <>
             <div className="section-heading">
@@ -581,10 +587,13 @@ export function SettingsPanel({
             onWorkspace={onMemoryWorkspace}
           />
         )}
-        {tab === '偏好' && (
+        {(tab === '偏好' || tab === '交流') && (
           <>
-            <p className="panel-intro">按你的习惯交流，也留出不被打扰的空间。</p>
-            <section className="preference-section">
+            <div hidden={tab !== '交流'}>
+              <PersonaEditor persona={state.settings.persona} legacyGuidance={state.settings.guidance} draft={draft} onState={onState} busy={busy || !!pending} saving={pending === 'persona'} perform={(operation) => perform('persona', operation)} />
+              {result(['persona'])}
+            </div>
+            <section className="preference-section" hidden={tab !== '偏好'}>
               <h3 className="section-title">阅读与外观</h3>
               <div className="preference-fields">
                 <label>
@@ -627,9 +636,8 @@ export function SettingsPanel({
                   </select>
                 </label>
               </div>
-              <small className="appearance-note">外观与阅读设置保存在这台设备。</small>
             </section>
-            <section className="preference-section">
+            <section className="preference-section" hidden={tab !== '交流'}>
               <h3 className="section-title">怎么交流</h3>
               <div className="preference-fields">
                 <label>
@@ -689,10 +697,9 @@ export function SettingsPanel({
                   </select>
                 </label>
               </div>
-              <p className="setting-note">当次要求优先。少说枝节，仍会保留你要的完整论证。</p>
               {result(['interaction'])}
             </section>
-            <section className="preference-section">
+            <section className="preference-section" hidden={tab !== '偏好'}>
               <h3 className="section-title">主动帮助</h3>
               <div className="preference-fields">
                 <label>
@@ -716,7 +723,7 @@ export function SettingsPanel({
                   </select>
                 </label>
                 <label>
-                  检查更新
+                  什么时候留意
                   <select
                     aria-label="定期检查更新"
                     value={interaction.followup}
@@ -731,14 +738,13 @@ export function SettingsPanel({
                     }
                   >
                     <option value="on_request">我询问时再查</option>
-                    <option value="meaningful_change">定期查看已允许的事项</option>
+                    <option value="meaningful_change">留意我交给你的事</option>
                   </select>
                 </label>
               </div>
-              <p className="setting-note">只处理你允许关注的事。约定的时间提醒单独设置。</p>
               {result(['initiative', 'followup'])}
             </section>
-            <section className="preference-section">
+            <section className="preference-section" hidden={tab !== '偏好'}>
               <h3 className="section-title">提醒</h3>
               <Switch
                 checked={state.settings.remindersEnabled}
@@ -749,10 +755,10 @@ export function SettingsPanel({
               />
               {result(['reminders'])}
             </section>
-            <section className="preference-section">
-              <h3 className="section-title">补充说明</h3>
+            <section className="preference-section" hidden={tab !== '交流'}>
+              <h3 className="section-title">关于你的补充</h3>
               <label className="field-label behavior-label">
-                回复偏好
+                私人背景与回复偏好
                 <textarea
                   value={guidance}
                   onChange={(e) => {
@@ -764,6 +770,7 @@ export function SettingsPanel({
                   placeholder="例如：先给结论，再给推导；保留我要求的细节"
                 />
               </label>
+              <p className="setting-note">随个性记忆权限使用，不会写入角色模板。</p>
               <div className="field-buttons">
                 <button
                   className="primary-button"
@@ -781,10 +788,10 @@ export function SettingsPanel({
               </div>
               {result(['guidance'])}
             </section>
-            <details className="data-controls">
-              <summary className="section-title">本地资料与导出</summary>
+            <details className="data-controls" hidden={tab !== '偏好'}>
+              <summary className="section-title">留在这台电脑里的</summary>
               <div className="data-controls-body">
-                <p>对话保存在本机；连接模型时，会发送本轮允许使用的资料。数据库暂未整体加密。</p>
+                <details className="data-storage-detail"><summary>资料如何保留</summary><p>对话保存在这台电脑。聊天时，会把你允许使用的内容交给所连接的模型；本机数据库没有整体加密。</p></details>
                 <button
                   className="text-button"
                   disabled={disabled}
@@ -799,28 +806,29 @@ export function SettingsPanel({
                   ) : (
                     <Download size={15} />
                   )}
-                  导出我的资料
+                  带走我的资料
                 </button>
                 {result(['export'])}
                 {clearConfirm ? (
                   <div className="clear-confirm">
-                    <p>确定清空本机资料？这会删除对话、记忆、安排、校园资料和连接密钥，且无法撤销</p>
+                    <p>这台电脑里的对话、记忆、安排、笔记和连接信息会被删除，无法找回。</p>
                     <button
                       className="danger-button"
                       disabled={disabled}
                       onClick={() =>
                         void perform('clear', async () => {
                           onState(await api.clearData());
+                          resetCompanion();
                           draft.current = {};
                           onClear();
-                          notify('本地资料已清空');
+                          notify('这里的资料已清空');
                         })
                       }
                     >
-                      确认清空
+                      清空本机资料
                     </button>
                     <button className="text-button" onClick={() => setClearConfirm(false)}>
-                      取消
+                      先留着
                     </button>
                   </div>
                 ) : (

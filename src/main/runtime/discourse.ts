@@ -12,8 +12,9 @@ export interface SpeechAct {
 export function authoredControls(text: string) {
   return text
     .replace(/```[\s\S]*?```/g, '')
+    .replace(/^\s*>.*$/gm, '')
     .replace(/“[^”]*”|「[^」]*」|"[^"\n]*"/g, '')
-    .replace(/(?:他说|她说|材料写道|原文写道)[:：][^。；\n]*/g, '');
+    .replace(/(?:^|[。；\n])\s*(?!我(?:说|写道|表示|提到))[^。；\n:：]{1,20}(?:说|写道|表示|提到)[:：][^。；\n]*/g, '');
 }
 export function routeSpeechActs(
   text: string,

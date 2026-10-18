@@ -1,0 +1,184 @@
+.assistant-presentation {
+  margin: 20px 0 24px;
+  min-width: 0;
+}
+.presentation-scenes {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.presentation-map-slot,
+.presentation-map-rest {
+  min-height: 440px;
+}
+.presentation-map-slot:has(.conversation-map[data-collapsed='true']) {
+  min-height: 0;
+}
+.presentation-map-rest {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--wash);
+  border-radius: var(--radius-object);
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+.presentation-unavailable {
+  margin: 8px 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+.presentation-weather {
+  min-width: 0;
+  padding: 20px 0 12px;
+  border-top: 1px solid var(--separator);
+  border-bottom: 1px solid var(--separator);
+}
+.presentation-weather-heading,
+.presentation-weather-heading > div,
+.presentation-weather-source {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.presentation-weather-heading {
+  margin-bottom: 19px;
+}
+.presentation-weather-heading > div {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 5px 12px;
+}
+.presentation-weather-heading h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 560;
+  color: var(--text);
+}
+.presentation-weather-heading span,
+.presentation-weather-source {
+  color: var(--text-tertiary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.presentation-weather-heading > span {
+  flex-shrink: 0;
+}
+.presentation-weather-days {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(82px, 1fr);
+  gap: 4px;
+  overflow-x: auto;
+  padding: 3px 2px 9px;
+  scrollbar-width: thin;
+}
+.presentation-weather-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  padding: 12px 8px 13px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  transition:
+    background var(--fast) var(--ease),
+    border-color var(--fast) var(--ease);
+}
+.presentation-weather-day:hover {
+  background: var(--wash);
+}
+.presentation-weather-day:active {
+  background: var(--accent-soft);
+}
+.presentation-weather-day:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+.presentation-weather-day.is-selected {
+  border-color: var(--accent-dim);
+  background: var(--accent-soft);
+}
+.presentation-weather-weekday {
+  font-size: 13px;
+  font-weight: 530;
+}
+.presentation-weather-date {
+  margin-top: -4px;
+  color: var(--text-tertiary);
+  font-size: 11px;
+}
+.presentation-weather-day > svg {
+  margin: 7px 0 3px;
+  color: var(--text-secondary);
+}
+.presentation-weather-day.is-selected > svg {
+  color: var(--focus);
+}
+.presentation-weather-condition {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.presentation-weather-temperatures {
+  display: flex;
+  gap: 7px;
+  align-items: baseline;
+  font-size: 15px;
+}
+.presentation-weather-temperatures strong {
+  font-weight: 560;
+}
+.presentation-weather-temperatures > span {
+  color: var(--text-tertiary);
+  font-size: 13px;
+}
+.presentation-weather-rain {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+.presentation-weather-source {
+  flex-wrap: wrap;
+  gap: 3px 12px;
+  margin-top: 7px;
+  font-size: 11px;
+}
+@media (min-width: 1100px) {
+  .presentation-scenes-compare {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+@media (max-width: 620px) {
+  .assistant-presentation {
+    margin: 16px 0 20px;
+  }
+  .presentation-weather-heading {
+    gap: 8px;
+  }
+  .presentation-weather-heading > span {
+    font-size: 11px;
+  }
+  .presentation-weather-heading h3 {
+    font-size: 15px;
+  }
+  .presentation-weather-days {
+    grid-auto-columns: minmax(82px, 1fr);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .presentation-weather-day {
+    transition: none;
+  }
+}

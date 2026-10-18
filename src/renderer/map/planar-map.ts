@@ -22,7 +22,8 @@ import { measureTextHeight } from 'ol/render/canvas';
 import type { Bounds, LocationFix, MapPoint, MapRouteResult, LngLat } from '../../shared/map-v2';
 import { mapRoutePointName } from '../../shared/map-v2';
 import { redundantReferenceCaptions } from '../../shared/map-names';
-import { CameraOwnership, SelectedMapPoints } from './map-state';
+import { metersBetween } from '../../shared/map-routing';
+import { CameraOwnership, SelectedMapPoints, contextRouteSegments } from './map-state';
 import { darkMapPalette, lightMapPalette, landSurfacePaint, sportSurfacePaint, type MapPalette } from './map-theme';
 import { geometryLayer } from './geometry-layer';
 import { isPedestrianHighway, isCoveredRoad, isMajorHighway, isBuildingPassage, isHistoricalBridge } from './road-semantics';
@@ -31,7 +32,7 @@ import { endpointCaptionGap, pairedCaptionSides, mapFitInsets, mapLabelObstructi
 import { namedWaterAreas, namedWaterHit } from './named-water';
 import type { FeatureCollection, Feature as WaterFeature } from 'geojson';
 
-import type { SavedCamera, MapData, MapCallbacks } from './map-types';
+import type { SavedCamera, MapData, MapCallbacks, MapSurfaceOptions, MapMotionResult } from './map-types';
 export type { SavedCamera, MapData, MapCallbacks } from './map-types';
 const gray = (hex: string, alpha: number) => {
   const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
@@ -56,6 +57,12 @@ export class PlanarCampusMap {
   private captionSides:boolean[]=[false,false];
   private entrancesVisible=false;
   private activeRoute?:MapRouteResult;
+  private contextRouteResults:MapRouteResult[]=[];
+  private routeMeasures:{coordinate:LngLat;meters:number}[]=[];
+  private routeSpans:{coordinates:LngLat[];start:number;end:number;dashed:boolean;unverified:boolean}[]=[];
+  private revealFrame=0;
+  private revealStop?:()=>void;
+  private routeMotion=false;
   private hovered?: string;
   private hoverLevels = new globalThis.Map<string, number>();
   private frame = 0;
@@ -91,6 +98,7 @@ export class PlanarCampusMap {
     readonly data: MapData,
     private callbacks: MapCallbacks,
     saved?: SavedCamera,
+    options: MapSurfaceOptions = {},
   ) {
     target.dataset.ready='false';delete target.dataset.graphicsFallbackReason;
     this.palette = document.documentElement.dataset.theme === 'dark' ? darkMapPalette : lightMapPalette;
@@ -240,7 +248,7 @@ export class PlanarCampusMap {
         keyboard: false,
         onFocusOnly: true,
       }).extend([
-        new MouseWheelZoom({duration:0,timeout:0,maxDelta:4,constrainResolution:false}),
+        new MouseWheelZoom({duration:0,timeout:0,maxDelta:4,constrainResolution:false,condition:event=>!options.cooperativeGestures||(event.originalEvent as WheelEvent).ctrlKey||(event.originalEvent as WheelEvent).metaKey}),
         new PinchRotate({ threshold: 0.04, duration: 160 }),
         new DragRotate({ condition: shiftKeyOnly }),
       ]),
@@ -248,7 +256,7 @@ export class PlanarCampusMap {
     });
     const useCanvas = () => {
       if (this.disposed || this.geography) return;
-      this.view.cancelAnimations();
+      this.cancelMotion();
       const old = this.baseLayer;
       this.geography = geometryLayer(this.source, (f, r) => this.baseStyle(f, r), () => this.styleRevision);
       this.baseLayer = this.geography.layer;
@@ -260,13 +268,18 @@ export class PlanarCampusMap {
     const lost = (event: Event) => { event.preventDefault();queueMicrotask(useCanvas); };
     target.addEventListener('webglcontextlost', lost, true);
     this.cleanup.push(() => target.removeEventListener('webglcontextlost', lost, true));
-    if (!saved)
+    if(options.initialRoute?.status==='ready')this.route(options.initialRoute);
+    else if(options.initialRoute?.to)this.select(options.initialRoute.to,undefined,false);
+    if (!saved&&options.initialRoute?.status==='ready')this.fitRoute(options.initialRoute,this.ownership.ticket(),false);
+    else if(!saved&&options.initialRoute?.to)this.view.fit(transformExtent(options.initialRoute.to.bounds,'EPSG:4326','EPSG:3857'),{padding:this.padding(),maxZoom:18.5,duration:0});
+    else if (!saved)
       this.view.fit(transformExtent(data.manifest.campusBounds, 'EPSG:4326', 'EPSG:3857'), {
         padding: [88, 68, 75, 28],
         duration: 0,
       });
     this.updateDetail();
-    const onInput = () => {
+    const onInput = (event:Event) => {
+      if(event instanceof WheelEvent&&options.cooperativeGestures&&!event.ctrlKey&&!event.metaKey)return;
       target.focus({ preventScroll: true });
       this.takeControl();
       this.setHover(undefined);
@@ -359,7 +372,7 @@ export class PlanarCampusMap {
       () => this.contrast.removeEventListener('change', theme),
     );
     const reduced = () => {
-      if (this.reduce.matches) this.view.cancelAnimations();
+      if (this.reduce.matches) this.cancelMotion();
     };
     this.reduce.addEventListener('change', reduced);
     this.cleanup.push(() => this.reduce.removeEventListener('change', reduced));
@@ -632,6 +645,8 @@ export class PlanarCampusMap {
   }
   private routeStyle(f: Feature): Style | Style[] {
     const p = this.palette;
+    if(f.get('context'))return new Style({zIndex:0,stroke:new Stroke({color:gray(p.secondaryText,.45),width:2,lineDash:f.get('dashed')?[4,6]:undefined,lineCap:f.get('dashed')?'butt':'round',lineJoin:'round'})});
+    if(f.get('reveal'))return new Style({zIndex:3,stroke:new Stroke({color:p.selected,width:f.get('dashed')?2.6:4,lineDash:f.get('dashed')?[5,5]:undefined,lineCap:f.get('unverified')?'butt':'round',lineJoin:'round'})});
     if(f.get('preview')) return f.getGeometry() instanceof Point ? new Style({zIndex:4,image:new CircleStyle({radius:6,fill:new Fill({color:p.halo}),stroke:new Stroke({color:p.text,width:2})})}) : new Style({zIndex:4,stroke:new Stroke({color:p.text,width:f.get('dashed')?2.6:4,lineDash:f.get('dashed')?[5,5]:undefined,lineCap:f.get('unverified')?'butt':'round'})});
     if (f.get('endpoint'))
       return new Style({
@@ -749,20 +764,26 @@ export class PlanarCampusMap {
     this.labelLayer.changed();
   }
   route(result: MapRouteResult) {
+    if(this.activeRoute!==result){
+      if(this.routeMotion)this.cancelMotion();
+      else this.stopReveal();
+    }
     this.activeRoute=result;this.refreshHighlights();
     this.routeSource.clear();
+    this.routeMeasures=[];this.routeSpans=[];
     this.target.dataset.routeStatus = result.status;
-    if (result.status !== 'ready' || result.coordinates.length < 2) return;
+    if (result.status !== 'ready' || result.coordinates.length < 2) {this.contextRoutes(this.contextRouteResults);return;}
     const coords = result.coordinates.map((c) => fromLonLat(c));
+    let total=0;for(const [i,coordinate] of result.coordinates.entries()){if(i)total+=metersBetween(result.coordinates[i-1],coordinate);this.routeMeasures.push({coordinate,meters:total});}
+    let vertex=0;this.routeSpans=(result.segments||[{coordinates:result.coordinates,kind:'network' as const}]).map(s=>{const start=this.routeMeasures[vertex]?.meters||0;vertex+=Math.max(0,s.coordinates.length-1);return {coordinates:s.coordinates,start,end:this.routeMeasures[vertex]?.meters||start,dashed:s.kind==='estimate'||'conditions' in s&&!!s.conditions?.length,unverified:'conditions' in s&&!!s.conditions?.length};});
     this.routeSource.addFeatures([
       ...(result.segments?.map(s=>new Feature({geometry:new LineString(s.coordinates.map(c=>fromLonLat(c))),estimated:s.kind==='estimate',unverified:!!s.conditions?.length}))||[new Feature(new LineString(coords))]),
       new Feature({ geometry: new Point(coords[0]), endpoint: 'A' }),
       new Feature({ geometry: new Point(coords.at(-1)!), endpoint: 'B' }),
     ]);
-    const canvas = this.target.querySelector<HTMLCanvasElement>('.campus-v2-route-layer canvas');
-    if (canvas && !this.reduce.matches)
-      canvas.animate([{ opacity: 0.35 }, { opacity: 1 }], { duration: 240, easing: 'ease-out' });
+    this.contextRoutes(this.contextRouteResults);
   }
+  contextRoutes(routes:MapRouteResult[]){this.contextRouteResults=routes;for(const feature of this.routeSource.getFeatures().filter(f=>f.get('context')))this.routeSource.removeFeature(feature);const segments=contextRouteSegments(this.activeRoute,routes);this.routeSource.addFeatures(segments.map(s=>new Feature({context:true,dashed:s.dashed,geometry:new LineString(s.coordinates.map(c=>fromLonLat(c)))})));this.target.dataset.contextEdges=String(segments.length);}
   location(fix?: LocationFix) {
     this.locationSource.clear();
     if (!fix) return;
@@ -787,12 +808,32 @@ export class PlanarCampusMap {
   project(coordinate: LngLat) { return this.map.getPixelFromCoordinate(fromLonLat(coordinate)); }
   setPitch(_pitch: number) { /* Compatibility view remains planar, explicitly labelled. */ }
   preview(progress?: number) {
+    this.stopReveal();
     for(const f of this.routeSource.getFeatures().filter(f=>f.get('preview')))this.routeSource.removeFeature(f);
-    const r=this.activeRoute;if(progress===undefined||r?.status!=='ready'||!r.segments?.length)return;
-    const distance=Math.max(0,Math.min(1,progress))*(r.distance?.totalM||0);let used=0;
-    const s=r.segments.find((s,i)=>{if(used+s.meters>=distance||i===r.segments!.length-1)return true;used+=s.meters;return false;})!;
-    const t=s.meters?(distance-used)/s.meters:0,a=s.coordinates[0],b=s.coordinates.at(-1)!;
-    this.routeSource.addFeatures([new Feature({geometry:new LineString(s.coordinates.map(c=>fromLonLat(c))),preview:true,dashed:s.kind==='estimate'||!!s.conditions?.length,unverified:!!s.conditions?.length}),new Feature({geometry:new Point(fromLonLat([a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t])),preview:true})]);
+    const r=this.activeRoute;if(progress===undefined||r?.status!=='ready')return;
+    const distance=Math.max(0,Math.min(1,progress))*(this.routeMeasures.at(-1)?.meters||0),s=this.routeSpans.find(s=>s.end>=distance)||this.routeSpans.at(-1);if(!s)return;
+    this.routeSource.addFeatures([new Feature({geometry:new LineString(s.coordinates.map(c=>fromLonLat(c))),preview:true,dashed:s.dashed,unverified:s.unverified}),new Feature({geometry:new Point(fromLonLat(this.atDistance(distance))),preview:true})]);
+  }
+  private atDistance(distance:number):LngLat {
+    const ms=this.routeMeasures,i=ms.findIndex(p=>p.meters>=distance);
+    if(i<=0)return (i===0?ms[0]:ms.at(-1))?.coordinate||[0,0];
+    const a=ms[i-1],b=ms[i],t=(distance-a.meters)/(b.meters-a.meters||1);
+    return [a.coordinate[0]+t*(b.coordinate[0]-a.coordinate[0]),a.coordinate[1]+t*(b.coordinate[1]-a.coordinate[1])];
+  }
+  private clearReveal(){for(const f of this.routeSource.getFeatures().filter(f=>f.get('reveal')))this.routeSource.removeFeature(f);}
+  private stopReveal(){this.revealStop?.();cancelAnimationFrame(this.revealFrame);this.revealFrame=0;this.clearReveal();}
+  private reveal(ticket:number):Promise<boolean>{
+    this.stopReveal();const total=this.routeMeasures.at(-1)?.meters||0;
+    if(!total||this.reduce.matches)return Promise.resolve(this.ownership.accepts(ticket));
+    return new Promise(resolve=>{
+      let settled=false,unsubscribe=()=>{};
+      const finish=(complete:boolean)=>{if(settled)return;settled=true;unsubscribe();cancelAnimationFrame(this.revealFrame);this.revealFrame=0;this.revealStop=undefined;this.clearReveal();resolve(complete);};
+      this.revealStop=()=>finish(false);unsubscribe=this.ownership.onCancel(ticket,this.revealStop);if(settled)return;
+      const start=performance.now(),duration=Math.max(640,Math.min(1400,480+total*.65));
+      const frame=(now:number)=>{if(!this.ownership.accepts(ticket)){finish(false);return;}const t=Math.min(1,(now-start)/duration),from=Math.max(0,t-.12)*total,to=t*total;
+        this.clearReveal();this.routeSource.addFeatures(this.routeSpans.filter(s=>s.end>from&&s.start<to).map(s=>new Feature({reveal:true,dashed:s.dashed,unverified:s.unverified,geometry:new LineString((s.dashed?s.coordinates:[this.atDistance(Math.max(from,s.start)),...this.routeMeasures.filter(p=>p.meters>Math.max(from,s.start)&&p.meters<Math.min(to,s.end)).map(p=>p.coordinate),this.atDistance(Math.min(to,s.end))]).map(c=>fromLonLat(c)))})));
+        if(t<1)this.revealFrame=requestAnimationFrame(frame);else finish(true);};this.revealFrame=requestAnimationFrame(frame);
+    });
   }
   showEntrances(visible: boolean) { this.entrancesVisible=visible;this.refreshHighlights(); }
   updatePlaces(places: MapPoint[]) { this.pointIndex = new globalThis.Map(places.map(p=>[p.id,p])); this.redundantNames=redundantReferenceCaptions(this.pointIndex.values(),new Set([this.selection.selected,this.selection.origin].filter(Boolean) as string[])); this.refreshHighlights(); this.labelLayer.changed(); }
@@ -839,8 +880,28 @@ export class PlanarCampusMap {
       });
   }
   takeControl() {
-    this.ownership.take();
+    const ticket=this.ownership.take();
+    this.routeMotion=false;
     this.view.cancelAnimations();
+    this.stopReveal();this.target.dataset.motion='cancelled';return ticket;
+  }
+  cancelMotion(){this.ownership.cancel();this.routeMotion=false;this.view.cancelAnimations();this.stopReveal();this.target.dataset.motion='cancelled';}
+  restore(camera:SavedCamera){this.takeControl();this.view.setCenter(camera.center.slice());this.view.setResolution(camera.resolution);this.view.setRotation(camera.rotation);}
+  private cameraMotion(ticket:number,move:(complete:(completed:boolean)=>void)=>void):Promise<boolean>{
+    if(!this.ownership.accepts(ticket))return Promise.resolve(false);
+    return new Promise(resolve=>{let settled=false,unsubscribe=()=>{};const finish=(completed:boolean)=>{if(settled)return;settled=true;unsubscribe();resolve(completed&&this.ownership.accepts(ticket));};unsubscribe=this.ownership.onCancel(ticket,()=>finish(false));if(!settled)move(finish);});
+  }
+  async explainRoute(result:MapRouteResult):Promise<MapMotionResult>{
+    if(this.disposed||result.status!=='ready'||result.coordinates.length<2)return 'cancelled';
+    this.route(result);const ticket=this.takeControl();this.routeMotion=true;this.target.dataset.motionTicket=String(ticket);this.target.dataset.motion='overview';
+    if(!await this.cameraMotion(ticket,complete=>this.fitRoute(result,ticket,true,complete)))return 'cancelled';
+    this.target.dataset.motion='route';if(!await this.reveal(ticket))return 'cancelled';
+    const access=result.destinationAccess,total=this.routeMeasures.at(-1)?.meters||0;
+    if(!this.reduce.matches&&access?.kind==='entrance'&&!access.conditions?.length&&total>200){
+      this.target.dataset.motion='entrance';const cs=[this.atDistance(Math.max(0,total-110)),...this.routeMeasures.filter(p=>p.meters>=total-110).map(p=>p.coordinate),access.coordinate];
+      if(!await this.cameraMotion(ticket,callback=>this.view.fit(new MultiPoint(cs.map(c=>fromLonLat(c))),{padding:this.padding(),maxZoom:18.1,duration:this.duration(340),easing:easeOut,callback})))return 'cancelled';
+    }
+    if(!this.ownership.accepts(ticket))return 'cancelled';this.routeMotion=false;this.target.dataset.motion='completed';return 'completed';
   }
   private duration(ms: number) {
     return this.reduce.matches || this.geography ? 0 : ms;
@@ -888,10 +949,11 @@ export class PlanarCampusMap {
     const p = mapFitInsets(this.target, caption);
     return [p.top, p.right, p.bottom, p.left];
   }
-  fitRoute(result: MapRouteResult, ticket?: number) {
-    if (result.status !== 'ready' || !result.coordinates.length) return;
-    if (ticket !== undefined && !this.ownership.accepts(ticket)) return;
+  fitRoute(result: MapRouteResult, ticket?: number, animate=true, complete?:(completed:boolean)=>void) {
+    if (result.status !== 'ready' || !result.coordinates.length) {complete?.(false);return;}
+    if (ticket !== undefined && !this.ownership.accepts(ticket)) {complete?.(false);return;}
     if (ticket === undefined) this.takeControl();
+    if (ticket === undefined) {this.routeMotion=true;this.target.dataset.motion='route-fit';}
     const wasAnimating = this.view.getAnimating();
     this.view.cancelAnimations();
     const fitCoordinates = result.coordinates.slice();
@@ -906,9 +968,9 @@ export class PlanarCampusMap {
         { font: '500 12px "Noto Sans SC Variable", sans-serif', size: 12, offsetY: -endpointCaptionGap, padding: 5, horizontalPadding: 8, marker: 13.5, maxWidthEm: 14, anchor: 'bottom', lineHeightPx: measureTextHeight('500 12px "Noto Sans SC Variable", sans-serif') }));
     const visible = coords.every((c) => {
       const p = this.map.getPixelFromCoordinate(c);
-      return p[0] >= pad[3] && p[0] <= size[0] - pad[1] && p[1] >= pad[0] && p[1] <= size[1] - pad[2];
+      return !!p&&p[0] >= pad[3] && p[0] <= size[0] - pad[1] && p[1] >= pad[0] && p[1] <= size[1] - pad[2];
     });
-    if (visible && !wasAnimating) return;
+    if (visible && !wasAnimating) {complete?.(true);return;}
     this.view.cancelAnimations();
     const geometry = new MultiPoint(coords), rotated = geometry.clone();
     rotated.rotate(-this.view.getRotation(), [0, 0]);
@@ -918,8 +980,9 @@ export class PlanarCampusMap {
     this.view.fit(geometry, {
       padding: pad,
       maxZoom: 18.3,
-      duration: this.duration(340),
+      duration: animate?this.duration(340):0,
       easing: easeOut,
+      callback:complete,
     });
   }
   locate(fix: LocationFix, intro = false, ticket?: number) {
@@ -973,6 +1036,7 @@ export class PlanarCampusMap {
   dispose() {
     this.disposed = true;
     this.ownership.destroy();
+    this.stopReveal();
     this.view.cancelAnimations();
     clearTimeout(this.hoverTimer);
     cancelAnimationFrame(this.frame);

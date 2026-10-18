@@ -1,4 +1,4 @@
-import type { MapOverview, MapPoint } from '../../shared/map-v2';
+import type { MapOverview, MapPoint, MapRouteResult } from '../../shared/map-v2';
 import type { MapVenue } from '../../shared/map-v3';
 
 export interface SavedCamera {
@@ -15,6 +15,13 @@ export interface MapData {
   sports?: object;
   venues?: MapVenue[];
 }
+export interface MapSurfaceOptions {
+  /** A usable first frame; restoring a saved camera takes precedence. */
+  initialRoute?: MapRouteResult;
+  /** Embedded maps leave ordinary wheel scrolling to their conversation. */
+  cooperativeGestures?: boolean;
+}
+export type MapMotionResult = 'completed' | 'cancelled';
 export interface MapCallbacks {
   choose: (p: MapPoint) => void;
   candidates: (ps: MapPoint[]) => void;

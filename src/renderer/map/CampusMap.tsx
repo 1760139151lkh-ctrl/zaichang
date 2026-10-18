@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef, useState, type RefObject, type ReactNode } from 'react';
+import { useEffect, useId, useReducer, useRef, useState, type RefObject, type ReactNode } from 'react';
 import {
   ArrowLeft,
   ArrowLeftRight,
@@ -40,10 +40,9 @@ import { WindowControls } from '../ui';
 
 const api = window.zaichang;
 let dataCache: MapData | undefined;
-let savedCamera: SavedCamera | undefined = import.meta.hot?.data.campusMapCamera;
-import.meta.hot?.dispose((data)=>{data.campusMapCamera=savedCamera;});
-let savedSelection: SelectionState | undefined;
-let entered = false;
+export interface MapSurfaceMemory { camera?: SavedCamera; selection?: SelectionState; entered?: boolean }
+const standaloneMemory: MapSurfaceMemory = import.meta.hot?.data.campusMapMemory || {};
+import.meta.hot?.dispose((data)=>{data.campusMapMemory=standaloneMemory;});
 let sessionLocationEnabled = true;
 async function loadData(signal: AbortSignal): Promise<MapData> {
   const current=await api.mapOverview();
@@ -64,7 +63,7 @@ async function loadData(signal: AbortSignal): Promise<MapData> {
   if (signal.aborted) throw new DOMException('Cancelled', 'AbortError');
   return (dataCache = { manifest, places, geography, sports, venues });
 }
-function initialState(route: MapRouteResult): SelectionState {
+function initialState(route: MapRouteResult, memory: MapSurfaceMemory): SelectionState {
   if(route.to?.kind==='water')return {...initialSelection,destination:route.to};
   if(route.from?.kind==='water')return {...initialSelection,mode:'two',stage:'origin',destination:route.to};
   if (route.schemaVersion === 'map-route/v2' && route.to)
@@ -73,9 +72,9 @@ function initialState(route: MapRouteResult): SelectionState {
       mode: route.from ? 'two' : 'current',
       origin: route.from,
       destination: route.to,
-      route: emptyRoute(),
+      route,
     };
-  if (savedSelection) return { ...savedSelection, route: emptyRoute() };
+  if (memory.selection) return { ...memory.selection, route: emptyRoute() };
   return { ...initialSelection };
 }
 function distanceLabel(m: number) {
@@ -135,7 +134,7 @@ export function MapRouteCard({ card, onOpen }: { card: MapCard; onOpen: () => vo
     </button>
   );
 }
-export function MapSheet({
+export function MapSurface({
   initialRoute,
   onClose,
   onUseContext,
@@ -143,6 +142,11 @@ export function MapSheet({
   returnLabel = '返回对话',
   reviewScene,
   reviewControls,
+  inline = false,
+  memory = standaloneMemory,
+  onChoose,
+  onEngine,
+  onTakeControl,
 }: {
   initialRoute: MapRouteResult;
   onClose: () => void;
@@ -151,10 +155,19 @@ export function MapSheet({
   returnLabel?: string;
   reviewScene?: 'overview' | 'top-down' | 'oblique' | 'route-demo' | 'building-focus';
   reviewControls?: ReactNode;
+  inline?: boolean;
+  memory?: MapSurfaceMemory;
+  onChoose?: (point: MapPoint) => void;
+  onEngine?: (engine: CampusMapEngine | undefined) => void;
+  onTakeControl?: () => void;
 }) {
-  const dialog = useRef<HTMLDialogElement>(null),
-    stage = useRef<HTMLDivElement>(null),
+  const stage = useRef<HTMLDivElement>(null),
     engine = useRef<CampusMapEngine | undefined>(undefined);
+  const searchId=useId();
+  const handlers = useRef({onChoose,onEngine,onTakeControl});
+  handlers.current={onChoose,onEngine,onTakeControl};
+  const routeRef=useRef(initialRoute);routeRef.current=initialRoute;
+  const sceneRouteRef=useRef(initialRoute);
   const compass = useRef<HTMLSpanElement>(null),
     scale = useRef<HTMLDivElement>(null),
     search = useRef<HTMLInputElement>(null),
@@ -164,7 +177,7 @@ export function MapSheet({
     [attempt, setAttempt] = useState(0),
     [engineReady, setEngineReady] = useState(false);
   const dataRef=useRef(data);dataRef.current=data;
-  const [selection, dispatch] = useReducer(selectionReducer, initialRoute, (r) => reviewScene === 'building-focus' && r.to ? {...initialSelection, destination:r.to} : initialState(r)),
+  const [selection, dispatch] = useReducer(selectionReducer, initialRoute, (r) => inline&&memory.selection?memory.selection:reviewScene === 'building-focus' && r.to ? {...initialSelection, destination:r.to} : initialState(r,memory)),
     selectionRef = useRef(selection);
   selectionRef.current = selection;
   const [query, setQuery] = useState(''),
@@ -175,7 +188,7 @@ export function MapSheet({
     [candidates, setCandidates] = useState<MapPoint[]>([]),
     [about, setAbout] = useState(false),
     [help, setHelp] = useState(false);
-  const [pitch,setPitch]=useState(savedCamera?.pitch||0),[spaceControls,setSpaceControls]=useState(false),[preview,setPreview]=useState<number|undefined>(),[routeDetails,setRouteDetails]=useState(false),[collapsed,setCollapsed]=useState(false),[entrances,setEntrances]=useState(false);
+  const [pitch,setPitch]=useState(memory.camera?.pitch||0),[spaceControls,setSpaceControls]=useState(false),[preview,setPreview]=useState<number|undefined>(),[routeDetails,setRouteDetails]=useState(false),[collapsed,setCollapsed]=useState(false),[entrances,setEntrances]=useState(false);
   const [selectionNotice,setSelectionNotice]=useState('');
   const reviewRouteFramed = useRef(false);
   const appliedReviewScene=useRef<typeof reviewScene>(undefined);
@@ -217,11 +230,11 @@ export function MapSheet({
   }
   const locationRef = useRef(location);
   locationRef.current = location;
-  const tracking = useRef(sessionLocationEnabled);
+  const tracking = useRef(!inline && sessionLocationEnabled);
   const alive = useRef(true),
     locationRevision = useRef(0),
     touched = useRef(false),
-    first = useRef(!entered),
+    first = useRef(!memory.entered),
     introDone = useRef(false);
   const initialDestination = useRef(
     initialRoute.schemaVersion === 'map-route/v2' ? initialRoute.to?.id : undefined,
@@ -234,6 +247,7 @@ export function MapSheet({
   const shown = results.slice(0, 40);
   const exact=uniqueExactMapPoint(shown,query),activeResult=resultIndex>=0?resultIndex:exact?shown.findIndex(p=>p.id===exact.id):shown.length===1?0:-1;
   function user() {
+    handlers.current.onTakeControl?.();
     setSelectionNotice('');
     activity.current++;
     touched.current = true;
@@ -243,7 +257,8 @@ export function MapSheet({
   function choose(point: MapPoint) {
     user();
     engine.current?.takeControl();
-    if(point.kind==='water'&&selectionRef.current.mode!=='browse')setSelectionNotice('水域仅供浏览，请选择岸边的建筑或地点。');
+    if(inline){dispatch({type:'browse'});dispatch({type:'choose',point});handlers.current.onChoose?.(point);}
+    else if(point.kind==='water'&&selectionRef.current.mode!=='browse')setSelectionNotice('水域仅供浏览，请选择岸边的建筑或地点。');
     else dispatch({ type: 'choose', point });
     setSearchOpen(false);
     setQuery('');
@@ -269,15 +284,11 @@ export function MapSheet({
   }
   useEffect(() => {
     alive.current = true;
-    const opener = document.activeElement as HTMLElement | null;
-    dialog.current?.showModal();
-    entered = true;
+    memory.entered = true;
     return () => {
       alive.current = false;
       locationRevision.current++;
-      savedSelection = { ...selectionRef.current, route: emptyRoute() };
-      dialog.current?.close();
-      if (opener?.isConnected) opener.focus({ preventScroll: true });
+      memory.selection = { ...selectionRef.current, route: emptyRoute() };
     };
   }, []);
   useEffect(() => {
@@ -313,7 +324,7 @@ export function MapSheet({
             },
             user,
             camera: (c) => {
-              savedCamera = c;
+              memory.camera = c;
               if(Math.abs((c.pitch||0)-pitchValue.current)>.1){pitchValue.current=c.pitch||0;setPitch(c.pitch||0);}
               if (c.rotation !== feedback.current.rotation) {
                 const needle = compass.current?.querySelector('i');
@@ -351,11 +362,12 @@ export function MapSheet({
               }
             },
             ready: () => {
-              if (alive.current) setEngineReady(true);
+              if (alive.current) {setEngineReady(true);handlers.current.onEngine?.(engine.current);}
             },
             error: setLoadError,
           },
-          savedCamera,
+          memory.camera,
+          {initialRoute:inline?routeRef.current:undefined,cooperativeGestures:inline},
         );
         engine.current = map;
         if (touched.current) map.takeControl();
@@ -369,7 +381,7 @@ export function MapSheet({
       engine.current = undefined;
     };
   }, [data]);
-  useEffect(()=>()=>{engine.current?.dispose();engine.current=undefined;},[]);
+  useEffect(()=>()=>{engine.current?.dispose();engine.current=undefined;handlers.current.onEngine?.(undefined);},[]);
   useEffect(() => {
     const current=engine.current;
     if(reviewScene!=='route-demo'||!engineReady||!current||selection.route.status!=='ready'||reviewRouteFramed.current)return;
@@ -392,16 +404,22 @@ export function MapSheet({
   // Profile edits are local and infrequent. Refresh labels and endpoints from
   // their sole owner without recreating geometry, camera or the route task.
   useEffect(()=>{
-    if(!data)return;
+    if(!data||inline)return;
     let stopped=false;
     const timer=setInterval(async()=>{try{const m=await api.mapOverview();if(stopped)return;if(m.version!==data.manifest.version||m.dataStatus!==data.manifest.dataStatus){const next=api.mapDataJson?JSON.parse(await api.mapDataJson()):await api.mapData();if(!stopped){dataCache=next;setData(next);dispatch({type:'rebind',places:next.places});}return;}if(m.profileRevision===data.manifest.profileRevision)return;const places=await api.mapPlaces();if(stopped)return;data.manifest=m;data.places=places;engine.current?.updatePlaces(places);dispatch({type:'rebind',places});}catch{}},3000);
     return()=>{stopped=true;clearInterval(timer);};
-  },[data]);
+  },[data,inline]);
   useEffect(() => {
-    if (engineReady) engine.current?.select(selection.destination, selection.mode==='browse'?undefined:selection.origin,selection.mode!=='browse');
-  }, [engineReady, selection.destination, selection.origin,selection.mode]);
+    if (engineReady) engine.current?.select(selection.destination, inline?initialRoute.from:selection.mode==='browse'?undefined:selection.origin,inline?initialRoute.status==='ready'&&selection.destination?.id===initialRoute.to?.id:selection.mode!=='browse');
+  }, [engineReady, selection.destination, selection.origin,selection.mode,inline,initialRoute]);
+  useEffect(()=>{
+    if(!inline||sceneRouteRef.current===initialRoute)return;
+    sceneRouteRef.current=initialRoute;memory.selection=undefined;
+    if(initialRoute.from)dispatch({type:'start',point:initialRoute.from});
+    if(initialRoute.to)dispatch({type:'choose',point:initialRoute.to});
+  },[inline,initialRoute,memory]);
   useEffect(() => {
-    if (engineReady && initialDestination.current && !touched.current) {
+    if (!inline && engineReady && initialDestination.current && !touched.current) {
       const point = data?.places.find((p) => p.id === initialDestination.current);
       initialDestination.current = undefined;
       if (point) {
@@ -411,9 +429,12 @@ export function MapSheet({
     }
   }, [engineReady]);
   useEffect(() => {
-    if (engineReady) engine.current?.route(selection.mode==='browse' ? emptyRoute() : selection.route);
+    if (engineReady) engine.current?.route(inline?initialRoute:selection.mode==='browse' ? emptyRoute() : selection.route);
     setPreview(undefined);
-  }, [engineReady, selection.route, selection.mode]);
+  }, [engineReady, selection.route, selection.mode,inline,initialRoute]);
+  useEffect(()=>{
+    if(inline&&engineReady){const point=memory.selection?.destination||initialRoute.to;engine.current?.select(point,initialRoute.from,initialRoute.status==='ready'&&point?.id===initialRoute.to?.id);}
+  },[inline,engineReady,initialRoute]);
   useEffect(() => {
     if (engineReady) engine.current?.preview(preview===undefined?undefined:preview/100);
   }, [engineReady, preview]);
@@ -421,7 +442,7 @@ export function MapSheet({
     // A new dataset disposes the old engine before the next ready render.
     // React can still run this effect with the preceding ready flag in that
     // commit. Defer the request until the current instance is actually alive.
-    if (!data || !engineReady || !engine.current?.ownership.alive || !selection.destination || selection.stage === 'origin' || selection.mode==='browse') return;
+    if (inline || !data || !engineReady || !engine.current?.ownership.alive || !selection.destination || selection.stage === 'origin' || selection.mode==='browse') return;
     let current = true;
     const revision = selection.revision;
     dispatch({ type: 'loading', revision });
@@ -508,6 +529,7 @@ export function MapSheet({
     if (selectionRef.current.mode === 'current') dispatch({ type: 'retry' });
   }
   useEffect(() => {
+    if(inline)return;
     void requestRef.current();
     const timer = setInterval(() => {
       if (['fresh', 'approximate', 'outside'].includes(locationRef.current.status)) void requestRef.current();
@@ -546,7 +568,7 @@ export function MapSheet({
   }, [query, onlyConnected]);
   useEffect(() => {
     if (searchOpen)
-      document.getElementById(`campus-result-${resultIndex}`)?.scrollIntoView({ block: 'nearest' });
+      document.getElementById(`${searchId}-result-${resultIndex}`)?.scrollIntoView({ block: 'nearest' });
   }, [resultIndex]);
   function cancel(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -573,15 +595,11 @@ export function MapSheet({
       ? engine.current.project(hover.coordinate)
       : undefined;
   return (
-    <dialog
-      ref={dialog}
-      className="campus-v2-dialog"
+    <section
+      className={`campus-v2-dialog campus-v2-surface${inline?' campus-map-inline':''}`}
       aria-label="校园地图"
-      onCancel={cancel}
-      onKeyDownCapture={() => {
-        activity.current++;
-        touched.current = true;
-      }}
+      onKeyDown={(event)=>{if(event.key==='Escape')cancel(event);}}
+      onKeyDownCapture={user}
     >
       <header className="campus-v2-header">
         <button
@@ -615,15 +633,12 @@ export function MapSheet({
           >
             <Info size={18} />
           </button>
-          <WindowControls onClose={onWindowClose} />
+          {!inline && <WindowControls onClose={onWindowClose} />}
         </div>
       </header>
       <div
         className="campus-v2-body"
-        onPointerDown={() => {
-          activity.current++;
-          touched.current = true;
-        }}
+        onPointerDown={user}
       >
         <div
           ref={stage}
@@ -640,10 +655,10 @@ export function MapSheet({
               aria-label="搜索建筑或地点"
               role="combobox"
               aria-expanded={searchOpen}
-              aria-controls="campus-search-results"
+              aria-controls={`${searchId}-results`}
               aria-autocomplete="list"
               aria-activedescendant={
-                searchOpen && shown[activeResult] ? `campus-result-${activeResult}` : undefined
+                searchOpen && shown[activeResult] ? `${searchId}-result-${activeResult}` : undefined
               }
               placeholder="搜索建筑、地点"
               value={query}
@@ -692,11 +707,11 @@ export function MapSheet({
                 <span>只看有已记录入口的地点</span>
                 {onlyConnected ? <Check size={15} /> : <span>全部</span>}
               </button>
-              <div id="campus-search-results" role="listbox" aria-label="地点搜索结果">
+              <div id={`${searchId}-results`} role="listbox" aria-label="地点搜索结果">
                 {shown.map((point, i) => (
                   <button
                     key={point.id}
-                    id={`campus-result-${i}`}
+                    id={`${searchId}-result-${i}`}
                     data-place-id={point.id}
                     role="option"
                     tabIndex={-1}
@@ -1086,8 +1101,17 @@ export function MapSheet({
           </div>
         )}
       </div>
-    </dialog>
+    </section>
   );
+}
+export function MapSheet(props: Parameters<typeof MapSurface>[0]) {
+  const dialog=useRef<HTMLDialogElement>(null);
+  useEffect(()=>{
+    const opener=document.activeElement as HTMLElement|null;
+    dialog.current?.showModal();
+    return ()=>{dialog.current?.close();if(opener?.isConnected)opener.focus({preventScroll:true});};
+  },[]);
+  return <dialog ref={dialog} className="campus-v2-dialog" aria-label="校园地图" onCancel={event=>{event.preventDefault();props.onClose();}}><MapSurface {...props}/></dialog>;
 }
 function fromWgs84([lon, lat]: number[]) {
   return [(6378137 * lon * Math.PI) / 180, 6378137 * Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360))];

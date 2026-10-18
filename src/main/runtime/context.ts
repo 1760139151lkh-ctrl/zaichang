@@ -23,6 +23,7 @@ import type { ModelWireMessage, ProviderMetadata } from '../provider';
 import type { ProviderReceipt } from '../../shared/harness';
 import { usageCost } from './model-usage';
 import type { Completion } from '../provider';
+import { projectMapModelResult } from './map-model-view';
 
 function grams(text: string) {
   const p = Array.from(text.toLowerCase()),
@@ -73,6 +74,7 @@ export class ContextCompiler {
     const prepared = sessionId && canReadHistory && !ingress.requiresReadPurpose && contract.enhancements?.opportunities !== false && scope.sources.includes('work:self')
       ? this.repo.workData(contract.scope, ['help_opportunity'], { sessionId, statuses: ['prepared', 'question_ready', 'notification_queued'], limit: 3 }) : [];
     const preparedMaterials = prepared.map(record => ({ id: record.id, revision: record.revision, title: (record.data.artifact as any)?.title || record.title, expiresAt: record.data.expiresAt,
+      sceneRefs: (record.data.artifact as any)?.sceneRefs || [],
       meaning: '已经实际准备的材料；不是日程或预约。用inspect_help按此ID读取正文、来源与当前版本，不必重新调查已核实的部分。' }));
     const discovered = this.broker.discover(contract.scope);
     const capabilityDirectory = { items: discovered.slice(0, 24).map(item => ({ name: item.name, sourceId: item.sourceId, displayName: item.displayName, description: item.description, effect: item.effect, connected: item.connection.connected, connection: item.connection, executableInThisTurn: item.connection.connected && (item.effect === 'read' || contract.actionMode !== 'respond') })), more: discovered.length > 24, meaning: '仅是许可范围内的非敏感能力说明，没有读取资料或执行动作；存在、已连接、本轮允许执行、实际完成是不同事实。用look_up的capability目录继续搜索、分页或获取输入schema。' };
@@ -97,7 +99,13 @@ export class ContextCompiler {
       currentText: ingress.authoredText,
       data: {
         scope: { subject: scope.subjectId, world: scope.worldId, purpose: contract.purpose, audience: scope.audience, memoryMode: contract.memoryMode, retention: contract.retention },
-        time: { now: contract.now, timeZone: contract.timeZone },
+        time: { now: contract.now, timeZone: contract.timeZone,
+          local: new Intl.DateTimeFormat('zh-CN', { timeZone: contract.timeZone, dateStyle: 'full', timeStyle: 'long', hour12: false }).format(new Date(contract.now)),
+          meaning: 'now中的Z表示UTC，local是宿主按timeZone计算的本地时刻；不能把UTC钟面数字标成本地时间。' },
+        situation: { asOf: contract.now, timeZone: contract.timeZone, versions: this.repo.watermarks(),
+          currentStatements: currentEvents.filter(event => event.speaker === 'user').map(event => ({ evidenceId: event.id, version: event.contentVersion })),
+          coverage: { calendar: 'not_queried', campus: 'not_queried', location: 'not_queried', weather: 'not_queried', energy: 'unknown' },
+          read: '按当前任务发现并读取situation.read、planning.preview及相应来源；未查询、未覆盖、确实为空和当前可用精力分别判断。当前原话与更正优先于旧摘要，必要时展开原始条件。' },
         history, ...(observationSummaries.length ? { recentObservations: observationSummaries } : {}), ...(ingress.threadContextAllowed ? { historyUse: '仅作为同一对话里用户已提供的背景理解当前假设；不代表假设已在现实发生，也未读取本人长期画像或其他会话。' } : {}), currentSources: currentEvents.map(e => ({ id: e.id, sourceId: e.sourceId, authority: e.authority, text: e.text })),
         currentMatter, ...(preparedMaterials.length ? { preparedMaterials } : {}), capabilityDirectory,
         currentFacts: {}, correctionOverlay: [], workState: [], needs: [],
@@ -241,6 +249,19 @@ export class ContextCompiler {
       else pack.receipt.providedObjectVersions.push({ id: record.id, revision: record.revision, kind });
     }
   }
+  private recordDomainObjects(pack: ContextPack, records: any[]) {
+    for (const record of records) {
+      if (!record || !Number.isSafeInteger(record.revision) || record.revision < 1
+        || ['id', 'sourceId', 'domain', 'institutionId', 'termId'].some(key => typeof record[key] !== 'string' || !record[key])) continue;
+      const ref = { kind: 'domain' as const, id: record.id as string, revision: record.revision as number,
+        sourceId: record.sourceId as string, domain: record.domain as string,
+        institutionId: record.institutionId as string, termId: record.termId as string };
+      const previous = pack.receipt.providedObjectVersions.find(value => value.kind === 'domain' && value.id === ref.id
+        && value.sourceId === ref.sourceId && value.domain === ref.domain && value.institutionId === ref.institutionId && value.termId === ref.termId);
+      if (previous) previous.revision = ref.revision;
+      else pack.receipt.providedObjectVersions.push(ref);
+    }
+  }
   recordModelUsage(pack: ContextPack | undefined, usage: Completion['usage'], phase: string) {
     if (!pack) return;
     const cost = usageCost(usage);
@@ -282,9 +303,51 @@ export class ContextCompiler {
     pack.receipt.providerVersion = `${provider.protocol}/${provider.protocolVersion}`;
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
   }
-  recordTool(pack: ContextPack, result: CapabilityResult, capability: string, invocationScopeId = pack.contract.scope.id) {
+  recordTool(pack: ContextPack, result: CapabilityResult, capability: string, invocationScopeId = pack.contract.scope.id,
+    modelView: unknown = projectMapModelResult(capability, result), attemptId?: string, hostRead = false) {
     this.policy.validate(pack.contract.scope);
-    if (capability === 'local.agenda.read' && Array.isArray((result.data as any)?.items)) this.recordObjects(pack, (result.data as any).items.map((item: any) => ({ id: item.sourceActionId || item.seriesId || item.id, revision: item.revision || 1 })), 'agenda');
+    const attempt = this.broker.invocations
+      .filter((i) => i.scopeId === invocationScopeId && i.capability === capability && (!attemptId || i.id === attemptId))
+      .at(-1);
+    if (attempt && !pack.receipt.toolAttempts.some(value => value.id === attempt.id))
+      pack.receipt.toolAttempts.push({ id: attempt.id, capability, status: result.status, version: attempt.version, cache: attempt.cache });
+    const serialized = canonical(result), bytes = Buffer.byteLength(serialized);
+    // A multi-leg read records each physical result, but sends one aggregate
+    // observation. null means this raw leg adds no separate model message.
+    const modelSerialized = modelView === null ? '' : canonical(modelView), tokens = Math.ceil(Array.from(modelSerialized).length / 1.4);
+    const overBudget = pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes
+      || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens;
+    pack.receipt.budget.readBytes += bytes;
+    if (overBudget) {
+      pack.receipt.coverage = 'blocked';
+      this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+      // A completed action's real receipt remains visible even when no room
+      // remains for further reading. Only read results can be withheld.
+      if (hostRead || this.broker.describe(capability)?.effect === 'read')
+        throw new HarnessError('read_budget', '资料读取已达到本轮总量上限，请用已取得的结果完成说明。');
+    }
+    pack.receipt.budget.estimatedTokens += tokens;
+    const modelResult = projectMapModelResult(capability, result);
+    const modelData = modelView && typeof modelView === 'object' && 'data' in modelView
+      ? (modelView as CapabilityResult).data : modelResult.data;
+    const data = result.data as Record<string, any> | undefined;
+    const recordAgenda = (items: any[]) => this.recordObjects(pack, items.filter(item => item && typeof (item.sourceActionId || item.seriesId || item.id) === 'string')
+      .map(item => ({ id: item.sourceActionId || item.seriesId || item.id, revision: item.revision || 1 })), 'agenda');
+    if (capability === 'local.agenda.read' && Array.isArray(data?.items)) recordAgenda(data.items);
+    if (capability === 'planning.preview') recordAgenda([
+      ...(Array.isArray(data?.busy) ? data.busy : []), ...(Array.isArray(data?.pending) ? data.pending : []),
+      ...(Array.isArray(data?.acceptedMovable) ? data.acceptedMovable : []),
+      ...(Array.isArray(data?.alternatives) ? data.alternatives.flatMap((option: any) => option.before ? [option.before] : []) : []),
+    ]);
+    if (capability === 'situation.read') {
+      if (Array.isArray(data?.localAgenda?.items)) recordAgenda(data.localAgenda.items);
+      this.recordObjects(pack, [...(Array.isArray(data?.goals) ? data.goals : []), ...(Array.isArray(data?.commitments) ? data.commitments : [])]
+        .filter(item => typeof item.id === 'string' && Number.isSafeInteger(item.revision)), 'work');
+      this.recordDomainObjects(pack, (Array.isArray(data?.campus) ? data.campus : [])
+        .flatMap((group: any) => Array.isArray(group.records) ? group.records.map((record: any) => ({ ...record, domain: record.domain || group.domain })) : []));
+    }
+    if (capability === 'campus.imported_lookup' && Array.isArray(data?.materialVersions))
+      this.recordDomainObjects(pack, data.materialVersions.filter((record: any) => record.kind === 'domain'));
     if (result.data) {
       pack.receipt.providedSourceIds = [
         ...new Set([...(pack.receipt.providedSourceIds || []), result.sourceId]),
@@ -294,17 +357,6 @@ export class ContextCompiler {
           if (typeof entry.id === 'string' && this.repo.evidence(pack.contract.scope, entry.id))
             pack.receipt.providedEvidenceIds = [...new Set([...pack.receipt.providedEvidenceIds, entry.id])];
     }
-    const attempt = this.broker.invocations
-      .filter((i) => i.scopeId === invocationScopeId && i.capability === capability)
-      .at(-1);
-    if (attempt)
-      pack.receipt.toolAttempts.push({
-        id: attempt.id,
-        capability,
-        status: result.status,
-        version: attempt.version,
-        cache: attempt.cache,
-      });
     const key =
       capability === 'campus.lookup'
         ? (result.data as any)?.domain || 'campus'
@@ -314,7 +366,7 @@ export class ContextCompiler {
     const existing = pack.needs.find((n) => n.key === key || n.capability === capability);
     if (existing) {
       existing.status = result.status;
-      existing.value = result.data;
+      existing.value = modelData;
       existing.reason = result.reason;
       existing.fetchedAt = result.fetchedAt;
       existing.coverage = result.coverage;
@@ -325,7 +377,7 @@ export class ContextCompiler {
         capability,
         status: result.status,
         evidenceIds: [],
-        value: result.data,
+        value: modelData,
         reason: result.reason,
         fetchedAt: result.fetchedAt,
         coverage: result.coverage,

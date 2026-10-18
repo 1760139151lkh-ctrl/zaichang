@@ -1,8 +1,10 @@
 import { Portal, IconButton, Modal, WindowControls, uiError } from './ui';
 import { SettingsPanel, type SettingsDraft } from './SettingsPanel';
+import { NotesPanel } from './NotesPanel';
 import { AgendaView, type WorkspaceView } from './Workspace';
 import { Navigation } from './Navigation';
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
+import { CompanionAvatar, CompanionScene, RestSpace, prefersQuietMotion, useCompanion } from './companion';
+import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import {
   ArrowUp,
   ArrowDown,
@@ -28,6 +30,9 @@ import {
   Monitor,
   Quote,
   Pencil,
+  Coffee,
+  BookOpen,
+  SlidersHorizontal,
 } from 'lucide-react';
 import { RichText } from './RichText';
 import { DEFAULT_TIME_ZONE, formatDateTime, fromTimeInput, timeZoneLabel, toTimeInput } from './time';
@@ -44,6 +49,9 @@ import type { Action, Draft, Memory, Message, ReleaseArtifact, State } from '../
 import { LIMITS } from '../shared/limits';
 import { emptyRoute, type MapRouteResult } from '../shared/map-v2';
 import { MapRouteCard, MapSheet } from './map/CampusMap';
+import { ConversationMap, clearConversationMapViews } from './map/ConversationMap';
+import { AssistantPresentation } from './presentation/AssistantPresentation';
+import type { SemanticSelection } from '../shared/scenes';
 import {
   ReplyEvidence,
   ScopeSettings,
@@ -62,6 +70,7 @@ function errorText(error: unknown) {
 }
 
 export function App() {
+  const { value: companion } = useCompanion();
   const [state, setState] = useState<State | null>(null);
   const boundaryRevision = useRef('');
   const [turnControls, setTurnControls] = useState<TurnControls>({});
@@ -91,6 +100,11 @@ export function App() {
   const [memoryNotice, setMemoryNotice] = useState<Memory | null>(null);
   const [panel, setPanel] = useState<Panel>(null);
   const [view, setView] = useState<WorkspaceView>('chat');
+  const [resting, setResting] = useState(false);
+  const [focusChat, setFocusChat] = useState(false);
+  const [notesOpened, setNotesOpened] = useState(false);
+  const [notesUnsaved, setNotesUnsaved] = useState(false);
+  useEffect(() => { if (view === 'notes') setNotesOpened(true); }, [view]);
   const viewRef = useRef(view);
   viewRef.current = view;
   const [matterInteractions, setMatterInteractions] = useState<Record<string, MatterInteraction>>({});
@@ -122,6 +136,26 @@ export function App() {
   const surfaceRevision = useRef(0);
   const [publicCloseNotice, setPublicCloseNotice] = useState('');
   const [sharedMapContext, setSharedMapContext] = useState<{ label: string; expiresAt: string }>();
+  const [sceneSelection,setSceneSelection]=useState<SemanticSelection>();
+  const [sceneSelectionLabel,setSceneSelectionLabel]=useState('');
+  const sceneSelectionRequest=useRef(0);
+  useEffect(()=>{sceneSelectionRequest.current++;setSceneSelection(undefined);setSceneSelectionLabel('');},[sessionId]);
+  useEffect(()=>{sceneSelectionRequest.current++;setSceneSelection(undefined);setSceneSelectionLabel('');clearConversationMapViews();},[state?.privacyEpoch]);
+  async function selectScene(value:SemanticSelection){
+    const request=++sceneSelectionRequest.current,selectedSession=sessionRef.current,boundary=boundaryRevision.current;
+    setSceneSelection(value);
+    const scene=messages.flatMap(message=>message.scenes||[]).find(scene=>scene.id===value.sceneId&&scene.revision===value.sceneRevision);
+    if(value.kind==='date')setSceneSelectionLabel(`${value.date} · 按这一天继续`);
+    else if(value.kind==='leg'&&scene?.kind==='map'){
+      const leg=scene.journey.legs.find(leg=>leg.id===value.legId);
+      setSceneSelectionLabel(leg?`${leg.route.from?.displayName} → ${leg.route.to?.displayName}`:'刚选的路段');
+    }else if(value.kind==='place'){
+      setSceneSelectionLabel('刚选的地点');
+      try{const places=await api.mapPlaces();
+        if(request===sceneSelectionRequest.current&&selectedSession===sessionRef.current&&boundary===boundaryRevision.current)setSceneSelectionLabel(`关于「${places.find(place=>place.id===value.placeId)?.displayName||'这个地点'}」`);
+      }catch{}
+    }
+  }
   const privateReturn = useRef<{ sessionId?: string; view: WorkspaceView }>({ view: 'chat' });
   const [previewImage, setPreviewImage] = useState<Message['image']>();
   const scrollRef = useRef<HTMLDivElement>(null),
@@ -141,9 +175,9 @@ export function App() {
   }
   const busy = starting || messages.some((m) => m.status === 'running');
   const empty = messages.length === 0;
-  const lunaSubstitute = state?.modelRuntime?.temporaryTestSubstitute === true;
-  const modelLabel =
-    state?.settings.mode === 'demo' ? '本地示例' : lunaSubstitute ? 'Luna 临时代测' : 'DeepSeek';
+  const hasScene = !![...messages].reverse().find(message => message.role === 'assistant')?.views?.length;
+  const atWindow = view === 'chat' && companion.presence === 'window' && (empty || (!focusChat && !hasScene));
+  const previousConversation = state?.conversations.find(conversation => conversation.id !== sessionId);
   function useSuggestion(text: string) {
     setView('chat');
     if (draftRef.current.text.trim()) {
@@ -187,9 +221,11 @@ export function App() {
       setMemoryNotice(null);
       setToast('');
       setSharedMapContext(undefined);
+      setSceneSelection(undefined);setSceneSelectionLabel('');
       setMapSheet(null);
       setPreviewImage(undefined);
       setPanel(null);
+      setResting(false);
       setScopeOpen(false);
       setDisplayReview(undefined);
       setAttachmentMenu(false);
@@ -258,12 +294,17 @@ export function App() {
       setPublicCloseNotice('请先结束展示，再关闭在场。未保存的草稿仍为你保留。');
       return;
     }
+    if (notesUnsaved) {
+      setView('notes');
+      notify('记事本还有未保存的修改，请先保存或放弃，再关闭。');
+      return;
+    }
     if (closePending.current) return;
     closePending.current = true;
     try {
       const pending = await api.unsavedDrafts();
       if (!pending.length) {
-        api.window('close');
+        api.window('close-confirmed');
         return;
       }
       const previews = await Promise.all(
@@ -534,7 +575,7 @@ export function App() {
     followRef.current = true;
     try {
       const controls = consumeDraft ? turnControlsRef.current : retryControls;
-      const result = await api.send({ sessionId, content, controls, ...(image ? { image } : {}) });
+      const result = await api.send({ sessionId, content, controls, ...(consumeDraft&&sceneSelection?{selection:sceneSelection}:{}), ...(image ? { image } : {}) });
       sessionRef.current = result.sessionId;
       setSessionId(result.sessionId);
       draftKey.current = result.sessionId;
@@ -559,7 +600,7 @@ export function App() {
   ): Promise<ActionResult> {
     try {
       updateState(await api.action({ item, action }));
-      if (action !== 'save') notify(action === 'done' ? '这件事，完成了。' : '已移除这项安排。');
+      if (action === 'done') notify('这件事，完成了。');
       return { ok: true };
     } catch (error) {
       const text = errorText(error);
@@ -570,6 +611,11 @@ export function App() {
   async function prepareDisplay(
     input: { sessionId: string; id: string; revision: number } | { matter: SharedMatterView },
   ) {
+    if (notesUnsaved) {
+      setView('notes');
+      notify('记事本还有未保存的修改，请先保存或放弃，再开始展示。');
+      return;
+    }
     await attempt(async () => {
       await api.saveDraft({
         id: draftKey.current,
@@ -628,6 +674,7 @@ export function App() {
   const temporaryConversation = conversationRetention?.retention === 'session_only';
   const composer = (
     <div className="composer-area">
+      {sceneSelection&&<div className="shared-map-context scene-reference" role="status"><span>{sceneSelectionLabel}</span><button type="button" aria-label="取消当前界面引用" onClick={()=>{sceneSelectionRequest.current++;setSceneSelection(undefined);setSceneSelectionLabel('');}}><X size={13}/></button></div>}
       {sharedMapContext && (
         <div className="shared-map-context" role="status">
           <span>本次起点：{sharedMapContext.label}</span>
@@ -669,7 +716,7 @@ export function App() {
         <textarea
           ref={inputRef}
           aria-label="和在场说说"
-          placeholder={busy ? '可以先写下下一件事…' : empty ? '从一句话开始，不必先想清楚。' : '接着说…'}
+          placeholder={busy ? '想到了什么，也可以先写下来…' : empty ? '随便说一句，也可以。' : '接着说…'}
           value={input}
           rows={1}
           maxLength={LIMITS.draftText}
@@ -771,34 +818,25 @@ export function App() {
               )}
             </div>
             <button
-              className="composer-model"
-              type="button"
-              onClick={() => setView('settings')}
-              aria-label={`模型连接：${modelLabel}`}
-              title={modelLabel}
-            >
-              {modelLabel}
-              <ChevronDown size={12} />
-            </button>
-            <button
               type="button"
               className={`composer-context-button ${Object.keys(turnControls).length ? 'selected' : ''}`}
               onClick={() => setScopeOpen(true)}
-              aria-label="设置本轮资料范围"
+              aria-label="这次怎么聊"
               disabled={navigating}
             >
+              <SlidersHorizontal size={14} />
               <span>
                 {turnControls.transmission === 'local_only'
-                  ? '仅留在本机'
+                  ? '先留在这里'
                   : temporaryConversation
-                    ? '此对话不保存'
+                    ? '这次不留下'
                     : turnControls.retention === 'session_only'
-                      ? '本轮不保存'
+                      ? '这条不留下'
                       : turnControls.memoryMode === 'current_sources_only'
-                        ? '只看本条与附件'
+                        ? '只看这条'
                         : turnControls.audience && turnControls.audience !== 'self'
-                          ? '公开草稿范围'
-                          : '资料与保存范围'}
+                          ? '写给别人'
+                          : '这次怎么聊'}
               </span>
               <ChevronDown size={12} />
             </button>
@@ -832,23 +870,23 @@ export function App() {
         {temporaryConversation && (
           <span role="status">
             {conversationRetention?.clearConversationOnExit
-              ? '离开时清除这段聊天；已登记的安排保留。'
-              : '此对话不保存；新建对话恢复常规保存。'}
+              ? '离开时不留下这段聊天，记下的安排会保留。'
+              : '这段聊天不留下。'}
           </span>
         )}
         {(input || attachment) && (
           <div className="draft-status">
             {draftSaved ? (
-              <span role="status">草稿已保存在本机</span>
+              <span role="status">这段话已留好</span>
             ) : turnControls.retention === 'session_only' || temporaryConversation ? (
-              <span>临时草稿 · 退出后不保留</span>
+              <span>离开时不留下这段话</span>
             ) : (
               <button
                 type="button"
                 disabled={savingDraft || navigating}
                 onClick={() => void saveCurrentDraft()}
               >
-                {savingDraft ? '正在保存…' : '保存草稿到本机'}
+                {savingDraft ? '正在留好…' : '留作草稿'}
               </button>
             )}
           </div>
@@ -861,7 +899,7 @@ export function App() {
               followRef.current = true;
               scrollRef.current?.scrollTo({
                 top: scrollRef.current.scrollHeight,
-                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                behavior: prefersQuietMotion()
                   ? 'instant'
                   : 'smooth',
               });
@@ -870,9 +908,7 @@ export function App() {
             <ArrowDown size={15} />
             回到最新
           </button>
-        ) : (
-          <span className="keyboard-hint">Shift + Enter 换行</span>
-        )}
+        ) : null}
       </div>
     </div>
   );
@@ -880,6 +916,7 @@ export function App() {
   const renderedMessages = useMemo(
     () =>
       messages.map((m, index) => (
+        <Fragment key={m.id}>
         <MessageView
           key={m.id}
           message={m}
@@ -902,6 +939,11 @@ export function App() {
           }}
           onQuote={quotePassage}
           onOpenMap={(route) => setMapSheet(route)}
+          sceneSelection={sceneSelection}
+          onSceneSelect={value=>void selectScene(value)}
+          currentSceneMessages={new Map(messages.flatMap(message=>(message.scenes||[]).map(scene=>[scene.id,message.id] as const)))}
+          sceneInterruptionKey={messages.filter(message=>message.role==='user').at(-1)?.id}
+          onContinueScene={()=>{setView('chat');requestAnimationFrame(()=>inputRef.current?.focus());}}
           onPreviewImage={setPreviewImage}
           onCopyText={(text, label = '回复') =>
             void attempt(async () => {
@@ -919,8 +961,13 @@ export function App() {
           busy={busy}
           boundary={`${state?.privacyEpoch}:${state?.policyRevision}`}
         />
+        {(m.helpRefs || []).map(ref => {
+          const material = state?.preparations?.find(item => item.id === ref.id && item.revision === ref.revision && item.helpRecordId === ref.helpRecordId);
+          return material ? <PreparationShelf key={`${ref.id}:${ref.revision}`} inline items={[material]} timeZone={state?.settings.timeZone} onState={updateState} onContinue={useSuggestion} /> : null;
+        })}
+        </Fragment>
       )),
-    [messages, state?.agenda, state?.matters, state?.privacyEpoch, state?.policyRevision, busy],
+    [messages, state?.agenda, state?.matters, state?.preparations, state?.settings.timeZone, state?.privacyEpoch, state?.policyRevision, notesUnsaved, busy,sceneSelection],
   );
 
   const memoryHint = memoryNotice && (
@@ -950,15 +997,16 @@ export function App() {
   const activeMatter = state?.matters?.find((matter) => matter.sessionId === sessionId);
   const materials = (
     <PreparationShelf
-      items={state?.preparations || []}
+      items={(state?.preparations || []).filter(item => !messages.some(message => message.helpRefs?.some(ref => ref.id === item.id && ref.revision === item.revision && ref.helpRecordId === item.helpRecordId)))}
       timeZone={state?.settings.timeZone}
       onState={updateState}
       onContinue={useSuggestion}
     />
   );
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${atWindow ? 'has-window' : ''}`}>
       <div className="app-main">
+        {view === 'chat' && <CompanionScene quiet={!atWindow} />}
         <header className="titlebar">
           <button className="brand" onClick={() => setView('chat')} aria-label="在场，回到对话">
             <Portal size={25} />
@@ -978,10 +1026,12 @@ export function App() {
         <main className={`workspace ${empty ? 'welcome' : 'conversation'}`} hidden={view !== 'chat'}>
           {empty ? (
             <div className="welcome-inner">
-              <h1>今天，想聊些什么？</h1>
+              <p className="welcome-date">{new Date().toLocaleDateString('zh-CN', { timeZone: state?.settings.timeZone || DEFAULT_TIME_ZONE, weekday: 'long' })}</p>
+              <h1>慢慢来，我在。</h1>
+              <p className="welcome-copy">今天想先从哪里说起？</p>
               {loadError && (
                 <div className="harness-inline-error" role="alert">
-                  <p>本机内容暂时没有打开：{loadError}</p>
+                  <p>这次没能打开。{loadError}</p>
                   <button className="text-button" onClick={() => setLoadAttempt((n) => n + 1)}>
                     重新打开
                   </button>
@@ -989,28 +1039,22 @@ export function App() {
               )}
               {!draftReady && !loadError && (
                 <p className="startup-status" role="status">
-                  正在打开本机内容…
+                  正在回到这里…
                 </p>
               )}
               {composer}
-              <div className="suggestions" aria-label="试着聊聊" hidden={!!input || !!attachment}>
-                <button onClick={() => useSuggestion('帮我安排一下今天')}>
-                  安排一下今天
-                  <ArrowUpRight size={13} />
-                </button>
-                <button onClick={() => useSuggestion('从主图书馆到紫金港食堂（东区）怎么走？')}>
-                  去东区食堂怎么走
-                  <ArrowUpRight size={13} />
-                </button>
-                <button onClick={() => useSuggestion('我想认真弄懂一个证明，请把推导完整讲清楚：')}>
-                  把一个证明讲透
-                  <ArrowUpRight size={13} />
-                </button>
+              <div className="welcome-next" aria-label="从这里继续">
+                {previousConversation ? <button type="button" onClick={() => void openConversation(previousConversation.id)} disabled={busy || navigating}><History size={18} /><span>接着上次<small>{previousConversation.title}</small></span><ArrowUpRight size={14} /></button> : <button type="button" onClick={() => setView('agenda')}><CalendarDays size={18} /><span>看看今天</span><ArrowUpRight size={14} /></button>}
+                <button type="button" onClick={() => setResting(true)}><Coffee size={18} /><span>先坐一会儿</span></button>
               </div>
               {materials}
             </div>
           ) : (
             <>
+              <div className="conversation-heading">
+                <span>{state?.conversations.find(conversation => conversation.id === sessionId)?.title || '我们慢慢说'}</span>
+                {companion.presence === 'window' && !hasScene && <button type="button" className="text-button" aria-pressed={focusChat} onClick={() => setFocusChat(value => !value)}><BookOpen size={15} />{focusChat ? '回到窗边' : '安静阅读'}</button>}
+              </div>
               <div
                 className="message-scroll"
                 ref={scrollRef}
@@ -1063,11 +1107,12 @@ export function App() {
             onMap={(id) => void showPlace(id)}
           />
         )}
-        {(view === 'settings' || view === 'memory') && state && (
+        {notesOpened && state && <NotesPanel key={state.privacyEpoch} active={view === 'notes'} onUnsavedChange={setNotesUnsaved} onClose={() => setView('chat')} timeZone={state.settings.timeZone} />}
+        {(view === 'settings' || view === 'memory' || view === 'companion') && state && (
           <SettingsPanel
             key={`${view}:${state.privacyEpoch}`}
             embedded
-            initialTab={view === 'memory' ? '记忆' : '连接'}
+            initialTab={view === 'memory' ? '记忆' : view === 'companion' ? '陪伴' : '偏好'}
             state={state}
             busy={busy}
             onClose={() => setView('chat')}
@@ -1083,13 +1128,14 @@ export function App() {
           />
         )}
       </div>
+      {resting && <RestSpace onClose={() => setResting(false)} />}
       {toast && (
         <div className="toast" role="status">
           {toast}
         </div>
       )}
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        {busy ? '正在处理你的请求。' : messages.at(-1)?.status === 'done' ? '回复已准备好。' : ''}
+        {busy ? '让我想一想。' : messages.at(-1)?.status === 'done' ? '可以接着聊了。' : ''}
       </div>
       {displayReview && (
         <DisplayReview
@@ -1268,6 +1314,11 @@ function MessageView({
   onViewAgenda,
   onOpenMap,
   onPreviewImage,
+  sceneSelection,
+  onSceneSelect,
+  currentSceneMessages,
+  sceneInterruptionKey,
+  onContinueScene,
   busy,
   boundary,
 }: {
@@ -1287,11 +1338,17 @@ function MessageView({
   onViewAgenda: () => void;
   onOpenMap: (route: MapRouteResult) => void;
   onPreviewImage: (image: NonNullable<Message['image']>) => void;
+  sceneSelection?:SemanticSelection;
+  onSceneSelect:(selection:SemanticSelection)=>void;
+  currentSceneMessages:Map<string,string>;
+  sceneInterruptionKey?:string;
+  onContinueScene:()=>void;
   busy: boolean;
   boundary: string;
 }) {
   const [expanded, setExpanded] = useState(false);
   const [selectedPassage, setSelectedPassage] = useState('');
+  const livePresentation=useRef(m.status==='running');
   const article = useRef<HTMLElement>(null),
     prose = useRef<HTMLDivElement>(null),
     exposed = useRef(false);
@@ -1451,19 +1508,38 @@ function MessageView({
       </div>
     </div>
   ) : null;
+  const response=m.responseText??m.content;
+  const paragraphBreak=m.views?.length?response.search(/\n\s*\n/):-1;
+  const lead=paragraphBreak>=0?response.slice(0,paragraphBreak):response;
+  const followup=paragraphBreak>=0?response.slice(paragraphBreak).trim():'';
+  const sceneViews=m.views?.map(view=>(
+    <AssistantPresentation
+      key={view.id}
+      view={view}
+      scenes={m.scenes||[]}
+      selection={sceneSelection}
+      onSelect={onSceneSelect}
+      isStreaming={m.status==='running'}
+      renderMap={(scene,active)=>{
+        const current=currentSceneMessages.get(scene.id)===m.id;
+        const memoryKey=current?`${m.sessionId}/${scene.id}`:`${m.id}/${scene.id}`;
+        return <ConversationMap key={memoryKey} scene={scene} memoryKey={memoryKey} continuationKey={`${m.sessionId}/${scene.id}`} historical={!current} cancelled={m.status==='cancelled'||m.status==='error'} interruptionKey={sceneInterruptionKey} active={active} allowCameraRequests={(m.status==='running'||livePresentation.current)&&m.status!=='cancelled'&&m.status!=='error'} onSelect={onSceneSelect} onContinue={onContinueScene}/>;
+      }}
+    />
+  ));
   return (
     <article className="assistant-message" ref={article}>
       <div className="assistant-name">
-        <Portal size={23} />
+        <CompanionAvatar size={31} />
         <span>在场</span>
         {m.demo && <small>示例</small>}
       </div>
       {(m.status !== 'done' || hasBlocked) && processBlock}
-      {!!(m.responseText ?? m.content) && (
-        <div className="markdown" ref={prose} onMouseUp={selectionChanged} onKeyUp={selectionChanged}>
-          <RichText text={m.responseText ?? m.content} />
-        </div>
-      )}
+      <div ref={prose} onMouseUp={selectionChanged} onKeyUp={selectionChanged}>
+        {!!lead&&<div className="markdown"><RichText text={lead}/></div>}
+        {sceneViews}
+        {!!followup&&<div className="markdown"><RichText text={followup}/></div>}
+      </div>
       {!!selectedPassage && (
         <button
           className="quote-selection subtle-button"
@@ -1543,7 +1619,7 @@ function MessageView({
           : [];
       })}
       <ReplyEvidence message={m} />
-      {m.mapCards?.map((card, cardIndex) => (
+      {!m.scenes?.some(scene=>scene.kind==='map')&&m.mapCards?.map((card, cardIndex) => (
         <MapRouteCard key={cardIndex} card={card} onOpen={() => onOpenMap(card.route)} />
       ))}
       {m.status !== 'running' && (
@@ -1803,7 +1879,8 @@ function ActionCard({
     if (revoking) return;
     setRevoking(true);
     try {
-      const result = await onRevoke(action);
+      const effectId = effect?.action?.id || action.effectActionId || action.id;
+      const result = await onRevoke({ ...action, id: effectId });
       if (!result.ok) {
         setActionError(result.error || '撤销没有完成，请重新核对。');
         return;
@@ -1832,6 +1909,25 @@ function ActionCard({
   const cancelled =
     !!effect?.action &&
     ['cancelled', 'cancellation_confirmed', 'cannot_cancel'].includes(effect.action.status);
+  const isCalendarChange = !!action.calendarChange || effect?.action?.capability === 'local.agenda.change';
+  const changeOperation = action.calendarChange?.operation || effect?.action?.arguments.operation;
+  const occurrenceDate = action.calendarChange?.occurrenceDate || (typeof effect?.action?.arguments.occurrenceDate === 'string' ? effect.action.arguments.occurrenceDate : undefined);
+  const occurrenceCancellation = action.calendarChange?.cancelled ?? (typeof effect?.action?.arguments.cancelled === 'boolean' ? effect.action.arguments.cancelled : undefined);
+  const changingOccurrence = changeOperation === 'change_occurrence';
+  const cancellingOccurrence = changingOccurrence && occurrenceCancellation === true;
+  const restoringOccurrence = changingOccurrence && occurrenceCancellation === false;
+  const deletingCalendarItem = changeOperation === 'delete';
+  const planStateLabel = (state: NonNullable<Action['planning']>['state']) => ({ invitation: '尚未答应的邀请', wish: '愿望', proposed: '待选择的方案', accepted: '已接受的安排' })[state];
+  let savedItem = effect?.localRecord || action;
+  if (changingOccurrence && occurrenceDate && effect?.localRecord) {
+    const exception = savedItem.exceptions?.find(item => item.onDate === occurrenceDate);
+    let startsAt = exception?.startsAt;
+    if (!startsAt && savedItem.startsAt) {
+      try { startsAt = fromTimeInput(`${occurrenceDate}T${toTimeInput(savedItem.startsAt, savedItem.timeZone || zone).slice(11)}`, savedItem.timeZone || zone); } catch {}
+    }
+    savedItem = { ...savedItem, startsAt, detail: exception?.detail ?? savedItem.detail,
+      durationMinutes: exception?.durationMinutes === null ? undefined : exception?.durationMinutes ?? savedItem.durationMinutes };
+  }
   if (localRemoved)
     return (
       <div className="saved-action removed-action">
@@ -1840,6 +1936,9 @@ function ActionCard({
           <strong>{action.title}</strong>
           <small>这项安排已移除。</small>
         </div>
+        <button className="text-button" onClick={() => void revoke()} disabled={disabled || revoking}>
+          {revoking ? '正在撤销…' : '撤销'}
+        </button>
         <button className="text-button" onClick={onView}>
           查看安排
           <ChevronRight size={14} />
@@ -1861,10 +1960,10 @@ function ActionCard({
       <div className="saved-action saved-action-receipt">
         <Check size={19} aria-hidden="true" />
         <div>
-          <strong>{action.title}</strong>
+          <strong>{savedItem.title}</strong>
           <small>
-            {action.done ? '已完成' : '已加入安排'}
-            {action.startsAt ? ` · ${formatDate(action.startsAt, zone)} · ${timeZoneLabel(zone)}` : ''}
+            {savedItem.done ? '已完成' : cancellingOccurrence ? '已取消这一次' : restoringOccurrence ? '已恢复这一次' : savedItem.planning?.state === 'invitation' ? '已记录邀请' : savedItem.planning?.state === 'wish' ? '已保留愿望' : savedItem.planning?.state === 'proposed' ? '已保留方案' : isCalendarChange ? '已更新安排' : '已加入安排'}
+            {savedItem.startsAt ? ` · ${formatDate(savedItem.startsAt, savedItem.timeZone || zone)} · ${timeZoneLabel(savedItem.timeZone || zone)}` : ''}
             {action.coverage === 'conditional' ? ' · 条件待核对' : ''}
           </small>
           {actionError && (
@@ -1914,7 +2013,7 @@ function ActionCard({
           <strong>{action.title}</strong>
           <p>
             {effect?.action?.status === 'cancellation_confirmed'
-              ? '这项安排已撤销。'
+              ? isCalendarChange ? '这次修改已撤销。' : '这项安排已撤销。'
               : '这项操作已停止，结果需要核对。'}
           </p>
           <button className="text-button" onClick={onView} disabled={disabled}>
@@ -1983,7 +2082,7 @@ function ActionCard({
     <div className="action-card">
       <div className="action-eyebrow">
         <span className="status-dot suggestion" aria-hidden="true" />
-        {action.demo ? '建议 · 示例' : '接下来可以'}
+        {action.demo ? '建议 · 示例' : cancellingOccurrence ? '取消这一次' : restoringOccurrence ? '恢复这一次' : isCalendarChange ? deletingCalendarItem ? '移除安排' : '修改安排' : '接下来可以'}
       </div>
       {editing ? (
         <div className="action-edit">
@@ -2004,12 +2103,19 @@ function ActionCard({
         <>
           <h3>{title}</h3>
           <p>{detail}</p>
+          {changingOccurrence && occurrenceDate && <div className="action-time">仅这一次 · {occurrenceDate}</div>}
           {action.startsAt && (
             <div className="action-time">
               <CalendarDays size={13} />
               {formatDate(action.startsAt, zone)} · {timeZoneLabel(zone)}
             </div>
           )}
+          {action.allDayDate && <div className="action-time">{action.allDayDate} · 全天</div>}
+          {action.durationMinutes && <div className="action-time">{action.durationMinutes} 分钟</div>}
+          {!changingOccurrence && action.recurrence && <div className="action-time">每 {action.recurrence.interval || 1} {({ daily: '天', weekly: '周', monthly: '个月', yearly: '年' } as const)[action.recurrence.frequency]}重复</div>}
+          {effect?.action?.arguments.changes && typeof effect.action.arguments.changes === 'object' && !Array.isArray(effect.action.arguments.changes) && effect.action.arguments.changes.recurrence === null && <div className="action-time">不再重复</div>}
+          {!changingOccurrence && action.remindAt && <div className="action-time">提醒 · {formatDate(action.remindAt, zone)}</div>}
+          {action.planning && <div className="action-time">{isCalendarChange ? '采用后 · ' : ''}{planStateLabel(action.planning.state)}{action.planning.flexibility === 'movable' ? ' · 可调整' : ''}</div>}
         </>
       )}
       <div className="action-buttons">
@@ -2033,10 +2139,14 @@ function ActionCard({
               startsAt,
               timeZone: zone,
             })
-              .then((result) => {
-                if (result.ok) setEditing(false);
+              .then(async (result) => {
+                if (result.ok) {
+                  setEditing(false);
+                  setEffect(await api.actionState(action.effectActionId || action.id));
+                }
                 else setActionError(result.error || '修改还未保存。');
               })
+              .catch(error => setActionError(errorText(error)))
               .finally(() => setSaving(false));
           }}
         >
@@ -2047,12 +2157,12 @@ function ActionCard({
             </>
           ) : (
             <>
-              {action.coverage === 'conditional' ? '保存为待核对安排' : '加入我的安排'}
+              {saving ? '正在保存…' : cancellingOccurrence ? '取消这次安排' : restoringOccurrence ? '恢复这次安排' : isCalendarChange ? deletingCalendarItem ? '移除这项安排' : '应用这次修改' : action.coverage === 'conditional' ? '保存为待核对安排' : '加入我的安排'}
               <ArrowUpRight size={15} />
             </>
           )}
         </button>
-        {!saved && (
+        {!saved && !deletingCalendarItem && !cancellingOccurrence && !restoringOccurrence && (
           <button className="text-button" disabled={disabled} onClick={() => setEditing(!editing)}>
             {editing ? '取消修改' : '调整一下'}
           </button>

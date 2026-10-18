@@ -28,6 +28,7 @@ export interface ToolContext {
   campus?: import('./zjuAdapter').ZjuAdapter;
   map?: import('./mapService').CampusMapAdapter;
   mapCard?: (card: import('../shared/map-v2').MapCard) => void;
+  present?: import('./runtime/coordinator').RuntimeCallbacks['present'];
   // Compatibility shape only. Cache eligibility belongs to CapabilityBroker.
   campusMemo?: {
     fullContextUsed: boolean;
