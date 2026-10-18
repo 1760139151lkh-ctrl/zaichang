@@ -10,6 +10,8 @@
 
 ## 当前续作：每天的余地
 
+第二批在完整后端检查之后补了[安排时窗A/B比较](assets/design/generated/2026-10-18-chosen-windows/manifest.json)。采用A的日期条＋单日，吸收真实时窗和分窗表达；弃B重复折叠容器，也不照搬A的演示说明／全天灰色进度轨。当前规划沿宿主明确窗口显示，夜晚与间隙不是待填空白；旧无窗口Scene保留原语义。图稿、精确提示词、合成资料的改前实际截图均在同目录作为私人设计来源，非运行时依赖或手机完成证明。
+
 最新批次从已合并的 `4edd922` 继续，先完成记忆／主动性／日程后端，再生成两版日节奏图，比较后采用[日期条＋单日展开](assets/design/generated/2026-10-18-personal-memory/daily-rhythm-a.png)。[双日纸页](assets/design/generated/2026-10-18-personal-memory/daily-rhythm-b.png)保留为比较来源；不照搬重复时间轴、右侧暖句或示例数据。提示词、哈希、尺寸与选用记录见[manifest](assets/design/generated/2026-10-18-personal-memory/daily-rhythm-manifest.json)。
 
 日节奏沿用原对话与输入，按真实宿主日账选择日期，时段可接着聊；角色卡可先编辑再放入草稿，环境旧快照与缺测保持准确呈现。记忆仍在后台工作，不新增常驻记忆工程面板。实际宽窄、主题、草稿、冲突与来源边界见[当前状态](docs/CURRENT_STATUS.md#personal-memory-continuity)，图片不作为功能或手机产品完成证明。

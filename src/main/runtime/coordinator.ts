@@ -490,6 +490,15 @@ const modelMemoryChangeParameters: Record<string, unknown> = {
     expectedRevision: { type: 'integer' },
     eventId: { type: 'string' },
     sourceQuote: { type: 'string' },
+    sourceContentVersion: { type: 'integer', minimum: 1, description: '已读主来源的真实内容版本；指定Unicode位置时须一并保留版本。' },
+    sourceStartCodePoint: { type: 'integer', minimum: 0, description: 'sourceQuote在主来源里的Unicode code point起点；相同引文重复出现时须保留准确位置。' },
+    sourceEndCodePoint: { type: 'integer', minimum: 1, description: '与起点配对的Unicode code point终点（不包含）。' },
+    supports: { type: 'array', maxItems: 16, description: '仅列真正用于确定主体、条件、时间或用途的其他原文片段；跨消息理解必须保留实际支持。近期上下文和助手建议不会自动成为本人事实。缺少必要来源先回读，不能猜引文或坐标。', items: {
+      type: 'object', properties: {
+        eventId: { type: 'string' }, contentVersion: { type: 'integer', minimum: 1 }, quote: { type: 'string', minLength: 1, maxLength: 12000 },
+        startCodePoint: { type: 'integer', minimum: 0 }, endCodePoint: { type: 'integer', minimum: 1 },
+      }, required: ['eventId', 'contentVersion', 'quote', 'startCodePoint', 'endCodePoint'], additionalProperties: false,
+    } },
     predicate: { type: 'string' },
     value: { type: 'object', description: '带类型的开放断言值。必须包含type和value，例如 {"type":"boolean","value":false} 或 {"type":"text","value":"原意"}；数值量必须带unit和dimension。', properties: { type: { type: 'string', enum: ['text', 'boolean', 'quantity', 'entity', 'instant', 'unknown'] }, value: {}, unit: { type: 'string' }, dimension: { type: 'string' }, reason: { type: 'string' } }, required: ['type'], additionalProperties: false },
     text: { type: 'string' },
@@ -1118,6 +1127,7 @@ export class RuntimeCoordinator {
         if (d.name === 'propose_memory_change' && !s.infer && this.currentOwnerProposalAllowed(session, child)) {
           const event = session.events[0], properties = { ...(modelMemoryChangeParameters.properties as Record<string, unknown>) };
           delete properties.targetId; delete properties.expectedRevision; delete properties.unresolvedTime;
+          delete properties.supports; delete properties.sourceStartCodePoint; delete properties.sourceEndCodePoint;
           Object.assign(properties, {
             operation: { type: 'string', const: 'ADD' }, eventId: { type: 'string', const: event.id },
             subject: { type: 'string', const: 'self' }, world: { type: 'string', const: 'source_world' },

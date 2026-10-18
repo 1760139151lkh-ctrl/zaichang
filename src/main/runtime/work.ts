@@ -585,17 +585,10 @@ export class WorkService {
       grants: s.grants,
       infer: false,
     });
-    const allowed = this.repo.assertions(real, {
-      statuses: ['active', 'inactive', 'candidate', 'superseded', 'expired'],
-      limit: 500,
-    });
     const assertions = (world.baseline as { id: string; revision: number }[])
-      .filter((ref) => allowed.some((a) => a.id === ref.id))
       .flatMap((ref) => {
-        const row = this.repo.db
-          .prepare('SELECT payload FROM h_assertion_versions WHERE id=? AND revision=?')
-          .get(ref.id, ref.revision);
-        return row ? [JSON.parse(String(row.payload))] : [];
+        const value = this.repo.assertionVersion(real, ref.id, ref.revision);
+        return value ? [value] : [];
       });
     const domainRecords = ((world.domainRefs as any[]) || [])
       .filter((ref) => s.sources.includes(ref.source))

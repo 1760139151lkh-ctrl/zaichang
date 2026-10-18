@@ -23,6 +23,26 @@ export function planningSnapshot(result: Result, capability: string, input: unkn
   const args = input as Record<string, any> | undefined;
   if (!data || data.applied !== false || !instant(data.window?.from) || !instant(data.window?.to) || Date.parse(data.window.to) <= Date.parse(data.window.from) || !text(data.window.timeZone, 100)) return;
   try { new Intl.DateTimeFormat('en', { timeZone: data.window.timeZone }); } catch { return; }
+  const readWindows = (value: unknown, from: string, to: string) => {
+    if (!Array.isArray(value) || value.length > 64) return null;
+    const windows: { start: string; end: string }[] = [];
+    for (const row of value) {
+      if (!row || !instant(row.start) || !instant(row.end) || Date.parse(row.end) <= Date.parse(row.start)
+        || Date.parse(row.start) < Date.parse(from) || Date.parse(row.end) > Date.parse(to)
+        || windows.length && Date.parse(row.start) <= Date.parse(windows.at(-1)!.end)) return null;
+      windows.push({ start: new Date(row.start).toISOString(), end: new Date(row.end).toISOString() });
+    }
+    return windows;
+  };
+  let scheduleCoverage: PlanningScene['scheduleCoverage'];
+  if (data.scheduleCoverage !== undefined) {
+    const value = data.scheduleCoverage;
+    const windows = readWindows(value?.windows, data.window.from, data.window.to);
+    if (!windows || !['provided_windows', 'horizon_only'].includes(value?.mode) || !text(value.meaning, 1200)) return;
+    if (value.mode === 'horizon_only' && (windows.length !== 1 || Date.parse(windows[0].start) !== Date.parse(data.window.from)
+      || Date.parse(windows[0].end) !== Date.parse(data.window.to))) return;
+    scheduleCoverage = { mode: value.mode, windows, meaning: value.meaning };
+  }
   const blocks: PlanningBlock[] = [];
   const add = (kind: PlanningBlock['kind'], label: string, start: unknown, end: unknown, details: Partial<PlanningBlock> = {}) => {
     if (!instant(start) || end !== null && !instant(end) || end !== null && Date.parse(end as string) <= Date.parse(start)) return;
@@ -48,17 +68,33 @@ export function planningSnapshot(result: Result, capability: string, input: unkn
       || Date.parse(day.to) <= Date.parse(day.from) || Date.parse(day.from) < Date.parse(data.window.from) || Date.parse(day.to) > Date.parse(data.window.to)
       || !['scheduledMinutes', 'initialFreeMinutes', 'occupiedMinutes', 'freeMinutes', 'reserveShortfallMinutes'].every(key => minuteValue(day[key]))
       || !['within_declared_budget', 'existing_commitments_exceed_reserve'].includes(day.status)) continue;
+    let eligibility: Pick<NonNullable<PlanningScene['daySummaries']>[number], 'eligibleWindows' | 'eligibleMinutes' | 'outsideScopeMinutes'> = {};
     try {
       const bounds = planningDayBounds(day.date, data.window.timeZone);
       if (dateInZone(day.from, data.window.timeZone) !== day.date || Date.parse(day.from) < Date.parse(bounds.from) || Date.parse(day.to) > Date.parse(bounds.to)) continue;
       const dayMinutes = (Date.parse(day.to) - Date.parse(day.from)) / 60000;
       if (['scheduledMinutes', 'initialFreeMinutes', 'occupiedMinutes', 'freeMinutes'].some(key => day[key] > dayMinutes + .001)) continue;
+      if (scheduleCoverage) {
+        const windows = readWindows(day.eligibleWindows, day.from, day.to);
+        if (!windows || !minuteValue(day.eligibleMinutes) || !minuteValue(day.outsideScopeMinutes)) continue;
+        const expected = scheduleCoverage.windows.flatMap(window => {
+          const start = Math.max(Date.parse(window.start), Date.parse(day.from)), end = Math.min(Date.parse(window.end), Date.parse(day.to));
+          return end > start ? [{ start: new Date(start).toISOString(), end: new Date(end).toISOString() }] : [];
+        });
+        const eligibleMinutes = windows.reduce((sum, window) => sum + (Date.parse(window.end) - Date.parse(window.start)) / 60000, 0);
+        if (JSON.stringify(expected) !== JSON.stringify(windows) || Math.abs(eligibleMinutes - day.eligibleMinutes) > .001
+          || Math.abs(dayMinutes - eligibleMinutes - day.outsideScopeMinutes) > .001
+          || Math.abs(day.freeMinutes + day.occupiedMinutes - eligibleMinutes) > .001
+          || ['scheduledMinutes', 'initialFreeMinutes'].some(key => day[key] > eligibleMinutes + .001)) continue;
+        eligibility = { eligibleWindows: windows, eligibleMinutes, outsideScopeMinutes: day.outsideScopeMinutes };
+      }
     } catch { continue; }
     const budget = day.budget && typeof day.budget === 'object' ? {
       ...(minuteValue(day.budget.maxScheduledMinutes) ? { maxScheduledMinutes: day.budget.maxScheduledMinutes as number } : {}),
       ...(minuteValue(day.budget.reserveMinutes) ? { reserveMinutes: day.budget.reserveMinutes as number } : {}),
     } : null;
     daySummaries.push({ date: day.date, from: day.from, to: day.to,
+      ...eligibility,
       scheduledMinutes: day.scheduledMinutes, initialFreeMinutes: day.initialFreeMinutes, occupiedMinutes: day.occupiedMinutes,
       freeMinutes: day.freeMinutes, reserveShortfallMinutes: day.reserveShortfallMinutes, status: day.status,
       budget: budget && Object.keys(budget).length ? budget : null });
@@ -100,6 +136,11 @@ export function planningSnapshot(result: Result, capability: string, input: unkn
     });
     for (const row of rows(data.alternatives)) conditions.push(...messages(row.unknown), ...messages(row.violations));
   }
+  // Existing commitments remain calendar context. Every new reservation and
+  // every displayed free interval must obey the same host scheduling domain.
+  if (scheduleCoverage && blocks.some(block => block.kind !== 'busy' && (block.end === null
+    || !scheduleCoverage!.windows.some(window => Date.parse(block.start) >= Date.parse(window.start)
+      && Date.parse(block.end!) <= Date.parse(window.end))))) return;
   if (daySummaries.length) {
     const original = blocks.splice(0);
     for (const block of original) {
@@ -123,6 +164,7 @@ export function planningSnapshot(result: Result, capability: string, input: unkn
   if (instant(data.expiresAt) && (!snapshotSource.expiresAt || Date.parse(data.expiresAt) < Date.parse(snapshotSource.expiresAt))) snapshotSource.expiresAt = data.expiresAt;
   return { kind: 'planning', id: randomUUID(), revision: 1, createdAt: now, source: snapshotSource, mode: draft ? 'draft' : 'preview',
     window: { from: data.window.from, to: data.window.to, timeZone: data.window.timeZone }, blocks, requiredSourceIds, sourceCoverage,
+    ...(scheduleCoverage ? { scheduleCoverage } : {}),
     ...(daySummaries.length ? { daySummaries } : {}),
     conditions: [...new Set(conditions)], unscheduled: rows(data.unscheduled).map(row => ({ title: text(row.title, 160) || text(row.taskId, 160) || '未安排的事', reason: text(row.reason, 1200) || text(row.message, 1200) || '这次尚未排入。' })),
     ...(adoption ? { adoption } : {}), ...(text(data.planId, 160) ? { planId: data.planId as string } : {}), ...(instant(data.expiresAt) ? { expiresAt: data.expiresAt } : {}), applied: false };

@@ -1,12 +1,14 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { z } from 'zod';
-import type { Assertion, EvidenceEvent, MemoryChange, MemoryView, ScopeHandle } from '../../shared/harness';
+import type { Assertion, AssertionCitation, EvidenceEvent, MemoryChange, MemoryView, ScopeHandle } from '../../shared/harness';
 import { always, changeSchema, HarnessError, personalLabel } from '../../shared/harness';
-import type { KernelRepository, PrivacyFence } from '../storage/repository';
+import type { KernelRepository, MemoryContextScope, PrivacyFence, ReviewedSourceRestriction } from '../storage/repository';
 import type { IngressDecision, PolicyKernel } from '../runtime/policy';
 import { canonical, codePointSlice, locateQuote } from '../runtime/semantics';
 import { hasCredentials } from '../runtime/redaction';
 import { ProviderError } from '../provider';
+import { activeContextRequests, buildMemoryContext, canonicalContextRequests, containsContextRange, contextRequestSchema, contextRequestSignature, memoryContextAttemptSignature, memoryContextIdentity,
+  validateMemoryContextSnapshot, MEMORY_CONTEXT_METHOD, type ContextRequest, type ContextRequestResult, type MemorySourceDirectory, type MemorySourceWindow } from './context-windows';
 
 export interface SemanticReview {
   supported: boolean;
@@ -21,10 +23,14 @@ export interface SemanticReview {
   futureUse?: string | null;
   useScope?: string | null;
   preservesUseScope?: boolean;
+  allSourcesSupportClaim?: boolean;
+  supportSetComplete?: boolean;
+  sourceReviews?: { eventId: string; contentVersion: number; start: number; end: number; supported: boolean }[];
   /** Required only for a host-bound current owner projection; never a global grant. */
   authorizesOwnerProjection?: boolean;
 }
-export const currentOwnerChangeSchema = changeSchema.omit({ targetId: true, expectedRevision: true, unresolvedTime: true }).extend({
+export const currentOwnerChangeSchema = changeSchema.omit({ targetId: true, expectedRevision: true, unresolvedTime: true,
+  supports: true, sourceStartCodePoint: true, sourceEndCodePoint: true }).extend({
   operation: z.literal('ADD'), subject: z.literal('self'), world: z.literal('source_world'),
   kind: z.enum(['explicit_fact', 'explicit_preference', 'current_state']), sourceQuote: z.string().min(1).max(4000),
   sourceContentVersion: z.number().int().positive(), recordingQuote: z.string().min(1).max(2000),
@@ -39,6 +45,20 @@ export type CurrentOwnerChange = z.infer<typeof currentOwnerChangeSchema>;
  * repository-derived context and never writes this projection to memory.
  */
 export interface MemoryContext {
+  methodVersion?: string;
+  sourceSignature?: string;
+  sourceDirectory?: MemorySourceDirectory[];
+  sourceWindows?: MemorySourceWindow[];
+  contextRequestResults?: ContextRequestResult[];
+  contextByteBudget?: number;
+  sourceScanCoverage?: { bounded: true; beforeComplete: boolean; laterComplete: boolean; maxScannedPerDirection: number; meaning: string };
+  referenceCoverage?: { id: string; textLength: number; provided: boolean; requestable: false }[];
+  /** Host-resolved support, never inferred from arbitrary context or accepted from a caller. */
+  hostSupportSet?: {
+    citations: { eventId: string; contentVersion: number; quote: string; start: number; end: number; role: AssertionCitation['role'] }[];
+    sources: EvidenceEvent[];
+    complete: boolean;
+  };
   /** Host-only plan for the same review; raw mixed source remains non-inferable. */
   currentOwnerProjection?: {
     parentEventId: string; parentContentVersion: number; parentSubject: 'mixed'; parentWorld: 'real'; proposedEvidenceId: string;
@@ -51,6 +71,7 @@ export interface MemoryContext {
     kind: Assertion['kind']; strength: Assertion['strength']; status: Assertion['status']; text: string;
     conditions: Assertion['conditions']; temporal: Assertion['temporal'];
     sourceQuotes: { eventId: string; contentVersion: number; quote: string; start: number; end: number }[];
+    sourceCoverage?: 'complete' | 'incomplete';
   };
   /** Host's actual immediate retirement; validity describes the old content. */
   proposedRetirement?: {
@@ -67,6 +88,11 @@ export interface MemoryContext {
     receivedAt?: string;
     textLength?: number;
     coverage?: 'complete' | 'excerpt';
+    contentVersion?: number;
+    sequence?: number;
+    rangeStart?: number;
+    rangeEnd?: number;
+    relation?: 'current' | 'before' | 'later_clarification';
   }>;
   anchors?: Array<{
     id: string;
@@ -83,7 +109,12 @@ export interface MemoryContext {
     sourceExcerpt: string;
     tailText?: string;
     tailStart?: number;
-    textLength: number;
+    textLength?: number;
+    contentVersion?: number;
+    sequence?: number;
+    focusRange?: { start: number; end: number };
+    sourceExcerptStart?: number;
+    sourceExcerptEnd?: number;
   };
 }
 export interface ExtractionSpan {
@@ -91,6 +122,8 @@ export interface ExtractionSpan {
   start: number;
   end: number;
   text: string;
+  textStart?: number;
+  textEnd?: number;
   context?: MemoryContext;
 }
 export type MemoryReviewer = (
@@ -104,6 +137,7 @@ export interface ExtractionResult {
   status: 'candidate_emitted' | 'no_personal_fact' | 'needs_context' | 'quote_or_hypothesis';
   /** At most one structured-output repair may be attempted by a model adapter. */
   formatRepair?: 'none' | 'recovered';
+  contextRequests?: ContextRequest[];
 }
 export type Extractor = (
   event: EvidenceEvent,
@@ -160,40 +194,6 @@ export class MemoryService {
   /** Build a bounded worker view while the caller's ScopeHandle is still live. */
   private workerContext(handle: ScopeHandle, event: EvidenceEvent, supplied?: MemoryContext): MemoryContext {
     const query = this.contextTerms(this.clip(event.text, 6000));
-    const prior = event.sessionId
-      ? this.repo
-          .sessionEvidence(handle, event.sessionId, 8)
-          .filter((candidate) => candidate.id !== event.id && candidate.status === 'active')
-          .slice(0, 6)
-          .map((candidate) => ({
-            id: candidate.id,
-            speaker: candidate.speaker,
-            text: this.clip(candidate.text, 420),
-            textLength: Array.from(candidate.text).length,
-            coverage: Array.from(candidate.text).length > 420 ? 'excerpt' as const : 'complete' as const,
-            subjectId: candidate.subjectId,
-            worldId: candidate.worldId,
-            authority: candidate.authority,
-            receivedAt: candidate.receivedAt,
-          }))
-      : [];
-    const priorEvents = [
-      ...(supplied?.priorEvents || [])
-        .filter(
-          (candidate) =>
-            (!candidate.subjectId || candidate.subjectId === event.subjectId) &&
-            (!candidate.worldId || candidate.worldId === event.worldId),
-        )
-        .slice(0, 6)
-        .map((candidate) => ({
-          ...candidate,
-          text: this.clip(candidate.text, 420),
-          textLength: candidate.textLength ?? Array.from(candidate.text).length,
-          coverage: candidate.coverage === 'excerpt' || Array.from(candidate.text).length > 420 ? 'excerpt' as const : 'complete' as const,
-        })),
-      ...prior,
-    ].filter((candidate, index, all) => all.findIndex((item) => item.id === candidate.id) === index);
-
     const assertions = this.repo
       .lexicalAssertions(handle, this.clip(event.text, 6000), 12)
       .filter((assertion) => assertion.status === 'active')
@@ -238,11 +238,52 @@ export class MemoryService {
         })),
     ].filter((condition, index, all) => all.findIndex((item) => item.id === condition.id) === index).slice(0, 12);
     return {
-      priorEvents,
       anchors,
       conditions,
-      ...(supplied?.current ? { current: supplied.current } : {}),
     };
+  }
+  private contextScope(handle: ScopeHandle, eventId: string, binding?: MemoryContextScope) {
+    if (!binding) return handle;
+    const current = this.policy.validate(handle);
+    if (!Array.isArray(binding.sources) || !Array.isArray(binding.currentEventIds) || !Array.isArray(binding.purposes) || !Array.isArray(binding.grants))
+      return this.policy.narrow(handle, { sources: [], currentEventIds: current.currentEventIds.includes(eventId) ? [eventId] : [], grants: current.grants.filter(grant => ['evidence:read', 'memory:write'].includes(grant)) });
+    if (binding.principalId !== current.principalId || binding.workspaceId !== current.workspaceId || binding.subjectId !== current.subjectId
+      || binding.worldId !== current.worldId || binding.audience !== current.audience || binding.retention !== current.retention)
+      throw new HarnessError('memory_context_scope', '原整理范围与当前资料归属不一致，旧前情没有恢复。');
+    return this.policy.narrow(handle, { sources: current.sources.filter(source => binding.sources.includes(source)),
+      currentEventIds: current.currentEventIds.filter(id => binding.currentEventIds.includes(id)),
+      purposes: current.purposes.filter(purpose => binding.purposes.includes(purpose)),
+      grants: current.grants.filter(grant => binding.grants.includes(grant)), infer: current.infer && binding.infer });
+  }
+  private contextBinding(handle: ScopeHandle): MemoryContextScope {
+    const scope = this.policy.validate(handle);
+    const { principalId, workspaceId, subjectId, worldId, audience, retention, infer, sources, currentEventIds, purposes, grants } = scope;
+    return { principalId, workspaceId, subjectId, worldId, audience, retention, infer,
+      sources: [...sources], currentEventIds: [...currentEventIds], purposes: [...purposes], grants: [...grants] };
+  }
+  /** Selection and process use the same admitted context identity and scope intersection. */
+  nextPendingMemory(eventId?: string) {
+    if (this.paused) return;
+    for (const row of this.repo.memoryRecoveryCandidates(eventId)) {
+      const id = String(row.id), host = this.policy.hostScope({ currentEventIds: [id], purposes: [String(row.purpose)] });
+      for (const span of this.repo.spans(host, id).filter(span => ['pending', 'needs_context'].includes(span.status))) {
+        try {
+          const progress = this.repo.memoryContextProgress(host, span.id);
+          // A legacy/unattempted row has no captured ambient-read permission.
+          const scope = this.contextScope(host, id, progress?.scopeBinding || { ...this.contextBinding(host), sources: [], currentEventIds: [id] });
+          if (!this.policy.can(scope, 'evidence:read') || !this.policy.can(scope, 'memory:write')) continue;
+          const event = this.repo.evidence(scope, id);
+          if (!event || !event.label.infer || span.contentVersion !== event.contentVersion) continue;
+          const requests = activeContextRequests(this.repo, scope, event, progress?.sourceVersion === event.contentVersion
+            ? progress.requests.filter(request => contextRequestSchema.safeParse(request).success) : []);
+          const identity = memoryContextIdentity(this.repo, scope, event, requests);
+          if (span.status === 'pending' || progress?.methodVersion !== MEMORY_CONTEXT_METHOD || progress.attemptSignature !== identity.generation)
+            return { row, scope, contextSignature: identity.generation };
+        } catch (error) {
+          if (!(error instanceof HarnessError)) throw error;
+        }
+      }
+    }
   }
   private isolatedContextDependent(text: string, context: MemoryContext) {
     const compact = text.trim().replace(/[，。！？、；：,.!?;\s]+/g, '');
@@ -269,6 +310,12 @@ export class MemoryService {
       throw new HarnessError('subject_mismatch', '这段证据的主体不是本人，不能改变其归属。');
     const quote = change.sourceQuote;
     if (hasCredentials(quote + '\n' + change.text)) throw new HarnessError('restricted_retention', '凭据不能存入个人理解。');
+    // Missing fields remain compatible with legacy single-source reviews.
+    // An explicit negative verdict never becomes support via that fallback,
+    // including the current-owner path which calls this gate directly.
+    if (review?.allSourcesSupportClaim === false || review?.supportSetComplete === false
+      || review?.sourceReviews?.some(citation => citation.supported === false))
+      throw new HarnessError('support_set_unknown', '声明的原文片段不足以支持候选，不能从未声明正文补足条件。');
     if (review?.retention === 'restricted') throw new HarnessError('restricted_retention', '这项内容不适合存入普通长期理解。');
     if (!trustedControl) {
       if (!review || !['retain_new', 'maintain_existing', 'original_only', 'needs_context'].includes(review.derivation || '')
@@ -414,7 +461,10 @@ export class MemoryService {
       if (raced) return raced;
       const scope = this.policy.currentOwnerProjectionScope(handle, parent.id, projectionId);
       const evidence = this.repo.ingest(scope, projected);
-      const assertion = this.commitVerified(scope, change, evidence, status, this.repo.epoch);
+      this.validateCandidateSource(scope, parent, recordingRequest);
+      const assertion = this.commitVerified(scope, change, evidence, status, this.repo.epoch, [{
+        eventId: parent.id, contentVersion: parent.contentVersion, start: recordingRequest.start, end: recordingRequest.end, role: 'authorization',
+      }]);
       this.repo.markSpans(scope, evidence.id, 'candidate_emitted');
       this.repo.indexEvidence(scope, evidence.id);
       this.repo.markSpans(handle, parent.id, 'quote_or_hypothesis');
@@ -422,24 +472,78 @@ export class MemoryService {
       return assertion;
     });
   }
-  private validateCandidateSource(handle: ScopeHandle, event: EvidenceEvent, predicate: string, location?: { start: number; end: number }) {
+  private validateCandidateSource(handle: ScopeHandle, event: EvidenceEvent, location: { start: number; end: number }) {
+    this.repo.refreshSourceConstraints();
     const current = this.repo.evidence(handle, event.id);
     if (!current || current.status === 'deleted')
       throw new HarnessError('source_suppressed', '原始来源已不可用，不能恢复旧理解。');
     if (canonical(current) !== canonical(event))
       throw new HarnessError('source_version_conflict', '审核期间原文或适用范围发生变化，请重读来源。');
-    if (location && this.repo.fences().some(fence => fence.kind === 'delete' && fence.spans?.some(span =>
-      span.eventId === current.id && (span.contentVersion !== current.contentVersion || span.start < location.end && span.end > location.start))))
-      throw new HarnessError('source_suppressed', '这段原文已经删除，不能重新提取；未删除的片段仍可使用。');
-    if ([current.id, ...current.roots].some(id =>
-      this.repo.db.prepare("SELECT 1 FROM h_source_restrictions WHERE event_id=? AND predicate IN (?, '*')").get(id, predicate)
-      || this.repo.db.prepare("SELECT 1 FROM h_source_restrictions x JOIN h_evidence_roots r ON r.event_id=x.event_id WHERE r.root_id=? AND x.predicate IN (?, '*') LIMIT 1").get(id, predicate)))
-      throw new HarnessError('source_suppressed', '这个旧来源的相关理解已停止使用，不能重新提取。');
-    // A renamed predicate is not a new source. Block the exact corrected
-    // passage while allowing independent facts elsewhere in the same event.
-    if (location && this.repo.db.prepare(`SELECT 1 FROM h_source_restriction_spans WHERE event_id=?
-      AND content_version=? AND start_cp<? AND end_cp>? LIMIT 1`).get(current.id, current.contentVersion, location.end, location.start))
-      throw new HarnessError('source_suppressed', '这段原文已经被更正或停止使用，不能换一个名称重新提取。');
+    if (!this.repo.citationReadable(handle, { eventId: current.id, contentVersion: current.contentVersion, ...location, role: 'primary' }, true))
+      throw new HarnessError('source_suppressed', '这段原文或其真实来源已经删除、更正或停止使用，不能换一个名称重新提取；无关的精确片段仍可使用。');
+  }
+  private primaryRange(event: EvidenceEvent, change: MemoryChange) {
+    if (change.sourceContentVersion !== undefined && change.sourceContentVersion !== event.contentVersion)
+      throw new HarnessError('source_version_conflict', '原文版本已变化，请重新定位。');
+    const start = change.sourceStartCodePoint, end = change.sourceEndCodePoint;
+    if ((start === undefined) !== (end === undefined)) throw new HarnessError('locator_mismatch', '原文定位需要完整起止位置。');
+    if (start !== undefined && end !== undefined) {
+      if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start < 0 || end <= start
+        || end > Array.from(event.text).length || codePointSlice(event.text, start, end) !== change.sourceQuote)
+        throw new HarnessError('locator_mismatch', '当前原文定位与逐字引文不符。');
+      return { start, end };
+    }
+    const offset = event.text.indexOf(change.sourceQuote);
+    if (offset >= 0 && event.text.indexOf(change.sourceQuote, offset + 1) >= 0)
+      throw new HarnessError('ambiguous_source_quote', '同一句原文有多个位置，请给出准确字符范围。');
+    return locateQuote(event.text, change.sourceQuote);
+  }
+  private requestIdentity(change: MemoryChange, event: EvidenceEvent) {
+    const { idempotencyKey: _key, expectedRevision: _revision, ...request } = change;
+    const range = this.primaryRange(event, change);
+    return createHash('sha256').update(canonical({ ...request, sourceContentVersion: event.contentVersion,
+      sourceStartCodePoint: range.start, sourceEndCodePoint: range.end,
+      supports: change.supports?.length ? [...change.supports].sort((a, b) => canonical(a).localeCompare(canonical(b))) : undefined })).digest('hex');
+  }
+  private resolveSupportSet(handle: ScopeHandle, change: MemoryChange, event: EvidenceEvent, old?: Assertion) {
+    const scope = this.policy.validate(handle), location = this.primaryRange(event, change);
+    const citations = [{ eventId: event.id, contentVersion: event.contentVersion, quote: change.sourceQuote, ...location, role: 'primary' as AssertionCitation['role'] }];
+    const sources = new Map([[event.id, event]]);
+    if (change.supports?.length) this.policy.require(handle, 'evidence:read');
+    for (const support of change.supports || []) {
+      const source = this.repo.evidence(handle, support.eventId);
+      if (!source || source.ownerId !== event.ownerId || source.workspaceId !== event.workspaceId
+        || source.subjectId !== scope.subjectId || source.worldId !== scope.worldId || source.speaker !== 'user'
+        || source.authority !== 'user_statement' || !source.label.infer || source.label.retention !== 'purpose_scoped')
+        throw new HarnessError('support_forbidden', '支持片段不是当前范围内可保留的同主体用户原话。');
+      if (source.contentVersion !== support.contentVersion) throw new HarnessError('source_version_conflict', '支持原文版本已变化。');
+      if (!Number.isSafeInteger(support.startCodePoint) || !Number.isSafeInteger(support.endCodePoint)
+        || support.startCodePoint < 0 || support.endCodePoint <= support.startCodePoint
+        || support.endCodePoint > Array.from(source.text).length
+        || codePointSlice(source.text, support.startCodePoint, support.endCodePoint) !== support.quote)
+        throw new HarnessError('locator_mismatch', '支持片段的Unicode定位与完整引文不符。');
+      if (hasCredentials(support.quote)) throw new HarnessError('restricted_retention', '凭据不能存入个人理解的支持集。');
+      this.validateCandidateSource(handle, source, { start: support.startCodePoint, end: support.endCodePoint });
+      citations.push({ eventId: source.id, contentVersion: source.contentVersion, quote: support.quote,
+        start: support.startCodePoint, end: support.endCodePoint, role: 'support' });
+      sources.set(source.id, source);
+    }
+    let complete = true;
+    if (old && ['SUPPORT', 'REFINE', 'ADD_EXCEPTION'].includes(change.operation)) {
+      for (const citation of this.repo.assertionCitations(handle, old.id)) {
+        const source = this.repo.evidence(handle, citation.eventId);
+        if (!source || citation.contentVersion !== source.contentVersion || citation.start === undefined || citation.end === undefined) { complete = false; continue; }
+        if (!this.repo.citationReadable(handle, citation, true))
+          throw new HarnessError('source_suppressed', '已有理解的支持片段已变化，请先重新核对。');
+        citations.push({ eventId: source.id, contentVersion: source.contentVersion,
+          quote: codePointSlice(source.text, citation.start, citation.end), start: citation.start, end: citation.end,
+          role: citation.role === 'authorization' ? 'authorization' : 'support' });
+        sources.set(source.id, source);
+      }
+    }
+    return { citations: citations.filter((citation, index, all) => all.findIndex(value =>
+      canonical([value.eventId, value.contentVersion, value.start, value.end]) === canonical([citation.eventId, citation.contentVersion, citation.start, citation.end])) === index),
+      sources: [...sources.values()], complete };
   }
   async propose(
     handle: ScopeHandle,
@@ -451,19 +555,30 @@ export class MemoryService {
     let change = changeSchema.parse(raw);
     try {
       const scope = this.policy.require(handle, 'memory:write');
-      const duplicate = this.repo.operation<{ id: string }>('memory:' + change.idempotencyKey);
-      if (duplicate) {
-        const prior = this.repo.assertion(handle, duplicate.id);
-        if (prior) return prior;
-      }
       if (!scope.infer || scope.retention !== 'purpose_scoped')
         throw new HarnessError('inference_forbidden', '这段内容不用于长期记忆。');
       const event = this.repo.evidence(handle, change.eventId);
       if (!event) throw new HarnessError('evidence_forbidden', '找不到有权使用的原始证据。');
-      const location = locateQuote(event.text, change.sourceQuote);
-      this.validateCandidateSource(handle, event, change.predicate, location);
+      const location = this.primaryRange(event, change);
+      this.validateCandidateSource(handle, event, location);
       if (codePointSlice(event.text, location.start, location.end) !== change.sourceQuote)
         throw new HarnessError('locator_mismatch', '原文定位核验失败。');
+      const requestHash = this.requestIdentity(change, event);
+      if (options.review && options.reviewContext && (options.reviewContext.priorEvents?.length || options.reviewContext.anchors?.length
+        || options.reviewContext.conditions?.length || options.reviewContext.current)
+        && !change.supports?.length && (options.review.allSourcesSupportClaim !== true || options.review.supportSetComplete !== true))
+        throw new HarnessError('support_set_unknown', '未申报的前情不能替代支持来源。');
+      const duplicate = this.repo.operation<{ id: string; requestHash?: string }>('memory:' + change.idempotencyKey);
+      if (duplicate) {
+        const { idempotencyKey: _key, eventId: _event, expectedRevision: _revision, sourceContentVersion: _version,
+          sourceStartCodePoint: _start, sourceEndCodePoint: _end, supports: _supports, ...legacy } = change;
+        const provenLegacy = !change.supports?.length && change.idempotencyKey.startsWith(`extract:${event.id}:${event.contentVersion}:`)
+          && change.idempotencyKey.endsWith(':v2:' + createHash('sha256').update(canonical(legacy)).digest('hex'));
+        if (duplicate.requestHash !== requestHash && !(duplicate.requestHash === undefined && provenLegacy))
+          throw new HarnessError('idempotency_conflict', '同一提交标识的来源或内容不同，没有复用旧回执。');
+        const prior = this.repo.assertion(handle, duplicate.id);
+        if (prior) return prior;
+      }
       if (change.operation !== 'ADD' && !change.targetId) {
         const matching = this.repo
           .assertions(handle, {
@@ -499,33 +614,47 @@ export class MemoryService {
       if (retirement)
         change = { ...change, validFrom: retirement.temporal.validFrom, validTo: retirement.temporal.validTo,
           unresolvedTime: retirement.temporal.unresolvedExpression };
-      const { existingAssertion: _untrustedTarget, proposedRetirement: _untrustedRetirement, currentOwnerProjection: _untrustedProjection, ...providedContext } = options.reviewContext || {};
-      const reviewContext: MemoryContext = { ...providedContext };
+      const { existingAssertion: _untrustedTarget, proposedRetirement: _untrustedRetirement, currentOwnerProjection: _untrustedProjection,
+        hostSupportSet: _untrustedSupports, ...providedContext } = options.reviewContext || {};
+      const hostSupportSet = this.resolveSupportSet(handle, change, event, oldTarget);
+      const reviewContext: MemoryContext = { ...providedContext, hostSupportSet };
       if (oldTarget) {
-        const sourceQuotes = this.repo.db.prepare('SELECT event_id,start_cp,end_cp FROM h_assertion_evidence WHERE assertion_id=? ORDER BY rowid DESC LIMIT 1')
-          .all(oldTarget.id).flatMap(row => {
-            if (row.start_cp === null || row.end_cp === null) return [];
-            const source = this.repo.evidence(handle, String(row.event_id));
-            if (!source) return [];
-            const start = Number(row.start_cp), end = Number(row.end_cp);
-            return [{ eventId: source.id, contentVersion: source.contentVersion, quote: codePointSlice(source.text, start, end), start, end }];
+        const oldCitations = this.repo.assertionCitations(handle, oldTarget.id);
+        const sourceQuotes = oldCitations.flatMap(citation => {
+            const source = this.repo.evidence(handle, citation.eventId);
+            if (!source || source.contentVersion !== citation.contentVersion || citation.start === undefined || citation.end === undefined) return [];
+            return [{ eventId: source.id, contentVersion: source.contentVersion,
+              quote: codePointSlice(source.text, citation.start, citation.end), start: citation.start, end: citation.end }];
           });
         reviewContext.existingAssertion = { id: oldTarget.id, revision: oldTarget.revision, subjectId: oldTarget.subjectId, worldId: oldTarget.worldId,
           predicate: oldTarget.predicate, kind: oldTarget.kind, strength: oldTarget.strength, status: oldTarget.status, text: oldTarget.text,
-          conditions: oldTarget.conditions, temporal: oldTarget.temporal, sourceQuotes };
+          conditions: oldTarget.conditions, temporal: oldTarget.temporal, sourceQuotes,
+          sourceCoverage: sourceQuotes.length === oldCitations.length ? 'complete' : 'incomplete' };
         if (retirement) reviewContext.proposedRetirement = retirement;
       }
       if (!options.trustedControl && !review && this.reviewer)
         review = await this.reviewer(change, event, signal, reviewContext);
       signal.throwIfAborted();
       this.policy.validate(handle);
+      const suppliedContextText = !!(options.review && (providedContext.priorEvents?.length || providedContext.anchors?.length || providedContext.conditions?.length || providedContext.current));
+      const needsCompleteReview = !!change.supports?.length || (!options.review && hostSupportSet.citations.length > 1) || suppliedContextText
+        || review?.allSourcesSupportClaim !== undefined || review?.supportSetComplete !== undefined || review?.sourceReviews !== undefined;
+      if (needsCompleteReview) {
+        const keys = hostSupportSet.citations.map(citation => canonical([citation.eventId, citation.contentVersion, citation.start, citation.end]));
+        const checked = review?.sourceReviews || [];
+        if (!hostSupportSet.complete || review?.allSourcesSupportClaim !== true || review.supportSetComplete !== true
+          || checked.length !== keys.length || checked.some(citation => !citation.supported
+            || !keys.includes(canonical([citation.eventId, citation.contentVersion, citation.start, citation.end])))
+          || new Set(checked.map(citation => canonical([citation.eventId, citation.contentVersion, citation.start, citation.end]))).size !== keys.length)
+          throw new HarnessError('support_set_unknown', '跨来源条件尚未逐项核清；线索不能代替已声明的支持片段。');
+      }
       if (change.operation === 'SUPPORT' && !options.trustedControl && review?.retention !== 'allowed')
         throw new HarnessError('support_unverified', '新增来源的长期用途未核实，没有把它附为有效支持。');
       const existingTarget = !!change.targetId && !!this.repo.assertion(handle, change.targetId);
       const status = this.semanticGate(change, event, review, options.trustedControl, existingTarget);
       if (scope.privacyEpoch !== epoch)
         throw new HarnessError('stale_scope', '资料范围已改变，候选不再提交。');
-      return this.commitVerified(handle, change, event, status, epoch);
+      return this.commitVerified(handle, change, event, status, epoch, [], options.reviewContext, requestHash);
     } catch (error) {
       const code = error instanceof HarnessError ? error.code : 'invalid_candidate';
       if (code !== 'memory_not_needed') this.rejected.push({ eventId: change.eventId, code });
@@ -541,9 +670,12 @@ export class MemoryService {
     event: EvidenceEvent,
     status: 'active' | 'candidate',
     epoch: number,
+    authorizations: { eventId: string; contentVersion: number; start: number; end: number; role: 'authorization' }[] = [],
+    extractionContext?: MemoryContext,
+    requestHash?: string,
   ): Assertion {
     const scope = this.policy.require(handle, 'memory:write'),
-      location = locateQuote(event.text, change.sourceQuote);
+      location = this.primaryRange(event, change);
     if (scope.privacyEpoch !== epoch) throw new HarnessError('stale_scope', '资料范围已改变。');
     this.repo.fault?.('before_candidate_commit');
     const old = change.targetId ? this.repo.assertion(handle, change.targetId) : undefined;
@@ -563,6 +695,10 @@ export class MemoryService {
         throw new HarnessError('older_source_update', '较旧的来源不能覆盖之后的明确更新。');
     }
     const now = this.repo.clock.now();
+    const supportSet = this.resolveSupportSet(handle, change, event, old);
+    if (!supportSet.complete) throw new HarnessError('support_set_unknown', '旧支持片段缺少可核验定位，请先补齐来源。');
+    const citations = [...supportSet.citations, ...authorizations];
+    const operationHash = requestHash || this.requestIdentity(change, event);
     let assertion: Assertion = {
       id: old?.id || randomUUID(),
       ownerId: scope.principalId,
@@ -585,7 +721,7 @@ export class MemoryService {
         unresolvedExpression: change.unresolvedTime,
       },
       status,
-      evidenceIds: [event.id],
+      evidenceIds: [...new Set(supportSet.citations.filter(citation => citation.role !== 'authorization').map(citation => citation.eventId))],
       label: { ...event.label },
       verification: status === 'active' ? 'verified' : 'pending',
     };
@@ -597,34 +733,57 @@ export class MemoryService {
       assertion.text = change.sourceQuote;
     this.repo.write(() => {
       this.policy.validate(handle);
+      validateMemoryContextSnapshot(this.repo, handle, event, extractionContext, !!change.supports?.length);
       // Capture locators before saveAssertion replaces the old evidence links.
-      const oldLocators = old ? this.repo.db.prepare(`SELECT ae.event_id,ae.start_cp,ae.end_cp,e.version FROM h_assertion_evidence ae
-        JOIN h_evidence e ON e.id=ae.event_id WHERE ae.assertion_id=?`).all(old.id) : [];
+      const oldLocators = old ? this.repo.assertionCitations(handle, old.id) : [];
       // Review is asynchronous. A correction may have stopped this source
       // without changing the privacy epoch or this proposal's target revision.
-      this.validateCandidateSource(handle, event, change.predicate, location);
+      this.validateCandidateSource(handle, event, location);
+      const currentSupports = this.resolveSupportSet(handle, change, event, old);
+      if (canonical(currentSupports) !== canonical(supportSet)) throw new HarnessError('source_version_conflict', '审核后的支持片段或范围发生变化。');
+      // Only the host's exact existing-target locators may carry their old
+      // source-use receipt through validation. A proposal cannot supply one;
+      // the new revision receives its own receipt only after semantic commit.
+      const writeCitations = citations.map(citation => {
+        const prior = oldLocators.find(value => value.eventId === citation.eventId && value.contentVersion === citation.contentVersion
+          && value.start === citation.start && value.end === citation.end);
+        return { ...citation, ...(prior?.restrictionReceipt ? { restrictionReceipt: prior.restrictionReceipt } : {}) };
+      });
+      const restrictionBaseline = this.repo.citationReviewBaseline(handle, [...citations, ...oldLocators]);
+      const installedRestrictions: ReviewedSourceRestriction[] = [];
+      const reviewedRevisions: { id: string; revision: number }[] = [];
       if (change.operation === 'SUPPORT' && old) {
-        const roots = new Set(old.evidenceIds.flatMap((id) => this.repo.evidence(handle, id)?.roots || []));
-        if (event.roots.every((r) => roots.has(r))) {
-          this.repo.completeOperation('memory:' + change.idempotencyKey, 'SUPPORT', { id: old.id });
+        const alreadySupported = citations.every(citation => oldLocators.some(prior => {
+          if (prior.role === 'authorization' && citation.role !== 'authorization') return false;
+          if (canonical([prior.eventId, prior.contentVersion, prior.start, prior.end])
+            === canonical([citation.eventId, citation.contentVersion, citation.start, citation.end])) return true;
+          const currentSource = supportSet.sources.find(source => source.id === citation.eventId);
+          const previousSource = this.repo.evidence(handle, prior.eventId);
+          return currentSource && previousSource && citation.start !== undefined && citation.end !== undefined
+            && prior.start !== undefined && prior.end !== undefined && this.repo.sameSourceOrigin(currentSource,
+              { start: citation.start, end: citation.end }, previousSource, { start: prior.start, end: prior.end });
+        }));
+        if (alreadySupported) {
+          this.repo.completeOperation('memory:' + change.idempotencyKey, 'SUPPORT', { id: old.id, requestHash: operationHash });
           assertion = old;
           return;
         }
         assertion = {
           ...old,
           revision: old.revision + 1,
-          evidenceIds: [...new Set([...old.evidenceIds, event.id])],
+          evidenceIds: [...new Set([...old.evidenceIds, ...assertion.evidenceIds])],
         };
       }
       if (change.operation === 'ADD_EXCEPTION' && old) {
         assertion.id = randomUUID();
         assertion.revision = 1;
-        this.repo.saveAssertion(handle, assertion, undefined, [{ eventId: event.id, ...location }]);
+        this.repo.saveAssertion(handle, assertion, undefined, writeCitations);
         this.repo.saveAssertion(
           handle,
           { ...old, revision: old.revision + 1, exceptionIds: [...old.exceptionIds, assertion.id] },
           old.revision,
         );
+        reviewedRevisions.push({ id: old.id, revision: old.revision + 1 });
         this.repo.addDependency(handle, {
           consumerId: old.id,
           producerId: assertion.id,
@@ -640,9 +799,10 @@ export class MemoryService {
           temporal: { ...old.temporal, validTo: change.validFrom },
         };
         this.repo.saveAssertion(handle, prior, old.revision);
+        reviewedRevisions.push({ id: prior.id, revision: prior.revision });
         assertion.id = randomUUID();
         assertion.revision = 1;
-        this.repo.saveAssertion(handle, assertion, undefined, [{ eventId: event.id, ...location }]);
+        this.repo.saveAssertion(handle, assertion, undefined, writeCitations);
       } else {
         if (change.operation === 'CORRECT' && old)
           assertion.temporal = {
@@ -656,19 +816,17 @@ export class MemoryService {
           assertion.temporal = this.expiryPlan(change, old, now).temporal;
         }
         if (change.operation === 'RETRACT') assertion.status = 'retracted';
-        this.repo.saveAssertion(handle, assertion, old?.revision, [{ eventId: event.id, ...location }]);
+        this.repo.saveAssertion(handle, assertion, old?.revision, writeCitations);
       }
       if (old) {
         if (['CORRECT', 'RETRACT', 'EXPIRE', 'REFINE', 'SUPERSEDE'].includes(change.operation))
-          for (const oldEvent of old.evidenceIds)
-            if (oldEvent !== event.id)
-              this.repo.restrictSource(handle, oldEvent, old.predicate, change.operation, event.id,
-                oldLocators.filter(row => row.event_id === oldEvent && row.start_cp !== null && row.end_cp !== null)
-                  .map(row => ({ contentVersion: Number(row.version), start: Number(row.start_cp), end: Number(row.end_cp) })),
-                change.operation === 'SUPERSEDE' ? change.validFrom! : now);
-        this.repo.invalidate(old.id, 'understanding_' + change.operation.toLowerCase());
+          installedRestrictions.push(...this.repo.restrictCitationOrigins(handle, oldLocators.filter(citation => citation.role !== 'authorization'),
+            old.predicate, change.operation, event.id, change.operation === 'SUPERSEDE' ? change.validFrom! : now, true));
       }
-      this.repo.completeOperation('memory:' + change.idempotencyKey, change.operation, { id: assertion.id });
+      reviewedRevisions.push({ id: assertion.id, revision: assertion.revision });
+      this.repo.recordReviewedCitationUse(handle, reviewedRevisions, restrictionBaseline, installedRestrictions);
+      if (old) this.repo.invalidate(old.id, 'understanding_' + change.operation.toLowerCase());
+      this.repo.completeOperation('memory:' + change.idempotencyKey, change.operation, { id: assertion.id, requestHash: operationHash });
       this.repo.db
         .prepare('INSERT OR REPLACE INTO h_proposals VALUES(?,?,?,?,?,?)')
         .run(
@@ -685,7 +843,10 @@ export class MemoryService {
           }),
         );
     });
-    return assertion;
+    const stored = this.repo.db.prepare('SELECT payload FROM h_assertions WHERE id=? AND owner=? AND workspace=?')
+      .get(assertion.id, scope.principalId, scope.workspaceId);
+    if (!stored) throw new HarnessError('source_suppressed', '提交期间依据已经失效，没有恢复旧理解。');
+    return JSON.parse(String(stored.payload)) as Assertion;
   }
   async process(
     handle: ScopeHandle,
@@ -701,41 +862,44 @@ export class MemoryService {
       return;
     }
     if (!this.extractor) return; // Explicit pending coverage remains visible; no guessed success.
-    const workerBase = this.workerContext(handle, event, suppliedContext);
     for (const span of this.repo
       .spans(handle, eventId)
       // A failed span is an explicit terminal marker for this drain.  A later
       // user action or recovery job may requeue it deliberately; do not create
       // an implicit retry loop merely because the worker runs again.
-      .filter((s) => ['pending', 'needs_context'].includes(s.status))) {
+      .filter((s) => s.contentVersion === event.contentVersion && ['pending', 'needs_context'].includes(s.status))) {
       signal.throwIfAborted();
+      const saved = this.repo.memoryContextProgress(handle, span.id);
+      const scope = this.contextScope(handle, eventId, saved?.scopeBinding);
+      const requests = activeContextRequests(this.repo, scope, event, saved?.sourceVersion === event.contentVersion
+        ? saved.requests.filter(request => contextRequestSchema.safeParse(request).success) : []);
+      const identity = memoryContextIdentity(this.repo, scope, event, requests);
+      if (span.status === 'needs_context' && saved?.methodVersion === MEMORY_CONTEXT_METHOD && saved.attemptSignature === identity.generation) continue;
+      let context: MemoryContext | undefined;
+      const remember = (nextRequests = requests, attemptSignature = context?.sourceSignature
+        ? memoryContextAttemptSignature(context.sourceSignature, requests) : identity.generation, results = context?.contextRequestResults || []) => {
+        this.repo.recordMemoryContext(scope, event.id, span.id, { sourceVersion: event.contentVersion, methodVersion: MEMORY_CONTEXT_METHOD,
+          attemptSignature, sourceSignature: context?.sourceSignature || identity.sourceSignature,
+          contextWatermark: context?.sourceDirectory ? Math.max(event.sequence, ...context.sourceDirectory.map(source => source.sequence)) : identity.contextWatermark,
+          requestSignature: contextRequestSignature(nextRequests), requests: nextRequests, requestResults: results, scopeBinding: this.contextBinding(scope) });
+      };
       try {
-        const focusText = codePointSlice(event.text, span.start, span.end),
-          text = codePointSlice(
-          event.text,
-          Math.max(0, span.start - 300),
-          Math.min(Array.from(event.text).length, span.end + 300),
-          ),
-          eventLength = Array.from(event.text).length,
-          tailStart = Math.max(0, eventLength - 1200),
-          context: MemoryContext = {
-            ...workerBase,
-            current: {
-              eventId: event.id,
-              focusText: this.clip(focusText, 2200),
-              sourceExcerpt: this.clip(text, 2600),
-              // Only the final span receives the protected suffix. This
-              // avoids attributing a tail constraint to every earlier chunk.
-              ...(span.end >= tailStart
-                ? { tailText: codePointSlice(event.text, tailStart, eventLength), tailStart }
-                : {}),
-              textLength: eventLength,
-            },
-          };
-
+        context = buildMemoryContext(this.repo, scope, event, span, this.workerContext(scope, event, suppliedContext), requests);
+        remember();
+        validateMemoryContextSnapshot(this.repo, scope, event, context);
+        const own = context.sourceDirectory?.find(source => source.eventId === event.id);
+        if (!own?.allowedRanges.some(range => range.start < span.end && range.end > span.start)) {
+          this.repo.markSpans(scope, eventId, 'quote_or_hypothesis', [span.id]);
+          continue;
+        }
+        if (own.allowedRanges.some(range => {
+          const needed = { start: Math.max(range.start, span.start), end: Math.min(range.end, span.end) };
+          return needed.end > needed.start && !containsContextRange(own.providedRanges, needed);
+        })) throw new HarnessError('memory_context_budget', '本片段的合法正文尚未完整提供，不能把未处理部分记为完成。');
         const extracted = await this.extractor(
           event,
-          { id: span.id, start: span.start, end: span.end, text, context },
+          { id: span.id, start: span.start, end: span.end, text: context.current?.sourceExcerpt || '',
+            textStart: context.current?.sourceExcerptStart, textEnd: context.current?.sourceExcerptEnd, context },
           signal,
         );
         if (extracted.formatRepair === 'recovered')
@@ -745,11 +909,57 @@ export class MemoryService {
             status: 'format_repaired',
             attempts: 2,
           });
-        this.policy.validate(handle);
+        this.policy.validate(scope);
+        validateMemoryContextSnapshot(this.repo, scope, event, context);
+        if (extracted.contextRequests?.length || extracted.status === 'needs_context') {
+          // A clarification arriving during the model call has not been read by it.
+          validateMemoryContextSnapshot(this.repo, scope, event, context, true);
+          const next = [...requests], results: ContextRequestResult[] = [];
+          let expanded = false;
+          for (const [index, raw] of (extracted.contextRequests || []).entries()) {
+            const checked = contextRequestSchema.safeParse(raw), request = checked.success ? checked.data : undefined;
+            const source = request && context.sourceDirectory?.find(source => source.eventId === request.eventId);
+            let status: ContextRequestResult['status'] = !request ? 'invalid_range' : !source ? 'not_admitted'
+              : source.contentVersion !== request.contentVersion ? 'version_changed'
+                : !containsContextRange(source.allowedRanges, request) ? 'invalid_range' : 'provided';
+            if (request && status === 'provided') {
+              const candidate = canonicalContextRequests([...next, request]);
+              if (candidate.length > 8) status = 'budget_exceeded';
+              else {
+                next.splice(0, next.length, ...candidate);
+                const hydrated = buildMemoryContext(this.repo, scope, event, span, this.workerContext(scope, event, suppliedContext), next);
+                const indexInNext = next.findIndex(item => canonical(item) === canonical(request));
+                status = hydrated.contextRequestResults?.[indexInNext]?.status || 'budget_exceeded';
+                if (status === 'provided' && !containsContextRange(source!.providedRanges, request)) expanded = true;
+              }
+            }
+            results.push({ index, status });
+          }
+          validateMemoryContextSnapshot(this.repo, scope, event, context);
+          const canonicalNext = canonicalContextRequests(next);
+          const planned = buildMemoryContext(this.repo, scope, event, span, this.workerContext(scope, event, suppliedContext), canonicalNext);
+          expanded = false;
+          for (const [index, raw] of (extracted.contextRequests || []).entries()) {
+            const checked = contextRequestSchema.safeParse(raw);
+            if (!checked.success) continue;
+            const at = canonicalNext.findIndex(request => canonical(request) === canonical(checked.data));
+            if (at < 0) continue;
+            results[index] = { index, status: planned.contextRequestResults?.[at]?.status || 'budget_exceeded' };
+            const source = context.sourceDirectory?.find(source => source.eventId === checked.data.eventId);
+            if (results[index].status === 'provided' && source && !containsContextRange(source.providedRanges, checked.data)) expanded = true;
+          }
+          // Only a real additional legal window earns one automatic expansion pass.
+          // Invalid, repeated or over-budget requests remain needs_context without spinning.
+          remember(canonicalNext, memoryContextAttemptSignature(context.sourceSignature!, expanded
+            && contextRequestSignature(canonicalNext) !== contextRequestSignature(requests) ? requests : canonicalNext), planned.contextRequestResults || []);
+          this.repo.markSpans(scope, eventId, 'needs_context', [span.id]);
+          continue;
+        }
         let failed = false, retained = 0, originalOnly = 0;
         for (const proposal of extracted.changes) {
           try {
-            await this.propose(handle, { ...proposal, eventId: event.id }, signal, { reviewContext: context });
+            validateMemoryContextSnapshot(this.repo, scope, event, context, !!proposal.supports?.length);
+            await this.propose(scope, { ...proposal, eventId: event.id }, signal, { reviewContext: context });
             retained++;
           } catch (error) {
             if (signal.aborted || this.retryableInterruption(error) || (error instanceof HarnessError && error.code === 'stale_scope'))
@@ -758,15 +968,20 @@ export class MemoryService {
             failed = true;
           }
         }
-        this.repo.markSpans(handle, eventId, failed ? 'needs_context' : originalOnly && !retained ? 'no_personal_fact' : extracted.status, [span.id]);
+        this.repo.markSpans(scope, eventId, failed ? 'needs_context' : originalOnly && !retained ? 'no_personal_fact' : extracted.status, [span.id]);
       } catch (error) {
         if (signal.aborted) throw error;
+        if (error instanceof HarnessError && ['memory_context_changed', 'memory_context_budget'].includes(error.code)) {
+          remember();
+          this.repo.markSpans(scope, eventId, 'needs_context', [span.id]);
+          continue;
+        }
         if (this.retryableInterruption(error)) {
           // Some candidates in this span may already be committed. Their
           // content-bound idempotency keys make the resumed pass safe.
           // Stop now: spending the same exhausted budget on every later span
           // would turn an operational interruption into permanent data loss.
-          this.repo.markSpans(handle, eventId, 'pending', [span.id]);
+          this.repo.markSpans(scope, eventId, 'pending', [span.id]);
           throw error;
         }
         if (error instanceof HarnessError && error.code === 'invalid_semantic_json')
@@ -881,17 +1096,14 @@ export class MemoryService {
     const scope = this.policy.hostScope(),
       old = this.repo.assertion(scope, id);
     if (!old) return;
+    const citations = this.repo.assertionCitations(scope, old.id);
     this.repo.write(() => {
       this.repo.saveAssertion(
         scope,
         { ...old, status: 'inactive', revision: old.revision + 1 },
         old.revision,
       );
-      for (const source of old.evidenceIds)
-        this.repo.restrictSource(scope, source, old.predicate, 'DEACTIVATE', null,
-          this.repo.db.prepare(`SELECT ae.start_cp,ae.end_cp,e.version FROM h_assertion_evidence ae JOIN h_evidence e ON e.id=ae.event_id
-            WHERE ae.assertion_id=? AND ae.event_id=? AND ae.start_cp IS NOT NULL AND ae.end_cp IS NOT NULL`).all(old.id, source)
-            .map(row => ({ contentVersion: Number(row.version), start: Number(row.start_cp), end: Number(row.end_cp) })), this.repo.clock.now());
+      this.repo.restrictCitationOrigins(scope, citations.filter(citation => citation.role !== 'authorization'), old.predicate, 'DEACTIVATE', null, this.repo.clock.now());
       this.repo.invalidate(id, 'understanding_deactivated');
       this.repo.setMeta('policy_revision', this.repo.policyRevision + 1);
     });
@@ -902,7 +1114,7 @@ export class MemoryService {
     for (const id of ids)
       if (
         !this.repo.hasFence(id) &&
-        !this.repo.assertion(scope, id) &&
+        !this.repo.db.prepare('SELECT 1 FROM h_assertions WHERE id=? AND owner=? AND workspace=?').get(id, this.repo.identity.principalId, this.repo.identity.workspaceId) &&
         !this.repo.evidence(scope, id) &&
         !this.repo.work(scope).some((w) => w.id === id)
       )
@@ -911,56 +1123,25 @@ export class MemoryService {
       .flatMap((id) =>
         this.repo.db
           .prepare(
-            'SELECT ae.event_id,e.version,ae.start_cp,ae.end_cp FROM h_assertion_evidence ae JOIN h_evidence e ON e.id=ae.event_id WHERE assertion_id=?',
+            'SELECT event_id,content_version AS version,start_cp,end_cp FROM h_assertion_citations WHERE assertion_id=?',
           )
           .all(id).map(row => ({ assertionId: id, event_id: row.event_id, version: row.version,
             start_cp: row.start_cp, end_cp: row.end_cp })),
       );
     const spans = currentLocators
-      .filter((row) => row.start_cp !== null && row.end_cp !== null)
+      .filter((row) => row.version !== null && row.start_cp !== null && row.end_cp !== null)
       .map((row) => ({
         eventId: String(row.event_id),
         contentVersion: Number(row.version),
         start: Number(row.start_cp),
         end: Number(row.end_cp),
       }));
-    const deletedSources = new Set(sourceIds);
-    for (const id of ids) {
-      const versions = this.repo.db.prepare('SELECT payload FROM h_assertion_versions WHERE id=? ORDER BY revision DESC').all(id)
-        .map(row => JSON.parse(String(row.payload)) as Assertion);
-      const current = versions[0], evidenceIds = new Set(versions.flatMap(version => version.evidenceIds));
-      for (const version of versions.slice(1)) for (const eventId of version.evidenceIds) {
-        const event = this.repo.evidence(scope, eventId);
-        if (!event) continue;
-        const ranges = this.repo.sourceRestrictions(scope, eventId).filter(restriction =>
-          restriction.predicate === version.predicate && restriction.replacementEventId && evidenceIds.has(restriction.replacementEventId))
-          .flatMap(restriction => restriction.ranges);
-        if (ranges.length) {
-          spans.push(...ranges.map(range => ({ eventId, ...range })));
-          continue;
-        }
-        // SUPPORT and other unchanged versions keep their current quote. A
-        // changed historical claim without an attributable locator cannot be
-        // erased by guessing where its former wording occurred.
-        const sameClaim = current && canonical({ text: version.text, value: version.value, conditions: version.conditions })
-          === canonical({ text: current.text, value: current.value, conditions: current.conditions });
-        if (sameClaim && currentLocators.some(locator => locator.assertionId === id && locator.event_id === eventId
-          && locator.start_cp !== null && locator.end_cp !== null)) continue;
-        deletedSources.add(eventId);
-      }
-    }
-    for (const span of [...spans]) {
-      const row = this.repo.db.prepare('SELECT payload FROM h_evidence WHERE id=?').get(span.eventId),
-        event = row ? (JSON.parse(String(row.payload)) as EvidenceEvent) : undefined;
-      if (event?.locator?.kind === 'text' && event.parentEventId)
-        spans.push({
-          eventId: event.parentEventId,
-          contentVersion: event.locator.contentVersion,
-          start: event.locator.startCodePoint + span.start,
-          end: Math.min(event.locator.startCodePoint + span.end, event.locator.endCodePoint),
-        });
-    }
-    const fence = this.repo.establishFence({ kind: 'delete', objectIds: ids, sourceIds: [...deletedSources], spans: [...spans, ...controlSpans], ...conversationDeletion });
+    const erasure = this.repo.sourceErasure([...spans, ...controlSpans], currentLocators
+      .filter(locator => locator.version === null || locator.start_cp === null || locator.end_cp === null).map(locator => String(locator.event_id)));
+    // Whole conversation deletion keeps its explicitly selected source scope;
+    // forgetting a fact traces only that fact's origin and its known copies.
+    const deletedSources = new Set([...sourceIds, ...erasure.sourceIds]);
+    const fence = this.repo.establishFence({ kind: 'delete', objectIds: ids, sourceIds: [...deletedSources], spans: erasure.spans, ...conversationDeletion });
     this.policy.signalBarrier();
     this.repo.cleanupFence(fence);
     this.repo.checkpointPrivacy();

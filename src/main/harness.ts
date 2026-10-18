@@ -406,7 +406,7 @@ export class Harness {
     try { await this.opportunityPending; }
     finally { this.backgroundTasks.delete(this.opportunityPending); this.backgroundControllers.delete(controller); this.opportunityPending = undefined; this.opportunityController = undefined; }
   }
-  /** Resume only genuinely pending self-authored extraction; failed/ambiguous work awaits explicit retry. */
+  /** Resume pending extraction or a new legal context generation; never repeat an unchanged needs_context pass. */
   async recoverPending(eventId?: string) {
     if (
       this.running ||
@@ -418,16 +418,12 @@ export class Harness {
       return;
     const repo = this.store.kernel,
       runtime = this.store.runtime;
-    const row = repo.nextPendingMemory(eventId);
-    if (!row) return;
+    const selected = runtime.memory.nextPendingMemory(eventId);
+    if (!selected) return;
+    const { row, scope } = selected;
     const controller = new AbortController();
     this.recoveryController = controller;
     this.recoveryPending = (async () => {
-      const scope = runtime.policy.hostScope({
-        sources: [String(row.source), 'profile:self'],
-        currentEventIds: [String(row.id)],
-        purposes: [String(row.purpose)],
-      });
       const contract = runtime.policy.ingress('', randomUUID(), this.store.settings()).contract;
       Object.assign(contract, {
         scope,
@@ -588,15 +584,24 @@ export class Harness {
       current = run.events[0],
       storedTurns = runtime.repo
         .conversationHistory(scope, run.sessionId, run.events.map(event => event.id), 8)
-        .map((message) => ({
-          id: message.id,
-          speaker: message.role === 'user' ? ('user' as const) : ('assistant' as const),
-          text: trim(message.content),
-          subjectId: runtime.repo.identity.principalId,
-          worldId: 'real',
-          authority: message.role === 'user' ? 'user_statement' : 'assistant_response',
-          receivedAt: message.createdAt,
-        })),
+        .flatMap((message) => {
+          // A saved display message can also contain attached documents. It is
+          // not the original user evidence and cannot supply its coordinates.
+          const original = message.role === 'user' ? runtime.repo.evidence(scope, message.id) : undefined;
+          if (message.role === 'user' && !original) return [];
+          const text = original?.text ?? message.content;
+          return [{
+            id: message.id,
+            speaker: message.role === 'user' ? ('user' as const) : ('assistant' as const),
+            text,
+            textLength: Array.from(text).length,
+            coverage: 'complete' as const,
+            subjectId: runtime.repo.identity.principalId,
+            worldId: 'real',
+            authority: message.role === 'user' ? 'user_statement' : 'assistant_response',
+            receivedAt: message.createdAt,
+          }];
+        }),
       priorEvents = [
         ...storedTurns,
         ...runtime.repo
@@ -605,7 +610,9 @@ export class Harness {
         .map((event) => ({
           id: event.id,
           speaker: event.speaker,
-          text: trim(event.text),
+          text: event.text,
+          textLength: Array.from(event.text).length,
+          coverage: 'complete' as const,
           subjectId: event.subjectId,
           worldId: event.worldId,
           authority: event.authority,

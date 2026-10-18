@@ -21,9 +21,14 @@
 .planning-day-name { font-size: 14px; font-weight: 520; }
 .planning-day-balance { font-size: 12px; line-height: 1.6; font-variant-numeric: tabular-nums; }
 .planning-day-balance > span { color: var(--text-tertiary); }
+.planning-day-times { display: flex; flex-wrap: wrap; gap: 2px 12px; font-size: 12px; line-height: 1.6; font-variant-numeric: tabular-nums; }
+.planning-day-times > span { white-space: nowrap; }
 .planning-day-overview { display: grid; grid-template-columns: 1fr auto; gap: 5px 12px; margin-bottom: 19px; color: var(--text-secondary); }
 .planning-day-overview > strong { color: var(--text); font-size: 14px; font-weight: 530; }
 .planning-day-overview > span { font-size: 12px; font-variant-numeric: tabular-nums; }
+.planning-day-windows { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 5px 15px; font-size: 12px; line-height: 1.8; font-variant-numeric: tabular-nums; }
+.planning-day-windows > span { white-space: nowrap; }
+.planning-day-unplanned { color: var(--text-secondary); }
 .planning-day-overview > p { grid-column: 1 / -1; margin: 0; font-size: 12px; line-height: 1.8; }
 .planning-day-overview > .planning-day-shortfall { margin-top: 3px; color: var(--text-secondary); }
 .planning-timeline { display: grid; gap: 8px; }
@@ -34,6 +39,10 @@
 .planning-time-block:first-child::before { top: 50%; }
 .planning-time-block:last-child::before { bottom: 50%; }
 .planning-time-block:only-child::before { display: none; }
+.planning-time-block.is-window-start::before { top: 50%; }
+.planning-time-block.is-window-end::before { bottom: 50%; }
+.planning-time-block.is-window-start.is-window-end::before { display: none; }
+.planning-time-block.is-window-start:not(:first-child) { margin-top: 14px; }
 .planning-time-content { min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 5px; padding: 12px 15px; border: 1px solid transparent; border-radius: 10px; background: color-mix(in srgb, var(--wash) 68%, transparent); transition: border-color 150ms var(--ease), background 150ms var(--ease); }
 .planning-time-title { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .planning-time-title strong { min-width: 0; font-size: 14px; font-weight: 520; line-height: 1.55; overflow-wrap: anywhere; }
@@ -93,6 +102,7 @@
 @container (max-width: 490px) {
   .planning-day-strip > button { flex-basis: 185px; padding: 11px 12px; }
   .planning-day-overview { grid-template-columns: 1fr; gap: 4px; }
+  .planning-day-windows { justify-content: flex-start; gap: 3px 15px; }
   .life-scene-heading { flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
   .life-scene-heading h3 { font-size: 18px; }
   .life-scene-heading p { font-size: 12px; }

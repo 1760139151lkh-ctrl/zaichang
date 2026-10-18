@@ -70,6 +70,16 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 
 本人的现实私有关注另有最小管理范围：关闭记忆后仍能按真实名称定位和停止旧关注，但管理输出不含原始 rule/quote、旧聊天或准备正文。后台仅展开托付实际引用的授权片段；按原证据 ID 读取也受相同片段和版本限制。此管理通道不授予普通历史、人物资料或材料正文读取。
 
+## 精确支持、来源坐标与整理恢复
+
+`h_assertion_citations`按每次理解修订保存event/version/Unicode范围及primary/support/authorization角色，不复制引文正文；当前与历史读取各核自己的完整引用集。提案可声明最多16个支持片段，同源不相邻片段分开。宿主先逐字、范围、权限、版本核对，再由语义review核声明片段自身是否支持候选的主体、条件、时间及用途。完整正文只能发现遗漏或反驳，不能给未声明的引用补条件。旧单源review缺扩展字段保持兼容，任何显式否定和不完整的新支持声明都拒绝；这不构成自然语言完整性的形式证明。
+
+[`storage/source-lineage.ts`](../src/main/storage/source-lineage.ts)只归一可证明的整源同文副本或host绑定精确摘录，组合多层坐标，循环／未知保留未知。全局遗忘在改正文之前展开确切祖先与既存副本的范围，durable fence可用于旧备份；无关片段和独立新陈述不合并。纠正／停用在同一坐标上限制旧依据，派生读取和新提取不能通过副本或改predicate复活。启动审计递归查旧非法重放，已清理屏障不重放成宽泛历史清理。
+
+`h_citation_restriction_receipts`只记录宿主同事务语义提交时的来源限制元数据，绑定确切理解修订和引用地址。它让包含旧说法的合法新纠正可读，同时淘汰未复核的旧兄弟理解；普通save、历史迁移和恢复不会重签。未来限制实际生效、授权退出、隐私删除或来源变化仍使引用失效。回执不授权新提取读取被停止的旧字句，`availableInferenceRanges`为提取目录／请求清理共用的合法范围计算。
+
+[`memory/context-windows.ts`](../src/main/memory/context-windows.ts)给原整理服务提供48,000字节的实际序列化UTF-8预算，包含focus文本重复成本。sourceDirectory列出合法／已提供窗口、gap、版本和先后关系，later clarification不冒充prior。contextRequests仅请求已获准的精确坐标，每项返回明确结果；`h_memory_context`只保存地址、签名、覆盖与原scope绑定。重开时取原范围与当前范围交集，合法新上下文／请求覆盖／方法变化可重新入既有公平队列，同代不空转；助手话不是本人事实。异步回执按实际提供的来源签名ACK，不能把期间新到的澄清说成已看见。
+
 ## 持久状态的归属
 
 | 状态 | 所有者与含义 |
@@ -119,6 +129,8 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 
 可选 `dailyBudgets` 只约束本次指定本地日期，与全窗口工作上限/留白同时生效。每日 `maxScheduledMinutes` 仅计本次新增净工作，`reserveMinutes` 按原承诺、保护、新工作完整占用及最终共享转场/休息的区间并集扣除；不把日占用都称为工作，也不推断全天精力。跨午夜工作按真实分钟拆账，未授权拆段的工作仍是一块。已有承诺本身使留白不足时保留原对象、剩余工作及 shortfall，不能自动搬走承诺或制造次日追赶债。
 
+可选`scheduleWindows`再区分本次整体安排域与查询horizon／任务自己的allowedWindows：省略保持旧horizon语义，[]为空，最多64窗经合并／裁切。所有新增reservation、转换／休息和保护采用在同一连通窗口内；域外不造free／睡眠／保护事件。`scheduleCoverage`及日账eligibleWindows/eligibleMinutes/outsideScopeMinutes同源输出，free+occupied=eligible；外部承诺仍是真实背景，预算仅计本次净工作。恢复seed保留原窗，当前采用仍核完整单位与最新条件。
+
 [`planning-days.ts`](../src/main/actions/planning-days.ts) 给日账与 Scene 共用真实自然日边界：午夜不存在时找该日第一实际瞬间、重复午夜取最早边界、被跳过日期为空，不假设固定 24 小时，也不改变普通日历对模糊事件时间的解析。`daySummaries` 保留窗口交集、净工作、真实占用和留白。未知结束的安排在核算中保守占到窗口末尾，但 `unknownEnd`／issue 保留到输出，不将数字占位冒充已知结束。
 
 `RuntimeCoordinator.planning` 持有 [`PlanningApplicationService`](../src/main/actions/planning-application.ts)，`planning.draft` 已接到该服务。服务把草案转为带 `planRef` 的有序保存单位：工作占用包含准备和收尾，转场/休息及显式保护窗口另有真实占用。它只签发短期校验票据，不授予保存权限；票据最长 15 分钟，若原 scope 更早到期则同时缩短。票据只在当前进程内存中，最多保留 50 份；重启、过期或淘汰后须回读真实日历重新规划，不能据票据消失推断此前没有保存。
@@ -138,6 +150,10 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 [`ReminderRuntime`](../src/main/actions/reminders.ts) 使用持久调度、lease、fence 和投递意图；明确设定的提醒不被可选主动性预算吞掉。机会准备与业务提醒分别检查状态。`unknown` 先核查，不能盲重发；迟到回执只补证据，不重开已取消工作。`submitted_to_os`、来源送达和用户 seen 分别记录，桌面系统通知目前只提供前者。退出进程后轮询停止，重开时按账本恢复和复验，不能据此承诺关机或手机后台送达。
 
 [`actions/calendar-export.ts`](../src/main/actions/calendar-export.ts) 通过现有 `expandAgenda` 导出有限时间窗内已接受、未完成、非演示的本地安排快照为 ICS；实例 UID 稳定，实际时间用 UTC，全天结束日期排他，不占用时间的条目保留透明性。默认不带详情，不加邀请、网络订阅或提醒；时间不完整条目明确省略。`calendar:export` IPC 在原生保存框返回后复核隐私 epoch、策略版本与私人视图，再读取当前日历写文件。它不创建新的日历业务对象，也不是手机同步服务；系统日历真实导入与界面入口的验收分别记录。
+
+### 动作能力契约
+
+新动作另绑定broker宿主生成的`CapabilityContractRef`：provider／能力版本、schema、来源、权限、效果／出站、主体／世界、预算和恢复声明纳入摘要；批准、派发及inspect/cancel键都复验。函数与闭包本身未被哈希，语义改变仍须提升声明版本。旧无ref动作可读但不能自动补绑定新派发；旧成功回执和本地补偿保留，未知执行后果不因新契约可调用而改成可重发。
 
 ## 缓存、在途共享与子代理
 

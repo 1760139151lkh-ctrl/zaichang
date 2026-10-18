@@ -1,8 +1,10 @@
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { z } from 'zod';
 import {
   HarnessError,
+  capabilityContractRefSchema,
   knowledgeStatus,
+  type CapabilityContractRef,
   type ContextContract,
   type KnowledgeStatus,
   type Need,
@@ -93,6 +95,26 @@ export interface InvocationAudit {
   bytes: number;
   cache?: 'hit' | 'shared' | 'miss';
 }
+function capabilityContract(provider: CapabilityProvider, definition: CapabilityDefinition): CapabilityContractRef {
+  const manifest = provider.manifest;
+  // JSON Schema cannot encode custom refinement/transform functions. Changes to
+  // those or to implementation semantics must also advance the declared version.
+  const contract = {
+    provider: { id: manifest.id, version: manifest.version, sourceId: manifest.sourceId,
+      trust: manifest.trust, publicRead: manifest.publicRead === true, simulated: manifest.simulated,
+      offline: manifest.offline, egressHosts: [...manifest.egressHosts].sort(), platforms: [...manifest.platforms].sort() },
+    capability: { name: definition.name, version: definition.version,
+      inputSchema: z.toJSONSchema(definition.input), outputSchema: z.toJSONSchema(definition.output),
+      effect: definition.effect, requiredScopes: [...definition.requiredScopes].sort(),
+      subjects: [...definition.subjects].sort(), worlds: [...definition.worlds].sort(),
+      timeoutMs: definition.timeoutMs, maxBytes: definition.maxBytes, cacheScope: definition.cacheScope || 'handle',
+      supportsIdempotency: definition.supportsIdempotency, supportsInspect: definition.supportsInspect,
+      supportsCancel: definition.supportsCancel, inspectHandler: !!provider.inspect, cancelHandler: !!provider.cancel },
+  };
+  return Object.freeze(capabilityContractRefSchema.parse({ revision: 1, providerId: manifest.id, providerVersion: manifest.version,
+    capabilityName: definition.name, capabilityVersion: definition.version,
+    digest: createHash('sha256').update(canonical(contract)).digest('hex') }));
+}
 interface SharedInvocation {
   controller: AbortController;
   promise: Promise<CapabilityResult>;
@@ -136,7 +158,7 @@ export class CapabilityBroker {
   private providers = new Map<string, CapabilityProvider>();
   private capabilities = new Map<
     string,
-    { provider: CapabilityProvider; definition: CapabilityDefinition }
+    { provider: CapabilityProvider; definition: CapabilityDefinition; contract: CapabilityContractRef }
   >();
   private recipes = new Map<string, Recipe[]>();
   private cached = new Map<string, CapabilityResult>();
@@ -195,7 +217,7 @@ export class CapabilityBroker {
     for (const d of m.capabilities) {
       if (
         this.capabilities.has(d.name) ||
-        !d.name ||
+        !d.name || !d.version ||
         !d.input ||
         !d.output ||
         d.timeoutMs <= 0 ||
@@ -207,8 +229,21 @@ export class CapabilityBroker {
       if (d.effect !== 'read' && d.worlds.includes('scenario'))
         throw new HarnessError('scenario_effect', '假设世界不能执行副作用。');
     }
-    this.providers.set(m.id, provider);
-    for (const definition of m.capabilities) this.capabilities.set(definition.name, { provider, definition });
+    // Keep reviewed metadata and executable functions independent of later
+    // mutations to the caller's provider object. Connection callbacks remain live.
+    const definitions = m.capabilities.map(definition => ({ ...definition,
+      requiredScopes: [...definition.requiredScopes], subjects: [...definition.subjects], worlds: [...definition.worlds] }));
+    const snapshot: CapabilityProvider = {
+      manifest: { ...m, capabilities: definitions, egressHosts: [...m.egressHosts], platforms: [...m.platforms] },
+      invoke: provider.invoke.bind(provider),
+      ...(provider.inspect ? { inspect: provider.inspect.bind(provider) } : {}),
+      ...(provider.cancel ? { cancel: provider.cancel.bind(provider) } : {}),
+      ...(provider.connectionStatus ? { connectionStatus: provider.connectionStatus.bind(provider) } : {}),
+    };
+    // Finish every schema conversion before making any part of registration visible.
+    const entries = definitions.map(definition => ({ provider: snapshot, definition, contract: capabilityContract(snapshot, definition) }));
+    this.providers.set(m.id, snapshot);
+    for (const entry of entries) this.capabilities.set(entry.definition.name, entry);
     this.policy.registerSource(m.sourceId);
   }
   unregister(id: string) {
@@ -250,6 +285,7 @@ export class CapabilityBroker {
       displayName: d.displayName || d.name,
       description: d.description || '按声明的参数和权限访问此能力；结果中的来源、时效与覆盖决定其用途。',
       version: d.version,
+      capabilityContract: { ...entry.contract },
       effect: d.effect,
       requiredScopes: [...d.requiredScopes],
       sourceId: provider.manifest.sourceId,
@@ -259,6 +295,13 @@ export class CapabilityBroker {
       supportsCancel: d.supportsCancel,
       connection: provider.connectionStatus?.(name) || { connected: true },
     };
+  }
+  assertContract(name: string, expected: CapabilityContractRef | undefined) {
+    if (!expected) throw new HarnessError('capability_contract_missing', '旧动作没有绑定能力契约；请保留已有回执，并按当前能力重新准备未执行的动作。');
+    const entry = this.capabilities.get(name);
+    if (!entry || canonical(entry.contract) !== canonical(expected))
+      throw new HarnessError('capability_contract_changed', '动作的能力提供方或契约已改变；不能把原批准或核查标识交给当前能力。');
+    return this.describe(name)!;
   }
   validateArguments(name: string, args: unknown) {
     const entry = this.capabilities.get(name);
@@ -416,11 +459,12 @@ export class CapabilityBroker {
           canonical(action.arguments) !== canonical(parsed)
         )
           throw new HarnessError('invalid_attempt', '执行凭据与实际参数不匹配。');
+        this.assertContract(name, action.capabilityContract);
       }
       if (options.inspectKey || options.cancelKey) {
         const row = this.policy.repo.db
           .prepare(
-            "SELECT id FROM h_actions WHERE owner=? AND workspace=? AND subject=? AND world=? AND json_extract(payload,'$.capability')=? AND json_extract(payload,'$.idempotencyKey')=?",
+            "SELECT payload FROM h_actions WHERE owner=? AND workspace=? AND subject=? AND world=? AND json_extract(payload,'$.capability')=? AND json_extract(payload,'$.idempotencyKey')=?",
           )
           .get(
             s.principalId,
@@ -431,6 +475,7 @@ export class CapabilityBroker {
             options.inspectKey || options.cancelKey!,
           );
         if (!row) throw new HarnessError('invalid_attempt', '核查标识不属于当前获准的动作。');
+        this.assertContract(name, JSON.parse(String(row.payload)).capabilityContract);
       }
       const domainRevision = this.policy.repo.domainRevision;
       const fingerprint = canonical({

@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type {
   Assertion,
+  AssertionCitation,
   ClockPort,
   ContextReceipt,
   Dependency,
@@ -17,7 +18,8 @@ import type {
   WorkRecord,
 } from '../../shared/harness';
 import { HarnessError, assertionSchema, evidenceSchema, workSchema } from '../../shared/harness';
-import { systemClock } from '../runtime/semantics';
+import { canonical, codePointSlice, systemClock } from '../runtime/semantics';
+import { sameSourceOrigins, sourceOriginSpans, type LineageSource, type OriginSpan } from './source-lineage';
 
 type Row = Record<string, unknown>;
 export interface PrivacyFence {
@@ -35,6 +37,12 @@ export interface PrivacyFence {
 }
 export type FaultInjector = (point: string) => void;
 export type SourceRestrictionSnapshot = ReadonlyMap<string, { metadata: string; wholeSource: boolean }>;
+export interface ReviewedSourceRestriction {
+  eventId: string; predicate: string; operation: string; replacementEventId: string | null;
+  ranges: { contentVersion: number; start: number; end: number }[];
+}
+export type MemoryContextScope = Pick<ScopeData, 'principalId' | 'workspaceId' | 'subjectId' | 'worldId' | 'audience' | 'retention' | 'infer'
+  | 'sources' | 'currentEventIds' | 'purposes' | 'grants'>;
 const parse = <T>(row: Row | undefined): T | undefined => (row ? JSON.parse(String(row.payload)) : undefined);
 const placeholders = (values: readonly unknown[]) => values.map(() => '?').join(',') || 'NULL';
 const queryGrams = (query: string) => {
@@ -70,6 +78,9 @@ export class KernelRepository {
     this.migrate();
     this.migrateCalendarVersions();
     this.migrateSourceRestrictionSpans();
+    this.migrateAssertionCitations();
+    this.migrateMemoryContextProgress();
+    this.migrateCitationRestrictionReceipts();
     this.db.exec(
       "INSERT INTO h_evidence_fts(h_evidence_fts,rank) VALUES('secure-delete',1); INSERT INTO h_assertion_fts(h_assertion_fts,rank) VALUES('secure-delete',1);",
     );
@@ -77,6 +88,9 @@ export class KernelRepository {
       identity || { principalId: randomUUID(), workspaceId: randomUUID(), deviceId: randomUUID() };
     if (!this.getMeta('identity')) this.write(() => this.setMeta('identity', this.identity));
     this.applyRestorationFences();
+    this.removeDeletedSourceReplays();
+    this.onPrivacyCleanup(() => this.cleanupMemoryContextRequests());
+    this.cleanupMemoryContextRequests();
   }
   bindPolicy(validate: (scope: ScopeHandle) => ScopeData) {
     this.validateScope = validate;
@@ -88,7 +102,7 @@ export class KernelRepository {
   private migrate() {
     this.db.exec('PRAGMA foreign_keys=ON; PRAGMA secure_delete=ON; PRAGMA busy_timeout=5000;');
     const version = Number(this.db.prepare('PRAGMA user_version').get()?.user_version || 0);
-    if (version > 6) throw new HarnessError('newer_schema', '资料来自更新版本，请使用相应版本打开。');
+    if (version > 9) throw new HarnessError('newer_schema', '资料来自更新版本，请使用相应版本打开。');
     if (version >= 4) return;
     if (version === 3) {
       this.migrateRoots();
@@ -295,6 +309,199 @@ export class KernelRepository {
       this.db.exec('COMMIT');
     } catch (error) { this.db.exec('ROLLBACK'); throw error; }
   }
+  private migrateAssertionCitations() {
+    if (Number(this.db.prepare('PRAGMA user_version').get()?.user_version) >= 7) return;
+    this.write(() => {
+      this.db.exec(`CREATE TABLE h_assertion_citations(
+        citation_key TEXT PRIMARY KEY,assertion_id TEXT NOT NULL,assertion_revision INTEGER NOT NULL,
+        event_id TEXT NOT NULL REFERENCES h_evidence(id) ON DELETE CASCADE,content_version INTEGER,
+        start_cp INTEGER,end_cp INTEGER,role TEXT NOT NULL,
+        FOREIGN KEY(assertion_id,assertion_revision) REFERENCES h_assertion_versions(id,revision) ON DELETE CASCADE);
+        CREATE INDEX h_citation_source ON h_assertion_citations(event_id,assertion_id,assertion_revision);
+        CREATE INDEX h_citation_version ON h_assertion_citations(assertion_id,assertion_revision);`);
+      for (const row of this.db.prepare('SELECT v.id,v.revision,v.payload,a.revision AS current_revision FROM h_assertion_versions v JOIN h_assertions a ON a.id=v.id').all()) {
+        const value = JSON.parse(String(row.payload)) as Assertion;
+        for (const [index, eventId] of value.evidenceIds.entries()) {
+          const event = this.db.prepare('SELECT version FROM h_evidence WHERE id=?').get(eventId);
+          if (!event) continue;
+          const locator = row.revision === row.current_revision
+            ? this.db.prepare('SELECT start_cp,end_cp FROM h_assertion_evidence WHERE assertion_id=? AND event_id=?').get(value.id, eventId) : undefined;
+          this.storeCitation(value.id, Number(row.revision), { eventId, role: index ? 'support' : 'primary',
+            ...(locator?.start_cp !== null && locator?.start_cp !== undefined && locator.end_cp !== null
+              ? { contentVersion: Number(event.version), start: Number(locator.start_cp), end: Number(locator.end_cp) } : {}) });
+        }
+      }
+      this.db.exec('PRAGMA user_version=7;');
+      this.db.prepare('INSERT INTO h_migrations VALUES(?,?,?,?)').run('assertion-citations-v7', 7, this.clock.now(), JSON.stringify({ purpose: 'versioned exact multi-source support without copied text', legacyHistoricalRanges: 'unknown' }));
+    });
+  }
+  private migrateMemoryContextProgress() {
+    if (Number(this.db.prepare('PRAGMA user_version').get()?.user_version) >= 8) {
+      // The in-flight v8 unit may have been opened before scope binding landed.
+      if (!(this.db.prepare('PRAGMA table_info(h_memory_context)').all() as { name: string }[]).some(column => column.name === 'scope_binding'))
+        this.db.exec("ALTER TABLE h_memory_context ADD COLUMN scope_binding TEXT NOT NULL DEFAULT '{}'");
+      return;
+    }
+    this.write(() => {
+      this.db.exec(`CREATE TABLE h_memory_context(
+        span_id TEXT PRIMARY KEY REFERENCES h_spans(id) ON DELETE CASCADE,
+        event_id TEXT NOT NULL REFERENCES h_evidence(id) ON DELETE CASCADE,
+        source_version INTEGER NOT NULL,method_version TEXT NOT NULL,
+        attempt_signature TEXT NOT NULL,source_signature TEXT NOT NULL,context_watermark INTEGER NOT NULL,
+        request_signature TEXT NOT NULL,requests TEXT NOT NULL,request_results TEXT NOT NULL,updated_at TEXT NOT NULL,
+        scope_binding TEXT NOT NULL);
+        CREATE INDEX h_memory_context_event ON h_memory_context(event_id);
+        PRAGMA user_version=8;`);
+      this.db.prepare('INSERT INTO h_migrations VALUES(?,?,?,?)').run('memory-context-progress-v8', 8, this.clock.now(),
+        JSON.stringify({ purpose: 'bounded versioned context addresses and one attempt per legal context generation', copiedSourceText: false }));
+    });
+  }
+  private migrateCitationRestrictionReceipts() {
+    if (Number(this.db.prepare('PRAGMA user_version').get()?.user_version) >= 9) return;
+    this.write(() => {
+      this.db.exec(`CREATE TABLE h_citation_restriction_receipts(
+        citation_key TEXT PRIMARY KEY REFERENCES h_assertion_citations(citation_key) ON DELETE CASCADE,
+        restriction_snapshot TEXT NOT NULL);
+        PRAGMA user_version=9;`);
+      this.db.prepare('INSERT INTO h_migrations VALUES(?,?,?,?)').run('citation-restriction-receipts-v9', 9, this.clock.now(),
+        JSON.stringify({ purpose: 'reviewed source use bound to an exact assertion revision and citation', legacyReceipts: 'not_backfilled' }));
+    });
+  }
+  private citationKey(id: string, revision: number, citation: AssertionCitation) {
+    return JSON.stringify([id, revision, citation.eventId, citation.contentVersion ?? null, citation.start ?? null, citation.end ?? null, citation.role]);
+  }
+  private storeCitation(id: string, revision: number, citation: AssertionCitation) {
+    this.db.prepare('INSERT OR IGNORE INTO h_assertion_citations VALUES(?,?,?,?,?,?,?,?)').run(
+      this.citationKey(id, revision, citation),
+      id, revision, citation.eventId, citation.contentVersion ?? null, citation.start ?? null, citation.end ?? null, citation.role);
+  }
+  assertionCitations(handle: ScopeHandle, id: string, revision?: number): AssertionCitation[] {
+    const assertion = this.assertion(handle, id);
+    if (!assertion) return [];
+    if (revision !== undefined && revision !== assertion.revision && !this.assertionVersion(handle, id, revision)) return [];
+    return this.citationRows(id, revision ?? assertion.revision);
+  }
+  private citationSourceReadable(handle: ScopeHandle, citation: AssertionCitation, strict = false) {
+    const event = this.evidence(handle, citation.eventId);
+    if (!event || (citation.contentVersion !== undefined && citation.contentVersion !== event.contentVersion)) return false;
+    const known = citation.start !== undefined && citation.end !== undefined && citation.contentVersion !== undefined;
+    if (strict && !known) return false;
+    if (known && (!Number.isSafeInteger(citation.start) || !Number.isSafeInteger(citation.end)
+      || citation.start! < 0 || citation.end! <= citation.start! || citation.end! > Array.from(event.text).length)) return false;
+    if (this.fences().some(fence => fence.kind === 'delete' && (fence.objectIds.includes(event.id)
+      || fence.sourceIds.includes(event.id) || fence.sourceIds.includes(event.sourceId) || fence.spans?.some(span => span.eventId === event.id
+        && (!known || span.contentVersion !== citation.contentVersion || span.start < citation.end! && span.end > citation.start!))))) return false;
+    return !this.blockedDeletedLineage(event, known ? { start: citation.start!, end: citation.end! } : undefined, false);
+  }
+  private sourceSpanRestrictions(origin: OriginSpan) {
+    const known = origin.start !== undefined && origin.end !== undefined && origin.contentVersion !== undefined;
+    return this.db.prepare(`SELECT x.event_id AS eventId,x.predicate,x.operation,x.replacement_event_id,
+      s.content_version,s.start_cp,s.end_cp,s.effective_from FROM h_source_restrictions x
+      LEFT JOIN h_source_restriction_spans s ON s.event_id=x.event_id AND s.predicate=x.predicate
+      WHERE x.event_id=? AND (
+      x.predicate='*' OR NOT EXISTS(SELECT 1 FROM h_source_restriction_spans s WHERE s.event_id=x.event_id AND s.predicate=x.predicate)
+      OR (s.effective_from IS NULL OR julianday(s.effective_from) IS NULL OR julianday(s.effective_from)<=julianday(?))
+        AND (?=0 OR s.content_version!=? OR s.start_cp<? AND s.end_cp>?))
+      ORDER BY x.predicate,x.operation,x.replacement_event_id,s.content_version,s.start_cp,s.end_cp,s.effective_from`)
+      .all(origin.eventId, this.clock.now(), Number(known), origin.contentVersion ?? 0, origin.end ?? 0, origin.start ?? 0);
+  }
+  private citationRestrictionState(citation: AssertionCitation) {
+    const event = parse<EvidenceEvent>(this.db.prepare('SELECT payload FROM h_evidence WHERE id=?').get(citation.eventId));
+    const known = citation.start !== undefined && citation.end !== undefined && citation.contentVersion !== undefined;
+    const origins = event ? this.sourceOrigins(event, known ? { start: citation.start!, end: citation.end! } : undefined).spans : [citation];
+    const unique = new Map<string, Row>();
+    let canReview = known && citation.role !== 'authorization';
+    for (const origin of origins) {
+      const rows = this.sourceSpanRestrictions(origin);
+      if (rows.length) canReview &&= origin.start !== undefined && origin.end !== undefined && rows.every(row => row.predicate !== '*'
+        && row.content_version === origin.contentVersion && row.start_cp !== null && row.end_cp !== null);
+      for (const row of rows) unique.set(JSON.stringify(row), row);
+    }
+    const rows = [...unique.values()].sort((a, b) => canonical(a) < canonical(b) ? -1 : canonical(a) > canonical(b) ? 1 : 0);
+    return { rows, entries: rows.map(row => JSON.stringify(row)), snapshot: JSON.stringify(rows), canReview };
+  }
+  private citationRestrictionsAllow(citation: AssertionCitation) {
+    const state = this.citationRestrictionState(citation);
+    if (!state.rows.length) return true;
+    if (!state.canReview || !citation.restrictionReceipt) return false;
+    if (citation.restrictionReceipt === state.snapshot) return true;
+    try {
+      const saved: unknown = JSON.parse(citation.restrictionReceipt);
+      if (!Array.isArray(saved) || saved.length !== state.rows.length || saved.some(row => !row || typeof row !== 'object' || Array.isArray(row))) return false;
+      const keys = new Set(state.rows.map(row => canonical(row)));
+      // Earlier development receipts covered direct sources only. Bind those
+      // rows to this citation's actual event; they cannot acknowledge a root.
+      const previous = saved.map(row => canonical({ ...row, eventId: row.eventId ?? citation.eventId }));
+      return new Set(previous).size === keys.size && previous.every(key => keys.has(key));
+    } catch { return false; }
+  }
+  /** Only host-loaded current-target citations can carry a stored review receipt. */
+  citationReadable(handle: ScopeHandle, citation: AssertionCitation, strict = false) {
+    return this.citationSourceReadable(handle, citation, strict) && this.citationRestrictionsAllow(citation);
+  }
+  private citationAddress(citation: AssertionCitation) {
+    return JSON.stringify([citation.eventId, citation.contentVersion ?? null, citation.start ?? null, citation.end ?? null]);
+  }
+  citationReviewBaseline(handle: ScopeHandle, citations: AssertionCitation[]) {
+    const baseline = new Map<string, string[]>();
+    for (const citation of citations) {
+      if (!this.citationSourceReadable(handle, citation)) throw new HarnessError('source_suppressed', '原支持来源已不可用。');
+      baseline.set(this.citationAddress(citation), this.citationRestrictionState(citation).entries);
+    }
+    return baseline;
+  }
+  /** Finish a semantic commit, never an ordinary save/rebuild/status change.
+   * Existing restrictions must match its pre-write baseline; only the exact
+   * restrictions installed by this same commit may be newly acknowledged. */
+  recordReviewedCitationUse(handle: ScopeHandle, revisions: { id: string; revision: number }[],
+    baseline: Map<string, string[]>, installed: ReviewedSourceRestriction[]) {
+    if (!this.transactionDepth) throw new HarnessError('citation_review_transaction', '来源复核回执须与理解在同一事务保存。');
+    const scope = this.scope(handle);
+    if (!scope.infer || !scope.grants.includes('memory:write')) throw new HarnessError('inference_forbidden', '当前范围不能提交理解复核。');
+    for (const ref of revisions) {
+      const row = this.db.prepare('SELECT revision FROM h_assertions WHERE id=? AND owner=? AND workspace=? AND subject=? AND world=?')
+        .get(ref.id, scope.principalId, scope.workspaceId, scope.subjectId, scope.worldId);
+      if (!row || Number(row.revision) !== ref.revision) throw new HarnessError('revision_conflict', '理解版本已变化，没有签发来源回执。');
+      for (const citation of this.citationRows(ref.id, ref.revision)) {
+        if (!this.citationSourceReadable(handle, citation)) throw new HarnessError('source_suppressed', '支持来源已删除或改变。');
+        const state = this.citationRestrictionState(citation);
+        if (!state.rows.length) continue;
+        const previous = baseline.get(this.citationAddress(citation)) || [];
+        const newlyReviewed = state.rows.every((restriction, index) => previous.includes(state.entries[index]) || installed.some(change =>
+          change.eventId === restriction.eventId && change.predicate === restriction.predicate && change.operation === restriction.operation
+          && change.replacementEventId === restriction.replacement_event_id && (change.ranges.some(range => range.contentVersion === restriction.content_version
+            && range.start === restriction.start_cp && range.end === restriction.end_cp)
+            || previous.some(entry => {
+              const prior = JSON.parse(entry) as Row;
+              return ['eventId', 'predicate', 'content_version', 'start_cp', 'end_cp', 'effective_from'].every(key => prior[key] === restriction[key]);
+            }))));
+        if (!state.canReview || !newlyReviewed) throw new HarnessError('source_restrictions_changed', '复核期间支持片段的限制发生变化，未采用旧结果。');
+        this.db.prepare('INSERT OR REPLACE INTO h_citation_restriction_receipts VALUES(?,?)')
+          .run(this.citationKey(ref.id, ref.revision, citation), state.snapshot);
+      }
+    }
+    this.refreshCitationRestrictions();
+  }
+  private citationRows(id: string, revision: number): AssertionCitation[] {
+    return this.db.prepare(`SELECT c.event_id,c.content_version,c.start_cp,c.end_cp,c.role,p.restriction_snapshot
+      FROM h_assertion_citations c LEFT JOIN h_citation_restriction_receipts p ON p.citation_key=c.citation_key
+      WHERE c.assertion_id=? AND c.assertion_revision=? ORDER BY c.event_id,c.start_cp,c.end_cp,c.role`).all(id, revision)
+      .map(row => ({ eventId: String(row.event_id), role: row.role as AssertionCitation['role'],
+        ...(row.restriction_snapshot !== null ? { restrictionReceipt: String(row.restriction_snapshot) } : {}),
+        ...(row.content_version !== null ? { contentVersion: Number(row.content_version) } : {}),
+        ...(row.start_cp !== null && row.end_cp !== null ? { start: Number(row.start_cp), end: Number(row.end_cp) } : {}) }));
+  }
+  /** Historical text is admitted only under that version's actual source set. */
+  assertionVersion(handle: ScopeHandle, id: string, revision: number): Assertion | undefined {
+    if (!this.assertion(handle, id)) return undefined;
+    const row = this.db.prepare('SELECT payload FROM h_assertion_versions WHERE id=? AND revision=?').get(id, revision);
+    if (!row) return undefined;
+    const value = JSON.parse(String(row.payload)) as Assertion;
+    const citations = this.citationRows(id, revision);
+    if (!citations.length || value.evidenceIds.some(eventId => !this.evidence(handle, eventId))
+      || citations.some(citation => !this.citationReadable(handle, citation, true))) return undefined;
+    return value;
+  }
   calendarVersionId(id: string, revision: number) { return 'agenda-version:' + createHash('sha256').update(`${id}:${revision}`).digest('hex'); }
   registerCalendarVersion(handle: ScopeHandle, id: string, revision: number, producer?: string) {
     this.scope(handle);
@@ -426,6 +633,91 @@ export class KernelRepository {
           (!!sourceId && f.sourceIds.includes(sourceId))),
     );
   }
+  sourceOrigins(source: LineageSource, range?: { start: number; end: number }) { return sourceOriginSpans(this.db, source, range); }
+  sameSourceOrigin(left: EvidenceEvent, leftRange: { start: number; end: number }, right: EvidenceEvent, rightRange: { start: number; end: number }) {
+    return sameSourceOrigins(this.sourceOrigins(left, leftRange), this.sourceOrigins(right, rightRange));
+  }
+  private validateLocalOrigin(eventId: string) {
+    const row = this.db.prepare('SELECT owner,workspace FROM h_evidence WHERE id=?').get(eventId);
+    if (row && (row.owner !== this.identity.principalId || row.workspace !== this.identity.workspaceId))
+      throw new HarnessError('source_lineage_forbidden', '来源关系超出当前资料归属，不能改写或删除该来源。');
+  }
+  private blockedDeletedLineage(input: LineageSource & { text: string }, range?: { start: number; end: number }, allowMasked = true) {
+    const chars = Array.from(input.text), selected = range || { start: 0, end: chars.length };
+    const fences = this.fences().filter(fence => fence.kind === 'delete');
+    if (!fences.length) return false;
+    const origins = this.sourceOrigins(input, selected).spans;
+    return origins.some(origin => this.hasFence(origin.eventId, origin.sourceId) || fences.some(fence => (fence.spans || []).some(cut => {
+      if (cut.eventId !== origin.eventId) return false;
+      if (origin.contentVersion !== cut.contentVersion || origin.start === undefined || origin.end === undefined
+        || origin.end - origin.start !== selected.end - selected.start) return true;
+      const start = Math.max(cut.start, origin.start), end = Math.min(cut.end, origin.end);
+      if (end <= start) return false;
+      // Retain an already redacted raw copy's legal remainder. A citation can
+      // never use these coordinates, even when their body is now a mask.
+      return !allowMasked || chars.slice(selected.start + start - origin.start, selected.start + end - origin.start).some(char => char !== '█');
+    })));
+  }
+  /** Build the durable erasure addresses before any source body is masked.
+   * Exact copies/projections share their origin; independent repetitions do not. */
+  sourceErasure(spans: NonNullable<PrivacyFence['spans']>, unknownEventIds: string[] = []) {
+    const locations = new Map<string, NonNullable<PrivacyFence['spans']>[number]>(), whole = new Set<string>();
+    const add = (origin: OriginSpan) => {
+      this.validateLocalOrigin(origin.eventId);
+      if (origin.contentVersion === undefined || origin.start === undefined || origin.end === undefined) whole.add(origin.eventId);
+      else {
+        const span = { eventId: origin.eventId, contentVersion: origin.contentVersion, start: origin.start, end: origin.end };
+        locations.set(canonical(span), span);
+      }
+    };
+    const selected: OriginSpan[] = [...spans, ...unknownEventIds.map(eventId => ({ eventId }))];
+    for (const target of selected) {
+      const source = parse<EvidenceEvent>(this.db.prepare('SELECT payload FROM h_evidence WHERE id=? AND owner=? AND workspace=?')
+        .get(target.eventId, this.identity.principalId, this.identity.workspaceId));
+      if (!source) { whole.add(target.eventId); continue; }
+      const known = target.contentVersion === source.contentVersion && target.start !== undefined && target.end !== undefined
+        && Number.isSafeInteger(target.start) && Number.isSafeInteger(target.end) && target.start >= 0
+        && target.end > target.start && target.end <= Array.from(source.text).length;
+      for (const origin of this.sourceOrigins(source, known ? { start: target.start!, end: target.end! } : undefined).spans) add(origin);
+    }
+    const canonicalSpans = [...locations.values()], targets = [...new Set([...whole, ...canonicalSpans.map(span => span.eventId)])];
+    if (targets.length) {
+      const rows = this.db.prepare(`WITH RECURSIVE family(id) AS (
+        SELECT value FROM json_each(?) UNION SELECT r.event_id FROM h_evidence_roots r JOIN family f ON r.root_id=f.id)
+        SELECT e.payload FROM h_evidence e JOIN family f ON f.id=e.id WHERE e.owner=? AND e.workspace=? AND e.status!='deleted'`)
+        .all(JSON.stringify(targets), this.identity.principalId, this.identity.workspaceId);
+      for (const row of rows) {
+        const source = parse<EvidenceEvent>(row)!, length = Array.from(source.text).length;
+        for (const origin of this.sourceOrigins(source, { start: 0, end: length }).spans) {
+          if (whole.has(origin.eventId)) { whole.add(source.id); break; }
+          for (const cut of canonicalSpans.filter(span => span.eventId === origin.eventId)) {
+            if (origin.contentVersion !== cut.contentVersion || origin.start === undefined || origin.end === undefined || origin.end - origin.start !== length) {
+              whole.add(source.id); break;
+            }
+            const start = Math.max(cut.start, origin.start), end = Math.min(cut.end, origin.end);
+            if (end > start) add({ eventId: source.id, contentVersion: source.contentVersion, start: start - origin.start, end: end - origin.start });
+          }
+        }
+      }
+    }
+    return { spans: [...locations.values()].filter(span => !whole.has(span.eventId)), sourceIds: [...whole] };
+  }
+  /** Older versions could ingest an unlocated copy after a partial deletion.
+   * Retire only that forbidden lineage; broad old cleanups must not run again
+   * over later independent work or accepted business records. */
+  private removeDeletedSourceReplays() {
+    const roots = [...new Set(this.fences().filter(fence => fence.kind === 'delete').flatMap(fence => (fence.spans || []).map(span => span.eventId)))];
+    if (!roots.length) return;
+    const rows = this.db.prepare(`WITH RECURSIVE family(id) AS (
+      SELECT value FROM json_each(?) UNION SELECT r.event_id FROM h_evidence_roots r JOIN family f ON r.root_id=f.id)
+      SELECT DISTINCT e.payload FROM h_evidence e JOIN family f ON f.id=e.id
+      WHERE e.owner=? AND e.workspace=? AND e.status!='deleted'`).all(JSON.stringify(roots), this.identity.principalId, this.identity.workspaceId);
+    const ids = rows.map(row => parse<EvidenceEvent>(row)!).filter(event => this.blockedDeletedLineage(event)).map(event => event.id);
+    if (!ids.length) return;
+    const fence = this.establishFence({ kind: 'delete', objectIds: ids, sourceIds: [] });
+    this.cleanupFence(fence);
+    this.checkpointPrivacy();
+  }
   ingest(handle: ScopeHandle, input: Omit<EvidenceEvent, 'sequence'>): EvidenceEvent {
     const scope = this.scope(handle);
     if (scope.retention === 'session_only' || input.label.retention === 'session_only')
@@ -443,6 +735,8 @@ export class KernelRepository {
       throw new HarnessError('protection_unavailable', '当前整库未加密，受限资料只用于本轮。');
     if (this.hasFence(input.id, input.sourceId) || input.roots.some((root) => this.hasFence(root)))
       throw new HarnessError('deleted_source', '此旧来源已经被删除，不能重放。');
+    if (this.blockedDeletedLineage(input))
+      throw new HarnessError('deleted_source_range', '这份副本仍源于已忘记的片段，不能换一个标识恢复；无关的精确片段仍可保留。');
     const existing = this.db
       .prepare('SELECT payload FROM h_evidence WHERE id=? AND owner=? AND workspace=?')
       .get(input.id, scope.principalId, scope.workspaceId);
@@ -502,12 +796,44 @@ export class KernelRepository {
     if (!this.evidence(handle, eventId)) return [];
     return this.db.prepare('SELECT predicate,operation,replacement_event_id FROM h_source_restrictions WHERE event_id=? ORDER BY predicate').all(eventId).map(row => {
       const spans = this.db.prepare('SELECT content_version,start_cp,end_cp,effective_from FROM h_source_restriction_spans WHERE event_id=? AND predicate=? ORDER BY start_cp,end_cp').all(eventId, String(row.predicate));
-      const dates = spans.map(span => span.effective_from).filter((date): date is string => typeof date === 'string').sort();
+      const dates = spans.map(span => span.effective_from).filter((date): date is string => typeof date === 'string' && Number.isFinite(Date.parse(date)))
+        .sort((a, b) => Date.parse(a) - Date.parse(b));
       return { predicate: String(row.predicate), operation: String(row.operation),
         replacementEventId: row.replacement_event_id ? String(row.replacement_event_id) : null,
         ranges: spans.map(span => ({ contentVersion: Number(span.content_version), start: Number(span.start_cp), end: Number(span.end_cp) })),
-        rangeUnknown: !spans.length, effectiveFrom: dates[0] || null };
+        rangeUnknown: !spans.length, effectiveFrom: dates.length === spans.length ? dates[0] || null : null };
     });
+  }
+  /** Host-only projection of inherited stops. Parent bodies are compared in
+   * SQL, never returned or added to the caller's read scope. */
+  private lineageRestrictionState(event: EvidenceEvent, location?: { start: number; end: number }) {
+    const entries: Row[] = [];
+    let wholeSource = false;
+    const selected = location || { start: 0, end: Array.from(event.text).length };
+    const origins = this.sourceOrigins(event, selected).spans.filter(origin => origin.eventId !== event.id);
+    for (const origin of origins) {
+      const rootId = origin.eventId;
+      const restrictions = this.db.prepare(`SELECT x.predicate,x.operation,x.replacement_event_id,
+        s.content_version,s.start_cp,s.end_cp,s.effective_from FROM h_source_restrictions x
+        LEFT JOIN h_source_restriction_spans s ON s.event_id=x.event_id AND s.predicate=x.predicate
+        WHERE x.event_id=? AND (x.predicate='*' OR s.event_id IS NULL OR s.effective_from IS NULL
+          OR julianday(s.effective_from) IS NULL OR julianday(s.effective_from)<=julianday(?))
+        ORDER BY x.predicate,s.content_version,s.start_cp,s.end_cp,s.effective_from`)
+        .all(rootId, this.clock.now());
+      if (!restrictions.length) continue;
+      for (const restriction of restrictions) {
+        const known = origin.start !== undefined && origin.end !== undefined && restriction.predicate !== '*' && restriction.content_version === origin.contentVersion
+          && typeof restriction.start_cp === 'number' && typeof restriction.end_cp === 'number';
+        if (known && (Number(restriction.end_cp) <= origin.start! || Number(restriction.start_cp) >= origin.end!)) continue;
+        wholeSource ||= !known;
+        entries.push({ rootId, sourceVersion: event.contentVersion, rootVersion: origin.contentVersion ?? null,
+          ...restriction, originStart: origin.start ?? null, originEnd: origin.end ?? null, rangeUnknown: !known });
+      }
+    }
+    return { entries, wholeSource };
+  }
+  sourceLineageRestricted(event: EvidenceEvent, location?: { start: number; end: number }) {
+    return this.lineageRestrictionState(event, location).entries.length > 0;
   }
   /** Host-only, body-free baseline for child work. Future local changes enter
    * the active snapshot when they take effect; whole-source stops fail closed. */
@@ -525,7 +851,17 @@ export class KernelRepository {
       values.set(id, { metadata: (prior?.metadata || '') + JSON.stringify({ sourceVersion: row.source_version,
         predicate: row.predicate, operation: row.operation, replacementEventId: row.replacement_event_id,
         contentVersion: row.content_version, start: row.start_cp, end: row.end_cp, effectiveFrom: row.effective_from }) + '\n',
-        wholeSource: !!prior?.wholeSource || row.predicate === '*' });
+        wholeSource: !!prior?.wholeSource || row.predicate === '*' || row.content_version === null || row.start_cp === null || row.end_cp === null });
+    }
+    const derived = this.db.prepare(`WITH RECURSIVE family(id) AS (
+      SELECT event_id FROM h_source_restrictions UNION SELECT roots.event_id FROM h_evidence_roots roots JOIN family f ON roots.root_id=f.id)
+      SELECT DISTINCT r.id,r.payload FROM h_evidence r JOIN family f ON f.id=r.id
+      WHERE ${f.sql} AND r.status!='deleted' ORDER BY r.id`).all(...f.params);
+    for (const row of derived) {
+      const state = this.lineageRestrictionState(parse<EvidenceEvent>(row)!);
+      if (!state.entries.length) continue;
+      const id = String(row.id), prior = values.get(id);
+      values.set(id, { metadata: (prior?.metadata || '') + JSON.stringify(state.entries), wholeSource: !!prior?.wholeSource || state.wholeSource });
     }
     return values;
   }
@@ -535,18 +871,105 @@ export class KernelRepository {
       || current.get(id)?.metadata !== baseline.get(id)?.metadata);
   }
   restrictSource(handle: ScopeHandle, eventId: string, predicate: string, operation: string, replacementEventId: string | null,
-    ranges: { contentVersion: number; start: number; end: number }[], effectiveFrom: string) {
+    ranges: { contentVersion: number; start: number; end: number }[], effectiveFrom: string, deferCitationRefresh = false) {
+    if (deferCitationRefresh && !this.transactionDepth) throw new HarnessError('citation_review_transaction', '延后来源失效检查须位于完整提交事务内。');
     if (!this.evidence(handle, eventId)) throw new HarnessError('source_forbidden', '不能修改此来源的使用范围。');
     this.write(() => {
-      this.db.prepare(`INSERT INTO h_source_restrictions VALUES(?,?,?,?) ON CONFLICT(event_id,predicate)
-        DO UPDATE SET operation=excluded.operation,replacement_event_id=excluded.replacement_event_id`).run(eventId, predicate, operation, replacementEventId);
-      for (const range of ranges) this.db.prepare(`INSERT INTO h_source_restriction_spans VALUES(?,?,?,?,?,?)
-        ON CONFLICT(event_id,predicate,content_version,start_cp,end_cp) DO UPDATE SET effective_from=min(effective_from,excluded.effective_from)`)
-        .run(eventId, predicate, range.contentVersion, range.start, range.end, effectiveFrom);
+      this.writeSourceRestriction(eventId, predicate, operation, replacementEventId, ranges, effectiveFrom);
+      if (!deferCitationRefresh) this.refreshCitationRestrictions();
     });
   }
+  private writeSourceRestriction(eventId: string, predicate: string, operation: string, replacementEventId: string | null,
+    ranges: ReviewedSourceRestriction['ranges'], effectiveFrom: string) {
+    const alreadyWhole = !!this.db.prepare(`SELECT 1 FROM h_source_restrictions x WHERE x.event_id=? AND x.predicate=?
+      AND NOT EXISTS(SELECT 1 FROM h_source_restriction_spans s WHERE s.event_id=x.event_id AND s.predicate=x.predicate)`).get(eventId, predicate);
+    this.db.prepare(`INSERT INTO h_source_restrictions VALUES(?,?,?,?) ON CONFLICT(event_id,predicate)
+      DO UPDATE SET operation=excluded.operation,replacement_event_id=excluded.replacement_event_id`).run(eventId, predicate, operation, replacementEventId);
+    if (!ranges.length) this.db.prepare('DELETE FROM h_source_restriction_spans WHERE event_id=? AND predicate=?').run(eventId, predicate);
+    else if (!alreadyWhole) for (const range of ranges) this.db.prepare(`INSERT INTO h_source_restriction_spans VALUES(?,?,?,?,?,?)
+      ON CONFLICT(event_id,predicate,content_version,start_cp,end_cp) DO UPDATE SET effective_from=CASE
+        WHEN julianday(effective_from) IS NULL OR julianday(excluded.effective_from) IS NULL THEN NULL
+        WHEN julianday(effective_from)<=julianday(excluded.effective_from) THEN effective_from ELSE excluded.effective_from END`)
+      .run(eventId, predicate, range.contentVersion, range.start, range.end, effectiveFrom);
+  }
+  /** The permitted citation is the authority for restricting its own origin.
+   * This never loads ancestor bodies into the caller's scope. */
+  restrictCitationOrigins(handle: ScopeHandle, citations: AssertionCitation[], predicate: string, operation: string,
+    replacementEventId: string | null, effectiveFrom: string, deferCitationRefresh = false): ReviewedSourceRestriction[] {
+    if (deferCitationRefresh && !this.transactionDepth) throw new HarnessError('citation_review_transaction', '来源复核须在同一提交事务。');
+    const scope = this.scope(handle);
+    if (!scope.infer || !scope.grants.includes('memory:write')) throw new HarnessError('inference_forbidden', '当前范围不能改变理解来源。');
+    const targets = new Map<string, { unknown: boolean; ranges: ReviewedSourceRestriction['ranges'] }>();
+    for (const citation of citations) {
+      const source = this.evidence(handle, citation.eventId);
+      if (!source || !this.citationSourceReadable(handle, citation)) throw new HarnessError('source_forbidden', '支持来源已不可用。');
+      const known = citation.contentVersion !== undefined && citation.start !== undefined && citation.end !== undefined;
+      for (const origin of this.sourceOrigins(source, known ? { start: citation.start!, end: citation.end! } : undefined).spans) {
+        this.validateLocalOrigin(origin.eventId);
+        const target = targets.get(origin.eventId) || { unknown: false, ranges: [] };
+        if (origin.contentVersion === undefined || origin.start === undefined || origin.end === undefined) target.unknown = true;
+        else if (!target.ranges.some(range => range.contentVersion === origin.contentVersion && range.start === origin.start && range.end === origin.end))
+          target.ranges.push({ contentVersion: origin.contentVersion, start: origin.start, end: origin.end });
+        targets.set(origin.eventId, target);
+      }
+    }
+    const installed = [...targets].map(([eventId, target]) => ({ eventId, predicate, operation, replacementEventId, ranges: target.unknown ? [] : target.ranges }));
+    this.write(() => {
+      for (const restriction of installed) this.writeSourceRestriction(restriction.eventId, predicate, operation, replacementEventId, restriction.ranges, effectiveFrom);
+      if (!deferCitationRefresh) this.refreshCitationRestrictions();
+    });
+    return installed;
+  }
+  /** Metadata-only retirement at writes and reads also covers future-effective
+   * corrections. Exact disjoint citations do not share an invalidation. */
+  private refreshCitationRestrictions() {
+    const affected = () => this.db.prepare(`WITH RECURSIVE family(id) AS (
+      SELECT event_id FROM h_source_restrictions UNION SELECT roots.event_id FROM h_evidence_roots roots JOIN family f ON roots.root_id=f.id)
+      SELECT DISTINCT a.id,a.payload FROM h_assertions a
+      JOIN h_assertion_citations c ON c.assertion_id=a.id AND c.assertion_revision=a.revision
+      JOIN family f ON f.id=c.event_id
+      WHERE a.owner=? AND a.workspace=? AND a.status IN ('active','candidate')`).all(this.identity.principalId, this.identity.workspaceId);
+    let rows = affected();
+    if (!rows.length) return;
+    this.write(() => {
+      for (;;) {
+        let retired = false;
+        for (const row of rows) {
+          const assertion = JSON.parse(String(row.payload)) as Assertion;
+          const invalid = this.citationRows(assertion.id, assertion.revision).filter(citation => !this.citationRestrictionsAllow(citation));
+          if (!invalid.length) continue;
+          if (invalid.some(citation => citation.role === 'authorization')) for (const citation of this.citationRows(assertion.id, assertion.revision).filter(value => value.role === 'primary')) {
+            const projected = parse<EvidenceEvent>(this.db.prepare('SELECT payload FROM h_evidence WHERE id=?').get(citation.eventId));
+            if (!projected?.parentEventId || projected.locator?.kind !== 'text') continue;
+            projected.label.infer = false;
+            this.db.prepare('UPDATE h_evidence SET infer=0,payload=? WHERE id=?').run(JSON.stringify(projected), projected.id);
+            this.db.prepare("INSERT OR REPLACE INTO h_source_restrictions VALUES(?,'*','AUTHORIZATION_RETRACT',NULL)").run(projected.id);
+          }
+          this.saveAssertionWithoutScope({ ...assertion, status: 'inactive', verification: 'pending', revision: assertion.revision + 1 });
+          this.invalidate(assertion.id, 'supporting_source_changed');
+          retired = true;
+        }
+        // Retirement can stop a projected evidence source. Close that finite
+        // cascade before a single caller receives any affected active row.
+        if (!retired) break;
+        rows = affected();
+        if (!rows.length) break;
+      }
+    });
+  }
+  refreshSourceConstraints() { this.refreshCitationRestrictions(); }
+  private saveAssertionWithoutScope(value: Assertion) {
+    const previous = this.citationRows(value.id, value.revision - 1);
+    this.db.prepare('UPDATE h_assertions SET status=?,revision=?,payload=? WHERE id=?').run(value.status, value.revision, JSON.stringify(value), value.id);
+    this.db.prepare('INSERT INTO h_assertion_versions VALUES(?,?,?)').run(value.id, value.revision, JSON.stringify(value));
+    for (const citation of previous) this.storeCitation(value.id, value.revision, citation);
+    this.outbox('assertion_changed', value.id);
+  }
   historicalEvidence(handle: ScopeHandle, event: EvidenceEvent) {
+    this.refreshCitationRestrictions();
     const restrictions = this.sourceRestrictions(handle, event.id);
+    if (this.sourceLineageRestricted(event)) restrictions.push({ predicate: 'restricted_source_lineage', operation: 'RECHECK',
+      replacementEventId: null, ranges: [], rangeUnknown: true, effectiveFrom: null });
     return { ...event, use: restrictions.length ? 'historical_only' as const : 'source_evidence' as const, restrictions };
   }
   evidenceList(handle: ScopeHandle, limit = 100, after = 0): EvidenceEvent[] {
@@ -727,6 +1150,8 @@ export class KernelRepository {
   }
   lexicalAssertionPage(handle: ScopeHandle, query: string,
     options: { limit?: number; offset?: number; at?: string; strength?: 'hard' | 'non_hard'; verified?: boolean } = {}) {
+    this.scope(handle);
+    this.refreshCitationRestrictions();
     const f = this.filter(handle), e = this.filter(handle, 'e'), grams = queryGrams(query);
     if (!grams.length) return { items: [] as Assertion[], total: 0 };
     if (options.at && !Number.isFinite(Date.parse(options.at))) throw new HarnessError('invalid_time', '检索时间不合法。');
@@ -734,8 +1159,8 @@ export class KernelRepository {
     // pagination so stale or inaccessible high-score rows cannot crowd out truth.
     const base = `WITH query_grams AS MATERIALIZED(SELECT value AS gram FROM json_each(?)),
       eligible AS MATERIALIZED(SELECT r.id,r.rowid AS ordinal FROM h_assertions r WHERE ${f.sql} AND r.status='active'
-        AND NOT EXISTS(SELECT 1 FROM h_assertion_evidence ae JOIN h_evidence e ON e.id=ae.event_id
-          WHERE ae.assertion_id=r.id AND (NOT (${e.sql}) OR e.status='deleted'))
+        AND NOT EXISTS(SELECT 1 FROM h_assertion_citations ae LEFT JOIN h_evidence e ON e.id=ae.event_id
+          WHERE ae.assertion_id=r.id AND ae.assertion_revision=r.revision AND (e.id IS NULL OR NOT (${e.sql}) OR e.status='deleted'))
         ${options.verified ? "AND json_extract(r.payload,'$.verification')='verified'" : ''}
         ${options.at ? 'AND (r.valid_from IS NULL OR julianday(r.valid_from)<=julianday(?)) AND (r.valid_to IS NULL OR julianday(r.valid_to)>julianday(?))' : ''}
         ${options.strength === 'hard' ? "AND r.strength='hard'" : options.strength === 'non_hard' ? "AND r.strength!='hard'" : ''}),
@@ -756,8 +1181,117 @@ export class KernelRepository {
       .all(eventId)
       .map((r) => ({ ...r, indexed: !!r.indexed }) as unknown as ProcessingSpan);
   }
+  /** Legal new-inference windows, projected through proven affine source lineage.
+   * Receipts for old assertions never authorize another read of stopped text. */
+  availableInferenceRanges(event: EvidenceEvent): { start: number; end: number }[] {
+    const length = Array.from(event.text).length;
+    if (!length || event.status === 'deleted') return [];
+    let lineage: ReturnType<KernelRepository['sourceOrigins']>;
+    try { lineage = this.sourceOrigins(event, { start: 0, end: length }); }
+    catch (error) {
+      if (error instanceof HarnessError && error.code === 'source_lineage_budget') return [];
+      throw error;
+    }
+    if (!lineage.complete) return [];
+    const deleted = this.fences().filter(fence => fence.kind === 'delete').flatMap(fence => fence.spans || []);
+    const excluded: { start: number; end: number }[] = [];
+    for (const origin of lineage.spans) {
+      if (!origin.sourceId || !Number.isSafeInteger(origin.contentVersion) || !Number.isSafeInteger(origin.start)
+        || !Number.isSafeInteger(origin.end) || origin.start! < 0 || origin.end! - origin.start! !== length) return [];
+      const current = this.db.prepare('SELECT source,version,status FROM h_evidence WHERE id=? AND owner=? AND workspace=?')
+        .get(origin.eventId, event.ownerId, event.workspaceId);
+      if (!current || current.status === 'deleted' || Number(current.version) !== origin.contentVersion
+        || String(current.source) !== origin.sourceId || this.hasFence(origin.eventId, origin.sourceId)) return [];
+      const cuts = [
+        ...deleted.filter(cut => cut.eventId === origin.eventId).map(cut => ({ version: cut.contentVersion, start: cut.start, end: cut.end })),
+        ...this.sourceSpanRestrictions(origin).map(row => ({ version: row.content_version, start: row.start_cp, end: row.end_cp, whole: row.predicate === '*' })),
+      ];
+      for (const cut of cuts) {
+        if ('whole' in cut && cut.whole || cut.version !== origin.contentVersion || !Number.isSafeInteger(cut.start)
+          || !Number.isSafeInteger(cut.end) || Number(cut.start) < 0 || Number(cut.end) <= Number(cut.start)) return [];
+        const start = Math.max(0, Number(cut.start) - origin.start!), end = Math.min(length, Number(cut.end) - origin.start!);
+        if (end > start) excluded.push({ start, end });
+      }
+    }
+    let ranges = [{ start: 0, end: length }];
+    for (const cut of excluded) ranges = ranges.flatMap(range => cut.end <= range.start || cut.start >= range.end ? [range]
+      : [...(cut.start > range.start ? [{ start: range.start, end: cut.start }] : []), ...(cut.end < range.end ? [{ start: cut.end, end: range.end }] : [])]);
+    return ranges;
+  }
   /** Host recovery queue: least-recently-attempted first, with durable backoff.
    * A pending WAL entry is not permission to revive paused or restricted data. */
+  memoryRecoveryCandidates(eventId?: string) {
+    return this.db.prepare(`SELECT e.id,e.received_at,e.source,e.purpose,json_extract(e.payload,'$.interpretationTimeZone') AS time_zone
+      FROM h_evidence e LEFT JOIN h_memory_recovery q ON q.event_id=e.id
+      WHERE e.owner=? AND e.workspace=? AND e.subject=? AND e.world='real'
+        AND e.infer=1 AND e.retain='purpose_scoped' AND e.status IN ('active','redacted') AND json_extract(e.payload,'$.speaker')='user'
+        AND (e.expires_at IS NULL OR julianday(e.expires_at)>julianday(?))
+        AND (? IS NULL OR e.id=?) AND (q.due_at IS NULL OR julianday(q.due_at)<=julianday(?))
+        AND NOT EXISTS(SELECT 1 FROM h_source_restrictions x WHERE x.event_id=e.id AND x.predicate='*')
+        AND NOT EXISTS(SELECT 1 FROM h_evidence_roots r JOIN h_source_restrictions x ON x.event_id=r.root_id WHERE r.event_id=e.id AND x.predicate='*')
+        AND EXISTS(SELECT 1 FROM h_spans s WHERE s.event_id=e.id AND s.status IN ('pending','needs_context'))
+      ORDER BY COALESCE(q.last_attempt_at,''),e.seq`).all(this.identity.principalId, this.identity.workspaceId,
+        this.identity.principalId, this.clock.now(), eventId || null, eventId || null, this.clock.now());
+  }
+  memoryContextProgress(handle: ScopeHandle, spanId: string) {
+    const row = this.db.prepare('SELECT * FROM h_memory_context WHERE span_id=?').get(spanId);
+    if (!row || !this.evidence(handle, String(row.event_id))) return undefined;
+    return { sourceVersion: Number(row.source_version), methodVersion: String(row.method_version),
+      attemptSignature: String(row.attempt_signature), sourceSignature: String(row.source_signature), contextWatermark: Number(row.context_watermark),
+      requestSignature: String(row.request_signature), requests: JSON.parse(String(row.requests)) as { eventId: string; contentVersion: number; start: number; end: number }[],
+      requestResults: JSON.parse(String(row.request_results)) as { index: number; status: string }[],
+      scopeBinding: JSON.parse(String(row.scope_binding)) as MemoryContextScope };
+  }
+  recordMemoryContext(handle: ScopeHandle, eventId: string, spanId: string, value: {
+    sourceVersion: number; methodVersion: string; attemptSignature: string; sourceSignature: string; contextWatermark: number;
+    requestSignature: string; requests: { eventId: string; contentVersion: number; start: number; end: number }[];
+    requestResults: { index: number; status: string }[];
+    scopeBinding: MemoryContextScope;
+  }) {
+    this.write(() => {
+      const event = this.evidence(handle, eventId);
+      if (!event || event.contentVersion !== value.sourceVersion || !this.db.prepare('SELECT 1 FROM h_spans WHERE id=? AND event_id=? AND content_version=?').get(spanId, eventId, event.contentVersion))
+        throw new HarnessError('memory_context_changed', '原文已变化，未保存旧的上下文进度。');
+      const requests = JSON.stringify(value.requests), results = JSON.stringify(value.requestResults);
+      if (value.requests.length > 8 || Buffer.byteLength(requests) + Buffer.byteLength(results) > 16_000)
+        throw new HarnessError('memory_context_budget', '上下文位置超过持久恢复预算，原片段仍待处理。');
+      this.db.prepare(`INSERT INTO h_memory_context VALUES(?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(span_id) DO UPDATE SET
+        source_version=excluded.source_version,method_version=excluded.method_version,attempt_signature=excluded.attempt_signature,
+        source_signature=excluded.source_signature,context_watermark=excluded.context_watermark,request_signature=excluded.request_signature,
+        requests=excluded.requests,request_results=excluded.request_results,updated_at=excluded.updated_at,scope_binding=excluded.scope_binding`)
+        .run(spanId, eventId, value.sourceVersion, value.methodVersion, value.attemptSignature, value.sourceSignature, value.contextWatermark,
+          value.requestSignature, requests, results, this.clock.now(), JSON.stringify(value.scopeBinding));
+    });
+  }
+  /** Privacy cleanup owns locator removal, never retry status or new authority. */
+  cleanupMemoryContextRequests() {
+    const fences = this.fences(), removed = (id: string) => {
+      const row = this.db.prepare('SELECT source,status FROM h_evidence WHERE id=?').get(id);
+      return !row || row.status === 'deleted' || this.hasFence(id, String(row.source));
+    };
+    this.write(() => {
+      for (const row of this.db.prepare('SELECT span_id,requests,request_results,scope_binding FROM h_memory_context').all()) {
+        const prior = JSON.parse(String(row.requests)) as { eventId: string; contentVersion: number; start: number; end: number }[];
+        const priorResults = JSON.parse(String(row.request_results)) as { index: number; status: string }[];
+        const retained = prior.map((request, index) => ({ request, index })).filter(({ request }) => {
+          const source = this.db.prepare('SELECT version,payload FROM h_evidence WHERE id=?').get(request.eventId);
+          if (!source || removed(request.eventId) || Number(source.version) !== request.contentVersion) return false;
+          const event = JSON.parse(String(source.payload)) as EvidenceEvent;
+          return this.availableInferenceRanges(event).some(range => request.end > request.start && request.start >= range.start && request.end <= range.end);
+        }).sort((a, b) => a.request.eventId.localeCompare(b.request.eventId) || a.request.contentVersion - b.request.contentVersion
+          || a.request.start - b.request.start || a.request.end - b.request.end);
+        const requests = retained.map(item => item.request), results = retained.map((item, index) => ({ index,
+          status: priorResults.find(result => result.index === item.index)?.status || 'budget_exceeded' }));
+        const binding = JSON.parse(String(row.scope_binding)) as MemoryContextScope;
+        if (Array.isArray(binding.currentEventIds)) binding.currentEventIds = binding.currentEventIds.filter(id => !removed(id));
+        if (Array.isArray(binding.sources)) binding.sources = binding.sources.filter(source => !fences.some(fence => fence.sourceIds.includes(source)));
+        const serializedRequests = JSON.stringify(requests), serializedResults = JSON.stringify(results), serializedBinding = JSON.stringify(binding);
+        if (serializedRequests !== row.requests || serializedResults !== row.request_results || serializedBinding !== row.scope_binding)
+          this.db.prepare('UPDATE h_memory_context SET requests=?,request_results=?,request_signature=?,scope_binding=?,updated_at=? WHERE span_id=?')
+            .run(serializedRequests, serializedResults, createHash('sha256').update(canonical(requests)).digest('hex'), serializedBinding, this.clock.now(), String(row.span_id));
+      }
+    });
+  }
   nextPendingMemory(eventId?: string) {
     return this.db.prepare(`SELECT e.id,e.received_at,e.source,e.purpose,json_extract(e.payload,'$.interpretationTimeZone') AS time_zone
       FROM h_evidence e LEFT JOIN h_memory_recovery q ON q.event_id=e.id
@@ -867,6 +1401,8 @@ export class KernelRepository {
     handle: ScopeHandle,
     options: { statuses?: string[]; predicate?: string; strength?: string; limit?: number; offset?: number; at?: string; verified?: boolean } = {},
   ): Assertion[] {
+    this.scope(handle);
+    this.refreshCitationRestrictions();
     if (options.at && !Number.isFinite(Date.parse(options.at))) throw new HarnessError('invalid_time', '检索时间不合法。');
     const f = this.filter(handle),
       e = this.filter(handle, 'e'),
@@ -878,7 +1414,7 @@ export class KernelRepository {
       ${options.strength ? "AND json_extract(r.payload,'$.strength')=?" : ''}
       ${options.verified ? "AND json_extract(r.payload,'$.verification')='verified'" : ''}
       ${options.at ? 'AND (r.valid_from IS NULL OR julianday(r.valid_from)<=julianday(?)) AND (r.valid_to IS NULL OR julianday(r.valid_to)>julianday(?))' : ''}
-      AND NOT EXISTS(SELECT 1 FROM h_assertion_evidence ae JOIN h_evidence e ON e.id=ae.event_id WHERE ae.assertion_id=r.id AND (NOT (${e.sql}) OR e.status='deleted'))
+      AND NOT EXISTS(SELECT 1 FROM h_assertion_citations ae LEFT JOIN h_evidence e ON e.id=ae.event_id WHERE ae.assertion_id=r.id AND ae.assertion_revision=r.revision AND (e.id IS NULL OR NOT (${e.sql}) OR e.status='deleted'))
       ORDER BY r.revision DESC,r.rowid DESC,r.id LIMIT ? OFFSET ?`,
       )
       .all(
@@ -897,22 +1433,25 @@ export class KernelRepository {
     });
   }
   assertion(handle: ScopeHandle, id: string): Assertion | undefined {
+    this.scope(handle);
+    this.refreshCitationRestrictions();
     const f = this.filter(handle),
       e = this.filter(handle, 'e');
     const row = this.db
       .prepare(
         `SELECT r.* FROM h_assertions r WHERE ${f.sql} AND r.id=?
-      AND NOT EXISTS(SELECT 1 FROM h_assertion_evidence ae JOIN h_evidence e ON e.id=ae.event_id WHERE ae.assertion_id=r.id AND (NOT (${e.sql}) OR e.status='deleted'))`,
+      AND NOT EXISTS(SELECT 1 FROM h_assertion_citations ae LEFT JOIN h_evidence e ON e.id=ae.event_id WHERE ae.assertion_id=r.id AND ae.assertion_revision=r.revision AND (e.id IS NULL OR NOT (${e.sql}) OR e.status='deleted'))`,
       )
       .get(...f.params, id, ...e.params);
     if (row) this.recordAccess(handle, row, 'assertion');
-    return parse<Assertion>(row);
+    const value = parse<Assertion>(row);
+    return value && this.citationRows(value.id, value.revision).every(citation => this.citationReadable(handle, citation)) ? value : undefined;
   }
   saveAssertion(
     handle: ScopeHandle,
     input: Assertion,
     expectedRevision?: number,
-    locators: { eventId: string; start: number; end: number }[] = [],
+    locators: { eventId: string; start: number; end: number; contentVersion?: number; role?: AssertionCitation['role']; restrictionReceipt?: string }[] = [],
   ) {
     const s = this.scope(handle),
       value = assertionSchema.parse(input);
@@ -929,6 +1468,14 @@ export class KernelRepository {
     for (const id of value.evidenceIds)
       if (!this.evidence(handle, id))
         throw new HarnessError('evidence_forbidden', '缺少有权使用的原始证据。');
+    for (const locator of locators) {
+      const source = this.evidence(handle, locator.eventId);
+      if (!source || !this.citationReadable(handle, { ...locator, role: locator.role || 'primary',
+        contentVersion: locator.contentVersion ?? source.contentVersion }, true))
+        throw new HarnessError('citation_forbidden', '引用版本、范围、权限或当前来源限制已变化。');
+      if (locator.role !== 'authorization' && !value.evidenceIds.includes(locator.eventId))
+        throw new HarnessError('citation_mismatch', '事实引用不在实际支持来源集合中。');
+    }
     this.write(() => {
       const old = this.db.prepare('SELECT revision,status FROM h_assertions WHERE id=?').get(value.id);
       if (old && (expectedRevision === undefined || Number(old.revision) !== expectedRevision)) {
@@ -963,21 +1510,29 @@ export class KernelRepository {
       this.db
         .prepare('INSERT INTO h_assertion_versions VALUES(?,?,?)')
         .run(value.id, value.revision, JSON.stringify(value));
-      const previousLocators = this.db
-        .prepare('SELECT event_id,start_cp,end_cp FROM h_assertion_evidence WHERE assertion_id=?')
-        .all(value.id);
+      const previousLocators = old ? this.citationRows(value.id, Number(old.revision)) : [];
       this.db.prepare('DELETE FROM h_assertion_evidence WHERE assertion_id=?').run(value.id);
       for (const id of value.evidenceIds) {
-        const loc = locators.find((l) => l.eventId === id),
-          previous = previousLocators.find((l) => l.event_id === id);
+        const selected = locators.filter(locator => locator.eventId === id && locator.role !== 'authorization');
+        const citations: AssertionCitation[] = selected.length ? selected.map(locator => ({ ...locator,
+          contentVersion: locator.contentVersion ?? this.evidence(handle, id)!.contentVersion, role: locator.role || 'primary' }))
+          : previousLocators.filter(locator => locator.eventId === id && locator.role !== 'authorization');
+        if (!citations.length) citations.push({ eventId: id, role: value.evidenceIds[0] === id ? 'primary' : 'support' });
+        for (const citation of citations) this.storeCitation(value.id, value.revision, citation);
+        const single = citations.length === 1 ? citations[0] : undefined;
         this.db
           .prepare('INSERT INTO h_assertion_evidence VALUES(?,?,?,?)')
           .run(
             value.id,
             id,
-            loc?.start ?? (previous?.start_cp as number) ?? null,
-            loc?.end ?? (previous?.end_cp as number) ?? null,
+            single?.start ?? null,
+            single?.end ?? null,
           );
+      }
+      const authorizations = locators.filter(locator => locator.role === 'authorization');
+      for (const locator of authorizations.length ? authorizations : previousLocators.filter(locator => locator.role === 'authorization')) {
+        if (!this.evidence(handle, locator.eventId)) throw new HarnessError('evidence_forbidden', '保存许可的来源已不可读。');
+        this.storeCitation(value.id, value.revision, { ...locator, role: 'authorization' });
       }
       this.replaceIndex('assertion', value.id, value.text);
       this.outbox('assertion_changed', value.id);
@@ -1555,7 +2110,7 @@ export class KernelRepository {
       for (const id of fence.objectIds) {
         if (this.db.prepare('SELECT id FROM h_evidence WHERE id=?').get(id)) eventIds.add(id);
         const refs = this.db
-          .prepare('SELECT event_id,start_cp,end_cp FROM h_assertion_evidence WHERE assertion_id=?')
+          .prepare('SELECT event_id,content_version,start_cp,end_cp FROM h_assertion_citations WHERE assertion_id=?')
           .all(id);
         for (const ref of refs) {
           const eid = String(ref.event_id),
@@ -1563,12 +2118,14 @@ export class KernelRepository {
               this.db.prepare('SELECT payload FROM h_evidence WHERE id=?').get(eid),
             );
           if (!event) continue;
-          if (ref.start_cp === null || ref.end_cp === null) {
+          if (ref.content_version === null || ref.start_cp === null || ref.end_cp === null) {
             eventIds.add(eid);
             continue;
           }
           const chars = Array.from(event.text);
-          for (let i = Number(ref.start_cp); i < Number(ref.end_cp); i++) chars[i] = '█';
+          const start = Number(ref.content_version) === event.contentVersion ? Number(ref.start_cp) : 0,
+            end = Number(ref.content_version) === event.contentVersion ? Number(ref.end_cp) : chars.length;
+          for (let i = Math.max(0, start); i < Math.min(end, chars.length); i++) chars[i] = '█';
           event.text = chars.join('');
           event.status = 'redacted';
           this.db
@@ -1576,25 +2133,12 @@ export class KernelRepository {
             .run(event.text, event.status, JSON.stringify(event), eid);
           this.replaceIndex('evidence', eid, event.text);
           this.redactLegacyMessage(eid, event.text);
-          recordRedaction(eid, event.contentVersion, Number(ref.start_cp), Number(ref.end_cp));
+          recordRedaction(eid, event.contentVersion, start, end);
         }
         this.removeAssertion(id);
         for (const dependent of this.invalidate(id, 'source_deleted', preserved)) affected.add(dependent);
         this.db.prepare('DELETE FROM h_work WHERE id=?').run(id);
         this.db.prepare('DELETE FROM h_sync_operations WHERE object_id=?').run(id);
-      }
-      // A different assertion can contain the same private passage under a
-      // different predicate. Remove overlapping/unknown claims and their
-      // derived payloads, while retaining claims located wholly elsewhere.
-      for (const [eventId, ranges] of redactedRanges) {
-        for (const row of this.db.prepare('SELECT assertion_id,start_cp,end_cp FROM h_assertion_evidence WHERE event_id=?').all(eventId)) {
-          const id = String(row.assertion_id);
-          this.db.prepare('DELETE FROM h_assertion_versions WHERE id=? AND revision!=(SELECT revision FROM h_assertions WHERE id=?)').run(id, id);
-          if (row.start_cp !== null && row.end_cp !== null
-            && !ranges.some(range => range.start < Number(row.end_cp) && range.end > Number(row.start_cp))) continue;
-          this.removeAssertion(id);
-          for (const dependent of this.invalidate(id, 'source_redacted', preserved)) affected.add(dependent);
-        }
       }
       const directlyDeletedEvents = new Set(eventIds);
       const roots = [...eventIds, ...redactedSources, ...fence.sourceIds],
@@ -1609,16 +2153,51 @@ export class KernelRepository {
           const id = String(row.event_id);
           if (id === root || redactedSources.has(id)) continue;
           const event = parse<EvidenceEvent>(this.db.prepare('SELECT payload FROM h_evidence WHERE id=?').get(id));
-          const ranges = redactedRanges.get(root), locator = event?.locator;
-          // A host-bound exact projection outside the erased range remains
-          // independent. Unlocated summaries still fail closed.
-          if (!eventIds.has(root) && ranges?.length && event?.parentEventId === root && locator?.kind === 'text'
-            && ranges.every(range => range.contentVersion === locator.contentVersion
-              && (range.end <= locator.startCodePoint || range.start >= locator.endCodePoint))) continue;
+          const ranges = redactedRanges.get(root);
+          if (!eventIds.has(root) && ranges?.length && event) {
+            const origins = this.sourceOrigins(event, { start: 0, end: Array.from(event.text).length }).spans.filter(origin => origin.eventId === root);
+            // A proven disjoint origin remains legal through multiple exact
+            // projections. An unknown summary cannot make that promise.
+            if (origins.length && origins.every(origin => origin.start !== undefined && origin.end !== undefined
+              && ranges.every(range => range.contentVersion === origin.contentVersion && (range.end <= origin.start! || range.start >= origin.end!)))) continue;
+          }
           if (!eventIds.has(id)) {
             eventIds.add(id);
             roots.push(id);
           }
+        }
+      }
+      // Exact versioned citations, including authorization quotes, are the
+      // dependency relation. A source-ID join cannot represent disjoint uses.
+      const citationQueue = [...new Set([...redactedRanges.keys(), ...eventIds])], checkedSources = new Set<string>();
+      while (citationQueue.length) {
+        const eventId = citationQueue.shift()!;
+        if (checkedSources.has(eventId)) continue;
+        checkedSources.add(eventId);
+        const ranges = redactedRanges.get(eventId) || [], whole = eventIds.has(eventId);
+        for (const row of this.db.prepare(`SELECT c.*,a.revision AS current_revision FROM h_assertion_citations c
+          JOIN h_assertions a ON a.id=c.assertion_id WHERE c.event_id=?`).all(eventId)) {
+          if (!whole && row.content_version !== null && row.start_cp !== null && row.end_cp !== null
+            && !ranges.some(range => range.contentVersion !== Number(row.content_version)
+              || range.start < Number(row.end_cp) && range.end > Number(row.start_cp))) continue;
+          const id = String(row.assertion_id), revision = Number(row.assertion_revision);
+          if (revision === Number(row.current_revision)) {
+            if (row.role === 'authorization') {
+              for (const citation of this.citationRows(id, revision).filter(value => value.role === 'primary')) {
+                const projected = parse<EvidenceEvent>(this.db.prepare('SELECT payload FROM h_evidence WHERE id=?').get(citation.eventId));
+                if (projected?.parentEventId !== eventId || projected.locator?.kind !== 'text') continue;
+                const derived = [projected.id];
+                while (derived.length) {
+                  const sourceId = derived.shift()!;
+                  if (eventIds.has(sourceId)) continue;
+                  eventIds.add(sourceId); citationQueue.push(sourceId);
+                  for (const child of this.db.prepare('SELECT event_id FROM h_evidence_roots WHERE root_id=? AND event_id!=?').all(sourceId, sourceId)) derived.push(String(child.event_id));
+                }
+              }
+            }
+            this.removeAssertion(id);
+          } else this.db.prepare('DELETE FROM h_assertion_versions WHERE id=? AND revision=?').run(id, revision);
+          for (const dependent of this.invalidate(id, 'source_redacted', preserved)) affected.add(dependent);
         }
       }
       for (const id of redactedSources)

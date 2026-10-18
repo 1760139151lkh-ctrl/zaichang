@@ -348,6 +348,18 @@ export const assertionSchema = z
   })
   .strict();
 export type Assertion = z.infer<typeof assertionSchema>;
+export const memorySupportSchema = z.object({
+  eventId: objectId, contentVersion: z.number().int().positive(), quote: z.string().min(1).max(12000),
+  startCodePoint: z.number().int().nonnegative(), endCodePoint: z.number().int().positive(),
+}).strict().refine(value => value.endCodePoint > value.startCodePoint, 'Invalid support range');
+export type MemorySupport = z.infer<typeof memorySupportSchema>;
+/** Exact source addresses, including historical revisions; no copied source text. */
+export interface AssertionCitation {
+  eventId: string; contentVersion?: number; start?: number; end?: number;
+  role: 'primary' | 'support' | 'authorization';
+  /** Host-only, bound to this stored revision/citation; never accepted in a proposal. */
+  restrictionReceipt?: string;
+}
 export const changeSchema = z
   .object({
     operation: z.enum([
@@ -365,6 +377,10 @@ export const changeSchema = z
     expectedRevision: z.number().int().positive().optional(),
     eventId: objectId,
     sourceQuote: z.string().min(1).max(12000),
+    sourceContentVersion: z.number().int().positive().optional(),
+    sourceStartCodePoint: z.number().int().nonnegative().optional(),
+    sourceEndCodePoint: z.number().int().positive().optional(),
+    supports: z.array(memorySupportSchema).max(16).optional(),
     predicate: z.string().regex(/^[a-zA-Z][a-zA-Z0-9_.:-]{0,119}$/),
     value: typedValue,
     text: z.string().min(1).max(4000),
@@ -566,6 +582,17 @@ export const actionStatusSchema = z.enum([
   'cannot_cancel',
 ]);
 export type ActionStatus = z.infer<typeof actionStatusSchema>;
+/** Host-generated identity for the reviewed invocation contract, not an authorization grant. */
+export const capabilityContractRefSchema = z.object({
+  revision: z.literal(1),
+  providerId: objectId,
+  providerVersion: z.string().min(1).max(160),
+  capabilityName: objectId,
+  capabilityVersion: z.string().min(1).max(160),
+  digest: z.string().regex(/^[a-f0-9]{64}$/),
+}).strict();
+export type CapabilityContractRef = z.infer<typeof capabilityContractRefSchema>;
+
 export const effectSchema = z
   .object({
     id: objectId,
@@ -575,6 +602,8 @@ export const effectSchema = z
     worldId: objectId,
     revision: z.number().int().positive(),
     capability: objectId,
+    // Optional only so historical records remain readable; unbound effects cannot be dispatched.
+    capabilityContract: capabilityContractRefSchema.optional(),
     arguments: z.record(z.string(), z.json()),
     compensation: z.object({ targetId: objectId, expectedRevision: z.number().int().nonnegative(), previous: z.record(z.string(), z.json()).nullable(), applied: z.boolean() }).strict().optional(),
     audience: objectId,

@@ -1,5 +1,11 @@
 # Asset provenance
 
+## 2026-10-18 explicitly chosen planning windows
+
+[Chosen-window A/B manifest](../assets/design/generated/2026-10-18-chosen-windows/manifest.json) records two built-in GPT Image calls after second-batch backend observations/checks and before frontend implementation. Root viewed both: A retains the date strip and one expanded day, B compares vertical day folds. A's actual-window expression was chosen; repeated folds, example-only explanation and all-day progress rails were omitted. `prompts.txt` preserves the exact prompts, and `reference-current.png` is a product-owned local Electron screenshot with synthetic agenda content. No owner calendar, memory, credentials or third-party source records are in that capture.
+
+These files are authorized private project design sources, not runtime assets, official character artwork, business facts or proof of native mobile behavior. The manifest preserves dimensions, bytes and SHA-256; product UI uses the existing renderer, host windows and exact selection objects. Generated images remain design references, not a functional dependency on Codex paths.
+
 Latest design references: [daily rhythm comparison](../assets/design/generated/2026-10-18-personal-memory/daily-rhythm-manifest.json) and the prior [companion evolution](../assets/design/generated/2026-10-18-companion-evolution/manifest.json). Their inspected uses and exclusions are recorded in [DESIGN_IMAGE_COVERAGE](DESIGN_IMAGE_COVERAGE.md). They are design boards, not product data or evidence of completed UI behavior.
 
 ## 2026-10-18 daily rhythm design comparison

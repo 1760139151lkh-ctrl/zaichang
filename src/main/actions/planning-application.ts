@@ -297,7 +297,7 @@ export class PlanningApplicationService {
       `保留转场 ${transfer.travel.minutes} 分钟、休息 ${transfer.restMinutes} 分钟。`, transfer.start, transfer.end);
     // Merge protection overlaps and omit portions already occupied by accepted commitments.
     const bounds = { start: Date.parse(input.from), end: Date.parse(input.to) };
-    const protection = input.protectedWindows.map(value => ({ start: Math.max(bounds.start, Date.parse(value.start)), end: Math.min(bounds.end, Date.parse(value.end)), reasons: [value.reason] })).filter(value => value.end > value.start).sort((a, b) => a.start - b.start);
+    const protection = draft.protectedWindows.map(value => ({ start: Math.max(bounds.start, Date.parse(value.start)), end: Math.min(bounds.end, Date.parse(value.end)), reasons: [value.reason] })).filter(value => value.end > value.start).sort((a, b) => a.start - b.start);
     const merged: typeof protection = [];
     for (const value of protection) {
       const previous = merged.at(-1);

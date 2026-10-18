@@ -47,7 +47,7 @@ export class ActionRuntime {
   digest(
     action: Pick<
       EffectAction,
-      'capability' | 'arguments' | 'audience' | 'revision' | 'worldId' | 'validUntil' | 'dependencies'
+      'capability' | 'capabilityContract' | 'arguments' | 'audience' | 'revision' | 'worldId' | 'validUntil' | 'dependencies'
     >,
   ) {
     return createHash('sha256').update(canonical(action)).digest('hex');
@@ -84,6 +84,7 @@ export class ActionRuntime {
       worldId: scope.worldId,
       revision: 1,
       capability: input.capability,
+      capabilityContract: cap.capabilityContract,
       arguments: this.broker.validateArguments(
         input.capability,
         input.arguments,
@@ -106,6 +107,7 @@ export class ActionRuntime {
     };
     action.digest = this.digest({
       capability: action.capability,
+      capabilityContract: action.capabilityContract,
       arguments: action.arguments,
       audience: action.audience,
       revision: action.revision,
@@ -243,11 +245,13 @@ export class ActionRuntime {
     if (!action) throw new HarnessError('action_missing', '动作不存在。');
     if (action.revision !== expectedRevision)
       throw new HarnessError('revision_conflict', '动作内容已更新，请重新查看。');
-    if (['dispatching', 'outcome_unknown', 'succeeded', 'reconciling'].includes(action.status))
+    if (['dispatching', 'outcome_unknown', 'succeeded', 'reconciling', 'unresolved', 'cancel_requested',
+      'cancellation_unknown', 'cannot_cancel', 'cancellation_confirmed'].includes(action.status))
       throw new HarnessError('effect_already_dispatched', '该动作已派发，请先核查或取消。');
+    this.broker.assertContract(action.capability, action.capabilityContract);
     const next = {
       ...action,
-      arguments: args,
+      arguments: this.broker.validateArguments(action.capability, args) as EffectAction['arguments'],
       audience: audience || action.audience,
       revision: action.revision + 1,
       status: 'awaiting_approval' as const,
@@ -256,6 +260,7 @@ export class ActionRuntime {
     };
     next.digest = this.digest({
       capability: next.capability,
+      capabilityContract: next.capabilityContract,
       arguments: next.arguments,
       audience: next.audience,
       revision: next.revision,
@@ -274,6 +279,8 @@ export class ActionRuntime {
       throw new HarnessError('approval_mismatch', '动作内容已经变化，需要重新确认。');
     if (['cancelled', 'cancel_requested', 'cannot_cancel', 'cancellation_confirmed'].includes(action.status))
       throw new HarnessError('action_cancelled', '已撤销的动作不能再次批准。');
+    // Returning a prior approval must still verify its original execution contract.
+    this.preflight(handle, action);
     const existing = this.repo.db
       .prepare('SELECT payload FROM h_approvals WHERE action_id=? ORDER BY rowid DESC LIMIT 1')
       .get(id);
@@ -288,7 +295,6 @@ export class ActionRuntime {
       )
         return approval;
     }
-    this.preflight(handle, action);
     const approval: Approval = {
       id: randomUUID(),
       actionId: id,
@@ -315,8 +321,7 @@ export class ActionRuntime {
   }
   private preflight(handle: ScopeHandle, action: EffectAction, approval?: Approval) {
     const s = this.policy.validate(handle),
-      cap = this.broker.describe(action.capability);
-    if (!cap) throw new HarnessError('unsupported_action', '动作能力已经不可用。');
+      cap = this.broker.assertContract(action.capability, action.capabilityContract);
     if (!s.sources.includes(cap.sourceId))
       throw new HarnessError('source_forbidden', '此动作来源不在当前授权范围内。');
     if (action.worldId !== 'real' || s.subjectId !== s.principalId)
@@ -575,7 +580,14 @@ export class ActionRuntime {
       this.repo.write(() => this.record(action, receipt));
       return receipt;
     }
-    const cap = this.broker.describe(action.capability);
+    let cap: ReturnType<CapabilityBroker['assertContract']>;
+    try { cap = this.broker.assertContract(action.capability, action.capabilityContract); }
+    catch (error) {
+      action.status = 'unresolved';
+      action.reason = error instanceof HarnessError ? error.code : 'inspection_unavailable';
+      this.repo.write(() => this.put(action));
+      return;
+    }
     if (!cap?.supportsInspect) {
       action.status = 'unresolved';
       action.reason = 'provider_has_no_inspect_check_manually';
@@ -628,7 +640,15 @@ export class ActionRuntime {
     }
     action.status = 'cancel_requested';
     this.repo.write(() => { this.repo.db.prepare("UPDATE h_jobs SET status='cancelled',fence=fence+1 WHERE object_id=?").run(id); this.put(action); });
-    const cap = this.broker.describe(action.capability);
+    let cap: ReturnType<CapabilityBroker['assertContract']>;
+    try { cap = this.broker.assertContract(action.capability, action.capabilityContract); }
+    catch (error) {
+      // Preserve the pending cancellation and any prior result. A replacement
+      // provider must never receive the original provider's recovery key.
+      action.reason = error instanceof HarnessError ? error.code : 'cancellation_unavailable';
+      this.repo.write(() => this.put(action));
+      return action;
+    }
     if (!cap?.supportsCancel) {
       action.status = 'cannot_cancel';
       action.reason = 'provider_cannot_reverse_effect';

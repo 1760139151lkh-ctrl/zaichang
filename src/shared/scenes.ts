@@ -81,12 +81,21 @@ export interface PlanningScene extends SceneBase {
   kind: 'planning';
   mode: 'preview' | 'draft';
   window: { from: string; to: string; timeZone: string };
+  /** A declared scheduling domain is distinct from calendar time without records. */
+  scheduleCoverage?: {
+    mode: 'provided_windows' | 'horizon_only';
+    windows: { start: string; end: string }[];
+    meaning: string;
+  };
   blocks: PlanningBlock[];
   /** Host-calculated local days; the renderer never invents a daily budget. */
   daySummaries?: {
     date: string;
     from: string;
     to: string;
+    eligibleWindows?: { start: string; end: string }[];
+    eligibleMinutes?: number;
+    outsideScopeMinutes?: number;
     scheduledMinutes: number;
     initialFreeMinutes: number;
     occupiedMinutes: number;

@@ -72,6 +72,12 @@ export function PlanningTime({ scene, selection, onSelect }: SelectionProps & { 
     : groups.find(([, items]) => items.some(block => block.id === selectedId))?.[0] || groups[0]?.[0];
   const blocks = groups.find(([day]) => day === activeDay)?.[1] || [];
   const summary = scene.daySummaries?.find(day => day.date === activeDay);
+  const declaredWindows = scene.scheduleCoverage?.mode === 'provided_windows';
+  const eligibleWindows = declaredWindows ? summary?.eligibleWindows : undefined;
+  const emptyDay = eligibleWindows?.length === 0;
+  // These are visual breaks only. The host owns the windows, rows and daily totals.
+  const windowFor = (block: PlanningBlock) => eligibleWindows?.findIndex(window => Date.parse(block.start) >= Date.parse(window.start)
+    && !!block.end && Date.parse(block.end) <= Date.parse(window.end)) ?? -1;
   const dates = useRef<HTMLDivElement>(null);
   useChoiceVisibility(dates, `${scene.id}@${scene.revision}:${activeDay}`, '[aria-selected="true"]');
   const expired = useExpired(scene.expiresAt || scene.source.expiresAt);
@@ -79,27 +85,35 @@ export function PlanningTime({ scene, selection, onSelect }: SelectionProps & { 
   return <section className="life-scene planning-scene" aria-label="一段属于自己的时间" data-scene-id={scene.id}>
     <header className="life-scene-heading">
       <div><h3>{groups.length > 1 ? '这几天，慢慢安排。' : scene.mode === 'draft' ? '一段属于自己的时间' : '看看时间的余地'}</h3></div>
-      {groups.length === 1 && activeDay ? <span className="life-scene-date">{dayName(activeDay)}</span> : null}
+      {groups.length === 1 && activeDay && !summary ? <span className="life-scene-date">{dayName(activeDay)}</span> : null}
     </header>
     {groups.length > 1 && <div className="planning-day-strip" role="tablist" aria-label="查看哪一天" ref={dates}>
       {groups.map(([day]) => {
         const value = scene.daySummaries?.find(item => item.date === day);
         return <button type="button" role="tab" key={day} aria-selected={activeDay === day} tabIndex={activeDay === day ? 0 : -1}
-          onKeyDown={moveAlongChoices} onClick={() => setBrowsedDay(day)}>
+          onKeyDown={event => moveAlongChoices(event, true)} onClick={() => setBrowsedDay(day)}>
           <span className="planning-day-name">{dayName(day)}</span>
-          {value && <span className="planning-day-balance">安排 {duration(value.scheduledMinutes)}<span> · {duration(value.freeMinutes)} 还没排</span></span>}
+          {value && (declaredWindows && value.eligibleWindows ? <span className="planning-day-times">{value.eligibleWindows.length === 0 ? '这一天先不安排'
+            : value.eligibleWindows.map(window => <span key={window.start}>{stamp(window.start, zone)} — {stamp(window.end, zone, dayKey(window.start, zone) !== dayKey(window.end, zone))}</span>)}</span>
+            : <span className="planning-day-balance">安排 {duration(value.scheduledMinutes)}<span> · {duration(value.freeMinutes)} 还没排</span></span>)}
         </button>;
       })}
     </div>}
     {summary && <div className="planning-day-overview"><strong>{dayName(summary.date)}</strong>
-      <span>{stamp(summary.from, zone)} — {stamp(summary.to, zone, dayKey(summary.from, zone) !== dayKey(summary.to, zone))}</span>
-      {summary.reserveShortfallMinutes > 0 && <p className="planning-day-shortfall">原有安排已占去一些余地，比想留的空白少 {duration(summary.reserveShortfallMinutes)}。</p>}
+      {declaredWindows ? <div className="planning-day-windows">{emptyDay ? <span className="planning-day-unplanned">这一天先不安排</span>
+        : eligibleWindows?.map(window => <span key={window.start}>{stamp(window.start, zone)} — {stamp(window.end, zone, dayKey(window.start, zone) !== dayKey(window.end, zone))}</span>)}</div>
+        : <span>{stamp(summary.from, zone)} — {stamp(summary.to, zone, dayKey(summary.from, zone) !== dayKey(summary.to, zone))}</span>}
+      {declaredWindows && !emptyDay && <p className="planning-day-balance">安排 {duration(summary.scheduledMinutes)} · {duration(summary.freeMinutes)} 还没排</p>}
+      {!emptyDay && summary.reserveShortfallMinutes > 0 && <p className="planning-day-shortfall">原有安排已占去一些余地，比想留的空白少 {duration(summary.reserveShortfallMinutes)}。</p>}
     </div>}
     <div className="planning-timeline" role="group" aria-label="选择一个时段，接着聊">
-      {blocks.map(block => {
+      {blocks.map((block, index) => {
+        const window = windowFor(block);
+        const startsWindow = declaredWindows && (window < 0 || index === 0 || windowFor(blocks[index - 1]) !== window);
+        const endsWindow = declaredWindows && (window < 0 || index === blocks.length - 1 || windowFor(blocks[index + 1]) !== window);
         const note = block.usableMinutes ? `扣去两侧转换，可用 ${number(block.usableMinutes.min)}${block.usableMinutes.max !== block.usableMinutes.min ? `—${number(block.usableMinutes.max)}` : ''} 分钟`
           : block.kind === 'free' ? undefined : block.reason;
-        return <button type="button" className={`planning-time-block planning-time-${block.kind}${selectedId === block.id ? ' is-selected' : ''}`} key={block.id}
+        return <button type="button" className={`planning-time-block planning-time-${block.kind}${selectedId === block.id ? ' is-selected' : ''}${startsWindow ? ' is-window-start' : ''}${endsWindow ? ' is-window-end' : ''}`} key={block.id}
         aria-pressed={selectedId === block.id} onClick={() => onSelect({ sceneId: scene.id, sceneRevision: scene.revision, kind: 'time_block', blockId: block.id })}
         aria-label={`${interval(block, zone, activeDay)}，${block.label}，${blockNames[block.kind]}${block.end ? '' : '，结束时间未知'}，选择后接着聊`}>
         <span className="planning-time-stamp">{interval(block, zone, activeDay)}</span><span className="planning-time-dot" aria-hidden="true" />
@@ -107,14 +121,14 @@ export function PlanningTime({ scene, selection, onSelect }: SelectionProps & { 
           {note && <span className="planning-time-note">{note}</span>}
         </span>
       </button>;})}
-      {!blocks.length && <p className="life-scene-empty">这次还没有可显示的时段，可以接着说说你想怎样安排。</p>}
+      {!blocks.length && !emptyDay && <p className="life-scene-empty">这次还没有可显示的时段，可以接着说说你想怎样安排。</p>}
     </div>
     {scene.unscheduled.length > 0 && <details className="life-scene-notes"><summary>还有 {scene.unscheduled.length} 件事没放进来<ChevronDown size={13} /></summary><ul>{scene.unscheduled.map((item, index) => <li key={index}><strong>{item.title}</strong> · {item.reason}</li>)}</ul></details>}
     {unresolved.length > 0 && <details className="life-scene-notes"><summary>有些条件还要核对<ChevronDown size={13} /></summary><ul>{unresolved.map((item, index) => <li key={index}>{item}</li>)}</ul></details>}
     <footer className="life-scene-footer"><span><CalendarDays size={14} aria-hidden="true" />{expired ? '先前商量的安排' : '一起商量 · 尚未保存'}</span>
       <details><summary>安排与依据<ChevronDown size={13} /></summary><div className="life-scene-source">
         <p>{stamp(scene.window.from, zone, true)} 至 {stamp(scene.window.to, zone, true)} · {zone}</p>
-        {summary && <p>{dayName(summary.date)}：连同原有安排、准备和休息，共占 {duration(summary.occupiedMinutes)}，{duration(summary.freeMinutes)} 还没排。
+        {summary && !emptyDay && <p>{dayName(summary.date)}：{declaredWindows ? '指定时段内，' : ''}连同原有安排、准备和休息，共占 {duration(summary.occupiedMinutes)}，{duration(summary.freeMinutes)} 还没排。
           {summary.budget?.maxScheduledMinutes !== undefined ? ` 这次的安排上限是 ${duration(summary.budget.maxScheduledMinutes)}。` : ''}
           {summary.budget?.reserveMinutes !== undefined ? ` 想留 ${duration(summary.budget.reserveMinutes)} 空白。` : ''}</p>}
         <p>{scene.source.fetchedAt ? `${stamp(scene.source.fetchedAt, zone, true)} 读取本机安排` : '这份安排没有附读取时间。'}</p>
@@ -134,11 +148,18 @@ function WeatherIcon({ sample, size = 25 }: { sample: EnvironmentSample; size?: 
         : code != null && [51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(code) ? CloudRain : code === 3 ? Cloud : CircleDashed;
   return <Icon size={size} strokeWidth={1.5} aria-hidden="true" />;
 }
-function moveAlongChoices(event: KeyboardEvent<HTMLButtonElement>) {
+function moveAlongChoices(event: KeyboardEvent<HTMLButtonElement>, activate = false) {
   if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
   const items = [...event.currentTarget.parentElement!.querySelectorAll<HTMLButtonElement>('button')];
   const index = items.indexOf(event.currentTarget), target = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : Math.max(0, Math.min(items.length - 1, index + (event.key === 'ArrowRight' ? 1 : -1)));
-  event.preventDefault(); items[target]?.focus(); items[target]?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  event.preventDefault();
+  const chosen = items[target], strip = event.currentTarget.parentElement!;
+  if (!chosen) return;
+  chosen.focus({ preventScroll: true });
+  if (activate) chosen.click();
+  const frame = strip.getBoundingClientRect(), item = chosen.getBoundingClientRect();
+  if (item.left < frame.left) strip.scrollLeft -= frame.left - item.left;
+  else if (item.right > frame.left + strip.clientWidth) strip.scrollLeft += item.right - frame.left - strip.clientWidth;
 }
 
 export function EnvironmentHours({ scene, selection, onSelect }: SelectionProps & { scene: EnvironmentScene }) {
@@ -154,7 +175,7 @@ export function EnvironmentHours({ scene, selection, onSelect }: SelectionProps 
     <header className="life-scene-heading"><div className="environment-heading-label">{air ? <Wind size={27} strokeWidth={1.5} aria-hidden="true" /> : <WeatherIcon sample={sample} size={29} />}<div><h3>{air ? '空气，也看一眼' : '看看这段时间的天气'}</h3><p>{scene.location} · {scene.timeZone}</p></div></div></header>
     <div className="environment-hour-strip" role="group" aria-label="选择预报时刻，可用左右方向键浏览" ref={hours}>
       {scene.samples.map(row => <button type="button" key={row.id} className={`environment-hour${sample.id === row.id ? ' is-active' : ''}${selectedId === row.id ? ' is-selected' : ''}`} aria-pressed={selectedId === row.id}
-        onClick={() => select(row)} onKeyDown={moveAlongChoices}
+        onClick={() => select(row)} onKeyDown={event => moveAlongChoices(event)}
         aria-label={`${stamp(row.at, scene.timeZone, true)}，${air ? `PM2.5 ${number(row.pm2_5, ' 微克每立方米')}` : `气温 ${number(row.temperatureC, ' 摄氏度')}`}，选择后接着聊`}>
         <span className="environment-hour-day">{dayName(dayKey(row.at, scene.timeZone)).split('日')[0]}日</span><time dateTime={row.at}>{stamp(row.at, scene.timeZone)}</time>
         {air ? <Wind size={23} strokeWidth={1.4} aria-hidden="true" /> : <WeatherIcon sample={row} />}

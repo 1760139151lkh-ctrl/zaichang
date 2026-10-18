@@ -13,6 +13,8 @@
 
 | 本轮研究与审查 | 实施方向 |
 | --- | --- |
+| [第二批：证据、恢复与契约](docs/research/PERSONAL_MEMORY_ROUND2_2026-10-18.md) | 八方向重新比较；精确多源citations、来源坐标归一、48KB上下文与合法澄清恢复、整体安排窗、动作契约已实施；向量、持久调查／规划意图、学习与手机仍分项候选 |
+| [安排时窗图稿比较](assets/design/generated/2026-10-18-chosen-windows/manifest.json) | 后端检查之后生成A日期条/B折叠日，采用A的真实时窗表达；样例资料、窄窗布局和实际产品证据分开 |
 | [个人记忆与生活连续性](docs/research/PERSONAL_MEMORY_CONTINUITY_2026-10-18.md) | 本次16域/12时间线交叉审计、原文浏览、精确遗忘、决策经历、准备发现/逐日承载及候选取舍；源码机制与语义/设备证据分开 |
 | [记忆](docs/research/MEMORY_EVOLUTION_2026-10-18.md) | 多查询、有限扫描、原始依据与纠正后续线索 |
 | [主动创新](docs/research/INITIATIVE_INNOVATION_2026-10-18.md) | 跨会话准备材料与未完事项的有限续接索引 |
