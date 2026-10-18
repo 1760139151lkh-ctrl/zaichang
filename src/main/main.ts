@@ -39,7 +39,7 @@ import { conditionSchema } from '../shared/harness';
 import { hasCredentials } from './runtime/redaction';
 import { NativeControls } from './runtime/controls';
 import { configureNetwork } from './network';
-import { materialReferenceSchema } from '../shared/materials';
+import { materialReferenceSchema, materialTargetSchema } from '../shared/materials';
 import { semanticSelectionSchema } from '../shared/scenes';
 
 assertTestDataDirectory();
@@ -594,6 +594,28 @@ app.whenReady().then(async () => {
     if (epoch !== store.kernel.epoch) throw new Error('资料使用范围已改变，请重新选择文件。');
     const file = result.filePaths[0];
     return store.runtime.materials.stageFile(file);
+  });
+  handle('materials:list', value => {
+    const input = z.object({ sessionId: id.optional() }).strict().parse(value || {});
+    return store.runtime.materials.nativeList(input.sessionId);
+  });
+  handle('materials:read', value => store.runtime.materials.nativeReadPage(value));
+  handle('materials:cancel', () => store.runtime.materials.cancelNativeRead());
+  handle('materials:discard', value => {
+    const input = z.object({ reference: materialReferenceSchema }).strict().parse(value);
+    store.runtime.materials.releasePending(input.reference);
+  });
+  handle('materials:export', async value => {
+    const input = z.object({ target: materialTargetSchema }).strict().parse(value);
+    const epoch = store.kernel.epoch, revision = store.kernel.policyRevision;
+    const original = store.runtime.materials.nativeOriginal(input.target);
+    const selected = await dialog.showSaveDialog(window!, { title: '带走这份原文', defaultPath: original.item.name });
+    if (selected.canceled || !selected.filePath) return false;
+    if (epoch !== store.kernel.epoch || revision !== store.kernel.policyRevision || store.runtime.presentation.public)
+      throw new Error('资料使用范围变了，请重新打开后再带走。');
+    const current = store.runtime.materials.nativeOriginal(input.target);
+    writeFileSync(selected.filePath, current.bytes);
+    return true;
   });
   handle('image:attach', async (): Promise<ImageAttachment | null> => {
     const result = await dialog.showOpenDialog(window!, {

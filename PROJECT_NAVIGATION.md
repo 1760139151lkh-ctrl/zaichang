@@ -30,6 +30,7 @@
 | [CLOUD_REVIEW](docs/CLOUD_REVIEW.md) | 公共地图的本地/历史线上场景、操作和证据范围 |
 | [DEPLOYMENT](docs/DEPLOYMENT.md) | 构建、打包、公共产物导出与实际发布的区别 |
 | [ASSET_PROVENANCE](docs/ASSET_PROVENANCE.md) | 地图、模型、字体、引擎、UI图片和用户图片的来源／再分发边界 |
+| [DESIGN_IMAGE_COVERAGE](docs/DESIGN_IMAGE_COVERAGE.md) | 本轮逐图对应、补图、实际落地与后续工作；保留原始设计文档 |
 | [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES.md) | 第三方软件和数据许可索引；不修改 `licenses/` 上游原文 |
 | [地图 SOURCE](assets/map-v2/SOURCE.md) | 当前地图数据说明与有日期的历史研究观察；随源码提交，原始研究输入仍留本地 |
 | `assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/` | 用户指定的29张生成图片原文件归档，文件名与字节保留；`manifest.json` 记录尺寸与哈希，不是运行时依赖 |
@@ -69,7 +70,7 @@
 | --- | --- |
 | 桌面启动与窗口生命周期 | `package.json` → `scripts/dev.mjs` / `scripts/build-electron.mjs` → `src/main/main.ts` → `preload.ts` → `src/renderer/main.tsx` / `App.tsx`；关闭握手保护未存草稿/笔记，退出结束计时器 |
 | 工作区、历史与直接操作 | `Navigation.tsx`、`Workspace.tsx`、`App.tsx`；导航只切换已有视图，业务状态通过 Bridge 回到宿主 |
-| 陪伴外观与安静空间 | `main.tsx` → `CompanionProvider` → `companion.tsx` / `CompanionSettings.tsx` / `companion.css`；形象/窗景、自选图、少动态与 `RestSpace`，接线进展独立记录 |
+| 陪伴外观与安静空间 | `main.tsx` → `CompanionProvider` → `companion.tsx` / `CompanionSettings.tsx` / `companion.css`；二次元/插画/写实、收藏、多张自选图与改名；v2原子外观状态、少动态与 `RestSpace`，不修改文字人格 |
 | 对话与主模型 | `App.tsx` → `preload.ts` IPC → `main.ts` → `harness.ts` → `runtime/hermes.ts` → `runtime/hermes/sidecar.py` → 锁定 `AIAgent`；模型请求和工具返回宿主 |
 | 模型选择与网络 | `model-selection.ts`、`provider.ts`、`luna-provider.ts`、`network.ts`；`scripts/run-luna-test.mjs` 提供显式代测入口，不能由renderer或保存设置切换 |
 | 原话控制、权限与用途 | `runtime/turn-controls.ts`、`controls.ts`、`policy.ts`、`read-purpose.ts`、`privacy-control.ts`、`action-delegation.ts`、`attention-boundary.ts`；发送前边界及每次实际操作均重新核查 |
@@ -84,7 +85,7 @@
 | 持久变化发现与托付 | Store日历/NotesService事务 outbox → `runtime/coordinator.ts` → `storage/domains.ts` journal/cursor/ack → `attention.ts` / `work.ts`；处理更新、tombstone、时间节点、暂停恢复和范围内新机会 |
 | 准备、投递与提醒恢复 | `runtime/attention.ts` / `cooperation.ts` → `actions/reminders.ts` / `runtime.ts` → h_jobs/h_deliveries；`PreparationShelf` / 消息helpRefs记录实际可见版本，明确提醒保留独立调度 |
 | 对外草稿与桌面公开展示 | `runtime/release-store.ts` / `release-composer.ts` / `release-projection.ts` / `redaction.ts` / `presentation.ts` → `LifePanels.tsx`；选定产物、内容复核和返回私聊，不自动发送消息 |
-| 资料、PDF与图像 | `shared/materials.ts` → `materials/service.ts` / `pdf.ts` / `worker.ts`；选择文件、绑定scope、分页原文/表格候选/实际页面像素；`scripts/material-runtime.mjs` 管原生依赖，新的并排阅读UI进展见状态 |
+| 资料、PDF与图像 | `shared/materials.ts` → `materials/service.ts` / `pdf.ts` / `worker.ts`；选择文件、绑定scope、分页原文/表格候选/实际页面像素；`scripts/material-runtime.mjs` 管原生依赖，`MaterialsPanel.tsx` / `materials.css` 与 App 同一聊天并排；native IPC 复核来源、版本与当前权限，读取不自动发送模型 |
 | 校园记录与外部连接 | `zjuAdapter.ts`、`capabilities/campus-query.ts` / `campus-reference.ts` / `builtin.ts`、`storage/domains.ts`；独立受限子进程连接器、细分资源权限、导入/账号来源与覆盖 |
 | 公共研究 | `capabilities/research.ts` / `public-network.ts` → 公共搜索/网页/PDF读取；公开地址、域名限制和scope/URL/版本绑定的续读句柄 |
 | 天气 | `capabilities/weather.ts` → `builtin.ts` 的 `weather.lookup`；公开参考地点/时区/日期/小时窗口与缺字段覆盖，日级Scene不推导小时结果 |

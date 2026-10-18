@@ -4,6 +4,7 @@ import type { Action, Bridge, Message, RuntimeOverview, State } from '../shared/
 import type { Condition, EffectAction, EvidenceEvent, MemoryView } from '../shared/harness';
 import { IconButton, Modal, Switch, uiError } from './ui';
 import { formatDateTime, fromTimeInput, toTimeInput } from './time';
+import './entrusted.css';
 
 const api = window.zaichang;
 export const failureText = uiError;
@@ -39,19 +40,25 @@ export const needName = (key: string) =>
             ? '使用授权'
             : '相关条件');
 const knowledge: Record<string, string> = {
-  fresh: '已核对',
-  stale: '来源可能已过期',
-  partial: '只取得部分',
-  unknown: '尚不确定',
-  not_queried: '尚未查询',
-  not_found: '未找到',
-  unsupported: '尚未接入',
-  forbidden: '本轮未授权',
-  conflict: '来源有冲突',
-  failed: '查询未完成',
-  known_absent: '已确认没有记录',
-  cancelled: '已停止',
+  fresh: '有可用的资料',
+  stale: '这份资料可能有变化',
+  partial: '只找到一部分',
+  unknown: '还不能确定',
+  not_queried: '这次没有查阅',
+  not_found: '还没找到',
+  unsupported: '暂时还不能查阅',
+  forbidden: '这次没有允许使用',
+  conflict: '不同资料的说法不一样',
+  failed: '这次没能查到',
+  known_absent: '查过了，没有这项记录',
+  cancelled: '先不查了',
 };
+const operationReason = (reason: string) =>
+  ({
+    local_transaction_not_committed: '这次没能把安排留在设备上。',
+    local_transaction_rolled_back: '这次修改没有留下，原来的安排保持不变。',
+    receipt_unavailable: '还没有收到对方的确切结果。',
+  })[reason] || reason;
 const sourceName = (e: EvidenceEvent) =>
   e.fileName ||
   {
@@ -119,7 +126,7 @@ export function ReplyEvidence({ message }: { message: Message }) {
         listen: '先听你说',
         listen_and_local: '先听你说，同时记一件本地安排',
         analyze: '分析并按需核对',
-        act: '直接登记本地安排',
+        act: '记下你说的安排',
         mixed: '分别处理这几件事',
       }[s.interpretation.posture]
     : '';
@@ -133,31 +140,34 @@ export function ReplyEvidence({ message }: { message: Message }) {
       {open && (
         <div className="evidence-detail">
           <p className="harness-muted">
-            这里是实际提供的资料与查询状态。{s?.release ? '草稿还没有发送。' : ''}
+            这次回答参考了什么。
+            {s?.release ? '这份草稿留给你决定怎么发送。' : ''}
             {r
-              ? ` ${r.coverage === 'blocked' ? '条件不足' : r.coverage === 'conditional' ? '有资料待核对' : `${r.providedEvidenceIds.length} 条来源`}`
+              ? ` ${r.coverage === 'blocked' ? '还有必要的信息没找到。' : r.coverage === 'conditional' ? '有些资料还需要再看一看。' : `共 ${r.providedEvidenceIds.length} 处来源。`}`
               : ''}
           </p>
           {s?.interpretation && (
             <div className="interpretation-summary">
-              <strong>本轮理解</strong>
-              <p>
-                {interpretationLabel} · {s.interpretation.fragmentCount} 个请求片段
-              </p>
+              <strong>我是这样理解的</strong>
+              <p>{interpretationLabel}</p>
               {!!s.interpretation.unresolvedReferences.length && (
                 <p className="harness-inline-warning">
-                  有一处指代待确认：{s.interpretation.unresolvedReferences.join('、')}
+                  这几处还想和你说清楚：
+                  {s.interpretation.unresolvedReferences.join('、')}
                 </p>
               )}
             </div>
           )}
           {s?.release && (
             <div className="release-summary">
-              <strong>{s.release.mode === 'send' ? '发送意图已识别，但当前只生成草稿' : '只生成草稿'}</strong>
+              <strong>{s.release.mode === 'send' ? '想发送的话，先看看这份草稿' : '写给你过目的草稿'}</strong>
               <p>
                 收件人：{s.release.recipient} · 目的：{s.release.purpose}
               </p>
-              <p>语气：{s.release.tone}。发送服务未接入，需由你复制或在原服务中发送。</p>
+              <p>
+                语气：{s.release.tone}
+                。在场还不能替你发送；你可以复制到原来的应用里。
+              </p>
               {!!s.release.allowedFacts.length && <p>允许写入：{s.release.allowedFacts.join('、')}</p>}
             </div>
           )}
@@ -166,7 +176,7 @@ export function ReplyEvidence({ message }: { message: Message }) {
               {r.needResults.map((n, i) => (
                 <li key={n.key + i}>
                   <span>{needName(n.key)}</span>
-                  <span>{knowledge[n.status] || '待核对'}</span>
+                  <span>{knowledge[n.status] || '还需要再看一看'}</span>
                 </li>
               ))}
             </ul>
@@ -189,11 +199,11 @@ export function ReplyEvidence({ message }: { message: Message }) {
             <p className="harness-muted">
               {s?.retention === 'session_only'
                 ? '仅在本轮使用，关闭对话后不留原文。'
-                : '这轮没有提供可长期保留的原文来源。'}
+                : '这次没有可供回看的原文。'}
             </p>
           )}
           {r && r.watermarks.extractionGaps.length > 0 && (
-            <p className="harness-muted">部分原文尚未整理为理解；允许使用的原文仍可按需参考。</p>
+            <p className="harness-muted">有些原话还没整理清楚；在你允许的范围内，仍可直接参考原文。</p>
           )}
         </div>
       )}
@@ -211,19 +221,22 @@ export function ScopeSettings({
   onClose: () => void;
 }) {
   return (
-    <Modal title="本轮怎么用资料" onClose={onClose} className="scope-panel">
+    <Modal title="这次，按你的边界来" onClose={onClose} className="scope-panel">
       <div className="panel-body">
-        <p className="panel-intro">只作用于下一条消息。发送前，可以在这里限制资料与保存方式。</p>
+        <p className="panel-intro">下一句话想让在场了解多少、留下多少，都由你决定。</p>
         <label className="field-label">
-          在哪里处理
+          这句话交给谁来回答
           <select
             aria-label="本轮处理方式"
             value={value.transmission || 'cloud_allowed'}
             onChange={(e) =>
-              onChange({ ...value, transmission: e.target.value as TurnControls['transmission'] })
+              onChange({
+                ...value,
+                transmission: e.target.value as TurnControls['transmission'],
+              })
             }
           >
-            <option value="cloud_allowed">允许联网模型处理</option>
+            <option value="cloud_allowed">交给我选择的联网模型回答</option>
             <option value="local_only">仅留在本机，不发送给模型</option>
           </select>
         </label>
@@ -235,7 +248,12 @@ export function ScopeSettings({
           <select
             aria-label="本轮参考范围"
             value={value.memoryMode || 'relevant'}
-            onChange={(e) => onChange({ ...value, memoryMode: e.target.value as TurnControls['memoryMode'] })}
+            onChange={(e) =>
+              onChange({
+                ...value,
+                memoryMode: e.target.value as TurnControls['memoryMode'],
+              })
+            }
           >
             <option value="relevant">按需参考相关资料</option>
             <option value="current_sources_only">只看本条消息与附件</option>
@@ -247,10 +265,15 @@ export function ScopeSettings({
           <select
             aria-label="本轮保留方式"
             value={value.retention || 'purpose_scoped'}
-            onChange={(e) => onChange({ ...value, retention: e.target.value as TurnControls['retention'] })}
+            onChange={(e) =>
+              onChange({
+                ...value,
+                retention: e.target.value as TurnControls['retention'],
+              })
+            }
           >
-            <option value="purpose_scoped">保留对话，允许整理相关理解</option>
-            <option value="history_no_inference">保留对话，不形成长期理解</option>
+            <option value="purpose_scoped">留下对话，也慢慢了解我</option>
+            <option value="history_no_inference">留下对话，不记成长期偏好</option>
             <option value="session_only">本轮不保存</option>
           </select>
         </label>
@@ -259,7 +282,12 @@ export function ScopeSettings({
           <select
             aria-label="本轮回复受众"
             value={value.audience || 'self'}
-            onChange={(e) => onChange({ ...value, audience: e.target.value as TurnControls['audience'] })}
+            onChange={(e) =>
+              onChange({
+                ...value,
+                audience: e.target.value as TurnControls['audience'],
+              })
+            }
           >
             <option value="self">只给我看</option>
             <option value="group">准备给群里看的草稿</option>
@@ -268,7 +296,7 @@ export function ScopeSettings({
         </label>
         {value.retention === 'session_only' && (
           <p className="scope-explanation">
-            这条聊天和附件不保存到历史，也不形成长期理解。你明确要求登记的本地事项仍会保存；联网处理仍需发送本轮允许的内容。
+            这句话和附件不会留下历史，也不会记成长期偏好。你明确让在场记下的安排仍会留在这台设备上；如果选择联网回答，你允许的内容仍会发送给模型。
           </p>
         )}
         {value.audience && value.audience !== 'self' && (
@@ -283,13 +311,13 @@ export function ScopeSettings({
 }
 function describeCondition(c: Condition): string {
   if (c.op === 'all' && !c.terms.length) return '通常适用';
-  if (c.op === 'unknown') return '条件待确认';
+  if (c.op === 'unknown') return '还有条件没说清楚';
   if (c.op === 'all' || c.op === 'any')
     return c.terms.map(describeCondition).join(c.op === 'all' ? '，并且' : '，或');
   if (c.op === 'not') return '不满足：' + describeCondition(c.term);
   if (c.op === 'compare') {
     const v = c.value;
-    return `${needName(c.predicate)} ${({ eq: '为', ne: '不为', lt: '少于', lte: '不超过', gt: '超过', gte: '不少于' } as Record<string, string>)[c.comparator] || c.comparator} ${'value' in v ? String(v.value) : '待确认'}${'unit' in v ? ' ' + v.unit : ''}`;
+    return `${needName(c.predicate)} ${({ eq: '为', ne: '不为', lt: '少于', lte: '不超过', gt: '超过', gte: '不少于' } as Record<string, string>)[c.comparator] || c.comparator} ${'value' in v ? String(v.value) : '还不清楚'}${'unit' in v ? ' ' + v.unit : ''}`;
   }
   return '有附加条件';
 }
@@ -351,7 +379,13 @@ export function UnderstandingPanel({
     setError('');
     requestAnimationFrame(() => editForm.current?.querySelector('textarea')?.focus());
   }
-  const priority: Record<string, number> = { active: 0, candidate: 1, disputed: 1, inactive: 2, expired: 3 };
+  const priority: Record<string, number> = {
+    active: 0,
+    candidate: 1,
+    disputed: 1,
+    inactive: 2,
+    expired: 3,
+  };
   const memories = [...(data?.memories || [])].sort(
       (a, b) => (priority[a.status] ?? 4) - (priority[b.status] ?? 4),
     ),
@@ -658,7 +692,7 @@ export function FeedbackControl({ messageId }: { messageId: string }) {
                 response,
                 ...(reason.trim() ? { reason: reason.trim() } : {}),
               });
-              setStatus('已记下反馈；实际结果仍待观察。');
+              setStatus('记下了，谢谢你告诉我。');
               setOpen(false);
             } catch (error) {
               setStatus(failureText(error));
@@ -685,7 +719,7 @@ export function FeedbackControl({ messageId }: { messageId: string }) {
             />
           </label>
           <button className="subtle-button" disabled={pending}>
-            保存反馈
+            告诉在场
           </button>
         </form>
       )}
@@ -783,119 +817,40 @@ export function WorkAndReceipts({
     preparations.length ||
     episodes.length
   );
-  if (data && !hasSecondary && !error) return null;
+  if (data && !hasSecondary && !error)
+    return <p className="entrusted-empty">还没有需要跟进的事。想到了，就在对话里告诉我。</p>;
   if (!data && !error)
     return (
       <p className="harness-muted" role="status">
-        正在核对操作记录…
+        看看我们一起留下的事…
       </p>
     );
   return (
     <div className="work-receipts">
-      {!!localSaved.length && (
-        <section>
-          <h3>本机回执</h3>
-          {localSaved.map(({ action: a, receipts }) => {
-            const item = localActionItem(a);
-            const observedAt = receipts.at(-1)?.observedAt;
-            return (
-              <div className="work-row action-receipt-row" key={a.id}>
-                <div className="work-row-heading">
-                  <strong>{String(a.arguments.title || '本机安排')}</strong>
-                  <span>已确认登记</span>
-                </div>
-                <p>
-                  本机安排已写入，可撤销；不会因此声称外部提醒或送达。
-                  {observedAt ? ` 回执时间：${date(observedAt)}。` : ''}
-                </p>
-                <div className="field-buttons">
-                  <button
-                    className="text-button"
-                    disabled={!!pending}
-                    onClick={() =>
-                      void action(a.id, async () => {
-                        await api.action({ action: 'delete', item });
-                        return api.runtimeOverview();
-                      })
-                    }
-                  >
-                    {pending === a.id ? '正在撤销…' : '撤销本机登记'}
-                  </button>
-                </div>
-                <small>{a.simulated ? '模拟能力 · ' : ''}可在原聊天卡片或这里撤销</small>
-              </div>
-            );
-          })}
-        </section>
-      )}
-      {!!failed.length && (
-        <section>
-          <h3>登记未完成</h3>
-          {failed.map(({ action: a, receipts }) => (
-            <div className="work-row action-receipt-row" key={a.id}>
-              <div className="work-row-heading">
-                <strong>{String(a.arguments.title || '待处理动作')}</strong>
-                <span>未确认</span>
-              </div>
-              <p>
-                本次登记没有完成，不能当作已保存。
-                {receipts.at(-1)?.reason ? ` 原因：${receipts.at(-1)?.reason}` : ''}
-              </p>
-              <small>{a.simulated ? '模拟能力' : '可回到原对话重新决定'}</small>
-            </div>
-          ))}
-        </section>
-      )}
-      {!!unknown.length && (
-        <section>
-          <h3>有结果需要核查</h3>
-          {unknown.map(({ action: a, receipts }) => (
-            <div className="work-row" key={a.id}>
-              <strong>{String(a.arguments.title || '待核查动作')}</strong>
-              <p>
-                {a.status === 'cannot_cancel'
-                  ? '提供方无法撤回，已发生的结果可能仍存在。'
-                  : a.status === 'unresolved'
-                    ? '目前无法自动核查。请到原服务确认结果，确认前不要再次提交。'
-                    : '结果尚未确定，请先核查，不要重复执行。'}
-              </p>
-              {['outcome_unknown', 'cancel_requested'].includes(a.status) ? (
-                <button
-                  className="subtle-button"
-                  disabled={!!pending}
-                  onClick={() => void action(a.id, () => api.reconcileAction(a.id))}
-                >
-                  {pending === a.id ? '正在核查…' : '核查结果'}
-                </button>
-              ) : (
-                <span className="receipt-manual-check">需到原服务确认</span>
-              )}
-              <small>
-                {receipts.at(-1)?.observedAt
-                  ? `最近核查 ${date(receipts.at(-1)?.observedAt)}`
-                  : '尚无确认回执'}
-                {a.simulated ? ' · 模拟能力' : ''}
-              </small>
-            </div>
-          ))}
-        </section>
-      )}
+      {!goals.length &&
+        !episodes.length &&
+        !unknown.length &&
+        !failed.length &&
+        !data?.worlds.length &&
+        !preparations.length && (
+          <p className="entrusted-empty">还没有一起跟进的事。想让在场留意什么，可以回到对话慢慢说。</p>
+        )}
       {!!goals.length && (
-        <section>
-          <h3>你决定要推进的事</h3>
+        <section className="entrusted-goals">
+          <h3>一起慢慢往前</h3>
           {goals.map((g) => (
-            <div className="work-row" key={g.id}>
+            <div className={`work-row entrusted-goal entrusted-goal-${g.status}`} key={g.id}>
               <div className="work-row-heading">
                 <strong>{g.title}</strong>
                 <span>
                   {(
                     {
-                      proposed: '待你决定',
-                      active: '进行中',
-                      paused: '已暂停',
-                      cancelled: '已取消',
+                      proposed: '你愿意的话',
+                      active: '继续陪你往前',
+                      paused: '先歇一歇',
+                      cancelled: '不再跟进',
                     } as Record<string, string>
-                  )[g.status] || '需要重新核对'}
+                  )[g.status] || '需要再看一看'}
                 </span>
               </div>
               {typeof g.data.reason === 'string' && <p>{g.data.reason}</p>}
@@ -914,85 +869,40 @@ export function WorkAndReceipts({
                       )
                     }
                   >
-                    {g.status === 'active' ? '暂停' : g.status === 'proposed' ? '采用这个目标' : '恢复目标'}
+                    {g.status === 'active'
+                      ? '先歇一歇'
+                      : g.status === 'proposed'
+                        ? '一起做这件事'
+                        : '继续这件事'}
                   </button>
                   <button
                     className="text-button"
                     disabled={!!pending}
                     onClick={() =>
                       void action(g.id, () =>
-                        api.goal({ id: g.id, expectedRevision: g.revision, status: 'cancelled' }),
+                        api.goal({
+                          id: g.id,
+                          expectedRevision: g.revision,
+                          status: 'cancelled',
+                        }),
                       )
                     }
                   >
-                    取消目标
+                    不再跟进
                   </button>
                 </div>
               )}
-              {g.status === 'paused' && <small>恢复后需重新核对安排；旧提醒不会自动启动。</small>}
-            </div>
-          ))}
-        </section>
-      )}
-      {!!data?.worlds.length && (
-        <section className="world-review">
-          <h3>把设想变成准备</h3>
-          <p className="harness-muted">逐项选择后，只建立准备事项。现实事实、承诺和外部动作不会随之改变。</p>
-          {data.worlds.map((w) => (
-            <details key={w.worldId}>
-              <summary>{w.status === 'stale' ? '现实条件已变，需要重新比较' : '查看这份设想的变化'}</summary>
-              {w.items.map((item) => (
-                <label className="world-item" key={item.id}>
-                  <input
-                    type="checkbox"
-                    aria-label="选择这项设想作为准备事项"
-                    checked={selectedItems.includes(item.id)}
-                    disabled={w.status === 'stale' || !!pending}
-                    onChange={(e) =>
-                      setSelectedItems((ids) =>
-                        e.target.checked ? [...ids, item.id] : ids.filter((id) => id !== item.id),
-                      )
-                    }
-                  />
-                  <span>
-                    <strong>
-                      {typeof item.proposed === 'string' ? item.proposed : JSON.stringify(item.proposed)}
-                    </strong>
-                    <small>设想 → 待准备事项</small>
-                  </span>
-                </label>
-              ))}
-              <button
-                className="subtle-button"
-                disabled={
-                  w.status === 'stale' || !!pending || !w.items.some((i) => selectedItems.includes(i.id))
-                }
-                onClick={() =>
-                  void action(w.worldId, async () => {
-                    const result = await api.adoptWorld({
-                      id: w.worldId,
-                      itemIds: w.items.filter((i) => selectedItems.includes(i.id)).map((i) => i.id),
-                      expectedBaseRevision: w.baseRevision,
-                      expectedPrivacyEpoch: data.privacyEpoch,
-                    });
-                    setSelectedItems([]);
-                    return result;
-                  })
-                }
-              >
-                建立选中的准备事项
-              </button>
-            </details>
-          ))}
-        </section>
-      )}
-      {!!preparations.length && (
-        <section>
-          <h3>准备事项</h3>
-          {preparations.map((w) => (
-            <div className="work-row" key={w.id}>
-              <strong>{w.title}</strong>
-              <small>来自你选中的设想 · 尚未执行</small>
+              {g.status === 'paused' && (
+                <small>你想继续时，再一起看看现在的安排。以前的提醒不会自行开启。</small>
+              )}
+              {!!g.evidenceIds.length && (
+                <details className="entrusted-source">
+                  <summary>这件事，从哪里说起</summary>
+                  {g.evidenceIds.map((id) => (
+                    <EvidencePreview key={id} eventId={id} />
+                  ))}
+                </details>
+              )}
             </div>
           ))}
         </section>
@@ -1024,12 +934,170 @@ export function WorkAndReceipts({
           })}
         </section>
       )}
+      {!!unknown.length && (
+        <section className="work-needs-care">
+          <h3>有几件事，想再看清楚</h3>
+          {unknown.map(({ action: a, receipts }) => (
+            <div className="work-row" key={a.id}>
+              <strong>{String(a.arguments.title || '这次托付')}</strong>
+              <p>
+                {a.status === 'cannot_cancel'
+                  ? '对方的服务无法撤回这次操作，之前发生的变化可能还在。请到原来的应用看看。'
+                  : a.status === 'unresolved'
+                    ? '在场还没能确定这次有没有完成。请先到原来的应用看看，再决定是否重试，以免重复。'
+                    : ['cancel_requested', 'cancellation_unknown'].includes(a.status)
+                      ? '还没能确定这次是否撤回。先看看原来的结果，再决定下一步，以免重复。'
+                      : '还没能确定这次有没有完成。先看看结果，再决定是否重试，以免重复。'}
+              </p>
+              {['outcome_unknown', 'cancel_requested'].includes(a.status) ? (
+                <button
+                  className="subtle-button"
+                  disabled={!!pending}
+                  onClick={() => void action(a.id, () => api.reconcileAction(a.id))}
+                >
+                  {pending === a.id ? '正在看看结果…' : '看看结果'}
+                </button>
+              ) : (
+                <span className="receipt-manual-check">需要你到原来的应用里看一看</span>
+              )}
+              <small>
+                {receipts.at(-1)?.observedAt
+                  ? `上次查看：${date(receipts.at(-1)?.observedAt)}`
+                  : '还没有收到确切的结果'}
+                {a.simulated ? ' · 这条来自练习环境' : ''}
+              </small>
+            </div>
+          ))}
+        </section>
+      )}
+      {!!failed.length && (
+        <section className="work-needs-care">
+          <h3>这几件事还没能办好</h3>
+          {failed.map(({ action: a, receipts }) => (
+            <div className="work-row action-receipt-row" key={a.id}>
+              <div className="work-row-heading">
+                <strong>{String(a.arguments.title || '这次托付')}</strong>
+                <span>还没有完成</span>
+              </div>
+              <p>
+                这次没能完成，你交代的事还没有办成。
+                {receipts.at(-1)?.reason ? ` ${operationReason(receipts.at(-1)!.reason!)}` : ''}
+              </p>
+              <small>{a.simulated ? '这条来自练习环境。' : '回到当时的对话，我们可以再试一次。'}</small>
+            </div>
+          ))}
+        </section>
+      )}
+      {!!data?.worlds.length && (
+        <section className="world-review">
+          <h3>把设想变成准备</h3>
+          <p className="harness-muted">挑出你愿意尝试的部分，先放进准备里。还不会替你做决定或对外行动。</p>
+          {data.worlds.map((w) => (
+            <details key={w.worldId}>
+              <summary>
+                {w.status === 'stale' ? '情况有了变化，先重新看看这份设想' : '从这份设想里，挑几件小事'}
+              </summary>
+              {w.items.map((item) => (
+                <label className="world-item" key={item.id}>
+                  <input
+                    type="checkbox"
+                    aria-label="选择这项设想作为准备事项"
+                    checked={selectedItems.includes(item.id)}
+                    disabled={w.status === 'stale' || !!pending}
+                    onChange={(e) =>
+                      setSelectedItems((ids) =>
+                        e.target.checked ? [...ids, item.id] : ids.filter((id) => id !== item.id),
+                      )
+                    }
+                  />
+                  <span>
+                    <strong>
+                      {typeof item.proposed === 'string' ? item.proposed : JSON.stringify(item.proposed)}
+                    </strong>
+                    <small>选中后，放进准备里</small>
+                  </span>
+                </label>
+              ))}
+              <button
+                className="subtle-button"
+                disabled={
+                  w.status === 'stale' || !!pending || !w.items.some((i) => selectedItems.includes(i.id))
+                }
+                onClick={() =>
+                  void action(w.worldId, async () => {
+                    const result = await api.adoptWorld({
+                      id: w.worldId,
+                      itemIds: w.items.filter((i) => selectedItems.includes(i.id)).map((i) => i.id),
+                      expectedBaseRevision: w.baseRevision,
+                      expectedPrivacyEpoch: data.privacyEpoch,
+                    });
+                    setSelectedItems([]);
+                    return result;
+                  })
+                }
+              >
+                先为这些做准备
+              </button>
+            </details>
+          ))}
+        </section>
+      )}
+      {!!preparations.length && (
+        <section>
+          <h3>先准备着</h3>
+          {preparations.map((w) => (
+            <div className="work-row" key={w.id}>
+              <strong>{w.title}</strong>
+              <small>从你的设想中留下，还没有开始行动</small>
+            </div>
+          ))}
+        </section>
+      )}
+      {!!localSaved.length && (
+        <details className="work-history">
+          <summary>
+            最近记下的安排 <span>{localSaved.length} 件</span>
+          </summary>
+          {localSaved.map(({ action: a, receipts }) => {
+            const item = localActionItem(a);
+            const observedAt = receipts.at(-1)?.observedAt;
+            return (
+              <div className="work-row action-receipt-row" key={a.id}>
+                <div className="work-row-heading">
+                  <strong>{String(a.arguments.title || '本机安排')}</strong>
+                  <span>留在这台设备上</span>
+                </div>
+                <p>
+                  {observedAt ? `${date(observedAt)}记下。` : '这件安排已经记下。'}
+                  还没有替你在其他应用里添加或发送。
+                </p>
+                <div className="field-buttons">
+                  <button
+                    className="text-button"
+                    disabled={!!pending}
+                    onClick={() =>
+                      void action(a.id, async () => {
+                        await api.action({ action: 'delete', item });
+                        return api.runtimeOverview();
+                      })
+                    }
+                  >
+                    {pending === a.id ? '正在移出安排…' : '从安排中移除'}
+                  </button>
+                </div>
+                {a.simulated && <small>这条来自练习环境。</small>}
+              </div>
+            );
+          })}
+        </details>
+      )}
       <details className="delivery-details">
-        <summary>提醒与资料状态</summary>
+        <summary>提醒怎样来到你身边 · 资料怎样留下</summary>
         <p>
-          提醒只在应用运行时检查。
-          {data?.notifications.submitted ? '本机支持提交系统通知。' : '本机尚不能提交系统通知。'}
-          系统提交不代表已送达或已读。
+          在场打开时才会检查提醒。
+          {data?.notifications.submitted
+            ? '这台设备可以发出系统通知，但在场无法知道你是否看到了。'
+            : '这台设备暂时不能发出系统通知。'}
         </p>
         <p>聊天数据库暂未整体加密；密钥由操作系统保护。导出文件也需由你妥善保管。</p>
       </details>
@@ -1085,8 +1153,8 @@ export function SourcePermissions({ onState }: { onState: (s: State) => void }) 
       <Switch
         checked={revoked ? !revoked.includes('campus:read') : false}
         onChange={(v) => void change(v)}
-        label="允许按需读取校园资料"
-        detail="关闭会立即停止本轮校园读取；本机加密保存的登录信息和学校快照不会发送给模型"
+        label="需要时，帮我看看校园资料"
+        detail="关闭后，会立即停下这次查阅。校园账号的登录信息会加密留在这台设备上，不会交给回答模型。"
         disabled={pending || !revoked}
       />
       {error && (
@@ -1639,7 +1707,7 @@ export function MemoryPanelSimple({
         >
           <span className="memory-row-copy">
             <strong>{memory.text}</strong>
-            {kind === 'archived' && <small>已停用</small>}
+            {kind === 'archived' && <small>不再用来回答</small>}
           </span>
           <ChevronRight size={15} className={expanded ? 'rotated' : ''} />
         </button>
@@ -1659,10 +1727,10 @@ export function MemoryPanelSimple({
                 {memory.evidenceIds.length ? (
                   memory.evidenceIds.map((id) => <EvidencePreview key={id} eventId={id} />)
                 ) : (
-                  <p className="memory-quote">暂时没有可定位的原话，这条内容不会被当作已核实依据。</p>
+                  <p className="memory-quote">还找不到当时的原话，所以不会把它当作确定的依据。</p>
                 )}
                 <p className="memory-source-meta">
-                  {memory.verification === 'verified' ? '来源已核验' : '来源仍待核对'} · 记录于{' '}
+                  {memory.verification === 'verified' ? '能找到当时的依据' : '还需要回看原话'} · 留下于{' '}
                   {date(memory.createdAt)}
                 </p>
               </div>
@@ -1686,12 +1754,12 @@ export function MemoryPanelSimple({
                           validTo: memory.validTo,
                         }),
                       );
-                      setNotice('已保留，之后只在相关问题中参考。');
+                      setNotice('记住了，聊到相关的事时再参考。');
                       setExpandedId('');
                     })
                   }
                 >
-                  保留并使用
+                  就这样记住
                 </button>
               )}
               {kind !== 'archived' && (
@@ -1710,13 +1778,18 @@ export function MemoryPanelSimple({
                   disabled={!!pending}
                   onClick={() =>
                     void act('deactivate', async () => {
-                      onState(await api.memory({ action: 'deactivate', id: memory.id }));
-                      setNotice('已停用；它不会再影响之后的回答。');
+                      onState(
+                        await api.memory({
+                          action: 'deactivate',
+                          id: memory.id,
+                        }),
+                      );
+                      setNotice('先放在一旁，之后回答时不会再参考它。');
                       setExpandedId('');
                     })
                   }
                 >
-                  暂时停用
+                  先别参考这条
                 </button>
               )}
               {kind === 'decision' && (
@@ -1725,8 +1798,13 @@ export function MemoryPanelSimple({
                   disabled={!!pending}
                   onClick={() =>
                     void act('deactivate', async () => {
-                      onState(await api.memory({ action: 'deactivate', id: memory.id }));
-                      setNotice('已先停用，不会作为确定理解使用。');
+                      onState(
+                        await api.memory({
+                          action: 'deactivate',
+                          id: memory.id,
+                        }),
+                      );
+                      setNotice('先放在一旁，不会把它当作确定的理解。');
                       setExpandedId('');
                     })
                   }
@@ -1740,7 +1818,7 @@ export function MemoryPanelSimple({
                 onClick={() =>
                   void act('delete', async () => {
                     onState(await api.memory({ action: 'delete', id: memory.id }));
-                    setNotice('已删除这条理解及相关的本机派生内容。');
+                    setNotice('这条理解和由它整理出的本机内容，已经一起删掉了。');
                     setExpandedId('');
                   })
                 }
@@ -1759,8 +1837,8 @@ export function MemoryPanelSimple({
       <p className="panel-intro">只保留会帮到你的几件事。需要时可以改，也可以删掉。</p>
       <Switch
         checked={state.settings.memoryEnabled}
-        label="参考已保存的内容"
-        detail="关闭后，不再用这些内容回答，也不会新增长期理解"
+        label="让在场慢慢了解我"
+        detail="开启时，只在相关的话题里参考；关闭后不再参考，也不再记住聊天里提到的事"
         disabled={!!pending || (busy && !state.settings.memoryEnabled)}
         onChange={(value) =>
           void act('toggle', async () => {
@@ -1771,7 +1849,7 @@ export function MemoryPanelSimple({
       {!!current.length && (
         <section className="memory-group-simple">
           <div className="memory-group-heading">
-            <h3>会影响回答</h3>
+            <h3>关于你，记住的几件事</h3>
             <small>{current.length} 条</small>
           </div>
           {current.map((memory) => row(memory, 'current'))}
@@ -1786,14 +1864,14 @@ export function MemoryPanelSimple({
           <div className="memory-more-content">
             {!!decision.length && (
               <section className="memory-subgroup memory-review-simple">
-                <h3>等你确认</h3>
-                <p className="memory-subgroup-intro">确认后才会影响回答。</p>
+                <h3>这样理解你，对吗</h3>
+                <p className="memory-subgroup-intro">你点头之后，才会在之后的回答里参考。</p>
                 <div>{decision.map((memory) => row(memory, 'decision'))}</div>
               </section>
             )}
             {!!archived.length && (
               <section className="memory-subgroup memory-archive-simple">
-                <h3>已停用</h3>
+                <h3>先放在一旁的</h3>
                 <div>{archived.map((memory) => row(memory, 'archived'))}</div>
               </section>
             )}
@@ -1805,7 +1883,9 @@ export function MemoryPanelSimple({
                   <div className="processing-row" key={item.eventId}>
                     <div>
                       <span>{item.fileName || date(item.receivedAt)}</span>
-                      <small>{item.pending ? `${item.pending} 段待处理` : '有内容待确认'}</small>
+                      <small>
+                        {item.pending ? `还有 ${item.pending} 段没整理清楚` : '有些原话还需要再看一看'}
+                      </small>
                     </div>
                     <button
                       className="text-button"
@@ -1813,12 +1893,12 @@ export function MemoryPanelSimple({
                       onClick={() =>
                         void act('retry', async () => {
                           setData(await api.retryProcessing(item.eventId));
-                          setNotice('已重新检查；仍不明确的内容会保留待确认。');
+                          setNotice('没读清楚的地方，会继续留在这里，等你来决定。');
                         })
                       }
                     >
                       <RotateCcw size={13} />
-                      重试
+                      再读一遍
                     </button>
                   </div>
                 ))}
@@ -1827,9 +1907,7 @@ export function MemoryPanelSimple({
           </div>
         </details>
       )}
-      {!memories.length && (
-        <p className="memory-empty">还没有需要管理的内容。可以先聊起来，需要时再逐渐了解。</p>
-      )}
+      {!memories.length && <p className="memory-empty">我们可以从一句话开始，慢慢了解彼此。</p>}
       <div className={`memory-editor-simple ${editorOpen ? 'open' : ''}`}>
         {!editorOpen ? (
           <button
@@ -1861,12 +1939,12 @@ export function MemoryPanelSimple({
                   }),
                 );
                 closeEditor();
-                setNotice('已保存；下一轮会按更新后的理解处理。');
+                setNotice('这条理解已经留下。需要时，你仍可以改。');
               });
             }}
           >
             <div className="memory-editor-heading">
-              <strong>{edit ? '改正这条内容' : '添加一条理解'}</strong>
+              <strong>{edit ? '改正这条内容' : '想让我记住什么'}</strong>
               <button type="button" className="text-button" onClick={closeEditor} disabled={!!pending}>
                 取消
               </button>

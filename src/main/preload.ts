@@ -1,6 +1,11 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { Bridge, RunEvent } from '../shared/types';
 const bridge: Bridge = {
+  materialsList: input => ipcRenderer.invoke('materials:list', input),
+  materialsRead: input => ipcRenderer.invoke('materials:read', input),
+  materialsCancel: () => ipcRenderer.invoke('materials:cancel'),
+  materialsExport: input => ipcRenderer.invoke('materials:export', input),
+  materialsDiscard: input => ipcRenderer.invoke('materials:discard', input),
   notesList: input => ipcRenderer.invoke('notes:list', input),
   notesRead: input => ipcRenderer.invoke('notes:read', input),
   notesCreate: input => ipcRenderer.invoke('notes:create', input),

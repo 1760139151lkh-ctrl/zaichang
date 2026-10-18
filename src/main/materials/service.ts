@@ -3,7 +3,7 @@ import path from 'node:path';
 import { createHash, randomBytes, randomUUID } from 'node:crypto';
 import { z } from 'zod';
 import { HarnessError, type EvidenceEvent, type ScopeHandle } from '../../shared/harness';
-import { MATERIAL_LIMITS, materialCropSchema, materialReferenceSchema, type MaterialReference } from '../../shared/materials';
+import { MATERIAL_LIMITS, materialCropSchema, materialReferenceSchema, materialTargetSchema, materialReadSchema, type MaterialReference, type MaterialTarget, type MaterialItem, type MaterialPage } from '../../shared/materials';
 import type { TextAttachment } from '../../shared/types';
 import type { KernelRepository } from '../storage/repository';
 import type { PolicyKernel } from '../runtime/policy';
@@ -30,6 +30,7 @@ export class MaterialService {
   private images = new Map<string, VisualObservation>();
   private imageScopes = new Map<string, ScopeHandle>();
   private active = new Set<AbortController>();
+  private nativeRead?: AbortController;
   readonly directory: string;
   constructor(private repo: KernelRepository, private policy: PolicyKernel,
     private evidence: (scope: ScopeHandle, id: string) => EvidenceEvent | undefined) {
@@ -205,6 +206,91 @@ export class MaterialService {
     return { status: complete ? 'fresh' : 'partial', sourceId: record.publicSource ? 'web:public' : 'current', observedAt: this.repo.clock.now(), simulated: false,
       ...(reason ? { reason } : {}), data: JSON.parse(JSON.stringify({ source: this.source(record), ...data })),
       coverage: { complete, scope: record.reference.resourceId } };
+  }
+  /** The renderer can read only a user-picked pending snapshot or an existing,
+   * source-bound saved snapshot. It cannot choose a path, scope or source ID. */
+  private nativeRecord(raw: MaterialTarget) {
+    const target = materialTargetSchema.parse(raw);
+    this.sweep();
+    const scope = this.policy.hostScope({ infer: false });
+    this.policy.require(scope, 'evidence:read');
+    const record = target.kind === 'pending' ? this.pending(target.reference) : this.records.get(target.resourceId);
+    if (!record || record.publicSource || target.kind === 'saved' && (!record.saved || !record.binding))
+      throw new HarnessError('material_unavailable', '这份原文已经不在这里了，可以重新选择文件。');
+    if (record.binding) {
+      const binding = record.binding;
+      const sourceScope = this.policy.hostScope({ sources: ['history:self', 'file:' + binding.eventId], infer: false });
+      const original = this.evidence(sourceScope, binding.eventId);
+      const parent = this.evidence(sourceScope, binding.parentEventId);
+      if (!original || !parent || original.status !== 'active' || parent.status !== 'active'
+        || original.contentVersion !== binding.eventVersion || original.locator?.kind !== 'file'
+        || original.locator.artifactId !== record.reference.resourceId
+        || original.ownerId !== this.repo.identity.principalId || original.workspaceId !== this.repo.identity.workspaceId
+        || parent.sessionId !== binding.sessionId || original.label.retention === 'session_only'
+        || this.repo.hasFence(binding.eventId, original.sourceId) || this.repo.hasFence(binding.parentEventId, parent.sourceId)
+        || this.repo.db.prepare('SELECT 1 FROM h_source_restrictions WHERE event_id IN (?,?) LIMIT 1').get(binding.eventId, binding.parentEventId))
+        throw new HarnessError('material_unavailable', '这份原文的使用范围已经改变，可以重新选择文件。');
+      record.epoch = this.repo.epoch;
+    }
+    return record;
+  }
+  private nativeItem(record: Resource): MaterialItem {
+    const { resourceId, name, mediaType, byteLength, sha256 } = record.reference;
+    return { resourceId, name, mediaType, byteLength, sha256, ...(record.binding ? { sessionId: record.binding.sessionId } : {}) };
+  }
+  private nativeBytes(record: Resource) {
+    const bytes = record.bytes || fs.readFileSync(this.file(record.reference.resourceId, '.bin'));
+    if (bytes.length !== record.reference.byteLength || sha(bytes) !== record.reference.sha256)
+      throw new HarnessError('material_integrity', '这份文件与留下时不一样了，请重新选择原文件。');
+    return bytes;
+  }
+  nativeList(sessionId?: string): MaterialItem[] {
+    this.sweep();
+    return [...this.records.values()].flatMap(record => {
+      if (!record.saved || !record.binding || record.publicSource) return [];
+      try {
+        const current = this.nativeRecord({ kind: 'saved', resourceId: record.reference.resourceId });
+        return [this.nativeItem(current)];
+      } catch { return []; }
+    }).sort((a, b) => Number(b.sessionId === sessionId) - Number(a.sessionId === sessionId));
+  }
+  cancelNativeRead() { this.nativeRead?.abort(); this.nativeRead = undefined; }
+  /** Local inspection never inserts an observation into the model image queue. */
+  async nativeReadPage(raw: unknown): Promise<MaterialPage> {
+    const input = materialReadSchema.parse(raw), record = this.nativeRecord(input.target);
+    const bytes = this.nativeBytes(record), item = this.nativeItem(record);
+    this.cancelNativeRead();
+    const controller = new AbortController();
+    this.nativeRead = controller; this.active.add(controller);
+    const epoch = this.repo.epoch, revision = this.repo.policyRevision;
+    try {
+      let text: string, page: number | undefined, pageCount: number | undefined, needsVisual: boolean | undefined;
+      let image: MaterialPage['image'];
+      if (item.mediaType === 'application/pdf') {
+        const { parsePdf } = await import('./pdf');
+        if (input.view === 'page') {
+          const parsed = await parsePdf(bytes, { operation: 'render', page: input.page }, controller.signal);
+          image = parsed.image; page = parsed.page; pageCount = parsed.pageCount; text = '';
+        } else {
+          const parsed = await parsePdf(bytes, { operation: 'read', page: input.page }, controller.signal);
+          text = parsed.text || ''; page = parsed.page; pageCount = parsed.pageCount; needsVisual = parsed.needsVisual;
+        }
+      } else text = decode(bytes).text;
+      controller.signal.throwIfAborted();
+      if (epoch !== this.repo.epoch || revision !== this.repo.policyRevision)
+        throw new HarnessError('material_changed', '资料使用范围变了，请重新打开。');
+      this.nativeRecord(input.target);
+      const points = Array.from(text), start = input.offset;
+      if (start > points.length) throw new HarnessError('material_range', '这一段已经到结尾了，可以回到前一段。');
+      const end = Math.min(points.length, start + MATERIAL_LIMITS.readCodePoints);
+      return { item, text: points.slice(start, end).join(''), start, end, total: points.length,
+        nextOffset: end < points.length ? end : null, page, pageCount, needsVisual, image };
+    } finally { this.active.delete(controller); if (this.nativeRead === controller) this.nativeRead = undefined; }
+  }
+  /** Returned bytes stay in main and go only to an owner-selected Save dialog. */
+  nativeOriginal(target: MaterialTarget) {
+    const record = this.nativeRecord(target);
+    return { item: this.nativeItem(record), bytes: this.nativeBytes(record) };
   }
   async invoke(scope: ScopeHandle, operation: string, args: any, signal: AbortSignal): Promise<any> {
     signal.throwIfAborted();

@@ -45,3 +45,12 @@ The 2026-10-18 local comparison found the following SHA-256 values for the produ
 | `mio.png` | 人物·澪 | `eabf255e455db46ef0770c884bbf3019247a9e0fb99d1b145cb7e505cf388ce5` |
 | `haruka.png` | 人物·遥 | `186ebcbb1d2a0c3ea8e115117ee3b16b0e69e47b56a4810f0f844b876f42a62a` |
 | `saku.png` | 人物·朔 | `3d4adef6c2f206f8d443bfcac9d768761309808559d66e219c9a98df4e59c2c7` |
+
+
+## Image-first continuation checkpoint (2026-10-18)
+
+`assets/design/generated/2026-10-18-continuation/` contains 11 new GPT Image scene/state designs. Three additional generated companion PNGs are stored once at `src/renderer/assets/companion/{sakiko,mutsumi,nagi}.png`. The manifest records dimensions, bytes, SHA-256, source and use. Every image was viewed before implementation. This work follows the user's request to save all current images and changes in this private repository. The design scenes are excluded from runtime and public-map bundles; only the three optional companion figures enter the desktop asset graph.
+
+Sakiko and Mutsumi are AI-generated interpretations of the fictional characters requested by the user, not official illustrations or claims to original character ownership. Nagi is a generated fictional adult. No official character image, private account screenshot or user-uploaded custom portrait is bundled. This private project save does not grant a separate public-distribution license. New raw prompts, local observation images and test databases remain outside this commit.
+
+The gallery supports multiple user-selected local pictures, favorites and display names in a single v2 localStorage snapshot. Legacy custom pictures are referenced during migration without duplicating their bytes. Successful host data clearing also clears this appearance state; database export still does not include renderer pictures. Detailed runtime-check scope remains in CURRENT_STATUS.
