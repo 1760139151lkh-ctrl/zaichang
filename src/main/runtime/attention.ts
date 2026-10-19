@@ -10,12 +10,14 @@ import type { ReminderRuntime } from '../actions/reminders';
 import type { CapabilityBroker } from '../capabilities/broker';
 import { canonical } from './semantics';
 import { planningMaterialProvenanceSchema, type PlanningMaterialProvenance } from '../actions/planning-intent-contract';
+import type { InvestigationFrontierService, InvestigationSession } from './investigation-frontier';
 import type { InteractionPreferences } from '../../shared/interaction';
 import { sceneRefSchema, type SceneRef, type SceneSnapshot } from '../../shared/scenes';
 import type { DomainChange } from '../storage/domains';
 import { addDate, dateInZone } from './semantics';
 import { campusQueryGrants, campusQueryInput, campusResources, validateCampusQuery } from '../capabilities/campus-query';
 import { attentionListInput, attentionChangeInput, type AttentionControlItem, type AttentionControlPage, type AttentionChangeInput } from '../../shared/attention-control';
+import { resolveSourceQuote, type SourceQuoteInput } from './source-quote';
 
 const id = z.string().min(1).max(160);
 const helpDiscoveryStatuses = ['candidate', 'waiting', 'prepared', 'question_ready', 'notification_queued', 'paused', 'stale', 'expired', 'declined'] as const;
@@ -34,7 +36,17 @@ export const helpDiscoveryInput = z.object({
   if (input.id && (input.query !== undefined || input.relatedTo || input.statuses || input.from || input.to))
     context.addIssue({ code: 'custom', path: ['id'], message: '精确读取用id；发现筛选时省略id。' });
 });
-const citation = z.object({ eventId: id.optional().describe('通常省略，由宿主按quote绑定唯一的本轮用户原话；填写时必须是精确的当前标识，不能用历史来源或猜测标识。'), quote: z.string().min(1).max(3000) }).strict();
+const citation = z.object({
+  eventId: id.optional().describe('通常省略，由宿主按quote绑定唯一的本轮用户原话；填写时必须是精确的当前标识，不能用历史来源或猜测标识。'),
+  quote: z.string().min(1).max(3000),
+  contentVersion: z.number().int().positive().optional().describe('指定位置时，与start/end一起给出实际原文版本；旧位置不重新寻找。'),
+  start: z.number().int().nonnegative().optional().describe('quote在原文中的绝对Unicode码点起点；重复引文须给精确位置，或扩大逐字quote使其唯一。'),
+  end: z.number().int().positive().optional().describe('同一原文中的Unicode码点终点，不包含终点。'),
+}).strict().superRefine((source, context) => {
+  if (['contentVersion', 'start', 'end'].some(field => Object.hasOwn(source, field))
+    && (source.contentVersion === undefined || source.start === undefined || source.end === undefined || source.end <= source.start))
+    context.addIssue({ code: 'custom', path: ['start'], message: '精确原话位置需要完整的contentVersion/start/end，且end须晚于start；不能忽略不完整位置重新寻找引文。' });
+});
 export const attentionControlInput = z.object({
   operation: z.enum(['follow', 'pause', 'once', 'avoid', 'stop', 'resume', 'feedback', 'read']),
   targetId: id.optional(), expectedRevision: z.number().int().positive().optional(),
@@ -74,7 +86,7 @@ export class AttentionService {
   resumeChanges?: (handle: ScopeHandle) => void;
   constructor(readonly repo: KernelRepository, readonly policy: PolicyKernel, readonly work: WorkService,
     readonly basis: BasisService, readonly cooperation: CooperationService, readonly reminders: ReminderRuntime,
-    readonly broker: CapabilityBroker, private preferences?: () => InteractionPreferences) {}
+    readonly broker: CapabilityBroker, private preferences?: () => InteractionPreferences, private investigation?: InvestigationFrontierService) {}
 
   quietOptional() {
     const rows = this.repo.db.prepare(`SELECT id FROM h_work WHERE owner=? AND workspace=? AND json_extract(payload,'$.data.type')='help_opportunity' AND status IN ('candidate','waiting','prepared','question_ready','notification_queued')`).all(this.repo.identity.principalId, this.repo.identity.workspaceId);
@@ -194,7 +206,7 @@ export class AttentionService {
   }
 
   /** Called only after NativeControls records this exact user click as new evidence. */
-  nativeChange(handle: ScopeHandle, raw: AttentionChangeInput, source: { eventId: string; quote: string }): AttentionControlItem {
+  nativeChange(handle: ScopeHandle, raw: AttentionChangeInput, source: SourceQuoteInput): AttentionControlItem {
     const input = attentionChangeInput.parse(raw), item = this.nativeItem(handle, input.id);
     if (item.revision !== input.expectedRevision || item.controlVersion !== input.expectedControlVersion)
       throw new HarnessError('revision_conflict', '这件事有了变化，先看看现在的约定再决定。');
@@ -222,9 +234,11 @@ export class AttentionService {
     const scope = this.policy.require(handle, 'work:write');
     if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self') throw new HarnessError('attention_scope', '只能在本人现实范围管理自己的关注。');
     if (!input.source?.eventId) throw new HarnessError('source_required', '这项关注控制还没有绑定本轮原话。');
-    const source = { eventId: input.source.eventId, quote: input.source.quote };
-    const event = this.repo.evidence(handle, source.eventId);
-    if (!event || event.speaker !== 'user' || !event.text.includes(source.quote)) throw new HarnessError('source_required', '关注和暂停需要用户原话，不由旧成绩或性格推断。');
+    const event = this.repo.evidence(handle, input.source.eventId);
+    if (!event || event.speaker !== 'user' || event.authority !== 'user_statement' || !scope.currentEventIds.includes(event.id))
+      throw new HarnessError('source_required', '关注和暂停需要当前范围内本人的真实新原话，不由旧成绩或性格推断。');
+    const source = resolveSourceQuote(event, input.source);
+    if (!source) throw new HarnessError('attention_source_unresolved', '这段关注原话的位置不唯一、已改变或不完整。请扩大本轮逐字引文使其唯一，或给出真实的contentVersion/start/end；没有改动关注。');
     const management = this.managementScope(handle);
     const managedTarget = input.targetId ? this.repo.work(this.managementScope(handle, input.targetId), undefined, input.targetId)[0] : undefined;
     const target = input.targetId ? this.repo.work(handle, undefined, input.targetId)[0] ||
@@ -248,12 +262,12 @@ export class AttentionService {
         this.broker.validateArguments(input.probe.capability, this.probeArguments(input.probe));
         if (input.probe.capability === 'research.search' && verified.publicProbeHash !== createHash('sha256').update(canonical(input.probe)).digest('hex')) throw new HarnessError('probe_purpose', '公开检索的固定查询词需要单独核对用途，不能把私人背景作为后台检索词。');
       }
-      const focusId = 'focus:' + createHash('sha256').update(canonical({ eventId: event.id, ...input })).digest('hex');
+      const focusId = 'focus:' + createHash('sha256').update(canonical({ eventId: event.id, ...input, source })).digest('hex');
       const existing = this.repo.work(handle, undefined, focusId)[0];
       if (existing) return existing;
       const focus = this.work.create(handle, 'window', input.title, { type: 'attention_focus', sessionId, matterId: input.targetId || null,
         rule: input.rule, governingRule: verified.parentFocus ? target!.data.rule : input.rule, until: input.until || null, eventCategory: input.eventCategory || 'all', sources: input.sources,
-        channel: input.channel || 'in_app', source, probe: input.probe || null, publicProbeHash: verified.publicProbeHash || null,
+        channel: input.channel || 'in_app', source: { ...source }, probe: input.probe || null, publicProbeHash: verified.publicProbeHash || null,
         wakeAt: [...new Set(input.wakeAt || [])].sort(), completedWakes: [], discoveryPending: true,
         nextScanAt: this.repo.clock.now(), lastFingerprint: null, approvedAt: this.repo.clock.now(),
         meaning: '获准的关注，不是用户新目标或行动授权。',
@@ -267,12 +281,12 @@ export class AttentionService {
     }
     if (input.operation === 'resume') {
       if (!target || target.data.type !== 'attention_rule') throw new HarnessError('rule_required', '请选择要解除的具体限制；不能自动恢复全部旧提醒。');
-      return this.controlMetadata(this.work.update(management, target.id, target.revision, { status: 'inactive', data: { ...target.data, endedBy: source } }));
+      return this.controlMetadata(this.work.update(management, target.id, target.revision, { status: 'inactive', data: { ...target.data, endedBy: { ...source } } }));
     }
     const ruleText = input.rule || source.quote;
     const rule = this.work.create(handle, 'experience', ruleText.slice(0, 160), {
       type: 'attention_rule', sessionId, matterId: target?.data.type === 'attention_focus' ? target.id : input.targetId || null,
-      operation: input.operation, rule: ruleText, until: input.until || null, source,
+      operation: input.operation, rule: ruleText, until: input.until || null, source: { ...source },
       ...(target?.data.type === 'help_opportunity' ? { targetOpportunityId: target.id, targetBindingId: target.data.bindingId,
         targetObjectId: (target.data.facts as { objectId?: string })?.objectId || null } : {}),
       ...(verified.expiryReview ? { expiryReview: verified.expiryReview } : {}),
@@ -690,7 +704,7 @@ export class AttentionService {
       meaning: '信号只是待评机会。考虑新价值、已提供帮助、明确限制与实际可行动窗口；可以只准备、等待、询问或完全不介入。未观察到反馈就未知。' };
   }
 
-  decide(handle: ScopeHandle, raw: z.infer<typeof helpDecisionInput>, observations: MaterialObservation[] = [], resolveScenes?: (refs: SceneRef[]) => SceneSnapshot[]) {
+  decide(handle: ScopeHandle, raw: z.infer<typeof helpDecisionInput>, observations: MaterialObservation[] = [], resolveScenes?: (refs: SceneRef[]) => SceneSnapshot[], investigation?: InvestigationSession) {
     this.expire();
     const input = helpDecisionInput.parse(raw), opportunity = this.repo.work(handle, undefined, input.id)[0];
     if (!opportunity || opportunity.data.type !== 'help_opportunity')
@@ -796,6 +810,11 @@ export class AttentionService {
     const parentMatter = this.repo.work(handle, undefined, bindingId)[0]?.data.matterId;
     if (basisRecords.some(record => record!.data.matterId !== bindingId && record!.data.matterId !== parentMatter)) throw new HarnessError('basis_matter_mismatch', '这项解释不属于当前关注的事情。');
     return this.repo.write(() => {
+      if (investigation) {
+        if (!this.investigation || investigation.opportunityId !== opportunity.id || investigation.opportunityRevision !== opportunity.revision)
+          throw new HarnessError('investigation_decision_changed', '调查所归属的机会已改变，没有确认旧进度。');
+        this.investigation.ackInTransaction(investigation, handle, randomUUID());
+      }
       if (!this.repo.planningMaterialReadable(handle, planningProvenance || []))
         throw new HarnessError('planning_material_changed', '准备期间规划材料的原依据已改变，没有保存旧正文。');
       const status = choice === 'none' ? 'declined' : choice === 'wait' ? 'waiting' : choice === 'ask' ? 'question_ready' : choice === 'notify' ? 'notification_queued' : 'prepared';

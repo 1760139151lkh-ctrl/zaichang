@@ -1,6 +1,7 @@
 import path from 'node:path';
 import fs from 'node:fs';
 import {spawnSync} from 'node:child_process';
+import { installEmbeddingAssets } from './embedding-runtime.mjs';
 if(process.platform==='win32' && process.arch==='x64') {
   const root=path.resolve('node_modules/electron');
   if(!fs.existsSync(path.join(root,'dist/electron.exe'))) {
@@ -10,4 +11,5 @@ if(process.platform==='win32' && process.arch==='x64') {
   }
   console.log('Pinned Windows Electron runtime ready.');
 } else console.log('Review and desktop JavaScript build supported here; native desktop target is Windows x64.');
+await installEmbeddingAssets();
 

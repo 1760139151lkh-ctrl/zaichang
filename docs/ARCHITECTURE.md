@@ -1,8 +1,81 @@
 # 运行架构
 
-本文描述 2026-10-18 当前 `src/` 的职责与运行接缝。入口和文件归属以 [PROJECT_NAVIGATION](../PROJECT_NAVIGATION.md) 为准；功能现状见 [CURRENT_STATUS](CURRENT_STATUS.md)，学生 Harness 的历史验收、迁移和未接入范围见 [STUDENT_HARNESS](STUDENT_HARNESS.md)。本轮需求与机制对应见 [HARNESS_EVOLUTION](HARNESS_EVOLUTION.md)，个人记忆、连续性及本轮新增机制的源码取舍见 [本轮研究](research/PERSONAL_MEMORY_CONTINUITY_2026-10-18.md)，此前底座研究见 [HARNESS_RESEARCH](research/HARNESS_RESEARCH_2026-10-18.md)。源码存在、已经接入、当前授权可用和真实业务完成分别判断。
+2026-10-19 全系统导读见[项目基线](PROJECT_BASELINE.md#一条对话如何工作)：按当前实现串起输入、有限IPC、ContextCompiler、Hermes、工具与原状态所有者、来源收据、Scene和动作事务。本文保留具体机制；当前可用程度和实际证据不由架构图推定。
+
+当前收尾方式以[阶段收尾与真实Luna验证原话](source-materials/2026-10-18/stage-close-and-luna-validation-20261019.md)为准：原有与已开始单元沿同一正常对话、原Hermes及各状态所有者核实；不再新增外延，完成本阶段实际验证和必要修复后暂停。以下机制说明不自动成为本阶段运行通过记录。
+
+本文描述当前 `src/` 的职责与运行接缝，本轮整理于2026-10-19。入口和文件归属以 [PROJECT_NAVIGATION](../PROJECT_NAVIGATION.md) 为准；功能现状见 [CURRENT_STATUS](CURRENT_STATUS.md)，学生 Harness 的历史验收、迁移和未接入范围见 [STUDENT_HARNESS](STUDENT_HARNESS.md)。本轮需求与机制对应见 [HARNESS_EVOLUTION](HARNESS_EVOLUTION.md)，个人记忆、连续性及本轮新增机制的源码取舍见 [本轮研究](research/PERSONAL_MEMORY_CONTINUITY_2026-10-18.md)，此前底座研究见 [HARNESS_RESEARCH](research/HARNESS_RESEARCH_2026-10-18.md)。源码存在、已经接入、当前授权可用和真实业务完成分别判断。
+
+本轮对话画面沿[最新视觉要求](source-materials/2026-10-18/visual-fidelity-requirement-20261018.md)落实图稿、动效和既有OpenUI。有限Scene仍由宿主从真实owner编译，界面在同一消息里改变焦点与布局；图像素材和动画不新增事实、工具执行权或第二聊天循环。必要视觉观察不等于产品模型、外部业务或长期体验验收。
 
 ## 一个主助手，宿主保有执行权
+
+### 本轮交流链：眼前能接住，过去能深读
+
+当前主助手可以在必要调查前先说出已有根据的实质帮助。`conversation-rhythm.ts`只接前台本人交流中、主模型成功返回且要继续工具调用的公开正文；它在工具开始前发布到原Message，后面的最终正文保留并接续这些话。子调查、压缩、内部核对及尚未收口的最终候选不从该入口发布。补充沿原停止与普通发送进入新ingress，旧运行的晚到结果不承担新方向；没有新的回复代理或聊天循环。`HermesRun.validate`支持异步owner读取，原启动、RPC和子事件均等待真实来源恢复后继续。
+
+需要理解旧经历时，主模型调用`recall_experience`给出当前问题、不确定处与必要原文／事项地址。`memory-inquiry.ts`在父模型assistant wire上保留调用身份，把有效请求规范为原生`delegate`任务；`memoryInquiry` profile也可用于普通delegate。Python保留原task交给`children.open`，宿主沿原source子集、取消与共享预算创建同一Hermes只读子调查。唯一详细方法`prompts/memory-inquiry.md`引导子模型随新发现继续search／browse／read、回到原事项并比较后来变化；返回的自然报告和真实evidenceIndex交给父模型判断，宿主不以读数声称理解完成。
+
+初始上下文由`life-continuity.ts`调用各owner的index/context提供少量话题、相处方法、共做起点和陪学地址。只有已准入的本人持久记忆范围采用它；临时、待核用途、child或不含原工作来源的范围不自动读取。共做起点是旧工作解释的短预览，陪学地址不打开PDF、题目或教学答案。ContextCompiler先按真正序列化的data计入本轮预算，准入后才登记对应records、来源bindings和学习修订；索引未列出不证明没有前情，也不创建恢复或提醒动作。
+
+局部焦点复用原引用：StudyInteraction定位真实题目／尝试行／帮助，SemanticSelection定位方案或时段，companionReference定位共做材料，curiosityReference可附当前作品field内的Unicode片段；letterReference定位原信修订中的一个段落片段。renderer的`LocalTextFocus`只在同一field的真实选字能明确对应原字符串时给地址，`FocusContextChip`只是可拿掉的临时提示；当前新原话仍独立保存。当前owner在准入后重新读取和计量，才把精确片段及其来源送进主助手。来信保留assistant_letter身份及原Work／材料／学习依赖，选句不被当作本人新事实。选择不等于接受或长期偏好。
+
+对已有真实行／步骤ID的内容，`ReadableFocus`让普通阅读保持安静，只有真实点到／选到或键盘聚焦才给当前一处轻入口；它不把数学DOM转成字符地址。一次只显示一处焦点动作，滚动、Escape或指向别处即退出；选定后仍接同一composer。Dock的临时referenceFocus让当前同owner／修订的真实目标保留轻标记，小引用取消或边界改变即解除，不新增存储或许可。Study在焦点准入前只读复核当前owner，稳定版本不先卸载整纸；变化／失效仍不重定旧point或补回旧正文。
+
+共写与来信的原句回显由纯renderer的`ConversationTextFocusContext`承接当前同会话／边界的小引用，仍是已有curiosityReference／letterReference。`LocalTextFocus.activeRange`沿真实literal文本节点反向映射浏览器高亮，不改原正文DOM，不把标签中的预览当作源文。取消小引用、换源或换会话即撤下标记；它没有新的Bridge字段、持久状态或阅读许可。
+
+`interaction-control-context.ts`在现有控制解析前，以仅可读、不可推断的当前范围调用各owner的`referenceIdentity`，只给已有解析器活动类型／作品身份的非正文语境，不先展开旧checkpoint、题面、段落、proof或材料。它不授予新来源，不硬改整轮主体／现实归属。本人真实共同创作与作品内第一人称可以同时存在；原有subject/world提案保留这种区别，明确拒绝、限源与新方向优先。随后begin／compile仍沿正式当前范围重验原引用，不复用这次元数据作为授权。
+
+这份活动身份也需要进入原有记忆链。`creationSourceContextForIngress`在新语句的控制已生效后，按实际scope重核纯创作owner或原MapScene的作品地址；仅将作品／事项修订、可选原章地址和引用类型保存为原event的`sourceContext.kind=shared_creation`。没有旧正文、地点坐标或可恢复的授权，旧无身份事件不猜填。原`source-windows-v2`从实际event向current、priorEvents和提供的sourceWindows带入同一元数据，恢复仍重建合法原文窗口。主上下文、原extractor／reviewer、业务判断与外发投影按sourceContext的kind采用同一语义说明，排练与创作不混用。创作愿望／修改交流是真实活动，作品命题不是本人经历；不将整条原话设为infer=false，混合的独立现实自述仍走原精确片段、用途及记录许可复核，没有新增分类调用或后台循环。
+
+| 内容 | 原状态所有者与本轮接线 |
+| --- | --- |
+| 没说完的话题、共同说法、表达反馈 | 原collaboration frame的companion资料；`CompanionContinuityService`按当前原话读取。明确沿用的相处方法仍归带来源的personal method，角色核心独立。 |
+| 一起做到哪一步 | 原matter下的`companion_session`；当前帮法、解释、材料地址与停点按本人原话更新，离开和回读不自动继续执行。 |
+| 同一道题的陪学 | 原matter下的`study_companion`；本人尝试、助手教学和真实材料地址分别保留，异步`get/read`后才编译StudyScene。帮助深度可随本轮选择改变，不生成掌握标签。 |
+| 消息内共同商量 | DiscussionScene是同一frame／option的只读当前投影，合并原话、工作假设和眼前小步的可读关系；选择带回原对话。 |
+| 一封回顾 | 原help opportunity的准备与cooperation／呈现；ReflectiveLetterService只采用实际投递原文、材料和学习报告，来源脚注由受限IPC回读。 |
+| 安排分支 | `PlanningConversationService`把比较归回原frame／option，复用同一planner及原动作／日历；下一修改或保存仍从原Action链办理。 |
+| 一件可以马上体验的新鲜事 | 当前curiosity invitation及原frame／option；创作与实际读过的公开资料分别归因，不生成兴趣评分或周期推送。 |
+| 先试说，再决定怎样表达 | 原relationship rehearsal owner保留本人意图、实际试说与一种可能回应；同一主助手生成模拟，Scene与原输入携带当前引用，不另起角色代理或对外发送。 |
+
+`life-collaboration-tools.ts`、`reflective-letter-tools.ts`、`planning-conversation-tools.ts`和`curiosity-tools.ts`把这些owner接回coordinator工具入口。renderer读取有限Scene／原准备视图；回读、临时选择和草稿继续均经过既有Bridge，不在界面直接执行模型工具。来源依赖沿实际提供的ContextReceipt、子报告采用、历史与导出传播；学习正文恢复由原材料owner异步办理。当前均为本批源码，运行与体验范围见[第七批状态](CURRENT_STATUS.md#personal-memory-round7)。
+
+Discussion将保存时的source snapshot与当前事项投影分开：普通frame修订／暂停不等于原稿失效，历史选择给当时版本和当前matter地址；它不授予采用，不恢复暂停工作。repair／needs_review与真实来源撤回仍阻断正文。该边界不泛化到缺原proof的其他artifact历史，coWork旧checkpoint仍由其owner判定。
+
+原章共作还保留独立的`assistantWorkSources`地址：只含原message／Scene／Scene修订，不复制章节正文。历史作品目录限origin=created的原Curiosity Scene，不把所有Scene或public／mixed资料改成另一全文库；目录按同事项／owner稳定keyset续页，正文沿`read_shared_creation`按原field的Unicode范围取得。ContextCompiler在普通／经用途核实的前情、原助手历史工具和实际子报告采用后登记；新的创作Scene在预算准入后继承原章来源。每次模型边界重新核原章与其递归来源，带这些来源的协议不进入不透明跨轮缓存。历史目录可以带来源保护，但目录、标题和field长度不算章节正文已读或调查ACK。旧章选句比对chapter地址，正式编译继承该章来源；续章另核当前状态与这次原话，不拿当前seed冒旧章。
+
+采用当前作品的Work目录／元数据也不会漏掉既有原章出处。`recordWorkSources`经`workAssistantWorkSources`仅取这份exact Work修订的已保存章地址，核原来源后并入同一receipt；不要求调用者复制owner.data，也不从当前seed替换旧章。目录来源仍只是依赖，实际章节正文继续单独回读。
+
+同一三字段地址也保护带原证明的旧Discussion.coWork快照，正文沿`read_companion_history`回读当时字段，不能拿当前checkpoint替换原页。`recordAssistantWorkSources`先核所有实际地址，再沿原receipt和精确Scene所声明的章地址收根，不用message级依赖猜是哪一章；独立来源和同消息不同Scene仍保留，不把长期链条截成最近几项。原Scene冻结的provenance与module bindings由仅含元数据的getter继承到receipt；未形成原证明的旧页仍不恢复。该共做历史延伸已有源码，实际运行范围另记。
+
+个人方法的原帮助另以`PersonalMethodSources`保留：原助手message的片段／内容证明与其sourceRefs，以及原共同事项或学习过程的sourceBinding。`recordPersonalMethodSources`沿当前scope核这些原依据，宿主还原assistance的来源binding；它不把旧anchor修订登记为当前Work版本，也不把地址证明称作正文已读。普通／核清用途的前情、助手历史工具、真实前后台子报告采用和每次模型边界都继承／复核；有关协议也不进入不透明跨轮缓存。合法旧回复不因方法普通修订或停用而抹掉，原帮助删除／撤源或实际依据失效则不能靠派生文字绕回。
+
+方法还可指向当时真实Study step或原消息中已发布的Discussion.coWork字段。`method-work-help.ts`先经原owner读取，保存精确范围、内容证明、冻结sourceBinding和必要材料／助手来源，保持地址而非题答副本；`read_method_help`实际读到片段并计入预算后才登记来源。普通追加尝试或checkpoint不改写当时帮助，原材料、消息或依据退出仍不能从旧方法补回正文。
+
+实际为当前帮助采用方法时，宿主把真实method总binding一并冻结；只有与当前引用交叠、或同事项且同当前证据的本次新产物由writer保存顶层personalMethodSources。单纯discover／read、ambient线索与只读目录不激活这段写上下文。短上下文按scope／tool隔离；saveReceipt只继承实际读到的exact修订上已经冻结的元数据，不回写或补绑独立旧Work。
+
+试说引用的`sourceContext`是宿主记录的当前交互身份，不把整条新话锁为台词，也不把角色回应当作现实陈述。预解析只核owner元数据；正式编译才读取当前合法轮次与原依赖。原用户句保持user_statement和infer:false，既有逐片段review在当前本人／现实条件成立时处理真正退出或独立事实；模拟内容不进入本人事实，也不授予外发或行动。该语义链沿原模型调用办理，没有新分类器或后台循环。
+
+陪学的可改条件内容也属于原Study step的`packet.exploration`，只接受有限quadratic声明与数值参数，不执行模型给出的公式程序。共享计算同时驱动曲线、值与导数；继续问经fresh owner及宿主重算形成`calculation_hypothesis`，仍回原StudyInteraction和同一composer，不另建题库、owner或模型循环。原题关系与说明例子明确区分；该组件不把用户移动探针当作知识掌握。
+
+安排比较的本次taskPreferences可声明continuous／split与maximumChunkMinutes，仍交给原planner处理同一任务量与原可拆分条件。`workRhythms`来自实际工作段及各段准备／收尾，不是渲染端拆出的示意条；某节奏未排完就不能算完整替代版。读回option、继续商量和采用沿原Action／回执／planRef，不把本次节奏写成人格偏好。
+
+试放条件沿time_block selection的PlanningTrial地址表达，拖动用offset ISO、时刻编辑用localTime；宿主按原Scene日期／时区、原对象与完整占用重新核对，歧义不猜。renderer的FocusContextChip只编辑HH:mm并回显原时长，不生成日历事实或写入用户草稿。Enter只结束这处编辑，不提交消息；取消条件与取消整处引用分开，原preview仍不是采用。
+
+### 保留的辅助候选层
+
+第五批曾在原`search_context`接本地BGE q8候选臂；当前coordinator创建默认ContextCompiler时不注入该服务，默认检索与深理解沿主模型、原文工具和真实子调查完成。候选代码仍可由明确构造参数接入，独立worker只是CPU计算器；`semantic-store.ts`在原SQLite保存可删的范围向量与hash，源码迁移为schema14。权限、来源、当前Unicode范围与版本先于相似度和分页；只读scope可查合法既存索引，只有允许新推断且持久保留的本人范围能增量写索引。固定资源及尚未运行的边界见[原批次记录](research/LOCAL_SEMANTIC_RECALL_2026-10-18.md)，不作为本轮体验成果。
+
+增量索引在原`h_meta`保存有界地址检查点，恢复仍以当前scope和来源重新准入，不保存正文、查询或授权。词法改写先合成一路，再与语义一路保留头部并融合；普通词法深页、固定窗口内的语义排名页和较早来源候选窗口各有真实继续入口。窗口续接固定合法来源/片段集合，且不补建或修复索引；索引覆盖与窗口排名覆盖分别记录，均不证明语义条件完整。
+
+第六批以原`restore_collaboration(type=source_related)`提供从已展示原话到既有Work的反向导航。SQL先按来源、会话、类型与真实声明关系筛选，再以固定rowid上界/keyset有界枚举；服务核当前全部来源、精确投影与原owner资格，只给候选ID/版本/关系/原读取入口。精确sourceBinding交叠和旧evidenceIds的范围未知关系分别报告，不沿失效依赖图或相似标题扩展。实际目录依赖进入原ContextReceipt，不作正文阅读或调查ACK；后续沿原事项/学习/技能/规划入口读取，导航不改变活动或接受状态。浏览与原文入口按实际展示的绝对Unicode范围给导航地址，裁剪quote由宿主坐标证明；详见[机制与未验证边界](research/SOURCE_RELATED_WORK_2026-10-18.md)。
+
+托付投影、调查绑定与续读reader共用`source-quote.ts`：新保存的版本/起止地址逐字核对，失败不重定位；旧quote-only只有全文唯一出现时能建立精确地址。Attention新控制保存宿主解析的完整来源，后台派生保留父范围；来源定位变化进入frontier边界。重复旧引文或失效地址只限制对应托付，不能借缺少投影暴露整条原消息，也不回填旧库。其他历史quote入口未在本批全量改写或验证。
+
+第四批新增仍归现有状态所有者：只读调查续读归原机会下的地址/覆盖账本，理解变迁归原Assertion版本，学习过程归同一共同事项的Work experience，个人方法归带精确sourceBinding的Work文字。没有保存第二份私人原文或新增后台主循环。`ContextReceipt`带实际采用的历史修订、学习记录版本及WorkSourceBinding，前台/后台子报告、跨回合正文、IPC与导出继续核当前来源；永久遗忘清相应派生，独立材料保留。源码与未运行状态见[第四批](CURRENT_STATUS.md#personal-memory-round4)。
+
+校园规划通过原ZjuAdapter查询得到同bundle来源证明，按真实课程/考试、取消/待公布及日程展开质量构造原planner的时间约束。本地加密文件stamp仅供已授权托付在原调度链中发现保存状态变化，不解密、认证或宣称学校刚更新；模型停用时延到恢复。当前证明及组合版本只存在本次进程内，不能靠模型提供hash、重启或旧快照恢复采用。其他外源仍须各自版本解析器。
 
 Electron 主进程持有凭据、SQLite、权限、外部连接和副作用。React renderer 通过受限 preload/IPC 请求操作，不能自行获得数据库、模型密钥或任意文件访问。`Harness` 负责前台任务生命周期、取消、预算、上下文和结果发布；`RuntimeCoordinator` 连接各业务服务。生产模型和代测模型沿同一条业务链工作。
 
@@ -189,6 +262,10 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 
 完整契约见 [CONVERSATION_SCENES](CONVERSATION_SCENES.md)。[`shared/scenes.ts`](../src/shared/scenes.ts) 与 [`runtime/scenes.ts`](../src/main/runtime/scenes.ts) 管理带来源及版本的地图/天气快照；`Message.scenes/views` 交给 [`AssistantPresentation`](../src/renderer/presentation/AssistantPresentation.tsx) 的受限 OpenUI 组件库。模型不能注入任意 JavaScript、改写来源事实或凭展示动作取得业务授权。选中地点、日期或路线段通过 `ChatInput.selection` 返回精确语义引用，宿主复验场景版本后才进入后续上下文。后台查询快照标记 `preparationOnly`，单纯查询不取得前台展示权。
 
+正常发现仍属于主模型的语义选择：工具目录说明如何取得真实结果，`presentationLibrary`说明现有有限组件，实际查询返回的SceneRef才供`present_view`引用。原记录ID不是画面ID，没取得引用时不能猜造。日历直读通过`agenda-scene.ts`复用PlanningScene的`mode=agenda`，不调用planner或制造空闲／新方案；同一run的同一精确查询复用Scene身份，原消息按该身份更新。已成功发布的画面与正文共同参与原completion review，数据UI不要求正文整表复抄；作品、帮助与明确全文请求仍需实际可读内容，失败或未呈现的目录不冒充交付。
+
+笔记正文继续归NotesService。`NoteScene`只从实际已交付的read页恢复，`NoteSourceProof`保存note ID、原修订、内容证明及绝对Unicode范围；list／history的零长范围只作元数据依赖，不算正文已读。普通编辑保留合法原版本，删除／撤回阻止画面和派生正文回流。实际采用的证明沿ContextReceipt、历史、前后台子报告与模型边界继承；`note_reference`只保原消息的回读地址，不缓存旧页许可。成绩／GPA仍是CampusScene，敏感读取另以本轮真实用途的`campusSensitiveReads`约束模型前情；本机私有历史显示不自动授予下一轮模型读取。
+
 `ConversationMap`、独立 `MapSheet` 与 review-web 共用 `MapSurface`、`CampusMapAdapter`、`WalkingGraph.shortest`、MapLibre 引擎和已有平面 fallback。地面地理/通行图与展示几何分开，`CameraOwnership` 取消被用户手势接管的旧异步视图。独立地图拥有本机定位轮询；公共地图本身不提供个人位置。模型路线副本由 [`map-model-view.ts`](../src/main/runtime/map-model-view.ts) 保留距离、入口、条件、警告和来源，去除重复绘图几何；完整路线仍供原地图绘制。原始读取字节与模型可见 token 分别计量。天气能力可返回小时窗口，当前 WeatherScene 仍是日级展示。
 
 [`scene-projections.ts`](../src/main/runtime/scene-projections.ts) 从宿主规划结果投影 PlanningScene；按已核完整连续的 `daySummaries` 将有限结束的显示块分到各日，拆开的部分携带 `originalRange` 与完整 `planRefs`。点选仅引用同一宿主方案，不因显示拆块生成保存参数或拆分现实工作。日账缺项、重复、范围不连贯或边界不符时保留原完整块并说明缺口；未知结束保持 null，不按日界伪造终点。renderer 使用宿主日账显示工作、占用与留白，不自行计出另一套事实。小时天气和空气另经 EnvironmentScene 保留各自来源、单位与覆盖。
@@ -206,6 +283,8 @@ review-web 仅替换公共地图存储边界，读取构建明确选定且校验
 普通启动使用 [`provider.ts`](../src/main/provider.ts) 的 DeepSeek 协议与 [`shared/types.ts`](../src/shared/types.ts) 的 `deepseek-flash` 默认。显式 `dev:luna:test` / `start:luna:test` 经 [`model-selection.ts`](../src/main/model-selection.ts) 选择 [`luna-provider.ts`](../src/main/luna-provider.ts) 的 GPT-6 Luna Max 代测；Luna 标识来自 [`model-contract.json`](../src/shared/model-contract.json)。选择仅在宿主启动时生效，renderer 和保存设置不能切换。
 
 Luna 接现有 Codex 账号的单次 completion 传输，Hermes 继续运行主循环，工具仍在原宿主执行；它不是产品自己的 ChatGPT 登录集成。请求与返回模型需一致，账号通道的输出上限在完成后由宿主核验，不能提前限制供应商消耗。Node 网络沿用显式代理环境或 Windows 已开启的手动代理，不执行 PAC，不更改系统设置。
+
+实际型号由`luna-provider.ts`从返回事件的`response.model`取得，经`Completion.responseModel`写入本次`modelUsage[].responseModel`与`provider.observedResponseModels`；配置中的model名称不替代这份证据。阶段状态分别记录正常主流程、实际工具、Scene／renderer与点选续问，不把合成资料或校园只读结果混作业务写入成功。
 
 常规构建生成 Electron、renderer、stdio 地图桥和隔离公共预览；Windows 打包另暂存锁定 Hermes/Python 与有许可的原生 PDF 运行时。依赖安装、编译、合成宿主检查、真实模型调用和业务成功各自验收。当前桌面不含 Android 工程、手机同步接口或已部署持续宿主；`ClockPort`、`DeliveryPort`、SQLite 与模型/工具回调是后续接入点。生产 DeepSeek、校园外部服务和手机生命周期仍需各自验收。
 

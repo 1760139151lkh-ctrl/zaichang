@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "runtimeVersion": "bge-small-zh-v1.5-q8-ort1.30.0-tokenizers0.2.0-v1",
+  "modelId": "bge-small-zh-v1.5-q8-cls-l2-v1",
+  "repository": "Xenova/bge-small-zh-v1.5",
+  "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+  "originalRepository": "BAAI/bge-small-zh-v1.5",
+  "originalRevision": "7999e1d3359715c523056ef9478215996d62a620",
+  "license": "MIT",
+  "method": {
+    "architecture": "BertModel",
+    "dtype": "q8",
+    "dimensions": 512,
+    "maxTokens": 512,
+    "pooling": "cls",
+    "normalization": "l2",
+    "queryPrefix": "为这个句子生成表示以用于检索相关文章：",
+    "documentPrefix": "",
+    "executionProvider": "cpu",
+    "chunking": {
+      "version": "cp1200-o48-t512-v1",
+      "coordinate": "unicode_codepoint",
+      "maxCodepoints": 1200,
+      "maxOverlapCodepoints": 48,
+      "maxOverlapFraction": 0.25,
+      "tokensIncludeSpecialTokens": true,
+      "crossAllowedRanges": false
+    }
+  },
+  "dependencies": {
+    "onnxruntime-node": "1.30.0",
+    "onnxruntime-common": "1.30.0",
+    "@huggingface/tokenizers": "0.2.0"
+  },
+  "files": [
+    {
+      "path": "config.json",
+      "bytes": 716,
+      "sha256": "d4193ead3a810fd694fa8a31d7fc72fbaebc0668b603e398734bf2f6538ff42f"
+    },
+    {
+      "path": "onnx/model_quantized.onnx",
+      "bytes": 24010842,
+      "sha256": "15b717c382bcb518ba457b93ea6850ede7f4f1cd8937454aa06972366cd19bcc"
+    },
+    {
+      "path": "tokenizer.json",
+      "bytes": 439125,
+      "sha256": "48cea5d44424912a6fd1ea647bf4fe50b55ab8b1e5879c3275f80e339e8fae26"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "bytes": 367,
+      "sha256": "e6f3b96db926a37d4039995fbf5ad17de158dfb8f6343d607e4dbaad18d75f5a"
+    }
+  ],
+  "runtimeLicenseFiles": [
+    {
+      "path": "licenses/ONNXRuntime-MIT.txt",
+      "bytes": 1073,
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c"
+    },
+    {
+      "path": "licenses/ONNXRuntime-ThirdPartyNotices.txt",
+      "bytes": 338088,
+      "sha256": "143764b952fdb1a7c69ce653bfba74a7744d6a8a573bfb73e235fba356c83de3"
+    }
+  ],
+  "licenseSources": {
+    "modelCard": "https://huggingface.co/BAAI/bge-small-zh-v1.5/blob/7999e1d3359715c523056ef9478215996d62a620/README.md",
+    "modelMit": "https://github.com/FlagOpen/FlagEmbedding/blob/c086741f5e117b7b8ce1745ea00b6c262f281a01/LICENSE",
+    "exportCard": "https://huggingface.co/Xenova/bge-small-zh-v1.5/blob/75c43b069aac4d136ba6bc1122f995fedcfd2781/README.md",
+    "onnxruntime": "https://github.com/microsoft/onnxruntime/blob/v1.30.0/LICENSE",
+    "onnxruntimeNotices": "https://github.com/microsoft/onnxruntime/blob/v1.30.0/ThirdPartyNotices.txt",
+    "tokenizers": "https://github.com/huggingface/tokenizers.js/blob/v0.2.0/LICENSE"
+  }
+}

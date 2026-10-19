@@ -142,6 +142,14 @@ export class WorkService {
     return record;
   }
 
+  saveLearningProcess(handle: ScopeHandle, record: WorkRecord, expectedRevision?: number): WorkRecord {
+    this.policy.require(handle, 'work:write');
+    if (record.kind !== 'experience' || record.data.type !== 'learning_process' || !record.sourceBinding)
+      throw new HarnessError('learning_process_invalid', '学习过程须经专用来源核验后保存。');
+    this.repo.saveSourcedWork(handle, record, expectedRevision);
+    return record;
+  }
+
   /** Return the durable frame projection used by callers that need to render
    * or inspect focus without depending on the full WorkRecord payload. */
   frame(handle: ScopeHandle, episodeId: string): ConversationFrame | undefined {

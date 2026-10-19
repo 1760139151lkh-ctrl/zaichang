@@ -1,5 +1,15 @@
 # 图像、页面与实现对应
 
+2026-10-19 同步说明：全系统边界见[项目基线](PROJECT_BASELINE.md)，最新实现入口见[项目导航](../PROJECT_NAVIGATION.md#companion-experience)，当前实际观察见[第七批状态](CURRENT_STATUS.md#personal-memory-round7)。各批图稿与当时验收范围保留；旧图、旧交互和新增源码不能合并成一次全面通过。作品地图取景仅留后端与关系参考，正常入口已冻结。
+
+## 第四批：课表和自己的安排，在同一天里
+
+本轮完成后端源码接线、列明缺口后，再读原始设计理念与原图7、既有calendar方案，用两次内置GPT Image生成[校园日视图A/B](../assets/design/generated/2026-10-18-campus-day/manifest.json)。负责人亲看两图，选A的单一连续时间线；B双列在窄窗变为两组，还把课程画成可完成对象，未采用。不照搬图中任务、人物、额外导航、巨大底部按钮或重复“我的安排”标签。
+
+实施落点为既有`Workspace.tsx`的AgendaView与`CampusDaySchedule.tsx`：明确选择“课表一起看”后读取当前日期，课程/考试使用只读书本标记，本人安排继续原编辑、完成、删除；同一日期按实际时刻混排，不复制课表进agenda，不另算一套free/busy或重复日账。来源按需展开，部分覆盖、结束未知与加载失败保留，失败不清本机安排。切日/筛选、隐藏/公开展示、账号/资料边界退出旧结果；应用内账号操作通过既有signalBarrier的sourceBoundary及时清除。外部vault更改的即时界面事件没有新增，重读时再核来源。
+
+按[当前目标](source-materials/2026-10-18/goal-objective-current-20261018.md)暂不验证，本批没有启动Electron/browser、没有截图或界面交互、没有运行检查/构建/模型。图稿已生成并查看，源码实施与实际体验通过分开记录；旧批次UI证据不升级为本批结果。
+
 ## 第三批：接着上次的安排
 
 从`30dcd8e`继续，后端整合262项既有检查、9项锁定Hermes与构建通过后，生成并查看[续接A/B图稿](../assets/design/generated/2026-10-18-planning-continuity/manifest.json)，再实施现有Planning Scene的关系文字。A保留单一连续时间线，用“已在日历／这次续排”区分真实保存和新试算；B的横向分隔容易误分交错时段，未采用。不照搬样例任务、时间、完成含义或新操作入口；原日期条、日历背景、精确引用与输入继续复用。

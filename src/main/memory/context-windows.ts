@@ -5,7 +5,7 @@ import type { KernelRepository } from '../storage/repository';
 import { canonical, codePointSlice } from '../runtime/semantics';
 import type { MemoryContext } from './service';
 
-export const MEMORY_CONTEXT_METHOD = 'source-windows-v1';
+export const MEMORY_CONTEXT_METHOD = 'source-windows-v2';
 export const MEMORY_CONTEXT_BYTES = 48_000;
 export const contextRequestSchema = z.object({ eventId: z.string().min(1).max(160), contentVersion: z.number().int().positive(),
   start: z.number().int().nonnegative(), end: z.number().int().positive() }).strict();
@@ -18,7 +18,9 @@ export interface MemorySourceDirectory {
   textLength?: number; availableLength: number; allowedRanges: ContextRange[];
   providedRanges: ContextRange[]; gaps: ContextRange[];
 }
-export interface MemorySourceWindow extends ContextRequest { text: string; relation: MemorySourceDirectory['relation'] }
+export interface MemorySourceWindow extends ContextRequest {
+  text: string; relation: MemorySourceDirectory['relation']; sourceContext?: EvidenceEvent['sourceContext'];
+}
 export interface ContextRequestResult { index: number; status: 'provided' | 'not_admitted' | 'version_changed' | 'invalid_range' | 'budget_exceeded' }
 interface AdmittedSource { event: EvidenceEvent; ranges: ContextRange[] }
 
@@ -112,7 +114,7 @@ function contextPlan(repo: KernelRepository, handle: ScopeHandle, event: Evidenc
   const scope = repo.scope(handle);
   const signature = digest({ method: MEMORY_CONTEXT_METHOD, event: [event.id, event.contentVersion],
     scope: { sources: [...scope.sources].sort(), purposes: [...scope.purposes].sort(), grants: [...scope.grants].sort() },
-    sources: sources.map(({ event: source, ranges }) => [source.id, source.contentVersion, source.sequence, source.sourceId, ranges,
+    sources: sources.map(({ event: source, ranges }) => [source.id, source.contentVersion, source.sequence, source.sourceId, source.sourceContext || null, ranges,
       digest(ranges.map(range => codePointSlice(source.text, range.start, range.end)))]),
   });
   return { sources, assistants, signature, coverage, current };
@@ -149,15 +151,20 @@ export function buildMemoryContext(repo: KernelRepository, handle: ScopeHandle, 
   const ownLength = Array.from(plan.current.text).length, tailStart = Math.max(0, ownLength - 1200);
   const render = (ranges: Map<string, ContextRange[]>): MemoryContext => {
     const sources = directory.map(source => ({ ...source, providedRanges: ranges.get(source.eventId) || [], gaps: subtract(source.allowedRanges, ranges.get(source.eventId) || []) }));
-    const sourceWindows: MemorySourceWindow[] = sources.flatMap(source => source.providedRanges.map(range => ({ eventId: source.eventId,
-      contentVersion: source.contentVersion, ...range, relation: source.relation,
-      text: codePointSlice(plan.sources.find(item => item.event.id === source.eventId)!.event.text, range.start, range.end) })));
+    const sourceWindows: MemorySourceWindow[] = sources.flatMap(source => {
+      const original = plan.sources.find(item => item.event.id === source.eventId)!.event;
+      return source.providedRanges.map(range => ({ eventId: source.eventId,
+        contentVersion: source.contentVersion, ...range, relation: source.relation,
+        ...(original.sourceContext ? { sourceContext: original.sourceContext } : {}),
+        text: codePointSlice(original.text, range.start, range.end) }));
+    });
     const current = sources.find(source => source.eventId === event.id), ownWindows = sourceWindows.filter(window => window.eventId === event.id);
     const focus = { start: span.start, end: span.end };
     const priorEvents: NonNullable<MemoryContext['priorEvents']> = sourceWindows.filter(window => window.eventId !== event.id).map(window => {
       const source = plan.sources.find(item => item.event.id === window.eventId)!.event;
       return { id: source.id, speaker: source.speaker, text: window.text, contentVersion: source.contentVersion, sequence: source.sequence,
         subjectId: source.subjectId, worldId: source.worldId, authority: source.authority, receivedAt: source.receivedAt,
+        ...(source.sourceContext ? { sourceContext: source.sourceContext } : {}),
         textLength: sources.find(item => item.eventId === source.id)?.textLength, coverage: window.start === 0 && window.end === Array.from(source.text).length ? 'complete' : 'excerpt',
         rangeStart: window.start, rangeEnd: window.end, relation: window.relation };
     });
@@ -167,6 +174,7 @@ export function buildMemoryContext(repo: KernelRepository, handle: ScopeHandle, 
       contextRequestResults: [...requestResults], contextByteBudget: MEMORY_CONTEXT_BYTES, referenceCoverage,
       priorEvents,
       current: { eventId: event.id, contentVersion: event.contentVersion, sequence: event.sequence,
+        ...(plan.current.sourceContext ? { sourceContext: plan.current.sourceContext } : {}),
         focusRange: focus, sourceExcerptStart: excerpt?.start, sourceExcerptEnd: excerpt?.end,
         focusText: current && containsContextRange(current.providedRanges, focus) ? codePointSlice(plan.current.text, span.start, span.end) : '',
         sourceExcerpt: excerpt?.text || '',

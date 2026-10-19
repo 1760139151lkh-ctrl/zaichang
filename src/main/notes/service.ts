@@ -71,6 +71,8 @@ export class NotesService {
    * scope for a model call, since that would widen its source restrictions. */
   private allowed(scope?: ScopeHandle, write = false, create = false) {
     if (!scope) return;
+    if (!create && this.repo.hasFence('notes:self', 'notes:self'))
+      throw new HarnessError('notes_forbidden', '这份记事本目前不在助手可读取的来源里。');
     const data = this.repo.scope(scope),
       identity = this.repo.identity;
     if (
@@ -150,9 +152,12 @@ export class NotesService {
     if (scope && input.state === 'deleted')
       throw new HarnessError('notes_forbidden', '回收站只在本机记事本中查看和恢复。');
     // instr keeps user search literal (%, _, quotes and CJK are not query syntax).
+    const excluded = scope ? [...new Set(this.repo.fences().filter(fence => fence.kind === 'delete')
+      .flatMap(fence => [...fence.objectIds, ...fence.sourceIds]).filter(value => /^note-[a-f0-9-]{36}$/.test(value)))] : [];
     const condition =
-      "owner=? AND workspace=? AND state=? AND (?='' OR instr(lower(title),lower(?))>0 OR instr(lower(body),lower(?))>0)";
-    const params = [principalId, workspaceId, input.state, input.query, input.query, input.query];
+      "owner=? AND workspace=? AND state=? AND (?='' OR instr(lower(title),lower(?))>0 OR instr(lower(body),lower(?))>0)"
+      + (scope ? ' AND id NOT IN (SELECT value FROM json_each(?))' : '');
+    const params = [principalId, workspaceId, input.state, input.query, input.query, input.query, ...(scope ? [JSON.stringify(excluded)] : [])];
     const total = Number(
       this.repo.db.prepare('SELECT count(*) AS n FROM h_notes WHERE ' + condition).get(...params)?.n || 0,
     );
@@ -174,8 +179,10 @@ export class NotesService {
   }
   read(raw: unknown, scope?: ScopeHandle): NotePage {
     this.allowed(scope);
-    const input = noteReadSchema.parse(raw),
-      current = this.current(input.id);
+    const input = noteReadSchema.parse(raw);
+    if (scope && this.repo.hasFence(input.id, 'notes:self'))
+      throw new HarnessError('notes_forbidden', '这页笔记目前不在助手可读取的来源里。');
+    const current = this.current(input.id);
     if (scope && current.state === 'deleted')
       throw new HarnessError('note_deleted', '这条笔记已移入回收站。');
     const { body, ...note } = this.document(
@@ -333,8 +340,10 @@ export class NotesService {
   }
   history(raw: unknown, scope?: ScopeHandle): NoteHistory {
     this.allowed(scope);
-    const input = noteHistorySchema.parse(raw),
-      current = this.current(input.id);
+    const input = noteHistorySchema.parse(raw);
+    if (scope && this.repo.hasFence(input.id, 'notes:self'))
+      throw new HarnessError('notes_forbidden', '这页笔记目前不在助手可读取的来源里。');
+    const current = this.current(input.id);
     if (scope && current.state === 'deleted')
       throw new HarnessError('note_deleted', '这条笔记已移入回收站。');
     const rows = this.repo.db
@@ -344,6 +353,7 @@ export class NotesService {
       const note = parse(row)!;
       return {
         revision: note.revision,
+        sha256: note.sha256,
         title: note.title,
         state: note.state,
         updatedAt: note.updatedAt,

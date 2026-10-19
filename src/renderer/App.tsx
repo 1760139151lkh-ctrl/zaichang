@@ -3,19 +3,30 @@ import { SettingsPanel, type SettingsDraft } from './SettingsPanel';
 import { NotesPanel } from './NotesPanel';
 import { MaterialsPanel, type MaterialQuote } from './MaterialsPanel';
 import { LocalSearchPanel } from './LocalSearchPanel';
+import { ComposerActions } from './ComposerActions';
+import { FocusContextChip } from './FocusContextChip';
+import { LetterHistoryCard } from './LetterHistoryCard';
+import { ConversationComposerDockContext, useConversationComposerDock } from './ConversationComposerDock';
+import { ConversationTextFocusContext } from './ConversationTextFocus';
+import { createPortal } from 'react-dom';
 import type { LocalSearchLocator } from '../shared/search';
+import type { StudyInteraction } from '../shared/study-presentation';
+import type { CompanionFollowupReference } from '../shared/companion-source';
+import type { CuriosityFollowupReference } from '../shared/curiosity-source';
+import type { LetterFocusContext, LetterReference } from '../shared/reflective-letter';
+import type { NoteNativeInput, NoteReference } from '../shared/note-presentation';
+import type { RehearsalInteraction } from '../shared/relationship-rehearsal';
 import './workspace-continuation.css';
+import './composer-continuation.css';
 import { AgendaView, type WorkspaceView } from './Workspace';
 import { Navigation } from './Navigation';
 import { CompanionAvatar, CompanionScene, RestSpace, prefersQuietMotion, useCompanion } from './companion';
 import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import {
-  ArrowUp,
   ArrowDown,
   Plus,
   X,
   Minus,
-  Square,
   History,
   ChevronDown,
   ChevronRight,
@@ -66,6 +77,16 @@ import {
 const api = window.zaichang;
 type Panel = 'history' | null;
 type ActionResult = { ok: boolean; error?: string };
+type PresentationFollowup = { text: string; studyInteraction?: StudyInteraction; companionReference?: CompanionFollowupReference;
+  curiosityReference?: CuriosityFollowupReference; letterReference?: LetterReference; focusOnly?: boolean; focusLabel?: string;
+  rehearsalInteraction?: RehearsalInteraction; noteReference?: NoteReference };
+type ComposerFollowup = PresentationFollowup & {
+  token: number; sessionId?: string; messageId: string; boundary: string; insertedText?: string;
+};
+function automaticFollowupKey(request: PresentationFollowup, messageId: string) {
+  return request.curiosityReference ? `${messageId}/${request.curiosityReference.id}/${request.curiosityReference.revision}`
+    : request.rehearsalInteraction ? `${messageId}/rehearsal/${request.rehearsalInteraction.ref.id}/${request.rehearsalInteraction.ref.revision}` : '';
+}
 const formatDate = formatDateTime;
 function errorText(error: unknown) {
   return uiError(error);
@@ -136,6 +157,13 @@ export function App() {
   const requestCloseRef = useRef<() => Promise<void>>(async () => {});
   const [toast, setToast] = useState('');
   const [starting, setStarting] = useState(false);
+  const sendPending = useRef(false), sendSequence = useRef(0);
+  const composing = useRef(false);
+  const [composerFollowup, setComposerFollowup] = useState<ComposerFollowup>();
+  const composerFollowupRef = useRef<ComposerFollowup | undefined>(undefined);
+  const followupSequence = useRef(0);
+  const dismissedFollowup = useRef('');
+  const readingStarts = useRef(new Set<string>()), readingGesture = useRef(0);
   const [navigating, setNavigating] = useState(false),
     navigationPending = useRef(false);
   const [away, setAway] = useState(false);
@@ -146,14 +174,29 @@ export function App() {
   const [publicCloseNotice, setPublicCloseNotice] = useState('');
   const [sharedMapContext, setSharedMapContext] = useState<{ label: string; expiresAt: string }>();
   const [sceneSelection,setSceneSelection]=useState<SemanticSelection>();
+  const sceneSelectionRef = useRef<SemanticSelection | undefined>(undefined);
   const [sceneSelectionLabel,setSceneSelectionLabel]=useState('');
   const sceneSelectionRequest=useRef(0);
-  useEffect(()=>{sceneSelectionRequest.current++;setSceneSelection(undefined);setSceneSelectionLabel('');},[sessionId]);
-  useEffect(()=>{sceneSelectionRequest.current++;setSceneSelection(undefined);setSceneSelectionLabel('');clearConversationMapViews();},[state?.privacyEpoch]);
+  function clearFollowup(dismiss = false) {
+    const previous = composerFollowupRef.current;
+    if (dismiss && previous) dismissedFollowup.current = automaticFollowupKey(previous, previous.messageId);
+    composerFollowupRef.current = undefined; setComposerFollowup(undefined);
+  }
+  function clearSceneSelection() {
+    sceneSelectionRequest.current++; sceneSelectionRef.current = undefined;
+    setSceneSelection(undefined); setSceneSelectionLabel('');
+  }
+  useEffect(()=>{clearSceneSelection();clearFollowup();},[sessionId]);
+  useEffect(()=>{clearSceneSelection();clearFollowup();clearConversationMapViews();},[state?.privacyEpoch,state?.policyRevision,state?.sourceBoundary]);
   async function selectScene(value:SemanticSelection){
     const request=++sceneSelectionRequest.current,selectedSession=sessionRef.current,boundary=boundaryRevision.current;
-    setSceneSelection(value);
     const scene=messages.flatMap(message=>message.scenes||[]).find(scene=>scene.id===value.sceneId&&scene.revision===value.sceneRevision);
+    if (!scene) return;
+    if (studyDockRef.current) { requestComposerMove(); composerDock.returnToChat(); }
+    clearFollowup();
+    sceneSelectionRef.current = value;
+    setSceneSelection(value);
+    setSceneSelectionLabel('接着这里聊');
     if(value.kind==='date')setSceneSelectionLabel(`${value.date} · 按这一天继续`);
     else if(value.kind==='leg'&&scene?.kind==='map'){
       const leg=scene.journey.legs.find(leg=>leg.id===value.legId);
@@ -164,11 +207,28 @@ export function App() {
     }else if(value.kind==='time_block' && scene?.kind==='planning'){
       const block = scene.blocks.find(block => block.id === value.blockId);
       const time = block ? new Date(block.start).toLocaleString('zh-CN',{timeZone:scene.window.timeZone,month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}) : '';
-      setSceneSelectionLabel(block ? `${time} · ${block.label}，接着聊` : '接着聊这个时段');
+      const trialTime = value.planningTrial ? 'localTime' in value.planningTrial ? value.planningTrial.localTime
+        : new Date(value.planningTrial.proposedStart).toLocaleTimeString('en-GB',{timeZone:scene.window.timeZone,hour:'2-digit',minute:'2-digit',hourCycle:'h23'}) : undefined;
+      const range = block?.originalRange || block;
+      const minutes = range?.end ? (Date.parse(range.end)-Date.parse(range.start))/60000 : undefined;
+      setSceneSelectionLabel(block ? trialTime ? `${block.label} → ${trialTime}${minutes !== undefined ? `，仍${minutes}分钟` : ''}`
+        : `${time} · ${block.label}，接着聊` : '接着聊这个时段');
+      if (value.planningTrial && 'proposedStart' in value.planningTrial)
+        requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
     }else if(value.kind==='environment_sample' && scene?.kind==='environment'){
       const sample = scene.samples.find(sample => sample.id === value.sampleId);
       const time = sample ? new Date(sample.at).toLocaleString('zh-CN',{timeZone:scene.timeZone,month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}) : '';
       setSceneSelectionLabel(`${time} · 按这个${scene.domain==='weather'?'天气':'空气'}预报继续`);
+    }else if(value.kind==='discussion_point' && scene.kind==='discussion'){
+      const point = scene.points.find(point => point.id === value.pointId);
+      setSceneSelectionLabel(point ? `关于「${Array.from(point.text).slice(0,60).join('')}${Array.from(point.text).length>60?'…':''}」` : '接着这句话聊');
+    }else if(value.kind==='discussion_option' && scene.kind==='discussion'){
+      const branch = scene.branches.find(branch => branch.id === value.optionId);
+      setSceneSelectionLabel(branch ? `关于「${branch.title}」` : '接着这个想法聊');
+    }else if(value.kind==='discussion_option' && scene.kind==='planning'){
+      const branch = messages.flatMap(message => message.views || []).flatMap(view => view.comparison?.branches || [])
+        .find(branch => branch.optionRef?.id === value.optionId && branch.sceneRef?.id === scene.id && branch.sceneRef.revision === scene.revision);
+      setSceneSelectionLabel(branch ? `关于「${branch.title}」` : '接着这份安排聊');
     }else if(value.kind==='place'){
       setSceneSelectionLabel('刚选的地点');
       try{const places=await api.mapPlaces();
@@ -181,6 +241,77 @@ export function App() {
   const scrollRef = useRef<HTMLDivElement>(null),
     inputRef = useRef<HTMLTextAreaElement>(null),
     followRef = useRef(true);
+  const [composerHome, setComposerHome] = useState<HTMLDivElement | null>(null);
+  const composerHost = useMemo(() => {
+    const element = document.createElement('div');
+    element.className = 'conversation-composer-host';
+    return element;
+  }, []);
+  const composerMoveRequested = useRef(false), composerMoveAnimation = useRef<Animation | undefined>(undefined);
+  const composerMoveOrigin = useRef<DOMRect | undefined>(undefined);
+  function requestComposerMove() {
+    composerMoveRequested.current = true;
+    composerMoveOrigin.current = composing.current || prefersQuietMotion() ? undefined : composerHost.getBoundingClientRect();
+  }
+  const currentComposerFollowup = composerFollowup?.sessionId === sessionId && composerFollowup?.boundary === boundaryRevision.current
+    ? composerFollowup : undefined;
+  const textFocus = useMemo(() => ({ curiosityReference: currentComposerFollowup?.curiosityReference,
+    letterReference: currentComposerFollowup?.letterReference, noteReference: currentComposerFollowup?.noteReference }),
+    [currentComposerFollowup?.curiosityReference, currentComposerFollowup?.letterReference, currentComposerFollowup?.noteReference]);
+  const composerDock = useConversationComposerDock({
+    sessionId, boundaryKey: boundaryRevision.current,
+    enabled: view === 'chat' && draftReady && !navigating && surfaceMode.current !== 'public',
+    referenceFocus: currentComposerFollowup?.studyInteraction?.kind === 'reference' ? currentComposerFollowup.studyInteraction.focus : undefined,
+    latestAssistantMessageId: messages.filter(message => message.role === 'assistant').at(-1)?.id,
+    onRelease: element => {
+      if (composerHost.parentElement === element && composerHome?.isConnected) moveComposer(composerHome, true);
+    },
+    onActivate: requestComposerMove,
+  });
+  const studyDockRef = useRef(composerDock.target); studyDockRef.current = composerDock.target;
+  function moveComposer(parent: HTMLElement, releasing = false) {
+    if (composerHost.parentElement === parent || !parent.isConnected) return;
+    if (composing.current && !releasing) return;
+    const from = composerMoveRequested.current && !composing.current && !prefersQuietMotion()
+      ? composerMoveOrigin.current || composerHost.getBoundingClientRect() : undefined;
+    const editing = inputRef.current, focused = document.activeElement === editing;
+    const selection = editing ? [editing.selectionStart, editing.selectionEnd, editing.selectionDirection] as const : undefined;
+    const atomicParent = parent as HTMLElement & { moveBefore?: (node: Node, child: Node | null) => void };
+    if (composerHost.isConnected && atomicParent.moveBefore) atomicParent.moveBefore(composerHost, null);
+    else {
+      if (composing.current) return;
+      parent.appendChild(composerHost);
+      if (focused && editing && selection) {
+        editing.focus({ preventScroll: true });
+        editing.setSelectionRange(...selection);
+      }
+    }
+    composerMoveRequested.current = false;
+    composerMoveOrigin.current = undefined;
+    composerMoveAnimation.current?.cancel();
+    const to = composerHost.getBoundingClientRect();
+    if (from?.width && from.height && to.width && to.height && composerHost.animate) {
+      const animation = composerHost.animate([
+        { transformOrigin: 'top left', transform: `translate(${from.x - to.x}px, ${from.y - to.y}px) scale(${from.width / to.width}, ${from.height / to.height})`, opacity: .92 },
+        { transformOrigin: 'top left', transform: 'none', opacity: 1 },
+      ], { duration: 280, easing: 'cubic-bezier(.2,.7,.25,1)' });
+      composerMoveAnimation.current = animation;
+      animation.onfinish = () => { if (composerMoveAnimation.current === animation) composerMoveAnimation.current = undefined; };
+    }
+  }
+  function placeComposer() {
+    const parent = composerDock.target?.element || composerHome;
+    if (parent) moveComposer(parent);
+  }
+  function revealPaperComposer() {
+    const viewport = scrollRef.current;
+    if (!studyDockRef.current || !viewport?.contains(composerHost)) return;
+    const writer = composerHost.getBoundingClientRect(), visible = viewport.getBoundingClientRect();
+    const shift = writer.bottom > visible.bottom - 16 ? writer.bottom - visible.bottom + 16
+      : writer.top < visible.top + 16 ? writer.top - visible.top - 16 : 0;
+    if (shift) viewport.scrollTo({ top: viewport.scrollTop + shift, behavior: prefersQuietMotion() ? 'instant' : 'smooth' });
+  }
+  useLayoutEffect(placeComposer, [composerHome, composerHost, composerDock.target, view, draftReady, navigating]);
   const readingAnchor = useRef<{ element: HTMLElement; offset: number } | undefined>(undefined);
   function rememberReadingPosition() {
     const viewport = scrollRef.current;
@@ -198,7 +329,81 @@ export function App() {
   const hasScene = messages.some(message => message.role === 'assistant' && !!message.views?.length);
   const atWindow = view === 'chat' && companion.presence === 'window' && (empty || (!focusChat && !hasScene));
   const previousConversation = state?.conversations.find(conversation => conversation.id !== sessionId);
-  function useSuggestion(text: string) {
+  function usePresentationFollowup(request: PresentationFollowup, sourceSessionId: string | undefined, messageId: string, boundary: string) {
+    if (!draftReady || navigationPending.current || surfaceMode.current === 'public'
+      || sourceSessionId !== sessionRef.current || boundary !== boundaryRevision.current) return;
+    if (request.focusOnly) {
+      if (studyDockRef.current) return;
+      const latestAssistant = messages.filter(message => message.role === 'assistant').at(-1);
+      const key = automaticFollowupKey(request, messageId);
+      if (messageId !== latestAssistant?.id || composerFollowupRef.current && !composerFollowupRef.current.focusOnly
+        || sceneSelectionRef.current || key && key === dismissedFollowup.current) return;
+      if (key && composerFollowupRef.current?.messageId === messageId
+        && automaticFollowupKey(composerFollowupRef.current, messageId) === key) return;
+    }
+    let insertedText = request.text && draftRef.current.text.length === 0 && request.text.length <= LIMITS.draftText ? request.text : undefined;
+    const explicitRehearsalRequest = request.rehearsalInteraction && !['utterance', 'reference'].includes(request.rehearsalInteraction.kind);
+    const explicitNoteRequest = request.noteReference?.intent === 'continue_reading';
+    if (request.text && (request.studyInteraction?.kind === 'request' || explicitRehearsalRequest || explicitNoteRequest) && draftRef.current.text.length > 0) {
+      const original = draftRef.current.text;
+      const combined = original.endsWith(request.text) ? original : original + '\n\n' + request.text;
+      if (combined.length > LIMITS.draftText) {
+        notify('原稿已保留，这次想怎么继续还没有添进输入。可以先删减一点，再选择。');
+        return;
+      }
+      insertedText = combined;
+    }
+    const next: ComposerFollowup = { ...request, token: ++followupSequence.current,
+      sessionId: sourceSessionId, messageId, boundary, ...(insertedText !== undefined ? { insertedText } : {}) };
+    composerFollowupRef.current = next;
+    setComposerFollowup(next);
+    if (!request.studyInteraction && studyDockRef.current) { requestComposerMove(); composerDock.returnToChat(); }
+    if (request.studyInteraction || request.companionReference || request.curiosityReference || request.letterReference || request.rehearsalInteraction || request.noteReference) clearSceneSelection();
+    if (request.focusOnly) {
+      if (request.curiosityReference) {
+        const key = `${sourceSessionId}/${messageId}/${request.curiosityReference.id}`;
+        if (!readingStarts.current.has(key)) {
+          readingStarts.current.add(key);
+          if (followRef.current) {
+            followRef.current = false;
+            const gesture = readingGesture.current, selectedNavigation = navigation.current;
+            const ownerId = request.curiosityReference.id;
+            requestAnimationFrame(() => {
+              const viewport = scrollRef.current;
+              if (!viewport || gesture !== readingGesture.current || selectedNavigation !== navigation.current
+                || sourceSessionId !== sessionRef.current || boundary !== boundaryRevision.current
+                || composerFollowupRef.current?.token !== next.token) return;
+              const message = [...viewport.querySelectorAll<HTMLElement>('[data-message-id]')].find(node => node.dataset.messageId === messageId);
+              const paper = [...(message?.querySelectorAll<HTMLElement>('[data-curiosity-id]') || [])].find(node => node.dataset.curiosityId === ownerId);
+              const start = paper?.querySelector<HTMLElement>('.curiosity-opening') || paper?.querySelector<HTMLElement>('.curiosity-heading') || paper;
+              if (start) viewport.scrollTo({ top: viewport.scrollTop + start.getBoundingClientRect().top - viewport.getBoundingClientRect().top - 14,
+                behavior: prefersQuietMotion() ? 'instant' : 'smooth' });
+            });
+          }
+        }
+      }
+      return;
+    }
+    if (insertedText !== undefined) replaceDraft({ ...draftRef.current, text: insertedText });
+    setView('chat');
+    setReadingPane('chat');
+    requestAnimationFrame(() => {
+      inputRef.current?.focus({ preventScroll: true });
+      if (request.studyInteraction) revealPaperComposer();
+    });
+  }
+  async function stopReply() {
+    // An explicit stop also withdraws a supplement still waiting for the old
+    // response to finish stopping. The user's draft and focus stay in place.
+    sendSequence.current++;
+    await attempt(() => api.stop());
+  }
+  function useSuggestion(text: string, context?: LetterFocusContext) {
+    if (context) {
+      usePresentationFollowup({ text, ...context }, sessionRef.current,
+        messages.filter(message => message.role === 'assistant').at(-1)?.id || `letter:${context.letterReference.opportunityId}`, boundaryRevision.current);
+      return;
+    }
     setView('chat');
     if (draftRef.current.text.trim()) {
       notify('输入框里还有草稿，已为你保留。可以接着补充。');
@@ -211,6 +416,7 @@ export function App() {
   function notify(message: string) {
     setToast(message);
   }
+  function isPublicSurface() { return surfaceMode.current === 'public'; }
   async function attempt<T>(fn: () => Promise<T>): Promise<T | undefined> {
     try {
       return await fn();
@@ -241,7 +447,7 @@ export function App() {
       setMemoryNotice(null);
       setToast('');
       setSharedMapContext(undefined);
-      setSceneSelection(undefined);setSceneSelectionLabel('');
+      clearSceneSelection(); clearFollowup();
       setMapSheet(null);
       setPreviewImage(undefined);
       setPanel(null);
@@ -253,13 +459,14 @@ export function App() {
       return;
     }
     surfaceMode.current = 'private';
-    const revision = `${next.privacyEpoch}:${next.policyRevision}`;
+    const revision = `${next.privacyEpoch}:${next.policyRevision}:${next.sourceBoundary ?? 0}`;
     if (boundaryRevision.current && boundaryRevision.current.split(':')[0] !== String(next.privacyEpoch)) {
       settingsDraft.current = {};
       setMemoryWorkspace(emptyMemoryWorkspace());
       setMatterInteractions({});
     }
     if (boundaryRevision.current && revision !== boundaryRevision.current && sessionRef.current) {
+      clearSceneSelection(); clearFollowup();
       const selected = sessionRef.current;
       void api
         .messages(selected)
@@ -476,13 +683,13 @@ export function App() {
     resize();
     window.addEventListener('resize', resize);
     return () => window.removeEventListener('resize', resize);
-  }, [input, view, readingPane]);
+  }, [input, attachment, view, readingPane, empty, composerDock.target?.key]);
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
       if (surfaceMode.current === 'public') return;
       if (mapSheet) return;
       if (document.querySelector('dialog[open]')) return;
-      if (e.isComposing || e.keyCode === 229) return;
+      if (composing.current || e.isComposing || e.keyCode === 229) return;
       if ((e.ctrlKey || e.metaKey) && e.key === 'k' && (!panel || panel === 'history')) {
         e.preventDefault();
         setPanel((p) => (p === 'history' ? null : 'history'));
@@ -500,13 +707,13 @@ export function App() {
         setView('chat');
         return;
       }
-      if (e.key === 'Escape' && busy && !panel) void api.stop();
+      if (e.key === 'Escape' && busy && !panel) void stopReply();
     };
     window.addEventListener('keydown', key);
     return () => window.removeEventListener('keydown', key);
   }, [busy, panel, attachmentMenu, mapSheet, view]);
   async function newChat() {
-    if (busy || navigationPending.current) return;
+    if (busy || sendPending.current || navigationPending.current) return;
     navigationPending.current = true;
     setNavigating(true);
     const token = ++navigation.current;
@@ -538,7 +745,7 @@ export function App() {
     }
   }
   async function openConversation(id: string, destination?: Extract<LocalSearchLocator, { kind: 'conversation' }>) {
-    if (busy) {
+    if (busy || sendPending.current) {
       notify('先停止当前回复，再打开另一段对话。');
       return;
     }
@@ -613,35 +820,116 @@ export function App() {
     retryControls?: TurnControls,
   ) {
     const text = value.trim();
-    if (!text || busy || navigationPending.current || !draftReady) return;
+    if (!text || composing.current || sendPending.current || (!consumeDraft && busy) || navigationPending.current || !draftReady
+      || surfaceMode.current === 'public') return;
+    sendPending.current = true;
+    const sequence = ++sendSequence.current;
     const revision = draftRevision.current,
-      previousKey = draftKey.current;
-    const file = consumeDraft ? draftRef.current.attachment : null,
+      previousKey = draftKey.current,
+      selectedSessionId = sessionRef.current,
+      selectedBoundary = boundaryRevision.current,
+      selectedNavigation = navigation.current;
+    const selectedControls = consumeDraft ? turnControlsRef.current : retryControls;
+    const controls = selectedControls ? structuredClone(selectedControls) : undefined;
+    const selectedAttachment = consumeDraft ? draftRef.current.attachment : null;
+    const file = selectedAttachment ? structuredClone(selectedAttachment) : null,
       image = file?.kind === 'image' ? file : retryImage;
+    const selectedScene = consumeDraft ? sceneSelectionRef.current : undefined;
+    const selectedFollowup = consumeDraft ? composerFollowupRef.current : undefined;
+    const validFollowup = selectedFollowup && selectedFollowup.sessionId === selectedSessionId && selectedFollowup.boundary === selectedBoundary
+      ? selectedFollowup : undefined;
+    const selectedStudyDock = consumeDraft && !validFollowup && !selectedScene ? studyDockRef.current : undefined;
+    const studyInteraction: StudyInteraction | undefined = validFollowup?.studyInteraction
+      ? validFollowup.studyInteraction.kind !== 'request' && validFollowup.studyInteraction.kind !== 'attempt'
+        || validFollowup.insertedText?.trim() === text
+        ? validFollowup.studyInteraction
+        : validFollowup.insertedText !== undefined && validFollowup.studyInteraction.kind === 'attempt'
+          ? { ...validFollowup.studyInteraction, text }
+          : { kind: 'reference', focus: validFollowup.studyInteraction.focus }
+      : selectedStudyDock ? { kind: 'reference', focus: selectedStudyDock.focus } : undefined;
+    const rehearsalInteraction: RehearsalInteraction | undefined = validFollowup?.rehearsalInteraction
+      ? ['utterance', 'reference'].includes(validFollowup.rehearsalInteraction.kind) || validFollowup.insertedText?.trim() === text
+        ? validFollowup.rehearsalInteraction : { kind: 'reference', ref: validFollowup.rehearsalInteraction.ref }
+      : undefined;
+    const noteReference = validFollowup?.noteReference && (validFollowup.noteReference.intent !== 'continue_reading'
+      || validFollowup.insertedText?.trim() === text) ? validFollowup.noteReference : undefined;
     const content =
       text + (file?.kind === 'text' ? `\n\n[用户附上的文字资料：${file.name}]\n${file.text}` : '');
+    let studyAddressUnavailable = false;
+    const stillCurrent = () => sequence === sendSequence.current && selectedNavigation === navigation.current
+      && selectedSessionId === sessionRef.current && selectedBoundary === boundaryRevision.current && !isPublicSurface()
+      && (!consumeDraft || selectedControls === turnControlsRef.current && selectedScene === sceneSelectionRef.current
+        && selectedFollowup?.token === composerFollowupRef.current?.token
+        && (!selectedStudyDock || studyAddressUnavailable || selectedStudyDock.key === studyDockRef.current?.key));
     setStarting(true);
     setToast('');
     setMemoryNotice(null);
     setAttachmentMenu(false);
     followRef.current = true;
     try {
-      const controls = consumeDraft ? turnControlsRef.current : retryControls;
-      const result = await api.send({ sessionId, content, controls, ...(consumeDraft&&sceneSelection?{selection:sceneSelection}:{}), ...(image ? { image } : {}) });
+      if (consumeDraft && (busy || activeRun.current)) await api.stop();
+      if (!stillCurrent()) return;
+      if (studyInteraction && selectedSessionId) {
+        try {
+          const messageId = selectedFollowup?.messageId || selectedStudyDock?.messageId;
+          const originalStudy = messageId ? messages.find(message => message.id === messageId)?.scenes?.find(scene =>
+            (scene.kind === 'study' || scene.kind === 'study_reference') && scene.owner.id === studyInteraction.focus.studyId) : undefined;
+          const sourceRevision = originalStudy && (originalStudy.kind === 'study' || originalStudy.kind === 'study_reference')
+            ? originalStudy.owner.revision : studyInteraction.focus.studyRevision;
+          const current = await api.studyProject({ sessionId: selectedSessionId,
+            ...(messageId ? { messageId } : {}),
+            studyId: studyInteraction.focus.studyId, studyRevision: sourceRevision,
+            focus: studyInteraction.focus.target, historyLimit: 8 });
+          if (current.owner.revision !== studyInteraction.focus.studyRevision) {
+            if (!stillCurrent()) return;
+            await composerDock.refreshStudy(studyInteraction.focus.studyId);
+            if (selectedFollowup && selectedFollowup.token === composerFollowupRef.current?.token
+              && selectedNavigation === navigation.current && selectedBoundary === boundaryRevision.current) {
+              usePresentationFollowup({ text: '', focusLabel: '更新后的这一页', studyInteraction: { kind: 'reference', focus: {
+                sceneId: current.id, sceneRevision: current.revision, studyId: current.owner.id,
+                studyRevision: current.owner.revision, target: current.focus,
+              } } }, selectedSessionId, selectedFollowup.messageId, selectedBoundary);
+            }
+            notify('这一页已经有了新进展，草稿还在。先看看更新后的纸，再决定怎么继续。');
+            return;
+          }
+        } catch (error) {
+          if (!stillCurrent()) return;
+          studyAddressUnavailable = true;
+          await composerDock.refreshStudy(studyInteraction.focus.studyId);
+          notify(errorText(error));
+          // The formal compiler can mark the old address unavailable while
+          // still hearing this new user message. No cached paper body enters it.
+        }
+      }
+      if (!stillCurrent()) return;
+      const result = await api.send({ sessionId: selectedSessionId, content, controls,
+        ...(selectedScene ? { selection: selectedScene } : {}), ...(studyInteraction ? { studyInteraction } : {}),
+        ...(validFollowup?.companionReference ? { companionReference: validFollowup.companionReference } : {}),
+        ...(validFollowup?.curiosityReference ? { curiosityReference: validFollowup.curiosityReference } : {}),
+        ...(validFollowup?.letterReference ? { letterReference: validFollowup.letterReference } : {}),
+        ...(noteReference ? { noteReference } : {}),
+        ...(rehearsalInteraction ? { rehearsalInteraction } : {}),
+        ...(file?.kind === 'text' && file.resource ? { material: file.resource } : {}), ...(image ? { image } : {}) });
+      if (isPublicSurface() || selectedNavigation !== navigation.current) return;
       sessionRef.current = result.sessionId;
       setSessionId(result.sessionId);
       draftKey.current = result.sessionId;
       if (consumeDraft && revision === draftRevision.current) replaceDraft({ text: '', attachment: null });
-      else replaceDraft(draftRef.current);
+      else if (consumeDraft) replaceDraft({ ...draftRef.current,
+        attachment: draftRef.current.attachment === selectedAttachment ? null : draftRef.current.attachment });
       if (previousKey === 'new')
         void attempt(() => api.saveDraft({ id: 'new', draft: { text: '', attachment: null } }));
-      if (consumeDraft) {
+      if (consumeDraft && selectedControls === turnControlsRef.current) {
         turnControlsRef.current = {};
         setTurnControls({});
       }
+      if (consumeDraft && composerFollowupRef.current?.token === selectedFollowup?.token) clearFollowup();
+      if (consumeDraft && sceneSelectionRef.current === selectedScene) clearSceneSelection();
     } catch (e) {
       notify(errorText(e));
     } finally {
+      sendPending.current = false;
       setStarting(false);
       inputRef.current?.focus();
     }
@@ -735,9 +1023,60 @@ export function App() {
     .reverse()
     .find((message) => message.scopeSummary?.retentionScope === 'conversation')?.scopeSummary;
   const temporaryConversation = conversationRetention?.retention === 'session_only';
+  const memoryHint = memoryNotice && (
+    <div className="memory-notice" role="status">
+      <span>
+        {(memoryNotice as Memory & { status?: string }).status === 'candidate' ? '你愿意让我记住吗：' : '记住了：'}
+        {memoryNotice.text}
+      </span>
+      <button
+        onClick={() =>
+          void attempt(async () => {
+            updateState(await api.memory({ action: 'delete', id: memoryNotice.id }));
+            setMemoryNotice(null);
+          })
+        }
+      >
+        撤销
+      </button>
+      <IconButton label="收起记忆提示" onClick={() => setMemoryNotice(null)}>
+        <X size={13} />
+      </IconButton>
+    </div>
+  );
+  const planningTrial = (() => {
+    if (sceneSelection?.kind !== 'time_block' || !sceneSelection.planningTrial) return undefined;
+    const selection = sceneSelection;
+    const scene = messages.flatMap(message => message.scenes || []).find(scene =>
+      scene.id === selection.sceneId && scene.revision === selection.sceneRevision);
+    if (scene?.kind !== 'planning') return undefined;
+    const block = scene.blocks.find(block => block.id === selection.blockId);
+    const range = block?.originalRange || block;
+    if (!block || !range?.end) return undefined;
+    const condition = selection.planningTrial!;
+    const value = 'localTime' in condition ? condition.localTime : new Date(condition.proposedStart).toLocaleTimeString('en-GB',
+      { timeZone: scene.window.timeZone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+    const minutes = (Date.parse(range.end) - Date.parse(range.start)) / 60000;
+    return { label: block.label, value, detail: `仍${minutes}分钟`,
+      onChange: (localTime: string) => { void selectScene({ ...selection, planningTrial: { localTime } }); },
+      onCancelTrial: () => { const original = { ...selection }; delete original.planningTrial; void selectScene(original); } };
+  })();
   const composer = (
-    <div className="composer-area">
-      {sceneSelection&&<div className="shared-map-context scene-reference" role="status"><span>{sceneSelectionLabel}</span><button type="button" aria-label="取消当前界面引用" onClick={()=>{sceneSelectionRequest.current++;setSceneSelection(undefined);setSceneSelectionLabel('');}}><X size={13}/></button></div>}
+    <div className={`composer-area${composerDock.target ? ' is-study-writing' : ''}`}>
+      {composerDock.target && memoryHint}
+      {composerDock.target && <div className="study-composer-heading">
+        <button type="button" className="text-button" onClick={() => {
+          requestComposerMove();
+          composerDock.returnToChat(); requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
+        }}>回到聊天</button></div>}
+      {sceneSelection && <FocusContextChip label={sceneSelectionLabel} trial={planningTrial} onClear={clearSceneSelection} />}
+      {composerFollowup && <FocusContextChip label={composerFollowup.focusLabel || (composerFollowup.studyInteraction ? '接着这一页聊'
+        : composerFollowup.companionReference ? '从刚才停下的地方接着聊'
+          : composerFollowup.curiosityReference?.focus ? '就刚才指的这一句聊聊'
+            : composerFollowup.curiosityReference ? '接着这个小发现'
+              : composerFollowup.rehearsalInteraction ? '接着刚才这一段试说'
+                : composerFollowup.noteReference ? '接着这页笔记聊' : '接着刚才这段聊')}
+        onClear={() => clearFollowup(true)} />}
       {sharedMapContext && (
         <div className="shared-map-context" role="status">
           <span>本次起点：{sharedMapContext.label}</span>
@@ -756,7 +1095,7 @@ export function App() {
         </div>
       )}
       <form
-        className={`composer ${busy ? 'is-busy' : ''}`}
+        className={`composer ${busy ? 'is-busy' : ''} ${!empty ? 'is-conversation' : ''} ${attachment ? 'has-attachment' : ''}`}
         onSubmit={(e) => {
           e.preventDefault();
           void send();
@@ -780,21 +1119,23 @@ export function App() {
         <textarea
           ref={inputRef}
           aria-label="和在场说说"
-          placeholder={busy ? '想到了什么，也可以先写下来…' : empty ? '随便说一句，也可以。' : '接着说…'}
+          placeholder={busy ? '想到了什么，也可以先写下来…' : composerDock.target ? '我接下来想到的是…' : empty ? '随便说一句，也可以。' : '接着说…'}
           value={input}
           rows={1}
           maxLength={LIMITS.draftText}
           disabled={!draftReady || navigating}
+          onCompositionStart={() => { composing.current = true; }}
+          onCompositionEnd={() => { composing.current = false; requestAnimationFrame(placeComposer); }}
           onChange={(e) => updateDraft({ text: e.target.value })}
           onKeyDown={(e) => {
             if (
               e.key === 'Enter' &&
               !e.shiftKey &&
-              !e.nativeEvent.isComposing &&
+              !composing.current && !e.nativeEvent.isComposing &&
               e.nativeEvent.keyCode !== 229
             ) {
               e.preventDefault();
-              if (!busy) void send();
+              void send();
             }
           }}
         />
@@ -906,27 +1247,8 @@ export function App() {
             </button>
           </div>
           <div className="composer-right">
-            {busy ? (
-              <button
-                className="send-button stop"
-                type="button"
-                title="停止回复 · Esc"
-                aria-label="停止回复"
-                onClick={() => void attempt(() => api.stop())}
-              >
-                <Square size={13} fill="currentColor" />
-              </button>
-            ) : (
-              <button
-                className="send-button"
-                type="submit"
-                aria-label="发送"
-                title="发送 · Enter"
-                disabled={!input.trim() || !draftReady || navigating}
-              >
-                <ArrowUp size={22} />
-              </button>
-            )}
+            <ComposerActions busy={busy} submitting={starting || !draftReady || navigating}
+              hasDraft={!!input.trim()} onStop={() => void stopReply()} />
           </div>
         </div>
       </form>
@@ -977,6 +1299,14 @@ export function App() {
     </div>
   );
 
+  const latestRehearsalRevisions = useMemo(() => {
+    const latest = new Map<string, number>();
+    for (const message of messages) for (const scene of message.scenes || []) {
+      if (scene.kind === 'rehearsal' || scene.kind === 'rehearsal_reference')
+        latest.set(scene.id, Math.max(latest.get(scene.id) || 0, scene.revision));
+    }
+    return latest;
+  }, [messages]);
   const renderedMessages = useMemo(
     () =>
       messages.map((m, index) => (
@@ -1005,7 +1335,24 @@ export function App() {
           onOpenMap={(route) => setMapSheet(route)}
           sceneSelection={sceneSelection}
           onSceneSelect={value=>void selectScene(value)}
+          onFollowup={request => usePresentationFollowup(request, m.sessionId, m.id,
+            `${state?.privacyEpoch}:${state?.policyRevision}:${state?.sourceBoundary ?? 0}`)}
+          onOpenDocument={locator => void attempt(async () => {
+            const boundary = boundaryRevision.current, selectedSession = sessionRef.current;
+            const resolved = await api.searchResolve(locator);
+            if (boundary !== boundaryRevision.current || selectedSession !== sessionRef.current || resolved.kind !== 'material') return;
+            await openSearchResult(resolved);
+          })}
+          onOpenNote={input => void attempt(async () => {
+            const boundary = boundaryRevision.current, selectedSession = sessionRef.current;
+            if (input.sessionId !== selectedSession || input.messageId !== m.id) return;
+            const page = await api.noteProject(input);
+            if (boundary !== boundaryRevision.current || selectedSession !== sessionRef.current) return;
+            await openSearchResult({ kind: 'note', noteId: page.proof.id, revision: page.proof.revision,
+              field: 'body', offset: page.proof.start, end: page.proof.end });
+          })}
           currentSceneMessages={new Map(messages.flatMap(message=>(message.scenes||[]).map(scene=>[scene.id,message.id] as const)))}
+          latestRehearsalRevisions={latestRehearsalRevisions}
           sceneInterruptionKey={messages.filter(message=>message.role==='user').at(-1)?.id}
           onContinueScene={()=>{setView('chat');requestAnimationFrame(()=>inputRef.current?.focus());}}
           onPreviewImage={setPreviewImage}
@@ -1023,37 +1370,21 @@ export function App() {
             if (user) void send(user.content, false, user.image, user.requestControls);
           }}
           busy={busy}
-          boundary={`${state?.privacyEpoch}:${state?.policyRevision}`}
+          boundary={`${state?.privacyEpoch}:${state?.policyRevision}:${state?.sourceBoundary ?? 0}`}
         />
         {(m.helpRefs || []).map(ref => {
           const material = state?.preparations?.find(item => item.id === ref.id && item.revision === ref.revision && item.helpRecordId === ref.helpRecordId);
-          return material ? <PreparationShelf key={`${ref.id}:${ref.revision}`} inline items={[material]} timeZone={state?.settings.timeZone} onState={updateState} onContinue={useSuggestion} /> : null;
+          const onContinue = (text: string, context?: LetterFocusContext) => context ? usePresentationFollowup({ text, ...context }, m.sessionId, m.id,
+            `${state?.privacyEpoch}:${state?.policyRevision}:${state?.sourceBoundary ?? 0}`) : useSuggestion(text);
+          return material ? <PreparationShelf key={`${ref.id}:${ref.revision}`} inline items={[material]} timeZone={state?.settings.timeZone} onState={updateState}
+            onContinue={onContinue} /> : ref.kind === 'reflective_letter' ? <LetterHistoryCard key={`${ref.id}:${ref.revision}`}
+              reference={ref} sessionId={m.sessionId} messageId={m.id}
+              boundaryKey={`${state?.privacyEpoch}:${state?.policyRevision}:${state?.sourceBoundary ?? 0}`}
+              onContinue={onContinue} /> : null;
         })}
         </Fragment>
       )),
-    [messages, state?.agenda, state?.matters, state?.preparations, state?.settings.timeZone, state?.privacyEpoch, state?.policyRevision, notesUnsaved, busy,sceneSelection],
-  );
-
-  const memoryHint = memoryNotice && (
-    <div className="memory-notice" role="status">
-      <span>
-        {(memoryNotice as Memory & { status?: string }).status === 'candidate' ? '你愿意让我记住吗：' : '记住了：'}
-        {memoryNotice.text}
-      </span>
-      <button
-        onClick={() =>
-          void attempt(async () => {
-            updateState(await api.memory({ action: 'delete', id: memoryNotice.id }));
-            setMemoryNotice(null);
-          })
-        }
-      >
-        撤销
-      </button>
-      <IconButton label="收起记忆提示" onClick={() => setMemoryNotice(null)}>
-        <X size={13} />
-      </IconButton>
-    </div>
+    [messages, state?.agenda, state?.matters, state?.preparations, state?.settings.timeZone, state?.privacyEpoch, state?.policyRevision, state?.sourceBoundary, notesUnsaved, draftReady, busy,sceneSelection,latestRehearsalRevisions],
   );
 
   if (state?.presentation?.mode === 'public')
@@ -1068,7 +1399,13 @@ export function App() {
     />
   );
   return (
-    <div className={`app-shell ${atWindow ? 'has-window' : ''}`}>
+    <ConversationTextFocusContext.Provider value={textFocus}>
+    <ConversationComposerDockContext.Provider value={composerDock.value}>
+    <div className={`app-shell ${atWindow ? 'has-window' : ''}`}
+      onWheelCapture={() => { readingGesture.current++; }}
+      onTouchStartCapture={() => { readingGesture.current++; }}
+      onPointerDownCapture={() => { readingGesture.current++; }}
+      onKeyDownCapture={() => { readingGesture.current++; }}>
       <div className="app-main">
         {view === 'chat' && <CompanionScene quiet={!atWindow} />}
         <header className="titlebar">
@@ -1125,7 +1462,7 @@ export function App() {
                   正在回到这里…
                 </p>
               )}
-              {composer}
+              <div className="composer-home" ref={setComposerHome} />
               <div className="welcome-next" aria-label="从这里继续">
                 {previousConversation ? <button type="button" onClick={() => void openConversation(previousConversation.id)} disabled={busy || navigating}><History size={18} /><span>接着上次<small>{previousConversation.title}</small></span><ArrowUpRight size={14} /></button> : <button type="button" onClick={() => setView('agenda')}><CalendarDays size={18} /><span>看看今天</span><ArrowUpRight size={14} /></button>}
                 <button type="button" onClick={() => setResting(true)}><Coffee size={18} /><span>先坐一会儿</span></button>
@@ -1170,8 +1507,8 @@ export function App() {
                 </div>
               </div>
               <div className="bottom-composer">
-                {memoryHint}
-                {composer}
+                {!composerDock.target && memoryHint}
+                <div className="composer-home" ref={setComposerHome} />
               </div>
             </>
           )}
@@ -1366,6 +1703,7 @@ export function App() {
           value={turnControls}
           onClose={() => setScopeOpen(false)}
           onChange={(value) => {
+            clearFollowup(); clearSceneSelection();
             turnControlsRef.current = value;
             setTurnControls(value);
             if (value.retention === 'session_only')
@@ -1380,7 +1718,10 @@ export function App() {
           }}
         />
       )}
+      {createPortal(composer, composerHost)}
     </div>
+    </ConversationComposerDockContext.Provider>
+    </ConversationTextFocusContext.Provider>
   );
 }
 
@@ -1403,7 +1744,11 @@ function MessageView({
   onPreviewImage,
   sceneSelection,
   onSceneSelect,
+  onFollowup,
+  onOpenDocument,
+  onOpenNote,
   currentSceneMessages,
+  latestRehearsalRevisions,
   sceneInterruptionKey,
   onContinueScene,
   busy,
@@ -1427,7 +1772,11 @@ function MessageView({
   onPreviewImage: (image: NonNullable<Message['image']>) => void;
   sceneSelection?:SemanticSelection;
   onSceneSelect:(selection:SemanticSelection)=>void;
+  onFollowup: (request: PresentationFollowup) => void;
+  onOpenDocument: (locator: Extract<LocalSearchLocator, { kind: 'material' }>) => void;
+  onOpenNote: (input: NoteNativeInput) => void;
   currentSceneMessages:Map<string,string>;
+  latestRehearsalRevisions: ReadonlyMap<string, number>;
   sceneInterruptionKey?:string;
   onContinueScene:()=>void;
   busy: boolean;
@@ -1475,7 +1824,12 @@ function MessageView({
       setSelectedPassage('');
       return;
     }
-    const fragment = selection.getRangeAt(0).cloneContents();
+    const range = selection.getRangeAt(0);
+    if ([...prose.current.querySelectorAll('.local-text-focus, .readable-focus')].some(node => range.intersectsNode(node))) {
+      setSelectedPassage('');
+      return;
+    }
+    const fragment = range.cloneContents();
     const formulas = fragment.querySelectorAll('.katex');
     let text = selection.toString().trim();
     if (formulas.length) {
@@ -1599,11 +1953,25 @@ function MessageView({
   const paragraphBreak=m.views?.length?response.search(/\n\s*\n/):-1;
   const lead=paragraphBreak>=0?response.slice(0,paragraphBreak):response;
   const followup=paragraphBreak>=0?response.slice(paragraphBreak).trim():'';
+  const manuscriptView = m.views?.find(view => view.sceneRefs.some(ref => m.scenes?.some(scene =>
+    scene.kind === 'discussion' && scene.id === ref.id && scene.revision === ref.revision)));
+  const manuscriptSceneId = manuscriptView?.sceneRefs.find(ref => m.scenes?.some(scene =>
+    scene.kind === 'discussion' && scene.id === ref.id && scene.revision === ref.revision))?.id;
   const sceneViews=m.views?.map(view=>(
     <AssistantPresentation
       key={view.id}
       view={view}
       scenes={m.scenes||[]}
+      sessionId={m.sessionId}
+      messageId={m.id}
+      boundaryKey={boundary}
+      timeZone={timeZone}
+      onFollowup={onFollowup}
+      onOpenDocument={onOpenDocument}
+      onOpenNote={onOpenNote}
+      latestRehearsalRevisions={latestRehearsalRevisions}
+      manuscriptText={view.id === manuscriptView?.id ? followup : undefined}
+      manuscriptSceneId={view.id === manuscriptView?.id ? manuscriptSceneId : undefined}
       selection={sceneSelection}
       onSelect={onSceneSelect}
       isStreaming={m.status==='running'}
@@ -1625,7 +1993,7 @@ function MessageView({
       <div ref={prose} onMouseUp={selectionChanged} onKeyUp={selectionChanged}>
         {!!lead&&<div className="markdown"><RichText text={lead}/></div>}
         {sceneViews}
-        {!!followup&&<div className="markdown"><RichText text={followup}/></div>}
+        {!!followup&&!manuscriptView&&<div className="markdown"><RichText text={followup}/></div>}
       </div>
       {!!selectedPassage && (
         <button
@@ -1711,9 +2079,9 @@ function MessageView({
       ))}
       {m.status !== 'running' && (
         <div className="message-actions">
-          <IconButton label="复制回复" onClick={() => onCopyText(m.responseText ?? m.content)}>
+          {!!response.trim() && <IconButton label="复制回复" onClick={() => onCopyText(response)}>
             <Copy size={14} />
-          </IconButton>
+          </IconButton>}
           {m.status === 'done' && (
             <button className="text-button" onClick={onCorrect} disabled={busy}>
               补充或纠正

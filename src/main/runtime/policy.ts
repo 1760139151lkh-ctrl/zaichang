@@ -6,6 +6,7 @@ import {
   type ScopeHandle,
   type InterpretationProposal,
   type RequestFragment,
+  type EvidenceEvent,
 } from '../../shared/harness';
 import type { KernelRepository } from '../storage/repository';
 import { addDate, dateInZone, resolveLocalTime } from './semantics';
@@ -14,7 +15,13 @@ import { hasCredentials } from './redaction';
 import { localCloudRestriction, type TurnControlProposal } from './turn-controls';
 
 export interface InputControls {
+  companionReference?: import('../../shared/companion-source').CompanionFollowupReference;
+  curiosityReference?: import('../../shared/curiosity-source').CuriosityFollowupReference;
+  letterReference?: import('../../shared/reflective-letter').LetterReference;
+  noteReference?: import('../../shared/note-presentation').NoteReference;
+  rehearsalInteraction?: import('../../shared/relationship-rehearsal').RehearsalInteraction;
   selection?: import('../../shared/scenes').SemanticSelection;
+  studyInteraction?: import('../../shared/study-presentation').StudyInteraction;
   /** The product owner agent keeps responsibility for the complete request. */
   replyToOwner?: boolean;
   controlFallback?: boolean;
@@ -38,6 +45,7 @@ export interface InputControls {
   budget?: Partial<ContextContract['budget']>;
 }
 export interface IngressDecision {
+  sourceContext?: EvidenceEvent['sourceContext'];
   /** Host configuration snapshot; invalidated even by a barrier without an epoch change. */
   ownerProjectionAdmission?: { memoryEnabled: boolean; boundary: number };
   controlFallback?: boolean;
@@ -96,6 +104,8 @@ export class PolicyKernel {
     this.ownerProjectionBoundary++;
     for (const fn of this.listeners) fn();
   }
+  /** Process-local invalidation identity; conveys no source or permission. */
+  get sourceBoundary() { return this.ownerProjectionBoundary; }
   revoked() {
     return this.repo.getMeta<string[]>('revoked', []);
   }
@@ -222,7 +232,10 @@ export class PolicyKernel {
       const contract = ingress.contract, scope = this.require(contract.scope, 'memory:write'), control = ingress.controlProposal;
       return ingress.ownerProjectionAdmission?.memoryEnabled === true && ingress.ownerProjectionAdmission.boundary === this.ownerProjectionBoundary
         && !scope.child && !scope.infer && !ingress.localOnly && !ingress.controlFallback
-        && control?.subject === 'mixed' && control.world === 'real' && !control.uncertain && !control.uncertainControls.length
+        && !!control && (control.subject === 'mixed' && control.world === 'real'
+          || ['relationship_rehearsal', 'shared_creation'].includes(ingress.sourceContext?.kind || '')
+            && ['self', 'mixed'].includes(control.subject) && ['real', 'mixed'].includes(control.world))
+        && !control.uncertain && !control.uncertainControls.length
         && control.retention === 'unchanged' && contract.memoryMode === 'relevant' && contract.retention === 'purpose_scoped'
         && scope.retention === 'purpose_scoped' && contract.audience === 'self' && scope.audience === 'self'
         && contract.subjectId === scope.principalId && scope.subjectId === scope.principalId && contract.worldId === 'real' && scope.worldId === 'real'
@@ -345,7 +358,7 @@ export class PolicyKernel {
     const scope = this.hostScope({
       sources: [...new Set(sources)], currentEventIds: [eventId, ...(attachment ? [attachment.id] : [])],
       subjectId, worldId, audience, retention, purposes: [purpose], grants: restrictedGrants,
-      infer: memoryMode === 'relevant' && retention === 'purpose_scoped' && settings.memoryEnabled && !sourceOnly && control?.subject !== 'mixed' && control?.subject !== 'none' && control?.world !== 'mixed',
+      infer: !controls.rehearsalInteraction && memoryMode === 'relevant' && retention === 'purpose_scoped' && settings.memoryEnabled && !sourceOnly && control?.subject !== 'mixed' && control?.subject !== 'none' && control?.world !== 'mixed',
     });
     const interpretation: InterpretationProposal = { fragments: [], hasListen: false, hasRetrieval: false, explicitLocalWrite: false, directLocalWrite: false };
     const contract: ContextContract = {
@@ -362,6 +375,10 @@ export class PolicyKernel {
       controls.memoryMode !== 'current_sources_only' && !control.uncertainControls.some(c => c.dimension === 'sources')
       ? ['campus:local', 'campus:zju-account', 'local-agenda'].filter(source => (!controls.sources || controls.sources.includes(source)) && !control.sourceExclusions.includes(source) && (!control.sourceAllowlist || control.sourceAllowlist.includes(source))) : [];
     return { text, authoredText, attachment, contract, restriction: false, scenario, localOnly, threadContextAllowed, ownerHistoryAllowed, replyToOwner: controls.replyToOwner, controlFallback: controls.controlFallback, controlProposal: control, priorReleaseArtifacts: controls.priorReleaseArtifacts, releaseBrief: control?.release, priorReleasedDraft: controls.priorReleasedDraft, projectionSources, requiresReadPurpose: control?.subject === 'none' || control?.subject === 'mixed' || control?.world === 'mixed' || !!control?.scopedSourceLimits?.length,
+      ...(controls.rehearsalInteraction ? { sourceContext: { kind: 'relationship_rehearsal' as const, origin: 'user_interface_reference' as const,
+        artifactId: controls.rehearsalInteraction.ref.id, artifactRevision: controls.rehearsalInteraction.ref.revision,
+        matterId: controls.rehearsalInteraction.ref.matterId, activeTurnId: controls.rehearsalInteraction.ref.activeTurnId,
+        inputKind: controls.rehearsalInteraction.kind } } : {}),
       speechActs: [], interpretation, requestFragments: [], corrections: [], ownerProjectionAdmission: { memoryEnabled: settings.memoryEnabled, boundary: this.ownerProjectionBoundary } };
 
   }

@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-18",
+  "tool": "built-in GPT Image",
+  "image": "planning-one-day.png",
+  "prompt": "prompt.txt",
+  "purpose": "Private project design reference: one shared day with genuinely different alternatives, selective changes and continuation through the original conversation.",
+  "reference": "../2026-10-18-shared-discussion/discussion-ab.png",
+  "referenceRole": "Style and branch-to-shared-step composition; not a source of product data or a runtime asset.",
+  "content": "Synthetic planning dialogue, times and activities; not the user's actual calendar, preferences or campus data.",
+  "runtimeUse": false,
+  "publicRedistributionReviewed": false,
+  "revision": {
+    "date": "2026-10-19",
+    "image": "planning-one-day-v2.png",
+    "prompt": "prompt-v2.txt",
+    "parent": "planning-one-day.png",
+    "changes": "Proposal language does not imply a calendar write; open paper is explicitly left to the user."
+  },
+  "implementationStatus": "The original comparison's actual initial, moving and settled renderings were inspected. Work really moved, but the dinner anchor faded when keyed DOM siblings were reordered; source now keeps a stable sibling order, highlights the extra split segment, removes repeated labels/details and renders narrow support intervals as lighter bands. The first keyboard trial preserved the draft but appended machine-generated prose; that observed design is superseded by a separately typed, editable condition on the existing time-block selection. Its normal host selection result was read back with the original source/object, date, timezone, 90-minute duration and non-executing hypothetical status. The refined rendering, stable-anchor motion, new condition chip/pointer interaction, narrow layout and explicit continuous/split comparison await current visual/runtime evidence. The image is a synthetic design reference, not a product screenshot.",
+  "visualInspection": {
+    "date": "2026-10-19",
+    "projectRelativeScreenshot": ".test-data/life-ui-20261019-0PRbh1/planning-first-current.png",
+    "operator": "embedding_packaging, existing native window on the unique 9337 isolated instance",
+    "imageReviewedBy": "semantic_integration",
+    "movingScreenshot": ".test-data/life-ui-20261019-0PRbh1/planning-switch-b-mid.png",
+    "reverseScreenshot": ".test-data/life-ui-20261019-0PRbh1/planning-switch-a-mid.png",
+    "settledScreenshot": ".test-data/life-ui-20261019-0PRbh1/planning-b-settled.png",
+    "supersededTrialScreenshot": ".test-data/life-ui-20261019-0PRbh1/planning-ghost-draft.png",
+    "hostTrialOutput": ".test-data/life-ui-20261019-0PRbh1/planning-trial-host-observation.json",
+    "scope": "Actual original comparison and normal source-checked host trial output. The original forward switch showed work movement with a fading dinner anchor; the reverse frame showed work fading at its destination, so continuous bidirectional motion was not accepted. The original draft-appending UI was superseded; current visual refinements are pending. No model call or calendar adoption."
+  }
+}

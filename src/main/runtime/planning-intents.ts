@@ -10,6 +10,7 @@ import { calendarPlanFingerprint } from '../actions/planning-draft';
 import { planningIntentSpecSchema, type PlanningIntentSpec, type PlanningHostContext, type PlanningIntentRef, type PlanningAttemptRecord, type PlanningAttemptBasis,
   type PlanningActionLink, type PlanningAdoptionInput, type PlanningManifest } from '../actions/planning-intent-contract';
 import { normalizePlanningIntentSpec, projectPlanningAdoption, materializePlanningIntent } from '../actions/planning-intent-ledger';
+import type { PlanningCampusConstraints } from '../actions/planning-campus';
 
 const source = workSourceRefSchema.safeExtend({ quote: z.string().min(1).max(4000) });
 const common = { source, supports: z.array(source).max(16).optional() };
@@ -253,7 +254,18 @@ export class PlanningIntentService {
       : { status: 'not_checked' as const, reason: '本轮只读意图范围未展开当前日历的采用证明。' };
     return { record, sources, spec: planningIntentSpecSchema.parse(record.data.spec), specDigest: String(record.data.specDigest), adoptionEvidence, meaning };
   }
-  replan(handle: ScopeHandle, raw: unknown, currentItems: Action[]) {
+  async replanWithCampus(handle: ScopeHandle, raw: unknown, signal: AbortSignal) {
+    const args = planningIntentReplanInput.parse(raw), record = this.record(handle, args.id, args.expectedRevision);
+    const spec = planningIntentSpecSchema.parse(record.data.spec);
+    if (record.status !== 'active') throw new HarnessError('planning_intent_inactive', '这份意图目前已搁置或停止；继续前需按当前原话明确恢复。');
+    const currentItems = this.currentCalendar(), adoption = this.adoption(handle, record, currentItems);
+    if ('evidenceCoverage' in adoption || materializePlanningIntent(spec, adoption, { now: this.repo.clock.now() }).status !== 'ready')
+      return this.replan(handle, args, currentItems);
+    const campus = await this.planning.readCampus(this.scope(handle, true), spec.request.from, spec.request.to, signal);
+    signal.throwIfAborted();
+    return this.replan(handle, args, this.currentCalendar(), campus);
+  }
+  replan(handle: ScopeHandle, raw: unknown, currentItems: Action[], campus?: PlanningCampusConstraints | null) {
     this.scope(handle, true);
     const args = planningIntentReplanInput.parse(raw), record = this.record(handle, args.id, args.expectedRevision);
     if (record.status !== 'active') throw new HarnessError('planning_intent_inactive', '这份意图目前已搁置或停止；继续前需按当前原话明确恢复。');
@@ -266,7 +278,7 @@ export class PlanningIntentService {
       reasons: materialized.reasons, requiredRefresh: materialized.requiredRefresh, applied: false, meaning };
     const context: PlanningHostContext = { intent: this.reference(record), allocationBasis: { calendarFingerprint: adoption.calendarFingerprint,
       groupIds: materialized.retained.work.map(anchor => anchor.id) }, retained: materialized.retained, attemptBasis: adoption.attemptBasis };
-    const result = this.planning.prepare(this.scope(handle, true), currentItems, materialized.request, context);
+    const result = this.planning.prepare(this.scope(handle, true), currentItems, materialized.request, context, campus);
     return { ...result, intent, record, sources, planningInput: materialized.request, adoptionEvidence: adoption, applied: false, meaning };
   }
   private currentCalendar(): Action[] { return this.repo.db.prepare('SELECT payload FROM agenda').all().map(row => JSON.parse(String(row.payload)) as Action); }

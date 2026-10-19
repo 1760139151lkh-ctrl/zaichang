@@ -9,6 +9,7 @@ export interface PreparationView {
   helpRecordId?: string;
   sources?: { label: string; at?: string }[];
   scenes?: import('./scenes').SceneSnapshot[];
+  reflectiveLetter?: import('./reflective-letter').ReflectiveLetterView;
 }
 export interface SurfaceView {
   mode: 'private' | 'public';

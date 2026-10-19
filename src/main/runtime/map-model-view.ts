@@ -26,6 +26,14 @@ function projectValue(value: unknown): unknown {
 /** Prepared material may contain the same route snapshot as a map tool. */
 export const projectMapValue = (value: unknown): unknown => projectValue(value);
 
+/** Place lookup delivers semantic facts, not the renderer's entrance/access
+ * path geometry. Keep the one public reference coordinate for weather and
+ * explicit geographic questions; it is never the user's device location. */
+export function projectMapSearchPoint(point: MapPoint): Record<string, unknown> {
+  return { ...projectObject(point), coordinate: [point.coordinate[0], point.coordinate[1]],
+    geometryOmitted: true, coordinateMeaning: '公共地点参考坐标，不是本人定位或到达证明。' };
+}
+
 function endpoint(point: MapPoint | undefined) {
   if (!point) return undefined;
   return {

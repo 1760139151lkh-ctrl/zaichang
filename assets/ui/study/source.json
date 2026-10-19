@@ -1,0 +1,12 @@
+{
+  "asset": "paper-texture.png",
+  "date": "2026-10-19",
+  "tool": "built-in GPT Image",
+  "operation": "Image edit/extraction from the project-generated study-paper design; transparent_background=true",
+  "input": "../../design/generated/2026-10-18-study-paper/study-paper.png",
+  "prompt": "Use case: background-extraction / precise-object-edit\nInput image: the referenced study workspace mockup, serving as the target paper material.\nPrimary request: isolate the original blank warm-white paper material from that image as ONE reusable transparent PNG interface asset. Keep the beautiful delicate cotton fibers, slight natural deckled edges, very subtle thickness and window-light softness of the source sheet. Output ONE tall rectangular blank paper sheet, front-facing and almost orthographic, filling most of a portrait canvas with a small transparent margin on every side. Real alpha background is required.\nRemove every letter, mathematical mark, underline, ruled line, note, character, UI control, window, desk, background, object and cast shadow beyond the immediate fine paper edge. The inside of the sheet must be completely blank and naturally near-white with fine fibers, low contrast, no yellow aging and no stains. Make all four softly irregular paper edges visible; avoid strong perspective, dramatic curls or folds. Keep the silhouette nearly rectangular so it can scale behind real HTML text. No typography or decorative symbols. Do not return the whole screenshot or a collage. This is the paper cutout itself, not a mockup preview; outside the sheet is transparent.",
+  "use": "Runtime alpha paper surface behind genuine question, learner writing and current teaching text. No source content, character, typography or UI pixels are baked into this asset.",
+  "source": "Generated from the user's project design direction; no third-party source image.",
+  "licenseNote": "AI-generated design asset created for this project; no separate third-party license or attribution claim.",
+  "alpha": "RGBA; transparent outside the isolated sheet, personally inspected. Not a screenshot used as an interface."
+}

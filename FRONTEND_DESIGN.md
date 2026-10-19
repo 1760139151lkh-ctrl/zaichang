@@ -1,5 +1,9 @@
 # 前端视觉设计入口
 
+2026-10-19 统一入口：[项目基线](docs/PROJECT_BASELINE.md)、[当前动态场景](docs/CONVERSATION_SCENES.md#companion-experience)、[第七批实际观察](docs/CURRENT_STATUS.md#personal-memory-round7)。下文第四批“暂不验证”保留当时范围；之后已授权必要视觉／交互观察及正常Luna动态呈现。设计图、运行资产、实际画面、动效和模型效果分别记录，不能互相代替。
+
+第四批按[新目标](docs/source-materials/2026-10-18/goal-objective-current-20261018.md)先完成所选后端源码，再用内置GPT Image生成并查看[校园安排与个人日视图A/B](assets/design/generated/2026-10-18-campus-day/manifest.json)，选择A的连续时间线。实现沿既有“今天”接只读课表，不新增记忆工程看板；[对应与取舍](docs/DESIGN_IMAGE_COVERAGE.md)及[未验证状态](docs/CURRENT_STATUS.md#personal-memory-round4)分别记录。用户要求暂不验证，因此没有沿用旧界面观察宣称本批通过。
+
 **主文档：[图片来源对话.md — 完整原始对话](前端视觉创新设计/图片来源对话.md)**
 
 准确的仓库相对路径是 `前端视觉创新设计/图片来源对话.md`。

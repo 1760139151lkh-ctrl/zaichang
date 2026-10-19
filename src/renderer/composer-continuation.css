@@ -1,0 +1,88 @@
+/* The welcome keeps its generous invitation. Once there is a shared page,
+   the same composer becomes a quiet line at its edge and grows with the text. */
+.app-shell .composer.is-conversation {
+  --composer-input-row: 1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 0 10px;
+  padding: 10px 13px;
+  border-radius: 22px;
+}
+.app-shell .composer.is-conversation.has-attachment {
+  --composer-input-row: 2;
+  row-gap: 9px;
+}
+.app-shell .composer.is-conversation > .attachment {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  margin: 0;
+}
+.app-shell .composer.is-conversation textarea {
+  grid-column: 2;
+  grid-row: var(--composer-input-row);
+  min-height: 32px;
+  padding: 3px 4px;
+  line-height: 1.6;
+}
+.app-shell .composer.is-conversation .composer-toolbar {
+  display: contents;
+}
+.app-shell .composer.is-conversation .composer-left {
+  grid-column: 1;
+  grid-row: var(--composer-input-row);
+  gap: 4px;
+  margin: 0;
+  min-height: 34px;
+}
+.app-shell .composer.is-conversation .composer-right {
+  grid-column: 3;
+  grid-row: var(--composer-input-row);
+  gap: 8px;
+}
+.app-shell .composer.is-conversation .composer-context-button:not(.selected) > span,
+.app-shell .composer.is-conversation .composer-context-button:not(.selected) > svg:last-child {
+  display: none;
+}
+.app-shell .composer.is-conversation .composer-context-button {
+  gap: 5px;
+}
+.app-shell .bottom-composer .composer-foot:empty {
+  display: none;
+}
+.conversation-composer-host { width: 100%; }
+.composer-home:empty { display: none; }
+.app-shell .bottom-composer:has(> .composer-home:empty) { display: none; }
+.study-composer-heading {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+.study-composer-heading .text-button { font-size: 12px; }
+.study-composer-slot .composer-area { padding: 0; }
+.app-shell .study-composer-slot .composer {
+  background: rgba(255, 253, 247, .5);
+  border-color: rgba(157, 130, 83, .23);
+  border-radius: 12px;
+  box-shadow: none;
+}
+.app-shell .study-composer-slot .composer textarea {
+  min-height: 62px;
+  font-family: KaiTi, STKaiti, SimSun, serif;
+  font-size: 17px;
+}
+.study-composer-slot .composer-foot { margin-top: 6px; }
+.study-composer-place > .text-button { padding: 8px 0; }
+@media (max-width: 760px) {
+  .app-shell .composer.is-conversation {
+    gap: 0 6px;
+    padding: 9px 10px;
+  }
+  .app-shell .composer.is-conversation .composer-right {
+    gap: 6px;
+  }
+}

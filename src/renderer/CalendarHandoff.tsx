@@ -76,7 +76,7 @@ export function CalendarHandoff({ date, timeZone }: { date: string; timeZone: st
     }}><CalendarArrowUp size={16} />带到日历里<ChevronDown size={13} /></button>
     {open && <section className="calendar-handoff-sheet" role="dialog" aria-modal="false" aria-labelledby={`${id}-title`} id={id}>
       <div className="calendar-handoff-heading"><h2 id={`${id}-title`}>把安排带在身边</h2><button type="button" className="icon-button" aria-label="收起日历导出" disabled={busy} onClick={() => close(true)}><X size={17} /></button></div>
-      <p>选一段日期，放进常用的日历。</p>
+      <p>选一段日期，把自己记下的安排放进常用的日历。</p>
       <form onSubmit={event => void save(event)}>
         <div className="calendar-handoff-dates">
           <label>从<input ref={firstField} type="date" aria-label="日历导出开始日期" value={from} onChange={event => setFrom(event.target.value)} required disabled={busy} /></label>

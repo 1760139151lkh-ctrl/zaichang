@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { randomUUID } from 'node:crypto';
 import type { CampusMapAdapter } from '../mapService';
 import { CAMPUS_ACCOUNT_SOURCE_ID, type ZjuAdapter, type CampusDomain } from '../zjuAdapter';
 import type { DomainService } from '../storage/domains';
@@ -11,10 +12,13 @@ import { expandAgenda, localStamp } from '../actions/calendar';
 import { campusQueryInput, validateCampusQuery, requireCampusQueryScope } from './campus-query';
 import { calendarCommitment, planningPreviewInput, previewCalendarPlan, planningDraftInput } from '../actions/planning';
 import { planningRecoveryInput, type PlanningApplicationService } from '../actions/planning-application';
+import { readCampusPlanningConstraints, campusConstraintSummary } from '../actions/planning-campus';
 import { planningIntentReplanInput, type PlanningIntentService } from '../runtime/planning-intents';
+import { compareCalendarPlans, planningComparisonInput, planningComparisonView } from '../actions/planning-comparison';
 import { weatherInput, weatherOutput, weatherRequest, weatherResult } from './weather';
 import { airQualityInput, airQualityOutput, airQualityRequest, airQualityResult } from './air-quality';
 import { dateInZone, dayBounds } from '../runtime/semantics';
+import { projectMapSearchPoint } from '../runtime/map-model-view';
 
 export interface BuiltinConnections {
   map?: CampusMapAdapter;
@@ -54,8 +58,8 @@ export const campusInput = z
   .object({
     domain: z.enum(campusDomains),
     courseId: z.string().regex(/^\d{1,32}$/).optional(),
-    academicYear: z.string().regex(/^20\d{2}-20\d{2}$/).optional(),
-    term: z.enum(['1', '2']).optional(),
+    academicYear: z.string().regex(/^20\d{2}-20\d{2}$/).optional().describe('选择采集快照的学年；该快照的成绩可能含多个既往学期，不等于按semester_id筛成绩行。'),
+    term: z.enum(['1', '2']).optional().describe('选择采集快照的学期；单学期成绩请再用filters的semester_id:eq:真实学期ID筛选，或用真实Scene的campusDisplay.semesterId。'),
     query: z.string().max(100).optional(),
     from: z.string().datetime({ offset: true }).optional(),
     to: z.string().datetime({ offset: true }).optional(),
@@ -65,7 +69,7 @@ export const campusInput = z
       .array(z.string().regex(/^[A-Za-z0-9_.-]{1,80}$/))
       .max(24)
       .optional(),
-    filters: z.array(z.string().max(160)).max(6).optional(),
+    filters: z.array(z.string().max(160)).max(6).optional().describe('规范字段精确筛选，格式field:operator:value，多项AND；如semester_id:eq:YYYY-YYYY-2（ID必须来自真实记录）。不能只在回答中挑出9门却呈现未筛的19门Scene。'),
     sort: z.string().max(100).optional(),
     offset: z.number().int().min(0).max(10000).optional(),
     window: z.string().max(40).optional(),
@@ -95,6 +99,12 @@ const campusAccountOutput = z
     total: z.number().int().nonnegative().optional(),
     cached: z.boolean(),
     snapshotAt: z.string().optional(),
+    bundleId: z.string().optional(),
+    nextOffset: z.number().int().nonnegative().nullable().optional(),
+    unknownTimeRecords: z.number().int().nonnegative().optional(),
+    sourceCoverage: jsonObject.optional(),
+    snapshotProof: jsonObject.optional(),
+    snapshotProofs: z.array(jsonObject).optional(),
   })
   .strict();
 const campusImportOutput = z
@@ -241,15 +251,37 @@ export function registerBuiltins(
 ) {
   const register = (provider: CapabilityProvider) =>
     broker.register(provider, { reviewed: true, source: 'bundled source review' });
+  const campusScopeCurrent = (scope: ReturnType<PolicyKernel['validate']>) => scope.principalId === repo.identity.principalId
+    && scope.workspaceId === repo.identity.workspaceId && scope.subjectId === scope.principalId && scope.worldId === 'real' && scope.audience === 'self'
+    && scope.privacyEpoch === repo.epoch && scope.policyRevision === repo.policyRevision && Date.parse(scope.expiresAt) > Date.parse(repo.clock.now())
+    && scope.sources.includes(CAMPUS_ACCOUNT_SOURCE_ID) && scope.grants.includes('campus:read');
+  planning.setCampusPort({
+    read: async (scope, from, to, signal) => {
+      if (!campusScopeCurrent(scope) || !connections.campus) return null;
+      return readCampusPlanningConstraints(connections.campus, scope, from, to, signal, () => {
+        if (!campusScopeCurrent(scope)) throw new HarnessError('planning_campus_scope_changed', '校园资料读取范围已改变，未采用旧约束。');
+      });
+    },
+    current: (scope, snapshot) => campusScopeCurrent(scope) && !!connections.campus?.describe().available && snapshot.proofs.length > 0
+      && snapshot.proofs.every(proof => connections.campus!.isCurrentSnapshot(proof)),
+    currentVersion: (scope, version) => campusScopeCurrent(scope) && !!connections.campus?.describe().available
+      && connections.campus.isCurrentSnapshotVersion(version),
+  });
   register({
     manifest: manifest('situation', 'current', [base('situation.read', z.object({
       from: z.string().datetime({ offset: true }), to: z.string().datetime({ offset: true }), timeZone: z.string().max(100).default('Asia/Shanghai'),
       limit: z.number().int().min(1).max(20).default(8),
-    }).strict(), jsonObject, ['evidence:read'], { version: '2', worlds: ['real'], displayName: '读取有界当前情境', description: '按明确时间窗汇合当前范围允许的本地具体安排、已接受承诺、有效目标与已存课程/考试版本。日期实例附localStartsAt/localEndsAt和timeZone，保留原始UTC事实，未知结束为null。只读已授权来源，不自动读取全部笔记或个人历史；来源未覆盖、未读取和已知空白分开，日历空不证明现实空闲或精力充足。更完整资料仍按需读原能力。' })]),
-    invoke: (_name, args, ctx) => {
+    }).strict(), jsonObject, ['evidence:read'], { version: '3', timeoutMs: 90000, worlds: ['real'], displayName: '读取有界当前情境', description: '按明确时间窗汇合当前范围允许的本地安排、已接受承诺、有效目标与校园保存快照。已连接并获准时沿原连接器默认读取，可能完成认证或补齐缺少的学期快照，再分页核对课程、考试与校历例外，不必用户重录。日期实例附localStartsAt/localEndsAt和timeZone，未知结束为null。学校计划与本人接受的本地安排分别显示，源采集完整不保证未来不变。未读取、未覆盖和已知空白分开，日历空不证明现实空闲或精力充足。' })]),
+    invoke: async (_name, args, ctx) => {
       const scope = policy.validate(ctx.scope), now = repo.clock.now();
       if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self') throw new HarnessError('situation_scope', '个人情境只在本人的现实私有范围内读取。');
       if (Date.parse(args.to) <= Date.parse(args.from) || Date.parse(args.to) - Date.parse(args.from) > 31 * 86400000) throw new HarnessError('time_window', '情境读取须给出有效时间窗，单次不超过31天。');
+      const campusSnapshot = await planning.readCampus(scope, args.from, args.to, ctx.signal);
+      policy.validate(ctx.scope);
+      const campusCalendar = campusSnapshot ? { ...campusConstraintSummary(campusSnapshot),
+        items: campusSnapshot.busy.slice(0, args.limit).map(item => calendarLocalTimes({ startsAt: item.start, endsAt: item.end,
+          title: item.title, sourceId: item.sourceId, sourceVersion: item.sourceVersion, meaning: '学校快照中的计划安排，不是实际出席或新的日历采用。' }, args.timeZone)),
+        truncated: campusSnapshot.busy.length > args.limit, totalKnownScheduledItems: campusSnapshot.busy.length } : null;
       const mayReadAgenda = scope.sources.includes('local-agenda');
       const agenda = mayReadAgenda ? repo.db.prepare('SELECT payload FROM agenda').all().map(row => JSON.parse(String(row.payload))) : [];
       const local = mayReadAgenda ? expandAgenda(agenda, args.from, args.to, args.timeZone) : undefined;
@@ -259,28 +291,39 @@ export function registerBuiltins(
       const goals = work.filter(item => item.kind === 'goal' && item.status === 'active').slice(0, args.limit).map(item => ({ id: item.id, revision: item.revision, title: item.title, status: item.status, data: item.data, sources: evidence(item.evidenceIds) }));
       const commitments = work.filter(item => item.kind === 'commitment' && (['accepted', 'confirmed'].includes(item.status) || item.data.accepted === true) && !['cancelled', 'closed', 'stale', 'blocked'].includes(item.status)).slice(0, args.limit).map(item => ({ id: item.id, revision: item.revision, title: item.title, status: item.status, data: item.data, sources: evidence(item.evidenceIds) }));
       const mayReadCampus = scope.grants.includes('campus:read') && scope.sources.some(source => ['campus:local', CAMPUS_ACCOUNT_SOURCE_ID].includes(source));
-      const campus = mayReadCampus ? ['schedule', 'exams'].map(domain => {
-        const result = domains.resolve(ctx.scope, domain, { from: args.from, to: args.to, limit: args.limit + 1 });
+      const storedCampusScope = campusSnapshot ? policy.narrow(ctx.scope, { sources: scope.sources.filter(source => source !== CAMPUS_ACCOUNT_SOURCE_ID) }) : ctx.scope;
+      const campus = mayReadCampus && (!campusSnapshot || scope.sources.includes('campus:local')) ? ['schedule', 'exams'].map(domain => {
+        const result = domains.resolve(storedCampusScope, domain, { from: args.from, to: args.to, limit: args.limit + 1 });
         return { domain, status: result.status, completeForWindow: false, truncated: result.records.length > args.limit,
-          records: result.records.slice(0, args.limit).map(record => ({ ...record, value: safeRecord(calendarLocalTimes(record.value, args.timeZone)) })),
+          records: result.records.filter(record => !campusSnapshot || record.sourceId !== CAMPUS_ACCOUNT_SOURCE_ID)
+            .slice(0, args.limit).map(record => ({ ...record, value: safeRecord(calendarLocalTimes(record.value, args.timeZone)) })),
           meaning: '只汇合已存且当前可读的具体来源记录；这次读取不触发联网同步，不能证明学校全量课次、例外或临时变化已覆盖。' };
       }) : [];
       const acceptedLocal = localItems.filter(item => calendarCommitment(item as any).state === 'accepted');
-      const dated = [...acceptedLocal.filter(item => calendarCommitment(item as any).occupiesTime).map(item => ({ ...item, sourceId: 'local-agenda' })),
-        ...campus.flatMap(domain => domain.records.filter(record => record.value.status !== 'cancelled' && typeof record.value.startsAt === 'string').map(record => ({ ...record.value, id: record.id, revision: record.revision, sourceId: record.sourceId, sourceStatus: record.status, fetchedAt: record.fetchedAt })))];
-      const next = dated.filter(item => typeof item.startsAt === 'string' && Date.parse(item.startsAt) >= Math.max(Date.parse(now), Date.parse(args.from))).sort((a, b) => Date.parse(String(a.startsAt)) - Date.parse(String(b.startsAt)))[0] || null;
+      const acceptedDated = acceptedLocal.filter(item => calendarCommitment(item as any).occupiesTime).map(item => ({ ...item, sourceId: 'local-agenda' }));
+      const schoolDated = campusSnapshot ? campusSnapshot.busy.map(item => ({ startsAt: item.start, endsAt: item.end,
+        title: item.title, sourceId: item.sourceId, sourceVersion: item.sourceVersion })) : [];
+      const storedDated = campus.flatMap(domain => domain.records.filter(record => record.value.status !== 'cancelled' && typeof record.value.startsAt === 'string').map(record => ({ ...record.value, id: record.id, revision: record.revision, sourceId: record.sourceId, sourceStatus: record.status, fetchedAt: record.fetchedAt })));
+      const nextInWindow = (items: Record<string, unknown>[]) => items.filter(item => typeof item.startsAt === 'string'
+        && Date.parse(item.startsAt) >= Math.max(Date.parse(now), Date.parse(args.from)))
+        .sort((a, b) => Date.parse(String(a.startsAt)) - Date.parse(String(b.startsAt)))[0] || null;
+      const next = nextInWindow(acceptedDated), nextKnownScheduledItem = nextInWindow([...acceptedDated, ...schoolDated, ...storedDated]);
       const data = { now, timeZone: args.timeZone, window: { from: args.from, to: args.to }, nextAcceptedCommitment: next,
         localAgenda: { status: mayReadAgenda ? local!.status : 'not_read', items: localItems.slice(0, args.limit), truncated: !!local && local.items.length > args.limit, issues: local?.issues.map(item => calendarLocalTimes(item, args.timeZone)) || [], sourceId: 'local-agenda' },
-        goals, commitments, campus, coverage: { localAgenda: mayReadAgenda ? 'local_registered_occurrences_only' : 'not_in_scope', work: scope.sources.includes('work:self') ? 'bounded_authorized_records' : 'not_in_scope', campus: mayReadCampus ? 'stored_records_only_not_live_complete' : 'not_in_scope', notes: 'not_read', location: 'not_read', weather: 'not_read', energy: 'unknown' },
+        goals, commitments, campus, campusCalendar, nextKnownScheduledItem,
+        coverage: { localAgenda: mayReadAgenda ? 'local_registered_occurrences_only' : 'not_in_scope', work: scope.sources.includes('work:self') ? 'bounded_authorized_records' : 'not_in_scope',
+          campus: campusSnapshot ? 'current_saved_account_snapshot_not_live_confirmation' : mayReadCampus ? 'stored_records_only_not_live_complete' : 'not_in_scope', notes: 'not_read', location: 'not_read', weather: 'not_read', energy: 'unknown' },
         unknown: ['日历空白不证明现实空闲，仍须核查相关来源覆盖。', '没有本人当前自述时，可用精力、意愿和情绪保持未知。', 'nextAcceptedCommitment仅是当前已读记录中下一项；未读来源仍可能有更早安排。'] };
       return { status: 'fresh', sourceId: 'current', data: JSON.parse(JSON.stringify(data)), fetchedAt: now, coverage: { complete: false, scope: 'bounded allowed local situation; omitted sources remain unknown' }, simulated: false };
     },
   });
   register({
     manifest: manifest('local-agenda', 'local-agenda', [
-      base('planning.draft', planningDraftInput, jsonObject, ['evidence:read'], { version: '1', displayName: '编排多任务日程草案', description: '只读构造有依赖、期限、可拆分时长、精力、准备清理、转场休息和保护留白的草案；返回未排任务及原因。不会替用户接受或自动写日历。采用时按acceptanceProposals顺序完整保留planRef及参数，经现有prepare_action逐项核验授权；日历变化或未知条件会阻断采用，部分成功不冒充整组完成。' }),
+      base('planning.compare', planningComparisonInput, jsonObject, ['evidence:read'], { version: '2', timeoutMs: 90000, cacheScope: 'handle',
+        displayName: '一起商量几种安排', description: '在同一真实日历和原任务条件下比较2–4个完整生活分支。主助手提出各自要保留的东西、原对象改动、尚未接受的拟参加活动和本次任务偏重。同一份工作可以通过taskPreferences.rhythm试连续做或按更短上限拆开做，原本允许拆分才可拆，不缩总时长、不放宽原单段上限。宿主复用原preview/draft计算逐段准备收尾、转场休息、留白与未排任务，workRhythms给真实段落和准备收尾成本，不做人格评分；未排完不能冒充同工作量完整另一版。同结果不会换标题凑数。校园来源获准且可读时读取同一保存快照作为各分支约束。比较只读，邀请仅在相应分支中假设参加，不变成现实承诺；不创建执行planId或写日历。' }),
+      base('planning.draft', planningDraftInput, jsonObject, ['evidence:read'], { version: '2', timeoutMs: 90000, displayName: '编排多任务日程草案', description: '只读构造有依赖、期限、可拆分时长、精力、准备清理、转场休息和保护留白的草案；返回未排任务及原因。当前范围允许且已连接时，宿主自动读取同一保存快照的课程、考试与校历例外作为约束，不必把课表手工复制进busy或本机日历。保存快照不是实时确认、出席或本人一定有空。不会替用户接受或自动写日历。采用时按acceptanceProposals顺序完整保留planRef及参数；日历、校园快照或未知条件变化会阻断旧票据，重新试算保留已成功步骤。' }),
       base('planning.recover', planningRecoveryInput, jsonObject, ['evidence:read'], { version: '1', cacheScope: 'handle', worlds: ['real'], displayName: '接着安排未完成的计划', description: '按planId只读核对真实日历里已保存的步骤和当前票据；区分可继续、已经变化、已过期和重启后须重算，避免重复创建已成功的安排。不恢复旧授权，不直接提交。' }),
-      ...(planningIntents ? [base('planning.replan', planningIntentReplanInput, jsonObject, ['evidence:read'], { version: '1', cacheScope: 'handle', worlds: ['real'], displayName: '接着商量保留的规划', description: '按已读intent id与expectedRevision，回读有来源的原规格、当前日历和真实采用凭据，保留原范围与预算并用同一规划器重新试算。返回新planId和短票据；不持久修改意图、不复活旧批准，不把已安排当完成。来源、采用或过去进度不明时保留具体缺口。' })] : []),
+      ...(planningIntents ? [base('planning.replan', planningIntentReplanInput, jsonObject, ['evidence:read'], { version: '2', timeoutMs: 90000, cacheScope: 'handle', worlds: ['real'], displayName: '接着商量保留的规划', description: '按已读intent id与expectedRevision，回读有来源的原规格、当前日历和真实采用凭据，保留原范围与预算并用同一规划器重新试算。校园来源获准且可读时重新核对保存快照。返回新planId和短票据；不持久修改意图、不复活旧批准，不把已安排当完成。来源、采用或过去进度不明时保留具体缺口。' })] : []),
       base('planning.preview', planningPreviewInput, jsonObject, ['evidence:read'], { version: '1', displayName: '比较可行时段与安排修改', description: '读本地具体日历实例并复用区间计算，比较最多三个方案。固定承诺、可移动已接受块均保留；邀请、愿望、未接受方案不当成硬承诺。空白不等于现实空闲。返回原对象ID/revision绑定的save/change提议和冲突、天气/资源等未知；只读不提交，实际采用通过现有本地动作授权入口。' }),
       base('local.agenda.change', localCalendarChangeSchema, z.object({}).strict(), ['local:write'], { effect: 'local_write', worlds: ['real'], supportsIdempotency: true, supportsInspect: true, supportsCancel: true, description: '按对象版本修改、删除本地安排或更改单个重复实例；事务执行并支持受版本保护的撤销。' }),
       base('local.agenda.save', localActionInput, z.object({}).strict(), ['local:write'], {
@@ -298,14 +341,33 @@ export function registerBuiltins(
         { version: '2', description: '按日期范围读取本地未完成安排。日期实例附localStartsAt/localEndsAt和timeZone，保留原始UTC事实，未知结束为null。不填query可读取该时段全部有日期安排；query只对标题作逐字包含筛选，不解析日期、星期或事项类型。带query的空结果只说明标题不匹配，不能证明该日期没有安排。' },
       ),
     ]),
-    invoke: (name, args, ctx) => {
+    invoke: async (name, args, ctx) => {
       if (name === 'local.agenda.save' || name === 'local.agenda.change')
         throw new HarnessError('transaction_required', '本地安排必须由受控事务提交。');
       policy.validate(ctx.scope);
-      if (name === 'planning.preview' || name === 'planning.draft' || name === 'planning.recover' || name === 'planning.replan') {
+      if (name === 'planning.compare') {
+        const scope = policy.validate(ctx.scope), input = planningComparisonInput.parse(args);
+        if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self' || !scope.sources.includes('local-agenda'))
+          throw new HarnessError('planning_scope', '生活安排比较需要本人当前允许的日历范围。');
+        const campus = await planning.readCampus(scope, input.draft.from, input.draft.to, ctx.signal);
+        ctx.signal.throwIfAborted(); policy.validate(ctx.scope);
+        if (campus && !planning.campusCurrent(scope, campus))
+          throw new HarnessError('planning_campus_changed', '校园安排快照已变化，先回读再比较。');
         const items = repo.db.prepare('SELECT payload FROM agenda').all().map(row => JSON.parse(String(row.payload)));
-        const data = name === 'planning.draft' ? planning.prepare(policy.validate(ctx.scope), items, args) : name === 'planning.recover' ? planning.recover(policy.validate(ctx.scope), items, args)
-          : name === 'planning.replan' ? planningIntents!.replan(ctx.scope, args, items) : previewCalendarPlan(items, args);
+        const currentInput = campus ? { ...input, draft: { ...input.draft, busy: [...input.draft.busy, ...campus.busy],
+          sourceCoverage: [...input.draft.sourceCoverage, campus.coverage] } } : input;
+        const comparison = compareCalendarPlans(items, currentInput), comparisonId = randomUUID();
+        const data = { ...comparison, comparisonId, comparisonView: planningComparisonView(comparison, { comparisonId,
+          sourceIds: ['local-agenda', ...(campus ? [campus.sourceId] : [])] }), ...(campus ? { campusCalendar: campusConstraintSummary(campus) } : {}) };
+        return { status: 'fresh', sourceId: 'local-agenda', data: JSON.parse(JSON.stringify(data)), fetchedAt: repo.clock.now(),
+          coverage: { complete: false, scope: 'declared alternatives on one current local agenda and permitted saved campus snapshot; not all possible life choices' }, simulated: false };
+      }
+      if (name === 'planning.preview' || name === 'planning.draft' || name === 'planning.recover' || name === 'planning.replan') {
+        const campus = name === 'planning.draft' ? await planning.readCampus(policy.validate(ctx.scope), args.from, args.to, ctx.signal) : null;
+        policy.validate(ctx.scope);
+        const items = repo.db.prepare('SELECT payload FROM agenda').all().map(row => JSON.parse(String(row.payload)));
+        const data = name === 'planning.draft' ? planning.prepare(policy.validate(ctx.scope), items, args, undefined, campus) : name === 'planning.recover' ? planning.recover(policy.validate(ctx.scope), items, args)
+          : name === 'planning.replan' ? await planningIntents!.replanWithCampus(ctx.scope, args, ctx.signal) : previewCalendarPlan(items, args);
         return { status: 'fresh', sourceId: 'local-agenda', data: JSON.parse(JSON.stringify(data)), fetchedAt: repo.clock.now(),
           coverage: { complete: name === 'planning.preview' && 'issues' in data && data.issues.length === 0, scope: 'local calendar arithmetic only; external coverage and energy remain explicit conditions' }, simulated: false };
       }
@@ -333,14 +395,14 @@ export function registerBuiltins(
   register({
     manifest: manifest('campus-read', CAMPUS_ACCOUNT_SOURCE_ID, [
       base('campus.query', campusQueryInput, jsonObject, ['campus:read'], {
-        displayName: '校园资源、字段与组合查询', description: 'resources发现可读类别，schema查字段；quick/select支持完整相关分页、关联、汇总、冲突、转场和空档；read回读规范化原对象，history/diff比较快照。查询只读，不预约、支付或选退课；总量、分母、覆盖、原始状态与观察时间分别保留。', timeoutMs: 90000, maxBytes: 140000,
+        displayName: '校园资源、字段与组合查询', description: '查询本人课程、课表、考试、逐科成绩、各学期与总GPA/绩点、实践等原资料。resources发现可读类别，schema查字段；quick/select支持相关分页、关联、汇总、冲突、转场和空档；read回读规范化原对象，history/diff比较快照。成绩保留所有修读、学分、原分数与计入状态；GPA各制式、全修读/首次/最高政策、分母与完整性分开，不以缺失作零。查询只读，不预约、支付或选退课。snapshotProof只说明真实来源快照，不把旧观察变成实时确认。', timeoutMs: 90000, maxBytes: 140000,
       }),
       base(
         'campus.lookup',
         campusInput,
         campusAccountOutput,
         ['campus:read'],
-        { timeoutMs: 90000 },
+        { timeoutMs: 90000, displayName: '本人校园资料', description: '按领域读取本人课程/课表/考试、成绩、GPA/学期绩点、实践与已有校园记录；成绩与GPA逐次核具体用途，保留源采集时间、修读口径、分母和缺失范围。只读，不办理预约、选课或支付。' },
       ),
       base('campus.overview', campusOverviewInput, jsonObject, ['campus:read'], {
         timeoutMs: 90000,
@@ -493,6 +555,12 @@ export function registerBuiltins(
             total: typeof result.total_matches === 'number' ? result.total_matches : undefined,
             cached: !args.refresh,
             snapshotAt,
+            ...(typeof result.bundle_id === 'string' ? { bundleId: result.bundle_id } : {}),
+            ...(result.next_offset !== undefined ? { nextOffset: result.next_offset } : {}),
+            ...(typeof result.unknown_time_records === 'number' ? { unknownTimeRecords: result.unknown_time_records } : {}),
+            ...(result.coverage ? { sourceCoverage: result.coverage } : {}),
+            ...(result.snapshotProof ? { snapshotProof: result.snapshotProof } : {}),
+            ...(result.snapshotProofs ? { snapshotProofs: result.snapshotProofs } : {}),
           },
           fetchedAt: snapshotAt,
           expiresAt:
@@ -500,7 +568,7 @@ export function registerBuiltins(
               ? new Date(Date.parse(snapshotAt) + 300000).toISOString()
               : undefined,
           coverage: {
-            complete: result.coverage?.complete === true || result.completeness?.complete === true,
+            complete: (result.coverage?.complete === true || result.completeness?.complete === true) && result.next_offset == null,
             scope: args.domain,
           },
           reason: result.reason || result.error?.message,
@@ -607,7 +675,7 @@ export function registerBuiltins(
           .strict(),
         z.object({ matches: z.array(jsonObject) }).strict(),
         ['map:read'],
-        { subjects: ['self', 'other', 'fictional'], description: '按地点名、别名或类别检索当前紫金港公共地图；名称无需重复校区前缀。无匹配时缩短名称或查询别名，不能猜地点ID。' },
+        { version: '2', subjects: ['self', 'other', 'fictional'], description: '按地点名、别名或类别检索当前紫金港公共地图；名称无需重复校区前缀。无匹配时缩短名称或查询别名，不能猜地点ID。候选保留公共参考坐标、入口/接入条件与来源；绘图几何由原地图持有，不是本人位置。' },
       ),
       base('map.route', routeInput, jsonObject, ['map:read'], { subjects: ['self', 'other', 'fictional'] }),
       base('map.location_status', z.object({}).strict(), jsonObject, ['map:read']),
@@ -626,7 +694,7 @@ export function registerBuiltins(
         name === 'map.overview'
           ? publicMap.overview()
           : name === 'map.search'
-            ? { matches: publicMap.search(args.query, args.limit) }
+            ? { matches: publicMap.search(args.query, args.limit).map(projectMapSearchPoint) }
             : name === 'map.route'
               ? publicMap.route(args)
               : publicMap.locationStatus();

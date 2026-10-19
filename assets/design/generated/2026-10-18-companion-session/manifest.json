@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-18",
+  "purpose": "共同做事在原消息中的停点、原材料与自然续接",
+  "method": "built-in GPT Image",
+  "asset": "companion-session-ab.png",
+  "prompt": "prompt.md",
+  "source": "Original AI-generated UI concept; no external reference image was provided.",
+  "licenseAndUse": "User-authorized project design research. Synthetic example content only; not personal runtime facts. Not a runtime screenshot or product verification.",
+  "selected": "A",
+  "decision": "轻停点沿A接在原对话之后；刚离开时保持安静，只有真实本轮续接意图才突出继续。实际打开原材料时采用B的双纸关系，将宿主刚回读的原文／页图与当前手稿并排，窄窗顺序展开。不照搬图稿的窗口装饰、示例数据或全局输入框。",
+  "runtimeArt": {
+    "date": "2026-10-19",
+    "path": "assets/ui/companion-session-paper.png",
+    "method": "built-in GPT Image edit with transparent_background=true",
+    "reference": "companion-session-ab.png",
+    "purpose": "Pure blank paper texture, page edges and translucent shadow behind real selectable app text; never a flattened UI screenshot.",
+    "sourceAndUse": "Generated from this project's original AI design concept under the user's visual implementation request. No external raster reference or personal document was provided.",
+    "alpha": "RGBA with transparent surrounding pixels, inspected as an art asset."
+  },
+  "implementation": [
+    "src/renderer/presentation/CompanionSessionView.tsx",
+    "src/renderer/presentation/companion-session.css"
+  ],
+  "status": "Design and alpha paper asset inspected. On 2026-10-19 the same isolated Electron instance opened a real held owner record, its staged Markdown file, exact user evidence and attempt, then the original full-material reader. Continuation preserved an existing composer draft and added the original owner reference without sending. This first rendering exposed an oversized single paper and insufficient paper-edge spacing; the A-light/B-real-reading CSS repair awaits the next shared build and direct visual recheck. No Luna or business-model verification was run."
+}

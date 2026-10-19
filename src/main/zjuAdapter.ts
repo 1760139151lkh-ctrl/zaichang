@@ -4,6 +4,8 @@ import { homedir, tmpdir } from 'node:os';
 import path from 'node:path';
 import type { Store } from './store';
 import { validateCampusQuery, type CampusQuery } from './capabilities/campus-query';
+import { CampusSnapshotProofs, type CampusSnapshotProof } from './capabilities/campus-saved-source';
+import { HarnessError } from '../shared/harness';
 
 /** Account-backed campus data is kept distinct from legacy JSON imports. */
 export const CAMPUS_ACCOUNT_SOURCE_ID = 'campus:zju-account';
@@ -342,6 +344,8 @@ function compactResult(result: any, domain?: CampusDomain): any {
     credential_redactions: result.credential_redactions,
     nested_values_truncated: result.nested_values_truncated,
     schema_version: result.schema_version,
+    snapshotProof: result.snapshotProof,
+    snapshotProofs: result.snapshotProofs,
     semester_id: result.semester_id,
     counts: result.counts,
     grade_attempts: result.grade_attempts,
@@ -390,9 +394,11 @@ function sanitize(value: any, key = '', depth = 0): any {
 }
 
 export class ZjuAdapter {
+  private snapshotProofs = new CampusSnapshotProofs(() => this.root());
   private authInFlight?: Promise<any>;
   private academicInFlight = new Map<string, Promise<any>>();
   private academicBundles = new Map<string, string>();
+  private academicBundleStamps = new Map<string, string | undefined>();
   private learningBundles = new Map<string, string>();
   private resolvedPython?: string;
 
@@ -531,10 +537,15 @@ export class ZjuAdapter {
     this.store.putMeta('zju_last_verified_at', null);
     this.store.putMeta('zju_last_auth_error', null);
     this.store.putMeta('zju_verified_credentials_mtime', null);
+    this.snapshotProofs.clear();
+    this.learningBundles.clear();
+    this.academicBundles.clear();
+    this.academicBundleStamps.clear();
     return this.describe();
   }
 
   disconnect() {
+    this.snapshotProofs.clear();
     this.store.putMeta('zju_source_root', null);
     this.store.putMeta('zju_source_disabled', true);
     this.store.putMeta('zju_last_verified_at', null);
@@ -542,6 +553,7 @@ export class ZjuAdapter {
     this.store.putMeta('zju_verified_credentials_mtime', null);
     this.learningBundles.clear();
     this.academicBundles.clear();
+    this.academicBundleStamps.clear();
   }
 
   async configureCredentials(): Promise<void> {
@@ -563,8 +575,10 @@ export class ZjuAdapter {
     this.store.putMeta('zju_last_verified_at', null);
     this.store.putMeta('zju_last_auth_error', null);
     this.store.putMeta('zju_verified_credentials_mtime', null);
+    this.snapshotProofs.clear();
     this.learningBundles.clear();
     this.academicBundles.clear();
+    this.academicBundleStamps.clear();
   }
 
   async forgetCredentials(signal: AbortSignal = new AbortController().signal) {
@@ -577,8 +591,10 @@ export class ZjuAdapter {
         this.store.putMeta('zju_last_verified_at', null);
         this.store.putMeta('zju_last_auth_error', null);
         this.store.putMeta('zju_verified_credentials_mtime', null);
+        this.snapshotProofs.clear();
         this.learningBundles.clear();
         this.academicBundles.clear();
+        this.academicBundleStamps.clear();
       }
       return result;
     } finally {
@@ -712,7 +728,10 @@ export class ZjuAdapter {
       this.academicInFlight.set(key, pending);
     }
     const result = await pending;
-    if (result?.bundle_id) this.academicBundles.set(`${academicYear}:${term}`, String(result.bundle_id));
+    if (result?.bundle_id) {
+      this.academicBundles.set(`${academicYear}:${term}`, String(result.bundle_id));
+      this.academicBundleStamps.set(`${academicYear}:${term}`, this.snapshotProofs.headStamp('classes'));
+    }
     return result;
   }
 
@@ -723,18 +742,37 @@ export class ZjuAdapter {
   ): Promise<string | undefined> {
     const key = `${academicYear}:${term}`;
     const cached = this.academicBundles.get(key);
-    if (cached) return cached;
-    const history = await this.run(['history', '--limit', '100'], signal, 20_000);
+    const headStamp = this.snapshotProofs.headStamp('classes');
+    if (cached && this.academicBundleStamps.get(key) === headStamp) return cached;
     const wanted = `${academicYear}-${term}`;
-    const item = (Array.isArray(history?.items) ? history.items : []).find(
-      (entry: any) => entry?.kind === 'academic' && String(entry.semester_id || '') === wanted,
-    );
+    const history = await this.savedHistory(signal, entry => entry?.kind === 'academic' && String(entry.semester_id || '') === wanted);
+    const item = history?.found;
     if (item?.bundle_id) {
       this.academicBundles.set(key, String(item.bundle_id));
+      this.academicBundleStamps.set(key, headStamp);
       return String(item.bundle_id);
     }
+    // A bounded or failed metadata page is not evidence that the snapshot is
+    // missing, and must not turn an ordinary saved read into a fresh collection.
+    if (!history?.exhausted) return undefined;
     const synced = await this.bootstrapAcademic(signal, academicYear, term);
     if (synced?.bundle_id) return String(synced.bundle_id);
+    return undefined;
+  }
+
+  private async savedHistory(signal: AbortSignal, matches: (entry: any) => boolean) {
+    const items: any[] = [];
+    let offset = 0;
+    while (items.length < 2000) {
+      signal.throwIfAborted();
+      const page = await this.run(['history', '--offset', String(offset), '--limit', '100'], signal, 20000);
+      if (page?.status !== 'ok' || !Array.isArray(page.items)) return undefined;
+      items.push(...page.items);
+      const found = items.find(matches), next = page.next_offset;
+      if (found || next == null) return { status: 'ok' as const, items, found, exhausted: next == null };
+      if (!Number.isSafeInteger(next) || next <= offset || page.items.length === 0) return undefined;
+      offset = next;
+    }
     return undefined;
   }
 
@@ -753,7 +791,7 @@ export class ZjuAdapter {
 
   /** Complete query/navigation semantics over the installed read-only skill.
    * No model-supplied CLI, directory, endpoint, or authentication material. */
-  async query(raw: CampusQuery, signal: AbortSignal) {
+  async query(raw: CampusQuery, signal: AbortSignal): Promise<any> {
     const args = validateCampusQuery(raw), connector = this.describe();
     if (!connector.available) return { status: 'unavailable', reason: connector.reason };
     if (args.operation === 'resources') return sanitize(await this.run(['resources'], signal));
@@ -786,9 +824,63 @@ export class ZjuAdapter {
         result = await this.run(['select', '--spec-file', file, ...(bundle ? ['--bundle', bundle] : [])], signal, 85000);
       } finally { if (existsSync(file)) unlinkSync(file); rmdirSync(directory); }
     }
-    const safe = sanitize(result);
+    if (result?.status === 'error' && ['DATASET_REQUIRED', 'BUNDLE_NOT_FOUND'].includes(result?.error?.code)
+      && academic && !args.bundleId && !args.refresh && ['quick', 'select'].includes(args.operation)) {
+      const rebuilt = await this.bootstrapAcademic(signal, args.academicYear || this.defaultAcademicYear(), args.term || this.defaultTerm());
+      if (rebuilt?.bundle_id) return this.query({ ...args, bundleId: String(rebuilt.bundle_id) }, signal);
+    }
+    // Related resources can come from separate bundles while the CLI returns
+    // only the root bundle ID. Until it identifies every adopted bundle, a
+    // root receipt must not claim to version the whole composite result.
+    const composite = !!args.spec?.join || (args.spec?.resources?.length || 0) > 1;
+    const safe = sanitize(composite ? { ...result, snapshotProofStatus: 'not_issued_composite_sources_unresolved' }
+      : await this.withSnapshotProof(result, resource, signal));
     if (Buffer.byteLength(JSON.stringify(safe)) > 110000) return { status: 'navigate_required', resource, bundle_id: safe.bundle_id || bundle, offset: args.offset, reason: '结果超出单次读取预算，原数据未截短。请减少字段或limit并继续分页。', coverage: safe.coverage, total_matches: safe.total_matches };
     return { ...safe, authenticated_at: this.describe().lastVerifiedAt, read_only: true, observed_change_not_publication_time: args.operation === 'diff' };
+  }
+
+  /** Host-only planner/provenance check. Model-supplied hashes are not receipts. */
+  isCurrentSnapshot(proof: CampusSnapshotProof) { return this.snapshotProofs.isCurrentSnapshot(proof); }
+  isCurrentSnapshotVersion(version: string) { return this.snapshotProofs.isCurrentVersion(version); }
+  bindPlanningSnapshots(proofs: CampusSnapshotProof[]) { return this.snapshotProofs.bindSnapshots(proofs); }
+  savedSnapshotRevision(): string | null { return this.snapshotProofs.savedRevision(); }
+
+  /** Fixed host projection of the same academic bundle's schedule quality.
+   * This does not add an arbitrary pointer or a second query interface. */
+  async readPlanningQuality(proof: CampusSnapshotProof, signal: AbortSignal) {
+    const validate = () => {
+      signal.throwIfAborted();
+      if (proof.resource !== 'classes' || !this.isCurrentSnapshot(proof))
+        throw new HarnessError('planning_campus_changed', '校园保存快照或账号已改变，未采用旧日程质量说明。');
+    };
+    validate();
+    const coverage = await this.run(['read', '--bundle', proof.bundleId, '--pointer', '/normalized/schedule_quality/coverage', '--limit', '1'], signal);
+    validate();
+    const unresolved = await this.run(['read', '--bundle', proof.bundleId, '--pointer', '/normalized/schedule_quality/unresolved_rules', '--limit', '1'], signal);
+    validate();
+    if (coverage?.status !== 'ok' || coverage.bundle_id !== proof.bundleId || !coverage.data || typeof coverage.data !== 'object'
+      || unresolved?.status !== 'ok' || unresolved.bundle_id !== proof.bundleId || !Number.isSafeInteger(unresolved.total_items) || unresolved.total_items < 0)
+      return { status: 'unavailable' as const };
+    return { status: 'ok' as const, generatedAllResolvableRules: coverage.data.generated_all_resolvable_rules === true,
+      unresolvedRuleCount: Number(unresolved.total_items), calendarOfficiallyCrosschecked: coverage.data.calendar_is_officially_crosschecked === true,
+      allFutureDatesFinal: coverage.data.all_future_dates_final === true };
+  }
+
+  private async withSnapshotProof(result: any, resource: string, signal: AbortSignal) {
+    if (!result || !/^[a-f0-9]{32}$/.test(String(result.bundle_id || '')) || !['ok', 'partial', 'navigate_required'].includes(String(result.status))) return result;
+    const before = this.snapshotProofs.beforeMetadata(resource);
+    if (!before) return result;
+    // Reuse the connector's existing current-account metadata API. It does
+    // not refresh the network or expose dataset bodies to the signer.
+    try {
+      const history = await this.savedHistory(signal, item => item?.bundle_id === result.bundle_id);
+      signal.throwIfAborted();
+      const proof = this.snapshotProofs.issue(result, resource, history, before);
+      return proof ? { ...result, snapshotProof: proof, snapshotProofs: [proof] } : result;
+    } catch (error) {
+      if (signal.aborted) throw error;
+      return result;
+    }
   }
 
   async fullContext(args: CampusFullContextArgs, signal: AbortSignal) {
@@ -1009,6 +1101,7 @@ export class ZjuAdapter {
       );
       const activityRecords = Array.isArray(activityPage?.data) ? activityPage.data : [];
       const activityResult = {
+        bundle_id: learningBundle,
         status: activityPage?.status === 'ok' ? 'ok' : activityPage?.status || 'partial',
         resource: 'activities',
         records: activityRecords,
@@ -1062,14 +1155,19 @@ export class ZjuAdapter {
     // keeps the first user question useful without falling back to an import.
     if (
       result?.status === 'error' &&
-      result?.error?.code === 'DATASET_REQUIRED' &&
+      ['DATASET_REQUIRED', 'BUNDLE_NOT_FOUND'].includes(result?.error?.code) &&
       ACADEMIC_RESOURCES.has(args.domain) &&
       !args.refresh
     ) {
       const bootstrap = await this.bootstrapAcademic(signal, academicYear, term);
-      if (bootstrap?.status === 'ok' || bootstrap?.status === 'partial') result = await this.run(cli, signal, 35_000);
+      if (bootstrap?.bundle_id && (bootstrap?.status === 'ok' || bootstrap?.status === 'partial')) {
+        const bundleIndex = cli.indexOf('--bundle');
+        if (bundleIndex >= 0) cli[bundleIndex + 1] = String(bootstrap.bundle_id);
+        else cli.push('--bundle', String(bootstrap.bundle_id));
+        result = await this.run(cli, signal, 35_000);
+      }
     }
-    const compact = compactResult(result, args.domain);
+    const compact = compactResult(await this.withSnapshotProof(result, args.domain === 'learning_courses' ? 'learning_courses' : resource, signal), args.domain);
     return {
       domain: args.domain,
       label: DOMAIN_LABEL[args.domain],

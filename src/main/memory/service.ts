@@ -61,7 +61,7 @@ export interface MemoryContext {
   };
   /** Host-only plan for the same review; raw mixed source remains non-inferable. */
   currentOwnerProjection?: {
-    parentEventId: string; parentContentVersion: number; parentSubject: 'mixed'; parentWorld: 'real'; proposedEvidenceId: string;
+    parentEventId: string; parentContentVersion: number; parentSubject: 'mixed' | 'contextual'; parentWorld: 'real'; proposedEvidenceId: string;
     statement: { quote: string; start: number; end: number };
     recordingRequest: { quote: string; start: number; end: number };
   };
@@ -85,6 +85,7 @@ export interface MemoryContext {
     subjectId?: string;
     worldId?: string;
     authority?: string;
+    sourceContext?: EvidenceEvent['sourceContext'];
     receivedAt?: string;
     textLength?: number;
     coverage?: 'complete' | 'excerpt';
@@ -105,6 +106,7 @@ export interface MemoryContext {
   conditions?: Array<{ id: string; text: string; sourceId?: string }>;
   current?: {
     eventId: string;
+    sourceContext?: EvidenceEvent['sourceContext'];
     focusText: string;
     sourceExcerpt: string;
     tailText?: string;
@@ -442,7 +444,7 @@ export class MemoryService {
     if (prior) return prior;
     if (!this.reviewer) throw new HarnessError('owner_projection_unknown', '本人片段的记录范围尚未核验，没有新增记忆。');
     const review = await this.reviewer(change, parent, signal, { currentOwnerProjection: {
-      parentEventId: parent.id, parentContentVersion: parent.contentVersion, parentSubject: 'mixed', parentWorld: 'real',
+      parentEventId: parent.id, parentContentVersion: parent.contentVersion, parentSubject: parent.sourceContext ? 'contextual' : 'mixed', parentWorld: 'real',
       proposedEvidenceId: projectionId, statement, recordingRequest,
     } });
     revalidate();
@@ -825,6 +827,11 @@ export class MemoryService {
       }
       reviewedRevisions.push({ id: assertion.id, revision: assertion.revision });
       this.repo.recordReviewedCitationUse(handle, reviewedRevisions, restrictionBaseline, installedRestrictions);
+      for (const ref of reviewedRevisions) this.repo.noteAssertionRevision(handle, ref, {
+        operation: change.operation, causeEventId: event.id, causeContentVersion: event.contentVersion,
+        causeStart: location.start, causeEnd: location.end,
+        ...(old && old.id !== assertion.id ? { relatedAssertionId: ref.id === old.id ? assertion.id : old.id } : {}),
+      });
       if (old) this.repo.invalidate(old.id, 'understanding_' + change.operation.toLowerCase());
       this.repo.completeOperation('memory:' + change.idempotencyKey, change.operation, { id: assertion.id, requestHash: operationHash });
       this.repo.db

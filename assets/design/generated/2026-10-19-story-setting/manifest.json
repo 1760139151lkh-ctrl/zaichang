@@ -1,0 +1,11 @@
+{
+  "purpose": "校园共同作品在既有对话地图上取景的视觉方案；先完成原owner与来源后端再出此图，尚未代表实际渲染。",
+  "image": "story-on-one-map.png",
+  "generatedAt": "2026-10-19",
+  "generator": "Built-in GPT Image",
+  "source": "Original generated UI concept from a task-specific prompt, no third-party image input.",
+  "rights": "AI-generated original design reference. No person or private account data. Project may use the visual design; map pixels and invented labels are not geographic assets or evidence.",
+  "implementation": "Reuse the actual MapSurface and its current public dataset, original manuscript-paper.png and live HTML text. Do not copy generated map geometry, fabricated pond name, map labels or UI pixels as runtime assets.",
+  "selectedPrinciples": ["same conversation and composer", "real public place, fictional events", "actual next passage follows arbitrary user response", "one original Work with immutable prior chapters", "retain camera and selected place"],
+  "status": "relationship_reference_only_new_shell_and_geography_rejected_not_runtime_evidence"
+}

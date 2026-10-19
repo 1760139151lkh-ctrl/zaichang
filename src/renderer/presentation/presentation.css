@@ -2,6 +2,9 @@
   margin: 20px 0 24px;
   min-width: 0;
 }
+.workspace.conversation .message-scroll:has(.assistant-presentation) {
+  mask-image: linear-gradient(to bottom, transparent 0, #000 12px, #000 calc(100% - 2px), transparent 100%);
+}
 .presentation-scenes {
   display: grid;
   gap: 20px;

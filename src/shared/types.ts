@@ -87,7 +87,7 @@ export interface ReleaseArtifact {
   supersedes?: { id: string; revision: number };
 }
 export interface Message {
-  helpRefs?: { id: string; revision: number; helpRecordId: string }[];
+  helpRefs?: { id: string; revision: number; helpRecordId: string; kind?: 'reflective_letter' }[];
   cooperationId?: string;
   objectStates?: import('./presentation').ObjectPresentationState[];
   /** User-facing owner response before the host appends separately authored drafts. */
@@ -177,6 +177,8 @@ export interface CampusEvent {
   source: string;
 }
 export interface State {
+  /** Process-local signalBarrier generation, including account replacement. */
+  sourceBoundary?: number;
   matters?: import('./presentation').SharedMatterView[];
   presentation?: import('./presentation').SurfaceView;
   preparations?: import('./presentation').PreparationView[];
@@ -252,6 +254,16 @@ export interface RuntimeOverview {
   storage: { atRestEncrypted: boolean; keyProtection: string };
 }
 export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge {
+  rehearsalProject(input: import('./relationship-rehearsal').RehearsalNativeInput): Promise<import('./relationship-rehearsal').RehearsalScene>;
+  studyProject(input: import('./study-presentation').StudyNativeInput): Promise<import('./study-presentation').StudyScene>;
+  studyRead(input: import('./study-presentation').StudyNativeInput): Promise<import('./study-presentation').StudyScene>;
+  letterSource(input: import('./reflective-letter').ReflectiveLetterSourceInput): Promise<import('./reflective-letter').ReflectiveLetterSourceView>;
+  letterProject(input: import('./reflective-letter').ReflectiveLetterProjectInput): Promise<import('./presentation').PreparationView>;
+  noteProject(input: import('./note-presentation').NoteNativeInput): Promise<import('./note-presentation').NoteScene>;
+  companionSessionSource(input: import('./companion-source').CompanionSourceInput): Promise<import('./companion-source').CompanionSourceView>;
+  /** Explicit private campus view; uses the configured connector's default read semantics. */
+  campusSchedule(input: import('./campus-calendar').CampusScheduleInput): Promise<import('./campus-calendar').CampusScheduleResult>;
+  campusAcademicRead(input: import('./campus-academic').CampusAcademicReadInput): Promise<import('./scenes').CampusScene>;
   editReleaseArtifact(input: { sessionId: string; messageId: string; id: string; expectedRevision: number; body: string }): Promise<Message>;
   recordResponseExposure(input: { sessionId: string; messageId: string; event: 'displayed' | 'opened' }): Promise<{ recorded: boolean }>;
   changeMatterSelection(input: import('./presentation').MatterSelectionInput): Promise<import('./presentation').MatterSelectionResult>;
@@ -276,6 +288,12 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
     material?: import('./materials').MaterialReference;
     controls?: TurnControls;
     selection?: import('./scenes').SemanticSelection;
+    studyInteraction?: import('./study-presentation').StudyInteraction;
+    companionReference?: import('./companion-source').CompanionFollowupReference;
+    curiosityReference?: import('./curiosity-source').CuriosityFollowupReference;
+    letterReference?: import('./reflective-letter').LetterReference;
+    noteReference?: import('./note-presentation').NoteReference;
+    rehearsalInteraction?: import('./relationship-rehearsal').RehearsalInteraction;
   }): Promise<{ sessionId: string }>;
   stop(): Promise<void>;
   saveSettings(input: SettingsUpdate): Promise<State>;

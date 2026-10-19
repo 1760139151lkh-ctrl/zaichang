@@ -15,12 +15,15 @@ import {
   type EvidenceEvent,
   type MemoryChange,
   releaseSpecSchema,
+  workSourceRefSchema,
+  assistantWorkSourceSchema,
   type ReleaseSpec,
   type ScopeHandle,
   type DelegatedTask,
 } from '../../shared/harness';
 import { KernelRepository } from '../storage/repository';
 import { PolicyKernel, type IngressDecision, type InputControls } from './policy';
+import { creationSourceContextForIngress } from './interaction-control-context';
 import { ContextCompiler } from './context';
 import { listWorkflowSkills, readWorkflowSkill } from './skills';
 import { projectMapModelResult, projectMapRoute, projectMapValue } from './map-model-view';
@@ -34,10 +37,47 @@ import { SpatialService, spaceControlInput, type VisualObservation } from './spa
 import { registerSpatial } from '../capabilities/spatial';
 import { PresentationService } from './presentation';
 import { SceneService } from './scenes';
-import { sceneRefSchema, type SceneSnapshot, type PresentationView, type VerifiedSelection, type MapScene } from '../../shared/scenes';
+import { discussionArtworkSchema, discussionFocusSchema, discussionModuleRefSchema } from '../../shared/discussion-scene';
+import { CompanionContinuityService } from './companion-continuity';
+import { CompanionSessionService } from './companion-session';
+import { StudyCompanionService } from './study-companion';
+import { ReflectiveLetterService } from './reflective-letter';
+import { RelationshipRehearsalService, type RehearsalAdmission } from './relationship-rehearsal';
+import { rehearsalInteractionSchema, rehearsalPresentationInput, type RehearsalInteraction } from '../../shared/relationship-rehearsal';
+import { relationshipRehearsalToolDefinitions, executeRelationshipRehearsalTool } from './relationship-rehearsal-tools';
+import { admitRehearsalIngress, rehearsalIngressMethod } from './rehearsal-ingress';
+import { createRehearsalPresentation } from './rehearsal-presentation';
+import { letterReferenceSchema, type LetterReference } from '../../shared/reflective-letter';
+import { notePresentationInput, noteReferenceSchema, type NoteReference } from '../../shared/note-presentation';
+import { NotePresentationService } from './note-presentation';
+import { PlanningConversationService } from './planning-conversation';
+import { lifeCollaborationToolDefinitions, executeLifeCollaborationTool } from './life-collaboration-tools';
+import { reflectiveLetterToolDefinitions, executeReflectiveLetterTool } from './reflective-letter-tools';
+import { planningConversationToolDefinitions, executePlanningConversationTool } from './planning-conversation-tools';
+import { StudyPresentationService, studyPresentationInput } from './study-presentation';
+import { buildLifeContinuity } from './life-continuity';
+import { buildPersonalMethodContinuity } from './personal-method-continuity';
+import { CuriosityInvitationService } from './curiosity-invitation';
+import { curiosityToolDefinitions, executeCuriosityTool } from './curiosity-tools';
+import { createCuriosityPresentation, curiosityContextForRun } from './curiosity-scene';
+import { curiosityPresentationInput } from '../../shared/curiosity-scene';
+import { createStorySettingPresentation } from './story-setting';
+import { curiosityFollowupReferenceSchema, type CuriosityFollowupReference } from '../../shared/curiosity-source';
+import { createPlanningComparisonPresentation, planningComparisonPresentationInput } from './planning-comparison-scene';
+import { studyInteractionSchema, type StudyInteraction, type StudyResolvedFocus } from '../../shared/study-presentation';
+import { companionFollowupReferenceSchema, type CompanionFollowupReference } from '../../shared/companion-source';
+import { sceneRefSchema, campusDisplayInputSchema, type SceneSnapshot, type PresentationView, type VerifiedSelection, type MapScene } from '../../shared/scenes';
 import { campusQueryGrants, validateCampusQuery } from '../capabilities/campus-query';
 import { WorkService } from './work';
 import { MemoryService, currentOwnerChangeSchema } from '../memory/service';
+import { readUnderstandingHistory, understandingReadInput } from '../memory/history';
+import { LearningProcessService, learningReadInput, learningWriteInput } from '../memory/learning-process';
+import path from 'node:path';
+import { LocalEmbeddingRuntime } from '../memory/embedding-runtime';
+import { SemanticRecallService } from '../memory/semantic-recall';
+import { SourceRelatedService, sourceRelatedInput } from '../memory/source-related';
+import { resolveSourceQuote } from './source-quote';
+import { MemoryInquiryService, memoryInquiryInput, memoryInquiryProfileSchema, memoryInquiryToolSpec, MEMORY_INQUIRY_TOOL } from './memory-inquiry';
 import { DomainService } from '../storage/domains';
 import { CapabilityBroker, type CapabilityResult } from '../capabilities/broker';
 import { registerBuiltins, localActionInput, type BuiltinConnections } from '../capabilities/builtin';
@@ -47,6 +87,12 @@ import { localStamp, normalizeCalendarInput, projectCalendarChange } from '../ac
 import { LocalCalendarService } from '../actions/local-calendar';
 import { PlanningApplicationService } from '../actions/planning-application';
 import { PlanningIntentService, managePlanningIntentInput, planningIntentPageInput, planningIntentReplanInput } from './planning-intents';
+import { InvestigationFrontierService, type InvestigationSession } from './investigation-frontier';
+import { PersonalMethodService, personalMethodInput } from './personal-methods';
+import { createMethodWorkHelpOwner } from './method-work-help';
+import { personalMethodSourcesSchema } from '../../shared/personal-method';
+import { CampusAcademicSourceService, campusSensitiveResources } from './campus-academic-source';
+import { campusAcademicReadInputSchema, type CampusAcademicReadInput } from '../../shared/campus-academic';
 import { localCalendarChangeSchema } from '../../shared/calendar';
 import { noteListSchema, noteReadSchema, noteCreateSchema, noteUpdateSchema, noteStateSchema, noteUndoSchema, noteHistorySchema } from '../../shared/notes';
 import campusMethod from '../../../prompts/campus-tools.md';
@@ -66,6 +112,19 @@ import {
 } from '../capabilities/ports';
 
 export interface RunSession {
+  rehearsalInteraction?: RehearsalInteraction;
+  rehearsalAdmission?: RehearsalAdmission;
+  rehearsalUnavailable?: boolean;
+  letterReference?: LetterReference;
+  noteReference?: NoteReference;
+  curiosityReference?: CuriosityFollowupReference;
+  companionReference?: CompanionFollowupReference;
+  studyInteraction?: StudyInteraction;
+  studySelection?: { selection: StudyResolvedFocus; intent: 'reference_only' | 'learner_attempt' | 'request_help' | 'hypothetical_exploration';
+    requestedMode?: import('../../shared/study-companion').StudyMode; records: import('../../shared/harness').WorkRecord[] };
+  investigation?: InvestigationSession;
+  investigationReaders?: Map<string, { binding: InvestigationSession;
+    projection: { eventId: string; contentVersion: number; quote: string; sourceStart: number; sourceEnd: number } }>;
   selection?: VerifiedSelection;
   selectionUnavailable?: boolean;
   sceneSessionId?: string;
@@ -77,10 +136,14 @@ export interface RunSession {
   attentionEvidenceViews?: Record<string, { quote: string; contentVersion: number; sourceStart: number; sourceEnd: number }>;
   dependencyNotices?: unknown[];
   methodNotes?: string[];
+  personalMethodApplications?: import('../storage/repository').PersonalMethodApplication[];
+  campusSelection?: import('../../shared/scenes').SemanticSelection;
   budgetOwner?: RunSession;
   privacyResult?: { text: string; operation: string };
   observations?: { tool: string; requestedArguments?: unknown; result: unknown; toolCallId?: string }[];
+  deliveredObservationIds?: Set<string>;
   controlUsages?: import('../provider').Completion['usage'][];
+  controlResponseModels?: (string | undefined)[];
   ingress: IngressDecision;
   events: EvidenceEvent[];
   pack?: ContextPack;
@@ -261,6 +324,11 @@ function inferredReleaseFacts(value: string) {
     .slice(0, 24);
 }
 const specs: SpecDefinition[] = [
+  ...lifeCollaborationToolDefinitions,
+  ...reflectiveLetterToolDefinitions,
+  ...relationshipRehearsalToolDefinitions,
+  ...planningConversationToolDefinitions,
+  ...curiosityToolDefinitions,
   {
     name: 'manage_note',
     description: '用户自己的记事本，保存和读取完整原文，独立于长期记忆与日历。list/read/history只读；create/update/change_state/undo须当前明确委托及原话sourceQuote，不能把随口想法自动排程。读取按offset分页，可继续展开末尾条件。编辑/撤销使用实际expectedRevision，冲突先核对当前版本。',
@@ -276,11 +344,11 @@ const specs: SpecDefinition[] = [
   },
   {
     name: 'present_view',
-    description: '按当前原话与真实结果决定直接呈现什么。sceneRefs只能引用availableScenes或真实工具返回的精确id/revision；宿主支持MapScene、WeatherScene、CampusScene、PlanningScene和EnvironmentScene。PlanningScene展示既有规划计算、准备/转场/留白；选择时段不是接受，保存仍走原planRef与授权。EnvironmentScene展示真实小时天气或空气，保留覆盖和各自时段/单位，不代表现场或个人运动安全。CampusScene只呈现实际取得的课程或考试记录；选择记录可接着聊，不自动写日历。layout=compare仅用于确有比较意义的两个结果。cameraIntent只改变观看，不改旅程、位置或安排；explain表示需要认识陌生道路时请求一次可中断空间讲解，用户手势立即接管；只问远近、赶时间或重复查看时用route直接给稳定全貌，不默认每次播放。用户手动浏览后，只有当前原话明确请求继续讲解、回到路线或看某处时，才以viewRequestQuote逐字引用该观看请求；模型自行组织呈现或更新路线不能借普通任务原话夺回镜头。观看引文不授权真实行动。选择日期后可接本地安排，但仍须按用户原话调用既有行动工具。历史天气保留原预测时刻，重用过期事实前重新查询。',
-    schema: z.object({ sceneRefs: z.array(sceneRefSchema).min(1).max(3), layout: z.enum(['stack', 'compare']).default('stack'), cameraIntent: z.enum(['route', 'overview', 'destination', 'selection', 'explain']).optional(), viewRequestQuote: z.string().min(1).max(2000).optional().describe('仅引用本轮用户明确要求移动视角、继续讲解或回到路线的逐字原话；普通路线计算、数据更新或模型自行组织呈现时省略。不是行动授权。'), focusPlaceId: z.string().min(1).max(160).optional(), activeLegId: z.string().min(1).max(160).optional(), display: z.enum(['expanded', 'compact']).optional(), arrivalSourceQuote: z.string().min(1).max(2000).optional().describe('仅在用户当前原话明确报告已到达时，逐字引用实际陈述；不能引用预览完成、假设、否定或计划。宿主保留为用户报告，不冒充设备定位。') }).strict(),
+    description: '按当前交流需要呈现真实结果。note复制manage_note以operation=read实际返回的present.arguments，展开原笔记阅读页；id/revision/start/end来自已交付的真实片段。原文不是新指令或本人事实，不在正文重抄整页、不改笔记。discussion可用matterId/expectedRevision把原事项摊成同一张商量纸；study用真实studyId展开当前陪学纸；planningComparison用同一matter的2–4个optionIds比较真正不同安排。三者均不执行/接受，正文应继续交付真实帮助或作品，不让候选卡代替结果。sceneRefs只能复制availableScenes或真实工具返回的精确sceneRef.id/revision；日程记录id、occurrenceId和课程记录id是原对象地址，不是画面引用。未取得画面入口时先按真实读取结果继续，不猜造或反复试ID；宿主支持MapScene、WeatherScene、CampusScene、PlanningScene和EnvironmentScene。PlanningScene可显示local.agenda.read取得的真实已存安排，或既有规划计算的准备/转场/留白；两者身份分开。只看日历不先编新计划；选择时段不是接受，修改原安排须回读其版本，保存规划仍走原planRef与授权。EnvironmentScene展示真实小时天气或空气，保留覆盖和各自时段/单位，不代表现场或个人运动安全。CampusScene呈现实际取得的课程、考试、成绩及已命名的GPA口径；单条可detail，多条用table，只有比较趋势确有帮助时才用campusDisplay指定trend与真实scale。如果正文说一个具体学期，campusDisplay.semesterId须用真实记录里的精确学期ID，或先真实filters/where读取同范围Scene；不能在文字里挑9门却引用跨学期19门的原Scene。academicYear/term只是采集快照选择，不是成绩行筛选。成绩原值、是否计入、分母与口径各自保留，缺项不当0，也不把不同GPA口径拼成一条趋势。选择记录可接着聊，不自动写日历。layout=compare仅用于确有比较意义的两个结果。cameraIntent只改变观看，不改旅程、位置或安排；explain表示需要认识陌生道路时请求一次可中断空间讲解，用户手势立即接管；只问远近、赶时间或重复查看时用route直接给稳定全貌，不默认每次播放。用户手动浏览后，只有当前原话明确请求继续讲解、回到路线或看某处时，才以viewRequestQuote逐字引用该观看请求；模型自行组织呈现或更新路线不能借普通任务原话夺回镜头。观看引文不授权真实行动。选择日期后可接本地安排，但仍须按用户原话调用既有行动工具。历史天气保留原预测时刻，重用过期事实前重新查询。',
+    schema: z.object({ sceneRefs: z.array(sceneRefSchema).max(3).default([]), campusDisplay: campusDisplayInputSchema.optional(), discussion: z.object({ matterId: z.string().min(1).max(160), expectedRevision: z.number().int().positive(), previous: sceneRefSchema.optional(), focus: discussionFocusSchema.optional(), modules: z.array(discussionModuleRefSchema).max(8).optional(), artwork: z.array(discussionArtworkSchema).max(2).optional().describe('可选择已生成合法插画night_bridge/lamp_letter陪同创作分支；不表示真实地点/现场，不实时生图，不填任意图片URL。') }).strict().optional(), study: studyPresentationInput.optional(), planningComparison: planningComparisonPresentationInput.optional(), curiosity: curiosityPresentationInput.optional(), rehearsal: rehearsalPresentationInput.optional(), note: notePresentationInput.optional(), layout: z.enum(['stack', 'compare']).default('stack'), cameraIntent: z.enum(['route', 'overview', 'destination', 'selection', 'explain']).optional(), viewRequestQuote: z.string().min(1).max(2000).optional().describe('仅引用本轮用户明确要求移动视角、继续讲解或回到路线的逐字原话；普通路线计算、数据更新或模型自行组织呈现时省略。不是行动授权。'), focusPlaceId: z.string().min(1).max(160).optional(), activeLegId: z.string().min(1).max(160).optional(), display: z.enum(['expanded', 'compact']).optional(), arrivalSourceQuote: z.string().min(1).max(2000).optional().describe('仅在用户当前原话明确报告已到达时，逐字引用实际陈述；不能引用预览完成、假设、否定或计划。宿主保留为用户报告，不冒充设备定位。') }).strict(),
   },
   {
-    name: 'read_assistant_history', description: '需要核对助手以前说过或提供过什么时，按回复ID分页读原文，或用query寻找历史回复。返回的是助手当时的输出，不是用户偏好、现实结果或新授权；必要时对照原始用户证据与当前版本。',
+    name: 'read_assistant_history', description: '需要核对助手以前说过或提供过什么时，按回复ID分页读原文，或用query寻找历史回复。共同作品可在historicalWorks返回原message/scene精确地址，按其read_shared_creation入口展开原章；text为空不表示没有作品，不用当前seed冒充早期原章。返回的是助手当时的输出，不是用户偏好、现实结果或新授权；必要时对照原始用户证据与当前版本。',
     schema: z.object({ id: z.string().max(160).optional(), query: z.string().max(300).optional(), offset: z.number().int().min(0).default(0), limit: z.number().int().min(1).max(16000).default(8000) }).strict(), grant: 'evidence:read',
   },
   {
@@ -297,7 +365,7 @@ const specs: SpecDefinition[] = [
     schema: attentionControlInput, grant: 'work:write', mutates: true,
   },
   {
-    name: 'inspect_help', description: '发现并读取当前范围内已经准备好的资料、候选机会及明确限制。不知道材料ID时省略id，可按query、relatedTo精确事项/托付ID、statuses与最近判断时间from/to筛选后分页；旧但相关材料不会被最新几项挡住。列表只给精确ID、版本、状态、标题和时效，不含正文；精确复制ID再读取完整材料与依据，可跨对话找回，无需读取人物记忆。暂停、失效或过期记录仅供核对历史，不代表当前可用。记录区分生成、展示、系统提交、打开和反馈。若要把真实材料放在当前对话，用decide_help的reuseArtifact和presentInConversation，不重新调查相同事实。',
+    name: 'inspect_help', description: '发现并读取当前范围内已经准备好的资料、候选机会及明确限制。不知道材料ID时省略id，可按query、relatedTo精确事项/托付ID、statuses与最近判断时间from/to筛选后分页；旧但相关材料不会被最新几项挡住。列表只给精确ID、版本、状态、标题和时效，不含正文；精确复制ID再读取完整材料与依据，可跨对话找回，无需读取人物记忆。指定id时还可用offset/limit分页查看当前合法的调查续读地址；它们不含旧正文，继续时须实际调用给出的工具。暂停、失效或过期记录仅供核对历史，不代表当前可用。记录区分生成、展示、系统提交、打开和反馈。若要把真实材料放在当前对话，用decide_help的reuseArtifact和presentInConversation，不重新调查相同事实。',
     schema: helpDiscoveryInput, grant: 'evidence:read',
   },
   {
@@ -348,22 +416,42 @@ const specs: SpecDefinition[] = [
   },
   {
     name: 'search_context',
-    description: '需要理解用户前情、条件或过去理由时主动取证，不必等用户说“查记忆”。query保留问题，relatedQueries补充语义表达；mode=scan浏览合法现行理解。仍缺线索或可能漏提取时用mode=browse按来源/收到时间浏览原文定位页：不要求query字面命中，不依赖已提取断言，按read入口展开正文。browse复用nextCursor且不改来源/时间，新增原文不挤动旧页；预览不代表完整事实。旧措辞可沿更正找到新来源。结果是候选与覆盖，不是适用结论。',
-    schema: z.object({ query: z.string().min(1).max(400), relatedQueries: z.array(z.string().min(1).max(400)).max(5).optional().describe('模型提出的同义、跨语言或决策依赖查询，不是新增事实。'), mode: z.enum(['search', 'scan', 'browse']).optional().describe('search多路检索；scan按offset浏览有效理解；browse无词面条件地浏览原文定位预览，query只表达调查目的。'), at: z.string().datetime({ offset: true }).optional(), sourceIds: z.array(z.string().min(1).max(160)).min(1).max(16).optional().describe('仅browse：精确来源ID，必须在本轮允许范围；不填则浏览当前允许的持久来源。'), receivedFrom: z.string().datetime({ offset: true }).optional().describe('仅browse：收到原文时间的下界（含），不是事实生效时间。'), receivedBefore: z.string().datetime({ offset: true }).optional().describe('仅browse：收到原文时间的上界（不含）。'), cursor: z.string().min(1).max(160).optional().describe('仅browse：上一页nextCursor，继续时可省略相同来源/时间条件；30分钟或进程重启后重新开始。'), offset: z.number().int().min(0).optional(), hardOffset: z.number().int().min(0).optional(), limit: z.number().int().min(1).max(20).optional() }).strict(),
+    description: '需要理解用户前情、条件或过去理由时主动取证，不必等用户说“查记忆”。query保留问题，relatedQueries补充语义表达；search合并词法与可用本地语义候选，复制coverage.read、vectorSearch.read/nextWindow或lexicalContinuation继续各自窗口；reuseCurrentQuery时沿用当前查询。mode=scan浏览合法现行理解。仍缺线索或可能漏提取时用mode=browse按来源/收到时间浏览原文定位页，不要求字面命中；复制nextCursor继续。预览需按read入口展开，排名与覆盖不证明事实或适用。有效托付可按inspect_help当前提供的investigationContinuation续读，旧游标不恢复权限。旧措辞可沿更正找到新来源。',
+    schema: z.object({ query: z.string().min(1).max(400), relatedQueries: z.array(z.string().min(1).max(400)).max(5).optional().describe('模型提出的同义、跨语言或决策依赖查询，不是新增事实。'), mode: z.enum(['search', 'scan', 'browse']).optional().describe('search多路检索；scan按offset浏览有效理解；browse无词面条件地浏览原文定位预览，query只表达调查目的。'), at: z.string().datetime({ offset: true }).optional(), sourceIds: z.array(z.string().min(1).max(160)).min(1).max(16).optional().describe('仅browse：精确来源ID，必须在本轮允许范围；不填则浏览当前允许的持久来源。'), receivedFrom: z.string().datetime({ offset: true }).optional().describe('仅browse：收到原文时间的下界（含），不是事实生效时间。'), receivedBefore: z.string().datetime({ offset: true }).optional().describe('仅browse：收到原文时间的上界（不含）。'), cursor: z.string().min(1).max(160).optional().describe('仅browse：上一页nextCursor，继续时可省略相同来源/时间条件；30分钟或进程重启后重新开始。'), semanticSnapshot: z.string().min(1).max(160).optional().describe('仅search：采用coverage.read或vectorSearch.read给出的冻结语义排名，失效时从0重开，不猜造。'), semanticOffset: z.number().int().nonnegative().optional().describe('仅search：语义窗口的继续位置，复制vectorSearch.read，与普通offset分开。'), semanticWindowCursor: z.string().min(1).max(160).optional().describe('仅search：候选枚举未完时复制vectorSearch.nextWindow给出的下一窗口；不带旧排名，不恢复来源权限。'), offset: z.number().int().min(0).optional(), hardOffset: z.number().int().min(0).optional(), limit: z.number().int().min(1).max(20).optional() }).strict(),
     grant: 'evidence:read',
   },
   {
-    name: 'discover_skills', description: '按需查找已审核的工作方法。目录不读取个人资料、不执行代码、不增加权限。空query分页列出全部；搜索未命中不表示能力不存在，仍可直接调用其他合法工具。',
+    name: 'discover_skills', description: '按需查找内置工作方法，以及当前来源和用途允许读取的本人已保存方法。目录只给名称、用途、版本和hash，正文用read_skill读取；不执行代码、不增加权限。空query分页列出全部；搜索未命中不表示能力不存在，仍可直接调用其他合法工具。',
     schema: z.object({ query: z.string().max(400).optional(), offset: z.number().int().nonnegative().optional(), limit: z.number().int().min(1).max(20).optional() }).strict(),
   },
   {
-    name: 'read_skill', description: '按目录中的精确ID读取工作方法及其所需工具在本轮的连接/授权状态。指南不是用户事实或新授权；只采用需要的步骤，不强制跑完整流程。',
-    schema: z.object({ id: z.string().min(1).max(100) }).strict(),
+    name: 'manage_method', description: '本人自然明确愿意以后也这样帮，一句话即可作未来沿用许可。伙伴起草有条件的名称/步骤，source引用该本轮真实原话，assistance引用实际助手原回复的精确位置，workAnchors接真实事项/学习过程，其他原话放supports；这些帮助来源不是本人认可，不复制具体题目或虚构情节作永久前提。不让用户填表或复批。revise默认amend只改指定部分、保原独立有效条件；明确重写整份才replace。按当前personal:ID/revision办理，已停用方法修订仍停用。方法仅有版本的指导文字，不安装代码、不改人格/记忆/日程、不授予业务权限；点击、一次成功和模型夸奖都不自动保存。',
+    schema: personalMethodInput, grant: 'work:write', mutates: true,
+  },
+  {
+    name: 'read_skill', description: '按目录精确ID读取方法及当前条件。决定借本人方法来帮助眼前这件事时，forCurrentHelp给本轮请求的精确原话地址和已读matterId（如有）；宿主只把实际采用来源接到这一处派生工作，不修改长期方法。仅查目录、回看为什么或准备修订时不填。指南不是用户事实、评分或新行动授权；按当前意愿调整，不强制完整跑流程。',
+    schema: z.object({ id: z.string().min(1).max(100), forCurrentHelp: z.object({ source: workSourceRefSchema,
+      matterId: z.string().min(1).max(160).optional() }).strict().optional() }).strict(),
+  },
+  {
+    name: 'read_method_help', description: '沿read_skill.supportingHelp.workAssistance的原地址回读当时真正给过的那一段陪学提示或共做解释。普通方法文字够用时无需打开；返回的是旧帮助，不是本人的认可、新材料已读或当前工作状态。',
+    schema: z.object({ id: z.string().regex(/^personal:[0-9a-f-]{36}$/), revision: z.number().int().positive(),
+      index: z.number().int().min(0).max(15) }).strict(), grant: 'evidence:read',
+  },
+  {
+    name: 'read_companion_history', description: '按原message/Scene精确地址分页回读当时共做页的一句解释、卡点、下一步或回来起点。返回旧解释和原资料地址，原操作保持历史身份；继续做之前另读当前read_companion_session。此读取不恢复工作、不证明任务完成或材料正文已读。',
+    schema: assistantWorkSourceSchema.extend({ companionId: z.string().min(1).max(160).optional(),
+      field: z.enum(['workingExplanation', 'currentObstacle', 'nextStep', 'returnPoint']).default('workingExplanation'),
+      offset: z.number().int().nonnegative().default(0), limit: z.number().int().min(1).max(1600).default(1200) }).strict(), grant: 'evidence:read',
+  },
+  {
+    name: 'read_current_campus_selection', description: 'currentCampusReference只是界面已选中的成绩/GPA地址。当前问题需要这门课或这个口径时，用此入口核本轮用途后沿原校园来源精确读同一记录；不凭旧画面数字计算，不让用户重抄课程名，也不把点击当成绩读取或改动许可。',
+    schema: z.object({}).strict(), grant: 'campus:read',
   },
   {
     name: 'restore_collaboration',
-    description: '按需要恢复当前或跨会话事项、原话依据、暂定理解和未办请求。type=planning_intent时用id精确读规划规格，relatedTo按父事项读取；discoveryScope=permitted_workspace、mode=scan分页发现当前许可规格，不要求用户报ID。默认仍恢复当前会话共同事项。支持搜索和分页，并附已恢复对象的当前未同步/版本冲突修改；提议未应用，不能自动覆盖或当作已同步。不为问候或简单答复强制使用。',
-    schema: z.object({ type: z.literal('planning_intent').optional(), id: z.string().min(1).max(160).optional(), discoveryScope: z.enum(['current_conversation', 'permitted_workspace']).optional(), mode: z.enum(['search', 'scan']).optional(), statuses: z.array(z.enum(['active', 'paused', 'retired'])).min(1).max(3).optional().describe('仅规划规格：默认查active；找回已暂停或结束的旧事项时可明确选择状态，读取不恢复活动。'), query: z.string().max(400).optional().describe('普通事项最多400字；type=planning_intent最多300字，scan不按query词面筛选。'), offset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional(), limit: z.number().int().min(1).max(20).optional(), relatedTo: z.string().min(1).max(160).optional().describe('已知父事项ID；按实际关联读取该事项的工作记录，不代替规划规格的精确id。'), relatedOffset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional().describe('关联工作记录的分页位置，使用relatedCoverage.nextOffset。'), syncOffset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional().describe('这一对象页中的未同步/冲突修改分页，使用syncChanges.nextOffset。'), syncLimit: z.number().int().min(1).max(20).optional(), syncObjectOffset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional().describe('仅已恢复对象的同步读取分页，使用syncChanges.objectCoverage.nextOffset；进入下一对象页时syncOffset从0开始。') }).strict(),
+    description: '按需要恢复事项、原话依据、暂定理解和未办请求。已读原话后可用type=source_related及精确sourceRefs寻找已有事项/学习/方法的候选ID与原读取入口；复制sourceCursor续页，不能与普通查询分页混用。精确重叠和旧整条消息关联分别标注，目录不证明相关性、已读正文或当前适用，也不恢复活动。type=planning_intent用id精确读规格，relatedTo按父事项读取；discoveryScope=permitted_workspace、mode=scan发现许可规格。默认恢复当前会话共同事项，并附已有对象的未同步/冲突修改，提议不自动覆盖。不为简单答复强制使用。',
+    schema: z.object({ type: z.enum(['planning_intent', 'source_related']).optional(), sourceRefs: z.array(workSourceRefSchema).min(1).max(8).optional().describe('仅source_related首次：实际预览/读取的原文绝对Unicode码点范围及版本，不用投影相对offset。'), sourceCursor: z.string().min(1).max(160).optional().describe('仅source_related：复制coverage.nextCursor继续固定候选枚举，不恢复来源权限。'), id: z.string().min(1).max(160).optional(), discoveryScope: z.enum(['current_conversation', 'permitted_workspace']).optional(), mode: z.enum(['search', 'scan']).optional(), statuses: z.array(z.enum(['active', 'paused', 'retired'])).min(1).max(3).optional().describe('仅规划规格：默认查active；找回已暂停或结束的旧事项时可明确选择状态，读取不恢复活动。'), query: z.string().max(400).optional().describe('普通事项最多400字；type=planning_intent最多300字，scan不按query词面筛选。'), offset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional(), limit: z.number().int().min(1).max(20).optional(), relatedTo: z.string().min(1).max(160).optional().describe('已知父事项ID；按实际关联读取该事项的工作记录，不代替规划规格的精确id。'), relatedOffset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional().describe('关联工作记录的分页位置，使用relatedCoverage.nextOffset。'), syncOffset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional().describe('这一对象页中的未同步/冲突修改分页，使用syncChanges.nextOffset。'), syncLimit: z.number().int().min(1).max(20).optional(), syncObjectOffset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional().describe('仅已恢复对象的同步读取分页，使用syncChanges.objectCoverage.nextOffset；进入下一对象页时syncOffset从0开始。') }).strict(),
     grant: 'evidence:read',
   },
   {
@@ -379,16 +467,26 @@ const specs: SpecDefinition[] = [
   {
     name: 'look_up',
     description:
-      '在本轮范围内查资料。source=capability且不填capability时搜索/分页能力目录，支持query、offset、limit；填写capability+describeOnly=true读取schema，填写arguments执行只读能力。weather可传公开location，date查日级，from/to查小时窗；小时问题应查询实际时间窗，日级结果不证明小时能力不可用。campus具体查询须选domain，overview为明确的总览；未连接、无权限、部分覆盖均有实际状态。local读本地安排，history回查原文。不能指定他人身份或任意文件路径。',
+      '在本轮范围内查资料。source=capability且不填capability时搜索/分页能力目录，支持query、offset、limit；填写capability+describeOnly=true读取schema，填写arguments执行只读能力。weather可传公开location，date查日级，from/to查小时窗；小时问题应查询实际时间窗，日级结果不证明小时能力不可用。campus具体查询须选domain，overview为明确的总览；未连接、无权限、部分覆盖均有实际状态。local按from/to读本地已存安排，query只筛标题；实际返回的sceneRef可交present_view，记录id/occurrenceId只定位原安排，不是SceneRef。history回查原文。不能指定他人身份或任意文件路径。',
     schema: lookUpSchema,
   },
   {
-    name: 'read_understanding', description: '按稳定ID读取一条理解的完整条件、例外和来源指针。只是一份可核查理解，不自动代表当前事实；必要时继续分页读原文。',
-    schema: z.object({ id: z.string().max(160) }).strict(), grant: 'evidence:read',
+    name: 'read_understanding', description: '按稳定ID读取完整理解。用户问理解为何变化、当时怎样认为时用view=history；沿同一事实逐修订保留条件、现实有效区间、实际宿主提交时间与变化原话。knownAt查询当时已保存的理解，validAt另核现实有效区间；旧提交时间未知不推算。历史来源仍按当前许可抑制，旧理解不能当当前事实或恢复批准。历史页沿coverage.read继续，不需要用户维护记忆。',
+    schema: understandingReadInput, grant: 'evidence:read',
+  },
+  {
+    name: 'manage_learning',
+    description: '在已有共同学习事项中保留一次真实尝试及其条件、帮助和结果报告。record给原题/本人尝试的精确来源，另一尝试另建记录；revise先回读同一ID和版本，省略字段保留原条件，[]明确清空。本人报告、平台记录、助手提示与答案分别定位，未核实不评定独立掌握。retire按当前本人原话和记录元数据停止，不必先展开旧正文；不改人物能力、成绩或日程。',
+    schema: learningWriteInput, grant: 'work:write', mutates: true,
+  },
+  {
+    name: 'read_learning',
+    description: '从已有共同学习事项找回原题、本人尝试、已记录提示/答案、尚未解决处和当时条件，预览后沿精确地址回读。compareIds并排两次真实尝试；不同题、条件未知、帮助史不全时不评定成长或独立掌握。用户想自己发现时先按当前要求给最小提示，不直接展示旧答案。缺少帮助记录不证明无帮助。停止已知记录而旧正文不可读时，用id+metadataOnly=true核当前版本再retire；不会恢复正文或创建学习标签。',
+    schema: learningReadInput, grant: 'evidence:read',
   },
   {
     name: 'read_evidence',
-    description: '按来源 ID 分页打开有权使用的原文，offset/limit 按 Unicode 字符计数。长文返回覆盖与下一页，不把片段当全文；已停用来源仅作历史依据。',
+    description: '按来源 ID 分页打开有权使用的原文，offset/limit 按 Unicode 字符计数。续读时使用宿主返回的精确地址，不把授权片段的局部坐标套到完整原文；长文返回覆盖与下一页，不把片段当全文。已停用来源仅作历史依据。',
     schema: z.object({ id: z.string().min(1).max(160), offset: z.number().int().min(0).default(0), limit: z.number().int().min(1).max(20000).default(8000) }).strict(),
     grant: 'evidence:read',
   },
@@ -450,11 +548,11 @@ const specs: SpecDefinition[] = [
   {
     name: 'delegate',
     description:
-      '有限的独立只读调查。每个任务必须用sources声明需要的来源ID（能力目录给出sourceId），本轮原文或附件可用currentEvidenceIds指定；只能在父任务范围内。未声明来源时只能处理任务说明里的文字，不继承完整私人历史。取消联动，不能再委派或写入。',
+      '将相互独立的问题交给同一Hermes并行只读调查（前台最多三支、后台最多两支）。每支用sources声明来源，本轮原文或附件用currentEvidenceIds指定。各支仍共用父任务总预算，结果逐支返回真实状态及来源交接目录；一支失败不等于其他已完成材料无效。不能再委派或写入，不继承未声明的私人历史。',
     schema: z
       .object({
         tasks: z
-          .array(z.object({ title: z.string().max(60), instruction: z.string().min(10).max(1200), sources: z.array(z.string().max(160)).max(12).optional(), currentEvidenceIds: z.array(z.string().max(160)).max(8).optional() }).strict())
+          .array(z.object({ title: z.string().max(60), instruction: z.string().min(10).max(1200), sources: z.array(z.string().max(160)).max(12).optional(), currentEvidenceIds: z.array(z.string().max(160)).max(8).optional(), memoryInquiry: memoryInquiryProfileSchema.optional() }).strict())
           .min(1)
           .max(3),
       })
@@ -560,6 +658,23 @@ export class RuntimeCoordinator {
   readonly calendar: LocalCalendarService;
   readonly planning: PlanningApplicationService;
   readonly planningIntents: PlanningIntentService;
+  readonly investigation: InvestigationFrontierService;
+  readonly personalMethods: PersonalMethodService;
+  readonly campusAcademicSources: CampusAcademicSourceService;
+  readonly learning: LearningProcessService;
+  readonly embeddings: LocalEmbeddingRuntime;
+  readonly semanticRecall: SemanticRecallService;
+  readonly sourceRelated: SourceRelatedService;
+  readonly memoryInquiry: MemoryInquiryService;
+  readonly companionContinuity: CompanionContinuityService;
+  readonly companionSessions: CompanionSessionService;
+  readonly studyCompanion: StudyCompanionService;
+  readonly studyPresentation: StudyPresentationService;
+  readonly reflectiveLetters: ReflectiveLetterService;
+  readonly rehearsals: RelationshipRehearsalService;
+  readonly notePresentation: NotePresentationService;
+  readonly planningConversation: PlanningConversationService;
+  readonly curiosityInvitations: CuriosityInvitationService;
   readonly collaboration: CollaborationService;
   readonly basis: BasisService;
   readonly cooperation: CooperationService;
@@ -579,16 +694,38 @@ export class RuntimeCoordinator {
   lastSession?: RunSession;
   private ephemeralEvents = new Map<string, EvidenceEvent>();
   private modelBoundary?: { client: { invalidateBoundary?: () => void }; fingerprint: string };
+  private campusSnapshotPolling = false;
+  private campusSnapshotConsumersDeferred = false;
   constructor(
     readonly store: Store,
     readonly repo: KernelRepository,
   ) {
     this.policy = new PolicyKernel(repo);
+    this.campusAcademicSources = new CampusAcademicSourceService(repo, this.policy);
+    this.investigation = new InvestigationFrontierService(repo, this.policy);
+    this.personalMethods = new PersonalMethodService(repo, this.policy);
     this.memory = new MemoryService(repo, this.policy);
     this.domains = new DomainService(repo, this.policy);
     this.work = new WorkService(repo, this.policy);
+    this.rehearsals = new RelationshipRehearsalService(repo, this.work);
+    this.notePresentation = new NotePresentationService(store);
+    this.curiosityInvitations = new CuriosityInvitationService(repo, this.policy, () => this.connections.map?.publicView());
+    this.learning = new LearningProcessService(repo, this.work);
+    this.embeddings = new LocalEmbeddingRuntime({
+      resourceDirectory: path.resolve(process.env.ZAICHANG_EMBEDDING_RUNTIME_ROOT || 'runtime/embedding'),
+      workerPath: path.resolve(process.env.ZAICHANG_EMBEDDING_WORKER_PATH || 'dist-electron/embedding-worker.cjs'),
+    });
+    this.semanticRecall = new SemanticRecallService(repo, this.embeddings);
+    this.sourceRelated = new SourceRelatedService(repo);
+    this.memoryInquiry = new MemoryInquiryService(repo);
     this.broker = new CapabilityBroker(this.policy);
     this.materials = new MaterialService(repo, this.policy, (scope, id) => this.scopedEvidence(scope, id));
+    this.companionContinuity = new CompanionContinuityService(repo, this.work, this.personalMethods);
+    this.companionSessions = new CompanionSessionService(repo, this.work, this.materials);
+    repo.verifyCompanionSnapshotMetadata = (handle, header, permits) => this.companionSessions.snapshotMetadata(handle, header, permits);
+    this.studyCompanion = new StudyCompanionService(repo, this.work, this.materials);
+    this.personalMethods.workHelpOwner = createMethodWorkHelpOwner(this.studyCompanion, this.companionSessions, this.materials);
+    this.studyPresentation = new StudyPresentationService(this.studyCompanion, repo.clock);
     this.domains.onChanged = () => this.work.staleWorlds();
     this.connections = { weatherEnabled: () => store.settings().weatherEnabled };
     this.planning = new PlanningApplicationService(() => repo.clock.now());
@@ -605,10 +742,22 @@ export class RuntimeCoordinator {
       onPrepared: (handle, action) => this.planningIntents.onPreparedAction(handle, action),
       assertCurrent: (handle, action) => this.planningIntents.assertActionCurrent(handle, action),
     });
+    this.planningConversation = new PlanningConversationService(repo, this.work, this.planning, this.actions);
     this.basis = new BasisService(repo, this.policy, this.work);
     this.cooperation = new CooperationService(repo, this.work);
-    this.attention = new AttentionService(repo, this.policy, this.work, this.basis, this.cooperation, this.reminders, this.broker, () => store.settings().interaction);
+    this.attention = new AttentionService(repo, this.policy, this.work, this.basis, this.cooperation, this.reminders, this.broker, () => store.settings().interaction, this.investigation);
+    this.reflectiveLetters = new ReflectiveLetterService(repo, this.work, this.attention, {
+      materialCurrent: (handle, proof) => this.materials.retainedTextIdentityCurrent(handle, proof),
+      readMaterial: (handle, proof, signal) => this.materials.invokeLocal(handle, 'materials.read', {
+        resourceId: proof.resourceId, ...(proof.page ? { page: proof.page } : {}), offset: proof.start, limit: proof.end - proof.start,
+      }, signal),
+    });
+    this.repo.verifyReflectiveLetterSources = (handle, metadata) => this.reflectiveLetters.metadataReadable(handle, metadata);
     this.context.setContinuityRefresh(() => this.attention.expire());
+    this.context.setLifeContinuity((ingress, sessionId, signal) => buildLifeContinuity(this, ingress.contract, sessionId, {
+      requiresReadPurpose: !!ingress.requiresReadPurpose,
+      ephemeral: ingress.contract.retention !== 'purpose_scoped', signal,
+    }));
     this.collaboration = new CollaborationService(repo, this.work, this.actions, this.basis);
     this.observations = new ObservationPort(repo, this.policy, this.work, this.domains);
     this.sync = new SyncPort(repo, this.policy, this.work);
@@ -625,11 +774,23 @@ export class RuntimeCoordinator {
       this.drainDomainChanges();
     };
     this.attention.resumeChanges = scope => { this.drainDomainChanges(scope); };
-    this.store.notes.onChanged(() => { this.drainDomainChanges(); });
+    this.store.notes.onChanged(change => {
+      if (change.state === 'deleted') this.policy.signalBarrier();
+      this.drainDomainChanges();
+    });
     this.store.onAgendaChanged(() => { this.drainDomainChanges(); });
     this.entities = new EntityPort(repo, this.policy);
     this.presentation = new PresentationService(store);
-    this.scenes = new SceneService(store, this.policy);
+    this.scenes = new SceneService(store, this.policy, (handle, ref) => {
+      if (ref.owner !== 'co_work') return;
+      const current = this.companionSessions.scene(handle, ref.matterId);
+      return current?.record.id === ref.id && current.record.revision === ref.revision ? { record: current.record, coWork: current.projection } : undefined;
+    }, (handle, projection, permits) => this.companionSessions.snapshot(handle, projection, permits));
+    repo.projectAssistantCoWorkScene = (handle, scene, permits) => this.scenes.discussionSnapshot(handle, scene, permits);
+    repo.verifyDiscussionSnapshotMetadata = (handle, metadata, permits) => this.scenes.discussionMetadataReadable(handle, metadata, permits);
+    this.scenes.academicScopeAuthorized = (handle, grant) => this.campusAcademicSources.scopeAuthorized(handle, grant);
+    this.scenes.academicSnapshotCurrent = proof => !!proof && typeof proof === 'object'
+      && this.connections.campus?.isCurrentSnapshot(proof as import('../capabilities/campus-saved-source').CampusSnapshotProof) === true;
     this.attention.migrateLegacyWatches();
     this.memory.migrateLegacy();
     const legacyCampus = store.meta<import('../../shared/types').CampusSnapshot | null>('campus', null);
@@ -656,8 +817,74 @@ export class RuntimeCoordinator {
     this.restoreConversationProjection();
     this.drainDomainChanges();
   }
+  /** Reconcile encrypted local snapshot metadata inside the existing change
+   * drain. No authentication, network refresh or independent background loop. */
+  private pollCampusSnapshot(handle: ScopeHandle) {
+    if (this.campusSnapshotPolling) return this.campusSnapshotConsumersDeferred;
+    const scope = this.policy.validate(handle), sourceId = 'campus:zju-account', adapter = this.connections.campus;
+    this.campusSnapshotConsumersDeferred = false;
+    if (!adapter || scope.principalId !== this.repo.identity.principalId || scope.workspaceId !== this.repo.identity.workspaceId
+      || scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self' || scope.child
+      || scope.retention === 'session_only' || !scope.sources.includes(sourceId) || !scope.sources.includes('work:self')
+      || !scope.grants.includes('campus:read') || !scope.grants.includes('evidence:read')) return true;
+    const now = this.repo.clock.now(), objectId = 'campus:saved-snapshot-status';
+    const focuses = this.repo.db.prepare(`SELECT id FROM h_work WHERE owner=? AND workspace=? AND subject=? AND world='real' AND audience='self' AND status='active'
+      AND json_extract(payload,'$.data.type')='attention_focus' AND (json_extract(payload,'$.data.until') IS NULL OR julianday(json_extract(payload,'$.data.until'))>julianday(?))
+      AND EXISTS(SELECT 1 FROM json_each(payload,'$.data.sources') source WHERE source.value=?)`)
+      .all(scope.principalId, scope.workspaceId, scope.principalId, now, sourceId);
+    const watches = this.repo.db.prepare(`SELECT g.id FROM h_watches w JOIN h_work g ON g.id=w.goal_id WHERE w.owner=? AND w.workspace=? AND w.status='active' AND g.status='active' AND w.epoch=?
+      AND g.subject=? AND g.world='real' AND g.audience='self' AND json_extract(w.payload,'$.eventCategory')='source_status'
+      AND julianday(json_extract(w.payload,'$.actionableUntil'))>julianday(?) AND (
+        EXISTS(SELECT 1 FROM json_each(g.payload,'$.data.sources') source WHERE source.value=?) OR
+        EXISTS(SELECT 1 FROM json_each(g.payload,'$.sourceBinding.sourceIds') source WHERE source.value=?))`)
+      .all(scope.principalId, scope.workspaceId, scope.privacyEpoch, scope.principalId, now, sourceId, sourceId);
+    const consumers = [...new Set([...focuses, ...watches].map(row => String(row.id)))].map(id => {
+      try {
+        const record = this.repo.work(handle, undefined, id)[0];
+        if (!record) return false;
+        const rules = this.attention.rules(handle, id, objectId);
+        if (rules.some(rule => rule.data.operation === 'stop')) return null;
+        if (rules.some(rule => rule.data.operation === 'pause')) return false;
+        if (record.data.type !== 'attention_focus') return record.status === 'active';
+        const status = this.attention.nativeItem(handle, id).status;
+        return status === 'ended' || status === 'expired' ? null : status === 'active';
+      } catch (error) { if (error instanceof HarnessError) return false; throw error; }
+    });
+    this.campusSnapshotConsumersDeferred = consumers.some(readable => readable === false);
+    if (!consumers.some(Boolean)) return this.campusSnapshotConsumersDeferred;
+    const stamp = adapter.savedSnapshotRevision();
+    if (!stamp) return true;
+    this.campusSnapshotPolling = true;
+    try {
+      this.repo.write(() => {
+        this.policy.require(handle, 'campus:read'); this.policy.require(handle, 'evidence:read');
+        if (adapter.savedSnapshotRevision() !== stamp) { this.campusSnapshotConsumersDeferred = true; return; }
+        const key = 'campus_saved_snapshot_attention_v1';
+        const previous = this.repo.getMeta<{ stamp: string; revision: number } | null>(key, null);
+        if (!previous) {
+          const current = this.repo.db.prepare("SELECT revision FROM h_domain WHERE id=? AND source=? AND domain='source_status' AND institution='zju' AND term='local_saved_state'")
+            .get(objectId, sourceId);
+          this.repo.setMeta(key, { stamp, revision: Number(current?.revision || 0) });
+          return;
+        }
+        if (previous.stamp === stamp) return;
+        const revision = previous.revision + 1, eventId = 'campus-local-snapshot-observation:' + randomUUID();
+        const value = { scopeKey: 'local_saved_state', localGeneration: revision, content: 'metadata_only', live: false,
+          meaning: '本机校园保存快照或账号元数据发生变化；尚未读取改变后的具体记录，也没有确认学校刚刚发布了新安排。需要时沿原连接器回读当前资料，这不扩大原托付或行动授权。' };
+        this.repo.ingest(handle, { id: eventId, ownerId: scope.principalId, workspaceId: scope.workspaceId, subjectId: scope.subjectId, worldId: scope.worldId,
+          sourceId, contentVersion: 1, text: canonical(value), speaker: 'external', kind: 'external_observation', authority: 'source_record',
+          roots: [eventId], label: { ...personalLabel, infer: false }, receivedAt: now, status: 'active' });
+        const result = this.domains.apply(handle, { sourceId, domain: 'source_status', institutionId: 'zju', termId: 'local_saved_state',
+          scopeKeys: ['local_saved_state'], completeness: 'partial', sourceRevision: String(revision), upserts: [{ recordId: objectId, evidenceId: eventId, value }],
+          tombstones: [], fetchedAt: now, observedAt: now, errors: [] });
+        if (result.status === 'partial' || result.status === 'duplicate') this.repo.setMeta(key, { stamp, revision });
+      });
+    } finally { this.campusSnapshotPolling = false; }
+    return this.campusSnapshotConsumersDeferred;
+  }
   drainDomainChanges(handle = this.policy.hostScope()) {
     const scope = this.policy.validate(handle);
+    const campusConsumersDeferred = this.pollCampusSnapshot(handle);
     const agendaFocuses = this.repo.db.prepare(`SELECT id FROM h_work WHERE owner=? AND workspace=? AND subject=? AND world='real' AND audience='self' AND status='active'
       AND json_extract(payload,'$.data.type')='attention_focus' AND (json_extract(payload,'$.data.until') IS NULL OR julianday(json_extract(payload,'$.data.until'))>julianday(?))
       AND EXISTS(SELECT 1 FROM json_each(payload,'$.data.sources') source WHERE source.value='local-agenda')
@@ -706,10 +933,13 @@ export class RuntimeCoordinator {
       });
     }
     return this.domains.consumeChanges(handle, change => {
+      if (change.sourceId === 'campus:zju-account' && (!scope.grants.includes('campus:read') || !scope.grants.includes('evidence:read')
+        || scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self' || scope.child)) return false;
       if (!this.domains.changeCurrent(handle, change)) return true;
       let deferred = false;
       this.watches.signal(handle, { category: change.domain, noveltyKey: change.eventId, facts: { objectId: change.objectId, operation: change.operation, value: change.value, revision: change.revision }, evidenceId: change.eventId }, () => { deferred = true; });
       return this.attention.discover(handle, change) && !deferred &&
+        !(change.sourceId === 'campus:zju-account' && change.objectId === 'campus:saved-snapshot-status' && campusConsumersDeferred) &&
         !(change.sourceId === 'local-agenda' && readableAgendaConsumers.some(readable => !readable));
     });
   }
@@ -822,10 +1052,10 @@ export class RuntimeCoordinator {
     this.attention.expire();
     const current = this.repo.work(this.policy.hostScope(), undefined, opportunity.id)[0];
     if (!current || current.revision !== opportunity.revision || !['candidate', 'waiting'].includes(current.status)) throw new HarnessError('opportunity_inactive', '该机会已暂停、停止或改变，不能启动旧的后台准备。');
-    const captured = opportunity.data.scope as { sources: string[]; epoch: number; policyRevision: number };
+    const captured = current.data.scope as { sources: string[]; epoch: number; policyRevision: number };
     if (!captured || captured.epoch !== this.repo.epoch) throw new HarnessError('stale_scope', '此机会的来源权限已改变。');
     const sources = [...new Set(['current', 'work:self', ...captured.sources.filter(source => this.store.settings().memoryEnabled || !['history:self', 'profile:self'].includes(source))])];
-    const scope = this.policy.hostScope({ sources, currentEventIds: opportunity.evidenceIds, infer: false,
+    const scope = this.policy.hostScope({ sources, currentEventIds: current.evidenceIds, infer: false,
       grants: this.policy.grants().filter(grant => grant.endsWith(':read') || grant === 'work:write'),
     });
     const ingress = this.policy.ingress('按已批准的关注范围，判断这次变化是否需要帮助。', 'background:' + opportunity.id, this.store.settings(), { sources, memoryMode: 'current_sources_only', purpose: 'personal_assistance', budget: { modelCalls: 9, toolCalls: 12, maxReadBytes: 120000, maxTokens: 30000 } });
@@ -833,20 +1063,59 @@ export class RuntimeCoordinator {
     ingress.contract.actionMode = 'respond';
     ingress.contract.retention = 'purpose_scoped';
     ingress.requiresReadPurpose = false;
-    const binding = this.repo.work(scope, undefined, String(opportunity.data.bindingId))[0];
+    const binding = this.repo.work(scope, undefined, String(current.data.bindingId))[0];
     const authority = binding?.data.source as { eventId?: string; quote?: string } | undefined;
     const attentionEvidenceViews: NonNullable<RunSession['attentionEvidenceViews']> = {};
-    const events = opportunity.evidenceIds.flatMap(id => {
+    const events = current.evidenceIds.flatMap(id => {
       const event = this.repo.evidence(scope, id);
       if (!event) return [];
       if (event.speaker !== 'user') return [event];
       const quote = authority?.eventId === event.id ? authority.quote : undefined;
-      if (!quote || !event.text.includes(quote)) return [];
-      const index = event.text.indexOf(quote), sourceStart = Array.from(event.text.slice(0, index)).length;
-      attentionEvidenceViews[event.id] = { quote, contentVersion: event.contentVersion, sourceStart, sourceEnd: sourceStart + Array.from(quote).length };
+      if (!quote) return [];
+      const address = resolveSourceQuote(event, authority);
+      if (!address) throw new HarnessError('attention_source_unresolved', '原托付的版本或引文位置当前无法确定，尚未启动这项后台调查；需要当前精确原话重新定位，不能选首次出现处或扩大到整条消息。');
+      attentionEvidenceViews[event.id] = { quote, contentVersion: address.contentVersion, sourceStart: address.start, sourceEnd: address.end };
       return [{ ...event, text: quote }];
     });
-    return { ingress, events, attentionEvidenceViews, sessionId: 'background:' + opportunity.id, sceneSessionId: String(opportunity.data.sessionId), ephemeral: false, background: true, toolCalls: 0, modelCalls: 0, signal };
+    // Legacy goal/watch opportunities without an exact retained mandate quote
+    // keep their existing read path; they cannot acquire a resumable frontier.
+    const investigation = authority?.eventId && authority.quote ? this.investigation.bind(scope, ingress.contract.id, current) : undefined;
+    return { ingress, events, attentionEvidenceViews, investigation, sessionId: 'background:' + current.id, sceneSessionId: String(current.data.sessionId), ephemeral: false, background: true, toolCalls: 0, modelCalls: 0, signal };
+  }
+  private investigationResume(session: RunSession, opportunity: import('../../shared/harness').WorkRecord, offset = 0, limit = 5) {
+    if (!['candidate', 'waiting'].includes(opportunity.status)) return undefined;
+    const handle = session.ingress.contract.scope;
+    try {
+      // An explicit directory read does not attach its ephemeral binding to
+      // the run, deliver old text, or grant a decision acknowledgement.
+      const binding = session.investigation?.opportunityId === opportunity.id ? session.investigation
+        : this.investigation.bind(handle, session.ingress.contract.id, opportunity);
+      const entries = this.investigation.resumeEntries(binding, handle, {
+        projectedEvidenceIds: session.background ? Object.keys(session.attentionEvidenceViews || {}) : [],
+        browseResume: !session.investigation || session.investigation.opportunityId === opportunity.id,
+      }), nextOffset = offset + limit < entries.length ? offset + limit : null;
+      if (!session.investigation) {
+        const mandate = this.repo.work(handle, undefined, binding.mandateId)[0];
+        const source = mandate?.data.source as { eventId?: string; quote?: string } | undefined;
+        const event = source?.eventId ? this.repo.evidence(handle, source.eventId) : undefined;
+        const address = event && resolveSourceQuote(event, source);
+        if (address) {
+          const reader = { binding, projection: { eventId: address.eventId, contentVersion: address.contentVersion, quote: address.quote,
+            sourceStart: address.start, sourceEnd: address.end } };
+          for (const entry of entries) {
+            const cursor = (entry.read as { arguments?: { cursor?: unknown } } | undefined)?.arguments?.cursor;
+            if (typeof cursor === 'string') (session.investigationReaders ||= new Map()).set(cursor, reader);
+          }
+        }
+      }
+      return { items: entries.slice(offset, offset + limit), coverage: { offset, total: entries.length, nextOffset, complete: nextOffset === null },
+        ...(nextOffset === null ? {} : { read: { tool: 'inspect_help', id: opportunity.id, offset: nextOffset, limit } }),
+        meaning: '仅为这项托付当前仍合法的调查地址；没有回填旧正文、恢复旧权限或产生新结论。按每项真实工具地址继续读取，未读范围仍未知。' };
+    } catch (error) {
+      if (!(error instanceof HarnessError)) throw error;
+      return { items: [], coverage: { offset, total: null, nextOffset: null, complete: false }, status: 'unavailable',
+        reason: '原调查定位当前不能完整核对，没有展开旧正文；请按这项托付仍允许的来源重新调查，不能据空目录推定没有资料。' };
+    }
   }
   begin(
     content: string,
@@ -866,6 +1135,8 @@ export class RuntimeCoordinator {
       contract = ingress.contract,
       s = this.policy.validate(contract.scope),
       ephemeral = contract.retention === 'session_only';
+    if (!ingress.sourceContext) ingress.sourceContext = creationSourceContextForIngress(this, controls, sessionId, ingress);
+    const rehearsalInteraction = controls.rehearsalInteraction ? rehearsalInteractionSchema.parse(controls.rehearsalInteraction) : undefined;
     if (ingress.attachment && !ephemeral) this.policy.registerSource('file:' + ingress.attachment.id);
     const makeEvent = (id: string, text: string, file = false): EvidenceEvent => ({
       id,
@@ -880,6 +1151,7 @@ export class RuntimeCoordinator {
       speaker: file ? 'external' : 'user',
       kind: file ? 'file_import' : 'user_message',
       authority: file ? 'quotation' : 'user_statement',
+      ...(!file && ingress.sourceContext ? { sourceContext: ingress.sourceContext } : {}),
       roots: [id],
       sessionId,
       interpretationTimeZone: contract.timeZone,
@@ -888,7 +1160,7 @@ export class RuntimeCoordinator {
         purpose: contract.purpose,
         audience: ingress.replyToOwner ? 'self' : contract.audience,
         retention: contract.retention,
-        infer: !file && s.infer,
+        infer: !file && !rehearsalInteraction && s.infer,
       },
       receivedAt: contract.now,
       status: 'active',
@@ -922,7 +1194,7 @@ export class RuntimeCoordinator {
     if (controls.material) this.materials.bind(controls.material, events.find(event => event.kind === 'file_import')!, eventId, sessionId);
     // Mixed input may contain a separate, explicit statement about the owner. Keep its own subject-bound evidence,
     // sharing the same provenance root, rather than applying it to the person being helped.
-    if (!ephemeral && contract.retention === 'purpose_scoped' && this.store.settings().memoryEnabled) {
+    if (!ephemeral && !rehearsalInteraction && contract.retention === 'purpose_scoped' && this.store.settings().memoryEnabled) {
       const points = Array.from(ingress.authoredText);
       for (const [index, act] of ingress.speechActs.entries())
         if (
@@ -980,11 +1252,15 @@ export class RuntimeCoordinator {
         eventId,
       ]);
     }
-    let selection: VerifiedSelection | undefined, selectionUnavailable = false;
+    let selection: VerifiedSelection | undefined, selectionUnavailable = false, campusSelection: import('../../shared/scenes').SemanticSelection | undefined;
     if (controls.selection) {
-      try { selection = this.scenes.selection(contract.scope, sessionId, controls.selection); }
+      try {
+        if (this.scenes.academicSelectionIdentity(contract.scope, sessionId, controls.selection)) campusSelection = controls.selection;
+        else selection = this.scenes.selection(contract.scope, sessionId, controls.selection);
+      }
       catch (error) {
-        if (!(error instanceof HarnessError) || !['scene_unavailable', 'selection_target'].includes(error.code)) throw error;
+        if (!(error instanceof HarnessError) || !['scene_unavailable', 'selection_target', 'discussion_changed',
+          'discussion_source_changed', 'discussion_module_changed', 'discussion_focus', 'planning_comparison_source'].includes(error.code)) throw error;
         selectionUnavailable = true;
       }
     }
@@ -992,15 +1268,38 @@ export class RuntimeCoordinator {
       ingress,
       events,
       sessionId,
+      ...(campusSelection ? { campusSelection } : {}),
       ephemeral,
       signal,
       toolCalls: 0,
       modelCalls: 0,
       ...(selection ? { selection } : {}), ...(selectionUnavailable ? { selectionUnavailable: true } : {}),
+      ...(controls.studyInteraction ? { studyInteraction: studyInteractionSchema.parse(controls.studyInteraction) } : {}),
+      ...(controls.companionReference ? { companionReference: companionFollowupReferenceSchema.parse(controls.companionReference) } : {}),
+      ...(controls.curiosityReference ? { curiosityReference: curiosityFollowupReferenceSchema.parse(controls.curiosityReference) } : {}),
+      ...(controls.letterReference ? { letterReference: letterReferenceSchema.parse(controls.letterReference) } : {}),
+      ...(controls.noteReference ? { noteReference: noteReferenceSchema.parse(controls.noteReference) } : {}),
+      ...(rehearsalInteraction ? { rehearsalInteraction } : {}),
     };
     this.lastSession = session;
     return session;
   }
+  async readCampusAcademic(raw: CampusAcademicReadInput, signal: AbortSignal): Promise<import('../../shared/scenes').CampusScene> {
+    const input = campusAcademicReadInputSchema.parse(raw), handle = this.policy.hostScope();
+    const reference = this.scenes.academicReference(handle, input.sessionId, { id: input.sceneId, revision: input.sceneRevision });
+    const readScope = this.policy.campusPurposeScope(handle, reference.sensitiveRead.grant);
+    // This entry is a direct private native click on the named grade/GPA
+    // reference. The scope is never returned to the model or made persistent.
+    this.campusAcademicSources.authorizeScope(readScope, [reference.sensitiveRead.grant]);
+    const result = await this.broker.invoke(readScope, reference.owner.capability, reference.owner.arguments, signal);
+    signal.throwIfAborted(); this.policy.validate(handle); this.policy.validate(readScope);
+    this.scenes.academicReference(handle, input.sessionId, { id: input.sceneId, revision: input.sceneRevision });
+    const scene = this.scenes.campus(input.sessionId, result, reference.owner.capability, reference.owner.arguments, undefined, false, readScope);
+    if (!scene || scene.kind !== 'campus') throw new HarnessError('campus_data_unavailable', result.reason || '这次原范围没有可读的成绩资料，没有按零分补齐。');
+    const displayed = this.scenes.academicDisplay(readScope, scene, { sceneId: scene.id, ...reference.display }, 'native:campus-open');
+    return this.scenes.remember(input.sessionId, displayed);
+  }
+
   async compile(session: RunSession, acquire = false, operationSignal?: AbortSignal) {
     const signal = operationSignal ? AbortSignal.any([session.signal, operationSignal]) : session.signal;
     signal.throwIfAborted(); this.policy.validate(session.ingress.contract.scope);
@@ -1013,14 +1312,192 @@ export class RuntimeCoordinator {
       acquire,
       session.sessionId,
     );
+    if (session.campusSelection) {
+      const identity = this.scenes.academicSelectionIdentity(session.ingress.contract.scope, session.sessionId, session.campusSelection);
+      if (identity) {
+        const value = { ...identity, read: { tool: 'read_current_campus_selection', arguments: {} },
+          meaning: '只确认界面选中了哪条成绩/GPA资料地址，没有展开成绩、学分或数值；当前问题需要时沿read核本次用途，再回原校园来源读这条记录。' };
+        const serialized = canonical(value), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+        if (pack.receipt.budget.readBytes + bytes <= pack.contract.budget.maxReadBytes && pack.receipt.budget.estimatedTokens + tokens <= pack.contract.budget.maxTokens) {
+          pack.data.currentCampusReference = value; pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+        }
+      }
+    }
     signal.throwIfAborted(); this.policy.validate(session.ingress.contract.scope);
     session.pack = pack;
+    if (session.rehearsalInteraction) {
+      try {
+        const admitted = admitRehearsalIngress(this.rehearsals, pack.contract.scope, session.sessionId, session.rehearsalInteraction, {
+          allowCrossSession: pack.contract.memoryMode === 'relevant', permits: this.memoryInquiryPermissions(session).permits,
+        });
+        if (!admitted) throw new HarnessError('rehearsal_reference_missing', '这一段试说尚未接上。');
+        const currentRehearsal = { view: admitted.view, ...rehearsalIngressMethod(admitted.admission) };
+        const serialized = canonical(currentRehearsal), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+        if (pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes
+          || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens)
+          throw new HarnessError('rehearsal_context_budget', '先接眼前这一句，前面的来回还留在原处。');
+        this.context.recordWorkSources(pack, [admitted.record]);
+        this.context.recordWorkSourceBindings(pack, [admitted.sourceBinding]);
+        session.rehearsalAdmission = admitted.admission;
+        pack.data.currentRehearsal = currentRehearsal;
+        pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+        this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+      } catch (error) {
+        if (!(error instanceof HarnessError)) throw error;
+        session.rehearsalAdmission = undefined; session.rehearsalUnavailable = true;
+        pack.data.currentRehearsalUnavailable = '那一处试说的位置或来由已有变化，没有从旧缓存恢复台词；本轮新原句完整保留，UI引用只说明语境。其中练习部分不冒充已经对外说过、现实关系事实或行动许可；真正退出或另提的独立请求仍按原门处理，不把整轮锁死成排练。需要旧来回时再回读当前原owner。';
+      }
+    }
+    if (session.noteReference) {
+      try {
+        const selected = this.notePresentation.resolveReference(pack.contract.scope, session.noteReference, session.sessionId);
+        const currentNote = { text: selected.text, title: selected.title, origin: selected.origin, reference: selected.reference, meaning: selected.meaning,
+          ...('read' in selected ? { read: selected.read } : {}) };
+        const serialized = canonical(currentNote), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+        if (pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens)
+          throw new HarnessError('note_context_budget', '先接眼前这句话，原笔记仍在原来的地方。');
+        this.context.recordNoteSources(pack, selected.sources);
+        pack.data.currentNote = currentNote;
+        pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+        this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+      } catch (error) {
+        if (!(error instanceof HarnessError)) throw error;
+        session.noteReference = undefined;
+        pack.data.currentNoteUnavailable = '那页笔记的来源或原文位置目前不能展开，没有从旧副本补回；本轮真实新话仍保留，可以重新读当前允许的笔记。';
+      }
+    }
+    if (session.letterReference) {
+      try {
+        const selected = this.reflectiveLetters.resolveReference(pack.contract.scope, session.letterReference, {
+          sessionId: session.sessionId, allowCrossSession: pack.contract.memoryMode === 'relevant',
+          permits: this.memoryInquiryPermissions(session).permits,
+        });
+        // The selected words remain an earlier assistant expression. Usage is
+        // inherited from its original owner, without inventing a new original
+        // reading or adding the sentence to the current user's statement.
+        const currentLetter = { text: selected.text, origin: selected.origin, label: selected.label,
+          reference: selected.reference, paragraphKind: selected.paragraphKind, meaning: selected.meaning };
+        const serialized = canonical(currentLetter), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+        if (pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes
+          || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens)
+          throw new HarnessError('letter_context_budget', '先接眼前这句话，旧信仍留在原来的地方。');
+        this.context.recordWorkSourceBindings(pack, selected.workSourceBindings);
+        this.context.recordLearningProcesses(pack, selected.learningProcessVersions);
+        this.context.recordReflectiveLetterSources(pack, selected.reflectiveLetterSources);
+        this.context.recordObjects(pack, [{ id: selected.reference.opportunityId, revision: selected.reference.revision }], 'work');
+        if (selected.materialReads.length) pack.receipt.materialReads = [...new Map([
+          ...(pack.receipt.materialReads || []), ...selected.materialReads,
+        ].map(read => [canonical(read), read])).values()];
+        pack.data.currentLetter = currentLetter;
+        pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+        this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+      } catch (error) {
+        if (!(error instanceof HarnessError)) throw error;
+        session.letterReference = undefined;
+        pack.data.currentLetterUnavailable = '那句旧信的来由或可读范围已有变化，没有沿旧副本补回；继续听本轮真实新话，需要时再回现在的原信。';
+      }
+    }
+    const creationReference = session.curiosityReference || session.selection?.storySetting?.work;
+    if (creationReference) {
+      try {
+        const current = this.curiosityInvitations.resolveReference(pack.contract.scope, creationReference, curiosityContextForRun(this, session));
+        const serialized = canonical(current.projection), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+        if (pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens)
+          throw new HarnessError('curiosity_context_budget', '先接眼前这句话，原作品还在原来的位置。');
+        this.context.recordWorkSources(pack, current.records);
+        this.context.recordWorkSourceBindings(pack, current.bindings);
+        this.context.recordAssistantWorkSources(pack, current.assistantWorkSources || []);
+        pack.data.currentCuriosity = current.projection;
+        pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+        this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+      } catch (error) {
+        if (!(error instanceof HarnessError)) throw error;
+        session.curiosityReference = undefined;
+        pack.data.currentCuriosityUnavailable = '那次小体验已有变化，没有展开旧正文或恢复旧状态；仍接住本轮真正的新话，需要时再回当前原作品。';
+      }
+    }
+    if (session.companionReference) {
+      try {
+        const ref = this.companionSessions.resolveReference(pack.contract.scope, session.companionReference, this.memoryInquiryPermissions(session).permits);
+        if (!ref.sourceBinding) throw new HarnessError('companion_source_changed', '这处共同起点的来由还不能完整展开。');
+        if (ref.record) {
+          const matter = this.repo.work(pack.contract.scope, 'episode', session.companionReference.matterId)[0];
+          if (!matter || pack.contract.memoryMode !== 'relevant' && matter.data.sessionId !== session.sessionId
+            && !(Array.isArray(matter.data.sessionIds) && matter.data.sessionIds.includes(session.sessionId)))
+            throw new HarnessError('companion_reference_scope', '这次尚未打开那一件事的前情。');
+        } else if (pack.contract.memoryMode !== 'relevant' && ref.sourceSessionId !== session.sessionId)
+          throw new HarnessError('companion_reference_scope', '这次尚未打开那份原页所在的对话。');
+        const context = { reference: ref.reference, coWork: ref.projection,
+          ...('currentOwner' in ref ? { currentOwner: ref.currentOwner } : {}),
+          meaning: '用户正引用原来一起做的这一处，当前原话才说明想继续、暂停或改方向；引用不自动恢复，也不证明材料正文已读或事情完成。' };
+        const serialized = canonical(context), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+        if (pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens)
+          throw new HarnessError('companion_context_budget', '这处前情较长，先只带当前需要接的一步。');
+        pack.data.currentCompanion = context;
+        if (ref.record) this.context.recordWorkSources(pack, [ref.record]);
+        this.context.recordWorkSourceBindings(pack, [ref.sourceBinding]);
+        this.context.recordLearningProcesses(pack, ref.learningProcessVersions);
+        this.context.recordAssistantWorkSources(pack, ref.assistantWorkSources);
+        pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+      } catch (error) {
+        if (!(error instanceof HarnessError)) throw error;
+        session.companionReference = undefined;
+        pack.data.currentCompanionUnavailable = '那一处共同起点已有变化，没有从旧解释恢复；继续处理本轮真实新话，需要时再接现在的原事项。';
+      }
+    }
+    if (session.studyInteraction && !session.studySelection) {
+      try {
+      const input = session.studyInteraction, ref = input.focus;
+      const attached = this.store.messages(session.sessionId).some(message => (message.scenes || []).some(scene =>
+        (scene.kind === 'study' || scene.kind === 'study_reference') && scene.id === ref.sceneId
+        && scene.owner.id === ref.studyId));
+      if (!attached) throw new HarnessError('study_reference_missing', '这一处不在当前对话已经展开的学习纸里。');
+      const permits = this.memoryInquiryPermissions(session).permits;
+      const projected = await this.studyPresentation.project(session.ingress.contract.scope,
+        { studyId: ref.studyId, studyRevision: ref.studyRevision, focus: ref.target },
+        { sessionId: session.sessionId, signal, permits,
+          ...(session.ingress.contract.memoryMode === 'relevant' ? {} : { restrictToSessionId: session.sessionId }) });
+      const resolved = await this.studyPresentation.resolveInteraction(session.ingress.contract.scope, projected.scene, input,
+        { sessionId: session.sessionId, signal, permits,
+          ...(session.ingress.contract.memoryMode === 'relevant' ? {} : { restrictToSessionId: session.sessionId }) });
+      signal.throwIfAborted(); this.policy.validate(session.ingress.contract.scope);
+      const explicitRequest = resolved.intent === 'request_help' && resolved.text.trim() === session.ingress.authoredText.trim();
+      session.studySelection = { selection: resolved.selection, records: resolved.records,
+        intent: resolved.intent === 'request_help' && !explicitRequest ? 'reference_only' : resolved.intent,
+        ...(explicitRequest && 'requestedMode' in resolved ? { requestedMode: resolved.requestedMode } : {}) };
+      } catch (error) {
+        if (!(error instanceof HarnessError)) throw error;
+        session.studyInteraction = undefined;
+        pack.data.currentStudyUnavailable = '刚才那一处学习引用已变化，没有沿旧纸恢复题目或帮助；继续处理本轮真实新话，必要时从当前原题重新接上。';
+      }
+    }
+    if (session.studySelection) {
+      const currentStudy = { ...session.studySelection.selection, intent: session.studySelection.intent,
+        ...(session.studySelection.requestedMode ? { requestedMode: session.studySelection.requestedMode } : {}),
+        meaning: '用户指着同一题的这一处继续说；本人新尝试只以当前真实消息为准，助手旧帮助不是本人表现。exploration只表示用户临时改条件后由宿主重算的有限二次关系，不是原题已改、本人事实、实际完成或掌握。当前原话修改或取消原帮助方式时以新原话为准。' };
+      const serialized = canonical(currentStudy), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+      if (pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens)
+        throw new HarnessError('study_context_budget', '这处题目较长，先只带眼前需要继续的一步。');
+      pack.data.currentStudy = currentStudy;
+      this.context.recordWorkSources(pack, session.studySelection.records);
+      this.context.recordWorkSourceBindings(pack, [session.studySelection.selection.sourceBinding]);
+      pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+      this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+    }
     if (session.ingress.contract.audience === 'self' && !session.ingress.localOnly) {
       const sceneSessionId = session.sceneSessionId || session.sessionId;
       const availableScenes = this.scenes.summaries(session.ingress.contract.scope, sceneSessionId, session.ingress.contract.id, session.selection ? { id: session.selection.sceneId, revision: session.selection.sceneRevision } : undefined);
-      const presentationLibrary = { version: 1, components: ['MapScene: 可操作的校园总览、单点浏览、真实路线与多停靠旅程；view操作不改安排', 'WeatherScene: 所查公开参考位置的七天按日比较与日期选择；该画面不表达小时资料', 'CampusScene: 实际读到的课程、课次或考试记录；保留来源与范围，选择记录供下一句引用，不保存日程', 'PlanningScene: planning.preview/draft的时间带、准备、转场、休息与留白；点选仅引用，不保存或恢复过期方案', 'EnvironmentScene: weather.lookup小时窗口或air_quality.lookup真实样本；天气与空气各有来源、覆盖和单位，选时刻供下一句引用'],
-        method: '主模型依据当前需要选择map_route、weather.lookup或校园查询，再用present_view引用精确sceneRef；无需用户要求渲染。地图路线查询即表示当前需要地图，会直接展开。校园画面只显示已取得的记录，不能从同名课程猜关联、下次上课或全学期覆盖。用户手势接管后，只有本轮明确观看请求的viewRequestQuote能重新取得镜头；模型提出cameraIntent本身不代表用户要求移镜。已由present_view逐项展示的数据，正文保留结论、理由、必要差异与限制，不机械重复完整列表或表格；用户另要完整表格时按要求提供。旧事实保留查询时刻；临时界面选择不是长期记忆或行动授权。' };
-      const additions = { availableScenes, presentationLibrary, ...(session.selection ? { currentSelection: session.selection } : {}),
+      const presentationLibrary = { version: 1, components: ['MapScene: 可操作的校园总览、单点浏览、真实路线与多停靠旅程；view操作不改安排', 'WeatherScene: 所查公开参考位置的七天按日比较与日期选择；该画面不表达小时资料', 'CampusScene: 实际读到的课程、课次、考试、成绩与命名GPA；单条detail、多条table，趋势需present_view.campusDisplay明确mode=trend和真实scale。只呈现一个学期时用真实semester_id填campusDisplay.semesterId或先读取真实筛选结果；全量跨学期Scene不能冒充正文所说的单学期。保留原值、计入次数、分母、口径、来源与完整性，未知不补0。选记录供下一句引用，不保存日程', 'PlanningScene: local.agenda.read的mode=agenda显示已经记下的真实安排；planning.preview/draft另显示试算时间带、准备、转场、休息与留白。日历直读不假造空闲或规划预算，点选仅引用，不保存或恢复过期方案', 'EnvironmentScene: weather.lookup小时窗口或air_quality.lookup真实样本；天气与空气各有来源、覆盖和单位，选时刻供下一句引用'],
+        method: '主模型依据当前需要选择地图、天气、校园资料、look_up source=local的真实日历查询或manage_note以operation=read取得的原笔记页，再用present_view引用实际sceneRef或原工具明确给出的呈现参数；无需用户额外要求渲染。只看已存日程不先调用planner制造新方案。未附sceneRef不等于查询能力未接入，仍可按真实结果给简答或可读表格，不能编造场景引用。地图路线查询即表示当前需要地图，会直接展开。校园画面只显示已取得的记录，不能从同名课程猜关联、下次上课或全学期覆盖。用户手势接管后，只有本轮明确观看请求的viewRequestQuote能重新取得镜头；模型提出cameraIntent本身不代表用户要求移镜。已由present_view逐项展示的数据，正文保留结论、理由、必要差异与限制，不机械重复完整列表或表格；用户另要完整表格时按要求提供。旧事实保留查询时刻；临时界面选择不是长期记忆或行动授权。' };
+      presentationLibrary.components.push('NoteScene: 用manage_note的operation=read先取得真实笔记页，再复制其present.arguments给present_view.note；id/revision/start/end全部来自实际read。原文可读、可选句回同一输入，不自动改写原笔记；note_reference是原页回读地址，不是旧正文已经恢复。当前正文继续讨论，不机械重抄整页。', 'DiscussionScene: present_view.discussion按原matterId/expectedRevision展开同一张商量纸；点一点只供接着聊，不采用方案。原话条件、助手暂定解释和眼前小步分开，只有对当前交流有帮助时才出现。history表示仍合法的当时那一页，不能将旧方案/解释冒成当前状态；指旧页可自然接话，改变事项前回读当前原owner。',
+        'StudyScene: present_view.study按真实studyId展开本题/本人尝试/一段当前请求的帮助，材料异步回读；历史只保留学习纸入口。packet.exploration可在同纸用有限二次关系把当前解释变成可轻改参数/移动x的图文，纵坐标与当前切线斜率一起变化；先有读得懂的packet.text，不交空白沙盒，不预填隐藏答案。只支持明示二次关系（含退化），超范围仍正常讲解/调查；不按学科关键词关工具。用户改条件是临时假设，不能记成本人事实或掌握。不要在聊天正文再抄一遍整段教学帮助。',
+        'Planning comparison: present_view.planningComparison把同一事项2–4个真实option放在同一基线比较；观看/讨论不是采用，实际改变仍走原行动与回执。',
+        'CuriosityScene: present_view.curiosity按curiosity_invitation实际返回的id/revision/matterRevision展开一个已准备好的新鲜体验；正文作品优先，普通一句回答能接同一对象。公开事实必须本轮实际回读；创作不成为本人现实经历，不用兴趣类别菜单。',
+        'RehearsalScene: present_view.rehearsal按manage_relationship_rehearsal/read_relationship_rehearsal实际返回的id/expectedRevision在原对话展开一段试说。本人确实试说的话和你扮演的对方一种可能回应分开；你仍是主助手，不另开导演或人物画像。觉得不像就换，不想继续可随时collect收成一句；允许难接或未解，不强行演到对方认同。台词正文放试说纸，不在普通正文机械抄一遍。控件只接同一输入，不证明对外发送、实际承诺或关系事实。');
+      const investigationOpportunity = session.investigation ? this.repo.work(session.ingress.contract.scope, undefined, session.investigation.opportunityId)[0] : undefined;
+      const additions = { availableScenes, presentationLibrary,
+        ...(investigationOpportunity ? { investigationContinuation: this.investigationResume(session, investigationOpportunity) } : {}),
+        ...(session.selection ? { currentSelection: session.selection } : {}),
         ...(session.selectionUnavailable ? { currentSelectionUnavailable: '先前界面引用已不在本轮允许的来源或有效画面中，没有读取其对象与事实。继续处理当前独立请求；只有用户仍在指代该对象且影响结论时，再说明需要重新选择。' } : {}) };
       const serialized = canonical(additions), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
       if (pack.receipt.budget.readBytes + bytes > session.ingress.contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > session.ingress.contract.budget.maxTokens)
@@ -1037,6 +1514,25 @@ export class RuntimeCoordinator {
       pack.receipt.sceneReferences = receiptScenes.map(scene => ({ id: scene.id, revision: scene.revision, sourceId: scene.source.sourceId, fetchedAt: scene.source.fetchedAt, ...(scene.source.expiresAt ? { expiresAt: scene.source.expiresAt } : {}) }));
       pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), ...receiptScenes.flatMap(scene =>
         [scene.source.sourceId, ...(scene.kind === 'planning' ? scene.requiredSourceIds : [])])])];
+      for (const scene of receiptScenes) if (scene.kind === 'discussion') {
+        this.context.recordWorkSourceBindings(pack, [scene.provenance.sourceBinding]);
+        this.context.recordWorkSources(pack, [{ id: scene.matter.id, revision: scene.history?.currentMatterRevision || scene.matter.revision },
+          ...scene.provenance.optionRefs, ...scene.modules.map(({ id, revision }) => ({ id, revision }))]);
+        this.context.recordLearningProcesses(pack, scene.coWork.flatMap(work => work.learningProcessRefs.map(({ id, revision }) => ({ id, revision }))));
+      }
+      for (const scene of receiptScenes) if (scene.kind === 'map' && scene.storySetting) {
+        this.context.recordWorkSourceBindings(pack, [scene.storySetting.sourceBinding]);
+        this.context.recordAssistantWorkSources(pack, scene.storySetting.assistantWorkSources || []);
+      }
+      if (session.selection?.discussion) {
+        const focus = session.selection.discussion;
+        this.context.recordWorkSourceBindings(pack, [focus.sourceBinding]);
+        const optionId = focus.target.kind === 'discussion_option' ? focus.target.optionId : undefined;
+        // These current owner addresses are metadata, not a claim that the
+        // selected former draft is now accepted or that its new body was read.
+        const currentOption = optionId ? this.repo.work(pack.contract.scope, undefined, optionId)[0] : undefined;
+        this.context.recordObjects(pack, [focus.matter, ...(currentOption ? [{ id: currentOption.id, revision: currentOption.revision }] : [])], 'work');
+      }
       this.repo.saveReceipt(session.ingress.contract.scope, pack.receipt);
     }
     if (session.ingress.contract.audience !== 'self' && !session.ingress.replyToOwner) {
@@ -1047,6 +1543,20 @@ export class RuntimeCoordinator {
       session.pack.receipt.providedEvidenceIds = [];
       session.pack.receipt.providedObjectVersions = [];
       this.repo.saveReceipt(session.ingress.contract.scope, session.pack.receipt);
+    }
+    const helpMethods = buildPersonalMethodContinuity(this, pack.contract, { ephemeral: session.ephemeral,
+      requiresReadPurpose: !!session.ingress.requiresReadPurpose, permits: this.memoryInquiryPermissions(session).permits });
+    if (Object.keys(helpMethods.data).length) {
+      const serialized = canonical(helpMethods.data), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+      if (pack.receipt.budget.readBytes + bytes <= pack.contract.budget.maxReadBytes
+        && pack.receipt.budget.estimatedTokens + tokens <= pack.contract.budget.maxTokens) {
+        this.context.recordWorkSources(pack, helpMethods.records);
+        this.context.recordWorkSourceBindings(pack, helpMethods.bindings);
+        this.context.recordPersonalMethodSources(pack, helpMethods.sources);
+        Object.assign(pack.data, helpMethods.data);
+        pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+        this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+      }
     }
     return session.pack;
   }
@@ -1128,15 +1638,18 @@ export class RuntimeCoordinator {
         },
       );
     }
-    return available
+    const provided = available
       .filter(
         (d) =>
-          (!session.background || ['look_up', 'search_context', 'read_understanding', 'read_evidence', 'discover_skills', 'read_skill', 'delegate', 'inspect_help', 'decide_help', 'manage_attention', 'manage_note', 'resolve_time', 'calculate_available_time', 'map_overview', 'map_search', 'map_place', 'map_route', 'map_location_status'].includes(d.name)) &&
+          (!session.background || ['look_up', 'search_context', 'read_understanding', 'read_learning', 'read_evidence', 'read_assistant_history', 'read_shared_creation', 'read_companion_history', 'discover_skills', 'read_skill', 'read_method_help', 'delegate', 'inspect_help', 'decide_help', 'manage_attention', 'manage_note', 'resolve_time', 'calculate_available_time', 'map_overview', 'map_search', 'map_place', 'map_route', 'map_location_status'].includes(d.name)) &&
           (!child || (!d.mutates && d.name !== 'inspect_action' && d.name !== 'delegate' && d.name !== 'prepare_release' && d.name !== 'present_view')) &&
           (!d.grant || s.grants.includes(d.grant)) &&
+          (!['manage_method', 'read_method_help', 'manage_learning', 'read_learning'].includes(d.name) || s.subjectId === s.principalId && s.worldId === 'real' && s.audience === 'self' && s.sources.includes('work:self')) &&
+          (!(['read_shared_creation', 'read_companion_history'].includes(d.name) || [...lifeCollaborationToolDefinitions, ...reflectiveLetterToolDefinitions, ...planningConversationToolDefinitions, ...relationshipRehearsalToolDefinitions].some(tool => tool.name === d.name))
+            || s.subjectId === s.principalId && s.worldId === 'real' && s.audience === 'self' && s.sources.includes('work:self')) &&
           (d.name !== 'inspect_action' ||
             (s.sources.includes('local-agenda') && contract.audience === 'self')) &&
-          (!session.ephemeral || !d.mutates || ['set_plan', 'apply_privacy_control', 'cancel_action', 'prepare_action', 'change_local_action'].includes(d.name)
+          (!session.ephemeral || !d.mutates || ['set_plan', 'apply_privacy_control', 'cancel_action', 'prepare_action', 'change_local_action', 'curiosity_invitation'].includes(d.name)
             || d.name === 'update_collaboration' && contract.actionMode !== 'respond' && s.sources.includes('work:self') && s.subjectId === s.principalId && s.worldId === 'real' && s.audience === 'self') &&
           (!this.memory.paused || !['propose_memory_change', 'remember_preference'].includes(d.name)) &&
           ((d.name !== 'propose_memory_change' && d.name !== 'remember_preference') || s.infer
@@ -1165,10 +1678,40 @@ export class RuntimeCoordinator {
             description: '仅按当前明确选择更新一个已恢复的已有事项方案。必须提供本轮已读事项/方案ID及各自版本；聊天仍不保存。另行核验该事项选择是否允许作为独立业务记录保留。只比较、禁止保留业务或没有合法已有对象时不写；不创建事项、画像、日程或外部动作。' } };
         }
         const { $schema: _, ...parameters } = modelParameterOverrides[d.name] || z.toJSONSchema(d.schema);
-        return { type: 'function', function: { name: d.name, description: d.description, parameters } };
+        return { type: 'function' as const, function: { name: d.name, description: d.description, parameters } };
       });
+    if (!child && !s.child && s.subjectId === s.principalId && s.worldId === 'real' && s.audience === 'self'
+      && s.grants.includes('evidence:read') && provided.some(tool => tool.function.name === 'delegate')
+      && s.sources.some(source => ['history:self', 'profile:self', 'work:self'].includes(source)))
+      provided.push(memoryInquiryToolSpec());
+    return provided;
+  }
+  private memoryInquiryPermissions(session: RunSession) {
+    return { permits: (ref: import('../../shared/harness').WorkSourceRef) => {
+      const view = session.attentionEvidenceViews?.[ref.eventId];
+      if (!view) return true;
+      const event = this.repo.evidence(session.ingress.contract.scope, ref.eventId);
+      return !!event && event.contentVersion === ref.contentVersion && view.contentVersion === ref.contentVersion
+        && ref.start >= view.sourceStart && ref.end <= view.sourceEnd
+        && codePointSlice(event.text, view.sourceStart, view.sourceEnd) === view.quote;
+    } };
+  }
+  normalizeMemoryInquiry(session: RunSession, message: ModelWireMessage, allowedTools: ReadonlySet<string>) {
+    return this.memoryInquiry.normalizeAssistant(session.ingress.contract.scope, message,
+      { allowedTools, ...this.memoryInquiryPermissions(session) });
   }
   async executeTool(
+    session: RunSession,
+    name: string,
+    raw: unknown,
+    callbacks: RuntimeCallbacks,
+    child = false,
+    operationSignal?: AbortSignal,
+  ): Promise<unknown> {
+    return this.repo.withPersonalMethodApplications(session.ingress.contract.scope, session.personalMethodApplications || [],
+      () => this.executeToolOwned(session, name, raw, callbacks, child, operationSignal));
+  }
+  private async executeToolOwned(
     session: RunSession,
     name: string,
     raw: unknown,
@@ -1200,6 +1743,8 @@ export class RuntimeCoordinator {
       delegate: withinOperation(callbacks.delegate)!,
     };
     const budgetOwner = session.budgetOwner || session;
+    if (budgetOwner.background && (child || name !== 'decide_help') && budgetOwner.toolCalls >= contract.budget.toolCalls - 1)
+      throw new HarnessError('background_decision_reserve', '最后一次工具调用留给主助手判断本轮应等待、准备还是放下；调查尚未继续，也没有消耗这次判断额度。');
     if (++budgetOwner.toolCalls > contract.budget.toolCalls)
       throw new HarnessError('tool_budget', '本轮工具调用达到上限。');
     if (budgetOwner !== session) session.toolCalls++;
@@ -1331,24 +1876,202 @@ export class RuntimeCoordinator {
     }
     const allowed = this.toolSpecs(session, child).some((s) => s.function.name === name);
     if (!allowed) throw new HarnessError('tool_forbidden', '该工具当前不可用或未授权。');
+    if (name === 'present_view' && raw !== null && typeof raw === 'object' && !Array.isArray(raw)
+      && Object.prototype.hasOwnProperty.call(raw, 'storySetting'))
+      throw new HarnessError('story_setting_unavailable', '图上取景的界面在本阶段尚未交付，当前入口已冻结；仍可正常使用校园地图和共同创作正文。');
+    if (name === MEMORY_INQUIRY_TOOL) {
+      const prepared = this.memoryInquiry.prepare(handle, memoryInquiryInput.parse(raw), this.memoryInquiryPermissions(session));
+      return { status: 'partial', started: false,
+        reason: '这次调用尚未进入原生调查，按下列地址继续；没有返回调查结论。',
+        read: { tool: 'delegate', arguments: prepared } };
+    }
     const definition = specs.find((d) => d.name === name)!,
       ownerProjection = name === 'propose_memory_change' && !this.policy.validate(handle).infer && this.currentOwnerProposalAllowed(session, child),
       args = (ownerProjection ? currentOwnerChangeSchema : session.ephemeral && name === 'update_collaboration' ? independentChoiceInput : definition.schema).parse(raw) as any;
+    if (name === 'manage_method') {
+      if (session.ingress.requiresReadPurpose) {
+        const purpose = await callbacks.verifyReadPurpose?.({ data: 'user_chosen_help_method_support', operation: args.operation,
+          ...(args.id ? { methodId: args.id } : {}), assistanceMessageIds: (args.assistance || []).map((source: { messageId: string }) => source.messageId),
+          workAssistance: (args.workAssistance || []).map(({ quote: _quote, ...address }: import('../../shared/method-work-help').MethodWorkHelpInput) => address),
+          workAnchors: args.workAnchors || [] });
+        validate();
+        if (!purpose?.allowed) return { applied: false, reason: purpose?.reason || '这次先照顾眼前的需要，未展开旧帮助或保存长期做法。' };
+      }
+      const methodSession = { events: session.events, ephemeral: session.ephemeral, permits: this.memoryInquiryPermissions(session).permits,
+        ...(contract.memoryMode === 'relevant' ? {} : { restrictToSessionId: session.sessionId }) };
+      const known = (requirement: import('./skills').WorkflowRequirement) => requirement.kind === 'tool'
+        ? specs.some(spec => spec.name === requirement.name) || this.toolSpecs(session, false).some(spec => spec.function.name === requirement.name)
+        : !!this.broker.describe(requirement.name);
+      const preparedHelp = await this.personalMethods.prepareWorkHelp(handle, methodSession, args, signal);
+      validate();
+      const preview = this.personalMethods.preview(handle, methodSession, args, known, preparedHelp);
+      const previewText = canonical(preview), previewBytes = Buffer.byteLength(previewText), previewTokens = Math.ceil(Array.from(previewText).length / 1.4);
+      const pack = session.pack;
+      if (previewBytes + (pack?.receipt.budget.readBytes || 0) > contract.budget.maxReadBytes
+        || previewTokens + (pack?.receipt.budget.estimatedTokens || 0) > contract.budget.maxTokens)
+        throw new HarnessError('context_budget', '这份方法及声明来源超出本轮资料预算，请缩小方法范围，未保存。');
+      if (pack) {
+        if ('binding' in preview && preview.binding) this.context.recordWorkSourceBindings(pack, [preview.binding]);
+        if ('methodSources' in preview && preview.methodSources) this.context.recordPersonalMethodSources(pack, [preview.methodSources]);
+        pack.receipt.budget.readBytes += previewBytes; pack.receipt.budget.estimatedTokens += previewTokens;
+        this.repo.saveReceipt(handle, pack.receipt);
+      }
+      const verdict = await callbacks.verifyLocalDelegation?.(preview);
+      validate();
+      if (verdict?.decision !== 'execute_local' || !verdict.basis.some(value => value.id === args.source.eventId && value.quote === args.source.quote))
+        return { applied: false, reason: verdict?.reason || '尚未核清本人保留这种做法的明确意愿及内容范围，没有保存方法。' };
+      const result = this.personalMethods.save(handle, methodSession, args, known, preparedHelp);
+      const id = result.id.slice('personal:'.length), record = this.repo.work(handle, undefined, id)[0];
+      if (record) this.context.recordWorkSources(session.pack, [record]);
+      callbacks.changed();
+      return { ...result, memoryAssertionCreated: false, codeInstalled: false, permissionChanged: false };
+    }
+    if (name === 'read_method_help') {
+      if (session.ingress.requiresReadPurpose) {
+        const purpose = await callbacks.verifyReadPurpose?.({ data: 'actual_method_help_excerpt', methodId: args.id, index: args.index });
+        validate();
+        if (!purpose?.allowed) return { status: 'forbidden', reason: purpose?.reason || '这次先按当前需要交流，未打开旧帮助。' };
+      }
+      const value = this.personalMethods.readHelp(handle, args, { permits: this.memoryInquiryPermissions(session).permits,
+        ...(contract.memoryMode === 'relevant' ? {} : { restrictToSessionId: session.sessionId }) });
+      const serialized = canonical(value.data), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+      if (bytes + (session.pack?.receipt.budget.readBytes || 0) > contract.budget.maxReadBytes
+        || tokens + (session.pack?.receipt.budget.estimatedTokens || 0) > contract.budget.maxTokens)
+        throw new HarnessError('context_budget', '这一段旧帮助超出本轮预算，没有把未交付内容记作已读。');
+      this.context.recordWorkSources(session.pack, [value.record]);
+      this.context.recordPersonalMethodSources(session.pack, [value.sources]);
+      if (session.pack) {
+        session.pack.receipt.budget.readBytes += bytes; session.pack.receipt.budget.estimatedTokens += tokens;
+        this.repo.saveReceipt(handle, session.pack.receipt);
+      }
+      return value.data;
+    }
+    if (name === 'read_current_campus_selection') {
+      const identity = session.campusSelection && this.scenes.academicSelectionIdentity(handle, session.sessionId, session.campusSelection);
+      if (!identity) return { status: 'needs_context', reason: '这次没有可核对的成绩选中地址；可在原成绩资料中选中那门课继续，不用重抄数值。' };
+      const purpose = await callbacks.verifyReadPurpose?.({ capability: this.broker.describe('campus.query'), operation: 'selected_academic_record',
+        resource: identity.resource, sourceKey: identity.sourceKey });
+      validate();
+      if (!purpose?.allowed) return { status: 'forbidden', reason: purpose?.reason || '本轮还未核清读取这条成绩资料的用途。' };
+      const readScope = this.policy.campusPurposeScope(handle, identity.grant);
+      this.campusAcademicSources.authorizeScope(readScope, [identity.grant]);
+      const cached = this.scenes.academicCachedSelection(readScope, session.sessionId, identity.selection);
+      if (cached) {
+        const data = { selected: cached.selection,
+          meaning: '原校园owner已复核这份源快照仍有效；只交付选中记录，不展开同表其他成绩。源采集时间保持原值，不冒充刚联网。对总GPA影响仍另读匹配范围/政策的真实分母。' };
+        const pack = session.pack || await this.compile(session, false, signal);
+        this.context.recordCampusTool(pack, { status: cached.scene.resultStatus || 'fresh', sourceId: cached.scene.source.sourceId, data,
+          fetchedAt: cached.scene.source.fetchedAt, simulated: false }, 'campus.selection.read', readScope.id,
+          () => [this.campusAcademicSources.stamp(handle, readScope, identity.resource, cached.scene.source.sourceId, data, session.events)], data, true);
+        session.selection = cached.selection; pack.data.currentSelection = cached.selection;
+        return { status: cached.scene.resultStatus || 'fresh', ...data };
+      }
+      const fields = { grades: 'id', gpa_semesters: 'semester_id', gpa_cumulative: 'through_semester', gpa_overall: 'policy' };
+      const request = { operation: 'select', spec: { resource: identity.resource,
+        where: { field: fields[identity.resource], op: 'eq', value: identity.sourceKey }, offset: 0, limit: 2 }, offset: 0, limit: 2, refresh: false };
+      const result = await this.broker.invoke(readScope, 'campus.query', request, signal, { maxCalls: contract.budget.toolCalls });
+      validate();
+      const pack = session.pack || await this.compile(session, false, signal);
+      this.context.recordCampusTool(pack, result, 'campus.query', readScope.id, () => result.data
+        ? [this.campusAcademicSources.stamp(handle, readScope, identity.resource, result.sourceId, result.data, session.events)] : []);
+      const scene = this.scenes.campus(session.sessionId, result, 'campus.query', request, contract.id, false, readScope);
+      if (!scene || scene.kind !== 'campus' || !scene.records.length)
+        return { status: 'not_found', reason: result.reason || '原校园来源在本次范围里没有返回这条记录，没有用旧数字或别的课程代替。' };
+      if (scene.records.length !== 1) return { status: 'ambiguous_source', reason: '原来源给这个ID返回了多次修读，未把其中第一条代替你选中的那次；请回原资料核对具体修读位置。' };
+      const selection = this.scenes.selection(readScope, session.sessionId, { sceneId: scene.id, sceneRevision: scene.revision,
+        kind: 'record', recordId: scene.records[0].id, ...(identity.selection.campusScale ? { campusScale: identity.selection.campusScale } : {}) });
+      session.selection = selection; session.campusSelection = selection;
+      pack.data.currentSelection = selection;
+      pack.data.availableScenes = this.scenes.summaries(handle, session.sessionId, contract.id);
+      return { status: result.status, selected: selection, sceneRef: { id: scene.id, revision: scene.revision },
+        meaning: '按真实原ID回读同一课程/口径。解释对总绩点影响仍须另读匹配政策与范围的真实GPA分母；缺失不是零分，选中不是学习表现或修改许可。' };
+    }
+    if (name === 'read_companion_history') {
+      if (session.ingress.requiresReadPurpose) {
+        const purpose = await callbacks.verifyReadPurpose?.({ data: 'original_companion_page', address: args });
+        validate();
+        if (!purpose?.allowed) return { status: 'forbidden', reason: purpose?.reason || '这次未打开旧共做页。' };
+      }
+      const source = assistantWorkSourceSchema.parse({ messageId: args.messageId, sceneId: args.sceneId, sceneRevision: args.sceneRevision });
+      const original = this.repo.assistantCoWorkScene(handle, source, { permits: this.memoryInquiryPermissions(session).permits,
+        ...(contract.memoryMode === 'relevant' ? {} : { sessionId: session.sessionId }) });
+      const projection = original?.scene.coWork.find(value => !args.companionId || value.id === args.companionId);
+      if (!original || !projection) throw new HarnessError('companion_snapshot_changed', '这份原页或它的来源已不可回读。');
+      const text = projection[args.field as 'workingExplanation' | 'currentObstacle' | 'nextStep' | 'returnPoint'] || '', points = Array.from(text);
+      if (args.offset > points.length) throw new HarnessError('companion_snapshot_range', '原解释的片段位置超出实际内容。');
+      const end = Math.min(points.length, args.offset + args.limit), data = { origin: 'historical_working_explanation' as const,
+        address: source, owner: { id: projection.id, revision: projection.revision, matterId: projection.matterId }, field: args.field,
+        text: points.slice(args.offset, end).join(''), coverage: { start: args.offset, end, total: points.length },
+        next: end < points.length ? { tool: 'read_companion_history', arguments: { ...args, companionId: projection.id, offset: end } } : null,
+        materials: projection.materials, attempts: projection.attempts.map(attempt => ({ source: attempt.source, read: attempt.read })),
+        fields: (['workingExplanation', 'currentObstacle', 'nextStep', 'returnPoint'] as const).map(field => ({ field,
+          length: Array.from(projection[field] || '').length, read: { tool: 'read_companion_history', arguments: { ...source, companionId: projection.id, field, offset: 0, limit: args.limit } } })),
+        current: { read: { tool: 'read_companion_session', arguments: { id: projection.id, matterId: projection.matterId } } },
+        meaning: '这是当时那一页实际留下的解释；没有读取资料正文、恢复旧控件、判断完成或授予新操作。' };
+      const serialized = canonical(data), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+      if (bytes + (session.pack?.receipt.budget.readBytes || 0) > contract.budget.maxReadBytes
+        || tokens + (session.pack?.receipt.budget.estimatedTokens || 0) > contract.budget.maxTokens)
+        throw new HarnessError('context_budget', '原页这一段超出本轮资料预算，未把未交付内容记作已读。');
+      this.context.recordAssistantWorkSources(session.pack, [source]);
+      if (session.pack) {
+        session.pack.receipt.budget.readBytes += bytes; session.pack.receipt.budget.estimatedTokens += tokens;
+        this.repo.saveReceipt(handle, session.pack.receipt);
+      }
+      return data;
+    }
     if (name === 'discover_skills' || name === 'read_skill') {
+      const forHelp = name === 'read_skill' ? args.forCurrentHelp as { source: import('../../shared/harness').WorkSourceRef; matterId?: string } | undefined : undefined;
+      if (forHelp) {
+        this.repo.resolveWorkSourceBinding(handle, [forHelp.source]);
+        const source = this.repo.evidence(handle, forHelp.source.eventId), scope = this.repo.scope(handle);
+        if (!source || scope.child || !scope.currentEventIds.includes(source.id) || source.speaker !== 'user' || source.authority !== 'user_statement')
+          throw new HarnessError('personal_method_current_help', '本次借用帮法须接本轮本人真实请求；目录、旧话或他人的内容不形成新的采用。');
+        if (forHelp.matterId && !session.pack?.receipt.providedObjectVersions.some(ref => ref.kind === 'work' && ref.id === forHelp.matterId))
+          throw new HarnessError('personal_method_current_matter', '先回读当前共同事项，再把这份帮法接到同一处帮助。');
+      }
       const availableTools = new Set(this.toolSpecs(session, child).map(tool => tool.function.name));
       const discoverable = new Set(this.broker.discover(handle).map(capability => capability.name));
-      const result = name === 'discover_skills' ? listWorkflowSkills(args) : readWorkflowSkill(args.id, requirement => {
+      let allowPersonal = name === 'discover_skills' || args.id.startsWith('personal:');
+      if (allowPersonal && session.ingress.requiresReadPurpose) {
+        const verdict = await callbacks.verifyReadPurpose?.({ data: 'user_chosen_working_methods', requestedMethodId: name === 'read_skill' ? args.id : undefined,
+          ...(forHelp ? { forCurrentHelp: forHelp } : {}) });
+        validate(); allowPersonal = !!verdict?.allowed;
+      }
+      const personal = allowPersonal ? this.personalMethods.catalog(handle, { permits: this.memoryInquiryPermissions(session).permits,
+        ...(name === 'read_skill' && args.id.startsWith('personal:') ? { id: args.id.slice('personal:'.length) } : {}) }) : [];
+      const result = name === 'discover_skills' ? listWorkflowSkills(args, personal)
+        : args.id.startsWith('personal:') && !allowPersonal ? { status: 'not_authorized' as const, guidanceOnly: true as const,
+          reason: '本轮用途没有提供个人方法，不能据此断言方法不存在；内置方法和其他合法能力仍可直接使用。' }
+        : readWorkflowSkill(args.id, requirement => {
         if (requirement.kind === 'tool') return { state: availableTools.has(requirement.name) ? 'available' : 'not_authorized', reason: availableTools.has(requirement.name) ? undefined : '当前角色或范围未提供此工具。' };
         const capability = this.broker.describe(requirement.name);
         if (!capability) return { state: 'not_registered', reason: '能力尚未接入。' };
         if (!discoverable.has(requirement.name)) return { state: 'not_authorized', sourceId: capability.sourceId, version: capability.version, reason: '当前来源或权限范围不包含这项能力。' };
         return { state: capability.connection.connected ? 'available' : 'not_connected', sourceId: capability.sourceId, version: capability.version, reason: capability.connection.reason };
-      });
+      }, personal);
       if (session.pack) {
         const text = JSON.stringify(result), bytes = Buffer.byteLength(text), tokens = Math.ceil(Array.from(text).length / 1.4);
         const budget = session.pack.receipt.budget;
         if (budget.readBytes + bytes > contract.budget.maxReadBytes || budget.estimatedTokens + tokens > contract.budget.maxTokens)
           throw new HarnessError('context_budget', '工作方法超出当前上下文预算，可继续直接使用已有工具。');
+        const delivered = 'items' in result ? result.items : [result];
+        for (const item of delivered) {
+          const provenance = (item as { personalMethod?: import('./skills').WorkflowSkill['personalMethod'] }).personalMethod;
+          if (!provenance) continue;
+          const record = this.repo.work(handle, undefined, provenance.workId)[0];
+          if (record) {
+            this.context.recordWorkSources(session.pack, [record]);
+            const support = { ...personalMethodSourcesSchema.parse(record.data.methodSources
+              || { version: 1, assistance: [], anchors: [] }), methodBinding: record.sourceBinding };
+            this.context.recordPersonalMethodSources(session.pack, [support]);
+            if (forHelp) {
+              const application = { methodId: record.id, revision: record.revision, source: forHelp.source,
+                ...(forHelp.matterId ? { matterId: forHelp.matterId } : {}), sources: support };
+              session.personalMethodApplications = [...new Map([...(session.personalMethodApplications || []), application]
+                .map(value => [canonical(value), value])).values()];
+            }
+          }
+        }
         budget.readBytes += bytes; budget.estimatedTokens += tokens;
         this.repo.saveReceipt(handle, session.pack.receipt);
       }
@@ -1356,11 +2079,54 @@ export class RuntimeCoordinator {
     }
     if (name === 'present_view') {
       if (child || session.background) throw new HarnessError('presentation_owner', '由主助手在当前交流中决定呈现；后台只准备。');
+      if (session.ingress.requiresReadPurpose && (args.discussion || args.study || args.planningComparison || args.curiosity || args.storySetting || args.rehearsal || args.note)) {
+        const verdict = await callbacks.verifyReadPurpose?.({ tool: name, data: 'personal_shared_work_presentation', arguments: args });
+        if (!verdict?.allowed) return { status: 'forbidden', reason: verdict?.reason || '先接上这次一起看的内容。' };
+      }
       if (new Set(args.sceneRefs.map((ref: { id: string; revision: number }) => ref.id)).size !== args.sceneRefs.length) throw new HarnessError('duplicate_scene', '同一画面不必重复呈现。');
-      const scenes = (args.sceneRefs as { id: string; revision: number }[]).map(ref => this.scenes.get(handle, session.sceneSessionId || session.sessionId, ref, contract.id, session.selection?.sceneId === ref.id && session.selection.sceneRevision === ref.revision));
+      const scenes: SceneSnapshot[] = (args.sceneRefs as { id: string; revision: number }[]).map(ref => this.scenes.get(handle, session.sceneSessionId || session.sessionId, ref, contract.id, session.selection?.sceneId === ref.id && session.selection.sceneRevision === ref.revision));
+      const freshScenes: SceneSnapshot[] = [];
+      if (args.campusDisplay) {
+        const index = scenes.findIndex(scene => scene.id === args.campusDisplay.sceneId), original = scenes[index];
+        if (!original || original.kind !== 'campus') throw new HarnessError('campus_display_reference', 'campusDisplay须引用sceneRefs里本轮已读的真实成绩画面；原地址卡先回来源读取。');
+        const updated = this.scenes.academicDisplay(handle, original, args.campusDisplay, contract.id);
+        scenes[index] = updated; freshScenes.push(updated);
+      }
+      const note = args.note ? this.notePresentation.create(session, args.note, signal) : undefined;
+      if (note) { validate(); scenes.push(note.scene); freshScenes.push(note.scene); }
+      const permits = this.memoryInquiryPermissions(session).permits;
+      const rehearsal = args.rehearsal ? createRehearsalPresentation(this, session, args.rehearsal, signal) : undefined;
+      if (rehearsal) { validate(); scenes.push(rehearsal.scene); freshScenes.push(rehearsal.scene); }
+      const curiosity = args.curiosity ? createCuriosityPresentation(this, session, args.curiosity, signal) : undefined;
+      if (curiosity) { validate(); scenes.push(curiosity.scene); freshScenes.push(curiosity.scene); }
+      const storySetting = args.storySetting ? createStorySettingPresentation(this, session, args.storySetting, signal) : undefined;
+      if (storySetting) {
+        validate();
+        const previousIndex = scenes.findIndex(scene => scene.kind === 'map' && scene.id === storySetting.scene.id);
+        if (previousIndex >= 0) scenes.splice(previousIndex, 1, storySetting.scene); else scenes.push(storySetting.scene);
+        freshScenes.push(storySetting.scene);
+      }
+      if (args.discussion) {
+        const discussion = this.scenes.discussion(handle, session.sceneSessionId || session.sessionId, args.discussion,
+          { runId: contract.id, stageOnly: true, admission: { allowCrossSession: contract.memoryMode === 'relevant', permits } });
+        scenes.push(discussion); freshScenes.push(discussion);
+      }
+      const study = args.study ? await this.studyPresentation.project(handle, args.study, { sessionId: session.sessionId, signal, permits,
+        ...(contract.memoryMode === 'relevant' ? {} : { restrictToSessionId: session.sessionId }) }) : undefined;
+      if (study) {
+        validate();
+        scenes.push(study.scene); freshScenes.push(study.scene);
+      }
+      const comparison = args.planningComparison ? await createPlanningComparisonPresentation(this, session, args.planningComparison, signal) : undefined;
+      if (comparison) {
+        validate();
+        scenes.push(...comparison.scenes); freshScenes.push(...comparison.scenes);
+      }
+      if (!scenes.length || scenes.length > 5) throw new HarnessError('presentation_scope', '这次先把眼前这件事放在一起看。');
       for (let index = 0; index < scenes.length; index++) {
         const scene = scenes[index];
         if (scene.kind !== 'map' || !args.cameraIntent && !args.viewRequestQuote && !args.focusPlaceId && !args.activeLegId && !args.display && !args.arrivalSourceQuote) continue;
+        if (scene.storySetting && args.arrivalSourceQuote) throw new HarnessError('story_map_arrival', '这张图在给共同作品取景，不能把故事中的到达登记成本人到达。若本人现在另外提出真实出行，沿现实地图与当前原话单独处理。');
         const publicMap = this.connections.map?.publicView?.() || this.connections.map;
         if (args.focusPlaceId && !publicMap?.point(args.focusPlaceId)) throw new HarnessError('unknown_place', '观看目标不是当前公共地图中的稳定地点。');
         if (args.activeLegId && !scene.journey.legs.some(leg => leg.id === args.activeLegId)) throw new HarnessError('unknown_leg', '这个路段不属于这段旅程。');
@@ -1374,15 +2140,69 @@ export class RuntimeCoordinator {
         const arrivalEvent = args.arrivalSourceQuote ? session.events.find(event => event.speaker === 'user' && event.text.includes(args.arrivalSourceQuote)) : undefined;
         if (args.arrivalSourceQuote && !arrivalEvent) throw new HarnessError('arrival_source', '到达说明必须来自本轮真实用户原话；路线预览不会产生到达信号。');
         const latest = this.scenes.available(handle, session.sessionId, contract.id, session.selection ? { id: session.selection.sceneId, revision: session.selection.sceneRevision } : undefined).find(current => current.id === scene.id);
-        if (latest?.revision !== scene.revision) throw new HarnessError('revision_conflict', '这张地图已有新版本，先按当前画面继续。');
-        scenes[index] = this.scenes.remember(session.sessionId, { ...scene, revision: scene.revision + 1, cameraIntent,
+        const stagedSetting = storySetting?.scene.id === scene.id && storySetting.scene.revision === scene.revision;
+        if (latest?.revision !== (stagedSetting ? storySetting?.previous?.revision : scene.revision)) throw new HarnessError('revision_conflict', '这张地图已有新版本，先按当前画面继续。');
+        const updatedMap: MapScene = { ...scene, revision: stagedSetting ? scene.revision : scene.revision + 1, cameraIntent,
           cameraRequestId: moveCamera ? randomUUID() : undefined,
           cameraUserRequested: moveCamera && !!viewRequestEvent,
           focusPlaceId: args.focusPlaceId || (!args.cameraIntent || cameraIntent === 'selection' ? scene.focusPlaceId : undefined), ...(args.activeLegId ? { activeLegId: args.activeLegId } : {}), ...(display ? { display } : {}),
           ...(!scene.journey.legs.length && args.focusPlaceId ? { place: publicMap!.point(args.focusPlaceId) } : {}),
-          ...(arrivalEvent ? { arrival: { kind: 'user_statement' as const, eventId: arrivalEvent.id, quote: args.arrivalSourceQuote, reportedAt: arrivalEvent.receivedAt } } : {}) }, contract.id);
+          ...(arrivalEvent && !scene.storySetting ? { arrival: { kind: 'user_statement' as const, eventId: arrivalEvent.id, quote: args.arrivalSourceQuote, reportedAt: arrivalEvent.receivedAt } } : {}) };
+        if (stagedSetting) {
+          scenes[index] = updatedMap;
+          const stagedIndex = freshScenes.findIndex(value => value.id === scene.id && value.revision === scene.revision);
+          freshScenes[stagedIndex] = updatedMap;
+        } else scenes[index] = this.scenes.remember(session.sessionId, updatedMap, contract.id);
       }
-      validate(); const view = this.scenes.view(scenes, args.layout);
+      validate();
+      if (session.pack) {
+        const authoredScenes = scenes.filter(scene => scene.kind === 'note' || scene.kind === 'discussion' || scene.kind === 'study' || scene.kind === 'curiosity' || scene.kind === 'rehearsal' || scene.kind === 'campus' && !!scene.academicDisplay || scene.kind === 'map' && !!scene.storySetting
+          || comparison?.scenes.some(value => value.id === scene.id && value.revision === scene.revision));
+        const serialized = authoredScenes.length ? canonical({ scenes: authoredScenes, comparison: comparison?.comparison }) : '';
+        const bytes = Buffer.byteLength(serialized);
+        // The full host snapshot goes to the UI, not the model. Token budget
+        // follows the actual tool reply; readBytes still covers the real body.
+        const tokens = Math.ceil(Array.from(canonical({ status: 'presented', sceneRefs: scenes.map(({ id, revision }) => ({ id, revision })), libraryVersion: 1,
+          meaning: '只呈现已有可信结果；没有执行预约、日程或到达动作。' })).length / 1.4);
+        if (session.pack.receipt.budget.readBytes + bytes > contract.budget.maxReadBytes || session.pack.receipt.budget.estimatedTokens + tokens > contract.budget.maxTokens)
+          throw new HarnessError('presentation_budget', '这页内容较多，先展开其中最相关的一部分。');
+        for (const scene of scenes) if (scene.kind === 'discussion') {
+          this.context.recordWorkSourceBindings(session.pack, [scene.provenance.sourceBinding]);
+          this.context.recordAssistantWorkSources(session.pack, scene.coWork.flatMap(work => work.historySource ? [work.historySource] : []));
+          this.context.recordWorkSources(session.pack, [...(scene.history ? [] : [{ id: scene.matter.id, revision: scene.matter.revision }, ...scene.provenance.optionRefs]),
+            ...scene.modules.filter(ref => !scene.coWork.some(work => work.id === ref.id && !!work.history)).map(({ id, revision }) => ({ id, revision }))]);
+          this.context.recordLearningProcesses(session.pack, scene.coWork.filter(work => !work.history).flatMap(work => work.learningProcessRefs.map(({ id, revision }) => ({ id, revision }))));
+        }
+        if (curiosity) {
+          this.context.recordWorkSources(session.pack, curiosity.records);
+          this.context.recordWorkSourceBindings(session.pack, curiosity.bindings);
+          this.context.recordAssistantWorkSources(session.pack, curiosity.assistantWorkSources || []);
+        }
+        if (storySetting) {
+          this.context.recordWorkSources(session.pack, storySetting.records);
+          this.context.recordWorkSourceBindings(session.pack, storySetting.bindings);
+          this.context.recordAssistantWorkSources(session.pack, storySetting.assistantWorkSources);
+          session.pack.receipt.providedSourceIds = [...new Set([...(session.pack.receipt.providedSourceIds || []), 'map:local'])];
+        }
+        if (rehearsal) {
+          this.context.recordWorkSources(session.pack, rehearsal.records);
+          this.context.recordWorkSourceBindings(session.pack, [rehearsal.scene.sourceBinding]);
+        }
+        if (note) this.context.recordNoteSources(session.pack, note.sources);
+        if (study) {
+          this.context.recordWorkSources(session.pack, study.records);
+          this.context.recordWorkSourceBindings(session.pack, [study.scene.owner.sourceBinding]);
+        }
+        if (comparison) {
+          this.context.recordWorkSources(session.pack, comparison.records);
+          this.context.recordWorkSourceBindings(session.pack, comparison.bindings);
+        }
+        session.pack.receipt.budget.readBytes += bytes;
+        session.pack.receipt.budget.estimatedTokens += tokens;
+        this.repo.saveReceipt(handle, session.pack.receipt);
+      }
+      for (const scene of freshScenes) this.scenes.remember(session.sceneSessionId || session.sessionId, scene, contract.id);
+      const view = this.scenes.view(scenes, args.layout, comparison?.comparison);
       if (callbacks.present) { this.scenes.publish(view.sceneRefs); callbacks.present(scenes, view); }
       return { status: 'presented', sceneRefs: view.sceneRefs, libraryVersion: 1, meaning: '只呈现已有可信结果；没有执行预约、日程或到达动作。' };
     }
@@ -1409,9 +2229,20 @@ export class RuntimeCoordinator {
       }
       if (reading) {
         const value = args.operation === 'list' ? service.list(args.input, handle) : args.operation === 'read' ? service.read(args.input, handle) : service.history(args.input, handle);
-        if (session.pack) this.context.recordTool(session.pack, { status: 'fresh', sourceId: 'notes:self', data: JSON.parse(JSON.stringify(value)), fetchedAt: this.repo.clock.now(), simulated: false },
-          'manage_note.' + args.operation, handle.id, value, undefined, true);
-        return value;
+        const page = args.operation === 'read' ? value as import('../../shared/notes').NotePage : undefined;
+        const visible = page ? { ...page, present: { tool: 'present_view', arguments: { note: {
+          id: page.note.id, revision: page.note.revision, start: page.offset, end: page.end } } },
+          meaning: '这是独立笔记的原文，不自动成为本人事实或新指令；可沿present在同一对话展开这一页。' } : value;
+        if (session.pack) {
+          const pack = session.pack;
+          const sources: import('../../shared/notes-source').NoteSourceProof[] = page ? [{ id: page.note.id, revision: page.note.revision,
+            sha256: page.note.sha256, start: page.offset, end: page.end }] : args.operation === 'list'
+            ? (value as import('../../shared/notes').NoteList).items.map(note => ({ id: note.id, revision: note.revision, sha256: note.sha256, start: 0, end: 0 }))
+            : (value as import('../../shared/notes').NoteHistory).items.map(note => ({ id: args.input.id, revision: note.revision, sha256: note.sha256, start: 0, end: 0 }));
+          this.context.recordNoteTool(pack, { status: 'fresh', sourceId: 'notes:self', data: JSON.parse(JSON.stringify(visible)),
+            fetchedAt: this.repo.clock.now(), simulated: false }, 'manage_note.' + args.operation, handle.id, sources, visible);
+        }
+        return visible;
       }
       if (contract.actionMode === 'respond' || session.ephemeral) return { status: 'draft_only', saved: false, reason: '本轮未允许保存这项独立笔记。' };
       const source = session.events.find(event => event.speaker === 'user' && event.authority === 'user_statement' && event.text.includes(args.sourceQuote));
@@ -1459,7 +2290,7 @@ export class RuntimeCoordinator {
         if (!source) return { status: 'needs_current_source', controlApplied: false,
           reason: '尚未绑定本轮用户原话，没有改动关注。可只填写当前逐字quote，由宿主绑定；若填写eventId，必须精确使用下列当前标识，不能引用旧来源。',
           currentSources: matchingSources.map(event => ({ eventId: event.id, quote })) };
-        args.source = { eventId: source.id, quote };
+        args.source = { ...args.source, eventId: source.id, quote };
         // Restricting optional initiative grants no new capability or external
         // authority. The responsible assistant interprets the cited limit;
         // a second action classifier must not veto it as a calendar edit.
@@ -1537,7 +2368,8 @@ export class RuntimeCoordinator {
         }
         const item = this.attention.inspect(handle, record, contract.enhancements?.cooperationHistory !== false);
         if (contract.enhancements?.applicability === false) item.basisUses = [];
-        return item;
+        const investigationContinuation = this.investigationResume(session, record, args.id ? args.offset : 0, args.id ? args.limit : 5);
+        return { ...item, ...(investigationContinuation ? { investigationContinuation } : {}) };
       }),
         coverage: { offset: args.offset, hasMore, nextOffset: discovery?.nextOffset || null, scope: 'currently permitted help and prepared materials',
           filters: { query: args.query || null, relatedTo: args.relatedTo || null, statuses: args.statuses || ['candidate', 'waiting', 'prepared', 'question_ready', 'notification_queued'], from: args.from || null, to: args.to || null },
@@ -1550,7 +2382,11 @@ export class RuntimeCoordinator {
     }
     if (name === 'decide_help') {
       if (session.background && args.presentInConversation) throw new HarnessError('presentation_owner', '后台只准备；随对话呈现由前台当前回合绑定。');
-      const result = this.attention.decide(handle, args, session.observations || [], refs => refs.map(ref => this.scenes.get(handle, session.sceneSessionId || session.sessionId, ref, contract.id)));
+      const opportunity = this.repo.work(handle, undefined, args.id)[0];
+      if (opportunity?.data.reflectiveLetterRequest && args.artifact && !args.reuseArtifact)
+        throw new HarnessError('letter_writer_required', '这封信沿原来的写信入口继续，才能保留每一处真实来由。');
+      const result = this.attention.decide(handle, args, session.observations || [], refs => refs.map(ref => this.scenes.get(handle, session.sceneSessionId || session.sessionId, ref, contract.id)),
+        session.investigation?.opportunityId === args.id ? session.investigation : undefined);
       if (result.conversationHelpRef) {
         const previous = session.conversationHelpRefs || [];
         session.conversationHelpRefs = [...previous.filter(ref => ref.id !== result.conversationHelpRef!.id), result.conversationHelpRef];
@@ -1626,11 +2462,77 @@ export class RuntimeCoordinator {
       if (session.pack) session.pack.data.availabilityProjection = result;
       return result;
     }
-    if (session.ingress.requiresReadPurpose && (['restore_collaboration', 'manage_planning_intent', 'search_context', 'read_understanding', 'inspect_action', 'manage_basis', 'read_assistant_history'].includes(name) || (name === 'read_evidence' && !session.events.some(event => event.id === args.id)))) {
+    if (session.ingress.requiresReadPurpose && ([...lifeCollaborationToolDefinitions, ...reflectiveLetterToolDefinitions, ...planningConversationToolDefinitions, ...curiosityToolDefinitions, ...relationshipRehearsalToolDefinitions].some(tool => tool.name === name)
+      || ['restore_collaboration', 'manage_planning_intent', 'search_context', 'read_understanding', 'read_learning', 'manage_learning', 'inspect_action', 'manage_basis', 'read_assistant_history'].includes(name) || (name === 'read_evidence' && !session.events.some(event => event.id === args.id)))) {
       const verdict = await callbacks.verifyReadPurpose?.({ tool: name, arguments: args, data: 'personal_history_or_work' });
       if (!verdict?.allowed) return { status: 'forbidden', reason: verdict?.reason || '本轮尚未核清读取这项本人资料的用途。' };
     }
+    const lifeResult = executeLifeCollaborationTool(this, session, name, args, signal);
+    if (lifeResult) {
+      try { const result = await lifeResult; validate(); return result; }
+      finally { if (definition.mutates) callbacks.changed(); }
+    }
+    const authoredArtifact = executeReflectiveLetterTool(this, session, name, args, signal)
+      || executeRelationshipRehearsalTool(this, session, name, args, signal)
+      || executePlanningConversationTool(this, session, name, args, signal)
+      || executeCuriosityTool(this, session, name, args, signal);
+    if (authoredArtifact) {
+      try { const result = await authoredArtifact; validate(); return result; }
+      finally { if (definition.mutates) callbacks.changed(); }
+    }
     if (name === 'restore_collaboration') {
+      if (args.type === 'source_related') {
+        const { type: _type, ...input } = args;
+        const pageInput = sourceRelatedInput.parse(input);
+        const pack = session.pack || await this.compile(session, false, signal);
+        const availableTools = new Set(this.toolSpecs(session, child).map(tool => tool.function.name));
+        const { value, records, bindings } = this.sourceRelated.page(handle, pageInput, {
+          sessionId: contract.memoryMode === 'relevant' ? undefined : session.sessionId,
+          maxRows: contract.budget.maxRows,
+          projectionKey: canonical(Object.entries(session.attentionEvidenceViews || {}).map(([id, view]) =>
+            [id, view.contentVersion, view.sourceStart, view.sourceEnd])),
+          permits: ref => {
+            const view = session.attentionEvidenceViews?.[ref.eventId];
+            if (!view) return true;
+            const event = this.repo.evidence(handle, ref.eventId);
+            return !!event && event.contentVersion === view.contentVersion && view.contentVersion === ref.contentVersion
+              && view.sourceStart <= ref.start && view.sourceEnd >= ref.end
+              && codePointSlice(event.text, view.sourceStart, view.sourceEnd) === view.quote;
+          },
+          canRead: tool => availableTools.has(tool),
+          canReadRecord: record => {
+            if (record.data.type === 'personal_method') return this.personalMethods.catalog(handle, { id: record.id, revision: record.revision })
+              .some(method => method.personalMethod?.workId === record.id && method.personalMethod.revision === record.revision);
+            if (record.data.type !== 'planning_alternative') return true;
+            try {
+              this.planningConversation.describe(handle, { matterId: record.data.matterId, optionId: record.id, expectedRevision: record.revision },
+                { sessionId: contract.memoryMode === 'relevant' ? undefined : session.sessionId,
+                  permits: this.memoryInquiryPermissions(session).permits });
+              return true;
+            } catch (error) {
+              if (error instanceof HarnessError || error instanceof Error && error.name === 'ZodError') return false;
+              throw error;
+            }
+          },
+        });
+        validate();
+        const result = { ...value, type: 'source_related' as const };
+        const observation = { status: value.status === 'partial' ? 'partial' as const
+          : records.length ? 'fresh' as const : 'known_absent' as const,
+          sourceId: 'work:self', data: JSON.parse(JSON.stringify(result)), fetchedAt: this.repo.clock.now(), simulated: false };
+        const bytes = Buffer.byteLength(canonical(observation)), tokens = Math.ceil(Array.from(canonical(result)).length / 1.4);
+        if (pack.receipt.budget.readBytes + bytes > contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > contract.budget.maxTokens)
+          return { status: 'partial', type: 'source_related', items: [],
+            reason: '事项定位页超出本轮剩余范围，尚未采用这页；可缩小limit沿同一原地址重试，没有把缺失当作不存在。',
+            read: { tool: 'restore_collaboration', arguments: { type: 'source_related', ...pageInput,
+              limit: Math.max(1, Math.floor((pageInput.limit || 8) / 2)) } } };
+        this.context.recordWorkSources(pack, records);
+        this.context.recordWorkSourceBindings(pack, bindings);
+        this.context.recordTool(pack, observation, 'restore_collaboration', handle.id, result, undefined, true);
+        return result;
+      }
+      if (args.sourceRefs || args.sourceCursor)
+        throw new HarnessError('source_related_type', '原文反查地址只用于type=source_related，不能按普通事项查询忽略。');
       if (args.type === 'planning_intent') {
         if (args.id && args.relatedTo) throw new HarnessError('intent_read_address', '精确规划规格ID与父事项过滤不能混用。');
         if (args.discoveryScope === 'permitted_workspace' && contract.memoryMode !== 'relevant')
@@ -1653,6 +2555,13 @@ export class RuntimeCoordinator {
       }
       if (args.id || args.mode || args.discoveryScope || args.statuses) throw new HarnessError('intent_read_type', '规划规格的精确读取或扫描需要type=planning_intent。');
       const restored = this.collaboration.restore(handle, session.sessionId, args.query, args.offset, args.limit, { relatedTo: args.relatedTo, relatedOffset: args.relatedOffset });
+      const curiosityAddress = (record: import('../../shared/harness').WorkRecord) => record.data.type !== 'curiosity_invitation' ? record : {
+        ...record, data: { type: 'curiosity_invitation',
+          read: { tool: 'curiosity_invitation', arguments: { operation: 'read', id: record.id } },
+          meaning: '这里只接回同一份小体验的地址；公开发现需沿原入口重新核对，不把旧来源当成眼下的事实。' },
+      };
+      restored.relatedOptions = restored.relatedOptions.map(curiosityAddress);
+      restored.relatedRecords = restored.relatedRecords.map(curiosityAddress);
       if (contract.enhancements?.applicability === false) restored.basisUses = [];
       if (contract.enhancements?.cooperationHistory === false) {
         const withoutHelpHistory = (record: import('../../shared/harness').WorkRecord) => record.data.type !== 'cooperation_record';
@@ -1737,24 +2646,92 @@ export class RuntimeCoordinator {
       callbacks.changed();
       return response;
     }
-    if (name === 'search_context') return this.context.prefetch(session.pack || await this.compile(session, false, signal), args.query, args.at, args.offset, args.limit, args.hardOffset, session.background ? event => {
-      const view = session.attentionEvidenceViews?.[event.id];
-      if (!view) return event;
-      if (event.contentVersion !== view.contentVersion || codePointSlice(event.text, view.sourceStart, view.sourceEnd) !== view.quote) return undefined;
-      return { ...event, text: view.quote };
-    } : undefined, { relatedQueries: args.relatedQueries, mode: args.mode, sourceIds: args.sourceIds,
-      receivedFrom: args.receivedFrom, receivedBefore: args.receivedBefore, cursor: args.cursor });
+    if (name === 'search_context') {
+      const reader = typeof args.cursor === 'string' ? session.investigationReaders?.get(args.cursor) : undefined;
+      const investigation = reader?.binding || session.investigation;
+      const projectedView = (eventId: string) => session.background ? session.attentionEvidenceViews?.[eventId]
+        : reader?.projection.eventId === eventId ? reader.projection : undefined;
+      const result = await this.context.prefetchWithSemantic(session.pack || await this.compile(session, false, signal), args.query, args.at, args.offset, args.limit, args.hardOffset,
+        session.background || reader ? event => {
+          const view = projectedView(event.id);
+          if (!view) return event;
+          if (event.contentVersion !== view.contentVersion || codePointSlice(event.text, view.sourceStart, view.sourceEnd) !== view.quote) return undefined;
+          return { ...event, text: view.quote };
+        } : undefined,
+        { relatedQueries: args.relatedQueries, mode: args.mode, sourceIds: args.sourceIds,
+          receivedFrom: args.receivedFrom, receivedBefore: args.receivedBefore, cursor: args.cursor,
+          semanticSnapshot: args.semanticSnapshot, semanticOffset: args.semanticOffset, semanticWindowCursor: args.semanticWindowCursor },
+        investigation ? { service: this.investigation, session: investigation, ...(reader ? { readCoordinates: 'source' as const } : {}) } : undefined,
+        { signal,
+          sourceRelatedAllowed: this.toolSpecs(session, child).some(tool => tool.function.name === 'restore_collaboration'),
+          ...(session.background || reader ? { projectRanges: (event: EvidenceEvent) => {
+            const view = projectedView(event.id);
+            if (!view) return this.repo.availableInferenceRanges(event);
+            return event.contentVersion === view.contentVersion && codePointSlice(event.text, view.sourceStart, view.sourceEnd) === view.quote
+              ? [{ start: view.sourceStart, end: view.sourceEnd }] : [];
+          }, projectionKey: canonical({ background: !!session.background,
+            views: Object.entries(session.attentionEvidenceViews || {}).map(([id, view]) => [id, view.contentVersion, view.sourceStart, view.sourceEnd]),
+            reader: reader ? [reader.projection.eventId, reader.projection.contentVersion, reader.projection.sourceStart, reader.projection.sourceEnd] : null }) } : {}),
+          coordinateBase: (event: EvidenceEvent) => session.background ? projectedView(event.id)?.sourceStart || 0 : 0 });
+      const nextCursor = (result as { coverage?: { nextCursor?: unknown } }).coverage?.nextCursor;
+      if (reader && typeof nextCursor === 'string') session.investigationReaders!.set(nextCursor, reader);
+      return result;
+    }
+    if (name === 'manage_learning') {
+      const result = this.learning.save(handle, session.sessionId, args);
+      if ('kind' in result) this.context.recordWorkSources(session.pack, [result]);
+      // Only this verified, same-object write may advance a version already
+      // supplied in this run. It does not acknowledge unrelated changes.
+      if (session.pack?.receipt.learningProcessVersions) {
+        session.pack.receipt.learningProcessVersions = session.pack.receipt.learningProcessVersions.map(ref =>
+          ref.id === result.id && ref.revision === args.expectedRevision ? { id: result.id, revision: result.revision } : ref);
+        this.repo.saveReceipt(handle, session.pack.receipt);
+      }
+      callbacks.changed();
+      return { id: result.id, revision: result.revision, status: result.status, matterId: args.matterId,
+        meaning: '只保存这件事有来源的学习过程；没有评定独立掌握，没有修改人物记忆、成绩或安排。' };
+    }
+    if (name === 'read_learning') {
+      const permits = (ref: import('../../shared/harness').WorkSourceRef) => {
+        const projection = session.attentionEvidenceViews?.[ref.eventId];
+        return !projection || projection.contentVersion === ref.contentVersion
+          && projection.sourceStart <= ref.start && projection.sourceEnd >= ref.end;
+      };
+      const { records, ...value } = this.learning.read(handle, args, permits);
+      const pack = session.pack || await this.compile(session, false, operationSignal);
+      const text = canonical(value), bytes = Buffer.byteLength(text), tokens = Math.ceil(Array.from(text).length / 1.4);
+      if (pack.receipt.budget.readBytes + bytes > contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > contract.budget.maxTokens)
+        return { status: 'partial', reason: '学习过程目录超出本轮剩余范围，可缩小limit或精确读取一条；没有把缺失当作无尝试或无帮助。' };
+      pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+      this.context.recordWorkSources(pack, records);
+      this.context.recordLearningProcesses(pack, records.map(record => ({ id: record.id, revision: record.revision })));
+      this.repo.saveReceipt(handle, pack.receipt);
+      return value;
+    }
     if (name === 'read_assistant_history') {
-      const rows = this.repo.assistantHistory(handle, { id: args.id, query: args.query, limit: args.id ? 1 : 8 });
+      const rows = this.repo.assistantHistory(handle, { id: args.id, query: args.query, limit: args.id ? 1 : 8,
+        permits: this.memoryInquiryPermissions(session).permits });
+      const pack = session.pack || await this.compile(session, false, signal);
       const result = { status: rows.length ? 'fresh' : 'not_found', items: rows.map(row => {
         const length = Array.from(row.text).length, count = args.id ? args.limit : Math.min(args.limit, 1200), start = args.id ? args.offset : 0;
         return { ...row, text: codePointSlice(row.text, start, Math.min(length, start + count)), coverage: { start, end: Math.min(length, start + count), total: length, complete: start === 0 && count >= length }, nextOffset: start + count < length ? start + count : null };
       }), meaning: '这些是当时的助手回复，不能作用户画像的独立证据，也不证明外部动作完成。' };
-      if (session.pack) {
+      {
         const bytes = Buffer.byteLength(canonical(result)), tokens = Math.ceil(Array.from(canonical(result)).length / 1.4);
-        if (session.pack.receipt.budget.readBytes + bytes > contract.budget.maxReadBytes || session.pack.receipt.budget.estimatedTokens + tokens > contract.budget.maxTokens) return { status: 'partial', items: rows.map(row => ({ id: row.id, length: Array.from(row.text).length })), reason: '完整原文超出当前预算，可缩小范围继续读取。' };
-        session.pack.receipt.budget.readBytes += bytes; session.pack.receipt.budget.estimatedTokens += tokens;
-        session.pack.receipt.providedSourceIds = [...new Set([...(session.pack.receipt.providedSourceIds || []), 'history:self'])];
+        if (pack.receipt.budget.readBytes + bytes > contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > contract.budget.maxTokens) return { status: 'partial', items: rows.map(row => ({ id: row.id, length: Array.from(row.text).length })), reason: '完整原文超出当前预算，可缩小范围继续读取。' };
+        this.context.recordWorkSourceBindings(pack, rows.flatMap(row => row.workSourceBindings));
+        this.context.recordHistoricalAssertions(pack, rows.flatMap(row => row.historicalAssertionVersions));
+        this.context.recordLearningProcesses(pack, rows.flatMap(row => row.learningProcessVersions));
+        this.context.recordReflectiveLetterSources(pack, rows.flatMap(row => row.reflectiveLetterSources));
+        this.context.recordAssistantWorkSources(pack, rows.flatMap(row => row.assistantWorkSources));
+        this.context.recordPersonalMethodSources(pack, rows.flatMap(row =>
+          this.repo.conversationPersonalMethodSources(handle, row.sessionId, [row.id])));
+        this.context.recordNoteSources(pack, rows.flatMap(row => this.repo.conversationNoteSources(handle, row.sessionId, [row.id])));
+        this.context.recordCampusSensitiveReads(pack, rows.flatMap(row => this.repo.conversationCampusSensitiveReads(handle, row.sessionId, [row.id])));
+        this.context.recordPlanningProvenance(pack, rows.flatMap(row => row.planningProvenance));
+        pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+        pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'history:self'])];
+        this.repo.saveReceipt(handle, pack.receipt);
       }
       return result;
     }
@@ -1768,6 +2745,36 @@ export class RuntimeCoordinator {
       return result;
     }
     if (name === 'read_understanding') {
+      if (args.view === 'history') {
+        const value = readUnderstandingHistory(this.repo, handle, args, session.background ? id => {
+          const view = session.attentionEvidenceViews?.[id];
+          if (!view) return true;
+          const source = this.repo.evidence(handle, id);
+          return !!source && source.contentVersion === view.contentVersion && source.text === view.quote;
+        } : undefined);
+        const pack = session.pack || await this.compile(session, false, signal);
+        const serialized = canonical(value), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+        if (pack.receipt.budget.readBytes + bytes > contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > contract.budget.maxTokens)
+          return { status: 'partial', reason: '完整理解历史超出本轮剩余范围，请缩小limit继续；没有把缺失历史当成不存在。' };
+        pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+        for (const item of value.items || []) {
+          if (!('understanding' in item) || !item.understanding) continue;
+          this.context.recordHistoricalAssertions(pack, [{ id: args.id, revision: item.revision }]);
+          const sourceIds = [...(item.citations || []).map(citation => citation.eventId),
+            ...('changeSource' in item && item.changeSource ? [item.changeSource.eventId] : [])];
+          for (const sourceId of sourceIds) {
+            const source = this.repo.evidence(handle, sourceId);
+            if (!source) continue;
+            pack.receipt.providedEvidenceIds = [...new Set([...pack.receipt.providedEvidenceIds, source.id])];
+            pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), source.sourceId])];
+            this.context.recordObjects(pack, [{ id: source.id, revision: source.contentVersion }], 'evidence');
+          }
+        }
+        this.repo.saveReceipt(handle, pack.receipt);
+        return value;
+      }
+      if (args.knownAt || args.validAt || args.snapshotRevision || args.beforeRevision || args.limit)
+        throw new HarnessError('history_view_required', '时间与版本范围用于view=history；没有改变当前理解的读取语义。');
       const assertion = this.repo.assertion(handle, args.id);
       if (!assertion) return { status: 'not_found', reason: '当前范围内没有这条理解。' };
       const exceptions = assertion.exceptionIds.map(id => this.repo.assertion(handle, id)).filter(Boolean);
@@ -1784,6 +2791,9 @@ export class RuntimeCoordinator {
       if (session.ephemeral) {
         const source = session.events.find(event => event.id === args.source.eventId && event.speaker === 'user' && event.text.includes(args.source.quote));
         if (!source) throw new HarnessError('current_source_required', '独立业务选择必须对应本轮用户原话。');
+        const address = resolveSourceQuote(source, args.source);
+        if (!address) throw new HarnessError('collaboration_source_unresolved', '这段选择原话的版本或位置无法确定；没有保存选择，请使用实际精确位置或唯一的完整逐字引文。');
+        args.source = address;
         const wasRead = (id: string, revision: number) => session.pack?.receipt.providedObjectVersions.some(record => record.kind === 'work' && record.id === id && record.revision === revision);
         if (!wasRead(args.id, args.expectedRevision) || !wasRead(args.selectedOptionId, args.expectedOptionRevision))
           throw new HarnessError('choice_not_read', '请先读取当前事项和方案的准确版本，未保存选择。');
@@ -1920,21 +2930,20 @@ export class RuntimeCoordinator {
         (!session.events.some((e) => e.id === event.id) && event.label.audience !== contract.audience)
       )
         throw new HarnessError('evidence_forbidden', '这条原文不在本轮允许范围内。');
-      if (session.pack && !session.pack.receipt.providedEvidenceIds.includes(event.id)) {
-        session.pack.receipt.providedEvidenceIds.push(event.id);
-        this.repo.saveReceipt(handle, session.pack.receipt);
-      }
       if (event.locator?.kind === 'file' && event.locator.artifactId.startsWith('material-'))
         return this.materials.invoke(handle, 'materials.read', { resourceId: event.locator.artifactId, offset: args.offset, limit: Math.min(args.limit, 16000) }, signal);
+      const length = Array.from(event.text).length;
+      if (args.offset > length) throw new HarnessError('evidence_range', '原文读取地址已超出当前片段范围，没有把空结果记成已读。');
       return {
         id: event.id,
         version: event.contentVersion,
-        text: codePointSlice(event.text, args.offset, Math.min(Array.from(event.text).length, args.offset + args.limit)),
-        coverage: { start: args.offset, end: Math.min(Array.from(event.text).length, args.offset + args.limit), total: Array.from(event.text).length, complete: args.offset === 0 && args.limit >= Array.from(event.text).length },
-        nextOffset: args.offset + args.limit < Array.from(event.text).length ? args.offset + args.limit : null,
+        text: codePointSlice(event.text, args.offset, Math.min(length, args.offset + args.limit)),
+        coverage: { start: args.offset, end: Math.min(length, args.offset + args.limit), total: length, complete: args.offset === 0 && args.limit >= length },
+        nextOffset: args.offset + args.limit < length ? args.offset + args.limit : null,
         use: this.repo.sourceRestrictions(handle, event.id).length ? 'historical_only' : 'source_evidence',
         restrictions: attentionView ? (this.repo.sourceRestrictions(handle, event.id).length ? [{ predicate: 'restricted_source_range', operation: 'RECHECK', replacementEventId: null, ranges: [], rangeUnknown: true, effectiveFrom: null }] : []) : this.repo.sourceRestrictions(handle, event.id),
         authority: event.authority,
+        ...(event.sourceContext ? { sourceContext: event.sourceContext } : {}),
         receivedAt: event.receivedAt,
         subjectId: event.subjectId,
         worldId: event.worldId,
@@ -2174,7 +3183,10 @@ export class RuntimeCoordinator {
       return { ok: true, scope: 'run_steps_only' };
     }
     if (name === 'delegate') {
-      for (const task of args.tasks) this.childScope(session, task);
+      for (const task of args.tasks) {
+        this.memoryInquiry.profile(handle, task, this.memoryInquiryPermissions(session));
+        this.childScope(session, task);
+      }
       return callbacks.delegate(args.tasks);
     }
     if (name === 'inspect_action') {
@@ -2390,6 +3402,7 @@ export class RuntimeCoordinator {
           const verdict = await callbacks.verifyReadPurpose?.({ capability: this.broker.describe(capability), arguments: input, ...(capability === 'research.search' ? { outgoingPublicQuery: true, requirement: '只有用户当前授权的公开检索词可外发；私人链接和无关原文不能变成公共搜索词。' } : {}) });
           if (!verdict?.allowed) return { status: 'forbidden' as const, sourceId: this.broker.describe(capability)?.sourceId || 'unknown', simulated: false, reason: verdict?.reason || '本轮尚未核清这些资料的用途。' };
           for (const grant of purposeGrants) readHandle = this.policy.campusPurposeScope(readHandle, grant);
+          this.campusAcademicSources.authorizeScope(readHandle, purposeGrants);
         }
         if (capability === 'planning.replan' && session.ingress.contract.memoryMode !== 'relevant') {
           const request = planningIntentReplanInput.parse(input);
@@ -2473,7 +3486,10 @@ export class RuntimeCoordinator {
           return admitted;
         }
         if (session.pack) {
-          this.context.recordTool(session.pack, result, capability, readHandle.id);
+          const sensitiveResources = result.data ? campusSensitiveResources(capability, effectiveInput) : [];
+          if (sensitiveResources.length) this.context.recordCampusTool(session.pack, result, capability, readHandle.id,
+            () => sensitiveResources.map(resource => this.campusAcademicSources.stamp(handle, readHandle, resource, result.sourceId, result.data, session.events)));
+          else this.context.recordTool(session.pack, result, capability, readHandle.id);
           const data = result.data as any, source = data?.source;
           if (source?.resourceId && source?.sha256 && ['fresh', 'partial'].includes(result.status)) {
             (session.pack.receipt.materialReads ||= []).push({ capability, resourceId: source.resourceId, sha256: source.sha256, version: source.version,
@@ -2501,6 +3517,14 @@ export class RuntimeCoordinator {
             ? 'sceneRef可用present_view显示小时窗口，dailySceneRef可显示按日概览；选样本供下一句引用。温度对应时刻，降水对应标明的前一小时，覆盖不全保留未知；不能推断分钟级停雨或现场状况。'
             : '若按日比较有助当前问题，用present_view引用此sceneRef。日期选择只是试算，不自动保存日程；这次日级结果不能支持逐小时结论。' });
         }
+        if (capability === 'local.agenda.read') {
+          const scene = this.scenes.agenda(session.sceneSessionId || session.sessionId, result, effectiveInput, session.ingress.contract.id, session.background);
+          if (scene) {
+            if (session.pack) session.pack.data.availableScenes = this.scenes.summaries(handle, session.sceneSessionId || session.sessionId, session.ingress.contract.id);
+            return this.withMethodNotes(session, capability, { ...result, sceneRef: { id: scene.id, revision: scene.revision },
+              presentation: '可用present_view引用此sceneRef直接查看已登记的本机安排；这是原日历读取，不是规划推演，不必调用planning.preview。保留原记录修订、邀请/待确认状态、跨日与未知结束。没有画出的时间不证明空闲；点击只供下一句引用，不修改、接受或新建安排。' });
+          }
+        }
         if (capability === 'air_quality.lookup' || capability === 'planning.preview' || capability === 'planning.draft' || capability === 'planning.replan') {
           const planningResult = result.data as { planId?: string; planningInput?: unknown } | undefined;
           const scene = capability === 'air_quality.lookup'
@@ -2516,11 +3540,13 @@ export class RuntimeCoordinator {
           }
         }
         if (['campus.lookup', 'campus.imported_lookup', 'campus.query'].includes(capability)) {
-          const scene = this.scenes.campus(session.sceneSessionId || session.sessionId, result, capability, effectiveInput, session.ingress.contract.id, session.background);
+          const scene = this.scenes.campus(session.sceneSessionId || session.sessionId, result, capability, effectiveInput, session.ingress.contract.id, session.background, readHandle);
           if (scene) {
             if (session.pack) session.pack.data.availableScenes = this.scenes.summaries(handle, session.sceneSessionId || session.sessionId, session.ingress.contract.id);
             return this.withMethodNotes(session, capability, { ...result, sceneRef: { id: scene.id, revision: scene.revision },
-              presentation: '可用present_view展示这次实际读到的课程或考试。卡片保留原来源、读取时间与范围；选择只为继续交流，不会保存安排。不能根据部分课次声称全学期完整、默认下一次上课或跨来源合并同名课程。' });
+              presentation: scene.kind === 'campus_reference' || scene.kind === 'campus' && scene.academicDisplay
+                ? '这是实际成绩/GPA原来源快照。单课可直接清楚答，学期用table保学分与口径，并把实际semester_id交campusDisplay.semesterId（或先用filters/where精确读该学期）。原快照可能含多个学期，文字挑一部分不改变原Scene/历史回读范围；学年term参数仅选采集快照。明确问趋势才用campusDisplay mode=trend并指定真实scale。点课续问走currentCampusReference/read_current_campus_selection；不同政策/学期/分母不混算，null不补零，不推断掌握或人格。敏感画面只在本轮内存展开，持久消息只留回原owner读取地址，不保存成绩表副本。'
+                : '可用present_view展示这次实际读到的课程或考试。卡片保留原来源、读取时间与范围；选择只为继续交流，不会保存安排。不能根据部分课次声称全学期完整、默认下一次上课或跨来源合并同名课程。' });
           }
         }
         if (result.status === 'fresh' && (capability === 'map.overview' || capability === 'map.search' && (result.data as { matches?: unknown[] })?.matches?.length === 1)) {
@@ -2617,10 +3643,34 @@ export class RuntimeCoordinator {
     (session.methodNotes ||= []).push(method);
     return { ...(result as object), hostUsageGuidance: method === 'campus' ? campusMethod : mapMethod, guidanceMeaning: '宿主提供的使用方法，不是本次用户事实，也不扩大权限。' };
   }
-  refreshDependencies(session: RunSession) {
+  async refreshDependencies(session: RunSession) {
     this.basis.recheck();
     const pack = session.pack;
     if (!pack) return [];
+    if (!this.repo.workBindingsReadable(pack.contract.scope, pack.receipt.workSourceBindings || []))
+      throw new HarnessError('work_source_changed', '刚读的工作方法或事项原话已改变或停止使用，旧工具正文不能继续进入模型；需要按当前来源重新读取。');
+    for (const source of pack.receipt.reflectiveLetterSources || [])
+      if (!this.repo.verifyReflectiveLetterSources?.(pack.contract.scope, source))
+        throw new HarnessError('letter_source_changed', '来信中的一处来由已经变化，先回到现在允许展开的内容。');
+    if (!this.repo.assistantWorkSourcesReadable(pack.contract.scope, pack.receipt.assistantWorkSources || []))
+      throw new HarnessError('assistant_work_changed', '共同作品的原章或来由已有变化，旧正文不能继续进入模型；先沿当前允许的章节重新读取。');
+    if (!this.repo.noteSourcesReadable(pack.contract.scope, pack.receipt.noteSources || []))
+      throw new HarnessError('note_source_changed', '刚读的笔记或其原版本已不可用，旧正文不能继续进入模型；先回当前允许的笔记。');
+    if (this.repo.verifyCampusSensitiveReads?.(pack.contract.scope, pack.receipt.campusSensitiveReads || []) !== true)
+      throw new HarnessError('campus_purpose_changed', '成绩/GPA资料的本轮用途已改变，先按现在的请求回原校园来源，不把旧结果自动带回。');
+    if ((pack.receipt.personalMethodSources || []).some(source => this.repo.verifyPersonalMethodSources?.(pack.contract.scope, source) !== true))
+      throw new HarnessError('method_source_changed', '这个方法借用的帮助或原话已有变化，旧正文不能继续进入模型；先沿当前来源重新读取。');
+    for (const ref of pack.receipt.learningProcessVersions || []) {
+      const permits = (source: import('../../shared/harness').WorkSourceRef) => {
+        const projection = session.attentionEvidenceViews?.[source.eventId];
+        return !projection || projection.contentVersion === source.contentVersion
+          && projection.sourceStart <= source.start && projection.sourceEnd >= source.end;
+      };
+      this.learning.assertCurrent(pack.contract.scope, ref.id, ref.revision, permits);
+    }
+    for (const ref of pack.receipt.historicalAssertionVersions || [])
+      if (!this.repo.assertionHistoryVersion(pack.contract.scope, ref.id, ref.revision))
+        throw new HarnessError('memory_history_changed', '刚读的理解历史依据已改变或停止使用，旧历史正文不能继续进入模型；需要按当前来源重新读取。');
     if (pack.contract.enhancements?.repairRejudge === false) return [];
     this.policy.validate(pack.contract.scope);
     const versions = new Map<string, (typeof pack.receipt.providedObjectVersions)[number]>();
@@ -2634,7 +3684,28 @@ export class RuntimeCoordinator {
     for (const ref of versions.values()) {
       if (ref.kind !== 'work' && ref.kind !== 'assertion' && ref.kind !== 'agenda' && ref.kind !== 'domain') continue;
       const scope = this.policy.validate(pack.contract.scope);
-      const rawCurrent = ref.kind === 'work' ? this.repo.work(pack.contract.scope, undefined, ref.id)[0] : ref.kind === 'agenda'
+      let artifact = false;
+      let currentWork = ref.kind === 'work' ? this.repo.work(pack.contract.scope, undefined, ref.id)[0] : undefined;
+      if (ref.kind === 'work' && !currentWork) {
+        const permits = (source: import('../../shared/harness').WorkSourceRef) => this.memoryInquiryPermissions(session).permits(source);
+        for (const type of ['companion_session', 'companion_continuity', 'study_companion'] as const) {
+          const candidate = this.repo.workArtifactRecords(pack.contract.scope, type, { id: ref.id, limit: 1 })[0];
+          if (!candidate) continue;
+          artifact = true;
+          if (type === 'study_companion') currentWork = (await this.studyCompanion.get(pack.contract.scope, ref.id, {
+            sessionId: session.sessionId, signal: session.signal, permits,
+            ...(pack.contract.memoryMode === 'relevant' ? {} : { restrictToSessionId: session.sessionId }),
+          }))?.record;
+          else if (type === 'companion_continuity') currentWork = this.companionContinuity.assertCurrent(pack.contract.scope, ref.id, candidate.revision);
+          else {
+            this.companionSessions.assertCurrent(pack.contract.scope, ref.id, candidate.revision, String(candidate.data.matterId), permits);
+            currentWork = candidate;
+          }
+          if (!currentWork) throw new HarnessError('artifact_source_changed', '刚才共同用的资料已经变化，先从原来的入口重新接上。');
+          break;
+        }
+      }
+      const rawCurrent = ref.kind === 'work' ? currentWork : ref.kind === 'agenda'
         ? scope.sources.includes('local-agenda') && scope.subjectId === scope.principalId && scope.audience === 'self' ? this.calendar.read(ref.id) : undefined
         : ref.kind === 'domain'
           ? ref.sourceId && ref.domain && ref.institutionId && ref.termId && scope.sources.includes(ref.sourceId) && this.policy.can(pack.contract.scope, 'campus:read')
@@ -2643,7 +3714,8 @@ export class RuntimeCoordinator {
       const current = ref.kind === 'agenda' && rawCurrent ? { ...rawCurrent, revision: rawCurrent.revision || 1 } : rawCurrent;
       if (!current && ref.revision === 0) continue;
       if (current && current.revision === ref.revision) continue;
-      changed.push(current || { id: ref.id, status: 'not_available' });
+      changed.push(artifact && currentWork ? { id: currentWork.id, revision: currentWork.revision, status: currentWork.status,
+        meaning: '原来的共同内容已有新版本，按原读取入口接上；这里没有展开新正文。' } : current || { id: ref.id, status: 'not_available' });
       for (const value of pack.receipt.providedObjectVersions) if (versionKey(value) === versionKey(ref)) value.revision = current?.revision || 0;
     }
     if (changed.length) {
@@ -2703,6 +3775,8 @@ export class RuntimeCoordinator {
   }
 
   finish(session: RunSession) {
+    this.investigation.discardRun(session.ingress.contract.id);
+    session.investigationReaders?.clear();
     session.toolImages = [];
     if (session.ephemeral) {
       session.observations = [];

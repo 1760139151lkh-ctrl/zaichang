@@ -1,0 +1,56 @@
+.rehearsal-message { position: relative; margin: 22px 0 18px; color: var(--text); }
+.rehearsal-history-open { display: inline-flex; align-items: center; gap: 13px; min-height: 34px; margin-top: 15px; padding: 4px 0; color: var(--text-secondary); font-size: 12px; }
+.rehearsal-read-status { color: var(--text-secondary); font-size: 12px; line-height: 1.85; }
+.rehearsal-read-status button { min-height: 32px; color: var(--accent); }
+.rehearsal-paper { position: relative; isolation: isolate; container-type: inline-size; margin: 0 4px; padding: 28px 38px 24px; }
+.rehearsal-paper::before { content: ''; position: absolute; inset: -32px -25px; z-index: -1; pointer-events: none; background: url('../assets/rehearsal/paper-surface.png') center / 100% 100% no-repeat; }
+.rehearsal-heading { position: relative; min-height: 67px; padding: 0 0 18px 43px; }
+.rehearsal-heading::before { content: ''; position: absolute; width: 37px; height: 65px; left: -9px; top: -5px; background: url('../assets/rehearsal/gold-sprig.png') center / contain no-repeat; opacity: .79; pointer-events: none; }
+.rehearsal-caption { display: block; font-size: 11px; line-height: 1.7; color: var(--text-secondary); letter-spacing: .05em; }
+.rehearsal-heading h3 { position: relative; margin: 3px 0 0; font-family: 'Noto Serif SC', 'Songti SC', 'STSong', 'SimSun', serif; font-size: clamp(19px, 2vw, 24px); font-weight: 500; line-height: 1.65; overflow-wrap: anywhere; }
+.rehearsal-heading h3::after { content: ''; display: block; width: 75px; height: 1px; margin-top: 8px; background: color-mix(in srgb, var(--accent) 70%, transparent); }
+.rehearsal-boundaries { margin: -2px 0 16px 43px; max-width: 85%; color: var(--text-secondary); font-size: 11px; line-height: 1.8; }
+.rehearsal-boundaries > summary { cursor: pointer; padding-block: 4px; }
+.rehearsal-boundaries p { margin: 7px 0; font-size: 12px; }
+.rehearsal-dialogue { display: flex; flex-direction: column; gap: 22px; margin-top: 3px; }
+.rehearsal-turn { position: relative; min-width: 0; }
+.rehearsal-speaker { display: block; margin-bottom: 6px; color: var(--text-secondary); font-size: 11px; line-height: 1.6; }
+.rehearsal-turn.is-you { align-self: flex-end; max-width: 84%; margin-left: 50px; text-align: right; }
+.rehearsal-turn.is-you .rehearsal-spoken { display: inline-block; padding: 6px 17px; border-radius: 25px; text-align: left; background: rgba(230, 190, 145, .19); }
+.rehearsal-turn.is-possible_other { align-self: flex-start; max-width: 90%; margin-right: 34px; }
+.rehearsal-turn.is-possible_other .rehearsal-spoken { padding-left: 17px; border-left: 2px solid color-mix(in srgb, var(--accent) 78%, transparent); font-size: 17px; }
+.rehearsal-spoken, .rehearsal-expression-copy { font-family: 'Noto Serif SC', 'Songti SC', 'STSong', 'SimSun', serif; font-size: 15px; line-height: 1.85; overflow-wrap: anywhere; }
+.rehearsal-spoken > :first-child, .rehearsal-expression-copy > :first-child { margin-top: 0; }
+.rehearsal-spoken > :last-child, .rehearsal-expression-copy > :last-child { margin-bottom: 0; }
+.rehearsal-spoken p { margin-block: 0 8px; }
+.rehearsal-paper button { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 4px 0; color: var(--text-secondary); font-size: 12px; line-height: 1.8; }
+.rehearsal-paper button:hover { color: var(--accent); }
+.rehearsal-paper button:disabled { opacity: .5; cursor: default; }
+.rehearsal-alternative { margin-top: 10px; }
+.rehearsal-actions { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px 22px; margin-top: 24px; padding-top: 11px; border-top: 1px solid color-mix(in srgb, var(--accent) 52%, transparent); }
+.rehearsal-actions .rehearsal-collect, .rehearsal-first-line { color: var(--accent); }
+.rehearsal-first-line { margin: 14px 0 12px; }
+.rehearsal-earlier { margin-bottom: 14px; }
+.rehearsal-expression { margin: 28px 0 8px; padding: 13px 16px 15px; border-left: 1px solid color-mix(in srgb, var(--accent) 37%, transparent); background: rgba(255, 255, 255, .24); }
+.rehearsal-expression-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 6px; color: var(--text-secondary); font-size: 11px; }
+.rehearsal-expression-heading button { font-size: 11px; }
+.rehearsal-copy-error { color: var(--text-secondary); font-size: 11px; }
+.rehearsal-aside { margin: 24px 5px 0; color: var(--text-secondary); font-size: 13px; line-height: 1.95; }
+:root[data-theme='dark'] .rehearsal-paper::before { filter: brightness(.2) saturate(.6); }
+:root[data-theme='dark'] .rehearsal-turn.is-you .rehearsal-spoken { background: rgba(196, 157, 112, .1); }
+:root[data-theme='dark'] .rehearsal-expression { background: rgba(255, 255, 255, .025); }
+@container (max-width: 470px) {
+  .rehearsal-heading { padding-left: 32px; }
+  .rehearsal-heading::before { width: 27px; height: 50px; left: -6px; }
+  .rehearsal-heading h3 { font-size: 19px; }
+  .rehearsal-turn.is-you { margin-left: 22px; max-width: 92%; }
+  .rehearsal-turn.is-possible_other { margin-right: 15px; max-width: 96%; }
+  .rehearsal-dialogue { gap: 20px; }
+}
+@media (max-width: 640px) {
+  .rehearsal-paper { padding: 24px 20px 20px; }
+  .rehearsal-paper::before { inset: -25px -16px; }
+  .rehearsal-spoken { font-size: 14px; }
+  .rehearsal-turn.is-possible_other .rehearsal-spoken { font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) { .rehearsal-paper * { animation: none !important; transition: none !important; } }

@@ -4,6 +4,9 @@ import { Portal } from './ui';
 import morning from './assets/companion/morning.png';
 import dusk from './assets/companion/dusk.png';
 import night from './assets/companion/night.png';
+import readingMorning from './assets/companion/reading-morning.png';
+import readingDusk from './assets/companion/reading-dusk.png';
+import readingNight from './assets/companion/reading-night.png';
 import mio from './assets/companion/mio.png';
 import haruka from './assets/companion/haruka.png';
 import saku from './assets/companion/saku.png';
@@ -196,14 +199,16 @@ export function CompanionScene({ preview = false, quiet = false, immersive = fal
   const image = selectedPicture(value);
   const frame = COMPANIONS.find(item => item.id === value.character)?.frame;
   const showFigure = !!image && (immersive || value.presence === 'window') && value.presence !== 'hidden';
+  const readingRoom = quiet && !preview && !value.character.startsWith('custom:');
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [image]);
   return <div className={`companion-scene ${preview ? 'is-preview' : ''} ${quiet || (preview && value.presence !== 'window') ? 'is-quiet' : ''} ${immersive ? 'is-immersive' : ''} ${value.character.startsWith('custom:') ? 'has-custom-art' : ''}`} data-light={value.light} aria-hidden="true">
-    <div className="window-room room-day" style={{ backgroundImage: `url(${value.light === 'dusk' ? dusk : morning})` }} />
-    <div className="window-room room-night" style={{ backgroundImage: `url(${night})` }} />
+    <div className="window-room room-day" style={{ backgroundImage: `url(${value.light === 'dusk'
+      ? readingRoom ? readingDusk : dusk : readingRoom ? readingMorning : morning})` }} />
+    <div className="window-room room-night" style={{ backgroundImage: `url(${readingRoom ? readingNight : night})` }} />
     <div className="window-wash" />
     {preview && value.presence === 'corner' && <CompanionAvatar className="companion-preview-corner" size={40} />}
-    {showFigure && !failed && <div className="companion-figure" style={{ '--figure-scale': placement?.scale ?? value.scale, '--figure-position': `${placement?.position ?? value.position}%`, '--art-height': frame?.height, '--art-top': frame?.top, '--art-anchor': frame?.anchor, '--art-offset': value.character === 'saku' ? '8%' : '0%' } as CSSProperties}>
+    {showFigure && !failed && <div className="companion-figure" style={{ '--figure-scale': placement?.scale ?? value.scale, '--figure-position': `${placement?.position ?? value.position}%`, '--art-height': frame?.height, '--art-top': frame?.top, '--portrait-height': frame?.portrait, '--portrait-top': frame?.portraitTop, '--art-anchor': frame?.anchor, '--art-offset': value.character === 'saku' ? '8%' : '0%' } as CSSProperties}>
       <img key={image} src={image} alt="" onError={() => setFailed(true)} draggable={false} />
     </div>}
   </div>;

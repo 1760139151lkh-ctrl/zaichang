@@ -286,6 +286,17 @@ export const evidenceSchema = z
     text: z.string().max(250000),
     speaker: z.enum(['user', 'assistant', 'external']),
     kind: z.enum(['user_message', 'user_control', 'file_import', 'tool_result', 'external_observation']),
+    sourceContext: z.discriminatedUnion('kind', [z.object({
+      kind: z.literal('relationship_rehearsal'), origin: z.literal('user_interface_reference'),
+      artifactId: objectId, artifactRevision: z.number().int().positive(), matterId: objectId,
+      activeTurnId: objectId.nullable(), inputKind: z.enum(['reference', 'utterance', 'alternative', 'collect', 'pause', 'resume']),
+    }).strict(), z.object({
+      kind: z.literal('shared_creation'), origin: z.literal('user_interface_reference'),
+      artifactId: objectId, artifactRevision: z.number().int().positive(),
+      matterId: objectId, matterRevision: z.number().int().positive(),
+      referenceKind: z.enum(['work', 'map_place', 'map_leg']),
+      chapter: z.object({ messageId: objectId, sceneId: objectId, sceneRevision: z.number().int().positive() }).strict().optional(),
+    }).strict()]).optional(),
     authority: z.enum([
       'user_statement',
       'source_record',
@@ -460,6 +471,8 @@ export interface ProviderReceipt {
   /** Every endpoint actually attempted after the receipt was created. */
   observedEndpoints?: string[];
   model: string;
+  /** Actual completed-response model IDs; never inferred from a request/config. */
+  observedResponseModels?: string[];
   protocol: string;
   protocolVersion: string;
   capabilities: {
@@ -487,7 +500,32 @@ export interface ProviderReceipt {
     tools: boolean;
   };
 }
+export const assistantWorkSourceSchema = z.object({ messageId: objectId, sceneId: objectId,
+  sceneRevision: z.number().int().positive() }).strict();
+/** An immutable saved chapter address, never another copy of its prose. */
+export type AssistantWorkSource = z.infer<typeof assistantWorkSourceSchema>;
+
 export interface ContextReceipt {
+  /** Exact original ranges adopted from work or semantic discoveries; no copied body. */
+  workSourceBindings?: WorkSourceBinding[];
+  /** Original work addresses supporting supplied text or metadata. This is
+   * provenance, not a claim that the entire chapter body was read. */
+  assistantWorkSources?: AssistantWorkSource[];
+  /** Supporting help/process addresses for supplied personal-method text or
+   * metadata, not a rating, body-read ACK or new action authorization. */
+  personalMethodSources?: import('./personal-method').PersonalMethodSources[];
+  campusSensitiveReads?: import('./campus-academic').CampusSensitiveRead[];
+  /** Actual note revision/range provenance, never a personal fact or read ACK. */
+  noteSources?: import('./notes-source').NoteSourceProof[];
+  /** Source-bound learning processes actually provided to this model run. */
+  learningProcessVersions?: { id: string; revision: number }[];
+  reflectiveLetterSources?: {
+    binding: WorkSourceBinding;
+    request: WorkSourceRef & { quoteSha256: string };
+    proofs: import('./reflective-letter').ReflectiveLetterProof[];
+  }[];
+  /** Historical artifacts were supplied as history, never as current assertions. */
+  historicalAssertionVersions?: { id: string; revision: number }[];
   /** Exact host provenance for planning-derived text, rechecked before reuse. */
   planningProvenance?: PlanningMaterialProvenance[];
   sceneReferences?: { id: string; revision: number; sourceId: string; fetchedAt: string; expiresAt?: string }[];
@@ -496,7 +534,7 @@ export interface ContextReceipt {
   mechanismUses?: { prefetch: number; currentMatter: number; repairRejudge: number; closure: number };
   engine?: { name: string; commit: string; adapterSha256: string; python: string };
   delegations?: { id: string; parentId: string; title: string; status: 'queued' | 'running' | 'produced' | 'consumed' | 'failed' | 'cancelled'; sources?: string[]; currentEvidenceIds?: string[]; modelCalls: number; responses: number; toolCalls: number }[];
-  modelUsage?: { phase: string; inputTokens: number | null; cachedInputTokens?: number | null; outputTokens: number | null; usdMin: number | null; usdMax: number | null }[];
+  modelUsage?: { phase: string; responseModel?: string; inputTokens: number | null; cachedInputTokens?: number | null; outputTokens: number | null; usdMin: number | null; usdMax: number | null }[];
   id: string;
   runId: string;
   contractRevision: number;
@@ -522,6 +560,13 @@ export interface DelegatedTask {
   instruction: string;
   sources?: string[];
   currentEvidenceIds?: string[];
+  memoryInquiry?: {
+    version: 1;
+    question: string;
+    uncertainties?: string[];
+    anchorRefs?: WorkSourceRef[];
+    relatedTo?: string[];
+  };
 }
 export interface ContextPack {
   contract: ContextContract;
@@ -695,6 +740,9 @@ export const workSchema = z
     title: z.string().max(400),
     evidenceIds: z.array(objectId).max(128),
     sourceBinding: workSourceBindingSchema.optional(),
+    /** Host provenance on derived work; the repository validates the owner
+     * schema before saving or reading. Kept outside each owner's data. */
+    personalMethodSources: z.array(z.custom<import('./personal-method').PersonalMethodSources>()).optional(),
     label: labelSchema,
     data: z.record(z.string(), z.json()),
   })

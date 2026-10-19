@@ -3,6 +3,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { stageMaterialRuntime } from './material-runtime.mjs';
+import { stageEmbeddingRuntime } from './embedding-runtime.mjs';
 
 if (process.platform !== 'win32') throw new Error('This packaging target currently supports Windows only.');
 const project = process.cwd(), source = path.resolve('.runtime/hermes-agent');
@@ -43,6 +44,7 @@ fs.cpSync('runtime/hermes', path.join(target, 'runtime/hermes'), { recursive: tr
 fs.copyFileSync(path.join(source, 'LICENSE'), 'licenses/Hermes-MIT.txt');
 fs.copyFileSync(path.join(pythonHome, 'LICENSE.txt'), 'licenses/Python-LICENSE.txt');
 const materialRuntime = await stageMaterialRuntime(path.resolve('build/material-runtime-staging-' + Date.now()));
+const embeddingRuntime = await stageEmbeddingRuntime(path.resolve('build/embedding-runtime-staging-' + Date.now()));
 fs.copyFileSync(path.join(materialRuntime.path, 'node_modules/pdfjs-dist/LICENSE'), 'licenses/PDFJS-APACHE-2.0.txt');
 fs.copyFileSync(path.join(materialRuntime.path, 'node_modules/@napi-rs/canvas/LICENSE'), 'licenses/Canvas-MIT.txt');
 const info = JSON.parse(execFileSync(path.join(pyTarget, 'python.exe'), ['-I', '-B', '-c', 'import sys,json,openai,httpx; print(json.dumps({"python":sys.version,"base":sys.base_prefix,"openai":openai.__version__}))'], { cwd: target, encoding: 'utf8', windowsHide: true }));
@@ -54,11 +56,14 @@ fs.mkdirSync(stageReport, { recursive: true });
 fs.writeFileSync(path.join(stageReport, 'runtime.json'), JSON.stringify(manifest, null, 2));
 const baseConfig = JSON.parse(fs.readFileSync('package.json', 'utf8')).build;
 const config = { ...baseConfig, files: [...baseConfig.files,
-  '!dist-electron/material-runtime{,/**/*}', '!node_modules/pdfjs-dist{,/**/*}',
+  '!dist-electron/material-runtime{,/**/*}', '!dist-electron/embedding-runtime{,/**/*}', '!node_modules/pdfjs-dist{,/**/*}',
+  '!node_modules/onnxruntime-node{,/**/*}', '!node_modules/onnxruntime-common{,/**/*}', '!node_modules/@huggingface/tokenizers{,/**/*}',
   '!node_modules/@napi-rs/canvas{,/**/*}', '!node_modules/@napi-rs/canvas-win32-x64-msvc{,/**/*}'],
   extraResources: [...(baseConfig.extraResources || []),
     { from: target, to: 'hermes-runtime', filter: ['**/*', '**/.*', '**/.*/**'] },
     { from: materialRuntime.path, to: 'material-runtime', filter: ['**/*'] },
+    { from: embeddingRuntime.path, to: 'embedding-runtime', filter: ['**/*'] },
+    { from: path.join(embeddingRuntime.path, 'node_modules'), to: 'embedding-runtime/node_modules', filter: ['**/*'] },
     // electron-builder omits a source root's node_modules; copy that subtree explicitly.
     { from: path.join(materialRuntime.path, 'node_modules'), to: 'material-runtime/node_modules', filter: ['**/*'] }] };
 fs.writeFileSync('build/hermes-builder.json', JSON.stringify(config, null, 2));

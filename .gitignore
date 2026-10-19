@@ -56,6 +56,8 @@
 !/prompts/system.md
 !/runtime/hermes/lock.json
 !/runtime/hermes/sidecar.py
+!/runtime/embedding/lock.json
+!/scripts/embedding-runtime.mjs
 !/scripts/build-electron.mjs
 !/scripts/audit-map-coverage.mjs
 !/scripts/build-brand.mjs
@@ -199,3 +201,56 @@ Thumbs.db
 !/assets/design/generated/2026-10-18-planning-continuity/planning-continuity-b.png
 !/assets/design/generated/2026-10-18-planning-continuity/manifest.json
 !/assets/design/generated/2026-10-18-planning-continuity/prompts.txt
+
+# Reviewed private design studies for the existing Today view, outside packaging.
+!/assets/design/generated/2026-10-18-campus-day/campus-day-a.png
+!/assets/design/generated/2026-10-18-campus-day/campus-day-b.png
+!/assets/design/generated/2026-10-18-campus-day/manifest.json
+
+# Private letter design reference; never a runtime or public review asset.
+!/assets/design/generated/2026-10-18-reflective-letter/letter-conversation.png
+!/assets/design/generated/2026-10-18-reflective-letter/manifest.json
+!/src/renderer/assets/letter/paper-surface.png
+!/src/renderer/assets/letter/manifest.json
+!assets/design/generated/2026-10-18-shared-discussion/discussion-ab.png
+!assets/design/generated/2026-10-18-shared-discussion/manifest.json
+!/assets/design/generated/2026-10-19-expression-rehearsal/rehearsal-conversation.png
+!/assets/design/generated/2026-10-19-expression-rehearsal/manifest.json
+!/src/renderer/assets/rehearsal/paper-surface.png
+!/src/renderer/assets/rehearsal/gold-sprig.png
+!/src/renderer/assets/rehearsal/manifest.json
+!/assets/design/generated/2026-10-19-note-reading/note-reading.png
+!/assets/design/generated/2026-10-19-note-reading/manifest.json
+
+# Reviewed method and private design records for the 2026-10-19 checkpoint.
+!/prompts/memory-inquiry.md
+!/assets/design/generated/2026-10-18-companion-session/companion-session-ab.png
+!/assets/design/generated/2026-10-18-companion-session/manifest.json
+!/assets/design/generated/2026-10-18-companion-session/prompt.md
+!/assets/design/generated/2026-10-18-curiosity-invitation/content-first-play.png
+!/assets/design/generated/2026-10-18-curiosity-invitation/manifest.json
+!/assets/design/generated/2026-10-18-curiosity-invitation/paper-asset.json
+!/assets/design/generated/2026-10-18-curiosity-invitation/paper-cleanup.json
+!/assets/design/generated/2026-10-18-planning-comparison/manifest.json
+!/assets/design/generated/2026-10-18-planning-comparison/planning-one-day.png
+!/assets/design/generated/2026-10-18-planning-comparison/planning-one-day-v2.png
+!/assets/design/generated/2026-10-18-planning-comparison/prompt.txt
+!/assets/design/generated/2026-10-18-planning-comparison/prompt-v2.txt
+!/assets/design/generated/2026-10-18-study-paper/manifest.json
+!/assets/design/generated/2026-10-18-study-paper/study-paper.png
+!/assets/design/generated/2026-10-19-campus-academic/manifest.json
+!/assets/design/generated/2026-10-19-campus-academic/prompt.md
+!/assets/design/generated/2026-10-19-campus-academic/campus-academic-reading.png
+!/assets/design/generated/2026-10-19-explorable-study/manifest.json
+!/assets/design/generated/2026-10-19-explorable-study/selected.json
+!/assets/design/generated/2026-10-19-explorable-study/explorable-study.png
+!/assets/design/generated/2026-10-19-explorable-study/explorable-study-function.png
+!/assets/design/generated/2026-10-19-reading-room/manifest.json
+!/assets/design/generated/2026-10-19-reading-room/prompt.md
+!/assets/design/generated/2026-10-19-story-setting/manifest.json
+!/assets/design/generated/2026-10-19-story-setting/story-on-one-map.png
+
+# Source-bound blank paper assets used by the current renderer CSS.
+!/assets/ui/companion-session-paper.png
+!/assets/ui/study/paper-texture.png
+!/assets/ui/study/source.json

@@ -121,22 +121,30 @@ export function planningSnapshot(result: Result, capability: string, input: unkn
     }
   }
   if (draft) {
-    for (const row of rows(data.fixedCommitments)) {
+    const fixed = rows(data.fixedCommitments);
+    const fixedIdentities = new Map<string, number>();
+    for (const row of fixed) if (text(row.id, 400)) fixedIdentities.set(row.id, (fixedIdentities.get(row.id) || 0) + 1);
+    for (const row of fixed) {
       const unknownEnd = row.unknownEnd === true || rows(data.issues).some(issue => issue.status === 'unknown_end' && issue.id === row.id && Date.parse(issue.startsAt) === Date.parse(row.start))
         || rows(args?.busy).some(item => item.end === null && item.sourceId === row.id && Date.parse(item.start) === Date.parse(row.start));
       add('busy', text(row.title, 160) || '已有安排', row.start, unknownEnd ? null : row.end,
-        { ...(text(row.placeId, 160) ? { placeId: row.placeId } : {}), ...(unknownEnd ? { reason: '结束时间未知；规划保守地留到本次窗口结束。' } : {}) });
+        { ...(text(row.id, 400) && fixedIdentities.get(row.id) === 1 ? { sourceObjectId: row.id } : {}), ...(text(row.placeId, 160) ? { placeId: row.placeId } : {}), ...(unknownEnd ? { reason: '结束时间未知；规划保守地留到本次窗口结束。' } : {}) });
     }
     for (const row of rows(data.blocks)) {
       const planRefs = rows(data.acceptanceProposals).filter(unit => unit.kind === 'work' && unit.taskId === row.taskId && unit.segment === row.segment)
         .flatMap(unit => text(unit.arguments?.planRef?.planId, 160) && text(unit.arguments?.planRef?.blockId, 160) ? [{ planId: unit.arguments.planRef.planId as string, blockId: unit.arguments.planRef.blockId as string }] : []);
-      const details: Partial<PlanningBlock> = { ...(text(row.placeId, 160) ? { placeId: row.placeId } : {}), ...(text(row.taskId, 160) ? { taskId: row.taskId } : {}), ...(planRefs.length ? { planRefs } : {}) };
+      const details: Partial<PlanningBlock> = { ...(text(row.placeId, 160) ? { placeId: row.placeId } : {}),
+        ...(text(row.taskId, 160) ? { taskId: row.taskId, sourceObjectId: `task:${row.taskId}:${Number(row.segment)}` } : {}), ...(planRefs.length ? { planRefs } : {}) };
       add('setup', '准备', row.reservedStart, row.start, details);
       add('work', text(row.title, 160) || '待商量的安排', row.start, row.end, details);
       add('cleanup', '收尾', row.end, row.reservedEnd, details);
     }
-    for (const row of rows(data.transitions)) add('transition', row.travel?.minutes && row.restMinutes ? '转场与休息' : row.travel?.minutes ? '转场' : '休息', row.start, row.end,
-      row.travel?.minutes && row.restMinutes ? { reason: `转场 ${Number(row.travel.minutes)} 分钟，休息 ${Number(row.restMinutes)} 分钟。` } : {});
+    const transitions = rows(data.transitions), boundaryIdentity = (row: Record<string, any>) => `boundary:${row.fromId ?? 'start'}:${row.toId ?? 'end'}`;
+    const boundaryIdentities = new Map<string, number>();
+    for (const row of transitions) boundaryIdentities.set(boundaryIdentity(row), (boundaryIdentities.get(boundaryIdentity(row)) || 0) + 1);
+    for (const row of transitions) add('transition', row.travel?.minutes && row.restMinutes ? '转场与休息' : row.travel?.minutes ? '转场' : '休息', row.start, row.end,
+      { ...(boundaryIdentities.get(boundaryIdentity(row)) === 1 ? { sourceObjectId: boundaryIdentity(row) } : {}),
+        ...(row.travel?.minutes && row.restMinutes ? { reason: `转场 ${Number(row.travel.minutes)} 分钟，休息 ${Number(row.restMinutes)} 分钟。` } : {}) });
     for (const row of rows(data.protectedWindows)) add('protected', '留白', row.start, row.end, { ...(text(row.reason) ? { reason: row.reason } : {}) });
     for (const row of rows(data.freeWindows)) add('free', '尚未安排', row.start, row.end, { ...(text(row.meaning) ? { reason: row.meaning } : {}) });
   } else {

@@ -1,5 +1,43 @@
 # 对话场景与 OpenUI
 
+2026-10-19 同步总览见[项目基线](PROJECT_BASELINE.md#openui动态呈现与地图怎样衔接)。工具取得事实、宿主核准Scene、固定OpenUI库呈现、选择回同一输入和实际动作分别有边界；本页描述接线，当前模型与画面证据统一归状态文档。
+
+<a id="companion-experience"></a>
+## 本轮：同一段交流里的共同页、陪学与来信
+
+本批把画面放在原消息真正需要它的位置：说不清的事可以摊成一张共同商量纸，一道题只展开当前这一步，安排分支共看同一天，回顾则是一封可接着说话的信。入口仍是原聊天／准备架／输入框；用户不必先选择一组功能面板。[最新视觉要求](source-materials/2026-10-18/visual-fidelity-requirement-20261018.md)要求图稿与实际效果相同，并充分使用动效与既有OpenUI。下列定位源码与设计，实际渲染／交互观察和未运行的产品模型范围分开记在[第七批状态](CURRENT_STATUS.md#personal-memory-round7)。
+
+[最新阶段要求](source-materials/2026-10-18/stage-close-and-luna-validation-20261019.md)明确把正常Luna对话中的原有日程、成绩、地图、笔记等动态领域也纳入收尾，并允许已接入校园账号的只读使用。当前停止创新外延，按实际失败修复；交付后暂停等用户回来，不将整份原动态方案或持续目标预先写成全部通过。
+
+| 呈现 | 实际内容与接续 | 当前来源与动作边界 |
+| --- | --- | --- |
+| DiscussionScene | `present_view.discussion`从原frame／option组织原话条件、暂定解释、分歧和眼前小步；焦点继续属于同一事项 | 宿主编译有限Scene，选择只提供继续商量的引用；看过、点过或沿话题继续都不表示采用方案。 |
+| 共做停点 | `CompanionSessionView`承接原`companion_session`，给上次起点、材料地址及自然续接 | 旧工作解释需要当前原话重评；材料标签不是文件页已读，暂放和回来不自动执行旧步骤。 |
+| StudyScene | `present_view.study`从原陪学纸的真实异步读取编译当前题、本人尝试和这一步帮助；可要求一点提示、换例子或直接讲清楚 | 本人尝试与助手教学分开；当前意愿决定帮助深度。历史与缓存呈现保留原owner的读取地址，题目／页图／答案要重新沿受限读取恢复，旧引用不直接恢复教学正文或泄露后续答案。 |
+| PlanningComparisonScene | `present_view.planningComparison`共用一条时间线和观看日期，对照实质不同的安排改法 | 真实PlanningScene预览沿同一planner和日历；移动原对象、未接受活动假设和未排部分分开。切换分支或选时段只接续商量，实际保存仍走原动作及planRef。 |
+| 写给你的来信 | 原PreparationShelf中的`LetterMessage`让生活片段、改变与有条件的解释形成可读正文，来源按需展开 | 脚注通过`letter:source`回原材料；选一句只把真实选中文字带回原聊天。先收好与已送达不同，旧信回看不恢复托付、通知或事实许可。 |
+| CuriosityScene | `CuriosityInvitationView`先给一件现在可体验的内容，再按原邀请继续；自由回答也能带同对象引用回原输入 | 公开依据来自实际投递的原文，创作保持创作；旧公开发现保留`curiosity_reference`回读地址，纯创作可作为只读作品留下。旧缓存不冒充新发现，点选不建目标／订阅。 |
+
+陪学只有同一个落笔处。`ConversationComposerDock`让原App composer的同一HTMLElement host停靠当前纸内slot或回到底部，草稿、附件与IME仍属于正常输入；纸内不另放第二textarea或二次递交箭头。同一输入在纸／聊天间保稿、保选区、单次Demo发送后保留两行推导已有实际回执；新加的回纸运动仍待对应观察，不扩大成模型教学效果。
+
+图稿先于对应组件：共同商量采用[连续手稿A](../assets/design/generated/2026-10-18-shared-discussion/manifest.json)，共做停点采用[原对话后的单一起点A](../assets/design/generated/2026-10-18-companion-session/manifest.json)，陪学采用[原题、本人手稿与当前边注](../assets/design/generated/2026-10-18-study-paper/manifest.json)，来信采用[正文为主的单一纸面](../assets/design/generated/2026-10-18-reflective-letter/manifest.json)，安排进一步采用[一条今天、两种改法](../assets/design/generated/2026-10-18-planning-comparison/manifest.json)，好奇采用[内容先行的小体验](../assets/design/generated/2026-10-18-curiosity-invitation/manifest.json)。好奇纸面从图像编辑得到无文字透明资产，已接`CuriosityInvitationView`，许可与派生见[纸面资产说明](../assets/design/generated/2026-10-18-curiosity-invitation/paper-asset.json)。图中的日期、活动、台词和装饰均为设计样例；组件使用原owner的真实数据，不把图稿作为用户记录或运行截图。构图、层次、留白和局部质感应进入实现；需要的图像元素沿可追溯资产提取，保留正文和交互的可访问结构。
+
+交流节奏也沿原消息变化。`conversation-rhythm.ts`把主助手成功返回、且将继续工具调用的实质前段先显示出来，深调查后继续说；最终候选仍沿原收口，不显示子报告或内部推理。原输入区在调查中仍可写草稿；“补一句”经停止旧run后把新的原话送进正常对话，独立停止保留。没有新侧聊天，也没有要求用户先管理研究进度。输入、选择、材料和本条控制的连续操作尚未运行观察。
+
+局部引用回同一输入。学习纸先让人读，常驻的“问这一题／问这一行／聊这一点”已移除；真实点到、选到或用键盘聚焦后，才在当前一处出现轻入口，回车也能沿原attempt／help／problem引用继续。安排点选沿真实block或option，共写选句沿当前field内的明确位置。原正文留在原纸面，输入框旁只给可取消的小引用，已有草稿不改，下一句可以完全改变意思。`RichText.sourceFocus`复用Markdown实际文本节点的原位置，纯文字则以整段DOM与原文相同为前提；不用重复引文猜位置。数学转换、跨field或其他无法证明的映射不伪造精确坐标。`ReadableFocus`与`LocalTextFocus`共用一次只呈现一处的轻动作，`FocusContextChip`统一输入提示，不在各处另造一套焦点面板；来源、本人报告、助手建议与虚构作品身份持续分开。新版Study已在同一隔离实例实际重走旧行点选、原稿与行标同屏、取消直接接写，以及键盘聚焦旁注／回车引用；原消息入口与当前owner修订混用的失败已修并按原触发复看，详情和实际图见[当前状态](CURRENT_STATUS.md#personal-memory-round7)。其他场景的持续选句标记、IME与模型理解仍各保留自己的证据范围。
+
+表达排练沿同一消息展开：本人的试说与一种可能回应分别落在纸上，继续、换回应、停下或整理仍回同一输入，不出现第二聊天。图稿来自[表达排练设计](../assets/design/generated/2026-10-19-expression-rehearsal/manifest.json)，纸面与金枝使用实际透明资产，正文和动作保持真实组件。它演的是一种可能，不表示对方真的说过或事情已经发生；当前源码接线与后续实际渲染观察分别记录。
+
+共写纸面已经有同一隔离Electron的首波观察：暖／夜色纸、已有自由草稿的选句引用、重开后的草稿保留和历史作品展开过渡均实际发生。纸边留白、首次题头落点与后来选定的夜色低亮处理仍在改后复看；精确图路径和范围见[本批状态](CURRENT_STATUS.md#personal-memory-round7)。作品选区沿原field地址继续，不从这条视觉记录推定主模型已理解或记得早期章节。
+
+Discussion的当时稿不因普通事项修订或暂停而消失。历史场景保留当时版本与原来源，选择可带回当前事项继续商量；旧选中项说“当时选的”，暂停不突出催续动作。真正修复待核、来源撤回或不可读仍退出旧内容。source snapshot与当前投影的这次拆分是源码进展，改后正常续谈尚未观察；旧coWork停点缺证明时继续保守处理。
+
+安排的同轴比较已有真实A／B切换和键盘试放，首版实际出现了机器条件句被追加到原稿的问题，root亲看后明确取消这条表达方式。当前试放只作typed条件：同一小引用里显示任务、可改时刻和完整原时长，原稿保持原字；日期、时区及预览身份仍归原Scene与宿主，不包装成本人说过的话。回退只取消试放条件，X另可去掉整个引用，没有新工具栏或自动发送。首波晚饭重复淡出及新条件编辑的实际过程仍待对应复看，不借旧图覆盖新连续／分段节奏、所有窄窗或采用链；具体记录见[当前状态](CURRENT_STATUS.md#personal-memory-round7)。
+
+当前已有一条真实交互观察：同一隔离实例中，Discussion点选方案保留现有草稿，取消只去引用与强调，说明作者也亲看了引用和原稿同屏的当前截图。具体合成内容及本机截图路径见[第七批状态](CURRENT_STATUS.md#personal-memory-round7)，这条记录不扩展为所有选句、输入和模型理解通过。
+
+第四批“今天”的校园一起看沿NativeCampusCalendar只读Bridge与既有AgendaView，不增加Scene种类或第二日历。课程/考试没有完成/删除动作，个人安排仍用原Action；“接着聊这一天”只回到对话提出日期请求，不伪造用户采纳校园事实或Scene选择。日历文件仍只导出自己已接受保存的安排，课表查看不会将课程写入agenda。按新目标本批未启动或验证界面，详见[第四批状态](CURRENT_STATUS.md#personal-memory-round4)。
+
 动态画面让一次真实查询更容易理解和继续操作，不是另外一套聊天、地图或行动引擎。对话继续使用原有消息列表、输入框、Hermes、模型传输与行动记录。`@openuidev/react-lang` 固定为 **1.0.1**；不使用 `react-ui` 的聊天外壳或默认皮肤。整体目标和设计证据口径见 [产品与体验契约](PRODUCT_CONTRACT.md)，实际验收范围见 [当前状态](CURRENT_STATUS.md)。
 
 主模型决定何时需要地图、天气、比较或继续取证；宿主核对事实、来源、所属对话、版本和权限，再编译有限组件声明。使用者不必先说技能名称。普通拖动和选择不逐次交给模型，图片形象也不参与场景事实生成。
@@ -14,7 +52,11 @@
 | `PreparationView` | 仍有效的准备正文、来源、期限和可选场景快照 | 永久聊天副本、安排写入或通知已送达 |
 | `Message.helpRefs` | 某条回复绑定的机会版本与帮助记录 `helpRecordId` | 正文和地图已经展示，或过期材料仍应继续出现 |
 
-消息内地图、天气与课程／课表／考试是已接通的组件分支。笔记、安排、角色和资料阅读仍使用其既有界面与权限路径，不因为已经有 OpenUI 就宣称所有领域都实现了动态组件。
+消息内地图、天气与课程／课表／考试保留原组件分支，本批新增共同商量、陪学和安排比较的有限声明。阶段收尾还把日历直读、成绩／命名GPA和笔记原页接回同一有限Scene链，各分支的源码接入与实际运行证据分别记录；角色和资料仍归原所有者。
+
+只想看已经记下的安排时，`look_up source=local`的实际结果给SceneRef，`present_view`展示`mode=agenda`的原时间带，不先造一份试排。成绩／GPA仍用CampusScene保留原值、实际口径、分母与覆盖，`campusDisplay`只在确有帮助时选择detail／table／trend；来源不支持的数值不补零。原笔记先经`manage_note operation=read`取得真实页，再用其`present.arguments`展开NoteScene；原文可选句回同一输入，选中不修改笔记或成为本人新事实。历史笔记保回读地址，原owner复核后才恢复正文。
+
+已经发布的数据画面承载逐项内容，正文接结论、必要比较和真正影响答案的来源限制，不机械复印完整列表。实际工具的成功呈现回执与正文共同接受原完成检查；仅有目录或引用不证明画面已发布，更不代表用户已读、接受或动作成功。需要作品或明确要求可复制全文时，仍须交出真正内容。
 
 ## 从事实到画面
 
@@ -30,15 +72,15 @@ scene1 = WeatherScene("<scene-id>@<revision>")
 
 `Message.scenes` 保存当时的事实；`Message.views` 保存组件库版本、引用与实际 DSL。`src/renderer/presentation/AssistantPresentation.tsx` 使用安装包的 `defineComponent`、`createLibrary` 和 `Renderer` 解析并渲染这些声明。组件只能读取该视图获准的精确快照。没有客户端 `toolProvider`、任意脚本、外部 URL 动作或能直接执行预约/日程的场景组件。实际日程建议、接受和撤销仍走消息中的既有行动界面、IPC 与主机核验。
 
-处理步骤和工具画面可以在消息仍运行时更新，场景在真实结果通过准入后接到同一条回复；当前 Hermes 主回复正文缓冲到完成并核查后呈现，不是逐 token 文字流。没有结果时不先造地图或天气占位事实。路线由既有 `CampusMapAdapter` 与共享 `MapSurface` 呈现，桌面独立地图、消息内地图与公开地图 review 不产生第二份地图实现。
+处理步骤和工具画面可在消息运行时更新，场景在真实结果通过准入后接到同一条回复。本批允许前台主助手在继续工具前先发表已有根据的实质帮助；最终候选仍等原收口，未把全部协议正文改为逐token裸流。没有结果时不先造地图或天气占位事实。路线由既有`CampusMapAdapter`与共享`MapSurface`呈现，桌面独立地图、消息内地图与公开地图review不产生第二份地图实现。
 
 `main/runtime/map-model-view.ts` 为模型提供道路摘要：保留地点与停靠身份、选中的入口、距离、条件与来源，并合并相邻同名且通行含义相同的道路边。完整几何与逐边记录保留在主机和地图快照中。读取的原始字节仍计入原有预算，模型 token 按真正回传的摘要计量；只有结果通过准入后才发布新地图，不以提高预算或丢掉未知条件换取成功。
 
 ## 校园结果的来源与继续交流
 
-`CampusScene` 仅接入 `courses / schedule / exams`。coordinator 从真实工具结果注册快照，保留本地导入或账号来源、来源版本与哈希、原始记录身份、时间、地点及查询覆盖。主机恢复时再次核对来源、scope、精确版本和权限；缺项保留为空，不从聊天文本猜测课表。`present_view` 可引用该 Scene，有限 `CampusScene` 组件允许切换记录、展开来源及继续交流。
+`CampusScene` 沿课程／课表／考试扩展到成绩与命名GPA等当前契约允许的有限资源；具体类型见 `src/shared/scenes.ts`，学业结果投影见 `campus-academic.ts`与`CampusAcademicView.tsx`。coordinator 从真实工具结果注册快照，保留本地导入或账号来源、来源版本与哈希、原始记录身份、时间、地点及查询覆盖。主机恢复时再次核对来源、scope、精确版本和权限；缺项保留为空，不从聊天文本猜测课表或成绩。`present_view` 可引用该 Scene，有限组件允许切换记录、展开来源及继续交流；源码扩展不证明真实账号和当前画面已验收。
 
-`SemanticSelection.kind = record` 携带 `recordId` 与 Scene 精确版本；验证后实际记录进入下一轮上下文。它不批准日历写入。成绩和 GPA 未注册为这种可恢复快照，原有临时用途授权仍走独立路径。
+`SemanticSelection.kind = record` 携带 `recordId` 与 Scene 精确版本；验证后实际记录进入下一轮上下文。它不批准日历写入。成绩与GPA的注册和恢复继续服从原校园owner、敏感来源与本轮用途；选择、历史快照或显示切换不新增私人资料读取许可。
 
 ## 选择、观看与行动
 

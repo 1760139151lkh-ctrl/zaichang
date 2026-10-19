@@ -4,6 +4,9 @@ import type { EvidenceBrowseOptions } from './browse';
 
 /** Queries come from the reasoning model, never a hard-coded intent/synonym table. */
 export interface RecallOptions extends EvidenceBrowseOptions {
+  semanticSnapshot?: string;
+  semanticOffset?: number;
+  semanticWindowCursor?: string;
   relatedQueries?: string[];
   mode?: 'search' | 'scan' | 'browse';
 }
@@ -31,6 +34,13 @@ export function fuseRecallRanks<T extends { id: string }>(arms: T[][]): T[] {
     });
   });
   return [...hits.values()].sort((a, b) => b.score - a.score || a.first - b.first || a.item.id.localeCompare(b.item.id)).map(hit => hit.item);
+}
+
+/** Different retrieval methods retain their leading discovery before RRF.
+ * Multiple lexical rewrites remain one method, never six independent votes. */
+export function fuseRecallMethods<T extends { id: string }>(arms: T[][]): T[] {
+  const heads = arms.flatMap(arm => arm.length ? [arm[0]] : []);
+  return [...new Map([...heads, ...fuseRecallRanks(arms)].map(item => [item.id, item])).values()];
 }
 
 export function currentAssertion(assertion: Assertion, at: string) {
@@ -125,7 +135,8 @@ export function expandRecallBundle(repo: KernelRepository, scope: ScopeHandle, r
   }
   return { assertions: [...assertions.values()], sources: [...sources.values()].map(e => {
     const { use, restrictions } = repo.historicalEvidence(scope, e);
-    return { id: e.id, text: e.text, contentVersion: e.contentVersion, receivedAt: e.receivedAt, sourceId: e.sourceId, authority: e.authority, use, restrictions };
+    return { id: e.id, text: e.text, contentVersion: e.contentVersion, receivedAt: e.receivedAt, sourceId: e.sourceId, authority: e.authority,
+      ...(e.sourceContext ? { sourceContext: e.sourceContext } : {}), use, restrictions };
   }), dependencyCoverage: { status: gaps.length ? 'incomplete' : 'complete', gaps, maxDepth: MAX_DEPTH, maxAdditionalObjects: MAX_ADDITIONAL_OBJECTS,
     meaning: gaps.length ? '条件组合未闭合；不得按完整现行依据使用，先核对缺口或给条件性判断。' : '已展开所记录的关系；这不证明未记录的现实条件全部齐备。' } };
 }
@@ -142,6 +153,7 @@ export function multiQueryRecall(repo: KernelRepository, scope: ScopeHandle, que
   return {
     selected: [...hard.slice(hardOffset, hardOffset + 8), ...soft.slice(offset, offset + limit)],
     raw: originals.slice(offset, offset + limit),
+    rawRanking: originals,
     nextOffset: soft.length > offset + limit || originals.length > offset + limit ? offset + limit : null,
     nextHardOffset: hard.length > hardOffset + 8 ? hardOffset + 8 : null,
     hardTotal: hard.length,

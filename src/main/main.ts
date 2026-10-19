@@ -39,9 +39,19 @@ import { isEphemeral } from './runtime/policy';
 import { conditionSchema } from '../shared/harness';
 import { hasCredentials } from './runtime/redaction';
 import { NativeControls } from './runtime/controls';
+import { NativeCampusCalendar } from './runtime/campus-calendar';
+import { NativeStudyService } from './runtime/study-native';
+import { NativeRehearsalService } from './runtime/rehearsal-native';
+import { rehearsalInteractionSchema } from '../shared/relationship-rehearsal';
 import { configureNetwork } from './network';
 import { materialReferenceSchema, materialTargetSchema } from '../shared/materials';
 import { semanticSelectionSchema } from '../shared/scenes';
+import { studyInteractionSchema } from '../shared/study-presentation';
+import { reflectiveLetterSourceInput, letterReferenceSchema, reflectiveLetterProjectInput } from '../shared/reflective-letter';
+import { noteReferenceSchema } from '../shared/note-presentation';
+import { companionSourceInputSchema, companionFollowupReferenceSchema } from '../shared/companion-source';
+import { campusAcademicReadInputSchema } from '../shared/campus-academic';
+import { curiosityFollowupReferenceSchema } from '../shared/curiosity-source';
 import { createOpportunityScheduler } from './runtime/opportunity-scheduler';
 import { calendarExportInput } from '../shared/calendar-export';
 import { exportCalendarSnapshot } from './actions/calendar-export';
@@ -52,6 +62,11 @@ assertTestDataDirectory();
 if (app.isPackaged) process.env.ZAICHANG_RUNTIME_ROOT = path.join(process.resourcesPath, 'hermes-runtime');
 else process.env.ZAICHANG_RUNTIME_ROOT ||= path.resolve(__dirname, '..');
 if (app.isPackaged) process.env.ZAICHANG_MATERIAL_RUNTIME_ROOT = path.join(process.resourcesPath, 'material-runtime');
+// Both development and the portable app use the same product-owned layout.
+// No application request downloads a model or looks in a personal cache.
+process.env.ZAICHANG_EMBEDDING_RUNTIME_ROOT = app.isPackaged ? path.join(process.resourcesPath, 'embedding-runtime')
+  : path.resolve(__dirname, 'embedding-runtime');
+process.env.ZAICHANG_EMBEDDING_WORKER_PATH = path.join(process.env.ZAICHANG_EMBEDDING_RUNTIME_ROOT, 'worker.cjs');
 
 // A repository command may inject the user's DPAPI-protected project credential
 // for this process only. Capture it before Electron starts, then remove all model
@@ -140,7 +155,7 @@ function trusted(event: Electron.IpcMainInvokeEvent | Electron.IpcMainEvent) {
 function handle(name: string, fn: (data: any) => unknown | Promise<unknown>) {
   ipcMain.handle(name, async (event, data) => {
     trusted(event);
-    const boundary = store ? `${store.kernel.epoch}:${store.kernel.policyRevision}` : undefined;
+    const boundary = store ? `${store.kernel.epoch}:${store.kernel.policyRevision}:${store.runtime.policy.sourceBoundary}` : undefined;
     try {
       if (store && !store.runtime.presentation.permitsIpc(name)) throw new Error('当前为公开展示，请先回到私人视图操作个人内容。');
       const result = await fn(data);
@@ -154,7 +169,7 @@ function handle(name: string, fn: (data: any) => unknown | Promise<unknown>) {
       opportunityScheduler?.wake();
       // A withdrawal may have taken effect even if a later part of the request
       // failed. Let every open view discard its old boundary in either case.
-      if (store && boundary !== undefined && boundary !== `${store.kernel.epoch}:${store.kernel.policyRevision}` &&
+      if (store && boundary !== undefined && boundary !== `${store.kernel.epoch}:${store.kernel.policyRevision}:${store.runtime.policy.sourceBoundary}` &&
         window && !window.isDestroyed() && !window.webContents.isDestroyed()) {
         window.webContents.send('zaichang:event', { type: 'state', state: state() });
       }
@@ -236,7 +251,7 @@ app.whenReady().then(async () => {
       if (event.type === 'state') opportunityScheduler?.wake();
       if (!window || window.isDestroyed()) return;
       if (event.type === 'state') window.webContents.send('zaichang:event', { ...event, state: decorateState(event.state) });
-      else if (event.type === 'message') { const message = store.runtime.presentation.message(event.message); if (message) window.webContents.send('zaichang:event', { ...event, message }); }
+      else if (event.type === 'message') { const message = store.runtime.presentation.message(event.message, { liveCuriosity: true, liveRehearsal: true, liveNote: true, liveCampus: true }); if (message) window.webContents.send('zaichang:event', { ...event, message }); }
       else if (!store.runtime.presentation.public) window.webContents.send('zaichang:event', event);
     },
     undefined,
@@ -244,6 +259,69 @@ app.whenReady().then(async () => {
     map,
   );
   const controls = new NativeControls(store, harness);
+  const campusCalendar = new NativeCampusCalendar(store);
+  const study = new NativeStudyService(store, store.runtime.studyPresentation);
+  const rehearsal = new NativeRehearsalService(store, store.runtime.rehearsals);
+  handle('rehearsal:project', value => rehearsal.project(value));
+  handle('note:project', value => {
+    const runtime = store.runtime, operation = new AbortController(), remove = runtime.policy.onBarrier(() => operation.abort());
+    try { return runtime.notePresentation.project(value, operation.signal); }
+    finally { remove(); }
+  });
+  handle('study:project', value => study.project(value));
+  handle('study:read', value => study.read(value));
+  handle('letter:project', value => {
+    const runtime = store.runtime, boundary = `${store.kernel.epoch}:${store.kernel.policyRevision}:${runtime.policy.sourceBoundary}`;
+    if (runtime.presentation.public) throw new Error('先回到自己的对话，再打开那封信。');
+    const scope = runtime.policy.hostScope(), operation = new AbortController();
+    const remove = runtime.policy.onBarrier(() => operation.abort());
+    try {
+      const result = runtime.presentation.letterProject(scope, reflectiveLetterProjectInput.parse(value));
+      operation.signal.throwIfAborted(); runtime.policy.validate(scope);
+      if (runtime.presentation.public || boundary !== `${store.kernel.epoch}:${store.kernel.policyRevision}:${runtime.policy.sourceBoundary}`)
+        throw new Error('资料或展示范围刚有变化，请从当前对话重新打开这封信。');
+      return result;
+    } finally { remove(); }
+  });
+  handle('letter:source', async value => {
+    const runtime = store.runtime, boundary = `${store.kernel.epoch}:${store.kernel.policyRevision}:${runtime.policy.sourceBoundary}`;
+    if (runtime.presentation.public) throw new Error('先回到自己的对话，再看看那时的原话。');
+    const scope = runtime.policy.hostScope(), operation = new AbortController();
+    const remove = runtime.policy.onBarrier(() => operation.abort());
+    try {
+      const result = await runtime.reflectiveLetters.source(scope, reflectiveLetterSourceInput.parse(value), operation.signal);
+      operation.signal.throwIfAborted(); runtime.policy.validate(scope);
+      if (runtime.presentation.public || boundary !== `${store.kernel.epoch}:${store.kernel.policyRevision}:${runtime.policy.sourceBoundary}`)
+        throw new Error('资料或展示范围刚有变化，请从当前这封信重新打开原话。');
+      return result;
+    } finally { remove(); }
+  });
+  handle('companion:source', async value => {
+    const runtime = store.runtime, boundary = `${store.kernel.epoch}:${store.kernel.policyRevision}:${runtime.policy.sourceBoundary}`;
+    if (runtime.presentation.public) throw new Error('先回到自己的对话，再打开原来的材料。');
+    const scope = runtime.policy.hostScope(), operation = new AbortController();
+    const remove = runtime.policy.onBarrier(() => operation.abort());
+    try {
+      const result = runtime.companionSessions.source(scope, companionSourceInputSchema.parse(value));
+      operation.signal.throwIfAborted(); runtime.policy.validate(scope);
+      if (runtime.presentation.public || boundary !== `${store.kernel.epoch}:${store.kernel.policyRevision}:${runtime.policy.sourceBoundary}`)
+        throw new Error('资料或展示范围刚有变化，请从当前停点重新打开原话。');
+      return result;
+    } finally { remove(); }
+  });
+  handle('campus:academic', async raw => {
+    const runtime = store.runtime, boundary = `${store.kernel.epoch}:${store.kernel.policyRevision}:${runtime.policy.sourceBoundary}`;
+    if (runtime.presentation.public) throw new Error('先回到自己的对话，再打开成绩资料。');
+    const input = campusAcademicReadInputSchema.parse(raw), operation = new AbortController(), remove = runtime.policy.onBarrier(() => operation.abort());
+    try {
+      const scene = await runtime.readCampusAcademic(input, operation.signal);
+      operation.signal.throwIfAborted();
+      if (runtime.presentation.public || boundary !== `${store.kernel.epoch}:${store.kernel.policyRevision}:${runtime.policy.sourceBoundary}`)
+        throw new Error('资料或展示范围刚有变化，请从当前成绩地址重新打开。');
+      return scene;
+    } finally { remove(); }
+  });
+  handle('campus:schedule', value => campusCalendar.read(value));
   store.runtime.policy.onBarrier(() => { mapLocation.cancel(); latestDeviceLocation = undefined; store.runtime.spatial.share({ enabled: false }); });
   if (process.env.ZAICHANG_TEST !== '1') store.runtime.spatial.reference = new CampusReferenceAdapter(path.join(homedir(), '.codex', 'skills', 'zju-campus-locator'), (file, crop) => {
     let source = nativeImage.createFromBuffer(readFileSync(file));
@@ -359,6 +437,12 @@ app.whenReady().then(async () => {
         image: imageAttachmentSchema.optional(),
         material: materialReferenceSchema.optional(),
         selection: semanticSelectionSchema.optional(),
+        studyInteraction: studyInteractionSchema.optional(),
+        companionReference: companionFollowupReferenceSchema.optional(),
+        curiosityReference: curiosityFollowupReferenceSchema.optional(),
+        letterReference: letterReferenceSchema.optional(),
+        noteReference: noteReferenceSchema.optional(),
+        rehearsalInteraction: rehearsalInteractionSchema.optional(),
         controls: z
           .object({
             transmission: z.enum(['cloud_allowed', 'local_only']).optional(),
@@ -371,7 +455,10 @@ app.whenReady().then(async () => {
       })
       .strict()
       .parse(value);
-    return harness.start(input.sessionId, input.content, { ...input.controls, material: input.material, selection: input.selection }, input.image);
+    return harness.start(input.sessionId, input.content, { ...input.controls, material: input.material, selection: input.selection,
+      studyInteraction: input.studyInteraction, companionReference: input.companionReference,
+      curiosityReference: input.curiosityReference, letterReference: input.letterReference, noteReference: input.noteReference,
+      rehearsalInteraction: input.rehearsalInteraction }, input.image);
   });
   handle('stop', () => harness.stop());
   handle('settings:save', (value) => {
@@ -516,6 +603,8 @@ app.whenReady().then(async () => {
   });
   handle('campus:account:connect', async () => {
     noRun();
+    harness.invalidateCampusCache();
+    harness.stateChanged();
     try {
       zju.connectInstalled();
     } catch {
@@ -532,7 +621,6 @@ app.whenReady().then(async () => {
       throw new Error(
         verified.error?.message || verified.reason || '没有完成浙大统一身份认证，请检查网络或登录信息。',
       );
-    harness.invalidateCampusCache();
     return state();
   });
   handle('campus:connector:disconnect', () => {
@@ -543,21 +631,23 @@ app.whenReady().then(async () => {
   });
   handle('campus:connector:credentials', async () => {
     noRun();
+    harness.invalidateCampusCache();
+    harness.stateChanged();
     await zju.configureCredentials();
     const verified = await zju.verifyAccount(AbortSignal.timeout(75_000));
     if (verified.status !== 'ok')
       throw new Error(
         verified.error?.message || verified.reason || '登录信息已加密保存，但浙大统一身份认证没有完成。',
       );
-    harness.invalidateCampusCache();
     return state();
   });
   handle('campus:connector:forget-credentials', async () => {
     noRun();
+    harness.invalidateCampusCache();
+    harness.stateChanged();
     const result = await zju.forgetCredentials(AbortSignal.timeout(20_000));
     if (result.status !== 'ok')
       throw new Error(result.error?.message || result.reason || '没有移除本机登录信息。');
-    harness.invalidateCampusCache();
     return state();
   });
   handle('map:overview', () => map.overview());

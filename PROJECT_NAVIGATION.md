@@ -1,21 +1,68 @@
 # 项目导航
 
+**先看全貌：[项目全貌与源码基线](docs/PROJECT_BASELINE.md)。** 该页统一说明理念、源码／EXE／公共站点的不同基线、单一 Harness、状态所有者、OpenUI、地图与功能边界；当前接续见 [CONTINUE_FROM_HERE](docs/CONTINUE_FROM_HERE.md)。本文件继续维护详细文件索引，实际验证统一归 [CURRENT_STATUS](docs/CURRENT_STATUS.md)。
+
 > **前端视觉设计主文档：[前端视觉创新设计/图片来源对话.md](前端视觉创新设计/图片来源对话.md)**。图片、补充图稿和素材入口见根目录 [FRONTEND_DESIGN.md](FRONTEND_DESIGN.md)，页面对应见[图像与页面对应](前端视觉创新设计/图像与页面对应.md)。
 
-本文件是当前项目的入口、职责与文件索引，核对日期为 **2026-10-18**。以实际 checkout 和所述调用链为准；本轮源码包含学生 Harness、对话场景与前端演进，源码提交、线上部署和历史验收分别记录。[当前状态](docs/CURRENT_STATUS.md)维护功能与证据，[架构](docs/ARCHITECTURE.md)解释运行机制。
+本文件是当前项目的入口、职责与文件索引，本轮整理日期为 **2026-10-19**。以实际 checkout 和所述调用链为准；本轮源码包含学生 Harness、对话场景与前端演进，源码提交、线上部署和历史验收分别记录。[当前状态](docs/CURRENT_STATUS.md)维护功能与证据，[架构](docs/ARCHITECTURE.md)解释运行机制。
 
 <a id="current-evolution"></a>
 ## 本轮续接：记忆、主动陪伴与对话体验
 
-先读[完整原始请求](docs/source-materials/2026-10-18/goal-objective-20261018.md)和[持续改进补充原话](docs/source-materials/2026-10-18/ongoing-improvement-20261018.md) → [需求与实现明细](docs/HARNESS_EVOLUTION.md) → [当前状态与证据](docs/CURRENT_STATUS.md)。此前从 `c7cff228` 完成过一轮后端与四组 GPT Image 方案；本次在合并后的 `4edd922` 上继续，补原文浏览/精确遗忘、决策经历、准备发现、逐日规划和技能依赖组，后端收口后改进已有规划/环境/角色界面并实际检查。检查数字与界面证据统一在状态文档记录，不借用旧轮结果。本次持续目标在阶段交付后继续研究与实施，不因前端收口而结束。
+当前续作先读[完整目标](docs/source-materials/2026-10-18/goal-objective-current-20261018.md)和[最新视觉要求](docs/source-materials/2026-10-18/visual-fidelity-requirement-20261018.md)。本批主线是[带着说不清的事来，回来不用重讲](docs/CURRENT_STATUS.md#personal-memory-round7)：主模型深读、眼前交流、共同商量、陪学、相处与具体生活内容沿同一聊天接力，图稿需落实为真实画面与动效。下面的[本轮入口](#companion-experience)定位实际owner与界面；源码接入不借用旧验收，必要视觉观察与未运行的产品模型分开记录。[第六批](docs/CURRENT_STATUS.md#personal-memory-round6)、[第五批](docs/CURRENT_STATUS.md#personal-memory-round5)和[第四批](docs/CURRENT_STATUS.md#personal-memory-round4)分别保留原导航、候选与学习等历史增量。较早同步记录曾在`e4254aa`继续整合已合并分支，本轮保留共享dirty工作，不将该历史同步记录说成之后每次checkout的证明。
+
+较早阶段的[完整原始请求](docs/source-materials/2026-10-18/goal-objective-20261018.md)和[持续改进补充原话](docs/source-materials/2026-10-18/ongoing-improvement-20261018.md)仍可追溯 → [需求与实现明细](docs/HARNESS_EVOLUTION.md) → [当前状态与证据](docs/CURRENT_STATUS.md)。此前从 `c7cff228` 完成过一轮后端与四组 GPT Image 方案；随后在合并后的 `4edd922` 上补原文浏览/精确遗忘、决策经历、准备发现、逐日规划和技能依赖组，后端收口后改进已有规划/环境/角色界面并实际检查。检查数字与界面证据统一在状态文档记录，不借用旧轮结果。这里保留较早持续推进要求；当前阶段以最新直接要求为准，完成本阶段收尾后暂停，原总目标不因此被标为全部完成。
 
 [原始来源归档](docs/source-materials/2026-10-18/README.md)保留实施包、完整记忆讨论、最新54,484字节桌面Harness讨论、完整goal附件、持续补充原话及动态/前端理念，逐文件字节/哈希与各轮回执分别记录。旧41,067字节Harness和早期短版记忆的前缀关系均保留；本次桌面记忆文件与完整归档相同，不重复复制。归档是私人参考，不是运行时指令或本人画像。
 
+<a id="companion-experience"></a>
+### 本轮入口：交流、共做与回来时的起点
+
+入口仍是原聊天，有限画面随内容出现；以下是代码职责导航，不是使用者需要选择的一组管理页面。统一状态在[第七批](docs/CURRENT_STATUS.md#personal-memory-round7)，设计与实际呈现边界见[对话场景](docs/CONVERSATION_SCENES.md#companion-experience)。
+
+当前执行顺序已由[阶段收尾原话](docs/source-materials/2026-10-18/stage-close-and-luna-validation-20261019.md)收束：停止创新外延，完成正常Luna动态呈现、既有校园只读及真实失败修复后暂停，等待用户回来。下面的源码入口与实际通过范围分开，不用配置型号、手动投影或旧图替代本阶段证据。
+
+| 人的任务 | 入口与状态所有者 | 主要源码 |
+| --- | --- | --- |
+| 看应用已经记下的安排，再指一项继续问 | `look_up source=local`沿原日历有界读取，实际返回的sceneRef可交`present_view`；不是重新试排 | `src/main/runtime/agenda-scene.ts`、`scenes.ts`、`coordinator.ts`；复用PlanningScene的`mode=agenda`及原时间带，真实模型与点选续问范围见当前状态 |
+| 读实际成绩、比较明确的GPA口径 | 原校园查询返回CampusScene；detail／table／trend只呈现实际命名字段，点记录后沿当前用途重新读取 | `src/shared/scenes.ts`、`src/main/runtime/scenes.ts`／`coordinator.ts`、`src/renderer/presentation/CampusAcademicView.tsx`；真实账号读取与实际呈现分别记录，不以源码代验收 |
+| 把一页原笔记留在这段对话里读 | `manage_note operation=read`实际页给`present.arguments`，`present_view.note`回同NotesService核原页；选句只接着聊 | `src/shared/notes-source.ts`／`note-presentation.ts`、`src/main/runtime/note-presentation.ts`、`src/main/notes/service.ts`、`src/renderer/presentation/NoteSceneView.tsx` |
+| 深入找回过去为什么、后来变了什么 | `recall_experience`规范为原生`delegate`；原delegate也可带`memoryInquiry`，子调查仍归同一父run | `src/main/runtime/memory-inquiry.ts`、`background-delegation.ts`、`harness.ts`；唯一详细方法`prompts/memory-inquiry.md`，`skills.ts`复用它 |
+| 眼前先得到帮助，还能补一句改变方向 | 同一主助手已返回的实质前段先呈现，最终答复接续；补充停止旧run后走普通新原话入口 | `src/main/runtime/conversation-rhythm.ts`、`src/main/harness.ts`、`src/renderer/ComposerActions.tsx`与`App.tsx` |
+| 指着一行、一段或一句继续说 | 原StudyInteraction、SemanticSelection、companionReference、curiosityReference及letterReference精确目标随普通输入同行；小引用可取消，已有草稿保留 | `src/renderer/LocalTextFocus.tsx`／`FocusContextChip.tsx`、纯renderer的`ConversationTextFocus.tsx`、`RichText.tsx`真实文本源位置与`App.tsx`；`src/shared/study-presentation.ts`／`curiosity-source.ts`／`reflective-letter.ts`；`src/main/runtime/interaction-control-context.ts`及`turn-controls.ts` |
+| 一起创作，作品里的“我”不串成本人经历 | 本条已核作品／取景地址形成非正文来源身份，随原event保留；原理解、复核与恢复分别识别创作活动和作品命题，不整轮禁止推断 | `src/shared/harness.ts`的sourceContext union、`src/shared/source-context.ts`、`src/main/runtime/interaction-control-context.ts`、`coordinator.ts`、`src/main/memory/context-windows.ts`／`model.ts`／`service.ts`；当前仅源码，无记忆模型效果证据 |
+| 把一件说不清的事摊开商量 | `present_view.discussion`投影原frame、option与当前小步；选择只接着聊 | `src/shared/discussion-scene.ts`、`src/main/runtime/discussion-scene.ts`／`scenes.ts`、`src/renderer/presentation/DiscussionSceneView.tsx` |
+| 一起做、暂放、回来接起 | `manage_companion_session/read_companion_session`，原matter下`companion_session`；旧页的冻结解释沿`read_companion_history`回读，不以新停点替换 | `src/shared/companion-session.ts`、`src/main/runtime/companion-session.ts`、`coordinator.ts`及repository原Scene来源门、`src/renderer/presentation/CompanionSessionView.tsx`；旧页来源延伸已接源码，待统一实际运行 |
+| 同一道题按当前意愿提示、换例子或讲清楚 | `study_companion/read_study_companion`，原matter下`study_companion`；原题与材料仍归原owner；正常composer可停靠纸内，只有一次发送 | `src/shared/study-companion.ts`／`study-presentation.ts`、`src/main/runtime/study-companion.ts`／`study-presentation.ts`／`study-native.ts`、`src/renderer/presentation/StudySceneView.tsx`与`src/renderer/ConversationComposerDock.tsx` |
+| 在同一题边改条件、看变化再继续问 | 有限quadratic关系归当前Study step，值／曲线／切线由同一声明重算；当前改变是计算假设，不是本人事实或掌握 | `src/shared/explorable-study.ts`、`src/main/runtime/explorable-study.ts`、`src/renderer/presentation/ExplorableStudyView.tsx`；源已接，实际整合画面待观察 |
+| 自然接回旧话题、共同说法和明确相处方法 | `read_companion/manage_companion`沿原frame；`conversation`个人方法仍经read_skill | `src/shared/companion-continuity.ts`、`src/main/runtime/companion-continuity.ts`／`life-collaboration-tools.ts`／`personal-methods.ts` |
+| 有用的做法带着当时帮助和条件继续用 | 个人方法沿原owner，PersonalMethodSources保留原帮助／事项／学习来处；可回读当时Study步骤或已发布共做字段；普通修订保留合法历史，删除／撤源阻止派生文字回流 | `src/shared/personal-method.ts`／`method-work-help.ts`、`src/main/runtime/personal-methods.ts`／`personal-method-continuity.ts`／`method-work-help.ts`、`context.ts`、`src/shared/harness.ts`的receipt与repository来源门；当前未运行新采用链 |
+| 初始只给少量可回读线索 | ContextCompiler的`setLifeContinuity` provider，实际准入后登记records、bindings与学习引用 | `src/main/runtime/life-continuity.ts`、`context.ts`、`coordinator.ts`；不打开陪学材料，不恢复活动 |
+| 写给当下这个人的一封回顾 | `write_reflective_letter/read_reflective_letter`接原机会、准备与呈现；脚注走受限原来源IPC | `src/shared/reflective-letter.ts`、`src/main/runtime/reflective-letter.ts`／`reflective-letter-tools.ts`、`src/renderer/LetterMessage.tsx`／`letter.css` |
+| 一起比较安排的真实取舍 | `planning.compare`、`offer_planning_alternatives/read_planning_alternative/continue_planning`接原frame／option及动作链；本次continuous／split保留同一工作量及实际各段准备收尾，新节奏未运行 | `src/main/actions/planning-comparison.ts`、`src/main/runtime/planning-conversation.ts`／`planning-conversation-tools.ts`／`planning-comparison-scene.ts`、`src/renderer/presentation/PlanningComparisonHeader.tsx`／`PlanningComparisonTimeline.tsx` |
+| 带来一件已经准备好的新鲜事 | `curiosity_invitation`沿当前邀请及原frame／option；任意回答沿同一临时引用继续，换一个／放下不变成目标 | `src/shared/curiosity-invitation.ts`／`curiosity-scene.ts`／`curiosity-source.ts`、`src/main/runtime/curiosity-invitation.ts`／`curiosity-tools.ts`／`curiosity-scene.ts`、`src/renderer/presentation/CuriosityInvitationView.tsx` |
+| 找回以前一起写过的原章，再从那里继续 | 助手历史的作品目录和`read_shared_creation`回读原message／Scene，`continue.fromChapter`保留原章出处；目录不算已读正文 | `src/main/storage/repository.ts`、`src/main/runtime/curiosity-invitation.ts`／`curiosity-tools.ts`、`context.ts`、`src/shared/harness.ts`的AssistantWorkSource |
+| 保留作品取景的后端恢复入口 | 本阶段联动取景界面未交付，正常工具已冻结该入口；原公共地图和共同创作正文仍各自可用 | `src/shared/story-setting.ts`、`src/main/runtime/story-setting.ts`与[取舍研究](docs/research/SHARED_CREATION_MAP_SETTING_2026-10-19.md)保留后端源码；没有可用StorySettingView，不列为当前正常对话可呈现能力 |
+| 先试说一段难表达的话 | `manage_relationship_rehearsal/read_relationship_rehearsal`与`present_view.rehearsal`仍接同一主助手和输入；模拟回应不是现实关系事实 | `src/shared/relationship-rehearsal.ts`、`src/main/runtime/relationship-rehearsal.ts`／`relationship-rehearsal-tools.ts`／`rehearsal-presentation.ts`／`rehearsal-ingress.ts`／`rehearsal-native.ts`、`src/renderer/presentation/RehearsalSceneView.tsx` |
+| 角色真正参与听、一起做与权衡 | 当前persona guidance采用参与方式，原角色核心仍可编辑且不增加权限 | `src/shared/persona-performance.ts`、`src/shared/persona.ts`、`src/main/harness.ts` |
+
+中心工具注册、Scene编译及真实消息发布在`src/main/runtime/coordinator.ts`／`src/main/harness.ts`；消息内组件入口在`src/renderer/presentation/AssistantPresentation.tsx`，输入动作与当前纸页引用归`App.tsx`。`ComposerActions`已接原输入区，补充沿停止旧run→普通新发送办理。图稿入口：[共同商量](assets/design/generated/2026-10-18-shared-discussion/manifest.json)、[共同做事](assets/design/generated/2026-10-18-companion-session/manifest.json)、[陪学纸](assets/design/generated/2026-10-18-study-paper/manifest.json)、[安排比较](assets/design/generated/2026-10-18-planning-comparison/manifest.json)、[来信](assets/design/generated/2026-10-18-reflective-letter/manifest.json)、[可以马上玩的小发现](assets/design/generated/2026-10-18-curiosity-invitation/manifest.json)。好奇纸面从设计图编辑提取为`src/renderer/assets/curiosity/manuscript-paper.png`，来源与用途见[纸面资产说明](assets/design/generated/2026-10-18-curiosity-invitation/paper-asset.json)。图稿不进入运行时事实；实际画面与动效的观察见当前状态，不能从文件存在推定。
+
 | 本轮研究与审查 | 实施方向 |
 | --- | --- |
+| [主模型引导的理解](docs/research/MODEL_GUIDED_UNDERSTANDING_2026-10-18.md) | 围绕当前问题深读理由、迁移相关经历并在变化后重评；高层入口沿同一Hermes真实子调查，不以下载模型或索引工程替代主动理解。当前源码接线，尚无产品模型和体验验证 |
+| [原话接回已有事项](docs/research/SOURCE_RELATED_WORK_2026-10-18.md) | `memory/source-related.ts`与`repo.sourceRelatedWorkPage`复用原Work声明的来源；预览／`actualReadRanges`给绝对Unicode地址，经`restore_collaboration(type=source_related)`取得候选与原owner入口。typed精确交叠、legacy整条未知、session／许可／完整关系来源分开；30分钟keyset目录不计原文read／ACK，不恢复活动，不建新事实库。同轮托付／调查链的`runtime/source-quote.ts`统一定位已接源码，不回填旧库或重定位失效范围；未运行，未全量改写其他quote入口 |
+| [课表与个人日视图图稿](assets/design/generated/2026-10-18-campus-day/manifest.json) | 后端源码整合之后生成A/B并选A；`renderer/CampusDaySchedule.tsx`/`Workspace.tsx`/`today.css`接同一天只读校园安排与个人Action；未启动或验收当前界面 |
+| [校园快照与规划](docs/research/CAMPUS_PLANNING_BRIDGE_2026-10-18.md) | `actions/planning-campus.ts`、`capabilities/campus-saved-source.ts`沿ZjuAdapter原链签发当前bundle证明，约束进入原planner；NativeCampusCalendar与共享契约提供只读日视图；本地元数据变化沿原Domain/attention链 |
+| [同一调查原文续读](docs/research/PERSISTENT_INVESTIGATION_2026-10-18.md) | `runtime/investigation-frontier.ts`、`delegation-evidence.ts`与coordinator/Harness两层投递；只保存地址、覆盖与事务ACK，未ACK正文仍有缺口；本批源码未运行验证 |
+| [学习尝试与帮助](docs/research/LEARNING_PROCESS_2026-10-18.md) | `memory/learning-process.ts`沿原Work experience及共同事项，`manage_learning/read_learning`保留原题、尝试、帮助、条件与报告地址，不推断掌握；来源沿ContextReceipt、历史与遗忘传递 |
+| [个人方法与材料发现](docs/research/PERSONAL_METHODS_MATERIALS_2026-10-18.md) | `runtime/personal-methods.ts`接原discover/read技能入口；`materials/service.ts`接有界目录和精确原话定位，临时会话仍不持久复制；WorkSourceBinding贯穿实际采用正文 |
+| [完整资料与当前能力基线](docs/research/SOURCE_CAPABILITY_MAP_2026-10-18.md) | 逐份回读原始材料及ZIP全部28文件，明确校园查询、单课材料、并行子代理、资料阅读等原已存在；将当前dirty增量、重复建设风险及真实剩余方向分开，后续实施先以此核准基线 |
+| [本地语义候选的实际取舍](docs/research/LOCAL_SEMANTIC_RECALL_2026-10-18.md) | 从固定Khoj/Mem0与HF模型比较推进到BGE q8源码接线；四个模型文件24,451,050字节及固定依赖已安装，CPU懒加载worker、schema14派生索引与词法／语义两臂融合已写入原入口；冻结排名和下一候选窗口续接也已接源码，运行／效果未验证，见[第五批](docs/CURRENT_STATUS.md#personal-memory-round5) |
+| [理解变迁回读](docs/research/MEMORY_HISTORY_2026-10-18.md) | `memory/history.ts`沿同一Assertion读取修订、原有条件与现实时间；schema13只新增宿主提交元数据，旧时间未知，旧正文仍服从当前引用；已接`read_understanding(view=history)`，本项按用户要求未运行测试或模型 |
 | [第三批：可恢复的规划意图](docs/research/PERSISTENT_PLANNING_INTENT_2026-10-18.md) | 从 `30dcd8e` 比较八方向后，保留原Work规格、独立attempt来源与prepare原子关联，联查原动作／回执／日历后同一planner重算；安静续接界面已有实际观察，最终恢复边界复核状态见[第三批状态](docs/CURRENT_STATUS.md#personal-memory-round3) |
 | [继续商量图稿比较](assets/design/generated/2026-10-18-planning-continuity/manifest.json) | 后端整合检查后生成并亲看A/B；选A连续时间线与轻量关系文字，保留原日历上下文；图稿与实际操作证据分别记录，合成来源截图只留本机 |
-| [第二批：证据、恢复与契约](docs/research/PERSONAL_MEMORY_ROUND2_2026-10-18.md) | 精确多源citations、来源坐标归一、48KB上下文与合法澄清恢复、整体安排窗、动作契约；当时保留的持久规划意图已在第三批实施，向量、持久调查、学习与手机仍分项候选 |
+| [第二批：证据、恢复与契约](docs/research/PERSONAL_MEMORY_ROUND2_2026-10-18.md) | 精确多源citations、来源坐标归一、48KB上下文与合法澄清恢复、整体安排窗、动作契约；当时保留的规划意图、调查、学习与向量候选分别在第三至第五批继续接线，历史报告不代替当前状态，手机仍是独立里程碑 |
 | [安排时窗图稿比较](assets/design/generated/2026-10-18-chosen-windows/manifest.json) | 后端检查之后生成A日期条/B折叠日，采用A的真实时窗表达；样例资料、窄窗布局和实际产品证据分开 |
 | [个人记忆与生活连续性](docs/research/PERSONAL_MEMORY_CONTINUITY_2026-10-18.md) | 本次16域/12时间线交叉审计、原文浏览、精确遗忘、决策经历、准备发现/逐日承载及候选取舍；源码机制与语义/设备证据分开 |
 | [记忆](docs/research/MEMORY_EVOLUTION_2026-10-18.md) | 多查询、有限扫描、原始依据与纠正后续线索 |
@@ -109,6 +156,9 @@
 | 后台只读子调查 | `harness.ts` → `runtime/background-delegation.ts` → 同一 Hermes children 协议；授权片段、来源子集、共享预算；host捕获局部更正baseline，实际读取来源出现新限制后在模型/父采用边界停止旧报告 |
 | 缓存与真实委派 | `capabilities/broker.ts`、`runtime/cooperation.ts`、`collaboration.ts`、`hermes.ts` 和 sidecar；独立等待者取消、版本快照、父代理消费与旧结果失效 |
 | 记忆与连续事项 | `memory/model.ts` / `service.ts` / `retrieval.ts` → `runtime/context.ts` / `work.ts` / `discourse.ts` → `storage/repository.ts`；多查询/扫描、证据展开、更正后续；精确遗忘清理重叠派生/可归因旧版本，保留同源独立片段及后续提取；`HarnessViews.tsx` 提供原话、更正、停用和忘记入口 |
+| 本地语义候选与原文回读 | `search_context` → `runtime/coordinator.ts` → `context.ts.prefetchWithSemantic` → `memory/semantic-recall.ts` / `semantic-store.ts` → 原SQLite `h_semantic_chunks`（schema14）；合法来源／Unicode原范围／版本／hash先于向量加载与排名；词法与语义各成一臂，保留头部候选后RRF；预览附原`read_evidence`地址，不成为事实。`h_meta`保存索引扫描断点，只读子调查不补建索引；冻结窗口内排名分页与`nextWindowCursor`尾部续窗均已接源码，续窗不补建／修复索引，边界见第五批状态 |
+| 原文到已有工作记录的导航 | `context.ts`的候选／browse预览及`tools.ts`→`recordEvidenceRead(actualReadRanges)`给可选`sourceRelated`地址 → `restore_collaboration(type=source_related)` → `memory/source-related.ts` → `storage/repository.ts.sourceRelatedWorkPage`；typed完整binding核合法且精确交叠，legacy原文ID仅整条合法时返范围未知。仅self／real／`work:self`及evidence read，宿主relevant才跨会话，否则核session或显式parent；30分钟／64份固定rowid keyset、每页最多200候选复核，空partial续页。方法按原`personalMethods.catalog(handle,{id,revision})`窄核，学习沿`workSourceFilter`／`learningProcessReadable`；再走原owner，不计read／ACK或恢复 |
+| 固定本地嵌入资源与分发 | `runtime/embedding/lock.json` → `scripts/embedding-runtime.mjs` / `setup-desktop.mjs` → `memory/embedding-contract.ts` / `embedding-runtime.ts` / `embedding-worker.ts`；产品自有worker懒加载固定BGE q8、ORT Node1.30.0与HF tokenizers0.2.0，仅CPU。四个文件24,451,050字节已安装，构建／打包源码使用asar外独立Windows x64资源，应用请求不自动下载；本批未构建、加载或推理，许可见`licenses/`与第三方声明 |
 | 无字面依赖的原文浏览 | `search_context(mode=browse)` → `memory/browse.ts` → `storage/repository.ts` → `read_evidence`；许可来源/收到时间先筛，固定快照keyset cursor有界续页；仅给previewOnly，正文采用再查当前scope与版本 |
 | 决策经历与理由重评 | `update_collaboration(operation=experience)` → `runtime/collaboration.ts` → 原WorkRecord frame；稳定optionId、逐字条件locator、原文版本/hash、64条有界数组；恢复先核当前来源，不把用户报告变成已核实结果或新接受；实际展开引用进入context receipt |
 | 跨会话续接 | `runtime/continuity.ts` → `context.ts`；有限索引指向既有准备与事项，逐项核对来源/版本/范围；`inspect_help`可按query/精确relatedTo/状态/时间发现较早准备，正文采用仍复验，不以未列出当不存在 |
@@ -140,7 +190,7 @@
 | 数据库、恢复与隔离验证 | `main/store.ts`、`storage/repository.ts` / `domains.ts` / `drafts.ts`、`testBoundary.ts`；事务、隐私fence、原文索引、持久队列和独立合成数据边界 |
 | 共用类型与结果契约 | `src/shared/types.ts`、`harness.ts`、`schemas.ts`、`limits.ts` 及领域shared文件；`main/runtime/structured-result.ts` / `semantics.ts` 处理结构化结果、规范化及语义指纹基础，不替代主模型理解 |
 | 本地地图适配桥 | `src/main/mapBridge.ts` → `scripts/build-map-bridge.mjs` → 同源生成的stdio桥；只复用现有公共地图服务，生成产物不成为另一份源码真相 |
-| 构建、依赖与发布 | `package.json`、`vite*.config.ts`、`scripts/setup-*.mjs` / `build-*.mjs` / `stage-hermes-runtime.mjs`、`.github/workflows/`；`export-review.mjs` 导出已构建公共产物，不自动发布 |
+| 构建、依赖与发布 | `package.json`、`vite*.config.ts`、`scripts/setup-*.mjs` / `build-*.mjs` / `stage-hermes-runtime.mjs` / `embedding-runtime.mjs`、`.github/workflows/`；`export-review.mjs` 导出已构建公共产物，不自动发布；第五批嵌入资源分发只有源码接线，未打包 |
 | 检查与样例 | `tests/`、`scripts/smoke.mjs` / `desktop-smoke.mjs` / `pdf-smoke.mjs` / `check-review.mjs`、`examples/campus.example.json`、`main/demo.ts`；明确样例与真实运行，文档同步不新增测试运行器 |
 
 ## 地图数据与生成维护

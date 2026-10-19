@@ -15,12 +15,14 @@ import {
 import { terms } from '../shared/schemas';
 import { KernelRepository } from './storage/repository';
 import { RuntimeCoordinator } from './runtime/coordinator';
-import type { ClockPort, HostIdentity } from '../shared/harness';
+import type { AssistantWorkSource, ClockPort, HostIdentity } from '../shared/harness';
 import { redactExport } from './runtime/redaction';
 import { assertTestStoreFile } from './testBoundary';
 import { applyPersonaUpdate, migratePersona, personaStateSchema } from '../shared/persona';
 import { NotesService } from './notes/service';
 import { canonical } from './runtime/semantics';
+import { campusAcademicReference } from '../shared/campus-academic';
+import { isAcademicCampus } from './runtime/campus-academic';
 
 export interface AgendaChange {
   id: string; revision: number; operation: 'upsert' | 'tombstone'; at: string;
@@ -180,12 +182,14 @@ export class Store {
       const run = this.runtime.begin(m.content, m.id, m.sessionId, new AbortController().signal);
       if (run.ephemeral) return;
     }
+    const persisted: Message = m.scenes ? { ...m, scenes: m.scenes.map(scene => scene.kind === 'campus' && isAcademicCampus(scene)
+      ? campusAcademicReference(scene) : scene) } : m;
     this.kernel.write(() => {
       this.db
         .prepare(
           'INSERT INTO messages VALUES(?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET content=excluded.content,payload=excluded.payload',
         )
-        .run(m.id, m.sessionId, m.role, m.content, m.createdAt, JSON.stringify(m));
+        .run(m.id, m.sessionId, m.role, m.content, m.createdAt, JSON.stringify(persisted));
       this.db
         .prepare('UPDATE sessions SET updated_at=? WHERE id=?')
         .run(new Date().toISOString(), m.sessionId);
@@ -194,6 +198,14 @@ export class Store {
         for (const source of new Set([
           ...m.contextReceipt.providedEvidenceIds,
           ...(m.contextReceipt.providedSourceIds || []),
+          ...(m.contextReceipt.campusSensitiveReads || []).map(source => source.authorizationEventId),
+          ...(m.contextReceipt.noteSources || []).map(source => source.id),
+          ...(m.scenes || []).flatMap(scene => scene.kind === 'note' ? [scene.proof.id] : []),
+          ...(m.contextReceipt.personalMethodSources || []).flatMap(source => source.assistance.map(assistance => assistance.messageId)),
+          ...(m.contextReceipt.personalMethodSources || []).flatMap(source => (source.workAssistance || []).flatMap(help =>
+            help.owner === 'companion_session' ? [help.messageId, ...help.assistantMaterials.map(material => material.messageId)] : [])),
+          ...(m.scenes || []).flatMap(scene => scene.kind === 'discussion'
+            ? scene.coWork.flatMap(projection => projection.snapshotProof?.assistantMaterials.map(source => source.messageId) || []) : []),
           ...(m.releaseArtifacts || []).flatMap(artifact => artifact.sourceMessageIds || [artifact.sourceMessageId]),
         ]))
           this.kernel.addDependency(scope, {
@@ -203,6 +215,12 @@ export class Store {
             sensitivity: 'privacy',
             invalidation: 'block',
           });
+        const chapters = [...(m.contextReceipt.assistantWorkSources || []), ...(m.scenes || []).flatMap(scene => scene.kind === 'curiosity'
+          ? (scene.provenance as { assistantWorkSources?: AssistantWorkSource[] }).assistantWorkSources || [] : [])];
+        for (const chapter of new Map(chapters.map(source => [canonical(source), source])).values())
+          for (const [source, revision] of [[chapter.messageId, 1], [chapter.sceneId, chapter.sceneRevision]] as const)
+            this.kernel.addDependency(scope, { consumerId: m.id, producerId: source, producerRevision: revision,
+              sensitivity: 'privacy', invalidation: 'block' });
       }
     });
   }
@@ -420,6 +438,7 @@ export class Store {
     return {
       privacyEpoch: this.kernel.epoch,
       policyRevision: this.kernel.policyRevision,
+      sourceBoundary: this.runtime.policy.sourceBoundary,
       settings: { ...this.settings(), hasKey },
       conversations: this.conversations(),
       memories: this.memories(),
@@ -476,6 +495,7 @@ export class Store {
     });
   }
   close() {
+    void this.runtime?.embeddings.dispose();
     if (this.db.isOpen) this.db.close();
   }
 }

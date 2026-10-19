@@ -1,8 +1,33 @@
-# 持续推进入口 · 2026-10-18
+# 当前接续入口 · 2026-10-19
+
+本次用户要求立即整理项目概况、理念、基线、功能、架构、Harness、OpenUI与地图说明，并把当前进度同步到GitHub。当前工作包含另一对话仍在推进的源码；本次按进度保存，不等待其全部验收，不重置或覆盖它的后续修改。完整导读见[PROJECT_BASELINE](PROJECT_BASELINE.md)，实际证据以[第七批状态](CURRENT_STATUS.md#personal-memory-round7)为准。
+
+## 接手先读什么
+
+1. [README](../README.md)与[源码基线](PROJECT_BASELINE.md)：先区分当前源码、旧v0.3.0 EXE和公共地图部署。
+2. [PROJECT_NAVIGATION](../PROJECT_NAVIGATION.md#companion-experience)：按人的任务定位原owner、中央工具、有限Scene与renderer。
+3. [阶段收尾直接指令](source-materials/2026-10-18/stage-close-and-luna-validation-20261019.md)和[CURRENT_STATUS](CURRENT_STATUS.md#personal-memory-round7)：停止创新外延，完成正常Luna动态领域与已开始单元、修复实际失败，再按要求暂停等用户回来。阶段暂停不等于总目标完成。
+4. 查职责用[ARCHITECTURE](ARCHITECTURE.md)，查理念用[PRODUCT_CONTRACT](PRODUCT_CONTRACT.md)，查动态呈现用[CONVERSATION_SCENES](CONVERSATION_SCENES.md)，遵守根目录[AGENTS](../AGENTS.md)。
+
+## 当前已有证据与剩余工作
+
+正常App／Hermes已实际走通一条真实Luna加隔离合成本地日历的读取→原生时间带→点原项→续问路径，返回型号字段为`gpt-6-luna`。旧`scene_unavailable`与重复时间带分别有修复记录；精确查询双读复用分支未因一次单读而被算作通过。该结果不证明真实校园、全部动态领域、长期记忆或角色效果。成绩、笔记、地图、共做、陪学、来信、好奇、安排比较、排练及新增有限学习图的各自证据和未完范围在当前状态逐项保留。
+
+共创历史、个人方法来由、记忆调查、来源关联、持久调查和本地辅助候选等新增源码，不能用旧262／212／9等检查数字背书。作品地图取景的renderer尚未交付，正常工具入口已冻结；只保留后端与研究，不作为可用界面。手机／平板、同步、设备持续运行和学校写操作也未完成。
+
+真实校园账号已接入且只读使用已授权；无需重复询问同一授权，但具体读取与返回仍须看当前资源、用途和真实回执。只允许唯一操作者在原隔离实例继续实际模型／视觉流程，本次同步不再启动竞争实例。严禁DeepSeek测试调用与新增测试runner；按现有命令和正常入口选择必要检查。私人正文、成绩、凭据、数据库、profile和运行截图不提交。
+
+同步的检查与文件边界见[本次同步记录](CURRENT_STATUS.md#repository-sync-20261019)。新源码仍不是新EXE或Sites更新。后续从包含本页的提交与当前dirty状态继续，小块合并共享文件；不要把正常等待、工具失败或上下文压缩当作会话失败。
+
+---
+
+## 历史接续说明 · 2026-10-18
+
+以下是当时的持续推进和第二批候选记录，保留研究背景；执行节奏及已实现程度以上方2026-10-19入口和最新直接指令为准。它不恢复“本批交付后永不暂停”的旧节奏，也不把后来已实现的规划意图再次列为尚未实施。
 
 总目标继续进行。用户明确要求每批交付后继续重读材料、研究真实候选并实现非平凡改进，不能以本批完成而暂停／完成总目标，也不能用不断增加场景if/else代替设计。[持续要求](source-materials/2026-10-18/ongoing-improvement-20261018.md)只适用于当前已明确启动的目标，不自动为无关新聊天创建目标。
 
-最新第二批从`01afdc4`继续，已实施精确多源citations／修订级来源复核回执、原始坐标的遗忘与纠正、48KB上下文及合法澄清恢复、整体安排时窗、动作能力契约；后端核查之后生成安排窗A/B，再实现并实际检查界面。最新[第二批状态](CURRENT_STATUS.md#personal-memory-round2)及[八方向研究](research/PERSONAL_MEMORY_ROUND2_2026-10-18.md)是当前入口；下文第一批记录继续保留，不能借旧证据覆盖新变化。总目标的实际调度状态须另行读取，不能由仓库检查通过推定，也不因批次交付改为complete／paused。
+当时第二批从`01afdc4`继续，已实施精确多源citations／修订级来源复核回执、原始坐标的遗忘与纠正、48KB上下文及合法澄清恢复、整体安排时窗、动作能力契约；后端核查之后生成安排窗A/B，再实现并实际检查界面。[第二批状态](CURRENT_STATUS.md#personal-memory-round2)及[八方向研究](research/PERSONAL_MEMORY_ROUND2_2026-10-18.md)保留该轮入口；下文第一批记录继续保留，不能借旧证据覆盖新变化。总目标的实际调度状态须另行读取，不能由仓库检查通过推定；后来阶段收尾与暂停按最新直接要求办理。
 
 本批从已合并的 `4edd922` 续作：未提取原文浏览、重叠与历史遗忘、剩余原文整理、子调查限制快照、可回读决策经历、较早准备发现、每日预算与完整占用、真实自然日、技能可用路径。日节奏图先于界面实现；日条／时段引用、环境过期与缩窄、角色预览／真假草稿／冲突已实际观察。能力、证据与限制以 [CURRENT_STATUS](CURRENT_STATUS.md#personal-memory-continuity) 为准，机制见 [ARCHITECTURE](ARCHITECTURE.md)。
 

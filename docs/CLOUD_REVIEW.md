@@ -1,4 +1,6 @@
 # Cloud review
+
+2026-10-19 source synchronization is documented in [PROJECT_BASELINE](PROJECT_BASELINE.md). This page retains the publication's own review scope and evidence; source updates do not establish a fresh Sites deployment. The public map never acquires the desktop Harness, accounts, notes or personal memory by a Git push.
 Open [the recorded public-map publication](https://zaichang-campus-review-20261006.sugary-loom-6961.chatgpt.site/) for the hosted review, or the local review build for the checked-out code. Desktop and review-web share the V3 map implementation; the hosted snapshot is not evidence that subsequent local changes have been deployed. Review-web uses a public-file bridge and contains no personal assistant data.
 
 These hosted URLs refer to the existing publication. Subsequent local audit commits are not reflected there until deployment. Current local audit work still has unresolved source alignment, derivative-use permissions, physical heights/access and full-map review gates; the historical verification below does not certify those later changes or factual gates.

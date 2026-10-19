@@ -86,6 +86,10 @@ export class ToolRegistry {
       if (raw.length > 40000) throw new HarnessError('input_budget', '工具参数超过长度上限。');
       const args = JSON.parse(raw);
       requestedArguments = JSON.parse(redactCredentials(JSON.stringify(args)));
+      if (name === 'read_evidence' && !this.run.pack)
+        await this.context.store.runtime.compile(this.run, false, signal);
+      const readBaseline = this.run.investigation && ['search_context', 'read_evidence'].includes(name)
+        ? this.context.store.runtime.repo.sourceRestrictionSnapshot(this.run.ingress.contract.scope) : undefined;
       const result = await this.context.store.runtime.executeTool(
           this.run,
           name,
@@ -126,8 +130,18 @@ export class ToolRegistry {
           status: 'unknown',
           reason: '结果超过本轮预算，请缩小查询；没有截去必要条件后继续回答。',
         });
-      const safe = redactCredentials(output);
-      (this.run.observations ||= []).push({ tool: name, requestedArguments, result: JSON.parse(safe), ...(toolCallId ? { toolCallId } : {}) });
+      let finalResult = JSON.parse(redactCredentials(output));
+      if (name === 'read_evidence' && this.run.pack && typeof args.id === 'string'
+        && !['failed', 'forbidden', 'unsupported', 'not_connected', 'unknown', 'stale', 'conflict'].includes((result as any)?.status))
+        finalResult = this.context.store.runtime.context.recordEvidenceRead(this.run.pack, result, finalResult, args.id,
+          this.specs().some(tool => tool.function.name === 'restore_collaboration'));
+      const safe = JSON.stringify(finalResult);
+      signal.throwIfAborted();
+      this.context.store.runtime.policy.validate(this.run.ingress.contract.scope);
+      if (this.run.investigation && toolCallId && ['search_context', 'read_evidence'].includes(name))
+        this.context.store.runtime.investigation.stageOutput(this.run.investigation,
+          this.run.ingress.contract.scope, name, toolCallId, result, finalResult, readBaseline);
+      (this.run.observations ||= []).push({ tool: name, requestedArguments, result: finalResult, ...(toolCallId ? { toolCallId } : {}) });
       return safe;
     } catch (error) {
       if (signal.aborted) throw error;

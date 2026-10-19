@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-18",
+  "generator": "OpenAI built-in image_gen",
+  "use": "Private design reference for the existing Today view; not a runtime background, real user facts, external account observation, public review asset, app package asset, or proof of validation.",
+  "selected": "campus-day-a.png",
+  "files": [
+    { "file": "campus-day-a.png", "bytes": 1655536, "sha256": "39562ed91be07555e5194030ec1847731295e5d2167ba6f214bc31c1da33b8f6" },
+    { "file": "campus-day-b.png", "bytes": 1657785, "sha256": "ee59cd9a9cdcc7c241466c61cb7699ab076083b05cbc308c35b42e86585fe819" }
+  ],
+  "decision": "A keeps one continuous chronological list on wide and narrow layouts. Campus records are read-only with book marks; personal actions preserve their existing controls. B's dual lanes become separate narrow groups and its campus completion circles misrepresent the domain.",
+  "implementationStatus": "Source implementation follows image generation; user requested deferring validation. No current rendering or interaction outcome claimed.",
+  "prompts": [
+    {
+      "file": "campus-day-a.png",
+      "prompt": "Use case: ui-mockup. Asset type: design study A for the existing Zaichang Windows personal companion app Today page, desktop plus a narrow-window inset. Create an elegant high fidelity Chinese interface mockup, warm ivory and warm grey, restrained muted gold, airy paper-like surfaces, calm serif heading with modern legible Chinese UI text. Existing light header: 在场, tabs 聊天 今天 留下, subtle avatar, Windows window controls. Heading 今天，慢慢安排。 and date 10月19日 周一, quiet week date strip. MAIN INNOVATION: one continuous chronological day spine combines campus classes/exams (thin warm-grey stripe and a small book icon, clearly labelled 课程 or 考试, no completion circles/no remove) and the person's own accepted plans (hollow completion circle, slightly warmer paper treatment). Real example content for layout only: 08:00–09:35 线性代数 东1-201 / 课程; 10:30–11:15 把上次的证明接着想 / 我的安排; 14:00–15:30 物理实验 东4实验楼 / 课程; 18:20 去东区食堂 / 我的安排, end unknown shown as 结束未定, no invented end. The page shows a concise enabled control 课表一起看 near the date, a discreet 看来源 expander, and a single 接着聊这一天 action below the timeline. Preserve blank space with no free-time amount, progress bar, productivity score or suggested sleep. Course rows are read-only; campus records are not copied into the personal calendar. No permanent sidebar, memory dashboard, long disclaimer, technical status, scope/hash/API/receipt, fake save confirmation, or notification. The narrow 500px inset uses the same single spine, wraps long course titles and location; actions remain comfortable. Other existing filters 全部 还没定时间 做过的事 and 搜索 can be quiet secondary controls. Keep the atmosphere of a familiar sunlit window with only a very subtle ambient wash, no huge character illustration, no heavy cards or crowded toolbar. Design a usable existing-product evolution, not a new dashboard."
+    },
+    {
+      "file": "campus-day-b.png",
+      "prompt": "Use case: ui-mockup. Asset type: competing design study B for the EXISTING Zaichang personal companion Today page. Chinese desktop app plus narrow-window inset, warm ivory/warm gray, gentle window light, restrained muted gold, elegant serif heading and readable modern Chinese controls, no large character illustration. Header 在场 with 聊天 今天 留下 tabs. Title 今天，慢慢安排。 date 10月19日 周一 and the established week date strip. Explore an ALTERNATIVE to a single interleaved timeline: two adjacent quiet synchronized lanes, one shared time gutter, lane labels 学校里的安排 and 自己的安排. Campus class blocks read only with book icon, personal plan blocks with hollow completion circle. Example day for layout: 08:00–09:35 线性代数 东1-201 in campus lane; 10:30–11:15 把上次的证明接着想 in personal lane; 14:00–15:30 物理实验 东4实验楼 in campus lane; 18:20 去东区食堂 结束未定 in personal lane. No free/busy fill, no productivity numbers, no claim of free time. Control 课表一起看 and a concise 看来源 disclosure. Preserve existing personal editing/delete, calendar export and search as small quiet secondary controls, no task dashboard or permanent new sidebar. On narrow screen the lanes become two labelled groups while preserving clear date/time, avoiding tiny type. One simple 接着聊这一天 action. Keep the view calm and honest: no fake save/sync confirmation, engineering vocabulary, database identifiers, progress reports, empty-state tutorial, or long disclaimers. This is a design image with invented layout content, not runtime facts."
+    }
+  ],
+  "distribution": "Private project design reference only. Generated from text without source images or real student data; no new third-party redistribution license asserted."
+}

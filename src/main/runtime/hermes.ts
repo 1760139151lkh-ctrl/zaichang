@@ -35,7 +35,7 @@ export interface HermesRun {
   signal: AbortSignal;
   /** Mechanism probes may shorten the host deadline, never extend it. */
   rpcDeadlineMs?: number;
-  validate: () => void;
+  validate: () => void | Promise<void>;
   model: (request: { messages: ModelWireMessage[]; tools?: ToolSpec[]; thinking?: { type: string }; [key: string]: unknown }, operationSignal?: AbortSignal) => Promise<{ assistant: ModelWireMessage; usage?: unknown }>;
   tool: (name: string, args: unknown, callId: string, agentId?: string, operationSignal?: AbortSignal) => Promise<unknown>;
   children?: {
@@ -54,9 +54,10 @@ export interface HermesResult {
 }
 
 /** Transport/state adapter only: the production model/tool loop lives in AIAgent. */
-export function runHermes(input: HermesRun): Promise<HermesResult> {
+export async function runHermes(input: HermesRun): Promise<HermesResult> {
   input.signal.throwIfAborted();
-  input.validate();
+  await input.validate();
+  input.signal.throwIfAborted();
   const rpcDeadlineMs = input.rpcDeadlineMs ?? HERMES_RPC_DEADLINE_MS;
   if (!Number.isSafeInteger(rpcDeadlineMs) || rpcDeadlineMs <= 0 || rpcDeadlineMs > HERMES_RPC_DEADLINE_MS)
     throw new Error('Hermes RPC 截止时间只能在宿主上限内缩短。');
@@ -74,7 +75,7 @@ export function runHermes(input: HermesRun): Promise<HermesResult> {
   environment.HERMES_HOME = path.join(root, '.runtime', 'hermes-home');
   environment.ZAICHANG_HERMES_HOST = '1';
   const identity = { version: 1, run_id: input.runId, parent_run_id: input.parentRunId || null, epoch: input.epoch, task_version: input.taskVersion };
-  return new Promise((resolve, reject) => {
+  return new Promise<HermesResult>((resolve, reject) => {
     const child = spawn(python, ['-I', '-X', 'utf8', '-B', script], { cwd: root, env: environment, windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] });
     let buffer: Buffer = Buffer.alloc(0), sequence = 0, sentSequence = 0, settled = false;
     const pending = new Set<Promise<void>>(), childIds = new Set<string>();
@@ -98,14 +99,18 @@ export function runHermes(input: HermesRun): Promise<HermesResult> {
       const prefix = Buffer.alloc(4); prefix.writeUInt32BE(data.length);
       child.stdin.write(Buffer.concat([prefix, data]));
     };
-    const handle = async (frame: any) => {
+    const handle = async (frame: any, preceding: Promise<void>[]) => {
       if (settled) return;
-      input.signal.throwIfAborted(); input.validate();
+      input.signal.throwIfAborted(); await input.validate(); input.signal.throwIfAborted();
+      if (settled) return;
       input.event?.({ kind: frame.kind, sequence: frame.sequence, payload: frame.kind === 'run.error' || frame.kind === 'run.ready' ? frame.payload : undefined });
       if (frame.kind === 'run.error') throw new Error('Hermes 侧车失败：' + JSON.stringify(frame.payload));
       if (frame.kind === 'run.final') {
-        await Promise.all([...pending]);
-        input.signal.throwIfAborted(); input.validate();
+        // Validation can now await owner recovery. Capture predecessors before
+        // registering this final frame so it never waits for its own promise.
+        await Promise.all(preceding);
+        if (settled) return;
+        input.signal.throwIfAborted(); await input.validate(); input.signal.throwIfAborted();
         settled = true;
         close();
         resolve(frame.payload as HermesResult);
@@ -129,7 +134,7 @@ export function runHermes(input: HermesRun): Promise<HermesResult> {
         if (operationSignal.aborted) onAbort();
       });
       const dispatch = async () => {
-        operationSignal.throwIfAborted(); input.validate();
+        operationSignal.throwIfAborted(); await input.validate(); operationSignal.throwIfAborted();
         if (frame.kind === 'model.request') return input.model(frame.payload, operationSignal);
         if (frame.kind === 'tool.request') return input.tool(frame.payload.name, frame.payload.arguments, frame.payload.tool_call_id, agentId, operationSignal);
         if (frame.kind === 'delegate.authorize' && input.children && agentId === input.runId) {
@@ -137,21 +142,21 @@ export function runHermes(input: HermesRun): Promise<HermesResult> {
             await input.children.authorize(frame.payload.arguments, frame.payload.tool_call_id, operationSignal);
             return { authorized: true };
           } catch (error) {
-            operationSignal.throwIfAborted(); input.validate();
+            operationSignal.throwIfAborted(); await input.validate(); operationSignal.throwIfAborted();
             return { authorized: false, error: { code: error instanceof HarnessError ? error.code : 'delegation_rejected',
               message: error instanceof HarnessError ? error.message : '独立调查未获当前范围许可，请核对来源与任务。' } };
           }
         }
         if (frame.kind === 'child.open' && input.children && agentId === input.runId) {
           const ticket = await input.children.open(frame.payload.task, operationSignal);
-          operationSignal.throwIfAborted(); input.validate();
+          operationSignal.throwIfAborted(); await input.validate(); operationSignal.throwIfAborted();
           if (childIds.has(ticket.id) || ticket.id === input.runId) throw new Error('重复的子任务标识。');
           if (ticket.snapshot) childSnapshots.set(ticket.id, JSON.stringify(ticket.snapshot));
           childIds.add(ticket.id); return ticket;
         }
         if (['child.started', 'child.finished'].includes(frame.kind) && input.children && childIds.has(agentId)) {
           const status = frame.kind === 'child.started' ? 'running' : frame.payload.status === 'produced' ? 'produced' : 'failed';
-          const accepted = input.children.event(agentId, status);
+          const accepted = await input.children.event(agentId, status);
           return { received: true, status: ['running', 'produced', 'failed'].includes(String(accepted)) ? accepted : status };
         }
         if (frame.kind === 'delegate.result' && input.children && agentId === input.runId) {
@@ -162,11 +167,11 @@ export function runHermes(input: HermesRun): Promise<HermesResult> {
       };
       try {
         const payload = await Promise.race([dispatch(), cancelled]);
-        operationSignal.throwIfAborted(); input.validate();
+        operationSignal.throwIfAborted(); await input.validate(); operationSignal.throwIfAborted();
         if (!settled) write({ ...identity, kind: 'response', request_id: frame.request_id, payload });
       } catch (error) {
         if (!(error instanceof RpcDeadlineError) || input.signal.aborted) throw error;
-        input.validate();
+        await input.validate();
         if (!settled) write({ ...identity, kind: 'response', request_id: frame.request_id,
           error: { code: error.code, outcome: 'unknown', message: error.message } });
       } finally {
@@ -187,11 +192,12 @@ export function runHermes(input: HermesRun): Promise<HermesResult> {
           buffer = buffer.subarray(size + 4);
           if (frame.version !== 1 || frame.run_id !== input.runId || frame.epoch !== input.epoch || frame.task_version !== input.taskVersion || frame.parent_run_id !== identity.parent_run_id || frame.sequence !== ++sequence)
             throw new Error('Hermes 运行归属、版本或事件顺序不匹配。');
-          const request = handle(frame).catch(error => {
+          const request = handle(frame, [...pending]).catch(async error => {
             const agentId = frame.payload?.agent_id;
             if (agentId && childIds.has(agentId) && ['model.request', 'tool.request'].includes(frame.kind) && !input.signal.aborted && !settled) {
               try {
-                input.validate();
+                await input.validate();
+                input.signal.throwIfAborted();
                 write({ ...identity, kind: 'response', request_id: frame.request_id, error: { code: error?.code || 'child_call_failed' } });
                 return;
               } catch { /* A parent boundary failure still stops the whole tree. */ }

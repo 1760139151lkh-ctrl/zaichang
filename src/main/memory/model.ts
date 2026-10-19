@@ -12,6 +12,7 @@ import type { MemoryContext, MemoryService, SemanticReview } from './service';
 import type { PolicyKernel } from '../runtime/policy';
 import { canonical, codePointSlice, locateQuote } from '../runtime/semantics';
 import { contextRequestSchema, validateMemoryContextSnapshot } from './context-windows';
+import { sourceContextGuidance } from '../../shared/source-context';
 
 const extraction = z
   .object({
@@ -64,6 +65,10 @@ export function bindModelSemantics(
     policy.validate(contract.scope);
     validateMemoryContextSnapshot(memory.repo, contract.scope, event, span.context);
     const request: WireMessage[] = [
+        ...sourceContextGuidance(event.sourceContext, span.context?.current?.sourceContext,
+          ...(span.context?.sourceWindows || []).map(source => source.sourceContext),
+          ...(span.context?.priorEvents || []).map(source => source.sourceContext))
+          .map(content => ({ role: 'system' as const, content })),
         {
           role: 'system',
           content:
@@ -81,6 +86,7 @@ export function bindModelSemantics(
               subjectId: event.subjectId,
               worldId: event.worldId,
               authority: event.authority,
+              ...(event.sourceContext ? { sourceContext: event.sourceContext } : {}),
               spanId: span.id,
               start: span.start,
               end: span.end,
@@ -225,6 +231,10 @@ export function bindModelSemantics(
         { role: 'system', content: 'EXPIRE立即停止使用已有理解/约定。hostProposedRetirement是宿主实际拟写状态与时刻：status=expired、timing=immediate，recordedFrom/recordedTo表示本次退休版本的记录时刻，candidate的时间已正规化为实际拟写的合法区间。有效内容区间和停止使用时刻分开判断：已经成立一段时间的理解/约定，可按本轮明确结束要求将validTo收束到结束时刻，不必坚持原计划截止日；只有同刻停止或在原未来起点之前停止会形成零宽/倒置时，才保留合法原计划区间。保留计划区间不表示继续使用，也不声称计划已经发生；停止使用亦不证明用户原状态已经相反、恢复或偏好逆转，来源未说明的不能补造。preservesTime必须同时核对用户要求的停止时机：未来才停止不能支持宿主今天立即退休，即使candidate.validTo填了未来日期也不能通过；应拒绝这个立即操作，交由合适的未来期限调整路径，不能一概拒绝所有未来修改。现在明确停止使用则可维护，不需要虚构新futureUse。' },
         { role: 'system', content: 'hostSupportSet仅包含宿主按权限、版本与Unicode定位解析的实际声明引用。候选的主体、指代、原因、时间和条件必须由这些quotes共同支持；source完整正文只能检查遗漏、矛盾或quote是否断章取义，不能从quote之外补足候选后仍声称引用完整，同一event的另一段也不例外。discoveryPointers没有证据正文，不能用它补事实；旧target引用用于比对真实旧范围，不能替代新候选未声明的当前支持。即使只有一个primary，也必须输出allSourcesSupportClaim、supportSetComplete，并在sourceReviews逐项原样列出声明的每个eventId/contentVersion/start/end及supported布尔，不能漏项、加项或把一个quote核验替代全部。引用不足或条件只在未声明正文中才有，supportSetComplete=false且不得通过；角色authorization只证明精确记录许可，不能成为人物事实。旧sourceCoverage=incomplete不能证明旧条件已全部保留。完整性是你的可复核语义判断，不是形式证明。' },
         ...(context?.currentOwnerProjection ? [{ role: 'system' as const, content: 'hostCurrentOwnerProjection仅是宿主拟写计划，尚未创建推断证据，也不是许可。source.text是完整当前用户正文，包含混合主体；source.subjectId的宿主所有者标签不证明每句话属于本人。仅当statement确实是用户自己现实中的陈述，且recordingRequest明确要求把这一条本人内容用于后续记忆时，authorizesOwnerProjection才为true。逐字出现“我”或“记住”不足：他人引文、附件/示例、假设与否定保存的原话不能授权。事实片段、记录许可及其指代必须共同由完整原文支持；不能把记录他人或仅本轮交流的要求改成本人未来记忆。另按原协议核supported、主体、现实、时间、条件以及derivation/futureUse/useScope/preservesUseScope。归属或许可有疑义用false，派生用途有疑义用needs_context；所有字段必须明确填写。该判定不扩大整条原文的infer，也不允许读取历史或修改已有对象。' }] : []),
+        ...sourceContextGuidance(event.sourceContext,
+          ...(context?.hostSupportSet?.sources || []).map(source => source.sourceContext),
+          ...(context?.priorEvents || []).map(source => source.sourceContext))
+          .map(content => ({ role: 'system' as const, content })),
         {
           role: 'user',
           content: canonical({
@@ -232,6 +242,7 @@ export function bindModelSemantics(
               id: event.id, contentVersion: event.contentVersion, infer: event.label.infer, speaker: event.speaker,
               text: event.text,
               authority: event.authority,
+              ...(event.sourceContext ? { sourceContext: event.sourceContext } : {}),
               subjectId: event.subjectId,
               worldId: event.worldId,
             },

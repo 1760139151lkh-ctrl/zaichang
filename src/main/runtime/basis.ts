@@ -3,9 +3,18 @@ import { HarnessError, type ScopeHandle, type WorkRecord } from '../../shared/ha
 import type { KernelRepository } from '../storage/repository';
 import type { PolicyKernel } from './policy';
 import type { WorkService } from './work';
-import { locateQuote } from './semantics';
+import { resolveSourceQuote } from './source-quote';
 
-const source = z.object({ eventId: z.string().min(1).max(160), quote: z.string().min(1).max(3000) }).strict();
+const source = z.object({
+  eventId: z.string().min(1).max(160), quote: z.string().min(1).max(3000),
+  contentVersion: z.number().int().positive().optional(),
+  start: z.number().int().nonnegative().optional().describe('原文中quote的绝对Unicode码点起点；重复引文给完整真实位置，或扩大逐字quote使其唯一。'),
+  end: z.number().int().positive().optional(),
+}).strict().superRefine((value, context) => {
+  if (['contentVersion', 'start', 'end'].some(field => Object.hasOwn(value, field))
+    && (value.contentVersion === undefined || value.start === undefined || value.end === undefined || value.end <= value.start))
+    context.addIssue({ code: 'custom', path: ['start'], message: '原话位置需要完整的contentVersion/start/end，且end须晚于start；不完整位置不能重新寻找。' });
+});
 export const basisInput = z.object({
   operation: z.enum(['use', 'revise', 'retire', 'read']),
   id: z.string().max(160).optional(), expectedRevision: z.number().int().positive().optional(),
@@ -27,17 +36,19 @@ export class BasisService {
 
   private cite(handle: ScopeHandle, citation: z.infer<typeof source>, allowHistorical = false) {
     const event = this.repo.evidence(handle, citation.eventId);
-    if (!event || event.speaker !== 'user' || !event.text.includes(citation.quote))
+    if (!event || event.speaker !== 'user')
       throw new HarnessError('unsupported_evidence', '这项理解需要对应的用户原话。');
+    const source = resolveSourceQuote(event, citation);
+    if (!source) throw new HarnessError('unsupported_evidence', '这段依据原话的位置不唯一、已改变或不完整；请扩大逐字引文，或提供真实的contentVersion/start/end。');
     if (!allowHistorical) {
-      const range = locateQuote(event.text, citation.quote), now = Date.parse(this.repo.clock.now());
+      const range = source, now = Date.parse(this.repo.clock.now());
       const restricted = this.repo.sourceRestrictions(handle, event.id).some(restriction =>
         (!restriction.effectiveFrom || Date.parse(restriction.effectiveFrom) <= now) &&
         (restriction.predicate === '*' || restriction.rangeUnknown || restriction.ranges.some(span =>
           span.contentVersion !== event.contentVersion || span.start < range.end && span.end > range.start)));
       if (restricted) throw new HarnessError('basis_source_changed', '这段原话对应的理解已经变化，需要依据当前原话重新判断；无关片段仍可使用。');
     }
-    return event;
+    return { event, source };
   }
 
   read(handle: ScopeHandle, matterId?: string) {
@@ -57,7 +68,7 @@ export class BasisService {
     const scope = this.policy.require(handle, 'work:write');
     if (!input.source) throw new HarnessError('source_required', '需要原话依据，不能凭空建立持续状态。');
     this.recheck();
-    const event = this.cite(handle, input.source, input.operation === 'retire');
+    const { event, source } = this.cite(handle, input.source, input.operation === 'retire');
     const old = input.id ? this.repo.work(handle, undefined, input.id)[0] : undefined;
     if (input.id && (!old || old.data.type !== 'basis_use')) throw new HarnessError('basis_missing', '没有找到这项依据使用。');
     if (old && old.revision !== input.expectedRevision) throw new HarnessError('revision_conflict', '这项理解已变，请先读取当前版本。');
@@ -75,7 +86,7 @@ export class BasisService {
         this.repo.invalidate(old!.id, 'basis_' + standing);
         return this.work.update(handle, old!.id, old!.revision, {
           status: standing, evidenceIds: [...new Set([...old!.evidenceIds, event.id])],
-          data: { ...old!.data, endedBy: { ...input.source!, contentVersion: event.contentVersion }, endedAt: this.repo.clock.now(), inverseEstablished: false },
+          data: { ...old!.data, endedBy: { ...source }, endedAt: this.repo.clock.now(), inverseEstablished: false },
         });
       });
     }
@@ -88,7 +99,7 @@ export class BasisService {
       type: 'basis_use', sessionId, matterId, purpose: input.purpose,
       interpretation: input.interpretation, validWhen: input.validWhen, stopWhen: input.stopWhen,
       recheckAt: input.recheckAt, applicability: input.applicability, subjectId: scope.subjectId, worldId: scope.worldId,
-      source: { ...input.source, ...locateQuote(event.text, input.source.quote), contentVersion: event.contentVersion, receivedAt: event.receivedAt },
+      source: { ...source, receivedAt: event.receivedAt },
       inverseEstablished: false,
     };
     return this.repo.write(() => {

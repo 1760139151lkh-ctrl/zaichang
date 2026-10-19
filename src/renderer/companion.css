@@ -23,7 +23,17 @@
 .companion-scene.has-custom-art .companion-figure > img { width: 100%; height: 100%; top: auto; bottom: 0; left: 0; translate: none; object-fit: contain; object-position: center bottom; transform-origin: center bottom; }
 .companion-scene.is-quiet .window-room { opacity: .08; }
 .companion-scene.is-quiet .room-night { opacity: 0; }
-.companion-scene.is-quiet .companion-figure { display: none; }
+.companion-scene.is-quiet:not(.is-preview) .companion-figure {
+  display: block; width: clamp(180px, 19vw, 280px); height: clamp(130px, 17vh, 185px);
+  top: 72px; right: 8px; bottom: auto; opacity: 1; overflow: hidden;
+  transform: translateX(calc((var(--figure-position, 50%) - 50%) * .12));
+  mask-image: linear-gradient(to bottom, #000 0%, #000 97%, transparent 100%);
+}
+.companion-scene.is-quiet:not(.is-preview) .companion-figure > img { height: var(--portrait-height, 210%); top: var(--portrait-top, 0%); left: calc(52% + var(--art-offset, 0%)); animation: none; }
+.companion-scene.has-custom-art.is-quiet:not(.is-preview) .companion-figure > img {
+  width: 100%; height: 100%; top: 0; left: 0; translate: none; object-fit: contain; object-position: center top;
+}
+.companion-scene.is-quiet.is-preview .companion-figure { display: none; }
 .companion-scene.is-quiet .window-wash { background: linear-gradient(90deg, var(--bg), transparent 90%); }
 :root[data-theme='dark'] .room-day { opacity: 0; }
 :root[data-theme='dark'] .room-night { opacity: 1; }
@@ -141,6 +151,9 @@
   .character-choices { gap: 8px; }
   .companion-categories { gap: 17px; }
   .character-choices { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 1100px) {
+  .companion-scene.is-quiet:not(.is-preview) .companion-figure { width: 130px; height: 96px; top: 53px; right: 18px; opacity: .9; }
 }
 @media (max-width: 760px) {
   .companion-settings { grid-template-columns: minmax(0, 1fr); }

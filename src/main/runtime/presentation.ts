@@ -3,7 +3,18 @@ import { DEFAULT_SETTINGS, type Message, type State } from '../../shared/types';
 import type { ObjectPresentationState, PreparationView, SharedMatterView, SurfaceView } from '../../shared/presentation';
 import type { Store } from '../store';
 import { readReleaseArtifacts } from './release-store';
-import { HarnessError } from '../../shared/harness';
+import { HarnessError, type ScopeHandle } from '../../shared/harness';
+import { reflectiveLetterProjectInput, type ReflectiveLetterProjectInput } from '../../shared/reflective-letter';
+import { rehearsalHistoryReference } from '../../shared/relationship-rehearsal';
+import { noteHistoryReference } from '../../shared/note-presentation';
+import { studyHistoryReference, type StudyScene } from '../../shared/study-presentation';
+import { curiosityHistoricalProjection } from '../../shared/curiosity-scene';
+import { assertCuriositySnapshotSourcesReadable } from './curiosity-scene';
+import type { SceneSnapshot } from '../../shared/scenes';
+import { campusAcademicReference } from '../../shared/campus-academic';
+import { isAcademicCampus } from './campus-academic';
+
+type PresentationRead = { liveCuriosity?: boolean; liveRehearsal?: boolean; liveNote?: boolean; liveCampus?: boolean };
 
 /** Audience projection happens before IPC. Public presentation has neither
  * private transcript payloads nor hidden explanations in DOM/ARIA metadata. */
@@ -39,7 +50,7 @@ export class PresentationService {
     if (!record) return null;
     const options = (Array.isArray(record.data.optionIds) ? record.data.optionIds : []).flatMap(id => {
       const option = this.store.kernel.work(scope, undefined, String(id))[0];
-      if (!option || option.data.type === 'planning_intent' || !['option', 'plan'].includes(option.kind) || ['blocked', 'stale', 'rejected', 'cancelled', 'needs_review'].includes(option.status)) return [];
+      if (!option || ['planning_intent', 'rehearsal_expression'].includes(String(option.data.type)) || !['option', 'plan'].includes(option.kind) || ['blocked', 'stale', 'rejected', 'cancelled', 'needs_review'].includes(option.status)) return [];
       const point = typeof option.data.placeId === 'string' ? runtime.connections.map?.point(option.data.placeId) : undefined;
       return [{ id: option.id, revision: option.revision, title: option.title, ...(point ? { placeId: point.id, placeLabel: point.displayName } : {}) }];
     });
@@ -51,7 +62,8 @@ export class PresentationService {
   matters(): SharedMatterView[] {
     if (this.public) return [];
     const runtime = this.store.runtime, scope = runtime.policy.hostScope();
-    return this.store.kernel.workData(scope, ['collaboration_frame'], { statuses: ['active', 'needs_review'], limit: 5 }).flatMap(record => {
+    return this.store.kernel.workData(scope, ['collaboration_frame'], { statuses: ['active', 'needs_review'], excludeCuriosityInvitations: true, limit: 5 }).flatMap(record => {
+      if (record.data.curiosityInvitation === true) return [];
       const view = this.matter(record.id, record.revision); return view?.options.length ? [view] : [];
     });
   }
@@ -83,8 +95,12 @@ export class PresentationService {
   }
   preparations(): PreparationView[] {
     if (this.public) return [];
-    return this.store.runtime.attention.available(this.store.runtime.policy.hostScope()).map(record => {
+    const runtime = this.store.runtime, scope = runtime.policy.hostScope();
+    return runtime.attention.available(scope).flatMap(record => {
+      if (!runtime.reflectiveLetters.recordReadable(scope, record)) return [];
       const artifact = record.data.artifact as unknown as { title: string; body: string; scenes?: import('../../shared/scenes').SceneSnapshot[] };
+      const reflectiveLetter = record.data.reflectiveLetter ? runtime.reflectiveLetters.projectRecord(scope, record) : undefined;
+      if (record.data.reflectiveLetter && !reflectiveLetter) return [];
       const sources = (Array.isArray(record.data.material) ? record.data.material : []).flatMap(material => {
         const value = material as { evidenceId?: string; sourceId?: string; observedAt?: string };
         const event = value.evidenceId ? this.store.kernel.evidence(this.store.runtime.policy.hostScope(), value.evidenceId) : undefined;
@@ -92,41 +108,111 @@ export class PresentationService {
         if (!sourceId) return [];
         return [{ label: sourceId === 'map:local' ? '校园步行地图' : sourceId === 'campus:local' ? '导入的校园资料' : sourceId.startsWith('campus:') ? '已连接的校园资料' : sourceId === 'web:public' ? '公开资料' : '本次提供或查询的资料', ...(value.observedAt || event?.receivedAt ? { at: value.observedAt || event!.receivedAt } : {}) }];
       });
-      return { id: record.id, revision: record.revision, matterId: String(record.data.matterId), title: artifact.title, body: artifact.body, expiresAt: String(record.data.expiresAt), kind: record.status === 'question_ready' ? 'question' : 'material', sources, ...(artifact.scenes ? { scenes: this.currentScenes(artifact.scenes) } : {}), ...(record.data.helpRecordId ? { helpRecordId: String(record.data.helpRecordId) } : {}) };
+      return [{ id: record.id, revision: record.revision, matterId: String(record.data.matterId), title: artifact.title, body: artifact.body, expiresAt: String(record.data.expiresAt), kind: record.status === 'question_ready' ? 'question' as const : 'material' as const, sources,
+        ...(reflectiveLetter ? { reflectiveLetter } : {}), ...(artifact.scenes ? { scenes: this.currentScenes(artifact.scenes) } : {}), ...(record.data.helpRecordId ? { helpRecordId: String(record.data.helpRecordId) } : {}) }];
     });
+  }
+  /** A kept letter is read through its original help reference, never copied
+   * into a new message owner or reactivated as a current opportunity. */
+  letterProject(handle: ScopeHandle, raw: ReflectiveLetterProjectInput): PreparationView {
+    if (this.public) throw new HarnessError('letter_private', '先回到自己的对话，再打开那封信。');
+    const input = reflectiveLetterProjectInput.parse(raw), runtime = this.store.runtime;
+    runtime.policy.validate(handle);
+    const message = this.store.messages(input.sessionId).find(value => value.id === input.messageId && value.role === 'assistant');
+    const matches = (ref: NonNullable<Message['helpRefs']>[number]) => ref.id === input.ref.id
+      && ref.revision === input.ref.revision && ref.helpRecordId === input.ref.helpRecordId;
+    if (!message?.helpRefs?.some(matches) || !this.sourceCurrentMessage(message).helpRefs?.some(matches))
+      throw new HarnessError('letter_reference_missing', '这封信的入口已不在当前可读的原回复里。');
+    const record = this.store.kernel.work(handle, undefined, input.ref.id)[0];
+    if (!record || record.revision < input.ref.revision || record.data.type !== 'help_opportunity'
+      || record.data.helpRecordId !== input.ref.helpRecordId || !record.data.reflectiveLetter)
+      throw new HarnessError('letter_reference_changed', '原来那封信现在不能展开，没有用另一封信替它补回。');
+    // The writer forbids replacing an existing document in this opportunity.
+    // Ordinary dismissal/expiry may advance its envelope revision while the
+    // kept letter and all of its real source proofs remain the same owner.
+    const read = runtime.reflectiveLetters.read(handle, { operation: 'read', opportunityId: record.id, expectedRevision: record.revision });
+    if (!read.letter) throw new HarnessError('letter_source_changed', '这封信的一处来由已改变，先接回现在允许的话。');
+    const letter = { ...read.letter, historical: true as const };
+    return { id: record.id, revision: record.revision, matterId: String(record.data.matterId || record.data.bindingId || record.id),
+      title: letter.title, body: letter.body, expiresAt: String(record.data.expiresAt), kind: 'material',
+      helpRecordId: input.ref.helpRecordId, reflectiveLetter: letter };
   }
   state(value: State): State {
     const surface = this.surface();
     if (this.public) return { settings: { ...DEFAULT_SETTINGS }, conversations: [], memories: [], agenda: [], campus: null, campusConnector: null, presentation: surface, preparations: [], matters: [] };
     return { ...value, presentation: surface, preparations: this.preparations(), matters: this.matters() };
   }
-  private currentScenes(scenes: import('../../shared/scenes').SceneSnapshot[]) {
+  private sceneReadable(scene: SceneSnapshot, options: PresentationRead = {}) {
     const runtime = this.store.runtime, scope = runtime.policy.hostScope();
-    return scenes.filter(scene => scene.kind !== 'planning' || !scene.continuation || runtime.scenes.snapshotReadable(scope, scene));
+    if (scene.kind === 'curiosity' && options.liveCuriosity) {
+      try { assertCuriositySnapshotSourcesReadable({ repo: this.store.kernel, policy: runtime.policy }, scope, scene); return true; }
+      catch (error) { if (error instanceof HarnessError || error instanceof Error && error.name === 'ZodError') return false; throw error; }
+    }
+    return runtime.scenes.snapshotReadable(scope, scene);
   }
+  private historicalScene(scene: SceneSnapshot, options: PresentationRead) {
+    if (scene.kind === 'campus' && isAcademicCampus(scene) && !options.liveCampus) return campusAcademicReference(scene);
+    if (scene.kind === 'note' && !options.liveNote) return noteHistoryReference(scene);
+    if (scene.kind === 'discussion') {
+      try { return this.store.runtime.scenes.discussionSnapshot(this.store.runtime.policy.hostScope(), scene); }
+      catch (error) {
+        if (!(error instanceof HarnessError || error instanceof Error && error.name === 'ZodError')) throw error;
+        // Keep the original only as an input to the common denied-source gate;
+        // no stale projection escapes through this fallback.
+        return scene;
+      }
+    }
+    if (scene.kind === 'rehearsal' && !options.liveRehearsal) return rehearsalHistoryReference(scene);
+    return scene.kind === 'curiosity' && !options.liveCuriosity ? curiosityHistoricalProjection(scene) : scene;
+  }
+  private currentScenes(scenes: import('../../shared/scenes').SceneSnapshot[], options: PresentationRead = {}) {
+    return scenes.flatMap<SceneSnapshot>(scene => {
+      if (this.studySnapshot(scene)) return [studyHistoryReference(scene)];
+      if (scene.kind === 'study_reference') return [scene];
+      const projected = this.historicalScene(scene, options);
+      if (projected.kind === 'curiosity_reference' || projected.kind === 'rehearsal_reference' || projected.kind === 'note_reference') return [projected];
+      return this.sceneReadable(projected, options) ? [projected] : [];
+    });
+  }
+  private studySnapshot(scene: SceneSnapshot): scene is StudyScene { return scene.kind === 'study'; }
   /** Historical IPC and exports must apply the same source gate as scene tools. */
-  sourceCurrentMessage(value: Message): Message {
+  sourceCurrentMessage(value: Message, options: PresentationRead = {}): Message {
     const runtime = this.store.runtime, scope = runtime.policy.hostScope();
-    const snapshots = [...(value.scenes || []), ...runtime.scenes.all(value.sessionId)];
+    const scopeData = runtime.policy.validate(scope);
+    const snapshots = [...new Map([...(value.scenes || []), ...runtime.scenes.all(value.sessionId)]
+      .map(scene => [`${scene.id}@${scene.revision}`, this.historicalScene(scene, options)])).values()];
     const referenced = new Set((value.views || []).flatMap(view => view.sceneRefs.map(ref => `${ref.id}@${ref.revision}`)));
-    const attached = snapshots.filter(scene => scene.kind === 'planning' && scene.continuation
+    const attached = snapshots.filter(scene => !this.studySnapshot(scene) && scene.kind !== 'study_reference' && scene.kind !== 'curiosity_reference' && scene.kind !== 'rehearsal_reference' && scene.kind !== 'note_reference'
       && ((value.scenes || []).some(item => item.id === scene.id && item.revision === scene.revision)
         || referenced.has(`${scene.id}@${scene.revision}`)));
-    const bodyReadable = this.store.kernel.planningMessageReadable(scope, { contextReceipt: value.contextReceipt, scenes: attached });
+    const helpRefs: NonNullable<Message['helpRefs']> = (value.helpRefs || []).map(({ kind: _kind, ...ref }) => {
+      // The kind is a host projection of this original owner, not a client
+      // assertion and not a second copy of the private letter body.
+      const marker = this.store.kernel.db.prepare(`SELECT 1 FROM h_work WHERE id=? AND owner=? AND workspace=?
+        AND (json_type(payload,'$.data.reflectiveLetterBinding') IS NOT NULL OR json_type(payload,'$.data.reflectiveLetter') IS NOT NULL)`)
+        .get(ref.id, scopeData.principalId, scopeData.workspaceId);
+      return marker ? { ...ref, kind: 'reflective_letter' } : ref;
+    });
+    const lettersReadable = helpRefs.every(ref => {
+      if (ref.kind !== 'reflective_letter') return true;
+      const record = this.store.kernel.work(scope, undefined, ref.id)[0];
+      return !!record && runtime.reflectiveLetters.recordReadable(scope, record);
+    });
+    const bodyReadable = this.store.kernel.planningMessageReadable(scope, { contextReceipt: value.contextReceipt, scenes: attached }, { checked: new Map(), localDisplay: true })
+      && attached.every(scene => this.sceneReadable(scene, options)) && lettersReadable;
     if (value.role === 'assistant' && !bodyReadable) return { ...value,
       content: '这条回复的依据已改变，需要重新核对。', responseText: undefined,
       steps: [], obligations: [], actions: [], mapCards: undefined, scenes: [], views: [],
       releaseArtifacts: undefined, helpRefs: undefined, cooperationId: undefined,
       contextReceipt: undefined, objectStates: undefined, image: undefined };
-    const denied = new Set(snapshots.filter(scene => scene.kind === 'planning' && scene.continuation
-      && !runtime.scenes.snapshotReadable(scope, scene)).map(scene => `${scene.id}@${scene.revision}`));
-    if (!denied.size) return value;
-    return { ...value, ...(value.scenes ? { scenes: value.scenes.filter(scene => !denied.has(`${scene.id}@${scene.revision}`)) } : {}),
+    const denied = new Set(snapshots.filter(scene => !this.studySnapshot(scene) && scene.kind !== 'study_reference' && scene.kind !== 'curiosity_reference' && scene.kind !== 'rehearsal_reference' && scene.kind !== 'note_reference'
+      && !this.sceneReadable(scene, options)).map(scene => `${scene.id}@${scene.revision}`));
+    return { ...value, ...(value.helpRefs ? { helpRefs } : {}), ...(value.scenes ? { scenes: this.currentScenes(value.scenes, options) } : {}),
       ...(value.views ? { views: value.views.filter(view => view.sceneRefs.every(ref => !denied.has(`${ref.id}@${ref.revision}`))) } : {}) };
   }
-  message(value: Message): Message | null {
+  message(value: Message, options: PresentationRead = {}): Message | null {
     if (this.public) return null;
-    const safe = this.sourceCurrentMessage(value);
+    const safe = this.sourceCurrentMessage(value, options);
     const objectStates: ObjectPresentationState[] = safe.actions.map(action => {
       const current = this.store.runtime.calendar.read(action.id);
       const effect = this.store.runtime.actions.get(this.store.runtime.policy.hostScope(), action.effectActionId || action.id);

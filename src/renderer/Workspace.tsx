@@ -22,8 +22,10 @@ import {
 } from './LifePanels';
 import { DEFAULT_TIME_ZONE, timeZoneLabel, toTimeInput } from './time';
 import type { SharedMatterView } from '../shared/presentation';
+import type { CampusScheduleBlock } from '../shared/campus-calendar';
 import './today.css';
 import { CalendarHandoff } from './CalendarHandoff';
+import { CampusDayControls, CampusScheduleRow, useCampusDaySchedule } from './CampusDaySchedule';
 
 export type WorkspaceView =
   'chat' | 'agenda' | 'notes' | 'materials' | 'memory' | 'settings' | 'companion';
@@ -107,6 +109,17 @@ export function AgendaView({
   }, [zone]);
 
   const search = query.trim().toLocaleLowerCase();
+  const campusDayVisible = section === 'agenda' && scope === 'day' && !search && state.presentation?.mode !== 'public';
+  const connector = state.campusConnector;
+  const campusBoundary = JSON.stringify([
+    state.privacyEpoch, state.policyRevision, state.sourceBoundary, state.presentation?.mode || 'private',
+    connector?.configured, connector?.available, connector?.sourceKind,
+    connector?.credentialsConfigured,
+  ]);
+  const campus = useCampusDaySchedule({
+    date: selectedDate, nextDate: shiftDate(selectedDate, 1), timeZone: zone,
+    active: campusDayVisible, boundary: campusBoundary,
+  });
   const ordered = [...state.agenda].sort((a, b) => {
     const first = actionDate(a, zone) || '9999';
     const second = actionDate(b, zone) || '9999';
@@ -130,6 +143,15 @@ export function AgendaView({
     const date = actionDate(item, zone);
     grouped.set(date, [...(grouped.get(date) || []), item]);
   }
+  const dayEntries: ({ kind: 'action'; item: Action } | { kind: 'campus'; item: CampusScheduleBlock })[] = [
+    ...filtered.map(item => ({ kind: 'action' as const, item })),
+    ...(campus.result?.items || []).map(item => ({ kind: 'campus' as const, item })),
+  ];
+  dayEntries.sort((a, b) => {
+    const first = a.kind === 'action' ? a.item.allDayDate ? -Infinity : a.item.startsAt ? Date.parse(a.item.startsAt) : Infinity : Date.parse(a.item.start);
+    const second = b.kind === 'action' ? b.item.allDayDate ? -Infinity : b.item.startsAt ? Date.parse(b.item.startsAt) : Infinity : Date.parse(b.item.start);
+    return first === second ? a.item.id.localeCompare(b.item.id) : first - second;
+  });
   const weekday = new Date(`${selectedDate}T12:00:00Z`).getUTCDay();
   const monday = shiftDate(selectedDate, -((weekday + 6) % 7));
   const week = Array.from({ length: 7 }, (_, index) => shiftDate(monday, index));
@@ -335,6 +357,9 @@ export function AgendaView({
             <ChevronRight size={17} />
           </IconButton>
         </div>
+        {state.presentation?.mode !== 'public' && (
+          <CampusDayControls campus={campus} dayVisible={campusDayVisible} timeZone={zone} />
+        )}
         <div className="today-list-tools">
           <div className="today-scope" aria-label="安排范围">
             {(
@@ -361,7 +386,7 @@ export function AgendaView({
           <div className="today-search">
             <Search size={16} />
             <input
-              aria-label="搜索所有安排"
+              aria-label="搜索所有日期的本机安排"
               placeholder="找一件事"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
@@ -373,9 +398,15 @@ export function AgendaView({
             )}
           </div>
         </div>
-        {search && <p className="today-search-note">在所有日期里找「{query.trim()}」</p>}
+        {search && <p className="today-search-note">在所有日期的本机安排里找「{query.trim()}」</p>}
         <div className={`today-agenda-list ${scope === 'day' && !search ? 'one-day' : ''}`}>
-          {[...grouped]
+          {scope === 'day' && !search ? !!dayEntries.length && (
+            <section className="today-day-group">
+              {dayEntries.map(entry => entry.kind === 'action' ? row(entry.item) : (
+                <CampusScheduleRow key={entry.item.id} item={entry.item} date={selectedDate} timeZone={zone} />
+              ))}
+            </section>
+          ) : [...grouped]
             .sort(([a], [b]) => (a || '9999').localeCompare(b || '9999'))
             .map(([date, items]) => (
               <section className="today-day-group" key={date || 'undated'}>
@@ -385,7 +416,7 @@ export function AgendaView({
                 {items.map((item) => row(item, !!item.recurrence))}
               </section>
             ))}
-          {!filtered.length && (
+          {!filtered.length && !campus.result?.items.length && (
             <div className="today-empty">
               <span className="today-empty-line" aria-hidden="true" />
               <h2>
@@ -397,7 +428,7 @@ export function AgendaView({
                       ? '想到的事，可以先放在这里。'
                       : scope === 'all'
                         ? '想做什么，我们慢慢说。'
-                        : '给这一天，留一点空白。'}
+                        : '这一天，还没有记下的安排。'}
               </h2>
               <p>
                 {search
@@ -416,7 +447,7 @@ export function AgendaView({
               )}
             </div>
           )}
-          {!!filtered.length && scope === 'day' && !search && (
+          {!!dayEntries.length && scope === 'day' && !search && (
             <p className="today-breathing-room">不必把每一刻都排满。</p>
           )}
         </div>
@@ -431,6 +462,11 @@ export function AgendaView({
           <Plus size={17} />
           记一件事
         </button>
+        {scope === 'day' && !search && (
+          <button type="button" className="today-continue-day text-button" onClick={() => onContinue(`我们接着聊 ${selectedDate} 这一天的安排。`)}>
+            接着聊这一天<ArrowUpRight size={14} />
+          </button>
+        )}
         {!!state.matters?.length && (
           <details className="shared-matters today-matters">
             <summary>

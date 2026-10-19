@@ -1,6 +1,15 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { Bridge, RunEvent } from '../shared/types';
 const bridge: Bridge = {
+  rehearsalProject: input => ipcRenderer.invoke('rehearsal:project', input),
+  studyProject: input => ipcRenderer.invoke('study:project', input),
+  studyRead: input => ipcRenderer.invoke('study:read', input),
+  letterSource: input => ipcRenderer.invoke('letter:source', input),
+  letterProject: input => ipcRenderer.invoke('letter:project', input),
+  noteProject: input => ipcRenderer.invoke('note:project', input),
+  companionSessionSource: input => ipcRenderer.invoke('companion:source', input),
+  campusAcademicRead: input => ipcRenderer.invoke('campus:academic', input),
+  campusSchedule: input => ipcRenderer.invoke('campus:schedule', input),
   searchLocal: input => ipcRenderer.invoke('search:local', input),
   searchResolve: input => ipcRenderer.invoke('search:resolve', input),
   searchCancel: () => ipcRenderer.invoke('search:cancel'),

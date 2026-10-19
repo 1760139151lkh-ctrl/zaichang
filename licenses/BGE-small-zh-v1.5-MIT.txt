@@ -1,0 +1,46 @@
+BGE-small-zh-v1.5 model and fixed ONNX export
+
+Original model: BAAI/bge-small-zh-v1.5
+Original revision: 7999e1d3359715c523056ef9478215996d62a620
+Model card: https://huggingface.co/BAAI/bge-small-zh-v1.5/blob/7999e1d3359715c523056ef9478215996d62a620/README.md
+
+The original model card declares MIT and links the FlagEmbedding MIT license.
+The following notice is reproduced from that linked project's LICENSE at:
+https://github.com/FlagOpen/FlagEmbedding/blob/c086741f5e117b7b8ce1745ea00b6c262f281a01/LICENSE
+
+MIT License
+
+Copyright (c) 2022 staoxiao
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+ONNX export: Xenova/bge-small-zh-v1.5
+Export revision: 75c43b069aac4d136ba6bc1122f995fedcfd2781
+Export card: https://huggingface.co/Xenova/bge-small-zh-v1.5/blob/75c43b069aac4d136ba6bc1122f995fedcfd2781/README.md
+
+The export card identifies the original BAAI model. The export repository at
+this revision has no separate LICENSE file or license field. This distribution
+retains the original model's MIT license basis and the export attribution; it
+does not claim that Xenova published an additional independent license.
+
+The application distributes only the fixed q8 ONNX graph and its three JSON
+configuration/tokenizer files; it does not train or modify those files.
+The complete pinned file list, sizes and SHA-256 values are in lock.json in
+the embedding runtime directory. Inference remains local; no model Hub client
+or automatic runtime download is used.

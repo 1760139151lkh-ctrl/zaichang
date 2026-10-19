@@ -1,0 +1,40 @@
+.explorable-study { min-width:0; color:var(--text); }
+.explorable-example-note { margin:0 0 9px!important; color:var(--text-tertiary); font-size:12px; line-height:1.8; }
+.explorable-formula { margin:8px 0 11px; font-size:19px; }
+.explorable-formula p { margin:0!important; }
+.explorable-condition { margin:0 0 5px!important; font-size:16px; line-height:2.2; }
+.explorable-condition i { font-family:KaTeX_Main,serif; }
+.explorable-number-wrap { position:relative; display:inline-block; }
+.explorable-number { position:relative; display:inline; min-width:1.1em; margin:0 2px; padding:0 2px 1px!important; border:0; border-bottom:2px solid color-mix(in srgb,var(--accent) 75%,transparent); border-radius:0; background:none; color:var(--accent); font:inherit; cursor:ew-resize!important; touch-action:pan-y; }
+.explorable-number:hover { border-bottom-color:var(--accent); background:color-mix(in srgb,var(--accent-soft) 55%,transparent); }
+.explorable-number:focus-visible { outline:2px solid var(--focus); outline-offset:4px; }
+.explorable-number-input { position:absolute; z-index:5; left:50%; top:-4px; transform:translateX(-50%); width:82px; padding:5px 7px; border:1px solid var(--accent-dim); border-radius:4px; background:var(--surface-raised); color:var(--text); font:15px/1.6 var(--font-body); box-shadow:0 3px 12px #58442b12; }
+.explorable-graph { display:block; width:100%; height:auto; overflow:visible; color:var(--text-secondary); user-select:none; }
+.explorable-grid line { stroke:var(--separator); stroke-width:.55; opacity:.35; }
+.explorable-axes line { stroke:currentColor; stroke-width:.9; opacity:.8; }
+.explorable-axes text { fill:var(--text-tertiary); font:12.5px var(--font-body); }
+.explorable-axes .explorable-axis-name { fill:var(--text-secondary); font:italic 13px KaTeX_Main,serif; }
+.explorable-curve { fill:none; stroke:var(--text); stroke-width:1.75; stroke-linejoin:round; stroke-linecap:round; }
+.explorable-original-curve { fill:none; stroke:var(--text-tertiary); stroke-width:1.1; stroke-dasharray:4 5; opacity:.38; animation:explorable-original-arrive 180ms both ease-out; }
+.explorable-height { stroke:var(--text-secondary); stroke-width:1; stroke-dasharray:3 3; opacity:.6; }
+.explorable-tangent { fill:none; stroke:var(--accent); stroke-width:1.65; stroke-linecap:round; }
+.explorable-probe { cursor:ew-resize; touch-action:none; outline:none; }
+.explorable-probe-hit { fill:transparent; stroke:none; pointer-events:all; }
+.explorable-axis-probe { fill:var(--text-tertiary); stroke:var(--surface-raised); stroke-width:.7; opacity:.5; }
+.explorable-point { fill:var(--accent); stroke:var(--surface-raised); stroke-width:1.5; }
+.explorable-point-label { fill:var(--accent); font:italic 13px KaTeX_Main,serif; pointer-events:none; }
+.explorable-probe:focus-visible .explorable-point,.explorable-probe:focus-visible .explorable-axis-probe { stroke:var(--focus); stroke-width:3; }
+.explorable-original-note,.explorable-outside { margin:0 0 9px!important; color:var(--text-tertiary); font-size:11px; line-height:1.8; }
+.explorable-outside { color:var(--text-secondary); }
+.explorable-reading { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 15px; margin-top:6px; }
+.explorable-reading p { flex:1; margin:0!important; font-size:15px; line-height:1.95; }
+.explorable-reading strong { color:var(--accent); font-weight:500; border-bottom:1px solid color-mix(in srgb,var(--accent-dim) 60%,transparent); }
+.explorable-continue { display:inline-flex; align-items:center; gap:5px; flex-shrink:0; padding:3px 0!important; border:0; background:none; color:var(--accent); font-size:12px!important; line-height:1.8; }
+.explorable-footnote { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:7px 15px; margin-top:12px; color:var(--text-tertiary); font:11px/1.8 var(--font-body); }
+.explorable-footnote>button { display:inline-flex; align-items:center; gap:4px; padding:0!important; border:0; background:none; color:inherit; font-size:11px!important; }
+.explorable-footnote details { margin-left:auto; max-width:100%; }
+.explorable-footnote summary { cursor:pointer; width:fit-content; margin-left:auto; }
+.explorable-footnote details p { max-width:370px; margin:7px 0 0!important; font-size:12px; line-height:1.9; }
+@keyframes explorable-original-arrive { from { opacity:0; } to { opacity:.38; } }
+@media (prefers-reduced-motion:reduce) { .explorable-study * { animation:none!important; transition:none!important; } }
+:root[data-motion='reduced'] .explorable-study * { animation:none!important; transition:none!important; }

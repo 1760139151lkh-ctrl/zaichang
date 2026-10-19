@@ -96,6 +96,7 @@ export interface NoteList {
 }
 export interface NoteVersion {
   revision: number;
+  sha256: string;
   title: string;
   updatedAt: string;
   state: NoteMetadata['state'];

@@ -6,6 +6,7 @@ import { canonical } from '../runtime/semantics';
 import { calendarPlanFingerprint, draftCalendarPlan, planningDraftInput } from './planning-draft';
 import { planningDayBounds } from './planning-days';
 import type { PlanningHostContext, PlanningManifest } from './planning-intent-contract';
+import { campusConstraintSummary, type PlanningCampusConstraints, type PlanningCampusPort } from './planning-campus';
 
 export const planningPlanRefSchema = z.object({ planId: z.string().uuid(), blockId: z.string().min(1).max(160) }).strict();
 export const planningRecoveryInput = z.object({ planId: z.string().uuid() }).strict();
@@ -24,6 +25,7 @@ type Ticket = {
   progressUncertain?: boolean;
   hasPreparations?: boolean;
   hostContext?: PlanningHostContext;
+  campus?: PlanningCampusConstraints;
 };
 const minute = 60000;
 const ttl = 15 * minute;
@@ -37,9 +39,18 @@ export class PlanningApplicationService {
   // This catches detached copies, not arbitrary semantic rewrites, and intentionally does not survive restart.
   private readonly recentProposals = new Map<string, { owner: Owner; keys: Set<string> }>();
   private intentValidator?: (scope: ScopeData, context: PlanningHostContext, planId: string) => void;
+  private campusPort?: PlanningCampusPort;
   constructor(private readonly clock: () => string, private readonly currentSourceVersion?: (sourceId: string, scope: ScopeData) => string | number | null | undefined) {}
 
   setIntentValidator(validate: (scope: ScopeData, context: PlanningHostContext, planId: string) => void) { this.intentValidator = validate; }
+  setCampusPort(port: PlanningCampusPort) { this.campusPort = port; }
+  async readCampus(scope: ScopeData, from: string, to: string, signal: AbortSignal) {
+    if (scope.worldId !== 'real' || scope.subjectId !== scope.principalId || scope.audience !== 'self' || scope.child) return null;
+    return this.campusPort?.read(scope, from, to, signal) || null;
+  }
+  campusCurrent(scope: ScopeData, snapshot: PlanningCampusConstraints) {
+    try { return this.campusPort?.current(scope, snapshot) === true; } catch { return false; }
+  }
 
   /** Internal routing metadata only; never supplies an intent or restores a ticket. */
   hasIntentBinding(planId: string) { return !!this.tickets.get(planId)?.hostContext; }
@@ -80,19 +91,24 @@ export class PlanningApplicationService {
     ticket.hasPreparations = true;
   }
 
-  prepare(scope: ScopeData, items: Action[], raw: unknown, hostContext?: PlanningHostContext) {
+  prepare(scope: ScopeData, items: Action[], raw: unknown, hostContext?: PlanningHostContext, campus?: PlanningCampusConstraints | null) {
     const now = this.now();
     this.prune(now);
     if (scope.worldId !== 'real' || scope.audience !== 'self' || scope.subjectId !== scope.principalId || scope.child || !scope.sources.includes('local-agenda'))
       throw new HarnessError('planning_scope', '日程方案需要本人的真实世界本地日历读取范围。');
     if (hostContext && calendarPlanFingerprint(items) !== hostContext.allocationBasis.calendarFingerprint)
       throw new HarnessError('planning_stale', '当前日历与恢复采用依据不一致，未生成新票据。');
-    const input = planningDraftInput.parse(raw), output = draftCalendarPlan(items, input, hostContext?.retained), planId = randomUUID();
+    const input = planningDraftInput.parse(raw);
+    if (campus && !this.campusCurrent(scope, campus))
+      throw new HarnessError('planning_campus_changed', '校园安排的保存快照或读取范围已改变，请重新读取后试算。');
+    const currentInput = campus ? planningDraftInput.parse({ ...input, busy: [...input.busy, ...campus.busy],
+      sourceCoverage: [...input.sourceCoverage, campus.coverage] }) : input;
+    const output = draftCalendarPlan(items, currentInput, hostContext?.retained), planId = randomUUID();
     const units = this.units(planId, input, output);
     const sources = this.sourceRevisions(input);
     const ticket: Ticket = { scope: structuredClone(scope), input, output, units, sources, createdAt: new Date(now).toISOString(),
       expiresAt: Math.min(now + ttl, Date.parse(scope.expiresAt)), fingerprint: output.calendarFingerprint,
-      itemDigests: digestItems(items), applied: [], ...(hostContext ? { hostContext: structuredClone(hostContext) } : {}) };
+      itemDigests: digestItems(items), applied: [], ...(hostContext ? { hostContext: structuredClone(hostContext) } : {}), ...(campus ? { campus } : {}) };
     if (!Number.isFinite(ticket.expiresAt) || ticket.expiresAt <= now) throw new HarnessError('planning_expired', '当前读取范围已经过期，请重新读取日程。');
     while (this.tickets.size >= 50) this.tickets.delete(this.tickets.keys().next().value!);
     this.tickets.set(planId, ticket);
@@ -105,6 +121,7 @@ export class PlanningApplicationService {
     const adoptionBlockers = this.adoptionBlockers(ticket, scope);
     return {
       ...output, planId, expiresAt: new Date(ticket.expiresAt).toISOString(),
+      ...(campus ? { campusCalendar: campusConstraintSummary(campus) } : {}),
       adoption: { status: adoptionBlockers.length ? 'blocked' : units.length ? 'ready_for_authorized_steps' : 'nothing_to_apply', blockers: adoptionBlockers,
         atomic: false, completedSteps: 0, totalSteps: units.length, restartBehavior: 'ticket_invalidated_recompute_required' },
       acceptanceProposals: units.map((unit, index) => ({ ...unit, capability: 'local.agenda.save', order: index + 1, applied: false, requiresAuthorization: true, requiresPlanRevalidation: true })),
@@ -346,6 +363,11 @@ export class PlanningApplicationService {
   }
   private adoptionBlockers(ticket: Ticket, scope: ScopeData): string[] {
     const blockers = [...ticket.output.conditions];
+    if (ticket.campus) {
+      try {
+        if (!this.campusPort?.current(scope, ticket.campus)) blockers.push('校园安排的保存快照、账号或读取范围已改变，须重新读取并试算；已经保存的本人安排不会重复创建。');
+      } catch { blockers.push('当前不能复核校园安排快照，尚未采用旧方案。'); }
+    }
     if (!ticket.output.blocks.length && !ticket.hostContext?.retained.work.length)
       blockers.push('本次没有构造出可采用的工作安排。');
     if (scope.retention === 'session_only') blockers.push('本次仅会话保留范围不能写入长期日历。');
@@ -353,6 +375,13 @@ export class PlanningApplicationService {
     for (const source of ticket.sources) {
       if (!scope.sources.includes(source.sourceId)) { blockers.push(`来源 ${source.sourceId} 不在当前读取范围。`); continue; }
       if (source.sourceVersion === null) { blockers.push(`来源 ${source.sourceId} 没有可复验版本。`); continue; }
+      if (source.sourceId === 'campus:zju-account') {
+        try {
+          if (this.campusPort?.currentVersion(scope, source.sourceVersion) !== true)
+            blockers.push('校园来源的当前保存版本尚不能复验，须重新读取后试算。');
+        } catch { blockers.push('当前不能复核校园来源的保存版本，未采用旧方案。'); }
+        continue;
+      }
       let current: string | number | null | undefined;
       if (checked.has(source.sourceId)) current = checked.get(source.sourceId);
       else {

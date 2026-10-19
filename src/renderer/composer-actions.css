@@ -1,0 +1,10 @@
+.composer-right .send-button.composer-supplement {
+  width: auto;
+  min-width: 72px;
+  padding-inline: 14px;
+  border-radius: 22px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}

@@ -375,5 +375,12 @@
       "copiedThisContinuation": true,
       "note": "The user paragraph is reproduced verbatim. Title, source date and applicability explanation are labeled editorial text; no system, developer or AGENTS instructions were copied."
     }
-  ]
+  ],
+  "currentGoalRevision": {
+    "originalName": "goal-objective.md (current attachment revision)",
+    "path": "goal-objective-current-20261018.md",
+    "bytes": 16791,
+    "sha256": "f10a7a37d545ab9965cd4f47881e5c5cb5f5a1ba6aa1dc6c9335c49add5d6d1f",
+    "purpose": "Current user goal revision: backend then GPT Image then frontend; explicitly defer validation and Luna until user requests it. Historical source instructions remain reference material."
+  }
 }

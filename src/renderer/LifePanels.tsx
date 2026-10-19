@@ -11,6 +11,7 @@ import {
   X,
 } from 'lucide-react';
 import type { Action, State } from '../shared/types';
+import type { LetterFocusContext } from '../shared/reflective-letter';
 import type {
   MatterSelectionInput,
   PreparationView,
@@ -19,6 +20,7 @@ import type {
 } from '../shared/presentation';
 import { Modal, uiError } from './ui';
 import { RichText } from './RichText';
+import { LetterMessage } from './LetterMessage';
 import {
   DEFAULT_TIME_ZONE,
   formatDateTime,
@@ -370,7 +372,7 @@ export function PreparationShelf({
   inline?: boolean;
   timeZone?: string;
   onState: (state: State) => void;
-  onContinue: (text: string) => void;
+  onContinue: (text: string, context?: LetterFocusContext) => void;
 }) {
   const [expanded, setExpanded] = useState(inline),
     [visibleCount, setVisibleCount] = useState(5),
@@ -425,7 +427,7 @@ export function PreparationShelf({
   }
   return (
     <section
-      className={`preparation-shelf ${expanded ? 'is-open' : ''}`}
+      className={`preparation-shelf ${expanded ? 'is-open' : ''} ${inline ? 'is-inline' : ''} ${items.some(item => item.reflectiveLetter) ? 'has-letter' : ''}`}
       aria-label="为你准备的资料"
     >
       <button
@@ -440,7 +442,8 @@ export function PreparationShelf({
       {expanded && (
         <div className="shelf-list">
           {items.slice(0, visibleCount).map((item) => (
-            <div className="preparation-row" key={item.id}>
+            <div className={`preparation-row ${item.reflectiveLetter ? 'is-letter' : ''}`} key={item.id}>
+              {!(inline && item.reflectiveLetter && item.id === opened) && (
               <button
                 className="preparation-title"
                 aria-expanded={item.id === opened}
@@ -453,8 +456,14 @@ export function PreparationShelf({
                 <span>{item.title}</span>
                 <ChevronRight size={15} />
               </button>
+              )}
               {item.id === opened && (
                 <div className="preparation-body" ref={content}>
+                  {item.reflectiveLetter ? (
+                    <LetterMessage letter={item.reflectiveLetter} pending={!!pending} onContinue={onContinue}
+                      onDismiss={() => act(item, 'dismiss')} onOpenSource={() => void act(item, 'opened')} />
+                  ) : (
+                    <>
                   <div className="markdown">
                     <RichText text={item.body} />
                   </div>
@@ -503,6 +512,8 @@ export function PreparationShelf({
                       </button>
                     </details>
                   </div>
+                    </>
+                  )}
                 </div>
               )}
             </div>

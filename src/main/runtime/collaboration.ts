@@ -5,9 +5,19 @@ import type { KernelRepository } from '../storage/repository';
 import type { WorkService } from './work';
 import type { ActionRuntime } from '../actions/runtime';
 import type { BasisService } from './basis';
-import { canonical, codePointSlice, locateQuote } from './semantics';
+import { canonical, codePointSlice } from './semantics';
+import { resolveRetainedSourceQuote, resolveSourceQuote, resolveUniqueQuoteRange } from './source-quote';
 
-const citation = z.object({ eventId: z.string().max(160), quote: z.string().min(1).max(4000) }).strict();
+const citation = z.object({
+  eventId: z.string().max(160), quote: z.string().min(1).max(4000),
+  contentVersion: z.number().int().positive().optional(),
+  start: z.number().int().nonnegative().optional().describe('quote在原文中的绝对Unicode码点起点；重复引文须给完整真实位置，或扩大逐字quote使其唯一。'),
+  end: z.number().int().positive().optional(),
+}).strict().superRefine((source, context) => {
+  if (['contentVersion', 'start', 'end'].some(field => Object.hasOwn(source, field))
+    && (source.contentVersion === undefined || source.start === undefined || source.end === undefined || source.end <= source.start))
+    context.addIssue({ code: 'custom', path: ['start'], message: '原话位置需要完整的contentVersion/start/end，且end须晚于start；不完整位置不能重新寻找。' });
+});
 const supportedText = z.object({ text: z.string().max(1200), source: citation }).strict();
 export const collaborationInput = z.object({
   operation: z.enum(['frame', 'request', 'progress', 'repair', 'withdraw', 'choose', 'experience']),
@@ -52,16 +62,16 @@ export class CollaborationService {
 
   private cite(scope: ScopeHandle, source: z.infer<typeof citation>) {
     const evidence = this.repo.evidence(scope, source.eventId);
-    if (!evidence || evidence.speaker !== 'user' || !evidence.text.includes(source.quote))
+    if (!evidence || evidence.speaker !== 'user')
       throw new HarnessError('unsupported_evidence', '这项记录没有对应的用户原话。');
-    return evidence;
+    const resolved = resolveSourceQuote(evidence, source);
+    if (!resolved) throw new HarnessError('unsupported_evidence', '这段记录原话的位置不唯一、已改变或不完整；请扩大逐字引文，或提供真实的contentVersion/start/end。');
+    return { event: evidence, source: resolved };
   }
 
-  private experienceSource(scope: ScopeHandle, source: z.infer<typeof citation>, version?: number) {
+  private experienceSource(scope: ScopeHandle, source: z.infer<typeof citation>) {
     this.work.policy.require(scope, 'evidence:read');
-    const event = this.cite(scope, source), range = locateQuote(event.text, source.quote);
-    if (version !== undefined && event.contentVersion !== version)
-      throw new HarnessError('experience_source_changed', '这段原话已改变，需要重新读取当时的依据。');
+    const { event, source: resolved } = this.cite(scope, source), range = { start: resolved.start, end: resolved.end };
     const now = Date.parse(this.repo.clock.now());
     if (this.repo.sourceRestrictions(scope, event.id).some(restriction =>
       (!restriction.effectiveFrom || Date.parse(restriction.effectiveFrom) <= now) &&
@@ -96,7 +106,7 @@ export class CollaborationService {
       if (!source.quoteSha256 || source.quoteSha256 !== createHash('sha256').update(quote).digest('hex'))
         return [{ ...pointer, reviewReason: 'source_changed', meaning: '这段原话已删除或改变，只保留历史记录身份；没有从旧副本恢复正文、理由或条件。' }];
       let reviewReason = 'current_conditions_unverified';
-      try { this.experienceSource(scope, { eventId: event.id, quote }, source.contentVersion); }
+      try { this.experienceSource(scope, { eventId: event.id, quote, contentVersion: source.contentVersion, start: source.start, end: source.end }); }
       catch (error) {
         if (!(error instanceof HarnessError) || error.code !== 'experience_source_changed') throw error;
         return [{ ...pointer, reviewReason: 'source_changed', meaning: '这段原话对应的理解已更正，只保留历史记录身份；不再从经历副本输出旧理由或条件。' }];
@@ -178,7 +188,8 @@ export class CollaborationService {
     const args = collaborationInput.parse(input);
     if (args.operation === 'experience') this.work.policy.require(scope, 'evidence:read');
     if (!args.source) throw new HarnessError('source_required', '需要指向原话，不能把建议自动变成你的任务。');
-    const evidence = this.cite(scope, args.source);
+    const { event: evidence, source } = this.cite(scope, args.source);
+    args.source = source;
     const old = args.id ? this.repo.work(scope, undefined, args.id)[0] : undefined;
     if (args.id && (!old || !['collaboration_frame', 'request_item'].includes(String(old.data.type)))) throw new HarnessError('work_missing', '没有找到本次相关事项。');
     if (old && args.expectedRevision !== old.revision) throw new HarnessError('version_conflict', '事项已改变，需要先读取当前版本。');
@@ -198,12 +209,17 @@ export class CollaborationService {
       if (input.kind !== 'reassessment' && input.reassesses)
         throw new HarnessError('experience_reference', '只有重新考虑记录可以关联旧理由；结果报告不能覆盖旧经历。');
       const { event, range } = this.experienceSource(scope, args.source);
-      const id = 'experience:' + createHash('sha256').update(`${old.id}\0${option.id}\0${input.kind}\0${event.id}\0${event.contentVersion}\0${args.source.quote}`).digest('hex');
-      for (const condition of [input.validWhen, input.stopWhen]) if (condition && !args.source.quote.includes(condition))
-        throw new HarnessError('experience_condition_source', '适用和停止条件须逐字来自这段用户原话；未知条件可以留空。');
+      const legacyId = 'experience:' + createHash('sha256').update(`${old.id}\0${option.id}\0${input.kind}\0${event.id}\0${event.contentVersion}\0${args.source.quote}`).digest('hex');
+      const sameLegacy = history.find(value => {
+        const entry = value as Record<string, any>, source = entry.source;
+        return entry.id === legacyId && source?.eventId === event.id && source.contentVersion === event.contentVersion
+          && source.start === range.start && source.end === range.end;
+      }) as Record<string, any> | undefined;
+      const id = sameLegacy?.id || 'experience:' + createHash('sha256').update(`${legacyId}\0${range.start}\0${range.end}`).digest('hex');
       const conditionRange = (text: string | undefined) => {
         if (!text) return null;
-        const local = locateQuote(args.source!.quote, text);
+        const local = resolveUniqueQuoteRange(args.source!.quote, text);
+        if (!local) throw new HarnessError('experience_condition_source', '适用和停止条件须在选定用户原话中有唯一的逐字位置；请扩大条件引文，未知条件可以留空。');
         return { start: range.start + local.start, end: range.start + local.end };
       };
       const entry = { id, kind: input.kind, optionId: option.id, optionRevision: option.revision,
@@ -241,7 +257,10 @@ export class CollaborationService {
     if (args.operation === 'frame') {
       if (!args.frame) throw new HarnessError('frame_required', '共同理解内容未提供。');
       const sources = [evidence.id];
-      for (const item of [...args.frame.confirmedFacts, ...args.frame.decisions, ...args.frame.rejectedOptions]) sources.push(this.cite(scope, item.source).id);
+      for (const item of [...args.frame.confirmedFacts, ...args.frame.decisions, ...args.frame.rejectedOptions]) {
+        const { event, source } = this.cite(scope, item.source);
+        sources.push(event.id); item.source = source;
+      }
       const pointers = Object.fromEntries(['optionIds', 'lastDisplayedOptionIds', 'referencedOptionId', 'focusSequence', 'decisionExperiences'].filter(key => old?.data[key] !== undefined).map(key => [key, old!.data[key]]));
       const selection = old?.data.selection as { sourceEventId?: string } | undefined;
       if (selection?.sourceEventId && this.repo.evidence(scope, selection.sourceEventId)) {
@@ -257,8 +276,10 @@ export class CollaborationService {
     if (args.operation === 'request') {
       if (!args.title || !args.kind || !args.expectedResult) throw new HarnessError('request_incomplete', '请求还缺少具体要得到的结果。');
       if (args.status && !args.reason) throw new HarnessError('request_state_missing', '未完成项需要说明具体原因。');
-      const id = 'request:' + createHash('sha256').update(`${evidence.id}\0${args.source.quote}\0${args.expectedResult}`).digest('hex');
-      const existing = this.requests(scope, sessionId).find(record => record.id === id);
+      const legacyId = 'request:' + createHash('sha256').update(`${evidence.id}\0${args.source.quote}\0${args.expectedResult}`).digest('hex');
+      const id = 'request:' + createHash('sha256').update(`${legacyId}\0${source.contentVersion}\0${source.start}\0${source.end}`).digest('hex');
+      const existing = this.requests(scope, sessionId).find(record => record.id === id || record.id === legacyId
+        && canonical(resolveRetainedSourceQuote(evidence, record.data.source)) === canonical(source));
       if (existing) return existing;
       return this.work.create(scope, 'task', args.title, {
         type: 'request_item', sessionId, sessionIds: [sessionId], requestKind: args.kind, source: { ...args.source, receivedAt: evidence.receivedAt, contentVersion: evidence.contentVersion },
@@ -329,10 +350,17 @@ export class CollaborationService {
   finalize(scope: ScopeHandle, record: WorkRecord, state: 'answered' | 'succeeded', responseId: string, actionIds: string[] = [], resolution: { kind?: 'answer' | 'action' | 'artifact'; basisQuote?: string; artifactIds?: string[]; artifacts?: import('../../shared/types').ReleaseArtifact[] } = {}) {
     let kind = String(record.data.requestKind), data = record.data;
     if (resolution.kind && resolution.kind !== kind) {
-      const source = record.data.source as { eventId: string; quote: string };
-      if (!resolution.basisQuote || !source.quote.includes(resolution.basisQuote)) throw new HarnessError('classification_evidence', '请求类别的修正没有原话依据。');
-      this.cite(scope, { eventId: source.eventId, quote: resolution.basisQuote });
-      data = { ...data, requestKind: resolution.kind, classificationCorrection: { from: kind, to: resolution.kind, quote: resolution.basisQuote } };
+      const saved = record.data.source as { eventId?: unknown } | undefined;
+      const event = typeof saved?.eventId === 'string' ? this.repo.evidence(scope, saved.eventId) : undefined;
+      const retained = event && resolveRetainedSourceQuote(event, saved);
+      if (!retained) throw new HarnessError('classification_evidence', '原请求依据的版本或位置已变化，未沿旧文字重新定位。');
+      const { source } = this.cite(scope, retained);
+      const local = resolution.basisQuote && resolveUniqueQuoteRange(source.quote, resolution.basisQuote);
+      if (!local) throw new HarnessError('classification_evidence', '请求类别的修正需要在原请求片段中有唯一位置的逐字依据。');
+      const correctionSource = { ...source, quote: resolution.basisQuote!, start: source.start + local.start, end: source.start + local.end };
+      this.cite(scope, correctionSource);
+      data = { ...data, requestKind: resolution.kind,
+        classificationCorrection: { from: kind, to: resolution.kind, quote: correctionSource.quote, source: correctionSource } };
       kind = resolution.kind;
     }
     if (kind === 'action' && state === 'answered') return this.work.update(scope, record.id, record.revision, { status: 'unfulfilled', data: { ...data, state: 'unfulfilled', reason: '本次已说明情况，尚未核实操作完成。', resultRefs: [responseId] } });
