@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-18",
+  "tool": "built-in image_gen",
+  "scope": "Existing planning Scene continuation; generated only after backend262/262 + Hermes9/9 + build",
+  "selected": "planning-continuity-a.png",
+  "alternative": "planning-continuity-b.png",
+  "decision": "One continuous chronological timeline with a quiet inline relationship between verified calendar allocations and the new draft. The alternative temporal seam misgroups interleaved existing/new rows. Neither shows task completion or adds approval authority.",
+  "reference": "reference-current.png",
+  "source": "Synthetic normal host API save/reopen/replan; no model or account data",
+  "runtimeUse": false,
+  "prompts": "prompts.txt",
+  "transparentBackground": false,
+  "purpose": "Private design comparisons for the existing source-bound planning continuation Scene; distinguish verified calendar allocations and a fresh unsaved draft without implying completion.",
+  "redistribution": "Owner-authorized private project design archive only. GPT Image outputs are design references, not official character artwork or a separate public redistribution grant. Excluded from runtime assets and public-map bundles.",
+  "implementationEvidence": "docs/CURRENT_STATUS.md#personal-memory-round3; generation and reference images do not establish interaction, model or account acceptance.",
+  "files": [
+    {
+      "path": "planning-continuity-a.png",
+      "bytes": 1383711,
+      "sha256": "360c087102266daac6e2168b036d5007bc19d26ef166742b0001a987d9ff7180",
+      "width": 1414,
+      "height": 1113,
+      "source": "built-in GPT Image, selected variant A",
+      "use": "Single continuous chronological timeline and quiet continuation line; synthetic content only"
+    },
+    {
+      "path": "planning-continuity-b.png",
+      "bytes": 1365604,
+      "sha256": "c40b05206002af8e587ceddb9bbda96f8dea6eb24aedf501d070b30bd7ec177c",
+      "width": 1414,
+      "height": 1113,
+      "source": "built-in GPT Image, comparison variant B",
+      "use": "Unselected comparison of a temporal seam; not product content"
+    },
+    {
+      "path": "prompts.txt",
+      "bytes": 4261,
+      "sha256": "90f7b6f795669b923ad251dd80919de85ba95a8cbc5b7478ae6a03af53214dbb",
+      "use": "Exact generation prompts for both design alternatives"
+    }
+  ],
+  "localReference": {
+    "path": "reference-current.png",
+    "distributed": false,
+    "bytes": 604559,
+    "sha256": "0e7461d1533f9782dcbbbc94dac037edf4972d15177e649c9e9a781fb207c184",
+    "width": 1220,
+    "height": 960,
+    "source": "Local Electron observation using isolated synthetic data and existing product-owned UI",
+    "use": "Generation reference retained only on the local machine; not a committed or runtime asset"
+  }
+}

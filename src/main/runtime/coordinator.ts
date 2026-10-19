@@ -46,6 +46,7 @@ import { ActionRuntime } from '../actions/runtime';
 import { localStamp, normalizeCalendarInput, projectCalendarChange } from '../actions/calendar';
 import { LocalCalendarService } from '../actions/local-calendar';
 import { PlanningApplicationService } from '../actions/planning-application';
+import { PlanningIntentService, managePlanningIntentInput, planningIntentPageInput, planningIntentReplanInput } from './planning-intents';
 import { localCalendarChangeSchema } from '../../shared/calendar';
 import { noteListSchema, noteReadSchema, noteCreateSchema, noteUpdateSchema, noteStateSchema, noteUndoSchema, noteHistorySchema } from '../../shared/notes';
 import campusMethod from '../../../prompts/campus-tools.md';
@@ -361,9 +362,14 @@ const specs: SpecDefinition[] = [
   },
   {
     name: 'restore_collaboration',
-    description: '按需要恢复当前或跨会话事项、原话依据、暂定理解和未办请求。支持搜索和分页，并附已恢复对象的当前未同步/版本冲突修改；提议未应用，不能自动覆盖或当作已同步。不为问候或简单答复强制使用。',
-    schema: z.object({ query: z.string().max(400).optional(), offset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional(), limit: z.number().int().min(1).max(20).optional(), relatedTo: z.string().min(1).max(160).optional().describe('已知事项ID；按实际关联读取该事项的工作记录，不靠标题关键词猜关联。'), relatedOffset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional().describe('关联工作记录的分页位置，使用relatedCoverage.nextOffset。'), syncOffset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional().describe('这一对象页中的未同步/冲突修改分页，使用syncChanges.nextOffset。'), syncLimit: z.number().int().min(1).max(20).optional(), syncObjectOffset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional().describe('仅已恢复对象的同步读取分页，使用syncChanges.objectCoverage.nextOffset；进入下一对象页时syncOffset从0开始。') }).strict(),
+    description: '按需要恢复当前或跨会话事项、原话依据、暂定理解和未办请求。type=planning_intent时用id精确读规划规格，relatedTo按父事项读取；discoveryScope=permitted_workspace、mode=scan分页发现当前许可规格，不要求用户报ID。默认仍恢复当前会话共同事项。支持搜索和分页，并附已恢复对象的当前未同步/版本冲突修改；提议未应用，不能自动覆盖或当作已同步。不为问候或简单答复强制使用。',
+    schema: z.object({ type: z.literal('planning_intent').optional(), id: z.string().min(1).max(160).optional(), discoveryScope: z.enum(['current_conversation', 'permitted_workspace']).optional(), mode: z.enum(['search', 'scan']).optional(), statuses: z.array(z.enum(['active', 'paused', 'retired'])).min(1).max(3).optional().describe('仅规划规格：默认查active；找回已暂停或结束的旧事项时可明确选择状态，读取不恢复活动。'), query: z.string().max(400).optional().describe('普通事项最多400字；type=planning_intent最多300字，scan不按query词面筛选。'), offset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional(), limit: z.number().int().min(1).max(20).optional(), relatedTo: z.string().min(1).max(160).optional().describe('已知父事项ID；按实际关联读取该事项的工作记录，不代替规划规格的精确id。'), relatedOffset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional().describe('关联工作记录的分页位置，使用relatedCoverage.nextOffset。'), syncOffset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional().describe('这一对象页中的未同步/冲突修改分页，使用syncChanges.nextOffset。'), syncLimit: z.number().int().min(1).max(20).optional(), syncObjectOffset: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional().describe('仅已恢复对象的同步读取分页，使用syncChanges.objectCoverage.nextOffset；进入下一对象页时syncOffset从0开始。') }).strict(),
     grant: 'evidence:read',
+  },
+  {
+    name: 'manage_planning_intent',
+    description: '保留或修订确需跨轮继续的规划事项规格，也可按当前原话暂停、恢复或结束。keep/update用新的、尚未绑定意图的planning.draft之planId，宿主导出任务、窗口、预算与方法默认值；不接受自写规格。planning.replan已沿原意图继续，无需再次keep，也不能据此重绑规格。已有对象须先读取id/revision，source给当前用户原话的精确版本与Unicode范围；其他实质条件与实际借用的外源片段放supports，缺必要证据先回读，不把工具observationId当原文eventId。它只维护有来源的业务规格，不登记日历、人物偏好、提醒或后台托付；普通比较不必保留，恢复或重开不自动采用旧计划。',
+    schema: managePlanningIntentInput, grant: 'work:write', mutates: true,
   },
   {
     name: 'update_collaboration',
@@ -532,6 +538,14 @@ const modelMapRouteParameters: Record<string, unknown> = {
 const modelParameterOverrides: Record<string, Record<string, unknown>> = {
   delegate: { type: 'object', properties: { tasks: { type: 'array', minItems: 1, maxItems: 3, items: { type: 'object', properties: { title: { type: 'string' }, instruction: { type: 'string', minLength: 10, maxLength: 1200 }, sources: { type: 'array', items: { type: 'string' }, description: '实际需要的sourceId；不读取任何来源时传空数组。' }, currentEvidenceIds: { type: 'array', items: { type: 'string' }, description: '确需读取的本轮原话/附件ID；不默认共享整条用户消息。' } }, required: ['title', 'instruction', 'sources'], additionalProperties: false } } }, required: ['tasks'], additionalProperties: false },
   update_work_state: modelWorkChangeParameters,
+  manage_planning_intent: { type: 'object', properties: {
+    operation: { type: 'string', enum: ['keep', 'update', 'pause', 'resume', 'retire'] },
+    id: { type: 'string', minLength: 1, maxLength: 160, description: '修改或状态变化时使用已读取的精确intent ID。' },
+    expectedRevision: { type: 'integer', minimum: 1, description: '修改或状态变化时提交已读取的intent版本。' },
+    planId: { type: 'string', format: 'uuid', description: 'keep/update使用当前新的、尚未绑定意图的planning.draft之planId；planning.replan不能重绑规格，不自写规格。' },
+    source: { type: 'object', properties: { eventId: { type: 'string', minLength: 1, maxLength: 160 }, contentVersion: { type: 'integer', minimum: 1 }, start: { type: 'integer', minimum: 0 }, end: { type: 'integer', minimum: 1 }, quote: { type: 'string', minLength: 1, maxLength: 4000 } }, required: ['eventId', 'contentVersion', 'start', 'end', 'quote'], additionalProperties: false },
+    supports: { type: 'array', maxItems: 16, description: '实际支持规格参数、条件或理由的其他用户原话或已回读外部证据片段，保留真实eventId/版本/Unicode位置。外部片段不授予保留许可；仅看过的历史或工具观察不会自动成为持久支持。', items: { type: 'object', properties: { eventId: { type: 'string', minLength: 1, maxLength: 160 }, contentVersion: { type: 'integer', minimum: 1 }, start: { type: 'integer', minimum: 0 }, end: { type: 'integer', minimum: 1 }, quote: { type: 'string', minLength: 1, maxLength: 4000 } }, required: ['eventId', 'contentVersion', 'start', 'end', 'quote'], additionalProperties: false } },
+  }, required: ['operation', 'source'], additionalProperties: false },
   propose_memory_change: modelMemoryChangeParameters,
   map_route: modelMapRouteParameters,
 };
@@ -545,6 +559,7 @@ export class RuntimeCoordinator {
   readonly actions: ActionRuntime;
   readonly calendar: LocalCalendarService;
   readonly planning: PlanningApplicationService;
+  readonly planningIntents: PlanningIntentService;
   readonly collaboration: CollaborationService;
   readonly basis: BasisService;
   readonly cooperation: CooperationService;
@@ -577,7 +592,8 @@ export class RuntimeCoordinator {
     this.domains.onChanged = () => this.work.staleWorlds();
     this.connections = { weatherEnabled: () => store.settings().weatherEnabled };
     this.planning = new PlanningApplicationService(() => repo.clock.now());
-    registerBuiltins(this.broker, this.policy, repo, this.domains, this.connections, this.planning);
+    this.planningIntents = new PlanningIntentService(repo, this.work, this.planning);
+    registerBuiltins(this.broker, this.policy, repo, this.domains, this.connections, this.planning, this.planningIntents);
     registerResearch(this.broker, this.materials);
     registerMaterials(this.broker, this.materials);
     this.spatial = new SpatialService(this.policy, this.work, () => this.connections.map);
@@ -585,7 +601,10 @@ export class RuntimeCoordinator {
     this.context = new ContextCompiler(repo, this.policy, this.broker, this.domains, this.work);
     this.reminders = new ReminderRuntime(repo, this.policy);
     this.calendar = new LocalCalendarService(store, this.reminders, this.planning);
-    this.actions = new ActionRuntime(repo, this.policy, this.broker, (a, effect, scope) => this.calendar.apply(a, effect, scope), effect => this.calendar.undo(effect));
+    this.actions = new ActionRuntime(repo, this.policy, this.broker, (a, effect, scope) => this.calendar.apply(a, effect, scope), effect => this.calendar.undo(effect), {
+      onPrepared: (handle, action) => this.planningIntents.onPreparedAction(handle, action),
+      assertCurrent: (handle, action) => this.planningIntents.assertActionCurrent(handle, action),
+    });
     this.basis = new BasisService(repo, this.policy, this.work);
     this.cooperation = new CooperationService(repo, this.work);
     this.attention = new AttentionService(repo, this.policy, this.work, this.basis, this.cooperation, this.reminders, this.broker, () => store.settings().interaction);
@@ -1607,11 +1626,32 @@ export class RuntimeCoordinator {
       if (session.pack) session.pack.data.availabilityProjection = result;
       return result;
     }
-    if (session.ingress.requiresReadPurpose && (['restore_collaboration', 'search_context', 'read_understanding', 'inspect_action', 'manage_basis', 'read_assistant_history'].includes(name) || (name === 'read_evidence' && !session.events.some(event => event.id === args.id)))) {
+    if (session.ingress.requiresReadPurpose && (['restore_collaboration', 'manage_planning_intent', 'search_context', 'read_understanding', 'inspect_action', 'manage_basis', 'read_assistant_history'].includes(name) || (name === 'read_evidence' && !session.events.some(event => event.id === args.id)))) {
       const verdict = await callbacks.verifyReadPurpose?.({ tool: name, arguments: args, data: 'personal_history_or_work' });
       if (!verdict?.allowed) return { status: 'forbidden', reason: verdict?.reason || '本轮尚未核清读取这项本人资料的用途。' };
     }
     if (name === 'restore_collaboration') {
+      if (args.type === 'planning_intent') {
+        if (args.id && args.relatedTo) throw new HarnessError('intent_read_address', '精确规划规格ID与父事项过滤不能混用。');
+        if (args.discoveryScope === 'permitted_workspace' && contract.memoryMode !== 'relevant')
+          throw new HarnessError('intent_read_scope', '当前只允许本会话范围，不读取其他会话的规划规格。');
+        const acrossConversations = contract.memoryMode === 'relevant' && (args.discoveryScope === 'permitted_workspace'
+          || args.discoveryScope === undefined && !!args.id);
+        const sessionId = acrossConversations ? undefined : session.sessionId;
+        const pageInput = planningIntentPageInput.parse({ query: args.query, relatedTo: args.relatedTo,
+          sessionId, statuses: args.statuses, offset: args.offset, limit: args.limit });
+        const intent = args.id ? this.planningIntents.read(handle, { id: args.id, ...(sessionId ? { sessionId } : {}) }) : undefined;
+        const page = intent ? undefined : this.planningIntents.page(handle, { ...pageInput, query: args.mode === 'scan' ? undefined : pageInput.query });
+        const result = intent ? { status: 'fresh', type: 'planning_intent', intent } : { status: 'fresh', type: 'planning_intent', ...page! };
+        const records = intent ? [intent.record] : page!.items;
+        this.context.recordWorkSources(session.pack, records);
+        if (intent) this.context.recordPlanningAdoption(session.pack, intent.adoptionEvidence, intent.record);
+        if (session.pack) this.context.recordTool(session.pack, { status: records.length ? 'fresh' : 'known_absent',
+          sourceId: 'work:self', data: JSON.parse(JSON.stringify(result)), fetchedAt: this.repo.clock.now(), simulated: false },
+        'restore_collaboration', handle.id, result, undefined, true);
+        return result;
+      }
+      if (args.id || args.mode || args.discoveryScope || args.statuses) throw new HarnessError('intent_read_type', '规划规格的精确读取或扫描需要type=planning_intent。');
       const restored = this.collaboration.restore(handle, session.sessionId, args.query, args.offset, args.limit, { relatedTo: args.relatedTo, relatedOffset: args.relatedOffset });
       if (contract.enhancements?.applicability === false) restored.basisUses = [];
       if (contract.enhancements?.cooperationHistory === false) {
@@ -1620,7 +1660,7 @@ export class RuntimeCoordinator {
         restored.relatedOptions = restored.relatedOptions.filter(withoutHelpHistory);
         restored.relatedRecords = restored.relatedRecords.filter(withoutHelpHistory);
       }
-      this.context.recordObjects(session.pack, [...restored.items, ...restored.relatedOptions, ...restored.relatedRecords, ...restored.basisUses], 'work');
+      this.context.recordWorkSources(session.pack, [...restored.items, ...restored.relatedOptions, ...restored.relatedRecords, ...restored.basisUses]);
       const frames = restored.items.filter(item => item.data.type === 'collaboration_frame');
       const reports = frames.flatMap(frame => (Array.isArray(frame.data.decisionExperiences) ? frame.data.decisionExperiences : [])
         .flatMap(entry => {
@@ -1658,6 +1698,44 @@ export class RuntimeCoordinator {
         sourceId: 'work:self', data: JSON.parse(JSON.stringify(result)), fetchedAt: this.repo.clock.now(), simulated: false },
       'restore_collaboration', handle.id, result, undefined, true);
       return result;
+    }
+    if (name === 'manage_planning_intent') {
+      const pack = session.pack || await this.compile(session, false, signal);
+      const matter = session.episodeId ? this.repo.work(handle, 'episode', session.episodeId)[0] : undefined;
+      const sessionContext = { sessionId: session.sessionId, currentEventIds: session.events.filter(event => event.speaker === 'user').map(event => event.id),
+        matterId: matter?.data.type === 'collaboration_frame' ? matter.id : undefined };
+      const preview = this.planningIntents.previewManage(handle, args, sessionContext);
+      if (args.id && preview.target && 'title' in preview.target && typeof preview.target.title === 'string')
+        this.context.recordWorkSources(pack, [this.planningIntents.read(handle, { id: args.id, expectedRevision: args.expectedRevision }).record]);
+      this.context.recordSourceBinding(pack, this.repo.resolveWorkSourceBinding(handle, [args.source, ...(args.supports || [])]
+        .map(ref => ({ eventId: ref.eventId, contentVersion: ref.contentVersion, start: ref.start, end: ref.end }))));
+      const verdict = await callbacks.verifyLocalDelegation?.({ ...preview, targetKind: 'planning_intent', scope: 'durable_non_executing_planning_specification' });
+      validate();
+      if (verdict?.decision !== 'execute_local') return { applied: false, status: verdict?.decision || 'intent_unverified',
+        reason: verdict?.reason || '当前持续规划的保留或变更用途尚未核清。', missing: verdict?.missing || [] };
+      const currentBasis = verdict.basis.filter(basis => sessionContext.currentEventIds.includes(basis.id)
+        && basis.id === args.source.eventId && args.source.quote.includes(basis.quote));
+      if (!currentBasis.length) throw new HarnessError('intent_current_basis', '本次规划规格变更需要当前用户原话的实际依据。');
+      if (!Array.isArray(verdict.parameterObservationIds)) throw new HarnessError('planning_intent_source_unknown', '规格实际借用的工具来源尚未完整核清，没有保存。');
+      const dependentSourceIds = this.planningParameterSources(session, verdict.parameterObservationIds, [args.source, ...(args.supports || [])]);
+      const result = this.planningIntents.manage(handle, args, { ...sessionContext,
+        verification: { allowed: true, proposalDigest: preview.digest, basis: verdict.basis, dependentSourceIds } });
+      const record = 'record' in result ? result.record : undefined;
+      const intent = record ? { id: record.id, revision: record.revision, status: record.status, title: record.title, contentAvailable: true }
+        : 'transition' in result ? result.transition : undefined;
+      if (!intent) throw new HarnessError('planning_intent_result', '规划意图写入缺少可核对的对象状态。');
+      if (record) this.context.recordWorkSources(pack, [record]);
+      else this.context.recordObjects(pack, [intent], 'work');
+      const response = { operation: result.operation, applied: true, intent,
+        read: { tool: 'restore_collaboration', type: 'planning_intent', id: intent.id },
+        agendaChanged: false, memoryAssertionCreated: false,
+        meaning: '只保存了这份有来源的规划解释或状态；没有采用日程、创建人物偏好或恢复旧批准。继续安排时回读当前版本并重新核查。' };
+      // A successful business write stays observable even if no budget
+      // remains to expand its specification. Read it through the bounded read entry.
+      this.context.recordTool(pack, { status: 'fresh', sourceId: 'work:self', data: response,
+        fetchedAt: this.repo.clock.now(), simulated: false }, 'manage_planning_intent', handle.id, response);
+      callbacks.changed();
+      return response;
     }
     if (name === 'search_context') return this.context.prefetch(session.pack || await this.compile(session, false, signal), args.query, args.at, args.offset, args.limit, args.hardOffset, session.background ? event => {
       const view = session.attentionEvidenceViews?.[event.id];
@@ -2104,7 +2182,7 @@ export class RuntimeCoordinator {
         const pending = this.actions.list(handle).filter(action => !['succeeded', 'cancelled', 'cancellation_confirmed'].includes(action.status));
         return { actions: pending.slice(0, 20).map(action => ({ id: action.id, capability: action.capability, status: action.status, arguments: action.arguments, revision: action.revision })),
           coverage: { kind: 'pending_actions_only', complete: pending.length <= 20, total: pending.length, terminalActionsOmitted: true },
-          meaning: '空列表只表示没有待处理动作，不证明此前没有执行、没有外部后果或已经撤回。核查已提交结果须指定原动作ID。' };
+          meaning: '这里只列当前范围内可读的待处理动作；空列表不证明此前没有执行、没有外部后果或已经撤回。核查已提交结果须指定原动作ID。' };
       }
       return args.reconcile ? this.actions.reconcile(handle, args.id, signal) : { action: this.actions.get(handle, args.id), receipts: this.actions.receipts(handle, args.id) };
     }
@@ -2259,6 +2337,46 @@ export class RuntimeCoordinator {
     }
     return dependencies;
   }
+  /** Only host-held observations can introduce a retained parameter source.
+   * This maps provenance, never sourceCoverage or model-authored approval. */
+  private planningParameterSources(session: RunSession, ids: string[], refs: { eventId: string }[]) {
+    const handle = session.ingress.contract.scope, scope = this.policy.validate(handle), sources = new Set<string>();
+    const userSources = refs.flatMap(ref => { const event = this.repo.evidence(handle, ref.eventId); return event?.speaker === 'user' ? [event.sourceId] : []; });
+    for (const id of new Set(ids)) {
+      const matches = (session.observations || []).filter(observation => observation.toolCallId === id);
+      if (matches.length !== 1) throw new HarnessError('parameter_evidence', '规格所依赖的工具观察不存在或身份不唯一。');
+      const observation = matches[0], actual = new Set<string>(), visited = new Set<object>();
+      let nodes = 0;
+      const evidence = (eventId: string) => { const event = this.repo.evidence(handle, eventId); if (event) actual.add(event.sourceId); };
+      const source = (sourceId: string) => {
+        if (['current', 'user-declared'].includes(sourceId)) { userSources.forEach(value => actual.add(value)); return; }
+        if (scope.sources.includes(sourceId)) { actual.add(sourceId); return; }
+        const event = this.repo.evidence(handle, sourceId);
+        if (event) { actual.add(event.sourceId); return; }
+        if (scope.sources.includes('local-agenda') && this.calendar.read(sourceId)) { actual.add('local-agenda'); return; }
+        throw new HarnessError('planning_intent_source_unknown', '工具参数的真实资料来源当前不能核实，未把它保留成无来源规格。');
+      };
+      const visit = (value: unknown, depth = 0) => {
+        if (!value || typeof value !== 'object' || visited.has(value)) return;
+        if (++nodes > 4096 || depth > 16) throw new HarnessError('planning_intent_source_budget', '参数观察的来源结构超过本次核查范围。');
+        visited.add(value);
+        if (Array.isArray(value)) { value.forEach(child => visit(child, depth + 1)); return; }
+        const object = value as Record<string, unknown>;
+        if (typeof object.id === 'string' && (typeof object.contentVersion === 'number' || typeof object.authority === 'string')) evidence(object.id);
+        for (const [key, child] of Object.entries(object)) {
+          if (key === 'sourceId' && typeof child === 'string') source(child);
+          else if (key === 'sourceIds' && Array.isArray(child)) child.forEach(value => { if (typeof value === 'string') source(value); });
+          else if (['eventId', 'evidenceId', 'sourceEventId', 'parentEventId'].includes(key) && typeof child === 'string') evidence(child);
+          else visit(child, depth + 1);
+        }
+      };
+      visit(observation.result);
+      if (observation.tool === 'manage_note') source('notes:self');
+      if (!actual.size) throw new HarnessError('planning_intent_source_unknown', '实际参数观察缺少可核对的来源，尚未保存规格。');
+      actual.forEach(value => sources.add(value));
+    }
+    return [...sources];
+  }
   private async lookUp(session: RunSession, args: z.infer<typeof lookUpSchema>, callbacks: RuntimeCallbacks, signal: AbortSignal) {
     const sensitive: Record<string, string> = { grades: 'grades', retakes: 'grades', gpa: 'gpa', gpa_semesters: 'gpa', gpa_cumulative: 'gpa', reservations: 'reservations', reservation_violations: 'reservations', card: 'card', transactions: 'transactions', profile: 'profile', roles: 'profile' };
     const handle = session.ingress.contract.scope,
@@ -2272,6 +2390,10 @@ export class RuntimeCoordinator {
           const verdict = await callbacks.verifyReadPurpose?.({ capability: this.broker.describe(capability), arguments: input, ...(capability === 'research.search' ? { outgoingPublicQuery: true, requirement: '只有用户当前授权的公开检索词可外发；私人链接和无关原文不能变成公共搜索词。' } : {}) });
           if (!verdict?.allowed) return { status: 'forbidden' as const, sourceId: this.broker.describe(capability)?.sourceId || 'unknown', simulated: false, reason: verdict?.reason || '本轮尚未核清这些资料的用途。' };
           for (const grant of purposeGrants) readHandle = this.policy.campusPurposeScope(readHandle, grant);
+        }
+        if (capability === 'planning.replan' && session.ingress.contract.memoryMode !== 'relevant') {
+          const request = planningIntentReplanInput.parse(input);
+          this.planningIntents.read(readHandle, { ...request, sessionId: session.sessionId });
         }
         let effectiveInput = input;
         let originCandidate: { id: string; query: string; sourceEventId: string } | undefined;
@@ -2379,10 +2501,13 @@ export class RuntimeCoordinator {
             ? 'sceneRef可用present_view显示小时窗口，dailySceneRef可显示按日概览；选样本供下一句引用。温度对应时刻，降水对应标明的前一小时，覆盖不全保留未知；不能推断分钟级停雨或现场状况。'
             : '若按日比较有助当前问题，用present_view引用此sceneRef。日期选择只是试算，不自动保存日程；这次日级结果不能支持逐小时结论。' });
         }
-        if (capability === 'air_quality.lookup' || capability === 'planning.preview' || capability === 'planning.draft') {
+        if (capability === 'air_quality.lookup' || capability === 'planning.preview' || capability === 'planning.draft' || capability === 'planning.replan') {
+          const planningResult = result.data as { planId?: string; planningInput?: unknown } | undefined;
           const scene = capability === 'air_quality.lookup'
             ? this.scenes.environment(session.sceneSessionId || session.sessionId, result, capability, session.ingress.contract.id, session.background)
-            : this.scenes.planning(session.sceneSessionId || session.sessionId, result, capability, effectiveInput, session.ingress.contract.id, session.background);
+            : capability === 'planning.replan' && !planningResult?.planId ? undefined
+              : this.scenes.planning(session.sceneSessionId || session.sessionId, result, capability === 'planning.replan' ? 'planning.draft' : capability,
+                capability === 'planning.replan' ? planningResult?.planningInput : effectiveInput, session.ingress.contract.id, session.background);
           if (scene) {
             if (session.pack) session.pack.data.availableScenes = this.scenes.summaries(handle, session.sceneSessionId || session.sessionId, session.ingress.contract.id);
             return this.withMethodNotes(session, capability, { ...result, sceneRef: { id: scene.id, revision: scene.revision }, presentation: scene.kind === 'planning'

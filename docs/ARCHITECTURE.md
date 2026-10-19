@@ -87,7 +87,7 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 | 原始证据与人物理解 | [`memory/service.ts`](../src/main/memory/service.ts)、`memory/model.ts` 和 repository：原文、带条件/时间/主体的断言、支持与更正分开。自动提取在后台队列运行，候选经语义复核；提交时重验原证据、目标修订与当前隐私状态。分页、片段限制和持久恢复共同维护可继续读取的依据。相处建议和推断不能冒作用户明确设定。 |
 | 用户记事本 | [`notes/service.ts`](../src/main/notes/service.ts)、[`shared/notes.ts`](../src/shared/notes.ts)：独立原文、全文搜索、分页、CAS 编辑、历史、撤销和回收站。文档时间不自动成为正文里事情的发生时间，未知主体保持未知。保存笔记不自动生成日程或人物事实；删除笔记不连带取消独立已接受日历。 |
 | 用户设定的角色 | [`shared/persona.ts`](../src/shared/persona.ts)、`interaction.ts` 与 Store 设置：角色核心、用户例句、修订/恢复和纯角色模板，与五轴交互偏好共同作用。纯角色在关闭记忆时仍生效；旧 `guidance` 的混合私人内容保留私有原文，不能整段迁成常驻角色提示。预览例句是本地示例。 |
-| 事项与协作过程 | [`runtime/work.ts`](../src/main/runtime/work.ts)、`basis.ts`、`collaboration.ts`：目标、承诺、方案、对话事项、依据使用和未决条件，保留各自版本。同一事项的决策经历关联稳定方案和来源定位；用户报告不自动成为永久偏好、已接受选择或外部结果。任务步骤不等于生活承诺，空日历不等于有精力。 |
+| 事项与协作过程 | [`runtime/work.ts`](../src/main/runtime/work.ts)、`basis.ts`、`collaboration.ts`：目标、承诺、方案、对话事项、依据使用和未决条件，保留各自版本。持续规划由同一 `h_work` 的 `plan/planning_intent` 持有规格，采用证明仍归原动作、回执和日历。同一事项的决策经历关联稳定方案和来源定位；用户报告不自动成为永久偏好、已接受选择或外部结果。任务步骤不等于生活承诺，空日历不等于有精力。 |
 | 日历与动作 | [`actions/calendar.ts`](../src/main/actions/calendar.ts)、`local-calendar.ts`、`runtime.ts`：日程实例、重复例外、批准、幂等意图、补偿和回执。`Store.writeAgendaProjection/deleteAction` 是本地共同写入口。 |
 | 关注与已准备材料 | [`runtime/attention.ts`](../src/main/runtime/attention.ts)、`work.ts`、`cooperation.ts`：明确托付、限制、机会、材料、参与选择和真实曝光。发现机会不自动通知；沉默、点击或采纳不被解释为满意度或新人格事实。 |
 | 附件与公开资源 | [`materials/service.ts`](../src/main/materials/service.ts)、`pdf.ts`、`worker.ts`、`capabilities/research.ts`：文件、分页、PDF/图像处理和带范围的继续读取句柄，不把整份大文件当作无限上下文。 |
@@ -121,7 +121,7 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 
 ## 规划、批准和投递恢复
 
-[`builtin.ts`](../src/main/capabilities/builtin.ts) 注册 `situation.read`、`planning.preview`、`planning.draft` 与只读 `planning.recover`。`planning.preview` 复用 [`actions/planning.ts`](../src/main/actions/planning.ts) 计算当前状态、来源覆盖、冲突、可行时间、未知条件和版本绑定的提案。邀请、愿望、未接受方案与已接受承诺分开；只有 accepted 的适用日程占用承诺时间，未接受项不建提醒。未知结束不补造，时间值保留 UTC 并带声明时区的本地表达。预览只读；接受修改时通过原有动作链，对同一对象的 expectedRevision 做 CAS，撤销恢复原内容并产生新修订。
+[`builtin.ts`](../src/main/capabilities/builtin.ts) 注册 `situation.read`、`planning.preview`、`planning.draft` 及只读 `planning.recover/replan`。`planning.preview` 复用 [`actions/planning.ts`](../src/main/actions/planning.ts) 计算当前状态、来源覆盖、冲突、可行时间、未知条件和版本绑定的提案。邀请、愿望、未接受方案与已接受承诺分开；只有 accepted 的适用日程占用承诺时间，未接受项不建提醒。未知结束不补造，时间值保留 UTC 并带声明时区的本地表达。预览只读；接受修改时通过原有动作链，对同一对象的 expectedRevision 做 CAS，撤销恢复原内容并产生新修订。
 
 新增 [`actions/planning-draft.ts`](../src/main/actions/planning-draft.ts) 是多任务草案构造器：处理时长区间、依赖、可用窗口、连续块、保护时间、准备/收拾、休息和有方向的交通成本，保留没排入的任务及原因。按声明时长上界留位，未知估时不填默认一小时；可移动但已接受的安排仍占位。输出包含日历及方案指纹、来源版本、条件、逐项动作参数和 `applied:false`，不宣称全局最优或现实全部可行。
 
@@ -141,7 +141,25 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 
 `planning.recover({planId})` 只读当前日历中的持久 planRef。完整票据、范围、版本和时效都仍成立时给出精确下一保存单位；发现删除、修改、重复或账本外同方案行则要求核查。重启后只报告当前观察到的行，总步数与遗漏保持未知，不重放旧写入。可精确核对的部分采用可以生成 remainingRequest：扣除工作分钟而非准备/休息，把已安排前置项转成时间约束，不当作实际完成；仍欠休息/转场或分段保存不完整时不生成会丢占用的简化请求。来源、时间和当前日历须重新核查后再生成草案。
 
-`remainingRequest` 还按同一自然日边界扣减已保存净工作的每日额度，不能恢复总预算时重置每日上限；已保存时段继续由真实日历占位。长期方案意图、原选择理由及未排任务的跨重启恢复仍是候选，未把内存票据持久化或延长成旧授权。
+`remainingRequest` 还按同一自然日边界扣减已保存净工作的每日额度，不能恢复总预算时重置每日上限；已保存时段继续由真实日历占位。跨重开的持续规格由下述规划意图恢复，内存票据不持久化。
+
+### 跨重开的规划意图
+
+[`PlanningIntentService`](../src/main/runtime/planning-intents.ts) 经 `manage_planning_intent` 核验当前原话、精确来源和 CAS，在现有 WorkService 保存、修订、暂停、恢复或停止 `planning_intent`；`planning.draft/replan` 本身只读。规格是带方法默认值的模型解释，不证明每个参数均为用户明说，也不成为人物偏好、接受或执行授权。`sourceBinding` 保留来源版本、Unicode 范围和所需权限；动态忙碌、资源、精力、交通及完成事实不复制成当前真相，未满足条件与 `requiredRefresh` 保留。
+
+修订和恢复保留旧单会话字段、既有成员与当前会话的完整去重关系；达到内容预算时明确拒绝，不截掉较早会话。关系只用于同一对象的发现和定位，实际读取仍须通过当前来源和范围门，不扩大`current_conversation`。
+
+[`planning-intent-contract.ts`](../src/main/actions/planning-intent-contract.ts) 定义宿主清单与采用单位；首次真实动作准备的同一 SQLite 事务才写 `h_planning_intent_attempts` 与 `h_planning_intent_action_links`，只读试算不写清单。schema11 让每份 attempt 自带 `source_binding/redacted`，先过自身当前来源门再读正文；当前父规格不能替旧 attempt 证明来源。旧 schema10 证明不回填来源，清空 manifest 并留下不可读证明的存在，不能据此当作零成功。
+
+[`planning-intent-ledger.ts`](../src/main/actions/planning-intent-ledger.ts) 只从真实动作修订与参数摘要、派发、成功本地回执及当前日历对象／高水位核对采用。工作组的全部 parts 完整才计净工作；准备、收尾、休息及转场不算净工作。修改、删除、done、重复、部分保存、已经开始／过去或证明不可读均要求复核；已安排不等于已完成。
+
+新票据的宿主`attemptBasis`冻结本次实际读取的旧证明：plan／intent身份、spec／manifest摘要与原sourceBinding。在prepare、批准、派发及既有票据边界重新核验，父规格换源不能使旧证明继续有效；同票据后续prepare新增的记录不反向加入这个集合。共享`PlanningMaterialProvenance`把同一来源关系带入Scene、准备正文、cooperation和ContextReceipt。工作记录在标题／分页前核验，历史正文／导出与实际读取的前情继续传递证明，前台和后台子调查采用也沿父receipt继承。历史解释仅核原来源仍合法，不因后来的普通规格修订或暂停被误抹；准备和可交互Scene另要求当前意图修订。永久遗忘同时清这些派生正文和证明，独立安排／材料仍归自己的来源。
+
+`planning.replan` 从原规格扣已核工作一次，保持总／逐日预算、依赖和原时间窗，不滚动日期或再扣上次余量。未来已保存工作是不可改锚点，原休息／转场提供真实覆盖；同一规划器补缺失边界，也支持只补边界而没有新增工作。新增完整准备／工作／收尾及共享边界仍守 `scheduleWindows`、留白与未来范围。新写下界向上对齐分钟，已核未来占用仍按真实相邻端点保留秒级原范围；采用前重核已存边界是否开始，放不下时明确拒绝，不省略占用。重开只签新短票据，旧票据、scope 与批准不复活。
+
+规格、attempt、动作私文和 continuation Scene 的发现、回读、历史 IPC 与导出各过当前来源门；不可读采用证明返回未知而非零工作量。永久遗忘按每份 attempt 自身来源清私文，父规格换源不能洗白历史。仅删除非执行 typed 意图时，可按原精确业务证明保留独立已接受日历和回执；普通原话／来源／span 删除仍清同源派生，明确业务删除也不获此例外。
+
+本轮持久规划已沿现有Planning Scene加入安静续接关系；后端、GPT Image比较与真实Electron操作的证据分别见[第三批状态](CURRENT_STATUS.md#personal-memory-round3)及[实现研究](research/PERSISTENT_PLANNING_INTENT_2026-10-18.md)。最终审查修正的复核以该状态为准，本节不宣称新版发布或真实模型效果。
 
 外部 `sourceVersion` 的当前版本解析器尚未接入。带外部具体来源引用的方案可以构造，但只要版本无法复验，采用状态为 `blocked`；未知条件或不完整覆盖也不能伪装已核实。当前明确自述与外部来源覆盖分开处理，不能把外部记录改标为自述来宣称可用。接线存在与类型检查通过不等于真实模型、真实外部来源或逐项采用所有故障路径已经验收，最终证据以当前状态文档为准。
 
@@ -174,6 +192,10 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 `ConversationMap`、独立 `MapSheet` 与 review-web 共用 `MapSurface`、`CampusMapAdapter`、`WalkingGraph.shortest`、MapLibre 引擎和已有平面 fallback。地面地理/通行图与展示几何分开，`CameraOwnership` 取消被用户手势接管的旧异步视图。独立地图拥有本机定位轮询；公共地图本身不提供个人位置。模型路线副本由 [`map-model-view.ts`](../src/main/runtime/map-model-view.ts) 保留距离、入口、条件、警告和来源，去除重复绘图几何；完整路线仍供原地图绘制。原始读取字节与模型可见 token 分别计量。天气能力可返回小时窗口，当前 WeatherScene 仍是日级展示。
 
 [`scene-projections.ts`](../src/main/runtime/scene-projections.ts) 从宿主规划结果投影 PlanningScene；按已核完整连续的 `daySummaries` 将有限结束的显示块分到各日，拆开的部分携带 `originalRange` 与完整 `planRefs`。点选仅引用同一宿主方案，不因显示拆块生成保存参数或拆分现实工作。日账缺项、重复、范围不连贯或边界不符时保留原完整块并说明缺口；未知结束保持 null，不按日界伪造终点。renderer 使用宿主日账显示工作、占用与留白，不自行计出另一套事实。小时天气和空气另经 EnvironmentScene 保留各自来源、单位与覆盖。
+
+重算结果的可选 `PlanningScene.continuation` 绑定 intent 修订和精确来源，只在采用证明 ready、覆盖满足且分钟为有效数字时投影；`allocatedMinutes` 是已核已安排净工作，`scheduledMinutes` 是本次新试算，均不证明完成或接受。SceneService 在读取、点选与恢复时重核 active 规格及来源；历史消息 IPC、准备材料和导出应用同一门，旧画面不能成为绕过当前限制的副本。
+
+renderer复用`LifeSceneViews.tsx`的原连续时间线，用“接着上次的安排”及“已在日历／这次续排”轻量表达两者关系，保留真实日历背景与原日期条；没有独立完成进度或新采用入口。日期、时段选择仍只生成当前Scene的精确引用，输入草稿沿原会话保存与恢复。
 
 公共 [`air-quality.ts`](../src/main/capabilities/air-quality.ts) 经 `air_quality.lookup` 接入既有天气适配器与 `weather:read`，只接受明确公开参考点，不接受设备定位观测。返回 Open-Meteo/CAMS 小时网格预报、PM2.5/PM10、US/European AQI、单位、覆盖和取回时间；缺测保持 null，制式或时间列异常拒绝当作可用结果。发布时间未知，参考点不是用户位置，US/EU AQI 不能写成中国官方 AQI。EnvironmentScene 是有限结果投影，不能据此保证某人适宜运动。
 

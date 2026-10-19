@@ -348,6 +348,9 @@ export class SyncPort {
       const old = this.repo.work(handle, undefined, operation.objectId)[0];
       if (!old) throw new HarnessError('object_missing', '同步对象不存在。');
       currentWork = old;
+      if (old.sourceBinding || old.data.type === 'planning_intent')
+        return { accepted: false, code: 'typed_work_writer_required', objectId: old.id, currentRevision: old.revision,
+          meaning: '这份持续规格须按原话和当前版本修改，不能合并设备提案。' };
       const permittedSources = new Set(s.sources.filter(source => source !== 'current'));
       for (const data of [old.data, operation.delta.data]) {
         if (!data || !Object.hasOwn(data, 'sourceIds')) continue;

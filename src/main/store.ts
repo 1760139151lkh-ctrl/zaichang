@@ -442,6 +442,8 @@ export class Store {
         .all(principalId, workspaceId)
         .map((r) => JSON.parse(String(r.payload)));
     const labelFilter = "AND retain!='session_only' AND sensitivity!='restricted'";
+    const exportScope = this.runtime.policy.hostScope();
+    const workingState = this.kernel.exportWorkingState(exportScope);
     return redactExport({
       version: 1,
       manifest: {
@@ -452,7 +454,7 @@ export class Store {
       },
       exportedAt: new Date().toISOString(),
       settings: this.settings(),
-      sessions: this.conversations().map((s) => ({ ...s, messages: this.messages(s.id) })),
+      sessions: this.conversations().map((s) => ({ ...s, messages: this.messages(s.id).map(message => this.runtime.presentation.sourceCurrentMessage(message)) })),
       drafts: Object.fromEntries(
         this.db
           .prepare("SELECT key,value FROM meta WHERE key LIKE 'draft:%'")
@@ -465,9 +467,10 @@ export class Store {
       notes: this.notes.export(),
       evidence: owned('h_evidence', labelFilter + " AND status!='deleted'"),
       assertions: owned('h_assertions', labelFilter),
-      work: owned('h_work', labelFilter),
+      work: workingState.work,
+      planningIntentState: workingState.planningIntentState,
       worlds: owned('h_worlds'),
-      actions: owned('h_actions'),
+      actions: owned('h_actions').filter(action => this.kernel.planningActionReadable(exportScope, action.id)),
       domainRecords: owned('h_domain', labelFilter + " AND status!='known_absent'"),
       privacyFences: this.kernel.fences(),
     });

@@ -114,12 +114,29 @@ scene1 = WeatherScene("<scene-id>@<revision>")
 
 本批先生成并比较[两版日节奏图](../assets/design/generated/2026-10-18-personal-memory/daily-rhythm-manifest.json)，采用A的日期条＋单日展开，删去重复辅助文案；精确时间与业务数据来自宿主。实际Electron宽／窄、晨光／夜色、日期／小时点选、草稿保存重开、环境缺测与过期已观察。真实模型是否选对工具与参与时机、手机系统及长期效果仍是不同证据层，见[当前状态](CURRENT_STATUS.md#personal-memory-continuity)。
 
+## 保留规划的继续试算
+
+`planning.replan` 复用同一规划器和 `PlanningScene`，新增可选 `continuation`，绑定 `intentId/intentRevision/sourceBinding`和本次实际读取的`attemptBasis`。宿主只在采用证明 ready、来源覆盖满足且分钟为有限非负数时生成画面；证明未知或不可读不能把 `null` 转成零后呈现“尚未安排”。`allocatedMinutes` 表示当前可核且仍保留的已安排净工作，`scheduledMinutes` 表示本次新试算；两者均不等于实际完成，本次试算也不等于已接受。
+
+SceneService 在读取、选择和恢复前重核 active 意图、同一修订及完全相同的当前来源绑定。模型可见结果、准备材料、历史消息 IPC 和导出对这种派生画面共用来源门；来源、修订或状态变化后，旧画面不能绕过限制。点选仍只提交精确 Scene 引用供交流；实际采用须核新短票据、完整 `planRef` 与原动作权限，不能复活重启前的票据或批准。
+
+每份旧attempt仍核自己的精确来源与manifest摘要，不能只检查宽sourceId或新版父意图。相关正文也带同一provenance：来源停止后，准备、历史读取及导出不能仅移除Scene而继续返回派生计数；正常历史解释与当前可交互画面的时效要求分开。旧continuation缺必需proof时不可读，不补造当时证明。无归因字段的旧纯正文无法倒推全部来源，这一迁移限制保留在当前状态。
+
+已有工作与休息由宿主按真实保存证据保留，新安排继续守原未来窗口、预算及完整准备／收尾／转场。新写下界可对齐到下一分钟，已存且仍在未来的秒级边界保留原范围，不裁成新事件或重复收费。画面不自行推断进度、重新计账或补造结束；旧 Scene 没有 `continuation` 时维持原协议。
+
+本批后端整合检查后生成并查看[两版GPT Image](../assets/design/generated/2026-10-18-planning-continuity/manifest.json)，采用A连续时间线和轻量关系文字；B横向分组可能误分交错的新旧时段，未采用。`LifeSceneViews.tsx`沿现有时间带显示“接着上次的安排”“已在日历／这次续排”，保留原日期、真实日历背景和“尚未保存”；没有完成进度或新增批准入口。
+
+负责人亲看1220×960、430×900与晨光／夜色，实际恢复原对话、切日、选取精确时段并保留已输入草稿，保存后reload／resume回读同一文字，End从22日切至23日。此为本批界面操作范围，不继承为动效、真实模型工具发现、长期质量或手机产品验收。后端最终审查修正及检查结果由[第三批状态](CURRENT_STATUS.md#personal-memory-round3)和[研究](research/PERSISTENT_PLANNING_INTENT_2026-10-18.md)分别记录。
+
+日期／小时条在尺寸变化时优先保留其中正在操作的键盘焦点，否则显示当前选项，不改变聊天滚动或焦点。当前构建实际重查了End后尚未确认便缩窄窗口的小时选择，并核对精确引用；预算依据也分别说明新增净工作上限和含准备、休息的完整占用。
+
 ## 源码与 API 核对依据
 
-本次文档同步按当前本地源码核对，没有新增模型调用、账号连接、远端文档检查或前端实机验收。关键入口为：
+本次文档同步按当前本地源码核对；本批Electron操作范围见上节，没有新增模型调用或账号连接，也未重新核实下列远端文档的最新版。关键入口为：
 
 - 数据与声明：[scenes.ts](../src/shared/scenes.ts)、[shared/presentation.ts](../src/shared/presentation.ts)、[Message 定义](../src/shared/types.ts)。
 - 场景权限、保留与选择：[runtime/scenes.ts](../src/main/runtime/scenes.ts)；工具取得结果及 `present_view`：[runtime/coordinator.ts](../src/main/runtime/coordinator.ts)。
+- 继续规划与采用证明：[planning-intents.ts](../src/main/runtime/planning-intents.ts)、[planning-intent-ledger.ts](../src/main/actions/planning-intent-ledger.ts)、[scene-projections.ts](../src/main/runtime/scene-projections.ts)；历史与导出来源门：[runtime/presentation.ts](../src/main/runtime/presentation.ts)。
 - 准备、帮助引用与仍有效材料：[attention.ts](../src/main/runtime/attention.ts)、[runtime/presentation.ts](../src/main/runtime/presentation.ts)、[harness.ts](../src/main/harness.ts)。
 - 实际场景渲染与生命周期：[AssistantPresentation.tsx](../src/renderer/presentation/AssistantPresentation.tsx)、[ConversationMap.tsx](../src/renderer/map/ConversationMap.tsx)、[App.tsx](../src/renderer/App.tsx)、[LifePanels.tsx](../src/renderer/LifePanels.tsx)。
 - 天气字段与时间覆盖：[capabilities/weather.ts](../src/main/capabilities/weather.ts)；形象存储与设置：[companion.tsx](../src/renderer/companion.tsx)、[CompanionSettings.tsx](../src/renderer/CompanionSettings.tsx)。

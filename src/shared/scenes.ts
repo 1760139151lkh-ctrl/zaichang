@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { MapPoint, MapRouteResult } from './map-v2';
+import { planningMaterialProvenanceSchema } from './harness';
 
 /** Facts are immutable message snapshots; camera and trial selections never imply an action. */
 export interface SceneSource {
@@ -77,6 +78,10 @@ export interface PlanningBlock {
   /** These identify existing host proposals, never a browser-authored save payload. */
   planRefs?: { planId: string; blockId: string }[];
 }
+export const planningContinuationSchema = planningMaterialProvenanceSchema.extend({
+  allocatedMinutes: z.number().finite().nonnegative(), scheduledMinutes: z.number().finite().nonnegative(),
+}).strict();
+export type PlanningContinuation = z.infer<typeof planningContinuationSchema>;
 export interface PlanningScene extends SceneBase {
   kind: 'planning';
   mode: 'preview' | 'draft';
@@ -111,6 +116,8 @@ export interface PlanningScene extends SceneBase {
   adoption?: { status: string; blockers: string[]; totalSteps: number; completedSteps: number };
   planId?: string;
   expiresAt?: string;
+  /** Host-bound continuation evidence, never an approval or a saved calendar result. */
+  continuation?: PlanningContinuation;
   /** A picture of a calculation, never a receipt for saved calendar items. */
   applied: false;
 }

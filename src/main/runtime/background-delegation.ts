@@ -237,6 +237,7 @@ export class BackgroundDelegation {
         const receipt = worker.run.pack!.receipt;
         this.pack.receipt.providedEvidenceIds = [...new Set([...this.pack.receipt.providedEvidenceIds, ...receipt.providedEvidenceIds])];
         this.pack.receipt.providedSourceIds = [...new Set([...(this.pack.receipt.providedSourceIds || []), ...(receipt.providedSourceIds || [])])];
+        this.runtime.context.recordPlanningProvenance(this.pack, receipt.planningProvenance || []);
     }
   }
 }

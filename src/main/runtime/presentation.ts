@@ -39,7 +39,7 @@ export class PresentationService {
     if (!record) return null;
     const options = (Array.isArray(record.data.optionIds) ? record.data.optionIds : []).flatMap(id => {
       const option = this.store.kernel.work(scope, undefined, String(id))[0];
-      if (!option || !['option', 'plan'].includes(option.kind) || ['blocked', 'stale', 'rejected', 'cancelled', 'needs_review'].includes(option.status)) return [];
+      if (!option || option.data.type === 'planning_intent' || !['option', 'plan'].includes(option.kind) || ['blocked', 'stale', 'rejected', 'cancelled', 'needs_review'].includes(option.status)) return [];
       const point = typeof option.data.placeId === 'string' ? runtime.connections.map?.point(option.data.placeId) : undefined;
       return [{ id: option.id, revision: option.revision, title: option.title, ...(point ? { placeId: point.id, placeLabel: point.displayName } : {}) }];
     });
@@ -92,7 +92,7 @@ export class PresentationService {
         if (!sourceId) return [];
         return [{ label: sourceId === 'map:local' ? '校园步行地图' : sourceId === 'campus:local' ? '导入的校园资料' : sourceId.startsWith('campus:') ? '已连接的校园资料' : sourceId === 'web:public' ? '公开资料' : '本次提供或查询的资料', ...(value.observedAt || event?.receivedAt ? { at: value.observedAt || event!.receivedAt } : {}) }];
       });
-      return { id: record.id, revision: record.revision, matterId: String(record.data.matterId), title: artifact.title, body: artifact.body, expiresAt: String(record.data.expiresAt), kind: record.status === 'question_ready' ? 'question' : 'material', sources, ...(artifact.scenes ? { scenes: artifact.scenes } : {}), ...(record.data.helpRecordId ? { helpRecordId: String(record.data.helpRecordId) } : {}) };
+      return { id: record.id, revision: record.revision, matterId: String(record.data.matterId), title: artifact.title, body: artifact.body, expiresAt: String(record.data.expiresAt), kind: record.status === 'question_ready' ? 'question' : 'material', sources, ...(artifact.scenes ? { scenes: this.currentScenes(artifact.scenes) } : {}), ...(record.data.helpRecordId ? { helpRecordId: String(record.data.helpRecordId) } : {}) };
     });
   }
   state(value: State): State {
@@ -100,9 +100,34 @@ export class PresentationService {
     if (this.public) return { settings: { ...DEFAULT_SETTINGS }, conversations: [], memories: [], agenda: [], campus: null, campusConnector: null, presentation: surface, preparations: [], matters: [] };
     return { ...value, presentation: surface, preparations: this.preparations(), matters: this.matters() };
   }
+  private currentScenes(scenes: import('../../shared/scenes').SceneSnapshot[]) {
+    const runtime = this.store.runtime, scope = runtime.policy.hostScope();
+    return scenes.filter(scene => scene.kind !== 'planning' || !scene.continuation || runtime.scenes.snapshotReadable(scope, scene));
+  }
+  /** Historical IPC and exports must apply the same source gate as scene tools. */
+  sourceCurrentMessage(value: Message): Message {
+    const runtime = this.store.runtime, scope = runtime.policy.hostScope();
+    const snapshots = [...(value.scenes || []), ...runtime.scenes.all(value.sessionId)];
+    const referenced = new Set((value.views || []).flatMap(view => view.sceneRefs.map(ref => `${ref.id}@${ref.revision}`)));
+    const attached = snapshots.filter(scene => scene.kind === 'planning' && scene.continuation
+      && ((value.scenes || []).some(item => item.id === scene.id && item.revision === scene.revision)
+        || referenced.has(`${scene.id}@${scene.revision}`)));
+    const bodyReadable = this.store.kernel.planningMessageReadable(scope, { contextReceipt: value.contextReceipt, scenes: attached });
+    if (value.role === 'assistant' && !bodyReadable) return { ...value,
+      content: '这条回复的依据已改变，需要重新核对。', responseText: undefined,
+      steps: [], obligations: [], actions: [], mapCards: undefined, scenes: [], views: [],
+      releaseArtifacts: undefined, helpRefs: undefined, cooperationId: undefined,
+      contextReceipt: undefined, objectStates: undefined, image: undefined };
+    const denied = new Set(snapshots.filter(scene => scene.kind === 'planning' && scene.continuation
+      && !runtime.scenes.snapshotReadable(scope, scene)).map(scene => `${scene.id}@${scene.revision}`));
+    if (!denied.size) return value;
+    return { ...value, ...(value.scenes ? { scenes: value.scenes.filter(scene => !denied.has(`${scene.id}@${scene.revision}`)) } : {}),
+      ...(value.views ? { views: value.views.filter(view => view.sceneRefs.every(ref => !denied.has(`${ref.id}@${ref.revision}`))) } : {}) };
+  }
   message(value: Message): Message | null {
     if (this.public) return null;
-    const objectStates: ObjectPresentationState[] = value.actions.map(action => {
+    const safe = this.sourceCurrentMessage(value);
+    const objectStates: ObjectPresentationState[] = safe.actions.map(action => {
       const current = this.store.runtime.calendar.read(action.id);
       const effect = this.store.runtime.actions.get(this.store.runtime.policy.hostScope(), action.effectActionId || action.id);
       const currentRevision = current?.revision || (current ? 1 : null), historicalRevision = action.revision || 1;
@@ -111,13 +136,13 @@ export class PresentationService {
       return { id: action.id, kind: 'agenda', currentRevision, historicalRevision, relation, operationAvailable: relation === 'current' };
     });
     const workVersions = new Map<string, number>();
-    for (const ref of value.contextReceipt?.providedObjectVersions || []) if (ref.kind === 'work') workVersions.set(ref.id, Math.max(workVersions.get(ref.id) || 0, ref.revision));
+    for (const ref of safe.contextReceipt?.providedObjectVersions || []) if (ref.kind === 'work') workVersions.set(ref.id, Math.max(workVersions.get(ref.id) || 0, ref.revision));
     for (const [id, historicalRevision] of workVersions) {
       const current = this.store.kernel.work(this.store.runtime.policy.hostScope(), undefined, id)[0];
       const relation = !current ? 'removed' : current.revision === historicalRevision ? 'current' : 'changed';
       objectStates.push({ id, kind: 'work', historicalRevision, currentRevision: current?.revision || null, relation, operationAvailable: relation === 'current' && !['stale', 'blocked', 'cancelled'].includes(current?.status || '') });
     }
-    return { ...value, objectStates };
+    return { ...safe, objectStates };
   }
   permitsIpc(name: string) {
     return !this.public || ['state', 'messages', 'presentation:surface', 'presentation:clear', 'stop', 'text:copy', 'draft:info', 'draft:unsaved'].includes(name);

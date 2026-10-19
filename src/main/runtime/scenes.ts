@@ -3,8 +3,9 @@ import type { Store } from '../store';
 import type { PolicyKernel } from './policy';
 import { HarnessError, type ScopeHandle } from '../../shared/harness';
 import type { MapRouteResult } from '../../shared/map-v2';
-import { sceneViewDsl, semanticSelectionSchema, type CampusRecord, type CampusScene, type EnvironmentSample, type MapScene, type PlanningBlock, type PresentationView, type SceneRef, type SceneSnapshot, type SemanticSelection, type VerifiedSelection, type WeatherScene } from '../../shared/scenes';
+import { planningContinuationSchema, sceneViewDsl, semanticSelectionSchema, type CampusRecord, type CampusScene, type EnvironmentSample, type MapScene, type PlanningBlock, type PresentationView, type SceneRef, type SceneSnapshot, type SemanticSelection, type VerifiedSelection, type WeatherScene } from '../../shared/scenes';
 import { environmentSnapshot, planningSnapshot } from './scene-projections';
+import { canonical } from './semantics';
 
 /** A strict projection of the installed connector's named fields. No prose parsing,
  * guessed course matches, aggregate rows, or model-authored facts enter a scene. */
@@ -74,13 +75,33 @@ export class SceneService {
   }
   private permitted(handle: ScopeHandle, scene: SceneSnapshot) {
     const scope = this.policy.validate(handle);
-    return scope.audience === 'self' && this.policy.can(handle, scene.kind === 'map' ? 'map:read' : scene.kind === 'campus' ? 'campus:read' : scene.kind === 'planning' ? 'evidence:read' : 'weather:read')
+    const allowed = scope.audience === 'self' && this.policy.can(handle, scene.kind === 'map' ? 'map:read' : scene.kind === 'campus' ? 'campus:read' : scene.kind === 'planning' ? 'evidence:read' : 'weather:read')
       && scope.sources.includes(scene.source.sourceId)
       && (scene.kind !== 'planning' || scene.requiredSourceIds.every(sourceId => scope.sources.includes(sourceId)
         && (!sourceId.startsWith('campus:') || this.policy.can(handle, 'campus:read'))
         && (!sourceId.startsWith('weather:') || this.policy.can(handle, 'weather:read'))
         && (!sourceId.startsWith('map:') || this.policy.can(handle, 'map:read'))));
+    if (!allowed) return false;
+    if (scene.kind !== 'planning' || scene.continuation === undefined) return true;
+    const parsed = planningContinuationSchema.safeParse(scene.continuation);
+    if (!parsed.success) return false;
+    const continuation = parsed.data;
+    try {
+      const record = this.store.kernel.workData(handle, ['planning_intent'], { id: continuation.intentId, revision: continuation.intentRevision, limit: 1 })[0];
+      if (!record || record.kind !== 'plan' || record.status !== 'active' || !record.sourceBinding
+        || canonical(record.sourceBinding) !== canonical(continuation.sourceBinding)) return false;
+      const binding = this.store.kernel.resolveWorkSourceBinding(handle, continuation.sourceBinding.refs);
+      if (canonical(binding) !== canonical(continuation.sourceBinding)
+        || new Set(continuation.attemptBasis.map(attempt => attempt.planId)).size !== continuation.attemptBasis.length
+        || continuation.attemptBasis.some(attempt => attempt.intentId !== continuation.intentId)) return false;
+      this.store.runtime.planningIntents.assertAttemptBasis(handle, continuation.intentId, continuation.attemptBasis);
+      return true;
+    } catch (error) {
+      if (error instanceof HarnessError || error instanceof SyntaxError) return false;
+      throw error;
+    }
   }
+  snapshotReadable(handle: ScopeHandle, scene: SceneSnapshot) { return this.permitted(handle, scene); }
   all(sessionId: string): SceneSnapshot[] {
     const stored = this.store.messages(sessionId).flatMap(message => message.scenes || []);
     const prepared = this.store.kernel.workData(this.policy.hostScope(), ['help_opportunity'], { sessionId, statuses: ['prepared', 'question_ready', 'notification_queued'], limit: 5 })

@@ -9,6 +9,7 @@ import type { CooperationService } from './cooperation';
 import type { ReminderRuntime } from '../actions/reminders';
 import type { CapabilityBroker } from '../capabilities/broker';
 import { canonical } from './semantics';
+import { planningMaterialProvenanceSchema, type PlanningMaterialProvenance } from '../actions/planning-intent-contract';
 import type { InteractionPreferences } from '../../shared/interaction';
 import { sceneRefSchema, type SceneRef, type SceneSnapshot } from '../../shared/scenes';
 import type { DomainChange } from '../storage/domains';
@@ -392,9 +393,30 @@ export class AttentionService {
       ...list(data.alternatives).flatMap((item: any) => item.before ? [item.before] : []) ] : list(data.localAgenda?.items);
     for (const item of agenda) if (typeof item?.id === 'string') versions.push({ kind: 'agenda', id: item.sourceActionId || item.seriesId || item.id, revision: item.revision || 1 });
     for (const item of [...list(data.goals), ...list(data.commitments)]) if (typeof item?.id === 'string' && Number.isSafeInteger(item.revision)) versions.push({ kind: 'work', id: item.id, revision: item.revision });
+    for (const planning of [data, (value as any).intent, data.intent]) {
+      if (planning?.record?.data?.type !== 'planning_intent') continue;
+      versions.push({ kind: 'work', id: planning.record.id, revision: planning.record.revision });
+      for (const retained of [...list(planning.adoptionEvidence?.retained?.work), ...list(planning.adoptionEvidence?.retained?.boundaries)])
+        for (const version of list(retained.recordVersions)) versions.push({ kind: 'agenda', id: version.id, revision: version.revision });
+    }
     for (const group of list(data.campus)) for (const item of list(group.records)) if (typeof item?.id === 'string' && Number.isSafeInteger(item.revision)) versions.push({ kind: 'domain', id: item.id, revision: item.revision,
       sourceId: item.sourceId, domain: item.domain || group.domain, institutionId: item.institutionId, termId: item.termId });
     return [...new Map(versions.map(version => [canonical(version), version])).values()];
+  }
+
+  private planningProvenance(result: unknown): PlanningMaterialProvenance[] {
+    const value = result as any;
+    const candidates = [value, value?.data, value?.intent, value?.data?.intent], resultProvenance: PlanningMaterialProvenance[] = [];
+    for (const planning of candidates) {
+      if (planning?.record?.data?.type !== 'planning_intent') continue;
+      const adoption = planning.adoptionEvidence;
+      const attemptBasis = adoption?.status === 'not_checked' || adoption?.evidenceCoverage === 'unavailable' ? [] : adoption?.attemptBasis;
+      const parsed = planningMaterialProvenanceSchema.safeParse({ intentId: planning.record.id, intentRevision: planning.record.revision,
+        sourceBinding: planning.record.sourceBinding, attemptBasis });
+      if (!parsed.success) throw new HarnessError('planning_material_unverified', '规划材料缺少当时实际读取的来源与采用证明，须重新读取后准备。');
+      resultProvenance.push(parsed.data);
+    }
+    return [...new Map(resultProvenance.map(provenance => [canonical(provenance), provenance])).values()];
   }
 
   private evidenceVersions(event: { sourceId: string; text: string }) {
@@ -423,6 +445,15 @@ export class AttentionService {
 
   private observationSources(observation: { tool: string; result: unknown }) {
     const sources = new Set<string>();
+    const planning = this.planningProvenance(observation.result);
+    if (planning.length) {
+      sources.add('work:self');
+      const sourceId = (observation.result as { sourceId?: unknown })?.sourceId;
+      if (typeof sourceId === 'string') sources.add(sourceId);
+      for (const provenance of planning) for (const binding of [provenance.sourceBinding, ...provenance.attemptBasis.map(attempt => attempt.sourceBinding)])
+        for (const source of binding.sourceIds) sources.add(source);
+      return [...sources];
+    }
     const visit = (value: unknown) => {
       if (Array.isArray(value)) { value.forEach(visit); return; }
       if (!value || typeof value !== 'object') return;
@@ -711,6 +742,12 @@ export class AttentionService {
     const suppliedVersions = supplied.flatMap(event => this.evidenceVersions(event!));
     if (!this.versionsCurrent(handle, suppliedVersions)) throw new HarnessError('material_changed', '提供的本机安排已经变化，需要按当前版本重新准备。');
     materialVersions.push(...suppliedVersions);
+    const planningProvenance = reused ? opportunity.data.planningProvenance : [...new Map([
+      ...material.flatMap(item => this.planningProvenance(item!.result)),
+      ...supplied.flatMap(event => { try { return this.planningProvenance({ data: JSON.parse(event!.text) }); } catch (error) { if (error instanceof SyntaxError) return []; throw error; } }),
+    ].map(provenance => [canonical(provenance), provenance])).values()];
+    if (!this.repo.planningMaterialReadable(handle, planningProvenance || []))
+      throw new HarnessError('planning_material_changed', '规划材料依据的原话或采用证明已改变，须重新核查后准备。');
     const scope = this.policy.validate(handle);
     // A question can be grounded in the user's missing conditions alone.
     // Keep the original source/version while recording an already-authorized
@@ -759,10 +796,13 @@ export class AttentionService {
     const parentMatter = this.repo.work(handle, undefined, bindingId)[0]?.data.matterId;
     if (basisRecords.some(record => record!.data.matterId !== bindingId && record!.data.matterId !== parentMatter)) throw new HarnessError('basis_matter_mismatch', '这项解释不属于当前关注的事情。');
     return this.repo.write(() => {
+      if (!this.repo.planningMaterialReadable(handle, planningProvenance || []))
+        throw new HarnessError('planning_material_changed', '准备期间规划材料的原依据已改变，没有保存旧正文。');
       const status = choice === 'none' ? 'declined' : choice === 'wait' ? 'waiting' : choice === 'ask' ? 'question_ready' : choice === 'notify' ? 'notification_queued' : 'prepared';
       const next = this.work.update(handle, opportunity.id, opportunity.revision, { status, data: { ...opportunity.data, choice,
         modelReason: input.reason, actionDescription: input.actionDescription, basisIds: input.basisIds || [],
         materialContractVersion: 1,
+        materialPlanningContractVersion: 1, planningProvenance: planningProvenance || [],
         materialSourceContractVersion: 1, sourceIds, materialGrantContractVersion: 1, requiredGrants, questionBasis,
         expiresAt: new Date(Math.min(Date.parse(String(opportunity.data.expiresAt)), ...materialExpiries.map(Date.parse))).toISOString(),
         reconsiderAt: input.reconsiderAt || (choice === 'wait' ? new Date(Date.parse(this.repo.clock.now()) + 1800000).toISOString() : null), artifact: ['none', 'wait'].includes(choice) ? null : JSON.parse(JSON.stringify({ ...input.artifact!, ...(sceneSnapshots ? { scenes: sceneSnapshots } : {}) })),
@@ -777,7 +817,8 @@ export class AttentionService {
       if (['prepare', 'ask', 'notify'].includes(choice)) {
         const help = this.cooperation.record(handle, { opportunityId: next.id, sessionId: String(next.data.sessionId), matterId: bindingId,
           title: input.artifact!.title, reason: input.reason, actionDescription: input.actionDescription,
-          basisFingerprint: String(next.data.fingerprint), evidenceIds: next.evidenceIds, sourceIds, requiredGrants, basisIds: input.basisIds, resultRefs: [next.id] });
+          basisFingerprint: String(next.data.fingerprint), evidenceIds: next.evidenceIds, sourceIds, requiredGrants, basisIds: input.basisIds, resultRefs: [next.id],
+          planningProvenance: planningProvenance as PlanningMaterialProvenance[] || [] });
         next.data.helpRecordId = help.id;
         this.repo.db.prepare('UPDATE h_work SET payload=? WHERE id=?').run(JSON.stringify(next), next.id);
         if (input.presentInConversation) conversationHelpRef = { id: next.id, revision: next.revision, helpRecordId: help.id };

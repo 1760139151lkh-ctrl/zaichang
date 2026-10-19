@@ -60,10 +60,13 @@ export async function checkLocalDelegation(
   request: { current: { id: string; text: string }; history: { id: string; role: string; content: string }[]; action: unknown; now: string; timeZone: string; conversationRetention?: string; observations?: { tool: string; result: unknown; toolCallId?: string }[]; image?: import('../../shared/types').ImageAttachment; selection?: import('../../shared/scenes').VerifiedSelection },
   complete: DeepSeekClient['complete'], signal: AbortSignal,
 ): Promise<DelegationVerdict> {
-  const { $schema: _, ...parameters } = z.toJSONSchema(schema);
+  const reviewSchema = (request.action as { targetKind?: string } | null)?.targetKind === 'planning_intent'
+    ? schema.safeExtend({ parameterObservationIds: schema.shape.parameterObservationIds.unwrap() }) : schema;
+  const { $schema: _, ...parameters } = z.toJSONSchema(reviewSchema);
   const projected = { ...request, observations: observationsForReview(request.observations || []) };
   const tool: ToolSpec = { type: 'function', function: { name: 'verify_local_delegation', description: '检查拟执行的具体本地可撤销动作是否与当前明确委托一致，不签发外部授权。', parameters } };
   const messages: ModelWireMessage[] = [
+    ...((request.action as any)?.targetKind === 'planning_intent' ? [{ role: 'system' as const, content: '本次只核持久、非执行的规划事项规格。hostProposal来自宿主真实规划票据，是含方法默认值的助手规划解释，不证明每个参数都是用户明确偏好。keep须由当前原话及合法前情支持这件事确有跨轮继续的用途；update须符合当前对同一事项的修订；pause只表示暂时搁置，resume须当前确实恢复，retire对应结束而不是暂时暂停。当前持续规划请求本身可支持必要的业务规格保留，不要求用户逐项批准规范化参数、默认休息或重复说保存ID；但一次比较、假设、仅试算、只想倾诉、仅回读或禁止业务保留不能自动授权持久记录。核对拟保存规格和原话范围，不能靠原话逐字出现就忽略否定、引用、他人或条件。规格依赖的用户任务、工作量、期限、条件和理由必须由提案source/supports的声明片段支持；其他history只帮助找对象，不能隐含补齐未声明依据，再把只有“保留它”的引文当完整规格来源。缺必要支持应拒绝这个提案，让主助手补读并声明真实片段，不删除条件来通过。必须在parameterObservationIds完整列出规格参数真正借用的、已实际提供的工具观察ID；只由用户来源支持时明确给空数组。宿主票据身份、方法默认值或仅为解指代看过的试算不算额外事实来源；外部观察既不能成为保留许可，也不能因标了sourceCoverage=complete就自证来源齐备。不能确认实际参数来源完整时不得execute_local。许可依据须有当前用户原话，旧规格存在、planId或工具成功不是新许可。这里execute_local仅允许本次最小规格/状态写入，不代表采用安排、创建人物记忆、登记日历、提醒或后台托付。助手默认值保留其方法假设身份，不提升为用户长期偏好；只有真实竞争解释或缺失改变该业务保留结果时才要求澄清。' }] : []),
     ...((request.action as any)?.scope === 'optional_attention_only' && (request.action as any)?.operation === 'follow' ? [{ role: 'system' as const, content: '这是建立后续关注范围。sources约束以后准备所能读取的全部来源，不只是当前probe或最初变化的来源。按rule逐项核对所承诺的后续结果是否能由所列来源支持；业务记录本身不当然包含外部资料。如果缺少履约必需的资料来源，不能批准这个具体提案，说明缺口，让主助手在当前已有许可内修订来源或收窄承诺。不得自动授予、默认扩大或要求用户重新批准已经明确允许的来源。只限制通知或实际写入，不妨碍已明确委托的安静准备。' }] : []),
     ...(request.selection ? [{ role: 'system' as const, content: 'selection是宿主验证的本对话界面引用，含精确对象、来源版本与事实时间，可解释当前原话的“这里”“那天”。它只提供参数指代，不授予写入许可，不放进basis；是否登记仍只依据用户原话。天气选日没有小时级预报，日期选中也没有确定下午的具体起止时间；按通常表达和当前明确参数核验，真正缺失时不编造。' }] : []),
     { role: 'system', content: '核对当前原话、允许的对话前情和拟执行的本地记录。判断用户是否明确委托这件事、日期/对象/参数是否相符、是否只是讨论或草稿、是否有尚未解决且会改变后果的歧义。聊天保留和业务记录是不同权限：不保存聊天不取消另行明确委托的本地登记，但事项参数只能含用户授权保存的必要业务内容，不复制私下原话、无关原因或“用户要求登记”等内部说明。非空detail必须由用户原话支持并属于业务记录本身；否则应拒绝该具体参数，允许模型用空detail重试。一次工具调用可以只办理明确委托中的一个独立对象；不要因为同一原话还有其他并列对象就要求当前记录一次包含全部对象，完整覆盖由主循环收尾核查。目标操作必须保留用户表达的持续性：pause只对应明确的暂时搁置或稍后继续；用户明确不再继续、放弃或取消时，拟执行pause不相符，应要求改为cancel。用户同时禁止业务写入时不得执行。情绪不取消明确委托，赞同措辞不等于批准发送，助手建议不等于用户同意。结束时间未知时可以只登记开始时刻，不编造时长。createNew=true必须得到明确创建重复副本的要求，重试或重复确认不算。execute_local的basis仅引用current或history中的用户逐字原话，并且缺失项为空；优先引用current的宿主id。assistantContextNotAuthorization仅用于理解对象，不得放进授权basis；可以引用用户前文决定及本轮确认。不要输出最终答复，调用指定核验工具。' },
@@ -74,7 +77,7 @@ export async function checkLocalDelegation(
   ];
   const evidence = new Map([[request.current.id, request.current.text], ...request.history.filter(m => m.role === 'user').map(m => [m.id, m.content] as [string, string])]);
   const assistantContext = request.history.filter(message => message.role === 'assistant');
-  const verifiedSchema = schema.transform(value => {
+  const verifiedSchema = reviewSchema.transform(value => {
     const basis = value.basis.flatMap(citation => {
       if (evidence.get(citation.id)?.includes(citation.quote)) return [citation];
       // Repeated identical wording has a strongest current-turn witness.

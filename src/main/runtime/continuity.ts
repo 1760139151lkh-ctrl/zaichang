@@ -2,6 +2,14 @@ import type { ContextContract, WorkRecord } from '../../shared/harness';
 import type { KernelRepository } from '../storage/repository';
 
 export interface ContinuityIndex {
+  planningIntents: {
+    id: string;
+    revision: number;
+    title: string;
+    updatedAt: string | null;
+    fromCurrentConversation: boolean;
+    read: { tool: 'restore_collaboration'; type: 'planning_intent'; id: string };
+  }[];
   preparedMaterials: {
     id: string;
     revision: number;
@@ -21,7 +29,8 @@ export interface ContinuityIndex {
     meaning: string;
   }[];
   providedSourceIds: string[];
-  providedObjectVersions: { id: string; revision: number; kind: 'work' }[];
+  providedEvidenceIds: string[];
+  providedObjectVersions: { id: string; revision: number; kind: 'work' | 'evidence' }[];
   coverage: {
     scope: 'none' | 'current_conversation' | 'permitted_workspace';
     bounded: true;
@@ -65,7 +74,7 @@ export function buildContinuityIndex(
   refreshPrepared?: () => void,
 ): ContinuityIndex {
   const empty: ContinuityIndex = {
-    preparedMaterials: [], openThreads: [], providedSourceIds: [], providedObjectVersions: [],
+    preparedMaterials: [], openThreads: [], planningIntents: [], providedSourceIds: [], providedEvidenceIds: [], providedObjectVersions: [],
     coverage: { scope: 'none', bounded: true, moreMayExist: false,
       meaning: '没有读取跨轮线索；这不表示没有未完事项或准备材料。' },
   };
@@ -130,19 +139,35 @@ export function buildContinuityIndex(
     .filter(record => typeof record.data.nextStep === 'string' && record.data.nextStep.trim().length > 0)
     .sort(latest);
   const selectedFrames = frames.slice(0, INDEX_LIMIT);
-  const selectedRecords = [...preparedRecords.slice(0, INDEX_LIMIT), ...selectedFrames];
+  const intents = contract.enhancements?.currentMatter === false ? [] : collect('planning_intent', ['active']).sort(latest);
+  const selectedIntents = intents.slice(0, INDEX_LIMIT);
+  const selectedRecords = [...preparedRecords.slice(0, INDEX_LIMIT), ...selectedFrames, ...selectedIntents];
   // Even short titles and next steps inherit their actual sources. Later
   // history projection must not treat a calendar-derived cue as work-only.
   const providedSourceIds = new Set<string>(selectedRecords.length ? ['work:self'] : []);
+  const evidenceVersions = new Map<string, number>();
   for (const record of selectedRecords) {
+    if (record.sourceBinding) {
+      for (const source of record.sourceBinding.sourceIds) providedSourceIds.add(source);
+      for (const ref of record.sourceBinding.refs) evidenceVersions.set(ref.eventId, ref.contentVersion);
+    }
     for (const source of Array.isArray(record.data.sourceIds) ? record.data.sourceIds : [])
       if (typeof source === 'string') providedSourceIds.add(source);
     for (const id of record.evidenceIds) {
+      if (record.sourceBinding) continue;
       const evidence = repo.evidence(contract.scope, id);
+      // Generic cues expose only their own work metadata. Keep the legacy
+      // source gate without claiming that their unexpanded originals were
+      // provided; typed source-bound work separately carries exact versions.
       if (evidence) providedSourceIds.add(evidence.sourceId);
     }
   }
   return {
+    planningIntents: selectedIntents.map(record => ({ id: record.id, revision: record.revision, title: record.title,
+      updatedAt: typeof record.data.updatedAt === 'string' ? record.data.updatedAt : null,
+      fromCurrentConversation: inConversation(record, sessionId),
+      read: { tool: 'restore_collaboration', type: 'planning_intent', id: record.id },
+    })),
     preparedMaterials: prepared.slice(0, INDEX_LIMIT),
     openThreads: selectedFrames.map(record => ({
       id: record.id, revision: record.revision, title: record.title, nextStep: String(record.data.nextStep),
@@ -151,12 +176,15 @@ export function buildContinuityIndex(
       meaning: '这是仍开放事项的续接线索，不表示现在必须继续或用户接受了下一步。相关时用restore_collaboration的relatedTo读取完整决定、条件与原文；用户当前意愿优先，不把旧探索重新变成义务。',
     })),
     providedSourceIds: [...providedSourceIds],
+    providedEvidenceIds: [...evidenceVersions.keys()],
     providedObjectVersions: [
       ...prepared.slice(0, INDEX_LIMIT).map(record => ({ id: record.id, revision: record.revision, kind: 'work' as const })),
       ...selectedFrames.map(record => ({ id: record.id, revision: record.revision, kind: 'work' as const })),
+      ...selectedIntents.map(record => ({ id: record.id, revision: record.revision, kind: 'work' as const })),
+      ...[...evidenceVersions].map(([id, revision]) => ({ id, revision, kind: 'evidence' as const })),
     ],
     coverage: { scope: crossConversation ? 'permitted_workspace' : 'current_conversation', bounded: true,
-      moreMayExist: bounded || prepared.length > INDEX_LIMIT || frames.length > INDEX_LIMIT,
+      moreMayExist: bounded || prepared.length > INDEX_LIMIT || frames.length > INDEX_LIMIT || intents.length > INDEX_LIMIT,
       meaning: '只给少量当前许可内的续接候选，不是全部历史或自动任务。排序仅参考当前会话与记录更新；主助手判断与本轮是否有关。需要更多材料时继续inspect_help或restore_collaboration，不把未列出当不存在。' },
   };
 }

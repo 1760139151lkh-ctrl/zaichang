@@ -53,13 +53,16 @@ const skills: readonly WorkflowSkill[] = [
 用户说“忘掉这条判断，原话留着”时，按精确对象和用途执行已有隐私入口，不自动删除原聊天或独立已接受安排。只把足以支持本次任务的已核前情带回自然对话，不向用户倾倒记忆管理步骤。`,
   },
   {
-    id: 'schedule-planning', version: '2', name: '安排下一段时间',
-    description: '结合真实课程、已接受安排、连续时间、转场和当前意愿，比较少量可行方案；接受后更新原对象并核对回执。',
+    id: 'schedule-planning', version: '3', name: '安排下一段时间',
+    description: '结合真实课程、已接受安排、连续时间、转场和当前意愿，比较少量可行方案；需要跨轮继续时保留有来源的规划规格，重开后回读当前状态并重新计算。',
     requirements: [
       { kind: 'capability', name: 'situation.read', purpose: '读取指定时间窗内已知的承诺、目标与覆盖' },
       { kind: 'capability', name: 'planning.preview', purpose: '检验时间冲突与原对象版本绑定的修改方案' },
       { kind: 'capability', name: 'planning.draft', purpose: '从任务时长和连续性约束生成新时段候选', optional: true },
       { kind: 'capability', name: 'planning.recover', purpose: '票据过期或进程重启后核对已保存步骤和剩余安排', optional: true },
+      { kind: 'capability', name: 'planning.replan', purpose: '从已恢复的规划规格及当前真实采用状态重新计算，不恢复旧票据或授权', optional: true },
+      { kind: 'tool', name: 'manage_planning_intent', purpose: '按当前原话保留、修订、暂停或结束持续事项的规划规格，不登记日历或人物偏好', optional: true },
+      { kind: 'tool', name: 'restore_collaboration', purpose: '发现并回读当前许可内的规划规格、原话条件和稳定版本', optional: true },
       { kind: 'tool', name: 'resolve_time', purpose: '将具体本地日期和IANA时区转换为真实时刻', optional: true },
       { kind: 'tool', name: 'change_local_action', purpose: '在真实授权下修改同一已存安排', optional: true },
       { kind: 'tool', name: 'prepare_action', purpose: '在真实授权下保存新安排或提醒', optional: true },
@@ -67,6 +70,7 @@ const skills: readonly WorkflowSkill[] = [
     instructions: `先理解用户真正想保住什么：学习、休息、朋友、探索都可成为目标，不默认填满空档。明确所需时间窗和本轮时区，按需读 situation.read。硬承诺、可移动但已接受的安排、邀请、愿望与草案分别处理。检查来源覆盖和具体课次例外；空日历只表示已知记录为空，不证明现实空闲或精力充足。
 只补会改变方案的关键条件：剩余时长范围、最小连续块、必要地点或设备、交通和准备成本。已有原话或允许工具能查到的先查；未知结束时间保留未知，不默认一小时。提出少量有真实取舍的候选并用 planning.preview 检查。方案沿当前依赖版本保存，同一对象修改带回原ID和revision；发生变化只调整受影响部分。
 需要安排多项任务时可用 planning.draft。采用其方案必须按 acceptanceProposals 的 order 逐项使用完整 arguments，保留 planRef；不能只保存工作核心时间，不能删掉准备、收尾、转场、休息或保护留白。提议不是新授权，宿主仍在每步核查身份、策略、来源版本、整个日历及精确参数。票据只在本进程内短时有效，重启或过期时先用 planning.recover 核对已保存步骤及当前对象，再按剩余需要重新读取并生成；来源不能复验时保留缺口，不绕过 blocked。整组不是原子提交，按实际进度说明哪些已保存；中途失败不能称全部完成，也不能将已保存部分重复创建。
+确有跨轮继续的规划事项时，可用 manage_planning_intent 与真实 planId 保留这次规格；宿主从票据取得任务、窗口、预算和方法默认值，不另写一套规格，也不把它变成人物偏好。普通试算无需保存。重开后相关 planningIntents 只是少量线索，先用 restore_collaboration 的 type=planning_intent 按返回 id 读当前版本；找不到时可按 discoveryScope=permitted_workspace、mode=scan 分页发现，不要求用户提供ID或重讲。回读完整条件和当时理由后，可用 planning.replan 结合真实日历及采用凭据生成新票据；它不保存新intent或执行动作。保留原日期、指定窗口、空数组、逐日预算与连续性，过期窗口不自动平移；已保存只表示已分配，不证明工作完成，无法核实的采用或旧边界保留缺口。新的规划规格修订、暂停、恢复与结束须符合当前原话，重开或读取不会自动恢复意图或授权。
 “能怎么安排”支持比较；“就按第二个改”或仍有效的持续授权才支持对应提交。已有明确且充分的可撤销本地委托直接沿宿主执行，不反复确认；否则先准备可审阅方案。新建用 prepare_action，旧对象用 change_local_action，不能重复创建同名安排。成功后按真实回执说明保存结果；结果未知先 inspect_action 核查原动作。
 用户只在倾诉或说今晚不安排时，可以不规划。固定提醒遵守自己的约定；减少普通建议不自动取消已经明确设定的提醒。`,
   },

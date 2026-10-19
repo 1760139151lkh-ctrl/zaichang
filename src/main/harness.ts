@@ -1096,6 +1096,7 @@ export class Harness {
                 } });
                 pack.receipt.providedEvidenceIds = [...new Set([...pack.receipt.providedEvidenceIds, ...(consumed.run.pack?.receipt.providedEvidenceIds || [])])];
                 pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), ...(consumed.run.pack?.receipt.providedSourceIds || [])])];
+                runtime.context.recordPlanningProvenance(pack, consumed.run.pack?.receipt.planningProvenance || []);
               }
             }
             return {

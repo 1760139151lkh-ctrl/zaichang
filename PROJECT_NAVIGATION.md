@@ -13,7 +13,9 @@
 
 | 本轮研究与审查 | 实施方向 |
 | --- | --- |
-| [第二批：证据、恢复与契约](docs/research/PERSONAL_MEMORY_ROUND2_2026-10-18.md) | 八方向重新比较；精确多源citations、来源坐标归一、48KB上下文与合法澄清恢复、整体安排窗、动作契约已实施；向量、持久调查／规划意图、学习与手机仍分项候选 |
+| [第三批：可恢复的规划意图](docs/research/PERSISTENT_PLANNING_INTENT_2026-10-18.md) | 从 `30dcd8e` 比较八方向后，保留原Work规格、独立attempt来源与prepare原子关联，联查原动作／回执／日历后同一planner重算；安静续接界面已有实际观察，最终恢复边界复核状态见[第三批状态](docs/CURRENT_STATUS.md#personal-memory-round3) |
+| [继续商量图稿比较](assets/design/generated/2026-10-18-planning-continuity/manifest.json) | 后端整合检查后生成并亲看A/B；选A连续时间线与轻量关系文字，保留原日历上下文；图稿与实际操作证据分别记录，合成来源截图只留本机 |
+| [第二批：证据、恢复与契约](docs/research/PERSONAL_MEMORY_ROUND2_2026-10-18.md) | 精确多源citations、来源坐标归一、48KB上下文与合法澄清恢复、整体安排窗、动作契约；当时保留的持久规划意图已在第三批实施，向量、持久调查、学习与手机仍分项候选 |
 | [安排时窗图稿比较](assets/design/generated/2026-10-18-chosen-windows/manifest.json) | 后端检查之后生成A日期条/B折叠日，采用A的真实时窗表达；样例资料、窄窗布局和实际产品证据分开 |
 | [个人记忆与生活连续性](docs/research/PERSONAL_MEMORY_CONTINUITY_2026-10-18.md) | 本次16域/12时间线交叉审计、原文浏览、精确遗忘、决策经历、准备发现/逐日承载及候选取舍；源码机制与语义/设备证据分开 |
 | [记忆](docs/research/MEMORY_EVOLUTION_2026-10-18.md) | 多查询、有限扫描、原始依据与纠正后续线索 |
@@ -78,7 +80,7 @@
 | 用户可编辑笔记 | `NotesService`，原文/CAS/历史/回收站；内容不是自动人物断言或行动指令 |
 | 文字角色与交互偏好 | `shared/persona.ts`、`shared/interaction.ts` 和 Store settings；版本化明确设定，混合私人旧 guidance 留在私有迁移记录 |
 | 个人理解 | evidence/assertion、`memory/service.ts`；来源、条件、有效性、更正与遗忘，自动推断不改用户角色或权限 |
-| 目标、承诺、商量中的事和准备资料 | `runtime/work.ts`、`collaboration.ts`、`cooperation.ts`、`attention.ts` 和 release 存储；决策经历归原frame，用户报告、假设、邀请、接受、停用与实际展示分开 |
+| 目标、承诺、商量中的事和准备资料 | `runtime/work.ts`、`collaboration.ts`、`planning-intents.ts`、`cooperation.ts`、`attention.ts` 和 release 存储；持续规划规格归同一Work，决策经历归原frame，采用证明归原动作／回执／日历；用户报告、假设、邀请、接受、停用与实际展示分开 |
 | 本机安排与提醒 | `agenda`、`h_calendar_versions`、ActionRuntime 和 ReminderRuntime；同对象连续修订、明确提醒独立调度 |
 | 学校记录 | `storage/domains.ts` 与真实连接器；本地导入和账号来源分开，细分权限、覆盖与业务版本不得被摘要改写 |
 | 公共/私有空间 | 公共快照由 MapService 管理；个人地点绑定、设备位置和共享给模型的空间上下文另受范围控制 |
@@ -115,6 +117,8 @@
 | 本地安排与版本／撤销 | `shared/calendar.ts` → `actions/calendar.ts` / `local-calendar.ts` / `runtime.ts` → `Store.writeAgendaProjection` / `deleteAction`；`LifePanels.tsx` / `Workspace.tsx` / App动作卡回读真实状态 |
 | 情境、空闲与可行规划 | `capabilities/builtin.ts` → `actions/planning.ts` / `availability.ts`；`situation.read` 有界读取，`planning.preview` 计算冲突/未知并给版本绑定方案；接受后改原对象 |
 | 多任务日程与采用/恢复 | `planning.draft` / `planning.recover` → `actions/planning-draft.ts` / `planning-days.ts` / `planning-application.ts` → `prepare_action` / `local-calendar.ts` / `ActionRuntime`；逐日新增工作上限/真实占用留白、声明时区的自然日、unknownEnd、完整占用与剩余预算恢复；短期票据和逐项采用不恢复旧授权 |
+| 跨重开的规划意图 | `manage_planning_intent` / `restore_collaboration(type=planning_intent)` → `runtime/planning-intents.ts` / `work.ts` → `h_work`；`planning.replan` → `actions/planning-intent-contract.ts` / `planning-intent-ledger.ts` → 同一planner；prepare事务写attempt及action-revision link，schema11逐attempt验来源，成功仍查原回执和当前agenda；`continuity.ts`提供有限线索，许可scan与精确回读不靠用户报ID |
+| 规划派生内容的实际依据 | `shared/harness.ts`的`PlanningMaterialProvenance` → `planning-intents.ts`精确proof复核 → `context.ts`／前后台子调查receipt → `attention.ts`／`cooperation.ts`／`scenes.ts` → repository的分页、历史与遗忘及`presentation.ts`／导出；不只隐藏画面，也不丢失跨回合正文依赖 |
 | 本地日历交接 | `shared/calendar-export.ts` → `preload.ts` / `main.ts` 的 `calendar:export` → `actions/calendar-export.ts` → `expandAgenda`；保存对话框后复验隐私/权限并回读当前安排，有限范围ICS，无联网/提醒；`Workspace.tsx` / `CalendarHandoff.tsx` 已接，实际验证范围见当前状态 |
 | 机会按时唤醒 | `runtime/opportunity-scheduler.ts` → `AttentionService.nextReviewAt/settleReview` → `Harness.reviewOpportunities`；单timer、公平选择、失败退避与周期对账，退出停止 |
 | 公共空气质量 | `capabilities/air-quality.ts` → `builtin.ts` 的 `air_quality.lookup`；复用公共天气参考点与权限，返回模型小时样本，非手机传感或校园实测 |
@@ -125,7 +129,7 @@
 | 校园记录与外部连接 | `zjuAdapter.ts`、`capabilities/campus-query.ts` / `campus-reference.ts` / `builtin.ts`、`storage/domains.ts`；独立受限子进程连接器、细分资源权限、导入/账号来源与覆盖 |
 | 公共研究 | `capabilities/research.ts` / `public-network.ts` → 公共搜索/网页/PDF读取；公开地址、域名限制和scope/URL/版本绑定的续读句柄 |
 | 天气 | `capabilities/weather.ts` → `builtin.ts` 的 `weather.lookup`；公开参考地点/时区/日期/小时窗口与缺字段覆盖，日级Scene不推导小时结果 |
-| 对话动态场景 | `shared/scenes.ts` → `runtime/scenes.ts` / `scene-projections.ts` / coordinator → `Message.scenes/views` → `presentation/AssistantPresentation.tsx` / `LifeSceneViews.tsx`；地图共用既有surface；规划逐日显示、跨日originalRange保留，小时环境过期计时/选中可见/未知图标；`ChatInput.selection`和输入chip回传精确引用，不因切日或观看自动采用 |
+| 对话动态场景 | `shared/scenes.ts` → `runtime/scenes.ts` / `scene-projections.ts` / coordinator → `Message.scenes/views` → `presentation/AssistantPresentation.tsx` / `LifeSceneViews.tsx`；地图共用既有surface；规划逐日显示、跨日originalRange保留，continuation轻量区分已在日历／这次续排；历史IPC／准备／导出复验意图来源和修订；小时环境过期计时/选中可见/未知图标；`ChatInput.selection`和输入chip回传精确引用，不因切日或观看自动采用 |
 | 地图给模型的投影 | `runtime/map-model-view.ts` 保留语义、条件和来源并精简绘图几何；`context.ts` 分别计原始读取字节和实际model-view token；完整Scene/Bridge路线不变 |
 | 地图服务与路由 | `main/mapService.ts` / `mapStorage.ts` → `shared/map-v3.ts` / `map-v2.ts` → `shared/map-routing.ts`；验证组件hash、稳定ID、门点、估计接入、方向与通行条件 |
 | 定位、个人地点与共享 | `mapLocation.ts`、`mapProfile.ts`、`runtime/spatial.ts`、`capabilities/spatial.ts`；Windows设备观察、私人profile和向本轮模型共享分开；review没有这些输入 |

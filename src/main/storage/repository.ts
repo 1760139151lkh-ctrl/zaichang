@@ -12,14 +12,18 @@ import type {
   HostIdentity,
   ProcessingSpan,
   ProcessingStatus,
+  PlanningMaterialProvenance,
   ScopeData,
   ScopeHandle,
   Watermarks,
   WorkRecord,
+  WorkSourceBinding,
+  WorkSourceRef,
 } from '../../shared/harness';
-import { HarnessError, assertionSchema, evidenceSchema, workSchema } from '../../shared/harness';
+import { HarnessError, assertionSchema, evidenceSchema, workSchema, workSourceBindingSchema, workSourceRefSchema } from '../../shared/harness';
 import { canonical, codePointSlice, systemClock } from '../runtime/semantics';
 import { sameSourceOrigins, sourceOriginSpans, type LineageSource, type OriginSpan } from './source-lineage';
+import { planningMaterialProvenanceSchema, type PlanningAttemptBasis } from '../actions/planning-intent-contract';
 
 type Row = Record<string, unknown>;
 export interface PrivacyFence {
@@ -60,6 +64,7 @@ export class KernelRepository {
   readonly clock: ClockPort;
   readonly databasePath: string;
   private validateScope?: (scope: ScopeHandle) => ScopeData;
+  private verifyPlanningAttemptBasis?: (handle: ScopeHandle, intentId: string, basis: PlanningAttemptBasis[]) => void;
   private transactionDepth = 0;
   private afterCommitCallbacks: (() => void)[] = [];
   private privacyCleanupListeners = new Set<() => void>();
@@ -81,6 +86,8 @@ export class KernelRepository {
     this.migrateAssertionCitations();
     this.migrateMemoryContextProgress();
     this.migrateCitationRestrictionReceipts();
+    this.migratePlanningIntentRelations();
+    this.migratePlanningIntentSources();
     this.db.exec(
       "INSERT INTO h_evidence_fts(h_evidence_fts,rank) VALUES('secure-delete',1); INSERT INTO h_assertion_fts(h_assertion_fts,rank) VALUES('secure-delete',1);",
     );
@@ -95,6 +102,9 @@ export class KernelRepository {
   bindPolicy(validate: (scope: ScopeHandle) => ScopeData) {
     this.validateScope = validate;
   }
+  bindPlanningAttemptVerifier(verify: (handle: ScopeHandle, intentId: string, basis: PlanningAttemptBasis[]) => void) {
+    this.verifyPlanningAttemptBasis = verify;
+  }
   scope(scope: ScopeHandle): ScopeData {
     if (!this.validateScope) throw new HarnessError('policy_unavailable', '策略尚未初始化。');
     return this.validateScope(scope);
@@ -102,7 +112,7 @@ export class KernelRepository {
   private migrate() {
     this.db.exec('PRAGMA foreign_keys=ON; PRAGMA secure_delete=ON; PRAGMA busy_timeout=5000;');
     const version = Number(this.db.prepare('PRAGMA user_version').get()?.user_version || 0);
-    if (version > 9) throw new HarnessError('newer_schema', '资料来自更新版本，请使用相应版本打开。');
+    if (version > 11) throw new HarnessError('newer_schema', '资料来自更新版本，请使用相应版本打开。');
     if (version >= 4) return;
     if (version === 3) {
       this.migrateRoots();
@@ -365,6 +375,36 @@ export class KernelRepository {
         PRAGMA user_version=9;`);
       this.db.prepare('INSERT INTO h_migrations VALUES(?,?,?,?)').run('citation-restriction-receipts-v9', 9, this.clock.now(),
         JSON.stringify({ purpose: 'reviewed source use bound to an exact assertion revision and citation', legacyReceipts: 'not_backfilled' }));
+    });
+  }
+  private migratePlanningIntentRelations() {
+    if (Number(this.db.prepare('PRAGMA user_version').get()?.user_version) >= 10) return;
+    this.write(() => {
+      this.db.exec(`CREATE TABLE h_planning_intent_attempts(
+        plan_id TEXT PRIMARY KEY,intent_id TEXT NOT NULL REFERENCES h_work(id) ON DELETE CASCADE,
+        spec_digest TEXT NOT NULL,manifest TEXT NOT NULL,created_at TEXT NOT NULL);
+        CREATE INDEX h_planning_intent_owner ON h_planning_intent_attempts(intent_id);
+        CREATE TABLE h_planning_intent_action_links(
+          plan_id TEXT NOT NULL REFERENCES h_planning_intent_attempts(plan_id) ON DELETE CASCADE,
+          block_id TEXT NOT NULL,action_id TEXT NOT NULL,action_revision INTEGER NOT NULL,action_digest TEXT NOT NULL,
+          PRIMARY KEY(plan_id,block_id,action_id,action_revision));
+        CREATE INDEX h_planning_intent_action ON h_planning_intent_action_links(action_id);
+        PRAGMA user_version=10;`);
+      this.db.prepare('INSERT INTO h_migrations VALUES(?,?,?,?)').run('planning-intent-relations-v10', 10, this.clock.now(),
+        JSON.stringify({ owner: 'h_work', manifest: 'host_only_nonexecuting', successAuthority: 'existing_action_receipts', legacyBackfill: false }));
+    });
+  }
+  private migratePlanningIntentSources() {
+    if (Number(this.db.prepare('PRAGMA user_version').get()?.user_version) >= 11) return;
+    this.write(() => {
+      // A current parent cannot attest to the sources of an older attempt.
+      // Keep its opaque existence so recovery cannot interpret it as unwritten.
+      this.db.exec(`ALTER TABLE h_planning_intent_attempts ADD COLUMN source_binding TEXT;
+        ALTER TABLE h_planning_intent_attempts ADD COLUMN redacted INTEGER NOT NULL DEFAULT 0;
+        UPDATE h_planning_intent_attempts SET manifest='{}',redacted=1;
+        PRAGMA user_version=11;`);
+      this.db.prepare('INSERT INTO h_migrations VALUES(?,?,?,?)').run('planning-intent-sources-v11', 11, this.clock.now(),
+        JSON.stringify({ ownAttemptSources: true, legacySources: 'not_backfilled', unavailableAttempts: 'opaque_unknown' }));
     });
   }
   private citationKey(id: string, revision: number, citation: AssertionCitation) {
@@ -1014,11 +1054,40 @@ export class KernelRepository {
       return parse<EvidenceEvent>(row)!;
     });
   }
+  private conversationPlanningMetadata(sessionId: string) {
+    const candidates = this.db.prepare(`SELECT id,json_extract(payload,'$.contextReceipt.planningProvenance') AS provenance,
+      json_extract(payload,'$.scenes') AS scenes,json_extract(payload,'$.views') AS views FROM messages WHERE session_id=? AND role='assistant'`).all(sessionId);
+    const snapshots = new Map<string, any>(candidates.flatMap(row => (row.scenes === null ? [] : JSON.parse(String(row.scenes)))
+      .map((scene: any) => [`${scene.id}@${scene.revision}`, scene])));
+    return candidates.map(row => ({ id: String(row.id), value: {
+        contextReceipt: row.provenance === null ? undefined : { planningProvenance: JSON.parse(String(row.provenance)) },
+        scenes: [...(row.scenes === null ? [] : JSON.parse(String(row.scenes))),
+          ...(row.views === null ? [] : JSON.parse(String(row.views))).flatMap((view: any) => (view.sceneRefs || [])
+            .flatMap((ref: any) => snapshots.has(`${ref.id}@${ref.revision}`) ? [snapshots.get(`${ref.id}@${ref.revision}`)] : []))],
+      } }));
+  }
+  /** Carry only the provenance of the historical bodies actually provided. */
+  conversationPlanningProvenance(handle: ScopeHandle, sessionId: string, messageIds: string[]): PlanningMaterialProvenance[] {
+    const scope = this.scope(handle);
+    if (!scope.sources.includes('history:self') || scope.audience !== 'self' || scope.subjectId !== scope.principalId || scope.worldId !== 'real') return [];
+    const selected = new Set(messageIds), provenance: PlanningMaterialProvenance[] = [];
+    for (const row of this.conversationPlanningMetadata(sessionId).filter(row => selected.has(row.id))) {
+      if (!this.planningMessageReadable(handle, row.value)) throw new HarnessError('history_changed', '刚才读取的前情依据已改变，需要重新读取。');
+      provenance.push(...row.value.contextReceipt?.planningProvenance || []);
+      for (const scene of row.value.scenes) if (scene?.kind === 'planning' && scene.continuation) {
+        const value = scene.continuation;
+        provenance.push(planningMaterialProvenanceSchema.parse({ intentId: value.intentId, intentRevision: value.intentRevision,
+          sourceBinding: value.sourceBinding, attemptBasis: value.attemptBasis }));
+      }
+    }
+    return [...new Map(provenance.map(value => [canonical(value), value])).values()];
+  }
   /** Select permitted transcript bodies in SQL, before they enter model memory. */
   conversationHistory(handle: ScopeHandle, sessionId: string, excludeIds: string[], limit = 12) {
     const s = this.scope(handle);
     if (!s.sources.includes('history:self') || s.audience !== 'self' || s.subjectId !== s.principalId || s.worldId !== 'real') return [];
     const f = this.filter(handle);
+    const denied = this.conversationPlanningMetadata(sessionId).filter(row => !this.planningMessageReadable(handle, row.value)).map(row => row.id);
     const rows = this.db.prepare(`SELECT m.id,m.role,CASE WHEN m.role='user' THEN (SELECT content FROM h_evidence WHERE id=m.id) ELSE m.content END AS content,m.created_at FROM messages m
       WHERE m.session_id=? AND m.id NOT IN (SELECT value FROM json_each(?))
       AND json_extract(m.payload,'$.status')='done'
@@ -1027,10 +1096,11 @@ export class KernelRepository {
         OR (m.role='assistant' AND json_extract(m.payload,'$.contextReceipt.privacyEpoch')=?
           AND json_extract(m.payload,'$.contextReceipt.policyRevision')=?
           AND json_type(m.payload,'$.contextReceipt.providedSourceIds')='array'
+          AND m.id NOT IN (SELECT value FROM json_each(?))
           AND NOT EXISTS(SELECT 1 FROM json_each(m.payload,'$.contextReceipt.providedSourceIds') src
             WHERE src.value NOT IN (SELECT value FROM json_each(?)))))
       ORDER BY m.created_at DESC,m.rowid DESC LIMIT ?`).all(
-      sessionId, JSON.stringify(excludeIds), ...f.params, s.privacyEpoch, s.policyRevision, JSON.stringify(s.sources), Math.min(24, limit),
+       sessionId, JSON.stringify(excludeIds), ...f.params, s.privacyEpoch, s.policyRevision, JSON.stringify(denied), JSON.stringify(s.sources), Math.min(24, limit),
     );
     for (const row of rows) this.recordAccess(handle, { ...row, source: 'history:self' }, 'conversation_history');
     return rows.reverse().map(row => ({ id: String(row.id), role: row.role as 'user' | 'assistant', content: String(row.content), createdAt: String(row.created_at) }));
@@ -1564,7 +1634,220 @@ export class KernelRepository {
       )
       .all(kind, this.epoch);
   }
+  private workSourceGrant(sourceId: string) {
+    return sourceId === 'map:local' ? 'map:read' : sourceId === 'weather:open-meteo' ? 'weather:read'
+      : sourceId === 'profile:self' ? 'memory:read' : sourceId.startsWith('campus:') ? 'campus:read' : 'evidence:read';
+  }
+  private permittedWorkSource(handle: ScopeHandle, ref: WorkSourceRef) {
+    const f = this.filter(handle);
+    // This is a permission check, not source delivery. In particular, a list's
+    // metadata prefilter must not log every candidate as provided to a model.
+    const event = parse<EvidenceEvent>(this.db.prepare(`SELECT r.payload FROM h_evidence r WHERE ${f.sql} AND r.id=? AND r.status!='deleted'`)
+      .get(...f.params, ref.eventId));
+    const scope = this.scope(handle);
+    if (!event || event.contentVersion !== ref.contentVersion || event.label.retention !== 'purpose_scoped'
+      || !scope.grants.includes('evidence:read') || !scope.grants.includes(this.workSourceGrant(event.sourceId))
+      || ref.end > Array.from(event.text).length || !this.availableInferenceRanges(event).some(range => range.start <= ref.start && range.end >= ref.end))
+      throw new HarnessError('work_source_unavailable', '事项的原话片段已改变或不在当前可用范围内。');
+    return event;
+  }
+  resolveWorkSourceBinding(handle: ScopeHandle, raw: WorkSourceRef[]): WorkSourceBinding {
+    if (!Array.isArray(raw) || !raw.length || raw.length > 32) throw new HarnessError('work_sources_required', '需要明确的事项原话片段。');
+    const unique = new Map<string, WorkSourceRef>();
+    for (const value of raw) { const ref = workSourceRefSchema.parse(value); unique.set(canonical(ref), ref); }
+    const refs = [...unique].sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0).map(([, value]) => value);
+    const events = refs.map(ref => this.permittedWorkSource(handle, ref));
+    return { version: 1, refs, sourceIds: [...new Set(events.map(event => event.sourceId))].sort(),
+      requiredGrants: [...new Set(['evidence:read', ...events.map(event => this.workSourceGrant(event.sourceId))])].sort() };
+  }
+  private workBindingReadable(handle: ScopeHandle, raw: unknown) {
+    try {
+      const binding = workSourceBindingSchema.parse(raw);
+      return canonical(binding) === canonical(this.resolveWorkSourceBinding(handle, binding.refs));
+    } catch (error) {
+      if (error instanceof HarnessError || error instanceof Error && error.name === 'ZodError') return false;
+      throw error;
+    }
+  }
+  planningActionReadable(handle: ScopeHandle, actionId: string) {
+    const action = this.db.prepare("SELECT json_extract(payload,'$.reason') AS reason FROM h_actions WHERE id=?").get(actionId);
+    if (action?.reason === 'planning_source_deleted_details_removed') return false;
+    const rows = this.db.prepare(`SELECT a.source_binding,a.redacted FROM h_planning_intent_attempts a
+      JOIN h_planning_intent_action_links l ON l.plan_id=a.plan_id WHERE l.action_id=?`).all(actionId);
+    if (!rows.length) return true;
+    // An actually accepted current calendar object is an independent business
+    // record. The exception conveys no authority to retry the old proposal.
+    const scope = this.scope(handle);
+    if (scope.principalId === scope.subjectId && scope.worldId === 'real' && scope.audience === 'self'
+      && scope.sources.includes('local-agenda') && this.confirmedAgendaReferences().some(item => item.actionId === actionId)) return true;
+    return rows.every(row => {
+      if (Number(row.redacted) !== 0 || typeof row.source_binding !== 'string') return false;
+      try { return this.workBindingReadable(handle, JSON.parse(row.source_binding)); }
+      catch (error) { if (error instanceof SyntaxError) return false; throw error; }
+    });
+  }
+  /** Metadata-only gate for text derived from a source-bound planning read. */
+  planningMessageReadable(handle: ScopeHandle, value: { contextReceipt?: { planningProvenance?: unknown }; scenes?: unknown }) {
+    if (value.contextReceipt?.planningProvenance !== undefined && !this.planningMaterialReadable(handle, value.contextReceipt.planningProvenance, { requireCurrentIntent: false })) return false;
+    for (const scene of Array.isArray(value.scenes) ? value.scenes : []) {
+      if (scene?.kind !== 'planning' || !scene.continuation) continue;
+      const continuation = scene.continuation;
+      if (!this.planningMaterialReadable(handle, [{ intentId: continuation.intentId, intentRevision: continuation.intentRevision,
+        sourceBinding: continuation.sourceBinding, attemptBasis: continuation.attemptBasis }], { requireCurrentIntent: false })) return false;
+    }
+    return true;
+  }
+  planningMaterialReadable(handle: ScopeHandle, raw: unknown, options: { requireCurrentIntent?: boolean } = {}) {
+    if (!Array.isArray(raw)) return false;
+    try {
+      const scope = this.scope(handle);
+      if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self'
+        || !scope.sources.includes('work:self') || !scope.grants.includes('evidence:read')) return raw.length === 0;
+      const f = this.filter(handle);
+      return raw.every(value => {
+        const provenance = planningMaterialProvenanceSchema.parse(value);
+        if (new Set(provenance.attemptBasis.map(attempt => attempt.planId)).size !== provenance.attemptBasis.length
+          || provenance.attemptBasis.some(attempt => attempt.intentId !== provenance.intentId)) return false;
+        const row = this.db.prepare(`SELECT r.revision,r.status,json_extract(r.payload,'$.data.type') AS type,
+          json_extract(r.payload,'$.sourceBinding') AS binding FROM h_work r WHERE ${f.sql} AND r.id=?`)
+          .get(...f.params, provenance.intentId);
+        if (!row || row.type !== 'planning_intent'
+          || options.requireCurrentIntent !== false && (Number(row.revision) !== provenance.intentRevision || row.status !== 'active'
+            || typeof row.binding !== 'string' || canonical(JSON.parse(row.binding)) !== canonical(provenance.sourceBinding))
+          || !this.workBindingReadable(handle, provenance.sourceBinding) || !this.verifyPlanningAttemptBasis) return false;
+        this.verifyPlanningAttemptBasis(handle, provenance.intentId, provenance.attemptBasis);
+        return true;
+      });
+    } catch (error) {
+      if (error instanceof HarnessError || error instanceof SyntaxError || error instanceof Error && error.name === 'ZodError') return false;
+      throw error;
+    }
+  }
+  private planningMaterialFilter(handle: ScopeHandle, alias: string) {
+    const scope = this.scope(handle), denied: string[] = [];
+    const legacy = `(EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.artifact.scenes') scene
+        WHERE json_extract(scene.value,'$.kind')='planning' AND json_type(scene.value,'$.continuation')='object')
+      OR EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.material') material
+        WHERE json_extract(material.value,'$.tool') IN ('planning.replan','planning_intent')
+          OR EXISTS(SELECT 1 FROM json_each(material.value,'$.versions') version JOIN h_work intent
+            ON intent.id=json_extract(version.value,'$.id') WHERE json_extract(version.value,'$.kind')='work'
+            AND json_extract(intent.payload,'$.data.type')='planning_intent'))
+      OR EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.resultRefs') ref JOIN h_work prepared ON prepared.id=ref.value
+        JOIN json_each(prepared.payload,'$.data.artifact.scenes') scene
+        WHERE json_extract(scene.value,'$.kind')='planning' AND json_type(scene.value,'$.continuation')='object'))`;
+    const rows = this.db.prepare(`SELECT r.id,json_extract(r.payload,'$.data.planningProvenance') AS provenance,
+      json_extract(r.payload,'$.data.materialPlanningContractVersion') AS contract
+      FROM h_work r WHERE r.owner=? AND r.workspace=? AND (json_type(r.payload,'$.data.planningProvenance') IS NOT NULL OR ${legacy})`)
+      .all(scope.principalId, scope.workspaceId);
+    for (const row of rows) {
+      try {
+        if (Number(row.contract) !== 1 || typeof row.provenance !== 'string' || !this.planningMaterialReadable(handle, JSON.parse(row.provenance)))
+          denied.push(String(row.id));
+      } catch (error) { if (error instanceof SyntaxError) denied.push(String(row.id)); else throw error; }
+    }
+    return { sql: `${alias}.id NOT IN (SELECT value FROM json_each(?))`, params: [JSON.stringify(denied)] };
+  }
+  /** Candidate metadata only; the returned SQL gate applies before matching,
+   * counting or paging any protected title/specification. */
+  private workSourceFilter(handle: ScopeHandle, alias = 'r') {
+    const scope = this.scope(handle), allowed: string[] = [], planning = this.planningMaterialFilter(handle, alias);
+    for (const row of this.db.prepare(`SELECT id,json_extract(payload,'$.sourceBinding') AS binding FROM h_work
+      WHERE owner=? AND workspace=? AND json_type(payload,'$.sourceBinding') IS NOT NULL`).all(scope.principalId, scope.workspaceId)) {
+      try { if (this.workBindingReadable(handle, JSON.parse(String(row.binding)))) allowed.push(String(row.id)); }
+      catch (error) { if (!(error instanceof SyntaxError)) throw error; }
+    }
+    return { sql: `((json_type(${alias}.payload,'$.sourceBinding') IS NULL AND COALESCE(json_extract(${alias}.payload,'$.data.type'),'')!='planning_intent')
+      OR ${alias}.id IN (SELECT value FROM json_each(?))) AND ${planning.sql}`, params: [JSON.stringify(allowed), ...planning.params] };
+  }
+  readWorkSources(handle: ScopeHandle, record: WorkRecord) {
+    const current = this.work(handle, undefined, record.id)[0];
+    if (!current || current.revision !== record.revision || !current.sourceBinding || canonical(current.sourceBinding) !== canonical(record.sourceBinding))
+      throw new HarnessError('revision_conflict', '事项或原话范围已变化，请重新读取。');
+    return current.sourceBinding.refs.map(ref => {
+      const event = this.permittedWorkSource(handle, ref);
+      this.recordAccess(handle, { id: event.id, source: event.sourceId }, 'work_source_fragment');
+      return { ...ref, sourceId: event.sourceId, text: codePointSlice(event.text, ref.start, ref.end) };
+    });
+  }
+  exportWorkingRecords(handle: ScopeHandle) {
+    const scope = this.scope(handle), bindings = this.workSourceFilter(handle), sources = this.helpSourceFilter(handle);
+    return this.db.prepare(`SELECT r.payload FROM h_work r WHERE r.owner=? AND r.workspace=?
+      AND r.retain!='session_only' AND r.sensitivity!='restricted' AND ${bindings.sql} AND ${sources.sql}`)
+      .all(scope.principalId, scope.workspaceId, ...bindings.params, ...sources.params).map(row => parse<WorkRecord>(row)!);
+  }
+  exportWorkingState(handle: ScopeHandle) {
+    const work = this.exportWorkingRecords(handle), ids = JSON.stringify(work.filter(record => record.data.type === 'planning_intent').map(record => record.id));
+    const metadata = this.db.prepare('SELECT plan_id,source_binding,redacted FROM h_planning_intent_attempts WHERE intent_id IN (SELECT value FROM json_each(?))').all(ids);
+    const permittedPlans = metadata.filter(row => {
+      if (Number(row.redacted) !== 0 || typeof row.source_binding !== 'string') return false;
+      try { return this.workBindingReadable(handle, JSON.parse(row.source_binding)); }
+      catch (error) { if (error instanceof SyntaxError) return false; throw error; }
+    }).map(row => String(row.plan_id));
+    const attempts = this.db.prepare('SELECT * FROM h_planning_intent_attempts WHERE plan_id IN (SELECT value FROM json_each(?))').all(JSON.stringify(permittedPlans));
+    const planIds = JSON.stringify(attempts.map(row => String(row.plan_id)));
+    const links = this.db.prepare('SELECT * FROM h_planning_intent_action_links WHERE plan_id IN (SELECT value FROM json_each(?))').all(planIds);
+    const scope = this.scope(handle), actionIds = JSON.stringify([...new Set(links.map(row => String(row.action_id)))]);
+    const permittedActions = JSON.stringify(this.db.prepare(`SELECT id FROM h_actions WHERE owner=? AND workspace=? AND id IN (SELECT value FROM json_each(?))`)
+      .all(scope.principalId, scope.workspaceId, actionIds).map(row => String(row.id)).filter(id => this.planningActionReadable(handle, id)));
+    return { work, planningIntentState: { version: 1,
+      attempts: attempts.map(row => ({ planId: row.plan_id, intentId: row.intent_id, specDigest: row.spec_digest, manifest: JSON.parse(String(row.manifest)), sourceBinding: JSON.parse(String(row.source_binding)), createdAt: row.created_at })),
+      actionLinks: links.map(row => ({ planId: row.plan_id, blockId: row.block_id, actionId: row.action_id, actionRevision: row.action_revision, actionDigest: row.action_digest })),
+      actionAttempts: this.db.prepare('SELECT id,action_id AS actionId,idempotency_key AS idempotencyKey,status FROM h_attempts WHERE action_id IN (SELECT value FROM json_each(?))').all(permittedActions),
+      receipts: this.db.prepare('SELECT payload FROM h_receipts WHERE action_id IN (SELECT value FROM json_each(?))').all(permittedActions).map(row => JSON.parse(String(row.payload))),
+      evidenceCoverage: metadata.length === attempts.length ? 'available' : 'unavailable', restoresAuthorization: false,
+    } };
+  }
+  sourcedWorkMetadata(handle: ScopeHandle, id: string) {
+    const scope = this.scope(handle);
+    if (scope.child || scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self'
+      || !scope.sources.includes('work:self') || !scope.grants.includes('work:write'))
+      throw new HarnessError('work_control_forbidden', '当前范围不能管理这份持续事项。');
+    const f = this.filter(handle);
+    const row = this.db.prepare(`SELECT r.id,r.revision,r.status,r.kind,json_extract(r.payload,'$.data.type') AS type
+      FROM h_work r WHERE ${f.sql} AND r.id=? AND json_type(r.payload,'$.sourceBinding')='object'`).get(...f.params, id);
+    if (!row || this.hasFence(id)) return;
+    return { id: String(row.id), revision: Number(row.revision), status: String(row.status), kind: String(row.kind), type: String(row.type) };
+  }
+  /** Stopping a known business intention does not require disclosing its old
+   * specification. This path cannot resume it or replace any source binding. */
+  transitionSourcedWork(handle: ScopeHandle, input: { id: string; expectedRevision: number; status: 'paused' | 'retired';
+    transition: { operation: 'pause' | 'retire'; source: WorkSourceRef; at?: string; quoteSha256?: string } }) {
+    return this.write(() => {
+      const old = this.sourcedWorkMetadata(handle, input.id), scope = this.scope(handle), ref = workSourceRefSchema.parse(input.transition.source);
+      if (!old || old.type !== 'planning_intent') throw new HarnessError('work_missing', '这份持续事项不存在或不可管理。');
+      if (old.revision !== input.expectedRevision) throw new HarnessError('revision_conflict', '事项已变化，请按当前状态停止。');
+      if (input.status === 'paused' ? input.transition.operation !== 'pause' || old.status !== 'active'
+        : input.status !== 'retired' || input.transition.operation !== 'retire' || !['active', 'paused'].includes(old.status))
+        throw new HarnessError('planning_intent_state', '当前状态不适用这项停止变更。');
+      const source = this.permittedWorkSource(handle, ref);
+      if (!scope.currentEventIds.includes(source.id) || source.speaker !== 'user' || source.ownerId !== scope.principalId
+        || source.subjectId !== scope.principalId || source.worldId !== 'real')
+        throw new HarnessError('work_control_source', '停止事项需要本轮本人的明确原话。');
+      const now = this.clock.now(), revision = old.revision + 1;
+      const transition = { operation: input.transition.operation, source: ref, at: now,
+        quoteSha256: createHash('sha256').update(codePointSlice(source.text, ref.start, ref.end)).digest('hex') };
+      this.db.prepare(`UPDATE h_work SET status=?,revision=?,payload=json_set(payload,'$.status',?,'$.revision',?,
+        '$.data.updatedAt',?,'$.data.lastTransition',json(?)) WHERE id=? AND revision=?`)
+        .run(input.status, revision, input.status, revision, now, JSON.stringify(transition), old.id, old.revision);
+      this.outbox('work_changed', old.id);
+      return { id: old.id, revision, status: input.status };
+    });
+  }
+  saveSourcedWork(handle: ScopeHandle, input: WorkRecord, expectedRevision?: number) {
+    return this.write(() => {
+      if (!this.scope(handle).grants.includes('work:write') || !input.sourceBinding || input.label.retention !== 'purpose_scoped')
+        throw new HarnessError('work_sources_required', '当前不能保存有依据的持续事项。');
+      const binding = this.resolveWorkSourceBinding(handle, input.sourceBinding.refs);
+      if (canonical(binding) !== canonical(input.sourceBinding)
+        || canonical([...new Set(input.evidenceIds)].sort()) !== canonical([...new Set(binding.refs.map(ref => ref.eventId))].sort()))
+        throw new HarnessError('work_sources_changed', '事项支持集合与实际原话不一致。');
+      return this.writeWork(handle, input, expectedRevision, true);
+    });
+  }
   saveWork(handle: ScopeHandle, input: WorkRecord, expectedRevision?: number) {
+    return this.writeWork(handle, input, expectedRevision, false);
+  }
+  private writeWork(handle: ScopeHandle, input: WorkRecord, expectedRevision: number | undefined, sourced: boolean) {
     const s = this.scope(handle),
       work = workSchema.parse(input);
     if (
@@ -1579,7 +1862,9 @@ export class KernelRepository {
       if (!this.evidence(handle, id)) throw new HarnessError('evidence_forbidden', '事项证据不可用。');
     if (this.hasFence(work.id)) throw new HarnessError('deleted_object', '此事项已删除。');
     this.write(() => {
-      const old = this.db.prepare('SELECT revision FROM h_work WHERE id=?').get(work.id);
+      const old = this.db.prepare('SELECT revision,payload FROM h_work WHERE id=?').get(work.id);
+      if (!sourced && (work.sourceBinding || work.data.type === 'planning_intent' || parse<WorkRecord>(old)?.sourceBinding))
+        throw new HarnessError('typed_work_writer_required', '这项持续规格需要按原话和当前版本修改，不能直接合并旧数据。');
       if (old && Number(old.revision) !== expectedRevision) {
         this.conflicts.push({
           objectId: work.id,
@@ -1639,34 +1924,40 @@ export class KernelRepository {
   }
   work(handle: ScopeHandle, kind?: WorkRecord['kind'], id?: string): WorkRecord[] {
     const f = this.filter(handle),
-      e = this.filter(handle, 'e'), sources = this.helpSourceFilter(handle);
+      e = this.filter(handle, 'e'), sources = this.helpSourceFilter(handle), bindings = this.workSourceFilter(handle);
     const rows = this.db
       .prepare(
-        `SELECT r.* FROM h_work r WHERE ${f.sql} ${kind ? 'AND r.kind=?' : ''} ${id ? 'AND r.id=?' : ''} AND ${sources.sql}
+        `SELECT r.* FROM h_work r WHERE ${f.sql} ${kind ? 'AND r.kind=?' : ''} ${id ? 'AND r.id=?' : ''} AND ${sources.sql} AND ${bindings.sql}
       AND NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.evidenceIds') ref WHERE NOT EXISTS(SELECT 1 FROM h_evidence e WHERE e.id=ref.value AND ${e.sql} AND e.status!='deleted'))
       ORDER BY r.rowid DESC LIMIT 200`,
       )
-      .all(...f.params, ...(kind ? [kind] : []), ...(id ? [id] : []), ...sources.params, ...e.params);
+      .all(...f.params, ...(kind ? [kind] : []), ...(id ? [id] : []), ...sources.params, ...bindings.params, ...e.params);
     return rows.map((r) => parse<WorkRecord>(r)!);
   }
   /** Bounded typed working records, with the same SQL-before-body scope and
    * source checks as ordinary work. No parallel personal information store. */
-  workData(handle: ScopeHandle, types: string[], options: { id?: string; revision?: number; matterId?: string; sessionId?: string; statuses?: string[]; limit?: number; offset?: number; respectSourceBindings?: boolean } = {}) {
+  workData(handle: ScopeHandle, types: string[], options: { id?: string; revision?: number; matterId?: string; sessionId?: string; statuses?: string[]; limit?: number; offset?: number; query?: string; respectSourceBindings?: boolean } = {}) {
     const limit = options.limit || 20, offset = options.offset || 0;
     if (!types.length || types.length > 12 || !Number.isInteger(limit) || limit < 1 || limit > 100 || !Number.isSafeInteger(offset) || offset < 0)
       throw new HarnessError('invalid_page', '工作记录的读取范围无效。');
-    const f = this.filter(handle), e = this.filter(handle, 'e'), sources = this.helpSourceFilter(handle);
+    if (options.query !== undefined && (typeof options.query !== 'string' || options.query.length > 300)) throw new HarnessError('invalid_query', '事项检索范围无效。');
+    const terms = [...new Set((options.query || '').normalize('NFKC').trim().toLowerCase().split(/\s+/).filter(Boolean))];
+    if (terms.length > 16) throw new HarnessError('invalid_query', '检索词过多，请缩小查询。');
+    const f = this.filter(handle), e = this.filter(handle, 'e'), sources = this.helpSourceFilter(handle), bindings = this.workSourceFilter(handle);
     const rows = this.db.prepare(`SELECT r.* FROM h_work r WHERE ${f.sql}
-      AND ${sources.sql}
+      AND ${sources.sql} AND ${bindings.sql}
       AND json_extract(r.payload,'$.data.type') IN (SELECT value FROM json_each(?))
       ${options.id ? 'AND r.id=?' : ''}
       ${options.revision !== undefined ? 'AND r.revision=?' : ''}
       ${options.matterId ? "AND json_extract(r.payload,'$.data.matterId')=?" : ''}
-      ${options.sessionId ? "AND json_extract(r.payload,'$.data.sessionId')=?" : ''}
+      ${options.sessionId ? `AND (json_extract(r.payload,'$.data.sessionId')=? OR (
+        json_extract(r.payload,'$.data.type')='planning_intent' AND json_type(r.payload,'$.data.sessionIds')='array'
+        AND EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.sessionIds') membership WHERE membership.type='text' AND membership.value=?)))` : ''}
       ${options.statuses ? 'AND r.status IN (SELECT value FROM json_each(?))' : ''}
       ${options.respectSourceBindings ? "AND NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.sourceIds') src WHERE src.value NOT IN (SELECT value FROM json_each(?)))" : ''}
+      ${terms.length ? 'AND (' + terms.map(() => "instr(lower(r.title || ' ' || r.payload),?)>0").join(' OR ') + ')' : ''}
       AND NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.evidenceIds') ref WHERE NOT EXISTS(SELECT 1 FROM h_evidence e WHERE e.id=ref.value AND ${e.sql} AND e.status!='deleted'))
-      ORDER BY r.rowid DESC LIMIT ? OFFSET ?`).all(...f.params, ...sources.params, JSON.stringify(types), ...(options.id ? [options.id] : []), ...(options.revision !== undefined ? [options.revision] : []), ...(options.matterId ? [options.matterId] : []), ...(options.sessionId ? [options.sessionId] : []), ...(options.statuses ? [JSON.stringify(options.statuses)] : []), ...(options.respectSourceBindings ? [JSON.stringify(this.scope(handle).sources)] : []), ...e.params, limit, offset);
+      ORDER BY r.rowid DESC LIMIT ? OFFSET ?`).all(...f.params, ...sources.params, ...bindings.params, JSON.stringify(types), ...(options.id ? [options.id] : []), ...(options.revision !== undefined ? [options.revision] : []), ...(options.matterId ? [options.matterId] : []), ...(options.sessionId ? [options.sessionId, options.sessionId] : []), ...(options.statuses ? [JSON.stringify(options.statuses)] : []), ...(options.respectSourceBindings ? [JSON.stringify(this.scope(handle).sources)] : []), ...terms, ...e.params, limit, offset);
     for (const row of rows) this.recordAccess(handle, row, 'working_record');
     return rows.map(row => parse<WorkRecord>(row)!);
   }
@@ -1682,10 +1973,11 @@ export class KernelRepository {
       throw new HarnessError('invalid_page', '同步修改的读取范围无效。');
     const selectedIds = [...new Set(objectIds)].filter(id => !this.hasFence(id));
     if (!selectedIds.length) return { items: [], nextOffset: null };
-    const f = this.filter(handle, 'w'), e = this.filter(handle, 'e');
+    const f = this.filter(handle, 'w'), e = this.filter(handle, 'e'), bindings = this.workSourceFilter(handle, 'w');
     const permittedSources = JSON.stringify(scope.sources.filter(source => source !== 'current'));
     const rows = this.db.prepare(`SELECT s.*,w.source,w.title,w.revision AS current_revision,w.payload AS current_payload
-      FROM h_sync_operations s JOIN h_work w ON w.id=s.object_id WHERE ${f.sql}
+      FROM h_sync_operations s JOIN h_work w ON w.id=s.object_id WHERE ${f.sql} AND ${bindings.sql}
+      AND json_type(w.payload,'$.sourceBinding') IS NULL AND COALESCE(json_extract(w.payload,'$.data.type'),'')!='planning_intent'
       AND w.id IN (SELECT value FROM json_each(?)) AND s.epoch=?
       AND ((s.status='pending' AND s.base_revision=w.revision)
         OR (s.status='rejected' AND json_extract(s.result,'$.code')='revision_conflict'
@@ -1696,7 +1988,7 @@ export class KernelRepository {
       AND NOT EXISTS(SELECT 1 FROM json_each(s.result,'$.proposed.data.sourceIds') src WHERE src.type!='text' OR src.value NOT IN (SELECT value FROM json_each(?)))
       AND NOT EXISTS(SELECT 1 FROM json_each(w.payload,'$.evidenceIds') ref WHERE NOT EXISTS
         (SELECT 1 FROM h_evidence e WHERE e.id=ref.value AND ${e.sql} AND e.status!='deleted'))
-      ORDER BY s.rowid DESC LIMIT ? OFFSET ?`).all(...f.params, JSON.stringify(selectedIds), this.epoch,
+      ORDER BY s.rowid DESC LIMIT ? OFFSET ?`).all(...f.params, ...bindings.params, JSON.stringify(selectedIds), this.epoch,
         permittedSources, permittedSources, ...e.params, limit + 1, offset);
     const items = rows.slice(0, limit).map(row => {
       const result = JSON.parse(String(row.result)), work = JSON.parse(String(row.current_payload)) as WorkRecord;
@@ -1715,12 +2007,13 @@ export class KernelRepository {
   relatedWorkPage(handle: ScopeHandle, parentIds: string[], offset = 0, limit = 8) {
     if (!parentIds.length) return { items: [] as WorkRecord[], total: 0, nextOffset: null as number | null };
     if (parentIds.length > 20 || !Number.isSafeInteger(offset) || offset < 0 || !Number.isInteger(limit) || limit < 1 || limit > 20) throw new HarnessError('invalid_page', '关联事项的读取范围无效。');
-    const f = this.filter(handle), e = this.filter(handle, 'e');
-    const scoped = `WITH related AS MATERIALIZED(SELECT r.*,r.rowid AS work_order FROM h_work r WHERE ${f.sql}
+    const f = this.filter(handle), e = this.filter(handle, 'e'), bindings = this.workSourceFilter(handle);
+    const scoped = `WITH related AS MATERIALIZED(SELECT r.*,r.rowid AS work_order FROM h_work r WHERE ${f.sql} AND ${bindings.sql}
+      AND COALESCE(json_extract(r.payload,'$.data.type'),'')!='planning_intent'
       AND (json_extract(r.payload,'$.data.matterId') IN (SELECT value FROM json_each(?)) OR json_extract(r.payload,'$.data.episodeId') IN (SELECT value FROM json_each(?)))
       AND NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.sourceIds') src WHERE src.value NOT IN (SELECT value FROM json_each(?)))
       AND NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.evidenceIds') ref WHERE NOT EXISTS(SELECT 1 FROM h_evidence e WHERE e.id=ref.value AND ${e.sql} AND e.status!='deleted')))`;
-    const params = [...f.params, JSON.stringify(parentIds), JSON.stringify(parentIds), JSON.stringify(this.scope(handle).sources), ...e.params];
+    const params = [...f.params, ...bindings.params, JSON.stringify(parentIds), JSON.stringify(parentIds), JSON.stringify(this.scope(handle).sources), ...e.params];
     const total = Number(this.db.prepare(`${scoped} SELECT count(*) AS total FROM related`).get(...params)?.total || 0);
     const rows = this.db.prepare(`${scoped} SELECT * FROM related ORDER BY work_order DESC LIMIT ? OFFSET ?`).all(...params, limit, offset);
     for (const row of rows) this.recordAccess(handle, row, 'related_work');
@@ -1743,27 +2036,28 @@ export class KernelRepository {
       throw new HarnessError('invalid_page', '事项分页范围不合法。');
     const terms = [...new Set(query.normalize('NFKC').trim().toLowerCase().split(/\s+/).filter(Boolean))];
     if (terms.length > 16) throw new HarnessError('invalid_query', '检索词过多，请缩小查询。');
-    const f = this.filter(handle), e = this.filter(handle, 'e');
+    const f = this.filter(handle), e = this.filter(handle, 'e'), bindings = this.workSourceFilter(handle);
     const permitted = `WITH permitted AS MATERIALIZED(
-      SELECT r.*,r.rowid AS work_order FROM h_work r WHERE ${f.sql}
+      SELECT r.*,r.rowid AS work_order FROM h_work r WHERE ${f.sql} AND ${bindings.sql}
+      AND COALESCE(json_extract(r.payload,'$.data.type'),'')!='planning_intent'
       AND (json_extract(r.payload,'$.data.type') IN ('collaboration_frame','request_item') OR r.kind IN ('goal','plan','commitment'))
       AND NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.evidenceIds') ref WHERE NOT EXISTS(SELECT 1 FROM h_evidence e WHERE e.id=ref.value AND ${e.sql} AND e.status!='deleted'))
       ${terms.length ? '' : "AND (json_extract(r.payload,'$.data.sessionId')=? OR EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.sessionIds') s WHERE s.value=?))"}
     ), matching AS (SELECT * FROM permitted r ${terms.length ? 'WHERE ' + terms.map(() => "instr(lower(r.title || ' ' || r.payload),?)>0").join(' OR ') : ''})`;
-    const params = [...f.params, ...e.params, ...(terms.length ? terms : [sessionId, sessionId])];
+    const params = [...f.params, ...bindings.params, ...e.params, ...(terms.length ? terms : [sessionId, sessionId])];
     const total = Number(this.db.prepare(`${permitted} SELECT count(*) AS total FROM matching`).get(...params)?.total || 0);
     const rows = this.db.prepare(`${permitted} SELECT * FROM matching ORDER BY work_order DESC LIMIT ? OFFSET ?`).all(...params, limit, offset);
     for (const row of rows) this.recordAccess(handle, row, 'collaboration_restore');
     return { items: rows.map(row => parse<WorkRecord>(row)!), total, nextOffset: offset + rows.length < total ? offset + rows.length : null };
   }
   requestItems(handle: ScopeHandle, sessionId: string, openOnly = false): WorkRecord[] {
-    const f = this.filter(handle), e = this.filter(handle, 'e');
-    const rows = this.db.prepare(`SELECT r.* FROM h_work r WHERE ${f.sql} AND r.kind='task'
+    const f = this.filter(handle), e = this.filter(handle, 'e'), bindings = this.workSourceFilter(handle);
+    const rows = this.db.prepare(`SELECT r.* FROM h_work r WHERE ${f.sql} AND ${bindings.sql} AND r.kind='task'
       AND json_extract(r.payload,'$.data.type')='request_item'
       AND (json_extract(r.payload,'$.data.sessionId')=? OR EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.sessionIds') s WHERE s.value=?))
       ${openOnly ? "AND json_extract(r.payload,'$.data.state') NOT IN ('answered','succeeded','withdrawn','unfulfilled')" : ''}
       AND NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.evidenceIds') ref WHERE NOT EXISTS(SELECT 1 FROM h_evidence e WHERE e.id=ref.value AND ${e.sql} AND e.status!='deleted'))
-      ORDER BY r.rowid DESC LIMIT 200`).all(...f.params, sessionId, sessionId, ...e.params);
+      ORDER BY r.rowid DESC LIMIT 200`).all(...f.params, ...bindings.params, sessionId, sessionId, ...e.params);
     for (const row of rows) this.recordAccess(handle, row, 'current_requests');
     return rows.map(row => parse<WorkRecord>(row)!);
   }
@@ -1796,18 +2090,18 @@ export class KernelRepository {
       .slice(0, Math.min(options.limit || 32, 100));
   }
   currentMatter(handle: ScopeHandle, sessionId: string) {
-    const f = this.filter(handle), e = this.filter(handle, 'e');
+    const f = this.filter(handle), e = this.filter(handle, 'e'), bindings = this.workSourceFilter(handle);
     const row = this.db.prepare(`SELECT r.id,r.title,r.revision,r.status,r.payload,json_extract(r.payload,'$.data.question') AS question,json_extract(r.payload,'$.data.nextStep') AS next_step,json_extract(r.payload,'$.data.updatedAt') AS updated_at
-      FROM h_work r WHERE ${f.sql} AND r.kind='episode' AND r.status='active'
+      FROM h_work r WHERE ${f.sql} AND ${bindings.sql} AND r.kind='episode' AND r.status='active'
       AND (json_extract(r.payload,'$.data.sessionId')=? OR EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.sessionIds') s WHERE s.value=?))
       AND NOT EXISTS(SELECT 1 FROM json_each(r.payload,'$.evidenceIds') ref WHERE NOT EXISTS(SELECT 1 FROM h_evidence e WHERE e.id=ref.value AND ${e.sql} AND e.status!='deleted'))
-      ORDER BY r.rowid DESC LIMIT 1`).get(...f.params, sessionId, sessionId, ...e.params);
+      ORDER BY r.rowid DESC LIMIT 1`).get(...f.params, ...bindings.params, sessionId, sessionId, ...e.params);
     if (!row) return null;
     this.recordAccess(handle, { ...row, source: 'work:self' }, 'current_matter');
     const frame = parse<WorkRecord>(row);
     const optionIds = Array.isArray(frame?.data.optionIds) ? frame.data.optionIds.slice(0, 8) : [];
     const optionPlaces = optionIds.flatMap(id => typeof id === 'string' ? this.work(handle, undefined, id) : [])
-      .filter(option => option.data.episodeId === row.id && ['option', 'plan'].includes(option.kind)
+      .filter(option => option.data.type !== 'planning_intent' && option.data.episodeId === row.id && ['option', 'plan'].includes(option.kind)
         && !['rejected', 'blocked', 'stale', 'cancelled'].includes(option.status) && typeof option.data.placeId === 'string')
       .map(option => ({ id: option.id, title: option.title, placeId: String(option.data.placeId), revision: option.revision }));
     return { id: String(row.id), title: String(row.title), revision: Number(row.revision), question: row.question || null, nextStep: row.next_step || null, updatedAt: row.updated_at || null,
@@ -2078,8 +2372,27 @@ export class KernelRepository {
         ),
       );
       const affected = new Set<string>(),
+        redactedPlanningActions = new Set<string>(),
         redactedSources = new Set<string>(),
         redactedRanges = new Map<string, { contentVersion: number; start: number; end: number }[]>();
+      const redactPlanningAttempts = (matches: (row: Row) => boolean) => {
+        for (const row of this.db.prepare('SELECT plan_id,intent_id,source_binding,redacted FROM h_planning_intent_attempts').all()) {
+          if (!matches(row)) continue;
+          for (const link of this.db.prepare('SELECT action_id FROM h_planning_intent_action_links WHERE plan_id=?').all(String(row.plan_id))) {
+            const actionId = String(link.action_id);
+            if (preserved.has(actionId)) continue;
+            redactedPlanningActions.add(actionId);
+            affected.add(actionId);
+            for (const dependent of this.invalidate(actionId, 'source_deleted', preserved)) affected.add(dependent);
+          }
+          // Preserve existence and source addresses, never the old private
+          // manifest. Missing proof must remain unknown on the next recovery.
+          this.db.prepare("UPDATE h_planning_intent_attempts SET manifest='{}',redacted=1 WHERE plan_id=?").run(String(row.plan_id));
+        }
+      };
+      // Collect linked pending actions before an explicit owner deletion can
+      // cascade away their only planning relation.
+      redactPlanningAttempts(row => fence.objectIds.includes(String(row.intent_id)) || fence.objectIds.includes(String(row.plan_id)));
       const recordRedaction = (eventId: string, contentVersion: number, start: number, end: number) => {
         redactedSources.add(eventId);
         redactedRanges.set(eventId, [...(redactedRanges.get(eventId) || []), { contentVersion, start, end }]);
@@ -2283,10 +2596,59 @@ export class KernelRepository {
         this.db.prepare("DELETE FROM h_domain_versions WHERE json_extract(payload,'$.evidenceId')=?").run(id);
         for (const row of this.db
           .prepare(
-            "SELECT id FROM h_work WHERE EXISTS(SELECT 1 FROM json_each(h_work.payload,'$.evidenceIds') e WHERE e.value=?)",
+            "SELECT id,payload FROM h_work WHERE EXISTS(SELECT 1 FROM json_each(h_work.payload,'$.evidenceIds') e WHERE e.value=?)",
           )
-          .all(id))
+          .all(id)) {
+          const work = parse<WorkRecord>(row), binding = workSourceBindingSchema.safeParse(work?.sourceBinding);
+          if (!eventIds.has(id) && binding.success && !binding.data.refs.some(ref => ref.eventId === id
+            && (redactedRanges.get(id) || []).some(range => range.contentVersion !== ref.contentVersion || range.start < ref.end && range.end > ref.start))) continue;
           affected.add(String(row.id));
+        }
+      }
+      const planningBindingAffected = (raw: unknown) => {
+        const binding = workSourceBindingSchema.safeParse(raw);
+        if (!binding.success) return true;
+        return binding.data.sourceIds.some(source => fence.sourceIds.includes(source)) || binding.data.refs.some(ref =>
+          eventIds.has(ref.eventId) || (redactedRanges.get(ref.eventId) || []).some(range =>
+            range.contentVersion !== ref.contentVersion || range.start < ref.end && range.end > ref.start));
+      };
+      redactPlanningAttempts(row => {
+        if (affected.has(String(row.intent_id))) return true;
+        try { return planningBindingAffected(typeof row.source_binding === 'string' ? JSON.parse(row.source_binding) : undefined); }
+        catch (error) { if (error instanceof SyntaxError) return true; throw error; }
+      });
+      const planningProvenanceAffected = (value: unknown) => {
+        const parsed = planningMaterialProvenanceSchema.safeParse(value);
+        return !parsed.success || fence.objectIds.includes(parsed.data.intentId) || affected.has(parsed.data.intentId)
+          || planningBindingAffected(parsed.data.sourceBinding) || parsed.data.attemptBasis.some(attempt =>
+            fence.objectIds.includes(attempt.planId) || planningBindingAffected(attempt.sourceBinding));
+      };
+      for (const row of this.db.prepare(`SELECT id,json_extract(payload,'$.data.planningProvenance') AS provenance FROM h_work
+        WHERE json_type(payload,'$.data.planningProvenance') IS NOT NULL`).all()) {
+        let remove = false;
+        try {
+          const values: unknown = JSON.parse(String(row.provenance));
+          remove = !Array.isArray(values) || values.some(planningProvenanceAffected);
+        } catch (error) { if (error instanceof SyntaxError) remove = true; else throw error; }
+        if (remove) {
+          const id = String(row.id); affected.add(id);
+          for (const dependent of this.invalidate(id, 'source_deleted', preserved)) affected.add(dependent);
+        }
+      }
+      // A saved view is another source-derived copy, even when it was attached
+      // in a different conversation without an ordinary dependency edge.
+      for (const row of this.db.prepare(`SELECT id,payload FROM messages WHERE role='assistant'
+        AND (json_type(payload,'$.contextReceipt.planningProvenance') IS NOT NULL
+          OR EXISTS(SELECT 1 FROM json_each(messages.payload,'$.scenes') s WHERE json_type(s.value,'$.continuation')='object'))`).all()) {
+        const message = JSON.parse(String(row.payload));
+        const receiptProvenance = message.contextReceipt?.planningProvenance;
+        const provenance = [...(Array.isArray(receiptProvenance) ? receiptProvenance : receiptProvenance === undefined ? [] : [null]),
+          ...(Array.isArray(message.scenes) ? message.scenes : []).flatMap((scene: { kind?: string; continuation?: Record<string, unknown> }) => {
+            const value = scene.continuation;
+            return scene.kind === 'planning' && value ? [{ intentId: value.intentId, intentRevision: value.intentRevision,
+              sourceBinding: value.sourceBinding, attemptBasis: value.attemptBasis }] : [];
+          })];
+        if (provenance.some(planningProvenanceAffected)) affected.add(String(row.id));
       }
       for (const id of affected) {
         if (preserved.has(id)) continue;
@@ -2319,21 +2681,27 @@ export class KernelRepository {
         }
         const work = parse<WorkRecord>(this.db.prepare('SELECT payload FROM h_work WHERE id=?').get(id));
         if (work) {
+          const protectedType = work.sourceBinding && typeof work.data.type === 'string' ? work.data.type : undefined;
           work.status = 'stale';
           work.title = '相关来源已删除，等待重新核对';
-          work.data = { invalidationReason: 'source_deleted', requiresRebuild: true };
+          work.data = { ...(protectedType ? { type: protectedType } : {}), invalidationReason: 'source_deleted', requiresRebuild: true };
           work.evidenceIds = work.evidenceIds.filter((e) => !eventIds.has(e));
+          // Retain only opaque source addresses as a replay barrier. Removing
+          // the typed binding would turn this into a generic sync/edit target.
+          this.db.prepare('DELETE FROM h_sync_operations WHERE object_id=?').run(work.id);
           this.db
             .prepare('UPDATE h_work SET status=?,title=?,payload=? WHERE id=?')
             .run(work.status, work.title, JSON.stringify(work), id);
         }
         const action = parse<any>(this.db.prepare('SELECT payload FROM h_actions WHERE id=?').get(id));
         if (action) {
+          action.status = ['dispatching', 'outcome_unknown', 'reconciling', 'succeeded', 'cancel_requested'].includes(action.status)
+            ? 'cancel_requested' : 'cancelled';
           action.arguments = {};
           delete action.compensation;
           action.audience = 'redacted';
-          action.reason = 'source_deleted_details_removed';
-          this.db.prepare('UPDATE h_actions SET payload=? WHERE id=?').run(JSON.stringify(action), id);
+          action.reason = redactedPlanningActions.has(id) ? 'planning_source_deleted_details_removed' : 'source_deleted_details_removed';
+          this.db.prepare('UPDATE h_actions SET status=?,payload=? WHERE id=?').run(action.status, JSON.stringify(action), id);
           if (!preservedAgendaIds.has(id)) this.db.prepare('DELETE FROM agenda WHERE id=?').run(id);
         }
       }

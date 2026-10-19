@@ -16,6 +16,12 @@ import type { CapabilityBroker, CapabilityResult } from '../capabilities/broker'
 import { canonical } from '../runtime/semantics';
 import type { LocalEffectResult } from './local-calendar';
 
+/** Host-only planning provenance. Neither callback grants permission to execute. */
+export interface LocalPlanPort {
+  onPrepared(handle: ScopeHandle, action: EffectAction): void;
+  assertCurrent(handle: ScopeHandle, action: EffectAction): void;
+}
+
 export class ActionRuntime {
   private inFlight = new Map<string, Promise<EffectReceipt>>();
   beforeDispatch?: () => Promise<void>;
@@ -26,6 +32,7 @@ export class ActionRuntime {
     readonly broker: CapabilityBroker,
     private localWrite: (action: Action, effect?: EffectAction, scope?: ScopeData) => void | LocalEffectResult,
     private localUndo?: (effect: EffectAction) => void,
+    private readonly localPlanPort?: LocalPlanPort,
   ) {
     // A terminated process cannot know whether a dispatched external effect succeeded.
     repo.write(() => {
@@ -43,6 +50,12 @@ export class ActionRuntime {
           .run(action.id);
       }
     });
+  }
+  private localPlanBoundary(operation: keyof LocalPlanPort, handle: ScopeHandle, action: EffectAction) {
+    if (action.effect !== 'local_write' || !this.localPlanPort) return;
+    const result: unknown = this.localPlanPort[operation](handle, action);
+    if (result && typeof result === 'object' && typeof (result as { then?: unknown }).then === 'function')
+      throw new HarnessError('planning_async_port', '规划来源关联须在当前同步事务内核对，尚未提交。');
   }
   digest(
     action: Pick<
@@ -70,10 +83,14 @@ export class ActionRuntime {
     if (!cap || cap.effect === 'read') throw new HarnessError('unsupported_action', '这项动作尚未接入。');
     if (scope.retention === 'session_only' || scope.worldId !== 'real')
       throw new HarnessError('draft_only', '本轮仅可比较草稿，不能创建持久动作。');
-    const existing = input.id ? this.get(handle, input.id) : undefined;
+    const existing = input.id ? this.storedAction(handle, input.id) : undefined;
     if (existing) {
+      if (existing.audience === 'redacted' || !this.repo.planningActionReadable(handle, existing.id))
+        throw new HarnessError('action_unreadable', '动作不存在或当前来源不可读；不能由此推断此前没有执行。');
       if (existing.capability !== input.capability || canonical(existing.arguments) !== canonical(this.broker.validateArguments(input.capability, input.arguments)))
         throw new HarnessError('idempotency_conflict', '同一动作标识对应的参数已改变，需要核对原结果或准备明确修改。');
+      if (['proposed', 'awaiting_approval', 'approved', 'failed_confirmed'].includes(existing.status))
+        this.localPlanBoundary('assertCurrent', handle, existing);
       return existing;
     }
     const action: EffectAction = {
@@ -149,6 +166,7 @@ export class ActionRuntime {
           sensitivity: 'privacy',
           invalidation: 'block',
         });
+      this.localPlanBoundary('onPrepared', handle, action);
       this.repo.outbox('action_prepared', action.id);
     });
     this.repo.transitions.push({
@@ -180,7 +198,7 @@ export class ActionRuntime {
       authorized: true;
     },
     signal: AbortSignal = new AbortController().signal,
-  ): Promise<{ action: EffectAction; approval: Approval; receipt: EffectReceipt }> {
+  ): Promise<{ action: Pick<EffectAction, 'id' | 'revision' | 'digest' | 'status' | 'compensation'>; approval: Approval; receipt: EffectReceipt }> {
     if (input.authorized !== true) throw new HarnessError('approval_required', '本地直接登记需要明确确认。');
     const capability = this.broker.describe(input.capability);
     if (!capability || capability.effect !== 'local_write' || !capability.supportsCancel)
@@ -192,7 +210,8 @@ export class ActionRuntime {
     // approve() repeats the policy/epoch checks immediately before dispatch.
     const approval = this.approve(handle, action.id, action.digest, action.revision);
     const receipt = await this.execute(handle, action.id, approval.id, signal);
-    return { action: this.get(handle, action.id) || action, approval, receipt };
+    const current = this.storedAction(handle, action.id) || action, visible = this.get(handle, action.id);
+    return { action: visible || { id: current.id, revision: current.revision, digest: current.digest, status: current.status }, approval, receipt };
   }
   private workRevision(id: string) {
     return Number(this.repo.db.prepare('SELECT revision FROM h_work WHERE id=?').get(id)?.revision || 0);
@@ -202,7 +221,8 @@ export class ActionRuntime {
       .prepare('UPDATE h_actions SET revision=?,status=?,payload=? WHERE id=?')
       .run(action.revision, action.status, JSON.stringify(action), action.id);
   }
-  get(handle: ScopeHandle, id: string): EffectAction | undefined {
+  /** Internal lifecycle reads retain the exact effect; display has a separate source gate. */
+  private storedAction(handle: ScopeHandle, id: string): EffectAction | undefined {
     const s = this.policy.validate(handle),
       row = this.repo.db
         .prepare(
@@ -211,14 +231,23 @@ export class ActionRuntime {
         .get(id, s.principalId, s.workspaceId, s.subjectId, s.worldId, JSON.stringify(s.sources));
     return row ? JSON.parse(String(row.payload)) : undefined;
   }
+  get(handle: ScopeHandle, id: string): EffectAction | undefined {
+    const action = this.storedAction(handle, id);
+    return action && this.repo.planningActionReadable(handle, id) ? action : undefined;
+  }
   list(handle: ScopeHandle): EffectAction[] {
     const s = this.policy.validate(handle);
     return this.repo.db
       .prepare(
-        'SELECT payload FROM h_actions WHERE owner=? AND workspace=? AND subject=? AND world=? AND source IN (SELECT value FROM json_each(?)) ORDER BY rowid DESC',
+        'SELECT id,payload FROM h_actions WHERE owner=? AND workspace=? AND subject=? AND world=? AND source IN (SELECT value FROM json_each(?)) ORDER BY rowid DESC',
       )
       .all(s.principalId, s.workspaceId, s.subjectId, s.worldId, JSON.stringify(s.sources))
+      .filter(row => this.repo.planningActionReadable(handle, String(row.id)))
       .map((r) => JSON.parse(String(r.payload)));
+  }
+  private cancellationView(handle: ScopeHandle, action: EffectAction) {
+    return this.get(handle, action.id) || { id: action.id, capability: action.capability,
+      status: action.status, revision: action.revision, parametersAvailable: false as const };
   }
   cancelPendingFromSources(sourceIds: string[]) {
     if (!sourceIds.length) return;
@@ -242,7 +271,8 @@ export class ActionRuntime {
     audience?: string,
   ) {
     const action = this.get(handle, id);
-    if (!action) throw new HarnessError('action_missing', '动作不存在。');
+    if (!action) throw new HarnessError('action_missing', '动作不存在或当前来源不可读。');
+    if (action.audience === 'redacted') throw new HarnessError('action_unreadable', '旧动作的来源详情已清除，不能以修改恢复。');
     if (action.revision !== expectedRevision)
       throw new HarnessError('revision_conflict', '动作内容已更新，请重新查看。');
     if (['dispatching', 'outcome_unknown', 'succeeded', 'reconciling', 'unresolved', 'cancel_requested',
@@ -258,6 +288,7 @@ export class ActionRuntime {
       privacyEpoch: this.repo.epoch,
       policyRevision: this.repo.policyRevision,
     };
+    delete next.reason;
     next.digest = this.digest({
       capability: next.capability,
       capabilityContract: next.capabilityContract,
@@ -268,13 +299,22 @@ export class ActionRuntime {
       validUntil: next.validUntil,
       dependencies: next.dependencies,
     });
-    this.repo.write(() => this.put(next));
+    this.repo.write(() => {
+      const current = this.get(handle, id);
+      if (!current || current.revision !== expectedRevision || current.digest !== action.digest)
+        throw new HarnessError('revision_conflict', '动作内容已更新，请重新查看。');
+      this.localPlanBoundary('assertCurrent', handle, current);
+      this.put(next);
+      // A linked action cannot shed or replace its planRef through revision.
+      // The host port compares every prior link before registering this revision.
+      this.localPlanBoundary('onPrepared', handle, next);
+    });
     return next;
   }
   approve(handle: ScopeHandle, id: string, digest: string, revision: number): Approval {
     const s = this.policy.validate(handle),
       action = this.get(handle, id);
-    if (!action) throw new HarnessError('action_missing', '动作不存在。');
+    if (!action) throw new HarnessError('action_missing', '动作不存在或当前来源不可读。');
     if (action.digest !== digest || action.revision !== revision)
       throw new HarnessError('approval_mismatch', '动作内容已经变化，需要重新确认。');
     if (['cancelled', 'cancel_requested', 'cannot_cancel', 'cancellation_confirmed'].includes(action.status))
@@ -320,14 +360,23 @@ export class ActionRuntime {
     return approval;
   }
   private preflight(handle: ScopeHandle, action: EffectAction, approval?: Approval) {
-    const s = this.policy.validate(handle),
-      cap = this.broker.assertContract(action.capability, action.capabilityContract);
+    const s = this.policy.validate(handle);
+    const current = this.storedAction(handle, action.id);
+    if (!current || current.revision !== action.revision || current.digest !== action.digest)
+      throw new HarnessError('revision_conflict', '动作在核验前已改变，未执行旧参数。');
+    if (['cancelled', 'cancel_requested', 'cancellation_confirmed', 'cancellation_unknown', 'cannot_cancel'].includes(current.status))
+      throw new HarnessError('action_cancelled', '动作已取消或正在核查取消结果，未执行旧参数。');
+    if (current.status !== action.status) throw new HarnessError('action_changed', '动作状态已改变，请先核查当前结果。');
+    if (!this.repo.planningActionReadable(handle, action.id))
+      throw new HarnessError('action_unreadable', '动作的原来源当前不可读，未执行旧参数。');
+    const cap = this.broker.assertContract(action.capability, action.capabilityContract);
     if (!s.sources.includes(cap.sourceId))
       throw new HarnessError('source_forbidden', '此动作来源不在当前授权范围内。');
     if (action.worldId !== 'real' || s.subjectId !== s.principalId)
       throw new HarnessError('effect_scope', '不能替其他主体或假设世界执行动作。');
     for (const grant of cap.requiredScopes) this.policy.require(handle, grant);
     this.broker.validateArguments(action.capability, action.arguments);
+    this.localPlanBoundary('assertCurrent', handle, action);
     if (Date.parse(action.validUntil) <= Date.parse(this.repo.clock.now()))
       throw new HarnessError('action_expired', '动作已经超过确认期限。');
     if (action.goalId) {
@@ -379,11 +428,11 @@ export class ActionRuntime {
     approvalId: string,
     signal: AbortSignal,
   ): Promise<EffectReceipt> {
-    let action = this.get(handle, id);
+    let action = this.storedAction(handle, id);
     if (!action) throw new HarnessError('action_missing', '动作不存在。');
     if (action.status === 'succeeded') {
-      const previous = this.receipts(handle, id).at(-1);
-      if (previous) return previous;
+      const previous = this.storedReceipts(handle, id).at(-1);
+      if (previous) return this.receiptView(handle, previous);
     }
     if (['outcome_unknown', 'dispatching', 'reconciling', 'unresolved'].includes(action.status))
       throw new HarnessError('inspect_first', '结果尚未确定，请先核查，不能重复执行。', 'reconcile');
@@ -400,7 +449,11 @@ export class ActionRuntime {
       this.repo.write(() => {
         const latest = this.repo.db.prepare('SELECT payload FROM h_actions WHERE id=?').get(id);
         if (latest) {
-          action = JSON.parse(String(latest.payload));
+          const current = JSON.parse(String(latest.payload)) as EffectAction;
+          // A cancellation or revision that won the await boundary keeps its
+          // own state and proof; a stale dispatch cannot rewrite either one.
+          if (current.revision !== action!.revision || current.digest !== action!.digest || current.status !== action!.status) return;
+          action = current;
           action!.status = 'cancelled';
           action!.reason =
             action!.reason === 'permission_revoked'
@@ -554,22 +607,30 @@ export class ActionRuntime {
     });
     this.repo.outbox('action_receipt', action.id);
   }
-  receipts(handle: ScopeHandle, id: string): EffectReceipt[] {
-    if (!this.get(handle, id)) return [];
+  private storedReceipts(handle: ScopeHandle, id: string): EffectReceipt[] {
+    if (!this.storedAction(handle, id)) return [];
     return this.repo.db
       .prepare('SELECT payload FROM h_receipts WHERE action_id=? ORDER BY rowid')
       .all(id)
       .map((r) => JSON.parse(String(r.payload)));
   }
+  private receiptView(handle: ScopeHandle, receipt: EffectReceipt): EffectReceipt {
+    if (this.repo.planningActionReadable(handle, receipt.actionId)) return receipt;
+    return { id: receipt.id, actionId: receipt.actionId, attemptId: receipt.attemptId, sourceId: receipt.sourceId,
+      status: receipt.status, observedAt: receipt.observedAt, ...(receipt.localStatus ? { localStatus: receipt.localStatus } : {}) };
+  }
+  receipts(handle: ScopeHandle, id: string): EffectReceipt[] {
+    return this.storedReceipts(handle, id).map(receipt => this.receiptView(handle, receipt));
+  }
   async reconcile(handle: ScopeHandle, id: string, signal: AbortSignal = new AbortController().signal) {
-    const action = this.get(handle, id);
+    const action = this.storedAction(handle, id);
     if (!action) throw new HarnessError('action_missing', '动作不存在。');
     if (!['outcome_unknown', 'unresolved', 'cancel_requested'].includes(action.status))
       return this.receipts(handle, id).at(-1);
     if (action.effect === 'local_write' && ['local.agenda.save', 'local.agenda.change'].includes(action.capability)) {
       signal.throwIfAborted(); this.policy.validate(handle);
-      const known = this.receipts(handle, id).at(-1);
-      if (known) return known;
+      const known = this.storedReceipts(handle, id).at(-1);
+      if (known) return this.receiptView(handle, known);
       const attempt = this.repo.db.prepare('SELECT id FROM h_attempts WHERE action_id=? ORDER BY rowid DESC LIMIT 1').get(id);
       if (!attempt) throw new HarnessError('attempt_missing', '没有可核查的派发记录。');
       // These handlers commit the local row and its receipt in one SQLite
@@ -578,7 +639,7 @@ export class ActionRuntime {
       const receipt: EffectReceipt = { id: randomUUID(), actionId: id, attemptId: String(attempt.id), sourceId: action.sourceId,
         status: 'confirmed_failure', observedAt: this.repo.clock.now(), reason: 'local_transaction_not_committed' };
       this.repo.write(() => this.record(action, receipt));
-      return receipt;
+      return this.receiptView(handle, receipt);
     }
     let cap: ReturnType<CapabilityBroker['assertContract']>;
     try { cap = this.broker.assertContract(action.capability, action.capabilityContract); }
@@ -606,7 +667,7 @@ export class ActionRuntime {
       });
       const receipt = this.fromResult(action, String(row.id), result);
       this.repo.write(() => this.record(action, receipt));
-      return receipt;
+      return this.receiptView(handle, receipt);
     } catch {
       action.status = 'unresolved';
       action.reason = 'inspection_unavailable';
@@ -615,14 +676,36 @@ export class ActionRuntime {
     }
   }
   async cancel(handle: ScopeHandle, id: string, signal: AbortSignal = new AbortController().signal) {
-    const action = this.get(handle, id);
+    const action = this.storedAction(handle, id);
     if (!action) return;
     signal.throwIfAborted();
-    if (['cancelled', 'cancellation_confirmed'].includes(action.status)) return action;
+    if (['cancelled', 'cancellation_confirmed'].includes(action.status)) return this.cancellationView(handle, action);
     if (['proposed', 'awaiting_approval', 'approved', 'failed_confirmed'].includes(action.status)) {
-      action.status = 'cancelled';
-      this.repo.write(() => { this.repo.db.prepare("UPDATE h_jobs SET status='cancelled',fence=fence+1 WHERE object_id=?").run(id); this.put(action); });
-      return action;
+      const cancelled = this.repo.write(() => {
+        const current = this.storedAction(handle, id);
+        if (!current || current.revision !== action.revision || current.digest !== action.digest || current.status !== action.status)
+          throw new HarnessError('revision_conflict', '动作已变化，请先核查当前结果再取消。');
+        // This affirmative host marker is created only while cancellation and
+        // the complete absence of any dispatch/business proof share one writer.
+        // Legacy cancelled, failed or redacted actions receive no such proof.
+        const ref = current.arguments.planRef as { planId?: string; blockId?: string } | undefined;
+        const neverDispatched = ['proposed', 'awaiting_approval', 'approved'].includes(current.status)
+          && current.capability === 'local.agenda.save' && current.effect === 'local_write' && !current.simulated && current.audience === 'self'
+          && !current.compensation
+          && !this.repo.db.prepare('SELECT 1 FROM h_attempts WHERE action_id=?').get(id)
+          && !this.repo.db.prepare('SELECT 1 FROM h_receipts WHERE action_id=?').get(id)
+          && !this.repo.db.prepare("SELECT 1 FROM h_approvals WHERE action_id=? AND json_extract(payload,'$.used')=1").get(id)
+          && !this.repo.db.prepare(`SELECT 1 FROM agenda WHERE id=? OR json_extract(payload,'$.effectActionId')=?
+            OR (? IS NOT NULL AND json_extract(payload,'$.planRef.planId')=? AND json_extract(payload,'$.planRef.blockId')=?)`)
+            .get(id, id, ref?.planId ?? null, ref?.planId ?? null, ref?.blockId ?? null);
+        if (neverDispatched) current.reason = 'cancelled_before_dispatch';
+        else if (current.reason === 'cancelled_before_dispatch') delete current.reason;
+        current.status = 'cancelled';
+        this.repo.db.prepare("UPDATE h_jobs SET status='cancelled',fence=fence+1 WHERE object_id=?").run(id);
+        this.put(current);
+        return current;
+      });
+      return this.cancellationView(handle, cancelled);
     }
     if (action.effect === 'local_write') {
       this.policy.require(handle, 'local:write');
@@ -636,7 +719,7 @@ export class ActionRuntime {
         action.status = 'cancellation_confirmed';
         this.put(action);
       });
-      return action;
+      return this.cancellationView(handle, action);
     }
     action.status = 'cancel_requested';
     this.repo.write(() => { this.repo.db.prepare("UPDATE h_jobs SET status='cancelled',fence=fence+1 WHERE object_id=?").run(id); this.put(action); });
@@ -647,13 +730,13 @@ export class ActionRuntime {
       // provider must never receive the original provider's recovery key.
       action.reason = error instanceof HarnessError ? error.code : 'cancellation_unavailable';
       this.repo.write(() => this.put(action));
-      return action;
+      return this.cancellationView(handle, action);
     }
     if (!cap?.supportsCancel) {
       action.status = 'cannot_cancel';
       action.reason = 'provider_cannot_reverse_effect';
       this.repo.write(() => this.put(action));
-      return action;
+      return this.cancellationView(handle, action);
     }
     try {
       const result = await this.broker.invoke(handle, action.capability, action.arguments, signal, {
@@ -666,6 +749,6 @@ export class ActionRuntime {
       action.status = 'cancellation_unknown';
     }
     this.repo.write(() => this.put(action));
-    return action;
+    return this.cancellationView(handle, action);
   }
 }

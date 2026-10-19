@@ -132,7 +132,8 @@ export class CollaborationService {
           meaning: '只展开当前可读原文和方案；未展开或只剩历史标记不表示当时没有理由，不从旧副本补回正文。最多保存64条，不静默丢旧记录。' },
       } };
     });
-    const relatedOptions = [...optionIds].flatMap(id => this.repo.work(scope, undefined, String(id)));
+    const relatedOptions = [...optionIds].flatMap(id => this.repo.work(scope, undefined, String(id)))
+      .filter(record => record.data.type !== 'planning_intent');
     const parents = projected.filter(record => record.data.type === 'collaboration_frame' || record.kind === 'goal').map(record => record.id);
     const related = this.repo.relatedWorkPage(scope, parents, relation.relatedOffset || 0, limit);
     return { status: total ? 'fresh' : 'not_found', items: projected, basisUses, relatedOptions, relatedRecords: related.items, nextOffset,

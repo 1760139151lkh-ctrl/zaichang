@@ -1,7 +1,7 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { weatherOutput } from '../capabilities/weather';
 import { airQualityOutput } from '../capabilities/air-quality';
-import type { EnvironmentScene, PlanningBlock, PlanningScene, SceneSource } from '../../shared/scenes';
+import { planningContinuationSchema, type EnvironmentScene, type PlanningBlock, type PlanningScene, type SceneSource } from '../../shared/scenes';
 import { dateInZone } from './semantics';
 import { planningDayBounds } from '../actions/planning-days';
 
@@ -18,11 +18,20 @@ function source(result: Result): SceneSource {
 
 /** Only host planning results enter this projection. It has no save/action endpoint. */
 export function planningSnapshot(result: Result, capability: string, input: unknown, now: string): PlanningScene | undefined {
-  if (!['planning.preview', 'planning.draft'].includes(capability) || result.sourceId !== 'local-agenda' || !['fresh', 'partial'].includes(result.status)) return;
+  if (!['planning.preview', 'planning.draft', 'planning.replan'].includes(capability) || result.sourceId !== 'local-agenda' || !['fresh', 'partial'].includes(result.status)) return;
   const data = result.data as Record<string, any> | undefined;
   const args = input as Record<string, any> | undefined;
   if (!data || data.applied !== false || !instant(data.window?.from) || !instant(data.window?.to) || Date.parse(data.window.to) <= Date.parse(data.window.from) || !text(data.window.timeZone, 100)) return;
   try { new Intl.DateTimeFormat('en', { timeZone: data.window.timeZone }); } catch { return; }
+  let continuation: PlanningScene['continuation'];
+  if (capability === 'planning.replan' || data.intent !== undefined || data.adoptionEvidence !== undefined) {
+    if (data.adoptionEvidence?.status !== 'ready' || data.adoptionEvidence.evidenceCoverage !== undefined && data.adoptionEvidence.evidenceCoverage !== 'complete') return;
+    const parsed = planningContinuationSchema.safeParse({ intentId: data.intent?.id, intentRevision: data.intent?.revision,
+      sourceBinding: data.intent?.sourceBinding, attemptBasis: data.adoptionEvidence.attemptBasis,
+      allocatedMinutes: data.adoptionEvidence.allocatedMinutes, scheduledMinutes: data.scheduledMinutes });
+    if (!parsed.success) return;
+    continuation = parsed.data;
+  }
   const readWindows = (value: unknown, from: string, to: string) => {
     if (!Array.isArray(value) || value.length > 64) return null;
     const windows: { start: string; end: string }[] = [];
@@ -55,12 +64,14 @@ export function planningSnapshot(result: Result, capability: string, input: unkn
     ...rows(args?.busy), ...rows(args?.travelTimes), ...rows(args?.energyWindows), ...rows(args?.conditions),
     ...rows(args?.tasks), ...rows(args?.tasks).flatMap(task => rows(task.conditions)),
     ...sourceCoverage.filter(row => row.status !== 'not_checked')];
-  const requiredSourceIds = [...new Set(externalSources.flatMap(row => text(row.sourceId, 160) && !['current', 'user-declared', 'local-agenda'].includes(row.sourceId) ? [row.sourceId as string] : []))];
+  const requiredSourceIds = [...new Set([...externalSources.flatMap(row => text(row.sourceId, 160) && !['current', 'user-declared', 'local-agenda'].includes(row.sourceId) ? [row.sourceId as string] : []),
+    ...(continuation ? ['work:self', ...continuation.sourceBinding.sourceIds,
+      ...continuation.attemptBasis.flatMap(attempt => attempt.sourceBinding.sourceIds)] : [])])];
   const conditions = [...messages(data.conditions), ...rows(data.conditions).filter(row => row.status !== 'satisfied').flatMap(row => text(row.condition) ? [row.condition as string] : []),
     ...sourceCoverage.filter(row => row.status !== 'complete').map(row => row.reason || `${row.sourceId} 的覆盖尚不完整。`),
     ...(capability === 'planning.preview' && !rows(args?.sourceCoverage).length ? ['其他日程来源尚未声明覆盖，日历留白不能证明现实空闲。'] : []),
     ...(rows(data.issues).length ? ['有未展开或结束时间未知的安排，留白须结合原记录核对。'] : [])];
-  const draft = capability === 'planning.draft';
+  const draft = capability !== 'planning.preview';
   const minuteValue = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 44640;
   const daySummaries: NonNullable<PlanningScene['daySummaries']> = [];
   for (const day of rows(data.daySummaries)) {
@@ -165,6 +176,7 @@ export function planningSnapshot(result: Result, capability: string, input: unkn
   return { kind: 'planning', id: randomUUID(), revision: 1, createdAt: now, source: snapshotSource, mode: draft ? 'draft' : 'preview',
     window: { from: data.window.from, to: data.window.to, timeZone: data.window.timeZone }, blocks, requiredSourceIds, sourceCoverage,
     ...(scheduleCoverage ? { scheduleCoverage } : {}),
+    ...(continuation ? { continuation } : {}),
     ...(daySummaries.length ? { daySummaries } : {}),
     conditions: [...new Set(conditions)], unscheduled: rows(data.unscheduled).map(row => ({ title: text(row.title, 160) || text(row.taskId, 160) || '未安排的事', reason: text(row.reason, 1200) || text(row.message, 1200) || '这次尚未排入。' })),
     ...(adoption ? { adoption } : {}), ...(text(data.planId, 160) ? { planId: data.planId as string } : {}), ...(instant(data.expiresAt) ? { expiresAt: data.expiresAt } : {}), applied: false };

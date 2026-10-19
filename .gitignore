@@ -193,3 +193,9 @@ Thumbs.db
 !/assets/design/generated/2026-10-18-personal-memory/daily-rhythm-b.png
 !/assets/design/generated/2026-10-18-personal-memory/daily-rhythm-prompts.txt
 !/assets/design/generated/2026-10-18-personal-memory/daily-rhythm-manifest.json
+
+# Reviewed generated planning-continuation designs; local reference capture stays private.
+!/assets/design/generated/2026-10-18-planning-continuity/planning-continuity-a.png
+!/assets/design/generated/2026-10-18-planning-continuity/planning-continuity-b.png
+!/assets/design/generated/2026-10-18-planning-continuity/manifest.json
+!/assets/design/generated/2026-10-18-planning-continuity/prompts.txt

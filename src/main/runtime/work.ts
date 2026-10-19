@@ -133,6 +133,15 @@ export class WorkService {
     return next;
   }
 
+  /** Typed source-bound business writer; generic checkpoints cannot replace it. */
+  savePlanningIntent(handle: ScopeHandle, record: WorkRecord, expectedRevision?: number): WorkRecord {
+    this.policy.require(handle, 'work:write');
+    if (record.kind !== 'plan' || record.data.type !== 'planning_intent' || !record.sourceBinding)
+      throw new HarnessError('planning_intent_invalid', '规划意图须经专用来源核验后保存。');
+    this.repo.saveSourcedWork(handle, record, expectedRevision);
+    return record;
+  }
+
   /** Return the durable frame projection used by callers that need to render
    * or inspect focus without depending on the full WorkRecord payload. */
   frame(handle: ScopeHandle, episodeId: string): ConversationFrame | undefined {

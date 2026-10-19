@@ -36,13 +36,13 @@ function useExpired(expiresAt?: string) {
   }, [expiresAt, tick]);
   return !!expiresAt && Date.parse(expiresAt) <= Date.now();
 }
-/** Keep only the horizontal choice strip in view; never move the chat's scroll or focus. */
+/** Keep the focused or selected choice visible without moving the chat's scroll or focus. */
 function useChoiceVisibility(ref: RefObject<HTMLDivElement | null>, key: string | undefined, selector: string) {
   useEffect(() => {
     const strip = ref.current;
     if (!strip) return;
     const reveal = () => {
-      const chosen = strip.querySelector<HTMLElement>(selector);
+      const chosen = strip.querySelector<HTMLElement>('button:focus') || strip.querySelector<HTMLElement>(selector);
       if (!chosen) return;
       const frame = strip.getBoundingClientRect(), item = chosen.getBoundingClientRect();
       if (item.left < frame.left) strip.scrollLeft -= frame.left - item.left;
@@ -84,7 +84,12 @@ export function PlanningTime({ scene, selection, onSelect }: SelectionProps & { 
   const unresolved = [...new Set([...scene.conditions, ...(scene.adoption?.blockers || [])])];
   return <section className="life-scene planning-scene" aria-label="一段属于自己的时间" data-scene-id={scene.id}>
     <header className="life-scene-heading">
-      <div><h3>{groups.length > 1 ? '这几天，慢慢安排。' : scene.mode === 'draft' ? '一段属于自己的时间' : '看看时间的余地'}</h3></div>
+      <div><h3>{scene.continuation ? '接着上次的安排' : groups.length > 1 ? '这几天，慢慢安排。' : scene.mode === 'draft' ? '一段属于自己的时间' : '看看时间的余地'}</h3>
+        {scene.continuation && <p className="planning-continuation">
+          <span>{scene.continuation.allocatedMinutes > 0 ? `${expired ? '当时' : ''}已在日历 ${duration(scene.continuation.allocatedMinutes)}` : '上次留下的想法'}</span>
+          <span>{scene.continuation.scheduledMinutes > 0 ? `这次续排 ${duration(scene.continuation.scheduledMinutes)}` : '这次没有新增安排'}</span>
+        </p>}
+      </div>
       {groups.length === 1 && activeDay && !summary ? <span className="life-scene-date">{dayName(activeDay)}</span> : null}
     </header>
     {groups.length > 1 && <div className="planning-day-strip" role="tablist" aria-label="查看哪一天" ref={dates}>
@@ -95,7 +100,7 @@ export function PlanningTime({ scene, selection, onSelect }: SelectionProps & { 
           <span className="planning-day-name">{dayName(day)}</span>
           {value && (declaredWindows && value.eligibleWindows ? <span className="planning-day-times">{value.eligibleWindows.length === 0 ? '这一天先不安排'
             : value.eligibleWindows.map(window => <span key={window.start}>{stamp(window.start, zone)} — {stamp(window.end, zone, dayKey(window.start, zone) !== dayKey(window.end, zone))}</span>)}</span>
-            : <span className="planning-day-balance">安排 {duration(value.scheduledMinutes)}<span> · {duration(value.freeMinutes)} 还没排</span></span>)}
+            : <span className="planning-day-balance">{scene.continuation ? '续排' : '安排'} {duration(value.scheduledMinutes)}<span> · {duration(value.freeMinutes)} 还没排</span></span>)}
         </button>;
       })}
     </div>}
@@ -103,7 +108,7 @@ export function PlanningTime({ scene, selection, onSelect }: SelectionProps & { 
       {declaredWindows ? <div className="planning-day-windows">{emptyDay ? <span className="planning-day-unplanned">这一天先不安排</span>
         : eligibleWindows?.map(window => <span key={window.start}>{stamp(window.start, zone)} — {stamp(window.end, zone, dayKey(window.start, zone) !== dayKey(window.end, zone))}</span>)}</div>
         : <span>{stamp(summary.from, zone)} — {stamp(summary.to, zone, dayKey(summary.from, zone) !== dayKey(summary.to, zone))}</span>}
-      {declaredWindows && !emptyDay && <p className="planning-day-balance">安排 {duration(summary.scheduledMinutes)} · {duration(summary.freeMinutes)} 还没排</p>}
+      {declaredWindows && !emptyDay && (!scene.continuation || groups.length > 1) && <p className="planning-day-balance">{scene.continuation ? '这天续排' : '安排'} {duration(summary.scheduledMinutes)} · {duration(summary.freeMinutes)} 还没排</p>}
       {!emptyDay && summary.reserveShortfallMinutes > 0 && <p className="planning-day-shortfall">原有安排已占去一些余地，比想留的空白少 {duration(summary.reserveShortfallMinutes)}。</p>}
     </div>}
     <div className="planning-timeline" role="group" aria-label="选择一个时段，接着聊">
@@ -129,7 +134,7 @@ export function PlanningTime({ scene, selection, onSelect }: SelectionProps & { 
       <details><summary>安排与依据<ChevronDown size={13} /></summary><div className="life-scene-source">
         <p>{stamp(scene.window.from, zone, true)} 至 {stamp(scene.window.to, zone, true)} · {zone}</p>
         {summary && !emptyDay && <p>{dayName(summary.date)}：{declaredWindows ? '指定时段内，' : ''}连同原有安排、准备和休息，共占 {duration(summary.occupiedMinutes)}，{duration(summary.freeMinutes)} 还没排。
-          {summary.budget?.maxScheduledMinutes !== undefined ? ` 这次的安排上限是 ${duration(summary.budget.maxScheduledMinutes)}。` : ''}
+          {summary.budget?.maxScheduledMinutes !== undefined ? ` 这天新增工作的上限是 ${duration(summary.budget.maxScheduledMinutes)}。` : ''}
           {summary.budget?.reserveMinutes !== undefined ? ` 想留 ${duration(summary.budget.reserveMinutes)} 空白。` : ''}</p>}
         <p>{scene.source.fetchedAt ? `${stamp(scene.source.fetchedAt, zone, true)} 读取本机安排` : '这份安排没有附读取时间。'}</p>
         {scene.sourceCoverage.map((row, index) => <p key={index}>{sourceName(row.sourceId)}{row.status !== 'complete' ? ' · 范围还不完整' : ''}{row.reason ? `：${row.reason}` : ''}</p>)}

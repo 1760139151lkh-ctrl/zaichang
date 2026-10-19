@@ -6,6 +6,7 @@ import { calendarDate } from '../../shared/calendar';
 import { expandAgenda } from './calendar';
 import { addDate, dateInZone, dayBounds, canonical } from '../runtime/semantics';
 import { planningDayBounds } from './planning-days';
+import type { PlanningRetainedContext, RetainedBoundaryCoverage } from './planning-intent-contract';
 
 const instant = z.string().datetime({ offset: true });
 const minutes = z.number().int().min(0).max(1440);
@@ -52,9 +53,11 @@ type Input = z.infer<typeof planningDraftInput>;
 type Task = Input['tasks'][number];
 type Interval = { start: number; end: number };
 type PlanningDay = Interval & { date: string; budget?: Input['dailyBudgets'][number] };
-type Occupied = Interval & { id: string; kind: 'fixed' | 'protected' | 'task'; title?: string; placeId?: string; unknownEnd?: boolean };
+type Occupied = Interval & { id: string; kind: 'fixed' | 'protected' | 'task' | 'support'; title?: string; placeId?: string; unknownEnd?: boolean;
+  retained?: boolean; taskId?: string; segment?: number; workId?: string };
 type Cost = { minutes: number; minMinutes: number; unknown: string[]; sources: string[] };
-type Transfer = Interval & { fromId: string | null; toId: string | null; travel: Cost; restMinutes: number };
+type Transfer = Interval & { fromId: string | null; toId: string | null; travel: Cost; restMinutes: number;
+  fromWorkId?: string; toWorkId?: string; fromTaskId?: string; toTaskId?: string; fromSegment?: number; toSegment?: number; fromPlaceId?: string; toPlaceId?: string };
 type Candidate = { start: number; end: number; reservedStart: number; reservedEnd: number; before: Cost; after: Cost; restBefore: number; restAfter: number; preferred: boolean; unknown: string[] };
 const minute = 60000;
 const maxSegments = 256;
@@ -190,28 +193,47 @@ function dependencyCycles(tasks: Task[]): Set<string> {
   return cycles;
 }
 
-/** Reserve each shared boundary once, even when both neighbouring tasks mention it. */
-function transferReservations(input: Input, occupied: Occupied[], bounds: Interval, domain: Interval[]): Transfer[] | undefined {
-  const sequence = occupied.filter(value => value.kind !== 'protected').sort((a, b) => a.start - b.start || a.end - b.end);
+function boundaryRequirements(input: Input, left: Occupied | undefined, right: Occupied | undefined, bounds: Interval, coverage: RetainedBoundaryCoverage[]) {
+  const fromPlaceId = left ? left.placeId : input.startPlaceId, toPlaceId = right ? right.placeId : input.endPlaceId;
+  const travel = travelCost(input, fromPlaceId, toPlaceId), rest = left?.kind === 'task' && right?.kind === 'task' ? input.restMinutes : 0;
+  const start = Math.max(bounds.start, left?.end ?? bounds.start), end = Math.min(bounds.end, right?.start ?? bounds.end);
+  const endpointMatches = (workId: string | undefined, taskId: string | undefined, endpoint: Occupied | undefined) =>
+    endpoint?.kind === 'task' ? !!(workId && workId === endpoint.workId || taskId && taskId === endpoint.taskId) : !workId && !taskId;
+  // New writes use the clipped gap above. Verified saved support keeps its
+  // original geometry, including future seconds before the aligned new horizon.
+  const covered = coverage.filter(value => Date.parse(value.start) >= (left?.end ?? -Infinity) && Date.parse(value.end) <= (right?.start ?? Infinity)
+    && endpointMatches(value.fromWorkId, value.fromTaskId, left) && endpointMatches(value.toWorkId, value.toTaskId, right));
+  const restCovered = covered.reduce((sum, value) => sum + value.restMinutes, 0);
+  const travelCovered = covered.filter(value => value.fromPlaceId === fromPlaceId && value.toPlaceId === toPlaceId).reduce((sum, value) => sum + value.travelMinutes, 0);
+  return { start, end, travel: { ...travel, minutes: Math.max(0, travel.minutes - travelCovered), minMinutes: Math.max(0, travel.minMinutes - travelCovered) },
+    restMinutes: Math.max(0, rest - restCovered) };
+}
+
+/** Reserve each shared boundary once. Stored support stays occupied and only
+ * supplies exact coverage; it never becomes a fictitious intermediate place. */
+function transferReservations(input: Input, occupied: Occupied[], bounds: Interval, domain: Interval[], coverage: RetainedBoundaryCoverage[]): Transfer[] | undefined {
+  const sequence = occupied.filter(value => value.kind !== 'protected' && value.kind !== 'support').sort((a, b) => a.start - b.start || a.end - b.end);
   const result: Transfer[] = [];
   for (let index = 0; index <= sequence.length; index++) {
     const left = sequence[index - 1], right = sequence[index];
     if (left?.kind !== 'task' && right?.kind !== 'task') continue;
-    const start = Math.max(bounds.start, left?.end ?? bounds.start), end = Math.min(bounds.end, right?.start ?? bounds.end);
-    const travel = travelCost(input, left ? left.placeId : input.startPlaceId, right ? right.placeId : input.endPlaceId);
-    const restMinutes = left?.kind === 'task' && right?.kind === 'task' ? input.restMinutes : 0;
+    const { start, end, travel, restMinutes } = boundaryRequirements(input, left, right, bounds, coverage);
     const length = (travel.minutes + restMinutes) * minute;
     if (!length) continue;
     if (end < start) return undefined;
-    const gaps = freeWithin(occupied.filter(value => value.kind === 'protected'), domain, { start, end });
+    const gaps = freeWithin(occupied.filter(value => value.kind === 'protected' || value.kind === 'support'), domain, { start, end });
     const free = [...gaps].reverse().find(value => value.end - value.start >= length);
     if (!free) return undefined;
-    result.push({ start: free.end - length, end: free.end, fromId: left?.id || null, toId: right?.id || null, travel, restMinutes });
+    result.push({ start: free.end - length, end: free.end, fromId: left?.id || null, toId: right?.id || null, travel, restMinutes,
+      ...(left?.workId ? { fromWorkId: left.workId } : {}), ...(right?.workId ? { toWorkId: right.workId } : {}),
+      ...(left?.taskId ? { fromTaskId: left.taskId, fromSegment: left.segment } : {}), ...(right?.taskId ? { toTaskId: right.taskId, toSegment: right.segment } : {}),
+      ...((left ? left.placeId : input.startPlaceId) ? { fromPlaceId: left ? left.placeId : input.startPlaceId } : {}),
+      ...((right ? right.placeId : input.endPlaceId) ? { toPlaceId: right ? right.placeId : input.endPlaceId } : {}) });
   }
   return result;
 }
 
-function candidates(task: Task, remaining: number, workBudget: number, earliest: number, input: Input, occupied: Occupied[], bounds: Interval, days: PlanningDay[], work: Interval[], domain: Interval[]): Candidate[] {
+function candidates(task: Task, remaining: number, workBudget: number, earliest: number, input: Input, occupied: Occupied[], bounds: Interval, days: PlanningDay[], work: Interval[], domain: Interval[], coverage: RetainedBoundaryCoverage[]): Candidate[] {
   const taskBounds = { start: Math.max(bounds.start, earliest, task.earliestStart ? Date.parse(task.earliestStart) : bounds.start), end: Math.min(bounds.end, task.deadline ? Date.parse(task.deadline) : bounds.end) };
   const allowed = task.allowedWindows === undefined ? [taskBounds] : merge(task.allowedWindows.map(value => asInterval(value, '任务窗口'))).flatMap(value => { const intersection = intersect(value, taskBounds); return intersection ? [intersection] : []; });
   const levels = { low: 1, medium: 2, high: 3 };
@@ -221,12 +243,12 @@ function candidates(task: Task, remaining: number, workBudget: number, earliest:
   const preferences = task.preferredWindows.map(value => asInterval(value, '偏好窗口'));
   const result: Candidate[] = [];
   for (const gap of free) {
-    const previous = occupied.filter(value => value.end <= gap.start && value.kind !== 'protected').sort((a, b) => b.end - a.end)[0];
-    const next = occupied.filter(value => value.start >= gap.end && value.kind !== 'protected').sort((a, b) => a.start - b.start)[0];
-    const before = travelCost(input, previous?.placeId || input.startPlaceId, task.placeId);
-    const after = travelCost(input, task.placeId, next?.placeId || input.endPlaceId);
-    const restBefore = previous?.kind === 'task' ? input.restMinutes : 0;
-    const restAfter = next?.kind === 'task' ? input.restMinutes : 0;
+    const previous = occupied.filter(value => value.end <= gap.start && value.kind !== 'protected' && value.kind !== 'support').sort((a, b) => b.end - a.end)[0];
+    const next = occupied.filter(value => value.start >= gap.end && value.kind !== 'protected' && value.kind !== 'support').sort((a, b) => a.start - b.start)[0];
+    const placeholder: Occupied = { id: 'candidate', kind: 'task', taskId: task.id, start: gap.start, end: gap.end, placeId: task.placeId };
+    const entering = boundaryRequirements(input, previous, { ...placeholder, end: gap.start }, bounds, coverage);
+    const leaving = boundaryRequirements(input, { ...placeholder, start: gap.end }, next, bounds, coverage);
+    const before = entering.travel, after = leaving.travel, restBefore = entering.restMinutes, restAfter = leaving.restMinutes;
     const earliestCore = gap.start + (before.minutes + restBefore + task.setupMinutes) * minute;
     const latestCore = gap.end - (after.minutes + restAfter + task.cleanupMinutes) * minute;
     for (const valid of allowed) {
@@ -259,9 +281,17 @@ function candidates(task: Task, remaining: number, workBudget: number, earliest:
 }
 
 /** Constructive, bounded and read-only: failure to place is not a proof of global infeasibility. */
-export function draftCalendarPlan(items: Action[], raw: unknown) {
+export function draftCalendarPlan(items: Action[], raw: unknown, retained?: PlanningRetainedContext) {
   const input = planningDraftInput.parse(raw), bounds = validateInput(input);
   const days = planningDays(input, bounds), domain = scheduleDomain(input, bounds);
+  const retainedRecordIds = new Set([...(retained?.work || []), ...(retained?.boundaries || [])].flatMap(value => value.recordIds));
+  const coverage = retained?.boundaries || [];
+  for (const value of [...(retained?.work || []), ...coverage]) {
+    if (!value.recordIds.length || value.recordVersions.length !== value.recordIds.length || value.recordVersions.some(version => {
+      const row = items.find(item => item.id === version.id);
+      return !value.recordIds.includes(version.id) || !row || row.done || row.planning?.state !== 'accepted' || (row.revision || 1) !== version.revision;
+    })) throw new HarnessError('planning_retained_changed', '原已保存占用已变化或缺少当前版本，未生成新方案。');
+  }
   // Look outside the requested window for adjacent commitments whose transfers cross the edge.
   const expansion = expandAgenda(items.filter(item => !item.done), iso(bounds.start - 1440 * minute), iso(bounds.end + 1440 * minute), input.timeZone);
   const issues = [...expansion.issues];
@@ -269,6 +299,7 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
   const localSources: { sourceId: string; sourceVersion: string; occurrenceId: string }[] = [];
   for (const row of expansion.items) {
     const item = row as unknown as Action & { occurrenceId: string; endsAt?: string | null; dateBounds?: { from: string; to: string } };
+    if (retainedRecordIds.has(item.id)) { localSources.push({ sourceId: item.id, sourceVersion: String(item.revision || 1), occurrenceId: item.occurrenceId }); continue; }
     if (item.planning && item.planning.state !== 'accepted' || item.kind && !['event', 'time_block'].includes(item.kind)) continue;
     const allDay = item.allDayDate ? dayBounds(item.allDayDate, item.timeZone || input.timeZone) : undefined;
     const start = Date.parse(allDay?.from || item.startsAt || '');
@@ -288,6 +319,10 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
     if (item && (!item.planning || item.planning.state === 'accepted') && (!item.kind || ['event', 'time_block'].includes(item.kind))) occupied.push({ id: String(issue.id), kind: 'fixed', title: item.title, start: Date.parse(issue.startsAt), end: bounds.end, placeId: item.planning?.placeId, unknownEnd: true });
   }
   for (const value of input.busy) occupied.push({ id: value.sourceId, kind: 'fixed', title: value.title, start: Date.parse(value.start), end: value.end ? Date.parse(value.end) : bounds.end, placeId: value.placeId, ...(value.end === null ? { unknownEnd: true } : {}) });
+  for (const value of retained?.work || []) occupied.push({ ...asInterval({ start: value.reservedStart, end: value.reservedEnd }, '已保存工作'), id: value.id,
+    kind: 'task', retained: true, workId: value.id, taskId: value.taskId, segment: value.segment, placeId: value.placeId,
+    title: items.find(item => value.recordIds.includes(item.id))?.title || '已保存的工作安排' });
+  for (const value of coverage) occupied.push({ ...asInterval(value, '已保存边界'), id: value.id, kind: 'support', retained: true, title: '已保存的转场与休息' });
   const protectedWindows = input.protectedWindows.flatMap(value => inBounds(domain, asInterval(value, '保护窗口'))
     .map(window => ({ start: iso(window.start), end: iso(window.end), reason: value.reason })));
   for (const [index, value] of protectedWindows.entries()) occupied.push({ ...asInterval(value, '保护窗口'), id: `protected:${index}`, kind: 'protected' });
@@ -300,7 +335,7 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
     return requested && totalMinutes(inBounds(domain, requested)) < (requested.end - requested.start) / minute - 1e-8;
   })) baseUnknown.push('部分保护时间不在本次可安排范围内，未纳入本方案的采用单位；原请求没有改成已保存，需另行处理或调整范围。');
   const cycles = dependencyCycles(input.tasks), completed = new Set(input.completedTaskIds);
-  const byId = new Map(input.tasks.map(value => [value.id, value])), finished = new Map<string, number>();
+  const byId = new Map(input.tasks.map(value => [value.id, value])), finished = new Map<string, number>((retained?.scheduledTasks || []).map(value => [value.taskId, Date.parse(value.reservedEnd)]));
   const blocks: { taskId: string; title: string; start: string; end: string; durationMinutes: number; reservedStart: string; reservedEnd: string; placeId?: string; segment: number; preferred: boolean; conditions: string[]; travelBefore: Cost; travelAfter: Cost; restBeforeMinutes: number; restAfterMinutes: number }[] = [];
   const unscheduled: { taskId: string; title: string; remainingMinutes: number; code: string; reason: string; dependencyIds?: string[] }[] = [];
   const fail = (task: Task, remaining: number, code: string, reason: string, dependencyIds?: string[]) => unscheduled.push({ taskId: task.id, title: task.title, remainingMinutes: remaining, code, reason, ...(dependencyIds ? { dependencyIds } : {}) });
@@ -309,7 +344,7 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
   while (pending.length) {
     const index = pending.findIndex(task => cycles.has(task.id) || task.dependsOn.every(value => completed.has(value) || finished.has(value) || !pending.some(other => other.id === value)));
     const task = pending.splice(index >= 0 ? index : 0, 1)[0];
-    const missing = task.dependsOn.filter(value => !byId.has(value) && !completed.has(value));
+    const missing = task.dependsOn.filter(value => !byId.has(value) && !completed.has(value) && !finished.has(value));
     const blocked = task.dependsOn.filter(value => !completed.has(value) && !finished.has(value));
     if (cycles.has(task.id)) { fail(task, task.durationMinutes.max, 'dependency_cycle', '前置任务形成环，请澄清真实先后关系。', task.dependsOn); continue; }
     if (missing.length) { fail(task, task.durationMinutes.max, 'dependency_missing', '前置任务未提供，也没有已完成依据。', missing); continue; }
@@ -324,12 +359,12 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
       if (blocks.length >= maxSegments) { fail(task, remaining, 'segment_limit', '本次方案已达到256个工作段的计算上限；保留剩余工作量，请缩短规划窗口或选择更长的有效工作段。'); break; }
       if (workMinutes >= input.maxScheduledMinutes) { fail(task, remaining, 'budget_or_reserve', '已达到本次工作量上限，保留其余任务而不追加追赶义务。'); break; }
       const scheduledWork = blocks.map(block => ({ start: Date.parse(block.start), end: Date.parse(block.end) }));
-      const options = candidates(task, remaining, input.maxScheduledMinutes - workMinutes, lastEnd, input, occupied, bounds, days, scheduledWork, domain);
+      const options = candidates(task, remaining, input.maxScheduledMinutes - workMinutes, lastEnd, input, occupied, bounds, days, scheduledWork, domain, coverage);
       if (!options.length) { fail(task, remaining, 'no_placement_found', `在本次可安排范围、当前承诺、任务窗口、精力限制、连续时长${input.dailyBudgets.length ? '、每日工作预算' : ''}和转换成本下，本次构造没有找到可用位置；这不是全局无解证明。`); break; }
       const fits = (value: Candidate) => {
         const length = (value.end - value.start) / minute;
-        const projectedOccupied: Occupied[] = [...occupied, { start: value.reservedStart, end: value.reservedEnd, id: `${task.id}:${segment + 1}`, kind: 'task', placeId: task.placeId }];
-        const transfers = transferReservations(input, projectedOccupied, bounds, domain);
+        const projectedOccupied: Occupied[] = [...occupied, { start: value.reservedStart, end: value.reservedEnd, id: `${task.id}:${segment + 1}`, kind: 'task', taskId: task.id, segment: segment + 1, placeId: task.placeId }];
+        const transfers = transferReservations(input, projectedOccupied, bounds, domain, coverage);
         if (!transfers) return { fits: false, freeDeficit: Infinity };
         const projected = freeMinutesIn([...projectedOccupied, ...transfers], bounds, domain);
         const dailyDeficit = Math.max(0, ...days.filter(day => day.budget).flatMap(day => [
@@ -370,22 +405,24 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
       blocks.push({ taskId: task.id, title: task.title, start: iso(candidate.start), end: iso(candidate.end), durationMinutes: length,
         reservedStart: iso(candidate.reservedStart), reservedEnd: iso(candidate.reservedEnd), ...(task.placeId ? { placeId: task.placeId } : {}), segment: ++segment,
         preferred: candidate.preferred, conditions: candidate.unknown, travelBefore: candidate.before, travelAfter: candidate.after, restBeforeMinutes: candidate.restBefore, restAfterMinutes: candidate.restAfter });
-      occupied.push({ start: candidate.reservedStart, end: candidate.reservedEnd, id: `${task.id}:${segment}`, kind: 'task', placeId: task.placeId });
+      occupied.push({ start: candidate.reservedStart, end: candidate.reservedEnd, id: `${task.id}:${segment}`, kind: 'task', taskId: task.id, segment, placeId: task.placeId });
       workMinutes += length; remaining -= length; lastEnd = candidate.reservedEnd;
     }
     if (remaining === 0) finished.set(task.id, lastEnd);
   }
   blocks.sort((a, b) => Date.parse(a.start) - Date.parse(b.start));
-  const transfers = transferReservations(input, occupied, bounds, domain) || [];
+  const remainingTransfers = transferReservations(input, occupied, bounds, domain, coverage);
+  if (!remainingTransfers && retained?.work.length)
+    throw new HarnessError('planning_retained_boundary_unfit', '当前范围无法容纳已保存工作的必要转场或休息；原占用保留，需要先调整条件，未省略边界生成新方案。');
+  const transfers = remainingTransfers || [];
   // Inserting a task changes neighbours; expose the final boundaries, never stale candidate routes.
-  const sequence = occupied.filter(value => value.kind !== 'protected').sort((a, b) => a.start - b.start || a.end - b.end);
+  const sequence = occupied.filter(value => value.kind !== 'protected' && value.kind !== 'support').sort((a, b) => a.start - b.start || a.end - b.end);
   for (const block of blocks) {
-    const index = sequence.findIndex(value => value.id === `${block.taskId}:${block.segment}`);
+    const index = sequence.findIndex(value => value.kind === 'task' && !value.retained && value.taskId === block.taskId && value.segment === block.segment);
     const previous = sequence[index - 1], next = sequence[index + 1];
-    block.travelBefore = travelCost(input, previous ? previous.placeId : input.startPlaceId, block.placeId);
-    block.travelAfter = travelCost(input, block.placeId, next ? next.placeId : input.endPlaceId);
-    block.restBeforeMinutes = previous?.kind === 'task' ? input.restMinutes : 0;
-    block.restAfterMinutes = next?.kind === 'task' ? input.restMinutes : 0;
+    const entering = boundaryRequirements(input, previous, sequence[index], bounds, coverage), leaving = boundaryRequirements(input, sequence[index], next, bounds, coverage);
+    block.travelBefore = entering.travel; block.travelAfter = leaving.travel;
+    block.restBeforeMinutes = entering.restMinutes; block.restAfterMinutes = leaving.restMinutes;
     block.conditions = unique([...block.conditions.filter(value => !value.startsWith('地点')), ...block.travelBefore.unknown, ...block.travelAfter.unknown]);
   }
   const daySummaries = days.map(day => {
@@ -401,6 +438,8 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
       meaning: '工作分钟仅计本次新增净工作，跨本地午夜拆账；占用和空白仅在本次可安排范围内核算，已扣除已有承诺、保护、准备收尾及共享转场休息。范围之外未纳入安排，不能当作空闲、忙碌、睡眠或可用精力。' };
   });
   const allUnknown = unique([...baseUnknown, ...blocks.flatMap(value => value.conditions),
+    ...(freeMinutesIn([...occupied, ...transfers], bounds, domain) + 1e-8 < input.reserveMinutes
+      ? ['本次可安排范围扣除完整占用后，无法留下原要求的总空白；需要先调整范围、原安排或留白要求。'] : []),
     ...daySummaries.filter(day => day.reserveShortfallMinutes > 1e-8).map(day => `${day.date}本次可安排范围扣除已有占用和保护后，无法留下本次要求的空白；没有自动扩大范围或移动承诺，须调整范围、原安排或本次留白要求。`)]);
   const calendarFingerprint = calendarPlanFingerprint(items);
   const sourceRevisions = [...localSources, ...[
@@ -418,7 +457,7 @@ export function draftCalendarPlan(items: Action[], raw: unknown) {
     sourceCoverage: [{ sourceId: 'local-agenda', status: issues.length === 0 ? 'complete' : 'partial', reason: '仅本机已登记的具体实例，不证明所有现实承诺或精力。' }, ...input.sourceCoverage.filter(value => value.sourceId !== 'local-agenda')],
     effectivePreferences: { restMinutes: input.restMinutes, transitionMinutes: input.transitionMinutes, maxScheduledMinutes: input.maxScheduledMinutes, reserveMinutes: input.reserveMinutes, dailyBudgets: input.dailyBudgets,
       taskRhythms: input.tasks.filter(task => task.maximumChunkMinutes !== undefined || task.minimumChunkMinutes !== undefined).map(task => ({ taskId: task.id, splittable: task.splittable, minimumChunkMinutes: task.minimumChunkMinutes ?? (task.splittable ? Math.min(30, task.durationMinutes.max) : task.durationMinutes.max), maximumChunkMinutes: task.maximumChunkMinutes ?? null })) },
-    blocks, unscheduled, fixedCommitments: baseOccupied.filter(value => value.kind === 'fixed').map(value => ({ ...value, start: iso(value.start), end: iso(value.end) })),
+    blocks, unscheduled, fixedCommitments: baseOccupied.filter(value => value.kind === 'fixed' || value.retained).map(value => ({ ...value, start: iso(value.start), end: iso(value.end) })),
     protectedWindows, transitions: transfers.map(value => ({ ...value, start: iso(value.start), end: iso(value.end) })),
     freeWindows: freeWithin([...occupied, ...transfers], domain, bounds).map(value => ({ start: iso(value.start), end: iso(value.end), minutes: (value.end - value.start) / minute, meaning: '本次可安排范围内保留完整占用后的空白，不包含未纳入的时段；现实可用性仍取决于声明的来源与条件。' })),
     initialFreeMinutes, scheduledMinutes: workMinutes, daySummaries, conditions: allUnknown, issues,

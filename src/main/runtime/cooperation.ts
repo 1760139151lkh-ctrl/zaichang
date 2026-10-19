@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { HarnessError, type ScopeHandle, type WorkRecord } from '../../shared/harness';
 import type { KernelRepository } from '../storage/repository';
 import type { WorkService } from './work';
+import type { PlanningMaterialProvenance } from '../actions/planning-intent-contract';
 
 export interface HelpRecordInput {
   responseId?: string;
@@ -17,6 +18,7 @@ export interface HelpRecordInput {
   requiredGrants?: string[];
   basisIds?: string[];
   resultRefs?: string[];
+  planningProvenance?: PlanningMaterialProvenance[];
 }
 
 /** Records our own interventions and observable consequences, never inferred
@@ -29,9 +31,12 @@ export class CooperationService {
     const old = this.repo.work(handle, undefined, id)[0];
     if (old) return old;
     if (!input.responseId && !input.opportunityId) throw new HarnessError('help_result_required', '帮助记录必须对应实际回复或已处理机会。');
+    if (input.planningProvenance && !this.repo.planningMaterialReadable(handle, input.planningProvenance))
+      throw new HarnessError('planning_material_changed', '帮助所依据的规划材料已改变，没有保存旧内容。');
     const record = this.work.create(handle, 'feedback', input.title, {
       type: 'cooperation_record', sessionId: input.sessionId, matterId: input.matterId,
       sourceIds: (input.sourceIds || []).filter(source => !['current', 'history:self'].includes(source)),
+      ...(input.planningProvenance ? { materialPlanningContractVersion: 1, planningProvenance: JSON.parse(JSON.stringify(input.planningProvenance)) } : {}),
       ...(input.requiredGrants ? { materialGrantContractVersion: 1, requiredGrants: [...new Set(input.requiredGrants)] } : {}),
       responseId: input.responseId || null, opportunityId: input.opportunityId || null,
       reason: input.reason, actionDescription: input.actionDescription, basisFingerprint: input.basisFingerprint,

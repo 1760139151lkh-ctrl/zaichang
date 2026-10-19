@@ -8,10 +8,11 @@ import type {
   EvidenceEvent,
   Need,
   NeedResult,
+  PlanningMaterialProvenance,
   TypedValue,
   WorkRecord,
 } from '../../shared/harness';
-import { always, HarnessError } from '../../shared/harness';
+import { always, HarnessError, planningMaterialProvenanceSchema } from '../../shared/harness';
 import type { KernelRepository } from '../storage/repository';
 import type { PolicyKernel, IngressDecision } from './policy';
 import type { CapabilityBroker, CapabilityResult } from '../capabilities/broker';
@@ -80,22 +81,24 @@ export class ContextCompiler {
       meaning: '与本对话关联的近期外部观察；只证明所述观察，不代表用户确认、喜欢或授权后续行动。' }));
     const currentMatter = sessionId && canReadHistory && !ingress.requiresReadPurpose && contract.enhancements?.currentMatter !== false && scope.sources.includes('work:self') ? this.repo.currentMatter(contract.scope, sessionId) : null;
     const continuity = !ingress.requiresReadPurpose ? buildContinuityIndex(this.repo, contract, sessionId, this.continuityRefresh) : undefined;
-    const preparedMaterials = continuity?.preparedMaterials || [], openThreads = continuity?.openThreads || [];
+    const preparedMaterials = continuity?.preparedMaterials || [], openThreads = continuity?.openThreads || [], planningIntents = continuity?.planningIntents || [];
     const continuityData = { ...(preparedMaterials.length ? { preparedMaterials } : {}), ...(openThreads.length ? { openThreads } : {}),
+      ...(planningIntents.length ? { planningIntents } : {}),
       ...(continuity ? { continuityCoverage: continuity.coverage } : {}) };
     const discovered = this.broker.discover(contract.scope);
     const capabilityDirectory = { items: discovered.slice(0, 24).map(item => ({ name: item.name, sourceId: item.sourceId, displayName: item.displayName, description: item.description, effect: item.effect, connected: item.connection.connected, connection: item.connection, executableInThisTurn: item.connection.connected && (item.effect === 'read' || contract.actionMode !== 'respond') })), more: discovered.length > 24, meaning: '仅是许可范围内的非敏感能力说明，没有读取资料或执行动作；存在、已连接、本轮允许执行、实际完成是不同事实。用look_up的capability目录继续搜索、分页或获取输入schema。' };
     const text = canonical({ current: ingress.authoredText, attachments: currentEvents.filter(e => e.speaker === 'external'), history, ...(observationSummaries.length ? { recentObservations: observationSummaries } : {}), currentMatter, ...continuityData, capabilityDirectory });
     const estimatedTokens = Math.ceil(Array.from(text).length / 1.4), readBytes = Buffer.byteLength(text);
     const blocked = estimatedTokens > contract.budget.maxTokens || readBytes > contract.budget.maxReadBytes;
-    const evidenceIds = [...new Set([...currentEvents.map(e => e.id), ...history.filter(m => m.role === 'user').map(m => m.id), ...recentObservations.map(e => e.id)])];
+    const evidenceIds = [...new Set([...currentEvents.map(e => e.id), ...history.filter(m => m.role === 'user').map(m => m.id), ...recentObservations.map(e => e.id), ...(continuity?.providedEvidenceIds || [])])];
     const receipt: ContextPack['receipt'] = {
       mechanismUses: { prefetch: 0, currentMatter: Number(!!currentMatter), repairRejudge: 0, closure: 0 },
       id: randomUUID(), runId: contract.id, contractRevision: contract.revision,
       policyRevision: contract.policyRevision, privacyEpoch: contract.privacyEpoch,
       watermarks: this.repo.watermarks(), providedEvidenceIds: evidenceIds,
-      providedSourceIds: [...new Set([...currentEvents.map(e => e.sourceId), ...(history.length ? ['history:self'] : []), ...recentObservations.map(e => e.sourceId), ...(continuity?.providedSourceIds || []), ...(preparedMaterials.length || openThreads.length || currentMatter ? ['work:self'] : [])])],
-      providedObjectVersions: [...currentEvents.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })), ...recentObservations.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })), ...(continuity?.providedObjectVersions || []), ...(currentMatter ? [{ id: currentMatter.id, revision: currentMatter.revision, kind: 'work' as const }, ...currentMatter.optionPlaces.map(option => ({ id: option.id, revision: option.revision, kind: 'work' as const }))] : [])],
+      providedSourceIds: [...new Set([...currentEvents.map(e => e.sourceId), ...(history.length ? ['history:self'] : []), ...recentObservations.map(e => e.sourceId), ...(continuity?.providedSourceIds || []), ...(preparedMaterials.length || openThreads.length || planningIntents.length || currentMatter ? ['work:self'] : [])])],
+      providedObjectVersions: [...new Map([...currentEvents.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })), ...recentObservations.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })), ...(continuity?.providedObjectVersions || []), ...(currentMatter ? [{ id: currentMatter.id, revision: currentMatter.revision, kind: 'work' as const }, ...currentMatter.optionPlaces.map(option => ({ id: option.id, revision: option.revision, kind: 'work' as const }))] : [])]
+        .map(ref => [ref.kind + ':' + ref.id, ref])).values()],
       needResults: [], excludedReasonCounts: Object.fromEntries(contract.excludedReasons.map(reason => [reason, 1])),
       providerVersion: this.providerMetadata ? `${this.providerMetadata.protocol}/${this.providerMetadata.protocolVersion}` : 'unknown',
       ...(this.providerMetadata ? { provider: { ...this.providerMetadata, limits: { ...this.providerMetadata.limits, hostContextTokens: contract.budget.maxTokens } } } : {}),
@@ -120,6 +123,9 @@ export class ContextCompiler {
         limitations: blocked ? ['原话及必要前情超过本轮预算，尚未截断；需要分段处理或缩小范围。'] : [],
       },
     };
+    if (sessionId) this.recordPlanningProvenance(pack, this.repo.conversationPlanningProvenance(contract.scope, sessionId, history.map(message => message.id)));
+    if (currentMatter) this.recordWorkSources(pack, [currentMatter.id, ...currentMatter.optionPlaces.map(option => option.id)]
+      .flatMap(id => this.repo.work(contract.scope, undefined, id)));
     this.repo.saveReceipt(contract.scope, receipt);
     if (acquire && additionalNeeds.length) await this.expand(pack, additionalNeeds, signal);
     return pack;
@@ -155,6 +161,7 @@ export class ContextCompiler {
       if (pack.receipt.mechanismUses) pack.receipt.mechanismUses.currentMatter = 1;
     }
     pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+    this.recordPlanningProvenance(pack, this.repo.conversationPlanningProvenance(readScope, sessionId, history.map(message => message.id)));
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
     return { status: history.length || observations.length ? 'fresh' : 'not_found', count: history.length, observationCount: observations.length };
   }
@@ -252,6 +259,7 @@ export class ContextCompiler {
     // Opening one matter is not permission to search every personal transcript
     // for words in its title. Only its explicit evidence links are automatic;
     // the agent can request a separate, purpose-checked search if needed.
+    if (matter.sourceBinding) return this.prefetchBoundWork(pack, matter);
     const originals = matter.evidenceIds.slice(-4).map(id => this.repo.evidence(pack.contract.scope, id)).filter((event): event is EvidenceEvent => !!event);
     const candidates = { status: originals.length ? 'fresh' : 'not_found', bundles: [], originals,
       coverage: { candidatesOnly: true, at: pack.contract.now, nextOffset: null, nextHardOffset: null, hardTotal: 0,
@@ -265,7 +273,48 @@ export class ContextCompiler {
     pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
     pack.receipt.providedEvidenceIds = [...new Set([...pack.receipt.providedEvidenceIds, ...originals.map(event => event.id)])];
     pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), ...originals.map(event => event.sourceId)])];
-    this.recordObjects(pack, [matter], 'work');
+    this.recordWorkSources(pack, [matter]);
+    pack.data.retrievedContext = value;
+    this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+    return value;
+  }
+  private prefetchBoundWork(pack: ContextPack, matter: WorkRecord) {
+    const fragments = this.repo.readWorkSources(pack.contract.scope, matter);
+    this.recordWorkSources(pack, [matter]);
+    const offered = fragments.slice(-4), originals: Record<string, unknown>[] = [];
+    const address = (fragment: typeof fragments[number], end = fragment.end) => ({ id: fragment.eventId,
+      eventId: fragment.eventId, contentVersion: fragment.contentVersion, sourceId: fragment.sourceId,
+      sourceRange: { start: fragment.start, end }, boundRange: { start: fragment.start, end: fragment.end }, excerptOnly: true });
+    const valueFor = (rows: Record<string, unknown>[]) => ({ status: rows.length ? 'fresh' : 'partial', bundles: [], originals: rows,
+      matterOriginals: rows, originalCoverage: 'exact_bound_fragments',
+      coverage: { candidatesOnly: true, automaticScope: 'exact_work_source_ranges_only', returned: rows.length,
+        totalBoundFragments: fragments.length, complete: fragments.length === rows.length && rows.every((row, index) =>
+          (row.sourceRange as { end: number }).end === offered[index].end),
+        unread: fragments.filter(fragment => !rows.some(row => row.eventId === fragment.eventId
+          && (row.sourceRange as { start: number; end: number }).start === fragment.start
+          && (row.sourceRange as { end: number }).end === fragment.end)).map(fragment => {
+            const supplied = rows.find(row => row.eventId === fragment.eventId && (row.sourceRange as { start: number }).start === fragment.start);
+            const offset = supplied ? (supplied.sourceRange as { end: number }).end : fragment.start;
+            return { ...address(fragment), nextOffset: offset,
+              read: { tool: 'read_evidence', id: fragment.eventId, offset, limit: Math.min(20000, fragment.end - offset) } };
+          }) },
+      meaning: '只提供本事项sourceBinding内当前合法的精确原话片段；sourceRange是本次实际正文，boundRange是合法引用原范围，均为原文Unicode坐标。片段不代表全文，未读部分不证明没有条件；必要时按精确入口继续核对。' });
+    const fits = (value: unknown) => { const serialized = canonical(value); return pack.receipt.budget.readBytes + Buffer.byteLength(serialized) <= pack.contract.budget.maxReadBytes
+      && pack.receipt.budget.estimatedTokens + Math.ceil(Array.from(serialized).length / 1.4) <= pack.contract.budget.maxTokens; };
+    for (const fragment of offered) {
+      const chars = Array.from(fragment.text);
+      const row = (length: number) => ({ ...address(fragment, fragment.start + length), text: chars.slice(0, length).join('') });
+      if (fits(valueFor([...originals, row(chars.length)]))) { originals.push(row(chars.length)); continue; }
+      let low = 0, high = chars.length;
+      while (low < high) { const middle = Math.ceil((low + high) / 2); if (fits(valueFor([...originals, row(middle)]))) low = middle; else high = middle - 1; }
+      if (low) originals.push(row(low));
+      break;
+    }
+    const value = valueFor(originals);
+    if (!fits(value)) throw new HarnessError('read_budget', '原话片段的定位页已超出本轮预算，尚未提供正文。');
+    const serialized = canonical(value);
+    pack.receipt.budget.readBytes += Buffer.byteLength(serialized);
+    pack.receipt.budget.estimatedTokens += Math.ceil(Array.from(serialized).length / 1.4);
     pack.data.retrievedContext = value;
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
     return value;
@@ -308,6 +357,46 @@ export class ContextCompiler {
       if (previous) previous.revision = record.revision;
       else pack.receipt.providedObjectVersions.push({ id: record.id, revision: record.revision, kind });
     }
+  }
+  /** A title/specification inherits every actual bound source, even when
+   * only some of its exact original fragments were expanded for the model. */
+  recordWorkSources(pack: ContextPack | undefined, records: Pick<WorkRecord, 'id' | 'revision' | 'sourceBinding'>[]) {
+    if (!pack) return;
+    this.recordObjects(pack, records, 'work');
+    for (const record of records) if (record.sourceBinding) this.recordSourceBinding(pack, record.sourceBinding);
+  }
+  recordSourceBinding(pack: ContextPack | undefined, binding: NonNullable<WorkRecord['sourceBinding']>) {
+    if (!pack) return;
+    pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'work:self', ...binding.sourceIds])];
+    pack.receipt.providedEvidenceIds = [...new Set([...pack.receipt.providedEvidenceIds, ...binding.refs.map(ref => ref.eventId)])];
+    for (const ref of binding.refs) {
+      const previous = pack.receipt.providedObjectVersions.find(value => value.kind === 'evidence' && value.id === ref.eventId);
+      if (previous) previous.revision = ref.contentVersion;
+      else pack.receipt.providedObjectVersions.push({ id: ref.eventId, revision: ref.contentVersion, kind: 'evidence' });
+    }
+  }
+  recordPlanningAdoption(pack: ContextPack | undefined, value: unknown, record?: Pick<WorkRecord, 'id' | 'revision' | 'sourceBinding'>) {
+    const adoption = value as { status?: string; retained?: { work?: { recordVersions: { id: string; revision: number }[] }[];
+      boundaries?: { recordVersions: { id: string; revision: number }[] }[] }; attemptBasis?: { sourceBinding: NonNullable<WorkRecord['sourceBinding']> }[] } | undefined;
+    if (!pack || !adoption) return;
+    if (record?.sourceBinding) {
+      const provenance = planningMaterialProvenanceSchema.parse({ intentId: record.id, intentRevision: record.revision,
+        sourceBinding: record.sourceBinding, attemptBasis: adoption.attemptBasis || [] });
+      this.recordPlanningProvenance(pack, [provenance]);
+    }
+    if (adoption.status === 'not_checked') return;
+    pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'local-agenda'])];
+    for (const attempt of adoption.attemptBasis || []) this.recordSourceBinding(pack, attempt.sourceBinding);
+    this.recordObjects(pack, [...(adoption.retained?.work || []), ...(adoption.retained?.boundaries || [])].flatMap(row => row.recordVersions), 'agenda');
+  }
+  recordPlanningProvenance(pack: ContextPack | undefined, values: PlanningMaterialProvenance[]) {
+    if (!pack || !values.length) return;
+    for (const value of values) {
+      this.recordSourceBinding(pack, value.sourceBinding);
+      for (const attempt of value.attemptBasis) this.recordSourceBinding(pack, attempt.sourceBinding);
+    }
+    pack.receipt.planningProvenance = [...new Map([...(pack.receipt.planningProvenance || []), ...values]
+      .map(item => [canonical(item), item])).values()];
   }
   private recordDomainObjects(pack: ContextPack, records: any[]) {
     for (const record of records) {
@@ -394,6 +483,13 @@ export class ContextCompiler {
     const recordAgenda = (items: any[]) => this.recordObjects(pack, items.filter(item => item && typeof (item.sourceActionId || item.seriesId || item.id) === 'string')
       .map(item => ({ id: item.sourceActionId || item.seriesId || item.id, revision: item.revision || 1 })), 'agenda');
     if (capability === 'local.agenda.read' && Array.isArray(data?.items)) recordAgenda(data.items);
+    if (capability === 'planning.replan' && data?.record) {
+      this.recordWorkSources(pack, [data.record]);
+      this.recordPlanningAdoption(pack, data.adoptionEvidence, data.record);
+    }
+    if (['planning.draft', 'planning.replan'].includes(capability) && Array.isArray(data?.sourceRevisions))
+      this.recordObjects(pack, data.sourceRevisions.filter((row: any) => typeof row.occurrenceId === 'string' && Number.isSafeInteger(Number(row.sourceVersion)) && Number(row.sourceVersion) > 0)
+        .map((row: any) => ({ id: row.sourceId, revision: Number(row.sourceVersion) })), 'agenda');
     if (capability === 'planning.preview') recordAgenda([
       ...(Array.isArray(data?.busy) ? data.busy : []), ...(Array.isArray(data?.pending) ? data.pending : []),
       ...(Array.isArray(data?.acceptedMovable) ? data.acceptedMovable : []),

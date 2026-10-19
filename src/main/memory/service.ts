@@ -1114,9 +1114,10 @@ export class MemoryService {
     for (const id of ids)
       if (
         !this.repo.hasFence(id) &&
-        !this.repo.db.prepare('SELECT 1 FROM h_assertions WHERE id=? AND owner=? AND workspace=?').get(id, this.repo.identity.principalId, this.repo.identity.workspaceId) &&
-        !this.repo.evidence(scope, id) &&
-        !this.repo.work(scope).some((w) => w.id === id)
+        !this.repo.db.prepare(`SELECT 1 FROM h_assertions WHERE id=? AND owner=? AND workspace=?
+          UNION ALL SELECT 1 FROM h_work WHERE id=? AND owner=? AND workspace=?`)
+          .get(id, this.repo.identity.principalId, this.repo.identity.workspaceId, id, this.repo.identity.principalId, this.repo.identity.workspaceId) &&
+        !this.repo.evidence(scope, id)
       )
         throw new HarnessError('target_missing', '请选择明确的现有内容来删除。');
     const currentLocators = ids
@@ -1141,7 +1142,13 @@ export class MemoryService {
     // Whole conversation deletion keeps its explicitly selected source scope;
     // forgetting a fact traces only that fact's origin and its known copies.
     const deletedSources = new Set([...sourceIds, ...erasure.sourceIds]);
-    const fence = this.repo.establishFence({ kind: 'delete', objectIds: ids, sourceIds: [...deletedSources], spans: erasure.spans, ...conversationDeletion });
+    const intentOnly = ids.length > 0 && !sourceIds.length && !controlSpans.length && ids.every(id =>
+      this.repo.db.prepare("SELECT 1 FROM h_work WHERE id=? AND owner=? AND workspace=? AND json_extract(payload,'$.data.type')='planning_intent' AND json_type(payload,'$.sourceBinding')='object'")
+        .get(id, this.repo.identity.principalId, this.repo.identity.workspaceId));
+    const fence = this.repo.establishFence({ kind: 'delete', objectIds: ids, sourceIds: [...deletedSources], spans: erasure.spans,
+      // Removing a nonexecuting intention leaves separately accepted business
+      // records intact. Ordinary fact/source erasure keeps its deletion contract.
+      ...(intentOnly ? { preservedLocalAgenda: this.repo.confirmedAgendaReferences() } : {}), ...conversationDeletion });
     this.policy.signalBarrier();
     this.repo.cleanupFence(fence);
     this.repo.checkpointPrivacy();

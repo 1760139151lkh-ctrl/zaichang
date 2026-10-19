@@ -488,6 +488,8 @@ export interface ProviderReceipt {
   };
 }
 export interface ContextReceipt {
+  /** Exact host provenance for planning-derived text, rechecked before reuse. */
+  planningProvenance?: PlanningMaterialProvenance[];
   sceneReferences?: { id: string; revision: number; sourceId: string; fetchedAt: string; expiresAt?: string }[];
   materialReads?: { capability: string; resourceId: string; sha256: string; version: number; sourceEventId?: string; parentEventId?: string; page?: number; start?: number; end?: number; total?: number; complete: boolean; extraction?: string }[];
   imageRequests?: { requestId: string; sha256: string; source: 'upload' | 'tool'; version: string; accepted: boolean; role: string }[];
@@ -645,6 +647,28 @@ export interface EffectReceipt {
   localStatus?: 'local_saved';
   reason?: string;
 }
+export const workSourceRefSchema = z.object({
+  eventId: objectId, contentVersion: z.number().int().positive(),
+  start: z.number().int().nonnegative(), end: z.number().int().positive(),
+}).strict().refine(ref => Number.isSafeInteger(ref.start) && Number.isSafeInteger(ref.end) && ref.end > ref.start, '来源片段范围无效');
+export type WorkSourceRef = z.infer<typeof workSourceRefSchema>;
+export const workSourceBindingSchema = z.object({
+  version: z.literal(1), refs: z.array(workSourceRefSchema).min(1).max(32),
+  sourceIds: z.array(objectId).min(1).max(32), requiredGrants: z.array(z.string().min(1).max(100)).max(32),
+}).strict();
+export type WorkSourceBinding = z.infer<typeof workSourceBindingSchema>;
+/** Prior proofs actually read, never a model-authored adoption claim. */
+export const planningAttemptBasisSchema = z.object({
+  planId: objectId, intentId: objectId,
+  specDigest: z.string().regex(/^[a-f0-9]{64}$/), manifestDigest: z.string().regex(/^[a-f0-9]{64}$/),
+  sourceBinding: workSourceBindingSchema,
+}).strict();
+export type PlanningAttemptBasis = z.infer<typeof planningAttemptBasisSchema>;
+export const planningMaterialProvenanceSchema = z.object({
+  intentId: objectId, intentRevision: z.number().int().positive(),
+  sourceBinding: workSourceBindingSchema, attemptBasis: z.array(planningAttemptBasisSchema),
+}).strict();
+export type PlanningMaterialProvenance = z.infer<typeof planningMaterialProvenanceSchema>;
 export const workSchema = z
   .object({
     id: objectId,
@@ -670,6 +694,7 @@ export const workSchema = z
     status: z.string().min(1).max(50),
     title: z.string().max(400),
     evidenceIds: z.array(objectId).max(128),
+    sourceBinding: workSourceBindingSchema.optional(),
     label: labelSchema,
     data: z.record(z.string(), z.json()),
   })
