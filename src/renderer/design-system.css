@@ -1798,6 +1798,9 @@ summary::marker {
 .welcome-copy {
   color: var(--text-secondary);
   font-size: clamp(16px, 1.4vw, 20px);
+  line-height: 1.6;
+  max-width: 34em;
+  text-wrap: pretty;
   margin: 0 0 32px;
 }
 .app-shell.has-window .welcome-inner { width: min(620px, 53%); margin-left: clamp(42px, 7.5vw, 110px); margin-right: auto; }

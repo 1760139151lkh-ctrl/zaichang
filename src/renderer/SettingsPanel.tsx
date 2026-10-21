@@ -624,7 +624,7 @@ export function SettingsPanel({
                       </button>)}
                     </div>
                     <Switch label="留意你交给我的事" detail="关闭后，等你询问时再看。" checked={interaction.followup === 'meaningful_change'} disabled={!!pending} onChange={value => void update('followup', { interaction: { ...interaction, followup: value ? 'meaningful_change' : 'on_request' } })} />
-                    <div className="rhythm-choice-row"><span>没事也来找我聊聊</span><div className="rhythm-segmented" role="group" aria-label="不为事情、只是来找你聊聊的频率">
+                    <div className="rhythm-choice-row"><span>主动来聊</span><div className="rhythm-segmented" role="group" aria-label="不为事情、只是来找你聊聊的频率">
                       {([['off', '不用'], ['sometimes', '偶尔'], ['often', '常来']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={(state.settings.companionCheckIns || 'sometimes') === value} disabled={!!pending} onClick={() => void update('checkins', { companionCheckIns: value })}>{label}</button>)}
                     </div></div>
                     {result(['initiative', 'followup', 'checkins'])}

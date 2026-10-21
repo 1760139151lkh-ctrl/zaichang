@@ -49,6 +49,22 @@ function formatToolStepTitle(name: string, raw: string): string {
       args = JSON.parse(raw);
     }
   } catch {}
+  if (name === 'use_tool' && typeof args?.name === 'string')
+    return args.arguments === undefined ? '看看这件事该怎么做' : formatToolStepTitle(args.name, JSON.stringify(args.arguments));
+  if (name === 'look_up') {
+    if (args.source === 'local') return '翻看日程安排';
+    if (args.source === 'map') return '查看地图';
+    if (args.source === 'capability') return args.arguments ? '查找相关资料' : '找找能用的办法';
+  }
+  if (name === 'present_view') return '把结果摊开给你看';
+  if (name === 'change_local_action') return '调整安排';
+  if (name === 'inspect_action') return '确认安排的结果';
+  if (name === 'cancel_action') return '撤回安排';
+  if (name === 'delegate') return '分头去查';
+  if (name === 'send_check_in') return '来找你说句话';
+  if (name === 'study_companion' || name === 'read_study_companion') return '展开陪学纸';
+  if (name === 'manage_relationship_rehearsal') return '一起试着说';
+  if (name === 'offer_planning_alternatives') return '比较几种安排';
 
   if (name === 'look_up' || name === 'search_history' || name === 'query_campus' || name === 'get_weather') {
     if (args.source === 'weather' || name === 'get_weather') return '查看天气情况';

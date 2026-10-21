@@ -121,7 +121,7 @@ export function ReplyEvidence({ message }: { message: Message }) {
         ? '只用本条与附件'
         : s?.memoryMode === 'none'
           ? '未参考记忆'
-          : '按需参考资料';
+          : '参考了什么';
   const interpretationLabel = s?.interpretation
     ? {
         listen: '先听你说',
@@ -141,7 +141,7 @@ export function ReplyEvidence({ message }: { message: Message }) {
       {open && (
         <div className="evidence-detail">
           <p className="harness-muted">
-            这次回答参考了什么。
+            这次参考了这些。
             {s?.release ? '这份草稿留给你决定怎么发送。' : ''}
             {r
               ? ` ${r.coverage === 'blocked' ? '还有必要的信息没找到。' : r.coverage === 'conditional' ? '有些资料还需要再看一看。' : `共 ${r.providedEvidenceIds.length} 处来源。`}`

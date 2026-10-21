@@ -1529,8 +1529,10 @@ export function App() {
           {empty && view !== 'materials' ? (
             <div className="welcome-inner">
               <p className="welcome-date">{new Date().toLocaleDateString('zh-CN', { timeZone: state?.settings.timeZone || DEFAULT_TIME_ZONE, weekday: 'long' })}</p>
-              <h1>慢慢来，我在。</h1>
-              <p className="welcome-copy">今天想先从哪里说起？</p>
+              {/* Her greeting: the nickname the person chose, and a line in
+                  her own voice from the saved role, not a product slogan. */}
+              <h1>{state?.settings.persona.core.address.trim() ? `${state.settings.persona.core.address.trim()}，回来啦。` : '慢慢来，我在。'}</h1>
+              <p className="welcome-copy">{state?.settings.persona.core.examples.find(example => example.scenario === 'chat')?.response.trim() || '今天想先从哪里说起？'}</p>
               {loadError && (
                 <div className="harness-inline-error" role="alert">
                   <p>这次没能打开。{loadError}</p>
@@ -1989,12 +1991,12 @@ function MessageView({
         <span>
           {(m.status === 'running' ? current?.title : undefined) ||
             (m.status === 'cancelled'
-              ? '查看已停止的处理'
+              ? '停下前做了什么'
               : m.status === 'error'
-                ? '查看处理过程'
+                ? '刚才做到了哪一步'
                 : hasUnfinishedItems
-                  ? '还有未完成项'
-                  : '查看处理过程')}
+                  ? '还有没办完的'
+                  : '刚才做了什么')}
         </span>
         <ChevronRight size={13} className={expanded ? 'rotated' : ''} />
       </button>
@@ -2198,7 +2200,7 @@ function MessageView({
           </IconButton>}
           {m.status === 'done' && (
             <button className="text-button" onClick={onCorrect} disabled={busy}>
-              补充或纠正
+              说说哪里不对
             </button>
           )}
           {m.status === 'done' && !m.demo && m.retention !== 'session_only' && (

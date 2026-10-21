@@ -245,7 +245,7 @@ export class Harness {
       status: 'done', steps: [], obligations: [], actions: [], retention: 'session_only', ...(image ? { image } : {}),
       requestControls: { transmission: controls.transmission, memoryMode: controls.memoryMode, retention: controls.retention, audience: controls.audience },
     };
-    const admissionStep = { id: 'admission:' + userId, title: '核对本轮资料范围', status: 'running' as const };
+    const admissionStep = { id: 'admission:' + userId, title: '读你这句话', status: 'running' as const };
     const authorName = this.store.settings().persona?.core?.name || '在场';
     const message: Message = { ...user, id: randomUUID(), role: 'assistant', authorName, content: '', status: 'running', steps: [admissionStep], demo: this.store.settings().mode === 'demo' };
     // Show pending input, but do not save even its conversation title before
@@ -1457,7 +1457,7 @@ export class Harness {
         const registry = new ToolRegistry(context);
         const tools = registry.specs();
         const stepId = randomUUID();
-        step({ id: stepId, title: '理解你眼前的事', status: 'running' });
+        step({ id: stepId, title: '想一想', status: 'running' });
         const execution: HermesRun = {
           modelIdentity: client.providerMetadata?.(),
           runId: contract.id, epoch: contract.privacyEpoch, taskVersion: contract.revision,
@@ -1785,7 +1785,7 @@ export class Harness {
           // Continue concrete review failures through the same Hermes engine,
           // retaining the existing two-correction failure semantics.
           for (let repair = 0; repair < 2 && (review.missing.length || review.contradictions.length); repair++) {
-            step({ id: stepId, title: '还有一处需要核对', status: 'running' });
+            step({ id: stepId, title: '再确认一处', status: 'running' });
             const preceding = result.messages.at(-1)?.role === 'assistant' && !result.messages.at(-1)?.tool_calls?.length ? result.messages.slice(0, -1) : result.messages;
             result = await runHermes({ ...execution, runId: contract.id + ':continuation:' + (repair + 1), history: preceding,
               system: execution.system + '\n宿主内部检查：上一份末段可能已在同一消息里临时显示，尚未被接受为完成答复；协议中的该末段已移除，不能把它当成已完成事实。此前随工具调用公开的前段仍是用户已经收到的话。沿原消息修订末段；若已显示的判断需要改变，自然说明调整及原因，不假装从未说过。真实工具已经成功发布的画面和成稿也仍已交付，保留其回执；末段被移除不撤回这些内容，不为补回不存在的遗漏而重新查询或再建同一画面。确需修正时沿实际来源与原画面继续，仍守当前范围。根据原始请求与真实观察修复以下实质缺口；先核查已有回执，不重复登记。不要向用户讲述候选答复或内部检查过程。检查意见也可出错，仍以真实来源为准。\n' + JSON.stringify(review),
