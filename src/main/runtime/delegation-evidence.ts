@@ -86,10 +86,6 @@ export function delegationEvidenceIndex(repo: KernelRepository, parent: RunSessi
   const value = { status: 'available', items, toolReads, moreMayExist, complete: false,
     meaning: '这是有界交接目录，不是全部来源清单。这些地址来自该子调查实际收到的工具结果；定位预览与原文片段分开。同一来源被多个子调查引用仍不算独立支持。父助手没有因此读过全文，摘要也不是事实证明。可沿reread核原文、沿continue接下一段；toolReads给同一读取的重新查询入口，不是旧结果重放或执行授权，每次仍核当前来源与用途。' };
   const serialized = JSON.stringify(value), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
-  if (pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes
-    || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens)
-    return { status: 'bounded', items: [], moreMayExist: true,
-      meaning: '子调查已返回，但本轮剩余上下文不能再展开来源目录；没有把未展示地址称为父助手已读取。' };
   pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
   repo.saveReceipt(parentScope, pack.receipt);
   return value;

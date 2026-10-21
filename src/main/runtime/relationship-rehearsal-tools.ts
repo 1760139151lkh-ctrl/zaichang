@@ -10,9 +10,9 @@ import { canonical, codePointSlice } from './semantics';
 
 export const relationshipRehearsalToolDefinitions: { name: string; description: string; schema: z.ZodType; grant?: string; mutates?: boolean }[] = [
   { name: 'manage_relationship_rehearsal', schema: rehearsalWriteInput, grant: 'work:write', mutates: true,
-    description: '在原共同事项里真正来回试说一段人际表达。begin保留本人想说的意思与边界；respond只取本人本轮真正试说的一句，再由你试演对方的一种可能回应；他觉得不像就alternative或adjust。可随时collect直接整理成眼下愿意考虑的表达，或pause/close，不要求演满轮数、评分或完成关卡。对方台词始终是simulation，不是实际来信、他人画像或承诺。本人练习台词不是已对外说过。已有共同事项可直接用；没有时沿原update_collaboration形成这件事，不让用户选内部ID。完成后可用返回的present入口展开原对话中的试演。最终成稿与外发仍沿prepare_release/原行动边界。' },
+    description: '在原共同事项里真正来回试说一段人际表达。begin保留本人想说的意思与边界；respond只取本人本轮真正试说的一句，再由你试演对方的一种可能回应；他觉得不像就alternative或adjust。可随时collect直接整理成眼下愿意考虑的表达，或pause/close，不要求演满轮数、评分或完成关卡。对方台词始终是simulation，不是实际来信、他人画像或承诺。本人练习台词不是已对外说过。已有共同事项可直接用；没有时沿原update_collaboration形成这件事，不让用户选内部ID。返回view.ref是原排练的真实地址与版本，present.arguments可直接交present_view；不要把matterId当画面ID。begin遇到同一事项仍合法active的原排练只回读，不重开或恢复；按返回版本respond后再呈现，只有opening不表示本人已试说。最终成稿与外发仍沿prepare_release/原行动边界。' },
   { name: 'read_relationship_rehearsal', schema: rehearsalReadInput, grant: 'evidence:read',
-    description: '回到同一件事的表达排练：本人想守住的意思、实际试说、对方一种可能回应与未发送表达分开。只读不继续演、不恢复状态。较长的来回按固定expectedRevision及coverage继续回读；不把试演当现实关系记忆。' },
+    description: '回到同一件事的表达排练：本人想守住的意思、实际试说、对方一种可能回应与未发送表达分开。只读不继续演、不恢复状态。较长的来回按固定expectedRevision及coverage继续回读；不把试演当现实关系记忆。若本人请求就此写信，返回的activityTiming.reviewNavigation.use.arguments可复制为begin并补本轮currentQuote，无需猜from/before；该结构只导航这些已核来源的接收时段，不授予整窗资料读取或把间隔当持续练习。' },
 ];
 const names = new Set(relationshipRehearsalToolDefinitions.map(definition => definition.name));
 export interface RelationshipRehearsalToolHost {
@@ -54,19 +54,10 @@ export function executeRelationshipRehearsalTool(host: RelationshipRehearsalTool
     const view = 'view' in result ? result.view : undefined;
     const reference = view ? { id: view.id, revision: view.revision } : 'id' in result && typeof result.id === 'string'
       ? { id: result.id, revision: result.revision } : undefined;
-    const visible = { ...payload, ...(reference ? { present: { tool: 'present_view', arguments: { rehearsal: {
+    const activityTiming = view ? host.rehearsals.activityTiming(handle, view.id, view.revision, { ...context, timeZone: contract.timeZone }) : undefined;
+    const visible = { ...payload, ...(activityTiming ? { activityTiming } : {}), ...(reference ? { present: { tool: 'present_view', arguments: { rehearsal: {
       id: reference.id, expectedRevision: reference.revision } } } } : {}) };
     const text = canonical(visible), bytes = Buffer.byteLength(text), tokens = Math.ceil(Array.from(text).length / 1.4);
-    if (pack.receipt.budget.readBytes + bytes > contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > contract.budget.maxTokens) {
-      const partial = { status: 'partial', ...(reference ? { saved: reference,
-        read: { tool: 'read_relationship_rehearsal', arguments: { id: reference.id, expectedRevision: reference.revision, limit: 4 } } } : {}),
-        reason: writing ? '这一轮已留在原来的排练里，完整来回还没带进当前回复；可以只接眼前几句。' : '这段来回还没完整带进当前回复，可以缩小范围继续。' };
-      const small = canonical(partial), smallBytes = Buffer.byteLength(small), smallTokens = Math.ceil(Array.from(small).length / 1.4);
-      if (pack.receipt.budget.readBytes + smallBytes > contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + smallTokens > contract.budget.maxTokens)
-        throw new HarnessError('read_budget', '这一轮已经很满，未把没有展开的来回冒充已读。');
-      pack.receipt.budget.readBytes += smallBytes; pack.receipt.budget.estimatedTokens += smallTokens;
-      host.repo.saveReceipt(handle, pack.receipt); return partial;
-    }
     if (records.some(record => !record.sourceBinding || record.sourceBinding.refs.some(ref => !permits(ref))))
       throw new HarnessError('rehearsal_source_changed', '刚才这段试说的一处来由已改变，先回到当前允许的那一句。');
     host.context.recordWorkSources(pack, records);

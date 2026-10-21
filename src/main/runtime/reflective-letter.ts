@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import {
-  HarnessError, workSourceRefSchema, type ContextReceipt,
+  HarnessError, workSourceRefSchema, type ContextReceipt, type EvidenceEvent,
   type ScopeHandle, type WorkRecord, type WorkSourceRef,
 } from '../../shared/harness';
 import {
@@ -25,6 +25,9 @@ export interface ReflectiveLetterContext {
   /** Host original ranges actually sent in the current user context. A scope's
    * currentEventIds alone, or an index preview, does not establish delivery. */
   currentRanges: readonly WorkSourceRef[];
+  /** Immutable event versions actually supplied this turn, never refreshed
+   * from a newer repository body just to locate the same words. */
+  currentEvents?: readonly EvidenceEvent[];
   observations: readonly Observation[];
   /** Populated from messages actually supplied to the main model, not from
    * tool execution or model-authored observation IDs. */
@@ -88,11 +91,49 @@ export class ReflectiveLetterService {
     return { event, binding, quote: codePointSlice(event.text, parsed.start, parsed.end) };
   }
 
+  /** Resolve only the current request's literal address. Meaning and reading
+   * purpose are still decided by the original verifier after this step. */
+  resolveRequest(handle: ScopeHandle, context: ReflectiveLetterContext, raw: z.infer<typeof reflectiveLetterRequestInput>) {
+    const scope = this.scope(handle, true), input = reflectiveLetterRequestInput.parse(raw);
+    context.signal?.throwIfAborted();
+    if (input.source) return { operation: input.operation, source: input.source, window: input.window };
+    const quote = input.currentQuote!;
+    const candidates: { source: WorkSourceRef & { quote: string }; event: EvidenceEvent }[] = [];
+    for (const snapshot of context.currentEvents || []) {
+      if (!scope.currentEventIds.includes(snapshot.id) || snapshot.speaker !== 'user' || snapshot.authority !== 'user_statement') continue;
+      const ranges = context.currentRanges.filter(range => range.eventId === snapshot.id && range.contentVersion === snapshot.contentVersion);
+      if (!ranges.length) continue;
+      // The original version must still be current; a correction elsewhere in
+      // this message cannot silently re-sign its unchanged request sentence.
+      const current = this.repo.evidence(handle, snapshot.id);
+      if (!current || current.contentVersion !== snapshot.contentVersion || current.text !== snapshot.text)
+        throw new HarnessError('letter_current_request_changed', '本轮请求的原话已经变化，请接回当前原话后再写信。');
+      const points = Array.from(snapshot.text), selected = Array.from(quote);
+      for (let start = 0; start + selected.length <= points.length; start++) {
+        const end = start + selected.length;
+        if (!covers({ eventId: snapshot.id, contentVersion: snapshot.contentVersion, start, end }, ranges)
+          || selected.some((point, index) => points[start + index] !== point)) continue;
+        const source = { eventId: snapshot.id, contentVersion: snapshot.contentVersion, start, end, quote };
+        if (candidates.some(candidate => canonical(address(candidate.source)) === canonical(address(source))
+          || this.repo.sameSourceOrigin(candidate.event, candidate.source, snapshot, source))) continue;
+        candidates.push({ source, event: snapshot });
+      }
+    }
+    if (candidates.length !== 1)
+      throw new HarnessError('letter_current_quote', candidates.length
+        ? '这句在本轮允许范围里出现了不止一次，请逐字引用更完整且唯一的本次写信请求，或提供已读原话的精确地址。'
+        : '没有在本轮已交付的本人原话范围里找到这句，请逐字引用本次写信请求；不会改用旧话或近似文字。');
+    const source = candidates[0].source, resolved = this.currentOriginal(handle, source, context.permits);
+    if (resolved.event.speaker !== 'user' || resolved.event.authority !== 'user_statement' || resolved.quote !== quote)
+      throw new HarnessError('letter_current_request', '这次写信仍需要本轮本人真实请求的原句。');
+    return { operation: input.operation, source, window: input.window };
+  }
+
   /** Start exactly one requested letter. The attention focus is its original
    * material owner, with no probe, recurring wake, or discovery after this
    * request. Quiet initiative preferences do not block a direct user request. */
   begin(handle: ScopeHandle, context: ReflectiveLetterContext, raw: z.infer<typeof reflectiveLetterRequestInput>) {
-    const scope = this.scope(handle, true), input = reflectiveLetterRequestInput.parse(raw);
+    const scope = this.scope(handle, true), input = this.resolveRequest(handle, context, raw);
     context.signal?.throwIfAborted();
     if (!scope.currentEventIds.includes(input.source.eventId) || !covers(input.source, context.currentRanges))
       throw new HarnessError('letter_current_request', '开始这次来信需要本轮已实际提供的本人请求。');
@@ -206,7 +247,10 @@ export class ReflectiveLetterService {
         request, source: { ...address(request.source), sourceId: event.sourceId, quote },
         actualReadRanges: [address(request.source)],
         receivedWindow: request.window, asOf: request.asOf, coverage: 'selected_legal_sources_only',
-        guidance: '先从真实片段组织这次来信。需要旧经历时可用recall_experience独立深读；目录/预览不是原文，沿reread取得真实片段后再写。主助手按当前角色写信，允许只写几句、不知道或保留相反解释；不按完成量评价人，不要求填满固定栏目。' } };
+        compose: { tool: 'write_reflective_letter' as const, arguments: {
+          operation: 'compose' as const, opportunityId: opportunity.id, expectedRevision: opportunity.revision,
+        } },
+        guidance: '先从真实片段组织这次来信。需要旧经历时可用recall_experience独立深读；目录/预览不是原文，沿reread取得真实片段后再写。这封信是直接写给这个人的：回应一处具体分寸、改变或细节，也写出你为什么在意、自己的关心或态度，不把原话逐条改写成资料说明。来源身份由实际来由和结构化引用承担；回顾试说时自然说“刚才练习里”即可，不反复解释“我读到什么”或声明那不是现实人生。仍不把模拟写成真实外部交换。按当前角色写，可以认真、热烈、好笑，也允许只写几句、不知道或保留相反解释；不按完成量评价人，不要求填满固定栏目。' } };
   }
 
   private originalReadRanges(handle: ScopeHandle, context: ReflectiveLetterContext) {
@@ -551,6 +595,9 @@ export class ReflectiveLetterService {
     const text = codePointSlice(paragraph.text, input.start, input.end);
     if (!text.trim()) throw new HarnessError('letter_reference_range', '先选中想接着说的一句话。');
     return { text, origin: 'assistant_letter' as const, label: '这封信的这一句', reference: input, paragraphKind: paragraph.kind,
+      ...(input.revision === record.revision ? { read: { tool: 'read_reflective_letter' as const, arguments: {
+        operation: 'read' as const, opportunityId: record.id, expectedRevision: input.revision,
+      } } } : {}),
       ...this.usage(document),
       meaning: '只是本人指着助手当时写下的这句继续说；选择不表示同意，不将来信解释升级为本人事实或新的行动授权。' };
   }

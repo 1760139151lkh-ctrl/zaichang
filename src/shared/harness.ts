@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { programNodeIdSchema } from './interactive-program';
 
 export const objectId = z.string().min(1).max(160);
 export const instant = z.string().datetime({ offset: true });
@@ -185,11 +186,13 @@ export interface ContextContract {
   timeZone: string;
   now: string;
   budget: {
-    maxTokens: number;
+    /** Legacy persisted fields only. Material/token counts do not grant or
+     * withhold reads, and cumulative model/tool counts are not run quotas. */
+    maxTokens?: number;
     maxRows: number;
-    maxReadBytes: number;
-    toolCalls: number;
-    modelCalls: number;
+    maxReadBytes?: number;
+    toolCalls?: number;
+    modelCalls?: number;
     dependencyDepth: number;
   };
   excludedReasons: string[];
@@ -296,6 +299,9 @@ export const evidenceSchema = z
       matterId: objectId, matterRevision: z.number().int().positive(),
       referenceKind: z.enum(['work', 'map_place', 'map_leg']),
       chapter: z.object({ messageId: objectId, sceneId: objectId, sceneRevision: z.number().int().positive() }).strict().optional(),
+    }).strict(), z.object({
+      kind: z.literal('interactive_program'), origin: z.literal('user_interface_reference'),
+      messageId: objectId, programId: objectId, revision: z.number().int().positive(), nodeId: programNodeIdSchema,
     }).strict()]).optional(),
     authority: z.enum([
       'user_statement',
@@ -491,8 +497,8 @@ export interface ProviderReceipt {
     maxOutputTokens: number;
     /** Only present when verified from provider metadata or an isolated probe. */
     contextTokens?: number;
-    /** The host context budget used for this receipt. */
-    hostContextTokens: number;
+    /** Legacy host estimate, not an account/provider quota. New receipts omit it. */
+    hostContextTokens?: number;
   };
   requestModes?: {
     thinking: 'enabled' | 'disabled' | 'mixed';
@@ -504,13 +510,196 @@ export const assistantWorkSourceSchema = z.object({ messageId: objectId, sceneId
   sceneRevision: z.number().int().positive() }).strict();
 /** An immutable saved chapter address, never another copy of its prose. */
 export type AssistantWorkSource = z.infer<typeof assistantWorkSourceSchema>;
+export const interactiveProgramSourceSchema = z.object({ messageId: objectId, programId: objectId,
+  revision: z.number().int().positive() }).strict();
+/** An original message/view address, never a program or bound data copy. */
+export type InteractiveProgramSource = z.infer<typeof interactiveProgramSourceSchema>;
+
+export type InteractiveProgramReadDeliveryIssue = 'call_id_missing' | 'wire_not_found' | 'json_layer' | 'body_mismatch';
+/** Safe counters for one actual reader admission. The host creates the UUID;
+ * coverage describes this delivery, not a claim of understanding or adoption. */
+export interface InteractiveProgramReadReceipt {
+  id: string;
+  source: InteractiveProgramSource;
+  mode: 'overview' | 'source' | 'states';
+  stateOrigin?: 'this_turn_admitted_ui_reference' | 'initial_only_focus_has_no_current_inputs' | 'initial_not_current_ui_state';
+  status: 'available' | 'needs_refresh' | 'evaluation_error';
+  coverage: {
+    offset: number;
+    end: number;
+    total: number;
+    complete: boolean;
+    wholeSourceProvided: boolean;
+    sourceBodiesProvided: boolean;
+    geometryPointsProvided: boolean;
+  };
+  counts: { nodes: number; stateDeclarations: number; statePreviews: number; sourceCodePoints: number; literalMatches: number };
+  /** Actual admitted reader budget, including readReceiptId but excluding the
+   * registry's later observationId. These are not provider token measurements. */
+  bytes: number;
+  estimatedTokens: number;
+  delivery: 'admitted' | 'delivered_to_model';
+  deliveryIssue?: InteractiveProgramReadDeliveryIssue;
+}
+
+/** Safe failure classification only. Formal/admitted relations match a
+ * current-turn address or an original successful read; they do not assert
+ * that the source proof is readable now. */
+export interface InteractiveProgramReadFailure {
+  mode: 'overview' | 'source' | 'states';
+  reason: 'reference_unqualified' | 'source_proof_unavailable' | 'view_missing';
+  relation: 'formal_and_admitted' | 'formal_current' | 'earlier_admitted' | 'unmatched_request';
+}
+
+/** Estimates come from the same native request before the host appends its
+ * continuation core, or from existing native telemetry. Only afterMain is
+ * the actual prompt usage of a successful provider main request. */
+export interface HermesCompressionReceipt {
+  compactionCount: number;
+  thresholdTokens: number;
+  nativeSystemEstimatedTokens: number;
+  nativeToolsEstimatedTokens: number;
+  protectedHeadEstimatedTokens?: number;
+  protectedTailEstimatedTokens?: number;
+  middleEstimatedTokens?: number;
+  beforeEstimatedTokens?: number;
+  afterMainPromptTokens?: number;
+  continuationCoreIncluded?: boolean;
+}
+/** One safe terminal cause for this attempt, never an authority renewal. */
+export interface RunEndReceipt {
+  reason: 'scope_expired';
+  scopeExpiresAt: string;
+  endedAt: string;
+}
+
+/** Compiler counters and actual registry navigation only: no authored DSL,
+ * identifiers, source data or body text. */
+export interface InteractiveProgramExpansionDiagnostic {
+  measure: 'partial_static_expansion_upper_bound';
+  estimatedSoFar: number;
+  limit: number;
+  rawAstNodes: number;
+  statements: number;
+  statementOrdinal: number;
+  location: string;
+  loop?: { count: number; kind: 'exact' | 'upper_bound'; templateUnits: number; units: number };
+  /** Ordinary statement references are inlined by the installed native
+   * parser. These signatures help reduce repeated parameter work, not raise
+   * limits or assert a particular failed program's implementation. */
+  referenceSemantics?: 'ordinary_refs_inline';
+  functions?: InteractiveProgramExpressionDiagnostic['functions'];
+  read?: InteractiveProgramExpressionDiagnostic['read'];
+  builtinRead?: { tool: 'read_skill'; arguments: { id: string; section: 'grammar' } };
+}
+type InteractiveProgramOperandKind = 'number' | 'string' | 'boolean' | 'number?' | 'string?' | 'boolean?' | 'null' | 'unknown';
+/** Host-created expression shape and registry signatures only. location is
+ * an ordinal/numeric path; no authored identifiers or source text belong here. */
+export interface InteractiveProgramExpressionDiagnostic {
+  statementOrdinal: number;
+  location: string;
+  category: 'binary' | 'unary' | 'condition' | 'index';
+  operator: '+' | '-' | '*' | '/' | '%' | '==' | '!=' | '>' | '>=' | '<' | '<=' | '&&' | '||' | '!' | '?:' | '[]' | 'unsupported';
+  operandKinds: { left?: InteractiveProgramOperandKind; right?: InteractiveProgramOperandKind; condition?: InteractiveProgramOperandKind };
+  /** At most three entries from the actual shared registry, selected by host. */
+  functions: { name: string; signature: string; returnKind: string; minimumArguments?: number }[];
+  read: { tool: 'read_skill'; arguments: { id: string; section: 'functions'; names: string[]; limit: number } };
+}
+/** Only fixed registry/schema metadata. No supplied values, unknown keys,
+ * authored node identity or inferred source-statement position belong here. */
+export interface InteractiveProgramComponentDiagnostic {
+  name: string;
+  signature: string;
+  issues: {
+    stage: 'schema' | 'contract';
+    code: 'invalid_type' | 'too_big' | 'too_small' | 'invalid_format' | 'not_multiple_of' | 'unrecognized_keys'
+      | 'invalid_union' | 'invalid_key' | 'invalid_element' | 'invalid_value' | 'custom' | 'schema_issue'
+      | 'unknown_component' | 'local_action' | 'state_kind' | 'graphic_domain' | 'drag_fields'
+      | 'motion_duration' | 'motion_number_fields' | 'motion_state_patch';
+    path: (string | number)[];
+    /** False means the path stopped before an arbitrary/record key. */
+    pathComplete: boolean;
+    /** Zero-based position in the real component signature, not in source. */
+    parameterIndex?: number;
+    expected?: 'string' | 'number' | 'int' | 'boolean' | 'array' | 'object' | 'null' | 'record' | 'nonoptional';
+    /** Bounds from the fixed component schema, never the rejected input. */
+    minimum?: number;
+    maximum?: number;
+    inclusive?: boolean;
+  }[];
+  read: { tool: 'read_skill'; arguments: { id: string; section: 'components'; names: string[]; limit: number } };
+}
+/** Only the original present_view envelope's fixed schema paths/constraints. */
+export type InteractiveProgramInputDiagnostic = {
+  tool: 'present_view';
+  layer: 'tool_envelope';
+  issues: InteractiveProgramComponentDiagnostic['issues'];
+} | {
+  tool: 'present_view';
+  layer: 'native_parser';
+  flags: { incomplete: boolean; unresolved: boolean; parseErrors: boolean; query: boolean; mutation: boolean };
+  /** Counts of actual native arrays; incomplete is its boolean as 0/1. */
+  counts: { incomplete: number; unresolved: number; parseErrors: number; query: number; mutation: number };
+  errors: {
+    code: 'missing-required' | 'null-required' | 'unknown-component' | 'inline-reserved'
+      | 'excess-args' | 'type-mismatch' | 'unknown-function' | 'no-root';
+    statementOrdinal?: number;
+    /** Only an own-key hit in the current host registry may supply this. */
+    contract?: { kind: 'component' | 'function'; name: string; signature: string;
+      read: { tool: 'read_skill'; arguments: { id: string; section: 'components' | 'functions'; names: string[]; limit: number } } };
+  }[];
+};
+/** Navigation to an already-known, currently requalified reference only.
+ * This neither reports the SQL latest revision nor authorizes a rebase. */
+export interface InteractiveProgramPreviousDiagnostic {
+  relation: 'matches_known_reference' | 'known_program_revision_mismatch' | 'message_id_used_as_program_id'
+    | 'unmatched_input' | 'no_qualified_known_reference';
+  fields: { id: 'programId'; expectedRevision: 'revision' };
+  automaticRebase: false;
+  knownReference?: {
+    basis: 'formal_current' | 'delivered_this_run';
+    source: InteractiveProgramSource;
+    previous: { id: string; expectedRevision: number };
+    read: { tool: 'read_interactive_program'; arguments: InteractiveProgramSource & { mode: 'overview' } };
+  };
+}
+
+/** Fixed numeric costs of the actual initial model projection. Standalone
+ * group serializations need not sum to the full JSON; these are host estimates,
+ * never provider token counts or an acknowledgement of deferred source bodies. */
+export interface InitialContextComposition {
+  strategy: 'standard' | 'current_work_first';
+  stage: 'compiler' | 'ready_for_main';
+  groups: { category: 'current_originals' | 'history' | 'observations' | 'continuity' | 'capabilities'
+    | 'focused_work' | 'presentation_guidance' | 'other'; bytes: number; estimatedTokens: number }[];
+  serialized: { bytes: number; estimatedTokens: number };
+  accounted: { readBytes: number; estimatedTokens: number };
+  history: { userBodies: number; assistantBodies: number; deferredAssistantBodies: number };
+  deferred: { ambientContinuity: boolean; recentObservations: boolean; capabilityDescriptions: boolean };
+  protectedHelp?: { completeBodies: number; providedBodies: number; bytes: number; estimatedTokens: number;
+    availableBytes: number; availableTokens: number; deferredForReserve: boolean };
+}
 
 export interface ContextReceipt {
+  initialComposition?: InitialContextComposition;
   /** Exact original ranges adopted from work or semantic discoveries; no copied body. */
   workSourceBindings?: WorkSourceBinding[];
   /** Original work addresses supporting supplied text or metadata. This is
    * provenance, not a claim that the entire chapter body was read. */
   assistantWorkSources?: AssistantWorkSource[];
+  interactiveProgramSources?: InteractiveProgramSource[];
+  /** Latest six actual reader receipts, bounded by the reader owner. */
+  interactiveProgramReads?: InteractiveProgramReadReceipt[];
+  /** Latest six safe read failures, bounded by the reader owner. */
+  interactiveProgramReadFailures?: InteractiveProgramReadFailure[];
+  /** Bounded safe failure counters from actual calls. The optional delivery
+   * mark means an identical tool result was in a successful model request,
+   * not that the model understood it or any program was published. */
+  interactiveProgramDiagnostics?: { stepId: string; toolCallId?: string;
+    expansion?: InteractiveProgramExpansionDiagnostic; expression?: InteractiveProgramExpressionDiagnostic;
+    component?: InteractiveProgramComponentDiagnostic; input?: InteractiveProgramInputDiagnostic;
+    previous?: InteractiveProgramPreviousDiagnostic; explanationTruncated: boolean;
+    includedInSuccessfulModelRequest?: boolean }[];
   /** Supporting help/process addresses for supplied personal-method text or
    * metadata, not a rating, body-read ACK or new action authorization. */
   personalMethodSources?: import('./personal-method').PersonalMethodSources[];
@@ -533,8 +722,12 @@ export interface ContextReceipt {
   imageRequests?: { requestId: string; sha256: string; source: 'upload' | 'tool'; version: string; accepted: boolean; role: string }[];
   mechanismUses?: { prefetch: number; currentMatter: number; repairRejudge: number; closure: number };
   engine?: { name: string; commit: string; adapterSha256: string; python: string };
+  /** Latest four compactions, updated by compactionCount in the main harness. */
+  hermesCompressions?: HermesCompressionReceipt[];
+  runEnd?: RunEndReceipt;
   delegations?: { id: string; parentId: string; title: string; status: 'queued' | 'running' | 'produced' | 'consumed' | 'failed' | 'cancelled'; sources?: string[]; currentEvidenceIds?: string[]; modelCalls: number; responses: number; toolCalls: number }[];
-  modelUsage?: { phase: string; responseModel?: string; inputTokens: number | null; cachedInputTokens?: number | null; outputTokens: number | null; usdMin: number | null; usdMax: number | null }[];
+  modelUsage?: { phase: string; responseModel?: string; inputTokens: number | null; cachedInputTokens?: number | null; outputTokens: number | null; usdMin: number | null; usdMax: number | null;
+    status?: 'failed'; errorCode?: string; requestMaxOutputTokens?: number }[];
   id: string;
   runId: string;
   contractRevision: number;
@@ -821,7 +1014,10 @@ export class HarnessError extends Error {
     message: string,
     public retry: 'never' | 'read' | 'reconcile' = 'never',
     /** Model-facing diagnostic; callers must not promote it to a UI status. */
-    public diagnostic?: { rejectedDimensions: string[]; explanation: string },
+    public diagnostic?: { rejectedDimensions: string[]; explanation: string;
+      expansion?: InteractiveProgramExpansionDiagnostic; expression?: InteractiveProgramExpressionDiagnostic;
+      component?: InteractiveProgramComponentDiagnostic; input?: InteractiveProgramInputDiagnostic;
+      previous?: InteractiveProgramPreviousDiagnostic },
   ) {
     super(message);
     this.name = 'HarnessError';

@@ -52,6 +52,7 @@ import { noteReferenceSchema } from '../shared/note-presentation';
 import { companionSourceInputSchema, companionFollowupReferenceSchema } from '../shared/companion-source';
 import { campusAcademicReadInputSchema } from '../shared/campus-academic';
 import { curiosityFollowupReferenceSchema } from '../shared/curiosity-source';
+import { interactiveProgramReferenceSchema } from '../shared/interactive-program';
 import { createOpportunityScheduler } from './runtime/opportunity-scheduler';
 import { calendarExportInput } from '../shared/calendar-export';
 import { exportCalendarSnapshot } from './actions/calendar-export';
@@ -251,7 +252,7 @@ app.whenReady().then(async () => {
       if (event.type === 'state') opportunityScheduler?.wake();
       if (!window || window.isDestroyed()) return;
       if (event.type === 'state') window.webContents.send('zaichang:event', { ...event, state: decorateState(event.state) });
-      else if (event.type === 'message') { const message = store.runtime.presentation.message(event.message, { liveCuriosity: true, liveRehearsal: true, liveNote: true, liveCampus: true }); if (message) window.webContents.send('zaichang:event', { ...event, message }); }
+      else if (event.type === 'message') { const message = store.runtime.presentation.message(event.message, { liveCuriosity: true, liveRehearsal: true, liveNote: true, liveCampus: true, liveProgram: true }); if (message) window.webContents.send('zaichang:event', { ...event, message }); }
       else if (!store.runtime.presentation.public) window.webContents.send('zaichang:event', event);
     },
     undefined,
@@ -440,6 +441,7 @@ app.whenReady().then(async () => {
         studyInteraction: studyInteractionSchema.optional(),
         companionReference: companionFollowupReferenceSchema.optional(),
         curiosityReference: curiosityFollowupReferenceSchema.optional(),
+        programReference: interactiveProgramReferenceSchema.optional(),
         letterReference: letterReferenceSchema.optional(),
         noteReference: noteReferenceSchema.optional(),
         rehearsalInteraction: rehearsalInteractionSchema.optional(),
@@ -458,6 +460,7 @@ app.whenReady().then(async () => {
     return harness.start(input.sessionId, input.content, { ...input.controls, material: input.material, selection: input.selection,
       studyInteraction: input.studyInteraction, companionReference: input.companionReference,
       curiosityReference: input.curiosityReference, letterReference: input.letterReference, noteReference: input.noteReference,
+      programReference: input.programReference,
       rehearsalInteraction: input.rehearsalInteraction }, input.image);
   });
   handle('stop', () => harness.stop());

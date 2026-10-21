@@ -4,8 +4,9 @@ import type { RuntimeCoordinator } from './coordinator';
 import type { IngressDecision, InputControls } from './policy';
 import type { TurnControlInteractionContext } from './turn-controls';
 import { mapStoryReferenceIdentity } from './story-setting';
+import { programReferenceIdentity } from './interactive-program-sources';
 
-type Runtime = Pick<RuntimeCoordinator, 'repo' | 'policy' | 'store' | 'companionSessions' | 'curiosityInvitations' | 'studyCompanion' | 'reflectiveLetters' | 'rehearsals' | 'notePresentation'>;
+type Runtime = Pick<RuntimeCoordinator, 'repo' | 'policy' | 'store' | 'context' | 'broker' | 'companionSessions' | 'curiosityInvitations' | 'studyCompanion' | 'reflectiveLetters' | 'rehearsals' | 'notePresentation'>;
 
 /** Body-free context for the existing pre-storage control parser. A selected
  * address is re-read through its current owner using read-only permissions.
@@ -15,16 +16,24 @@ export function interactionContextForControls(runtime: Runtime, controls: InputC
   if (controls.transmission === 'local_only' || controls.audience && controls.audience !== 'self'
     || controls.memoryMode === 'current_sources_only' || controls.subjectId && controls.subjectId !== runtime.repo.identity.principalId
     || controls.worldId && controls.worldId !== 'real') return;
-  if (!controls.curiosityReference && !controls.companionReference && !controls.studyInteraction && !controls.letterReference && !controls.rehearsalInteraction && !controls.noteReference && !controls.selection) return;
+  if (!controls.curiosityReference && !controls.companionReference && !controls.studyInteraction && !controls.letterReference && !controls.rehearsalInteraction && !controls.noteReference && !controls.programReference && !controls.selection) return;
   const baseline = runtime.policy.hostScope(), host = runtime.policy.validate(baseline);
   let sources = [...host.sources];
   if (controls.sources) sources = sources.filter(source => controls.sources!.includes(source));
   if (controls.memoryMode === 'none' || !runtime.store.settings().memoryEnabled && !controls.memoryMode)
     sources = sources.filter(source => source !== 'history:self' && source !== 'profile:self');
-  if (controls.noteReference ? !sources.includes('notes:self') : !sources.includes('work:self')) return;
+  if (controls.noteReference ? !sources.includes('notes:self')
+    : controls.programReference ? !sources.includes('history:self') : !sources.includes('work:self')) return;
   const handle = runtime.policy.hostScope({ sources, purposes: [controls.purpose || 'personal_assistance'], infer: false,
-    grants: host.grants.filter(grant => grant === 'evidence:read' || !!controls.selection && grant === 'map:read'), currentEventIds: [] });
+    grants: host.grants.filter(grant => grant === 'evidence:read' || controls.programReference && grant.endsWith(':read')
+      || !!controls.selection && grant === 'map:read'), currentEventIds: [] });
   try {
+    if (controls.programReference) {
+      if (!programReferenceIdentity(runtime, handle, { messageId: controls.programReference.messageId,
+        programId: controls.programReference.programId, revision: controls.programReference.revision }, sessionId)) return;
+      runtime.policy.validate(handle);
+      return { activity: 'interactive_program', contentIdentity: 'interactive_work', focus: 'source_object' };
+    }
     if (controls.noteReference) {
       runtime.notePresentation.referenceIdentity(handle, controls.noteReference, sessionId);
       runtime.policy.validate(handle);
@@ -79,8 +88,17 @@ export function creationSourceContextForIngress(runtime: Runtime, controls: Inpu
   if (ingress.localOnly || controls.rehearsalInteraction || controls.letterReference || controls.noteReference) return;
   const handle: ScopeHandle = ingress.contract.scope, scope = runtime.policy.validate(handle);
   if (scope.child || scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self'
-    || !scope.sources.includes('work:self') || !runtime.policy.can(handle, 'evidence:read')) return;
+    || !runtime.policy.can(handle, 'evidence:read')) return;
   try {
+    if (controls.programReference) {
+      const ref = controls.programReference;
+      if (!programReferenceIdentity(runtime, handle, { messageId: ref.messageId, programId: ref.programId,
+        revision: ref.revision }, sessionId)) return;
+      runtime.policy.validate(handle);
+      return { kind: 'interactive_program', origin: 'user_interface_reference', messageId: ref.messageId,
+        programId: ref.programId, revision: ref.revision, nodeId: ref.nodeId };
+    }
+    if (!scope.sources.includes('work:self')) return;
     const direct = controls.curiosityReference;
     const mapped = !direct && controls.selection ? mapStoryReferenceIdentity(runtime, handle, sessionId, controls.selection) : undefined;
     const work = direct || mapped?.work;

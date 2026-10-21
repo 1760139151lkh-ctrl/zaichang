@@ -17,6 +17,7 @@ import { noteHistoryReference } from '../../shared/note-presentation';
 import { mapStorySettingSchema } from '../../shared/story-setting';
 import { campusAcademicReference, type CampusAcademicReference } from '../../shared/campus-academic';
 import { campusAcademicSnapshot, isAcademicCampus } from './campus-academic';
+import { campusSceneModelSummary } from './campus-model-view';
 
 /** A strict projection of the installed connector's named fields. No prose parsing,
  * guessed course matches, aggregate rows, or model-authored facts enter a scene. */
@@ -67,14 +68,29 @@ export function campusSnapshot(result: { status: string; sourceId: string; data?
   if (!rows.length) return;
   const total = query ? data.total_matches : data.total;
   const fetchedAt = result.fetchedAt && Number.isFinite(Date.parse(result.fetchedAt)) ? result.fetchedAt : '';
-  const term = text(data.termId === 'unspecified' ? undefined : data.termId || data.semester_id, 80);
+  const rowTerms = [...new Set(rows.flatMap(row => row.term ? [row.term] : []))];
+  const term = rowTerms.length === 1 ? rowTerms[0] : rowTerms.length > 1 ? undefined
+    : text(data.termId === 'unspecified' ? undefined : data.termId || data.semester_id, 80);
+  const nextOffset = data.next_offset ?? data.nextOffset;
+  const sourceOffset = Number.isSafeInteger(data.offset) && data.offset >= 0 ? data.offset
+    : query && Number.isSafeInteger(request?.spec?.offset) ? request?.spec?.offset : Number.isSafeInteger(request?.offset) ? request?.offset : 0;
+  const continuation = Number.isSafeInteger(nextOffset) && nextOffset >= 0 && request
+    ? { capability: (query ? 'campus.query' : 'campus.lookup') as 'campus.query' | 'campus.lookup',
+      arguments: query && request.spec ? { ...request, spec: { ...request.spec, offset: nextOffset }, offset: nextOffset, refresh: false }
+        : { ...request, offset: nextOffset, refresh: false } } : undefined;
   return { kind: 'campus', id: randomUUID(), revision: 1, createdAt: now, domain,
     source: { sourceId: result.sourceId, fetchedAt, expiresAt: result.expiresAt,
       version: createHash('sha256').update(JSON.stringify({ sourceId: result.sourceId, fetchedAt, data })).digest('hex'), coverage: result.coverage },
     sourceLabel: imported ? text(data.source, 200) || '导入的校园资料' : '浙江大学校园资料',
     origin: imported ? 'legacy_import' : 'zju_account', ...(term ? { term } : {}), records: rows,
+    resultStatus: result.status as 'fresh' | 'partial' | 'stale',
+    ...((data.sourceCoverage || data.coverage) ? { sourceCoverage: structuredClone(data.sourceCoverage || data.coverage) } : {}),
+    ...(account && request ? { nativeRead: { capability: (query ? 'campus.query' : 'campus.lookup') as 'campus.query' | 'campus.lookup', arguments: structuredClone(request),
+      ...(data.snapshotProof ? { snapshotProof: structuredClone(data.snapshotProof) } : {}) } } : {}),
+    ...(account ? { nativePage: { offset: sourceOffset, returned: data.records.length } } : {}),
+    ...(continuation ? { continuation } : {}),
     ...(typeof total === 'number' && Number.isInteger(total) && total >= rows.length ? { total } : {}),
-    complete: result.coverage?.complete === true && rows.length === data.records.length && data.next_offset == null && (typeof total !== 'number' || total === rows.length),
+    complete: result.coverage?.complete === true && rows.length === data.records.length && nextOffset == null && (typeof total !== 'number' || total === rows.length),
   };
 }
 
@@ -299,7 +315,7 @@ export class SceneService {
     return { id: randomUUID(), revision: 1, libraryVersion: 1, createdAt: this.store.kernel.clock.now(), sceneRefs: scenes.map(({ id, revision }) => ({ id, revision })), dsl: sceneViewDsl(scenes, layout), ...(comparison ? { comparison } : {}) };
   }
   campus(sessionId: string, result: Parameters<typeof campusSnapshot>[0], capability: string, input: unknown, runId?: string, preparationOnly = false,
-    readScope?: ScopeHandle) {
+    readScope?: ScopeHandle, stageOnly = false) {
     const scene = campusSnapshot(result, capability, input, this.store.kernel.clock.now());
     if (scene && isAcademicCampus(scene)) {
       if (!readScope || !scene.source.version) throw new HarnessError('campus_purpose_required', '成绩画面须来自本次获准的真实读取。');
@@ -312,7 +328,30 @@ export class SceneService {
       this.academicAdoptions.set(readScope.id, new Set([...(this.academicAdoptions.get(readScope.id) || []), `${scene.id}@${scene.revision}`]));
       while (this.academicScopes.size > 128) this.academicScopes.delete(this.academicScopes.keys().next().value!);
     }
+    if (stageOnly) return scene;
     return scene ? this.remember(sessionId, preparationOnly && isAcademicCampus(scene) ? campusAcademicReference(scene) : scene, runId, preparationOnly) : undefined;
+  }
+  ordinaryCampusSelectionIdentity(handle: ScopeHandle, sessionId: string, input: SemanticSelection) {
+    if (input.kind !== 'record' || !input.recordId || input.campusScale) return;
+    const scene = this.all(sessionId).find(scene => scene.id === input.sceneId && scene.revision === input.sceneRevision);
+    if (!scene || scene.kind !== 'campus' || scene.modelBodyDelivered !== false || !scene.nativeRead
+      || !['courses', 'schedule', 'exams'].includes(scene.domain) || !this.permitted(handle, scene)
+      || !this.canRestore(handle, sessionId, scene, undefined, { id: scene.id, revision: scene.revision })) return;
+    const messages = this.store.messages(sessionId).filter(message => message.scenes?.some(item => item.id === scene.id && item.revision === scene.revision));
+    if (messages.length && !messages.some(message => !this.store.kernel.hasFence(message.id)
+      && this.store.runtime.presentation.sourceCurrentMessage(message).scenes?.some(item => item.id === scene.id && item.revision === scene.revision))) return;
+    const row = scene.records.find(record => record.id === input.recordId);
+    if (!row) return;
+    return { selection: input, resource: (scene.domain === 'schedule' ? 'classes' : scene.domain) as 'classes' | 'courses' | 'exams',
+      sourceKey: row.sourceRecordId || row.id, sourceVersion: scene.source.version, scopeOnly: true as const };
+  }
+  ordinaryCampusSelectedSource(handle: ScopeHandle, sessionId: string, input: SemanticSelection) {
+    const identity = this.ordinaryCampusSelectionIdentity(handle, sessionId, input);
+    if (!identity) return;
+    const scene = this.all(sessionId).find(scene => scene.id === input.sceneId && scene.revision === input.sceneRevision) as CampusScene;
+    return { ...identity, owner: scene.nativeRead!, snapshotCurrent: !!scene.nativeRead?.snapshotProof
+      && this.academicSnapshotCurrent?.(scene.nativeRead.snapshotProof) === true,
+      select: () => this.selection(handle, sessionId, input), scene };
   }
   academicReference(handle: ScopeHandle, sessionId: string, ref: SceneRef): CampusAcademicReference {
     const scene = this.all(sessionId).find(scene => scene.id === ref.id && scene.revision === ref.revision);
@@ -516,7 +555,7 @@ export class SceneService {
       ...(scene.place ? { place: { id: scene.place.id, label: scene.place.displayName } } : {}),
       ...(scene.storySetting ? { storySetting: scene.storySetting } : {}),
       journey: { ...scene.journey, legs: scene.journey.legs.map(({ id, fromStopId, toStopId, route }) => ({ id, fromStopId, toStopId, status: route.status, distance: route.distance, warnings: route.warnings })) } }
-      : scene.kind === 'campus' ? { ...scene, records: scene.records.slice(0, 8), sceneRecordCount: scene.records.length, summaryOmittedRecords: Math.max(0, scene.records.length - 8) }
+      : scene.kind === 'campus' ? campusSceneModelSummary(scene)
       : scene.kind === 'planning' ? { ...scene, blocks: scene.blocks.slice(0, 16), sceneBlockCount: scene.blocks.length, summaryOmittedBlocks: Math.max(0, scene.blocks.length - 16) }
       : scene.kind === 'environment' ? { ...scene, samples: scene.samples.slice(0, 8), sceneSampleCount: scene.samples.length, summaryOmittedSamples: Math.max(0, scene.samples.length - 8) }
       : scene.kind === 'discussion' ? { ...scene, points: scene.points.slice(0, 8), branches: scene.branches.slice(0, 6),

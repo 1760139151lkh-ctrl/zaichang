@@ -86,17 +86,27 @@ export interface ReleaseArtifact {
   delivery: 'not_sent';
   supersedes?: { id: string; revision: number };
 }
+/** Host-authored processing state, never dialogue or a business receipt. */
+export interface MessageHostStatus {
+  kind: 'error' | 'cancelled' | 'notice';
+  code: 'interrupted' | 'cancelled' | 'source_changed' | 'scope_expired' | 'incomplete' | 'provider_error' | 'process_restarted';
+  text: string;
+}
 export interface Message {
   helpRefs?: { id: string; revision: number; helpRecordId: string; kind?: 'reflective_letter' }[];
+  /** Host-signed identity when this message's whole body is the prepared artifact. */
+  primaryHelpRef?: { id: string; revision: number; helpRecordId: string };
   cooperationId?: string;
   objectStates?: import('./presentation').ObjectPresentationState[];
   /** User-facing owner response before the host appends separately authored drafts. */
   responseText?: string;
+  hostStatus?: MessageHostStatus;
   releaseArtifacts?: ReleaseArtifact[];
   requestControls?: TurnControls;
   id: string;
   sessionId: string;
   role: 'user' | 'assistant';
+  authorName?: string;
   content: string;
   createdAt: string;
   status: 'running' | 'done' | 'error' | 'cancelled';
@@ -119,6 +129,8 @@ export interface Message {
     release?: ReleaseSummary;
   };
   contextReceipt?: import('./harness').ContextReceipt;
+  /** Host delivery stamp for rendering; not stored permission or provenance. */
+  presentationBoundaryKey?: string;
   image?: ImageAttachment;
 }
 export interface Conversation {
@@ -291,6 +303,7 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
     studyInteraction?: import('./study-presentation').StudyInteraction;
     companionReference?: import('./companion-source').CompanionFollowupReference;
     curiosityReference?: import('./curiosity-source').CuriosityFollowupReference;
+    programReference?: import('./interactive-program').ProgramFollowupReference;
     letterReference?: import('./reflective-letter').LetterReference;
     noteReference?: import('./note-presentation').NoteReference;
     rehearsalInteraction?: import('./relationship-rehearsal').RehearsalInteraction;

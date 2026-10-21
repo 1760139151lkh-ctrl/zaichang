@@ -2311,12 +2311,32 @@ summary::marker {
   align-items: center;
   gap: 8px;
   width: 100%;
-  padding: 10px 13px;
-  border-left: 2px solid var(--warning);
-  background: var(--warning-soft);
+  padding: 0;
 }
 .message-recovery small {
   font-size: 11px;
+  color: var(--text-secondary);
+}
+.message-host-status {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 14px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.message-host-status > svg {
+  flex: 0 0 auto;
+  margin-top: 3px;
+  color: var(--warning);
+}
+.message-host-status p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.message-host-status.notice > svg,
+.message-host-status.cancelled > svg {
   color: var(--text-secondary);
 }
 .memory-notice {

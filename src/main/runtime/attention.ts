@@ -65,7 +65,7 @@ export const helpDecisionInput = z.object({
   basisIds: z.array(id).max(12).optional().describe('仅限inspect_help.basisUses中仍可用的依据使用记录ID；没有使用这种解释时给空数组，不能填原话ID或工具调用ID。'),
   materialEvidenceIds: z.array(id).max(12).optional().describe('机会evidenceIds中实际提供的外部材料ID；不是工具调用ID，也不能用用户的关注许可充当查询材料。'),
   reuseArtifact: z.boolean().optional(),
-  presentInConversation: z.boolean().optional().describe('仅前台prepare/ask：把这份已核验材料绑定当前聊天的真实呈现；宿主记录精确机会版本，实际渲染后才记displayed。'),
+  presentInConversation: z.boolean().optional().describe('仅前台prepare/ask：把这份已核验材料绑定当前聊天的真实呈现。后台若原托付允许现在来找人，选择notify；in_app进入原对话，local_notification沿原系统渠道，prepare始终安静。实际渲染后才记displayed。'),
   artifact: z.object({ title: z.string().min(1).max(160), body: z.string().min(1).max(12000), sceneRefs: z.array(sceneRefSchema).max(3).optional() }).strict().optional(),
   newValue: z.object({ explanation: z.string().min(1).max(1200), evidenceIds: z.array(id).min(1).max(8).describe('支持新价值的真实外部材料ID或sourceToolCallIds中已取得的实际查询ID；用户关注许可本身不是新信息。') }).strict().optional(),
   reconsiderAt: z.string().datetime({ offset: true }).optional(),
@@ -79,6 +79,7 @@ const activeChoices = ['candidate', 'waiting', 'prepared', 'question_ready', 'no
 interface MaterialVersion { kind: 'agenda' | 'work' | 'domain'; id: string; revision: number; sourceId?: string; domain?: string; institutionId?: string; termId?: string; state?: 'present' | 'done' | 'deleted' }
 interface MaterialWake { at: string; opportunityId: string; opportunityRevision: number; objectId?: string; kind?: 'wait'; reconsiderAt?: string }
 interface MaterialObservation { tool: string; result: unknown; toolCallId?: string; requestedArguments?: unknown }
+export interface HelpArtifactAuthor { name: string; personaRevision: number }
 
 /** One attention decision for all capabilities. Signals cannot notify. Only
  * the responsible assistant may choose value; the host enforces scope and time. */
@@ -235,7 +236,7 @@ export class AttentionService {
     if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self') throw new HarnessError('attention_scope', '只能在本人现实范围管理自己的关注。');
     if (!input.source?.eventId) throw new HarnessError('source_required', '这项关注控制还没有绑定本轮原话。');
     const event = this.repo.evidence(handle, input.source.eventId);
-    if (!event || event.speaker !== 'user' || event.authority !== 'user_statement' || !scope.currentEventIds.includes(event.id))
+    if (!event || event.speaker !== 'user' || event.authority !== 'user_statement' || (scope.currentEventIds.length > 0 && !scope.currentEventIds.includes(event.id)))
       throw new HarnessError('source_required', '关注和暂停需要当前范围内本人的真实新原话，不由旧成绩或性格推断。');
     const source = resolveSourceQuote(event, input.source);
     if (!source) throw new HarnessError('attention_source_unresolved', '这段关注原话的位置不唯一、已改变或不完整。请扩大本轮逐字引文使其唯一，或给出真实的contentVersion/start/end；没有改动关注。');
@@ -704,13 +705,18 @@ export class AttentionService {
       meaning: '信号只是待评机会。考虑新价值、已提供帮助、明确限制与实际可行动窗口；可以只准备、等待、询问或完全不介入。未观察到反馈就未知。' };
   }
 
-  decide(handle: ScopeHandle, raw: z.infer<typeof helpDecisionInput>, observations: MaterialObservation[] = [], resolveScenes?: (refs: SceneRef[]) => SceneSnapshot[], investigation?: InvestigationSession) {
+  decide(handle: ScopeHandle, raw: z.infer<typeof helpDecisionInput>, observations: MaterialObservation[] = [], resolveScenes?: (refs: SceneRef[]) => SceneSnapshot[], investigation?: InvestigationSession,
+    delivery: { author?: HelpArtifactAuthor; currentReply?: boolean; autonomousPublication?: boolean } = {}) {
     this.expire();
     const input = helpDecisionInput.parse(raw), opportunity = this.repo.work(handle, undefined, input.id)[0];
     if (!opportunity || opportunity.data.type !== 'help_opportunity')
       throw new HarnessError('target_missing', '当前许可范围内没有这个材料或机会标识。没有改动资料；请省略id调用inspect_help重新发现，再精确复制id与revision，不要拼接或改写标识。');
     if (opportunity.revision !== input.expectedRevision)
       throw new HarnessError('revision_conflict', '这次机会已变，需要按当前条件重新判断。');
+    // A foreground response already has its real model author and message.
+    // Reuse the existing material attachment path, not a second notification.
+    const inCurrentReply = delivery.currentReply && input.choice === 'notify' && opportunity.data.channel === 'in_app';
+    if (inCurrentReply) { input.choice = 'prepare'; input.presentInConversation = true; }
     const presentingExisting = input.reuseArtifact && input.presentInConversation && ['question_ready', 'notification_queued'].includes(opportunity.status);
     if (!['candidate', 'waiting', 'prepared'].includes(opportunity.status) && !presentingExisting) throw new HarnessError('opportunity_inactive', '该机会已退出或处理，不能继续旧动作。');
     const bindingId = String(opportunity.data.bindingId), rules = this.rules(handle, bindingId, String((opportunity.data.facts as any)?.objectId || ''), opportunity.id);
@@ -792,7 +798,7 @@ export class AttentionService {
     if (input.choice === 'prepare' && !material.length && !supplied.length && !reused) throw new HarnessError('material_not_read', '安静准备须有实际查询或已提供材料。');
     for (const item of material) if (!item || ['inspect_help'].includes(item.tool) || (item.result as any)?.catalogOnly || (item.result as any)?.inputSchema || ['failed', 'forbidden', 'not_connected', 'unknown', 'error'].includes(String((item.result as any)?.status))) throw new HarnessError('material_unavailable', '引用的查询没有取得可用资料；能力说明和机会本身不是新查询材料。');
     const prior = this.cooperation.history(handle, bindingId, 24);
-    const displayed = prior.filter(record => record.data.displayedAt || record.data.openedAt || record.data.submittedAt);
+    const displayed = prior.filter(record => record.data.displayedAt || record.data.openedAt || record.data.submittedAt || record.data.conversationPublishedAt);
     const validNewEvidence = input.newValue?.evidenceIds.every(id => opportunity.evidenceIds.includes(id) && this.repo.evidence(handle, id)?.speaker === 'external' || material.some(item => item?.toolCallId === id));
     if (input.newValue && !validNewEvidence) throw new HarnessError('new_value_evidence', '新的理由只能引用本次已核验材料：' + [...supplied.map(event => event!.id), ...material.map(item => item!.toolCallId!)].join('、'));
     const repeated = displayed.some(record => record.data.basisFingerprint === opportunity.data.fingerprint);
@@ -803,7 +809,16 @@ export class AttentionService {
     const choice = (duplicate || onceExhausted) && !showExisting ? 'none' : inAppOnly ? 'prepare' : input.choice;
     if (choice === 'notify' && (!input.newValue || !validNewEvidence)) throw new HarnessError('new_value_required', '主动提醒需要说明当前新价值，并引用实际变化或查询材料。');
     if (choice === 'prepare' && !material.length && !supplied.length && !reused) throw new HarnessError('material_not_read', '应用内准备也必须有实际材料，不能只显示已查好的说法。');
-    if (choice === 'notify' && opportunity.data.channel !== 'local_notification') throw new HarnessError('channel_forbidden', '该关注只允许应用内准备，没有通知权限。');
+    if (choice === 'notify' && !['in_app', 'local_notification'].includes(String(opportunity.data.channel))) throw new HarnessError('channel_forbidden', '原托付没有允许这次告知的渠道。');
+    const inAppNotify = choice === 'notify' && opportunity.data.channel === 'in_app';
+    if (inAppNotify && !delivery.autonomousPublication)
+      throw new HarnessError('channel_forbidden', '应用内主动告知须由原后台发布入口提交；当前回复的资料可用prepare和presentInConversation交付。');
+    const artifactAuthor = reused ? opportunity.data.artifactAuthor : delivery.author;
+    if (inAppNotify && (this.preferences?.().initiative !== 'when_useful' || this.preferences?.().followup !== 'meaningful_change'))
+      throw new HarnessError('initiative_quiet', '当前主动偏好不允许在对话里发起告知，材料仍可安静准备。');
+    if (inAppNotify && (!artifactAuthor || typeof artifactAuthor !== 'object' || Array.isArray(artifactAuthor)
+      || typeof artifactAuthor.name !== 'string' || !Number.isSafeInteger(artifactAuthor.personaRevision)))
+      throw new HarnessError('artifact_author_unknown', '这份旧材料没有保留生成时的角色署名，不能换一个署名主动发出。可先安静保留，或按当前角色重新准备真实内容。');
     if (input.reconsiderAt && Date.parse(input.reconsiderAt) <= Date.parse(this.repo.clock.now())) throw new HarnessError('reconsider_time', '等待重评需一个未来时间。');
     const basisRecords = (input.basisIds || []).map(id => this.repo.work(handle, undefined, id)[0]);
     if (basisRecords.some(record => !record || record.data.type !== 'basis_use' || !['supported', 'tentative'].includes(record.status))) throw new HarnessError('basis_inactive', '引用的解释已不适用，需要重评。');
@@ -817,7 +832,7 @@ export class AttentionService {
       }
       if (!this.repo.planningMaterialReadable(handle, planningProvenance || []))
         throw new HarnessError('planning_material_changed', '准备期间规划材料的原依据已改变，没有保存旧正文。');
-      const status = choice === 'none' ? 'declined' : choice === 'wait' ? 'waiting' : choice === 'ask' ? 'question_ready' : choice === 'notify' ? 'notification_queued' : 'prepared';
+      const status = choice === 'none' ? 'declined' : choice === 'wait' ? 'waiting' : choice === 'ask' ? 'question_ready' : choice === 'notify' && !inAppNotify ? 'notification_queued' : 'prepared';
       const next = this.work.update(handle, opportunity.id, opportunity.revision, { status, data: { ...opportunity.data, choice,
         modelReason: input.reason, actionDescription: input.actionDescription, basisIds: input.basisIds || [],
         materialContractVersion: 1,
@@ -826,7 +841,9 @@ export class AttentionService {
         expiresAt: new Date(Math.min(Date.parse(String(opportunity.data.expiresAt)), ...materialExpiries.map(Date.parse))).toISOString(),
         reconsiderAt: input.reconsiderAt || (choice === 'wait' ? new Date(Date.parse(this.repo.clock.now()) + 1800000).toISOString() : null), artifact: ['none', 'wait'].includes(choice) ? null : JSON.parse(JSON.stringify({ ...input.artifact!, ...(sceneSnapshots ? { scenes: sceneSnapshots } : {}) })),
         material: reused ? opportunity.data.material : [...material.map((item, index) => { const result = item!.result as { sourceId?: string; observedAt?: string; fetchedAt?: string; expiresAt?: string; note?: { id: string; revision: number } }; return { tool: item!.tool, observationId: item!.toolCallId!, resultHash: createHash('sha256').update(canonical(item!.result)).digest('hex'), sourceIds: materialSources[index], requiredGrants: materialGrants[index], ...(result.sourceId ? { sourceId: result.sourceId } : {}), ...(result.expiresAt ? { expiresAt: result.expiresAt } : {}), versions: z.json().parse(this.materialVersions(item!.result)), ...(item!.tool === 'manage_note' && result.note ? { sourceId: 'notes:self', noteId: result.note.id, noteRevision: result.note.revision } : {}), observedAt: result.observedAt || result.fetchedAt || this.repo.clock.now() }; }), ...supplied.map((event, index) => ({ evidenceId: event!.id, contentVersion: event!.contentVersion, sourceId: event!.sourceId, requiredGrants: suppliedGrants[index], versions: z.json().parse(this.evidenceVersions(event!)), resultHash: createHash('sha256').update(event!.text).digest('hex') }))],
-        duplicateOf: input.duplicateOf || null, newValue: input.newValue || null, presentationChannel: input.presentInConversation ? 'conversation' : null, decidedAt: this.repo.clock.now(),
+        duplicateOf: input.duplicateOf || null, newValue: input.newValue || null,
+        artifactAuthor: artifactAuthor ? JSON.parse(JSON.stringify(artifactAuthor)) : null,
+        presentationChannel: input.presentInConversation || inAppNotify ? 'conversation' : null, decidedAt: this.repo.clock.now(),
       } });
       for (const version of materialVersions) this.repo.addDependency(handle, { consumerId: next.id,
         producerId: version.kind === 'domain' ? `domain:${version.domain}:${version.id}` : version.kind === 'agenda' ? this.repo.calendarVersionId(version.id, version.revision) : version.id,
@@ -840,8 +857,8 @@ export class AttentionService {
           planningProvenance: planningProvenance as PlanningMaterialProvenance[] || [] });
         next.data.helpRecordId = help.id;
         this.repo.db.prepare('UPDATE h_work SET payload=? WHERE id=?').run(JSON.stringify(next), next.id);
-        if (input.presentInConversation) conversationHelpRef = { id: next.id, revision: next.revision, helpRecordId: help.id };
-        if (choice === 'notify') this.reminders.schedule({ id: next.id, title: input.artifact!.title, detail: '', startsAt: this.repo.clock.now() }, undefined, String(next.data.expiresAt), { kind: 'suggestion', producerId: next.id, helpRecordId: help.id });
+        if (input.presentInConversation || inAppNotify) conversationHelpRef = { id: next.id, revision: next.revision, helpRecordId: help.id };
+        if (choice === 'notify' && !inAppNotify) this.reminders.schedule({ id: next.id, title: input.artifact!.title, detail: '', startsAt: this.repo.clock.now() }, undefined, String(next.data.expiresAt), { kind: 'suggestion', producerId: next.id, helpRecordId: help.id });
       }
       if (opportunity.status === 'notification_queued' && choice !== 'notify') this.reminders.cancel(next.id);
       let mandateUpdate: { id: string; previousRevision: number; revision: number; operation: 'material_wakes' } | undefined;
@@ -866,7 +883,7 @@ export class AttentionService {
           mandateUpdate = { id: current.id, previousRevision: current.revision, revision: updated.revision, operation: 'material_wakes' };
         }
       }
-      return { status: next.status, id: next.id, revision: next.revision, choice, artifactExists: !!next.data.artifact, ...(mandateUpdate ? { mandateUpdate } : {}), ...(conversationHelpRef ? { conversationHelpRef } : {}), reason: showExisting ? '原有材料已绑定当前交流；实际展示仍等界面回执，不新增系统通知。' : duplicate ? '同一理由已经提供过帮助，换文案不会重新获得提醒资格。' : onceExhausted ? '这件事只提醒一次的范围已用完。' : inAppOnly ? '当前只保留应用内材料，没有发送通知。' : input.reason };
+      return { status: next.status, id: next.id, revision: next.revision, choice, artifactExists: !!next.data.artifact, ...(mandateUpdate ? { mandateUpdate } : {}), ...(conversationHelpRef ? { conversationHelpRef } : {}), reason: inCurrentReply && conversationHelpRef ? '材料已接到这次回复，未另发主动消息；实际显示仍等界面回执。' : showExisting ? '原有材料已绑定当前交流；实际展示仍等界面回执，不新增系统通知。' : duplicate ? '同一理由已经提供过帮助，换文案不会重新获得提醒资格。' : onceExhausted ? '这件事只提醒一次的范围已用完。' : inAppOnly ? '当前只保留应用内材料，没有发送通知。' : input.reason };
     });
   }
 
@@ -917,6 +934,49 @@ export class AttentionService {
   available(handle: ScopeHandle, matterId?: string) {
     this.expire();
     return this.repo.workData(handle, ['help_opportunity'], { matterId, statuses: ['prepared', 'question_ready'], limit: 5 }).filter(item => !!item.data.artifact);
+  }
+
+  /** A saved notify decision is not a display receipt. Only its original
+   * in-app channel may publish this exact prepared version into its session. */
+  conversationPublication(handle: ScopeHandle, ref: { id: string; revision: number; helpRecordId: string }) {
+    this.expire();
+    if (this.preferences?.().initiative !== 'when_useful' || this.preferences?.().followup !== 'meaningful_change')
+      throw new HarnessError('initiative_quiet', '当前主动偏好已经变化，没有发出先前准备的话。');
+    const record = this.repo.work(handle, undefined, ref.id)[0];
+    if (!record || record.revision !== ref.revision || record.status !== 'prepared' || record.data.type !== 'help_opportunity'
+      || record.data.choice !== 'notify' || record.data.channel !== 'in_app' || record.data.presentationChannel !== 'conversation'
+      || record.data.helpRecordId !== ref.helpRecordId || Date.parse(String(record.data.expiresAt)) <= Date.parse(this.repo.clock.now()))
+      throw new HarnessError('attention_publication_changed', '这次告知的原材料或版本已经变化，没有发出旧内容。');
+    const binding = this.repo.work(handle, undefined, String(record.data.bindingId))[0];
+    if (!binding || !this.bindingActive(handle, binding) || binding.data.sessionId !== record.data.sessionId
+      || this.rules(handle, binding.id, String((record.data.facts as any)?.objectId || ''), record.id)
+        .some(rule => ['pause', 'stop'].includes(String(rule.data.operation))))
+      throw new HarnessError('attention_stopped', '原托付已经停止或改变，没有发出旧准备。');
+    const authority = binding.data.source;
+    const eventId = authority && typeof authority === 'object' && !Array.isArray(authority)
+      && typeof authority.eventId === 'string' ? authority.eventId : undefined;
+    const event = eventId ? this.repo.evidence(handle, eventId) : undefined;
+    if (binding.data.type !== 'attention_focus' || !event || event.speaker !== 'user' || event.authority !== 'user_statement'
+      || !resolveSourceQuote(event, authority))
+      throw new HarnessError('attention_source_changed', '原逐字托付当前不能核对，没有用旧许可主动出声。');
+    const artifact = z.object({ title: z.string().min(1), body: z.string().min(1) }).passthrough().parse(record.data.artifact);
+    const author = z.object({ name: z.string().min(1), personaRevision: z.number().int().nonnegative() }).strict().parse(record.data.artifactAuthor);
+    const sessionId = typeof record.data.sessionId === 'string' ? record.data.sessionId : '';
+    if (!sessionId) throw new HarnessError('attention_session_missing', '原托付没有可以继续的对话，没有另找一段聊天代发。');
+    return { record, artifact, author, sessionId };
+  }
+
+  recordConversationPublication(handle: ScopeHandle, ref: { id: string; revision: number; helpRecordId: string }, messageId: string) {
+    const { record } = this.conversationPublication(handle, ref);
+    if (record.data.inAppDelivery) throw new HarnessError('attention_already_published', '这份准备已有原对话交付记录，没有再次发出。');
+    const payload = { ...record, data: { ...record.data, inAppDelivery: {
+      messageId, opportunityRevision: ref.revision, helpRecordId: ref.helpRecordId, publishedAt: this.repo.clock.now(),
+    } } };
+    // This host receipt is part of the same transaction as the decision and
+    // message, not a new material revision or a claim that anybody saw it.
+    const written = this.repo.db.prepare('UPDATE h_work SET payload=? WHERE id=? AND revision=?')
+      .run(JSON.stringify(payload), record.id, record.revision);
+    if (written.changes !== 1) throw new HarnessError('attention_publication_changed', '保存前这次准备又有了变化，没有发出旧内容。');
   }
 
   /** Search permitted records before paging matches. The caller projects only
@@ -1044,7 +1104,7 @@ export class AttentionService {
       const sources = (focus.data.sources as string[]).filter(source => scope.sources.includes(source));
       const bounded = this.policy.narrow(handle, { sources, infer: false, grants: scope.grants.filter(grant => grant.endsWith(':read')) });
       let observation: Awaited<ReturnType<CapabilityBroker['invoke']>>;
-      try { observation = await this.broker.invoke(bounded, probe.capability, this.probeArguments(probe), signal, { refresh: true, maxCalls: 2 }); }
+      try { observation = await this.broker.invoke(bounded, probe.capability, this.probeArguments(probe), signal, { refresh: true }); }
       catch (error) {
         signal.throwIfAborted(); this.policy.validate(handle);
         const current = this.repo.work(handle, undefined, focus.id)[0];

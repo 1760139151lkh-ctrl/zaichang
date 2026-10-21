@@ -1,23 +1,31 @@
-# 当前接续入口 · 2026-10-19
+# 当前接续入口 · 2026-10-19（人格生动化与交流节奏整顿）
 
-本次用户要求立即整理项目概况、理念、基线、功能、架构、Harness、OpenUI与地图说明，并把当前进度同步到GitHub。当前工作包含另一对话仍在推进的源码；本次按进度保存，不等待其全部验收，不重置或覆盖它的后续修改。完整导读见[PROJECT_BASELINE](PROJECT_BASELINE.md)，实际证据以[第七批状态](CURRENT_STATUS.md#personal-memory-round7)为准。
+**当前接续以本阶段实际回执为准。** 总目标当前实际为`paused`；本轮有限继续来自用户后续直接提出的Gemini人格保留与自由OpenUI要求，不创建、恢复或重标总目标，也不取消健康请求。隔离实例与正常Luna主流程已经启动并取得日历、笔记、成绩／GPA、天气、地图及学习纸的限定结果；课表读取／原生页面／原记录续问，以及同一消息修后页序也有独立回执。不要再从零启动另一实例或重复整套检查，先读[第七批阶段状态](CURRENT_STATUS.md#personal-memory-round7)中的已成范围、原失败和当前具体缺口。真实校园内容继续留在私有profile，接续说明不复述原记录。
 
-## 接手先读什么
+最新用户取舍：项目估算tokens／bytes只作计量，不得据此拒送合法资料、源码、方法或签名，也不等于用户账户额度。移除这些拒送门仍在实施，尚未全部生效；历史“需X／剩Y”的拒绝是当时实际错误，不是接续必须遵循的合理要求。来源权限、版本、撤销和诚实coverage继续保留。
 
-1. [README](../README.md)与[源码基线](PROJECT_BASELINE.md)：先区分当前源码、旧v0.3.0 EXE和公共地图部署。
-2. [PROJECT_NAVIGATION](../PROJECT_NAVIGATION.md#companion-experience)：按人的任务定位原owner、中央工具、有限Scene与renderer。
-3. [阶段收尾直接指令](source-materials/2026-10-18/stage-close-and-luna-validation-20261019.md)和[CURRENT_STATUS](CURRENT_STATUS.md#personal-memory-round7)：停止创新外延，完成正常Luna动态领域与已开始单元、修复实际失败，再按要求暂停等用户回来。阶段暂停不等于总目标完成。
-4. 查职责用[ARCHITECTURE](ARCHITECTURE.md)，查理念用[PRODUCT_CONTRACT](PRODUCT_CONTRACT.md)，查动态呈现用[CONVERSATION_SCENES](CONVERSATION_SCENES.md)，遵守根目录[AGENTS](../AGENTS.md)。
+通用`present_view.program`已启用。首件波形有真实生成与局部调值结果，但91a839fa仍error、没有新版，数学文字不替代图形／动画／SourceSlot交付；失败DSL和bindings实际值仍未知，44c6ef仅准确反馈小修通过类型检查，未加载或复跑。二分bd02aaf8已发表同作修订2，自动比较、保稿及680窄屏有观察；真实数列格和中点／排除区／候选区、旧文案与工程汇报式开场仍待修。若叶睦21f570f5虽done、14条实际Luna响应，仅有Study@4，未交付program／SourceSlot；假可编辑Markdown及裸露`<br>`不算完成。独立in_app流程继续。当前实际包为5418a0，29c5bc虽已类型检查／构建通过，尚未重启纳入。排练的限定结果、held@4、三段信纸显示与9bcff444失败分别保留，见[阶段状态](CURRENT_STATUS.md#personal-memory-round7)，不追认旧信恢复或把静态接线当人格通过。总目标仍paused，当前明确任务继续；阶段交付后按[用户直接要求](source-materials/2026-10-18/stage-close-and-luna-validation-20261019.md)等待回来。新版便携EXE尚未发布，下方Gemini交接原文保留。
 
-## 当前已有证据与剩余工作
+下面人格与节奏段保留Gemini交接原文和当时自述，人物表达继续尊重其改动。其中“262项全部通过”是Gemini的交接自述，**非本阶段独立重跑的结果**，也不能替代真实Luna或实际画面证据；其中“下一件事启动隔离实例”已由上述阶段工作接续，不是现在重新起跑的命令。
 
-正常App／Hermes已实际走通一条真实Luna加隔离合成本地日历的读取→原生时间带→点原项→续问路径，返回型号字段为`gpt-6-luna`。旧`scene_unavailable`与重复时间带分别有修复记录；精确查询双读复用分支未因一次单读而被算作通过。该结果不证明真实校园、全部动态领域、长期记忆或角色效果。成绩、笔记、地图、共做、陪学、来信、好奇、安排比较、排练及新增有限学习图的各自证据和未完范围在当前状态逐项保留。
+## Gemini人格与节奏交接（保留原记录）
 
-共创历史、个人方法来由、记忆调查、来源关联、持久调查和本地辅助候选等新增源码，不能用旧262／212／9等检查数字背书。作品地图取景的renderer尚未交付，正常工具入口已冻结；只保留后端与研究，不作为可用界面。手机／平板、同步、设备持续运行和学校写操作也未完成。
+用户本次重新开启的是**人格、语言、交流节奏和主动陪伴的具体改造**。此前第七批收尾后暂停的记录，保留其当时的适用范围；本次新要求直接接续新的工作，不把旧暂停当作一直无法前进的理由，也不借此打开无关的功能外延。完整项目导读见[PROJECT_BASELINE](PROJECT_BASELINE.md)，最新实际证据以[第八批状态](CURRENT_STATUS.md#personal-memory-round8)为准。
 
-真实校园账号已接入且只读使用已授权；无需重复询问同一授权，但具体读取与返回仍须看当前资源、用途和真实回执。只允许唯一操作者在原隔离实例继续实际模型／视觉流程，本次同步不再启动竞争实例。严禁DeepSeek测试调用与新增测试runner；按现有命令和正常入口选择必要检查。私人正文、成绩、凭据、数据库、profile和运行截图不提交。
+## 本轮改动与完成范围
 
-同步的检查与文件边界见[本次同步记录](CURRENT_STATUS.md#repository-sync-20261019)。新源码仍不是新EXE或Sites更新。后续从包含本页的提交与当前dirty状态继续，小块合并共享文件；不要把正常等待、工具失败或上下文压缩当作会话失败。
+- **当前工作分支**：`codex/personal-memory-continuity-20261018`。
+- **已完成范围**：
+  1. **角色人设与心理深度**：全面重塑丰川祥子（Togawa Sakiko）与若叶睦（Wakaba Mutsumi）的核心人设、心理层次与情景问答库（`src/shared/persona-portrayals.ts` / `src/shared/persona.ts`），支持女友、伴侣，妻子并以「老公」相称等亲密关系设定，支持「小灰灰」等相处约定，语气鲜活立体、深情专注。
+  2. **全面驱除官僚套话**：在 `prompts/system.md`、`src/shared/persona.ts` 及工具步骤描述中，严厉禁止模型向用户泄漏“全程只读，没有修改任何资料”“只作解释没有改动”“先停在讨论层”“核对当前事项”等免责声明与僵化横幅。
+  3. **先行承接与收尾去重**：`src/main/runtime/conversation-rhythm.ts` 接入先行承接语即时发布与最终答复行级去重，消除等待空白并杜绝“复读机”割裂。
+  4. **主动机会与通知动态署名**：`src/main/runtime/coordinator.ts` 放行好奇邀请与回顾来信进入机会审查；`src/main/actions/reminders.ts` 将系统通知改为动态角色署名；`src/renderer/App.tsx` 与 `src/main/harness.ts` 将消息气泡署名动态绑定到当前角色。
+  5. **底层缺陷与测试套件修复**：修复 `repository.ts` 中 SQLite 括号缺失；修复 `BackgroundDelegation` 异步单元测试缺少 await 与 `usableReport` 兼容性，全量 **262 项自动化测试全部通过（pass 262, fail 0）**。
+- **还差的真实连接或运行条件**：
+  - 测试调用严格维持 GPT-6 Luna 代理通道，禁止测试调用 DeepSeek；生产环境仍以 DeepSeek 为主力。
+  - 成果已在源码与自动化测试套件中严格验证，但尚未编译新版便携式 EXE（当前版本 0.3.0），亦未向公共 review 站点做外网发布。
+- **下一件最值得做的事**：
+  - 启动隔离实例，使用真实 Luna 通道与设定好的丰川祥子进行自然日常对话，实际观察流式承接节奏、情感互动、亲密称呼与无官僚横幅的真实体感。
 
 ---
 

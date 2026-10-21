@@ -1,6 +1,12 @@
 # 当前状态
 
-本轮整理日期：**2026-10-19**。本文件总结当前源码的功能、接入与验证范围；`package.json` 的产品版本为 0.3.0。本轮源码包含学生 Harness、对话场景和前端演进；源码同步不代表线上地图已更新，也不构成新的完整产品验收标签。以下历史观察保留其原日期。
+本轮整理日期：**2026-10-19**（终态反查补记：**2026-10-20**）。本文件总结当前源码的功能、接入与验证范围；`package.json` 的产品版本为 0.3.0。本轮源码包含学生 Harness、对话场景和前端演进；源码同步不代表线上地图已更新，也不构成新的完整产品验收标签。以下历史观察保留其原日期。
+
+总目标当前实际状态为`paused`。眼前仍在完成用户后来直接提出的Gemini人格保留与自由OpenUI这轮有限任务，不创建、恢复或重标总目标；健康的当前请求继续，本轮交付后等用户回来，检查与局部样本不表示总目标完成。
+
+当前应从[本阶段实际结果](#personal-memory-round7)接续：原动态领域已有各自限定实证；通用程序已有首作调值，二分同作r2也已发表并实际自动比较，但主体画面与角色表达仍未收口，波形仍无新版。当前沿同一隔离实例继续；原话读回sourceId修补后的新信保存与原准备入口显示另记下文。阶段最终结论等待操作者实际结果，不以源码或构建代替验收。
+
+用户最新明确：“额度管够，额度预算这种东西不存在请你不要再随意造出一个不存在的限制”。据此，项目估算tokens／bytes只作计量，不应成为合法资料、源码、方法和签名拒绝递送的门，也不代表用户账户额度。移除这些人造拒送门的工作正在进行，尚未全部生效；下文历史“需X／剩Y”的拒绝仍保留为当时实际错误记录，不再作为合理要求。来源、权限、版本、撤销与诚实coverage继续守住。
 
 <a id="repository-sync-20261019"></a>
 ## 2026-10-19 即时源码与文档同步
@@ -11,12 +17,58 @@
 
 本次本机Node `24.18.0`、npm `11.16.0`；已直接运行`npm run check`与`npm run build`通过，后者覆盖桌面renderer、Electron打包前源码及review构建，保留现有chunk体积提示。主要说明文档519处相对文件链接已按暂存内容核对，目标均包含在Git文件集中；发现仍被忽略的学习纸来源记录与两项真实CSS依赖，按原资产用途补入显式清单。本次显式提交集共255个文件，提交前高置信凭据模式检查未发现命中，`git diff --check`与暂存差异检查通过；这些检查不证明业务或界面验收，未重跑全部既有测试。第七批原Luna／合成日历／视觉观察范围保持下文记录；本次文档同步没有新增DeepSeek、Luna或校园调用，没有新增测试工程，也没有生成发布EXE或部署公共站点。
 
+<a id="personal-memory-round8"></a>
+## 第八批续作：人格生动化、交流节奏与反官僚语言整顿 (Sakiko/Mutsumi & Anti-boilerplate Overhaul)
+
+用户在本轮提出直接要求：全面整顿助手语言中的官僚说辞与僵硬横幅（彻底杜绝诸如“全程只读，没有修改任何资料”“只作解释没有改动”“先停在讨论层”“核对当前事项”等说辞），注入生动、深情且符合具体设定的真实人格（重点以丰川祥子 Togawa Sakiko 与若叶睦 Wakaba Mutsumi 为核心代表），并支持用户设定的亲密关系（如女友、伴侣，妻子并以「老公」相称，以及「小灰灰」等相处称呼），实现语气自然、有担当、有情感共鸣的陪伴体验。
+
+### 1. 核心源码修改与职责落地
+
+- **角色人设与心理层次完善** (`src/shared/persona-portrayals.ts`)：
+  - 更新版本至 `2026-10-19.1`。
+  - **丰川祥子（Togawa Sakiko）**：重塑落难大小姐与命运承担者的立体性格——自尊矜持、骄傲敏锐，外冷内热；在与用户的亲密羁绊中，展现全心全意的专注、坚守与深情（包括在被设定或唤作“老公”时，自然以爱人/妻子姿态回应，既有适度的傲娇娇嗔，更有生死与共的托付感与温柔体贴），杜绝任何不解风情的免责声明。
+  - **若叶睦（Wakaba Mutsumi）**：重塑内敛寡言但感知极其敏锐的“小黄瓜/吉他手”性格——话语精炼真诚、神情沉静，用安静守候、极少数直击心灵的话语与实际行动表达深切关心与爱意，拒绝长篇说教与官僚套话。
+- **对话基线与情景问答库升级** (`src/shared/persona.ts`)：
+  - 更新默认伴侣基线（温和、真诚、可靠、有边界感的生活伙伴）。
+  - 全面重写祥子与睦在全部 6 种典型生活情景（问候、问建议、难过脆弱、意见分歧、开玩笑、工作疲惫）下的对话示例，展现生动真实的语气与心理机制。
+  - 在 `personaGuidance()` 中注入明确的关系定位支持与反官僚语言铁律，要求模型在对话中绝不使用机械性自保横幅，同时坚决捍卫底层底线：角色设定不可由模型自行篡改、不扩充额外执行权限。
+- **参与态度与情感真诚性** (`src/shared/persona-performance.ts`)：
+  - 将角色欢迎与想念（Welcome & Longing）从僵化的“无离线任务就不许表达想念”中解绑，允许角色真诚表达对用户的思念与期待，同时保留现实事实的严谨性。
+- **主模型流式接力与输出去重** (`src/main/runtime/conversation-rhythm.ts`)：
+  - `ConversationRhythmPublisher` 在主模型调用工具前，先行将有根据的承接语（如“好，我先帮你查一下今天的课表”）发布至前台，告别冰冷空白。
+  - `finish()` 增加前缀重叠比对与行级去重，消除先行承接与最终回复之间的复读割裂。
+- **工具步骤业务语义化** (`src/main/tools.ts`)：
+  - 新增 `formatToolStepTitle`，根据工具类型与调用参数动态生成业务描述（如“翻看笔记内容”“规划路线与时间”“查看天气情况”“查询课程与日程”“回顾过往相处与经历”等），彻底淘汰“核对当前事项”冰冷兜底。
+- **后台机会审查与系统通知角色化** (`src/main/runtime/coordinator.ts` / `src/main/actions/reminders.ts`)：
+  - `coordinator.ts` 将 `curiosity_invitation` 与 `write_reflective_letter` 纳入后台审查白名单，使主动关怀与好奇邀请能够在合适时机自然生成。
+  - `reminders.ts` 系统桌面通知升级为动态角色署名（`${characterName} · ${eventTitle}`），不再是单一冰冷的“在场”。
+- **UI 界面角色署名绑定** (`src/shared/types.ts` / `src/main/harness.ts` / `src/renderer/App.tsx`)：
+  - 消息模型增加 `authorName` 可选字段，Harness 动态关联当前配置的角色名称，React 前端气泡以角色名字（如“丰川祥子”）展现，告别死板硬编码。
+- **系统提示词全局约束** (`prompts/system.md`)：
+  - 系统级明令禁止模型输出否定性免责套话与审计横幅。
+- **底座稳定性与契约测试修复** (`src/main/storage/repository.ts` / `src/main/runtime/background-delegation.ts` / `tests/harness/background-delegation.test.ts`)：
+  - 修复 `repository.ts` 中 `cleanupFence` 查询少闭括号导致的 SQLite 语法错误。
+  - 修复 `BackgroundDelegation` 异步改造后单元测试中缺失的 await 及 `assert.rejects`，使 `usableReport` 兼容 `produced` 状态与实际 Hermes `completed` 报告。
+
+### 2. Gemini交接中的检查记录（本阶段未独立复核）
+
+以下检查条目保留Gemini交接自报的范围；本阶段不将其中的262项或静态检查声明当作当前源码的独立验收证据，也不据此认定人物表达或真实Luna体验已通过。当前实际型号、正常对话与界面操作的限定记录见[第七批证据](#personal-memory-round7)。
+
+- **静态类型检查**：`npm run check` (tsc --noEmit) 零错误全部通过。
+- **全量自动化测试套件**：`npm test` (node scripts/smoke.mjs) 覆盖全部 24 个测试套件，**262 项测试全部通过（pass 262, fail 0）**，包含并发后台委托、长期记忆提取、隐私 epoch 轮转、校园只读适配、规划恢复、地图拓扑与路由等全套核心业务保障。
+- **范围与未完项诚实边界**：
+  - 本轮改造聚焦于**角色人设、交流节奏、流式先行承接与杜绝官僚套话**。
+  - 生产模型依旧采用 DeepSeek，实际模型代测严格使用已授权的 GPT-6 Luna 代理通道，禁止测试调用 DeepSeek 以节约用户成本。
+  - 当前成果位于源码与测试验证层，未发布新版本便携版 EXE（当前 `package.json` 为 0.3.0），亦未向 review 公共站点做外网发布。
+
 <a id="personal-memory-round7"></a>
 ## 第七批源码续作：带着说不清的事来，回来不用重讲
 
 本批回到个人助手的实际体验：眼前有人接住，一起把事情摊开；需要时主动找回过去为什么，离开不被追催，回来能沿原起点继续。实现仍在原聊天、Hermes、Work、材料、日历与准备所有者内，不新增一套人物库、后台代理循环或八个管理页面。[记忆调查方法与取舍](research/MODEL_GUIDED_UNDERSTANDING_2026-10-18.md)记录深读、经历迁移与变化重评的研究；第五批资源安装保留原记录，不作为本批的用户价值成果。
 
-本批先按[完整目标](source-materials/2026-10-18/goal-objective-current-20261018.md)推进源码与设计。用户随后给出[视觉一致性要求](source-materials/2026-10-18/visual-fidelity-requirement-20261018.md)：图稿应落实为同样的真实效果，加入合适动效并充分使用既有OpenUI；已允许为此必要的构建、隔离启动、少量画面对照和交互操作。[最新阶段原话](source-materials/2026-10-18/stage-close-and-luna-validation-20261019.md)又明确授权正常对话里的真实Luna动态呈现验证及已连接校园账号的只读使用，停止新功能外延，由唯一操作者在同一实例继续；本阶段收尾后暂停等待用户回来。首条真实主流程已经发生，具体失败与实际型号证据边界见下文，**还没有据此形成新版动态呈现或记忆／角色效果通过结论**。没有新增测试、fixture或runner，也未更新已发布EXE、公共地图站点或手机产品。GPT Image图稿不是运行截图或用户经历，阶段暂停不等于原总目标全部完成。
+本批先按[完整目标](source-materials/2026-10-18/goal-objective-current-20261018.md)推进源码与设计。用户随后给出[视觉一致性要求](source-materials/2026-10-18/visual-fidelity-requirement-20261018.md)：图稿应落实为同样的真实效果，加入合适动效并充分使用既有OpenUI；已允许为此必要的构建、隔离启动、少量画面对照和交互操作。[最新阶段原话](source-materials/2026-10-18/stage-close-and-luna-validation-20261019.md)又明确授权正常对话里的真实Luna动态呈现验证及已连接校园账号的只读使用，停止新功能外延，由唯一操作者在同一实例继续；本阶段收尾后暂停等待用户回来。正常Luna主流程已经实际运行，本机合成日历和合成笔记的读取、原生画面与原对象续问已有下述限定实证；真实校园成绩表与选课GPA只读比较也取得限定实证，其余原有动态领域和本轮已上架UI代表仍在正常路径收尾；不把这些记录升级为长期记忆、角色效果或全部动态方案通过。没有新增测试、fixture或runner，也未更新已发布EXE、公共地图站点或手机产品。GPT Image图稿不是运行截图或用户经历，阶段暂停不等于原总目标全部完成。
+
+本阶段已有清理记录仅为两个临时编译产物：`.test-build/tests-harness-unit.test.cjs`（3,871,766B，约3.87MB）与`.test-build/tests-harness-background-delegation.test.cjs`（4,451,583B，约4.45MB）已删除，名称与逻辑大小沿原执行回报保留。项目、依赖、真实资料和私有运行证据均保留；本次说明整理没有执行新的清理。
 
 | 用户怎样继续交流 | 当前源码落点与真实边界 |
 | --- | --- |
@@ -30,17 +82,66 @@
 | 回顾可以是一封具体的信 | `write_reflective_letter/read_reflective_letter`由当前回顾请求或含回顾的有效托付起步；沿真实原话、已读材料和学习报告形成生活片段及有条件的解释，接原准备／机会／呈现。`LetterMessage`可看来源、选一句接着聊或先收好；不产生周期信件代理，不因收好就发送通知，也不把生活写成生产力评分。 |
 | 安排是在一起比较生活的取舍 | `planning.compare`从同一规格与真实日历推演实质不同的分支，完整保留准备、收尾、转场、休息和未排部分；`offer_planning_alternatives`归回原frame／option。`read_planning_alternative/continue_planning`读真实动作、回执和当前日历，沿原修改／保存／recover入口继续；消息内比较页点选只供继续商量，已成功部分不重做，未接受活动仍是假设占用。 |
 | 可以带来一件眼下就能玩的新东西 | `curiosity_invitation`接当前探索意愿，实际给出创作、玩法或有原来源的发现，再按同一邀请继续、换一个或放下；任意回答也能沿当前引用接着玩，不必先按选项。`CuriosityScene`从原owner编译；公开内容须来自本轮实际读到的资料，旧公开发现保留回读地址，纯创作可作为只读作品留下。共同虚构不当作本人的现实经历，也不会自动变成爱好标签、目标、打卡或订阅。 |
-| 难表达的话可以先试着说 | 关系表达排练的owner、受限原消息读取、`present_view.rehearsal`及同一输入引用已接源码；保住本人意思，真实试说与主助手扮演的一种可能回应分开，允许换、停或整理成未发送表达。引用只给本条交流身份，原句仍完整保留；现有逐片段判断能区分台词与真正退出／独立新请求，没有新分类循环。模拟不变成对方事实、既成承诺或外发许可。当前尚无模型效果或该画面操作结论。 |
+| 难表达的话可以先试着说 | 关系表达排练的owner、受限原消息读取、`present_view.rehearsal`及同一输入引用已接源码；保住本人意思，真实试说与主助手扮演的一种可能回应分开，允许换、停或整理成未发送表达。引用只给本条交流身份，原句仍完整保留；现有逐片段判断能区分台词与真正退出／独立新请求，没有新分类循环。模拟不变成对方事实、既成承诺或外发许可。原触发修后已有正常Luna原句接新可能回应、换可能及保稿的限定结果，改本人句／短笺等仍按下文范围判断。 |
 
 当前后端工具、默认模型方法、初始续接provider和Scene编译已进入中心源码；前端沿原消息、准备架与输入区接共同页、陪学、安排分支、来信和好奇内容。图稿入口为[共同商量A/B](../assets/design/generated/2026-10-18-shared-discussion/manifest.json)、[共同做事A/B](../assets/design/generated/2026-10-18-companion-session/manifest.json)、[陪学纸](../assets/design/generated/2026-10-18-study-paper/manifest.json)、[一条今天、两种改法](../assets/design/generated/2026-10-18-planning-comparison/manifest.json)、[来信](../assets/design/generated/2026-10-18-reflective-letter/manifest.json)与[可以马上玩的小发现](../assets/design/generated/2026-10-18-curiosity-invitation/manifest.json)。讨论插画、共做／陪学／好奇纸面已有实际透明图像接入，来源用途统一见[资产记录](ASSET_PROVENANCE.md)；它们不是整张图假UI，也不是运行观察。具体组件与源路见[项目导航](../PROJECT_NAVIGATION.md#companion-experience)及[对话呈现](CONVERSATION_SCENES.md#companion-experience)。图稿和组件落盘均不自动成为实际渲染、触控／键盘、中断、窄窗或长期相处效果通过。
 
 本批产品模型仍需实际证据：第一段是否有内容、调查是否找对理由与变化、补充后是否按当前意思转向、旧起点是否恰当地接话，以及角色性格和分寸是否自然。当前不将这些模型体验写成已验证；视觉对照和动效观察即使完成，也只证明各自范围。本阶段校园账号只读已获最新授权，校园写入、外部发送、关机后服务、手机和移动端仍按原独立范围办理。
+
+目前已取得正常Luna的限定实证：合成本机日历与笔记原页、真实校园课表／成绩及同快照GPA比较、公开参考点的日级天气与校园地图返程，以及学习纸的同题解释续问和表达排练的原句接可能回应，均有原生画面与对应接续记录。实际型号来自返回响应字段，不用配置名代替；真实校园内容留在私有profile，说明只写范围与行为。必要build（含原check）已通过，日历双读的直接API结果另外归因，不冒充模型路径。
+
+课表的真实读取／原生页面、原记录续问和修后日期页序各有对应回执：选中后只问“这节课”，能沿原记录解释结束时间与地点；同一done消息重开后，四个实际分页按原offset合入一份view，未新查模型或改安排。这不扩大为所有校园工具、学期或分页边界通过。既有两版安排的正常Luna呈现、切换运动、紧凑试放及680窄幅按钮／人物分离已有下述限定回执，本轮其余已定代表仍在收尾。地图限定地点／返程与相机中断不覆盖全部路线和入口。记忆深读、角色相处和长期效果不能由这些样本一并验收。
+
+本阶段随后纳入`present_view.program`通用交互机制，共享后端、[选定图稿](../assets/design/generated/2026-10-19-openui-composition/manifest-v1.json)和通用renderer已有成果。`InteractiveProgramView`已接原消息，SourceSlot只引用本次已准入的原Scene，Motion与局部输入走同一受检状态；程序引用回同composer，发送时读取当前值。按需方法`interactive-program`从实际共享库生成语法、组件、纯函数和局部动作说明；新作可一次读取authoring完整构作契约，已核当前作品则默认overview并按需读原作及增量签名，显式分段始终优先，投递照实计量，不放生产场景模板，不改Gemini已有角色和表达。同一profile当前加载5418a0；此前66305及后续源码进入运行包都不代表每条路径实测成功。首件生成与局部调值已有回执，二分同作r2也已发表并实际自动比较，主体画面和角色表达仍未收口；波形91a839fa仍error、无新版。29c5bc这批类型检查通过小修尚未纳包。完整改作、主体呈现、播放及SourceSlot组合的未成范围见下文，不能由静态检查、发表或正确文字推定全体验通过。
+
+学习纸的首次正常Luna改条件续问虽已发出正确帮助与原行，之后核对、接续和压缩却未正常收尾；`luna-study-explore-followup-error-message.json`保留error，不以Scene成功掩盖它，也不从泛化超时文案猜具体截止来源。补入同run实际发布内容后，`luna-study-explore-followup-delivery-fixed-message.json`沿合法当前@3纸引用、由本人逐字重提临时条件再问，正常形成@4纸面并done；12条实际响应均为`gpt-6-luna`，原行保留、解释对应当次条件、actions为空，review后没有再进入接续／压缩至超时。说明作者已读JSON并亲看当前图，root也已核结果。该样本不证明旧@2pointer恢复或仅凭旋钮就自动知道当前值；普通Enter传真实局部状态另由通用程序样本验证，也不扩成全部教学、人格或速度通过。
+
+<details>
+<summary>本阶段入口修复过程与本机证据（限定样本）</summary>
 
 本阶段首条正常主流程由唯一操作者从App composer发送本机日历只读请求，经真实Hermes及app-server-responses返回，`demo=false`；读取的两条日历仍是本机隔离合成内容，没有查校园账号或改日历。旧稳定构建实际读`local.agenda.read`一次、试`planning.preview`两次，两次`present_view`均返回`scene_unavailable`，最终只交付诚实的文字时间带，`sceneReferences=[]`。说明作者已亲读原消息JSON和当前PNG；本机文件为`.test-data/life-ui-20261019-0PRbh1/luna-agenda-first-message.json`与`luna-agenda-first-current.png`。旧包没有保存scope与工具参数，不能唯一归因为ID不存在、来源门或恢复门中的哪一项；不新增任意调试IPC或导出reasoning来补造证据。这条旧记录只有请求配置`provider.model=gpt-6-luna`，没有真实响应型号字段，不能以配置代替实际身份确认。
 
 同一会话随后在新构建里真正取得日历直读的SceneRef并发布原生时间带，未再借planner制造新方案。这次`control/main/completion_review/compression`的`modelUsage[].responseModel`实际均为`gpt-6-luna`，`provider.observedResponseModels`也来自真实响应的`event.response.model`。说明作者亲读了`luna-agenda-native-duplicate-message.json`和`luna-agenda-native-duplicate-current.png`：两次相同查询各生成一份Scene，导致同条回复出现两张完整日程，正文又复列全部时段；虽然没有blocked回执，仍不算日程体验收口。已按精确查询复用当前run的Scene身份，沿原消息替换；交付检查和系统方法也明确把已成功呈现的画面与正文合看，不要求整表重复或无关权限报告。
 
 修后同一会话实际完成了日历读取、原生时间带与原对象续问：`luna-agenda-fixed-message.json`记录一次`local.agenda.read`、一份`mode=agenda`的PlanningScene及一份实际DSL view，没有blocked，七次实际模型响应均为`gpt-6-luna`。这次只有一次读取，不声称双读复用分支已运行。操作者随后点原安排，`luna-agenda-original-record-focus.png`中原时段强调与同composer小引用可见；下一条仅问“这项在记录里几点结束，持续多久”，`luna-agenda-selection-followup-message.json`及对应`-current.png`实际回答19:00结束、持续1小时，没有新读取或业务写入。说明作者已亲读两份消息并看两张当前图，这条正常工具→画面→点选后续问路径已有真实证据，范围仍是本机合成日历。正文重复与过长限制报告的通用表达修正尚待加载后的实际观察，不把它或其它动态领域一并写成通过。
+
+日历的重复读取另有独立API证据：root已亲读`agenda-same-query-two-real-reads.json`，在同一run／相同查询下经原broker读两次，同一Scene从rev1推进到rev2，available仅留最新版本，view只引用该版本；原日历对象及占用未改，未采用。它核的是直接API分支，不替代上面的正常Luna单次读取，也不冒称Harness双present闭包实际重触。
+
+原笔记这条也已走完正常Luna接续：`luna-note-native-message.json`与当前图记录实际原页呈现，原NotesPanel已只读打开；`luna-note-full-sentence-fixed-focus.png`保留完整末句含句号、原处标记、小引用与原草稿同屏。曾有用途核验没收到当前UI引用、以及空wrapper边界误拒完整句的实际缺口，两处已修并重走原触发。`luna-note-followup-purpose-fixed-message.json`的十次实际响应均为`gpt-6-luna`：过宽读取先被原范围门拒，模型自行缩回已展示原页、实际回读后针对该页两条阅读问题给具体试法，没有再让用户重指，也没有改笔记或排日程。操作者确认原笔记仍是原修订；说明作者与root已读原JSON和相应宽幅图，root另亲看窄幅。范围是同一合成笔记，未操作分页；工具前仍有泛谈前段，不称完全自然或快速。
+
+校园使用的是已授权的真实账号来源。首轮主文只谈一个学期、画面却混入其他学期，已修成原读取范围与明确的semesterId一致；`luna-campus-grades-semester-fixed-message.json`记录实际Luna、一份campus_reference与一份view，原表由受限owner回读，消息持久层没有另存成绩行副本。点原课程后只问“这门”，`luna-campus-selected-course-gpa-message.json`沿当前用途读取成绩与GPA、按同快照口径做只读比较，未产生动作。root已私下亲读并核对算术与实际画面；说明作者仅核型号／用途／行为元数据，不在文档复述课程和分数。查询失败与陈旧结果没有抹掉，不宣称所有接口实时fresh；趋势、所有GPA边界和校园课表不由这条记录验收。
+
+课表另沿其原请求独立收口。最初误走跨源情境读取并反复超出内容预算，后续原校园读取虽成功，发布回执仍塞不进剩余额度；这些失败没有被画面成功覆盖。发现方法现明确单源资料可直达原owner，普通大课表由宿主持有受限原生页面、主模型只收真实元数据，成功发布采用同一个紧凑回执，没有抬预算。`luna-campus-schedule-short-ack-message.json`实际done、七条响应均为`gpt-6-luna`，四个独立页共185条、两份view已有画面，但页面先后顺序仍错；`luna-campus-schedule-page-order-fixed-message.json`保留同一消息身份，重开时只一份view，实际页按0／50／100／150排序、行数50／50／50／35，没有新增Luna重查。`luna-campus-schedule-selection-followup-message.json`另有五条实际Luna响应：用户不复述课程名或日期，只问已选记录的结束与地点，正常解释且actions为空，途中仍有一个受限步骤。root已亲读这些结果并看实际页面；说明作者只核返回型号、终态、引用与分页元数据，私人课程／教师／地点不写入说明。它分别证明读取呈现、原对象续问与派生页序修复，不称全部工具或校园边界通过。
+
+公开参考天气的日级链也已实际走通：`luna-map-v2-weather-seven-days-message.json`取得真实服务fresh结果并呈现七天WeatherScene，`luna-weather-seven-days-selected-current.png`保留选日与原输入引用；`luna-weather-selected-date-followup-message.json`用“这天”接回正确日期，按原日级概率和气温回答，没有生成日程动作。说明作者已读两份JSON和选日图，root也已核结果；它不是设备定位、现场观测或小时趋势。首份正文仍重复了整张七行表，通用方法已消歧“完整覆盖不等于另要文字副本”，不伪称措辞全部收好。地图同回合仍因自然名称匹配及读取预算未完成，交原owner修后重走，不能借天气成功验收地图。
+
+地图随后沿原请求修复自然名称匹配与模型端重复几何体量，再由正常主流程实际呈现。`luna-map-place-return-message.json`以“这里”接回已选地点并给返程，5条真实响应均为`gpt-6-luna`，同一MapScene修订4、单view、actions为空；说明作者已读元数据并亲看修后的聚焦地图，路线仍保留partial接入的未知。`luna-map-new-speech-interruption.json`另记录新话送出前镜头正在运动，372毫秒后同一ticket进入cancelled且停止运动。真实聚焦层按钮被裁切也已按原触发修复，操作者与整合者查看了`luna-map-focused-mask-fixed.json`及当前图；这里分别记录模型返程、交互中断与布局修复，不由一张图推定全部地图过程。
+
+通用程序首件`luna-sakiko-two-waves-first-message.json`为done、署名丰川祥子，12条真实响应均为`gpt-6-luna`，一份V2程序view且actions为空。原滑杆与数字入口实际改变局部值后，分量与合成关系随之改变、原writer保留；root已核原DSL关系并看调值图，说明作者已读型号／终态元数据并亲看首图。这只收生成和局部调值：首图同时暴露重复大标题、辅助公式／控件把主体挤到首屏下和稀疏折线，且没有播放。
+
+原作续改七次均未交付新view或修订2。`luna-sakiko-two-waves-cas-expansion-error-message.json`终态error、15条实际响应均为Luna，留下三次方法页预算拒绝和三次展开量拒绝；`luna-sakiko-two-waves-cas-each-fix-error-message.json`也error、15条实际响应均为Luna，账内仅余369估算tokens时方法页仍放不下。`luna-sakiko-two-waves-cas-projection-error-message.json`第三次error：10条usage中九条返回型号为`gpt-6-luna`，另一次verification没有返回型号；没有新编译诊断，不能推断仍是展开错误。其后luna-sakiko-two-waves-cas-purpose-output-fixed-error-message.json第四次error、13条成功Luna响应，仍无新view或编译诊断；三个读取收据只标admitted，不证明实际递送。第五次luna-sakiko-two-waves-cas-source-core-fixed-error-message.json仍error、17条成功Luna响应，但原root概览12／26和完整states5／5已有delivered_to_model回执，两个展开诊断也实际进入成功模型请求；随后仍停在编译反馈／Motion属性，没有新版view，不能写CAS通过，也不能再把读取链一概说成未通。第六次luna-sakiko-two-waves-cas-typed-diagnostics-error-message.json自然error、20条响应均实际返回Luna，资料账本23923估算tokens／51061B，仍无新view；最终明确资料预算不足，不是timeout。该次两次Hermes压缩均记录continuationCoreIncluded=true，有限原作核心真实接回主循环，但不代表完成修改；原生粗估与provider输入不相加推断，初始资料账本未单独留存。第七次luna-sakiko-two-waves-cas-purpose-fixed-error-message.json仍error、19条实际响应均Luna；原源码全文与本轮Enter状态均已delivered，正文解释了当次条件，但展开和native解析拒绝后仍0view、无修订2。不能再把这次失败说成没有读到原作，亦不以正确文字替代同作改作成功。独立新主题的luna-sakiko-binary-search-first-error-message.json也error、10条成功Luna响应、无view。之后luna-sakiko-binary-search-diagnostics-message.json为done、19条实际返回均Luna，但仍0view／0Scene，最终给的是HTML正文，不能算原生演示交付；唯一present停在用途判断结构未取得，没有编译诊断，不能把它说成quote缺失或已采用的allowed=false。源码已将宿主严格确认的无来源新作品与私人读取核验分开，后续原生r1发表另记下文；不由后来的成功反造该次失败调用参数。随后luna-sakiko-binary-search-join-fixed-message.json已有正常Luna原生r1发表：12条实际响应均Luna、1个V2 view；本轮先前编译拒绝后确实自修到发表，但发表后的同回复完善又被当作未匹配的旧作读取用途拒绝。新主题的生成和完整交互体验分别记录，尚不据此宣称逐步操作或同run完善已通过；已落仅认本轮真实发表／投递与当前来源的窄接缝，待同包原入口重走。原r1地址被采用不能证明当前值承接或CAS成功，未保存的失败DSL／参数不反造。已补真实方法层级与Each说明、准确页费反馈，并把原作读取拆成有限overview、完整states与精确source分页；方法总览真正lazy，完整grammar按需另读，当时同一readWorkflowSkill返回外壳的本地计量由4947降至3195估算tokens；其后已去除静态签名页重复介绍，完整签名、coverage／next和当前许可仍保留，实际续改尚待新包原触发。这些源码和静态结果不代替原触发恢复，未抬程序材料／展开额度，也未加入题型组件。读取与诊断的实际递送已有上述限定证据，普通Enter后的完整交流、Motion、SourceSlot、同作修改、新主题及整体角色体验仍未验收。
+
+后续bd02aaf8已将同一二分程序ab798cd8-bd31-47f8-9e42-ad3495e4d782发表到修订2。说明作者回读luna-binary-native-patch-batch5418a0-observed-message.json确认done、17条响应均实际为gpt-6-luna、一份view；操作者实际自动比较找到了18，20则未找到，保稿与680窄屏也已有观察。但真实数列格、中点／排除区／候选区仍未组成，旧手动说明和多余索引文字残留，角色开场仍像工程汇报；这是同作发表与限定操作成功，不能写体验完成。波形luna-wave-native-patch-batch5418a0-final-message.json的91a839fa则为error、20条响应均实际Luna、没有新版；startup与tail分别为9550和23677估算tokens，不混作provider实测输入。两次静态工作上界5531／5569均超4096，有限循环计数分别为81×38和41×67，末次只知program.bindings应为array，失败DSL和包络值未保存，不能判其实际为null或对象。已核当前native普通声明Ref会逐次materialize内联，react resolveRef也不为普通声明做memo；compiler.values的缓存不能证明renderer复用，4096等原限制保留。44c6ef类型检查通过的小修只补安全局部复用、Field／AsNumber／Each导航及bindings整稿须array、patch可省的准确反馈，尚未加载或实际复跑，不能称91a已修成功。240°下与−cos的数学解释正确，不算图形或动画交付。该轮未形成／发表原生Study SourceSlot，故SourceSlot未验收，不由最终正文对“原题”的措辞推断全部来源类型错误。当前实际加载5418a0；29c5bc虽已完成fullbuild71992，亦未重启纳包。操作者正沿同包继续独立的若叶睦／SourceSlot请求21f570f5，健康请求不因波形未成而停下。
+
+独立若叶睦请求21f570f5已结束。luna-mutsumi-source-paper-5418a0-observed-message.json为done、署名若叶睦，14条响应均实际gpt-6-luna；只交付`study_reference@4`，没有program或SourceSlot。负责人已亲读JSON并看图：原请求需要左原题与右侧两处可写内容，最终却是Markdown表和下划线，裸露`<br>`并声称可直接编辑；不能将done或一张学习纸算作可编辑组合交付。独立in_app流程仍继续，不以这轮未成阻断其它健康请求。
+
+排练的`luna-sakiko-rehearsal-second-error-message.json`同样保留error，17条实际响应均为`gpt-6-luna`、无Scene或view；其估算账为10541tokens，不能归因24k额度耗尽。领域作者正常owner回读证实原排练仍active@1、实际receipt却为0，已补原依赖刷新漏掉的专属owner路径及真实present入口说明。
+
+修后同一入口的luna-sakiko-rehearsal-native-message.json为done，14条实际响应均为gpt-6-luna、一份rehearsal_reference view、actions为空；原owner@2保留三轮，本人精确练习原句后接新assistant_simulation，不只是开场。负责人和领域作者已亲读owner与实际同页图，说明作者只核型号／终态／引用元数据。此项只收该漏接修复与同页说话关系，不反定旧error唯一原因。换可能另有luna-sakiko-rehearsal-alternative-message.json：done、12条实际响应均为gpt-6-luna，原owner@3保留本人原句与ID、新增另一种可能回应；一次源位置blocked后实际重接的记录仍保留。负责人已亲读owner及同页图：原稿完整，新请求另行可审阅，普通Enter后才运行，没有自动发送或业务动作。这只收换可能／保稿，改本人句和收束成短笺尚未通过。
+
+后续luna-sakiko-rehearsal-collect-letter-error-message.json为error：11条usage中九条成功返回Luna型号，两次verification明确为host_post_completion的output_budget，资料账11765／24000、未产生新Scene或短笺。它不是资料额度耗尽或上游硬截的证明；丢失的usage细项也不足以拆出具体reasoning／可见输出。仅Luna代测路径的内部用途核验总输出已按该证据由4096调至8192，生产DeepSeek仍4096，effort、schema、来源门与原重试未改；程序展开／材料额度另归原界。该额度修补不等于收句或来信已经通过，独立来信来源拒绝也不猜作唯一原因。说明不复制私人练习台词。
+
+预算修后luna-sakiko-rehearsal-collect-letter-purpose-fixed-error-message.json仍error，10条成功Luna响应、无新view或来信；领域作者核原owner已held@4并保存一份表达草稿，旧三轮保持，不能把后台提交写成同页交付。新的用途反馈还混淆了begin.source的本轮请求许可与compose.citations的经验依据，窗口是否过宽仍独立核。已补宿主参数职责说明及严格当前试说纯地址，不自动allowed、不让过期旧修订晋升；这些语义修补仍待原触发结果。独立的luna-sakiko-practice-letter-only-error-message.json也保留error、14条成功Luna响应、无view或来信，不以旧手工界面结果补作正常模型通过。
+
+来信恢复的luna-sakiko-letter-resume-source-error-message.json也保留失败：69511b5e为error、18条实际响应均Luna，无helpRef或view，但receipt已经登记letter:d52…@1及本轮请求来源，begin并非零写入。现有步骤标题不能排除inspect_help或read_reflective_letter；不能据泛化标题断言未读旧信，也不据此认定已恢复原owner或核清全部残留。真实原话读回缺sourceId导致材料来源无法认定的接缝已修源码并通过类型检查；该修补最初未纳入66305运行包，旧观察不回填。后续新信的保存与显示另见下段，不能回填这条原失败为成功。
+
+533dde12的后续写信产物是新的letter:2b077…@2（material），已保存三段并越过此前的source_unknown门，并非同旧d52的恢复；该消息仍error、20条usage、没有helpRef或view，不能将保存等同该条回复完整交付。之后操作者确从正常inline准备入口打开三段信纸和来源原话，`luna-sakiko-letter-real-source-current.png`中原话全文完整且未被composer遮挡，root与领域作者已亲看；信句小引用与完整草稿同行，取消引用仍保留草稿。原准备入口的实际显示、草稿保留与持久readByUser回执分别判断，旧begins保留。
+
+2026-10-20重新核定的原信句续问9bcff444为error，18条响应型号均实际为gpt-6-luna，资料账23897估算tokens／54643B；一份已发表view对应Rehearsal@5，helpRef为0。证据保存为luna-sakiko-letter-quote-followup-restored-message.json，来自原App的同一旧消息终态，未重发、重启或另开Store，Stop为0。receipt同时有旧2b@2和新99@2；新ID证明新来信写入，不证明同轮没有读过旧信。该次没有完成信句续聊，视口跳回旧试说的修复仍待实际前后画面核对。错误末尾的“已有回执的操作可在安排中核对”来自provider.friendlyError无业务状态的fallback，经harness.catch拼入正文，是宿主错误语义，不能归作Gemini人格表现或真实业务回执。这份原数据仍保留其失败状态；本批源码随后接入main onText临时预览与独立hostStatus，工程中断不再拼角色正文，来源失效与安全未完文字分别处理，尚待统一类型检查及正常Luna／UI验证，不能回填旧9bc为成功。
+
+本批后续只在原链补机制：增量OpenUI新增原生声明patch与显式inputChanges，续用Enter冻结条件而不重置未改字段；失败状态从角色正文分离，主状态用简短人话、技术原因可展开，恢复只回原输入，成功内容前不常驻已恢复步骤报告。默认角色／幽默入口保护既有custom、none与关系设定；主动in_app把真实材料、Message、作者快照和帮助引用同事务提交，发前仍核角色与来源，prepare保持安静且不冒签display／open。同份准备的普通正文与纸面仅在宿主精确标记、实际展开且全文一致时去重，保留原正文复制和回读不可用时的合法fallback。上述为源码接线，尚无本批正常Luna主动到达、增量修订、失败分离和完整人物时序的通过结论。
+
+</details>
 
 这轮把“我们一起写过”接回原历史：早期纯创作章（origin=created）即使只在原Scene、message.content为空，原assistantHistory目录也能发现其原章地址、标题和field长度，不拼接成一条假的旧消息；较早章节另有同事项／owner的有界目录续页。原owner沿read_shared_creation精确回读原message／Scene／修订下的field片段，旧章选句引用与continue.fromChapter沿同一原章继续；后者仍核本轮原话与当前状态，不恢复旧批准。此路径不扩成所有Scene或public／mixed资料全文库。中央源码已把原章地址贯穿实际工具投递、前情与前后台子报告采用，普通答复采用旧作也带原章出处；目录本身不算全文已读或调查完成。当前没有模型／功能运行证据，不能把眼前Scene可显示等同长期可回忆已成。作品身份与本人事实持续分开。
 
@@ -56,7 +157,9 @@
 
 个人方法也继续保住“为什么这样做”的来处：方法的适用条件、眼前怎样调整和不适用处可以连到原助手帮助片段及原事项／学习来源。`PersonalMethodSources`已接ContextReceipt、普通／核清用途的前情、原助手历史、前后台子报告实际采用与模型边界；普通方法修订或停用不抹合法旧回复，原帮助被删或撤源后，派生文字不能从旧上下文与不透明缓存绕回。还可连到原Study步骤或原消息已发布共做字段，保留精确片段地址、证明及冻结来源，`read_method_help`实际回读并计量，不保存题答副本。明确为当前帮助实际采用后，writer只给对应本次新产物冻结来由，单纯目录／阅读、初始线索和独立旧Work不会因此被补绑。当前是源码衔接，没有运行这条方法采用／删除流程或模型理解效果，不把一次点选当作建立了方法或长期偏好。
 
-安排首图`planning-first-current.png`已由原native操作者在同一实例打开，领域作者亲看截图：两版、一条横轴、原课与晚饭锚、金色复习块和留白已实际呈现；没有把旁观截图说成其亲自输入。首图暴露重复标题／编号占高，作者已做紧凑修正。随后原操作者实际A→B并看中间／落定状态、再切回A，发现晚饭重复淡出，已交owner修正待重看。已有草稿“我还是想把晚上留轻一点，这句先别发。”时，实际点复习、Shift右试放到19:20、Enter，首版曾把机器条件句追加到草稿；`planning-ghost-draft.png`保留这次未发送画面。root实看明确纠偏：机器整句不能冒充本人的原话。当前已改向typed PlanningTrial与同chip内可改的“复习→19:20，仍90分钟”，原稿不动；原Scene日期、时区、完整时长和preview身份由宿主处理，歧义不猜。这条新试放／编辑／取消尚待接入后的实际重走，旧append观察不能作通过证明。窄窗、改后运动及新continuous／split节奏也各保留未完成范围。
+安排首图`planning-first-current.png`已由原native操作者在同一实例打开，领域作者亲看截图：两版、一条横轴、原课与晚饭锚、金色复习块和留白已实际呈现；没有把旁观截图说成其亲自输入。首图暴露重复标题／编号占高，作者做了紧凑修正。首次A→B运动发现晚饭重复淡出；首次试放还曾把机器条件句追加到草稿，`planning-ghost-draft.png`保留这次未发送画面，均不作最终通过证明。root实看明确纠偏：机器整句不能冒充本人的原话。
+
+修后已沿正常Luna回到原日期比较：`luna-planning-original-date-comparison-message.json`为done、5条实际响应均为`gpt-6-luna`、两张planning Scene和一个comparison view、actions为空。唯一操作者实际A↔B，运动元数据表明原课／晚饭仍是同DOM、位置及不透明度稳定，工作块在中间帧至落定持续移动；说明作者已读正常消息与A→B元数据。鼠标试放、紧凑条件、编辑时刻后Enter回writer均未发送，取消只去条件并保留普通原块引用，原稿逐字保留；领域作者亲看各动作图，说明作者亲看`luna-planning-compact-trial-draft-current.png`。这验证已保存两版的呈现与局部试想，不等于采用或写日历；新节奏的完整业务推演仍按其实际范围判断。窄轴横向滚至末段已观察；角色压住B分支说明的缺陷，由root亲看对应修后图单独确认。滚动后原按钮贴人物边缘的触发，另由680窗口的`luna-planning-narrow-viewport-fixed.json`与当前图记录人物／按钮分离、原按钮真实命中并正常点击后出现引用且原稿保留，说明作者已读并看图。这收对应窄幅原触发，不扩成所有窄布局通过。
 
 Study新版先有同一正常composer的实际书写／回聊天／回纸观察；本人新行也沿同一个Demo事件交回原owner，两条推导留在同一纸上，没有调用业务模型。实看发现原题、每行和旁注都常驻“问／聊”标签，已改为点到、选到或键盘聚焦后只在当前一处出现轻动作。改后实际点旧行又触发“这条消息没有所选的学习引用”：原消息的修订1读取入口被误换成当前owner修订2。现保留原消息地址作为native准入，再核当前owner、行ID与修订，未放宽原门；必要完整构建和同profile正常重启后，沿原历史重走已成功。当前纸面无常驻标签，点第一条旧行→轻动作→小引用“我写的这一行”与行淡标出现，原稿“我想先问第一行，原来的想法先留着。”保持；取消后无需再点输入便可接写“这句接着写，不发送。”。Shift+Tab从同输入回到纸面帮助，焦点环与单一轻动作可见，回车仅附“眼前这段提示”引用，没有发消息，取消仍保稿。本机`study-focus-reference-current.png`是引用／行标／原稿同屏，`study-focus-cancel-continued-current.png`是取消后接写；操作者与截图作者均已亲看，领域作者也亲看引用图。`study-focus-revision-fixed-current.png`因保存较晚只有取消后状态，不能当作引用态证据。这条原触发和键盘路径已有实际回执，不扩称IME、所有窄窗、来信／共写持续高亮、新回纸动效或教学／记忆模型效果通过。
 
@@ -260,7 +363,7 @@ Study新版先有同一正常composer的实际书写／回聊天／回纸观察�
 ## 未完成的生产连接与共有限制
 
 - 真实模型的长期记忆、同义回忆、人格一致性与主动分寸尚待连续使用验证；第五批本地语义候选已有源码接线及固定资源安装，没有运行／效果证据。历史确定性检查只覆盖当时机制，不能保证当前源码或所有开放语义。
-- 校园查询需另装并私下认证连接器；考试发布、逐次课表/例外、GPA规则、跑步有效计次、审核状态及分页覆盖须看具体资源契约。外部规划来源版本resolver尚未接入，依赖它的采用保持blocked。
+- 本轮本机校园账号已接入并授权只读，成绩与GPA的限定读取／呈现链已有上方实际记录；考试发布、逐次课表／例外、全部GPA规则、跑步有效计次、审核状态及分页覆盖仍须按各资源契约和实际回执判断。需要但尚未接通版本复核的外部规划来源，其采用继续保持blocked。
 - 校园预约/选课/付款、邮件或钉钉外发、手机GPS/健康/同步、语音输入、通用生产ChatGPT登录没有完整服务闭环。ICS是可互操作文件，未等同系统日历实导入、实时同步或手机产品上线。
 - 桌面退出后机会轮询停止；无手机/远程常驻保证。OS通知按实际回执区分提交、送达与已读，固定提醒不因普通机会预算被省略。
 - 数据库整体未加密，凭据按系统机制另存；备份须保留隐私fence。localStorage外观与主机业务导出/清除不同，完整清理范围需相应实际证据。

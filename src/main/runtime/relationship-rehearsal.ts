@@ -180,6 +180,10 @@ export class RelationshipRehearsalService {
         return { status: 'unchanged' as const, view: this.project(handle, old), records: [old.record] };
       if (input.operation === 'begin') {
         if (matter.revision !== input.expectedMatterRevision) throw new HarnessError('revision_conflict', '这件事刚有了新的意思，先按当前版本接着说。');
+        if (old?.data.state === 'active') return { status: 'already_started' as const,
+          view: this.project(handle, old), records: [old.record],
+          read: { tool: 'read_relationship_rehearsal' as const, arguments: { id: old.record.id, expectedRevision: old.record.revision } },
+          meaning: '同一件事已有这段仍可读的试说；这里只接回原来的版本，没有另开、改写或恢复。继续用原view.ref及本轮真正试说的原句respond；需要展示时沿返回的present入口。' };
         if (metadata) throw new HarnessError('rehearsal_exists', '这件事已有一段试演；可回读继续、换一种可能或直接整理，不另开平行排练。');
       } else if (!old || old.record.revision !== input.expectedRevision || old.data.matterId !== input.matterId
         || ['closed', 'held'].includes(old.data.state) && !['resume', 'collect', 'adjust'].includes(input.operation))
@@ -323,6 +327,47 @@ export class RelationshipRehearsalService {
       aside: data.lastAside?.text || null, expression: this.expression(handle, data),
       coverage: { offset, total: path.length, nextOffset: start > 0 ? offset + limit : null },
       sourceBinding: record.sourceBinding!, updatedAt: data.updatedAt, meaning };
+  }
+  /** Recheck this owner at a model boundary without publishing another turn or
+   * treating its private record as generic Work. */
+  assertCurrent(handle: ScopeHandle, id: string, expectedRevision: number,
+    context: Pick<RehearsalContext, 'sessionId' | 'allowCrossSession' | 'permits'>): WorkRecord {
+    this.scope(handle);
+    const current = this.current(handle, id, context);
+    if (!current || current.record.revision !== expectedRevision)
+      throw new HarnessError('rehearsal_source_changed', '这段试说或它的原话已经变化，先沿原来的入口接回当前允许的一轮。');
+    return current.record;
+  }
+  /** Address/time context only, for an owner version already supplied in this
+   * turn. The caller proves that adoption; this owner rechecks the exact
+   * version and all original sources without inferring real event times. */
+  activityTiming(handle: ScopeHandle, id: string, expectedRevision: number,
+    context: Pick<RehearsalContext, 'sessionId' | 'allowCrossSession' | 'permits'> & { timeZone: string }) {
+    this.scope(handle);
+    const current = this.current(handle, id, context);
+    if (!current || current.record.revision !== expectedRevision)
+      throw new HarnessError('rehearsal_source_changed', '这段试说的版本或原话已改变，没有沿旧引用补签当前时间。');
+    const { record, data } = current;
+    const refs = this.refs(data).map(ref => {
+      const event = this.repo.evidence(handle, ref.eventId);
+      if (!event || event.contentVersion !== ref.contentVersion || !Number.isFinite(Date.parse(event.receivedAt)))
+        throw new HarnessError('rehearsal_source_changed', '这段试说的一处原话时间现在不能核对。');
+      return { ...address(ref), receivedAt: event.receivedAt };
+    });
+    if (!refs.length || !Number.isFinite(Date.parse(data.createdAt)) || !Number.isFinite(Date.parse(data.updatedAt)))
+      throw new HarnessError('rehearsal_timing_unknown', '这段试说的时间边界暂不能核对，可沿原读取入口接回，不猜日期。');
+    const received = refs.map(ref => Date.parse(ref.receivedAt));
+    const window = { from: new Date(Math.min(...received)).toISOString(),
+      before: new Date(Math.max(...received) + 1).toISOString(), timeZone: context.timeZone };
+    return { activity: 'relationship_rehearsal' as const, actualExchange: false as const,
+      reference: { id: record.id, revision: record.revision, matterId: data.matterId, activeTurnId: data.activeTurnId },
+      ownerCreatedAt: data.createdAt, ownerUpdatedAt: data.updatedAt,
+      sourceReceived: { from: new Date(Math.min(...received)).toISOString(),
+        beforeInclusive: new Date(Math.max(...received)).toISOString(), refs },
+      reviewNavigation: { kind: 'source_received_window' as const, window, sourceRefs: refs.map(address),
+        use: { tool: 'write_reflective_letter' as const, arguments: { operation: 'begin' as const, window } },
+        meaning: '可复制use.arguments并补本轮真实写信请求的currentQuote；这只定位上述已核原话的接收时段，before为排他终点。不是整窗资料授权、现实经历发生区间或连续练习时长；用途仍独立核对，信中每段经历仍沿实际已读原文引用。' },
+      meaning: '这是原话被收到、排练记录被创建和更新的真实时刻；不是现实事件发生时间、持续练习时长或整段时间的读取授权。试说仍非实际对外交流，来信窗口及每条经历来源仍须独立核定。' };
   }
   read(handle: ScopeHandle, context: Pick<RehearsalContext, 'sessionId' | 'allowCrossSession' | 'permits'>, raw: z.infer<typeof rehearsalReadInput>) {
     const scope = this.scope(handle);

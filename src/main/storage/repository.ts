@@ -21,8 +21,9 @@ import type {
   WorkSourceBinding,
   WorkSourceRef,
   AssistantWorkSource,
+  InteractiveProgramSource,
 } from '../../shared/harness';
-import { HarnessError, assertionSchema, evidenceSchema, workSchema, workSourceBindingSchema, workSourceRefSchema, assistantWorkSourceSchema } from '../../shared/harness';
+import { HarnessError, assertionSchema, evidenceSchema, workSchema, workSourceBindingSchema, workSourceRefSchema, assistantWorkSourceSchema, interactiveProgramSourceSchema } from '../../shared/harness';
 import { canonical, codePointSlice, systemClock } from '../runtime/semantics';
 import { sameSourceOrigins, sourceOriginSpans, type LineageSource, type OriginSpan } from './source-lineage';
 import { planningMaterialProvenanceSchema, type PlanningAttemptBasis } from '../actions/planning-intent-contract';
@@ -1272,7 +1273,9 @@ export class KernelRepository {
       json_type(payload,'$.contextReceipt.campusSensitiveReads') AS campus_sensitive_type,
       json_extract(payload,'$.contextReceipt.toolAttempts') AS tool_attempts,
       json_extract(payload,'$.contextReceipt.noteSources') AS note_sources,
-      json_type(payload,'$.contextReceipt.noteSources') AS note_sources_type
+      json_type(payload,'$.contextReceipt.noteSources') AS note_sources_type,
+      json_extract(payload,'$.contextReceipt.interactiveProgramSources') AS interactive_programs,
+      json_type(payload,'$.contextReceipt.interactiveProgramSources') AS interactive_programs_type
       FROM messages WHERE session_id=? AND role='assistant' ${selected ? 'AND id IN (SELECT value FROM json_each(?))' : ''}`)
       .all(sessionId, ...(selected ? [selected] : []));
     // Permission metadata must not select whole stories, teaching bodies,
@@ -1342,9 +1345,14 @@ export class KernelRepository {
           ...(row.campus_sensitive_type === null ? {} : { campusSensitiveReads: JSON.parse(String(row.campus_sensitive)) }),
           ...(row.tool_attempts === null ? {} : { toolAttempts: JSON.parse(String(row.tool_attempts)) }),
           ...(row.note_sources_type === null ? {} : { noteSources: JSON.parse(String(row.note_sources)) }),
+          ...(row.interactive_programs_type === null ? {} : { interactiveProgramSources: JSON.parse(String(row.interactive_programs)) }),
         },
         scenes: attached.get(String(row.id)) || [],
       } }));
+  }
+  /** Source metadata of one original message, without selecting its body. */
+  messageSourceMetadata(sessionId: string, messageId: string) {
+    return this.conversationPlanningMetadata(sessionId, new Set([messageId]))[0]?.value;
   }
   /** Carry only the provenance of the historical bodies actually provided. */
   conversationWorkSourceBindings(handle: ScopeHandle, sessionId: string, messageIds: string[]): WorkSourceBinding[] {
@@ -1425,6 +1433,18 @@ export class KernelRepository {
       for (const scene of row.value.scenes) if (scene?.kind === 'discussion' && Array.isArray(scene.coWork) && scene.coWork.length
         && scene.coWork.every((projection: CompanionSceneProjection) => !!projection.snapshotProof))
         sources.push(assistantWorkSourceSchema.parse({ messageId: scene.sourceMessageId || row.id, sceneId: scene.id, sceneRevision: scene.revision }));
+    }
+    return [...new Map(sources.map(value => [canonical(value), value])).values()];
+  }
+  conversationInteractiveProgramSources(handle: ScopeHandle, sessionId: string, messageIds: string[]): InteractiveProgramSource[] {
+    const scope = this.scope(handle);
+    if (!scope.sources.includes('history:self') || !scope.grants.includes('evidence:read') || scope.audience !== 'self'
+      || scope.subjectId !== scope.principalId || scope.worldId !== 'real') return [];
+    const sources: InteractiveProgramSource[] = [];
+    for (const row of this.conversationPlanningMetadata(sessionId, new Set(messageIds))) {
+      if (!this.planningMessageReadable(handle, row.value)) throw new HarnessError('interactive_program_source_changed', '刚读的交互前情已有变化，请接回当前允许的原作品。');
+      const raw = row.value.contextReceipt.interactiveProgramSources;
+      if (Array.isArray(raw)) sources.push(...raw.map(value => interactiveProgramSourceSchema.parse(value)));
     }
     return [...new Map(sources.map(value => [canonical(value), value])).values()];
   }
@@ -2113,7 +2133,7 @@ export class KernelRepository {
       && Number.isSafeInteger(ref.revision) && ref.revision > 0 && !!this.assertionHistoryVersion(handle, ref.id, ref.revision));
   }
   /** Metadata-only gate for source-bound planning and historical understanding text. */
-  planningMessageReadable(handle: ScopeHandle, value: { contextReceipt?: { planningProvenance?: unknown; historicalAssertionVersions?: unknown; learningProcessVersions?: unknown; workSourceBindings?: unknown; reflectiveLetterSources?: unknown; assistantWorkSources?: unknown; personalMethodSources?: unknown; noteSources?: unknown; campusSensitiveReads?: unknown; toolAttempts?: unknown }; scenes?: unknown },
+  planningMessageReadable(handle: ScopeHandle, value: { contextReceipt?: { planningProvenance?: unknown; historicalAssertionVersions?: unknown; learningProcessVersions?: unknown; workSourceBindings?: unknown; reflectiveLetterSources?: unknown; assistantWorkSources?: unknown; personalMethodSources?: unknown; noteSources?: unknown; campusSensitiveReads?: unknown; interactiveProgramSources?: unknown; toolAttempts?: unknown }; scenes?: unknown },
     proofs: AssistantWorkProofState = { checked: new Map() }) {
     if (value.contextReceipt?.campusSensitiveReads === undefined && Array.isArray(value.contextReceipt?.toolAttempts)
       && value.contextReceipt.toolAttempts.some(attempt => attempt && typeof attempt === 'object' && ['campus.query', 'campus.lookup', 'campus.imported_lookup'].includes(attempt.capability))) {
@@ -2125,6 +2145,8 @@ export class KernelRepository {
     if (value.contextReceipt?.campusSensitiveReads !== undefined
       && this.verifyCampusSensitiveReads?.(handle, value.contextReceipt.campusSensitiveReads, proofs.localDisplay) !== true) return false;
     if (value.contextReceipt?.noteSources !== undefined && !this.noteSourcesReadable(handle, value.contextReceipt.noteSources)) return false;
+    if (value.contextReceipt?.interactiveProgramSources !== undefined
+      && this.verifyInteractiveProgramSources?.(handle, value.contextReceipt.interactiveProgramSources, proofs.localDisplay) !== true) return false;
     if (Array.isArray(value.scenes) && value.scenes.some(scene => scene?.kind === 'note' && !this.noteSourcesReadable(handle, [scene.proof]))) return false;
     if (value.contextReceipt?.personalMethodSources !== undefined
       && (!Array.isArray(value.contextReceipt.personalMethodSources)
@@ -2334,6 +2356,7 @@ export class KernelRepository {
   /** Only source addresses/digests from the procedural owner; never method
    * instructions. The callback must not recursively read personal methods. */
   verifyPersonalMethodSources?: (handle: ScopeHandle, metadata: unknown) => boolean;
+  verifyInteractiveProgramSources?: (handle: ScopeHandle, metadata: unknown, localDisplay?: boolean) => boolean;
 
   private reflectiveLetterSourceFilter(handle: ScopeHandle, alias: string) {
     const scope = this.scope(handle), allowed: string[] = [];
@@ -3874,7 +3897,7 @@ export class KernelRepository {
           OR json_type(payload,'$.contextReceipt.assistantWorkSources') IS NOT NULL
           OR json_type(payload,'$.contextReceipt.personalMethodSources') IS NOT NULL
           OR EXISTS(SELECT 1 FROM json_each(messages.payload,'$.scenes') s WHERE json_type(s.value,'$.continuation')='object'
-            OR json_extract(s.value,'$.kind') IN ('curiosity','discussion'))`).all()) {
+            OR json_extract(s.value,'$.kind') IN ('curiosity','discussion')))`).all()) {
         const message = JSON.parse(String(row.payload));
         const receiptProvenance = message.contextReceipt?.planningProvenance;
         const provenance = [...(Array.isArray(receiptProvenance) ? receiptProvenance : receiptProvenance === undefined ? [] : [null]),

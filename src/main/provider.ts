@@ -42,6 +42,8 @@ export interface Completion {
   usage?: { prompt_tokens: number; completion_tokens: number; total_tokens: number; prompt_cache_hit_tokens?: number; prompt_cache_miss_tokens?: number; providerId?: string; model?: string; physical_attempts?: number; unreported_attempts?: number };
 }
 export interface CompletionOptions {
+  /** Native request telemetry for the host only; never sent to a provider. */
+  hostCompression?: import('../shared/harness').HermesCompressionReceipt;
   reasoningEffort?: 'low' | 'high' | 'max';
   allowTransportRetry?: boolean;
   phase?: 'control' | 'main' | 'child' | 'memory_extract' | 'memory_review' | 'completion_review' | 'verification' | 'compression' | 'evaluation_judge' | 'release_write' | 'release_review';
@@ -103,7 +105,7 @@ export function friendlyError(e: unknown): string {
   if (e instanceof ProviderError) return e.message;
   if (e instanceof Error && (e.name === 'AbortError' || e.name === 'TimeoutError'))
     return '请求已停止或超时，请稍后重试。';
-  return '这次处理中断了，剩余事项未完成。已有回执的操作可在安排中核对。';
+  return '这次处理未完成。';
 }
 export async function readSSE(response: Response, onData: (data: string) => void, signal?: AbortSignal) {
   if (!response.body) throw new ProviderError('DeepSeek 没有返回内容，请重试。');

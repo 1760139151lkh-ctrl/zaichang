@@ -156,6 +156,9 @@
   .companion-scene.is-quiet:not(.is-preview) .companion-figure { width: 130px; height: 96px; top: 53px; right: 18px; opacity: .9; }
 }
 @media (max-width: 760px) {
+  .companion-scene.is-quiet:not(.is-preview) .companion-figure { width: 84px; height: 52px; top: 52px; right: 14px; }
+  .app-shell:has(.companion-scene.is-quiet:not(.is-preview) .companion-figure) .workspace.conversation > .conversation-heading { padding-right:100px; }
+  .app-shell:has(.companion-scene.is-quiet:not(.is-preview) .companion-figure) .workspace.conversation > .message-scroll { margin-top:16px; }
   .companion-settings { grid-template-columns: minmax(0, 1fr); }
   .companion-preview { --preview-height: 520px; position: relative; }
   .settings-wide .page-content { width: calc(100% - 40px); }

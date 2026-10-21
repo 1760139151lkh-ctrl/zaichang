@@ -67,6 +67,7 @@
     "@maplibre/maplibre-gl-style-spec": "26.4.4",
     "@napi-rs/canvas": "1.0.6",
     "@noble/hashes": "2.4.0",
+    "@openuidev/lang-core": "1.0.1",
     "@openuidev/react-lang": "1.0.1",
     "earcut": "3.2.4",
     "katex": "0.18.2",

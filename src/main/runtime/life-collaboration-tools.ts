@@ -129,7 +129,7 @@ export function executeLifeCollaborationTool(
       return matter;
     };
     const admit = (value: unknown, records: WorkRecord[] = [], bindings: WorkSourceBinding[] = [], options: {
-      history?: boolean; written?: { id: string; revision: number; status: string; read: unknown };
+      history?: boolean;
     } = {}) => {
       signal.throwIfAborted(); host.policy.validate(handle);
       for (const record of records) {
@@ -143,16 +143,6 @@ export function executeLifeCollaborationTool(
       if (bindings.some(binding => binding.refs.some(ref => !permits(ref))))
         throw new HarnessError('life_source_scope', '这段回复的部分来由不在当前允许范围内，未采用旧正文。');
       const text = canonical(value), bytes = Buffer.byteLength(text), tokens = Math.ceil(Array.from(text).length / 1.4);
-      if (pack.receipt.budget.readBytes + bytes > contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > contract.budget.maxTokens) {
-        const partial = { status: 'partial', items: [], ...(options.written ? { saved: options.written } : {}),
-          reason: options.written ? '这一小步已留好，完整内容还没带进当前回复；可按地址缩小范围回读。' : '这页还没带进当前回复；可缩小范围或只读其中一条，不能把缺少内容当作没有前情。' };
-        const small = canonical(partial), smallBytes = Buffer.byteLength(small), smallTokens = Math.ceil(Array.from(small).length / 1.4);
-        if (pack.receipt.budget.readBytes + smallBytes > contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + smallTokens > contract.budget.maxTokens)
-          throw new HarnessError('read_budget', '这轮内容已经很满，已保存的起点仍留在原事项里。');
-        pack.receipt.budget.readBytes += smallBytes; pack.receipt.budget.estimatedTokens += smallTokens;
-        host.repo.saveReceipt(handle, pack.receipt);
-        return partial;
-      }
       host.context.recordWorkSources(pack, records);
       host.context.recordWorkSourceBindings(pack, bindings);
       if (options.history) pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'history:self'])];
@@ -193,8 +183,7 @@ export function executeLifeCollaborationTool(
       }
       const { records, ...result } = host.companionContinuity.manage(handle, { sessionId: session.sessionId, ephemeral: session.ephemeral, persona }, args);
       const read = { tool: 'read_companion', arguments: { id: result.id, expectedRevision: result.revision, includeInactive: true } };
-      return admit({ ...result, read }, permittedRecords(records), [],
-        { written: { id: result.id, revision: result.revision, status: result.status, read } });
+      return admit({ ...result, read }, permittedRecords(records));
     }
     if (name === 'read_companion_session' || name === 'manage_companion_session') {
       if (!args.metadataOnly && args.operation !== 'stop') ensureMatter(args.matterId);
@@ -211,10 +200,7 @@ export function executeLifeCollaborationTool(
       const visible = records.length && !allowed.length ? { status: 'not_available', matterId: args.matterId,
         meaning: '原断点的部分依据不在这次允许的范围里，没有沿旧副本展开。' }
         : { ...view, ...(scene ? { coWork: scene } : {}), ...(pointer ? { discussionModule: pointer } : {}) };
-      const read = { tool: 'read_companion_session', arguments: { matterId: args.matterId, ...(view.id ? { id: view.id } : {}) } };
-      return admit(visible, allowed, [], { history: allowed.some(record => Array.isArray(record.data.sourceIds) && record.data.sourceIds.includes('history:self')),
-        ...(writing && typeof view.id === 'string' && typeof view.revision === 'number'
-          ? { written: { id: view.id, revision: view.revision, status: view.status, read } } : {}) });
+      return admit(visible, allowed, [], { history: allowed.some(record => Array.isArray(record.data.sourceIds) && record.data.sourceIds.includes('history:self')) });
     }
 
     // Only real tool replies already delivered across a model boundary may
@@ -227,8 +213,6 @@ export function executeLifeCollaborationTool(
     const allowed = permittedRecords(records), ids = new Set(allowed.map(record => record.id));
     const items = view.items.filter(item => ids.has(item.id));
     const pointers = allowed.flatMap(record => { const pointer = modulePointer(record); return pointer ? [pointer] : []; });
-    const first = allowed[0], read = first ? { tool: 'study_companion', arguments: { operation: 'read', id: first.id } } : undefined;
-    return admit({ ...view, items, ...(pointers.length ? { discussionModules: pointers } : {}) }, allowed, [],
-      { ...(writing && first && read ? { written: { id: first.id, revision: first.revision, status: first.status, read } } : {}) });
+    return admit({ ...view, items, ...(pointers.length ? { discussionModules: pointers } : {}) }, allowed);
   }
 }

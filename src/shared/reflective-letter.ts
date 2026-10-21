@@ -41,9 +41,13 @@ export interface ReflectiveLetterSourceView {
 
 export const reflectiveLetterRequestInput = z.object({
   operation: z.literal('begin'),
-  source: original.describe('本轮本人请求这次回顾的精确原话；不是由旧经历推定的周期关注许可。'),
+  source: original.optional().describe('与currentQuote二选一：本轮本人请求这次回顾的精确原话地址；不是旧经历或周期许可。'),
+  currentQuote: z.string().min(1).max(4000).optional().describe('与source二选一：逐字复制本轮本人请求写信的原句。宿主只在本轮已交付且已授权的本人原话范围中精确唯一定位，不修剪、不近似匹配，不扩大授权。'),
   window: reflectiveLetterWindowSchema,
-}).strict();
+}).strict().superRefine((input, context) => {
+  if ((input.source === undefined) === (input.currentQuote === undefined))
+    context.addIssue({ code: 'custom', path: ['currentQuote'], message: 'source与currentQuote须且只能提供一个；currentQuote逐字引用本轮写信请求，不填旧经历。' });
+});
 export const reflectiveLetterMandateInput = z.object({
   operation: z.literal('begin_for_opportunity'), opportunityId: id,
   expectedRevision: z.number().int().positive(), window: reflectiveLetterWindowSchema,

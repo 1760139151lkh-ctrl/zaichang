@@ -31,8 +31,8 @@ export type TurnControlProposal = z.infer<typeof proposalSchema> & { sources: 'u
 /** Produced only by current owner reads; contains no old title, prose,
  * personal fact, source permission or client-asserted world assignment. */
 export interface TurnControlInteractionContext {
-  activity: 'shared_creation' | 'shared_exploration' | 'co_work' | 'study' | 'planning' | 'discussion' | 'reflective_letter' | 'relationship_rehearsal' | 'note_reading';
-  contentIdentity: 'creation' | 'public_reference' | 'mixed' | 'source_bound_work' | 'assistant_interpretation' | 'simulation' | 'user_note';
+  activity: 'shared_creation' | 'shared_exploration' | 'co_work' | 'study' | 'planning' | 'discussion' | 'reflective_letter' | 'relationship_rehearsal' | 'note_reading' | 'interactive_program';
+  contentIdentity: 'creation' | 'public_reference' | 'mixed' | 'source_bound_work' | 'assistant_interpretation' | 'simulation' | 'user_note' | 'interactive_work';
   focus: 'sentence_or_passage' | 'line_or_step' | 'source_object' | 'shared_object';
 }
 

@@ -192,7 +192,7 @@ def bootstrap():
             task = self.tasks[self.child_index]
             self.child_index += 1
             ticket = rpc("child.open", {"agent_id": self.agent.host_id, "task": task})
-            child = HostAgent({"agentId": ticket["id"], "system": ticket["system"], "tools": ticket["tools"], "snapshot": ticket.get("snapshot"), "thinking": "enabled", "maxIterations": 6, "maxOutputTokens": 4096}, iteration_budget=self.agent.iteration_budget)
+            child = HostAgent({"agentId": ticket["id"], "system": ticket["system"], "tools": ticket["tools"], "snapshot": ticket.get("snapshot"), "thinking": "enabled", "maxOutputTokens": 4096}, iteration_budget=self.agent.iteration_budget)
             self.children.append(ticket["id"])
             return child
 
@@ -239,7 +239,9 @@ def bootstrap():
                 base_url="https://api.deepseek.com", api_key="host-only",
                 enabled_toolsets=[], quiet_mode=True, save_trajectories=False,
                 skip_context_files=True, skip_memory=True, skip_background_review=True,
-                max_iterations=payload.get("maxIterations", 12), max_tokens=payload.get("maxOutputTokens", 4096),
+                # Omit max_iterations: the pinned AIAgent documents its default
+                # as unlimited. Do not replace it with an application quota.
+                max_tokens=payload.get("maxOutputTokens", 4096),
                 session_id=self.host_id, session_db=None, fallback_model=None, iteration_budget=iteration_budget,
                 request_overrides={"extra_body": {"thinking": {"type": payload.get("thinking", "enabled")}}},
             )
@@ -306,9 +308,62 @@ def bootstrap():
             return OpenAI(api_key="host-only", base_url="https://api.deepseek.com", max_retries=0,
                           http_client=httpx.Client(transport=httpx.MockTransport(self._model_request)))
 
+        def _compress_context(self, *args, **kwargs):
+            before = self.context_compressor.compression_count
+            original = args[0] if args else kwargs.get("messages")
+            result = super()._compress_context(*args, **kwargs)
+            count = self.context_compressor.compression_count
+            if count > before and isinstance(result, tuple) and result[0] is not original:
+                # Capture only after the native commit boundary. A later
+                # no-op/aborted attempt must not relabel this compaction's
+                # head/tail/middle with another attempt's measurements.
+                telemetry = getattr(self.context_compressor, "_last_compression_telemetry", None)
+                keys = ("protected_head_tokens", "protected_tail_tokens", "middle_window_tokens", "current_estimated_tokens")
+                self._host_compaction_telemetry = (count, {key: telemetry.get(key) for key in keys}
+                                                   if isinstance(telemetry, dict) else {})
+            return result
+
+        def _compression_observation(self, body):
+            """Numerical native pressure only; never a summary or source proof.
+
+            The request estimator includes the immutable system/tool floor,
+            whereas native compaction can only reclaim transcript messages.
+            Keep those estimates separate from the host's later real usage.
+            """
+            compressor = self.context_compressor
+            count = getattr(compressor, "compression_count", 0)
+            if not isinstance(count, int) or isinstance(count, bool) or count <= 0:
+                return None
+            captured = getattr(self, "_host_compaction_telemetry", None)
+            if captured is None or captured[0] != count:
+                return None
+            from agent.model_metadata import estimate_messages_tokens_rough, estimate_request_tokens_rough
+            system_messages = [message for message in body.get("messages", [])
+                               if isinstance(message, dict) and message.get("role") == "system"]
+            observation = {
+                "compactionCount": count,
+                "thresholdTokens": int(compressor.threshold_tokens),
+                "nativeSystemEstimatedTokens": estimate_messages_tokens_rough(system_messages),
+                "nativeToolsEstimatedTokens": estimate_request_tokens_rough([], tools=body.get("tools") or None),
+            }
+            telemetry = captured[1]
+            for name, key in (
+                ("protectedHeadEstimatedTokens", "protected_head_tokens"),
+                ("protectedTailEstimatedTokens", "protected_tail_tokens"),
+                ("middleEstimatedTokens", "middle_window_tokens"),
+                ("beforeEstimatedTokens", "current_estimated_tokens"),
+            ):
+                value = telemetry.get(key)
+                if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+                    observation[name] = value
+            return observation
+
         def _model_request(self, request):
             body = json.loads(request.content)
-            result = rpc("model.request", {**body, "model": self._host_model_identity["model"], "agent_id": self.host_id, "snapshot": self._host_snapshot}, allow_error=True)
+            observation = self._compression_observation(body)
+            result = rpc("model.request", {**body, "model": self._host_model_identity["model"], "agent_id": self.host_id,
+                         "snapshot": self._host_snapshot,
+                         **({"hostCompression": observation} if observation is not None else {})}, allow_error=True)
             if result.get("_host_error"):
                 error = result["_host_error"]
                 code = error.get("code", "request_failed") if isinstance(error, dict) else "host_closed"

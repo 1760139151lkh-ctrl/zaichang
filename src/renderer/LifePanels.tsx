@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   ArrowUpRight,
   BookOpen,
@@ -367,12 +367,16 @@ export function PreparationShelf({
   timeZone = DEFAULT_TIME_ZONE,
   onState,
   onContinue,
+  onBodyVisibility,
+  quoteAsMessageBody = false,
 }: {
   items: PreparationView[];
   inline?: boolean;
   timeZone?: string;
   onState: (state: State) => void;
   onContinue: (text: string, context?: LetterFocusContext) => void;
+  onBodyVisibility?: (body: string | undefined) => void;
+  quoteAsMessageBody?: boolean;
 }) {
   const [expanded, setExpanded] = useState(inline),
     [visibleCount, setVisibleCount] = useState(5),
@@ -382,6 +386,15 @@ export function PreparationShelf({
   const shown = useRef(new Set<string>()),
     content = useRef<HTMLDivElement>(null);
   const current = items.find((item) => item.id === opened);
+  const bodyVisibility = useRef(onBodyVisibility);
+  bodyVisibility.current = onBodyVisibility;
+  const visibleBody = expanded && items.slice(0, visibleCount).some(item => item === current)
+    ? current?.body : undefined;
+  useLayoutEffect(() => {
+    const report = bodyVisibility.current;
+    report?.(visibleBody);
+    return () => report?.(undefined);
+  }, [current?.id, current?.revision, current?.helpRecordId, visibleBody]);
   useEffect(() => {
     if (!expanded || !current || !content.current) return;
     const key = `${current.id}:${current.revision}`;
@@ -464,7 +477,7 @@ export function PreparationShelf({
                       onDismiss={() => act(item, 'dismiss')} onOpenSource={() => void act(item, 'opened')} />
                   ) : (
                     <>
-                  <div className="markdown">
+                  <div className="markdown" data-primary-help-prose={quoteAsMessageBody ? '' : undefined}>
                     <RichText text={item.body} />
                   </div>
                   <details className="material-detail">

@@ -29,6 +29,8 @@ export interface HermesRun {
   history: ModelWireMessage[];
   tools: ToolSpec[];
   thinking: 'enabled' | 'disabled';
+  /** @deprecated Retained for old callers only; the pinned agent's native
+   * unlimited default owns iteration execution. This value is not forwarded. */
   maxIterations?: number;
   maxOutputTokens?: number;
   compression?: { enabled: boolean; thresholdTokens: number; forceInitial?: boolean };
@@ -214,6 +216,6 @@ export async function runHermes(input: HermesRun): Promise<HermesResult> {
     child.on('error', fail);
     child.on('exit', code => { void Promise.all([...pending]).then(() => { if (!settled) fail(new Error('Hermes 提前退出，退出码 ' + code)); }); });
     input.signal.addEventListener('abort', abort, { once: true });
-    write({ ...identity, kind: 'run.start', payload: { modelIdentity: input.modelIdentity, system: input.system, userMessage: input.userMessage, history: input.history, tools: input.tools, thinking: input.thinking, maxIterations: input.maxIterations || 12, maxOutputTokens: input.maxOutputTokens || 4096, compression: input.compression } });
+    write({ ...identity, kind: 'run.start', payload: { modelIdentity: input.modelIdentity, system: input.system, userMessage: input.userMessage, history: input.history, tools: input.tools, thinking: input.thinking, maxOutputTokens: input.maxOutputTokens || 4096, compression: input.compression } });
   });
 }

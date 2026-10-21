@@ -19,7 +19,6 @@ interface Worker { run: RunSession; task: DelegatedTask; registry: ToolRegistry;
 export class BackgroundDelegation {
   readonly workers = new Map<string, Worker>();
   private authorized: DelegatedTask[] = [];
-  private count = 0;
   private readonly reports = new Map<string, unknown>();
   private readonly opportunity: { id: string; revision: number; bindingId: string; bindingRevision: number };
   private readonly taskVersion: number;
@@ -50,14 +49,12 @@ export class BackgroundDelegation {
   }
   authorize(tasks: DelegatedTask[], signal = this.run.signal) {
     signal.throwIfAborted(); this.validateParent();
-    if (this.count + tasks.length > 2) throw new HarnessError('child_budget', '本次后台最多分开核对两个方向，请先整合已有资料。');
     for (const task of tasks) {
       this.runtime.memoryInquiry.profile(this.run.ingress.contract.scope, task, { permits: ref => this.permits(ref) });
       this.runtime.childScope(this.run, task);
     }
-    this.count += tasks.length;
     this.authorized.push(...structuredClone(tasks));
-    return { status: 'authorized', meaning: '允许同一 Hermes 创建有界并行只读调查，仍共享本轮总预算，尚未获得结果。' };
+    return { status: 'authorized', meaning: '允许同一 Hermes 按原托付范围创建并行只读调查，尚未获得结果。' };
   }
   /** Parent-only model-wire aliasing; execution still belongs to the original
    * Hermes delegate hooks below and uses their exact entrustment projection. */
@@ -112,8 +109,10 @@ export class BackgroundDelegation {
     const methodChanged = (worker.run.pack?.receipt.personalMethodSources || []).some(source =>
       this.runtime.repo.verifyPersonalMethodSources?.(this.run.ingress.contract.scope, source) !== true);
     const notesChanged = !this.runtime.repo.noteSourcesReadable(this.run.ingress.contract.scope, worker.run.pack?.receipt.noteSources || []);
+    const programSources = worker.run.pack?.receipt.interactiveProgramSources || [];
+    const programsChanged = programSources.length > 0 && this.runtime.repo.verifyInteractiveProgramSources?.(this.run.ingress.contract.scope, programSources) !== true;
     const campusChanged = this.runtime.repo.verifyCampusSensitiveReads?.(this.run.ingress.contract.scope, worker.run.pack?.receipt.campusSensitiveReads || []) !== true;
-    return !stopped && !methodChanged && !notesChanged && !campusChanged && !worker.run.dependencyNotices?.length;
+    return !stopped && !methodChanged && !notesChanged && !programsChanged && !campusChanged && !worker.run.dependencyNotices?.length;
   }
   private fail(worker: Worker) { worker.metadata.status = 'failed'; }
   private failedRow(id: string) {
@@ -122,7 +121,9 @@ export class BackgroundDelegation {
   private usableReport(rows: Record<string, unknown>[] | undefined, id: string) {
     const matches = rows?.filter(row => row.hostTaskId === id) || [];
     const row = matches.length === 1 ? matches[0] : undefined;
-    return !!row && row.status === 'completed' && row.exit_reason === 'completed' && row.truncated !== true && !row.error
+    const completed = (row?.status === 'completed' || row?.status === 'produced')
+      && (row?.exit_reason === undefined || row?.exit_reason === 'completed');
+    return !!row && completed && row.truncated !== true && !row.error
       && typeof row.summary === 'string' && !!row.summary.trim() && row.summary.trim() !== '(empty)';
   }
   /** The host calls this before and after each child model/tool boundary. */
@@ -175,8 +176,6 @@ export class BackgroundDelegation {
         childRun.pack = await runtime.context.compile(childRun.ingress, events, signal, [], false, id);
         signal.throwIfAborted(); this.validateParent(); runtime.policy.validate(handle);
         const budget = this.pack.receipt.budget, initial = childRun.pack.receipt.budget;
-        if (budget.readBytes + initial.readBytes > contract.budget.maxReadBytes || budget.estimatedTokens + initial.estimatedTokens > contract.budget.maxTokens)
-          throw new HarnessError('context_budget', '独立调查所需上下文超过共享预算。');
         budget.readBytes += initial.readBytes; budget.estimatedTokens += initial.estimatedTokens;
         childRun.pack.receipt.budget = budget;
         const childRegistry = new ToolRegistry({ ...this.context, runtimeSession: childRun, child: true,
@@ -306,6 +305,7 @@ export class BackgroundDelegation {
         this.runtime.context.recordPersonalMethodSources(this.pack, receipt.personalMethodSources || []);
         this.runtime.context.recordNoteSources(this.pack, receipt.noteSources || []);
         this.runtime.context.recordCampusSensitiveReads(this.pack, receipt.campusSensitiveReads || []);
+        this.runtime.context.recordInteractiveProgramSources(this.pack, receipt.interactiveProgramSources || []);
     }
   }
 

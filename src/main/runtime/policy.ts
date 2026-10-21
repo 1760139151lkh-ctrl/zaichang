@@ -17,6 +17,7 @@ import { localCloudRestriction, type TurnControlProposal } from './turn-controls
 export interface InputControls {
   companionReference?: import('../../shared/companion-source').CompanionFollowupReference;
   curiosityReference?: import('../../shared/curiosity-source').CuriosityFollowupReference;
+  programReference?: import('../../shared/interactive-program').ProgramFollowupReference;
   letterReference?: import('../../shared/reflective-letter').LetterReference;
   noteReference?: import('../../shared/note-presentation').NoteReference;
   rehearsalInteraction?: import('../../shared/relationship-rehearsal').RehearsalInteraction;
@@ -44,6 +45,9 @@ export interface InputControls {
   purpose?: string;
   budget?: Partial<ContextContract['budget']>;
 }
+/** Trusted foreground caller only. This is not part of controls, Bridge or a
+ * model/tool schema, and supplies no general-purpose expiry override. */
+export interface HostIngressExecution { foregroundLunaTest?: true; }
 export interface IngressDecision {
   sourceContext?: EvidenceEvent['sourceContext'];
   /** Host configuration snapshot; invalidated even by a barrier without an epoch change. */
@@ -302,6 +306,7 @@ export class PolicyKernel {
     eventId: string,
     settings: { memoryEnabled: boolean; weatherEnabled: boolean; timeZone?: string },
     controls: InputControls = {},
+    hostExecution?: HostIngressExecution,
   ): IngressDecision {
     // Existing renderer embeds text attachments. The typed field takes precedence; the legacy boundary is conservative.
     const { attachment, authoredText } = splitUserInput(text, eventId, controls.attachment);
@@ -359,6 +364,11 @@ export class PolicyKernel {
       sources: [...new Set(sources)], currentEventIds: [eventId, ...(attachment ? [attachment.id] : [])],
       subjectId, worldId, audience, retention, purposes: [purpose], grants: restrictedGrants,
       infer: !controls.rehearsalInteraction && memoryMode === 'relevant' && retention === 'purpose_scoped' && settings.memoryEnabled && !sourceOnly && control?.subject !== 'mixed' && control?.subject !== 'none' && control?.world !== 'mixed',
+      // One initial, bounded lease for the temporary Max-effort test transport.
+      // Explicit source/mandate deadlines are still checked by their owners;
+      // ingress has no natural-language wall-clock deadline field to infer.
+      ...(hostExecution?.foregroundLunaTest === true
+        ? { expiresAt: new Date(Date.parse(this.repo.clock.now()) + 900000).toISOString() } : {}),
     });
     const interpretation: InterpretationProposal = { fragments: [], hasListen: false, hasRetrieval: false, explicitLocalWrite: false, directLocalWrite: false };
     const contract: ContextContract = {
@@ -367,7 +377,7 @@ export class PolicyKernel {
       interactionMode: 'analyze', actionMode: control?.actionsApplyToWholeTurn && (control.actions === 'none' || control.actions === 'draft_only') ? 'respond' : 'propose',
       exploration: false, privacyEpoch: this.repo.epoch, policyRevision: this.repo.policyRevision,
       timeZone, now: this.repo.clock.now(),
-      budget: { maxTokens: 24000, maxRows: 200, maxReadBytes: 160000, toolCalls: 20, modelCalls: 20, dependencyDepth: 8, ...controls.budget },
+      budget: { maxRows: controls.budget?.maxRows ?? 200, dependencyDepth: controls.budget?.dependencyDepth ?? 8 },
       excludedReasons: [...(sourceOnly ? ['current_sources_only'] : []), ...(other ? ['other_subject'] : []), ...(audience !== 'self' ? ['audience_projection'] : []), ...(temporary ? ['no_retention'] : [])],
       temporalAmbiguities: [], resolvedDates: [], interpretation,
     };

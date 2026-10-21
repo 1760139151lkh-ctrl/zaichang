@@ -56,6 +56,17 @@ export class CooperationService {
     return this.repo.workData(handle, ['cooperation_record'], { matterId, limit: Math.min(24, limit), respectSourceBindings: true });
   }
 
+  /** Local conversation publication is independent of OS submission, actual
+   * viewport exposure and opening. Never reuse a previous response receipt. */
+  publishConversation(handle: ScopeHandle, id: string, messageId: string) {
+    const record = this.repo.work(handle, undefined, id)[0];
+    if (!record || record.data.type !== 'cooperation_record' || record.data.responseId || record.data.conversationPublishedAt)
+      throw new HarnessError('help_publication_changed', '这次帮助已经交付或不能继续，没有复制旧交付记录。');
+    return this.work.update(handle, record.id, record.revision, { data: { ...record.data,
+      responseId: messageId, conversationPublishedAt: this.repo.clock.now(),
+    } });
+  }
+
   exposure(handle: ScopeHandle, id: string, expectedRevision: number, kind: 'displayed' | 'opened' | 'submitted') {
     const record = this.repo.work(handle, undefined, id)[0];
     if (!record || record.data.type !== 'cooperation_record') throw new HarnessError('help_missing', '没有这条帮助记录。');

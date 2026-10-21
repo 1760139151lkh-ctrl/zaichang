@@ -24,6 +24,10 @@
 
 | 人的任务 | 入口与状态所有者 | 主要源码 |
 | --- | --- | --- |
+| 按眼前的问题自由做一个可操作的内容 | `present_view.program`接原Message.views；`read_skill id=interactive-program`从实际共享库生成authoring完整构作契约与原总览／grammar／签名小页；新作一次取得契约，编辑按需读原作和增量签名。通用renderer、原Scene的SourceSlot、有限Motion与同composer引用／发送时局部状态已接源码；真实Luna与交互结果另见状态文档 | 共享定义`src/shared/interactive-{program,library,functions}.ts`；宿主`src/main/runtime/interactive-program.ts`、`interactive-program-{compiler,ast,edit,guidance,sources,reference}.ts`及`skills.ts`；呈现`src/renderer/presentation/InteractiveProgramView.tsx`、`interactive-{context,primitives,graphics,motion}.tsx`与`interactive-program.css`，由`AssistantPresentation.tsx`和`App.tsx`接入 |
+| **她怎么说话**（人格、形象、关系定位与语气表达） | 角色预设与心理层次、相处约定与昵称称呼（如「老公」「小灰灰」等）、系统提示词反官僚审计规则 | `src/shared/persona-portrayals.ts`（祥子/睦等核心人设与情景示例）、`src/shared/persona.ts`（陪伴基线、关系情景问答、抗官僚语言指南）、`src/shared/persona-performance.ts`（欢迎想念与参与方式）、`prompts/system.md`（系统级反官僚语言约束） |
+| **中途怎样接话**（流式接力、前置承接、工具步骤描述） | 真实主模型先行语义承接、工具过程自然命名、收尾段落去重 | `src/main/runtime/conversation-rhythm.ts`（自然语言接力、承接语引导、输出去重）、`src/main/tools.ts`（`formatToolStepTitle` 业务感知化步骤重命名） |
+| **没发消息时怎样来找我**（后台机会发现、安静准备与关怀提醒） | 后台机会审查白名单放行好奇邀请与回顾来信、系统通知动态署名 | `src/main/runtime/coordinator.ts`（机会审查放行 `curiosity_invitation` / `write_reflective_letter`）、`src/main/actions/reminders.ts`（系统桌面通知带具体角色署名与事件情境）、`src/main/harness.ts` 与 `src/renderer/App.tsx`（消息气泡角色署名绑定） |
 | 看应用已经记下的安排，再指一项继续问 | `look_up source=local`沿原日历有界读取，实际返回的sceneRef可交`present_view`；不是重新试排 | `src/main/runtime/agenda-scene.ts`、`scenes.ts`、`coordinator.ts`；复用PlanningScene的`mode=agenda`及原时间带，真实模型与点选续问范围见当前状态 |
 | 读实际成绩、比较明确的GPA口径 | 原校园查询返回CampusScene；detail／table／trend只呈现实际命名字段，点记录后沿当前用途重新读取 | `src/shared/scenes.ts`、`src/main/runtime/scenes.ts`／`coordinator.ts`、`src/renderer/presentation/CampusAcademicView.tsx`；真实账号读取与实际呈现分别记录，不以源码代验收 |
 | 把一页原笔记留在这段对话里读 | `manage_note operation=read`实际页给`present.arguments`，`present_view.note`回同NotesService核原页；选句只接着聊 | `src/shared/notes-source.ts`／`note-presentation.ts`、`src/main/runtime/note-presentation.ts`、`src/main/notes/service.ts`、`src/renderer/presentation/NoteSceneView.tsx` |

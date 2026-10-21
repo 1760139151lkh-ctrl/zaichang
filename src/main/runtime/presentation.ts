@@ -13,8 +13,10 @@ import { assertCuriositySnapshotSourcesReadable } from './curiosity-scene';
 import type { SceneSnapshot } from '../../shared/scenes';
 import { campusAcademicReference } from '../../shared/campus-academic';
 import { isAcademicCampus } from './campus-academic';
+import { programMessageProjection } from './interactive-program-sources';
+import { orderCampusPageViews } from './campus-page-order';
 
-type PresentationRead = { liveCuriosity?: boolean; liveRehearsal?: boolean; liveNote?: boolean; liveCampus?: boolean };
+type PresentationRead = { liveCuriosity?: boolean; liveRehearsal?: boolean; liveNote?: boolean; liveCampus?: boolean; liveProgram?: boolean };
 
 /** Audience projection happens before IPC. Public presentation has neither
  * private transcript payloads nor hidden explanations in DOM/ARIA metadata. */
@@ -178,6 +180,7 @@ export class PresentationService {
   /** Historical IPC and exports must apply the same source gate as scene tools. */
   sourceCurrentMessage(value: Message, options: PresentationRead = {}): Message {
     const runtime = this.store.runtime, scope = runtime.policy.hostScope();
+    value = programMessageProjection(runtime, value, { live: options.liveProgram });
     const scopeData = runtime.policy.validate(scope);
     const snapshots = [...new Map([...(value.scenes || []), ...runtime.scenes.all(value.sessionId)]
       .map(scene => [`${scene.id}@${scene.revision}`, this.historicalScene(scene, options)])).values()];
@@ -201,14 +204,17 @@ export class PresentationService {
     const bodyReadable = this.store.kernel.planningMessageReadable(scope, { contextReceipt: value.contextReceipt, scenes: attached }, { checked: new Map(), localDisplay: true })
       && attached.every(scene => this.sceneReadable(scene, options)) && lettersReadable;
     if (value.role === 'assistant' && !bodyReadable) return { ...value,
-      content: '这条回复的依据已改变，需要重新核对。', responseText: undefined,
+      content: '', responseText: undefined,
+      hostStatus: { kind: 'notice', code: 'source_changed', text: '这条回复的依据已改变，正文暂不可读。' },
       steps: [], obligations: [], actions: [], mapCards: undefined, scenes: [], views: [],
-      releaseArtifacts: undefined, helpRefs: undefined, cooperationId: undefined,
+      releaseArtifacts: undefined, helpRefs: undefined, primaryHelpRef: undefined, cooperationId: undefined,
       contextReceipt: undefined, objectStates: undefined, image: undefined };
     const denied = new Set(snapshots.filter(scene => !this.studySnapshot(scene) && scene.kind !== 'study_reference' && scene.kind !== 'curiosity_reference' && scene.kind !== 'rehearsal_reference' && scene.kind !== 'note_reference'
       && !this.sceneReadable(scene, options)).map(scene => `${scene.id}@${scene.revision}`));
-    return { ...value, ...(value.helpRefs ? { helpRefs } : {}), ...(value.scenes ? { scenes: this.currentScenes(value.scenes, options) } : {}),
-      ...(value.views ? { views: value.views.filter(view => view.sceneRefs.every(ref => !denied.has(`${ref.id}@${ref.revision}`))) } : {}) };
+    const visibleScenes = value.scenes ? this.currentScenes(value.scenes, options) : undefined;
+    const visibleViews = value.views?.filter(view => view.sceneRefs.every(ref => !denied.has(`${ref.id}@${ref.revision}`)));
+    return { ...value, ...(value.helpRefs ? { helpRefs } : {}), ...(visibleScenes ? { scenes: visibleScenes } : {}),
+      ...(visibleViews ? { views: orderCampusPageViews(visibleViews, visibleScenes || []) } : {}) };
   }
   message(value: Message, options: PresentationRead = {}): Message | null {
     if (this.public) return null;
@@ -228,7 +234,9 @@ export class PresentationService {
       const relation = !current ? 'removed' : current.revision === historicalRevision ? 'current' : 'changed';
       objectStates.push({ id, kind: 'work', historicalRevision, currentRevision: current?.revision || null, relation, operationAvailable: relation === 'current' && !['stale', 'blocked', 'cancelled'].includes(current?.status || '') });
     }
-    return { ...safe, objectStates };
+    const boundary = this.store.runtime.policy.validate(this.store.runtime.policy.hostScope());
+    return { ...safe, objectStates,
+      presentationBoundaryKey: `${boundary.privacyEpoch}:${boundary.policyRevision}:${this.store.runtime.policy.sourceBoundary}` };
   }
   permitsIpc(name: string) {
     return !this.public || ['state', 'messages', 'presentation:surface', 'presentation:clear', 'stop', 'text:copy', 'draft:info', 'draft:unsaved'].includes(name);

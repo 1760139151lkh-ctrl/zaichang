@@ -243,9 +243,9 @@ export function MapSurface({
     pendingLocate = useRef<{ fix: LocationFix; activity: number } | undefined>(undefined);
   const feedback = useRef({ rotation: NaN, width: NaN, label: '' });
   const requestRef = useRef<(explicit?: boolean) => Promise<void>>(async () => {});
-  const results=rankMapPoints((data?.places||[]).filter(p=>!onlyConnected||p.entrances.some(e=>e.connected)),query);
+  const results=rankMapPoints((data?.places||[]).filter(p=>!onlyConnected||p.entrances.some(e=>e.connected)),query,data?.manifest.label);
   const shown = results.slice(0, 40);
-  const exact=uniqueExactMapPoint(shown,query),activeResult=resultIndex>=0?resultIndex:exact?shown.findIndex(p=>p.id===exact.id):shown.length===1?0:-1;
+  const exact=uniqueExactMapPoint(shown,query,data?.manifest.label),activeResult=resultIndex>=0?resultIndex:exact?shown.findIndex(p=>p.id===exact.id):shown.length===1?0:-1;
   function user() {
     handlers.current.onTakeControl?.();
     setSelectionNotice('');

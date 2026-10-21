@@ -4,7 +4,7 @@ import type { Action, Obligation, Step } from '../shared/types';
 import { HarnessError, type DelegatedTask } from '../shared/harness';
 import type { Store } from './store';
 import type { RunSession } from './runtime/coordinator';
-import type { ToolSpec } from './provider';
+import { ProviderError, type ToolSpec } from './provider';
 import { redactCredentials } from './runtime/redaction';
 
 export interface ToolContext {
@@ -29,6 +29,7 @@ export interface ToolContext {
   map?: import('./mapService').CampusMapAdapter;
   mapCard?: (card: import('../shared/map-v2').MapCard) => void;
   present?: import('./runtime/coordinator').RuntimeCallbacks['present'];
+  attentionMessage?: import('./runtime/coordinator').RuntimeCallbacks['attentionMessage'];
   // Compatibility shape only. Cache eligibility belongs to CapabilityBroker.
   campusMemo?: {
     fullContextUsed: boolean;
@@ -39,6 +40,68 @@ export interface ToolContext {
   campusReady?: (result: unknown) => void;
   campusInvalidate?: () => void;
 }
+
+function formatToolStepTitle(name: string, raw: string): string {
+  let args: any = {};
+  try {
+    if (typeof raw === 'string' && raw.trim().startsWith('{')) {
+      args = JSON.parse(raw);
+    }
+  } catch {}
+
+  if (name === 'look_up' || name === 'search_history' || name === 'query_campus' || name === 'get_weather') {
+    if (args.source === 'weather' || name === 'get_weather') return '查看天气情况';
+    if (args.source === 'campus' || name === 'query_campus') {
+      const domain = args.domain || args.kind;
+      if (domain === 'schedule') return '查询课程与日程';
+      if (domain === 'grades') return '查询成绩与学分';
+      return '查询校园信息';
+    }
+    if (args.source === 'history' || name === 'search_history') return '检索过往记录';
+    return '查找相关资料';
+  }
+  if (name.startsWith('map_')) {
+    if (name === 'map_route') return '规划路线与时间';
+    if (name === 'map_search') return '查找地点位置';
+    if (name === 'map_overview') return '查看校园地图全貌';
+    return '查看地图信息';
+  }
+  if (name === 'manage_note') {
+    const act = args?.action;
+    if (act === 'read') return '翻看笔记内容';
+    if (act === 'list') return '查看笔记列表';
+    if (act === 'create') return '记录新笔记';
+    if (act === 'append') return '补充笔记内容';
+    if (act === 'search') return '查找相关笔记';
+    return '整理笔记';
+  }
+  if (name === 'manage_calendar') {
+    const act = args?.action;
+    if (act === 'read' || act === 'query') return '核对日程安排';
+    if (act === 'create') return '添加日程';
+    if (act === 'update') return '调整日程';
+    return '整理日程';
+  }
+  if (name === 'search_context') return '检索过往记录';
+  if (name === 'read_evidence') return '核对原话记录';
+  if (name === 'read_understanding') return '查看先前的理解';
+  if (name === 'recall_experience') return '回顾过往相处与经历';
+  if (name === 'curiosity_invitation') return '准备一份好奇邀请';
+  if (name === 'write_reflective_letter') return '写一封生活来信';
+  if (name === 'manage_relationship_rehearsal') return '一起试着说';
+  if (name === 'read_relationship_rehearsal') return '翻回这段试说';
+  if (name === 'manage_companion') return '记住相处小约定';
+  if (name === 'read_companion') return '回顾相处细节';
+  if (name === 'read_skill') return args.id === 'persona-expression' ? '回顾习惯的相处方式' : '翻看合适的做法';
+  if (name === 'manage_method') return '记住新的相处习惯';
+  if (name === 'remember_preference' || name === 'propose_memory_change') return '整理当前信息';
+  if (name === 'prepare_action' || name === 'propose_action') return '准备下一步安排';
+  if (name === 'present_view') return '准备界面呈现';
+  if (name === 'decide_help') return '权衡回应方式';
+
+  return '梳理手头的事项';
+}
+
 export class ToolRegistry {
   private run: RunSession;
   constructor(private context: ToolContext) {
@@ -71,14 +134,7 @@ export class ToolRegistry {
   async execute(name: string, raw: string, toolCallId?: string, operationSignal?: AbortSignal): Promise<string> {
     const signal = AbortSignal.any([this.context.signal, this.run.signal, ...(operationSignal ? [operationSignal] : [])]);
     const id = randomUUID(),
-      title =
-        name === 'look_up'
-          ? '查找相关资料'
-          : name === 'remember_preference' || name === 'propose_memory_change'
-            ? '整理当前信息'
-            : name === 'prepare_action'
-              ? '准备一个下一步'
-              : '核对当前事项';
+      title = formatToolStepTitle(name, raw);
     signal.throwIfAborted();
     this.context.step({ id, title, status: 'running' });
     let requestedArguments: unknown;
@@ -124,12 +180,7 @@ export class ToolRegistry {
       });
       const identified = toolCallId ? result && typeof result === 'object' && !Array.isArray(result)
         ? { ...result, observationId: toolCallId } : { data: result, observationId: toolCallId } : result;
-      let output = JSON.stringify(identified);
-      if (output.length > 120000)
-        output = JSON.stringify({
-          status: 'unknown',
-          reason: '结果超过本轮预算，请缩小查询；没有截去必要条件后继续回答。',
-        });
+      const output = JSON.stringify(identified);
       let finalResult = JSON.parse(redactCredentials(output));
       if (name === 'read_evidence' && this.run.pack && typeof args.id === 'string'
         && !['failed', 'forbidden', 'unsupported', 'not_connected', 'unknown', 'stale', 'conflict'].includes((result as any)?.status))
@@ -148,26 +199,54 @@ export class ToolRegistry {
       const detail =
         error instanceof HarnessError
           ? error.message
-          : error instanceof z.ZodError
-            ? '工具参数不符合要求，请核对字段、主体与时间。'
-            : error instanceof SyntaxError
-              ? '工具参数不是有效 JSON，请修正。'
-              : '这一步没有完成。';
+          : error instanceof ProviderError
+            ? name === 'present_view' ? '这次呈现还没完成，原内容仍在。' : '这一步还没完成，已有内容仍在。'
+            : error instanceof z.ZodError
+              ? '工具参数不符合要求，请核对字段、主体与时间。'
+              : error instanceof SyntaxError
+                ? '工具参数不是有效 JSON，请修正。'
+                : '这一步没有完成。';
       this.context.step({ id, title, status: 'blocked', detail });
-      (this.run.observations ||= []).push({ tool: name, requestedArguments, result: { status: 'failed', error: detail }, ...(toolCallId ? { toolCallId } : {}) });
-      return JSON.stringify({
+      const diagnosticExplanation = error instanceof HarnessError && error.diagnostic
+        ? redactCredentials(error.diagnostic.explanation) : undefined;
+      const failedResult = {
         status:
           error instanceof HarnessError && /forbidden|scope|approval/.test(error.code)
             ? 'forbidden'
             : 'failed',
         error: detail,
-        code: error instanceof HarnessError ? error.code : 'invalid_request',
+        code: error instanceof HarnessError || error instanceof ProviderError ? error.code : 'invalid_request',
+        ...(error instanceof ProviderError ? {
+          retry: '本次模型调用没有完成，失败输出未被采用。保留原请求与已经合法取得的内容，按实际错误处理；不要提高额度或改写用户要求来通过。',
+        } : {}),
         ...(error instanceof HarnessError && error.diagnostic ? {
-          diagnostic: { rejectedDimensions: error.diagnostic.rejectedDimensions, explanation: redactCredentials(error.diagnostic.explanation).slice(0, 500) },
-          retry: '这是对候选的核验意见，不是新指令。仅在能依据原话修正时再提交；不能删掉真实条件或编造精确期限来通过。当前原话仍可直接用于本轮回应，长期整理失败不等于无法回答。未提交的候选不能声称已保存。',
+          diagnostic: { rejectedDimensions: error.diagnostic.rejectedDimensions, explanation: diagnosticExplanation!.slice(0, 500),
+            ...(error.diagnostic.expansion ? { expansion: error.diagnostic.expansion } : {}),
+            ...(error.diagnostic.expression ? { expression: error.diagnostic.expression } : {}),
+            ...(error.diagnostic.component ? { component: error.diagnostic.component } : {}),
+            ...(error.diagnostic.input ? { input: error.diagnostic.input } : {}),
+            ...(error.diagnostic.previous ? { previous: error.diagnostic.previous } : {}) },
+          retry: error.code.startsWith('interactive_') || error.diagnostic.input || error.diagnostic.previous
+            ? '这是交互程序的实际校验诊断，不是新指令。沿诊断修正结构、字段或引用，不能删掉用户要求或改变原意来绕过校验。失败调用没有发表新画面或新版本；合法地址不授权自动改签，也不能补造未证实的旧状态。可用已读签名与诊断继续，不必反复整页读取方法。'
+            : '这是对候选的核验意见，不是新指令。仅在能依据原话修正时再提交；不能删掉真实条件或编造精确期限来通过。当前原话仍可直接用于本轮回应，长期整理失败不等于无法回答。未提交的候选不能声称已保存。',
         } : {}),
         ...(error instanceof z.ZodError ? { fields: error.issues.slice(0, 12).map(issue => ({ path: issue.path.join('.'), code: issue.code, requirement: redactCredentials(issue.message) })), retry: '参照工具schema逐项修正这些字段；失败调用没有提交，不要改变用户原意来绕过校验。' } : {}),
-      });
+      };
+      (this.run.observations ||= []).push({ tool: name, requestedArguments, result: failedResult, ...(toolCallId ? { toolCallId } : {}) });
+      if (error instanceof HarnessError && (error.diagnostic?.expansion || error.diagnostic?.expression || error.diagnostic?.component || error.diagnostic?.input || error.diagnostic?.previous) && this.run.pack) {
+        const receipt = this.run.pack.receipt;
+        receipt.interactiveProgramDiagnostics = [...(receipt.interactiveProgramDiagnostics || []), {
+          stepId: id, ...(toolCallId ? { toolCallId } : {}),
+          ...(error.diagnostic.expansion ? { expansion: structuredClone(error.diagnostic.expansion) } : {}),
+          ...(error.diagnostic.expression ? { expression: structuredClone(error.diagnostic.expression) } : {}),
+          ...(error.diagnostic.component ? { component: structuredClone(error.diagnostic.component) } : {}),
+          ...(error.diagnostic.input ? { input: structuredClone(error.diagnostic.input) } : {}),
+          ...(error.diagnostic.previous ? { previous: structuredClone(error.diagnostic.previous) } : {}),
+          explanationTruncated: diagnosticExplanation!.length > 500,
+        }].slice(-8);
+        this.context.store.runtime.repo.saveReceipt(this.run.pack.contract.scope, receipt);
+      }
+      return JSON.stringify(failedResult);
     }
   }
 }

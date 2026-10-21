@@ -51,20 +51,6 @@ export function executeCuriosityTool(
     const result = host.curiosityInvitations.execute(handle, context, input);
     signal.throwIfAborted(); host.policy.validate(handle);
     const text = canonical(result.value), bytes = Buffer.byteLength(text), tokens = Math.ceil(Array.from(text).length / 1.4);
-    if (pack.receipt.budget.readBytes + bytes > session.ingress.contract.budget.maxReadBytes
-      || pack.receipt.budget.estimatedTokens + tokens > session.ingress.contract.budget.maxTokens) {
-      const current = result.records.find(record => record.kind === 'option');
-      const value = { status: 'partial', ...(current ? { saved: { id: current.id, revision: current.revision,
-        read: { tool: 'curiosity_invitation', arguments: { operation: 'read', id: current.id } } } } : {}),
-        reason: current ? '这个起点已留在原事项里，完整内容还没带入这轮回复；可按原地址再读。' : '这轮没有容纳完整体验内容，尚未把它当作已交付。' };
-      const small = canonical(value), smallBytes = Buffer.byteLength(small), smallTokens = Math.ceil(Array.from(small).length / 1.4);
-      if (pack.receipt.budget.readBytes + smallBytes > session.ingress.contract.budget.maxReadBytes
-        || pack.receipt.budget.estimatedTokens + smallTokens > session.ingress.contract.budget.maxTokens)
-        throw new HarnessError('read_budget', '这轮内容已经很满，实际已保存的起点仍留在原事项里。');
-      pack.receipt.budget.readBytes += smallBytes; pack.receipt.budget.estimatedTokens += smallTokens;
-      host.repo.saveReceipt(handle, pack.receipt);
-      return value;
-    }
     host.context.recordWorkSources(pack, result.records);
     host.context.recordWorkSourceBindings(pack, result.bindings);
     host.context.recordAssistantWorkSources(pack, result.assistantWorkSources || []);

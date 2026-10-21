@@ -1,6 +1,10 @@
 # 对话场景与 OpenUI
 
-2026-10-19 同步总览见[项目基线](PROJECT_BASELINE.md#openui动态呈现与地图怎样衔接)。工具取得事实、宿主核准Scene、固定OpenUI库呈现、选择回同一输入和实际动作分别有边界；本页描述接线，当前模型与画面证据统一归状态文档。
+2026-10-19 同步总览见[项目基线](PROJECT_BASELINE.md#openui动态呈现与地图怎样衔接)。工具取得事实、宿主核准Scene或有限声明式程序、共享OpenUI库呈现、选择回同一输入和实际动作分别有边界；本页描述接线，当前模型与画面证据统一归状态文档。
+
+本阶段新增的通用交互程序沿原 `present_view.program` 与 Message.views 接续：主模型可依眼前问题编排文字、图形、局部输入和动效，不必从业务 Scene 名单或话题演示中挑一项。按需方法 `interactive-program` 的语法、签名和规则来自实际共享库；默认只给能力入口与当前少量纯地址。原地图、天气、日历、校园与笔记仍使用真实 owner；程序引用数据须绑定已经实际提供的工具结果，临时状态不写回来源。
+
+`InteractiveProgramView.tsx`与`interactive-{context,primitives,graphics,motion}.tsx`、`interactive-program.css`已接入原`AssistantPresentation`，并启用同一程序入口。`SourceSlot`在组合内容里展开本次已准入的原业务Scene，保持原选择与来源；Motion由用户动作启动有限运动和受检数值变化，手动改值可停下。点到当前节点、改变局部条件或选择继续，沿原程序地址回同一composer的小引用，原稿不改；普通发送前再取当前完整局部输入，避免仅带上较早的一次点击值。这些是当前源码的呈现与接续机制；[选定图稿](../assets/design/generated/2026-10-19-openui-composition/manifest-v1.json)、实际画面、动效与正常Luna结果仍按[各自证据](CURRENT_STATUS.md#personal-memory-round7)判断，不把组件接入或静态检查当成交互通过。
 
 <a id="companion-experience"></a>
 ## 本轮：同一段交流里的共同页、陪学与来信
@@ -26,7 +30,7 @@
 
 局部引用回同一输入。学习纸先让人读，常驻的“问这一题／问这一行／聊这一点”已移除；真实点到、选到或用键盘聚焦后，才在当前一处出现轻入口，回车也能沿原attempt／help／problem引用继续。安排点选沿真实block或option，共写选句沿当前field内的明确位置。原正文留在原纸面，输入框旁只给可取消的小引用，已有草稿不改，下一句可以完全改变意思。`RichText.sourceFocus`复用Markdown实际文本节点的原位置，纯文字则以整段DOM与原文相同为前提；不用重复引文猜位置。数学转换、跨field或其他无法证明的映射不伪造精确坐标。`ReadableFocus`与`LocalTextFocus`共用一次只呈现一处的轻动作，`FocusContextChip`统一输入提示，不在各处另造一套焦点面板；来源、本人报告、助手建议与虚构作品身份持续分开。新版Study已在同一隔离实例实际重走旧行点选、原稿与行标同屏、取消直接接写，以及键盘聚焦旁注／回车引用；原消息入口与当前owner修订混用的失败已修并按原触发复看，详情和实际图见[当前状态](CURRENT_STATUS.md#personal-memory-round7)。其他场景的持续选句标记、IME与模型理解仍各保留自己的证据范围。
 
-表达排练沿同一消息展开：本人的试说与一种可能回应分别落在纸上，继续、换回应、停下或整理仍回同一输入，不出现第二聊天。图稿来自[表达排练设计](../assets/design/generated/2026-10-19-expression-rehearsal/manifest.json)，纸面与金枝使用实际透明资产，正文和动作保持真实组件。它演的是一种可能，不表示对方真的说过或事情已经发生；当前源码接线与后续实际渲染观察分别记录。
+表达排练沿同一消息展开：本人的试说与一种可能回应分别落在纸上，继续、换回应、停下或整理仍回同一输入，不出现第二聊天。图稿来自[表达排练设计](../assets/design/generated/2026-10-19-expression-rehearsal/manifest.json)，纸面与金枝使用实际透明资产，正文和动作保持真实组件。它演的是一种可能，不表示对方真的说过或事情已经发生。原依赖刷新漏接修后，正常Luna已在同一原owner接上本人练习原句与新可能回应；原失败、这次限定画面和其他操作仍分别记入[当前状态](CURRENT_STATUS.md#personal-memory-round7)，不由一份同页图推定全部排练体验。
 
 共写纸面已经有同一隔离Electron的首波观察：暖／夜色纸、已有自由草稿的选句引用、重开后的草稿保留和历史作品展开过渡均实际发生。纸边留白、首次题头落点与后来选定的夜色低亮处理仍在改后复看；精确图路径和范围见[本批状态](CURRENT_STATUS.md#personal-memory-round7)。作品选区沿原field地址继续，不从这条视觉记录推定主模型已理解或记得早期章节。
 

@@ -4,6 +4,8 @@ import type { ScopeHandle } from '../../shared/harness';
 import type {
   Assertion,
   AssistantWorkSource,
+  InteractiveProgramSource,
+  InitialContextComposition,
   ContextContract,
   ContextPack,
   EvidenceBundle,
@@ -16,7 +18,7 @@ import type {
   WorkSourceBinding,
   WorkSourceRef,
 } from '../../shared/harness';
-import { always, HarnessError, planningMaterialProvenanceSchema } from '../../shared/harness';
+import { always, HarnessError, interactiveProgramSourceSchema, planningMaterialProvenanceSchema } from '../../shared/harness';
 import type { KernelRepository } from '../storage/repository';
 import type { PolicyKernel, IngressDecision } from './policy';
 import type { CapabilityBroker, CapabilityResult } from '../capabilities/broker';
@@ -29,6 +31,7 @@ import type { ProviderReceipt } from '../../shared/harness';
 import { usageCost } from './model-usage';
 import type { Completion } from '../provider';
 import { projectMapModelResult } from './map-model-view';
+import { projectCampusModelResult } from './campus-model-view';
 import { expandRecallBundle, fuseRecallMethods, matchesVisibleQuery, multiQueryRecall, projectHistoricalEvidence, recallQueries, type EvidenceProjection, type RecallOptions } from '../memory/retrieval';
 import { buildContinuityIndex } from './continuity';
 import { EvidenceBrowser } from '../memory/browse';
@@ -43,6 +46,14 @@ export interface LifeContinuityContext {
   records: WorkRecord[];
   bindings: WorkSourceBinding[];
   learningProcessVersions?: { id: string; revision: number }[];
+}
+/** Scheduling only: supplied by the current foreground host's typed work
+ * reference. It grants no source read and is not a model/Bridge parameter. */
+export interface InitialContextOptions {
+  currentWorkFirst?: true;
+  /** Typed foreground navigation only; a match is selected exclusively from
+   * the existing permitted, completed history window. This grants no read. */
+  currentProgramMessageId?: string;
 }
 
 function grams(text: string) {
@@ -86,16 +97,51 @@ export class ContextCompiler {
   initialNeeds(_contract: ContextContract, _text: string): Need[] { return []; }
   async compile(
     ingress: IngressDecision, currentEvents: EvidenceEvent[], signal: AbortSignal,
-    additionalNeeds: Need[] = [], acquire = false, sessionId?: string,
+    additionalNeeds: Need[] = [], acquire = false, sessionId?: string, options: InitialContextOptions = {},
   ): Promise<ContextPack> {
     signal.throwIfAborted();
     const contract = ingress.contract, scope = this.policy.validate(contract.scope);
+    const currentWorkFirst = options.currentWorkFirst === true && !scope.child && scope.audience === 'self';
     // A hypothetical continuation can refer to what this same user just said
     // in this thread. Read only that transcript, never their ambient profile,
     // and never override explicit UI/source restrictions.
     const canReadHistory = this.policy.can(contract.scope, 'evidence:read');
     const historyScope = ingress.threadContextAllowed && canReadHistory ? this.policy.hostScope({ sources: ['current', 'history:self'], subjectId: scope.principalId, worldId: 'real', purposes: scope.purposes, audience: 'self', grants: ['evidence:read'], retention: scope.retention, infer: false }) : contract.scope;
-    const history = sessionId && canReadHistory && (!ingress.requiresReadPurpose || ingress.threadContextAllowed) ? this.repo.conversationHistory(historyScope, sessionId, currentEvents.map(e => e.id), ingress.threadContextAllowed ? 6 : 12) : [];
+    const historyCandidates = sessionId && canReadHistory && (!ingress.requiresReadPurpose || ingress.threadContextAllowed) ? this.repo.conversationHistory(historyScope, sessionId, currentEvents.map(e => e.id), ingress.threadContextAllowed ? 6 : 12) : [];
+    // This repository window contains only complete, currently readable
+    // messages. Preserve the nearest help and the exact typed origin without
+    // guessing relevance or treating a completed reply as a fulfilled promise.
+    const assistantHistory = historyCandidates.filter(message => message.role === 'assistant');
+    const recentHelp = assistantHistory.at(-1);
+    const programOrigin = assistantHistory.find(message => message.id === options.currentProgramMessageId);
+    const protectedAssistantIds = new Set([recentHelp?.id, programOrigin?.id].filter((id): id is string => !!id));
+    const history = historyCandidates;
+    const historyProjection = (provided: typeof history) => {
+      const ids = new Set(provided.map(message => message.id));
+      const historyIndex = assistantHistory.filter(message => !ids.has(message.id) && !protectedAssistantIds.has(message.id)).map(message => ({ id: message.id, role: message.role, createdAt: message.createdAt,
+        codePoints: Array.from(message.content).length, bodyProvided: false,
+        read: { tool: 'read_assistant_history', arguments: { id: message.id, offset: 0, limit: 1600 } } }));
+      const carryover = new Map<string, { identities: ('recent_assistant_help' | 'current_program_origin')[]; messageId: string;
+        bodyProvided: boolean; status: 'provided_complete_reply' | 'not_in_permitted_completed_window';
+        read: { tool: 'read_assistant_history'; arguments: { id: string; offset: number; limit: number } } }>();
+      for (const [identity, id] of [['recent_assistant_help', recentHelp?.id], ['current_program_origin', options.currentProgramMessageId]] as const) {
+        if (!id) continue;
+        const prior = carryover.get(id);
+        if (prior) { prior.identities.push(identity); continue; }
+        const bodyProvided = protectedAssistantIds.has(id) && ids.has(id);
+        carryover.set(id, { identities: [identity], messageId: id, bodyProvided,
+          status: bodyProvided ? 'provided_complete_reply' : 'not_in_permitted_completed_window',
+          read: { tool: 'read_assistant_history', arguments: { id, offset: 0, limit: 1600 } } });
+      }
+      return { historyIndex, historyCarryover: [...carryover.values()],
+        historyCoverage: { scope: 'permitted_recent_conversation_window', userBodiesProvided: provided.filter(message => message.role === 'user').length,
+          assistantBodiesProvided: provided.filter(message => message.role === 'assistant').length,
+          assistantBodiesDeferred: assistantHistory.filter(message => !ids.has(message.id)).length, moreMayExist: true,
+          meaning: '本合法窗口中的用户与助手正文完整提供；最近帮助及所指原作按historyCarryover标身份，重合不重复。消息完整不证明承诺或动作已办。窗口之外仍可能有条件或约定，需要时沿原read入口核对；窗口外地址不表示正文已读或现行授权。' } };
+    };
+    const historyOrganization = currentWorkFirst ? { ...historyProjection(history),
+      contextOrganization: { mode: 'current_work_first',
+        meaning: '当前真实原话与所指作品优先理解；既有合法前情照常提供，不因材料数量省略。来源、用途、版本和撤销仍逐项复核。' } } : {};
     const recentObservations = sessionId && history.length && canReadHistory && !ingress.requiresReadPurpose && scope.sources.includes('history:self')
       ? this.repo.sessionExternalObservations(contract.scope, sessionId, contract.now) : [];
     const observationSummaries = recentObservations.map(event => ({ id: event.id, sourceId: event.sourceId, authority: event.authority, receivedAt: event.receivedAt, text: event.text,
@@ -107,26 +153,28 @@ export class ContextCompiler {
       ...(planningIntents.length ? { planningIntents } : {}),
       ...(continuity ? { continuityCoverage: continuity.coverage } : {}) };
     const discovered = this.broker.discover(contract.scope);
-    const capabilityDirectory = { items: discovered.slice(0, 24).map(item => ({ name: item.name, sourceId: item.sourceId, displayName: item.displayName, description: item.description, effect: item.effect, connected: item.connection.connected, connection: item.connection, executableInThisTurn: item.connection.connected && (item.effect === 'read' || contract.actionMode !== 'respond') })), more: discovered.length > 24, meaning: '仅是许可范围内的非敏感能力说明，没有读取资料或执行动作；存在、已连接、本轮允许执行、实际完成是不同事实。用look_up的capability目录继续搜索、分页或获取输入schema。' };
+    const capabilityDirectory = { items: discovered.slice(0, 24).map(item => ({ name: item.name, sourceId: item.sourceId, displayName: item.displayName,
+      description: item.description, connection: item.connection, effect: item.effect, connected: item.connection.connected,
+      executableInThisTurn: item.connection.connected && (item.effect === 'read' || contract.actionMode !== 'respond') })), more: discovered.length > 24,
+      meaning: '仅是许可范围内的非敏感能力说明，没有读取资料或执行动作；存在、已连接、本轮允许执行、实际完成是不同事实。用look_up的capability目录继续搜索、分页或获取输入schema。' };
     const sourceContextMeaning = sourceContextGuidance(...currentEvents.map(event => event.sourceContext), ...history.map(message => message.sourceContext));
     let life: LifeContinuityContext | undefined;
-    const initial = { current: ingress.authoredText, attachments: currentEvents.filter(e => e.speaker === 'external'), history, sourceContextMeaning,
+    const initial = { current: ingress.authoredText, attachments: currentEvents.filter(e => e.speaker === 'external'), history, ...historyOrganization, sourceContextMeaning,
       ...(observationSummaries.length ? { recentObservations: observationSummaries } : {}), currentMatter, ...continuityData, capabilityDirectory };
     if (this.lifeContinuity && sessionId && !ingress.requiresReadPurpose && scope.retention === 'purpose_scoped') {
       const offered = await this.lifeContinuity(ingress, sessionId, signal);
       signal.throwIfAborted(); this.policy.validate(contract.scope);
       if (offered) {
-        const withLife = canonical({ ...initial, ...offered.data });
-        if (Buffer.byteLength(withLife) <= contract.budget.maxReadBytes
-          && Math.ceil(Array.from(withLife).length / 1.4) <= contract.budget.maxTokens) {
-          life = offered;
-          Object.assign(continuityData, offered.data);
-        }
+        life = offered;
+        Object.assign(continuityData, offered.data);
       }
     }
     const text = canonical({ ...initial, ...continuityData });
-    const estimatedTokens = Math.ceil(Array.from(text).length / 1.4), readBytes = Buffer.byteLength(text);
-    const blocked = estimatedTokens > contract.budget.maxTokens || readBytes > contract.budget.maxReadBytes;
+    const estimatedTokens = Math.ceil(Array.from(text).length / 1.4);
+    // The repository physically selected these permitted history bodies.
+    // Deferring their model projection does not refund that byte charge.
+    const readBytes = Math.max(Buffer.byteLength(text), currentWorkFirst
+      ? Buffer.byteLength(canonical({ ...initial, ...continuityData, history: historyCandidates })) : 0);
     const evidenceIds = [...new Set([...currentEvents.map(e => e.id), ...history.filter(m => m.role === 'user').map(m => m.id), ...recentObservations.map(e => e.id), ...(continuity?.providedEvidenceIds || [])])];
     const receipt: ContextPack['receipt'] = {
       mechanismUses: { prefetch: 0, currentMatter: Number(!!currentMatter), repairRejudge: 0, closure: 0 },
@@ -138,8 +186,8 @@ export class ContextCompiler {
         .map(ref => [ref.kind + ':' + ref.id, ref])).values()],
       needResults: [], excludedReasonCounts: Object.fromEntries(contract.excludedReasons.map(reason => [reason, 1])),
       providerVersion: this.providerMetadata ? `${this.providerMetadata.protocol}/${this.providerMetadata.protocolVersion}` : 'unknown',
-      ...(this.providerMetadata ? { provider: { ...this.providerMetadata, limits: { ...this.providerMetadata.limits, hostContextTokens: contract.budget.maxTokens } } } : {}),
-      toolAttempts: [], campusSensitiveReads: [], coverage: blocked ? 'blocked' : 'conditional', budget: { estimatedTokens, readBytes },
+      ...(this.providerMetadata ? { provider: { ...this.providerMetadata, limits: { ...this.providerMetadata.limits } } } : {}),
+      toolAttempts: [], campusSensitiveReads: [], coverage: 'conditional', budget: { estimatedTokens, readBytes },
     };
     const pack: ContextPack = {
       contract, bundles: [], assertions: [], evidence: currentEvents, needs: [], receipt,
@@ -152,14 +200,14 @@ export class ContextCompiler {
         situation: { asOf: contract.now, timeZone: contract.timeZone, versions: this.repo.watermarks(),
           currentStatements: currentEvents.filter(event => event.speaker === 'user').map(event => ({ evidenceId: event.id, version: event.contentVersion })),
           coverage: { calendar: 'not_queried', campus: 'not_queried', location: 'not_queried', weather: 'not_queried', energy: 'unknown' },
-          read: '按当前任务发现并读取situation.read、planning.preview及相应来源；未查询、未覆盖、确实为空和当前可用精力分别判断。当前原话与更正优先于旧摘要，必要时展开原始条件。' },
-        history, ...(observationSummaries.length ? { recentObservations: observationSummaries } : {}), ...(ingress.threadContextAllowed ? { historyUse: '仅作为同一对话里用户已提供的背景理解当前假设；不代表假设已在现实发生，也未读取本人长期画像或其他会话。' } : {}), currentSources: currentEvents.map(e => ({ id: e.id, sourceId: e.sourceId, authority: e.authority, text: e.text,
+          read: '按当前问题发现并读取直接相关的原来源，单源资料可沿其原读取入口取得；确需跨源理解安排、承诺与目标时，再用situation.read汇合单次不超过31天的情境，planning.preview用于检验实际方案。未查询、未覆盖、确实为空和当前可用精力分别判断。当前原话与更正优先于旧摘要，必要时展开原始条件。' },
+        history, ...historyOrganization, ...(observationSummaries.length ? { recentObservations: observationSummaries } : {}), ...(ingress.threadContextAllowed ? { historyUse: '仅作为同一对话里用户已提供的背景理解当前假设；不代表假设已在现实发生，也未读取本人长期画像或其他会话。' } : {}), currentSources: currentEvents.map(e => ({ id: e.id, sourceId: e.sourceId, authority: e.authority, text: e.text,
           ...(e.sourceContext ? { sourceContext: e.sourceContext } : {}) })),
         sourceContextMeaning,
         currentMatter, ...continuityData, capabilityDirectory,
         currentFacts: {}, correctionOverlay: [], workState: [], needs: [],
         coverage: receipt.coverage,
-        limitations: blocked ? ['原话及必要前情超过本轮预算，尚未截断；需要分段处理或缩小范围。'] : [],
+        limitations: [],
       },
     };
     if (sessionId) {
@@ -173,6 +221,7 @@ export class ContextCompiler {
       this.recordPersonalMethodSources(pack, this.repo.conversationPersonalMethodSources(historyScope, sessionId, ids));
       this.recordNoteSources(pack, this.repo.conversationNoteSources(historyScope, sessionId, ids));
       this.recordCampusSensitiveReads(pack, this.repo.conversationCampusSensitiveReads(historyScope, sessionId, ids));
+      this.recordInteractiveProgramSources(pack, this.repo.conversationInteractiveProgramSources(historyScope, sessionId, ids));
     }
     if (currentMatter) this.recordWorkSources(pack, [currentMatter.id, ...currentMatter.optionPlaces.map(option => option.id)]
       .flatMap(id => this.repo.work(contract.scope, undefined, id)));
@@ -181,9 +230,46 @@ export class ContextCompiler {
       this.recordWorkSourceBindings(pack, life.bindings);
       if (life.learningProcessVersions?.length) this.recordLearningProcesses(pack, life.learningProcessVersions);
     }
-    this.repo.saveReceipt(contract.scope, receipt);
+    this.recordInitialComposition(pack, 'compiler');
     if (acquire && additionalNeeds.length) await this.expand(pack, additionalNeeds, signal);
     return pack;
+  }
+  /** One bounded numeric projection in the existing receipt. This does not
+   * alter read accounting, source adoption, or the model's budget. */
+  recordInitialComposition(pack: ContextPack, stage: InitialContextComposition['stage'] = 'ready_for_main') {
+    const serialized = this.serialize(pack), data = JSON.parse(serialized) as Record<string, unknown>;
+    const costs = (value: unknown) => { const text = canonical(value); return {
+      bytes: Buffer.byteLength(text), estimatedTokens: Math.ceil(Array.from(text).length / 1.4),
+    }; };
+    const categories: { category: InitialContextComposition['groups'][number]['category']; keys: readonly string[] }[] = [
+      { category: 'current_originals', keys: ['currentSources', 'currentRequest'] },
+      { category: 'history', keys: ['history', 'historyIndex', 'historyCarryover', 'historyCoverage', 'historyUse', 'volatileConversationHistory'] },
+      { category: 'observations', keys: ['recentObservations'] },
+      { category: 'continuity', keys: ['currentMatter', 'preparedMaterials', 'openThreads', 'planningIntents', 'continuityCoverage'] },
+      { category: 'capabilities', keys: ['capabilityDirectory'] },
+      { category: 'focused_work', keys: ['currentInteractive', 'currentInteractiveUnavailable', 'currentNote', 'currentNoteUnavailable',
+        'currentLetter', 'currentLetterUnavailable', 'currentStudy', 'currentCuriosity', 'currentCuriosityUnavailable',
+        'currentCompanion', 'currentRehearsal', 'currentRehearsalUnavailable', 'currentCampusReference', 'currentSelection', 'currentSelectionUnavailable'] },
+      { category: 'presentation_guidance', keys: ['availableScenes', 'presentationLibrary', 'interactiveProgram', 'currentInteractivePrograms'] },
+    ];
+    const assigned = new Set<string>();
+    const groups: InitialContextComposition['groups'] = categories.map(({ category, keys }) => {
+      const entries = keys.filter(key => Object.hasOwn(data, key)).map(key => { assigned.add(key); return [key, data[key]]; });
+      return { category, ...(entries.length ? costs(Object.fromEntries(entries)) : { bytes: 0, estimatedTokens: 0 }) };
+    });
+    groups.push({ category: 'other', ...costs(Object.fromEntries(Object.entries(data).filter(([key]) => !assigned.has(key)))) });
+    const history = Array.isArray(data.history) ? data.history as { role?: unknown }[] : [];
+    const organization = pack.data.contextOrganization as { mode?: unknown } | undefined;
+    const currentWorkFirst = organization?.mode === 'current_work_first';
+    const historyCoverage = pack.data.historyCoverage as { assistantBodiesDeferred?: number } | undefined;
+    pack.receipt.initialComposition = { strategy: currentWorkFirst ? 'current_work_first' : 'standard', stage, groups,
+      serialized: { bytes: Buffer.byteLength(serialized), estimatedTokens: Math.ceil(Array.from(serialized).length / 1.4) },
+      accounted: { readBytes: pack.receipt.budget.readBytes, estimatedTokens: pack.receipt.budget.estimatedTokens },
+      history: { userBodies: history.filter(message => message.role === 'user').length,
+        assistantBodies: history.filter(message => message.role === 'assistant').length,
+        deferredAssistantBodies: historyCoverage?.assistantBodiesDeferred ?? (Array.isArray(data.historyIndex) ? data.historyIndex.length : 0) },
+      deferred: { ambientContinuity: false, recentObservations: false, capabilityDescriptions: false } };
+    this.repo.saveReceipt(pack.contract.scope, pack.receipt);
   }
   /** Second layer: model-activated, scoped candidates; original search remains independent. */
   includeVerifiedConversation(pack: ContextPack, sessionId: string, currentIds: string[], verifiedMaterialScope?: ScopeHandle) {
@@ -202,8 +288,6 @@ export class ContextCompiler {
       meaning: '与本对话关联的近期外部观察；只证明所述观察，不代表用户确认、喜欢或授权后续行动。' }));
     const sourceContextMeaning = sourceContextGuidance(...pack.evidence.map(event => event.sourceContext), ...history.map(message => message.sourceContext));
     const text = canonical({ history, currentMatter, recentObservations, sourceContextMeaning }), bytes = Buffer.byteLength(text), tokens = Math.ceil(Array.from(text).length / 1.4);
-    if (pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens)
-      return { status: 'partial', reason: '这段完整前情超过本轮预算，需要按实际事项分段读取；未截掉条件。' };
     pack.data.history = history;
     pack.data.sourceContextMeaning = sourceContextMeaning;
     pack.data.currentMatter = currentMatter;
@@ -229,6 +313,7 @@ export class ContextCompiler {
     this.recordPersonalMethodSources(pack, this.repo.conversationPersonalMethodSources(readScope, sessionId, history.map(message => message.id)));
     this.recordNoteSources(pack, this.repo.conversationNoteSources(readScope, sessionId, history.map(message => message.id)));
     this.recordCampusSensitiveReads(pack, this.repo.conversationCampusSensitiveReads(readScope, sessionId, history.map(message => message.id)));
+    this.recordInteractiveProgramSources(pack, this.repo.conversationInteractiveProgramSources(readScope, sessionId, history.map(message => message.id)));
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
     return { status: history.length || observations.length ? 'fresh' : 'not_found', count: history.length, observationCount: observations.length };
   }
@@ -256,14 +341,10 @@ export class ContextCompiler {
       && (scope.sources.includes('history:self') || scope.sources.includes('profile:self')) && this.policy.can(pack.contract.scope, 'evidence:read')) {
       semantic = await this.semanticRecall.search(pack.contract.scope, recallQueries(query, recall.relatedQueries), {
         signal: options.signal, projectRanges: options.projectRanges, projectionKey: options.projectionKey,
-        maxReadBytes: Math.max(0, pack.contract.budget.maxReadBytes - pack.receipt.budget.readBytes),
         maxRows: pack.contract.budget.maxRows, offset: recall.semanticOffset || 0, limit: 51, rankingId: recall.semanticSnapshot,
         windowCursor: recall.semanticWindowCursor,
-        reserveReadBytes: 4096 + limit * 1536,
         onReadBytes: bytes => {
           options.signal.throwIfAborted(); this.policy.validate(pack.contract.scope);
-          if (pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes)
-            throw new HarnessError('read_budget', '本轮共享原文读取范围已用完，没有继续本地索引或传输正文。');
           pack.receipt.budget.readBytes += bytes;
           this.repo.saveReceipt(pack.contract.scope, pack.receipt);
         },
@@ -302,8 +383,6 @@ export class ContextCompiler {
         return { ...original, ...(sourceRelated ? { sourceRelated } : {}) };
       });
       const serialized = canonical(value), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
-      if (pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens)
-        return { status: 'partial', originals: [], reason: '原文定位页超过剩余上下文预算；游标尚未采用，可缩小limit或沿原游标重试。' };
       pack.receipt.providedEvidenceIds = [...new Set([...pack.receipt.providedEvidenceIds, ...value.originals.map(event => event.id)])];
       pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), ...value.originals.map(event => event.sourceId)])];
       const versions = value.originals.map(event => ({ id: event.id, revision: event.contentVersion, kind: 'evidence' as const }));
@@ -426,11 +505,6 @@ export class ContextCompiler {
         at, offset: value.coverage.nextOffset, hardOffset: value.coverage.nextHardOffset || 0, limit,
         semanticSnapshot: semantic.result.rankingId, semanticOffset: recall.semanticOffset || 0 }) });
     const bytes = Buffer.byteLength(canonical(value)), tokens = Math.ceil(Array.from(canonical(value)).length / 1.4);
-    if (pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens)
-      return { status: 'partial', reason: '完整条件与来源超出当前预算，没有拆散条件或静默截断。请缩小查询或分段读原文。', candidates: bundles.flatMap(bundle => bundle.assertions).map(a => ({ id: a.id, preview: Array.from(a.text).slice(0, 100).join(''), previewOnly: true, length: Array.from(a.text).length, hard: a.strength === 'hard' })), originals: raw.map(e => ({ id: e.id, contentVersion: e.contentVersion, length: Array.from(e.text).length,
-        ...('read' in e ? { previewOnly: true, read: e.read } : {}) })),
-        ...(semantic ? { vectorSearch: { status: semantic.result.status, rankingId: semantic.result.rankingId,
-          indexComplete: semantic.result.coverage.indexComplete, moreMayExist: semantic.result.coverage.moreMayExist } } : {}) };
     pack.assertions = [...new Map([...pack.assertions, ...bundles.flatMap(b => b.assertions)].map(a => [a.id, a])).values()];
     // A semantic preview depends on the exact original range used to derive
     // its rank. Same-version correction/retraction must also stop later reuse.
@@ -462,9 +536,6 @@ export class ContextCompiler {
     const value = { ...candidates, matterOriginals: originals, originalCoverage: 'bounded_related_originals',
       meaning: '只自动回读此事项明确关联且当前可读的原文；更广的跨事项检索须另按本轮用途请求。候选仍需判断当前适用性。' };
     const bytes = Buffer.byteLength(canonical(value)), tokens = Math.ceil(Array.from(canonical(value)).length / 1.4);
-    if (pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens)
-      return { status: 'partial', bundles: [], originals: [], coverage: candidates.coverage,
-        matterOriginals: originals.map(event => ({ id: event.id, contentVersion: event.contentVersion, length: Array.from(event.text).length })), originalCoverage: 'pointers_only_read_evidence_for_full_text' };
     pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
     pack.receipt.providedEvidenceIds = [...new Set([...pack.receipt.providedEvidenceIds, ...originals.map(event => event.id)])];
     pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), ...originals.map(event => event.sourceId)])];
@@ -494,19 +565,10 @@ export class ContextCompiler {
               read: { tool: 'read_evidence', id: fragment.eventId, offset, limit: Math.min(20000, fragment.end - offset) } };
           }) },
       meaning: '只提供本事项sourceBinding内当前合法的精确原话片段；sourceRange是本次实际正文，boundRange是合法引用原范围，均为原文Unicode坐标。片段不代表全文，未读部分不证明没有条件；必要时按精确入口继续核对。' });
-    const fits = (value: unknown) => { const serialized = canonical(value); return pack.receipt.budget.readBytes + Buffer.byteLength(serialized) <= pack.contract.budget.maxReadBytes
-      && pack.receipt.budget.estimatedTokens + Math.ceil(Array.from(serialized).length / 1.4) <= pack.contract.budget.maxTokens; };
     for (const fragment of offered) {
-      const chars = Array.from(fragment.text);
-      const row = (length: number) => ({ ...address(fragment, fragment.start + length), text: chars.slice(0, length).join('') });
-      if (fits(valueFor([...originals, row(chars.length)]))) { originals.push(row(chars.length)); continue; }
-      let low = 0, high = chars.length;
-      while (low < high) { const middle = Math.ceil((low + high) / 2); if (fits(valueFor([...originals, row(middle)]))) low = middle; else high = middle - 1; }
-      if (low) originals.push(row(low));
-      break;
+      originals.push({ ...address(fragment), text: fragment.text });
     }
     const value = valueFor(originals);
-    if (!fits(value)) throw new HarnessError('read_budget', '原话片段的定位页已超出本轮预算，尚未提供正文。');
     const serialized = canonical(value);
     pack.receipt.budget.readBytes += Buffer.byteLength(serialized);
     pack.receipt.budget.estimatedTokens += Math.ceil(Array.from(serialized).length / 1.4);
@@ -613,27 +675,17 @@ export class ContextCompiler {
       if (end > start) ranges = [{ eventId: event.id, contentVersion: event.contentVersion, start, end }];
     }
     const sourceRelated = this.sourceRelatedRead(pack, ranges, sourceRelatedAllowed);
-    let value: Record<string, unknown> = { ...result,
+    const value: Record<string, unknown> = { ...result,
+      sourceId: typeof result.sourceId === 'string' && result.sourceId ? result.sourceId : event.sourceId,
       ...(event.sourceContext ? { sourceContext: event.sourceContext, sourceContextMeaning: sourceContextGuidance(event.sourceContext) } : {}),
       ...(typeof original.text === 'string' ? { actualReadRanges: ranges } : {}),
       ...(sourceRelated ? { sourceRelated } : {}) };
-    let serialized = canonical(value);
-    if (serialized.length > 120000) {
-      value = { status: 'unknown', reason: '结果超过本轮预算，请缩小查询；没有采用这次原文覆盖。' };
-      serialized = canonical(value);
-    }
+    const serialized = canonical(value);
     const withheld = value.status === 'unknown';
-    const bytes = Buffer.byteLength(canonical(raw)), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+    const bytes = Math.max(Buffer.byteLength(canonical(raw)), Buffer.byteLength(serialized)),
+      tokens = Math.ceil(Array.from(serialized).length / 1.4);
     const budget = pack.receipt.budget;
-    const exceeded = budget.readBytes + bytes > pack.contract.budget.maxReadBytes
-      || budget.estimatedTokens + tokens > pack.contract.budget.maxTokens;
     budget.readBytes += bytes;
-    if (exceeded) {
-      pack.receipt.coverage = 'blocked';
-      this.repo.saveReceipt(pack.contract.scope, pack.receipt);
-      if (withheld) return value;
-      throw new HarnessError('read_budget', '原文读取已达到本轮总量上限，请缩小范围后继续。');
-    }
     budget.estimatedTokens += tokens;
     if (withheld) {
       this.repo.saveReceipt(pack.contract.scope, pack.receipt);
@@ -703,6 +755,19 @@ export class ContextCompiler {
     pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'notes:self'])];
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
   }
+  /** Actual history/child adoption carries original program addresses. This
+   * is dependency metadata, never an assertion that DSL or bound data was read. */
+  recordInteractiveProgramSources(pack: ContextPack | undefined, sources: InteractiveProgramSource[]) {
+    if (!pack || !sources.length) return;
+    const combined = [...new Map([...(pack.receipt.interactiveProgramSources || []), ...sources]
+      .map(source => { const checked = interactiveProgramSourceSchema.parse(source); return [canonical(checked), checked] as const; })).values()];
+    if (combined.length > 32) throw new HarnessError('interactive_source_budget', '这轮采用的独立交互来源较多，请先继续眼前相关的一份；没有裁掉原来源。');
+    if (this.repo.verifyInteractiveProgramSources?.(pack.contract.scope, combined) !== true)
+      throw new HarnessError('interactive_source_changed', '刚读的交互作品或它的原来由已经变化，旧内容不能继续采用。');
+    pack.receipt.interactiveProgramSources = structuredClone(combined);
+    pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'history:self'])];
+    this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+  }
   /** Adopt a delivered notebook result and its proof in one transaction, so a
    * rejected range cannot remain in model-visible needs without provenance. */
   recordNoteTool(pack: ContextPack, result: CapabilityResult, capability: string, invocationScopeId: string,
@@ -750,7 +815,7 @@ export class ContextCompiler {
   /** A sensitive read adopts body and its current-purpose proof together.
    * A failed source/budget admission keeps only its physical read charge. */
   recordCampusTool(pack: ContextPack, result: CapabilityResult, capability: string, invocationScopeId: string,
-    reads: () => CampusSensitiveRead[], modelView: unknown = result, hostRead = false) {
+    reads: () => CampusSensitiveRead[], modelView: unknown = projectCampusModelResult(capability, result), hostRead = false) {
     const bytes = Buffer.byteLength(canonical(result)), staged: ContextPack = { ...pack, receipt: structuredClone(pack.receipt),
       needs: structuredClone(pack.needs), data: { ...pack.data } };
     try {
@@ -812,11 +877,19 @@ export class ContextCompiler {
       else pack.receipt.providedObjectVersions.push(ref);
     }
   }
-  recordModelUsage(pack: ContextPack | undefined, usage: Completion['usage'], phase: string, responseModel?: string) {
+  recordModelUsage(pack: ContextPack | undefined, usage: Completion['usage'], phase: string, responseModel?: string,
+    failure?: { code: string; requestMaxOutputTokens?: number }) {
     if (!pack) return;
     const cost = usageCost(usage);
     const actualModel = typeof responseModel === 'string' && responseModel.length > 0 && responseModel.length <= 160 ? responseModel : undefined;
-    (pack.receipt.modelUsage ||= []).push({ phase, ...(actualModel ? { responseModel: actualModel } : {}), inputTokens: usage?.prompt_tokens ?? null, cachedInputTokens: usage?.prompt_cache_hit_tokens ?? null, outputTokens: usage?.completion_tokens ?? null, usdMin: cost?.usdMin ?? null, usdMax: cost?.usdMax ?? null });
+    const errorCode = failure && /^[a-zA-Z0-9_.:-]{1,80}$/.test(failure.code) ? failure.code : undefined;
+    const requestMaxOutputTokens = failure && Number.isSafeInteger(failure.requestMaxOutputTokens)
+      && Number(failure.requestMaxOutputTokens) > 0 ? failure.requestMaxOutputTokens : undefined;
+    (pack.receipt.modelUsage ||= []).push({ phase, ...(actualModel ? { responseModel: actualModel } : {}),
+      ...(failure ? { status: 'failed' as const, ...(errorCode ? { errorCode } : {}),
+        ...(requestMaxOutputTokens !== undefined ? { requestMaxOutputTokens } : {}) } : {}),
+      inputTokens: usage?.prompt_tokens ?? null, cachedInputTokens: usage?.prompt_cache_hit_tokens ?? null,
+      outputTokens: usage?.completion_tokens ?? null, usdMin: cost?.usdMin ?? null, usdMax: cost?.usdMax ?? null });
     if (actualModel && pack.receipt.provider) pack.receipt.provider.observedResponseModels = [...new Set([
       ...(pack.receipt.provider.observedResponseModels || []), actualModel,
     ])];
@@ -843,7 +916,6 @@ export class ContextCompiler {
       },
       limits: {
         ...metadata.limits,
-        hostContextTokens: pack.contract.budget.maxTokens,
       },
       requestModes: {
         thinking:
@@ -859,7 +931,7 @@ export class ContextCompiler {
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
   }
   recordTool(pack: ContextPack, result: CapabilityResult, capability: string, invocationScopeId = pack.contract.scope.id,
-    modelView: unknown = projectMapModelResult(capability, result), attemptId?: string, hostRead = false) {
+    modelView: unknown = projectCampusModelResult(capability, projectMapModelResult(capability, result)), attemptId?: string, hostRead = false) {
     this.policy.validate(pack.contract.scope);
     const attempt = this.broker.invocations
       .filter((i) => i.scopeId === invocationScopeId && i.capability === capability && (!attemptId || i.id === attemptId))
@@ -870,19 +942,9 @@ export class ContextCompiler {
     // A multi-leg read records each physical result, but sends one aggregate
     // observation. null means this raw leg adds no separate model message.
     const modelSerialized = modelView === null ? '' : canonical(modelView), tokens = Math.ceil(Array.from(modelSerialized).length / 1.4);
-    const overBudget = pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes
-      || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens;
     pack.receipt.budget.readBytes += bytes;
-    if (overBudget) {
-      pack.receipt.coverage = 'blocked';
-      this.repo.saveReceipt(pack.contract.scope, pack.receipt);
-      // A completed action's real receipt remains visible even when no room
-      // remains for further reading. Only read results can be withheld.
-      if (hostRead || this.broker.describe(capability)?.effect === 'read')
-        throw new HarnessError('read_budget', '资料读取已达到本轮总量上限，请用已取得的结果完成说明。');
-    }
     pack.receipt.budget.estimatedTokens += tokens;
-    const modelResult = projectMapModelResult(capability, result);
+    const modelResult = projectCampusModelResult(capability, projectMapModelResult(capability, result));
     const modelData = modelView && typeof modelView === 'object' && 'data' in modelView
       ? (modelView as CapabilityResult).data : modelResult.data;
     const data = result.data as Record<string, any> | undefined;
@@ -977,8 +1039,6 @@ export class ContextCompiler {
     const scope = this.policy.validate(pack.contract.scope);
     if (scope.retention !== 'session_only' || scope.audience !== 'self' || scope.subjectId !== scope.principalId || scope.worldId !== 'real' || !scope.sources.includes('history:self') || !this.policy.can(pack.contract.scope, 'evidence:read')) throw new HarnessError('history_scope', '本轮范围不允许使用临时前情。');
     const recent = dialogue.slice(-6), text = canonical(recent), bytes = Buffer.byteLength(text), tokens = Math.ceil(Array.from(text).length / 1.4);
-    if (pack.receipt.budget.readBytes + bytes > pack.contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > pack.contract.budget.maxTokens)
-      return { status: 'partial', reason: '完整临时前情超过本轮范围，没有截去限制后继续使用。' };
     pack.data.volatileConversationHistory = recent.map(message => ({ ...message, origin: 'current_conversation_memory_only', persisted: false, authority: 'historical_context_not_current_delegation' }));
     pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
     return { status: 'included' };

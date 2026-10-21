@@ -16,6 +16,7 @@ import { terms } from '../shared/schemas';
 import { KernelRepository } from './storage/repository';
 import { RuntimeCoordinator } from './runtime/coordinator';
 import type { AssistantWorkSource, ClockPort, HostIdentity } from '../shared/harness';
+import { interactiveProgramSourceSchema } from '../shared/harness';
 import { redactExport } from './runtime/redaction';
 import { assertTestStoreFile } from './testBoundary';
 import { applyPersonaUpdate, migratePersona, personaStateSchema } from '../shared/persona';
@@ -23,6 +24,7 @@ import { NotesService } from './notes/service';
 import { canonical } from './runtime/semantics';
 import { campusAcademicReference } from '../shared/campus-academic';
 import { isAcademicCampus } from './runtime/campus-academic';
+import { sanitizeProgramMessageForStorage } from './runtime/interactive-program-sources';
 
 export interface AgendaChange {
   id: string; revision: number; operation: 'upsert' | 'tombstone'; at: string;
@@ -73,7 +75,7 @@ export class Store {
       const message = JSON.parse(String(row.payload)) as Message;
       if (message.status === 'running') {
         message.status = 'cancelled';
-        message.content ||= '上次的处理已中断，可以重新发送。';
+        message.hostStatus = { kind: 'cancelled', code: 'process_restarted', text: '上次处理在应用退出时中断了。' };
         message.steps = message.steps.map((s) =>
           s.status === 'running' ? { ...s, status: 'cancelled' } : s,
         );
@@ -182,8 +184,10 @@ export class Store {
       const run = this.runtime.begin(m.content, m.id, m.sessionId, new AbortController().signal);
       if (run.ephemeral) return;
     }
-    const persisted: Message = m.scenes ? { ...m, scenes: m.scenes.map(scene => scene.kind === 'campus' && isAcademicCampus(scene)
-      ? campusAcademicReference(scene) : scene) } : m;
+    const sanitized = sanitizeProgramMessageForStorage(m);
+    const persisted: Message = { ...sanitized, presentationBoundaryKey: undefined,
+      ...(sanitized.scenes ? { scenes: sanitized.scenes.map(scene => scene.kind === 'campus' && isAcademicCampus(scene)
+        ? campusAcademicReference(scene) : scene) } : {}) };
     this.kernel.write(() => {
       this.db
         .prepare(
@@ -221,6 +225,19 @@ export class Store {
           for (const [source, revision] of [[chapter.messageId, 1], [chapter.sceneId, chapter.sceneRevision]] as const)
             this.kernel.addDependency(scope, { consumerId: m.id, producerId: source, producerRevision: revision,
               sensitivity: 'privacy', invalidation: 'block' });
+        const programSources = [...(m.contextReceipt.interactiveProgramSources || []), ...(m.views || []).flatMap(view => {
+          const parents = (view.program?.provenance as { parents?: unknown } | undefined)?.parents;
+          return Array.isArray(parents) ? parents : [];
+        })].flatMap(source => {
+          const parsed = interactiveProgramSourceSchema.safeParse(source);
+          return parsed.success ? [parsed.data] : [];
+        });
+        for (const source of new Map(programSources.map(source => [canonical(source), source])).values()) {
+          if (source.messageId === m.id) continue;
+          for (const [producerId, producerRevision] of [[source.messageId, 1], [source.programId, source.revision]] as const)
+            this.kernel.addDependency(scope, { consumerId: m.id, producerId, producerRevision,
+              sensitivity: 'privacy', invalidation: 'block' });
+        }
       }
     });
   }

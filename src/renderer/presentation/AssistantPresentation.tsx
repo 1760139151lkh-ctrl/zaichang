@@ -28,7 +28,7 @@ import {
   Sun,
 } from 'lucide-react';
 import { z } from 'zod/v4';
-import type { PresentationView, SceneSnapshot, SemanticSelection } from '../../shared/scenes';
+import { sceneViewDsl, type PresentationView, type SceneSnapshot, type SemanticSelection } from '../../shared/scenes';
 import { EnvironmentHours, PlanningTime } from './LifeSceneViews';
 import { DiscussionSceneView } from './DiscussionSceneView';
 import { StudySceneView } from './StudySceneView';
@@ -37,13 +37,15 @@ import { PlanningComparisonTimeline } from './PlanningComparisonTimeline';
 import type { StudyInteraction } from '../../shared/study-presentation';
 import type { CompanionFollowupReference } from '../../shared/companion-source';
 import type { CuriosityFollowupReference } from '../../shared/curiosity-source';
+import type { ProgramFollowupReference, ProgramStateValues } from '../../shared/interactive-program';
+import { InteractiveProgramView } from './InteractiveProgramView';
 import type { CuriosityScene as CuriositySnapshot, CuriosityHistoryReference } from '../../shared/curiosity-scene';
 import { CuriosityInvitationView } from './CuriosityInvitationView';
 import { RehearsalSceneView } from './RehearsalSceneView';
 import { NoteSceneView } from './NoteSceneView';
 import { CampusAcademicView } from './CampusAcademicView';
 import type { NoteReference, NoteNativeInput } from '../../shared/note-presentation';
-import { rehearsalHistoryReference, type RehearsalInteraction } from '../../shared/relationship-rehearsal';
+import { rehearsalHistoryReference, type RehearsalInteraction, type RehearsalRef } from '../../shared/relationship-rehearsal';
 import type { LocalSearchLocator } from '../../shared/search';
 import './presentation.css';
 
@@ -56,12 +58,17 @@ export interface AssistantPresentationProps {
   sessionId?: string;
   messageId?: string;
   boundaryKey?: string;
+  hostViewBoundaryKey?: string;
   manuscriptText?: string;
   manuscriptSceneId?: string;
   latestRehearsalRevisions?: ReadonlyMap<string, number>;
+  programFocus?: ProgramFollowupReference;
+  onRehearsalCurrentReadStart?: (rehearsalId: string) => ((ref: RehearsalRef) => void) | undefined;
+  onReaderNavigation?: () => void;
   onOpenNote?: (input: NoteNativeInput) => void;
   onFollowup?: (input: { text: string; studyInteraction?: StudyInteraction; companionReference?: CompanionFollowupReference;
-    curiosityReference?: CuriosityFollowupReference; rehearsalInteraction?: RehearsalInteraction; noteReference?: NoteReference; focusOnly?: boolean; focusLabel?: string }) => void;
+    curiosityReference?: CuriosityFollowupReference; programReference?: ProgramFollowupReference; readProgramInputs?: () => ProgramStateValues | undefined;
+    rehearsalInteraction?: RehearsalInteraction; noteReference?: NoteReference; focusOnly?: boolean; focusLabel?: string }) => void;
   onOpenDocument?: (locator: Extract<LocalSearchLocator, { kind: 'material' }>) => void;
   view: PresentationView;
   scenes: SceneSnapshot[];
@@ -221,6 +228,7 @@ const StudyScene = defineComponent({
     if (!context?.sessionId || !scene || scene.kind !== 'study' && scene.kind !== 'study_reference') return <UnavailableScene />;
     return <StudySceneView scene={scene} sessionId={context.sessionId} messageId={context.messageId}
       boundaryKey={context.boundaryKey || ''} disabled={!context.onFollowup}
+      onReadStart={context.onReaderNavigation}
       onFollowup={input => context.onFollowup?.(input)} />;
   },
 });
@@ -269,6 +277,7 @@ const RehearsalScene = defineComponent({
     const current = scene.kind === 'rehearsal' && scene.revision < latest ? rehearsalHistoryReference(scene) : scene;
     return <RehearsalSceneView scene={current} sessionId={context.sessionId} messageId={context.messageId}
       boundaryKey={context.boundaryKey || ''} presentationRevision={latest} api={window.zaichang}
+      onCurrentReadStart={context.onRehearsalCurrentReadStart ? () => context.onRehearsalCurrentReadStart?.(scene.id) : undefined}
       onFollowup={context.onFollowup ? value => context.onFollowup?.(value) : undefined} />;
   },
 });
@@ -338,7 +347,7 @@ export function AssistantPresentation({
   onSelect,
   selection,
   isStreaming = false,
-  sessionId, messageId, boundaryKey, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, onFollowup, onOpenDocument, onOpenNote, timeZone,
+  sessionId, messageId, boundaryKey, hostViewBoundaryKey, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, programFocus, onFollowup, onRehearsalCurrentReadStart, onReaderNavigation, onOpenDocument, onOpenNote, timeZone,
 }: AssistantPresentationProps) {
   const [failed, setFailed] = useState(false);
   const [previewBranchId, setPreviewBranchId] = useState<string>();
@@ -355,7 +364,7 @@ export function AssistantPresentation({
     );
   }, [scenes, view.sceneRefs]);
   const context = useMemo(
-    () => ({ snapshots, renderMap, onSelect, selection, sessionId, messageId, boundaryKey, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, onFollowup, onOpenDocument, onOpenNote, timeZone,
+    () => ({ snapshots, renderMap, onSelect, selection, sessionId, messageId, boundaryKey, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, onFollowup, onRehearsalCurrentReadStart, onReaderNavigation, onOpenDocument, onOpenNote, timeZone,
       comparison: view.comparison, comparisonSceneRefs,
       activeComparisonBranch: activeBranch?.branchId,
       onDiscussComparison: (branch: NonNullable<PresentationView['comparison']>['branches'][number]) => {
@@ -364,24 +373,35 @@ export function AssistantPresentation({
       },
       activeComparisonScene: activeBranch?.sceneRef ? `${activeBranch.sceneRef.id}@${activeBranch.sceneRef.revision}` : undefined,
       viewedDay, onViewDay: setViewedDay }),
-    [snapshots, renderMap, onSelect, selection, sessionId, messageId, boundaryKey, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, onFollowup, onOpenDocument, onOpenNote, timeZone,
+    [snapshots, renderMap, onSelect, selection, sessionId, messageId, boundaryKey, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, onFollowup, onRehearsalCurrentReadStart, onReaderNavigation, onOpenDocument, onOpenNote, timeZone,
       view.comparison, comparisonSceneRefs, activeBranch, viewedDay],
   );
   useEffect(() => setFailed(false), [view.id, view.revision]);
-  if (view.libraryVersion !== 1 || !view.sceneRefs.length) return <UnavailableScene />;
+  const interactive = view.libraryVersion === 2 && !!(view.program || view.programReference);
+  if (!interactive && (view.libraryVersion !== 1 || !view.sceneRefs.length)) return <UnavailableScene />;
   return (
     <SceneContext.Provider value={context}>
       <div className="assistant-presentation" data-view-id={view.id}>
-        {view.comparison && <PlanningComparisonHeader comparison={view.comparison} activeBranchId={activeBranch?.branchId}
-          onPreviewBranch={setPreviewBranchId} />}
-        <Renderer
-          response={view.dsl}
-          library={assistantPresentationLibrary}
-          isStreaming={isStreaming}
-          publishObservability={false}
-          onError={(errors) => setFailed(errors.some((error) => error.severity !== 'warning'))}
-        />
-        {failed && <UnavailableScene />}
+        {interactive ? <InteractiveProgramView view={view} messageId={messageId || ''} boundaryKey={boundaryKey}
+          hostViewBoundaryKey={hostViewBoundaryKey}
+          activeReference={programFocus} disabled={!messageId}
+          onFollowup={onFollowup ? request => onFollowup(request) : undefined}
+          renderSourceSlot={ref => {
+            const scene = snapshots.get(ref);
+            return scene ? <Renderer key={scene.id} response={sceneViewDsl([scene], 'stack')}
+              library={assistantPresentationLibrary} isStreaming={isStreaming} publishObservability={false} /> : <UnavailableScene />;
+          }} /> : <>
+          {view.comparison && <PlanningComparisonHeader comparison={view.comparison} activeBranchId={activeBranch?.branchId}
+            onPreviewBranch={setPreviewBranchId} />}
+          <Renderer
+            response={view.dsl}
+            library={assistantPresentationLibrary}
+            isStreaming={isStreaming}
+            publishObservability={false}
+            onError={(errors) => setFailed(errors.some((error) => error.severity !== 'warning'))}
+          />
+          {failed && <UnavailableScene />}
+        </>}
       </div>
     </SceneContext.Provider>
   );
@@ -571,7 +591,7 @@ function CampusRecords({ scene, selection, onSelect }: {
           <summary>看看资料来自哪里<ChevronDown size={13} aria-hidden="true" /></summary>
           <div>
             <p>{scene.sourceLabel}</p>
-            {scene.source.fetchedAt ? <p><time dateTime={scene.source.fetchedAt}>{campusTime(scene.source.fetchedAt, true)}</time> 读取</p> : <p>这份资料没有附读取时间。</p>}
+            {scene.source.fetchedAt ? <p><time dateTime={scene.source.fetchedAt}>{campusTime(scene.source.fetchedAt, true)}</time> 采集</p> : <p>这份资料没有附源采集时间。</p>}
             <p>{scene.total !== undefined && scene.total > scene.records.length ? `本次显示 ${scene.records.length} 项，查询中共有 ${scene.total} 项。` : `这里保留了这次读到的 ${scene.records.length} 项。`}</p>
             {scene.origin === 'legacy_import' && <p>这是你带来的那份资料，之后的课程变动可以再一起核对。</p>}
           </div>

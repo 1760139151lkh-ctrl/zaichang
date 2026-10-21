@@ -876,7 +876,10 @@ export class ZjuAdapter {
       const history = await this.savedHistory(signal, item => item?.bundle_id === result.bundle_id);
       signal.throwIfAborted();
       const proof = this.snapshotProofs.issue(result, resource, history, before);
-      return proof ? { ...result, snapshotProof: proof, snapshotProofs: [proof] } : result;
+      const saved = Array.isArray(history?.items) ? history.items.find((item: any) => item?.bundle_id === result.bundle_id) : undefined;
+      const semester = typeof saved?.semester_id === 'string' && /^\d{4}-\d{4}-[12]$/.test(saved.semester_id) ? saved.semester_id : undefined;
+      return proof ? { ...result, ...(result.semester_id === undefined && semester ? { semester_id: semester } : {}),
+        snapshotProof: proof, snapshotProofs: [proof] } : result;
     } catch (error) {
       if (signal.aborted) throw error;
       return result;

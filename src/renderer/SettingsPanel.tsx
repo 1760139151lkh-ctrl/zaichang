@@ -698,6 +698,7 @@ export function SettingsPanel({
                       })
                     }
                   >
+                    <option value="character">跟随角色自然表达</option>
                     <option value="none">不主动开玩笑</option>
                     <option value="light">合适时轻松一点</option>
                   </select>

@@ -101,6 +101,7 @@ const campusAccountOutput = z
     snapshotAt: z.string().optional(),
     bundleId: z.string().optional(),
     nextOffset: z.number().int().nonnegative().nullable().optional(),
+    offset: z.number().int().nonnegative().optional(),
     unknownTimeRecords: z.number().int().nonnegative().optional(),
     sourceCoverage: jsonObject.optional(),
     snapshotProof: jsonObject.optional(),
@@ -183,10 +184,9 @@ function statusOf(value: any): KnowledgeStatus {
   if (value?.status === 'conflict') return 'conflict';
   if (
     value?.status === 'partial' ||
-    value?.coverage?.complete === false ||
-    value?.completeness?.complete === false
+    ['ok', 'fresh'].includes(String(value?.status)) && (value?.coverage?.complete === false || value?.completeness?.complete === false)
   )
-    return 'unknown';
+    return 'partial';
   return ['ok', 'fresh'].includes(String(value?.status))
     ? 'fresh'
     : value?.status === 'not_found'
@@ -269,9 +269,9 @@ export function registerBuiltins(
   });
   register({
     manifest: manifest('situation', 'current', [base('situation.read', z.object({
-      from: z.string().datetime({ offset: true }), to: z.string().datetime({ offset: true }), timeZone: z.string().max(100).default('Asia/Shanghai'),
-      limit: z.number().int().min(1).max(20).default(8),
-    }).strict(), jsonObject, ['evidence:read'], { version: '3', timeoutMs: 90000, worlds: ['real'], displayName: '读取有界当前情境', description: '按明确时间窗汇合当前范围允许的本地安排、已接受承诺、有效目标与校园保存快照。已连接并获准时沿原连接器默认读取，可能完成认证或补齐缺少的学期快照，再分页核对课程、考试与校历例外，不必用户重录。日期实例附localStartsAt/localEndsAt和timeZone，未知结束为null。学校计划与本人接受的本地安排分别显示，源采集完整不保证未来不变。未读取、未覆盖和已知空白分开，日历空不证明现实空闲或精力充足。' })]),
+      from: z.string().datetime({ offset: true }).describe('跨来源比较所需窗口的起点，to必须在其后且跨度不超过31天；不是整学期原课表查询。'), to: z.string().datetime({ offset: true }).describe('本次综合窗口终点，与from最多相隔31天。'), timeZone: z.string().max(100).default('Asia/Shanghai'),
+      limit: z.number().int().min(1).max(20).default(8).describe('各类结果的有界摘录数，不能据此宣称全学期课程完整；它也不会去除来源证明与覆盖说明。'),
+    }).strict(), jsonObject, ['evidence:read'], { version: '3', timeoutMs: 90000, worlds: ['real'], displayName: '读取有界当前情境', description: '只在需要跨来源比较时，按最长31天的明确时间窗汇合当前范围允许的本地安排、已接受承诺、有效目标与校园保存快照。单独查看原课表、课程或考试，直接用campus.lookup或campus.query按真实学期、日期、分页读取，其真实sceneRef可交present_view；本工具不是原课表阅读的前置，也不签发课表Scene。已连接并获准时沿原连接器默认读取，可能完成认证或补齐缺少的学期快照，再分页核对课程、考试与校历例外，不必用户重录。日期实例附localStartsAt/localEndsAt和timeZone，未知结束为null。学校计划与本人接受的本地安排分别显示，源采集完整不保证未来不变。未读取、未覆盖和已知空白分开，日历空不证明现实空闲或精力充足。' })]),
     invoke: async (_name, args, ctx) => {
       const scope = policy.validate(ctx.scope), now = repo.clock.now();
       if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self') throw new HarnessError('situation_scope', '个人情境只在本人的现实私有范围内读取。');
@@ -402,9 +402,10 @@ export function registerBuiltins(
         campusInput,
         campusAccountOutput,
         ['campus:read'],
-        { timeoutMs: 90000, displayName: '本人校园资料', description: '按领域读取本人课程/课表/考试、成绩、GPA/学期绩点、实践与已有校园记录；成绩与GPA逐次核具体用途，保留源采集时间、修读口径、分母和缺失范围。只读，不办理预约、选课或支付。' },
+        { version: '2', timeoutMs: 90000, displayName: '本人校园资料', description: '按领域读取本人课程/课表/考试、成绩、GPA/学期绩点、实践与已有校园记录；真实分页或覆盖不完整保留partial和已有记录，不当成没有资料。成绩与GPA逐次核具体用途，保留源采集时间、修读口径、分母和缺失范围。只读，不办理预约、选课或支付。' },
       ),
       base('campus.overview', campusOverviewInput, jsonObject, ['campus:read'], {
+        version: '2',
         timeoutMs: 90000,
         maxBytes: 140000,
       }),
@@ -557,6 +558,7 @@ export function registerBuiltins(
             snapshotAt,
             ...(typeof result.bundle_id === 'string' ? { bundleId: result.bundle_id } : {}),
             ...(result.next_offset !== undefined ? { nextOffset: result.next_offset } : {}),
+            ...(Number.isSafeInteger(result.offset) && result.offset >= 0 ? { offset: result.offset } : {}),
             ...(typeof result.unknown_time_records === 'number' ? { unknownTimeRecords: result.unknown_time_records } : {}),
             ...(result.coverage ? { sourceCoverage: result.coverage } : {}),
             ...(result.snapshotProof ? { snapshotProof: result.snapshotProof } : {}),
@@ -675,7 +677,7 @@ export function registerBuiltins(
           .strict(),
         z.object({ matches: z.array(jsonObject) }).strict(),
         ['map:read'],
-        { version: '2', subjects: ['self', 'other', 'fictional'], description: '按地点名、别名或类别检索当前紫金港公共地图；名称无需重复校区前缀。无匹配时缩短名称或查询别名，不能猜地点ID。候选保留公共参考坐标、入口/接入条件与来源；绘图几何由原地图持有，不是本人位置。' },
+        { version: '3', subjects: ['self', 'other', 'fictional'], description: '按自然地点名、既有别名或类别检索当前公共地图；可带当前地图标题中的范围限定，范围不是新增地点别名。无匹配先核范围/已有别名，不要求用户背内部名称或猜ID。候选保留公共参考坐标、入口、全部接入候选ID/条件分组与对应来源；摘要不是已选择路线，详细接入由map.route核，完整几何仍在原地图，不是本人位置。' },
       ),
       base('map.route', routeInput, jsonObject, ['map:read'], { subjects: ['self', 'other', 'fictional'] }),
       base('map.location_status', z.object({}).strict(), jsonObject, ['map:read']),

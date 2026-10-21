@@ -8,11 +8,52 @@
 
 本轮对话画面沿[最新视觉要求](source-materials/2026-10-18/visual-fidelity-requirement-20261018.md)落实图稿、动效和既有OpenUI。有限Scene仍由宿主从真实owner编译，界面在同一消息里改变焦点与布局；图像素材和动画不新增事实、工具执行权或第二聊天循环。必要视觉观察不等于产品模型、外部业务或长期体验验收。
 
+本阶段随后纳入通用生成式 OpenUI：`present_view.program` 让原主模型在同一 Message.views 编写交互作品，业务 Scene 继续归原 owner。`interactive-library.ts`、`interactive-functions.ts` 与 `interactive-program.ts` 是组件、纯函数、局部状态和接纳规则的唯一共享定义；`read_skill`的`id=interactive-program`按需从实际定义生成方法，默认上下文只给版本、读取入口和少量当前作品地址。新作品可沿同一read_skill的section=authoring一次取得实际共享库全部构作签名、严格函数元数据、核心语法与原构作指导；当前scalar／工具schema不冒充全文提供。原raw没有section时，仅本轮正式准入的当前作品或实际精确交付的read_interactive_program结果使默认页为overview，否则为authoring；显式section始终优先。这只选择指南，不签发权限。authoring整体照实际外壳计费，不够预算便拒绝；编辑先读原作与本次条件，仅为新增或具体报错沿原小页补签名，未读整册不是使用前置。函数返回类型联结与集合长度规则由同一实际Entry元数据同时进入authoring／精确小页和原AST检查，不手写第二册，也不因未知长度假定为零或放松集合上界。它不注入另一份人物提示词或场景模板；新增来源仍须实际读取，局部点击与试改不变成偏好、采用或业务执行。
+
+通用renderer已接在`AssistantPresentation`的同一view入口：`InteractiveProgramView`使用原OpenUI 1.0.1 renderer，`interactive-context`提供唯一受检局部状态写入，`interactive-primitives`与`interactive-graphics`渲染共享组件，`interactive-motion`执行有限、由用户启动的动效。`SourceSlot`只嵌入本次已准入的真实Scene，继续使用原Scene renderer与选择入口；不另取业务资料。局部改变或继续按钮将原程序／节点引用带到同一composer，App发送前读取该作品当前完整合法输入，保留已有草稿。手动输入可中断Motion，来源边界变化后旧文档不能继续提供状态。以上接线已落源码并启用，选定图稿、同包实际画面、正常Luna和交互证据各自记入[当前状态](CURRENT_STATUS.md#personal-memory-round7)，不由源码存在推定通过。
+
+原程序和派生文字沿`ContextReceipt.interactiveProgramSources`保留原message／program／修订地址。普通前情、核清用途后的前情与前后台子调查的实际采用都继承同一来源门；带这些来源的协议不进入不透明跨轮缓存。目录地址不是DSL或绑定数据已读。当前引用的`currentInteractive`由同一native程序重算实际局部输入，focus-only不补当前值，求值失败不补0；`sourceContext.kind=interactive_program`只标本次所指的作品，混合的独立真实自述仍按原话逐片段判断。
+
+`read_interactive_program`默认只读有限overview与状态预览，`states`分页给完整声明，`source`按绝对Unicode范围读原源码，全文必须显式请求。当前引用也只投递有覆盖说明的有限presentation与真实局部值，不默认复制完整target、曲线点列或SourceSlot正文。宿主完成原工具schema解析后，只有新作品且previous缺省、bindings与sceneRefs均空、整个参数仅含program／sceneRefs／layout时，按回复创作处理，不调用私人资料读取用途判断。同一主run继续完善刚交付作品时，也须上述新输入边界不变，且当前outputMessageId的live cache与本轮实际投递的presented programRef精确一致，只认最高实际已发表／投递修订，再核当前来源与scope；callbacks前暂存不算发表。跨turn旧作、任意previous、新来源或其他入口仍走原用途核验，不自动代填版本；原CAS仍独立执行。本批源码在同一program入口加入整稿dsl与previous＋patch二选一；局部稿经原生声明合并，按名替换／新增，name=null显式删除，未提及声明保留且不自动GC。stateChanges稀疏修改声明，inputChanges显式改值；原字段续用本次Enter冻结输入，没有时沿原版本document.initialState，新字段才以initial起步，Reset仍取声明默认，不偷搬后来live值或自动clamp。旧数据仅当前合法未过期live与父证明可继承，保留的SourceSlot重新经过原owner；合成整件作品仍走原CAS、全部AST与预算门，实际增量体验尚待验证。其用途投影通过`projectInteractiveProgramReadPurpose`只提供拟创建／修订、绑定与Scene边界、字段种类及已正式核准的原作身份，不复制DSL、局部值和布局。全部声明与分支的AST、Data／SourceSlot实际来源集合、来源闭包、编译、CAS、预算与取消检查仍独立执行；结构化用途判断未取得时明确报结构失败，不冒充已采用的语义拒绝。
+
+程序失败只记录有界计量及结构位置等安全metadata，不保存失败DSL来反造原因。工具实际错误与模型wire保持同一内容，读取准入、成功请求中的实际递送和最终发表分别有记录；`includedInSuccessfulModelRequest`须在成功请求内匹配实际工具JSON后才成立，字段存在不表示已递送、理解或成功修改。上述减载与反馈机制已落源码，原触发是否恢复仍以[实际结果](CURRENT_STATUS.md#personal-memory-round7)为准。
+
 ## 一个主助手，宿主保有执行权
 
 ### 本轮交流链：眼前能接住，过去能深读
 
-当前主助手可以在必要调查前先说出已有根据的实质帮助。`conversation-rhythm.ts`只接前台本人交流中、主模型成功返回且要继续工具调用的公开正文；它在工具开始前发布到原Message，后面的最终正文保留并接续这些话。子调查、压缩、内部核对及尚未收口的最终候选不从该入口发布。补充沿原停止与普通发送进入新ingress，旧运行的晚到结果不承担新方向；没有新的回复代理或聊天循环。`HermesRun.validate`支持异步owner读取，原启动、RPC和子事件均等待真实来源恢复后继续。
+当前主助手可以在必要调查前先说出已有根据的实质帮助。本批`conversation-rhythm.ts`接前台主模型的onText，在原Message里临时显示可替换的正文；成功工具前段与最终接受正文分开管理，终态、成功历史与缓存仍经原终审。子调查、压缩与内部核对不从该入口发布。补充沿原停止与普通发送进入新ingress，旧运行的晚到结果不承担新方向；没有新的回复代理或聊天循环。`HermesRun.validate`支持异步owner读取，原启动、RPC和子事件均等待真实来源恢复后继续。该新接力的正常Luna与界面结果仍需独立记证。
+
+完成判定也需看已经真正给出的内容。`presentation-delivery.ts`仅在当前回复的`callbacks.present`成功后登记本轮新帮助与当前作品投影，供同一个`completion_review`连同正文和工具观察判断；学习纸上的完整解释不再只有一个opaque引用。程序用原native求值器取实际初态、可读文字／公式和必要图形，缺绑定资料不补空值；原题、旧历史正文和校园UI-only行不从这里展开。登记不构成正确、已读、采用或业务成功，有限窗口的缺口仍保留，来源与取消继续由原模型边界核验。这项接缝起于实际学习纸帮助已发而后续未正常收尾；修后样本与通用程序的运行证据分别归[当前状态](CURRENT_STATUS.md#personal-memory-round7)，该发布内容登记机制本身不调整Gemini表达、资料额度或超时。
+
+### 角色注入、对话接力与主动相处机制（2026-10-19 架构说明）
+
+1. **角色进入主模型与边界约束**：
+   - 用户在设置中选定角色（如丰川祥子、若叶睦等），角色核心数据由 `Store.settings().persona` 持有。
+   - `personaGuidance()`（`src/shared/persona.ts`）在每一轮对话中动态生成角色系统上下文，注入选定角色的姓名、关系定位（女友、伙伴、妻子「老公」、朋友等设定，以及日常亲昵称呼约定如「小灰灰」）、心理层次与语气范例（`src/shared/persona-portrayals.ts`）。
+   - 同时，系统提示词（`prompts/system.md`）与 `personaGuidance()` 共同注入不可动摇的反官僚审计规则：严禁向用户泄漏内部审计横幅（如“全程只读，没有修改任何资料”“只作解释没有改动”“先停在讨论层”“核对当前事项”）；角色的关心、想念、嗔怪或郑重皆为自然的相处表达，不挂免责声明；但底层权限与事实铁律不变——角色形象不赋予任何额外工具权限，模型无法自行修改角色核心，事实回执依然严格核验。
+
+2. **工具观察怎样回来，哪些正文何时发布，公开前段怎样接到最终回答**：
+   - **主助手正文的临时预览与接力**：本批源码将原provider.onText接入当前Message运行态；Rhythm暂段可替换，成功工具前段与最终accepted分别管理，responseText／done／历史缓存仍经原终审。首字及后续flush沿原来源门，来源失效清本run正文；普通中断可保合法已显示但未完成的文字。接线、类型检查与正常Luna／实际呈现分别记证，不能由源码宣称等待和人物体验已通过。
+   - **宿主状态与角色正文分开**：Message.hostStatus按有限原因码给简短的人话，原技术原因留在可展开的处理过程；catch保持error或cancelled，不以已有隐私回执改为done。真实成功操作、合法已发布作品与原准备记录各按原owner保存。状态不拼入角色content、复制／引用或成功记忆；恢复只聚焦同一composer并保稿，不自动重放原文、旧引用或票据。成功回复的已恢复工具过程折叠在内容后，当前未完成项仍可查看；旧失败正文不猜拆或全局迁移。
+   - **同一准备只读一份主体**：主动发布的Message仅由宿主为同一份全文签出primaryHelpRef；renderer还须核精确helpRef、当前实际展开的纸面与整段content逐字一致，才隐藏重复的普通正文。收起、回读不可用或正文不一致时保留原回复；存储／模型前情、复制、来源和原owner续聊不改，也不据去重签发已看回执。旧消息没有该标记时不猜拆。
+   - **收尾去重与自然顺接**：当工具执行完毕、模型产生最终答复时，`ConversationRhythmPublisher.finish()` 执行逐行与前缀重叠分析，剔除重复文本，让最终输出自然承接先行承接语，避免“复读机”式罗列。
+   - **工具步骤业务命名**：`src/main/tools.ts` 中的 `formatToolStepTitle` 将生硬的“核对当前事项”等兜底文字，根据工具名称与参数重写为贴合业务的友善步骤标题（如“翻看笔记内容”“规划路线与时间”“查看天气情况”“查询课程与日程”“回顾过往相处与经历”等）。
+
+3. **后台怎样唤醒、读取、准备、投递，用户回来如何继续**：
+   - **后台机会审查**：`coordinator.ts` 的 `reviewOpportunities` 在有界授权范围内轮询合法机会。本轮已放行 `curiosity_invitation`（好奇邀请）与 `write_reflective_letter`（回顾来信）进入机会执行白名单。
+   - **三层产物严格区分**：
+     - **安静准备（Prepared Artifact）**：后台只读调查形成的材料以准备状态安静写入数据库 Work 表，不弹窗、不骚扰用户。
+     - **聊天内呈现（In-Chat Message）**：当用户回到对话或主动交互时，由主助手根据当前上下文通过 `present_view` 投影到前台界面。
+     - **系统桌面通知（System OS Notification）**：仅限带明确截止期限且需用户知悉的提醒，由 `src/main/actions/reminders.ts` 提交操作系统通知，且通知标题带有动态角色署名（`${characterName} · ${eventTitle}`），告别机械化的“在场”默认标题。
+   - **三种应用生命状态**：
+     - **应用运行中（窗口聚焦）**：前台交互活跃，已返回的公开正文接力呈现，已发布组件更新。
+     - **应用运行中（窗口未聚焦）**：后台机会审查与安静准备正常执行；定时任务到期触发操作系统通知。
+     - **桌面进程完全退出**：后台轮询彻底终止；宿主不承诺离线后台服务或移动端暗中推送，严格守护本地隐私边界与电量资源。
+
+4. **单主循环与工具开发定位**：
+   - 沿用固定 Hermes 主循环（`harness.ts` → `runtime/hermes.ts` → Python `AIAgent`）与 DeepSeek 生产模型（Luna 显式代测）。
+   - Antigravity 平台内的 Gemini 仅作为开发、调试与提示词写作的 pair-programming 伙伴，产品运行时内绝不增加第二套 Gemini 润色服务或外部代理分支。
 
 需要理解旧经历时，主模型调用`recall_experience`给出当前问题、不确定处与必要原文／事项地址。`memory-inquiry.ts`在父模型assistant wire上保留调用身份，把有效请求规范为原生`delegate`任务；`memoryInquiry` profile也可用于普通delegate。Python保留原task交给`children.open`，宿主沿原source子集、取消与共享预算创建同一Hermes只读子调查。唯一详细方法`prompts/memory-inquiry.md`引导子模型随新发现继续search／browse／read、回到原事项并比较后来变化；返回的自然报告和真实evidenceIndex交给父模型判断，宿主不以读数声称理解完成。
 
@@ -107,11 +148,15 @@ flowchart LR
 4. `look_up` 等工具经 [`tools.ts`](../src/main/tools.ts)、coordinator 和 broker 到具体能力。目录中有能力、已连接、本轮可执行与已经成功读取各有自己的状态。参数或结果校验失败返回有限诊断，不能把失败改写为资料不存在。
 5. 宿主计量读取、模型调用和上下文预算，复核权限及版本。最终消息只关联实际动作、场景和材料。执行回执先于“已经保存/发送”的结论，步骤完成或模型文字本身不构成业务成功。
 
+执行scope的初签从控制核准后的`policy.ingress`起算。仅Luna代测的新主前台使用独立可信`HostIngressExecution`签发900000ms；它不进入Controls、Bridge或工具JSON，生产DeepSeek及全局hostScope默认仍为240000ms。child截止取父截止与自身新签240000ms的较早者，实际取消信号也随之缩短；不自动续签或恢复旧scope，单call165秒、Hermes RPC175秒及隐私epoch／来源／版本／停止的即时检查各自保留。结束收据只记安全原因、初签scopeExpiresAt和endedAt，子scope提前截止不冒充root过期；该机制尚无独立自然语言执行时限解析，也不是点击发送起总15分钟的承诺。源码接入及其检查不代替新attempt的实际结果。
+
 校园个人查询经 [`zjuAdapter.ts`](../src/main/zjuAdapter.ts) 调用用户另行安装并授权的 `ZAICHANG_ZJU_SOURCE` 进程；仓库不自带账号授权。导入快照、账号实时读取和公共参考资料分别报告来源、覆盖与时效。天气使用明确公开参考地点的预报，Windows 设备定位另有共享许可和质量信息，均不能当作手机实时位置或校园现场观测。
 
 ## 按需技能是方法层
 
-[`runtime/skills.ts`](../src/main/runtime/skills.ts) 提供十份有版本的内置方法：原有记忆调查、日程规划、结合情境的出行、校园体育查询、安静的主动帮助和动作恢复，增加角色表达、准备与返回、学习陪伴、选择调查。`discover_skills` 按需返回目录，`read_skill` 返回方法正文、版本以及所需工具/能力当前的可用、未连接、未授权、未登记或未知状态。实际发现和读取接入 coordinator 的工具注册与范围检查。
+[`runtime/skills.ts`](../src/main/runtime/skills.ts) 提供有版本的内置方法：原有记忆调查、日程规划、结合情境的出行、校园体育查询、安静的主动帮助和动作恢复，以及角色表达、准备与返回、学习陪伴、选择调查与通用交互构作。`discover_skills` 按需返回目录，`read_skill` 返回方法正文、版本以及所需工具/能力当前的可用、未连接、未授权、未登记或未知状态。实际发现和读取接入 coordinator 的工具注册与范围检查。
+
+仅`interactive-program`的components／functions／actions签名分页把limit作为条数上限：在原共享预算内交付从原offset开始的最大完整前缀，最终外壳及coverage一起计费；未交付区间与next明确保留，单条仍放不下则拒绝。overview／grammar不切，私人方法与材料不套此分支，不裁字或把partial当整册已读。三个静态签名分段只回方法身份、完整签名、coverage／next和本轮真实requirements／readiness，不逐页重复总览介绍或分组说明；总览／grammar及私人方法保持原结构，最终实际返回仍完整计费。同作续改先按需要读取原作品源码片段，复用已读且适用的签名，仅新增原语或具体报错时补读。相关适配已落源码，实际能否解开原请求仍看当前状态中的正常触发。
 
 方法说明任务怎样做、什么时候回读证据或检查回执；工具和能力负责实际执行。读取技能不安装软件、不执行脚本、不创建授权，也不证明来源覆盖完整。目录搜索只匹配文档，未命中不能被解释为现实没有该能力。模型仍可直接调用简单查询；复杂任务按实际需要读取方法，不设强制技能仪式或生活主题路由。体育分类存在也不证明已取得有效跑步计次，具体字段、学期、审核口径和分页须通过真实来源核对。
 
@@ -262,9 +307,9 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 
 完整契约见 [CONVERSATION_SCENES](CONVERSATION_SCENES.md)。[`shared/scenes.ts`](../src/shared/scenes.ts) 与 [`runtime/scenes.ts`](../src/main/runtime/scenes.ts) 管理带来源及版本的地图/天气快照；`Message.scenes/views` 交给 [`AssistantPresentation`](../src/renderer/presentation/AssistantPresentation.tsx) 的受限 OpenUI 组件库。模型不能注入任意 JavaScript、改写来源事实或凭展示动作取得业务授权。选中地点、日期或路线段通过 `ChatInput.selection` 返回精确语义引用，宿主复验场景版本后才进入后续上下文。后台查询快照标记 `preparationOnly`，单纯查询不取得前台展示权。
 
-正常发现仍属于主模型的语义选择：工具目录说明如何取得真实结果，`presentationLibrary`说明现有有限组件，实际查询返回的SceneRef才供`present_view`引用。原记录ID不是画面ID，没取得引用时不能猜造。日历直读通过`agenda-scene.ts`复用PlanningScene的`mode=agenda`，不调用planner或制造空闲／新方案；同一run的同一精确查询复用Scene身份，原消息按该身份更新。已成功发布的画面与正文共同参与原completion review，数据UI不要求正文整表复抄；作品、帮助与明确全文请求仍需实际可读内容，失败或未呈现的目录不冒充交付。
+正常发现仍属于主模型的语义选择：工具目录说明如何取得真实结果，`presentationLibrary`说明现有有限组件，实际查询返回的SceneRef才供`present_view`引用。原记录ID不是画面ID，没取得引用时不能猜造。单一来源的原资料可直达其owner，例如校园课程沿原campus.lookup／campus.query；Context中的情境覆盖信息不要求先综合读取。`situation.read`只为实际需要的跨源安排／承诺／目标汇合，单次最多31天，规划工具也不是原资料查询的前置。日历直读通过`agenda-scene.ts`复用PlanningScene的`mode=agenda`，不调用planner或制造空闲／新方案；同一run的同一精确查询复用Scene身份，原消息按该身份更新。已成功发布的画面与正文共同参与原completion review，数据UI不要求正文整表复抄；作品、帮助与明确全文请求仍需实际可读内容，失败或未呈现的目录不冒充交付。
 
-笔记正文继续归NotesService。`NoteScene`只从实际已交付的read页恢复，`NoteSourceProof`保存note ID、原修订、内容证明及绝对Unicode范围；list／history的零长范围只作元数据依赖，不算正文已读。普通编辑保留合法原版本，删除／撤回阻止画面和派生正文回流。实际采用的证明沿ContextReceipt、历史、前后台子报告与模型边界继承；`note_reference`只保原消息的回读地址，不缓存旧页许可。成绩／GPA仍是CampusScene，敏感读取另以本轮真实用途的`campusSensitiveReads`约束模型前情；本机私有历史显示不自动授予下一轮模型读取。
+笔记正文继续归NotesService。`NoteScene`只从实际已交付的read页恢复，`NoteSourceProof`保存note ID、原修订、内容证明及绝对Unicode范围；list／history的零长范围只作元数据依赖，不算正文已读。普通编辑保留合法原版本，删除／撤回阻止画面和派生正文回流。实际采用的证明沿ContextReceipt、历史、前后台子报告与模型边界继承；`note_reference`只保原消息的回读地址，不缓存旧页许可。当前选句已编译准入时，原读取用途核验另取得仅含当前合法对象／选区／已展示页范围的宿主元数据，用来理解“这句／这些想法”；不自动许可回读或把原页算成本轮全文已读，具体内容仍经原工具实际读取。成绩／GPA仍是CampusScene，敏感读取另以本轮真实用途的`campusSensitiveReads`约束模型前情；本机私有历史显示不自动授予下一轮模型读取。
 
 `ConversationMap`、独立 `MapSheet` 与 review-web 共用 `MapSurface`、`CampusMapAdapter`、`WalkingGraph.shortest`、MapLibre 引擎和已有平面 fallback。地面地理/通行图与展示几何分开，`CameraOwnership` 取消被用户手势接管的旧异步视图。独立地图拥有本机定位轮询；公共地图本身不提供个人位置。模型路线副本由 [`map-model-view.ts`](../src/main/runtime/map-model-view.ts) 保留距离、入口、条件、警告和来源，去除重复绘图几何；完整路线仍供原地图绘制。原始读取字节与模型可见 token 分别计量。天气能力可返回小时窗口，当前 WeatherScene 仍是日级展示。
 

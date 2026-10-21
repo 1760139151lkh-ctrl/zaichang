@@ -9,6 +9,7 @@ import type { RehearsalScene, RehearsalHistoryReference } from './relationship-r
 import type { NoteScene, NoteHistoryReference } from './note-presentation';
 import type { MapStorySetting } from './story-setting';
 import type { CampusAcademicReference } from './campus-academic';
+import type { InteractiveProgramDocument, InteractiveProgramHistoryReference } from './interactive-program';
 
 /** Facts are immutable message snapshots; camera and trial selections never imply an action. */
 export interface SceneSource {
@@ -95,6 +96,12 @@ export interface CampusScene extends SceneBase {
   academicRead?: { capability: 'campus.query' | 'campus.lookup'; arguments: Record<string, unknown> };
   /** Live owner proof only; omitted when this scene becomes a history address. */
   academicSnapshotProof?: unknown;
+  /** Ordinary course pages may be rendered locally without delivering their
+   * rows to the model. The original owner remains the only read address. */
+  modelBodyDelivered?: boolean;
+  nativeRead?: { capability: 'campus.query' | 'campus.lookup'; arguments: Record<string, unknown>; snapshotProof?: unknown };
+  nativePage?: { offset: number; returned: number };
+  sourceCoverage?: unknown;
 }
 export interface PlanningBlock {
   id: string;
@@ -192,10 +199,12 @@ export interface EnvironmentScene extends SceneBase {
 }
 export type SceneSnapshot = MapScene | WeatherScene | CampusScene | CampusAcademicReference | PlanningScene | EnvironmentScene | DiscussionScene | StudyScene | StudyHistoryReference | CuriosityScene | CuriosityHistoryReference | RehearsalScene | RehearsalHistoryReference | NoteScene | NoteHistoryReference;
 export interface PresentationView extends SceneRef {
-  libraryVersion: 1;
+  libraryVersion: 1 | 2;
   createdAt: string;
   sceneRefs: SceneRef[];
   dsl: string;
+  program?: InteractiveProgramDocument;
+  programReference?: InteractiveProgramHistoryReference;
   comparison?: PlanningComparisonView;
 }
 const id = z.string().min(1).max(160);

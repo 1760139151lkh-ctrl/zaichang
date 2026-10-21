@@ -401,6 +401,7 @@ export class CapabilityBroker {
       actionAttempt?: { id: string; key: string };
       inspectKey?: string;
       cancelKey?: string;
+      /** @deprecated Legacy caller metadata, ignored; calls are measured only. */
       maxCalls?: number;
       refresh?: boolean;
     } = {},
@@ -501,8 +502,7 @@ export class CapabilityBroker {
       if (d.effect === 'read') readKey = key;
       const flightKey = key;
       const budget = this.budgets.get(handle) || { calls: 0, bytes: 0 };
-      if (++budget.calls > (options.maxCalls || 12))
-        throw new HarnessError('tool_budget', '本轮读取达到上限，请缩小范围。');
+      budget.calls++;
       this.budgets.set(handle, budget);
       for (const [cachedKey, result] of this.cached)
         if (!result.expiresAt || Date.parse(result.expiresAt) <= Date.parse(this.policy.repo.clock.now())) this.cached.delete(cachedKey);

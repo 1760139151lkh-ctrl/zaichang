@@ -273,8 +273,17 @@ export class ReminderRuntime {
             JSON.stringify({ attemptedAt: this.repo.clock.now(), fence: job.fence }),
           ),
       );
+      const settings = this.repo.getMeta<{ persona?: { core?: { name?: string } } }>('settings', {});
+      const characterName = settings?.persona?.core?.name || '在场';
+      const eventTitle = typeof payload?.title === 'string' && payload.title.trim()
+        ? payload.title.trim()
+        : (kind === 'reminder' ? '到约定的时间了' : '有一处新变化');
+      const notifyTitle = `${characterName} · ${eventTitle}`;
+      const notifyBody = kind === 'reminder'
+        ? (payload?.title ? `到约定的时间了：${payload.title}。打开在场查看。` : '打开在场查看详情。')
+        : '打开在场查看详情。';
       const result = await this.port.submit(
-        { id: job.id, title: kind === 'reminder' ? '在场 · 到约定的时间了' : '在场 · 有一处变化', body: '打开在场查看详情。' },
+        { id: job.id, title: notifyTitle, body: notifyBody },
         signal,
       );
       this.repo.fault?.('after_notification_submit');
