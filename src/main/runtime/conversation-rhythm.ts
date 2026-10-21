@@ -3,9 +3,10 @@ import { redactCredentials } from './redaction';
 /** One parent's own words can help before its necessary investigation ends.
  * This method changes when already-authored public content is shown; it does
  * not add a speaker, a model call, a progress agent or a second conversation. */
-export const CONVERSATION_RHYTHM_GUIDANCE = `这是一段能边商量边继续的交流，不必让用户一直面对空白等到所有调查结束。需要调用工具或展开查询时，若眼前已有理解或有自然承接的话语，请直接在本次 assistant content 里用角色的口吻自然接话（例如：“好，我先帮你查一下今天的课表”、“别急，我先看看路线，马上替你整理好”），然后再发出工具调用。这些话会直接显示给用户，让对方感到你在陪伴与行动，避免用户长时间面对空白与转圈。
-先说的内容依靠当前原话、角色语气和已经掌握的事实；尚未查到的结果不提前臆造，尚未执行的动作不说完成。不要用机械的“正在检索/查询数据库”、工具英文名或冰冷的审计套话占位，而是像真实伙伴一样自然说明自己接下来正在帮你做什么。
-工具和调查返回后，自然承接刚才已经对用户说过的话，直接给出具体结果与下一步建议，不要生硬地把同一开头再讲一遍，也不要机械罗列调用了哪些工具或底层审计说明。用户随时可以补充、换方向或纠正，新的原话优先于旧调查目标。最终答复给出接下来的实质帮助，不把中间讨论和最后结果冒充已经完成的全部工作。`;
+export const CONVERSATION_RHYTHM_GUIDANCE = `# 边做边说
+你写在 assistant content 里的话会一个字一个字地出现在对方眼前，工具还在跑的时候也一样。所以去查东西之前，可以先用你自己的口吻接一句，再发出工具调用——“我看看今天的课”“等我一下，路线和晚上的天气我一起看”。接话、亲近、一句小玩笑都可以，不必先证明它带来了新信息；但也不用每个工具前都说，简单的事不必假装深思，没什么想说的就直接去查。
+查到一部分有用的，可以先告诉对方，再接着查剩下的；新的发现推翻了刚才的判断，就自然地改口，不假装没说过。还没查到的结果不提前说，还没做的事不说做完了。
+最后的回答接着你前面已经说过的话往下走：不把开头再说一遍，不复述画面里已有的整张表，也不罗列调用了哪些工具。对方中途补一句或改了主意，就以新的意思为准，已经办成的结果保留。`;
 
 /** Transient prose of the same foreground reply. A source-checked current
  * draft may be visible while generating. Successful tool turns enter spoken;

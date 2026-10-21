@@ -56,6 +56,8 @@ export interface InitialContextOptions {
   currentProgramMessageId?: string;
 }
 
+const SEMANTIC_LOCAL_WORK_BYTES = 4_000_000;
+
 function grams(text: string) {
   const p = Array.from(text.toLowerCase()),
     out = new Set<string>();
@@ -137,11 +139,11 @@ export class ContextCompiler {
         historyCoverage: { scope: 'permitted_recent_conversation_window', userBodiesProvided: provided.filter(message => message.role === 'user').length,
           assistantBodiesProvided: provided.filter(message => message.role === 'assistant').length,
           assistantBodiesDeferred: assistantHistory.filter(message => !ids.has(message.id)).length, moreMayExist: true,
-          meaning: '本合法窗口中的用户与助手正文完整提供；最近帮助及所指原作按historyCarryover标身份，重合不重复。消息完整不证明承诺或动作已办。窗口之外仍可能有条件或约定，需要时沿原read入口核对；窗口外地址不表示正文已读或现行授权。' } };
+          meaning: '这段对话里最近的原话都在这里；更早的回复只列了地址，需要时用 read_assistant_history 回读。说过的承诺不等于已经办成。' } };
     };
     const historyOrganization = currentWorkFirst ? { ...historyProjection(history),
       contextOrganization: { mode: 'current_work_first',
-        meaning: '当前真实原话与所指作品优先理解；既有合法前情照常提供，不因材料数量省略。来源、用途、版本和撤销仍逐项复核。' } } : {};
+        meaning: '先理解这句话和对方指着的那件作品，其余前情照常可用。' } } : {};
     const recentObservations = sessionId && history.length && canReadHistory && !ingress.requiresReadPurpose && scope.sources.includes('history:self')
       ? this.repo.sessionExternalObservations(contract.scope, sessionId, contract.now) : [];
     const observationSummaries = recentObservations.map(event => ({ id: event.id, sourceId: event.sourceId, authority: event.authority, receivedAt: event.receivedAt, text: event.text,
@@ -156,7 +158,7 @@ export class ContextCompiler {
     const capabilityDirectory = { items: discovered.slice(0, 24).map(item => ({ name: item.name, sourceId: item.sourceId, displayName: item.displayName,
       description: item.description, connection: item.connection, effect: item.effect, connected: item.connection.connected,
       executableInThisTurn: item.connection.connected && (item.effect === 'read' || contract.actionMode !== 'respond') })), more: discovered.length > 24,
-      meaning: '仅是许可范围内的非敏感能力说明，没有读取资料或执行动作；存在、已连接、本轮允许执行、实际完成是不同事实。用look_up的capability目录继续搜索、分页或获取输入schema。' };
+      meaning: '你现在能用的能力（不止这些：用 look_up 的 capability 可以继续搜、翻页或读参数）。connected 是已接通，executableInThisTurn 是这一轮可以直接用。' };
     const sourceContextMeaning = sourceContextGuidance(...currentEvents.map(event => event.sourceContext), ...history.map(message => message.sourceContext));
     let life: LifeContinuityContext | undefined;
     const initial = { current: ingress.authoredText, attachments: currentEvents.filter(e => e.speaker === 'external'), history, ...historyOrganization, sourceContextMeaning,
@@ -200,7 +202,7 @@ export class ContextCompiler {
         situation: { asOf: contract.now, timeZone: contract.timeZone, versions: this.repo.watermarks(),
           currentStatements: currentEvents.filter(event => event.speaker === 'user').map(event => ({ evidenceId: event.id, version: event.contentVersion })),
           coverage: { calendar: 'not_queried', campus: 'not_queried', location: 'not_queried', weather: 'not_queried', energy: 'unknown' },
-          read: '按当前问题发现并读取直接相关的原来源，单源资料可沿其原读取入口取得；确需跨源理解安排、承诺与目标时，再用situation.read汇合单次不超过31天的情境，planning.preview用于检验实际方案。未查询、未覆盖、确实为空和当前可用精力分别判断。当前原话与更正优先于旧摘要，必要时展开原始条件。' },
+          read: '日程、校园、位置、天气都还没查。需要哪样就直接查哪样；要把安排、承诺和目标放在一起看时用 situation.read（一次最多31天），检验一个具体方案用 planning.preview。没查、没覆盖、确实为空、精力未知是不同的情况。' },
         history, ...historyOrganization, ...(observationSummaries.length ? { recentObservations: observationSummaries } : {}), ...(ingress.threadContextAllowed ? { historyUse: '仅作为同一对话里用户已提供的背景理解当前假设；不代表假设已在现实发生，也未读取本人长期画像或其他会话。' } : {}), currentSources: currentEvents.map(e => ({ id: e.id, sourceId: e.sourceId, authority: e.authority, text: e.text,
           ...(e.sourceContext ? { sourceContext: e.sourceContext } : {}) })),
         sourceContextMeaning,
@@ -341,6 +343,9 @@ export class ContextCompiler {
       && (scope.sources.includes('history:self') || scope.sources.includes('profile:self')) && this.policy.can(pack.contract.scope, 'evidence:read')) {
       semantic = await this.semanticRecall.search(pack.contract.scope, recallQueries(query, recall.relatedQueries), {
         signal: options.signal, projectRanges: options.projectRanges, projectionKey: options.projectionKey,
+        // A local-inference work bound for embedding passages, not a delivery
+        // gate: what is found is still read back through the original source.
+        maxReadBytes: SEMANTIC_LOCAL_WORK_BYTES,
         maxRows: pack.contract.budget.maxRows, offset: recall.semanticOffset || 0, limit: 51, rankingId: recall.semanticSnapshot,
         windowCursor: recall.semanticWindowCursor,
         onReadBytes: bytes => {
@@ -1050,7 +1055,7 @@ export class ContextCompiler {
     const data: ContextPack['data'] = { ...pack.data, history: remaining };
     const directory = pack.data.capabilityDirectory as { items?: Record<string, unknown>[]; more?: boolean; meaning?: string } | undefined;
     if (directory?.items && retained.some(message => typeof message.content === 'string' && message.content.includes(canonical(directory)))) {
-      data.capabilityDirectory = { ...directory, items: directory.items.map(({ description: _description, ...item }) => item), meaning: '完整说明已在保留上下文中提供；以下更新本轮连接与可用状态，输入schema仍可按需读取。' };
+      data.capabilityDirectory = { ...directory, items: directory.items.map(({ description: _description, ...item }) => item), meaning: '完整说明前面已经给过；这里只更新这一轮的接通状态。' };
     }
     if (remaining.length !== history.length) data.historyReuse = '未重复列出的历史原文仍以相同角色完整保留在当前协议链中；原始存储和检索不变。';
     return this.serialize({ ...pack, data });

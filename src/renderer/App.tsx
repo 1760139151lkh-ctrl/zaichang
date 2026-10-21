@@ -533,6 +533,15 @@ export function App() {
     knownMemories.current = new Set(next.memories.map((m) => m.id));
     setState(next);
   }
+  // A role the person never saved follows the artwork they see, so the
+  // picture and the voice belong to the same character from the first chat.
+  const personaUntouched = state?.settings.persona.revision === 0 && state.settings.persona.source === 'default';
+  const boundCompanion = state?.settings.persona.core.visualBinding?.companionId;
+  useEffect(() => {
+    if (!personaUntouched || !companion.character || companion.character === boundCompanion
+      || companion.character === 'light' || companion.character.startsWith('custom:')) return;
+    void api.followDefaultCompanion(companion.character).then(updateState).catch(() => {});
+  }, [personaUntouched, boundCompanion, companion.character]);
   function replaceDraft(next: Draft, persist = true) {
     draftRevision.current++;
     draftRef.current = next;

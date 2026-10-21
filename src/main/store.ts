@@ -19,7 +19,8 @@ import type { AssistantWorkSource, ClockPort, HostIdentity } from '../shared/har
 import { interactiveProgramSourceSchema } from '../shared/harness';
 import { redactExport } from './runtime/redaction';
 import { assertTestStoreFile } from './testBoundary';
-import { applyPersonaUpdate, migratePersona, personaStateSchema } from '../shared/persona';
+import { applyPersonaUpdate, companionPreset, initialPersona, isUntouchedDefaultPersona, migratePersona, personaStateSchema } from '../shared/persona';
+import { DEFAULT_INTERACTION, LEGACY_DEFAULT_INTERACTION, type InteractionPreferences } from '../shared/interaction';
 import { NotesService } from './notes/service';
 import { canonical } from './runtime/semantics';
 import { campusAcademicReference } from '../shared/campus-academic';
@@ -102,22 +103,43 @@ export class Store {
   settings(): Settings {
     const stored = this.meta<Partial<Settings>>('settings', {});
     const parsedPersona = personaStateSchema.safeParse(stored.persona);
-    const persona = parsedPersona.success ? parsedPersona.data : migratePersona(stored.guidance);
-    if (!parsedPersona.success) {
+    let persona = parsedPersona.success ? parsedPersona.data : stored.guidance ? migratePersona(stored.guidance) : initialPersona();
+    let migrated = !parsedPersona.success;
+    if (!parsedPersona.success && stored.guidance && !this.meta<unknown>('legacy-private-guidance', null)) {
       // Preserve the exact pre-migration private text. It is never part of the
       // role history, template, preview or always-on prompt projection.
-      if (stored.guidance && !this.meta<unknown>('legacy-private-guidance', null))
-        this.putMeta('legacy-private-guidance', { text: stored.guidance, classification: 'private_unreviewed', migratedAt: this.kernel?.clock.now() || new Date().toISOString() });
-      this.putMeta('settings', { ...stored, persona });
+      this.putMeta('legacy-private-guidance', { text: stored.guidance, classification: 'private_unreviewed', migratedAt: this.kernel?.clock.now() || new Date().toISOString() });
     }
+    let interaction: InteractionPreferences = { ...DEFAULT_SETTINGS.interaction, ...stored.interaction };
+    if ((stored.defaultsVersion ?? 1) < 2) {
+      // Shipped defaults change once: a never-saved role becomes the character
+      // the person sees by default, and the exact old default interaction
+      // tuple becomes the new one. Any value the person actually chose stays.
+      if (isUntouchedDefaultPersona(persona)) persona = initialPersona();
+      if (stored.interaction && (Object.keys(LEGACY_DEFAULT_INTERACTION) as (keyof InteractionPreferences)[])
+        .every(key => stored.interaction![key] === LEGACY_DEFAULT_INTERACTION[key])) interaction = { ...DEFAULT_INTERACTION };
+      migrated = true;
+    }
+    if (migrated) this.putMeta('settings', { ...stored, persona, interaction, defaultsVersion: 2 });
     return {
       ...DEFAULT_SETTINGS,
       ...stored,
-      interaction: { ...DEFAULT_SETTINGS.interaction, ...stored.interaction },
+      interaction,
       persona,
       model: DEEPSEEK_MODEL,
       hasKey: false,
+      defaultsVersion: 2,
     };
+  }
+  /** A role that was never saved follows the artwork the person picked, so a
+   * new user who chose 祥子 talks to 祥子. Saved roles are never touched. */
+  followDefaultCompanion(companionId: string) {
+    const current = this.settings();
+    const preset = companionPreset(companionId);
+    if (!preset || current.persona.revision !== 0 || current.persona.source !== 'default' || current.persona.history.length) return current;
+    if (current.persona.core.presetId === preset.core.presetId) return current;
+    this.putMeta('settings', { ...this.meta<Partial<Settings>>('settings', {}), persona: { ...current.persona, core: preset.core } });
+    return this.settings();
   }
   saveSettings(value: SettingsUpdate) {
     const { personaUpdate, apiKey: _apiKey, ...patch } = value;
@@ -136,7 +158,7 @@ export class Store {
       if (value.interaction?.initiative === 'quiet' && previous.interaction.initiative !== 'quiet') this.runtime.attention.quietOptional();
       if (value.interaction?.initiative === 'prepare' && previous.interaction.initiative !== 'prepare') this.runtime.attention.keepPreparedInApp();
     }
-    this.putMeta('settings', { ...this.settings(), ...patch, persona, model: DEEPSEEK_MODEL, hasKey: false });
+    this.putMeta('settings', { ...this.settings(), ...patch, persona, model: DEEPSEEK_MODEL, hasKey: false, defaultsVersion: 2 });
   }
   session(id?: string, title = '新的对话'): string {
     if (id && this.db.prepare('SELECT id FROM sessions WHERE id=?').get(id)) return id;

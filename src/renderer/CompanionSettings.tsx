@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type MutableRefObject } from 'react';
 import { Check, ChevronDown, Heart, ImagePlus, LoaderCircle, Moon, Plus, SlidersHorizontal, Sun, Sunset, Trash2, Undo2 } from 'lucide-react';
-import { personaPreset, selectCompanionPersona, type PersonaState, type PersonaUpdate } from '../shared/persona';
+import { companionPreset, selectCompanionPersona, type PersonaState, type PersonaUpdate } from '../shared/persona';
 import { characterPortrayal } from '../shared/persona-portrayals';
 import type { State } from '../shared/types';
 import { samePersonaCore, type PersonaDraft } from './PersonaEditor';
@@ -38,7 +38,8 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
   const isNight = appearance.theme === 'dark' || (appearance.theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
   const custom = value.pictures.find(item => item.id === value.character);
   const portrayal = characterPortrayal(value.character);
-  const characterCore = portrayal ? personaPreset(portrayal.id) : undefined;
+  const preset = companionPreset(value.character);
+  const characterCore = preset?.core;
   const hasPersonaDraft = !!draft.current.persona;
   const roleLocked = rolePending || saving || busy;
   const alreadyLinked = persona.core.visualBinding?.companionId === value.character;
@@ -56,7 +57,7 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
   function choose(character: typeof value.character) {
     request.current++; setOpening(false);
     perform(() => update({ character }));
-    setRoleMode(characterPortrayal(character) ? 'use_character_preset' : 'preserve_role');
+    setRoleMode(companionPreset(character) ? 'use_character_preset' : 'preserve_role');
     setRoleFeedback(undefined);
   }
   async function importPicture(selected: File) {
@@ -131,13 +132,13 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
         {category !== '我的收藏' && value.pictures.length > 0 && <button type="button" className="text-button" onClick={() => setCategory('我的收藏')}>看看我的收藏</button>}
       </div>
       <section className="companion-role" aria-label="形象与相处方式">
-        <div className="companion-role-heading"><div><p>现在的相处方式 · {persona.core.name || '在场'}</p><h3>{portrayal ? '聊起来，也像她' : '留住熟悉的相处方式'}</h3></div>{alreadyLinked && <span className="companion-role-linked"><Check size={13} />已关联</span>}</div>
-        <p className="companion-role-intro">{portrayal ? '以公开人物特征为起点，也可以保留你已经写下的性格。' : '换了样子，也可以继续按你喜欢的方式聊天。'}</p>
+        <div className="companion-role-heading"><div><p>现在的相处方式 · {persona.core.name || '在场'}</p><h3>{preset ? `聊起来，也像${companionName(value)}` : '留住熟悉的相处方式'}</h3></div>{alreadyLinked && <span className="companion-role-linked"><Check size={13} />已关联</span>}</div>
+        <p className="companion-role-intro">{portrayal ? '以官方人物介绍和声优访谈为起点，也可以保留你已经写下的性格。' : preset ? '这是在场为这个形象写的性格，你随时可以再改。' : '换了样子，也可以继续按你喜欢的方式聊天。'}</p>
         <div className="companion-role-choices" role="group" aria-label="选择相处方式">
-          {portrayal && <button type="button" aria-pressed={roleMode === 'use_character_preset'} disabled={roleLocked} onClick={() => setRoleMode('use_character_preset')}><span className="companion-role-dot" /><strong>用{companionName(value)}的相处方式</strong><small>{portrayal.id === 'sakiko' ? '端正、坚定，把关心放在细节里。' : '安静、体贴，少言也认真回应。'}</small></button>}
+          {preset && <button type="button" aria-pressed={roleMode === 'use_character_preset'} disabled={roleLocked} onClick={() => setRoleMode('use_character_preset')}><span className="companion-role-dot" /><strong>用{companionName(value)}的相处方式</strong><small>{preset.summary}</small></button>}
           <button type="button" aria-pressed={roleMode === 'preserve_role'} disabled={roleLocked} onClick={() => setRoleMode('preserve_role')}><span className="companion-role-dot" /><strong>保留我们现在的约定</strong><small>只关联形象，保留你写过的性格。</small></button>
         </div>
-        {portrayal && roleMode === 'use_character_preset' && <blockquote className="companion-role-example">{characterCore?.examples.find(example => example.scenario === 'chat')?.response}</blockquote>}
+        {preset && roleMode === 'use_character_preset' && <blockquote className="companion-role-example">{characterCore?.examples.find(example => example.scenario === 'chat')?.response}</blockquote>}
         {hasPersonaDraft ? <div className="companion-role-draft" role="status"><p>你还有一份没保存的相处设置，先把它留好再换吧。</p><button type="button" className="text-button" onClick={onEditPersona}>继续编辑草稿</button></div> : <div className="companion-role-actions"><button type="button" className="primary-button" disabled={roleLocked || !!roleUnchanged} onClick={() => void saveRole({ expectedRevision: persona.revision, core: selectCompanionPersona(persona.core, value.character, roleMode) })}>{rolePending && <LoaderCircle size={14} className="spin" />}{roleUnchanged ? '正在这样相处' : roleMode === 'use_character_preset' ? '采用这个角色' : '保留并关联形象'}</button><button type="button" className="text-button" disabled={roleLocked} onClick={onEditPersona}>编辑相处方式</button></div>}
         {roleFeedback && <p className={`inline-status ${roleFeedback.error ? 'error' : ''}`} role={roleFeedback.error ? 'alert' : 'status'}>{roleFeedback.text}</p>}
         {roleUndo && persona.revision === roleUndo.saved && <button type="button" className="text-button companion-role-undo" disabled={roleLocked || hasPersonaDraft} onClick={() => void saveRole({ expectedRevision: persona.revision, undoRevision: roleUndo.previous }, true)}><Undo2 size={13} />撤回这次选择</button>}

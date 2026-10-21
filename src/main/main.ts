@@ -464,6 +464,10 @@ app.whenReady().then(async () => {
       rehearsalInteraction: input.rehearsalInteraction }, input.image);
   });
   handle('stop', () => harness.stop());
+  handle('persona:follow-default', value => {
+    store.followDefaultCompanion(z.string().min(1).max(100).parse(value));
+    return state();
+  });
   handle('settings:save', (value) => {
     const { apiKey, ...settings } = settingsSchema.parse(value);
     const disablingOnly =

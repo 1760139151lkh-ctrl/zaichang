@@ -682,6 +682,8 @@ export interface InitialContextComposition {
 
 export interface ContextReceipt {
   initialComposition?: InitialContextComposition;
+  /** Where the standing instructions of the main run came from, in order. */
+  promptComposition?: { id: string; origin: string; characters: number }[];
   /** Exact original ranges adopted from work or semantic discoveries; no copied body. */
   workSourceBindings?: WorkSourceBinding[];
   /** Original work addresses supporting supplied text or metadata. This is

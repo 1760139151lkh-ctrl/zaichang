@@ -1,3 +1,4 @@
+import { modelToolSurface, type DeferredFamily } from './tool-surface';
 import { randomUUID, createHash } from 'node:crypto';
 import { z } from 'zod';
 import type { Store } from '../store';
@@ -1544,13 +1545,9 @@ export class RuntimeCoordinator {
     if (session.ingress.contract.audience === 'self' && !session.ingress.localOnly) {
       const sceneSessionId = session.sceneSessionId || session.sessionId;
       const availableScenes = this.scenes.summaries(session.ingress.contract.scope, sceneSessionId, session.ingress.contract.id, session.selection ? { id: session.selection.sceneId, revision: session.selection.sceneRevision } : undefined);
-      const presentationLibrary = { version: 1, components: ['MapScene: 可操作的校园总览、单点浏览、真实路线与多停靠旅程；view操作不改安排', 'WeatherScene: 所查公开参考位置的七天按日比较与日期选择；该画面不表达小时资料', 'CampusScene: campus.lookup或campus.query实际返回的课程、课次、考试、成绩与命名GPA；课程原资料可独立读取并按其SceneRef呈现，无须先汇合本机安排或目标。单条detail、多条table，趋势需present_view.campusDisplay明确mode=trend和真实scale。只呈现一个学期时用真实semester_id填campusDisplay.semesterId或先读取真实筛选结果；全量跨学期Scene不能冒充正文所说的单学期。保留原值、计入次数、分母、口径、来源与完整性，未知不补0。选记录供下一句引用，不保存日程', 'PlanningScene: local.agenda.read的mode=agenda显示已经记下的真实安排；planning.preview/draft另显示试算时间带、准备、转场、休息与留白。日历直读不假造空闲或规划预算，点选仅引用，不保存或恢复过期方案', 'EnvironmentScene: weather.lookup小时窗口或air_quality.lookup真实样本；天气与空气各有来源、覆盖和单位，选时刻供下一句引用'],
-        method: '主模型依据当前需要选择地图、天气、校园资料、look_up source=local的真实日历查询或manage_note以operation=read取得的原笔记页，再用present_view引用实际sceneRef或原工具明确给出的呈现参数；无需用户额外要求渲染。只看已存日程不先调用planner制造新方案。未附sceneRef不等于查询能力未接入，仍可按真实结果给简答或可读表格，不能编造场景引用。地图路线查询即表示当前需要地图，会直接展开。校园画面只显示已取得的记录，不能从同名课程猜关联、下次上课或全学期覆盖。用户手势接管后，只有本轮明确观看请求的viewRequestQuote能重新取得镜头；模型提出cameraIntent本身不代表用户要求移镜。已由present_view逐项展示的数据，正文保留结论、理由、必要差异与限制，不机械重复完整列表或表格。数据覆盖全部记录不等于需要正文副本；只有明确另需纯文本、可复制全文或导出内容时，才再提供相应文本。旧事实保留查询时刻；临时界面选择不是长期记忆或行动授权。' };
-      presentationLibrary.components.push('NoteScene: 用manage_note的operation=read先取得真实笔记页，再复制其present.arguments给present_view.note；id/revision/start/end全部来自实际read。原文可读、可选句回同一输入，不自动改写原笔记；note_reference是原页回读地址，不是旧正文已经恢复。当前正文继续讨论，不机械重抄整页。', 'DiscussionScene: present_view.discussion按原matterId/expectedRevision展开同一张商量纸；点一点只供接着聊，不采用方案。原话条件、助手暂定解释和眼前小步分开，只有对当前交流有帮助时才出现。history表示仍合法的当时那一页，不能将旧方案/解释冒成当前状态；指旧页可自然接话，改变事项前回读当前原owner。',
-        'StudyScene: present_view.study按真实studyId展开本题/本人尝试/一段当前请求的帮助，材料异步回读；历史只保留学习纸入口。packet.exploration可在同纸用有限二次关系把当前解释变成可轻改参数/移动x的图文，纵坐标与当前切线斜率一起变化；先有读得懂的packet.text，不交空白沙盒，不预填隐藏答案。只支持明示二次关系（含退化），超范围仍正常讲解/调查；不按学科关键词关工具。用户改条件是临时假设，不能记成本人事实或掌握。不要在聊天正文再抄一遍整段教学帮助。',
-        'Planning comparison: present_view.planningComparison把同一事项2–4个真实option放在同一基线比较；观看/讨论不是采用，实际改变仍走原行动与回执。',
-        'CuriosityScene: present_view.curiosity按curiosity_invitation实际返回的id/revision/matterRevision展开一个已准备好的新鲜体验；正文作品优先，普通一句回答能接同一对象。公开事实必须本轮实际回读；创作不成为本人现实经历，不用兴趣类别菜单。',
-        'RehearsalScene: present_view.rehearsal按manage_relationship_rehearsal/read_relationship_rehearsal实际返回的id/expectedRevision在原对话展开一段试说。本人确实试说的话和你扮演的对方一种可能回应分开；你仍是主助手，不另开导演或人物画像。觉得不像就换，不想继续可随时collect收成一句；允许难接或未解，不强行演到对方认同。台词正文放试说纸，不在普通正文机械抄一遍。控件只接同一输入，不证明对外发送、实际承诺或关系事实。');
+      const presentationLibrary = { version: 1, components: ['MapScene: 校园地图——总览、看一个地点、真实步行路线和多站旅程（A→B→A 也行）；镜头和选点不改变安排', 'WeatherScene: 一个公开参考地点未来七天的天气，按天比较、可选日期（不表示小时变化）', 'CampusScene: 真实读到的课程、课次、考试、成绩和具名 GPA；一条用 detail，多条用 table，真要看趋势才用 campusDisplay 的 trend；只讲一个学期时用真实 semesterId；缺的成绩不当 0', 'PlanningScene: local.agenda.read 读到的已有安排（mode=agenda），或 planning.preview/draft 算出的试排时间带（含准备、转场、休息、留白）；看日历不必先造新方案', 'EnvironmentScene: 小时天气或空气质量的真实样本，可选时刻'],
+        method: '画面能让对方一眼看懂时，就用 present_view 把它摊开：地图、天气、校园记录、日程、原笔记页都可以，不需要对方先说“画出来”。只引用工具真实返回的 sceneRef 或 present.arguments；没有画面入口时，就用文字或表格把真实结果讲清。画面已经展示的内容，正文说结论、理由和值得注意的差别，不再抄一遍整表——除非对方明确要一份可复制的文字。对方动手看地图之后，只有他明说“继续讲/回到路线/看那里”时才用 viewRequestQuote 拿回镜头。选中画面里的一处只是指着说，不是接受或授权。' };
+      presentationLibrary.components.push('NoteScene: 先用 manage_note 的 read 读到真实笔记页，再把它返回的 present.arguments 交给 present_view.note；原文可读、可选句接着聊，不会改动笔记', 'DiscussionScene: present_view.discussion 用原事项的 matterId/expectedRevision 摊开一张商量纸——原话里的条件、你的暂定理解和眼前一小步分开放；点一点只是接着聊', 'StudyScene: present_view.study 用真实 studyId 展开陪学纸：原题、本人的尝试、这一次要的那段帮助；需要时 packet.exploration 可以做成能拖动参数的二次函数图', 'Planning comparison: present_view.planningComparison 把同一件事的 2–4 种真实安排放在一起比较；看和讨论不等于采用', 'CuriosityScene: present_view.curiosity 展开 curiosity_invitation 准备好的那件新东西；作品在前，对方随口一句也能接着玩', 'RehearsalScene: present_view.rehearsal 把一段试说放回同一页：对方真的说出口的话，和你扮演的一种可能回应分开');
       const investigationOpportunity = session.investigation ? this.repo.work(session.ingress.contract.scope, undefined, session.investigation.opportunityId)[0] : undefined;
       const programAvailable = !session.background && this.toolSpecs(session).some(tool => tool.function.name === 'present_view'
         && Object.prototype.hasOwnProperty.call(tool.function.parameters.properties || {}, 'program'));
@@ -1654,6 +1651,21 @@ export class RuntimeCoordinator {
   private currentOwnerProposalAllowed(session: RunSession, child = false) {
     return !child && !session.background && !session.ephemeral && !this.memory.paused && this.store.settings().memoryEnabled
       && this.policy.canProposeCurrentOwner(session.ingress);
+  }
+  /** The model-facing tool list for one request: everyday tools directly, the
+   * specialized ones behind use_tool unless this turn is already inside that
+   * activity. Permissions come only from toolSpecs below. */
+  modelToolSpecs(session: RunSession, child = false): ToolSpec[] {
+    const data = (session.pack?.data || {}) as Record<string, unknown>;
+    const promoted = new Set<DeferredFamily>();
+    if (data.currentStudy || session.studyInteraction || session.studySelection) promoted.add('study');
+    if (data.currentRehearsal || session.rehearsalInteraction) promoted.add('rehearsal');
+    if (data.currentLetter || session.letterReference) promoted.add('letter');
+    if (data.currentCuriosity || session.curiosityReference) promoted.add('curiosity');
+    if (data.currentCompanion || session.companionReference) promoted.add('companion');
+    if ((Array.isArray(data.planningIntents) && data.planningIntents.length) || session.selection?.kind === 'time_block') promoted.add('planning');
+    if (data.personalHelpMethods) promoted.add('methods');
+    return modelToolSurface(this.toolSpecs(session, child), promoted);
   }
   toolSpecs(session: RunSession, child = false): ToolSpec[] {
     const contract = session.ingress.contract,
@@ -2357,7 +2369,7 @@ export class RuntimeCoordinator {
             ...(session.outputMessageId ? { read: { tool: 'read_interactive_program', arguments: {
               messageId: session.outputMessageId, programId: program.view.id, revision: program.view.revision, mode: 'overview' } } } : {}),
             ...(program.edit ? { edit: program.edit } : {}) } : {}),
-          meaning: '已呈现对应视图。主助手请用自然角色语言回应，不向用户复述此类内部安全免责声明。' };
+          meaning: '画面已经摊开在对方眼前了。正文接着说结论和值得注意的地方，不用再描述或抄写画面里的内容。' };
       if (session.pack) {
         const authoredScenes = scenes.filter(scene => scene.kind === 'note' || scene.kind === 'discussion' || scene.kind === 'study' || scene.kind === 'curiosity' || scene.kind === 'rehearsal' || scene.kind === 'campus' && !!scene.academicDisplay || scene.kind === 'map' && !!scene.storySetting
           || comparison?.scenes.some(value => value.id === scene.id && value.revision === scene.revision));

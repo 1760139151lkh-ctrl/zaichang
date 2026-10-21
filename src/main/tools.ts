@@ -6,6 +6,7 @@ import type { Store } from './store';
 import type { RunSession } from './runtime/coordinator';
 import { ProviderError, type ToolSpec } from './provider';
 import { redactCredentials } from './runtime/redaction';
+import { compactSchema, deferredFamily, USE_TOOL } from './runtime/tool-surface';
 
 export interface ToolContext {
   prepareRelease?: import('./runtime/coordinator').RuntimeCallbacks['prepareRelease'];
@@ -128,10 +129,16 @@ export class ToolRegistry {
       };
     }
   }
+  /** What the model is offered for this request (see runtime/tool-surface). */
   specs(): ToolSpec[] {
+    return this.context.store.runtime.modelToolSpecs(this.run, this.context.child);
+  }
+  /** The full permission-filtered contract list owned by the host. */
+  allSpecs(): ToolSpec[] {
     return this.context.store.runtime.toolSpecs(this.run, this.context.child);
   }
   async execute(name: string, raw: string, toolCallId?: string, operationSignal?: AbortSignal): Promise<string> {
+    if (name === USE_TOOL) return this.useTool(raw, toolCallId, operationSignal);
     const signal = AbortSignal.any([this.context.signal, this.run.signal, ...(operationSignal ? [operationSignal] : [])]);
     const id = randomUUID(),
       title = formatToolStepTitle(name, raw);
@@ -248,5 +255,22 @@ export class ToolRegistry {
       }
       return JSON.stringify(failedResult);
     }
+  }
+  /** The gateway for specialized tools. Describing returns the same contract
+   * the host validates; calling runs the ordinary execute path, so the
+   * observation, step and receipt carry the real tool name. */
+  private async useTool(raw: string, toolCallId?: string, operationSignal?: AbortSignal): Promise<string> {
+    let request: { name?: unknown; arguments?: unknown };
+    try { request = JSON.parse(raw); } catch { return JSON.stringify({ status: 'failed', code: 'invalid_request', error: 'use_tool 的参数不是有效 JSON。' }); }
+    const name = typeof request?.name === 'string' ? request.name : '';
+    const spec = this.allSpecs().find(item => item.function.name === name && deferredFamily(name));
+    if (!spec) return JSON.stringify({ status: 'failed', code: 'tool_unavailable', error: '这个专门工具现在不可用，或者它本来就在工具列表里，可以直接调用。' });
+    if (request.arguments === undefined) {
+      const described = { status: 'schema', name, description: spec.function.description, parameters: compactSchema(spec.function.parameters),
+        next: '按这份参数结构再调用一次 use_tool，并传入 arguments。' };
+      (this.run.observations ||= []).push({ tool: USE_TOOL, requestedArguments: { name }, result: described, ...(toolCallId ? { toolCallId } : {}) });
+      return JSON.stringify(described);
+    }
+    return this.execute(name, JSON.stringify(request.arguments), toolCallId, operationSignal);
   }
 }

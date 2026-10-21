@@ -45,6 +45,7 @@ const bridge: Bridge = {
   send: (input) => ipcRenderer.invoke('send', input),
   stop: () => ipcRenderer.invoke('stop'),
   saveSettings: (input) => ipcRenderer.invoke('settings:save', input),
+  followDefaultCompanion: (companionId) => ipcRenderer.invoke('persona:follow-default', companionId),
   testConnection: (input) => ipcRenderer.invoke('connection:test', input),
   deleteKey: () => ipcRenderer.invoke('key:delete'),
   cancelConnection: () => ipcRenderer.invoke('connection:cancel'),

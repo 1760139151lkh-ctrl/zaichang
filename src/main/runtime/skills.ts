@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import memoryInquiryMethod from '../../../prompts/memory-inquiry.md';
+import workingDetailsMethod from '../../../prompts/working-details.md';
 import type { PersonalMethodConditions } from '../../shared/personal-method';
 import { INTERACTIVE_PROGRAM_AVAILABLE } from '../../shared/interactive-program';
 import { INTERACTIVE_PROGRAM_METHOD_ID, interactiveProgramMethodPage, interactiveProgramWorkflowSkill,
@@ -46,6 +47,12 @@ export interface WorkflowSkill {
 }
 
 const skills: readonly WorkflowSkill[] = [
+  {
+    id: 'working-details', version: '1', name: '工作细则',
+    description: '时间换算、原话来源与引用、记忆提案、本人方法、检索续页、规划与学习工具、动作审批与暂停等的详细规则；从常驻提示中移出，需要时按段读取。',
+    requirements: [],
+    instructions: workingDetailsMethod,
+  },
   {
     id: 'memory-investigation', version: '7', name: '围绕眼前的事，读懂前情',
     description: '当前问题需要旧经历、当时理由或后来变化时，由模型主动深读原文、寻找反例、对照可比经历，把理解落实为现在更合适的帮助；普通交流已有足够依据时直接回应。',

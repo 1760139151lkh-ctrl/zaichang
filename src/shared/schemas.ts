@@ -89,6 +89,10 @@ export const settingsSchema = z
       .optional(),
     guidance: z.string().max(4000).optional(),
     apiKey: z.string().trim().min(8).max(512).optional(),
+    backgroundPresence: z.enum(['tray', 'quit']).optional(),
+    launchAtLogin: z.boolean().optional(),
+    notificationPreview: z.enum(['words', 'private']).optional(),
+    companionCheckIns: z.enum(['off', 'sometimes', 'often']).optional(),
   })
   .strict();
 export function terms(query: string): string[] {

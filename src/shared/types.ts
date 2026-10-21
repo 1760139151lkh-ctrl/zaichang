@@ -165,8 +165,18 @@ export interface Settings {
   guidance: string;
   hasKey: boolean;
   timeZone?: string;
+  /** Closing the window keeps her running in the tray (default) or quits. */
+  backgroundPresence?: 'tray' | 'quit';
+  /** Start quietly with the computer so promised reminders and watches keep going. */
+  launchAtLogin?: boolean;
+  /** What an OS notification may show: her actual words, or only that she has something. */
+  notificationPreview?: 'words' | 'private';
+  /** Whether she may sometimes come by just to say hello or share something, not only about tasks. */
+  companionCheckIns?: 'off' | 'sometimes' | 'often';
+  /** Migration marker for shipped defaults; never a user-facing setting. */
+  defaultsVersion?: number;
 }
-export type SettingsUpdate = Partial<Omit<Settings, 'hasKey' | 'persona'>> & {
+export type SettingsUpdate = Partial<Omit<Settings, 'hasKey' | 'persona' | 'defaultsVersion'>> & {
   apiKey?: string;
   personaUpdate?: PersonaUpdate;
 };
@@ -310,6 +320,8 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
   }): Promise<{ sessionId: string }>;
   stop(): Promise<void>;
   saveSettings(input: SettingsUpdate): Promise<State>;
+  /** Only a never-saved default role follows the chosen artwork. */
+  followDefaultCompanion(companionId: string): Promise<State>;
   testConnection(input: { apiKey?: string }): Promise<string>;
   cancelConnection(): Promise<void>;
   deleteKey(): Promise<State>;
@@ -396,4 +408,9 @@ export const DEFAULT_SETTINGS: Settings = {
   guidance: '',
   hasKey: false,
   timeZone: 'Asia/Shanghai',
+  backgroundPresence: 'tray',
+  launchAtLogin: false,
+  notificationPreview: 'words',
+  companionCheckIns: 'sometimes',
+  defaultsVersion: 2,
 };
