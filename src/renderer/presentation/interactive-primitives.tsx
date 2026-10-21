@@ -5,7 +5,7 @@ import { interactiveActions, validateInteractiveActionPlan, validateInteractiveP
 import { checkedProgramPatch, snapProgramNumber, type InteractiveStateDeclaration } from '../../shared/interactive-program';
 import { RichText } from '../RichText';
 import { InteractiveChildren, InteractiveDocument, InteractiveHostContext, InteractiveGraphicSlot, useInteractiveControls } from './interactive-context';
-import { InteractiveGraphic, InteractiveGroup, InteractiveLine, InteractivePolyline, InteractiveCircle,
+import { InteractiveGraphic, InteractiveGroup, InteractiveLine, InteractivePolyline, InteractiveCurve, InteractiveCircle,
   InteractiveLabel, InteractiveDragHandle } from './interactive-graphics';
 import { InteractiveMotion } from './interactive-motion';
 
@@ -271,7 +271,7 @@ const renderers: Record<InteractiveComponentName, ComponentRenderer<any>> = {
   Document: InteractiveDocument, Flow: InteractiveFlow, Paper: InteractivePaper, Text: InteractiveText, Formula: InteractiveFormula,
   Number: InteractiveNumber, TextInput: InteractiveTextInput, SequenceInput: InteractiveSequenceInput, Choice: InteractiveChoice,
   Toggle: InteractiveToggle, Button: InteractiveButton, SourceSlot: InteractiveSourceSlot, Graphic: InteractiveGraphic,
-  Group: InteractiveGroup, Line: InteractiveLine, Polyline: InteractivePolyline, Circle: InteractiveCircle,
+  Group: InteractiveGroup, Line: InteractiveLine, Polyline: InteractivePolyline, Curve: InteractiveCurve, Circle: InteractiveCircle,
   Label: InteractiveLabel, DragHandle: InteractiveDragHandle, Motion: InteractiveMotion,
 };
 /** State-dependent derived props are checked again at their actual render,

@@ -36,6 +36,23 @@ export interface TurnControlInteractionContext {
   focus: 'sentence_or_passage' | 'line_or_step' | 'source_object' | 'shared_object';
 }
 
+/**
+ * Whether this message needs the separate control model call before she can
+ * start answering. It never classifies what the person wants: the main model
+ * always reads every word. It only lets the many ordinary messages with no
+ * hint of a saving, source, audience, subject, world or action limit skip one
+ * full model round-trip, which otherwise delays her first word. Any cue at
+ * all, a long message, an attachment, an image or an interface reference keeps
+ * the full parse. A missed control falls back to the ordinary private default.
+ */
+const CONTROL_CUES = /记|存|忘|删|清除|清掉|别留|不留|隐私|秘密|私密|保密|历史|以前|之前|上次|聊天记录|只用|只看|只根据|只靠|只参考|仅|别用|不用查|别查|不要查|不要用|别看|别读|不要看|不许|不准|禁止|不能用|附件|文件|材料|这份|发给|写给|告诉|转告|回复|帮我回|回他|回她|代我|邮件|短信|消息|通知|老师|导师|教授|同学|室友|朋友|家人|爸|妈|父母|同事|领导|群|公开|朋友圈|草稿|稿|对外|别人|他们|他|她|假如|如果|假设|要是|万一|小说|故事|剧本|角色|扮演|设定|写一篇|别改|不要改|先别|不要动|别动|只讨论|别提交|不要提交|别安排|不要安排|别发|不要发|本地|本机|离线|云|上传|联网|上网|定位|位置|账号|密码/u;
+export function needsControlParse(text: string, context: { attachment?: boolean; image?: boolean; reference?: boolean } = {}): boolean {
+  if (context.attachment || context.image || context.reference) return true;
+  if (Array.from(text).length > 160) return true;
+  if (/[A-Za-z]{3,}/.test(text)) return true;
+  return CONTROL_CUES.test(text);
+}
+
 /** Local admission examines the governed operation, not the mere presence of
  * “cloud” near a negation. Search/source restrictions are interpreted separately
  * by the control proposal. The explicit local-only UI remains authoritative. */

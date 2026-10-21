@@ -96,6 +96,9 @@ export interface Message {
   helpRefs?: { id: string; revision: number; helpRecordId: string; kind?: 'reflective_letter' }[];
   /** Host-signed identity when this message's whole body is the prepared artifact. */
   primaryHelpRef?: { id: string; revision: number; helpRecordId: string };
+  /** She wrote this without a new message from the person: a check-in, or
+   * the result of something they entrusted. */
+  proactive?: 'check_in' | 'attention';
   cooperationId?: string;
   objectStates?: import('./presentation').ObjectPresentationState[];
   /** User-facing owner response before the host appends separately authored drafts. */
@@ -395,6 +398,8 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
   copyText(text: string): Promise<void>;
   window(action: 'minimize' | 'maximize' | 'close' | 'close-confirmed'): void;
   onCloseRequest(callback: () => void): () => void;
+  /** A notification click asks the window to open what it was about. */
+  onNavigate(callback: (target: { sessionId?: string; view?: 'agenda' }) => void): () => void;
   onEvent(callback: (event: RunEvent) => void): () => void;
 }
 export const DEFAULT_SETTINGS: Settings = {
@@ -404,7 +409,7 @@ export const DEFAULT_SETTINGS: Settings = {
   mode: 'demo',
   memoryEnabled: true,
   weatherEnabled: false,
-  remindersEnabled: false,
+  remindersEnabled: true,
   guidance: '',
   hasKey: false,
   timeZone: 'Asia/Shanghai',

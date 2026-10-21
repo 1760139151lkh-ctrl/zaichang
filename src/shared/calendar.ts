@@ -35,6 +35,7 @@ export const calendarFieldsSchema = z.object({
   recurrence: recurrenceSchema.optional(),
   exceptions: z.array(occurrenceExceptionSchema).max(100).optional(),
   remindAt: z.string().datetime({ offset: true }).optional(),
+  reminderMessage: z.string().max(200).optional().describe('到点时出现在系统通知里、你对对方说的一句话，用你自己的口吻写，例如“早呀，记得把资料带上～”。只写提醒这件事，不放私人细节；省略时通知只显示事项名。'),
   planning: calendarPlanningSchema.optional().describe('区分未答应的邀请、愿望、未接受方案和已接受安排。旧对象缺失时沿用原已登记安排语义；movable只说明可提出移动方案，不授权自动调整。'),
 });
 export type CalendarFields = z.infer<typeof calendarFieldsSchema>;

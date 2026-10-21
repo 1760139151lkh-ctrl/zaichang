@@ -2,6 +2,7 @@ import { createLibrary, createParser, defineAction, defineComponent, markReactiv
   type Library, type EvaluationContext } from '@openuidev/lang-core';
 import { z } from 'zod/v4';
 import { createInteractiveFunctions, interactiveFunctionMetadata } from './interactive-functions';
+import { checkCurveNames, parseCurveExpression } from './curve-expression';
 import type { InteractiveProgramComponentDiagnostic } from './harness';
 import { INTERACTIVE_PROGRAM_LIMITS, PROGRAM_AST_RULES, PROGRAM_LIBRARY_VERSION, interactiveStateValuesSchema,
   programKeySchema, programNodeIdSchema, checkedProgramPatch, initialProgramState,
@@ -105,6 +106,14 @@ primitive('Polyline', '按真实给出的有限点列连线；null或未知点�
   points: z.array(point).max(INTERACTIVE_PROGRAM_LIMITS.collection).nullable().default(null), color: color.default('ink'),
   width: finite.min(.25).max(8).default(1.75), dashed: z.boolean().default(false),
 });
+primitive('Curve', '按一个数学式画连续曲线：expression 是 y 关于 variable（默认 x）的式子；再给 xExpression 时画参数曲线（两式都关于同一个 variable，比如 t）。式子只认数字、+ - * / ^、括号、sin cos tan exp ln log sqrt abs min max 等常用函数、pi/e，以及 params 里命名的量——params 的值可以绑定 $ui 局部输入，拖动时曲线立刻跟着变。在 from 到 to 之间取 samples 个点，无定义处断开；不执行代码。一条曲线只算一个节点，画波形、叠加、衰减、轨迹都不用自己展开点列。', 'graphic', {
+  expression: z.string().min(1).max(400), from: finite, to: finite,
+  params: z.record(programKeySchema, finite.nullable()).default({}),
+  color: color.default('accent'), samples: z.number().int().min(2).max(512).default(160),
+  width: finite.min(.25).max(8).default(2), dashed: z.boolean().default(false),
+  variable: z.string().regex(/^[A-Za-z]$/).default('x'),
+  xExpression: z.string().min(1).max(400).optional(),
+});
 primitive('Circle', '画一个有限坐标圆点或圆；半径是画面像素，不引入外部图像或业务。', 'graphic', {
   x: coordinate, y: coordinate, radius: finite.min(.5).max(80).default(4), color: color.default('accent'), filled: z.boolean().default(true),
 });
@@ -134,7 +143,7 @@ graphicRefs = neutralDefinitions.filter(def => ['graphic', 'motion'].includes(sp
 export const interactiveComponentSpecs: readonly PrimitiveSpec[] = Object.freeze(specs);
 export const interactiveComponentNames: readonly string[] = Object.freeze(specs.map(spec => spec.name));
 export type InteractiveComponentName = 'Document' | 'Flow' | 'Paper' | 'Text' | 'Formula' | 'Number' | 'TextInput' | 'SequenceInput'
-  | 'Choice' | 'Toggle' | 'Button' | 'SourceSlot' | 'Graphic' | 'Group' | 'Line' | 'Polyline' | 'Circle' | 'Label' | 'DragHandle' | 'Motion';
+  | 'Choice' | 'Toggle' | 'Button' | 'SourceSlot' | 'Graphic' | 'Group' | 'Line' | 'Polyline' | 'Curve' | 'Circle' | 'Label' | 'DragHandle' | 'Motion';
 
 export function createInteractiveLibrary<C = null>(options: { data?: ProgramDataMap; renderers?: Partial<Record<InteractiveComponentName, C>> } = {}) {
   const components = neutralDefinitions.map(def => ({ ...def,
@@ -269,6 +278,19 @@ export function inspectInteractivePrimitiveProperties(name: string, raw: Record<
     if (!(domain.xMax > domain.xMin) || !(domain.yMax > domain.yMin)
       || !Number.isFinite(domain.xMax - domain.xMin) || !Number.isFinite(domain.yMax - domain.yMin))
       return reject('画布需要有限且有宽度的横纵范围。', 'graphic_domain', [['domain']]);
+  }
+  if (name === 'Curve') {
+    const params = (checked.data.params || {}) as Record<string, unknown>, variable = String(checked.data.variable || 'x');
+    if (Object.hasOwn(params, variable)) return reject('曲线变量不能同时是参数名。', 'curve_expression', [['params']]);
+    for (const key of ['expression', 'xExpression'] as const) {
+      const source = checked.data[key];
+      if (source === undefined) continue;
+      try {
+        const problem = checkCurveNames(parseCurveExpression(String(source)), [variable, ...Object.keys(params)]);
+        if (problem) return reject(problem, 'curve_expression', [[key]]);
+      } catch (error) { return reject(error instanceof Error ? error.message : '这个式子写得不对。', 'curve_expression', [[key]]); }
+    }
+    if (!(Number(checked.data.to) > Number(checked.data.from))) return reject('曲线的 from 要小于 to。', 'curve_range', [['from'], ['to']]);
   }
   if (name === 'DragHandle') {
     const fields = [raw.xField, raw.yField].filter((value): value is string => typeof value === 'string');

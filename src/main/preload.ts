@@ -89,6 +89,11 @@ const bridge: Bridge = {
   openLink: (url) => ipcRenderer.invoke('link:open', url),
   copyText: (text) => ipcRenderer.invoke('text:copy', text),
   window: (action) => ipcRenderer.send('window', action),
+  onNavigate: (callback) => {
+    const listener = (_event: unknown, target: unknown) => callback(target as never);
+    ipcRenderer.on('zaichang:navigate', listener);
+    return () => ipcRenderer.removeListener('zaichang:navigate', listener);
+  },
   onCloseRequest: (callback) => {
     const listener = () => callback();
     ipcRenderer.on('zaichang:close-request', listener);

@@ -615,7 +615,7 @@ export interface InteractiveProgramComponentDiagnostic {
     code: 'invalid_type' | 'too_big' | 'too_small' | 'invalid_format' | 'not_multiple_of' | 'unrecognized_keys'
       | 'invalid_union' | 'invalid_key' | 'invalid_element' | 'invalid_value' | 'custom' | 'schema_issue'
       | 'unknown_component' | 'local_action' | 'state_kind' | 'graphic_domain' | 'drag_fields'
-      | 'motion_duration' | 'motion_number_fields' | 'motion_state_patch';
+      | 'motion_duration' | 'motion_number_fields' | 'motion_state_patch' | 'curve_expression' | 'curve_range';
     path: (string | number)[];
     /** False means the path stopped before an arbitrary/record key. */
     pathComplete: boolean;

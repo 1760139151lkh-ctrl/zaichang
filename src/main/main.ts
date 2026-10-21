@@ -8,10 +8,12 @@ import {
   net,
   nativeImage,
   Notification,
+  powerMonitor,
   protocol,
   safeStorage,
   session,
   shell,
+  Tray,
 } from 'electron';
 import { mkdirSync, existsSync, readFileSync, writeFileSync, unlinkSync, statSync } from 'node:fs';
 import path from 'node:path';
@@ -96,6 +98,10 @@ protocol.registerSchemesAsPrivileged([
 // Explicit profile override also makes packaged verification independent of personal data.
 if (process.env.ZAICHANG_DATA_DIR) app.setPath('userData', path.resolve(process.env.ZAICHANG_DATA_DIR));
 app.setName('在场');
+// One companion per profile: a second launch brings the existing window back.
+// The lock lives in the (possibly isolated) userData directory set above.
+if (!app.requestSingleInstanceLock()) app.quit();
+else app.on('second-instance', () => showWindow());
 let window: BrowserWindow | undefined,
   store: Store,
   harness: Harness,
@@ -107,6 +113,44 @@ let draftCloseConfirmed = false;
 let connectionController: AbortController | undefined;
 let latestDeviceLocation: import('../shared/map-v2').LocationStatusResult | undefined;
 let opportunityScheduler: ReturnType<typeof createOpportunityScheduler> | undefined;
+let tray: Tray | undefined;
+let quitting = false;
+let trayNoticeShown = false;
+/** Bring the one window back, wherever it went (tray, minimized, behind). */
+function showWindow() {
+  if (!window || window.isDestroyed()) return;
+  if (window.isMinimized()) window.restore();
+  window.show();
+  window.focus();
+}
+function navigateTo(target?: import('./actions/reminders').DeliveryTarget) {
+  showWindow();
+  if (target && window && !window.isDestroyed()) window.webContents.send('zaichang:navigate', target);
+}
+/** Closing the window keeps her running in the tray unless the person chose
+ * otherwise, so promised reminders and entrusted watches keep going. */
+function keepsRunningInTray() {
+  return process.env.ZAICHANG_TEST !== '1' && store?.settings().backgroundPresence !== 'quit';
+}
+function applyLoginItem() {
+  if (process.env.ZAICHANG_TEST === '1' || !app.isPackaged) return;
+  try { app.setLoginItemSettings({ openAtLogin: store.settings().launchAtLogin === true, args: ['--hidden'] }); } catch { /* A platform without login items keeps the manual start. */ }
+}
+function ensureTray() {
+  if (tray || process.env.ZAICHANG_TEST === '1') return;
+  try {
+    tray = new Tray(nativeImage.createFromPath(path.join(app.getAppPath(), 'assets/brand/icon.png')).resize({ width: 16, height: 16 }));
+    const name = () => store.settings().persona.core.name.trim() || '在场';
+    const menu = () => Menu.buildFromTemplate([
+      { label: `打开在场`, click: () => showWindow() },
+      { type: 'separator' },
+      { label: '退出在场', click: () => { quitting = true; app.quit(); } },
+    ]);
+    tray.setToolTip(`${name()} 在这儿`);
+    tray.setContextMenu(menu());
+    tray.on('click', () => showWindow());
+  } catch { tray = undefined; }
+}
 function getKey() {
   if (projectDeepSeekKey) return projectDeepSeekKey;
   if (existsSync(keyPath)) {
@@ -474,13 +518,18 @@ app.whenReady().then(async () => {
       !apiKey &&
       Object.entries(settings).every(
         ([key, val]) =>
-          ['memoryEnabled', 'weatherEnabled', 'remindersEnabled'].includes(key) && val === false,
+          ['memoryEnabled', 'weatherEnabled', 'remindersEnabled'].includes(key) && val === false
+          // How notices look and whether she stays in the tray never change a
+          // reply already in progress, so they can be saved at any time.
+          || ['notificationPreview', 'backgroundPresence', 'launchAtLogin', 'companionCheckIns'].includes(key),
       );
     if (!disablingOnly) noRun();
     if (settings.mode === 'deepseek' && !(apiKey || getKey()) && !usingLunaTestTransport())
       throw new Error('先填写 DeepSeek API Key，再开始连接。');
     if (apiKey) saveKey(apiKey);
     store.saveSettings(settings as Partial<Settings>);
+    if (settings.launchAtLogin !== undefined) applyLoginItem();
+    if (settings.backgroundPresence === 'tray') ensureTray();
     return state();
   });
   handle('connection:test', async (value) => {
@@ -845,8 +894,23 @@ app.whenReady().then(async () => {
   });
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
   window.webContents.on('will-navigate', (event) => event.preventDefault());
-  window.once('ready-to-show', () => window?.show());
+  window.once('ready-to-show', () => {
+    if (!process.argv.includes('--hidden')) window?.show();
+    else ensureTray();
+  });
   window.on('close', (event) => {
+    if (!quitting && keepsRunningInTray()) {
+      // The renderer keeps its drafts; nothing is lost by hiding.
+      event.preventDefault();
+      ensureTray();
+      window?.hide();
+      if (!trayNoticeShown && Notification.isSupported()) {
+        trayNoticeShown = true;
+        const name = store.settings().persona.core.name.trim() || '在场';
+        new Notification({ title: name, body: '我先在右下角的托盘里待着。约好的提醒和你交给我的事，我都会接着留意；想彻底退出，在托盘里选“退出在场”。', silent: true }).show();
+      }
+      return;
+    }
     // The renderer also owns notebook edits that have not been saved yet.
     if (!draftCloseConfirmed && !window?.webContents.isDestroyed() && !window?.webContents.isCrashed() && !window?.webContents.isLoadingMainFrame()) {
       event.preventDefault();
@@ -876,12 +940,8 @@ app.whenReady().then(async () => {
     },
     submit: async (input, signal) => {
       signal.throwIfAborted();
-      const notice = new Notification({ title: input.title, body: input.body, silent: true });
-      notice.on('click', () => {
-        window?.restore();
-        window?.show();
-        window?.focus();
-      });
+      const notice = new Notification({ title: input.title, body: input.body, silent: input.silent === true });
+      notice.on('click', () => navigateTo(input.target));
       notice.show();
       return { status: 'submitted_to_os' };
     },
@@ -904,8 +964,19 @@ app.whenReady().then(async () => {
     });
     store.notes.onChanged(() => opportunityScheduler?.wake());
     store.onAgendaChanged(() => opportunityScheduler?.wake());
+    // Every ten minutes the host asks whether this is a gentle moment for her
+    // to drop by; most of the time the answer is no and no model is called.
+    const presenceTimer = setInterval(() => { void harness.considerCheckIn(); }, 10 * 60000);
+    app.on('will-quit', () => clearInterval(presenceTimer));
   }
   void store.runtime.reminders.runDue();
+  // After sleep or a locked screen, catch up at once instead of waiting for
+  // the next 30-second tick: due reminders first, then entrusted reviews.
+  const catchUp = () => { void store.runtime.reminders.runDue(); opportunityScheduler?.wake(); };
+  powerMonitor.on('resume', catchUp);
+  powerMonitor.on('unlock-screen', catchUp);
+  applyLoginItem();
+  if (keepsRunningInTray()) ensureTray();
   app.on('will-quit', () => {
     clearInterval(reminderTimer);
     clearInterval(recoveryTimer);
@@ -913,6 +984,7 @@ app.whenReady().then(async () => {
     store.close();
   });
 });
+app.on('before-quit', () => { quitting = true; });
 app.on('window-all-closed', () => app.quit());
 
 app.on('before-quit', () => mapLocation.cancel());

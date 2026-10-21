@@ -606,6 +606,13 @@ export function App() {
   }
   requestCloseRef.current = requestClose;
   useEffect(() => api?.onCloseRequest(() => void requestCloseRef.current()), []);
+  // A notification she sent leads back to where she said it.
+  const navigateRef = useRef<(target: { sessionId?: string; view?: 'agenda' }) => void>(() => {});
+  navigateRef.current = target => {
+    if (target.sessionId) { setView('chat'); void openConversation(target.sessionId); }
+    else if (target.view === 'agenda') setView('agenda');
+  };
+  useEffect(() => api?.onNavigate?.(target => navigateRef.current(target)), []);
   function updateDraft(part: Partial<Draft>) {
     if (navigationPending.current) return;
     replaceDraft({ ...draftRef.current, ...part });
@@ -2084,6 +2091,7 @@ function MessageView({
         <CompanionAvatar size={31} />
         <span>{m.authorName || companionName || '在场'}</span>
         {m.demo && <small>示例</small>}
+        {m.proactive && <small className="assistant-proactive" title={new Date(m.createdAt).toLocaleString()}>{m.proactive === 'check_in' ? '来找你' : '替你留意到'}</small>}
       </div>
       {m.status === 'running' && processBlock}
       <div ref={prose}>

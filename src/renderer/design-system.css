@@ -2054,6 +2054,13 @@ summary::marker {
   padding-left: 10px;
   margin-left: 4px;
 }
+/* A message she sent without being asked: a small warm mark, not a badge. */
+.assistant-name small.assistant-proactive {
+  color: var(--accent);
+  border-left-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  font-size: 11px;
+  letter-spacing: .02em;
+}
 .markdown {
   font-size: var(--reading-size);
   line-height: 1.9;

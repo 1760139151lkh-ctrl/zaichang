@@ -109,7 +109,11 @@ export class AttentionService {
   canNotify(id: string) {
     this.expire();
     const scope = this.policy.hostScope(), record = this.repo.work(scope, undefined, id)[0];
-    if (!record || record.data.type !== 'help_opportunity' || record.status !== 'notification_queued' ||
+    // A message she already left in the original conversation may also ping
+    // the OS while the window is away, until the person has actually seen it.
+    const publishedInApp = record?.status === 'prepared' && record.data.choice === 'notify'
+      && record.data.presentationChannel === 'conversation' && !!record.data.inAppDelivery;
+    if (!record || record.data.type !== 'help_opportunity' || record.status !== 'notification_queued' && !publishedInApp ||
       this.rules(scope, String(record.data.bindingId), String((record.data.facts as any)?.objectId || ''), record.id).some(rule => ['pause', 'stop'].includes(String(rule.data.operation)))) return false;
     // A queued decision can become redundant before dispatch. Real display or
     // opening is observed after generation and must be checked at this boundary.
@@ -117,7 +121,7 @@ export class AttentionService {
       (help.id === record.data.helpRecordId || help.data.basisFingerprint === record.data.fingerprint) &&
       (help.data.displayedAt || help.data.openedAt || help.data.submittedAt));
     if (exposed) {
-      this.work.update(scope, record.id, record.revision, { status: 'prepared', data: { ...record.data, choice: 'prepare', notificationSuppressedBy: 'already_exposed' } });
+      if (!publishedInApp) this.work.update(scope, record.id, record.revision, { status: 'prepared', data: { ...record.data, choice: 'prepare', notificationSuppressedBy: 'already_exposed' } });
       return false;
     }
     return true;
@@ -858,7 +862,9 @@ export class AttentionService {
         next.data.helpRecordId = help.id;
         this.repo.db.prepare('UPDATE h_work SET payload=? WHERE id=?').run(JSON.stringify(next), next.id);
         if (input.presentInConversation || inAppNotify) conversationHelpRef = { id: next.id, revision: next.revision, helpRecordId: help.id };
-        if (choice === 'notify' && !inAppNotify) this.reminders.schedule({ id: next.id, title: input.artifact!.title, detail: '', startsAt: this.repo.clock.now() }, undefined, String(next.data.expiresAt), { kind: 'suggestion', producerId: next.id, helpRecordId: help.id });
+        if (choice === 'notify' && !inAppNotify) this.reminders.schedule({ id: next.id, title: input.artifact!.title, detail: '', startsAt: this.repo.clock.now() }, undefined, String(next.data.expiresAt),
+          { kind: 'suggestion', producerId: next.id, helpRecordId: help.id, body: input.artifact!.body,
+            ...(typeof next.data.sessionId === 'string' ? { sessionId: next.data.sessionId } : {}) });
       }
       if (opportunity.status === 'notification_queued' && choice !== 'notify') this.reminders.cancel(next.id);
       let mandateUpdate: { id: string; previousRevision: number; revision: number; operation: 'material_wakes' } | undefined;

@@ -143,6 +143,8 @@ export interface RunSession {
   appliedAttentionControls?: { quote: string; id: string }[];
   toolImages?: VisualObservation[];
   background?: boolean;
+  /** A run in which she may drop by on her own: where her message would go. */
+  presence?: { sessionId: string; sent?: string };
   opportunityPersona?: import('../../shared/persona').PersonaState;
   releaseArtifacts?: import('../../shared/types').ReleaseArtifact[];
   conversationHelpRefs?: { id: string; revision: number; helpRecordId: string }[];
@@ -339,6 +341,12 @@ function inferredReleaseFacts(value: string) {
 }
 const interactiveProgramPresentationFields = INTERACTIVE_PROGRAM_AVAILABLE ? { program: interactiveProgramInputSchema.optional() } : {};
 const specs: SpecDefinition[] = [
+  {
+    name: 'send_check_in',
+    description: '没有新消息时，你决定主动来找对方说一句话：把要说的话写进 message。它会作为你发来的一条消息出现在你们最近的那段对话里；对方不在窗口前时，系统通知会带上开头几个字。只发一次。不想打扰就不调用，安静结束即可。',
+    schema: z.object({ message: z.string().min(1).max(600), kind: z.enum(['hello', 'share', 'follow_up', 'celebrate']).optional() }).strict(),
+    grant: 'work:write', mutates: true,
+  },
   ...lifeCollaborationToolDefinitions,
   ...reflectiveLetterToolDefinitions,
   ...relationshipRehearsalToolDefinitions,
@@ -781,7 +789,7 @@ export class RuntimeCoordinator {
     this.rulePacks = new RulePackPort(repo, this.policy, this.domains);
     this.watches = new WatchPort(repo, this.policy, this.reminders, this.attention);
     this.reminders.beforeDispatch = () => this.attention.expire();
-    this.reminders.validateSuggestion = id => this.attention.canNotify(id);
+    this.reminders.validateSuggestion = id => id.startsWith('presence:') ? this.store.presenceUnanswered(id) : this.attention.canNotify(id);
     this.reminders.onDelivery = (id, status) => {
       const scope = this.policy.hostScope(), record = this.repo.work(scope, undefined, id)[0];
       if (record) this.cooperation.delivery(scope, id, record.revision, status);
@@ -1100,6 +1108,24 @@ export class RuntimeCoordinator {
     return { ingress, events, attentionEvidenceViews, investigation, sessionId: 'background:' + current.id, sceneSessionId: String(current.data.sessionId),
       opportunityPersona: structuredClone(this.store.settings().persona), ephemeral: false, background: true, toolCalls: 0, modelCalls: 0, signal };
   }
+  /** A background run in which she may come by on her own. It reads the
+   * person's permitted history and sources, can prepare a small curiosity or
+   * letter, and may speak once into the most recent conversation. */
+  beginPresence(sessionId: string, signal: AbortSignal): RunSession {
+    const settings = this.store.settings(), host = this.policy.validate(this.policy.hostScope());
+    const sources = [...new Set(['current', 'work:self', ...host.sources.filter(source =>
+      settings.memoryEnabled || !['history:self', 'profile:self'].includes(source))])];
+    const scope = this.policy.hostScope({ sources, currentEventIds: [], infer: false,
+      grants: this.policy.grants().filter(grant => grant.endsWith(':read') || grant === 'work:write') });
+    const ingress = this.policy.ingress('（她自己想来看看对方，不为某件事。）', 'presence:' + randomUUID(), settings, { sources, memoryMode: 'relevant', purpose: 'personal_assistance' });
+    ingress.contract.scope = scope;
+    ingress.contract.actionMode = 'respond';
+    ingress.contract.retention = 'purpose_scoped';
+    ingress.requiresReadPurpose = false;
+    return { ingress, events: [], sessionId: 'presence:' + randomUUID(), sceneSessionId: sessionId,
+      presence: { sessionId }, opportunityPersona: structuredClone(settings.persona), ephemeral: false, background: true,
+      toolCalls: 0, modelCalls: 0, signal };
+  }
   private publishOpportunityMessage(session: RunSession, ref: { id: string; revision: number; helpRecordId: string }, publish: (message: Message) => void) {
     const handle = session.ingress.contract.scope;
     session.signal.throwIfAborted(); this.policy.validate(handle);
@@ -1120,7 +1146,7 @@ export class RuntimeCoordinator {
     const message: Message = { id: messageId, sessionId: publication.sessionId, role: 'assistant',
       authorName: publication.author.name, content: publication.artifact.body, createdAt: this.repo.clock.now(),
       status: 'done', steps: [], obligations: [], actions: [], retention: session.ingress.contract.retention,
-      helpRefs: [{ ...ref }], primaryHelpRef: { ...ref }, cooperationId: ref.helpRecordId, contextReceipt: structuredClone(session.pack.receipt) };
+      helpRefs: [{ ...ref }], primaryHelpRef: { ...ref }, cooperationId: ref.helpRecordId, contextReceipt: structuredClone(session.pack.receipt), proactive: 'attention' };
     this.cooperation.publishConversation(handle, ref.helpRecordId, message.id);
     this.store.putMessage(message);
     for (const producer of [ref.id, ref.helpRecordId]) this.repo.addDependency(handle, {
@@ -1128,6 +1154,12 @@ export class RuntimeCoordinator {
       sensitivity: 'privacy', invalidation: 'block',
     });
     this.attention.recordConversationPublication(handle, ref, message.id);
+    // If the window is away, let the OS carry her first words to the person;
+    // it is dropped once the message has actually been seen (canNotify).
+    const pingUntil = new Date(Math.min(Date.parse(this.repo.clock.now()) + 6 * 3600000,
+      Date.parse(String(publication.record.data.expiresAt)) || Infinity)).toISOString();
+    this.reminders.schedule({ id: ref.id, title: publication.artifact.title, detail: '', startsAt: this.repo.clock.now() }, undefined, pingUntil,
+      { kind: 'suggestion', producerId: ref.id, helpRecordId: ref.helpRecordId, body: publication.artifact.body, sessionId: publication.sessionId });
     this.repo.afterCommit(() => {
       if (!session.signal.aborted) publish(structuredClone(message));
     });
@@ -1715,7 +1747,9 @@ export class RuntimeCoordinator {
     const provided = available
       .filter(
         (d) =>
-          (!session.background || ['look_up', 'search_context', 'read_understanding', 'read_learning', 'read_evidence', 'read_assistant_history', 'read_shared_creation', 'read_companion_history', 'read_interactive_program', 'discover_skills', 'read_skill', 'read_method_help', 'delegate', 'inspect_help', 'decide_help', 'manage_attention', 'manage_note', 'resolve_time', 'calculate_available_time', 'map_overview', 'map_search', 'map_place', 'map_route', 'map_location_status', 'curiosity_invitation', 'write_reflective_letter'].includes(d.name)) &&
+          (d.name !== 'send_check_in' || !!session.presence) &&
+          (!session.presence || !['decide_help', 'manage_attention', 'manage_note', 'delegate', 'inspect_help'].includes(d.name)) &&
+          (!session.background || ['send_check_in', 'look_up', 'search_context', 'read_understanding', 'read_learning', 'read_evidence', 'read_assistant_history', 'read_shared_creation', 'read_companion_history', 'read_interactive_program', 'discover_skills', 'read_skill', 'read_method_help', 'delegate', 'inspect_help', 'decide_help', 'manage_attention', 'manage_note', 'resolve_time', 'calculate_available_time', 'map_overview', 'map_search', 'map_place', 'map_route', 'map_location_status', 'curiosity_invitation', 'write_reflective_letter'].includes(d.name)) &&
           (!child || (!d.mutates && d.name !== 'inspect_action' && d.name !== 'delegate' && d.name !== 'prepare_release' && d.name !== 'present_view')) &&
           (!d.grant || s.grants.includes(d.grant)) &&
           (d.name !== 'read_interactive_program' || s.audience === 'self') &&
@@ -2599,6 +2633,29 @@ export class RuntimeCoordinator {
       if (session.pack) this.context.recordTool(session.pack, { status: 'fresh', sourceId: 'work:self', data: JSON.parse(JSON.stringify(value)), fetchedAt: this.repo.clock.now(), simulated: false },
         'inspect_help', handle.id, modelView, undefined, true);
       return modelView;
+    }
+    if (name === 'send_check_in') {
+      const presence = session.presence, persona = session.opportunityPersona, current = this.store.settings().persona;
+      if (!presence || !session.background || child) throw new HarnessError('presence_only', '只有主动来找对方的时候才能这样发消息。');
+      if (presence.sent) return { status: 'already_sent', messageId: presence.sent, meaning: '这次已经说过了，不再追加。' };
+      if (!callbacks.attentionMessage) throw new HarnessError('attention_channel_unavailable', '现在没法把话送进对话。');
+      if (!persona || persona.revision !== current.revision || canonical(persona.core) !== canonical(current.core))
+        throw new HarnessError('attention_persona_changed', '角色刚刚换过，这次先不以旧角色的名义说话。');
+      if (!this.store.conversations().some(conversation => conversation.id === presence.sessionId)
+        || this.store.conversationPolicy(presence.sessionId)?.retention === 'session_only')
+        throw new HarnessError('attention_session_missing', '原来的那段对话已经不在了，没有换到另一段聊天。');
+      const now = this.repo.clock.now();
+      const message: Message = { id: 'presence:' + randomUUID(), sessionId: presence.sessionId, role: 'assistant',
+        authorName: persona.core.name.trim() || '在场', content: args.message.trim(), createdAt: now, status: 'done',
+        steps: [], obligations: [], actions: [], retention: 'purpose_scoped', proactive: 'check_in',
+        ...(session.pack ? { contextReceipt: structuredClone(session.pack.receipt) } : {}) };
+      this.store.putMessage(message);
+      this.store.recordPresence({ sentAt: now, sessionId: presence.sessionId, messageId: message.id, kind: args.kind || 'hello' });
+      this.reminders.schedule({ id: message.id, title: message.authorName!, detail: '', startsAt: now }, undefined,
+        new Date(Date.parse(now) + 4 * 3600000).toISOString(), { kind: 'suggestion', producerId: message.id, body: message.content, sessionId: presence.sessionId });
+      presence.sent = message.id;
+      callbacks.attentionMessage(structuredClone(message));
+      return { status: 'sent', messageId: message.id, meaning: '话已经放进对话里了。这次就到这里，不用再补充。' };
     }
     if (name === 'decide_help') {
       if (session.background && args.presentInConversation) throw new HarnessError('presentation_owner', '后台只准备；随对话呈现由前台当前回合绑定。');

@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useId, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
+import { createContext, useContext, useEffect, useId, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
+import { parseCurveExpression, sampleCurve } from '../../shared/curve-expression';
 import type { ComponentRenderProps } from '@openuidev/react-lang';
 import { snapProgramNumber } from '../../shared/interactive-program';
 import { InteractiveChildren, InteractiveGraphicSlot, useInteractiveControls } from './interactive-context';
@@ -127,6 +128,26 @@ export function InteractivePolyline({ props }: Props) {
   }
   return <path data-program-node={props.id} className={`interactive-stroke tone-${props.color}`} d={pieces.join(' ')} fill="none"
     strokeWidth={props.width} strokeDasharray={props.dashed ? '6 6' : undefined} />;
+}
+/** A function or parametric curve sampled natively from its checked expression. */
+export function InteractiveCurve({ props }: Props) {
+  const space = useSpace(), params = JSON.stringify(props.params || {});
+  const points = useMemo(() => {
+    try {
+      return sampleCurve({ y: parseCurveExpression(props.expression), x: props.xExpression ? parseCurveExpression(props.xExpression) : undefined,
+        variable: props.variable || 'x', from: props.from, to: props.to, samples: props.samples, params: JSON.parse(params) });
+    } catch { return null; }
+  }, [props.expression, props.xExpression, props.variable, props.from, props.to, props.samples, params]);
+  if (!points) return gap();
+  let drawing = false;
+  const pieces: string[] = [];
+  for (const point of points) {
+    const screen = point ? space.point(point.x, point.y, space.matrix) : undefined;
+    if (!screen) { drawing = false; continue; }
+    pieces.push(`${drawing ? 'L' : 'M'}${screen.x},${screen.y}`); drawing = true;
+  }
+  return <path data-program-node={props.id} className={`interactive-stroke tone-${props.color}`} d={pieces.join(' ')} fill="none"
+    strokeWidth={props.width} strokeLinejoin="round" strokeLinecap="round" strokeDasharray={props.dashed ? '6 6' : undefined} />;
 }
 export function InteractiveCircle({ props }: Props) {
   const space = useSpace(), point = space.point(props.x, props.y, space.matrix);

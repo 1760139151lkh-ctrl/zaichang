@@ -13,6 +13,7 @@ export interface AttentionPolicy {
   cooldownMs: number;
   enabled: boolean;
 }
+export interface DeliveryTarget { sessionId?: string; view?: 'agenda' }
 export interface DeliveryPort {
   capabilities: {
     submitted: boolean;
@@ -22,7 +23,7 @@ export interface DeliveryPort {
     closedApp: boolean;
   };
   submit(
-    input: { id: string; title: string; body: string },
+    input: { id: string; title: string; body: string; target?: DeliveryTarget; silent?: boolean },
     signal: AbortSignal,
   ): Promise<{ status: 'submitted_to_os' | 'provider_delivered' | 'seen' | 'unknown'; externalId?: string }>;
   cancel?(id: string): Promise<void>;
@@ -77,7 +78,8 @@ export class ReminderRuntime {
     new Intl.DateTimeFormat('en', { timeZone: next.timeZone });
     this.repo.write(() => this.repo.setMeta('attention', next));
   }
-  schedule(action: Action, goalId?: string, expiresAt?: string, options: { restore?: boolean; kind?: 'reminder' | 'suggestion'; producerId?: string; helpRecordId?: string } = {}) {
+  schedule(action: Action, goalId?: string, expiresAt?: string, options: { restore?: boolean; kind?: 'reminder' | 'suggestion'; producerId?: string; helpRecordId?: string;
+    /** Her own words for an optional notice, and where a click should lead. */ body?: string; sessionId?: string } = {}) {
     if (action.done || action.planning && action.planning.state !== 'accepted') { this.cancel(action.id); return; }
     const requestedAt = action.remindAt || (action.kind === 'reminder' || !action.kind ? action.startsAt : undefined);
     if (!requestedAt || action.done) return;
@@ -91,7 +93,8 @@ export class ReminderRuntime {
       this.repo.db.prepare(`UPDATE h_jobs SET status='cancelled',fence=fence+1 WHERE object_id=? AND status IN ('queued','leased') AND dedup_key NOT IN (SELECT value FROM json_each(?))`).run(action.id, JSON.stringify(keys));
       for (const time of times) {
         const startsAt = new Date(time).toISOString(), key = action.id + ':' + startsAt, id = randomUUID();
-        const payload = JSON.stringify({ title: action.title, startsAt, expiresAt: expiresAt || (recurring ? new Date(Date.parse(startsAt) + 3600000).toISOString() : undefined), recurring, helpRecordId: options.helpRecordId });
+        const payload = JSON.stringify({ title: action.title, startsAt, expiresAt: expiresAt || (recurring ? new Date(Date.parse(startsAt) + 3600000).toISOString() : undefined), recurring, helpRecordId: options.helpRecordId,
+          ...(action.reminderMessage ? { message: action.reminderMessage } : {}), ...(options.body ? { body: options.body } : {}), ...(options.sessionId ? { sessionId: options.sessionId } : {}) });
         this.repo.db.prepare('INSERT OR IGNORE INTO h_jobs(id,kind,object_id,goal_id,source,epoch,due_at,status,dedup_key,payload) VALUES(?,?,?,?,?,?,?,?,?,?)')
           .run(id, options.kind || 'reminder', action.id, goalId || null, options.kind === 'suggestion' ? 'work:self' : 'local-agenda', this.repo.epoch, startsAt, 'queued', key, payload);
         // Even an unknown intent may already have reached the OS. Only a
@@ -127,6 +130,8 @@ export class ReminderRuntime {
     );
     this.repo.afterCommit(() => { for (const job of jobs) void this.port?.cancel?.(String(job.id)); });
   }
+  /** Whether optional contact should hold back right now. */
+  quietNow() { return this.quiet(); }
   private quiet() {
     const policy = this.attention(),
       time = new Intl.DateTimeFormat('en-GB', {
@@ -155,13 +160,13 @@ export class ReminderRuntime {
       }
     });
   }
-  private lease(kind: 'reminder' | 'suggestion'): Job | undefined {
+  private lease(kind: 'reminder' | 'suggestion', notBefore = ''): Job | undefined {
     return this.repo.write(() => {
       const row = this.repo.db
         .prepare(
-          "SELECT * FROM h_jobs WHERE kind=? AND status='queued' AND due_at<=? AND epoch=? ORDER BY due_at LIMIT 1",
+          "SELECT * FROM h_jobs WHERE kind=? AND status='queued' AND due_at<=? AND due_at>=? AND epoch=? ORDER BY due_at LIMIT 1",
         )
-        .get(kind, this.repo.clock.now(), this.repo.epoch) as unknown as Job | undefined;
+        .get(kind, this.repo.clock.now(), notBefore, this.repo.epoch) as unknown as Job | undefined;
       if (!row) return;
       const payload = JSON.parse(row.payload);
       if (kind === 'reminder') {
@@ -207,7 +212,7 @@ export class ReminderRuntime {
     this.recover();
     this.maintainRecurring();
     const policy = this.attention();
-    if (!policy.enabled || this.quiet() || !this.port?.capabilities.submitted) return;
+    if (!policy.enabled || !this.port?.capabilities.submitted) return;
     const date = new Intl.DateTimeFormat('en-CA', {
       timeZone: policy.timeZone,
       year: 'numeric',
@@ -216,6 +221,11 @@ export class ReminderRuntime {
     }).format(new Date(this.repo.clock.now()));
     const hasCommitted = !!this.repo.db.prepare("SELECT id FROM h_jobs WHERE kind='reminder' AND status='queued' AND due_at<=? AND epoch=? LIMIT 1").get(this.repo.clock.now(), this.repo.epoch);
     const kind = hasCommitted ? 'reminder' : 'suggestion';
+    // Quiet hours hold back optional notices and late catch-ups. A reminder
+    // the person set for this time is a promise: it fires now, quiet or not.
+    const onTime = kind === 'reminder' && !!this.repo.db.prepare("SELECT id FROM h_jobs WHERE kind='reminder' AND status='queued' AND due_at<=? AND due_at>=? AND epoch=? LIMIT 1")
+      .get(this.repo.clock.now(), new Date(Date.parse(this.repo.clock.now()) - 3600000).toISOString(), this.repo.epoch);
+    if (!onTime && this.quiet()) return;
     if (kind === 'suggestion' && this.canSubmitSuggestion && !this.canSubmitSuggestion()) return;
     const usageKey = kind === 'suggestion' ? 'optional_attention_usage' : 'committed_attention_usage';
     const usage = this.repo.getMeta<{ date: string; count: number; lastAt?: string }>(usageKey, {
@@ -248,7 +258,8 @@ export class ReminderRuntime {
             String(overdue[0].id),
           );
       });
-    const job = this.lease(kind);
+    // In quiet hours only the reminder due right now goes out; late ones wait.
+    const job = this.lease(kind, onTime && this.quiet() ? new Date(Date.parse(this.repo.clock.now()) - 3600000).toISOString() : '');
     if (!job) return;
     const deliveryId = randomUUID();
     try {
@@ -273,17 +284,9 @@ export class ReminderRuntime {
             JSON.stringify({ attemptedAt: this.repo.clock.now(), fence: job.fence }),
           ),
       );
-      const settings = this.repo.getMeta<{ persona?: { core?: { name?: string } } }>('settings', {});
-      const characterName = settings?.persona?.core?.name || '在场';
-      const eventTitle = typeof payload?.title === 'string' && payload.title.trim()
-        ? payload.title.trim()
-        : (kind === 'reminder' ? '到约定的时间了' : '有一处新变化');
-      const notifyTitle = `${characterName} · ${eventTitle}`;
-      const notifyBody = kind === 'reminder'
-        ? (payload?.title ? `到约定的时间了：${payload.title}。打开在场查看。` : '打开在场查看详情。')
-        : '打开在场查看详情。';
       const result = await this.port.submit(
-        { id: job.id, title: notifyTitle, body: notifyBody },
+        { id: job.id, ...notificationText(this.repo.getMeta('settings', {}), kind, payload), silent: kind === 'suggestion',
+          ...(typeof payload?.sessionId === 'string' ? { target: { sessionId: payload.sessionId } } : kind === 'reminder' ? { target: { view: 'agenda' as const } } : {}) },
         signal,
       );
       this.repo.fault?.('after_notification_submit');
@@ -343,4 +346,26 @@ export class ReminderRuntime {
       duplicateRisk: !this.port?.capabilities.stableId,
     };
   }
+}
+
+const clip = (text: string, max: number) => {
+  const points = Array.from(text.replace(/\s+/g, ' ').trim());
+  return points.length > max ? points.slice(0, max - 1).join('') + '…' : points.join('');
+};
+/** What the OS shows. The title is who is speaking; the body is her actual
+ * words when the person allows previews, otherwise a quiet placeholder. */
+export function notificationText(settings: { persona?: { core?: { name?: string } }; notificationPreview?: 'words' | 'private' },
+  kind: 'reminder' | 'suggestion', payload: { title?: unknown; message?: unknown; body?: unknown; catchup?: unknown }) {
+  const name = typeof settings?.persona?.core?.name === 'string' && settings.persona.core.name.trim() ? settings.persona.core.name.trim() : '在场';
+  const title = typeof payload?.title === 'string' ? payload.title.trim() : '';
+  const words = settings?.notificationPreview !== 'private';
+  if (kind === 'reminder') {
+    if (payload?.catchup) return { title: name, body: '有几件约好的事已经过了时间，回来时我们一起看看。' };
+    if (!words) return { title: name, body: '到约好的时间了。' };
+    const message = typeof payload?.message === 'string' ? payload.message.trim() : '';
+    return { title: name, body: message ? clip(message, 90) : title ? `到时间了：${clip(title, 60)}` : '到约好的时间了。' };
+  }
+  if (!words) return { title: name, body: '有件事想跟你说。' };
+  const body = typeof payload?.body === 'string' ? payload.body.trim() : '';
+  return { title: name, body: body ? clip(body, 90) : title ? clip(title, 90) : '有件事想跟你说。' };
 }

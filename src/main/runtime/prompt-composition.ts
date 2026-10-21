@@ -57,6 +57,13 @@ export function backgroundSystem(input: { persona: PersonaState; interaction: In
   ]);
 }
 
+export const PRESENCE_NOTE = `# 现在是你自己想来找他的时候
+他有一阵子没来了，没有新消息，也没有要你办的事。你可以只是来打个招呼、分享一点有意思的东西、接上上次没聊完的话，或者为他的一点小进展高兴一下。先看看前情——最近的对话、他的安排、他说过在意或喜欢的东西——再想想此刻说什么会让他觉得舒服、被惦记，而不是被催。
+- 想说，就用 send_check_in 发一条，像你自己随手发来的消息：短一点、具体一点、带着你的口吻。可以说想他，可以开个小玩笑。想带个新鲜东西来，可以先用 curiosity_invitation 准备好，再在话里提一句。
+- 真查到的才说成发现（比如真的查了天气、读了他的安排）；没查过的事不说查过，没发生过的共同经历不编。
+- 不问他为什么没来，不让他内疚，不布置任务，不催他还欠着的事。
+- 只发一条。此刻没什么想说的，或者他看起来需要安静，就什么都不发，直接结束——那也很好。`;
+
 /** A delegated worker has no character: it gathers evidence for the main
  * assistant, who alone speaks to the person. */
 export const WORKER_NOTE = '这是独立只读取证任务，只完成所给方向；不写记忆、改安排或再委派。返回事实、建议、来源、未知和实际结果，父任务负责最终答复。';

@@ -116,6 +116,9 @@ export class Store {
       // the person sees by default, and the exact old default interaction
       // tuple becomes the new one. Any value the person actually chose stays.
       if (isUntouchedDefaultPersona(persona)) persona = initialPersona();
+      // Off was the shipped default, so a reminder the person explicitly set
+      // never reached them. Turn system notices on once; they can turn it off.
+      if (stored.remindersEnabled === false) stored.remindersEnabled = true;
       if (stored.interaction && (Object.keys(LEGACY_DEFAULT_INTERACTION) as (keyof InteractionPreferences)[])
         .every(key => stored.interaction![key] === LEGACY_DEFAULT_INTERACTION[key])) interaction = { ...DEFAULT_INTERACTION };
       migrated = true;
@@ -130,6 +133,34 @@ export class Store {
       hasKey: false,
       defaultsVersion: 2,
     };
+  }
+  /** When she may come by just to say hello. Never before the person has
+   * talked to her, never twice without an answer, never during quiet hours,
+   * and only at a gentle spacing chosen by the person (偶尔 / 常来). */
+  presenceTarget(now: string, quiet: boolean): string | undefined {
+    const settings = this.settings(), mode = settings.companionCheckIns || 'sometimes';
+    if (mode === 'off' || settings.interaction.initiative === 'quiet' || quiet) return;
+    const hour = Number(new Intl.DateTimeFormat('en-GB', { timeZone: settings.timeZone || 'Asia/Shanghai', hour: '2-digit', hourCycle: 'h23' }).format(new Date(now)));
+    if (hour < 9 || hour >= 22) return;
+    const last = this.db.prepare("SELECT session_id AS sessionId, created_at AS createdAt FROM messages WHERE role='user' ORDER BY created_at DESC LIMIT 1").get() as { sessionId: string; createdAt: string } | undefined;
+    if (!last || !this.conversations().some(conversation => conversation.id === last.sessionId)
+      || this.conversationPolicy(last.sessionId)?.retention === 'session_only') return;
+    const state = this.meta<{ attemptedAt?: string; sentAt?: string; messageId?: string }>('companion_presence', {});
+    const hours = (from?: string) => from ? (Date.parse(now) - Date.parse(from)) / 3600000 : Infinity;
+    const quietFor = mode === 'often' ? 4 : 8, spacing = mode === 'often' ? 8 : 20;
+    if (hours(last.createdAt) < quietFor || hours(state.attemptedAt) < spacing / 2 || hours(state.sentAt) < spacing) return;
+    // Unanswered: she already came by and the person has not spoken since.
+    if (state.sentAt && Date.parse(last.createdAt) < Date.parse(state.sentAt)) return;
+    return last.sessionId;
+  }
+  recordPresence(value: { attemptedAt?: string; sentAt?: string; sessionId?: string; messageId?: string; kind?: string }) {
+    this.putMeta('companion_presence', { ...this.meta<Record<string, unknown>>('companion_presence', {}), ...value });
+  }
+  /** A check-in ping stays relevant only until the person speaks again. */
+  presenceUnanswered(messageId: string) {
+    const row = this.db.prepare('SELECT session_id AS sessionId, created_at AS createdAt FROM messages WHERE id=?').get(messageId) as { sessionId: string; createdAt: string } | undefined;
+    if (!row) return false;
+    return !this.db.prepare("SELECT 1 FROM messages WHERE role='user' AND created_at>? LIMIT 1").get(row.createdAt);
   }
   /** A role that was never saved follows the artwork the person picked, so a
    * new user who chose 祥子 talks to 祥子. Saved roles are never touched. */
