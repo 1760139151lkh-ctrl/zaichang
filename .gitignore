@@ -191,6 +191,7 @@ Thumbs.db
 !/tests/harness/companion-presence.test.ts
 !/tests/harness/turn-surface.test.ts
 !/tests/harness/interactive-curve.test.ts
+!/tests/harness/streaming.test.ts
 
 !/assets/design/generated/2026-10-18-companion-evolution/*.png
 !/assets/design/generated/2026-10-18-companion-evolution/manifest.json

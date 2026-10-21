@@ -408,7 +408,8 @@ export const DEFAULT_SETTINGS: Settings = {
   model: DEEPSEEK_MODEL,
   mode: 'demo',
   memoryEnabled: true,
-  weatherEnabled: false,
+  // A public reference-point forecast: no location or personal data leaves.
+  weatherEnabled: true,
   remindersEnabled: true,
   guidance: '',
   hasKey: false,

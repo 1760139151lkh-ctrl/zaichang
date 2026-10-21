@@ -338,7 +338,7 @@ export class Harness {
       message.status = controller.signal.aborted ? 'cancelled' : 'error';
       message.steps = message.steps.map(step => step.status === 'running' ? { ...step, status: controller.signal.aborted ? 'cancelled' : 'blocked' } : step);
       message.content = error instanceof HarnessError ? error.message
-        : controller.signal.aborted ? '已停止，刚才的内容没有保存。'
+        : controller.signal.aborted ? '好，先停下了。刚才这句还没保存。'
         : error instanceof ProviderError ? error.message + ' 本次内容暂未保存。'
         : '连接或资料范围检查未完成，内容暂未保存。可以重试，或先使用本轮范围设置。';
       this.emit({ type: 'message', message: structuredClone(message) });
@@ -1898,13 +1898,13 @@ export class Harness {
           : error instanceof HarnessError && ['completion_unresolved', 'review_budget'].includes(error.code)
             ? 'incomplete' : error instanceof ProviderError ? 'provider_error' : 'interrupted';
       const statusText = {
-        interrupted: '本次处理未完成。',
-        cancelled: '本轮已停止。',
-        source_changed: '相关内容有变化，本轮已停止。',
-        scope_expired: '这次处理到时限了，还没有完成。',
-        incomplete: '还有未完成的部分。',
-        provider_error: '暂时没能继续这条回复。',
-        process_restarted: '应用退出中断了这次处理。',
+        interrupted: '这件事没做完，你写的话都还在。',
+        cancelled: '好，先停在这里。',
+        source_changed: '资料刚刚有了变化，我先停下了。',
+        scope_expired: '这次花的时间太长，先停下了，还没做完。',
+        incomplete: '还有一部分没办完。',
+        provider_error: '这次没连上，你的文字还在。',
+        process_restarted: '上次关掉应用时，这件事还没做完。',
       };
       const text = this.boundaryChanged && run.privacyResult ? run.privacyResult.text : statusText[code]
         + (confirmedPriorEffects.size ? '已核实成功的操作结果保留在对应记录中。' : '');

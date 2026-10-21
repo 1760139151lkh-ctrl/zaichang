@@ -2189,7 +2189,7 @@ function MessageView({
         <div className={`message-host-status ${m.hostStatus?.kind || m.status}`} role="status" aria-label="处理状态">
           {m.hostStatus?.kind === 'notice' ? <Info size={14} aria-hidden="true" />
             : m.status === 'cancelled' ? <Minus size={14} aria-hidden="true" /> : <CircleAlert size={14} aria-hidden="true" />}
-          <p>{m.hostStatus?.text || (m.status === 'cancelled' ? '本轮已停止。' : '本次处理未完成。')}</p>
+          <p>{m.hostStatus?.text || (m.status === 'cancelled' ? '好，先停在这里。' : '这件事没做完，你写的话都还在。')}</p>
         </div>
       )}
       {m.status !== 'running' && processBlock}

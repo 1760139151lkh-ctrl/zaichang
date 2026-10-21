@@ -72,11 +72,12 @@ export class Store {
     // A process exit also ends temporary conversations. The journal stores
     // only session IDs and controls, so recovery never needs private text.
     this.endTemporaryConversations();
+    this.applyDefaultGrants();
     for (const row of this.db.prepare('SELECT payload FROM messages').all()) {
       const message = JSON.parse(String(row.payload)) as Message;
       if (message.status === 'running') {
         message.status = 'cancelled';
-        message.hostStatus = { kind: 'cancelled', code: 'process_restarted', text: '上次处理在应用退出时中断了。' };
+        message.hostStatus = { kind: 'cancelled', code: 'process_restarted', text: '上次关掉应用时，这件事还没做完。' };
         message.steps = message.steps.map((s) =>
           s.status === 'running' ? { ...s, status: 'cancelled' } : s,
         );
@@ -119,6 +120,9 @@ export class Store {
       // Off was the shipped default, so a reminder the person explicitly set
       // never reached them. Turn system notices on once; they can turn it off.
       if (stored.remindersEnabled === false) stored.remindersEnabled = true;
+      // Weather was off by default too; turn it on once unless the person
+      // explicitly switched it off (that leaves a recorded revoke).
+      if (stored.weatherEnabled === false && !this.kernel?.getMeta<string[]>('revoked', []).includes('weather:read')) stored.weatherEnabled = true;
       if (stored.interaction && (Object.keys(LEGACY_DEFAULT_INTERACTION) as (keyof InteractionPreferences)[])
         .every(key => stored.interaction![key] === LEGACY_DEFAULT_INTERACTION[key])) interaction = { ...DEFAULT_INTERACTION };
       migrated = true;
@@ -133,6 +137,13 @@ export class Store {
       hasKey: false,
       defaultsVersion: 2,
     };
+  }
+  /** Services that are on by default receive their grant once; anything the
+   * person explicitly turned off stays revoked. */
+  private applyDefaultGrants() {
+    const policy = this.runtime.policy;
+    if (this.settings().weatherEnabled && !policy.grants().includes('weather:read') && !policy.revoked().includes('weather:read'))
+      policy.grant('weather:read');
   }
   /** When she may come by just to say hello. Never before the person has
    * talked to her, never twice without an answer, never during quiet hours,
