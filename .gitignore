@@ -188,6 +188,9 @@ Thumbs.db
 !/tests/harness/memory-retrieval.test.ts
 !/tests/harness/persona-portrayals.test.ts
 !/tests/harness/conversation-evolution.test.ts
+!/tests/harness/companion-presence.test.ts
+!/tests/harness/turn-surface.test.ts
+!/tests/harness/interactive-curve.test.ts
 
 !/assets/design/generated/2026-10-18-companion-evolution/*.png
 !/assets/design/generated/2026-10-18-companion-evolution/manifest.json
