@@ -32,7 +32,7 @@ const mapLocation = new MapLocationProvider();
 import { friendlyError } from './provider';
 import { createModelClient, usingLunaTestTransport } from './model-selection';
 import { LUNA_MODEL, LUNA_DISPLAY_NAME } from './luna-provider';
-import { actionSchema, campusSchema, settingsSchema } from '../shared/schemas';
+import { actionCommandSchema, campusSchema, settingsSchema } from '../shared/schemas';
 import { DEEPSEEK_MODEL, type Draft, type ImageAttachment, type Settings } from '../shared/types';
 import campusExample from '../../examples/campus.example.json';
 import { LIMITS } from '../shared/limits';
@@ -44,6 +44,7 @@ import { NativeControls } from './runtime/controls';
 import { NativeCampusCalendar } from './runtime/campus-calendar';
 import { NativeStudyService } from './runtime/study-native';
 import { NativeRehearsalService } from './runtime/rehearsal-native';
+import { NativeProgramLocalState } from './runtime/interactive-program-local-state';
 import { rehearsalInteractionSchema } from '../shared/relationship-rehearsal';
 import { configureNetwork } from './network';
 import { materialReferenceSchema, materialTargetSchema } from '../shared/materials';
@@ -114,6 +115,7 @@ let connectionController: AbortController | undefined;
 let latestDeviceLocation: import('../shared/map-v2').LocationStatusResult | undefined;
 let opportunityScheduler: ReturnType<typeof createOpportunityScheduler> | undefined;
 let tray: Tray | undefined;
+const desktopNotifications = new Map<string, { cancel: () => void }>();
 let quitting = false;
 let trayNoticeShown = false;
 /** Bring the one window back, wherever it went (tray, minimized, behind). */
@@ -125,6 +127,7 @@ function showWindow() {
 }
 function navigateTo(target?: import('./actions/reminders').DeliveryTarget) {
   showWindow();
+  if (target?.preparationRef && store) store.runtime.presentation.focusPreparation(target.preparationRef);
   if (target && window && !window.isDestroyed()) window.webContents.send('zaichang:navigate', target);
 }
 /** Closing the window keeps her running in the tray unless the person chose
@@ -134,10 +137,19 @@ function keepsRunningInTray() {
 }
 function applyLoginItem() {
   if (process.env.ZAICHANG_TEST === '1' || !app.isPackaged) return;
-  try { app.setLoginItemSettings({ openAtLogin: store.settings().launchAtLogin === true, args: ['--hidden'] }); } catch { /* A platform without login items keeps the manual start. */ }
+  try {
+    // The portable launcher removes its extracted process.execPath on exit.
+    // Windows must start the enduring launcher, not that temporary child.
+    const portable = process.env.PORTABLE_EXECUTABLE_FILE;
+    const executable = process.platform === 'win32' && portable && path.isAbsolute(portable)
+      && existsSync(portable) && statSync(portable).isFile() ? portable : process.execPath;
+    app.setLoginItemSettings({ openAtLogin: store.settings().launchAtLogin === true, path: executable, args: ['--hidden'] });
+  } catch { /* A platform without login items keeps the manual start. */ }
 }
-function ensureTray() {
-  if (tray || process.env.ZAICHANG_TEST === '1') return;
+function ensureTray(): boolean {
+  if (tray && !tray.isDestroyed()) return true;
+  tray = undefined;
+  if (process.env.ZAICHANG_TEST === '1') return false;
   try {
     tray = new Tray(nativeImage.createFromPath(path.join(app.getAppPath(), 'assets/brand/icon.png')).resize({ width: 16, height: 16 }));
     const name = () => store.settings().persona.core.name.trim() || '在场';
@@ -149,7 +161,12 @@ function ensureTray() {
     tray.setToolTip(`${name()} 在这儿`);
     tray.setContextMenu(menu());
     tray.on('click', () => showWindow());
-  } catch { tray = undefined; }
+    return true;
+  } catch {
+    if (tray && !tray.isDestroyed()) tray.destroy();
+    tray = undefined;
+    return false;
+  }
 }
 function getKey() {
   if (projectDeepSeekKey) return projectDeepSeekKey;
@@ -367,7 +384,13 @@ app.whenReady().then(async () => {
     } finally { remove(); }
   });
   handle('campus:schedule', value => campusCalendar.read(value));
-  store.runtime.policy.onBarrier(() => { mapLocation.cancel(); latestDeviceLocation = undefined; store.runtime.spatial.share({ enabled: false }); });
+  const programLocalState = new NativeProgramLocalState(store);
+  handle('program:local-state:read', value => programLocalState.read(value));
+  handle('program:local-state:save', value => programLocalState.save(value));
+  store.runtime.policy.onBarrier(() => {
+    mapLocation.cancel(); latestDeviceLocation = undefined; store.runtime.spatial.share({ enabled: false });
+    queueMicrotask(() => { if (!store.closed) void store.runtime.reminders.retireInvalidNotifications().catch(() => {}); });
+  });
   if (process.env.ZAICHANG_TEST !== '1') store.runtime.spatial.reference = new CampusReferenceAdapter(path.join(homedir(), '.codex', 'skills', 'zju-campus-locator'), (file, crop) => {
     let source = nativeImage.createFromBuffer(readFileSync(file));
     if (source.isEmpty()) throw new Error('俯瞰图像素不可读取。');
@@ -399,6 +422,7 @@ app.whenReady().then(async () => {
     const recordId = action?.capability === 'local.agenda.change' ? action.arguments.targetId : action?.id;
     return {
       action,
+      ...(action?.planningOffer ? { planningOffer: store.runtime.planningOffers.state(scope, action) } : {}),
       receipts: store.runtime.actions.receipts(scope, actionId),
       ...(action && ['local.agenda.save', 'local.agenda.change'].includes(action.capability) && typeof recordId === 'string'
         ? { localRecord: store.runtime.calendar.read(recordId) || null } : {}),
@@ -456,10 +480,7 @@ app.whenReady().then(async () => {
   handle('draft:unsaved', () => drafts.unsaved());
   handle('draft:persist', value => {
     const input = z.object({ id, digest: z.string().regex(/^[a-f0-9]{64}$/), confirmed: z.literal(true) }).strict().parse(value);
-    const attachment = drafts.get(input.id).attachment;
-    if (attachment?.kind === 'text' && attachment.resource) store.runtime.materials.assertPendingPersistable(attachment.resource);
     drafts.persist(input.id, input.digest);
-    if (attachment?.kind === 'text' && attachment.resource) store.runtime.materials.persistPending(attachment.resource);
     if (!store.runtime.presentation.public && window && !window.isDestroyed())
       window.webContents.send('zaichang:event', { type: 'conversations', conversations: store.conversations() });
   });
@@ -742,11 +763,12 @@ app.whenReady().then(async () => {
     return map.route(input.from?.kind==='current' ? {...input,from:{kind:'current',fix:latestDeviceLocation?.fix}} : input);
   });
   handle('action', async (value) => {
-    const input = z.object({ action: z.enum(['save', 'delete', 'done']), item: actionSchema }).parse(value);
-    if (input.action === 'delete') {
-      if (store.runtime.calendar.read(input.item.id)) await store.runtime.changeLocalFromUI(input.item, 'delete');
-      else await store.runtime.actions.cancel(store.runtime.policy.hostScope(), input.item.effectActionId || input.item.id);
-    } else
+    const input = actionCommandSchema.parse(value);
+    if (input.action === 'undo')
+      await store.runtime.actions.cancel(store.runtime.policy.hostScope(), input.effect.id, new AbortController().signal, input.effect);
+    else if (input.action === 'delete')
+      await store.runtime.changeLocalFromUI(input.item, 'delete');
+    else
       await store.runtime.acceptLocal({ ...input.item, done: input.action === 'done' || input.item.done });
     return state();
   });
@@ -895,19 +917,16 @@ app.whenReady().then(async () => {
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
   window.webContents.on('will-navigate', (event) => event.preventDefault());
   window.once('ready-to-show', () => {
-    if (!process.argv.includes('--hidden')) window?.show();
-    else ensureTray();
+    if (!process.argv.includes('--hidden') || !ensureTray()) window?.show();
   });
   window.on('close', (event) => {
-    if (!quitting && keepsRunningInTray()) {
+    if (!quitting && keepsRunningInTray() && ensureTray()) {
       // The renderer keeps its drafts; nothing is lost by hiding.
       event.preventDefault();
-      ensureTray();
       window?.hide();
       if (!trayNoticeShown && Notification.isSupported()) {
         trayNoticeShown = true;
-        const name = store.settings().persona.core.name.trim() || '在场';
-        new Notification({ title: name, body: '我先在右下角的托盘里待着。约好的提醒和你交给我的事，我都会接着留意；想彻底退出，在托盘里选“退出在场”。', silent: true }).show();
+        new Notification({ title: '在场仍在运行', body: '窗口收在右下角的托盘里。点图标可以回来；在托盘菜单选“退出在场”会完全退出。', silent: true }).show();
       }
       return;
     }
@@ -940,11 +959,68 @@ app.whenReady().then(async () => {
     },
     submit: async (input, signal) => {
       signal.throwIfAborted();
+      const leaseEnd = Date.parse(input.leaseUntil);
+      const leaseMs = leaseEnd - Date.parse(store.kernel.clock.now());
+      if (!Number.isFinite(leaseMs) || leaseMs <= 0) return { status: 'unknown' };
       const notice = new Notification({ title: input.title, body: input.body, silent: input.silent === true });
-      notice.on('click', () => navigateTo(input.target));
-      notice.show();
-      return { status: 'submitted_to_os' };
+      return new Promise<{ status: 'submitted_to_os' | 'unknown' }>(resolve => {
+        let settled = false;
+        let timer: ReturnType<typeof setTimeout> | undefined;
+        const settle = (status: 'submitted_to_os' | 'unknown') => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timer);
+          signal.removeEventListener('abort', cancel);
+          notice.removeListener('show', shown);
+          resolve({ status: status === 'submitted_to_os'
+            && (signal.aborted || Date.parse(store.kernel.clock.now()) >= leaseEnd) ? 'unknown' : status });
+        };
+        const release = () => {
+          notice.removeListener('click', clicked);
+          notice.removeListener('close', closed);
+          notice.removeListener('failed', failed);
+          desktopNotifications.delete(input.id);
+        };
+        const cancel = () => {
+          settle('unknown');
+          release();
+          notice.close();
+        };
+        const shown = () => {
+          if (signal.aborted || Date.parse(store.kernel.clock.now()) >= leaseEnd) cancel();
+          else settle('submitted_to_os');
+        };
+        const failed = () => { settle('unknown'); release(); };
+        const clicked = () => {
+          settle('submitted_to_os');
+          release();
+          navigateTo(input.target);
+        };
+        const closed = (event: Electron.Event<{ reason?: string }>) => {
+          const confirmed = settled;
+          settle('unknown');
+          // Windows can hide the toast while retaining it in Action Center.
+          // Keep its original click route until the person acts or cancels it.
+          if (!confirmed || event.reason !== 'timedOut') release();
+        };
+        desktopNotifications.get(input.id)?.cancel();
+        desktopNotifications.set(input.id, { cancel });
+        notice.once('show', shown);
+        notice.once('failed', failed);
+        notice.on('close', closed);
+        notice.once('click', clicked);
+        signal.addEventListener('abort', cancel, { once: true });
+        // The original leased occurrence bounds this acknowledgement wait.
+        // No native reply leaves the durable intent unknown; it is not retried.
+        const remaining = leaseEnd - Date.parse(store.kernel.clock.now());
+        if (signal.aborted || remaining <= 0) cancel();
+        else {
+          timer = setTimeout(cancel, remaining);
+          try { notice.show(); } catch { cancel(); }
+        }
+      });
     },
+    cancel: async id => { desktopNotifications.get(id)?.cancel(); },
   };
   store.runtime.reminders.canSubmitSuggestion = () => !store.runtime.presentation.public && !window?.isFocused();
   store.runtime.reminders.configure({ enabled: store.settings().remindersEnabled });
@@ -981,6 +1057,7 @@ app.whenReady().then(async () => {
     clearInterval(reminderTimer);
     clearInterval(recoveryTimer);
     opportunityScheduler?.stop();
+    for (const notice of desktopNotifications.values()) notice.cancel();
     store.close();
   });
 });

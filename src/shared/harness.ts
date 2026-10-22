@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { programNodeIdSchema } from './interactive-program';
+import { planningOfferSchema } from './planning-offer';
 
 export const objectId = z.string().min(1).max(160);
 export const instant = z.string().datetime({ offset: true });
@@ -276,6 +277,12 @@ export const interpretationProposalSchema = z
     directLocalWrite: z.boolean(),
   })
   .strict();
+export const evidenceImageSourceSchema = z.object({
+  sha256: z.string().regex(/^[a-f0-9]{64}$/),
+  contentVersion: z.number().int().positive(),
+  mimeType: z.literal('image/jpeg'),
+  width: z.number().int().positive(), height: z.number().int().positive(),
+}).strict();
 export const evidenceSchema = z
   .object({
     id: objectId,
@@ -289,6 +296,8 @@ export const evidenceSchema = z
     text: z.string().max(250000),
     speaker: z.enum(['user', 'assistant', 'external']),
     kind: z.enum(['user_message', 'user_control', 'file_import', 'tool_result', 'external_observation']),
+    /** Host-bound original pixels remain owned by the same user Message. */
+    imageSource: evidenceImageSourceSchema.optional(),
     sourceContext: z.discriminatedUnion('kind', [z.object({
       kind: z.literal('relationship_rehearsal'), origin: z.literal('user_interface_reference'),
       artifactId: objectId, artifactRevision: z.number().int().positive(), matterId: objectId,
@@ -336,6 +345,17 @@ export const temporalSchema = z
     (t) => !t.validFrom || !t.validTo || Date.parse(t.validTo) > Date.parse(t.validFrom),
     'Invalid validity interval',
   );
+/** Assistant wording can resolve a user's reply, but is never personal evidence. */
+export const memoryReferenceInputSchema = z.object({
+  messageId: objectId, start: z.number().int().nonnegative(), end: z.number().int().positive(),
+}).strict().refine(value => value.end > value.start, 'Invalid reference context range');
+export const memoryReferenceSchema = memoryReferenceInputSchema.extend({
+  sessionId: objectId, contentSha256: z.string().regex(/^[a-f0-9]{64}$/),
+  sourceRefs: z.array(z.lazy(() => workSourceRefSchema)).min(1).max(32),
+  replyState: z.object({ status: z.enum(['cancelled', 'error']), completion: z.literal('partial'),
+    exposure: z.literal('unknown'), meaning: z.string().min(1).max(400) }).strict().optional(),
+});
+export type MemoryReferenceContext = z.infer<typeof memoryReferenceSchema>;
 export const assertionSchema = z
   .object({
     id: objectId,
@@ -360,6 +380,7 @@ export const assertionSchema = z
     temporal: temporalSchema,
     status: z.enum(['candidate', 'active', 'disputed', 'superseded', 'expired', 'retracted', 'inactive']),
     evidenceIds: z.array(objectId).max(64),
+    referenceContexts: z.array(memoryReferenceSchema).max(16).optional(),
     label: labelSchema,
     verification: z.enum(['verified', 'pending', 'unverified']),
   })
@@ -377,6 +398,7 @@ export interface AssertionCitation {
   /** Host-only, bound to this stored revision/citation; never accepted in a proposal. */
   restrictionReceipt?: string;
 }
+export const memoryChangeOperationMeaning = 'CORRECT依据新原话改写既有说法或理解，也包括本人后来重新回想、澄清；这个操作本身不判断是谁曾误读、误记，也不说明旧记录失真。SUPERSEDE表示事实或条件后来改变，保留旧时段的身份。说明过去具体发生过的失误时，仍对照当时原陈述与实际保存内容；没有这类依据就保留变化本身。';
 export const changeSchema = z
   .object({
     operation: z.enum([
@@ -389,7 +411,7 @@ export const changeSchema = z
       'DISPUTE',
       'EXPIRE',
       'RETRACT',
-    ]),
+    ]).describe(memoryChangeOperationMeaning),
     targetId: objectId.optional(),
     expectedRevision: z.number().int().positive().optional(),
     eventId: objectId,
@@ -398,6 +420,8 @@ export const changeSchema = z
     sourceStartCodePoint: z.number().int().nonnegative().optional(),
     sourceEndCodePoint: z.number().int().positive().optional(),
     supports: z.array(memorySupportSchema).max(16).optional(),
+    referenceContexts: z.array(memoryReferenceInputSchema).max(16).optional()
+      .describe('确实用于解释本人答复所指对象的先前助手原问句，按context实际provided地址声明；助手内容不是本人事实。省略保留已有理解的依赖，显式[]仅在当前原话独立支持完整新内容时清除。'),
     predicate: z.string().regex(/^[a-zA-Z][a-zA-Z0-9_.:-]{0,119}$/),
     value: typedValue,
     text: z.string().min(1).max(4000),
@@ -405,8 +429,8 @@ export const changeSchema = z
     strength: z.enum(['hard', 'soft', 'unconfirmed']),
     conditions: conditionSchema,
     validFrom: instant.optional(),
-    validTo: instant.optional(),
-    unresolvedTime: z.string().max(200).optional(),
+    validTo: instant.optional().describe('原文明确给出的有效终点；持续偏好或约定未指定终点时省略，不把开放期限当作未知期限。'),
+    unresolvedTime: z.string().max(200).optional().describe('仅保留原文确有但尚无法核清的生效/到期条件；现在已采用、以后继续使用的偏好没有截止日时省略，不因此创建待确认候选。'),
     subject: z.enum(['self', 'source_subject', 'other', 'fictional']).default('source_subject'),
     world: z.enum(['source_world', 'hypothetical']).default('source_world'),
     idempotencyKey: objectId,
@@ -629,11 +653,19 @@ export interface InteractiveProgramComponentDiagnostic {
   }[];
   read: { tool: 'read_skill'; arguments: { id: string; section: 'components'; names: string[]; limit: number } };
 }
-/** Only the original present_view envelope's fixed schema paths/constraints. */
+/** Safe metadata from the actual envelope/native checks, without draft text. */
 export type InteractiveProgramInputDiagnostic = {
   tool: 'present_view';
   layer: 'tool_envelope';
   issues: InteractiveProgramComponentDiagnostic['issues'];
+} | {
+  tool: 'present_view';
+  layer: 'source_completion';
+  nativeIncomplete: true;
+  /** Original end boundary, not a guessed position of a missing character. */
+  end: { unit: 'utf16_code_units'; offset: number; line: number; column: number };
+  /** Bounded native autoClose suffix; only closing delimiters and escapes. */
+  completion?: { suffix: string; returned: number; total: number; complete: boolean };
 } | {
   tool: 'present_view';
   layer: 'native_parser';
@@ -644,6 +676,9 @@ export type InteractiveProgramInputDiagnostic = {
     code: 'missing-required' | 'null-required' | 'unknown-component' | 'inline-reserved'
       | 'excess-args' | 'type-mismatch' | 'unknown-function' | 'no-root';
     statementOrdinal?: number;
+    /** Only fixed schema keys and numeric array positions; never input values
+     * or arbitrary record keys. Relative to this component's props. */
+    property?: Pick<InteractiveProgramComponentDiagnostic['issues'][number], 'path' | 'pathComplete' | 'parameterIndex' | 'expected'>;
     /** Only an own-key hit in the current host registry may supply this. */
     contract?: { kind: 'component' | 'function'; name: string; signature: string;
       read: { tool: 'read_skill'; arguments: { id: string; section: 'components' | 'functions'; names: string[]; limit: number } } };
@@ -657,7 +692,7 @@ export interface InteractiveProgramPreviousDiagnostic {
   fields: { id: 'programId'; expectedRevision: 'revision' };
   automaticRebase: false;
   knownReference?: {
-    basis: 'formal_current' | 'delivered_this_run';
+    basis: 'formal_current' | 'delivered_this_run' | 'validated_previous';
     source: InteractiveProgramSource;
     previous: { id: string; expectedRevision: number };
     read: { tool: 'read_interactive_program'; arguments: InteractiveProgramSource & { mode: 'overview' } };
@@ -680,7 +715,29 @@ export interface InitialContextComposition {
     availableBytes: number; availableTokens: number; deferredForReserve: boolean };
 }
 
+/** A host-issued address to an immutable account snapshot, without records.
+ * It is navigation metadata, not a renewed read or action permission. */
+export interface CampusSavedReadingProof {
+  sourceId: 'campus:zju-account'; bundleId: string; resource: string; version: string;
+  sourceIdentity: string; headIdentity: string; selection: 'saved_head' | 'historical'; collectedAt?: string;
+}
+export interface CampusReadingAddress {
+  sourceId: 'campus:zju-account'; snapshot: CampusSavedReadingProof;
+  read: { capability: 'campus.query' | 'campus.lookup'; arguments: Record<string, unknown> };
+  next?: { capability: 'campus.query' | 'campus.lookup'; arguments: Record<string, unknown> };
+  page: { offset: number; returned: number; nextOffset: number | null };
+  evaluation: { at?: string; paging: 'fixed_conditions' | 'evaluation_dependent'; dynamicValues: boolean };
+  observedAt: string;
+  /** Actual host read-completion order within this reply; absent in older receipts. */
+  readOrdinal?: number;
+  contract: CapabilityContractRef;
+}
+/** Original draft bound to assistant text actually supplied in this run.
+ * An address does not claim that its whole body was read or that it is current. */
+export interface ReleaseSource { sessionId: string; messageId: string; artifactId: string; revision: number }
 export interface ContextReceipt {
+  /** New runs start with []; absence on an old receipt is unknown, not no adoption. */
+  releaseSources?: ReleaseSource[];
   initialComposition?: InitialContextComposition;
   /** Where the standing instructions of the main run came from, in order. */
   promptComposition?: { id: string; origin: string; characters: number }[];
@@ -689,6 +746,8 @@ export interface ContextReceipt {
   /** Original work addresses supporting supplied text or metadata. This is
    * provenance, not a claim that the entire chapter body was read. */
   assistantWorkSources?: AssistantWorkSource[];
+  /** Original typed teaching sources inherited with actually adopted history. */
+  historicalWorkSources?: import('./method-work-help').HistoricalWorkSource[];
   interactiveProgramSources?: InteractiveProgramSource[];
   /** Latest six actual reader receipts, bounded by the reader owner. */
   interactiveProgramReads?: InteractiveProgramReadReceipt[];
@@ -698,6 +757,7 @@ export interface ContextReceipt {
    * mark means an identical tool result was in a successful model request,
    * not that the model understood it or any program was published. */
   interactiveProgramDiagnostics?: { stepId: string; toolCallId?: string;
+    rejectionCode?: string;
     expansion?: InteractiveProgramExpansionDiagnostic; expression?: InteractiveProgramExpressionDiagnostic;
     component?: InteractiveProgramComponentDiagnostic; input?: InteractiveProgramInputDiagnostic;
     previous?: InteractiveProgramPreviousDiagnostic; explanationTruncated: boolean;
@@ -706,6 +766,13 @@ export interface ContextReceipt {
    * metadata, not a rating, body-read ACK or new action authorization. */
   personalMethodSources?: import('./personal-method').PersonalMethodSources[];
   campusSensitiveReads?: import('./campus-academic').CampusSensitiveRead[];
+  /** Latest six actual account-reading addresses. No course/grade row body. */
+  campusReadingAddresses?: CampusReadingAddress[];
+  campusReadingReadCount?: number;
+  /** Account source dependencies, including admitted prior replies; no read ACK. */
+  campusReadingSources?: CampusSavedReadingProof[];
+  /** A delivered account result had no complete readable snapshot proof. */
+  campusReadingIncomplete?: true;
   /** Actual note revision/range provenance, never a personal fact or read ACK. */
   noteSources?: import('./notes-source').NoteSourceProof[];
   /** Source-bound learning processes actually provided to this model run. */
@@ -721,12 +788,16 @@ export interface ContextReceipt {
   planningProvenance?: PlanningMaterialProvenance[];
   sceneReferences?: { id: string; revision: number; sourceId: string; fetchedAt: string; expiresAt?: string }[];
   materialReads?: { capability: string; resourceId: string; sha256: string; version: number; sourceEventId?: string; parentEventId?: string; page?: number; start?: number; end?: number; total?: number; complete: boolean; extraction?: string }[];
-  imageRequests?: { requestId: string; sha256: string; source: 'upload' | 'tool'; version: string; accepted: boolean; role: string }[];
+  imageRequests?: { requestId: string; sha256: string; source: 'upload' | 'tool'; version: string; accepted: boolean; role: string;
+    sourceEventId?: string; sourceContentVersion?: number }[];
   mechanismUses?: { prefetch: number; currentMatter: number; repairRejudge: number; closure: number };
   engine?: { name: string; commit: string; adapterSha256: string; python: string };
   /** Latest four compactions, updated by compactionCount in the main harness. */
   hermesCompressions?: HermesCompressionReceipt[];
   runEnd?: RunEndReceipt;
+  /** Actual terminal state of an optional presence attempt; no message body,
+   * draft or inferred reason for choosing silence is retained here. */
+  presenceOutcome?: { status: 'sent' | 'silent' | 'interrupted' | 'failed'; preparedProgram: boolean; errorCode?: string };
   delegations?: { id: string; parentId: string; title: string; status: 'queued' | 'running' | 'produced' | 'consumed' | 'failed' | 'cancelled'; sources?: string[]; currentEvidenceIds?: string[]; modelCalls: number; responses: number; toolCalls: number }[];
   modelUsage?: { phase: string; responseModel?: string; inputTokens: number | null; cachedInputTokens?: number | null; outputTokens: number | null; usdMin: number | null; usdMax: number | null;
     status?: 'failed'; errorCode?: string; requestMaxOutputTokens?: number }[];
@@ -739,7 +810,14 @@ export interface ContextReceipt {
   providedEvidenceIds: string[];
   providedSourceIds?: string[];
   providedObjectVersions: { id: string; revision: number; kind?: 'evidence' | 'assertion' | 'work' | 'agenda' | 'domain';
-    sourceId?: string; domain?: string; institutionId?: string; termId?: string }[];
+    /** Only accepted, explicitly bound pixels or inherited original-image
+     * provenance; this is not a pixel-delivery or understanding ACK. */
+    imageSha256?: string;
+    sourceId?: string; domain?: string; institutionId?: string; termId?: string;
+    /** Work sources frozen at this actual read, not proof of the current Work revision. */
+    sourceBinding?: WorkSourceBinding;
+    /** Original retained material used by an actual typed owner read; no body or read ACK. */
+    sourceMaterial?: import('./method-work-help').MethodHelpMaterialIdentity }[];
   needResults: { key: string; status: KnowledgeStatus }[];
   excludedReasonCounts: Record<string, number>;
   /** Full, non-secret provider/protocol facts for this run. */
@@ -835,6 +913,15 @@ export const capabilityContractRefSchema = z.object({
 }).strict();
 export type CapabilityContractRef = z.infer<typeof capabilityContractRefSchema>;
 
+/** Host-bound speaking turn for a saved reminder, not a claim about who
+ * originally composed its words. The hash binds this exact reminder text. */
+export const reminderSpeakerSchema = z.object({
+  messageId: objectId,
+  name: z.string().min(1).max(60),
+  textSha256: z.string().regex(/^[a-f0-9]{64}$/),
+}).strict();
+export type ReminderSpeaker = z.infer<typeof reminderSpeakerSchema>;
+
 export const effectSchema = z
   .object({
     id: objectId,
@@ -847,6 +934,8 @@ export const effectSchema = z
     // Optional only so historical records remain readable; unbound effects cannot be dispatched.
     capabilityContract: capabilityContractRefSchema.optional(),
     arguments: z.record(z.string(), z.json()),
+    reminderSpeaker: reminderSpeakerSchema.optional(),
+    planningOffer: planningOfferSchema.optional(),
     compensation: z.object({ targetId: objectId, expectedRevision: z.number().int().nonnegative(), previous: z.record(z.string(), z.json()).nullable(), applied: z.boolean() }).strict().optional(),
     audience: objectId,
     status: actionStatusSchema,
@@ -861,6 +950,8 @@ export const effectSchema = z
     sourceId: objectId,
     goalId: objectId.optional(),
     reason: z.string().max(300).optional(),
+    nonDispatchProof: z.object({ actionId: objectId, actionRevision: z.number().int().positive(),
+      actionDigest: z.string().regex(/^[a-f0-9]{64}$/), observedAt: instant }).strict().optional(),
     simulated: z.boolean().default(false),
   })
   .strict();

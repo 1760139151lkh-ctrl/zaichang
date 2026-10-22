@@ -369,6 +369,7 @@ export function PreparationShelf({
   onContinue,
   onBodyVisibility,
   quoteAsMessageBody = false,
+  openRequest,
 }: {
   items: PreparationView[];
   inline?: boolean;
@@ -377,6 +378,7 @@ export function PreparationShelf({
   onContinue: (text: string, context?: LetterFocusContext) => void;
   onBodyVisibility?: (body: string | undefined) => void;
   quoteAsMessageBody?: boolean;
+  openRequest?: { id: string; revision: number; helpRecordId: string; requestId: number };
 }) {
   const [expanded, setExpanded] = useState(inline),
     [visibleCount, setVisibleCount] = useState(5),
@@ -385,7 +387,25 @@ export function PreparationShelf({
     [error, setError] = useState('');
   const shown = useRef(new Set<string>()),
     content = useRef<HTMLDivElement>(null);
+  const requested = useRef<number | undefined>(undefined), scrolled = useRef<number | undefined>(undefined);
   const current = items.find((item) => item.id === opened);
+  useLayoutEffect(() => {
+    if (!openRequest || requested.current === openRequest.requestId) return;
+    const index = items.findIndex(item => item.id === openRequest.id && item.revision === openRequest.revision && item.helpRecordId === openRequest.helpRecordId);
+    if (index < 0) return;
+    requested.current = openRequest.requestId;
+    setExpanded(true);
+    setVisibleCount(count => Math.max(count, index + 1));
+    setOpened(openRequest.id);
+    void act(items[index], 'opened');
+  }, [openRequest, items]);
+  useEffect(() => {
+    if (!openRequest || scrolled.current === openRequest.requestId || !expanded || !content.current
+      || current?.id !== openRequest.id || current.revision !== openRequest.revision || current.helpRecordId !== openRequest.helpRecordId) return;
+    scrolled.current = openRequest.requestId;
+    content.current.scrollIntoView({ block: 'nearest', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    content.current.focus({ preventScroll: true });
+  }, [openRequest, expanded, current?.id, current?.revision, current?.helpRecordId, visibleCount]);
   const bodyVisibility = useRef(onBodyVisibility);
   bodyVisibility.current = onBodyVisibility;
   const visibleBody = expanded && items.slice(0, visibleCount).some(item => item === current)
@@ -398,9 +418,9 @@ export function PreparationShelf({
   useEffect(() => {
     if (!expanded || !current || !content.current) return;
     const key = `${current.id}:${current.revision}`;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting) || shown.current.has(key)) return;
+    let visible = false;
+    const expose = () => {
+        if (!visible || document.hidden || !document.hasFocus() || shown.current.has(key)) return;
         shown.current.add(key);
         void api
           .helpAction({
@@ -409,12 +429,18 @@ export function PreparationShelf({
             operation: 'displayed',
           })
           .then(onState)
-          .catch((error) => setError(errorText(error)));
+          .catch((error) => { shown.current.delete(key); setError(errorText(error)); });
+    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        visible = entries.some(entry => entry.isIntersecting && entry.intersectionRect.height >= Math.min(60, entry.boundingClientRect.height));
+        expose();
       },
       { threshold: 0 },
     );
     observer.observe(content.current);
-    return () => observer.disconnect();
+    window.addEventListener('focus', expose); document.addEventListener('visibilitychange', expose);
+    return () => { observer.disconnect(); window.removeEventListener('focus', expose); document.removeEventListener('visibilitychange', expose); };
   }, [current?.id, current?.revision, expanded]);
   if (!items.length) return null;
   async function act(
@@ -471,7 +497,7 @@ export function PreparationShelf({
               </button>
               )}
               {item.id === opened && (
-                <div className="preparation-body" ref={content}>
+                <div className="preparation-body" ref={content} tabIndex={-1}>
                   {item.reflectiveLetter ? (
                     <LetterMessage letter={item.reflectiveLetter} pending={!!pending} onContinue={onContinue}
                       onDismiss={() => act(item, 'dismiss')} onOpenSource={() => void act(item, 'opened')} />

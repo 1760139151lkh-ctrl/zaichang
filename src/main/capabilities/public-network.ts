@@ -4,14 +4,26 @@ import { isIP } from 'node:net';
 import { checkServerIdentity } from 'node:tls';
 import { gunzipSync, inflateSync, brotliDecompressSync } from 'node:zlib';
 import { HarnessError } from '../../shared/harness';
+import { imageMagicMatches } from '../materials/raster';
+export { imageMagicMatches } from '../materials/raster';
 
 const MAX_BODY = 2_000_000;
 const MAX_PDF_BODY = 8_000_000;
-const allowedTypes = /^(text\/(?:html|plain|markdown|xml)|application\/(?:json|ld\+json|xml|rss\+xml|atom\+xml|xhtml\+xml|pdf))(?:;|$)/i;
+const MAX_IMAGE_BODY = 4_000_000;
+const allowedTypes = /^(text\/(?:html|plain|markdown|xml)|application\/(?:json|ld\+json|xml|rss\+xml|atom\+xml|xhtml\+xml|pdf)|image\/(?:png|jpeg|webp|gif))(?:;|$)/i;
+const imageType = /^image\/(png|jpeg|webp|gif)(?:;|$)/i;
+const bodyLimit = (type: string) => /^application\/pdf(?:;|$)/i.test(type) ? MAX_PDF_BODY : imageType.test(type) ? MAX_IMAGE_BODY : MAX_BODY;
 export function publicAddress(address: string) {
   if (isIP(address) === 4) {
-    const [a, b] = address.split('.').map(Number);
-    return !(a === 0 || a === 10 || a === 127 || a >= 224 || (a === 169 && b === 254) || (a === 172 && b >= 16 && b <= 31) || (a === 192 && (b === 168 || b === 0)) || (a === 100 && b >= 64 && b <= 127) || (a === 198 && (b === 18 || b === 19)));
+    const [a, b, c, d] = address.split('.').map(Number);
+    // IANA reserves 192.0.0.0/24, not all of 192.0.0.0/16. Public
+    // 192.0.66.* hosts (including NASA) must keep working. The two globally
+    // reachable protocol anycasts are the registry's explicit exceptions.
+    if (a === 192 && b === 0 && c === 0) return d === 9 || d === 10;
+    return !(a === 0 || a === 10 || a === 127 || a >= 224 || (a === 169 && b === 254) || (a === 172 && b >= 16 && b <= 31)
+      || (a === 192 && (b === 168 || b === 0 && c === 2 || b === 88 && c === 99))
+      || (a === 100 && b >= 64 && b <= 127) || (a === 198 && (b === 18 || b === 19 || b === 51 && c === 100))
+      || (a === 203 && b === 0 && c === 113));
   }
   if (isIP(address) === 6) {
     const normalized = address.toLowerCase();
@@ -21,7 +33,9 @@ export function publicAddress(address: string) {
   }
   return false;
 }
-function checkedUrl(input: string) {
+/** Syntactic public-address check shared with static page navigation. DNS and
+ * redirects are still checked again by publicFetch when a link is followed. */
+export function publicResourceUrl(input: string) {
   const url = new URL(input);
   const address = url.hostname.replace(/^\[|\]$/g, '');
   if (url.protocol !== 'https:' || url.username || url.password || (url.port && url.port !== '443') || url.href.length > 8192 ||
@@ -130,7 +144,7 @@ function requestEndpoint(url: URL, addresses: Address[] | undefined, signal: Abo
       } } : {}),
     }, response => {
       const chunks: Buffer[] = []; let bytes = 0;
-      const maximum = dns ? 20000 : /^application\/pdf(?:;|$)/i.test(String(response.headers['content-type'] || '')) ? MAX_PDF_BODY : MAX_BODY;
+      const maximum = dns ? 20000 : bodyLimit(String(response.headers['content-type'] || ''));
       response.on('data', chunk => {
         bytes += chunk.length;
         if (bytes > maximum) {
@@ -189,7 +203,7 @@ async function resolvePublic(host: string, signal?: AbortSignal): Promise<Addres
 const defaultPorts: PublicNetworkPorts = { resolve: resolvePublic, request: (url, addresses, signal) => requestEndpoint(url, addresses, signal) };
 
 export async function publicFetch(input: string, signal: AbortSignal, ports: PublicNetworkPorts = defaultPorts): Promise<Response> {
-  let url = checkedUrl(input);
+  let url = publicResourceUrl(input);
   for (let redirects = 0; redirects <= 3; redirects++) {
     signal.throwIfAborted();
     const addresses = await ports.resolve(url.hostname.replace(/^\[|\]$/g, ''), signal);
@@ -198,14 +212,25 @@ export async function publicFetch(input: string, signal: AbortSignal, ports: Pub
     signal.throwIfAborted();
     if ([301, 302, 303, 307, 308].includes(raw.status)) {
       if (!raw.headers.location || redirects === 3) throw new HarnessError('public_redirect_limit', '重定向过多或目标缺失。');
-      url = checkedUrl(new URL(raw.headers.location, url).href); continue;
+      url = publicResourceUrl(new URL(raw.headers.location, url).href); continue;
     }
-    if (!allowedTypes.test(raw.headers['content-type'] || '')) throw new HarnessError('public_type_unsupported', '当前公开读取支持网页、文字/结构化文字和PDF；此文件类型尚未接入。');
-    const maximum = /^application\/pdf(?:;|$)/i.test(raw.headers['content-type'] || '') ? MAX_PDF_BODY : MAX_BODY;
+    // Error pages need not have a supported media type. Preserve the HTTP
+    // outcome for the caller without returning an untrusted error body as data.
+    if (raw.status < 200 || raw.status >= 300) {
+      if (!Number.isInteger(raw.status) || raw.status < 200 || raw.status > 599)
+        throw new HarnessError('public_response_status', '来源没有返回有效的HTTP状态。');
+      const response = new Response(null, { status: raw.status, headers: raw.headers['content-type'] ? { 'content-type': raw.headers['content-type'] } : {} });
+      Object.defineProperty(response, 'url', { value: url.href });
+      return response;
+    }
+    if (!allowedTypes.test(raw.headers['content-type'] || '')) throw new HarnessError('public_type_unsupported', '当前公开读取支持网页、文字/结构化文字、PDF和常见图片；此文件类型尚未接入。');
+    const maximum = bodyLimit(raw.headers['content-type'] || '');
     if (raw.body.length > maximum) throw new HarnessError('public_body_limit', '资料超过读取上限。');
     const body = decodedBody(raw, maximum);
     if (/^application\/pdf(?:;|$)/i.test(raw.headers['content-type'] || '') && !body.subarray(0, 5).equals(Buffer.from('%PDF-')))
       throw new HarnessError('public_type_unsupported', '来源声明为PDF，但原字节不能确认该类型，未交给解析器或模型。');
+    if (imageType.test(raw.headers['content-type'] || '') && !imageMagicMatches(raw.headers['content-type'] || '', body))
+      throw new HarnessError('public_type_unsupported', '来源声明为图片，但原字节不是这种图片格式，没有采用。');
     const response = new Response(new Uint8Array(body), { status: raw.status, headers: { 'content-type': raw.headers['content-type'] } });
     Object.defineProperty(response, 'url', { value: url.href });
     return response;

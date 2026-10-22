@@ -1,6 +1,8 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { Bridge, RunEvent } from '../shared/types';
 const bridge: Bridge = {
+  readProgramLocalState: input => ipcRenderer.invoke('program:local-state:read', input),
+  saveProgramLocalState: input => ipcRenderer.invoke('program:local-state:save', input),
   rehearsalProject: input => ipcRenderer.invoke('rehearsal:project', input),
   studyProject: input => ipcRenderer.invoke('study:project', input),
   studyRead: input => ipcRenderer.invoke('study:read', input),

@@ -48,7 +48,7 @@ export function orderCampusPageViews(views: readonly PresentationView[], scenes:
     let end = index + 1;
     while (end < views.length) {
       const next = candidate(views[end]);
-      if (!next || next.key !== first.key) break;
+      if (!next || next.key !== first.key || canonical(views[end].anchor || null) !== canonical(group[0].anchor || null)) break;
       group.push(views[end++]); pages.push(...next.pages);
     }
     const sorted = [...pages].sort((left, right) => left.offset - right.offset);

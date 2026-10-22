@@ -505,7 +505,7 @@ export function AgendaView({
             onResume={onResume}
             onChanged={onChanged}
             onAttention={setAttention}
-            currentActionIds={state.agenda.map((item) => item.effectActionId || item.id)}
+            agenda={state.agenda}
             preparations={state.preparations || []}
             onState={onState}
             onContinue={onContinue}

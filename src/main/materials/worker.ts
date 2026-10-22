@@ -3,6 +3,7 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
 import type { PdfCrop, PdfRequest, PdfResult, PdfTable, PdfTextItem } from './pdf';
+import { boundedImageSize, MAX_RASTER_EDGE, MAX_RASTER_PIXELS } from './raster';
 
 const ROOT = path.resolve(__dirname);
 const READER_VERSION = 'pdfjs-dist6.2.108-canvas1.0.6';
@@ -52,11 +53,17 @@ function validateEnvelope(input: unknown): { bytes: Buffer; request: PdfRequest 
   if (!bytes.length || bytes.length > MAX_FILE_BYTES || bytes.toString('base64') !== value.bytes) {
     fail('MATERIAL_PDF_RESOURCE_LIMIT', 'PDF 文件为空或超过 20,000,000 字节读取上限。');
   }
-  if (!bytes.subarray(0, 1024).includes(Buffer.from('%PDF-'))) fail('MATERIAL_PDF_PARSE', '材料不是可读取的 PDF 文件。');
   const request = value.request as PdfRequest;
   if (!request || typeof request !== 'object' || Array.isArray(request)
-    || Object.keys(request).some(key => !['operation', 'page', 'crop'].includes(key))
-    || !['describe', 'read', 'table', 'render'].includes(request.operation)) fail('MATERIAL_PDF_REQUEST', 'PDF 操作无效。');
+    || Object.keys(request).some(key => !['operation', 'page', 'crop', 'mediaType'].includes(key))
+    || !['describe', 'read', 'table', 'render', 'prepare_image'].includes(request.operation)) fail('MATERIAL_PDF_REQUEST', '材料操作无效。');
+  if (request.operation === 'prepare_image') {
+    if (request.page !== undefined || request.crop !== undefined || !boundedImageSize(bytes, request.mediaType || ''))
+      fail('MATERIAL_PDF_IMAGE', '图片格式、尺寸或大小不能可靠读取。');
+    return { bytes, request };
+  }
+  if (request.mediaType !== undefined || !bytes.subarray(0, 1024).includes(Buffer.from('%PDF-')))
+    fail('MATERIAL_PDF_PARSE', '材料不是可读取的 PDF 文件。');
   if (request.page !== undefined && (!Number.isInteger(request.page) || request.page < 1)) fail('MATERIAL_PDF_PAGE', 'PDF 页码必须从 1 开始。');
   if (request.crop !== undefined) {
     const crop = request.crop;
@@ -240,6 +247,28 @@ async function execute(bytes: Buffer, request: PdfRequest): Promise<PdfResult> {
   process.env.DISABLE_SYSTEM_FONTS_LOAD = '1';
   process.env.NAPI_RS_NATIVE_LIBRARY_PATH = path.join(ROOT, 'node_modules/@napi-rs/canvas-win32-x64-msvc/skia.win32-x64-msvc.node');
   const canvas = requireLocal(path.join(ROOT, 'node_modules/@napi-rs/canvas/index.js'));
+  if (request.operation === 'prepare_image') {
+    // Decode only the supplied bytes in this isolated, offline process. A
+    // static first frame avoids persisting unbounded animation into chat.
+    let decoded: any;
+    try { decoded = await canvas.loadImage(bytes); }
+    catch { fail('MATERIAL_PDF_IMAGE', '这张图片没有完整解码，请从原网页选另一张。'); }
+    const originalSize = { width: decoded.width, height: decoded.height };
+    if (![decoded.width, decoded.height].every(value => Number.isInteger(value) && value > 0 && value <= MAX_RASTER_EDGE)
+      || decoded.width * decoded.height > MAX_RASTER_PIXELS) fail('MATERIAL_PDF_IMAGE', '图片解码后的尺寸超过上限。');
+    const scale = Math.min(1, 2400 / decoded.width, 2400 / decoded.height);
+    const width = Math.max(1, Math.round(decoded.width * scale)), height = Math.max(1, Math.round(decoded.height * scale));
+    const surface = canvas.createCanvas(width, height), context = surface.getContext('2d');
+    context.fillStyle = '#ffffff'; context.fillRect(0, 0, width, height);
+    context.drawImage(decoded, 0, 0, width, height);
+    let dataUrl = '';
+    for (const quality of [94, 88, 80]) {
+      dataUrl = 'data:image/jpeg;base64,' + surface.toBuffer('image/jpeg', quality).toString('base64');
+      if (dataUrl.length < MAX_DATA_URL_LENGTH) break;
+    }
+    if (dataUrl.length >= MAX_DATA_URL_LENGTH) fail('MATERIAL_PDF_IMAGE', '图片处理后仍超过显示上限，请从原网页选较小的图片。');
+    return { pageCount: 1, originalSize, image: { kind: 'image', name: 'public-picture.jpg', mimeType: 'image/jpeg', dataUrl, width, height }, rendererVersion: READER_VERSION };
+  }
   for (const name of ['DOMMatrix', 'ImageData', 'Path2D']) (globalThis as unknown as Record<string, unknown>)[name] = canvas[name];
   const pdfjs = await import(pathToFileURL(path.join(ROOT, 'node_modules/pdfjs-dist/legacy/build/pdf.mjs')).href);
   pdfjs.GlobalWorkerOptions.workerSrc = pathToFileURL(path.join(ROOT, 'node_modules/pdfjs-dist/legacy/build/pdf.worker.mjs')).href;

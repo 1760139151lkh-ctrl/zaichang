@@ -30,13 +30,13 @@ export function executeCuriosityTool(
   async function execute() {
     signal.throwIfAborted();
     const handle = session.ingress.contract.scope, scope = host.policy.require(handle, 'evidence:read');
-    if (name !== 'read_shared_creation' && (session.background || scope.child))
-      throw new HarnessError('curiosity_current_invitation', '这份小体验由当前私聊的主助手接住，不从后台随机发起或让子调查另建邀请。');
     const pack = session.pack;
     if (!pack) throw new HarnessError('context_missing', '先接上当前对话，再把这份体验拿来一起玩。');
     const shared = name === 'read_shared_creation' ? sharedCreationReadInput.parse(raw) : undefined;
     const input = shared ? 'operation' in shared ? shared : { ...shared, operation: 'read_history' as const }
       : curiosityInvitationInput.parse(raw);
+    if (!['read', 'read_history', 'history'].includes(input.operation) && (session.background || scope.child))
+      throw new HarnessError('curiosity_current_invitation', '这份旧体验可沿原来源回读；重新邀请、继续或放下仍由本人的当前原话决定。');
     const permits = (ref: WorkSourceRef) => {
       const view = session.attentionEvidenceViews?.[ref.eventId];
       if (!view) return true;
@@ -47,7 +47,8 @@ export function executeCuriosityTool(
     };
     const context: CuriosityContext = { sessionId: session.sessionId, events: session.events, ephemeral: session.ephemeral,
       allowCrossSession: session.ingress.contract.memoryMode === 'relevant', observations: session.observations || [],
-      deliveredObservationIds: session.deliveredObservationIds || new Set(), permits };
+      deliveredObservationIds: session.deliveredObservationIds || new Set(),
+      noteSources: structuredClone(pack.receipt.noteSources || []), permits };
     const result = host.curiosityInvitations.execute(handle, context, input);
     signal.throwIfAborted(); host.policy.validate(handle);
     const text = canonical(result.value), bytes = Buffer.byteLength(text), tokens = Math.ceil(Array.from(text).length / 1.4);

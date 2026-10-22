@@ -43,6 +43,13 @@ export class DraftStore {
     if (!entry || this.info(id).digest !== digest || entry.epoch !== this.store.kernel.epoch) throw new HarnessError('stale_draft', '草稿或资料范围已改变，请先查看当前内容。');
     const text = entry.draft.text + (entry.draft.attachment?.kind === 'text' ? '\n' + entry.draft.attachment.text : '');
     if (entry.temporary || this.store.conversationPolicy(id)?.retention === 'session_only' || isEphemeral(entry.draft.text) || hasCredentials(text)) throw new HarnessError('ephemeral_draft', '这份草稿不写入本机保存区。');
+    const reference = material(entry.draft);
+    if (reference) {
+      // Keep the draft pending until its original is durable too. A file write
+      // failure must still appear in the normal unsaved-draft close handshake.
+      this.store.runtime.materials.assertPendingPersistable(reference);
+      this.store.runtime.materials.persistPending(reference);
+    }
     this.store.kernel.write(() => {
       // A model/control failure may occur before the conversation row exists.
       // Explicit saving must make this draft discoverable on restart without

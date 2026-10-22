@@ -1,6 +1,7 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { z } from 'zod';
-import { HarnessError, workSourceRefSchema, type ScopeHandle, type WorkRecord, type WorkSourceRef } from '../../shared/harness';
+import { HarnessError, workSourceRefSchema, type ScopeHandle, type WorkRecord, type WorkSourceRef, type WorkSourceBinding } from '../../shared/harness';
+import { methodHelpMaterialIdentitySchema, type MethodHelpMaterialIdentity } from '../../shared/method-work-help';
 import { studyCompanionInput, studyModeSchema, type StudyCompanionInput, type StudyCompanionView,
   type StudyOrigin, type StudyMode, type studyCitationSchema, type studyPacketInput, type studyProblemInput } from '../../shared/study-companion';
 import type { KernelRepository } from '../storage/repository';
@@ -60,8 +61,87 @@ const meaning = '这是这一道题的可接续陪学纸。你的尝试与助手
  * one requested teaching move at a time; no hidden solution deck, second tutor
  * agent, mastery database, or automatic study schedule is created here. */
 export class StudyCompanionService {
+  private readonly sourceReads = new WeakMap<object, { scopeId: string; id: string; revision: number;
+    sourceBinding: WorkSourceBinding; sourceMaterial?: MethodHelpMaterialIdentity }>();
   constructor(readonly repo: KernelRepository, readonly work: WorkService,
-    readonly materials: Pick<MaterialService, 'invoke' | 'visual'>) {}
+    readonly materials: Pick<MaterialService, 'invoke' | 'visual'> & Partial<Pick<MaterialService, 'retainedTextIdentityCurrent'>>) {}
+
+  /** Only the actual object returned after get's asynchronous owner read can
+   * freeze a typed version. Metadata indexes and cloned records have no mark. */
+  sourceVersionSnapshot(handle: ScopeHandle, record: Pick<WorkRecord, 'id' | 'revision' | 'sourceBinding'>) {
+    const read = this.sourceReads.get(record);
+    if (!read || read.scopeId !== handle.id || read.id !== record.id || read.revision !== record.revision
+      || canonical(read.sourceBinding) !== canonical(record.sourceBinding)) return;
+    this.scope(handle);
+    const f = this.repo.filter(handle), row = this.repo.db.prepare(`SELECT r.revision,json_extract(r.payload,'$.sourceBinding') AS binding
+      FROM h_work r WHERE ${f.sql} AND r.id=? AND json_extract(r.payload,'$.data.type')='study_companion'`)
+      .get(...f.params, record.id);
+    if (!row || row.revision !== read.revision || canonical(JSON.parse(String(row.binding))) !== canonical(read.sourceBinding)
+      || !this.verifyFrozenSources(handle, read)) return;
+    return { sourceBinding: structuredClone(read.sourceBinding),
+      ...(read.sourceMaterial ? { sourceMaterial: structuredClone(read.sourceMaterial) } : {}) };
+  }
+
+  private sourceMaterial(handle: ScopeHandle, problem: Record<string, unknown>) {
+    if (problem.kind === 'evidence') return;
+    return methodHelpMaterialIdentitySchema.parse({ resourceId: problem.resourceId, sha256: problem.sha256, version: problem.version,
+      sourceEventId: problem.sourceEventId, contentVersion: problem.contentVersion,
+      parentEventId: this.repo.evidence(handle, String(problem.sourceEventId))?.parentEventId,
+      interpretation: problem.kind === 'material_text' ? 'retained_text_layer' : 'retained_file_lifetime_only' });
+  }
+
+  /** Legacy replies may recheck their still-identical owner version. This is
+   * a current eligibility check, never a backfilled historical receipt. */
+  currentSourceVersion(handle: ScopeHandle, value: { id: string; revision: number }) {
+    try {
+      this.scope(handle);
+      const f = this.repo.filter(handle), row = this.repo.db.prepare(`SELECT r.revision,json_extract(r.payload,'$.sourceBinding') AS binding,
+        json_remove(json_extract(r.payload,'$.data.problem'),'$.description') AS problem
+        FROM h_work r WHERE ${f.sql} AND r.id=? AND json_extract(r.payload,'$.data.type')='study_companion'`)
+        .get(...f.params, value.id);
+      if (!row || row.revision !== value.revision || !row.binding) return;
+      const sourceMaterial = this.sourceMaterial(handle, JSON.parse(String(row.problem)));
+      const snapshot = { sourceBinding: JSON.parse(String(row.binding)) as WorkSourceBinding, ...(sourceMaterial ? { sourceMaterial } : {}) };
+      if (this.verifyFrozenSources(handle, { id: value.id, ...snapshot })) return snapshot;
+    } catch (error) {
+      if (error instanceof HarnessError || error instanceof z.ZodError || error instanceof SyntaxError) return;
+      throw error;
+    }
+  }
+
+  /** Historical assistance uses its frozen sources and immutable problem
+   * identity. Later attempts are not read or substituted for those sources. */
+  verifyFrozenSources(handle: ScopeHandle, value: { id: string; sourceBinding: WorkSourceBinding; sourceMaterial?: MethodHelpMaterialIdentity }) {
+    try {
+      this.scope(handle);
+      if (this.repo.hasFence(value.id) || !this.repo.workBindingsReadable(handle, [value.sourceBinding])) return false;
+      const f = this.repo.filter(handle), row = this.repo.db.prepare(`SELECT json_extract(r.payload,'$.data.matterId') AS matter_id,
+        json_extract(r.payload,'$.data.source') AS source,
+        json_remove(json_extract(r.payload,'$.data.problem'),'$.description') AS problem
+        FROM h_work r WHERE ${f.sql} AND r.id=? AND json_extract(r.payload,'$.data.type')='study_companion'`)
+        .get(...f.params, value.id);
+      if (!row || this.repo.hasFence(String(row.matter_id)) || !this.repo.db.prepare(`SELECT 1 FROM h_work r WHERE ${f.sql}
+        AND r.id=? AND json_extract(r.payload,'$.data.type')='collaboration_frame'`).get(...f.params, String(row.matter_id))) return false;
+      const problem = JSON.parse(String(row.problem)) as Record<string, unknown>;
+      const source = workSourceRefSchema.parse(JSON.parse(String(row.source)));
+      const identity = problem.kind === 'evidence' ? workSourceRefSchema.parse(problem.ref)
+        : { resourceId: problem.resourceId, version: problem.version, page: problem.page ?? null,
+          ...(problem.kind === 'material_text' ? { start: problem.start, end: problem.end } : { crop: problem.crop }) };
+      if (value.id !== 'study:' + sha(canonical({ matterId: row.matter_id, source, problem: identity }))) return false;
+      const refs = z.array(workSourceRefSchema).min(1).max(4).parse(problem.kind === 'evidence' ? [problem.ref] : problem.sourceRefs);
+      if (refs.some(ref => !value.sourceBinding.refs.some(source => sameRef(source, ref)))) return false;
+      if (problem.kind === 'evidence') return value.sourceMaterial === undefined;
+      if (!['material_text', 'material_page'].includes(String(problem.kind))) return false;
+      const material = methodHelpMaterialIdentitySchema.parse(value.sourceMaterial), event = this.repo.evidence(handle, material.sourceEventId);
+      return material.resourceId === problem.resourceId && material.sha256 === problem.sha256 && material.version === problem.version
+        && material.sourceEventId === problem.sourceEventId && material.contentVersion === problem.contentVersion
+        && material.interpretation === (problem.kind === 'material_text' ? 'retained_text_layer' : 'retained_file_lifetime_only')
+        && event?.parentEventId === material.parentEventId && this.materials.retainedTextIdentityCurrent?.(handle, material) === true;
+    } catch (error) {
+      if (error instanceof HarnessError || error instanceof z.ZodError || error instanceof SyntaxError) return false;
+      throw error;
+    }
+  }
 
   private scope(handle: ScopeHandle, write = false) {
     const scope = this.work.policy.require(handle, write ? 'work:write' : 'evidence:read');
@@ -234,6 +314,9 @@ export class StudyCompanionService {
         { id: 'example', label: '换个例子讲', request: '围绕现在这个卡点换一个例子解释，再回到我的原题。' },
         { id: 'explain', label: '直接讲清楚', request: '这次请直接把这里讲清楚，不用坚持之前的小提示方式。' },
       ], meaning: '操作只把当前这张纸和这一步带回正常对话；不表示完成、掌握或接受安排。' }, updatedAt: data.updatedAt, meaning };
+    const sourceMaterial = this.sourceMaterial(handle, data.problem);
+    this.sourceReads.set(record, { scopeId: handle.id, id: record.id, revision: record.revision, sourceBinding: structuredClone(current),
+      ...(sourceMaterial ? { sourceMaterial } : {}) });
     return { record, projection };
   }
 

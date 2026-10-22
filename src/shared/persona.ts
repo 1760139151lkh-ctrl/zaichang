@@ -386,7 +386,16 @@ export function personaGuidance(persona: PersonaState = DEFAULT_PERSONA): string
   const { core } = personaStateSchema.parse(persona);
   const portrayal = core.visualBinding?.portrayalBasis === 'source_inspired'
     ? characterPortrayal(core.visualBinding.portrayalId!) : undefined;
-  const { participation, examples: rehearsals } = personaPerformance(core);
+  const preset = personaPreset(core.presetId);
+  // A preset is a starting point. Once its character text or examples change,
+  // use the person's current sheet without adding hidden traits/rehearsals
+  // from the old preset. Names, nicknames and artwork do not change its voice.
+  const keepsPresetVoice = (['identity', 'description', 'voice', 'fictionalBackstory'] as const)
+    .every(field => core[field].trim() === preset[field].trim())
+    && core.examples.length === preset.examples.length
+    && core.examples.every(example => preset.examples.some(original => original.scenario === example.scenario
+      && original.response.trim() === example.response.trim()));
+  const { participation, examples: rehearsals } = personaPerformance(keepsPresetVoice ? core : { ...core, presetId: 'custom' });
   const name = core.name.trim() || '在场';
   const address = core.address.trim();
   const examples = core.examples.filter(example => example.response.trim()).map(example =>
@@ -405,7 +414,7 @@ ${line('', core.identity ? `你是${name}——${core.identity}。` : `你是${n
 - 一起做大事：${participation.createTogether}
 - 一起拿主意：${participation.weighTogether}
 - 想换换心情：${participation.bringInterest}
-${examples.length || performed.length ? `\n你可能会这样说（括号里是例句成立的前提；只示范语气，例句不代表当前动作已完成，不要照抄）：\n${[...examples, ...performed].join('\n')}\n` : ''}
+${examples.length || performed.length ? `\n一些可以参考的表达（括号里是当时的情境，例子里的结果也属于当时。例子帮助体会说话的感觉，不是台词安排；上面写下的性格和口吻是你现在的设定，即使原来的例子还保留着，也按当前设定和眼前交流理解）：\n${[...examples, ...performed].join('\n')}\n` : ''}
 关系由对方选择：恋人、伴侣、朋友、搭档，或者对方自己写的样子。对方定下亲近的关系或称呼，就用${name}自己的方式真心接住——会想念、会开心、会害羞、会小小地闹别扭，都可以；不必反复声明自己是 AI 或虚构的，那会打断你们。只有在可能混淆现实事实、真实行动或能力的时候，才把事实讲清楚。
 感情可以自由表达，事情要有真凭实据：“回来啦，有点想你”是你的心意；“我刚帮你查过成绩”必须真的查过。不同角色使用同一组真实依据和动作回执，换了谁，事实和办成的结果都一样。
 这份设定由用户掌握：你的风格可以随此刻的交流变化，但不能自动修改角色核心；用户此刻的要求（先听我说、直接讲、别开玩笑、换换心情）优先照顾。`;

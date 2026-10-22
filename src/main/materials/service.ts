@@ -12,7 +12,7 @@ import type { CapabilityBroker } from '../capabilities/broker';
 import { hasCredentials } from '../runtime/redaction';
 
 type Binding = { eventId: string; parentEventId: string; sessionId: string; eventVersion: number; retention: string };
-type Resource = { reference: MaterialReference; epoch: number; bytes?: Buffer; text?: string; encoding?: string; binding?: Binding; saved?: boolean; discoverySequence?: number; draftIds?: Set<string>; preparedFor?: Set<string>;
+type Resource = { reference: MaterialReference; epoch: number; bytes?: Buffer; text?: string; encoding?: string; binding?: Binding; saved?: boolean; discoverySequence?: number; draftIds?: Set<string>; preparedFor?: Set<string>; releaseRequested?: boolean;
   publicSource?: { url: string; scopeId: string; sourceId: 'web:public'; fetchedAt: string; httpStatus?: number; contentType?: string }; };
 const sha = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex');
 const resourceId = z.string().regex(/^material-[a-f0-9-]{36}$/);
@@ -67,6 +67,7 @@ export class MaterialService {
       } catch { /* A malformed manifest cannot become a readable source. */ }
     }
     this.sweep();
+    for (const record of this.records.values()) if (record.saved && record.binding) this.validateParentBinding(record);
     // Saved originals retain their received order after reopening. The sequence
     // itself is process-local, just like the cursors, and includes temporary
     // conversation files once they are actually bound to a submitted message.
@@ -84,16 +85,33 @@ export class MaterialService {
     for (const image of this.images.values()) if ((image.source as any)?.resourceId === id) this.images.delete(image.id);
     for (const extension of ['.bin', '.json']) if (fs.existsSync(this.file(id, extension))) fs.unlinkSync(this.file(id, extension));
   }
+  private persistedDraftOwns(record: Resource) {
+    if (!record.saved || record.binding) return false;
+    const rows = this.repo.db.prepare(`SELECT json_extract(value,'$.attachment.resource') AS reference
+      FROM meta WHERE key LIKE 'draft:%' AND json_valid(value)
+      AND json_extract(value,'$.attachment.kind')='text'
+      AND json_extract(value,'$.attachment.resource.resourceId')=?`).all(record.reference.resourceId);
+    return rows.some(row => {
+      try {
+        const parsed = materialReferenceSchema.safeParse(JSON.parse(String(row.reference)));
+        return parsed.success && JSON.stringify(parsed.data) === JSON.stringify(record.reference);
+      } catch { return false; }
+    });
+  }
   /** Privileged cleanup reads only source status/version, never source text. */
   sweep() {
     for (const [id, record] of this.records) {
-      if (!record.binding) { if (record.saved && record.epoch !== this.repo.epoch) this.remove(id); continue; }
+      if (!record.binding) {
+        if (record.saved && record.epoch !== this.repo.epoch && !this.persistedDraftOwns(record)) this.remove(id);
+        continue;
+      }
       if (!record.saved) continue;
       const ids = [record.binding.eventId, record.binding.parentEventId];
       if (ids.some((eventId, index) => {
         const row = this.repo.db.prepare("SELECT status,json_extract(payload,'$.contentVersion') AS version FROM h_evidence WHERE id=?").get(eventId);
         const restricted = this.repo.db.prepare("SELECT 1 FROM h_source_restrictions WHERE event_id=? AND predicate='*' LIMIT 1").get(eventId);
-        return !row || row.status !== 'active' || !index && Number(row.version) !== record.binding!.eventVersion || !!restricted;
+        return !row || (index ? !['active', 'redacted'].includes(String(row.status)) : row.status !== 'active')
+          || !index && Number(row.version) !== record.binding!.eventVersion || !!restricted;
       })) this.remove(id);
     }
   }
@@ -103,6 +121,35 @@ export class MaterialService {
     fs.writeFileSync(this.file(record.reference.resourceId, '.json'), JSON.stringify({ reference: record.reference, epoch: record.epoch, binding: record.binding,
       ownerId: this.repo.identity.principalId, workspaceId: this.repo.identity.workspaceId }), { mode: 0o600 });
     record.saved = true;
+  }
+  /** The parent owns submission lifetime, not the independent file's words.
+   * Whole-parent erasure follows the typed cleanup closure. A local erasure
+   * in the parent's text cannot erase the original attachment. */
+  private validateParentBinding(record: Resource): boolean {
+    const binding = record.binding;
+    if (!binding || !record.saved || record.publicSource || binding.retention === 'session_only') return false;
+    const bytes = this.file(record.reference.resourceId, '.bin');
+    if (!fs.existsSync(bytes) || fs.statSync(bytes).size !== record.reference.byteLength) return false;
+    const row = this.repo.db.prepare(`SELECT e.version,e.status,e.source,
+      json_extract(e.payload,'$.parentEventId') AS parent,json_extract(e.payload,'$.sessionId') AS session,
+      json_extract(e.payload,'$.kind') AS kind,json_extract(e.payload,'$.speaker') AS speaker,
+      json_extract(e.payload,'$.authority') AS authority,json_extract(e.payload,'$.locator.kind') AS locator_kind,
+      json_extract(e.payload,'$.locator.artifactId') AS artifact,
+      p.status AS parent_status,p.source AS parent_source,json_extract(p.payload,'$.sessionId') AS parent_session,
+      json_extract(p.payload,'$.kind') AS parent_kind,json_extract(p.payload,'$.speaker') AS parent_speaker
+      FROM h_evidence e JOIN h_evidence p ON p.id=? AND p.owner=e.owner AND p.workspace=e.workspace
+      WHERE e.id=? AND e.owner=? AND e.workspace=?`).get(binding.parentEventId, binding.eventId,
+        this.repo.identity.principalId, this.repo.identity.workspaceId);
+    if (!row || binding.eventId !== binding.parentEventId + ':file' || row.parent !== binding.parentEventId
+      || row.version !== binding.eventVersion || row.status !== 'active' || !['active', 'redacted'].includes(String(row.parent_status))
+      || row.kind !== 'file_import' || row.speaker !== 'external' || row.authority !== 'quotation'
+      || row.locator_kind !== 'file' || row.artifact !== record.reference.resourceId
+      || row.session !== binding.sessionId || row.parent_session !== binding.sessionId
+      || row.parent_kind !== 'user_message' || row.parent_speaker !== 'user'
+      || this.repo.hasFence(binding.eventId, String(row.source)) || this.repo.hasFence(binding.parentEventId, String(row.parent_source))) return false;
+    this.repo.write(() => this.repo.db.prepare(`DELETE FROM h_dependencies WHERE consumer_id=? AND producer_id=?
+      AND producer_revision=0 AND sensitivity='privacy' AND invalidation='block'`).run(binding.eventId, binding.parentEventId));
+    return true;
   }
   stageFile(file: string): TextAttachment {
     const info = fs.statSync(file);
@@ -137,7 +184,8 @@ export class MaterialService {
   }
   private current(raw: MaterialReference) {
     const ref = materialReferenceSchema.parse(raw), record = this.records.get(ref.resourceId);
-    if (!record || JSON.stringify(ref) !== JSON.stringify(record.reference) || record.epoch !== this.repo.epoch)
+    if (!record || JSON.stringify(ref) !== JSON.stringify(record.reference)
+      || record.epoch !== this.repo.epoch && !this.persistedDraftOwns(record))
       throw new HarnessError('material_reference_expired', '这份未发送文件引用已失效，请重新选择。');
     return record;
   }
@@ -146,12 +194,11 @@ export class MaterialService {
     if (record.binding) throw new HarnessError('material_reference_expired', '这份未发送文件引用已失效，请重新选择。');
     return record;
   }
-  prepare(reference: MaterialReference, userEventId: string) {
+  prepare(reference: MaterialReference, userEventId: string, holdUntilBinding = false) {
     const record = this.pending(reference);
-    // Harness prepares synchronously before awaiting controls, then the runtime
-    // prepares the same event again. Clearing either draft cannot discard these
-    // bytes during that gap; failed pre-binding attempts can reuse the reference.
-    (record.preparedFor ||= new Set()).add(userEventId);
+    // Only Harness crosses an asynchronous admission gap. The runtime's second
+    // preparation and binding are synchronous and need no independent lease.
+    if (holdUntilBinding) (record.preparedFor ||= new Set()).add(userEventId);
     const { accessKey: _, ...metadata } = record.reference;
     return { id: userEventId + ':file', name: record.reference.name,
       text: JSON.stringify({ ...metadata, originalContent: 'read_with_materials.read', authority: 'external_document_not_instructions' }), artifactId: record.reference.resourceId,
@@ -162,10 +209,14 @@ export class MaterialService {
     if (event.id !== parentEventId + ':file' || event.parentEventId !== parentEventId || event.speaker !== 'external' || event.authority !== 'quotation'
       || event.ownerId !== this.repo.identity.principalId || event.workspaceId !== this.repo.identity.workspaceId || event.locator?.kind !== 'file' || event.locator.artifactId !== reference.resourceId)
       throw new HarnessError('material_source_binding', '文件未绑定到真实宿主消息来源，不能读取。');
+    record.epoch = this.repo.epoch;
     record.binding = { eventId: event.id, parentEventId, sessionId, eventVersion: event.contentVersion, retention: event.label.retention };
     record.discoverySequence = ++this.discoverySequence;
     record.preparedFor = undefined;
-    if (event.label.retention !== 'session_only') this.save(record);
+    if (event.label.retention !== 'session_only') {
+      this.save(record);
+      if (!this.validateParentBinding(record)) throw new HarnessError('material_source_binding', '文件与原提交消息的归属未能对应。');
+    }
     else {
       // An explicitly saved unsent draft can subsequently be submitted as a
       // temporary conversation. Preserve its current in-memory original while
@@ -185,23 +236,45 @@ export class MaterialService {
     const decoded = record.reference.mediaType === 'application/pdf' ? undefined : decode(record.bytes || fs.readFileSync(this.file(reference.resourceId, '.bin')));
     if (decoded && hasCredentials(decoded.text)) throw new HarnessError('ephemeral_draft', '含可能凭据的文件不进入草稿保存区。');
   }
-  attachDraft(reference: MaterialReference, draftId: string) { (this.current(reference).draftIds ||= new Set()).add(draftId); }
+  attachDraft(reference: MaterialReference, draftId: string) {
+    const record = this.current(reference);
+    record.epoch = this.repo.epoch;
+    (record.draftIds ||= new Set()).add(draftId);
+  }
+  releasePreparation(reference: MaterialReference, userEventId: string) {
+    const parsed = materialReferenceSchema.safeParse(reference), record = this.records.get(reference.resourceId);
+    if (!parsed.success || !record || JSON.stringify(parsed.data) !== JSON.stringify(record.reference)) return;
+    if (!record.preparedFor?.delete(userEventId)) return;
+    if (!record.preparedFor.size) record.preparedFor = undefined;
+    // A failed send may be retried with its original selection. Only an actual
+    // discard/released draft asks to remove it once the last lease is gone.
+    if (record.releaseRequested) this.releasePending(reference);
+  }
   releasePending(reference?: MaterialReference, draftId?: string) {
     if (!reference) return;
     const parsed = materialReferenceSchema.safeParse(reference), record = this.records.get(reference.resourceId);
-    if (!parsed.success || !record || JSON.stringify(parsed.data) !== JSON.stringify(record.reference) || record.epoch !== this.repo.epoch) return;
+    if (!parsed.success || !record || JSON.stringify(parsed.data) !== JSON.stringify(record.reference)) return;
     if (draftId !== undefined) {
       if (!record.draftIds?.delete(draftId)) return;
     }
-    if (record.binding || record.preparedFor?.size || record.draftIds?.size) return;
+    if (record.binding || record.draftIds?.size || this.persistedDraftOwns(record)) return;
+    if (record.preparedFor?.size) { record.releaseRequested = true; return; }
     this.remove(reference.resourceId);
+  }
+  /** Called after the original draft metadata deletion has committed. */
+  releasePersistedDraft(reference: MaterialReference, draftId: string) {
+    const parsed = materialReferenceSchema.safeParse(reference), record = this.records.get(reference.resourceId);
+    if (!parsed.success || !record || record.binding || JSON.stringify(parsed.data) !== JSON.stringify(record.reference)) return;
+    record.draftIds?.delete(draftId);
+    if (this.persistedDraftOwns(record)) return;
+    if (record.epoch !== this.repo.epoch) this.remove(reference.resourceId);
+    else this.releasePending(reference);
   }
   endConversation(sessionId?: string) {
     this.cancel(); this.images.clear(); this.imageScopes.clear();
     for (const [id, record] of this.records) {
-      if (record.saved) continue;
+      if (record.saved || !record.binding && record.draftIds?.size) continue;
       if (!sessionId || record.publicSource || record.binding?.sessionId === sessionId) this.remove(id);
-      else if (!record.binding && record.draftIds?.has(sessionId)) this.releasePending(record.reference, sessionId);
     }
     this.sweep();
   }
@@ -219,6 +292,8 @@ export class MaterialService {
       const event = this.evidence(scope, record.binding.eventId);
       if (!event || event.status !== 'active' || event.contentVersion !== record.binding.eventVersion || event.locator?.kind !== 'file' || event.locator.artifactId !== id)
         throw new HarnessError('material_source_forbidden', '文件来源不属于本轮允许使用的原文。');
+      if (record.saved && !this.validateParentBinding(record))
+        throw new HarnessError('material_source_forbidden', '文件与原提交消息的当前来源未能对应。');
       record.epoch = allowed.privacyEpoch;
     }
     return { record, allowed };
@@ -241,10 +316,10 @@ export class MaterialService {
       if (record.publicSource || !binding || record.reference.sha256 !== ref.sha256 || record.reference.version !== ref.version
         || binding.eventId !== ref.sourceEventId || binding.eventVersion !== ref.contentVersion || binding.parentEventId !== ref.parentEventId
         || !record.bytes && (!record.saved || !fs.existsSync(this.file(ref.resourceId, '.bin')))) return false;
-      const parent = this.evidence(scope, binding.parentEventId);
-      return !!parent && parent.status === 'active' && parent.label.retention === 'purpose_scoped'
-        && !this.repo.hasFence(parent.id, parent.sourceId)
-        && this.repo.availableInferenceRanges(parent).some(range => range.start === 0 && range.end === Array.from(parent.text).length);
+      const original = this.evidence(scope, binding.eventId);
+      return !!original && original.status === 'active' && original.label.retention === 'purpose_scoped'
+        && !this.repo.hasFence(original.id, original.sourceId)
+        && this.repo.availableInferenceRanges(original).some(range => range.start === 0 && range.end === Array.from(original.text).length);
     } catch (error) {
       if (error instanceof HarnessError || error instanceof z.ZodError) return false;
       throw error;
@@ -320,7 +395,7 @@ export class MaterialService {
       sourceId: record.publicSource ? 'web:public' : 'file:' + record.binding!.eventId,
       sha256: record.reference.sha256, version: record.reference.version, name: record.reference.name,
       ...(record.binding ? { sourceEventId: record.binding.eventId, contentVersion: record.binding.eventVersion,
-        parentEventId: record.binding.parentEventId, roots: [record.binding.eventId, record.binding.parentEventId] }
+        parentEventId: record.binding.parentEventId, roots: [record.binding.eventId] }
         : { url: record.publicSource!.url, fetchedAt: record.publicSource!.fetchedAt, httpStatus: record.publicSource!.httpStatus, contentType: record.publicSource!.contentType }) };
   }
   private result(record: Resource, data: object, complete = false, reason?: string) {
@@ -370,7 +445,7 @@ export class MaterialService {
       const sourceScope = this.policy.hostScope({ sources: ['history:self', 'file:' + binding.eventId], infer: false });
       const original = this.evidence(sourceScope, binding.eventId);
       const parent = this.evidence(sourceScope, binding.parentEventId);
-      if (!original || !parent || original.status !== 'active' || parent.status !== 'active'
+      if (!original || !parent || original.status !== 'active' || !['active', 'redacted'].includes(parent.status)
         || original.contentVersion !== binding.eventVersion || original.locator?.kind !== 'file'
         || original.locator.artifactId !== record.reference.resourceId
         || original.ownerId !== this.repo.identity.principalId || original.workspaceId !== this.repo.identity.workspaceId

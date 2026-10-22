@@ -24,6 +24,9 @@ export interface CapabilityResult<T = unknown> {
   fetchedAt?: string;
   expiresAt?: string;
   coverage?: { complete: boolean; scope: string; until?: string };
+  /** This requested page was delivered. It says nothing about global source
+   * coverage, remaining pages, semantic sufficiency or business completion. */
+  delivery?: { kind: 'page'; complete: true };
   reason?: string;
   validation?: { target: 'arguments' | 'result'; issues: { path: string; code: string }[] };
   simulated: boolean;
@@ -133,6 +136,7 @@ const resultSchema = z
       .object({ complete: z.boolean(), scope: z.string(), until: z.string().optional() })
       .strict()
       .optional(),
+    delivery: z.object({ kind: z.literal('page'), complete: z.literal(true) }).strict().optional(),
     reason: z.string().max(500).optional(),
     validation: z.object({ target: z.enum(['arguments', 'result']), issues: z.array(z.object({ path: z.string().max(160), code: z.string().max(60) }).strict()).max(6) }).strict().optional(),
     simulated: z.boolean(),
@@ -340,10 +344,10 @@ export class CapabilityBroker {
       return { row, score: terms.reduce((score, term) => score + (text.includes(term) ? term.length : 0), 0) };
     }).filter(result => !query || result.score > 0).sort((a, b) => b.score - a.score).map(result => result.row);
     const items = rows.slice(offset, offset + limit).map(row => ({ ...row,
-      executable: row.connection.connected && eligible.has(row.name),
+      scopeEligible: eligible.has(row.name),
     }));
     return { items, nextOffset: offset + limit < rows.length ? offset + limit : null, total: rows.length, catalogOnly: true,
-      coverage: { query, matchingOnly: !!query, returned: items.length, totalMatches: rows.length, meaning: 'This is a capability-description page. An omitted item in a filtered search is not proof it is absent. Described or connected does not mean an action ran.' },
+      coverage: { query, matchingOnly: !!query, returned: items.length, totalMatches: rows.length, meaning: '这是已登记能力的说明目录，筛选未命中不表示没有能力。scopeEligible只表示当前来源、身份、世界、设备和权限范围相符；connection说明提供方是否接通。读取可沿look_up提出，仍核具体用途；写入须沿对应动作流程核具体托付、参数版本与执行许可，不能通过look_up直接执行。目录、范围相符和接通都不表示动作获准或已经发生。' },
     };
   }
   detail(handle: ScopeHandle, name: string) {
@@ -514,7 +518,7 @@ export class CapabilityBroker {
         if (d.effect === 'read' && this.policy.repo.domainRevision !== domainRevision)
           throw new HarnessError('source_changed', '资料版本已改变，请按最新状态重新查询。');
         const result = structuredClone(value), bytes = Buffer.byteLength(JSON.stringify(result));
-        if (bytes > d.maxBytes || budget.bytes + bytes > 180000) throw new HarnessError('output_budget', '来源内容过大，请缩小查询。');
+        if (bytes > d.maxBytes) throw new HarnessError('output_budget', '来源内容过大，请缩小查询。');
         budget.bytes += bytes;
         if (result.status === 'fresh' && result.expiresAt && Date.parse(result.expiresAt) <= Date.parse(this.policy.repo.clock.now())) result.status = 'stale';
         if (cache !== 'miss') this.audit({ id: attemptId, capability: name, providerId: m.id, version: d.version, status: result.status, scopeId: handle.id, simulated: m.simulated, bytes, cache });

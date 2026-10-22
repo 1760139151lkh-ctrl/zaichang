@@ -62,19 +62,19 @@ test('record selection binds exact conversation, revision and campus source and 
     const service = f.store.runtime.scenes;
     const scene = service.campus('scene-session', result(), 'campus.lookup', { domain: 'schedule' }, 'scene-run')!;
     const selection = { kind: 'record' as const, sceneId: scene.id, sceneRevision: scene.revision, recordId: scene.records[0].id };
-    const verified = service.selection(f.scope(), 'scene-session', selection);
+    const verified = service.selection(f.scope(), 'scene-session', selection, 'scene-run');
     assert.equal(verified.source.version, scene.source.version);
     assert.equal(verified.record?.startsAt, scene.records[0].startsAt);
     assert.match(verified.meaning, /不是.*行动授权/);
     assert.equal(f.store.runtime.actions.list(f.scope()).length, 0);
-    assert.throws(() => service.selection(f.scope(), 'other-session', selection), /当前对话/);
-    assert.throws(() => service.selection(f.scope(), 'scene-session', { ...selection, sceneRevision: 2 }), /当前对话/);
-    assert.throws(() => service.selection(f.scope(), 'scene-session', { ...selection, recordId: 'forged-record' }), /不相符/);
-    assert.throws(() => service.selection(f.scope(), 'scene-session', { ...selection, placeId: 'wrong-kind' }), /不相符/);
-    assert.throws(() => service.selection(f.scope({ sources: ['current'] }), 'scene-session', selection), /资料范围/);
-    assert.throws(() => service.selection(f.scope({ audience: 'group' }), 'scene-session', selection), /资料范围/);
+    assert.throws(() => service.selection(f.scope(), 'other-session', selection, 'scene-run'), /当前对话/);
+    assert.throws(() => service.selection(f.scope(), 'scene-session', { ...selection, sceneRevision: 2 }, 'scene-run'), /当前对话/);
+    assert.throws(() => service.selection(f.scope(), 'scene-session', { ...selection, recordId: 'forged-record' }, 'scene-run'), /不相符/);
+    assert.throws(() => service.selection(f.scope(), 'scene-session', { ...selection, placeId: 'wrong-kind' }, 'scene-run'), /不相符/);
+    assert.throws(() => service.selection(f.scope({ sources: ['current'] }), 'scene-session', selection, 'scene-run'), /资料范围/);
+    assert.throws(() => service.selection(f.scope({ audience: 'group' }), 'scene-session', selection, 'scene-run'), /资料范围/);
     f.policy.revoke('campus:read');
-    assert.throws(() => service.selection(f.scope(), 'scene-session', selection), /当前对话/);
+    assert.throws(() => service.selection(f.scope(), 'scene-session', selection, 'scene-run'), /当前对话/);
   } finally { f.close(); }
 });
 

@@ -4,7 +4,8 @@ import { HarnessError } from '../../shared/harness';
 import { calendarFieldsSchema, localCalendarChangeSchema } from '../../shared/calendar';
 import { availableIntervals } from './availability';
 import { expandAgenda, localStamp, normalizeCalendarInput, projectCalendarChange } from './calendar';
-import { dayBounds, resolveLocalTime } from '../runtime/semantics';
+import { resolveLocalTime } from '../runtime/semantics';
+import { planningDayBounds } from './planning-days';
 export { planningDraftInput, draftCalendarPlan, calendarPlanFingerprint, assertDraftCalendarCurrent } from './planning-draft';
 
 const instant = z.string().datetime({ offset: true });
@@ -31,7 +32,7 @@ export function calendarCommitment(item: Pick<Action, 'planning' | 'kind'>) {
   return { state, flexibility: item.planning?.flexibility || 'fixed', occupiesTime: state === 'accepted' && (!item.kind || ['event', 'time_block'].includes(item.kind)) };
 }
 function intervalOf(item: Record<string, unknown>, timeZone: string) {
-  const bounds = item.allDayDate ? dayBounds(String(item.allDayDate), String(item.timeZone || timeZone)) : undefined;
+  const bounds = item.allDayDate ? planningDayBounds(String(item.allDayDate), String(item.timeZone || timeZone)) : undefined;
   const start = bounds?.from || (typeof item.startsAt === 'string' ? item.startsAt : undefined);
   if (!start) return undefined;
   return { start, end: bounds?.to || (typeof item.endsAt === 'string' ? item.endsAt : typeof item.durationMinutes === 'number' ? new Date(Date.parse(start) + item.durationMinutes * 60000).toISOString() : null) };
@@ -43,6 +44,8 @@ function busyOf(expanded: ReturnType<typeof expandAgenda>, timeZone: string, ori
     busy.push({ id: String(issue.id), revision: originals.find(item => item.id === issue.id)?.revision || 1, occurrenceId: String(issue.id), start: issue.startsAt, end: null, flexibility: 'fixed' });
   return busy;
 }
+const commitmentIssues = (expanded: ReturnType<typeof expandAgenda>, items: Action[]) =>
+  expanded.issues.filter(issue => items.some(item => item.id === issue.id && calendarCommitment(item).occupiesTime));
 const overlaps = (a: { start: string; end: string | null }, b: { start: string; end: string | null }, until: string) =>
   Date.parse(a.start) < Date.parse(b.end || until) && Date.parse(b.start) < Date.parse(a.end || until);
 
@@ -54,7 +57,7 @@ export function previewCalendarPlan(items: Action[], raw: unknown) {
   const assessmentFrom = new Date(fromMs - input.transitionMinutes.max * 60000).toISOString();
   const assessmentTo = new Date(toMs + input.transitionMinutes.max * 60000).toISOString();
   const active = items.filter(item => !item.done), expanded = expandAgenda(active, assessmentFrom, assessmentTo, input.timeZone);
-  const busy = busyOf(expanded, input.timeZone, active), sourceCoverage = [{ sourceId: 'local-agenda', status: expanded.coverage.complete ? 'complete' : 'partial', reason: '仅本机已登记的具体实例；不代表全部校园、私人事项或可用精力。' }, ...input.sourceCoverage.filter(source => source.sourceId !== 'local-agenda')];
+  const busy = busyOf(expanded, input.timeZone, active), sourceCoverage = [{ sourceId: 'local-agenda', status: commitmentIssues(expanded, active).length ? 'partial' : 'complete', reason: '仅本机已接受且占用时间的具体实例；不代表全部校园、私人事项或可用精力。' }, ...input.sourceCoverage.filter(source => source.sourceId !== 'local-agenda')];
   const gaps = availableIntervals({ ...input, busy: [...busy, ...input.busy], transitionBoundaryCount: 2 });
   const alternatives = input.alternatives.map(option => {
     let target: Action | undefined, proposed: Action | undefined;
@@ -69,7 +72,8 @@ export function previewCalendarPlan(items: Action[], raw: unknown) {
     }
     const remaining = active.filter(item => item.id !== target?.id);
     // Expanding the changed series also retains every untouched occurrence.
-    const revised = expandAgenda([...remaining, ...(proposed && !proposed.done ? [proposed] : [])], assessmentFrom, assessmentTo, input.timeZone);
+    const revisedItems = [...remaining, ...(proposed && !proposed.done ? [proposed] : [])];
+    const revised = expandAgenda(revisedItems, assessmentFrom, assessmentTo, input.timeZone);
     const proposedOccurrences = proposed ? revised.items.filter(item => {
       if (item.id !== proposed.id || !calendarCommitment(item as unknown as Action).occupiesTime) return false;
       const interval = intervalOf(item, input.timeZone);
@@ -77,7 +81,7 @@ export function previewCalendarPlan(items: Action[], raw: unknown) {
     }) : [];
     const changedDate = option.change?.operation === 'change_occurrence' ? option.change.occurrenceDate : undefined;
     const affected = proposedOccurrences.filter(item => !changedDate || item.originalDate === changedDate);
-    const revisedBusy = busyOf(revised, input.timeZone, [...remaining, ...(proposed ? [proposed] : [])]);
+    const revisedBusy = busyOf(revised, input.timeZone, revisedItems);
     const conflicts = affected.flatMap(item => {
       const interval = intervalOf(item, input.timeZone);
       if (!interval) return [];
@@ -90,7 +94,7 @@ export function previewCalendarPlan(items: Action[], raw: unknown) {
     const changedZone = proposed?.timeZone || input.timeZone;
     const changedStamp = changedDate && proposed?.startsAt ? `${changedDate}T${localStamp(proposed.startsAt, changedZone).slice(11)}` : undefined;
     const changedResolved = changedStamp ? resolveLocalTime(changedStamp, changedZone) : undefined;
-    const changedAt = changedOccurrence?.startsAt || (changedResolved?.status === 'resolved' ? changedResolved.instants[0] : changedDate && proposed?.allDayDate ? dayBounds(changedDate, changedZone).from : undefined);
+    const changedAt = changedOccurrence?.startsAt || (changedResolved?.status === 'resolved' ? changedResolved.instants[0] : changedDate && proposed?.allDayDate ? planningDayBounds(changedDate, changedZone).from : undefined);
     const changedStart = changedAt ? Date.parse(changedAt) : undefined;
     const changedDuration = changedOccurrence?.durationMinutes === null ? undefined : changedOccurrence?.durationMinutes ?? proposed?.durationMinutes;
     const outsideWindow = (!proposed?.recurrence && expectedStart !== undefined && (expectedStart < fromMs || expectedStart >= toMs || !!proposalBounds?.end && Date.parse(proposalBounds.end) > toMs))
@@ -98,7 +102,7 @@ export function previewCalendarPlan(items: Action[], raw: unknown) {
     const unknown = [
       ...(!input.sourceCoverage.length ? ['其他日程来源未声明覆盖，日历留白不能证明现实空闲。'] : input.sourceCoverage.filter(source => source.status !== 'complete').map(source => source.reason || `${source.sourceId}覆盖不完整。`)),
       ...input.conditions.filter(condition => condition.status === 'unknown').map(condition => condition.condition),
-      ...(revised.issues.length || affected.some(item => !intervalOf(item, input.timeZone)?.end) ? ['存在未知结束时间或无法展开的实例。'] : []),
+      ...(commitmentIssues(revised, revisedItems).length || affected.some(item => !intervalOf(item, input.timeZone)?.end) ? ['存在未知结束时间或无法展开的实例。'] : []),
       ...(proposed && !calendarCommitment(proposed).occupiesTime ? ['这还是邀请、愿望或未接受方案，没有占用已承诺时间。'] : []),
       ...(proposed?.recurrence && !proposedOccurrences.length && !changedDate ? ['这段核查窗口没有展开该系列的实际实例，不能据此验证系列在其他日期的冲突。'] : []),
     ];

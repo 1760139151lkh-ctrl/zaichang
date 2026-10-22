@@ -6,6 +6,11 @@ import { DEFAULT_INTERACTION, type InteractionPreferences } from './interaction'
 import { DEFAULT_PERSONA, type PersonaState, type PersonaUpdate } from './persona';
 
 export type StepStatus = 'running' | 'done' | 'blocked' | 'cancelled';
+export interface NavigationTarget {
+  sessionId?: string;
+  view?: 'agenda';
+  preparationRef?: import('./presentation').PreparationReference;
+}
 export const DEEPSEEK_MODEL = 'deepseek-flash' as const;
 export type ImageMimeType = 'image/jpeg';
 export interface ImageAttachment {
@@ -37,7 +42,10 @@ export interface Obligation {
   status: 'pending' | 'running' | 'done' | 'blocked';
 }
 export interface Action extends CalendarFields {
+  /** Host metadata; never supplied through the calendar tool or editor. */
+  reminderSpeaker?: import('./harness').ReminderSpeaker;
   planRef?: { planId: string; blockId: string };
+  planningOffer?: import('./planning-offer').PlanningOffer;
   effectActionId?: string;
   calendarChange?: { targetId: string; expectedRevision: number; operation: 'update' | 'delete' | 'change_occurrence'; occurrenceDate?: string; cancelled?: boolean };
   id: string;
@@ -53,6 +61,7 @@ export interface Action extends CalendarFields {
   coverage?: 'verified' | 'conditional' | 'not_feasible';
   missingNeeds?: string[];
 }
+export type ActionEffectRef = Pick<import('./harness').EffectAction, 'id' | 'revision' | 'digest' | 'status'>;
 export interface InterpretationSummary {
   posture: 'listen' | 'listen_and_local' | 'analyze' | 'act' | 'mixed';
   fragmentCount: number;
@@ -75,6 +84,9 @@ export interface ReleaseArtifact {
   workspaceId?: string;
   sourceIds?: string[];
   sourceMessageIds?: string[];
+  sourceMessageVersions?: { id: string; revision: number }[];
+  sourceReceipts?: import('./harness').ContextReceipt[];
+  basedOnReleases?: import('./harness').ReleaseSource[];
   id: string;
   revision: number;
   body: string;
@@ -89,16 +101,21 @@ export interface ReleaseArtifact {
 /** Host-authored processing state, never dialogue or a business receipt. */
 export interface MessageHostStatus {
   kind: 'error' | 'cancelled' | 'notice';
-  code: 'interrupted' | 'cancelled' | 'source_changed' | 'scope_expired' | 'incomplete' | 'provider_error' | 'process_restarted';
+  code: 'interrupted' | 'cancelled' | 'source_changed' | 'scope_expired' | 'incomplete' | 'provider_error' | 'process_restarted' | 'control_unknown';
   text: string;
 }
 export interface Message {
+  /** Ephemeral transport/owner activity, never source content or a saved view. */
+  presentationActivity?: { callId: string; kind: 'view'; phase: 'generating' | 'checking'; anchor: number };
   helpRefs?: { id: string; revision: number; helpRecordId: string; kind?: 'reflective_letter' }[];
   /** Host-signed identity when this message's whole body is the prepared artifact. */
   primaryHelpRef?: { id: string; revision: number; helpRecordId: string };
   /** She wrote this without a new message from the person: a check-in, or
    * the result of something they entrusted. */
   proactive?: 'check_in' | 'attention';
+  /** Host-observed exposure of this optional message. A displayed/opened
+   * message is not proof of reading, acceptance or a new invitation. */
+  presenceExposure?: { displayedAt?: string; openedAt?: string };
   cooperationId?: string;
   objectStates?: import('./presentation').ObjectPresentationState[];
   /** User-facing owner response before the host appends separately authored drafts. */
@@ -279,6 +296,8 @@ export interface RuntimeOverview {
   storage: { atRestEncrypted: boolean; keyProtection: string };
 }
 export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge {
+  readProgramLocalState(input: import('./interactive-program').ProgramLocalStateAddress): Promise<import('./interactive-program').ProgramLocalStateReceipt>;
+  saveProgramLocalState(input: import('./interactive-program').ProgramLocalStateSave): Promise<import('./interactive-program').ProgramLocalStateReceipt>;
   rehearsalProject(input: import('./relationship-rehearsal').RehearsalNativeInput): Promise<import('./relationship-rehearsal').RehearsalScene>;
   studyProject(input: import('./study-presentation').StudyNativeInput): Promise<import('./study-presentation').StudyScene>;
   studyRead(input: import('./study-presentation').StudyNativeInput): Promise<import('./study-presentation').StudyScene>;
@@ -361,6 +380,7 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
   retryProcessing(eventId: string): Promise<RuntimeOverview>;
   reconcileAction(id: string): Promise<RuntimeOverview>;
   actionState(id: string): Promise<{
+    planningOffer?: import('./planning-offer').PlanningOfferProgress;
     localRecord?: Action | null;
     action: import('./harness').EffectAction | null;
     receipts: import('./harness').EffectReceipt[];
@@ -389,7 +409,7 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
   mapLocationStatus(): Promise<import('./map-v2').LocationStatusResult>;
   mapRoute(input: import('./map-v2').MapRouteQuery): Promise<import('./map-v2').MapRouteResult>;
   disconnectCampus(): Promise<State>;
-  action(input: { action: 'save' | 'delete' | 'done'; item: Action }): Promise<State>;
+  action(input: { action: 'save' | 'delete' | 'done'; item: Action } | { action: 'undo'; effect: ActionEffectRef }): Promise<State>;
   attachText(): Promise<TextAttachment | null>;
   attachImage(): Promise<ImageAttachment | null>;
   exportCalendar(input: import('./calendar-export').CalendarExportInput): Promise<import('./calendar-export').CalendarExportResult>;
@@ -399,7 +419,7 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
   window(action: 'minimize' | 'maximize' | 'close' | 'close-confirmed'): void;
   onCloseRequest(callback: () => void): () => void;
   /** A notification click asks the window to open what it was about. */
-  onNavigate(callback: (target: { sessionId?: string; view?: 'agenda' }) => void): () => void;
+  onNavigate(callback: (target: NavigationTarget) => void): () => void;
   onEvent(callback: (event: RunEvent) => void): () => void;
 }
 export const DEFAULT_SETTINGS: Settings = {

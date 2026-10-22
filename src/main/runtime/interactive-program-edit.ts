@@ -111,7 +111,7 @@ export function editedProgramStates(program: InteractiveProgramDocument,
     [key, Object.hasOwn(program.states, key) ? structuredClone(state.inputs[key]) : structuredClone(declaration.initial)]));
   try {
     const values = validateProgramState(states, { ...carried, ...input.inputChanges });
-    return { states, initialInputs: values, stateOrigin: state.origin,
+    return { states, initialInputs: values, initialInputFields: Object.keys(input.inputChanges || {}).sort(), stateOrigin: state.origin,
       explicitInputFields: Object.keys(input.inputChanges || {}).length };
   } catch {
     throw new HarnessError('interactive_program_state_transition', '新声明接不住本次条件，这次没有重置原作品。请保留原范围，或明确改变对应条件后再续改。', 'never', {

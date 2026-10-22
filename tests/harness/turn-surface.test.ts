@@ -6,9 +6,9 @@ import { Store } from '../../src/main/store';
 import { ToolRegistry } from '../../src/main/tools';
 import type { ToolSpec } from '../../src/main/provider';
 
-test('ordinary messages skip the separate control call; any hint of a limit keeps it', () => {
+test('cloud-admissible messages receive semantic controls without a vocabulary gate', () => {
   for (const plain of ['今天好累啊', '帮我看看明天的课', '晚上会下雨吗', '这道题我还是没懂，能再讲一遍吗', '哈哈哈哈', '紫金港图书馆怎么走'])
-    assert.equal(needsControlParse(plain), false, plain);
+    assert.equal(needsControlParse(plain), true, plain);
   for (const limited of [
     '这句话别记下来', '不要存这段', '忘掉刚才那个', '只看这份笔记就好', '别翻我以前的聊天', '先别改日程，只讨论',
     '帮我给老师写封邮件', '我朋友说他想退学', '如果我明天不去会怎样', '写个故事，主角是我', '不要联网查', '发个消息告诉室友',

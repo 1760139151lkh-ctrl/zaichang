@@ -39,6 +39,7 @@ import type { CompanionFollowupReference } from '../../shared/companion-source';
 import type { CuriosityFollowupReference } from '../../shared/curiosity-source';
 import type { ProgramFollowupReference, ProgramStateValues } from '../../shared/interactive-program';
 import { InteractiveProgramView } from './InteractiveProgramView';
+import { usePublicationReveal } from './publication-reveal';
 import type { CuriosityScene as CuriositySnapshot, CuriosityHistoryReference } from '../../shared/curiosity-scene';
 import { CuriosityInvitationView } from './CuriosityInvitationView';
 import { RehearsalSceneView } from './RehearsalSceneView';
@@ -59,6 +60,9 @@ export interface AssistantPresentationProps {
   messageId?: string;
   boundaryKey?: string;
   hostViewBoundaryKey?: string;
+  privacyEpoch?: number;
+  policyRevision?: number;
+  programStateEphemeral?: boolean;
   manuscriptText?: string;
   manuscriptSceneId?: string;
   latestRehearsalRevisions?: ReadonlyMap<string, number>;
@@ -76,6 +80,14 @@ export interface AssistantPresentationProps {
   onSelect: (selection: SemanticSelection) => void;
   selection?: SemanticSelection | null;
   isStreaming?: boolean;
+}
+
+/** A transport event, separate from the assistant's own public words. */
+export function PresentationActivity({ phase }: { phase: 'generating' | 'checking' }) {
+  return <div className="presentation-activity" role="status" aria-live="polite">
+    <span className="presentation-activity-paper" aria-hidden="true"><i /><i /></span>
+    <span>{phase === 'generating' ? '正在把这一段做出来…' : '把这一段展开…'}</span>
+  </div>;
 }
 
 interface SceneContextValue extends Omit<AssistantPresentationProps, 'view' | 'scenes' | 'isStreaming'> {
@@ -105,6 +117,7 @@ function MapSlot({
 }) {
   const container = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [reservedHeight, setReservedHeight] = useState<number>();
   useEffect(() => {
     if (!container.current) return;
     if (typeof IntersectionObserver === 'undefined') {
@@ -113,13 +126,18 @@ function MapSlot({
     }
     const element = container.current;
     let intersects = false;
-    const refresh = () =>
+    let restingHeight = element.getBoundingClientRect().height;
+    const refresh = () => {
+      const focused = !!element.querySelector('.conversation-map[data-focused="true"]');
+      if (!focused) restingHeight = element.getBoundingClientRect().height;
+      setReservedHeight(focused ? restingHeight : undefined);
       setVisible(
         intersects ||
           !!element.querySelector(
             '.conversation-map[data-focused="true"], .conversation-map[data-collapsed="true"]',
           ),
       );
+    };
     const observer = new IntersectionObserver(
       (entries) => {
         intersects = entries.some((entry) => entry.isIntersecting);
@@ -134,13 +152,18 @@ function MapSlot({
       attributes: true,
       attributeFilter: ['data-focused', 'data-collapsed'],
     });
+    const footprintObserver = new ResizeObserver(() => {
+      if (!element.querySelector('.conversation-map[data-focused="true"]')) restingHeight = element.getBoundingClientRect().height;
+    });
+    footprintObserver.observe(element);
     return () => {
       observer.disconnect();
       focusObserver.disconnect();
+      footprintObserver.disconnect();
     };
   }, []);
   return (
-    <div className="presentation-map-slot" ref={container} data-scene-id={scene.id}>
+    <div className="presentation-map-slot" ref={container} data-scene-id={scene.id} style={{ minHeight: reservedHeight }}>
       {renderMap(scene, visible)}
     </div>
   );
@@ -155,6 +178,50 @@ const MapScene = defineComponent({
     const { context, scene } = useScene(props.ref, 'map');
     if (!context || !scene || scene.kind !== 'map') return <UnavailableScene />;
     return <MapSlot scene={scene} renderMap={context.renderMap} />;
+  },
+});
+
+function FigureView({ scene }: { scene: Extract<SceneSnapshot, { kind: 'figure' }> }) {
+  const [enlarged, setEnlarged] = useState(false);
+  const [sourceError, setSourceError] = useState(false);
+  const origin = scene.origin.pageUrl || scene.origin.url;
+  let host = '', canOpen = false;
+  try {
+    const url = new URL(origin);
+    host = url.hostname.replace(/^www\./, '');
+    canOpen = url.protocol === 'https:' && !url.username && !url.password && !!url.hostname;
+  } catch { /* The source label remains readable without an external action. */ }
+  const sourceLabel = `${scene.origin.pageTitle ? `${scene.origin.pageTitle} · ` : ''}${host || '公开网页'}`;
+  const portrait = !!scene.image.width && !!scene.image.height && scene.image.height > scene.image.width * 1.15;
+  return (
+    <figure data-scene-id={scene.id} className={`presentation-figure${portrait ? ' portrait' : ''}${enlarged ? ' enlarged' : ''}`}>
+      <button type="button" className="presentation-figure-frame" onClick={() => setEnlarged(value => !value)}
+        aria-label={enlarged ? '收起图片' : '放大图片'} aria-expanded={enlarged}>
+        <img src={scene.image.dataUrl} alt={scene.origin.alt || scene.caption || '网上找到的图片'}
+          width={scene.image.width || undefined} height={scene.image.height || undefined} loading="lazy" decoding="async" />
+      </button>
+      <figcaption>
+        {!!scene.caption && <span>{scene.caption}</span>}
+        {canOpen ? <button type="button" className="presentation-figure-source" title={origin}
+          aria-label={`打开图片出处：${scene.origin.pageTitle || host || '公开网页'}`}
+          onClick={() => { setSourceError(false); void window.zaichang.openLink(origin).catch(() => setSourceError(true)); }}>
+          <span>{sourceLabel}</span>
+          <ArrowRight size={12} aria-hidden="true" />
+        </button> : <small className="presentation-figure-source" title={origin}>{sourceLabel}</small>}
+        {sourceError && <small role="status">这个网页暂时没能打开，可以再试一次。</small>}
+      </figcaption>
+    </figure>
+  );
+}
+
+const FigureScene = defineComponent({
+  name: 'FigureScene',
+  description: '显示宿主从公开网页取回并核过的一张图片，带出处；不是此刻的现场。',
+  props: z.object({ ref: z.string().min(1) }),
+  component: ({ props }) => {
+    const { context, scene } = useScene(props.ref, 'figure');
+    if (!context || !scene || scene.kind !== 'figure') return <UnavailableScene />;
+    return <FigureView scene={scene} />;
   },
 });
 
@@ -300,7 +367,7 @@ const SceneStack = defineComponent({
   description:
     '按交流需要组织已核验的地图、天气和校园记录。stack 让不同领域自然接续；compare 仅在宽度足够时并排比较，地图仍保留可操作的空间。',
   props: z.object({
-    children: z.array(z.union([MapScene.ref, WeatherScene.ref, CampusScene.ref, PlanningScene.ref, EnvironmentScene.ref, DiscussionScene.ref, StudyScene.ref, CuriosityScene.ref, RehearsalScene.ref, NoteScene.ref])),
+    children: z.array(z.union([MapScene.ref, FigureScene.ref, WeatherScene.ref, CampusScene.ref, PlanningScene.ref, EnvironmentScene.ref, DiscussionScene.ref, StudyScene.ref, CuriosityScene.ref, RehearsalScene.ref, NoteScene.ref])),
     layout: z.enum(['stack', 'compare']).default('stack'),
   }),
   component: ({ props, renderNode }) => {
@@ -328,7 +395,7 @@ const SceneStack = defineComponent({
 /** A stable module-level library keeps parsing and mounted scene identity independent of text tokens. */
 export const assistantPresentationLibrary = createLibrary({
   root: 'SceneStack',
-  components: [SceneStack, MapScene, WeatherScene, CampusScene, PlanningScene, EnvironmentScene, DiscussionScene, StudyScene, CuriosityScene, RehearsalScene, NoteScene],
+  components: [SceneStack, MapScene, FigureScene, WeatherScene, CampusScene, PlanningScene, EnvironmentScene, DiscussionScene, StudyScene, CuriosityScene, RehearsalScene, NoteScene],
 });
 
 function UnavailableScene() {
@@ -347,8 +414,10 @@ export function AssistantPresentation({
   onSelect,
   selection,
   isStreaming = false,
-  sessionId, messageId, boundaryKey, hostViewBoundaryKey, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, programFocus, onFollowup, onRehearsalCurrentReadStart, onReaderNavigation, onOpenDocument, onOpenNote, timeZone,
+  sessionId, messageId, boundaryKey, hostViewBoundaryKey, privacyEpoch, policyRevision, programStateEphemeral, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, programFocus, onFollowup, onRehearsalCurrentReadStart, onReaderNavigation, onOpenDocument, onOpenNote, timeZone,
 }: AssistantPresentationProps) {
+  const surface = useRef<HTMLDivElement>(null);
+  usePublicationReveal(surface, isStreaming);
   const [failed, setFailed] = useState(false);
   const [previewBranchId, setPreviewBranchId] = useState<string>();
   const [viewedDay, setViewedDay] = useState<string>();
@@ -381,8 +450,10 @@ export function AssistantPresentation({
   if (!interactive && (view.libraryVersion !== 1 || !view.sceneRefs.length)) return <UnavailableScene />;
   return (
     <SceneContext.Provider value={context}>
-      <div className="assistant-presentation" data-view-id={view.id}>
+      <div ref={surface} className="assistant-presentation" data-view-id={view.id}>
         {interactive ? <InteractiveProgramView view={view} messageId={messageId || ''} boundaryKey={boundaryKey}
+          livePublication={isStreaming}
+          sessionId={sessionId} privacyEpoch={privacyEpoch} policyRevision={policyRevision} programStateEphemeral={programStateEphemeral}
           hostViewBoundaryKey={hostViewBoundaryKey}
           activeReference={programFocus} disabled={!messageId}
           onFollowup={onFollowup ? request => onFollowup(request) : undefined}

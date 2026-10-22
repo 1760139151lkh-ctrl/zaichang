@@ -44,7 +44,7 @@ fs.cpSync('runtime/hermes', path.join(target, 'runtime/hermes'), { recursive: tr
 fs.copyFileSync(path.join(source, 'LICENSE'), 'licenses/Hermes-MIT.txt');
 fs.copyFileSync(path.join(pythonHome, 'LICENSE.txt'), 'licenses/Python-LICENSE.txt');
 const materialRuntime = await stageMaterialRuntime(path.resolve('build/material-runtime-staging-' + Date.now()));
-const embeddingRuntime = await stageEmbeddingRuntime(path.resolve('build/embedding-runtime-staging-' + Date.now()));
+const embeddingRuntime = await stageEmbeddingRuntime(path.resolve('build/embedding-runtime-staging-' + Date.now()), { immutableResource: true });
 fs.copyFileSync(path.join(materialRuntime.path, 'node_modules/pdfjs-dist/LICENSE'), 'licenses/PDFJS-APACHE-2.0.txt');
 fs.copyFileSync(path.join(materialRuntime.path, 'node_modules/@napi-rs/canvas/LICENSE'), 'licenses/Canvas-MIT.txt');
 const info = JSON.parse(execFileSync(path.join(pyTarget, 'python.exe'), ['-I', '-B', '-c', 'import sys,json,openai,httpx; print(json.dumps({"python":sys.version,"base":sys.base_prefix,"openai":openai.__version__}))'], { cwd: target, encoding: 'utf8', windowsHide: true }));

@@ -1,4 +1,5 @@
 import { DEEPSEEK_MODEL } from '../shared/types';
+import { NOTE_ARGUMENT_CHARACTERS } from '../shared/notes';
 
 export interface ToolCall {
   id: string;
@@ -16,6 +17,24 @@ export interface WireMessage<Content = string | null> {
   reasoning_content?: string;
 }
 export type ModelWireMessage = WireMessage<string | null | WireContentPart[]>;
+/** Physical frame guards, independent of estimated/account token allowances.
+ * A valid 64 KB program can exceed 20 KB once wrapped as JSON, especially with
+ * escaped Unicode. Its actual grammar, sources and work stay with the owner. */
+export const MODEL_WIRE_LIMITS = {
+  textCharacters: 64000,
+  toolArgumentCharacters: 512000,
+  opaqueCharacters: 8 * 1024 * 1024,
+} as const;
+export function toolArgumentCharacterLimit(name: string) {
+  return name === 'manage_note' ? NOTE_ARGUMENT_CHARACTERS : MODEL_WIRE_LIMITS.toolArgumentCharacters;
+}
+export function ssePendingCharacterLimit(tools: readonly ToolSpec[]) {
+  // A provider event can wrap the entire original argument JSON in a string.
+  return tools.some(tool => tool.function.name === 'manage_note') ? 2 * NOTE_ARGUMENT_CHARACTERS + 4096 : 1_000_000;
+}
+/** A foreground generative request can legitimately build a sizeable work.
+ * Its original cancellation and authority expiry can still end it earlier. */
+export const MODEL_REQUEST_TIMEOUT_MS = 10 * 60 * 1000;
 /** Hermes may join adjacent user messages as adjacent text parts. Preserve
  * all text and image order while keeping a single text part before the image. */
 export function coalesceUserTextParts(messages: ModelWireMessage[]): ModelWireMessage[] {
@@ -52,6 +71,8 @@ export interface CompletionOptions {
   toolChoice?: { type: 'function'; function: { name: string } };
   thinking?: 'enabled' | 'disabled';
   strict?: boolean;
+  /** Transport metadata only; partial arguments and reasoning never leave it. */
+  onToolCallProgress?: (event: { kind: 'call'; id: string; name: string } | { kind: 'reset' }) => void;
 }
 
 /**
@@ -81,10 +102,10 @@ export interface ProviderMetadata {
     opaqueState: string;
   };
   limits: {
-    /** Host-requested output ceiling; this is not a provider context window. */
+    /** Requested output size; enforcement depends on the transport below. */
     maxOutputTokens: number;
-    /** App Server account transport cannot request a native output token cap. */
-    outputEnforcement?: 'provider' | 'host_post_completion';
+    /** App Server records usage without discarding an already complete answer. */
+    outputEnforcement?: 'provider' | 'advisory';
     /** Verified provider input window, when supplied by an authoritative probe/config. */
     contextTokens?: number;
   };
@@ -107,7 +128,7 @@ export function friendlyError(e: unknown): string {
     return '请求已停止或超时，请稍后重试。';
   return '这次处理未完成。';
 }
-export async function readSSE(response: Response, onData: (data: string) => void, signal?: AbortSignal) {
+export async function readSSE(response: Response, onData: (data: string) => void, signal?: AbortSignal, maximumPendingCharacters = 1_000_000) {
   if (!response.body) throw new ProviderError('DeepSeek 没有返回内容，请重试。');
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
@@ -147,7 +168,7 @@ export async function readSSE(response: Response, onData: (data: string) => void
         pending = pending.slice(index + 1);
         line(value);
       }
-      if (pending.length > 1_000_000) throw new ProviderError('返回内容超出本次处理上限。');
+      if (pending.length > maximumPendingCharacters) throw new ProviderError('返回内容超出本次处理上限。');
       if (done) break;
     }
     if (pending) line(pending.replace(/\r$/, ''));
@@ -248,6 +269,7 @@ export class DeepSeekClient {
         if (result.usage) result.usage = { ...result.usage, physical_attempts: attempt + 1, unreported_attempts: attempt };
         return result;
       } catch (error) {
+        options?.onToolCallProgress?.({ kind: 'reset' });
         const transient = error instanceof ProviderError ? error.retryable : error instanceof TypeError && ['terminated', 'fetch failed'].includes(error.message);
         if (signal.aborted || deliveredText || !transient || attempt || options?.allowTransportRetry === false) {
           if (error instanceof Error) (error as Error & { transportAttempts?: number }).transportAttempts = attempt + 1;
@@ -377,7 +399,7 @@ export class DeepSeekClient {
         }
         if (delta?.content) {
           content += delta.content;
-          if (content.length > 64000) throw new ProviderError('回复达到本次长度上限。');
+          if (content.length > MODEL_WIRE_LIMITS.textCharacters) throw new ProviderError('回复达到本次长度上限。');
           onText?.(delta.content);
         }
         for (const part of delta?.tool_calls || []) {
@@ -392,11 +414,14 @@ export class DeepSeekClient {
           if (part.function?.name && part.function.name !== call.function.name)
             call.function.name += part.function.name;
           if (part.function?.arguments) call.function.arguments += part.function.arguments;
-          if (call.function.arguments.length > 20000) throw new ProviderError('工具请求超出长度上限。');
+          if (call.function.arguments.length > toolArgumentCharacterLimit(call.function.name)) throw new ProviderError('工具请求超出传输长度范围。');
           calls.set(part.index, call);
+          if (call.id && tools.some(tool => tool.function.name === call.function.name))
+            options?.onToolCallProgress?.({ kind: 'call', id: call.id, name: call.function.name });
         }
       },
       signal,
+      ssePendingCharacterLimit(tools),
     );
     if (outputLimited) throw new ProviderError('本次回复达到长度上限，可以请在场继续。', false, 'output_length', undefined, usage);
     if (!complete) throw new ProviderError('连接在回复完成前断开，请重试。');

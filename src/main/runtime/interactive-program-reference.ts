@@ -4,13 +4,49 @@ import { HarnessError, type InteractiveProgramReadDeliveryIssue, type Interactiv
 import { interactiveProgramReferenceSchema, programNodeIdSchema, validateProgramState,
   type InteractiveProgramDocument, type ProgramFollowupReference, type ProgramStateValues } from '../../shared/interactive-program';
 import type { RunSession, RuntimeCoordinator } from './coordinator';
-import { admitProgramRead, programReferenceIdentity, programSourcesReadable, readProgramView, recordProgramSources,
+import { admitProgramRead, canRefineCurrentProgramPublication, programReferenceIdentity, programSourcesReadable, readProgramView, recordProgramSources,
   type ProgramSourceAddress, type ProgramSourceProvenance } from './interactive-program-sources';
 import { validateProgramStateAndEvaluate } from './interactive-program-compiler';
 import { canonical, codePointSlice } from './semantics';
 import { boundedProgramPresentation } from './presentation-delivery';
 
 type ProgramHost = Pick<RuntimeCoordinator, 'repo' | 'policy' | 'context' | 'broker' | 'studyCompanion'>;
+
+/** A delivered original or this turn's acknowledged publication can identify
+ * the work. Neither invents a formal input snapshot nor authorizes an edit. */
+export function deliveredProgramPurposeReference(host: ProgramHost, session: RunSession, request: unknown, signal: AbortSignal) {
+  if (!request || typeof request !== 'object' || Array.isArray(request)) return;
+  const envelope = request as { tool?: unknown; arguments?: { program?: { previous?: { id?: unknown; expectedRevision?: unknown } };
+    messageId?: unknown; programId?: unknown; revision?: unknown } };
+  const readSource = envelope.tool === 'read_interactive_program' ? envelope.arguments : undefined;
+  const previous = envelope.tool === 'present_view' ? envelope.arguments?.program?.previous
+    : readSource && typeof readSource.messageId === 'string'
+      ? { id: readSource.programId, expectedRevision: readSource.revision } : undefined;
+  if (!previous || typeof previous.id !== 'string'
+    || !Number.isSafeInteger(previous.expectedRevision) || Number(previous.expectedRevision) < 1) return;
+  signal.throwIfAborted();
+  const handle = session.ingress.contract.scope, scope = host.policy.validate(handle);
+  if (session.background || scope.child || scope.audience !== 'self' || !session.pack) return;
+  if ((!readSource || readSource.messageId === session.outputMessageId) && canRefineCurrentProgramPublication(host, session,
+    { id: previous.id, expectedRevision: Number(previous.expectedRevision) }, signal))
+    return { source: { messageId: session.outputMessageId!, programId: previous.id, revision: Number(previous.expectedRevision) },
+      origin: 'published_this_run' as const,
+      meaning: '这轮主助手已发表这一修订，真实发表回执也已交给它；原来源刚重新核过。入站界面引用仍是对方当时指着的版本，这份回执只说明同作续做到了哪里，不改写界面引用、局部输入或许可。' };
+  for (const read of [...(session.pack.receipt.interactiveProgramReads || [])].reverse()) {
+    const ref = read.source;
+    if (read.status !== 'available' || read.delivery !== 'delivered_to_model'
+      || readSource && ref.messageId !== readSource.messageId
+      || ref.programId !== previous.id || ref.revision !== previous.expectedRevision) continue;
+    const identity = programReferenceIdentity(host, handle, ref,
+      ref.messageId === session.outputMessageId || session.ingress.contract.memoryMode !== 'relevant' ? session.sessionId : undefined);
+    if (!identity || !programSourcesReadable(host, handle, [ref], session)) continue;
+    signal.throwIfAborted(); host.policy.validate(handle);
+    return { source: { messageId: ref.messageId, programId: ref.programId, revision: ref.revision },
+      origin: 'delivered_this_run' as const, readMode: read.mode, coverage: { ...read.coverage },
+      meaning: '这次原读取结果已实际交给主助手，原地址及来源刚重新核过。它说明谈的是哪件原作，不是界面正式输入、用户已看或修改许可。' };
+  }
+}
+
 const readInput = z.object({ messageId: z.string().min(1).max(160), programId: z.string().min(1).max(160),
   revision: z.number().int().positive(), mode: z.enum(['overview', 'source', 'states']).default('overview'),
   offset: z.number().int().nonnegative().optional(), limit: z.number().int().min(1).max(64000).optional(),

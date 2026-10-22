@@ -6,6 +6,7 @@ import type { RuntimeOverview } from '../../shared/types';
 import { HarnessError, objectId, personalLabel } from '../../shared/harness';
 import { hasCredentials } from './redaction';
 import { readReleaseArtifacts } from './release-store';
+import { latestReleases, renderReleases } from './release-composer';
 import { attentionChangeInput, type AttentionControlItem, type AttentionControlPage } from '../../shared/attention-control';
 
 /** Trusted native controls. These are never registered as model or extension tools. */
@@ -50,6 +51,8 @@ export class NativeControls {
   responseExposure(raw: unknown) {
     const input = z.object({ sessionId: objectId, messageId: objectId, event: z.enum(['displayed', 'opened']) }).strict().parse(raw);
     const message = this.store.messages(input.sessionId).find(message => message.id === input.messageId && message.role === 'assistant');
+    if (message?.proactive === 'check_in')
+      return { recorded: this.store.recordPresenceExposure(input.sessionId, input.messageId, input.event) };
     const scope = this.store.runtime.policy.hostScope();
     const record = message?.cooperationId && this.store.kernel.work(scope, undefined, message.cooperationId)[0];
     if (!record || record.data.type !== 'cooperation_record' || record.data.responseId !== input.messageId) return { recorded: false };
@@ -65,12 +68,23 @@ export class NativeControls {
     const previous = readReleaseArtifacts(repo, runtime.policy, scope, input.sessionId, input.id)[0];
     if (!message?.releaseArtifacts?.some(artifact => artifact.id === input.id) || !previous || previous.revision !== input.expectedRevision) throw new HarnessError('revision_conflict', '稿件已经变化，请保留你的修改并核对最新版本。');
     return repo.write(() => {
+      const current = readReleaseArtifacts(repo, runtime.policy, scope, input.sessionId, input.id)[0];
+      if (!current || current.revision !== input.expectedRevision)
+        throw new HarnessError('revision_conflict', '这份稿件或原依据刚有变化，本次没有覆盖它，你的编辑内容仍可留作接续。');
       const eventId = randomUUID(), identity = repo.identity, now = repo.clock.now();
       const event = repo.ingest(scope, { id: eventId, ownerId: identity.principalId, workspaceId: identity.workspaceId, subjectId: identity.principalId, worldId: 'real', sourceId: 'history:self', contentVersion: 1,
         speaker: 'user', kind: 'user_control', authority: 'user_statement', roots: [eventId], text: `你在稿件编辑器保存的文字：\n${input.body}`, sessionId: input.sessionId, label: { ...personalLabel, infer: false }, receivedAt: now, status: 'active' });
-      const artifact = { ...previous, body: input.body, authoredBy: 'user' as const, revision: previous.revision + 1, createdAt: now, sourceMessageId: event.id, sourceMessageIds: [event.id], sourceIds: ['history:self'],
-        basedOnObjects: [{ id: event.id, revision: event.contentVersion, kind: 'evidence' as const }], supersedes: { id: previous.id, revision: previous.revision }, delivery: 'not_sent' as const };
-      const updated = { ...message, releaseArtifacts: [...message.releaseArtifacts!, artifact] };
+      const artifact = { ...previous, body: input.body, authoredBy: 'user' as const, revision: previous.revision + 1, createdAt: now, sourceMessageId: event.id,
+        sourceMessageIds: [...new Set([...(previous.sourceMessageIds || [previous.sourceMessageId]), event.id])],
+        sourceMessageVersions: [...(previous.sourceMessageVersions || []), { id: event.id, revision: event.contentVersion }],
+        sourceIds: [...new Set([...(previous.sourceIds || ['history:self']), 'history:self'])],
+        basedOnObjects: [...(previous.basedOnObjects || []), { id: event.id, revision: event.contentVersion, kind: 'evidence' as const }],
+        brief: { ...previous.brief, allowedFacts: [], useAvailability: false },
+        supersedes: { id: previous.id, revision: previous.revision }, delivery: 'not_sent' as const };
+      const releaseArtifacts = [...message.releaseArtifacts!, artifact];
+      const responseText = message.responseText ?? (message.content === renderReleases(latestReleases(message.releaseArtifacts!)) || message.content === previous.body ? '' : undefined);
+      const updated = { ...message, releaseArtifacts, ...(responseText !== undefined ? { responseText,
+        content: responseText + (responseText ? '\n\n' : '') + renderReleases(latestReleases(releaseArtifacts)) } : {}) };
       this.store.putMessage(updated);
       return runtime.presentation.message(updated)!;
     });

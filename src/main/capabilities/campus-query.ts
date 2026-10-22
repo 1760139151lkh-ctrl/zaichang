@@ -24,10 +24,12 @@ export const campusQueryInput = z.object({
   resource: resource.optional(), model: z.string().regex(/^[a-z_]{1,60}$/).optional().describe('schema操作必填。先从resources返回的模型目录选择规范化模型名；资源名与模型名不一定相同。'),
   spec: campusSelectSchema.optional(),
   bundleId: z.string().regex(/^[A-Za-z0-9_-]{1,160}$/).optional(),
+  expectedSnapshotVersion: z.string().regex(/^[a-f0-9]{64}$/).optional(),
   fromBundle: z.string().regex(/^[A-Za-z0-9_-]{1,160}$/).optional(), toBundle: z.string().regex(/^[A-Za-z0-9_-]{1,160}$/).optional(),
   pointer: z.string().max(500).optional(), fields: z.array(field).max(40).optional(),
-  offset: z.number().int().min(0).max(1000000).default(0), limit: z.number().int().min(1).max(50).default(8),
-  refresh: z.boolean().default(false), academicYear: z.string().regex(/^20\d{2}-20\d{2}$/).optional(), term: z.enum(['1', '2']).optional(),
+  offset: z.number().int().min(0).max(1000000).default(0).describe('本次分页起点；spec未另填offset时也适用于组合查询。'),
+  limit: z.number().int().min(1).max(50).default(8).describe('本次返回条数；spec未另填limit时也适用于组合查询，不截短原始数据。'),
+  refresh: z.boolean().default(false).describe('false读取现有快照，不因缺数据启动采集。quick/select的true按根resource相关来源窄刷新，依赖同账号、同学期的当前latest基线；关联资源仍各有实际采集时间。原连接器会在本机读取和归一化旧完整学业快照，宿主一并核这份用途与实际新采集范围。缺基线不全采，固定bundle/version与续页保持false；明确整包更新另用campus.overview。'), academicYear: z.string().regex(/^20\d{2}-20\d{2}$/).optional(), term: z.enum(['1', '2']).optional(),
 }).strict();
 export type CampusQuery = z.infer<typeof campusQueryInput>;
 const grants: Partial<Record<(typeof campusResources)[number], string>> = {
@@ -40,10 +42,13 @@ export const normalizedRoots: Record<(typeof campusResources)[number], string> =
 
 export function validateCampusQuery(raw: unknown) {
   const input = campusQueryInput.parse(raw);
+  if (input.spec && !['quick', 'select'].includes(input.operation))
+    throw new HarnessError('query_spec_operation', 'spec用于quick或select；read按原对象指针、diff按顶层fields取用，不能用会被忽略的spec缩窄它们。');
   if (!['resources', 'schema'].includes(input.operation) && !input.resource && !input.spec) throw new HarnessError('resource_required', '先选择具体资源，不能默认读取所有个人资料。');
   if (input.operation === 'schema' && !input.model) throw new HarnessError('model_required', '请选择要了解的字段模型。');
   if (input.operation === 'select' && !input.spec) throw new HarnessError('query_required', '组合查询需要具体spec。');
   if (input.spec && input.resource && input.spec.resource !== input.resource) throw new HarnessError('resource_mismatch', '声明资源与查询资源不一致。');
+  if (input.spec) input.spec = { ...input.spec, offset: input.spec.offset ?? input.offset, limit: input.spec.limit ?? input.limit };
   const validateWhere = (expression: any, depth = 0): void => {
     if (expression === undefined || expression === null) return;
     if (depth > 12 || !expression || typeof expression !== 'object' || Array.isArray(expression)) throw new HarnessError('query_filter', '筛选需要条件对象，嵌套不超过12层。');
@@ -98,5 +103,117 @@ export function requireCampusQueryScope(policy: PolicyKernel, scope: ScopeHandle
 export function campusQueryGrants(input: CampusQuery) {
   if (['resources', 'schema'].includes(input.operation)) return [];
   const selected = new Set([input.resource, input.spec?.resource, ...(input.spec?.resources || []), input.spec?.join?.resource].filter((item): item is (typeof campusResources)[number] => !!item));
-  return [...new Set([...selected].flatMap(item => grants[item] ? [grants[item]!] : []))];
+  return [...new Set([...selected].flatMap(item => grants[item] ? [grants[item]!] : []).concat(campusQueryReadsCourseGrades(input) ? ['campus:grades:read'] : []))];
+}
+
+/** These are actual connector field paths, including relative any/all paths.
+ * Values and output aliases are never interpreted as source field names. */
+export function campusQueryReadsCourseGrades(input: CampusQuery): boolean {
+  if (['resources', 'schema', 'history'].includes(input.operation)) return false;
+  const spec = input.spec, root = input.resource || spec?.resource;
+  const rootCourses = (spec?.resources || [root]).includes('courses');
+  const joinAlias = spec?.join?.resource === 'courses' ? spec.join.as || 'joined' : undefined;
+  if (!rootCourses && !joinAlias) return false;
+  const pathUsesGrades = (path: string, fullObject = false, transformed = false) => {
+    let parts = path.split('.');
+    if (transformed && ['conflicts', 'transitions'].includes(spec?.operation || '')) {
+      if (!['first', 'second'].includes(parts[0])) return false;
+      parts = parts.slice(1);
+      if (!parts.length) return fullObject;
+    }
+    if (rootCourses && ['grade', 'grades'].includes(parts[0])) return true;
+    return !!joinAlias && parts[0] === joinAlias && (parts.length === 1 ? fullObject : ['grade', 'grades'].includes(parts[1]));
+  };
+  const condition = (value: unknown, parent = '', transformed = false): boolean => {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+    const object = value as Record<string, any>;
+    if (['and', 'or'].some(key => Array.isArray(object[key]) && object[key].some((item: unknown) => condition(item, parent, transformed)))) return true;
+    if (object.not && condition(object.not, parent, transformed)) return true;
+    for (const key of ['any', 'all']) if (object[key] && typeof object[key].field === 'string') {
+      const path = [parent, object[key].field].filter(Boolean).join('.');
+      if (pathUsesGrades(path, true, transformed) || condition(object[key].where, path, transformed)) return true;
+    }
+    return typeof object.field === 'string' && pathUsesGrades([parent, object.field].filter(Boolean).join('.'), !['exists', 'missing'].includes(object.op), transformed);
+  };
+  if (input.operation === 'read') {
+    const parts = input.pointer?.slice(normalizedRoots.courses.length).split('/').filter(Boolean) || [];
+    return parts.length <= 1 || ['grade', 'grades'].includes(parts[1]);
+  }
+  if (!spec) return input.operation === 'diff' && !input.fields?.length
+    || (input.fields || []).some(value => pathUsesGrades(value, true));
+  if (condition(spec.where) || condition(spec.after_join_where)
+    || [...(spec.sort || []), ...(spec.distinct || []), ...(spec.group_by || [])].some(value => pathUsesGrades(typeof value === 'string' ? value : value.field, true))
+    || spec.metrics?.some(metric => !!metric.field && pathUsesGrades(metric.field, true) || !!metric.weight && pathUsesGrades(metric.weight, true) || condition(metric.where))
+    || spec.time && [spec.time.field, spec.time.end_field].some(value => !!value && pathUsesGrades(value, true))
+    || spec.join && (rootCourses && pathUsesGrades(spec.join.left_on, true) || joinAlias && ['grade', 'grades'].includes(spec.join.right_on.split('.')[0]))) return true;
+  const operation = spec.operation || 'select';
+  if (operation === 'aggregate' || operation === 'gaps') return false;
+  return !spec.fields?.length || spec.fields.some(value => pathUsesGrades(value, true, true))
+    || condition(spec.having, '', true) || (spec.order_by || []).some(value => pathUsesGrades(typeof value === 'string' ? value : value.field, true, true));
+}
+export function campusLookupReadsCourseGrades(input: { domain?: string; fields?: string[]; filters?: string[]; sort?: string }) {
+  if (input.domain !== 'courses') return false;
+  const paths = [...(input.fields || []), ...(input.filters || []).map(value => value.split(':')[0].trim()),
+    ...(input.sort || '').split(',').map(value => value.trim().replace(/^-/, ''))].filter(Boolean);
+  return campusQueryReadsCourseGrades({ operation: 'quick', resource: 'courses', fields: paths, offset: 0, limit: 1, refresh: false });
+}
+
+/** Preserve the evaluated window; relative selectors are not re-evaluated at
+ * the next page. Time-derived membership/order needs a new query baseline. */
+export function campusQueryOnSnapshot(input: CampusQuery, result: Record<string, any>) {
+  const pinned = structuredClone(input), time = pinned.spec?.time, interval = result.time_interval;
+  const validTime = (value: unknown): value is string => typeof value === 'string' && Number.isFinite(Date.parse(value));
+  let fixed = true;
+  if (time?.at) {
+    if (!validTime(interval?.from)) fixed = false;
+    else { time.at = interval.from; delete time.from; delete time.to; delete time.window; }
+  } else if (time && (time.window || time.from || time.to)) {
+    if ((time.window || time.from) && !validTime(interval?.from) || (time.window || time.to) && !validTime(interval?.to)) fixed = false;
+    else { delete time.window; if (validTime(interval?.from)) time.from = interval.from;
+      if (validTime(interval?.to)) time.to = interval.to; }
+  }
+  const dynamic = new Set(['ongoing', 'ended', 'minutes_from_now']);
+  const hasDynamicField = (value: unknown, fields = false): boolean => {
+    if (typeof value === 'string') return fields && dynamic.has(value.split('.').at(-1)!);
+    if (Array.isArray(value)) return value.some(item => hasDynamicField(item, fields));
+    return !!value && typeof value === 'object' && Object.entries(value).some(([key, child]) =>
+      hasDynamicField(child, ['field', 'sort', 'order_by', 'group_by', 'distinct', 'weight'].includes(key)));
+  };
+  const spec = pinned.spec;
+  const dependent = hasDynamicField(spec && { where: spec.where, after_join_where: spec.after_join_where,
+    having: spec.having, sort: spec.sort, order_by: spec.order_by, group_by: spec.group_by, distinct: spec.distinct, metrics: spec.metrics })
+    || spec?.operation === 'gaps' && !time?.from;
+  pinned.refresh = false;
+  if (['quick', 'select', 'read'].includes(input.operation)) {
+    if (typeof result.bundle_id !== 'string' || !/^[A-Za-z0-9_-]{1,160}$/.test(result.bundle_id)
+      || input.bundleId && input.bundleId !== result.bundle_id) return;
+    pinned.bundleId = result.bundle_id;
+    if (typeof result.snapshotProof?.version === 'string') pinned.expectedSnapshotVersion = result.snapshotProof.version;
+  }
+  return { arguments: validateCampusQuery(pinned), evaluation: {
+    ...(validTime(result.evaluated_at) ? { at: result.evaluated_at } : {}),
+    paging: fixed && !dependent ? 'fixed_conditions' as const : 'evaluation_dependent' as const,
+    dynamicValues: ['classes', 'exams'].includes(input.resource || input.spec?.resource || '')
+      && (!spec?.fields || hasDynamicField(spec.fields, true)),
+  } };
+}
+
+/** A next page is the same declared query on the source's actual snapshot,
+ * not a request to refresh it or silently start another query. */
+export function campusQueryContinuation(input: CampusQuery, result: Record<string, any>) {
+  const nextOffset = result.next_offset, currentOffset = input.spec?.offset ?? input.offset;
+  if (!['ok', 'partial'].includes(result.status) || !Number.isSafeInteger(nextOffset)
+    || nextOffset <= currentOffset || nextOffset > 1000000) return;
+  const frozen = campusQueryOnSnapshot(input, result);
+  if (!frozen || frozen.evaluation.paging !== 'fixed_conditions') return;
+  const next = frozen.arguments;
+  next.offset = nextOffset;
+  next.refresh = false;
+  if (next.spec) next.spec.offset = nextOffset;
+  return { capability: 'campus.query' as const, arguments: validateCampusQuery(next),
+    meaning: input.operation === 'history' ? '沿同一资源目录继续列快照元信息；目录可能新增或变化，这不是固定快照中的个人记录。'
+      : input.operation === 'diff' ? '继续比较原来两份指定快照；这里只报告观察差异，不把来源采集时刻当作实际发生时刻。'
+      : input.spec?.join || (input.spec?.resources?.length || 0) > 1
+      ? '继续同一查询并固定已返回的主快照；关联来源仍由原连接器重新核对，不把主快照当作全部关联来源的版本证明。'
+      : '沿已解析的查询条件与同一数据快照继续；页内ongoing等相对当前时刻的显示值仍会重评。已读一页不等于全部读完，翻完也不消除原来源缺口。' };
 }

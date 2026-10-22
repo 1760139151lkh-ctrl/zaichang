@@ -5,7 +5,7 @@ import type { KernelRepository } from '../storage/repository';
 import type { PolicyKernel } from './policy';
 import type { WorkService } from './work';
 import type { BasisService } from './basis';
-import type { CooperationService } from './cooperation';
+import type { CooperationService, HelpContactEvent } from './cooperation';
 import type { ReminderRuntime } from '../actions/reminders';
 import type { CapabilityBroker } from '../capabilities/broker';
 import { canonical } from './semantics';
@@ -18,6 +18,7 @@ import { addDate, dateInZone } from './semantics';
 import { campusQueryGrants, campusQueryInput, campusResources, validateCampusQuery } from '../capabilities/campus-query';
 import { attentionListInput, attentionChangeInput, type AttentionControlItem, type AttentionControlPage, type AttentionChangeInput } from '../../shared/attention-control';
 import { resolveSourceQuote, type SourceQuoteInput } from './source-quote';
+import { noteSourceProofSchema, type NoteSourceProof } from '../../shared/notes-source';
 
 const id = z.string().min(1).max(160);
 const helpDiscoveryStatuses = ['candidate', 'waiting', 'prepared', 'question_ready', 'notification_queued', 'paused', 'stale', 'expired', 'declined'] as const;
@@ -38,7 +39,7 @@ export const helpDiscoveryInput = z.object({
 });
 const citation = z.object({
   eventId: id.optional().describe('通常省略，由宿主按quote绑定唯一的本轮用户原话；填写时必须是精确的当前标识，不能用历史来源或猜测标识。'),
-  quote: z.string().min(1).max(3000),
+  quote: z.string().min(1).max(3000).describe('本人当前正文中的连续逐字片段，保留相关否定、条件和期限。宿主整理的参考资料与前情能帮助理解，原话地址仍落在本人原文中。'),
   contentVersion: z.number().int().positive().optional().describe('指定位置时，与start/end一起给出实际原文版本；旧位置不重新寻找。'),
   start: z.number().int().nonnegative().optional().describe('quote在原文中的绝对Unicode码点起点；重复引文须给精确位置，或扩大逐字quote使其唯一。'),
   end: z.number().int().positive().optional().describe('同一原文中的Unicode码点终点，不包含终点。'),
@@ -53,7 +54,7 @@ export const attentionControlInput = z.object({
   source: citation.optional(), title: z.string().min(1).max(160).optional(),
   rule: z.string().min(1).max(1200).optional().describe('这一条限制所适用的内容。不同范围或期限的限制分别保存，不把整句的多个限制塞进同一个到期记录。'), until: z.string().datetime({ offset: true }).nullable().optional().describe('只属于当前这一项控制的到期时间。停止某种主动理由而没有明确终点时用null；时限归属有歧义也不自动恢复该主动行为，不借用同句另一项临时暂停的期限。'),
   eventCategory: z.string().min(1).max(80).optional().describe('广义托付可用all；具体类别只是依赖提示，来源内尚未关联的新变化仍交主模型判断。'),
-  sources: z.array(id).max(8).optional().describe('托付后续履约实际可读取的来源，不只是首个变化或probe的来源。按rule所需的资料与能力，在当前已获准范围内完整列出；不能承诺产出这些来源无法支持的结果，也不能扩大用户明确的限源。'), channel: z.enum(['in_app', 'local_notification']).optional(),
+  sources: z.array(id).max(8).optional().describe('这份托付后续会用到的来源稳定sourceId，可从实际读取结果或当前准入来源取得；如笔记来源是notes:self，note.source.via描述编写入口而非来源ID。来源覆盖后续约定，不只是首个变化或probe；具体对象与变化含义仍在rule里表达。能看到的资料与本人选定的限源一起决定这次可照看的范围。'), channel: z.enum(['in_app', 'local_notification']).optional(),
   wakeAt: z.array(z.string().datetime({ offset: true })).max(16).optional().describe('已知的开放、下课或最后行动节点；到时重评，即使来源没有更新。'),
   probe: z.object({ capability: z.string().max(100), arguments: z.record(z.string(), z.json()), relativeDate: z.object({ argument: z.string().min(1).max(80), offsetDays: z.number().int().min(-1).max(365), timeZone: z.string().max(80) }).strict().optional() }).strict().optional(),
 }).strict();
@@ -87,16 +88,69 @@ export class AttentionService {
   resumeChanges?: (handle: ScopeHandle) => void;
   constructor(readonly repo: KernelRepository, readonly policy: PolicyKernel, readonly work: WorkService,
     readonly basis: BasisService, readonly cooperation: CooperationService, readonly reminders: ReminderRuntime,
-    readonly broker: CapabilityBroker, private preferences?: () => InteractionPreferences, private investigation?: InvestigationFrontierService) {}
+    readonly broker: CapabilityBroker, private preferences?: () => InteractionPreferences, private investigation?: InvestigationFrontierService) {
+    this.cooperation.onContact = (handle, record, event) => this.consumeOnce(handle, record, event);
+  }
+
+  private onceUse(rule: WorkRecord) {
+    const value = rule.data.onceUse;
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return;
+    return typeof value.at === 'string' && ['displayed', 'opened', 'conversation_published', 'submitted_to_os', 'provider_delivered', 'seen', 'submission_started', 'unknown'].includes(String(value.event))
+      ? value as { at: string; event: HelpContactEvent } : undefined;
+  }
+  private pendingContact(event: HelpContactEvent | undefined) { return event === 'submission_started' || event === 'unknown'; }
+  private onceEvent(rule: WorkRecord, contacts: WorkRecord[]) {
+    if (rule.data.operation !== 'once') return;
+    const prior = this.onceUse(rule)?.event;
+    if (prior && !this.pendingContact(prior)) return prior;
+    const actual = contacts.filter(help => !rule.data.targetOpportunityId || help.data.opportunityId === rule.data.targetOpportunityId)
+      .map(help => this.contactEvent(help)).filter((event): event is HelpContactEvent => !!event);
+    return actual.find(event => !this.pendingContact(event)) || prior || actual[0];
+  }
+  private onceHeld(rule: WorkRecord, contacts: WorkRecord[]) {
+    return !!this.onceEvent(rule, contacts) || this.onceCoverageUnknown(rule, contacts);
+  }
+  private onceCoverageUnknown(rule: WorkRecord, contacts: WorkRecord[]) {
+    return rule.data.operation === 'once' && rule.data.onceContractVersion !== 1 && !this.onceEvent(rule, contacts);
+  }
+  private seedOnce(handle: ScopeHandle, contacts: WorkRecord[]) {
+    for (const help of contacts) {
+      const event = this.contactEvent(help);
+      if (event) this.consumeOnce(handle, help, event);
+    }
+  }
+  private contactEvent(record: WorkRecord): HelpContactEvent | undefined {
+    return record.data.seenAt ? 'seen' : record.data.displayedAt ? 'displayed' : record.data.openedAt ? 'opened'
+      : record.data.conversationPublishedAt ? 'conversation_published' : record.data.deliveredAt ? 'provider_delivered'
+        : record.data.submittedAt ? 'submitted_to_os' : record.data.deliveryUnknownAt ? 'unknown'
+          : record.data.deliveryAttemptedAt ? 'submission_started' : undefined;
+  }
+  private consumeOnce(handle: ScopeHandle, help: WorkRecord, event: HelpContactEvent) {
+    const opportunityId = typeof help.data.opportunityId === 'string' ? help.data.opportunityId : undefined;
+    const opportunity = opportunityId ? this.repo.work(handle, undefined, opportunityId)[0] : undefined;
+    const objectId = (opportunity?.data.facts as { objectId?: string } | undefined)?.objectId;
+    for (const rule of this.rules(handle, String(help.data.matterId), objectId, opportunityId)) {
+      if (rule.data.operation !== 'once') continue;
+      const previous = this.onceUse(rule);
+      if (previous && (!this.pendingContact(previous.event) || this.pendingContact(event))) continue;
+      // This is a channel/exposure receipt on the existing rule, not a new
+      // instruction revision. It deliberately carries no private help body,
+      // source copy or renewed authority after that body is forgotten.
+      this.repo.db.prepare(`UPDATE h_work SET payload=json_set(payload,'$.data.onceUse',json(?))
+        WHERE id=? AND revision=? AND status='active' AND json_extract(payload,'$.data.operation')='once'`)
+        .run(JSON.stringify({ event, at: help.data[{
+          displayed: 'displayedAt', opened: 'openedAt', conversation_published: 'conversationPublishedAt',
+          submitted_to_os: 'submittedAt', provider_delivered: 'deliveredAt', seen: 'seenAt',
+          submission_started: 'deliveryAttemptedAt', unknown: 'deliveryUnknownAt',
+        }[event]] || this.repo.clock.now() }), rule.id, rule.revision);
+    }
+  }
 
   quietOptional() {
-    const rows = this.repo.db.prepare(`SELECT id FROM h_work WHERE owner=? AND workspace=? AND json_extract(payload,'$.data.type')='help_opportunity' AND status IN ('candidate','waiting','prepared','question_ready','notification_queued')`).all(this.repo.identity.principalId, this.repo.identity.workspaceId);
-    this.repo.write(() => {
-      for (const row of rows) {
-        this.reminders.cancel(String(row.id));
-        this.repo.db.prepare("UPDATE h_work SET status='stale',revision=revision+1,payload=json_set(payload,'$.status','stale','$.revision',revision+1,'$.data.invalidationReason','quiet_preference') WHERE id=?").run(String(row.id));
-      }
-    });
+    // Waiting for the person to speak changes delivery, not their mandate.
+    // Keep prepared work and unreviewed changes; followup controls whether
+    // continuing investigation is wanted at all.
+    this.keepPreparedInApp();
   }
   keepPreparedInApp() {
     const scope = this.policy.hostScope();
@@ -108,20 +162,29 @@ export class AttentionService {
 
   canNotify(id: string) {
     this.expire();
+    const preferences = this.preferences?.();
+    if (preferences && (preferences.initiative !== 'when_useful' || preferences.followup === 'on_request')) return false;
     const scope = this.policy.hostScope(), record = this.repo.work(scope, undefined, id)[0];
-    // A message she already left in the original conversation may also ping
-    // the OS while the window is away, until the person has actually seen it.
-    const publishedInApp = record?.status === 'prepared' && record.data.choice === 'notify'
-      && record.data.presentationChannel === 'conversation' && !!record.data.inAppDelivery;
-    if (!record || record.data.type !== 'help_opportunity' || record.status !== 'notification_queued' && !publishedInApp ||
-      this.rules(scope, String(record.data.bindingId), String((record.data.facts as any)?.objectId || ''), record.id).some(rule => ['pause', 'stop'].includes(String(rule.data.operation)))) return false;
+    // The mandate's selected channel survives queueing. A conversation-only
+    // publication cannot acquire OS permission from the global notice switch.
+    if (!record || record.data.type !== 'help_opportunity' || record.status !== 'notification_queued'
+      || record.data.channel !== 'local_notification') return false;
+    const rules = this.rules(scope, String(record.data.bindingId), String((record.data.facts as any)?.objectId || ''), record.id);
+    if (rules.some(rule => ['pause', 'stop'].includes(String(rule.data.operation)))) return false;
+    const contacts = this.cooperation.interventions(scope, String(record.data.bindingId));
+    this.seedOnce(scope, contacts);
+    if (rules.some(rule => this.onceHeld(rule, contacts))) {
+      this.work.update(scope, record.id, record.revision, { status: 'prepared', data: { ...record.data, choice: 'prepare', notificationSuppressedBy: 'once_contact_recorded' } });
+      return false;
+    }
     // A queued decision can become redundant before dispatch. Real display or
     // opening is observed after generation and must be checked at this boundary.
-    const exposed = this.cooperation.history(scope, String(record.data.bindingId), 24).some(help =>
+    const exposed = contacts.find(help =>
       (help.id === record.data.helpRecordId || help.data.basisFingerprint === record.data.fingerprint) &&
-      (help.data.displayedAt || help.data.openedAt || help.data.submittedAt));
+      this.contactEvent(help));
     if (exposed) {
-      if (!publishedInApp) this.work.update(scope, record.id, record.revision, { status: 'prepared', data: { ...record.data, choice: 'prepare', notificationSuppressedBy: 'already_exposed' } });
+      this.work.update(scope, record.id, record.revision, { status: 'prepared', data: { ...record.data, choice: 'prepare',
+        notificationSuppressedBy: this.pendingContact(this.contactEvent(exposed)) ? 'prior_delivery_unknown' : 'already_exposed' } });
       return false;
     }
     return true;
@@ -296,6 +359,7 @@ export class AttentionService {
         targetObjectId: (target.data.facts as { objectId?: string })?.objectId || null } : {}),
       ...(verified.expiryReview ? { expiryReview: verified.expiryReview } : {}),
       optionalOnly: true, maximumDisplays: input.operation === 'once' ? 1 : null,
+      ...(input.operation === 'once' ? { onceContractVersion: 1 } : {}),
     }, { status: 'active', evidenceIds: [event.id] });
     this.repo.addDependency(handle, { consumerId: rule.id, producerId: event.id, producerRevision: event.contentVersion, sensitivity: 'privacy', invalidation: 'block' });
     const focuses = this.records(management, 'attention_focus');
@@ -321,7 +385,14 @@ export class AttentionService {
       }
       for (const bindingId of controlledBindings) this.repo.db.prepare("UPDATE h_watches SET status='inactive' WHERE goal_id=?").run(bindingId);
     }
-    return rule;
+    if (input.operation === 'once') {
+      const matters = new Set([...controlledBindings, ...(target?.data.type === 'help_opportunity' ? [String(target.data.bindingId)] : [])]);
+      for (const matterId of matters) for (const help of this.cooperation.interventions(handle, matterId)) {
+        const event = this.contactEvent(help);
+        if (event) this.consumeOnce(handle, help, event);
+      }
+    }
+    return this.repo.work(handle, undefined, rule.id)[0] || rule;
   }
 
   rules(handle: ScopeHandle, bindingId?: string, objectId?: string, opportunityId?: string) {
@@ -364,7 +435,7 @@ export class AttentionService {
 
   private controlMetadata(record: WorkRecord): WorkRecord {
     const data = record.data, selected: WorkRecord['data'] = { type: data.type!, controlMetadataOnly: true };
-    for (const key of ['matterId', 'bindingId', 'operation', 'until', 'channel', 'sources', 'targetOpportunityId', 'targetBindingId', 'targetObjectId', 'maximumDisplays'])
+    for (const key of ['matterId', 'bindingId', 'operation', 'until', 'channel', 'sources', 'targetOpportunityId', 'targetBindingId', 'targetObjectId', 'maximumDisplays', 'onceUse', 'onceContractVersion'])
       if (data[key] !== undefined) selected[key] = data[key];
     let title = data.type === 'attention_focus' ? record.title : '可选帮助';
     if (data.type === 'attention_rule') {
@@ -502,6 +573,21 @@ export class AttentionService {
     return [...sources];
   }
 
+  private observationNoteSources(observation: MaterialObservation): NoteSourceProof[] {
+    if (observation.tool !== 'manage_note') return [];
+    const result = observation.result as { note?: { id?: string; revision?: number; sha256?: string }; offset?: number; end?: number;
+      items?: { id?: string; revision?: number; sha256?: string }[] } | undefined;
+    const args = observation.requestedArguments as { input?: { id?: string } } | undefined;
+    const proofs = result?.note ? [{ id: result.note.id, revision: result.note.revision, sha256: result.note.sha256,
+      start: result.offset, end: result.end }]
+      : (result?.items || []).map(note => ({ id: note.id || args?.input?.id, revision: note.revision, sha256: note.sha256, start: 0, end: 0 }));
+    return proofs.map(proof => {
+      const parsed = noteSourceProofSchema.safeParse(proof);
+      if (!parsed.success) throw new HarnessError('material_note_source_unknown', '刚才那次笔记读取没有带回原页的位置和版本，这份准备还缺这一处来由。');
+      return parsed.data;
+    });
+  }
+
   private campusMaterialGrants(domain: string): string[] | undefined {
     const aliases: Record<string, string> = { schedule: 'classes', learning_courses: 'courses', assignments: 'todos',
       gpa: 'gpa_overall', card: 'card_accounts', profile: 'student_profile', practice: 'practice_summary', sports: 'projects' };
@@ -549,7 +635,8 @@ export class AttentionService {
   /** Unrelated source changes remain evidence, not instructions. The same
    * assistant evaluates them against the user's broad rule; no topic lexicon. */
   discover(handle: ScopeHandle, change: DomainChange) {
-    if (this.preferences?.().initiative === 'quiet') return true;
+    // An unexamined change stays pending while ongoing attention is off.
+    if (this.preferences?.().followup === 'on_request') return false;
     let accepted = true;
     for (const focus of this.records(handle, 'attention_focus', ['active'])) {
       if (!this.bindingActive(handle, focus) || !(focus.data.sources as string[]).includes(change.sourceId)) continue;
@@ -570,7 +657,7 @@ export class AttentionService {
     const event = this.repo.evidence(handle, input.evidenceId), binding = this.repo.work(handle, undefined, input.bindingId)[0];
     if (event && binding && this.bindingActive(handle, binding) && this.rules(handle, binding.id, String(input.facts.objectId || '')).some(rule => rule.data.operation === 'pause'))
       return { opportunity: null, acknowledged: false };
-    if (this.preferences?.().initiative === 'quiet' || !event || !binding || !this.bindingActive(handle, binding) || Date.parse(input.expiresAt) <= Date.parse(this.repo.clock.now()) ||
+    if (!event || !binding || !this.bindingActive(handle, binding) || Date.parse(input.expiresAt) <= Date.parse(this.repo.clock.now()) ||
       this.rules(handle, binding.id, String(input.facts.objectId || '')).some(rule => ['pause', 'stop'].includes(String(rule.data.operation))) ||
       binding.data.type === 'attention_focus' && !(binding.data.sources as string[]).includes(event.sourceId) && !binding.evidenceIds.includes(event.id)) return { opportunity: null, acknowledged: true };
     const fingerprint = createHash('sha256').update(canonical({ bindingId: binding.id, category: input.category, facts: input.facts })).digest('hex');
@@ -580,7 +667,6 @@ export class AttentionService {
 
   offer(handle: ScopeHandle, input: HelpSignal) {
     this.expire();
-    if (this.preferences?.().initiative === 'quiet') return null;
     const scope = this.policy.validate(handle), event = this.repo.evidence(handle, input.evidenceId), binding = this.repo.work(handle, undefined, input.bindingId)[0];
     if (!event || !binding || !this.bindingActive(handle, binding) || Date.parse(input.expiresAt) <= Date.parse(this.repo.clock.now())) return null;
     const rules = this.rules(handle, binding.id, String(input.facts.objectId || ''));
@@ -604,6 +690,7 @@ export class AttentionService {
       expiresAt: input.expiresAt, channel: binding.data.type === 'attention_focus' ? binding.data.channel : 'in_app',
       scope: { sources: binding.data.type === 'attention_focus' ? binding.data.sources : [event.sourceId], epoch: scope.privacyEpoch, policyRevision: scope.policyRevision },
       sourceIds: event.speaker === 'external' ? [event.sourceId] : [],
+      materialNoteContractVersion: 1, noteSources: [],
       ...(signalGrants ? { materialGrantContractVersion: 1, requiredGrants: signalGrants } : {}),
       basisIds: [], artifact: null, choice: null, modelReason: null,
     }, { status: 'candidate', evidenceIds: [input.evidenceId, ...binding.evidenceIds] });
@@ -618,7 +705,7 @@ export class AttentionService {
 
   pending(handle: ScopeHandle, limit = 5) {
     this.expire();
-    if (this.preferences?.().initiative === 'quiet' || this.preferences?.().followup === 'on_request') return [];
+    if (this.preferences?.().followup === 'on_request') return [];
     const all = this.records(handle, 'help_opportunity');
     const lastReviewed = new Map<string, number>();
     for (const item of all) {
@@ -665,7 +752,7 @@ export class AttentionService {
    * caller may still reconcile periodically for new external source events. */
   nextReviewAt(handle = this.policy.hostScope()): string | null {
     this.expire();
-    if (this.preferences?.().initiative === 'quiet' || this.preferences?.().followup === 'on_request') return null;
+    if (this.preferences?.().followup === 'on_request') return null;
     const now = Date.parse(this.repo.clock.now()), times: number[] = [];
     const add = (value: unknown) => { const time = Date.parse(String(value)); if (Number.isFinite(time)) times.push(Math.max(now, time)); };
     for (const item of this.records(handle, 'help_opportunity', ['candidate', 'waiting'])) {
@@ -704,9 +791,9 @@ export class AttentionService {
       opportunityControls: this.rules(handle).filter(rule => rule.data.targetBindingId === bindingId),
       suppliedMaterialIds: opportunity.evidenceIds.filter(id => this.repo.evidence(handle, id)?.speaker === 'external'),
       deliveryReceipts: this.repo.db.prepare('SELECT d.status,d.payload FROM h_deliveries d JOIN h_jobs j ON j.id=d.job_id WHERE j.object_id=? ORDER BY d.rowid DESC LIMIT 8').all(opportunity.id)
-        .map(row => ({ status: String(row.status), ...JSON.parse(String(row.payload)), meaning: '这是渠道回执；unknown或submitted不证明送达或已读。迟到回执不会重开已停止的提醒。' })),
+        .map(row => ({ status: String(row.status), ...JSON.parse(String(row.payload)), meaning: '这里是渠道实际返回的记录。submitted_to_os说明系统接受了提交；送达和已看有各自的证据，unknown仍是未知。迟到的记录会补在原处，已停止的提醒仍按停止状态处理。' })),
       delivery: this.reminders.capabilities(), notificationsEnabled: this.reminders.attention().enabled,
-      meaning: '信号只是待评机会。考虑新价值、已提供帮助、明确限制与实际可行动窗口；可以只准备、等待、询问或完全不介入。未观察到反馈就未知。' };
+      meaning: '这里把这条机会、原托付、以前的帮助和当前约定放在一起，供你判断现在有什么实际新价值、窗口是否仍合适。安静准备、再等一等、问清一个关键处，或到这里放下，都可以是合适的照应；反馈沿真正观察到的内容理解。' };
   }
 
   decide(handle: ScopeHandle, raw: z.infer<typeof helpDecisionInput>, observations: MaterialObservation[] = [], resolveScenes?: (refs: SceneRef[]) => SceneSnapshot[], investigation?: InvestigationSession,
@@ -714,7 +801,7 @@ export class AttentionService {
     this.expire();
     const input = helpDecisionInput.parse(raw), opportunity = this.repo.work(handle, undefined, input.id)[0];
     if (!opportunity || opportunity.data.type !== 'help_opportunity')
-      throw new HarnessError('target_missing', '当前许可范围内没有这个材料或机会标识。没有改动资料；请省略id调用inspect_help重新发现，再精确复制id与revision，不要拼接或改写标识。');
+      throw new HarnessError('target_missing', '这个位置当前没有对应的可读材料或机会。inspect_help省略id能重新找到原地址，再沿返回的id与revision接着看。');
     if (opportunity.revision !== input.expectedRevision)
       throw new HarnessError('revision_conflict', '这次机会已变，需要按当前条件重新判断。');
     // A foreground response already has its real model author and message.
@@ -786,6 +873,12 @@ export class AttentionService {
     if (input.choice === 'ask' && !material.length && !supplied.length && !reused && !questionBasis.length)
       throw new HarnessError('source_required', '这个问题还需要仍可读取的用户依据。');
     const materialSources = material.map(item => this.observationSources(item!));
+    const storedNoteSources = Array.isArray(opportunity.data.noteSources)
+      ? opportunity.data.noteSources.map(value => noteSourceProofSchema.parse(value)) : [];
+    const noteSources = [...new Map([...storedNoteSources, ...(!reused ? material.flatMap(item => this.observationNoteSources(item!)) : [])]
+      .map(proof => [canonical(proof), proof])).values()];
+    if (!this.repo.noteSourcesReadable(handle, noteSources))
+      throw new HarnessError('material_note_changed', '这份准备引用的一页笔记现在读不到了。');
     const sourceIds = [...new Set([...this.storedMaterialSources(handle, opportunity), ...materialSources.flat(), ...supplied.map(event => event!.sourceId), ...questionBasis.map(item => item.readSource)])];
     const materialGrants = material.map((item, index) => this.materialGrants(item!, materialSources[index]));
     const suppliedGrants = supplied.map(event => {
@@ -801,16 +894,22 @@ export class AttentionService {
     if (['prepare', 'notify', 'ask'].includes(input.choice) && !input.artifact) throw new HarnessError('artifact_required', '没有真实产物，不能显示已准备。');
     if (input.choice === 'prepare' && !material.length && !supplied.length && !reused) throw new HarnessError('material_not_read', '安静准备须有实际查询或已提供材料。');
     for (const item of material) if (!item || ['inspect_help'].includes(item.tool) || (item.result as any)?.catalogOnly || (item.result as any)?.inputSchema || ['failed', 'forbidden', 'not_connected', 'unknown', 'error'].includes(String((item.result as any)?.status))) throw new HarnessError('material_unavailable', '引用的查询没有取得可用资料；能力说明和机会本身不是新查询材料。');
-    const prior = this.cooperation.history(handle, bindingId, 24);
-    const displayed = prior.filter(record => record.data.displayedAt || record.data.openedAt || record.data.submittedAt || record.data.conversationPublishedAt);
+    const contacts = this.cooperation.interventions(handle, bindingId);
+    this.seedOnce(handle, contacts);
     const validNewEvidence = input.newValue?.evidenceIds.every(id => opportunity.evidenceIds.includes(id) && this.repo.evidence(handle, id)?.speaker === 'external' || material.some(item => item?.toolCallId === id));
     if (input.newValue && !validNewEvidence) throw new HarnessError('new_value_evidence', '新的理由只能引用本次已核验材料：' + [...supplied.map(event => event!.id), ...material.map(item => item!.toolCallId!)].join('、'));
-    const repeated = displayed.some(record => record.data.basisFingerprint === opportunity.data.fingerprint);
+    const repeated = contacts.some(record => record.data.basisFingerprint === opportunity.data.fingerprint);
     const duplicate = input.duplicateOf || repeated;
-    const onceExhausted = rules.some(rule => rule.data.operation === 'once' && displayed.some(help => !rule.data.targetOpportunityId || help.data.opportunityId === rule.data.targetOpportunityId));
-    const inAppOnly = this.preferences?.().initiative === 'prepare' && input.choice === 'notify';
+    const onceExhausted = rules.some(rule => this.onceHeld(rule, contacts));
+    const onceCoverageUnknown = onceExhausted && rules.filter(rule => this.onceHeld(rule, contacts)).every(rule => this.onceCoverageUnknown(rule, contacts));
+    const onceUnknown = onceExhausted && rules.filter(rule => this.onceHeld(rule, contacts)).every(rule => this.pendingContact(this.onceEvent(rule, contacts)));
+    const preferences = this.preferences?.();
+    const inAppOnly = preferences && (preferences.initiative !== 'when_useful' || preferences.followup === 'on_request') && input.choice === 'notify';
     const showExisting = input.presentInConversation && !!reused && !input.duplicateOf;
-    const choice = (duplicate || onceExhausted) && !showExisting ? 'none' : inAppOnly ? 'prepare' : input.choice;
+    const choice = duplicate && !showExisting ? 'none'
+      : onceExhausted && !showExisting ? onceCoverageUnknown && ['prepare', 'ask', 'notify'].includes(input.choice)
+        ? input.choice === 'notify' ? 'prepare' : input.choice : 'none'
+        : inAppOnly ? 'prepare' : input.choice;
     if (choice === 'notify' && (!input.newValue || !validNewEvidence)) throw new HarnessError('new_value_required', '主动提醒需要说明当前新价值，并引用实际变化或查询材料。');
     if (choice === 'prepare' && !material.length && !supplied.length && !reused) throw new HarnessError('material_not_read', '应用内准备也必须有实际材料，不能只显示已查好的说法。');
     if (choice === 'notify' && !['in_app', 'local_notification'].includes(String(opportunity.data.channel))) throw new HarnessError('channel_forbidden', '原托付没有允许这次告知的渠道。');
@@ -842,6 +941,7 @@ export class AttentionService {
         materialContractVersion: 1,
         materialPlanningContractVersion: 1, planningProvenance: planningProvenance || [],
         materialSourceContractVersion: 1, sourceIds, materialGrantContractVersion: 1, requiredGrants, questionBasis,
+        materialNoteContractVersion: 1, noteSources,
         expiresAt: new Date(Math.min(Date.parse(String(opportunity.data.expiresAt)), ...materialExpiries.map(Date.parse))).toISOString(),
         reconsiderAt: input.reconsiderAt || (choice === 'wait' ? new Date(Date.parse(this.repo.clock.now()) + 1800000).toISOString() : null), artifact: ['none', 'wait'].includes(choice) ? null : JSON.parse(JSON.stringify({ ...input.artifact!, ...(sceneSnapshots ? { scenes: sceneSnapshots } : {}) })),
         material: reused ? opportunity.data.material : [...material.map((item, index) => { const result = item!.result as { sourceId?: string; observedAt?: string; fetchedAt?: string; expiresAt?: string; note?: { id: string; revision: number } }; return { tool: item!.tool, observationId: item!.toolCallId!, resultHash: createHash('sha256').update(canonical(item!.result)).digest('hex'), sourceIds: materialSources[index], requiredGrants: materialGrants[index], ...(result.sourceId ? { sourceId: result.sourceId } : {}), ...(result.expiresAt ? { expiresAt: result.expiresAt } : {}), versions: z.json().parse(this.materialVersions(item!.result)), ...(item!.tool === 'manage_note' && result.note ? { sourceId: 'notes:self', noteId: result.note.id, noteRevision: result.note.revision } : {}), observedAt: result.observedAt || result.fetchedAt || this.repo.clock.now() }; }), ...supplied.map((event, index) => ({ evidenceId: event!.id, contentVersion: event!.contentVersion, sourceId: event!.sourceId, requiredGrants: suppliedGrants[index], versions: z.json().parse(this.evidenceVersions(event!)), resultHash: createHash('sha256').update(event!.text).digest('hex') }))],
@@ -855,15 +955,23 @@ export class AttentionService {
       for (const basis of basisRecords) this.basis.link(handle, basis!, next.id);
       let conversationHelpRef: { id: string; revision: number; helpRecordId: string } | undefined;
       if (['prepare', 'ask', 'notify'].includes(choice)) {
-        const help = this.cooperation.record(handle, { opportunityId: next.id, sessionId: String(next.data.sessionId), matterId: bindingId,
+        const originalHelp = reused && typeof opportunity.data.helpRecordId === 'string'
+          ? this.repo.work(handle, undefined, opportunity.data.helpRecordId)[0] : undefined;
+        if (reused && (!originalHelp || originalHelp.data.type !== 'cooperation_record'
+          || originalHelp.data.opportunityId !== opportunity.id || originalHelp.data.matterId !== bindingId))
+          throw new HarnessError('help_preparation_changed', '这份旧准备对应的原帮助记录现在不能核对，没有把它算作一份新稿。');
+        const help = originalHelp || this.cooperation.record(handle, { opportunityId: next.id, preparationRevision: next.revision, sessionId: String(next.data.sessionId), matterId: bindingId,
           title: input.artifact!.title, reason: input.reason, actionDescription: input.actionDescription,
           basisFingerprint: String(next.data.fingerprint), evidenceIds: next.evidenceIds, sourceIds, requiredGrants, basisIds: input.basisIds, resultRefs: [next.id],
-          planningProvenance: planningProvenance as PlanningMaterialProvenance[] || [] });
+          planningProvenance: planningProvenance as PlanningMaterialProvenance[] || [], noteSources });
         next.data.helpRecordId = help.id;
         this.repo.db.prepare('UPDATE h_work SET payload=? WHERE id=?').run(JSON.stringify(next), next.id);
         if (input.presentInConversation || inAppNotify) conversationHelpRef = { id: next.id, revision: next.revision, helpRecordId: help.id };
         if (choice === 'notify' && !inAppNotify) this.reminders.schedule({ id: next.id, title: input.artifact!.title, detail: '', startsAt: this.repo.clock.now() }, undefined, String(next.data.expiresAt),
           { kind: 'suggestion', producerId: next.id, helpRecordId: help.id, body: input.artifact!.body,
+            ...(artifactAuthor && typeof artifactAuthor === 'object' && !Array.isArray(artifactAuthor) && typeof artifactAuthor.name === 'string'
+              ? { authorName: artifactAuthor.name } : {}),
+            preparationRef: { id: next.id, revision: next.revision, helpRecordId: help.id },
             ...(typeof next.data.sessionId === 'string' ? { sessionId: next.data.sessionId } : {}) });
       }
       if (opportunity.status === 'notification_queued' && choice !== 'notify') this.reminders.cancel(next.id);
@@ -889,7 +997,14 @@ export class AttentionService {
           mandateUpdate = { id: current.id, previousRevision: current.revision, revision: updated.revision, operation: 'material_wakes' };
         }
       }
-      return { status: next.status, id: next.id, revision: next.revision, choice, artifactExists: !!next.data.artifact, ...(mandateUpdate ? { mandateUpdate } : {}), ...(conversationHelpRef ? { conversationHelpRef } : {}), reason: inCurrentReply && conversationHelpRef ? '材料已接到这次回复，未另发主动消息；实际显示仍等界面回执。' : showExisting ? '原有材料已绑定当前交流；实际展示仍等界面回执，不新增系统通知。' : duplicate ? '同一理由已经提供过帮助，换文案不会重新获得提醒资格。' : onceExhausted ? '这件事只提醒一次的范围已用完。' : inAppOnly ? '当前只保留应用内材料，没有发送通知。' : input.reason };
+      return { status: next.status, id: next.id, revision: next.revision, choice, artifactExists: !!next.data.artifact, ...(mandateUpdate ? { mandateUpdate } : {}), ...(conversationHelpRef ? { conversationHelpRef } : {}), reason: inCurrentReply && conversationHelpRef
+        ? '这份材料已接在当前回复里，显示时间会由界面的实际观察补上。'
+        : showExisting ? '接回的是原来那份材料，这次走当前对话呈现；原有投递记录仍留在原处，实际显示另有界面观察。'
+          : duplicate ? '这次对应的仍是已照看过的同一理由，旧帮助留在原记录旁。'
+            : onceExhausted ? onceCoverageUnknown ? '这条较早的一次约定缺少完整履约记录，当前仍把实际材料安静留在原处。'
+              : onceUnknown ? '上次通知的结果还没能确认，原来只说一次的约定仍保留着这次待核记录。'
+              : '原来只说一次的约定已有一次真实发表、显示或渠道提交记录。'
+              : inAppOnly ? '当前相处方式是先安静准备，材料留在应用里。' : input.reason };
     });
   }
 
@@ -939,7 +1054,7 @@ export class AttentionService {
 
   available(handle: ScopeHandle, matterId?: string) {
     this.expire();
-    return this.repo.workData(handle, ['help_opportunity'], { matterId, statuses: ['prepared', 'question_ready'], limit: 5 }).filter(item => !!item.data.artifact);
+    return this.repo.workData(handle, ['help_opportunity'], { matterId, statuses: ['prepared', 'question_ready', 'notification_queued'], limit: 5 }).filter(item => !!item.data.artifact);
   }
 
   /** A saved notify decision is not a display receipt. Only its original
@@ -965,7 +1080,8 @@ export class AttentionService {
     if (binding.data.type !== 'attention_focus' || !event || event.speaker !== 'user' || event.authority !== 'user_statement'
       || !resolveSourceQuote(event, authority))
       throw new HarnessError('attention_source_changed', '原逐字托付当前不能核对，没有用旧许可主动出声。');
-    const artifact = z.object({ title: z.string().min(1), body: z.string().min(1) }).passthrough().parse(record.data.artifact);
+    const artifact = z.object({ title: z.string().min(1), body: z.string().min(1),
+      sceneRefs: z.array(sceneRefSchema).max(3).optional() }).passthrough().parse(record.data.artifact);
     const author = z.object({ name: z.string().min(1), personaRevision: z.number().int().nonnegative() }).strict().parse(record.data.artifactAuthor);
     const sessionId = typeof record.data.sessionId === 'string' ? record.data.sessionId : '';
     if (!sessionId) throw new HarnessError('attention_session_missing', '原托付没有可以继续的对话，没有另找一段聊天代发。');
@@ -1058,7 +1174,7 @@ export class AttentionService {
    * work. Source probes retain their own bounded, read-only refresh budget. */
   async scan(handle: ScopeHandle, signal: AbortSignal) {
     this.expire();
-    if (this.preferences?.().initiative === 'quiet' || this.preferences?.().followup === 'on_request') return [];
+    if (this.preferences?.().followup === 'on_request') return [];
     this.resumeChanges?.(handle);
     const scope = this.policy.validate(handle), now = this.repo.clock.now();
     const focuses = this.records(handle, 'attention_focus', ['active']).filter(focus => this.bindingActive(handle, focus))
@@ -1085,8 +1201,9 @@ export class AttentionService {
         if (rules.some(rule => rule.data.operation === 'pause')) { remainingWakes.push(wake); continue; }
         const prior = this.repo.db.prepare('SELECT status FROM h_work WHERE id=? AND owner=? AND workspace=?').get(wake.opportunityId, scope.principalId, scope.workspaceId);
         if (!prior || ['dismissed', 'declined', 'cancelled'].includes(String(prior.status)) || rules.some(rule => rule.data.operation === 'stop')) continue;
-        const displayed = this.cooperation.history(handle, focus.id, 24).filter(help => help.data.displayedAt || help.data.openedAt || help.data.submittedAt);
-        if (rules.some(rule => rule.data.operation === 'once' && displayed.some(help => !rule.data.targetOpportunityId || help.data.opportunityId === rule.data.targetOpportunityId))) continue;
+        const contacts = this.cooperation.interventions(handle, focus.id);
+        this.seedOnce(handle, contacts);
+        if (rules.some(rule => this.onceHeld(rule, contacts))) continue;
         const noveltyKey = `${wake.kind === 'wait' ? 'wait-refresh' : 'material-expired'}:${wake.opportunityId}:${wake.opportunityRevision}:${wake.at}`;
         const opportunity = this.offer(handle, { bindingId: focus.id, watchId: 'wake:' + focus.id, evidenceId: source.eventId,
           category: String(focus.data.eventCategory), title: focus.title, noveltyKey,

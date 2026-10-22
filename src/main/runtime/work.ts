@@ -37,6 +37,8 @@ export interface ConversationFrame {
 }
 
 const referencePattern = /第[一二三四五六七八九十\d]+个|第二个|第三个|刚才那个|刚刚那个|之前那个|继续(?:比较|一下|刚才那个)?|回到|回来|那个方案|这个方案/;
+const unresolvedOptionMarker = '需要明确选项';
+const unresolvedOptionQuestion = '当前指代对应哪一个既有方案，仍未明确。';
 const genericAnchorWords = new Set(
   Array.from(
     '给我两个三个几个下一步选项方案建议比较一下继续刚才刚刚那个之前这这次今天现在如何怎样可以就这样帮我请问'.split(''),
@@ -377,6 +379,14 @@ export class WorkService {
       { status: 'active', evidenceIds },
     );
   }
+  /** A resolved option retires only the question created by this reference mechanism. */
+  resolvedReferenceData(record: WorkRecord): WorkRecord['data'] {
+    const data = record.data, unresolved = data.unresolvedReferences;
+    if (!Array.isArray(unresolved) || !unresolved.includes(unresolvedOptionMarker)) return { ...data };
+    return { ...data, unresolvedReferences: unresolved.filter(value => value !== unresolvedOptionMarker),
+      ...(typeof data.nextSmallQuestion === 'string' && [unresolvedOptionQuestion, '你指的是哪一个方案？'].includes(data.nextSmallQuestion) ? { nextSmallQuestion: '' } : {}) };
+  }
+
   resolveReference(
     handle: ScopeHandle,
     episodeId: string,
@@ -417,7 +427,7 @@ export class WorkService {
     if (selected) {
       this.update(handle, episode.id, episode.revision, {
         data: {
-          ...episode.data,
+          ...this.resolvedReferenceData(episode),
           referencedOptionId: selected.id,
           lastDisplayedOptionIds: Array.isArray(episode.data.lastDisplayedOptionIds)
             ? episode.data.lastDisplayedOptionIds
@@ -436,8 +446,8 @@ export class WorkService {
       this.update(handle, episode.id, episode.revision, {
         data: {
           ...episode.data,
-          unresolvedReferences: [...((episode.data.unresolvedReferences as string[]) || []), '需要明确选项'],
-          nextSmallQuestion: '你指的是哪一个方案？',
+          unresolvedReferences: [...((episode.data.unresolvedReferences as string[]) || []), unresolvedOptionMarker],
+          nextSmallQuestion: unresolvedOptionQuestion,
         },
       });
       return { status: 'uncertain' };

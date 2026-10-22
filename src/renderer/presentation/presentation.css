@@ -2,6 +2,14 @@
   margin: 20px 0 24px;
   min-width: 0;
 }
+.presentation-activity { display:flex; align-items:center; gap:12px; min-height:58px; margin:18px 0; color:var(--text-tertiary); font-size:13px; }
+.presentation-activity-paper { position:relative; display:flex; flex-direction:column; justify-content:center; gap:5px; width:35px; height:40px; padding:7px; overflow:hidden; border:1px solid color-mix(in srgb,var(--accent) 35%,var(--separator)); border-radius:4px 9px 4px 4px; background:var(--surface-raised); }
+.presentation-activity-paper i { display:block; height:1px; width:100%; background:var(--accent-dim); opacity:.6; }
+.presentation-activity-paper i:last-child { width:65%; }
+.presentation-activity-paper::after { content:''; position:absolute; inset:0; background:linear-gradient(110deg,transparent 15%,color-mix(in srgb,var(--accent-soft) 60%,transparent) 50%,transparent 85%); animation:presentation-making 2.2s ease-in-out infinite; }
+@keyframes presentation-making { 0%,100% { opacity:.15; transform:translateX(-45%); } 50% { opacity:.7; transform:translateX(45%); } }
+@media (prefers-reduced-motion:reduce) { .presentation-activity-paper::after { animation:none; } }
+[data-motion='reduced'] .presentation-activity-paper::after { animation:none; }
 .workspace.conversation .message-scroll:has(.assistant-presentation):not(:has(.conversation-map[data-focused='true'])) {
   mask-image: linear-gradient(to bottom, transparent 0, #000 12px, #000 calc(100% - 2px), transparent 100%);
 }
@@ -418,3 +426,62 @@
     transition: none;
   }
 }
+/* A real picture from the web, shown where she talks about it. The paper
+   stays quiet; the picture and its source line carry the moment. */
+.presentation-figure {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  min-width: 0;
+}
+.presentation-figure-frame {
+  display: block;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-object);
+  background: var(--wash);
+  overflow: hidden;
+  cursor: zoom-in;
+  max-width: 100%;
+  box-shadow: 0 1px 0 var(--separator);
+}
+.presentation-figure-frame img {
+  display: block;
+  max-width: 100%;
+  max-height: 360px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.presentation-figure.portrait .presentation-figure-frame img { max-height: 420px; }
+.presentation-figure.enlarged .presentation-figure-frame { cursor: zoom-out; }
+.presentation-figure.enlarged .presentation-figure-frame img { max-height: 78vh; }
+.presentation-figure figcaption {
+  display: grid;
+  gap: 2px;
+  max-width: 60ch;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.presentation-figure figcaption > span { color: var(--text-primary, inherit); }
+.presentation-figure-source {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  max-width: 100%;
+  padding: 2px 0;
+  border: 0;
+  background: transparent;
+  font-size: 12px;
+  color: var(--text-tertiary, var(--text-secondary));
+  line-height: 1.6;
+  text-align: left;
+}
+.presentation-figure-source:is(button) { cursor: pointer; }
+.presentation-figure-source span { color: inherit; overflow-wrap: anywhere; }
+.presentation-figure-source svg { flex: 0 0 auto; align-self: center; }
+.presentation-figure-source:is(button):hover { color: var(--accent); }
+.presentation-figure-source:focus-visible,
+.presentation-figure-frame:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }

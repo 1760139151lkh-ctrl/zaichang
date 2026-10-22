@@ -16,6 +16,7 @@ export class ConversationRhythm {
   private generation = 0;
   private draft?: { generation: number; raw: string; visible: string };
   private lastVisibleDraft = '';
+  private continuationStart = 0;
 
   constructor(readonly enabled: boolean) {}
 
@@ -71,12 +72,37 @@ export class ConversationRhythm {
   acceptFinal() { this.draft = undefined; this.lastVisibleDraft = ''; }
 
   invalidateSources() {
-    this.spoken.splice(0); this.draft = undefined; this.lastVisibleDraft = '';
+    this.spoken.splice(0); this.draft = undefined; this.lastVisibleDraft = ''; this.continuationStart = 0;
+  }
+
+  /** A changed source must not be copied back as fresh conversational context.
+   * Keep the actual publication intact; later source-checked words may follow. */
+  discardContinuationContext() {
+    this.continuationStart = Array.from(this.current()).length;
+    this.lastVisibleDraft = '';
+  }
+
+  /** The parent's current reply, not another history or a claim of being seen.
+   * A bounded excerpt stays bounded even after native transcript compression. */
+  continuationContext() {
+    const prefix = this.current();
+    const excerpt = (text: string, floor = 0) => {
+      const points = Array.from(text), end = points.length;
+      if (end <= floor) return;
+      const start = Math.max(floor, end - 2400);
+      return { text: points.slice(start).join(''), start, end, totalCharacters: end,
+        coverage: start === 0 ? 'complete' as const : 'partial' as const };
+    };
+    const publishedPrefix = excerpt(prefix, this.continuationStart);
+    const replaceableTail = this.lastVisibleDraft ? excerpt(this.finish(this.lastVisibleDraft).slice(prefix.length)) : undefined;
+    if (!publishedPrefix && !replaceableTail) return;
+    return { ...(publishedPrefix ? { publishedPrefix } : {}), ...(replaceableTail ? { replaceableTail } : {}),
+      meaning: '这是当前同一条助手回复的发表情况，不是新的本人消息。publishedPrefix已经随工具过程放进这条回复；replaceableTail是先前短暂显示、还可续改的末段。这里各自只带最近的真实文字，partial表示较早部分没有重送，不表示它没说过，也不表示对方已经看见。可以参考这些接话，把新的发现和结果接着讲；判断有了变化，也可以自然说清缘由。怎样交流仍由你结合当前角色和眼前情况决定。' };
   }
 
   offer(content: string): { changed: boolean; text: string } {
     if (!this.enabled || !content.trim()) return { changed: false, text: this.current() };
-    const text = redactStreamingDraft(content, true).trim();
+    const text = redactStreamingDraft(content, true);
     const before = this.current(), combined = this.finish(text);
     if (combined === before) return { changed: false, text: before };
     // Preview and commit use the same exact reconciliation. A model that
@@ -87,25 +113,20 @@ export class ConversationRhythm {
 
   current() { return this.spoken.join('\n\n'); }
 
-  /** Keep a real earlier contribution visible. If the final continuation
-   * already includes that exact prefix or contains the prior text, do not display it twice. */
+  /** Published tool-turn prose is a stable prefix. Reconcile only an exact
+   * prefix or a repeated paragraph at the join; never reorder earlier words
+   * or remove matching lines from formulas, code or deliberate repetition. */
   finish(finalContent: string) {
     const safeFinal = redactStreamingDraft(finalContent, true);
-    const before = this.current(), after = safeFinal.trim();
+    const before = this.current(), after = safeFinal;
     if (!before) return safeFinal;
-    if (!after) return before;
+    if (!after.trim()) return before;
     if (after.startsWith(before)) return after;
     if (before.startsWith(after)) return before;
-    if (after.includes(before)) return after;
-
-    const beforeLines = before.split(/\n+/).map(l => l.trim()).filter(Boolean);
-    const afterLines = after.split(/\n+/).map(l => l.trim()).filter(Boolean);
-    if (beforeLines.length > 0 && afterLines.length > 0) {
-      if (afterLines[0] === beforeLines[beforeLines.length - 1] || beforeLines.includes(afterLines[0])) {
-        const remainingAfter = afterLines.filter(line => !beforeLines.includes(line));
-        if (remainingAfter.length === 0) return before;
-        return before + '\n\n' + remainingAfter.join('\n\n');
-      }
+    for (const boundary of before.matchAll(/\n\s*\n/g)) {
+      const start = boundary.index! + boundary[0].length;
+      const overlap = before.slice(start);
+      if (overlap && after.startsWith(overlap)) return before + after.slice(overlap.length);
     }
     return before + '\n\n' + after;
   }

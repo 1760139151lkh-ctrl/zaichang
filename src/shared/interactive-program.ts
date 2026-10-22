@@ -20,16 +20,16 @@ export const programNodeIdSchema = id.refine(value => !!value.trim() && !forbidd
   '节点地址不能是空白、控制字符或保留对象字段。');
 const finite = z.number().finite();
 const numberState = z.object({ kind: z.literal('number'), initial: finite, min: finite, max: finite,
-  step: finite.positive().optional() }).strict();
-const booleanState = z.object({ kind: z.literal('boolean'), initial: z.boolean() }).strict();
+  step: finite.positive().optional(), transient: z.boolean().optional() }).strict();
+const booleanState = z.object({ kind: z.literal('boolean'), initial: z.boolean(), transient: z.boolean().optional() }).strict();
 const textState = z.object({ kind: z.literal('text'), initial: z.string().max(INTERACTIVE_PROGRAM_LIMITS.text),
-  maxLength: z.number().int().min(1).max(INTERACTIVE_PROGRAM_LIMITS.text) }).strict();
+  maxLength: z.number().int().min(1).max(INTERACTIVE_PROGRAM_LIMITS.text), transient: z.boolean().optional() }).strict();
 const choiceState = z.object({ kind: z.literal('choice'), initial: z.string().max(160),
-  options: z.array(z.string().min(1).max(160)).min(1).max(64) }).strict();
+  options: z.array(z.string().min(1).max(160)).min(1).max(64), transient: z.boolean().optional() }).strict();
 const sequenceState = z.object({ kind: z.literal('sequence'), element: z.enum(['number', 'text']),
   initial: z.array(z.union([finite, z.string().max(256)])).max(INTERACTIVE_PROGRAM_LIMITS.sequence),
   maxItems: z.number().int().min(1).max(INTERACTIVE_PROGRAM_LIMITS.sequence),
-  min: finite.optional(), max: finite.optional(), maxItemLength: z.number().int().min(1).max(256).optional() }).strict();
+  min: finite.optional(), max: finite.optional(), maxItemLength: z.number().int().min(1).max(256).optional(), transient: z.boolean().optional() }).strict();
 
 const aligned = (value: number, min: number, step: number) => {
   const index = (value - min) / step;
@@ -128,6 +128,9 @@ export interface InteractiveProgramDocument {
    * declarations' Reset defaults. The seed is then part of the hash. Absent
    * on older/full-draft documents, whose existing hash contract is retained. */
   initialStateMode?: 'admitted_seed';
+  /** Explicit patch inputChanges. Live hand adjustments may not overwrite
+   * these fields, even when the requested value equals the former seed. */
+  initialInputFields?: string[];
   /** Names only, never a source proof. Nonempty aliases require all current
    * data to be re-admitted before evaluation; absent data is not an empty set. */
   bindingAliases: string[];
@@ -213,6 +216,42 @@ export function validateProgramState(states: InteractiveStateDeclarations, raw: 
 }
 export function initialProgramState(states: InteractiveStateDeclarations): ProgramStateValues {
   return validateProgramState(states, Object.fromEntries(Object.entries(states).map(([key, state]) => [key, state.initial])));
+}
+/** Viewing conditions stay with this exact work. Held keys, gates and clocks
+ * are deliberately absent from the stored record. */
+export function retainedProgramState(states: InteractiveStateDeclarations, raw: unknown): ProgramStateValues {
+  const inputs = validateProgramState(states, raw);
+  return Object.fromEntries(Object.entries(inputs).filter(([key]) => states[key].transient !== true));
+}
+export function restoredProgramState(program: Pick<InteractiveProgramDocument, 'states' | 'initialState'>, raw?: unknown): ProgramStateValues {
+  if (raw !== undefined && !plainRecord(raw)) throw new InteractiveProgramValueError();
+  const retained = raw as ProgramStateValues | undefined;
+  if (retained && Object.keys(retained).some(key => !Object.hasOwn(program.states, key) || program.states[key].transient))
+    throw new InteractiveProgramValueError();
+  return validateProgramState(program.states, Object.fromEntries(Object.entries(program.states).map(([key, state]) =>
+    [key, state.transient ? state.initial : retained && Object.hasOwn(retained, key) ? retained[key] : program.initialState[key]])));
+}
+
+export const programLocalStateAddressSchema = z.object({ sessionId: id, messageId: id, programId: id,
+  revision: z.number().int().positive(), programHash: z.string().min(1).max(128),
+  privacyEpoch: z.number().int().nonnegative(), policyRevision: z.number().int().nonnegative(),
+  ephemeral: z.boolean().optional() }).strict();
+export const programLocalStateSaveSchema = programLocalStateAddressSchema.extend({
+  expectedStateRevision: z.number().int().nonnegative(), inputs: interactiveStateValuesSchema,
+}).strict();
+export type ProgramLocalStateAddress = z.infer<typeof programLocalStateAddressSchema>;
+export type ProgramLocalStateSave = z.infer<typeof programLocalStateSaveSchema>;
+export interface ProgramLocalStateReceipt {
+  status: 'ready' | 'saved' | 'unchanged' | 'conflict' | 'ephemeral';
+  stateRevision: number;
+  inputs?: ProgramStateValues;
+  updatedAt?: string;
+}
+export interface ProgramLocalState {
+  programHash: string;
+  stateRevision: number;
+  inputs: ProgramStateValues;
+  updatedAt: string;
 }
 /** The one native $ui record is changed atomically only after this succeeds. */
 export function checkedProgramPatch(states: InteractiveStateDeclarations, current: unknown, rawPatch: unknown): ProgramStateValues {

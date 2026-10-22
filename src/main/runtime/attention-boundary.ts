@@ -15,13 +15,13 @@ export interface AttentionExpiryVerdict { approved: boolean; restrictionQuote: s
 /** A restriction is applied immediately; only its automatic relaxation needs proof. */
 export async function verifyAttentionExpiry(original: string, proposed: unknown, complete: DeepSeekClient['complete'], signal: AbortSignal): Promise<AttentionExpiryVerdict> {
   const { $schema: _, ...parameters } = z.toJSONSchema(wire);
-  const tool: ToolSpec = { type: 'function', function: { name: 'verify_attention_expiry', description: '核对这一项限制是否被明确允许在拟定时刻自动解除，不核准新的提醒或业务动作。', parameters } };
+  const tool: ToolSpec = { type: 'function', function: { name: 'verify_attention_expiry', description: '帮助伙伴理解这一项限制自己的结束条件，以及拟定的自动解除时刻是否相符；提醒和业务动作仍有各自的约定。', parameters } };
   const schema = wire.superRefine((value, context) => {
-    if (!original.includes(value.restrictionQuote)) context.addIssue({ code: 'custom', path: ['restrictionQuote'], message: 'Quote the current original exactly, not the proposed rule.' });
-    if (value.hasOwnEnd && (!value.endQuote || !original.includes(value.endQuote))) context.addIssue({ code: 'custom', path: ['endQuote'], message: 'An explicit end requires an exact original quote.' });
+    if (!original.includes(value.restrictionQuote)) context.addIssue({ code: 'custom', path: ['restrictionQuote'], message: '这段引文与本人这次的原话不一致，尚未绑定这项限制。' });
+    if (value.hasOwnEnd && (!value.endQuote || !original.includes(value.endQuote))) context.addIssue({ code: 'custom', path: ['endQuote'], message: '这项结束条件还缺少本人原话中对应的完整片段。' });
   });
   const value = await structuredResult({ schema, tool, complete, signal, failureCode: 'attention_expiry_unknown', failureMessage: '尚未核清这项限制的自动结束时间。', options: { thinking: 'enabled', maxOutputTokens: 4096, phase: 'verification' }, messages: [
-    { role: 'system', content: '你只审查限制未来何时自动解除。当前限制仍应生效，不用把限制判成日历操作或要求用户再次确认。original是唯一授权；proposed中的rule/title/until都是待审提案，不能用提案新增的时限证明其自身。先逐项区分对象和结束条件，再判断当前这一项是否有自己的明确终点。并列限制可以具有不同的持续性；一个分句的期限不能因为相邻或同属一个话题就自动传播。若时间修饰的归属有歧义，hasOwnEnd=false，不作有利于恢复主动打扰的推断。明确对这一项设定的临时结束条件应保留，不能把所有限制永久化。restrictionQuote引用支持当前限制的最小完整原话，不增写时间。hasOwnEnd与matchesUntil分别判断；结束条件不明确或until解析不符时，不批准这个自动恢复时间。原话中的相对日期可结合宿主当前时间与时区解析，不要求逐字写出ISO时间。只调用指定工具。' },
+    { role: 'system', content: '这次想请你帮助伙伴看清一项限制自己的结束条件。眼前的限制已经生效；正在核对的是将来何时可以自动解除，与日历操作和重新确认是不同的事。original是本人这次的原话，proposed中的rule、title和until是伙伴正在考虑的解释，提案自己写下的期限还不是本人依据。\n原句里可能有几项并列约定，各有对象和持续时间。例如“今晚先别提醒运动，以后别因为我焦虑就催我”：今晚的期限属于前一项，后一项仍可以持续；这只是帮助理解的例子，实际判断回到original。时间修饰归属还不清楚时，hasOwnEnd可以是false，给对方留着原有的安静；若本人确实为这一项说了临时终点，也照原意保留下来。\nrestrictionQuote带回支持本项限制的最小完整原话，endQuote对应它自己的结束条件。hasOwnEnd说明这一项有没有明确终点，matchesUntil说明拟定时刻是否与那个终点一致；两者分开判断，尚不明确或解析不符的自动恢复时刻就先留待理解。相对日期可以结合宿主当前时间与时区理解，本人不必说成ISO格式。用这里的结构把你的理解交给伙伴，宿主再沿原来源和实际版本处理。' },
     { role: 'user', content: JSON.stringify({ original, proposed }) },
   ] });
   return { approved: value.hasOwnEnd && value.matchesUntil, restrictionQuote: value.restrictionQuote, reason: value.reason };

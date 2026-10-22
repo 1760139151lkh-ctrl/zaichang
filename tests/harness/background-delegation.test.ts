@@ -68,7 +68,7 @@ test('background workers receive only their quoted authority, read-only tools an
     const second = await open(s, { ...s.task, title: '独立第二项' });
     const sibling = s.helper.workers.get(second.id)!;
     assert.equal(sibling.run.pack!.receipt.budget, worker.run.pack!.receipt.budget);
-    assert.throws(() => s.helper.authorize([{ ...s.task, title: '超出总数' }]), /最多/);
+    assert.doesNotThrow(() => s.helper.authorize([{ ...s.task, title: '另一项独立调查' }]));
     const prior = s.run.toolCalls;
     await sibling.registry.execute('read_evidence', JSON.stringify({ id: s.authority.id }), 'second-read');
     assert.equal(s.run.toolCalls, prior + 1);

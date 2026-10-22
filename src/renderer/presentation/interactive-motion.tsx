@@ -16,17 +16,32 @@ export function InteractiveMotion({ props }: ComponentRenderProps<Record<string,
   const controls = useInteractiveControls(), graphic = useContext(InteractiveGraphicSlot);
   const current = useRef(controls); current.current = controls;
   const element = useRef<HTMLDivElement | SVGGElement>(null);
+  const tracks = useRef<readonly string[]>([]);
   const run = useRef<{ generation: number; raf?: number; animation?: Animation }>({ generation: 0 });
   const previous = useRef({ when: props.when as unknown, action: controls.userAction.serial });
+  const startedAction = useRef(0);
   const cancel = () => {
     run.current.generation += 1;
     if (run.current.raf !== undefined) cancelAnimationFrame(run.current.raf);
     run.current.animation?.cancel(); run.current.raf = undefined; run.current.animation = undefined;
   };
-  useEffect(() => { const unregister = current.current.registerMotion(cancel); return () => { cancel(); unregister(); }; }, []);
+  useEffect(() => {
+    cancel(); startedAction.current = 0;
+    previous.current = { when: props.when, action: 0 };
+    const unregister = current.current.registerMotion(cancel, () => tracks.current);
+    return () => { cancel(); unregister(); };
+  }, [controls.scopeKey]);
+  useEffect(() => {
+    const hidden = () => { if (document.hidden) cancel(); };
+    const observer = new IntersectionObserver(entries => { if (!entries.some(entry => entry.isIntersecting)) cancel(); });
+    const work = element.current?.closest('.interactive-document') || element.current;
+    if (work) observer.observe(work);
+    window.addEventListener('blur', cancel); document.addEventListener('visibilitychange', hidden);
+    return () => { observer.disconnect(); window.removeEventListener('blur', cancel); document.removeEventListener('visibilitychange', hidden); };
+  }, []);
   useEffect(() => {
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
-    const changed = () => { if (reducedMotion()) cancel(); };
+    const changed = () => { if (reducedMotion()) run.current.animation?.finish(); };
     preference.addEventListener('change', changed);
     const observer = new MutationObserver(changed); observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-motion'] });
     return () => { preference.removeEventListener('change', changed); observer.disconnect(); };
@@ -34,13 +49,18 @@ export function InteractiveMotion({ props }: ComponentRenderProps<Record<string,
   useEffect(() => { if (controls.disabled) cancel(); }, [controls.disabled]);
   useEffect(() => {
     const action = current.current.userAction, old = previous.current;
-    if (action.origin !== 'button') { previous.current = { when: props.when, action: action.serial }; return; }
-    if (old.action === action.serial || Object.is(old.when, props.when)) return;
     previous.current = { when: props.when, action: action.serial };
-    cancel();
-    if (current.current.disabled || props.when === undefined || props.when === null || props.when === false) return;
+    const userStarted = action.origin === 'button' || action.origin === 'control' || action.origin === 'choice';
+    if (!action.serial || !userStarted || Object.is(old.when, props.when)) return;
+    if (props.when === false && props.releaseBehavior === 'finish') return;
+    if (current.current.disabled || props.when === undefined || props.when === null || props.when === false) { cancel(); return; }
+    // A user-started finite stage can trigger another stage. Each node has
+    // one start per real action, so its own writes cannot make an auto-loop.
+    if (startedAction.current === action.serial) return;
+    cancel(); startedAction.current = action.serial;
     const frames = structuredClone(props.frames) as Frame[], duration = props.durationMs as number, iterations = props.iterations as number;
     const fields = [...new Set(frames.flatMap(frame => Object.keys(frame.values || {})))];
+    tracks.current = fields;
     const last: Record<string, number> = Object.fromEntries(fields.map(key => [key, current.current.inputs[key] as number]));
     // Carry only explicitly animated tracks, never a snapshot of the record.
     const keyframes = frames.map(frame => {

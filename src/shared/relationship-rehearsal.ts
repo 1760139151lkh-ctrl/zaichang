@@ -2,7 +2,11 @@ import { z } from 'zod';
 import { workSourceBindingSchema, workSourceRefSchema, type WorkSourceBinding } from './harness';
 
 const id = z.string().min(1).max(160), revision = z.number().int().positive();
-export const REHEARSAL_SOURCE_CONTEXT_MEANING = 'sourceContext.kind=relationship_rehearsal表示这条原话沿本人的试说/改表达界面而来，只是宿主来源身份，不是授权，也不证明整条话都虚构。先分清本人试着对别人说的台词、助手扮演的可能回应、对试说的评论，以及此刻真正对助手提出的退出/独立请求。纯台词中的第一人称、答应、记住、采用、发给或执行等措辞，不能变本人现实陈述、记录许可、选择或行动委托；助手模拟更不能作本人或对方事实。真正明确的外层请求仍按原边界逐项核，不把整轮锁死成排练模式。本人现实ADD必须同时得到真实事实片段和精确记录许可支持，不能由UI引用或台词里出现“记住”批准。';
+export const REHEARSAL_SOURCE_CONTEXT_MEANING = `sourceContext.kind=relationship_rehearsal说明这条话沿本人的试说或改表达界面而来。它帮助认出来源与活动，具体许可和每句话的真实归属仍有各自的依据。
+
+想请你听清几种可能同时出现的声音：本人试着对别人说的台词、助手扮演的一种可能回应、对试说的评论，以及此刻真正向助手提出的退出或独立请求。纯台词里的第一人称、答应、记住、采用、发给和执行，都先属于这段试说；助手的模拟回应也保留可能性的身份。本人和对方的现实事实、记录许可、选择与行动托付，则沿真实原话分别理解。
+
+一个人试说到一半，也可以认真提出新请求，整条话的归属仍由你结合语义判断。本人现实ADD有两份相互配合的依据：真实事实片段，以及精确的记录许可。界面引用和台词中的“记住”说明当时所指的内容，新的现实记录仍有它自己的来处。`;
 export const rehearsalCitationSchema = workSourceRefSchema.safeExtend({ quote: z.string().min(1).max(4000) });
 export type RehearsalCitation = z.infer<typeof rehearsalCitationSchema>;
 const locator = workSourceRefSchema.safeExtend({ quoteSha256: z.string().regex(/^[a-f0-9]{64}$/) });

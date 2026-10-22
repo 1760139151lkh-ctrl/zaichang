@@ -24,8 +24,7 @@ function validTime(assertion: Assertion) {
  * periodic summary, copied evidence or historical authorization is created. */
 export function readUnderstandingHistory(repo: KernelRepository, handle: ScopeHandle, raw: z.infer<typeof understandingReadInput>,
   sourceReadable?: (eventId: string) => boolean) {
-  const scope = repo.scope(handle);
-  if (!scope.grants.includes('evidence:read') || !scope.sources.includes('profile:self'))
+  if (!repo.personalMemoryReadable(handle))
     throw new HarnessError('memory_history_scope', '本轮范围不允许读取个人理解历史。');
   const page = repo.assertionHistory(handle, raw.id, raw);
   if (!page) return { status: 'not_found', items: [], reason: '当前范围内没有可读取的这条理解。' };
@@ -58,6 +57,11 @@ export function readUnderstandingHistory(repo: KernelRepository, handle: ScopeHa
       ...(value ? { understanding: { id: value.id, predicate: value.predicate, text: value.text, value: value.value,
         kind: value.kind, strength: value.strength, conditions: value.conditions, exceptionIds: value.exceptionIds,
         validTime: validTime(value), statusAtRevision: value.status, verificationAtRevision: value.verification },
+      ...(value.referenceContexts?.length ? { referenceContexts: value.referenceContexts.map(reference => ({
+        ...reference, meaning: '助手原问句只解释本人答复的指代，不是本人事实或执行许可。',
+        read: { tool: 'read_assistant_history', arguments: { id: reference.messageId, offset: reference.start,
+          limit: Math.min(1200, reference.end - reference.start) } },
+      })) } : {}),
       citations: entry.citations, ...(appliesAt === undefined ? {} : { declaredIntervalContainsValidAt: appliesAt }) }
         : { reason: '这个修订的原依据已不在当前可用范围，没有恢复旧正文。' }),
       ...(changes ? { changedFields: changes } : {}),

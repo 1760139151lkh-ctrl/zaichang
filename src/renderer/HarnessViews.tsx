@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from 'react';
 import { ChevronRight, FileText, LoaderCircle, Pause, Pencil, RotateCcw, X } from 'lucide-react';
 import type { Action, Bridge, Message, RuntimeOverview, State } from '../shared/types';
-import type { Condition, EffectAction, EvidenceEvent, MemoryView } from '../shared/harness';
+import type { Condition, EvidenceEvent, MemoryView } from '../shared/harness';
 import { IconButton, Modal, Switch, uiError } from './ui';
 import { formatDateTime, fromTimeInput, toTimeInput } from './time';
 import './entrusted.css';
@@ -405,7 +405,7 @@ export function UnderstandingPanel({
       <Switch
         checked={state.settings.memoryEnabled}
         label="记住我明确说出的偏好"
-        detail="关闭后，不再参考记忆与历史，也不形成新的个人理解"
+        detail="开启时，在相关的话题里参考过去的聊天与理解；关闭后暂停这些回忆，也不形成新的理解。"
         disabled={!!pending || (busy && !state.settings.memoryEnabled)}
         onChange={(v) =>
           void act('toggle', async () => {
@@ -736,7 +736,7 @@ export function WorkAndReceipts({
   onResume,
   onChanged,
   onAttention,
-  currentActionIds,
+  agenda,
   preparations,
   onState,
   onContinue,
@@ -745,7 +745,7 @@ export function WorkAndReceipts({
   onResume: (sessionId: string) => void;
   onChanged: () => void;
   onAttention?: (count: number) => void;
-  currentActionIds?: string[];
+  agenda: Action[];
   preparations: import('../shared/presentation').PreparationView[];
   onState: (state: State) => void;
   onContinue: (text: string) => void;
@@ -809,7 +809,7 @@ export function WorkAndReceipts({
     localSaved =
       data?.actions.filter(
         ({ action: a, receipts }) =>
-          (!currentActionIds || currentActionIds.includes(a.id)) &&
+          agenda.some(item => (item.effectActionId || item.id) === a.id) &&
           a.executionTier === 'direct_local' &&
           a.status === 'succeeded' &&
           receipts.at(-1)?.status === 'confirmed_success' &&
@@ -1044,17 +1044,16 @@ export function WorkAndReceipts({
             最近记下的安排 <span>{localSaved.length} 件</span>
           </summary>
           {localSaved.map(({ action: a, receipts }) => {
-            const item = localActionItem(a);
+            const item = agenda.find(item => (item.effectActionId || item.id) === a.id)!;
             const observedAt = receipts.at(-1)?.observedAt;
             return (
               <div className="work-row action-receipt-row" key={a.id}>
                 <div className="work-row-heading">
-                  <strong>{String(a.arguments.title || '本机安排')}</strong>
+                  <strong>{item.title}</strong>
                   <span>留在这台设备上</span>
                 </div>
                 <p>
                   {observedAt ? `${date(observedAt)}记下。` : '这件安排已经记下。'}
-                  还没有替你在其他应用里添加或发送。
                 </p>
                 <div className="field-buttons">
                   <button
@@ -1093,21 +1092,6 @@ export function WorkAndReceipts({
       )}
     </div>
   );
-}
-
-function localActionItem(action: EffectAction): Action {
-  const args = action.arguments;
-  return {
-    id: action.id,
-    title: typeof args.title === 'string' && args.title.trim() ? args.title : '本机安排',
-    detail: typeof args.detail === 'string' ? args.detail : '',
-    startsAt: typeof args.startsAt === 'string' ? args.startsAt : undefined,
-    durationMinutes: typeof args.durationMinutes === 'number' ? args.durationMinutes : undefined,
-    saved: true,
-    revision: action.revision,
-    approvalDigest: action.digest,
-    coverage: 'verified',
-  };
 }
 
 export function SourcePermissions({ onState }: { onState: (s: State) => void }) {
@@ -1359,7 +1343,7 @@ export function MemoryPanel({
       <Switch
         checked={state.settings.memoryEnabled}
         label="让在场参考这些理解"
-        detail="关闭后，不再读取或保存长期理解"
+        detail="开启时，在相关的话题里参考过去的聊天与理解；关闭后暂停这些回忆，也不形成新的理解。"
         disabled={!!pending || (busy && !state.settings.memoryEnabled)}
         onChange={(value) =>
           void act('toggle', async () => {
@@ -1832,7 +1816,7 @@ export function MemoryPanelSimple({
       <Switch
         checked={state.settings.memoryEnabled}
         label="让在场慢慢了解我"
-        detail="开启时，只在相关的话题里参考；关闭后不再参考，也不再记住聊天里提到的事"
+        detail="开启时，在相关的话题里参考过去的聊天与理解；关闭后暂停这些回忆，也不形成新的理解。"
         disabled={!!pending || (busy && !state.settings.memoryEnabled)}
         onChange={(value) =>
           void act('toggle', async () => {

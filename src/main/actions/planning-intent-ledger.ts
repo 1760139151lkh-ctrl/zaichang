@@ -55,7 +55,7 @@ export function projectPlanningAdoption(input: PlanningAdoptionInput): PlanningA
     taskMinutes: [], dailyMinutes: [], allocatedMinutes: 0, calendarFingerprint: calendarPlanFingerprint(input.calendar) };
   const review = (reason: string) => { result.status = 'needs_review'; result.reasons.push(reason); };
   const now = Date.parse(input.now), request = input.spec.request;
-  if (!Number.isFinite(now)) { review('当前时间无法核对，不能计算剩余安排。'); return result; }
+  if (!Number.isFinite(now)) { review('当前时间尚无法确认，剩余安排的计算还缺少时间起点。'); return result; }
   const seenAttempts = new Map<string, PlanningAttemptRecord>();
   const observations = new Map<string, PlanningUnitObservation>();
   const key = (planId: string, blockId: string) => `${planId}\0${blockId}`;
@@ -68,7 +68,7 @@ export function projectPlanningAdoption(input: PlanningAdoptionInput): PlanningA
     seenAttempts.set(attempt.planId, attempt);
     const observed = input.links.some(value => value.planId === attempt.planId) || input.calendar.some(value => value.planRef?.planId === attempt.planId);
     if (attempt.intentId !== input.intentId) {
-      if (observed) review('已有采用记录不属于当前意图规格，不能自动映射剩余工作量。');
+      if (observed) review('已有采用记录属于另一份意图，当前规格还没有把这些安排折入剩余工作量的依据。');
       continue;
     }
     if (attempt.specDigest !== input.specDigest) {
@@ -111,19 +111,35 @@ export function projectPlanningAdoption(input: PlanningAdoptionInput): PlanningA
       || canonical(args.planRef) !== canonical({ planId, blockId: unit.blockId }) || Date.parse(String(args.startsAt)) !== Date.parse(unit.start)
       || args.durationMinutes !== (Date.parse(unit.end) - Date.parse(unit.start)) / minute)
       return fail('changed', '采用单位与原动作的完整占用参数不一致。', extra);
-    if (action.status === 'cancelled' && action.reason === 'cancelled_before_dispatch' && !action.compensation
+    const nonDispatch = action.nonDispatchProof;
+    const confirmedBeforeDispatch = action.reason === 'cancelled_before_dispatch' || !!nonDispatch
+      && nonDispatch.actionId === action.id && nonDispatch.actionRevision === action.revision && nonDispatch.actionDigest === action.digest
+      && Number.isFinite(Date.parse(nonDispatch.observedAt));
+    if (action.status === 'cancelled' && confirmedBeforeDispatch && !action.compensation
       && !input.actionAttempts.some(value => value.actionId === action.id) && !input.receipts.some(value => value.actionId === action.id)
       && !rows.length && !input.calendar.some(value => value.id === action.id || value.effectActionId === action.id))
       return { ...base, ...extra, status: 'not_adopted', reason: '宿主已在派发前明确取消，并重新核实没有任何派发或业务保存证明。' };
+    const dispatches = input.actionAttempts.filter(value => value.actionId === action.id);
+    const receipts = input.receipts.filter(value => value.actionId === action.id);
+    if (['failed_confirmed', 'cancelled'].includes(action.status) && !action.compensation && !rows.length
+      && !input.calendar.some(value => value.id === action.id || value.effectActionId === action.id)
+      && dispatches.length > 0 && new Set(dispatches.map(value => value.id)).size === dispatches.length
+      && receipts.length === dispatches.length && dispatches.every(dispatch => {
+        const receipt = receipts.filter(value => value.attemptId === dispatch.id);
+        return dispatch.status === 'failed_confirmed' && dispatch.idempotencyKey === action.idempotencyKey
+          && receipt.length === 1 && receipt[0].status === 'confirmed_failure' && receipt[0].sourceId === action.sourceId
+          && !receipt[0].externalRecordId && !receipt[0].localStatus && Number.isFinite(Date.parse(receipt[0].observedAt))
+          && ['local_transaction_rolled_back', 'local_transaction_not_committed'].includes(receipt[0].reason || '');
+      })) return { ...base, ...extra, status: 'not_adopted', reason: '原本地保存的每次派发都有确定未提交的回执，当前也没有对应日历对象。' };
     if (action.status !== 'succeeded') return fail(['awaiting_approval', 'approved', 'dispatching', 'outcome_unknown', 'unresolved', 'cancel_requested', 'cancellation_unknown'].includes(action.status)
-      ? 'pending' : 'unavailable', '原动作尚无确定可用的成功状态，须沿原动作核查。', extra);
+      ? 'pending' : 'unavailable', '原动作目前还没有可确认的成功状态，它自己的派发记录与回执才说明本次保存结果；这份未知尚不能折作已安排或未安排。', extra);
     const successes = unique(input.receipts.filter(value => value.actionId === action.id && value.status === 'confirmed_success' && value.localStatus === 'local_saved'));
-    if (successes.length > 1) return fail('duplicate', '原动作存在多份成功提交证明，不能重复计算。', extra);
+    if (successes.length > 1) return fail('duplicate', '原动作出现多份成功提交证明，尚无法唯一确定本次采用；这些记录还没有重复折入工作量。', extra);
     const receipt = successes[0];
     if (!receipt || !receipt.externalRecordId || receipt.sourceId !== action.sourceId || !Number.isFinite(Date.parse(receipt.observedAt)))
       return fail('unavailable', '缺少指向真实日历对象的本地成功回执。', extra);
-    const dispatches = input.actionAttempts.filter(value => value.id === receipt.attemptId);
-    if (dispatches.length !== 1 || dispatches[0].actionId !== action.id || dispatches[0].idempotencyKey !== action.idempotencyKey || dispatches[0].status !== 'succeeded')
+    const successDispatches = input.actionAttempts.filter(value => value.id === receipt.attemptId);
+    if (successDispatches.length !== 1 || successDispatches[0].actionId !== action.id || successDispatches[0].idempotencyKey !== action.idempotencyKey || successDispatches[0].status !== 'succeeded')
       return fail('unavailable', '成功回执缺少一致的真实派发记录。', extra);
     const undo = action.compensation;
     if (!undo?.applied || undo.targetId !== receipt.externalRecordId || !Number.isSafeInteger(undo.expectedRevision) || undo.expectedRevision < 1)
@@ -133,7 +149,7 @@ export function projectPlanningAdoption(input: PlanningAdoptionInput): PlanningA
     if (!current.length) return fail('deleted', '已成功保存的日历对象现在不存在。', saved);
     if (current.length !== 1) return fail('duplicate', '成功回执对应多个当前对象。', saved);
     const row = current[0];
-    if (row.done) return fail('done_marked', '日历对象已标记完成；这不能自动折算为任务进展。', saved);
+    if (row.done) return fail('done_marked', '日历对象已经标记完成，这说明了该对象的状态；原任务实际做了多少，仍需要相应进展依据，尚未据此自动扣减工作量。', saved);
     if (!Number.isSafeInteger(row.revision) || !Number.isSafeInteger(input.calendarRevisions[row.id]) || input.calendarRevisions[row.id] < 1)
       return fail('unavailable', '当前日历对象的版本或修订高水位不可用。', saved);
     if (row.revision !== undo.expectedRevision || input.calendarRevisions[row.id] !== undo.expectedRevision || row.effectActionId !== action.id
@@ -145,7 +161,7 @@ export function projectPlanningAdoption(input: PlanningAdoptionInput): PlanningA
     if (recordOwners.has(row.id) && recordOwners.get(row.id) !== owner || actionOwners.has(action.id) && actionOwners.get(action.id) !== owner)
       return fail('duplicate', '同一实际对象或动作被多个采用单位引用。', saved);
     recordOwners.set(row.id, owner); actionOwners.set(action.id, owner);
-    if (Date.parse(unit.start) < now) return fail('partial', '已保存占用已经开始或过去，不能把时间经过当作工作进展。', saved);
+    if (Date.parse(unit.start) < now) return fail('partial', '已保存占用已经开始或过去，它已不再是完整的未来安排。时间经过尚未说明事情做了多少，剩余工作仍缺少实际进展依据。', saved);
     return { ...base, ...saved, status: 'intact' };
   };
   const unallocated = (status: PlanningUnitObservation['status'] | undefined) => status === 'never_prepared' || status === 'not_adopted';
@@ -159,7 +175,7 @@ export function projectPlanningAdoption(input: PlanningAdoptionInput): PlanningA
     // A different specification cannot inherit adopted work. A host-proven
     // cancellation of every prepared unit, however, has no work to inherit.
     if (!completeManifest || !previous.some(value => value.status === 'not_adopted') || previous.some(value => !unallocated(value.status)))
-      review('已有采用记录不属于当前意图规格，且不能证明其准备单位均在派发前取消；不能自动映射剩余工作量。');
+      review('已有采用记录属于旧意图规格，现有证明也不足以确认其中所有单位均未形成采用；这些安排还无法可靠地折入当前规格的剩余工作量。');
   }
 
   for (const attempt of attempts) {
@@ -207,7 +223,7 @@ export function projectPlanningAdoption(input: PlanningAdoptionInput): PlanningA
         unitGroups.add(identity);
       }
       if (!complete(planId, group.unitIds)) {
-        if (group.unitIds.some(id => !unallocated(observations.get(key(planId, id))?.status))) review('工作组只保留了部分占用或证明，不能扣减净工作量。');
+        if (group.unitIds.some(id => !unallocated(observations.get(key(planId, id))?.status))) review('工作组目前只保留部分占用或证明，完整安排尚未得到确认，因此这部分还没有从净工作量中扣除。');
         continue;
       }
       if (Date.parse(group.reservedStart) < now || Date.parse(group.reservedStart) < Date.parse(request.from) || Date.parse(group.reservedEnd) > Date.parse(request.to)) {
@@ -246,7 +262,7 @@ export function projectPlanningAdoption(input: PlanningAdoptionInput): PlanningA
     .sort((a, b) => Date.parse(a.start) - Date.parse(b.start));
   let lastEnd = -Infinity;
   for (const unit of occupied) {
-    if (Date.parse(unit.start) < lastEnd) review('已采用工作的完整占用、休息、转场或保护时间互相重叠，须核对实际安排。');
+    if (Date.parse(unit.start) < lastEnd) review('已采用工作的完整占用、休息、转场或保护时间存在重叠，当前安排还不足以支持无冲突地继续。');
     lastEnd = Math.max(lastEnd, Date.parse(unit.end));
   }
   if (occupied.length) {
@@ -255,7 +271,7 @@ export function projectPlanningAdoption(input: PlanningAdoptionInput): PlanningA
       && (!value.planning || value.planning.state === 'accepted') && (!value.kind || ['event', 'time_block'].includes(value.kind)));
     try {
       const from = occupied[0].start, to = iso(lastEnd), expansion = expandAgenda(otherCalendar, from, to, request.timeZone);
-      if (expansion.issues.length) review('其他当前日历占用无法完整展开，不能确认原已安排工作及边界仍无冲突。');
+      if (expansion.issues.length) review('其他当前日历占用尚未完整展开，原已安排工作连同休息、转场和保护时间是否仍无冲突，目前还不明确。');
       for (const row of expansion.items) {
         const dateBounds = typeof row.allDayDate === 'string' ? planningDayBounds(row.allDayDate, String(row.timeZone || request.timeZone))
           : row.dateBounds as { from: string; to: string } | undefined;
@@ -265,7 +281,7 @@ export function projectPlanningAdoption(input: PlanningAdoptionInput): PlanningA
         if (occupied.some(unit => overlaps(unit, { start, end }))) review('其他当前日历安排与已采用的工作、休息、转场或保护占用冲突。');
       }
     } catch {
-      review('其他当前日历的时间边界无法核对，须重新读取后再规划。');
+      review('其他当前日历的时间边界还无法确认，重新读取到的实际安排可以补足后续规划的依据。');
     }
   }
   const work = result.retained.work.sort((a, b) => Date.parse(a.reservedStart) - Date.parse(b.reservedStart) || a.id.localeCompare(b.id));
@@ -277,7 +293,7 @@ export function projectPlanningAdoption(input: PlanningAdoptionInput): PlanningA
     const groups = work.filter(value => value.taskId === task.id);
     if (!groups.length) continue;
     const minutes = groups.reduce((sum, value) => sum + value.durationMinutes, 0), reservedEnd = iso(Math.max(...groups.map(value => Date.parse(value.reservedEnd))));
-    if (minutes > task.durationMinutes.max) review('已安排净工作超过原任务工作量，不能自动扣减。');
+    if (minutes > task.durationMinutes.max) review('已安排净工作超过原任务工作量，二者尚不一致，当前没有据此自动计算剩余量。');
     result.taskMinutes.push({ taskId: task.id, minutes, reservedEnd });
     if (minutes === task.durationMinutes.max) result.retained.scheduledTasks.push({ taskId: task.id, reservedEnd });
     result.allocatedMinutes += minutes;
@@ -308,28 +324,28 @@ export function materializePlanningIntent(spec: PlanningIntentSpec, adoption: Pl
   if (spec.request.completedTaskIds.length && !requiredRefresh.some(value => value.kind === 'completion'))
     spec.request.completedTaskIds.forEach(taskId => requiredRefresh.push({ kind: 'completion', taskId }));
   if (spec.coverageMode !== 'retained_local_interpretation' && !requiredRefresh.some(value => value.kind === 'source_coverage')) requiredRefresh.push({ kind: 'source_coverage' });
-  if (requiredRefresh.length) return finish('required_refresh', ['原规划包含需要当前重新读取的事实、条件或完成依据。']);
+  if (requiredRefresh.length) return finish('required_refresh', ['原规划保留了当时的解释与方法，其中仍有依赖现实来源、条件或完成情况的部分。requiredRefresh列出这些缺口；旧的满足状态或来源版本还不是它们今天的答案，当前可读的事实能支持接下来的安排。']);
   const original = structuredClone(spec.request), now = Date.parse(options.now);
   if (!Number.isFinite(now)) return finish('needs_review', ['当前时间无法核对。']);
-  const from = Math.max(Date.parse(original.from), Math.ceil(now / minute) * minute), to = Date.parse(original.to);
-  if (!Number.isFinite(from) || !Number.isFinite(to) || from >= to) return finish('no_future_domain', ['原规划范围已没有未来时间，不能自动平移日期。']);
+  const from = Math.max(Date.parse(original.from), (Math.floor(now / minute) + 1) * minute), to = Date.parse(original.to);
+  if (!Number.isFinite(from) || !Number.isFinite(to) || from >= to) return finish('no_future_domain', ['原规划范围已没有可供本次续排的未来时间，日期仍保持原约定。你可以结合眼前意愿继续商量新的时间范围，事情并未因此当作完成。']);
   // Alignment limits new writes. A saved reservation can legitimately begin
   // in the few future seconds before that aligned lower bound.
   if (retained.work.some(value => Date.parse(value.reservedStart) < now) || retained.boundaries.some(value => Date.parse(value.start) < now))
-    return finish('needs_review', ['已采用占用不再完整位于本次未来范围，须重新核对当前进展。']);
+    return finish('needs_review', ['已采用占用已经开始或过去，不再完整位于本次未来范围。它保留着原安排的事实，实际进展还未明确，当前无法可靠地把它作为纯未来占用继续计算。']);
   const clip = <T extends { start: string; end: string }>(values: T[]): T[] => values.flatMap(value => {
     const start = Math.max(from, Date.parse(value.start)), end = Math.min(to, Date.parse(value.end));
     return end > start ? [{ ...value, start: iso(start), end: iso(end) }] : [];
   });
   const scheduleWindows = original.scheduleWindows === undefined ? undefined : clip(original.scheduleWindows);
-  if (scheduleWindows?.length === 0) return finish('no_future_domain', ['原声明的可安排时窗已没有未来交集；空时窗不扩成整个日期范围。']);
+  if (scheduleWindows?.length === 0) return finish('no_future_domain', ['原声明的可安排时窗已没有未来交集，范围仍以这些时窗为准，整段日期没有因此变成可用时间。接下来是否换个时段，可以继续按当前意愿商量。']);
   const tasks: PlanningDraftRequest['tasks'] = [];
   for (const task of original.tasks) {
     const allocation = adoption.taskMinutes.find(value => value.taskId === task.id), allocated = allocation?.minutes || 0;
     if (allocated > task.durationMinutes.max || allocated < 0) return finish('needs_review', ['已安排净工作与原任务工作量不一致。']);
     if (allocated === task.durationMinutes.max) continue;
     const max = task.durationMinutes.max - allocated;
-    if (task.minimumChunkMinutes && max < task.minimumChunkMinutes) return finish('needs_review', ['剩余净工作不足原最小连续时长，不能默默修改原约束。']);
+    if (task.minimumChunkMinutes && max < task.minimumChunkMinutes) return finish('needs_review', ['剩余净工作已小于原先约定的最小连续时长，两项条件无法同时延续；本次仍保留原约束，尚未另改时长。']);
     const earliest = allocation ? Math.max(task.earliestStart ? Date.parse(task.earliestStart) : from, Date.parse(allocation.reservedEnd)) : undefined;
     if (earliest !== undefined && task.deadline && earliest >= Date.parse(task.deadline)) return finish('needs_review', ['已安排工作之后的余量无法继续满足原任务期限。']);
     tasks.push({ ...task, durationMinutes: { min: Math.max(1, task.durationMinutes.min - allocated), max }, conditions: [],
@@ -346,6 +362,6 @@ export function materializePlanningIntent(spec: PlanningIntentSpec, adoption: Pl
     ...(scheduleWindows === undefined ? {} : { scheduleWindows }), protectedWindows: clip(original.protectedWindows),
     dailyBudgets: dailyBudgets.map(value => ({ ...value, ...(value.maxScheduledMinutes === undefined ? {} : { maxScheduledMinutes: Math.max(0, value.maxScheduledMinutes) }) })),
     maxScheduledMinutes, busy: [], travelTimes: [], energyWindows: [], conditions: [], sourceCoverage: [{ sourceId: 'user-declared', status: 'complete',
-      reason: '仍有合法原话来源的保留规划解释与方法默认值所述约束；不是新查的外部事实、精力或全部现实承诺，本机实际日历另行读取。' }] });
+      reason: '这里延续的是仍有合法原话来源支持的规划解释与方法默认值，描述原先如何理解任务和安排条件。当前本机日历由真实记录另行提供，外部事实、精力与全部现实承诺并没有因保留这份解释而重新查得；是否足以回应眼前问题，可以结合本次实际读到的来源判断。' }] });
   return finish('ready', [], request);
 }

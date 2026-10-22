@@ -9,14 +9,14 @@ export async function structuredResult<T>(input: {
   complete: DeepSeekClient['complete']; signal: AbortSignal; options: CompletionOptions;
   failureCode: string; failureMessage: string;
 }): Promise<T> {
-  let formatIssue = '缺少完整指定工具调用。';
+  let formatIssue = '这次还没有收到完整的判断。';
   for (let attempt = 0; attempt < 2; attempt++) {
-    const messages = attempt ? [...input.messages, { role: 'system' as const, content: '上次结构未被采用。具体结构问题：' + formatIssue + ' 根据相同原始材料重新调用指定工具，简洁提交严格合法的JSON对象，补齐schema所需字段。不得为通过格式校验改变事实、权限或任务要求。' }] : input.messages;
+    const messages = attempt ? [...input.messages, { role: 'system' as const, content: '刚才这份判断还没能完整读进来，具体卡在这里：' + formatIssue + ' 原来的材料仍在。可以再帮忙理一下，用同一个工具带回你的判断吗？字段说明写着各部分的含义，缺少的信息也可以照实际情况保留；原话、事实和对方的选择仍是我们要照顾的事情。' }] : input.messages;
     let result: Awaited<ReturnType<DeepSeekClient['complete']>>;
     try { result = await input.complete(messages, [input.tool], input.signal, undefined, input.options); }
     catch (error) {
       if (attempt !== 0 || !(error instanceof ProviderError) || !['output_length', 'empty_response'].includes(error.code)) throw error;
-      formatIssue = error.code === 'empty_response' ? '模型没有返回指定结构，未采用任何判断。' : '输出长度耗尽，未取得完整结构。';
+      formatIssue = error.code === 'empty_response' ? '这一次没有收到内容，还没有据此作决定。' : '这次内容在写完之前到了长度上限，完整的判断还没收到。';
       input.signal.throwIfAborted();
       continue;
     }
@@ -26,7 +26,7 @@ export async function structuredResult<T>(input: {
       const parsed = input.schema.safeParse(JSON.parse(calls[0].function.arguments));
       if (parsed.success) return parsed.data;
       formatIssue = JSON.stringify(parsed.error.issues.slice(0, 8).map(issue => ({ field: issue.path.join('.'), code: issue.code, message: issue.message })));
-    } catch { formatIssue = '工具参数不是有效的JSON对象。'; }
+    } catch { formatIssue = '这份工具参数目前还无法按JSON对象读取。'; }
   }
   throw new HarnessError(input.failureCode, input.failureMessage);
 }

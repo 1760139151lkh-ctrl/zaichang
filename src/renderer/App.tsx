@@ -6,6 +6,7 @@ import { LocalSearchPanel } from './LocalSearchPanel';
 import { ComposerActions } from './ComposerActions';
 import { FocusContextChip } from './FocusContextChip';
 import { LetterHistoryCard } from './LetterHistoryCard';
+import { PlanningOfferCard } from './PlanningOfferCard';
 import { ConversationComposerDockContext, useConversationComposerDock } from './ConversationComposerDock';
 import { ConversationTextFocusContext } from './ConversationTextFocus';
 import { createPortal } from 'react-dom';
@@ -58,14 +59,15 @@ import {
   type MatterInteraction,
   type MatterInteractionUpdate,
 } from './LifePanels';
-import type { SharedMatterView, SurfaceView } from '../shared/presentation';
-import type { Action, Draft, Memory, Message, ReleaseArtifact, State } from '../shared/types';
+import type { PreparationReference, SharedMatterView, SurfaceView } from '../shared/presentation';
+import type { Action, ActionEffectRef, Draft, Memory, Message, NavigationTarget, ReleaseArtifact, State } from '../shared/types';
 import { LIMITS } from '../shared/limits';
 import { emptyRoute, type MapRouteResult } from '../shared/map-v2';
 import { MapRouteCard, MapSheet } from './map/CampusMap';
 import { ConversationMap, clearConversationMapViews } from './map/ConversationMap';
-import { AssistantPresentation } from './presentation/AssistantPresentation';
-import type { SemanticSelection } from '../shared/scenes';
+import { AssistantPresentation, PresentationActivity } from './presentation/AssistantPresentation';
+import { flushProgramLocalStates } from './presentation/program-local-state';
+import { interleaveViews, type PresentationView, type ViewAnchor, type SemanticSelection } from '../shared/scenes';
 import {
   ReplyEvidence,
   ScopeSettings,
@@ -148,6 +150,8 @@ export function App() {
   const [notesOpened, setNotesOpened] = useState(false);
   const [notesUnsaved, setNotesUnsaved] = useState(false);
   const [searchTarget, setSearchTarget] = useState<{ locator: LocalSearchLocator; requestId: number }>();
+  const [preparationRequest, setPreparationRequest] = useState<PreparationReference & { requestId: number }>();
+  const preparationNavigation = useRef(0);
   const searchNavigation = useRef(0), locatedSearch = useRef(0);
   useEffect(() => { setSearchTarget(undefined); }, [state?.privacyEpoch, state?.policyRevision]);
   useEffect(() => {
@@ -542,7 +546,14 @@ export function App() {
       || companion.character === 'light' || companion.character.startsWith('custom:')) return;
     void api.followDefaultCompanion(companion.character).then(updateState).catch(() => {});
   }, [personaUntouched, boundCompanion, companion.character]);
+  function draftPrivacyEpoch(boundary: string) {
+    const epoch = Number(boundary.split(':')[0]);
+    if (!Number.isSafeInteger(epoch) || epoch < 1)
+      throw new Error('这次还没取得保存草稿所需的信息，原稿仍留在输入框里。');
+    return epoch;
+  }
   function replaceDraft(next: Draft, persist = true) {
+    const boundary = boundaryRevision.current;
     draftRevision.current++;
     draftRef.current = next;
     setInput(next.text);
@@ -553,6 +564,7 @@ export function App() {
         api.saveDraft({
           id: draftKey.current,
           draft: next,
+          privacyEpoch: draftPrivacyEpoch(boundary),
           ...(turnControlsRef.current.retention === 'session_only'
             ? { retention: 'session_only' as const }
             : {}),
@@ -562,11 +574,15 @@ export function App() {
   async function saveCurrentDraft() {
     if (savingDraft || navigationPending.current) return;
     const revision = draftRevision.current,
-      id = draftKey.current;
+      id = draftKey.current,
+      boundary = boundaryRevision.current,
+      draft = draftRef.current;
     setSavingDraft(true);
     await attempt(async () => {
-      await api.saveDraft({ id, draft: draftRef.current });
+      await api.saveDraft({ id, draft, privacyEpoch: draftPrivacyEpoch(boundary) });
       const info = await api.draftInfo(id);
+      if (revision !== draftRevision.current || id !== draftKey.current || boundary !== boundaryRevision.current)
+        throw new Error('原稿或所在对话已经有了变化，这次没有继续保存。');
       await api.persistDraft({ id, digest: info.digest, confirmed: true });
       if (revision === draftRevision.current) setDraftSaved(true);
     });
@@ -585,6 +601,7 @@ export function App() {
     if (closePending.current) return;
     closePending.current = true;
     try {
+      await flushProgramLocalStates();
       const pending = await api.unsavedDrafts();
       if (!pending.length) {
         api.window('close-confirmed');
@@ -607,10 +624,26 @@ export function App() {
   requestCloseRef.current = requestClose;
   useEffect(() => api?.onCloseRequest(() => void requestCloseRef.current()), []);
   // A notification she sent leads back to where she said it.
-  const navigateRef = useRef<(target: { sessionId?: string; view?: 'agenda' }) => void>(() => {});
+  const navigateRef = useRef<(target: NavigationTarget) => void>(() => {});
   navigateRef.current = target => {
-    if (target.sessionId) { setView('chat'); void openConversation(target.sessionId); }
-    else if (target.view === 'agenda') setView('agenda');
+    const requestId = ++preparationNavigation.current;
+    void (async () => {
+      if (target.sessionId) {
+        setView('chat');
+        if (sessionRef.current !== target.sessionId) await openConversation(target.sessionId);
+        if (sessionRef.current !== target.sessionId) return;
+      } else if (target.view === 'agenda') setView('agenda');
+      if (!target.preparationRef) return;
+      const next = await api.state();
+      if (requestId !== preparationNavigation.current || target.sessionId && (sessionRef.current !== target.sessionId || viewRef.current !== 'chat')) return;
+      updateState(next);
+      const ref = target.preparationRef;
+      if (!next.preparations?.some(item => item.id === ref.id && item.revision === ref.revision && item.helpRecordId === ref.helpRecordId)) {
+        notify('这份准备已经变化或收起来了。');
+        return;
+      }
+      setPreparationRequest({ ...ref, requestId });
+    })().catch(error => notify(errorText(error)));
   };
   useEffect(() => api?.onNavigate?.(target => navigateRef.current(target)), []);
   function updateDraft(part: Partial<Draft>) {
@@ -982,7 +1015,7 @@ export function App() {
         ...(noteReference ? { noteReference } : {}),
         ...(rehearsalInteraction ? { rehearsalInteraction } : {}),
         ...(file?.kind === 'text' && file.resource ? { material: file.resource } : {}), ...(image ? { image } : {}) });
-      if (isPublicSurface() || selectedNavigation !== navigation.current) return;
+      if (isPublicSurface() || selectedNavigation !== navigation.current || selectedBoundary !== boundaryRevision.current) return;
       sessionRef.current = result.sessionId;
       setSessionId(result.sessionId);
       draftKey.current = result.sessionId;
@@ -990,7 +1023,7 @@ export function App() {
       else if (consumeDraft) replaceDraft({ ...draftRef.current,
         attachment: draftRef.current.attachment === selectedAttachment ? null : draftRef.current.attachment });
       if (previousKey === 'new')
-        void attempt(() => api.saveDraft({ id: 'new', draft: { text: '', attachment: null } }));
+        void attempt(() => api.saveDraft({ id: 'new', draft: { text: '', attachment: null }, privacyEpoch: draftPrivacyEpoch(selectedBoundary) }));
       if (consumeDraft && selectedControls === turnControlsRef.current) {
         turnControlsRef.current = {};
         setTurnControls({});
@@ -1019,9 +1052,20 @@ export function App() {
       return { ok: false, error: text };
     }
   }
+  async function undoAction(effect: ActionEffectRef): Promise<ActionResult> {
+    try {
+      updateState(await api.action({ action: 'undo', effect }));
+      return { ok: true };
+    } catch (error) {
+      const text = errorText(error);
+      notify(text);
+      return { ok: false, error: text };
+    }
+  }
   async function prepareDisplay(
     input: { sessionId: string; id: string; revision: number } | { matter: SharedMatterView },
   ) {
+    const boundary = boundaryRevision.current;
     if (notesUnsaved) {
       setView('notes');
       notify('记事本还有未保存的修改，请先保存或放弃，再开始展示。');
@@ -1031,6 +1075,7 @@ export function App() {
       await api.saveDraft({
         id: draftKey.current,
         draft: draftRef.current,
+        privacyEpoch: draftPrivacyEpoch(boundary),
         ...(turnControlsRef.current.retention === 'session_only'
           ? { retention: 'session_only' as const }
           : {}),
@@ -1391,11 +1436,14 @@ export function App() {
             && visibleHelpBodies[helpBodyKey(m, m.primaryHelpRef,
               `${state?.privacyEpoch}:${state?.policyRevision}:${state?.sourceBoundary ?? 0}`)] === m.content}
           companionName={state?.settings.persona?.core.name}
+          privacyEpoch={state?.privacyEpoch}
+          policyRevision={state?.policyRevision}
+          programStateEphemeral={turnControls.retention === 'session_only' || m.retention === 'session_only'}
           timeZone={state?.settings.timeZone}
           agenda={state?.agenda || []}
           matters={state?.matters || []}
           onSave={saveAction}
-          onRevoke={(item) => saveAction(item, 'delete')}
+          onRevoke={undoAction}
           onViewAgenda={() => setView('agenda')}
           onCorrect={() => useSuggestion('刚才有一点需要改正：')}
           onReviseDraft={(recipient) => useSuggestion(`刚才给${recipient}的草稿，请这样修改：`)}
@@ -1454,7 +1502,7 @@ export function App() {
           const onBodyVisibility = isPrimaryHelp(ref, m.primaryHelpRef) ? (body: string | undefined) => reportHelpBody(key, body) : undefined;
           const onContinue = (text: string, context?: LetterFocusContext) => context ? usePresentationFollowup({ text, ...context }, m.sessionId, m.id,
             `${state?.privacyEpoch}:${state?.policyRevision}:${state?.sourceBoundary ?? 0}`) : useSuggestion(text);
-          return material ? <PreparationShelf key={key} inline items={[material]} timeZone={state?.settings.timeZone} onState={updateState}
+          return material ? <PreparationShelf key={key} inline items={[material]} openRequest={preparationRequest} timeZone={state?.settings.timeZone} onState={updateState}
             onContinue={onContinue} onBodyVisibility={onBodyVisibility}
             quoteAsMessageBody={isPrimaryHelp(ref, m.primaryHelpRef) && material.body === m.content
               && (m.responseText ?? m.content) === m.content} /> : ref.kind === 'reflective_letter' ? <LetterHistoryCard key={key}
@@ -1466,7 +1514,10 @@ export function App() {
         </MessageView>
         </Fragment>
       )),
-    [messages, visibleHelpBodies, state?.agenda, state?.matters, state?.preparations, state?.settings.timeZone, state?.privacyEpoch, state?.policyRevision, state?.sourceBoundary, notesUnsaved, draftReady, busy,sceneSelection,latestRehearsalRevisions],
+    [messages, visibleHelpBodies, state?.agenda, state?.matters, state?.preparations, state?.settings.timeZone, state?.privacyEpoch, state?.policyRevision, state?.sourceBoundary, turnControls.retention, notesUnsaved, draftReady, busy,sceneSelection,latestRehearsalRevisions,preparationRequest,
+      // Highlight the current address without rebuilding history for each local value.
+      currentComposerFollowup?.programReference?.messageId, currentComposerFollowup?.programReference?.programId,
+      currentComposerFollowup?.programReference?.revision, currentComposerFollowup?.programReference?.nodeId],
   );
 
   if (state?.presentation?.mode === 'public')
@@ -1475,6 +1526,7 @@ export function App() {
   const materials = (
     <PreparationShelf
       items={(state?.preparations || []).filter(item => !messages.some(message => message.helpRefs?.some(ref => ref.id === item.id && ref.revision === item.revision && ref.helpRecordId === item.helpRecordId)))}
+      openRequest={preparationRequest}
       timeZone={state?.settings.timeZone}
       onState={updateState}
       onContinue={useSuggestion}
@@ -1787,6 +1839,7 @@ export function App() {
           value={turnControls}
           onClose={() => setScopeOpen(false)}
           onChange={(value) => {
+            const boundary = boundaryRevision.current;
             clearFollowup(); clearSceneSelection();
             turnControlsRef.current = value;
             setTurnControls(value);
@@ -1796,9 +1849,10 @@ export function App() {
                   id: draftKey.current,
                   draft: draftRef.current,
                   retention: 'session_only',
+                  privacyEpoch: draftPrivacyEpoch(boundary),
                 }),
               );
-            else void attempt(() => api.saveDraft({ id: draftKey.current, draft: draftRef.current }));
+            else void attempt(() => api.saveDraft({ id: draftKey.current, draft: draftRef.current, privacyEpoch: draftPrivacyEpoch(boundary) }));
           }}
         />
       )}
@@ -1841,17 +1895,23 @@ function MessageView({
   busy,
   boundary,
   companionName,
+  privacyEpoch,
+  policyRevision,
+  programStateEphemeral,
   children,
 }: {
   message: Message;
   primaryBodyPresented?: boolean;
   children?: import('react').ReactNode;
   companionName?: string;
+  privacyEpoch?: number;
+  policyRevision?: number;
+  programStateEphemeral?: boolean;
   timeZone?: string;
   agenda: Action[];
   matters: SharedMatterView[];
   onSave: (item: Action) => Promise<ActionResult>;
-  onRevoke: (item: Action) => Promise<ActionResult>;
+  onRevoke: (effect: ActionEffectRef) => Promise<ActionResult>;
   onCopyText: (text: string, label?: string) => void;
   onCorrect: () => void;
   onReviseDraft: (recipient: string) => void;
@@ -1886,33 +1946,32 @@ function MessageView({
     if (
       m.role !== 'assistant' ||
       m.status !== 'done' ||
-      !m.cooperationId ||
+      !(m.cooperationId || m.proactive === 'check_in') ||
       primaryBodyPresented ||
       !article.current ||
       exposed.current
     )
       return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (
-          !entries.some(
-            (entry) =>
-              entry.isIntersecting &&
-              entry.intersectionRect.height >= Math.min(60, entry.boundingClientRect.height),
-          ) ||
-          exposed.current
-        )
-          return;
+    let visible = false;
+    const expose = () => {
+        if (!visible || document.hidden || !document.hasFocus() || exposed.current) return;
         exposed.current = true;
         void api
           .recordResponseExposure({ sessionId: m.sessionId, messageId: m.id, event: 'displayed' })
-          .catch(() => {});
+          .then(result => { if (!result.recorded) exposed.current = false; })
+          .catch(() => { exposed.current = false; });
+    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        visible = entries.some(entry => entry.isIntersecting && entry.intersectionRect.height >= Math.min(60, entry.boundingClientRect.height));
+        expose();
       },
       { threshold: 0 },
     );
     observer.observe(article.current);
-    return () => observer.disconnect();
-  }, [m.id, m.status, m.cooperationId, primaryBodyPresented, boundary]);
+    window.addEventListener('focus', expose); document.addEventListener('visibilitychange', expose);
+    return () => { observer.disconnect(); window.removeEventListener('focus', expose); document.removeEventListener('visibilitychange', expose); };
+  }, [m.id, m.status, m.cooperationId, m.proactive, primaryBodyPresented, boundary]);
   useEffect(() => { setSelectedPassage(''); }, [m.id, boundary, primaryBodyPresented]);
   function selectionChanged() {
     const selection = window.getSelection();
@@ -2053,11 +2112,12 @@ function MessageView({
   const paragraphBreak=m.views?.length?renderedResponse.search(/\n\s*\n/):-1;
   const lead=paragraphBreak>=0?renderedResponse.slice(0,paragraphBreak):renderedResponse;
   const followup=paragraphBreak>=0?renderedResponse.slice(paragraphBreak).trim():'';
-  const manuscriptView = m.views?.find(view => view.sceneRefs.some(ref => m.scenes?.some(scene =>
-    scene.kind === 'discussion' && scene.id === ref.id && scene.revision === ref.revision)));
+  const manuscriptView = m.views?.length === 1 && !m.views[0].anchor
+    ? m.views.find(view => view.sceneRefs.some(ref => m.scenes?.some(scene =>
+      scene.kind === 'discussion' && scene.id === ref.id && scene.revision === ref.revision))) : undefined;
   const manuscriptSceneId = manuscriptView?.sceneRefs.find(ref => m.scenes?.some(scene =>
     scene.kind === 'discussion' && scene.id === ref.id && scene.revision === ref.revision))?.id;
-  const sceneViews=m.views?.map(view=>(
+  const renderView=(view:NonNullable<Message['views']>[number])=>(
     <AssistantPresentation
       key={view.id}
       view={view}
@@ -2065,6 +2125,9 @@ function MessageView({
       sessionId={m.sessionId}
       messageId={m.id}
       boundaryKey={boundary}
+      privacyEpoch={privacyEpoch}
+      policyRevision={policyRevision}
+      programStateEphemeral={programStateEphemeral}
       hostViewBoundaryKey={m.presentationBoundaryKey}
       timeZone={timeZone}
       onFollowup={onFollowup}
@@ -2085,7 +2148,19 @@ function MessageView({
         return <ConversationMap key={memoryKey} scene={scene} memoryKey={memoryKey} continuationKey={`${m.sessionId}/${scene.id}`} historical={!current} cancelled={m.status==='cancelled'||m.status==='error'} interruptionKey={sceneInterruptionKey} active={active} allowCameraRequests={(m.status==='running'||livePresentation.current)&&m.status!=='cancelled'&&m.status!=='error'} onSelect={onSceneSelect} onContinue={onContinueScene}/>;
       }}
     />
-  ));
+  );
+  // Older single papers retain their manuscript. Anchored replies keep each
+  // passage beside the view published there, including mixed discussions.
+  const activity = m.status === 'running' ? m.presentationActivity : undefined;
+  const presentationItems: { id: string; anchor?: ViewAnchor; view?: PresentationView; activity?: NonNullable<Message['presentationActivity']> }[] =
+    (m.views || []).map(view => ({ id: view.id, anchor: view.anchor, view }));
+  if (activity) presentationItems.push({ id: `activity:${activity.callId}`, anchor: { offset: activity.anchor, before: '' }, activity });
+  const renderActivity = () => activity && <PresentationActivity key={`activity:${activity.callId}`} phase={activity.phase} />;
+  const body=manuscriptView
+    ?<>{!!lead&&<div className="markdown"><RichText text={lead}/></div>}{m.views?.map(renderView)}{renderActivity()}</>
+    :interleaveViews(renderedResponse,presentationItems).map((part,index)=>part.kind==='text'
+      ?<div className="markdown" key={`text-${index}`}><RichText text={part.text}/></div>
+      :part.view.view ? renderView(part.view.view) : renderActivity());
   return (
     <article className="assistant-message" ref={article} data-message-id={m.id} tabIndex={-1}
       onMouseUp={selectionChanged} onKeyUp={selectionChanged}>
@@ -2097,9 +2172,7 @@ function MessageView({
       </div>
       {m.status === 'running' && processBlock}
       <div ref={prose}>
-        {!!lead&&<div className="markdown"><RichText text={lead}/></div>}
-        {sceneViews}
-        {!!followup&&!manuscriptView&&<div className="markdown"><RichText text={followup}/></div>}
+        {body}
       </div>
       {children}
       {!!selectedPassage && (
@@ -2123,7 +2196,7 @@ function MessageView({
       {m.actions.map((a) => (
         <ActionCard
           key={a.id}
-          action={agenda.find((v) => v.id === a.id) || a}
+          action={a.planningOffer ? a : agenda.find((v) => v.id === a.id) || a}
           timeZone={timeZone}
           saved={agenda.some((v) => v.id === a.id)}
           onSave={onSave}
@@ -2408,7 +2481,7 @@ function ActionCard({
   timeZone: string;
   saved: boolean;
   onSave: (item: Action) => Promise<ActionResult>;
-  onRevoke: (item: Action) => Promise<ActionResult>;
+  onRevoke: (effect: ActionEffectRef) => Promise<ActionResult>;
   onView: () => void;
   disabled: boolean;
   boundary: string;
@@ -2447,8 +2520,12 @@ function ActionCard({
     if (revoking) return;
     setRevoking(true);
     try {
-      const effectId = effect?.action?.id || action.effectActionId || action.id;
-      const result = await onRevoke({ ...action, id: effectId });
+      const current = effect?.action;
+      if (!current) {
+        setActionError('这次操作的记录暂时没有读到，尚未撤销。');
+        return;
+      }
+      const result = await onRevoke({ id: current.id, revision: current.revision, digest: current.digest, status: current.status });
       if (!result.ok) {
         setActionError(result.error || '撤销没有完成，请再看看。');
         return;
@@ -2477,6 +2554,11 @@ function ActionCard({
   const cancelled =
     !!effect?.action &&
     ['cancelled', 'cancellation_confirmed', 'cannot_cancel'].includes(effect.action.status);
+  const nonDispatch = effect?.action?.nonDispatchProof;
+  const cancelledBeforeDispatch = effect?.action?.status === 'cancelled' && !!nonDispatch
+    && nonDispatch.actionId === effect.action.id && nonDispatch.actionRevision === effect.action.revision
+    && nonDispatch.actionDigest === effect.action.digest && Number.isFinite(Date.parse(nonDispatch.observedAt));
+  const cancellationConfirmed = effect?.action?.status === 'cancellation_confirmed';
   const isCalendarChange = !!action.calendarChange || effect?.action?.capability === 'local.agenda.change';
   const changeOperation = action.calendarChange?.operation || effect?.action?.arguments.operation;
   const occurrenceDate = action.calendarChange?.occurrenceDate || (typeof effect?.action?.arguments.occurrenceDate === 'string' ? effect.action.arguments.occurrenceDate : undefined);
@@ -2484,6 +2566,8 @@ function ActionCard({
   const changingOccurrence = changeOperation === 'change_occurrence';
   const cancellingOccurrence = changingOccurrence && occurrenceCancellation === true;
   const restoringOccurrence = changingOccurrence && occurrenceCancellation === false;
+  if (action.planningOffer) return <PlanningOfferCard action={action} effect={effect} disabled={disabled} onSave={onSave} onView={onView}
+    onRefresh={async () => { setEffect(await api.actionState(action.effectActionId || action.id)); }} />;
   const deletingCalendarItem = changeOperation === 'delete';
   const planStateLabel = (state: NonNullable<Action['planning']>['state']) => ({ invitation: '尚未答应的邀请', wish: '愿望', proposed: '待选择的方案', accepted: '已接受的安排' })[state];
   let savedItem = effect?.localRecord || action;
@@ -2575,15 +2659,13 @@ function ActionCard({
     );
   if (cancelled)
     return (
-      <div className="stale-action action-receipt-warning">
-        <CircleAlert size={17} aria-hidden="true" />
+      <div className={cancellationConfirmed || cancelledBeforeDispatch ? 'saved-action saved-action-receipt' : 'stale-action action-receipt-warning'}>
+        {cancellationConfirmed || cancelledBeforeDispatch ? <Check size={19} aria-hidden="true" /> : <CircleAlert size={17} aria-hidden="true" />}
         <div>
           <strong>{action.title}</strong>
-          <p>
-            {effect?.action?.status === 'cancellation_confirmed'
-              ? isCalendarChange ? '这次修改已撤销。' : '这项安排已撤销。'
-              : '这项操作已停止，结果需要核对。'}
-          </p>
+          {cancellationConfirmed || cancelledBeforeDispatch
+            ? <small>{cancellationConfirmed ? isCalendarChange ? '这次修改已撤销。' : '这项安排已撤销。' : '这项提议已收起。'}</small>
+            : <p>这项操作已停止，结果需要核对。</p>}
           <button className="text-button" onClick={onView} disabled={disabled}>
             查看安排
           </button>

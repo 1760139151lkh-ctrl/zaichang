@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { normalizedRoots } from './campus-query';
 import { canonical } from '../runtime/semantics';
+import type { CampusSavedReadingProof } from '../../shared/harness';
 
 export interface CampusSnapshotProof {
   sourceId: 'campus:zju-account'; bundleId: string; resource: string; version: string;
@@ -35,6 +36,18 @@ export class CampusSnapshotProofs {
     catch { return undefined; }
   }
   headStamp(resource: string) { const stamp = this.beforeMetadata(resource); return stamp ? digest(stamp) : undefined; }
+  readingSourceIdentity(): string | undefined {
+    const directory = this.directory(), root = this.activeRoot();
+    if (!directory || !root) return;
+    try { return digest({ root, account: fileDigest(path.join(directory, 'credentials.dpapi')) }); }
+    catch { return; }
+  }
+  matchesReadingVersion(bundleId: string, resource: string, version: string) {
+    const directory = this.directory();
+    if (!directory || !this.activeRoot() || !/^[a-f0-9]{32}$/.test(bundleId) || !/^[a-f0-9]{64}$/.test(version)) return false;
+    try { return digest({ bundleId, resource, bundle: fileDigest(path.join(directory, 'datasets', bundleId + '.dpapi')) }) === version; }
+    catch { return false; }
+  }
   /** Local invalidation token only. No decryption, authentication or refresh;
    * callers must not present it as an observation from the university. */
   savedRevision(): string | null {
@@ -79,6 +92,33 @@ export class CampusSnapshotProofs {
       && existsSync(path.join(directory, 'datasets', proof.bundleId + '.dpapi'))
       && fileDigest(path.join(directory, 'datasets', proof.bundleId + '.dpapi')) === issued.bundle; }
     catch { return false; }
+  }
+  /** Read navigation may stay on an immutable historical bundle. Planning and
+   * actions retain isCurrentSnapshot's stricter current-head requirement. */
+  captureReadingProof(proof: CampusSnapshotProof): CampusSavedReadingProof | undefined {
+    const issued = this.issued.get(digest(proof));
+    if (!issued) return;
+    const saved: CampusSavedReadingProof = { sourceId: 'campus:zju-account', bundleId: proof.bundleId,
+      resource: proof.resource, version: proof.version,
+      sourceIdentity: digest({ root: issued.stamp.root, account: issued.stamp.account }), headIdentity: digest(issued.stamp), selection: proof.selection,
+      ...(proof.collectedAt ? { collectedAt: proof.collectedAt } : {}) };
+    return this.readingState(saved) === 'unavailable' ? undefined : saved;
+  }
+  readingState(proof: CampusSavedReadingProof): 'same_saved_head' | 'historical_snapshot' | 'unavailable' {
+    if (!proof || proof.sourceId !== 'campus:zju-account' || !/^[a-f0-9]{32}$/.test(proof.bundleId)
+      || !/^[a-f0-9]{64}$/.test(proof.version) || !/^[a-f0-9]{64}$/.test(proof.sourceIdentity)
+      || !/^[a-f0-9]{64}$/.test(proof.headIdentity) || !['saved_head', 'historical'].includes(proof.selection)
+      || !academic.has(proof.resource) && !sourceEndpoints[proof.resource]) return 'unavailable';
+    const directory = this.directory(), root = this.activeRoot();
+    if (!directory || !root) return 'unavailable';
+    try {
+      const account = fileDigest(path.join(directory, 'credentials.dpapi'));
+      if (digest({ root, account }) !== proof.sourceIdentity) return 'unavailable';
+      const bundle = fileDigest(path.join(directory, 'datasets', proof.bundleId + '.dpapi'));
+      if (digest({ bundleId: proof.bundleId, resource: proof.resource, bundle }) !== proof.version) return 'unavailable';
+      const head = this.beforeMetadata(proof.resource);
+      return proof.selection === 'saved_head' && head && digest(head) === proof.headIdentity ? 'same_saved_head' : 'historical_snapshot';
+    } catch { return 'unavailable'; }
   }
   bindSnapshots(proofs: CampusSnapshotProof[]): string | undefined {
     if (!proofs.length || proofs.some(proof => !this.isCurrentSnapshot(proof))) return undefined;

@@ -9,7 +9,7 @@ import { bindProgramSceneSources, inheritPreviousProgramSources, inheritPrevious
   type ProgramSourceAdmission } from './interactive-program-sources';
 import { editedProgramStates, mergeProgramSource, sourceSlotReferences } from './interactive-program-edit';
 
-type ProgramHost = Parameters<typeof resolveProgramBindings>[0] & Pick<RuntimeCoordinator, 'scenes'>;
+type ProgramHost = Parameters<typeof resolveProgramBindings>[0] & Pick<RuntimeCoordinator, 'scenes' | 'assertPresenceCreation' | 'campusSceneSources'>;
 export interface InteractiveProgramPresentation {
   view: PresentationView;
   admission: ProgramSourceAdmission;
@@ -20,7 +20,7 @@ export interface InteractiveProgramPresentation {
  * authored arithmetic/layout or local values. Only the caller's already
  * source-qualified current reference may supply a formal Message identity. */
 export function projectInteractiveProgramReadPurpose(request: unknown,
-  currentProgramReference?: unknown) {
+  currentProgramReference?: unknown, providedProgramReference?: { source: { messageId: string; programId: string; revision: number }; origin: 'delivered_this_run' | 'published_this_run' }) {
   if (!request || typeof request !== 'object' || Array.isArray(request)) return request;
   const envelope = request as Record<string, unknown>, raw = envelope.arguments;
   if (envelope.tool !== 'present_view' || !raw || typeof raw !== 'object' || Array.isArray(raw)) return request;
@@ -36,18 +36,22 @@ export function projectInteractiveProgramReadPurpose(request: unknown,
     ? { messageId: formal.messageId, programId: formal.programId, revision: Number(formal.revision) } : undefined;
   const matched = input.previous && source && input.previous.id === source.programId
     && input.previous.expectedRevision === source.revision;
+  const provided = providedProgramReference?.source;
+  const readMatched = input.previous && provided && input.previous.id === provided.programId
+    && input.previous.expectedRevision === provided.revision;
   return { ...envelope, arguments: { ...args, program: {
     libraryVersion: input.libraryVersion, operation: input.previous ? 'revise' : 'create',
     ...(input.previous ? { previous: { ...input.previous, formalIdentity: matched
       ? { status: 'matches_current_admitted_reference', source }
-      : { status: 'not_matched_to_current_formal_reference' } } } : {}),
+      : { status: source ? 'not_matched_to_current_formal_reference' : 'no_current_formal_reference' },
+      ...(readMatched ? { providedIdentity: { status: 'matches_provided_reference', origin: providedProgramReference!.origin, source: provided } } : {}) } } : {}),
     bindings: (input.bindings || []).map(({ alias, observationId, path }) => ({ alias, observationId, path: [...path] })),
     localFields: { count: Object.keys(fields).length, kinds, ...('patch' in input
       ? { mode: 'explicit_changes', removed: Object.values(fields).filter(value => value === null).length } : {}) },
     sourceSlotBoundary: 'patch' in input ? 'arguments.sceneRefs plus exact previous surviving SourceSlots after original owner revalidation' : 'arguments.sceneRefs',
     ...('patch' in input ? { editMode: 'statement_patch', explicitInputFields: Object.keys(input.inputChanges || {}).length,
       inheritance: 'original exact previous source closure; no new permission or new read acknowledgement' } : {}),
-    meaning: '拟创作或修订回复内交互。绑定仅为声明，Scene引用是SourceSlot的范围上界；不证明资料已读或权限。原请求与当前正式引用用于判断用途，之后仍核原Scene、绑定、CAS、编译与来源门。',
+    meaning: '拟创作或修订回复内交互。绑定仅为声明，Scene引用是SourceSlot的范围上界；不证明资料已读或权限。原请求、正式引用与本轮实际交付的原件各自帮助判断用途；没有正式界面引用不等于原件不匹配。之后仍核原Scene、绑定、CAS、编译与来源门。',
   } } };
 }
 
@@ -58,21 +62,26 @@ export function createInteractiveProgramPresentation(host: ProgramHost, session:
   sourceSupplement?: Parameters<typeof bindProgramSceneSources>[2]): InteractiveProgramPresentation {
   signal.throwIfAborted();
   const scope = host.policy.validate(session.ingress.contract.scope);
-  if (scope.child || session.background || scope.audience !== 'self')
+  if (scope.child || session.background && !session.presence || scope.audience !== 'self')
     throw new HarnessError('presentation_owner', '由当前主助手把交互内容接到这段交流里。');
+  if (session.background) host.assertPresenceCreation(session);
   if (!session.outputMessageId) throw new HarnessError('interactive_program_owner', '这份交互尚未接到当前真实回复。');
   const input = interactiveProgramInputSchema.parse(raw);
+  if (session.background && input.previous)
+    throw new HarnessError('presence_creation_scope', '这次只准备新的作品，不在后台改动或恢复旧作。');
   const previous = input.previous ? lookupPreviousProgram(host, session, input.previous, signal) : undefined;
   if (previous && previous.view.revision >= Number.MAX_SAFE_INTEGER)
     throw new HarnessError('interactive_program_revision', '这份交互的修订范围已用完，请另开一份内容。');
   const admission = resolveProgramBindings(host, session, input.bindings || [], signal);
   if (previous) inheritPreviousProgramSources(admission, previous, session);
-  let draft: InteractiveProgramDraft, edit: InteractiveProgramPresentation['edit'], initialInputs: ProgramStateValues | undefined;
+  let draft: InteractiveProgramDraft, edit: InteractiveProgramPresentation['edit'], initialInputs: ProgramStateValues | undefined,
+    initialInputFields: string[] | undefined;
   if ('patch' in input) {
     if (!previous) throw new HarnessError('interactive_program_patch', '局部续改需要同一原作品的精确previous。');
     const dsl = mergeProgramSource(previous.program.sourceDsl, input.patch);
     const state = editedProgramStates(previous.program, input, session, previous.source);
     initialInputs = state.initialInputs;
+    initialInputFields = state.initialInputFields;
     draft = { libraryVersion: input.libraryVersion, previous: input.previous, dsl, states: state.states, bindings: input.bindings || [] };
     inheritPreviousProgramData(admission, previous, session);
     const surviving = sourceSlotReferences(dsl), currentRefs = new Set(scenes.map(scene => `${scene.id}@${scene.revision}`));
@@ -91,9 +100,38 @@ export function createInteractiveProgramPresentation(host: ProgramHost, session:
     }
     edit = { mode: 'statement_patch', stateOrigin: state.stateOrigin, explicitInputFields: state.explicitInputFields };
   } else draft = input;
-  bindProgramSceneSources(admission, scenes, sourceSupplement);
-  const program = compileInteractiveProgram(draft, admission.data, admission.provenance,
-    scenes.map(({ id, revision }) => `${id}@${revision}`), admission.provenance.bindings.map(binding => binding.alias), initialInputs);
+  const campusSources = scenes.flatMap(scene => {
+    if (scene.kind !== 'campus' || scene.source.sourceId !== 'campus:zju-account') return [];
+    const sources = host.campusSceneSources(session.ingress.contract.scope, session.sceneSessionId || session.sessionId, scene);
+    if (!sources.length) throw new HarnessError('campus_history_changed', '这张校园画面的原账号来源还没有与本轮对应，先沿现在允许的资料重新读取。');
+    return sources;
+  });
+  const campusSensitiveReads = scenes.flatMap(scene => {
+    if (scene.kind !== 'campus' || scene.source.sourceId !== 'campus:zju-account') return [];
+    const sessionId = session.sceneSessionId || session.sessionId;
+    const owners = host.repo.campusSceneSourceMessageIds(session.ingress.contract.scope, sessionId, scene);
+    return host.repo.conversationCampusSensitiveReads(session.ingress.contract.scope, sessionId, owners);
+  });
+  bindProgramSceneSources(admission, scenes, { ...sourceSupplement,
+    ...(campusSources.length ? { campusReadingSources: [...(sourceSupplement?.campusReadingSources || []), ...campusSources] } : {}),
+    ...(campusSensitiveReads.length ? { campusSensitiveReads: [...(sourceSupplement?.campusSensitiveReads || []), ...campusSensitiveReads] } : {}) });
+  let program;
+  try {
+    program = compileInteractiveProgram(draft, admission.data, admission.provenance,
+      scenes.map(({ id, revision }) => `${id}@${revision}`), admission.provenance.bindings.map(binding => binding.alias), initialInputs, initialInputFields);
+  } catch (error) {
+    if (!(error instanceof HarnessError) || !error.diagnostic) throw error;
+    signal.throwIfAborted(); host.policy.validate(session.ingress.contract.scope);
+    const previousNavigation = previous && input.previous ? {
+      relation: 'matches_known_reference' as const, fields: { id: 'programId' as const, expectedRevision: 'revision' as const }, automaticRebase: false as const,
+      knownReference: { basis: 'validated_previous' as const, source: previous.source,
+        previous: { id: previous.view.id, expectedRevision: previous.view.revision },
+        read: { tool: 'read_interactive_program' as const, arguments: { ...previous.source, mode: 'overview' as const } } },
+    } : undefined;
+    throw new HarnessError(error.code, error.message, error.retry, { ...error.diagnostic,
+      ...(previousNavigation ? { previous: previousNavigation } : {}),
+      explanation: '这份稿没有发表，也没有增加修订号。修订时仍沿此次已核过的previous；新稿没有取得programRef。' + error.diagnostic.explanation });
+  }
   signal.throwIfAborted(); host.policy.validate(session.ingress.contract.scope);
   return { admission, ...(edit ? { edit } : {}), view: { id: previous?.view.id || randomUUID(), revision: previous ? previous.view.revision + 1 : 1,
     libraryVersion: PROGRAM_LIBRARY_VERSION, createdAt: host.repo.clock.now(),

@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { sourceContextGuidance } from '../../shared/source-context';
 import type { ScopeHandle } from '../../shared/harness';
 import type {
@@ -17,6 +17,9 @@ import type {
   WorkRecord,
   WorkSourceBinding,
   WorkSourceRef,
+  CampusReadingAddress,
+  CampusSavedReadingProof,
+  ReleaseSource,
 } from '../../shared/harness';
 import { always, HarnessError, interactiveProgramSourceSchema, planningMaterialProvenanceSchema } from '../../shared/harness';
 import type { KernelRepository } from '../storage/repository';
@@ -27,6 +30,7 @@ import type { WorkService } from './work';
 import { canonical, dateInZone, dayBounds, evaluateCondition } from './semantics';
 import { redactCredentials } from './redaction';
 import type { ModelWireMessage, ProviderMetadata } from '../provider';
+import { protocolBodyFingerprint, validatedProtocolCoverage, type ProtocolHistoryCoverage } from './protocol-history-coverage';
 import type { ProviderReceipt } from '../../shared/harness';
 import { usageCost } from './model-usage';
 import type { Completion } from '../provider';
@@ -35,11 +39,14 @@ import { projectCampusModelResult } from './campus-model-view';
 import { expandRecallBundle, fuseRecallMethods, matchesVisibleQuery, multiQueryRecall, projectHistoricalEvidence, recallQueries, type EvidenceProjection, type RecallOptions } from '../memory/retrieval';
 import { buildContinuityIndex } from './continuity';
 import { EvidenceBrowser } from '../memory/browse';
+import { mergeProvidedObjectVersions } from './evidence-images';
 import type { InvestigationFrontierService, InvestigationSession } from './investigation-frontier';
 import type { SemanticRecallService, SemanticRecallResult } from '../memory/semantic-recall';
 import type { PersonalMethodSources } from '../../shared/personal-method';
 import type { CampusSensitiveRead } from '../../shared/campus-academic';
 import type { NoteSourceProof } from '../../shared/notes-source';
+import type { CampusSnapshotProof } from '../capabilities/campus-saved-source';
+import { campusQueryOnSnapshot, campusQueryContinuation, campusQueryGrants, validateCampusQuery } from '../capabilities/campus-query';
 
 export interface LifeContinuityContext {
   data: Record<string, unknown>;
@@ -74,9 +81,21 @@ function lexical(query: string, text: string) {
 }
 export class ContextCompiler {
   private readonly evidenceBrowser = new EvidenceBrowser();
+  // Addresses and opaque identity proofs only. The original bodies remain
+  // with their existing owner and the run's ordinary delivered observations.
+  private readonly providedEvidenceReads = new WeakMap<ContextPack, Map<string, {
+    binding: string; ranges: (WorkSourceRef & { sourceSha256: string })[];
+    restrictions: ReturnType<KernelRepository['sourceRestrictionSnapshot']>;
+  }>>();
   private providerMetadata?: ProviderMetadata;
+  private workSourceOwner?: (handle: ScopeHandle, record: Pick<WorkRecord, 'id' | 'revision' | 'sourceBinding'>) => {
+    sourceBinding: WorkSourceBinding; sourceMaterial?: import('../../shared/method-work-help').MethodHelpMaterialIdentity;
+  } | undefined;
   private continuityRefresh?: () => void;
   private lifeContinuity?: (ingress: IngressDecision, sessionId: string, signal: AbortSignal) => Promise<LifeContinuityContext | undefined>;
+  private campusReadingOwner?: { capture: (proof: CampusSnapshotProof) => CampusSavedReadingProof | undefined;
+    state: (proof: CampusSavedReadingProof) => 'same_saved_head' | 'historical_snapshot' | 'unavailable';
+    resource: (domain: string) => string | undefined };
   constructor(
     readonly repo: KernelRepository,
     readonly policy: PolicyKernel,
@@ -95,6 +114,138 @@ export class ContextCompiler {
   setLifeContinuity(provider: NonNullable<ContextCompiler['lifeContinuity']>) {
     this.lifeContinuity = provider;
   }
+  setCampusReadingOwner(owner: NonNullable<ContextCompiler['campusReadingOwner']>) { this.campusReadingOwner = owner; }
+  setWorkSourceOwner(owner: NonNullable<ContextCompiler['workSourceOwner']>) { this.workSourceOwner = owner; }
+  /** These are actual tool reads; no claim that their rows were understood or
+   * that a later page has been read. The message remains their source owner. */
+  recordCampusReading(pack: ContextPack, result: CapabilityResult, capability: string, input: unknown) {
+    if (!this.campusReadingOwner || result.sourceId !== 'campus:zju-account'
+      || !['campus.query', 'campus.lookup', 'campus.overview'].includes(capability)) return;
+    const data = result.data as Record<string, any> | undefined;
+    if (!['fresh', 'partial', 'stale'].includes(result.status)) {
+      if (Array.isArray(data?.records) && data.records.length) {
+        pack.receipt.campusReadingIncomplete = true;
+        this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+      }
+      return;
+    }
+    const readOrdinal = Array.isArray(data?.records) ? (pack.receipt.campusReadingReadCount || 0) + 1 : undefined;
+    if (readOrdinal !== undefined) pack.receipt.campusReadingReadCount = readOrdinal;
+    if (!data?.snapshotProof || !Array.isArray(data.records)) {
+      if (data?.kind === 'capability_assessment' && data.recordRead === false
+        || capability === 'campus.query' && ['resources', 'schema'].includes((input as { operation?: string })?.operation || '')) {
+        pack.receipt.campusReadingAddresses ||= [];
+        pack.receipt.campusReadingSources ||= [];
+      } else pack.receipt.campusReadingIncomplete = true;
+      this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+      return;
+    }
+    // A later metadata lookup must not erase an earlier result whose exact
+    // source cannot be rechecked. Exact reads below discharge this call only.
+    const previousIncomplete = pack.receipt.campusReadingIncomplete;
+    pack.receipt.campusReadingIncomplete = true;
+    const snapshot = this.campusReadingOwner.capture(data.snapshotProof);
+    if (!snapshot) { this.repo.saveReceipt(pack.contract.scope, pack.receipt); return; }
+    try {
+      let args = this.broker.validateArguments(capability, input) as Record<string, any>;
+      if (args.bundleId && args.bundleId !== snapshot.bundleId) return;
+      args = { ...args, bundleId: snapshot.bundleId, expectedSnapshotVersion: snapshot.version, refresh: false };
+      let evaluation: CampusReadingAddress['evaluation'];
+      let next: CampusReadingAddress['next'];
+      const offset = Number.isSafeInteger(data.offset) ? data.offset : args.spec?.offset ?? args.offset ?? 0;
+      const nextOffset = data.next_offset ?? data.nextOffset;
+      if (capability === 'campus.query') {
+        const query = validateCampusQuery(args);
+        if (!['quick', 'select', 'read'].includes(query.operation) || (query.resource || query.spec?.resource) !== snapshot.resource) return;
+        const pinned = campusQueryOnSnapshot(query, data);
+        if (!pinned) return;
+        args = pinned.arguments; evaluation = pinned.evaluation;
+        const page = campusQueryContinuation(query, data);
+        if (page) next = { capability: page.capability, arguments: page.arguments };
+      } else {
+        if (this.campusReadingOwner.resource(args.domain) !== snapshot.resource) return;
+        let fixed = true;
+        const interval = data.timeInterval;
+        const instant = (value: unknown): value is string => typeof value === 'string' && Number.isFinite(Date.parse(value));
+        if (args.at) { if (instant(interval?.from)) args.at = interval.from; else fixed = false; }
+        else if (args.window || args.from || args.to) {
+          if ((args.window || args.from) && !instant(interval?.from) || (args.window || args.to) && !instant(interval?.to)) fixed = false;
+          else { delete args.window; if (instant(interval?.from)) args.from = interval.from; if (instant(interval?.to)) args.to = interval.to; }
+        }
+        const dynamic = new Set(['ongoing', 'ended', 'minutes_from_now']);
+        if ((args.filters || []).some((filter: string) => dynamic.has(filter.split(':')[0].split('.').at(-1)!))
+          || typeof args.sort === 'string' && args.sort.split(',').some((part: string) => dynamic.has(part.trim().replace(/^-/, '').split('.').at(-1)!))) fixed = false;
+        evaluation = { ...(instant(data.evaluatedAt) ? { at: data.evaluatedAt } : {}), paging: fixed ? 'fixed_conditions' : 'evaluation_dependent',
+          dynamicValues: ['schedule', 'exams'].includes(args.domain) && (!args.fields || args.fields.some((field: string) => dynamic.has(field.split('.').at(-1)!))) };
+        if (fixed && Number.isSafeInteger(nextOffset) && nextOffset > offset && nextOffset <= 10000)
+          next = { capability: 'campus.lookup', arguments: this.broker.validateArguments(capability, { ...args, offset: nextOffset }) as Record<string, unknown> };
+      }
+      const contract = this.broker.describe(capability)?.capabilityContract;
+      if (!contract || Buffer.byteLength(canonical(args)) > 16000) return;
+      const address: CampusReadingAddress = { sourceId: 'campus:zju-account', snapshot,
+        read: { capability: capability as 'campus.query' | 'campus.lookup', arguments: args }, ...(next ? { next } : {}),
+        page: { offset, returned: data.records.length, nextOffset: Number.isSafeInteger(nextOffset) ? nextOffset : null },
+        evaluation, observedAt: this.repo.clock.now(), readOrdinal, contract };
+      pack.receipt.campusReadingAddresses = [...(pack.receipt.campusReadingAddresses || [])
+        .filter(old => canonical(old.read) !== canonical(address.read)), address].slice(-6);
+      const sources = [...new Map([...(pack.receipt.campusReadingSources || []), snapshot].map(proof => [canonical(proof), proof])).values()];
+      pack.receipt.campusReadingSources = sources;
+      if (!previousIncomplete) delete pack.receipt.campusReadingIncomplete;
+    } catch { /* No exact, validated address is preferable to guessed paging. */ }
+    finally { this.repo.saveReceipt(pack.contract.scope, pack.receipt); }
+  }
+  restoreCampusReading(pack: ContextPack, historyScope: ScopeHandle, sessionId: string, messageIds: string[]) {
+    const scope = this.policy.validate(pack.contract.scope);
+    if (!this.campusReadingOwner || scope.audience !== 'self' || scope.subjectId !== scope.principalId || scope.worldId !== 'real'
+      || !scope.sources.includes('campus:zju-account') || !this.policy.can(pack.contract.scope, 'campus:read')) return;
+    const pages: Record<string, unknown>[] = [];
+    for (const item of this.repo.conversationCampusReadingAddresses(historyScope, sessionId, messageIds)) {
+      try {
+        const address = item.address as CampusReadingAddress;
+        if (!address || address.sourceId !== 'campus:zju-account' || !address.read || !['campus.query', 'campus.lookup'].includes(address.read.capability)
+          || Buffer.byteLength(canonical(address)) > 24000) continue;
+        const described = this.broker.describe(address.read.capability);
+        if (!described || canonical(described.capabilityContract) !== canonical(address.contract)) continue;
+        const args = this.broker.validateArguments(address.read.capability, address.read.arguments) as Record<string, any>;
+        if ((address.read.capability === 'campus.query' ? args.resource || args.spec?.resource
+          : this.campusReadingOwner.resource(args.domain)) !== address.snapshot.resource) continue;
+        const grants = campusQueryGrants(validateCampusQuery(address.read.capability === 'campus.query' ? args
+          : { operation: 'quick', resource: address.snapshot.resource }));
+        if (grants.some(grant => !this.policy.can(pack.contract.scope, grant))) continue;
+        const state = this.campusReadingOwner.state(address.snapshot);
+        if (state === 'unavailable' || args.bundleId !== address.snapshot.bundleId || args.expectedSnapshotVersion !== address.snapshot.version) continue;
+        let next: CampusReadingAddress['next'];
+        if (address.next && address.evaluation?.paging === 'fixed_conditions' && address.next.capability === address.read.capability) {
+          const nextArgs = this.broker.validateArguments(address.next.capability, address.next.arguments) as Record<string, any>;
+          const base = (value: Record<string, any>) => ({ ...value, offset: 0, ...(value.spec ? { spec: { ...value.spec, offset: 0 } } : {}) });
+          const nextOffset = nextArgs.spec?.offset ?? nextArgs.offset;
+          if (nextArgs.bundleId !== address.snapshot.bundleId || nextArgs.expectedSnapshotVersion !== address.snapshot.version
+            || !Number.isSafeInteger(nextOffset) || nextOffset <= address.page.offset || canonical(base(args)) !== canonical(base(nextArgs))) continue;
+          next = { capability: address.next.capability, arguments: nextArgs };
+        }
+        pages.push({ messageId: item.messageId, messageCreatedAt: item.messageCreatedAt, messageOrdinal: item.messageOrdinal,
+          observedAt: address.observedAt, ...(Number.isSafeInteger(address.readOrdinal) && address.readOrdinal! > 0 ? { readOrdinal: address.readOrdinal } : {}),
+          sourceId: address.sourceId, snapshot: { bundleId: address.snapshot.bundleId,
+          version: address.snapshot.version, state, collectedAt: address.snapshot.collectedAt }, page: address.page, evaluation: address.evaluation,
+          ...(address.evaluation?.paging === 'fixed_conditions' ? { read: address.read, ...(next ? { next } : {}) } : { status: 'evaluation_dependent',
+            meaning: '原查询的筛选或排序依赖评价时刻，固定数据版本也不保证同一页；这里没有签发下一页地址。' }) });
+      } catch { /* Old or malformed contracts do not reopen a source. */ }
+    }
+    if (!pages.length) return;
+    const latestReply = pages.reduce((latest, page) => Number(page.messageOrdinal) > Number(latest.messageOrdinal) ? page : latest);
+    const latestReads = pages.filter(page => page.messageId === latestReply.messageId);
+    const orderKnown = latestReads.every(page => Number.isSafeInteger(page.readOrdinal))
+      && new Set(latestReads.map(page => page.readOrdinal)).size === latestReads.length;
+    const latest = orderKnown ? latestReads.reduce((last, page) => Number(page.readOrdinal) > Number(last.readOrdinal) ? page : last) : undefined;
+    const value = { pages: pages.slice(-6), latestReplyWithReads: { messageId: latestReply.messageId,
+      messageOrdinal: latestReply.messageOrdinal, messageCreatedAt: latestReply.messageCreatedAt, withinReplyOrder: orderKnown ? 'recorded' : 'unknown' },
+      ...(latest ? { mostRecentRead: { messageId: latest.messageId, readOrdinal: latest.readOrdinal, observedAt: latest.observedAt, page: latest.page } } : {}),
+      meaning: '这些是已准入前情中实际读过的页地址，按原回复持久序列排列。latestReplyWithReads指这组前情中最近有读取的回复；同条里的readOrdinal才证明逐次读取顺序，旧无序号时顺序未知，不按数组位置、最大offset或采集时间补猜。mostRecentRead仅在逐次顺序已记录时提供，也不表示用户已看或这次已回读。先结合最近原回复确定正在接哪一页，再取那页的next；较早读过的更大offset不构成当前进度。read回原页，next沿原版本、原条件和顺序继续，地址不增加用途或权限。' };
+    if (canonical(pack.data.campusReading) === canonical(value)) return value;
+    pack.data.campusReading = value;
+    const bytes = Buffer.byteLength(canonical(value)); pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += Math.ceil(bytes / 2.5);
+    return value;
+  }
   /** The main model chooses additional evidence; no word list creates needs. */
   initialNeeds(_contract: ContextContract, _text: string): Need[] { return []; }
   async compile(
@@ -110,8 +261,9 @@ export class ContextCompiler {
     const canReadHistory = this.policy.can(contract.scope, 'evidence:read');
     const historyScope = ingress.threadContextAllowed && canReadHistory ? this.policy.hostScope({ sources: ['current', 'history:self'], subjectId: scope.principalId, worldId: 'real', purposes: scope.purposes, audience: 'self', grants: ['evidence:read'], retention: scope.retention, infer: false }) : contract.scope;
     const historyCandidates = sessionId && canReadHistory && (!ingress.requiresReadPurpose || ingress.threadContextAllowed) ? this.repo.conversationHistory(historyScope, sessionId, currentEvents.map(e => e.id), ingress.threadContextAllowed ? 6 : 12) : [];
-    // This repository window contains only complete, currently readable
-    // messages. Preserve the nearest help and the exact typed origin without
+    // This repository window contains currently readable saved messages;
+    // interrupted public prefixes retain their partial/unknown state.
+    // Preserve the nearest help and the exact typed origin without
     // guessing relevance or treating a completed reply as a fulfilled promise.
     const assistantHistory = historyCandidates.filter(message => message.role === 'assistant');
     const recentHelp = assistantHistory.at(-1);
@@ -122,9 +274,10 @@ export class ContextCompiler {
       const ids = new Set(provided.map(message => message.id));
       const historyIndex = assistantHistory.filter(message => !ids.has(message.id) && !protectedAssistantIds.has(message.id)).map(message => ({ id: message.id, role: message.role, createdAt: message.createdAt,
         codePoints: Array.from(message.content).length, bodyProvided: false,
+        ...(message.replyState ? { replyState: message.replyState } : {}),
         read: { tool: 'read_assistant_history', arguments: { id: message.id, offset: 0, limit: 1600 } } }));
       const carryover = new Map<string, { identities: ('recent_assistant_help' | 'current_program_origin')[]; messageId: string;
-        bodyProvided: boolean; status: 'provided_complete_reply' | 'not_in_permitted_completed_window';
+        bodyProvided: boolean; status: 'provided_complete_reply' | 'provided_partial_reply' | 'not_in_permitted_completed_window';
         read: { tool: 'read_assistant_history'; arguments: { id: string; offset: number; limit: number } } }>();
       for (const [identity, id] of [['recent_assistant_help', recentHelp?.id], ['current_program_origin', options.currentProgramMessageId]] as const) {
         if (!id) continue;
@@ -132,7 +285,8 @@ export class ContextCompiler {
         if (prior) { prior.identities.push(identity); continue; }
         const bodyProvided = protectedAssistantIds.has(id) && ids.has(id);
         carryover.set(id, { identities: [identity], messageId: id, bodyProvided,
-          status: bodyProvided ? 'provided_complete_reply' : 'not_in_permitted_completed_window',
+          status: bodyProvided ? assistantHistory.find(message => message.id === id)?.replyState ? 'provided_partial_reply' : 'provided_complete_reply'
+            : 'not_in_permitted_completed_window',
           read: { tool: 'read_assistant_history', arguments: { id, offset: 0, limit: 1600 } } });
       }
       return { historyIndex, historyCarryover: [...carryover.values()],
@@ -147,7 +301,7 @@ export class ContextCompiler {
     const recentObservations = sessionId && history.length && canReadHistory && !ingress.requiresReadPurpose && scope.sources.includes('history:self')
       ? this.repo.sessionExternalObservations(contract.scope, sessionId, contract.now) : [];
     const observationSummaries = recentObservations.map(event => ({ id: event.id, sourceId: event.sourceId, authority: event.authority, receivedAt: event.receivedAt, text: event.text,
-      meaning: '与本对话关联的近期外部观察；只证明所述观察，不代表用户确认、喜欢或授权后续行动。' }));
+      meaning: '这些是与本对话相关的近期外部观察，来源、时间和实际观察内容随各条保留。本人怎样看待它、是否喜欢，以及后续想做什么，仍有各自的表达和选择。' }));
     const currentMatter = sessionId && canReadHistory && !ingress.requiresReadPurpose && contract.enhancements?.currentMatter !== false && scope.sources.includes('work:self') ? this.repo.currentMatter(contract.scope, sessionId) : null;
     const continuity = !ingress.requiresReadPurpose ? buildContinuityIndex(this.repo, contract, sessionId, this.continuityRefresh) : undefined;
     const preparedMaterials = continuity?.preparedMaterials || [], openThreads = continuity?.openThreads || [], planningIntents = continuity?.planningIntents || [];
@@ -156,9 +310,8 @@ export class ContextCompiler {
       ...(continuity ? { continuityCoverage: continuity.coverage } : {}) };
     const discovered = this.broker.discover(contract.scope);
     const capabilityDirectory = { items: discovered.slice(0, 24).map(item => ({ name: item.name, sourceId: item.sourceId, displayName: item.displayName,
-      description: item.description, connection: item.connection, effect: item.effect, connected: item.connection.connected,
-      executableInThisTurn: item.connection.connected && (item.effect === 'read' || contract.actionMode !== 'respond') })), more: discovered.length > 24,
-      meaning: '你现在能用的能力（不止这些：用 look_up 的 capability 可以继续搜、翻页或读参数）。connected 是已接通，executableInThisTurn 是这一轮可以直接用。' };
+      description: item.description, connection: item.connection, effect: item.effect, connected: item.connection.connected })), more: discovered.length > 24,
+      meaning: '这些已登记能力符合当前来源、身份、世界、设备和权限范围；用look_up的capability可以继续搜索、翻页或读参数。connected说明提供方是否接通，不表示已经读取或执行。effect=read可沿look_up按具体用途提出读取；写能力沿对应动作流程核具体托付、参数版本与执行许可，不能通过look_up直接执行。是否准备建议、已经保存或仍待选择，以实际回执为准。' };
     const sourceContextMeaning = sourceContextGuidance(...currentEvents.map(event => event.sourceContext), ...history.map(message => message.sourceContext));
     let life: LifeContinuityContext | undefined;
     const initial = { current: ingress.authoredText, attachments: currentEvents.filter(e => e.speaker === 'external'), history, ...historyOrganization, sourceContextMeaning,
@@ -184,12 +337,15 @@ export class ContextCompiler {
       policyRevision: contract.policyRevision, privacyEpoch: contract.privacyEpoch,
       watermarks: this.repo.watermarks(), providedEvidenceIds: evidenceIds,
       providedSourceIds: [...new Set([...currentEvents.map(e => e.sourceId), ...(history.length ? ['history:self'] : []), ...recentObservations.map(e => e.sourceId), ...(continuity?.providedSourceIds || []), ...(preparedMaterials.length || openThreads.length || planningIntents.length || currentMatter ? ['work:self'] : [])])],
-      providedObjectVersions: [...new Map([...currentEvents.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })), ...recentObservations.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })), ...(continuity?.providedObjectVersions || []), ...(currentMatter ? [{ id: currentMatter.id, revision: currentMatter.revision, kind: 'work' as const }, ...currentMatter.optionPlaces.map(option => ({ id: option.id, revision: option.revision, kind: 'work' as const }))] : [])]
-        .map(ref => [ref.kind + ':' + ref.id, ref])).values()],
+      providedObjectVersions: mergeProvidedObjectVersions([...currentEvents.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })),
+        ...history.flatMap(message => message.role === 'user' && Number.isSafeInteger(message.contentVersion) && message.contentVersion! > 0
+          ? [{ id: message.id, revision: message.contentVersion!, kind: 'evidence' as const }] : []),
+        ...recentObservations.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })), ...(continuity?.providedObjectVersions || []), ...(currentMatter ? [{ id: currentMatter.id, revision: currentMatter.revision, kind: 'work' as const }, ...currentMatter.optionPlaces.map(option => ({ id: option.id, revision: option.revision, kind: 'work' as const }))] : [])],
+        ref => ref.kind + ':' + ref.id + (ref.kind === 'evidence' ? ':' + ref.revision : '')),
       needResults: [], excludedReasonCounts: Object.fromEntries(contract.excludedReasons.map(reason => [reason, 1])),
       providerVersion: this.providerMetadata ? `${this.providerMetadata.protocol}/${this.providerMetadata.protocolVersion}` : 'unknown',
       ...(this.providerMetadata ? { provider: { ...this.providerMetadata, limits: { ...this.providerMetadata.limits } } } : {}),
-      toolAttempts: [], campusSensitiveReads: [], coverage: 'conditional', budget: { estimatedTokens, readBytes },
+      toolAttempts: [], campusSensitiveReads: [], releaseSources: [], coverage: 'conditional', budget: { estimatedTokens, readBytes },
     };
     const pack: ContextPack = {
       contract, bundles: [], assertions: [], evidence: currentEvents, needs: [], receipt,
@@ -198,7 +354,7 @@ export class ContextCompiler {
         scope: { subject: scope.subjectId, world: scope.worldId, purpose: contract.purpose, audience: scope.audience, memoryMode: contract.memoryMode, retention: contract.retention },
         time: { now: contract.now, timeZone: contract.timeZone,
           local: new Intl.DateTimeFormat('zh-CN', { timeZone: contract.timeZone, dateStyle: 'full', timeStyle: 'long', hour12: false }).format(new Date(contract.now)),
-          meaning: 'now中的Z表示UTC，local是宿主按timeZone计算的本地时刻；不能把UTC钟面数字标成本地时间。' },
+          meaning: 'now里的Z表示UTC，local给出timeZone下的本地日期和钟面；两者表示同一时刻，采用各自的时区标记。' },
         situation: { asOf: contract.now, timeZone: contract.timeZone, versions: this.repo.watermarks(),
           currentStatements: currentEvents.filter(event => event.speaker === 'user').map(event => ({ evidenceId: event.id, version: event.contentVersion })),
           coverage: { calendar: 'not_queried', campus: 'not_queried', location: 'not_queried', weather: 'not_queried', energy: 'unknown' },
@@ -220,10 +376,14 @@ export class ContextCompiler {
       this.recordLearningProcesses(pack, this.repo.conversationLearningProcessVersions(historyScope, sessionId, ids));
       this.recordReflectiveLetterSources(pack, this.repo.conversationReflectiveLetterSources(historyScope, sessionId, ids));
       this.recordAssistantWorkSources(pack, this.repo.conversationAssistantWorkSources(historyScope, sessionId, ids));
+      this.recordReleaseSources(pack, this.repo.conversationReleaseSources(historyScope, sessionId, ids));
       this.recordPersonalMethodSources(pack, this.repo.conversationPersonalMethodSources(historyScope, sessionId, ids));
       this.recordNoteSources(pack, this.repo.conversationNoteSources(historyScope, sessionId, ids));
+      this.recordImageSourceVersions(pack, this.repo.conversationImageSourceVersions(historyScope, sessionId, ids));
       this.recordCampusSensitiveReads(pack, this.repo.conversationCampusSensitiveReads(historyScope, sessionId, ids));
+      this.recordCampusReadingSources(pack, historyScope, sessionId, ids);
       this.recordInteractiveProgramSources(pack, this.repo.conversationInteractiveProgramSources(historyScope, sessionId, ids));
+      this.restoreCampusReading(pack, historyScope, sessionId, ids);
     }
     if (currentMatter) this.recordWorkSources(pack, [currentMatter.id, ...currentMatter.optionPlaces.map(option => option.id)]
       .flatMap(id => this.repo.work(contract.scope, undefined, id)));
@@ -247,7 +407,7 @@ export class ContextCompiler {
       { category: 'current_originals', keys: ['currentSources', 'currentRequest'] },
       { category: 'history', keys: ['history', 'historyIndex', 'historyCarryover', 'historyCoverage', 'historyUse', 'volatileConversationHistory'] },
       { category: 'observations', keys: ['recentObservations'] },
-      { category: 'continuity', keys: ['currentMatter', 'preparedMaterials', 'openThreads', 'planningIntents', 'continuityCoverage'] },
+      { category: 'continuity', keys: ['currentMatter', 'preparedMaterials', 'openThreads', 'planningIntents', 'continuityCoverage', 'campusReading'] },
       { category: 'capabilities', keys: ['capabilityDirectory'] },
       { category: 'focused_work', keys: ['currentInteractive', 'currentInteractiveUnavailable', 'currentNote', 'currentNoteUnavailable',
         'currentLetter', 'currentLetterUnavailable', 'currentStudy', 'currentCuriosity', 'currentCuriosityUnavailable',
@@ -294,10 +454,14 @@ export class ContextCompiler {
     pack.data.sourceContextMeaning = sourceContextMeaning;
     pack.data.currentMatter = currentMatter;
     if (recentObservations.length) pack.data.recentObservations = recentObservations;
-    pack.data.historyUse = '经当前原话核清用途，只恢复本对话近期材料；不读取其他对话或人物画像，不把先前方案自动视为已选择。当前事项索引为空也不抹去已准入的同对话用户原话：其中若有具体选项/地点名称，可按当前问题重新查公开稳定ID，不能要求用户重报；若旧助手具体路线不在本轮材料里，不能自称记得它，但可把新查到的相关一段标为“若你指这段”的条件比较，另有所指再问关键区别。本轮明确排除或纠正优先。前情中每个人的事实仍各属其主体；共同讨论的地点候选不证明本人或他人实际位置，不能把本人的偏好或约定套给别人。';
+    pack.data.historyUse = '按当前原话的实际用途，这里接回了同一对话近期的材料，其他对话和人物画像没有随这一步展开。先前的方案保留当时的商量状态，是否选定要看本人真正作过的选择。即使当前事项目录为空，已经提供的同对话原话也仍是可用背景；其中具体的选项或地点名称，可以帮助你按眼前问题找到公开资料里的稳定对象，让对方省下重新报名称的负担。旧助手的某段具体路线有时没有进入这次材料，新查到的路线则有这次实际取得的依据；两者各有自己的来处。你可以据此作有条件的比较，确实有会改变结果的歧义时，再和本人说清那一处区别。当前明确的排除与纠正，说明这次想沿哪个方向继续。前情里谈到的每个人各有自己的事实、偏好与约定；共同讨论过的地点是候选位置，本人或他人实际在哪里还需要各自的依据。';
     pack.receipt.providedEvidenceIds = [...new Set([...pack.receipt.providedEvidenceIds, ...history.filter(message => message.role === 'user').map(message => message.id), ...observations.map(event => event.id)])];
     if (history.length || observations.length) pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), ...(history.length ? ['history:self'] : []), ...observations.map(event => event.sourceId)])];
-    pack.receipt.providedObjectVersions.push(...observations.map(event => ({ id: event.id, revision: event.contentVersion, kind: 'evidence' as const })));
+    for (const ref of [...history.flatMap(message => message.role === 'user' && Number.isSafeInteger(message.contentVersion) && message.contentVersion! > 0
+      ? [{ id: message.id, revision: message.contentVersion!, kind: 'evidence' as const }] : []),
+      ...observations.map(event => ({ id: event.id, revision: event.contentVersion, kind: 'evidence' as const }))])
+      if (!pack.receipt.providedObjectVersions.some(previous => previous.kind === ref.kind && previous.id === ref.id && previous.revision === ref.revision))
+        pack.receipt.providedObjectVersions.push(ref);
     if (currentMatter) {
       pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'work:self'])];
       pack.receipt.providedObjectVersions.push({ id: currentMatter.id, revision: currentMatter.revision, kind: 'work' }, ...currentMatter.optionPlaces.map(option => ({ id: option.id, revision: option.revision, kind: 'work' as const })));
@@ -312,12 +476,17 @@ export class ContextCompiler {
     this.recordLearningProcesses(pack, this.repo.conversationLearningProcessVersions(readScope, sessionId, history.map(message => message.id)));
     this.recordReflectiveLetterSources(pack, this.repo.conversationReflectiveLetterSources(readScope, sessionId, history.map(message => message.id)));
     this.recordAssistantWorkSources(pack, this.repo.conversationAssistantWorkSources(readScope, sessionId, history.map(message => message.id)));
+    this.recordReleaseSources(pack, this.repo.conversationReleaseSources(readScope, sessionId, history.map(message => message.id)));
     this.recordPersonalMethodSources(pack, this.repo.conversationPersonalMethodSources(readScope, sessionId, history.map(message => message.id)));
     this.recordNoteSources(pack, this.repo.conversationNoteSources(readScope, sessionId, history.map(message => message.id)));
+    this.recordImageSourceVersions(pack, this.repo.conversationImageSourceVersions(readScope, sessionId, history.map(message => message.id)));
     this.recordCampusSensitiveReads(pack, this.repo.conversationCampusSensitiveReads(readScope, sessionId, history.map(message => message.id)));
+    this.recordCampusReadingSources(pack, readScope, sessionId, history.map(message => message.id));
     this.recordInteractiveProgramSources(pack, this.repo.conversationInteractiveProgramSources(readScope, sessionId, history.map(message => message.id)));
+    const campusReading = this.restoreCampusReading(pack, readScope, sessionId, history.map(message => message.id));
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
-    return { status: history.length || observations.length ? 'fresh' : 'not_found', count: history.length, observationCount: observations.length };
+    return { status: history.length || observations.length ? 'fresh' : 'not_found', count: history.length, observationCount: observations.length,
+      ...(campusReading ? { campusReading } : {}) };
   }
 
   /** Production search may add local semantic discoveries. The existing sync
@@ -336,7 +505,7 @@ export class ContextCompiler {
     if ((recall.mode === 'browse' || recall.mode === 'scan') && (recall.semanticSnapshot || recall.semanticOffset !== undefined || recall.semanticWindowCursor))
       throw new HarnessError('semantic_search_required', '语义候选分页只用于普通search；原文浏览游标仍走原入口。');
     if (recall.semanticWindowCursor && (offset || recall.semanticSnapshot || recall.semanticOffset))
-      throw new HarnessError('semantic_window_invalid', '下一候选窗口从offset=0开始，不能混用旧排名或窗口内位置。');
+      throw new HarnessError('semantic_window_invalid', '较早候选窗口有自己的起点offset=0；这次请求同时带着旧排名或窗口内位置，地址没有对应上。');
     let semantic: SemanticRecallResult | undefined;
     if (this.semanticRecall && (!recall.mode || recall.mode === 'search')
       && (offset === 0 || !!recall.semanticSnapshot)
@@ -366,7 +535,10 @@ export class ContextCompiler {
     discovery: { sourceRelatedAllowed?: boolean;
       projectRanges?: (event: EvidenceEvent) => readonly { start: number; end: number }[] } = {}) {
     const scope = this.policy.validate(pack.contract.scope), time = Date.parse(at);
+    const profileAllowed = this.repo.personalMemoryReadable(pack.contract.scope);
     if (!Number.isFinite(time)) throw new HarnessError('invalid_time', '检索时间不合法。');
+    if (!scope.grants.includes('evidence:read'))
+      return { status: 'forbidden', bundles: [], reason: '本轮不允许读取个人原文和理解。' };
     if (recall.mode !== 'browse' && (recall.cursor || recall.sourceIds || recall.receivedFrom || recall.receivedBefore))
       throw new HarnessError('browse_mode_required', '来源、收到时间和浏览游标只用于mode=browse；未按普通关键词检索忽略这些限制。');
     if (recall.mode === 'browse') {
@@ -391,7 +563,7 @@ export class ContextCompiler {
       pack.receipt.providedEvidenceIds = [...new Set([...pack.receipt.providedEvidenceIds, ...value.originals.map(event => event.id)])];
       pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), ...value.originals.map(event => event.sourceId)])];
       const versions = value.originals.map(event => ({ id: event.id, revision: event.contentVersion, kind: 'evidence' as const }));
-      pack.receipt.providedObjectVersions = [...new Map([...pack.receipt.providedObjectVersions, ...versions].map(version => [version.kind + ':' + version.id, version])).values()];
+      pack.receipt.providedObjectVersions = mergeProvidedObjectVersions([...pack.receipt.providedObjectVersions, ...versions]);
       pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
       pack.data.retrievedContext = value;
       this.repo.saveReceipt(pack.contract.scope, pack.receipt);
@@ -400,18 +572,18 @@ export class ContextCompiler {
       investigation?.service.rememberBrowse(value, position);
       return value;
     }
-    if (!scope.sources.includes('history:self') && !scope.sources.includes('profile:self'))
+    if (!scope.sources.includes('history:self') && !profileAllowed)
       return { status: 'forbidden', bundles: [], reason: '本轮资料范围不包括个人历史和记忆。' };
-    if (recall.mode === 'scan' && !scope.sources.includes('profile:self'))
+    if (recall.mode === 'scan' && !profileAllowed)
       return { status: 'forbidden', bundles: [], reason: '本轮范围不允许浏览个人理解候选。' };
     const queries = recallQueries(query, recall.relatedQueries);
     const options = { at, verified: true };
     const scan = recall.mode === 'scan';
     const multi = !scan && queries.length > 1 ? multiQueryRecall(this.repo, pack.contract.scope, queries, at, offset, limit, hardOffset,
-      scope.sources.includes('profile:self'), scope.sources.includes('history:self')) : undefined;
+      profileAllowed, scope.sources.includes('history:self')) : undefined;
     const scanPage = scan ? this.repo.assertions(pack.contract.scope, { ...options, offset, limit: limit + 1 }) : [];
-    const soft = !multi && !scan && scope.sources.includes('profile:self') ? this.repo.lexicalAssertionPage(pack.contract.scope, query, { ...options, strength: 'non_hard', offset, limit }) : { items: [], total: 0 };
-    const hard = !multi && !scan && scope.sources.includes('profile:self') ? this.repo.lexicalAssertionPage(pack.contract.scope, query, { ...options, strength: 'hard', offset: hardOffset, limit: 8 }) : { items: [], total: 0 };
+    const soft = !multi && !scan && profileAllowed ? this.repo.lexicalAssertionPage(pack.contract.scope, query, { ...options, strength: 'non_hard', offset, limit }) : { items: [], total: 0 };
+    const hard = !multi && !scan && profileAllowed ? this.repo.lexicalAssertionPage(pack.contract.scope, query, { ...options, strength: 'hard', offset: hardOffset, limit: 8 }) : { items: [], total: 0 };
     // Strength controls priority within relevant candidates, not universal
     // applicability. Unrelated hard preferences must not enter every question.
     const selected = scan ? scanPage.slice(0, limit) : multi?.selected || [...hard.items, ...soft.items];
@@ -447,7 +619,6 @@ export class ContextCompiler {
     const originalRanking = semanticActive ? fuseRecallMethods<(typeof lexicalRaw)[number] | (typeof semanticRaw)[number]>([lexicalRaw, semanticRaw]) : lexicalRaw;
     const selectedRaw = semanticActive ? originalRanking.slice(offset, offset + limit) : lexicalRaw;
     const raw = selectedRaw.map(event => {
-      if (!discovery.sourceRelatedAllowed) return event;
       let ref: WorkSourceRef | undefined;
       if ('sourceRange' in event && event.sourceRange) ref = { eventId: event.id,
         contentVersion: event.contentVersion, start: event.sourceRange.start, end: event.sourceRange.end };
@@ -460,8 +631,9 @@ export class ContextCompiler {
           if (matching.length === 1) ref = { eventId: event.id, contentVersion: event.contentVersion, ...matching[0] };
         }
       }
-      const sourceRelated = ref && this.sourceRelatedRead(pack, [ref], true);
-      return { ...event, ...(sourceRelated ? { sourceRelated } : {}) };
+      const sourceRelated = ref && this.sourceRelatedRead(pack, [ref], discovery.sourceRelatedAllowed);
+      return { ...event, ...(ref ? { sourceRange: { start: ref.start, end: ref.end } } : {}),
+        ...(sourceRelated ? { sourceRelated } : {}) };
     });
     const searchRead = (arguments_: Record<string, unknown>) => ({ tool: 'search_context',
       arguments: { ...(!sourceProjection ? { query, relatedQueries: recall.relatedQueries } : {}), ...arguments_ },
@@ -501,10 +673,10 @@ export class ContextCompiler {
           ...(semantic.result.nextOffset === null || !semantic.result.rankingId ? {} : { read: searchRead({
             mode: 'search', at, offset: 0, hardOffset: 0, limit,
             semanticSnapshot: semantic.result.rankingId, semanticOffset: semantic.result.nextOffset }) }),
-          meaning: '本地向量只排候选；查到片段须回原文，索引覆盖不证明条件或语义完整，分数不是真实性。' } : 'not_connected', hardConstraintsSeparate: !scan,
+          meaning: '本地向量提供候选顺序，片段的原文地址能带来实际内容和条件。索引覆盖说明已建立的检索范围，相似分数说明匹配关系；事实与完整语义各有原文依据。' } : 'not_connected', hardConstraintsSeparate: !scan,
         correctionFollowupsComplete: correctionIds.length <= 16 && correctionIds.every(id => raw.some(event => event.id === id) || correctionFollowups.some(event => event.id === id)),
-        guidance: '由模型提出同义、跨语言和必要条件的relatedQueries；零词面重合仍可用mode=scan按页查看合法现行理解。候选未自动判定适用，未命中不证明没有记忆。coverage.read继续合并页，vectorSearch.read继续本窗口语义排名，vectorSearch.nextWindow继续较早候选窗口；lexicalContinuation和多query的queryContinuations保留词法深页。reuseCurrentQuery时沿用刚才的query/relatedQueries并复制其余参数；不把有界窗口当全集。',
-        historicalOriginals: '局部更正的原文仍可发现；restrictions所指范围不得当作现行事实，未受影响的内容仍须核对语境。' } };
+        guidance: '候选与眼前问题的关系还需要你理解，它也可能已经带来实际正文。bodyCoverage.kind=original_text的text是本次已交付的原文，精确范围说明这一段的覆盖；discovery_preview提供定位预览，read能回到正文。relatedQueries可以放你想到的同义、跨语言表达和必要条件；即使没有词面重合，mode=scan也能按页查看当前可用的理解。一次未命中描述的是这次查找。不同继续地址各有覆盖：coverage.read接合并页，vectorSearch.read接本窗口语义排名，vectorSearch.nextWindow接较早候选窗口，lexicalContinuation与多query的queryContinuations接词法深页。reuseCurrentQuery会沿用刚才的query/relatedQueries，其余条件由本次参数表达。这些有界页面共同帮助找回背景，尚未列出的资料仍有自己的位置。',
+        historicalOriginals: '局部更正后的原文仍可以帮助了解当时怎样说。restrictions标明其中已更正或停止用于原有理解的范围，其他片段则保留各自的语境和依据。' } };
     if (semanticActive && semantic.result.rankingId && value.coverage.nextOffset !== null)
       Object.assign(value.coverage, { read: searchRead({ mode: 'search',
         at, offset: value.coverage.nextOffset, hardOffset: value.coverage.nextHardOffset || 0, limit,
@@ -523,7 +695,7 @@ export class ContextCompiler {
       ...raw.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })),
       ...correctionFollowups.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })),
       ...bundles.flatMap(bundle => bundle.sources.map(e => ({ id: e.id, revision: e.contentVersion, kind: 'evidence' as const })))];
-    pack.receipt.providedObjectVersions = [...new Map([...pack.receipt.providedObjectVersions, ...versions].map(version => [version.kind + ':' + version.id, version])).values()];
+    pack.receipt.providedObjectVersions = mergeProvidedObjectVersions([...pack.receipt.providedObjectVersions, ...versions]);
     pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
     pack.data.retrievedContext = value;
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
@@ -534,7 +706,10 @@ export class ContextCompiler {
     // for words in its title. Only its explicit evidence links are automatic;
     // the agent can request a separate, purpose-checked search if needed.
     if (matter.sourceBinding) return this.prefetchBoundWork(pack, matter);
-    const originals = matter.evidenceIds.slice(-4).map(id => this.repo.evidence(pack.contract.scope, id)).filter((event): event is EvidenceEvent => !!event);
+    const originals = matter.evidenceIds.slice(-4).flatMap(id => {
+      const event = this.repo.evidence(pack.contract.scope, id);
+      return event && projectHistoricalEvidence(this.repo, pack.contract.scope, event) ? [event] : [];
+    });
     const candidates = { status: originals.length ? 'fresh' : 'not_found', bundles: [], originals,
       coverage: { candidatesOnly: true, at: pack.contract.now, nextOffset: null, nextHardOffset: null, hardTotal: 0,
         vectorSearch: 'not_requested_for_matter_links', automaticScope: 'matter_evidence_links_only' } };
@@ -616,20 +791,25 @@ export class ContextCompiler {
     if (!pack) return;
     for (const record of records) {
       const previous = pack.receipt.providedObjectVersions.find(value => value.id === record.id && value.kind === kind);
-      if (previous) previous.revision = record.revision;
+      if (previous) {
+        if (previous.imageSha256 && previous.revision !== record.revision)
+          throw new HarnessError('image_changed', '这次原话版本与已采用的原图不同，需要重新读取。');
+        if (previous.revision !== record.revision) { delete previous.sourceBinding; delete previous.sourceMaterial; }
+        previous.revision = record.revision;
+      }
       else pack.receipt.providedObjectVersions.push({ id: record.id, revision: record.revision, kind });
     }
   }
   recordHistoricalAssertions(pack: ContextPack, refs: { id: string; revision: number }[]) {
     if (!this.repo.historicalAssertionsReadable(pack.contract.scope, refs))
-      throw new HarnessError('memory_history_changed', '刚读的理解历史依据已改变，旧正文不能继续采用。');
+      throw new HarnessError('memory_history_changed', '这段旧理解所依据的资料已有变化，这次没有继续接入先前的正文。');
     if (refs.length) pack.receipt.historicalAssertionVersions = [...new Map([
       ...(pack.receipt.historicalAssertionVersions || []), ...refs,
     ].map(ref => [ref.id + ':' + ref.revision, ref])).values()];
   }
   recordLearningProcesses(pack: ContextPack, refs: { id: string; revision: number }[]) {
     if (refs.some(ref => !this.repo.learningProcessReadable(pack.contract.scope, ref.id, ref.revision)))
-      throw new HarnessError('learning_process_changed', '刚读的学习过程依据已改变，旧正文不能继续采用。');
+      throw new HarnessError('learning_process_changed', '这份学习过程的来由已有变化，这次没有继续接入先前的记录。');
     if (refs.length) pack.receipt.learningProcessVersions = [...new Map([
       ...(pack.receipt.learningProcessVersions || []), ...refs,
     ].map(ref => [ref.id + ':' + ref.revision, ref])).values()];
@@ -646,6 +826,62 @@ export class ContextCompiler {
         meaning: '按本次已展示的原文范围寻找已有事项的候选入口；没有读取事项正文、合并事项或恢复活动状态。' };
     } catch (error) {
       if (!(error instanceof HarnessError)) throw error;
+    }
+  }
+  private evidenceReadBinding(pack: ContextPack) {
+    const scope = this.policy.validate(pack.contract.scope);
+    return canonical({ contract: pack.contract, scope,
+      current: createHash('sha256').update(pack.currentText).digest('hex'),
+      currentEvidence: pack.evidence.map(event => ({ id: event.id, version: event.contentVersion,
+        text: createHash('sha256').update(event.text).digest('hex'), sourceContext: event.sourceContext })) });
+  }
+  private rememberEvidenceRead(pack: ContextPack, observationId: unknown, ranges: WorkSourceRef[]) {
+    if (typeof observationId !== 'string' || !ranges.length) return;
+    const proved = ranges.flatMap(ref => {
+      const event = this.repo.evidence(pack.contract.scope, ref.eventId);
+      return event && event.contentVersion === ref.contentVersion && ref.start >= 0 && ref.end > ref.start
+        && ref.end <= Array.from(event.text).length ? [{ ...ref,
+          sourceSha256: createHash('sha256').update(canonical(event)).digest('hex') }] : [];
+    });
+    if (!proved.length) return;
+    const snapshot = this.repo.sourceRestrictionSnapshot(pack.contract.scope), ids = new Set(proved.map(ref => ref.eventId));
+    const entries = this.providedEvidenceReads.get(pack) || new Map();
+    entries.set(observationId, { binding: this.evidenceReadBinding(pack), ranges: proved,
+      restrictions: new Map([...snapshot].filter(([id]) => ids.has(id))) });
+    this.providedEvidenceReads.set(pack, entries);
+  }
+  /** Repeating already delivered original text adds no new reading purpose.
+   * The owner, body, range and active restrictions are still checked now; the
+   * normal read path performs and accounts for the actual delivery again. */
+  reuseProvidedEvidenceRead(pack: ContextPack | undefined, delivered: ReadonlySet<string> | undefined,
+    eventId: string, offset: number, limit: number,
+    projection?: { contentVersion: number; quote: string; sourceStart: number; sourceEnd: number }) {
+    if (!pack || !delivered?.size || !Number.isSafeInteger(offset) || !Number.isSafeInteger(limit) || offset < 0 || limit < 1) return;
+    if (!this.policy.can(pack.contract.scope, 'evidence:read')) return;
+    const entries = this.providedEvidenceReads.get(pack), event = entries && this.repo.evidence(pack.contract.scope, eventId);
+    if (!entries || !event || event.locator?.kind === 'file') return;
+    if (projection && (!Number.isSafeInteger(projection.sourceStart) || !Number.isSafeInteger(projection.sourceEnd)
+      || projection.sourceStart < 0 || projection.sourceEnd <= projection.sourceStart || projection.sourceEnd > Array.from(event.text).length
+      || projection.contentVersion !== event.contentVersion
+      || Array.from(event.text).slice(projection.sourceStart, projection.sourceEnd).join('') !== projection.quote)) return;
+    const origin = projection?.sourceStart || 0, total = projection ? projection.sourceEnd - projection.sourceStart : Array.from(event.text).length;
+    if (offset >= total) return;
+    const start = origin + offset, end = origin + Math.min(total, offset + limit), binding = this.evidenceReadBinding(pack);
+    const digest = createHash('sha256').update(canonical(event)).digest('hex'), restrictions = this.repo.sourceRestrictionSnapshot(pack.contract.scope);
+    const currentRestriction = restrictions.get(event.id);
+    if (currentRestriction?.wholeSource) return;
+    const ranges = [...entries].flatMap(([observationId, proof]) => !delivered.has(observationId) || proof.binding !== binding
+      || currentRestriction?.metadata !== proof.restrictions.get(event.id)?.metadata ? [] : proof.ranges
+        .filter(ref => ref.eventId === event.id && ref.contentVersion === event.contentVersion && ref.sourceSha256 === digest)
+        .map(ref => ({ ...ref, observationId }))).sort((a, b) => a.start - b.start || b.end - a.end);
+    let covered = start;
+    const observations = new Set<string>();
+    for (const range of ranges) {
+      if (range.start > covered) break;
+      if (range.end <= covered) continue;
+      covered = range.end; observations.add(range.observationId);
+      if (covered >= end) return { kind: 'same_run_provided_original' as const, observationIds: [...observations],
+        sourceRange: { eventId, contentVersion: event.contentVersion, start, end } };
     }
   }
   /** Final model-visible evidence reads share the same ledger as capability
@@ -698,9 +934,57 @@ export class ContextCompiler {
     }
     pack.receipt.providedEvidenceIds = [...new Set([...pack.receipt.providedEvidenceIds, event.id])];
     pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), event.sourceId])];
-    pack.receipt.providedObjectVersions = [...new Map([...pack.receipt.providedObjectVersions,
-      { id: event.id, revision: event.contentVersion, kind: 'evidence' as const }]
-      .map(version => [version.kind + ':' + version.id, version])).values()];
+    pack.receipt.providedObjectVersions = mergeProvidedObjectVersions([...pack.receipt.providedObjectVersions,
+      { id: event.id, revision: event.contentVersion, kind: 'evidence' as const }]);
+    this.rememberEvidenceRead(pack, result.observationId, ranges);
+    this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+    return value;
+  }
+  /** Search can deliver original text as well as discovery previews. Describe
+   * only bodies that survived final redaction unchanged, with their original
+   * coordinates. This does not acknowledge a browse frontier or judge a claim. */
+  recordSearchEvidenceRead(pack: ContextPack, raw: unknown, safe: unknown): unknown {
+    const scope = this.policy.validate(pack.contract.scope);
+    const contexts = new Map<string, boolean>();
+    const original = raw as Record<string, any>, result = safe as Record<string, any>;
+    if (!original || !result || ['unknown', 'failed', 'forbidden', 'stale', 'conflict'].includes(String(result.status))) return safe;
+    const describe = (source: Record<string, any> | undefined, provided: Record<string, any>) => {
+      // Browse/semantic previews retain their existing candidate contract and
+      // exact frontier identity; they are never promoted into original reads.
+      if (!source || source.previewOnly || typeof source.text !== 'string' || typeof provided.text !== 'string') return provided;
+      const { conversationContext: _previousNavigation, ...located } = provided;
+      const event = typeof source.id === 'string' ? this.repo.evidence(pack.contract.scope, source.id) : undefined;
+      const total = event ? Array.from(event.text).length : 0;
+      const range = source.sourceRange || (event && source.text === event.text ? { start: 0, end: total } : undefined);
+      const exact = event && source.contentVersion === event.contentVersion && provided.id === event.id
+        && provided.contentVersion === event.contentVersion && provided.text === source.text
+        && range && Number.isSafeInteger(range.start) && Number.isSafeInteger(range.end)
+        && range.start >= 0 && range.end > range.start && range.end <= total
+        && Array.from(event.text).slice(range.start, range.end).join('') === source.text;
+      if (!exact) return { ...located, bodyCoverage: { kind: 'transformed_or_unlocated_text', complete: false }, actualReadRanges: [] };
+      const ref: WorkSourceRef = { eventId: event.id, contentVersion: event.contentVersion, start: range.start, end: range.end };
+      const key = canonical(ref);
+      if (!contexts.has(key)) contexts.set(key, !!event.sessionId && scope.sources.includes('history:self')
+        && this.repo.hasAssistantHistoryContext(pack.contract.scope, ref));
+      return { ...located, sourceRange: { start: ref.start, end: ref.end },
+        bodyCoverage: { kind: 'original_text', complete: ref.start === 0 && ref.end === total,
+          providedCodePoints: ref.end - ref.start }, actualReadRanges: [ref],
+        ...(contexts.get(key) ? { conversationContext: {
+          tool: 'read_assistant_history', arguments: { aroundSource: ref, limit: 1200 },
+          meaning: '这段原话附近确有助手记录，可沿真实位置继续查；具体正文仍在读取时核对当前来源与范围。前面的问句和后来的解释分别标明，不证明它们属于同一次决定。' } } : {}) };
+    };
+    const value = { ...result,
+      ...(Array.isArray(result.originals) ? { originals: result.originals.map((item: Record<string, any>, index: number) => describe(original.originals?.[index], item)) } : {}),
+      ...(Array.isArray(result.correctionFollowups) ? { correctionFollowups: result.correctionFollowups.map((item: Record<string, any>, index: number) => describe(original.correctionFollowups?.[index], item)) } : {}),
+      ...(Array.isArray(result.bundles) ? { bundles: result.bundles.map((bundle: Record<string, any>, index: number) => ({ ...bundle,
+        ...(Array.isArray(bundle.sources) ? { sources: bundle.sources.map((item: Record<string, any>, sourceIndex: number) => describe(original.bundles?.[index]?.sources?.[sourceIndex], item)) } : {}) })) } : {}) };
+    const before = canonical(safe), after = canonical(value);
+    pack.receipt.budget.readBytes += Math.max(0, Buffer.byteLength(after) - Buffer.byteLength(before));
+    pack.receipt.budget.estimatedTokens += Math.max(0, Math.ceil(Array.from(after).length / 1.4) - Math.ceil(Array.from(before).length / 1.4));
+    if (pack.data.retrievedContext === raw) pack.data.retrievedContext = value;
+    this.rememberEvidenceRead(pack, result.observationId, [
+      ...(value.originals || []), ...(value.correctionFollowups || []), ...(value.bundles || []).flatMap(bundle => bundle.sources || []),
+    ].flatMap(source => !source.previewOnly && source.bodyCoverage?.kind === 'original_text' ? source.actualReadRanges || [] : []));
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
     return value;
   }
@@ -709,17 +993,29 @@ export class ContextCompiler {
   recordWorkSources(pack: ContextPack | undefined, records: Pick<WorkRecord, 'id' | 'revision' | 'sourceBinding'>[]) {
     if (!pack) return;
     const assistantWorkSources = this.repo.workAssistantWorkSources(pack.contract.scope, records);
+    const noteSources = this.repo.workNoteSources(pack.contract.scope, records);
     this.recordObjects(pack, records, 'work');
+    const bindings = records.flatMap(record => {
+      const snapshot = this.workSourceOwner?.(pack.contract.scope, record);
+      const binding = snapshot?.sourceBinding || this.repo.workSourceVersionBinding(pack.contract.scope, record.id, record.revision);
+      const version = pack.receipt.providedObjectVersions.find(value => value.kind === 'work' && value.id === record.id && value.revision === record.revision);
+      if (!binding || !version) return [];
+      version.sourceBinding = structuredClone(binding);
+      if (snapshot?.sourceMaterial) version.sourceMaterial = structuredClone(snapshot.sourceMaterial);
+      else delete version.sourceMaterial;
+      return [binding];
+    });
     if (records.length) pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'work:self'])];
-    this.recordWorkSourceBindings(pack, records.flatMap(record => record.sourceBinding ? [record.sourceBinding] : []));
+    this.recordWorkSourceBindings(pack, [...records.flatMap(record => record.sourceBinding ? [record.sourceBinding] : []), ...bindings]);
     this.recordAssistantWorkSources(pack, assistantWorkSources);
+    this.recordNoteSources(pack, noteSources);
   }
   /** History and adopted child reports inherit only exact host source addresses.
    * Ordinary method edits or stops do not rewrite their historical meaning. */
   recordWorkSourceBindings(pack: ContextPack | undefined, bindings: WorkSourceBinding[]) {
     if (!pack || !bindings.length) return;
     if (!this.repo.workBindingsReadable(pack.contract.scope, bindings))
-      throw new HarnessError('work_source_changed', '刚读的工作方法或事项原话已改变或停止使用，旧正文不能继续采用。');
+      throw new HarnessError('work_source_changed', '这个方法或事项依靠的原话已改变或停止使用，这次没有继续接入先前的文字。');
     for (const binding of bindings) this.recordSourceBinding(pack, binding);
     pack.receipt.workSourceBindings = [...new Map([...(pack.receipt.workSourceBindings || []), ...bindings]
       .map(binding => [canonical(binding), structuredClone(binding)])).values()];
@@ -741,7 +1037,7 @@ export class ContextCompiler {
       [...new Map([...(pack.receipt.assistantWorkSources || []), ...sources]
         .map(source => [canonical(source), structuredClone(source)])).values()]);
     if (!this.repo.assistantWorkSourcesReadable(pack.contract.scope, combined))
-      throw new HarnessError('assistant_work_changed', '刚读的作品或共做页已有一处来由变化，先回原来的页面；旧正文不能继续采用。');
+      throw new HarnessError('assistant_work_changed', '这份作品或共做页的一处来由已有变化，这次没有继续接入先前的正文；原页面保留现在可读的内容。');
     this.recordWorkSourceBindings(pack, this.repo.assistantWorkSourceBindings(pack.contract.scope, combined));
     pack.receipt.assistantWorkSources = combined;
     pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'history:self'])];
@@ -753,11 +1049,35 @@ export class ContextCompiler {
     if (!pack || !sources.length) return;
     const combined = [...new Map([...(pack.receipt.noteSources || []), ...sources]
       .map(source => [canonical(source), structuredClone(source)])).values()];
-    if (combined.length > 256) throw new HarnessError('note_source_budget', '这轮采用的独立笔记片段太多，请先保留眼前相关的几段；没有截掉原来源。');
+    if (combined.length > 256) throw new HarnessError('note_source_budget', '这组独立笔记片段超过了本轮能同时保留的来源数量，本次没有把它合入，也没有截掉原来源。');
     if (!this.repo.noteSourcesReadable(pack.contract.scope, combined))
-      throw new HarnessError('note_source_changed', '这份笔记或它的原版本已不可用，先回当前允许的笔记；旧正文不能继续采用。');
+      throw new HarnessError('note_source_changed', '这份笔记的原版本目前已不可读，这次没有继续接入先前的正文；现在可读的版本仍归原笔记。');
     pack.receipt.noteSources = combined;
     pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'notes:self'])];
+    this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+  }
+  recordImageSourceVersions(pack: ContextPack | undefined, versions: ContextPack['receipt']['providedObjectVersions']) {
+    if (!pack || !versions.length) return;
+    const images = versions.filter(ref => ref.kind === 'evidence' && ref.imageSha256 !== undefined);
+    if (!this.repo.imageSourceVersionsReadable(pack.contract.scope, images))
+      throw new HarnessError('image_changed', '这段内容所依据的原图已变化，没有继续采用旧像素结果。');
+    pack.receipt.providedObjectVersions = mergeProvidedObjectVersions([...pack.receipt.providedObjectVersions, ...images]);
+    pack.receipt.providedEvidenceIds = [...new Set([...pack.receipt.providedEvidenceIds, ...images.map(ref => ref.id)])];
+    pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), ...images.flatMap(ref => {
+      const event = this.repo.evidence(pack.contract.scope, ref.id);
+      return event ? [event.sourceId] : [];
+    })])];
+    this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+  }
+  /** Actual supplied historical text retains its original draft owner. Current
+   * business reuse is checked separately when a new draft adopts the address. */
+  recordReleaseSources(pack: ContextPack | undefined, sources: ReleaseSource[]) {
+    if (!pack || !sources.length) return;
+    const combined = [...new Map([...(pack.receipt.releaseSources || []), ...sources].map(source => [canonical(source), structuredClone(source)])).values()];
+    if (this.repo.verifyReleaseSources?.(pack.contract.scope, combined, false, { checked: new Map() }) !== true)
+      throw new HarnessError('release_source_changed', '这段稿件前情的一处原来源已变化，本次没有继续采用旧正文。');
+    pack.receipt.releaseSources = combined;
+    pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'history:self'])];
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
   }
   /** Actual history/child adoption carries original program addresses. This
@@ -766,9 +1086,9 @@ export class ContextCompiler {
     if (!pack || !sources.length) return;
     const combined = [...new Map([...(pack.receipt.interactiveProgramSources || []), ...sources]
       .map(source => { const checked = interactiveProgramSourceSchema.parse(source); return [canonical(checked), checked] as const; })).values()];
-    if (combined.length > 32) throw new HarnessError('interactive_source_budget', '这轮采用的独立交互来源较多，请先继续眼前相关的一份；没有裁掉原来源。');
+    if (combined.length > 32) throw new HarnessError('interactive_source_budget', '这组独立交互来源超过了本轮能同时保留的数量，本次没有把它合入，也没有裁掉原来源。');
     if (this.repo.verifyInteractiveProgramSources?.(pack.contract.scope, combined) !== true)
-      throw new HarnessError('interactive_source_changed', '刚读的交互作品或它的原来由已经变化，旧内容不能继续采用。');
+      throw new HarnessError('interactive_source_changed', '这份交互作品或它的来由已有变化，这次没有继续接入先前的内容。');
     pack.receipt.interactiveProgramSources = structuredClone(combined);
     pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'history:self'])];
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
@@ -799,7 +1119,7 @@ export class ContextCompiler {
     const combined = [...new Map([...(pack.receipt.personalMethodSources || []), ...sources]
       .map(source => [canonical(source), structuredClone(source)])).values()];
     if (combined.some(source => this.repo.verifyPersonalMethodSources?.(pack.contract.scope, source) !== true))
-      throw new HarnessError('method_source_changed', '这个方法当时借用的帮助或原话已有变化，先沿现在的来源重新读；旧文字不能继续采用。');
+      throw new HarnessError('method_source_changed', '这个方法当时借用的帮助或原话已有变化，这次没有继续接入先前的文字；原来源保留现在仍可读的部分。');
     this.recordWorkSourceBindings(pack, sources.flatMap(source => [
       ...(source.methodBinding ? [source.methodBinding] : []),
       ...(source.workAssistance || []).map(help => help.sourceBinding),
@@ -815,6 +1135,20 @@ export class ContextCompiler {
     if (this.repo.verifyCampusSensitiveReads?.(pack.contract.scope, combined) !== true)
       throw new HarnessError('campus_purpose_changed', '这份成绩资料不在本轮已核清的用途内，未继续采用旧正文。');
     pack.receipt.campusSensitiveReads = combined;
+    this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+  }
+  recordCampusReadingSources(pack: ContextPack, handle: ScopeHandle, sessionId: string, messageIds: string[]) {
+    const sources = this.repo.conversationCampusReadingSources(handle, sessionId, messageIds);
+    this.recordCampusSourceProofs(pack, sources);
+  }
+  recordCampusSourceProofs(pack: ContextPack | undefined, sources: CampusSavedReadingProof[], incomplete = false) {
+    if (!pack || !sources.length && !incomplete) return;
+    const combined = [...new Map([...(pack.receipt.campusReadingSources || []), ...sources].map(proof => [canonical(proof), proof])).values()];
+    if (this.repo.verifyCampusReadingProofs?.(pack.contract.scope, combined) !== true)
+      throw new HarnessError('campus_history_changed', '原来的校园资料与现在可读的来源没有对应上，先回当前资料再接着看。');
+    pack.receipt.campusReadingSources = combined;
+    if (incomplete) pack.receipt.campusReadingIncomplete = true;
+    pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'campus:zju-account'])];
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
   }
   /** A sensitive read adopts body and its current-purpose proof together.
@@ -842,7 +1176,11 @@ export class ContextCompiler {
     pack.receipt.providedEvidenceIds = [...new Set([...pack.receipt.providedEvidenceIds, ...binding.refs.map(ref => ref.eventId)])];
     for (const ref of binding.refs) {
       const previous = pack.receipt.providedObjectVersions.find(value => value.kind === 'evidence' && value.id === ref.eventId);
-      if (previous) previous.revision = ref.contentVersion;
+      if (previous) {
+        if (previous.imageSha256 && previous.revision !== ref.contentVersion)
+          throw new HarnessError('image_changed', '已采用的原图版本与这段来源不同，没有替换原依赖。');
+        previous.revision = ref.contentVersion;
+      }
       else pack.receipt.providedObjectVersions.push({ id: ref.eventId, revision: ref.contentVersion, kind: 'evidence' });
     }
   }
@@ -1048,16 +1386,24 @@ export class ContextCompiler {
     pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
     return { status: 'included' };
   }
-  serializeForContinuation(pack: ContextPack, retained: ModelWireMessage[]) {
+  serializeForContinuation(pack: ContextPack, retained: ModelWireMessage[], coverage: ProtocolHistoryCoverage[] = []) {
     if (!retained.length || pack.contract.audience !== 'self') return this.serialize(pack);
-    const history = Array.isArray(pack.data.history) ? pack.data.history as { role: string; content: string }[] : [];
-    const remaining = history.filter(item => !retained.some(message => message.role === item.role && typeof message.content === 'string' && message.content === item.content));
+    const history = Array.isArray(pack.data.history) ? pack.data.history as { id: string; role: string; content: string }[] : [];
+    const proven = validatedProtocolCoverage(retained, coverage);
+    const reused = history.filter(item => proven.some(proof => proof.id === item.id && proof.role === item.role
+      && proof.contentFingerprint === protocolBodyFingerprint(item.content)));
+    const remaining = history.filter(item => !reused.includes(item));
     const data: ContextPack['data'] = { ...pack.data, history: remaining };
     const directory = pack.data.capabilityDirectory as { items?: Record<string, unknown>[]; more?: boolean; meaning?: string } | undefined;
-    if (directory?.items && retained.some(message => typeof message.content === 'string' && message.content.includes(canonical(directory)))) {
+    const retainedTexts = retained.flatMap(message => typeof message.content === 'string' ? [message.content]
+      : Array.isArray(message.content) ? message.content.flatMap(part => part.type === 'text' ? [part.text] : []) : []);
+    if (directory?.items && retainedTexts.some(text => text.includes(canonical(directory)))) {
       data.capabilityDirectory = { ...directory, items: directory.items.map(({ description: _description, ...item }) => item), meaning: '完整说明前面已经给过；这里只更新这一轮的接通状态。' };
     }
-    if (remaining.length !== history.length) data.historyReuse = '未重复列出的历史原文仍以相同角色完整保留在当前协议链中；原始存储和检索不变。';
+    if (reused.length) {
+      data.historyReused = reused.map(({ content: _content, ...metadata }) => ({ ...metadata, bodyProvided: 'retained_protocol' }));
+      data.historyReuse = 'historyReused里的消息原文已按原消息身份完整保留在前面的相同角色协议中，这里仍带着原来的来处和回复状态；原始存储和检索不变。';
+    }
     return this.serialize({ ...pack, data });
   }
   serialize(pack: ContextPack) {

@@ -84,6 +84,38 @@ export function compactToolSpec(spec: ToolSpec): ToolSpec {
 
 export function deferredFamily(name: string) { return familyOf.get(name); }
 
+/** Search only the host's current permission-filtered contracts. This is an
+ * explicit model query over documentation, never a router over user messages. */
+export function deferredToolCatalog(all: readonly ToolSpec[], options: {
+  query?: string; family?: DeferredFamily; offset?: number; limit?: number;
+} = {}) {
+  const query = options.query || '', normalized = query.normalize('NFKC').trim().toLowerCase();
+  const terms = [...new Set((normalized.match(/[a-z0-9_.:-]+|[\p{Script=Han}]+/gu) || []).flatMap(word => {
+    if (!/\p{Script=Han}/u.test(word)) return [word];
+    const points = Array.from(word);
+    return [word, ...points.slice(0, -1).map((point, index) => point + points[index + 1])];
+  }))];
+  const rows = all.flatMap(spec => {
+    const family = familyOf.get(spec.function.name);
+    if (!family || options.family && family !== options.family) return [];
+    const purpose = PURPOSE[spec.function.name] || spec.function.description;
+    const text = `${spec.function.name} ${family} ${purpose} ${spec.function.description}`.normalize('NFKC').toLowerCase();
+    const score = normalized === spec.function.name.toLowerCase() ? Number.MAX_SAFE_INTEGER
+      : terms.reduce((total, term) => total + (text.includes(term) ? term.length : 0), 0);
+    return normalized && !score ? [] : [{ spec, family, purpose, score }];
+  }).sort((a, b) => b.score - a.score);
+  const offset = options.offset || 0, limit = options.limit || 8;
+  return { status: 'catalog' as const, catalogOnly: true, items: rows.slice(offset, offset + limit).map(({ spec, family, purpose }) => ({
+    name: spec.function.name, family, purpose,
+    ...(Array.isArray((spec.function.parameters as { required?: string[] }).required)
+      ? { required: (spec.function.parameters as { required: string[] }).required } : {}),
+    read: { tool: USE_TOOL, arguments: { name: spec.function.name } },
+  })), nextOffset: offset + limit < rows.length ? offset + limit : null, total: rows.length,
+    coverage: { query, family: options.family || null, matchingOnly: !!normalized,
+      meaning: '当前获准专门工具的说明目录；未命中不表示没有能力。清空query可分页查看全部，或换query/family继续查找。没有顶层required摘要不表示没有必填项，按操作分支查看完整参数。目录和参数读取不读取业务资料、不执行动作、不增加权限。' },
+  };
+}
+
 /** Build the model-facing surface from the host's full, already permission-
  * filtered list. Promotion follows host state (an open study paper, a current
  * rehearsal...), never keywords in the user's words. */
@@ -97,11 +129,15 @@ export function modelToolSurface(all: ToolSpec[], promoted: ReadonlySet<Deferred
   const listing = behind.map(spec => `${spec.function.name}：${PURPOSE[spec.function.name] || spec.function.description.slice(0, 40)}`).join('；');
   const gateway: ToolSpec = { type: 'function', function: {
     name: USE_TOOL,
-    description: `调用不在工具列表里的专门工具。先只传 name 读取它的完整说明和参数，再传 name 和 arguments 真正调用；参数校验、权限和回执与直接调用完全一样。资料或画面里提到这些工具的读取入口时，也通过这里调用。当前可用：${listing}。`,
+    description: `按需发现和调用专门工具。不知道名称时传query搜索用途，或不填name/query分页浏览；family可缩小目录，未命中可换词或清空query继续。知道名称时只传name读取完整说明和参数，已有足够参数知识时可直接传name和arguments调用，无需反复读说明。参数校验、权限和回执与直接调用完全一样。资料或画面里提到这些工具的读取入口时，也通过这里调用。当前可用：${listing}。其他公开资料、天气、校园、地图等能力仍通过look_up发现和读取。`,
     parameters: { type: 'object', properties: {
-      name: { type: 'string', enum: behind.map(spec => spec.function.name) },
+      name: { type: 'string', enum: all.filter(spec => familyOf.has(spec.function.name)).map(spec => spec.function.name), description: '精确工具名；省略时搜索或浏览目录。' },
+      query: { type: 'string', maxLength: 300, description: '模型主动选择的用途或工具名查询；只筛目录，不决定工具权限。' },
+      family: { type: 'string', enum: Object.keys(DEFERRED_TOOL_FAMILIES) },
+      offset: { type: 'integer', minimum: 0, default: 0 },
+      limit: { type: 'integer', minimum: 1, maximum: 23, default: 8 },
       arguments: { type: 'object', description: '按该工具说明填写的参数；省略时只返回说明和参数结构。' },
-    }, required: ['name'] },
+    }, additionalProperties: false },
   } };
   return [...direct.map(compactToolSpec), gateway];
 }

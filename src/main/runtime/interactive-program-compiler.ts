@@ -23,6 +23,32 @@ const functionHelp: ProgramAstPolicy['functionHelp'] = { methodId: INTERACTIVE_P
       ...(metadata.minimumArguments === undefined ? {} : { minimumArguments: metadata.minimumArguments }) }]] : [];
   })) };
 const prototypeKeys = new Set(PROGRAM_AST_RULES.forbiddenMemberKeys);
+type NativeParserInput = Extract<InteractiveProgramInputDiagnostic, { layer: 'native_parser' }>;
+/** Project the native JSON Pointer through the fixed library schema. The
+ * parser's message can contain rejected values, so it never crosses this port. */
+function nativeProperty(name: string | undefined, pointer: string | undefined): NativeParserInput['errors'][number]['property'] | undefined {
+  if (!name || typeof pointer !== 'string' || !Object.hasOwn(spec.schema.$defs || {}, name) || !pointer.startsWith('/')) return;
+  const root = spec.schema.$defs![name] as Record<string, any>;
+  let current = root;
+  const path: (string | number)[] = [], parts = pointer.slice(1).split('/').map(part => part.replace(/~1/g, '/').replace(/~0/g, '~'));
+  let pathComplete = parts.length <= 12;
+  for (const part of parts.slice(0, 12)) {
+    const properties = current.properties;
+    if (properties && typeof properties === 'object' && Object.hasOwn(properties, part)) {
+      path.push(part); current = properties[part];
+    } else if (current.type === 'array' && /^(?:0|[1-9]\d*)$/.test(part) && Number.isSafeInteger(Number(part))
+      && current.items && typeof current.items === 'object' && !Array.isArray(current.items)) {
+      path.push(Number(part)); current = current.items;
+    } else { pathComplete = false; break; }
+    if (!current || typeof current !== 'object' || Array.isArray(current)) { pathComplete = false; break; }
+  }
+  if (!path.length) return;
+  const parameterIndex = Object.keys(root.properties || {}).indexOf(String(path[0]));
+  const tail = current as Record<string, any>, kind = tail.type === 'integer' ? 'int' : tail.type;
+  const expected = typeof kind === 'string' && ['string', 'number', 'int', 'boolean', 'array', 'object', 'null'].includes(kind)
+    ? kind as NonNullable<NativeParserInput['errors'][number]['property']>['expected'] : undefined;
+  return { path, pathComplete, ...(parameterIndex >= 0 ? { parameterIndex } : {}), ...(expected ? { expected } : {}) };
+}
 function componentFailure(name: string, problem: NonNullable<ReturnType<typeof inspectInteractivePrimitiveProperties>>): never {
   const definitions = spec.library.components || {};
   const definition = Object.hasOwn(definitions, name) ? definitions[name] : undefined;
@@ -69,10 +95,11 @@ function largestCollection(value: ProgramJsonValue): number {
   if (value && typeof value === 'object') return Math.max(0, ...Object.values(value).map(largestCollection));
   return 0;
 }
-function programHash(program: Pick<InteractiveProgramDocument, 'sourceDsl' | 'states' | 'bindingAliases' | 'sourceSlots' | 'provenance' | 'initialState' | 'initialStateMode'>, data: ProgramDataMap) {
+function programHash(program: Pick<InteractiveProgramDocument, 'sourceDsl' | 'states' | 'bindingAliases' | 'sourceSlots' | 'provenance' | 'initialState' | 'initialStateMode' | 'initialInputFields'>, data: ProgramDataMap) {
   return digest({ libraryVersion: PROGRAM_LIBRARY_VERSION, sourceDsl: program.sourceDsl, states: program.states,
     bindingAliases: program.bindingAliases, sourceSlots: program.sourceSlots || [], data: digest(data), provenance: program.provenance,
-    ...(program.initialStateMode === 'admitted_seed' ? { initialStateMode: program.initialStateMode, initialState: program.initialState } : {}) });
+    ...(program.initialStateMode === 'admitted_seed' ? { initialStateMode: program.initialStateMode, initialState: program.initialState,
+      ...(program.initialInputFields?.length ? { initialInputFields: program.initialInputFields } : {}) } : {}) });
 }
 export interface InteractiveProgramEvaluation {
   inputs: ProgramStateValues;
@@ -188,7 +215,6 @@ function evaluateProgram(sourceDsl: string, states: InteractiveProgramDocument['
     const flags = { incomplete: parsed.meta.incomplete, unresolved: counts.unresolved > 0,
       parseErrors: counts.parseErrors > 0, query: counts.query > 0, mutation: counts.mutation > 0 };
     const ordinals = new Map([...inspection.statements.keys()].map((name, index) => [name, index + 1]));
-    type NativeParserInput = Extract<InteractiveProgramInputDiagnostic, { layer: 'native_parser' }>;
     const errors: NativeParserInput['errors'] = parsed.meta.errors.slice(0, 4).map(error => {
       const statementOrdinal = error.statementId === undefined ? undefined : ordinals.get(error.statementId);
       const name = error.component;
@@ -201,14 +227,15 @@ function evaluateProgram(sourceDsl: string, states: InteractiveProgramDocument['
           read: { tool: 'read_skill', arguments: { id: INTERACTIVE_PROGRAM_METHOD_ID,
             section: component ? 'components' : 'functions', names: [name], limit: 1 } } };
       }
-      return { code: error.code, ...(statementOrdinal === undefined ? {} : { statementOrdinal }), ...(contract ? { contract } : {}) };
+      const property = nativeProperty(name, error.path);
+      return { code: error.code, ...(statementOrdinal === undefined ? {} : { statementOrdinal }), ...(property ? { property } : {}), ...(contract ? { contract } : {}) };
     });
     const input: NativeParserInput = { tool: 'present_view', layer: 'native_parser', flags, counts, errors };
     throw new HarnessError('interactive_program_parse', '交互的原生解析或校验尚未完成，请按解析提示修订。', 'never', {
       rejectedDimensions: ([['native_parser.incomplete', flags.incomplete], ['native_parser.unresolved', flags.unresolved],
         ['native_parser.parse_errors', flags.parseErrors], ['native_parser.query', flags.query], ['native_parser.mutation', flags.mutation]] as const)
         .filter(([, blocked]) => blocked).map(([name]) => name), input,
-      explanation: 'input的flags和counts来自这一次原生parse；unresolved是未定义引用的条数，不是orphaned的未使用声明。errors只列实际固定code；ordinal只映射当前原声明，contract只取当前registry签名。未返回原错误文本、引用名、属性路径或查询内容，也未发表新版本。沿实际触发门修订同一作品。',
+      explanation: 'input的flags和counts来自这一次原生parse；unresolved是未定义引用的条数，不是orphaned的未使用声明。ordinal从1计且只映射当前原声明；property.path只含当前组件schema固定字段和数组下标，parameterIndex从0计，是组件签名参数位置，不是源码位置。同声明有多个同名部件时不伪造精确出现位置。pathComplete=false表示在未知或record键前停止；expected取固定schema类型。contract只取当前registry签名。未返回原错误文本、输入值、任意字段名或查询内容，也未发表新版本。沿实际触发门修订同一作品。',
     });
   }
   if (Object.keys(parsed.stateDeclarations).length !== 1 || !Object.hasOwn(parsed.stateDeclarations, PROGRAM_AST_RULES.stateRoot))
@@ -260,7 +287,8 @@ function evaluateProgram(sourceDsl: string, states: InteractiveProgramDocument['
 }
 
 export function compileInteractiveProgram(raw: InteractiveProgramDraft, readonlyData: ProgramDataMap = {}, provenance?: unknown,
-  sourceSlots: readonly string[] = [], admittedAliases?: readonly string[], initialInputs?: ProgramStateValues): InteractiveProgramDocument {
+  sourceSlots: readonly string[] = [], admittedAliases?: readonly string[], initialInputs?: ProgramStateValues,
+  initialInputFields?: readonly string[]): InteractiveProgramDocument {
   const input = interactiveProgramDraftSchema.parse(raw), aliases = [...(admittedAliases ?? input.bindings.map(binding => binding.alias))];
   if (aliases.length > INTERACTIVE_PROGRAM_LIMITS.bindings || new Set(aliases).size !== aliases.length)
     fail('当前只保留互不重名的有限资料绑定。');
@@ -269,9 +297,13 @@ export function compileInteractiveProgram(raw: InteractiveProgramDraft, readonly
     fail('原画面引用需要本次已核的有限确切地址。');
   const data = admittedData(aliases, readonlyData), inputs = initialInputs === undefined
     ? initialProgramState(input.states) : validateProgramState(input.states, initialInputs);
+  if (initialInputFields?.length && (initialInputs === undefined || initialInputFields.length > INTERACTIVE_PROGRAM_LIMITS.states
+    || new Set(initialInputFields).size !== initialInputFields.length || initialInputFields.some(key => !Object.hasOwn(input.states, key))))
+    fail('明确改值的字段需要属于这次完整的局部输入。');
   const result = evaluateProgram(input.dsl, input.states, inputs, aliases, data, sourceSlots);
   const document: InteractiveProgramDocument = { libraryVersion: PROGRAM_LIBRARY_VERSION, dsl: result.dsl, sourceDsl: input.dsl,
     states: input.states, initialState: inputs, ...(initialInputs === undefined ? {} : { initialStateMode: 'admitted_seed' as const }),
+    ...(initialInputFields?.length ? { initialInputFields: [...initialInputFields].sort() } : {}),
     bindingAliases: aliases, ...(aliases.length ? { currentData: data } : {}),
     ...(sourceSlots.length ? { sourceSlots: [...sourceSlots] } : {}),
     hash: '', nodeIds: result.nodeIds, stats: result.stats, ...(provenance === undefined ? {} : { provenance }) };

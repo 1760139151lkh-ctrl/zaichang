@@ -33,9 +33,9 @@ function containsGap(value: unknown): boolean {
   if (!value || typeof value !== 'object') return false;
   const node = value as { typeName?: string; props?: Record<string, any> }, props = node.props;
   if (!props) return false;
-  const keys = node.typeName === 'Line' ? ['x1', 'y1', 'x2', 'y2'] : ['Circle', 'Label', 'Group'].includes(node.typeName || '') ? ['x', 'y'] : [];
+  const keys = node.typeName === 'Line' ? ['x1', 'y1', 'x2', 'y2'] : ['Circle', 'Label', 'Group', 'Rect'].includes(node.typeName || '') ? ['x', 'y'] : [];
   if (keys.some(key => !finite(props[key])) || node.typeName === 'Label' && props.text == null) return true;
-  if (node.typeName === 'Polyline' && (!Array.isArray(props.points)
+  if (['Polyline', 'Polygon'].includes(node.typeName || '') && (!Array.isArray(props.points)
     || props.points.some((point: any) => !point || !finite(point.x) || !finite(point.y)))) return true;
   return containsGap(props.children);
 }
@@ -50,8 +50,13 @@ export function InteractiveGraphic({ props }: Props) {
     update(); const observer = new ResizeObserver(update); observer.observe(element); return () => observer.disconnect();
   }, []);
   const height = props.height as number, domain = props.domain as GraphicSpace['domain'];
-  const left = props.axes ? 43 : 14, right = props.axes ? 28 : 14, top = 18, bottom = props.axes ? 34 : 18;
-  const plotWidth = Math.max(1, width - left - right), plotHeight = Math.max(1, height - top - bottom), down = props.yDirection === 'down';
+  const insetLeft = props.axes ? 43 : 14, insetRight = props.axes ? 28 : 14, insetTop = 18, insetBottom = props.axes ? 34 : 18;
+  const availableWidth = Math.max(1, width - insetLeft - insetRight), availableHeight = Math.max(1, height - insetTop - insetBottom);
+  const xSpan = domain.xMax - domain.xMin, ySpan = domain.yMax - domain.yMin;
+  const unit = props.coordinateScale === 'equal' ? Math.min(availableWidth / xSpan, availableHeight / ySpan) : undefined;
+  const plotWidth = unit === undefined ? availableWidth : unit * xSpan, plotHeight = unit === undefined ? availableHeight : unit * ySpan;
+  const left = insetLeft + (availableWidth - plotWidth) / 2, top = insetTop + (availableHeight - plotHeight) / 2;
+  const right = width - left - plotWidth, bottom = height - top - plotHeight, down = props.yDirection === 'down';
   const space: GraphicSpace = {
     domain, matrix: identity, down,
     point(x, y, matrix = identity) {
@@ -153,6 +158,24 @@ export function InteractiveCircle({ props }: Props) {
   const space = useSpace(), point = space.point(props.x, props.y, space.matrix);
   return point ? <circle data-program-node={props.id} className={`interactive-stroke tone-${props.color}`} cx={point.x} cy={point.y} r={props.radius}
     style={{ fill: props.filled ? 'currentColor' : 'none' }} strokeWidth={1.5} /> : gap();
+}
+export function InteractiveRect({ props }: Props) {
+  const space = useSpace();
+  if (!finite(props.x) || !finite(props.y)) return gap();
+  const points = [[props.x, props.y], [props.x + props.width, props.y], [props.x + props.width, props.y + props.height],
+    [props.x, props.y + props.height]].map(([x, y]) => space.point(x, y, space.matrix));
+  if (points.some(point => !point)) return gap();
+  return <polygon data-program-node={props.id} className={`interactive-stroke tone-${props.color}`}
+    points={points.map(point => `${point!.x},${point!.y}`).join(' ')}
+    style={{ fill: props.filled ? 'currentColor' : 'none' }} strokeWidth={props.strokeWidth} />;
+}
+export function InteractivePolygon({ props }: Props) {
+  const space = useSpace();
+  const points = (props.points as ({ x: number; y: number } | null)[]).map(point => point ? space.point(point.x, point.y, space.matrix) : undefined);
+  if (points.some(point => !point)) return gap();
+  return <polygon data-program-node={props.id} className={`interactive-stroke tone-${props.color}`}
+    points={points.map(point => `${point!.x},${point!.y}`).join(' ')}
+    style={{ fill: props.filled ? 'currentColor' : 'none' }} strokeWidth={props.strokeWidth} />;
 }
 export function InteractiveLabel({ props }: Props) {
   const space = useSpace(), point = space.point(props.x, props.y, space.matrix);

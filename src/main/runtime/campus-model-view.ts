@@ -29,12 +29,8 @@ export function campusNativeModelResult(result: CapabilityResult, scene: CampusS
 }
 
 export function campusSceneModelSummary(scene: CampusScene) {
-  const { nativeRead: _owner, academicSnapshotProof: _academicProof, ...visible } = scene;
-  return scene.modelBodyDelivered === false
-    ? { id: scene.id, revision: scene.revision, kind: scene.kind, domain: scene.domain, term: scene.term, source: scene.source,
-      sourceLabel: scene.sourceLabel, sourceCoverage: scene.sourceCoverage, total: scene.total, complete: scene.complete,
-      sceneRecordCount: scene.records.length, modelBodyDelivered: false as const, continuation: scene.continuation,
-      meaning: '原生资料页的地址与范围，不含逐行正文。呈现可引用此ref；需要具体行时先在界面选中，再沿read_current_campus_selection回原owner读取。' }
-    : { ...visible, records: scene.records.slice(0, 8), sceneRecordCount: scene.records.length,
-      summaryOmittedRecords: Math.max(0, scene.records.length - 8) };
+  const source: CampusScene['source'] = { sourceId: scene.source.sourceId, fetchedAt: '' };
+  return { id: scene.id, revision: scene.revision, kind: scene.kind, domain: scene.domain,
+    source, modelBodyDelivered: false as const,
+    meaning: '这是原校园画面的目录地址，未提供行正文、查询条件或续页参数，也不表示它就是眼前所说的那一页。具体内容沿当前已准入前情的campusReading地址回读；界面明确选中一行时，read_current_campus_selection回原owner读取。' };
 }

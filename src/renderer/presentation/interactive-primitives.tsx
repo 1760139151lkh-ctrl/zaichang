@@ -6,8 +6,10 @@ import { checkedProgramPatch, snapProgramNumber, type InteractiveStateDeclaratio
 import { RichText } from '../RichText';
 import { InteractiveChildren, InteractiveDocument, InteractiveHostContext, InteractiveGraphicSlot, useInteractiveControls } from './interactive-context';
 import { InteractiveGraphic, InteractiveGroup, InteractiveLine, InteractivePolyline, InteractiveCurve, InteractiveCircle,
-  InteractiveLabel, InteractiveDragHandle } from './interactive-graphics';
+  InteractiveLabel, InteractiveDragHandle, InteractiveRect, InteractivePolygon } from './interactive-graphics';
 import { InteractiveMotion } from './interactive-motion';
+import { InteractivePress } from './interactive-press';
+import { InteractiveVoice } from './interactive-audio';
 
 type Props = ComponentRenderProps<Record<string, any>>;
 type NumberState = Extract<InteractiveStateDeclaration, { kind: 'number' }>;
@@ -39,23 +41,24 @@ function InteractiveFormula({ props }: Props) {
 function NumberEditor({ value, state, label, disabled, onCommit, onCancel, inline = false, onBeginEdit, onKeyboardDone }: { value: number; state: NumberState;
   label: string; disabled: boolean; onCommit: (value: number) => boolean; onCancel?: () => void; inline?: boolean; onBeginEdit?: () => void; onKeyboardDone?: () => void }) {
   const [draft, setDraft] = useState(String(value)), [invalid, setInvalid] = useState(false);
-  const focused = useRef(false), committed = useRef(false), input = useRef<HTMLInputElement>(null);
-  useEffect(() => { if (!focused.current) setDraft(String(value)); }, [value]);
+  const focused = useRef(false), dirty = useRef(false), input = useRef<HTMLInputElement>(null);
+  useEffect(() => { if (!focused.current || !dirty.current) { setDraft(String(value)); setInvalid(false); } }, [value]);
   useEffect(() => { if (inline) input.current?.select(); }, [inline]);
   const commit = () => {
     const next = draft.trim() ? Number(draft) : NaN;
     const accepted = Number.isFinite(next) && onCommit(next);
+    if (accepted) dirty.current = false;
     setInvalid(!accepted); return accepted;
   };
   return <input ref={input} autoFocus={inline} type="number" className="interactive-number-editor" inputMode="decimal"
     value={draft} min={state.min} max={state.max} step={state.step ?? 'any'} aria-label={label} aria-invalid={invalid || undefined}
-    disabled={disabled} onFocus={() => { focused.current = true; committed.current = false; onBeginEdit?.(); }}
-    onChange={event => { committed.current = false; onBeginEdit?.(); setDraft(event.currentTarget.value); setInvalid(false); }}
-    onBlur={() => { focused.current = false; if (committed.current) committed.current = false; else commit(); }}
+    disabled={disabled} onFocus={() => { focused.current = true; onBeginEdit?.(); }}
+    onChange={event => { dirty.current = true; onBeginEdit?.(); setDraft(event.currentTarget.value); setInvalid(false); }}
+    onBlur={() => { focused.current = false; if (dirty.current) commit(); else { setDraft(String(value)); setInvalid(false); } }}
     onKeyDown={event => {
       event.stopPropagation();
-      if (event.key === 'Enter') { event.preventDefault(); if (commit() && inline) { committed.current = true; input.current?.blur(); onKeyboardDone?.(); } }
-      if (event.key === 'Escape') { event.preventDefault(); committed.current = true; setDraft(String(value)); setInvalid(false); onCancel?.(); onKeyboardDone?.(); }
+      if (event.key === 'Enter') { event.preventDefault(); if (commit() && inline) { input.current?.blur(); onKeyboardDone?.(); } }
+      if (event.key === 'Escape') { event.preventDefault(); dirty.current = false; setDraft(String(value)); setInvalid(false); onCancel?.(); onKeyboardDone?.(); }
     }} />;
 }
 function InteractiveNumber({ props }: Props) {
@@ -218,20 +221,21 @@ function InteractiveChoice({ props }: Props) {
   const controls = useInteractiveControls(), state = controls.states[props.field];
   if (state?.kind !== 'choice') throw new Error('选项没有对应的声明。');
   const value = controls.inputs[props.field] as string, disabled = controls.disabled || props.disabled;
+  const change = (next: string) => controls.patch({ [props.field]: next }, 'choice', props.id, props.label);
   return <fieldset className={`interactive-field interactive-choice is-${props.presentation}`} data-program-node={props.id}>
-    <legend>{props.label}</legend>{props.presentation === 'select' ? <select aria-label={props.label} value={value} disabled={disabled} onChange={event => controls.patch({ [props.field]: event.currentTarget.value }, 'manual', props.id, props.label)}>
+    <legend>{props.label}</legend>{props.presentation === 'select' ? <select aria-label={props.label} value={value} disabled={disabled} onChange={event => change(event.currentTarget.value)}>
       {state.options.map(option => <option key={option} value={option}>{option}</option>)}</select>
       : <span className="interactive-choice-options" role={props.presentation === 'tabs' ? 'tablist' : 'group'} aria-label={props.label}>
         {state.options.map((option, index) => <button key={option} type="button" disabled={disabled} data-selected={value === option}
           role={props.presentation === 'tabs' ? 'tab' : undefined} aria-selected={props.presentation === 'tabs' ? value === option : undefined}
           aria-pressed={props.presentation === 'buttons' ? value === option : undefined}
-          tabIndex={props.presentation === 'tabs' && value !== option ? -1 : 0} onClick={() => controls.patch({ [props.field]: option }, 'manual', props.id, props.label)}
+          tabIndex={props.presentation === 'tabs' && value !== option ? -1 : 0} onClick={() => change(option)}
           onKeyDown={event => {
             if (props.presentation !== 'tabs' || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
             event.preventDefault(); event.stopPropagation();
             const next = event.key === 'Home' ? 0 : event.key === 'End' ? state.options.length - 1
               : (index + (event.key === 'ArrowLeft' ? -1 : 1) + state.options.length) % state.options.length;
-            controls.patch({ [props.field]: state.options[next] }, 'manual', props.id, props.label);
+            change(state.options[next]);
             (event.currentTarget.parentElement?.children[next] as HTMLButtonElement | undefined)?.focus();
           }}>{option}</button>)}
       </span>}
@@ -241,7 +245,7 @@ function InteractiveToggle({ props }: Props) {
   const controls = useInteractiveControls();
   return <label className="interactive-field interactive-toggle" data-program-node={props.id}>
     <input type="checkbox" role="switch" aria-label={props.label} checked={controls.inputs[props.field] === true}
-      disabled={controls.disabled || props.disabled} onChange={event => controls.patch({ [props.field]: event.currentTarget.checked }, 'manual', props.id, props.label)} />
+      disabled={controls.disabled || props.disabled} onChange={event => controls.patch({ [props.field]: event.currentTarget.checked }, 'control', props.id, props.label)} />
     <span className="interactive-toggle-track" aria-hidden="true" /><span>{props.label}</span>
   </label>;
 }
@@ -270,9 +274,9 @@ function InteractiveSourceSlot({ props }: Props) {
 const renderers: Record<InteractiveComponentName, ComponentRenderer<any>> = {
   Document: InteractiveDocument, Flow: InteractiveFlow, Paper: InteractivePaper, Text: InteractiveText, Formula: InteractiveFormula,
   Number: InteractiveNumber, TextInput: InteractiveTextInput, SequenceInput: InteractiveSequenceInput, Choice: InteractiveChoice,
-  Toggle: InteractiveToggle, Button: InteractiveButton, SourceSlot: InteractiveSourceSlot, Graphic: InteractiveGraphic,
+  Toggle: InteractiveToggle, Press: InteractivePress, Voice: InteractiveVoice, Button: InteractiveButton, SourceSlot: InteractiveSourceSlot, Graphic: InteractiveGraphic,
   Group: InteractiveGroup, Line: InteractiveLine, Polyline: InteractivePolyline, Curve: InteractiveCurve, Circle: InteractiveCircle,
-  Label: InteractiveLabel, DragHandle: InteractiveDragHandle, Motion: InteractiveMotion,
+  Rect: InteractiveRect, Polygon: InteractivePolygon, Label: InteractiveLabel, DragHandle: InteractiveDragHandle, Motion: InteractiveMotion,
 };
 /** State-dependent derived props are checked again at their actual render,
  * so a later null cannot fall through a DOM default and masquerade as zero. */

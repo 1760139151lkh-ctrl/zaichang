@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import { Fixture } from './support';
+import { Fixture, withHostReplies } from './support';
 import { Harness } from '../../src/main/harness';
 import { DeepSeekClient, type Completion } from '../../src/main/provider';
 import type { RunEvent } from '../../src/shared/types';
@@ -34,7 +34,7 @@ test('her first words appear while she is still working, and the answer continue
       onText?.('晚上可以完全留给自己。');
       return { content: '今天没有记下别的事，晚上可以完全留给自己。', tool_calls: [] };
     };
-    const harness = new Harness(f.store, () => 'synthetic', event => events.push(structuredClone(event)), () => client);
+    const harness = new Harness(f.store, () => 'synthetic', event => events.push(structuredClone(event)), () => withHostReplies(client));
     const { sessionId } = harness.start(undefined, '帮我看看今天还有什么安排');
     await harness.idle();
     const assistant = events.filter((event): event is Extract<RunEvent, { type: 'message' }> => event.type === 'message' && event.message.role === 'assistant');

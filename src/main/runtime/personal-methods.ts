@@ -63,7 +63,7 @@ export class PersonalMethodService {
     const scope = write ? this.policy.require(handle, 'work:write') : this.policy.validate(handle);
     if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self'
       || write && scope.child || !scope.sources.includes('work:self'))
-      throw new HarnessError('personal_method_scope', '当前范围不能管理或读取这份个人工作方法。');
+      throw new HarnessError('personal_method_scope', '眼前可用的资料范围还没有这份个人工作方法所需的条件。');
     return scope;
   }
   private authorization(handle: ScopeHandle, session: MethodSession, ref: z.infer<typeof refSchema>) {
@@ -72,7 +72,7 @@ export class PersonalMethodService {
       || !['user_message', 'user_control'].includes(event.kind) || event.parentEventId
       || event.subjectId !== scope.principalId || event.worldId !== 'real'
       || event.contentVersion !== ref.contentVersion || ref.end <= ref.start || codePointSlice(event.text, ref.start, ref.end) !== ref.quote)
-      throw new HarnessError('personal_method_source', '保存、修订或停用方法须对应本轮本人明确原话，附件内容不能自行授予保留许可。');
+      throw new HarnessError('personal_method_source', '这次保存、修订或停用方法的选择，还没有对应到本轮本人明确说过的原话；附件文字保留材料的身份。');
     // The current statement can change while the bounded intent verifier runs.
     // Even metadata-only stopping rechecks its own new authorization, without
     // reopening the old method or inheriting that method's former sources.
@@ -88,13 +88,13 @@ export class PersonalMethodService {
     const current = this.repo.sourcedWorkMetadata(handle, id.slice('personal:'.length));
     if (!current || current.type !== 'personal_method' || current.kind !== 'recipe_candidate')
       throw new HarnessError('personal_method_missing', '这份个人工作方法不存在或已删除。');
-    if (current.revision !== revision) throw new HarnessError('revision_conflict', '方法已变化，请先读取当前版本再修改。');
+    if (current.revision !== revision) throw new HarnessError('revision_conflict', '这份方法已有新版本，手上的修订地址与当前版本没有对应上。');
     return current;
   }
   private support(handle: ScopeHandle, session: MethodSession, input: Exclude<MethodInput, { operation: 'disable' }>, prepared: readonly PreparedMethodWorkHelp[]) {
     if (prepared.length !== input.workAssistance.length || prepared.some((value, index) => canonical(value.input) !== canonical(input.workAssistance[index])
       || this.workHelpOwner?.verify(handle, value.proof) !== true || value.proof.sourceBinding.refs.some(ref => session.permits?.(ref) === false)))
-      throw new HarnessError('personal_method_help_proof', '实际纸面帮助尚未由原主人回读核对，没有采用模型自报的帮助证明。');
+      throw new HarnessError('personal_method_help_proof', '这份纸面帮助还缺原页面实际读取时留下的依据，这次没有把给出的地址当成已经回读的内容。');
     const assistance = input.assistance.map(source => {
       const original = this.repo.personalMethodAssistantSource(handle, { ...source,
         ...(session.restrictToSessionId ? { sessionId: session.restrictToSessionId } : {}) });
@@ -111,7 +111,7 @@ export class PersonalMethodService {
         || session.restrictToSessionId && record.data.sessionId !== session.restrictToSessionId
           && !(Array.isArray(record.data.sessionIds) && record.data.sessionIds.includes(session.restrictToSessionId))
         || source.kind === 'learning_process' && !this.repo.learningProcessReadable(handle, record.id, record.revision))
-        throw new HarnessError('personal_method_practice', '这次帮助所接的工作或学习过程已变化，请沿真实原过程起草，没有把一次完成当认可。');
+        throw new HarnessError('personal_method_practice', '这次帮助所接的工作或学习过程已有变化，眼前地址没有与原过程对应上；一次完成和本人认可这套帮法，各有自己的依据。');
       return { id: record.id, revision: record.revision, kind: source.kind,
         matterId: source.kind === 'collaboration_frame' ? record.id : String(record.data.matterId), sourceBinding: record.sourceBinding };
     });
@@ -169,7 +169,7 @@ export class PersonalMethodService {
       const event = this.repo.evidence(handle, ref.eventId);
       if (!event || event.contentVersion !== ref.contentVersion || codePointSlice(event.text, ref.start, ref.end) !== ref.quote
         || session.permits?.(ref) === false || session.restrictToSessionId && event.sessionId !== session.restrictToSessionId)
-        throw new HarnessError('personal_method_support', '方法支持片段已变化，不能沿用旧正文或补造依据。');
+        throw new HarnessError('personal_method_support', '这个方法所依据的片段已有变化，这次没有继续使用先前的正文。');
     }
     return binding;
   }
@@ -182,13 +182,13 @@ export class PersonalMethodService {
     if (input.operation === 'disable') {
       const current = this.metadata(handle, input.id, input.expectedRevision);
       return { targetKind: 'personal_method', operation: input.operation, current, source: input.source,
-        meaning: '只停用这个方法，不展开旧正文，不删除原话、事实记忆或独立已接受安排。' };
+        meaning: '这里给出待停用方法的当前管理信息，具体停用还在接下来的保存中完成。原话、事实记忆与独立接受的安排各有自己的归属；先前的方法正文没有随这一步展开。' };
     }
     const current = input.operation === 'revise' ? this.metadata(handle, input.id, input.expectedRevision) : undefined;
     if ((input.assistance.length || input.workAssistance.length) && !input.method.conditions)
-      throw new HarnessError('personal_method_conditions', '请由伙伴按刚才真实帮助起草适用条件和如何随当前意愿调整；不用本人另填表，也不能把这次做法写成永久通用规则。');
+      throw new HarnessError('personal_method_conditions', '这份方法还缺适合什么情况、怎样随当前意愿调整的说明。刚才真正奏效的帮助能提供起点，具体条件可以由你结合那段交流来理解，让本人省下另填一张表的负担。一次的做法和长期适用的条件也各有不同。');
     const unknown = input.method.requirements.filter(requirement => !known(requirement));
-    if (unknown.length) throw new HarnessError('personal_method_requirement', '方法引用了尚未注册的工具或能力；可以先保存不依赖这些入口的文字做法，不能以声明方法安装新能力。');
+    if (unknown.length) throw new HarnessError('personal_method_requirement', '这份方法提到了当前没有登记的工具或能力。本来的文字帮法仍有价值，方法所列的需求则有各自的实际入口；保存方法本身没有安装能力。');
     const support = this.support(handle, session, input, prepared), binding = this.binding(handle, input, support.sources, session, support.previous);
     return { targetKind: 'personal_method', operation: input.operation, current, method: input.method,
       source: input.source, supports: input.supports, assistance: support.assistance, workAssistance: support.workAssistance,
@@ -199,7 +199,7 @@ export class PersonalMethodService {
       ...(input.operation === 'revise' ? { revisionMode: input.revisionMode,
         ...(support.previous ? { previousMethod: methodSchema.parse(support.previous.data.method), previousBinding: support.previous.sourceBinding } : {}) } : {}),
       digest: createHash('sha256').update(canonical({ method: input.method, binding })).digest('hex'),
-      meaning: '只保存用户明确选择的可编辑方法文字及已知需求，不安装代码、不读取需求来源、不授权工具或行动。' };
+      meaning: '这里给出本人选择、准备保存的可编辑方法文字与已知需求。工具和资料需求在这里作为说明留下，代码安装、实际读取与动作仍各有自己的选择和执行过程。' };
   }
 
   save(handle: ScopeHandle, session: MethodSession, raw: unknown, known: (requirement: WorkflowRequirement) => boolean,
@@ -255,7 +255,7 @@ export class PersonalMethodService {
       return { id: 'personal:' + id, revision: record.revision, status: record.status, guidanceOnly: true as const,
         name: input.method.name, methodDigest: createHash('sha256').update(canonical(input.method)).digest('hex'),
         read: { tool: 'read_skill', id: 'personal:' + id },
-        meaning: '已保存这份方法文字及其真实来源版本；读取或采用方法仍受本轮来源、用途与行动边界约束。' };
+        meaning: '这份方法文字和实际来由的版本已一起保存，启用或停用状态也随当前记录保留。以后借用时可以再结合当时的交流判断是否适合；所需资料按当次用途读取，实际动作仍沿原来的托付与执行过程。' };
     });
   }
 

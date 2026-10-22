@@ -102,7 +102,7 @@ test('persona examples carry their factual preconditions and private legacy data
   assert.equal(new Set(prompts).size, 3);
   for (const prompt of prompts) {
     assert.match(prompt, /日程写入失败，尚未持久化/);
-    assert.match(prompt, /例句不代表当前动作已完成/);
+    assert.match(prompt, /例子里的结果也属于当时/);
     assert.match(prompt, /不同角色使用同一组真实依据和动作回执/);
     assert.match(prompt, /不能自动修改角色核心/);
   }

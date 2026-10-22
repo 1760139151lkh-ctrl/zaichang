@@ -15,7 +15,7 @@ import {
 import { terms } from '../shared/schemas';
 import { KernelRepository } from './storage/repository';
 import { RuntimeCoordinator } from './runtime/coordinator';
-import type { AssistantWorkSource, ClockPort, HostIdentity } from '../shared/harness';
+import type { AssistantWorkSource, ClockPort, HostIdentity, ReminderSpeaker } from '../shared/harness';
 import { interactiveProgramSourceSchema } from '../shared/harness';
 import { redactExport } from './runtime/redaction';
 import { assertTestStoreFile } from './testBoundary';
@@ -23,9 +23,11 @@ import { applyPersonaUpdate, companionPreset, initialPersona, isUntouchedDefault
 import { DEFAULT_INTERACTION, LEGACY_DEFAULT_INTERACTION, type InteractionPreferences } from '../shared/interaction';
 import { NotesService } from './notes/service';
 import { canonical } from './runtime/semantics';
+import { materialReferenceSchema, type MaterialReference } from '../shared/materials';
 import { campusAcademicReference } from '../shared/campus-academic';
 import { isAcademicCampus } from './runtime/campus-academic';
 import { sanitizeProgramMessageForStorage } from './runtime/interactive-program-sources';
+import { reminderSpeakerForText } from './actions/reminder-speaker';
 
 export interface AgendaChange {
   id: string; revision: number; operation: 'upsert' | 'tombstone'; at: string;
@@ -48,6 +50,12 @@ export class Store {
   readonly notes: NotesService;
   readonly runtime: RuntimeCoordinator;
   private agendaListeners = new Set<(change: AgendaChange) => void>();
+  private settingsListeners = new Set<() => void>();
+  private closeListeners = new Set<() => void>();
+  private closing = false;
+  private closeController = new AbortController();
+  get closed() { return this.closing || !this.db.isOpen; }
+  get closeSignal() { return this.closeController.signal; }
   constructor(path: string, options: { clock?: ClockPort; identity?: HostIdentity } = {}) {
     assertTestStoreFile(path);
     this.db = new DatabaseSync(path);
@@ -142,17 +150,23 @@ export class Store {
    * person explicitly turned off stays revoked. */
   private applyDefaultGrants() {
     const policy = this.runtime.policy;
+    if (this.settings().memoryEnabled && !policy.grants().includes('memory:read') && !policy.revoked().includes('memory:read'))
+      policy.grant('memory:read');
     if (this.settings().weatherEnabled && !policy.grants().includes('weather:read') && !policy.revoked().includes('weather:read'))
       policy.grant('weather:read');
   }
   /** When she may come by just to say hello. Never before the person has
    * talked to her, never twice without an answer, never during quiet hours,
    * and only at a gentle spacing chosen by the person (偶尔 / 常来). */
-  presenceTarget(now: string, quiet: boolean): string | undefined {
-    const settings = this.settings(), mode = settings.companionCheckIns || 'sometimes';
-    if (mode === 'off' || settings.interaction.initiative === 'quiet' || quiet) return;
+  presenceContactAllowed(now: string, quiet: boolean): boolean {
+    const settings = this.settings();
+    if (settings.companionCheckIns === 'off' || settings.interaction.initiative === 'quiet' || quiet) return false;
     const hour = Number(new Intl.DateTimeFormat('en-GB', { timeZone: settings.timeZone || 'Asia/Shanghai', hour: '2-digit', hourCycle: 'h23' }).format(new Date(now)));
-    if (hour < 9 || hour >= 22) return;
+    return hour >= 9 && hour < 22;
+  }
+  presenceTarget(now: string, quiet: boolean): string | undefined {
+    const mode = this.settings().companionCheckIns || 'sometimes';
+    if (!this.presenceContactAllowed(now, quiet)) return;
     const last = this.db.prepare("SELECT session_id AS sessionId, created_at AS createdAt FROM messages WHERE role='user' ORDER BY created_at DESC LIMIT 1").get() as { sessionId: string; createdAt: string } | undefined;
     if (!last || !this.conversations().some(conversation => conversation.id === last.sessionId)
       || this.conversationPolicy(last.sessionId)?.retention === 'session_only') return;
@@ -173,6 +187,31 @@ export class Store {
     if (!row) return false;
     return !this.db.prepare("SELECT 1 FROM messages WHERE role='user' AND created_at>? LIMIT 1").get(row.createdAt);
   }
+  presenceCanNotify(messageId: string) {
+    const row = this.db.prepare("SELECT payload FROM messages WHERE id=? AND role='assistant'").get(messageId);
+    if (!row) return false;
+    const message = JSON.parse(String(row.payload)) as Message;
+    if (message.proactive !== 'check_in' || message.status !== 'done' || !message.content.trim()
+      || message.presenceExposure?.displayedAt || message.presenceExposure?.openedAt || !this.presenceUnanswered(messageId)) return false;
+    const visible = this.runtime.presentation.message(message);
+    return !!visible && visible.content === message.content;
+  }
+  recordPresenceExposure(sessionId: string, messageId: string, kind: 'displayed' | 'opened') {
+    return this.kernel.write(() => {
+      const row = this.db.prepare("SELECT payload FROM messages WHERE id=? AND session_id=? AND role='assistant'").get(messageId, sessionId);
+      if (!row) return false;
+      const message = JSON.parse(String(row.payload)) as Message, visible = this.runtime.presentation.message(message);
+      if (message.proactive !== 'check_in' || message.status !== 'done' || !message.content.trim()
+        || !visible || visible.content !== message.content) return false;
+      const field = kind === 'displayed' ? 'displayedAt' : 'openedAt';
+      if (!message.presenceExposure?.[field]) this.db.prepare('UPDATE messages SET payload=json_set(payload,?,?) WHERE id=? AND session_id=?')
+        .run('$.presenceExposure.' + field, this.kernel.clock.now(), messageId, sessionId);
+      // Exposure retires only the pending nudge. Existing OS submission
+      // evidence and the unanswered check-in rule keep their own meanings.
+      this.runtime.reminders.cancel(messageId, { pendingOnly: true });
+      return true;
+    });
+  }
   /** A role that was never saved follows the artwork the person picked, so a
    * new user who chose 祥子 talks to 祥子. Saved roles are never touched. */
   followDefaultCompanion(companionId: string) {
@@ -181,7 +220,25 @@ export class Store {
     if (!preset || current.persona.revision !== 0 || current.persona.source !== 'default' || current.persona.history.length) return current;
     if (current.persona.core.presetId === preset.core.presetId) return current;
     this.putMeta('settings', { ...this.meta<Partial<Settings>>('settings', {}), persona: { ...current.persona, core: preset.core } });
+    this.notifySettingsChanged();
     return this.settings();
+  }
+  onSettingsChanged(callback: () => void) {
+    this.settingsListeners.add(callback);
+    return () => this.settingsListeners.delete(callback);
+  }
+  onClose(callback: () => void) {
+    this.closeListeners.add(callback);
+    return () => this.closeListeners.delete(callback);
+  }
+  private notifySettingsChanged() {
+    this.kernel.afterCommit(() => {
+      // Listeners read the committed current settings, including when several
+      // saves belong to one transaction. An observer cannot undo a saved choice.
+      for (const callback of this.settingsListeners) {
+        try { callback(); } catch { /* Saving has already committed. */ }
+      }
+    });
   }
   saveSettings(value: SettingsUpdate) {
     const { personaUpdate, apiKey: _apiKey, ...patch } = value;
@@ -193,14 +250,26 @@ export class Store {
         if (value.weatherEnabled) this.runtime.policy.grant('weather:read');
         else this.runtime.policy.revoke('weather:read');
       }
-      if (value.memoryEnabled === false && previous.memoryEnabled) this.runtime.policy.signalBarrier();
+      if (value.memoryEnabled === false) {
+        const alreadyRevoked = this.runtime.policy.revoked().includes('memory:read') && !this.runtime.policy.grants().includes('memory:read');
+        this.runtime.policy.revoke('memory:read');
+        if (previous.memoryEnabled && alreadyRevoked) {
+          // Turning the setting off also removes conversation history. That
+          // change still invalidates runs after read was separately revoked.
+          this.kernel.write(() => this.kernel.setMeta('policy_revision', this.kernel.policyRevision + 1));
+          this.runtime.policy.signalBarrier();
+        }
+      }
+      else if (value.memoryEnabled === true && !previous.memoryEnabled) this.runtime.policy.grant('memory:read');
       if (value.remindersEnabled !== undefined)
         this.runtime.reminders.configure({ enabled: value.remindersEnabled });
       if (value.timeZone !== undefined) this.runtime.reminders.configure({ timeZone: value.timeZone });
       if (value.interaction?.initiative === 'quiet' && previous.interaction.initiative !== 'quiet') this.runtime.attention.quietOptional();
       if (value.interaction?.initiative === 'prepare' && previous.interaction.initiative !== 'prepare') this.runtime.attention.keepPreparedInApp();
+      if (value.interaction?.followup === 'on_request' && previous.interaction.followup !== 'on_request') this.runtime.attention.keepPreparedInApp();
     }
     this.putMeta('settings', { ...this.settings(), ...patch, persona, model: DEEPSEEK_MODEL, hasKey: false, defaultsVersion: 2 });
+    this.notifySettingsChanged();
   }
   session(id?: string, title = '新的对话'): string {
     if (id && this.db.prepare('SELECT id FROM sessions WHERE id=?').get(id)) return id;
@@ -249,10 +318,21 @@ export class Store {
       if (run.ephemeral) return;
     }
     const sanitized = sanitizeProgramMessageForStorage(m);
-    const persisted: Message = { ...sanitized, presentationBoundaryKey: undefined,
+    const persisted: Message = { ...sanitized, presentationBoundaryKey: undefined, presentationActivity: undefined,
       ...(sanitized.scenes ? { scenes: sanitized.scenes.map(scene => scene.kind === 'campus' && isAcademicCampus(scene)
         ? campusAcademicReference(scene) : scene) } : {}) };
     this.kernel.write(() => {
+      if (persisted.views?.length) {
+        const saved = this.db.prepare(`SELECT json_extract(v.value,'$.id') AS id,json_extract(v.value,'$.revision') AS revision,
+          json_extract(v.value,'$.program.hash') AS programHash,json_extract(v.value,'$.localState') AS state
+          FROM messages m,json_each(m.payload,'$.views') v WHERE m.id=? AND json_type(v.value,'$.localState')='object'`).all(m.id);
+        persisted.views = persisted.views.map(view => {
+          const { localState: _incoming, ...body } = view;
+          const previous = saved.find(old => old.id === view.id && old.revision === view.revision && old.programHash === view.program?.hash);
+          const local = previous ? JSON.parse(String(previous.state)) as NonNullable<typeof view.localState> : undefined;
+          return local?.programHash === view.program?.hash ? { ...body, localState: local } : body;
+        });
+      }
       this.db
         .prepare(
           'INSERT INTO messages VALUES(?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET content=excluded.content,payload=excluded.payload',
@@ -268,6 +348,7 @@ export class Store {
           ...(m.contextReceipt.providedSourceIds || []),
           ...(m.contextReceipt.campusSensitiveReads || []).map(source => source.authorizationEventId),
           ...(m.contextReceipt.noteSources || []).map(source => source.id),
+          ...(m.contextReceipt.releaseSources || []).map(source => source.messageId),
           ...(m.scenes || []).flatMap(scene => scene.kind === 'note' ? [scene.proof.id] : []),
           ...(m.contextReceipt.personalMethodSources || []).flatMap(source => source.assistance.map(assistance => assistance.messageId)),
           ...(m.contextReceipt.personalMethodSources || []).flatMap(source => (source.workAssistance || []).flatMap(help =>
@@ -275,6 +356,7 @@ export class Store {
           ...(m.scenes || []).flatMap(scene => scene.kind === 'discussion'
             ? scene.coWork.flatMap(projection => projection.snapshotProof?.assistantMaterials.map(source => source.messageId) || []) : []),
           ...(m.releaseArtifacts || []).flatMap(artifact => artifact.sourceMessageIds || [artifact.sourceMessageId]),
+          ...(m.releaseArtifacts || []).flatMap(artifact => (artifact.basedOnReleases || []).map(source => source.messageId)),
         ]))
           this.kernel.addDependency(scope, {
             consumerId: m.id,
@@ -391,7 +473,7 @@ export class Store {
       }
     });
   }
-  writeAgendaProjection(item: Action): Action {
+  writeAgendaProjection(item: Action, trusted: { reminderSpeaker?: ReminderSpeaker } = {}): Action {
     return this.kernel.write(() => {
       const offeredRow = this.db
         .prepare(
@@ -401,8 +483,13 @@ export class Store {
       const offered = offeredRow ? (JSON.parse(String(offeredRow.value)) as Action) : undefined;
       const priorRow = this.db.prepare('SELECT payload FROM agenda WHERE id=?').get(item.id);
       const prior = priorRow ? (JSON.parse(String(priorRow.payload)) as Action) : undefined;
+      const reminderSpeaker = reminderSpeakerForText(prior?.reminderSpeaker, item.reminderMessage)
+        || reminderSpeakerForText(trusted.reminderSpeaker, item.reminderMessage);
       const projection: Action = {
         ...item,
+        // Editor/renderer values cannot assign a speaking turn. Only the
+        // unchanged original text or this host transaction can carry one.
+        reminderSpeaker,
         coverage: offered?.coverage || prior?.coverage || item.coverage,
         missingNeeds: offered?.missingNeeds || prior?.missingNeeds || item.missingNeeds,
         saved: true,
@@ -445,16 +532,35 @@ export class Store {
   markNotified(id: string) {
     this.db.prepare('UPDATE agenda SET notified=1 WHERE id=?').run(id);
   }
+  private draftOriginals(id?: string): { draftId: string; reference: MaterialReference }[] {
+    const rows = this.db.prepare(`SELECT key,json_extract(value,'$.attachment.resource') AS reference
+      FROM meta WHERE key LIKE 'draft:%' AND json_valid(value)
+      AND json_extract(value,'$.attachment.kind')='text'${id === undefined ? '' : ' AND key=?'}`)
+      .all(...(id === undefined ? [] : ['draft:' + id]));
+    return rows.flatMap(row => {
+      try {
+        const parsed = materialReferenceSchema.safeParse(JSON.parse(String(row.reference)));
+        return parsed.success ? [{ draftId: String(row.key).slice('draft:'.length), reference: parsed.data }] : [];
+      } catch { return []; }
+    });
+  }
   deleteSession(id: string) {
+    const originals = this.draftOriginals(id);
     const sourceIds = this.db
       .prepare("SELECT id FROM messages WHERE session_id=? UNION SELECT id FROM h_evidence WHERE owner=? AND workspace=? AND json_extract(payload,'$.sessionId')=?")
       .all(id, this.kernel.identity.principalId, this.kernel.identity.workspaceId, id)
       .map((r) => String(r.id));
     if (sourceIds.length) this.runtime.memory.forget([], sourceIds, [], { preservedLocalAgenda: this.kernel.confirmedAgendaReferences(), deletedConversationIds: [id] });
-    this.db.prepare('DELETE FROM sessions WHERE id=?').run(id);
-    this.db.prepare('DELETE FROM meta WHERE key=?').run('draft:' + id);
+    this.kernel.write(() => {
+      this.db.prepare('DELETE FROM sessions WHERE id=?').run(id);
+      this.db.prepare('DELETE FROM meta WHERE key=?').run('draft:' + id);
+      this.kernel.afterCommit(() => {
+        for (const original of originals) this.runtime.materials.releasePersistedDraft(original.reference, original.draftId);
+      });
+    });
   }
   clear() {
+    const originals = this.draftOriginals();
     const ids = this.db
       .prepare('SELECT id FROM h_evidence')
       .all()
@@ -510,9 +616,13 @@ export class Store {
       this.kernel.setMeta('received_seq', 0);
       this.kernel.setMeta('sequence_base', 0);
     });
-    this.db.exec(
-      'BEGIN; DELETE FROM messages; DELETE FROM sessions; DELETE FROM memories; DELETE FROM agenda; DELETE FROM meta; COMMIT; VACUUM;',
-    );
+    this.kernel.write(() => {
+      this.db.exec('DELETE FROM messages; DELETE FROM sessions; DELETE FROM memories; DELETE FROM agenda; DELETE FROM meta;');
+      this.kernel.afterCommit(() => {
+        for (const original of originals) this.runtime.materials.releasePersistedDraft(original.reference, original.draftId);
+      });
+    });
+    this.db.exec('VACUUM;');
   }
   state(hasKey: boolean): State {
     const campus = this.campus();
@@ -576,6 +686,15 @@ export class Store {
     });
   }
   close() {
+    if (this.closing) return;
+    this.closing = true;
+    this.runtime?.reminders.dispose();
+    this.closeController.abort(new DOMException('应用已关闭', 'AbortError'));
+    for (const callback of [...this.closeListeners]) {
+      try { callback(); } catch { /* Continue releasing the store. */ }
+    }
+    this.closeListeners.clear();
+    this.settingsListeners.clear();
     void this.runtime?.embeddings.dispose();
     if (this.db.isOpen) this.db.close();
   }

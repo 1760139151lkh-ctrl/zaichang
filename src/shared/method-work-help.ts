@@ -20,6 +20,11 @@ export const methodHelpMaterialIdentitySchema = z.object({ resourceId: id, sha25
   sourceEventId: id, contentVersion: revision, parentEventId: id,
   interpretation: z.enum(['retained_text_layer', 'retained_file_lifetime_only']),
 }).strict();
+export type MethodHelpMaterialIdentity = z.infer<typeof methodHelpMaterialIdentitySchema>;
+/** Source identity of actual historical teaching text, never a second lesson. */
+export const historicalWorkSourceSchema = z.object({ owner: z.literal('study_companion'), id, revision,
+  sourceBinding: workSourceBindingSchema, sourceMaterial: methodHelpMaterialIdentitySchema.optional() }).strict();
+export type HistoricalWorkSource = z.infer<typeof historicalWorkSourceSchema>;
 const common = { ...address, sessionId: id, contentSha256: sha, fragmentSha256: sha,
   sourceBinding: workSourceBindingSchema };
 const assistant = z.object({ messageId: id, ...range, contentSha256: sha,

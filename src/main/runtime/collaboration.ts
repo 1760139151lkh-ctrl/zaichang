@@ -120,7 +120,7 @@ export class CollaborationService {
       };
       return [{ ...pointer, source: { ...source, quote }, reportedText: quote, validWhen: condition(entry.validWhen), stopWhen: condition(entry.stopWhen),
         recheckAt: entry.recheckAt ?? null, reviewTimeOrigin: 'assistant_proposed_recheck', observation: 'user_report', currentOptionRevision: option.revision, currentOptionStatus: option.status, reviewReason,
-        meaning: '这是用户当时的逐字报告或理由，保留原条件和时间；不是已核实的外部结果、永久偏好或当前拒绝。依据当前原话与条件重新判断，缺少新证据不证明原理由失效；不会自动采用方案或修改日程。' }];
+        meaning: '这份材料保留用户当时逐字说过的报告、理由、条件和时间，说明当时怎样看待同一个方案。它仍属于本人报告，外部结果是否核实、今天是否仍这样想，各有待相应事实支持；没有新材料也尚未说明原理由已经失效。原方案版本与reviewReason能帮助理解这次还缺什么，你可以结合当前原话判断怎样继续。读回这段经历本身没有采用方案或修改日程。' }];
     });
   }
 
@@ -135,11 +135,11 @@ export class CollaborationService {
       const experiences = this.experiences(scope, record);
       return { ...record, data: { ...record.data,
         historicalInterpretations: Array.isArray(record.data.tentativeUnderstanding) ? record.data.tentativeUnderstanding : [], tentativeUnderstanding: [],
-        interpretationUse: '这些是当时的解释，尚未证明现在适用。依据当前原话与basisUses重评；不要从旧解释推定今天的状态。',
-        rejectionUse: 'rejectedOptions保留当时拒绝的原话、理由和条件；没有稳定方案ID的旧记录不自动配对。是否仍适用于本轮需要重评，不推导永久偏好。',
+        interpretationUse: '这些解释来自当时的商量，记录的是当时如何理解这件事；今天的状态与意愿仍由当前原话和可读依据说明。basisUses列出与这件事关联的依据使用记录及当前适用判断，是否适合接着使用，可以按眼前情况判断。',
+        rejectionUse: 'rejectedOptions保留当时拒绝的原话、理由和适用条件，方便理解那个选择的来由。缺少稳定方案ID的旧记录尚未对应到某个现有选项；这些理由今天是否仍适用、是否超出当时的条件，还需要当前材料支持，也没有因此成为永久偏好。',
         decisionExperiences: experiences,
         decisionExperienceCoverage: { returned: experiences.length,
-          meaning: '只展开当前可读原文和方案；未展开或只剩历史标记不表示当时没有理由，不从旧副本补回正文。最多保存64条，不静默丢旧记录。' },
+          meaning: '这里展开的是当前可读的原文与同一方案的经历。没有展开或只剩历史标记时，当时的理由仍可能存在，只是这次没有可用正文，旧副本也没有绕过来源范围补进来。该事项的经历最多保留64条，容量边界不会通过悄悄丢弃旧记录来腾出。' },
       } };
     });
     const relatedOptions = [...optionIds].flatMap(id => this.repo.work(scope, undefined, String(id)))
@@ -148,11 +148,11 @@ export class CollaborationService {
     const related = this.repo.relatedWorkPage(scope, parents, relation.relatedOffset || 0, limit);
     return { status: total ? 'fresh' : 'not_found', items: projected, basisUses, relatedOptions, relatedRecords: related.items, nextOffset,
       relatedCoverage: { parentIds: parents, totalMatches: related.total, nextOffset: related.nextOffset, complete: related.nextOffset === null,
-        meaning: '这些是当前事项关联的工作记录及当前版本，不等于新增日程或外部动作。需要后页时以relatedTo指定事项并传relatedOffset；不同事项和已失效来源不在此范围。' },
+        meaning: '这些工作记录连在本次回读的事项下，返回各自当前可读的版本。relatedTo标明同一事项，relatedOffset与nextOffset衔接该关联范围的后页；其他事项和已失效来源没有混在这一页里。读到关联记录并没有新增日程或对外行动。' },
       decisionState: { recordedDecisions: projected.flatMap(record => Array.isArray(record.data.decisions) ? record.data.decisions : []), acceptedOptionIds: relatedOptions.filter(option => option.status === 'accepted').map(option => option.id),
         selectedOptionIds: projected.flatMap(record => typeof record.data.selectedOptionId === 'string' ? [record.data.selectedOptionId] : []),
-        meaning: '这是恢复时已有的决定记录。本轮明确的新选择以用户原话为准；找回、聚焦某一方案或要求继续比较本身不等于采用。可以给出倾向性建议，但不能以用户口吻替其定案。' },
-      coverage: { complete: nextOffset === null, totalMatches: total, returned: items.length, meaning: 'This page covers matching scoped working records; use nextOffset for remaining matches. It is not a complete conversation archive.' } };
+        meaning: '这里带回已有决定及其原稳定选项。找回一件事、指向某种办法或继续比较，说明此刻在谈哪里；是否接受仍有赖本轮明确原话，旧决定也不自动替今天定案。你可以保有自己的判断和倾向，结合当前意愿继续商量；角色的建议与本人已经作出的选择，各有自己的含义和来源。' },
+      coverage: { complete: nextOffset === null, totalMatches: total, returned: items.length, meaning: 'This page contains matching work records within the current permitted scope. A nextOffset points to the remaining matches in that same range; the page does not establish that the full conversation history has been read.' } };
   }
 
   requests(scope: ScopeHandle, sessionId: string, openOnly = false) {

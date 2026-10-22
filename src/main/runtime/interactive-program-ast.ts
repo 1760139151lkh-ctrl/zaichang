@@ -42,7 +42,19 @@ function fail(message: string): never { throw new HarnessError('interactive_prog
 export function parseProgramStatements(dsl: string, limits: ProgramAstPolicy['limits'], requireRoot = true): ReadonlyMap<string, ASTNode> {
   if (!dsl.trim() || Buffer.byteLength(dsl, 'utf8') > limits.bytes)
     fail('这份交互内容超过当前篇幅，请保留眼前最有用的关系。');
-  if (autoClose(dsl).wasIncomplete) fail('交互内容还没写完整，请补齐引号或括号。');
+  const closed = autoClose(dsl);
+  if (closed.wasIncomplete) {
+    const suffix = closed.text.slice(dsl.length), safe = [...suffix].every(value => ['\\', '"', "'", ')', ']', '}'].includes(value));
+    const returned = Math.min(64, suffix.length);
+    throw new HarnessError('interactive_program', '交互内容还没写完整，请补齐引号或括号。', 'never', {
+      rejectedDimensions: ['native_auto_close.incomplete'],
+      input: { tool: 'present_view', layer: 'source_completion', nativeIncomplete: true,
+        end: { unit: 'utf16_code_units', offset: dsl.length, line: dsl.split('\n').length - 1,
+          column: dsl.length - dsl.lastIndexOf('\n') - 1 },
+        ...(safe ? { completion: { suffix: suffix.slice(0, returned), returned, total: suffix.length, complete: returned === suffix.length } } : {}) },
+      explanation: 'end是这次原稿末尾的零起始UTF16位置、行和列，不是推测出的缺失字符位置。completion仅来自同一次原生autoClose追加的闭括号、引号或转义字符；超过64字符时明确未给全。补齐结果没有被当作源稿采用，也没有发表作品或增加修订。',
+    });
+  }
   const tokens = tokenize(dsl);
   if (tokens.length > limits.tokens) fail('交互表达式过多，请先缩小这一页。');
   const brackets: number[] = [];

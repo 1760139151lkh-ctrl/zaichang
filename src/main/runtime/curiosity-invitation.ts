@@ -8,6 +8,7 @@ import { canonical, codePointSlice } from './semantics';
 import { curiosityFollowupReferenceSchema, curiosityChapterAddressSchema, curiosityHistoryReadSchema, curiosityHistoryCatalogSchema, type CuriosityFollowupReference, type CuriosityChapterAddress } from '../../shared/curiosity-source';
 import { storySettingSnapshotSchema } from '../../shared/story-setting';
 import { publicStoryPlace, retainStorySetting, type PublicSettingMap } from './story-setting';
+import { noteSourceProofSchema, type NoteSourceProof } from '../../shared/notes-source';
 
 export interface CuriosityObservation { tool: string; requestedArguments?: unknown; result: unknown; toolCallId?: string }
 export interface CuriosityContext {
@@ -17,6 +18,8 @@ export interface CuriosityContext {
   allowCrossSession?: boolean;
   observations: readonly CuriosityObservation[];
   deliveredObservationIds: ReadonlySet<string>;
+  /** Host-held original note dependencies actually adopted by this run. */
+  noteSources?: readonly NoteSourceProof[];
   permits?: (ref: WorkSourceRef) => boolean;
 }
 export interface CuriosityResult {
@@ -112,6 +115,9 @@ export class CuriosityInvitationService {
     const option = this.repo.work(handle, 'option', id)[0];
     if (!option || option.data.type !== 'curiosity_invitation' || !option.sourceBinding || typeof option.data.matterId !== 'string')
       throw new HarnessError('curiosity_missing', '这份新鲜起点现在不可用，可以按眼前想玩的方向重新来一个。');
+    if (option.data.noteSources !== undefined && (option.data.materialNoteContractVersion !== 1
+      || !this.repo.noteSourcesReadable(handle, option.data.noteSources)))
+      throw new HarnessError('curiosity_source_changed', '这段创作引用的一页笔记现在读不到了。');
     const frame = this.repo.work(handle, 'episode', option.data.matterId)[0];
     if (!frame || frame.data.type !== 'collaboration_frame' || frame.data.curiosityInvitation !== true || !frame.sourceBinding
       || !Array.isArray(frame.data.optionIds) || !frame.data.optionIds.includes(option.id)
@@ -383,6 +389,15 @@ export class CuriosityInvitationService {
     const repeated = this.repo.operation<{ id: string }>(operationKey);
     if (repeated) return this.read(handle, context, repeated.id);
     const previous = input.operation === 'offer' ? undefined : this.current(handle, context, input.id);
+    const inheritedNotes = input.operation === 'continue' && previous?.option.data.noteSources !== undefined
+      ? previous.option.data.noteSources as unknown : [];
+    if (!Array.isArray(inheritedNotes)) throw new HarnessError('curiosity_source_changed', '原作品的笔记来由暂时不能完整接上。');
+    const noteSources = [...new Map([...(context.noteSources || []), ...inheritedNotes]
+      .map(value => { const proof = noteSourceProofSchema.parse(value); return [canonical(proof), proof] as const; })).values()];
+    if (noteSources.length > 256 || !this.repo.noteSourcesReadable(handle, noteSources))
+      throw new HarnessError('curiosity_source_changed', '这次创作的笔记来由尚不能完整接上，没有覆盖原稿。');
+    const noteMetadata = context.noteSources !== undefined || inheritedNotes.length
+      ? { materialNoteContractVersion: 1, noteSources } : {};
     const original = input.operation === 'continue' && input.fromChapter ? this.historicalChapter(handle, context, input.fromChapter) : undefined;
     // An original saved chapter can carry its own older dependencies. It does
     // not make its body newly read, and a mutable/unpublished seed is never a
@@ -431,6 +446,8 @@ export class CuriosityInvitationService {
       records: [], bindings: [], assistantWorkSources: [] };
     return this.repo.write(() => {
       this.source(handle, context, input.source);
+      if (!this.repo.noteSourcesReadable(handle, noteSources))
+        throw new HarnessError('curiosity_source_changed', '这次创作引用的一页笔记刚有变化，没有覆盖原稿。');
       const refs = this.retainPublicSources(handle, context, publicSources);
       const setting = input.setting ? settingAvailable ? retainStorySetting(this.repo, this.policy, handle, context.sessionId, this.publicMap(), input.setting) : undefined
         : input.operation === 'continue' && input.setting !== null && input.seed.origin === 'created'
@@ -451,7 +468,8 @@ export class CuriosityInvitationService {
       const frame = this.record(handle, frameId, 'episode', '一起试点新鲜的', 'active', frameData, frameBinding, previous?.frame);
       const option = this.record(handle, optionId, 'option', input.seed.title,
         input.operation === 'continue' ? 'playing' : 'offered', { type: 'curiosity_invitation', matterId: frame.id,
-          sessionId: context.sessionId, seed: input.seed, publicSources, sourceIds: optionBinding.sourceIds,
+          sessionId: context.sessionId, seed: input.seed, publicSources,
+          sourceIds: [...new Set([...optionBinding.sourceIds, ...(noteSources.length ? ['notes:self'] : [])])], ...noteMetadata,
           authoredRevision: input.operation === 'continue' && previous ? previous.option.revision + 1 : 1,
           authoredMatterRevision: frame.revision,
           ...(setting ? { setting } : {}),

@@ -1,7 +1,8 @@
 import type { Action } from '../../shared/types';
 import { calendarFieldsSchema, localCalendarChangeSchema } from '../../shared/calendar';
 import { HarnessError } from '../../shared/harness';
-import { addDate, dateInZone, dayBounds, resolveLocalTime } from '../runtime/semantics';
+import { addDate, dateInZone, resolveLocalTime } from '../runtime/semantics';
+import { planningDayBounds } from './planning-days';
 
 export function localStamp(instant: string, timeZone: string) {
   return new Intl.DateTimeFormat('sv-SE', { timeZone, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' }).format(new Date(instant)).replace(' ', 'T');
@@ -89,7 +90,12 @@ export function expandAgenda(items: Action[], from: string, to: string, fallback
   for (const item of items.filter(item => !item.done)) {
     const zone = item.timeZone || fallbackTimeZone;
     if (!item.recurrence) {
-      const bounds = item.allDayDate ? dayBounds(item.allDayDate, zone) : null;
+      const bounds = item.allDayDate ? planningDayBounds(item.allDayDate, zone) : null;
+      if (bounds && Date.parse(bounds.to) <= Date.parse(bounds.from)) {
+        if (Date.parse(bounds.from) >= Date.parse(from) && Date.parse(bounds.from) < Date.parse(to))
+          issues.push({ id: item.id, date: item.allDayDate, status: 'nonexistent', reason: 'local_date_absent' });
+        continue;
+      }
       const start = bounds?.from || item.startsAt;
       const end = bounds?.to || (start && item.durationMinutes ? new Date(Date.parse(start) + item.durationMinutes * 60000).toISOString() : start);
       if (start && !bounds && !item.durationMinutes && (!item.kind || item.kind === 'event') && Date.parse(start) < Date.parse(from)) unknownEnd(item, start);
@@ -107,7 +113,12 @@ export function expandAgenda(items: Action[], from: string, to: string, fallback
       if (item.recurrence.count && ++count > item.recurrence.count) break;
       const exception = item.exceptions?.find(entry => entry.onDate === date);
       if (exception?.cancelled) continue;
-      const dateWindow = dayBounds(date, zone);
+      const dateWindow = planningDayBounds(date, zone);
+      if (!exception?.startsAt && Date.parse(dateWindow.to) <= Date.parse(dateWindow.from)) {
+        if (Date.parse(dateWindow.from) >= Date.parse(from) && Date.parse(dateWindow.from) < Date.parse(to))
+          issues.push({ id: item.id, date, status: 'nonexistent', reason: 'local_date_absent' });
+        continue;
+      }
       const hasUnknownEnd = !item.allDayDate && !(exception?.durationMinutes === null ? undefined : exception?.durationMinutes ?? item.durationMinutes) && (!item.kind || item.kind === 'event');
       if (!exception?.startsAt && (Date.parse(dateWindow.to) <= Date.parse(from) && !hasUnknownEnd || Date.parse(dateWindow.from) >= Date.parse(to))) continue;
       const stamp = item.allDayDate ? null : date + 'T' + localStamp(item.startsAt!, zone).slice(11);

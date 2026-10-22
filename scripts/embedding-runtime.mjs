@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
+import { setTimeout as delay } from 'node:timers/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash, randomUUID } from 'node:crypto';
@@ -118,8 +119,18 @@ function safeDestination(destination) {
     || root === path.dirname(LOCK_PATH) || root.includes('.asar' + path.sep)) throw new Error('Unsafe embedding runtime destination.');
   return root;
 }
-async function replaceDirectory(root, create, acceptsExisting) {
+async function replaceDirectory(root, create, acceptsExisting, publishVerifiedStaging) {
   const parent = path.dirname(root);
+  const move = async (source, destination) => {
+    for (let attempt = 0; ; attempt++) {
+      try { await fs.rename(source, destination); return; }
+      catch (error) {
+        if (process.platform !== 'win32' || !['EPERM', 'EBUSY'].includes(error.code) || attempt >= 5) throw error;
+        console.warn(`Embedding runtime rename returned ${error.code}; retry ${attempt + 1}/5.`);
+        await delay(500 * 2 ** attempt);
+      }
+    }
+  };
   await fs.mkdir(parent, { recursive: true });
   if (await exists(root)) {
     const stat = await fs.lstat(root);
@@ -137,12 +148,19 @@ async function replaceDirectory(root, create, acceptsExisting) {
   try {
     await fs.mkdir(staging);
     const result = await create(staging);
-    if (await exists(root)) { await fs.rename(root, previous); movedPrevious = true; }
-    await fs.rename(staging, root); movedNew = true;
+    if (await exists(root)) { await move(root, previous); movedPrevious = true; }
+    try { await move(staging, root); movedNew = true; }
+    catch (error) {
+      // A package can publish its verified, uniquely named resource by ref.
+      // Fixed runtime locations still require the original atomic replacement.
+      if (!publishVerifiedStaging || movedPrevious || movedNew || process.platform !== 'win32'
+        || !['EPERM', 'EBUSY'].includes(error.code) || await exists(root) || !(await exists(staging))) throw error;
+      return await publishVerifiedStaging(result, staging);
+    }
     if (movedPrevious) await cleanSibling(previous);
     return result;
   } catch (error) {
-    if (!movedNew && movedPrevious && !(await exists(root))) await fs.rename(previous, root);
+    if (!movedNew && movedPrevious && !(await exists(root))) await move(previous, root);
     await cleanSibling(staging);
     throw error;
   }
@@ -264,11 +282,12 @@ export async function verifyEmbeddingRuntime(ref) {
 }
 
 /** Stage project-owned packages and an already installed model into an asar-external resource. */
-export async function stageEmbeddingRuntime(destination) {
+export async function stageEmbeddingRuntime(destination, options = {}) {
   if (process.platform !== 'win32' || process.arch !== 'x64') throw new Error('The pinned embedding runtime currently supports Windows x64 only.');
   const root = safeDestination(destination);
   if (root === EMBEDDING_ASSET_DIRECTORY || root.startsWith(EMBEDDING_ASSET_DIRECTORY + path.sep)
     || EMBEDDING_ASSET_DIRECTORY.startsWith(root + path.sep)) throw new Error('Embedding staging must be separate from the installed model.');
+  if (options.immutableResource && await exists(root)) throw new Error('Immutable embedding resource destination already exists.');
   const { lock, bytes: lockBytes } = await readLock();
   await verifyEmbeddingAssets();
   return await replaceDirectory(root, async staging => {
@@ -305,5 +324,10 @@ export async function stageEmbeddingRuntime(destination) {
   }, async existing => {
     try { const { value } = await readSmallJson(path.join(existing, 'manifest.json')); return value.version === 1 && value.runtimeVersion === EMBEDDING_RUNTIME_VERSION && value.worker?.path === 'worker.cjs'; }
     catch { return false; }
-  });
+  }, options.immutableResource ? async (ref, verifiedPath) => {
+    const published = { ...ref, path: verifiedPath };
+    await verifyEmbeddingRuntime(published);
+    console.warn('Publishing the fully verified embedding resource at its immutable staging path.');
+    return published;
+  } : undefined);
 }

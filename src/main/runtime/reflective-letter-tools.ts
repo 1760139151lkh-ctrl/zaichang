@@ -90,6 +90,7 @@ export function executeReflectiveLetterTool(host: ReflectiveLetterHost, session:
         host.context.recordWorkSourceBindings(pack, usage.workSourceBindings);
         host.context.recordLearningProcesses(pack, usage.learningProcessVersions);
         host.context.recordReflectiveLetterSources(pack, usage.reflectiveLetterSources || []);
+        host.context.recordNoteSources(pack, usage.noteSources);
         if (usage.materialReads.length) pack.receipt.materialReads = [...new Map([
           ...(pack.receipt.materialReads || []), ...usage.materialReads,
         ].map(read => [canonical(read), read])).values()];
@@ -102,7 +103,7 @@ export function executeReflectiveLetterTool(host: ReflectiveLetterHost, session:
       if (session.background) throw new HarnessError('letter_current_request', '后台来信须沿已读机会的有效原托付，不把旧授权原话重新当作本轮请求。');
       const result = host.reflectiveLetters.begin(handle, context, args);
       const value = admit(result, { workSourceBindings: [host.repo.resolveWorkSourceBinding(handle, [sourceAddress(result.data.request.source)])],
-        learningProcessVersions: [], materialReads: [], reflectiveLetterSources: [] });
+        learningProcessVersions: [], materialReads: [], reflectiveLetterSources: [], noteSources: [] });
       host.context.recordObjects(pack, [{ id: result.data.opportunityId, revision: result.data.revision }], 'work');
       host.repo.saveReceipt(handle, pack.receipt);
       return value;
@@ -119,7 +120,7 @@ export function executeReflectiveLetterTool(host: ReflectiveLetterHost, session:
         throw new HarnessError('letter_mandate_not_read', '先读取这项真实机会和原托付，再决定来信是否属于已获准的帮助。');
       const result = host.reflectiveLetters.issueForOpportunity(handle, args.opportunityId, args.expectedRevision, args.window, context.permits);
       const value = admit(result, { workSourceBindings: [host.repo.resolveWorkSourceBinding(handle, [sourceAddress(result.data.request.source)])],
-        learningProcessVersions: [], materialReads: [], reflectiveLetterSources: [] });
+        learningProcessVersions: [], materialReads: [], reflectiveLetterSources: [], noteSources: [] });
       host.context.recordObjects(pack, [{ id: result.data.opportunityId, revision: result.data.revision }], 'work');
       host.repo.saveReceipt(handle, pack.receipt);
       return value;

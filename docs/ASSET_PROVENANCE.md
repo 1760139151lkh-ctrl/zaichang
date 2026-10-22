@@ -128,3 +128,15 @@ After the third-round backend snapshot passed 262 existing checks, nine pinned H
 | `planning-continuity-b.png` | 1414 × 1113 | 1365604 | `c40b05206002af8e587ceddb9bbda96f8dea6eb24aedf501d070b30bd7ec177c` |
 
 These are owner-authorized private design references, excluded from runtime assets and public-map bundles. They do not grant a separate public redistribution license or claim official character artwork. Sample tasks, dates and saved amounts are synthetic and are not owner calendar records. Only the two generated boards, prompts and manifest are intended for the private project archive. `reference-current.png` is a local diagnostic screenshot, recorded as undistributed reference metadata in the manifest; it is not included in that file set. No private test database, observation screenshot or model/account data is included. Actual interaction and final review evidence belongs in [CURRENT_STATUS](CURRENT_STATUS.md#personal-memory-round3).
+
+
+## Explorable mechanism design comparison (2026-10-21)
+
+Built-in GPT Image generated two alternatives after the common interaction backend was in place. The source style reference is the user-provided project image `前端视觉创新设计/图片/在场｜标量方程学习界面-18.png`. Both generated images were visually inspected; [the manifest](../assets/design/generated/2026-10-21-explorable-mechanisms/manifest.json) preserves the exact prompts, dimensions, bytes, SHA-256, intended use and selection.
+
+| File | Actual dimensions | Bytes | SHA-256 |
+| --- | --- | --- | --- |
+| `concept-a.png` | 1536 × 1024 | 1933313 | `6b451b0beb3cffa6601f9d2030e17a079038f2647fe20345ffbacf99cb3b1941` |
+| `concept-b.png` | 1448 × 1086 | 1667834 | `8a33bbbdc7b2329b144d1869d7220361921a37fdd89085aca51ac2dc48f80de1` |
+
+B was selected for its ordinary prose interleaved with two related papers. The actual implementation uses shared native state and live SVG/HTML; neither PNG becomes a background pretending to be a working instrument. Generated hammer geometry and black/white key placement contain errors and are not factual references. The images remain local private design materials, excluded from the runtime and public-map bundles; no official character artwork or separate public-redistribution right is claimed. Actual interaction evidence is recorded in CURRENT_STATUS.

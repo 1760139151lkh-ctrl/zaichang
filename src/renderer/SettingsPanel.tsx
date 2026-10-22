@@ -642,8 +642,8 @@ export function SettingsPanel({
                     <h3 className="section-title">提醒与通知</h3>
                     <Switch checked={state.settings.remindersEnabled} onChange={v => void update('reminders', { remindersEnabled: v })} label="用系统通知叫我" detail="约好的提醒会准时响；你不在窗口前时，想告诉你的事也会轻轻提一下。" disabled={!!pending || (busy && !state.settings.remindersEnabled)} />
                     <Switch checked={(state.settings.notificationPreview || 'words') === 'words'} onChange={v => void update('preview', { notificationPreview: v ? 'words' : 'private' })} label="通知里显示说的话" detail="关掉后，通知只写“有件事想跟你说”。" disabled={!!pending} />
-                    <Switch checked={(state.settings.backgroundPresence || 'tray') === 'tray'} onChange={v => void update('presence', { backgroundPresence: v ? 'tray' : 'quit' })} label="关掉窗口后留在托盘" detail="提醒和交给我的事会继续；电脑睡眠或关机时会暂停，醒来后接着。" disabled={!!pending} />
-                    <Switch checked={state.settings.launchAtLogin === true} onChange={v => void update('login', { launchAtLogin: v })} label="开机后安静地待在托盘" detail="不弹出窗口。" disabled={!!pending} />
+                    <Switch checked={(state.settings.backgroundPresence || 'tray') === 'tray'} onChange={v => void update('presence', { backgroundPresence: v ? 'tray' : 'quit' })} label="关掉窗口后留在托盘" detail="按当前设置，继续处理仍有效的提醒与托付；电脑睡眠或关机时暂停。" disabled={!!pending} />
+                    <Switch checked={state.settings.launchAtLogin === true} onChange={v => void update('login', { launchAtLogin: v })} label="开机后优先留在托盘" detail="启动时先收在托盘；托盘暂时不可用时，会打开窗口。" disabled={!!pending} />
                     {result(['reminders', 'preview', 'presence', 'login'])}
                   </section>
                 </aside>

@@ -12,6 +12,7 @@ export interface ProgramSourceAddress { messageId: string; programId: string; re
 type ProgramHost = Pick<RuntimeCoordinator, 'repo' | 'policy' | 'context' | 'broker' | 'studyCompanion'>;
 type SourceReceipt = Pick<ContextReceipt, 'providedEvidenceIds' | 'providedSourceIds' | 'providedObjectVersions'>
   & Partial<Pick<ContextReceipt, 'workSourceBindings' | 'assistantWorkSources' | 'personalMethodSources' | 'campusSensitiveReads'
+    | 'campusReadingSources' | 'campusReadingIncomplete'
     | 'noteSources' | 'learningProcessVersions' | 'reflectiveLetterSources' | 'historicalAssertionVersions'
     | 'planningProvenance' | 'sceneReferences' | 'materialReads' | 'toolAttempts'>>;
 export interface ProgramSourceProvenance {
@@ -36,6 +37,9 @@ export interface ProgramSceneSourceSupplement {
   bindings?: WorkSourceBinding[];
   assistantWorkSources?: AssistantWorkSource[];
   noteSources?: NoteSourceProof[];
+  campusReadingSources?: NonNullable<ContextReceipt['campusReadingSources']>;
+  campusReadingIncomplete?: true;
+  campusSensitiveReads?: NonNullable<ContextReceipt['campusSensitiveReads']>;
 }
 export interface ProgramSourceAdmission { data: ProgramDataMap; provenance: ProgramSourceProvenance }
 type TrustedAdmission = { host: ProgramHost; session: RunSession; signal: AbortSignal };
@@ -44,7 +48,7 @@ type AuthoredEvidence = { id: string; sourceId: string; version: number; persist
 type LiveProgram = { sessionId: string; boundary: number; ephemeral: boolean; view: PresentationView;
   provenance: ProgramSourceProvenance; creatorEvidence: AuthoredEvidence[]; authoredEvidence?: AuthoredEvidence[] };
 const livePrograms = new WeakMap<ProgramHost['repo'], Map<string, LiveProgram>>();
-const sourceKeys = ['workSourceBindings', 'assistantWorkSources', 'personalMethodSources', 'campusSensitiveReads', 'noteSources',
+const sourceKeys = ['workSourceBindings', 'assistantWorkSources', 'personalMethodSources', 'campusSensitiveReads', 'campusReadingSources', 'noteSources',
   'learningProcessVersions', 'reflectiveLetterSources', 'historicalAssertionVersions', 'planningProvenance', 'sceneReferences', 'materialReads', 'toolAttempts'] as const;
 const forbidden = new Set(['__proto__', 'prototype', 'constructor']);
 const sourceKey = (ref: ProgramSourceAddress) => canonical(ref);
@@ -95,6 +99,7 @@ function sourceReceipt(receipt: ContextReceipt): SourceReceipt {
   // A host-created current receipt explicitly distinguishes ordinary campus
   // reads from legacy generic calls with no purpose provenance.
   result.campusSensitiveReads ??= [];
+  if (receipt.campusReadingIncomplete) result.campusReadingIncomplete = true;
   return result;
 }
 function cloneData(raw: unknown, depth = 0, counter = { count: 0 }): ProgramJsonValue {
@@ -230,7 +235,9 @@ function creatorMetadataReadable(host: ProgramHost, handle: ScopeHandle, live: L
 }
 function authoredEvidence(host: ProgramHost, session: RunSession, view: PresentationView, p: ProgramSourceProvenance): AuthoredEvidence[] | undefined {
   if (view.program?.bindingAliases.length || p.bindings.length || p.requiredGrants.some(grant => grant !== 'evidence:read')
+    || p.receipt.providedObjectVersions.some(reference => reference.imageSha256 !== undefined)
     || (p.receipt.providedSourceIds || []).some(source => source !== 'current' && source !== 'history:self')
+    || p.receipt.campusReadingIncomplete
     || sourceKeys.some(key => key !== 'toolAttempts' && (p.receipt[key]?.length || 0) > 0)) return;
   const scope = host.policy.validate(session.ingress.contract.scope), result: AuthoredEvidence[] = [];
   const coveredUsers = new Set<string>(), coveredMessages = new Set<string>(), visited = new Set<string>(), pending = [...p.parents];
@@ -343,16 +350,19 @@ export function bindProgramSceneSources(admission: ProgramSourceAdmission, scene
   const { host, session, signal } = trusted, handle = session.ingress.contract.scope;
   signal.throwIfAborted();
   const p = admission.provenance, receipt = p.receipt;
-  const merge = (key: keyof SourceReceipt, values: unknown[]) => {
+  const merge = (key: Exclude<keyof SourceReceipt, 'campusReadingIncomplete'>, values: unknown[]) => {
     (receipt as any)[key] = [...new Map([...(receipt[key] || []), ...values]
       .map(value => [canonical(value), structuredClone(value)])).values()];
   };
+  if (supplement.campusReadingSources) merge('campusReadingSources', supplement.campusReadingSources);
+  if (supplement.campusReadingIncomplete) receipt.campusReadingIncomplete = true;
+  if (supplement.campusSensitiveReads) merge('campusSensitiveReads', supplement.campusSensitiveReads);
   const bindings: WorkSourceBinding[] = [...(supplement.bindings || []), ...(supplement.records || []).flatMap(record => record.sourceBinding ? [record.sourceBinding] : [])];
   const owners = [...(p.sceneOwnerRefs || []), ...(supplement.records || []).map(({ id, revision }) => ({ kind: 'work' as const, id, revision }))];
   const metadata = [...(p.sceneMetadata || [])];
   const assistantSources = [...(supplement.assistantWorkSources || []),
     ...host.repo.workAssistantWorkSources(handle, supplement.records || [])];
-  const notes = [...(supplement.noteSources || [])];
+  const notes = [...(supplement.noteSources || []), ...host.repo.workNoteSources(handle, supplement.records || [])];
   const learning: { id: string; revision: number }[] = [];
   const planning: NonNullable<ContextReceipt['planningProvenance']> = [];
   for (const scene of scenes) {
@@ -376,7 +386,9 @@ export function bindProgramSceneSources(admission: ProgramSourceAdmission, scene
       for (const work of scene.coWork) if (!work.history) learning.push(...work.learningProcessRefs);
     } else if (scene.kind === 'curiosity') {
       bindings.push(scene.provenance.sourceBinding); assistantSources.push(...(scene.provenance.assistantWorkSources || []));
-      base.provenance = { sourceBinding: scene.provenance.sourceBinding, assistantWorkSources: scene.provenance.assistantWorkSources || [] };
+      notes.push(...(scene.provenance.noteSources || []));
+      base.provenance = { sourceBinding: scene.provenance.sourceBinding, assistantWorkSources: scene.provenance.assistantWorkSources || [],
+        noteSources: scene.provenance.noteSources || [] };
       if (scene.view.status !== 'historical') owners.push({ kind: 'work', id: scene.view.id, revision: scene.view.revision },
         { kind: 'work', id: scene.view.matterId, revision: scene.view.matterRevision });
     } else if (scene.kind === 'study') {
@@ -437,6 +449,7 @@ export function inheritPreviousProgramSources(admission: ProgramSourceAdmission,
   if (!programSourcesReadable(trusted.host, session.ingress.contract.scope, [previous.source], session)) fail('旧交互的来由已经变化。');
   const next = admission.provenance, sameOutput = previous.source.messageId === session.outputMessageId;
   if (sameOutput) {
+    if (old.receipt.campusReadingIncomplete) next.receipt.campusReadingIncomplete = true;
     for (const key of ['providedEvidenceIds', 'providedSourceIds', 'providedObjectVersions', ...sourceKeys] as const) {
       const values = [...(next.receipt[key] || []), ...(old.receipt[key] || [])];
       (next.receipt as any)[key] = [...new Map(values.map(value => [canonical(value), structuredClone(value)])).values()];
@@ -503,6 +516,18 @@ export function recordProgramSources(pack: ContextPack, admission: ProgramSource
   host.repo.saveReceipt(pack.contract.scope, pack.receipt);
 }
 
+/** A successful tool RPC ends before the optional message is sent. Transfer
+ * only this host-qualified draft to its still-live parent run; a failed RPC
+ * cannot make that transfer, and parent cancellation still ends the draft. */
+export function retainPresenceProgramDraft(session: RunSession, admission: ProgramSourceAdmission) {
+  const trusted = admissions.get(admission);
+  if (!trusted || trusted.session !== session || !session.background || !session.presence)
+    fail('这份草稿没有同一次主动消息的主机归属。');
+  trusted.signal.throwIfAborted(); session.signal.throwIfAborted();
+  trusted.host.policy.validate(session.ingress.contract.scope);
+  admissions.set(admission, { ...trusted, signal: session.signal });
+}
+
 /** Host publication cache is not a second persistent owner. Every reuse
  * checks the current source proof; policy barriers make all live data stale. */
 export function rememberProgramPublication(host: ProgramHost, session: RunSession, view: PresentationView, admission: ProgramSourceAdmission) {
@@ -515,7 +540,7 @@ export function rememberProgramPublication(host: ProgramHost, session: RunSessio
     host.policy.onBarrier(() => ownedCache.clear());
   }
   const ref = { messageId: session.outputMessageId, programId: view.id, revision: view.revision };
-  cache.set(sourceKey(ref), { sessionId: session.sessionId, boundary: host.policy.sourceBoundary, ephemeral: session.ephemeral,
+  cache.set(sourceKey(ref), { sessionId: session.presence?.sessionId || session.sessionId, boundary: host.policy.sourceBoundary, ephemeral: session.ephemeral,
     view: structuredClone(view), provenance: structuredClone(admission.provenance),
     creatorEvidence: creatorEvidence(host, session, admission.provenance),
     authoredEvidence: authoredEvidence(host, session, view, admission.provenance) });
@@ -558,19 +583,30 @@ export function canRefineCurrentProgramPublication(host: ProgramHost, session: R
 }
 
 type ProgramMetadata = { sessionId: string; source: ProgramSourceAddress; provenance: ProgramSourceProvenance };
-function metadata(host: ProgramHost, handle: ScopeHandle, ref: ProgramSourceAddress, sessionId?: string): ProgramMetadata | undefined {
+function metadata(host: ProgramHost, handle: ScopeHandle, ref: ProgramSourceAddress, sessionId?: string,
+  explicitOwner?: ProgramSourceAddress): ProgramMetadata | undefined {
   const s = host.policy.validate(handle);
-  if (s.audience !== 'self' || s.subjectId !== s.principalId || s.worldId !== 'real' || !s.sources.includes('history:self')
+  const history = s.sources.includes('history:self');
+  // Memory can be off while the person points at a newly received creation.
+  // That exact local owner is not permission to browse old conversation or
+  // Work. Its entire real source proof is still checked below and on adoption.
+  const explicitPresence = !history && s.sources.includes('work:self') && !!sessionId && !!explicitOwner
+    && explicitOwner.messageId === ref.messageId && explicitOwner.programId === ref.programId && explicitOwner.revision === ref.revision;
+  if (s.audience !== 'self' || s.subjectId !== s.principalId || s.worldId !== 'real' || !history && !explicitPresence
     || !s.grants.includes('evidence:read') || host.repo.hasFence(ref.messageId) || host.repo.hasFence(ref.programId)) return;
+  // Message.views contains only host-published works, independently of whether
+  // the rest of the reply later finished. A stop/error does not unpublish a
+  // valid work; running rows and unpublished drafts are not historical owners.
   // Qualify identity before selecting any DSL, state, current data or text.
   const row = host.repo.db.prepare(`SELECT m.session_id AS session_id,json_extract(v.value,'$.program.provenance') AS provenance
     FROM messages m,json_each(m.payload,'$.views') v WHERE m.id=? AND m.role='assistant'
-    AND json_extract(m.payload,'$.status')='done' AND json_extract(v.value,'$.id')=? AND json_extract(v.value,'$.revision')=?
+    AND json_extract(m.payload,'$.status') IN ('done','cancelled','error') AND json_extract(v.value,'$.id')=? AND json_extract(v.value,'$.revision')=?
     AND json_extract(v.value,'$.libraryVersion')=2 ${sessionId ? 'AND m.session_id=?' : ''}
+    AND (? OR json_extract(m.payload,'$.proactive')='check_in')
     AND EXISTS(SELECT 1 FROM h_evidence e WHERE json_extract(e.payload,'$.sessionId')=m.session_id
       AND e.owner=? AND e.workspace=? AND e.subject=? AND e.world='real' AND e.status!='deleted')
     AND NOT EXISTS(SELECT 1 FROM h_evidence e WHERE json_extract(e.payload,'$.sessionId')=m.session_id AND (e.owner!=? OR e.workspace!=?))
-    LIMIT 1`).get(ref.messageId, ref.programId, ref.revision, ...(sessionId ? [sessionId] : []),
+    LIMIT 1`).get(ref.messageId, ref.programId, ref.revision, ...(sessionId ? [sessionId] : []), history ? 1 : 0,
       s.principalId, s.workspaceId, s.principalId, s.principalId, s.workspaceId);
   if (!row) return;
   let p: ProgramSourceProvenance | undefined;
@@ -595,12 +631,14 @@ export function programSourcesReadable(host: ProgramHost, handle: ScopeHandle, r
     if (prior === true) continue;
     if (prior === 'checking') return false;
     checked.set(key, 'checking');
-    const saved = metadata(host, handle, ref, session && session.ingress.contract.memoryMode !== 'relevant' ? session.sessionId : undefined);
+    const saved = metadata(host, handle, ref, session && (session.ingress.contract.memoryMode !== 'relevant'
+      || !host.policy.validate(handle).sources.includes('history:self')) ? session.sessionId : undefined, session?.programReference);
     const live = livePrograms.get(host.repo)?.get(key);
     const permittedLive = live && live.boundary === host.policy.sourceBoundary
       && (session && live.sessionId === session.sessionId
         && (live.ephemeral || ref.messageId === session.outputMessageId || authoredLiveReadable(host, handle, live, session))
-        || localDisplay && authoredLiveReadable(host, handle, live, undefined, true))
+        || localDisplay && (authoredLiveReadable(host, handle, live, undefined, true)
+          || currentProofReadable(host, handle, live.provenance, undefined, true, live)))
       && !host.repo.hasFence(ref.messageId) && !host.repo.hasFence(ref.programId);
     const p = saved?.provenance || (permittedLive ? live.provenance : undefined);
     const ownerMetadata = saved ? host.repo.messageSourceMetadata(saved.sessionId, ref.messageId) : undefined;
@@ -608,7 +646,8 @@ export function programSourcesReadable(host: ProgramHost, handle: ScopeHandle, r
     const { interactiveProgramSources: ownerParents = [], ...ownerReceipt } = ownerMetadata?.contextReceipt || {};
     if (!Array.isArray(ownerParents) || ownerParents.some(value => !address(value))) return false;
     const permits = sourcePermits(host, handle, session);
-    if (Array.isArray(ownerReceipt.workSourceBindings) && ownerReceipt.workSourceBindings.some(binding =>
+    const ownerBindings = 'workSourceBindings' in ownerReceipt ? ownerReceipt.workSourceBindings : undefined;
+    if (Array.isArray(ownerBindings) && ownerBindings.some((binding: WorkSourceBinding) =>
       !Array.isArray(binding?.refs) || binding.refs.some((ref: WorkSourceRef) => !permits(ref)))) return false;
     if (!p || !(currentProofReadable(host, handle, p, session, localDisplay, permittedLive ? live : undefined)
         || permittedLive && authoredLiveReadable(host, handle, live, session, localDisplay))
@@ -617,13 +656,17 @@ export function programSourcesReadable(host: ProgramHost, handle: ScopeHandle, r
     stack.push({ value: ref, exit: true }, ...[...p.parents, ...ownerParents].map(value => ({ value })));
   } return true; } catch (error) { if (error instanceof HarnessError) return false; throw error; }
 }
-export function programReferenceIdentity(host: ProgramHost, handle: ScopeHandle, ref: ProgramSourceAddress, sessionId?: string) {
-  const saved = metadata(host, handle, ref, sessionId);
+export function programReferenceIdentity(host: ProgramHost, handle: ScopeHandle, ref: ProgramSourceAddress, sessionId?: string,
+  options?: { localDisplay: true }) {
+  const saved = metadata(host, handle, ref, sessionId, ref);
   const live = livePrograms.get(host.repo)?.get(sourceKey(ref));
   const liveIdentity = live && host.policy.validate(handle).sources.includes('history:self')
-    && live.sessionId === sessionId && authoredLiveReadable(host, handle, live, undefined, true)
+    && live.sessionId === sessionId && live.boundary === host.policy.sourceBoundary
+    && (authoredLiveReadable(host, handle, live, undefined, true)
+      || options?.localDisplay && currentProofReadable(host, handle, live.provenance, undefined, true, live))
     && !host.repo.hasFence(ref.messageId) && !host.repo.hasFence(ref.programId);
-  // No proof-body traversal, DSL or data selection before control parsing.
+  // Ordinary control parsing stays metadata-only. The native local-display
+  // owner explicitly opts into the full proof after that private boundary.
   return saved || liveIdentity ? { ...ref, sessionId: saved?.sessionId || live!.sessionId, kind: 'interactive_program' as const,
     meaning: '共同讨论的交互作品；局部参数不是本人事实或执行授权。' } : undefined;
 }
@@ -631,8 +674,8 @@ export function programReferenceIdentity(host: ProgramHost, handle: ScopeHandle,
 export function readProgramView(host: ProgramHost, session: RunSession, raw: ProgramSourceAddress): PresentationView {
   const ref = address(raw); if (!ref) fail('交互地址不完整。');
   const handle = session.ingress.contract.scope, cache = livePrograms.get(host.repo)?.get(sourceKey(ref));
-  const allowCross = session.ingress.contract.memoryMode === 'relevant';
-  const saved = metadata(host, handle, ref, allowCross ? undefined : session.sessionId);
+  const allowCross = session.ingress.contract.memoryMode === 'relevant' && host.policy.validate(handle).sources.includes('history:self');
+  const saved = metadata(host, handle, ref, allowCross ? undefined : session.sessionId, session.programReference);
   if (cache && cache.boundary === host.policy.sourceBoundary && (allowCross || cache.sessionId === session.sessionId)
     && (saved || cache.sessionId === session.sessionId && (cache.ephemeral || ref.messageId === session.outputMessageId
       || authoredLiveReadable(host, handle, cache, session)))
@@ -713,7 +756,7 @@ export function lookupPreviousProgram(host: ProgramHost, session: RunSession, pr
   signal.throwIfAborted();
   const allowCross = session.ingress.contract.memoryMode === 'relevant';
   const rows = host.repo.db.prepare(`SELECT m.id AS message_id,json_extract(v.value,'$.revision') AS revision
-    FROM messages m,json_each(m.payload,'$.views') v WHERE m.role='assistant' AND json_extract(m.payload,'$.status')='done'
+    FROM messages m,json_each(m.payload,'$.views') v WHERE m.role='assistant' AND json_extract(m.payload,'$.status') IN ('done','cancelled','error')
     AND json_extract(v.value,'$.libraryVersion')=2 AND json_extract(v.value,'$.id')=?
     ${allowCross ? '' : 'AND m.session_id=?'} ORDER BY json_extract(v.value,'$.revision') DESC,m.rowid DESC LIMIT 1`)
     .all(previous.id, ...(allowCross ? [] : [session.sessionId]));
@@ -738,7 +781,7 @@ export function programReferencesForSession(host: ProgramHost, handle: ScopeHand
   const limit = Math.min(64, Math.max(1, options.limit ?? 4));
   const rows = host.repo.db.prepare(`SELECT m.id AS message_id,json_extract(v.value,'$.id') AS program_id,
     json_extract(v.value,'$.revision') AS revision FROM messages m,json_each(m.payload,'$.views') v
-    WHERE m.session_id=? AND m.role='assistant' AND json_extract(m.payload,'$.status')='done'
+    WHERE m.session_id=? AND m.role='assistant' AND json_extract(m.payload,'$.status') IN ('done','cancelled','error')
     AND json_extract(v.value,'$.libraryVersion')=2 ORDER BY m.created_at DESC,m.rowid DESC LIMIT ?`).all(sessionId, limit * 4);
   const refs: { messageId: string; programId: string; revision: number; libraryVersion: 2;
     read: { tool: string; arguments: ProgramSourceAddress } }[] = [];
@@ -773,6 +816,7 @@ export function programMessageProjection(host: ProgramHost, message: Message, op
       && programSourcesReadable(host, handle, p.parents, undefined, true);
     if (!readable || view.program.bindingAliases.length && (!options.live || !view.program.currentData || !liveDataFresh(host, p!))) return {
       id: view.id, revision: view.revision, libraryVersion: 2, createdAt: view.createdAt, sceneRefs: [], dsl: '',
+      ...(view.anchor ? { anchor: view.anchor } : {}),
       programReference: { messageId: message.id, programId: view.id, revision: view.revision,
         status: readable ? 'needs_refresh' : 'source_unavailable', ...(readable && view.program.nodeIds[0]
           ? { nodeId: view.program.nodeIds[0] } : {}) },

@@ -21,7 +21,13 @@ export interface LifeContinuityResult {
 
 const LIMIT = 2;
 const RETURN_PREVIEW = 120;
-const GUIDANCE = '这些是少量仍可回读的相处线索与回来起点，不是待办清单。先回应用户眼下的话；只有自然相关时才顺势接上，不为每次问候深查、不逐项报旧进度、不催用户继续，也不把暂停说成拖延。需要具体背景时沿read回原owner；上次的帮法、解释和起点要按当前意愿重评。小习惯这里只给方法名，沿read_skill读出条件后再用。角色已更换时只说在这里聊过，不能冒充当前角色亲身经历。陪学地址不代表题目或答案已读，共做断点不代表恢复执行或已经完成。没有列出不表示没有前情，用户不需要维护这些地址。';
+const GUIDANCE = `这里有少量仍可回读的相处线索，以及上次一起做事时留下的起点。它们让你有机会接回重要的东西，眼前怎样回应、哪条值得顺势接起，仍由你结合本人这句话来判断。曾经暂停的探索保留当时的状态，旧起点本身没有添上一份现在必须继续的责任。
+
+每条read都通向原来照管这份内容的地方，能带回具体背景和当前仍可读的条件。上次的帮法与解释，也可以在本人此刻的愿望下重新想一想。小习惯这里只带着方法名，read_skill还能读到它的正文和适用条件。
+
+旧对话里的说话人沿当时的真实记录理解，身份尚不清楚时，这一层也保留未知。角色换过以后，历史中的参与者与眼前角色各有自己的身份，那段交流仍属于在场里留下的历史，当前角色可以用自己的方式理解和接续。陪学地址只是纸页的来处，题目和答案是否读过有自己的记录；共做起点也只说明上次停在哪里，恢复与完成各有实际的过程和依据。
+
+这份线索没有覆盖全部前情，未列出的内容仍可能在原处。地址由应用照管，本人可以继续用自己的话提起它们。`;
 
 /** Ambient life continuity supplies the original parent's initial context. It
  * never opens a material, starts a model, resumes an activity, writes a second
@@ -117,7 +123,7 @@ export async function buildLifeContinuity(
     coverage: { scope: 'permitted_workspace', bounded: true, relevance: 'main_assistant_judges_current_request',
       moreMayExist: companionship.coverage.moreMayExist || companionship.methods.length > conversationMethods.length
         || coWorkIndex.moreMayExist || studyIndex.moreMayExist,
-      meaning: '只安静提供少量回读线索；没有遍历全部旧事，没有恢复活动或创建新的义务。' },
+      meaning: '这里只带来少量可回读线索，旧事仍有尚未展开的部分。活动是否恢复、是否有新的托付，分别沿当前原话和实际状态判断。' },
   } };
   return { data, records: [...records.values()], bindings: [...bindings.values()],
     ...(learning.size ? { learningProcessVersions: [...learning.values()] } : {}) };

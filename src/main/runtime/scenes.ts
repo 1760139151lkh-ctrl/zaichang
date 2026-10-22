@@ -1,9 +1,9 @@
 import { createHash, randomUUID } from 'node:crypto';
 import type { Store } from '../store';
 import type { PolicyKernel } from './policy';
-import { HarnessError, type ScopeHandle } from '../../shared/harness';
+import { HarnessError, type ScopeHandle, type CampusSavedReadingProof } from '../../shared/harness';
 import type { MapRouteResult } from '../../shared/map-v2';
-import { campusDisplayInputSchema, planningContinuationSchema, sceneViewDsl, semanticSelectionSchema, type CampusRecord, type CampusScene, type EnvironmentSample, type MapScene, type PlanningBlock, type PlanningScene, type PresentationView, type SceneRef, type SceneSnapshot, type SemanticSelection, type VerifiedSelection, type WeatherScene } from '../../shared/scenes';
+import { campusDisplayInputSchema, planningContinuationSchema, sceneViewDsl, semanticSelectionSchema, type CampusRecord, type CampusScene, type EnvironmentSample, type MapScene, type PlanningBlock, type PlanningScene, type PresentationView, type SceneRef, type SceneSnapshot, type SemanticSelection, type VerifiedSelection, type WeatherScene, type FigureScene } from '../../shared/scenes';
 import { environmentSnapshot, planningSnapshot } from './scene-projections';
 import { agendaSnapshot } from './agenda-scene';
 import { canonical } from './semantics';
@@ -18,6 +18,7 @@ import { mapStorySettingSchema } from '../../shared/story-setting';
 import { campusAcademicReference, type CampusAcademicReference } from '../../shared/campus-academic';
 import { campusAcademicSnapshot, isAcademicCampus } from './campus-academic';
 import { campusSceneModelSummary } from './campus-model-view';
+import { campusQueryContinuation, validateCampusQuery } from '../capabilities/campus-query';
 
 /** A strict projection of the installed connector's named fields. No prose parsing,
  * guessed course matches, aggregate rows, or model-authored facts enter a scene. */
@@ -69,15 +70,34 @@ export function campusSnapshot(result: { status: string; sourceId: string; data?
   const total = query ? data.total_matches : data.total;
   const fetchedAt = result.fetchedAt && Number.isFinite(Date.parse(result.fetchedAt)) ? result.fetchedAt : '';
   const rowTerms = [...new Set(rows.flatMap(row => row.term ? [row.term] : []))];
-  const term = rowTerms.length === 1 ? rowTerms[0] : rowTerms.length > 1 ? undefined
-    : text(data.termId === 'unspecified' ? undefined : data.termId || data.semester_id, 80);
+  const semesterConditions = (condition: unknown): string[] => {
+    if (!condition || typeof condition !== 'object' || Array.isArray(condition)) return [];
+    const value = condition as Record<string, any>;
+    if (Array.isArray(value.and)) return value.and.flatMap(semesterConditions);
+    return value.field === 'semester_id' && (value.op === undefined || value.op === 'eq')
+      && typeof value.value === 'string' ? [value.value] : [];
+  };
+  const selectedTerms = query ? [...semesterConditions(request?.spec?.where), ...semesterConditions(request?.spec?.after_join_where)]
+    : (Array.isArray(request?.filters) ? request.filters : []).flatMap((filter: unknown) => {
+      if (typeof filter !== 'string') return [];
+      const [field, op, ...value] = filter.split(':');
+      return field.trim() === 'semester_id' && op === 'eq' ? [value.join(':')] : [];
+    });
+  const filterTerms = [...new Set(selectedTerms)].filter(value => !!text(value, 80));
+  const term = rowTerms.length === 1 && rows.every(row => row.term === rowTerms[0]) ? rowTerms[0]
+    : rowTerms.length <= 1 && filterTerms.length === 1 ? filterTerms[0] : undefined;
   const nextOffset = data.next_offset ?? data.nextOffset;
   const sourceOffset = Number.isSafeInteger(data.offset) && data.offset >= 0 ? data.offset
     : query && Number.isSafeInteger(request?.spec?.offset) ? request?.spec?.offset : Number.isSafeInteger(request?.offset) ? request?.offset : 0;
-  const continuation = Number.isSafeInteger(nextOffset) && nextOffset >= 0 && request
-    ? { capability: (query ? 'campus.query' : 'campus.lookup') as 'campus.query' | 'campus.lookup',
-      arguments: query && request.spec ? { ...request, spec: { ...request.spec, offset: nextOffset }, offset: nextOffset, refresh: false }
-        : { ...request, offset: nextOffset, refresh: false } } : undefined;
+  let continuation: CampusScene['continuation'];
+  if (query && request) {
+    try {
+      const next = campusQueryContinuation(validateCampusQuery(request), data);
+      if (next) continuation = { capability: next.capability, arguments: next.arguments };
+    } catch { /* An invalid original query is not a new read address. */ }
+  } else if (Number.isSafeInteger(nextOffset) && nextOffset > sourceOffset && request) {
+    continuation = { capability: 'campus.lookup', arguments: { ...request, offset: nextOffset, refresh: false } };
+  }
   return { kind: 'campus', id: randomUUID(), revision: 1, createdAt: now, domain,
     source: { sourceId: result.sourceId, fetchedAt, expiresAt: result.expiresAt,
       version: createHash('sha256').update(JSON.stringify({ sourceId: result.sourceId, fetchedAt, data })).digest('hex'), coverage: result.coverage },
@@ -103,7 +123,6 @@ export class SceneService {
   private academicScopes = new Map<string, { handle: ScopeHandle; runId?: string }>();
   private academicAdoptions = new Map<string, Set<string>>();
   academicScopeAuthorized?: (handle: ScopeHandle, grant: string) => boolean;
-  academicSnapshotCurrent?: (proof: unknown) => boolean;
   constructor(private store: Store, private policy: PolicyKernel, discussionModules?: DiscussionModuleVerifier,
     discussionSnapshots?: DiscussionSnapshotVerifier) {
     this.discussions = new DiscussionSceneProjector(store.kernel, policy, discussionModules, discussionSnapshots);
@@ -146,7 +165,7 @@ export class SceneService {
     }
     if (scene.kind === 'study_reference') return scope.audience === 'self' && scope.subjectId === scope.principalId
       && scope.worldId === 'real' && scope.sources.includes('work:self') && this.policy.can(handle, 'evidence:read');
-    const allowed = scope.audience === 'self' && this.policy.can(handle, scene.kind === 'map' ? 'map:read' : scene.kind === 'campus' ? 'campus:read' : scene.kind === 'planning' || scene.kind === 'discussion' ? 'evidence:read' : 'weather:read')
+    const allowed = scope.audience === 'self' && this.policy.can(handle, scene.kind === 'map' ? 'map:read' : scene.kind === 'campus' ? 'campus:read' : scene.kind === 'planning' || scene.kind === 'discussion' || scene.kind === 'figure' ? 'evidence:read' : 'weather:read')
       && scope.sources.includes(scene.source.sourceId)
       && (scene.kind !== 'planning' || scene.requiredSourceIds.every(sourceId => scope.sources.includes(sourceId)
         && (!sourceId.startsWith('campus:') || this.policy.can(handle, 'campus:read'))
@@ -218,10 +237,19 @@ export class SceneService {
       .flatMap(record => (record.data.artifact as { scenes?: SceneSnapshot[] } | undefined)?.scenes || []);
     return [...new Map([...stored, ...prepared, ...(this.sessions.get(sessionId) || [])].map(scene => [`${scene.id}@${scene.revision}`, scene])).values()];
   }
-  private canRestore(handle: ScopeHandle, sessionId: string, scene: SceneSnapshot, runId?: string, attached?: SceneRef) {
+  campusReadingSources(handle: ScopeHandle, sessionId: string, scene: CampusScene): CampusSavedReadingProof[] {
+    const proof = (scene.nativeRead?.snapshotProof || scene.academicSnapshotProof) as { bundleId?: string; resource?: string; version?: string } | undefined;
+    if (scene.source.sourceId !== 'campus:zju-account' || !proof?.bundleId || !proof.resource || !proof.version) return [];
+    const ids = this.store.kernel.campusSceneSourceMessageIds(handle, sessionId, scene);
+    return this.store.kernel.conversationCampusReadingSources(handle, sessionId, ids)
+      .filter(value => value.bundleId === proof.bundleId && value.resource === proof.resource && value.version === proof.version);
+  }
+  private canRestore(handle: ScopeHandle, sessionId: string, scene: SceneSnapshot, runId?: string, attached?: SceneRef, metadataOnly = false) {
     if (['discussion', 'curiosity', 'curiosity_reference', 'rehearsal', 'rehearsal_reference', 'note', 'note_reference'].includes(scene.kind) && 'sessionId' in scene && scene.sessionId !== sessionId) return false;
     const scope = this.policy.validate(handle);
     const key = `${scene.id}@${scene.revision}`, sameRun = !!runId && this.runSnapshots.get(key) === runId;
+    if (!metadataOnly && !sameRun && scene.kind === 'campus' && scene.source.sourceId === 'campus:zju-account'
+      && !this.campusReadingSources(handle, sessionId, scene).length) return false;
     const livePreparation = () => scope.sources.includes('work:self') && this.store.kernel.workData(handle, ['help_opportunity'], { sessionId, statuses: ['prepared', 'question_ready', 'notification_queued'], limit: 5 })
       .some(record => (record.data.artifact as unknown as { sceneRefs?: SceneRef[] } | undefined)?.sceneRefs?.some(ref => ref.id === scene.id && ref.revision === scene.revision));
     // A completed background read alone has no right to surface. A withdrawn
@@ -301,6 +329,15 @@ export class SceneService {
           complete: routes.every(route => ['ready', 'same'].includes(route.status) && !route.distance?.connectorM && !route.originAccess?.conditions?.length && !route.destinationAccess?.conditions?.length && !route.segments?.some(segment => segment.conditions?.length)), basis: '已记录道路按每分钟48–90米作条件估计，加上明确给出的停留时间；接入估计、楼内、门禁、排队和未提供的停留时间另计，不保证抵达时刻。' } }, cameraIntent: 'route', activeLegId: legs[0]?.id };
     return this.remember(sessionId, scene, options.runId, options.preparationOnly);
   }
+  /** A picture the host itself fetched and verified from a public page. */
+  figure(sessionId: string, image: { url: string; pageUrl?: string; pageTitle?: string; alt?: string; caption?: string; mediaType: string; width: number | null; height: number | null;
+    bytes: number; sha256: string; dataUrl: string; fetchedAt: string }, runId?: string, preparationOnly = false): FigureScene {
+    const scene: FigureScene = { kind: 'figure', id: randomUUID(), revision: 1, createdAt: this.store.kernel.clock.now(),
+      source: { sourceId: 'web:public', fetchedAt: image.fetchedAt, version: image.sha256, coverage: '公开网页上的一张图片；只是那张网页上的样子，不是此刻的现场。' },
+      image: { dataUrl: image.dataUrl, mediaType: image.mediaType, width: image.width, height: image.height, bytes: image.bytes, sha256: image.sha256 },
+      origin: { url: image.url, ...(image.pageUrl ? { pageUrl: image.pageUrl } : {}), ...(image.pageTitle ? { pageTitle: image.pageTitle } : {}), ...(image.alt ? { alt: image.alt } : {}) }, ...(image.caption ? { caption: image.caption } : {}) };
+    return this.remember(sessionId, scene, runId, preparationOnly);
+  }
   weather(sessionId: string, result: { data?: unknown; fetchedAt?: string; expiresAt?: string; coverage?: unknown }, runId?: string, preparationOnly = false): WeatherScene {
     const data = result.data as { location: string; timeZone: string; forecast: Record<string, (string | number | null)[]> };
     if (!data?.forecast || !Array.isArray(data.forecast.time)) throw new HarnessError('weather_snapshot', '天气结果尚未取得，不能生成日期画面。');
@@ -334,9 +371,9 @@ export class SceneService {
   ordinaryCampusSelectionIdentity(handle: ScopeHandle, sessionId: string, input: SemanticSelection) {
     if (input.kind !== 'record' || !input.recordId || input.campusScale) return;
     const scene = this.all(sessionId).find(scene => scene.id === input.sceneId && scene.revision === input.sceneRevision);
-    if (!scene || scene.kind !== 'campus' || scene.modelBodyDelivered !== false || !scene.nativeRead
+    if (!scene || scene.kind !== 'campus' || !scene.nativeRead
       || !['courses', 'schedule', 'exams'].includes(scene.domain) || !this.permitted(handle, scene)
-      || !this.canRestore(handle, sessionId, scene, undefined, { id: scene.id, revision: scene.revision })) return;
+      || !this.canRestore(handle, sessionId, scene, undefined, { id: scene.id, revision: scene.revision }, true)) return;
     const messages = this.store.messages(sessionId).filter(message => message.scenes?.some(item => item.id === scene.id && item.revision === scene.revision));
     if (messages.length && !messages.some(message => !this.store.kernel.hasFence(message.id)
       && this.store.runtime.presentation.sourceCurrentMessage(message).scenes?.some(item => item.id === scene.id && item.revision === scene.revision))) return;
@@ -349,9 +386,7 @@ export class SceneService {
     const identity = this.ordinaryCampusSelectionIdentity(handle, sessionId, input);
     if (!identity) return;
     const scene = this.all(sessionId).find(scene => scene.id === input.sceneId && scene.revision === input.sceneRevision) as CampusScene;
-    return { ...identity, owner: scene.nativeRead!, snapshotCurrent: !!scene.nativeRead?.snapshotProof
-      && this.academicSnapshotCurrent?.(scene.nativeRead.snapshotProof) === true,
-      select: () => this.selection(handle, sessionId, input), scene };
+    return { ...identity, owner: scene.nativeRead!, scene };
   }
   academicReference(handle: ScopeHandle, sessionId: string, ref: SceneRef): CampusAcademicReference {
     const scene = this.all(sessionId).find(scene => scene.id === ref.id && scene.revision === ref.revision);
@@ -372,12 +407,15 @@ export class SceneService {
     if (!row) return;
     return { selection: input, resource: scene.domain as CampusAcademicReference['domain'],
       sourceKey: row.sourceRecordId || row.id, sourceVersion: scene.source.version,
+      snapshotProof: scene.academicSnapshotProof as import('../capabilities/campus-saved-source').CampusSnapshotProof | undefined,
       grant: scene.domain === 'grades' ? 'campus:grades:read' as const : 'campus:gpa:read' as const,
       scopeOnly: true as const };
   }
   academicDisplay(handle: ScopeHandle, scene: CampusScene, raw: unknown, runId: string): CampusScene {
     const input = campusDisplayInputSchema.parse(raw);
-    if (!isAcademicCampus(scene) || input.sceneId !== scene.id || !this.academicReadable(handle, scene, runId))
+    if (!isAcademicCampus(scene))
+      throw new HarnessError('campus_display_kind', 'campusDisplay调整的是成绩或GPA画面的口径和布局；这张是普通校园记录，已有sceneRefs可直接呈现原生表格，省略campusDisplay即可。本次尚未发表新画面。');
+    if (input.sceneId !== scene.id || !this.academicReadable(handle, scene, runId))
       throw new HarnessError('campus_display_source', '先取得这份成绩资料的真实本轮画面，再选择怎么展开。');
     let scoped = scene;
     if (input.semesterId) {
@@ -418,14 +456,6 @@ export class SceneService {
       this.academicAdoptions.set(prior.handle.id, new Set([...(this.academicAdoptions.get(prior.handle.id) || []), `${updated.id}@${updated.revision}`]));
     }
     return updated;
-  }
-  academicCachedSelection(handle: ScopeHandle, sessionId: string, input: SemanticSelection) {
-    const identity = this.academicSelectionIdentity(handle, sessionId, input);
-    if (!identity || this.academicScopeAuthorized?.(handle, identity.grant) !== true) return;
-    const scene = this.all(sessionId).find(scene => scene.id === input.sceneId && scene.revision === input.sceneRevision);
-    if (!scene || scene.kind !== 'campus' || !scene.academicSnapshotProof || this.academicSnapshotCurrent?.(scene.academicSnapshotProof) !== true) return;
-    this.academicAdoptions.set(handle.id, new Set([...(this.academicAdoptions.get(handle.id) || []), `${scene.id}@${scene.revision}`]));
-    return { selection: this.selection(handle, sessionId, input), scene };
   }
   planning(sessionId: string, result: Parameters<typeof planningSnapshot>[0], capability: string, input: unknown, runId?: string, preparationOnly = false) {
     const scene = planningSnapshot(result, capability, input, this.store.kernel.clock.now());
@@ -468,8 +498,8 @@ export class SceneService {
     const scene = this.discussions.project(handle, sessionId, { ...input, previous }, options.admission);
     return options.stageOnly ? scene : this.remember(sessionId, scene, options.runId, options.preparationOnly);
   }
-  selection(handle: ScopeHandle, sessionId: string, raw: SemanticSelection): VerifiedSelection {
-    const input = semanticSelectionSchema.parse(raw), scene = this.get(handle, sessionId, { id: input.sceneId, revision: input.sceneRevision }, undefined, true);
+  selection(handle: ScopeHandle, sessionId: string, raw: SemanticSelection, runId?: string): VerifiedSelection {
+    const input = semanticSelectionSchema.parse(raw), scene = this.get(handle, sessionId, { id: input.sceneId, revision: input.sceneRevision }, runId, true);
     let label: string | undefined;
     let record: CampusRecord | undefined;
     let timeBlock: PlanningBlock | undefined;
@@ -555,6 +585,8 @@ export class SceneService {
       ...(scene.place ? { place: { id: scene.place.id, label: scene.place.displayName } } : {}),
       ...(scene.storySetting ? { storySetting: scene.storySetting } : {}),
       journey: { ...scene.journey, legs: scene.journey.legs.map(({ id, fromStopId, toStopId, route }) => ({ id, fromStopId, toStopId, status: route.status, distance: route.distance, warnings: route.warnings })) } }
+      : scene.kind === 'figure' ? { id: scene.id, revision: scene.revision, kind: scene.kind, source: scene.source, origin: scene.origin,
+        ...(scene.caption ? { caption: scene.caption } : {}), image: { mediaType: scene.image.mediaType, width: scene.image.width, height: scene.image.height } }
       : scene.kind === 'campus' ? campusSceneModelSummary(scene)
       : scene.kind === 'planning' ? { ...scene, blocks: scene.blocks.slice(0, 16), sceneBlockCount: scene.blocks.length, summaryOmittedBlocks: Math.max(0, scene.blocks.length - 16) }
       : scene.kind === 'environment' ? { ...scene, samples: scene.samples.slice(0, 8), sceneSampleCount: scene.samples.length, summaryOmittedSamples: Math.max(0, scene.samples.length - 8) }

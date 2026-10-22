@@ -11,6 +11,7 @@ export interface PreparationView {
   scenes?: import('./scenes').SceneSnapshot[];
   reflectiveLetter?: import('./reflective-letter').ReflectiveLetterView;
 }
+export type PreparationReference = Pick<PreparationView, 'id' | 'revision'> & { helpRecordId: string };
 export interface SurfaceView {
   mode: 'private' | 'public';
   revision: number;

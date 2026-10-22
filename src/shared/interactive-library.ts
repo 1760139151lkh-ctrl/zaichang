@@ -10,7 +10,7 @@ import { INTERACTIVE_PROGRAM_LIMITS, PROGRAM_AST_RULES, PROGRAM_LIBRARY_VERSION,
   type InteractiveStateDeclarations, type ProgramDataMap } from './interactive-program';
 
 const finite = z.number().finite(), coordinate = finite.nullable().default(null);
-const color = z.enum(['ink', 'muted', 'accent', 'blue', 'green', 'rose']);
+const color = z.enum(['ink', 'muted', 'accent', 'blue', 'green', 'rose', 'paper']);
 const text = z.string().max(INTERACTIVE_PROGRAM_LIMITS.text);
 const point = z.object({ x: coordinate, y: coordinate }).strict().nullable();
 const uiBinding = z.record(z.string(), z.unknown()); markReactive(uiBinding);
@@ -29,7 +29,7 @@ const children = (kind: 'view' | 'graphic' | 'same') => z.array(z.lazy(() => {
   const refs = kind === 'view' ? viewRefs : kind === 'graphic' ? graphicRefs : [...viewRefs, ...graphicRefs];
   return z.union(refs as [z.ZodType, z.ZodType, ...z.ZodType[]]);
 })).max(INTERACTIVE_PROGRAM_LIMITS.expandedNodes);
-type PrimitiveKind = 'document' | 'view' | 'graphic' | 'motion' | 'source';
+type PrimitiveKind = 'document' | 'view' | 'graphic' | 'motion' | 'control' | 'source';
 interface PrimitiveSpec {
   name: string; description: string; kind: PrimitiveKind;
   props: z.ZodObject<any>; scalarProps: z.ZodObject<any>;
@@ -49,10 +49,10 @@ function primitive(name: string, description: string, kind: PrimitiveKind, field
 
 // Fields keep a stable positional order in the generated OpenUI signatures.
 // This is the actual library, not a second prose catalog or a business router.
-const documentScalars = z.object({ id: programNodeIdSchema, title: z.string().max(160).optional() }).strict();
-specs.push({ name: 'Document', kind: 'document', description: '当前回复内的通用交互文档。可选title会直接显示为文档顶部的可见标题；已提供title时，不要无意再用同名Text重复标题。ui只能直接绑定宿主生成的$ui；子项自由组合，原App人物与聊天输入仍由宿主持有。',
+const documentScalars = z.object({ id: programNodeIdSchema, title: z.string().max(160).optional(), presentation: z.enum(['paper', 'flow']).default('paper') }).strict();
+specs.push({ name: 'Document', kind: 'document', description: '当前回复内的通用交互文档。可选title直接显示，勿用同名Text重复。presentation=paper是一张纸；flow不加外框，适合让说明段落、不同Paper与可操作图交织，全部仍共享同一$ui（相关机械/声音不拆成互不相通的作品）。ui只能直接绑定宿主生成的$ui；原App人物与聊天输入仍由宿主持有。',
   scalarProps: documentScalars,
-  props: z.object({ id: programNodeIdSchema, ui: uiBinding, children: children('view'), title: z.string().max(160).optional() }).strict(), childSlot: 'view' });
+  props: z.object({ id: programNodeIdSchema, ui: uiBinding, children: children('view'), title: z.string().max(160).optional(), presentation: z.enum(['paper', 'flow']).default('paper') }).strict(), childSlot: 'view' });
 primitive('Flow', '组合横向、纵向或网格内容；布局不表示步骤执行或事实关系。', 'view', {
   direction: z.enum(['column', 'row', 'grid']).default('column'), gap: z.number().int().min(0).max(48).default(16),
   columns: z.number().int().min(1).max(6).default(2), align: z.enum(['start', 'center', 'stretch']).default('stretch'),
@@ -82,17 +82,34 @@ primitive('Choice', '选择已声明choice字段的一项；选项来自states�
 primitive('Toggle', '切换已声明boolean字段；只改变局部显示或演算，不推断偏好或批准动作。', 'view', {
   field: programKeySchema, label: z.string().min(1).max(160),
 }, { stateKind: 'boolean' });
+primitive('Press', '按住与松开一个临时boolean字段，支持鼠标/触摸/键盘。在Graphic中包可按几何，在正文中包按钮内容。field必须transient:true且initial:false。可选pressureField必须transient且initial:0，写明确strength（不冒充鼠标测得力度）；triggerField是transient整数事件计数，每次新按下加一步、到max回min，松开不改它。多个Press共用field时，最后一个持有者松开才释放；首次按下的入口只产生它自己声明的pressureField/triggerField，不从别的入口借字段。因此图中按键和键盘若代表同一次击发，两处可以共用相同的压力和击发字段。hotkey仅在本作品焦点内、非文字输入时响应；失焦/取消/卸载自动释放，不自动发消息或恢复按住。', 'control', {
+  field: programKeySchema, label: z.string().min(1).max(160), strength: finite.min(0).max(1).default(1),
+  pressureField: programKeySchema.nullable().optional(), triggerField: programKeySchema.nullable().optional(),
+  hotkey: z.string().regex(/^[\x21-\x7e]$/).nullable().optional(),
+  appearance: z.enum(['plain', 'light', 'dark']).default('plain'), disabled: z.boolean().default(false),
+}, { childSlot: 'same', stateKind: 'boolean' });
+const voiceSettings = z.object({ gain: finite.min(0).max(1).default(.25), velocity: finite.min(0).max(1).default(1),
+  harmonics: z.array(finite.min(-1).max(1)).min(1).max(32).default([1]),
+  attackMs: finite.min(1).max(2000).default(8), decayMs: finite.min(1).max(10000).default(250),
+  sustainLevel: finite.min(0).max(1).default(.45), releaseMs: finite.min(1).max(10000).default(180),
+}).strict();
+primitive('Voice', '本机合成一个可重复击发的声音。gateField必须transient boolean且initial:false。可选triggerField为transient整数事件计数，改变才击发；也可改用末尾trigger纯表达式，boolean仅由假变真击发，number每次改变击发，两者不可同时给。位置参数中的settings、sustainField、triggerField可用null表示未选，便于写到后面的trigger。这样可由同一局部时间在机械接触时产生一次声音，不在按键时提前响。都不提供时gate由假变真击发。sustainField为transient且initial:false的延续开关，松gate后为真则保留正在衰减的声音，关闭才制音。gain、velocity、attackMs、decayMs和sustainLevel在每次击发时取值，后来修改用于下一次声音；attackMs升到峰值，decayMs降到sustainLevel。sustainLevel=0时会自然衰减至静音并结束，大于0则停在持续音量；延续开关不会补充能量或改变这条包络。releaseMs是松门且未延续、或关闭延续开关时的制音时长。frequency为Hz，null静音，频率和harmonics可实时改变；默认为正弦，harmonics显式塑造音色。声音由用户明确开启，初始/重开不播放。', 'view', {
+  gateField: programKeySchema, frequency: finite.min(1).max(20000).nullable(),
+  settings: voiceSettings.nullable().optional(), sustainField: programKeySchema.nullable().optional(), triggerField: programKeySchema.nullable().optional(),
+  trigger: z.union([finite, z.boolean()]).optional(),
+});
 primitive('Button', '执行一个checked局部变更、恢复初值或Continue；不运行原生Set/Run/工具/外链/自动发送。', 'view', {
   label: z.string().min(1).max(160), action: localAction, emphasis: z.enum(['quiet', 'normal']).default('quiet'), disabled: z.boolean().default(false),
 });
 primitive('SourceSlot', '在当前作品里放原工具实际准入的精确Scene引用。ref只能是原id@revision字面地址，由宿主原owner显示；不查询工具、不复制正文。', 'source', {
   ref: z.string().min(1).max(320),
 });
-primitive('Graphic', '通用数据坐标画布，组合安全几何与文字；不是特定学科图。坐标缺值保留缺口，画面之外不改数值。', 'view', {
+primitive('Graphic', '通用数据坐标画布，组合安全几何与文字。coordinateScale=equal让横纵一个单位在画面里同样长，旋转的刚性几何便保持长度与角度；默认independent适合两轴单位不同的图表。空出的区域留白，指针仍按同一坐标映射。可选轴名可用null跳过。坐标缺值保留缺口，画面之外不改数值。', 'view', {
   domain: z.object({ xMin: finite, xMax: finite, yMin: finite, yMax: finite }).strict(),
   height: z.number().int().min(120).max(600).default(260), yDirection: z.enum(['up', 'down']).default('up'),
-  axes: z.boolean().default(false), xLabel: z.string().max(80).optional(), yLabel: z.string().max(80).optional(),
+  axes: z.boolean().default(false), xLabel: z.string().max(80).nullable().optional(), yLabel: z.string().max(80).nullable().optional(),
   label: z.string().min(1).max(240),
+  coordinateScale: z.enum(['independent', 'equal']).default('independent'),
 }, { childSlot: 'graphic' });
 primitive('Group', '在当前Graphic中组合几何；只允许有限的平移、旋转、缩放。', 'graphic', {
   x: coordinate.default(0), y: coordinate.default(0), rotate: finite.min(-36000).max(36000).default(0),
@@ -117,6 +134,14 @@ primitive('Curve', '按一个数学式画连续曲线：expression 是 y 关于 
 primitive('Circle', '画一个有限坐标圆点或圆；半径是画面像素，不引入外部图像或业务。', 'graphic', {
   x: coordinate, y: coordinate, radius: finite.min(.5).max(80).default(4), color: color.default('accent'), filled: z.boolean().default(true),
 });
+primitive('Rect', '在当前数据坐标画矩形，随Group变换；几何尺寸使用数据单位，线宽使用像素。paper色沿当前纸面，不接受任意CSS。', 'graphic', {
+  x: coordinate, y: coordinate, width: finite.positive(), height: finite.positive(), color: color.default('ink'),
+  filled: z.boolean().default(false), strokeWidth: finite.min(0).max(8).default(1.5),
+});
+primitive('Polygon', '当前数据坐标的闭合多边形；任一点未知时整片留空，不跨缺口补形。随Group变换。', 'graphic', {
+  points: z.array(point).min(3).max(INTERACTIVE_PROGRAM_LIMITS.collection), color: color.default('ink'),
+  filled: z.boolean().default(false), strokeWidth: finite.min(0).max(8).default(1.5),
+});
 primitive('Label', '在当前Graphic坐标处显示短文字；坐标或文字未知时保留缺口。', 'graphic', {
   x: coordinate, y: coordinate, text: z.string().max(240).nullable().default(null), color: color.default('ink'),
   anchor: z.enum(['start', 'middle', 'end']).default('start'),
@@ -128,22 +153,23 @@ primitive('DragHandle', '拖动已声明number字段在当前Graphic中的位置
 const frame = z.object({ opacity: finite.min(0).max(1).optional(), x: finite.min(-1000).max(1000).optional(),
   y: finite.min(-1000).max(1000).optional(), rotate: finite.min(-360).max(360).optional(), scale: finite.min(.1).max(4).optional(),
   values: z.record(programKeySchema, finite).optional() }).strict();
-primitive('Motion', '用户按钮改变when后启动有限动效；帧values只改变已声明number局部输入，按原步长插值，每次都经完整checkedPatch。手动输入立即接管；不自动播放，不执行工具，减少动态时直接到末帧。', 'motion', {
+primitive('Motion', '用户点按钮、按下Press、切换选项使when改变后启动有限动效；帧values只改已声明number，各轨道在相邻帧之间连续插值，再按state.step舍入。末帧里的值并非只在结束时写入：step=1的0/1轨道会在区间中途切换，若它又参与本段when，就可能提前取消。releaseBehavior=cancel时when变false取消；finish则让已经开始的有限过程完成，适合激励已经脱开的自由运动，松手状态与此时间分开。手动数值、文字或拖点仍立即接管；不自动播放，减少动态时直接到末帧。', 'motion', {
   when: z.union([finite, z.string().max(160), z.boolean(), z.null()]).optional(),
   frames: z.array(frame).min(2).max(8), durationMs: z.number().int().min(1).max(10000).default(280),
   iterations: z.number().int().min(1).max(3).default(1), easing: z.enum(['linear', 'ease', 'ease-out']).default('ease-out'),
+  releaseBehavior: z.enum(['cancel', 'finish']).default('cancel'),
 }, { childSlot: 'same' });
 
 // The neutral definitions use an opaque renderer slot; lang-core never calls
 // it. The later React adapter injects actual renderers with the same schemas.
 const neutralDefinitions = specs.map(spec => defineComponent({ name: spec.name, props: spec.props,
   description: spec.description, component: null }));
-viewRefs = neutralDefinitions.filter(def => ['view', 'motion', 'source'].includes(specs.find(spec => spec.name === def.name)!.kind)).map(def => def.ref as z.ZodType);
-graphicRefs = neutralDefinitions.filter(def => ['graphic', 'motion'].includes(specs.find(spec => spec.name === def.name)!.kind)).map(def => def.ref as z.ZodType);
+viewRefs = neutralDefinitions.filter(def => ['view', 'motion', 'control', 'source'].includes(specs.find(spec => spec.name === def.name)!.kind)).map(def => def.ref as z.ZodType);
+graphicRefs = neutralDefinitions.filter(def => ['graphic', 'motion', 'control'].includes(specs.find(spec => spec.name === def.name)!.kind)).map(def => def.ref as z.ZodType);
 export const interactiveComponentSpecs: readonly PrimitiveSpec[] = Object.freeze(specs);
 export const interactiveComponentNames: readonly string[] = Object.freeze(specs.map(spec => spec.name));
 export type InteractiveComponentName = 'Document' | 'Flow' | 'Paper' | 'Text' | 'Formula' | 'Number' | 'TextInput' | 'SequenceInput'
-  | 'Choice' | 'Toggle' | 'Button' | 'SourceSlot' | 'Graphic' | 'Group' | 'Line' | 'Polyline' | 'Curve' | 'Circle' | 'Label' | 'DragHandle' | 'Motion';
+  | 'Choice' | 'Toggle' | 'Press' | 'Voice' | 'Button' | 'SourceSlot' | 'Graphic' | 'Group' | 'Line' | 'Polyline' | 'Curve' | 'Circle' | 'Rect' | 'Polygon' | 'Label' | 'DragHandle' | 'Motion';
 
 export function createInteractiveLibrary<C = null>(options: { data?: ProgramDataMap; renderers?: Partial<Record<InteractiveComponentName, C>> } = {}) {
   const components = neutralDefinitions.map(def => ({ ...def,
@@ -273,6 +299,27 @@ export function inspectInteractivePrimitiveProperties(name: string, raw: Record<
   }
   if (spec.stateKind && (typeof raw.field !== 'string' || states[raw.field]?.kind !== spec.stateKind))
     return reject(`部件${name}需要对应已声明的${spec.stateKind}局部字段。`, 'state_kind', [['field']]);
+  if (name === 'Press' || name === 'Voice') {
+    if (name === 'Voice' && raw.triggerField != null && raw.trigger !== undefined)
+      return reject('同一声音只选triggerField计数或trigger表达式中的一种。', 'state_kind', [['triggerField'], ['trigger']]);
+    const heldKey = name === 'Press' ? 'field' : 'gateField';
+    for (const key of [heldKey, ...(raw.sustainField == null ? [] : ['sustainField'])]) {
+      const state = typeof raw[key] === 'string' ? states[raw[key] as string] : undefined;
+      if (state?.kind !== 'boolean' || state.initial !== false || state.transient !== true)
+        return reject('按住、声音门和延续开关需要transient:true且initial:false的boolean字段；重开不能恢复按住或发声。', 'state_kind', [[key]]);
+    }
+    if (raw.pressureField != null) {
+      const state = states[String(raw.pressureField)];
+      if (state?.kind !== 'number' || state.transient !== true || state.initial !== 0 || state.min > 0 || state.max < 1)
+        return reject('力度字段需要transient:true、initial:0并覆盖0至1的number声明。', 'state_kind', [['pressureField']]);
+    }
+    if (raw.triggerField != null) {
+      const state = states[String(raw.triggerField)];
+      if (state?.kind !== 'number' || state.transient !== true || state.initial !== 0 || state.min !== 0
+        || !Number.isInteger(state.max) || state.step !== 1 || raw.triggerField === raw.pressureField)
+        return reject('击发计数需要独立的transient:true整数number字段，initial/min=0、step=1；每次改变代表一次新击发。', 'state_kind', [['triggerField']]);
+    }
+  }
   if (name === 'Graphic') {
     const domain = checked.data.domain as { xMin: number; xMax: number; yMin: number; yMax: number };
     if (!(domain.xMax > domain.xMin) || !(domain.yMax > domain.yMin)

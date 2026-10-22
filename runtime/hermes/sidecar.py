@@ -14,7 +14,6 @@ from pathlib import Path
 import struct
 import sys
 import threading
-import queue
 import time
 import traceback
 import hashlib
@@ -79,7 +78,7 @@ def receive_responses():
             if response.get("sequence") != expected_sequence or response.get("version") != 1:
                 raise ValueError("host_sequence_mismatch")
             expected_sequence += 1
-            if response.get("kind") != "response" or any(response.get(name) != START.get(name)
+            if response.get("kind") not in ("response", "rpc.wait") or any(response.get(name) != START.get(name)
                     for name in ("run_id", "parent_run_id", "epoch", "task_version")):
                 raise PermissionError("stale_host_response")
             with LOCK:
@@ -87,45 +86,81 @@ def receive_responses():
                 target = PENDING.get(request_id)
                 if target is None:
                     if request_id in EXPIRED_REQUESTS:
+                        if response["kind"] == "rpc.wait":
+                            # A wait notice already in transit cannot revive
+                            # an expired request or consume its final reply.
+                            continue
                         # One reply to a known expired request is isolated. A
                         # second reply or an unknown ID remains a protocol error.
                         EXPIRED_REQUESTS.remove(request_id)
                         continue
                     raise ValueError("unpaired_host_response")
-                target.put_nowait(response)
+                if time.monotonic() >= target["deadline"] and target["response"] is None:
+                    # Receiver and waiter use the same clock/lock. A late
+                    # success cannot win merely because this thread ran first.
+                    if response["kind"] == "rpc.wait":
+                        if len(EXPIRED_REQUESTS) >= MAX_EXPIRED_REQUESTS:
+                            raise RuntimeError("expired_rpc_record_budget")
+                        EXPIRED_REQUESTS.add(request_id)
+                    PENDING.pop(request_id, None)
+                    target["response"] = {"error": {"code": "rpc_timeout", "outcome": "unknown"}}
+                    target["condition"].notify()
+                    continue
+                if response["kind"] == "rpc.wait":
+                    notice = response.get("payload", {})
+                    revision, phase, timeout_ms = (notice.get(name) for name in ("revision", "phase", "timeout_ms"))
+                    maximum_ms = 620000 if phase == "model" else 180000
+                    if (not target["allow_wait"] or phase not in ("model", "ordinary")
+                            or type(revision) is not int or revision != target["wait_revision"] + 1
+                            or type(timeout_ms) is not int or not 0 < timeout_ms <= maximum_ms):
+                        raise ValueError("invalid_host_wait_notice")
+                    target["wait_revision"] = revision
+                    target["deadline"] = time.monotonic() + timeout_ms / 1000
+                else:
+                    if target["response"] is not None:
+                        raise ValueError("duplicate_host_response")
+                    target["response"] = response
+                target["condition"].notify()
     except BaseException:
         with LOCK:
             HOST_FAILURE = "host_protocol_closed"
             for target in PENDING.values():
-                try:
-                    target.put_nowait({"error": HOST_FAILURE})
-                except queue.Full:
-                    pass
+                if target["response"] is None:
+                    target["response"] = {"error": HOST_FAILURE}
+                target["condition"].notify()
 
 
-def rpc(kind, payload, allow_error=False, *, timeout_seconds=180):
-    if not 0 < timeout_seconds <= 180:
+def rpc(kind, payload, allow_error=False, *, timeout_seconds=None):
+    # Ordinary tools keep their shorter deadline. Host-only paired notices
+    # account separately for real model work inside a tool; cancellation still
+    # closes this same sidecar and no model argument can extend the wait.
+    maximum = 620 if kind == "model.request" else 180
+    allow_wait = timeout_seconds is None and kind != "model.request"
+    if timeout_seconds is None:
+        timeout_seconds = maximum
+    if not 0 < timeout_seconds <= maximum:
         raise ValueError("rpc_timeout_cannot_extend_host_cap")
     with LOCK:
         if HOST_FAILURE:
             raise RuntimeError(HOST_FAILURE)
         request_id = f'{START["run_id"]}:{SEQUENCE + 1}'
-        target = queue.Queue(maxsize=2)
+        target = {"condition": threading.Condition(LOCK), "response": None,
+                  "deadline": time.monotonic() + timeout_seconds,
+                  "wait_revision": 0, "allow_wait": allow_wait}
         PENDING[request_id] = target
         emit(kind, payload, request_id)
     try:
-        try:
-            response = target.get(timeout=timeout_seconds)
-        except queue.Empty:
-            with LOCK:
-                PENDING.pop(request_id, None)
-                # receive_responses and expiry use the same lock: a reply
-                # already queued was consumed by this expired request only.
-                if target.empty():
+        with LOCK:
+            while target["response"] is None:
+                remaining = target["deadline"] - time.monotonic()
+                if remaining <= 0:
+                    PENDING.pop(request_id, None)
                     if len(EXPIRED_REQUESTS) >= MAX_EXPIRED_REQUESTS:
                         raise RuntimeError("expired_rpc_record_budget")
                     EXPIRED_REQUESTS.add(request_id)
-            raise TimeoutError("host_rpc_timeout_outcome_unknown") from None
+                    raise TimeoutError("host_rpc_timeout_outcome_unknown")
+                target["condition"].wait(remaining)
+            response = target["response"]
         if response.get("error"):
             if allow_error:
                 return {"_host_error": response["error"]}
@@ -202,7 +237,7 @@ def bootstrap():
             if name == "delegate":
                 admission = rpc("delegate.authorize", {"agent_id": self.agent.host_id, "arguments": args, "tool_call_id": call_id})
                 if not admission.get("authorized"):
-                    return json.dumps({"status": "forbidden", "error": admission.get("error"), "meaning": "No worker was started; revise within the approved scope or explain the unavailable part."}, ensure_ascii=False)
+                    return json.dumps({"status": "forbidden", "error": admission.get("error"), "meaning": "这次子调查没有开始。具体原因在error里，可以一起看看是否还有原约定范围内的做法；已经能独立完成的部分也仍然有用。"}, ensure_ascii=False)
                 from tools.delegate_tool import delegate_task
                 self.tasks = args["tasks"]
                 self.child_index = 0
@@ -248,29 +283,99 @@ def bootstrap():
             self._persist_disabled = True
             self._tool_snapshot_generation = 1 << 60  # Host tool snapshot cannot be replaced by native plugin discovery.
             self._reasoning_echo_flag = True
-            # Preserve the upstream controller's counts and hard-stop decisions.
-            # Its coding-oriented instruction to keep calling tools even when
-            # independent parts are answerable is not this product's behavior.
-            upstream_after_call = self._tool_guardrails.after_call
-            def host_after_call(*args, **kwargs):
-                decision = upstream_after_call(*args, **kwargs)
-                if decision.code == "same_tool_failure_warning":
-                    return replace(decision, message=(
-                        f"{decision.tool_name} has failed {decision.count} times. "
-                        "Inspect the concrete error before retrying; do not repeat unchanged failures. "
-                        "You may answer independent requests from already permitted evidence. "
-                        "Optional storage is not a prerequisite for understanding the current message. "
-                        "Explain any unfinished operation honestly; never claim it succeeded."
+            # Adapt presentation at the pinned controller's own construction
+            # points. Counts, signatures, thresholds and stop decisions remain
+            # those of the upstream controller, including its stored halt.
+            from agent import tool_guardrails as loop_guardrails
+            controller = self._tool_guardrails
+            upstream_decide = controller._decide
+            def host_decide(*args, **kwargs):
+                decision = upstream_decide(*args, **kwargs)
+                name, count = decision.tool_name, decision.count
+                context = (
+                    "The tool results carry the concrete details. Could you look at what changed, "
+                    "and consider whether revised arguments or another already permitted route would help? "
+                    "You can still answer independent requests from the evidence already available. "
+                    "Understanding the current message and optionally retaining a record are separate choices. "
+                    "Pending operations keep their actual outcome; success has its own receipt. "
+                    "How to talk about the situation remains yours to judge in this conversation."
+                )
+                descriptions = {
+                    "same_tool_failure_warning": f"There have been {count} failed attempts with {name}. ",
+                    "repeated_exact_failure_warning": f"The same {name} call has failed {count} times with identical arguments. ",
+                    "idempotent_no_progress_warning": f"This {name} read has yielded the same result {count} times. ",
+                    "repeated_exact_failure_block": f"This identical {name} call has already failed {count} times; the existing stopping rule held this next call before execution. ",
+                    "idempotent_no_progress_block": f"This {name} read has yielded the same result {count} times; the existing stopping rule held this next call before execution. ",
+                    "same_tool_failure_halt": f"The {name} path has reached the existing stopping condition after {count} failures in this turn. ",
+                    "identical_call_streak_halt": f"The same {name} call has yielded the same result {count} times in succession, reaching the existing stopping condition. ",
+                    "loop_web_search_cap": f"This turn has made {count} web searches, reaching its configured limit of {kwargs.get('cap')}; the next search was held before execution. ",
+                    "loop_subagent_cap": f"This turn has started {count} subagents, reaching its configured limit of {kwargs.get('cap')}; the next request was held before execution. ",
+                }
+                description = descriptions.get(decision.code)
+                if description is None:
+                    return decision
+                adjusted = replace(decision, message=description + context)
+                if controller.halt_decision is decision:
+                    controller._halt_decision = adjusted
+                return adjusted
+            controller._decide = host_decide
+
+            upstream_observe = controller.observe_call
+            def host_observe(*args, **kwargs):
+                observation = upstream_observe(*args, **kwargs)
+                if observation.notice:
+                    name = args[0] if args else kwargs.get("tool_name", "this tool")
+                    observation = replace(observation, notice=(
+                        f"The same {name} call has now produced the same result "
+                        f"{controller._identical_streak_count} times in succession. "
+                        "The result has stayed the same; it may already answer this part of the question, "
+                        "or a different query may help with what is still missing."
                     ))
-                return decision
-            self._tool_guardrails.after_call = host_after_call
+                return observation
+            controller.observe_call = host_observe
+
+            def host_result_reference(tool_name, args):
+                preview = loop_guardrails.canonical_tool_args(loop_guardrails._coerce_args(args))
+                limit = loop_guardrails._RESULT_STUB_ARGS_PREVIEW_CHARS
+                if len(preview) > limit:
+                    preview = preview[:limit] + "…"
+                first_id = controller._identical_streak_first_call_id
+                reference = f" (tool_call_id {first_id})" if first_id else ""
+                text = (
+                    f"This result is byte-identical to the earlier {tool_name} result in this turn{reference}. "
+                    f"The call ran again and the content stayed the same. Arguments: {preview}"
+                )
+                retained_path = controller._persisted_result_paths.get(first_id) if first_id else None
+                if retained_path:
+                    text += f"\nRecorded full-result location: {retained_path}. Its original reading permissions still apply."
+                return text
+            controller._build_result_reference_stub = host_result_reference
             compression = payload.get("compression") or {}
             self.compression_enabled = bool(compression.get("enabled", False))
             self._micro_compact_enabled = False
             compressor = self.context_compressor
             compressor.abort_on_summary_failure = True
-            compressor.threshold_tokens_cap = int(compression.get("thresholdTokens", 48000))
-            compressor.threshold_tokens = compressor.threshold_tokens_cap
+            context_tokens = compression.get("contextTokens")
+            if context_tokens is not None:
+                if isinstance(context_tokens, bool) or not isinstance(context_tokens, int) or context_tokens <= 0:
+                    raise ValueError("invalid_host_model_context_window")
+                compressor.context_length = context_tokens
+            threshold = compression.get("thresholdTokens")
+            if threshold is not None:
+                if isinstance(threshold, bool) or not isinstance(threshold, int) or threshold <= 0:
+                    raise ValueError("invalid_host_compression_threshold")
+                compressor.threshold_tokens_cap = threshold
+                compressor.threshold_tokens = threshold
+            elif context_tokens is not None:
+                # Keep the pinned compressor's ordinary window/output-reserve
+                # policy. A fixed 48K application cap compressed perfectly
+                # admissible long works repeatedly, including protected tails
+                # too large for that cap to reclaim.
+                compressor.threshold_tokens_cap = None
+                compressor._threshold_tokens = None
+            else:
+                compressor.threshold_tokens_cap = 48000
+                compressor.threshold_tokens = 48000
             compressor.protect_first_n = 1
             compressor.protect_last_n = 8
             compressor.proactive_prune_tokens = 0
@@ -279,6 +384,11 @@ def bootstrap():
 
         def _build_system_prompt(self, system_message=None):
             return self._host_system
+
+        def _toolguard_controlled_halt_response(self, decision):
+            # The native loop still breaks at its original halt point. Its
+            # reason travels as host status, never as authored character prose.
+            return ""
 
         def _model_supports_vision(self):
             # The host fixes the verified native-multimodal DeepSeek route and
@@ -391,6 +501,10 @@ def bootstrap():
             if child:
                 rpc("child.started", {"agent_id": self.host_id, "snapshot": self._host_snapshot})
             result = super().run_conversation(*args, **kwargs)
+            guardrail = result.get("guardrail")
+            if isinstance(guardrail, dict) and guardrail.get("action") in ("block", "halt"):
+                result = {**result, "completed": False, "failed": True, "interrupted": True,
+                          "error": "host_tool_guardrail_halt", "final_response": ""}
             if child:
                 status = "produced" if result.get("completed") and not result.get("error") else "failed"
                 accepted = rpc("child.finished", {"agent_id": self.host_id, "snapshot": self._host_snapshot, "status": status})
@@ -416,11 +530,20 @@ def main():
         if (payload.get("compression") or {}).get("forceInitial"):
             history = agent.context_compressor.compress([{"role": "system", "content": payload["system"]}, *history], force=True)
         result = agent.run_conversation(payload["userMessage"], conversation_history=history, task_id=START["run_id"])
+        guardrail = result.get("guardrail")
+        if isinstance(guardrail, dict) and guardrail.get("action") in ("block", "halt"):
+            emit("run.interrupted", {"code": "tool_guardrail_halt", "guardrail": {
+                key: guardrail.get(key) for key in ("code", "action", "tool_name", "count")
+            }})
+            agent.close()
+            return 1
         if result.get("error") or result.get("failed") or result.get("completed") is False:
             emit("run.error", {"code": "engine_incomplete", "interrupted": bool(result.get("interrupted")), "apiCalls": result.get("api_calls")})
             agent.close()
             return 1
-        emit("run.final", {"content": result.get("final_response", ""), "messages": result.get("messages", []), "interrupted": result.get("interrupted", False), "compactions": agent.context_compressor.compression_count})
+        current_turn = ({"currentTurn": {"id": result["turn_id"], "userIndex": result["current_turn_user_idx"]}}
+                        if "turn_id" in result and "current_turn_user_idx" in result else {})
+        emit("run.final", {"content": result.get("final_response", ""), "messages": result.get("messages", []), "interrupted": result.get("interrupted", False), "compactions": agent.context_compressor.compression_count, **current_turn})
         agent.close()
     except BaseException as exc:
         # Keep debugging locations without exception messages or user payloads.

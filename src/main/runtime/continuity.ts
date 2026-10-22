@@ -76,7 +76,7 @@ export function buildContinuityIndex(
   const empty: ContinuityIndex = {
     preparedMaterials: [], openThreads: [], planningIntents: [], providedSourceIds: [], providedEvidenceIds: [], providedObjectVersions: [],
     coverage: { scope: 'none', bounded: true, moreMayExist: false,
-      meaning: '没有读取跨轮线索；这不表示没有未完事项或准备材料。' },
+      meaning: '这次没有带入跨轮线索，未完事项或准备材料是否存在仍需各自的来处说明。' },
   };
   const scope = repo.scope(contract.scope);
   if (!sessionId || scope.child || scope.audience !== 'self' || scope.subjectId !== scope.principalId ||
@@ -129,7 +129,7 @@ export function buildContinuityIndex(
       prepared.push({ id: record.id, revision: record.revision, title: artifact.title, expiresAt,
         fromCurrentConversation: inConversation(record, sessionId),
         delivery: sameMaterial && (help.data.submittedAt || help.data.deliveredAt) ? 'submitted_or_delivered' : 'not_observed',
-        meaning: '已有实际准备。先用inspect_help按精确ID读取当前正文、依据与限制；相关时可顺势使用，无须让用户重讲或重复调查。索引不是新提醒、已接受安排或新的执行授权。',
+        meaning: '这份准备已有实际内容，这里的精确ID保留它的来处。inspect_help可以带回当前正文、依据与限制；若它与眼前的事相关，你就有机会接着已有的帮助往前走，让本人不用重讲。提醒、接受安排和实际执行各有自己的约定，这条线索只承接准备本身。',
       });
       preparedRecords.push(record);
       if (prepared.length > INDEX_LIMIT) break;
@@ -173,7 +173,7 @@ export function buildContinuityIndex(
       id: record.id, revision: record.revision, title: record.title, nextStep: String(record.data.nextStep),
       updatedAt: typeof record.data.updatedAt === 'string' ? record.data.updatedAt : null,
       fromCurrentConversation: inConversation(record, sessionId),
-      meaning: '这是仍开放事项的续接线索，不表示现在必须继续或用户接受了下一步。相关时用restore_collaboration的relatedTo读取完整决定、条件与原文；用户当前意愿优先，不把旧探索重新变成义务。',
+      meaning: '这条线索来自一件仍开放的事项，上次留下的下一步描述当时谈到了哪里。本人眼前想怎样继续，仍有现在这句话的意思；旧探索保留探索的身份。若需要接回具体背景，restore_collaboration的relatedTo能带回完整决定、条件和原文。',
     })),
     providedSourceIds: [...providedSourceIds],
     providedEvidenceIds: [...evidenceVersions.keys()],
@@ -185,6 +185,6 @@ export function buildContinuityIndex(
     ],
     coverage: { scope: crossConversation ? 'permitted_workspace' : 'current_conversation', bounded: true,
       moreMayExist: bounded || prepared.length > INDEX_LIMIT || frames.length > INDEX_LIMIT || intents.length > INDEX_LIMIT,
-      meaning: '只给少量当前许可内的续接候选，不是全部历史或自动任务。排序仅参考当前会话与记录更新；主助手判断与本轮是否有关。需要更多材料时继续inspect_help或restore_collaboration，不把未列出当不存在。' },
+      meaning: '这里提供少量当前许可内的续接候选，排序参考当前会话与记录更新。它们与眼前是否有关，由你结合这次交流判断；更多材料仍可沿inspect_help或restore_collaboration回读。这里没有列出的内容仍可能在原处，这份线索本身也没有让旧事自动开始。' },
   };
 }

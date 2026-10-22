@@ -28,7 +28,10 @@ export interface InputControls {
   controlFallback?: boolean;
   priorReleaseArtifacts?: import('../../shared/types').ReleaseArtifact[];
   transmission?: 'cloud_allowed' | 'local_only';
-  priorReleasedDraft?: { id: string; text: string; brief?: { recipient: string; [key: string]: unknown } };
+  priorReleasedDraft?: { id: string; text: string; brief?: { recipient: string; [key: string]: unknown };
+    sourceMessageIds?: string[]; sourceMessageVersions?: import('../../shared/types').ReleaseArtifact['sourceMessageVersions'];
+    sourceReceipts?: import('../../shared/types').ReleaseArtifact['sourceReceipts'];
+    sourceIds?: string[]; basedOnObjects?: import('../../shared/types').ReleaseArtifact['basedOnObjects'] };
   enhancements?: ContextContract['enhancements'];
   /** Host-only proposal from the bounded pre-storage control parser. */
   semantic?: TurnControlProposal;
@@ -315,7 +318,7 @@ export class PolicyKernel {
     const timeZone = controls.timeZone || settings.timeZone || 'Asia/Shanghai';
     try { new Intl.DateTimeFormat('en', { timeZone }); } catch { throw new HarnessError('time_zone', '时区设置不正确，请选择有效时区。'); }
     const localOnly = controls.transmission === 'local_only' || localCloudRestriction(authoredText) || (!!attachment && hasCredentials(attachment.text));
-    const temporary = localOnly || control?.uncertainControls.some(c => c.dimension === 'retention') || controls.retention === 'session_only' || controls.memoryMode === 'session_only' || control?.retention === 'session_only' || isEphemeral(authoredText);
+    const temporary = localOnly || control?.uncertainControls.some(c => c.dimension === 'retention') || controls.retention === 'session_only' || controls.memoryMode === 'session_only' || control?.retention === 'session_only' || (!control && isEphemeral(authoredText));
     const retention = temporary ? 'session_only'
       : controls.retention === 'history_no_inference' || control?.retention === 'history_no_inference' ? 'history_no_inference'
       : controls.retention || 'purpose_scoped';

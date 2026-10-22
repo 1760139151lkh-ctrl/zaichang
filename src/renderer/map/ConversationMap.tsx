@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown, ChevronUp, Expand, MapPinned, Pause, Play, Route, X } from 'lucide-react';
 import type { MapScene, SemanticSelection } from '../../shared/scenes';
 import { emptyRoute, routeHasUnverifiedPassages, type MapPoint } from '../../shared/map-v2';
@@ -90,6 +90,28 @@ export function ConversationMap({
   const prior = useRef({ revision: scene.revision, intent: scene.cameraIntent });
   const motionRequest = useRef(0);
   const previousInterruption = useRef(interruptionKey);
+  const focusOrigin = useRef<DOMRect | undefined>(undefined), focusAnimation = useRef<Animation | undefined>(undefined);
+  const finishFocus = () => { focusAnimation.current?.finish(); focusAnimation.current = undefined; };
+  const focusMap = (next: boolean) => {
+    focusOrigin.current = container.current?.getBoundingClientRect();
+    focusAnimation.current?.cancel(); focusAnimation.current = undefined;
+    if (next && collapsed) { memory.collapsed = false; setCollapsed(false); }
+    setFocused(next);
+  };
+  useLayoutEffect(() => {
+    const element = container.current, from = focusOrigin.current;
+    focusOrigin.current = undefined;
+    if (!element || !from || document.documentElement.dataset.motion === 'reduced' || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const to = element.getBoundingClientRect();
+    if (!to.width || !to.height) return;
+    const animation = element.animate([
+      { transform: `translate(${from.left - to.left}px,${from.top - to.top}px) scale(${from.width / to.width},${from.height / to.height})`, transformOrigin: 'top left' },
+      { transform: 'none', transformOrigin: 'top left' },
+    ], { duration: 320, easing: 'cubic-bezier(.2,.7,.2,1)' });
+    focusAnimation.current = animation;
+    animation.onfinish = () => { if (focusAnimation.current === animation) focusAnimation.current = undefined; };
+    return () => { animation.cancel(); if (focusAnimation.current === animation) focusAnimation.current = undefined; };
+  }, [focused]);
   const effectiveLegId = memory.sourceLegId !== scene.activeLegId ? scene.activeLegId : legId;
   const leg =
     scene.journey.legs.find((value) => value.id === effectiveLegId) ||
@@ -311,13 +333,15 @@ export function ConversationMap({
       role={focused ? 'dialog' : undefined}
       aria-modal={focused || undefined}
       aria-label="对话中的校园地图"
+      onPointerDownCapture={finishFocus} onWheelCapture={finishFocus}
       onKeyDown={(event) => {
+        finishFocus();
         if (!focused) return;
         if (event.key === 'Escape') {
           event.preventDefault();
           event.stopPropagation();
           engine.current?.cancelMotion();
-          setFocused(false);
+          focusMap(false);
         }
         if (event.key === 'Tab') {
           const items = Array.from(
@@ -362,7 +386,7 @@ export function ConversationMap({
           aria-label={focused ? '返回对话' : '聚焦查看地图'}
           onClick={() => {
             engine.current?.cancelMotion();
-            setFocused(!focused);
+            focusMap(!focused);
           }}
         >
           {focused ? <X size={18} /> : <Expand size={17} />}
@@ -382,7 +406,7 @@ export function ConversationMap({
                 inline
                 memory={memory}
                 onWindowClose={() => {}}
-                onClose={() => setFocused(false)}
+                onClose={() => focusMap(false)}
                 onChoose={choose}
                 onTakeControl={takeControl}
                 onEngine={(value) => {
