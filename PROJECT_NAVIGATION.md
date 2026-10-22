@@ -1,5 +1,7 @@
 # 项目导航
 
+**图片集中查找：** [图片入口](前端视觉创新设计/README.md) → [统一图库分类目录](前端视觉创新设计/统一图库/README.md)／[机器可读目录](前端视觉创新设计/统一图库/catalog.json)。[清查记录](前端视觉创新设计/README.md)说明 Codex 生成、会话线索、仓库、压缩包、本地备份与 Git 历史的覆盖范围；完整绝对路径和仅本机图片留在被忽略的 `前端视觉创新设计/统一图库/仅本机/`。原图已实际搬迁；运行时图片引用同步改到集中路径，来源记录统一收拢。
+
 **先看全貌：[项目全貌与源码基线](docs/PROJECT_BASELINE.md)。** 该页统一说明理念、源码／EXE／公共站点的不同基线、单一 Harness、状态所有者、OpenUI、地图与功能边界；当前接续见 [CONTINUE_FROM_HERE](docs/CONTINUE_FROM_HERE.md)。本文件继续维护详细文件索引，实际验证统一归 [CURRENT_STATUS](docs/CURRENT_STATUS.md)。
 
 > **前端视觉设计主文档：[前端视觉创新设计/图片来源对话.md](前端视觉创新设计/图片来源对话.md)**。图片、补充图稿和素材入口见根目录 [FRONTEND_DESIGN.md](FRONTEND_DESIGN.md)，页面对应见[图像与页面对应](前端视觉创新设计/图像与页面对应.md)。
@@ -35,7 +37,7 @@
 | 模型完成与等待 | `luna-provider.ts`对完整结果按真实usage计量，`outputEnforcement=advisory`；真实服务截断、取消、协议和来源门仍有效。`runtime/hermes.ts`与`runtime/hermes/sidecar.py`将父模型生成等待与普通工具／子调查截止分开；固定Hermes版本未升级。 |
 | 本地独立分发 | `scripts/stage-hermes-runtime.mjs`核锁定引擎、当前sidecar与可迁移Python；`scripts/embedding-runtime.mjs`仅在新建打包资源时可用已完整复核的不可变staging引用处理Windows目录rename失败，普通固定目标原子替换不变。当前staging通过与最终包内运行分别记证，见[分发说明](docs/DEPLOYMENT.md#desktop-packaging-is-separate)。 |
 
-[新交互图稿](assets/design/generated/2026-10-21-explorable-mechanisms/manifest.json)保留GPT Image精确提示、来源、比较与B方案采用理由。图稿不是成品或物理模型；当前完整作品与动效仍以实际观察为准。
+[新交互图稿](前端视觉创新设计/来源记录/assets-design-generated/2026-10-21-explorable-mechanisms/manifest.json)保留GPT Image精确提示、来源、比较与B方案采用理由。图稿不是成品或物理模型；当前完整作品与动效仍以实际观察为准。
 
 <a id="current-evolution"></a>
 ## 2026-10-19 阶段续接：记忆、主动陪伴与对话体验
@@ -81,13 +83,13 @@
 | 先试说一段难表达的话 | `manage_relationship_rehearsal/read_relationship_rehearsal`与`present_view.rehearsal`仍接同一主助手和输入；模拟回应不是现实关系事实。`coordinator`解释本轮新建frame及当前回复展示的真实用途，不跳过原来源和owner核验 | `src/shared/relationship-rehearsal.ts`、`src/main/runtime/coordinator.ts`、`src/main/runtime/relationship-rehearsal.ts`／`relationship-rehearsal-tools.ts`／`rehearsal-presentation.ts`／`rehearsal-ingress.ts`／`rehearsal-native.ts`、`src/renderer/presentation/RehearsalSceneView.tsx` |
 | 角色真正参与听、一起做与权衡 | 当前persona guidance采用参与方式，原角色核心仍可编辑且不增加权限 | `src/shared/persona-performance.ts`、`src/shared/persona.ts`、`src/main/harness.ts` |
 
-中心工具注册、Scene编译及真实消息发布在`src/main/runtime/coordinator.ts`／`src/main/harness.ts`；消息内组件入口在`src/renderer/presentation/AssistantPresentation.tsx`，输入动作与当前纸页引用归`App.tsx`。`ComposerActions`已接原输入区，补充沿停止旧run→普通新发送办理。图稿入口：[共同商量](assets/design/generated/2026-10-18-shared-discussion/manifest.json)、[共同做事](assets/design/generated/2026-10-18-companion-session/manifest.json)、[陪学纸](assets/design/generated/2026-10-18-study-paper/manifest.json)、[安排比较](assets/design/generated/2026-10-18-planning-comparison/manifest.json)、[来信](assets/design/generated/2026-10-18-reflective-letter/manifest.json)、[可以马上玩的小发现](assets/design/generated/2026-10-18-curiosity-invitation/manifest.json)。好奇纸面从设计图编辑提取为`src/renderer/assets/curiosity/manuscript-paper.png`，来源与用途见[纸面资产说明](assets/design/generated/2026-10-18-curiosity-invitation/paper-asset.json)。图稿不进入运行时事实；实际画面与动效的观察见当前状态，不能从文件存在推定。
+中心工具注册、Scene编译及真实消息发布在`src/main/runtime/coordinator.ts`／`src/main/harness.ts`；消息内组件入口在`src/renderer/presentation/AssistantPresentation.tsx`，输入动作与当前纸页引用归`App.tsx`。`ComposerActions`已接原输入区，补充沿停止旧run→普通新发送办理。图稿入口：[共同商量](前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-shared-discussion/manifest.json)、[共同做事](前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-companion-session/manifest.json)、[陪学纸](前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-study-paper/manifest.json)、[安排比较](前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-planning-comparison/manifest.json)、[来信](前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-reflective-letter/manifest.json)、[可以马上玩的小发现](前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-curiosity-invitation/manifest.json)。好奇纸面从设计图编辑提取为`前端视觉创新设计/统一图库/原图/素材-纸面与装饰/手稿纸面-f476ae610e4c.png`，来源与用途见[纸面资产说明](前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-curiosity-invitation/paper-asset.json)。图稿不进入运行时事实；实际画面与动效的观察见当前状态，不能从文件存在推定。
 
 | 本轮研究与审查 | 实施方向 |
 | --- | --- |
 | [主模型引导的理解](docs/research/MODEL_GUIDED_UNDERSTANDING_2026-10-18.md) | 围绕当前问题深读理由、迁移相关经历并在变化后重评；高层入口沿同一Hermes真实子调查，不以下载模型或索引工程替代主动理解。当前源码接线，尚无产品模型和体验验证 |
 | [原话接回已有事项](docs/research/SOURCE_RELATED_WORK_2026-10-18.md) | `memory/source-related.ts`与`repo.sourceRelatedWorkPage`复用原Work声明的来源；预览／`actualReadRanges`给绝对Unicode地址，经`restore_collaboration(type=source_related)`取得候选与原owner入口。typed精确交叠、legacy整条未知、session／许可／完整关系来源分开；30分钟keyset目录不计原文read／ACK，不恢复活动，不建新事实库。同轮托付／调查链的`runtime/source-quote.ts`统一定位已接源码，不回填旧库或重定位失效范围；未运行，未全量改写其他quote入口 |
-| [课表与个人日视图图稿](assets/design/generated/2026-10-18-campus-day/manifest.json) | 后端源码整合之后生成A/B并选A；`renderer/CampusDaySchedule.tsx`/`Workspace.tsx`/`today.css`接同一天只读校园安排与个人Action；未启动或验收当前界面 |
+| [课表与个人日视图图稿](前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-campus-day/manifest.json) | 后端源码整合之后生成A/B并选A；`renderer/CampusDaySchedule.tsx`/`Workspace.tsx`/`today.css`接同一天只读校园安排与个人Action；未启动或验收当前界面 |
 | [校园快照与规划](docs/research/CAMPUS_PLANNING_BRIDGE_2026-10-18.md) | `actions/planning-campus.ts`、`capabilities/campus-saved-source.ts`沿ZjuAdapter原链签发当前bundle证明，约束进入原planner；NativeCampusCalendar与共享契约提供只读日视图；本地元数据变化沿原Domain/attention链 |
 | [同一调查原文续读](docs/research/PERSISTENT_INVESTIGATION_2026-10-18.md) | `runtime/investigation-frontier.ts`、`delegation-evidence.ts`与coordinator/Harness两层投递；只保存地址、覆盖与事务ACK，未ACK正文仍有缺口；本批源码未运行验证 |
 | [学习尝试与帮助](docs/research/LEARNING_PROCESS_2026-10-18.md) | `memory/learning-process.ts`沿原Work experience及共同事项，`manage_learning/read_learning`保留原题、尝试、帮助、条件与报告地址，不推断掌握；来源沿ContextReceipt、历史与遗忘传递 |
@@ -96,9 +98,9 @@
 | [本地语义候选的实际取舍](docs/research/LOCAL_SEMANTIC_RECALL_2026-10-18.md) | 从固定Khoj/Mem0与HF模型比较推进到BGE q8源码接线；四个模型文件24,451,050字节及固定依赖已安装，CPU懒加载worker、schema14派生索引与词法／语义两臂融合已写入原入口；冻结排名和下一候选窗口续接也已接源码，运行／效果未验证，见[第五批](docs/CURRENT_STATUS.md#personal-memory-round5) |
 | [理解变迁回读](docs/research/MEMORY_HISTORY_2026-10-18.md) | `memory/history.ts`沿同一Assertion读取修订、原有条件与现实时间；schema13只新增宿主提交元数据，旧时间未知，旧正文仍服从当前引用；已接`read_understanding(view=history)`，本项按用户要求未运行测试或模型 |
 | [第三批：可恢复的规划意图](docs/research/PERSISTENT_PLANNING_INTENT_2026-10-18.md) | 从 `30dcd8e` 比较八方向后，保留原Work规格、独立attempt来源与prepare原子关联，联查原动作／回执／日历后同一planner重算；安静续接界面已有实际观察，最终恢复边界复核状态见[第三批状态](docs/CURRENT_STATUS.md#personal-memory-round3) |
-| [继续商量图稿比较](assets/design/generated/2026-10-18-planning-continuity/manifest.json) | 后端整合检查后生成并亲看A/B；选A连续时间线与轻量关系文字，保留原日历上下文；图稿与实际操作证据分别记录，合成来源截图只留本机 |
+| [继续商量图稿比较](前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-planning-continuity/manifest.json) | 后端整合检查后生成并亲看A/B；选A连续时间线与轻量关系文字，保留原日历上下文；图稿与实际操作证据分别记录，合成来源截图只留本机 |
 | [第二批：证据、恢复与契约](docs/research/PERSONAL_MEMORY_ROUND2_2026-10-18.md) | 精确多源citations、来源坐标归一、48KB上下文与合法澄清恢复、整体安排窗、动作契约；当时保留的规划意图、调查、学习与向量候选分别在第三至第五批继续接线，历史报告不代替当前状态，手机仍是独立里程碑 |
-| [安排时窗图稿比较](assets/design/generated/2026-10-18-chosen-windows/manifest.json) | 后端检查之后生成A日期条/B折叠日，采用A的真实时窗表达；样例资料、窄窗布局和实际产品证据分开 |
+| [安排时窗图稿比较](前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-chosen-windows/manifest.json) | 后端检查之后生成A日期条/B折叠日，采用A的真实时窗表达；样例资料、窄窗布局和实际产品证据分开 |
 | [个人记忆与生活连续性](docs/research/PERSONAL_MEMORY_CONTINUITY_2026-10-18.md) | 本次16域/12时间线交叉审计、原文浏览、精确遗忘、决策经历、准备发现/逐日承载及候选取舍；源码机制与语义/设备证据分开 |
 | [记忆](docs/research/MEMORY_EVOLUTION_2026-10-18.md) | 多查询、有限扫描、原始依据与纠正后续线索 |
 | [主动创新](docs/research/INITIATIVE_INNOVATION_2026-10-18.md) | 跨会话准备材料与未完事项的有限续接索引 |
@@ -107,7 +109,7 @@
 | [对话场景](docs/research/CONVERSATION_EVOLUTION_2026-10-18.md) | 时间带、小时天气/空气、来源投影与单一语义选择 |
 | [后端独立审查](docs/research/BACKEND_REVIEW_2026-10-18.md) | 实际调用链、后台取消/版本、复用、ICS与验证边界 |
 | [此前源码研究](docs/research/HARNESS_RESEARCH_2026-10-18.md) | 第一轮恢复、纠错、后台调查和规划的固定仓库版本与取舍 |
-| [四组 GPT Image 记录](assets/design/generated/2026-10-18-companion-evolution/manifest.json) | 规划、环境、角色、日历交接；先于本轮界面实现，不代表界面或移动端已完成 |
+| [四组 GPT Image 记录](前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-companion-evolution/manifest.json) | 规划、环境、角色、日历交接；先于本轮界面实现，不代表界面或移动端已完成 |
 
 <a id="strategy"></a>
 ## 当前策略
@@ -142,8 +144,8 @@
 | [DESIGN_IMAGE_COVERAGE](docs/DESIGN_IMAGE_COVERAGE.md) | 本轮逐图对应、补图、实际落地与后续工作；保留原始设计文档 |
 | [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES.md) | 第三方软件和数据许可索引；不修改 `licenses/` 上游原文 |
 | [地图 SOURCE](assets/map-v2/SOURCE.md) | 当前地图数据说明与有日期的历史研究观察；随源码提交，原始研究输入仍留本地 |
-| `assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/` | 用户指定的29张生成图片原文件归档，文件名与字节保留；`manifest.json` 记录尺寸与哈希，不是运行时依赖 |
-| `前端视觉创新设计/` | 用户明确要求上传的两份原始 Markdown、45张原图及两份生成记录；保留原相对路径，仅作设计与来源参考，不是生产提示词或另一套实现 |
+| `前端视觉创新设计/来源记录/assets-design-generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/` | 原29张生成图的身份、尺寸与哈希记录；实际图片按主题移入统一图库，原散落目录已清理 |
+| `前端视觉创新设计/` | 图片、生成记录和原始设计讨论的统一位置；原图去重搬迁、旧引用更新，运行所需素材按原职责引用集中路径 |
 | `.agents/skills/project-navigation/SKILL.md` | 本机定位与索引方法；引用本导航，不承担运行时路由或授权 |
 | `.agents/skills/project-foundations/SKILL.md` | 本机使命与用户利益指引；当前策略与实现状态回到本导航 |
 | `.agents/skills/product-design/SKILL.md` | 本机体验设计方法；原则和实际采用／验证证据分开 |

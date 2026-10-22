@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-18",
+  "generator": "Built-in GPT Image edit",
+  "source": "前端视觉创新设计/统一图库/原图/界面设计-对话与动态内容/失物招领故事-7e1609c433e3.png, generated in the same private project; no external imagery or real user data.",
+  "prompt": "Edit target: the attached generated 在场 app design. Extract the warm ivory paper manuscript material as a production UI art asset, not a screenshot.\nKeep only the large central paper's tactile fibers, very subtle warm natural grain, softly irregular cut edges, one barely visible offset second sheet and soft realistic cast shadow. Remove ALL Chinese letters, text, gold ornaments, icons, actions, borders, app chrome, room, people and background. The center must be completely blank, suitable for live HTML text. Preserve the original paper's quiet warm-grey and ivory look, tactile but not yellow or brown vintage parchment. Straight-on orthographic flat paper, no perspective distortion. Fill a portrait-oriented rectangle roughly 4:5 with generous transparent margin for the soft shadow. True alpha transparency around the whole paper and shadow; no checkerboard baked in, no solid background. This will be stretched behind a live multiline manuscript and must read as the same paper material as the original design. The asset must contain no UI, no content, no text whatsoever.",
+  "runtimeAsset": "前端视觉创新设计/统一图库/原图/素材-纸面与装饰/手稿纸面-f476ae610e4c.png",
+  "purpose": "Blank alpha manuscript material behind live accessible HTML. This contains no text, controls or fake UI.",
+  "rights": "Generated derivative of the user's task-generated design image; reviewed visually for use as original redistributable application art. No third-party source content.",
+  "adopted": "Real warm paper grain, irregular edges, slight second-sheet offset and cast shadow. The image is used by the actual component; Chinese story and controls remain live HTML.",
+  "status": "Generated asset inspected. Current integrated rendering and motion comparison pending; no model or business tests.",
+  "originalRuntimeAsset": "src/renderer/assets/curiosity/manuscript-paper.png",
+  "originalSource": "content-first-play.png, generated in the same private project; no external imagery or real user data.",
+  "originalSourceFilePath": "assets/design/generated/2026-10-18-curiosity-invitation/content-first-play.png",
+  "canonicalSourceFile": "前端视觉创新设计/统一图库/原图/界面设计-对话与动态内容/失物招领故事-7e1609c433e3.png"
+}

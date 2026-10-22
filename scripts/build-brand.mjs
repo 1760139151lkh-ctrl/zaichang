@@ -4,7 +4,7 @@ import { isolatedEnvironment } from './test-environment.mjs';
 
 // Export the code-native SVG mark to the two Windows application icon formats.
 // This isolated helper never reads the user's application profile.
-const svg = await readFile('assets/brand/mark.svg', 'utf8');
+const svg = await readFile('前端视觉创新设计/统一图库/原图/运行素材与品牌/mark-c2ceba84f237.svg', 'utf8');
 const env = isolatedEnvironment('brand-export');
 delete env.ZAICHANG_MODEL_TRANSPORT;
 delete env.ZAICHANG_PROJECT_DEEPSEEK_KEY;

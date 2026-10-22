@@ -1,18 +1,18 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { ArrowLeft, X } from 'lucide-react';
 import { Portal } from './ui';
-import morning from './assets/companion/morning.png';
-import dusk from './assets/companion/dusk.png';
-import night from './assets/companion/night.png';
-import readingMorning from './assets/companion/reading-morning.png';
-import readingDusk from './assets/companion/reading-dusk.png';
-import readingNight from './assets/companion/reading-night.png';
-import mio from './assets/companion/mio.png';
-import haruka from './assets/companion/haruka.png';
-import saku from './assets/companion/saku.png';
-import sakiko from './assets/companion/sakiko.png';
-import mutsumi from './assets/companion/mutsumi.png';
-import nagi from './assets/companion/nagi.png';
+import morning from '../../前端视觉创新设计/统一图库/原图/素材-人物与窗景/晨光窗景-e304ff26879b.png';
+import dusk from '../../前端视觉创新设计/统一图库/原图/素材-人物与窗景/暮色窗景-e818d1dc8c2c.png';
+import night from '../../前端视觉创新设计/统一图库/原图/素材-人物与窗景/夜灯窗景-dab8185e3ca4.png';
+import readingMorning from '../../前端视觉创新设计/统一图库/原图/素材-人物与窗景/白日窗景-6bc5b2f25677.png';
+import readingDusk from '../../前端视觉创新设计/统一图库/原图/素材-人物与窗景/落日窗景-f1a7dc37a5e6.png';
+import readingNight from '../../前端视觉创新设计/统一图库/原图/素材-人物与窗景/夜景窗边-9a43bca705f4.png';
+import mio from '../../前端视觉创新设计/统一图库/原图/素材-人物与窗景/澪的角色立绘-eabf255e455d.png';
+import haruka from '../../前端视觉创新设计/统一图库/原图/素材-人物与窗景/遥立绘备选-186ebcbb1d2a.png';
+import saku from '../../前端视觉创新设计/统一图库/原图/素材-人物与窗景/读书的朔-3d4adef6c2f2.png';
+import sakiko from '../../前端视觉创新设计/统一图库/原图/运行素材与品牌/sakiko-5408dd2e8cb3.png';
+import mutsumi from '../../前端视觉创新设计/统一图库/原图/运行素材与品牌/mutsumi-a5c32c4c895f.png';
+import nagi from '../../前端视觉创新设计/统一图库/原图/运行素材与品牌/nagi-4fb87d776860.png';
 import './companion.css';
 
 // The artwork mixes full figures and seated crops. These framing values keep

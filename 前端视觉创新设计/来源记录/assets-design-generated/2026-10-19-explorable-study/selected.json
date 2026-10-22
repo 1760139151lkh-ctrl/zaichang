@@ -1,0 +1,16 @@
+{
+  "createdAt": "2026-10-19",
+  "generator": "OpenAI built-in image_gen",
+  "selected": "前端视觉创新设计/统一图库/原图/界面设计-学习与阅读/一步步想清积分-28da817d2379.png",
+  "reference": "前端视觉创新设计/统一图库/原图/界面设计-学习与阅读/积分题分步讲解-4c7708d8eef4.png",
+  "purpose": "Standalone first real quadratic example; original source and learner report now correspond to the function graph. Design only, not a runtime screenshot or mathematical authority.",
+  "prompt": "Revise the referenced explorable-study UI design to match the honest standalone first learning task chosen for implementation. Preserve its same warm cotton study papers, quiet window light, gold-underlined numbers embedded in the explanation, one accurate linked function graph, one actual composer, and unobtrusive companion at the far page edge.\n\nIMPORTANT: the left original problem must now genuinely correspond to the graph, not the unrelated integral. Change its source heading to 函数与变化率.md. Under 这一题 use: 函数值和这里的变化率，有什么不同？ Then the large original formula f(x)=x². Add small actual source wording: 从 x=1 附近看一看。 Do not show any integral anywhere.\n\nRight page heading: 同一个点，两种读法. Under 我想到这里 show ONE learner-reported handwritten line: x=1 时，f(1)=1. Do NOT pretend computed slope is a learner's own result. The current readable teacher explanation is: 点的高度告诉我们这一处的函数值，切线的倾斜告诉我们此处的变化率。先在同一个 x 上读它们，再轻改 a 或挪动 x。 Do not call x time or rate speed/velocity.\n\nKeep the inline adjustable sentence 试着让 a = 2，在 x = 1 这一点看。 with a=2 and x=1 subtly gold-underlined as editable text. Current curve is exactly y=2x², quiet original dashed curve y=x², main true point (1,2), height guide from (1,0) to (1,2). Make the x-axis foot point a tiny quiet gray mark, secondary to the actual gold point (1,2). Tangent must be a STRAIGHT LINE of slope 4 through (1,2), for example endpoints (.65,.6) and (1.35,3.4), never a curved gold annotation. Axes x=-2..2 and y=-1..8. Do not create two competing sets of readouts. One natural sentence below reads: 这一点的高度是 2，切线斜率是 4。切线向右上倾。 Quiet action 接着这个变化问, and only one writing composer.\n\nThis is a focused finite quadratic explanation, not a general simulator or dashboard. Preserve open paper space, meaningful formula size, controlled handwriting/book typography and real readable relationships; no mode badges, mastery/progress, category chips, hidden answers or large slider panel.",
+  "notes": [
+    "Use the real synthetic material 函数与变化率.md and its actual owner/read credential when demonstrating.",
+    "Only the literal learner report x=1时，f(1)=1 belongs under learner attempts; model-computed slope remains an assistant calculation.",
+    "Runtime tangent is a true straight line from the finite closed-form derivative, independent of the drawing.",
+    "The selected companion remains the real existing profile choice."
+  ],
+  "originalSelected": "assets/design/generated/2026-10-19-explorable-study/explorable-study-function.png",
+  "originalReference": "assets/design/generated/2026-10-19-explorable-study/explorable-study.png"
+}

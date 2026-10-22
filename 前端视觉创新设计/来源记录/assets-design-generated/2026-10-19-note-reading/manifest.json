@@ -1,0 +1,11 @@
+{
+  "createdDate": "2026-10-19",
+  "generator": "Built-in GPT Image edit from the actual isolated desktop screenshot",
+  "design": "前端视觉创新设计/统一图库/原图/界面设计-学习与阅读/图书馆里的问题-0441303ec891.png",
+  "scope": "Inline original note reading, exact quote to the existing single composer, source opening to the existing NotesPanel. No note writes or notebook replacement.",
+  "reference": "Private synthetic letter-current.png from the existing isolated profile. Existing app shell and chosen character remain owned by the app.",
+  "runtimeMaterial": "Reuse src/renderer/assets/letter/paper-surface.png as blank alpha material behind live React text; no screenshot UI is shipped.",
+  "permission": "Generated for this authorized local desktop project from synthetic source prose. Excluded from public map review deployment.",
+  "verification": "Image personally viewed; actual NoteScene rendering, normal Luna selection, and source/quote interactions pending.",
+  "originalDesign": "assets/design/generated/2026-10-19-note-reading/note-reading.png"
+}

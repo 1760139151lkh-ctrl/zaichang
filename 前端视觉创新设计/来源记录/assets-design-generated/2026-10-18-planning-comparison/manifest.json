@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-18",
+  "tool": "built-in GPT Image",
+  "image": "前端视觉创新设计/统一图库/原图/界面设计-日程与今天/单日安排方案A-aae9ac7b7ccd.png",
+  "prompt": "prompt.txt",
+  "purpose": "Private project design reference: one shared day with genuinely different alternatives, selective changes and continuation through the original conversation.",
+  "reference": "前端视觉创新设计/统一图库/原图/界面设计-对话与动态内容/共写故事方案A-B-2afbad0dab9d.png",
+  "referenceRole": "Style and branch-to-shared-step composition; not a source of product data or a runtime asset.",
+  "content": "Synthetic planning dialogue, times and activities; not the user's actual calendar, preferences or campus data.",
+  "runtimeUse": false,
+  "publicRedistributionReviewed": false,
+  "revision": {
+    "date": "2026-10-19",
+    "image": "前端视觉创新设计/统一图库/原图/界面设计-日程与今天/单日安排方案B-fa7807b4d48b.png",
+    "prompt": "prompt-v2.txt",
+    "parent": "前端视觉创新设计/统一图库/原图/界面设计-日程与今天/单日安排方案A-aae9ac7b7ccd.png",
+    "changes": "Proposal language does not imply a calendar write; open paper is explicitly left to the user.",
+    "originalImage": "assets/design/generated/2026-10-18-planning-comparison/planning-one-day-v2.png",
+    "originalParent": "assets/design/generated/2026-10-18-planning-comparison/planning-one-day.png"
+  },
+  "implementationStatus": "The original comparison's actual initial, moving and settled renderings were inspected. Work really moved, but the dinner anchor faded when keyed DOM siblings were reordered; source now keeps a stable sibling order, highlights the extra split segment, removes repeated labels/details and renders narrow support intervals as lighter bands. The first keyboard trial preserved the draft but appended machine-generated prose; that observed design is superseded by a separately typed, editable condition on the existing time-block selection. Its normal host selection result was read back with the original source/object, date, timezone, 90-minute duration and non-executing hypothetical status. The refined rendering, stable-anchor motion, new condition chip/pointer interaction, narrow layout and explicit continuous/split comparison await current visual/runtime evidence. The image is a synthetic design reference, not a product screenshot.",
+  "visualInspection": {
+    "date": "2026-10-19",
+    "projectRelativeScreenshot": "前端视觉创新设计/统一图库/仅本机/原图/页面截图-今天与安排/life-ui-20261019-0PRbh1-planning-first-current-f22115b89fb4.png",
+    "operator": "embedding_packaging, existing native window on the unique 9337 isolated instance",
+    "imageReviewedBy": "semantic_integration",
+    "movingScreenshot": "前端视觉创新设计/统一图库/仅本机/原图/页面截图-今天与安排/life-ui-20261019-0PRbh1-planning-switch-b-mid-b02bd8d05f34.jpg",
+    "reverseScreenshot": "前端视觉创新设计/统一图库/仅本机/原图/页面截图-今天与安排/life-ui-20261019-0PRbh1-planning-switch-a-mid-08a578c2c792.jpg",
+    "settledScreenshot": "前端视觉创新设计/统一图库/仅本机/原图/页面截图-今天与安排/life-ui-20261019-0PRbh1-planning-b-settled-3f8f0031dc6e.png",
+    "supersededTrialScreenshot": "前端视觉创新设计/统一图库/仅本机/原图/页面截图-今天与安排/life-ui-20261019-0PRbh1-planning-ghost-draft-5c12e94b530d.png",
+    "hostTrialOutput": ".test-data/life-ui-20261019-0PRbh1/planning-trial-host-observation.json",
+    "scope": "Actual original comparison and normal source-checked host trial output. The original forward switch showed work movement with a fading dinner anchor; the reverse frame showed work fading at its destination, so continuous bidirectional motion was not accepted. The original draft-appending UI was superseded; current visual refinements are pending. No model call or calendar adoption.",
+    "originalProjectRelativeScreenshot": ".test-data/life-ui-20261019-0PRbh1/planning-first-current.png",
+    "originalMovingScreenshot": ".test-data/life-ui-20261019-0PRbh1/planning-switch-b-mid.png",
+    "originalReverseScreenshot": ".test-data/life-ui-20261019-0PRbh1/planning-switch-a-mid.png",
+    "originalSettledScreenshot": ".test-data/life-ui-20261019-0PRbh1/planning-b-settled.png",
+    "originalSupersededTrialScreenshot": ".test-data/life-ui-20261019-0PRbh1/planning-ghost-draft.png"
+  },
+  "originalImage": "assets/design/generated/2026-10-18-planning-comparison/planning-one-day.png",
+  "originalReference": "assets/design/generated/2026-10-18-shared-discussion/discussion-ab.png"
+}

@@ -8,6 +8,8 @@
 
 **现在从哪里开始读：** [当前接续](docs/CONTINUE_FROM_HERE.md) · [功能与证据](docs/CURRENT_STATUS.md) · [项目导航](PROJECT_NAVIGATION.md) · [产品约定](docs/PRODUCT_CONTRACT.md) · [运行架构](docs/ARCHITECTURE.md) · [项目全貌](docs/PROJECT_BASELINE.md)
 
+**图片统一入口：** [前端视觉创新设计](前端视觉创新设计/README.md) · [按主题找原图](前端视觉创新设计/统一图库/README.md) · [清查范围、来源与本机资料](前端视觉创新设计/README.md)。只收在场的生成图、设计、素材与运行截图，按内容去重、清楚命名；核查拼图和非在场图片不入库，原始设计稿保留。
+
 **2026-10-22 本地接替：** [本次推进主线](docs/REFACTOR_ROADMAP_2026-10-22.md)记录完整要求与阅读、实施顺序。开场摘要已结束；[最新接替要求](docs/source-materials/2026-10-22/successor-request.md)允许子代理协作，主代理负责按模块亲读、产品取舍与最终集成核查，一次做深一个小目标，先后端再图稿和前端。历史对话按用户要求只读总结，运动/GPS陪伴列入后续集中专题。下方功能与证据保留原批次范围，不能由资料整理推定产品又完成了一轮验收。
 
 > 前端视觉设计：[图片来源对话](前端视觉创新设计/图片来源对话.md) · [图像与页面对应](前端视觉创新设计/图像与页面对应.md) · [全部图片与路径](FRONTEND_DESIGN.md)

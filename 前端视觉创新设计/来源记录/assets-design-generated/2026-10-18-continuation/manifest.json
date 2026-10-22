@@ -1,0 +1,166 @@
+{
+  "date": "2026-10-18",
+  "generator": "GPT Image (built-in)",
+  "source": "User-directed image-first design; previously generated product images supplied as style references where applicable. No official character artwork or account screenshots copied.",
+  "repository_scope": "Authorized development of this existing private repository. Named fictional character interpretations are not claimed as official artwork or original character IP. No public distribution approval is inferred.",
+  "review": "Each image visually inspected before implementation. Design scenes contain invented representative content, never account or geographic evidence. Raw prompts and local paths excluded.",
+  "files": [
+    {
+      "file": "前端视觉创新设计/统一图库/原图/设计参考-原始图/campus-conversation-results-969079ae0f58.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1515062,
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "969079ae0f589c89d4e21cb2e89394e0fcc0b2b577b4026d4ac61b3739337a8a",
+      "originalFile": "assets/design/generated/2026-10-18-continuation/campus-conversation-results.png"
+    },
+    {
+      "file": "前端视觉创新设计/统一图库/原图/设计参考-原始图/companion-gallery-0e9311d576ee.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 2010761,
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "0e9311d576ee7ef3a4e36ed6c278f4e310b29844bea0ef429f9646e0bb7de948",
+      "originalFile": "assets/design/generated/2026-10-18-continuation/companion-gallery.png"
+    },
+    {
+      "file": "前端视觉创新设计/统一图库/原图/设计参考-原始图/conversation-interruption-and-draft-return-11fb9f8b1b9a.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1718658,
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "11fb9f8b1b9ada3e73ed7c18e60e9b4137c4ff47e64784b1c80b27ebb9e610ad",
+      "originalFile": "assets/design/generated/2026-10-18-continuation/conversation-interruption-and-draft-return.png"
+    },
+    {
+      "file": "前端视觉创新设计/统一图库/原图/设计参考-原始图/document-open-recovery-a0be644f45b6.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1697563,
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "a0be644f45b610c5d6be4ffaddb187acb09cafc39fe7af9fb9f8a49546528197",
+      "originalFile": "assets/design/generated/2026-10-18-continuation/document-open-recovery.png"
+    },
+    {
+      "file": "前端视觉创新设计/统一图库/原图/设计参考-原始图/entrusted-detail-319855697355.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1872052,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "3198556973556fcf8371817056e8ffa174dc7e5afad781b05b08ccabbdcba35c",
+      "originalFile": "assets/design/generated/2026-10-18-continuation/entrusted-detail.png"
+    },
+    {
+      "file": "前端视觉创新设计/统一图库/原图/设计参考-原始图/first-arrival-and-connection-f2c0e73d5787.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1757114,
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "f2c0e73d578729790f142f741cb0a909c88b3887a8c886b2def8f873ec717abb",
+      "originalFile": "assets/design/generated/2026-10-18-continuation/first-arrival-and-connection.png"
+    },
+    {
+      "file": "前端视觉创新设计/统一图库/原图/设计参考-原始图/learning-workspace-e535b59b479a.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1723351,
+      "dimensions": [
+        1564,
+        1006
+      ],
+      "sha256": "e535b59b479a92785d786af602bdff9fcc5b2530f3769bd38743e7d48d12f3ad",
+      "originalFile": "assets/design/generated/2026-10-18-continuation/learning-workspace.png"
+    },
+    {
+      "file": "前端视觉创新设计/统一图库/原图/界面设计-地图与天气/map-recovery-8bbcf3b784e5.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1883481,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "8bbcf3b784e5645b7955c729d6aa2954a166900ccb912ba52c37c5c13a9f48b1",
+      "originalFile": "assets/design/generated/2026-10-18-continuation/map-recovery.png"
+    },
+    {
+      "file": "前端视觉创新设计/统一图库/原图/设计参考-原始图/plan-reschedule-f611c015413e.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1485691,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "f611c015413ee85b588d8b77feee21b9ab56c2ef424338cd34b9ec26e5ea4851",
+      "originalFile": "assets/design/generated/2026-10-18-continuation/plan-reschedule.png"
+    },
+    {
+      "file": "前端视觉创新设计/统一图库/原图/界面设计-学习与阅读/reading-rhythm-preferences-d14033e8865b.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1651584,
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "d14033e8865b2710de80c3feb8817a2262c2719a2180a1544d5fbdf9ccdf69b2",
+      "originalFile": "assets/design/generated/2026-10-18-continuation/reading-rhythm-preferences.png"
+    },
+    {
+      "file": "前端视觉创新设计/统一图库/原图/设计参考-原始图/source-revisit-scoped-recall-1f9ebc0e9427.png",
+      "usage": "design reference; not imported by product",
+      "bytes": 1561468,
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "1f9ebc0e9427d6150eb61e24053a04d62ae662dd00d6eacb31584d9870bfd522",
+      "originalFile": "assets/design/generated/2026-10-18-continuation/source-revisit-scoped-recall.png"
+    },
+    {
+      "file": "前端视觉创新设计/统一图库/原图/运行素材与品牌/sakiko-5408dd2e8cb3.png",
+      "identity": "祥子：用户指定角色丰川祥子的二次元生成诠释",
+      "usage": "desktop optional companion; not public map",
+      "bytes": 1884998,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "sha256": "5408dd2e8cb3fd5adaa423b286bc5ff81cafe8a11c2ba855b31bb49bed06d2ff",
+      "originalFile": "src/renderer/assets/companion/sakiko.png"
+    },
+    {
+      "file": "前端视觉创新设计/统一图库/原图/运行素材与品牌/mutsumi-a5c32c4c895f.png",
+      "identity": "睦：用户指定角色若叶睦的二次元生成诠释",
+      "usage": "desktop optional companion; not public map",
+      "bytes": 1451380,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "sha256": "a5c32c4c895f8bc4442b6f7afad7fd62919e7908f398e10bdd20db325d92bae8",
+      "originalFile": "src/renderer/assets/companion/mutsumi.png"
+    },
+    {
+      "file": "前端视觉创新设计/统一图库/原图/运行素材与品牌/nagi-4fb87d776860.png",
+      "identity": "凪：原创虚构成年写实人物",
+      "usage": "desktop optional companion; not public map",
+      "bytes": 1904257,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "sha256": "4fb87d776860c178c16c638b61e08cd275242d7ec5f455f60ea26bdb3b5634f5",
+      "originalFile": "src/renderer/assets/companion/nagi.png"
+    }
+  ]
+}

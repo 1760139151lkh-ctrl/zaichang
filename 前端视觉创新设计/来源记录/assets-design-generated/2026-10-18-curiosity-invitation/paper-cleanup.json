@@ -1,0 +1,10 @@
+{
+  "generator": "Built-in GPT Image edit",
+  "source": "Previous generated blank paper cutout; original design was generated for this same task.",
+  "prompt": "Remove the entire shadow, glow, fringe and stray pixels around this paper. Output ONLY the physical blank ivory paper sheets as a clean cutout with absolutely no surrounding shadow at all. Keep the internal fibers and naturally uneven physical sheet edges and thin offset second sheet. The transparent area must contain zero isolated fragments, zero colored pixels, zero white chips, zero grey glow. The outer silhouette must be crisp anti-aliased neutral ivory-to-transparent. No chromatic red/yellow/green edge anywhere. Do not add a new shadow; a neutral CSS drop-shadow will be added later in the application. True transparent alpha outside the physical paper, completely blank center, no letters/symbols/UI/background. Preserve the paper's warm quiet material and shape.",
+  "runtimeAsset": "前端视觉创新设计/统一图库/原图/素材-纸面与装饰/手稿纸面-f476ae610e4c.png",
+  "change": "Removed the surrounding baked shadow/fringe instead of keeping colored halos. The actual component applies a neutral CSS drop-shadow. Physical sheet texture, irregular edges and thin second-sheet offset remain.",
+  "rights": "Same task-generated original art, reviewed for private application redistribution; no third-party images or real user content.",
+  "status": "Edited cutout and actual shared isolated Electron warm/night composites inspected. Detached debris and chromatic outer fringe no longer appeared. Subsequent visible-paper typesetting and warm night-light refinements remain pending the next renderer observation.",
+  "originalRuntimeAsset": "src/renderer/assets/curiosity/manuscript-paper.png"
+}

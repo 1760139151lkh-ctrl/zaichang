@@ -7,3 +7,7 @@
 
 # User-provided reference originals and manifests retain their exact bytes.
 docs/source-materials/2026-10-18/** -text
+
+# Preserve every archived image byte, including SVG source line endings.
+前端视觉创新设计/统一图库/原图/** -text
+前端视觉创新设计/来源记录/** -text
