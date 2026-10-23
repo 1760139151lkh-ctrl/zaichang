@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "kind": "selected-gpt-image-design-originals",
+  "archive_date": "2026-10-23",
+  "generator": "GPT Image (built-in image_gen.imagegen)",
+  "selection_authority": "本轮主代理亲自生成、查看并指定采用方向；本索引负责保存，不替代主代理的审美选择。",
+  "generation_time": null,
+  "generation_time_note": "本清单未记录工具调用时间；archive_date 仅为本批归档日期，不能推作生成时间。",
+  "count": 5,
+  "total_image_bytes": 8243961,
+  "meaning": "这些是艺术和交互概念图，不是实际运行截图。采用范围只涵盖列明的体验与空间关系；图中示例文字、公式、人物、日期、日程、天气、路线和距离不能充当真实事实、原作证据或实现完成的证明。真实内容、对象身份和动作仍由现有宿主负责。",
+  "excluded_exploration": [
+    {
+      "original_filename": "exec-014afbf2-39c3-4c7b-b941-a6e1d13fcbfe.png",
+      "status": "corrected_exploratory_candidate_not_adopted",
+      "copied_to_this_archive": false,
+      "reason": "早期探索候选含需要纠正的数学表达；不混入本批五张采用图，亦不以图中公式指导代码。"
+    }
+  ],
+  "files": [
+    {
+      "file": "reading-candidates.png",
+      "original_filename": "exec-b797453a-3a5c-4b32-aa22-940133ed1239.png",
+      "generator": "GPT Image (built-in image_gen.imagegen)",
+      "selection": "selected_A_only",
+      "adopted_scope": [
+        "仅采用 A：原资料与原聊天均衡分栏、可调整中缝、选段接回同一聊天或笔记。"
+      ],
+      "not_adopted_scope": [
+        "B 候选未采用；保留在未经裁切的原图中，不表示全板采纳。"
+      ],
+      "usage": "艺术与交互概念图；不作为运行时界面图片或事实数据。",
+      "bytes": 1688661,
+      "dimensions": [
+        1585,
+        992
+      ],
+      "sha256": "87a2fe5467d236752506103478d809ac64e62c8dd20f23043363cc32048417e4",
+      "original_file_preserved": true,
+      "byte_identical_copy": true
+    },
+    {
+      "file": "scene-focus-map.png",
+      "original_filename": "exec-0934024c-eca5-4efb-a311-fb9cbdccc5fe.png",
+      "generator": "GPT Image (built-in image_gen.imagegen)",
+      "selection": "selected_direction",
+      "adopted_scope": [
+        "地图作为主要查看内容、相关真实 Scene 在旁辅助；地图展开与回到原对话的关系。"
+      ],
+      "not_adopted_scope": [],
+      "usage": "艺术与交互概念图；不作为运行时界面图片或事实数据。",
+      "bytes": 1799162,
+      "dimensions": [
+        1942,
+        809
+      ],
+      "sha256": "0ed4d902e6950e8c68d4208c92ba6500de08a90effa6c048e972014ad4ba8348",
+      "original_file_preserved": true,
+      "byte_identical_copy": true
+    },
+    {
+      "file": "note-study-continuity.png",
+      "original_filename": "exec-95445e25-e8c9-4ea6-ba76-b81294fbf433.png",
+      "generator": "GPT Image (built-in image_gen.imagegen)",
+      "selection": "selected_direction",
+      "adopted_scope": [
+        "原笔记、学习纸与原来源之间的连续阅读和接续讨论。"
+      ],
+      "not_adopted_scope": [],
+      "usage": "艺术与交互概念图；不作为运行时界面图片或事实数据。",
+      "bytes": 1542236,
+      "dimensions": [
+        2043,
+        770
+      ],
+      "sha256": "869681cce584584fff6e0c93c5beada536af28ffebbcdf94826db4f896612bb2",
+      "original_file_preserved": true,
+      "byte_identical_copy": true
+    },
+    {
+      "file": "today-trial.png",
+      "original_filename": "exec-4d1c7b7f-603d-458f-83fd-9408cbb57fc2.png",
+      "generator": "GPT Image (built-in image_gen.imagegen)",
+      "selection": "selected_direction",
+      "adopted_scope": [
+        "今天的连续时间线，以及安排试放、比较与回到原位置的视觉关系。"
+      ],
+      "not_adopted_scope": [],
+      "usage": "艺术与交互概念图；不作为运行时界面图片或事实数据。",
+      "bytes": 1418190,
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "e8bc7e5921eeca462852bddd1ed2451d2f097884e0d60b80cb1cc6e4f99f6e41",
+      "original_file_preserved": true,
+      "byte_identical_copy": true
+    },
+    {
+      "file": "home-conversation-narrow.png",
+      "original_filename": "exec-9a07093e-54f7-419a-86ec-c38a79ca10e4.png",
+      "generator": "GPT Image (built-in image_gen.imagegen)",
+      "selection": "selected_direction",
+      "adopted_scope": [
+        "首页、普通对话与窄窗口中温暖窗景、清晰内容区和陪伴形象的空间关系。"
+      ],
+      "not_adopted_scope": [],
+      "usage": "艺术与交互概念图；不作为运行时界面图片或事实数据。",
+      "bytes": 1795712,
+      "dimensions": [
+        1942,
+        809
+      ],
+      "sha256": "99d6c97f9bc5b575dade3656284161133b55b392b270567a48681e6c60478e9b",
+      "original_file_preserved": true,
+      "byte_identical_copy": true
+    }
+  ]
+}

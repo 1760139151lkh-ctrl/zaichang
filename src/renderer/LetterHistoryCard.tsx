@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import type { Bridge, Message } from '../shared/types';
 import type { PreparationView } from '../shared/presentation';
@@ -11,13 +11,15 @@ export type LetterHistoryReference = NonNullable<Message['helpRefs']>[number];
 
 /** A folded address in the original message. Each opening asks the same
  * letter owner again; local closing neither rewrites nor reoffers its help. */
-export function LetterHistoryCard({ reference, sessionId, messageId, boundaryKey, onContinue,
+export function LetterHistoryCard({ reference, sessionId, messageId, boundaryKey, onContinue, onReadStart, onBodyVisibility,
   api = window.zaichang }: {
   reference: LetterHistoryReference;
   sessionId: string;
   messageId: string;
   boundaryKey: string;
   onContinue: (text: string, context?: LetterFocusContext) => void;
+  onReadStart?: () => void;
+  onBodyVisibility?: (body: string | undefined) => void;
   api?: Pick<Bridge, 'letterProject'>;
 }) {
   const headingId = useId(), generation = useRef(0);
@@ -26,6 +28,13 @@ export function LetterHistoryCard({ reference, sessionId, messageId, boundaryKey
   const [open, setOpen] = useState(false), [pending, setPending] = useState(false), [error, setError] = useState('');
   const [loaded, setLoaded] = useState<{ key: string; value: PreparationView }>();
   const current = loaded?.key === key ? loaded.value : undefined;
+  const bodyVisibility = useRef(onBodyVisibility); bodyVisibility.current = onBodyVisibility;
+  const visibleBody = open && !pending && !error && current?.reflectiveLetter ? current.body : undefined;
+  useLayoutEffect(() => {
+    const report = bodyVisibility.current;
+    report?.(visibleBody);
+    return () => report?.(undefined);
+  }, [key, visibleBody]);
   useEffect(() => {
     generation.current++; setOpen(false); setLoaded(undefined); setPending(false); setError('');
     return () => { generation.current++; };
@@ -35,6 +44,7 @@ export function LetterHistoryCard({ reference, sessionId, messageId, boundaryKey
   };
   const show = async () => {
     const request = ++generation.current, expectedKey = key;
+    onReadStart?.();
     setOpen(true); setPending(true); setError(''); setLoaded(undefined);
     try {
       const value = await api.letterProject({ sessionId, messageId, ref: {

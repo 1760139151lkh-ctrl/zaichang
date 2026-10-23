@@ -1,5 +1,6 @@
 import { createHash, randomUUID } from 'node:crypto';
 import type { CampusGpaScale, CampusRecord, CampusScene } from '../../shared/scenes';
+import { campusQueryContinuation, validateCampusQuery } from '../capabilities/campus-query';
 
 const text = (value: unknown, max = 400): string | undefined => typeof value === 'string' && value.trim() && value.length <= max ? value.trim() : undefined;
 const number = (value: unknown): number | null => typeof value === 'number' && Number.isFinite(value) ? value : null;
@@ -68,8 +69,12 @@ export function campusAcademicSnapshot(result: { status: string; sourceId: strin
   if (!rows.length) return;
   const total = count(data.total_matches ?? data.total), rowTerms = [...new Set(rows.flatMap(row => row.term || row.gpa?.throughTerm || []))],
     term = rowTerms.length === 1 ? rowTerms[0] : undefined;
-  const nextOffset = data.next_offset ?? data.nextOffset, offset = count(nextOffset), originalInput = { ...request };
-  const next = offset === undefined ? undefined : query && spec ? { ...originalInput, spec: { ...spec, offset } } : { ...originalInput, offset };
+  const nextOffset = data.next_offset ?? data.nextOffset, offset = count(nextOffset);
+  let next: Record<string, unknown> | undefined;
+  if (query) {
+    try { next = campusQueryContinuation(validateCampusQuery(request), data)?.arguments; }
+    catch { /* An invalid original query is not a new read address. */ }
+  } else if (offset !== undefined && offset > (count(request.offset) || 0)) next = { ...request, offset, refresh: false };
   const fetchedAt = text(result.fetchedAt, 100) && Number.isFinite(Date.parse(result.fetchedAt!)) ? result.fetchedAt! : '';
   return { kind: 'campus', id: randomUUID(), revision: 1, createdAt: now, domain: domain as CampusScene['domain'],
     source: { sourceId: result.sourceId, fetchedAt, expiresAt: result.expiresAt,

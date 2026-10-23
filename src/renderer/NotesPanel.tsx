@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import {
   Check,
+  BookOpen,
   ChevronLeft,
   ChevronRight,
   History,
+  FileText,
+  MessageCircle,
   Plus,
   RotateCcw,
   Search,
@@ -21,6 +24,7 @@ import {
 import { IconButton, PagePanel, uiError } from './ui';
 import { DEFAULT_TIME_ZONE, formatDateTime } from './time';
 import type { LocalSearchLocator } from '../shared/search';
+import type { MaterialQuoteReference } from '../shared/materials';
 import './notes.css';
 
 type Editor = { note?: NoteDocument; title: string; body: string };
@@ -87,6 +91,8 @@ function NotesFrame({
 export function NotesPanel({
   onClose,
   onUnsavedChange,
+  onOpenMaterialSource,
+  onOpenMaterials,
   active = true,
   focus,
   embedded = false,
@@ -95,6 +101,8 @@ export function NotesPanel({
 }: {
   onClose: () => void;
   onUnsavedChange?: (unsaved: boolean) => void;
+  onOpenMaterialSource?: (source: MaterialQuoteReference, discuss?: boolean) => Promise<void>;
+  onOpenMaterials?: () => void;
   active?: boolean;
   focus?: { locator: Extract<LocalSearchLocator, { kind: 'note' }>; requestId: number };
   embedded?: boolean;
@@ -121,6 +129,7 @@ export function NotesPanel({
     [version, setVersion] = useState<NoteDocument>();
   const [closing, setClosing] = useState(false),
     [draftCount, setDraftCount] = useState(0);
+  const [sourceError, setSourceError] = useState(''), [sourceOpening, setSourceOpening] = useState(false);
   const drafts = useRef(new Map<string, Editor>()),
     request = useRef(0),
     listRequest = useRef(0),
@@ -137,6 +146,10 @@ export function NotesPanel({
       mounted.current = false;
       request.current++;
       listRequest.current++;
+      // A restarted mount must retry navigation whose read was just invalidated.
+      // In StrictMode the refs survive the cleanup, unlike the pending read.
+      focusRequest.current = 0;
+      focusPending.current = undefined;
     };
   }, []);
   useEffect(() => {
@@ -239,6 +252,7 @@ export function NotesPanel({
     setHistory(undefined);
     setVersion(undefined);
     setClosing(false);
+    setSourceError('');
   }
   async function readAll(id: string, revision?: number) {
     const first = await bridge.notesRead({ id, revision });
@@ -401,6 +415,14 @@ export function NotesPanel({
     retainDraft();
     if (dirty || drafts.current.size) setClosing(true);
     else onClose();
+  }
+  async function openMaterial(discuss = false) {
+    const source = editor?.note?.source.material;
+    if (!source || !onOpenMaterialSource || sourceOpening) return;
+    setSourceOpening(true); setSourceError('');
+    try { await onOpenMaterialSource(source, discuss); }
+    catch (cause) { if (mounted.current) setSourceError(uiError(cause)); }
+    finally { if (mounted.current) setSourceOpening(false); }
   }
   const date = (value: string) => formatDateTime(value, timeZone);
   const hasContent = !!editor?.title.trim() || !!editor?.body.trim();
@@ -610,6 +632,14 @@ export function NotesPanel({
                         onChange={(event) => changeDraft({ body: event.target.value })}
                       />
                     </label>
+                    {editor.note?.source.material && <div className="note-material-source">
+                      <div className="note-material-source-name"><FileText size={17} /><span>{editor.note.source.material.name}{editor.note.source.material.page ? ` · 第 ${editor.note.source.material.page} 页` : ''}</span></div>
+                      <div className="note-material-source-actions">
+                        {onOpenMaterialSource && <><button type="button" className="text-button" disabled={sourceOpening} onClick={() => void openMaterial()}><BookOpen size={16} />回到原文</button>
+                          <button type="button" className="text-button" disabled={sourceOpening} onClick={() => void openMaterial(true)}><MessageCircle size={16} />聊这一段</button></>}
+                      </div>
+                      {sourceError && <div className="note-material-source-error" role="alert"><p>{sourceError}</p>{onOpenMaterials && <button type="button" className="text-button" onClick={onOpenMaterials}>重新带来资料</button>}</div>}
+                    </div>}
                     <div className="notes-editor-actions">
                       {deleted ? (
                         <button

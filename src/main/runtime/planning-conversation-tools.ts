@@ -74,26 +74,6 @@ export function executePlanningConversationTool(host: PlanningConversationToolHo
       for (const record of records) if (host.repo.work(handle, undefined, record.id)[0]?.revision !== record.revision)
         throw new HarnessError('revision_conflict', '商量已更新，先沿当前版本继续。');
       const serialized = canonical(view), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
-      if (pack.receipt.budget.readBytes + bytes > contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > contract.budget.maxTokens) {
-        const address = typeof view.optionId === 'string' ? { tool: 'read_planning_alternative', arguments: {
-          matterId: view.matterId, optionId: view.optionId, expectedRevision: view.revision } } : view.comparisonView?.branches?.find((branch: any) => branch.optionRef)
-          ? { tool: 'read_planning_alternative', arguments: { matterId: view.matterId,
-            optionId: view.comparisonView.branches.find((branch: any) => branch.optionRef).optionRef.id } } : undefined;
-        const partial = { status: 'partial', ...(address ? { read: address } : {}),
-          reason: '这次完整安排还放不进当前回复；已保存的商量仍在原事项中，沿准确地址逐一接着看，没有把未读部分说成已经处理。' };
-        const small = canonical(partial), smallBytes = Buffer.byteLength(small), smallTokens = Math.ceil(Array.from(small).length / 1.4);
-        if (pack.receipt.budget.readBytes + smallBytes > contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + smallTokens > contract.budget.maxTokens)
-          throw new HarnessError('read_budget', '这轮内容已经很满，实际保存和动作仍留在原来的位置。');
-        // A visible address is metadata, not an expanded option body. Preserve
-        // its real revision (including this host's own write) without claiming
-        // that every other branch reached the model.
-        const addressed = address ? records.filter(record => record.id === address.arguments.matterId || record.id === address.arguments.optionId) : [];
-        host.context.recordWorkSources(pack, addressed);
-        host.context.recordWorkSourceBindings(pack, addressed.flatMap(allSources));
-        pack.receipt.budget.readBytes += smallBytes; pack.receipt.budget.estimatedTokens += smallTokens;
-        host.repo.saveReceipt(handle, pack.receipt);
-        return partial;
-      }
       host.context.recordWorkSources(pack, records); host.context.recordWorkSourceBindings(pack, actualBindings);
       const factSources = records.filter(record => record.data.type === 'planning_alternative').flatMap(record =>
         Array.isArray(record.data.sourceIds) ? record.data.sourceIds.filter((source): source is string => typeof source === 'string') : []);

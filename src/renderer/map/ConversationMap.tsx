@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown, ChevronUp, Expand, MapPinned, Pause, Play, Route, X } from 'lucide-react';
 import type { MapScene, SemanticSelection } from '../../shared/scenes';
 import { emptyRoute, routeHasUnverifiedPassages, type MapPoint } from '../../shared/map-v2';
 import { MapSurface, type MapSurfaceMemory } from './CampusMap';
 import type { CampusMapEngine } from './map-engine';
 import './conversation-map.css';
+import { prefersQuietMotion } from '../companion';
 
 interface ViewMemory extends MapSurfaceMemory {
   legId?: string;
@@ -89,7 +90,56 @@ export function ConversationMap({
     expandButton = useRef<HTMLButtonElement>(null);
   const prior = useRef({ revision: scene.revision, intent: scene.cameraIntent });
   const motionRequest = useRef(0);
+  const frame = useRef<HTMLDivElement>(null);
+  const expansion = useRef<Animation | undefined>(undefined);
+  const expansionOrigin = useRef<DOMRect | undefined>(undefined);
+  const [placeholderHeight, setPlaceholderHeight] = useState<number>();
+  const [transitioning, setTransitioning] = useState(false);
+  const collapsedBeforeFocus = useRef(false);
+  function focusMap(next: boolean) {
+    if (focused === next) return;
+    const element = container.current;
+    // Capture the current animated position before interruption. Rapid changes
+    // start here rather than replaying a previous entrance.
+    expansionOrigin.current = element?.getBoundingClientRect();
+    expansion.current?.cancel();
+    setTransitioning(!prefersQuietMotion());
+    engine.current?.cancelMotion(); setPlaying(false);
+    if (next) {
+      collapsedBeforeFocus.current = collapsed;
+      setPlaceholderHeight(frame.current?.getBoundingClientRect().height);
+      memory.collapsed = false; setCollapsed(false);
+    } else {
+      setPlaceholderHeight(undefined);
+      memory.collapsed = collapsedBeforeFocus.current;
+      setCollapsed(collapsedBeforeFocus.current);
+    }
+    setFocused(next);
+  }
+  useLayoutEffect(() => {
+    const element = container.current, before = expansionOrigin.current;
+    expansionOrigin.current = undefined;
+    if (!element || !before || prefersQuietMotion()) { setTransitioning(false); return; }
+    const after = element.getBoundingClientRect();
+    if (!after.width || !after.height) { setTransitioning(false); return; }
+    const animation = element.animate([
+      { transformOrigin:'0 0', transform:`translate(${before.left-after.left}px,${before.top-after.top}px) scale(${before.width/after.width},${before.height/after.height})`, borderRadius:'22px' },
+      { transformOrigin:'0 0', transform:'none' },
+    ], { duration:270, easing:'cubic-bezier(.2,.75,.2,1)' });
+    expansion.current = animation;
+    void animation.finished.then(() => {
+      if (expansion.current === animation) { expansion.current = undefined; setTransitioning(false); }
+    }, () => { /* An interrupted gesture starts from its visible rectangle. */ });
+    return () => animation.cancel();
+  }, [focused]);
+  useEffect(() => () => expansion.current?.cancel(), []);
   const previousInterruption = useRef(interruptionKey);
+  // Finish the geometry transition before a map gesture, so pointer
+  // coordinates match the camera. A quick return keeps its visible origin.
+  const finishFocus = (event?: { target: EventTarget | null; key?: string }) => {
+    if (event?.key === 'Escape' || event?.target instanceof Element && event.target.closest('.conversation-map-expand')) return;
+    expansion.current?.finish(); expansion.current = undefined; setTransitioning(false);
+  };
   const effectiveLegId = memory.sourceLegId !== scene.activeLegId ? scene.activeLegId : legId;
   const leg =
     scene.journey.legs.find((value) => value.id === effectiveLegId) ||
@@ -114,7 +164,8 @@ export function ConversationMap({
       memory.display = scene.display;
       if (scene.display === 'compact' || !memory.manual || userCameraRequest) {
         memory.collapsed = scene.display === 'compact';
-        setCollapsed(memory.collapsed);
+        if (focused) collapsedBeforeFocus.current = memory.collapsed;
+        else setCollapsed(memory.collapsed);
       }
       if (memory.collapsed) {
         engine.current?.cancelMotion();
@@ -123,9 +174,10 @@ export function ConversationMap({
     }
     if (userCameraRequest && scene.display !== 'compact') {
       memory.collapsed = false;
+      if (focused) collapsedBeforeFocus.current = false;
       setCollapsed(false);
     }
-  }, [scene.activeLegId, scene.display, memory, userCameraRequest]);
+  }, [scene.activeLegId, scene.display, memory, userCameraRequest, focused]);
   useEffect(() => {
     if (!focused) return;
     const previous = document.activeElement as HTMLElement | null;
@@ -303,21 +355,25 @@ export function ConversationMap({
     setCollapsed(!collapsed);
   }
   return (
+    <div ref={frame} className="conversation-map-frame" style={placeholderHeight !== undefined ? { height: placeholderHeight } : undefined}>
     <section
       ref={container}
       className="conversation-map"
       data-focused={focused}
+      data-transitioning={transitioning}
       data-collapsed={collapsed}
       role={focused ? 'dialog' : undefined}
       aria-modal={focused || undefined}
       aria-label="对话中的校园地图"
+      onPointerDownCapture={finishFocus} onWheelCapture={finishFocus}
       onKeyDown={(event) => {
+        finishFocus(event);
         if (!focused) return;
         if (event.key === 'Escape') {
           event.preventDefault();
           event.stopPropagation();
           engine.current?.cancelMotion();
-          setFocused(false);
+          focusMap(false);
         }
         if (event.key === 'Tab') {
           const items = Array.from(
@@ -361,8 +417,7 @@ export function ConversationMap({
           className="conversation-map-expand"
           aria-label={focused ? '返回对话' : '聚焦查看地图'}
           onClick={() => {
-            engine.current?.cancelMotion();
-            setFocused(!focused);
+            focusMap(!focused);
           }}
         >
           {focused ? <X size={18} /> : <Expand size={17} />}
@@ -382,7 +437,7 @@ export function ConversationMap({
                 inline
                 memory={memory}
                 onWindowClose={() => {}}
-                onClose={() => setFocused(false)}
+                onClose={() => focusMap(false)}
                 onChoose={choose}
                 onTakeControl={takeControl}
                 onEngine={(value) => {
@@ -543,7 +598,7 @@ export function ConversationMap({
             <button
               className="conversation-map-continue"
               onClick={() => {
-                setFocused(false);
+                focusMap(false);
                 onContinue?.();
               }}
             >
@@ -553,5 +608,6 @@ export function ConversationMap({
         </>
       )}
     </section>
+    </div>
   );
 }

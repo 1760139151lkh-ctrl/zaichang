@@ -1,10 +1,13 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { z } from 'zod';
-import { HarnessError, workSourceRefSchema, type ScopeHandle, type WorkRecord, type WorkSourceRef } from '../../shared/harness';
+import { HarnessError, workSourceRefSchema, type ScopeHandle, type WorkRecord, type WorkSourceRef, type WorkSourceBinding } from '../../shared/harness';
+import { methodHelpMaterialIdentitySchema, type MethodHelpMaterialIdentity } from '../../shared/method-work-help';
 import { studyCompanionInput, studyModeSchema, type StudyCompanionInput, type StudyCompanionView,
   type StudyOrigin, type StudyMode, type studyCitationSchema, type studyPacketInput, type studyProblemInput } from '../../shared/study-companion';
 import type { KernelRepository } from '../storage/repository';
 import type { MaterialService } from '../materials/service';
+import type { NotesService } from '../notes/service';
+import { noteSourceProofSchema, type NoteSourceProof } from '../../shared/notes-source';
 import type { WorkService } from './work';
 import { explorableStudySchema } from '../../shared/explorable-study';
 import { canonical, codePointSlice } from './semantics';
@@ -18,6 +21,8 @@ export interface StudyCompanionContext {
   /** Set by the host when this run may only inspect its current conversation. */
   restrictToSessionId?: string;
   observations?: readonly Observation[];
+  /** Exact notebook ranges already delivered through the original note owner. */
+  noteSources?: readonly NoteSourceProof[];
   signal?: AbortSignal;
   permits?: (ref: WorkSourceRef) => boolean;
   historyOffset?: number;
@@ -31,12 +36,23 @@ const ref = workSourceRefSchema;
 const sourceFile = { resourceId: id, sha256: z.string(), version: z.number().int().positive(),
   sourceEventId: id, contentVersion: z.number().int().positive(), sourceId: id, name: z.string(),
   originObservationId: id, sourceRefs: z.array(ref).min(1).max(4) };
+const materialProblemIdentity = z.object({ resourceId: id, version: z.number().int().positive(),
+  page: z.number().int().positive().nullable(), start: z.number().int().nonnegative().optional(),
+  end: z.number().int().positive().optional(), crop: z.json().nullable().optional() }).strict();
 const storedProblem = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('evidence'), ref }).strict(),
+  z.object({ kind: z.literal('note'), proof: noteSourceProofSchema }).strict(),
   z.object({ kind: z.literal('material_text'), ...sourceFile, page: z.number().int().positive().optional(),
     start: z.number().int().nonnegative(), end: z.number().int().positive(), quoteSha256: z.string() }).strict(),
   z.object({ kind: z.literal('material_page'), ...sourceFile, page: z.number().int().positive(), description: z.string(),
     crop: z.json().nullable() }).strict(),
+]);
+// Correcting the question does not erase the sources of earlier help. These
+// are source identities only; old question bodies are never copied here.
+const problemSource = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('evidence'), ref }).strict(),
+  z.object({ kind: z.literal('note'), proof: noteSourceProofSchema }).strict(),
+  z.object({ kind: z.literal('material'), ...sourceFile, identity: materialProblemIdentity.optional() }).strict(),
 ]);
 const storedStep = z.object({ id, kind: z.enum(['question', 'hint', 'explanation', 'example', 'practice']),
   title: z.string().optional(), text: z.string(), nextMove: z.string(), mode: studyModeSchema,
@@ -44,6 +60,8 @@ const storedStep = z.object({ id, kind: z.enum(['question', 'hint', 'explanation
   source: ref, supports: z.array(ref).max(8), providedAt: z.string() }).strict();
 const stateSchema = z.object({ type: z.literal('study_companion'), version: z.literal(1), matterId: id,
   matterRevisionAtOpen: z.number().int().positive(), sessionId: id, source: ref, problem: storedProblem,
+  priorProblemSources: z.array(problemSource).max(16).default([]),
+  noteSources: z.array(noteSourceProofSchema).max(17).default([]),
   mode: studyModeSchema, focus: z.string(), nextStart: z.string(), lastSource: ref,
   attempts: z.array(z.object({ id, source: ref }).strict()).max(32), steps: z.array(storedStep).max(24),
   modeSource: ref, stopPoint: z.object({ text: z.string(), at: z.string(), source: ref }).strict().optional(),
@@ -51,17 +69,121 @@ const stateSchema = z.object({ type: z.literal('study_companion'), version: z.li
   createdAt: z.string(), updatedAt: z.string() }).strip();
 type StudyState = z.infer<typeof stateSchema>;
 type StoredProblem = z.infer<typeof storedProblem>;
+type ProblemSource = z.infer<typeof problemSource>;
 const sha = (text: string) => createHash('sha256').update(text).digest('hex');
 const signalFor = (context: StudyCompanionContext) => context.signal || new AbortController().signal;
 const sameRef = (left: WorkSourceRef, right: WorkSourceRef) => canonical(left) === canonical(right);
+const problemIdentity = (problem: StoredProblem | ProblemSource) => problem.kind === 'evidence' ? problem.ref
+  : problem.kind === 'note' ? problem.proof : problem.kind === 'material' ? problem.identity
+    : { resourceId: problem.resourceId, version: problem.version, page: problem.page ?? null,
+      ...(problem.kind === 'material_text' ? { start: problem.start, end: problem.end } : { crop: problem.crop }) };
 const meaning = '这是这一道题的可接续陪学纸。你的尝试与助手的教学内容分开；提供过提示、看过讲解或收好这一页，都不证明独立完成或掌握。当前帮助方式只属于这次学习，不生成能力标签、成绩或日程。';
 
 /** The existing Work owner holds the teaching artifact. The main model writes
  * one requested teaching move at a time; no hidden solution deck, second tutor
  * agent, mastery database, or automatic study schedule is created here. */
 export class StudyCompanionService {
+  private readonly sourceReads = new WeakMap<object, { scopeId: string; id: string; revision: number;
+    sourceBinding: WorkSourceBinding; sourceMaterial?: MethodHelpMaterialIdentity;
+    noteSources: NoteSourceProof[]; problemIdentitySha256: string }>();
   constructor(readonly repo: KernelRepository, readonly work: WorkService,
-    readonly materials: Pick<MaterialService, 'invoke' | 'visual'>) {}
+    readonly materials: Pick<MaterialService, 'invoke' | 'visual'> & Partial<Pick<MaterialService, 'retainedTextIdentityCurrent'>>,
+    readonly notes: Pick<NotesService, 'read'>) {}
+
+  /** Only the actual object returned after get's asynchronous owner read can
+   * freeze a typed version. Metadata indexes and cloned records have no mark. */
+  sourceVersionSnapshot(handle: ScopeHandle, record: Pick<WorkRecord, 'id' | 'revision' | 'sourceBinding'>) {
+    const read = this.sourceReads.get(record);
+    if (!read || read.scopeId !== handle.id || read.id !== record.id || read.revision !== record.revision
+      || canonical(read.sourceBinding) !== canonical(record.sourceBinding)) return;
+    this.scope(handle);
+    const f = this.repo.filter(handle), row = this.repo.db.prepare(`SELECT r.revision,json_extract(r.payload,'$.sourceBinding') AS binding
+      FROM h_work r WHERE ${f.sql} AND r.id=? AND json_extract(r.payload,'$.data.type')='study_companion'`)
+      .get(...f.params, record.id);
+    if (!row || row.revision !== read.revision || canonical(JSON.parse(String(row.binding))) !== canonical(read.sourceBinding)
+      || !this.verifyFrozenSources(handle, read)) return;
+    return { sourceBinding: structuredClone(read.sourceBinding),
+      noteSources: structuredClone(read.noteSources), problemIdentitySha256: read.problemIdentitySha256,
+      ...(read.sourceMaterial ? { sourceMaterial: structuredClone(read.sourceMaterial) } : {}) };
+  }
+
+  private sourceMaterial(handle: ScopeHandle, problem: Record<string, unknown>) {
+    if (!['material_text', 'material_page'].includes(String(problem.kind))) return;
+    return methodHelpMaterialIdentitySchema.parse({ resourceId: problem.resourceId, sha256: problem.sha256, version: problem.version,
+      sourceEventId: problem.sourceEventId, contentVersion: problem.contentVersion,
+      parentEventId: this.repo.evidence(handle, String(problem.sourceEventId))?.parentEventId,
+      interpretation: problem.kind === 'material_text' ? 'retained_text_layer' : 'retained_file_lifetime_only' });
+  }
+
+  /** Legacy replies may recheck their still-identical owner version. This is
+   * a current eligibility check, never a backfilled historical receipt. */
+  currentSourceVersion(handle: ScopeHandle, value: { id: string; revision: number }) {
+    try {
+      this.scope(handle);
+      const f = this.repo.filter(handle), row = this.repo.db.prepare(`SELECT r.revision,json_extract(r.payload,'$.sourceBinding') AS binding,
+        json_extract(r.payload,'$.data.noteSources') AS notes,
+        json_remove(json_extract(r.payload,'$.data.problem'),'$.description') AS problem
+        FROM h_work r WHERE ${f.sql} AND r.id=? AND json_extract(r.payload,'$.data.type')='study_companion'`)
+        .get(...f.params, value.id);
+      if (!row || row.revision !== value.revision || !row.binding) return;
+      const problem = JSON.parse(String(row.problem)) as StoredProblem;
+      const sourceMaterial = this.sourceMaterial(handle, problem);
+      const noteSources = z.array(noteSourceProofSchema).max(17).parse(row.notes === null ? [] : JSON.parse(String(row.notes)));
+      const snapshot = { sourceBinding: JSON.parse(String(row.binding)) as WorkSourceBinding,
+        noteSources, problemIdentitySha256: sha(canonical(problemIdentity(problem))), ...(sourceMaterial ? { sourceMaterial } : {}) };
+      if (this.verifyFrozenSources(handle, { id: value.id, ...snapshot })) return snapshot;
+    } catch (error) {
+      if (error instanceof HarnessError || error instanceof z.ZodError || error instanceof SyntaxError) return;
+      throw error;
+    }
+  }
+
+  /** Historical assistance keeps its actual question identity and sources.
+   * Correcting this owner's question never substitutes the new source for an
+   * earlier read. All metadata here is body-free and host-generated. */
+  verifyFrozenSources(handle: ScopeHandle, value: { id: string; sourceBinding: WorkSourceBinding; sourceMaterial?: MethodHelpMaterialIdentity;
+    noteSources?: NoteSourceProof[]; problemIdentitySha256?: string }) {
+    try {
+      this.scope(handle);
+      if (this.repo.hasFence(value.id) || !this.repo.workBindingsReadable(handle, [value.sourceBinding])
+        || !this.repo.noteSourcesReadable(handle, value.noteSources || [])) return false;
+      const f = this.repo.filter(handle), row = this.repo.db.prepare(`SELECT json_extract(r.payload,'$.data.matterId') AS matter_id,
+        json_extract(r.payload,'$.data.source') AS source,
+        json_extract(r.payload,'$.data.priorProblemSources') AS prior,
+        json_remove(json_extract(r.payload,'$.data.problem'),'$.description') AS problem
+        FROM h_work r WHERE ${f.sql} AND r.id=? AND json_extract(r.payload,'$.data.type')='study_companion'`)
+        .get(...f.params, value.id);
+      if (!row || this.repo.hasFence(String(row.matter_id)) || !this.repo.db.prepare(`SELECT 1 FROM h_work r WHERE ${f.sql}
+        AND r.id=? AND json_extract(r.payload,'$.data.type')='collaboration_frame'`).get(...f.params, String(row.matter_id))) return false;
+      const problem = JSON.parse(String(row.problem)) as StoredProblem;
+      const prior = z.array(problemSource).max(16).parse(row.prior === null ? [] : JSON.parse(String(row.prior)));
+      const candidates: (StoredProblem | ProblemSource)[] = [problem, ...prior];
+      const source = workSourceRefSchema.parse(JSON.parse(String(row.source)));
+      const ownerIdentity = (candidate: StoredProblem | ProblemSource) => problemIdentity(candidate) !== undefined
+        && value.id === 'study:' + sha(canonical({ matterId: row.matter_id, source, problem: problemIdentity(candidate) }));
+      if (!candidates.some(ownerIdentity)) return false;
+      return candidates.some(candidate => {
+        const identity = problemIdentity(candidate);
+        if (value.problemIdentitySha256 ? identity === undefined || value.problemIdentitySha256 !== sha(canonical(identity)) : !ownerIdentity(candidate)) return false;
+        const refs = candidate.kind === 'evidence' ? [candidate.ref] : candidate.kind === 'note' ? [] : candidate.sourceRefs;
+        if (refs.some(ref => !value.sourceBinding.refs.some(source => sameRef(source, ref)))) return false;
+        if (candidate.kind === 'evidence') return value.sourceMaterial === undefined;
+        if (candidate.kind === 'note') return value.sourceMaterial === undefined
+          && !!value.noteSources?.some(proof => canonical(proof) === canonical(candidate.proof));
+        const parsed = methodHelpMaterialIdentitySchema.safeParse(value.sourceMaterial);
+        if (!parsed.success) return false;
+        const material = parsed.data, event = this.repo.evidence(handle, material.sourceEventId);
+        const text = candidate.kind === 'material_text' || candidate.kind === 'material' && candidate.identity?.start !== undefined;
+        return material.resourceId === candidate.resourceId && material.sha256 === candidate.sha256 && material.version === candidate.version
+          && material.sourceEventId === candidate.sourceEventId && material.contentVersion === candidate.contentVersion
+          && material.interpretation === (text ? 'retained_text_layer' : 'retained_file_lifetime_only')
+          && event?.parentEventId === material.parentEventId && this.materials.retainedTextIdentityCurrent?.(handle, material) === true;
+      });
+    } catch (error) {
+      if (error instanceof HarnessError || error instanceof z.ZodError || error instanceof SyntaxError) return false;
+      throw error;
+    }
+  }
 
   private scope(handle: ScopeHandle, write = false) {
     const scope = this.work.policy.require(handle, write ? 'work:write' : 'evidence:read');
@@ -86,13 +208,54 @@ export class StudyCompanionService {
   }
 
   private refs(data: StudyState) {
-    const refs = [data.source, data.modeSource, data.lastSource, ...(data.problem.kind === 'evidence' ? [data.problem.ref] : data.problem.sourceRefs),
+    const problemRefs = (problem: StoredProblem | ProblemSource) => problem.kind === 'evidence' ? [problem.ref]
+      : problem.kind === 'note' ? [] : problem.sourceRefs;
+    const refs = [data.source, data.modeSource, data.lastSource, ...problemRefs(data.problem), ...data.priorProblemSources.flatMap(problemRefs),
       ...data.attempts.map(attempt => attempt.source), ...data.steps.flatMap(step => [step.source, ...step.supports]),
       ...(data.stopPoint ? [data.stopPoint.source] : []), ...(data.closure ? [data.closure.source] : [])];
     return [...new Map(refs.map(source => [canonical(source), source])).values()];
   }
 
-  private async materialProblem(handle: ScopeHandle, input: Exclude<ProblemInput, { kind: 'evidence' }>, context: StudyCompanionContext): Promise<StoredProblem> {
+  private problemSource(problem: StoredProblem): ProblemSource {
+    if (problem.kind === 'evidence' || problem.kind === 'note') return structuredClone(problem);
+    const { resourceId, sha256, version, sourceEventId, contentVersion, sourceId, name, originObservationId, sourceRefs } = problem;
+    return { kind: 'material', resourceId, sha256, version, sourceEventId, contentVersion, sourceId, name, originObservationId, sourceRefs,
+      identity: materialProblemIdentity.parse(problemIdentity(problem)) };
+  }
+
+  private noteProofs(data: StudyState) {
+    return [...new Map([this.problemSource(data.problem), ...data.priorProblemSources]
+      .flatMap(problem => problem.kind === 'note' ? [problem.proof] : []).map(proof => [canonical(proof), proof])).values()];
+  }
+
+  private async problemSourceCurrent(handle: ScopeHandle, problem: ProblemSource, context: StudyCompanionContext) {
+    if (problem.kind === 'evidence') { this.repo.resolveWorkSourceBinding(handle, [problem.ref]); return; }
+    if (problem.kind === 'note') {
+      if (!this.repo.noteSourcesReadable(handle, [problem.proof]))
+        throw new HarnessError('study_note_changed', '这道题用过的笔记原段现在不可用，请回到当前允许的笔记。');
+      return;
+    }
+    const value = await this.materials.invoke(handle, 'materials.describe', { resourceId: problem.resourceId }, signalFor(context));
+    signalFor(context).throwIfAborted(); this.scope(handle);
+    const source = value?.data?.source;
+    if (!source || source.resourceId !== problem.resourceId || source.sha256 !== problem.sha256 || source.version !== problem.version
+      || source.sourceEventId !== problem.sourceEventId || source.contentVersion !== problem.contentVersion)
+      throw new HarnessError('study_material_changed', '原题文件现在不可核对；没有从旧陪学纸恢复它的正文。');
+  }
+
+  private async problem(handle: ScopeHandle, input: ProblemInput, context: StudyCompanionContext): Promise<StoredProblem> {
+    if (input.kind === 'evidence') return { kind: 'evidence', ref: this.cite(handle, input.source, context) };
+    if (input.kind !== 'note') return this.materialProblem(handle, input, context);
+    const delivered = context.noteSources?.find(proof => proof.id === input.id && proof.revision === input.revision
+      && proof.start <= input.start && proof.end >= input.end);
+    if (!delivered || input.end <= input.start || input.end - input.start > 8000)
+      throw new HarnessError('study_note_unread', '先沿manage_note read读到笔记里的实际题目，再用返回的studyProblem地址；聊天请求和笔记目录不是原题。');
+    const problem: StoredProblem = { kind: 'note', proof: noteSourceProofSchema.parse({ ...delivered, start: input.start, end: input.end }) };
+    await this.problemView(handle, problem, context);
+    return problem;
+  }
+
+  private async materialProblem(handle: ScopeHandle, input: Extract<ProblemInput, { kind: 'material_text' | 'material_page' }>, context: StudyCompanionContext): Promise<StoredProblem> {
     const observation = context.observations?.find(value => value.toolCallId === input.observationId);
     const result = observation?.result as Record<string, any> | undefined, data = result?.data as Record<string, any> | undefined;
     const request = observation?.requestedArguments as Record<string, any> | undefined;
@@ -141,12 +304,18 @@ export class StudyCompanionService {
         sourceId: event.sourceId, ...problem.ref, interpretation: 'original_excerpt',
         read: { tool: 'read_evidence', arguments: { id: event.id, offset: problem.ref.start, limit: problem.ref.end - problem.ref.start } } } };
     }
-    const value = await this.materials.invoke(handle, 'materials.describe', { resourceId: problem.resourceId }, signal);
-    signal.throwIfAborted(); this.scope(handle);
-    const source = value?.data?.source;
-    if (!source || source.resourceId !== problem.resourceId || source.sha256 !== problem.sha256 || source.version !== problem.version
-      || source.sourceEventId !== problem.sourceEventId || source.contentVersion !== problem.contentVersion)
-      throw new HarnessError('study_material_changed', '原题文件现在不可核对；没有从旧陪学纸恢复它的正文。');
+    await this.problemSourceCurrent(handle, this.problemSource(problem), context);
+    if (problem.kind === 'note') {
+      const proof = problem.proof, page = this.notes.read({ id: proof.id, revision: proof.revision, offset: proof.start,
+        limit: proof.end - proof.start }, handle);
+      if (page.note.sha256 !== proof.sha256 || page.note.revision !== proof.revision || page.offset !== proof.start || page.end !== proof.end)
+        throw new HarnessError('study_note_changed', '笔记里的原题位置有了变化，未沿旧文字补回。');
+      signal.throwIfAborted(); this.scope(handle);
+      return { display: page.body, origin: { kind: 'note', sourceId: 'notes:self', name: page.note.title || '没有标题的笔记',
+        note: structuredClone(proof), start: proof.start, end: proof.end, interpretation: 'original_excerpt',
+        read: { tool: 'manage_note', arguments: { operation: 'read', input: { id: proof.id, revision: proof.revision,
+          offset: proof.start, limit: proof.end - proof.start } } } } };
+    }
     const origin: StudyOrigin = { kind: problem.kind, sourceId: problem.sourceId, resourceId: problem.resourceId,
       name: problem.name, ...(problem.page ? { page: problem.page } : {}),
       read: { tool: 'look_up', arguments: { source: 'capability', capability: problem.kind === 'material_text' ? 'materials.read' : 'materials.observe',
@@ -172,6 +341,9 @@ export class StudyCompanionService {
   }
 
   private save(handle: ScopeHandle, record: WorkRecord, data: StudyState, expectedRevision?: number) {
+    data.noteSources = this.noteProofs(data);
+    if (!this.repo.noteSourcesReadable(handle, data.noteSources))
+      throw new HarnessError('study_note_changed', '原题的一处笔记来源已不可用，没有保存旧内容。');
     const refs = this.refs(data);
     if (refs.length > 32) throw new HarnessError('study_sheet_full', '这一页已经连着较多原题和尝试；可以从现在这一步另起一张，原来的过程仍保留。');
     const binding = this.repo.resolveWorkSourceBinding(handle, refs);
@@ -181,6 +353,10 @@ export class StudyCompanionService {
       this.repo.saveSourcedWork(handle, next, expectedRevision);
       for (const source of binding.refs) this.repo.addDependency(handle, { consumerId: next.id, producerId: source.eventId,
         producerRevision: source.contentVersion, sensitivity: 'privacy', invalidation: 'block' });
+      for (const source of data.noteSources) this.repo.addDependency(handle, { consumerId: next.id, producerId: source.id,
+        producerRevision: source.revision, sensitivity: 'privacy', invalidation: 'block' });
+      if (data.noteSources.length) this.repo.addDependency(handle, { consumerId: next.id, producerId: 'notes:self',
+        producerRevision: 0, sensitivity: 'privacy', invalidation: 'block' });
       const matter = this.repo.work(handle, 'episode', data.matterId)[0];
       if (!matter || matter.data.type !== 'collaboration_frame' || !['active', 'needs_review'].includes(matter.status)
         || expectedRevision === undefined && matter.revision !== data.matterRevisionAtOpen)
@@ -200,6 +376,8 @@ export class StudyCompanionService {
     if (!matter || matter.data.type !== 'collaboration_frame') return;
     const current = this.repo.resolveWorkSourceBinding(handle, this.refs(data));
     if (canonical(current) !== canonical(record.sourceBinding)) return;
+    if (canonical(this.noteProofs(data)) !== canonical(data.noteSources) || !this.repo.noteSourcesReadable(handle, data.noteSources)) return;
+    for (const problem of data.priorProblemSources) await this.problemSourceCurrent(handle, problem, context);
     const problem = await this.problemView(handle, data.problem, context);
     signalFor(context).throwIfAborted(); this.scope(handle);
     const latest = this.repo.workArtifactRecords(handle, 'study_companion', { id: record.id, limit: 1 })[0];
@@ -234,6 +412,10 @@ export class StudyCompanionService {
         { id: 'example', label: '换个例子讲', request: '围绕现在这个卡点换一个例子解释，再回到我的原题。' },
         { id: 'explain', label: '直接讲清楚', request: '这次请直接把这里讲清楚，不用坚持之前的小提示方式。' },
       ], meaning: '操作只把当前这张纸和这一步带回正常对话；不表示完成、掌握或接受安排。' }, updatedAt: data.updatedAt, meaning };
+    const sourceMaterial = this.sourceMaterial(handle, data.problem);
+    this.sourceReads.set(record, { scopeId: handle.id, id: record.id, revision: record.revision, sourceBinding: structuredClone(current),
+      noteSources: structuredClone(data.noteSources), problemIdentitySha256: sha(canonical(problemIdentity(data.problem))),
+      ...(sourceMaterial ? { sourceMaterial } : {}) });
     return { record, projection };
   }
 
@@ -257,7 +439,7 @@ export class StudyCompanionService {
         // cancellation/scope failures still abort the entire delivery.
         if (input.id || !(error instanceof HarnessError)
           || !(error.code.startsWith('material_') || error.code.startsWith('study_material_')
-            || error.code === 'study_problem_changed' || error.code === 'study_changed')) throw error;
+            || error.code === 'study_note_changed' || error.code === 'study_problem_changed' || error.code === 'study_changed')) throw error;
         unavailable.push({ id: record.id, reason: error.code });
       }
     }
@@ -309,6 +491,7 @@ export class StudyCompanionService {
         JSON.stringify(scope.sources), JSON.stringify(scope.grants), context.restrictToSessionId);
     if (!row || this.repo.hasFence(recordId) || this.repo.hasFence(String(row.matter_id)))
       throw new HarnessError('study_reference_missing', '这张陪学纸不在当前对话的这一处。');
+    this.repo.workNoteSources(handle, [{ id: recordId, revision }]);
     return { origin: 'study_companion' as const };
   }
 
@@ -321,6 +504,7 @@ export class StudyCompanionService {
     const parsed = stateSchema.safeParse(record?.data);
     if (!record || record.revision !== revision || !['active', 'parked', 'closed'].includes(record.status)
       || !parsed.success || !record.sourceBinding || this.refs(parsed.data).some(source => context.permits?.(source) === false)
+      || canonical(this.noteProofs(parsed.data)) !== canonical(parsed.data.noteSources) || !this.repo.noteSourcesReadable(handle, parsed.data.noteSources)
       || canonical(record.sourceBinding) !== canonical(this.repo.resolveWorkSourceBinding(handle, this.refs(parsed.data))))
       throw new HarnessError('study_changed', '刚读取的陪学内容或来源已变化，未采用旧步骤。');
     const matter = this.repo.work(handle, 'episode', parsed.data.matterId)[0];
@@ -337,17 +521,16 @@ export class StudyCompanionService {
       const matter = this.repo.work(handle, 'episode', input.matterId)[0];
       if (!matter || matter.data.type !== 'collaboration_frame' || matter.revision !== input.expectedMatterRevision
         || !['active', 'needs_review'].includes(matter.status)) throw new HarnessError('study_matter', '先沿当前真实学习事项打开这张纸，再接题目和尝试。');
-      const problem: StoredProblem = input.problem.kind === 'evidence'
-        ? { kind: 'evidence', ref: this.cite(handle, input.problem.source, context) }
-        : await this.materialProblem(handle, input.problem, context);
-      const identity = problem.kind === 'evidence' ? problem.ref : { resourceId: problem.resourceId, version: problem.version,
+      const problem = await this.problem(handle, input.problem, context);
+      const identity = problem.kind === 'evidence' ? problem.ref : problem.kind === 'note' ? problem.proof : { resourceId: problem.resourceId, version: problem.version,
         page: problem.page ?? null, ...(problem.kind === 'material_text' ? { start: problem.start, end: problem.end } : { crop: problem.crop }) };
       const recordId = 'study:' + sha(canonical({ matterId: matter.id, source, problem: identity }));
       const existing = await this.get(handle, recordId, context);
       if (existing) return { status: 'fresh', items: [existing.projection], records: [existing.record], reused: true, meaning };
       const now = this.repo.clock.now();
       data = { type: 'study_companion', version: 1, matterId: matter.id, matterRevisionAtOpen: matter.revision, sessionId: context.sessionId,
-        source, problem, mode: input.mode, modeSource: source, lastSource: source, focus: input.focus, nextStart: input.nextStart,
+        source, problem, priorProblemSources: [], noteSources: problem.kind === 'note' ? [problem.proof] : [],
+        mode: input.mode, modeSource: source, lastSource: source, focus: input.focus, nextStart: input.nextStart,
         attempts: input.attempt ? [{ id: randomUUID(), source: this.cite(handle, input.attempt, context, true) }] : [],
         steps: input.packet ? [this.packet(handle, input.packet, source, input.mode, context)] : [], createdAt: now, updatedAt: now };
       record = { id: recordId, kind: 'experience', ownerId: scope.principalId, workspaceId: scope.workspaceId, subjectId: scope.subjectId,
@@ -359,8 +542,19 @@ export class StudyCompanionService {
       record = existing.record; previousRevision = record.revision; data = stateSchema.parse(record.data);
       if (record.status === 'closed') throw new HarnessError('study_closed', '这张纸已经收好了；回读不重新开启，新的探索可以另起一张。');
       if (input.operation === 'respond') {
-        if (!input.mode && !input.attempt && !input.packet && input.focus === undefined && input.nextStart === undefined)
+        if (!input.mode && !input.attempt && !input.packet && !input.problem && input.focus === undefined && input.nextStart === undefined)
           throw new HarnessError('study_response_empty', '这一步需要实际尝试、当前帮助或一个新的起点。');
+        if (input.problem) {
+          const problem = await this.problem(handle, input.problem, context);
+          if (canonical(problem) !== canonical(data.problem)) {
+            const prior = this.problemSource(data.problem);
+            if (!data.priorProblemSources.some(value => canonical(value) === canonical(prior))) {
+              if (data.priorProblemSources.length >= 16) throw new HarnessError('study_sheet_full', '这一页已经修订过较多题源，可以保留过程，从当前题目另起一张。');
+              data.priorProblemSources.push(prior);
+            }
+            data.problem = problem;
+          }
+        }
         if (input.mode) { data.mode = input.mode; data.modeSource = source; }
         if (input.attempt) { const attempt = this.cite(handle, input.attempt, context, true);
           if (!data.attempts.some(value => sameRef(value.source, attempt))) data.attempts.push({ id: randomUUID(), source: attempt }); }

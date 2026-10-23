@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { ArrowLeft, BookOpen, ChevronLeft, ChevronRight, Download, FileText, FolderOpen, Image, List, LoaderCircle, Plus, Quote, Search, Type, X } from 'lucide-react';
+import { ArrowLeft, BookOpen, BookmarkPlus, ChevronLeft, ChevronRight, Download, FileText, FolderOpen, Image, List, LoaderCircle, MessageCircle, Plus, Search, Type, X } from 'lucide-react';
 import type { TextAttachment } from '../shared/types';
-import { MATERIAL_LIMITS, type MaterialItem, type MaterialPage, type MaterialQuote, type MaterialTarget } from '../shared/materials';
+import { MATERIAL_LIMITS, materialQuoteAddress, type MaterialItem, type MaterialPage, type MaterialQuote, type MaterialTarget } from '../shared/materials';
 import type { LocalSearchLocator } from '../shared/search';
 import { uiError } from './ui';
 import './materials.css';
@@ -12,10 +12,13 @@ interface Props {
   sessionId?: string;
   boundary: string;
   compact?: boolean;
+  active?: boolean;
+  refreshKey?: string;
   draftEnabled?: boolean;
   focus?: { locator: Extract<LocalSearchLocator, { kind: 'material' }>; requestId: number };
   onAttach: (attachment: TextAttachment) => boolean;
   onQuote: (quote: MaterialQuote) => boolean;
+  onOpenNote?: (id: string, revision: number) => void;
   onClose: () => void;
   children?: ReactNode;
 }
@@ -29,26 +32,35 @@ const readingError = (problem: unknown) => {
 };
 
 /** A view onto the host's original snapshots, never another material store. */
-export function MaterialsPanel({ pending, sessionId, boundary, compact = false, draftEnabled = true, focus, onAttach, onQuote, onClose, children }: Props) {
+export function MaterialsPanel({ pending, sessionId, boundary, compact = false, active = true, refreshKey, draftEnabled = true, focus, onAttach, onQuote, onOpenNote, onClose, children }: Props) {
   const [items, setItems] = useState<MaterialItem[]>([]);
   const [target, setTarget] = useState<MaterialTarget>();
   const [document, setDocument] = useState<MaterialPage>();
   const [page, setPage] = useState(1), [offset, setOffset] = useState(0);
   const [view, setView] = useState<'text' | 'page'>('text');
+  const [zoom, setZoom] = useState(100);
   const [listOpen, setListOpen] = useState(false), [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false), [choosing, setChoosing] = useState(false), [exporting, setExporting] = useState(false);
   const [error, setError] = useState(''), [listError, setListError] = useState(''), [notice, setNotice] = useState('');
   const [quote, setQuote] = useState<MaterialQuote>();
+  const [quotePosition, setQuotePosition] = useState<{ left: number; top: number }>();
+  const [quoteBusy, setQuoteBusy] = useState(false);
+  const [savedNote, setSavedNote] = useState<{ id: string; revision: number }>();
   const [retry, setRetry] = useState(0), [refresh, setRefresh] = useState(0);
   const request = useRef(0), selectionRequest = useRef(0), mounted = useRef(true);
   const prose = useRef<HTMLPreElement>(null), scroller = useRef<HTMLDivElement>(null);
+  const reader = useRef<HTMLDivElement>(null);
+  const positions = useRef(new Map<string, number>());
+  const bookmarks = useRef(new Map<string, { page: number; offset: number; view: 'text' | 'page'; zoom: number }>());
   const boundaryRef = useRef(boundary);
   const focusRequest = useRef(0);
+  const revealPending = useRef(false);
   const [highlight, setHighlight] = useState<Extract<LocalSearchLocator, { kind: 'material' }>>();
   const destination = useRef({ sessionId, boundary, enabled: draftEnabled });
   destination.current = { sessionId, boundary, enabled: draftEnabled };
   const pendingRef = pending?.resource;
   const selectedId = targetId(target);
+  const readingKey = `${selectedId || ''}:${page}:${offset}:${view}`;
   const selected = pendingRef?.resourceId === selectedId ? pendingRef : items.find(item => item.resourceId === selectedId) || document?.item;
 
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; selectionRequest.current++; void api.materialsCancel(); }; }, []);
@@ -57,64 +69,80 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     boundaryRef.current = boundary;
     request.current++; selectionRequest.current++;
     setDocument(undefined); setTarget(undefined); setItems([]); setQuote(undefined); setError(''); setHighlight(undefined);
+    positions.current.clear(); bookmarks.current.clear(); setSavedNote(undefined);
     void api.materialsCancel();
   }, [boundary]);
   useEffect(() => { selectionRequest.current++; setChoosing(false); }, [sessionId]);
+  useEffect(() => { if (selectedId) bookmarks.current.set(selectedId, { page, offset, view, zoom }); }, [selectedId, page, offset, view, zoom]);
   useEffect(() => {
-    if (!pendingRef) return;
+    if (!pendingRef || target?.kind === 'saved') return;
     setPage(1); setOffset(0); setView(pendingRef.mediaType === 'application/pdf' ? 'page' : 'text');
   }, [pendingRef?.resourceId]);
   useEffect(() => {
     if (!focus || focusRequest.current === focus.requestId) return;
     focusRequest.current = focus.requestId;
     const locator = focus.locator;
-    setTarget({ kind: 'saved', resourceId: locator.resourceId });
+    revealPending.current = true;
+    setTarget(pendingRef?.resourceId === locator.resourceId ? { kind: 'pending', reference: pendingRef } : { kind: 'saved', resourceId: locator.resourceId });
     setPage(locator.page || 1);
     setOffset(locator.field === 'body' ? Math.max(0, locator.offset - 120) : 0);
     setView('text'); setListOpen(false); setQuery(''); setHighlight(locator);
   }, [focus]);
 
   useEffect(() => {
+    if (!active) return;
     let current = true;
     void api.materialsList({ sessionId }).then(next => {
       if (!current) return;
       setItems(next); setListError('');
       setTarget(previous => {
         if (pendingRef) {
+          if (previous?.kind === 'pending' && previous.reference.resourceId === pendingRef.resourceId) return previous;
           if (!previous || previous.kind === 'pending') return { kind: 'pending', reference: pendingRef };
         }
         const id = targetId(previous);
-        if (id && next.some(item => item.resourceId === id)) return { kind: 'saved', resourceId: id };
-        if (previous?.kind === 'pending' && !pendingRef) return undefined;
+        if (id && next.some(item => item.resourceId === id)) return previous?.kind === 'saved' ? previous : { kind: 'saved', resourceId: id };
+        // Sending consumes the draft before its source is bound. Keep the same
+        // reading address during admission; the next host refresh adopts the
+        // saved target. A removed source still fails the normal owner read.
+        if (previous?.kind === 'pending' && !pendingRef) return previous;
         return previous && next.some(item => item.resourceId === targetId(previous)) ? previous : undefined;
       });
     }).catch(problem => { if (current) setListError(uiError(problem)); });
     return () => { current = false; };
-  }, [sessionId, boundary, pendingRef?.resourceId, refresh]);
+  }, [sessionId, boundary, pendingRef?.resourceId, refresh, refreshKey, active]);
 
   useEffect(() => {
+    if (!active) { setQuote(undefined); return; }
     if (!target) { setDocument(undefined); setLoading(false); return; }
     const id = ++request.current;
+    const previousScroll = positions.current.get(readingKey) || 0;
     setLoading(true); setError(''); setNotice(''); setQuote(undefined); setDocument(undefined);
     void api.materialsRead({ target, page, offset, view }).then(result => {
       if (id !== request.current) return;
-      setDocument(result); scroller.current?.scrollTo({ top: 0 });
+      setDocument(result);
+      requestAnimationFrame(() => {
+        if (id !== request.current) return;
+        const mark = revealPending.current && prose.current?.querySelector<HTMLElement>('.material-search-match');
+        if (mark) { mark.scrollIntoView({ block: 'center' }); revealPending.current = false; }
+        else scroller.current?.scrollTo({ top: previousScroll });
+      });
     }).catch(problem => { if (id === request.current) setError(readingError(problem)); })
       .finally(() => { if (id === request.current) setLoading(false); });
     return () => { request.current++; void api.materialsCancel(); };
-  }, [target, page, offset, view, boundary, retry]);
+  }, [target, page, offset, view, boundary, retry, active, pendingRef?.resourceId]);
   useEffect(() => {
     if (!document || !highlight || document.item.resourceId !== highlight.resourceId) return;
     if (document.item.sha256 !== highlight.sha256) {
       setHighlight(undefined); setNotice('原文件已经换过，这里是现在的内容。'); return;
     }
-    const mark = prose.current?.querySelector<HTMLElement>('.material-search-match');
-    mark?.scrollIntoView({ block: 'center' });
   }, [document, highlight]);
 
   function open(item: MaterialItem, pendingItem = false) {
     setHighlight(undefined);
-    setPage(1); setOffset(0); setView(item.mediaType === 'application/pdf' ? 'page' : 'text');
+    const bookmark = bookmarks.current.get(item.resourceId);
+    setPage(bookmark?.page || 1); setOffset(bookmark?.offset || 0);
+    setView(bookmark?.view || (item.mediaType === 'application/pdf' ? 'page' : 'text')); setZoom(bookmark?.zoom || 100);
     setTarget(pendingItem && pendingRef ? { kind: 'pending', reference: pendingRef } : { kind: 'saved', resourceId: item.resourceId });
     setListOpen(false); setQuery('');
   }
@@ -158,11 +186,41 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     const prefix = range.cloneRange(); prefix.selectNodeContents(prose.current); prefix.setEnd(range.startContainer, range.startOffset);
     const text = range.toString();
     if (!text.trim()) { setQuote(undefined); return; }
-    if (text.length > 4000) { setQuote(undefined); setNotice('这段有些长，选短一点，我们接着聊。'); return; }
+    if (Array.from(text).length > 4000) { setQuote(undefined); setNotice('这段有些长，选短一点，我们接着聊。'); return; }
     setNotice('');
     const start = document.start + Array.from(prefix.toString()).length;
     setQuote({ resourceId: document.item.resourceId, sha256: document.item.sha256, name: document.item.name,
       text, page: document.page, start, end: start + Array.from(text).length });
+    const rect = range.getBoundingClientRect(), container = reader.current?.getBoundingClientRect();
+    if (container) setQuotePosition({ left: Math.max(12, Math.min(container.width - 292, rect.left - container.left)),
+      top: Math.max(116, Math.min(container.height - 110, rect.top - container.top - 52)) });
+    setSavedNote(undefined);
+  }
+  async function useQuote(operation: 'chat' | 'note') {
+    if (!quote || !target || quoteBusy || operation === 'chat' && !destination.current.enabled) return;
+    const selected = quote, originalDestination = { ...destination.current };
+    setQuoteBusy(true); setNotice('');
+    try {
+      const input = { target, quote: materialQuoteAddress(selected) };
+      if (operation === 'note') {
+        const result = await api.materialsKeepQuote(input);
+        if (!mounted.current || originalDestination.boundary !== destination.current.boundary) return;
+        if (result.status === 'saved') { setSavedNote({ id: result.note.id, revision: result.note.revision }); setNotice('已留在笔记'); }
+      } else {
+        const current = await api.materialsQuote(input);
+        if (!mounted.current || originalDestination.boundary !== destination.current.boundary
+          || originalDestination.sessionId !== destination.current.sessionId || !destination.current.enabled) return;
+        if (!onQuote(current)) return;
+      }
+      setQuote(undefined);
+    } catch (problem) { if (mounted.current) setNotice(readingError(problem)); }
+    finally { if (mounted.current) setQuoteBusy(false); }
+  }
+  function changeZoom(value: number) {
+    const viewport = scroller.current;
+    const ratio = viewport && viewport.scrollHeight > viewport.clientHeight ? viewport.scrollTop / (viewport.scrollHeight - viewport.clientHeight) : 0;
+    setZoom(value);
+    requestAnimationFrame(() => { if (viewport) viewport.scrollTop = ratio * (viewport.scrollHeight - viewport.clientHeight); });
   }
   const pendingItem: MaterialItem | undefined = pendingRef && { resourceId: pendingRef.resourceId, name: pendingRef.name, mediaType: pendingRef.mediaType, byteLength: pendingRef.byteLength, sha256: pendingRef.sha256 };
   const allItems = [...(pendingItem ? [pendingItem] : []), ...items.filter(item => item.resourceId !== pendingRef?.resourceId)];
@@ -188,15 +246,16 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     {listError && <div className="materials-inline-error" role="alert"><p>这次没能取回资料列表。</p><button className="text-button" onClick={() => setRefresh(value => value + 1)}>再看一次</button></div>}
     <button className="text-button materials-add" onClick={() => void attach()} disabled={choosing || !draftEnabled}><Plus size={17} />{choosing ? '等你选好…' : '再添一份资料'}</button>
   </div>;
-  return <section className={`materials-panel ${compact ? 'is-compact' : ''} ${children ? 'has-conversation' : ''}`} aria-label="资料原文">
-    <div className="materials-reader">
-      <header className="materials-heading"><button className="text-button" onClick={onClose}><ArrowLeft size={16} />回到聊天</button><span>留在手边，慢慢看。</span></header>
+  return <section hidden={!active} className={`materials-panel ${compact ? 'is-compact' : ''} ${children ? 'has-conversation' : ''}`} aria-label="资料原文">
+    <div className="materials-reader" ref={reader}>
+      {!target && <header className="materials-heading"><button className="text-button" onClick={onClose}><ArrowLeft size={16} />回到聊天</button></header>}
       {!target ? <div className="materials-welcome">
-        <div className="materials-welcome-copy"><span className="materials-eyebrow">留下 · 资料</span><h1>把资料放在身边</h1><p>翻到想聊的那一页，我们一起看。</p></div>
+        <div className="materials-welcome-copy"><h1>资料</h1></div>
         {allItems.length ? index : <div className="materials-empty"><div className="materials-paper-mark"><FileText size={52} strokeWidth={1} /></div><p>讲义、文章，或刚记下的一段话。</p><button className="primary-button" onClick={() => void attach()} disabled={choosing || !draftEnabled}><FolderOpen size={17} />{choosing ? '等你选好…' : '选一份资料'}</button><small>PDF、Markdown 和文字文件</small></div>}
         {listError && !allItems.length && <p className="materials-muted" role="alert">{listError}</p>}
       </div> : <>
         <div className="materials-toolbar">
+          <button className="icon-button" aria-label="收起资料，回到聊天" title="回到聊天" onClick={onClose}><ArrowLeft size={18} /></button>
           <button className="icon-button" aria-label={listOpen ? '收起资料列表' : '打开资料列表'} aria-expanded={listOpen} onClick={() => setListOpen(value => !value)}><List size={19} /></button>
           <strong className="materials-filename" title={selected?.name}>{selected?.name || '原文'}</strong>
           <button className="icon-button" aria-label="带走原文件" title="带走原文件" disabled={exporting} onClick={() => void exportOriginal()}><Download size={17} /></button>
@@ -206,25 +265,34 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
           </div>}
         </div>
         {listOpen && <div className="materials-list-popover">{index}</div>}
-        <div className="materials-scroll" ref={scroller} aria-busy={loading}>
+        <div className="materials-scroll" ref={scroller} aria-busy={loading} onScroll={() => {
+          if (!loading && document && scroller.current) positions.current.set(readingKey, scroller.current.scrollTop);
+          if (quote) setQuote(undefined);
+        }}>
           {loading ? <div className="materials-opening" role="status"><LoaderCircle size={23} className="spin" /><p>正在翻开这一页…</p></div> : error ? <div className="materials-recovery" role="alert">
             <div className="materials-paper-mark"><FileText size={48} strokeWidth={1} /></div><h2>这份文件没能打开。</h2><p>你可以再试一次，也可以换一份原文件。</p>
             <div className="field-buttons"><button className="primary-button" onClick={() => setRetry(value => value + 1)}>再试一次</button><button className="subtle-button" onClick={() => void attach()} disabled={choosing || !draftEnabled}>重新选择</button></div>
             <details><summary>看看原因</summary><p>{error}</p></details>
           </div> : document ? <>
-            {document.image ? <div className="material-page-image"><img src={document.image.dataUrl} width={document.image.width} height={document.image.height} alt={`${document.item.name}，第 ${document.page} 页原文`} /></div>
-              : document.text ? <pre className="material-original" ref={prose} onMouseUp={captureSelection} onKeyUp={captureSelection} tabIndex={0}>{originalText()}</pre>
+            {document.image ? <div className="material-page-image" style={{ width: `${zoom}%` }}><img src={document.image.dataUrl} width={document.image.width} height={document.image.height} alt={`${document.item.name}，第 ${document.page} 页原文`} /></div>
+              : document.text ? <pre className="material-original" ref={prose} style={{ fontSize: `calc(var(--reading-size) * ${zoom / 100})` }} onPointerUp={captureSelection} onKeyUp={captureSelection} tabIndex={0} aria-label="可选择的原文">{originalText()}</pre>
               : <div className="materials-scan"><BookOpen size={32} strokeWidth={1.25} /><h2>先看看这一页</h2><p>这一页没有可选中的文字。可以先看原页面，再说说你想问哪里。</p><button className="primary-button" onClick={() => { setView('page'); setOffset(0); }}>看原页面</button></div>}
             {document.needsVisual && document.text && <p className="materials-page-note">这一页还有图表，切到「页面」可以一起看。</p>}
           </> : null}
         </div>
+        {quote && <div className="material-selection-actions" style={quotePosition} role="group" aria-label="选段操作" onMouseDown={event => event.preventDefault()}>
+          <button disabled={!draftEnabled || quoteBusy} onClick={() => void useQuote('chat')}><MessageCircle size={17} />聊这一段</button>
+          <button disabled={quoteBusy} onClick={() => void useQuote('note')}><BookmarkPlus size={17} />留在笔记</button>
+        </div>}
         <footer className="materials-footer">
-          {quote ? <button className="material-quote-button" disabled={!draftEnabled} onClick={() => { if (destination.current.enabled && onQuote(quote)) { setNotice('这段原文放进输入框了，想好再发。'); setQuote(undefined); } }}><Quote size={16} />带着这段问<ChevronRight size={14} /></button> : <span className="materials-reading-hint">{error ? '原文件还在，随时可以换一份。' : view === 'page' ? '切到文字，可以选一段接着聊。' : '选一段原文，接着问。'}</span>}
+          <select className="materials-zoom" aria-label="阅读缩放" value={zoom} onChange={event => changeZoom(Number(event.target.value))}>
+            {[85, 100, 115, 130, 150].map(value => <option key={value} value={value}>{value}%</option>)}
+          </select>
           {document?.pageCount ? <div className="materials-pagination"><button className="icon-button" aria-label="上一页" disabled={loading || page <= 1} onClick={() => { setPage(value => value - 1); setOffset(0); }}><ChevronLeft size={18} /></button><label><input aria-label="PDF页码" type="number" min="1" max={document.pageCount} value={page} onChange={event => { const value = Number(event.target.value); if (Number.isInteger(value) && value >= 1 && value <= document.pageCount!) { setPage(value); setOffset(0); } }} /><span>/ {document.pageCount}</span></label><button className="icon-button" aria-label="下一页" disabled={loading || page >= document.pageCount} onClick={() => { setPage(value => value + 1); setOffset(0); }}><ChevronRight size={18} /></button></div> : null}
           {document && (document.nextOffset !== null || document.start > 0) && <div className="materials-pagination"><button className="icon-button" aria-label="上一段原文" disabled={loading || offset <= 0} onClick={() => setOffset(Math.max(0, offset - MATERIAL_LIMITS.readCodePoints))}><ChevronLeft size={18} /></button><small>{Math.floor(offset / MATERIAL_LIMITS.readCodePoints) + 1} / {Math.ceil(document.total / MATERIAL_LIMITS.readCodePoints)}</small><button className="icon-button" aria-label="下一段原文" disabled={loading || document.nextOffset === null} onClick={() => setOffset(document.nextOffset!)}><ChevronRight size={18} /></button></div>}
         </footer>
       </>}
-      {notice && <p className="materials-notice" role="status">{notice}</p>}
+      {notice && <div className="materials-notice" role="status"><span>{notice}</span>{savedNote && onOpenNote && <button className="text-button" onClick={() => onOpenNote(savedNote.id, savedNote.revision)}>打开笔记<ChevronRight size={14} /></button>}</div>}
     </div>
     {children && <div className="materials-conversation">{children}</div>}
   </section>;

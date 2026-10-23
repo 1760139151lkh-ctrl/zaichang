@@ -142,6 +142,7 @@ export function describeWorkRhythms(input: PlanningComparisonInput, alternative:
 
 export function planningBranchUsable(branch: PlanningComparisonBranch) {
   return !!branch.draft && branch.feasibility !== 'not_feasible'
+    && branch.draft.completeness === 'all_tasks_placed' && !branch.draft.unscheduled.length
     && branch.workRhythms.every(rhythm => rhythm.complete && rhythm.matchesRequest);
 }
 

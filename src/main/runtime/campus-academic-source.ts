@@ -4,23 +4,33 @@ import { HarnessError, type EvidenceEvent, type ScopeHandle } from '../../shared
 import type { KernelRepository } from '../storage/repository';
 import type { PolicyKernel } from './policy';
 import { canonical } from './semantics';
+import { campusQueryReadsCourseGrades, campusLookupReadsCourseGrades, validateCampusQuery } from '../capabilities/campus-query';
 
 export function campusSensitiveResource(capability: string, raw: unknown): CampusSensitiveRead['resource'] | undefined {
   if (!['campus.lookup', 'campus.imported_lookup', 'campus.query'].includes(capability) || !raw || typeof raw !== 'object') return;
   const input = raw as { operation?: string; domain?: string; resource?: string; spec?: { resource?: string } };
   if (capability === 'campus.query' && ['resources', 'schema'].includes(input.operation || '')) return;
-  const resource = capability === 'campus.query' ? input.resource || input.spec?.resource : input.domain;
-  return resource === 'gpa' ? 'gpa_overall' : ['grades', 'retakes', 'gpa_overall', 'gpa_semesters', 'gpa_cumulative'].includes(resource || '')
+  const value = capability === 'campus.query' ? input.resource || input.spec?.resource : input.domain;
+  const resource = value === 'gpa' ? 'gpa_overall' : value === 'card' ? 'card_accounts' : value === 'profile' ? 'student_profile' : value;
+  return ['grades', 'retakes', 'gpa_overall', 'gpa_semesters', 'gpa_cumulative', 'reservations', 'reservation_violations', 'card_accounts', 'transactions', 'student_profile', 'roles'].includes(resource || '')
     ? resource as CampusSensitiveRead['resource'] : undefined;
 }
 export function campusSensitiveResources(capability: string, raw: unknown): CampusSensitiveRead['resource'][] {
+  if (capability === 'campus.overview' && raw && typeof raw === 'object'
+    && (raw as { includeSensitiveDomains?: boolean }).includeSensitiveDomains === true)
+    return [...campusSensitiveReadSchema.shape.resource.options];
   const first = campusSensitiveResource(capability, raw), input = raw as { spec?: { resources?: string[]; join?: { resource?: string } } } | undefined;
   const more = capability === 'campus.query' ? [...(input?.spec?.resources || []), ...(input?.spec?.join?.resource ? [input.spec.join.resource] : [])]
     .flatMap(resource => campusSensitiveResource('campus.query', { operation: 'select', resource }) || []) : [];
-  return [...new Set([...(first ? [first] : []), ...more])];
+  const nested: CampusSensitiveRead['resource'][] = capability === 'campus.query' && campusQueryReadsCourseGrades(validateCampusQuery(raw))
+    || capability === 'campus.lookup' && campusLookupReadsCourseGrades(raw as Parameters<typeof campusLookupReadsCourseGrades>[0]) ? ['grades'] : [];
+  return [...new Set([...(first ? [first] : []), ...more, ...nested])];
 }
 export const campusSensitiveGrant = (resource: CampusSensitiveRead['resource']): CampusSensitiveRead['grant'] =>
-  resource === 'grades' || resource === 'retakes' ? 'campus:grades:read' : 'campus:gpa:read';
+  resource === 'grades' || resource === 'retakes' ? 'campus:grades:read'
+    : resource === 'reservations' || resource === 'reservation_violations' ? 'campus:reservations:read'
+      : resource === 'card_accounts' ? 'campus:card:read' : resource === 'transactions' ? 'campus:transactions:read'
+        : resource === 'student_profile' || resource === 'roles' ? 'campus:profile:read' : 'campus:gpa:read';
 
 /** Records an actual, bounded purpose admission. These process-local handles
  * do not alter the main contract or the user's configured grants. */
@@ -43,10 +53,10 @@ export class CampusAcademicSourceService {
   stamp(parent: ScopeHandle, readScope: ScopeHandle, resource: CampusSensitiveRead['resource'], sourceId: string,
     data: unknown, events: readonly EvidenceEvent[]): CampusSensitiveRead {
     const scope = this.policy.validate(parent), grant = campusSensitiveGrant(resource);
-    if (!this.scopeAuthorized(readScope, grant)) throw new HarnessError('campus_purpose_required', '这次成绩读取尚未核清具体用途。');
+    if (!this.scopeAuthorized(readScope, grant)) throw new HarnessError('campus_purpose_required', '这份校园资料的本轮用途还没有核清。');
     const event = events.find(event => scope.currentEventIds.includes(event.id) && event.speaker === 'user'
       && event.authority === 'user_statement' && !event.parentEventId);
-    if (!event) throw new HarnessError('campus_purpose_source', '这次成绩用途缺少本轮本人请求，未保留跨轮读取许可。');
+    if (!event) throw new HarnessError('campus_purpose_source', '这份校园资料的本轮用途没有对应到本人当前请求，尚未保留读取许可。');
     return campusSensitiveReadSchema.parse({ grant, resource, sourceId,
       sourceVersion: createHash('sha256').update(canonical(data)).digest('hex'), authorizationEventId: event.id,
       authorizationContentVersion: event.contentVersion, privacyEpoch: scope.privacyEpoch, policyRevision: scope.policyRevision,

@@ -29,7 +29,7 @@ export function exportCalendarSnapshot(items: Action[], raw: unknown, now: strin
   const expanded = expandAgenda(accepted, input.from, input.to, input.timeZone);
   const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Zaichang//Personal Calendar//ZH', 'CALSCALE:GREGORIAN', 'X-WR-CALNAME:在场 · 我的安排'];
   const reasons = new Set<string>(); let count = 0, omitted = expanded.issues.length;
-  if (expanded.issues.length) reasons.add('部分重复安排的时间还不能确定，未放进文件。');
+  if (expanded.issues.length) reasons.add('部分安排的日期或时间还需要确认，未放进文件。');
   for (const item of expanded.items) {
     const allDay = typeof item.allDayDate === 'string' ? item.allDayDate : undefined;
     const start = typeof item.startsAt === 'string' ? item.startsAt : undefined;

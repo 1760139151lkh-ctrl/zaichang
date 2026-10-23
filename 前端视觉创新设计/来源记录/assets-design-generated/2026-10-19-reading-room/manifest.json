@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-19",
+  "method": "built-in GPT Image, precise-object-edit",
+  "purpose": "Quieter room artwork behind actual shared reading/work; the original welcoming room and selected character remain their existing assets.",
+  "source": "Each matching existing project morning/dusk/night room asset was the sole edit target. No personal photograph or external image was supplied.",
+  "prompt": "prompt.md",
+  "files": [
+    {
+      "source": "前端视觉创新设计/统一图库/原图/素材-人物与窗景/晨光窗景-e304ff26879b.png",
+      "output": "前端视觉创新设计/统一图库/原图/素材-人物与窗景/白日窗景-6bc5b2f25677.png",
+      "originalSource": "src/renderer/assets/companion/morning.png",
+      "originalOutput": "src/renderer/assets/companion/reading-morning.png"
+    },
+    {
+      "source": "前端视觉创新设计/统一图库/原图/素材-人物与窗景/暮色窗景-e818d1dc8c2c.png",
+      "output": "前端视觉创新设计/统一图库/原图/素材-人物与窗景/落日窗景-f1a7dc37a5e6.png",
+      "originalSource": "src/renderer/assets/companion/dusk.png",
+      "originalOutput": "src/renderer/assets/companion/reading-dusk.png"
+    },
+    {
+      "source": "前端视觉创新设计/统一图库/原图/素材-人物与窗景/夜灯窗景-dab8185e3ca4.png",
+      "output": "前端视觉创新设计/统一图库/原图/素材-人物与窗景/夜景窗边-9a43bca705f4.png",
+      "originalSource": "src/renderer/assets/companion/night.png",
+      "originalOutput": "src/renderer/assets/companion/reading-night.png"
+    }
+  ],
+  "change": "Removed the large knitted throw and piled cushions at lower right, replacing them with an empty plain window seat/wood surface. Preserved the window, campus/lake view, ivy, curtain, books, mug, camera and each original lighting mood. Original backgrounds already contained no person.",
+  "use": "Opaque local product assets selected only for CompanionScene quiet && !preview with the existing built-in art. User-selected custom pictures keep their original image/background branch. Welcome, immersive rest and appearance preview keep the original room. Selected character PNGs remain independently rendered once.",
+  "licenseAndUse": "User-authorized AI edits for this private project, retaining the original artwork's existing rights boundary. No new third-party raster source was supplied; this record grants no additional public redistribution permission. These are visual interiors, not location evidence or model input.",
+  "status": "All three generated derivatives personally inspected as artwork. Integrated rendering awaits the next shared visual build; no business-model validation was performed."
+}

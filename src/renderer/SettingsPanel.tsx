@@ -624,7 +624,10 @@ export function SettingsPanel({
                       </button>)}
                     </div>
                     <Switch label="留意你交给我的事" detail="关闭后，等你询问时再看。" checked={interaction.followup === 'meaningful_change'} disabled={!!pending} onChange={value => void update('followup', { interaction: { ...interaction, followup: value ? 'meaningful_change' : 'on_request' } })} />
-                    {result(['initiative', 'followup'])}
+                    <div className="rhythm-choice-row"><span>主动来聊</span><div className="rhythm-segmented" role="group" aria-label="不为事情、只是来找你聊聊的频率">
+                      {([['off', '不用'], ['sometimes', '偶尔'], ['often', '常来']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={(state.settings.companionCheckIns || 'sometimes') === value} disabled={!!pending} onClick={() => void update('checkins', { companionCheckIns: value })}>{label}</button>)}
+                    </div></div>
+                    {result(['initiative', 'followup', 'checkins'])}
                   </section>
                 </div>
                 <aside className="rhythm-preview-column" aria-label="阅读预览与提醒">
@@ -636,9 +639,12 @@ export function SettingsPanel({
                     <div className="reading-preview-formula" aria-label="x(t)等于u(t)乘以c(t)">x(t) = u(t)c(t)</div>
                   </div>
                   <section className="preference-section reminder-preference">
-                    <h3 className="section-title">约好的提醒</h3>
-                    <Switch checked={state.settings.remindersEnabled} onChange={v => void update('reminders', { remindersEnabled: v })} label="提醒我的安排" detail="在场开着时，会提醒你约好的事。" disabled={!!pending || (busy && !state.settings.remindersEnabled)} />
-                    {result(['reminders'])}
+                    <h3 className="section-title">提醒与通知</h3>
+                    <Switch checked={state.settings.remindersEnabled} onChange={v => void update('reminders', { remindersEnabled: v })} label="用系统通知叫我" detail="约好的提醒会准时响；你不在窗口前时，想告诉你的事也会轻轻提一下。" disabled={!!pending || (busy && !state.settings.remindersEnabled)} />
+                    <Switch checked={(state.settings.notificationPreview || 'words') === 'words'} onChange={v => void update('preview', { notificationPreview: v ? 'words' : 'private' })} label="通知里显示说的话" detail="关掉后，通知只写“有件事想跟你说”。" disabled={!!pending} />
+                    <Switch checked={(state.settings.backgroundPresence || 'tray') === 'tray'} onChange={v => void update('presence', { backgroundPresence: v ? 'tray' : 'quit' })} label="关掉窗口后留在托盘" detail="按当前设置，继续处理仍有效的提醒与托付；电脑睡眠或关机时暂停。" disabled={!!pending} />
+                    <Switch checked={state.settings.launchAtLogin === true} onChange={v => void update('login', { launchAtLogin: v })} label="开机后优先留在托盘" detail="启动时先收在托盘；托盘暂时不可用时，会打开窗口。" disabled={!!pending} />
+                    {result(['reminders', 'preview', 'presence', 'login'])}
                   </section>
                 </aside>
               </div>
@@ -698,6 +704,7 @@ export function SettingsPanel({
                       })
                     }
                   >
+                    <option value="character">跟随角色自然表达</option>
                     <option value="none">不主动开玩笑</option>
                     <option value="light">合适时轻松一点</option>
                   </select>

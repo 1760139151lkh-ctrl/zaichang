@@ -1,0 +1,22 @@
+{
+  "kind": "generated_narrative_illustration",
+  "tool": "built-in image_gen, transparent image edit",
+  "reference": "前端视觉创新设计/统一图库/原图/界面设计-对话与动态内容/共写故事方案A-B-2afbad0dab9d.png",
+  "assets": [
+    {
+      "file": "前端视觉创新设计/统一图库/原图/素材-人物与窗景/校园桥夜景-df6a2e7e0971.png",
+      "origin": "exec-a35ff082-6020-4db9-8b85-a75e8d99e43f.png",
+      "prompt": "Extract only the soft watercolor night-campus footbridge from left A. Preserve grey-blue water, warm lamplight, bridge and trees, genuinely transparent softly feathered edges. Remove UI, text, page rectangles, borders, avatars and other illustration. Imaginary narrative art, not a real campus map or observation.",
+      "originalFile": "src/renderer/assets/discussion/night-bridge.png"
+    },
+    {
+      "file": "前端视觉创新设计/统一图库/原图/素材-人物与窗景/雨夜伞下人影-390b7e90c36d.png",
+      "origin": "exec-a8c477f5-37c5-4e0b-a27e-c7cf775df0c3.png",
+      "prompt": "Extract only the second watercolor story illustration in left A: a mysterious umbrella figure under a golden lamp, imaginary grey-blue campus night, wet pavement and trees. Wide transparent watercolor with no UI, words, page, border or bridge. Imaginary narrative art, not a user portrait or real location observation.",
+      "originalFile": "src/renderer/assets/discussion/lamp-letter.png"
+    }
+  ],
+  "use": "Optional host-allowlisted narrative accents in a source-bound discussion. The model chooses an existing illustration; no keyword routing, arbitrary image URLs or runtime image-generation claim. The app uses copied project assets without Codex directories.",
+  "rights": "Generated for this project from its generated design reference; no third-party image was copied.",
+  "originalReference": "assets/design/generated/2026-10-18-shared-discussion/discussion-ab.png"
+}

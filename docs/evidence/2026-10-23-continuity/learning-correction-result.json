@@ -1,0 +1,26 @@
+{
+  "evidence_type": "aggregate_summary",
+  "environment": "isolated_synthetic_data_test",
+  "scenario_category": "notebook_source_correction_in_an_existing_learning_sheet",
+  "model_responses": {
+    "total": 8,
+    "response_model_counts": {
+      "gpt-6-luna": 8
+    }
+  },
+  "observations": {
+    "final_message_status": "done",
+    "learning_question_source": "note",
+    "projected_question_matches_source_note": true,
+    "presentation": "note_and_study_focus",
+    "tool_step_status_counts": {
+      "done": 6,
+      "blocked": 1
+    }
+  },
+  "limitations": [
+    "A completed final message does not imply every intermediate tool step succeeded.",
+    "This summary does not verify production DeepSeek, planning, map interactions, or other learning scenarios.",
+    "This model and source observation does not establish complete visual or interaction acceptance."
+  ]
+}

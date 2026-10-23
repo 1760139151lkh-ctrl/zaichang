@@ -60,7 +60,7 @@ const dataSchema = z.object({ type: z.literal('learning_process'), version: z.li
 type LearningData = z.infer<typeof dataSchema>;
 type Locator = z.infer<typeof locator>;
 type Permission = (ref: WorkSourceRef) => boolean;
-const meaning = '只保存这件学习事项的有来源过程，不生成人物能力标签。本人报告始终是reported；产物、平台分数或完成不证明本人独立表现；助手讲解不证明掌握。没有帮助记录不证明没有帮助。生成、展示、阅读和实际使用分别看证据。';
+const meaning = '这里记录的是同一件学习事项里实际留下的原题、本人尝试、帮助和当时条件。本人说过的结果仍是本人报告，产物、平台分数、完成记录和助手讲解各说明不同的事；独立表现与是否掌握还需要相应依据。帮助是否生成、展示、读过和实际用过也各有自己的记录，某一项没有留下来，含义仍是未知。';
 
 /** A source-address view under the existing collaboration/Work owner. It never
  * stores a second copy of a question, answer, private quote or ability profile. */
@@ -107,7 +107,7 @@ export class LearningProcessService {
     try {
       if (canonical(record.sourceBinding) !== canonical(this.repo.resolveWorkSourceBinding(handle, this.refs(parsed.data)))) return;
       for (const aid of parsed.data.assistance) if ('kind' in aid.source) {
-        const original = this.repo.learningAssistantSource(handle, aid.source);
+        const original = this.repo.learningAssistantSource(handle, aid.source, { historicalWork: true });
         if (!original || original.contentSha256 !== aid.source.contentSha256
           || canonical(original.sourceRefs) !== canonical(aid.source.sourceRefs)) return;
       }
@@ -127,7 +127,7 @@ export class LearningProcessService {
     this.scope(handle);
     const current = this.current(handle, recordId, permits);
     if (!current || current.record.revision !== revision)
-      throw new HarnessError('learning_process_changed', '刚读的学习过程或其来源已改变／停止使用，需要重新读取；没有恢复旧报告或旧帮助。');
+      throw new HarnessError('learning_process_changed', '刚读的学习过程或某处来源已变化，也可能已停止使用；手上的版本与现在可读的内容不再对应。原入口仍可核对当前状态。');
   }
 
   save(handle: ScopeHandle, sessionId: string, raw: z.infer<typeof learningWriteInput>) {
@@ -166,9 +166,9 @@ export class LearningProcessService {
         attempt: input.attempt ? this.cite(handle, input.attempt, true) : before!.attempt,
         assistance: input.assistance === undefined ? before?.assistance || [] : input.assistance.map(aid => {
           const aidSource = 'kind' in aid.source ? (() => {
-            const original = this.repo.learningAssistantSource(handle, aid.source);
+            const original = this.repo.learningAssistantSource(handle, aid.source, { historicalWork: true });
             if (!original || codePointSlice(original.text, aid.source.start, aid.source.end) !== aid.source.quote)
-              throw new HarnessError('learning_assistance_source', '这份助手材料的原消息或依据不可核对；可改用本人报告，不能补造已展示或已读。');
+              throw new HarnessError('learning_assistance_source', '这份帮助的原消息或依据目前没有对应上。本人若曾说过实际用过怎样的帮助，那段原话也有自己的报告身份；是否展示、读过则各有实际留下的记录。');
             return { kind: 'assistant_message' as const, messageId: original.id, start: aid.source.start, end: aid.source.end,
               contentSha256: original.contentSha256, sourceRefs: original.sourceRefs };
           })() : this.cite(handle, aid.source);
@@ -186,10 +186,10 @@ export class LearningProcessService {
       dataSchema.parse(data);
       const recordId = previous?.record.id || 'learning:' + createHash('sha256').update(canonical({ matterId: matter.id, problem: data.problem, attempt: data.attempt })).digest('hex');
       for (const aid of data.assistance) if ('kind' in aid.source) {
-        const original = this.repo.learningAssistantSource(handle, aid.source);
-        if (!original) throw new HarnessError('learning_assistance_source', '这份助手材料的原消息或依据已改变，请重新读取后再记录。');
+        const original = this.repo.learningAssistantSource(handle, aid.source, { historicalWork: true });
+        if (!original) throw new HarnessError('learning_assistance_source', '这份帮助的原消息或依据已有变化，手上的材料没有与现在可读的内容对应上；原消息的读取地址还能用来了解当前状态。');
         if (original.learningProcessIds?.includes(recordId))
-          throw new HarnessError('learning_assistance_cycle', '这份助手材料已经引用了将要更新的学习记录，保存会让它依赖自身。请引用更早的原帮助消息，或只保留本人实际使用帮助的原话报告。');
+          throw new HarnessError('learning_assistance_cycle', '这段助手材料本身参考过正在更新的学习记录，把两者接在一起会形成相互依赖。更早实际提供帮助的原消息，以及本人关于用过帮助的原话，各有独立的来处，可以帮助找清这次过程。');
       }
       const duplicate = !previous && this.current(handle, recordId);
       if (duplicate) {
@@ -292,14 +292,14 @@ export class LearningProcessService {
           attemptSources: sameAttemptReport ? 'same_original_report' : 'separate_original_reports', twoIndependentAttemptsEstablished: false,
           conditionsComplete: 'not_established', chronologicalAttemptOrder: 'not_established', assistanceHistoryComplete: 'not_established',
           growthEstablished: false, independentPerformance: 'not_established', mastery: 'not_established',
-          meaning: sameAttemptReport ? '两条记录来自同一次尝试报告，不能当成两次真实尝试或成长证据。'
-            : sameProblem && sameConditions ? '可以对照同一原题及所记录条件下的两份尝试报告、帮助和产物；报告地址不同不证明两次独立表现，条件及帮助覆盖仍未知，不能自动得出成长或掌握结论。'
-            : '只并排展示有来源的过程。题目来源或已记录条件尚不可比，不按分数、次数或一次卡顿评定能力；需要时回读原题和条件。' };
+          meaning: sameAttemptReport ? '两条记录来自同一次尝试报告，因此目前看到的是同一份报告的关系，尚没有两次真实尝试或成长的独立依据。'
+            : sameProblem && sameConditions ? '这里可以对照同一原题及已记录条件下的两份尝试报告、帮助和产物。报告地址不同，独立表现、条件与帮助是否完整，以及是否成长或掌握，仍各有待相应材料支持。'
+            : '这里并排放着有来源的过程，题目来源或已记录条件尚未对上。原题和当时条件能帮助理解它们怎样比较，分数、次数或一次卡顿本身只说明其中一部分。' };
       }
     }
     return { status: values.length ? 'fresh' : 'not_found', matterId: args.matterId, items: values.map(value => this.project(handle, value)),
       ...(comparison ? { comparison } : {}), coverage: { nextOffset, complete: nextOffset === null,
-        meaning: '只覆盖当前可读、许可片段内的这件事；未展开不表示当时没有尝试、帮助或条件。预览不是全文，沿精确原话地址继续读取。',
+        meaning: '本页覆盖的是当前可读范围内这件事的一部分。没有展开的尝试、帮助和条件仍可能存在；这里是预览，精确原话地址可以继续读到相应内容。',
         ...(nextOffset === null ? {} : { read: { tool: 'read_learning', arguments: { ...args, offset: nextOffset } } }) }, meaning,
       records: values.map(value => value.record) };
   }

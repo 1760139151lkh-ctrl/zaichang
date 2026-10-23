@@ -1,6 +1,6 @@
 .discussion-paper { padding: 8px 0 5px; min-width: 0; color: var(--text); }
 .discussion-paper-heading { display: flex; gap: 24px; align-items: baseline; padding: 6px 0 24px; }
-.discussion-paper-heading h3 { margin: 0; flex: 1; min-width: 0; font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif; font-size: clamp(23px, 2.4vw, 31px); font-weight: 500; line-height: 1.55; letter-spacing: -.025em; text-wrap: pretty; }
+.discussion-paper-heading h3 { margin: 0; flex: 1; min-width: 0; font-family: var(--font-reading); font-size: clamp(23px, 2.4vw, 31px); font-weight: 500; line-height: 1.55; letter-spacing: -.025em; text-wrap: pretty; }
 .discussion-paper.is-continuation .discussion-paper-heading { padding-bottom: 10px; gap: 15px; }
 .discussion-paper.is-continuation .discussion-paper-heading h3 { font-size: 18px; line-height: 1.65; }
 .discussion-paper.is-continuation .discussion-main-manuscript { padding-bottom: 8px; font-size: 14px; line-height: 1.85; }
@@ -15,12 +15,12 @@
 .discussion-manuscript::before { content: ''; position: absolute; left: 0; top: 27px; bottom: 28px; width: 2px; background: var(--separator); transition: background-color 140ms ease; }
 .discussion-manuscript[aria-pressed='true']::before { background: var(--accent, #b6965f); }
 .discussion-manuscript[aria-pressed='true'], .discussion-manuscript:hover { background: color-mix(in srgb, var(--wash) 62%, transparent); }
-.discussion-manuscript-title { display: block; font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif; font-size: 19px; line-height: 1.6; font-weight: 500; }
+.discussion-manuscript-title { display: block; font-family: var(--font-reading); font-size: 19px; line-height: 1.6; font-weight: 500; }
 .discussion-manuscript-text { display: block; margin-top: 10px; color: var(--text-secondary); font-size: 14px; line-height: 1.95; white-space: pre-wrap; overflow-wrap: anywhere; }
 .discussion-story-art { float: right; width: 54%; max-width: 440px; margin: -8px -20px -8px 18px; pointer-events: none; mask-image: radial-gradient(ellipse closest-side, #000 78%, transparent 100%); }
 .discussion-manuscript::after { content: ''; display: block; clear: both; }
 .discussion-story-lead { display: block; width: 100%; max-height: 280px; object-fit: contain; margin: 10px 0; pointer-events: none; mask-image: radial-gradient(ellipse closest-side, #000 78%, transparent 100%); }
-.discussion-main-manuscript { display: flow-root; padding: 6px 0 23px; font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif; font-size: 16px; line-height: 2; color: var(--text); }
+.discussion-main-manuscript { display: flow-root; padding: 6px 0 23px; font-family: var(--font-reading); font-size: 16px; line-height: 2; color: var(--text); }
 .discussion-main-manuscript .markdown { font-family: inherit; font-size: inherit; line-height: inherit; }
 .discussion-main-manuscript .markdown p { margin: 0 0 1.1em; }
 .discussion-main-art { float: right; width: 52%; max-width: 450px; margin: -5px -14px 8px 19px; pointer-events: none; mask-image: radial-gradient(ellipse closest-side, #000 78%, transparent 100%); }

@@ -1,12 +1,14 @@
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
-import type { ModelWireMessage, ToolSpec } from '../provider';
+import { MODEL_REQUEST_TIMEOUT_MS, type ModelWireMessage, type ToolSpec } from '../provider';
 import { HarnessError, type DelegatedTask } from '../../shared/harness';
+import { runWithModelRequestWait, type ModelWaitScope } from './model-wait';
 
 export const HERMES_COMMIT = 'd595e636c83aa0b9606d4e914e1140ae9c796897';
 const MAX_FRAME = 16 * 1024 * 1024;
 export const HERMES_RPC_DEADLINE_MS = 175000;
+export const HERMES_MODEL_RPC_DEADLINE_MS = MODEL_REQUEST_TIMEOUT_MS + 10000;
 export interface HermesChildSnapshot {
   privacyEpoch: number;
   policyRevision: number;
@@ -29,9 +31,11 @@ export interface HermesRun {
   history: ModelWireMessage[];
   tools: ToolSpec[];
   thinking: 'enabled' | 'disabled';
+  /** @deprecated Retained for old callers only; the pinned agent's native
+   * unlimited default owns iteration execution. This value is not forwarded. */
   maxIterations?: number;
   maxOutputTokens?: number;
-  compression?: { enabled: boolean; thresholdTokens: number; forceInitial?: boolean };
+  compression?: { enabled: boolean; contextTokens?: number; thresholdTokens?: number; forceInitial?: boolean };
   signal: AbortSignal;
   /** Mechanism probes may shorten the host deadline, never extend it. */
   rpcDeadlineMs?: number;
@@ -51,6 +55,9 @@ export interface HermesResult {
   content: string;
   messages: ModelWireMessage[];
   interrupted: boolean;
+  /** Native coordinate on this exact result.messages projection. It is not
+   * inferred from repeated user text or retained after an unproven rewrite. */
+  currentTurn?: { id: string; userIndex: number };
 }
 
 /** Transport/state adapter only: the production model/tool loop lives in AIAgent. */
@@ -103,14 +110,33 @@ export async function runHermes(input: HermesRun): Promise<HermesResult> {
       if (settled) return;
       input.signal.throwIfAborted(); await input.validate(); input.signal.throwIfAborted();
       if (settled) return;
-      input.event?.({ kind: frame.kind, sequence: frame.sequence, payload: frame.kind === 'run.error' || frame.kind === 'run.ready' ? frame.payload : undefined });
+      input.event?.({ kind: frame.kind, sequence: frame.sequence, payload: ['run.error', 'run.ready', 'run.interrupted'].includes(frame.kind) ? frame.payload : undefined });
       if (frame.kind === 'run.error') throw new Error('Hermes 侧车失败：' + JSON.stringify(frame.payload));
+      if (frame.kind === 'run.interrupted') {
+        await Promise.all(preceding);
+        if (settled) return;
+        input.signal.throwIfAborted(); await input.validate(); input.signal.throwIfAborted();
+        const guardrail = frame.payload?.guardrail;
+        if (frame.payload?.code !== 'tool_guardrail_halt' || !guardrail
+          || !['block', 'halt'].includes(guardrail.action) || typeof guardrail.code !== 'string'
+          || typeof guardrail.tool_name !== 'string' || !Number.isSafeInteger(guardrail.count) || guardrail.count < 0)
+          throw new Error('Hermes 中断原因不完整。');
+        throw new HarnessError('tool_guardrail_halt', '重复调用触发了已有停止条件，本轮尚未完成。'
+          + ` ${guardrail.code}; tool=${guardrail.tool_name}; count=${guardrail.count}`);
+      }
       if (frame.kind === 'run.final') {
         // Validation can now await owner recovery. Capture predecessors before
         // registering this final frame so it never waits for its own promise.
         await Promise.all(preceding);
         if (settled) return;
         input.signal.throwIfAborted(); await input.validate(); input.signal.throwIfAborted();
+        const currentTurn = frame.payload?.currentTurn;
+        if (currentTurn !== undefined && (!currentTurn || typeof currentTurn !== 'object' || Array.isArray(currentTurn)
+          || typeof currentTurn.id !== 'string' || !currentTurn.id.trim() || currentTurn.id.length > 160
+          || !Number.isSafeInteger(currentTurn.userIndex) || currentTurn.userIndex < 0
+          || !Array.isArray(frame.payload.messages) || currentTurn.userIndex >= frame.payload.messages.length
+          || frame.payload.messages[currentTurn.userIndex]?.role !== 'user'))
+          throw new Error('Hermes 当前回合的原生消息坐标不完整。');
         settled = true;
         close();
         resolve(frame.payload as HermesResult);
@@ -126,7 +152,49 @@ export async function runHermes(input: HermesRun): Promise<HermesResult> {
       const controller = new AbortController();
       operations.set(frame.request_id, controller);
       const operationSignal = AbortSignal.any([input.signal, controller.signal]);
-      const timer = setTimeout(() => controller.abort(new RpcDeadlineError()), rpcDeadlineMs);
+      // Model understanding/content construction has no dispatched business
+      // effect. Parent and child calls share the model transport deadline;
+      // the run/child scope and explicit short probes still end independently.
+      const deadlineMs = input.rpcDeadlineMs === undefined && frame.kind === 'model.request'
+        ? HERMES_MODEL_RPC_DEADLINE_MS : rpcDeadlineMs;
+      let timer: ReturnType<typeof setTimeout> | undefined;
+      let active = true, waitSequence = 0, ordinaryRemaining = deadlineMs, ordinaryStarted = performance.now();
+      const modelWaits = new Map<symbol, number>();
+      const armDeadline = (notify = false) => {
+        clearTimeout(timer);
+        if (!active || settled || operationSignal.aborted) return;
+        const remaining = modelWaits.size ? Math.min(...modelWaits.values()) - performance.now()
+          : ordinaryRemaining - (performance.now() - ordinaryStarted);
+        if (remaining <= 0) { controller.abort(new RpcDeadlineError()); return; }
+        timer = setTimeout(() => controller.abort(new RpcDeadlineError()), remaining);
+        if (notify) write({ ...identity, kind: 'rpc.wait', request_id: frame.request_id,
+          payload: { revision: ++waitSequence, phase: modelWaits.size ? 'model' : 'ordinary',
+            timeout_ms: Math.ceil(remaining) + (modelWaits.size ? 10000 : 5000) } });
+      };
+      armDeadline();
+      const waitForModel = async <T>(request: () => Promise<T>): Promise<T> => {
+        operationSignal.throwIfAborted(); await input.validate(); operationSignal.throwIfAborted();
+        if (!active || settled) throw new DOMException('本次 RPC 已结束', 'AbortError');
+        if (!modelWaits.size) ordinaryRemaining -= performance.now() - ordinaryStarted;
+        if (ordinaryRemaining <= 0) { controller.abort(new RpcDeadlineError()); operationSignal.throwIfAborted(); }
+        const token = Symbol();
+        modelWaits.set(token, performance.now() + HERMES_MODEL_RPC_DEADLINE_MS);
+        armDeadline(true);
+        let value: T;
+        try {
+          operationSignal.throwIfAborted();
+          value = await request();
+        } finally {
+          // End model time as soon as that request settles. Owner/source
+          // validation and any following work consume ordinary time again.
+          armDeadline();
+          modelWaits.delete(token);
+          if (!modelWaits.size) ordinaryStarted = performance.now();
+          armDeadline(true);
+        }
+        operationSignal.throwIfAborted(); await input.validate(); operationSignal.throwIfAborted();
+        return value;
+      };
       let onAbort!: () => void;
       const cancelled = new Promise<never>((_, reject) => {
         onAbort = () => reject(operationSignal.reason);
@@ -165,8 +233,16 @@ export async function runHermes(input: HermesRun): Promise<HermesResult> {
         }
         throw new Error('未知或未授权的 Hermes 事件。');
       };
+      const modelWaitScope: ModelWaitScope = { wait: waitForModel };
       try {
-        const payload = await Promise.race([dispatch(), cancelled]);
+        // A semantic review or content writer may use the real model from
+        // inside a tool. Its model time does not consume ordinary I/O time.
+        // An explicit short probe keeps its original absolute deadline.
+        const dispatched = input.rpcDeadlineMs === undefined && frame.kind !== 'model.request'
+          ? runWithModelRequestWait(modelWaitScope, dispatch)
+          : dispatch();
+        const payload = await Promise.race([dispatched, cancelled]);
+        armDeadline();
         operationSignal.throwIfAborted(); await input.validate(); operationSignal.throwIfAborted();
         if (!settled) write({ ...identity, kind: 'response', request_id: frame.request_id, payload });
       } catch (error) {
@@ -175,6 +251,10 @@ export async function runHermes(input: HermesRun): Promise<HermesResult> {
         if (!settled) write({ ...identity, kind: 'response', request_id: frame.request_id,
           error: { code: error.code, outcome: 'unknown', message: error.message } });
       } finally {
+        active = false;
+        // A later independent timer may inherit the small context object,
+        // but never the ended RPC's callback, sources or cancellation owner.
+        modelWaitScope.wait = undefined;
         clearTimeout(timer);
         operationSignal.removeEventListener('abort', onAbort);
         operations.delete(frame.request_id);
@@ -214,6 +294,6 @@ export async function runHermes(input: HermesRun): Promise<HermesResult> {
     child.on('error', fail);
     child.on('exit', code => { void Promise.all([...pending]).then(() => { if (!settled) fail(new Error('Hermes 提前退出，退出码 ' + code)); }); });
     input.signal.addEventListener('abort', abort, { once: true });
-    write({ ...identity, kind: 'run.start', payload: { modelIdentity: input.modelIdentity, system: input.system, userMessage: input.userMessage, history: input.history, tools: input.tools, thinking: input.thinking, maxIterations: input.maxIterations || 12, maxOutputTokens: input.maxOutputTokens || 4096, compression: input.compression } });
+    write({ ...identity, kind: 'run.start', payload: { modelIdentity: input.modelIdentity, system: input.system, userMessage: input.userMessage, history: input.history, tools: input.tools, thinking: input.thinking, maxOutputTokens: input.maxOutputTokens || 4096, compression: input.compression } });
   });
 }

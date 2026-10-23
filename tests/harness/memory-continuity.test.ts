@@ -123,7 +123,7 @@ test('indexed and pending originals share one stable pagination order while whol
   } finally { f.close(); }
 });
 
-test('background source projection bounds raw reads, derived assertions, pack state and budget previews before serialization', async () => {
+test('background source projection bounds raw reads, derived assertions and pack state independently of usage estimates', async () => {
   const f = new Fixture();
   try {
     const event = f.ingest('允许读取的观察片段。不可外带的合成秘密代号银杏。');
@@ -145,7 +145,7 @@ test('background source projection bounds raw reads, derived assertions, pack st
     const tiny = await f.store.runtime.context.compile(ingress, [], new AbortController().signal);
     tiny.contract.budget.maxReadBytes = 1;
     const partial = f.store.runtime.context.prefetch(tiny, '观察片段', f.clock.now(), 0, 8, 0, project);
-    assert.equal(partial.status, 'partial');
+    assert.equal(partial.status, 'fresh');
     assert.ok(!JSON.stringify(partial).includes('银杏'));
   } finally { f.close(); }
 });

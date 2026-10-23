@@ -4,7 +4,7 @@ import type { Action } from '../../shared/types';
 import { HarnessError } from '../../shared/harness';
 import { calendarDate } from '../../shared/calendar';
 import { expandAgenda } from './calendar';
-import { addDate, dateInZone, dayBounds, canonical } from '../runtime/semantics';
+import { addDate, dateInZone, canonical } from '../runtime/semantics';
 import { planningDayBounds } from './planning-days';
 import type { PlanningRetainedContext, RetainedBoundaryCoverage } from './planning-intent-contract';
 
@@ -32,7 +32,7 @@ export const planningDraftInput = z.object({
   scheduleWindows: z.array(windowSchema).max(64).optional().describe('本次整体用于安排的时间范围，含新增工作、准备收尾、转场和休息；不把间隙猜成睡眠或忙碌。省略沿用整个核查窗口试算，但不证明本人现实可安排；空数组明确不新增占用。任务allowedWindows可进一步限制任务/资源。'),
   tasks: z.array(taskSchema).max(30), completedTaskIds: z.array(id).max(100).default([]),
   busy: z.array(z.object({ start: instant, end: instant.nullable(), sourceId: id, sourceVersion: z.string().max(160).optional(), title: z.string().max(160).optional(), placeId: id.optional() }).strict()).max(500).default([]),
-  sourceCoverage: z.array(z.object({ sourceId: id.describe('user-declared/current只表示本次明确自述，不替代外部连接器的覆盖。'), status: z.enum(['complete', 'partial', 'not_checked']), sourceVersion: z.string().max(160).optional(), reason: z.string().max(300).optional() }).strict()).max(30).default([]),
+  sourceCoverage: z.array(z.object({ sourceId: id.describe('user-declared/current只表示本次明确自述，不替代外部连接器的覆盖。'), status: z.enum(['complete', 'partial', 'not_checked']), sourceVersion: z.string().max(160).optional(), reason: z.string().max(300).optional() }).strict()).max(30).default([]).describe('各条分别说明本次纳入来源的实际覆盖。current或user-declared对应当前原话给出的任务、窗口与条件，complete表示这份已提供内容在本次试排里完整纳入，并不证明未读外部安排为空或可用。local-agenda只说明本机记录；仅有它或省略本字段，会保留其他来源未声明的条件。原有外部partial/not_checked与真实未知条件仍属于各自来源，当前自述不能代替或抹去它们。'),
   conditions: z.array(condition).max(20).default([]),
   protectedWindows: z.array(windowSchema.extend({ reason: z.string().min(1).max(300) }).strict()).max(64).default([]),
   restMinutes: z.number().int().min(0).max(120).default(10).describe('两个工作段之间额外保留的休息，不抵扣通勤；用户可调整，非医学规则。'),
@@ -292,8 +292,10 @@ export function draftCalendarPlan(items: Action[], raw: unknown, retained?: Plan
       return !value.recordIds.includes(version.id) || !row || row.done || row.planning?.state !== 'accepted' || (row.revision || 1) !== version.revision;
     })) throw new HarnessError('planning_retained_changed', '原已保存占用已变化或缺少当前版本，未生成新方案。');
   }
-  // Look outside the requested window for adjacent commitments whose transfers cross the edge.
-  const expansion = expandAgenda(items.filter(item => !item.done), iso(bounds.start - 1440 * minute), iso(bounds.end + 1440 * minute), input.timeZone);
+  // Only accepted time commitments constrain a plan, including their unresolved
+  // occurrences. Look outside the window for transfers crossing its edges.
+  const expansion = expandAgenda(items.filter(item => !item.done && (!item.planning || item.planning.state === 'accepted')
+    && (!item.kind || ['event', 'time_block'].includes(item.kind))), iso(bounds.start - 1440 * minute), iso(bounds.end + 1440 * minute), input.timeZone);
   const issues = [...expansion.issues];
   const occupied: Occupied[] = [];
   const localSources: { sourceId: string; sourceVersion: string; occurrenceId: string }[] = [];
@@ -301,7 +303,7 @@ export function draftCalendarPlan(items: Action[], raw: unknown, retained?: Plan
     const item = row as unknown as Action & { occurrenceId: string; endsAt?: string | null; dateBounds?: { from: string; to: string } };
     if (retainedRecordIds.has(item.id)) { localSources.push({ sourceId: item.id, sourceVersion: String(item.revision || 1), occurrenceId: item.occurrenceId }); continue; }
     if (item.planning && item.planning.state !== 'accepted' || item.kind && !['event', 'time_block'].includes(item.kind)) continue;
-    const allDay = item.allDayDate ? dayBounds(item.allDayDate, item.timeZone || input.timeZone) : undefined;
+    const allDay = item.allDayDate ? planningDayBounds(item.allDayDate, item.timeZone || input.timeZone) : undefined;
     const start = Date.parse(allDay?.from || item.startsAt || '');
     if (!Number.isFinite(start)) continue;
     const unknownEnd = !allDay && !item.durationMinutes;
@@ -454,7 +456,7 @@ export function draftCalendarPlan(items: Action[], raw: unknown, retained?: Plan
       meaning: input.scheduleWindows === undefined ? '未提供本次整体可安排窗口，仅沿整个核查范围试算；日历未登记占用不证明本人现实可安排。' : '仅使用本次提供窗口与核查范围的交集，含新增工作、准备收尾、转场和休息；范围外未纳入，不推断作息或空闲，也不产生保护事件。' },
     strategy: 'dependency_ready_priority_deadline_constructive', optimality: 'not_claimed', limits: { maxWorkSegments: maxSegments },
     calendarFingerprint, planFingerprint: hash({ input, calendarFingerprint }), sourceRevisions,
-    sourceCoverage: [{ sourceId: 'local-agenda', status: issues.length === 0 ? 'complete' : 'partial', reason: '仅本机已登记的具体实例，不证明所有现实承诺或精力。' }, ...input.sourceCoverage.filter(value => value.sourceId !== 'local-agenda')],
+    sourceCoverage: [{ sourceId: 'local-agenda', status: issues.length === 0 ? 'complete' : 'partial', reason: '仅本机已接受且占用时间的具体实例，不证明所有现实承诺或精力。' }, ...input.sourceCoverage.filter(value => value.sourceId !== 'local-agenda')],
     effectivePreferences: { restMinutes: input.restMinutes, transitionMinutes: input.transitionMinutes, maxScheduledMinutes: input.maxScheduledMinutes, reserveMinutes: input.reserveMinutes, dailyBudgets: input.dailyBudgets,
       taskRhythms: input.tasks.filter(task => task.maximumChunkMinutes !== undefined || task.minimumChunkMinutes !== undefined).map(task => ({ taskId: task.id, splittable: task.splittable, minimumChunkMinutes: task.minimumChunkMinutes ?? (task.splittable ? Math.min(30, task.durationMinutes.max) : task.durationMinutes.max), maximumChunkMinutes: task.maximumChunkMinutes ?? null })) },
     blocks, unscheduled, fixedCommitments: baseOccupied.filter(value => value.kind === 'fixed' || value.retained).map(value => ({ ...value, start: iso(value.start), end: iso(value.end) })),

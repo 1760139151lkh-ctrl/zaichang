@@ -37,9 +37,11 @@ for (const [file, before, after] of changes) {
   evidence.push({ file, sha256: createHash('sha256').update(fs.readFileSync(target)).digest('hex') });
 }
 // Configuration contains only static product policy, never messages, keys, or user facts.
+// The host's original scope deadline/cancellation owns child lifetime. Zero is
+// the pinned engine's explicit opt-out of a second, earlier native stopwatch.
 const home = path.resolve('.runtime/hermes-home');
 fs.mkdirSync(home, { recursive: true });
-fs.writeFileSync(path.join(home, 'config.yaml'), 'model:\n  context_length: 131072\ncompression:\n  enabled: false\nagent:\n  max_iterations: 16\n  reasoning_effort: high\n  reasoning_content: true\n  auto_memory: false\n  auto_skills: false\ndelegation:\n  max_concurrent_children: 2\n  max_spawn_depth: 1\n  max_iterations: 6\n  max_summary_chars: 24000\n  child_timeout_seconds: 120\nrelay:\n  enabled: false\nobservability:\n  shared_metrics:\n    enabled: false\n');
+fs.writeFileSync(path.join(home, 'config.yaml'), 'model:\n  context_length: 131072\ncompression:\n  enabled: false\nagent:\n  max_iterations: 16\n  reasoning_effort: high\n  reasoning_content: true\n  auto_memory: false\n  auto_skills: false\ndelegation:\n  max_concurrent_children: 2\n  max_spawn_depth: 1\n  max_iterations: 6\n  max_summary_chars: 24000\n  child_timeout_seconds: 0\nrelay:\n  enabled: false\nobservability:\n  shared_metrics:\n    enabled: false\n');
 const uv = process.env.ZAICHANG_UV || 'uv';
 run(uv, ['sync', '--frozen', '--no-dev', '--python', lock.python], root);
 fs.mkdirSync('.runtime', { recursive: true });

@@ -153,7 +153,7 @@ test('duplicate query arms and duplicate IDs do not manufacture extra support', 
   assert.deepEqual(ranked.map(a => a.id), ['b', 'a']);
 });
 
-test('deep dependencies disclose a bounded gap and an over-budget root is never silently admitted as a shortened fact', async () => {
+test('deep dependencies disclose their gap and usage estimates do not truncate admitted facts', async () => {
   const f = new Fixture();
   try {
     const chain = [];
@@ -167,10 +167,10 @@ test('deep dependencies disclose a bounded gap and an over-budget root is never 
     const pack = await packFor(f, '依赖记录');
     pack.contract.budget.maxReadBytes = 1;
     const result = f.store.runtime.context.prefetch(pack, '依赖记录') as any;
-    assert.equal(result.status, 'partial');
-    assert.ok(result.candidates.every((a: any) => a.previewOnly));
-    assert.equal(pack.assertions.length, 0);
-    assert.equal(pack.data.retrievedContext, undefined);
-    assert.ok(!pack.receipt.providedObjectVersions.some(v => chain.some(a => a.id === v.id)));
+    assert.equal(result.status, 'fresh');
+    assert.ok(result.bundles.every((bundle: any) => bundle.assertions.every((a: any) => a.text.includes('条件与例外都必须完整保留。'))));
+    assert.deepEqual(pack.assertions.map(a => a.id).sort(), chain.map(a => a.id).sort());
+    assert.equal(pack.data.retrievedContext, result);
+    assert.ok(chain.every(a => pack.receipt.providedObjectVersions.some(v => v.kind === 'assertion' && v.id === a.id && v.revision === a.revision)));
   } finally { f.close(); }
 });

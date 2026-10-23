@@ -36,7 +36,7 @@ const refsOf = (values: WorkSourceRef[]) => [...new Map(values.map(value => {
   const { eventId, contentVersion, start, end } = value;
   const ref = workSourceRefSchema.parse({ eventId, contentVersion, start, end }); return [canonical(ref), ref];
 })).values()].sort((a, b) => canonical(a).localeCompare(canonical(b)));
-const meaning = '这是保留的规划解释与方法默认值，不是人物偏好、当前事实或日历批准。已安排不等于已完成；继续采用须重新核对当前来源、日历和新票据。';
+const meaning = '这份意图保留了有原话来源支持的任务解释、原时间范围、工作量与方法默认值，方便以后接着商量。它记录的是当时怎样理解这件事，尚未证明人物偏好、今天的现实条件或新的日历执行授权。原来源仍决定哪些内容当前可读；采用记录与当前日历另有自己的真实状态，已安排的工作也还没有自动成为已完成的工作。重算会从原范围和预算扣除可确认且仍完整保留的已安排净工作一次，同时保留准备、收尾、休息、转场与保护时间的完整关系；来源或进展不足时，返回具体缺口。新的planId和短票据连回本次试算，后续采用仍走既有授权与逐步保存检查，旧票据与旧批准没有随意图恢复。你可以据眼前情况判断如何接话、继续有内容的帮助，或商量尚未明确的条件。';
 
 /** One source-bound WorkRecord owns the static intention. Tickets and actual
  * action/receipt/calendar facts retain their existing owners. */
@@ -70,7 +70,7 @@ export class PlanningIntentService {
     const record = sessionId ? this.repo.workData(handle, ['planning_intent'], { id, sessionId, limit: 1 })[0] : this.repo.work(handle, 'plan', id)[0];
     if (!record || record.data.type !== 'planning_intent' || !record.sourceBinding)
       throw new HarnessError('planning_intent_missing', '没有当前可读的这份规划意图。');
-    if (revision !== undefined && record.revision !== revision) throw new HarnessError('revision_conflict', '规划意图已更新，请先读取当前版本。');
+    if (revision !== undefined && record.revision !== revision) throw new HarnessError('revision_conflict', '规划意图已有更新，当前请求仍指向旧修订；现在可读的版本能提供接续这件事的依据。');
     const spec = planningIntentSpecSchema.parse(record.data.spec), specBasis = z.array(workSourceRefSchema).min(1).max(32).parse(record.data.specBasis);
     if (typeof record.data.specDigest !== 'string') throw new HarnessError('planning_intent_invalid', '这份意图缺少可核对的规格身份。');
     if (hash({ spec, refs: specBasis }) !== record.data.specDigest || specBasis.some(ref => !record.sourceBinding!.refs.some(bound => canonical(bound) === canonical(ref))))
@@ -90,7 +90,7 @@ export class PlanningIntentService {
   private checkSources(handle: ScopeHandle, args: z.infer<typeof managePlanningIntentInput>, session: PlanningIntentSessionContext) {
     const scope = this.scope(handle, false, true);
     if (!session.currentEventIds.includes(args.source.eventId) || !scope.currentEventIds.includes(args.source.eventId))
-      throw new HarnessError('planning_intent_current_source', '保留或改变意图须有本轮用户原话。');
+      throw new HarnessError('planning_intent_current_source', '本次保留或改变意图还缺少本轮用户原话的支持，旧内容或提议本身没有带来这项委托。');
     for (const [index, ref] of [args.source, ...(args.supports || [])].entries()) {
       const event = this.repo.evidence(handle, ref.eventId);
       if (!event || (index === 0 ? event.speaker !== 'user' || event.authority !== 'user_statement' : !['user', 'external'].includes(event.speaker)) || event.ownerId !== scope.principalId
@@ -127,10 +127,10 @@ export class PlanningIntentService {
     if (stopping && (!metadata || metadata.kind !== 'plan' || metadata.type !== 'planning_intent'))
       throw new HarnessError('planning_intent_missing', '没有当前可管理的这份规划意图。');
     if (metadata && 'expectedRevision' in args && metadata.revision !== args.expectedRevision)
-      throw new HarnessError('revision_conflict', '规划意图已更新，请先核对当前版本。');
+      throw new HarnessError('revision_conflict', '规划意图已经更新，本次所指的修订不再是当前版本，因此这次没有沿旧版本变更它。');
     const old = args.operation === 'keep' || stopping ? undefined : this.record(handle, args.id, args.expectedRevision);
     if (args.operation === 'update' && old!.status !== 'active')
-      throw new HarnessError('planning_intent_inactive', '修改规格前先按当前原话恢复这份已搁置的意图；已停止的意图需另行明确建立。');
+      throw new HarnessError('planning_intent_inactive', '这份意图目前没有处于继续安排的状态。已搁置的意图可以按当前原话恢复；已停止的意图保留停止结果，另行建立仍有赖眼前明确的意愿。本次没有修改它的规格。');
     const exported = args.operation === 'keep' || args.operation === 'update'
       ? this.planning.exportTicket(this.scope(handle, true), args.planId) : undefined;
     const spec = exported && this.sourceBoundSpec(handle, normalizePlanningIntentSpec(exported.input), binding, exported.manifest);
@@ -146,7 +146,7 @@ export class PlanningIntentService {
       const prepared = this.repo.db.prepare(`SELECT 1 FROM h_actions WHERE owner=? AND workspace=? AND subject=? AND world=?
         AND json_extract(payload,'$.arguments.planRef.planId')=? LIMIT 1`).get(scope.principalId, scope.workspaceId, scope.subjectId, scope.worldId, exported.planId);
       if (!exported.intentRef && (exported.hasPreparations || prepared))
-        throw new HarnessError('planning_intent_already_prepared', '这份旧试算已经准备过动作，不能事后补造采用关联；请按当前意图重新试算后保留。');
+        throw new HarnessError('planning_intent_already_prepared', '这份试算已经准备过动作，它们仍属于当时实际建立的依据。本次没有把旧动作事后归入保留意图；当前意图与日历可以支持另一次试算和保留。');
     }
     if (session.matterId && !stopping) {
       const matter = this.repo.work(handle, 'episode', session.matterId)[0];
@@ -183,7 +183,7 @@ export class PlanningIntentService {
           status: operation === 'pause' ? 'paused' : 'retired', transition: { operation, source: refsOf([args.source])[0] } });
       });
       return { operation: args.operation, transition: { ...transition, contentAvailable: false as const }, sources: [],
-        meaning: '这项规划的管理状态已更新；没有展开或恢复旧规格、旧来源或旧日历批准。' };
+        meaning: '这项规划已经按本次意愿更新管理状态，transition给出实际结果。本次只用了管理所需的可读信息，旧规格正文、旧来源和日历执行授权没有随这次状态变更恢复；如何接着聊，可以按眼前这件事判断。' };
     }
     const record = this.repo.write(() => {
       // Recheck all real references inside the same short writer transaction.
@@ -217,7 +217,7 @@ export class PlanningIntentService {
               lastTransition }) };
       } else {
         if (old!.status !== 'paused')
-          throw new HarnessError('planning_intent_state', '当前意图状态不适用这项变更，请先读取。');
+          throw new HarnessError('planning_intent_state', '当前意图状态与这项变更不相符，本次没有改变它。当前可读的状态能说明它是继续中、搁置还是已经停止。');
         const binding = this.repo.resolveWorkSourceBinding(handle, z.array(workSourceRefSchema).min(1).max(32).parse(old!.data.specBasis));
         next = { ...old!, revision: old!.revision + 1, status: 'active',
           sourceBinding: binding, evidenceIds: [...new Set(binding.refs.map(ref => ref.eventId))], data: data({ ...old!.data, updatedAt: now, sessionId,
@@ -244,20 +244,20 @@ export class PlanningIntentService {
     return { items: records.slice(0, limit).map(record => ({ id: record.id, revision: record.revision, title: record.title, status: record.status,
       sourceBinding: record.sourceBinding, matterId: record.data.matterId, specDigest: record.data.specDigest, updatedAt: record.data.updatedAt })),
       nextOffset: records.length > limit ? offset + limit : null,
-      coverage: { complete: records.length <= limit, meaning: '这里只覆盖当前来源与用途下匹配的规划意图；没有结果不证明不存在其它范围的记录。' } };
+      coverage: { complete: records.length <= limit, meaning: '这是在当前来源、用途与筛选条件下找到的一页规划意图；nextOffset存在时还有后续。空页只说明本页没有返回匹配项，其他范围或页中是否有记录仍未由这一页说明。' } };
   }
   read(handle: ScopeHandle, raw: unknown) {
     const args: z.infer<typeof planningIntentReadInput> = typeof raw === 'string' ? { id: raw } : planningIntentReadInput.parse(raw);
     const record = this.record(handle, args.id, args.expectedRevision, args.sessionId), sources = this.repo.readWorkSources(handle, record);
     const scope = this.scope(handle);
     const adoptionEvidence = !scope.child && scope.retention !== 'session_only' && scope.sources.includes('local-agenda') ? this.adoption(handle, record, this.currentCalendar())
-      : { status: 'not_checked' as const, reason: '本轮只读意图范围未展开当前日历的采用证明。' };
+      : { status: 'not_checked' as const, reason: '本轮读到了意图本身，但当前范围没有展开日历与动作的采用证明，因此是否已有保存、保存了多少仍未在这里核实。' };
     return { record, sources, spec: planningIntentSpecSchema.parse(record.data.spec), specDigest: String(record.data.specDigest), adoptionEvidence, meaning };
   }
   async replanWithCampus(handle: ScopeHandle, raw: unknown, signal: AbortSignal) {
     const args = planningIntentReplanInput.parse(raw), record = this.record(handle, args.id, args.expectedRevision);
     const spec = planningIntentSpecSchema.parse(record.data.spec);
-    if (record.status !== 'active') throw new HarnessError('planning_intent_inactive', '这份意图目前已搁置或停止；继续前需按当前原话明确恢复。');
+    if (record.status !== 'active') throw new HarnessError('planning_intent_inactive', '这份意图目前已搁置或停止，本次没有继续安排。当前原话可以支持恢复已搁置的意图；已经停止的意图仍保留其停止结果。');
     const currentItems = this.currentCalendar(), adoption = this.adoption(handle, record, currentItems);
     if ('evidenceCoverage' in adoption || materializePlanningIntent(spec, adoption, { now: this.repo.clock.now() }).status !== 'ready')
       return this.replan(handle, args, currentItems);
@@ -268,7 +268,7 @@ export class PlanningIntentService {
   replan(handle: ScopeHandle, raw: unknown, currentItems: Action[], campus?: PlanningCampusConstraints | null) {
     this.scope(handle, true);
     const args = planningIntentReplanInput.parse(raw), record = this.record(handle, args.id, args.expectedRevision);
-    if (record.status !== 'active') throw new HarnessError('planning_intent_inactive', '这份意图目前已搁置或停止；继续前需按当前原话明确恢复。');
+    if (record.status !== 'active') throw new HarnessError('planning_intent_inactive', '这份意图目前已搁置或停止，本次没有继续安排。当前原话可以支持恢复已搁置的意图；已经停止的意图仍保留其停止结果。');
     const adoption = this.adoption(handle, record, currentItems), spec = planningIntentSpecSchema.parse(record.data.spec);
     if ('evidenceCoverage' in adoption) return { status: 'needs_review' as const, intent: { ...this.reference(record), sourceBinding: record.sourceBinding },
       record, sources: this.repo.readWorkSources(handle, record), adoptionEvidence: adoption, reasons: adoption.reasons, applied: false, meaning };
@@ -299,10 +299,10 @@ export class PlanningIntentService {
       if (expected.intentId !== intentId || !metadata || metadata.intent_id !== expected.intentId || metadata.spec_digest !== expected.specDigest
         || Number(metadata.redacted) !== 0 || !this.attemptBindingReadable(handle, metadata.source_binding)
         || canonical(JSON.parse(String(metadata.source_binding))) !== canonical(expected.sourceBinding))
-        throw new HarnessError('planning_intent_adoption_changed', '本次重算使用的原采用来源已改变或不可复核，须重新核查后再安排。');
+        throw new HarnessError('planning_intent_adoption_changed', '本次重算所依赖的原采用来源已变化，或当前无法复核，旧结果已不足以支持继续采用；当前许可来源与真实保存结果能为后续安排提供依据。');
       const content = this.repo.db.prepare('SELECT manifest FROM h_planning_intent_attempts WHERE plan_id=? AND intent_id=? AND redacted=0').get(expected.planId, intentId);
       if (!content || hash(JSON.parse(String(content.manifest))) !== expected.manifestDigest)
-        throw new HarnessError('planning_intent_adoption_changed', '本次重算使用的原采用证明已改变，须重新核查后再安排。');
+        throw new HarnessError('planning_intent_adoption_changed', '本次重算所依赖的原采用证明已经改变，当前票据不再支持继续采用；真实保存记录可以帮助重新了解目前的安排。');
     }
   }
   private adoption(handle: ScopeHandle, record: WorkRecord, calendar: Action[]) {
@@ -312,7 +312,7 @@ export class PlanningIntentService {
     const rows = this.repo.db.prepare('SELECT plan_id,spec_digest,source_binding,redacted FROM h_planning_intent_attempts WHERE intent_id=? ORDER BY created_at,plan_id').all(record.id);
     if (rows.some(row => Number(row.redacted) !== 0 || !this.attemptBindingReadable(handle, row.source_binding)))
       return { status: 'needs_review' as const, evidenceCoverage: 'unavailable' as const, observations: [], allocatedMinutes: null,
-        reasons: ['有旧采用依据不在当前范围或不可复核，不能据此推断未保存；请核查当前许可来源和真实动作结果。'],
+        reasons: ['有些旧采用依据不在当前范围，或目前无法复核，已保存工作量因此保持未知。当前许可来源、原动作回执与真实日历能说明各自的结果，缺失的旧证明本身没有说明保存量为零。'],
         calendarFingerprint: calendarPlanFingerprint(calendar) };
     const attemptBasis: PlanningAttemptBasis[] = [];
     const attempts: PlanningAttemptRecord[] = rows.map(row => {
@@ -400,7 +400,7 @@ export class PlanningIntentService {
       throw new HarnessError('planning_intent_source_unavailable', '原规划采用依据已不可复核，不能按旧参数执行。');
     const binding = this.planning.preparationBinding(this.scope(handle, true), action.arguments.planRef, action.arguments), ref = binding?.intentRef;
     if (!metadata || !ref || metadata.intent_id !== ref.id || metadata.spec_digest !== ref.specDigest)
-      throw new HarnessError('planning_intent_ticket_missing', '原规划票据已不可用，须按当前意图重新规划。');
+      throw new HarnessError('planning_intent_ticket_missing', '原规划票据已不可用，旧动作参数已没有这张票据的支持；当前意图、许可来源与日历仍可为新的试算提供依据。');
     this.assertIntentReference(handle, ref);
   }
 }

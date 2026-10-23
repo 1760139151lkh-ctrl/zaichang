@@ -53,6 +53,8 @@ export interface CampusReadArgs {
   sort?: string;
   limit?: number;
   offset?: number;
+  bundleId?: string;
+  expectedSnapshotVersion?: string;
   refresh?: boolean;
 }
 export interface CampusRefreshArgs {
@@ -81,8 +83,11 @@ export interface CampusFullContextArgs {
   academicYear?: string;
   term?: '1' | '2';
 }
+/** Host admission for academic acquisition and local normalization of its saved baseline.
+ * This is deliberately separate from model query parameters. */
+export interface CampusAcquisition { allowAcademicSync: boolean }
 
-const DOMAIN_RESOURCE: Record<CampusDomain, string> = {
+const DOMAIN_RESOURCE: Partial<Record<CampusDomain, string>> = {
   schedule: 'classes',
   courses: 'courses',
   learning_courses: 'records',
@@ -94,7 +99,6 @@ const DOMAIN_RESOURCE: Record<CampusDomain, string> = {
   gpa_cumulative: 'gpa_cumulative',
   retakes: 'retakes',
   practice: 'practice_summary',
-  sports: 'practice_summary',
   projects: 'projects',
   activities: 'activities',
   reservations: 'reservations',
@@ -130,6 +134,7 @@ const SUMMARY_FIELDS: Partial<Record<CampusDomain, string[]>> = {
   calendar_pending: ['original_date', 'reason', 'date', 'affected_session_uids'],
   cancelled_classes: ['session_uid', 'original_date', 'reason'],
 };
+export const campusSummaryFields = (domain: CampusDomain): string[] | undefined => SUMMARY_FIELDS[domain]?.slice();
 const SAFE_MODEL_FIELDS = new Set([
   ...Object.values(SUMMARY_FIELDS).flat(),
   'date', 'dateLabel', 'title', 'name', 'status', 'source', 'updatedAt', 'fetched_at',
@@ -147,8 +152,8 @@ const DOMAIN_LABEL: Record<CampusDomain, string> = {
   gpa_semesters: '分学期绩点',
   gpa_cumulative: '累计绩点',
   retakes: '重修记录',
-  practice: '实践与体育相关记录',
-  sports: '体育记录',
+  practice: '二三四课堂记点与学分',
+  sports: '体育打卡记录',
   projects: '实践项目',
   activities: '课程活动',
   reservations: '图书馆预约',
@@ -191,6 +196,7 @@ const FULL_CONTEXT_DOMAINS: CampusDomain[] = [
   'source_status',
 ];
 const SENSITIVE_DOMAINS = new Set<CampusDomain>([
+  'grades', 'gpa', 'gpa_semesters', 'gpa_cumulative', 'retakes',
   'reservations',
   'reservation_violations',
   'card',
@@ -225,6 +231,31 @@ const ACADEMIC_RESOURCES = new Set<CampusDomain>([
   'source_status',
 ]);
 
+const academicRefreshSources: Record<string, string[]> = {
+  classes: ['timetable_first', 'timetable_second', 'calendar'],
+  courses: ['timetable_first', 'timetable_second', 'grades', 'major', 'exams', 'calendar'],
+  exams: ['exams'], grades: ['grades', 'major'], gpa_overall: ['grades', 'major'],
+  gpa_semesters: ['grades', 'major'], gpa_cumulative: ['grades', 'major'], retakes: ['grades', 'major'],
+  projects: ['practice', 'practice_profile'], practice_summary: ['practice_profile'], todos: ['todos'],
+  holidays: ['calendar'], calendar_pending: ['calendar'], cancelled_classes: ['timetable_first', 'timetable_second', 'calendar'],
+};
+
+export function campusAcademicAcquisition(capability: string, input: unknown) {
+  if (!input || typeof input !== 'object') return undefined;
+  const args = input as { refresh?: boolean; domain?: CampusDomain; operation?: string; resource?: string; spec?: { resource?: string } };
+  if (!args.refresh) return undefined;
+  const resources = new Set([...ACADEMIC_RESOURCES].map(domain => DOMAIN_RESOURCE[domain]).filter(Boolean));
+  if (capability !== 'campus.overview' && !(capability === 'campus.lookup' && !!args.domain && !!DOMAIN_RESOURCE[args.domain] && ACADEMIC_RESOURCES.has(args.domain))
+    && !(capability === 'campus.query' && ['quick', 'select'].includes(args.operation || '') && resources.has(args.resource || args.spec?.resource))) return undefined;
+  if (capability === 'campus.overview') return { operation: 'complete_academic_acquisition',
+    domains: ['courses', 'classes', 'exams', 'grades', 'gpa', 'practice', 'student_major', 'todos', 'academic_calendar'],
+    meaning: '这个明确的总览刷新会重新采集整份学业来源，和从保存快照只读某个资源不同。' };
+  const resource = capability === 'campus.lookup' ? DOMAIN_RESOURCE[args.domain!] : args.resource || args.spec?.resource;
+  return { operation: 'academic_resource_refresh', resource, collectedSources: resource ? academicRefreshSources[resource] || [] : [],
+    savedBaselineRequired: true, localNormalization: ['courses', 'classes', 'exams', 'grades', 'gpa', 'practice', 'student_major', 'todos', 'academic_calendar'],
+    meaning: '这次只重新采集collectedSources所列的相关来源，沿原快照保存的接口参数取得该来源全部可见分页；成绩、考试等接口的原记录可能跨学期，返回字段或查询时间不会把实际采集范围缩成同一窗口。随后原连接器会在本机读入并重新归一化已有完整学业快照，其中仍包括旧成绩、专业和实践资料。窄采集仍涉及这些旧资料的本机处理，这部分处理也属于本次用途核对。模型收到的仍只是本次资源、字段与相应用途允许的结果，既存敏感资料没有因此获得交给模型的许可。它依赖同账号、同学期且当前latest的可核基线，缺少基线不会改成整包采集。' };
+}
+
 function safeRoot(candidate: string | null | undefined): string | null {
   if (!candidate?.trim()) return null;
   const root = path.resolve(candidate.trim());
@@ -256,7 +287,7 @@ function parseJson(output: string): any {
 function modelRecords(domain: CampusDomain | undefined, records: any): any {
   const clean = sanitize(records);
   if (!Array.isArray(clean)) return clean;
-  if (domain === 'practice' || domain === 'sports')
+  if (domain === 'practice')
     return clean.map((record) => ({
       second_class_points: record.dektJf,
       third_class_points: record.dsktJf,
@@ -752,12 +783,48 @@ export class ZjuAdapter {
       this.academicBundleStamps.set(key, headStamp);
       return String(item.bundle_id);
     }
-    // A bounded or failed metadata page is not evidence that the snapshot is
-    // missing, and must not turn an ordinary saved read into a fresh collection.
-    if (!history?.exhausted) return undefined;
-    const synced = await this.bootstrapAcademic(signal, academicYear, term);
-    if (synced?.bundle_id) return String(synced.bundle_id);
+    // Missing saved data is not permission for a wider fresh collection.
     return undefined;
+  }
+
+  /** The installed quick command refreshes only its latest academic baseline.
+   * It has no compare-and-swap argument: check the boundary around the call,
+   * and never turn an unproved or changed baseline into a current receipt. */
+  private async refreshAcademicResource(resource: string, signal: AbortSignal, academicYear: string, term: '1' | '2') {
+    const missing = (reason: string, status = 'partial') => ({ status, reason, resource, bundle_id: undefined, refreshHead: undefined, refreshIssues: [] as string[] });
+    if (!academicRefreshSources[resource]) return missing('原连接器没有这个资源的窄刷新方法，本次没有改用整包采集。', 'unsupported');
+    const identity = this.snapshotProofs.readingSourceIdentity(), head = this.snapshotProofs.headStamp(resource);
+    if (!identity || !head) return missing('当前账号的学业快照基线尚无法核对，本次没有刷新或改为完整采集。');
+    const latest = await this.run(['quick', 'source_status', '--fields', 'dataset', '--limit', '1'], signal);
+    const baselineId = latest?.bundle_id;
+    if (!['ok', 'partial'].includes(String(latest?.status)) || !/^[a-f0-9]{32}$/.test(String(baselineId || '')))
+      return missing('当前账号还没有可读的latest学业快照，窄刷新尚未开始；首次完整采集另有自己的范围和用途。');
+    const before = await this.savedHistory(signal, item => item?.bundle_id === baselineId);
+    const semester = `${academicYear}-${term}`;
+    if (before?.found?.kind !== 'academic' || before.found.semester_id !== semester)
+      return missing('当前latest快照尚未与本次账号和所需学期对应，本次没有刷新别的学期或改为整包采集。');
+    if (this.snapshotProofs.readingSourceIdentity() !== identity || this.snapshotProofs.headStamp(resource) !== head)
+      return missing('准备刷新时账号或latest基线已经变化，这次没有沿旧基线继续。', 'conflict');
+    const refreshed = await this.run(['quick', resource, '--refresh', '--fields', '_resource', '--limit', '1'], signal, 85_000);
+    const bundleId = refreshed?.bundle_id;
+    if (!['ok', 'partial'].includes(String(refreshed?.status)) || !/^[a-f0-9]{32}$/.test(String(bundleId || '')) || bundleId === baselineId)
+      return missing('原资源刷新没有形成可核对的新快照，当前还没有取得这次更新后的资料。');
+    const afterHead = this.snapshotProofs.headStamp(resource);
+    const after = await this.savedHistory(signal, item => item?.bundle_id === bundleId);
+    const current = await this.run(['quick', 'source_status', '--fields', 'dataset', '--limit', '1'], signal);
+    if (this.snapshotProofs.readingSourceIdentity() !== identity || !afterHead || this.snapshotProofs.headStamp(resource) !== afterHead
+      || after?.found?.kind !== 'academic' || after.found.semester_id !== semester
+      || !['ok', 'partial'].includes(String(current?.status)) || current?.bundle_id !== bundleId)
+      return missing('刷新后的账号、学期或当前latest未能与本次范围对应，这份结果没有作为当前资料交付。', 'conflict');
+    const errors = await this.run(['read', '--bundle', bundleId, '--pointer', '/normalized/data_quality/refresh_errors', '--limit', '20'], signal);
+    if (errors?.status !== 'ok' || errors.bundle_id !== bundleId || !Array.isArray(errors.data)
+      || errors.data.some((value: unknown) => typeof value !== 'string')
+      || this.snapshotProofs.readingSourceIdentity() !== identity || this.snapshotProofs.headStamp(resource) !== afterHead)
+      return missing('本次窄刷新的来源完整性或当前基线尚无法核对，未把未明状态说成更新成功。', 'conflict');
+    this.academicBundles.set(`${academicYear}:${term}`, bundleId);
+    this.academicBundleStamps.set(`${academicYear}:${term}`, afterHead);
+    return { status: errors.data.length ? 'partial' : 'ok', resource, bundle_id: bundleId as string, refreshHead: afterHead,
+      refreshIssues: errors.data as string[], reason: errors.data.length ? '部分相关来源刷新未完成，新快照保留了带有旧采集时间的资料，缺口仍在。' : undefined };
   }
 
   private async savedHistory(signal: AbortSignal, matches: (entry: any) => boolean) {
@@ -775,6 +842,11 @@ export class ZjuAdapter {
     }
     return undefined;
   }
+  private async currentAccountHasBundle(bundleId: string, signal: AbortSignal) {
+    if (!/^[a-f0-9]{32}$/.test(bundleId)) return false;
+    const history = await this.savedHistory(signal, item => item?.bundle_id === bundleId);
+    return history?.status === 'ok' && history.found?.bundle_id === bundleId;
+  }
 
   async capabilities(signal: AbortSignal) {
     const root = this.root();
@@ -791,20 +863,53 @@ export class ZjuAdapter {
 
   /** Complete query/navigation semantics over the installed read-only skill.
    * No model-supplied CLI, directory, endpoint, or authentication material. */
-  async query(raw: CampusQuery, signal: AbortSignal): Promise<any> {
+  async query(raw: CampusQuery, signal: AbortSignal, acquisition?: CampusAcquisition): Promise<any> {
     const args = validateCampusQuery(raw), connector = this.describe();
+    if (args.refresh && (!['quick', 'select'].includes(args.operation) || args.bundleId || args.expectedSnapshotVersion))
+      throw new HarnessError('campus_snapshot_request', '刷新需要新的资源查询起点；固定快照、版本和原页导航仍保留原地址，本次没有把它们当作刷新。');
     if (!connector.available) return { status: 'unavailable', reason: connector.reason };
-    if (args.operation === 'resources') return sanitize(await this.run(['resources'], signal));
+    if (args.operation === 'resources') {
+      const result = sanitize(await this.run(['resources'], signal));
+      const root = this.root();
+      if (result.status !== 'ok' || !root) return result;
+      try {
+        const file = path.join(root, 'references', 'model-schema.json');
+        const size = statSync(file);
+        if (!size.isFile() || size.size > 256000) throw new Error('schema catalogue size');
+        const models: unknown = JSON.parse(readFileSync(file, 'utf8')).models;
+        if (!models || typeof models !== 'object' || Array.isArray(models)) throw new Error('schema catalogue shape');
+        const entries = Object.entries(models);
+        if (!entries.length || entries.length > 100 || entries.some(([name, fields]) => !/^[a-z_]{1,60}$/.test(name)
+          || !fields || typeof fields !== 'object' || Array.isArray(fields))) throw new Error('schema catalogue models');
+        return { ...result, schemaModels: entries.map(([model]) => ({ model,
+          read: { tool: 'look_up', arguments: { source: 'capability', capability: 'campus.query', arguments: { operation: 'schema', model } } },
+        })), schemaCatalog: { status: 'available', source: 'installed_connector_model_schema',
+          meaning: '这是当前连接器实际提供的字段模型；不是个人记录、查询结果或完整业务覆盖。资源名与字段模型名不一定相同。' } };
+      } catch {
+        return { ...result, status: 'partial', schemaModels: [], schemaCatalog: { status: 'unavailable',
+          reason: '资源目录已读到，但连接器字段模型目录缺失或格式不符；未猜测模型名或读取个人资料。' } };
+      }
+    }
     if (args.operation === 'schema') return sanitize(await this.run(['schema', args.model!], signal));
+    if (campusAcademicAcquisition('campus.query', args) && !acquisition?.allowAcademicSync)
+      return { status: 'forbidden', acquisition: campusAcademicAcquisition('campus.query', args), recordRead: false,
+        reason: '本次资源刷新与既存完整学业快照的本机归一化还没有用途准入，尚未采集。已有保存资料仍可用refresh=false按原资源和页地址读取。' };
     const authenticated = await this.ensureAuthenticated(signal);
     if (authenticated?.status !== 'ok') return { status: 'auth_required', reason: '校园会话尚未完成校验；没有读取这些资料。' };
+    const readingIdentity = this.snapshotProofs.readingSourceIdentity();
     const resource = args.resource || args.spec!.resource;
-    let bundle = args.bundleId;
+    for (const id of [args.bundleId, args.fromBundle, args.toBundle].filter((id): id is string => !!id))
+      if (!readingIdentity || !await this.currentAccountHasBundle(id, signal))
+        return { status: 'forbidden', reason: '这份快照不在当前连接可核对的账号资料中，尚未读取这份结果。' };
+    if (args.expectedSnapshotVersion && (!args.bundleId || !this.snapshotProofs.matchesReadingVersion(args.bundleId, resource, args.expectedSnapshotVersion)))
+      return { status: 'conflict', snapshotChanged: true, recordRead: false, reason: '原页的数据版本在读取前已经不再对应，这次没有读取另一个版本来替代。' };
+    let bundle = args.bundleId, refreshHead: string | undefined, refreshIssues: string[] = [];
     const academic = !['reservations', 'reservation_violations', 'card_accounts', 'transactions', 'student_profile', 'roles', 'activities'].includes(resource);
     if (['quick', 'select'].includes(args.operation) && academic && !bundle) {
       if (args.refresh) {
-        const refreshed = await this.bootstrapAcademic(signal, args.academicYear || this.defaultAcademicYear(), args.term || this.defaultTerm());
-        bundle = refreshed?.bundle_id;
+        const refreshed = await this.refreshAcademicResource(resource, signal, args.academicYear || this.defaultAcademicYear(), args.term || this.defaultTerm());
+        if (!refreshed.bundle_id) return refreshed;
+        bundle = refreshed.bundle_id; refreshHead = refreshed.refreshHead; refreshIssues = refreshed.refreshIssues;
       } else bundle = await this.resolveAcademicBundle(signal, args.academicYear || this.defaultAcademicYear(), args.term || this.defaultTerm());
       if (!bundle) return { status: 'partial', reason: '没有取得指定学期的完整快照。' };
     }
@@ -824,23 +929,30 @@ export class ZjuAdapter {
         result = await this.run(['select', '--spec-file', file, ...(bundle ? ['--bundle', bundle] : [])], signal, 85000);
       } finally { if (existsSync(file)) unlinkSync(file); rmdirSync(directory); }
     }
-    if (result?.status === 'error' && ['DATASET_REQUIRED', 'BUNDLE_NOT_FOUND'].includes(result?.error?.code)
-      && academic && !args.bundleId && !args.refresh && ['quick', 'select'].includes(args.operation)) {
-      const rebuilt = await this.bootstrapAcademic(signal, args.academicYear || this.defaultAcademicYear(), args.term || this.defaultTerm());
-      if (rebuilt?.bundle_id) return this.query({ ...args, bundleId: String(rebuilt.bundle_id) }, signal);
-    }
+    if (refreshIssues.length) result = { ...result, status: 'partial', refreshIssues,
+      reason: '本次部分来源刷新未完成，结果仍保留其旧采集时间与缺口。',
+      coverage: { ...result.coverage, complete: false, issues: [...(result.coverage?.issues || []), 'resource_refresh_incomplete'] } };
     // Related resources can come from separate bundles while the CLI returns
     // only the root bundle ID. Until it identifies every adopted bundle, a
     // root receipt must not claim to version the whole composite result.
     const composite = !!args.spec?.join || (args.spec?.resources?.length || 0) > 1;
     const safe = sanitize(composite ? { ...result, snapshotProofStatus: 'not_issued_composite_sources_unresolved' }
       : await this.withSnapshotProof(result, resource, signal));
+    if (refreshHead && this.snapshotProofs.headStamp(resource) !== refreshHead)
+      return { status: 'conflict', snapshotChanged: true, recordRead: false, reason: '刷新后当前latest又有变化，本次没有把另一版本当作这次更新的连续结果。' };
+    if (!readingIdentity || this.snapshotProofs.readingSourceIdentity() !== readingIdentity)
+      return { status: 'forbidden', reason: '读取期间的账号或连接绑定变了，这份结果没有继续交付。' };
+    if (args.expectedSnapshotVersion && safe.snapshotProof?.version !== args.expectedSnapshotVersion)
+      return { status: 'conflict', bundle_id: bundle, snapshotChanged: true, reason: '原数据版本未能对应；这次没有把新版本当成原来的连续页。' };
     if (Buffer.byteLength(JSON.stringify(safe)) > 110000) return { status: 'navigate_required', resource, bundle_id: safe.bundle_id || bundle, offset: args.offset, reason: '结果超出单次读取预算，原数据未截短。请减少字段或limit并继续分页。', coverage: safe.coverage, total_matches: safe.total_matches };
     return { ...safe, authenticated_at: this.describe().lastVerifiedAt, read_only: true, observed_change_not_publication_time: args.operation === 'diff' };
   }
 
   /** Host-only planner/provenance check. Model-supplied hashes are not receipts. */
   isCurrentSnapshot(proof: CampusSnapshotProof) { return this.snapshotProofs.isCurrentSnapshot(proof); }
+  captureReadingProof(proof: CampusSnapshotProof) { return this.snapshotProofs.captureReadingProof(proof); }
+  readingState(proof: import('../shared/harness').CampusSavedReadingProof) { return this.snapshotProofs.readingState(proof); }
+  readingResource(domain: string) { return DOMAIN_RESOURCE[domain as CampusDomain]; }
   isCurrentSnapshotVersion(version: string) { return this.snapshotProofs.isCurrentVersion(version); }
   bindPlanningSnapshots(proofs: CampusSnapshotProof[]) { return this.snapshotProofs.bindSnapshots(proofs); }
   savedSnapshotRevision(): string | null { return this.snapshotProofs.savedRevision(); }
@@ -876,18 +988,23 @@ export class ZjuAdapter {
       const history = await this.savedHistory(signal, item => item?.bundle_id === result.bundle_id);
       signal.throwIfAborted();
       const proof = this.snapshotProofs.issue(result, resource, history, before);
-      return proof ? { ...result, snapshotProof: proof, snapshotProofs: [proof] } : result;
+      const saved = Array.isArray(history?.items) ? history.items.find((item: any) => item?.bundle_id === result.bundle_id) : undefined;
+      const semester = typeof saved?.semester_id === 'string' && /^\d{4}-\d{4}-[12]$/.test(saved.semester_id) ? saved.semester_id : undefined;
+      return proof ? { ...result, ...(result.semester_id === undefined && semester ? { semester_id: semester } : {}),
+        snapshotProof: proof, snapshotProofs: [proof] } : result;
     } catch (error) {
       if (signal.aborted) throw error;
       return result;
     }
   }
 
-  async fullContext(args: CampusFullContextArgs, signal: AbortSignal) {
+  async fullContext(args: CampusFullContextArgs, signal: AbortSignal, acquisition?: CampusAcquisition) {
     const connector = this.describe();
     if (!connector.available) return { status: 'unavailable', connector, reason: connector.reason };
     if (!connector.credentialsConfigured)
       return { status: 'auth_required', connector, reason: '请先在本机保存浙大统一身份认证信息。' };
+    if (args.refresh && !acquisition?.allowAcademicSync) return { status: 'forbidden', recordRead: false,
+      acquisition: campusAcademicAcquisition('campus.overview', args), reason: '这次刷新涉及整份学业来源；当前可继续读取已保存、已准入的资料。' };
     const authenticated = await this.ensureAuthenticated(signal);
     if (authenticated?.status !== 'ok')
       return {
@@ -940,7 +1057,7 @@ export class ZjuAdapter {
               academicYear: args.academicYear,
               term: args.term,
             },
-            fullSignal,
+            fullSignal, acquisition,
           );
           return { scope: domain, data: compactResult(readResult.data, domain) };
         } catch (error) {
@@ -997,7 +1114,7 @@ export class ZjuAdapter {
     return month >= 7 || month === 0 ? '1' : '2';
   }
 
-  async read(args: CampusReadArgs, signal: AbortSignal) {
+  async read(args: CampusReadArgs, signal: AbortSignal, acquisition?: CampusAcquisition) {
     const connector = this.describe();
     if (!connector.available)
       return {
@@ -1007,6 +1124,17 @@ export class ZjuAdapter {
         connector,
         data: { status: 'unavailable', reason: connector.reason, origin: 'zju_account' },
       };
+    if (!DOMAIN_RESOURCE[args.domain]) {
+      const catalog = await this.query({ operation: 'resources', offset: 0, limit: 50, refresh: false }, signal);
+      return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false, connector,
+        data: { status: 'unsupported', kind: 'capability_assessment', domain: args.domain, recordRead: false,
+          requestedMeasures: ['accepted_checkin_count', 'required_checkin_count', 'counting_period', 'counting_rule'],
+          catalog, origin: 'zju_account' } };
+    }
+    if (campusAcademicAcquisition('campus.lookup', args) && !acquisition?.allowAcademicSync)
+      return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false, connector,
+        data: { status: 'forbidden', recordRead: false, acquisition: campusAcademicAcquisition('campus.lookup', args),
+          reason: '本次资源刷新与既存完整学业快照的本机归一化还没有用途准入，尚未采集。已有保存资料可以继续按原资源和页地址读取。' } };
     if (!connector.credentialsConfigured)
       return {
         domain: args.domain,
@@ -1032,11 +1160,24 @@ export class ZjuAdapter {
     if (!resource) throw new Error('该校园资料类别暂未接入。');
     const academicYear = args.academicYear || this.defaultAcademicYear();
     const term = args.term || this.defaultTerm();
-    let academicBundle: string | undefined;
+    if (args.bundleId && (!/^[a-f0-9]{32}$/.test(args.bundleId) || args.refresh))
+      throw new HarnessError('campus_snapshot_request', '固定快照读取和刷新是两种查询；原快照地址保留原版本，刷新会建立新的查询起点。');
+    const readingIdentity = this.snapshotProofs.readingSourceIdentity();
+    if (args.bundleId && (['learning_courses', 'activities'].includes(args.domain) || !readingIdentity || !await this.currentAccountHasBundle(args.bundleId, signal)))
+      return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false, connector: this.describe(),
+        data: { status: 'forbidden', reason: '这个原快照地址未能与当前账号和记录类别对应，本次没有读取其正文。', origin: 'zju_account' } };
+    if (args.expectedSnapshotVersion && (!args.bundleId || !this.snapshotProofs.matchesReadingVersion(args.bundleId, resource, args.expectedSnapshotVersion)))
+      return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false, connector,
+        data: { status: 'conflict', snapshotChanged: true, recordRead: false, reason: '原页的数据版本在读取前已经不再对应，尚未读取另一个版本来替代。', origin: 'zju_account' } };
+    let academicBundle: string | undefined = args.bundleId, refreshHead: string | undefined, refreshIssues: string[] = [];
     if (ACADEMIC_RESOURCES.has(args.domain)) {
-      if (args.refresh) {
-        const refreshed = await this.bootstrapAcademic(signal, academicYear, term);
-        academicBundle = refreshed?.bundle_id ? String(refreshed.bundle_id) : undefined;
+      if (args.bundleId) {
+        academicBundle = args.bundleId;
+      } else if (args.refresh) {
+        const refreshed = await this.refreshAcademicResource(resource, signal, academicYear, term);
+        if (!refreshed.bundle_id) return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false,
+          connector: this.describe(), data: { ...refreshed, origin: 'zju_account' } };
+        academicBundle = refreshed.bundle_id; refreshHead = refreshed.refreshHead; refreshIssues = refreshed.refreshIssues;
       } else {
         academicBundle = await this.resolveAcademicBundle(signal, academicYear, term);
       }
@@ -1114,6 +1255,9 @@ export class ZjuAdapter {
         nested_values_truncated: false,
       };
       const compactActivities = compactResult(activityResult, args.domain);
+      if (!readingIdentity || this.snapshotProofs.readingSourceIdentity() !== readingIdentity)
+        return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false, connector: this.describe(),
+          data: { status: 'forbidden', reason: '读取期间的账号或连接绑定变了，这份结果没有继续交付。' } };
       return {
         domain: args.domain,
         label: DOMAIN_LABEL[args.domain],
@@ -1150,24 +1294,20 @@ export class ZjuAdapter {
     cli.push('--offset', String(Math.max(0, args.offset || 0)));
     if (args.refresh && !ACADEMIC_RESOURCES.has(args.domain)) cli.push('--refresh');
     let result = await this.run(cli, signal, args.refresh ? 85_000 : 35_000);
-    // A newly connected account may not have an academic bundle yet. Build it
-    // once through the authenticated skill, then retry the narrow query. This
-    // keeps the first user question useful without falling back to an import.
-    if (
-      result?.status === 'error' &&
-      ['DATASET_REQUIRED', 'BUNDLE_NOT_FOUND'].includes(result?.error?.code) &&
-      ACADEMIC_RESOURCES.has(args.domain) &&
-      !args.refresh
-    ) {
-      const bootstrap = await this.bootstrapAcademic(signal, academicYear, term);
-      if (bootstrap?.bundle_id && (bootstrap?.status === 'ok' || bootstrap?.status === 'partial')) {
-        const bundleIndex = cli.indexOf('--bundle');
-        if (bundleIndex >= 0) cli[bundleIndex + 1] = String(bootstrap.bundle_id);
-        else cli.push('--bundle', String(bootstrap.bundle_id));
-        result = await this.run(cli, signal, 35_000);
-      }
-    }
-    const compact = compactResult(await this.withSnapshotProof(result, args.domain === 'learning_courses' ? 'learning_courses' : resource, signal), args.domain);
+    if (refreshIssues.length) result = { ...result, status: 'partial', refreshIssues,
+      reason: '本次部分来源刷新未完成，结果仍保留其旧采集时间与缺口。',
+      coverage: { ...result.coverage, complete: false, issues: [...(result.coverage?.issues || []), 'resource_refresh_incomplete'] } };
+    const versioned = await this.withSnapshotProof(result, args.domain === 'learning_courses' ? 'learning_courses' : resource, signal);
+    if (refreshHead && this.snapshotProofs.headStamp(resource) !== refreshHead)
+      return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false, connector: this.describe(),
+        data: { status: 'conflict', snapshotChanged: true, recordRead: false, reason: '刷新后当前latest又有变化，本次没有把另一版本当作这次更新的连续结果。', origin: 'zju_account' } };
+    if (!readingIdentity || this.snapshotProofs.readingSourceIdentity() !== readingIdentity)
+      return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false, connector: this.describe(),
+        data: { status: 'forbidden', reason: '读取期间的账号或连接绑定变了，这份结果没有继续交付。', origin: 'zju_account' } };
+    if (args.expectedSnapshotVersion && versioned.snapshotProof?.version !== args.expectedSnapshotVersion)
+      return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false, connector: this.describe(),
+        data: { status: 'conflict', snapshotChanged: true, reason: '原数据版本未能对应；这次没有把新版本当成原来的连续页。', origin: 'zju_account' } };
+    const compact = compactResult(versioned, args.domain);
     return {
       domain: args.domain,
       label: DOMAIN_LABEL[args.domain],

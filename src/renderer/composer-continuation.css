@@ -72,7 +72,7 @@
 }
 .app-shell .study-composer-slot .composer textarea {
   min-height: 62px;
-  font-family: KaiTi, STKaiti, SimSun, serif;
+  font-family: var(--font-handwritten);
   font-size: 17px;
 }
 .study-composer-slot .composer-foot { margin-top: 6px; }

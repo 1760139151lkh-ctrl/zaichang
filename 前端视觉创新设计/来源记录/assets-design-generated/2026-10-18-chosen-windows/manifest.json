@@ -1,0 +1,64 @@
+{
+  "createdDate": "2026-10-18",
+  "mode": "built-in image_gen__imagegen",
+  "transparentBackground": false,
+  "phase": "After second-batch backend API observations, 262 existing checks, nine pinned native Hermes checks and build; before UI implementation.",
+  "purpose": "Design comparisons for explicitly chosen planning windows; synthetic content, not the owner agenda.",
+  "prompts": "prompts.txt",
+  "selection": {
+    "chosen": "前端视觉创新设计/统一图库/原图/界面设计-日程与今天/今日安排双屏版-4eb05277e200.png",
+    "reason": "Keep the existing date strip and one expanded day. Expose real host windows; retain time selection and conversation.",
+    "excluded": [
+      "B repeated day-fold containers",
+      "A example-only explanatory panel",
+      "all-day progress rails implying unchosen time is free",
+      "generated data, slogans and mobile completion claims"
+    ],
+    "originalChosen": "assets/design/generated/2026-10-18-chosen-windows/chosen-windows-a.png"
+  },
+  "files": [
+    {
+      "path": "前端视觉创新设计/统一图库/原图/界面设计-日程与今天/今日安排双屏版-4eb05277e200.png",
+      "bytes": 1428481,
+      "sha256": "4eb05277e200e13da52f0217a2836d0579736760c30e54e9c4d7ee946c07645a",
+      "width": 1536,
+      "height": 1024,
+      "originalPath": "assets/design/generated/2026-10-18-chosen-windows/chosen-windows-a.png"
+    },
+    {
+      "path": "前端视觉创新设计/统一图库/原图/界面设计-日程与今天/日程连续视图-cfb5d9d44258.png",
+      "bytes": 1406754,
+      "sha256": "cfb5d9d44258b14f1b471b76c285d8977cc1abe1e296fd90f094831110f71ade",
+      "width": 1536,
+      "height": 1024,
+      "originalPath": "assets/design/generated/2026-10-18-chosen-windows/chosen-windows-b.png"
+    },
+    {
+      "path": "前端视觉创新设计/统一图库/原图/界面设计-日程与今天/reference-current.png-3db3726d2453.png",
+      "bytes": 461180,
+      "sha256": "3db3726d24532736bd8eefe290763558ab33ee780e9b1351e77c949d3b204998",
+      "width": 1220,
+      "height": 960,
+      "originalPath": "assets/design/generated/2026-10-18-chosen-windows/reference-current.png"
+    },
+    {
+      "path": "prompts.txt",
+      "bytes": 4216,
+      "sha256": "d7e4ef9d502742f3086543ff232455f58b9eca0877dd50b3a6676275aefdb630"
+    }
+  ],
+  "references": [
+    {
+      "path": "前端视觉创新设计/统一图库/原图/界面设计-日程与今天/reference-current.png-3db3726d2453.png",
+      "role": "Actual local Electron baseline; synthetic planning data, current product-owned UI and assets.",
+      "originalPath": "assets/design/generated/2026-10-18-chosen-windows/reference-current.png"
+    },
+    {
+      "path": "前端视觉创新设计/统一图库/原图/界面设计-日程与今天/两日安排视图-1147dd64f07e.png",
+      "role": "Prior generated planning visual direction.",
+      "originalPath": "assets/design/generated/2026-10-18-personal-memory/daily-rhythm-a.png"
+    }
+  ],
+  "redistribution": "Private project design source archive authorized by the owner. Not runtime assets or official character artwork; no personal source records.",
+  "implementationEvidence": "See docs/CURRENT_STATUS.md, not the generated images."
+}

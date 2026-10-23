@@ -3,6 +3,8 @@
   color-scheme: light dark;
   --font-body: 'Noto Sans SC Variable', 'Microsoft YaHei UI', 'Segoe UI', sans-serif;
   --font-display: var(--font-body);
+  --font-reading: 'Songti SC', 'STSong', 'SimSun', 'Noto Serif SC', 'Noto Sans SC Variable', serif;
+  --font-handwritten: 'Kaiti SC', 'STKaiti', 'KaiTi', 'Noto Sans SC Variable', sans-serif;
   --bg: #f8f5ef;
   --surface: #fffefd;
   --surface-raised: #fffdf8;

@@ -1,0 +1,16 @@
+Use case: ui-mockup. Edit the supplied mockup into ONE polished desktop conversation screen for 在场; use the right-hand B panel as the style reference and keep its warm ivory paper, restrained gold, generous breathing room, quiet anime companion in the upper corner, delicate Chinese typography, soft window light and existing 聊天 / 今天 / 留下 navigation. Remove the A/B split and all story illustrations. This is a design exploration with synthetic sample content, not a screenshot of a working product.
+Primary request: “一条今天，两种改法” — the user immediately understands what stays, what moves, and what time is kept for themselves, without reading two repeated calendars. Show TWO compact, genuinely different planning branches at the top and ONLY ONE shared timeline beneath, for the currently viewed branch. The first branch has a delicate gold focus, the second is quieter; thin reversible branch curves converge into the same timeline and continuing conversation. No execution/approval button.
+Exact Chinese copy:
+User: “临时加了节课，今晚还想见朋友，复习别被挤没了。”
+Assistant: “晚饭先留着。我把复习前后挪了挪，看看哪版更舒服。”
+Heading: “同一条今天，两种改法”
+Date: “10月18日 · 周日”
+First branch title: “保住一整段复习”
+First branch sentence: “晚饭不动，复习移到饭后连着做。”
+First branch small facts: “调整1处 · 连续90分钟”
+Second branch title: “晚上轻一点”
+Second branch sentence: “晚饭不动，复习分两段，晚点留给自己。”
+Second branch small facts: “调整2处 · 留40分钟空白”
+Shared timeline for the first branch, with restrained real time labels: 16:00—17:00 “临时课程”; 17:00—17:20 “路上与缓一缓”; 17:20—18:00 “还没安排”; 18:00—19:00 “和朋友吃饭”; 19:00—19:15 “准备和歇一歇”; 19:15—20:45 “复习”; 20:45—21:00 “收尾”.
+Visually preserve the dinner as a quiet unchanged anchor; highlight ONLY the shifted review span and its actual small before/after cue “17:00 → 19:15”. Keep preparation and rest clearly present yet secondary. The empty time is open paper, not another task. Below: a small collapsed line “还有一件事，留着再商量”. The one conversational continuation button says “从这一版接着聊”. The normal composer below carries a temporary topic chip and a text cursor, not save/execute controls.
+Constraints: Use only one timeline. Do not make a project management dashboard, gauges, scores, progress bars, source IDs, model metadata, legal disclaimers, “校验/已提交/验证通过/待测试” labels, duplicate calendars, giant mascots, illustration panels, heavy shadows, dark blue surfaces or fake active timers. Maintain the existing product personality and intimacy. Clean Chinese glyphs, full readable words, no arbitrary extra prose.

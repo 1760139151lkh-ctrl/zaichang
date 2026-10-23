@@ -3,7 +3,7 @@ import { ArrowRight, ArrowUpRight, BookOpen, Bookmark, ChevronDown, LoaderCircle
 import type { Bridge } from '../../shared/types';
 import type { MaterialPage } from '../../shared/materials';
 import { studyExplorationFollowup, studyFollowup, type StudyFocusRef, type StudyFocusTarget, type StudyHistoryReference,
-  type StudyInteraction, type StudyScene } from '../../shared/study-presentation';
+  type StudyInteraction, type StudyNativeInput, type StudyScene } from '../../shared/study-presentation';
 import { RichText } from '../RichText';
 import { ReadableFocus } from '../LocalTextFocus';
 import { ConversationComposerDockContext, StudyComposerSlot } from '../ConversationComposerDock';
@@ -19,15 +19,17 @@ export interface StudySceneViewProps {
   messageId?: string;
   boundaryKey: string;
   onFollowup: (value: Followup) => void | Promise<void>;
+  onReadStart?: () => void;
   api?: Pick<Bridge, 'studyProject' | 'studyRead' | 'materialsRead'>;
   onOpenMaterial?: (value: { resourceId: string; page?: number }) => void | Promise<void>;
+  onOpenSource?: (input: StudyNativeInput) => void | Promise<void>;
   disabled?: boolean;
 }
 
 /** Only a current owner response enters the paper. A history reference, a
  * prior render or an old reply never acts as a material/source permission. */
-export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFollowup,
-  api = window.zaichang, onOpenMaterial, disabled = false }: StudySceneViewProps) {
+export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFollowup, onReadStart,
+  api = window.zaichang, onOpenMaterial, onOpenSource, disabled = false }: StudySceneViewProps) {
   const headingId = useId(), originalId = useId();
   const root = useRef<HTMLElement>(null);
   const workRow = useRef<HTMLDivElement>(null), writtenLine = useRef<HTMLDivElement>(null), marginNote = useRef<HTMLElement>(null);
@@ -233,6 +235,11 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
     const before = current, key = requestKey, next = await refresh();
     if (!next || key !== liveKey.current || !sameVisibleStep(before, next)) return;
     const origin = next.problem.origin;
+    if (origin.kind === 'note') {
+      try { await onOpenSource?.({ sessionId, messageId, studyId: scene.owner.id, studyRevision: scene.owner.revision }); }
+      catch (problem) { if (liveKey.current === key) setError(uiError(problem)); }
+      return;
+    }
     if (!origin.resourceId) return;
     if (onOpenMaterial) {
       try { await onOpenMaterial({ resourceId: origin.resourceId, page: origin.page }); }
@@ -274,16 +281,17 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
       <span className="study-folded-mark" aria-hidden="true"><BookOpen size={23} strokeWidth={1.35} /></span>
       <div><h3 id={headingId}>接着学习这一页</h3>
         {error ? <p role="status">{error}</p> : pending ? <p role="status">把原题和刚才那一步接回来…</p> : null}</div>
-      <button type="button" className="study-open" disabled={pending || disabled} onClick={() => void refresh()}>
+      <button type="button" className="study-open" disabled={pending || disabled} onClick={async () => { onReadStart?.(); await refresh(); }}>
         {pending ? <LoaderCircle size={16} className="study-spin" aria-hidden="true" /> : error ? <RefreshCw size={16} aria-hidden="true" /> : <ArrowUpRight size={17} aria-hidden="true" />}
         <span>{error ? '重新打开' : pending ? '正在打开' : '打开'}</span>
       </button>
     </div>}</> : <>
       <div className="study-desk-papers">
         <section className="study-source-paper" aria-labelledby={originalId}>
+          <div className="study-source-reference">
           <header className="study-source-heading"><span>{sourceName}{current.problem.origin.page ? ` · 第 ${current.problem.origin.page} 页` : ''}</span>
-            {current.problem.origin.resourceId && <button type="button" onClick={() => void openOriginal()} disabled={pending || disabled}
-              aria-expanded={sourceOpen}>{sourceOpen ? '收起原' : '看看原'}{current.problem.origin.page ? '页' : '文'}{sourceOpen ? <X size={13} aria-hidden="true" /> : <ArrowUpRight size={13} aria-hidden="true" />}</button>}</header>
+            {(current.problem.origin.resourceId || current.problem.origin.note && onOpenSource) && <button type="button" onClick={() => void openOriginal()} disabled={pending || disabled}
+              aria-expanded={current.problem.origin.note ? undefined : sourceOpen}>{current.problem.origin.note ? '打开原笔记' : <>{sourceOpen ? '收起原' : '看看原'}{current.problem.origin.page ? '页' : '文'}</>}{sourceOpen ? <X size={13} aria-hidden="true" /> : <ArrowUpRight size={13} aria-hidden="true" />}</button>}</header>
           <div className="study-question-label"><h4 id={originalId}>这一题</h4></div>
           <div ref={question} className="study-question">{sourceOpen ? <div className="study-original-inline" aria-label="原来的学习资料" aria-busy={sourcePending}>
             {sourcePending ? <p role="status">正在打开原{current.problem.origin.page ? '页' : '文'}…</p>
@@ -294,6 +302,7 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
           </div> : <ReadableFocus key={`${current.owner.revision}:problem`} label="这道原题" active={referencedPart?.kind === 'problem'} disabled={pending || disabled}
             onFocus={() => void referencePart({ kind: 'problem' })}><RichText text={current.problem.text} /></ReadableFocus>}</div>
           {!sourceOpen && current.problem.origin.interpretation === 'assistant_page_description' && <span className="study-page-caption">按原页整理的题意</span>}
+          </div>
         </section>
 
         <section className="study-work-paper" aria-labelledby={headingId}>
@@ -317,7 +326,7 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
                   </ReadableFocus>
                 </div>)}
               </div>
-                : <p className="study-starting-point">{current.nextMove.text}</p>}
+                : <div className="study-starting-point"><RichText text={current.nextMove.text} /></div>}
               {(historyMore || current.historyWindow.offset > 0) && <button type="button" className="study-earlier" disabled={pending || disabled}
                 onClick={() => void refresh({ historyOffset: current.historyWindow.offset > 0 ? 0 : current.historyWindow.offset + current.historyWindow.limit,
                   historyLimit: current.historyWindow.limit })}>
@@ -338,7 +347,7 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
           {current.status === 'parked' && current.stopPoint && <div className="study-bookmark-point"><Bookmark size={16} aria-hidden="true" />
             <p>{current.stopPoint.text}</p></div>}
           {closed && current.closure ? <p className="study-closed-note">{current.closure.text}</p> : null}
-          {!closed && current.learnerAttempt && <p className="study-next-move">{current.nextMove.text}</p>}
+          {!closed && current.learnerAttempt && <div className="study-next-move"><RichText text={current.nextMove.text} /></div>}
           {writingPlace}
           {!closed && <footer className="study-help-choices">
               {action('hint') && <button type="button" className="study-hint" disabled={pending || disabled} onClick={() => void act('hint')}>

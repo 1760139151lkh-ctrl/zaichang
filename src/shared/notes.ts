@@ -1,6 +1,9 @@
 import { z } from 'zod';
 
 export const NOTE_LIMITS = { title: 160, body: 200_000, page: 16_000, list: 100 } as const;
+/** The string limits count Unicode code points. A supplementary point can use
+ * two JSON \uXXXX escapes; include the existing mutation quote and envelope. */
+export const NOTE_ARGUMENT_CHARACTERS = 12 * (NOTE_LIMITS.body + NOTE_LIMITS.title + 2000) + 1024;
 const noteId = z.string().regex(/^note-[a-f0-9-]{36}$/);
 const revision = z.number().int().positive();
 export const noteListSchema = z
@@ -65,6 +68,9 @@ export interface NoteMetadata {
     kind: 'user_note' | 'legacy' | 'unknown';
     via: 'notebook' | 'conversation' | 'unknown';
     eventId?: string;
+    /** Original address only; opening it rechecks the MaterialService owner.
+     * The user's deliberately kept note remains a notebook document. */
+    material?: import('./materials').MaterialQuoteReference & { name: string };
   };
   /** A note may quote another person or describe fiction; no subject is inferred. */
   effectiveAt: string | null;

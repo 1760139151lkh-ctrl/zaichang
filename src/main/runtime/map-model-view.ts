@@ -30,8 +30,29 @@ export const projectMapValue = (value: unknown): unknown => projectValue(value);
  * path geometry. Keep the one public reference coordinate for weather and
  * explicit geographic questions; it is never the user's device location. */
 export function projectMapSearchPoint(point: MapPoint): Record<string, unknown> {
-  return { ...projectObject(point), coordinate: [point.coordinate[0], point.coordinate[1]],
-    geometryOmitted: true, coordinateMeaning: '公共地点参考坐标，不是本人定位或到达证明。' };
+  const facts=projectObject(point),groups=new Map<string,{kind:MapAccessCandidate['kind'];name:string;stairs:boolean|null;
+    connected:boolean|null;conditions:string[];distanceRangeM:{min:number;max:number};
+    candidates:{id:string;source:string;nodeId:string;entranceId?:string}[]}>();
+  for(const candidate of point.accessCandidates||[]){
+    const known=candidate.entranceId?point.entrances.find(entrance=>entrance.id===candidate.entranceId):undefined;
+    const stairs=candidate.stairs??null,connected=known?known.connected:null,conditions=candidate.conditions||[];
+    const key=JSON.stringify([candidate.kind,candidate.name,stairs,connected,conditions]);
+    const member={id:candidate.id,source:candidate.source,nodeId:candidate.nodeId,
+      ...(candidate.entranceId?{entranceId:candidate.entranceId}:{})};
+    const group=groups.get(key);
+    if(group){group.distanceRangeM.min=Math.min(group.distanceRangeM.min,candidate.meters);
+      group.distanceRangeM.max=Math.max(group.distanceRangeM.max,candidate.meters);group.candidates.push(member);}
+    else groups.set(key,{kind:candidate.kind,name:candidate.name,stairs,connected,conditions:[...conditions],
+      distanceRangeM:{min:candidate.meters,max:candidate.meters},candidates:[member]});
+  }
+  // Discovery does not need one repeated record per alternative path. Preserve
+  // every candidate identity/source and each distinct condition combination;
+  // the exact chosen access, geometry and distance still come from map.route.
+  delete facts.accessCandidates;
+  return { ...facts, coordinate: [point.coordinate[0], point.coordinate[1]],
+    accessSummary:{summary:true,candidateCount:point.accessCandidates?.length||0,groups:[...groups.values()],
+      coverage:'all_candidates_grouped'},
+    geometryOmitted: true, coordinateMeaning: 'public_reference_not_device' };
 }
 
 function endpoint(point: MapPoint | undefined) {

@@ -1,3 +1,4 @@
+.conversation-map-frame { min-width:0; display:flow-root; }
 .conversation-map {
   margin: 22px 0;
   min-width: 0;

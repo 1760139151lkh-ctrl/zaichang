@@ -1,0 +1,34 @@
+# 2026-10-23 · 在场的阅读、接续与空间
+
+保存本轮主代理亲自生成、查看并指定采用方向的 **5 张 GPT Image 原图**，文件未经裁切、转码或压缩，工作区原文件保留。原始文件名、大小、尺寸、SHA-256 与采用范围见 [manifest.json](manifest.json)。归档日期不是工具调用时间。
+
+这些图是艺术和交互概念，不是实际运行截图；图中的示例文字、公式、人物、日期、日程、天气、路线与距离不作为真实数据或实现证明。实现和运行体验须分别以产品代码与实际操作证据检查。本索引记录主代理的选择，不替代其审美判断。
+
+## 本轮采用图
+
+| 原图 | 采用范围 |
+| --- | --- |
+| [阅读与对话候选](reading-candidates.png) | **仅采用 A** 的均衡分栏、原资料与原聊天关系，以及选段接续。B 未采用；为保留原图而一并存在，不表示整板采纳。 |
+| [Scene 焦点与地图](scene-focus-map.png) | 主要查看内容与辅助资料并置；地图展开、查看与回到原对话。真实地图继续使用原地理与路网。 |
+| [笔记与学习接续](note-study-continuity.png) | 原笔记、学习纸、来源与下一句讨论连起来，保留同一对象地址。 |
+| [今天与试放](today-trial.png) | 连续时间线、安排试放与前后关系。试放画面不代表已修改或接受安排。 |
+| [首页、聊天与窄窗口](home-conversation-narrow.png) | 窗景、内容留白与陪伴形象的空间关系，以及窗口变窄后的表达。 |
+
+早期 `exec-014afbf2-39c3-4c7b-b941-a6e1d13fcbfe.png` 为后来纠正的探索候选，不复制进本目录、不计入上述五张；其数学表达不作为实现依据。阅读图的 B 候选也不计为采用方案。
+
+## 既有 Image 的承接索引
+
+本轮未另起整页图的相关体验，继续承接[既有图像覆盖记录](../../../../docs/DESIGN_IMAGE_COVERAGE.md)及各批生成证据，不重新复制原图。下面只索引设计依据，不把旧批次的实施或验收结论升级为本轮结果。排练图未列入该旧覆盖表，其来源单独见原批次 manifest。
+
+| 页面或状态 | 既有 Image | 生成证据与采用边界 |
+| --- | --- | --- |
+| 设置、阅读与节奏 | [阅读偏好](../2026-10-18-continuation/reading-rhythm-preferences.png) | [原 manifest](../2026-10-18-continuation/manifest.json)；承接字号、疏密、光线与减少动态的即时预览关系。 |
+| 记忆、更正与来源 | [理解可以变化](../2026-10-18-windowlight/understanding-can-change.png)、[回看与范围](../2026-10-18-continuation/source-revisit-scoped-recall.png) | [窗边批次记录](../2026-10-18-windowlight/manifest.json)、[续作批次记录](../2026-10-18-continuation/manifest.json)；保留原话、更正、临时例外和回到来源。 |
+| 角色选择与相处方式 | [图库](../2026-10-18-continuation/companion-gallery.png)、[角色与文字预览](../2026-10-18-companion-evolution/persona.png) | [图库生成记录](../2026-10-18-continuation/manifest.json)、[角色预览记录](../2026-10-18-companion-evolution/manifest.json)；承接选择和预览关系，人物造型以本轮另行审阅的新素材为准，不沿用图中虚构传记。 |
+| 搜索、回到原文 | [找到原来的话](../2026-10-18-windowlight/find-the-original-words.png) | [原 manifest](../2026-10-18-windowlight/manifest.json)；聊天、笔记与资料的节选和准确返回。 |
+| 中断、草稿与返回 | [中断后继续](../2026-10-18-continuation/conversation-interruption-and-draft-return.png) | [原 manifest](../2026-10-18-continuation/manifest.json)；保留输入、停止、返回和恢复，不把图稿当作持久化检查。 |
+| 资料或地图打不开 | [资料恢复](../2026-10-18-continuation/document-open-recovery.png)、[地图恢复](../2026-10-18-continuation/map-recovery.png) | [原 manifest](../2026-10-18-continuation/manifest.json)；提供具体重试、重新选择与继续查看的方向。 |
+| 休息、安静停留 | [先坐一会儿](../01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-91958a11-422d-4d52-aa81-66e32c6e148f.png) | [归档身份](../01a14ed0-bc5b-7403-9599-b0c0f3c19589/manifest.json)、[原生成记录](../../../../前端视觉创新设计/补充图稿/生成记录.json)；只承接停留氛围，不把画在背景里的人物锁成用户唯一选择。 |
+| 审阅、公开展示与私聊返回 | [给别人看](../01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-fa1748fc-680d-4526-aeb7-64531ad77cfb.png) | [归档身份](../01a14ed0-bc5b-7403-9599-b0c0f3c19589/manifest.json)、[原生成记录](../../../../前端视觉创新设计/补充图稿/生成记录.json)；单一顶部导航，审阅后本机展示，不表示已向他人发送。 |
+| 排练、换一种回应与收起 | [对话中的排练](../2026-10-19-expression-rehearsal/rehearsal-conversation.png) | [GPT Image 生成与原选择记录](../2026-10-19-expression-rehearsal/manifest.json)；同一张纸保留本人试说与对方一种可能回应，不把台词当现实关系事实。 |
+| 初次见面、连接与资料 | [初次见面与连接](../2026-10-18-continuation/first-arrival-and-connection.png) | [原 manifest](../2026-10-18-continuation/manifest.json)；直接开始交流并按需连接，图中连接状态不证明真实账号已可用。 |

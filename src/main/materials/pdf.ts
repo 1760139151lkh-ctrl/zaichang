@@ -3,10 +3,12 @@ import { createHash } from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { ImageAttachment } from '../../shared/types';
+import { boundedImageSize, type RasterMediaType } from './raster';
 
 export interface PdfCrop { x: number; y: number; width: number; height: number }
 export interface PdfRequest {
-  operation: 'describe' | 'read' | 'table' | 'render';
+  operation: 'describe' | 'read' | 'table' | 'render' | 'prepare_image';
+  mediaType?: RasterMediaType;
   page?: number;
   /** Fractions of the rotated page, with its top-left corner as the origin. */
   crop?: PdfCrop;
@@ -41,6 +43,7 @@ export interface PdfResult {
   tables?: PdfTable[];
   coverage?: { complete: boolean; reason?: string };
   image?: ImageAttachment;
+  originalSize?: { width: number; height: number };
   rendererVersion?: string;
   crop?: PdfCrop;
   bboxPdfPoints?: [number, number, number, number];
@@ -58,7 +61,7 @@ function failure(code: string, message: string) {
 }
 
 function validateRequest(request: PdfRequest) {
-  if (!request || !['describe', 'read', 'table', 'render'].includes(request.operation)) {
+  if (!request || !['describe', 'read', 'table', 'render', 'prepare_image'].includes(request.operation)) {
     throw failure('MATERIAL_PDF_REQUEST', 'PDF 操作无效。');
   }
   if (request.page !== undefined && (!Number.isInteger(request.page) || request.page < 1)) {
@@ -143,6 +146,9 @@ async function checkedRuntime(root: string) {
 export async function parsePdf(bytes: Buffer, request: PdfRequest, signal: AbortSignal): Promise<PdfResult> {
   if (signal.aborted) throw failure('MATERIAL_PDF_CANCELLED', '已停止读取 PDF。');
   validateRequest(request);
+  if (request.operation === 'prepare_image' && (request.page !== undefined || request.crop !== undefined
+    || !boundedImageSize(bytes, request.mediaType || '')))
+    throw failure('MATERIAL_PDF_IMAGE', '图片格式、尺寸或大小不能可靠读取。');
   if (!Buffer.isBuffer(bytes) || bytes.length === 0 || bytes.length > MAX_PDF_BYTES) {
     throw failure('MATERIAL_PDF_RESOURCE_LIMIT', 'PDF 文件为空或超过 20,000,000 字节读取上限。');
   }

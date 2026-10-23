@@ -39,7 +39,7 @@ async function background(sources = ['local-agenda', 'profile:self', 'history:se
   return { f, runtime, controller, quote, authority, focus, opportunity, run, helper, registry, hooks, task };
 }
 const resultFor = (id: string, summary = 'CONTROLLED_CHILD_FINDING') => ({ _host_children: [id], results: [{ hostTaskId: id, status: 'produced', summary }] });
-const wireFor = (value: unknown): ModelWireMessage[] => [{ role: 'tool', tool_call_id: 'delegation', content: JSON.stringify(value) }];
+const wireFor = (value: unknown, id = 'delegation'): ModelWireMessage[] => [{ role: 'tool', tool_call_id: id, content: JSON.stringify(value) }];
 async function open(s: Awaited<ReturnType<typeof background>>, task = s.task) {
   s.helper.authorize([task]);
   return s.hooks.open(task);
@@ -68,7 +68,7 @@ test('background workers receive only their quoted authority, read-only tools an
     const second = await open(s, { ...s.task, title: '独立第二项' });
     const sibling = s.helper.workers.get(second.id)!;
     assert.equal(sibling.run.pack!.receipt.budget, worker.run.pack!.receipt.budget);
-    assert.throws(() => s.helper.authorize([{ ...s.task, title: '超出总数' }]), /最多/);
+    assert.doesNotThrow(() => s.helper.authorize([{ ...s.task, title: '另一项独立调查' }]));
     const prior = s.run.toolCalls;
     await sibling.registry.execute('read_evidence', JSON.stringify({ id: s.authority.id }), 'second-read');
     assert.equal(s.run.toolCalls, prior + 1);
@@ -80,14 +80,14 @@ test('a failed sibling is sanitized while an independent successful sibling rema
   const s = await background(['local-agenda']);
   try {
     const left = await open(s), right = await open(s, { ...s.task, title: '第二条调查' });
-    s.hooks.event(left.id, 'produced'); s.hooks.event(right.id, 'failed');
+    await s.hooks.event(left.id, 'produced'); await s.hooks.event(right.id, 'failed');
     const accepted = await s.hooks.result('two-children', { _host_children: [left.id, right.id], results: [
       { hostTaskId: left.id, status: 'produced', summary: 'AVAILABLE_SIBLING' },
       { hostTaskId: right.id, status: 'failed', summary: 'FAILED_PRIVATE_CANARY', extra: 'FAILED_PRIVATE_CANARY' },
     ] });
     assert.doesNotMatch(JSON.stringify(accepted), /FAILED_PRIVATE_CANARY/);
     assert.match(JSON.stringify(accepted), /AVAILABLE_SIBLING/);
-    s.helper.consume(wireFor(accepted));
+    await s.helper.consume(wireFor(accepted, 'two-children'));
     assert.equal(s.helper.workers.get(left.id)!.metadata.status, 'consumed');
     assert.equal(s.helper.workers.get(right.id)!.metadata.status, 'failed');
   } finally { s.f.close(); }
@@ -123,10 +123,10 @@ test('a narrowed current parent scope rejects an already produced worker report 
   const s = await background();
   try {
     const ticket = await open(s);
-    s.hooks.event(ticket.id, 'produced');
+    await s.hooks.event(ticket.id, 'produced');
     const accepted = await s.hooks.result('delegation', resultFor(ticket.id));
     s.run.ingress.contract.scope = s.f.policy.narrow(s.run.ingress.contract.scope, { sources: ['current', 'work:self'], currentEventIds: [] });
-    assert.throws(() => s.helper.consume(wireFor(accepted)), /范围|改变|停止/);
+    await assert.rejects(() => s.helper.consume(wireFor(accepted)), /范围|改变|停止/);
     assert.notEqual(s.helper.workers.get(ticket.id)!.metadata.status, 'consumed');
   } finally { s.f.close(); }
 });
@@ -136,10 +136,10 @@ test('pause and stop after child production reject old report adoption without c
     const s = await background();
     try {
       s.runtime.reminders.schedule({ id: 'independent-reminder', title: '合成提醒', detail: '', kind: 'reminder', startsAt: '2026-09-14T07:00:00Z' });
-      const ticket = await open(s); s.hooks.event(ticket.id, 'produced');
+      const ticket = await open(s); await s.hooks.event(ticket.id, 'produced');
       const accepted = await s.hooks.result('delegation', resultFor(ticket.id));
       changeAttention(s, operation);
-      assert.throws(() => s.helper.consume(wireFor(accepted)), /改变|停止|暂停|退出/);
+      await assert.rejects(() => s.helper.consume(wireFor(accepted)), /改变|停止|暂停|退出/);
       assert.equal(s.f.repo.db.prepare('SELECT status FROM h_jobs WHERE object_id=?').get('independent-reminder')?.status, 'queued');
       assert.equal(s.f.store.agenda().length, 0);
     } finally { s.f.close(); }
@@ -153,13 +153,13 @@ test('memory correction between worker result and parent use rejects both late t
     const ticket = await open(s), worker = s.helper.workers.get(ticket.id)!;
     const read = JSON.parse(await worker.registry.execute('read_understanding', JSON.stringify({ id: memory.id }), 'memory-read'));
     assert.equal(read.assertion.id, memory.id);
-    s.hooks.event(ticket.id, 'produced');
+    await s.hooks.event(ticket.id, 'produced');
     const accepted = await s.hooks.result('delegation', resultFor(ticket.id, 'OLD_MORNING_FINDING'));
     const correction = s.f.ingest('刚才说错了，我平时喜欢下午学习。');
     await s.f.memory.propose(s.f.scope(), s.f.change(correction, { operation: 'CORRECT', targetId: memory.id, expectedRevision: 1 }), undefined, { review: supported });
     // Simulate an event reaching the host before the parent asks to consume.
-    assert.equal(s.hooks.event(ticket.id, 'produced'), 'failed');
-    assert.throws(() => s.helper.consume(wireFor(accepted)), /改变|停止|失效|旧/);
+    assert.equal(await s.hooks.event(ticket.id, 'produced'), 'failed');
+    await assert.rejects(() => s.helper.consume(wireFor(accepted)), /改变|停止|失效|旧/);
     assert.ok(!s.run.observations?.some(item => item.toolCallId === 'memory-read'));
   } finally { s.f.close(); }
 });
@@ -168,11 +168,11 @@ test('source revocation and root cancellation reject late worker output', async 
   for (const kind of ['revoke', 'cancel'] as const) {
     const s = await background();
     try {
-      const ticket = await open(s); s.hooks.event(ticket.id, 'produced');
+      const ticket = await open(s); await s.hooks.event(ticket.id, 'produced');
       const accepted = await s.hooks.result('delegation', resultFor(ticket.id));
       if (kind === 'revoke') s.f.policy.revoke('evidence:read');
       else s.controller.abort(new DOMException('synthetic_cancel', 'AbortError'));
-      assert.throws(() => s.helper.consume(wireFor(accepted)), /改变|synthetic_cancel/);
+      await assert.rejects(() => s.helper.consume(wireFor(accepted)), /改变|synthetic_cancel/);
       assert.notEqual(s.helper.workers.get(ticket.id)!.metadata.status, 'consumed');
     } finally { s.f.close(); }
   }
@@ -207,12 +207,13 @@ test('only consumed real child observations can back a prepared artifact through
     const observed = JSON.parse(await worker.registry.execute('look_up', JSON.stringify({ source: 'local', from: '2026-09-14T06:00:00Z', to: '2026-09-14T12:00:00Z' }), 'calendar-read'));
     assert.equal(observed.status, 'fresh');
     assert.ok(JSON.stringify(observed).includes('synthetic-class'));
-    s.hooks.event(ticket.id, 'produced');
+    await s.helper.recordDeliveredEvidence(ticket.id, [{ role: 'tool', tool_call_id: 'calendar-read', content: JSON.stringify(observed) }]);
+    await s.hooks.event(ticket.id, 'produced');
     const accepted = await s.hooks.result('delegation', resultFor(ticket.id));
     assert.ok(!s.run.observations?.some(item => item.toolCallId === 'calendar-read'));
-    s.helper.consume(wireFor(accepted));
+    await s.helper.consume(wireFor(accepted));
     assert.equal(s.run.observations?.filter(item => item.toolCallId === 'calendar-read').length, 1);
-    s.helper.consume(wireFor(accepted));
+    await s.helper.consume(wireFor(accepted));
     assert.equal(s.run.observations?.filter(item => item.toolCallId === 'calendar-read').length, 1);
     const prepared = JSON.parse(await s.registry.execute('decide_help', JSON.stringify({ id: s.opportunity.id, expectedRevision: s.opportunity.revision,
       choice: 'prepare', reason: '已从合成本地安排读取实际时段。', actionDescription: '安静保存一份可回看的准备。', sourceToolCallIds: ['calendar-read'],
@@ -235,11 +236,11 @@ test('a background decision can finish after its own expiry wake update, but lat
       artifact: { title: 'Synthetic weather', body: 'This is a deterministic fixture, not a real forecast.' } }), 'timed-decision'));
     assert.equal(result.status, 'prepared');
     assert.deepEqual(result.mandateUpdate, { id: s.focus.id, previousRevision: s.focus.revision, revision: s.focus.revision + 1, operation: 'material_wakes' });
-    assert.doesNotThrow(() => s.helper.validateBoundary());
-    assert.doesNotThrow(() => s.helper.validateBoundary(), 'the accepted host revision is stable across model boundaries');
+    await assert.doesNotReject(() => s.helper.validateBoundary());
+    await assert.doesNotReject(() => s.helper.validateBoundary(), 'the accepted host revision is stable across model boundaries');
     const current = s.f.repo.work(s.f.scope(), undefined, s.focus.id)[0];
     s.runtime.work.update(s.f.scope(), current.id, current.revision, { data: { ...current.data, rule: 'A separate later revision.' } });
-    assert.throws(() => s.helper.validateBoundary(), /改变|暂停|停止/);
+    await assert.rejects(() => s.helper.validateBoundary(), /改变|暂停|停止/);
   } finally { s.f.close(); }
 });
 
@@ -254,7 +255,7 @@ test('a decision receipt cannot absorb an unrelated mandate edit made before its
       } }]);
     s.run.observations = [{ tool: 'decide_help', result }];
     assert.equal(result.mandateUpdate?.previousRevision, s.focus.revision + 1);
-    assert.throws(() => s.helper.validateBoundary(), /改变|暂停|停止/);
+    await assert.rejects(() => s.helper.validateBoundary(), /改变|暂停|停止/);
   } finally { s.f.close(); }
 });
 
@@ -264,9 +265,9 @@ test('a background decision to leave the user alone completes without a spurious
     const result = JSON.parse(await s.registry.execute('decide_help', JSON.stringify({ id: s.opportunity.id, expectedRevision: s.opportunity.revision,
       choice: 'none', reason: 'There is no useful new value.', actionDescription: 'Do not interrupt.' }), 'leave-alone'));
     assert.equal(result.status, 'declined');
-    assert.doesNotThrow(() => s.helper.validateBoundary());
+    await assert.doesNotReject(() => s.helper.validateBoundary());
     changeAttention(s, 'pause');
-    assert.throws(() => s.helper.validateBoundary(), /改变|暂停|停止/);
+    await assert.rejects(() => s.helper.validateBoundary(), /改变|暂停|停止/);
   } finally { s.f.close(); }
 });
 

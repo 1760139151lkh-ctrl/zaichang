@@ -5,6 +5,7 @@ import path from 'node:path';
 import { Fixture, supported } from './support';
 import { Harness } from '../../src/main/harness';
 import { DeepSeekClient } from '../../src/main/provider';
+import { materialQuoteAddress } from '../../src/shared/materials';
 
 test('native material preview reads the selected original without binding, saving or admitting it to the model', async () => {
   const f = new Fixture();
@@ -43,6 +44,81 @@ test('saved native material reading follows its original source through restart 
     assert.equal(f.store.runtime.materials.nativeList().length, 0);
     await assert.rejects(f.store.runtime.materials.nativeReadPage({ target }), /不在这里/);
     assert.throws(() => f.store.runtime.materials.nativeOriginal(target), /不在这里/);
+  } finally { f.close(); }
+});
+
+test('material quotes re-read exact Unicode ranges and kept notes preserve their address without saving a pending original', async () => {
+  let f = new Fixture();
+  try {
+    const original = '开始😀重复\n甲😀乙\n甲😀乙结束', start = Array.from('开始😀重复\n甲😀乙\n').length;
+    const attachment = f.store.runtime.materials.stageBytes('原文摘录.txt', Buffer.from(original));
+    const target = { kind: 'pending' as const, reference: attachment.resource! };
+    const address = { resourceId: attachment.resource!.resourceId, sha256: attachment.resource!.sha256, start, end: start + 3 };
+    const quote = await f.store.runtime.materials.nativeQuote({ target, quote: address });
+    assert.equal(quote.text, '甲😀乙');
+    assert.deepEqual(materialQuoteAddress(quote), address);
+    await assert.rejects(f.store.runtime.materials.nativeQuote({ target, quote: { ...address, sha256: '0'.repeat(64) } }), /不一致/);
+    await assert.rejects(f.store.runtime.materials.nativeQuote({ target, quote: { ...address, page: 1 } }), /不一致/);
+    await assert.rejects(f.store.runtime.materials.nativeQuote({ target, quote: { ...address, end: 200 } }), /原来的位置/);
+    const saved = await f.store.runtime.materials.nativeKeepQuote({ target, quote: address }, f.store.notes);
+    assert.equal(saved.status, 'saved'); if (saved.status !== 'saved') return;
+    assert.deepEqual(saved.note.source.material, { ...address, name: '原文摘录.txt' });
+    assert.equal(saved.note.body, '甲😀乙');
+    assert.equal(fs.existsSync(f.store.runtime.materials.directory), false, 'keeping the excerpt does not silently persist its complete pending file');
+    f.store.runtime.materials.releasePending(attachment.resource);
+    await assert.rejects(f.store.runtime.materials.nativeQuote({ target, quote: address }), /失效/);
+    f = f.restart();
+    const note = f.store.notes.read({ id: saved.note.id });
+    assert.equal(note.body, '甲😀乙', 'the explicitly kept note is an independent user document');
+    assert.deepEqual(note.note.source.material, { ...address, name: '原文摘录.txt' });
+  } finally { f.close(); }
+});
+
+test('typed material focus enters current scoped context without becoming authored text, and expired source does not return', async () => {
+  let f = new Fixture();
+  try {
+    const runtime = f.store.runtime, attachment = runtime.materials.stageBytes('可接着读.txt', Buffer.from('OUTSIDE_CANARY\n选😀段\nTAIL_CANARY'));
+    const start = Array.from('OUTSIDE_CANARY\n').length;
+    const address = { resourceId: attachment.resource!.resourceId, sha256: attachment.resource!.sha256, start, end: start + 3 };
+    const run = runtime.begin('我卡在这里', 'material-focus-origin', 'material-focus-session', new AbortController().signal,
+      { material: attachment.resource, materialQuote: address });
+    const pack = await runtime.compile(run);
+    assert.equal(run.ingress.authoredText, '我卡在这里');
+    assert.equal((pack.data.currentMaterial as any)?.text, '选😀段');
+    assert.equal(JSON.stringify(pack.data).includes('OUTSIDE_CANARY'), false);
+    assert.equal(JSON.stringify(pack.data).includes('TAIL_CANARY'), false);
+    assert.equal(pack.receipt.materialReads?.at(-1)?.start, start);
+    assert.ok(pack.receipt.providedEvidenceIds.includes('material-focus-origin:file'));
+    const saved = await runtime.materials.nativeKeepQuote({ target: { kind: 'saved', resourceId: address.resourceId }, quote: address }, f.store.notes);
+    assert.equal(saved.status, 'saved'); if (saved.status !== 'saved') return;
+    runtime.finish(run); f = f.restart();
+    const source = f.store.notes.read({ id: saved.note.id }).note.source.material!;
+    assert.equal((await f.store.runtime.materials.nativeQuote({ target: { kind: 'saved', resourceId: source.resourceId }, quote: materialQuoteAddress(source) })).text, '选😀段');
+    const limited = f.store.runtime.begin('只用这次新说的话', 'material-focus-limited', 'other-session', new AbortController().signal,
+      { sources: ['current'], materialQuote: address });
+    const restricted = await f.store.runtime.compile(limited);
+    assert.equal(restricted.data.currentMaterial, undefined);
+    assert.ok(restricted.data.currentMaterialUnavailable);
+    assert.equal(JSON.stringify(restricted.data).includes('选😀段'), false);
+    f.store.runtime.finish(limited);
+    f.memory.forget(['material-focus-origin']);
+    await assert.rejects(f.store.runtime.materials.nativeQuote({ target: { kind: 'saved', resourceId: address.resourceId }, quote: address }), /不在这里/);
+    assert.equal(f.store.notes.read({ id: saved.note.id }).body, '选😀段');
+  } finally { f.close(); }
+});
+
+test('typed material focus supports a temporary current attachment without persisting original bytes', async () => {
+  const f = new Fixture();
+  try {
+    const attachment = f.store.runtime.materials.stageBytes('临时资料.txt', Buffer.from('前文😀这一段后文'));
+    const quote = { resourceId: attachment.resource!.resourceId, sha256: attachment.resource!.sha256, start: 3, end: 6 };
+    const run = f.store.runtime.begin('这里怎么理解', 'temporary-material-focus', 'temporary-material-session', new AbortController().signal,
+      { material: attachment.resource, materialQuote: quote, retention: 'session_only' });
+    const pack = await f.store.runtime.compile(run);
+    assert.equal((pack.data.currentMaterial as any)?.text, '这一段');
+    assert.equal(f.repo.watermarks().received, 0);
+    assert.equal(fs.existsSync(f.store.runtime.materials.directory), false);
+    f.store.runtime.finish(run);
   } finally { f.close(); }
 });
 

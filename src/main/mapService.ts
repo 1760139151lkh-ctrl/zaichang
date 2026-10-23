@@ -244,7 +244,7 @@ export class CampusMapAdapter {
   }
   search(query: string, limit = 20) {
     this.refreshProfile();
-    return structuredClone(rankMapPoints(this.points,query).slice(0,Math.max(1,Math.min(50,limit))));
+    return structuredClone(rankMapPoints(this.points,query,this.manifest.label).slice(0,Math.max(1,Math.min(50,limit))));
   }
   locationStatus(): LocationStatusResult {
     return {

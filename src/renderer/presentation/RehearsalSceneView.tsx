@@ -1,12 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import type { RehearsalHistoryReference, RehearsalNativeBridge, RehearsalScene } from '../../shared/relationship-rehearsal';
+import type { RehearsalHistoryReference, RehearsalNativeBridge, RehearsalRef, RehearsalScene } from '../../shared/relationship-rehearsal';
 import { RehearsalMessage, type RehearsalFollowup } from './RehearsalMessage';
 import { uiError } from '../ui';
 
+/** The App captures its current attention before the user's explicit read;
+ * the returned callback can accept only that still-current read result. */
+export type RehearsalCurrentReadStart = () => ((ref: RehearsalRef) => void) | undefined;
+
 /** A current factory body can open directly; old conversation addresses only
  * unfold after the original Work owner has been read again. */
-export function RehearsalSceneView({ scene, sessionId, messageId, boundaryKey, presentationRevision, api, onFollowup }: {
+export function RehearsalSceneView({ scene, sessionId, messageId, boundaryKey, presentationRevision, api, onFollowup, onCurrentReadStart }: {
   scene: RehearsalScene | RehearsalHistoryReference;
   sessionId: string;
   messageId?: string;
@@ -14,22 +18,28 @@ export function RehearsalSceneView({ scene, sessionId, messageId, boundaryKey, p
   presentationRevision?: number;
   api: RehearsalNativeBridge;
   onFollowup?: (value: RehearsalFollowup) => void;
+  onCurrentReadStart?: RehearsalCurrentReadStart;
 }) {
   const key = `${sessionId}:${messageId || ''}:${scene.id}@${scene.revision}:${presentationRevision || scene.revision}:${boundaryKey}`;
   const generation = useRef(0), liveKey = useRef(key); liveKey.current = key;
+  const currentReadStart = useRef(onCurrentReadStart); currentReadStart.current = onCurrentReadStart;
   const focused = useRef<string | undefined>(undefined);
   const [open, setOpen] = useState(scene.kind === 'rehearsal');
   const [loaded, setLoaded] = useState<{ key: string; scene: RehearsalScene }>();
   const [pending, setPending] = useState(false), [error, setError] = useState('');
   const rawCurrent = scene.kind === 'rehearsal' && scene.sourceBoundary === boundaryKey;
   const current: RehearsalScene | undefined = scene.kind === 'rehearsal' && rawCurrent ? scene : loaded?.key === key ? loaded.scene : undefined;
-  const show = useCallback(async () => {
+  const show = useCallback(async (userInitiated = false) => {
     if (!messageId) return;
     const request = ++generation.current, expectedKey = key;
+    const acceptCurrentReference = userInitiated ? currentReadStart.current?.() : undefined;
     setOpen(true); setPending(true); setLoaded(undefined); setError('');
     try {
       const next = await api.rehearsalProject({ sessionId, messageId, id: scene.id, sceneRevision: scene.revision });
-      if (generation.current === request && liveKey.current === expectedKey) setLoaded({ key: expectedKey, scene: next });
+      if (generation.current === request && liveKey.current === expectedKey) {
+        setLoaded({ key: expectedKey, scene: next });
+        acceptCurrentReference?.(next.ref);
+      }
     } catch (problem) {
       if (generation.current === request && liveKey.current === expectedKey) setError(uiError(problem));
     } finally {
@@ -54,12 +64,12 @@ export function RehearsalSceneView({ scene, sessionId, messageId, boundaryKey, p
 
   return <div className="rehearsal-scene">
     {scene.kind === 'rehearsal_reference' && <button type="button" className="rehearsal-history-open" aria-expanded={open}
-      disabled={!messageId || pending} onClick={() => {
-        if (open) { generation.current++; setOpen(false); setLoaded(undefined); setError(''); }
-        else void show();
+      disabled={!messageId} onClick={() => {
+        if (open) { generation.current++; setOpen(false); setLoaded(undefined); setPending(false); setError(''); }
+        else void show(true);
       }}>{scene.label}<ArrowUpRight size={14} aria-hidden="true" /></button>}
     {open && <>{current && <RehearsalMessage view={current} onFollowup={onFollowup} disabled={pending} />}
       {pending && <p className="rehearsal-read-status" role="status">接回刚才那一段…</p>}
-      {error && <div className="rehearsal-read-status" role="status"><p>{error}</p><button type="button" onClick={() => void show()}>再打开看看</button></div>}</>}
+      {error && <div className="rehearsal-read-status" role="status"><p>{error}</p><button type="button" onClick={() => void show(true)}>再打开看看</button></div>}</>}
   </div>;
 }

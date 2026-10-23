@@ -42,10 +42,12 @@ export function createCuriosityPresentation(host: Host, session: RunSession,
   const refs = [...new Map(read.records.flatMap(record => record.sourceBinding?.refs || [])
     .map(ref => [canonical(ref), ref])).values()];
   const binding = host.repo.resolveWorkSourceBinding(handle, refs), now = host.repo.clock.now();
+  const noteSources = host.repo.workNoteSources(handle, read.records);
   const scene: CuriosityScene = { kind: 'curiosity', id: randomUUID(), revision: 1,
     sessionId: session.sceneSessionId || session.sessionId, createdAt: now,
     source: { sourceId: 'work:self', fetchedAt: now, version: `${view.matterRevision}:${view.revision}` },
-    view, provenance: { sourceBinding: binding, ...(read.assistantWorkSources?.length ? { assistantWorkSources: read.assistantWorkSources } : {}) } };
+    view, provenance: { sourceBinding: binding, noteSources,
+      ...(read.assistantWorkSources?.length ? { assistantWorkSources: read.assistantWorkSources } : {}) } };
   signal.throwIfAborted(); host.policy.validate(handle);
   return { scene, records: read.records, bindings: [binding, ...read.bindings], assistantWorkSources: read.assistantWorkSources || [] };
 }
@@ -87,6 +89,7 @@ export function assertCuriositySnapshotSourcesReadable(host: Pick<Host, 'repo' |
     || !scope.sources.includes('work:self')) throw new HarnessError('curiosity_scope', '这份作品还不在当前本人的可读交流里。');
   if (scene.kind !== 'curiosity' || scene.source.sourceId !== 'work:self'
     || !host.repo.workBindingsReadable(handle, [scene.provenance.sourceBinding])
+    || !host.repo.noteSourcesReadable(handle, scene.provenance.noteSources || [])
     || !host.repo.assistantWorkSourcesReadable(handle, scene.provenance.assistantWorkSources || []))
     throw new HarnessError('curiosity_source_changed', '这段体验的一处来由已经变化，没有从画面副本带回正文。');
   return curiosityViewSchema.parse(scene.view);

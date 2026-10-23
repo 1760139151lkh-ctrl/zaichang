@@ -1,4 +1,4 @@
-import type { EvidenceEvent } from '../../shared/harness';
+import type { EvidenceEvent, WorkRecord, WorkSourceRef } from '../../shared/harness';
 import { codePointSlice } from './semantics';
 
 export interface SourceQuoteInput {
@@ -60,4 +60,30 @@ export function resolveRetainedSourceQuote(event: Pick<EvidenceEvent, 'id' | 'te
   if (Object.hasOwn(source, 'contentVersion')
     && (!Number.isSafeInteger(source.contentVersion) || source.contentVersion !== event.contentVersion)) return;
   return resolveSourceQuote(event, { eventId: source.eventId, quote: source.quote });
+}
+
+/** Exact declarations already saved by the frame owner, never a migration or
+ * permission. Quote-only legacy records cannot acquire a range from this read. */
+export function declaredFrameSourceRefs(work: WorkRecord,
+  read: (eventId: string) => Pick<EvidenceEvent, 'id' | 'text' | 'contentVersion'> | undefined): WorkSourceRef[] | undefined {
+  const data = work.data;
+  if (data.type !== 'collaboration_frame' || !Array.isArray(work.evidenceIds) || !work.evidenceIds.length
+    || !['confirmedFacts', 'decisions', 'rejectedOptions'].every(key => Array.isArray(data[key]))
+    || data.selection || data.repair || data.decisionExperiences !== undefined
+      && (!Array.isArray(data.decisionExperiences) || data.decisionExperiences.length)) return;
+  const citations: unknown[] = [data.source, ...['confirmedFacts', 'decisions', 'rejectedOptions'].flatMap(key =>
+    (data[key] as unknown[]).map(item => item && typeof item === 'object' && !Array.isArray(item)
+      ? (item as Record<string, unknown>).source : undefined))];
+  const refs: WorkSourceRef[] = [];
+  for (const raw of citations) {
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return;
+    const source = raw as Record<string, unknown>;
+    if (typeof source.eventId !== 'string' || !work.evidenceIds.includes(source.eventId)
+      || !['contentVersion', 'start', 'end'].every(key => Number.isSafeInteger(source[key]))) return;
+    const event = read(source.eventId), resolved = event && resolveSourceQuote(event, source);
+    if (!resolved) return;
+    refs.push({ eventId: resolved.eventId, contentVersion: resolved.contentVersion, start: resolved.start, end: resolved.end });
+  }
+  if (!work.evidenceIds.every(id => refs.some(ref => ref.eventId === id))) return;
+  return [...new Map(refs.map(ref => [`${ref.eventId}:${ref.contentVersion}:${ref.start}:${ref.end}`, ref])).values()];
 }

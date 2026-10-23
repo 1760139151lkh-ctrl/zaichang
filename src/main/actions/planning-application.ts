@@ -24,6 +24,8 @@ type Ticket = {
   invalidatedReason?: string;
   progressUncertain?: boolean;
   hasPreparations?: boolean;
+  /** Host continuation constraint; ordinary historical drafts keep their original semantics. */
+  futureOnly?: boolean;
   hostContext?: PlanningHostContext;
   campus?: PlanningCampusConstraints;
 };
@@ -64,10 +66,25 @@ export class PlanningApplicationService {
       ...(ticket.hostContext ? { intentRef: structuredClone(ticket.hostContext.intent) } : {}) };
   }
 
+  /** The caller receives the original remaining units, never model-retyped parameters. */
+  proposal(scope: ScopeData, currentItems: Action[], planId: string) {
+    const ticket = this.ticket(planId);
+    this.validateScope(ticket, scope); this.validateIntent(ticket, scope, planId);
+    const units = ticket.units.slice(ticket.applied.length);
+    if (!units.length) throw new HarnessError('planning_complete', '这份方案的步骤已经采用，当前日历保留着实际记录。');
+    this.validateSave(scope, units[0].arguments.planRef, units[0].arguments, currentItems);
+    return { planId, expiresAt: new Date(ticket.expiresAt).toISOString(), units: units.map(unit => {
+      const block = unit.kind === 'work' ? ticket.output.blocks.find(value => value.taskId === unit.taskId && value.segment === unit.segment) : undefined;
+      return { ...structuredClone(unit), ...(block ? { work: { start: block.start, end: block.end, minutes: block.durationMinutes,
+        setupMinutes: (Date.parse(block.start) - Date.parse(block.reservedStart)) / minute,
+        cleanupMinutes: (Date.parse(block.reservedEnd) - Date.parse(block.end)) / minute } } : {}) };
+    }) };
+  }
+
   bindIntent(scope: ScopeData, planId: string, context: PlanningHostContext) {
     const ticket = this.ticket(planId); this.validateScope(ticket, scope);
     if (!ticket.hostContext && (ticket.hasPreparations || ticket.applied.length || ticket.progressUncertain))
-      throw new HarnessError('planning_intent_prepared', '这份方案已经准备或采用过动作，不能事后归入新意图；请先依据当前日历生成新方案。');
+      throw new HarnessError('planning_intent_prepared', '这份方案已经准备或采用过动作，它们仍属于当时的依据。新意图可以从当前日历另起一份方案，原动作不会因此改换归属。');
     if (ticket.hostContext && canonical(ticket.hostContext.intent) !== canonical(context.intent))
       throw new HarnessError('planning_intent_binding', '这份方案已经关联不同的意图修订，不能改绑旧票据。');
     const previous = ticket.hostContext; ticket.hostContext = structuredClone(context);
@@ -91,7 +108,8 @@ export class PlanningApplicationService {
     ticket.hasPreparations = true;
   }
 
-  prepare(scope: ScopeData, items: Action[], raw: unknown, hostContext?: PlanningHostContext, campus?: PlanningCampusConstraints | null) {
+  prepare(scope: ScopeData, items: Action[], raw: unknown, hostContext?: PlanningHostContext, campus?: PlanningCampusConstraints | null,
+    options: { futureOnly?: boolean } = {}) {
     const now = this.now();
     this.prune(now);
     if (scope.worldId !== 'real' || scope.audience !== 'self' || scope.subjectId !== scope.principalId || scope.child || !scope.sources.includes('local-agenda'))
@@ -100,7 +118,7 @@ export class PlanningApplicationService {
       throw new HarnessError('planning_stale', '当前日历与恢复采用依据不一致，未生成新票据。');
     const input = planningDraftInput.parse(raw);
     if (campus && !this.campusCurrent(scope, campus))
-      throw new HarnessError('planning_campus_changed', '校园安排的保存快照或读取范围已改变，请重新读取后试算。');
+      throw new HarnessError('planning_campus_changed', '校园安排的保存快照或读取范围已经改变，本次没有沿用旧快照试算。当前允许读取的安排可以为接下来的试算提供依据。');
     const currentInput = campus ? planningDraftInput.parse({ ...input, busy: [...input.busy, ...campus.busy],
       sourceCoverage: [...input.sourceCoverage, campus.coverage] }) : input;
     const output = draftCalendarPlan(items, currentInput, hostContext?.retained), planId = randomUUID();
@@ -108,8 +126,9 @@ export class PlanningApplicationService {
     const sources = this.sourceRevisions(input);
     const ticket: Ticket = { scope: structuredClone(scope), input, output, units, sources, createdAt: new Date(now).toISOString(),
       expiresAt: Math.min(now + ttl, Date.parse(scope.expiresAt)), fingerprint: output.calendarFingerprint,
-      itemDigests: digestItems(items), applied: [], ...(hostContext ? { hostContext: structuredClone(hostContext) } : {}), ...(campus ? { campus } : {}) };
-    if (!Number.isFinite(ticket.expiresAt) || ticket.expiresAt <= now) throw new HarnessError('planning_expired', '当前读取范围已经过期，请重新读取日程。');
+      itemDigests: digestItems(items), applied: [], ...(hostContext ? { hostContext: structuredClone(hostContext) } : {}), ...(campus ? { campus } : {}),
+      ...(options.futureOnly ? { futureOnly: true } : {}) };
+    if (!Number.isFinite(ticket.expiresAt) || ticket.expiresAt <= now) throw new HarnessError('planning_expired', '当前读取范围已过期或有效期无法确认，本次没有建立可采用的票据；新的日程读取范围可以支持下一次试算。');
     while (this.tickets.size >= 50) this.tickets.delete(this.tickets.keys().next().value!);
     this.tickets.set(planId, ticket);
     if (hostContext) this.invalidatePreviousIntentTickets(planId, hostContext);
@@ -125,7 +144,7 @@ export class PlanningApplicationService {
       adoption: { status: adoptionBlockers.length ? 'blocked' : units.length ? 'ready_for_authorized_steps' : 'nothing_to_apply', blockers: adoptionBlockers,
         atomic: false, completedSteps: 0, totalSteps: units.length, restartBehavior: 'ticket_invalidated_recompute_required' },
       acceptanceProposals: units.map((unit, index) => ({ ...unit, capability: 'local.agenda.save', order: index + 1, applied: false, requiresAuthorization: true, requiresPlanRevalidation: true })),
-      acceptanceContract: '仅使用带planRef的精确参数，按order逐项经既有授权与事务保存。准备和清理并入工作占用，转场、休息和保护空白有独立真实占用。整组不是原子提交；每次保存前核查日历、身份、策略、时效与来源版本，任一项变化须重算，并保留明确的部分完成状态。重启后票据失效。',
+      acceptanceContract: '这份草案还没有写入日历。acceptanceProposals给出按order衔接的完整保存单位，planRef把每一步连回本次试算；其中工作占用含准备和清理，转场、休息和保护留白也有各自的占用。沿既有授权入口采用时，宿主会逐项核对原参数、当前日历、身份、策略、有效期与来源版本，再分别提交事务，因此可能有部分已保存、部分尚未保存的结果。条件改变后，旧票据可能已不再支持后续步骤，当前真实安排能作为重新试算的起点；应用重启也会使票据失效。你可以结合这次的结果和眼前的意愿继续商量或采用，具体怎样解释由你判断；草案本身没有带来新的执行授权。',
     };
   }
 
@@ -136,7 +155,7 @@ export class PlanningApplicationService {
     if (args.planRef !== undefined) { planningPlanRefSchema.parse(args.planRef); return; } // The normal plan guard validates a supplied reference.
     const key = this.proposalKey(args);
     if (key && [...this.recentProposals.values()].some(value => sameOwner(value.owner, scope) && value.keys.has(key)))
-      throw new HarnessError('planning_reference_required', '这个安排来自本次规划草案，须完整保留planRef与占用参数；旧草案失效时请重新规划。');
+      throw new HarnessError('planning_reference_required', '这个安排与本次规划草案中的提议一致，但缺少连回原试算的planRef。原保存单位的完整参数与引用一起承担占用检查；旧草案失效后，当前日历可以支持新的试算，本次没有把脱离引用的副本保存。');
   }
 
   /** Invoke both at preparation and immediately inside the eventual calendar transaction. */
@@ -148,13 +167,15 @@ export class PlanningApplicationService {
     if (blockers.length) throw new HarnessError('planning_conditions_unverified', blockers.join('；'));
     if (calendarPlanFingerprint(currentItems) !== ticket.fingerprint) {
       ticket.invalidatedReason = 'calendar_changed';
-      throw new HarnessError('planning_stale', '日历在本方案上一步之后已变化，请重新规划；已经保存的步骤保留，尚未保存的步骤没有执行。');
+      throw new HarnessError('planning_stale', '日历在本方案上一步之后已经变化，本次没有沿旧票据继续提交。此前成功保存的步骤仍在各自的真实记录中；接下来的安排可以从当前日历重新试算。');
     }
     const next = ticket.units[ticket.applied.length];
-    if (!next || next.blockId !== ref.blockId) throw new HarnessError('planning_order', '这一步已采用或不符合方案顺序；不能跳过准备、转场、休息或保护占用。');
-    if (canonical(args) !== canonical(next.arguments)) throw new HarnessError('planning_parameters_changed', '保存参数与核查过的完整占用不同，请重新生成方案。');
-    if (ticket.hostContext && Date.parse(next.arguments.startsAt) < this.now())
-      throw new HarnessError('planning_intent_past', '该占用已经开始或过去，请重新核对当前进展并规划未来范围。');
+    if (!next || next.blockId !== ref.blockId) throw new HarnessError('planning_order', '这一步已经采用，或不是方案当前衔接的下一步。原顺序包含准备、转场、休息与保护占用，它们共同构成这份安排，本次没有按另一顺序提交。');
+    if (canonical(args) !== canonical(next.arguments)) throw new HarnessError('planning_parameters_changed', '本次保存参数与试算过的完整占用不同，原票据尚不能支持这组参数。当前想法与日历可以作为新方案的依据。');
+    if ((ticket.hostContext || ticket.futureOnly) && Date.parse(next.arguments.startsAt) < this.now()) {
+      if (ticket.futureOnly) ticket.invalidatedReason = 'continuation_started';
+      throw new HarnessError(ticket.hostContext ? 'planning_intent_past' : 'planning_continuation_past', '这段占用已经开始或过去，本次没有把它作为未来安排提交。时间经过本身还说明不了做了多少；当前进展与仍可安排的未来范围能帮助继续规划。');
+    }
     return { planId: ref.planId, blockId: ref.blockId, status: 'validated', atomic: false,
       completedSteps: ticket.applied.length, totalSteps: ticket.units.length, nextOrder: ticket.applied.length + 1 };
   }
@@ -163,7 +184,7 @@ export class PlanningApplicationService {
   committed(rawRef: unknown, currentItems: Action[]) {
     const ref = planningPlanRefSchema.parse(rawRef), ticket = this.ticket(ref.planId);
     const unit = ticket.units[ticket.applied.length];
-    if (!unit || unit.blockId !== ref.blockId) throw new HarnessError('planning_order', '方案采用账本的步骤顺序不一致，请重新核查当前日历。');
+    if (!unit || unit.blockId !== ref.blockId) throw new HarnessError('planning_order', '本次回报的步骤与方案账本当前等待的步骤不一致，这份账本尚不能说明它的采用结果，当前日历保留着实际保存情况。');
     const current = digestItems(currentItems);
     const matches = currentItems.filter(item => !ticket.itemDigests.has(item.id) && Object.entries(unit.arguments)
       .every(([key, value]) => canonical((item as unknown as Record<string, unknown>)[key]) === canonical(value)));
@@ -173,7 +194,7 @@ export class PlanningApplicationService {
     else ticket.progressUncertain = true;
     if (current.size !== ticket.itemDigests.size + 1 || [...ticket.itemDigests].some(([id, value]) => current.get(id) !== value)) {
       ticket.invalidatedReason = 'commit_mismatch';
-      throw new HarnessError('planning_commit_mismatch', '日历提交结果超出本步骤，方案后续采用已停止，请按当前真实日历重算。');
+      throw new HarnessError('planning_commit_mismatch', '日历提交后的变化超出了本步骤，票据已停止支持后续采用。能够精确对应的本步成功记录仍保留，其他变化也以当前真实日历为准，这些结果可以作为重新试算的起点。');
     }
     if (matches.length !== 1) {
       ticket.invalidatedReason = 'commit_mismatch';
@@ -191,13 +212,13 @@ export class PlanningApplicationService {
     const ref = planningPlanRefSchema.parse(rawRef), ticket = this.tickets.get(ref.planId);
     if (!ticket) return { planId: ref.planId, status: 'unavailable', progressKnown: false, atomic: false,
       completedSteps: null, totalSteps: null, applied: [], nextBlockId: null,
-      reason: '票据不存在或应用已重启；不能据此推断没有保存，须读取真实日历。' };
+      reason: '这份本进程票据目前不存在，应用重启也会使它消失，所以保存了几步、总共有几步仍是未知。当前真实日历可以提供已保存记录，票据缺失本身没有说明保存量为零。' };
     const expired = ticket.expiresAt <= this.now();
     const status = expired ? 'expired' : ticket.invalidatedReason ? 'invalidated' : ticket.applied.length === ticket.units.length ? 'applied' : ticket.applied.length ? 'partially_applied' : 'not_applied';
     const result = { planId: ref.planId, status, progressKnown: !ticket.progressUncertain, completedStepsIsLowerBound: !!ticket.progressUncertain, atomic: false,
       completedSteps: ticket.applied.length, totalSteps: ticket.units.length, applied: structuredClone(ticket.applied),
       nextBlockId: expired || ticket.invalidatedReason ? null : ticket.units[ticket.applied.length]?.blockId || null,
-      reason: expired ? '方案票据已过期，后续须根据真实日历重算。' : ticket.invalidatedReason || null };
+      reason: expired ? '方案票据已过期，已保存记录仍各有其真实状态；后续安排的依据是当前日历和新试算，不再是这张票据。' : ticket.invalidatedReason || null };
     if (expired) this.tickets.delete(ref.planId);
     return result;
   }
@@ -217,7 +238,7 @@ export class PlanningApplicationService {
     }).sort((a, b) => String(a.startsAt).localeCompare(String(b.startsAt)) || a.recordId.localeCompare(b.recordId));
     let ledgerReadable = !!ticket, boundaryReason: string | null = null;
     if (ticket) {
-      try { this.validateScope(ticket, scope); this.validateIntent(ticket, scope, planId); } catch { ledgerReadable = false; boundaryReason = '方案原有意图或读取范围已改变；仅回读当前允许的真实日历，不恢复旧来源或原草案。'; }
+      try { this.validateScope(ticket, scope); this.validateIntent(ticket, scope, planId); } catch { ledgerReadable = false; boundaryReason = '原票据所需的意图、来源或读取范围已变化，或本次无法确认其继续适用。这份结果只包含当前允许回读的日历记录，旧来源与原草案没有随之恢复。'; }
     }
     const known = ledgerReadable ? ticket : undefined;
     const changed = known?.applied.flatMap<{ blockId: string; recordId: string; status: 'missing' | 'changed' }>(applied => {
@@ -231,7 +252,9 @@ export class PlanningApplicationService {
     const blockers = known ? this.adoptionBlockers(known, scope) : [];
     const calendarChanged = !!known && calendarPlanFingerprint(currentItems) !== known.fingerprint;
     const expired = !!known && known.expiresAt <= now;
-    const resumable = !!known && !expired && !known.invalidatedReason && !known.progressUncertain && !changed.length && !duplicates.length && !unrecorded.length && !calendarChanged && !blockers.length;
+    const nextUnit = known?.units[known.applied.length];
+    const nextStarted = !!(known?.hostContext || known?.futureOnly) && !!nextUnit && Date.parse(nextUnit.arguments.startsAt) < now;
+    const resumable = !!known && !expired && !known.invalidatedReason && !known.progressUncertain && !changed.length && !duplicates.length && !unrecorded.length && !calendarChanged && !blockers.length && !nextStarted;
     const next = resumable ? known.units[known.applied.length] : undefined;
     // A continuation is computed from exact committed work, not from the number of saved rows: rest and setup are not work.
     const remainingRequest = known && !changed.length && !duplicates.length && !unrecorded.length && !known.progressUncertain ? this.remainingRequest(known) : null;
@@ -242,9 +265,10 @@ export class PlanningApplicationService {
       status: !known ? 'observed_only_recompute_required' : changed.length || duplicates.length || unrecorded.length || known.progressUncertain ? 'review_required' :
         known.applied.length === known.units.length && !calendarChanged ? 'all_steps_present' : next ? 'can_continue_authorized_steps' : 'recompute_required',
       nextProposal: next ? { ...structuredClone(next), capability: 'local.agenda.save', order: known!.applied.length + 1, requiresAuthorization: true, requiresPlanRevalidation: true } : null,
-      remainingRequest, blockers: [...blockers, ...(calendarChanged ? ['日历已有其他变化，不能继续采用旧票据。'] : []), ...(expired ? ['原票据已过期。'] : []), ...(boundaryReason ? [boundaryReason] : [])],
+      remainingRequest, blockers: [...blockers, ...(calendarChanged ? ['日历已有其他变化，原票据与当前安排不再一致，后续采用需要新的试算依据。'] : []), ...(expired ? ['原票据已过期。'] : []),
+        ...(nextStarted ? ['下一段占用已经开始或过去，它已不是可直接接上的未来安排；实际进展与未来范围仍有待了解。'] : []), ...(boundaryReason ? [boundaryReason] : [])],
       applied: false, atomic: false,
-      recoveryContract: '这里是当前真实日历回读，不执行写入。没有完整票据时总步骤与遗漏保持未知；不得重放旧参数。remainingRequest仅是扣除精确已保存工作后的重算起点，保留已保存安排与依赖时间；须更新当前时间和来源，再调用planning.draft。已保存不等于任务完成。',
+      recoveryContract: '这份结果来自当前日历回读，本次没有写入。observed列出实际读到的记录；没有可读的完整票据时，总步骤、已保存步骤与遗漏仍可能未知，空列表也不能替缺失的账本证明从未保存。nextProposal若存在，是当前票据仍支持衔接的一步，实际保存仍经过原有授权与逐步复核；票据过期、变化或重启后，旧参数本身已不具备继续采用的效力。remainingRequest若存在，只是从原请求扣除精确已保存净工作一次后的重算起点，延续原工作量、已保存安排、依赖时间和预算；其中的时间、来源与现实条件还属于原请求，并非这次重新取得的事实。它为null时，现有信息还不足以可靠地算出这份余量。你可以结合当前进展与意愿继续帮助，需要新方案时，当前时间、日历和可读来源能为planning.draft提供新的依据。已安排的时间仍是安排，事情是否做完另有其事实。',
     };
   }
 
@@ -335,7 +359,7 @@ export class PlanningApplicationService {
         ...(unit.boundaryIndex !== undefined ? { boundaryId: boundaries[unit.boundaryIndex].id } : {}) })),
       groups, boundaries, sourceVersions: structuredClone(ticket.sources) };
     if (result.units.length > 2048 || Buffer.byteLength(canonical(result), 'utf8') > 256 * 1024)
-      throw new HarnessError('planning_manifest_budget', '本方案的完整采用清单超过当前持久预算，未截断或伪称已经保留。');
+      throw new HarnessError('planning_manifest_budget', '本方案的完整采用清单超过当前持久预算，本次尚未保留这份清单，也没有留下截断的副本作为完整证明。');
     return result;
   }
   private proposalKey(args: Record<string, unknown>) {
@@ -345,16 +369,16 @@ export class PlanningApplicationService {
   private prune(now: number) { for (const [key, value] of this.tickets) if (value.expiresAt <= now) this.tickets.delete(key); }
   private ticket(id: string) {
     const ticket = this.tickets.get(id);
-    if (!ticket) throw new HarnessError('planning_ticket_missing', '方案票据不存在或应用已重启，请根据当前日历重新生成方案。');
-    if (ticket.expiresAt <= this.now()) { this.tickets.delete(id); throw new HarnessError('planning_expired', '方案核查已过期，请重新生成；已经保存的步骤不受影响。'); }
-    if (ticket.invalidatedReason) throw new HarnessError('planning_stale', '方案采用已停止，须依据当前真实日历重新规划。');
+    if (!ticket) throw new HarnessError('planning_ticket_missing', '这份方案票据目前不存在，应用重启也会使它失效。旧参数已没有这张票据的支持；当前日历仍可为新方案提供真实起点。');
+    if (ticket.expiresAt <= this.now()) { this.tickets.delete(id); throw new HarnessError('planning_expired', '方案票据已过期，后续安排需要新试算的依据；这次失效不会撤销此前成功保存的步骤。'); }
+    if (ticket.invalidatedReason) throw new HarnessError('planning_stale', '这份票据已停止支持后续采用，当前真实日历与现有意愿可以支持重新规划；此前保存结果仍以其实际记录为准。');
     return ticket;
   }
   private validateScope(ticket: Ticket, scope: ScopeData) {
     if (!sameOwner(ticket.scope, scope) || scope.child || scope.retention === 'session_only')
       throw new HarnessError('planning_scope', '方案所属身份、世界或保留策略不允许当前保存。');
     if (scope.privacyEpoch !== ticket.scope.privacyEpoch || scope.policyRevision !== ticket.scope.policyRevision || ticket.scope.sources.some(source => !scope.sources.includes(source)))
-      throw new HarnessError('planning_policy_changed', '读取范围或隐私策略已改变，请重新生成方案。');
+      throw new HarnessError('planning_policy_changed', '当前读取范围或隐私策略已与原票据不同，这份票据尚不能支持本次采用；当前许可范围能为新的方案提供依据。');
     if (Date.parse(scope.expiresAt) <= this.now() || !Number.isFinite(Date.parse(scope.expiresAt))) throw new HarnessError('planning_expired', '当前范围已经过期，尚未保存。');
   }
   private sourceRevisions(input: Input): SourceRevision[] {
@@ -365,7 +389,7 @@ export class PlanningApplicationService {
     const blockers = [...ticket.output.conditions];
     if (ticket.campus) {
       try {
-        if (!this.campusPort?.current(scope, ticket.campus)) blockers.push('校园安排的保存快照、账号或读取范围已改变，须重新读取并试算；已经保存的本人安排不会重复创建。');
+        if (!this.campusPort?.current(scope, ticket.campus)) blockers.push('校园安排的保存快照、账号或读取范围已改变，原快照已不能支持后续采用；当前可读的校园安排与已保存的本人日历能为新试算提供依据。');
       } catch { blockers.push('当前不能复核校园安排快照，尚未采用旧方案。'); }
     }
     if (!ticket.output.blocks.length && !ticket.hostContext?.retained.work.length)
@@ -378,7 +402,7 @@ export class PlanningApplicationService {
       if (source.sourceId === 'campus:zju-account') {
         try {
           if (this.campusPort?.currentVersion(scope, source.sourceVersion) !== true)
-            blockers.push('校园来源的当前保存版本尚不能复验，须重新读取后试算。');
+            blockers.push('校园来源的当前保存版本还无法确认与原依据一致，后续试算仍缺少当前可读的校园记录。');
         } catch { blockers.push('当前不能复核校园来源的保存版本，未采用旧方案。'); }
         continue;
       }
@@ -389,7 +413,7 @@ export class PlanningApplicationService {
         checked.set(source.sourceId, current);
       }
       if (current === undefined || current === null) blockers.push(`来源 ${source.sourceId} 的当前版本尚不能复验，不能采用依赖该来源的方案。`);
-      else if (String(current) !== source.sourceVersion) blockers.push(`来源 ${source.sourceId} 的版本已经改变，请重新读取并规划。`);
+      else if (String(current) !== source.sourceVersion) blockers.push(`来源 ${source.sourceId} 的版本已经改变，原版本已不能支持后续采用，当前可读内容能为新的规划提供依据。`);
     }
     return [...new Set(blockers)];
   }
@@ -401,7 +425,7 @@ export class PlanningApplicationService {
       // The existing save contract accepts at most 24 hours; preserve longer reservations as consecutive units.
       for (let cursor = from, part = 0; cursor < to; part++) {
         const next = Math.min(to, cursor + 1440 * minute), durationMinutes = (next - cursor) / minute;
-        if (!Number.isInteger(durationMinutes) || durationMinutes < 1) throw new HarnessError('planning_precision', '方案包含不足整分钟的占用，现有日历无法完整保存，请对齐到整分钟后重算。');
+        if (!Number.isInteger(durationMinutes) || durationMinutes < 1) throw new HarnessError('planning_precision', '方案中有不足整分钟的占用，现有日历的整分钟精度还无法完整保存它。原占用没有被截短，时间边界对齐后的新试算可以提供可保存的单位。');
         const id = `${blockId}:${part}`;
         units.push({ blockId: id, kind, ...(taskId ? { taskId, segment } : {}), ...(boundaryIndex !== undefined ? { boundaryIndex } : {}), arguments: {
           title: title.slice(0, 160), detail: detail.slice(0, 1500), kind: 'time_block', startsAt: new Date(cursor).toISOString(), durationMinutes, timeZone: input.timeZone,

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { campusSnapshot } from '../../src/main/runtime/scenes';
-import { sceneViewDsl } from '../../src/shared/scenes';
+import { sceneViewDsl, type PresentationView, type SceneSnapshot } from '../../src/shared/scenes';
 import { Fixture } from './support';
 
 const now = '2026-10-18T08:00:00Z';
@@ -62,19 +62,19 @@ test('record selection binds exact conversation, revision and campus source and 
     const service = f.store.runtime.scenes;
     const scene = service.campus('scene-session', result(), 'campus.lookup', { domain: 'schedule' }, 'scene-run')!;
     const selection = { kind: 'record' as const, sceneId: scene.id, sceneRevision: scene.revision, recordId: scene.records[0].id };
-    const verified = service.selection(f.scope(), 'scene-session', selection);
+    const verified = service.selection(f.scope(), 'scene-session', selection, 'scene-run');
     assert.equal(verified.source.version, scene.source.version);
     assert.equal(verified.record?.startsAt, scene.records[0].startsAt);
     assert.match(verified.meaning, /不是.*行动授权/);
     assert.equal(f.store.runtime.actions.list(f.scope()).length, 0);
-    assert.throws(() => service.selection(f.scope(), 'other-session', selection), /当前对话/);
-    assert.throws(() => service.selection(f.scope(), 'scene-session', { ...selection, sceneRevision: 2 }), /当前对话/);
-    assert.throws(() => service.selection(f.scope(), 'scene-session', { ...selection, recordId: 'forged-record' }), /不相符/);
-    assert.throws(() => service.selection(f.scope(), 'scene-session', { ...selection, placeId: 'wrong-kind' }), /不相符/);
-    assert.throws(() => service.selection(f.scope({ sources: ['current'] }), 'scene-session', selection), /资料范围/);
-    assert.throws(() => service.selection(f.scope({ audience: 'group' }), 'scene-session', selection), /资料范围/);
+    assert.throws(() => service.selection(f.scope(), 'other-session', selection, 'scene-run'), /当前对话/);
+    assert.throws(() => service.selection(f.scope(), 'scene-session', { ...selection, sceneRevision: 2 }, 'scene-run'), /当前对话/);
+    assert.throws(() => service.selection(f.scope(), 'scene-session', { ...selection, recordId: 'forged-record' }, 'scene-run'), /不相符/);
+    assert.throws(() => service.selection(f.scope(), 'scene-session', { ...selection, placeId: 'wrong-kind' }, 'scene-run'), /不相符/);
+    assert.throws(() => service.selection(f.scope({ sources: ['current'] }), 'scene-session', selection, 'scene-run'), /资料范围/);
+    assert.throws(() => service.selection(f.scope({ audience: 'group' }), 'scene-session', selection, 'scene-run'), /资料范围/);
     f.policy.revoke('campus:read');
-    assert.throws(() => service.selection(f.scope(), 'scene-session', selection), /当前对话/);
+    assert.throws(() => service.selection(f.scope(), 'scene-session', selection, 'scene-run'), /当前对话/);
   } finally { f.close(); }
 });
 
@@ -94,5 +94,44 @@ test('campus tool result becomes a presentable scene through the existing coordi
     assert.equal((shown[0] as any).records[0].id, 'imported-class');
     assert.equal((shown[0] as any).origin, 'legacy_import');
     assert.equal(f.store.runtime.actions.list(f.scope()).length, 0);
+  } finally { f.close(); }
+});
+
+test('focus composition keeps exact host scene references and facts without widening source or conversation access', async () => {
+  const f = new Fixture();
+  try {
+    f.store.runtime.domains.importSnapshot({ source: '合成焦点布局资料', updatedAt: now,
+      schedule: [{ id: 'focus-class', title: '合成课程原值', startsAt: '2026-10-19T06:00:00Z', endsAt: '2026-10-19T07:35:00Z', location: '合成原教室', status: 'scheduled', source: '合成焦点布局资料' }],
+      exams: [{ id: 'focus-exam', title: '合成考试原值', startsAt: '2027-01-07T01:00:00Z', endsAt: '2027-01-07T03:00:00Z', status: 'scheduled', source: '合成焦点布局资料' }],
+      places: [], rules: [] });
+    const runtime = f.store.runtime;
+    const run = runtime.begin('把这两份资料放在一起看', 'focus-request', 'focus-thread', new AbortController().signal);
+    const shown: { scenes: SceneSnapshot[]; view?: PresentationView }[] = [];
+    const callbacks = { step: () => {}, plan: () => {}, action: () => {}, changed: () => {}, delegate: async () => [],
+      present: (scenes: SceneSnapshot[], view?: PresentationView) => { shown.push({ scenes, view }); } };
+    const first: any = await runtime.executeTool(run, 'look_up', { source: 'capability', capability: 'campus.imported_lookup', arguments: { domain: 'schedule' } }, callbacks);
+    const second: any = await runtime.executeTool(run, 'look_up', { source: 'capability', capability: 'campus.imported_lookup', arguments: { domain: 'exams' } }, callbacks);
+    const refs = [first.sceneRef, second.sceneRef];
+    assert.ok(refs.every(ref => ref?.id && ref.revision));
+    const originals = refs.map(ref => runtime.scenes.get(run.ingress.contract.scope, run.sessionId, ref, run.ingress.contract.id));
+
+    const result: any = await runtime.executeTool(run, 'present_view', { sceneRefs: refs, layout: 'focus' }, callbacks);
+    // A native campus presentation now acknowledges already-known refs
+    // without repeating them to the model. The actual UI keeps both refs.
+    assert.equal(result.status, 'presented');
+    assert.deepEqual(shown[0].view?.sceneRefs, refs);
+    assert.deepEqual(shown[0].scenes, originals, 'layout must not regenerate facts or revise either original scene');
+    assert.equal(shown[0].view?.dsl, sceneViewDsl(originals, 'focus'));
+    assert.doesNotMatch(shown[0].view!.dsl, /合成课程原值|合成考试原值|合成原教室|2026-10-19/, 'the DSL contains component addresses, not a second fact store');
+    assert.equal(runtime.actions.list(f.scope()).length, 0);
+
+    const restricted = runtime.begin('只根据本句继续', 'focus-current-request', 'focus-thread', new AbortController().signal, { sources: ['current'] });
+    await assert.rejects(runtime.executeTool(restricted, 'present_view', { sceneRefs: refs, layout: 'focus' }, callbacks), /当前对话与资料范围/);
+    const otherConversation = runtime.begin('看看资料', 'focus-other-request', 'other-focus-thread', new AbortController().signal);
+    await assert.rejects(runtime.executeTool(otherConversation, 'present_view', { sceneRefs: refs, layout: 'focus' }, callbacks), /当前对话与资料范围/);
+    await assert.rejects(runtime.executeTool(run, 'present_view', { sceneRefs: [refs[0], { ...refs[1], revision: refs[1].revision + 1 }], layout: 'focus' }, callbacks), /当前对话与资料范围/);
+    assert.equal(shown.length, 1, 'failed composition cannot partially publish the accessible first scene');
+    assert.deepEqual(refs.map(ref => runtime.scenes.get(run.ingress.contract.scope, run.sessionId, ref, run.ingress.contract.id)), originals);
+    assert.equal(runtime.actions.list(f.scope()).length, 0);
   } finally { f.close(); }
 });

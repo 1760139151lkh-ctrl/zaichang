@@ -30,13 +30,13 @@ export function executeCuriosityTool(
   async function execute() {
     signal.throwIfAborted();
     const handle = session.ingress.contract.scope, scope = host.policy.require(handle, 'evidence:read');
-    if (name !== 'read_shared_creation' && (session.background || scope.child))
-      throw new HarnessError('curiosity_current_invitation', '这份小体验由当前私聊的主助手接住，不从后台随机发起或让子调查另建邀请。');
     const pack = session.pack;
     if (!pack) throw new HarnessError('context_missing', '先接上当前对话，再把这份体验拿来一起玩。');
     const shared = name === 'read_shared_creation' ? sharedCreationReadInput.parse(raw) : undefined;
     const input = shared ? 'operation' in shared ? shared : { ...shared, operation: 'read_history' as const }
       : curiosityInvitationInput.parse(raw);
+    if (!['read', 'read_history', 'history'].includes(input.operation) && (session.background || scope.child))
+      throw new HarnessError('curiosity_current_invitation', '这份旧体验可沿原来源回读；重新邀请、继续或放下仍由本人的当前原话决定。');
     const permits = (ref: WorkSourceRef) => {
       const view = session.attentionEvidenceViews?.[ref.eventId];
       if (!view) return true;
@@ -47,24 +47,11 @@ export function executeCuriosityTool(
     };
     const context: CuriosityContext = { sessionId: session.sessionId, events: session.events, ephemeral: session.ephemeral,
       allowCrossSession: session.ingress.contract.memoryMode === 'relevant', observations: session.observations || [],
-      deliveredObservationIds: session.deliveredObservationIds || new Set(), permits };
+      deliveredObservationIds: session.deliveredObservationIds || new Set(),
+      noteSources: structuredClone(pack.receipt.noteSources || []), permits };
     const result = host.curiosityInvitations.execute(handle, context, input);
     signal.throwIfAborted(); host.policy.validate(handle);
     const text = canonical(result.value), bytes = Buffer.byteLength(text), tokens = Math.ceil(Array.from(text).length / 1.4);
-    if (pack.receipt.budget.readBytes + bytes > session.ingress.contract.budget.maxReadBytes
-      || pack.receipt.budget.estimatedTokens + tokens > session.ingress.contract.budget.maxTokens) {
-      const current = result.records.find(record => record.kind === 'option');
-      const value = { status: 'partial', ...(current ? { saved: { id: current.id, revision: current.revision,
-        read: { tool: 'curiosity_invitation', arguments: { operation: 'read', id: current.id } } } } : {}),
-        reason: current ? '这个起点已留在原事项里，完整内容还没带入这轮回复；可按原地址再读。' : '这轮没有容纳完整体验内容，尚未把它当作已交付。' };
-      const small = canonical(value), smallBytes = Buffer.byteLength(small), smallTokens = Math.ceil(Array.from(small).length / 1.4);
-      if (pack.receipt.budget.readBytes + smallBytes > session.ingress.contract.budget.maxReadBytes
-        || pack.receipt.budget.estimatedTokens + smallTokens > session.ingress.contract.budget.maxTokens)
-        throw new HarnessError('read_budget', '这轮内容已经很满，实际已保存的起点仍留在原事项里。');
-      pack.receipt.budget.readBytes += smallBytes; pack.receipt.budget.estimatedTokens += smallTokens;
-      host.repo.saveReceipt(handle, pack.receipt);
-      return value;
-    }
     host.context.recordWorkSources(pack, result.records);
     host.context.recordWorkSourceBindings(pack, result.bindings);
     host.context.recordAssistantWorkSources(pack, result.assistantWorkSources || []);

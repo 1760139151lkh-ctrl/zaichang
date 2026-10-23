@@ -1,6 +1,27 @@
 # 对话场景与 OpenUI
 
-2026-10-19 同步总览见[项目基线](PROJECT_BASELINE.md#openui动态呈现与地图怎样衔接)。工具取得事实、宿主核准Scene、固定OpenUI库呈现、选择回同一输入和实际动作分别有边界；本页描述接线，当前模型与画面证据统一归状态文档。
+2026-10-21 同步总览见[项目基线](PROJECT_BASELINE.md#openui动态呈现与地图怎样衔接)。工具取得事实、宿主核准Scene或有限声明式程序、共享OpenUI库呈现、选择回同一输入和实际动作分别有边界；本页描述接线，当前模型与画面证据统一归[本轮状态](CURRENT_STATUS.md#deep-refactor-20261021)。较早停止扩展与暂停安排保留当时范围，当前按[新原话](source-materials/2026-10-21/user-supplements.md)继续。
+
+本阶段新增的通用交互程序沿原 `present_view.program` 与 Message.views 接续：主模型可依眼前问题编排文字、图形、局部输入和动效，不必从业务 Scene 名单或话题演示中挑一项。按需方法 `interactive-program` 的语法、签名和规则来自实际共享库；默认只给能力入口与当前少量纯地址。原地图、天气、日历、校园与笔记仍使用真实 owner；程序引用数据须绑定已经实际提供的工具结果，临时状态不写回来源。
+
+<a id="explorable-mechanisms-20261021"></a>
+### 可按、可听、能接着看的通用作品（2026-10-21）
+
+同一作品可以让说明、机构图与操控自然交织：`Document.presentation=flow`收起总外框，由不同`Paper`与说明段落共享原生`$ui`。需要联动的部件保持同一局部状态，独立作品仍可由原消息锚点穿插。没有钢琴或其他学科的固定Scene、客户端脚本或第二套聊天。
+
+共享库新增`Press`、`Rect`、`Polygon`与`Voice`。`Press`可包正文控件或Graphic几何，按住、松开、取消捕获、离开作品与键盘操作有各自真实生命周期；热键只在本作品内响应，编辑文字时不接管。明确的教学力度与真实测得压力不混同。数值、文字与拖点继续立即接管动效；离散控制只取消它实际重写的动画轨道，`Motion.releaseBehavior=finish`允许已经脱离驱动的有限过程在松手后完成。声音可用同一时间的布尔脉冲对准接触，按住状态、一次击发与制音不必合成一个开关。
+
+`interactive-audio.tsx`为一份精确作品持有本机AudioContext，用户明确选择“听听声音”后才唤起。`Voice`从同一受检状态读取频率、谐波、包络、击发与延续；默认正弦，音色由明确参数决定。松键与延续分别处理，离开作品、窗口失焦、隐藏、离屏、来源退出或卸载时停止，不在重开时自动演奏。每份作品最多64个活动声部，优先回收已松开的尾音；没有外部音频下载或逐音符模型调用。是否自然、机械因果是否正确仍要检查实际模型构作，原语存在不能替代这一判断。
+
+局部条件按原`Message.views`中的message/program/revision/hash保存，由`NativeProgramLocalState`沿原来源链、当前隐私版本与CAS核对。主机只更新该版的`localState`，流式正文不会覆盖较新的调整；不改`initialState`、不造人物事实或新表。声明`transient:true`的按住、发声门、踏板与过程时钟恢复为安全初值，保留的参数仍属于原版本。临时会话及当前临时控制不落盘；旧Data与来源许可不因参数恢复而回来。原App关闭流程会先收尾同owner的保存队列，再沿原草稿流程退出。
+
+制作中的同一消息可多次真正发表可操作段落，再沿同作patch增加部件；已在眼前的节点不反复演进入动画。新节点短暂显现，手势立即结束该显现，减少动态时直接呈现。制作态只来自真实`present_view`调用头／宿主校验事件，沿原正文锚点放置；不编造完成比例、内部推理或半成品。地图展开与返回使用同一画布连续变形并保留原占位；用户输入可直接接管。
+
+同一消息／view连续收到新的修订时，只将声明和新旧初值都没变的非瞬态观看条件接过去，隐私版本或来源退出后不接。明确改初值仍依新稿，历史重开仍按各版保存；这不会更改模型的原稿初值或把本地手势变成新原话。读取／保存失败与真正临时状态分开：失败时保住眼前值并提供原入口重试，不静默声称已保存。
+
+实现入口为[共享库](../src/shared/interactive-library.ts)、[局部状态契约](../src/shared/interactive-program.ts)、[按压](../src/renderer/presentation/interactive-press.tsx)、[声音](../src/renderer/presentation/interactive-audio.tsx)、[前端保存适配](../src/renderer/presentation/program-local-state.ts)及[主机保存入口](../src/main/runtime/interactive-program-local-state.ts)。设计比较见[本轮图稿](../assets/design/generated/2026-10-21-explorable-mechanisms/)，采用B的正文与两块可操作内容关系；图中的机械与黑白键错误不进入实现。源码、正常Luna构作、音频输出链、重开及最终整合观察分别记录在当前状态，尚未完成的整件机构不能写成已经验收。
+
+`InteractiveProgramView.tsx`与`interactive-{context,primitives,graphics,motion}.tsx`、`interactive-program.css`已接入原`AssistantPresentation`，并启用同一程序入口。`SourceSlot`在组合内容里展开本次已准入的原业务Scene，保持原选择与来源；Motion由用户动作启动有限运动和受检数值变化，手动改值可停下。点到当前节点、改变局部条件或选择继续，沿原程序地址回同一composer的小引用，原稿不改；普通发送前再取当前完整局部输入，避免仅带上较早的一次点击值。这些是当前源码的呈现与接续机制；[选定图稿](../assets/design/generated/2026-10-19-openui-composition/manifest-v1.json)、实际画面、动效与正常Luna结果仍按[各自证据](CURRENT_STATUS.md#personal-memory-round7)判断，不把组件接入或静态检查当成交互通过。
 
 <a id="companion-experience"></a>
 ## 本轮：同一段交流里的共同页、陪学与来信
@@ -26,7 +47,7 @@
 
 局部引用回同一输入。学习纸先让人读，常驻的“问这一题／问这一行／聊这一点”已移除；真实点到、选到或用键盘聚焦后，才在当前一处出现轻入口，回车也能沿原attempt／help／problem引用继续。安排点选沿真实block或option，共写选句沿当前field内的明确位置。原正文留在原纸面，输入框旁只给可取消的小引用，已有草稿不改，下一句可以完全改变意思。`RichText.sourceFocus`复用Markdown实际文本节点的原位置，纯文字则以整段DOM与原文相同为前提；不用重复引文猜位置。数学转换、跨field或其他无法证明的映射不伪造精确坐标。`ReadableFocus`与`LocalTextFocus`共用一次只呈现一处的轻动作，`FocusContextChip`统一输入提示，不在各处另造一套焦点面板；来源、本人报告、助手建议与虚构作品身份持续分开。新版Study已在同一隔离实例实际重走旧行点选、原稿与行标同屏、取消直接接写，以及键盘聚焦旁注／回车引用；原消息入口与当前owner修订混用的失败已修并按原触发复看，详情和实际图见[当前状态](CURRENT_STATUS.md#personal-memory-round7)。其他场景的持续选句标记、IME与模型理解仍各保留自己的证据范围。
 
-表达排练沿同一消息展开：本人的试说与一种可能回应分别落在纸上，继续、换回应、停下或整理仍回同一输入，不出现第二聊天。图稿来自[表达排练设计](../assets/design/generated/2026-10-19-expression-rehearsal/manifest.json)，纸面与金枝使用实际透明资产，正文和动作保持真实组件。它演的是一种可能，不表示对方真的说过或事情已经发生；当前源码接线与后续实际渲染观察分别记录。
+表达排练沿同一消息展开：本人的试说与一种可能回应分别落在纸上，继续、换回应、停下或整理仍回同一输入，不出现第二聊天。图稿来自[表达排练设计](../assets/design/generated/2026-10-19-expression-rehearsal/manifest.json)，纸面与金枝使用实际透明资产，正文和动作保持真实组件。它演的是一种可能，不表示对方真的说过或事情已经发生。原依赖刷新漏接修后，正常Luna已在同一原owner接上本人练习原句与新可能回应；原失败、这次限定画面和其他操作仍分别记入[当前状态](CURRENT_STATUS.md#personal-memory-round7)，不由一份同页图推定全部排练体验。
 
 共写纸面已经有同一隔离Electron的首波观察：暖／夜色纸、已有自由草稿的选句引用、重开后的草稿保留和历史作品展开过渡均实际发生。纸边留白、首次题头落点与后来选定的夜色低亮处理仍在改后复看；精确图路径和范围见[本批状态](CURRENT_STATUS.md#personal-memory-round7)。作品选区沿原field地址继续，不从这条视觉记录推定主模型已理解或记得早期章节。
 
@@ -72,7 +93,7 @@ scene1 = WeatherScene("<scene-id>@<revision>")
 
 `Message.scenes` 保存当时的事实；`Message.views` 保存组件库版本、引用与实际 DSL。`src/renderer/presentation/AssistantPresentation.tsx` 使用安装包的 `defineComponent`、`createLibrary` 和 `Renderer` 解析并渲染这些声明。组件只能读取该视图获准的精确快照。没有客户端 `toolProvider`、任意脚本、外部 URL 动作或能直接执行预约/日程的场景组件。实际日程建议、接受和撤销仍走消息中的既有行动界面、IPC 与主机核验。
 
-处理步骤和工具画面可在消息运行时更新，场景在真实结果通过准入后接到同一条回复。本批允许前台主助手在继续工具前先发表已有根据的实质帮助；最终候选仍等原收口，未把全部协议正文改为逐token裸流。没有结果时不先造地图或天气占位事实。路线由既有`CampusMapAdapter`与共享`MapSurface`呈现，桌面独立地图、消息内地图与公开地图review不产生第二份地图实现。
+处理步骤和工具画面可在消息运行时更新，场景在真实结果通过准入后接到同一条回复。前台主助手的公开正文可以在同一消息里流动，成功的工具前段与最终正文仍各有收尾；子调查与内部推理不经此出口。真实present_view调用头可以带来短命的制作状态，完整内容才进入原作品owner。没有结果时不先造地图或天气占位事实。路线由既有`CampusMapAdapter`与共享`MapSurface`呈现，桌面独立地图、消息内地图与公开地图review不产生第二份地图实现。
 
 `main/runtime/map-model-view.ts` 为模型提供道路摘要：保留地点与停靠身份、选中的入口、距离、条件与来源，并合并相邻同名且通行含义相同的道路边。完整几何与逐边记录保留在主机和地图快照中。读取的原始字节仍计入原有预算，模型 token 按真正回传的摘要计量；只有结果通过准入后才发布新地图，不以提高预算或丢掉未知条件换取成功。
 

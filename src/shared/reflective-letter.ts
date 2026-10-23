@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { evidenceSchema, workSourceBindingSchema, workSourceRefSchema, type EvidenceEvent, type WorkSourceBinding, type WorkSourceRef } from './harness';
+import { noteSourceProofSchema, type NoteSourceProof } from './notes-source';
 
 const id = z.string().min(1).max(160);
 const digest = z.string().regex(/^[a-f0-9]{64}$/);
@@ -41,9 +42,13 @@ export interface ReflectiveLetterSourceView {
 
 export const reflectiveLetterRequestInput = z.object({
   operation: z.literal('begin'),
-  source: original.describe('本轮本人请求这次回顾的精确原话；不是由旧经历推定的周期关注许可。'),
+  source: original.optional().describe('与currentQuote二选一：本轮本人请求这次回顾的精确原话地址；不是旧经历或周期许可。'),
+  currentQuote: z.string().min(1).max(4000).optional().describe('与source二选一：逐字复制本轮本人请求写信的原句。宿主只在本轮已交付且已授权的本人原话范围中精确唯一定位，不修剪、不近似匹配，不扩大授权。'),
   window: reflectiveLetterWindowSchema,
-}).strict();
+}).strict().superRefine((input, context) => {
+  if ((input.source === undefined) === (input.currentQuote === undefined))
+    context.addIssue({ code: 'custom', path: ['currentQuote'], message: 'source与currentQuote须且只能提供一个；currentQuote逐字引用本轮写信请求，不填旧经历。' });
+});
 export const reflectiveLetterMandateInput = z.object({
   operation: z.literal('begin_for_opportunity'), opportunityId: id,
   expectedRevision: z.number().int().positive(), window: reflectiveLetterWindowSchema,
@@ -51,6 +56,10 @@ export const reflectiveLetterMandateInput = z.object({
 
 export const reflectiveLetterCitationSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('original'), ...original.shape }).strict(),
+  noteSourceProofSchema.safeExtend({
+    kind: z.literal('note'), observationId: id, quote: z.string().min(1).max(4000),
+  }).refine(value => value.end > value.start, '笔记正文引用需要非空范围')
+    .describe('本轮manage_note.read实际交付的笔记正文：observationId沿该次工具调用，id/revision/sha256沿原页，start/end为正文绝对Unicode位置。笔记保存时间与文中经历发生时间分别理解，笔记记述也不等于外部核实。'),
   z.object({
     kind: z.literal('material'), observationId: id,
     resourceId: id, sha256: digest, version: z.number().int().positive(),
@@ -120,7 +129,10 @@ export interface ReflectiveLetterLearningProof {
   kind: 'learning'; id: string; revision: number; sourceBinding: WorkSourceBinding;
   originals: ReflectiveLetterOriginalProof[]; observation: 'reported_process';
 }
-export type ReflectiveLetterProof = ReflectiveLetterOriginalProof | ReflectiveLetterMaterialProof | ReflectiveLetterLearningProof;
+export interface ReflectiveLetterNoteProof extends NoteSourceProof {
+  kind: 'note'; sourceId: 'notes:self'; quoteSha256: string;
+}
+export type ReflectiveLetterProof = ReflectiveLetterOriginalProof | ReflectiveLetterMaterialProof | ReflectiveLetterLearningProof | ReflectiveLetterNoteProof;
 export interface ReflectiveLetterDocument {
   version: 1;
   title: string;
@@ -150,7 +162,10 @@ const learningProof = z.object({
   kind: z.literal('learning'), id, revision: z.number().int().positive(), sourceBinding: workSourceBindingSchema,
   originals: z.array(originalProof).min(1).max(8), observation: z.literal('reported_process'),
 }).strict();
-export const reflectiveLetterProofSchema = z.discriminatedUnion('kind', [originalProof, materialProof, learningProof]);
+const noteProof = noteSourceProofSchema.safeExtend({
+  kind: z.literal('note'), sourceId: z.literal('notes:self'), quoteSha256: digest,
+}).refine(value => value.end > value.start, '笔记正文引用需要非空范围');
+export const reflectiveLetterProofSchema = z.discriminatedUnion('kind', [originalProof, materialProof, learningProof, noteProof]);
 export const reflectiveLetterMetadataSchema = z.object({
   binding: workSourceBindingSchema,
   request: workSourceRefSchema.safeExtend({ quoteSha256: digest }),

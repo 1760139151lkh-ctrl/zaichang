@@ -8,10 +8,12 @@ import {
   net,
   nativeImage,
   Notification,
+  powerMonitor,
   protocol,
   safeStorage,
   session,
   shell,
+  Tray,
 } from 'electron';
 import { mkdirSync, existsSync, readFileSync, writeFileSync, unlinkSync, statSync } from 'node:fs';
 import path from 'node:path';
@@ -30,7 +32,7 @@ const mapLocation = new MapLocationProvider();
 import { friendlyError } from './provider';
 import { createModelClient, usingLunaTestTransport } from './model-selection';
 import { LUNA_MODEL, LUNA_DISPLAY_NAME } from './luna-provider';
-import { actionSchema, campusSchema, settingsSchema } from '../shared/schemas';
+import { actionCommandSchema, campusSchema, settingsSchema } from '../shared/schemas';
 import { DEEPSEEK_MODEL, type Draft, type ImageAttachment, type Settings } from '../shared/types';
 import campusExample from '../../examples/campus.example.json';
 import { LIMITS } from '../shared/limits';
@@ -42,9 +44,10 @@ import { NativeControls } from './runtime/controls';
 import { NativeCampusCalendar } from './runtime/campus-calendar';
 import { NativeStudyService } from './runtime/study-native';
 import { NativeRehearsalService } from './runtime/rehearsal-native';
+import { NativeProgramLocalState } from './runtime/interactive-program-local-state';
 import { rehearsalInteractionSchema } from '../shared/relationship-rehearsal';
 import { configureNetwork } from './network';
-import { materialReferenceSchema, materialTargetSchema } from '../shared/materials';
+import { materialReferenceSchema, materialTargetSchema, materialQuoteReferenceSchema } from '../shared/materials';
 import { semanticSelectionSchema } from '../shared/scenes';
 import { studyInteractionSchema } from '../shared/study-presentation';
 import { reflectiveLetterSourceInput, letterReferenceSchema, reflectiveLetterProjectInput } from '../shared/reflective-letter';
@@ -52,6 +55,7 @@ import { noteReferenceSchema } from '../shared/note-presentation';
 import { companionSourceInputSchema, companionFollowupReferenceSchema } from '../shared/companion-source';
 import { campusAcademicReadInputSchema } from '../shared/campus-academic';
 import { curiosityFollowupReferenceSchema } from '../shared/curiosity-source';
+import { interactiveProgramReferenceSchema } from '../shared/interactive-program';
 import { createOpportunityScheduler } from './runtime/opportunity-scheduler';
 import { calendarExportInput } from '../shared/calendar-export';
 import { exportCalendarSnapshot } from './actions/calendar-export';
@@ -95,6 +99,10 @@ protocol.registerSchemesAsPrivileged([
 // Explicit profile override also makes packaged verification independent of personal data.
 if (process.env.ZAICHANG_DATA_DIR) app.setPath('userData', path.resolve(process.env.ZAICHANG_DATA_DIR));
 app.setName('在场');
+// One companion per profile: a second launch brings the existing window back.
+// The lock lives in the (possibly isolated) userData directory set above.
+if (!app.requestSingleInstanceLock()) app.quit();
+else app.on('second-instance', () => showWindow());
 let window: BrowserWindow | undefined,
   store: Store,
   harness: Harness,
@@ -106,6 +114,60 @@ let draftCloseConfirmed = false;
 let connectionController: AbortController | undefined;
 let latestDeviceLocation: import('../shared/map-v2').LocationStatusResult | undefined;
 let opportunityScheduler: ReturnType<typeof createOpportunityScheduler> | undefined;
+let tray: Tray | undefined;
+const desktopNotifications = new Map<string, { cancel: () => void }>();
+let quitting = false;
+let trayNoticeShown = false;
+/** Bring the one window back, wherever it went (tray, minimized, behind). */
+function showWindow() {
+  if (!window || window.isDestroyed()) return;
+  if (window.isMinimized()) window.restore();
+  window.show();
+  window.focus();
+}
+function navigateTo(target?: import('./actions/reminders').DeliveryTarget) {
+  showWindow();
+  if (target?.preparationRef && store) store.runtime.presentation.focusPreparation(target.preparationRef);
+  if (target && window && !window.isDestroyed()) window.webContents.send('zaichang:navigate', target);
+}
+/** Closing the window keeps her running in the tray unless the person chose
+ * otherwise, so promised reminders and entrusted watches keep going. */
+function keepsRunningInTray() {
+  return process.env.ZAICHANG_TEST !== '1' && store?.settings().backgroundPresence !== 'quit';
+}
+function applyLoginItem() {
+  if (process.env.ZAICHANG_TEST === '1' || !app.isPackaged) return;
+  try {
+    // The portable launcher removes its extracted process.execPath on exit.
+    // Windows must start the enduring launcher, not that temporary child.
+    const portable = process.env.PORTABLE_EXECUTABLE_FILE;
+    const executable = process.platform === 'win32' && portable && path.isAbsolute(portable)
+      && existsSync(portable) && statSync(portable).isFile() ? portable : process.execPath;
+    app.setLoginItemSettings({ openAtLogin: store.settings().launchAtLogin === true, path: executable, args: ['--hidden'] });
+  } catch { /* A platform without login items keeps the manual start. */ }
+}
+function ensureTray(): boolean {
+  if (tray && !tray.isDestroyed()) return true;
+  tray = undefined;
+  if (process.env.ZAICHANG_TEST === '1') return false;
+  try {
+    tray = new Tray(nativeImage.createFromPath(path.join(app.getAppPath(), '前端视觉创新设计/统一图库/原图/运行素材与品牌/icon-9a6d2ebdf831.png')).resize({ width: 16, height: 16 }));
+    const name = () => store.settings().persona.core.name.trim() || '在场';
+    const menu = () => Menu.buildFromTemplate([
+      { label: `打开在场`, click: () => showWindow() },
+      { type: 'separator' },
+      { label: '退出在场', click: () => { quitting = true; app.quit(); } },
+    ]);
+    tray.setToolTip(`${name()} 在这儿`);
+    tray.setContextMenu(menu());
+    tray.on('click', () => showWindow());
+    return true;
+  } catch {
+    if (tray && !tray.isDestroyed()) tray.destroy();
+    tray = undefined;
+    return false;
+  }
+}
 function getKey() {
   if (projectDeepSeekKey) return projectDeepSeekKey;
   if (existsSync(keyPath)) {
@@ -251,7 +313,7 @@ app.whenReady().then(async () => {
       if (event.type === 'state') opportunityScheduler?.wake();
       if (!window || window.isDestroyed()) return;
       if (event.type === 'state') window.webContents.send('zaichang:event', { ...event, state: decorateState(event.state) });
-      else if (event.type === 'message') { const message = store.runtime.presentation.message(event.message, { liveCuriosity: true, liveRehearsal: true, liveNote: true, liveCampus: true }); if (message) window.webContents.send('zaichang:event', { ...event, message }); }
+      else if (event.type === 'message') { const message = store.runtime.presentation.message(event.message, { liveCuriosity: true, liveRehearsal: true, liveNote: true, liveCampus: true, liveProgram: true }); if (message) window.webContents.send('zaichang:event', { ...event, message }); }
       else if (!store.runtime.presentation.public) window.webContents.send('zaichang:event', event);
     },
     undefined,
@@ -322,7 +384,13 @@ app.whenReady().then(async () => {
     } finally { remove(); }
   });
   handle('campus:schedule', value => campusCalendar.read(value));
-  store.runtime.policy.onBarrier(() => { mapLocation.cancel(); latestDeviceLocation = undefined; store.runtime.spatial.share({ enabled: false }); });
+  const programLocalState = new NativeProgramLocalState(store);
+  handle('program:local-state:read', value => programLocalState.read(value));
+  handle('program:local-state:save', value => programLocalState.save(value));
+  store.runtime.policy.onBarrier(() => {
+    mapLocation.cancel(); latestDeviceLocation = undefined; store.runtime.spatial.share({ enabled: false });
+    queueMicrotask(() => { if (!store.closed) void store.runtime.reminders.retireInvalidNotifications().catch(() => {}); });
+  });
   if (process.env.ZAICHANG_TEST !== '1') store.runtime.spatial.reference = new CampusReferenceAdapter(path.join(homedir(), '.codex', 'skills', 'zju-campus-locator'), (file, crop) => {
     let source = nativeImage.createFromBuffer(readFileSync(file));
     if (source.isEmpty()) throw new Error('俯瞰图像素不可读取。');
@@ -354,6 +422,7 @@ app.whenReady().then(async () => {
     const recordId = action?.capability === 'local.agenda.change' ? action.arguments.targetId : action?.id;
     return {
       action,
+      ...(action?.planningOffer ? { planningOffer: store.runtime.planningOffers.state(scope, action) } : {}),
       receipts: store.runtime.actions.receipts(scope, actionId),
       ...(action && ['local.agenda.save', 'local.agenda.change'].includes(action.capability) && typeof recordId === 'string'
         ? { localRecord: store.runtime.calendar.read(recordId) || null } : {}),
@@ -411,10 +480,7 @@ app.whenReady().then(async () => {
   handle('draft:unsaved', () => drafts.unsaved());
   handle('draft:persist', value => {
     const input = z.object({ id, digest: z.string().regex(/^[a-f0-9]{64}$/), confirmed: z.literal(true) }).strict().parse(value);
-    const attachment = drafts.get(input.id).attachment;
-    if (attachment?.kind === 'text' && attachment.resource) store.runtime.materials.assertPendingPersistable(attachment.resource);
     drafts.persist(input.id, input.digest);
-    if (attachment?.kind === 'text' && attachment.resource) store.runtime.materials.persistPending(attachment.resource);
     if (!store.runtime.presentation.public && window && !window.isDestroyed())
       window.webContents.send('zaichang:event', { type: 'conversations', conversations: store.conversations() });
   });
@@ -429,17 +495,19 @@ app.whenReady().then(async () => {
       .parse(value);
     drafts.save(input.id, input.draft, input.retention === 'session_only', input.privacyEpoch);
   });
-  handle('send', (value) => {
+  handle('send', async (value) => {
     const input = z
       .object({
         sessionId: id.optional(),
         content: z.string().trim().min(1).max(LIMITS.message),
         image: imageAttachmentSchema.optional(),
         material: materialReferenceSchema.optional(),
+        materialQuote: materialQuoteReferenceSchema.optional(),
         selection: semanticSelectionSchema.optional(),
         studyInteraction: studyInteractionSchema.optional(),
         companionReference: companionFollowupReferenceSchema.optional(),
         curiosityReference: curiosityFollowupReferenceSchema.optional(),
+        programReference: interactiveProgramReferenceSchema.optional(),
         letterReference: letterReferenceSchema.optional(),
         noteReference: noteReferenceSchema.optional(),
         rehearsalInteraction: rehearsalInteractionSchema.optional(),
@@ -455,25 +523,40 @@ app.whenReady().then(async () => {
       })
       .strict()
       .parse(value);
+    if (input.materialQuote) await store.runtime.materials.nativeQuote({
+      target: input.material?.resourceId === input.materialQuote.resourceId
+        ? { kind: 'pending', reference: input.material } : { kind: 'saved', resourceId: input.materialQuote.resourceId },
+      quote: input.materialQuote,
+    });
     return harness.start(input.sessionId, input.content, { ...input.controls, material: input.material, selection: input.selection,
       studyInteraction: input.studyInteraction, companionReference: input.companionReference,
       curiosityReference: input.curiosityReference, letterReference: input.letterReference, noteReference: input.noteReference,
-      rehearsalInteraction: input.rehearsalInteraction }, input.image);
+      programReference: input.programReference,
+      rehearsalInteraction: input.rehearsalInteraction, materialQuote: input.materialQuote }, input.image);
   });
   handle('stop', () => harness.stop());
+  handle('persona:follow-default', value => {
+    store.followDefaultCompanion(z.string().min(1).max(100).parse(value));
+    return state();
+  });
   handle('settings:save', (value) => {
     const { apiKey, ...settings } = settingsSchema.parse(value);
     const disablingOnly =
       !apiKey &&
       Object.entries(settings).every(
         ([key, val]) =>
-          ['memoryEnabled', 'weatherEnabled', 'remindersEnabled'].includes(key) && val === false,
+          ['memoryEnabled', 'weatherEnabled', 'remindersEnabled'].includes(key) && val === false
+          // How notices look and whether she stays in the tray never change a
+          // reply already in progress, so they can be saved at any time.
+          || ['notificationPreview', 'backgroundPresence', 'launchAtLogin', 'companionCheckIns'].includes(key),
       );
     if (!disablingOnly) noRun();
     if (settings.mode === 'deepseek' && !(apiKey || getKey()) && !usingLunaTestTransport())
       throw new Error('先填写 DeepSeek API Key，再开始连接。');
     if (apiKey) saveKey(apiKey);
     store.saveSettings(settings as Partial<Settings>);
+    if (settings.launchAtLogin !== undefined) applyLoginItem();
+    if (settings.backgroundPresence === 'tray') ensureTray();
     return state();
   });
   handle('connection:test', async (value) => {
@@ -686,11 +769,12 @@ app.whenReady().then(async () => {
     return map.route(input.from?.kind==='current' ? {...input,from:{kind:'current',fix:latestDeviceLocation?.fix}} : input);
   });
   handle('action', async (value) => {
-    const input = z.object({ action: z.enum(['save', 'delete', 'done']), item: actionSchema }).parse(value);
-    if (input.action === 'delete') {
-      if (store.runtime.calendar.read(input.item.id)) await store.runtime.changeLocalFromUI(input.item, 'delete');
-      else await store.runtime.actions.cancel(store.runtime.policy.hostScope(), input.item.effectActionId || input.item.id);
-    } else
+    const input = actionCommandSchema.parse(value);
+    if (input.action === 'undo')
+      await store.runtime.actions.cancel(store.runtime.policy.hostScope(), input.effect.id, new AbortController().signal, input.effect);
+    else if (input.action === 'delete')
+      await store.runtime.changeLocalFromUI(input.item, 'delete');
+    else
       await store.runtime.acceptLocal({ ...input.item, done: input.action === 'done' || input.item.done });
     return state();
   });
@@ -711,6 +795,8 @@ app.whenReady().then(async () => {
     return store.runtime.materials.nativeList(input.sessionId);
   });
   handle('materials:read', value => store.runtime.materials.nativeReadPage(value));
+  handle('materials:quote', value => store.runtime.materials.nativeQuote(value));
+  handle('materials:keep-quote', value => store.runtime.materials.nativeKeepQuote(value, store.notes));
   handle('materials:cancel', () => store.runtime.materials.cancelNativeRead());
   handle('materials:discard', value => {
     const input = z.object({ reference: materialReferenceSchema }).strict().parse(value);
@@ -821,12 +907,12 @@ app.whenReady().then(async () => {
     title: '在场',
     width: 1220,
     height: 850,
-    minWidth: 680,
+    minWidth: 420,
     minHeight: 570,
     backgroundColor: '#171918',
     frame: false,
     show: false,
-    icon: path.join(app.getAppPath(), 'assets/brand/icon.png'),
+    icon: path.join(app.getAppPath(), '前端视觉创新设计/统一图库/原图/运行素材与品牌/icon-9a6d2ebdf831.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       contextIsolation: true,
@@ -838,8 +924,20 @@ app.whenReady().then(async () => {
   });
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
   window.webContents.on('will-navigate', (event) => event.preventDefault());
-  window.once('ready-to-show', () => window?.show());
+  window.once('ready-to-show', () => {
+    if (!process.argv.includes('--hidden') || !ensureTray()) window?.show();
+  });
   window.on('close', (event) => {
+    if (!quitting && keepsRunningInTray() && ensureTray()) {
+      // The renderer keeps its drafts; nothing is lost by hiding.
+      event.preventDefault();
+      window?.hide();
+      if (!trayNoticeShown && Notification.isSupported()) {
+        trayNoticeShown = true;
+        new Notification({ title: '在场仍在运行', body: '窗口收在右下角的托盘里。点图标可以回来；在托盘菜单选“退出在场”会完全退出。', silent: true }).show();
+      }
+      return;
+    }
     // The renderer also owns notebook edits that have not been saved yet.
     if (!draftCloseConfirmed && !window?.webContents.isDestroyed() && !window?.webContents.isCrashed() && !window?.webContents.isLoadingMainFrame()) {
       event.preventDefault();
@@ -869,15 +967,68 @@ app.whenReady().then(async () => {
     },
     submit: async (input, signal) => {
       signal.throwIfAborted();
-      const notice = new Notification({ title: input.title, body: input.body, silent: true });
-      notice.on('click', () => {
-        window?.restore();
-        window?.show();
-        window?.focus();
+      const leaseEnd = Date.parse(input.leaseUntil);
+      const leaseMs = leaseEnd - Date.parse(store.kernel.clock.now());
+      if (!Number.isFinite(leaseMs) || leaseMs <= 0) return { status: 'unknown' };
+      const notice = new Notification({ title: input.title, body: input.body, silent: input.silent === true });
+      return new Promise<{ status: 'submitted_to_os' | 'unknown' }>(resolve => {
+        let settled = false;
+        let timer: ReturnType<typeof setTimeout> | undefined;
+        const settle = (status: 'submitted_to_os' | 'unknown') => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timer);
+          signal.removeEventListener('abort', cancel);
+          notice.removeListener('show', shown);
+          resolve({ status: status === 'submitted_to_os'
+            && (signal.aborted || Date.parse(store.kernel.clock.now()) >= leaseEnd) ? 'unknown' : status });
+        };
+        const release = () => {
+          notice.removeListener('click', clicked);
+          notice.removeListener('close', closed);
+          notice.removeListener('failed', failed);
+          desktopNotifications.delete(input.id);
+        };
+        const cancel = () => {
+          settle('unknown');
+          release();
+          notice.close();
+        };
+        const shown = () => {
+          if (signal.aborted || Date.parse(store.kernel.clock.now()) >= leaseEnd) cancel();
+          else settle('submitted_to_os');
+        };
+        const failed = () => { settle('unknown'); release(); };
+        const clicked = () => {
+          settle('submitted_to_os');
+          release();
+          navigateTo(input.target);
+        };
+        const closed = (event: Electron.Event<{ reason?: string }>) => {
+          const confirmed = settled;
+          settle('unknown');
+          // Windows can hide the toast while retaining it in Action Center.
+          // Keep its original click route until the person acts or cancels it.
+          if (!confirmed || event.reason !== 'timedOut') release();
+        };
+        desktopNotifications.get(input.id)?.cancel();
+        desktopNotifications.set(input.id, { cancel });
+        notice.once('show', shown);
+        notice.once('failed', failed);
+        notice.on('close', closed);
+        notice.once('click', clicked);
+        signal.addEventListener('abort', cancel, { once: true });
+        // The original leased occurrence bounds this acknowledgement wait.
+        // No native reply leaves the durable intent unknown; it is not retried.
+        const remaining = leaseEnd - Date.parse(store.kernel.clock.now());
+        if (signal.aborted || remaining <= 0) cancel();
+        else {
+          timer = setTimeout(cancel, remaining);
+          try { notice.show(); } catch { cancel(); }
+        }
       });
-      notice.show();
-      return { status: 'submitted_to_os' };
     },
+    cancel: async id => { desktopNotifications.get(id)?.cancel(); },
   };
   store.runtime.reminders.canSubmitSuggestion = () => !store.runtime.presentation.public && !window?.isFocused();
   store.runtime.reminders.configure({ enabled: store.settings().remindersEnabled });
@@ -897,15 +1048,28 @@ app.whenReady().then(async () => {
     });
     store.notes.onChanged(() => opportunityScheduler?.wake());
     store.onAgendaChanged(() => opportunityScheduler?.wake());
+    // Every ten minutes the host asks whether this is a gentle moment for her
+    // to drop by; most of the time the answer is no and no model is called.
+    const presenceTimer = setInterval(() => { void harness.considerCheckIn(); }, 10 * 60000);
+    app.on('will-quit', () => clearInterval(presenceTimer));
   }
   void store.runtime.reminders.runDue();
+  // After sleep or a locked screen, catch up at once instead of waiting for
+  // the next 30-second tick: due reminders first, then entrusted reviews.
+  const catchUp = () => { void store.runtime.reminders.runDue(); opportunityScheduler?.wake(); };
+  powerMonitor.on('resume', catchUp);
+  powerMonitor.on('unlock-screen', catchUp);
+  applyLoginItem();
+  if (keepsRunningInTray()) ensureTray();
   app.on('will-quit', () => {
     clearInterval(reminderTimer);
     clearInterval(recoveryTimer);
     opportunityScheduler?.stop();
+    for (const notice of desktopNotifications.values()) notice.cancel();
     store.close();
   });
 });
+app.on('before-quit', () => { quitting = true; });
 app.on('window-all-closed', () => app.quit());
 
 app.on('before-quit', () => mapLocation.cancel());

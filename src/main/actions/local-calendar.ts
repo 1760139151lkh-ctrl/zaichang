@@ -29,7 +29,8 @@ export class LocalCalendarService {
         this.planning.validateSave(scope, planRef, effect!.arguments, this.items());
       }
       const previous = this.read(projection.id) || null;
-      const current = this.store.writeAgendaProjection({ ...projection, effectActionId: effect?.id || projection.id });
+      const current = this.store.writeAgendaProjection({ ...projection, effectActionId: effect?.id || projection.id },
+        { reminderSpeaker: effect?.reminderSpeaker });
       if (current.planning && current.planning.state !== 'accepted') this.reminders.cancel(current.id);
       else this.reminders.schedule(current, effect?.goalId || projection.goalId);
       return { recordId: projection.id, recordRevision: current.revision || 1, previous, current, applied: !previous || (previous.revision || 1) !== current.revision,
@@ -50,7 +51,7 @@ export class LocalCalendarService {
     changed.revision = (previous.revision || 1) + 1;
     changed.effectActionId = effect.id;
     changed.approvalDigest = effect.digest;
-    changed = this.store.writeAgendaProjection(changed);
+    changed = this.store.writeAgendaProjection(changed, { reminderSpeaker: effect.reminderSpeaker });
     if (changed.done || changed.planning && changed.planning.state !== 'accepted' || !(changed.remindAt || ((changed.kind === 'reminder' || !changed.kind) && changed.startsAt))) this.reminders.cancel(args.targetId);
     // This transaction is an authorized current revision. Reusing a prior
     // trigger (A→B→A or invitation→accepted) restores its cancelled job only
@@ -69,7 +70,9 @@ export class LocalCalendarService {
     if (!undo.previous) this.store.deleteAction(undo.targetId, effect.id);
     else {
       this.reminders.cancel(undo.targetId);
-      const restored = this.store.writeAgendaProjection({ ...undo.previous, revision: currentRevision + 1 } as unknown as Action);
+      const previous = undo.previous as unknown as Action;
+      const restored = this.store.writeAgendaProjection({ ...previous, revision: currentRevision + 1 },
+        { reminderSpeaker: previous.reminderSpeaker });
       this.reminders.schedule(restored, restored.goalId, undefined, { restore: true });
     }
   }

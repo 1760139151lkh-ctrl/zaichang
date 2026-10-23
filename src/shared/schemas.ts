@@ -2,7 +2,9 @@ import { z } from 'zod';
 import { DEEPSEEK_MODEL } from './types';
 import { calendarFieldsSchema } from './calendar';
 import { interactionSchema } from './interaction';
+import { planningOfferSchema } from './planning-offer';
 import { personaUpdateSchema } from './persona';
+import { effectSchema } from './harness';
 const timestamp = z.string().datetime({ offset: true });
 const event = z
   .object({
@@ -47,6 +49,8 @@ export const campusSchema = z.object({
     .default([]),
 });
 export const actionSchema = z.object({
+  planningOffer: planningOfferSchema.optional(),
+  planRef: z.object({ planId: z.string().min(1).max(160), blockId: z.string().min(1).max(160) }).strict().optional(),
   effectActionId: z.string().max(160).optional(),
   calendarChange: z.object({ targetId: z.string().min(1).max(160), expectedRevision: z.number().int().positive(), operation: z.enum(['update', 'delete', 'change_occurrence']), occurrenceDate: z.iso.date().optional(), cancelled: z.boolean().optional() }).strict().optional(),
   ...calendarFieldsSchema.shape,
@@ -66,6 +70,10 @@ export const actionSchema = z.object({
   coverage: z.enum(['verified', 'conditional', 'not_feasible']).optional(),
   missingNeeds: z.array(z.string().max(160)).max(64).optional(),
 });
+export const actionCommandSchema = z.discriminatedUnion('action', [
+  z.object({ action: z.enum(['save', 'delete', 'done']), item: actionSchema }).strict(),
+  z.object({ action: z.literal('undo'), effect: effectSchema.pick({ id: true, revision: true, digest: true, status: true }).strict() }).strict(),
+]);
 export const settingsSchema = z
   .object({
     interaction: interactionSchema.optional(),
@@ -89,6 +97,10 @@ export const settingsSchema = z
       .optional(),
     guidance: z.string().max(4000).optional(),
     apiKey: z.string().trim().min(8).max(512).optional(),
+    backgroundPresence: z.enum(['tray', 'quit']).optional(),
+    launchAtLogin: z.boolean().optional(),
+    notificationPreview: z.enum(['words', 'private']).optional(),
+    companionCheckIns: z.enum(['off', 'sometimes', 'often']).optional(),
   })
   .strict();
 export function terms(query: string): string[] {

@@ -37,7 +37,7 @@ test('preserving an edited role binds only the image and removes an unrelated so
   assert.equal(next.visualBinding?.portrayalBasis, 'user_authored');
   assert.equal(next.visualBinding?.portrayalId, undefined);
   const prompt = personaGuidance({ ...migratePersona(), core: next });
-  assert.match(prompt, /当前没有已绑定的官方角色参考/);
+  assert.match(prompt, /这个角色没有绑定原作资料/);
   assert.doesNotMatch(prompt, /official_profile_search_excerpt/);
   assert.equal(edited.visualBinding?.companionId, 'sakiko');
 });
@@ -50,7 +50,12 @@ test('source references cannot be attached to another artwork or an unsupported 
   assert.throws(() => personaCoreSchema.parse({ ...core,
     visualBinding: { ...core.visualBinding, portrayalBasis: 'user_authored' },
   }));
-  assert.throws(() => selectCompanionPersona(core, 'mio', 'use_character_preset'));
+  // 澪 is the project's own original character: her preset carries no source portrayal.
+  const mio = selectCompanionPersona(core, 'mio', 'use_character_preset');
+  assert.equal(mio.visualBinding?.portrayalBasis, 'project_original');
+  assert.equal(mio.visualBinding?.portrayalId, undefined);
+  assert.throws(() => personaCoreSchema.parse({ ...mio, visualBinding: { ...mio.visualBinding, companionId: 'sakiko' } }));
+  assert.throws(() => selectCompanionPersona(core, 'light', 'use_character_preset'));
   assert.throws(() => selectCompanionPersona(core, '../private', 'preserve_role'));
   assert.throws(() => importPersonaTemplate(JSON.stringify({
     format: 'zaichang-persona-template', schemaVersion: 1,
@@ -64,7 +69,7 @@ test('portrayals retain factual preconditions and separate source facts from pro
     const prompt = personaGuidance(state);
     assert.match(prompt, /尚不知道出发位置，不能核实是否来得及/);
     assert.match(prompt, /日程写入失败，尚未持久化/);
-    assert.match(prompt, /当前core里用户编辑的描述与口吻优先/);
+    assert.match(prompt, /用户改过的描述与口吻优先/);
     assert.match(prompt, /不是用户记忆/);
     assert.match(prompt, /不同角色使用同一组真实依据和动作回执/);
     assert.match(prompt, /不能自动修改角色核心/);
@@ -115,4 +120,49 @@ test('external card conversion produces a review draft without privileged prompt
   assert.equal(JSON.stringify(original), encoded);
   assert.throws(() => previewPersonaCharacterCard(JSON.stringify({ ...original, spec: 'unknown' })));
   assert.throws(() => previewPersonaCharacterCard('x'.repeat(200_001)));
+});
+
+test('a new profile meets 澪 with her own voice, and the four original characters sound different', async () => {
+  const { initialPersona, isUntouchedDefaultPersona, ORIGINAL_COMPANIONS, companionPreset } = await import('../../src/shared/persona');
+  const fresh = initialPersona();
+  assert.equal(fresh.core.presetId, 'mio');
+  assert.equal(fresh.core.visualBinding?.companionId, 'mio');
+  assert.equal(fresh.core.visualBinding?.portrayalBasis, 'project_original');
+  assert.match(personaGuidance(fresh), /^# 你是澪/);
+  const voices = ORIGINAL_COMPANIONS.map(id => companionPreset(id)!.core.voice);
+  assert.equal(new Set(voices).size, 4);
+  const prompts = ORIGINAL_COMPANIONS.map(id => personaGuidance({ ...fresh, core: companionPreset(id)!.core }));
+  assert.equal(new Set(prompts).size, 4);
+  assert.ok(isUntouchedDefaultPersona(migratePersona()));
+  const saved = applyPersonaUpdate(migratePersona(), { expectedRevision: 0, core: personaPreset('calm_adviser') }, '2026-10-21T08:00:00Z');
+  assert.equal(isUntouchedDefaultPersona(saved), false);
+});
+
+test('shipped defaults migrate once without touching anything the person chose', async () => {
+  const { Store } = await import('../../src/main/store');
+  const legacy = new Store(':memory:');
+  try {
+    legacy.putMeta('settings', { mode: 'demo', persona: migratePersona(), interaction: { tone: 'natural', humor: 'none', depth: 'adaptive', initiative: 'prepare', followup: 'meaningful_change' } });
+    const migrated = legacy.settings();
+    assert.equal(migrated.persona.core.presetId, 'mio');
+    assert.equal(migrated.interaction.initiative, 'when_useful');
+    assert.equal(migrated.interaction.humor, 'character');
+    legacy.saveSettings({ interaction: { tone: 'natural', humor: 'none', depth: 'adaptive', initiative: 'prepare', followup: 'meaningful_change' } });
+    assert.equal(legacy.settings().interaction.initiative, 'prepare', 'an explicit later choice is never migrated again');
+  } finally { legacy.close(); }
+  const chosen = new Store(':memory:');
+  try {
+    const own = applyPersonaUpdate(migratePersona(), { expectedRevision: 0, core: { ...personaPreset('custom'), name: '小雨', voice: '我写的语气' } }, '2026-10-20T08:00:00Z');
+    chosen.putMeta('settings', { persona: own, interaction: { tone: 'warm', humor: 'none', depth: 'adaptive', initiative: 'prepare', followup: 'meaningful_change' } });
+    const kept = chosen.settings();
+    assert.equal(kept.persona.core.name, '小雨');
+    assert.equal(kept.interaction.initiative, 'prepare');
+    assert.equal(chosen.followDefaultCompanion('sakiko').persona.core.name, '小雨', 'a saved role never follows the artwork');
+  } finally { chosen.close(); }
+  const fresh = new Store(':memory:');
+  try {
+    assert.equal(fresh.settings().persona.core.presetId, 'mio');
+    assert.equal(fresh.followDefaultCompanion('sakiko').persona.core.presetId, 'sakiko');
+    assert.equal(fresh.settings().persona.revision, 0, 'following the artwork is not a user save');
+  } finally { fresh.close(); }
 });

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { workSourceRefSchema, type WorkSourceBinding, type WorkSourceRef } from './harness';
 import { explorableStudySchema, type ExplorableStudySpec } from './explorable-study';
+import type { NoteSourceProof } from './notes-source';
 
 const id = z.string().min(1).max(160);
 export const studyCitationSchema = workSourceRefSchema.safeExtend({ quote: z.string().min(1).max(8000) }).strict();
@@ -9,7 +10,10 @@ export type StudyMode = z.infer<typeof studyModeSchema>;
 const material = { observationId: id.describe('刚才materials.read/observe工具返回的顶层observationId；不是文件ID、描述目录的ID或内部页图ID。'),
   resourceId: z.string().regex(/^material-[a-f0-9-]{36}$/) };
 export const studyProblemInput = z.discriminatedUnion('kind', [
-  z.object({ kind: z.literal('evidence'), source: studyCitationSchema }).strict(),
+  z.object({ kind: z.literal('evidence'), source: studyCitationSchema.describe('真实含题目内容的原话片段；请帮我看看某笔记这一类请求不是笔记内的原题，笔记原段用note。') }).strict(),
+  z.object({ kind: z.literal('note'), id: z.string().regex(/^note-[a-f0-9-]{36}$/),
+    revision: z.number().int().positive(), start: z.number().int().nonnegative(),
+    end: z.number().int().positive() }).strict().describe('复制manage_note read返回的studyProblem，或选其已读范围内的准确原段；宿主回读同一笔记版本，不把笔记ID当eventId。'),
   z.object({ kind: z.literal('material_text'), ...material, page: z.number().int().positive().optional(),
     start: z.number().int().nonnegative(), end: z.number().int().positive(), quote: z.string().min(1).max(8000) }).strict(),
   z.object({ kind: z.literal('material_page'), ...material, page: z.number().int().positive(),
@@ -33,6 +37,7 @@ export const studyCompanionInput = z.discriminatedUnion('operation', [
     offset: z.number().int().nonnegative().optional(), limit: z.number().int().min(1).max(12).optional(),
     historyOffset: z.number().int().nonnegative().optional(), historyLimit: z.number().int().min(1).max(8).optional() }).strict(),
   z.object({ operation: z.literal('respond'), ...target, mode: studyModeSchema.optional(),
+    problem: studyProblemInput.optional().describe('原题放错来源或用户更正题目时，沿同一学习纸修正题源；不另开重复对象，不改原笔记。旧帮助的真实来源仍保留。'),
     attempt: studyCitationSchema.optional(), packet: studyPacketInput.optional(),
     focus: z.string().min(1).max(800).optional(), nextStart: z.string().min(1).max(800).optional() }).strict(),
   z.object({ operation: z.literal('park'), ...target, nextStart: z.string().min(1).max(800) }).strict(),
@@ -40,7 +45,7 @@ export const studyCompanionInput = z.discriminatedUnion('operation', [
 ]);
 export type StudyCompanionInput = z.infer<typeof studyCompanionInput>;
 export interface StudyOrigin {
-  kind: 'evidence' | 'material_text' | 'material_page';
+  kind: 'evidence' | 'note' | 'material_text' | 'material_page';
   sourceId: string;
   eventId?: string;
   contentVersion?: number;
@@ -49,6 +54,7 @@ export interface StudyOrigin {
   resourceId?: string;
   page?: number;
   name?: string;
+  note?: NoteSourceProof;
   interpretation?: 'original_excerpt' | 'assistant_page_description';
   read: { tool: string; arguments: Record<string, unknown> };
 }

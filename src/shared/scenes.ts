@@ -9,6 +9,7 @@ import type { RehearsalScene, RehearsalHistoryReference } from './relationship-r
 import type { NoteScene, NoteHistoryReference } from './note-presentation';
 import type { MapStorySetting } from './story-setting';
 import type { CampusAcademicReference } from './campus-academic';
+import type { InteractiveProgramDocument, InteractiveProgramHistoryReference } from './interactive-program';
 
 /** Facts are immutable message snapshots; camera and trial selections never imply an action. */
 export interface SceneSource {
@@ -36,6 +37,15 @@ export interface MapScene extends SceneBase {
   display?: 'expanded' | 'compact';
   storySetting?: MapStorySetting;
   arrival?: { kind: 'user_statement'; eventId: string; quote: string; reportedAt: string };
+}
+/** A real picture from a public web page, fetched by the host and kept as
+ * verified bytes. The caption is the assistant's words; the origin is where
+ * the picture actually came from. It never stands for a live observation. */
+export interface FigureScene extends SceneBase {
+  kind: 'figure';
+  image: { dataUrl: string; mediaType: string; width: number | null; height: number | null; bytes: number; sha256: string };
+  origin: { url: string; pageUrl?: string; pageTitle?: string; alt?: string };
+  caption?: string;
 }
 export interface WeatherScene extends SceneBase {
   kind: 'weather';
@@ -95,6 +105,12 @@ export interface CampusScene extends SceneBase {
   academicRead?: { capability: 'campus.query' | 'campus.lookup'; arguments: Record<string, unknown> };
   /** Live owner proof only; omitted when this scene becomes a history address. */
   academicSnapshotProof?: unknown;
+  /** Ordinary course pages may be rendered locally without delivering their
+   * rows to the model. The original owner remains the only read address. */
+  modelBodyDelivered?: boolean;
+  nativeRead?: { capability: 'campus.query' | 'campus.lookup'; arguments: Record<string, unknown>; snapshotProof?: unknown };
+  nativePage?: { offset: number; returned: number };
+  sourceCoverage?: unknown;
 }
 export interface PlanningBlock {
   id: string;
@@ -190,13 +206,56 @@ export interface EnvironmentScene extends SceneBase {
   forecastIssuedAt: null;
   userLocation: false;
 }
-export type SceneSnapshot = MapScene | WeatherScene | CampusScene | CampusAcademicReference | PlanningScene | EnvironmentScene | DiscussionScene | StudyScene | StudyHistoryReference | CuriosityScene | CuriosityHistoryReference | RehearsalScene | RehearsalHistoryReference | NoteScene | NoteHistoryReference;
+export type SceneSnapshot = MapScene | FigureScene | WeatherScene | CampusScene | CampusAcademicReference | PlanningScene | EnvironmentScene | DiscussionScene | StudyScene | StudyHistoryReference | CuriosityScene | CuriosityHistoryReference | RehearsalScene | RehearsalHistoryReference | NoteScene | NoteHistoryReference;
 export interface PresentationView extends SceneRef {
-  libraryVersion: 1;
+  libraryVersion: 1 | 2;
   createdAt: string;
+  /** Host-created preview; an assistant-authored composition may adopt it. */
+  automatic?: true;
   sceneRefs: SceneRef[];
   dsl: string;
+  program?: InteractiveProgramDocument;
+  programReference?: InteractiveProgramHistoryReference;
+  /** Host-owned viewing conditions for this exact version; never new facts. */
+  localState?: import('./interactive-program').ProgramLocalState;
   comparison?: PlanningComparisonView;
+  /** Position in the reply's committed prose, in UTF-16 units. Earlier words
+   * remain a stable prefix; before supports old replies that were rewritten. */
+  anchor?: ViewAnchor;
+}
+export interface ViewAnchor { offset: number; before: string }
+
+/** Split a reply into prose and views in the order she actually said and
+ * showed them. A view whose spot cannot be found falls after the first
+ * paragraph, as before anchors existed. */
+export function interleaveViews<V extends { id: string; anchor?: ViewAnchor }>(text: string, views: readonly V[]):
+  ({ kind: 'text'; text: string } | { kind: 'view'; view: V })[] {
+  if (!views.length) return text ? [{ kind: 'text', text }] : [];
+  const firstBreak = text.search(/\n\s*\n/);
+  const fallback = firstBreak >= 0 ? firstBreak : text.length;
+  const position = (anchor?: ViewAnchor) => {
+    if (!anchor) return fallback;
+    const at = Number.isSafeInteger(anchor.offset) ? Math.min(Math.max(0, anchor.offset), text.length) : fallback;
+    if (!anchor.before || text.slice(Math.max(0, at - anchor.before.length), at) === anchor.before) return at;
+    // Historical reconciliation may have moved the surrounding prose. Only
+    // a unique match can recover its position; repeated text is ambiguous.
+    const found = text.indexOf(anchor.before);
+    return found >= 0 && text.indexOf(anchor.before, found + 1) < 0 ? found + anchor.before.length : at;
+  };
+  const placed = views.map((view, order) => ({ view, order, at: position(view.anchor) }))
+    .sort((a, b) => a.at - b.at || a.order - b.order);
+  const parts: ({ kind: 'text'; text: string } | { kind: 'view'; view: V })[] = [];
+  let cursor = 0;
+  for (const item of placed) {
+    const at = Math.max(item.at, cursor);
+    const chunk = text.slice(cursor, at);
+    if (chunk.trim()) parts.push({ kind: 'text', text: chunk });
+    parts.push({ kind: 'view', view: item.view });
+    cursor = at;
+  }
+  const rest = text.slice(cursor);
+  if (rest.trim()) parts.push({ kind: 'text', text: rest });
+  return parts;
 }
 const id = z.string().min(1).max(160);
 export const sceneRefSchema = z.object({ id, revision: z.number().int().positive() }).strict();
@@ -226,9 +285,10 @@ export interface VerifiedSelection extends SemanticSelection {
   storySetting?: { work: MapStorySetting['work']; placeId?: string; legId?: string; mapVersion: string; meaning: string };
 }
 export const sceneReference = (scene: SceneRef) => `${scene.id}@${scene.revision}`;
+export type SceneLayout = 'stack' | 'compare' | 'focus';
 
 /** A small, actual OpenUI library. No executable code or model-authored facts enter it. */
-export function sceneViewDsl(scenes: SceneSnapshot[], layout: 'stack' | 'compare') {
+export function sceneViewDsl(scenes: SceneSnapshot[], layout: SceneLayout) {
   return `root = SceneStack([${scenes.map((_, index) => `scene${index}`).join(', ')}], ${JSON.stringify(layout)})\n`
-    + scenes.map((scene, index) => `scene${index} = ${{ map: 'MapScene', weather: 'WeatherScene', campus: 'CampusScene', campus_reference: 'CampusScene', planning: 'PlanningScene', environment: 'EnvironmentScene', discussion: 'DiscussionScene', study: 'StudyScene', study_reference: 'StudyScene', curiosity: 'CuriosityScene', curiosity_reference: 'CuriosityScene', rehearsal: 'RehearsalScene', rehearsal_reference: 'RehearsalScene', note: 'NoteScene', note_reference: 'NoteScene' }[scene.kind]}(${JSON.stringify(sceneReference(scene))})`).join('\n');
+    + scenes.map((scene, index) => `scene${index} = ${{ map: 'MapScene', figure: 'FigureScene', weather: 'WeatherScene', campus: 'CampusScene', campus_reference: 'CampusScene', planning: 'PlanningScene', environment: 'EnvironmentScene', discussion: 'DiscussionScene', study: 'StudyScene', study_reference: 'StudyScene', curiosity: 'CuriosityScene', curiosity_reference: 'CuriosityScene', rehearsal: 'RehearsalScene', rehearsal_reference: 'RehearsalScene', note: 'NoteScene', note_reference: 'NoteScene' }[scene.kind]}(${JSON.stringify(sceneReference(scene))})`).join('\n');
 }

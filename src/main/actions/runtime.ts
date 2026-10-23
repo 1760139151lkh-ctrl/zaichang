@@ -9,12 +9,14 @@ import {
   type EffectReceipt,
   type ScopeHandle,
   type ScopeData,
+  type ReminderSpeaker,
 } from '../../shared/harness';
 import type { KernelRepository } from '../storage/repository';
 import type { PolicyKernel } from '../runtime/policy';
 import type { CapabilityBroker, CapabilityResult } from '../capabilities/broker';
 import { canonical } from '../runtime/semantics';
 import type { LocalEffectResult } from './local-calendar';
+import { actionReminderText, reminderSpeakerForText, reminderTextSha256 } from './reminder-speaker';
 
 /** Host-only planning provenance. Neither callback grants permission to execute. */
 export interface LocalPlanPort {
@@ -24,6 +26,7 @@ export interface LocalPlanPort {
 
 export class ActionRuntime {
   private inFlight = new Map<string, Promise<EffectReceipt>>();
+  private reminderSpeakers = new WeakMap<ScopeHandle, Pick<ReminderSpeaker, 'messageId' | 'name'>>();
   beforeDispatch?: () => Promise<void>;
   afterDispatch?: () => void;
   constructor(
@@ -51,6 +54,28 @@ export class ActionRuntime {
       }
     });
   }
+  /** The host supplies its real outgoing message snapshot, never tool input. */
+  bindReminderSpeaker(handle: ScopeHandle, speaker: Pick<ReminderSpeaker, 'messageId' | 'name'>) {
+    const scope = this.policy.validate(handle);
+    if (scope.child || scope.worldId !== 'real' || scope.audience !== 'self' || scope.subjectId !== scope.principalId) {
+      this.reminderSpeakers.delete(handle);
+      return;
+    }
+    const messageId = speaker.messageId.trim(), name = speaker.name.trim();
+    if (!messageId || messageId.length > 160 || !name || name.length > 60)
+      throw new HarnessError('reminder_speaker_missing', '这轮提醒的说话人还没有对应到实际消息。');
+    this.reminderSpeakers.set(handle, { messageId, name });
+  }
+  /** Owner cleanup also runs after the original scope has expired. */
+  unbindReminderSpeaker(handle: ScopeHandle) { this.reminderSpeakers.delete(handle); }
+  private speakerFor(handle: ScopeHandle, capability: string, args: Record<string, unknown>, previous?: ReminderSpeaker) {
+    const text = actionReminderText(capability, args);
+    const retained = reminderSpeakerForText(previous, text);
+    if (retained) return retained;
+    const speaker = this.reminderSpeakers.get(handle);
+    return speaker && typeof text === 'string' && text.trim()
+      ? { ...speaker, textSha256: reminderTextSha256(text) } : undefined;
+  }
   private localPlanBoundary(operation: keyof LocalPlanPort, handle: ScopeHandle, action: EffectAction) {
     if (action.effect !== 'local_write' || !this.localPlanPort) return;
     const result: unknown = this.localPlanPort[operation](handle, action);
@@ -61,7 +86,7 @@ export class ActionRuntime {
     action: Pick<
       EffectAction,
       'capability' | 'capabilityContract' | 'arguments' | 'audience' | 'revision' | 'worldId' | 'validUntil' | 'dependencies'
-    >,
+    > & Pick<EffectAction, 'planningOffer' | 'reminderSpeaker'>,
   ) {
     return createHash('sha256').update(canonical(action)).digest('hex');
   }
@@ -76,6 +101,7 @@ export class ActionRuntime {
       goalId?: string;
       dependencies?: Dependency[];
       validUntil?: string;
+      planningOffer?: EffectAction['planningOffer'];
     },
   ): EffectAction {
     const scope = this.policy.validate(handle),
@@ -93,6 +119,7 @@ export class ActionRuntime {
         this.localPlanBoundary('assertCurrent', handle, existing);
       return existing;
     }
+    const reminderSpeaker = this.speakerFor(handle, input.capability, input.arguments);
     const action: EffectAction = {
       id: input.id || randomUUID(),
       ownerId: scope.principalId,
@@ -106,6 +133,8 @@ export class ActionRuntime {
         input.capability,
         input.arguments,
       ) as EffectAction['arguments'],
+      ...(input.planningOffer ? { planningOffer: structuredClone(input.planningOffer) } : {}),
+      ...(reminderSpeaker ? { reminderSpeaker } : {}),
       audience: input.audience || 'self',
       status: 'awaiting_approval',
       digest: '',
@@ -131,6 +160,8 @@ export class ActionRuntime {
       worldId: action.worldId,
       validUntil: action.validUntil,
       dependencies: action.dependencies,
+      ...(action.planningOffer ? { planningOffer: action.planningOffer } : {}),
+      ...(action.reminderSpeaker ? { reminderSpeaker: action.reminderSpeaker } : {}),
     });
     effectSchema.parse(action);
     // Proposal, dependencies and outbox commit together, before any provider is called.
@@ -221,6 +252,19 @@ export class ActionRuntime {
       .prepare('UPDATE h_actions SET revision=?,status=?,payload=? WHERE id=?')
       .run(action.revision, action.status, JSON.stringify(action), action.id);
   }
+  private nonDispatchProof(action: EffectAction) {
+    const ref = action.arguments.planRef as { planId?: string; blockId?: string } | undefined;
+    if (!['proposed', 'awaiting_approval', 'approved'].includes(action.status)
+      || action.capability !== 'local.agenda.save' || action.effect !== 'local_write' || action.simulated || action.audience !== 'self'
+      || action.worldId !== 'real' || action.subjectId !== action.ownerId || action.compensation
+      || this.repo.db.prepare('SELECT 1 FROM h_attempts WHERE action_id=?').get(action.id)
+      || this.repo.db.prepare('SELECT 1 FROM h_receipts WHERE action_id=?').get(action.id)
+      || this.repo.db.prepare("SELECT 1 FROM h_approvals WHERE action_id=? AND json_extract(payload,'$.used')=1").get(action.id)
+      || this.repo.db.prepare(`SELECT 1 FROM agenda WHERE id=? OR json_extract(payload,'$.effectActionId')=?
+        OR (? IS NOT NULL AND json_extract(payload,'$.planRef.planId')=? AND json_extract(payload,'$.planRef.blockId')=?)`)
+        .get(action.id, action.id, ref?.planId ?? null, ref?.planId ?? null, ref?.blockId ?? null)) return;
+    return { actionId: action.id, actionRevision: action.revision, actionDigest: action.digest, observedAt: this.repo.clock.now() };
+  }
   /** Internal lifecycle reads retain the exact effect; display has a separate source gate. */
   private storedAction(handle: ScopeHandle, id: string): EffectAction | undefined {
     const s = this.policy.validate(handle),
@@ -258,6 +302,7 @@ export class ActionRuntime {
         .all(this.repo.identity.principalId, this.repo.identity.workspaceId, JSON.stringify(sourceIds));
       for (const row of rows) {
         const action = JSON.parse(String(row.payload)) as EffectAction;
+        action.nonDispatchProof = this.nonDispatchProof(action);
         action.status = 'cancelled'; action.reason = 'parent_run_cancelled'; this.put(action);
         this.repo.db.prepare("UPDATE h_jobs SET status='cancelled',fence=fence+1 WHERE object_id=?").run(action.id);
       }
@@ -273,6 +318,7 @@ export class ActionRuntime {
     const action = this.get(handle, id);
     if (!action) throw new HarnessError('action_missing', '动作不存在或当前来源不可读。');
     if (action.audience === 'redacted') throw new HarnessError('action_unreadable', '旧动作的来源详情已清除，不能以修改恢复。');
+    if (action.planningOffer) throw new HarnessError('planning_offer_immutable', '这张卡对应完整的原方案。新的时段或内容可以从当前日历重新试排，这次没有改写原提案。');
     if (action.revision !== expectedRevision)
       throw new HarnessError('revision_conflict', '动作内容已更新，请重新查看。');
     if (['dispatching', 'outcome_unknown', 'succeeded', 'reconciling', 'unresolved', 'cancel_requested',
@@ -289,6 +335,8 @@ export class ActionRuntime {
       policyRevision: this.repo.policyRevision,
     };
     delete next.reason;
+    delete next.nonDispatchProof;
+    next.reminderSpeaker = this.speakerFor(handle, next.capability, next.arguments, action.reminderSpeaker);
     next.digest = this.digest({
       capability: next.capability,
       capabilityContract: next.capabilityContract,
@@ -298,6 +346,7 @@ export class ActionRuntime {
       worldId: next.worldId,
       validUntil: next.validUntil,
       dependencies: next.dependencies,
+      ...(next.reminderSpeaker ? { reminderSpeaker: next.reminderSpeaker } : {}),
     });
     this.repo.write(() => {
       const current = this.get(handle, id);
@@ -453,6 +502,7 @@ export class ActionRuntime {
           // A cancellation or revision that won the await boundary keeps its
           // own state and proof; a stale dispatch cannot rewrite either one.
           if (current.revision !== action!.revision || current.digest !== action!.digest || current.status !== action!.status) return;
+          current.nonDispatchProof = this.nonDispatchProof(current);
           action = current;
           action!.status = 'cancelled';
           action!.reason =
@@ -533,10 +583,25 @@ export class ActionRuntime {
           return receipt;
         });
       } catch (error) {
-        action.status = 'failed_confirmed';
-        action.reason = 'local_transaction_rolled_back';
-        this.repo.write(() => this.put(action!));
-        throw error;
+        const saved = this.repo.db.prepare('SELECT payload FROM h_receipts WHERE action_id=? AND attempt_id=?').all(id, attemptId)
+          .map(row => JSON.parse(String(row.payload)) as EffectReceipt)
+          .find(receipt => receipt.actionId === id && receipt.attemptId === attemptId && receipt.status === 'confirmed_success'
+            && receipt.localStatus === 'local_saved' && receipt.sourceId === action!.sourceId);
+        if (saved) committedReceipt = saved;
+        else {
+          // The effect and its success receipt share the rolled-back writer.
+          // Restore only compensation that existed before that writer, then
+          // record the affirmative local failure on its original dispatch.
+          const stored = this.repo.db.prepare('SELECT payload FROM h_actions WHERE id=?').get(id);
+          const previous = stored && JSON.parse(String(stored.payload)) as EffectAction | undefined;
+          if (previous?.compensation) action.compensation = previous.compensation;
+          else delete action.compensation;
+          action.reason = 'local_transaction_rolled_back';
+          const receipt: EffectReceipt = { id: randomUUID(), actionId: id, attemptId, sourceId: action.sourceId,
+            status: 'confirmed_failure', observedAt: this.repo.clock.now(), reason: 'local_transaction_rolled_back' };
+          this.repo.write(() => this.record(action!, receipt));
+          throw error;
+        }
       }
       // This is an ephemeral plan cursor, not the authority for the saved
       // business row. A bookkeeping failure must never relabel a committed
@@ -675,30 +740,27 @@ export class ActionRuntime {
       return;
     }
   }
-  async cancel(handle: ScopeHandle, id: string, signal: AbortSignal = new AbortController().signal) {
+  async cancel(handle: ScopeHandle, id: string, signal: AbortSignal = new AbortController().signal,
+    expected?: Pick<EffectAction, 'revision' | 'digest' | 'status'>) {
     const action = this.storedAction(handle, id);
-    if (!action) return;
+    if (!action) {
+      if (expected) throw new HarnessError('revision_conflict', '这次取消所依据的动作版本目前已不存在或不在当前可读范围里，旧判断没有继续执行；已有业务结果和回执仍保留各自当前状态。');
+      return;
+    }
     signal.throwIfAborted();
+    if (expected && (action.revision !== expected.revision || action.digest !== expected.digest || action.status !== expected.status))
+      throw new HarnessError('revision_conflict', '这次取消所依据的动作版本、参数或执行状态已改变，旧判断没有继续执行；已有业务结果和回执仍保留各自当前状态。');
     if (['cancelled', 'cancellation_confirmed'].includes(action.status)) return this.cancellationView(handle, action);
     if (['proposed', 'awaiting_approval', 'approved', 'failed_confirmed'].includes(action.status)) {
       const cancelled = this.repo.write(() => {
         const current = this.storedAction(handle, id);
         if (!current || current.revision !== action.revision || current.digest !== action.digest || current.status !== action.status)
-          throw new HarnessError('revision_conflict', '动作已变化，请先核查当前结果再取消。');
+          throw new HarnessError('revision_conflict', '这次取消所依据的动作已改变或当前不可读，旧判断没有继续执行；已有业务结果和回执仍保留各自当前状态。');
         // This affirmative host marker is created only while cancellation and
         // the complete absence of any dispatch/business proof share one writer.
         // Legacy cancelled, failed or redacted actions receive no such proof.
-        const ref = current.arguments.planRef as { planId?: string; blockId?: string } | undefined;
-        const neverDispatched = ['proposed', 'awaiting_approval', 'approved'].includes(current.status)
-          && current.capability === 'local.agenda.save' && current.effect === 'local_write' && !current.simulated && current.audience === 'self'
-          && !current.compensation
-          && !this.repo.db.prepare('SELECT 1 FROM h_attempts WHERE action_id=?').get(id)
-          && !this.repo.db.prepare('SELECT 1 FROM h_receipts WHERE action_id=?').get(id)
-          && !this.repo.db.prepare("SELECT 1 FROM h_approvals WHERE action_id=? AND json_extract(payload,'$.used')=1").get(id)
-          && !this.repo.db.prepare(`SELECT 1 FROM agenda WHERE id=? OR json_extract(payload,'$.effectActionId')=?
-            OR (? IS NOT NULL AND json_extract(payload,'$.planRef.planId')=? AND json_extract(payload,'$.planRef.blockId')=?)`)
-            .get(id, id, ref?.planId ?? null, ref?.planId ?? null, ref?.blockId ?? null);
-        if (neverDispatched) current.reason = 'cancelled_before_dispatch';
+        current.nonDispatchProof = this.nonDispatchProof(current);
+        if (current.nonDispatchProof) current.reason = 'cancelled_before_dispatch';
         else if (current.reason === 'cancelled_before_dispatch') delete current.reason;
         current.status = 'cancelled';
         this.repo.db.prepare("UPDATE h_jobs SET status='cancelled',fence=fence+1 WHERE object_id=?").run(id);
@@ -709,15 +771,20 @@ export class ActionRuntime {
     }
     if (action.effect === 'local_write') {
       this.policy.require(handle, 'local:write');
-      if (action.reason === 'prior_business_version_removed_with_conversation') throw new HarnessError('undo_history_deleted', '修改前的版本已随对话清除。当前安排仍保留，可从安排中按当前版本修改或删除。');
+      if (action.reason === 'prior_business_version_removed_with_conversation') throw new HarnessError('undo_history_deleted', '修改前的版本已随对话清除，当前安排仍保留。这次没有可用于恢复旧内容的版本；当前对象的后续修改或删除仍各有自己的实际范围。');
       this.repo.write(() => {
-        if (this.localUndo) this.localUndo(action);
+        const current = this.storedAction(handle, id);
+        if (!current || current.revision !== action.revision || current.digest !== action.digest || current.status !== action.status)
+          throw new HarnessError('revision_conflict', '这次取消所依据的动作已改变或当前不可读，旧判断没有继续执行；已有业务结果和回执仍保留各自当前状态。');
+        if (current.reason === 'prior_business_version_removed_with_conversation') throw new HarnessError('undo_history_deleted', '修改前的版本已随对话清除，当前安排仍保留。这次没有可用于恢复旧内容的版本；当前对象的后续修改或删除仍各有自己的实际范围。');
+        if (this.localUndo) this.localUndo(current);
         else {
           this.repo.db.prepare('DELETE FROM agenda WHERE id=?').run(id);
           this.repo.db.prepare("UPDATE h_jobs SET status='cancelled',fence=fence+1 WHERE object_id=?").run(id);
         }
-        action.status = 'cancellation_confirmed';
-        this.put(action);
+        current.status = 'cancellation_confirmed';
+        this.put(current);
+        action.status = current.status;
       });
       return this.cancellationView(handle, action);
     }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   ArrowUpRight,
   CalendarDays,
@@ -6,12 +6,15 @@ import {
   ChevronLeft,
   ChevronRight,
   Circle,
+  Clock3,
+  List,
   Plus,
   Search,
+  Undo2,
   X,
 } from 'lucide-react';
 import type { Action, State } from '../shared/types';
-import { IconButton, PagePanel } from './ui';
+import { IconButton, PagePanel, uiError } from './ui';
 import { WorkAndReceipts } from './HarnessViews';
 import {
   AgendaEditor,
@@ -20,16 +23,18 @@ import {
   type MatterInteraction,
   type MatterInteractionUpdate,
 } from './LifePanels';
-import { DEFAULT_TIME_ZONE, timeZoneLabel, toTimeInput } from './time';
+import { DEFAULT_TIME_ZONE, formatDateTime, timeZoneLabel, toTimeInput } from './time';
 import type { SharedMatterView } from '../shared/presentation';
 import type { CampusScheduleBlock } from '../shared/campus-calendar';
 import './today.css';
 import { CalendarHandoff } from './CalendarHandoff';
 import { CampusDayControls, CampusScheduleRow, useCampusDaySchedule } from './CampusDaySchedule';
+import { AgendaDayTimeline, agendaDayWindow, agendaTimedRange, campusTimedRange } from './AgendaDayTimeline';
 
-export type WorkspaceView =
-  'chat' | 'agenda' | 'notes' | 'materials' | 'memory' | 'settings' | 'companion';
+export type WorkspaceView = 'chat' | 'agenda' | 'notes' | 'materials' | 'memory' | 'settings' | 'companion';
 type AgendaScope = 'day' | 'all' | 'undated' | 'completed';
+type AgendaEdit = { original: Action; initialStartsAt?: string };
+type AgendaMoveUndo = { previous: Action; saved: Action; error?: string };
 
 // Civil dates stay independent of the operating system's time zone. All-day
 // dates are already civil dates and must never be shifted through an instant.
@@ -89,14 +94,16 @@ export function AgendaView({
   onMatterInteraction: (id: string, value: MatterInteractionUpdate) => void;
 }) {
   const zone = state.settings.timeZone || DEFAULT_TIME_ZONE;
-  const [today, setToday] = useState(() =>
-    toTimeInput(new Date().toISOString(), zone).slice(0, 10),
-  );
+  const [today, setToday] = useState(() => toTimeInput(new Date().toISOString(), zone).slice(0, 10));
   const [selectedDate, setSelectedDate] = useState(today);
   const [section, setSection] = useState<'agenda' | 'entrusted'>('agenda');
   const [scope, setScope] = useState<AgendaScope>('day');
   const [query, setQuery] = useState('');
-  const [editing, setEditing] = useState<Action>();
+  const [editing, setEditing] = useState<AgendaEdit>();
+  const [dayLayout, setDayLayout] = useState<'timeline' | 'list'>('timeline');
+  const [moveUndo, setMoveUndo] = useState<AgendaMoveUndo>();
+  const [undoing, setUndoing] = useState(false);
+  const [undoAnnouncement, setUndoAnnouncement] = useState('');
   const [attention, setAttention] = useState(0);
   useEffect(() => {
     const update = () => setToday(toTimeInput(new Date().toISOString(), zone).slice(0, 10));
@@ -109,16 +116,26 @@ export function AgendaView({
   }, [zone]);
 
   const search = query.trim().toLocaleLowerCase();
-  const campusDayVisible = section === 'agenda' && scope === 'day' && !search && state.presentation?.mode !== 'public';
+  const dayWindow = useMemo(() => agendaDayWindow(selectedDate, zone), [selectedDate, zone]);
+  const campusDayVisible =
+    section === 'agenda' && scope === 'day' && !search && state.presentation?.mode !== 'public';
   const connector = state.campusConnector;
   const campusBoundary = JSON.stringify([
-    state.privacyEpoch, state.policyRevision, state.sourceBoundary, state.presentation?.mode || 'private',
-    connector?.configured, connector?.available, connector?.sourceKind,
+    state.privacyEpoch,
+    state.policyRevision,
+    state.sourceBoundary,
+    state.presentation?.mode || 'private',
+    connector?.configured,
+    connector?.available,
+    connector?.sourceKind,
     connector?.credentialsConfigured,
   ]);
   const campus = useCampusDaySchedule({
-    date: selectedDate, nextDate: shiftDate(selectedDate, 1), timeZone: zone,
-    active: campusDayVisible, boundary: campusBoundary,
+    date: selectedDate,
+    nextDate: shiftDate(selectedDate, 1),
+    timeZone: zone,
+    active: campusDayVisible,
+    boundary: campusBoundary,
   });
   const ordered = [...state.agenda].sort((a, b) => {
     const first = actionDate(a, zone) || '9999';
@@ -136,7 +153,12 @@ export function AgendaView({
     if (item.done || item.recurrence) return false;
     if (scope === 'all') return true;
     const date = actionDate(item, zone);
-    return scope === 'undated' ? !date : date === selectedDate;
+    if (scope === 'undated') return !date;
+    const timed = agendaTimedRange(item);
+    return (
+      date === selectedDate ||
+      !!(dayWindow && timed && timed.start < dayWindow.end && timed.end > dayWindow.start)
+    );
   });
   const grouped = new Map<string, Action[]>();
   for (const item of filtered) {
@@ -144,14 +166,35 @@ export function AgendaView({
     grouped.set(date, [...(grouped.get(date) || []), item]);
   }
   const dayEntries: ({ kind: 'action'; item: Action } | { kind: 'campus'; item: CampusScheduleBlock })[] = [
-    ...filtered.map(item => ({ kind: 'action' as const, item })),
-    ...(campus.result?.items || []).map(item => ({ kind: 'campus' as const, item })),
+    ...filtered.map((item) => ({ kind: 'action' as const, item })),
+    ...(campus.result?.items || []).map((item) => ({ kind: 'campus' as const, item })),
   ];
   dayEntries.sort((a, b) => {
-    const first = a.kind === 'action' ? a.item.allDayDate ? -Infinity : a.item.startsAt ? Date.parse(a.item.startsAt) : Infinity : Date.parse(a.item.start);
-    const second = b.kind === 'action' ? b.item.allDayDate ? -Infinity : b.item.startsAt ? Date.parse(b.item.startsAt) : Infinity : Date.parse(b.item.start);
+    const first =
+      a.kind === 'action'
+        ? a.item.allDayDate
+          ? -Infinity
+          : a.item.startsAt
+            ? Date.parse(a.item.startsAt)
+            : Infinity
+        : Date.parse(a.item.start);
+    const second =
+      b.kind === 'action'
+        ? b.item.allDayDate
+          ? -Infinity
+          : b.item.startsAt
+            ? Date.parse(b.item.startsAt)
+            : Infinity
+        : Date.parse(b.item.start);
     return first === second ? a.item.id.localeCompare(b.item.id) : first - second;
   });
+  const timedActions = filtered.filter((item) => !!agendaTimedRange(item));
+  const timedCampus = (campus.result?.items || []).filter((item) => !!campusTimedRange(item));
+  const hasTimeline = !!dayWindow && !!(timedActions.length || timedCampus.length);
+  const showTimeline = scope === 'day' && !search && dayLayout === 'timeline' && hasTimeline;
+  const untimedEntries = dayEntries.filter((entry) =>
+    entry.kind === 'action' ? !agendaTimedRange(entry.item) : !campusTimedRange(entry.item),
+  );
   const weekday = new Date(`${selectedDate}T12:00:00Z`).getUTCDay();
   const monday = shiftDate(selectedDate, -((weekday + 6) % 7));
   const week = Array.from({ length: 7 }, (_, index) => shiftDate(monday, index));
@@ -159,12 +202,45 @@ export function AgendaView({
     ordered.filter((item) => !item.done && !item.recurrence).map((item) => actionDate(item, zone)),
   );
   const selectedLabel = dateLabel(selectedDate);
-  const heading =
-    section === 'entrusted'
-      ? '你交给我的事'
-      : selectedDate === today
-        ? '今天，慢慢安排。'
-        : '这一天，慢慢安排。';
+  const heading = section === 'entrusted' ? '你交给我的事' : selectedDate === today ? '今天' : '这一天';
+
+  async function undoMove() {
+    if (!moveUndo || undoing) return;
+    const operation = moveUndo;
+    setUndoing(true);
+    try {
+      const fresh = await window.zaichang.state();
+      onState(fresh);
+      const current = fresh.agenda.find((item) => item.id === operation.saved.id);
+      if (!current) throw new Error('这件事已经移除了，不能直接放回。原来的时间仍记在这里。');
+      if ((current.revision || 1) !== (operation.saved.revision || 1)) {
+        throw new Error('这件事后来又改过，先看看现在的安排，再决定是否改回原时间。');
+      }
+      // Restore only this move's time fields. Keep the same object and ask the
+      // host to compare-and-swap the revision read immediately above.
+      const next = await window.zaichang.action({
+        action: 'save',
+        item: {
+          ...current,
+          startsAt: operation.previous.startsAt,
+          timeZone: operation.previous.timeZone,
+          durationMinutes: operation.previous.durationMinutes,
+        },
+      });
+      onState(next);
+      setMoveUndo(undefined);
+      setUndoAnnouncement(`已把 ${operation.saved.title} 放回原来的时间。`);
+    } catch (error) {
+      setMoveUndo({ ...operation, error: uiError(error) });
+      try {
+        onState(await window.zaichang.state());
+      } catch {
+        /* Keep the undo context available. */
+      }
+    } finally {
+      setUndoing(false);
+    }
+  }
 
   function row(item: Action, series = false) {
     const clock = item.allDayDate
@@ -206,22 +282,16 @@ export function AgendaView({
             type="button"
             className="today-item-content"
             aria-label={`修改：${item.title}`}
-            onClick={() => setEditing({ ...item })}
+            onClick={() => setEditing({ original: { ...item } })}
           >
             <strong>{item.title}</strong>
             {item.detail && <span className="today-item-detail">{item.detail}</span>}
-            {(series ||
-              sourceClock ||
-              item.demo ||
-              item.coverage === 'conditional' ||
-              item.done) && (
+            {(series || sourceClock || item.demo || item.coverage === 'conditional' || item.done) && (
               <span className="today-item-context">
                 {series && (
                   <span>
                     {repeatLabel(item)}
-                    {originDate
-                      ? ` · 从 ${dateLabel(originDate, { weekday: undefined })} 开始`
-                      : ''}
+                    {originDate ? ` · 从 ${dateLabel(originDate, { weekday: undefined })} 开始` : ''}
                     {item.exceptions?.length ? ' · 有单次调整' : ''}
                   </span>
                 )}
@@ -247,6 +317,7 @@ export function AgendaView({
   return (
     <PagePanel
       title={heading}
+      eyebrow={section === 'agenda' ? selectedLabel : undefined}
       onClose={onClose}
       className={`agenda-page today-page ${section === 'entrusted' ? 'is-entrusted' : ''}`}
     >
@@ -280,10 +351,7 @@ export function AgendaView({
         hidden={section !== 'agenda'}
       >
         <div className="today-date-heading">
-          <div>
-            <p className="today-selected-date">{selectedLabel}</p>
-            <small>{timeZoneLabel(zone)}</small>
-          </div>
+          <small>{timeZoneLabel(zone)}</small>
           <div className="today-date-actions">
             <button
               type="button"
@@ -383,39 +451,134 @@ export function AgendaView({
               </button>
             ))}
           </div>
-          <div className="today-search">
-            <Search size={16} />
-            <input
-              aria-label="搜索所有日期的本机安排"
-              placeholder="找一件事"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-            />
-            {query && (
-              <IconButton label="清空搜索" onClick={() => setQuery('')}>
-                <X size={13} />
-              </IconButton>
+          <div className="today-search-tools">
+            <div className="today-search">
+              <Search size={16} />
+              <input
+                aria-label="搜索所有日期的本机安排"
+                placeholder="找一件事"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+              />
+              {query && (
+                <IconButton label="清空搜索" onClick={() => setQuery('')}>
+                  <X size={13} />
+                </IconButton>
+              )}
+            </div>
+            {scope === 'day' && !search && hasTimeline && (
+              <div className="today-layout-toggle" aria-label="安排视图">
+                <button
+                  type="button"
+                  title="时间轴"
+                  aria-label="时间轴"
+                  aria-pressed={dayLayout === 'timeline'}
+                  onClick={() => setDayLayout('timeline')}
+                >
+                  <Clock3 size={16} />
+                </button>
+                <button
+                  type="button"
+                  title="列表"
+                  aria-label="列表"
+                  aria-pressed={dayLayout === 'list'}
+                  onClick={() => setDayLayout('list')}
+                >
+                  <List size={16} />
+                </button>
+              </div>
             )}
           </div>
         </div>
         {search && <p className="today-search-note">在所有日期的本机安排里找「{query.trim()}」</p>}
+        {moveUndo && (
+          <div className="today-move-undo" role="status">
+            <div>
+              <p>
+                <strong>{moveUndo.saved.title}</strong> · {formatDateTime(moveUndo.saved.startsAt!, zone)}
+              </p>
+              {moveUndo.error && (
+                <p className="today-move-undo-error">
+                  {moveUndo.error} 原来是 {formatDateTime(moveUndo.previous.startsAt!, zone)}。
+                </p>
+              )}
+            </div>
+            {moveUndo.error ? (
+              <button
+                type="button"
+                className="text-button"
+                onClick={() => {
+                  const current = state.agenda.find((item) => item.id === moveUndo.saved.id);
+                  if (current) setEditing({ original: { ...current } });
+                }}
+                disabled={!state.agenda.some((item) => item.id === moveUndo.saved.id)}
+              >
+                看看现在
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="text-button"
+                onClick={() => void undoMove()}
+                disabled={undoing}
+              >
+                <Undo2 size={14} />
+                {undoing ? '正在放回…' : '撤回挪动'}
+              </button>
+            )}
+            <IconButton label="收起这次改动" disabled={undoing} onClick={() => setMoveUndo(undefined)}>
+              <X size={14} />
+            </IconButton>
+          </div>
+        )}
+        <div className="sr-only" role="status" aria-live="polite">
+          {undoAnnouncement}
+        </div>
         <div className={`today-agenda-list ${scope === 'day' && !search ? 'one-day' : ''}`}>
-          {scope === 'day' && !search ? !!dayEntries.length && (
-            <section className="today-day-group">
-              {dayEntries.map(entry => entry.kind === 'action' ? row(entry.item) : (
-                <CampusScheduleRow key={entry.item.id} item={entry.item} date={selectedDate} timeZone={zone} />
-              ))}
-            </section>
-          ) : [...grouped]
-            .sort(([a], [b]) => (a || '9999').localeCompare(b || '9999'))
-            .map(([date, items]) => (
-              <section className="today-day-group" key={date || 'undated'}>
-                {(scope !== 'day' || search) && (
-                  <h2>{date ? dateLabel(date, { year: 'numeric' }) : '还没定日期'}</h2>
-                )}
-                {items.map((item) => row(item, !!item.recurrence))}
-              </section>
-            ))}
+          {scope === 'day' && !search
+            ? !!dayEntries.length && (
+                <section className="today-day-group">
+                  {showTimeline && (
+                    <AgendaDayTimeline
+                      date={selectedDate}
+                      timeZone={zone}
+                      actions={timedActions}
+                      campus={timedCampus}
+                      draft={
+                        editing?.initialStartsAt
+                          ? { original: editing.original, initialStartsAt: editing.initialStartsAt }
+                          : undefined
+                      }
+                      onEdit={(item) => setEditing({ original: { ...item } })}
+                      onPropose={(item, initialStartsAt) =>
+                        setEditing({ original: { ...item }, initialStartsAt })
+                      }
+                    />
+                  )}
+                  {(showTimeline ? untimedEntries : dayEntries).map((entry) =>
+                    entry.kind === 'action' ? (
+                      row(entry.item)
+                    ) : (
+                      <CampusScheduleRow
+                        key={entry.item.id}
+                        item={entry.item}
+                        date={selectedDate}
+                        timeZone={zone}
+                      />
+                    ),
+                  )}
+                </section>
+              )
+            : [...grouped]
+                .sort(([a], [b]) => (a || '9999').localeCompare(b || '9999'))
+                .map(([date, items]) => (
+                  <section className="today-day-group" key={date || 'undated'}>
+                    {(scope !== 'day' || search) && (
+                      <h2>{date ? dateLabel(date, { year: 'numeric' }) : '还没定日期'}</h2>
+                    )}
+                    {items.map((item) => row(item, !!item.recurrence))}
+                  </section>
+                ))}
           {!filtered.length && !campus.result?.items.length && (
             <div className="today-empty">
               <span className="today-empty-line" aria-hidden="true" />
@@ -423,18 +586,18 @@ export function AgendaView({
                 {search
                   ? '还没找到这件事。'
                   : scope === 'completed'
-                    ? '慢慢做，不着急。'
+                    ? '做完的事，会留在这里。'
                     : scope === 'undated'
                       ? '想到的事，可以先放在这里。'
                       : scope === 'all'
-                        ? '想做什么，我们慢慢说。'
+                        ? '还没有记下安排。'
                         : '这一天，还没有记下的安排。'}
               </h2>
               <p>
                 {search
                   ? '换个词试试，所有日期里的安排都会一起找。'
                   : scope === 'completed'
-                    ? '做完的事情，会留在这里。'
+                    ? '可以回头看看，也可以再接着做。'
                     : scope === 'undated'
                       ? '不必马上为它选一个时间。'
                       : '想起一件事时，再记下来也来得及。'}
@@ -446,9 +609,6 @@ export function AgendaView({
                 </button>
               )}
             </div>
-          )}
-          {!!dayEntries.length && scope === 'day' && !search && (
-            <p className="today-breathing-room">不必把每一刻都排满。</p>
           )}
         </div>
         {!search && scope !== 'completed' && scope !== 'undated' && !!repeated.length && (
@@ -463,8 +623,13 @@ export function AgendaView({
           记一件事
         </button>
         {scope === 'day' && !search && (
-          <button type="button" className="today-continue-day text-button" onClick={() => onContinue(`我们接着聊 ${selectedDate} 这一天的安排。`)}>
-            接着聊这一天<ArrowUpRight size={14} />
+          <button
+            type="button"
+            className="today-continue-day text-button"
+            onClick={() => onContinue(`我们接着聊 ${selectedDate} 这一天的安排。`)}
+          >
+            接着聊这一天
+            <ArrowUpRight size={14} />
           </button>
         )}
         {!!state.matters?.length && (
@@ -505,7 +670,7 @@ export function AgendaView({
             onResume={onResume}
             onChanged={onChanged}
             onAttention={setAttention}
-            currentActionIds={state.agenda.map((item) => item.effectActionId || item.id)}
+            agenda={state.agenda}
             preparations={state.preparations || []}
             onState={onState}
             onContinue={onContinue}
@@ -515,10 +680,22 @@ export function AgendaView({
       )}
       {editing && (
         <AgendaEditor
-          original={editing}
-          current={state.agenda.find((item) => item.id === editing.id)}
+          original={editing.original}
+          current={state.agenda.find((item) => item.id === editing.original.id)}
           timeZone={zone}
+          initialStartsAt={editing.initialStartsAt}
           onState={onState}
+          onSaved={(saved, previous) => {
+            if (
+              editing.initialStartsAt &&
+              saved.startsAt &&
+              previous.startsAt &&
+              saved.startsAt !== previous.startsAt
+            ) {
+              setMoveUndo({ previous: { ...previous }, saved: { ...saved } });
+              setUndoAnnouncement('');
+            }
+          }}
           onClose={() => setEditing(undefined)}
         />
       )}

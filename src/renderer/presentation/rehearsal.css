@@ -3,11 +3,11 @@
 .rehearsal-read-status { color: var(--text-secondary); font-size: 12px; line-height: 1.85; }
 .rehearsal-read-status button { min-height: 32px; color: var(--accent); }
 .rehearsal-paper { position: relative; isolation: isolate; container-type: inline-size; margin: 0 4px; padding: 28px 38px 24px; }
-.rehearsal-paper::before { content: ''; position: absolute; inset: -32px -25px; z-index: -1; pointer-events: none; background: url('../assets/rehearsal/paper-surface.png') center / 100% 100% no-repeat; }
+.rehearsal-paper::before { content: ''; position: absolute; inset: -32px -25px; z-index: -1; pointer-events: none; background: url('../../../前端视觉创新设计/统一图库/原图/素材-纸面与装饰/横向纸张素材备选-33b44ee86889.png') center / 100% 100% no-repeat; }
 .rehearsal-heading { position: relative; min-height: 67px; padding: 0 0 18px 43px; }
-.rehearsal-heading::before { content: ''; position: absolute; width: 37px; height: 65px; left: -9px; top: -5px; background: url('../assets/rehearsal/gold-sprig.png') center / contain no-repeat; opacity: .79; pointer-events: none; }
+.rehearsal-heading::before { content: ''; position: absolute; width: 37px; height: 65px; left: -9px; top: -5px; background: url('../../../前端视觉创新设计/统一图库/原图/素材-纸面与装饰/金色枝叶-c0ce2a81e776.png') center / contain no-repeat; opacity: .79; pointer-events: none; }
 .rehearsal-caption { display: block; font-size: 11px; line-height: 1.7; color: var(--text-secondary); letter-spacing: .05em; }
-.rehearsal-heading h3 { position: relative; margin: 3px 0 0; font-family: 'Noto Serif SC', 'Songti SC', 'STSong', 'SimSun', serif; font-size: clamp(19px, 2vw, 24px); font-weight: 500; line-height: 1.65; overflow-wrap: anywhere; }
+.rehearsal-heading h3 { position: relative; margin: 3px 0 0; font-family: var(--font-reading); font-size: clamp(19px, 2vw, 24px); font-weight: 500; line-height: 1.65; overflow-wrap: anywhere; }
 .rehearsal-heading h3::after { content: ''; display: block; width: 75px; height: 1px; margin-top: 8px; background: color-mix(in srgb, var(--accent) 70%, transparent); }
 .rehearsal-boundaries { margin: -2px 0 16px 43px; max-width: 85%; color: var(--text-secondary); font-size: 11px; line-height: 1.8; }
 .rehearsal-boundaries > summary { cursor: pointer; padding-block: 4px; }
@@ -19,7 +19,7 @@
 .rehearsal-turn.is-you .rehearsal-spoken { display: inline-block; padding: 6px 17px; border-radius: 25px; text-align: left; background: rgba(230, 190, 145, .19); }
 .rehearsal-turn.is-possible_other { align-self: flex-start; max-width: 90%; margin-right: 34px; }
 .rehearsal-turn.is-possible_other .rehearsal-spoken { padding-left: 17px; border-left: 2px solid color-mix(in srgb, var(--accent) 78%, transparent); font-size: 17px; }
-.rehearsal-spoken, .rehearsal-expression-copy { font-family: 'Noto Serif SC', 'Songti SC', 'STSong', 'SimSun', serif; font-size: 15px; line-height: 1.85; overflow-wrap: anywhere; }
+.rehearsal-spoken, .rehearsal-expression-copy { font-family: var(--font-reading); font-size: 15px; line-height: 1.85; overflow-wrap: anywhere; }
 .rehearsal-spoken > :first-child, .rehearsal-expression-copy > :first-child { margin-top: 0; }
 .rehearsal-spoken > :last-child, .rehearsal-expression-copy > :last-child { margin-bottom: 0; }
 .rehearsal-spoken p { margin-block: 0 8px; }

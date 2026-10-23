@@ -1,8 +1,9 @@
 import { createHash } from 'node:crypto';
 import { DEFAULT_SETTINGS, type Message, type State } from '../../shared/types';
-import type { ObjectPresentationState, PreparationView, SharedMatterView, SurfaceView } from '../../shared/presentation';
+import type { ObjectPresentationState, PreparationReference, PreparationView, SharedMatterView, SurfaceView } from '../../shared/presentation';
 import type { Store } from '../store';
-import { readReleaseArtifacts } from './release-store';
+import { historicalReleaseArtifact, readReleaseArtifacts, releaseMessageReadable } from './release-store';
+import { latestReleases, renderReleases } from './release-composer';
 import { HarnessError, type ScopeHandle } from '../../shared/harness';
 import { reflectiveLetterProjectInput, type ReflectiveLetterProjectInput } from '../../shared/reflective-letter';
 import { rehearsalHistoryReference } from '../../shared/relationship-rehearsal';
@@ -13,12 +14,15 @@ import { assertCuriositySnapshotSourcesReadable } from './curiosity-scene';
 import type { SceneSnapshot } from '../../shared/scenes';
 import { campusAcademicReference } from '../../shared/campus-academic';
 import { isAcademicCampus } from './campus-academic';
+import { programMessageProjection } from './interactive-program-sources';
+import { orderCampusPageViews } from './campus-page-order';
 
-type PresentationRead = { liveCuriosity?: boolean; liveRehearsal?: boolean; liveNote?: boolean; liveCampus?: boolean };
+type PresentationRead = { liveCuriosity?: boolean; liveRehearsal?: boolean; liveNote?: boolean; liveCampus?: boolean; liveProgram?: boolean };
 
 /** Audience projection happens before IPC. Public presentation has neither
  * private transcript payloads nor hidden explanations in DOM/ARIA metadata. */
 export class PresentationService {
+  private preparationFocus?: PreparationReference;
   constructor(readonly store: Store) {}
   private setting() { return this.store.meta<{ mode: 'private' | 'public'; revision: number; selected: { kind?: 'artifact' | 'matter'; sessionId?: string; id: string; revision: number; hash: string }[] }>('presentation_surface', { mode: 'private', revision: 1, selected: [] }); }
   get public() { return this.setting().mode === 'public'; }
@@ -31,7 +35,7 @@ export class PresentationService {
     if (this.public) throw new HarnessError('private_review_required', '先回到私人视图核对要公开显示的内容。');
     const runtime = this.store.runtime;
     const artifact = readReleaseArtifacts(this.store.kernel, runtime.policy, runtime.policy.hostScope(), sessionId, id)[0];
-    if (!artifact || artifact.revision !== revision || !this.artifactCurrent(artifact)) throw new HarnessError('revision_conflict', '这份稿件或它所依据的安排已经变化，需要先核对当前版本。');
+    if (!artifact || artifact.revision !== revision) throw new HarnessError('revision_conflict', '这份稿件或它所依据的安排已经变化，需要先核对当前版本。');
     const old = this.setting();
     this.store.putMeta('presentation_surface', { ...old, revision: old.revision + 1, selected: [{ kind: 'artifact', sessionId, id, revision, hash: createHash('sha256').update(artifact.body).digest('hex') }] });
     return this.surface();
@@ -67,15 +71,6 @@ export class PresentationService {
       const view = this.matter(record.id, record.revision); return view?.options.length ? [view] : [];
     });
   }
-  private artifactCurrent(artifact: import('../../shared/types').ReleaseArtifact) {
-    const runtime = this.store.runtime, scope = runtime.policy.hostScope(), repo = this.store.kernel;
-    return (artifact.basedOnObjects || []).every(ref => {
-      if (ref.kind === 'agenda') { const current = runtime.calendar.read(ref.id); return !!current && (current.revision || 1) === ref.revision; }
-      if (ref.kind === 'work') { const current = repo.work(scope, undefined, ref.id)[0]; return !!current && current.revision === ref.revision && !['stale', 'blocked', 'cancelled'].includes(current.status); }
-      if (ref.kind === 'assertion') return repo.assertion(scope, ref.id)?.revision === ref.revision;
-      return repo.evidence(scope, ref.id)?.contentVersion === ref.revision;
-    });
-  }
   clearSelection() {
     const old = this.setting(); this.store.putMeta('presentation_surface', { ...old, selected: [], revision: old.revision + 1 }); return this.surface();
   }
@@ -88,15 +83,32 @@ export class PresentationService {
         return [{ id: matter.id, revision: matter.revision, title: '已选择的公开内容', body: matter.publicBody }];
       }
       const artifact = readReleaseArtifacts(this.store.kernel, runtime.policy, scope, selected.sessionId || '', selected.id)[0];
-      if (!artifact || artifact.revision !== selected.revision || createHash('sha256').update(artifact.body).digest('hex') !== selected.hash || !this.artifactCurrent(artifact)) return [];
+      if (!artifact || artifact.revision !== selected.revision || createHash('sha256').update(artifact.body).digest('hex') !== selected.hash) return [];
       return [{ id: artifact.id, revision: artifact.revision, title: '已选择的公开内容', body: artifact.body }];
     });
     return { mode: settings.mode, revision: settings.revision, artifacts, ...(settings.selected.length && !artifacts.length ? { notice: '所选内容已经变化，请回到私人视图核对后重新展示。' } : {}) };
   }
+  /** A native notification selects an address, never a cached private body.
+   * Every State projection reopens it through the same current owner gates. */
+  focusPreparation(ref: PreparationReference): boolean {
+    if (this.public || typeof ref?.id !== 'string' || ref.id.length > 160 || !ref.id
+      || typeof ref.helpRecordId !== 'string' || !ref.helpRecordId || ref.helpRecordId.length > 160
+      || !Number.isSafeInteger(ref.revision) || ref.revision < 1) return false;
+    this.preparationFocus = { id: ref.id, revision: ref.revision, helpRecordId: ref.helpRecordId };
+    const found = this.preparations().some(item => item.id === ref.id && item.revision === ref.revision && item.helpRecordId === ref.helpRecordId);
+    if (!found) this.preparationFocus = undefined;
+    return found;
+  }
   preparations(): PreparationView[] {
     if (this.public) return [];
     const runtime = this.store.runtime, scope = runtime.policy.hostScope();
-    return runtime.attention.available(scope).flatMap(record => {
+    const ordinary = runtime.attention.available(scope), ref = this.preparationFocus;
+    const focused = ref ? this.store.kernel.workData(scope, ['help_opportunity'], { id: ref.id, revision: ref.revision,
+      statuses: ['prepared', 'question_ready', 'notification_queued'], limit: 1 })
+      .filter(record => record.data.helpRecordId === ref.helpRecordId && !!record.data.artifact) : [];
+    if (ref && !focused.length) this.preparationFocus = undefined;
+    const records = [...new Map([...focused, ...ordinary].map(record => [record.id, record])).values()];
+    return records.flatMap(record => {
       if (!runtime.reflectiveLetters.recordReadable(scope, record)) return [];
       const artifact = record.data.artifact as unknown as { title: string; body: string; scenes?: import('../../shared/scenes').SceneSnapshot[] };
       const reflectiveLetter = record.data.reflectiveLetter ? runtime.reflectiveLetters.projectRecord(scope, record) : undefined;
@@ -178,6 +190,27 @@ export class PresentationService {
   /** Historical IPC and exports must apply the same source gate as scene tools. */
   sourceCurrentMessage(value: Message, options: PresentationRead = {}): Message {
     const runtime = this.store.runtime, scope = runtime.policy.hostScope();
+    value = programMessageProjection(runtime, value, { live: options.liveProgram });
+    if (value.releaseArtifacts?.length) {
+      const originals = value.releaseArtifacts;
+      const heads = new Set(latestReleases(originals).filter(artifact =>
+        !!historicalReleaseArtifact(this.store.kernel, runtime.policy, scope, artifact, value.contextReceipt)).map(artifact => artifact.id));
+      const visible = originals.flatMap(artifact => {
+        if (!heads.has(artifact.id)) return [];
+        const historical = historicalReleaseArtifact(this.store.kernel, runtime.policy, scope, artifact, value.contextReceipt);
+        return historical ? [historical] : [];
+      });
+      const rendered = renderReleases(latestReleases(visible));
+      const knownHostBody = [renderReleases(originals), renderReleases(latestReleases(originals)), ...originals.map(artifact => renderReleases([artifact]))].includes(value.content);
+      const separated = value.responseText !== undefined || knownHostBody;
+      value = { ...value, releaseArtifacts: visible,
+        content: separated ? (value.responseText || '') + (value.responseText && rendered ? '\n\n' : '') + rendered : visible.length === originals.length ? value.content : '',
+        ...(visible.length !== originals.length ? { hostStatus: { kind: 'notice' as const, code: 'source_changed' as const, text: '这份旧稿的一处来源已变化，相关正文暂不可读。' } } : {}) };
+    }
+    if (!value.releaseArtifacts && value.scopeSummary?.release && ['group', 'public'].includes(value.scopeSummary.audience)
+      && !releaseMessageReadable(this.store.kernel, runtime.policy, scope, undefined, value.contextReceipt, true))
+      value = { ...value, content: '', responseText: undefined,
+        hostStatus: { kind: 'notice', code: 'source_changed', text: '这份旧稿的来源证明暂时接不上，正文暂不可读。' } };
     const scopeData = runtime.policy.validate(scope);
     const snapshots = [...new Map([...(value.scenes || []), ...runtime.scenes.all(value.sessionId)]
       .map(scene => [`${scene.id}@${scene.revision}`, this.historicalScene(scene, options)])).values()];
@@ -201,14 +234,17 @@ export class PresentationService {
     const bodyReadable = this.store.kernel.planningMessageReadable(scope, { contextReceipt: value.contextReceipt, scenes: attached }, { checked: new Map(), localDisplay: true })
       && attached.every(scene => this.sceneReadable(scene, options)) && lettersReadable;
     if (value.role === 'assistant' && !bodyReadable) return { ...value,
-      content: '这条回复的依据已改变，需要重新核对。', responseText: undefined,
+      content: '', responseText: undefined,
+      hostStatus: { kind: 'notice', code: 'source_changed', text: '这条回复的依据已改变，正文暂不可读。' },
       steps: [], obligations: [], actions: [], mapCards: undefined, scenes: [], views: [],
-      releaseArtifacts: undefined, helpRefs: undefined, cooperationId: undefined,
+      releaseArtifacts: undefined, helpRefs: undefined, primaryHelpRef: undefined, cooperationId: undefined,
       contextReceipt: undefined, objectStates: undefined, image: undefined };
     const denied = new Set(snapshots.filter(scene => !this.studySnapshot(scene) && scene.kind !== 'study_reference' && scene.kind !== 'curiosity_reference' && scene.kind !== 'rehearsal_reference' && scene.kind !== 'note_reference'
       && !this.sceneReadable(scene, options)).map(scene => `${scene.id}@${scene.revision}`));
-    return { ...value, ...(value.helpRefs ? { helpRefs } : {}), ...(value.scenes ? { scenes: this.currentScenes(value.scenes, options) } : {}),
-      ...(value.views ? { views: value.views.filter(view => view.sceneRefs.every(ref => !denied.has(`${ref.id}@${ref.revision}`))) } : {}) };
+    const visibleScenes = value.scenes ? this.currentScenes(value.scenes, options) : undefined;
+    const visibleViews = value.views?.filter(view => view.sceneRefs.every(ref => !denied.has(`${ref.id}@${ref.revision}`)));
+    return { ...value, ...(value.helpRefs ? { helpRefs } : {}), ...(visibleScenes ? { scenes: visibleScenes } : {}),
+      ...(visibleViews ? { views: orderCampusPageViews(visibleViews, visibleScenes || []) } : {}) };
   }
   message(value: Message, options: PresentationRead = {}): Message | null {
     if (this.public) return null;
@@ -228,7 +264,9 @@ export class PresentationService {
       const relation = !current ? 'removed' : current.revision === historicalRevision ? 'current' : 'changed';
       objectStates.push({ id, kind: 'work', historicalRevision, currentRevision: current?.revision || null, relation, operationAvailable: relation === 'current' && !['stale', 'blocked', 'cancelled'].includes(current?.status || '') });
     }
-    return { ...safe, objectStates };
+    const boundary = this.store.runtime.policy.validate(this.store.runtime.policy.hostScope());
+    return { ...safe, objectStates,
+      presentationBoundaryKey: `${boundary.privacyEpoch}:${boundary.policyRevision}:${this.store.runtime.policy.sourceBoundary}` };
   }
   permitsIpc(name: string) {
     return !this.public || ['state', 'messages', 'presentation:surface', 'presentation:clear', 'stop', 'text:copy', 'draft:info', 'draft:unsaved'].includes(name);

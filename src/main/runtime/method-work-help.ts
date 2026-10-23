@@ -9,6 +9,7 @@ import type { StudyCompanionService, StudyCompanionContext } from './study-compa
 import type { CompanionSessionService } from './companion-session';
 import type { MaterialService } from '../materials/service';
 import { canonical, codePointSlice } from './semantics';
+import { noteSourceProofSchema } from '../../shared/notes-source';
 
 const sha = (text: string) => createHash('sha256').update(text).digest('hex');
 const refs = z.array(workSourceRefSchema).max(32);
@@ -64,6 +65,8 @@ export function createMethodWorkHelpOwner(study: StudyCompanionService, companio
     const row = repo.db.prepare(`SELECT r.revision,json_extract(r.payload,'$.data.sessionId') AS session_id,
       json_extract(r.payload,'$.data.source') AS initial_source,json_extract(s.value,'$.source') AS step_source,
       json_extract(s.value,'$.supports') AS supports,json_extract(r.payload,'$.personalMethodSources') AS methods,
+      json_extract(r.payload,'$.data.noteSources') AS note_sources,json_extract(r.payload,'$.data.problem.proof') AS note_problem,
+      json_extract(r.payload,'$.data.priorProblemSources') AS prior_problems,
       json_object('kind',json_extract(r.payload,'$.data.problem.kind'),'ref',json_extract(r.payload,'$.data.problem.ref'),
         'resourceId',json_extract(r.payload,'$.data.problem.resourceId'),'sha256',json_extract(r.payload,'$.data.problem.sha256'),
         'version',json_extract(r.payload,'$.data.problem.version'),'sourceEventId',json_extract(r.payload,'$.data.problem.sourceEventId'),
@@ -76,13 +79,19 @@ export function createMethodWorkHelpOwner(study: StudyCompanionService, companio
       AND json_extract(s.value,'$.id')=? LIMIT 1`).get(...f.params, input.id, input.matterId, input.stepId);
     if (!row || context.restrictToSessionId && row.session_id !== context.restrictToSessionId) return;
     const problem = JSON.parse(String(row.problem)) as Record<string, unknown>;
+    if (problem.kind === 'note') problem.proof = noteSourceProofSchema.parse(JSON.parse(String(row.note_problem)));
+    const noteSources = z.array(noteSourceProofSchema).max(17).parse(row.note_sources === null ? [] : JSON.parse(String(row.note_sources)));
+    if (!repo.noteSourcesReadable(handle, noteSources)) return;
     // SQLite JSON objects retain nested JSON values. Neither a page description
     // nor its question/answer prose is selected into this identity.
     const stepRefs = refs.parse([JSON.parse(String(row.step_source)), ...JSON.parse(String(row.supports))]);
     const problemRefs = problem.kind === 'evidence' ? [problem.ref] : problem.sourceRefs;
-    const sourceRefs = refs.parse([JSON.parse(String(row.initial_source)), ...stepRefs, ...(Array.isArray(problemRefs) ? problemRefs : [])]);
+    const priorProblems = row.prior_problems === null ? [] : JSON.parse(String(row.prior_problems)) as Record<string, unknown>[];
+    const priorRefs = priorProblems.flatMap(source => source.kind === 'evidence' ? [source.ref] : source.kind === 'material'
+      && Array.isArray(source.sourceRefs) ? source.sourceRefs : []);
+    const sourceRefs = refs.parse([JSON.parse(String(row.initial_source)), ...stepRefs, ...(Array.isArray(problemRefs) ? problemRefs : []), ...priorRefs]);
     return { revision: Number(row.revision), sessionId: String(row.session_id), stepRefs, sourceRefs,
-      problem, problemIdentitySha256: sha(canonical(problem)), methods: row.methods };
+      problem, noteSources, problemIdentitySha256: sha(canonical(problem)), methods: row.methods };
   };
   const studyText = (handle: ScopeHandle, input: { id: string; stepId: string }) => {
     const f = repo.filter(handle);
@@ -135,6 +144,7 @@ export function createMethodWorkHelpOwner(study: StudyCompanionService, companio
     if (proof.owner === 'study_companion') {
       const current = studyMetadata(handle, proof, context);
       if (!current || current.sessionId !== proof.sessionId || current.problemIdentitySha256 !== proof.problemIdentitySha256
+        || canonical(current.noteSources) !== canonical(proof.noteSources || []) || !repo.noteSourcesReadable(handle, proof.noteSources || [])
         || canonical(current.stepRefs) !== canonical(proof.stepRefs)
         || canonical(repo.resolveWorkSourceBinding(handle, current.sourceRefs)) !== canonical(proof.sourceBinding)
         || proof.material && !materials.retainedTextIdentityCurrent(handle, proof.material)) return;
@@ -207,7 +217,8 @@ export function createMethodWorkHelpOwner(study: StudyCompanionService, companio
         proof = { owner: input.owner, id: input.id, revision: input.revision, matterId: input.matterId, sessionId: metadata.sessionId,
           stepId: input.stepId, stepRefs: metadata.stepRefs, problemIdentitySha256: metadata.problemIdentitySha256,
           start: input.start, end: input.end, contentSha256: sha(text), fragmentSha256: sha(input.quote), sourceBinding: binding,
-          ...(metadata.problem.kind !== 'evidence' ? { material: materialIdentity(handle, metadata.problem,
+          ...(metadata.noteSources.length ? { noteSources: metadata.noteSources } : {}),
+          ...(['material_text', 'material_page'].includes(String(metadata.problem.kind)) ? { material: materialIdentity(handle, metadata.problem,
             metadata.problem.kind === 'material_text' ? 'retained_text_layer' : 'retained_file_lifetime_only') } : {}) };
         inheritedSources = inherited(current.record.personalMethodSources);
       } else {

@@ -18,7 +18,7 @@ import {
 import type { KernelRepository } from '../storage/repository';
 
 type VersionRecord = NoteDocument & { operation: NoteVersion['operation']; restoredFrom?: number };
-type Origin = { via: 'notebook' | 'conversation'; eventId?: string };
+type Origin = { via: 'notebook' | 'conversation'; eventId?: string; material?: NoteDocument['source']['material'] };
 export interface NoteChange {
   id: string;
   revision: number;
@@ -242,11 +242,12 @@ export class NotesService {
           kind: 'user_note',
           via: origin.via,
           ...(origin.eventId ? { eventId: origin.eventId } : {}),
+          ...(origin.material ? { material: structuredClone(origin.material) } : {}),
         },
         effectiveAt: null,
         coverage: 'document_only',
         purposes: ['user_notebook'],
-        attachmentLocators: [],
+        attachmentLocators: origin.material ? [{ resourceId: origin.material.resourceId, name: origin.material.name }] : [],
         sha256,
         operation: 'create',
       });

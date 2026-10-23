@@ -6,14 +6,15 @@ import { mkdtemp, rmdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
-import { ProviderError, readSSE, type Completion, type CompletionOptions, type ModelWireMessage, type ProviderMetadata, type ToolSpec, type WireMessage } from './provider';
+import { MODEL_REQUEST_TIMEOUT_MS, MODEL_WIRE_LIMITS, ProviderError, readSSE, ssePendingCharacterLimit, toolArgumentCharacterLimit, type Completion, type CompletionOptions, type ModelWireMessage, type ProviderMetadata, type ToolSpec, type WireMessage } from './provider';
 import modelContract from '../shared/model-contract.json';
 
 export const LUNA_MODEL = modelContract.luna.model;
 export const LUNA_DISPLAY_NAME = modelContract.luna.displayName;
 export const LUNA_ENDPOINT = 'https://chatgpt.com/backend-api/codex/responses';
-// Leave time for the host to return a receipt before Hermes' 175-second RPC deadline.
-export const LUNA_REQUEST_TIMEOUT_MS = 165_000;
+// Hermes reserves separate return time for model RPCs. Ordinary tools and
+// child/authority lifetimes retain their own, shorter cancellation boundaries.
+export const LUNA_REQUEST_TIMEOUT_MS = MODEL_REQUEST_TIMEOUT_MS;
 export const LUNA_SUBSTITUTE = { providerId: 'openai-app-server', model: LUNA_MODEL, temporaryTestSubstitute: true, replaces: 'deepseek-flash', reasoningEffort: 'max', requestTimeoutMs: LUNA_REQUEST_TIMEOUT_MS } as const;
 type Item = Record<string, any>;
 
@@ -73,7 +74,7 @@ export class AppServerLunaClient {
   private controllers = new Set<AbortController>();
   constructor(private dependencies: { fetcher?: typeof fetch; executable?: string; spawn?: typeof spawn } = {}) {}
   providerMetadata(options?: CompletionOptions): ProviderMetadata {
-    return { ...LUNA_SUBSTITUTE, reasoningEffort: lunaReasoningEffort(options), endpoint: LUNA_ENDPOINT, protocol: this.capabilities.protocol, protocolVersion: this.capabilities.protocolVersion, capabilities: { ...this.capabilities }, limits: { maxOutputTokens: options?.maxOutputTokens || 4096, contextTokens: 1_000_000, outputEnforcement: 'host_post_completion' } };
+    return { ...LUNA_SUBSTITUTE, reasoningEffort: lunaReasoningEffort(options), endpoint: LUNA_ENDPOINT, protocol: this.capabilities.protocol, protocolVersion: this.capabilities.protocolVersion, capabilities: { ...this.capabilities }, limits: { maxOutputTokens: options?.maxOutputTokens || 4096, contextTokens: 1_000_000, outputEnforcement: 'advisory' } };
   }
   assistantMessage(result: Completion): WireMessage {
     return { role: 'assistant', content: result.content || null, ...(result.tool_calls.length ? { tool_calls: result.tool_calls } : {}), ...(this.protocol.has(result) ? { reasoning_content: this.protocol.get(result) } : {}) };
@@ -95,6 +96,7 @@ export class AppServerLunaClient {
         if (result.usage) result.usage = { ...result.usage, physical_attempts: attempt + 1, unreported_attempts: attempt };
         return result;
       } catch (error) {
+        options?.onToolCallProgress?.({ kind: 'reset' });
         const transient = error instanceof ProviderError ? error.retryable : error instanceof TypeError && ['terminated', 'fetch failed'].includes(error.message);
         if (signal.aborted || deliveredText || !transient || attempt || options?.allowTransportRetry === false) {
           if (error && typeof error === 'object') Object.assign(error, { transportAttempts: attempt + 1 });
@@ -117,7 +119,6 @@ export class AppServerLunaClient {
     callerSignal.throwIfAborted();
     if (options?.maxOutputTokens !== undefined && (!Number.isInteger(options.maxOutputTokens) || options.maxOutputTokens < 256 || options.maxOutputTokens > 32768)) throw new ProviderError('本轮输出预算不合法。');
     const body = lunaRequest(messages, tools, options);
-    const maxOutputTokens = options?.maxOutputTokens || 4096;
     const controller = new AbortController(); this.controllers.add(controller);
     const signal = AbortSignal.any([callerSignal, controller.signal, AbortSignal.timeout(LUNA_REQUEST_TIMEOUT_MS)]);
     const cwd = await mkdtemp(path.join(tmpdir(), 'zaichang-luna-'));
@@ -153,7 +154,11 @@ export class AppServerLunaClient {
         await readSSE(upstream, data => {
           if (!data || data === '[DONE]') return;
           const event = JSON.parse(data);
-          if (event.type === 'response.output_text.delta') { content += event.delta; if (content.length > 64000) throw new ProviderError('回复达到本次长度上限。'); onText?.(event.delta); }
+          if (event.type === 'response.output_item.added' && event.item?.type === 'function_call'
+            && typeof event.item.call_id === 'string' && event.item.call_id
+            && tools.some(tool => tool.function.name === event.item.name))
+            options?.onToolCallProgress?.({ kind: 'call', id: event.item.call_id, name: event.item.name });
+          if (event.type === 'response.output_text.delta') { content += event.delta; if (content.length > MODEL_WIRE_LIMITS.textCharacters) throw new ProviderError('回复达到本次长度上限。'); onText?.(event.delta); }
           if (event.type === 'response.output_item.done') items.push(event.item);
           if (event.response?.usage) {
             const value = event.response.usage;
@@ -172,19 +177,18 @@ export class AppServerLunaClient {
             // additive duplicate of the partial streamed list.
             if (Array.isArray(event.response.output) && event.response.output.length) items.splice(0, items.length, ...event.response.output);
           }
-        }, signal);
+        }, signal, ssePendingCharacterLimit(tools));
         if (!ended) throw new ProviderError('Luna 代测连接在完成前断开。', false, 'protocol', undefined, usage);
         const tool_calls = items.filter(item => item.type === 'function_call').map(item => ({ id: item.call_id, type: 'function' as const, function: { name: item.name, arguments: item.arguments } }));
-        if (tool_calls.length > 8 || tool_calls.some(call => !call.id || !tools.some(tool => tool.function.name === call.function.name) || call.function.arguments.length > 20000)) throw new ProviderError('Luna 返回了不在本轮工具契约内的请求。', false, 'protocol', undefined, usage);
+        if (tool_calls.length > 8 || tool_calls.some(call => !call.id || !tools.some(tool => tool.function.name === call.function.name) || call.function.arguments.length > toolArgumentCharacterLimit(call.function.name))) throw new ProviderError('Luna 返回了不在本轮工具契约内的请求。', false, 'protocol', undefined, usage);
         if (items.some(item => !['message', 'reasoning', 'function_call'].includes(item.type))) throw new ProviderError('Luna 返回了额外原生工具，代测已停止。', false, 'protocol', undefined, usage);
         const completedText = items.filter(item => item.type === 'message').flatMap(item => item.content || []).map(part => part.text || '').join('');
         if (completedText) content = completedText;
-        if (content.length > 64000) throw new ProviderError('回复达到本次长度上限。', false, 'output_length', undefined, usage);
-        if (usage && usage.completion_tokens > maxOutputTokens) throw new ProviderError('Luna 超出宿主输出上限，结果未采用。', false, 'output_budget', undefined, usage);
+        if (content.length > MODEL_WIRE_LIMITS.textCharacters) throw new ProviderError('回复达到本次长度上限。', false, 'output_length', undefined, usage);
         if (!content && !tool_calls.length) throw new ProviderError('Luna 没有返回可用内容。', false, 'empty_response', undefined, usage);
         if (usage && transportAttempts > 1) usage = { ...usage, physical_attempts: transportAttempts, unreported_attempts: transportAttempts - 1 };
         const result: Completion = { content, tool_calls, usage, transportAttempts, responseModel };
-        if (JSON.stringify(items).length > Math.max(64000, maxOutputTokens * 16)) throw new ProviderError('Luna 协议状态超过本轮上限。', false, 'protocol_budget', undefined, usage);
+        if (JSON.stringify(items).length > MODEL_WIRE_LIMITS.opaqueCharacters) throw new ProviderError('Luna 协议状态超过传输长度范围。', false, 'protocol_budget', undefined, usage);
         // Same lifecycle as DeepSeek reasoning_content: the host's bounded,
         // scoped in-memory protocol chain carries this across client instances.
         this.protocol.set(result, 'zaichang-luna:' + JSON.stringify(items));

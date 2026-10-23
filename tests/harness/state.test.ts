@@ -315,3 +315,44 @@ test('INV-05 ISO offsets compare as instants for reminders and evidence expiry',
     f.close();
   }
 });
+
+test('a reminder set for a time fires at that time even in quiet hours; late ones and optional notices wait', async () => {
+  const f = new Fixture();
+  try {
+    const reminders = new ReminderRuntime(f.repo, f.policy);
+    reminders.configure({ enabled: true, quietWindows: [['22:00', '08:00']], timeZone: 'Asia/Shanghai' });
+    const sent: { title: string; body: string; silent?: boolean }[] = [];
+    reminders.port = {
+      capabilities: { submitted: true, delivered: false, seen: false, stableId: false, closedApp: false },
+      submit: async input => { sent.push(input); return { status: 'submitted_to_os' }; },
+    };
+    // 07:30 Beijing is inside the quiet window, but it is the time the person chose.
+    reminders.schedule({ id: 'wake', title: '带资料', detail: '', kind: 'reminder', startsAt: '2026-10-21T23:30:00Z', reminderMessage: '早呀，记得把资料带上～' });
+    reminders.schedule({ id: 'late', title: '昨天的事', detail: '', kind: 'reminder', startsAt: '2026-10-21T10:00:00Z' });
+    f.clock.set('2026-10-21T23:30:20Z');
+    await reminders.runDue();
+    assert.equal(sent.length, 1);
+    assert.equal(sent[0].body, '早呀，记得把资料带上～');
+    assert.equal(sent[0].silent, false);
+    await reminders.runDue();
+    assert.equal(sent.length, 1, 'the late reminder waits for the quiet hours to end');
+    // 00:05Z is 08:05 in Beijing, after the quiet window: the late one goes out.
+    f.clock.set('2026-10-22T00:05:00Z');
+    await reminders.runDue();
+    assert.equal(sent.length, 2);
+    assert.match(sent[1].body, /昨天的事|过了时间/);
+  } finally {
+    f.close();
+  }
+});
+
+test('notification text is her words, or a private placeholder when previews are off', async () => {
+  const { notificationText } = await import('../../src/main/actions/reminders');
+  const persona = { core: { name: '澪' } };
+  assert.deepEqual(notificationText({ persona }, 'reminder', { title: '带资料', message: '早呀，记得带资料～' }), { title: '澪', body: '早呀，记得带资料～' });
+  assert.deepEqual(notificationText({ persona }, 'reminder', { title: '带资料' }), { title: '澪', body: '到时间了：带资料' });
+  assert.deepEqual(notificationText({ persona, notificationPreview: 'private' }, 'suggestion', { title: '成绩更新', body: '你的高数成绩出来了' }), { title: '澪', body: '有件事想跟你说。' });
+  const long = notificationText({ persona }, 'suggestion', { body: '我'.repeat(200) });
+  assert.equal(Array.from(long.body).length, 90);
+  assert.equal(notificationText({}, 'reminder', { catchup: true }).title, '在场');
+});

@@ -29,7 +29,7 @@ export const definitions: LifeCollaborationDefinition[] = [
   { name: 'read_study_companion', grant: 'evidence:read', schema: studyCompanionInput.options[1],
     description: '只读原题、你当时的尝试和已经留在同一张陪学纸上的步骤；可接着未读历史，不改变提示深度、不保存新步骤。适合只想找回内容或本轮不保留新记录时使用。' },
   { name: 'study_companion', grant: 'evidence:read', mutates: true, schema: studyCompanionInput,
-    description: '围绕真实原题开一张陪学纸，接住你的尝试、给一点提示、换例子或直接讲清楚，也可回读、暂放和收好。题目可来自已给的原话或刚才真正看过的材料；每一步保留同一题和当前卡点。当前解释若适合让人轻改条件，可在packet.exploration声明有限二次式a*x²+b*x+c、系数参数与横纵范围，先用packet.text讲清，再联动曲线、同一点的高度和可选切线斜率。原题关系和另举的小例子须分清，不任意执行公式或模型代码，不把有限图示包装成全科模拟器；超范围仍继续正常解释/调查。用户改的是临时演算假设。提示深度由本轮选择，不把助手讲解、调过参数或经过时间当作你已独立掌握。' },
+    description: '围绕真实原题开一张陪学纸，接住你的尝试、给一点提示、换例子或直接讲清楚，也可回读、暂放和收好。原题来自真正含题目的原话、已读笔记原段或材料；笔记用manage_note read返回的studyProblem，不把“帮我看看笔记”的请求当原题，不把note ID当eventId。已有纸放错题源时用respond.problem沿原ID修正，保留尝试和旧帮助，不重复开纸、不改笔记。每一步保留同一题和当前卡点。当前解释若适合让人轻改条件，可在packet.exploration声明有限二次式a*x²+b*x+c、系数参数与横纵范围，先用packet.text讲清，再联动曲线、同一点的高度和可选切线斜率。原题关系和另举的小例子须分清，不任意执行公式或模型代码，不把有限图示包装成全科模拟器；超范围仍继续正常解释/调查。用户改的是临时演算假设。提示深度由本轮选择，不把助手讲解、调过参数或经过时间当作你已独立掌握。' },
 ];
 export const lifeCollaborationToolDefinitions = definitions;
 const names = new Set(definitions.map(definition => definition.name));
@@ -109,7 +109,8 @@ export function executeLifeCollaborationTool(
     const observations = (session.observations || []).filter(observation => !!observation.toolCallId
       && session.deliveredObservationIds?.has(observation.toolCallId));
     const studyContext: StudyCompanionContext = { sessionId: session.sessionId,
-      ...(!allowCrossSession ? { restrictToSessionId: session.sessionId } : {}), observations, signal, permits };
+      ...(!allowCrossSession ? { restrictToSessionId: session.sessionId } : {}), observations,
+      noteSources: pack.receipt.noteSources || [], signal, permits };
     const definition = definitions.find(item => item.name === name)!;
     const args = definition.schema.parse(raw) as Record<string, any>;
     const writing = name.startsWith('manage_') || name === 'study_companion' && args.operation !== 'read';
@@ -129,7 +130,7 @@ export function executeLifeCollaborationTool(
       return matter;
     };
     const admit = (value: unknown, records: WorkRecord[] = [], bindings: WorkSourceBinding[] = [], options: {
-      history?: boolean; written?: { id: string; revision: number; status: string; read: unknown };
+      history?: boolean;
     } = {}) => {
       signal.throwIfAborted(); host.policy.validate(handle);
       for (const record of records) {
@@ -143,16 +144,6 @@ export function executeLifeCollaborationTool(
       if (bindings.some(binding => binding.refs.some(ref => !permits(ref))))
         throw new HarnessError('life_source_scope', '这段回复的部分来由不在当前允许范围内，未采用旧正文。');
       const text = canonical(value), bytes = Buffer.byteLength(text), tokens = Math.ceil(Array.from(text).length / 1.4);
-      if (pack.receipt.budget.readBytes + bytes > contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + tokens > contract.budget.maxTokens) {
-        const partial = { status: 'partial', items: [], ...(options.written ? { saved: options.written } : {}),
-          reason: options.written ? '这一小步已留好，完整内容还没带进当前回复；可按地址缩小范围回读。' : '这页还没带进当前回复；可缩小范围或只读其中一条，不能把缺少内容当作没有前情。' };
-        const small = canonical(partial), smallBytes = Buffer.byteLength(small), smallTokens = Math.ceil(Array.from(small).length / 1.4);
-        if (pack.receipt.budget.readBytes + smallBytes > contract.budget.maxReadBytes || pack.receipt.budget.estimatedTokens + smallTokens > contract.budget.maxTokens)
-          throw new HarnessError('read_budget', '这轮内容已经很满，已保存的起点仍留在原事项里。');
-        pack.receipt.budget.readBytes += smallBytes; pack.receipt.budget.estimatedTokens += smallTokens;
-        host.repo.saveReceipt(handle, pack.receipt);
-        return partial;
-      }
       host.context.recordWorkSources(pack, records);
       host.context.recordWorkSourceBindings(pack, bindings);
       if (options.history) pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'history:self'])];
@@ -193,8 +184,7 @@ export function executeLifeCollaborationTool(
       }
       const { records, ...result } = host.companionContinuity.manage(handle, { sessionId: session.sessionId, ephemeral: session.ephemeral, persona }, args);
       const read = { tool: 'read_companion', arguments: { id: result.id, expectedRevision: result.revision, includeInactive: true } };
-      return admit({ ...result, read }, permittedRecords(records), [],
-        { written: { id: result.id, revision: result.revision, status: result.status, read } });
+      return admit({ ...result, read }, permittedRecords(records));
     }
     if (name === 'read_companion_session' || name === 'manage_companion_session') {
       if (!args.metadataOnly && args.operation !== 'stop') ensureMatter(args.matterId);
@@ -211,10 +201,7 @@ export function executeLifeCollaborationTool(
       const visible = records.length && !allowed.length ? { status: 'not_available', matterId: args.matterId,
         meaning: '原断点的部分依据不在这次允许的范围里，没有沿旧副本展开。' }
         : { ...view, ...(scene ? { coWork: scene } : {}), ...(pointer ? { discussionModule: pointer } : {}) };
-      const read = { tool: 'read_companion_session', arguments: { matterId: args.matterId, ...(view.id ? { id: view.id } : {}) } };
-      return admit(visible, allowed, [], { history: allowed.some(record => Array.isArray(record.data.sourceIds) && record.data.sourceIds.includes('history:self')),
-        ...(writing && typeof view.id === 'string' && typeof view.revision === 'number'
-          ? { written: { id: view.id, revision: view.revision, status: view.status, read } } : {}) });
+      return admit(visible, allowed, [], { history: allowed.some(record => Array.isArray(record.data.sourceIds) && record.data.sourceIds.includes('history:self')) });
     }
 
     // Only real tool replies already delivered across a model boundary may
@@ -227,8 +214,6 @@ export function executeLifeCollaborationTool(
     const allowed = permittedRecords(records), ids = new Set(allowed.map(record => record.id));
     const items = view.items.filter(item => ids.has(item.id));
     const pointers = allowed.flatMap(record => { const pointer = modulePointer(record); return pointer ? [pointer] : []; });
-    const first = allowed[0], read = first ? { tool: 'study_companion', arguments: { operation: 'read', id: first.id } } : undefined;
-    return admit({ ...view, items, ...(pointers.length ? { discussionModules: pointers } : {}) }, allowed, [],
-      { ...(writing && first && read ? { written: { id: first.id, revision: first.revision, status: first.status, read } } : {}) });
+    return admit({ ...view, items, ...(pointers.length ? { discussionModules: pointers } : {}) }, allowed);
   }
 }

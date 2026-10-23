@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import {
-  HarnessError, workSourceRefSchema, type ContextReceipt,
+  HarnessError, workSourceRefSchema, type ContextReceipt, type EvidenceEvent,
   type ScopeHandle, type WorkRecord, type WorkSourceRef,
 } from '../../shared/harness';
 import {
@@ -9,9 +9,12 @@ import {
   reflectiveLetterRequestInput, reflectiveLetterWindowSchema, reflectiveLetterSourceInput, letterReferenceSchema,
   type ReflectiveLetterCitation, type ReflectiveLetterDocument, type ReflectiveLetterDraftInput,
   type ReflectiveLetterLearningProof, type ReflectiveLetterMaterialProof,
+  type ReflectiveLetterNoteProof,
   type ReflectiveLetterOriginalProof, type ReflectiveLetterProof, type ReflectiveLetterView,
   type ReflectiveLetterWindow, type ReflectiveLetterSourceInput, type ReflectiveLetterSourceView, type LetterReference,
 } from '../../shared/reflective-letter';
+import type { NotePage } from '../../shared/notes';
+import type { NoteSourceProof } from '../../shared/notes-source';
 import type { KernelRepository } from '../storage/repository';
 import type { AttentionService } from './attention';
 import type { WorkService } from './work';
@@ -25,6 +28,9 @@ export interface ReflectiveLetterContext {
   /** Host original ranges actually sent in the current user context. A scope's
    * currentEventIds alone, or an index preview, does not establish delivery. */
   currentRanges: readonly WorkSourceRef[];
+  /** Immutable event versions actually supplied this turn, never refreshed
+   * from a newer repository body just to locate the same words. */
+  currentEvents?: readonly EvidenceEvent[];
   observations: readonly Observation[];
   /** Populated from messages actually supplied to the main model, not from
    * tool execution or model-authored observation IDs. */
@@ -37,6 +43,7 @@ export interface ReflectiveLetterDependencies {
    * is never an instruction to reload or download a resource. */
   materialCurrent?: (handle: ScopeHandle, proof: ReflectiveLetterMaterialProof) => boolean;
   readMaterial?: (handle: ScopeHandle, proof: ReflectiveLetterMaterialProof, signal: AbortSignal) => Promise<unknown>;
+  readNote?: (handle: ScopeHandle, proof: ReflectiveLetterNoteProof) => NotePage;
 }
 
 const requestDataSchema = z.object({
@@ -62,6 +69,8 @@ function covers(ref: WorkSourceRef, ranges: readonly WorkSourceRef[]) {
   return false;
 }
 const address = (ref: WorkSourceRef): WorkSourceRef => ({ eventId: ref.eventId, contentVersion: ref.contentVersion, start: ref.start, end: ref.end });
+const noteAddress = (proof: NoteSourceProof): NoteSourceProof => ({ id: proof.id, revision: proof.revision,
+  sha256: proof.sha256, start: proof.start, end: proof.end });
 const bodyOf = (paragraphs: { text: string }[]) => paragraphs.map(paragraph => paragraph.text).join('\n\n');
 
 /** A private authored artifact under the existing attention opportunity. The
@@ -88,11 +97,49 @@ export class ReflectiveLetterService {
     return { event, binding, quote: codePointSlice(event.text, parsed.start, parsed.end) };
   }
 
+  /** Resolve only the current request's literal address. Meaning and reading
+   * purpose are still decided by the original verifier after this step. */
+  resolveRequest(handle: ScopeHandle, context: ReflectiveLetterContext, raw: z.infer<typeof reflectiveLetterRequestInput>) {
+    const scope = this.scope(handle, true), input = reflectiveLetterRequestInput.parse(raw);
+    context.signal?.throwIfAborted();
+    if (input.source) return { operation: input.operation, source: input.source, window: input.window };
+    const quote = input.currentQuote!;
+    const candidates: { source: WorkSourceRef & { quote: string }; event: EvidenceEvent }[] = [];
+    for (const snapshot of context.currentEvents || []) {
+      if (!scope.currentEventIds.includes(snapshot.id) || snapshot.speaker !== 'user' || snapshot.authority !== 'user_statement') continue;
+      const ranges = context.currentRanges.filter(range => range.eventId === snapshot.id && range.contentVersion === snapshot.contentVersion);
+      if (!ranges.length) continue;
+      // The original version must still be current; a correction elsewhere in
+      // this message cannot silently re-sign its unchanged request sentence.
+      const current = this.repo.evidence(handle, snapshot.id);
+      if (!current || current.contentVersion !== snapshot.contentVersion || current.text !== snapshot.text)
+        throw new HarnessError('letter_current_request_changed', '本轮请求的原话已经变化，请接回当前原话后再写信。');
+      const points = Array.from(snapshot.text), selected = Array.from(quote);
+      for (let start = 0; start + selected.length <= points.length; start++) {
+        const end = start + selected.length;
+        if (!covers({ eventId: snapshot.id, contentVersion: snapshot.contentVersion, start, end }, ranges)
+          || selected.some((point, index) => points[start + index] !== point)) continue;
+        const source = { eventId: snapshot.id, contentVersion: snapshot.contentVersion, start, end, quote };
+        if (candidates.some(candidate => canonical(address(candidate.source)) === canonical(address(source))
+          || this.repo.sameSourceOrigin(candidate.event, candidate.source, snapshot, source))) continue;
+        candidates.push({ source, event: snapshot });
+      }
+    }
+    if (candidates.length !== 1)
+      throw new HarnessError('letter_current_quote', candidates.length
+        ? '这句在本轮允许范围里出现了不止一次，请逐字引用更完整且唯一的本次写信请求，或提供已读原话的精确地址。'
+        : '没有在本轮已交付的本人原话范围里找到这句，请逐字引用本次写信请求；不会改用旧话或近似文字。');
+    const source = candidates[0].source, resolved = this.currentOriginal(handle, source, context.permits);
+    if (resolved.event.speaker !== 'user' || resolved.event.authority !== 'user_statement' || resolved.quote !== quote)
+      throw new HarnessError('letter_current_request', '这次写信仍需要本轮本人真实请求的原句。');
+    return { operation: input.operation, source, window: input.window };
+  }
+
   /** Start exactly one requested letter. The attention focus is its original
    * material owner, with no probe, recurring wake, or discovery after this
    * request. Quiet initiative preferences do not block a direct user request. */
   begin(handle: ScopeHandle, context: ReflectiveLetterContext, raw: z.infer<typeof reflectiveLetterRequestInput>) {
-    const scope = this.scope(handle, true), input = reflectiveLetterRequestInput.parse(raw);
+    const scope = this.scope(handle, true), input = this.resolveRequest(handle, context, raw);
     context.signal?.throwIfAborted();
     if (!scope.currentEventIds.includes(input.source.eventId) || !covers(input.source, context.currentRanges))
       throw new HarnessError('letter_current_request', '开始这次来信需要本轮已实际提供的本人请求。');
@@ -206,7 +253,10 @@ export class ReflectiveLetterService {
         request, source: { ...address(request.source), sourceId: event.sourceId, quote },
         actualReadRanges: [address(request.source)],
         receivedWindow: request.window, asOf: request.asOf, coverage: 'selected_legal_sources_only',
-        guidance: '先从真实片段组织这次来信。需要旧经历时可用recall_experience独立深读；目录/预览不是原文，沿reread取得真实片段后再写。主助手按当前角色写信，允许只写几句、不知道或保留相反解释；不按完成量评价人，不要求填满固定栏目。' } };
+        compose: { tool: 'write_reflective_letter' as const, arguments: {
+          operation: 'compose' as const, opportunityId: opportunity.id, expectedRevision: opportunity.revision,
+        } },
+        guidance: '先从真实片段组织这次来信。需要旧经历时可用recall_experience独立深读；目录/预览不是原文，沿reread取得真实片段后再写。这封信是直接写给这个人的：回应一处具体分寸、改变或细节，也写出你为什么在意、自己的关心或态度，不把原话逐条改写成资料说明。来源身份由实际来由和结构化引用承担；回顾试说时自然说“刚才练习里”即可，不反复解释“我读到什么”或声明那不是现实人生。仍不把模拟写成真实外部交换。按当前角色写，可以认真、热烈、好笑，也允许只写几句、不知道或保留相反解释；不按完成量评价人，不要求填满固定栏目。' } };
   }
 
   private originalReadRanges(handle: ScopeHandle, context: ReflectiveLetterContext) {
@@ -275,6 +325,26 @@ export class ReflectiveLetterService {
     return proof;
   }
 
+  private noteProof(handle: ScopeHandle, citation: Extract<ReflectiveLetterCitation, { kind: 'note' }>,
+    context: ReflectiveLetterContext, delivered: readonly Observation[]): ReflectiveLetterNoteProof {
+    const observation = delivered.find(observation => observation.toolCallId === citation.observationId && observation.tool === 'manage_note');
+    const args = observation?.requestedArguments as { operation?: unknown } | undefined;
+    const page = observation?.result as (NotePage & { sourceId?: unknown }) | undefined;
+    if (args?.operation !== 'read' || page?.sourceId !== 'notes:self' || typeof page.body !== 'string'
+      || page.note?.id !== citation.id || page.note.revision !== citation.revision || page.note.sha256 !== citation.sha256
+      || !Number.isSafeInteger(page.offset) || !Number.isSafeInteger(page.end)
+      || Array.from(page.body).length !== page.end - page.offset || citation.start < page.offset || citation.end > page.end
+      || codePointSlice(page.body, citation.start - page.offset, citation.end - page.offset) !== citation.quote
+      || !context.receipt.noteSources?.some(proof => proof.id === citation.id && proof.revision === citation.revision
+        && proof.sha256 === citation.sha256 && proof.start <= citation.start && proof.end >= citation.end))
+      throw new HarnessError('letter_note_not_read', '这页笔记需要实际读到的正文、版本和位置，目录里的标题不能代替原文。');
+    const proof: ReflectiveLetterNoteProof = { kind: 'note', sourceId: 'notes:self', id: citation.id,
+      revision: citation.revision, sha256: citation.sha256, start: citation.start, end: citation.end, quoteSha256: sha(citation.quote) };
+    if (!this.repo.noteSourcesReadable(handle, [noteAddress(proof)]))
+      throw new HarnessError('letter_note_changed', '这封信引用的一页笔记现在读不到了。');
+    return proof;
+  }
+
   private learningProof(handle: ScopeHandle, citation: Extract<ReflectiveLetterCitation, { kind: 'learning' }>, request: LetterRequest,
     context: ReflectiveLetterContext, ranges: readonly WorkSourceRef[], delivered: readonly Observation[]): ReflectiveLetterLearningProof {
     const provided = delivered.some(observation => observation.tool === 'read_learning'
@@ -303,7 +373,8 @@ export class ReflectiveLetterService {
     const paragraphs = input.paragraphs.map(paragraph => ({ kind: paragraph.kind, text: paragraph.text,
       sources: paragraph.citations.map(citation => citation.kind === 'original'
         ? this.originalProof(handle, citation, request, context, ranges) : citation.kind === 'material'
-          ? this.materialProof(handle, citation, context, delivered) : this.learningProof(handle, citation, request, context, ranges, delivered)) }));
+          ? this.materialProof(handle, citation, context, delivered) : citation.kind === 'note'
+            ? this.noteProof(handle, citation, context, delivered) : this.learningProof(handle, citation, request, context, ranges, delivered)) }));
     const refs = [address(request.source), ...paragraphs.flatMap(paragraph => paragraph.sources.flatMap(proof => this.proofRefs(proof)))];
     const unique = [...new Map(refs.map(ref => [canonical(ref), ref])).values()];
     if (unique.length > 32) throw new HarnessError('letter_source_budget', '这封信涉及的独立来源过多，请保留真正重要的片段，不丢掉它们的条件。');
@@ -318,6 +389,7 @@ export class ReflectiveLetterService {
     // request read is enough for an honestly short, non-factual care letter.
     const materialReads = delivered.filter(observation => observation.tool === 'read_evidence'
       || observation.tool === 'read_learning' || observation.tool === 'materials.read'
+      || observation.tool === 'manage_note' && (observation.requestedArguments as { operation?: unknown })?.operation === 'read'
       || observation.tool === 'look_up' && (observation.requestedArguments as any)?.capability === 'materials.read'
       || (observation.result as any)?.data?.type === 'reflective_letter_request'
         && (observation.result as any)?.data?.opportunityId === opportunity.id);
@@ -326,6 +398,8 @@ export class ReflectiveLetterService {
       const result = observation.result as any;
       if (result?.data?.type === 'reflective_letter_request') return true;
       if (observation.tool === 'read_evidence') return usedEvents.has(result?.id);
+      if (observation.tool === 'manage_note') return paragraphs.some(paragraph => paragraph.sources.some(proof =>
+        proof.kind === 'note' && result?.note?.id === proof.id && result.note.revision === proof.revision && result.note.sha256 === proof.sha256));
       if (observation.tool === 'read_learning') return paragraphs.some(paragraph => paragraph.sources.some(proof => proof.kind === 'learning'
         && result?.items?.some((item: any) => item.id === proof.id && item.revision === proof.revision)));
       return paragraphs.some(paragraph => paragraph.sources.some(proof => proof.kind === 'material' && result?.data?.source?.resourceId === proof.resourceId));
@@ -387,10 +461,11 @@ export class ReflectiveLetterService {
   }
 
   private proofRefs(proof: ReflectiveLetterProof): WorkSourceRef[] {
-    return proof.kind === 'original' ? [address(proof)] : proof.kind === 'material' ? proof.sourceEnvelopeRefs : proof.sourceBinding.refs;
+    return proof.kind === 'original' ? [address(proof)] : proof.kind === 'material' ? proof.sourceEnvelopeRefs : proof.kind === 'note' ? [] : proof.sourceBinding.refs;
   }
 
   private proofCurrent(handle: ScopeHandle, proof: ReflectiveLetterProof, permits?: ReflectiveLetterContext['permits']): boolean {
+    if (proof.kind === 'note') return this.repo.noteSourcesReadable(handle, [noteAddress(proof)]);
     if (proof.kind === 'material') return proof.sourceEnvelopeRefs.every(ref => {
       this.currentOriginal(handle, ref, permits); return true;
     }) && this.dependencies.materialCurrent?.(handle, proof) === true;
@@ -474,6 +549,8 @@ export class ReflectiveLetterService {
   }
 
   private projectProof(handle: ScopeHandle, proof: ReflectiveLetterProof): ReflectiveLetterView['paragraphs'][number]['sources'] {
+    if (proof.kind === 'note') return [{ label: '写在笔记里的片段', read: { tool: 'manage_note', arguments: {
+      operation: 'read', input: { id: proof.id, revision: proof.revision, offset: proof.start, limit: proof.end - proof.start } } } }];
     if (proof.kind === 'learning') return [{ label: '当时的学习过程', read: { tool: 'read_learning',
       arguments: { matterId: String(this.repo.work(handle, 'experience', proof.id)[0]!.data.matterId), id: proof.id } } }];
     if (proof.kind === 'material') return [{ label: '当时读到的资料', read: { tool: 'look_up', arguments: {
@@ -551,6 +628,9 @@ export class ReflectiveLetterService {
     const text = codePointSlice(paragraph.text, input.start, input.end);
     if (!text.trim()) throw new HarnessError('letter_reference_range', '先选中想接着说的一句话。');
     return { text, origin: 'assistant_letter' as const, label: '这封信的这一句', reference: input, paragraphKind: paragraph.kind,
+      ...(input.revision === record.revision ? { read: { tool: 'read_reflective_letter' as const, arguments: {
+        operation: 'read' as const, opportunityId: record.id, expectedRevision: input.revision,
+      } } } : {}),
       ...this.usage(document),
       meaning: '只是本人指着助手当时写下的这句继续说；选择不表示同意，不将来信解释升级为本人事实或新的行动授权。' };
   }
@@ -566,7 +646,15 @@ export class ReflectiveLetterService {
     if (!proof) throw new HarnessError('letter_source_missing', '这处原话入口已经变化。');
     if (!this.proofCurrent(handle, proof)) throw new HarnessError('letter_source_changed', '那时的资料现在不能继续展开。');
     let value: ReflectiveLetterSourceView;
-    if (proof.kind === 'material') {
+    if (proof.kind === 'note') {
+      if (!this.dependencies.readNote) throw new HarnessError('letter_note_unavailable', '这页笔记暂时不能展开。');
+      const page = this.dependencies.readNote(handle, proof);
+      signal.throwIfAborted(); this.scope(handle);
+      if (page.note.id !== proof.id || page.note.revision !== proof.revision || page.note.sha256 !== proof.sha256
+        || page.offset !== proof.start || page.end !== proof.end || sha(page.body) !== proof.quoteSha256)
+        throw new HarnessError('letter_note_changed', '这页笔记与写信时的片段不同了。');
+      value = { heading: page.note.title || '那页笔记', excerpts: [{ label: '写信时读到的片段', text: page.body }] };
+    } else if (proof.kind === 'material') {
       if (!this.dependencies.readMaterial) throw new HarnessError('letter_material_unavailable', '这份原资料暂时不能展开。');
       const result = await this.dependencies.readMaterial(handle, proof, signal) as { status?: string; data?: { text?: string; page?: number;
         source?: { resourceId?: string; sha256?: string; version?: number }; coverage?: { start?: number; end?: number } } };
@@ -600,6 +688,7 @@ export class ReflectiveLetterService {
     const proofs = document.paragraphs.flatMap(paragraph => paragraph.sources);
     return { workSourceBindings: [document.sourceBinding], learningProcessVersions: proofs.flatMap(proof =>
       proof.kind === 'learning' ? [{ id: proof.id, revision: proof.revision }] : []),
+      noteSources: proofs.flatMap(proof => proof.kind === 'note' ? [noteAddress(proof)] : []),
       reflectiveLetterSources: [{ binding: document.sourceBinding, request: document.request, proofs }],
       materialReads: proofs.flatMap(proof => proof.kind === 'material' ? [{ capability: 'materials.read', resourceId: proof.resourceId,
         sha256: proof.sha256, version: proof.version, sourceEventId: proof.sourceEventId, parentEventId: proof.parentEventId,

@@ -1,0 +1,20 @@
+.planning-offer { max-width: 680px; }
+.planning-offer-units { list-style: none; margin: 19px 0 21px; padding: 0; }
+.planning-offer-units > li { display: grid; grid-template-columns: 126px minmax(0, 1fr); gap: 18px; padding: 12px 0; }
+.planning-offer-units > li + li { border-top: 1px solid var(--separator); }
+.planning-offer-time { display: flex; flex-direction: column; gap: 3px; color: var(--text-secondary); font-size: 12px; font-variant-numeric: tabular-nums; }
+.planning-offer-time > span { color: var(--text-tertiary); font-size: 11px; }
+.planning-offer-content strong { font-size: 14px; font-weight: 500; line-height: 1.65; }
+.planning-offer-content p { margin: 4px 0 0; color: var(--text-secondary); font-size: 12px; line-height: 1.75; }
+.planning-offer-transition .planning-offer-content strong, .planning-offer-protected .planning-offer-content strong { color: var(--text-secondary); font-weight: 400; }
+.planning-offer-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.planning-offer-footer > small { color: var(--text-tertiary); font-size: 11px; }
+.planning-offer-footer .action-buttons { margin: 0; }
+.planning-offer-status { margin: 13px 0 0; color: var(--text-secondary); font-size: 12px; line-height: 1.8; }
+.planning-offer-status > p { margin: 0; }
+.planning-offer-status summary { cursor: pointer; width: fit-content; margin-top: 4px; color: var(--text-tertiary); }
+.planning-offer-status details p { margin: 7px 0 0; }
+@media (max-width: 560px) {
+  .planning-offer-units > li { grid-template-columns: 1fr; gap: 4px; }
+  .planning-offer-time { flex-direction: row; align-items: baseline; gap: 10px; }
+}

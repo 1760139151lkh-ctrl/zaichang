@@ -1,0 +1,30 @@
+{
+  "scope": "2026-10-23 isolated synthetic-data runtime observations; not user private records, not complete UX acceptance",
+  "files": [
+    {
+      "file": "root-learning-width-corrected.png",
+      "bytes": 759396,
+      "sha256": "8e8838ef80bfa4d0f4d58518d6821211d8301a9d115f574eb52fb9739dd14f41"
+    },
+    {
+      "file": "restarted-home.png",
+      "bytes": 696631,
+      "sha256": "d24874d1d3f06fbc6e8cf8e0d2fd67d0ae32ff44d38ca1acf64431334e9cda77"
+    },
+    {
+      "file": "narrow-home-adjusted.png",
+      "bytes": 320587,
+      "sha256": "c151dcf1099cd57b94520c9228a5f3dd8c0603f54401430ceada8a2dcaadfec5"
+    },
+    {
+      "file": "learning-correction-result.json",
+      "bytes": 878,
+      "sha256": "b5db7cb028630cf75b1b15bb06f1b51a513dda95e3e0d382f6577ebb5d884292"
+    },
+    {
+      "file": "learning-open-original-note.png",
+      "bytes": 91374,
+      "sha256": "74e31320c38bc8ef16cc399fe42bba28d5a3b5e6ff6fe109a9405db3595fc9d1"
+    }
+  ]
+}

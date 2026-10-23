@@ -65,6 +65,9 @@ export function matchesVisibleQuery(query: string, text: string) {
 }
 
 export function projectHistoricalEvidence(repo: KernelRepository, scope: ScopeHandle, original: EvidenceEvent, project?: EvidenceProjection) {
+  const permission = repo.scope(scope);
+  if (!permission.grants.includes('evidence:read') || original.sourceId === 'profile:self'
+    && !permission.currentEventIds.includes(original.id) && !permission.grants.includes('memory:read')) return undefined;
   const event = visibleEvidence(original, project);
   if (!event) return undefined;
   const historical = repo.historicalEvidence(scope, event);
@@ -76,6 +79,7 @@ export function projectHistoricalEvidence(repo: KernelRepository, scope: ScopeHa
 
 /** A selected understanding carries its conditions, exceptions and actual versioned dependencies. */
 export function expandRecallBundle(repo: KernelRepository, scope: ScopeHandle, root: Assertion, at: string, project?: EvidenceProjection) {
+  if (!repo.personalMemoryReadable(scope)) return undefined;
   const assertions = new Map<string, Assertion>(), sources = new Map<string, EvidenceEvent>();
   const queue = [{ assertion: root, depth: 0 }], visited = new Set<string>();
   const gaps: { relation: 'exception' | 'dependency'; reason: string; id?: string }[] = [];
@@ -94,6 +98,10 @@ export function expandRecallBundle(repo: KernelRepository, scope: ScopeHandle, r
     if (visited.has(assertion.id)) continue;
     visited.add(assertion.id);
     if (!currentAssertion(assertion, at)) continue;
+    if (!repo.assertionReferenceContextsReadable(scope, assertion.referenceContexts)) {
+      if (assertion.id === root.id) return undefined;
+      gaps.push({ relation: 'dependency', reason: 'reference_context_unavailable', id: assertion.id }); continue;
+    }
     const originals = assertion.evidenceIds.map(id => repo.evidence(scope, id));
     if (originals.some(event => !event || !visibleEvidence(event, project) || visibleEvidence(event, project)!.text !== event.text)) {
       if (assertion.id === root.id) return undefined;
@@ -124,6 +132,10 @@ export function expandRecallBundle(repo: KernelRepository, scope: ScopeHandle, r
       if (!schedule(id, 'exception')) gaps.push({ relation: 'exception', reason: 'unavailable_in_scope' });
     }
     for (const dep of repo.dependencies(assertion.id)) {
+      // The original question has its own checked Message address above. Its
+      // privacy edge supports erasure, not a second personal fact to expand.
+      if (dep.sensitivity === 'privacy' && dep.producerRevision === 0
+        && assertion.referenceContexts?.some(reference => reference.messageId === dep.producerId)) continue;
       const relation = assertion.exceptionIds.includes(dep.producerId) ? 'exception' : 'dependency';
       if (schedule(dep.producerId, relation, dep.producerRevision)) continue;
       const event = repo.evidence(scope, dep.producerId);
@@ -138,15 +150,16 @@ export function expandRecallBundle(repo: KernelRepository, scope: ScopeHandle, r
     return { id: e.id, text: e.text, contentVersion: e.contentVersion, receivedAt: e.receivedAt, sourceId: e.sourceId, authority: e.authority,
       ...(e.sourceContext ? { sourceContext: e.sourceContext } : {}), use, restrictions };
   }), dependencyCoverage: { status: gaps.length ? 'incomplete' : 'complete', gaps, maxDepth: MAX_DEPTH, maxAdditionalObjects: MAX_ADDITIONAL_OBJECTS,
-    meaning: gaps.length ? '条件组合未闭合；不得按完整现行依据使用，先核对缺口或给条件性判断。' : '已展开所记录的关系；这不证明未记录的现实条件全部齐备。' } };
+    meaning: gaps.length ? '这些关联里还有缺少的条件或来源，眼下不足以作为完整的现行依据。可以沿gaps核对影响结论的那一处，或在已知条件下作判断。' : '已展开所记录的关系；这不证明未记录的现实条件全部齐备。' } };
 }
 
 /** Fixed, disclosed ranking window; continuations retain the real query so deeper hits remain reachable. */
 export function multiQueryRecall(repo: KernelRepository, scope: ScopeHandle, queries: string[], at: string,
   offset: number, limit: number, hardOffset: number, profileAllowed: boolean, historyAllowed: boolean) {
   const window = 51;
-  const softArms = profileAllowed ? queries.map(query => repo.lexicalAssertionPage(scope, query, { at, verified: true, strength: 'non_hard', limit: window })) : [];
-  const hardArms = profileAllowed ? queries.map(query => repo.lexicalAssertionPage(scope, query, { at, verified: true, strength: 'hard', limit: window })) : [];
+  const readProfile = profileAllowed && repo.personalMemoryReadable(scope);
+  const softArms = readProfile ? queries.map(query => repo.lexicalAssertionPage(scope, query, { at, verified: true, strength: 'non_hard', limit: window })) : [];
+  const hardArms = readProfile ? queries.map(query => repo.lexicalAssertionPage(scope, query, { at, verified: true, strength: 'hard', limit: window })) : [];
   const originalArms = historyAllowed ? queries.map(query => repo.lexicalEvidence(scope, query, window)) : [];
   const soft = fuseRecallRanks(softArms.map(arm => arm.items)), hard = fuseRecallRanks(hardArms.map(arm => arm.items));
   const originals = fuseRecallRanks(originalArms);

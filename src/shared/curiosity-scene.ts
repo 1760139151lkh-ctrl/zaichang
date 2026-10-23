@@ -4,6 +4,7 @@ import type { SceneRef, SceneSource } from './scenes';
 import type { CuriosityInvitationView } from './curiosity-invitation';
 import type { CuriosityChapterAddress } from './curiosity-source';
 import { storySettingSnapshotSchema } from './story-setting';
+import type { NoteSourceProof } from './notes-source';
 
 const id = z.string().min(1).max(160);
 const revision = z.number().int().positive();
@@ -49,7 +50,8 @@ export interface CuriosityScene extends SceneRef {
   createdAt: string;
   source: SceneSource;
   view: CuriosityInvitationView;
-  provenance: { sourceBinding: z.infer<typeof workSourceBindingSchema>; assistantWorkSources?: CuriosityChapterAddress[] };
+  provenance: { sourceBinding: z.infer<typeof workSourceBindingSchema>; assistantWorkSources?: CuriosityChapterAddress[];
+    noteSources?: NoteSourceProof[] };
 }
 
 /** A normal synchronous history response carries an address, never an old

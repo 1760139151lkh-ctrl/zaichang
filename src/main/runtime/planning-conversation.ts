@@ -10,7 +10,7 @@ import type { PlanningCampusConstraints } from '../actions/planning-campus';
 import { compareCalendarPlans, comparisonSteps, alternativeDraft, describeWorkRhythms, planningBranchUsable, planningComparisonInput, planningComparisonView } from '../actions/planning-comparison';
 import { draftCalendarPlan } from '../actions/planning-draft';
 import { projectCalendarChange } from '../actions/calendar';
-import { canonical } from './semantics';
+import { canonical, dateInZone } from './semantics';
 import { resolveRetainedSourceQuote } from './source-quote';
 
 const id = z.string().min(1).max(160);
@@ -246,6 +246,17 @@ export class PlanningConversationService {
       throw new HarnessError('planning_conversation_plan', '这个规划编号不是本份商量实际生成的后续方案，没有把别的进展接进来。');
     if (data.continuationPlanId && suppliedRefs?.some(ref => !(data.continuationActionRefs || []).some(previous => canonical(previous) === canonical(ref))))
       throw new HarnessError('planning_conversation_action_reference', '后续方案已经沿这些原动作生成，新的动作引用须另行接着商量，不能补签旧采用。');
+    if (sameBaseline(items, data.baseline)) {
+      const comparison = compareCalendarPlans(items, this.withCampus(handle, data.input, campus));
+      const branch = comparison.branches.find(branch => branch.id === data.branchId);
+      if (!branch || !planningBranchUsable(branch))
+        return { status: 'continue_discussion', matterId: frame.id, optionId: record.id, revision: record.revision,
+          nextProposal: null, remaining: null, unscheduled: branch?.draft?.unscheduled || [],
+          issues: branch?.issues || [], workRhythms: branch?.workRhythms || [],
+          actionRefs: data.continuationActionRefs || [], records: [frame, record], bindings: [record.sourceBinding!],
+          applied: false, executionAuthorized: false,
+          meaning: '这一版目前尚未形成完整可接续的安排，未安排工作和具体原因仍留在原商量里。这次没有新增日历动作。' };
+    }
     if (data.continuationPlanId) return { status: 'continue_existing_plan', matterId: frame.id, optionId: record.id, revision: record.revision,
       remaining: this.planning.recover(scope, items, { planId: data.continuationPlanId }), records: [frame, record], bindings: [record.sourceBinding!],
       actionRefs: data.continuationActionRefs || [],
@@ -348,25 +359,36 @@ export class PlanningConversationService {
       nextProposal: next?.proposal || null, remaining: null,
       meaning: '按顺序给原动作提议，每一步仍核当前授权。看中这一版不等于批准；已经成功的步骤不重做，也不冒称整组原子完成。' };
     const draft = alternativeDraft(data.input, alternative);
+    const now = Date.parse(this.repo.clock.now());
+    if (!Number.isFinite(now)) throw new HarnessError('planning_clock', '当前时间无法核对，尚未继续安排。');
+    const from = Math.max(Date.parse(draft.from), (Math.floor(now / 60000) + 1) * 60000), to = Date.parse(draft.to);
+    if (from >= to || draft.scheduleWindows !== undefined && !draft.scheduleWindows.some(window =>
+      Date.parse(window.start) < to && Date.parse(window.end) > from))
+      return { ...common, status: 'continue_discussion', nextProposal: null, remaining: null,
+        unscheduled: draft.tasks.map(task => ({ taskId: task.id, title: task.title, remainingMinutes: task.durationMinutes.max,
+          code: 'no_future_domain', reason: '原来商量的可安排时间已经过去，尚未安排的工作仍保留。' })),
+        meaning: '原时间范围已没有可继续安排的未来时段，任务没有当作完成，也没有自动移到另一天；需要重新商量时间。' };
+    const firstDate = dateInZone(new Date(from).toISOString(), draft.timeZone), lastDate = dateInZone(new Date(to - 1).toISOString(), draft.timeZone);
+    const futureDraft = { ...draft, from: new Date(from).toISOString(),
+      dailyBudgets: draft.dailyBudgets.filter(budget => budget.date >= firstDate && budget.date <= lastDate) };
     // Campus rows already in the stored comparison are a past calculation,
     // not fresh facts. The host passes the current snapshot to the old planner.
-    const freshDraft = campus ? { ...draft, busy: draft.busy.filter(value => value.sourceId !== campus.coverage.sourceId),
-      sourceCoverage: draft.sourceCoverage.filter(value => value.sourceId !== campus.coverage.sourceId) } : draft;
+    const freshDraft = campus ? { ...futureDraft, busy: futureDraft.busy.filter(value => value.sourceId !== campus.coverage.sourceId),
+      sourceCoverage: futureDraft.sourceCoverage.filter(value => value.sourceId !== campus.coverage.sourceId) } : futureDraft;
     this.scope(handle, true);
     if (data.sourceIds.includes('campus:zju-account') && !campus)
       return { ...common, status: 'continue_discussion', nextProposal: null, remaining: null,
         meaning: '原商量借用了校园安排，先按当前允许范围回读同一窗口，再续排；已经完成的原动作仍保留。' };
-    if (alternative.taskPreferences.some(preference => preference.rhythm)) {
-      const currentDraft = campus ? { ...freshDraft, busy: [...freshDraft.busy, ...campus.busy],
-        sourceCoverage: [...freshDraft.sourceCoverage, campus.coverage] } : freshDraft;
-      const projected = draftCalendarPlan(items, currentDraft);
-      const workRhythms = describeWorkRhythms(data.input, alternative, projected);
-      if (workRhythms.some(rhythm => !rhythm.complete || !rhythm.matchesRequest))
-        return { ...common, status: 'continue_discussion', nextProposal: null, remaining: null, workRhythms,
-          unscheduled: projected.unscheduled,
-          meaning: '原动作已成功的部分保留；按当前现实还没把这份完整工作排成刚才选的节奏，先接着商量，没有用少做一点冒充采用同一版，也没有另建旧票据。' };
-    }
-    const remaining = this.planning.prepare(scope, items, freshDraft, undefined, campus);
+    const currentDraft = campus ? { ...freshDraft, busy: [...freshDraft.busy, ...campus.busy],
+      sourceCoverage: [...freshDraft.sourceCoverage, campus.coverage] } : freshDraft;
+    const projected = draftCalendarPlan(items, currentDraft);
+    const projectedRhythms = describeWorkRhythms(data.input, alternative, projected);
+    if (projected.completeness !== 'all_tasks_placed' || projected.unscheduled.length
+      || projectedRhythms.some(rhythm => !rhythm.complete || !rhythm.matchesRequest))
+      return { ...common, status: 'continue_discussion', nextProposal: null, remaining: null, workRhythms: projectedRhythms,
+        unscheduled: projected.unscheduled,
+        meaning: '这次还没有形成这份完整工作的后续安排，原工作量、准备收尾与休息继续保留。已成功的原动作和未安排工作仍各自留在这件商量里。' };
+    const remaining = this.planning.prepare(scope, items, freshDraft, undefined, campus, { futureOnly: true });
     const workRhythms = describeWorkRhythms(data.input, alternative, remaining);
     const nextRecord: WorkRecord = { ...record, revision: record.revision + 1,
       data: { ...record.data, continuationPlanId: remaining.planId, updatedAt: this.repo.clock.now() } };

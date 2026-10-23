@@ -244,8 +244,8 @@ test('校园工具按真实权限提供，兼容别名不进入模型 schema', a
   const overview = JSON.parse(await registry.execute('look_up', '{"source":"campus","mode":"overview"}'));
   assert.equal(overview.sourceId, 'campus:zju-account');
   assert.ok(Array.isArray(overview.data.domains));
-  assert.match(await registry.execute('look_up', '{"source":"campus","mode":"refresh","domain":"schedule"}'), /schedule/);
-  assert.deepEqual(calls, ['read:schedule:false', 'full:false', 'read:schedule:true']); store.close();
+  assert.equal(JSON.parse(await registry.execute('look_up', '{"source":"campus","mode":"refresh","domain":"schedule"}')).status, 'forbidden');
+  assert.deepEqual(calls, ['read:schedule:false', 'full:false']); store.close();
 });
 test('校园读取的 partial/auth 状态进入 blocked 步骤，不伪装成完成', async () => {
   const store = new Store(':memory:'); const statuses: string[] = [];
@@ -255,7 +255,7 @@ test('校园读取的 partial/auth 状态进入 blocked 步骤，不伪装成完
   };
   const registry = new ToolRegistry(ctx(store, { campus: campus as any, step: s => statuses.push(s.status), campusMemo: { fullContextUsed: false, domains: new Set(), results: new Map() } }));
   const output = JSON.parse(await registry.execute('look_up', '{"source":"campus","domain":"schedule"}'));
-  assert.equal(output.status, 'unknown'); assert.equal(statuses.at(-1), 'blocked'); store.close();
+  assert.equal(output.status, 'partial'); assert.equal(statuses.at(-1), 'blocked'); store.close();
 });
 test('校园读取按任务取单域，合格缓存不重复扫描，也不主动读取成绩', async () => {
   const store = new Store(':memory:'); store.saveSettings({ mode: 'deepseek' });
@@ -596,10 +596,10 @@ test('只读分身按 child scope 重编 ContextPack，不继承父 pack 正文'
   };
   let foregroundCalls = 0;
   const fake = {
-    complete: async (messages: WireMessage[]) => {
+    complete: async (messages: WireMessage[], _tools: unknown, _signal: unknown, _onText: unknown, options?: { phase?: string }) => {
       if (messages[0].content?.includes('[harness:extract'))
         return complete(JSON.stringify({ status: 'no_personal_fact', changes: [] }));
-      if (messages[0].content?.includes('这是独立只读取证任务')) {
+      if (options?.phase === 'child') {
         childPayloads.push(messages.at(-1)?.content || '');
         return complete('子任务只使用自己的范围。');
       }
@@ -664,7 +664,7 @@ test('完整 harness：拆解、并行分身、汇总、只准备行动、不擅
     maxActive = 0;
   const events: RunEvent[] = [];
   const fake = {
-    complete: async (messages: WireMessage[]) => {
+    complete: async (messages: WireMessage[], _tools: unknown, _signal: unknown, _onText: unknown, options?: { phase?: string }) => {
       if (messages[0].content?.includes('[harness:extract'))
         return complete(JSON.stringify({ status: 'no_personal_fact', changes: [] }));
       if (messages[0].content?.includes('[harness:verify'))
@@ -680,7 +680,7 @@ test('完整 harness：拆解、并行分身、汇总、只准备行动、不擅
             futureUse: null, useScope: null, preservesUseScope: true,
           }),
         );
-      if (messages[0].content?.includes('这是独立只读取证任务')) {
+      if (options?.phase === 'child') {
         active++;
         maxActive = Math.max(maxActive, active);
         await delay(25);

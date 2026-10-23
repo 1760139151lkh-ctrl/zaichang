@@ -64,8 +64,10 @@ export class EvidenceBrowser {
       throw new HarnessError('browse_position_invalid', '原文续读位置不合法，尚未移动浏览位置。');
     if (options.cursor && !seed && (!prior || !('binding' in prior) || prior.binding !== binding))
       throw new HarnessError('browse_cursor_expired', '浏览游标已过期、进程已重启或资料范围已改变，请在当前范围重新开始。');
-    const sourceIds = [...new Set(options.sourceIds ?? prior?.sourceIds ?? scope.sources.filter(source => source !== 'current'))].sort();
-    if (sourceIds.some(source => !scope.sources.includes(source)))
+    const sourceIds = [...new Set(options.sourceIds ?? prior?.sourceIds ?? scope.sources
+      .filter(source => source !== 'current' && (source !== 'profile:self' || repo.personalMemoryReadable(handle))))].sort();
+    if (sourceIds.some(source => !scope.sources.includes(source)
+      || source === 'profile:self' && !repo.personalMemoryReadable(handle)))
       throw new HarnessError('source_forbidden', '本轮不允许浏览所选来源。');
     const receivedFrom = options.receivedFrom ?? prior?.receivedFrom;
     const receivedBefore = options.receivedBefore ?? prior?.receivedBefore;

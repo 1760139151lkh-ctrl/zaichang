@@ -1,6 +1,6 @@
 .academic-view { max-width: 880px; min-width: 0; margin: 12px 0; padding: 28px 30px 18px; border: 1px solid var(--separator); border-radius: 20px; background: color-mix(in srgb, var(--surface) 93%, transparent); box-shadow: 0 5px 20px #51463307; color: var(--text); }
 .academic-heading { display: flex; align-items: start; justify-content: space-between; gap: 18px; margin-bottom: 23px; }
-.academic-heading h3 { margin: 0; font-family: var(--font-serif, 'Songti SC', 'STSong', serif); font-size: 25px; line-height: 1.45; font-weight: 560; letter-spacing: .025em; }
+.academic-heading h3 { margin: 0; font-family: var(--font-reading); font-size: 25px; line-height: 1.45; font-weight: 560; letter-spacing: .025em; }
 .academic-heading p { margin: 4px 0 0; color: var(--text-secondary); font-size: 13px; }
 .academic-scales { display: flex; flex-wrap: wrap; justify-content: end; gap: 4px; max-width: 330px; }
 .academic-scales button { border: 0; border-bottom: 1px solid transparent; border-radius: 0; padding: 5px 7px; background: transparent; font: inherit; font-size: 11px; color: var(--text-secondary); cursor: pointer; }

@@ -133,3 +133,92 @@ test('context receipts retain derived scene sources and a selected scene outside
     assert.ok((pack.data.currentSelection as any)?.timeBlock);
   } finally { f.close(); }
 });
+
+test('notebook question correction keeps one study owner, exact Unicode sources and earlier help boundaries', async () => {
+  const f = new Fixture();
+  try {
+    const runtime = f.store.runtime, study = runtime.studyCompanion, sessionId = 'synthetic-note-study';
+    const initial = f.ingest('我写到 E(X)=np。请把笔记里的题目和这一步放在一起。', 'synthetic-study-request', { sessionId });
+    const citation = (event: typeof initial) => ({ eventId: event.id, contentVersion: event.contentVersion,
+      start: 0, end: Array.from(event.text).length, quote: event.text });
+    const source = citation(initial), handle = f.scope({ currentEventIds: [initial.id] });
+    const frame = runtime.collaboration.update(handle, sessionId, { operation: 'frame', source,
+      title: '合成二项分布学习', frame: { question: '继续原笔记中的题目', confirmedFacts: [], decisions: [],
+        tentativeUnderstanding: [], participation: [], rejectedOptions: [], nextStep: null } });
+    const matter = { ...frame, revision: frame.revision + 1, sourceBinding: f.repo.resolveWorkSourceBinding(handle,
+      [{ eventId: source.eventId, contentVersion: source.contentVersion, start: source.start, end: source.end }]) };
+    f.repo.saveSourcedWork(handle, matter, frame.revision);
+    const created = f.store.notes.create({ title: '合成概率笔记', body: '😀前记\n证明二项分布的方差；我不明白交叉项为什么消失。\n后记' });
+    assert.equal(created.status, 'saved');
+    if (created.status !== 'saved') throw new Error('fixture note missing');
+    const start = 4, end = Array.from(created.note.body).length - 3;
+    const page = f.store.notes.read({ id: created.note.id, offset: start, limit: end - start }, handle);
+    const proof = { id: page.note.id, revision: page.note.revision, sha256: page.note.sha256, start, end };
+    const problem = { kind: 'note' as const, id: proof.id, revision: proof.revision, start, end };
+    const open = { operation: 'open' as const, matterId: matter.id, expectedMatterRevision: matter.revision, source,
+      title: '合成学习纸', problem, mode: 'small_hint' as const, focus: '交叉项', nextStart: '只向前一步' };
+    await assert.rejects(study.execute(handle, open, { sessionId }), /先沿manage_note/);
+    await assert.rejects(study.execute(handle, { ...open, problem: { ...problem, end: end + 1 } },
+      { sessionId, noteSources: [proof] }), /先沿manage_note/, 'an unread character must not be borrowed from the stored note');
+    const attemptText = '我写到 E(X)=np。', helpingText = '先把不同指标的交叉项单独写出来。';
+    // Reproduce the real old paper: the requested activity was mistakenly
+    // stored as its question. Repair must retain this owner and the real work.
+    const before = await study.execute(handle, { ...open, problem: { kind: 'evidence', source },
+      attempt: { ...source, end: Array.from(attemptText).length, quote: attemptText },
+      packet: { kind: 'hint', text: helpingText, nextMove: '先看一个交叉项。' } }, { sessionId });
+    const original = before.items[0], correction = f.ingest('左栏改成笔记里的原题，保留我的尝试。', 'synthetic-study-correction', { sessionId });
+    const originalRead = await study.get(handle, original.id);
+    assert.ok(originalRead);
+    const originalSnapshot = study.sourceVersionSnapshot(handle, originalRead.record);
+    assert.ok(originalSnapshot);
+    const correcting = f.scope({ currentEventIds: [correction.id] });
+    const after = await study.execute(correcting, { operation: 'respond', id: original.id, expectedRevision: original.revision,
+      source: citation(correction), problem }, { sessionId, noteSources: [proof] });
+    const fixed = after.items[0];
+    assert.equal(fixed.id, original.id);
+    assert.equal(fixed.revision, original.revision + 1);
+    assert.equal(fixed.problem.display, page.body);
+    assert.deepEqual(fixed.problem.origin.note, proof);
+    assert.equal(fixed.attempts[0].id, original.attempts[0].id);
+    assert.equal(fixed.currentStep?.id, original.currentStep?.id);
+    assert.equal(f.store.notes.read({ id: proof.id }).note.revision, 1, 'selecting/correcting a study source never edits the notebook');
+    assert.deepEqual(f.repo.workNoteSources(correcting, after.records), [proof]);
+    const fixedRead = await study.get(correcting, fixed.id);
+    assert.ok(fixedRead);
+    const fixedSnapshot = study.sourceVersionSnapshot(correcting, fixedRead.record);
+    assert.ok(fixedSnapshot);
+    assert.equal(study.verifyFrozenSources(correcting, { id: original.id, ...originalSnapshot }), true,
+      'correcting the current question does not replace an earlier frozen source');
+    assert.deepEqual(fixedSnapshot.noteSources, [proof]);
+    assert.equal(study.verifyFrozenSources(correcting, { id: fixed.id, ...fixedSnapshot }), true);
+    assert.equal(study.verifyFrozenSources(correcting, { id: fixed.id, ...fixedSnapshot, noteSources: [] }), false,
+      'a notebook question cannot lose its exact source proof in the historical version');
+    const blocked = f.scope({ sources: f.repo.scope(correcting).sources.filter(value => value !== 'notes:self') });
+    assert.equal(await study.get(blocked, fixed.id), undefined);
+    assert.equal(study.index(blocked).items.length, 0);
+    const updated = f.store.notes.update({ id: proof.id, expectedRevision: 1, title: '合成概率笔记', body: '这是更新后的笔记。' });
+    assert.equal(updated.status, 'saved');
+    assert.equal((await study.get(correcting, fixed.id))?.projection.problem.display, page.body,
+      'a normal edit preserves the exact historical notebook revision already used by this paper');
+    const next = f.store.notes.create({ title: '更正后的合成题目', body: '只研究两个独立的伯努利变量。' });
+    assert.equal(next.status, 'saved');
+    if (next.status !== 'saved') throw new Error('fixture correction note missing');
+    const nextProof = { id: next.note.id, revision: 1, sha256: next.note.sha256, start: 0, end: Array.from(next.note.body).length };
+    const correctedAgain = await study.execute(correcting, { operation: 'respond', id: fixed.id, expectedRevision: fixed.revision,
+      source: citation(correction), problem: { kind: 'note', id: nextProof.id, revision: 1, start: 0, end: nextProof.end } },
+    { sessionId, noteSources: [nextProof] });
+    const current = correctedAgain.items[0], noteSources = f.repo.workNoteSources(correcting, correctedAgain.records);
+    assert.deepEqual(new Set(noteSources.map(value => value.id)), new Set([proof.id, nextProof.id]));
+    const help = await runtime.personalMethods.workHelpOwner!.prepare(correcting, { owner: 'study_companion', id: current.id,
+      revision: current.revision, matterId: matter.id, stepId: current.currentStep!.id, start: 0,
+      end: Array.from(helpingText).length, quote: helpingText }, {});
+    assert.equal(runtime.personalMethods.workHelpOwner!.verify(correcting, help.proof), true);
+    f.store.notes.changeState({ id: proof.id, expectedRevision: 2, state: 'deleted' });
+    assert.equal(await study.get(correcting, current.id), undefined,
+      'changing the visible question must not launder the notebook used by earlier teaching');
+    assert.equal(runtime.personalMethods.workHelpOwner!.verify(correcting, help.proof), false);
+    assert.equal(study.verifyFrozenSources(correcting, { id: fixed.id, ...fixedSnapshot }), false);
+    assert.equal(f.repo.planningMessageReadable(correcting, { contextReceipt: { noteSources } }), false);
+    assert.equal(f.store.notes.read({ id: nextProof.id }).body, next.note.body, 'an independent new notebook is preserved');
+  } finally { f.close(); }
+});

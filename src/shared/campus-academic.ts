@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import type { CampusScene, SceneRef, SceneSource } from './scenes';
 export const campusSensitiveReadSchema = z.object({
-  grant: z.enum(['campus:grades:read', 'campus:gpa:read']),
-  resource: z.enum(['grades', 'retakes', 'gpa_overall', 'gpa_semesters', 'gpa_cumulative']),
+  grant: z.enum(['campus:grades:read', 'campus:gpa:read', 'campus:reservations:read', 'campus:card:read', 'campus:transactions:read', 'campus:profile:read']),
+  resource: z.enum(['grades', 'retakes', 'gpa_overall', 'gpa_semesters', 'gpa_cumulative', 'reservations', 'reservation_violations', 'card_accounts', 'transactions', 'student_profile', 'roles']),
   sourceId: z.enum(['campus:zju-account', 'campus:local']), sourceVersion: z.string().min(1).max(160),
   authorizationEventId: z.string().min(1).max(160), authorizationContentVersion: z.number().int().positive(),
   privacyEpoch: z.number().int().nonnegative(), policyRevision: z.number().int().positive(),

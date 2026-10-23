@@ -1,6 +1,8 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { Bridge, RunEvent } from '../shared/types';
 const bridge: Bridge = {
+  readProgramLocalState: input => ipcRenderer.invoke('program:local-state:read', input),
+  saveProgramLocalState: input => ipcRenderer.invoke('program:local-state:save', input),
   rehearsalProject: input => ipcRenderer.invoke('rehearsal:project', input),
   studyProject: input => ipcRenderer.invoke('study:project', input),
   studyRead: input => ipcRenderer.invoke('study:read', input),
@@ -18,6 +20,8 @@ const bridge: Bridge = {
   materialsCancel: () => ipcRenderer.invoke('materials:cancel'),
   materialsExport: input => ipcRenderer.invoke('materials:export', input),
   materialsDiscard: input => ipcRenderer.invoke('materials:discard', input),
+  materialsQuote: input => ipcRenderer.invoke('materials:quote', input),
+  materialsKeepQuote: input => ipcRenderer.invoke('materials:keep-quote', input),
   notesList: input => ipcRenderer.invoke('notes:list', input),
   notesRead: input => ipcRenderer.invoke('notes:read', input),
   notesCreate: input => ipcRenderer.invoke('notes:create', input),
@@ -45,6 +49,7 @@ const bridge: Bridge = {
   send: (input) => ipcRenderer.invoke('send', input),
   stop: () => ipcRenderer.invoke('stop'),
   saveSettings: (input) => ipcRenderer.invoke('settings:save', input),
+  followDefaultCompanion: (companionId) => ipcRenderer.invoke('persona:follow-default', companionId),
   testConnection: (input) => ipcRenderer.invoke('connection:test', input),
   deleteKey: () => ipcRenderer.invoke('key:delete'),
   cancelConnection: () => ipcRenderer.invoke('connection:cancel'),
@@ -88,6 +93,11 @@ const bridge: Bridge = {
   openLink: (url) => ipcRenderer.invoke('link:open', url),
   copyText: (text) => ipcRenderer.invoke('text:copy', text),
   window: (action) => ipcRenderer.send('window', action),
+  onNavigate: (callback) => {
+    const listener = (_event: unknown, target: unknown) => callback(target as never);
+    ipcRenderer.on('zaichang:navigate', listener);
+    return () => ipcRenderer.removeListener('zaichang:navigate', listener);
+  },
   onCloseRequest: (callback) => {
     const listener = () => callback();
     ipcRenderer.on('zaichang:close-request', listener);

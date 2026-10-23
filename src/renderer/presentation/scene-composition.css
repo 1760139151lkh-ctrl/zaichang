@@ -1,0 +1,45 @@
+.scene-composition { min-width:0; }
+.scene-composition-surface { min-width:0; }
+.scene-focus-switch { display:flex; gap:5px; margin:0 0 12px; overflow-x:auto; scrollbar-width:thin; }
+.scene-focus-switch button { display:flex; align-items:center; justify-content:center; gap:7px; flex-shrink:0; min-height:36px; padding:7px 13px; border:1px solid transparent; border-radius:99px; background:transparent; font:inherit; font-size:12px; color:var(--text-secondary); cursor:pointer; }
+.scene-focus-switch button:hover { background:var(--wash); }
+.scene-focus-switch button[aria-pressed='true'] { background:var(--accent-soft); color:var(--accent); border-color:var(--accent-dim); }
+.scene-focus-switch button:focus-visible { outline:2px solid var(--focus); outline-offset:-2px; }
+.presentation-scenes-focus { gap:16px; align-items:start; }
+.presentation-scenes-focus > .scene-composition-surface { border:1px solid var(--separator); border-radius:18px; background:var(--surface); padding:14px; }
+.presentation-scenes-focus .conversation-map { margin:0; }
+.presentation-scenes-focus .presentation-map-slot { min-height:0; }
+.presentation-scenes-focus .presentation-weather { border:0; padding:4px 0; }
+.presentation-scenes-focus .presentation-weather-heading { margin-bottom:12px; }
+.presentation-scenes-focus .presentation-weather-source { margin-top:8px; }
+.presentation-scenes-focus .planning-time { margin:0; }
+
+  .scene-composition[data-wide="true"] .presentation-scenes-focus { grid-template-columns:var(--scene-main-width,minmax(0,1.8fr)) var(--scene-support-width,minmax(260px,1fr)); }
+  .scene-composition[data-wide="true"] .presentation-scenes-focus > .scene-composition-surface { grid-column:2; grid-row:var(--scene-row) / span var(--scene-span); }
+  .scene-composition[data-wide="true"] .presentation-scenes-focus > .scene-composition-surface[data-primary='true'] { grid-column:1; }
+  .scene-composition[data-wide="true"] .presentation-scenes-focus > [data-primary='true'][data-scene-kind='map'] { padding:0; overflow:clip; }
+  .scene-composition[data-wide="true"] .presentation-scenes-focus > [data-primary='true'] .conversation-map:not([data-focused='true']) .conversation-map-canvas { height:460px; }
+  .scene-composition[data-wide="true"] .presentation-scenes-focus > [data-primary='false'] .conversation-map:not([data-focused='true']) .conversation-map-canvas { height:250px; }
+  .scene-composition[data-wide="true"] .presentation-scenes-focus > [data-primary='false'] .presentation-weather-days { grid-auto-columns:68px; }
+  .scene-composition[data-wide="true"] .presentation-scenes-focus > [data-primary='false'] .presentation-weather-day { padding:10px 4px; }
+
+
+  .scene-composition[data-wide="false"] .presentation-scenes-focus > .scene-composition-surface[data-primary='true'] { order:-1; }
+  .scene-composition[data-wide="false"] .presentation-scenes-focus > .scene-composition-surface[data-primary='false'] { max-height:330px; overflow:auto; scrollbar-width:thin; }
+
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='reduced']) .scene-focus-switch button { transition:background 160ms ease,color 160ms ease,border-color 160ms ease; }
+}
+
+/* A focused map stays in the same DOM surface; no ancestor may crop it. */
+.workspace .message-scroll:has(.conversation-map:is([data-focused="true"],[data-transitioning="true"])) { mask-image:none; overflow:visible; }
+.scene-composition:has(.conversation-map:is([data-focused="true"],[data-transitioning="true"])) .scene-composition-surface { overflow:visible; }
+.conversation-map[data-transitioning='true'] { z-index:70; }
+
+/* A working page needs room for actual writing, including its one composer. */
+.conversation-space:not(.with-materials) .messages:has(.scene-composition.has-focus) { width:calc(100% - 64px); max-width:1160px; }
+.messages:has(.scene-composition.has-focus) .assistant-message > div > .markdown { max-width:800px; }
+.messages:has(.scene-composition.has-focus) .user-message { max-width:min(800px,88%); }
+.scene-composition[data-wide='true'] .study-desk[data-source-shared='true'] .study-desk-papers { grid-template-columns:minmax(0,1fr); }
+.scene-composition[data-wide='true'] .note-reading-paper { padding:22px 21px 18px; }
+@media(max-width:600px) { .conversation-space:not(.with-materials) .messages:has(.scene-composition.has-focus) { width:calc(100% - 36px); } }

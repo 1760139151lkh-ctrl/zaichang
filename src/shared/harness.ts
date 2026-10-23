@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { programNodeIdSchema } from './interactive-program';
+import { planningOfferSchema } from './planning-offer';
 
 export const objectId = z.string().min(1).max(160);
 export const instant = z.string().datetime({ offset: true });
@@ -185,11 +187,13 @@ export interface ContextContract {
   timeZone: string;
   now: string;
   budget: {
-    maxTokens: number;
+    /** Legacy persisted fields only. Material/token counts do not grant or
+     * withhold reads, and cumulative model/tool counts are not run quotas. */
+    maxTokens?: number;
     maxRows: number;
-    maxReadBytes: number;
-    toolCalls: number;
-    modelCalls: number;
+    maxReadBytes?: number;
+    toolCalls?: number;
+    modelCalls?: number;
     dependencyDepth: number;
   };
   excludedReasons: string[];
@@ -273,6 +277,12 @@ export const interpretationProposalSchema = z
     directLocalWrite: z.boolean(),
   })
   .strict();
+export const evidenceImageSourceSchema = z.object({
+  sha256: z.string().regex(/^[a-f0-9]{64}$/),
+  contentVersion: z.number().int().positive(),
+  mimeType: z.literal('image/jpeg'),
+  width: z.number().int().positive(), height: z.number().int().positive(),
+}).strict();
 export const evidenceSchema = z
   .object({
     id: objectId,
@@ -286,6 +296,8 @@ export const evidenceSchema = z
     text: z.string().max(250000),
     speaker: z.enum(['user', 'assistant', 'external']),
     kind: z.enum(['user_message', 'user_control', 'file_import', 'tool_result', 'external_observation']),
+    /** Host-bound original pixels remain owned by the same user Message. */
+    imageSource: evidenceImageSourceSchema.optional(),
     sourceContext: z.discriminatedUnion('kind', [z.object({
       kind: z.literal('relationship_rehearsal'), origin: z.literal('user_interface_reference'),
       artifactId: objectId, artifactRevision: z.number().int().positive(), matterId: objectId,
@@ -296,6 +308,9 @@ export const evidenceSchema = z
       matterId: objectId, matterRevision: z.number().int().positive(),
       referenceKind: z.enum(['work', 'map_place', 'map_leg']),
       chapter: z.object({ messageId: objectId, sceneId: objectId, sceneRevision: z.number().int().positive() }).strict().optional(),
+    }).strict(), z.object({
+      kind: z.literal('interactive_program'), origin: z.literal('user_interface_reference'),
+      messageId: objectId, programId: objectId, revision: z.number().int().positive(), nodeId: programNodeIdSchema,
     }).strict()]).optional(),
     authority: z.enum([
       'user_statement',
@@ -330,6 +345,17 @@ export const temporalSchema = z
     (t) => !t.validFrom || !t.validTo || Date.parse(t.validTo) > Date.parse(t.validFrom),
     'Invalid validity interval',
   );
+/** Assistant wording can resolve a user's reply, but is never personal evidence. */
+export const memoryReferenceInputSchema = z.object({
+  messageId: objectId, start: z.number().int().nonnegative(), end: z.number().int().positive(),
+}).strict().refine(value => value.end > value.start, 'Invalid reference context range');
+export const memoryReferenceSchema = memoryReferenceInputSchema.extend({
+  sessionId: objectId, contentSha256: z.string().regex(/^[a-f0-9]{64}$/),
+  sourceRefs: z.array(z.lazy(() => workSourceRefSchema)).min(1).max(32),
+  replyState: z.object({ status: z.enum(['cancelled', 'error']), completion: z.literal('partial'),
+    exposure: z.literal('unknown'), meaning: z.string().min(1).max(400) }).strict().optional(),
+});
+export type MemoryReferenceContext = z.infer<typeof memoryReferenceSchema>;
 export const assertionSchema = z
   .object({
     id: objectId,
@@ -354,6 +380,7 @@ export const assertionSchema = z
     temporal: temporalSchema,
     status: z.enum(['candidate', 'active', 'disputed', 'superseded', 'expired', 'retracted', 'inactive']),
     evidenceIds: z.array(objectId).max(64),
+    referenceContexts: z.array(memoryReferenceSchema).max(16).optional(),
     label: labelSchema,
     verification: z.enum(['verified', 'pending', 'unverified']),
   })
@@ -371,6 +398,7 @@ export interface AssertionCitation {
   /** Host-only, bound to this stored revision/citation; never accepted in a proposal. */
   restrictionReceipt?: string;
 }
+export const memoryChangeOperationMeaning = 'CORRECT依据新原话改写既有说法或理解，也包括本人后来重新回想、澄清；这个操作本身不判断是谁曾误读、误记，也不说明旧记录失真。SUPERSEDE表示事实或条件后来改变，保留旧时段的身份。说明过去具体发生过的失误时，仍对照当时原陈述与实际保存内容；没有这类依据就保留变化本身。';
 export const changeSchema = z
   .object({
     operation: z.enum([
@@ -383,7 +411,7 @@ export const changeSchema = z
       'DISPUTE',
       'EXPIRE',
       'RETRACT',
-    ]),
+    ]).describe(memoryChangeOperationMeaning),
     targetId: objectId.optional(),
     expectedRevision: z.number().int().positive().optional(),
     eventId: objectId,
@@ -392,6 +420,8 @@ export const changeSchema = z
     sourceStartCodePoint: z.number().int().nonnegative().optional(),
     sourceEndCodePoint: z.number().int().positive().optional(),
     supports: z.array(memorySupportSchema).max(16).optional(),
+    referenceContexts: z.array(memoryReferenceInputSchema).max(16).optional()
+      .describe('确实用于解释本人答复所指对象的先前助手原问句，按context实际provided地址声明；助手内容不是本人事实。省略保留已有理解的依赖，显式[]仅在当前原话独立支持完整新内容时清除。'),
     predicate: z.string().regex(/^[a-zA-Z][a-zA-Z0-9_.:-]{0,119}$/),
     value: typedValue,
     text: z.string().min(1).max(4000),
@@ -399,8 +429,8 @@ export const changeSchema = z
     strength: z.enum(['hard', 'soft', 'unconfirmed']),
     conditions: conditionSchema,
     validFrom: instant.optional(),
-    validTo: instant.optional(),
-    unresolvedTime: z.string().max(200).optional(),
+    validTo: instant.optional().describe('原文明确给出的有效终点；持续偏好或约定未指定终点时省略，不把开放期限当作未知期限。'),
+    unresolvedTime: z.string().max(200).optional().describe('仅保留原文确有但尚无法核清的生效/到期条件；现在已采用、以后继续使用的偏好没有截止日时省略，不因此创建待确认候选。'),
     subject: z.enum(['self', 'source_subject', 'other', 'fictional']).default('source_subject'),
     world: z.enum(['source_world', 'hypothetical']).default('source_world'),
     idempotencyKey: objectId,
@@ -491,8 +521,8 @@ export interface ProviderReceipt {
     maxOutputTokens: number;
     /** Only present when verified from provider metadata or an isolated probe. */
     contextTokens?: number;
-    /** The host context budget used for this receipt. */
-    hostContextTokens: number;
+    /** Legacy host estimate, not an account/provider quota. New receipts omit it. */
+    hostContextTokens?: number;
   };
   requestModes?: {
     thinking: 'enabled' | 'disabled' | 'mixed';
@@ -504,17 +534,245 @@ export const assistantWorkSourceSchema = z.object({ messageId: objectId, sceneId
   sceneRevision: z.number().int().positive() }).strict();
 /** An immutable saved chapter address, never another copy of its prose. */
 export type AssistantWorkSource = z.infer<typeof assistantWorkSourceSchema>;
+export const interactiveProgramSourceSchema = z.object({ messageId: objectId, programId: objectId,
+  revision: z.number().int().positive() }).strict();
+/** An original message/view address, never a program or bound data copy. */
+export type InteractiveProgramSource = z.infer<typeof interactiveProgramSourceSchema>;
 
+export type InteractiveProgramReadDeliveryIssue = 'call_id_missing' | 'wire_not_found' | 'json_layer' | 'body_mismatch';
+/** Safe counters for one actual reader admission. The host creates the UUID;
+ * coverage describes this delivery, not a claim of understanding or adoption. */
+export interface InteractiveProgramReadReceipt {
+  id: string;
+  source: InteractiveProgramSource;
+  mode: 'overview' | 'source' | 'states';
+  stateOrigin?: 'this_turn_admitted_ui_reference' | 'initial_only_focus_has_no_current_inputs' | 'initial_not_current_ui_state';
+  status: 'available' | 'needs_refresh' | 'evaluation_error';
+  coverage: {
+    offset: number;
+    end: number;
+    total: number;
+    complete: boolean;
+    wholeSourceProvided: boolean;
+    sourceBodiesProvided: boolean;
+    geometryPointsProvided: boolean;
+  };
+  counts: { nodes: number; stateDeclarations: number; statePreviews: number; sourceCodePoints: number; literalMatches: number };
+  /** Actual admitted reader budget, including readReceiptId but excluding the
+   * registry's later observationId. These are not provider token measurements. */
+  bytes: number;
+  estimatedTokens: number;
+  delivery: 'admitted' | 'delivered_to_model';
+  deliveryIssue?: InteractiveProgramReadDeliveryIssue;
+}
+
+/** Safe failure classification only. Formal/admitted relations match a
+ * current-turn address or an original successful read; they do not assert
+ * that the source proof is readable now. */
+export interface InteractiveProgramReadFailure {
+  mode: 'overview' | 'source' | 'states';
+  reason: 'reference_unqualified' | 'source_proof_unavailable' | 'view_missing';
+  relation: 'formal_and_admitted' | 'formal_current' | 'earlier_admitted' | 'unmatched_request';
+}
+
+/** Estimates come from the same native request before the host appends its
+ * continuation core, or from existing native telemetry. Only afterMain is
+ * the actual prompt usage of a successful provider main request. */
+export interface HermesCompressionReceipt {
+  compactionCount: number;
+  thresholdTokens: number;
+  nativeSystemEstimatedTokens: number;
+  nativeToolsEstimatedTokens: number;
+  protectedHeadEstimatedTokens?: number;
+  protectedTailEstimatedTokens?: number;
+  middleEstimatedTokens?: number;
+  beforeEstimatedTokens?: number;
+  afterMainPromptTokens?: number;
+  continuationCoreIncluded?: boolean;
+}
+/** One safe terminal cause for this attempt, never an authority renewal. */
+export interface RunEndReceipt {
+  reason: 'scope_expired';
+  scopeExpiresAt: string;
+  endedAt: string;
+}
+
+/** Compiler counters and actual registry navigation only: no authored DSL,
+ * identifiers, source data or body text. */
+export interface InteractiveProgramExpansionDiagnostic {
+  measure: 'partial_static_expansion_upper_bound';
+  estimatedSoFar: number;
+  limit: number;
+  rawAstNodes: number;
+  statements: number;
+  statementOrdinal: number;
+  location: string;
+  loop?: { count: number; kind: 'exact' | 'upper_bound'; templateUnits: number; units: number };
+  /** Ordinary statement references are inlined by the installed native
+   * parser. These signatures help reduce repeated parameter work, not raise
+   * limits or assert a particular failed program's implementation. */
+  referenceSemantics?: 'ordinary_refs_inline';
+  functions?: InteractiveProgramExpressionDiagnostic['functions'];
+  read?: InteractiveProgramExpressionDiagnostic['read'];
+  builtinRead?: { tool: 'read_skill'; arguments: { id: string; section: 'grammar' } };
+}
+type InteractiveProgramOperandKind = 'number' | 'string' | 'boolean' | 'number?' | 'string?' | 'boolean?' | 'null' | 'unknown';
+/** Host-created expression shape and registry signatures only. location is
+ * an ordinal/numeric path; no authored identifiers or source text belong here. */
+export interface InteractiveProgramExpressionDiagnostic {
+  statementOrdinal: number;
+  location: string;
+  category: 'binary' | 'unary' | 'condition' | 'index';
+  operator: '+' | '-' | '*' | '/' | '%' | '==' | '!=' | '>' | '>=' | '<' | '<=' | '&&' | '||' | '!' | '?:' | '[]' | 'unsupported';
+  operandKinds: { left?: InteractiveProgramOperandKind; right?: InteractiveProgramOperandKind; condition?: InteractiveProgramOperandKind };
+  /** At most three entries from the actual shared registry, selected by host. */
+  functions: { name: string; signature: string; returnKind: string; minimumArguments?: number }[];
+  read: { tool: 'read_skill'; arguments: { id: string; section: 'functions'; names: string[]; limit: number } };
+}
+/** Only fixed registry/schema metadata. No supplied values, unknown keys,
+ * authored node identity or inferred source-statement position belong here. */
+export interface InteractiveProgramComponentDiagnostic {
+  name: string;
+  signature: string;
+  issues: {
+    stage: 'schema' | 'contract';
+    code: 'invalid_type' | 'too_big' | 'too_small' | 'invalid_format' | 'not_multiple_of' | 'unrecognized_keys'
+      | 'invalid_union' | 'invalid_key' | 'invalid_element' | 'invalid_value' | 'custom' | 'schema_issue'
+      | 'unknown_component' | 'local_action' | 'state_kind' | 'graphic_domain' | 'drag_fields'
+      | 'motion_duration' | 'motion_number_fields' | 'motion_state_patch' | 'curve_expression' | 'curve_range';
+    path: (string | number)[];
+    /** False means the path stopped before an arbitrary/record key. */
+    pathComplete: boolean;
+    /** Zero-based position in the real component signature, not in source. */
+    parameterIndex?: number;
+    expected?: 'string' | 'number' | 'int' | 'boolean' | 'array' | 'object' | 'null' | 'record' | 'nonoptional';
+    /** Bounds from the fixed component schema, never the rejected input. */
+    minimum?: number;
+    maximum?: number;
+    inclusive?: boolean;
+  }[];
+  read: { tool: 'read_skill'; arguments: { id: string; section: 'components'; names: string[]; limit: number } };
+}
+/** Safe metadata from the actual envelope/native checks, without draft text. */
+export type InteractiveProgramInputDiagnostic = {
+  tool: 'present_view';
+  layer: 'tool_envelope';
+  issues: InteractiveProgramComponentDiagnostic['issues'];
+} | {
+  tool: 'present_view';
+  layer: 'source_completion';
+  nativeIncomplete: true;
+  /** Original end boundary, not a guessed position of a missing character. */
+  end: { unit: 'utf16_code_units'; offset: number; line: number; column: number };
+  /** Bounded native autoClose suffix; only closing delimiters and escapes. */
+  completion?: { suffix: string; returned: number; total: number; complete: boolean };
+} | {
+  tool: 'present_view';
+  layer: 'native_parser';
+  flags: { incomplete: boolean; unresolved: boolean; parseErrors: boolean; query: boolean; mutation: boolean };
+  /** Counts of actual native arrays; incomplete is its boolean as 0/1. */
+  counts: { incomplete: number; unresolved: number; parseErrors: number; query: number; mutation: number };
+  errors: {
+    code: 'missing-required' | 'null-required' | 'unknown-component' | 'inline-reserved'
+      | 'excess-args' | 'type-mismatch' | 'unknown-function' | 'no-root';
+    statementOrdinal?: number;
+    /** Only fixed schema keys and numeric array positions; never input values
+     * or arbitrary record keys. Relative to this component's props. */
+    property?: Pick<InteractiveProgramComponentDiagnostic['issues'][number], 'path' | 'pathComplete' | 'parameterIndex' | 'expected'>;
+    /** Only an own-key hit in the current host registry may supply this. */
+    contract?: { kind: 'component' | 'function'; name: string; signature: string;
+      read: { tool: 'read_skill'; arguments: { id: string; section: 'components' | 'functions'; names: string[]; limit: number } } };
+  }[];
+};
+/** Navigation to an already-known, currently requalified reference only.
+ * This neither reports the SQL latest revision nor authorizes a rebase. */
+export interface InteractiveProgramPreviousDiagnostic {
+  relation: 'matches_known_reference' | 'known_program_revision_mismatch' | 'message_id_used_as_program_id'
+    | 'unmatched_input' | 'no_qualified_known_reference';
+  fields: { id: 'programId'; expectedRevision: 'revision' };
+  automaticRebase: false;
+  knownReference?: {
+    basis: 'formal_current' | 'delivered_this_run' | 'validated_previous';
+    source: InteractiveProgramSource;
+    previous: { id: string; expectedRevision: number };
+    read: { tool: 'read_interactive_program'; arguments: InteractiveProgramSource & { mode: 'overview' } };
+  };
+}
+
+/** Fixed numeric costs of the actual initial model projection. Standalone
+ * group serializations need not sum to the full JSON; these are host estimates,
+ * never provider token counts or an acknowledgement of deferred source bodies. */
+export interface InitialContextComposition {
+  strategy: 'standard' | 'current_work_first';
+  stage: 'compiler' | 'ready_for_main';
+  groups: { category: 'current_originals' | 'history' | 'observations' | 'continuity' | 'capabilities'
+    | 'focused_work' | 'presentation_guidance' | 'other'; bytes: number; estimatedTokens: number }[];
+  serialized: { bytes: number; estimatedTokens: number };
+  accounted: { readBytes: number; estimatedTokens: number };
+  history: { userBodies: number; assistantBodies: number; deferredAssistantBodies: number };
+  deferred: { ambientContinuity: boolean; recentObservations: boolean; capabilityDescriptions: boolean };
+  protectedHelp?: { completeBodies: number; providedBodies: number; bytes: number; estimatedTokens: number;
+    availableBytes: number; availableTokens: number; deferredForReserve: boolean };
+}
+
+/** A host-issued address to an immutable account snapshot, without records.
+ * It is navigation metadata, not a renewed read or action permission. */
+export interface CampusSavedReadingProof {
+  sourceId: 'campus:zju-account'; bundleId: string; resource: string; version: string;
+  sourceIdentity: string; headIdentity: string; selection: 'saved_head' | 'historical'; collectedAt?: string;
+}
+export interface CampusReadingAddress {
+  sourceId: 'campus:zju-account'; snapshot: CampusSavedReadingProof;
+  read: { capability: 'campus.query' | 'campus.lookup'; arguments: Record<string, unknown> };
+  next?: { capability: 'campus.query' | 'campus.lookup'; arguments: Record<string, unknown> };
+  page: { offset: number; returned: number; nextOffset: number | null };
+  evaluation: { at?: string; paging: 'fixed_conditions' | 'evaluation_dependent'; dynamicValues: boolean };
+  observedAt: string;
+  /** Actual host read-completion order within this reply; absent in older receipts. */
+  readOrdinal?: number;
+  contract: CapabilityContractRef;
+}
+/** Original draft bound to assistant text actually supplied in this run.
+ * An address does not claim that its whole body was read or that it is current. */
+export interface ReleaseSource { sessionId: string; messageId: string; artifactId: string; revision: number }
 export interface ContextReceipt {
+  /** New runs start with []; absence on an old receipt is unknown, not no adoption. */
+  releaseSources?: ReleaseSource[];
+  initialComposition?: InitialContextComposition;
+  /** Where the standing instructions of the main run came from, in order. */
+  promptComposition?: { id: string; origin: string; characters: number }[];
   /** Exact original ranges adopted from work or semantic discoveries; no copied body. */
   workSourceBindings?: WorkSourceBinding[];
   /** Original work addresses supporting supplied text or metadata. This is
    * provenance, not a claim that the entire chapter body was read. */
   assistantWorkSources?: AssistantWorkSource[];
+  /** Original typed teaching sources inherited with actually adopted history. */
+  historicalWorkSources?: import('./method-work-help').HistoricalWorkSource[];
+  interactiveProgramSources?: InteractiveProgramSource[];
+  /** Latest six actual reader receipts, bounded by the reader owner. */
+  interactiveProgramReads?: InteractiveProgramReadReceipt[];
+  /** Latest six safe read failures, bounded by the reader owner. */
+  interactiveProgramReadFailures?: InteractiveProgramReadFailure[];
+  /** Bounded safe failure counters from actual calls. The optional delivery
+   * mark means an identical tool result was in a successful model request,
+   * not that the model understood it or any program was published. */
+  interactiveProgramDiagnostics?: { stepId: string; toolCallId?: string;
+    rejectionCode?: string;
+    expansion?: InteractiveProgramExpansionDiagnostic; expression?: InteractiveProgramExpressionDiagnostic;
+    component?: InteractiveProgramComponentDiagnostic; input?: InteractiveProgramInputDiagnostic;
+    previous?: InteractiveProgramPreviousDiagnostic; explanationTruncated: boolean;
+    includedInSuccessfulModelRequest?: boolean }[];
   /** Supporting help/process addresses for supplied personal-method text or
    * metadata, not a rating, body-read ACK or new action authorization. */
   personalMethodSources?: import('./personal-method').PersonalMethodSources[];
   campusSensitiveReads?: import('./campus-academic').CampusSensitiveRead[];
+  /** Latest six actual account-reading addresses. No course/grade row body. */
+  campusReadingAddresses?: CampusReadingAddress[];
+  campusReadingReadCount?: number;
+  /** Account source dependencies, including admitted prior replies; no read ACK. */
+  campusReadingSources?: CampusSavedReadingProof[];
+  /** A delivered account result had no complete readable snapshot proof. */
+  campusReadingIncomplete?: true;
   /** Actual note revision/range provenance, never a personal fact or read ACK. */
   noteSources?: import('./notes-source').NoteSourceProof[];
   /** Source-bound learning processes actually provided to this model run. */
@@ -530,11 +788,19 @@ export interface ContextReceipt {
   planningProvenance?: PlanningMaterialProvenance[];
   sceneReferences?: { id: string; revision: number; sourceId: string; fetchedAt: string; expiresAt?: string }[];
   materialReads?: { capability: string; resourceId: string; sha256: string; version: number; sourceEventId?: string; parentEventId?: string; page?: number; start?: number; end?: number; total?: number; complete: boolean; extraction?: string }[];
-  imageRequests?: { requestId: string; sha256: string; source: 'upload' | 'tool'; version: string; accepted: boolean; role: string }[];
+  imageRequests?: { requestId: string; sha256: string; source: 'upload' | 'tool'; version: string; accepted: boolean; role: string;
+    sourceEventId?: string; sourceContentVersion?: number }[];
   mechanismUses?: { prefetch: number; currentMatter: number; repairRejudge: number; closure: number };
   engine?: { name: string; commit: string; adapterSha256: string; python: string };
+  /** Latest four compactions, updated by compactionCount in the main harness. */
+  hermesCompressions?: HermesCompressionReceipt[];
+  runEnd?: RunEndReceipt;
+  /** Actual terminal state of an optional presence attempt; no message body,
+   * draft or inferred reason for choosing silence is retained here. */
+  presenceOutcome?: { status: 'sent' | 'silent' | 'interrupted' | 'failed'; preparedProgram: boolean; errorCode?: string };
   delegations?: { id: string; parentId: string; title: string; status: 'queued' | 'running' | 'produced' | 'consumed' | 'failed' | 'cancelled'; sources?: string[]; currentEvidenceIds?: string[]; modelCalls: number; responses: number; toolCalls: number }[];
-  modelUsage?: { phase: string; responseModel?: string; inputTokens: number | null; cachedInputTokens?: number | null; outputTokens: number | null; usdMin: number | null; usdMax: number | null }[];
+  modelUsage?: { phase: string; responseModel?: string; inputTokens: number | null; cachedInputTokens?: number | null; outputTokens: number | null; usdMin: number | null; usdMax: number | null;
+    status?: 'failed'; errorCode?: string; requestMaxOutputTokens?: number }[];
   id: string;
   runId: string;
   contractRevision: number;
@@ -544,7 +810,16 @@ export interface ContextReceipt {
   providedEvidenceIds: string[];
   providedSourceIds?: string[];
   providedObjectVersions: { id: string; revision: number; kind?: 'evidence' | 'assertion' | 'work' | 'agenda' | 'domain';
-    sourceId?: string; domain?: string; institutionId?: string; termId?: string }[];
+    /** Only accepted, explicitly bound pixels or inherited original-image
+     * provenance; this is not a pixel-delivery or understanding ACK. */
+    imageSha256?: string;
+    sourceId?: string; domain?: string; institutionId?: string; termId?: string;
+    /** Work sources frozen at this actual read, not proof of the current Work revision. */
+    sourceBinding?: WorkSourceBinding;
+    /** Original retained material used by an actual typed owner read; no body or read ACK. */
+    sourceMaterial?: import('./method-work-help').MethodHelpMaterialIdentity;
+    noteSources?: import('./notes-source').NoteSourceProof[];
+    problemIdentitySha256?: string }[];
   needResults: { key: string; status: KnowledgeStatus }[];
   excludedReasonCounts: Record<string, number>;
   /** Full, non-secret provider/protocol facts for this run. */
@@ -640,6 +915,15 @@ export const capabilityContractRefSchema = z.object({
 }).strict();
 export type CapabilityContractRef = z.infer<typeof capabilityContractRefSchema>;
 
+/** Host-bound speaking turn for a saved reminder, not a claim about who
+ * originally composed its words. The hash binds this exact reminder text. */
+export const reminderSpeakerSchema = z.object({
+  messageId: objectId,
+  name: z.string().min(1).max(60),
+  textSha256: z.string().regex(/^[a-f0-9]{64}$/),
+}).strict();
+export type ReminderSpeaker = z.infer<typeof reminderSpeakerSchema>;
+
 export const effectSchema = z
   .object({
     id: objectId,
@@ -652,6 +936,8 @@ export const effectSchema = z
     // Optional only so historical records remain readable; unbound effects cannot be dispatched.
     capabilityContract: capabilityContractRefSchema.optional(),
     arguments: z.record(z.string(), z.json()),
+    reminderSpeaker: reminderSpeakerSchema.optional(),
+    planningOffer: planningOfferSchema.optional(),
     compensation: z.object({ targetId: objectId, expectedRevision: z.number().int().nonnegative(), previous: z.record(z.string(), z.json()).nullable(), applied: z.boolean() }).strict().optional(),
     audience: objectId,
     status: actionStatusSchema,
@@ -666,6 +952,8 @@ export const effectSchema = z
     sourceId: objectId,
     goalId: objectId.optional(),
     reason: z.string().max(300).optional(),
+    nonDispatchProof: z.object({ actionId: objectId, actionRevision: z.number().int().positive(),
+      actionDigest: z.string().regex(/^[a-f0-9]{64}$/), observedAt: instant }).strict().optional(),
     simulated: z.boolean().default(false),
   })
   .strict();
@@ -821,7 +1109,10 @@ export class HarnessError extends Error {
     message: string,
     public retry: 'never' | 'read' | 'reconcile' = 'never',
     /** Model-facing diagnostic; callers must not promote it to a UI status. */
-    public diagnostic?: { rejectedDimensions: string[]; explanation: string },
+    public diagnostic?: { rejectedDimensions: string[]; explanation: string;
+      expansion?: InteractiveProgramExpansionDiagnostic; expression?: InteractiveProgramExpressionDiagnostic;
+      component?: InteractiveProgramComponentDiagnostic; input?: InteractiveProgramInputDiagnostic;
+      previous?: InteractiveProgramPreviousDiagnostic },
   ) {
     super(message);
     this.name = 'HarnessError';

@@ -1,0 +1,25 @@
+{
+  "title": "让两条波相遇 · 通用 OpenUI 对话作品设计",
+  "createdOn": "2026-10-19",
+  "asset": "前端视觉创新设计/统一图库/原图/界面设计-学习与阅读/波形相加设计-8b3202fe496c.png",
+  "exactPrompt": "prompt-v1.txt",
+  "generator": "built-in image_gen edit",
+  "transparentBackground": false,
+  "source": {
+    "role": "edit target",
+    "path": "前端视觉创新设计/统一图库/仅本机/原图/页面截图-学习与阅读/life-ui-20261019-0PRbh1-luna-note-full-sentence-fixed-focus-31e27a1186a1.png",
+    "description": "本项目同一隔离 profile 中合成笔记的实际界面截图；未使用成绩私图、校园私人结果或新 zip 的私人图片。",
+    "scope": "经本轮明确要求使用的本机私人项目设计参考；现有角色图与材质的原有来源及分发边界不因生成而扩大。",
+    "originalPath": ".test-data/life-ui-20261019-0PRbh1/luna-note-full-sentence-fixed-focus.png"
+  },
+  "generatedOriginal": "C:/Users/17601/.codex/generated_images/01a152be-0f7f-7ec2-be71-67ad1326e1af/exec-30679345-8f28-49cf-bed1-f13ae85cab14.png",
+  "purpose": "供 root 选择同一对话中临时可动作品的阅读、科学图、局部控件与单一 composer 关系；不是运行时 UI 截图，也不作为一张假交互图贴入产品。",
+  "productBoundary": "波形是本张设计例子，不新增 Wave 产品模板；实际内容由主模型通过共享 OpenUI program 编排。",
+  "inspected": {
+    "method": "直接亲看生成图片",
+    "observed": "phi=180 degrees 时两条原波逐点相反，金色总和为零水平线；相位滑杆在中点，原波开关开启，图例与 0/pi/2pi 轴标可读；保留一个原输入与原稿。",
+    "notClaimed": "未据图稿宣称 renderer 已实现、局部播放已操作或真实 Luna 已生成此作品。"
+  },
+  "redistribution": "私人设计审阅材料；不因本记录获得公开部署或现有角色图再分发许可。",
+  "originalAsset": "assets/design/generated/2026-10-19-openui-composition/wave-meeting-design-v1.png"
+}

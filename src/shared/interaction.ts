@@ -2,16 +2,26 @@ import { z } from 'zod';
 
 export const interactionSchema = z.object({
   tone: z.enum(['natural', 'warm', 'direct']),
-  humor: z.enum(['none', 'light']),
+  humor: z.enum(['character', 'none', 'light']),
   depth: z.enum(['adaptive', 'concise', 'thorough']),
   initiative: z.enum(['quiet', 'prepare', 'when_useful']),
   followup: z.enum(['on_request', 'meaningful_change']),
 }).strict();
 export type InteractionPreferences = z.infer<typeof interactionSchema>;
-export const DEFAULT_INTERACTION: InteractionPreferences = { tone: 'natural', humor: 'none', depth: 'adaptive', initiative: 'prepare', followup: 'meaningful_change' };
+/** A new companion may come and tell you about something that matters; the
+ * person can always ask for quieter (prepare) or silent (quiet) instead. */
+export const DEFAULT_INTERACTION: InteractionPreferences = { tone: 'natural', humor: 'character', depth: 'adaptive', initiative: 'when_useful', followup: 'meaningful_change' };
+/** The pre-2026-10-21 shipped default. A stored tuple equal to it was almost
+ * always never chosen; Store migrates exactly this tuple once, nothing else. */
+export const LEGACY_DEFAULT_INTERACTION: InteractionPreferences = { tone: 'natural', humor: 'none', depth: 'adaptive', initiative: 'prepare', followup: 'meaningful_change' };
 
 export function interactionGuidance(preferences: InteractionPreferences) {
-  const tone = { natural: '按所选角色自然表达，保持清楚与尊重；不把不同角色统一成同一种默认语气', warm: '亲切，避免奉承与虚假亲密', direct: '直接指出重点，保持尊重' }[preferences.tone];
-  const depth = { adaptive: '按当前问题的需要展开', concise: '少枝节、少重复，仍保留用户要求的完整论证与查证', thorough: '愿意充分展开推导与依据；简单事实仍可短答' }[preferences.depth];
-  return `用户希望的沟通方式：${tone}；${preferences.humor === 'light' ? '合适时可以轻松幽默' : '不主动加入玩笑'}；${depth}。主动偏好为${preferences.initiative}，跟进偏好为${preferences.followup}。这些只是待遇与打扰约定，不扩大资料或行动权限；当前明确要求优先，公开稿件按实际受众和任务。`;
+  const lines = [
+    { natural: '', warm: '对方希望你更亲近一点：多一点温度，撒娇和亲昵都可以有。', direct: '对方喜欢直接：先说重点和结论，再补必要的理由。' }[preferences.tone],
+    { character: '玩笑和轻松感跟着你的性格与当下气氛自然流露。', light: '合适的时候可以轻松幽默一点。', none: '对方不太想要玩笑，就少开或不开；你的温度、情绪和亲近照常。' }[preferences.humor],
+    { adaptive: '', concise: '对方喜欢简洁：少枝节、少重复，但对方要的完整推导和依据照样给全。', thorough: '对方喜欢讲透：愿意展开推导和依据；简单的事仍可以一句话说完。' }[preferences.depth],
+    { quiet: '对方现在希望你等他开口，不主动来找；仍开启持续留意时，托付过的事安静准备，明确提醒照常。', prepare: '替对方留意的事，先安静准备好，等他来看时再拿出来；明确约好的提醒照常。', when_useful: '替对方留意的事出现真正有用的变化时，可以主动来原来的对话里找他说；没什么新东西就不打扰。' }[preferences.initiative],
+    preferences.followup === 'on_request' ? '对方暂时不想要持续留意，等他问起再看。' : '',
+  ].filter(Boolean);
+  return lines.length ? `相处约定（只是相处方式，不扩大资料或行动范围；对方此刻明说的要求优先）：\n${lines.map(item => '- ' + item).join('\n')}` : '';
 }

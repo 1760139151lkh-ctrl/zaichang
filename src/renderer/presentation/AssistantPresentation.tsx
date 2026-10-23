@@ -1,7 +1,6 @@
 import './openui-development';
 import {
   createContext,
-  Fragment,
   useContext,
   useEffect,
   useMemo,
@@ -28,24 +27,28 @@ import {
   Sun,
 } from 'lucide-react';
 import { z } from 'zod/v4';
-import type { PresentationView, SceneSnapshot, SemanticSelection } from '../../shared/scenes';
+import { sceneViewDsl, type PresentationView, type SceneSnapshot, type SemanticSelection } from '../../shared/scenes';
 import { EnvironmentHours, PlanningTime } from './LifeSceneViews';
 import { DiscussionSceneView } from './DiscussionSceneView';
 import { StudySceneView } from './StudySceneView';
 import { PlanningComparisonHeader } from './PlanningComparisonHeader';
 import { PlanningComparisonTimeline } from './PlanningComparisonTimeline';
-import type { StudyInteraction } from '../../shared/study-presentation';
+import type { StudyInteraction, StudyNativeInput } from '../../shared/study-presentation';
 import type { CompanionFollowupReference } from '../../shared/companion-source';
 import type { CuriosityFollowupReference } from '../../shared/curiosity-source';
+import type { ProgramFollowupReference, ProgramStateValues } from '../../shared/interactive-program';
+import { InteractiveProgramView } from './InteractiveProgramView';
+import { usePublicationReveal } from './publication-reveal';
 import type { CuriosityScene as CuriositySnapshot, CuriosityHistoryReference } from '../../shared/curiosity-scene';
 import { CuriosityInvitationView } from './CuriosityInvitationView';
 import { RehearsalSceneView } from './RehearsalSceneView';
 import { NoteSceneView } from './NoteSceneView';
 import { CampusAcademicView } from './CampusAcademicView';
 import type { NoteReference, NoteNativeInput } from '../../shared/note-presentation';
-import { rehearsalHistoryReference, type RehearsalInteraction } from '../../shared/relationship-rehearsal';
+import { rehearsalHistoryReference, type RehearsalInteraction, type RehearsalRef } from '../../shared/relationship-rehearsal';
 import type { LocalSearchLocator } from '../../shared/search';
 import './presentation.css';
+import { SceneComposition, type SceneCompositionItem } from './SceneComposition';
 
 type MapSnapshot = Extract<SceneSnapshot, { kind: 'map' }>;
 type WeatherSnapshot = Extract<SceneSnapshot, { kind: 'weather' }>;
@@ -56,12 +59,21 @@ export interface AssistantPresentationProps {
   sessionId?: string;
   messageId?: string;
   boundaryKey?: string;
+  hostViewBoundaryKey?: string;
+  privacyEpoch?: number;
+  policyRevision?: number;
+  programStateEphemeral?: boolean;
   manuscriptText?: string;
   manuscriptSceneId?: string;
   latestRehearsalRevisions?: ReadonlyMap<string, number>;
+  programFocus?: ProgramFollowupReference;
+  onRehearsalCurrentReadStart?: (rehearsalId: string) => ((ref: RehearsalRef) => void) | undefined;
+  onReaderNavigation?: () => void;
   onOpenNote?: (input: NoteNativeInput) => void;
+  onOpenStudySource?: (input: StudyNativeInput) => void;
   onFollowup?: (input: { text: string; studyInteraction?: StudyInteraction; companionReference?: CompanionFollowupReference;
-    curiosityReference?: CuriosityFollowupReference; rehearsalInteraction?: RehearsalInteraction; noteReference?: NoteReference; focusOnly?: boolean; focusLabel?: string }) => void;
+    curiosityReference?: CuriosityFollowupReference; programReference?: ProgramFollowupReference; readProgramInputs?: () => ProgramStateValues | undefined;
+    rehearsalInteraction?: RehearsalInteraction; noteReference?: NoteReference; focusOnly?: boolean; focusLabel?: string }) => void;
   onOpenDocument?: (locator: Extract<LocalSearchLocator, { kind: 'material' }>) => void;
   view: PresentationView;
   scenes: SceneSnapshot[];
@@ -69,6 +81,14 @@ export interface AssistantPresentationProps {
   onSelect: (selection: SemanticSelection) => void;
   selection?: SemanticSelection | null;
   isStreaming?: boolean;
+}
+
+/** A transport event, separate from the assistant's own public words. */
+export function PresentationActivity({ phase }: { phase: 'generating' | 'checking' }) {
+  return <div className="presentation-activity" role="status" aria-live="polite">
+    <span className="presentation-activity-paper" aria-hidden="true"><i /><i /></span>
+    <span>{phase === 'generating' ? '正在把这一段做出来…' : '把这一段展开…'}</span>
+  </div>;
 }
 
 interface SceneContextValue extends Omit<AssistantPresentationProps, 'view' | 'scenes' | 'isStreaming'> {
@@ -98,6 +118,7 @@ function MapSlot({
 }) {
   const container = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [reservedHeight, setReservedHeight] = useState<number>();
   useEffect(() => {
     if (!container.current) return;
     if (typeof IntersectionObserver === 'undefined') {
@@ -106,13 +127,18 @@ function MapSlot({
     }
     const element = container.current;
     let intersects = false;
-    const refresh = () =>
+    let restingHeight = element.getBoundingClientRect().height;
+    const refresh = () => {
+      const focused = !!element.querySelector('.conversation-map[data-focused="true"]');
+      if (!focused) restingHeight = element.getBoundingClientRect().height;
+      setReservedHeight(focused ? restingHeight : undefined);
       setVisible(
         intersects ||
           !!element.querySelector(
             '.conversation-map[data-focused="true"], .conversation-map[data-collapsed="true"]',
           ),
       );
+    };
     const observer = new IntersectionObserver(
       (entries) => {
         intersects = entries.some((entry) => entry.isIntersecting);
@@ -127,13 +153,18 @@ function MapSlot({
       attributes: true,
       attributeFilter: ['data-focused', 'data-collapsed'],
     });
+    const footprintObserver = new ResizeObserver(() => {
+      if (!element.querySelector('.conversation-map[data-focused="true"]')) restingHeight = element.getBoundingClientRect().height;
+    });
+    footprintObserver.observe(element);
     return () => {
       observer.disconnect();
       focusObserver.disconnect();
+      footprintObserver.disconnect();
     };
   }, []);
   return (
-    <div className="presentation-map-slot" ref={container} data-scene-id={scene.id}>
+    <div className="presentation-map-slot" ref={container} data-scene-id={scene.id} style={{ minHeight: reservedHeight }}>
       {renderMap(scene, visible)}
     </div>
   );
@@ -148,6 +179,50 @@ const MapScene = defineComponent({
     const { context, scene } = useScene(props.ref, 'map');
     if (!context || !scene || scene.kind !== 'map') return <UnavailableScene />;
     return <MapSlot scene={scene} renderMap={context.renderMap} />;
+  },
+});
+
+function FigureView({ scene }: { scene: Extract<SceneSnapshot, { kind: 'figure' }> }) {
+  const [enlarged, setEnlarged] = useState(false);
+  const [sourceError, setSourceError] = useState(false);
+  const origin = scene.origin.pageUrl || scene.origin.url;
+  let host = '', canOpen = false;
+  try {
+    const url = new URL(origin);
+    host = url.hostname.replace(/^www\./, '');
+    canOpen = url.protocol === 'https:' && !url.username && !url.password && !!url.hostname;
+  } catch { /* The source label remains readable without an external action. */ }
+  const sourceLabel = `${scene.origin.pageTitle ? `${scene.origin.pageTitle} · ` : ''}${host || '公开网页'}`;
+  const portrait = !!scene.image.width && !!scene.image.height && scene.image.height > scene.image.width * 1.15;
+  return (
+    <figure data-scene-id={scene.id} className={`presentation-figure${portrait ? ' portrait' : ''}${enlarged ? ' enlarged' : ''}`}>
+      <button type="button" className="presentation-figure-frame" onClick={() => setEnlarged(value => !value)}
+        aria-label={enlarged ? '收起图片' : '放大图片'} aria-expanded={enlarged}>
+        <img src={scene.image.dataUrl} alt={scene.origin.alt || scene.caption || '网上找到的图片'}
+          width={scene.image.width || undefined} height={scene.image.height || undefined} loading="lazy" decoding="async" />
+      </button>
+      <figcaption>
+        {!!scene.caption && <span>{scene.caption}</span>}
+        {canOpen ? <button type="button" className="presentation-figure-source" title={origin}
+          aria-label={`打开图片出处：${scene.origin.pageTitle || host || '公开网页'}`}
+          onClick={() => { setSourceError(false); void window.zaichang.openLink(origin).catch(() => setSourceError(true)); }}>
+          <span>{sourceLabel}</span>
+          <ArrowRight size={12} aria-hidden="true" />
+        </button> : <small className="presentation-figure-source" title={origin}>{sourceLabel}</small>}
+        {sourceError && <small role="status">这个网页暂时没能打开，可以再试一次。</small>}
+      </figcaption>
+    </figure>
+  );
+}
+
+const FigureScene = defineComponent({
+  name: 'FigureScene',
+  description: '显示宿主从公开网页取回并核过的一张图片，带出处；不是此刻的现场。',
+  props: z.object({ ref: z.string().min(1) }),
+  component: ({ props }) => {
+    const { context, scene } = useScene(props.ref, 'figure');
+    if (!context || !scene || scene.kind !== 'figure') return <UnavailableScene />;
+    return <FigureView scene={scene} />;
   },
 });
 
@@ -221,6 +296,8 @@ const StudyScene = defineComponent({
     if (!context?.sessionId || !scene || scene.kind !== 'study' && scene.kind !== 'study_reference') return <UnavailableScene />;
     return <StudySceneView scene={scene} sessionId={context.sessionId} messageId={context.messageId}
       boundaryKey={context.boundaryKey || ''} disabled={!context.onFollowup}
+      onOpenSource={context.onOpenStudySource}
+      onReadStart={context.onReaderNavigation}
       onFollowup={input => context.onFollowup?.(input)} />;
   },
 });
@@ -269,6 +346,7 @@ const RehearsalScene = defineComponent({
     const current = scene.kind === 'rehearsal' && scene.revision < latest ? rehearsalHistoryReference(scene) : scene;
     return <RehearsalSceneView scene={current} sessionId={context.sessionId} messageId={context.messageId}
       boundaryKey={context.boundaryKey || ''} presentationRevision={latest} api={window.zaichang}
+      onCurrentReadStart={context.onRehearsalCurrentReadStart ? () => context.onRehearsalCurrentReadStart?.(scene.id) : undefined}
       onFollowup={context.onFollowup ? value => context.onFollowup?.(value) : undefined} />;
   },
 });
@@ -289,37 +367,35 @@ const NoteScene = defineComponent({
 const SceneStack = defineComponent({
   name: 'SceneStack',
   description:
-    '按交流需要组织已核验的地图、天气和校园记录。stack 让不同领域自然接续；compare 仅在宽度足够时并排比较，地图仍保留可操作的空间。',
+    '按交流需要组织已核验的画面。stack依次阅读，compare同等比较，focus以首项为主画面、其他为支持资料；切换主画面不重建对象或改变事实。',
   props: z.object({
-    children: z.array(z.union([MapScene.ref, WeatherScene.ref, CampusScene.ref, PlanningScene.ref, EnvironmentScene.ref, DiscussionScene.ref, StudyScene.ref, CuriosityScene.ref, RehearsalScene.ref, NoteScene.ref])),
-    layout: z.enum(['stack', 'compare']).default('stack'),
+    children: z.array(z.union([MapScene.ref, FigureScene.ref, WeatherScene.ref, CampusScene.ref, PlanningScene.ref, EnvironmentScene.ref, DiscussionScene.ref, StudyScene.ref, CuriosityScene.ref, RehearsalScene.ref, NoteScene.ref])),
+    layout: z.enum(['stack', 'compare', 'focus']).default('stack'),
   }),
   component: ({ props, renderNode }) => {
     const context = useContext(SceneContext);
     const firstComparison = props.children.find(node => typeof node.props?.ref === 'string' && context?.comparisonSceneRefs.has(node.props.ref));
-    return (
-    <div className={`presentation-scenes presentation-scenes-${props.layout}`}>
-      {props.children.map((node) => {
+    const items = props.children.flatMap<SceneCompositionItem>((node) => {
         const ref = typeof node.props?.ref === 'string' ? node.props.ref : node.type;
         if (context?.comparison && context.comparisonSceneRefs.has(ref)) {
-          if (node !== firstComparison) return null;
-          return <PlanningComparisonTimeline key={`comparison:${context.comparison.comparisonId}`} comparison={context.comparison}
+          if (node !== firstComparison) return [];
+          return [{ id: `comparison:${context.comparison.comparisonId}`, scene: context.snapshots.get(ref), content: <PlanningComparisonTimeline comparison={context.comparison}
             scenes={[...context.snapshots.values()].filter((scene): scene is Extract<SceneSnapshot, { kind: 'planning' }> => scene.kind === 'planning' && context.comparisonSceneRefs.has(`${scene.id}@${scene.revision}`))}
             activeBranchId={context.activeComparisonBranch} viewedDay={context.viewedDay} onViewDay={context.onViewDay}
             selection={context.selection} onSelect={context.onSelect} onDiscussBranch={context.onDiscussComparison}
-            onTryMove={context.onFollowup ? move => context.onSelect({ ...move.selection, planningTrial: { proposedStart: move.toStart } }) : undefined} />;
+            onTryMove={context.onFollowup ? move => context.onSelect({ ...move.selection, planningTrial: { proposedStart: move.toStart } }) : undefined} /> }];
         }
         const identity = ref.replace(/@\d+$/, '');
-        return <Fragment key={identity}>{renderNode(node)}</Fragment>;
-      })}
-    </div>
-  ); },
+        return [{ id: identity, scene: context?.snapshots.get(ref), content: renderNode(node) }];
+      });
+    return <SceneComposition items={items} layout={props.layout} />;
+  },
 });
 
 /** A stable module-level library keeps parsing and mounted scene identity independent of text tokens. */
 export const assistantPresentationLibrary = createLibrary({
   root: 'SceneStack',
-  components: [SceneStack, MapScene, WeatherScene, CampusScene, PlanningScene, EnvironmentScene, DiscussionScene, StudyScene, CuriosityScene, RehearsalScene, NoteScene],
+  components: [SceneStack, MapScene, FigureScene, WeatherScene, CampusScene, PlanningScene, EnvironmentScene, DiscussionScene, StudyScene, CuriosityScene, RehearsalScene, NoteScene],
 });
 
 function UnavailableScene() {
@@ -338,8 +414,10 @@ export function AssistantPresentation({
   onSelect,
   selection,
   isStreaming = false,
-  sessionId, messageId, boundaryKey, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, onFollowup, onOpenDocument, onOpenNote, timeZone,
+  sessionId, messageId, boundaryKey, hostViewBoundaryKey, privacyEpoch, policyRevision, programStateEphemeral, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, programFocus, onFollowup, onRehearsalCurrentReadStart, onReaderNavigation, onOpenDocument, onOpenNote, onOpenStudySource, timeZone,
 }: AssistantPresentationProps) {
+  const surface = useRef<HTMLDivElement>(null);
+  usePublicationReveal(surface, isStreaming);
   const [failed, setFailed] = useState(false);
   const [previewBranchId, setPreviewBranchId] = useState<string>();
   const [viewedDay, setViewedDay] = useState<string>();
@@ -355,7 +433,7 @@ export function AssistantPresentation({
     );
   }, [scenes, view.sceneRefs]);
   const context = useMemo(
-    () => ({ snapshots, renderMap, onSelect, selection, sessionId, messageId, boundaryKey, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, onFollowup, onOpenDocument, onOpenNote, timeZone,
+    () => ({ snapshots, renderMap, onSelect, selection, sessionId, messageId, boundaryKey, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, onFollowup, onRehearsalCurrentReadStart, onReaderNavigation, onOpenDocument, onOpenNote, onOpenStudySource, timeZone,
       comparison: view.comparison, comparisonSceneRefs,
       activeComparisonBranch: activeBranch?.branchId,
       onDiscussComparison: (branch: NonNullable<PresentationView['comparison']>['branches'][number]) => {
@@ -364,24 +442,37 @@ export function AssistantPresentation({
       },
       activeComparisonScene: activeBranch?.sceneRef ? `${activeBranch.sceneRef.id}@${activeBranch.sceneRef.revision}` : undefined,
       viewedDay, onViewDay: setViewedDay }),
-    [snapshots, renderMap, onSelect, selection, sessionId, messageId, boundaryKey, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, onFollowup, onOpenDocument, onOpenNote, timeZone,
+    [snapshots, renderMap, onSelect, selection, sessionId, messageId, boundaryKey, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, onFollowup, onRehearsalCurrentReadStart, onReaderNavigation, onOpenDocument, onOpenNote, onOpenStudySource, timeZone,
       view.comparison, comparisonSceneRefs, activeBranch, viewedDay],
   );
   useEffect(() => setFailed(false), [view.id, view.revision]);
-  if (view.libraryVersion !== 1 || !view.sceneRefs.length) return <UnavailableScene />;
+  const interactive = view.libraryVersion === 2 && !!(view.program || view.programReference);
+  if (!interactive && (view.libraryVersion !== 1 || !view.sceneRefs.length)) return <UnavailableScene />;
   return (
     <SceneContext.Provider value={context}>
-      <div className="assistant-presentation" data-view-id={view.id}>
-        {view.comparison && <PlanningComparisonHeader comparison={view.comparison} activeBranchId={activeBranch?.branchId}
-          onPreviewBranch={setPreviewBranchId} />}
-        <Renderer
-          response={view.dsl}
-          library={assistantPresentationLibrary}
-          isStreaming={isStreaming}
-          publishObservability={false}
-          onError={(errors) => setFailed(errors.some((error) => error.severity !== 'warning'))}
-        />
-        {failed && <UnavailableScene />}
+      <div ref={surface} className="assistant-presentation" data-view-id={view.id}>
+        {interactive ? <InteractiveProgramView view={view} messageId={messageId || ''} boundaryKey={boundaryKey}
+          livePublication={isStreaming}
+          sessionId={sessionId} privacyEpoch={privacyEpoch} policyRevision={policyRevision} programStateEphemeral={programStateEphemeral}
+          hostViewBoundaryKey={hostViewBoundaryKey}
+          activeReference={programFocus} disabled={!messageId}
+          onFollowup={onFollowup ? request => onFollowup(request) : undefined}
+          renderSourceSlot={ref => {
+            const scene = snapshots.get(ref);
+            return scene ? <Renderer key={scene.id} response={sceneViewDsl([scene], 'stack')}
+              library={assistantPresentationLibrary} isStreaming={isStreaming} publishObservability={false} /> : <UnavailableScene />;
+          }} /> : <>
+          {view.comparison && <PlanningComparisonHeader comparison={view.comparison} activeBranchId={activeBranch?.branchId}
+            onPreviewBranch={setPreviewBranchId} />}
+          <Renderer
+            response={view.dsl}
+            library={assistantPresentationLibrary}
+            isStreaming={isStreaming}
+            publishObservability={false}
+            onError={(errors) => setFailed(errors.some((error) => error.severity !== 'warning'))}
+          />
+          {failed && <UnavailableScene />}
+        </>}
       </div>
     </SceneContext.Provider>
   );
@@ -571,7 +662,7 @@ function CampusRecords({ scene, selection, onSelect }: {
           <summary>看看资料来自哪里<ChevronDown size={13} aria-hidden="true" /></summary>
           <div>
             <p>{scene.sourceLabel}</p>
-            {scene.source.fetchedAt ? <p><time dateTime={scene.source.fetchedAt}>{campusTime(scene.source.fetchedAt, true)}</time> 读取</p> : <p>这份资料没有附读取时间。</p>}
+            {scene.source.fetchedAt ? <p><time dateTime={scene.source.fetchedAt}>{campusTime(scene.source.fetchedAt, true)}</time> 采集</p> : <p>这份资料没有附源采集时间。</p>}
             <p>{scene.total !== undefined && scene.total > scene.records.length ? `本次显示 ${scene.records.length} 项，查询中共有 ${scene.total} 项。` : `这里保留了这次读到的 ${scene.records.length} 项。`}</p>
             {scene.origin === 'legacy_import' && <p>这是你带来的那份资料，之后的课程变动可以再一起核对。</p>}
           </div>

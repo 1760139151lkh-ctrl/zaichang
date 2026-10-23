@@ -6,6 +6,11 @@ import { DEFAULT_INTERACTION, type InteractionPreferences } from './interaction'
 import { DEFAULT_PERSONA, type PersonaState, type PersonaUpdate } from './persona';
 
 export type StepStatus = 'running' | 'done' | 'blocked' | 'cancelled';
+export interface NavigationTarget {
+  sessionId?: string;
+  view?: 'agenda';
+  preparationRef?: import('./presentation').PreparationReference;
+}
 export const DEEPSEEK_MODEL = 'deepseek-flash' as const;
 export type ImageMimeType = 'image/jpeg';
 export interface ImageAttachment {
@@ -37,7 +42,10 @@ export interface Obligation {
   status: 'pending' | 'running' | 'done' | 'blocked';
 }
 export interface Action extends CalendarFields {
+  /** Host metadata; never supplied through the calendar tool or editor. */
+  reminderSpeaker?: import('./harness').ReminderSpeaker;
   planRef?: { planId: string; blockId: string };
+  planningOffer?: import('./planning-offer').PlanningOffer;
   effectActionId?: string;
   calendarChange?: { targetId: string; expectedRevision: number; operation: 'update' | 'delete' | 'change_occurrence'; occurrenceDate?: string; cancelled?: boolean };
   id: string;
@@ -53,6 +61,7 @@ export interface Action extends CalendarFields {
   coverage?: 'verified' | 'conditional' | 'not_feasible';
   missingNeeds?: string[];
 }
+export type ActionEffectRef = Pick<import('./harness').EffectAction, 'id' | 'revision' | 'digest' | 'status'>;
 export interface InterpretationSummary {
   posture: 'listen' | 'listen_and_local' | 'analyze' | 'act' | 'mixed';
   fragmentCount: number;
@@ -75,6 +84,9 @@ export interface ReleaseArtifact {
   workspaceId?: string;
   sourceIds?: string[];
   sourceMessageIds?: string[];
+  sourceMessageVersions?: { id: string; revision: number }[];
+  sourceReceipts?: import('./harness').ContextReceipt[];
+  basedOnReleases?: import('./harness').ReleaseSource[];
   id: string;
   revision: number;
   body: string;
@@ -86,17 +98,35 @@ export interface ReleaseArtifact {
   delivery: 'not_sent';
   supersedes?: { id: string; revision: number };
 }
+/** Host-authored processing state, never dialogue or a business receipt. */
+export interface MessageHostStatus {
+  kind: 'error' | 'cancelled' | 'notice';
+  code: 'interrupted' | 'cancelled' | 'source_changed' | 'scope_expired' | 'incomplete' | 'provider_error' | 'process_restarted' | 'control_unknown';
+  text: string;
+}
 export interface Message {
+  /** Ephemeral transport/owner activity, never source content or a saved view. */
+  presentationActivity?: { callId: string; kind: 'view'; phase: 'generating' | 'checking'; anchor: number };
   helpRefs?: { id: string; revision: number; helpRecordId: string; kind?: 'reflective_letter' }[];
+  /** Host-signed identity when this message's whole body is the prepared artifact. */
+  primaryHelpRef?: { id: string; revision: number; helpRecordId: string };
+  /** She wrote this without a new message from the person: a check-in, or
+   * the result of something they entrusted. */
+  proactive?: 'check_in' | 'attention';
+  /** Host-observed exposure of this optional message. A displayed/opened
+   * message is not proof of reading, acceptance or a new invitation. */
+  presenceExposure?: { displayedAt?: string; openedAt?: string };
   cooperationId?: string;
   objectStates?: import('./presentation').ObjectPresentationState[];
   /** User-facing owner response before the host appends separately authored drafts. */
   responseText?: string;
+  hostStatus?: MessageHostStatus;
   releaseArtifacts?: ReleaseArtifact[];
   requestControls?: TurnControls;
   id: string;
   sessionId: string;
   role: 'user' | 'assistant';
+  authorName?: string;
   content: string;
   createdAt: string;
   status: 'running' | 'done' | 'error' | 'cancelled';
@@ -119,6 +149,8 @@ export interface Message {
     release?: ReleaseSummary;
   };
   contextReceipt?: import('./harness').ContextReceipt;
+  /** Host delivery stamp for rendering; not stored permission or provenance. */
+  presentationBoundaryKey?: string;
   image?: ImageAttachment;
 }
 export interface Conversation {
@@ -153,8 +185,18 @@ export interface Settings {
   guidance: string;
   hasKey: boolean;
   timeZone?: string;
+  /** Closing the window keeps her running in the tray (default) or quits. */
+  backgroundPresence?: 'tray' | 'quit';
+  /** Start quietly with the computer so promised reminders and watches keep going. */
+  launchAtLogin?: boolean;
+  /** What an OS notification may show: her actual words, or only that she has something. */
+  notificationPreview?: 'words' | 'private';
+  /** Whether she may sometimes come by just to say hello or share something, not only about tasks. */
+  companionCheckIns?: 'off' | 'sometimes' | 'often';
+  /** Migration marker for shipped defaults; never a user-facing setting. */
+  defaultsVersion?: number;
 }
-export type SettingsUpdate = Partial<Omit<Settings, 'hasKey' | 'persona'>> & {
+export type SettingsUpdate = Partial<Omit<Settings, 'hasKey' | 'persona' | 'defaultsVersion'>> & {
   apiKey?: string;
   personaUpdate?: PersonaUpdate;
 };
@@ -254,6 +296,8 @@ export interface RuntimeOverview {
   storage: { atRestEncrypted: boolean; keyProtection: string };
 }
 export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge {
+  readProgramLocalState(input: import('./interactive-program').ProgramLocalStateAddress): Promise<import('./interactive-program').ProgramLocalStateReceipt>;
+  saveProgramLocalState(input: import('./interactive-program').ProgramLocalStateSave): Promise<import('./interactive-program').ProgramLocalStateReceipt>;
   rehearsalProject(input: import('./relationship-rehearsal').RehearsalNativeInput): Promise<import('./relationship-rehearsal').RehearsalScene>;
   studyProject(input: import('./study-presentation').StudyNativeInput): Promise<import('./study-presentation').StudyScene>;
   studyRead(input: import('./study-presentation').StudyNativeInput): Promise<import('./study-presentation').StudyScene>;
@@ -286,17 +330,21 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
     content: string;
     image?: ImageAttachment;
     material?: import('./materials').MaterialReference;
+    materialQuote?: import('./materials').MaterialQuoteReference;
     controls?: TurnControls;
     selection?: import('./scenes').SemanticSelection;
     studyInteraction?: import('./study-presentation').StudyInteraction;
     companionReference?: import('./companion-source').CompanionFollowupReference;
     curiosityReference?: import('./curiosity-source').CuriosityFollowupReference;
+    programReference?: import('./interactive-program').ProgramFollowupReference;
     letterReference?: import('./reflective-letter').LetterReference;
     noteReference?: import('./note-presentation').NoteReference;
     rehearsalInteraction?: import('./relationship-rehearsal').RehearsalInteraction;
   }): Promise<{ sessionId: string }>;
   stop(): Promise<void>;
   saveSettings(input: SettingsUpdate): Promise<State>;
+  /** Only a never-saved default role follows the chosen artwork. */
+  followDefaultCompanion(companionId: string): Promise<State>;
   testConnection(input: { apiKey?: string }): Promise<string>;
   cancelConnection(): Promise<void>;
   deleteKey(): Promise<State>;
@@ -333,6 +381,7 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
   retryProcessing(eventId: string): Promise<RuntimeOverview>;
   reconcileAction(id: string): Promise<RuntimeOverview>;
   actionState(id: string): Promise<{
+    planningOffer?: import('./planning-offer').PlanningOfferProgress;
     localRecord?: Action | null;
     action: import('./harness').EffectAction | null;
     receipts: import('./harness').EffectReceipt[];
@@ -361,7 +410,7 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
   mapLocationStatus(): Promise<import('./map-v2').LocationStatusResult>;
   mapRoute(input: import('./map-v2').MapRouteQuery): Promise<import('./map-v2').MapRouteResult>;
   disconnectCampus(): Promise<State>;
-  action(input: { action: 'save' | 'delete' | 'done'; item: Action }): Promise<State>;
+  action(input: { action: 'save' | 'delete' | 'done'; item: Action } | { action: 'undo'; effect: ActionEffectRef }): Promise<State>;
   attachText(): Promise<TextAttachment | null>;
   attachImage(): Promise<ImageAttachment | null>;
   exportCalendar(input: import('./calendar-export').CalendarExportInput): Promise<import('./calendar-export').CalendarExportResult>;
@@ -370,6 +419,8 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
   copyText(text: string): Promise<void>;
   window(action: 'minimize' | 'maximize' | 'close' | 'close-confirmed'): void;
   onCloseRequest(callback: () => void): () => void;
+  /** A notification click asks the window to open what it was about. */
+  onNavigate(callback: (target: NavigationTarget) => void): () => void;
   onEvent(callback: (event: RunEvent) => void): () => void;
 }
 export const DEFAULT_SETTINGS: Settings = {
@@ -378,9 +429,15 @@ export const DEFAULT_SETTINGS: Settings = {
   model: DEEPSEEK_MODEL,
   mode: 'demo',
   memoryEnabled: true,
-  weatherEnabled: false,
-  remindersEnabled: false,
+  // A public reference-point forecast: no location or personal data leaves.
+  weatherEnabled: true,
+  remindersEnabled: true,
   guidance: '',
   hasKey: false,
   timeZone: 'Asia/Shanghai',
+  backgroundPresence: 'tray',
+  launchAtLogin: false,
+  notificationPreview: 'words',
+  companionCheckIns: 'sometimes',
+  defaultsVersion: 2,
 };

@@ -9,7 +9,7 @@ import type { CapabilityBroker, CapabilityDefinition, CapabilityProvider, Capabi
 import { HarnessError, type KnowledgeStatus } from '../../shared/harness';
 import { calendarFieldsSchema, localCalendarChangeSchema } from '../../shared/calendar';
 import { expandAgenda, localStamp } from '../actions/calendar';
-import { campusQueryInput, validateCampusQuery, requireCampusQueryScope } from './campus-query';
+import { campusQueryInput, validateCampusQuery, requireCampusQueryScope, campusQueryContinuation, campusLookupReadsCourseGrades } from './campus-query';
 import { calendarCommitment, planningPreviewInput, previewCalendarPlan, planningDraftInput } from '../actions/planning';
 import { planningRecoveryInput, type PlanningApplicationService } from '../actions/planning-application';
 import { readCampusPlanningConstraints, campusConstraintSummary } from '../actions/planning-campus';
@@ -56,10 +56,10 @@ const campusDomains = [
 ] as const;
 export const campusInput = z
   .object({
-    domain: z.enum(campusDomains),
+    domain: z.enum(campusDomains).describe('选择资料类别。courses清单可能含多个学期，academicYear/term选择的是采集快照；单学期清单用filters的semester_id条件。浙大账号的sports兼容入口查看当前资源目录，结果为capability_assessment，并未读取跑步明细；已导入的体育材料另属campus.imported_lookup。'),
     courseId: z.string().regex(/^\d{1,32}$/).optional(),
-    academicYear: z.string().regex(/^20\d{2}-20\d{2}$/).optional().describe('选择采集快照的学年；该快照的成绩可能含多个既往学期，不等于按semester_id筛成绩行。'),
-    term: z.enum(['1', '2']).optional().describe('选择采集快照的学期；单学期成绩请再用filters的semester_id:eq:真实学期ID筛选，或用真实Scene的campusDisplay.semesterId。'),
+    academicYear: z.string().regex(/^20\d{2}-20\d{2}$/).optional().describe('选择采集快照的学年；其中课程和成绩仍可能跨多个学期，行范围另看semester_id筛选。'),
+    term: z.enum(['1', '2']).optional().describe('选择采集快照的学期；单学期课程/成绩使用filters的semester_id:eq:来源中的学期ID。成绩呈现也可用同源Scene的campusDisplay.semesterId。'),
     query: z.string().max(100).optional(),
     from: z.string().datetime({ offset: true }).optional(),
     to: z.string().datetime({ offset: true }).optional(),
@@ -72,14 +72,16 @@ export const campusInput = z
     filters: z.array(z.string().max(160)).max(6).optional().describe('规范字段精确筛选，格式field:operator:value，多项AND；如semester_id:eq:YYYY-YYYY-2（ID必须来自真实记录）。不能只在回答中挑出9门却呈现未筛的19门Scene。'),
     sort: z.string().max(100).optional(),
     offset: z.number().int().min(0).max(10000).optional(),
+    bundleId: z.string().regex(/^[a-f0-9]{32}$/).optional().describe('沿原读取地址继续同一快照；与refresh是不同查询。'),
+    expectedSnapshotVersion: z.string().regex(/^[a-f0-9]{64}$/).optional(),
     window: z.string().max(40).optional(),
     limit: z.number().int().min(1).max(50).default(12),
-    refresh: z.boolean().default(false),
+    refresh: z.boolean().default(false).describe('false沿现有资料读取。学业类别的true按当前资源相关来源窄刷新，需有同账号、同学期的当前latest基线；原连接器仍在本机读取并归一化旧完整学业快照，宿主会连同实际新采集范围核用途。缺基线不改为整包采集；保存清单续页保持false与原快照地址。'),
   })
   .strict();
 const campusOverviewInput = z
   .object({
-    refresh: z.boolean().default(false),
+    refresh: z.boolean().default(false).describe('整包学业刷新会同时采集成绩等来源；includeSensitiveDomains仅决定返回的领域，不能把采集范围缩成无敏感来源。'),
     includeSensitiveDomains: z.boolean().default(false),
     academicYear: z.string().regex(/^20\d{2}-20\d{2}$/).optional(),
     term: z.enum(['1', '2']).optional(),
@@ -93,6 +95,9 @@ const campusAccountOutput = z
     source: z.string(),
     institutionId: z.string(),
     termId: z.string(),
+    termIdMeaning: z.literal('snapshot_collection_period').optional(),
+    recordSelection: z.object({ filters: z.array(z.string()), sort: z.string().optional(),
+      semester: z.enum(['no_semester_predicate', 'semester_predicate_provided']) }).strict().optional(),
     live: z.boolean(),
     origin: z.literal('zju_account'),
     authenticated: z.boolean(),
@@ -101,8 +106,11 @@ const campusAccountOutput = z
     snapshotAt: z.string().optional(),
     bundleId: z.string().optional(),
     nextOffset: z.number().int().nonnegative().nullable().optional(),
+    offset: z.number().int().nonnegative().optional(),
     unknownTimeRecords: z.number().int().nonnegative().optional(),
     sourceCoverage: jsonObject.optional(),
+    timeInterval: jsonObject.optional(),
+    evaluatedAt: z.string().optional(),
     snapshotProof: jsonObject.optional(),
     snapshotProofs: z.array(jsonObject).optional(),
   })
@@ -176,17 +184,17 @@ const manifest = (
   license: 'project-owned adapter; underlying sources retain original licenses',
 });
 function statusOf(value: any): KnowledgeStatus {
+  if (value?.status === 'conflict') return 'conflict';
   if (value?.stale || value?.freshness?.stale) return 'stale';
   if (value?.status === 'forbidden' || value?.status === 'auth_required') return 'forbidden';
   if (value?.status === 'unavailable' || value?.status === 'unsupported') return 'unsupported';
   if (value?.status === 'error' || value?.status === 'failed') return 'failed';
   if (value?.status === 'conflict') return 'conflict';
   if (
-    value?.status === 'partial' ||
-    value?.coverage?.complete === false ||
-    value?.completeness?.complete === false
+    value?.status === 'partial' || value?.status === 'navigate_required' ||
+    ['ok', 'fresh'].includes(String(value?.status)) && (value?.coverage?.complete === false || value?.completeness?.complete === false)
   )
-    return 'unknown';
+    return 'partial';
   return ['ok', 'fresh'].includes(String(value?.status))
     ? 'fresh'
     : value?.status === 'not_found'
@@ -204,7 +212,23 @@ function sourceObservationAt(value: any): string | undefined {
     .sort((a, b) => Date.parse(a) - Date.parse(b));
   return candidates[0];
 }
-function calendarLocalTimes(item: Record<string, unknown>, fallbackTimeZone: string): Record<string, unknown> {
+/** Only a successful page of a complete, source-bound connector query gets
+ * a page-delivery mark. An empty partial/auth response is not such a page. */
+function campusPageDelivery(campus: ZjuAdapter, result: any, expectedOffset: number): CapabilityResult['delivery'] {
+  if (result.status !== 'ok' || result.coverage?.complete !== true || result.completeness?.complete === false
+    || result.nested_values_truncated === true || result.truncated_for_model === true
+    || Array.isArray(result.coverage.issues) && result.coverage.issues.length
+    || !Array.isArray(result.records) || result.records.some((row: unknown) => !row || typeof row !== 'object' || Array.isArray(row))
+    || !Number.isSafeInteger(result.offset) || result.offset !== expectedOffset
+    || !Number.isSafeInteger(result.total_matches) || result.total_matches < result.offset + result.records.length
+    || result.next_offset === null && result.total_matches !== result.offset + result.records.length
+    || result.next_offset !== null && (!Number.isSafeInteger(result.next_offset)
+      || result.next_offset !== result.offset + result.records.length || result.next_offset <= result.offset)
+    || !result.snapshotProof || result.snapshotProof.bundleId !== result.bundle_id
+    || result.snapshotProof.resource !== result.resource || !campus.captureReadingProof?.(result.snapshotProof)) return;
+  return { kind: 'page', complete: true };
+}
+export function calendarLocalTimes(item: Record<string, unknown>, fallbackTimeZone: string): Record<string, unknown> {
   const timeZone = typeof item.timeZone === 'string' ? item.timeZone : fallbackTimeZone;
   if (typeof item.startsAt !== 'string') return item.allDayDate ? { ...item, timeZone } : item;
   const endsAt = typeof item.endsAt === 'string' ? item.endsAt : item.endsAt !== null && typeof item.durationMinutes === 'number'
@@ -269,9 +293,9 @@ export function registerBuiltins(
   });
   register({
     manifest: manifest('situation', 'current', [base('situation.read', z.object({
-      from: z.string().datetime({ offset: true }), to: z.string().datetime({ offset: true }), timeZone: z.string().max(100).default('Asia/Shanghai'),
-      limit: z.number().int().min(1).max(20).default(8),
-    }).strict(), jsonObject, ['evidence:read'], { version: '3', timeoutMs: 90000, worlds: ['real'], displayName: '读取有界当前情境', description: '按明确时间窗汇合当前范围允许的本地安排、已接受承诺、有效目标与校园保存快照。已连接并获准时沿原连接器默认读取，可能完成认证或补齐缺少的学期快照，再分页核对课程、考试与校历例外，不必用户重录。日期实例附localStartsAt/localEndsAt和timeZone，未知结束为null。学校计划与本人接受的本地安排分别显示，源采集完整不保证未来不变。未读取、未覆盖和已知空白分开，日历空不证明现实空闲或精力充足。' })]),
+      from: z.string().datetime({ offset: true }).describe('跨来源比较所需窗口的起点，to必须在其后且跨度不超过31天；不是整学期原课表查询。'), to: z.string().datetime({ offset: true }).describe('本次综合窗口终点，与from最多相隔31天。'), timeZone: z.string().max(100).default('Asia/Shanghai'),
+      limit: z.number().int().min(1).max(20).default(8).describe('各类结果的有界摘录数，不能据此宣称全学期课程完整；它也不会去除来源证明与覆盖说明。'),
+    }).strict(), jsonObject, ['evidence:read'], { version: '3', timeoutMs: 90000, worlds: ['real'], displayName: '读取有界当前情境', description: '只在需要跨来源比较时，按最长31天的明确时间窗汇合当前范围允许的本地安排、已接受承诺、有效目标与校园保存快照。单独查看原课表、课程或考试，直接用campus.lookup或campus.query按真实学期、日期、分页读取，其真实sceneRef可交present_view；本工具不是原课表阅读的前置，也不签发课表Scene。已连接并获准时沿原连接器默认读取，可能完成认证或补齐缺少的学期快照，再分页核对课程、考试与校历例外，不必用户重录。日期实例附localStartsAt/localEndsAt和timeZone，未知结束为null。学校计划与本人接受的本地安排分别显示，源采集完整不保证未来不变。未读取、未覆盖和已知空白分开，日历空不证明现实空闲或精力充足。' })]),
     invoke: async (_name, args, ctx) => {
       const scope = policy.validate(ctx.scope), now = repo.clock.now();
       if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self') throw new HarnessError('situation_scope', '个人情境只在本人的现实私有范围内读取。');
@@ -395,23 +419,26 @@ export function registerBuiltins(
   register({
     manifest: manifest('campus-read', CAMPUS_ACCOUNT_SOURCE_ID, [
       base('campus.query', campusQueryInput, jsonObject, ['campus:read'], {
-        displayName: '校园资源、字段与组合查询', description: '查询本人课程、课表、考试、逐科成绩、各学期与总GPA/绩点、实践等原资料。resources发现可读类别，schema查字段；quick/select支持相关分页、关联、汇总、冲突、转场和空档；read回读规范化原对象，history/diff比较快照。成绩保留所有修读、学分、原分数与计入状态；GPA各制式、全修读/首次/最高政策、分母与完整性分开，不以缺失作零。查询只读，不预约、支付或选退课。snapshotProof只说明真实来源快照，不把旧观察变成实时确认。', timeoutMs: 90000, maxBytes: 140000,
+        version: '4', displayName: '校园资源、字段与组合查询', description: '查询本人课程、课表、考试、逐科成绩、各学期与总GPA/绩点、实践等原资料。resources发现真实资源和schemaModels字段模型读取入口，schema查字段；quick/select支持相关分页、关联、汇总、冲突、转场和空档；continuation沿同一查询/快照读下一页，read回读规范化原对象，history/diff比较快照。成绩保留所有修读、学分、原分数与计入状态；GPA各制式、全修读/首次/最高政策、分母和缺失分开。实践积分不等于跑步有效次数，未列出的字段不猜成零。查询只读，不预约、支付或选退课。snapshotProof只说明真实来源快照，不把旧观察变成实时确认。', timeoutMs: 90000, maxBytes: 140000,
       }),
       base(
         'campus.lookup',
         campusInput,
-        campusAccountOutput,
+        z.union([campusAccountOutput, z.object({ kind: z.literal('capability_assessment'), domain: z.enum(campusDomains), recordRead: z.literal(false),
+          requestedMeasures: z.array(z.string()), catalog: jsonObject }).strict()]),
         ['campus:read'],
-        { timeoutMs: 90000, displayName: '本人校园资料', description: '按领域读取本人课程/课表/考试、成绩、GPA/学期绩点、实践与已有校园记录；成绩与GPA逐次核具体用途，保留源采集时间、修读口径、分母和缺失范围。只读，不办理预约、选课或支付。' },
+        { version: '9', timeoutMs: 90000, displayName: '本人校园资料', description: '按领域读取本人课程/课表/考试、成绩、GPA/学期绩点、实践与已有校园记录。没有记录映射的类别返回kind=capability_assessment和本次实际资源目录；recordRead=false说的是本次没有读取个人记录，与某份记录为空不同。practice/projects提供实践记点、学分与项目，和体育有效打卡次数是不同的统计量。实际记录附真实分页、修读口径、分母与统计范围，统计期也可能未知。这些材料可供你判断眼前的问题能算到哪一步、接下来哪里值得查。查询是只读的，不办理预约、选课或支付。' },
       ),
       base('campus.overview', campusOverviewInput, jsonObject, ['campus:read'], {
+        version: '2',
         timeoutMs: 90000,
         maxBytes: 140000,
       }),
     ]),
     connectionStatus: () => {
       const status = connections.campus?.describe();
-      return { connected: !!status?.available && status.credentialsConfigured !== false, reason: status?.reason || '尚未连接校园账号', entry: '连接与偏好 → 校园资料' };
+      const connected = !!status?.available && status.credentialsConfigured !== false;
+      return { connected, ...(status?.reason ? { reason: status.reason } : !connected ? { reason: '尚未连接校园账号' } : {}), entry: '连接与偏好 → 校园资料' };
     },
     invoke: async (name, args, ctx) => {
       const sourceId = CAMPUS_ACCOUNT_SOURCE_ID;
@@ -426,12 +453,28 @@ export function registerBuiltins(
       if (name === 'campus.query') {
         const query = validateCampusQuery(args);
         requireCampusQueryScope(policy, ctx.scope, query);
-        const result = await connections.campus.query(query, ctx.signal);
+        const result = await connections.campus.query(query, ctx.signal, { allowAcademicSync:
+          ['campus:grades:read', 'campus:gpa:read', 'campus:profile:read'].every(grant => policy.can(ctx.scope, grant)) });
         policy.validate(ctx.scope);
-        const status: KnowledgeStatus = result.status === 'ok' ? 'fresh' : result.status === 'partial' || result.status === 'navigate_required' ? 'partial' : result.status === 'auth_required' ? 'forbidden' : result.status === 'unavailable' ? 'not_connected' : result.status === 'error' ? 'failed' : 'unknown';
+        const sourceStatus = result.status === 'unavailable' ? 'not_connected' : statusOf(result);
+        const paged = result.next_offset != null || (query.spec?.offset ?? query.offset) > 0;
+        const status: KnowledgeStatus = sourceStatus === 'fresh' && paged ? 'partial' : sourceStatus;
+        const continuation = campusQueryContinuation(query, result);
         const observedAt = sourceObservationAt(result);
-        return { status, sourceId, data: JSON.parse(JSON.stringify(result)), fetchedAt: observedAt, reason: result.reason,
-          coverage: { complete: result.coverage?.complete === true && result.next_offset == null, scope: query.resource || query.spec?.resource || 'capability_metadata' }, simulated: false };
+        const delivery = campusPageDelivery(connections.campus, result, query.spec?.offset ?? query.offset);
+        return { status, sourceId, data: JSON.parse(JSON.stringify({ ...result, ...(continuation ? { continuation } : {}) })), fetchedAt: observedAt, reason: result.reason,
+          ...(delivery ? { delivery } : {}),
+          coverage: { complete: result.coverage?.complete === true && !paged, scope: query.resource || query.spec?.resource || 'capability_metadata' }, simulated: false };
+      }
+      if (name === 'campus.lookup' && args.domain === 'sports') {
+        const assessment = (await connections.campus.read({ domain: 'sports' }, ctx.signal)).data;
+        policy.validate(ctx.scope);
+        if (assessment.kind !== 'capability_assessment') return { status: statusOf(assessment), sourceId,
+          reason: assessment.reason, simulated: false, coverage: { complete: false, scope: 'connector_catalog_only' } };
+        return { status: 'unsupported', sourceId,
+          data: { kind: assessment.kind, domain: assessment.domain, recordRead: assessment.recordRead,
+            requestedMeasures: assessment.requestedMeasures, catalog: assessment.catalog }, simulated: false,
+          coverage: { complete: false, scope: 'connector_catalog_only' } };
       }
       if (connector.credentialsConfigured === false)
         return {
@@ -458,7 +501,7 @@ export function registerBuiltins(
             academicYear: args.academicYear,
             term: args.term,
           },
-          ctx.signal,
+          ctx.signal, { allowAcademicSync: ['campus:grades:read', 'campus:gpa:read', 'campus:profile:read'].every(grant => policy.can(ctx.scope, grant)) },
         );
         policy.validate(ctx.scope);
         const batches = Array.isArray(result?.batches) ? result.batches : [];
@@ -513,6 +556,7 @@ export function registerBuiltins(
       }
       const grant = sensitiveCampusGrant[args.domain as (typeof campusDomains)[number]];
       if (grant) policy.require(ctx.scope, grant);
+      if (campusLookupReadsCourseGrades(args)) policy.require(ctx.scope, 'campus:grades:read');
       if (!['places', 'rules'].includes(args.domain)) {
         const wrapped = (await connections.campus!.read(
           {
@@ -528,19 +572,23 @@ export function registerBuiltins(
             filters: args.filters,
             sort: args.sort,
             offset: args.offset,
+            bundleId: args.bundleId,
+            expectedSnapshotVersion: args.expectedSnapshotVersion,
             window: args.window,
             limit: args.limit,
             refresh: args.refresh,
           },
-          ctx.signal,
+          ctx.signal, { allowAcademicSync: ['campus:grades:read', 'campus:gpa:read', 'campus:profile:read'].every(grant => policy.can(ctx.scope, grant)) },
         )) as any;
         const result = wrapped?.data && typeof wrapped.data === 'object' ? wrapped.data : wrapped;
         const snapshotAt = sourceObservationAt(result);
         policy.validate(ctx.scope);
         const records = result.records || result.result || [];
+        const delivery = campusPageDelivery(connections.campus!, result, args.offset || 0);
         return {
           status: statusOf(result),
           sourceId,
+          ...(delivery ? { delivery } : {}),
           data: {
             domain: args.domain,
             records: (Array.isArray(records) ? records : [records])
@@ -549,6 +597,10 @@ export function registerBuiltins(
             source: '浙江大学本人账号',
             institutionId: 'zju',
             termId: String(result.semester_id || 'unspecified'),
+            termIdMeaning: 'snapshot_collection_period' as const,
+            recordSelection: { filters: args.filters || [], ...(args.sort ? { sort: args.sort } : {}),
+              semester: (args.filters || []).some((filter: string) => filter.split(':')[0].trim() === 'semester_id')
+                ? 'semester_predicate_provided' as const : 'no_semester_predicate' as const },
             live: args.refresh,
             origin: 'zju_account',
             authenticated: connector.authStatus === 'verified' || !!result.authenticated_at,
@@ -557,8 +609,11 @@ export function registerBuiltins(
             snapshotAt,
             ...(typeof result.bundle_id === 'string' ? { bundleId: result.bundle_id } : {}),
             ...(result.next_offset !== undefined ? { nextOffset: result.next_offset } : {}),
+            ...(Number.isSafeInteger(result.offset) && result.offset >= 0 ? { offset: result.offset } : {}),
             ...(typeof result.unknown_time_records === 'number' ? { unknownTimeRecords: result.unknown_time_records } : {}),
             ...(result.coverage ? { sourceCoverage: result.coverage } : {}),
+            ...(result.time_interval ? { timeInterval: result.time_interval } : {}),
+            ...(typeof result.evaluated_at === 'string' ? { evaluatedAt: result.evaluated_at } : {}),
             ...(result.snapshotProof ? { snapshotProof: result.snapshotProof } : {}),
             ...(result.snapshotProofs ? { snapshotProofs: result.snapshotProofs } : {}),
           },
@@ -575,12 +630,11 @@ export function registerBuiltins(
           simulated: false,
         };
       }
-      return {
-        status: 'unsupported',
-        sourceId,
-        reason: '这个类别还不能从浙大账号读取；没有改用本地导入资料冒充。',
-        simulated: false,
-      };
+      const catalog = await connections.campus.query({ operation: 'resources', offset: 0, limit: 50, refresh: false }, ctx.signal);
+      policy.validate(ctx.scope);
+      return { status: 'unsupported', sourceId,
+        data: { kind: 'capability_assessment', domain: args.domain, recordRead: false, requestedMeasures: [], catalog },
+        coverage: { complete: false, scope: 'connector_catalog_only' }, simulated: false };
     },
   });
   // A legacy import remains available only for explicit offline migration. It
@@ -599,7 +653,7 @@ export function registerBuiltins(
         return {
           status: 'unsupported',
           sourceId: 'campus:local',
-          reason: '没有离线快照；请登录浙大账号读取本人资料。',
+          reason: '这台电脑上还没有导入的校园资料，这次没有取得本人记录；这与查到记录为空不同。账号来源能读到哪些统计，要看实际提供的资源和字段，连接本身还不说明某项统计已经可读。本人另给的学校页面、导出材料或数字，也各有自己的来源与口径，可以结合实际内容理解它们能支持什么。',
           simulated: false,
         };
       const importedDomain = args.domain === 'practice' || args.domain === 'sports' ? 'sports' : args.domain;
@@ -675,7 +729,7 @@ export function registerBuiltins(
           .strict(),
         z.object({ matches: z.array(jsonObject) }).strict(),
         ['map:read'],
-        { version: '2', subjects: ['self', 'other', 'fictional'], description: '按地点名、别名或类别检索当前紫金港公共地图；名称无需重复校区前缀。无匹配时缩短名称或查询别名，不能猜地点ID。候选保留公共参考坐标、入口/接入条件与来源；绘图几何由原地图持有，不是本人位置。' },
+        { version: '3', subjects: ['self', 'other', 'fictional'], description: '按自然地点名、既有别名或类别检索当前公共地图；可带当前地图标题中的范围限定，范围不是新增地点别名。无匹配先核范围/已有别名，不要求用户背内部名称或猜ID。候选保留公共参考坐标、入口、全部接入候选ID/条件分组与对应来源；摘要不是已选择路线，详细接入由map.route核，完整几何仍在原地图，不是本人位置。' },
       ),
       base('map.route', routeInput, jsonObject, ['map:read'], { subjects: ['self', 'other', 'fictional'] }),
       base('map.location_status', z.object({}).strict(), jsonObject, ['map:read']),

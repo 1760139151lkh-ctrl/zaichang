@@ -75,15 +75,33 @@ export function ReadableFocus({ label, active = false, disabled = false, onFocus
  * field whose entire DOM text equals its source. Never relocate by quote. */
 function selectedRange(root: HTMLElement, source: string): LocalTextRange | undefined {
   const selection = window.getSelection();
-  if (!selection || selection.isCollapsed || selection.rangeCount !== 1
-    || !root.contains(selection.anchorNode) || !root.contains(selection.focusNode)) return;
+  if (!selection || selection.isCollapsed || selection.rangeCount !== 1) return;
+  const bodyBoundary = (node: Node | null) => !!node && (root.contains(node)
+    || node.nodeType === Node.ELEMENT_NODE && (node as Element).contains(root));
+  if (!bodyBoundary(selection.anchorNode) || !bodyBoundary(selection.focusNode)) return;
   const excluded = 'button,input,textarea,select,svg,math,.katex,[data-focus-excluded]';
   const element = (node: Node | null) => node?.nodeType === Node.ELEMENT_NODE ? node as Element : node?.parentElement;
   if (element(selection.anchorNode)?.closest(excluded) || element(selection.focusNode)?.closest(excluded)
     || selection.getRangeAt(0).cloneContents().querySelector(excluded)) return;
-  const text = selection.toString().trim();
+  const range = selection.getRangeAt(0).cloneRange(), body = document.createRange(); body.selectNodeContents(root);
+  const lowerBoundary = body.comparePoint(range.startContainer, range.startOffset);
+  const upperBoundary = body.comparePoint(range.endContainer, range.endOffset);
+  if (lowerBoundary > 0 || upperBoundary < 0) return;
+  // A paragraph-end gesture can leave the browser caret on an ancestor just
+  // after the body. Clip only that empty boundary, never neighbouring text.
+  if (lowerBoundary < 0) {
+    const outside = range.cloneRange(); outside.setEnd(body.startContainer, body.startOffset);
+    if (outside.toString().trim()) return;
+    range.setStart(body.startContainer, body.startOffset);
+  }
+  if (upperBoundary > 0) {
+    const outside = range.cloneRange(); outside.setStart(body.endContainer, body.endOffset);
+    if (outside.toString().trim()) return;
+    range.setEnd(body.endContainer, body.endOffset);
+  }
+  const text = range.toString().trim();
   if (!text || Array.from(text).length > 1200) return;
-  const range = selection.getRangeAt(0), points = Array.from(source);
+  const points = Array.from(source);
   const prefixPoints = (prefix: string, whole: string): number | undefined => {
     const count = Array.from(prefix).length;
     return Array.from(whole).slice(0, count).join('') === prefix ? count : undefined;
@@ -196,7 +214,7 @@ export function LocalTextFocus({ source, label, onFocus, activeRange, disabled =
         // The chosen address now supplies the reading mark. Do not leave a
         // second native selection that can reopen the cue or outlive Cancel.
         const selected = window.getSelection();
-        if (selected && body.current?.contains(selected.anchorNode) && body.current.contains(selected.focusNode)) selected.removeAllRanges();
+        if (selected && body.current && selectedRange(body.current, source)) selected.removeAllRanges();
         onFocus(current); setSelection(undefined);
       }}>就这句聊聊<ArrowUpRight size={12} /></button>
     </div>}

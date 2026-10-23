@@ -46,14 +46,14 @@
       "assets/map-v2/sports-details.geojson",
       "assets/map-v2/building-supplement.json",
       "assets/map-v2/source.osm.json.gz",
-      "assets/brand/icon.png",
+      "前端视觉创新设计/统一图库/原图/运行素材与品牌/icon-9a6d2ebdf831.png",
       "licenses/**/*",
       "package.json"
     ],
     "asar": true,
     "win": {
       "target": "portable",
-      "icon": "assets/brand/icon.ico",
+      "icon": "前端视觉创新设计/统一图库/原图/运行素材与品牌/icon-9d25cbff5ee2.ico",
       "signAndEditExecutable": true
     },
     "portable": {
@@ -67,6 +67,7 @@
     "@maplibre/maplibre-gl-style-spec": "26.4.4",
     "@napi-rs/canvas": "1.0.6",
     "@noble/hashes": "2.4.0",
+    "@openuidev/lang-core": "1.0.1",
     "@openuidev/react-lang": "1.0.1",
     "earcut": "3.2.4",
     "katex": "0.18.2",

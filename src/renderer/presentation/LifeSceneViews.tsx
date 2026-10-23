@@ -158,7 +158,7 @@ export function PlanningTime({ scene, selection, onSelect, viewedDay, onViewDay 
           {summary.budget?.reserveMinutes !== undefined ? ` 想留 ${duration(summary.budget.reserveMinutes)} 空白。` : ''}</p>}
         <p>{scene.source.fetchedAt ? `${stamp(scene.source.fetchedAt, zone, true)} 读取本机安排` : '这份安排没有附读取时间。'}</p>
         {scene.sourceCoverage.map((row, index) => <p key={index}>{sourceName(row.sourceId)}{row.status !== 'complete' ? ' · 范围还不完整' : ''}{row.reason ? `：${row.reason}` : ''}</p>)}
-        <p>{agenda ? '点选只引用原记录。邀请和待确认的事项仍未答应；修改时回读原对象和当前版本。未显示的时间不证明现实空闲。' : '点选只是继续商量。真正采用时，会重新核对安排和完整占用。'}</p>
+        <p>{agenda ? '点一下某一段，就能指着它接着聊。还没答应的邀请不算定下来；图上空着的时间，也不一定真的有空。' : '点一下只是接着商量；真要按这个来时，会再对一遍当时的日程。'}</p>
         {scene.expiresAt && <p>这次方案的核查截至 {stamp(scene.expiresAt, zone, true)}；超过后按当时的日程重新看看。</p>}
       </div></details>
     </footer>
@@ -214,7 +214,7 @@ export function EnvironmentHours({ scene, selection, onSelect }: SelectionProps 
     </div>
     <footer className="life-scene-footer"><span>{expired ? '先前查到的预报' : scene.window.complete ? '公共参考点预报' : '预报有缺测或覆盖不足'}</span><details><summary>时间与来源<ChevronDown size={13} /></summary><div className="life-scene-source">
       <p>{air ? 'Open-Meteo / CAMS' : 'Open-Meteo'} · 公共参考地点</p>
-      <p>{scene.source.fetchedAt ? `${stamp(scene.source.fetchedAt, scene.timeZone, true)} 获取` : '来源没有附获取时间。'}</p><p>预报发布时间未提供；获取时间不代表发布时间。</p>
+      <p>{scene.source.fetchedAt ? `${stamp(scene.source.fetchedAt, scene.timeZone, true)} 获取` : '来源没有附获取时间。'}</p><p>上面写的是读取预报的时间，预报本身什么时候发布的，来源没有说。</p>
       <p>查询窗口：{stamp(scene.window.from, scene.timeZone, true)} 至 {stamp(scene.window.to, scene.timeZone, true)}。</p>
       {scene.limitations.map((item, index) => <p key={index}>{item}</p>)}
     </div></details></footer>

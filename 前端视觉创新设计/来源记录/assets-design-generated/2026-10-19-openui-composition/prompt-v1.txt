@@ -1,0 +1,23 @@
+Use case: precise-object-edit, ui-mockup with a scientifically accurate plot.
+Edit target: the supplied actual 在场 desktop screenshot from the project's isolated synthetic Note conversation. This is a localized product design edit, not a new app screenshot from scratch.
+
+Preserve the exact existing application shell, aspect ratio and landscape camera, top navigation “聊天 / 今天 / 留下”, warm off-white and restrained muted-gold palette, soft room light, existing room backdrop, current blue-haired character illustration and her upper-right position, generous clear space to her left, and the single existing bottom composer. Preserve the existing bottom composer's geometry, original free draft and note-focus cue; do not create another input or chat panel. Do not add a side bar, device mockup, browser frame or extra character. Only replace the central current note paper and its contents. The current character must not overlap plot, labels, controls or reading text.
+
+Replace that central note with one beautiful, continuous, usable conversation paper for a live work made in the moment. Reuse the reference's soft ivory paper material, faint fibers, delicate paper edge and believable shallow shadow. Do not exaggerate roughness. Keep typography clear and large at normal desktop size. Remove the old note title, note body, selected-note marking, timestamp and “打开原笔记” from inside this paper. The new work is a design example; no visible “OpenUI”, “program”, “demo”, internal IDs or implementation labels.
+
+Inside the paper:
+1. Large clear Chinese title, exactly: “让两条波相遇”.
+2. One short natural companion sentence, exactly: “我们把它们错开半圈，看看金色的那条会去哪里。”
+3. The main visual is a large, rigorous, clean SVG-like scientific line graph, not hand-drawn waves and not an illustration of water. Plot x from 0 to 2π and y approximately -1.2 to 1.2. Clear light horizontal zero axis; discreet amplitude ticks 1, 0, -1; x-axis labels exactly 0, π, 2π. No coarse grid or decorative graph paper.
+   Exact mathematical state: φ = 180° = π. y₁ = sin(x), y₂ = sin(x + π) = -sin(x), y₁ + y₂ = 0 everywhere.
+   At x=0 both originals are at 0. The dark thin ink-gray original y₁ rises to +1 at π/2, crosses 0 at π, falls to -1 at 3π/2, and returns to 0 at 2π.
+   The other original is a thin light warm-gray curve, precisely the vertical opposite: -1 at π/2 and +1 at 3π/2.
+   The sum is a slightly stronger, restrained gold STRAIGHT HORIZONTAL LINE on y=0 for the entire graph. It MUST NOT be another sinusoid. Both original waves are visible and clearly distinguishable, visually secondary to the gold result.
+   A small legible legend ties gray line to “sin(x)”, light warm-gray line to “sin(x + φ)”, and gold line to “两条波的和”. Keep labels separate and readable; do not cover the curves.
+4. Under the graph, a slim readable live phase control. Its label/value exactly “相位差 180°”. A long elegant slider runs from 0° at left to 360° at right, with its thumb precisely halfway at 180°. It belongs to the same paper, not an inset card collection.
+5. A light ON toggle labelled exactly “看原来的两条”; a small restrained play affordance labelled “慢慢看”; a quiet text reset entry “回到原来的样子”. They communicate finite local adjustment/play/reset without a dashboard or many tool cards.
+6. The state explanation is readable, exactly: “现在每一处都刚好相反，所以相加回到了零。再拨一点，它们就不再完全抵消。”
+   A compact optional mathematical line may read exactly “sin(x) + sin(x + π) = 0”; do not introduce another equation.
+7. On the paper edge, one single understated conversational continuation entry, exactly “接着这个变化聊 ↗”. It returns to the existing shared composer; no second chat box, survey or floating toolbar.
+
+Use the reference's existing quiet spacing and readable Chinese typography. Let the graph be the paper's visual focus, with enough room for all controls and explanation above the composer. Do not fill the whole page with microcopy or decorative labels. No badge rows, audit/permission disclaimers, lesson checklist, score, new notebook manager, fake progress or generic engineering dashboard. Output one polished, realistic landscape desktop design image.
