@@ -6,7 +6,7 @@ import { mkdtemp, rmdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
-import { MODEL_REQUEST_TIMEOUT_MS, MODEL_WIRE_LIMITS, ProviderError, readSSE, ssePendingCharacterLimit, toolArgumentCharacterLimit, type Completion, type CompletionOptions, type ModelWireMessage, type ProviderMetadata, type ToolSpec, type WireMessage } from './provider';
+import { MODEL_REQUEST_TIMEOUT_MS, MODEL_WIRE_LIMITS, ProviderError, normalizeTransportError, readSSE, ssePendingCharacterLimit, toolArgumentCharacterLimit, type Completion, type CompletionOptions, type ModelWireMessage, type ProviderMetadata, type ToolSpec, type WireMessage } from './provider';
 import modelContract from '../shared/model-contract.json';
 
 export const LUNA_MODEL = modelContract.luna.model;
@@ -100,7 +100,7 @@ export class AppServerLunaClient {
         const transient = error instanceof ProviderError ? error.retryable : error instanceof TypeError && ['terminated', 'fetch failed'].includes(error.message);
         if (signal.aborted || deliveredText || !transient || attempt || options?.allowTransportRetry === false) {
           if (error && typeof error === 'object') Object.assign(error, { transportAttempts: attempt + 1 });
-          throw error;
+          throw normalizeTransportError(error, signal);
         }
         await abortableDelay(500, signal);
       }

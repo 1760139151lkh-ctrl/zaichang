@@ -19,9 +19,9 @@
 
 同一消息／view连续收到新的修订时，只将声明和新旧初值都没变的非瞬态观看条件接过去，隐私版本或来源退出后不接。明确改初值仍依新稿，历史重开仍按各版保存；这不会更改模型的原稿初值或把本地手势变成新原话。读取／保存失败与真正临时状态分开：失败时保住眼前值并提供原入口重试，不静默声称已保存。
 
-实现入口为[共享库](../src/shared/interactive-library.ts)、[局部状态契约](../src/shared/interactive-program.ts)、[按压](../src/renderer/presentation/interactive-press.tsx)、[声音](../src/renderer/presentation/interactive-audio.tsx)、[前端保存适配](../src/renderer/presentation/program-local-state.ts)及[主机保存入口](../src/main/runtime/interactive-program-local-state.ts)。设计比较见[本轮图稿](../assets/design/generated/2026-10-21-explorable-mechanisms/)，采用B的正文与两块可操作内容关系；图中的机械与黑白键错误不进入实现。源码、正常Luna构作、音频输出链、重开及最终整合观察分别记录在当前状态，尚未完成的整件机构不能写成已经验收。
+实现入口为[共享库](../src/shared/interactive-library.ts)、[局部状态契约](../src/shared/interactive-program.ts)、[按压](../src/renderer/presentation/interactive-press.tsx)、[声音](../src/renderer/presentation/interactive-audio.tsx)、[前端保存适配](../src/renderer/presentation/program-local-state.ts)及[主机保存入口](../src/main/runtime/interactive-program-local-state.ts)。设计比较见[本轮图稿](../%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/assets-design-generated/2026-10-21-explorable-mechanisms/)，采用B的正文与两块可操作内容关系；图中的机械与黑白键错误不进入实现。源码、正常Luna构作、音频输出链、重开及最终整合观察分别记录在当前状态，尚未完成的整件机构不能写成已经验收。
 
-`InteractiveProgramView.tsx`与`interactive-{context,primitives,graphics,motion}.tsx`、`interactive-program.css`已接入原`AssistantPresentation`，并启用同一程序入口。`SourceSlot`在组合内容里展开本次已准入的原业务Scene，保持原选择与来源；Motion由用户动作启动有限运动和受检数值变化，手动改值可停下。点到当前节点、改变局部条件或选择继续，沿原程序地址回同一composer的小引用，原稿不改；普通发送前再取当前完整局部输入，避免仅带上较早的一次点击值。这些是当前源码的呈现与接续机制；[选定图稿](../assets/design/generated/2026-10-19-openui-composition/manifest-v1.json)、实际画面、动效与正常Luna结果仍按[各自证据](CURRENT_STATUS.md#personal-memory-round7)判断，不把组件接入或静态检查当成交互通过。
+`InteractiveProgramView.tsx`与`interactive-{context,primitives,graphics,motion}.tsx`、`interactive-program.css`已接入原`AssistantPresentation`，并启用同一程序入口。`SourceSlot`在组合内容里展开本次已准入的原业务Scene，保持原选择与来源；Motion由用户动作启动有限运动和受检数值变化，手动改值可停下。点到当前节点、改变局部条件或选择继续，沿原程序地址回同一composer的小引用，原稿不改；普通发送前再取当前完整局部输入，避免仅带上较早的一次点击值。这些是当前源码的呈现与接续机制；[选定图稿](../%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/assets-design-generated/2026-10-19-openui-composition/manifest-v1.json)、实际画面、动效与正常Luna结果仍按[各自证据](CURRENT_STATUS.md#personal-memory-round7)判断，不把组件接入或静态检查当成交互通过。
 
 <a id="companion-experience"></a>
 ## 本轮：同一段交流里的共同页、陪学与来信
@@ -41,13 +41,13 @@
 
 陪学只有同一个落笔处。`ConversationComposerDock`让原App composer的同一HTMLElement host停靠当前纸内slot或回到底部，草稿、附件与IME仍属于正常输入；纸内不另放第二textarea或二次递交箭头。同一输入在纸／聊天间保稿、保选区、单次Demo发送后保留两行推导已有实际回执；新加的回纸运动仍待对应观察，不扩大成模型教学效果。
 
-图稿先于对应组件：共同商量采用[连续手稿A](../assets/design/generated/2026-10-18-shared-discussion/manifest.json)，共做停点采用[原对话后的单一起点A](../assets/design/generated/2026-10-18-companion-session/manifest.json)，陪学采用[原题、本人手稿与当前边注](../assets/design/generated/2026-10-18-study-paper/manifest.json)，来信采用[正文为主的单一纸面](../assets/design/generated/2026-10-18-reflective-letter/manifest.json)，安排进一步采用[一条今天、两种改法](../assets/design/generated/2026-10-18-planning-comparison/manifest.json)，好奇采用[内容先行的小体验](../assets/design/generated/2026-10-18-curiosity-invitation/manifest.json)。好奇纸面从图像编辑得到无文字透明资产，已接`CuriosityInvitationView`，许可与派生见[纸面资产说明](../assets/design/generated/2026-10-18-curiosity-invitation/paper-asset.json)。图中的日期、活动、台词和装饰均为设计样例；组件使用原owner的真实数据，不把图稿作为用户记录或运行截图。构图、层次、留白和局部质感应进入实现；需要的图像元素沿可追溯资产提取，保留正文和交互的可访问结构。
+图稿先于对应组件：共同商量采用[连续手稿A](../%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/assets-design-generated/2026-10-18-shared-discussion/manifest.json)，共做停点采用[原对话后的单一起点A](../%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/assets-design-generated/2026-10-18-companion-session/manifest.json)，陪学采用[原题、本人手稿与当前边注](../%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/assets-design-generated/2026-10-18-study-paper/manifest.json)，来信采用[正文为主的单一纸面](../%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/assets-design-generated/2026-10-18-reflective-letter/manifest.json)，安排进一步采用[一条今天、两种改法](../%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/assets-design-generated/2026-10-18-planning-comparison/manifest.json)，好奇采用[内容先行的小体验](../%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/assets-design-generated/2026-10-18-curiosity-invitation/manifest.json)。好奇纸面从图像编辑得到无文字透明资产，已接`CuriosityInvitationView`，许可与派生见[纸面资产说明](../%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/assets-design-generated/2026-10-18-curiosity-invitation/paper-asset.json)。图中的日期、活动、台词和装饰均为设计样例；组件使用原owner的真实数据，不把图稿作为用户记录或运行截图。构图、层次、留白和局部质感应进入实现；需要的图像元素沿可追溯资产提取，保留正文和交互的可访问结构。
 
 交流节奏也沿原消息变化。`conversation-rhythm.ts`把主助手成功返回、且将继续工具调用的实质前段先显示出来，深调查后继续说；最终候选仍沿原收口，不显示子报告或内部推理。原输入区在调查中仍可写草稿；“补一句”经停止旧run后把新的原话送进正常对话，独立停止保留。没有新侧聊天，也没有要求用户先管理研究进度。输入、选择、材料和本条控制的连续操作尚未运行观察。
 
 局部引用回同一输入。学习纸先让人读，常驻的“问这一题／问这一行／聊这一点”已移除；真实点到、选到或用键盘聚焦后，才在当前一处出现轻入口，回车也能沿原attempt／help／problem引用继续。安排点选沿真实block或option，共写选句沿当前field内的明确位置。原正文留在原纸面，输入框旁只给可取消的小引用，已有草稿不改，下一句可以完全改变意思。`RichText.sourceFocus`复用Markdown实际文本节点的原位置，纯文字则以整段DOM与原文相同为前提；不用重复引文猜位置。数学转换、跨field或其他无法证明的映射不伪造精确坐标。`ReadableFocus`与`LocalTextFocus`共用一次只呈现一处的轻动作，`FocusContextChip`统一输入提示，不在各处另造一套焦点面板；来源、本人报告、助手建议与虚构作品身份持续分开。新版Study已在同一隔离实例实际重走旧行点选、原稿与行标同屏、取消直接接写，以及键盘聚焦旁注／回车引用；原消息入口与当前owner修订混用的失败已修并按原触发复看，详情和实际图见[当前状态](CURRENT_STATUS.md#personal-memory-round7)。其他场景的持续选句标记、IME与模型理解仍各保留自己的证据范围。
 
-表达排练沿同一消息展开：本人的试说与一种可能回应分别落在纸上，继续、换回应、停下或整理仍回同一输入，不出现第二聊天。图稿来自[表达排练设计](../assets/design/generated/2026-10-19-expression-rehearsal/manifest.json)，纸面与金枝使用实际透明资产，正文和动作保持真实组件。它演的是一种可能，不表示对方真的说过或事情已经发生。原依赖刷新漏接修后，正常Luna已在同一原owner接上本人练习原句与新可能回应；原失败、这次限定画面和其他操作仍分别记入[当前状态](CURRENT_STATUS.md#personal-memory-round7)，不由一份同页图推定全部排练体验。
+表达排练沿同一消息展开：本人的试说与一种可能回应分别落在纸上，继续、换回应、停下或整理仍回同一输入，不出现第二聊天。图稿来自[表达排练设计](../%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/assets-design-generated/2026-10-19-expression-rehearsal/manifest.json)，纸面与金枝使用实际透明资产，正文和动作保持真实组件。它演的是一种可能，不表示对方真的说过或事情已经发生。原依赖刷新漏接修后，正常Luna已在同一原owner接上本人练习原句与新可能回应；原失败、这次限定画面和其他操作仍分别记入[当前状态](CURRENT_STATUS.md#personal-memory-round7)，不由一份同页图推定全部排练体验。
 
 共写纸面已经有同一隔离Electron的首波观察：暖／夜色纸、已有自由草稿的选句引用、重开后的草稿保留和历史作品展开过渡均实际发生。纸边留白、首次题头落点与后来选定的夜色低亮处理仍在改后复看；精确图路径和范围见[本批状态](CURRENT_STATUS.md#personal-memory-round7)。作品选区沿原field地址继续，不从这条视觉记录推定主模型已理解或记得早期章节。
 
@@ -101,7 +101,7 @@ scene1 = WeatherScene("<scene-id>@<revision>")
 
 `CampusScene` 沿课程／课表／考试扩展到成绩与命名GPA等当前契约允许的有限资源；具体类型见 `src/shared/scenes.ts`，学业结果投影见 `campus-academic.ts`与`CampusAcademicView.tsx`。coordinator 从真实工具结果注册快照，保留本地导入或账号来源、来源版本与哈希、原始记录身份、时间、地点及查询覆盖。主机恢复时再次核对来源、scope、精确版本和权限；缺项保留为空，不从聊天文本猜测课表或成绩。`present_view` 可引用该 Scene，有限组件允许切换记录、展开来源及继续交流；源码扩展不证明真实账号和当前画面已验收。
 
-`SemanticSelection.kind = record` 携带 `recordId` 与 Scene 精确版本；验证后实际记录进入下一轮上下文。它不批准日历写入。成绩与GPA的注册和恢复继续服从原校园owner、敏感来源与本轮用途；选择、历史快照或显示切换不新增私人资料读取许可。
+`SemanticSelection.kind = record` 携带 `recordId` 与 Scene 精确版本；普通校园行先给确切地址，本轮需要正文时再经用途回原owner读取。考试每行保原课程键和期中／期末类型，临时opaque ID不再把两场合并；回读按原键＋类型、原bundle/version核原始返回唯一，不由投影去重来假定唯一。页面／输入引用以中文显示类型，跨年列表保年份，详情沿原日期文字。缺类型旧行需回原列表辨明，不猜同名或较近时间。它不批准日历写入。成绩与GPA的注册和恢复继续服从原校园owner、敏感来源与本轮用途；选择、历史快照或显示切换不新增私人资料读取许可。
 
 ## 选择、观看与行动
 
@@ -110,6 +110,8 @@ scene1 = WeatherScene("<scene-id>@<revision>")
 天气能力允许杭州、紫金港公共参考位置或明确声明为公开参考的坐标与时区，覆盖该地点当地今天起七天。`WeatherScene` 保留地点、时区、日级结果、获取时间与覆盖信息，不代表设备定位。`WeatherDays` 的标题读取 `scene.location`，组件说明使用通用地点含义，不再把其他公开地点写成杭州。
 
 天气代码按来源的 WMO 代码语义映射，保留冻雨、强阵雨、雷暴与冰雹等区别；未知代码不猜测。按日概率不推导小时天气、停雨时间或路线局地天气；桌面 `weather.lookup` 另可取得明确时间窗的小时资料，但该资料不改变此日级画面的含义。选择某日再说“那就那天下午”时，日期可以接续；具体起止时刻和本地安排仍须按原话、当前日程与行动权限核验。获取时间不是预报发布时间，缺测 `null` 也不是零降水。
+
+2026-10-22 B05.3c补日统计的真实时段：`WeatherScene.days[].aggregation`保来源固定偏移24小时区间、实际IANA自然日与是否重合，日Scene覆盖独立于小时结果；旧快照未记载即未知，不从现行时区补造。失配日卡标实际当地起止及两端各自offset，数字只说明所示时段，查询时刻标“查到”。日期引用携带原行与时区。小时卡、降水前一小时、查询边界、ARIA和composer引用复用`environment-time.ts`：显示到的真实瞬间先去重，同一当地小时出现不同时差时再消歧；只有降水起点在重复小时的窄窗也保留两端offset。来源说明用日常文字，字段与坐标事实留结构数据，不给角色设定台词。实际25小时/窄窗对话、Electron选择和重开范围见当前状态，未把这次标签修正当作F阶段重设计或全产品视觉验收。
 
 一个地点可以在同一旅程中停靠两次，每次有独立 stop 身份；去程和返程分别计算，不能把反向路段当作已取得。道路距离、接入估计和已知停留分别保留，行走时间为有条件区间，不能保证门禁、楼内时间或准时抵达。
 
@@ -175,7 +177,7 @@ scene1 = WeatherScene("<scene-id>@<revision>")
 
 `EnvironmentHours`保留天气和空气各自的小时／来源／制式；未知天气码使用虚线圆，不能暗示确定阴天。到`source.expiresAt`时以定时器切换为“先前查到的预报”，旧快照仍可作历史引用。小时／日期条仅在自身容器水平保持当前项可见，不抢聊天滚动或焦点；键盘可浏览并选择，用户输入草稿保持。
 
-本批先生成并比较[两版日节奏图](../assets/design/generated/2026-10-18-personal-memory/daily-rhythm-manifest.json)，采用A的日期条＋单日展开，删去重复辅助文案；精确时间与业务数据来自宿主。实际Electron宽／窄、晨光／夜色、日期／小时点选、草稿保存重开、环境缺测与过期已观察。真实模型是否选对工具与参与时机、手机系统及长期效果仍是不同证据层，见[当前状态](CURRENT_STATUS.md#personal-memory-continuity)。
+本批先生成并比较[两版日节奏图](../%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/assets-design-generated/2026-10-18-personal-memory/daily-rhythm-manifest.json)，采用A的日期条＋单日展开，删去重复辅助文案；精确时间与业务数据来自宿主。实际Electron宽／窄、晨光／夜色、日期／小时点选、草稿保存重开、环境缺测与过期已观察。真实模型是否选对工具与参与时机、手机系统及长期效果仍是不同证据层，见[当前状态](CURRENT_STATUS.md#personal-memory-continuity)。
 
 ## 保留规划的继续试算
 
@@ -187,7 +189,7 @@ SceneService 在读取、选择和恢复前重核 active 意图、同一修订�
 
 已有工作与休息由宿主按真实保存证据保留，新安排继续守原未来窗口、预算及完整准备／收尾／转场。新写下界可对齐到下一分钟，已存且仍在未来的秒级边界保留原范围，不裁成新事件或重复收费。画面不自行推断进度、重新计账或补造结束；旧 Scene 没有 `continuation` 时维持原协议。
 
-本批后端整合检查后生成并查看[两版GPT Image](../assets/design/generated/2026-10-18-planning-continuity/manifest.json)，采用A连续时间线和轻量关系文字；B横向分组可能误分交错的新旧时段，未采用。`LifeSceneViews.tsx`沿现有时间带显示“接着上次的安排”“已在日历／这次续排”，保留原日期、真实日历背景和“尚未保存”；没有完成进度或新增批准入口。
+本批后端整合检查后生成并查看[两版GPT Image](../%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/assets-design-generated/2026-10-18-planning-continuity/manifest.json)，采用A连续时间线和轻量关系文字；B横向分组可能误分交错的新旧时段，未采用。`LifeSceneViews.tsx`沿现有时间带显示“接着上次的安排”“已在日历／这次续排”，保留原日期、真实日历背景和“尚未保存”；没有完成进度或新增批准入口。
 
 负责人亲看1220×960、430×900与晨光／夜色，实际恢复原对话、切日、选取精确时段并保留已输入草稿，保存后reload／resume回读同一文字，End从22日切至23日。此为本批界面操作范围，不继承为动效、真实模型工具发现、长期质量或手机产品验收。后端最终审查修正及检查结果由[第三批状态](CURRENT_STATUS.md#personal-memory-round3)和[研究](research/PERSISTENT_PLANNING_INTENT_2026-10-18.md)分别记录。
 

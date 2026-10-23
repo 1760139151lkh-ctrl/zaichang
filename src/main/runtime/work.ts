@@ -12,10 +12,19 @@ import {
   type ScopeHandle,
   type TypedValue,
   type WorkRecord,
+  type MaterialNavigationProof,
+  materialNavigationProofSchema,
 } from '../../shared/harness';
 import type { KernelRepository } from '../storage/repository';
 import type { PolicyKernel } from './policy';
 import { canonical, evaluateCondition } from './semantics';
+
+/** Keep the original metadata provenance when a real work record is revised. */
+export function materialNavigationData(data: WorkRecord['data'], sources: MaterialNavigationProof[]): WorkRecord['data'] {
+  const prior = data.materialNavigationSources === undefined ? [] : materialNavigationProofSchema.array().parse(data.materialNavigationSources);
+  const combined = [...new Map([...prior, ...sources].map(source => [canonical(source), source])).values()];
+  return combined.length ? { ...data, materialNavigationSources: combined } : data;
+}
 
 /**
  * The small, durable part of the shared conversation frame.  It deliberately
@@ -130,7 +139,8 @@ export class WorkService {
     this.policy.require(handle, 'work:write');
     const old = this.repo.work(handle, undefined, id)[0];
     if (!old) throw new HarnessError('work_missing', '事项不存在或不可读取。');
-    const next = { ...old, ...changes, data: { ...(changes.data || old.data), recordedAt: old.data.recordedAt || this.repo.clock.now(), updatedAt: this.repo.clock.now() }, revision: old.revision + 1 };
+    const priorNavigation = old.data.materialNavigationSources === undefined ? [] : materialNavigationProofSchema.array().parse(old.data.materialNavigationSources);
+    const next = { ...old, ...changes, data: materialNavigationData({ ...(changes.data || old.data), recordedAt: old.data.recordedAt || this.repo.clock.now(), updatedAt: this.repo.clock.now() }, priorNavigation), revision: old.revision + 1 };
     this.repo.saveWork(handle, next, revision);
     return next;
   }
@@ -472,6 +482,7 @@ export class WorkService {
     episodeId: string,
     options: { id: string; title: string; data?: WorkRecord['data'] }[],
     anchorOrder?: string[],
+    materialNavigationSources: MaterialNavigationProof[] = [],
   ) {
     const episode = this.repo.work(handle, 'episode', episodeId)[0];
     if (!episode) throw new HarnessError('episode_missing', '当前事项不存在。');
@@ -484,12 +495,12 @@ export class WorkService {
     ].slice(0, 24);
     this.repo.write(() => {
       for (const option of options)
-        this.create(handle, 'option', option.title, option.data || {}, {
+        this.create(handle, 'option', option.title, materialNavigationData(option.data || {}, materialNavigationSources), {
           id: option.id,
           status: 'candidate',
         });
       this.update(handle, episode.id, episode.revision, {
-        data: {
+        data: materialNavigationData({
           ...episode.data,
           optionIds: [
             ...new Set([...((episode.data.optionIds as string[]) || []), ...options.map((o) => o.id)]),
@@ -501,7 +512,7 @@ export class WorkService {
           focusSequence:
             Math.max(0, ...this.repo.work(handle, 'episode').map((e) => Number(e.data.focusSequence || 0))) + 1,
           focusUpdatedAt: this.repo.clock.now(),
-        },
+        }, materialNavigationSources),
       });
     });
   }
@@ -771,9 +782,10 @@ export class WorkService {
       changeCost: '保留未受影响的已接受安排；本方案仍需用户选择',
     };
   }
-  savePlan(contract: ContextContract, plan: ValidatedPlan, evidenceIds: string[] = []) {
+  savePlan(contract: ContextContract, plan: ValidatedPlan, evidenceIds: string[] = [], materialNavigationSources: MaterialNavigationProof[] = []) {
     const existing = this.repo.work(contract.scope, 'plan', plan.id)[0];
-    const data = JSON.parse(JSON.stringify(plan));
+    const data = materialNavigationData({ ...JSON.parse(JSON.stringify(plan)),
+      ...(existing?.data.materialNavigationSources === undefined ? {} : { materialNavigationSources: existing.data.materialNavigationSources }) }, materialNavigationSources);
     const result = existing
       ? this.update(contract.scope, existing.id, existing.revision, { status: plan.feasibility, data })
       : this.create(contract.scope, 'plan', plan.title, data, {

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { HarnessError } from '../../shared/harness';
 import { weatherInput, weatherRequest } from './weather';
+import { addDate, dateInZone, dayBounds } from '../runtime/semantics';
 
 export const airQualityInput = z.object({
   location: weatherInput.shape.location,
@@ -26,9 +27,10 @@ export function airQualityRequest(raw: unknown, now: string) {
   const from = input.from || new Date(Math.floor(Date.parse(now) / 3600000) * 3600000).toISOString();
   const to = input.to || new Date(Date.parse(from) + 24 * 3600000).toISOString();
   const first = Math.floor(Date.parse(from) / 3600000) * 3600000, end = Date.parse(to);
-  const todayUTC = Date.parse(now.slice(0, 10) + 'T00:00:00Z');
-  if (end <= Date.parse(from) || first < todayUTC || end > todayUTC + 5 * 86400000)
-    throw new HarnessError('air_quality_window', '空气质量预报仅查询当前UTC日起五天内的有效时间窗；更远时段保留未知。');
+  const today = dateInZone(now, location.timeZone), earliest = Date.parse(dayBounds(today, location.timeZone).from),
+    latest = Date.parse(dayBounds(addDate(today, 4), location.timeZone).to);
+  if (end <= Date.parse(from) || Date.parse(from) < earliest || end > latest)
+    throw new HarnessError('air_quality_window', '空气质量预报仅查询所选地点当地今天起五天内的有效时间窗，按当地自然日边界计算；更远时段保留未知。');
   const url = new URL('https://air-quality-api.open-meteo.com/v1/air-quality');
   url.search = new URLSearchParams({ latitude: String(location.latitude), longitude: String(location.longitude),
     hourly: columns.join(','), timezone: 'UTC', timeformat: 'unixtime',
@@ -66,5 +68,5 @@ export function airQualityResult(query: ReturnType<typeof airQualityRequest>, ra
     limitations: ['这是公共参考点的模型网格预报，不是设备位置或校园现场传感器读数。',
       'US AQI与European AQI制式不同，均不能直接称为中国官方AQI或互相混用。',
       '小时样本是对应时刻的预报；非整点窗口包含起点之前最近的整点样本，不证明整个时段始终如此。',
-      '缺测为null；取回时间不等于模型发布时间；数值不能单独保证某人适宜运动或场地开放。'] }) };
+       '缺测是未知；查到的时间不是预报发布的时间。单凭这些数值，不能判断某人是否适宜运动或场地是否开放。'] }) };
 }

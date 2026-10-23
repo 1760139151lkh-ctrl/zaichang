@@ -26,10 +26,14 @@
 | --- | --- |
 | 角色与同伴式协作 | `runtime/prompt-composition.ts`按角色→原则→相处→交流节奏组装；`conversation-rhythm.ts`另在原Harness来源核过的前台请求中提供这条回复的有界真实发表状态，稳定前段/可替换尾段不冒称已看。`prompts/system.md`、`working-details.md`与`runtime/completion-review.ts`、`turn-controls.ts`、`read-purpose.ts`、`action-delegation.ts`、`release-{projection,composer}.ts`、`structured-result.ts`承载不同阶段的实际含义。保留人格例子，原校验不让位给文案。 |
 | 工具搜索与精确签名 | `runtime/tool-surface.ts`与`main/tools.ts`的`use_tool`提供query/family/offset/limit目录和describe；分支schema不造空required摘要。`capabilities/broker.ts`完整目录的scopeEligible与connection各有含义，不表示动作获准，原注册表/动作事务继续负责运行。研究见[工具发现](docs/research/TOOL_DISCOVERY_2026-10-21.md)。 |
+| 公开地点环境与当地日期 | `capabilities/weather.ts`／`air-quality.ts`和`builtin.ts`沿公共参考点查预报；天气逐日保来源24h统计区间与实际IANA日界，小时完整性独立，空气按当地今天起五天。`runtime/scenes.ts`／`presentation.ts`保日行、选择和旧快照未知含义；`renderer/presentation/environment-time.ts`供小时卡和输入引用消歧重复时刻。`look_up`外层默认归目标能力；`context.ts`的`time.localDate`与原钟面同源，收尾复用。限定实际流程见当前状态B05.3a–c，设备/GPS仍另核。 |
+| 公共地图与个人端点owner | `runtime/spatial.ts`负责公共两点、typed地点对应与原生共享选择，`capabilities/spatial.ts`的map.relations契约4；逐点读取／核验在`mapService.ts`。`shared/spatial-source.ts`只存身份／版本proof；Repository窄owner保存精确依据／真实旧版本／typed导出，并区分历史语义变化和真正遗忘，`ContextReceipt.spatialSources`沿模型／父子／历史／Work／interactive门传递。`coordinator.ts`按真实目标核委托，manage_space有同实现只读facet；manage_goal.revise可在原对象补说明而不改状态。限定实流及未核范围见当前状态B05.3b。 |
+| 保存校园资料、分页与具体考试 | `zjuAdapter.ts`与`capabilities/campus-saved-source.ts`核当前账号成员、字节版本及本地阅读/SSO事实；`builtin.ts`、`runtime/context.ts`区分完整行缩页、内容截断和无正文导航，恢复只接连续坐标。`runtime/scenes.ts`／`coordinator.ts`保两场考试独立行和原键＋type精确回读；`AssistantPresentation.tsx`／`App.tsx`沿同选择显示中文类型、年份和原日期。query6／lookup11／overview4；限定真实结果及下一缺口见当前状态B05.4。 |
 | 短答、后来澄清与真实原文交接 | `memory/context-windows.ts`、`model.ts`、`service.ts`和`storage/repository.ts`维护`referenceContexts`及实际相邻问句；`runtime/context.ts`记录正文确已递送的范围证明，`delegation-evidence.ts`沿原child交接合法原件地址与短片段。 |
 | 原文目录恢复与记忆读取开关 | `memory/context-windows.ts`的`contextBrowse`接前后地址页，原`h_memory_context`持久目录位置；`store.ts`沿默认设置与显式开关维护`memory:read`，`runtime/context.ts`和记忆服务核模型读取，本人管理入口保留。 |
 | 公开图片与实际视觉 | `capabilities/research.ts`、`public-network.ts`、`materials/raster.ts`／`pdf.ts`／`worker.ts`；`research.image(observe=true)`或`research.read(view=image)`复用同版图像，经原VisualObservation／toolImages交主助手；Figure展示与模型实际收到像素分别记。 |
 | 原消息里的图片再次读取 | `runtime/evidence-images.ts`核新上传绑定的原event版本与原user Message像素SHA；`read_evidence(view=image)`沿原用途与来源门回读，经原toolImages发送。`ContextReceipt`的实际送图收据与已采用的`providedObjectVersions.imageSha256`分别保留，旧无绑定记录不补签；实际结果见状态文档。 |
+| 同一份材料接着翻 | `runtime/context.ts`的`restoreMaterialReading`、`materials/service.ts`的导航owner及`runtime/coordinator.ts`的精确读取目标沿真实旧访问回原文件；`storage/repository.ts`只取相应收据元数据。`materialNavigationSources`经实际历史／子报告／Work继续保原回复、原file和中间回复来历，`store.ts`登记失效依赖；地址不等于本轮正文或像素已读，顺序缺失不猜停点。 |
 | 制作过程与正式发表 | `provider.ts`／`luna-provider.ts`给真实工具调用头，`harness.ts`仅在当前运行发出`Message.presentationActivity`，`Store.putMessage`不持久化；`AssistantPresentation.tsx`、`publication-reveal.ts`与原消息锚点负责新内容的进入。完整作品仍归`Message.views`，不执行半截工具参数。 |
 | 按住、声音、几何与连续状态 | `shared/interactive-{library,program}.ts`、`interactive-functions.ts`保持通用契约；`presentation/interactive-{press,audio,graphics,motion}.tsx`与`InteractiveProgramView.tsx`使用同一受检状态；`program-local-state.ts`→Bridge→`runtime/interactive-program-local-state.ts`按原消息／版本／hash／来源和CAS保存局部值。 |
 | 无新消息的来访与原托付回告 | `harness.ts`、`runtime/coordinator.ts`、`attention.ts`、`controls.ts`与`actions/reminders.ts`；纯新作品可先准备后一次送回原会话，`presenceExposure`只记实际显示／打开。in_app与OS渠道分开，暂停不抹掉仍合法的过去回告。 |
@@ -161,7 +165,7 @@
 | 对象 | 权威状态与边界 |
 | --- | --- |
 | 当前原话、聊天、草稿与附件 | `Store` / `storage/drafts.ts` / `materials/service.ts`；读取、留存、传输分别控制，临时会话结束按自己的生命周期清理 |
-| 用户可编辑笔记 | `NotesService`，原文/CAS/历史/回收站；内容不是自动人物断言或行动指令 |
+| 用户可编辑笔记 | `NotesService`，原文/CAS/历史/回收站；内容不是自动人物断言或行动指令。当前run实际采用后的owner修订元数据经`Harness`生命周期监听→`RuntimeCoordinator.refreshDependencies`回到同一主助手；历史proof、新版本读取与删除屏障分开 |
 | 文字角色与交互偏好 | `shared/persona.ts`、`shared/interaction.ts` 和 Store settings；版本化明确设定，混合私人旧 guidance 留在私有迁移记录 |
 | 个人理解 | evidence/assertion、`memory/service.ts`；来源、条件、有效性、更正与遗忘，自动推断不改用户角色或权限 |
 | 目标、承诺、商量中的事和准备资料 | `runtime/work.ts`、`collaboration.ts`、`planning-intents.ts`、`cooperation.ts`、`attention.ts` 和 release 存储；持续规划规格归同一Work，决策经历归原frame，采用证明归原动作／回执／日历；用户报告、假设、邀请、接受、停用与实际展示分开 |
@@ -185,7 +189,7 @@
 | 工作区、历史与直接操作 | `Navigation.tsx`、`Workspace.tsx`、`App.tsx`；导航只切换已有视图，业务状态通过 Bridge 回到宿主 |
 | 陪伴外观与安静空间 | `main.tsx` → `CompanionProvider` → `companion.tsx` / `CompanionSettings.tsx` / `companion.css`；二次元/插画/写实、收藏、多张自选图与改名；v2原子外观状态、少动态与 `RestSpace`；单纯外观更换不自动改角色，显式绑定见人格链 |
 | 对话与主模型 | `App.tsx` → `preload.ts` IPC → `main.ts` → `harness.ts` → `runtime/hermes.ts` → `runtime/hermes/sidecar.py` → 锁定 `AIAgent`；模型请求和工具返回宿主，原生工具循环硬停经 `run.interrupted` 进入原宿主中断状态，不生成角色台词。`runtime/protocol-history-coverage.ts`沿原生当前回合坐标核保存消息ID的实际全文覆盖，`ContextCompiler.serializeForContinuation`只省去有证明的重复正文并保留历史元数据 |
-| 模型选择与网络 | `model-selection.ts`、`provider.ts`、`luna-provider.ts`、`network.ts`；`scripts/run-luna-test.mjs` 提供显式代测入口，不能由renderer或保存设置切换 |
+| 模型选择与网络 | `model-selection.ts`、`provider.ts`、`luna-provider.ts`、`network.ts`；两provider最终网络TypeError共用`normalizeTransportError`，不改变重试/取消；`scripts/run-luna-test.mjs` 提供显式代测入口，不能由renderer或保存设置切换 |
 | 原话控制、权限与用途 | `runtime/turn-controls.ts`、`controls.ts`、`policy.ts`、`read-purpose.ts`、`privacy-control.ts`、`action-delegation.ts`、`attention-boundary.ts`；发送前边界及每次实际操作均重新核查 |
 | 上下文、来源与用量 | `runtime/context.ts`、`basis.ts`、`observation-review.ts`、`completion-review.ts`、`model-usage.ts`；按任务检索原始证据，记录实际来源/对象版本/工具与模型回执 |
 | 工具发现与提供者 | `main/tools.ts` → `runtime/coordinator.ts` → `capabilities/broker.ts` → `builtin.ts` / `ports.ts` / 领域provider；共享预算和当前范围不交给插件自行扩大 |
@@ -213,9 +217,9 @@
 | 持久变化发现与托付 | Store日历/NotesService事务 outbox → `runtime/coordinator.ts` → `storage/domains.ts` journal/cursor/ack → `attention.ts` / `work.ts`；处理更新、tombstone、时间节点、暂停恢复和范围内新机会 |
 | 准备、投递与提醒恢复 | `runtime/attention.ts` / `cooperation.ts` → `actions/reminders.ts` / `runtime.ts` → h_jobs/h_deliveries；`PreparationShelf` / 消息helpRefs记录实际可见版本，明确提醒保留独立调度 |
 | 对外草稿与桌面公开展示 | `runtime/release-store.ts` / `release-composer.ts` / `release-projection.ts` / `redaction.ts` / `presentation.ts` → `LifePanels.tsx`；选定产物、内容复核和返回私聊，不自动发送消息 |
-| 资料、PDF与图像 | `shared/materials.ts` → `materials/service.ts` / `pdf.ts` / `worker.ts`；选择文件、绑定scope、分页原文/表格候选/实际页面像素；`scripts/material-runtime.mjs` 管原生依赖，`MaterialsPanel.tsx` / `materials.css` 与 App 同一聊天并排；native IPC 复核来源、版本与当前权限，读取不自动发送模型 |
+| 资料、PDF与图像 | `shared/materials.ts` → `materials/service.ts` / `pdf.ts` / `worker.ts`；选择文件、绑定scope、分页原文/表格候选/实际页面像素；`scripts/material-runtime.mjs` 管原生依赖，`MaterialsPanel.tsx` / `materials.css` 与 App 同一聊天并排；native IPC 复核来源、版本与当前权限，读取不自动发送模型；视觉观察由owner按父run持有，coordinator逐调用交图、Tools绑定原toolCallId，finish释放 |
 | 校园记录与外部连接 | `zjuAdapter.ts`、`capabilities/campus-query.ts` / `campus-reference.ts` / `builtin.ts`、`storage/domains.ts`；独立受限子进程连接器、细分资源权限、导入/账号来源与覆盖 |
-| 公共研究 | `capabilities/research.ts` / `public-network.ts` → 公共搜索/网页/PDF读取；公开地址、域名限制和scope/URL/版本绑定的续读句柄 |
+| 公共研究 | `capabilities/research.ts` / `public-network.ts` / `public-text.ts` → 公共搜索/网页/PDF读取；RSS XML身份由锁定`@xmldom/xmldom`核，许可见`licenses/xmldom-MIT.txt`；严格按声明解码，原文本/实体字节指纹分开，续读句柄绑定scope/URL/实体与解码版本，Unicode地址属于提取文字（search5/read7/image5，图片句柄含原文件SHA） |
 | 天气 | `capabilities/weather.ts` → `builtin.ts` 的 `weather.lookup`；公开参考地点/时区/日期/小时窗口与缺字段覆盖，日级Scene不推导小时结果 |
 | 对话动态场景 | `shared/scenes.ts` → `runtime/scenes.ts` / `scene-projections.ts` / coordinator → `Message.scenes/views` → `presentation/AssistantPresentation.tsx` / `LifeSceneViews.tsx`；地图共用既有surface；规划逐日显示、跨日originalRange保留，continuation轻量区分已在日历／这次续排；历史IPC／准备／导出复验意图来源和修订；小时环境过期计时/选中可见/未知图标；`ChatInput.selection`和输入chip回传精确引用，不因切日或观看自动采用 |
 | 地图给模型的投影 | `runtime/map-model-view.ts` 保留语义、条件和来源并精简绘图几何；`context.ts` 分别计原始读取字节和实际model-view token；完整Scene/Bridge路线不变 |

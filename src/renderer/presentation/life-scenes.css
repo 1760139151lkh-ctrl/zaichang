@@ -85,6 +85,7 @@
 .environment-hour { scroll-snap-align: nearest; min-width: 96px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 10px 11px; border: 1px solid transparent; border-radius: 12px; background: transparent; color: var(--text); font: inherit; cursor: pointer; transition: background 150ms var(--ease), border-color 150ms var(--ease); font-variant-numeric: tabular-nums; }
 .environment-hour-day { color: var(--text-tertiary); font-size: 10px; }
 .environment-hour time { font-size: 13px; }
+.environment-hour time small { display: block; min-height: 15px; color: var(--text-tertiary); font-size: 10px; line-height: 1.5; }
 .environment-hour > svg { color: var(--text-secondary); margin: 4px 0; }
 .environment-hour > strong { font-size: 24px; line-height: 1.35; font-weight: 460; }
 .environment-hour > small { color: var(--text-tertiary); font-size: 10px; }

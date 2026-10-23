@@ -122,6 +122,15 @@ export class ProviderError extends Error {
     super(message);
   }
 }
+/** Classify only the network TypeErrors already eligible for transport retry.
+ * Apply after the existing retry decision; cancellation keeps its own owner. */
+export function normalizeTransportError(error: unknown, signal: AbortSignal): unknown {
+  if (signal.aborted || !(error instanceof TypeError) || !['terminated', 'fetch failed'].includes(error.message)) return error;
+  const original = error as TypeError & { transportAttempts?: number; usage?: Completion['usage'] };
+  const normalized = new ProviderError('连接在请求完成前中断；已经显示的片段仍会保留，本次尚未完成。', true, 'transport', undefined, original.usage);
+  if (original.transportAttempts !== undefined) Object.assign(normalized, { transportAttempts: original.transportAttempts });
+  return normalized;
+}
 export function friendlyError(e: unknown): string {
   if (e instanceof ProviderError) return e.message;
   if (e instanceof Error && (e.name === 'AbortError' || e.name === 'TimeoutError'))
@@ -273,7 +282,7 @@ export class DeepSeekClient {
         const transient = error instanceof ProviderError ? error.retryable : error instanceof TypeError && ['terminated', 'fetch failed'].includes(error.message);
         if (signal.aborted || deliveredText || !transient || attempt || options?.allowTransportRetry === false) {
           if (error instanceof Error) (error as Error & { transportAttempts?: number }).transportAttempts = attempt + 1;
-          throw error;
+          throw normalizeTransportError(error, signal);
         }
         if (error instanceof ProviderError && error.status) await new Promise<void>((resolve, reject) => {
           const abort = () => { clearTimeout(timer); reject(signal.reason); };

@@ -8,8 +8,8 @@ const noteId = z.string().regex(/^note-[a-f0-9-]{36}$/);
 const revision = z.number().int().positive();
 export const noteListSchema = z
   .object({
-    query: z.string().max(500).default(''),
-    state: z.enum(['active', 'deleted']).default('active'),
+    query: z.string().max(500).default('').describe('按标题或正文作字面匹配；空字符串列出所选范围中的全部笔记。'),
+    state: z.enum(['active', 'deleted']).default('active').describe('列表范围：active 为未删除的笔记，deleted 为回收站；助手的读取范围只有未删除的笔记。'),
     offset: z.number().int().nonnegative().default(0),
     limit: z.number().int().positive().max(NOTE_LIMITS.list).default(40),
   })

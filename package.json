@@ -69,6 +69,7 @@
     "@noble/hashes": "2.4.0",
     "@openuidev/lang-core": "1.0.1",
     "@openuidev/react-lang": "1.0.1",
+    "@xmldom/xmldom": "0.9.12",
     "earcut": "3.2.4",
     "katex": "0.18.2",
     "lucide-react": "1.43.0",

@@ -11,7 +11,7 @@ import { noteHistoryReference } from '../../shared/note-presentation';
 import { studyHistoryReference, type StudyScene } from '../../shared/study-presentation';
 import { curiosityHistoricalProjection } from '../../shared/curiosity-scene';
 import { assertCuriositySnapshotSourcesReadable } from './curiosity-scene';
-import type { SceneSnapshot } from '../../shared/scenes';
+import { normalizeWeatherSceneCoverage, type SceneSnapshot } from '../../shared/scenes';
 import { campusAcademicReference } from '../../shared/campus-academic';
 import { isAcademicCampus } from './campus-academic';
 import { programMessageProjection } from './interactive-program-sources';
@@ -163,6 +163,7 @@ export class PresentationService {
     return runtime.scenes.snapshotReadable(scope, scene);
   }
   private historicalScene(scene: SceneSnapshot, options: PresentationRead) {
+    if (scene.kind === 'weather') return normalizeWeatherSceneCoverage(scene);
     if (scene.kind === 'campus' && isAcademicCampus(scene) && !options.liveCampus) return campusAcademicReference(scene);
     if (scene.kind === 'note' && !options.liveNote) return noteHistoryReference(scene);
     if (scene.kind === 'discussion') {

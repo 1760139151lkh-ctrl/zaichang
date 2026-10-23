@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { z } from 'zod';
+import { DOMParser, ParseError, type Element as XmlElement } from '@xmldom/xmldom';
 import { HarnessError, type ScopeHandle } from '../../shared/harness';
 import type { CapabilityBroker } from './broker';
 import { hasCredentials } from '../runtime/redaction';
@@ -8,6 +9,7 @@ import { boundedImageSize, type RasterMediaType } from '../materials/raster';
 import { parsePdf } from '../materials/pdf';
 import type { VisualObservation } from '../runtime/spatial';
 import { publicResourceUrl } from './public-network';
+import { decodePublicText } from './public-text';
 export { imageDimensions } from '../materials/raster';
 
 type PageImage = { url: string; alt?: string };
@@ -136,8 +138,24 @@ export function readableHtml(html: string) {
       targetBodyVerified: false, dynamicContent: 'not_executed', targetContentCompleteness: 'unknown' } };
 }
 export function parseSearchFeed(xml: string) {
-  return [...xml.matchAll(/<item\b[^>]*>([\s\S]*?)<\/item>/gi)].map(match => {
-    const tag = (name: string) => unescape(match[1].match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)<\\/${name}>`, 'i'))?.[1]?.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1') || '').trim();
+  const invalidFeed = () => new HarnessError('search_feed_invalid', '公开搜索收到的响应不是可读取的完整RSS资料。', 'read');
+  let document;
+  try {
+    document = new DOMParser({ onError: () => { throw new Error('Invalid search RSS.'); } }).parseFromString(xml, 'application/xml');
+  } catch (error) {
+    if (error instanceof ParseError) throw invalidFeed();
+    throw error;
+  }
+  const children = (element: XmlElement, name: string) => Array.from(element.childNodes)
+    .filter((node): node is XmlElement => node.nodeType === 1 && (node as XmlElement).tagName === name && !(node as XmlElement).namespaceURI);
+  const root = document.documentElement;
+  if (!root || root.tagName !== 'rss' || root.namespaceURI) throw invalidFeed();
+  const channels = children(root, 'channel');
+  if (channels.length !== 1) throw invalidFeed();
+  // A valid channel may have no items. Only its direct result rows count;
+  // embedded markup, comments and CDATA cannot declare another search feed.
+  return children(channels[0], 'item').map(item => {
+    const tag = (name: string) => (children(item, name)[0]?.textContent || '').trim();
     return { title: tag('title'), url: tag('link'), snippet: readableHtml(tag('description')).text };
   }).filter(item => { try { return new URL(item.url).protocol === 'https:'; } catch { return false; } });
 }
@@ -160,9 +178,17 @@ export interface ResearchImage { id: string; url: string; pageUrl?: string; page
   original: { sha256: string; mediaType: string; width: number; height: number; bytes: number } }
 export function registerResearch(broker: CapabilityBroker, materials?: MaterialService) {
   const sourceId = 'web:public';
-  const cache = new Map<string, { id: string; title: string; text: string; staticComplete: boolean; url: string; hash: string; fetchedAt: string; epoch: number; scopeId: string; httpStatus: number; contentType: string; html: boolean; extraction?: unknown; images?: PageImage[]; links?: PageLink[] }>();
+  const cache = new Map<string, { id: string; title: string; text: string; staticComplete: boolean; url: string; hash: string; textDecoding: ReturnType<typeof decodePublicText>['decoding']; fetchedAt: string; epoch: number; scopeId: string; httpStatus: number; contentType: string; html: boolean; extraction?: unknown; images?: PageImage[]; links?: PageLink[] }>();
   const images = new Map<string, ResearchImage>();
-  broker.policy.onBarrier(() => { cache.clear(); images.clear(); });
+  const visualHolders = new Map<string, Set<string>>();
+  const trimVisuals = (keepId?: string) => {
+    while (images.size > 24) {
+      const oldest = [...images.keys()].find(id => id !== keepId && !visualHolders.has(id));
+      if (!oldest) break;
+      images.delete(oldest);
+    }
+  };
+  broker.policy.onBarrier(() => { cache.clear(); images.clear(); visualHolders.clear(); });
   const imageResult = (image: ResearchImage, observe: boolean) => ({ status: 'fresh' as const, sourceId, fetchedAt: image.fetchedAt, simulated: false,
     data: { resourceId: image.id, url: image.url, ...(image.pageUrl ? { pageUrl: image.pageUrl, pageResourceId: image.pageResourceId,
       pageSha256: image.pageSha256, pageAttributionVerified: true } : {}), mediaType: image.mediaType,
@@ -175,9 +201,9 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
   const base = { version: '3', output: z.record(z.string(), z.json()), effect: 'read' as const, requiredScopes: ['evidence:read'], subjects: ['self', 'other', 'fictional'] as ('self' | 'other' | 'fictional')[], worlds: ['real', 'scenario'] as ('real' | 'scenario')[], timeoutMs: 25000, maxBytes: 100000, supportsIdempotency: false, supportsInspect: false, supportsCancel: false };
   broker.register({
     manifest: { id: 'public-research', sourceId, version: '3', trust: 'bundled_reviewed', egressHosts: [], publicRead: true, platforms: ['*'], simulated: false, offline: 'unsupported', license: 'Project-owned reader; source text retains original rights', capabilities: [
-      { ...base, version: '4', name: 'research.search', displayName: '搜索公开资料', description: '以当前问题获准的公开关键词寻找网页与原发布来源。domains可限定域名，宿主会核对实际结果域名。只交付候选，词面命中用于排序，不代你判断语义相关性或研究完成；阅读相关原页再形成结论。私密链接、无关原文和登录信息不能成为检索词；偏题或空候选不能证明不存在。', input: z.object({ query: z.string().trim().min(1).max(300), limit: z.number().int().min(1).max(8).default(5), domains: z.array(z.string().toLowerCase().regex(/^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,63}$/)).min(1).max(5).optional() }).strict() },
-      { ...base, version: '4', name: 'research.image', displayName: '取一张公开网页上的图片', description: '把公开网页上的真实图片取回来，可在对话里放给对方看，也可由你观察其中细节。url是图片地址（research.read的images是真实页面候选），pageResourceId绑定已读网页版本，pageUrl可核对出处。observe=true把同一解码像素准备到下一次主模型请求；默认只准备展示，返回的read地址可随后观察这一版像素。宿主取得并解码后才返回可呈现的图片；场景入口由外层提供。alt和caption只是文字描述，像素实际送达另有回执。图片不证明此刻现场或转载许可。', input: z.object({ url: z.string().max(8192), pageUrl: z.string().max(8192).optional(), pageResourceId: z.string().max(100).optional(), observe: z.boolean().default(false), alt: z.string().max(200).optional(), caption: z.string().max(160).optional().describe('你想放在图下面对对方说的一句话，可省略。') }).strict() },
-      { ...base, version: '6', name: 'research.read', displayName: '阅读公开网页和文件', description: '读取公开HTTPS网页、文字/JSON/XML或PDF。文字按Unicode片段回读，PDF按页提供文字、表格候选或真实像素，绑定SHA/来源/观察时间。网页首段有linkCatalog和imageCatalog；view=links可用query在同版链接的标签/网址中作字面筛选，沿各项read继续取得目标正文；view=images分页找图片地址，research.image再取得图片。view=find以query精确定位同版原文字层，给Unicode片段和read入口，不必猜长页位置或读完全文；offset是原文起点，limit是匹配数，PDF只找指定页。未命中不证明没有相关含义。URL的fragment只保留位置线索，不自动跳到锚点正文。目录和匹配片段各有覆盖，resourceId继续同版；新URL仍核真实读取。view=image也能沿图片resourceId观察同版像素。内网、学校登录会话和本机路径另属各自入口，文档脚本不执行，动态正文完整性仍未知。', input: z.object({ url: z.string().max(8192).optional(), resourceId: z.string().max(100).optional(), page: z.number().int().min(1).max(200).default(1), view: z.enum(['text', 'table', 'image', 'images', 'links', 'find']).default('text'), query: z.string().min(1).max(200).refine(value => value.trim().length > 0 && Array.from(value).every(point => point.length > 1 || point.charCodeAt(0) < 0xd800 || point.charCodeAt(0) > 0xdfff), '查询需要完整的文字字符。').optional().describe('find按大小写相同的原文精确定位；links按标签或网址字面筛选，忽略大小写。仅这两种view使用。'), offset: z.number().int().min(0).max(2000000).default(0), limit: z.number().int().min(1).max(16000).default(8000) }).strict() },
+      { ...base, version: '5', name: 'research.search', displayName: '搜索公开资料', description: '以当前问题获准的公开关键词寻找网页与原发布来源。domains可限定域名，宿主会核对实际结果域名。只交付候选，词面命中用于排序，不代你判断语义相关性或研究完成；阅读相关原页再形成结论。私密链接、无关原文和登录信息不能成为检索词；偏题或空候选不能证明不存在。', input: z.object({ query: z.string().trim().min(1).max(300), limit: z.number().int().min(1).max(8).default(5), domains: z.array(z.string().toLowerCase().regex(/^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,63}$/)).min(1).max(5).optional() }).strict() },
+      { ...base, version: '5', name: 'research.image', displayName: '取一张公开网页上的图片', description: '把公开网页上的真实图片取回来，可在对话里放给对方看，也可由你观察其中细节。url是图片地址（research.read的images是真实页面候选），pageResourceId绑定已读网页版本，pageUrl可核对出处。observe=true把同一解码像素准备到下一次主模型请求；默认只准备展示，返回的read地址可随后观察这一版像素。宿主取得并解码后才返回可呈现的图片；场景入口由外层提供。alt和caption只是文字描述，像素实际送达另有回执。图片不证明此刻现场或转载许可。', input: z.object({ url: z.string().max(8192), pageUrl: z.string().max(8192).optional(), pageResourceId: z.string().max(100).optional(), observe: z.boolean().default(false), alt: z.string().max(200).optional(), caption: z.string().max(160).optional().describe('你想放在图下面对对方说的一句话，可省略。') }).strict() },
+      { ...base, version: '7', name: 'research.read', displayName: '阅读公开网页和文件', description: '读取公开HTTPS网页、文字/JSON/XML或PDF。文字沿原页声明的编码读取，再按Unicode片段回读；PDF按页提供文字、表格候选或真实像素，绑定SHA/来源/观察时间。网页首段有linkCatalog和imageCatalog；view=links可用query在同版链接的标签/网址中作字面筛选，沿各项read继续取得目标正文；view=images分页找图片地址，research.image再取得图片。view=find以query精确定位同版原文字层，给Unicode片段和read入口，不必猜长页位置或读完全文；offset是原文起点，limit是匹配数，PDF只找指定页。未命中不证明没有相关含义。URL的fragment只保留位置线索，不自动跳到锚点正文。目录和匹配片段各有覆盖，resourceId继续同版；新URL仍核真实读取。view=image也能沿图片resourceId观察同版像素。内网、学校登录会话和本机路径另属各自入口，文档脚本不执行，动态正文完整性仍未知。', input: z.object({ url: z.string().max(8192).optional(), resourceId: z.string().max(100).optional(), page: z.number().int().min(1).max(200).default(1), view: z.enum(['text', 'table', 'image', 'images', 'links', 'find']).default('text'), query: z.string().min(1).max(200).refine(value => value.trim().length > 0 && Array.from(value).every(point => point.length > 1 || point.charCodeAt(0) < 0xd800 || point.charCodeAt(0) > 0xdfff), '查询需要完整的文字字符。').optional().describe('find按大小写相同的原文精确定位；links按标签或网址字面筛选，忽略大小写。仅这两种view使用。'), offset: z.number().int().min(0).max(2000000).default(0), limit: z.number().int().min(1).max(16000).default(8000) }).strict() },
     ] },
     invoke: async (name, args, context) => {
       const now = broker.policy.repo.clock.now(), scope = broker.policy.validate(context.scope);
@@ -194,7 +220,23 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
         const response = await context.request(url.href);
         if (!response.ok) return { status: 'failed', sourceId, reason: `公开搜索未取得候选（HTTP ${response.status}）。`, simulated: false,
           data: { httpStatus: response.status, finalUrl: response.url || url.href, targetResearchCompleted: false } };
-        const candidates = parseSearchFeed(await response.text()), terms = searchTerms(args.query);
+        let candidates: ReturnType<typeof parseSearchFeed>, decoded: ReturnType<typeof decodePublicText>;
+        try {
+          const bytes = new Uint8Array(await response.arrayBuffer());
+          context.signal.throwIfAborted();
+          decoded = decodePublicText(bytes, response.headers.get('content-type') || '');
+          candidates = parseSearchFeed(decoded.text);
+        }
+        catch (error) {
+          context.signal.throwIfAborted();
+          if (!(error instanceof HarnessError) || !['search_feed_invalid', 'public_text_encoding'].includes(error.code)) throw error;
+          return { status: 'failed', sourceId, fetchedAt: now, simulated: false,
+            reason: error.code === 'public_text_encoding' ? error.message
+              : '公开搜索收到响应，但没有取得可读取的RSS候选；相关资料是否存在仍未知，可以继续换查询或读取已知原页。',
+            data: { httpStatus: response.status, finalUrl: response.url || url.href, contentType: response.headers.get('content-type') || '',
+              targetResearchCompleted: false, notProofOfAbsence: true } };
+        }
+        const terms = searchTerms(args.query);
         const items = candidates.filter(item => !domains.length || domains.some(domain => {
           const host = new URL(item.url).hostname; return host === domain || host.endsWith('.' + domain);
         })).map(item => {
@@ -208,6 +250,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
         return { status: items.length ? 'fresh' : 'partial', sourceId, fetchedAt: now, simulated: false,
           ...(!items.length ? { reason: '搜索服务已响应，这页没有当前域名范围内的HTTPS候选。是否有相关资料仍未知，其他查询词或已知原来源可以继续查。' } : {}),
           data: { items, query: args.query, domains, retrieval: 'Bing public RSS', httpStatus: response.status, finalUrl: response.url || url.href,
+            textDecoding: decoded.decoding,
             candidateCount: candidates.length, relevance: items.length ? 'unassessed_candidates' : 'empty_candidates',
             relevanceMeaning: 'queryTermCoverage只度量题名与摘要的词面命中，用于排序；低分不证明内容无关，高分也不证明事实得到支持。',
             authority: 'search_candidates_only', targetResearchCompleted: false, notProofOfAbsence: true, nextStep: '这些是待阅读的网页候选。原页可能含摘要没提到的细节；关键规则和期限的适用对象、日期以原文为准。候选偏题或当前页为空时，简短关键词、另一种语言或已知原发布来源仍是可继续的入口。' }, coverage: { complete: false, scope: 'bounded public search results' } };
@@ -238,14 +281,15 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
         const original = { ...prepared.originalSize, sha256: createHash('sha256').update(body).digest('hex'), mediaType, bytes: body.length };
         // Two concurrent uses of the same pixels can have different page
         // versions or captions. Their handles must not overwrite each other.
-        const id = 'image:' + createHash('sha256').update(JSON.stringify({ scopeId: context.scope.id, url, sha256,
+        const id = 'image:' + createHash('sha256').update(JSON.stringify({ scopeId: context.scope.id, url, sha256, originalSha256: original.sha256,
           pageResourceId: page?.id || null, alt: args.alt || listed?.alt || null, caption: args.caption || null })).digest('hex');
         const image: ResearchImage = { id, url, ...(page ? { pageUrl: page.url, pageTitle: page.title, pageResourceId: page.id, pageSha256: page.hash } : {}),
           ...(args.alt || listed?.alt ? { alt: args.alt || listed?.alt, altAuthority: args.alt ? 'assistant_description' as const : 'page_attribute' as const } : {}), ...(args.caption ? { caption: args.caption } : {}),
           mediaType: pixels.mimeType, width: pixels.width, height: pixels.height, bytes: displayBytes.length, sha256, original,
           dataUrl: pixels.dataUrl, fetchedAt: now, epoch: scope.privacyEpoch, scopeId: context.scope.id, scope: context.scope };
         images.set(id, image);
-        while (images.size > 24) images.delete(images.keys().next().value!);
+        if (args.observe) context.onVisualPrepared?.(id);
+        trimVisuals(id);
         return imageResult(image, args.observe);
       }
       if (args.resourceId?.startsWith('image:')) {
@@ -255,6 +299,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
         if (args.url && new URL(args.url).href !== image.url) throw new HarnessError('resource_url_mismatch', '图片句柄与网址不是同一来源。');
         if (args.view !== 'image') return { status: 'unsupported', sourceId, simulated: false,
           data: { resourceId: image.id, representation: 'raster_image', read: imageResult(image, false).data.read }, coverage: { complete: false, scope: image.url } };
+        context.onVisualPrepared?.(image.id);
         return imageResult(image, true);
       }
       const readPdf = async (resourceId: string) => {
@@ -262,7 +307,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
         if (args.view === 'images' || args.view === 'links') return { status: 'unsupported', sourceId, simulated: false, reason: 'images和links用于静态网页目录；这份PDF可以按页读取文字、表格候选或view=image的真实像素。' };
         const result = await materials.invokePublic(context.scope, args.view === 'image' ? 'materials.observe' : args.view === 'table' ? 'materials.table' : args.view === 'find' ? 'materials.find' : 'materials.read',
           { resourceId, page: args.page, offset: args.offset, limit: args.view === 'find' ? Math.min(args.limit, 12) : args.limit,
-            ...(args.view === 'find' ? { query: args.query } : {}) }, context.signal);
+            ...(args.view === 'find' ? { query: args.query } : {}) }, context.signal, context.onVisualPrepared);
         if (args.view === 'find' && result.data?.matches) result.data.matches = result.data.matches.map((match: any) => ({ ...match,
           read: { tool: 'look_up', arguments: { source: 'capability', capability: 'research.read',
             arguments: { ...match.read.arguments, view: 'text' } } } }));
@@ -284,17 +329,34 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
           const resourceId = materials.publicPdf(context.scope, bytes, response.url || args.url, new URL(response.url || args.url).pathname.split('/').at(-1) || '公开PDF', { httpStatus: response.status, contentType: response.headers.get('content-type') || '' });
           return readPdf(resourceId);
         }
-        const body = await response.text(), html = /html/i.test(response.headers.get('content-type') || '');
         if (/^image\//i.test(response.headers.get('content-type') || ''))
           return { status: 'failed', sourceId, simulated: false, reason: '这个地址是一张图片，可用research.image取得；observe=true会把像素准备给你观察，默认准备对话展示。', data: { url: response.url || args.url } };
+        let decoded: ReturnType<typeof decodePublicText>;
+        try {
+          const bytes = new Uint8Array(await response.arrayBuffer());
+          context.signal.throwIfAborted();
+          decoded = decodePublicText(bytes, response.headers.get('content-type') || '');
+        } catch (error) {
+          context.signal.throwIfAborted();
+          if (!(error instanceof HarnessError) || error.code !== 'public_text_encoding') throw error;
+          return { status: 'failed', sourceId, fetchedAt: now, simulated: false, reason: error.message,
+            data: { httpStatus: response.status, finalUrl: response.url || args.url,
+              contentType: response.headers.get('content-type') || '', targetBodyVerified: false } };
+        }
+        const body = decoded.text, html = /html/i.test(response.headers.get('content-type') || '');
         const parsed = html ? readableHtml(body) : { title: new URL(response.url || args.url).pathname.split('/').at(-1) || '文字资料', text: body, staticComplete: true };
         const url = response.url || args.url, hash = createHash('sha256').update(body).digest('hex');
-        const id = 'resource:' + createHash('sha256').update(context.scope.id + ':' + url + ':' + hash).digest('hex');
-        material = { ...parsed, id, url, hash, fetchedAt: now, epoch: scope.privacyEpoch, scopeId: context.scope.id,
+        // Keep the existing decoded-source hash meaning. The independent
+        // entity fingerprint and decoder version also bind this representation.
+        const id = 'resource:' + createHash('sha256').update(JSON.stringify([
+          context.scope.id, url, hash, decoded.decoding.entitySha256, decoded.decoding.version, decoded.decoding.encoding,
+        ])).digest('hex');
+        material = { ...parsed, id, url, hash, textDecoding: decoded.decoding, fetchedAt: now, epoch: scope.privacyEpoch, scopeId: context.scope.id,
           httpStatus: response.status, contentType: response.headers.get('content-type') || '', html, ...(html ? { images: pageImages(body, url), links: pageLinks(body, url) } : {}) };
         cache.set(material.id, material);
         while (cache.size > 16) cache.delete(cache.keys().next().value!);
       }
+      const textVersion = { sha256Basis: 'decoded_source_utf8', textDecoding: material.textDecoding };
       if (args.view === 'find') {
         const points = Array.from(material.text), offset = args.offset, query = args.query as string, queryPoints = Array.from(query);
         if (offset > points.length) throw new HarnessError('resource_range', '寻找的起点超出这一版已提取的原文范围。');
@@ -312,7 +374,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
           position = found + queryPoints[0].length;
         }
         return { status: 'partial', sourceId, fetchedAt: material.fetchedAt, simulated: false, delivery: { kind: 'page', complete: true },
-          data: { resourceId: material.id, url: material.url, title: material.title, sha256: material.hash, query, matches, nextOffset,
+          data: { ...textVersion, resourceId: material.id, url: material.url, title: material.title, sha256: material.hash, query, matches, nextOffset,
             ...(nextOffset !== null ? { read: { tool: 'look_up', arguments: { source: 'capability', capability: 'research.read',
               arguments: { resourceId: material.id, view: 'find', query, offset: nextOffset, limit } } } } : {}),
             coverage: { unit: 'unicode_code_point', searchedFrom: offset, total: points.length, literalMatchesComplete: nextOffset === null,
@@ -346,7 +408,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
         if (offset > links.length) return { status: 'not_found', sourceId, simulated: false,
           data: { linkCatalog: linkCatalog(offset, null) }, reason: '链接目录偏移超出这一版已提取的候选数量。' };
         return { status: nextOffset === null ? 'fresh' : 'partial', sourceId, fetchedAt: material.fetchedAt, simulated: false, delivery: { kind: 'page', complete: true },
-          data: { resourceId: material.id, url: material.url, title: material.title, sha256: material.hash,
+          data: { ...textVersion, resourceId: material.id, url: material.url, title: material.title, sha256: material.hash,
             links: items, linkCatalog: linkCatalog(offset, nextOffset, limit), authority: 'declared_link_candidates_not_target_bodies' },
           coverage: { complete: offset === 0 && end === links.length, scope: 'declared static webpage link candidates' } };
       }
@@ -367,7 +429,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
         if (!material.html) return { status: 'unsupported', sourceId, simulated: false, reason: '这份资料不是HTML网页，没有网页图片目录。' };
         if (imageOffset > candidates.length) return { status: 'not_found', sourceId, simulated: false, data: { imageCatalog }, reason: '图片目录偏移超出这一版已提取的候选数量。' };
         return { status: imageEnd < candidates.length ? 'partial' : 'fresh', sourceId, fetchedAt: material.fetchedAt, simulated: false, delivery: { kind: 'page', complete: true },
-          data: { resourceId: material.id, url: material.url, title: material.title, images: candidates.slice(imageOffset, imageEnd), imageCatalog },
+          data: { ...textVersion, resourceId: material.id, url: material.url, title: material.title, images: candidates.slice(imageOffset, imageEnd), imageCatalog },
           coverage: { complete: imageOffset === 0 && imageEnd === candidates.length, scope: 'declared static webpage image candidates' } };
       }
       const points = Array.from(material.text), end = Math.min(points.length, args.offset + args.limit);
@@ -375,7 +437,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
         data: { resourceId: material.id, url: material.url, offset: args.offset, total: points.length }, reason: '文字偏移超出这一版已提取的原文范围。' };
       const complete = args.offset === 0 && end === points.length;
       return { status: complete ? 'fresh' : 'partial', sourceId, fetchedAt: material.fetchedAt, simulated: false, delivery: { kind: 'page', complete: true }, ...(material.staticComplete ? {} : { reason: '本次只有所列静态文字范围；未验证目标动态正文，不能由此判断其不存在。' }),
-        data: { resourceId: material.id, url: material.url, title: material.title, sha256: material.hash, text: points.slice(args.offset, end).join(''), offset: args.offset, nextOffset: end < points.length ? end : null,
+        data: { ...textVersion, resourceId: material.id, url: material.url, title: material.title, sha256: material.hash, text: points.slice(args.offset, end).join(''), offset: args.offset, nextOffset: end < points.length ? end : null,
           ...(args.offset === 0 && material.html ? { images: candidates.slice(0, imageEnd), imageCatalog,
             linkCatalog: linkCatalog(0, links.length ? 0 : null) } : {}),
           coverage: { start: args.offset, end, total: points.length, complete, meaning: 'complete_only_for_extracted_static_range', extraction: 'static_text_no_client_scripts' },
@@ -402,6 +464,19 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
         source: { kind: 'public_picture', resourceId: image.id, url: image.url, ...(image.pageUrl ? { pageUrl: image.pageUrl,
           pageResourceId: image.pageResourceId, pageSha256: image.pageSha256 } : {}), originalSha256: image.original.sha256, fetchedAt: image.fetchedAt },
         crop: null, scopeId: image.scopeId, epoch: image.epoch };
+    },
+    retainVisual(scope: ScopeHandle, id: string, runId: string): VisualObservation {
+      const image = this.visual(scope, id);
+      const holders = visualHolders.get(id) || new Set<string>();
+      holders.add(runId); visualHolders.set(id, holders);
+      return image;
+    },
+    releaseVisuals(runId: string) {
+      for (const [id, holders] of visualHolders) {
+        holders.delete(runId);
+        if (!holders.size) visualHolders.delete(id);
+      }
+      trimVisuals();
     },
   };
 }

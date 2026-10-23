@@ -27,13 +27,13 @@
 - **发送前的本机限制（2026-10-22）。** 原话在任何控制模型调用之前，先由本机检查是否明确禁止远程处理或资料离机；`请勿/勿`、资料“不出本机”及发往远端的同族表达沿这一受控操作判断。限制公开搜索、讨论传输技术或引用中的限制不是同一件事。`PolicyKernel.ingress`再核当前限制与临时保存，`Harness.run`在无本机模型时不请求生成。它不替主模型理解任务，也不承诺覆盖自然语言的所有表达；显式本机设置继续是直接、确定的控制。范围和真实入口证据见[当前状态](CURRENT_STATUS.md)。
 - **任务、行动与读取范围（2026-10-22）。** `scopedSourceLimits`保存本人确实提出的局部材料限制，任务对象或“只比较、先别改”的行动选择本身不签出额外读取禁令。后续`verifyReadPurpose`将前一步的范围解释作为可复核线索，回到完整原话判断具体读取是否必要、范围是否相符；逐字引用和模型解释各有身份。它的意见仍不增加宿主来源权限，真实局部/全轮限源和动作核验继续生效。本轮没有引入恢复权限工具或派生scope。
 - **排练创建与当前回复的用途（2026-10-22）。** `coordinator`向原用途核验解释`manage_relationship_rehearsal.begin`实际核这一共同事项，并可能接回同事项已有排练，不能笼统称作读取私人历史。可选的`hostCurrentMatter`只从本轮真实新建且已递送的frame取得：剥离工具信封的observationId后，与当前原记录完整核同一版本；显式引用全部回到当前原话，再核原来源。普通frame沿既有`declaredFrameSourceRefs`，不为它补造sourceBinding。这个背景不跳过用途核验或原owner事务，不给旧排练补许可。`present_view`另说明实际去向是当前助手回复及当前受众，不调用邮件、联系人或站外消息；呈现需要的原内容仍按地址、版本和用途核读，不因显示而扩大来源或受众。
-- **工具目录的资格与参数（2026-10-22）。** Broker完整目录用`scopeEligible`表示当前来源/权限/主体/世界/设备资格，`connection`独立表示接通状态；初始`capabilityDirectory`只列已通过discover的摘要，不再用执行布尔字段表示写能力已批准。read沿原look_up提出，写入沿各自原动作事务，仍核具体托付、参数版本及执行许可。没有新增登记表或放宽invoke。专门工具目录只在schema确有顶层required时给该摘要，分支联合不造空必填列表，完整签名仍从同一use_tool取得。
+- **工具目录的资格与参数（2026-10-22）。** Broker完整目录用`scopeEligible`表示当前来源/权限/主体/世界/设备资格，`connection`独立表示接通状态；初始`capabilityDirectory`只列已通过discover的摘要，不再用执行布尔字段表示写能力已批准。read沿原look_up提出，写入沿各自原动作事务，仍核具体托付、参数版本及执行许可。能力详情带`contractKind=capability`及原`look_up`读取地址，inputSchema的实参放在内层arguments；写能力没有此读取执行地址。专门入口误收已登记能力名时，只沿原lookup返回同一说明，原业务参数不执行。没有新增登记表或放宽invoke。专门工具目录只在schema确有顶层required时给该摘要，分支联合不造空必填列表，完整签名仍从同一use_tool取得。
 - **原话和参考材料。** 原`generationInput`与`ingress.authoredText`不变；Hermes history里的应用参考包裹为单个`referenceMaterial` JSON对象，避免相邻文本合并后把应用引导尾句抄进本人引文。实际sourceQuote仍沿原owner校验。自然更正与当前新话保存范围分别理解；CORRECT回执沿原记录提供前后版本和来源身份元数据，修订不自动归因为谁曾记错。
 - **问句语境与原件交接。** `source-windows-v3`从实际event位置回读相邻助手问题；`referenceContexts`保存其消息地址、精确范围、hash及冻结来由，用于解释短答，仍不把助手话当本人事实。现行与历史理解、正文采用、遗忘和迟到提交均核这些依赖。search实际交付的原文标明精确bodyCoverage与actualReadRanges；仅同run确已递送、原scope/来源/限制仍相符的重复读取可复用用途证明，实际回读与计量仍发生。子调查交接原件短片段和续读地址，父助手实际消费后再继承来由。
-- **真实图片。** 公开Figure与模型视觉可复用同一ResearchImage owner；`research.image(observe=true)`和`research.read(view=image)`经原VisualObservation、toolImages、prepareModelImages发送像素。PDF页与局部放大仍由材料owner生成。图片展示、像素进入请求、语义看懂分别记证；路径、caption或展示成功不能代替模型真的收到像素。
+- **真实图片。** 公开Figure与模型视觉可复用同一ResearchImage owner；`research.image(observe=true)`和`research.read(view=image)`经原VisualObservation、toolImages、prepareModelImages发送像素。PDF页与局部放大仍由材料owner生成。图片展示、像素进入请求、语义看懂分别记证；路径、caption或展示成功不能代替模型真的收到像素。 每次工具观察保留独立队列副本及toolCallId，不按像素hash合并不同出处/调用，也不静默只取最后两图。图像owner在入缓存后、淘汰前经宿主同步回调按父run持有待用观察及其必要原PDF记录；Broker缓存/共享/新结果的返回也沿同一交接，原LRU只淘汰未持有项。回调守父run生命周期，单次RPC取消仍由原等待者门处理，避免首等待者离开误停其它共享读取；活跃run可临时超过原缓存数，根finish幂等释放后恢复原限额，前后台子调查沿budgetOwner归同一父run。撤源、删除与原barrier仍直接清图，不受持有阻挡。公开图句柄另绑定原文件SHA，归一像素相同也不覆盖不同原版本（research.image5）。
 
 原消息图片仍只由原user Message保存像素。新上传的EvidenceEvent记录宿主绑定的`imageSource`，包含原版本、SHA、格式与尺寸；`runtime/evidence-images.ts`按原event／session／user行重核，`read_evidence(view=image)`再经本轮用途取得整图，不从助手副本或邻近消息猜来源。局部原话许可不获得整图，旧缺绑定记录不补签。实际发送仍走原toolImages，前后复核原像素；`imageRequests`只说明该轮实际送图，已采用的`providedObjectVersions`中evidence项保留`imageSha256`作为后续来源依赖，普通再读文字不抹掉它。历史采用继续核实际原owner，像素改变只影响依赖它的内容，不复制旧送图收据冒充再次发送。
-- **同一消息的发表。** host自动地图预览带`automatic`身份，显式组合覆盖其全部引用时接管该预览位置，独立显式组合保留。Scene缓存按id＋revision保留实际被各view引用的版本。正文分段保留Markdown空白；完成审阅同时看实际已发表内容，既不要求数据再抄一遍，也不把成功显示当正确或接受。
+- **同一消息的发表。** host自动地图预览带`automatic`身份，显式组合覆盖其全部引用时接管该预览位置，独立显式组合保留。Scene缓存按id＋revision保留实际被各view引用的版本。正文分段保留Markdown空白；完成审阅同时看实际已发表内容，既不要求数据再抄一遍，也不把成功显示当正确或接受。原续改环路最多保留同一消息两份已被替换的末段，标记`superseded_tail`及曝光未知；当前仍在正文的稳定前段不重复复制。真正父前台核对发送前先刷新来源，再从当前Rhythm取这些材料，取消/来源失效/失败/接受沿原生命周期清理。旧末段只解释先前说过什么和为何改口，原请求的交付仍须在当前正文或保留画面里，不以旧稿补足当前缺项，也不额外给角色增加义务或台词。
 - **制作中的状态。** 传输只公开真实函数调用的id/name元数据，生成参数与内部推理不出界。前台真实present_view产生`Message.presentationActivity`，公开正文先flush再确定锚点；原工具执行进入checking。失败、重试、取消、来源退出和结束均清理，Store不把它存为历史。正式内容仍经过全部编译与来源检查，多次发表／同作patch与稳定节点入场让作品逐步完整。
 - **局部互动。** 通用Press、Voice、几何和Motion使用同一受检`$ui`；`Document.presentation=flow`让解释与Paper共享状态。声音由真实用户动作开启，在失焦、隐藏、离开或来源退出时停止。非transient局部值在原Message.views内按精确版本/hash与CAS保存；transient的按住、播放和发声状态复位。持续看同一作品的增量修订可保仍相同声明／初态的手调值，未改模型原初态或伪造新的引用输入。
 - **主动与渠道。** 无新消息的presence创作先准备、再经一次真实send_check_in送回原会话，完整回执后原run正常收束；已显示/打开通过原NativeControls记录，未回应不连续来访。持续托付保原来源、期限、原话与channel；in_app发布不排OS通知，原local_notification另走其批准渠道。暂停保留仍合法的过去回告，不恢复后续工作。
@@ -51,6 +51,16 @@
 完成判定也需看已经真正给出的内容。`presentation-delivery.ts`仅在当前回复的`callbacks.present`成功后登记本轮新帮助与当前作品投影，供同一个`completion_review`连同正文和工具观察判断；学习纸上的完整解释不再只有一个opaque引用。程序用原native求值器取实际初态、可读文字／公式和必要图形，缺绑定资料不补空值；原题、旧历史正文和校园UI-only行不从这里展开。登记不构成正确、已读、采用或业务成功，有限窗口的缺口仍保留，来源与取消继续由原模型边界核验。这项接缝起于实际学习纸帮助已发而后续未正常收尾；修后样本与通用程序的运行证据分别归[当前状态](CURRENT_STATUS.md#personal-memory-round7)，该发布内容登记机制本身不调整Gemini表达、资料额度或超时。
 
 缓存接续由`protocol-history-coverage.ts`按宿主消息身份核完整正文覆盖。sidecar透传锁定Hermes原生的`turn_id/current_turn_user_idx`，宿主先校验，再从实际返回协议重组本条已接受正文；只有与保存正文完全一致，才为原消息ID登记覆盖。终审继续同一消息时，较早边界须仍有完整前缀证明；跨轮证明也只在旧协议完整前缀原样保留时继承。压缩摘要、同文或缺坐标不能代替证明。`serializeForContinuation`只省去已证实覆盖的同ID正文，原sourceContext、partial等元数据留在`historyReused`；独立同文历史仍保留。参考JSON和终审续改输入采用text-part行，避免原生纯文本相邻行合并抹掉用户坐标。证明只在宿主缓存中，不进入角色说明、存储或模型参数；原范围和来源门不变。
+
+宿主参考包中的历史也保持原身份：只有本轮确切生成的参考JSON仍独立保留在已证用户边界前一行，才为顶层`referenceMaterial.history`完整正文登记覆盖，不搜索用户提供的JSON、摘要或嵌套结果。`historyReused.bodyLocation`区分正文仍在原角色消息中，或在原宿主历史资料中；后者仍保有原角色、来源与回复状态，不成为新的本人输入。压缩或原位置不能证明时继续提供当前合法原文。
+
+普通笔记修订与撤源继续分开：当前前台run订阅原Notes owner事件，仅为自己或原生子调查已采用的note ID记修订元数据，经原`refreshDependencies`进入变化notice；旧版本hash/range不变，新正文仍沿原读取入口取得。主/子队列独立，父采用所选报告时才继承其真实变化元数据。用途核验和终审不会替主助手确认已见，带notice请求失败也不消费；成功主请求只确认实际发送的快照，后来变化继续保留。最终接受前再次回看，主助手尚未见过的变化沿既有两次Hermes修补处理，旧终审不能代替这一步。停止后忽略事件，finally退订；删除仍走原来源屏障，不由普通edit清历史。实际Luna与未触发分支分别见[当前状态](CURRENT_STATUS.md)。
+
+同对话材料接续沿原 `materialReads` 留下的地址回到原文件，`ContextCompiler.restoreMaterialReading` 只投影文件名、类型、原地址和旧访问位置。待核用途时，Harness先核这一小份导航的用途，再读最近一条材料访问回复的收据元数据；不会为了判断用途先取旧回复或文件正文。文件owner继续核原resource／SHA／版本、file event、parent与原提交session；导航中的旧访问与本轮文字／像素读取分别记录。`read_evidence` 的原提交消息文字与PDF文字层也有各自准确的读取目标，不能把原消息范围误称PDF页范围。新实际访问另留源event版本、源session、父run序号、时刻和真实裁剪／renderer；旧缺顺序时保持未知。
+
+所选文件是导入时复制并绑定SHA的不可变快照。每次使用的原Buffer先核长度／SHA，PDF worker收到该Buffer的独立序列化输入；已经核过并送入请求的页面图片不会因磁盘副本后来损坏而变成错源。可信原Buffer仍在时可沿当前许可继续读取；冷重开后磁盘重取仍须匹配原SHA。存储损坏、来源撤回与新版本分别判断，不补签新hash或把合法旧阅读追溯成未发生。
+
+地址来历由 `ContextReceipt.materialNavigationSources` 保留原回复／收据及实际采用的中间回复，历史、选中子报告、Work和交互作品继续核同一证明；它不写入 `materialReads` 或原文字已读范围。Work初写与后续修订在原事务保留完整证明，原回复、中间回复、file event和file namespace用强失效边；parent只承担文件生命周期绑定，不为未读的父消息原话新增粗隐私边。原回复重生成或原文件退出后，旧正文不能经派生或导出绕回。带这类证明的回合不缓存不透明协议链，来源失效走原清稿／清缓存分支。写给她的导航说明只解释留下了什么、哪里仍未知，不安排她的台词或情绪。
 
 ### 角色注入、对话接力与主动相处机制（2026-10-19 架构说明）
 
@@ -146,6 +156,10 @@ Discussion将保存时的source snapshot与当前事项投影分开：普通fram
 
 校园规划通过原ZjuAdapter查询得到同bundle来源证明，按真实课程/考试、取消/待公布及日程展开质量构造原planner的时间约束。本地加密文件stamp仅供已授权托付在原调度链中发现保存状态变化，不解密、认证或宣称学校刚更新；模型停用时延到恢复。当前证明及组合版本只存在本次进程内，不能靠模型提供hash、重启或旧快照恢复采用。其他外源仍须各自版本解析器。
 
+正式v2学业资料的本地阅读另外核原root/账号身份、当前账号history成员及原加密文件实际字节版本。只在同一身份和版本读前后都成立的单资源保存读取中省去live SSO；未知旧CLI、新采集、关联和非学业缺缓存路径保原连接门。authentication分别表达本地读取与本次/此前实际SSO，来源采集时间不取登录时刻；默认总览由各资源保自己的结果。忙闲投影按同版分页及原schedule_quality核已知时段，缺证明或身份变化不交旧区间，未解析规则和部分来源不能变成确定空闲。
+
+校园分页的完整行缩页保原total和来源证明，以实际交付R行接offset+R；真正正文/嵌套截断另保事实，不生成整页Scene或完整阅读地址。无法交付一条完整记录时只返原bundle/版本/位置导航，不制造空records或前进next；query6／lookup11／overview4的收据与历史恢复均核连续坐标。考试Scene的opaque行身份区分同课程的各次返回，原sourceRecordId与examType仍独立；选中回读固定原快照，以原键＋类型查询并在Scene投影前核原结果唯一，缺类型旧行不猜另一场。
+
 Electron 主进程持有凭据、SQLite、权限、外部连接和副作用。React renderer 通过受限 preload/IPC 请求操作，不能自行获得数据库、模型密钥或任意文件访问。`Harness` 负责前台任务生命周期、取消、预算、上下文和结果发布；`RuntimeCoordinator` 连接各业务服务。生产模型和代测模型沿同一条业务链工作。
 
 ```mermaid
@@ -174,7 +188,7 @@ flowchart LR
 
 1. [`Harness.start`](../src/main/harness.ts) 接收当前原话、附件和界面控制。显式仅本机处理与凭据拦截在云端预检前生效；当前没有离线模型，因此这类聊天不会转给云端。本地笔记等普通界面仍能独立使用。
 2. [`turn-controls.ts`](../src/main/runtime/turn-controls.ts) 对用户自己提出的数据控制生成有界提案；[`PolicyKernel`](../src/main/runtime/policy.ts) 结合界面控制、设置和真实授权签发不可由工具伪造的 scope。禁止网页搜索、资料限源、禁止内容离开本机分别处理；自然语言的本地识别有语法边界，界面的传输选择直接生效。
-3. [`ContextCompiler`](../src/main/runtime/context.ts) 编译获准的当前材料、必要前情、当前事项和非敏感能力目录，记录实际提供的来源与对象版本。一般知识问题不会因为库中存在人物资料就自动读取它。需要更多资料时，由模型发现并调用能力；`situation.read` 提供有界情境快照，未查询、覆盖不足、已知为空和未知精力分别表达。
+3. [`ContextCompiler`](../src/main/runtime/context.ts) 编译获准的当前材料、必要前情、当前事项和非敏感能力目录，记录实际提供的来源与对象版本。一般知识问题不会因为库中存在人物资料就自动读取它。需要更多资料时，由模型发现并调用能力；`situation.read` 提供有界情境快照，未查询、覆盖不足、已知为空和未知精力分别表达。原`time`同时保留UTC瞬间、声明时区、本地钟面和`localDate`；收尾核对复用同份锚点，不在稍后另取一天。日期判断仍归主助手，`resolve_time`负责具体本地时刻与瞬间／DST的转换，不按相对词建立另一套路线。
 4. `look_up` 等工具经 [`tools.ts`](../src/main/tools.ts)、coordinator 和 broker 到具体能力。目录中有能力、已连接、本轮可执行与已经成功读取各有自己的状态。参数或结果校验失败返回有限诊断，不能把失败改写为资料不存在。
 5. 宿主计量读取、模型调用和上下文预算，复核权限及版本。最终消息只关联实际动作、场景和材料。执行回执先于“已经保存/发送”的结论，步骤完成或模型文字本身不构成业务成功。
 
@@ -205,6 +219,16 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 | 聊天留存 | 原文保留、长期提取和当前读取分开。`session_only` 不把聊天、普通派生和恢复队列当作持久历史；整段临时聊天的退出清理能在重开时恢复。关闭个性记忆不等于删除原文或独立业务对象。 |
 | 独立业务保存 | 笔记保存、日历登记、外发草稿和真正发送分别核验。不留聊天时，经过独立委托核验的本地动作可保留最小业务参数和回执；没有委托就不持久化提议。 |
 | 版本和失效 | 证据、work、日历、笔记和业务记录各有版本。依赖边绑定实际对象及版本；更正、删除、撤权、改期或到期使相应派生结果失效。摘要、缓存和迟到子任务不能让旧结果重新取得效力。 |
+
+`SpatialService.relation`的普通两点与设备候选使用同一publicView，不能把本地UI的个人叠加标作公共结果。个人起点只采用真实业务对应或原生共享选择固定的profileId／pointId，另一端仍公共；同公共坐标复用原公共点路由，坐标调整才在publicView临时加入reference。MapService读取只投影该点必要名称／坐标，proof保摘要及map版本；无关点修改不使它失效，个人点移除也不回落公共点。估时明确只覆盖已记录道路，不含估算接入与楼内时间。
+
+地点对应归h_work的窄typed owner。保存默认公共目标，明确的shared_map_selection才采用当前原生选择；同次委托看真实目标身份，返回后再核scope／请求／selection，不能因同ID换成个人覆盖。读取按bindingId／role／alias及分页给安全业务字段，不返回旧source.quote；旧原句正文与业务配置保留分别准入。只读调查通过同一manage_space的read facet，不获得写权限。依据生命周期按当时event/version/Unicode范围和原来源核，普通不读聊天／不推断不自动取消配置。
+
+宿主在成功改绑时仅冻结旧binding元数据，不复制quote、坐标或给旧数据补profile身份。当前角色只解析最新active；历史proof仍指当时修订和依据，并给当前变更事实。只有真实冻结旧版的普通语义更正／撤回可保当时解释，最新配置／legacy不借此继续作为当前依据；授权撤回、整源停止及精确忘记仍硬挡。spatialSources贯穿ContextReceipt、请求前后／公开前、真实父子采用、历史、Work派生及interactive来源；带该族不保不透明协议链。普通改绑／取消只保仍有真实合法版本依据的独立goal状态，不能借保留状态读取不可读的point；真正遗忘仍逐版本清依赖正文。导出走同一typed安全owner，不恢复旧quote或绕开generic门。
+
+`manage_goal.revise`沿原目标id和CAS只改title／reason，本轮委托看当前对象和拟改字段；状态、来源、提醒与日历保持原样，不新建目标或恢复活动。限定实流与未验证边界见CURRENT_STATUS的B05.3b，不由静态接线推出整体体验通过。
+
+天气契约5保原`forecast`；`dailyAggregation`逐日记录来源固定偏移24小时区间、实际IANA日界、数值完整性及是否重合，`window.complete`只判断所问粒度。日Scene独立daily coverage，选日带原行和时区；历史/消息投影缺元数据为未知，不补签旧源区间。空气契约2只开放所选地点当地今天起五个自然日，UTC仍为传输与样本身份；起点不是整UTC小时可保之前最近样本。`environment-time.ts`按真实epoch去重样本、降水起点及查询边界，识别同一当地小时的不同时差，复用于小时卡、来源范围和输入引用，不改源时刻或业务。说明文字供理解事实，不指定角色表达；实际范围见当前状态B05.3c。
 
 [`KernelRepository`](../src/main/storage/repository.ts) 在 SQL 范围过滤和提交事务中执行这些边界，保存证据、派生记录、依赖、处理水位、动作意图及回执。隐私屏障推进 epoch/策略版本，取消在途工作并清空可复用上下文。停用理解与遗忘来源是不同操作：前者可保留原话及历史限制；后者按已存来源定位遮除被遗忘片段，并清理同源重叠断言、旧断言版本和依赖派生，不能只删选中的一个 Assertion。精确且不相交的原话、理解和子片段继续保留；剩余原文可继续整理，提交时仍检查删除屏障，不能把遮字重新当成新证据。旧定位的版本不符或无法归因时保守清除相应来源，不猜位置。`MemoryService.forget` 同时处理同一 Assertion 历史修订的旧依据；恢复数据库必须携带当前屏障，旧备份不能恢复被遗忘内容。
 
@@ -383,11 +407,17 @@ renderer复用`LifeSceneViews.tsx`的原连续时间线，用“接着上次的�
 
 review-web 仅替换公共地图存储边界，读取构建明确选定且校验哈希的公共文件；没有桌面 IPC、账号、助手状态、模型请求、私有文件、数据库或 profile 持久化。公共白名单以外的读取会拒绝。对话与网页预览共用现有地图实现。
 
+公开搜索的Bing RSS响应由锁定生产依赖`@xmldom/xmldom`按XML模式读取，先确认无namespace的rss根和唯一直接channel，再取直接item；真空channel不当格式错。非RSS/畸形XML窄转failed并保HTTP元数据，取消和未知异常不吞，空候选仍非不存在证据；旧合法网页缓存不因一次搜索格式失败清空。HTML原文及解析器原异常不作为可信宿主说明送回模型。
+
+公开search/read的HTTP实体字节经`capabilities/public-text.ts`按BOM、HTTP charset及相应HTML有界meta/XML声明或签名解码，缺省UTF8；原生TextDecoder严格拒绝不支持声明和非法字节，不猜编码或以替代字符冒充成功。这是静态资料读取的有界处理，不是完整浏览器嗅探。旧`sha256`仍是解码后完整原文的UTF8指纹，`textDecoding`另给解压实体字节指纹、大小、编码、选择来由及版本。新resourceId同时绑定实体指纹和解码版本/编码，Unicode分页/定位属于实际提取文字；search为5、read为7。网络安全、压缩、PDF及图片像素仍沿原owner处理。
+
 ## 生产传输、代测和部署边界
 
 普通启动使用 [`provider.ts`](../src/main/provider.ts) 的 DeepSeek 协议与 [`shared/types.ts`](../src/shared/types.ts) 的 `deepseek-flash` 默认。显式 `dev:luna:test` / `start:luna:test` 经 [`model-selection.ts`](../src/main/model-selection.ts) 选择 [`luna-provider.ts`](../src/main/luna-provider.ts) 的 GPT-6 Luna Max 代测；Luna 标识来自 [`model-contract.json`](../src/shared/model-contract.json)。选择仅在宿主启动时生效，renderer 和保存设置不能切换。
 
 Luna 接现有 Codex 账号的单次 completion 传输，Hermes 继续运行主循环，工具仍在原宿主执行；它不是产品自己的 ChatGPT 登录集成。请求与返回模型需一致，完整响应按真实 usage 计量，项目声明的输出数采用 advisory，不再作为完成后的 token 拒收门；实际服务不完整、协议、取消与来源检查仍各自生效。Node 网络沿用显式代理环境或 Windows 已开启的手动代理，不执行 PAC，不更改系统设置。
+
+普通网络`TypeError(terminated/fetch failed)`在两provider原重试决策终点共享归类为`ProviderError/transport`，取消仍保留原错误；尝试次数与已有usage继续传递，未知usage不填零。Harness沿原失败路径保留合法公开内容及error/partial身份，来源失效仍走独立屏障。
 
 实际型号由`luna-provider.ts`从返回事件的`response.model`取得，经`Completion.responseModel`写入本次`modelUsage[].responseModel`与`provider.observedResponseModels`；配置中的model名称不替代这份证据。阶段状态分别记录正常主流程、实际工具、Scene／renderer与点选续问，不把合成资料或校园只读结果混作业务写入成功。
 

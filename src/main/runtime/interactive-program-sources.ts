@@ -1,10 +1,11 @@
-import { HarnessError, type AssistantWorkSource, type ContextPack, type ContextReceipt, type ScopeHandle,
+import { HarnessError, materialNavigationProofSchema, type AssistantWorkSource, type ContextPack, type ContextReceipt, type ScopeHandle,
   type WorkRecord, type WorkSourceBinding, type WorkSourceRef, type InteractiveProgramPreviousDiagnostic } from '../../shared/harness';
 import { PROGRAM_LIBRARY_VERSION, interactiveBindingInputSchema, type InteractiveBindingInput,
   type ProgramDataMap, type ProgramJsonValue } from '../../shared/interactive-program';
 import type { Message } from '../../shared/types';
 import type { PresentationView, SceneSnapshot } from '../../shared/scenes';
 import type { NoteSourceProof } from '../../shared/notes-source';
+import { spatialSourceProofSchema, type SpatialSourceProof } from '../../shared/spatial-source';
 import type { RunSession, RuntimeCoordinator } from './coordinator';
 import { canonical, codePointSlice } from './semantics';
 
@@ -13,8 +14,8 @@ type ProgramHost = Pick<RuntimeCoordinator, 'repo' | 'policy' | 'context' | 'bro
 type SourceReceipt = Pick<ContextReceipt, 'providedEvidenceIds' | 'providedSourceIds' | 'providedObjectVersions'>
   & Partial<Pick<ContextReceipt, 'workSourceBindings' | 'assistantWorkSources' | 'personalMethodSources' | 'campusSensitiveReads'
     | 'campusReadingSources' | 'campusReadingIncomplete'
-    | 'noteSources' | 'learningProcessVersions' | 'reflectiveLetterSources' | 'historicalAssertionVersions'
-    | 'planningProvenance' | 'sceneReferences' | 'materialReads' | 'toolAttempts'>>;
+    | 'noteSources' | 'spatialSources' | 'learningProcessVersions' | 'reflectiveLetterSources' | 'historicalAssertionVersions'
+    | 'planningProvenance' | 'sceneReferences' | 'materialReads' | 'materialNavigationSources' | 'toolAttempts'>>;
 export interface ProgramSourceProvenance {
   version: 1;
   identity: { principalId: string; workspaceId: string; subjectId: string; worldId: string; audience: string };
@@ -37,6 +38,7 @@ export interface ProgramSceneSourceSupplement {
   bindings?: WorkSourceBinding[];
   assistantWorkSources?: AssistantWorkSource[];
   noteSources?: NoteSourceProof[];
+  spatialSources?: SpatialSourceProof[];
   campusReadingSources?: NonNullable<ContextReceipt['campusReadingSources']>;
   campusReadingIncomplete?: true;
   campusSensitiveReads?: NonNullable<ContextReceipt['campusSensitiveReads']>;
@@ -48,8 +50,8 @@ type AuthoredEvidence = { id: string; sourceId: string; version: number; persist
 type LiveProgram = { sessionId: string; boundary: number; ephemeral: boolean; view: PresentationView;
   provenance: ProgramSourceProvenance; creatorEvidence: AuthoredEvidence[]; authoredEvidence?: AuthoredEvidence[] };
 const livePrograms = new WeakMap<ProgramHost['repo'], Map<string, LiveProgram>>();
-const sourceKeys = ['workSourceBindings', 'assistantWorkSources', 'personalMethodSources', 'campusSensitiveReads', 'campusReadingSources', 'noteSources',
-  'learningProcessVersions', 'reflectiveLetterSources', 'historicalAssertionVersions', 'planningProvenance', 'sceneReferences', 'materialReads', 'toolAttempts'] as const;
+const sourceKeys = ['workSourceBindings', 'assistantWorkSources', 'personalMethodSources', 'campusSensitiveReads', 'campusReadingSources', 'noteSources', 'spatialSources',
+  'learningProcessVersions', 'reflectiveLetterSources', 'historicalAssertionVersions', 'planningProvenance', 'sceneReferences', 'materialReads', 'materialNavigationSources', 'toolAttempts'] as const;
 const forbidden = new Set(['__proto__', 'prototype', 'constructor']);
 const sourceKey = (ref: ProgramSourceAddress) => canonical(ref);
 function fail(message: string): never { throw new HarnessError('interactive_program_source_changed', message); }
@@ -80,6 +82,10 @@ function provenance(raw: unknown): ProgramSourceProvenance | undefined {
     || p.receipt.providedEvidenceIds.some(id => typeof id !== 'string')
     || p.receipt.providedSourceIds !== undefined && (!Array.isArray(p.receipt.providedSourceIds)
       || p.receipt.providedSourceIds.some(id => typeof id !== 'string'))
+    || p.receipt.materialNavigationSources !== undefined && (!Array.isArray(p.receipt.materialNavigationSources)
+      || p.receipt.materialNavigationSources.some(proof => !materialNavigationProofSchema.safeParse(proof).success))
+    || p.receipt.spatialSources !== undefined && (!Array.isArray(p.receipt.spatialSources)
+      || p.receipt.spatialSources.some(proof => !spatialSourceProofSchema.safeParse(proof).success))
     || !Array.isArray(p.receipt.providedObjectVersions) || p.receipt.providedObjectVersions.some(ref => !ref
       || typeof ref.id !== 'string' || !Number.isSafeInteger(ref.revision) || ref.revision < 1)
     || !Array.isArray(p.evidenceWindows) || p.evidenceWindows.some(ref => !ref || typeof ref.eventId !== 'string'
@@ -145,6 +151,8 @@ function currentProofReadable(host: ProgramHost, handle: ScopeHandle, p: Program
   if ((p.receipt.providedSourceIds || []).some(id => !s.sources.includes(id)
     && !p.receipt.providedEvidenceIds.some(eventId => s.currentEventIds.includes(eventId)
       && session?.events.some(event => event.id === eventId && event.sourceId === id)))) return false;
+  if (!host.repo.materialNavigationSourcesReadable(handle, p.receipt.materialNavigationSources)) return false;
+  if (!host.repo.spatialSourcesReadable(handle, p.receipt.spatialSources)) return false;
   const permits = sourcePermits(host, handle, session);
   if (p.evidenceWindows.some(ref => !permits(ref))
     || p.receipt.providedEvidenceIds.some(id => session?.attentionEvidenceViews?.[id] && !p.evidenceWindows.some(ref => ref.eventId === id))
@@ -363,6 +371,7 @@ export function bindProgramSceneSources(admission: ProgramSourceAdmission, scene
   const assistantSources = [...(supplement.assistantWorkSources || []),
     ...host.repo.workAssistantWorkSources(handle, supplement.records || [])];
   const notes = [...(supplement.noteSources || []), ...host.repo.workNoteSources(handle, supplement.records || [])];
+  const spatial = [...(supplement.spatialSources || []), ...host.repo.workSpatialSources(handle, supplement.records || [])];
   const learning: { id: string; revision: number }[] = [];
   const planning: NonNullable<ContextReceipt['planningProvenance']> = [];
   for (const scene of scenes) {
@@ -418,6 +427,7 @@ export function bindProgramSceneSources(admission: ProgramSourceAdmission, scene
   p.sceneMetadata = [...new Map(metadata.map(value => [canonical(value), value])).values()];
   p.sceneOwnerRefs = [...new Map(owners.map(value => [canonical(value), value])).values()];
   merge('workSourceBindings', bindings); merge('assistantWorkSources', assistantSources); merge('noteSources', notes);
+  merge('spatialSources', spatial);
   merge('learningProcessVersions', learning); merge('planningProvenance', planning);
   merge('providedObjectVersions', owners.filter(ref => ref.kind === 'work').map(({ id, revision }) => ({ id, revision, kind: 'work' })));
   for (const binding of bindings) {
@@ -512,6 +522,7 @@ export function recordProgramSources(pack: ContextPack, admission: ProgramSource
   const combined = [...new Map([...(pack.receipt.interactiveProgramSources || []), ...parents].map(ref => [sourceKey(ref), ref])).values()];
   if (combined.length > 32) fail('当前采用的独立交互来源较多，请先继续眼前相关的一份。');
   if (combined.length) pack.receipt.interactiveProgramSources = structuredClone(combined);
+  host.context.recordSpatialSources(pack, admission.provenance.receipt.spatialSources || []);
   pack.receipt.campusSensitiveReads ??= [];
   host.repo.saveReceipt(pack.contract.scope, pack.receipt);
 }

@@ -32,6 +32,7 @@ export const campusQueryInput = z.object({
   refresh: z.boolean().default(false).describe('false读取现有快照，不因缺数据启动采集。quick/select的true按根resource相关来源窄刷新，依赖同账号、同学期的当前latest基线；关联资源仍各有实际采集时间。原连接器会在本机读取和归一化旧完整学业快照，宿主一并核这份用途与实际新采集范围。缺基线不全采，固定bundle/version与续页保持false；明确整包更新另用campus.overview。'), academicYear: z.string().regex(/^20\d{2}-20\d{2}$/).optional(), term: z.enum(['1', '2']).optional(),
 }).strict();
 export type CampusQuery = z.infer<typeof campusQueryInput>;
+export const examCourseRecordsPointer = '/normalized/exam_course_records';
 const grants: Partial<Record<(typeof campusResources)[number], string>> = {
   grades: 'campus:grades:read', retakes: 'campus:grades:read', gpa_semesters: 'campus:gpa:read', gpa_overall: 'campus:gpa:read', gpa_cumulative: 'campus:gpa:read',
   reservations: 'campus:reservations:read', reservation_violations: 'campus:reservations:read', card_accounts: 'campus:card:read', transactions: 'campus:transactions:read', student_profile: 'campus:profile:read', roles: 'campus:profile:read',
@@ -42,12 +43,20 @@ export const normalizedRoots: Record<(typeof campusResources)[number], string> =
 
 export function validateCampusQuery(raw: unknown) {
   const input = campusQueryInput.parse(raw);
+  const examCourseRead = input.pointer === examCourseRecordsPointer;
+  if (examCourseRead && (input.operation !== 'read' || input.resource !== 'exams'))
+    throw new HarnessError('exam_course_read_only', '考试课程原行只沿exams资源的固定read地址读取；它不是考试事件查询或组合查询。');
+  if (examCourseRead && (input.fields !== undefined || input.spec !== undefined || input.model !== undefined
+    || input.academicYear !== undefined || input.term !== undefined || input.fromBundle !== undefined || input.toBundle !== undefined || input.refresh))
+    throw new HarnessError('exam_course_read_parameters', '这个地址按原快照顺序读取完整课程原行，只接受快照、版本、offset和limit；字段、筛选、学期选择或刷新不能缩窄这次读取。');
   if (input.spec && !['quick', 'select'].includes(input.operation))
     throw new HarnessError('query_spec_operation', 'spec用于quick或select；read按原对象指针、diff按顶层fields取用，不能用会被忽略的spec缩窄它们。');
   if (!['resources', 'schema'].includes(input.operation) && !input.resource && !input.spec) throw new HarnessError('resource_required', '先选择具体资源，不能默认读取所有个人资料。');
   if (input.operation === 'schema' && !input.model) throw new HarnessError('model_required', '请选择要了解的字段模型。');
   if (input.operation === 'select' && !input.spec) throw new HarnessError('query_required', '组合查询需要具体spec。');
   if (input.spec && input.resource && input.spec.resource !== input.resource) throw new HarnessError('resource_mismatch', '声明资源与查询资源不一致。');
+  if (input.spec?.resources?.length === 1 && input.spec.resources[0] !== input.spec.resource)
+    throw new HarnessError('resource_mismatch', 'resources只列一类时须与resource一致；不同资源的组合需要明确列出各资源或关联。');
   if (input.spec) input.spec = { ...input.spec, offset: input.spec.offset ?? input.offset, limit: input.spec.limit ?? input.limit };
   const validateWhere = (expression: any, depth = 0): void => {
     if (expression === undefined || expression === null) return;
@@ -87,7 +96,8 @@ export function validateCampusQuery(raw: unknown) {
   if (input.operation === 'read') {
     if (!input.bundleId || !input.resource || !input.pointer) throw new HarnessError('navigation_required', '原对象读取需要资源、快照ID和规范化对象指针。');
     const root = normalizedRoots[input.resource];
-    if (!input.pointer.startsWith(root) || (!root.endsWith('_') && input.pointer !== root && !input.pointer.startsWith(root + '/')) || input.pointer.split('/').some(segment => sensitive.test(segment)))
+    if (!examCourseRead && (!input.pointer.startsWith(root) || (!root.endsWith('_') && input.pointer !== root && !input.pointer.startsWith(root + '/')))
+      || input.pointer.split('/').some(segment => sensitive.test(segment)))
       throw new HarnessError('pointer_forbidden', '指针不属于当前获准资源；不能通过原始响应导航扩大范围。');
     // Generic source envelopes need endpoint verification before data access.
     if (root === '/normalized/items' || input.resource === 'source_status') throw new HarnessError('pointer_ambiguous', '该资源用quick/select保留真实来源边界；不能用通用指针越过资源校验。');
@@ -193,7 +203,8 @@ export function campusQueryOnSnapshot(input: CampusQuery, result: Record<string,
   return { arguments: validateCampusQuery(pinned), evaluation: {
     ...(validTime(result.evaluated_at) ? { at: result.evaluated_at } : {}),
     paging: fixed && !dependent ? 'fixed_conditions' as const : 'evaluation_dependent' as const,
-    dynamicValues: ['classes', 'exams'].includes(input.resource || input.spec?.resource || '')
+    dynamicValues: !(input.operation === 'read' && input.resource === 'exams' && input.pointer === examCourseRecordsPointer)
+      && ['classes', 'exams'].includes(input.resource || input.spec?.resource || '')
       && (!spec?.fields || hasDynamicField(spec.fields, true)),
   } };
 }
@@ -211,7 +222,9 @@ export function campusQueryContinuation(input: CampusQuery, result: Record<strin
   next.refresh = false;
   if (next.spec) next.spec.offset = nextOffset;
   return { capability: 'campus.query' as const, arguments: validateCampusQuery(next),
-    meaning: input.operation === 'history' ? '沿同一资源目录继续列快照元信息；目录可能新增或变化，这不是固定快照中的个人记录。'
+    meaning: input.operation === 'read' && input.resource === 'exams' && input.pointer === examCourseRecordsPointer
+      ? '沿同一版本的考试课程原行继续；课程原行数与逐场考试数分别计数。'
+      : input.operation === 'history' ? '沿同一资源目录继续列快照元信息；目录可能新增或变化，这不是固定快照中的个人记录。'
       : input.operation === 'diff' ? '继续比较原来两份指定快照；这里只报告观察差异，不把来源采集时刻当作实际发生时刻。'
       : input.spec?.join || (input.spec?.resources?.length || 0) > 1
       ? '继续同一查询并固定已返回的主快照；关联来源仍由原连接器重新核对，不把主快照当作全部关联来源的版本证明。'

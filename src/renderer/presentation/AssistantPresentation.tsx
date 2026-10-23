@@ -27,7 +27,7 @@ import {
   Sun,
 } from 'lucide-react';
 import { z } from 'zod/v4';
-import { sceneViewDsl, type PresentationView, type SceneSnapshot, type SemanticSelection } from '../../shared/scenes';
+import { campusExamTypeLabel, sceneViewDsl, type PresentationView, type SceneSnapshot, type SemanticSelection } from '../../shared/scenes';
 import { EnvironmentHours, PlanningTime } from './LifeSceneViews';
 import { DiscussionSceneView } from './DiscussionSceneView';
 import { StudySceneView } from './StudySceneView';
@@ -521,36 +521,41 @@ function WeatherDays({
     selection?.sceneId === scene.id && selection.sceneRevision === scene.revision && selection.kind === 'date'
       ? selection.date
       : undefined;
+  const localDays = scene.days.every(day => day.aggregation?.matchesLocalDay === true);
+  const periodTime = (at: string) => new Date(at).toLocaleString('zh-CN', { timeZone: scene.timeZone,
+    month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZoneName: 'shortOffset' });
   return (
-    <section className="presentation-weather" aria-label="按日天气预报" data-scene-id={scene.id}>
+    <section className="presentation-weather" aria-label="天气预报" data-scene-id={scene.id}>
       <header className="presentation-weather-heading">
         <div>
-          <h3>{scene.location} · 按日天气</h3>
+          <h3>{scene.location} · {localDays ? '按日天气' : '天气预报'}</h3>
           <span>
             {scene.days.length > 1
               ? `${scene.days[0]?.date.slice(5).replace('-', '/')} — ${scene.days.at(-1)?.date.slice(5).replace('-', '/')}`
-              : scene.days[0]?.date}
+              : scene.days[0]?.date} · {scene.timeZone}
           </span>
         </div>
-        <span>城市参考预报</span>
       </header>
       <div className="presentation-weather-days" role="group" aria-label="选择日期">
         {scene.days.map((day) => {
           const { label, Icon } = weatherCondition(day.weatherCode);
           const selected = selectedDate === day.date;
+          const period = !day.aggregation ? '统计时段未知' : !day.aggregation.matchesLocalDay
+            ? `${periodTime(day.aggregation.sourceWindow.from)} 至 ${periodTime(day.aggregation.sourceWindow.to)}` : undefined;
           return (
             <button
               type="button"
               className={`presentation-weather-day${selected ? ' is-selected' : ''}`}
               key={day.date}
               aria-pressed={selected}
-              aria-label={`${dateLabel(day.date, true)}，${label}，最低温 ${day.minC === null ? '未知' : Math.round(day.minC) + ' 摄氏度'}，最高温 ${day.maxC === null ? '未知' : Math.round(day.maxC) + ' 摄氏度'}，最大降水概率 ${day.precipitationProbabilityMax === null ? '未知' : Math.round(day.precipitationProbabilityMax) + '%'}`}
+              aria-label={`${dateLabel(day.date, true)}，${period ? period + '，来源统计' : '当地全天'}，${label}，最低温 ${day.minC === null ? '未知' : Math.round(day.minC) + ' 摄氏度'}，最高温 ${day.maxC === null ? '未知' : Math.round(day.maxC) + ' 摄氏度'}，最大降水概率 ${day.precipitationProbabilityMax === null ? '未知' : Math.round(day.precipitationProbabilityMax) + '%'}`}
               onClick={() =>
                 onSelect({ sceneId: scene.id, sceneRevision: scene.revision, kind: 'date', date: day.date })
               }
             >
               <span className="presentation-weather-weekday">{dateLabel(day.date)}</span>
               <span className="presentation-weather-date">{day.date.slice(5).replace('-', '/')}</span>
+              {period && <span className="presentation-weather-period">{period}</span>}
               <Icon size={24} strokeWidth={1.5} aria-hidden="true" />
               <span className="presentation-weather-condition">{label}</span>
               <span className="presentation-weather-temperatures">
@@ -568,7 +573,7 @@ function WeatherDays({
         })}
       </div>
       <footer className="presentation-weather-source">
-        <span>每日最高 / 最低温 · 最大降水概率</span>
+        <span>{localDays ? '每日' : '所示时段内'}最高 / 最低温 · 最大降水概率</span>
         {scene.source.fetchedAt && (
           <time dateTime={scene.source.fetchedAt}>
             {new Date(scene.source.fetchedAt).toLocaleString('zh-CN', {
@@ -579,7 +584,7 @@ function WeatherDays({
               minute: '2-digit',
               hour12: false,
             })}{' '}
-            更新
+            查到
           </time>
         )}
       </footer>
@@ -589,10 +594,10 @@ function WeatherDays({
 
 /** Offset-free campus times are already local source strings. Never feed them
  * into Date's machine-local parser and silently move a class to another day. */
-function campusTime(value?: string, withYear = false) {
+function campusTime(value?: string, withYear = false, style: 'full' | 'compact' = 'full') {
   if (!value) return '';
   if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}.*(?:Z|[+-]\d{2}:\d{2})$/.test(value) && Number.isFinite(Date.parse(value))) {
-    return new Date(value).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', ...(withYear ? { year: 'numeric' } : {}), month: 'long', day: 'numeric', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false });
+    return new Date(value).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', ...(withYear ? { year: 'numeric' } : {}), month: style === 'compact' ? 'numeric' : 'long', day: 'numeric', ...(style === 'full' ? { weekday: 'short' as const } : {}), hour: '2-digit', minute: '2-digit', hour12: false });
   }
   return value.replace('T', ' ').replace(/(\d{2}:\d{2}):00(?:\.000)?$/, '$1');
 }
@@ -623,7 +628,10 @@ function CampusRecords({ scene, selection, onSelect }: {
         {choices.map(record => <button type="button" key={record.id} aria-pressed={record.id === row.id}
           className={record.id === row.id ? 'is-active' : ''} onClick={() => setBrowsedId(record.id)}>
           <span>{record.title}</span>
-          {record.startsAt && <small>{campusTime(record.startsAt)}</small>}
+          {(record.startsAt || isExam && record.examType) && <small>{[
+            isExam && record.examType ? campusExamTypeLabel(record.examType) : undefined,
+            record.startsAt ? campusTime(record.startsAt, isExam, isExam ? 'compact' : 'full') : undefined,
+          ].filter(Boolean).join(' · ')}</small>}
         </button>)}
         {scene.records.length > 5 && <button type="button" className="presentation-campus-more" aria-expanded={showAll} onClick={() => setShowAll(!showAll)}>
           {showAll ? '收起一些' : `其余 ${scene.records.length - 5} 项`}<ChevronDown size={14} className={showAll ? 'is-open' : ''} />
@@ -637,7 +645,7 @@ function CampusRecords({ scene, selection, onSelect }: {
           {row.teachers?.length ? <p>{row.teachers.join('、')}</p> : null}
           <div className="presentation-campus-meta">
             {row.credit !== undefined && <span>{row.credit} 学分</span>}
-            {row.examType && <span>{row.examType}</span>}
+            {row.examType && <span>{campusExamTypeLabel(row.examType)}</span>}
             {row.term && row.term !== scene.term && <span>{row.term}</span>}
           </div>
           <button type="button" className="presentation-campus-continue"
@@ -648,8 +656,8 @@ function CampusRecords({ scene, selection, onSelect }: {
         </div>
         {(row.startsAt || row.dateLabel || row.location || row.seat !== undefined) && <div className="presentation-campus-when">
           {(row.startsAt || row.dateLabel) && <div><Clock3 size={16} aria-hidden="true" /><p>
-            <strong>{campusTime(row.startsAt) || row.dateLabel}</strong>
-            {row.endsAt && <span>至 {campusTime(row.endsAt)}</span>}
+            <strong>{isExam && row.dateLabel ? row.dateLabel : campusTime(row.startsAt) || row.dateLabel}</strong>
+            {row.endsAt && !(isExam && row.dateLabel) && <span>至 {campusTime(row.endsAt)}</span>}
             {!row.startsAt && row.dateLabel && <span>具体时刻还没在这份资料里看到</span>}
           </p></div>}
           {row.location && <div><MapPin size={16} aria-hidden="true" /><p>{row.location}</p></div>}

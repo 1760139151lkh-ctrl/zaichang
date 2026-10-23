@@ -1,7 +1,7 @@
 import type { MapAccessCandidate, MapEntrance, MapPoint, MapRouteResult } from '../../shared/map-v2';
 import type { CapabilityResult } from '../capabilities/broker';
 
-const geometryFields = new Set(['coordinate', 'coordinates', 'bounds', 'nodeIds', 'edgeIds']);
+const geometryFields = new Set(['coordinate', 'coordinates', 'bounds', 'nodeIds', 'edgeIds', 'spatialSources']);
 
 function projectObject(value: object): Record<string, unknown> {
   return Object.fromEntries(

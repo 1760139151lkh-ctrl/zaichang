@@ -192,7 +192,8 @@ export class ToolRegistry {
           signal,
         );
       if (toolCallId && typeof (result as any)?.data?.observationId === 'string') {
-        const visual = this.run.toolImages?.find(image => image.id === (result as any).data.observationId);
+        const visual = this.run.toolImages && [...this.run.toolImages].reverse()
+          .find(image => image.id === (result as any).data.observationId && !image.toolCallId);
         if (visual) visual.toolCallId = toolCallId;
       }
       signal.throwIfAborted();
@@ -200,6 +201,7 @@ export class ToolRegistry {
       // A reviewed read owner can distinguish this delivered page from the
       // remaining global coverage. Missing sources and business partials do
       // not receive this mark; raw status/coverage/continuation stay intact.
+      // Reading an older saved page can finish without refreshing its source.
       const deliveredReaderPage = name === 'look_up' && (result as any)?.delivery?.kind === 'page'
         && (result as any)?.delivery?.complete === true;
       this.context.step({
@@ -211,10 +213,9 @@ export class ToolRegistry {
           'unsupported',
           'not_connected',
           'unknown',
-          'stale',
           'conflict',
           'needs_confirmation',
-        ].includes(status) || status === 'partial' && !deliveredReaderPage
+        ].includes(status) || ['partial', 'stale'].includes(status) && !deliveredReaderPage
           ? 'blocked'
           : 'done',
         detail: (result as any)?.reason,
@@ -322,6 +323,9 @@ export class ToolRegistry {
       if (request.query !== undefined || request.family !== undefined)
         throw new HarnessError('tool_mode_conflict', 'name指向一个具体工具，query与family描述目录范围；这份参数同时带了两种查找方式，尚未对应到同一次读取或调用。');
       const spec = available.find(item => item.function.name === name && deferredFamily(name));
+      if (!spec && !available.some(item => item.function.name === name)
+        && available.some(item => item.function.name === 'look_up') && this.context.store.runtime.broker.describe(name))
+        return this.execute('look_up', JSON.stringify({ source: 'capability', capability: name, describeOnly: true }), toolCallId, signal);
       if (!spec) return respond({ status: 'failed', code: 'tool_unavailable',
         error: '当前专门目录没有这个工具；若它在本轮直接提供，directTool会给出原入口。目录范围和实际调用许可仍随当前任务变化。',
         discover: { tool: USE_TOOL, arguments: {} },

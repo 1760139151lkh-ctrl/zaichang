@@ -3,8 +3,9 @@ import type { Store } from '../store';
 import type { PolicyKernel } from './policy';
 import { HarnessError, type ScopeHandle, type CampusSavedReadingProof } from '../../shared/harness';
 import type { MapRouteResult } from '../../shared/map-v2';
-import { campusDisplayInputSchema, planningContinuationSchema, sceneViewDsl, semanticSelectionSchema, type CampusRecord, type CampusScene, type EnvironmentSample, type MapScene, type PlanningBlock, type PlanningScene, type PresentationView, type SceneRef, type SceneSnapshot, type SemanticSelection, type VerifiedSelection, type WeatherScene, type FigureScene } from '../../shared/scenes';
+import { campusDisplayInputSchema, normalizeWeatherSceneCoverage, planningContinuationSchema, sceneViewDsl, semanticSelectionSchema, type CampusRecord, type CampusScene, type EnvironmentSample, type MapScene, type PlanningBlock, type PlanningScene, type PresentationView, type SceneRef, type SceneSnapshot, type SemanticSelection, type VerifiedSelection, type WeatherScene, type FigureScene } from '../../shared/scenes';
 import { environmentSnapshot, planningSnapshot } from './scene-projections';
+import { weatherOutput } from '../capabilities/weather';
 import { agendaSnapshot } from './agenda-scene';
 import { canonical } from './semantics';
 import { DiscussionSceneProjector, type DiscussionAdmission, type DiscussionModuleVerifier, type DiscussionSnapshotVerifier, type DiscussionProjectionInput } from './discussion-scene';
@@ -23,6 +24,8 @@ import { campusQueryContinuation, validateCampusQuery } from '../capabilities/ca
 /** A strict projection of the installed connector's named fields. No prose parsing,
  * guessed course matches, aggregate rows, or model-authored facts enter a scene. */
 export function campusSnapshot(result: { status: string; sourceId: string; data?: unknown; fetchedAt?: string; expiresAt?: string; coverage?: { complete?: boolean } }, capability: string, input: unknown, now: string): CampusScene | undefined {
+  const body = result.data as Record<string, unknown> | undefined;
+  if (body?.truncated_for_model === true || body?.nested_values_truncated === true) return;
   const academic = campusAcademicSnapshot(result, capability, input, now);
   if (academic) return academic;
   const request = input as Record<string, any> | undefined, data = result.data as Record<string, any> | undefined;
@@ -41,10 +44,16 @@ export function campusSnapshot(result: { status: string; sourceId: string; data?
   const text = (value: unknown, limit = 400): string | undefined => typeof value === 'string' && value.trim() && value.length <= limit ? value.trim() : undefined;
   const scalar = (value: unknown): string | number | undefined => typeof value === 'number' && Number.isFinite(value) ? value : text(value, 80);
   const rows: CampusRecord[] = [];
-  for (const value of data.records.slice(0, 100)) {
+  for (const [index, value] of data.records.slice(0, 100).entries()) {
     if (!value || typeof value !== 'object' || Array.isArray(value)) continue;
     const rawId = imported ? value.id : domain === 'schedule' ? value.uid : domain === 'courses' ? value.key : value.id;
-    const id = typeof rawId === 'string' || typeof rawId === 'number' && Number.isFinite(rawId) ? text(String(rawId), 160) : undefined;
+    const sourceId = typeof rawId === 'string' || typeof rawId === 'number' && Number.isFinite(rawId) ? text(String(rawId), 160) : undefined;
+    const examType = domain === 'exams' ? text(value.type, 80) : undefined;
+    // The school identifies a course once, even when it has two exams.
+    // Keep that source key and the exam kind together for selection/readback.
+    // The returned position also keeps ambiguous duplicate rows visible.
+    const id = !imported && domain === 'exams' && sourceId
+      ? 'exam:' + createHash('sha256').update(JSON.stringify([sourceId, examType ?? null, index])).digest('hex') : sourceId;
     const title = text(imported ? value.title : domain === 'schedule' ? value.summary : value.name, 200);
     if (!id || !title || rows.some(row => row.id === id)) continue;
     const teachers = domain === 'courses' ? value.teachers : value.teacher;
@@ -58,7 +67,8 @@ export function campusSnapshot(result: { status: string; sourceId: string; data?
       ...(teacherNames.length ? { teachers: teacherNames } : {}),
       ...(scalar(value.credit) !== undefined ? { credit: scalar(value.credit) } : {}),
       ...(text(value.semester_id, 80) ? { term: text(value.semester_id, 80) } : {}),
-      ...(domain === 'exams' && text(value.type, 80) ? { examType: text(value.type, 80) } : {}),
+      ...(examType ? { examType } : {}),
+      ...(!imported && domain === 'exams' && sourceId ? { sourceRecordId: sourceId } : {}),
       ...(domain === 'exams' && scalar(value.seat) !== undefined ? { seat: scalar(value.seat) } : {}),
       ...(value.status === 'cancelled' ? { cancelled: true } : {}),
       ...(value.rescheduled === true ? { rescheduled: true } : {}),
@@ -235,7 +245,8 @@ export class SceneService {
     const stored = this.store.messages(sessionId).flatMap(message => message.scenes || []);
     const prepared = this.store.kernel.workData(this.policy.hostScope(), ['help_opportunity'], { sessionId, statuses: ['prepared', 'question_ready', 'notification_queued'], limit: 5 })
       .flatMap(record => (record.data.artifact as { scenes?: SceneSnapshot[] } | undefined)?.scenes || []);
-    return [...new Map([...stored, ...prepared, ...(this.sessions.get(sessionId) || [])].map(scene => [`${scene.id}@${scene.revision}`, scene])).values()];
+    return [...new Map([...stored, ...prepared, ...(this.sessions.get(sessionId) || [])].map(scene => [`${scene.id}@${scene.revision}`, scene])).values()]
+      .map(scene => scene.kind === 'weather' ? normalizeWeatherSceneCoverage(scene) : scene);
   }
   campusReadingSources(handle: ScopeHandle, sessionId: string, scene: CampusScene): CampusSavedReadingProof[] {
     const proof = (scene.nativeRead?.snapshotProof || scene.academicSnapshotProof) as { bundleId?: string; resource?: string; version?: string } | undefined;
@@ -339,13 +350,15 @@ export class SceneService {
     return this.remember(sessionId, scene, runId, preparationOnly);
   }
   weather(sessionId: string, result: { data?: unknown; fetchedAt?: string; expiresAt?: string; coverage?: unknown }, runId?: string, preparationOnly = false): WeatherScene {
-    const data = result.data as { location: string; timeZone: string; forecast: Record<string, (string | number | null)[]> };
+    const data = weatherOutput.parse(result.data);
     if (!data?.forecast || !Array.isArray(data.forecast.time)) throw new HarnessError('weather_snapshot', '天气结果尚未取得，不能生成日期画面。');
-    const value = (column: string, index: number) => typeof data.forecast[column]?.[index] === 'number' ? data.forecast[column][index] as number : null;
+    const value = (column: Exclude<keyof typeof data.forecast, 'time'>, index: number) => data.forecast[column]?.[index] ?? null;
     const now = this.store.kernel.clock.now();
     const scene: WeatherScene = { kind: 'weather', id: randomUUID(), revision: 1, createdAt: now,
-      source: { sourceId: 'weather:open-meteo', fetchedAt: result.fetchedAt || now, expiresAt: result.expiresAt, coverage: result.coverage }, location: data.location, timeZone: data.timeZone,
-      days: data.forecast.time.map((date, index) => ({ date: String(date), weatherCode: value('weather_code', index), maxC: value('temperature_2m_max', index), minC: value('temperature_2m_min', index), precipitationProbabilityMax: value('precipitation_probability_max', index) })) };
+      source: { sourceId: 'weather:open-meteo', fetchedAt: result.fetchedAt || now, expiresAt: result.expiresAt,
+        coverage: { complete: data.dailyAggregation?.complete ?? false, scope: '来源日统计；是否覆盖当地自然日见各日aggregation，旧快照未记载的区间保持未知。' } }, location: data.location, timeZone: data.timeZone,
+      days: data.forecast.time.map((date, index) => ({ date: String(date), weatherCode: value('weather_code', index), maxC: value('temperature_2m_max', index), minC: value('temperature_2m_min', index), precipitationProbabilityMax: value('precipitation_probability_max', index),
+        ...(data.dailyAggregation?.periods[index] ? { aggregation: { ...structuredClone(data.dailyAggregation.periods[index]), basis: data.dailyAggregation.basis, utcOffsetSeconds: data.dailyAggregation.utcOffsetSeconds } } : {}) })), limitations: data.limitations };
     return this.remember(sessionId, scene, runId, preparationOnly);
   }
   view(scenes: SceneSnapshot[], layout: 'stack' | 'compare' | 'focus', comparison?: PresentationView['comparison']): PresentationView {
@@ -380,7 +393,8 @@ export class SceneService {
     const row = scene.records.find(record => record.id === input.recordId);
     if (!row) return;
     return { selection: input, resource: (scene.domain === 'schedule' ? 'classes' : scene.domain) as 'classes' | 'courses' | 'exams',
-      sourceKey: row.sourceRecordId || row.id, sourceVersion: scene.source.version, scopeOnly: true as const };
+      sourceKey: row.sourceRecordId || row.id, ...(scene.domain === 'exams' ? { examType: row.examType } : {}),
+      sourceVersion: scene.source.version, scopeOnly: true as const };
   }
   ordinaryCampusSelectedSource(handle: ScopeHandle, sessionId: string, input: SemanticSelection) {
     const identity = this.ordinaryCampusSelectionIdentity(handle, sessionId, input);
@@ -506,6 +520,7 @@ export class SceneService {
     let planningTrialObservation: VerifiedSelection['planningTrialObservation'];
     let storySetting: VerifiedSelection['storySetting'];
     let environmentSample: EnvironmentSample | undefined;
+    let weatherDay: VerifiedSelection['weatherDay'];
     let discussion: ReturnType<DiscussionSceneProjector['verifyFocus']> | undefined;
     const targets = [input.placeId, input.date, input.legId, input.recordId, input.blockId, input.sampleId, input.pointId, input.optionId].filter(value => value !== undefined);
     if (targets.length !== 1) throw new HarnessError('selection_target', '选择的对象与这份画面不相符；每次引用只选择一个对象。');
@@ -513,7 +528,10 @@ export class SceneService {
       throw new HarnessError('selection_target', '试放条件只接在这幅安排里明确选中的完整时间段上。');
     if (input.campusScale && (input.kind !== 'record' || scene.kind !== 'campus' || !isAcademicCampus(scene)))
       throw new HarnessError('selection_target', '绩点制式只用于当前成绩资料中选中的记录。');
-    if (input.kind === 'date' && scene.kind === 'weather') label = scene.days.find(day => day.date === input.date)?.date;
+    if (input.kind === 'date' && scene.kind === 'weather') {
+      weatherDay = scene.days.find(day => day.date === input.date);
+      label = weatherDay?.date;
+    }
     if (input.kind === 'place' && scene.kind === 'map' && input.placeId) {
       const map = this.store.runtime.connections.map, publicMap = map?.publicView?.() || map;
       label = publicMap?.point(input.placeId)?.displayName;
@@ -570,6 +588,7 @@ export class SceneService {
         observationAt: scene.source.fetchedAt, ...(scene.total === undefined ? {} : { total: scene.total }) } } : {}),
       ...(timeBlock ? { timeBlock: structuredClone(timeBlock), timeZone: scene.kind === 'planning' ? scene.window.timeZone : undefined } : {}),
       ...(environmentSample ? { environmentSample: structuredClone(environmentSample), timeZone: scene.kind === 'environment' ? scene.timeZone : undefined } : {}),
+      ...(weatherDay ? { weatherDay: structuredClone(weatherDay), timeZone: scene.kind === 'weather' ? scene.timeZone : undefined } : {}),
       ...(discussion ? { discussion } : {}),
       ...(planningTrialObservation ? { planningTrialObservation } : {}),
       ...(storySetting ? { storySetting } : {}),
