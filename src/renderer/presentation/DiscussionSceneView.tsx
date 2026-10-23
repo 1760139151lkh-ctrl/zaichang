@@ -4,8 +4,8 @@ import type { SemanticSelection } from '../../shared/scenes';
 import { CompanionSessionView } from './CompanionSessionView';
 import type { CompanionFollowupReference } from '../../shared/companion-source';
 import type { LocalSearchLocator } from '../../shared/search';
-import bridgeArt from '../../../前端视觉创新设计/统一图库/原图/素材-人物与窗景/校园桥夜景-df6a2e7e0971.png';
-import lampArt from '../../../前端视觉创新设计/统一图库/原图/素材-人物与窗景/雨夜伞下人影-390b7e90c36d.png';
+import bridgeArt from '../../../前端视觉创新设计/精选图稿/C-交互基因/R172-校园桥夜景.png';
+import lampArt from '../../../前端视觉创新设计/精选图稿/C-交互基因/R176-雨夜伞下人影.png';
 import { RichText } from '../RichText';
 import './discussion-scene.css';
 

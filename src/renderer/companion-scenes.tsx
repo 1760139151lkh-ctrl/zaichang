@@ -27,8 +27,8 @@ export interface CompanionSceneArtwork extends SceneCalibration {
 
 // Every layer has the mother's complete canvas. No layer independently covers
 // the viewport, and a tight portrait is never fitted into this coordinate space.
-const images = import.meta.glob('./assets/companion/scenes/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
-const file = (stem: string, layer: string) => images[`./assets/companion/scenes/${stem}-${layer}.png`];
+const images = import.meta.glob('../../前端视觉创新设计/运行素材/companion/scenes/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const file = (stem: string, layer: string) => images[`../../前端视觉创新设计/运行素材/companion/scenes/${stem}-${layer}.png`];
 const defaultCalibration: SceneCalibration = {
   seat: [.86, .63],
   hitPolygon: '81% 12%, 89% 14%, 94% 27%, 98% 43%, 99% 61%, 94% 66%, 85% 66%, 80% 83%, 78% 97%, 72% 99%, 65% 97%, 69% 91%, 72% 74%, 67% 85%, 65% 92%, 59% 95%, 57% 92%, 60% 88%, 65% 82%, 70% 66%, 74% 53%, 72% 44%, 74% 32%, 75% 21%, 77% 15%',
@@ -37,6 +37,8 @@ const defaultCalibration: SceneCalibration = {
 const calibrations: Record<string, SceneCalibration> = {
   'sakiko-chat': defaultCalibration,
 };
+// The corrected master was redrawn on the clean reading-room plate.
+const backgroundSources: Record<string, string> = { 'sakiko-chat': 'sakiko-reading' };
 const sceneSources: Record<string, { light: SceneLight; palette: AppearancePalette; room: string; mask: string }> = {
   'sakiko-chat-mist': { light: 'morning', palette: 'mist', room: 'room-morning-mist', mask: 'sakiko-chat' },
   'sakiko-chat-violet': { light: 'dusk', palette: 'violet', room: 'room-dusk-violet', mask: 'sakiko-chat' },
@@ -62,7 +64,7 @@ export function companionSceneArtwork(character: string, moment: CompanionMoment
   return {
     id, light: sceneLight, palette: artworkPalette, positionKey: `${character}-${activity}`, width: 1536, height: 1024,
     ...defaultCalibration, ...calibrations[id],
-    mother: file(id, 'mother'), background: file(id, 'background') || (source ? file(source.room, 'background') : undefined) || file(`room-${sceneLight}-${artworkPalette}`, 'background') || file(`room-${sceneLight}`, 'background') || file(room, 'background'), mask: file(id, 'mask') || file(id, 'figure') || (source ? file(source.mask, 'mask') || file(source.mask, 'figure') : undefined),
+    mother: file(id, 'mother'), background: file(backgroundSources[id] || id, 'background') || (source ? file(source.room, 'background') : undefined) || file(`room-${sceneLight}-${artworkPalette}`, 'background') || file(`room-${sceneLight}`, 'background') || file(room, 'background'), mask: file(id, 'mask') || file(id, 'figure') || (source ? file(source.mask, 'mask') || file(source.mask, 'figure') : undefined),
     shadow: file(id, 'shadow'), foreground: file(id, 'foreground'),
   };
 }

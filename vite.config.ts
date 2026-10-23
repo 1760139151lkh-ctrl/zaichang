@@ -7,6 +7,6 @@ export default defineConfig({
   optimizeDeps: { entries: ['index.html'] },
   server: {
     host: '127.0.0.1', port: 5173, strictPort: true,
-    watch: { ignored: ['**/.test-data/**', '**/.test-build/**', '**/.runtime/**', '**/output/**', '**/release/**', '**/dist-electron/**', '**/dist-review/**', '**/前端视觉创新设计/**'] },
+    watch: { ignored: ['**/.test-data/**', '**/.test-build/**', '**/.runtime/**', '**/output/**', '**/release/**', '**/dist-electron/**', '**/dist-review/**'] },
   },
 });

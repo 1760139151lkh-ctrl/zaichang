@@ -65,10 +65,10 @@
 
 | 证据 | 已观察范围 |
 | --- | --- |
-| [桌面首页](evidence/2026-10-23-continuity/restarted-home.png) | 主代理亲看默认桌面人物与窗景。 |
-| [窄窗口首页](evidence/2026-10-23-continuity/narrow-home-adjusted.png) | 主代理亲看窄窗；背景与人物改用共享坐标区域。 |
-| [学习组合宽度修正后](evidence/2026-10-23-continuity/root-learning-width-corrected.png) | 主代理最终只读实看：组合约 1149 px，笔记约 403 px、学习约 726 px；原窄竖条故障消失、中文方块消失。原题重复仍存在，共享原文方案未完成。 |
-| [学习中打开原笔记](evidence/2026-10-23-continuity/learning-open-original-note.png) | 来源代理检查真实原笔记导航；修复首次挂载导航与读取竞态。 |
+| [桌面首页（原图未取得）](../前端视觉创新设计/资产迁移与D级处置.md#原图缺失或仅本机未同步) | 主代理亲看默认桌面人物与窗景。 |
+| [窄窗口首页（原图未取得）](../前端视觉创新设计/资产迁移与D级处置.md#原图缺失或仅本机未同步) | 主代理亲看窄窗；背景与人物改用共享坐标区域。 |
+| [学习组合宽度修正后（原图未取得）](../前端视觉创新设计/资产迁移与D级处置.md#原图缺失或仅本机未同步) | 主代理最终只读实看：组合约 1149 px，笔记约 403 px、学习约 726 px；原窄竖条故障消失、中文方块消失。原题重复仍存在，共享原文方案未完成。 |
+| [学习中打开原笔记（原图未取得）](../前端视觉创新设计/资产迁移与D级处置.md#原图缺失或仅本机未同步) | 来源代理检查真实原笔记导航；修复首次挂载导航与读取竞态。 |
 | [真实 Luna 学习纠正汇总](evidence/2026-10-23-continuity/learning-correction-result.json) | Note → 选句 → 同一 study 纠正，修后 8 项 responseModel 均为 `gpt-6-luna`；没有测试生产 DeepSeek。仅保留隔离合成场景的聚合结论与步骤状态数量，不含原文、对象标识或详细回执；最终成功不表示整条链零错误。 |
 
 来源代理在冻结代码上完成 `npm run check` 与 `npm run build`，均 exit 0；包含 TypeScript、地图桥、renderer、Electron 与 review 构建。只有 chunk 体积和 npm proxy 警告。该结果不代替真实操作或模型质量验收。
@@ -79,11 +79,11 @@
 
 五张原图、SHA-256、源文件名和采用范围已保存在 [2026-10-23-continuity](../assets/design/generated/2026-10-23-continuity/README.md)：
 
-- [reading-candidates.png](../assets/design/generated/2026-10-23-continuity/reading-candidates.png)：仅采用 A，B 未采用。
-- [scene-focus-map.png](../assets/design/generated/2026-10-23-continuity/scene-focus-map.png)。
-- [note-study-continuity.png](../assets/design/generated/2026-10-23-continuity/note-study-continuity.png)。
-- [today-trial.png](../assets/design/generated/2026-10-23-continuity/today-trial.png)。
-- [home-conversation-narrow.png](../assets/design/generated/2026-10-23-continuity/home-conversation-narrow.png)。
+- [reading-candidates.png（原图未取得）](../前端视觉创新设计/资产迁移与D级处置.md#原图缺失或仅本机未同步)：仅采用 A，B 未采用。
+- [scene-focus-map.png（原图未取得）](../前端视觉创新设计/资产迁移与D级处置.md#原图缺失或仅本机未同步)。
+- [note-study-continuity.png（原图未取得）](../前端视觉创新设计/资产迁移与D级处置.md#原图缺失或仅本机未同步)。
+- [today-trial.png（原图未取得）](../前端视觉创新设计/资产迁移与D级处置.md#原图缺失或仅本机未同步)。
+- [home-conversation-narrow.png（原图未取得）](../前端视觉创新设计/资产迁移与D级处置.md#原图缺失或仅本机未同步)。
 
 采用图是艺术与交互概念，不是事实资料或运行截图。早期错误公式候选不计入采用成果。设置、记忆、角色、搜索、恢复、休息、公开展示与排练等旧图按该目录索引相对链接承接。
 

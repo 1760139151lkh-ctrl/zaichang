@@ -1,12 +1,12 @@
 import { createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react';
 import { ArrowLeft, X } from 'lucide-react';
 import { Portal } from './ui';
-import morning from './assets/companion/morning.png';
-import dusk from './assets/companion/dusk.png';
-import night from './assets/companion/night.png';
-import readingMorning from './assets/companion/reading-morning.png';
-import readingDusk from './assets/companion/reading-dusk.png';
-import readingNight from './assets/companion/reading-night.png';
+import morning from '../../前端视觉创新设计/运行素材/companion/morning.png';
+import dusk from '../../前端视觉创新设计/运行素材/companion/dusk.png';
+import night from '../../前端视觉创新设计/运行素材/companion/night.png';
+import readingMorning from '../../前端视觉创新设计/运行素材/companion/reading-morning.png';
+import readingDusk from '../../前端视觉创新设计/运行素材/companion/reading-dusk.png';
+import readingNight from '../../前端视觉创新设计/运行素材/companion/reading-night.png';
 import { companionMoment, type CompanionMoment } from './companion-variants';
 import { CompanionSceneStage, companionSceneArtwork, companionScenePortrait, type SceneCharacter } from './companion-scenes';
 import { useAppearance, type AppearancePalette } from './appearance';

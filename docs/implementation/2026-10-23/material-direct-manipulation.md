@@ -28,10 +28,10 @@
 
 全部为本轮当前代码的操作画面与公开合成内容，没有校园账号、私人文件、凭据或真实模型结果。主代理须亲看这些画面，再与全局图稿判断。
 
-- [真实资料阅读](../../evidence/2026-10-23-material-direct-manipulation/01-native-reading.png)
-- [真实聊天落点与连续拖动](../../evidence/2026-10-23-material-direct-manipulation/02-native-drag.png)
-- [原引用进入同一输入，草稿保留](../../evidence/2026-10-23-material-direct-manipulation/03-native-quote.png)
-- [合成页中真实组件的键盘移锚](../../evidence/2026-10-23-material-direct-manipulation/04-component-anchor.png)
+- [真实资料阅读](../../../前端视觉创新设计/历史运行证据/2026-10-23-material-direct-manipulation/01-native-reading.png)
+- [真实聊天落点与连续拖动](../../../前端视觉创新设计/历史运行证据/2026-10-23-material-direct-manipulation/02-native-drag.png)
+- [原引用进入同一输入，草稿保留](../../../前端视觉创新设计/历史运行证据/2026-10-23-material-direct-manipulation/03-native-quote.png)
+- [合成页中真实组件的键盘移锚](../../../前端视觉创新设计/历史运行证据/2026-10-23-material-direct-manipulation/04-component-anchor.png)
 
 ## 本机 PDF 边界
 

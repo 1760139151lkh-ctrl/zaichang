@@ -1,0 +1,17 @@
+{
+  "baseline_head": "2155a0e861e4bc49126fab82382f82da0c0633bd",
+  "baseline_tracked_image_paths": 373,
+  "baseline_tracked_image_bytes": 538789881,
+  "current_image_paths": 201,
+  "current_image_bytes": 280239490,
+  "bytes_reduced": 258550391,
+  "current_duplicate_sha": {},
+  "current_groups": {
+    "modeling": 1,
+    "assets": 3,
+    "精选图稿": 128,
+    "历史运行证据": 38,
+    "运行素材": 31
+  },
+  "limitations": "Current tree footprint only. Historical Git blobs and LFS model history were not rewritten."
+}

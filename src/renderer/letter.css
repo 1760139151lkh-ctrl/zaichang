@@ -10,7 +10,7 @@
   background: transparent;
   animation: letter-arrive 280ms cubic-bezier(.2,.65,.25,1) both;
 }
-.letter-message::after { content: ''; position: absolute; inset: -20px -12px; z-index: -1; pointer-events: none; background: url('../../前端视觉创新设计/统一图库/原图/素材-纸面与装饰/横向手稿纸-4930e2aa38e8.png') center / 100% 100% no-repeat; }
+.letter-message::after { content: ''; position: absolute; inset: -20px -12px; z-index: -1; pointer-events: none; background: url('../../前端视觉创新设计/精选图稿/A-标杆/R169-横向手稿纸.png') center / 100% 100% no-repeat; }
 :root[data-theme='dark'] .letter-message::after { filter: brightness(.205) saturate(.65); }
 .letter-message::before {
   content: '';

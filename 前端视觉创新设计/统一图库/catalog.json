@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "snapshot": "2026-10-22",
+  "snapshot": "2026-10-23",
   "scope": "Reviewed reference-image backup in the existing private repository; no public redistribution license or product acceptance is implied.",
   "images": [
     {
       "sha256": "005bc07b7b5b02f74f402bd910e6ece650b1059589eca862cb6bf7ae908c10de",
-      "path": "原图/界面设计-地图与天气/在场地图展开与回归分镜-17-005bc07b7b5b.png",
+      "path": "../精选图稿/C-交互基因/R147-在场地图展开与回归分镜-17.png",
       "bytes": 1807250,
       "category": "界面设计-地图与天气",
       "title": "在场地图展开与回归分镜-17",
@@ -23,11 +23,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场地图展开与回归分镜-17.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-地图与天气/在场地图展开与回归分镜-17-005bc07b7b5b.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R147-在场地图展开与回归分镜-17.png"
     },
     {
       "sha256": "0441303ec8917fc1ef143e889fc4a04ac171076415268622777f23421fcf0aba",
-      "path": "原图/界面设计-学习与阅读/图书馆里的问题-0441303ec891.png",
+      "path": "../精选图稿/B-微调复用/R137-图书馆里的问题.png",
       "bytes": 2100742,
       "category": "界面设计-学习与阅读",
       "title": "角色伴随的图书馆阅读问题卡与对话布局。",
@@ -50,11 +52,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "note-reading.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/图书馆里的问题-0441303ec891.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/B-微调复用/R137-图书馆里的问题.png"
     },
     {
       "sha256": "05db65be83bbd980c2ea706bee7c14057f89a4bd16aa9eb1ab424c9dcd1fe326",
-      "path": "原图/界面设计-学习与阅读/一阶方程资料预览-05db65be83bb.png",
+      "path": "../精选图稿/C-交互基因/R116-留下的资料.png",
       "bytes": 1645486,
       "category": "界面设计-学习与阅读",
       "title": "“留下”中的资料条目与一阶线性方程正文预览。",
@@ -84,11 +88,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "23-留下的资料.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/一阶方程资料预览-05db65be83bb.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R116-留下的资料.png"
     },
     {
       "sha256": "064d31bd4e1b77f36d96dd4aa7f7d6d2060c17e27c3347f265bdc796dc0dfe3d",
-      "path": "原图/设计参考-原始图/在场·留下：一页安静笔记-9-064d31bd4e1b.png",
+      "path": "../精选图稿/B-微调复用/R148-在场·留下：一页安静笔记-9.png",
       "bytes": 1595446,
       "category": "设计参考-原始图",
       "title": "在场·留下：一页安静笔记-9",
@@ -106,11 +112,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场·留下：一页安静笔记-9.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/在场·留下：一页安静笔记-9-064d31bd4e1b.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/B-微调复用/R148-在场·留下：一页安静笔记-9.png"
     },
     {
       "sha256": "0e2ba7229851ce18ae8aa2677e60f23a076d7284d1feeed2a0d245c12aa38f71",
-      "path": "原图/界面设计-学习与阅读/小组话题安排-0e2ba7229851.png",
+      "path": "../精选图稿/C-交互基因/R105-小组话题安排.png",
       "bytes": 1472634,
       "category": "界面设计-学习与阅读",
       "title": "对话中展开的明日学习小组议程/可选讨论内容。",
@@ -133,11 +141,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "exec-fea2add7-9099-46b8-8d2a-e91d32248983.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/小组话题安排-0e2ba7229851.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R105-小组话题安排.png"
     },
     {
       "sha256": "0e9311d576ee7ef3a4e36ed6c278f4e310b29844bea0ef429f9646e0bb7de948",
-      "path": "原图/设计参考-原始图/companion-gallery-0e9311d576ee.png",
+      "path": "../精选图稿/B-微调复用/R123-角色选择与大预览.png",
       "bytes": 2010761,
       "category": "设计参考-原始图",
       "title": "companion-gallery",
@@ -155,11 +165,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "companion-gallery.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/companion-gallery-0e9311d576ee.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/B-微调复用/R123-角色选择与大预览.png"
     },
     {
       "sha256": "0ecde0fe340bf4981eba00d7fa535d4bd0ae4332a9c6e2819a40e330c1a937e8",
-      "path": "原图/界面设计-地图与天气/environment-0ecde0fe340b.png",
+      "path": "../精选图稿/C-交互基因/R084-天气与空气界面.png",
       "bytes": 1550587,
       "category": "界面设计-地图与天气",
       "title": "environment",
@@ -177,11 +189,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "environment.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-地图与天气/environment-0ecde0fe340b.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R084-天气与空气界面.png"
     },
     {
       "sha256": "0ffce3d3fde88913e26bd8c137b0d6267c984fc9b8418fb76b5cacfe2efa5748",
-      "path": "原图/界面设计-日程与今天/planning-0ffce3d3fde8.png",
+      "path": "../精选图稿/C-交互基因/R087-日程规划界面.png",
       "bytes": 1655167,
       "category": "界面设计-日程与今天",
       "title": "planning",
@@ -199,11 +213,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "planning.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-日程与今天/planning-0ffce3d3fde8.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R087-日程规划界面.png"
     },
     {
       "sha256": "1147dd64f07eaa19c08517105fc597f877ff6c1398d8333def93c815e1a2eee0",
-      "path": "原图/界面设计-日程与今天/两日安排视图-1147dd64f07e.png",
+      "path": "../精选图稿/C-交互基因/R138-两日安排视图.png",
       "bytes": 1665045,
       "category": "界面设计-日程与今天",
       "title": "桌面“这两天，慢慢安排”两日活动清单。",
@@ -226,11 +242,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "daily-rhythm-a.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-日程与今天/两日安排视图-1147dd64f07e.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R138-两日安排视图.png"
     },
     {
       "sha256": "11bde7db08537bbcbeb260579c9cee4ca91142bad4631b3d45e823eabc8cf67b",
-      "path": "原图/设计参考-原始图/在场：我们聊过的常数-8-11bde7db0853.png",
+      "path": "../精选图稿/A-标杆/R165-在场：我们聊过的常数-8.png",
       "bytes": 1715682,
       "category": "设计参考-原始图",
       "title": "在场：我们聊过的常数-8",
@@ -248,11 +266,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场：我们聊过的常数-8.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/在场：我们聊过的常数-8-11bde7db0853.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R165-在场：我们聊过的常数-8.png"
     },
     {
       "sha256": "11fb9f8b1b9ada3e73ed7c18e60e9b4137c4ff47e64784b1c80b27ebb9e610ad",
-      "path": "原图/设计参考-原始图/conversation-interruption-and-draft-return-11fb9f8b1b9a.png",
+      "path": "../精选图稿/C-交互基因/R129-对话中断与草稿返回.png",
       "bytes": 1718658,
       "category": "设计参考-原始图",
       "title": "conversation-interruption-and-draft-return",
@@ -270,11 +290,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "conversation-interruption-and-draft-return.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/conversation-interruption-and-draft-return-11fb9f8b1b9a.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R129-对话中断与草稿返回.png"
     },
     {
       "sha256": "13aca303c90ab806922cfbf1c4ded8cfa5d7b6487da8a00f328a2951682109bf",
-      "path": "原图/设计参考-原始图/陪伴与窗边氛围定制-11-13aca303c90a.png",
+      "path": "../精选图稿/B-微调复用/R167-陪伴与窗边氛围定制-11.png",
       "bytes": 1948599,
       "category": "设计参考-原始图",
       "title": "陪伴与窗边氛围定制-11",
@@ -292,52 +314,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "陪伴与窗边氛围定制-11.png"
         }
-      ]
-    },
-    {
-      "sha256": "186ebcbb1d2a0c3ea8e115117ee3b16b0e69e47b56a4810f0f844b876f42a62a",
-      "path": "原图/素材-人物与窗景/遥立绘备选-186ebcbb1d2a.png",
-      "bytes": 2182667,
-      "category": "素材-人物与窗景",
-      "title": "短发棕发、浅蓝衬衫的成年女性二次元角色插画。",
-      "dimensions": {
-        "width": 1024,
-        "height": 1536
-      },
-      "gitSync": true,
-      "review": "User-authorized image backup in the existing private project; original qualifications continue to apply.",
-      "origins": [
-        {
-          "generatedDirectory": "01a14ed0-bc5b-7403-9599-b0c0f3c19589",
-          "originalFilename": "exec-ce52f4d8-e606-4bae-9f1f-d90457c394e4.png",
-          "kind": "Codex generated image"
-        },
-        {
-          "originalRepoPath": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-ce52f4d8-e606-4bae-9f1f-d90457c394e4.png"
-        },
-        {
-          "originalRepoPath": "src/renderer/assets/companion/haruka.png"
-        },
-        {
-          "originalRepoPath": "前端视觉创新设计/素材/人物-遥.png"
-        },
-        {
-          "kind": "Existing project worktree asset",
-          "originalFilename": "exec-ce52f4d8-e606-4bae-9f1f-d90457c394e4.png"
-        },
-        {
-          "kind": "Existing project worktree asset",
-          "originalFilename": "haruka.png"
-        },
-        {
-          "kind": "Existing project worktree asset",
-          "originalFilename": "人物-遥.png"
-        }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/陪伴与窗边氛围定制-11-13aca303c90a.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/B-微调复用/R167-陪伴与窗边氛围定制-11.png"
     },
     {
       "sha256": "1ca5e1e657058ea313500c001a002951a8541572d641d65e707c3ee8bbc1a1e6",
-      "path": "原图/界面设计-对话与动态内容/对话明暗主题-1ca5e1e65705.png",
+      "path": "../精选图稿/C-交互基因/R110-日夜安静阅读.png",
       "bytes": 1643394,
       "category": "界面设计-对话与动态内容",
       "title": "同一对话与数学讲解界面的浅色/深色主题并列对比。",
@@ -367,11 +350,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "32-日夜安静阅读.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-对话与动态内容/对话明暗主题-1ca5e1e65705.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R110-日夜安静阅读.png"
     },
     {
       "sha256": "1ec59dc8ce4c2d32cd132c378ed3d3a57c9e3bb713fff2bcf36042656d6c366d",
-      "path": "原图/界面设计-设置与人格/关于你的理解-1ec59dc8ce4c.png",
+      "path": "../精选图稿/C-交互基因/R097-关于你的理解与来源.png",
       "bytes": 1455597,
       "category": "界面设计-设置与人格",
       "title": "“关于你”个人偏好与可修改理解项目的桌面界面。",
@@ -401,11 +386,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "31-关于你的理解与来源.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-设置与人格/关于你的理解-1ec59dc8ce4c.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R097-关于你的理解与来源.png"
     },
     {
       "sha256": "1f9ebc0e9427d6150eb61e24053a04d62ae662dd00d6eacb31584d9870bfd522",
-      "path": "原图/设计参考-原始图/source-revisit-scoped-recall-1f9ebc0e9427.png",
+      "path": "../精选图稿/C-交互基因/R127-回到原话与限定范围回忆.png",
       "bytes": 1561468,
       "category": "设计参考-原始图",
       "title": "source-revisit-scoped-recall",
@@ -423,11 +410,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "source-revisit-scoped-recall.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/source-revisit-scoped-recall-1f9ebc0e9427.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R127-回到原话与限定范围回忆.png"
     },
     {
       "sha256": "25369b96d9a0ec4e495528f1a817ca345841a27a1b26c6193034417421a92664",
-      "path": "原图/界面设计-对话与动态内容/窄窗界面组-25369b96d9a0.png",
+      "path": "../精选图稿/C-交互基因/R115-窄窗口里的在场.png",
       "bytes": 1630788,
       "category": "界面设计-对话与动态内容",
       "title": "三张窄窗口视图，分别展示日程、地点/资料与陪伴外观选项。",
@@ -457,11 +446,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "34-窄窗口里的在场.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-对话与动态内容/窄窗界面组-25369b96d9a0.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R115-窄窗口里的在场.png"
     },
     {
       "sha256": "2739aa9ad43a6d83bdcc911d6e5764320d8396a1470cd15c5cc2b21e0d877d33",
-      "path": "原图/设计参考-原始图/在场·关于你-10-2739aa9ad43a.png",
+      "path": "../精选图稿/A-标杆/R149-在场·关于你-10.png",
       "bytes": 1435527,
       "category": "设计参考-原始图",
       "title": "在场·关于你-10",
@@ -479,11 +470,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场·关于你-10.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/在场·关于你-10-2739aa9ad43a.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R149-在场·关于你-10.png"
     },
     {
       "sha256": "28da817d2379f2d03112dfcc4cfa73d92b072136d28833c3d93f929d97e6c1d5",
-      "path": "原图/界面设计-学习与阅读/一步步想清积分-28da817d2379.png",
+      "path": "../精选图稿/C-交互基因/R077-一步步想清积分.png",
       "bytes": 1786709,
       "category": "界面设计-学习与阅读",
       "title": "积分例题、函数图与步骤说明的教学界面。",
@@ -502,11 +495,13 @@
         {
           "originalRepoPath": "assets/design/generated/2026-10-19-explorable-study/explorable-study-function.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/一步步想清积分-28da817d2379.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R077-一步步想清积分.png"
     },
     {
       "sha256": "2afbad0dab9d0504b336b07c7f40b08e33e7b38875300155577f352e601627eb",
-      "path": "原图/界面设计-对话与动态内容/共写故事方案A-B-2afbad0dab9d.png",
+      "path": "../精选图稿/C-交互基因/R143-共写故事方案A-B.png",
       "bytes": 1983066,
       "category": "界面设计-对话与动态内容",
       "title": "两种并列的共同故事/校园夜景叙述界面。",
@@ -529,11 +524,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "discussion-ab.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-对话与动态内容/共写故事方案A-B-2afbad0dab9d.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R143-共写故事方案A-B.png"
     },
     {
       "sha256": "3198556973556fcf8371817056e8ffa174dc7e5afad781b05b08ccabbdcba35c",
-      "path": "原图/设计参考-原始图/entrusted-detail-319855697355.png",
+      "path": "../精选图稿/C-交互基因/R128-托付事项详情.png",
       "bytes": 1872052,
       "category": "设计参考-原始图",
       "title": "entrusted-detail",
@@ -551,11 +548,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "entrusted-detail.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/entrusted-detail-319855697355.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R128-托付事项详情.png"
     },
     {
       "sha256": "32240c8219b7e9a8feb941cf53f14206dae670c45bf3b1b50b94668f907d5d7e",
-      "path": "原图/界面设计-日程与今天/在场：今天，慢慢安排-7-32240c8219b7.png",
+      "path": "../精选图稿/A-标杆/R164-在场：今天，慢慢安排-7.png",
       "bytes": 1418220,
       "category": "界面设计-日程与今天",
       "title": "在场：今天，慢慢安排-7",
@@ -573,11 +572,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场：今天，慢慢安排-7.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-日程与今天/在场：今天，慢慢安排-7-32240c8219b7.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R164-在场：今天，慢慢安排-7.png"
     },
     {
       "sha256": "33b44ee86889fe0593d5120cd1e296ef6ec28bb30944b26fa3994159f6ef4a87",
-      "path": "原图/素材-纸面与装饰/横向纸张素材备选-33b44ee86889.png",
+      "path": "../精选图稿/A-标杆/R171-横向纸张素材备选.png",
       "bytes": 2350288,
       "category": "素材-纸面与装饰",
       "title": "带不规则边缘的横向空白纸张 cutout。",
@@ -600,11 +601,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "paper-surface.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-纸面与装饰/横向纸张素材备选-33b44ee86889.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R171-横向纸张素材备选.png"
     },
     {
       "sha256": "360c087102266daac6e2168b036d5007bc19d26ef166742b0001a987d9ff7180",
-      "path": "原图/素材-人物与窗景/读书角色立绘-360c08710226.png",
+      "path": "../精选图稿/C-交互基因/R141-读书角色立绘.png",
       "bytes": 1383711,
       "category": "界面设计-日程与今天",
       "title": "接着上次的安排：已保存片段与续排草案",
@@ -627,33 +630,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "planning-continuity-a.png"
         }
-      ]
-    },
-    {
-      "sha256": "38777009d92b39afc6fa6da6b31b946114787510ad41ae138431025a58991147",
-      "path": "原图/设计参考-原始图/在场：慢慢来，我在。-2-38777009d92b.png",
-      "bytes": 1563559,
-      "category": "设计参考-原始图",
-      "title": "在场：慢慢来，我在。-2",
-      "dimensions": {
-        "width": 1586,
-        "height": 992
-      },
-      "gitSync": true,
-      "review": "User-authorized image backup in the existing private project; original qualifications continue to apply.",
-      "origins": [
-        {
-          "originalRepoPath": "前端视觉创新设计/图片/在场：慢慢来，我在。-2.png"
-        },
-        {
-          "kind": "Existing project worktree asset",
-          "originalFilename": "在场：慢慢来，我在。-2.png"
-        }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-人物与窗景/读书角色立绘-360c08710226.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R141-读书角色立绘.png"
     },
     {
       "sha256": "390b7e90c36d7303d59c5508169050b2ae3e8576b9cb21890cd1d929047b974d",
-      "path": "原图/素材-人物与窗景/雨夜伞下人影-390b7e90c36d.png",
+      "path": "../精选图稿/C-交互基因/R176-雨夜伞下人影.png",
       "bytes": 2620002,
       "category": "素材-人物与窗景",
       "title": "夜景中撑伞行人的横向水彩插画。",
@@ -676,11 +659,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "lamp-letter.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-人物与窗景/雨夜伞下人影-390b7e90c36d.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R176-雨夜伞下人影.png"
     },
     {
       "sha256": "39562ed91be07555e5194030ec1847731295e5d2167ba6f214bc31c1da33b8f6",
-      "path": "原图/界面设计-日程与今天/今日安排方案A-39562ed91be0.png",
+      "path": "../精选图稿/C-交互基因/R080-今日安排方案A.png",
       "bytes": 1655536,
       "category": "界面设计-日程与今天",
       "title": "日程连续时间线概念，桌面与窄窗并列。",
@@ -703,52 +688,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "campus-day-a.png"
         }
-      ]
-    },
-    {
-      "sha256": "3d4adef6c2f206f8d443bfcac9d768761309808559d66e219c9a98df4e59c2c7",
-      "path": "原图/素材-人物与窗景/读书的朔-3d4adef6c2f2.png",
-      "bytes": 1896423,
-      "category": "素材-人物与窗景",
-      "title": "银灰发成年男性二次元角色坐在窗边读书。",
-      "dimensions": {
-        "width": 1367,
-        "height": 1151
-      },
-      "gitSync": true,
-      "review": "User-authorized image backup in the existing private project; original qualifications continue to apply.",
-      "origins": [
-        {
-          "generatedDirectory": "01a14ed0-bc5b-7403-9599-b0c0f3c19589",
-          "originalFilename": "exec-ffc76d1e-0c63-42b9-8fc1-a59906ed2c4a.png",
-          "kind": "Codex generated image"
-        },
-        {
-          "originalRepoPath": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-ffc76d1e-0c63-42b9-8fc1-a59906ed2c4a.png"
-        },
-        {
-          "originalRepoPath": "src/renderer/assets/companion/saku.png"
-        },
-        {
-          "originalRepoPath": "前端视觉创新设计/素材/人物-朔.png"
-        },
-        {
-          "kind": "Existing project worktree asset",
-          "originalFilename": "exec-ffc76d1e-0c63-42b9-8fc1-a59906ed2c4a.png"
-        },
-        {
-          "kind": "Existing project worktree asset",
-          "originalFilename": "saku.png"
-        },
-        {
-          "kind": "Existing project worktree asset",
-          "originalFilename": "人物-朔.png"
-        }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-日程与今天/今日安排方案A-39562ed91be0.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R080-今日安排方案A.png"
     },
     {
       "sha256": "3db3726d24532736bd8eefe290763558ab33ee780e9b1351e77c949d3b204998",
-      "path": "原图/界面设计-日程与今天/reference-current.png-3db3726d2453.png",
+      "path": "../精选图稿/C-交互基因/R133-今天安排当前稿.png",
       "bytes": 461180,
       "category": "界面设计-日程与今天",
       "title": "reference-current.png",
@@ -763,11 +709,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "reference-current.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-日程与今天/reference-current.png-3db3726d2453.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R133-今天安排当前稿.png"
     },
     {
       "sha256": "3f5166ef68466f0c2001293afbf4112b3b17322f5f29004beab6800cfc0843d1",
-      "path": "原图/素材-纸面与装饰/竖版学习纸张-3f5166ef6846.png",
+      "path": "../精选图稿/A-标杆/R144-竖版学习纸张.png",
       "bytes": 1867657,
       "category": "素材-纸面与装饰",
       "title": "竖版空白纸张的纹理/边缘素材。",
@@ -786,11 +734,13 @@
         {
           "originalRepoPath": "assets/ui/study/paper-texture.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-纸面与装饰/竖版学习纸张-3f5166ef6846.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R144-竖版学习纸张.png"
     },
     {
       "sha256": "3fa0d60ceba9577ee46ef0b9479f6874e4fc378c2cece36adb8893190a2f9c93",
-      "path": "原图/界面设计-日程与今天/今日安排编辑-3fa0d60ceba9.png",
+      "path": "../精选图稿/C-交互基因/R103-把安排挪一挪.png",
       "bytes": 1432705,
       "category": "界面设计-日程与今天",
       "title": "“今天，慢慢安排”日程与新增/编辑安排表单。",
@@ -820,11 +770,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "30-把安排挪一挪.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-日程与今天/今日安排编辑-3fa0d60ceba9.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R103-把安排挪一挪.png"
     },
     {
       "sha256": "42f6c42b36ae3b1e46e40cb034be7b3afc6b358b52769fdbd016cd02b153edb3",
-      "path": "原图/界面设计-学习与阅读/波形数学修订版-42f6c42b36ae.png",
+      "path": "../精选图稿/C-交互基因/R181-波形数学修订版.png",
       "bytes": 1705388,
       "category": "界面设计-学习与阅读",
       "title": "另一版对话内波形叠加图，含参数和时间/播放控制。",
@@ -840,11 +792,13 @@
           "originalFilename": "exec-17c29e14-5c19-43e5-a2bd-2e10c91648f3.png",
           "kind": "Codex generated image"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/波形数学修订版-42f6c42b36ae.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R181-波形数学修订版.png"
     },
     {
       "sha256": "445ecec27017a8e0a866664bdb1d2f365eead22bd9d66d2a62fba8397db22a46",
-      "path": "原图/界面设计-学习与阅读/波形交互原稿-445ecec27017.png",
+      "path": "../精选图稿/C-交互基因/R185-波形交互原稿.png",
       "bytes": 1726469,
       "category": "界面设计-学习与阅读",
       "title": "波形叠加演示的修订版截图，含相位探针与互动控件。",
@@ -860,11 +814,13 @@
           "originalFilename": "exec-db7dfbe1-e509-462f-b73e-205c6b11a0f6.png",
           "kind": "Codex generated image"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/波形交互原稿-445ecec27017.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R185-波形交互原稿.png"
     },
     {
       "sha256": "4930e2aa38e8f15d6e228bf6960332db5a084dd06f0362efdb5511ae543a44e1",
-      "path": "原图/素材-纸面与装饰/横向手稿纸-4930e2aa38e8.png",
+      "path": "../精选图稿/A-标杆/R169-横向手稿纸.png",
       "bytes": 2050315,
       "category": "素材-纸面与装饰",
       "title": "横向空白纸面/便笺底材。",
@@ -887,11 +843,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "paper-surface.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-纸面与装饰/横向手稿纸-4930e2aa38e8.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R169-横向手稿纸.png"
     },
     {
       "sha256": "4c7708d8eef461e3cbd3409f914220c140186d525246d90248afebd54ce8d87f",
-      "path": "原图/界面设计-学习与阅读/积分题分步讲解-4c7708d8eef4.png",
+      "path": "../精选图稿/C-交互基因/R078-积分题分步讲解.png",
       "bytes": 1897046,
       "category": "界面设计-学习与阅读",
       "title": "积分题、公式步骤与函数图形的纸面学习界面。",
@@ -910,11 +868,13 @@
         {
           "originalRepoPath": "assets/design/generated/2026-10-19-explorable-study/explorable-study.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/积分题分步讲解-4c7708d8eef4.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R078-积分题分步讲解.png"
     },
     {
       "sha256": "4d80728a4193ef02e892e2beb23dba00796b7f9da479b91ef9261bf44cd89f47",
-      "path": "原图/设计参考-原始图/在场四态设计板-20-4d80728a4193.png",
+      "path": "../精选图稿/C-交互基因/R150-在场四态设计板-20.png",
       "bytes": 1341281,
       "category": "设计参考-原始图",
       "title": "在场四态设计板-20",
@@ -932,11 +892,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场四态设计板-20.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/在场四态设计板-20-4d80728a4193.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R150-在场四态设计板-20.png"
     },
     {
       "sha256": "4eb05277e200e13da52f0217a2836d0579736760c30e54e9c4d7ee946c07645a",
-      "path": "原图/界面设计-日程与今天/今日安排双屏版-4eb05277e200.png",
+      "path": "../精选图稿/C-交互基因/R132-今日安排双屏版.png",
       "bytes": 1428481,
       "category": "界面设计-日程与今天",
       "title": "桌面与窄屏并列的日程连续展示设计。",
@@ -959,11 +921,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "chosen-windows-a.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-日程与今天/今日安排双屏版-4eb05277e200.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R132-今日安排双屏版.png"
     },
     {
       "sha256": "4f028800f8faeb21558223b7c066358aac6adac43d4de0192481044c16e2f9e3",
-      "path": "原图/界面设计-学习与阅读/留下资料阅读-4f028800f8fa.png",
+      "path": "../精选图稿/C-交互基因/R113-留下资料阅读.png",
       "bytes": 1511912,
       "category": "界面设计-学习与阅读",
       "title": "“留下”资料库中的文档列表、选中 PDF 与正文预览。",
@@ -986,33 +950,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "exec-42a56e62-c5c1-4c14-bb35-6fa7fef449b8.png"
         }
-      ]
-    },
-    {
-      "sha256": "4fb87d776860c178c16c638b61e08cd275242d7ec5f455f60ea26bdb3b5634f5",
-      "path": "原图/运行素材与品牌/nagi-4fb87d776860.png",
-      "bytes": 1904257,
-      "category": "运行素材与品牌",
-      "title": "nagi",
-      "dimensions": {
-        "width": 1024,
-        "height": 1536
-      },
-      "gitSync": true,
-      "review": "User-authorized image backup in the existing private project; original qualifications continue to apply.",
-      "origins": [
-        {
-          "originalRepoPath": "src/renderer/assets/companion/nagi.png"
-        },
-        {
-          "kind": "Existing project worktree asset",
-          "originalFilename": "nagi.png"
-        }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/留下资料阅读-4f028800f8fa.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R113-留下资料阅读.png"
     },
     {
       "sha256": "5408dd2e8cb3fd5adaa423b286bc5ff81cafe8a11c2ba855b31bb49bed06d2ff",
-      "path": "原图/运行素材与品牌/sakiko-5408dd2e8cb3.png",
+      "path": "../运行素材/companion/sakiko.png",
       "bytes": 1884998,
       "category": "运行素材与品牌",
       "title": "sakiko",
@@ -1030,11 +974,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "sakiko.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/运行素材与品牌/sakiko-5408dd2e8cb3.png",
+      "currentCanonicalPath": "前端视觉创新设计/运行素材/companion/sakiko.png"
     },
     {
       "sha256": "561c072a09633cb6b278b740406e60dabdd0496f967762bcb842dd07dd17dc99",
-      "path": "原图/界面设计-学习与阅读/推导与提问-561c072a0963.png",
+      "path": "../精选图稿/C-交互基因/R089-推导与提问.png",
       "bytes": 1826187,
       "category": "界面设计-学习与阅读",
       "title": "纸面推导过程与助手对话提示的互动学习状态。",
@@ -1053,11 +999,13 @@
         {
           "originalRepoPath": "assets/design/generated/2026-10-18-study-paper/study-paper.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/推导与提问-561c072a0963.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R089-推导与提问.png"
     },
     {
       "sha256": "608f46b85c51f4f84812c6a58e7bc05523907534ea0aad04bb323e89b9d01ee7",
-      "path": "原图/界面设计-对话与动态内容/对话状态卡-608f46b85c51.png",
+      "path": "../精选图稿/C-交互基因/R119-回来与继续.png",
       "bytes": 1680329,
       "category": "界面设计-对话与动态内容",
       "title": "四种对话中的轻量状态/确认卡片，使用暖色纸面与按钮。",
@@ -1087,11 +1035,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "33-回来与继续.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-对话与动态内容/对话状态卡-608f46b85c51.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R119-回来与继续.png"
     },
     {
       "sha256": "6466fb69e2080a64e770af9a389cfa5d027d41c2209dbc95fda47772f6e25461",
-      "path": "原图/设计参考-原始图/在场的静谧笔记-21-6466fb69e208.png",
+      "path": "../精选图稿/A-标杆/R153-在场的静谧笔记-21.png",
       "bytes": 1231711,
       "category": "设计参考-原始图",
       "title": "在场的静谧笔记-21",
@@ -1109,11 +1059,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场的静谧笔记-21.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/在场的静谧笔记-21-6466fb69e208.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R153-在场的静谧笔记-21.png"
     },
     {
       "sha256": "65132f4d9df77733b70a376292d2d59823d87a75224585a408049ec937bef80a",
-      "path": "原图/设计参考-原始图/在场：按你的节奏-14-65132f4d9df7.png",
+      "path": "../精选图稿/A-标杆/R155-在场：按你的节奏-14.png",
       "bytes": 1233850,
       "category": "设计参考-原始图",
       "title": "在场：按你的节奏-14",
@@ -1131,11 +1083,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场：按你的节奏-14.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/在场：按你的节奏-14-65132f4d9df7.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R155-在场：按你的节奏-14.png"
     },
     {
       "sha256": "6b451b0beb3cffa6601f9d2030e17a079038f2647fe20345ffbacf99cb3b1941",
-      "path": "原图/界面设计-学习与阅读/钢琴交互设计A-6b451b0beb3c.png",
+      "path": "../精选图稿/C-交互基因/R182-钢琴交互设计A.png",
       "bytes": 1933313,
       "category": "界面设计-学习与阅读",
       "title": "键盘与振动结构的扩展讲解界面。",
@@ -1155,11 +1109,13 @@
           "kind": "Project image retained in this private archive",
           "originalRepoPath": "assets/design/generated/2026-10-21-explorable-mechanisms/concept-a.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/钢琴交互设计A-6b451b0beb3c.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R182-钢琴交互设计A.png"
     },
     {
       "sha256": "6bc5b2f25677228929a1dd3ebdb43e1d51edc44b6e5f92735c0953d5592fd66a",
-      "path": "原图/素材-人物与窗景/白日窗景-6bc5b2f25677.png",
+      "path": "../运行素材/companion/reading-morning.png",
       "bytes": 2014462,
       "category": "素材-人物与窗景",
       "title": "窗帘、座椅与窗外树影构成的白日室内背景。",
@@ -1182,11 +1138,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "reading-morning.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-人物与窗景/白日窗景-6bc5b2f25677.png",
+      "currentCanonicalPath": "前端视觉创新设计/运行素材/companion/reading-morning.png"
     },
     {
       "sha256": "6e408b450cc2c80402e4375c257236ae70ea1e02af23fe0767f2c68000f86afb",
-      "path": "原图/界面设计-学习与阅读/在场：初次见面与资料连接-12-6e408b450cc2.png",
+      "path": "../精选图稿/C-交互基因/R156-在场：初次见面与资料连接-12.png",
       "bytes": 1464395,
       "category": "界面设计-学习与阅读",
       "title": "在场：初次见面与资料连接-12",
@@ -1204,11 +1162,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场：初次见面与资料连接-12.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/在场：初次见面与资料连接-12-6e408b450cc2.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R156-在场：初次见面与资料连接-12.png"
     },
     {
       "sha256": "744d13a1bc8b714fe81eca00186dab51dc698b3b5cec2ba6c6c5b3c5015e6a5e",
-      "path": "原图/界面设计-设置与人格/资料分享设置-744d13a1bc8b.png",
+      "path": "../精选图稿/C-交互基因/R091-这次按你的意思来.png",
       "bytes": 1500985,
       "category": "界面设计-设置与人格",
       "title": "在场对话旁呈现“你愿意分享的资料”及局部选择设置弹窗的设计稿。",
@@ -1238,11 +1198,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "26-这次按你的意思来.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-设置与人格/资料分享设置-744d13a1bc8b.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R091-这次按你的意思来.png"
     },
     {
       "sha256": "7e1609c433e36831a2ccc2163d6e355198833d8ad9a9b5ec26a53dacb3388d2c",
-      "path": "原图/界面设计-对话与动态内容/失物招领故事-7e1609c433e3.png",
+      "path": "../精选图稿/C-交互基因/R090-失物招领故事.png",
       "bytes": 1875246,
       "category": "界面设计-对话与动态内容",
       "title": "对话中展开一段“失物招领处”叙事纸面内容。",
@@ -1261,11 +1223,13 @@
         {
           "originalRepoPath": "assets/design/generated/2026-10-18-curiosity-invitation/content-first-play.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-对话与动态内容/失物招领故事-7e1609c433e3.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R090-失物招领故事.png"
     },
     {
       "sha256": "7efc5bc20d5d084776656fa8ff40a3d0f926811c4e60ca96be22f98d772b7893",
-      "path": "原图/界面设计-对话与动态内容/成绩对话卡-7efc5bc20d5d.png",
+      "path": "../精选图稿/C-交互基因/R140-成绩对话卡.png",
       "bytes": 1445172,
       "category": "界面设计-对话与动态内容",
       "title": "成绩表格和成绩说明的对话内界面。",
@@ -1284,38 +1248,13 @@
         {
           "originalRepoPath": "assets/design/generated/2026-10-19-campus-academic/campus-academic-reading.png"
         }
-      ]
-    },
-    {
-      "sha256": "7f07bb902b0cba541bbf51192b06fc82bca7807fa8a31eea76dea615994909d2",
-      "path": "原图/素材-人物与窗景/遥的角色立绘-7f07bb902b0c.png",
-      "bytes": 2207970,
-      "category": "素材-人物与窗景",
-      "title": "短发棕发女性、浅蓝衬衫的成年二次元角色坐姿插画。",
-      "dimensions": {
-        "width": 1024,
-        "height": 1536
-      },
-      "gitSync": true,
-      "review": "User-authorized image backup in the existing private project; original qualifications continue to apply.",
-      "origins": [
-        {
-          "generatedDirectory": "01a14ed0-bc5b-7403-9599-b0c0f3c19589",
-          "originalFilename": "exec-1c7fefe2-e66a-49af-8e09-c0c9c16b804a.png",
-          "kind": "Codex generated image"
-        },
-        {
-          "originalRepoPath": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-1c7fefe2-e66a-49af-8e09-c0c9c16b804a.png"
-        },
-        {
-          "kind": "Existing project worktree asset",
-          "originalFilename": "exec-1c7fefe2-e66a-49af-8e09-c0c9c16b804a.png"
-        }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-对话与动态内容/成绩对话卡-7efc5bc20d5d.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R140-成绩对话卡.png"
     },
     {
       "sha256": "80ec65760ad7d284d7c9696ef85f68239b69528b15857a1caa7375553dd9c287",
-      "path": "原图/界面设计-设置与人格/怎么相处设置-80ec65760ad7.png",
+      "path": "../精选图稿/C-交互基因/R092-怎样相处.png",
       "bytes": 1683326,
       "category": "界面设计-设置与人格",
       "title": "“怎么相处/试着这样说”角色交流方式设定界面。",
@@ -1345,11 +1284,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "37-怎样相处.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-设置与人格/怎么相处设置-80ec65760ad7.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R092-怎样相处.png"
     },
     {
       "sha256": "821979dba7114dad8b497e348c055786d94706ec608f25062a36cde8f88fdec9",
-      "path": "原图/界面设计-地图与天气/校园地图路线-821979dba711.png",
+      "path": "../精选图稿/C-交互基因/R094-路线地点与平面地图.png",
       "bytes": 2156289,
       "category": "界面设计-地图与天气",
       "title": "校园地图平面视图与路线/地点聚焦状态对比。",
@@ -1379,11 +1320,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "35-路线地点与平面地图.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-地图与天气/校园地图路线-821979dba711.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R094-路线地点与平面地图.png"
     },
     {
       "sha256": "8a33bbbdc7b2329b144d1869d7220361921a37fdd89085aca51ac2dc48f80de1",
-      "path": "原图/界面设计-学习与阅读/钢琴交互设计B-8a33bbbdc7b2.png",
+      "path": "../精选图稿/C-交互基因/R184-钢琴交互设计B.png",
       "bytes": 1667834,
       "category": "界面设计-学习与阅读",
       "title": "杠杆与琴键的结构图、音高/音量参数及交互示意。",
@@ -1403,11 +1346,13 @@
           "kind": "Project image retained in this private archive",
           "originalRepoPath": "assets/design/generated/2026-10-21-explorable-mechanisms/concept-b.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/钢琴交互设计B-8a33bbbdc7b2.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R184-钢琴交互设计B.png"
     },
     {
       "sha256": "8b3202fe496cbd7c8732a66b4bff7c3f977070e1523b7f17957ccbcd75fa62e7",
-      "path": "原图/界面设计-学习与阅读/波形相加设计-8b3202fe496c.png",
+      "path": "../精选图稿/C-交互基因/R183-波形相加设计.png",
       "bytes": 1686197,
       "category": "界面设计-学习与阅读",
       "title": "对话内可调参数的正弦波叠加图及相位/播放控制。",
@@ -1427,11 +1372,13 @@
           "kind": "Project image retained in this private archive",
           "originalRepoPath": "assets/design/generated/2026-10-19-openui-composition/wave-meeting-design-v1.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/波形相加设计-8b3202fe496c.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R183-波形相加设计.png"
     },
     {
       "sha256": "8bbcf3b784e5645b7955c729d6aa2954a166900ccb912ba52c37c5c13a9f48b1",
-      "path": "原图/界面设计-地图与天气/map-recovery-8bbcf3b784e5.png",
+      "path": "../精选图稿/C-交互基因/R120-地图返回与恢复.png",
       "bytes": 1883481,
       "category": "界面设计-地图与天气",
       "title": "map-recovery",
@@ -1449,11 +1396,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "map-recovery.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-地图与天气/map-recovery-8bbcf3b784e5.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R120-地图返回与恢复.png"
     },
     {
       "sha256": "90b2a9a68c5588224fc79c43f44eb24c499e6e3e9bcd3b2f38d8a2c78eb1d98a",
-      "path": "原图/素材-纸面与装饰/竖版纸张材质-90b2a9a68c55.png",
+      "path": "../精选图稿/A-标杆/R074-竖版纸张材质.png",
       "bytes": 2364855,
       "category": "素材-纸面与装饰",
       "title": "竖版空白米白纸张，轻微纤维纹理与边缘阴影。",
@@ -1472,11 +1421,13 @@
         {
           "originalRepoPath": "assets/ui/companion-session-paper.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-纸面与装饰/竖版纸张材质-90b2a9a68c55.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R074-竖版纸张材质.png"
     },
     {
       "sha256": "94681645b14c6fc92c779274c27f619ef24e6d228499b150eff8b921e606645a",
-      "path": "原图/素材-人物与窗景/find-the-original-words-94681645b14c.png",
+      "path": "../精选图稿/C-交互基因/R136-找回原话.png",
       "bytes": 1552427,
       "category": "素材-人物与窗景",
       "title": "find-the-original-words",
@@ -1494,11 +1445,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "find-the-original-words.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-人物与窗景/find-the-original-words-94681645b14c.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R136-找回原话.png"
     },
     {
       "sha256": "95828c9b4fde6781b3ff09fea941d91fe65cc97b17546e08be082008a2c473e8",
-      "path": "原图/设计参考-原始图/在场：四种从容状态-13-95828c9b4fde.png",
+      "path": "../精选图稿/C-交互基因/R159-在场：四种从容状态-13.png",
       "bytes": 1766102,
       "category": "设计参考-原始图",
       "title": "在场：四种从容状态-13",
@@ -1516,11 +1469,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场：四种从容状态-13.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/在场：四种从容状态-13-95828c9b4fde.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R159-在场：四种从容状态-13.png"
     },
     {
       "sha256": "969079ae0f589c89d4e21cb2e89394e0fcc0b2b577b4026d4ac61b3739337a8a",
-      "path": "原图/设计参考-原始图/campus-conversation-results-969079ae0f58.png",
+      "path": "../精选图稿/C-交互基因/R122-校园资料对话结果.png",
       "bytes": 1515062,
       "category": "设计参考-原始图",
       "title": "campus-conversation-results",
@@ -1538,11 +1493,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "campus-conversation-results.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/campus-conversation-results-969079ae0f58.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R122-校园资料对话结果.png"
     },
     {
       "sha256": "9718d69514e372c82bf28e5bdad98a59063c76608393690339c9715cd65de4d3",
-      "path": "原图/界面设计-地图与天气/校园路线总览-9718d69514e3.png",
+      "path": "../精选图稿/C-交互基因/R107-校园路线总览.png",
       "bytes": 2658526,
       "category": "界面设计-地图与天气",
       "title": "俯视校园地图、路线线条与建筑详情的多视图板。",
@@ -1565,11 +1522,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "exec-aa7f3078-71a8-48d2-ac28-34d1409cb04a.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-地图与天气/校园路线总览-9718d69514e3.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R107-校园路线总览.png"
     },
     {
       "sha256": "9a43bca705f4ad07d3535b83848aec9b39e79581226f72fc11f08c6a0e8d88d1",
-      "path": "原图/素材-人物与窗景/夜景窗边-9a43bca705f4.png",
+      "path": "../运行素材/companion/reading-night.png",
       "bytes": 1922295,
       "category": "素材-人物与窗景",
       "title": "深蓝夜景窗边室内背景。",
@@ -1592,33 +1551,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "reading-night.png"
         }
-      ]
-    },
-    {
-      "sha256": "9a6d2ebdf831d21ee614a19446e346dfd871d5ea6414df35db368e9408d85178",
-      "path": "原图/运行素材与品牌/icon-9a6d2ebdf831.png",
-      "bytes": 9475,
-      "category": "运行素材与品牌",
-      "title": "icon",
-      "dimensions": {
-        "width": 256,
-        "height": 256
-      },
-      "gitSync": true,
-      "review": "User-authorized image backup in the existing private project; original qualifications continue to apply.",
-      "origins": [
-        {
-          "originalRepoPath": "assets/brand/icon.png"
-        },
-        {
-          "kind": "Existing project worktree asset",
-          "originalFilename": "icon.png"
-        }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-人物与窗景/夜景窗边-9a43bca705f4.png",
+      "currentCanonicalPath": "前端视觉创新设计/运行素材/companion/reading-night.png"
     },
     {
       "sha256": "9a9bcdc6b028d2afb3bdfa0768db85f5a4a012a7f4da4eeeb4b1072183d0c0ef",
-      "path": "原图/界面设计-设置与人格/persona-9a9bcdc6b028.png",
+      "path": "../精选图稿/B-微调复用/R086-角色与相处设置.png",
       "bytes": 1981405,
       "category": "界面设计-设置与人格",
       "title": "persona",
@@ -1636,11 +1575,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "persona.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-设置与人格/persona-9a9bcdc6b028.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/B-微调复用/R086-角色与相处设置.png"
     },
     {
       "sha256": "9c6131000bc875872d870bb9641213da056aed276f678ec9820cfd7290fa3edb",
-      "path": "原图/界面设计-学习与阅读/在场｜标量方程学习界面-18-9c6131000bc8.png",
+      "path": "../精选图稿/A-标杆/R160-在场｜标量方程学习界面-18.png",
       "bytes": 1381221,
       "category": "界面设计-学习与阅读",
       "title": "在场｜标量方程学习界面-18",
@@ -1658,33 +1599,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场｜标量方程学习界面-18.png"
         }
-      ]
-    },
-    {
-      "sha256": "9d25cbff5ee2b681a5a8ddba40a18d9f0d7549862f80acff19cd1b28dbb4602d",
-      "path": "原图/运行素材与品牌/icon-9d25cbff5ee2.ico",
-      "bytes": 9497,
-      "category": "运行素材与品牌",
-      "title": "icon",
-      "dimensions": {
-        "width": 256,
-        "height": 256
-      },
-      "gitSync": true,
-      "review": "User-authorized image backup in the existing private project; original qualifications continue to apply.",
-      "origins": [
-        {
-          "originalRepoPath": "assets/brand/icon.ico"
-        },
-        {
-          "kind": "Existing project worktree asset",
-          "originalFilename": "icon.ico"
-        }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/在场｜标量方程学习界面-18-9c6131000bc8.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R160-在场｜标量方程学习界面-18.png"
     },
     {
       "sha256": "a054a49fe0d9fe4c45f59e9de320bbd9d0e56bb9607e3bb1a5352fbf501e945c",
-      "path": "原图/界面设计-学习与阅读/在场学习桌：一起推导线性微分方程-4-a054a49fe0d9.png",
+      "path": "../精选图稿/A-标杆/R146-在场学习桌：一起推导线性微分方程-4.png",
       "bytes": 1516299,
       "category": "界面设计-学习与阅读",
       "title": "在场学习桌：一起推导线性微分方程-4",
@@ -1702,11 +1623,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场学习桌：一起推导线性微分方程-4.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/在场学习桌：一起推导线性微分方程-4-a054a49fe0d9.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R146-在场学习桌：一起推导线性微分方程-4.png"
     },
     {
       "sha256": "a058672654dc3cf5b79c471fd89655b795799092c548097e4b1400bcc2ce22eb",
-      "path": "原图/界面设计-学习与阅读/学习小组讨论-a058672654dc.png",
+      "path": "../精选图稿/C-交互基因/R106-给别人看与回到私聊.png",
       "bytes": 1532450,
       "category": "界面设计-学习与阅读",
       "title": "学习小组提问与次日讨论准备卡片的组合界面。",
@@ -1736,11 +1659,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "29-给别人看与回到私聊.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/学习小组讨论-a058672654dc.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R106-给别人看与回到私聊.png"
     },
     {
       "sha256": "a0be644f45b610c5d6be4ffaddb187acb09cafc39fe7af9fb9f8a49546528197",
-      "path": "原图/设计参考-原始图/document-open-recovery-a0be644f45b6.png",
+      "path": "../精选图稿/C-交互基因/R121-资料打开与恢复.png",
       "bytes": 1697563,
       "category": "设计参考-原始图",
       "title": "document-open-recovery",
@@ -1758,11 +1683,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "document-open-recovery.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/document-open-recovery-a0be644f45b6.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R121-资料打开与恢复.png"
     },
     {
       "sha256": "a5c32c4c895f8bc4442b6f7afad7fd62919e7908f398e10bdd20db325d92bae8",
-      "path": "原图/运行素材与品牌/mutsumi-a5c32c4c895f.png",
+      "path": "../运行素材/companion/mutsumi.png",
       "bytes": 1451380,
       "category": "运行素材与品牌",
       "title": "mutsumi",
@@ -1780,11 +1707,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "mutsumi.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/运行素材与品牌/mutsumi-a5c32c4c895f.png",
+      "currentCanonicalPath": "前端视觉创新设计/运行素材/companion/mutsumi.png"
     },
     {
       "sha256": "a6634b60d518f5ca0fc95ab239338eaecff714aa33c4ff659e39efa86b3e9a27",
-      "path": "原图/界面设计-日程与今天/calendar-a6634b60d518.png",
+      "path": "../精选图稿/C-交互基因/R085-日历界面.png",
       "bytes": 1584767,
       "category": "界面设计-日程与今天",
       "title": "calendar",
@@ -1802,11 +1731,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "calendar.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-日程与今天/calendar-a6634b60d518.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R085-日历界面.png"
     },
     {
       "sha256": "aae9ac7b7ccdc25e5c1dcdd0d66a3440b07a86c629e6b3a3b68cbd951e7ed3b6",
-      "path": "原图/界面设计-日程与今天/单日安排方案A-aae9ac7b7ccd.png",
+      "path": "../精选图稿/C-交互基因/R076-单日安排方案A.png",
       "bytes": 1689520,
       "category": "界面设计-日程与今天",
       "title": "围绕单日安排的 A/B 版对话与时间线界面方案。",
@@ -1825,11 +1756,13 @@
         {
           "originalRepoPath": "assets/design/generated/2026-10-18-planning-comparison/planning-one-day.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-日程与今天/单日安排方案A-aae9ac7b7ccd.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R076-单日安排方案A.png"
     },
     {
       "sha256": "ab87c16ff3bd454e6555cf7a96e17150ae69446f466027162b64d65b4a14e3e2",
-      "path": "原图/界面设计-对话与动态内容/对话方案对照-ab87c16ff3bd.png",
+      "path": "../精选图稿/C-交互基因/R088-对话方案对照.png",
       "bytes": 1754549,
       "category": "界面设计-对话与动态内容",
       "title": "两种并列的共同内容/叙述界面方案。",
@@ -1848,11 +1781,13 @@
         {
           "originalRepoPath": "assets/design/generated/2026-10-18-companion-session/companion-session-ab.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-对话与动态内容/对话方案对照-ab87c16ff3bd.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R088-对话方案对照.png"
     },
     {
       "sha256": "b2a9cd45b236a19e119a39d8129530d503d4a2d2725e13204e02ba2974608536",
-      "path": "原图/界面设计-地图与天气/天气对话-b2a9cd45b236.png",
+      "path": "../精选图稿/C-交互基因/R111-天气与接着聊.png",
       "bytes": 1349912,
       "category": "界面设计-地图与天气",
       "title": "七日天气卡片、选中日期与聊天输入框组合。",
@@ -1882,11 +1817,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "24-天气与接着聊.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-地图与天气/天气对话-b2a9cd45b236.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R111-天气与接着聊.png"
     },
     {
       "sha256": "b49351945cc967e1fee9b401f1e694323bafacb7950b6240785884e9a811b4d3",
-      "path": "原图/界面设计-对话与动态内容/陪伴来信界面-b49351945cc9.png",
+      "path": "../精选图稿/C-交互基因/R079-陪伴来信界面.png",
       "bytes": 1792002,
       "category": "界面设计-对话与动态内容",
       "title": "对话里展开的一封复盘/陪伴信件纸面。",
@@ -1909,11 +1846,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "letter-conversation.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-对话与动态内容/陪伴来信界面-b49351945cc9.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R079-陪伴来信界面.png"
     },
     {
       "sha256": "bb7b9fe7c026eedd9919e35ef05655686660e2392b58f44a46ca5acff99d3458",
-      "path": "原图/设计参考-原始图/在场：把安静带在身边-15-bb7b9fe7c026.png",
+      "path": "../精选图稿/C-交互基因/R151-在场：把安静带在身边-15.png",
       "bytes": 1690980,
       "category": "设计参考-原始图",
       "title": "在场：把安静带在身边-15",
@@ -1931,11 +1870,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场：把安静带在身边-15.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/在场：把安静带在身边-15-bb7b9fe7c026.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R151-在场：把安静带在身边-15.png"
     },
     {
       "sha256": "c0ce2a81e776faf62301ca6c00fff3856a607c48493b5ad8bff7a2c4bc21138d",
-      "path": "原图/素材-纸面与装饰/金色枝叶-c0ce2a81e776.png",
+      "path": "../精选图稿/A-标杆/R170-金色枝叶.png",
       "bytes": 1539591,
       "category": "素材-纸面与装饰",
       "title": "透明背景风格的金色植物枝叶插画。",
@@ -1958,11 +1899,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "gold-sprig.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-纸面与装饰/金色枝叶-c0ce2a81e776.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R170-金色枝叶.png"
     },
     {
       "sha256": "c1d480978a39c06ccbb3a28afb52741514d8950767e49465343b03bbbda76dcc",
-      "path": "原图/界面设计-地图与天气/天气详情-c1d480978a39.png",
+      "path": "../精选图稿/C-交互基因/R099-天气详情.png",
       "bytes": 1218041,
       "category": "界面设计-地图与天气",
       "title": "天气会话中的七日预报与选中日期详情。",
@@ -1985,33 +1928,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "exec-d7450df6-e677-4917-85b9-865f172dba90.png"
         }
-      ]
-    },
-    {
-      "sha256": "c2ceba84f237c1ac74261da2783d4d0415e38756ecf839baa8b4e362bdfbbcb4",
-      "path": "原图/运行素材与品牌/mark-c2ceba84f237.svg",
-      "bytes": 288,
-      "category": "运行素材与品牌",
-      "title": "mark",
-      "dimensions": {
-        "width": 256.0,
-        "height": 256.0
-      },
-      "gitSync": true,
-      "review": "User-authorized image backup in the existing private project; original qualifications continue to apply.",
-      "origins": [
-        {
-          "originalRepoPath": "assets/brand/mark.svg"
-        },
-        {
-          "kind": "Existing project worktree asset",
-          "originalFilename": "mark.svg"
-        }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-地图与天气/天气详情-c1d480978a39.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R099-天气详情.png"
     },
     {
       "sha256": "c40a35e34ccbb69b535ca84e7e607434a4a0d24952c8303d2d1e07099e844595",
-      "path": "原图/界面设计-设置与人格/留在本机的资料-c40a35e34ccb.png",
+      "path": "../精选图稿/C-交互基因/R118-留在这台电脑里的.png",
       "bytes": 1406878,
       "category": "界面设计-设置与人格",
       "title": "“留在这台电脑里的”本地资料与保存状态说明页面。",
@@ -2041,11 +1964,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "38-留在这台电脑里的.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-设置与人格/留在本机的资料-c40a35e34ccb.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R118-留在这台电脑里的.png"
     },
     {
       "sha256": "c40b05206002af8e587ceddb9bbda96f8dea6eb24aedf501d070b30bd7ec177c",
-      "path": "原图/界面设计-日程与今天/继续上次安排-c40b05206002.png",
+      "path": "../精选图稿/C-交互基因/R142-继续上次安排.png",
       "bytes": 1365604,
       "category": "界面设计-日程与今天",
       "title": "聊天中接续“上次的安排”并展开时间线卡片。",
@@ -2068,11 +1993,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "planning-continuity-b.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-日程与今天/继续上次安排-c40b05206002.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R142-继续上次安排.png"
     },
     {
       "sha256": "c86948d1eb6d71f1b5e6a6dc89019b5ba8bc2d497bdc4ff963afb29d591e8f7f",
-      "path": "原图/设计参考-原始图/在场：雨夜倾听-3-c86948d1eb6d.png",
+      "path": "../精选图稿/B-微调复用/R161-在场：雨夜倾听-3.png",
       "bytes": 1828400,
       "category": "设计参考-原始图",
       "title": "在场：雨夜倾听-3",
@@ -2090,11 +2017,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场：雨夜倾听-3.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/在场：雨夜倾听-3-c86948d1eb6d.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/B-微调复用/R161-在场：雨夜倾听-3.png"
     },
     {
       "sha256": "cf5b06164ffee4a02e908085fe24f7723464fbe11817bcc7fc2e3b85e9db15d8",
-      "path": "原图/素材-人物与窗景/entrusted-living-detail-cf5b06164ffe.png",
+      "path": "../精选图稿/C-交互基因/R135-生活托付详情.png",
       "bytes": 1553081,
       "category": "素材-人物与窗景",
       "title": "entrusted-living-detail",
@@ -2112,11 +2041,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "entrusted-living-detail.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-人物与窗景/entrusted-living-detail-cf5b06164ffe.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R135-生活托付详情.png"
     },
     {
       "sha256": "cfb5d9d44258b14f1b471b76c285d8977cc1abe1e296fd90f094831110f71ade",
-      "path": "原图/界面设计-日程与今天/日程连续视图-cfb5d9d44258.png",
+      "path": "../精选图稿/C-交互基因/R131-日程连续视图.png",
       "bytes": 1406754,
       "category": "界面设计-日程与今天",
       "title": "桌面时间线及窄窗日程摘要的组合设计。",
@@ -2139,11 +2070,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "chosen-windows-b.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-日程与今天/日程连续视图-cfb5d9d44258.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R131-日程连续视图.png"
     },
     {
       "sha256": "d14033e8865b2710de80c3feb8817a2262c2719a2180a1544d5fbdf9ccdf69b2",
-      "path": "原图/界面设计-学习与阅读/reading-rhythm-preferences-d14033e8865b.png",
+      "path": "../精选图稿/C-交互基因/R126-阅读与节奏偏好.png",
       "bytes": 1651584,
       "category": "界面设计-学习与阅读",
       "title": "reading-rhythm-preferences",
@@ -2161,11 +2094,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "reading-rhythm-preferences.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-学习与阅读/reading-rhythm-preferences-d14033e8865b.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R126-阅读与节奏偏好.png"
     },
     {
       "sha256": "d3d4954f31c2242f71824bc6a10c5cfe2722171317aee7e9724468d3d440808b",
-      "path": "原图/界面设计-设置与人格/校园账号与资料连接-d3d4954f31c2.png",
+      "path": "../精选图稿/C-交互基因/R096-连接与校园资料.png",
       "bytes": 1295869,
       "category": "界面设计-设置与人格",
       "title": "DeepSeek 连接表单和校园资料权限设置并列的界面稿。",
@@ -2195,11 +2130,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "39-连接与校园资料.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-设置与人格/校园账号与资料连接-d3d4954f31c2.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R096-连接与校园资料.png"
     },
     {
       "sha256": "d440b5050bdc4797092cbb2261ae8fb50f4ac8bea45c5a51599112fb54ffedbc",
-      "path": "原图/素材-人物与窗景/understanding-can-change-d440b5050bdc.png",
+      "path": "../精选图稿/C-交互基因/R134-理解可以修正.png",
       "bytes": 1532038,
       "category": "素材-人物与窗景",
       "title": "understanding-can-change",
@@ -2217,11 +2154,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "understanding-can-change.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-人物与窗景/understanding-can-change-d440b5050bdc.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R134-理解可以修正.png"
     },
     {
       "sha256": "d4442630f13372a6aafc18e7d80d8462e48395a32c62ac3bb113cfa6c8539e0c",
-      "path": "原图/界面设计-日程与今天/日程时间线对照-d4442630f133.png",
+      "path": "../精选图稿/C-交互基因/R139-日程时间线对照.png",
       "bytes": 1868686,
       "category": "界面设计-日程与今天",
       "title": "两日时间线与课程/个人计划并列的日程视图。",
@@ -2244,11 +2183,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "daily-rhythm-b.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-日程与今天/日程时间线对照-d4442630f133.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R139-日程时间线对照.png"
     },
     {
       "sha256": "d618bb8f1492f839e594399a43045673f94ba1535f956396b7c4a03d755f07a7",
-      "path": "原图/界面设计-对话与动态内容/日程与笔记并列-d618bb8f1492.png",
+      "path": "../精选图稿/C-交互基因/R093-笔记找回与继续.png",
       "bytes": 1607006,
       "category": "界面设计-对话与动态内容",
       "title": "日程、笔记与当前话题并列的桌面界面概念。",
@@ -2278,11 +2219,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "28-笔记找回与继续.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-对话与动态内容/日程与笔记并列-d618bb8f1492.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R093-笔记找回与继续.png"
     },
     {
       "sha256": "da87a14f3ff3d454aebd4b184cf363a08349e7730f4c720466449fc57df14227",
-      "path": "原图/界面设计-地图与天气/天气与接着聊-da87a14f3ff3.png",
+      "path": "../精选图稿/C-交互基因/R109-天气与接着聊.png",
       "bytes": 1262408,
       "category": "界面设计-地图与天气",
       "title": "天气预报嵌入日常对话的桌面视图。",
@@ -2305,11 +2248,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "exec-d0f00b80-d5d9-4da4-9764-ca62ccab58ad.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-地图与天气/天气与接着聊-da87a14f3ff3.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R109-天气与接着聊.png"
     },
     {
       "sha256": "dab8185e3ca4b1f820c79ba441000e4d48bd2c529df476b7db4f64318afda00f",
-      "path": "原图/素材-人物与窗景/夜灯窗景-dab8185e3ca4.png",
+      "path": "../运行素材/companion/night.png",
       "bytes": 2086939,
       "category": "素材-人物与窗景",
       "title": "夜景窗边床/座椅、灯光与桌面小物的背景。",
@@ -2346,11 +2291,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "窗景-夜灯.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-人物与窗景/夜灯窗景-dab8185e3ca4.png",
+      "currentCanonicalPath": "前端视觉创新设计/运行素材/companion/night.png"
     },
     {
       "sha256": "df6a2e7e0971d096e5ba537cdab1eafe8d642fca81536bc791b4d3b817e3dee2",
-      "path": "原图/素材-人物与窗景/校园桥夜景-df6a2e7e0971.png",
+      "path": "../精选图稿/C-交互基因/R172-校园桥夜景.png",
       "bytes": 2640872,
       "category": "素材-人物与窗景",
       "title": "校园风格桥梁、树木和灯光的横向水彩夜景。",
@@ -2373,11 +2320,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "night-bridge.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-人物与窗景/校园桥夜景-df6a2e7e0971.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R172-校园桥夜景.png"
     },
     {
       "sha256": "dff2c8e05d5d9281e2cb9f2c049fb7860924f94198a7db6217bba59fefe1b068",
-      "path": "原图/设计参考-原始图/晨光里的在场-1-dff2c8e05d5d.png",
+      "path": "../精选图稿/B-微调复用/R154-晨光里的在场-1.png",
       "bytes": 1800652,
       "category": "设计参考-原始图",
       "title": "晨光里的在场-1",
@@ -2395,11 +2344,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "晨光里的在场-1.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/晨光里的在场-1-dff2c8e05d5d.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/B-微调复用/R154-晨光里的在场-1.png"
     },
     {
       "sha256": "e035a560f3c8c5a6b6f694367c896f4f99cf4a854135d6959a35c13b86acd1bb",
-      "path": "原图/界面设计-设置与人格/陪伴外观选择-e035a560f3c8.png",
+      "path": "../精选图稿/B-微调复用/R095-陪伴的样子.png",
       "bytes": 1922305,
       "category": "界面设计-设置与人格",
       "title": "选择角色肖像、房间背景与陪伴样式的设置页。",
@@ -2429,11 +2380,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "27-陪伴的样子.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-设置与人格/陪伴外观选择-e035a560f3c8.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/B-微调复用/R095-陪伴的样子.png"
     },
     {
       "sha256": "e304ff26879b67c6821a628428f0d1b784c368eaf28f563799a351a78bc4288d",
-      "path": "原图/素材-人物与窗景/晨光窗景-e304ff26879b.png",
+      "path": "../运行素材/companion/morning.png",
       "bytes": 2143867,
       "category": "素材-人物与窗景",
       "title": "晨光照入窗边书桌和座椅，窗外可见水面与远处建筑的室内背景。",
@@ -2470,11 +2423,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "窗景-晨光.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-人物与窗景/晨光窗景-e304ff26879b.png",
+      "currentCanonicalPath": "前端视觉创新设计/运行素材/companion/morning.png"
     },
     {
       "sha256": "e3fec483409129be333e38e0bde3fdf060ff8889865cb3f8c5a8b1abee0e3f0b",
-      "path": "原图/界面设计-地图与天气/在场校园湖畔路线图-22-e3fec4834091.png",
+      "path": "../精选图稿/A-标杆/R166-在场校园湖畔路线图-22.png",
       "bytes": 1782388,
       "category": "界面设计-地图与天气",
       "title": "在场校园湖畔路线图-22",
@@ -2492,11 +2447,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场校园湖畔路线图-22.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-地图与天气/在场校园湖畔路线图-22-e3fec4834091.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R166-在场校园湖畔路线图-22.png"
     },
     {
       "sha256": "e535b59b479a92785d786af602bdff9fcc5b2530f3769bd38743e7d48d12f3ad",
-      "path": "原图/设计参考-原始图/learning-workspace-e535b59b479a.png",
+      "path": "../精选图稿/A-标杆/R124-原文与推导学习工作区.png",
       "bytes": 1723351,
       "category": "设计参考-原始图",
       "title": "learning-workspace",
@@ -2514,11 +2471,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "learning-workspace.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/learning-workspace-e535b59b479a.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R124-原文与推导学习工作区.png"
     },
     {
       "sha256": "e818d1dc8c2c28e6a9d0ac729cc3cdc539ef63d81b282f76fe120f8840e62a3b",
-      "path": "原图/素材-人物与窗景/暮色窗景-e818d1dc8c2c.png",
+      "path": "../运行素材/companion/dusk.png",
       "bytes": 2208626,
       "category": "素材-人物与窗景",
       "title": "暖橙暮光照入窗边房间的背景图。",
@@ -2555,52 +2514,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "窗景-暮色.png"
         }
-      ]
-    },
-    {
-      "sha256": "eabf255e455db46ef0770c884bbf3019247a9e0fb99d1b145cb7e505cf388ce5",
-      "path": "原图/素材-人物与窗景/澪的角色立绘-eabf255e455d.png",
-      "bytes": 2254210,
-      "category": "素材-人物与窗景",
-      "title": "蓝紫长发、米色针织衫的成年女性二次元角色半身/坐姿插画。",
-      "dimensions": {
-        "width": 1145,
-        "height": 1374
-      },
-      "gitSync": true,
-      "review": "User-authorized image backup in the existing private project; original qualifications continue to apply.",
-      "origins": [
-        {
-          "generatedDirectory": "01a14ed0-bc5b-7403-9599-b0c0f3c19589",
-          "originalFilename": "exec-111fa686-3524-4e0d-ba6c-868954d9936f.png",
-          "kind": "Codex generated image"
-        },
-        {
-          "originalRepoPath": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-111fa686-3524-4e0d-ba6c-868954d9936f.png"
-        },
-        {
-          "originalRepoPath": "src/renderer/assets/companion/mio.png"
-        },
-        {
-          "originalRepoPath": "前端视觉创新设计/素材/人物-澪.png"
-        },
-        {
-          "kind": "Existing project worktree asset",
-          "originalFilename": "exec-111fa686-3524-4e0d-ba6c-868954d9936f.png"
-        },
-        {
-          "kind": "Existing project worktree asset",
-          "originalFilename": "mio.png"
-        },
-        {
-          "kind": "Existing project worktree asset",
-          "originalFilename": "人物-澪.png"
-        }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-人物与窗景/暮色窗景-e818d1dc8c2c.png",
+      "currentCanonicalPath": "前端视觉创新设计/运行素材/companion/dusk.png"
     },
     {
       "sha256": "ed1436fee01cef98f3a7a431aafc558666bf3617fd9427bc96b63eb98a1c5fc2",
-      "path": "原图/界面设计-对话与动态内容/对话故事纸页-ed1436fee01c.png",
+      "path": "../精选图稿/C-交互基因/R083-对话故事纸页.png",
       "bytes": 1667835,
       "category": "界面设计-对话与动态内容",
       "title": "窗边背景上的纸面故事/来信内容与对话输入。",
@@ -2623,11 +2543,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "rehearsal-conversation.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-对话与动态内容/对话故事纸页-ed1436fee01c.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R083-对话故事纸页.png"
     },
     {
       "sha256": "ee59cd9a9cdcc7c241466c61cb7699ab076083b05cbc308c35b42e86585fe819",
-      "path": "原图/界面设计-日程与今天/今日安排方案B-ee59cd9a9cdc.png",
+      "path": "../精选图稿/C-交互基因/R081-今日安排方案B.png",
       "bytes": 1657785,
       "category": "界面设计-日程与今天",
       "title": "另一种日程组织布局，周条与窄屏摘要并列。",
@@ -2650,11 +2572,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "campus-day-b.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-日程与今天/今日安排方案B-ee59cd9a9cdc.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R081-今日安排方案B.png"
     },
     {
       "sha256": "f1a7dc37a5e60f8d501ac7a07f0aa4323c5f0ca54563e491ad9b57daf9a19405",
-      "path": "原图/素材-人物与窗景/落日窗景-f1a7dc37a5e6.png",
+      "path": "../运行素材/companion/reading-dusk.png",
       "bytes": 2082541,
       "category": "素材-人物与窗景",
       "title": "夕照下窗边书桌和室内背景。",
@@ -2677,11 +2601,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "reading-dusk.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-人物与窗景/落日窗景-f1a7dc37a5e6.png",
+      "currentCanonicalPath": "前端视觉创新设计/运行素材/companion/reading-dusk.png"
     },
     {
       "sha256": "f1d210f539718e9ab0c863e541177ba12d311361164fadc0ca110da054d913e7",
-      "path": "原图/素材-人物与窗景/窗边陪伴场景-f1d210f53971.png",
+      "path": "../精选图稿/B-微调复用/R098-先坐一会儿.png",
       "bytes": 2185979,
       "category": "素材-人物与窗景",
       "title": "暖色窗边场景中一位女性阅读的主视觉/休息状态。",
@@ -2711,11 +2637,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "36-先坐一会儿.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-人物与窗景/窗边陪伴场景-f1d210f53971.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/B-微调复用/R098-先坐一会儿.png"
     },
     {
       "sha256": "f2c0e73d578729790f142f741cb0a909c88b3887a8c886b2def8f873ec717abb",
-      "path": "原图/设计参考-原始图/first-arrival-and-connection-f2c0e73d5787.png",
+      "path": "../精选图稿/B-微调复用/R130-初次来到与资料连接.png",
       "bytes": 1757114,
       "category": "设计参考-原始图",
       "title": "first-arrival-and-connection",
@@ -2733,11 +2661,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "first-arrival-and-connection.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/first-arrival-and-connection-f2c0e73d5787.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/B-微调复用/R130-初次来到与资料连接.png"
     },
     {
       "sha256": "f476ae610e4cd2a710b5c80a778531052cf63eab0409c785545c8a5746ce5c2f",
-      "path": "原图/素材-纸面与装饰/手稿纸面-f476ae610e4c.png",
+      "path": "../精选图稿/A-标杆/R168-手稿纸面.png",
       "bytes": 1946462,
       "category": "素材-纸面与装饰",
       "title": "竖版白色手稿纸张样式。",
@@ -2760,11 +2690,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "manuscript-paper.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/素材-纸面与装饰/手稿纸面-f476ae610e4c.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R168-手稿纸面.png"
     },
     {
       "sha256": "f611c015413ee85b588d8b77feee21b9ab56c2ef424338cd34b9ec26e5ea4851",
-      "path": "原图/设计参考-原始图/plan-reschedule-f611c015413e.png",
+      "path": "../精选图稿/C-交互基因/R125-日程时间轴重排.png",
       "bytes": 1485691,
       "category": "设计参考-原始图",
       "title": "plan-reschedule",
@@ -2782,11 +2714,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "plan-reschedule.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/plan-reschedule-f611c015413e.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R125-日程时间轴重排.png"
     },
     {
       "sha256": "f67d85e1f582f25b575c543c0f1b582161c010a8df7c61c3c9a6881121016a54",
-      "path": "原图/设计参考-原始图/在场首页：慢慢来，我在。-16-f67d85e1f582.png",
+      "path": "../精选图稿/A-标杆/R157-在场首页：慢慢来，我在。-16.png",
       "bytes": 1469661,
       "category": "设计参考-原始图",
       "title": "在场首页：慢慢来，我在。-16",
@@ -2804,11 +2738,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "在场首页：慢慢来，我在。-16.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/设计参考-原始图/在场首页：慢慢来，我在。-16-f67d85e1f582.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/A-标杆/R157-在场首页：慢慢来，我在。-16.png"
     },
     {
       "sha256": "fa7807b4d48bdd0e74c849655b15510f1972884df29b2e5e40705749c4d5631d",
-      "path": "原图/界面设计-日程与今天/单日安排方案B-fa7807b4d48b.png",
+      "path": "../精选图稿/C-交互基因/R075-单日安排方案B.png",
       "bytes": 1639870,
       "category": "界面设计-日程与今天",
       "title": "与单日安排相关的备选界面方案。",
@@ -2827,11 +2763,13 @@
         {
           "originalRepoPath": "assets/design/generated/2026-10-18-planning-comparison/planning-one-day-v2.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-日程与今天/单日安排方案B-fa7807b4d48b.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R075-单日安排方案B.png"
     },
     {
       "sha256": "fc337e58f213aad0c6e55cd228d9051af7ef422767cf8af01328e00c4db82a49",
-      "path": "原图/界面设计-日程与今天/接着上次安排-fc337e58f213.png",
+      "path": "../精选图稿/C-交互基因/R114-你交给我的事.png",
       "bytes": 1780807,
       "category": "界面设计-日程与今天",
       "title": "“你交给我的事”中接续线代课前安排、地点路线和可继续动作。",
@@ -2861,11 +2799,13 @@
           "kind": "Existing project worktree asset",
           "originalFilename": "25-你交给我的事.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-日程与今天/接着上次安排-fc337e58f213.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R114-你交给我的事.png"
     },
     {
       "sha256": "ff76ffcd95cad5e253a0e1192a999af1c84d1f8f35458e71c212345258c8e170",
-      "path": "原图/界面设计-地图与天气/校园地图共创故事-ff76ffcd95ca.png",
+      "path": "../精选图稿/C-交互基因/R082-校园地图共创故事.png",
       "bytes": 2140372,
       "category": "界面设计-地图与天气",
       "title": "对话中嵌入的校园俯视地图、地点标记和活动叙事卡片。",
@@ -2884,8 +2824,67 @@
         {
           "originalRepoPath": "assets/design/generated/2026-10-19-story-setting/story-on-one-map.png"
         }
-      ]
+      ],
+      "previousCatalogPath": "原图/界面设计-地图与天气/校园地图共创故事-ff76ffcd95ca.png",
+      "currentCanonicalPath": "前端视觉创新设计/精选图稿/C-交互基因/R082-校园地图共创故事.png"
     }
   ],
-  "originalsRelocated": true
+  "originalsRelocated": true,
+  "retiredImages": [
+    {
+      "sha256": "186ebcbb1d2a0c3ea8e115117ee3b16b0e69e47b56a4810f0f844b876f42a62a",
+      "oldPath": "原图/素材-人物与窗景/遥立绘备选-186ebcbb1d2a.png",
+      "status": "deleted-D",
+      "reason": "本轮逐图审查淘汰，仅保留原始Prompt与文字事实"
+    },
+    {
+      "sha256": "38777009d92b39afc6fa6da6b31b946114787510ad41ae138431025a58991147",
+      "oldPath": "原图/设计参考-原始图/在场：慢慢来，我在。-2-38777009d92b.png",
+      "status": "deleted-D",
+      "reason": "本轮逐图审查淘汰，仅保留原始Prompt与文字事实"
+    },
+    {
+      "sha256": "3d4adef6c2f206f8d443bfcac9d768761309808559d66e219c9a98df4e59c2c7",
+      "oldPath": "原图/素材-人物与窗景/读书的朔-3d4adef6c2f2.png",
+      "status": "deleted-D",
+      "reason": "本轮逐图审查淘汰，仅保留原始Prompt与文字事实"
+    },
+    {
+      "sha256": "4fb87d776860c178c16c638b61e08cd275242d7ec5f455f60ea26bdb3b5634f5",
+      "oldPath": "原图/运行素材与品牌/nagi-4fb87d776860.png",
+      "status": "deleted-D",
+      "reason": "本轮逐图审查淘汰，仅保留原始Prompt与文字事实"
+    },
+    {
+      "sha256": "7f07bb902b0cba541bbf51192b06fc82bca7807fa8a31eea76dea615994909d2",
+      "oldPath": "原图/素材-人物与窗景/遥的角色立绘-7f07bb902b0c.png",
+      "status": "deleted-D",
+      "reason": "本轮逐图审查淘汰，仅保留原始Prompt与文字事实"
+    },
+    {
+      "sha256": "9a6d2ebdf831d21ee614a19446e346dfd871d5ea6414df35db368e9408d85178",
+      "oldPath": "原图/运行素材与品牌/icon-9a6d2ebdf831.png",
+      "status": "deleted-D",
+      "reason": "本轮逐图审查淘汰，仅保留原始Prompt与文字事实"
+    },
+    {
+      "sha256": "9d25cbff5ee2b681a5a8ddba40a18d9f0d7549862f80acff19cd1b28dbb4602d",
+      "oldPath": "原图/运行素材与品牌/icon-9d25cbff5ee2.ico",
+      "status": "deleted-D",
+      "reason": "本轮逐图审查淘汰，仅保留原始Prompt与文字事实"
+    },
+    {
+      "sha256": "c2ceba84f237c1ac74261da2783d4d0415e38756ecf839baa8b4e362bdfbbcb4",
+      "oldPath": "原图/运行素材与品牌/mark-c2ceba84f237.svg",
+      "status": "deleted-D",
+      "reason": "本轮逐图审查淘汰，仅保留原始Prompt与文字事实"
+    },
+    {
+      "sha256": "eabf255e455db46ef0770c884bbf3019247a9e0fb99d1b145cb7e505cf388ce5",
+      "oldPath": "原图/素材-人物与窗景/澪的角色立绘-eabf255e455d.png",
+      "status": "deleted-D",
+      "reason": "本轮逐图审查淘汰，仅保留原始Prompt与文字事实"
+    }
+  ],
+  "currentNavigationNote": "本轮导航已按SHA迁入精选图稿或运行素材；origins为历史原始出处，不因搬迁重写。"
 }

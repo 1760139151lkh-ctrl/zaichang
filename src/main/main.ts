@@ -156,7 +156,7 @@ function ensureTray(): boolean {
   tray = undefined;
   if (process.env.ZAICHANG_TEST === '1') return false;
   try {
-    tray = new Tray(nativeImage.createFromPath(path.join(app.getAppPath(), 'assets/brand/window-gold.png')).resize({ width: 16, height: 16 }));
+    tray = new Tray(nativeImage.createFromPath(path.join(app.getAppPath(), '前端视觉创新设计/运行素材/brand/window-gold.png')).resize({ width: 16, height: 16 }));
     const name = () => store.settings().persona.core.name.trim() || '在场';
     const menu = () => Menu.buildFromTemplate([
       { label: `打开在场`, click: () => showWindow() },
@@ -952,7 +952,7 @@ app.whenReady().then(async () => {
     backgroundColor: '#171918',
     frame: false,
     show: false,
-    icon: path.join(app.getAppPath(), 'assets/brand/window-gold.png'),
+    icon: path.join(app.getAppPath(), '前端视觉创新设计/运行素材/brand/window-gold.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       contextIsolation: true,

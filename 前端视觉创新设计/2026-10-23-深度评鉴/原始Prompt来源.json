@@ -1,0 +1,185 @@
+{
+  "reviewHead": "2155a0e861e4bc49126fab82382f82da0c0633bd",
+  "sources": [
+    {
+      "source": "docs/implementation/2026-10-23-unified/additional-poses-anon.json",
+      "sha256": "f4dee4cbab4ab58bf56a13bccb381d47b1d9186381b1cf1d590997e98c5c425f",
+      "bytes": 18358
+    },
+    {
+      "source": "docs/implementation/2026-10-23-unified/additional-poses-mutsumi.json",
+      "sha256": "4be62fb1f2ba2aad5e1d7f9ce19fe82bf3dcee288e5d361fdaf3b060f20396e4",
+      "bytes": 18490
+    },
+    {
+      "source": "docs/implementation/2026-10-23-unified/additional-poses-sakiko.json",
+      "sha256": "21bdaf9945bfe6641e4b1dd6a70e5c72af8c7dab1af991c05303a7f366b4c8b7",
+      "bytes": 13831
+    },
+    {
+      "source": "docs/implementation/2026-10-23-unified/additional-poses-tomori.json",
+      "sha256": "82deeafa23fa367c6cda724e25373c8137ef5a46cf826dc20a8877380799e5b7",
+      "bytes": 14272
+    },
+    {
+      "source": "docs/implementation/2026-10-23-unified/asset-provenance.json",
+      "sha256": "233cd39bfd9cbe2a39f9578f24e2f5db17a4cba44300cfddad38a26a6c38ba12",
+      "bytes": 251412
+    },
+    {
+      "source": "docs/implementation/2026-10-23-unified/root-image-prompts.json",
+      "sha256": "c184dabbc3f6955619c47d80e4cae99ba067f7f8164eb794bd0e7c5373c7cd4d",
+      "bytes": 6880
+    },
+    {
+      "source": "docs/implementation/2026-10-23-unified/root-theme-prompts.json",
+      "sha256": "836318b63d2aaedf9f07690b1027b7993bfa27a0c20ba93163e1c7b909ad921c",
+      "bytes": 2173
+    },
+    {
+      "source": "docs/implementation/2026-10-23-unified/sakiko-scene-source-prompts.json",
+      "sha256": "21b0c99277e9f38bdd7495c73df1993757aea9d034eaa8bfced8c1213e6e4089",
+      "bytes": 16102
+    },
+    {
+      "source": "docs/implementation/2026-10-23-unified/tomori-prompts.json",
+      "sha256": "b7b41758efc11fcb9f929c71722b9d7ebf53e54a4305672a3e5027b361fa88bf",
+      "bytes": 6938
+    },
+    {
+      "source": "docs/implementation/2026-10-23/anon-scene-source-prompts.json",
+      "sha256": "3ab7ca31cf42bcb9c81d1d7ce507ed4357a262e5a57fa479dbd2ac7157b0e9f3",
+      "bytes": 8337
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-campus-day/manifest.json",
+      "sha256": "c533bd71014f4dc13807feb1093d5da3f6afae896d567384d1d30e9841de4097",
+      "bytes": 5990
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-chosen-windows/prompts.txt",
+      "sha256": "d7e4ef9d502742f3086543ff232455f58b9eca0877dd50b3a6676275aefdb630",
+      "bytes": 4216
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-companion-evolution/prompts.md",
+      "sha256": "f97e08b90cfb839420c47e96ebe24e4f4924155b11a894041f584c1db3c0d72e",
+      "bytes": 6562
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-companion-session/prompt.md",
+      "sha256": "6cc6f693cd7b5914d224d23483c085f3ca66a312122e1310f43a37c8a39e97b7",
+      "bytes": 4646
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-curiosity-invitation/manifest.json",
+      "sha256": "c5321eee95b11024f9c4601e041d2d50d9bc98bf41d163358f4d706b61fef8a7",
+      "bytes": 5153
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-curiosity-invitation/paper-asset.json",
+      "sha256": "f1d7a704e0db62cd8c597cc31560ad6a6f50d39ba91de70bdd7e1de9fb31fded",
+      "bytes": 2579
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-curiosity-invitation/paper-cleanup.json",
+      "sha256": "b4b9c197182ea51a3eb6608b4bf1af3b08252eef49dbd960622eb9b505e2d453",
+      "bytes": 1784
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-personal-memory/daily-rhythm-prompts.txt",
+      "sha256": "71467363b1570f7989ebcf9e3a7a7d9a7c8056888b4a4dbe9f23a1aa3e3887be",
+      "bytes": 9437
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-planning-comparison/prompt-v2.txt",
+      "sha256": "bed00aa226c0749fb38a8abebbc7fb701c9b9a9a3cdd016cf410b7ee6dc06620",
+      "bytes": 1186
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-planning-comparison/prompt.txt",
+      "sha256": "3387461a6f0a7b3c32ea9e1e444efb09543175a5ed44b556e98faa55b342f722",
+      "bytes": 2958
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-planning-continuity/prompts.txt",
+      "sha256": "90f7b6f795669b923ad251dd80919de85ba95a8cbc5b7478ae6a03af53214dbb",
+      "bytes": 4261
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-reflective-letter/manifest.json",
+      "sha256": "ad271d846ec4c473cde147cbdc07b557e7356060f8d506d9408825247ef61e97",
+      "bytes": 4191
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-18-study-paper/manifest.json",
+      "sha256": "f98ef78036c705459369ea1ddf3599fe2f55a9cd7a0e638a5931f6ae58f88e74",
+      "bytes": 3676
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-19-campus-academic/prompt.md",
+      "sha256": "e8ee2a836eb0c2476072c40c3e3e7d4f56f6a583a341a65f772d7ca0398cf713",
+      "bytes": 820
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-19-explorable-study/manifest.json",
+      "sha256": "7226f057a8cc1c9ec33bfca0f9c34ddfb9a88d3706f10858c452b135d7a58511",
+      "bytes": 4769
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-19-explorable-study/selected.json",
+      "sha256": "1fbe04fba19ec1705a907f92719dc7b05597abfe925bfae689c11811afc54212",
+      "bytes": 3415
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-19-expression-rehearsal/manifest.json",
+      "sha256": "6119e071ad42642ba1f54a5e70b52e03ae8392688a45205a0d5d8b26751676a5",
+      "bytes": 5292
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-19-openui-composition/prompt-v1.txt",
+      "sha256": "4be547aacb87f94c7c646468957a61923682e890b4c03b7fbac2dda52324650a",
+      "bytes": 4419
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-19-reading-room/prompt.md",
+      "sha256": "707fe88f0d94357a9d7c8e45d9d5823771ea9497665d1380aff2089340c44154",
+      "bytes": 2217
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-21-explorable-mechanisms/manifest.json",
+      "sha256": "ec43b835365d62feb8c7f759cf6e04ccb6e1f41a80b29204b2310a7fe6508a20",
+      "bytes": 9653
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/assets-ui/study/source.json",
+      "sha256": "612cb47a54afff8fb7269a4a04e78aceefc525cfabecc44fe03a1d98da326abd",
+      "bytes": 2398
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/renderer-assets/discussion/source.json",
+      "sha256": "009e70f2c5e6eb56519246cc449afb400839921fcd26c6502526c457af0bb90b",
+      "bytes": 1946
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/renderer-assets/letter/manifest.json",
+      "sha256": "9bc562c01c10706708baf378fd2a775bde40f1ffe0be4a80b353b3499ac2852d",
+      "bytes": 3139
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/renderer-assets/rehearsal/manifest.json",
+      "sha256": "c88bdfdb594d1a8b4e40e85180aeb39db224e4f345726b86e5d27a1c656dcabb",
+      "bytes": 3542
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/素材/生成记录.json",
+      "sha256": "9a3e1da6ac7c7089e1023447f362fe58d038ac62bf5a98fd3502f3e8cd9df95a",
+      "bytes": 8811
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/补充图稿/生成记录.json",
+      "sha256": "499fa3b79d04d5eaff3d8eacf75d8e94d18d939b5d5723c902c494cf6556952f",
+      "bytes": 34876
+    }
+  ]
+}

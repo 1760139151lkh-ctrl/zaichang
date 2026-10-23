@@ -18,7 +18,7 @@
   inset: -13px -14px -15px;
   content: '';
   pointer-events: none;
-  background: url('../../../前端视觉创新设计/统一图库/原图/素材-纸面与装饰/竖版纸张材质-90b2a9a68c55.png') center / 112% 112% no-repeat;
+  background: url('../../../前端视觉创新设计/精选图稿/A-标杆/R074-竖版纸张材质.png') center / 112% 112% no-repeat;
   transition: opacity 220ms var(--ease);
 }
 .companion-session-working::before { opacity: 0; }

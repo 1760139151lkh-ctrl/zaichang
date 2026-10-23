@@ -1,7 +1,7 @@
 .note-reading-scene { margin: 19px 0 25px; }
 .note-reading-history { display: inline-flex; align-items: center; gap: 9px; min-height: 34px; padding: 3px 0; color: var(--text-secondary); font-size: 12px; }
 .note-reading-paper { position: relative; isolation: isolate; margin: 0 3px; padding: 27px 35px 19px; color: var(--text); animation: note-reading-open 220ms cubic-bezier(.2,.65,.25,1) both; }
-.note-reading-paper::before { content: ''; position: absolute; inset: -19px -15px; z-index: -1; pointer-events: none; background: url('../../../前端视觉创新设计/统一图库/原图/素材-纸面与装饰/横向手稿纸-4930e2aa38e8.png') center / 100% 100% no-repeat; }
+.note-reading-paper::before { content: ''; position: absolute; inset: -19px -15px; z-index: -1; pointer-events: none; background: url('../../../前端视觉创新设计/精选图稿/A-标杆/R169-横向手稿纸.png') center / 100% 100% no-repeat; }
 .note-reading-paper::after { content: ''; position: absolute; left: 7px; top: 7px; bottom: 5px; width: 1px; background: color-mix(in srgb, var(--accent) 35%, transparent); pointer-events: none; }
 .note-reading-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; color: var(--text-secondary); font-size: 11px; line-height: 1.8; }
 .note-reading-meta > span { color: var(--accent); }
