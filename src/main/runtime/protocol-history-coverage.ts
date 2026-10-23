@@ -9,6 +9,7 @@ import { canonical } from './semantics';
 export interface ProtocolHistoryCoverage {
   id: string;
   role: 'user' | 'assistant';
+  representation: 'role' | 'host_reference_history';
   contentFingerprint: string;
   wireStart: number;
   wireEnd: number;
@@ -33,6 +34,12 @@ export function protocolBodyFingerprint(content: string): string {
 
 function protocolFingerprint(messages: ModelWireMessage[]) {
   return protocolBodyFingerprint(canonical(messages));
+}
+
+function singleTextPart(message: ModelWireMessage | undefined) {
+  const content = message?.content;
+  return message?.role === 'user' && Array.isArray(content) && content.length === 1 && content[0].type === 'text'
+    ? content[0].text : undefined;
 }
 
 function boundaryStillPresent(messages: ModelWireMessage[], boundary: ProtocolTurnBoundary) {
@@ -68,9 +75,12 @@ export function validatedProtocolCoverage(
     && /^[a-f0-9]{64}$/.test(proof.contentFingerprint)
     && Number.isSafeInteger(proof.wireStart) && Number.isSafeInteger(proof.wireEnd)
     && proof.wireStart >= 0 && proof.wireEnd > proof.wireStart && proof.wireEnd <= messages.length
-    && (proof.role === 'user'
-      ? proof.wireEnd === proof.wireStart + 1 && messages[proof.wireStart].role === 'user'
-      : messages[proof.wireEnd - 1].role === 'assistant')
+    && (proof.representation === 'host_reference_history'
+      ? proof.wireEnd === proof.wireStart + 1 && singleTextPart(messages[proof.wireStart]) !== undefined
+      : (proof.representation === 'role' || proof.representation === undefined)
+        && (proof.role === 'user'
+          ? proof.wireEnd === proof.wireStart + 1 && messages[proof.wireStart].role === 'user'
+          : messages[proof.wireEnd - 1].role === 'assistant'))
     && protocolFingerprint(messages.slice(proof.wireStart, proof.wireEnd)) === proof.spanFingerprint);
 }
 
@@ -96,7 +106,7 @@ export function coverCurrentProtocolMessages(
   if (!boundary || !boundaryStillPresent(messages, boundary)) return [];
   const coverage: ProtocolHistoryCoverage[] = [];
   const proof = (message: { id: string; content: string }, role: ProtocolHistoryCoverage['role'], start: number, end: number) => ({
-    id: message.id, role, contentFingerprint: protocolBodyFingerprint(message.content),
+    id: message.id, role, representation: 'role' as const, contentFingerprint: protocolBodyFingerprint(message.content),
     wireStart: start, wireEnd: end, spanFingerprint: protocolFingerprint(messages.slice(start, end)),
   });
   // An attachment wrapper, multimodal representation or transformed user row
@@ -115,4 +125,34 @@ export function coverCurrentProtocolMessages(
   if (rhythm.finish(result.content) === saved.assistant.content)
     coverage.push(proof(saved.assistant, 'assistant', boundary.userIndex + 1, messages.length));
   return coverage;
+}
+
+/** The caller supplies the exact reference string it created for this run.
+ * Only its independent row immediately before the native user boundary can
+ * qualify; arbitrary user JSON and compressed summaries cannot mint proof. */
+export function coverProtocolReferenceHistory(
+  result: Pick<HermesResult, 'messages'>,
+  boundary: ProtocolTurnBoundary | undefined,
+  hostReferenceText: string,
+): ProtocolHistoryCoverage[] {
+  const messages = protocolMessages(result.messages);
+  if (!boundary || !boundaryStillPresent(messages, boundary) || boundary.userIndex < 1) return [];
+  const wireStart = boundary.userIndex - 1, wireEnd = boundary.userIndex;
+  if (singleTextPart(messages[wireStart]) !== hostReferenceText) return [];
+  let reference: unknown;
+  try { reference = JSON.parse(hostReferenceText); } catch { return []; }
+  if (!reference || typeof reference !== 'object' || Array.isArray(reference)) return [];
+  const material = (reference as { referenceMaterial?: unknown }).referenceMaterial;
+  if (!material || typeof material !== 'object' || Array.isArray(material)) return [];
+  const history = (material as { history?: unknown }).history;
+  if (!Array.isArray(history)) return [];
+  const spanFingerprint = protocolFingerprint(messages.slice(wireStart, wireEnd));
+  return history.flatMap((row: unknown): ProtocolHistoryCoverage[] => {
+    if (!row || typeof row !== 'object' || Array.isArray(row)) return [];
+    const item = row as { id?: unknown; role?: unknown; content?: unknown };
+    if (typeof item.id !== 'string' || !item.id || (item.role !== 'user' && item.role !== 'assistant')
+      || typeof item.content !== 'string') return [];
+    return [{ id: item.id, role: item.role, representation: 'host_reference_history',
+      contentFingerprint: protocolBodyFingerprint(item.content), wireStart, wireEnd, spanFingerprint }];
+  });
 }

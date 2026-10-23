@@ -47,14 +47,34 @@ export interface FigureScene extends SceneBase {
   origin: { url: string; pageUrl?: string; pageTitle?: string; alt?: string };
   caption?: string;
 }
+export interface WeatherDayAggregation {
+  date: string;
+  sourceWindow: { from: string; to: string };
+  localDay: { from: string; to: string };
+  matchesLocalDay: boolean;
+  valuesComplete: boolean;
+}
 export interface WeatherScene extends SceneBase {
   kind: 'weather';
   location: string;
   timeZone: string;
-  days: { date: string; weatherCode: number | null; maxC: number | null; minC: number | null; precipitationProbabilityMax: number | null }[];
+  days: { date: string; weatherCode: number | null; maxC: number | null; minC: number | null; precipitationProbabilityMax: number | null;
+    aggregation?: WeatherDayAggregation & { basis: 'source_fixed_offset_24h'; utcOffsetSeconds: number } }[];
+  limitations?: string[];
+}
+/** Coverage is a projection of recorded daily intervals, never a reconstruction
+ * of an older source's calendar or an edit to its saved values. */
+export function normalizeWeatherSceneCoverage(scene: WeatherScene): WeatherScene {
+  const known = scene.days.length > 0 && scene.days.every(day => !!day.aggregation);
+  const complete = known && scene.days.every(day => day.aggregation?.valuesComplete === true && day.aggregation.matchesLocalDay === true);
+  const coverage = scene.source.coverage && typeof scene.source.coverage === 'object' && !Array.isArray(scene.source.coverage)
+    ? scene.source.coverage as Record<string, unknown> : {};
+  return { ...scene, source: { ...scene.source, coverage: { ...coverage, complete,
+    meaning: known ? 'complete表示各日统计的数值完整且区间与当地自然日重合，实际区间保留在aggregation。'
+      : '原快照未记载统计区间，能否覆盖当地自然日未知。' } } };
 }
 export interface CampusRecord {
-  /** Snapshot-local record identity. sourceRecordId retains a supplied attempt ID. */
+  /** Snapshot-local record identity. sourceRecordId retains the original source key. */
   id: string;
   title: string;
   startsAt?: string;
@@ -70,8 +90,8 @@ export interface CampusRecord {
   rescheduled?: boolean;
   timePrecision?: string;
   sourceRevision?: number;
-  /** Original attempt identity, when the connector provided it. The scene id
-   * can distinguish two returned rows without merging repeated attempts. */
+  /** Original source identity, when the connector provided it. The scene id
+   * can distinguish repeated attempts or different exams of the same course. */
   sourceRecordId?: string;
   grade?: { original: string | null; fivePoint: number | null; fourPoint?: number | null; fourPointLegacy?: number | null;
     hundredPoint?: number | null; hundredPointKind?: string; included: boolean | null; exclusionReason?: string;
@@ -80,6 +100,7 @@ export interface CampusRecord {
     eligibleAttempts?: number; countedAttempts?: number; excludedAttempts?: number; incompleteAttempts?: number;
     complete?: boolean; sourceComplete?: boolean; policy?: string; formula?: string; throughTerm?: string };
 }
+export const campusExamTypeLabel = (type: string) => type === 'midterm' ? '期中' : type === 'final' ? '期末' : type;
 export const campusGpaScaleSchema = z.enum(['fivePoint', 'fourPoint', 'fourPointLegacy', 'hundredPoint']);
 export type CampusGpaScale = z.infer<typeof campusGpaScaleSchema>;
 export const campusDisplayInputSchema = z.object({ sceneId: z.string().min(1).max(160),
@@ -279,6 +300,7 @@ export interface VerifiedSelection extends SemanticSelection {
     display?: CampusScene['academicDisplay']; observationAt: string; total?: number };
   timeBlock?: PlanningBlock;
   environmentSample?: EnvironmentSample;
+  weatherDay?: WeatherScene['days'][number];
   timeZone?: string;
   discussion?: VerifiedDiscussionFocus;
   planningTrialObservation?: PlanningTrialObservation;

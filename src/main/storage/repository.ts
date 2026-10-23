@@ -23,10 +23,11 @@ import type {
   AssistantWorkSource,
   InteractiveProgramSource,
   MemoryReferenceContext,
+  MaterialNavigationProof,
   CampusSavedReadingProof,
   ReleaseSource,
 } from '../../shared/harness';
-import { HarnessError, assertionSchema, evidenceSchema, workSchema, workSourceBindingSchema, workSourceRefSchema, assistantWorkSourceSchema, interactiveProgramSourceSchema, memoryReferenceSchema } from '../../shared/harness';
+import { HarnessError, assertionSchema, evidenceSchema, workSchema, workSourceBindingSchema, workSourceRefSchema, assistantWorkSourceSchema, interactiveProgramSourceSchema, memoryReferenceSchema, materialNavigationProofSchema } from '../../shared/harness';
 import { canonical, codePointSlice, systemClock } from '../runtime/semantics';
 import { declaredFrameSourceRefs } from '../runtime/source-quote';
 import { evidenceImageRead, readEvidenceImage, providedImageVersions } from '../runtime/evidence-images';
@@ -41,8 +42,11 @@ import { discussionModuleRefSchema, type DiscussionScene, type DiscussionSnapsho
 import { campusSensitiveReadSchema, type CampusSensitiveRead } from '../../shared/campus-academic';
 import { noteSourceProofSchema, type NoteSourceProof } from '../../shared/notes-source';
 import { historicalWorkSourceSchema, type HistoricalWorkSource } from '../../shared/method-work-help';
+import { spatialBindingSchema, spatialSourceProofSchema, type SpatialBinding, type SpatialSourceProof } from '../../shared/spatial-source';
 
 type Row = Record<string, unknown>;
+type SpatialBindingVersionMetadata = { revision: number; type: string; placeId?: string; evidenceIds: string[];
+  spatialBinding?: SpatialBinding; range?: 'unknown' };
 export type AssistantWorkProofState = { checked: Map<string, boolean | 'checking'>; permits?: (ref: WorkSourceRef) => boolean; sessionId?: string; localDisplay?: boolean };
 export interface AssistantHistoricalWorkCursor { createdAt: string; messageId: string; sceneIndex: number }
 type AssistantHistoricalWorkOptions = { messageId?: string; sceneId?: string; sceneRevision?: number; sessionId?: string; query?: string; limit?: number;
@@ -112,6 +116,7 @@ const columns = `owner TEXT NOT NULL, workspace TEXT NOT NULL, subject TEXT NOT 
 /** Owns short synchronous SQLite transactions. No provider/model work is permitted inside write(). */
 export class KernelRepository {
   private readonly methodApplications = new AsyncLocalStorage<{ scopeId: string; items: readonly PersonalMethodApplication[] }>();
+  private readonly spatialApplications = new AsyncLocalStorage<{ scopeId: string; items: readonly SpatialSourceProof[] }>();
   private readonly memoryReferenceChecks = new Set<string>();
   verifyCompanionSnapshotMetadata?: (handle: ScopeHandle,
     header: Pick<CompanionSceneProjection, 'id' | 'revision' | 'matterId' | 'matterRevision' | 'snapshotProof'>,
@@ -130,6 +135,11 @@ export class KernelRepository {
   withPersonalMethodApplications<T>(handle: ScopeHandle, items: readonly PersonalMethodApplication[], operation: () => T): T {
     this.scope(handle);
     return this.methodApplications.run({ scopeId: handle.id, items: structuredClone(items) }, operation);
+  }
+  withSpatialSources<T>(handle: ScopeHandle, sources: readonly SpatialSourceProof[], operation: () => T): T {
+    if (!this.spatialSourcesReadable(handle, sources))
+      throw new HarnessError('spatial_source_changed', '这次采用的地点依据已经变化。');
+    return this.spatialApplications.run({ scopeId: handle.id, items: structuredClone(sources) }, operation);
   }
   readonly identity: HostIdentity;
   readonly clock: ClockPort;
@@ -1356,12 +1366,16 @@ export class KernelRepository {
           FROM json_each(receipt.value) field WHERE field.key IN ('id','privacyEpoch','providedEvidenceIds','providedSourceIds','providedObjectVersions',
             'planningProvenance','historicalAssertionVersions','learningProcessVersions','workSourceBindings','reflectiveLetterSources',
             'assistantWorkSources','personalMethodSources','noteSources','campusSensitiveReads','campusReadingProofs','campusReadingSources',
-            'campusReadingIncomplete','interactiveProgramSources','toolAttempts','campusReadingAddresses','releaseSources')
+             'campusReadingIncomplete','interactiveProgramSources','toolAttempts','campusReadingAddresses','releaseSources','materialNavigationSources','spatialSources')
             AND (field.key!='campusReadingAddresses' OR json_type(receipt.value,'$.campusReadingProofs') IS NULL))))
           FROM json_each(draft.value,'$.sourceReceipts') receipt))) FROM json_each(payload,'$.releaseArtifacts') draft) AS release_headers,
       (json_type(payload,'$.scopeSummary.release')='object' AND json_extract(payload,'$.scopeSummary.audience') IN ('group','public')) AS legacy_release,
       json_extract(payload,'$.contextReceipt.releaseSources') AS release_sources,
       json_type(payload,'$.contextReceipt.releaseSources') AS release_sources_type,
+      json_extract(payload,'$.contextReceipt.materialNavigationSources') AS material_navigation,
+      json_type(payload,'$.contextReceipt.materialNavigationSources') AS material_navigation_type,
+      json_extract(payload,'$.contextReceipt.spatialSources') AS spatial_sources,
+      json_type(payload,'$.contextReceipt.spatialSources') AS spatial_sources_type,
       json_extract(payload,'$.contextReceipt.providedSourceIds') AS provided_sources,
       json_extract(payload,'$.contextReceipt.providedObjectVersions') AS object_versions,
       (SELECT json_group_array(json_object('accepted',json('true'),'sourceEventId',json_extract(image.value,'$.sourceEventId'),
@@ -1455,6 +1469,10 @@ export class KernelRepository {
           ...(row.receipt_id === null ? {} : { id: row.receipt_id }),
           ...(row.receipt_epoch === null ? {} : { privacyEpoch: row.receipt_epoch }),
           ...(row.release_sources_type === null ? {} : { releaseSources: JSON.parse(String(row.release_sources)) }),
+          ...(row.material_navigation_type === null ? {} : { materialNavigationSources: row.material_navigation_type === 'array'
+            ? JSON.parse(String(row.material_navigation)) : null }),
+          ...(row.spatial_sources_type === null ? {} : { spatialSources: row.spatial_sources_type === 'array'
+            ? JSON.parse(String(row.spatial_sources)) : null }),
           ...(row.evidence_ids === null ? {} : { providedEvidenceIds: JSON.parse(String(row.evidence_ids)) }),
           ...(row.provided_sources === null ? {} : { providedSourceIds: JSON.parse(String(row.provided_sources)) }),
           ...(row.object_versions === null ? {} : { providedObjectVersions: JSON.parse(String(row.object_versions)) }),
@@ -1591,6 +1609,212 @@ export class KernelRepository {
       if (Array.isArray(raw)) sources.push(...raw.map(value => interactiveProgramSourceSchema.parse(value)));
     }
     return [...new Map(sources.map(value => [canonical(value), value])).values()];
+  }
+  private spatialOwnerScope(handle: ScopeHandle) {
+    const scope = this.scope(handle);
+    return scope.principalId === this.identity.principalId && scope.workspaceId === this.identity.workspaceId
+      && scope.subjectId === scope.principalId && scope.worldId === 'real' && scope.audience === 'self'
+      && scope.sources.includes('work:self') && scope.grants.includes('map:read') && scope.grants.includes('evidence:read')
+      && !this.hasFence('work:self') ? scope : undefined;
+  }
+  private spatialVersionMetadata(raw: unknown): SpatialBindingVersionMetadata | undefined {
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return;
+    const value = raw as Record<string, unknown>;
+    if (Object.keys(value).some(key => !['revision', 'type', 'placeId', 'evidenceIds', 'spatialBinding', 'range'].includes(key))
+      || !Number.isSafeInteger(value.revision) || Number(value.revision) < 1
+      || typeof value.type !== 'string' || !['spatial_role', 'spatial_alias', 'spatial_crosswalk'].includes(value.type)
+      || value.placeId !== undefined && (typeof value.placeId !== 'string' || !value.placeId || value.placeId.length > 160)
+      || !Array.isArray(value.evidenceIds) || !value.evidenceIds.length || value.evidenceIds.length > 32
+      || value.evidenceIds.some(id => typeof id !== 'string' || !id || id.length > 160)) return;
+    if (value.spatialBinding !== undefined) {
+      const binding = spatialBindingSchema.safeParse(value.spatialBinding);
+      if (!binding.success || value.range !== undefined
+        || canonical([...new Set(value.evidenceIds)]) !== canonical([binding.data.basis.eventId])) return;
+      return { revision: Number(value.revision), type: value.type, evidenceIds: value.evidenceIds as string[],
+        ...(value.placeId ? { placeId: value.placeId as string } : {}), spatialBinding: binding.data };
+    }
+    if (value.range !== 'unknown') return;
+    return { revision: Number(value.revision), type: value.type, evidenceIds: value.evidenceIds as string[],
+      ...(value.placeId ? { placeId: value.placeId as string } : {}), range: 'unknown' };
+  }
+  private spatialVersionFromRecord(record: WorkRecord): SpatialBindingVersionMetadata | undefined {
+    return this.spatialVersionMetadata({ revision: record.revision, type: record.data.type, evidenceIds: record.evidenceIds,
+      ...(record.data.placeId === undefined ? {} : { placeId: record.data.placeId }),
+      ...(record.data.spatialBinding === undefined ? { range: 'unknown' } : { spatialBinding: record.data.spatialBinding }) });
+  }
+  /** Accepted place configuration is business metadata. Its old request is
+   * checked below, without making that conversation readable in this scope. */
+  spatialBindingRecords(handle: ScopeHandle, id?: string, includeInactive = false): WorkRecord[] {
+    if (!this.spatialOwnerScope(handle)) return [];
+    const f = this.filter(handle);
+    const rows = this.db.prepare(`SELECT r.id,r.owner,r.workspace,r.subject,r.world,r.kind,r.revision,r.status,r.title,
+      r.purpose,r.audience,r.sensitivity,r.retain,r.infer,r.expires_at,
+      json_extract(r.payload,'$.evidenceIds') AS evidence_ids,
+      json_type(r.payload,'$.data.spatialBinding') AS binding_type,
+      json_object('type',json_extract(r.payload,'$.data.type'),'role',json_extract(r.payload,'$.data.role'),
+        'alias',json_extract(r.payload,'$.data.alias'),'placeId',json_extract(r.payload,'$.data.placeId'),
+        'referenceId',json_extract(r.payload,'$.data.referenceId'),'referenceNamespace',json_extract(r.payload,'$.data.referenceNamespace'),
+        'namespace',json_extract(r.payload,'$.data.namespace'),'mapVersion',json_extract(r.payload,'$.data.mapVersion'),
+        'spatialBinding',json_extract(r.payload,'$.data.spatialBinding'),'publicDataChanged',json_extract(r.payload,'$.data.publicDataChanged')) AS data
+      FROM h_work r WHERE ${f.sql} AND json_extract(r.payload,'$.data.type') IN ('spatial_role','spatial_alias','spatial_crosswalk')
+      ${includeInactive && id ? '' : "AND r.status='active'"} ${id ? 'AND r.id=?' : ''} ORDER BY r.rowid DESC`)
+      .all(...f.params, ...(id ? [id] : []));
+    return rows.filter(row => !this.hasFence(String(row.id), 'work:self')).map(row => ({
+      id: String(row.id), ownerId: String(row.owner), workspaceId: String(row.workspace), subjectId: String(row.subject), worldId: String(row.world),
+      kind: row.kind as WorkRecord['kind'], revision: Number(row.revision), status: String(row.status), title: String(row.title),
+      evidenceIds: JSON.parse(String(row.evidence_ids || '[]')) as string[],
+      label: { purpose: String(row.purpose), audience: row.audience as WorkRecord['label']['audience'],
+        sensitivity: row.sensitivity as WorkRecord['label']['sensitivity'], retention: row.retain as WorkRecord['label']['retention'],
+        infer: !!row.infer, ...(row.expires_at ? { expiresAt: String(row.expires_at) } : {}) },
+      data: Object.fromEntries(Object.entries(JSON.parse(String(row.data)) as WorkRecord['data'])
+        .filter(([key, value]) => value !== null || key === 'spatialBinding' && row.binding_type !== null)
+        .map(([key, value]) => [key, key === 'publicDataChanged' && typeof value === 'number' ? !!value : value])),
+    }));
+  }
+  /** Frozen business metadata belongs to this exact configuration owner. A
+   * later binding cannot sign for an older route's endpoint or request. */
+  spatialBindingVersion(handle: ScopeHandle, id: string, revision: number): WorkRecord | undefined {
+    if (!Number.isSafeInteger(revision) || revision < 1) return;
+    const record = this.spatialBindingRecords(handle, id, true)[0];
+    if (!record) return;
+    const row = this.db.prepare(`SELECT json_extract(payload,'$.data.spatialBindingVersions') AS versions,
+      json_extract(payload,'$.data.requiresRebuild') AS rebuild FROM h_work WHERE id=? AND owner=? AND workspace=?`)
+      .get(id, record.ownerId, record.workspaceId);
+    if (!row) return;
+    if (record.revision === revision) return row.rebuild === 1 ? undefined : record;
+    let versions: unknown;
+    try { versions = row.versions === null ? [] : JSON.parse(String(row.versions)); }
+    catch (error) { if (error instanceof SyntaxError) return; throw error; }
+    if (!Array.isArray(versions)) return;
+    const matches = versions.map(value => this.spatialVersionMetadata(value)).filter(value => value?.revision === revision);
+    if (matches.length !== 1 || !matches[0]) return;
+    const version = matches[0];
+    return { ...record, revision, status: 'historical', title: '', evidenceIds: version.evidenceIds,
+      data: { type: version.type, ...(version.placeId ? { placeId: version.placeId } : {}),
+        ...(version.spatialBinding ? { spatialBinding: version.spatialBinding } : {}) } };
+  }
+  /** A coordinate-only lifecycle check. Ordinary history and inference choices
+   * do not revoke an accepted configuration; deletion and source withdrawal do. */
+  private spatialBasisAddressesCurrent(handle: ScopeHandle, refs: { eventId: string; contentVersion?: number; start?: number; end?: number }[], historicalSnapshot = false): boolean {
+    const scope = this.spatialOwnerScope(handle);
+    if (!scope || !refs.length || refs.length > 32) return false;
+    const fences = this.fences().filter(fence => fence.kind === 'delete');
+    try {
+      for (const ref of refs) {
+        const row = this.db.prepare(`SELECT id,source,version,status,expires_at,length(content) AS text_length,
+          json_extract(payload,'$.roots') AS roots,json_extract(payload,'$.parentEventId') AS parent,
+          json_extract(payload,'$.locator') AS locator FROM h_evidence
+          WHERE id=? AND owner=? AND workspace=? AND subject=? AND world='real'`)
+          .get(ref.eventId, scope.principalId, scope.workspaceId, scope.principalId);
+        if (!row || row.status === 'deleted' || ref.contentVersion !== undefined && row.version !== ref.contentVersion
+          || row.expires_at !== null && (!Number.isFinite(Date.parse(String(row.expires_at))) || Date.parse(String(row.expires_at)) <= Date.parse(this.clock.now()))) return false;
+        const roots: unknown = JSON.parse(String(row.roots || '[]'));
+        if (!Array.isArray(roots) || roots.some(root => typeof root !== 'string')) return false;
+        const source: LineageSource = { id: ref.eventId, sourceId: String(row.source), ownerId: scope.principalId, workspaceId: scope.workspaceId,
+          contentVersion: Number(row.version), roots, textLength: Number(row.text_length),
+          ...(row.parent ? { parentEventId: String(row.parent) } : {}),
+          ...(row.locator ? { locator: evidenceSchema.shape.locator.parse(JSON.parse(String(row.locator))) } : {}) };
+        const located = ref.contentVersion !== undefined && ref.start !== undefined && ref.end !== undefined;
+        if (located && (!Number.isSafeInteger(ref.start) || !Number.isSafeInteger(ref.end) || ref.start! < 0
+          || ref.end! <= ref.start! || ref.end! > source.textLength!)) return false;
+        const lineage = this.sourceOrigins(source, located ? { start: ref.start!, end: ref.end! } : undefined);
+        if (located && !lineage.complete) return false;
+        for (const origin of lineage.spans) {
+          if (!origin.sourceId || origin.contentVersion === undefined || this.hasFence(origin.eventId, origin.sourceId)) return false;
+          const current = this.db.prepare(`SELECT source,version,status,expires_at FROM h_evidence
+            WHERE id=? AND owner=? AND workspace=? AND subject=? AND world='real'`)
+            .get(origin.eventId, scope.principalId, scope.workspaceId, scope.principalId);
+          if (!current || current.status === 'deleted' || current.version !== origin.contentVersion || current.source !== origin.sourceId
+            || current.expires_at !== null && (!Number.isFinite(Date.parse(String(current.expires_at))) || Date.parse(String(current.expires_at)) <= Date.parse(this.clock.now()))) return false;
+          const known = origin.start !== undefined && origin.end !== undefined;
+          if (fences.some(fence => (fence.spans || []).some(cut => cut.eventId === origin.eventId
+            && (!known || cut.contentVersion !== origin.contentVersion || cut.start < origin.end! && cut.end > origin.start!)))) return false;
+          if (this.sourceSpanRestrictions(origin).some(restriction => {
+            // A later correction of meaning does not erase a real earlier
+            // accepted comparison. It cannot restore current truth or undo
+            // an authorization withdrawal, whole-source stop, or deletion.
+            if (restriction.predicate === '*' || restriction.operation === 'AUTHORIZATION_RETRACT'
+              || restriction.content_version !== null && restriction.content_version !== origin.contentVersion) return true;
+            if (restriction.operation === 'DEACTIVATE') return false;
+            return !historicalSnapshot || !['RETRACT', 'CORRECT', 'REFINE', 'SUPERSEDE', 'EXPIRE'].includes(String(restriction.operation));
+          })) return false;
+        }
+      }
+      return true;
+    } catch (error) {
+      if (error instanceof HarnessError || error instanceof SyntaxError || error instanceof Error && error.name === 'ZodError') return false;
+      throw error;
+    }
+  }
+  spatialBindingBasisCurrent(handle: ScopeHandle, workId: string, revision: number): boolean {
+    const record = this.spatialBindingVersion(handle, workId, revision);
+    if (!record || record.revision !== revision) return false;
+    if (record.data.spatialBinding !== undefined) {
+      const binding = spatialBindingSchema.safeParse(record.data.spatialBinding);
+      const current = record.status === 'historical' ? this.spatialBindingRecords(handle, workId, true)[0] : undefined;
+      const historicalSnapshot = record.status === 'historical' && !!current && current.revision > revision;
+      return binding.success && canonical([...new Set(record.evidenceIds)]) === canonical([binding.data.basis.eventId])
+        && this.spatialBasisAddressesCurrent(handle, [binding.data.basis], historicalSnapshot);
+    }
+    // Old configurations have no proven fragment. A local deletion or stop
+    // cannot be excluded by guessing a quote, version, or profile identity.
+    return this.spatialBasisAddressesCurrent(handle, record.evidenceIds.map(eventId => ({ eventId })));
+  }
+  /** Changing a place correspondence does not cancel an independent goal
+   * supported by a lawful historical comparison. This preserves state only;
+   * reading its text or using a personal point still has its ordinary gates. */
+  spatialBindingGoalsToPreserve(handle: ScopeHandle, bindingId: string): ReadonlySet<string> {
+    const preserved = new Set<string>();
+    if (!this.spatialOwnerScope(handle) || !this.spatialBindingRecords(handle, bindingId, true).length) return preserved;
+    const f = this.filter(handle);
+    for (const row of this.db.prepare(`SELECT r.id,json_extract(r.payload,'$.data.spatialSources') AS sources
+      FROM h_work r WHERE ${f.sql} AND r.kind='goal' AND json_type(r.payload,'$.data.spatialSources')='array'`)
+      .all(...f.params)) {
+      let raw: unknown;
+      try { raw = JSON.parse(String(row.sources)); }
+      catch (error) { if (error instanceof SyntaxError) continue; throw error; }
+      const parsed = spatialSourceProofSchema.array().max(256).safeParse(raw);
+      if (!parsed.success) continue;
+      const versions = parsed.data.flatMap(proof => proof.origin.kind === 'binding' && proof.origin.id === bindingId
+        ? [proof.origin.revision] : []);
+      if (versions.length && [...new Set(versions)].every(revision => this.spatialBindingBasisCurrent(handle, bindingId, revision))
+        && !this.hasFence(String(row.id), 'work:self')) preserved.add(String(row.id));
+    }
+    return preserved;
+  }
+  spatialSourcesReadable(handle: ScopeHandle, raw: unknown): boolean {
+    this.scope(handle);
+    if (raw === undefined) return true;
+    const parsed = spatialSourceProofSchema.array().max(256).safeParse(raw);
+    if (!parsed.success) return false;
+    if (!parsed.data.length) return true;
+    try { return this.verifySpatialSources?.(handle, parsed.data) === true; }
+    catch (error) { if (error instanceof HarnessError) return false; throw error; }
+  }
+  workSpatialSources(handle: ScopeHandle, records: Pick<WorkRecord, 'id' | 'revision'>[]): SpatialSourceProof[] {
+    const scope = this.scope(handle), sources: SpatialSourceProof[] = [];
+    for (const record of records) {
+      const row = this.db.prepare(`SELECT revision,json_type(payload,'$.data.spatialSources') AS sources_type,
+        json_extract(payload,'$.data.spatialSources') AS sources FROM h_work WHERE id=? AND owner=? AND workspace=?`)
+        .get(record.id, scope.principalId, scope.workspaceId);
+      if (!row || row.revision !== record.revision) throw new HarnessError('spatial_source_changed', '刚读的事项已经变化。');
+      if (row.sources_type === null) continue;
+      const raw: unknown = row.sources_type === 'array' ? JSON.parse(String(row.sources)) : null;
+      if (!this.spatialSourcesReadable(handle, raw)) throw new HarnessError('spatial_source_changed', '这份事项的地点依据已经变化。');
+      sources.push(...spatialSourceProofSchema.array().parse(raw));
+    }
+    return [...new Map(sources.map(source => [canonical(source), source])).values()];
+  }
+  conversationSpatialSources(handle: ScopeHandle, sessionId: string, messageIds: string[]): SpatialSourceProof[] {
+    const scope = this.scope(handle), sources: SpatialSourceProof[] = [];
+    if (!scope.sources.includes('history:self') || !scope.grants.includes('evidence:read') || scope.audience !== 'self'
+      || scope.subjectId !== scope.principalId || scope.worldId !== 'real') return [];
+    for (const row of this.conversationPlanningMetadata(sessionId, new Set(messageIds))) {
+      if (!this.planningMessageReadable(handle, row.value)) throw new HarnessError('spatial_source_changed', '刚读的前情中一处地点依据已经变化。');
+      if (row.value.contextReceipt.spatialSources !== undefined)
+        sources.push(...spatialSourceProofSchema.array().parse(row.value.contextReceipt.spatialSources));
+    }
+    return [...new Map(sources.map(source => [canonical(source), source])).values()];
   }
   /** Only notebook ownership, state, hash and Unicode length metadata leave this query. */
   noteSourcesReadable(handle: ScopeHandle, raw: unknown): boolean {
@@ -1741,6 +1965,95 @@ export class KernelRepository {
       WHERE m.session_id=? AND m.role='assistant' AND json_extract(m.payload,'$.status')='done'
       AND json_extract(scene.value,'$.id')=? AND json_extract(scene.value,'$.revision')=?`).all(sessionId, scene.id, scene.revision)
       .map(row => String(row.id)).filter(id => !this.hasFence(id));
+  }
+  /** Same-conversation file navigation only: no reply body or file permission.
+   * Explicit message IDs must already be admitted by the original history read;
+   * automatic candidates are never supplied to a child. The material owner
+   * checks each raw read against its current scope, binding and file version. */
+  conversationMaterialReadCandidates(handle: ScopeHandle, sessionId: string,
+    options: { excludeIds?: string[]; messageIds?: string[]; limit?: number } = {}) {
+    const scope = this.scope(handle), explicit = options.messageIds !== undefined;
+    const selected = [...new Set(options.messageIds || [])];
+    const limit = Number.isSafeInteger(options.limit) ? Math.max(0, Math.min(6, options.limit!)) : 1;
+    if (!limit || explicit && !selected.length || scope.child && !explicit
+      || scope.principalId !== this.identity.principalId || scope.workspaceId !== this.identity.workspaceId
+      || !scope.sources.includes('history:self') || !scope.grants.includes('evidence:read')
+      || scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self'
+      || this.hasFence('history:self')) return [];
+    const rows = this.db.prepare(`SELECT m.id,m.created_at,m.rowid AS ordinal,
+      json_extract(m.payload,'$.status') AS reply_status,
+      json_extract(m.payload,'$.contextReceipt.id') AS receipt_id,
+      json_extract(m.payload,'$.contextReceipt.materialReads') AS material_reads
+      FROM messages m WHERE m.session_id=? AND m.role='assistant' AND ${assistantReplyStatusSql()}
+      AND json_type(m.payload,'$.contextReceipt.id')='text'
+      AND length(trim(json_extract(m.payload,'$.contextReceipt.id'))) BETWEEN 1 AND 160
+      AND json_type(m.payload,'$.contextReceipt.materialReads')='array'
+      AND json_array_length(m.payload,'$.contextReceipt.materialReads')>0
+      AND m.id NOT IN (SELECT value FROM json_each(?))
+      ${explicit ? 'AND m.id IN (SELECT value FROM json_each(?))' : ''}
+      ORDER BY m.created_at DESC,m.rowid DESC LIMIT ?`).all(sessionId, JSON.stringify(options.excludeIds || []),
+        ...(explicit ? [JSON.stringify(selected)] : []), limit);
+    const result: { messageId: string; messageCreatedAt: string; messageOrdinal: number; receiptId: string; reads: unknown[];
+      replyState?: MemoryReferenceContext['replyState'] }[] = [];
+    for (const row of rows.reverse()) {
+      if (this.hasFence(String(row.id), 'history:self') || typeof row.receipt_id !== 'string'
+        || !row.receipt_id.trim() || row.receipt_id.length > 160 || typeof row.material_reads !== 'string') continue;
+      let reads: unknown;
+      try { reads = JSON.parse(row.material_reads); }
+      catch (error) { if (error instanceof SyntaxError) continue; throw error; }
+      if (!Array.isArray(reads) || !reads.length) continue;
+      this.recordAccess(handle, { id: row.id, source: 'history:self' }, 'conversation_material_navigation');
+      const state = assistantReplyState(row.reply_status);
+      result.push({ messageId: String(row.id), messageCreatedAt: String(row.created_at), messageOrdinal: Number(row.ordinal),
+        receiptId: row.receipt_id, reads, ...(state.replyState ? { replyState: { ...state.replyState,
+          meaning: '原回复在当时中断；这里只提供材料访问地址，不提供旧回复正文，也不表示整轮回答已完成或对方已经读过。' } } : {}) });
+    }
+    return result;
+  }
+  /** Exact carrier receipt metadata for multi-hop navigation provenance.
+   * Its publication state is checked without selecting the reply body. */
+  materialNavigationViaMetadata(handle: ScopeHandle, ref: Pick<MaterialNavigationProof, 'messageId' | 'sessionId' | 'receiptId'>):
+    { receiptId: string; sources: unknown } | undefined {
+    const scope = this.scope(handle);
+    if (scope.principalId !== this.identity.principalId || scope.workspaceId !== this.identity.workspaceId
+      || !scope.sources.includes('history:self') || !scope.grants.includes('evidence:read')
+      || scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self'
+      || this.hasFence(ref.messageId, 'history:self') || typeof ref.receiptId !== 'string'
+      || !ref.receiptId.trim() || ref.receiptId.length > 160) return;
+    const row = this.db.prepare(`SELECT json_extract(m.payload,'$.contextReceipt.id') AS receipt_id,
+      json_extract(m.payload,'$.contextReceipt.materialNavigationSources') AS sources
+      FROM messages m WHERE m.id=? AND m.session_id=? AND m.role='assistant' AND ${assistantReplyStatusSql()}
+      AND json_type(m.payload,'$.contextReceipt.id')='text'
+      AND json_type(m.payload,'$.contextReceipt.materialNavigationSources')='array'`)
+      .get(ref.messageId, ref.sessionId);
+    if (!row || row.receipt_id !== ref.receiptId || typeof row.sources !== 'string') return;
+    const sources: unknown = JSON.parse(row.sources);
+    this.recordAccess(handle, { id: ref.messageId, source: 'history:self' }, 'material_navigation_carrier');
+    return { receiptId: ref.receiptId, sources };
+  }
+  /** Inherit only sources of reply bodies already admitted by their original
+   * history reader. This never turns navigation permission into a body read. */
+  conversationMaterialNavigationSources(handle: ScopeHandle, sessionId: string, messageIds: string[]): MaterialNavigationProof[] {
+    const scope = this.scope(handle);
+    if (!messageIds.length || !scope.sources.includes('history:self') || !scope.grants.includes('evidence:read')
+      || scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self') return [];
+    const sources: MaterialNavigationProof[] = [];
+    for (const row of this.conversationPlanningMetadata(sessionId, new Set(messageIds))) {
+      if (!this.planningMessageReadable(handle, row.value))
+        throw new HarnessError('material_navigation_changed', '这段前情所用的材料地址已经变化，需要回到现在允许的来源。');
+      const raw = row.value.contextReceipt.materialNavigationSources;
+      if (raw === undefined || !raw.length) continue;
+      const receiptId = row.value.contextReceipt.id;
+      if (typeof receiptId !== 'string' || !receiptId.trim() || receiptId.length > 160)
+        throw new HarnessError('material_navigation_changed', '这段前情的宿主地址证明不完整，没有猜填旧回复回执。');
+      for (const value of raw) {
+        const source = materialNavigationProofSchema.parse(value);
+        const via = [...new Map([...(source.via || []), ...(source.messageId === row.id ? []
+          : [{ messageId: row.id, sessionId, receiptId }])].map(address => [canonical(address), address])).values()];
+        sources.push({ ...source, ...(via.length ? { via } : {}) });
+      }
+    }
+    return [...new Map(sources.map(source => [canonical(source), source])).values()];
   }
   /** Select permitted transcript bodies in SQL, before they enter model memory. */
   conversationHistory(handle: ScopeHandle, sessionId: string, excludeIds: string[], limit = 12,
@@ -2404,12 +2717,14 @@ export class KernelRepository {
       && Number.isSafeInteger(ref.revision) && ref.revision > 0 && !!this.assertionHistoryVersion(handle, ref.id, ref.revision));
   }
   /** Metadata-only gate for source-bound planning and historical understanding text. */
-  planningMessageReadable(handle: ScopeHandle, value: { contextReceipt?: { providedSourceIds?: unknown; providedObjectVersions?: unknown; imageRequests?: unknown; planningProvenance?: unknown; historicalAssertionVersions?: unknown; learningProcessVersions?: unknown; workSourceBindings?: unknown; reflectiveLetterSources?: unknown; assistantWorkSources?: unknown; personalMethodSources?: unknown; noteSources?: unknown; campusSensitiveReads?: unknown; campusReadingAddresses?: unknown; campusReadingProofs?: unknown; campusReadingSources?: unknown; campusReadingIncomplete?: unknown; interactiveProgramSources?: unknown; toolAttempts?: unknown; releaseSources?: unknown }; scenes?: unknown; releaseArtifacts?: unknown; legacyRelease?: boolean },
+  planningMessageReadable(handle: ScopeHandle, value: { contextReceipt?: { providedSourceIds?: unknown; providedObjectVersions?: unknown; imageRequests?: unknown; planningProvenance?: unknown; historicalAssertionVersions?: unknown; learningProcessVersions?: unknown; workSourceBindings?: unknown; reflectiveLetterSources?: unknown; assistantWorkSources?: unknown; personalMethodSources?: unknown; noteSources?: unknown; materialNavigationSources?: unknown; spatialSources?: unknown; campusSensitiveReads?: unknown; campusReadingAddresses?: unknown; campusReadingProofs?: unknown; campusReadingSources?: unknown; campusReadingIncomplete?: unknown; interactiveProgramSources?: unknown; toolAttempts?: unknown; releaseSources?: unknown }; scenes?: unknown; releaseArtifacts?: unknown; legacyRelease?: boolean },
     proofs: AssistantWorkProofState = { checked: new Map() }) {
     if ((value.releaseArtifacts !== undefined || value.legacyRelease)
       && this.verifyReleaseMessage?.(handle, value.releaseArtifacts, value.contextReceipt, !!value.legacyRelease, proofs) !== true) return false;
     if (value.contextReceipt?.releaseSources !== undefined
       && this.verifyReleaseSources?.(handle, value.contextReceipt.releaseSources, false, proofs) !== true) return false;
+    if (!this.materialNavigationSourcesReadable(handle, value.contextReceipt?.materialNavigationSources)) return false;
+    if (!this.spatialSourcesReadable(handle, value.contextReceipt?.spatialSources)) return false;
     if (value.contextReceipt?.providedObjectVersions !== undefined
       && (!Array.isArray(value.contextReceipt.providedObjectVersions)
         || !this.assertionReferenceVersionsReadable(handle, value.contextReceipt.providedObjectVersions, proofs.localDisplay))) return false;
@@ -2613,7 +2928,8 @@ export class KernelRepository {
    * counting or paging any protected title/specification. */
   private workSourceFilter(handle: ScopeHandle, alias = 'r') {
     const scope = this.scope(handle), allowed: string[] = [], derivedAllowed: string[] = [], planning = this.planningMaterialFilter(handle, alias);
-    const letters = this.reflectiveLetterSourceFilter(handle, alias), notes = this.noteMaterialFilter(handle, alias);
+    const letters = this.reflectiveLetterSourceFilter(handle, alias), notes = this.noteMaterialFilter(handle, alias),
+      materialNavigation = this.materialNavigationSourceFilter(handle, alias), spatial = this.spatialSourceFilter(handle, alias);
     for (const row of this.db.prepare(`SELECT id,json_extract(payload,'$.sourceBinding') AS binding,
       json_extract(payload,'$.data.methodSources') AS method_sources,json_extract(payload,'$.data.type') AS type,
       json_type(payload,'$.data.curiosityInvitation') AS curiosity,json_extract(payload,'$.data.assistantWorkSources') AS assistant_sources,revision FROM h_work
@@ -2641,11 +2957,61 @@ export class KernelRepository {
     return { sql: `((json_type(${alias}.payload,'$.sourceBinding') IS NULL AND COALESCE(json_extract(${alias}.payload,'$.data.type'),'')!='planning_intent')
       OR ${alias}.id IN (SELECT value FROM json_each(?)))
       AND COALESCE(json_extract(${alias}.payload,'$.data.type'),'') NOT IN ('companion_session','study_companion','relationship_rehearsal')
+      AND COALESCE(json_extract(${alias}.payload,'$.data.type'),'') NOT IN ('spatial_role','spatial_alias','spatial_crosswalk')
       AND (COALESCE(json_extract(${alias}.payload,'$.data.type'),'')!='personal_method' OR json_type(${alias}.payload,'$.sourceBinding')='object')
       AND NOT (COALESCE(json_extract(${alias}.payload,'$.data.type'),'')='collaboration_frame'
         AND COALESCE(json_type(${alias}.payload,'$.data.companion'),'null')!='null')
       AND (json_type(${alias}.payload,'$.personalMethodSources') IS NULL OR ${alias}.id IN (SELECT value FROM json_each(?)))
-      AND ${planning.sql} AND ${letters.sql} AND ${notes.sql}`, params: [JSON.stringify(allowed), JSON.stringify(derivedAllowed), ...planning.params, ...letters.params, ...notes.params] };
+      AND ${planning.sql} AND ${letters.sql} AND ${notes.sql} AND ${materialNavigation.sql} AND ${spatial.sql}`,
+      params: [JSON.stringify(allowed), JSON.stringify(derivedAllowed), ...planning.params, ...letters.params, ...notes.params, ...materialNavigation.params, ...spatial.params] };
+  }
+  private spatialSourceFilter(handle: ScopeHandle, alias: string) {
+    const scope = this.scope(handle), denied: string[] = [];
+    for (const row of this.db.prepare(`SELECT id,json_extract(payload,'$.data.spatialSources') AS sources
+      FROM h_work WHERE owner=? AND workspace=? AND json_type(payload,'$.data.spatialSources') IS NOT NULL`)
+      .all(scope.principalId, scope.workspaceId)) {
+      try { if (!this.spatialSourcesReadable(handle, JSON.parse(String(row.sources)))) denied.push(String(row.id)); }
+      catch (error) { if (error instanceof SyntaxError) denied.push(String(row.id)); else throw error; }
+    }
+    return { sql: `${alias}.id NOT IN (SELECT value FROM json_each(?))`, params: [JSON.stringify(denied)] };
+  }
+  /** Check opaque navigation provenance before a Work title, body, count or
+   * export can expose words derived from an unavailable material address. */
+  private materialNavigationSourceFilter(handle: ScopeHandle, alias: string) {
+    const scope = this.scope(handle), denied: string[] = [];
+    const rows = this.db.prepare(`SELECT id,json_extract(payload,'$.data.materialNavigationSources') AS sources
+      FROM h_work WHERE owner=? AND workspace=? AND json_type(payload,'$.data.materialNavigationSources') IS NOT NULL`)
+      .all(scope.principalId, scope.workspaceId);
+    for (const row of rows) {
+      try {
+        if (!this.materialNavigationSourcesReadable(handle, JSON.parse(String(row.sources)))) denied.push(String(row.id));
+      } catch (error) { if (error instanceof SyntaxError) denied.push(String(row.id)); else throw error; }
+    }
+    return { sql: `${alias}.id NOT IN (SELECT value FROM json_each(?))`, params: [JSON.stringify(denied)] };
+  }
+  /** Original address/version proof only; the material owner keeps the
+   * current source, submission and receipt checks. No body is selected here. */
+  materialNavigationSourcesReadable(handle: ScopeHandle, raw: unknown): boolean {
+    this.scope(handle);
+    if (raw === undefined) return true;
+    if (!Array.isArray(raw) || raw.some(proof => !materialNavigationProofSchema.safeParse(proof).success)) return false;
+    return !raw.length || this.verifyMaterialNavigationSources?.(handle, raw) === true;
+  }
+  workMaterialNavigationSources(handle: ScopeHandle, records: Pick<WorkRecord, 'id' | 'revision'>[]): MaterialNavigationProof[] {
+    const scope = this.scope(handle), sources: MaterialNavigationProof[] = [];
+    for (const record of records) {
+      const row = this.db.prepare(`SELECT json_extract(payload,'$.data.materialNavigationSources') AS sources,
+        json_type(payload,'$.data.materialNavigationSources') AS sources_type FROM h_work
+        WHERE id=? AND revision=? AND owner=? AND workspace=?`).get(record.id, record.revision, scope.principalId, scope.workspaceId);
+      if (!row || row.sources_type === null) continue;
+      if (row.sources_type !== 'array')
+        throw new HarnessError('material_navigation_changed', '这份事项的材料地址证明不完整，需要回到现在允许的来源。');
+      const raw: unknown = JSON.parse(String(row.sources));
+      if (!this.materialNavigationSourcesReadable(handle, raw))
+        throw new HarnessError('material_navigation_changed', '这份事项所用的材料地址已经变化，需要回到现在允许的来源。');
+      sources.push(...(raw as unknown[]).map(value => materialNavigationProofSchema.parse(value)));
+    }
+    return [...new Map(sources.map(source => [canonical(source), source])).values()];
   }
   /** A notebook-derived title or explanation needs the same original range
    * as its prepared body. Read only proof metadata before any Work search,
@@ -2678,6 +3044,8 @@ export class KernelRepository {
   verifyPersonalMethodSources?: (handle: ScopeHandle, metadata: unknown) => boolean;
   verifyInteractiveProgramSources?: (handle: ScopeHandle, metadata: unknown, localDisplay?: boolean) => boolean;
   verifyCampusReadingProofs?: (handle: ScopeHandle, metadata: unknown) => boolean;
+  verifyMaterialNavigationSources?: (handle: ScopeHandle, metadata: unknown) => boolean;
+  verifySpatialSources?: (handle: ScopeHandle, metadata: unknown) => boolean;
 
   private reflectiveLetterSourceFilter(handle: ScopeHandle, alias: string) {
     const scope = this.scope(handle), allowed: string[] = [];
@@ -2762,9 +3130,44 @@ export class KernelRepository {
   }
   exportWorkingRecords(handle: ScopeHandle) {
     const scope = this.scope(handle), bindings = this.workSourceFilter(handle), sources = this.helpSourceFilter(handle);
-    return this.db.prepare(`SELECT r.payload FROM h_work r WHERE r.owner=? AND r.workspace=?
+    const work = this.db.prepare(`SELECT r.payload FROM h_work r WHERE r.owner=? AND r.workspace=?
       AND r.retain!='session_only' AND r.sensitivity!='restricted' AND ${bindings.sql} AND ${sources.sql}`)
       .all(scope.principalId, scope.workspaceId, ...bindings.params, ...sources.params).map(row => parse<WorkRecord>(row)!);
+    return [...work, ...this.exportSpatialWorkingRecords(handle)];
+  }
+  /** Export the same accepted configuration owner without reopening generic
+   * Work bodies or the original request. Stored historical addresses retain
+   * only their own still-readable lifecycle, never a later binding's basis. */
+  private exportSpatialWorkingRecords(handle: ScopeHandle): WorkRecord[] {
+    if (!this.spatialOwnerScope(handle)) return [];
+    const f = this.filter(handle), result: WorkRecord[] = [];
+    const rows = this.db.prepare(`SELECT r.id,json_type(r.payload,'$.data.spatialBindingVersions') AS versions_type,
+      json_extract(r.payload,'$.data.spatialBindingVersions') AS versions,
+      json_extract(r.payload,'$.data.requiresRebuild') AS rebuild,
+      json_extract(r.payload,'$.data.invalidationReason') AS invalidation_reason
+      FROM h_work r WHERE ${f.sql} AND r.retain!='session_only' AND r.sensitivity!='restricted'
+      AND json_extract(r.payload,'$.data.type') IN ('spatial_role','spatial_alias','spatial_crosswalk') ORDER BY r.rowid`)
+      .all(...f.params);
+    for (const row of rows) {
+      const record = this.spatialBindingRecords(handle, String(row.id), true)[0];
+      if (!record) continue;
+      const currentReadable = this.spatialBindingBasisCurrent(handle, record.id, record.revision);
+      const erased = row.rebuild === 1 && row.invalidation_reason === 'source_deleted';
+      if (!currentReadable && !erased) continue;
+      let rawVersions: unknown = [];
+      try { if (row.versions_type === 'array') rawVersions = JSON.parse(String(row.versions)); }
+      catch (error) { if (!(error instanceof SyntaxError)) throw error; }
+      const versions = Array.isArray(rawVersions) ? rawVersions.flatMap(value => {
+        const version = this.spatialVersionMetadata(value);
+        return version && version.revision < record.revision
+          && this.spatialBindingBasisCurrent(handle, record.id, version.revision) ? [version] : [];
+      }) : [];
+      const data: WorkRecord['data'] = currentReadable ? { ...record.data }
+        : { type: record.data.type, invalidationReason: 'source_deleted', requiresRebuild: true };
+      if (versions.length) data.spatialBindingVersions = versions;
+      result.push({ ...record, data });
+    }
+    return result;
   }
   exportWorkingState(handle: ScopeHandle) {
     const work = this.exportWorkingRecords(handle), ids = JSON.stringify(work.filter(record => record.data.type === 'planning_intent').map(record => record.id));
@@ -2849,9 +3252,61 @@ export class KernelRepository {
   saveWork(handle: ScopeHandle, input: WorkRecord, expectedRevision?: number) {
     return this.write(() => this.writeWork(handle, input, expectedRevision, false));
   }
-  private writeWork(handle: ScopeHandle, input: WorkRecord, expectedRevision: number | undefined, sourced: boolean) {
+  saveSpatialWork(handle: ScopeHandle, input: WorkRecord, expectedRevision?: number) {
+    return this.write(() => this.writeWork(handle, input, expectedRevision, false, true));
+  }
+  private writeWork(handle: ScopeHandle, input: WorkRecord, expectedRevision: number | undefined, sourced: boolean, spatial = false) {
     const s = this.scope(handle),
       work = workSchema.parse(input);
+    const old = this.db.prepare('SELECT revision,payload FROM h_work WHERE id=?').get(work.id), oldWork = parse<WorkRecord>(old);
+    const spatialType = (type: unknown) => typeof type === 'string' && ['spatial_role', 'spatial_alias', 'spatial_crosswalk'].includes(type);
+    if (!spatial && (spatialType(work.data.type) || spatialType(oldWork?.data.type) || work.data.spatialBinding !== undefined || oldWork?.data.spatialBinding !== undefined))
+      throw new HarnessError('typed_work_writer_required', '个人地点配置需要沿原地点入口修改。');
+    if (spatial) {
+      const binding = spatialBindingSchema.safeParse(work.data.spatialBinding);
+      const fields = ['type', 'role', 'alias', 'placeId', 'referenceId', 'referenceNamespace', 'namespace', 'mapVersion', 'spatialBinding', 'publicDataChanged', 'recordedAt', 'updatedAt'];
+      if (!this.spatialOwnerScope(handle) || !s.grants.includes('work:write') || !spatialType(work.data.type)
+        || oldWork && !spatialType(oldWork.data.type) || !['active', 'cancelled'].includes(work.status) || !binding.success
+        || work.kind !== 'experience' || work.label.infer || work.sourceBinding !== undefined
+        || work.revision !== (oldWork ? oldWork.revision + 1 : 1)
+        || Object.keys(work.data).some(key => !fields.includes(key)))
+        throw new HarnessError('spatial_binding_invalid', '地点配置与这次明确修改没有对应上。');
+      if (work.status === 'cancelled') {
+        const previous = spatialBindingSchema.safeParse(oldWork?.data.spatialBinding);
+        const legacyPublic = oldWork?.data.spatialBinding === undefined && binding.data.endpoint.kind === 'public'
+          && binding.data.endpoint.pointId === oldWork?.data.placeId;
+        if (!previous.success && !legacyPublic || previous.success && canonical(previous.data.endpoint) !== canonical(binding.data.endpoint))
+          throw new HarnessError('spatial_binding_invalid', '取消地点对应需要原配置的准确身份。');
+      }
+      const basis = binding.data.basis, event = this.evidence(handle, basis.eventId);
+      if (!s.currentEventIds.includes(basis.eventId) || !event || event.speaker !== 'user' || event.authority !== 'user_statement'
+        || event.contentVersion !== basis.contentVersion || basis.end > Array.from(event.text).length
+        || createHash('sha256').update(codePointSlice(event.text, basis.start, basis.end)).digest('hex') !== basis.quoteSha256
+        || canonical([...new Set(work.evidenceIds)]) !== canonical([basis.eventId])
+        || !this.spatialBasisAddressesCurrent(handle, [basis]))
+        throw new HarnessError('spatial_basis_changed', '地点修改需要这次真实原话的准确片段。');
+      const rawVersions = oldWork?.data.spatialBindingVersions === undefined ? [] : oldWork.data.spatialBindingVersions;
+      if (!Array.isArray(rawVersions)) throw new HarnessError('spatial_binding_invalid', '地点配置的旧版本记录不完整。');
+      const versions = rawVersions.map(value => this.spatialVersionMetadata(value));
+      if (versions.some(value => !value) || new Set(versions.map(value => value!.revision)).size !== versions.length)
+        throw new HarnessError('spatial_binding_invalid', '地点配置的旧版本记录不完整。');
+      const previous = oldWork && oldWork.data.requiresRebuild !== true ? this.spatialVersionFromRecord(oldWork) : undefined;
+      if (previous) {
+        const frozen = versions.find(value => value!.revision === previous.revision);
+        if (frozen && canonical(frozen) !== canonical(previous)) throw new HarnessError('spatial_binding_invalid', '地点配置的旧版本身份不一致。');
+        if (!frozen) versions.push(previous);
+      }
+      if (versions.length) work.data.spatialBindingVersions = versions as SpatialBindingVersionMetadata[];
+    } else {
+      const spatialContext = this.spatialApplications.getStore();
+      const sources = [...new Map([...(spatialSourceProofSchema.array().parse(oldWork?.data.spatialSources === undefined ? [] : oldWork.data.spatialSources)),
+        ...(spatialSourceProofSchema.array().parse(work.data.spatialSources === undefined ? [] : work.data.spatialSources)),
+        ...(spatialContext?.scopeId === handle.id ? spatialContext.items : [])]
+        .map(source => [canonical(source), source])).values()];
+      if (!this.spatialSourcesReadable(handle, sources))
+        throw new HarnessError('spatial_source_changed', '这份事项所用的地点依据已经变化。');
+      if (sources.length) work.data.spatialSources = sources;
+    }
     const context = this.methodApplications.getStore();
     const applied = context?.scopeId === handle.id && work.data.type !== 'personal_method' ? context.items.filter(application => {
       const sameMatter = work.id === application.matterId || work.data.matterId === application.matterId;
@@ -2887,8 +3342,9 @@ export class KernelRepository {
     for (const id of work.evidenceIds)
       if (!this.evidence(handle, id)) throw new HarnessError('evidence_forbidden', '事项证据不可用。');
     if (this.hasFence(work.id)) throw new HarnessError('deleted_object', '此事项已删除。');
+    if (!this.materialNavigationSourcesReadable(handle, work.data.materialNavigationSources))
+      throw new HarnessError('material_navigation_changed', '这份事项所用的材料地址已经变化，没有保存旧地址派生的内容。');
     this.write(() => {
-      const old = this.db.prepare('SELECT revision,payload FROM h_work WHERE id=?').get(work.id);
       if (!sourced && (work.sourceBinding || work.data.type === 'planning_intent' || parse<WorkRecord>(old)?.sourceBinding))
         throw new HarnessError('typed_work_writer_required', '这项持续规格需要按原话和当前版本修改，不能直接合并旧数据。');
       if (old && Number(old.revision) !== expectedRevision) {
@@ -2912,6 +3368,17 @@ export class KernelRepository {
           work.title,
           JSON.stringify(work),
         );
+      for (const proof of materialNavigationProofSchema.array().parse(work.data.materialNavigationSources || []))
+        for (const producerId of new Set([proof.messageId, ...(proof.via || []).map(address => address.messageId),
+          proof.sourceEventId, 'file:' + proof.sourceEventId]))
+          this.addDependency(handle, { consumerId: work.id, producerId, producerRevision: 0, sensitivity: 'privacy', invalidation: 'block' });
+      for (const proof of spatialSourceProofSchema.array().parse(work.data.spatialSources || []))
+        this.addDependency(handle, { consumerId: work.id, producerId: proof.origin.id,
+          producerRevision: proof.origin.kind === 'binding' ? proof.origin.revision : 0, sensitivity: 'privacy', invalidation: 'block' });
+      if (spatial && oldWork && spatialType(oldWork.data.type)) for (const eventId of oldWork.evidenceIds)
+        this.db.prepare(`DELETE FROM h_dependencies WHERE consumer_id=? AND producer_id=? AND producer_revision=?
+          AND sensitivity='privacy' AND invalidation='block'`).run(work.id, eventId,
+          this.dependencies(work.id).find(dependency => dependency.producerId === eventId)?.producerRevision ?? 0);
       this.outbox('work_changed', work.id);
     });
   }
@@ -4398,6 +4865,37 @@ export class KernelRepository {
         SELECT 1 FROM h_assertion_versions v WHERE v.id=h_assertion_revision_log.assertion_id AND v.revision=h_assertion_revision_log.revision)`).run();
       this.db.prepare(`UPDATE h_assertion_revision_log SET related_assertion_id=NULL WHERE related_assertion_id IS NOT NULL
         AND NOT EXISTS(SELECT 1 FROM h_assertions a WHERE a.id=h_assertion_revision_log.related_assertion_id)`).run();
+      const removedSpatialVersions = new Set<string>();
+      const spatialVersionAffected = (version: SpatialBindingVersionMetadata) => version.spatialBinding
+        ? eventIds.has(version.spatialBinding.basis.eventId) || (redactedRanges.get(version.spatialBinding.basis.eventId) || []).some(range =>
+          range.contentVersion !== version.spatialBinding!.basis.contentVersion
+          || range.start < version.spatialBinding!.basis.end && range.end > version.spatialBinding!.basis.start)
+        : version.evidenceIds.some(id => eventIds.has(id) || redactedSources.has(id));
+      // A role can change normally without erasing the sources of an older
+      // route. Forget only the exact frozen business versions hit by this cut.
+      for (const row of this.db.prepare(`SELECT id,revision,json_extract(payload,'$.data.type') AS type,
+        json_extract(payload,'$.data.placeId') AS place_id,json_extract(payload,'$.data.spatialBinding') AS binding,
+        json_type(payload,'$.data.spatialBinding') AS binding_type,json_extract(payload,'$.evidenceIds') AS evidence_ids,
+        json_extract(payload,'$.data.spatialBindingVersions') AS versions,json_extract(payload,'$.data.requiresRebuild') AS rebuild
+        FROM h_work WHERE owner=? AND workspace=? AND json_extract(payload,'$.data.type') IN ('spatial_role','spatial_alias','spatial_crosswalk')`)
+        .all(this.identity.principalId, this.identity.workspaceId)) {
+        const id = String(row.id), whole = fence.objectIds.includes(id) || fence.sourceIds.includes(id) || fence.sourceIds.includes('work:self');
+        const evidenceIds: unknown = JSON.parse(String(row.evidence_ids || '[]'));
+        const current = row.rebuild === 1 ? undefined : this.spatialVersionMetadata({ revision: row.revision, type: row.type,
+          ...(row.place_id === null ? {} : { placeId: row.place_id }), evidenceIds,
+          ...(row.binding_type === null ? { range: 'unknown' } : { spatialBinding: row.binding_type === 'object' ? JSON.parse(String(row.binding)) : null }) });
+        if (current && (whole || spatialVersionAffected(current))) removedSpatialVersions.add(`${id}:${current.revision}`);
+        const raw: unknown = row.versions === null ? [] : JSON.parse(String(row.versions));
+        if (!Array.isArray(raw)) continue;
+        const retained = raw.filter(value => {
+          const version = this.spatialVersionMetadata(value);
+          if (!version || !whole && !spatialVersionAffected(version)) return true;
+          removedSpatialVersions.add(`${id}:${version.revision}`);
+          return false;
+        });
+        if (retained.length !== raw.length) this.db.prepare(`UPDATE h_work SET payload=json_set(payload,'$.data.spatialBindingVersions',json(?)) WHERE id=?`)
+          .run(JSON.stringify(retained), id);
+      }
       for (const id of [...eventIds, ...redactedSources]) {
         this.db.prepare("DELETE FROM h_domain_versions WHERE json_extract(payload,'$.evidenceId')=?").run(id);
         for (const row of this.db
@@ -4405,12 +4903,16 @@ export class KernelRepository {
             "SELECT id,payload FROM h_work WHERE EXISTS(SELECT 1 FROM json_each(h_work.payload,'$.evidenceIds') e WHERE e.value=?)",
           )
           .all(id)) {
-          const work = parse<WorkRecord>(row), binding = workSourceBindingSchema.safeParse(work?.sourceBinding);
-          const refs = binding.success ? binding.data.refs : work && declaredFrameSourceRefs(work,
+          const work = parse<WorkRecord>(row), binding = workSourceBindingSchema.safeParse(work?.sourceBinding),
+            spatial = spatialBindingSchema.safeParse(work?.data.spatialBinding);
+          const refs = binding.success ? binding.data.refs : spatial.success ? [spatial.data.basis] : work && declaredFrameSourceRefs(work,
             eventId => parse<EvidenceEvent>(this.db.prepare('SELECT payload FROM h_evidence WHERE id=?').get(eventId)));
           if (!eventIds.has(id) && refs && !refs.some(ref => ref.eventId === id
             && (redactedRanges.get(id) || []).some(range => range.contentVersion !== ref.contentVersion || range.start < ref.end && range.end > ref.start))) continue;
           affected.add(String(row.id));
+          // The exact-version proof scans below replace an ID-wide edge for
+          // these owners; another version may use an independent request.
+          if (work && ['spatial_role', 'spatial_alias', 'spatial_crosswalk'].includes(String(work.data.type))) continue;
           for (const dependent of this.invalidate(String(row.id), 'source_deleted', preserved)) affected.add(dependent);
         }
       }
@@ -4499,6 +5001,50 @@ export class KernelRepository {
           for (const dependent of this.invalidate(id, 'source_deleted', preserved)) affected.add(dependent);
         }
       }
+      const spatialSourcesAffected = (raw: unknown): boolean => {
+        if (raw === undefined) return false;
+        const parsed = spatialSourceProofSchema.array().max(256).safeParse(raw);
+        if (!parsed.success) return true;
+        return parsed.data.some(proof => {
+          const id = proof.origin.id;
+          if (fence.objectIds.includes(id) || fence.sourceIds.includes(id)) return true;
+          if (proof.origin.kind !== 'binding') return false;
+          const revision = proof.origin.revision;
+          if (removedSpatialVersions.has(`${id}:${revision}`)) return true;
+          const row = this.db.prepare(`SELECT revision,json_extract(payload,'$.data.type') AS type,
+            json_extract(payload,'$.data.placeId') AS place_id,json_extract(payload,'$.data.spatialBinding') AS binding,
+            json_type(payload,'$.data.spatialBinding') AS binding_type,json_extract(payload,'$.data.spatialBindingVersions') AS versions,
+            json_extract(payload,'$.evidenceIds') AS evidence_ids FROM h_work WHERE id=? AND owner=? AND workspace=?`)
+            .get(id, this.identity.principalId, this.identity.workspaceId);
+          if (!row) return false;
+          let version: SpatialBindingVersionMetadata | undefined;
+          try {
+            if (row.revision === revision) version = this.spatialVersionMetadata({ revision: row.revision, type: row.type,
+              ...(row.place_id === null ? {} : { placeId: row.place_id }), evidenceIds: JSON.parse(String(row.evidence_ids || '[]')),
+              ...(row.binding_type === null ? { range: 'unknown' } : { spatialBinding: row.binding_type === 'object' ? JSON.parse(String(row.binding)) : null }) });
+            else {
+              const versions: unknown = row.versions === null ? [] : JSON.parse(String(row.versions));
+              if (Array.isArray(versions)) {
+                const matches = versions.map(value => this.spatialVersionMetadata(value)).filter(value => value?.revision === revision);
+                if (matches.length === 1) version = matches[0];
+              }
+            }
+          } catch (error) { if (error instanceof SyntaxError) return true; throw error; }
+          // Missing old metadata is unreadable, but normal revision mismatch
+          // alone is not evidence that this particular forget erased it.
+          return !!version && spatialVersionAffected(version);
+        });
+      };
+      for (const row of this.db.prepare(`SELECT id,json_extract(payload,'$.data.spatialSources') AS sources
+        FROM h_work WHERE json_type(payload,'$.data.spatialSources') IS NOT NULL`).all()) {
+        let remove: boolean;
+        try { remove = spatialSourcesAffected(JSON.parse(String(row.sources))); }
+        catch (error) { if (error instanceof SyntaxError) remove = true; else throw error; }
+        if (remove) {
+          const id = String(row.id); affected.add(id);
+          for (const dependent of this.invalidate(id, 'source_deleted', preserved)) affected.add(dependent);
+        }
+      }
       // A saved view is another source-derived copy, even when it was attached
       // in a different conversation without an ordinary dependency edge.
       for (const row of this.db.prepare(`SELECT id,payload FROM messages WHERE role='assistant'
@@ -4509,6 +5055,7 @@ export class KernelRepository {
           OR json_type(payload,'$.contextReceipt.workSourceBindings') IS NOT NULL
           OR json_type(payload,'$.contextReceipt.assistantWorkSources') IS NOT NULL
           OR json_type(payload,'$.contextReceipt.personalMethodSources') IS NOT NULL
+          OR json_type(payload,'$.contextReceipt.spatialSources') IS NOT NULL
           OR EXISTS(SELECT 1 FROM json_each(messages.payload,'$.scenes') s WHERE json_type(s.value,'$.continuation')='object'
             OR json_extract(s.value,'$.kind') IN ('curiosity','discussion')))`).all()) {
         const message = JSON.parse(String(row.payload));
@@ -4562,7 +5109,8 @@ export class KernelRepository {
               || planningBindingAffected(proof.sourceBinding))
             || proof.kind === 'material' && [proof.resourceId, proof.sourceEventId, proof.parentEventId].some(id => fence.objectIds.includes(id)));
         }));
-        if (historicalAffected || learningAffected || workAffected || assistantWorksAffected || personalMethodsAffected || creationAffected || coWorkAffected || lettersAffected || provenance.some(planningProvenanceAffected)) {
+        if (historicalAffected || learningAffected || workAffected || assistantWorksAffected || personalMethodsAffected || creationAffected || coWorkAffected || lettersAffected
+          || spatialSourcesAffected(message.contextReceipt?.spatialSources) || provenance.some(planningProvenanceAffected)) {
           const id = String(row.id); affected.add(id);
           for (const dependent of this.invalidate(id, 'source_deleted', preserved)) affected.add(dependent);
         }
@@ -4626,10 +5174,16 @@ export class KernelRepository {
         }
         const work = parse<WorkRecord>(this.db.prepare('SELECT payload FROM h_work WHERE id=?').get(id));
         if (work) {
-          const protectedType = work.sourceBinding && typeof work.data.type === 'string' ? work.data.type : undefined;
+          const spatial = ['spatial_role', 'spatial_alias', 'spatial_crosswalk'].includes(String(work.data.type));
+          const protectedType = (work.sourceBinding || spatial) && typeof work.data.type === 'string' ? work.data.type : undefined;
+          const versions = spatial && Array.isArray(work.data.spatialBindingVersions)
+            && !fence.objectIds.includes(id) && !fence.sourceIds.includes(id) && !fence.sourceIds.includes('work:self')
+            ? work.data.spatialBindingVersions.map(value => this.spatialVersionMetadata(value)).filter((value): value is SpatialBindingVersionMetadata =>
+              !!value && !removedSpatialVersions.has(`${id}:${value.revision}`)) : [];
           work.status = 'stale';
           work.title = '相关来源已删除，等待重新核对';
-          work.data = { ...(protectedType ? { type: protectedType } : {}), invalidationReason: 'source_deleted', requiresRebuild: true };
+          work.data = { ...(protectedType ? { type: protectedType } : {}), ...(versions.length ? { spatialBindingVersions: versions } : {}),
+            invalidationReason: 'source_deleted', requiresRebuild: true };
           work.evidenceIds = work.evidenceIds.filter((e) => !eventIds.has(e));
           // Retain only opaque source addresses as a replay barrier. Removing
           // the typed binding would turn this into a generic sync/edit target.
@@ -4661,7 +5215,8 @@ export class KernelRepository {
       }
       // Derived views are cheap and are rebuilt only from surviving sources; never keep old textual summaries.
       this.db
-        .prepare("DELETE FROM h_work WHERE kind IN ('experience','hypothesis','feedback') AND status='stale'")
+        .prepare(`DELETE FROM h_work WHERE kind IN ('experience','hypothesis','feedback') AND status='stale'
+          AND COALESCE(json_extract(payload,'$.data.type'),'') NOT IN ('spatial_role','spatial_alias','spatial_crosswalk')`)
         .run();
       this.db.prepare('DELETE FROM h_proposals').run();
       this.db.prepare('DELETE FROM h_operations').run();

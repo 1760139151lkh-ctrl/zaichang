@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type RefObject } from 'react';
 import { CalendarDays, ChevronDown, CircleDashed, Cloud, CloudFog, CloudLightning, CloudRain, CloudSnow, CloudSun, Sun, Wind } from 'lucide-react';
 import type { EnvironmentSample, EnvironmentScene, PlanningBlock, PlanningScene, SemanticSelection } from '../../shared/scenes';
+import { environmentTimeLabels } from './environment-time';
 import './life-scenes.css';
 
 interface SelectionProps { selection?: SemanticSelection | null; onSelect: (value: SemanticSelection) => void }
@@ -193,6 +194,7 @@ export function EnvironmentHours({ scene, selection, onSelect }: SelectionProps 
   const hours = useRef<HTMLDivElement>(null);
   const selectedId = selection?.kind === 'environment_sample' && selection.sceneId === scene.id && selection.sceneRevision === scene.revision ? selection.sampleId : undefined;
   const sample = scene.samples.find(row => row.id === selectedId) || scene.samples.find(row => Date.parse(row.at) >= Date.parse(scene.window.from)) || scene.samples[0];
+  const clock = environmentTimeLabels(scene), hourStamp = clock.stamp;
   useChoiceVisibility(hours, `${scene.id}@${scene.revision}:${sample?.id}`, '.environment-hour.is-active');
   if (!sample) return null;
   const select = (row: EnvironmentSample) => onSelect({ sceneId: scene.id, sceneRevision: scene.revision, kind: 'environment_sample', sampleId: row.id });
@@ -201,21 +203,21 @@ export function EnvironmentHours({ scene, selection, onSelect }: SelectionProps 
     <div className="environment-hour-strip" role="group" aria-label="选择预报时刻，可用左右方向键浏览" ref={hours}>
       {scene.samples.map(row => <button type="button" key={row.id} className={`environment-hour${sample.id === row.id ? ' is-active' : ''}${selectedId === row.id ? ' is-selected' : ''}`} aria-pressed={selectedId === row.id}
         onClick={() => select(row)} onKeyDown={event => moveAlongChoices(event)}
-        aria-label={`${stamp(row.at, scene.timeZone, true)}，${air ? `PM2.5 ${number(row.pm2_5, ' 微克每立方米')}` : `气温 ${number(row.temperatureC, ' 摄氏度')}`}，选择后接着聊`}>
-        <span className="environment-hour-day">{dayName(dayKey(row.at, scene.timeZone)).split('日')[0]}日</span><time dateTime={row.at}>{stamp(row.at, scene.timeZone)}</time>
+        aria-label={`${hourStamp(row.at, true)}，${air ? `PM2.5 ${number(row.pm2_5, ' 微克每立方米')}` : `气温 ${number(row.temperatureC, ' 摄氏度')}`}，选择后接着聊`}>
+        <span className="environment-hour-day">{dayName(dayKey(row.at, scene.timeZone)).split('日')[0]}日</span><time dateTime={row.at}>{stamp(row.at, scene.timeZone)}{clock.hasRepeatedTimes && <small>{clock.offset(row.at) || '\u00a0'}</small>}</time>
         {air ? <Wind size={23} strokeWidth={1.4} aria-hidden="true" /> : <WeatherIcon sample={row} />}
         <strong>{air ? number(row.pm2_5) : number(row.temperatureC, '°')}</strong><small>{air ? 'PM2.5 · μg/m³' : '时刻气温'}</small>
       </button>)}
     </div>
     <div className="environment-hour-detail" aria-live="polite">
-      <div className="environment-detail-heading">{air ? <Wind size={24} strokeWidth={1.5} aria-hidden="true" /> : <WeatherIcon sample={sample} size={29} />}<strong>{stamp(sample.at, scene.timeZone, true)}{!air ? ` · ${number(sample.temperatureC, '°C')}` : ''}</strong></div>
+      <div className="environment-detail-heading">{air ? <Wind size={24} strokeWidth={1.5} aria-hidden="true" /> : <WeatherIcon sample={sample} size={29} />}<strong>{hourStamp(sample.at, true)}{!air ? ` · ${number(sample.temperatureC, '°C')}` : ''}</strong></div>
       {air ? <dl className="environment-air-values"><div><dt>PM2.5</dt><dd>{number(sample.pm2_5)}<small> μg/m³</small></dd></div><div><dt>PM10</dt><dd>{number(sample.pm10)}<small> μg/m³</small></dd></div><div><dt>US AQI</dt><dd>{number(sample.usAqi)}</dd></div><div><dt>European AQI</dt><dd>{number(sample.europeanAqi)}</dd></div></dl>
-        : <p>{sample.precipitationIntervalStart ? `${stamp(sample.precipitationIntervalStart, scene.timeZone, dayKey(sample.precipitationIntervalStart, scene.timeZone) !== dayKey(sample.at, scene.timeZone))} — ${stamp(sample.at, scene.timeZone)} ` : '前一小时 '}降水 {number(sample.precipitationMm, ' mm')} · 概率 {number(sample.precipitationProbability, '%')}</p>}
+        : <p>{sample.precipitationIntervalStart ? `${hourStamp(sample.precipitationIntervalStart, dayKey(sample.precipitationIntervalStart, scene.timeZone) !== dayKey(sample.at, scene.timeZone))} — ${hourStamp(sample.at)} ` : '前一小时 '}降水 {number(sample.precipitationMm, ' mm')} · 概率 {number(sample.precipitationProbability, '%')}</p>}
     </div>
     <footer className="life-scene-footer"><span>{expired ? '先前查到的预报' : scene.window.complete ? '公共参考点预报' : '预报有缺测或覆盖不足'}</span><details><summary>时间与来源<ChevronDown size={13} /></summary><div className="life-scene-source">
       <p>{air ? 'Open-Meteo / CAMS' : 'Open-Meteo'} · 公共参考地点</p>
-      <p>{scene.source.fetchedAt ? `${stamp(scene.source.fetchedAt, scene.timeZone, true)} 获取` : '来源没有附获取时间。'}</p><p>上面写的是读取预报的时间，预报本身什么时候发布的，来源没有说。</p>
-      <p>查询窗口：{stamp(scene.window.from, scene.timeZone, true)} 至 {stamp(scene.window.to, scene.timeZone, true)}。</p>
+      <p>{scene.source.fetchedAt ? `${stamp(scene.source.fetchedAt, scene.timeZone, true)} 获取` : '来源没有附获取时间。'}</p>
+      <p>查询窗口：{hourStamp(scene.window.from, true)} 至 {hourStamp(scene.window.to, true)}。</p>
       {scene.limitations.map((item, index) => <p key={index}>{item}</p>)}
     </div></details></footer>
   </section>;

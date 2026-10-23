@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createHash, randomBytes, randomUUID } from 'node:crypto';
 import { z } from 'zod';
-import { HarnessError, type EvidenceEvent, type ScopeHandle } from '../../shared/harness';
+import { HarnessError, materialNavigationProofSchema, type EvidenceEvent, type ScopeHandle } from '../../shared/harness';
 import { MATERIAL_LIMITS, materialCropSchema, materialReferenceSchema, materialTargetSchema, materialReadSchema, type MaterialReference, type MaterialTarget, type MaterialItem, type MaterialPage } from '../../shared/materials';
 import type { TextAttachment } from '../../shared/types';
 import type { KernelRepository } from '../storage/repository';
@@ -10,10 +10,36 @@ import type { PolicyKernel } from '../runtime/policy';
 import type { VisualObservation } from '../runtime/spatial';
 import type { CapabilityBroker } from '../capabilities/broker';
 import { hasCredentials } from '../runtime/redaction';
+import { canonical } from '../runtime/semantics';
 
 type Binding = { eventId: string; parentEventId: string; sessionId: string; eventVersion: number; retention: string };
 type Resource = { reference: MaterialReference; epoch: number; bytes?: Buffer; text?: string; encoding?: string; binding?: Binding; saved?: boolean; discoverySequence?: number; draftIds?: Set<string>; preparedFor?: Set<string>; releaseRequested?: boolean;
   publicSource?: { url: string; scopeId: string; sourceId: 'web:public'; fetchedAt: string; httpStatus?: number; contentType?: string }; };
+const materialAccessCapabilities = ['materials.describe', 'materials.read', 'materials.find', 'materials.table', 'materials.observe'] as const;
+type MaterialNavigationSource = Pick<MaterialReference, 'resourceId' | 'sha256' | 'version' | 'name'> & {
+  kind: 'user_selected_file'; authority: 'quotation'; sourceId: string;
+  sourceEventId: string; contentVersion: number; parentEventId: string; sessionId: string; roots: string[];
+};
+type MaterialNavigationAddress<C extends string> = { tool: 'look_up'; arguments: {
+  source: 'capability'; capability: C; arguments: { resourceId: string; page?: number; offset?: number; limit?: number; crop?: z.infer<typeof materialCropSchema> };
+} };
+export interface MaterialReadNavigation {
+  resourceId: string; accessSha256: string; name: string; mediaType: MaterialReference['mediaType']; source: MaterialNavigationSource;
+  originalContentsRead: false;
+  priorAccess: { capability: typeof materialAccessCapabilities[number]; page?: number; extraction?: string;
+    sourceContentVersion?: number; sourceSessionId?: string; readOrdinal?: number; observedAt?: string; resultComplete: boolean;
+    crop?: z.infer<typeof materialCropSchema>; rendererVersion?: string;
+    range?: { unit: 'unicode_code_point' | 'unicode_code_point_within_page'; start: number; end: number; total: number };
+    meaning: string };
+  describe: MaterialNavigationAddress<'materials.describe'>;
+  read: MaterialNavigationAddress<'materials.read'>;
+  observe?: MaterialNavigationAddress<'materials.observe'>;
+}
+export type MaterialSubmissionReadPurpose = { source: MaterialNavigationSource; metadataOnly: true; meaning: string } & (
+  { targetKind: 'user_message'; relation: 'material_submission_parent'; coordinateUnit: 'unicode_code_point_in_message'; materialBodyRead: false }
+  | { targetKind: 'file_import'; relation: 'material_document_body'; readTarget: 'materials.read'; page?: 1;
+    coordinateUnit: 'unicode_code_point' | 'unicode_code_point_within_page' }
+);
 const sha = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex');
 const resourceId = z.string().regex(/^material-[a-f0-9-]{36}$/);
 const discoveryInput = z.object({
@@ -36,6 +62,18 @@ const findInput = z.object({ resourceId, query: z.string().min(1).max(200),
   page: z.number().int().min(1).max(MATERIAL_LIMITS.pages).optional(),
   offset: z.number().int().min(0).max(MATERIAL_LIMITS.textCodePoints).default(0),
   limit: z.number().int().min(1).max(12).default(6) }).strict();
+const materialNavigationRead = z.object({ capability: z.enum(materialAccessCapabilities), resourceId,
+  sha256: z.string().regex(/^[a-f0-9]{64}$/), version: z.number().int().positive(),
+  sourceEventId: z.string().min(1).max(160), parentEventId: z.string().min(1).max(160),
+  page: z.number().int().min(1).max(MATERIAL_LIMITS.pages).optional(),
+  start: z.number().int().nonnegative().optional(), end: z.number().int().nonnegative().optional(), total: z.number().int().nonnegative().optional(),
+  complete: z.boolean(), extraction: z.string().max(160).optional(),
+  sourceContentVersion: z.number().int().positive().optional(),
+  sourceSessionId: z.string().min(1).max(160).optional(),
+  crop: materialCropSchema.optional(), rendererVersion: z.string().min(1).max(160).optional(),
+  readOrdinal: z.number().int().positive().optional(), observedAt: z.string().datetime({ offset: true }).optional(),
+}).refine(read => [read.start, read.end, read.total].every(value => value === undefined)
+  || read.start !== undefined && read.end !== undefined && read.total !== undefined && read.start <= read.end && read.end <= read.total);
 
 function decode(bytes: Buffer) {
   const encoding = bytes[0] === 0xff && bytes[1] === 0xfe ? 'utf-16le' : bytes[0] === 0xfe && bytes[1] === 0xff ? 'utf-16be' : 'utf-8';
@@ -49,6 +87,7 @@ export class MaterialService {
   private records = new Map<string, Resource>();
   private images = new Map<string, VisualObservation>();
   private imageScopes = new Map<string, ScopeHandle>();
+  private visualHolders = new Map<string, Set<string>>();
   private discoveryPositions = new Map<string, DiscoveryPosition>();
   private discoverySequence = 0;
   private active = new Set<AbortController>();
@@ -74,15 +113,38 @@ export class MaterialService {
     const saved = [...this.records.values()].filter(record => record.binding).map(record => ({ record,
       sequence: Number(repo.db.prepare('SELECT seq FROM h_evidence WHERE id=?').get(record.binding!.eventId)?.seq || 0) }));
     for (const { record } of saved.sort((a, b) => a.sequence - b.sequence)) record.discoverySequence = ++this.discoverySequence;
-    repo.onPrivacyCleanup(() => { this.cancel(); this.images.clear(); this.imageScopes.clear(); this.sweep(); });
-    policy.onBarrier(() => { this.cancel(); this.images.clear(); this.imageScopes.clear(); for (const [id, record] of this.records) {
+    repo.onPrivacyCleanup(() => { this.cancel(); this.images.clear(); this.imageScopes.clear(); this.visualHolders.clear(); this.sweep(); });
+    policy.onBarrier(() => { this.cancel(); this.images.clear(); this.imageScopes.clear(); this.visualHolders.clear(); for (const [id, record] of this.records) {
       if (!record.saved) this.remove(id); else { record.bytes = undefined; record.text = undefined; }
     } this.sweep(); });
   }
   private file(id: string, extension: string) { resourceId.parse(id); return path.join(this.directory, id + extension); }
+  // A live run may keep pixels beyond the ordinary cache size. Holding a
+  // cache entry never replaces visual()'s source and scope checks.
+  private trimVisuals(keepId?: string) {
+    while (this.images.size > 4) {
+      const oldest = [...this.images.keys()].find(id => id !== keepId && !this.visualHolders.has(id));
+      if (!oldest) break;
+      this.images.delete(oldest); this.imageScopes.delete(oldest);
+    }
+  }
+  private trimPublicRecords(keepId?: string) {
+    // A held page still needs its immutable PDF owner during visual().
+    const heldResources = new Set([...this.images.values()].filter(image => this.visualHolders.has(image.id))
+      .map(image => (image.source as { resourceId?: string }).resourceId));
+    let records = [...this.records.values()].filter(record => record.publicSource);
+    while (records.length > 16 || records.reduce((total, record) => total + record.reference.byteLength, 0) > 32_000_000) {
+      const oldest = records.find(record => record.reference.resourceId !== keepId && !heldResources.has(record.reference.resourceId));
+      if (!oldest) break;
+      this.remove(oldest.reference.resourceId);
+      records = records.filter(record => record !== oldest);
+    }
+  }
   private remove(id: string) {
     const record = this.records.get(id); record?.bytes?.fill(0); this.records.delete(id);
-    for (const image of this.images.values()) if ((image.source as any)?.resourceId === id) this.images.delete(image.id);
+    for (const image of this.images.values()) if ((image.source as any)?.resourceId === id) {
+      this.images.delete(image.id); this.imageScopes.delete(image.id); this.visualHolders.delete(image.id);
+    }
     for (const extension of ['.bin', '.json']) if (fs.existsSync(this.file(id, extension))) fs.unlinkSync(this.file(id, extension));
   }
   private persistedDraftOwns(record: Resource) {
@@ -271,7 +333,7 @@ export class MaterialService {
     else this.releasePending(reference);
   }
   endConversation(sessionId?: string) {
-    this.cancel(); this.images.clear(); this.imageScopes.clear();
+    this.cancel(); this.images.clear(); this.imageScopes.clear(); this.visualHolders.clear();
     for (const [id, record] of this.records) {
       if (record.saved || !record.binding && record.draftIds?.size) continue;
       if (!sessionId || record.publicSource || record.binding?.sessionId === sessionId) this.remove(id);
@@ -303,6 +365,120 @@ export class MaterialService {
     const bytes = record.bytes || fs.readFileSync(this.file(id, '.bin'));
     if (bytes.length !== record.reference.byteLength || sha(bytes) !== record.reference.sha256) throw new HarnessError('material_integrity', '文件原字节与当前版本不符，未采用读取结果。');
     return { record, bytes, allowed };
+  }
+  private navigationRecord(scope: ScopeHandle, id: string, sessionId: string, allowCurrent = false) {
+    const { record, allowed } = this.resolveMetadata(scope, id, false), binding = record.binding;
+    // Stored host receipts navigate their original submission. An unsaved or
+    // public handle has no persisted parent proof to reconstruct. Only the
+    // current submitted temporary pair can identify its own read target.
+    if (record.publicSource || !binding || binding.sessionId !== sessionId) return;
+    if (!record.saved && !(allowCurrent && binding.retention === 'session_only' && allowed.retention === 'session_only'
+      && allowed.currentEventIds.includes(binding.eventId) && allowed.currentEventIds.includes(binding.parentEventId))) return;
+    return { record, binding };
+  }
+  private navigationSource(record: Resource, binding: Binding): MaterialNavigationSource {
+    const { resourceId, sha256, version, name } = record.reference;
+    return { kind: 'user_selected_file', authority: 'quotation', resourceId, sha256, version, name,
+      sourceId: 'file:' + binding.eventId, sourceEventId: binding.eventId, contentVersion: binding.eventVersion,
+      parentEventId: binding.parentEventId, sessionId: binding.sessionId, roots: [binding.eventId] };
+  }
+  /** Qualify an exact old host address without reading its text layer or pixels. */
+  materialReadNavigation(scope: ScopeHandle, read: unknown, sessionId: string): MaterialReadNavigation | undefined {
+    const parsed = materialNavigationRead.safeParse(read);
+    if (!parsed.success) return;
+    try {
+      const prior = parsed.data, current = this.navigationRecord(scope, prior.resourceId, prior.sourceSessionId || sessionId);
+      if (!current) return;
+      const { record, binding } = current, ref = record.reference, pdf = ref.mediaType === 'application/pdf';
+      if (ref.sha256 !== prior.sha256 || ref.version !== prior.version || binding.eventId !== prior.sourceEventId
+        || binding.parentEventId !== prior.parentEventId || prior.sourceContentVersion !== undefined && binding.eventVersion !== prior.sourceContentVersion
+        || !pdf && prior.page !== undefined || pdf && prior.start !== undefined && prior.page === undefined
+        || prior.crop !== undefined && (!pdf || prior.capability !== 'materials.observe')) return;
+      const page = pdf ? prior.page || 1 : undefined;
+      return { resourceId: ref.resourceId, accessSha256: sha(Buffer.from(canonical(prior), 'utf8')),
+        name: ref.name, mediaType: ref.mediaType, source: this.navigationSource(record, binding),
+        originalContentsRead: false,
+        priorAccess: { capability: prior.capability, ...(prior.page === undefined ? {} : { page: prior.page }),
+          ...(prior.extraction === undefined ? {} : { extraction: prior.extraction }),
+          ...(prior.sourceContentVersion === undefined ? {} : { sourceContentVersion: prior.sourceContentVersion }),
+          ...(prior.sourceSessionId === undefined ? {} : { sourceSessionId: prior.sourceSessionId }),
+          ...(prior.crop === undefined ? {} : { crop: prior.crop }),
+          ...(prior.rendererVersion === undefined ? {} : { rendererVersion: prior.rendererVersion }),
+          ...(prior.readOrdinal === undefined ? {} : { readOrdinal: prior.readOrdinal }),
+          ...(prior.observedAt === undefined ? {} : { observedAt: prior.observedAt }), resultComplete: prior.complete,
+          ...(prior.start === undefined ? {} : { range: { unit: pdf ? 'unicode_code_point_within_page' : 'unicode_code_point',
+            start: prior.start, end: prior.end!, total: prior.total! } }),
+          meaning: '这里保留的是那次查看的地址和范围；原文和页面图片没有随地址带来。' },
+        describe: { tool: 'look_up', arguments: { source: 'capability', capability: 'materials.describe', arguments: { resourceId: ref.resourceId } } },
+        read: { tool: 'look_up', arguments: { source: 'capability', capability: 'materials.read', arguments: { resourceId: ref.resourceId,
+          ...(page === undefined ? {} : { page }), offset: 0, limit: 8000 } } },
+        ...(page === undefined ? {} : { observe: { tool: 'look_up', arguments: { source: 'capability', capability: 'materials.observe',
+          arguments: { resourceId: ref.resourceId, page, ...(prior.crop === undefined ? {} : { crop: prior.crop }) } } } }),
+      };
+    } catch (error) {
+      if (error instanceof HarnessError || error instanceof z.ZodError) return;
+      throw error;
+    }
+  }
+  /** Revalidate host metadata provenance; no document or reply body is read. */
+  materialNavigationSourcesReadable(scope: ScopeHandle, proofs: unknown): boolean {
+    const parsed = z.array(materialNavigationProofSchema).safeParse(proofs);
+    if (!parsed.success) return false;
+    if (!parsed.data.length) return true;
+    try {
+      const allowed = this.policy.require(scope, 'evidence:read');
+      if (allowed.principalId !== this.repo.identity.principalId || allowed.workspaceId !== this.repo.identity.workspaceId
+        || allowed.subjectId !== allowed.principalId || allowed.worldId !== 'real' || allowed.audience !== 'self'
+        || !allowed.sources.includes('history:self')) return false;
+      return parsed.data.every(proof => {
+        const candidate = this.repo.conversationMaterialReadCandidates(scope, proof.sessionId,
+          { messageIds: [proof.messageId], limit: 1 }).find(value => value.messageId === proof.messageId && value.receiptId === proof.receiptId);
+        if (!candidate) return false;
+        const originReadable = candidate.reads.some(read => {
+          const navigation = this.materialReadNavigation(scope, read, proof.sessionId), source = navigation?.source;
+          return !!navigation && !!source && navigation.accessSha256 === proof.accessSha256
+            && navigation.resourceId === proof.resourceId && source.sha256 === proof.sha256 && source.version === proof.version
+            && source.sourceEventId === proof.sourceEventId && source.contentVersion === proof.sourceContentVersion
+            && source.parentEventId === proof.parentEventId;
+        });
+        if (!originReadable) return false;
+        const { via = [], ...origin } = proof, originIdentity = canonical(origin);
+        return via.every(reference => {
+          const metadata = this.repo.materialNavigationViaMetadata(scope, reference);
+          if (!metadata || metadata.receiptId !== reference.receiptId) return false;
+          const inherited = z.array(materialNavigationProofSchema).safeParse(metadata.sources);
+          return inherited.success && inherited.data.some(({ via: _via, ...base }) => canonical(base) === originIdentity);
+        });
+      });
+    } catch (error) {
+      if (error instanceof HarnessError || error instanceof z.ZodError) return false;
+      throw error;
+    }
+  }
+  /** Identify what read_evidence will read, without opening the parent message. */
+  submissionReadPurpose(scope: ScopeHandle, id: string, sessionId: string): MaterialSubmissionReadPurpose | undefined {
+    try {
+      this.policy.require(scope, 'evidence:read');
+      const matches = [...this.records.values()].filter(record => record.binding?.sessionId === sessionId
+        && (record.binding.parentEventId === id || record.binding.eventId === id));
+      if (matches.length !== 1) return;
+      const current = this.navigationRecord(scope, matches[0].reference.resourceId, sessionId, true);
+      if (!current) return;
+      const { record, binding } = current, source = this.navigationSource(record, binding);
+      if (id === binding.parentEventId) return { targetKind: 'user_message', relation: 'material_submission_parent',
+        coordinateUnit: 'unicode_code_point_in_message', materialBodyRead: false, source, metadataOnly: true,
+        meaning: '这个地址读取提交附件时的用户原话，offset和limit指那条消息的Unicode文字范围；它不读取PDF任何一页的正文或像素。原话与附件地址帮助认清所指材料，后续文件读取仍按当前请求的来源和页范围判断。' };
+      const pdf = record.reference.mediaType === 'application/pdf';
+      return { targetKind: 'file_import', relation: 'material_document_body', readTarget: 'materials.read',
+        ...(pdf ? { page: 1 as const } : {}), coordinateUnit: pdf ? 'unicode_code_point_within_page' : 'unicode_code_point',
+        source, metadataOnly: true,
+        meaning: pdf ? '这个file来源地址实际转到materials.read读取PDF第1页文字层，offset和limit是该页Unicode范围；它不是附件目录，也不读取其它页或像素。指定其它页仍沿materials.read或materials.observe，并保留本轮页范围。'
+          : '这个file来源地址实际转到materials.read读取原文字文件，offset和limit是文件文字的Unicode范围；它不是提交附件时的用户原话。',
+      };
+    } catch (error) {
+      if (error instanceof HarnessError || error instanceof z.ZodError) return;
+      throw error;
+    }
   }
   /** A kept artifact may retain an address to a text layer already delivered
    * by this owner. Recheck that exact resource lifetime without re-reading its
@@ -395,7 +571,7 @@ export class MaterialService {
       sourceId: record.publicSource ? 'web:public' : 'file:' + record.binding!.eventId,
       sha256: record.reference.sha256, version: record.reference.version, name: record.reference.name,
       ...(record.binding ? { sourceEventId: record.binding.eventId, contentVersion: record.binding.eventVersion,
-        parentEventId: record.binding.parentEventId, roots: [record.binding.eventId] }
+        parentEventId: record.binding.parentEventId, sessionId: record.binding.sessionId, roots: [record.binding.eventId] }
         : { url: record.publicSource!.url, fetchedAt: record.publicSource!.fetchedAt, httpStatus: record.publicSource!.httpStatus, contentType: record.publicSource!.contentType }) };
   }
   private result(record: Resource, data: object, complete = false, reason?: string) {
@@ -515,7 +691,8 @@ export class MaterialService {
     const record = this.nativeRecord(target);
     return { item: this.nativeItem(record), bytes: this.nativeBytes(record) };
   }
-  async invoke(scope: ScopeHandle, operation: string, args: any, signal: AbortSignal): Promise<any> {
+  async invoke(scope: ScopeHandle, operation: string, args: any, signal: AbortSignal,
+    onVisualPrepared?: (id: string) => void): Promise<any> {
     signal.throwIfAborted();
     if (!['materials.describe', 'materials.read', 'materials.find', 'materials.table', 'materials.observe'].includes(operation)) throw new HarnessError('material_operation_unsupported', '文件读取操作尚未接入。');
     if (operation === 'materials.find') args = findInput.parse(args);
@@ -565,7 +742,8 @@ export class MaterialService {
         sourceId: record.publicSource ? 'web:public' : 'file:' + record.binding!.eventId, source: { ...this.source(record), page: parsed.page, rendererVersion: parsed.rendererVersion },
         crop: args.crop || null, scopeId: scope.id, epoch: this.policy.validate(scope).privacyEpoch };
       this.images.set(image.id, image); this.imageScopes.set(image.id, scope);
-      while (this.images.size > 4) { const oldest = this.images.keys().next().value!; this.images.delete(oldest); this.imageScopes.delete(oldest); }
+      onVisualPrepared?.(image.id);
+      this.trimVisuals(image.id);
       return this.result(record, { resourceId: ref.resourceId, page: parsed.page, pageCount: parsed.pageCount, observationId: image.id, hash: image.hash, version: image.version,
         source: image.source, crop: image.crop, transport: 'prepared_for_next_model_request', meaning: '实际页面像素已取得；仅是外部材料，未授予新权限，也不证明模型已经看懂。' }, false);
     } finally { this.active.delete(controller); }
@@ -581,6 +759,19 @@ export class MaterialService {
     else this.resolve(scope, (image.source as any).resourceId);
     return image;
   }
+  retainVisual(scope: ScopeHandle, id: string, runId: string): VisualObservation {
+    const image = this.visual(scope, id);
+    const holders = this.visualHolders.get(id) || new Set<string>();
+    holders.add(runId); this.visualHolders.set(id, holders);
+    return image;
+  }
+  releaseVisuals(runId: string) {
+    for (const [id, holders] of this.visualHolders) {
+      holders.delete(runId);
+      if (!holders.size) this.visualHolders.delete(id);
+    }
+    this.trimVisuals(); this.trimPublicRecords();
+  }
   publicPdf(scope: ScopeHandle, bytes: Buffer, url: string, name: string, network?: { httpStatus: number; contentType: string }) {
     const allowed = this.policy.require(scope, 'evidence:read');
     if (!allowed.sources.includes('web:public')) throw new HarnessError('material_source_forbidden', '公开文件来源不在当前范围。');
@@ -590,23 +781,22 @@ export class MaterialService {
     if (cached) { this.records.delete(cached.reference.resourceId); this.records.set(cached.reference.resourceId, cached); return cached.reference.resourceId; }
     const staged = this.stageBytes(name.toLowerCase().endsWith('.pdf') ? name : name + '.pdf', bytes, true), record = this.records.get(staged.resource!.resourceId)!;
     record.publicSource = { url, sourceId: 'web:public', scopeId: scope.id, fetchedAt: this.repo.clock.now(), ...network }; record.epoch = allowed.privacyEpoch;
-    let publicRecords = [...this.records.values()].filter(record => record.publicSource);
-    while (publicRecords.length > 16 || publicRecords.reduce((total, record) => total + record.reference.byteLength, 0) > 32_000_000) {
-      this.remove(publicRecords[0].reference.resourceId); publicRecords = publicRecords.slice(1);
-    }
+    this.trimPublicRecords(record.reference.resourceId);
     return record.reference.resourceId;
   }
   /** A local discovery contract cannot relabel public evidence as current user input. */
-  invokeLocal(scope: ScopeHandle, operation: string, args: any, signal: AbortSignal) {
+  invokeLocal(scope: ScopeHandle, operation: string, args: any, signal: AbortSignal,
+    onVisualPrepared?: (id: string) => void) {
     if (args.resourceId && this.records.get(args.resourceId)?.publicSource)
       return Promise.resolve({ status: 'unsupported', sourceId: 'current', simulated: false, reason: '公开PDF请经research.read继续相应页/表格/图像；本入口只读已提供的本机文件。',
         data: { resourceId: args.resourceId, useCapability: 'research.read' }, coverage: { complete: false, scope: 'local_material_contract' } });
-    return this.invoke(scope, operation, args, signal);
+    return this.invoke(scope, operation, args, signal, onVisualPrepared);
   }
-  invokePublic(scope: ScopeHandle, operation: string, args: any, signal: AbortSignal) {
+  invokePublic(scope: ScopeHandle, operation: string, args: any, signal: AbortSignal,
+    onVisualPrepared?: (id: string) => void) {
     if (!args.resourceId || !this.records.get(args.resourceId)?.publicSource)
       throw new HarnessError('material_source_forbidden', '公共文件入口不能读取或重标本机私有资料。');
-    return this.invoke(scope, operation, args, signal);
+    return this.invoke(scope, operation, args, signal, onVisualPrepared);
   }
 }
 
@@ -621,5 +811,5 @@ export function registerMaterials(broker: CapabilityBroker, materials: MaterialS
       { ...base, name: 'materials.find', displayName: '在资料里找原话', description: '在已选择文字文件或PDF指定页的原文字层精确查找query，返回Unicode定位、有限上下文及回读入口。按nextOffset继续当前文字范围，PDF其他页沿nextPage逐页寻找；未命中不证明没有相关含义或图像内容，不是语义搜索或全文已读。', input: findInput },
       { ...base, name: 'materials.table', displayName: '读取文件表格', description: '回读PDF指定页的可定位表格和行列候选，保留页码、坐标与提取限制；不能从未检测到表格推断不存在，复杂版式需页面像素。', input: z.object({ resourceId, page: z.number().int().min(1).max(MATERIAL_LIMITS.pages).default(1) }).strict() },
       { ...base, name: 'materials.observe', displayName: '看文件这一页', description: '取得PDF指定页或0..1范围局部的真实JPEG像素，绑定原文件SHA、页码、当前范围和版本。宿主仅附在对应工具结果；像素丢失或过期须重读，不是用户授权，也不进入图像记忆整理。', input: z.object({ resourceId, page: z.number().int().min(1).max(MATERIAL_LIMITS.pages).default(1), crop: materialCropSchema.optional() }).strict() },
-    ] }, invoke: (name, args, context) => materials.invokeLocal(context.scope, name, args, context.signal) }, { reviewed: true, source: 'host-owned immutable document snapshots' });
+    ] }, invoke: (name, args, context) => materials.invokeLocal(context.scope, name, args, context.signal, context.onVisualPrepared) }, { reviewed: true, source: 'host-owned immutable document snapshots' });
 }

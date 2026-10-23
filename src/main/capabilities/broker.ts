@@ -69,6 +69,8 @@ export interface InvocationContext {
   capability: string;
   deadline: string;
   idempotencyKey?: string;
+  /** Host-only pixel lifetime handoff; it grants no access and is not result data. */
+  onVisualPrepared?: (observationId: string) => void;
   /** Only the broker's mediated network port is part of the provider API; interfaces alone are not an OS sandbox. */
   request(url: string, init?: RequestInit): Promise<Response>;
 }
@@ -362,6 +364,7 @@ export class CapabilityBroker {
     name: string,
     controller: AbortController,
     idempotencyKey?: string,
+    onVisualPrepared?: (observationId: string) => void,
   ): InvocationContext {
     const entry = this.capabilities.get(name)!;
     const d = entry.definition,
@@ -371,6 +374,7 @@ export class CapabilityBroker {
       signal: controller.signal,
       capability: name,
       idempotencyKey,
+      onVisualPrepared,
       deadline: new Date(Date.parse(this.policy.repo.clock.now()) + d.timeoutMs).toISOString(),
       request: async (url, init = {}) => {
         this.policy.validate(handle);
@@ -408,6 +412,7 @@ export class CapabilityBroker {
       /** @deprecated Legacy caller metadata, ignored; calls are measured only. */
       maxCalls?: number;
       refresh?: boolean;
+      onVisualPrepared?: (observationId: string) => void;
     } = {},
   ): Promise<CapabilityResult> {
     const attemptId = randomUUID();
@@ -522,6 +527,8 @@ export class CapabilityBroker {
         budget.bytes += bytes;
         if (result.status === 'fresh' && result.expiresAt && Date.parse(result.expiresAt) <= Date.parse(this.policy.repo.clock.now())) result.status = 'stale';
         if (cache !== 'miss') this.audit({ id: attemptId, capability: name, providerId: m.id, version: d.version, status: result.status, scopeId: handle.id, simulated: m.simulated, bytes, cache });
+        const observationId = (result.data as { observationId?: unknown } | undefined)?.observationId;
+        if (typeof observationId === 'string') options.onVisualPrepared?.(observationId);
         return result;
       };
       const cached = !options.refresh && d.effect === 'read' && s.retention !== 'session_only' ? this.cached.get(key) : undefined;
@@ -546,6 +553,7 @@ export class CapabilityBroker {
         name,
         controller,
         options.actionAttempt?.key || options.inspectKey || options.cancelKey,
+        options.onVisualPrepared,
       );
       const bounded = async <T>(operation: () => Promise<T> | T): Promise<T> => {
         let cancelled!: () => void;

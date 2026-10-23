@@ -348,7 +348,11 @@ export class Store {
           ...(m.contextReceipt.providedSourceIds || []),
           ...(m.contextReceipt.campusSensitiveReads || []).map(source => source.authorizationEventId),
           ...(m.contextReceipt.noteSources || []).map(source => source.id),
+          ...(m.contextReceipt.spatialSources || []).flatMap(source => source.origin.kind === 'binding' ? [source.origin.id] : []),
           ...(m.contextReceipt.releaseSources || []).map(source => source.messageId),
+          ...(m.contextReceipt.materialNavigationSources || []).flatMap(source =>
+            [source.messageId, ...(source.via || []).map(address => address.messageId),
+              source.sourceEventId, 'file:' + source.sourceEventId]),
           ...(m.scenes || []).flatMap(scene => scene.kind === 'note' ? [scene.proof.id] : []),
           ...(m.contextReceipt.personalMethodSources || []).flatMap(source => source.assistance.map(assistance => assistance.messageId)),
           ...(m.contextReceipt.personalMethodSources || []).flatMap(source => (source.workAssistance || []).flatMap(help =>

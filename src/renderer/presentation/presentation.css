@@ -127,6 +127,13 @@
   color: var(--text-tertiary);
   font-size: 11px;
 }
+.presentation-weather-period {
+  max-width: 150px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  line-height: 1.6;
+  text-wrap: balance;
+}
 .presentation-weather-day > svg {
   margin: 7px 0 3px;
   color: var(--text-secondary);

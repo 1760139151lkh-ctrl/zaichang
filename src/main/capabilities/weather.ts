@@ -12,10 +12,15 @@ export const weatherInput = z.object({
   date: z.iso.date().optional(), from: z.string().datetime({ offset: true }).optional(), to: z.string().datetime({ offset: true }).optional(),
 }).strict();
 const nullableNumbers = z.array(z.number().nullable());
+const interval = z.object({ from: z.string().datetime({ offset: true }), to: z.string().datetime({ offset: true }) }).strict();
 export const weatherOutput = z.object({
   location: z.string(), timeZone: z.string(),
   reference: z.object({ latitude: z.number(), longitude: z.number(), basis: z.string(), userLocation: z.literal(false) }).strict(),
   forecast: z.object({ time: z.array(z.string()), weather_code: nullableNumbers, temperature_2m_max: nullableNumbers, temperature_2m_min: nullableNumbers, precipitation_probability_max: nullableNumbers }).strict(),
+  // Optional only for old saved results; newly fetched results always carry the source intervals.
+  dailyAggregation: z.object({ basis: z.literal('source_fixed_offset_24h'), utcOffsetSeconds: z.number().int(), complete: z.boolean(),
+    periods: z.array(z.object({ date: z.iso.date(), sourceWindow: interval, localDay: interval, matchesLocalDay: z.boolean(), valuesComplete: z.boolean() }).strict()),
+  }).strict().optional(),
   hourly: z.object({ time: z.array(z.string()), precipitationIntervalStart: z.array(z.string()), temperature_2m: nullableNumbers, precipitation_probability: nullableNumbers, precipitation: nullableNumbers, weather_code: nullableNumbers }).strict().optional(),
   window: z.object({ from: z.string(), to: z.string(), granularity: z.enum(['daily', 'hourly']), complete: z.boolean() }).strict(),
   observedAt: z.string(), forecastIssuedAt: z.null(), modelVersion: z.literal('not_reported'), limitations: z.array(z.string()),
@@ -54,10 +59,20 @@ export function weatherResult(query: ReturnType<typeof weatherRequest>, raw: any
   const expectedReturnedDates = query.hourly ? [...expectedDates, query.requestLast] : expectedDates;
   if (!Array.isArray(times) || times.length !== expectedReturnedDates.length || times.some((at: unknown) => typeof at !== 'number' || !Number.isFinite(at)) || columns.some(column => !Array.isArray(raw.daily[column]) || raw.daily[column].length !== times.length)) throw new HarnessError('weather_incomplete', '天气来源没有完整返回所选日期，不能当作已查到。');
   // Open-Meteo daily unix timestamps need the response utc_offset_seconds to recover the date.
-  if (typeof raw.utc_offset_seconds !== 'number' || times.some((at: number, index: number) => new Date((at + raw.utc_offset_seconds) * 1000).toISOString().slice(0, 10) !== expectedReturnedDates[index])) throw new HarnessError('weather_incomplete', '天气来源返回的日期与请求不一致。');
+  if (!Number.isInteger(raw.utc_offset_seconds) || times.some((at: number, index: number) =>
+    new Date((at + raw.utc_offset_seconds) * 1000).toISOString() !== `${expectedReturnedDates[index]}T00:00:00.000Z`
+    || index > 0 && at - times[index - 1] !== 86400)) throw new HarnessError('weather_incomplete', '天气来源返回的日期与请求不一致。');
   const values = (array: unknown[]) => array.map(value => typeof value === 'number' && Number.isFinite(value) ? value : null);
   const forecast = { time: expectedDates, ...Object.fromEntries(columns.map(column => [column, values(raw.daily[column]).slice(0, expectedDates.length)])) } as z.infer<typeof weatherOutput>['forecast'];
-  let complete = columns.every(column => forecast[column].every(value => value !== null));
+  const periods = expectedDates.map((date, index) => {
+    const sourceWindow = { from: new Date(times[index] * 1000).toISOString(), to: new Date((times[index] + 86400) * 1000).toISOString() };
+    const localDay = dayBounds(date, query.location.timeZone);
+    return { date, sourceWindow, localDay, matchesLocalDay: sourceWindow.from === localDay.from && sourceWindow.to === localDay.to,
+      valuesComplete: columns.every(column => forecast[column][index] !== null) };
+  });
+  const dailyAggregation = { basis: 'source_fixed_offset_24h' as const, utcOffsetSeconds: raw.utc_offset_seconds,
+    complete: periods.every(period => period.matchesLocalDay && period.valuesComplete), periods };
+  let complete = dailyAggregation.complete;
   let hourly: z.infer<typeof weatherOutput>['hourly'];
   if (query.hourly) {
     const hourlyColumns = ['temperature_2m', 'precipitation_probability', 'precipitation', 'weather_code'] as const;
@@ -67,10 +82,15 @@ export function weatherResult(query: ReturnType<typeof weatherRequest>, raw: any
     const indices = hours.flatMap((at: number, index: number) => (at * 1000 < to && at * 1000 + 3600000 > from || at * 1000 > from && at * 1000 - 3600000 < to) ? [index] : []);
     hourly = { time: indices.map(index => new Date(hours[index] * 1000).toISOString()), precipitationIntervalStart: indices.map(index => new Date((hours[index] - 3600) * 1000).toISOString()), ...Object.fromEntries(hourlyColumns.map(column => [column, values(indices.map(index => raw.hourly[column][index]))])) } as z.infer<typeof weatherOutput>['hourly'];
     const coverage = indices.length > 0 && hours[indices[0]] * 1000 <= from && hours[indices.at(-1)!] * 1000 >= to && indices.every((index, i) => i === 0 || hours[index] - hours[indices[i - 1]] === 3600);
-    complete = complete && coverage && hourlyColumns.every(column => hourly![column].every(value => value !== null));
+    complete = coverage && hourlyColumns.every(column => hourly![column].every(value => value !== null));
   }
   return { complete, data: weatherOutput.parse({ location: query.location.label, timeZone: query.location.timeZone,
-    reference: { latitude: query.location.latitude, longitude: query.location.longitude, basis: query.location.basis, userLocation: false }, forecast, ...(hourly ? { hourly } : {}),
+    reference: { latitude: query.location.latitude, longitude: query.location.longitude, basis: query.location.basis, userLocation: false }, forecast, dailyAggregation, ...(hourly ? { hourly } : {}),
     window: { from: query.from, to: query.to, granularity: query.hourly ? 'hourly' : 'daily', complete }, observedAt, forecastIssuedAt: null, modelVersion: 'not_reported',
-    limitations: ['预报网格代表参考地点，不能保证校园某一处的分钟级天气。', '小时温度与天气代码对应time时刻；降水量和降水概率对应precipitationIntervalStart到time的前一小时。', '获取时间不等于模型发布时间；来源未提供模型版本或发布时间。', '缺测保留为null，不代表零降水；预报不核实场地开放或身体条件。'] }) };
+    limitations: ['这是公开参考地点的预报，校园某一处的天气可能有差别，不能精确到几分钟。',
+      '按日预报保留来源用固定时差计算的24小时统计。夏令时变化时，它可能不等于当地完整的一天，也不等于这次选的几小时；小时样本的最高或最低值也不能代替它。',
+      ...(!periods.every(period => period.matchesLocalDay) ? ['这次部分日统计与当地完整的一天错开了，只说明标出的那段时间；小时预报是否覆盖完整时段，需要另看。'] : []),
+      '小时气温和天气图标表示标出的时刻；降水量和降水概率说的是此前一小时。',
+      '查到的时间不是预报发布的时间；来源没有提供预报的发布时间或所用模型版本。',
+      '缺测是未知，不是没有雨。这份预报不含场地开放信息，也不能判断某个人的身体状况。'] }) };
 }

@@ -37,7 +37,7 @@ import { splitUserInput, type InputControls } from './runtime/policy';
 import { bindModelSemantics } from './memory/model';
 import { MemoryService, type MemoryContext } from './memory/service';
 import { BackgroundDelegation } from './runtime/background-delegation';
-import type { SourceRestrictionSnapshot } from './storage/repository';
+import type { KernelRepository, SourceRestrictionSnapshot } from './storage/repository';
 import { canonical } from './runtime/semantics';
 import { delegationEvidenceIndex } from './runtime/delegation-evidence';
 import { ConversationRhythm } from './runtime/conversation-rhythm';
@@ -46,7 +46,7 @@ import { orderCampusPageViews } from './runtime/campus-page-order';
 import { deliveredProgramPurposeReference, markInteractiveProgramReadsDelivered, programContinuationAfterCompression, programReferenceIdentity } from './runtime/interactive-program-reference';
 import { projectInteractiveProgramReadPurpose } from './runtime/interactive-program';
 import { rehearsalRefSchema, type RehearsalRef } from '../shared/relationship-rehearsal';
-import { advanceProtocolTurnBoundary, coverCurrentProtocolMessages, retainProtocolCoverage, type ProtocolHistoryCoverage } from './runtime/protocol-history-coverage';
+import { advanceProtocolTurnBoundary, coverCurrentProtocolMessages, coverProtocolReferenceHistory, retainProtocolCoverage, type ProtocolHistoryCoverage } from './runtime/protocol-history-coverage';
 
 function toolWireJSON(content: ModelWireMessage['content']): { parsed: true; value: unknown } | { parsed: false } {
   let text: unknown = content;
@@ -57,6 +57,11 @@ function toolWireJSON(content: ModelWireMessage['content']): { parsed: true; val
   }
   if (typeof text !== 'string') return { parsed: false };
   try { return { parsed: true, value: JSON.parse(text) }; } catch { return { parsed: false }; }
+}
+
+function validateSpatialSources(repo: KernelRepository, run: RunSession) {
+  if (!repo.spatialSourcesReadable(run.ingress.contract.scope, run.pack?.receipt.spatialSources))
+    throw new HarnessError('spatial_source_changed', '这段地图关系所依据的地点或选择已经变化，先前结果目前不能继续使用。');
 }
 
 function deliveredToolObservationIds(run: RunSession, messages: ModelWireMessage[], excluded = new Set<string>()) {
@@ -470,6 +475,9 @@ export class Harness {
       const backgroundComplete: DeepSeekClient['complete'] = async (messages, tools, requestSignal, onText, options) => {
         await delegation.validateBoundary(options?.actorId);
         runtime.policy.validate(contract.scope); signal.throwIfAborted();
+        const activeRun = options?.actorId ? delegation.workers.get(options.actorId)?.run : run;
+        if (!activeRun) throw new HarnessError('child_missing', '子任务已不可用。');
+        validateSpatialSources(runtime.repo, activeRun);
         if (this.store.settings().mode !== 'deepseek') throw new HarnessError('background_paused', '当前已先暂停持续照看，这次调查停在原处。');
         const actor = options?.actorId ? pack.receipt.delegations?.find(child => child.id === options.actorId) : undefined;
         run.modelCalls++;
@@ -487,6 +495,7 @@ export class Harness {
         signal.throwIfAborted();
         runtime.policy.validate(contract.scope);
         await delegation.validateBoundary(options?.actorId);
+        validateSpatialSources(runtime.repo, activeRun);
         if (this.store.settings().mode !== 'deepseek') throw new HarnessError('background_paused', '当前已先暂停持续照看，这次调查停在原处。');
         if (actor) actor.responses++;
         runtime.context.recordModelUsage(pack, result.usage, 'opportunity_review', result.responseModel);
@@ -981,6 +990,7 @@ export class Harness {
     let lastSave = 0;
     const presentationCalls = new Map<string, NonNullable<Message['presentationActivity']>>();
     let settleForegroundTextFailure: ((discardDraft: boolean) => void) | undefined;
+    let releaseNoteChanges: (() => void) | undefined;
     const publish = (force = false) => {
       if (this.store.closed) return;
       if (force || Date.now() - lastSave > 150) {
@@ -1078,6 +1088,7 @@ export class Harness {
         settleForegroundTextFailure = discardDraft => {
           disposeForegroundTextFlush?.();
           disposeForegroundTextFlush = undefined;
+          rhythm.clearReviewPublications();
           if (discardDraft) {
             // This reply has one conservative source closure, not per-sentence
             // proofs. Do not republish an earlier committed source-bound line.
@@ -1091,6 +1102,21 @@ export class Harness {
         const presentationDeliveries = new PresentationDeliveries();
         runtime.bindModel(contract, client);
         const childRuns = new Map<string, { task: DelegatedTask; run: RunSession; registry: ToolRegistry; finalText?: string; sourceRestrictions: SourceRestrictionSnapshot; deliveredObservations: Set<string>; metadata: NonNullable<import('../shared/harness').ContextReceipt['delegations']>[number] }>();
+        const queueNoteChange = (active: RunSession, change: import('./notes/service').NoteChange) => {
+          if (active.ingress.contract.enhancements?.repairRejudge === false || active.signal.aborted || change.state !== 'active'
+            || !active.pack?.receipt.noteSources?.some(source => source.id === change.id)) return;
+          const observed = active.observedNoteChanges ||= new Map();
+          if ((observed.get(change.id)?.revision || 0) >= change.revision) return;
+          const metadata = { id: change.id, revision: change.revision, state: change.state,
+            operation: change.operation, at: change.at, sourceId: change.sourceId };
+          observed.set(change.id, metadata);
+          (active.pendingNoteChanges ||= new Map()).set(change.id, metadata);
+          active.noteChangeVersion = (active.noteChangeVersion || 0) + 1;
+        };
+        releaseNoteChanges = this.store.notes.onChanged(change => {
+          if (signal.aborted) return;
+          for (const active of [run, ...[...childRuns.values()].map(child => child.run)]) queueNoteChange(active, change);
+        });
         const childReports = new Map<string, { _host_children?: string[]; results?: Record<string, unknown>[] }>();
         const approvedChildIds = (wire: ModelWireMessage): string[] => {
           if (wire.role !== 'tool') return [];
@@ -1118,6 +1144,10 @@ export class Harness {
             || !runtime.repo.assistantWorkSourcesReadable(contract.scope, child.run.pack?.receipt.assistantWorkSources || [])
             || !runtime.repo.noteSourcesReadable(child.run.ingress.contract.scope, child.run.pack?.receipt.noteSources || [])
             || !runtime.repo.noteSourcesReadable(contract.scope, child.run.pack?.receipt.noteSources || [])
+            || !runtime.repo.spatialSourcesReadable(child.run.ingress.contract.scope, child.run.pack?.receipt.spatialSources)
+            || !runtime.repo.spatialSourcesReadable(contract.scope, child.run.pack?.receipt.spatialSources)
+            || !runtime.repo.materialNavigationSourcesReadable(child.run.ingress.contract.scope, child.run.pack?.receipt.materialNavigationSources)
+            || !runtime.repo.materialNavigationSourcesReadable(contract.scope, child.run.pack?.receipt.materialNavigationSources)
             || runtime.repo.verifyReleaseSources?.(child.run.ingress.contract.scope, child.run.pack?.receipt.releaseSources || [], false, { checked: new Map() }) !== true
             || runtime.repo.verifyReleaseSources?.(contract.scope, child.run.pack?.receipt.releaseSources || [], false, { checked: new Map() }) !== true
             || !!child.run.pack?.receipt.interactiveProgramSources?.length && (
@@ -1138,6 +1168,8 @@ export class Harness {
           if (!consumed || !parentPack || !childReceipt || !consumed.metadata.responses
             || !['produced', 'consumed'].includes(consumed.metadata.status)) return false;
           runtime.policy.validate(consumed.run.ingress.contract.scope);
+          if (!runtime.repo.spatialSourcesReadable(consumed.run.ingress.contract.scope, childReceipt.spatialSources)
+            || !runtime.repo.spatialSourcesReadable(contract.scope, childReceipt.spatialSources)) return false;
           parentPack.receipt.providedEvidenceIds = [...new Set([...parentPack.receipt.providedEvidenceIds, ...childReceipt.providedEvidenceIds])];
           parentPack.receipt.providedSourceIds = [...new Set([...(parentPack.receipt.providedSourceIds || []), ...(childReceipt.providedSourceIds || [])])];
           if (childReceipt.historicalAssertionVersions?.length) parentPack.receipt.historicalAssertionVersions = [...new Map([
@@ -1151,10 +1183,13 @@ export class Harness {
           runtime.context.recordReleaseSources(parentPack, childReceipt.releaseSources || []);
           runtime.context.recordPersonalMethodSources(parentPack, childReceipt.personalMethodSources || []);
           runtime.context.recordNoteSources(parentPack, childReceipt.noteSources || []);
+          runtime.context.recordSpatialSources(parentPack, childReceipt.spatialSources || []);
+          runtime.context.recordMaterialNavigationSources(parentPack, childReceipt.materialNavigationSources || []);
           runtime.context.recordImageSourceVersions(parentPack, providedImageVersions(childReceipt));
           runtime.context.recordCampusSensitiveReads(parentPack, childReceipt.campusSensitiveReads || []);
           runtime.context.recordCampusSourceProofs(parentPack, childReceipt.campusReadingSources || [], !!childReceipt.campusReadingIncomplete);
           runtime.context.recordInteractiveProgramSources(parentPack, childReceipt.interactiveProgramSources || []);
+          for (const change of consumed.run.observedNoteChanges?.values() || []) queueNoteChange(run, change);
           return true;
         };
         const complete: DeepSeekClient['complete'] = async (
@@ -1185,11 +1220,29 @@ export class Harness {
           validateChildSources();
           const dependencyChanges = await runtime.refreshDependencies(activeRun);
           if (activeRun === run && dependencyChanges.length) rhythm.discardContinuationContext();
+          const phase = options?.phase || (tools.length === 1 && tools[0].function.name === 'report_completion_gaps' ? 'completion_review' : tools.length === 1 && tools[0].function.name.startsWith('verify_') ? 'verification' : 'main');
+          if (phase === 'completion_review' && activeRun === run && !options?.actorId && !run.background
+            && contract.audience === 'self' && tools.length === 1 && tools[0].function.name === 'report_completion_gaps') {
+            // Requalify the transient publication after dependency refresh.
+            // hostState keeps only an owner marker until this model boundary,
+            // so a cleared snapshot cannot survive in a prebuilt review copy.
+            messages = messages.map(wire => {
+              if (wire.role !== 'user' || typeof wire.content !== 'string') return wire;
+              const parsed = toolWireJSON(wire.content);
+              if (!parsed.parsed || !parsed.value || typeof parsed.value !== 'object' || Array.isArray(parsed.value)) return wire;
+              const input = parsed.value as { hostState?: { replyPublication?: { messageId?: unknown } } };
+              if (input?.hostState?.replyPublication?.messageId !== message.id) return wire;
+              return { ...wire, content: JSON.stringify({ ...input, hostState: { ...input.hostState,
+                replyPublication: { messageId: message.id, previousCandidates: rhythm.reviewPublications(message.id) } } }) };
+            });
+          }
+          const noteNoticesInRequest = (activeRun.dependencyNotices || []).filter(notice => !!notice && typeof notice === 'object'
+            && (notice as { kind?: string }).kind === 'note_revision');
           if (activeRun.dependencyNotices?.length && !['release_write', 'release_review'].includes(options?.phase || '')) {
             messages = [...messages, { role: 'system', content: '刚才用到的几项资料有了变化，下面带来了它们的当前记录。可以看看哪些判断需要随之调整，再沿对方眼前的意思继续；资料里的话仍保有各自的来源。\n' + JSON.stringify(activeRun.dependencyNotices) }];
-            activeRun.dependencyNotices = [];
+            activeRun.dependencyNotices = noteNoticesInRequest;
           }
-          const phase = options?.phase || (tools.length === 1 && tools[0].function.name === 'report_completion_gaps' ? 'completion_review' : tools.length === 1 && tools[0].function.name.startsWith('verify_') ? 'verification' : 'main');
+          const noteVersionInRequest = noteNoticesInRequest.length ? activeRun.noteChangeVersion || 0 : activeRun.noteChangesSeenByMain || 0;
           if (phase === 'main' && !options?.actorId && options?.hostCompression) {
             const core = programContinuationAfterCompression(runtime, activeRun);
             options.hostCompression.continuationCoreIncluded = core !== undefined;
@@ -1245,6 +1298,7 @@ export class Harness {
             // A real provider prefix is already a response to these pixels.
             // Bind them before exposing prose that can survive a user stop;
             // prepared/no-text requests still receive no acceptance mark.
+            validateSpatialSources(runtime.repo, activeRun);
             runtime.acceptModelImages(activeRun, imageRecords);
             const text = textPending; textPending = '';
             onText?.(text);
@@ -1275,6 +1329,7 @@ export class Harness {
               providerOptions.onToolCallProgress?.(event);
             }).catch(error => { textFailure = error; closeText(); streamAbort.abort(error); });
           } : undefined;
+          validateSpatialSources(runtime.repo, activeRun);
           runtime.context.recordProviderRequest(run.pack, client.providerMetadata?.(providerOptions), {
             thinking: options?.thinking || 'disabled',
             strict: Boolean(options?.strict),
@@ -1316,12 +1371,17 @@ export class Harness {
             const changed = await runtime.refreshDependencies(activeRun);
             if (changed.length && activeRun === run) rhythm.discardContinuationContext();
             if (changed.length && onText) { invalidateDraft.get(onText)?.(); closeText(); }
+            validateSpatialSources(runtime.repo, activeRun);
             if (liveText && !textClosed) {
               if (textTimer !== undefined) clearTimeout(textTimer);
               textTimer = undefined; queueText(); await textQueue;
               if (textFailure !== undefined) throw textFailure;
             }
             runtime.acceptModelImages(activeRun, imageRecords);
+            if (phase === 'main' || phase === 'child') {
+              activeRun.noteChangesSeenByMain = Math.max(activeRun.noteChangesSeenByMain || 0, noteVersionInRequest);
+              activeRun.dependencyNotices = activeRun.dependencyNotices?.filter(notice => !noteNoticesInRequest.includes(notice));
+            }
             if (actor) actor.responses++;
             runtime.context.recordModelUsage(run.pack, value.usage, phase, value.responseModel);
             return value;
@@ -1341,6 +1401,19 @@ export class Harness {
         const previousChain = this.conversationChains.get(run.sessionId);
         const sameBoundaryChain = previousChain?.boundary === chainBoundary ? previousChain : undefined;
         const mayRecoverTaskMaterial = settings.memoryEnabled && run.ingress.ownerHistoryAllowed && run.ingress.controlProposal?.sources !== 'current_only' && !run.ingress.controlFallback && contract.memoryMode !== 'none' && discussionScope.audience === 'self';
+        if (run.ingress.requiresReadPurpose && mayRecoverTaskMaterial && discussionScope.sources.includes('history:self')
+          && discussionScope.subjectId === discussionScope.principalId && discussionScope.worldId === 'real'
+          && discussionScope.sources.some(source => source.startsWith('file:'))) {
+          const navigationPurpose = await verifyReadPurpose(run.ingress.authoredText, {
+            data: 'same_conversation_material_navigation', maxMaterialReadingReplies: 1,
+            reading: '只取本对话最近一条有原材料访问记录的回复所带文件地址、名称、类型和旧访问位置，并由原文件所有者核当前身份与版本；不取旧回复正文、文件正文或像素。多个文件各保留自己的地址，不按名称或时间猜成同一份。',
+            purpose: '看看这些地址是否能帮助认清眼前原话所指的原件，随后具体页或片段仍各自核本轮用途。独立新话题无需这份导航，明确不读历史或只用本条时也不取。',
+          }, complete, signal).catch(error => {
+            if (error instanceof HarnessError && error.code === 'purpose_unknown') return { allowed: false };
+            throw error;
+          });
+          if (navigationPurpose.allowed) runtime.context.restoreMaterialReading(pack, contract.scope, run.sessionId);
+        }
         if ((run.ingress.requiresReadPurpose || !discussionScope.sources.includes('history:self')) && mayRecoverTaskMaterial && (sameBoundaryChain?.dialogue?.length || this.store.kernel.db.prepare("SELECT 1 FROM messages m JOIN h_evidence e ON e.id=m.id WHERE m.session_id=? AND m.role='user' AND m.id!=? AND e.owner=? AND e.workspace=? AND e.status='active' LIMIT 1").get(run.sessionId, user.id, discussionScope.principalId, discussionScope.workspaceId))) {
           // Reuse only already-qualified Scene identities. No rows, titles,
           // private filters or extra owner reads precede the purpose decision.
@@ -1638,12 +1711,14 @@ export class Harness {
             }
             const providedProgramReference = deliveredProgramPurposeReference(runtime, run, request, operationSignal);
             const providedImageContext = providedImagePurposeContext(runtime.repo, pack, run.sessionId, request);
+            const currentMaterialReference = runtime.materialReadPurpose(run, request);
             return verifyReadPurpose(run.ingress.authoredText, { proposed: projectInteractiveProgramReadPurpose(request, currentProgramReference, providedProgramReference), currentTime: contract.now, timeZone: contract.timeZone, scopedSourceLimits: run.ingress.controlProposal?.scopedSourceLimits || [],
               ...(currentUserReference ? { currentUserReference } : {}),
               ...(currentCampusReference ? { currentCampusReference } : {}),
               ...(currentProgramReference ? { currentProgramReference } : {}),
               ...(providedProgramReference ? { providedProgramReference } : {}),
               ...(providedImageContext ? { providedImageContext } : {}),
+              ...(currentMaterialReference ? { currentMaterialReference } : {}),
               ...(currentRehearsalReference ? { currentRehearsalReference } : {}),
               ...(rehearsalActivityTiming ? { rehearsalActivityTiming } : {}),
               ...(contract.audience === 'self' && !run.ingress.requiresReadPurpose && Array.isArray(pack.data.history)
@@ -1765,6 +1840,7 @@ export class Harness {
         // The foreground may have admitted task material after compile().
         // Measure the completed pack immediately before Hermes receives it.
         runtime.context.recordInitialComposition(pack);
+        const referenceMaterial = '{"referenceMaterial":' + runtime.context.serializeForContinuation(pack, permittedChain?.messages || [], permittedChain?.coverage) + '}';
         const execution: HermesRun = {
           modelIdentity,
           runId: contract.id, epoch: contract.privacyEpoch, taskVersion: contract.revision,
@@ -1775,7 +1851,7 @@ export class Harness {
           // A text-parts reference row remains distinct from the actual user
           // in native sequence repair. Its JSON is still data, and the native
           // turn coordinate can identify the unchanged current user exactly.
-          history: [...(permittedChain?.messages.filter(message => message.role !== 'system') || []), { role: 'user', content: [{ type: 'text', text: '{"referenceMaterial":' + runtime.context.serializeForContinuation(pack, permittedChain?.messages || [], permittedChain?.coverage) + '}' }] }],
+          history: [...(permittedChain?.messages.filter(message => message.role !== 'system') || []), { role: 'user', content: [{ type: 'text', text: referenceMaterial }] }],
           tools, thinking: 'enabled', maxOutputTokens: 16384, signal,
           compression: { enabled: true, ...(Number.isSafeInteger(modelContextTokens) && modelContextTokens! > 16384
             ? { contextTokens: modelContextTokens } : { thresholdTokens: 48000 }) },
@@ -1944,7 +2020,7 @@ export class Harness {
               const childScope = runtime.policy.validate(scope), childSources = childScope.sources;
               const childSignal = AbortSignal.any([signal, AbortSignal.timeout(Math.max(1,
                 Date.parse(childScope.expiresAt) - Date.parse(this.store.kernel.clock.now())))]);
-              const childRun: RunSession = { ...run, signal: childSignal, methodNotes: [], image: undefined, toolImages: [], controlUsages: undefined, controlResponseModels: undefined, dependencyNotices: undefined, privacyResult: undefined, releaseArtifacts: undefined, episodeId: undefined, budgetOwner: run, events: [], observations: [], deliveredObservationIds: new Set(), pack: undefined, sessionId: id, toolCalls: 0, modelCalls: 0,
+              const childRun: RunSession = { ...run, signal: childSignal, methodNotes: [], image: undefined, toolImages: [], controlUsages: undefined, controlResponseModels: undefined, dependencyNotices: undefined, pendingNoteChanges: undefined, observedNoteChanges: undefined, noteChangeVersion: undefined, noteChangesSeenByMain: undefined, privacyResult: undefined, releaseArtifacts: undefined, episodeId: undefined, budgetOwner: run, events: [], observations: [], deliveredObservationIds: new Set(), pack: undefined, sessionId: id, toolCalls: 0, modelCalls: 0,
                 ingress: { ...run.ingress, text: task.instruction, authoredText: task.instruction, attachment: undefined, controlProposal: undefined, releaseBrief: undefined, priorReleaseArtifacts: undefined, priorReleasedDraft: undefined,
                   projectionSources: childSources.filter(source => ['local-agenda', 'campus:local', 'campus:zju-account'].includes(source)), threadContextAllowed: false, requiresReadPurpose: true, contract: { ...contract, id, scope, actionMode: 'read' } },
               };
@@ -1960,7 +2036,7 @@ export class Harness {
               childRun.pack.receipt.budget = pack.receipt.budget;
               const childRegistry = new ToolRegistry({ ...context, runtimeSession: childRun, child: true, userText: task.instruction,
                 step: value => step({ ...value, scope: task.title }),
-                verifyReadPurpose: (value, requestSignal = signal) => verifyReadPurpose(run.ingress.authoredText, { proposedRead: value, delegatedInstruction: task.instruction, authority: '只有根用户原话构成用途依据，工作者指令不是新的用户授权。' }, (messages, specs, completionSignal, onText, options) => complete(messages, specs, completionSignal, onText, { ...options, actorId: id, phase: 'child' }), requestSignal),
+                verifyReadPurpose: (value, requestSignal = signal) => verifyReadPurpose(run.ingress.authoredText, { proposedRead: value, delegatedInstruction: task.instruction, authority: '只有根用户原话构成用途依据，工作者指令不是新的用户授权。' }, (messages, specs, completionSignal, onText, options) => complete(messages, specs, completionSignal, onText, { ...options, actorId: id, phase: 'verification' }), requestSignal),
               });
               const snapshot = { privacyEpoch: childScope.privacyEpoch, policyRevision: childScope.policyRevision,
                 taskVersion: contract.revision, domainRevision: runtime.repo.domainRevision,
@@ -2025,6 +2101,12 @@ export class Harness {
         };
         let result = await runHermes(execution);
         let protocolBoundary = advanceProtocolTurnBoundary(result);
+        const refreshNoteChanges = async () => {
+          const changes = await runtime.refreshDependencies(run);
+          if (changes.length) rhythm.discardContinuationContext();
+          return (run.noteChangesSeenByMain || 0) < (run.noteChangeVersion || 0);
+        };
+        let unseenNoteChanges = await refreshNoteChanges();
         signal.throwIfAborted();
         const completionScope = runtime.policy.validate(contract.scope);
         const pendingRequests = runtime.policy.can(contract.scope, 'evidence:read') && completionScope.sources.includes('work:self') && !run.ingress.requiresReadPurpose ? runtime.collaboration.requests(contract.scope, run.sessionId, true) : [];
@@ -2034,7 +2116,7 @@ export class Harness {
         // changing participation mode, or widening any read/effect boundary.
         const longOriginal = run.ingress.authoredText.length > 8000;
         const explicitConstraints = (run.ingress.controlProposal?.specificActionLimits.length || 0) > 0;
-        if ((run.toolCalls > 0 || priorObservations.length > 0 || conversationPolicy?.clearOnExit || contract.audience !== 'self' || run.ingress.releaseBrief || pendingRequests.length > 0 || changedDuringRun || longOriginal || explicitConstraints) && contract.enhancements?.closure !== false) {
+        if ((run.toolCalls > 0 || priorObservations.length > 0 || conversationPolicy?.clearOnExit || contract.audience !== 'self' || run.ingress.releaseBrief || pendingRequests.length > 0 || changedDuringRun || unseenNoteChanges || longOriginal || explicitConstraints) && contract.enhancements?.closure !== false) {
           const scope = runtime.policy.validate(contract.scope);
           let requests = pendingRequests;
           const finalizedRequests = new Set<string>();
@@ -2093,7 +2175,8 @@ export class Harness {
             currentReuse: (pack.receipt.releaseSources || []).map(source => ({ source,
               qualified: releaseSourcesReadable(this.store.kernel, runtime.policy, contract.scope, [source], true) })),
             rejectedBases: [...rejectedReleaseBases.values()] });
-          const hostState = { now: contract.now, timeZone: contract.timeZone, retention: contract.retention, memoryMode: contract.memoryMode, audience: contract.audience, currentEvidenceRetained: !run.ephemeral, backgroundMemory: 'not_yet_processed', providedEvidenceIds: pack.receipt.providedEvidenceIds,
+          const hostState = { now: contract.now, timeZone: contract.timeZone, time: structuredClone(pack.data.time), retention: contract.retention, memoryMode: contract.memoryMode, audience: contract.audience, currentEvidenceRetained: !run.ephemeral, backgroundMemory: 'not_yet_processed', providedEvidenceIds: pack.receipt.providedEvidenceIds,
+            replyPublication: { messageId: message.id },
             businessEvidenceCoverage: { actions: 'effects_produced_in_current_response', observations: 'current_turn_and_retained_prior_tool_messages', emptyDoesNotProve: 'no_earlier_effects_or_no_inspectable_records' },
             conversationRetention: pack.data.conversationRetention || null,
             requireReleaseArtifacts: true, releaseArtifacts: run.releaseArtifacts || [],
@@ -2134,13 +2217,15 @@ export class Harness {
             review.contradictions.push(...coverage.contradictions.filter(issue => !review.contradictions.includes(issue)));
           }
           applyRequestResolutions(review);
+          unseenNoteChanges = await refreshNoteChanges();
           // Continue concrete review failures through the same Hermes engine,
           // retaining the existing two-correction failure semantics.
-          for (let repair = 0; repair < 2 && (review.missing.length || review.contradictions.length); repair++) {
+          for (let repair = 0; repair < 2 && (review.missing.length || review.contradictions.length || unseenNoteChanges); repair++) {
+            rhythm.captureReviewPublication(message.id);
             step({ id: stepId, title: '再确认一处', status: 'running' });
             const preceding = result.messages.at(-1)?.role === 'assistant' && !result.messages.at(-1)?.tool_calls?.length ? result.messages.slice(0, -1) : result.messages;
             result = await runHermes({ ...execution, runId: contract.id + ':continuation:' + (repair + 1), history: preceding,
-              system: execution.system + '\n伙伴帮你回看了这次交流，下面是他觉得可能还值得照顾的地方。你可以结合原话和真正读到的资料独立判断，反馈也可能误会了你。先前随工具说出的那些话、已经展开的图和完成的稿件仍在对方面前；这次继续修改的是同一条消息的末段，而不是把之前的一切重新做一次。末段可能也已经短暂显示过，若你的判断确实改变了，就照自己的方式把变化和缘由说清楚。已经办成的事可以沿原记录接着走，真的还缺什么，再完成眼前能做的那一步。怎么与对方交流仍由你决定，这份协作反馈只是帮助你把事情照顾好。\n' + JSON.stringify(review),
+              system: execution.system + '\n伙伴帮你回看了这次交流，下面是他觉得可能还值得照顾的地方。你可以结合原话和真正读到的资料独立判断，反馈也可能误会了你。先前随工具说出的前段、已经展开的图和完成的稿件仍保留着；同一条消息里可续改的末段会换成你这次的新稿，旧末段不会再另外留一份。可以参考旧稿，决定怎样保留原本妥当的内容、补齐对方还需要的帮助。末段可能也曾短暂显示过，若判断有了变化，照自己的方式说清缘由便好。已经办成的事沿原记录接着走。怎么与对方交流仍由你决定，这份协作反馈只是帮助你把事情照顾好。\n' + JSON.stringify(review),
               // Keep a repeated repair prompt distinct from the earlier raw
               // user row when the removed candidate had no tool turns.
               userMessage: [{ type: 'text', text: runtime.generationInput(run) }],
@@ -2164,8 +2249,9 @@ export class Harness {
               review.contradictions.push(...coverage.contradictions.filter(issue => !review.contradictions.includes(issue)));
             }
             applyRequestResolutions(review);
+            unseenNoteChanges = await refreshNoteChanges();
           }
-          if (review.missing.length || review.contradictions.length)
+          if (review.missing.length || review.contradictions.length || unseenNoteChanges)
             throw new HarnessError('completion_unresolved', message.actions.some(item => runtime.actions.receipts(contract.scope, item.effectActionId || item.id).some(receipt => receipt.status === 'confirmed_success'))
               ? '这次还有未核清的部分。已有回执的登记保留在安排中，其余事项尚未完成。'
               : '这次还有未核清的部分，暂时无法给出可靠答复。你可以重试。');
@@ -2191,12 +2277,13 @@ export class Harness {
           || pack.receipt.providedObjectVersions.some(reference => reference.imageSha256 !== undefined)
           || pack.receipt.learningProcessVersions?.length || pack.receipt.workSourceBindings?.length || pack.receipt.reflectiveLetterSources?.length
           || pack.receipt.assistantWorkSources?.length || pack.receipt.personalMethodSources?.length || pack.receipt.noteSources?.length || pack.receipt.campusSensitiveReads?.length
-          || pack.receipt.releaseSources?.length
+          || pack.receipt.releaseSources?.length || pack.receipt.materialNavigationSources?.length || pack.receipt.spatialSources?.length
           || pack.receipt.campusReadingSources?.length || pack.receipt.campusReadingIncomplete
           || pack.receipt.interactiveProgramSources?.length);
         if (chainAllowed && !sourceBoundProtocol) {
           this.conversationChains.set(run.sessionId, { boundary: chainBoundary, messages: result.messages, versions: structuredClone(pack.receipt.providedObjectVersions),
             coverage: [...retainProtocolCoverage(permittedChain?.messages || [], result.messages, permittedChain?.coverage || []),
+              ...coverProtocolReferenceHistory(result, protocolBoundary, referenceMaterial),
               ...coverCurrentProtocolMessages(result, protocolBoundary, { user: { id: user.id, content: runtime.generationInput(run) }, assistant: { id: message.id, content: message.content } })],
             dialogue: [...(sameBoundaryChain?.dialogue || []), { id: user.id, role: 'user' as const, content: runtime.generationInput(run) }, { id: message.id, role: 'assistant' as const, content: message.content }].slice(-6),
             drafts: message.releaseArtifacts?.map(artifact => ({ id: artifact.id, revision: artifact.revision, recipient: artifact.brief.recipient, purpose: artifact.brief.purpose })) || permittedChain?.drafts,
@@ -2243,7 +2330,7 @@ export class Harness {
       const sourceInvalidated = this.boundaryChanged || error instanceof HarnessError && [
         'privacy_barrier', 'stale_scope', 'stale_child_result', 'child_observation_conflict', 'work_source_changed',
         'letter_source_changed', 'assistant_work_changed', 'interactive_program_source_changed',
-        'note_source_changed', 'campus_purpose_changed', 'method_source_changed', 'artifact_source_changed', 'release_source_changed',
+        'note_source_changed', 'spatial_source_changed', 'campus_purpose_changed', 'method_source_changed', 'artifact_source_changed', 'release_source_changed', 'material_navigation_changed',
         'image_changed', 'image_scope', 'image_integrity', 'image_source',
       ].includes(error.code);
       if (sourceInvalidated || controller.signal.aborted) this.conversationChains.delete(run.sessionId);
@@ -2294,6 +2381,7 @@ export class Harness {
         && !message.steps.some(item => item.detail === technicalDetail))
         message.steps.push({ id: `host-failure:${contract.id}`, title: '未完成的处理', status: 'blocked', detail: technicalDetail });
     } finally {
+      releaseNoteChanges?.();
       runtime.memory.extractor = undefined;
       runtime.memory.reviewer = undefined;
       presentationCalls.clear();

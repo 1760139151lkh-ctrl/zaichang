@@ -17,6 +17,8 @@ export class ConversationRhythm {
   private draft?: { generation: number; raw: string; visible: string };
   private lastVisibleDraft = '';
   private continuationStart = 0;
+  private readonly priorPublications: { messageId: string; state: 'superseded_tail'; exposure: 'unknown';
+    publication: Omit<NonNullable<ReturnType<ConversationRhythm['continuationContext']>>, 'meaning'> }[] = [];
 
   constructor(readonly enabled: boolean) {}
 
@@ -64,15 +66,17 @@ export class ConversationRhythm {
    * only the safe prefix the user actually saw. */
   interruptDraft(discard: boolean) {
     const visible = this.draft?.visible || this.lastVisibleDraft;
+    this.clearReviewPublications();
     this.draft = undefined;
     this.lastVisibleDraft = '';
     return discard ? this.current() : this.finish(visible);
   }
 
-  acceptFinal() { this.draft = undefined; this.lastVisibleDraft = ''; }
+  acceptFinal() { this.draft = undefined; this.lastVisibleDraft = ''; this.clearReviewPublications(); }
 
   invalidateSources() {
     this.spoken.splice(0); this.draft = undefined; this.lastVisibleDraft = ''; this.continuationStart = 0;
+    this.clearReviewPublications();
   }
 
   /** A changed source must not be copied back as fresh conversational context.
@@ -80,7 +84,26 @@ export class ConversationRhythm {
   discardContinuationContext() {
     this.continuationStart = Array.from(this.current()).length;
     this.lastVisibleDraft = '';
+    this.clearReviewPublications();
   }
+
+  /** Preserve only the safe, actually published candidate before a repair
+   * replaces it. A review verdict or an unshown provider tail is not evidence. */
+  captureReviewPublication(messageId: string) {
+    const context = this.continuationContext();
+    if (!context?.replaceableTail) return;
+    // The stable prefix remains in reply. Only this replaced tail needs its
+    // earlier identity; it cannot stand in for the current readable answer.
+    const publication = { replaceableTail: context.replaceableTail };
+    this.priorPublications.push({ messageId, state: 'superseded_tail', exposure: 'unknown', publication });
+    this.priorPublications.splice(0, Math.max(0, this.priorPublications.length - 2));
+  }
+
+  reviewPublications(messageId: string) {
+    return structuredClone(this.priorPublications.filter(publication => publication.messageId === messageId));
+  }
+
+  clearReviewPublications() { this.priorPublications.splice(0); }
 
   /** The parent's current reply, not another history or a claim of being seen.
    * A bounded excerpt stays bounded even after native transcript compression. */
@@ -97,7 +120,7 @@ export class ConversationRhythm {
     const replaceableTail = this.lastVisibleDraft ? excerpt(this.finish(this.lastVisibleDraft).slice(prefix.length)) : undefined;
     if (!publishedPrefix && !replaceableTail) return;
     return { ...(publishedPrefix ? { publishedPrefix } : {}), ...(replaceableTail ? { replaceableTail } : {}),
-      meaning: '这是当前同一条助手回复的发表情况，不是新的本人消息。publishedPrefix已经随工具过程放进这条回复；replaceableTail是先前短暂显示、还可续改的末段。这里各自只带最近的真实文字，partial表示较早部分没有重送，不表示它没说过，也不表示对方已经看见。可以参考这些接话，把新的发现和结果接着讲；判断有了变化，也可以自然说清缘由。怎样交流仍由你结合当前角色和眼前情况决定。' };
+      meaning: '这是当前同一条助手回复的发表情况，不是新的本人消息。publishedPrefix已经随工具过程放进这条回复；replaceableTail是先前短暂显示、还可续改的末段。这里各自只带最近的真实文字，partial表示较早部分没有重送，不表示它没说过，也不表示对方已经看见。前段继续保留，可替换末段会由你的新稿接替；原请求仍需留在当前回复里的内容，可以结合旧稿决定怎样保留和补齐。判断有了变化，也可以自然说清缘由。怎样交流仍由你结合当前角色和眼前情况决定。' };
   }
 
   offer(content: string): { changed: boolean; text: string } {

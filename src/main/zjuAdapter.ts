@@ -3,8 +3,9 @@ import { existsSync, readFileSync, statSync, mkdtempSync, writeFileSync, unlinkS
 import { homedir, tmpdir } from 'node:os';
 import path from 'node:path';
 import type { Store } from './store';
-import { validateCampusQuery, type CampusQuery } from './capabilities/campus-query';
-import { CampusSnapshotProofs, type CampusSnapshotProof } from './capabilities/campus-saved-source';
+import { examCourseRecordsPointer, normalizedRoots, validateCampusQuery, type CampusQuery } from './capabilities/campus-query';
+import { campusSourceEndpoint, CampusSnapshotProofs, type CampusSnapshotProof } from './capabilities/campus-saved-source';
+import { campusSnapshotStructureProgram } from './capabilities/campus-snapshot-structure';
 import { HarnessError } from '../shared/harness';
 
 /** Account-backed campus data is kept distinct from legacy JSON imports. */
@@ -86,6 +87,11 @@ export interface CampusFullContextArgs {
 /** Host admission for academic acquisition and local normalization of its saved baseline.
  * This is deliberately separate from model query parameters. */
 export interface CampusAcquisition { allowAcademicSync: boolean }
+export interface CampusAuthentication {
+  mode: 'saved_snapshot' | 'live_session'; accountBinding: 'current_local_account';
+  ssoCheck: 'not_performed' | 'performed' | 'reused'; verifiedAt?: string; lastSsoVerifiedAt?: string;
+}
+interface SavedCampusBinding { identity: string; resource: string; versions: { bundleId: string; version: string }[] }
 
 const DOMAIN_RESOURCE: Partial<Record<CampusDomain, string>> = {
   schedule: 'classes',
@@ -284,8 +290,8 @@ function parseJson(output: string): any {
   }
 }
 
-function modelRecords(domain: CampusDomain | undefined, records: any): any {
-  const clean = sanitize(records);
+function modelRecords(domain: CampusDomain | undefined, records: any, truncated?: { value: boolean }): any {
+  const clean = sanitize(records, '', 0, truncated);
   if (!Array.isArray(clean)) return clean;
   if (domain === 'practice')
     return clean.map((record) => ({
@@ -343,6 +349,7 @@ function compactResult(result: any, domain?: CampusDomain): any {
   const output: any = {
     status: result.status,
     fetched_at: result.fetched_at,
+    authentication: result.authentication,
     source:
       result.source && typeof result.source === 'object'
         ? { service: result.source.service, evidence: result.source.evidence }
@@ -374,9 +381,13 @@ function compactResult(result: any, domain?: CampusDomain): any {
     measurement_notes: result.measurement_notes,
     credential_redactions: result.credential_redactions,
     nested_values_truncated: result.nested_values_truncated,
+    truncated_for_model: result.truncated_for_model,
+    recordRead: result.recordRead,
+    reason: result.reason,
     schema_version: result.schema_version,
     snapshotProof: result.snapshotProof,
     snapshotProofs: result.snapshotProofs,
+    expectedSnapshotVersion: result.expectedSnapshotVersion,
     semester_id: result.semester_id,
     counts: result.counts,
     grade_attempts: result.grade_attempts,
@@ -390,37 +401,51 @@ function compactResult(result: any, domain?: CampusDomain): any {
     requested: result.requested,
     executed: result.executed,
   };
-  if ('records' in result) output.records = modelRecords(domain, result.records);
-  if ('results' in result) output.results = sanitize(result.results);
-  if ('result' in result) output.result = sanitize(result.result);
+  const truncated = { value: false };
+  if ('records' in result) output.records = modelRecords(domain, result.records, truncated);
+  if ('results' in result) output.results = sanitize(result.results, '', 0, truncated);
+  if ('result' in result) output.result = sanitize(result.result, '', 0, truncated);
   if (domain === 'source_status' && result.resources) output.resources = result.resources;
-  if ('normalized' in result) output.normalized = sanitize(result.normalized);
+  if ('normalized' in result) output.normalized = sanitize(result.normalized, '', 0, truncated);
   if ('bundle_id' in result) output.bundle_id = result.bundle_id;
-  const safeOutput = sanitize(output);
-  let serialized = JSON.stringify(safeOutput);
-  if (serialized.length <= 56000) return safeOutput;
-  if (safeOutput.normalized) delete safeOutput.normalized;
-  if (Array.isArray(safeOutput.results)) safeOutput.results = safeOutput.results.slice(0, 8);
-  if (Array.isArray(safeOutput.records)) {
-    safeOutput.records = safeOutput.records.slice(0, 12);
+  const safeOutput = sanitize(output, '', 0, truncated);
+  if (truncated.value) safeOutput.nested_values_truncated = true;
+  const fits = (value: unknown) => Buffer.byteLength(JSON.stringify(value)) <= 56000;
+  if (safeOutput.status !== 'navigate_required' && fits(safeOutput)) return safeOutput;
+  const rows = safeOutput.records, offset = safeOutput.offset, total = safeOutput.total_matches;
+  // Only a real records page has a cursor that can be moved to a shorter,
+  // contiguous prefix. Other result shapes keep their original data on disk.
+  if (safeOutput.status !== 'navigate_required' && Array.isArray(rows) && rows.every(row => row && typeof row === 'object' && !Array.isArray(row))
+    && Number.isSafeInteger(offset) && offset >= 0 && Number.isSafeInteger(total) && total >= offset + rows.length
+    && (safeOutput.next_offset === null ? total === offset + rows.length
+      : rows.length > 0 && safeOutput.next_offset === offset + rows.length && safeOutput.next_offset < total)
+    && safeOutput.results === undefined && safeOutput.result === undefined && safeOutput.normalized === undefined) {
+    for (let count = rows.length - 1; count > 0; count--) {
+      const page = { ...safeOutput, records: rows.slice(0, count), next_offset: offset + count,
+        ...(typeof safeOutput.returned === 'number' ? { returned: count } : {}) };
+      if (fits(page)) return page;
+    }
   }
-  safeOutput.truncated_for_model = true;
-  safeOutput.note = '连接器保留完整加密数据；本次只返回有界摘要。请缩小时间范围或字段后继续。';
-  serialized = JSON.stringify(safeOutput);
-  if (serialized.length > 56000 && Array.isArray(safeOutput.results)) safeOutput.results = safeOutput.results.slice(0, 3);
-  return safeOutput;
+  return { status: 'navigate_required', recordRead: false, resource: safeOutput.resource,
+    authentication: safeOutput.authentication,
+    bundle_id: safeOutput.bundle_id, offset, total_matches: total,
+    expectedSnapshotVersion: safeOutput.snapshotProof?.version,
+    fetched_at: safeOutput.fetched_at, snapshotProof: safeOutput.snapshotProof,
+    ...(safeOutput.truncated_for_model === true ? { truncated_for_model: true } : {}),
+    ...(safeOutput.nested_values_truncated === true ? { nested_values_truncated: true } : {}),
+    reason: safeOutput.reason || safeOutput.message || '本次结果超出单次读取预算，没有交付正文。原资料仍保留，可减少字段或缩小查询范围后从同一位置读取。' };
 }
 
-function sanitize(value: any, key = '', depth = 0): any {
-  if (depth > 12) return '[depth limit]';
+function sanitize(value: any, key = '', depth = 0, truncated?: { value: boolean }): any {
+  if (depth > 12) { if (truncated) truncated.value = true; return '[depth limit]'; }
   if (SENSITIVE_FIELD.test(key) || /(身份证|学号|手机号|邮箱)/.test(key)) return '[redacted]';
   if (typeof value === 'string') {
     return value
       .replace(/(token|ticket|code|synjones-auth|password)=[^&\s"<>]+/gi, '$1=[redacted]')
       .replace(/\beyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\b/g, '[redacted]');
   }
-  if (Array.isArray(value)) return value.map(item => sanitize(item, key, depth + 1));
-  if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, sanitize(v, k, depth + 1)]));
+  if (Array.isArray(value)) return value.map(item => sanitize(item, key, depth + 1, truncated));
+  if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, sanitize(v, k, depth + 1, truncated)]));
   return value;
 }
 
@@ -636,22 +661,29 @@ export class ZjuAdapter {
   /** Verify the saved account through the skill's SSO flow without returning credentials. */
   async verifyAccount(signal: AbortSignal = new AbortController().signal) {
     const connector = this.describe();
+    const authSource = { root: this.root(), identity: this.snapshotProofs.readingSourceIdentity(), mtime: this.credentialsMtime() };
+    const sameSource = () => this.root() === authSource.root && this.snapshotProofs.readingSourceIdentity() === authSource.identity
+      && this.credentialsMtime() === authSource.mtime;
+    const changed = () => ({ status: 'conflict', connector: this.describe(),
+      error: { code: 'AUTH_SOURCE_CHANGED', message: '认证期间的账号或连接绑定变了，本次没有为另一份登录信息记录验证结果。' } });
     if (!connector.available)
       return { status: 'unavailable', connector, reason: connector.reason };
     if (!connector.credentialsConfigured)
       return { status: 'auth_required', connector, reason: '请先在本机保存浙大统一身份认证信息。' };
     try {
       const result = await this.run(['auth'], signal, 75_000);
+      if (!sameSource()) return changed();
       if (result?.status === 'ok') {
         this.store.putMeta('zju_last_verified_at', new Date().toISOString());
         this.store.putMeta('zju_last_auth_error', null);
-        this.store.putMeta('zju_verified_credentials_mtime', this.credentialsMtime() ?? null);
+        this.store.putMeta('zju_verified_credentials_mtime', authSource.mtime ?? null);
         return { ...result, connector: this.describe(), authentication: 'zju_sso_verified' };
       }
       this.store.putMeta('zju_last_auth_error', String(result?.error?.code || 'AUTH_FAILED').slice(0, 80));
       return { ...result, connector: this.describe() };
     } catch (error) {
       if (signal.aborted) throw error;
+      if (!sameSource()) return changed();
       this.store.putMeta('zju_last_auth_error', 'AUTH_FAILED');
       return {
         status: 'error',
@@ -667,13 +699,108 @@ export class ZjuAdapter {
       return { status: 'auth_required', reason: '请先在本机保存浙大统一身份认证信息。' };
     const verifiedAt = connector.lastVerifiedAt ? Date.parse(connector.lastVerifiedAt) : NaN;
     if (Number.isFinite(verifiedAt) && Date.now() - verifiedAt < 10 * 60_000)
-      return { status: 'ok', authenticated_at: connector.lastVerifiedAt };
+      return { status: 'ok', authenticated_at: connector.lastVerifiedAt,
+        authentication: this.liveAuthentication('reused', connector.lastVerifiedAt) };
     if (!this.authInFlight) {
       this.authInFlight = this.verifyAccount(signal).finally(() => {
         this.authInFlight = undefined;
       });
     }
-    return this.authInFlight;
+    const result = await this.authInFlight;
+    return result?.status === 'ok' ? { ...result, authentication: this.liveAuthentication('performed', this.describe().lastVerifiedAt) } : result;
+  }
+  private liveAuthentication(ssoCheck: 'performed' | 'reused', verifiedAt?: string): CampusAuthentication {
+    return { mode: 'live_session', accountBinding: 'current_local_account', ssoCheck,
+      ...(verifiedAt ? { verifiedAt } : {}) };
+  }
+  private savedAuthentication(): CampusAuthentication {
+    const lastSsoVerifiedAt = this.describe().lastVerifiedAt;
+    return { mode: 'saved_snapshot', accountBinding: 'current_local_account', ssoCheck: 'not_performed',
+      ...(lastSsoVerifiedAt ? { lastSsoVerifiedAt } : {}) };
+  }
+  /** Only the declared complete-data interface has the reviewed local
+   * history/quick semantics. Older CLI adapters retain authentication first. */
+  private savedModelContract() {
+    const root = this.root();
+    if (!root) return false;
+    try {
+      const file = path.join(root, 'references', 'model-schema.json'), stat = statSync(file);
+      if (!stat.isFile() || stat.size > 256000) return false;
+      const schema = JSON.parse(readFileSync(file, 'utf8'));
+      if (schema?.schema_version !== 2 || !schema.models || typeof schema.models !== 'object' || Array.isArray(schema.models)) return false;
+      const required = { course: ['id', 'key', 'semester_id', 'source_refs'], occurrence: ['uid', 'startTime', 'endTime', 'source_refs'],
+        exam: ['id', 'startTime', 'endTime', 'source_ref'], grade: ['id', 'semester_id', 'original', 'source_ref'],
+        dataset: ['pages', 'records', 'record_refs', 'completeness', 'sha256'] };
+      return Object.entries(required).every(([name, fields]) => {
+        const model = schema.models[name];
+        return model && typeof model === 'object' && !Array.isArray(model)
+          && fields.every(field => typeof model[field] === 'string' && model[field].trim().length > 0);
+      });
+    } catch { return false; }
+  }
+  private async bindSavedBundles(resource: string, ids: string[], identity: string | undefined, signal: AbortSignal, academicOnly: boolean): Promise<SavedCampusBinding | undefined> {
+    if (!identity || !ids.length) return;
+    const versions = [...new Set(ids)].map(bundleId => ({ bundleId, version: this.snapshotProofs.readingVersion(bundleId, resource) }));
+    if (versions.some(item => !item.version)) return;
+    for (const item of versions) {
+      const history = await this.savedHistory(signal, entry => entry?.bundle_id === item.bundleId);
+      if (!history?.found || academicOnly && history.found.kind !== 'academic'
+        || this.snapshotProofs.readingSourceIdentity() !== identity) return;
+    }
+    const binding: SavedCampusBinding = { identity, resource,
+      versions: versions.map(item => ({ bundleId: item.bundleId, version: item.version! })) };
+    return this.savedBindingCurrent(binding) ? binding : undefined;
+  }
+  private savedBindingCurrent(binding: SavedCampusBinding) {
+    return this.snapshotProofs.readingSourceIdentity() === binding.identity
+      && binding.versions.every(item => this.snapshotProofs.matchesReadingVersion(item.bundleId, binding.resource, item.version));
+  }
+
+  /** Prove that a fixed single-resource quick/select can stay on this bundle.
+   * The CLI otherwise fills a missing root from its latest related source. */
+  private async requireSavedResourceStructure(binding: SavedCampusBinding, bundleId: string, resource: string, signal: AbortSignal) {
+    const root = this.root();
+    const current = () => {
+      signal.throwIfAborted();
+      return !!root && this.root() === root && this.savedBindingCurrent(binding)
+        && binding.versions.some(item => item.bundleId === bundleId);
+    };
+    const unavailable = (code: string) => ({ status: 'error', recordRead: false, resource, bundle_id: bundleId,
+      error: { code }, reason: '这份固定快照的资源结构尚未能对应，本次没有改读另一份保存资料。' });
+    if (!current()) return { status: 'conflict', snapshotChanged: true, recordRead: false,
+      reason: '核对资源结构前的账号或保存快照版本已变化，尚未读取这份资料。' };
+    const endpoint = campusSourceEndpoint(binding.resource);
+    const rootKey = resource === 'source_status' || endpoint ? ''
+      : normalizedRoots[resource as keyof typeof normalizedRoots]?.split('/')[2];
+    if (rootKey === undefined) return unavailable('SOURCE_UNAVAILABLE');
+    let metadata: any;
+    try {
+      metadata = await this.runPython(root!, ['-I', '-B', '-c', campusSnapshotStructureProgram,
+        path.join(root!, 'scripts'), bundleId, resource, rootKey, endpoint || ''], signal, 20000);
+    } catch (error) {
+      if (signal.aborted) throw error;
+      if (!current()) return { status: 'conflict', snapshotChanged: true, recordRead: false,
+        reason: '核对资源结构期间的账号或保存快照版本已变化，尚未读取这份资料。' };
+      return unavailable('SNAPSHOT_STRUCTURE_UNAVAILABLE');
+    }
+    if (!current()) return { status: 'conflict', snapshotChanged: true, recordRead: false,
+      reason: '核对资源结构期间的账号或保存快照版本已变化，尚未读取这份资料。' };
+    if (metadata?.status !== 'ok') return unavailable(['SNAPSHOT_MODULE_SOURCE', 'SNAPSHOT_STRUCTURE_UNKNOWN', 'SNAPSHOT_STRUCTURE_UNAVAILABLE']
+      .includes(metadata?.error?.code) ? metadata.error.code : 'SNAPSHOT_STRUCTURE_UNAVAILABLE');
+    if (metadata.version !== 1 || metadata.bundleId !== bundleId || metadata.resource !== resource || metadata.rootKey !== rootKey
+      || typeof metadata.relatedPresent !== 'boolean' || (metadata.relatedPresent && metadata.relatedKind !== 'object')
+      || metadata.relatedOverride !== false)
+      return unavailable('SOURCE_UNAVAILABLE');
+    if (endpoint) {
+      if (metadata.datasetKind !== 'object' || metadata.datasetRecordsKind !== 'array' || metadata.endpointMatches !== true)
+        return unavailable('SOURCE_UNAVAILABLE');
+    } else if (resource !== 'source_status') {
+      const kinds = rootKey === 'calendar' ? ['object', 'null']
+        : ['transcript', 'practice', 'schedule_quality'].includes(rootKey) ? ['object'] : ['array'];
+      if (metadata.normalizedKind !== 'object' || metadata.rootPresent !== true || !kinds.includes(metadata.rootKind))
+        return unavailable('SOURCE_UNAVAILABLE');
+    }
+    return undefined;
   }
 
   private childEnv() {
@@ -694,15 +821,22 @@ export class ZjuAdapter {
   async run(args: string[], signal: AbortSignal, timeoutMs = 45_000): Promise<any> {
     const root = this.root();
     if (!root) return { status: 'unavailable', reason: '浙大个人信息连接器尚未配置。', connector: this.describe() };
-    const python = this.pythonCommand();
     const script = path.join(root, 'scripts', 'zju.py');
-    const child = spawn(python, [script, ...args], {
+    return this.runPython(root, [script, ...args], signal, timeoutMs);
+  }
+
+  private async runPython(root: string, args: string[], signal: AbortSignal, timeoutMs: number): Promise<any> {
+    signal.throwIfAborted();
+    const python = this.pythonCommand();
+    const child = spawn(python, args, {
       cwd: root,
       env: this.childEnv(),
       windowsHide: true,
       shell: false,
       stdio: ['ignore', 'pipe', 'pipe'],
     });
+    child.stdout.setEncoding('utf8');
+    child.stderr.setEncoding('utf8');
     let stdout = '', stderr = '', settled = false;
     const finish = (fn: () => void) => { if (!settled) { settled = true; fn(); } };
     const output = await new Promise<{ code: number | null; stdout: string; stderr: string }>((resolve, reject) => {
@@ -774,7 +908,10 @@ export class ZjuAdapter {
     const key = `${academicYear}:${term}`;
     const cached = this.academicBundles.get(key);
     const headStamp = this.snapshotProofs.headStamp('classes');
-    if (cached && this.academicBundleStamps.get(key) === headStamp) return cached;
+    if (cached && this.academicBundleStamps.get(key) === headStamp) {
+      const history = await this.savedHistory(signal, entry => entry?.bundle_id === cached && entry.kind === 'academic');
+      if (history?.found) return cached;
+    }
     const wanted = `${academicYear}-${term}`;
     const history = await this.savedHistory(signal, entry => entry?.kind === 'academic' && String(entry.semester_id || '') === wanted);
     const item = history?.found;
@@ -865,11 +1002,18 @@ export class ZjuAdapter {
    * No model-supplied CLI, directory, endpoint, or authentication material. */
   async query(raw: CampusQuery, signal: AbortSignal, acquisition?: CampusAcquisition): Promise<any> {
     const args = validateCampusQuery(raw), connector = this.describe();
+    const examCourseRead = args.operation === 'read' && args.resource === 'exams' && args.pointer === examCourseRecordsPointer;
+    const readingIdentity = ['resources', 'schema'].includes(args.operation) ? undefined : this.snapshotProofs.readingSourceIdentity();
     if (args.refresh && (!['quick', 'select'].includes(args.operation) || args.bundleId || args.expectedSnapshotVersion))
       throw new HarnessError('campus_snapshot_request', '刷新需要新的资源查询起点；固定快照、版本和原页导航仍保留原地址，本次没有把它们当作刷新。');
     if (!connector.available) return { status: 'unavailable', reason: connector.reason };
     if (args.operation === 'resources') {
-      const result = sanitize(await this.run(['resources'], signal));
+      const result = { ...sanitize(await this.run(['resources'], signal)), hostReadFacets: [{
+        source: 'host_adapter', model: 'exam_course_record', resource: 'exams', operation: 'read', pointer: examCourseRecordsPointer,
+        requires: ['bundleId'], optional: ['expectedSnapshotVersion', 'offset', 'limit'],
+        schema: { tool: 'look_up', arguments: { source: 'capability', capability: 'campus.query', arguments: { operation: 'schema', model: 'exam_course_record' } } },
+        meaning: '这是宿主对已保存考试课程原行的读取说明，不是连接器新增的查询资源，也没有读取正文。旧快照可能缺少这个路径；按原数组顺序独立分页，不提供筛选、组合或刷新。',
+      }] };
       const root = this.root();
       if (result.status !== 'ok' || !root) return result;
       try {
@@ -890,35 +1034,154 @@ export class ZjuAdapter {
           reason: '资源目录已读到，但连接器字段模型目录缺失或格式不符；未猜测模型名或读取个人资料。' } };
       }
     }
-    if (args.operation === 'schema') return sanitize(await this.run(['schema', args.model!], signal));
+    if (args.operation === 'schema') {
+      if (args.model === 'exam_course_record') return { status: 'ok', model: args.model, source: 'host_adapter', recordRead: false,
+        resource: 'exams', pointer: examCourseRecordsPointer, recordKind: 'exam_course_record',
+        fields: { id: '考试来源中的课程标识；缺失不补写', name: '来源课程名称', credit: '来源学分；缺失不填零',
+          semester_id: '该课程原行的学期标识', exams: '这条原行生成的考试对象，可能为零、一或两场；各保留type、时间文字、地点、座位和source_ref，解析不出的时间仍未知',
+          source_ref: '这条原行在原考试数据集中的位置',
+          schedule_state: 'published仅表示来源有非空考试时间文字并生成对象，不代表官方状态或时间已精确解析；no_exam_time_returned表示该原行没有返回时间文字，不证明不考试' },
+        meaning: '这是宿主对当前已存结构的说明，不是CLI已有字段模型或个人记录。read只接受这个精确根数组地址，按offset/limit返回完整原行；total_matches计课程原行，与考试对象数分开。旧快照缺路径与实际空数组分别保留。' };
+      return sanitize(await this.run(['schema', args.model!], signal));
+    }
     if (campusAcademicAcquisition('campus.query', args) && !acquisition?.allowAcademicSync)
       return { status: 'forbidden', acquisition: campusAcademicAcquisition('campus.query', args), recordRead: false,
         reason: '本次资源刷新与既存完整学业快照的本机归一化还没有用途准入，尚未采集。已有保存资料仍可用refresh=false按原资源和页地址读取。' };
-    const authenticated = await this.ensureAuthenticated(signal);
-    if (authenticated?.status !== 'ok') return { status: 'auth_required', reason: '校园会话尚未完成校验；没有读取这些资料。' };
-    const readingIdentity = this.snapshotProofs.readingSourceIdentity();
     const resource = args.resource || args.spec!.resource;
-    for (const id of [args.bundleId, args.fromBundle, args.toBundle].filter((id): id is string => !!id))
-      if (!readingIdentity || !await this.currentAccountHasBundle(id, signal))
-        return { status: 'forbidden', reason: '这份快照不在当前连接可核对的账号资料中，尚未读取这份结果。' };
-    if (args.expectedSnapshotVersion && (!args.bundleId || !this.snapshotProofs.matchesReadingVersion(args.bundleId, resource, args.expectedSnapshotVersion)))
-      return { status: 'conflict', snapshotChanged: true, recordRead: false, reason: '原页的数据版本在读取前已经不再对应，这次没有读取另一个版本来替代。' };
-    let bundle = args.bundleId, refreshHead: string | undefined, refreshIssues: string[] = [];
+    let bundle = args.bundleId, refreshHead: string | undefined, refreshIssues: string[] = [], resolvedAcademic = false;
     const academic = !['reservations', 'reservation_violations', 'card_accounts', 'transactions', 'student_profile', 'roles', 'activities'].includes(resource);
+    const singleResource = !args.spec?.join && (!args.spec?.resources || args.spec.resources.length === 1 && args.spec.resources[0] === resource);
+    const savedContract = this.savedModelContract();
+    const localCandidate = savedContract && !args.refresh && academic && singleResource && ['quick', 'select', 'read', 'diff'].includes(args.operation);
+    const localHistory = savedContract && !args.refresh && args.operation === 'history' && !args.bundleId && !args.fromBundle && !args.toBundle && !!readingIdentity;
+    let binding: SavedCampusBinding | undefined;
+    if (localCandidate && readingIdentity) {
+      if (['quick', 'select'].includes(args.operation) && !bundle) {
+        bundle = await this.resolveAcademicBundle(signal, args.academicYear || this.defaultAcademicYear(), args.term || this.defaultTerm());
+        resolvedAcademic = !!bundle;
+      }
+      const ids = args.operation === 'diff' ? [args.fromBundle, args.toBundle] : [bundle];
+      if (ids.every((id): id is string => !!id)) binding = await this.bindSavedBundles(resource, ids, readingIdentity, signal, true);
+    }
+    if (readingIdentity && this.snapshotProofs.readingSourceIdentity() !== readingIdentity)
+      return { status: 'forbidden', recordRead: false, reason: '读取前的账号或连接绑定变了，尚未读取个人记录。' };
+    let authentication: CampusAuthentication;
+    if (binding || localHistory) authentication = this.savedAuthentication();
+    else {
+      const authenticated = await this.ensureAuthenticated(signal);
+      if (authenticated?.status !== 'ok') return { status: authenticated?.status === 'conflict' ? 'conflict' : 'auth_required',
+        recordRead: false, reason: authenticated?.status === 'conflict' ? authenticated.error.message : '校园会话尚未完成校验；没有读取这些资料。' };
+      authentication = authenticated.authentication;
+    }
+    if (readingIdentity && this.snapshotProofs.readingSourceIdentity() !== readingIdentity)
+      return { status: 'forbidden', recordRead: false, reason: '认证期间的账号或连接绑定变了，尚未读取个人记录。' };
     if (['quick', 'select'].includes(args.operation) && academic && !bundle) {
       if (args.refresh) {
         const refreshed = await this.refreshAcademicResource(resource, signal, args.academicYear || this.defaultAcademicYear(), args.term || this.defaultTerm());
         if (!refreshed.bundle_id) return refreshed;
         bundle = refreshed.bundle_id; refreshHead = refreshed.refreshHead; refreshIssues = refreshed.refreshIssues;
-      } else bundle = await this.resolveAcademicBundle(signal, args.academicYear || this.defaultAcademicYear(), args.term || this.defaultTerm());
+      } else {
+        bundle = await this.resolveAcademicBundle(signal, args.academicYear || this.defaultAcademicYear(), args.term || this.defaultTerm());
+        resolvedAcademic = !!bundle;
+      }
       if (!bundle) return { status: 'partial', reason: '没有取得指定学期的完整快照。' };
+    }
+    const selected = [...new Set([bundle, args.fromBundle, args.toBundle].filter((id): id is string => !!id))];
+    for (const id of selected) if (!(id === bundle && resolvedAcademic) && !binding?.versions.some(item => item.bundleId === id)
+      && !await this.currentAccountHasBundle(id, signal))
+      return { status: 'forbidden', recordRead: false, reason: '这份快照不在当前连接可核对的账号资料中，尚未读取这份结果。' };
+    if (selected.length && readingIdentity) {
+      binding ||= await this.bindSavedBundles(resource, selected, readingIdentity, signal, academic);
+      if (binding && !this.savedBindingCurrent(binding))
+        return { status: 'conflict', snapshotChanged: true, recordRead: false, reason: '选定快照的账号或实际文件版本未能对应，尚未读取另一份资料。' };
+    }
+    if (examCourseRead && !binding)
+      return { status: 'forbidden', recordRead: false, reason: '当前账号与这份保存快照的实际文件版本尚未对应，没有读取考试课程原行。' };
+    if (args.expectedSnapshotVersion && (!args.bundleId || !this.snapshotProofs.matchesReadingVersion(args.bundleId, resource, args.expectedSnapshotVersion)))
+      return { status: 'conflict', snapshotChanged: true, recordRead: false, reason: '原页的数据版本在读取前已经不再对应，这次没有读取另一个版本来替代。' };
+    if (bundle && singleResource && ['quick', 'select'].includes(args.operation)) {
+      if (!binding && this.snapshotProofs.readingVersion(bundle, resource))
+        return { status: 'forbidden', recordRead: false, resource, bundle_id: bundle,
+          reason: '这份实际保存快照尚未与当前账号和资源类别建立绑定，本次没有改读另一份资料。' };
+      if (binding) {
+        const unavailable = await this.requireSavedResourceStructure(binding, bundle, resource, signal);
+        if (unavailable) return { ...unavailable, authentication, read_only: true };
+      }
     }
     let result: any;
     if (args.operation === 'history') {
       result = await this.run(['history', '--offset', String(args.offset), '--limit', String(args.limit)], signal);
       const sourceKind = academic ? 'academic' : resource === 'activities' ? 'learning' : 'source';
       if (Array.isArray(result.items)) result = { ...result, items: result.items.filter((item: any) => item.kind === sourceKind), requested_resource: resource, note: '只列匹配类别的快照元信息；分页仍沿原目录offset，空页不表示后面没有。' };
-    } else if (args.operation === 'read') result = await this.run(['read', '--bundle', args.bundleId!, '--pointer', args.pointer!, '--offset', String(args.offset), '--limit', String(args.limit)], signal);
+    } else if (args.operation === 'read') {
+      result = await this.run(['read', '--bundle', args.bundleId!, '--pointer', args.pointer!, '--offset', String(args.offset), '--limit', String(args.limit)], signal);
+      if (examCourseRead) {
+        const current = () => {
+          signal.throwIfAborted();
+          return !!binding && this.savedBindingCurrent(binding)
+            && (!args.expectedSnapshotVersion || this.snapshotProofs.matchesReadingVersion(args.bundleId!, resource, args.expectedSnapshotVersion));
+        };
+        if (!current()) return { status: 'conflict', snapshotChanged: true, recordRead: false,
+          reason: '读取期间的账号或保存快照版本变了，这份考试课程原行没有继续交付。' };
+        if (result.status === 'ok') {
+          const rows = result.data, total = result.total_items, end = args.offset + (Array.isArray(rows) ? rows.length : 0);
+          if (result.bundle_id !== args.bundleId || result.pointer !== examCourseRecordsPointer
+            || !Array.isArray(rows) || rows.some(row => !row || typeof row !== 'object' || Array.isArray(row))
+            || result.offset !== args.offset || !Number.isSafeInteger(total) || total < end
+            || (result.next_offset === null ? end !== total
+              : !rows.length || result.next_offset !== end || end >= total))
+            return { status: 'partial', recordRead: false, resource, recordKind: 'exam_course_record', bundle_id: args.bundleId,
+              reason: '原读取结果的数组或分页位置未能对应，这次没有把它当成空页或完整课程页。' };
+          // Fixed metadata pointers cannot attach a different latest bundle.
+          // Optional quality failures do not discard an otherwise valid page.
+          const readMetadata = async (pointer: string): Promise<{ changed?: true; value?: any }> => {
+            if (!current()) return { changed: true };
+            let value: any;
+            try { value = await this.run(['read', '--bundle', args.bundleId!, '--pointer', pointer, '--limit', '1'], signal); }
+            catch (error) { if (signal.aborted) throw error; }
+            return current() ? { value } : { changed: true };
+          };
+          const changed = () => ({ status: 'conflict', snapshotChanged: true, recordRead: false,
+            reason: '核对来源质量期间的账号或保存快照版本变了，这份考试课程原行没有继续交付。' });
+          const completenessPath = '/datasets/exams/completeness', collectedAtPath = '/datasets/exams/collected_at', freshnessPath = '/datasets/exams/freshness';
+          const completeness = await readMetadata(completenessPath);
+          if (completeness.changed) return changed();
+          const collected = await readMetadata(collectedAtPath);
+          if (collected.changed) return changed();
+          const freshness = await readMetadata(freshnessPath);
+          if (freshness.changed) return changed();
+          const matches = (value: any, pointer: string) => value?.status === 'ok' && value.bundle_id === args.bundleId && value.pointer === pointer
+            && value.nested_values_truncated !== true && value.truncated_for_model !== true;
+          const completeValue = completeness.value?.data, sourceAt = collected.value?.data, freshnessValue = freshness.value?.data;
+          const completeKnown = matches(completeness.value, completenessPath) && completeValue && typeof completeValue === 'object'
+            && !Array.isArray(completeValue) && typeof completeValue.complete === 'boolean';
+          const timeKnown = matches(collected.value, collectedAtPath) && typeof sourceAt === 'string' && Number.isFinite(Date.parse(sourceAt));
+          const freshnessAbsent = freshness.value?.status === 'error' && freshness.value.error?.code === 'POINTER_NOT_FOUND';
+          const freshnessKnown = matches(freshness.value, freshnessPath) && freshnessValue && typeof freshnessValue === 'object'
+            && !Array.isArray(freshnessValue) && typeof freshnessValue.stale === 'boolean';
+          const known = completeKnown && timeKnown && (freshnessAbsent || freshnessKnown);
+          const issues: string[] = [];
+          if (completeKnown && !completeValue.complete) issues.push('one_or_more_source_datasets_incomplete');
+          if (freshnessKnown && freshnessValue.stale) issues.push('using_cached_data_after_failed_refresh');
+          if (!known) issues.push('exam_source_quality_unknown');
+          const { data: _data, total_items: _total, ...page } = result;
+          result = { ...page, resource, recordKind: 'exam_course_record', records: rows, total_matches: total,
+            status: known && !issues.length ? 'ok' : 'partial',
+            coverage: { complete: !!known && !issues.length, issues, source_fetched_at: timeKnown ? { exams: sourceAt } : {}, scope: 'saved_exam_course_records',
+              sourceCompleteness: completeKnown ? completeValue.complete ? 'complete' : 'incomplete' : 'unknown',
+              sourceFreshness: freshnessAbsent ? 'not_recorded' : freshnessKnown ? freshnessValue.stale ? 'cached_after_failed_refresh' : 'recorded_not_stale' : 'unknown' } };
+        } else if (result.status === 'navigate_required') {
+          const { data: _data, total_items: total, ...navigation } = result;
+          result = { ...navigation, resource, recordKind: 'exam_course_record', recordRead: false,
+            ...(Number.isSafeInteger(total) && total >= 0 ? { total_matches: total } : {}) };
+        } else {
+          // A missing path is the original read failure, even when the caller
+          // pinned a valid bundle version. It is neither an empty page nor a
+          // snapshot conflict caused by the absence of a success-only proof.
+          return { ...sanitize(result), resource, recordKind: 'exam_course_record', recordRead: false, authentication, read_only: true };
+        }
+      }
+    }
     else if (args.operation === 'diff') result = await this.run(['diff', '--from-bundle', args.fromBundle!, '--to-bundle', args.toBundle!, '--resource', resource, '--offset', String(args.offset), '--limit', String(args.limit), ...(args.fields?.length ? ['--fields', args.fields.join(',')] : [])], signal);
     else if (args.operation === 'quick' && !args.spec) result = await this.run(['quick', resource, ...(bundle ? ['--bundle', bundle] : []), '--offset', String(args.offset), '--limit', String(args.limit), ...(args.fields?.length ? ['--fields', args.fields.join(',')] : []), ...(args.refresh && !academic ? ['--refresh'] : [])], signal, args.refresh ? 85000 : 35000);
     else {
@@ -936,16 +1199,27 @@ export class ZjuAdapter {
     // only the root bundle ID. Until it identifies every adopted bundle, a
     // root receipt must not claim to version the whole composite result.
     const composite = !!args.spec?.join || (args.spec?.resources?.length || 0) > 1;
+    const truncated = { value: false };
     const safe = sanitize(composite ? { ...result, snapshotProofStatus: 'not_issued_composite_sources_unresolved' }
-      : await this.withSnapshotProof(result, resource, signal));
+      : await this.withSnapshotProof(result, resource, signal), '', 0, truncated);
+    if (truncated.value) safe.nested_values_truncated = true;
     if (refreshHead && this.snapshotProofs.headStamp(resource) !== refreshHead)
       return { status: 'conflict', snapshotChanged: true, recordRead: false, reason: '刷新后当前latest又有变化，本次没有把另一版本当作这次更新的连续结果。' };
-    if (!readingIdentity || this.snapshotProofs.readingSourceIdentity() !== readingIdentity)
+    if (readingIdentity && this.snapshotProofs.readingSourceIdentity() !== readingIdentity)
       return { status: 'forbidden', reason: '读取期间的账号或连接绑定变了，这份结果没有继续交付。' };
+    if (binding && !this.savedBindingCurrent(binding))
+      return { status: 'conflict', snapshotChanged: true, recordRead: false, reason: '选定快照的实际文件版本在读取期间改变，这份结果没有继续交付。' };
     if (args.expectedSnapshotVersion && safe.snapshotProof?.version !== args.expectedSnapshotVersion)
       return { status: 'conflict', bundle_id: bundle, snapshotChanged: true, reason: '原数据版本未能对应；这次没有把新版本当成原来的连续页。' };
-    if (Buffer.byteLength(JSON.stringify(safe)) > 110000) return { status: 'navigate_required', resource, bundle_id: safe.bundle_id || bundle, offset: args.offset, reason: '结果超出单次读取预算，原数据未截短。请减少字段或limit并继续分页。', coverage: safe.coverage, total_matches: safe.total_matches };
-    return { ...safe, authenticated_at: this.describe().lastVerifiedAt, read_only: true, observed_change_not_publication_time: args.operation === 'diff' };
+    if (safe.status === 'navigate_required' || Buffer.byteLength(JSON.stringify(safe)) > 110000) return { status: 'navigate_required', recordRead: false, resource,
+      bundle_id: safe.bundle_id || bundle, offset: args.spec?.offset ?? args.offset,
+      snapshotProof: safe.snapshotProof, expectedSnapshotVersion: safe.snapshotProof?.version, total_matches: safe.total_matches, authentication,
+      ...(safe.recordKind === 'exam_course_record' ? { recordKind: safe.recordKind } : {}),
+      ...(safe.truncated_for_model === true ? { truncated_for_model: true } : {}),
+      ...(safe.nested_values_truncated === true ? { nested_values_truncated: true } : {}),
+      reason: safe.reason || safe.message || '结果超出单次读取预算，本次没有交付正文。原资料仍保留，可减少字段或limit后从同一位置读取。' };
+    return { ...safe, authentication: localHistory && safe.status !== 'ok' ? undefined : authentication,
+      read_only: true, observed_change_not_publication_time: args.operation === 'diff' };
   }
 
   /** Host-only planner/provenance check. Model-supplied hashes are not receipts. */
@@ -1000,18 +1274,21 @@ export class ZjuAdapter {
 
   async fullContext(args: CampusFullContextArgs, signal: AbortSignal, acquisition?: CampusAcquisition) {
     const connector = this.describe();
-    if (!connector.available) return { status: 'unavailable', connector, reason: connector.reason };
+    const readingIdentity = this.snapshotProofs.readingSourceIdentity();
+    if (!connector.available) return { status: 'unavailable', connector, reason: connector.reason, authentication: undefined };
     if (!connector.credentialsConfigured)
-      return { status: 'auth_required', connector, reason: '请先在本机保存浙大统一身份认证信息。' };
+      return { status: 'auth_required', connector, reason: '请先在本机保存浙大统一身份认证信息。', authentication: undefined };
     if (args.refresh && !acquisition?.allowAcademicSync) return { status: 'forbidden', recordRead: false,
-      acquisition: campusAcademicAcquisition('campus.overview', args), reason: '这次刷新涉及整份学业来源；当前可继续读取已保存、已准入的资料。' };
-    const authenticated = await this.ensureAuthenticated(signal);
-    if (authenticated?.status !== 'ok')
-      return {
-        status: authenticated?.status === 'auth_required' ? 'auth_required' : 'failed',
-        connector: this.describe(),
-        reason: '浙大统一身份认证没有完成，本次没有读取个人资料。',
-      };
+      acquisition: campusAcademicAcquisition('campus.overview', args), reason: '这次刷新涉及整份学业来源；当前可继续读取已保存、已准入的资料。', authentication: undefined };
+    let authentication: CampusAuthentication | { mode: 'per_resource' } = { mode: 'per_resource' };
+    if (args.refresh) {
+      const authenticated = await this.ensureAuthenticated(signal);
+      if (authenticated?.status !== 'ok') return { status: authenticated?.status === 'conflict' ? 'conflict' : authenticated?.status === 'auth_required' ? 'auth_required' : 'failed',
+        connector: this.describe(), reason: authenticated?.status === 'conflict' ? authenticated.error.message : '浙大统一身份认证没有完成，本次没有读取个人资料。', authentication: undefined };
+      authentication = authenticated.authentication;
+    }
+    if (readingIdentity && this.snapshotProofs.readingSourceIdentity() !== readingIdentity)
+      return { status: 'forbidden', recordRead: false, reason: '账号或连接绑定已经变化，尚未继续读取校园资料。', authentication: undefined };
     const started = Date.now();
     const batches: any[] = [];
     // Broker capabilities are bounded to 90 seconds. Cached quick queries are
@@ -1086,6 +1363,8 @@ export class ZjuAdapter {
     const status = budgetExhausted || missingScopes.length || hasIncomplete || batchStatuses.some(s => ['error', 'auth_required', 'unavailable'].includes(s))
       ? 'partial'
       : batchStatuses.includes('partial') ? 'partial' : 'ok';
+    if (readingIdentity && this.snapshotProofs.readingSourceIdentity() !== readingIdentity)
+      return { status: 'forbidden', recordRead: false, reason: '读取期间的账号或连接绑定变了，分域结果没有继续交付。', authentication: undefined };
     return {
       status,
       connector,
@@ -1097,7 +1376,8 @@ export class ZjuAdapter {
       expectedScopes,
       source: 'zju-student-info complete encrypted datasets via quick/academic',
       origin: 'zju_account',
-      authenticatedAt: this.describe().lastVerifiedAt,
+      authentication,
+      lastSsoVerifiedAt: this.describe().lastVerifiedAt,
       batches,
       note: '这是本人浙大账号产生的完整加密数据集分域索引；模型只收到每个分域的必要摘要，原始字段与完整分页仍在技能的本机加密库中。预约、签到、支付和修改资料均未执行。',
     };
@@ -1116,6 +1396,7 @@ export class ZjuAdapter {
 
   async read(args: CampusReadArgs, signal: AbortSignal, acquisition?: CampusAcquisition) {
     const connector = this.describe();
+    const readingIdentity = DOMAIN_RESOURCE[args.domain] ? this.snapshotProofs.readingSourceIdentity() : undefined;
     if (!connector.available)
       return {
         domain: args.domain,
@@ -1143,33 +1424,42 @@ export class ZjuAdapter {
         connector,
         data: { status: 'auth_required', reason: '请先在本机保存浙大统一身份认证信息。', origin: 'zju_account' },
       };
-    const authenticated = await this.ensureAuthenticated(signal);
-    if (authenticated?.status !== 'ok')
-      return {
-        domain: args.domain,
-        label: DOMAIN_LABEL[args.domain],
-        cached: !args.refresh,
-        connector: this.describe(),
-        data: {
-          status: authenticated?.status === 'auth_required' ? 'auth_required' : 'failed',
-          reason: '浙大统一身份认证没有完成，本次没有读取个人资料。',
-          origin: 'zju_account',
-        },
-      };
     const resource = DOMAIN_RESOURCE[args.domain];
     if (!resource) throw new Error('该校园资料类别暂未接入。');
     const academicYear = args.academicYear || this.defaultAcademicYear();
     const term = args.term || this.defaultTerm();
     if (args.bundleId && (!/^[a-f0-9]{32}$/.test(args.bundleId) || args.refresh))
       throw new HarnessError('campus_snapshot_request', '固定快照读取和刷新是两种查询；原快照地址保留原版本，刷新会建立新的查询起点。');
-    const readingIdentity = this.snapshotProofs.readingSourceIdentity();
-    if (args.bundleId && (['learning_courses', 'activities'].includes(args.domain) || !readingIdentity || !await this.currentAccountHasBundle(args.bundleId, signal)))
+    let academicBundle: string | undefined = args.bundleId, binding: SavedCampusBinding | undefined, resolvedAcademic = false;
+    if (this.savedModelContract() && !args.refresh && ACADEMIC_RESOURCES.has(args.domain) && readingIdentity) {
+      if (!academicBundle) {
+        academicBundle = await this.resolveAcademicBundle(signal, academicYear, term);
+        resolvedAcademic = !!academicBundle;
+      }
+      if (academicBundle) binding = await this.bindSavedBundles(resource, [academicBundle], readingIdentity, signal, true);
+    }
+    if (readingIdentity && this.snapshotProofs.readingSourceIdentity() !== readingIdentity)
+      return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: !args.refresh, connector: this.describe(),
+        data: { status: 'forbidden', recordRead: false, reason: '读取前的账号或连接绑定变了，尚未读取个人记录。', origin: 'zju_account' } };
+    let authentication: CampusAuthentication;
+    if (binding) authentication = this.savedAuthentication();
+    else {
+      const authenticated = await this.ensureAuthenticated(signal);
+      if (authenticated?.status !== 'ok') return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: !args.refresh,
+        connector: this.describe(), data: { status: authenticated?.status === 'conflict' ? 'conflict' : authenticated?.status === 'auth_required' ? 'auth_required' : 'failed', recordRead: false,
+          reason: authenticated?.status === 'conflict' ? authenticated.error.message : '浙大统一身份认证没有完成，本次没有读取个人资料。', origin: 'zju_account' } };
+      authentication = authenticated.authentication;
+    }
+    if (readingIdentity && this.snapshotProofs.readingSourceIdentity() !== readingIdentity)
+      return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: !args.refresh, connector: this.describe(),
+        data: { status: 'forbidden', recordRead: false, reason: '认证期间的账号或连接绑定变了，尚未读取个人记录。', origin: 'zju_account' } };
+    if (args.bundleId && (['learning_courses', 'activities'].includes(args.domain) || !await this.currentAccountHasBundle(args.bundleId, signal)))
       return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false, connector: this.describe(),
         data: { status: 'forbidden', reason: '这个原快照地址未能与当前账号和记录类别对应，本次没有读取其正文。', origin: 'zju_account' } };
     if (args.expectedSnapshotVersion && (!args.bundleId || !this.snapshotProofs.matchesReadingVersion(args.bundleId, resource, args.expectedSnapshotVersion)))
       return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false, connector,
         data: { status: 'conflict', snapshotChanged: true, recordRead: false, reason: '原页的数据版本在读取前已经不再对应，尚未读取另一个版本来替代。', origin: 'zju_account' } };
-    let academicBundle: string | undefined = args.bundleId, refreshHead: string | undefined, refreshIssues: string[] = [];
+    let refreshHead: string | undefined, refreshIssues: string[] = [];
     if (ACADEMIC_RESOURCES.has(args.domain)) {
       if (args.bundleId) {
         academicBundle = args.bundleId;
@@ -1178,8 +1468,9 @@ export class ZjuAdapter {
         if (!refreshed.bundle_id) return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false,
           connector: this.describe(), data: { ...refreshed, origin: 'zju_account' } };
         academicBundle = refreshed.bundle_id; refreshHead = refreshed.refreshHead; refreshIssues = refreshed.refreshIssues;
-      } else {
+      } else if (!academicBundle) {
         academicBundle = await this.resolveAcademicBundle(signal, academicYear, term);
+        resolvedAcademic = !!academicBundle;
       }
       if (!academicBundle)
         return {
@@ -1193,6 +1484,16 @@ export class ZjuAdapter {
             origin: 'zju_account',
           },
         };
+    }
+    if (academicBundle) {
+      if (!resolvedAcademic && !binding?.versions.some(item => item.bundleId === academicBundle)
+        && !await this.currentAccountHasBundle(academicBundle, signal))
+        return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: !args.refresh, connector: this.describe(),
+          data: { status: 'forbidden', recordRead: false, reason: '选定快照不在当前账号资料中，尚未读取其正文。', origin: 'zju_account' } };
+      binding ||= await this.bindSavedBundles(resource, [academicBundle], readingIdentity, signal, ACADEMIC_RESOURCES.has(args.domain));
+      if (binding && !this.savedBindingCurrent(binding))
+        return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: !args.refresh, connector: this.describe(),
+          data: { status: 'conflict', snapshotChanged: true, recordRead: false, reason: '选定快照的实际文件版本未能对应，尚未读取另一份资料。', origin: 'zju_account' } };
     }
     let learningBundle: string | undefined;
     if (args.domain === 'activities') {
@@ -1225,6 +1526,10 @@ export class ZjuAdapter {
         learningBundle = String(learned.bundle_id);
         this.learningBundles.set(args.courseId, learningBundle);
       }
+      if (!await this.currentAccountHasBundle(learningBundle, signal))
+        return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false, connector: this.describe(),
+          data: { status: 'forbidden', recordRead: false, reason: '选定课程快照不在当前账号资料中，尚未读取其正文。', origin: 'zju_account' } };
+      binding = await this.bindSavedBundles(resource, [learningBundle], readingIdentity, signal, false);
       const activityPage = await this.run(
         [
           'read',
@@ -1255,7 +1560,7 @@ export class ZjuAdapter {
         nested_values_truncated: false,
       };
       const compactActivities = compactResult(activityResult, args.domain);
-      if (!readingIdentity || this.snapshotProofs.readingSourceIdentity() !== readingIdentity)
+      if (readingIdentity && this.snapshotProofs.readingSourceIdentity() !== readingIdentity || binding && !this.savedBindingCurrent(binding))
         return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false, connector: this.describe(),
           data: { status: 'forbidden', reason: '读取期间的账号或连接绑定变了，这份结果没有继续交付。' } };
       return {
@@ -1268,10 +1573,21 @@ export class ZjuAdapter {
             ? compactActivities
             : { result: compactActivities }),
           origin: 'zju_account',
-          authenticated_at: this.describe().lastVerifiedAt,
+          authentication,
           course_id: args.courseId,
         },
       };
+    }
+    if (academicBundle) {
+      if (!binding && this.snapshotProofs.readingVersion(academicBundle, resource))
+        return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: !args.refresh, connector: this.describe(),
+          data: { status: 'forbidden', recordRead: false,
+            reason: '这份实际保存快照尚未与当前账号和资源类别建立绑定，本次没有改读另一份资料。', origin: 'zju_account' } };
+      if (binding) {
+        const unavailable = await this.requireSavedResourceStructure(binding, academicBundle, resource, signal);
+        if (unavailable) return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: !args.refresh,
+          connector: this.describe(), data: { ...unavailable, authentication, origin: 'zju_account' } };
+      }
     }
     const cli = ['quick', resource];
     if (academicBundle) cli.push('--bundle', academicBundle);
@@ -1289,7 +1605,7 @@ export class ZjuAdapter {
     const fields = args.fields?.length ? args.fields : SUMMARY_FIELDS[args.domain];
     if (fields?.length) cli.push('--fields', fields.join(','));
     for (const filter of args.filters || []) cli.push('--filter', filter);
-    if (args.sort) cli.push('--sort', args.sort);
+    if (args.sort) cli.push(`--sort=${args.sort}`);
     cli.push('--limit', String(Math.min(50, Math.max(1, args.limit || 8))));
     cli.push('--offset', String(Math.max(0, args.offset || 0)));
     if (args.refresh && !ACADEMIC_RESOURCES.has(args.domain)) cli.push('--refresh');
@@ -1301,9 +1617,12 @@ export class ZjuAdapter {
     if (refreshHead && this.snapshotProofs.headStamp(resource) !== refreshHead)
       return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false, connector: this.describe(),
         data: { status: 'conflict', snapshotChanged: true, recordRead: false, reason: '刷新后当前latest又有变化，本次没有把另一版本当作这次更新的连续结果。', origin: 'zju_account' } };
-    if (!readingIdentity || this.snapshotProofs.readingSourceIdentity() !== readingIdentity)
+    if (readingIdentity && this.snapshotProofs.readingSourceIdentity() !== readingIdentity)
       return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false, connector: this.describe(),
         data: { status: 'forbidden', reason: '读取期间的账号或连接绑定变了，这份结果没有继续交付。', origin: 'zju_account' } };
+    if (binding && !this.savedBindingCurrent(binding))
+      return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: !args.refresh, connector: this.describe(),
+        data: { status: 'conflict', snapshotChanged: true, recordRead: false, reason: '选定快照的实际文件版本在读取期间改变，这份结果没有继续交付。', origin: 'zju_account' } };
     if (args.expectedSnapshotVersion && versioned.snapshotProof?.version !== args.expectedSnapshotVersion)
       return { domain: args.domain, label: DOMAIN_LABEL[args.domain], cached: false, connector: this.describe(),
         data: { status: 'conflict', snapshotChanged: true, reason: '原数据版本未能对应；这次没有把新版本当成原来的连续页。', origin: 'zju_account' } };
@@ -1316,7 +1635,7 @@ export class ZjuAdapter {
       data: {
         ...(compact && typeof compact === 'object' ? compact : { result: compact }),
         origin: 'zju_account',
-        authenticated_at: this.describe().lastVerifiedAt,
+        authentication,
       },
     };
   }
@@ -1345,25 +1664,69 @@ export class ZjuAdapter {
   async availability(from: string | undefined, to: string | undefined, signal: AbortSignal) {
     const start = from || new Date().toISOString();
     const end = to || new Date(Date.parse(start) + 7 * 24 * 60 * 60 * 1000).toISOString();
-    const result = await this.read(
-      { domain: 'schedule', from: start, to: end, timeMode: 'overlap', limit: 50 },
-      signal,
-    );
-    const data: any = result.data || {};
-    const intervals = (Array.isArray(data.records) ? data.records : [])
-      .filter((record: any) => typeof record?.startTime === 'string' && typeof record?.endTime === 'string')
-      .map((record: any) => ({ start: record.startTime, end: record.endTime }));
-    const complete = data.coverage?.complete === true;
+    const startMs = Date.parse(start), endMs = Date.parse(end);
+    const identity = this.snapshotProofs.readingSourceIdentity();
+    const request = { domain: 'schedule' as const, from: start, to: end, timeMode: 'overlap' as const,
+      fields: ['uid', 'startTime', 'endTime'], limit: 50 };
+    let data: any = (await this.read(request, signal)).data || {};
+    const proof = data.snapshotProof as CampusSnapshotProof | undefined;
+    const reading = proof && this.captureReadingProof(proof);
+    const intervals: { start: string; end: string }[] = [], seen = new Set<string>(), sourceTimes: string[] = [];
+    let complete = true, offset = 0, total: number | undefined;
+    while (true) {
+      signal.throwIfAborted();
+      if (!['ok', 'partial'].includes(data.status) || !Array.isArray(data.records)) { complete = false; break; }
+      const rows = data.records;
+      if (!Number.isSafeInteger(data.total_matches) || data.total_matches < 0 || data.offset !== offset
+        || total !== undefined && total !== data.total_matches) { complete = false; break; }
+      total = data.total_matches;
+      const next = offset + rows.length;
+      if (data.next_offset === null ? next !== total
+        : !rows.length || data.next_offset !== next || next >= data.total_matches) { complete = false; break; }
+      if (data.status !== 'ok' || data.coverage?.complete !== true || data.truncated_for_model === true
+        || data.nested_values_truncated === true) complete = false;
+      for (const row of rows) {
+        if (typeof row?.uid !== 'string' || seen.has(row.uid)) { complete = false; continue; }
+        seen.add(row.uid);
+        if (typeof row.startTime !== 'string' || typeof row.endTime !== 'string'
+          || !Number.isFinite(Date.parse(row.startTime)) || !Number.isFinite(Date.parse(row.endTime))
+          || Date.parse(row.endTime) <= Date.parse(row.startTime)) { complete = false; continue; }
+        const lo = Math.max(startMs, Date.parse(row.startTime)), hi = Math.min(endMs, Date.parse(row.endTime));
+        if (lo >= hi) { complete = false; continue; }
+        intervals.push({ start: new Date(lo).toISOString(), end: new Date(hi).toISOString() });
+      }
+      sourceTimes.push(...Object.values(data.coverage?.source_fetched_at || {})
+        .filter((value): value is string => typeof value === 'string' && Number.isFinite(Date.parse(value))),
+        ...(typeof data.fetched_at === 'string' && Number.isFinite(Date.parse(data.fetched_at)) ? [data.fetched_at] : []));
+      if (data.next_offset === null) break;
+      if (!reading || !proof) { complete = false; break; }
+      offset = next;
+      try { data = (await this.read({ ...request, offset, bundleId: proof.bundleId, expectedSnapshotVersion: proof.version }, signal)).data || {}; }
+      catch (error) { if (signal.aborted) throw error; complete = false; break; }
+      if (data.snapshotProof?.bundleId !== proof.bundleId || data.snapshotProof?.version !== proof.version) { complete = false; break; }
+    }
+    const sameSavedHead = () => !!identity && !!reading && this.snapshotProofs.readingSourceIdentity() === identity
+      && this.readingState(reading) === 'same_saved_head';
+    if (complete && proof && sameSavedHead()) {
+      try {
+        const quality = await this.readPlanningQuality(proof, signal);
+        if (quality.status !== 'ok' || !quality.generatedAllResolvableRules || quality.unresolvedRuleCount !== 0) complete = false;
+      } catch (error) { if (signal.aborted) throw error; complete = false; }
+    }
+    const current = sameSavedHead();
+    if (!current) complete = false;
+    const fetchedAt = sourceTimes.sort((a, b) => Date.parse(a) - Date.parse(b))[0];
     return {
       participant: '本人',
-      busyIntervals: intervals,
+      busyIntervals: current ? intervals : [],
       status: complete ? 'fresh' : 'unknown',
       sourceId: CAMPUS_ACCOUNT_SOURCE_ID,
-      fetchedAt: data.authenticated_at || data.fetched_at,
+      fetchedAt,
       coverage: { complete, scope: '[本人浙大账号的忙闲投影]', until: end },
       window: { from: start, to: end },
-      meaning: '这些时段确定忙，绝不是可约时间；只能用于排除，不能原样写成有空。',
-      reason: complete ? undefined : '课表范围或调课信息不完整，不能把空白时段当成确定有空。',
+      meaning: '这些是已保存课表里的计划上课时段，可供排除；列表之外不等于本人有空，也不证明实际出席。',
+      reason: complete ? undefined : current ? '课表来源或分页还不完整，不能把剩下的时段当作确定有空。'
+        : '读取期间账号或课表快照有变化，这次没有沿旧资料给出忙闲结论。',
     };
   }
 }

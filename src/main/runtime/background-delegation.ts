@@ -113,13 +113,18 @@ export class BackgroundDelegation {
     const methodChanged = (worker.run.pack?.receipt.personalMethodSources || []).some(source =>
       this.runtime.repo.verifyPersonalMethodSources?.(this.run.ingress.contract.scope, source) !== true);
     const notesChanged = !this.runtime.repo.noteSourcesReadable(this.run.ingress.contract.scope, worker.run.pack?.receipt.noteSources || []);
+    const spatialChanged = !this.runtime.repo.spatialSourcesReadable(worker.run.ingress.contract.scope, worker.run.pack?.receipt.spatialSources)
+      || !this.runtime.repo.spatialSourcesReadable(this.run.ingress.contract.scope, worker.run.pack?.receipt.spatialSources);
     const releasesChanged = this.runtime.repo.verifyReleaseSources?.(this.run.ingress.contract.scope,
       worker.run.pack?.receipt.releaseSources || [], false, { checked: new Map() }) !== true;
     const programSources = worker.run.pack?.receipt.interactiveProgramSources || [];
     const programsChanged = programSources.length > 0 && this.runtime.repo.verifyInteractiveProgramSources?.(this.run.ingress.contract.scope, programSources) !== true;
     const campusChanged = this.runtime.repo.verifyCampusSensitiveReads?.(this.run.ingress.contract.scope, worker.run.pack?.receipt.campusSensitiveReads || []) !== true;
     const campusSourcesChanged = this.runtime.repo.verifyCampusReadingProofs?.(this.run.ingress.contract.scope, worker.run.pack?.receipt.campusReadingSources || []) !== true;
-    return !stopped && !methodChanged && !notesChanged && !releasesChanged && !programsChanged && !campusChanged && !campusSourcesChanged && !worker.run.dependencyNotices?.length;
+    const materialNavigationChanged = !this.runtime.repo.materialNavigationSourcesReadable(this.run.ingress.contract.scope,
+      worker.run.pack?.receipt.materialNavigationSources);
+    return !stopped && !methodChanged && !notesChanged && !spatialChanged && !releasesChanged && !programsChanged && !campusChanged
+      && !campusSourcesChanged && !materialNavigationChanged && !worker.run.dependencyNotices?.length;
   }
   private fail(worker: Worker) { worker.metadata.status = 'failed'; }
   private failedRow(id: string) {
@@ -286,6 +291,16 @@ export class BackgroundDelegation {
         ready.add(worker);
       }
     }
+    // Earlier workers may have waited while later ones were checked. Recheck
+    // these source families synchronously before adopting any selected report.
+    for (const worker of ready) if (!this.runtime.repo.materialNavigationSourcesReadable(worker.run.ingress.contract.scope,
+      worker.run.pack?.receipt.materialNavigationSources)
+      || !this.runtime.repo.materialNavigationSourcesReadable(this.run.ingress.contract.scope, worker.run.pack?.receipt.materialNavigationSources)
+      || !this.runtime.repo.spatialSourcesReadable(worker.run.ingress.contract.scope, worker.run.pack?.receipt.spatialSources)
+      || !this.runtime.repo.spatialSourcesReadable(this.run.ingress.contract.scope, worker.run.pack?.receipt.spatialSources)) {
+      this.fail(worker);
+      throw new HarnessError('stale_child_result', '接回这份调查之前，原来采用的一处来源已经变化，旧报告没有继续采用。');
+    }
     const observations = [...(this.run.observations || [])];
     for (const worker of ready) for (const observation of worker.run.observations || []) {
       if (!observation.toolCallId || !worker.deliveredObservations.has(observation.toolCallId)) continue;
@@ -315,10 +330,12 @@ export class BackgroundDelegation {
         this.runtime.context.recordReleaseSources(this.pack, receipt.releaseSources || []);
         this.runtime.context.recordPersonalMethodSources(this.pack, receipt.personalMethodSources || []);
         this.runtime.context.recordNoteSources(this.pack, receipt.noteSources || []);
+        this.runtime.context.recordSpatialSources(this.pack, receipt.spatialSources || []);
         this.runtime.context.recordImageSourceVersions(this.pack, providedImageVersions(receipt));
         this.runtime.context.recordCampusSensitiveReads(this.pack, receipt.campusSensitiveReads || []);
         this.runtime.context.recordCampusSourceProofs(this.pack, receipt.campusReadingSources || [], !!receipt.campusReadingIncomplete);
         this.runtime.context.recordInteractiveProgramSources(this.pack, receipt.interactiveProgramSources || []);
+        this.runtime.context.recordMaterialNavigationSources(this.pack, receipt.materialNavigationSources || []);
     }
   }
 

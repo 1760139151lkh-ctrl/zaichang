@@ -20,6 +20,8 @@ import type {
   CampusReadingAddress,
   CampusSavedReadingProof,
   ReleaseSource,
+  MemoryReferenceContext,
+  MaterialNavigationProof,
 } from '../../shared/harness';
 import { always, HarnessError, interactiveProgramSourceSchema, planningMaterialProvenanceSchema } from '../../shared/harness';
 import type { KernelRepository } from '../storage/repository';
@@ -45,8 +47,10 @@ import type { SemanticRecallService, SemanticRecallResult } from '../memory/sema
 import type { PersonalMethodSources } from '../../shared/personal-method';
 import type { CampusSensitiveRead } from '../../shared/campus-academic';
 import type { NoteSourceProof } from '../../shared/notes-source';
+import { spatialSourceProofSchema, type SpatialSourceProof } from '../../shared/spatial-source';
 import type { CampusSnapshotProof } from '../capabilities/campus-saved-source';
 import { campusQueryOnSnapshot, campusQueryContinuation, campusQueryGrants, validateCampusQuery } from '../capabilities/campus-query';
+import type { MaterialReadNavigation } from '../materials/service';
 
 export interface LifeContinuityContext {
   data: Record<string, unknown>;
@@ -96,6 +100,7 @@ export class ContextCompiler {
   private campusReadingOwner?: { capture: (proof: CampusSnapshotProof) => CampusSavedReadingProof | undefined;
     state: (proof: CampusSavedReadingProof) => 'same_saved_head' | 'historical_snapshot' | 'unavailable';
     resource: (domain: string) => string | undefined };
+  private materialReadingOwner?: (scope: ScopeHandle, read: unknown, sessionId: string) => MaterialReadNavigation | undefined;
   constructor(
     readonly repo: KernelRepository,
     readonly policy: PolicyKernel,
@@ -115,7 +120,60 @@ export class ContextCompiler {
     this.lifeContinuity = provider;
   }
   setCampusReadingOwner(owner: NonNullable<ContextCompiler['campusReadingOwner']>) { this.campusReadingOwner = owner; }
+  setMaterialReadingOwner(owner: NonNullable<ContextCompiler['materialReadingOwner']>) { this.materialReadingOwner = owner; }
   setWorkSourceOwner(owner: NonNullable<ContextCompiler['workSourceOwner']>) { this.workSourceOwner = owner; }
+  recordMaterialNavigationSources(pack: ContextPack | undefined, sources: MaterialNavigationProof[]) {
+    if (!pack || !sources.length) return;
+    if (!this.repo.materialNavigationSourcesReadable(pack.contract.scope, sources))
+      throw new HarnessError('material_navigation_changed', '原材料地址的一处来由已改变，需要回到当前原件再确认。');
+    pack.receipt.materialNavigationSources = [...new Map([...(pack.receipt.materialNavigationSources || []), ...sources]
+      .map(source => [canonical(source), structuredClone(source)])).values()];
+    pack.receipt.providedEvidenceIds = [...new Set([...pack.receipt.providedEvidenceIds, ...sources.map(source => source.sourceEventId)])];
+    pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'history:self', ...sources.map(source => 'file:' + source.sourceEventId)])];
+    this.recordObjects(pack, sources.map(source => ({ id: source.sourceEventId, revision: source.sourceContentVersion })), 'evidence');
+    // Source dependencies only; no document read, pixel request or exact
+    // original-body range is recorded by a navigation projection.
+    this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+  }
+  /** Address metadata only. Its purpose is qualified by the caller; neither a
+   * prior host access nor this projection supplies a document body or pixels. */
+  restoreMaterialReading(pack: ContextPack, readScope: ScopeHandle, sessionId: string, messageIds?: string[]) {
+    if (!this.materialReadingOwner) return;
+    const candidates = this.repo.conversationMaterialReadCandidates(readScope, sessionId, { messageIds,
+      excludeIds: pack.evidence.map(event => event.id), limit: messageIds ? 6 : 1 });
+    type Item = MaterialReadNavigation & { messageId: string; receiptId: string; messageCreatedAt: string; messageOrdinal: number;
+      sessionId: string; replyState?: MemoryReferenceContext['replyState'] };
+    const items: Item[] = [];
+    for (const candidate of candidates) for (const read of candidate.reads) {
+      const navigation = this.materialReadingOwner(readScope, read, sessionId);
+      if (!navigation) continue;
+      items.push({ ...navigation, messageId: candidate.messageId, receiptId: candidate.receiptId, messageCreatedAt: candidate.messageCreatedAt,
+        messageOrdinal: candidate.messageOrdinal, sessionId, ...(candidate.replyState ? { replyState: candidate.replyState } : {}) });
+    }
+    if (!items.length) return;
+    this.recordMaterialNavigationSources(pack, items.map(item => ({ messageId: item.messageId, sessionId,
+      receiptId: item.receiptId, accessSha256: item.accessSha256, resourceId: item.resourceId,
+      sha256: item.source.sha256, version: item.source.version, sourceEventId: item.source.sourceEventId,
+      sourceContentVersion: item.source.contentVersion, parentEventId: item.source.parentEventId, metadataOnly: true })));
+    const prior = pack.data.materialReading as { items?: Item[] } | undefined;
+    const combined = [...new Map([...(prior?.items || []), ...items].map(item => [canonical({
+      messageId: item.messageId, resourceId: item.resourceId, source: item.source, priorAccess: item.priorAccess,
+    }), item])).values()];
+    const latest = combined.reduce((last, item) => item.messageOrdinal > last.messageOrdinal ? item : last);
+    const latestItems = combined.filter(item => item.messageId === latest.messageId);
+    const orderKnown = latestItems.every(item => Number.isSafeInteger(item.priorAccess.readOrdinal))
+      && new Set(latestItems.map(item => item.priorAccess.readOrdinal)).size === latestItems.length;
+    const mostRecent = orderKnown ? latestItems.reduce((last, item) => item.priorAccess.readOrdinal! > last.priorAccess.readOrdinal! ? item : last) : undefined;
+    const value = { items: combined, latestReplyWithAccess: { messageId: latest.messageId,
+      messageCreatedAt: latest.messageCreatedAt, accessOrder: orderKnown ? 'recorded' : 'unknown' },
+      ...(mostRecent ? { mostRecentAccess: { resourceId: mostRecent.resourceId, source: mostRecent.source,
+        priorAccess: mostRecent.priorAccess } } : {}),
+      meaning: '这里留着这段对话所用材料的原地址和此前查看的位置，文件身份与版本已按这次允许的范围核过。名称和旧位置帮你认清所指，原文和页面图片没有随地址带来。latestReplyWithAccess是最近一条有材料访问记录的回复，是否相关仍由你结合眼前的话判断。mostRecentAccess只在原记录有明确先后时提供；旧记录顺序不全时，停在哪里仍未知，页码或位置大小不能补出顺序。需要继续阅读时，各个入口会按对方这次的意思和范围取得相应内容。' };
+    pack.data.materialReading = value;
+    const bytes = Buffer.byteLength(canonical({ items }));
+    pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += Math.ceil(bytes / 2.5);
+    return value;
+  }
   /** These are actual tool reads; no claim that their rows were understood or
    * that a later page has been read. The message remains their source owner. */
   recordCampusReading(pack: ContextPack, result: CapabilityResult, capability: string, input: unknown) {
@@ -132,7 +190,7 @@ export class ContextCompiler {
     const readOrdinal = Array.isArray(data?.records) ? (pack.receipt.campusReadingReadCount || 0) + 1 : undefined;
     if (readOrdinal !== undefined) pack.receipt.campusReadingReadCount = readOrdinal;
     if (!data?.snapshotProof || !Array.isArray(data.records)) {
-      if (data?.kind === 'capability_assessment' && data.recordRead === false
+      if (data?.recordRead === false
         || capability === 'campus.query' && ['resources', 'schema'].includes((input as { operation?: string })?.operation || '')) {
         pack.receipt.campusReadingAddresses ||= [];
         pack.receipt.campusReadingSources ||= [];
@@ -146,14 +204,23 @@ export class ContextCompiler {
     pack.receipt.campusReadingIncomplete = true;
     const snapshot = this.campusReadingOwner.capture(data.snapshotProof);
     if (!snapshot) { this.repo.saveReceipt(pack.contract.scope, pack.receipt); return; }
+    pack.receipt.campusReadingSources = [...new Map([...(pack.receipt.campusReadingSources || []), snapshot]
+      .map(proof => [canonical(proof), proof])).values()];
     try {
       let args = this.broker.validateArguments(capability, input) as Record<string, any>;
       if (args.bundleId && args.bundleId !== snapshot.bundleId) return;
       args = { ...args, bundleId: snapshot.bundleId, expectedSnapshotVersion: snapshot.version, refresh: false };
       let evaluation: CampusReadingAddress['evaluation'];
       let next: CampusReadingAddress['next'];
-      const offset = Number.isSafeInteger(data.offset) ? data.offset : args.spec?.offset ?? args.offset ?? 0;
-      const nextOffset = data.next_offset ?? data.nextOffset;
+      const offset = data.offset, expectedOffset = args.spec?.offset ?? args.offset ?? 0;
+      const nextOffset = data.next_offset !== undefined ? data.next_offset : data.nextOffset;
+      const total = data.total_matches ?? data.total;
+      if (data.truncated_for_model === true || data.nested_values_truncated === true
+        || data.records.some((row: unknown) => !row || typeof row !== 'object' || Array.isArray(row))
+        || !Number.isSafeInteger(offset) || offset < 0 || offset !== expectedOffset
+        || !Number.isSafeInteger(total) || total < offset + data.records.length
+        || (nextOffset === null ? total !== offset + data.records.length
+          : !data.records.length || !Number.isSafeInteger(nextOffset) || nextOffset !== offset + data.records.length || nextOffset >= total)) return;
       if (capability === 'campus.query') {
         const query = validateCampusQuery(args);
         if (!['quick', 'select', 'read'].includes(query.operation) || (query.resource || query.spec?.resource) !== snapshot.resource) return;
@@ -188,8 +255,6 @@ export class ContextCompiler {
         evaluation, observedAt: this.repo.clock.now(), readOrdinal, contract };
       pack.receipt.campusReadingAddresses = [...(pack.receipt.campusReadingAddresses || [])
         .filter(old => canonical(old.read) !== canonical(address.read)), address].slice(-6);
-      const sources = [...new Map([...(pack.receipt.campusReadingSources || []), snapshot].map(proof => [canonical(proof), proof])).values()];
-      pack.receipt.campusReadingSources = sources;
       if (!previousIncomplete) delete pack.receipt.campusReadingIncomplete;
     } catch { /* No exact, validated address is preferable to guessed paging. */ }
     finally { this.repo.saveReceipt(pack.contract.scope, pack.receipt); }
@@ -207,6 +272,11 @@ export class ContextCompiler {
         const described = this.broker.describe(address.read.capability);
         if (!described || canonical(described.capabilityContract) !== canonical(address.contract)) continue;
         const args = this.broker.validateArguments(address.read.capability, address.read.arguments) as Record<string, any>;
+        const page = address.page;
+        if (!page || !Number.isSafeInteger(page.offset) || page.offset < 0
+          || !Number.isSafeInteger(page.returned) || page.returned < 0
+          || (args.spec?.offset ?? args.offset ?? 0) !== page.offset
+          || page.nextOffset !== null && (!Number.isSafeInteger(page.nextOffset) || !page.returned || page.nextOffset !== page.offset + page.returned)) continue;
         if ((address.read.capability === 'campus.query' ? args.resource || args.spec?.resource
           : this.campusReadingOwner.resource(args.domain)) !== address.snapshot.resource) continue;
         const grants = campusQueryGrants(validateCampusQuery(address.read.capability === 'campus.query' ? args
@@ -220,7 +290,8 @@ export class ContextCompiler {
           const base = (value: Record<string, any>) => ({ ...value, offset: 0, ...(value.spec ? { spec: { ...value.spec, offset: 0 } } : {}) });
           const nextOffset = nextArgs.spec?.offset ?? nextArgs.offset;
           if (nextArgs.bundleId !== address.snapshot.bundleId || nextArgs.expectedSnapshotVersion !== address.snapshot.version
-            || !Number.isSafeInteger(nextOffset) || nextOffset <= address.page.offset || canonical(base(args)) !== canonical(base(nextArgs))) continue;
+            || !Number.isSafeInteger(nextOffset) || nextOffset !== page.nextOffset || nextOffset !== page.offset + page.returned
+            || nextOffset <= page.offset || canonical(base(args)) !== canonical(base(nextArgs))) continue;
           next = { capability: address.next.capability, arguments: nextArgs };
         }
         pages.push({ messageId: item.messageId, messageCreatedAt: item.messageCreatedAt, messageOrdinal: item.messageOrdinal,
@@ -352,9 +423,9 @@ export class ContextCompiler {
       currentText: ingress.authoredText,
       data: {
         scope: { subject: scope.subjectId, world: scope.worldId, purpose: contract.purpose, audience: scope.audience, memoryMode: contract.memoryMode, retention: contract.retention },
-        time: { now: contract.now, timeZone: contract.timeZone,
+        time: { now: contract.now, timeZone: contract.timeZone, localDate: dateInZone(contract.now, contract.timeZone),
           local: new Intl.DateTimeFormat('zh-CN', { timeZone: contract.timeZone, dateStyle: 'full', timeStyle: 'long', hour12: false }).format(new Date(contract.now)),
-          meaning: 'now里的Z表示UTC，local给出timeZone下的本地日期和钟面；两者表示同一时刻，采用各自的时区标记。' },
+          meaning: 'localDate和local给出timeZone下的日期与钟面，now是同一时刻的UTC记录。' },
         situation: { asOf: contract.now, timeZone: contract.timeZone, versions: this.repo.watermarks(),
           currentStatements: currentEvents.filter(event => event.speaker === 'user').map(event => ({ evidenceId: event.id, version: event.contentVersion })),
           coverage: { calendar: 'not_queried', campus: 'not_queried', location: 'not_queried', weather: 'not_queried', energy: 'unknown' },
@@ -379,11 +450,15 @@ export class ContextCompiler {
       this.recordReleaseSources(pack, this.repo.conversationReleaseSources(historyScope, sessionId, ids));
       this.recordPersonalMethodSources(pack, this.repo.conversationPersonalMethodSources(historyScope, sessionId, ids));
       this.recordNoteSources(pack, this.repo.conversationNoteSources(historyScope, sessionId, ids));
+      this.recordSpatialSources(pack, this.repo.conversationSpatialSources(historyScope, sessionId, ids));
+      this.recordMaterialNavigationSources(pack, this.repo.conversationMaterialNavigationSources(historyScope, sessionId, ids));
       this.recordImageSourceVersions(pack, this.repo.conversationImageSourceVersions(historyScope, sessionId, ids));
       this.recordCampusSensitiveReads(pack, this.repo.conversationCampusSensitiveReads(historyScope, sessionId, ids));
       this.recordCampusReadingSources(pack, historyScope, sessionId, ids);
       this.recordInteractiveProgramSources(pack, this.repo.conversationInteractiveProgramSources(historyScope, sessionId, ids));
       this.restoreCampusReading(pack, historyScope, sessionId, ids);
+      if (!ingress.requiresReadPurpose && ingress.ownerHistoryAllowed && contract.memoryMode !== 'none'
+        && contract.memoryMode !== 'current_sources_only') this.restoreMaterialReading(pack, contract.scope, sessionId);
     }
     if (currentMatter) this.recordWorkSources(pack, [currentMatter.id, ...currentMatter.optionPlaces.map(option => option.id)]
       .flatMap(id => this.repo.work(contract.scope, undefined, id)));
@@ -407,7 +482,7 @@ export class ContextCompiler {
       { category: 'current_originals', keys: ['currentSources', 'currentRequest'] },
       { category: 'history', keys: ['history', 'historyIndex', 'historyCarryover', 'historyCoverage', 'historyUse', 'volatileConversationHistory'] },
       { category: 'observations', keys: ['recentObservations'] },
-      { category: 'continuity', keys: ['currentMatter', 'preparedMaterials', 'openThreads', 'planningIntents', 'continuityCoverage', 'campusReading'] },
+      { category: 'continuity', keys: ['currentMatter', 'preparedMaterials', 'openThreads', 'planningIntents', 'continuityCoverage', 'campusReading', 'materialReading'] },
       { category: 'capabilities', keys: ['capabilityDirectory'] },
       { category: 'focused_work', keys: ['currentInteractive', 'currentInteractiveUnavailable', 'currentNote', 'currentNoteUnavailable',
         'currentLetter', 'currentLetterUnavailable', 'currentStudy', 'currentCuriosity', 'currentCuriosityUnavailable',
@@ -479,14 +554,17 @@ export class ContextCompiler {
     this.recordReleaseSources(pack, this.repo.conversationReleaseSources(readScope, sessionId, history.map(message => message.id)));
     this.recordPersonalMethodSources(pack, this.repo.conversationPersonalMethodSources(readScope, sessionId, history.map(message => message.id)));
     this.recordNoteSources(pack, this.repo.conversationNoteSources(readScope, sessionId, history.map(message => message.id)));
+    this.recordSpatialSources(pack, this.repo.conversationSpatialSources(readScope, sessionId, history.map(message => message.id)));
+    this.recordMaterialNavigationSources(pack, this.repo.conversationMaterialNavigationSources(readScope, sessionId, history.map(message => message.id)));
     this.recordImageSourceVersions(pack, this.repo.conversationImageSourceVersions(readScope, sessionId, history.map(message => message.id)));
     this.recordCampusSensitiveReads(pack, this.repo.conversationCampusSensitiveReads(readScope, sessionId, history.map(message => message.id)));
     this.recordCampusReadingSources(pack, readScope, sessionId, history.map(message => message.id));
     this.recordInteractiveProgramSources(pack, this.repo.conversationInteractiveProgramSources(readScope, sessionId, history.map(message => message.id)));
     const campusReading = this.restoreCampusReading(pack, readScope, sessionId, history.map(message => message.id));
+    const materialReading = this.restoreMaterialReading(pack, pack.contract.scope, sessionId, history.map(message => message.id));
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
     return { status: history.length || observations.length ? 'fresh' : 'not_found', count: history.length, observationCount: observations.length,
-      ...(campusReading ? { campusReading } : {}) };
+      ...(campusReading ? { campusReading } : {}), ...(materialReading ? { materialReading } : {}) };
   }
 
   /** Production search may add local semantic discoveries. The existing sync
@@ -1009,6 +1087,8 @@ export class ContextCompiler {
     this.recordWorkSourceBindings(pack, [...records.flatMap(record => record.sourceBinding ? [record.sourceBinding] : []), ...bindings]);
     this.recordAssistantWorkSources(pack, assistantWorkSources);
     this.recordNoteSources(pack, noteSources);
+    this.recordSpatialSources(pack, this.repo.workSpatialSources(pack.contract.scope, records));
+    this.recordMaterialNavigationSources(pack, this.repo.workMaterialNavigationSources(pack.contract.scope, records));
   }
   /** History and adopted child reports inherit only exact host source addresses.
    * Ordinary method edits or stops do not rewrite their historical meaning. */
@@ -1054,6 +1134,33 @@ export class ContextCompiler {
       throw new HarnessError('note_source_changed', '这份笔记的原版本目前已不可读，这次没有继续接入先前的正文；现在可读的版本仍归原笔记。');
     pack.receipt.noteSources = combined;
     pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'notes:self'])];
+    this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+  }
+  /** Carry only the exact endpoint proof actually supplied by its host owner.
+   * Binding lifecycle metadata does not grant access to the original words. */
+  recordSpatialSources(pack: ContextPack | undefined, sources: SpatialSourceProof[]) {
+    if (!pack) return;
+    const combined = [...new Map([...(pack.receipt.spatialSources || []), ...sources]
+      .map(source => [canonical(source), structuredClone(source)])).values()];
+    if (!combined.length) { delete pack.data.spatialBindingChanges; return; }
+    if (combined.some(source => !spatialSourceProofSchema.safeParse(source).success)
+      || !this.repo.spatialSourcesReadable(pack.contract.scope, combined))
+      throw new HarnessError('spatial_source_changed', '这段地图关系所依据的地点或选择已经变化，先前结果目前不能继续使用。');
+    const changes = combined.flatMap(source => {
+      if (source.origin.kind !== 'binding') return [];
+      const current = this.repo.spatialBindingRecords(pack.contract.scope, source.origin.id, true)[0];
+      if (!current || current.revision === source.origin.revision) return [];
+      return [{ id: current.id, usedRevision: source.origin.revision,
+        currentRevision: current.revision, currentStatus: current.status,
+        ...(typeof current.data.role === 'string' ? { role: current.data.role } : {}),
+        ...(typeof current.data.alias === 'string' ? { alias: current.data.alias } : {}),
+        read: { tool: 'manage_space', arguments: { operation: 'read', bindingId: current.id } } }];
+    });
+    if (changes.length) pack.data.spatialBindingChanges = { items: [...new Map(changes.map(change => [canonical(change), change])).values()],
+      meaning: '这里列出本轮来源中与当前配置版本不同的地点对应。usedRevision保留当时所用版本，currentRevision和currentStatus是现在的配置状态；旧对应可以解释当时的路线，不能据此认定现在的起点。read指向这一个对应的当前记录，原话与地点坐标没有随这份变化说明展开。' };
+    else delete pack.data.spatialBindingChanges;
+    pack.receipt.spatialSources = combined;
+    pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'map:local'])];
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
   }
   recordImageSourceVersions(pack: ContextPack | undefined, versions: ContextPack['receipt']['providedObjectVersions']) {
@@ -1401,8 +1508,11 @@ export class ContextCompiler {
       data.capabilityDirectory = { ...directory, items: directory.items.map(({ description: _description, ...item }) => item), meaning: '完整说明前面已经给过；这里只更新这一轮的接通状态。' };
     }
     if (reused.length) {
-      data.historyReused = reused.map(({ content: _content, ...metadata }) => ({ ...metadata, bodyProvided: 'retained_protocol' }));
-      data.historyReuse = 'historyReused里的消息原文已按原消息身份完整保留在前面的相同角色协议中，这里仍带着原来的来处和回复状态；原始存储和检索不变。';
+      data.historyReused = reused.map(({ content, ...metadata }) => ({ ...metadata, bodyProvided: 'retained_protocol',
+        bodyLocation: proven.some(proof => proof.id === metadata.id && proof.role === metadata.role
+          && proof.contentFingerprint === protocolBodyFingerprint(content) && proof.representation !== 'host_reference_history')
+          ? 'original_role_messages' : 'host_history_reference' }));
+      data.historyReuse = 'historyReused保留了前面已经完整提供过的消息身份。bodyLocation指明正文还在原角色消息里，或在宿主给出的历史资料中；后者保有记录里的原角色和来源，仍是历史内容。这里的来处和回复状态没有改变，也不代表新的本人输入或托付。';
     }
     return this.serialize({ ...pack, data });
   }

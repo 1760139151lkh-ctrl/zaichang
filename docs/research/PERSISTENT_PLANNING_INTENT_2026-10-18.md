@@ -82,7 +82,7 @@ host-only retained context不在模型输入schema。已核未来工作是不可
 
 ## 图像比较与现有时间带的续接
 
-后端整合262/262、锁定Hermes9/9与build通过后，按原暖灰／克制金色与简洁陪伴方向生成A/B并逐张查看，文件身份、提示词及用途见[manifest](../../assets/design/generated/2026-10-18-planning-continuity/manifest.json)。选A的单一连续时间线与轻量“已在日历／这次续排”关系；B的横向时间分隔容易把交错的原日历和新方案归为两组，不采用。样例时间和任务均来自隔离合成宿主链，不是本人安排；改前来源截图只留本机，不分发，不进入runtime。
+后端整合262/262、锁定Hermes9/9与build通过后，按原暖灰／克制金色与简洁陪伴方向生成A/B并逐张查看，文件身份、提示词及用途见[manifest](../../%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/assets-design-generated/2026-10-18-planning-continuity/manifest.json)。选A的单一连续时间线与轻量“已在日历／这次续排”关系；B的横向时间分隔容易把交错的原日历和新方案归为两组，不采用。样例时间和任务均来自隔离合成宿主链，不是本人安排；改前来源截图只留本机，不分发，不进入runtime。
 
 `LifeSceneViews.tsx`保留原日期条、日历背景、精确块选择和“尚未保存”，无新增批准按钮或第二进度账。负责人通过Chrome CUA及既有DevTools连接操作当前构建Electron，在1220×960、430×900实际指针切至23日、选择14:10–15:40，原输入草稿保留，reload／resume后仍在；此前晨光／夜色、End切日与“先留着这句话”的观察保留其当时范围。当前角色预览候选可编辑，拒绝后原稿保留，保存原稿后实际settings revision为1。每日预算文案已明确“这天新增工作的上限”，不把全部占用算作新增工作。
 

@@ -55,8 +55,8 @@ export interface HermesResult {
   content: string;
   messages: ModelWireMessage[];
   interrupted: boolean;
-  /** Native coordinate on this exact result.messages projection. It is not
-   * inferred from repeated user text or retained after an unproven rewrite. */
+  /** Native coordinate on this exact result.messages projection. The host
+   * does not guess it from repeated text or keep it after an unproven rewrite. */
   currentTurn?: { id: string; userIndex: number };
 }
 

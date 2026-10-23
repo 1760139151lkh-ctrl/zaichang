@@ -9,6 +9,8 @@ export interface CampusSnapshotProof {
   sourceId: 'campus:zju-account'; bundleId: string; resource: string; version: string;
   selection: 'saved_head' | 'historical'; collectedAt?: string;
   sourceFetchedAt: Record<string, string>; coverage: unknown;
+  /** Resource anchor, not an assertion that this exact pointer was read.
+   * The actual read pointer and page belong to the host reading address. */
   original: { bundleId: string; pointer: string };
 }
 interface MetadataStamp { root: string; account: string; head: string; headFile: string }
@@ -20,6 +22,7 @@ const academic = new Set(['classes', 'courses', 'exams', 'grades', 'gpa_semester
   'retakes', 'projects', 'practice_summary', 'todos', 'holidays', 'calendar_pending', 'cancelled_classes', 'source_status']);
 const sourceEndpoints: Record<string, string> = { reservations: 'booking.seats', reservation_violations: 'booking.violations',
   card_accounts: 'ecard.cards', transactions: 'ecard.transactions', student_profile: 'eta.profile', roles: 'eta.roles', learning_courses: 'courses.list' };
+export const campusSourceEndpoint = (resource: string): string | undefined => sourceEndpoints[resource];
 
 /** Signs only the bundle actually returned by the existing connector. This
  * class neither decrypts datasets nor selects, normalizes or executes queries. */
@@ -43,10 +46,14 @@ export class CampusSnapshotProofs {
     catch { return; }
   }
   matchesReadingVersion(bundleId: string, resource: string, version: string) {
+    return /^[a-f0-9]{64}$/.test(version) && this.readingVersion(bundleId, resource) === version;
+  }
+  /** Byte identity only, without decrypting a bundle or issuing a read proof. */
+  readingVersion(bundleId: string, resource: string): string | undefined {
     const directory = this.directory();
-    if (!directory || !this.activeRoot() || !/^[a-f0-9]{32}$/.test(bundleId) || !/^[a-f0-9]{64}$/.test(version)) return false;
-    try { return digest({ bundleId, resource, bundle: fileDigest(path.join(directory, 'datasets', bundleId + '.dpapi')) }) === version; }
-    catch { return false; }
+    if (!directory || !this.activeRoot() || !/^[a-f0-9]{32}$/.test(bundleId)) return;
+    try { return digest({ bundleId, resource, bundle: fileDigest(path.join(directory, 'datasets', bundleId + '.dpapi')) }); }
+    catch { return; }
   }
   /** Local invalidation token only. No decryption, authentication or refresh;
    * callers must not present it as an observation from the university. */

@@ -13,7 +13,21 @@ import {
 import { WalkingGraph, metersBetween, classifyFix, inBounds } from '../shared/map-routing';
 import { fromLocal, toLocal, estimateAccess } from './mapProfile';
 import { rankMapPoints } from '../shared/map-names';
+import type { PersonalMapPointSelector, PersonalMapPointProof } from '../shared/spatial-source';
+export type { PersonalMapPointSelector, PersonalMapPointProof } from '../shared/spatial-source';
 import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, retainPublishedFootRestrictions, retainPublishedPlaceAccessConditions, retainUnverifiedOfficialCorrespondences, routeConditionWarning, qualifyUndergroundStations } from '../shared/map-v3';
+
+/** Host-only identities. They grant neither profile access nor model egress. */
+export interface PersonalMapPointRead {
+  selector: PersonalMapPointSelector;
+  name: string; coordinate: [number, number]; mapVersion: string; sha256: string;
+  publicPointId?: string;
+  proof: PersonalMapPointProof;
+}
+const unavailablePersonalMapRead = (error: unknown) => error instanceof SyntaxError
+  || !!error && typeof error === 'object' && 'code' in error
+    && ['ENOENT', 'ENOTDIR', 'EACCES', 'EPERM'].includes(String(error.code));
+
 export class CampusMapAdapter {
   private manifest: MapOverview;
   private points: MapPoint[];
@@ -206,6 +220,81 @@ export class CampusMapAdapter {
   serializedDataset():string {this.refreshProfile();return JSON.stringify({manifest:this.manifest,places:this.points,geography:this.displayGeography,sports:this.sports,venues:this.sharedFacts?.venues||[]});}
   /** Public model tools must not inherit the local UI's private profile. */
   publicView(){return this.options.profileDirectory?(this.publicAdapter ||= new CampusMapAdapter(this.directory)):this;}
+  /** Capture only the explicitly selected personal point. The caller owns
+   * scope and selection authorization; later reads never follow active. */
+  capturePersonalPoint(pointId: string): PersonalMapPointSelector | undefined {
+    if (!this.options.profileDirectory || typeof pointId !== 'string' || !pointId || pointId.length > 160) return;
+    try {
+      const config = this.options.profileId ? undefined
+        : JSON.parse(readFileSync(path.join(this.options.profileDirectory, 'profiles/config.json'), 'utf8'));
+      const profileId: unknown = this.options.profileId || config?.active;
+      if (typeof profileId !== 'string' || !/^[a-zA-Z0-9_-]{1,64}$/.test(profileId)) return;
+      const selected = this.readPersonalPoint({ profileId, pointId });
+      return selected?.selector;
+    } catch (error) { if (unavailablePersonalMapRead(error)) return; throw error; }
+  }
+  /** Read one already-authorized endpoint against the public baseline. No
+   * other profile record, note, alias or role is projected into the result. */
+  readPersonalPoint(selector: PersonalMapPointSelector): PersonalMapPointRead | undefined {
+    if (!this.options.profileDirectory || !selector || typeof selector.profileId !== 'string'
+      || !/^[a-zA-Z0-9_-]{1,64}$/.test(selector.profileId) || typeof selector.pointId !== 'string'
+      || !selector.pointId || selector.pointId.length > 160) return;
+    try {
+      const raw: unknown = JSON.parse(readFileSync(path.join(this.options.profileDirectory, 'profiles', selector.profileId + '.json'), 'utf8'));
+      if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return;
+      const profile = raw as { records?: unknown; roles?: unknown }, publicMap = this.publicView();
+      const mapVersion = publicMap.overview().version, pointId = publicMap.canonical(selector.pointId);
+      if (typeof pointId !== 'string' || !pointId || pointId.length > 160) return;
+      const baseline = publicMap.point(pointId);
+      let coordinate: [number, number] | undefined = baseline ? [...baseline.coordinate] : undefined;
+      let name = baseline?.displayName, personal = false;
+      const records = profile.records && typeof profile.records === 'object' && !Array.isArray(profile.records) ? profile.records : {};
+      for (const [id, value] of Object.entries(records)) {
+        if (publicMap.canonical(id) !== pointId || !value || typeof value !== 'object' || Array.isArray(value)) continue;
+        const record = value as { name?: unknown; e_m?: unknown; n_m?: unknown };
+        if (typeof record.name !== 'string' || !record.name.trim()) continue;
+        const hasCoordinate = typeof record.e_m === 'number' && Number.isFinite(record.e_m)
+          && typeof record.n_m === 'number' && Number.isFinite(record.n_m);
+        if (!coordinate && (!id.startsWith('u-') || !hasCoordinate)) continue;
+        if (hasCoordinate) {
+          const e = record.e_m as number, n = record.n_m as number;
+          const reference = coordinate ? publicMap.originalReferences[id] || toLocal(coordinate) : undefined;
+          if (!reference || Math.hypot(e - reference[0], n - reference[1]) > .2) {
+            const next = fromLocal(e, n);
+            if (!next.every(Number.isFinite)) return;
+            coordinate = [next[0], next[1]];
+          }
+        }
+        name = record.name.slice(0, 160); personal = true;
+      }
+      if (!coordinate || !name) return;
+      const labels: string[] = [];
+      const roles = profile.roles && typeof profile.roles === 'object' && !Array.isArray(profile.roles) ? profile.roles : {};
+      for (const value of Object.values(roles)) {
+        if (!value || typeof value !== 'object' || Array.isArray(value)) continue;
+        const role = value as { place_id?: unknown; label?: unknown };
+        if (typeof role.place_id === 'string' && publicMap.canonical(role.place_id) === pointId
+          && typeof role.label === 'string' && role.label.trim()) labels.push(role.label.slice(0, 40));
+      }
+      if (labels.length) { name = labels.join(' / ') + ' · ' + name; personal = true; }
+      if (!personal || publicMap.overview().version !== mapVersion) return;
+      const selected = { profileId: selector.profileId, pointId };
+      const sha256 = createHash('sha256').update(JSON.stringify({ ...selected, name, coordinate })).digest('hex');
+      const publicPointId = baseline && coordinate[0] === baseline.coordinate[0] && coordinate[1] === baseline.coordinate[1]
+        ? baseline.id : undefined;
+      const proof: PersonalMapPointProof = { ...selected, mapVersion, sha256, ...(publicPointId ? { publicPointId } : {}) };
+      return { selector: selected, name, coordinate, mapVersion, sha256, ...(publicPointId ? { publicPointId } : {}), proof };
+    } catch (error) { if (unavailablePersonalMapRead(error)) return; throw error; }
+  }
+  /** Recheck only the selected endpoint's used name/coordinate and public
+   * map version. An unrelated edit elsewhere in the profile changes nothing. */
+  personalPointProofCurrent(proof: PersonalMapPointProof): boolean {
+    if (!proof || typeof proof.mapVersion !== 'string' || typeof proof.sha256 !== 'string'
+      || !/^[a-f0-9]{64}$/.test(proof.sha256)) return false;
+    const current = this.readPersonalPoint({ profileId: proof.profileId, pointId: proof.pointId });
+    return !!current && current.selector.profileId === proof.profileId && current.selector.pointId === proof.pointId
+      && current.mapVersion === proof.mapVersion && current.sha256 === proof.sha256 && current.publicPointId === proof.publicPointId;
+  }
   sharedSnapshot(){this.refreshProfile();return {manifest:this.overview(),places:this.allPoints(),facts:structuredClone(this.sharedFacts)};}
   verificationGraph(){this.refreshProfile();return structuredClone(this.walking.graph);}
   routeReferences(query:MapRouteQuery,references:{id:string;name:string;coordinate:[number,number]}[]){

@@ -5,6 +5,7 @@ import { MaterialsPanel, type MaterialQuote } from './MaterialsPanel';
 import { LocalSearchPanel } from './LocalSearchPanel';
 import { ComposerActions } from './ComposerActions';
 import { FocusContextChip } from './FocusContextChip';
+import { environmentTimeLabels } from './presentation/environment-time';
 import { LetterHistoryCard } from './LetterHistoryCard';
 import { PlanningOfferCard } from './PlanningOfferCard';
 import { ConversationComposerDockContext, useConversationComposerDock } from './ConversationComposerDock';
@@ -67,7 +68,7 @@ import { MapRouteCard, MapSheet } from './map/CampusMap';
 import { ConversationMap, clearConversationMapViews } from './map/ConversationMap';
 import { AssistantPresentation, PresentationActivity } from './presentation/AssistantPresentation';
 import { flushProgramLocalStates } from './presentation/program-local-state';
-import { interleaveViews, type PresentationView, type ViewAnchor, type SemanticSelection } from '../shared/scenes';
+import { campusExamTypeLabel, interleaveViews, type PresentationView, type ViewAnchor, type SemanticSelection } from '../shared/scenes';
 import {
   ReplyEvidence,
   ScopeSettings,
@@ -226,7 +227,7 @@ export function App() {
       setSceneSelectionLabel(leg?`${leg.route.from?.displayName} → ${leg.route.to?.displayName}`:'刚选的路段');
     }else if(value.kind==='record' && scene?.kind==='campus'){
       const record = scene.records.find(record => record.id === value.recordId);
-      setSceneSelectionLabel(record ? `接着聊「${record.title}」` : '接着聊这条校园消息');
+      setSceneSelectionLabel(record ? `接着聊「${record.title}」${scene.domain === 'exams' && record.examType ? ' · ' + campusExamTypeLabel(record.examType) : ''}` : '接着聊这条校园消息');
     }else if(value.kind==='time_block' && scene?.kind==='planning'){
       const block = scene.blocks.find(block => block.id === value.blockId);
       const time = block ? new Date(block.start).toLocaleString('zh-CN',{timeZone:scene.window.timeZone,month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}) : '';
@@ -240,7 +241,7 @@ export function App() {
         requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
     }else if(value.kind==='environment_sample' && scene?.kind==='environment'){
       const sample = scene.samples.find(sample => sample.id === value.sampleId);
-      const time = sample ? new Date(sample.at).toLocaleString('zh-CN',{timeZone:scene.timeZone,month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}) : '';
+      const time = sample ? environmentTimeLabels(scene).stamp(sample.at, true) : '';
       setSceneSelectionLabel(`${time} · 按这个${scene.domain==='weather'?'天气':'空气'}预报继续`);
     }else if(value.kind==='discussion_point' && scene.kind==='discussion'){
       const point = scene.points.find(point => point.id === value.pointId);

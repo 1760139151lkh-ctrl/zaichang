@@ -735,6 +735,18 @@ export interface CampusReadingAddress {
 /** Original draft bound to assistant text actually supplied in this run.
  * An address does not claim that its whole body was read or that it is current. */
 export interface ReleaseSource { sessionId: string; messageId: string; artifactId: string; revision: number }
+/** Host-qualified material address metadata. It proves neither a document
+ * body read nor a new permission to read text or pixels. */
+export const materialNavigationProofSchema = z.object({
+  messageId: objectId, sessionId: objectId, receiptId: objectId,
+  accessSha256: z.string().regex(/^[a-f0-9]{64}$/),
+  resourceId: z.string().regex(/^material-[a-f0-9-]{36}$/),
+  sha256: z.string().regex(/^[a-f0-9]{64}$/), version: z.number().int().positive(),
+  sourceEventId: objectId, sourceContentVersion: z.number().int().positive(), parentEventId: objectId,
+  metadataOnly: z.literal(true),
+  via: z.array(z.object({ messageId: objectId, sessionId: objectId, receiptId: objectId }).strict()).optional(),
+}).strict();
+export type MaterialNavigationProof = z.infer<typeof materialNavigationProofSchema>;
 export interface ContextReceipt {
   /** New runs start with []; absence on an old receipt is unknown, not no adoption. */
   releaseSources?: ReleaseSource[];
@@ -775,6 +787,8 @@ export interface ContextReceipt {
   campusReadingIncomplete?: true;
   /** Actual note revision/range provenance, never a personal fact or read ACK. */
   noteSources?: import('./notes-source').NoteSourceProof[];
+  /** Actual host-qualified map endpoint dependencies, never original words or coordinates. */
+  spatialSources?: import('./spatial-source').SpatialSourceProof[];
   /** Source-bound learning processes actually provided to this model run. */
   learningProcessVersions?: { id: string; revision: number }[];
   reflectiveLetterSources?: {
@@ -787,7 +801,9 @@ export interface ContextReceipt {
   /** Exact host provenance for planning-derived text, rechecked before reuse. */
   planningProvenance?: PlanningMaterialProvenance[];
   sceneReferences?: { id: string; revision: number; sourceId: string; fetchedAt: string; expiresAt?: string }[];
-  materialReads?: { capability: string; resourceId: string; sha256: string; version: number; sourceEventId?: string; parentEventId?: string; page?: number; start?: number; end?: number; total?: number; complete: boolean; extraction?: string }[];
+  /** Original host metadata addresses, separate from actual material reads. */
+  materialNavigationSources?: MaterialNavigationProof[];
+  materialReads?: { capability: string; resourceId: string; sha256: string; version: number; sourceEventId?: string; sourceSessionId?: string; sourceContentVersion?: number; parentEventId?: string; page?: number; start?: number; end?: number; total?: number; crop?: { x: number; y: number; width: number; height: number }; rendererVersion?: string; complete: boolean; extraction?: string; readOrdinal?: number; observedAt?: string }[];
   imageRequests?: { requestId: string; sha256: string; source: 'upload' | 'tool'; version: string; accepted: boolean; role: string;
     sourceEventId?: string; sourceContentVersion?: number }[];
   mechanismUses?: { prefetch: number; currentMatter: number; repairRejudge: number; closure: number };
