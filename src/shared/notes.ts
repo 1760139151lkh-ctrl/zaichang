@@ -6,6 +6,18 @@ export const NOTE_LIMITS = { title: 160, body: 200_000, page: 16_000, list: 100 
 export const NOTE_ARGUMENT_CHARACTERS = 12 * (NOTE_LIMITS.body + NOTE_LIMITS.title + 2000) + 1024;
 const noteId = z.string().regex(/^note-[a-f0-9-]{36}$/);
 const revision = z.number().int().positive();
+/** A selection in a saved notebook revision, independent of an assistant
+ * Scene. The owner re-reads it; display text and draft edits grant no access. */
+export const notebookQuoteReferenceSchema = z.object({
+  noteId,
+  revision,
+  sha256: z.string().regex(/^[a-f0-9]{64}$/),
+  start: z.number().int().nonnegative().max(NOTE_LIMITS.body),
+  end: z.number().int().positive().max(NOTE_LIMITS.body),
+}).strict().refine(value => value.end > value.start && value.end - value.start <= 1200,
+  '选一小段已保存的笔记，再接着聊。');
+export type NotebookQuoteReference = z.infer<typeof notebookQuoteReferenceSchema>;
+export interface NotebookQuote { reference: NotebookQuoteReference; title: string; text: string }
 export const noteListSchema = z
   .object({
     query: z.string().max(500).default('').describe('按标题或正文作字面匹配；空字符串列出所选范围中的全部笔记。'),
@@ -119,6 +131,7 @@ export type NoteMutation =
   | { status: 'conflict'; current: NoteDocument };
 
 export interface NotesBridge {
+  notesQuote(input: NotebookQuoteReference): Promise<NotebookQuote>;
   notesList(input?: z.input<typeof noteListSchema>): Promise<NoteList>;
   notesRead(input: z.input<typeof noteReadSchema>): Promise<NotePage>;
   notesCreate(input: z.input<typeof noteCreateSchema>): Promise<NoteMutation>;

@@ -65,8 +65,8 @@ export function ReadingDivider() {
     onDoubleClick={()=>{apply(56);save();}}
     onKeyDown={event=>{
       if(event.key==='Escape'){
-        if(gesture.current){event.preventDefault();end(true);}
-        else if(keyboardStart.current!==undefined){event.preventDefault();apply(keyboardStart.current);save();keyboardStart.current=undefined;}
+        if(gesture.current){event.preventDefault();event.stopPropagation();end(true);}
+        else if(keyboardStart.current!==undefined){event.preventDefault();event.stopPropagation();apply(keyboardStart.current);save();keyboardStart.current=undefined;}
         return;
       }
       const next=event.key==='ArrowLeft'?current.current-(event.shiftKey ? 0.5 : 2)

@@ -2,6 +2,7 @@ import type { CalendarFields } from './calendar';
 import type { NotesBridge } from './notes';
 import type { MaterialsBridge } from './materials';
 import type { LocalSearchBridge } from './search';
+import type { AgendaBridge } from './agenda';
 import { DEFAULT_INTERACTION, type InteractionPreferences } from './interaction';
 import { DEFAULT_PERSONA, type PersonaState, type PersonaUpdate } from './persona';
 
@@ -295,7 +296,7 @@ export interface RuntimeOverview {
   };
   storage: { atRestEncrypted: boolean; keyProtection: string };
 }
-export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge {
+export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge, AgendaBridge {
   readProgramLocalState(input: import('./interactive-program').ProgramLocalStateAddress): Promise<import('./interactive-program').ProgramLocalStateReceipt>;
   saveProgramLocalState(input: import('./interactive-program').ProgramLocalStateSave): Promise<import('./interactive-program').ProgramLocalStateReceipt>;
   rehearsalProject(input: import('./relationship-rehearsal').RehearsalNativeInput): Promise<import('./relationship-rehearsal').RehearsalScene>;
@@ -316,7 +317,8 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
   selectPublicArtifact(input: { sessionId: string; id: string; revision: number }): Promise<State>;
   clearPublicArtifact(): Promise<State>;
   helpAction(input: { id: string; expectedRevision: number; operation: 'displayed' | 'opened' | 'dismiss' | 'once' | 'stop_topic' }): Promise<State>;
-  shareMapContext(input: { enabled: boolean; fromId?: string; includeDevice?: boolean }): Promise<{ enabled: boolean; expiresAt: string | null; coordinateEgress: boolean }>;
+  shareMapContext(input: { enabled: boolean; fromId?: string; includeDevice?: boolean; route?: import('./map-context').SharedMapRoute; expectedSelectionId?: string }): Promise<{
+    enabled: boolean; expiresAt: string | null; coordinateEgress: boolean; selectionId?: string; routeReference?: import('./map-context').MapRouteReference }>;
   mapContextStatus(): Promise<{ enabled: boolean; expiresAt: string | null }>;
   state(): Promise<State>;
   messages(id: string): Promise<Message[]>;
@@ -331,6 +333,9 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
     image?: ImageAttachment;
     material?: import('./materials').MaterialReference;
     materialQuote?: import('./materials').MaterialQuoteReference;
+    notebookQuote?: import('./notes').NotebookQuoteReference;
+    mapRouteReference?: import('./map-context').MapRouteReference;
+    agendaFocus?: import('./agenda').AgendaFocus;
     controls?: TurnControls;
     selection?: import('./scenes').SemanticSelection;
     studyInteraction?: import('./study-presentation').StudyInteraction;
@@ -402,13 +407,13 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
   forgetCampusCredentials(): Promise<State>;
   mapLocate(): Promise<import('./map-v2').LocationStatusResult>;
   mapStopLocation(input?: { keepSharedContext?: boolean }): Promise<void>;
-  mapOverview(): Promise<import('./map-v2').MapOverview>;
-  mapPlaces(): Promise<import('./map-v2').MapPoint[]>;
-  mapData(): Promise<import('./map-v3').MapDataset>;
-  mapDataJson?(): Promise<string>;
+  mapOverview(input?: { publicOnly?: boolean }): Promise<import('./map-v2').MapOverview>;
+  mapPlaces(input?: { publicOnly?: boolean }): Promise<import('./map-v2').MapPoint[]>;
+  mapData(input?: { publicOnly?: boolean }): Promise<import('./map-v3').MapDataset>;
+  mapDataJson?(input?: { publicOnly?: boolean }): Promise<string>;
   mapSearch(input: { query: string; limit?: number }): Promise<import('./map-v2').MapPoint[]>;
   mapLocationStatus(): Promise<import('./map-v2').LocationStatusResult>;
-  mapRoute(input: import('./map-v2').MapRouteQuery): Promise<import('./map-v2').MapRouteResult>;
+  mapRoute(input: import('./map-v2').MapRouteQuery & { publicOnly?: boolean }): Promise<import('./map-v2').MapRouteResult>;
   disconnectCampus(): Promise<State>;
   action(input: { action: 'save' | 'delete' | 'done'; item: Action } | { action: 'undo'; effect: ActionEffectRef }): Promise<State>;
   attachText(): Promise<TextAttachment | null>;

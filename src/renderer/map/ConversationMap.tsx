@@ -232,7 +232,7 @@ export function ConversationMap({
       const current = engine.current,
         ticket = current.ownership.ticket();
       void window.zaichang
-        .mapPlaces()
+        .mapPlaces({ publicOnly: !!scene.storySetting })
         .then((places) => {
           const point = places.find((value) => value.id === scene.focusPlaceId);
           if (
@@ -435,6 +435,7 @@ export function ConversationMap({
               <MapSurface
                 initialRoute={route}
                 inline
+                publicOnly={!!scene.storySetting}
                 memory={memory}
                 onWindowClose={() => {}}
                 onClose={() => focusMap(false)}

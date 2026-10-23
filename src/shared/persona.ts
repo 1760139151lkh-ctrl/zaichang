@@ -306,7 +306,7 @@ export function selectCompanionPersona(
   if (mode === 'use_character_preset') {
     const preset = companionPreset(companionId);
     if (!preset) throw new Error('这个形象还没有准备好的性格；可以保留或编辑当前角色。');
-    return preset.core;
+    return { ...preset.core, address: current.address };
   }
   if (mode !== 'preserve_role') throw new Error('请选择采用角色预设或保留当前角色。');
   const known = COMPANION_PERSONA_LINKS.find(link => link.companionId === companionId);

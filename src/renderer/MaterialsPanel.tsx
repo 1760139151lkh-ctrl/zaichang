@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { ArrowLeft, BookOpen, BookmarkPlus, ChevronLeft, ChevronRight, Download, FileText, FolderOpen, Image, List, LoaderCircle, MessageCircle, Plus, Search, Type, X } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
+import { ArrowLeft, ArrowUpRight, BookOpen, BookmarkPlus, ChevronLeft, ChevronRight, Download, FileText, FolderOpen, Image, List, LoaderCircle, MessageCircle, Plus, Search, StickyNote, Type, X } from 'lucide-react';
 import type { TextAttachment } from '../shared/types';
-import { MATERIAL_LIMITS, materialQuoteAddress, type MaterialItem, type MaterialPage, type MaterialQuote, type MaterialTarget } from '../shared/materials';
+import { MATERIAL_LIMITS, materialQuoteAddress, type MaterialItem, type MaterialNote, type MaterialPage, type MaterialQuote, type MaterialQuoteReference, type MaterialTarget } from '../shared/materials';
 import type { LocalSearchLocator } from '../shared/search';
 import { uiError } from './ui';
+import { MaterialPdfPage, type MaterialPageSelection } from './MaterialPdfPage';
+import { useMaterialReadingPosition } from './useMaterialReadingPosition';
 import './materials.css';
 
 export type { MaterialQuote } from '../shared/materials';
@@ -16,6 +18,8 @@ interface Props {
   refreshKey?: string;
   draftEnabled?: boolean;
   focus?: { locator: Extract<LocalSearchLocator, { kind: 'material' }>; requestId: number };
+  reference?: MaterialQuoteReference;
+  onUnsavedChange?: (unsaved: boolean) => void;
   onAttach: (attachment: TextAttachment) => boolean;
   onQuote: (quote: MaterialQuote) => boolean;
   onOpenNote?: (id: string, revision: number) => void;
@@ -32,7 +36,7 @@ const readingError = (problem: unknown) => {
 };
 
 /** A view onto the host's original snapshots, never another material store. */
-export function MaterialsPanel({ pending, sessionId, boundary, compact = false, active = true, refreshKey, draftEnabled = true, focus, onAttach, onQuote, onOpenNote, onClose, children }: Props) {
+export function MaterialsPanel({ pending, sessionId, boundary, compact = false, active = true, refreshKey, draftEnabled = true, focus, reference, onUnsavedChange, onAttach, onQuote, onOpenNote, onClose, children }: Props) {
   const [items, setItems] = useState<MaterialItem[]>([]);
   const [target, setTarget] = useState<MaterialTarget>();
   const [document, setDocument] = useState<MaterialPage>();
@@ -46,12 +50,23 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
   const [quotePosition, setQuotePosition] = useState<{ left: number; top: number }>();
   const [quoteBusy, setQuoteBusy] = useState(false);
   const [savedNote, setSavedNote] = useState<{ id: string; revision: number }>();
+  const [notes, setNotes] = useState<MaterialNote[]>([]), [notesError, setNotesError] = useState('');
+  const [notesRefresh, setNotesRefresh] = useState(0), [notePending, setNotePending] = useState(false);
+  type NoteEditor = { key: string; target: MaterialTarget; quote: MaterialQuote; body: string; originalBody: string; note?: { id: string; revision: number; title: string }; error?: string };
+  const [noteEditor, setNoteEditor] = useState<NoteEditor>();
+  const [noteDraftCount, setNoteDraftCount] = useState(0);
+  const noteDrafts = useRef(new Map<string, NoteEditor>()), noteRequest = useRef(0), editorRequest = useRef(0);
+  const noteInput = useRef<HTMLTextAreaElement>(null);
+  const unsavedCallback = useRef(onUnsavedChange); unsavedCallback.current = onUnsavedChange;
+  const noteReturnFocus = useRef<HTMLElement | null>(null);
   const [retry, setRetry] = useState(0), [refresh, setRefresh] = useState(0);
   const request = useRef(0), selectionRequest = useRef(0), mounted = useRef(true);
   const prose = useRef<HTMLPreElement>(null), scroller = useRef<HTMLDivElement>(null);
   const reader = useRef<HTMLDivElement>(null);
   const positions = useRef(new Map<string, number>());
   const bookmarks = useRef(new Map<string, { page: number; offset: number; view: 'text' | 'page'; zoom: number }>());
+  const readingPositions = useMaterialReadingPosition({ boundary });
+  const targetRef = useRef(target); targetRef.current = target;
   const boundaryRef = useRef(boundary);
   const focusRequest = useRef(0);
   const revealPending = useRef(false);
@@ -70,10 +85,28 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     request.current++; selectionRequest.current++;
     setDocument(undefined); setTarget(undefined); setItems([]); setQuote(undefined); setError(''); setHighlight(undefined);
     positions.current.clear(); bookmarks.current.clear(); setSavedNote(undefined);
+    noteRequest.current++; editorRequest.current++; noteDrafts.current.clear(); setNoteDraftCount(0); setNoteEditor(undefined); setNotePending(false); setNotes([]); setNotesError('');
     void api.materialsCancel();
   }, [boundary]);
   useEffect(() => { selectionRequest.current++; setChoosing(false); }, [sessionId]);
   useEffect(() => { if (selectedId) bookmarks.current.set(selectedId, { page, offset, view, zoom }); }, [selectedId, page, offset, view, zoom]);
+  useEffect(() => {
+    if (!noteEditor) return;
+    if (noteEditor.body !== noteEditor.originalBody) noteDrafts.current.set(noteEditor.key, noteEditor);
+    else noteDrafts.current.delete(noteEditor.key);
+    setNoteDraftCount(noteDrafts.current.size);
+  }, [noteEditor]);
+  useEffect(() => { onUnsavedChange?.(noteDraftCount > 0 || !!noteEditor && noteEditor.body !== noteEditor.originalBody); }, [noteDraftCount, noteEditor, onUnsavedChange]);
+  useEffect(() => () => unsavedCallback.current?.(false), []);
+  useEffect(() => { if (noteEditor) requestAnimationFrame(() => noteInput.current?.focus({ preventScroll: true })); }, [noteEditor?.key]);
+  useEffect(() => {
+    if (!quote) return;
+    const clear = (event: globalThis.PointerEvent) => {
+      if (!(event.target instanceof Element) || !event.target.closest('.material-selection-actions')) setQuote(undefined);
+    };
+    window.addEventListener('pointerdown', clear);
+    return () => window.removeEventListener('pointerdown', clear);
+  }, [quote]);
   useEffect(() => {
     if (!pendingRef || target?.kind === 'saved') return;
     setPage(1); setOffset(0); setView(pendingRef.mediaType === 'application/pdf' ? 'page' : 'text');
@@ -85,8 +118,8 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     revealPending.current = true;
     setTarget(pendingRef?.resourceId === locator.resourceId ? { kind: 'pending', reference: pendingRef } : { kind: 'saved', resourceId: locator.resourceId });
     setPage(locator.page || 1);
-    setOffset(locator.field === 'body' ? Math.max(0, locator.offset - 120) : 0);
-    setView('text'); setListOpen(false); setQuery(''); setHighlight(locator);
+    setOffset(locator.field === 'body' ? locator.page ? Math.floor(locator.offset / MATERIAL_LIMITS.readCodePoints) * MATERIAL_LIMITS.readCodePoints : Math.max(0, locator.offset - 120) : 0);
+    setView(locator.page ? 'page' : 'text'); setListOpen(false); setQuery(''); setHighlight(locator);
   }, [focus]);
 
   useEffect(() => {
@@ -95,6 +128,18 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     void api.materialsList({ sessionId }).then(next => {
       if (!current) return;
       setItems(next); setListError('');
+      readingPositions.retain([...(pendingRef ? [pendingRef] : []), ...next,
+        ...(targetRef.current?.kind === 'pending' ? [targetRef.current.reference] : [])]);
+      if (!targetRef.current && !pendingRef) {
+        const recent = readingPositions.latest(next);
+        if (recent) {
+          const { page, offset, view, zoom, scrollTop } = recent.position;
+          setPage(page); setOffset(offset); setView(view); setZoom(zoom);
+          positions.current.set(`${recent.resource.resourceId}:${page}:${offset}:${view}`, scrollTop);
+          setTarget({ kind: 'saved', resourceId: recent.resource.resourceId });
+          return;
+        }
+      }
       setTarget(previous => {
         if (pendingRef) {
           if (previous?.kind === 'pending' && previous.reference.resourceId === pendingRef.resourceId) return previous;
@@ -116,21 +161,36 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     if (!active) { setQuote(undefined); return; }
     if (!target) { setDocument(undefined); setLoading(false); return; }
     const id = ++request.current;
-    const previousScroll = positions.current.get(readingKey) || 0;
+    const remembered = selected && readingPositions.restore(selected);
+    const previousScroll = positions.current.get(readingKey) ?? (remembered?.page === page && remembered.offset === offset && remembered.view === view ? remembered.scrollTop : 0);
     setLoading(true); setError(''); setNotice(''); setQuote(undefined); setDocument(undefined);
     void api.materialsRead({ target, page, offset, view }).then(result => {
       if (id !== request.current) return;
       setDocument(result);
       requestAnimationFrame(() => {
         if (id !== request.current) return;
-        const mark = revealPending.current && prose.current?.querySelector<HTMLElement>('.material-search-match');
+        const mark = revealPending.current && reader.current?.querySelector<HTMLElement>('.material-search-match, .material-pdf-text-layer mark.is-search');
         if (mark) { mark.scrollIntoView({ block: 'center' }); revealPending.current = false; }
         else scroller.current?.scrollTo({ top: previousScroll });
+        readingPositions.save(result.item, { page, offset, view, zoom, scrollTop: scroller.current?.scrollTop || 0 });
       });
     }).catch(problem => { if (id === request.current) setError(readingError(problem)); })
       .finally(() => { if (id === request.current) setLoading(false); });
     return () => { request.current++; void api.materialsCancel(); };
   }, [target, page, offset, view, boundary, retry, active, pendingRef?.resourceId]);
+  useEffect(() => {
+    const generation = ++noteRequest.current;
+    setNotes([]); setNotesError('');
+    if (!active || !target) return;
+    void api.materialsNotes({ target, ...(selected?.mediaType === 'application/pdf' ? { page } : {}) }).then(result => {
+      if (noteRequest.current === generation) setNotes(result.items);
+    }).catch(problem => { if (noteRequest.current === generation) setNotesError(readingError(problem)); });
+    return () => { noteRequest.current++; };
+  }, [active, target, selected?.mediaType, page, boundary, notesRefresh]);
+  useEffect(() => {
+    if (active && document && document.item.resourceId === selectedId && (!document.page || document.page === page))
+      readingPositions.save(document.item, { page, offset, view, zoom, scrollTop: scroller.current?.scrollTop || 0 });
+  }, [zoom]);
   useEffect(() => {
     if (!document || !highlight || document.item.resourceId !== highlight.resourceId) return;
     if (document.item.sha256 !== highlight.sha256) {
@@ -140,7 +200,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
 
   function open(item: MaterialItem, pendingItem = false) {
     setHighlight(undefined);
-    const bookmark = bookmarks.current.get(item.resourceId);
+    const bookmark = bookmarks.current.get(item.resourceId) || readingPositions.restore(item);
     setPage(bookmark?.page || 1); setOffset(bookmark?.offset || 0);
     setView(bookmark?.view || (item.mediaType === 'application/pdf' ? 'page' : 'text')); setZoom(bookmark?.zoom || 100);
     setTarget(pendingItem && pendingRef ? { kind: 'pending', reference: pendingRef } : { kind: 'saved', resourceId: item.resourceId });
@@ -196,6 +256,18 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
       top: Math.max(116, Math.min(container.height - 110, rect.top - container.top - 52)) });
     setSavedNote(undefined);
   }
+  const capturePageSelection = useCallback((selection?: MaterialPageSelection) => {
+    if (!selection || !document) { setQuote(undefined); return; }
+    if (selection.end - selection.start > 4000) { setQuote(undefined); setNotice('这段有些长，选短一点，我们接着聊。'); return; }
+    const text = Array.from(document.text).slice(selection.start - document.start, selection.end - document.start).join('');
+    if (!text.trim()) { setQuote(undefined); return; }
+    setQuote({ resourceId: document.item.resourceId, sha256: document.item.sha256, name: document.item.name,
+      text, page: document.page, start: selection.start, end: selection.end });
+    const container = reader.current?.getBoundingClientRect(), rect = selection.rect;
+    if (container) setQuotePosition({ left: Math.max(12, Math.min(container.width - 292, rect.left - container.left)),
+      top: Math.max(76, Math.min(container.height - 110, rect.top - container.top - 52)) });
+    setNotice(''); setSavedNote(undefined);
+  }, [document]);
   async function useQuote(operation: 'chat' | 'note') {
     if (!quote || !target || quoteBusy || operation === 'chat' && !destination.current.enabled) return;
     const selected = quote, originalDestination = { ...destination.current };
@@ -203,9 +275,11 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     try {
       const input = { target, quote: materialQuoteAddress(selected) };
       if (operation === 'note') {
-        const result = await api.materialsKeepQuote(input);
+        const current = await api.materialsQuote(input);
         if (!mounted.current || originalDestination.boundary !== destination.current.boundary) return;
-        if (result.status === 'saved') { setSavedNote({ id: result.note.id, revision: result.note.revision }); setNotice('已留在笔记'); }
+        const key = `${current.resourceId}:${current.page || 0}:${current.start}:${current.end}`;
+        noteReturnFocus.current = window.document.activeElement as HTMLElement;
+        setNoteEditor(noteDrafts.current.get(key) || { key, target, quote: current, body: '', originalBody: '' });
       } else {
         const current = await api.materialsQuote(input);
         if (!mounted.current || originalDestination.boundary !== destination.current.boundary
@@ -215,6 +289,61 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
       setQuote(undefined);
     } catch (problem) { if (mounted.current) setNotice(readingError(problem)); }
     finally { if (mounted.current) setQuoteBusy(false); }
+  }
+  const openNote = useCallback(async (note: MaterialNote) => {
+    if (!target || notePending) return;
+    const generation = ++editorRequest.current, originalBoundary = boundary, originalTarget = target;
+    setNotePending(true);
+    try {
+      const [quote, page] = await Promise.all([
+        api.materialsQuote({ target, quote: note.source }), api.notesRead({ id: note.id }),
+      ]);
+      if (!mounted.current || generation !== editorRequest.current || destination.current.boundary !== originalBoundary) return;
+      if (page.note.state !== 'active') { setNotesRefresh(value => value + 1); return; }
+      if (page.hasMore) { onOpenNote?.(page.note.id, page.note.revision); return; }
+      setQuote(undefined);
+      const draft = noteDrafts.current.get(note.id);
+      noteReturnFocus.current = window.document.activeElement as HTMLElement;
+      setNoteEditor(draft?.note ? { ...draft, target: originalTarget, quote,
+        ...(draft.note.revision !== page.note.revision ? { error: '这条笔记在另一处改过了，刚写的内容仍留在这里。' } : {}) } : { key: note.id, target: originalTarget,
+        quote, body: page.body, originalBody: page.body, note: { id: page.note.id, revision: page.note.revision, title: page.note.title } });
+    } catch (problem) { if (generation === editorRequest.current) setNotice(readingError(problem)); }
+    finally { if (mounted.current && generation === editorRequest.current) setNotePending(false); }
+  }, [target, notePending, boundary, onOpenNote]);
+  async function saveNote() {
+    if (!noteEditor || notePending) return;
+    const editor = noteEditor, generation = ++editorRequest.current, originalBoundary = boundary;
+    setNotePending(true);
+    try {
+      // Reopen the original even for an existing note. Editing the independent
+      // notebook document elsewhere remains available if this source leaves.
+      await api.materialsQuote({ target: editor.target, quote: materialQuoteAddress(editor.quote) });
+      if (!mounted.current || generation !== editorRequest.current || destination.current.boundary !== originalBoundary) return;
+      const result = editor.note ? await api.notesUpdate({ id: editor.note.id, expectedRevision: editor.note.revision,
+        title: editor.note.title, body: editor.body }) : await api.materialsKeepQuote({ target: editor.target,
+        quote: materialQuoteAddress(editor.quote), annotation: editor.body });
+      if (!mounted.current || generation !== editorRequest.current || destination.current.boundary !== originalBoundary) return;
+      if (result.status === 'conflict') {
+        setNoteEditor(current => current?.key === editor.key ? { ...current, error: '这条笔记在另一处改过了，打开笔记对照一下，刚写的内容还在这里。' } : current);
+        return;
+      }
+      noteDrafts.current.delete(editor.key); setNoteDraftCount(noteDrafts.current.size); setNoteEditor(undefined); setNotesRefresh(value => value + 1);
+      setSavedNote({ id: result.note.id, revision: result.note.revision });
+      setNotice('留好了。');
+    } catch (problem) { if (generation === editorRequest.current) setNoteEditor(current => current?.key === editor.key ? { ...current, error: readingError(problem) } : current); }
+    finally { if (mounted.current && generation === editorRequest.current) setNotePending(false); }
+  }
+  function closeNote() {
+    if (notePending) return;
+    setNoteEditor(undefined);
+    requestAnimationFrame(() => (noteReturnFocus.current?.isConnected ? noteReturnFocus.current : scroller.current)?.focus({ preventScroll: true }));
+  }
+  function resumeNote() {
+    const draft = [...noteDrafts.current.values()].at(-1);
+    if (!draft) return;
+    setTarget(draft.target); setPage(draft.quote.page || 1);
+    setOffset(draft.quote.page ? Math.floor(draft.quote.start / MATERIAL_LIMITS.readCodePoints) * MATERIAL_LIMITS.readCodePoints : Math.max(0, draft.quote.start - 120));
+    setView(draft.quote.page ? 'page' : 'text'); setNoteEditor(draft);
   }
   function changeZoom(value: number) {
     const viewport = scroller.current;
@@ -265,8 +394,11 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
           </div>}
         </div>
         {listOpen && <div className="materials-list-popover">{index}</div>}
-        <div className="materials-scroll" ref={scroller} aria-busy={loading} onScroll={() => {
-          if (!loading && document && scroller.current) positions.current.set(readingKey, scroller.current.scrollTop);
+        <div className="materials-scroll" ref={scroller} tabIndex={-1} aria-busy={loading} onScroll={() => {
+          if (!loading && document && scroller.current) {
+            positions.current.set(readingKey, scroller.current.scrollTop);
+            readingPositions.save(document.item, { page, offset, view, zoom, scrollTop: scroller.current.scrollTop });
+          }
           if (quote) setQuote(undefined);
         }}>
           {loading ? <div className="materials-opening" role="status"><LoaderCircle size={23} className="spin" /><p>正在翻开这一页…</p></div> : error ? <div className="materials-recovery" role="alert">
@@ -274,25 +406,49 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
             <div className="field-buttons"><button className="primary-button" onClick={() => setRetry(value => value + 1)}>再试一次</button><button className="subtle-button" onClick={() => void attach()} disabled={choosing || !draftEnabled}>重新选择</button></div>
             <details><summary>看看原因</summary><p>{error}</p></details>
           </div> : document ? <>
-            {document.image ? <div className="material-page-image" style={{ width: `${zoom}%` }}><img src={document.image.dataUrl} width={document.image.width} height={document.image.height} alt={`${document.item.name}，第 ${document.page} 页原文`} /></div>
+            {document.image ? <MaterialPdfPage document={document} zoom={zoom} notes={notes}
+                reference={noteEditor?.quote.resourceId === document.item.resourceId && noteEditor.quote.page === document.page ? noteEditor.quote : reference}
+                activeNoteId={noteEditor?.note?.id} onSelection={capturePageSelection} onOpenNote={openNote}
+                highlight={highlight?.field === 'body' && highlight.resourceId === document.item.resourceId && highlight.sha256 === document.item.sha256
+                  && highlight.page === document.page ? highlight : undefined} />
               : document.text ? <pre className="material-original" ref={prose} style={{ fontSize: `calc(var(--reading-size) * ${zoom / 100})` }} onPointerUp={captureSelection} onKeyUp={captureSelection} tabIndex={0} aria-label="可选择的原文">{originalText()}</pre>
               : <div className="materials-scan"><BookOpen size={32} strokeWidth={1.25} /><h2>先看看这一页</h2><p>这一页没有可选中的文字。可以先看原页面，再说说你想问哪里。</p><button className="primary-button" onClick={() => { setView('page'); setOffset(0); }}>看原页面</button></div>}
-            {document.needsVisual && document.text && <p className="materials-page-note">这一页还有图表，切到「页面」可以一起看。</p>}
+            {view === 'text' && document.needsVisual && document.text && <p className="materials-page-note">这一页还有图表，切到「页面」可以一起看。</p>}
           </> : null}
         </div>
         {quote && <div className="material-selection-actions" style={quotePosition} role="group" aria-label="选段操作" onMouseDown={event => event.preventDefault()}>
           <button disabled={!draftEnabled || quoteBusy} onClick={() => void useQuote('chat')}><MessageCircle size={17} />聊这一段</button>
-          <button disabled={quoteBusy} onClick={() => void useQuote('note')}><BookmarkPlus size={17} />留在笔记</button>
+          <button disabled={quoteBusy || notePending} onClick={() => void useQuote('note')}><BookmarkPlus size={17} />记一笔</button>
         </div>}
+        {noteEditor && boundaryRef.current === boundary && <section className="material-margin-editor" aria-label="这一处的笔记" aria-busy={notePending}
+          onKeyDown={event => { if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); closeNote(); } }}>
+          <header><span><StickyNote size={15} />{noteEditor.quote.name}{noteEditor.quote.page ? ` · 第 ${noteEditor.quote.page} 页` : ''}</span>
+            <button type="button" className="icon-button" aria-label="收起笔记" disabled={notePending} onClick={closeNote}><X size={16} /></button></header>
+          {!noteEditor.note && <blockquote>{noteEditor.quote.text}</blockquote>}
+          <textarea ref={noteInput} aria-label={noteEditor.note ? '笔记内容' : '写下这一处的想法'} value={noteEditor.body}
+            maxLength={noteEditor.note ? 200000 : 4000} disabled={notePending} placeholder="刚才想到的…"
+            onChange={event => setNoteEditor(current => current ? { ...current, body: event.target.value, error: undefined } : current)} />
+          {noteEditor.error && <p role="alert">{noteEditor.error}</p>}
+          <footer>{noteEditor.note && onOpenNote && <button type="button" className="text-button" disabled={notePending}
+              onClick={() => onOpenNote(noteEditor.note!.id, noteEditor.note!.revision)}>打开笔记<ArrowUpRight size={13} /></button>}
+            <button type="button" className="primary-button" disabled={notePending || !!noteEditor.note && !noteEditor.body.trim()} onClick={() => void saveNote()}>
+              {notePending ? <LoaderCircle size={15} className="spin" /> : <BookmarkPlus size={15} />}留在笔记</button></footer>
+        </section>}
         <footer className="materials-footer">
           <select className="materials-zoom" aria-label="阅读缩放" value={zoom} onChange={event => changeZoom(Number(event.target.value))}>
             {[85, 100, 115, 130, 150].map(value => <option key={value} value={value}>{value}%</option>)}
           </select>
+          {noteDraftCount > 0 && !noteEditor && <button type="button" className="text-button material-note-resume" onClick={resumeNote}><StickyNote size={14} />继续写</button>}
+          {!!notes.length && !document?.image && <details className="material-text-notes"><summary><StickyNote size={15} /><span>{notes.length}</span></summary>
+            <div>{notes.map(note => <button type="button" key={note.id} onClick={event => { event.currentTarget.closest('details')?.removeAttribute('open'); void openNote(note); }}>
+              <span>{note.preview}</span><ChevronRight size={14} /></button>)}</div></details>}
           {document?.pageCount ? <div className="materials-pagination"><button className="icon-button" aria-label="上一页" disabled={loading || page <= 1} onClick={() => { setPage(value => value - 1); setOffset(0); }}><ChevronLeft size={18} /></button><label><input aria-label="PDF页码" type="number" min="1" max={document.pageCount} value={page} onChange={event => { const value = Number(event.target.value); if (Number.isInteger(value) && value >= 1 && value <= document.pageCount!) { setPage(value); setOffset(0); } }} /><span>/ {document.pageCount}</span></label><button className="icon-button" aria-label="下一页" disabled={loading || page >= document.pageCount} onClick={() => { setPage(value => value + 1); setOffset(0); }}><ChevronRight size={18} /></button></div> : null}
           {document && (document.nextOffset !== null || document.start > 0) && <div className="materials-pagination"><button className="icon-button" aria-label="上一段原文" disabled={loading || offset <= 0} onClick={() => setOffset(Math.max(0, offset - MATERIAL_LIMITS.readCodePoints))}><ChevronLeft size={18} /></button><small>{Math.floor(offset / MATERIAL_LIMITS.readCodePoints) + 1} / {Math.ceil(document.total / MATERIAL_LIMITS.readCodePoints)}</small><button className="icon-button" aria-label="下一段原文" disabled={loading || document.nextOffset === null} onClick={() => setOffset(document.nextOffset!)}><ChevronRight size={18} /></button></div>}
         </footer>
       </>}
       {notice && <div className="materials-notice" role="status"><span>{notice}</span>{savedNote && onOpenNote && <button className="text-button" onClick={() => onOpenNote(savedNote.id, savedNote.revision)}>打开笔记<ChevronRight size={14} /></button>}</div>}
+      {notesError && !error && <div className="materials-notice materials-note-error" role="status"><span>这次没能取回页边笔记。</span>
+        <button type="button" className="text-button" title={notesError} onClick={() => setNotesRefresh(value => value + 1)}>再看一次</button></div>}
     </div>
     {children && <div className="materials-conversation">{children}</div>}
   </section>;

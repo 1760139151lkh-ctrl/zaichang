@@ -1426,6 +1426,8 @@ export class KernelRepository {
       json_extract(s.value,'$.provenance.assistantWorkSources') AS chapters,
       json_type(s.value,'$.storySetting') AS setting_type,
       json_extract(s.value,'$.storySetting.sourceBinding') AS setting_binding,
+      json_type(s.value,'$.storySetting.noteSources') AS setting_notes_type,
+      json_extract(s.value,'$.storySetting.noteSources') AS setting_notes,
       json_type(s.value,'$.storySetting.assistantWorkSources') AS setting_chapters_type,
       json_extract(s.value,'$.storySetting.assistantWorkSources') AS setting_chapters`;
     const sceneRows = this.db.prepare(`SELECT ${projection} FROM messages m,json_each(m.payload,'$.scenes') s
@@ -1442,6 +1444,7 @@ export class KernelRepository {
       ...(row.kind === 'curiosity' ? { provenance: { sourceBinding: json(row.binding),
         ...(row.chapters_type === null ? {} : { assistantWorkSources: json(row.chapters) }) } } : {}),
       ...(row.kind === 'map' && row.setting_type !== null ? { storySetting: { sourceBinding: json(row.setting_binding),
+        ...(row.setting_notes_type === null ? {} : { noteSources: json(row.setting_notes) }),
         ...(row.setting_chapters_type === null ? {} : { assistantWorkSources: json(row.setting_chapters) }) } } : {}) });
     const snapshots = new Map<string, any>(sceneRows.map(row => [`${row.scene_id}@${row.revision}`, sceneValue(row)]));
     const attached = new Map<string, any[]>();
@@ -1873,6 +1876,8 @@ export class KernelRepository {
       for (const scene of row.value.scenes) if (scene.kind === 'note') sources.push(noteSourceProofSchema.parse(scene.proof));
       for (const scene of row.value.scenes) if (scene.kind === 'curiosity' && scene.provenance?.noteSources !== undefined)
         sources.push(...scene.provenance.noteSources.map((value: unknown) => noteSourceProofSchema.parse(value)));
+      for (const scene of row.value.scenes) if (scene.kind === 'map' && scene.storySetting)
+        sources.push(...scene.storySetting.noteSources.map((value: unknown) => noteSourceProofSchema.parse(value)));
     }
     return [...new Map(sources.map(source => [canonical(source), source])).values()];
   }
@@ -2795,7 +2800,7 @@ export class KernelRepository {
         const binding = workSourceBindingSchema.safeParse(provenance?.sourceBinding);
         if (!this.scope(handle).sources.includes('work:self') || !binding.success
           || binding.data.refs.some(ref => proofs.permits?.(ref) === false) || !this.workBindingReadable(handle, binding.data)
-          || provenance?.noteSources !== undefined && !this.noteSourcesReadable(handle, provenance.noteSources)
+          || (scene.kind === 'map' || provenance?.noteSources !== undefined) && !this.noteSourcesReadable(handle, provenance?.noteSources)
           || provenance?.assistantWorkSources !== undefined
             && !this.assistantWorkSourcesReadable(handle, provenance.assistantWorkSources, proofs)) return false;
       }
@@ -4506,17 +4511,26 @@ export class KernelRepository {
       OR EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.artifact.scenes') scene WHERE json_extract(scene.value,'$.kind')='note')`;
     const workIds = this.db.prepare(`SELECT r.id FROM h_work r WHERE r.owner=? AND r.workspace=?
       AND json_extract(r.payload,'$.data.type') IN ('help_opportunity','cooperation_record','curiosity_invitation') AND (
-        (?=1 AND ((${noted}) OR EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.noteSources'))))
+        (?=1 AND ((${noted}) OR EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.noteSources'))
+          OR EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.artifact.scenes') scene
+            WHERE json_extract(scene.value,'$.kind')='map' AND json_type(scene.value,'$.storySetting') IS NOT NULL
+              AND (COALESCE(json_type(scene.value,'$.storySetting.noteSources'),'null')!='array'
+                OR json_array_length(scene.value,'$.storySetting.noteSources')>0))))
         OR EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.noteSources') proof
           WHERE CASE WHEN proof.type='object' THEN json_extract(proof.value,'$.id') END IN (SELECT value FROM json_each(?)))
         OR EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.material') material
           WHERE json_extract(material.value,'$.noteId') IN (SELECT value FROM json_each(?)))
         OR EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.artifact.scenes') scene
           WHERE json_extract(scene.value,'$.kind')='note' AND json_extract(scene.value,'$.proof.id') IN (SELECT value FROM json_each(?)))
-        OR (?=1 AND (${noted}) AND (COALESCE(json_extract(r.payload,'$.data.materialNoteContractVersion'),0)!=1
-          OR COALESCE(json_type(r.payload,'$.data.noteSources'),'null')!='array')))`)
+        OR EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.artifact.scenes') scene,json_each(scene.value,'$.storySetting.noteSources') proof
+          WHERE json_extract(scene.value,'$.kind')='map' AND CASE WHEN proof.type='object' THEN json_extract(proof.value,'$.id') END IN (SELECT value FROM json_each(?)))
+        OR (?=1 AND (((${noted}) AND (COALESCE(json_extract(r.payload,'$.data.materialNoteContractVersion'),0)!=1
+          OR COALESCE(json_type(r.payload,'$.data.noteSources'),'null')!='array'))
+          OR EXISTS(SELECT 1 FROM json_each(r.payload,'$.data.artifact.scenes') scene
+            WHERE json_extract(scene.value,'$.kind')='map' AND json_type(scene.value,'$.storySetting') IS NOT NULL
+              AND COALESCE(json_type(scene.value,'$.storySetting.noteSources'),'null')!='array'))))`)
       .all(this.identity.principalId, this.identity.workspaceId, allNotes ? 1 : 0,
-        JSON.stringify(noteIds), JSON.stringify(noteIds), JSON.stringify(noteIds), noteIds.length ? 1 : 0)
+        JSON.stringify(noteIds), JSON.stringify(noteIds), JSON.stringify(noteIds), JSON.stringify(noteIds), noteIds.length ? 1 : 0)
       .map(row => String(row.id));
     if (!this.db.prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name='messages'").get()) return workIds;
     const messageNoted = `EXISTS(SELECT 1 FROM json_each(m.payload,'$.contextReceipt.providedSourceIds') source WHERE source.value='notes:self')
@@ -4524,15 +4538,24 @@ export class KernelRepository {
       OR EXISTS(SELECT 1 FROM json_each(m.payload,'$.scenes') scene,json_each(scene.value,'$.provenance.noteSources') proof
         WHERE json_extract(scene.value,'$.kind')='curiosity')`;
     const messageIds = this.db.prepare(`SELECT m.id FROM messages m WHERE m.role='assistant' AND (
-        (?=1 AND ((${messageNoted}) OR EXISTS(SELECT 1 FROM json_each(m.payload,'$.contextReceipt.noteSources'))))
+        (?=1 AND ((${messageNoted}) OR EXISTS(SELECT 1 FROM json_each(m.payload,'$.contextReceipt.noteSources'))
+          OR EXISTS(SELECT 1 FROM json_each(m.payload,'$.scenes') scene
+            WHERE json_extract(scene.value,'$.kind')='map' AND json_type(scene.value,'$.storySetting') IS NOT NULL
+              AND (COALESCE(json_type(scene.value,'$.storySetting.noteSources'),'null')!='array'
+                OR json_array_length(scene.value,'$.storySetting.noteSources')>0))))
         OR EXISTS(SELECT 1 FROM json_each(m.payload,'$.contextReceipt.noteSources') proof
           WHERE CASE WHEN proof.type='object' THEN json_extract(proof.value,'$.id') END IN (SELECT value FROM json_each(?)))
         OR EXISTS(SELECT 1 FROM json_each(m.payload,'$.scenes') scene WHERE json_extract(scene.value,'$.kind')='note'
           AND json_extract(scene.value,'$.proof.id') IN (SELECT value FROM json_each(?)))
         OR EXISTS(SELECT 1 FROM json_each(m.payload,'$.scenes') scene,json_each(scene.value,'$.provenance.noteSources') proof
           WHERE json_extract(scene.value,'$.kind')='curiosity' AND CASE WHEN proof.type='object' THEN json_extract(proof.value,'$.id') END IN (SELECT value FROM json_each(?)))
-        OR (?=1 AND (${messageNoted}) AND COALESCE(json_type(m.payload,'$.contextReceipt.noteSources'),'null')!='array'))`)
-      .all(allNotes ? 1 : 0, JSON.stringify(noteIds), JSON.stringify(noteIds), JSON.stringify(noteIds), noteIds.length ? 1 : 0)
+        OR EXISTS(SELECT 1 FROM json_each(m.payload,'$.scenes') scene,json_each(scene.value,'$.storySetting.noteSources') proof
+          WHERE json_extract(scene.value,'$.kind')='map' AND CASE WHEN proof.type='object' THEN json_extract(proof.value,'$.id') END IN (SELECT value FROM json_each(?)))
+        OR (?=1 AND (((${messageNoted}) AND COALESCE(json_type(m.payload,'$.contextReceipt.noteSources'),'null')!='array')
+          OR EXISTS(SELECT 1 FROM json_each(m.payload,'$.scenes') scene
+            WHERE json_extract(scene.value,'$.kind')='map' AND json_type(scene.value,'$.storySetting') IS NOT NULL
+              AND COALESCE(json_type(scene.value,'$.storySetting.noteSources'),'null')!='array'))))`)
+      .all(allNotes ? 1 : 0, JSON.stringify(noteIds), JSON.stringify(noteIds), JSON.stringify(noteIds), JSON.stringify(noteIds), noteIds.length ? 1 : 0)
       .map(row => String(row.id));
     return [...new Set([...workIds, ...messageIds])];
   }

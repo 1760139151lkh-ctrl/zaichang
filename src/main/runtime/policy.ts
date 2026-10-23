@@ -20,6 +20,9 @@ export interface InputControls {
   programReference?: import('../../shared/interactive-program').ProgramFollowupReference;
   letterReference?: import('../../shared/reflective-letter').LetterReference;
   noteReference?: import('../../shared/note-presentation').NoteReference;
+  notebookQuote?: import('../../shared/notes').NotebookQuoteReference;
+  mapRouteReference?: import('../../shared/map-context').MapRouteReference;
+  agendaFocus?: import('../../shared/agenda').AgendaFocus;
   materialQuote?: import('../../shared/materials').MaterialQuoteReference;
   rehearsalInteraction?: import('../../shared/relationship-rehearsal').RehearsalInteraction;
   selection?: import('../../shared/scenes').SemanticSelection;

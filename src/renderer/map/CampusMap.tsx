@@ -34,25 +34,36 @@ import { classifyFix, inBounds } from '../../shared/map-routing';
 import { rankMapPoints, uniqueExactMapPoint } from '../../shared/map-names';
 import { initialSelection, selectionReducer, type SelectionState } from './map-state';
 import type { MapData, CampusMapEngine, SavedCamera } from './map-engine';
+import type { MapRouteReference, SharedMapRoute } from '../../shared/map-context';
 import './map.css';
 import './map-surface.css';
 import { WindowControls } from '../ui';
 
 const api = window.zaichang;
-let dataCache: MapData | undefined;
-export interface MapSurfaceMemory { camera?: SavedCamera; selection?: SelectionState; entered?: boolean }
+const dataCaches = new Map<boolean, MapData>();
+export interface MapSurfaceMemory { camera?: SavedCamera; selection?: SelectionState; entered?: boolean; sharedSelectionId?: string }
+export interface MapContextHandoff {
+  text: string;
+  label: string;
+  expiresAt: string;
+  selectionId?: string;
+  routeReference?: MapRouteReference;
+  previewRoute?: MapRouteResult;
+  routeConditions?: SharedMapRoute;
+  previewMemory?: MapSurfaceMemory;
+}
 const standaloneMemory: MapSurfaceMemory = import.meta.hot?.data.campusMapMemory || {};
 import.meta.hot?.dispose((data)=>{data.campusMapMemory=standaloneMemory;});
 let sessionLocationEnabled = true;
-async function loadData(signal: AbortSignal): Promise<MapData> {
-  const current=await api.mapOverview();
+async function loadData(signal: AbortSignal, publicOnly = false): Promise<MapData> {
+  const current=await api.mapOverview({ publicOnly }), dataCache = dataCaches.get(publicOnly);
   if(current.dataStatus==='error')throw new Error(current.dataError||'这次没能打开地图，试着再打开一次。');
   if(dataCache&&dataCache.manifest.version===current.version){
-    const places=dataCache.manifest.profileRevision===current.profileRevision?dataCache.places:await api.mapPlaces();
+    const places=dataCache.manifest.profileRevision===current.profileRevision?dataCache.places:await api.mapPlaces({ publicOnly });
     if(signal.aborted)throw new DOMException('Cancelled','AbortError');
-    return dataCache={...dataCache,manifest:current,places};
+    const next = { ...dataCache, manifest: current, places }; dataCaches.set(publicOnly, next); return next;
   }
-  const {manifest,places,geography,sports,venues}=api.mapDataJson?JSON.parse(await api.mapDataJson()):await api.mapData();
+  const {manifest,places,geography,sports,venues}=api.mapDataJson?JSON.parse(await api.mapDataJson({ publicOnly })):await api.mapData({ publicOnly });
   if(manifest.dataStatus==='error')throw new Error(manifest.dataError||'这次没能打开地图，试着再打开一次。');
   if (
     manifest.schemaVersion !== 'campus-map/v2' ||
@@ -61,9 +72,15 @@ async function loadData(signal: AbortSignal): Promise<MapData> {
   )
     throw new Error('这份地图暂时还打不开。');
   if (signal.aborted) throw new DOMException('Cancelled', 'AbortError');
-  return (dataCache = { manifest, places, geography, sports, venues });
+  const next = { manifest, places, geography, sports, venues }; dataCaches.set(publicOnly, next); return next;
 }
-function initialState(route: MapRouteResult, memory: MapSurfaceMemory): SelectionState {
+function initialState(route: MapRouteResult, memory: MapSurfaceMemory, conditions?: SharedMapRoute): SelectionState {
+  const from = route.from && mapPointEndpoint(route.from), to = route.to && mapPointEndpoint(route.to);
+  const options = conditions && from && from.kind !== 'current' && to && to.kind !== 'current'
+    && conditions.fromId === from.id && conditions.toId === to.id
+    && (conditions.fromKind || 'place') === from.kind && (conditions.toKind || 'place') === to.kind
+    ? { avoidStairs: conditions.avoidStairs, allowConditional: conditions.allowConditional,
+      originAccessId: conditions.originAccessId, destinationAccessId: conditions.destinationAccessId } : {};
   if(route.to?.kind==='water')return {...initialSelection,destination:route.to};
   if(route.from?.kind==='water')return {...initialSelection,mode:'two',stage:'origin',destination:route.to};
   if (route.schemaVersion === 'map-route/v2' && route.to)
@@ -73,6 +90,7 @@ function initialState(route: MapRouteResult, memory: MapSurfaceMemory): Selectio
       origin: route.from,
       destination: route.to,
       route,
+      ...options,
     };
   if (memory.selection) return { ...memory.selection, route: emptyRoute() };
   return { ...initialSelection };
@@ -136,6 +154,7 @@ export function MapRouteCard({ card, onOpen }: { card: MapCard; onOpen: () => vo
 }
 export function MapSurface({
   initialRoute,
+  initialConditions,
   onClose,
   onUseContext,
   onWindowClose,
@@ -143,23 +162,30 @@ export function MapSurface({
   reviewScene,
   reviewControls,
   inline = false,
+  publicOnly = false,
   memory = standaloneMemory,
   onChoose,
   onEngine,
   onTakeControl,
+  sharedSelectionId,
 }: {
   initialRoute: MapRouteResult;
+  initialConditions?: SharedMapRoute;
   onClose: () => void;
   onWindowClose: () => void;
-  onUseContext?: (value: { text: string; label: string; expiresAt: string }) => void;
+  onUseContext?: (value: MapContextHandoff) => boolean | void;
   returnLabel?: string;
   reviewScene?: 'overview' | 'top-down' | 'oblique' | 'route-demo' | 'building-focus';
   reviewControls?: ReactNode;
   inline?: boolean;
+  publicOnly?: boolean;
   memory?: MapSurfaceMemory;
   onChoose?: (point: MapPoint) => void;
   onEngine?: (engine: CampusMapEngine | undefined) => void;
   onTakeControl?: () => void;
+  /** Reopening a handed-off preview stops acquisition on exit, while keeping
+   * that already-authorized snapshot until its normal stop/expiry boundary. */
+  sharedSelectionId?: string;
 }) {
   const stage = useRef<HTMLDivElement>(null),
     engine = useRef<CampusMapEngine | undefined>(undefined);
@@ -177,7 +203,7 @@ export function MapSurface({
     [attempt, setAttempt] = useState(0),
     [engineReady, setEngineReady] = useState(false);
   const dataRef=useRef(data);dataRef.current=data;
-  const [selection, dispatch] = useReducer(selectionReducer, initialRoute, (r) => inline&&memory.selection?memory.selection:reviewScene === 'building-focus' && r.to ? {...initialSelection, destination:r.to} : initialState(r,memory)),
+  const [selection, dispatch] = useReducer(selectionReducer, initialRoute, (r) => inline&&memory.selection?memory.selection:reviewScene === 'building-focus' && r.to ? {...initialSelection, destination:r.to} : initialState(r,memory,initialConditions)),
     selectionRef = useRef(selection);
   selectionRef.current = selection;
   const [query, setQuery] = useState(''),
@@ -199,45 +225,78 @@ export function MapSurface({
     source: 'windows-native',
     phoneConnected: false,
   });
-  const handoffContext = useRef(false);
+  const handoffContext = useRef(!!(sharedSelectionId || memory.sharedSelectionId));
+  const sharePending = useRef(false);
   const [sharing, setSharing] = useState(false),
     [shareError, setShareError] = useState('');
   async function useContext(device = false) {
-    const point = selectionRef.current.origin || selectionRef.current.destination;
-    if (!device && !point) return;
+    if (publicOnly) return;
+    const selected = selectionRef.current, point = selected.origin || selected.destination, manifest = dataRef.current?.manifest;
+    if (sharePending.current || !onUseContext || !device && !point) return;
+    const from = selected.origin && mapPointEndpoint(selected.origin), to = selected.destination && mapPointEndpoint(selected.destination);
+    const route: SharedMapRoute | undefined = !device && selected.mode === 'two' && selected.stage === 'browse'
+      && from && from.kind !== 'current' && to && to.kind !== 'current' && manifest
+      && selected.route.from?.id === selected.origin?.id && selected.route.to?.id === selected.destination?.id
+      && !['loading', 'error', 'missing_origin', 'missing_destination', 'outside'].includes(selected.route.status)
+      ? { fromId: from.id, toId: to.id, fromKind: from.kind, toKind: to.kind, mapVersion: manifest.version,
+        ...(manifest.profileRevision ? { profileRevision: manifest.profileRevision } : {}),
+        ...(selected.originAccessId ? { originAccessId: selected.originAccessId } : {}),
+        ...(selected.destinationAccessId ? { destinationAccessId: selected.destinationAccessId } : {}),
+        avoidStairs: !!selected.avoidStairs, allowConditional: !!selected.allowConditional } : undefined;
+    sharePending.current = true;
     setSharing(true);
     setShareError('');
+    let selectionId: string | undefined;
     try {
       const result = await api.shareMapContext({
         enabled: true,
-        ...(device ? { includeDevice: true } : { fromId: point!.id }),
+        ...(device ? { includeDevice: true } : route ? { route } : { fromId: point!.id }),
       });
       if (!result.enabled || !result.expiresAt) throw new Error('这次没能把地点带回对话，再试一次吧。');
-      handoffContext.current = true;
-      onUseContext?.({
-        text: device
+      selectionId = result.selectionId;
+      if (!alive.current || selectionRef.current.revision !== selected.revision) {
+        if (selectionId) await api.shareMapContext({ enabled: false, expectedSelectionId: selectionId });
+        return;
+      }
+      if (route && !result.routeReference) throw new Error('这条路还没能带回对话，重新打开地图再试一次。');
+      const accepted = onUseContext({
+        text: route ? '' : device
           ? '刚共享的本机设备位置仅作参考，我想问：'
           : `从刚才在地图选中的「${point!.displayName}」出发，`,
-        label: device ? '本机设备位置参考' : point!.displayName,
+        label: route ? `${selected.origin!.displayName} → ${selected.destination!.displayName}`
+          : device ? '本机设备位置参考' : point!.displayName,
         expiresAt: result.expiresAt,
+        ...(selectionId ? { selectionId } : {}),
+        ...(result.routeReference ? { routeReference: result.routeReference } : {}),
+        ...(route ? { previewRoute: structuredClone(selected.route), routeConditions: route,
+          previewMemory: { ...(memory.camera ? { camera: structuredClone(memory.camera) } : {}),
+            selection: structuredClone(selected), entered: true, sharedSelectionId: result.selectionId } } : {}),
       });
+      if (accepted === false) {
+        if (selectionId) await api.shareMapContext({ enabled: false, expectedSelectionId: selectionId });
+        return;
+      }
+      handoffContext.current = true;
       onClose();
     } catch (error) {
-      setShareError(String(error instanceof Error ? error.message : error));
+      if (selectionId) void api.shareMapContext({ enabled: false, expectedSelectionId: selectionId }).catch(() => {});
+      if (alive.current) setShareError(String(error instanceof Error ? error.message : error));
     } finally {
-      setSharing(false);
+      sharePending.current = false;
+      if (alive.current) setSharing(false);
     }
   }
   const locationRef = useRef(location);
   locationRef.current = location;
-  const tracking = useRef(!inline && sessionLocationEnabled);
+  const tracking = useRef(!inline && !publicOnly && sessionLocationEnabled);
   const alive = useRef(true),
     locationRevision = useRef(0),
     touched = useRef(false),
     first = useRef(!memory.entered),
     introDone = useRef(false);
   const initialDestination = useRef(
-    initialRoute.schemaVersion === 'map-route/v2' ? initialRoute.to?.id : undefined,
+    initialRoute.schemaVersion === 'map-route/v2' && !(memory.camera && memory.selection?.destination?.id === initialRoute.to?.id
+      && memory.selection?.origin?.id === initialRoute.from?.id) ? initialRoute.to?.id : undefined,
   );
   const activity = useRef(0),
     pendingLocate = useRef<{ fix: LocationFix; activity: number } | undefined>(undefined);
@@ -294,7 +353,7 @@ export function MapSurface({
   useEffect(() => {
     const controller = new AbortController();
     setLoadError('');
-    loadData(controller.signal)
+    loadData(controller.signal, publicOnly)
       .then((d) => {
         if (!controller.signal.aborted) {setData(d);if(!initialRoute.to)dispatch({type:'rebind',places:d.places});}
       })
@@ -302,7 +361,7 @@ export function MapSurface({
         if (!controller.signal.aborted) setLoadError(String(e.message || e));
       });
     return () => controller.abort();
-  }, [attempt]);
+  }, [attempt, publicOnly]);
   useEffect(() => {
     if (!data || !stage.current) return;
     if(engine.current?.supportsSpace){engine.current.updateData(data);return;}
@@ -406,9 +465,9 @@ export function MapSurface({
   useEffect(()=>{
     if(!data||inline)return;
     let stopped=false;
-    const timer=setInterval(async()=>{try{const m=await api.mapOverview();if(stopped)return;if(m.version!==data.manifest.version||m.dataStatus!==data.manifest.dataStatus){const next=api.mapDataJson?JSON.parse(await api.mapDataJson()):await api.mapData();if(!stopped){dataCache=next;setData(next);dispatch({type:'rebind',places:next.places});}return;}if(m.profileRevision===data.manifest.profileRevision)return;const places=await api.mapPlaces();if(stopped)return;data.manifest=m;data.places=places;engine.current?.updatePlaces(places);dispatch({type:'rebind',places});}catch{}},3000);
+    const timer=setInterval(async()=>{try{const m=await api.mapOverview({ publicOnly });if(stopped)return;if(m.version!==data.manifest.version||m.dataStatus!==data.manifest.dataStatus){const next=api.mapDataJson?JSON.parse(await api.mapDataJson({ publicOnly })):await api.mapData({ publicOnly });if(!stopped){dataCaches.set(publicOnly,next);setData(next);dispatch({type:'rebind',places:next.places});}return;}if(m.profileRevision===data.manifest.profileRevision)return;const places=await api.mapPlaces({ publicOnly });if(stopped)return;data.manifest=m;data.places=places;engine.current?.updatePlaces(places);dispatch({type:'rebind',places});}catch{}},3000);
     return()=>{stopped=true;clearInterval(timer);};
-  },[data,inline]);
+  },[data,inline,publicOnly]);
   useEffect(() => {
     if (engineReady) engine.current?.select(selection.destination, inline?initialRoute.from:selection.mode==='browse'?undefined:selection.origin,inline?initialRoute.status==='ready'&&selection.destination?.id===initialRoute.to?.id:selection.mode!=='browse');
   }, [engineReady, selection.destination, selection.origin,selection.mode,inline,initialRoute]);
@@ -453,7 +512,7 @@ export function MapSurface({
           ? { kind: 'current' as const }
           : undefined;
     api
-      .mapRoute({ from, to: mapPointEndpoint(selection.destination), version: data.manifest.version, profileRevision:data.manifest.profileRevision, avoidStairs:selection.avoidStairs,allowConditional:selection.allowConditional,originAccessId:selection.originAccessId,destinationAccessId:selection.destinationAccessId })
+      .mapRoute({ from, to: mapPointEndpoint(selection.destination), version: data.manifest.version, profileRevision:data.manifest.profileRevision, avoidStairs:selection.avoidStairs,allowConditional:selection.allowConditional,originAccessId:selection.originAccessId,destinationAccessId:selection.destinationAccessId, publicOnly })
       .then((route) => {
         if (!current || !alive.current) return;
         if(route.source.version && route.source.version!==data.manifest.version)return;
@@ -472,6 +531,7 @@ export function MapSurface({
     };
   }, [selection.revision, data, engineReady]);
   requestRef.current = async (explicit = false) => {
+    if (publicOnly) return;
     if (document.visibilityState === 'hidden') return;
     if (explicit) tracking.current = sessionLocationEnabled = true;
     if (!tracking.current) return;
@@ -529,7 +589,7 @@ export function MapSurface({
     if (selectionRef.current.mode === 'current') dispatch({ type: 'retry' });
   }
   useEffect(() => {
-    if(inline)return;
+    if(inline || publicOnly)return;
     void requestRef.current();
     const timer = setInterval(() => {
       if (['fresh', 'approximate', 'outside'].includes(locationRef.current.status)) void requestRef.current();
@@ -537,7 +597,7 @@ export function MapSurface({
     const visible = () => {
       if (document.visibilityState === 'hidden') {
         locationRevision.current++;
-        void api.mapStopLocation();
+        void api.mapStopLocation({ keepSharedContext: handoffContext.current });
       } else if (locationRef.current.fix) void requestRef.current();
     };
     document.addEventListener('visibilitychange', visible);
@@ -588,6 +648,9 @@ export function MapSurface({
   }
   const route = selection.route,
     p = selection.destination;
+  const handoffRoute = selection.mode === 'two' && selection.stage === 'browse' && !!selection.origin && !!p
+    && route.from?.id === selection.origin.id && route.to?.id === p.id
+    && !['loading', 'error', 'missing_origin', 'missing_destination', 'outside'].includes(route.status);
   const choosingEndpoint=selection.mode==='two'&&(selection.stage==='origin'||selection.stage==='destination');
   const venue=data?.venues?.find(v=>v.id===(p||selection.origin)?.id);
   const hoverPixel =
@@ -760,9 +823,9 @@ export function MapSurface({
         <div className="campus-v2-controls campus-v2-obstruction">
           {engineReady && engine.current?.supportsSpace && <div><button aria-label={pitch>1?'切回平面地图':'打开空间视图'} onClick={()=>{user();engine.current?.setPitch(pitch>1?0:42,true);setSpaceControls(pitch<=1);}}>{pitch>1?'平面':'空间'}</button></div>}
           <div>
-            <button aria-label="定位到本机" title="定位到本机" onClick={() => void requestRef.current(true)}>
+            {!publicOnly && <button aria-label="定位到本机" title="定位到本机" onClick={() => void requestRef.current(true)}>
               <LocateFixed size={20} />
-            </button>
+            </button>}
             <button aria-label="地图回北" title="回北 · N" onClick={() => engine.current?.north()}>
               <span ref={compass} className="campus-v2-north">
                 N<i />
@@ -827,7 +890,7 @@ export function MapSurface({
             <p>{loadError}</p>
             <button
               onClick={() => {
-                dataCache = undefined;
+                dataCaches.delete(publicOnly);
                 setAttempt((a) => a + 1);
               }}
             >
@@ -940,21 +1003,19 @@ export function MapSurface({
               {route.warnings.map((warning,i)=><p key={i}>{warning}</p>)}
             </div>}
             {onUseContext && (!choosingEndpoint||routeDetails) && (
-              <details className="campus-v2-share">
-                <summary>用地点继续对话</summary>
-                <p>接下来的两分钟，聊天可以参考这个起点；精确坐标仍留在这台电脑里。</p>
-                <button disabled={sharing || !(selection.origin || p)} onClick={() => void useContext(false)}>
-                  从「{(selection.origin || p)?.displayName || '选中的地点'}」继续对话
+              <div className="campus-v2-share">
+                <button className="campus-map-handoff" disabled={sharing || !(selection.origin || p)
+                  || selection.mode === 'two' && !!selection.origin && !!p && !handoffRoute} onClick={() => void useContext(false)}>
+                  {sharing ? '带回对话…' : handoffRoute ? '聊这条路' : '从这里接着聊'}
                   <ArrowUpRight size={14} />
                 </button>
                 {location.fix && ['fresh', 'approximate'].includes(location.status) && (
-                  <button disabled={sharing} onClick={() => void useContext(true)}>
-                    参考本机设备位置
-                  </button>
+                  <details><summary>设备位置</summary><button disabled={sharing} onClick={() => void useContext(true)}>
+                    参考这台电脑的位置
+                  </button></details>
                 )}
-                <small>电脑提供的位置只是参考。你若在别处，告诉我就好。</small>
                 {shareError && <p role="alert">{shareError}</p>}
-              </details>
+              </div>
             )}
             </>}
             {preview!==undefined&&route.status==='ready'&&<div className="campus-v3-preview">
@@ -1034,7 +1095,7 @@ export function MapSurface({
                 <p>建筑的高低，有的来自资料，有的根据层数估算，也有概括外形的示意；这里还看不到室内路线。望月公寓的轮廓来自 Overture 与 Qian Shi 等人的开放建筑资料，楼号、实际高度和入口还不清楚。东西田径场的资料写的是名义400米，不能用图上的曲线测量跑步距离。斜着看时，比例尺对应画面中心的横向地面距离。</p>
               </>
             )}
-            <strong>{location.source === 'test' ? '测试位置（模拟）' : '这台 Windows 电脑的位置'}</strong>
+            {!publicOnly && <><strong>{location.source === 'test' ? '测试位置（模拟）' : '这台 Windows 电脑的位置'}</strong>
             <p>
               {location.reason}
               {location.fix && (
@@ -1051,6 +1112,7 @@ export function MapSurface({
                 停止本机定位
               </button>
             )}
+            </>}
             <div className="campus-v2-source-links">
               <button onClick={() => void api.openLink('https://map.zju.edu.cn/index')}>
                 浙大官方地图 ↗

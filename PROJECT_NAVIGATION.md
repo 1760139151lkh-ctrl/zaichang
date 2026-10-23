@@ -1,5 +1,7 @@
 # 项目导航
 
+**2026-10-23 源码保存点：** [GitHub 同步范围与检查](docs/GITHUB_SYNC_2026-10-23.md)保存当前聊天、资料/PDF、笔记、日程、地图、主题及 Luna 续接的进行中成果；各模块入口与未完成项见 [本轮实施记录](docs/implementation/2026-10-23/branch-integration.md)。
+
 **图片集中查找：** [图片入口](前端视觉创新设计/README.md) → [统一图库分类目录](前端视觉创新设计/统一图库/README.md)／[机器可读目录](前端视觉创新设计/统一图库/catalog.json)。[清查记录](前端视觉创新设计/README.md)说明 Codex 生成、会话线索、仓库、压缩包、本地备份与 Git 历史的覆盖范围；完整绝对路径和仅本机图片留在被忽略的 `前端视觉创新设计/统一图库/仅本机/`。原图已实际搬迁；运行时图片引用同步改到集中路径，来源记录统一收拢。
 
 **先看全貌：[项目全貌与源码基线](docs/PROJECT_BASELINE.md)。** 该页统一说明理念、源码／EXE／公共站点的不同基线、单一 Harness、状态所有者、OpenUI、地图与功能边界；当前接续见 [CONTINUE_FROM_HERE](docs/CONTINUE_FROM_HERE.md)。本文件继续维护详细文件索引，实际验证统一归 [CURRENT_STATUS](docs/CURRENT_STATUS.md)。

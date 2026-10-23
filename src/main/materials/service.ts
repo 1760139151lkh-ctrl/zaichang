@@ -3,7 +3,7 @@ import path from 'node:path';
 import { createHash, randomBytes, randomUUID } from 'node:crypto';
 import { z } from 'zod';
 import { HarnessError, materialNavigationProofSchema, type EvidenceEvent, type ScopeHandle } from '../../shared/harness';
-import { MATERIAL_LIMITS, materialCropSchema, materialReferenceSchema, materialTargetSchema, materialReadSchema, materialQuoteInputSchema, materialQuoteReferenceSchema, materialQuoteAddress, type MaterialQuoteReference, type MaterialQuote, type MaterialReference, type MaterialTarget, type MaterialItem, type MaterialPage } from '../../shared/materials';
+import { MATERIAL_LIMITS, materialCropSchema, materialReferenceSchema, materialTargetSchema, materialReadSchema, materialQuoteInputSchema, materialKeepQuoteInputSchema, materialNotesInputSchema, materialQuoteReferenceSchema, materialQuoteAddress, type MaterialQuoteReference, type MaterialQuote, type MaterialReference, type MaterialTarget, type MaterialItem, type MaterialPage, type MaterialNotes } from '../../shared/materials';
 import type { TextAttachment } from '../../shared/types';
 import type { KernelRepository } from '../storage/repository';
 import type { PolicyKernel } from '../runtime/policy';
@@ -665,12 +665,31 @@ export class MaterialService {
     const epoch = this.repo.epoch, revision = this.repo.policyRevision, boundary = this.policy.sourceBoundary;
     try {
       let text: string, page: number | undefined, pageCount: number | undefined, needsVisual: boolean | undefined;
-      let image: MaterialPage['image'];
+      let image: MaterialPage['image'], textRuns: MaterialPage['textRuns'], selectionUnavailable: boolean | undefined;
       if (item.mediaType === 'application/pdf') {
         const { parsePdf } = await import('./pdf');
         if (input.view === 'page') {
-          const parsed = await parsePdf(bytes, { operation: 'render', page: input.page }, controller.signal);
-          image = parsed.image; page = parsed.page; pageCount = parsed.pageCount; text = '';
+          // Both projections use the same verified snapshot and cancellation
+          // boundary. A damaged text layer must not hide a readable original.
+          const [parsed, layer] = await Promise.all([
+            parsePdf(bytes, { operation: 'render', page: input.page }, controller.signal),
+            parsePdf(bytes, { operation: 'read', page: input.page }, controller.signal).catch(() => undefined),
+          ]);
+          image = parsed.image; page = parsed.page; pageCount = parsed.pageCount; text = layer?.text || '';
+          needsVisual = layer?.needsVisual;
+          selectionUnavailable = !layer || undefined;
+          let position = 0;
+          textRuns = layer?.items?.map(item => {
+            const start = position, end = start + Array.from(item.text).length;
+            position = end + (item.hasEOL ? 1 : 0);
+            return { text: item.text, start, end, bbox: item.bbox, dir: item.dir };
+          });
+          // The extraction order and its EOLs must reconstruct the exact
+          // original being addressed. Never repair a mismatch by text search.
+          if (position !== Array.from(text).length
+            || layer?.items?.map(item => item.text + (item.hasEOL ? '\n' : '')).join('') !== text) {
+            textRuns = undefined; selectionUnavailable = true;
+          }
         } else {
           const parsed = await parsePdf(bytes, { operation: 'read', page: input.page }, controller.signal);
           text = parsed.text || ''; page = parsed.page; pageCount = parsed.pageCount; needsVisual = parsed.needsVisual;
@@ -687,8 +706,9 @@ export class MaterialService {
       const points = Array.from(text), start = input.offset;
       if (start > points.length) throw new HarnessError('material_range', '这一段已经到结尾了，可以回到前一段。');
       const end = Math.min(points.length, start + MATERIAL_LIMITS.readCodePoints);
+      textRuns = textRuns?.filter(run => run.start >= start && run.end <= end && run.end > run.start);
       return { item, text: points.slice(start, end).join(''), start, end, total: points.length,
-        nextOffset: end < points.length ? end : null, page, pageCount, needsVisual, image };
+        nextOffset: end < points.length ? end : null, page, pageCount, needsVisual, image, textRuns, selectionUnavailable };
     } finally { this.active.delete(controller); if (this.nativeRead === controller) this.nativeRead = undefined; }
   }
   /** Read the selected range independently of the reader's cancellable page
@@ -730,9 +750,21 @@ export class MaterialService {
   /** A user-kept excerpt is an independent notebook document. Only its address
    * points back here; saving it does not persist an unsent original file. */
   async nativeKeepQuote(raw: unknown, notes: NotesService) {
-    const quote = await this.nativeQuote(raw);
-    return notes.create({ title: Array.from(`${quote.name}${quote.page ? ` · 第 ${quote.page} 页` : ''}`).slice(0, 160).join(''), body: quote.text }, undefined,
+    const input = materialKeepQuoteInputSchema.parse(raw);
+    const quote = await this.nativeQuote({ target: input.target, quote: input.quote });
+    const annotation = input.annotation?.trim();
+    return notes.create({ title: Array.from(`${quote.name}${quote.page ? ` · 第 ${quote.page} 页` : ''}`).slice(0, 160).join(''), body: quote.text + (annotation ? `\n\n${annotation}` : '') }, undefined,
       { via: 'notebook', material: { ...materialQuoteAddress(quote), name: quote.name } });
+  }
+  /** Native notebook projection only. A note's retained source address cannot
+   * reopen a withdrawn material or grant the model new source access. */
+  nativeNotes(raw: unknown, notes: NotesService): MaterialNotes {
+    const input = materialNotesInputSchema.parse(raw), record = this.nativeRecord(input.target);
+    if (record.reference.mediaType !== 'application/pdf' && input.page !== undefined)
+      throw new HarnessError('material_page', '这份资料没有 PDF 页码。');
+    const result = notes.forMaterial(record.reference.resourceId, record.reference.sha256, input.page);
+    this.nativeRecord(input.target);
+    return result;
   }
   /** Body-free identity for ingress interpretation. The actual read still
    * happens after this turn's source and transmission controls are applied. */

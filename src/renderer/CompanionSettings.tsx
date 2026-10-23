@@ -5,7 +5,7 @@ import { characterPortrayal } from '../shared/persona-portrayals';
 import type { State } from '../shared/types';
 import { samePersonaCore, type PersonaDraft } from './PersonaEditor';
 import { COMPANIONS, CompanionScene, WINDOW_LIGHT, companionName, useCompanion, type CompanionPlacement } from './companion';
-import { useAppearance } from './appearance';
+import { APPEARANCE_PALETTES, useAppearance } from './appearance';
 import { Switch, uiError } from './ui';
 
 const categories = ['全部', '二次元', '插画', '写实', '我的收藏'] as const;
@@ -37,7 +37,6 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
   useEffect(() => () => { request.current++; }, []);
   useEffect(() => setName(companionName(value)), [value.character, value.names, value.pictures]);
   useEffect(() => setPlacement({ scale: value.scale, position: value.position, verticalPosition: value.verticalPosition }), [value.scale, value.position, value.verticalPosition, value.character]);
-  const isNight = appearance.theme === 'dark' || (appearance.theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
   const custom = value.pictures.find(item => item.id === value.character);
   const portrayal = characterPortrayal(value.character);
   const preset = companionPreset(value.character);
@@ -140,15 +139,18 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
     <div className="companion-preview">
       <CompanionScene preview placement={placement} interaction={{ onChange: setPlacement, onCommit: savePlacement }} />
       <div className="companion-preview-controls">
+        <div className="companion-theme-choices" role="group" aria-label="界面色彩">
+          {APPEARANCE_PALETTES.map(palette => <button type="button" key={palette.id} data-palette={palette.id} aria-pressed={appearance.palette === palette.id} onClick={() => perform(() => setAppearance({ palette: palette.id }))}><span aria-hidden="true" />{palette.name}</button>)}
+        </div>
         <div className="soft-choices" role="group" aria-label="陪伴出现的方式">
           {([['window', '窗边陪着'], ['corner', '留在页角'], ['hidden', '暂时收起']] as const).map(([presence, label]) => <button key={presence} type="button" aria-pressed={value.presence === presence} onClick={() => perform(() => update({ presence }))}>{label}</button>)}
         </div>
         <button className="companion-adjust-toggle" type="button" aria-expanded={adjusting} onClick={() => setAdjusting(current => !current)}><SlidersHorizontal size={15} />光线与位置<ChevronDown size={15} /></button>
         {adjusting && <div className="companion-adjustments">
           <div className="light-choices" role="group" aria-label="窗边光线">
-            <button type="button" aria-pressed={!isNight && value.light === 'morning'} onClick={() => perform(() => { update({ light: 'morning' }); setAppearance({ theme: 'light' }); })}><img src={WINDOW_LIGHT.morning} alt="" /><span><Sun size={14} />晨光</span></button>
-            <button type="button" aria-pressed={!isNight && value.light === 'dusk'} onClick={() => perform(() => { update({ light: 'dusk' }); setAppearance({ theme: 'light' }); })}><img src={WINDOW_LIGHT.dusk} alt="" /><span><Sunset size={14} />暮色</span></button>
-            <button type="button" aria-pressed={isNight} onClick={() => perform(() => setAppearance({ theme: 'dark' }))}><img src={WINDOW_LIGHT.night} alt="" /><span><Moon size={14} />夜灯</span></button>
+            <button type="button" aria-pressed={value.light === 'morning'} onClick={() => perform(() => update({ light: 'morning' }))}><img src={WINDOW_LIGHT.morning} alt="" /><span><Sun size={14} />晨光</span></button>
+            <button type="button" aria-pressed={value.light === 'dusk'} onClick={() => perform(() => update({ light: 'dusk' }))}><img src={WINDOW_LIGHT.dusk} alt="" /><span><Sunset size={14} />暮色</span></button>
+            <button type="button" aria-pressed={value.light === 'night'} onClick={() => perform(() => update({ light: 'night' }))}><img src={WINDOW_LIGHT.night} alt="" /><span><Moon size={14} />夜灯</span></button>
           </div>
           <div className="companion-placement">
             <label>远近<input type="range" aria-label="人物大小" min="0.75" max="1.3" step="0.01" value={placement.scale} onChange={event => setPlacement(current => ({ ...current, scale: Number(event.target.value) }))} onPointerDown={() => { sliderOrigin.current = placement; }} onPointerUp={() => { sliderOrigin.current = undefined; savePlacement(); }} onPointerCancel={cancelSlider} onKeyUp={() => savePlacement()} onBlur={() => savePlacement()} /></label>

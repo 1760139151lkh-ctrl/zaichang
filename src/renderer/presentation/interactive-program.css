@@ -13,6 +13,7 @@
 .interactive-flow { display:flex; flex-direction:column; min-width:0; }
 .interactive-flow.is-row { flex-direction:row; flex-wrap:wrap; }
 .interactive-flow.is-row>.interactive-graphic { flex:1 1 300px; width:auto; }
+.interactive-flow.is-row>.interactive-paper { flex:1 1 320px; }
 .interactive-flow.is-row>.interactive-number.is-slider { flex:1 1 250px; }
 .interactive-flow.is-grid { display:grid; grid-template-columns:repeat(var(--interactive-columns,2),minmax(0,1fr)); }
 .interactive-flow>* { min-width:0; }

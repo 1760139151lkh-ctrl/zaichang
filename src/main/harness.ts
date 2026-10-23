@@ -305,7 +305,7 @@ export class Harness {
       admissionSignal.throwIfAborted();
       let admitted: InputControls = { ...controls, replyToOwner: true };
       const referenced = !!(controls.selection || controls.studyInteraction || controls.companionReference || controls.curiosityReference
-        || controls.letterReference || controls.noteReference || controls.programReference || controls.rehearsalInteraction);
+        || controls.letterReference || controls.noteReference || controls.notebookQuote || controls.agendaFocus || controls.mapRouteReference || controls.programReference || controls.rehearsalInteraction);
       if (!message.demo && controls.transmission !== 'local_only' && !localCloudRestriction(authoredContent) && !(partition.attachment && hasCredentials(partition.attachment.text))
         && needsControlParse(authoredContent, { attachment: !!partition.attachment || !!material, image: !!image, reference: referenced })) {
         const controlClient = this.clientFactory(this.key(), this.store.settings().model);
@@ -1629,9 +1629,25 @@ export class Harness {
               try { currentUserReference = runtime.notePresentation.readPurposeReference(contract.scope, run.noteReference, run.sessionId); }
               catch (error) { if (!(error instanceof HarnessError)) throw error; }
             }
+            if (run.notebookQuote && pack.data.currentNote) {
+              operationSignal.throwIfAborted();
+              try { currentUserReference = runtime.notePresentation.notebookQuoteIdentity(contract.scope, run.notebookQuote); }
+              catch (error) { if (!(error instanceof HarnessError)) throw error; }
+            }
+            if (run.mapRouteReference && pack.data.currentMapRoute) {
+              operationSignal.throwIfAborted();
+              try { currentUserReference = runtime.spatial.sharedRouteIdentity(contract.scope, run.mapRouteReference); }
+              catch (error) { if (!(error instanceof HarnessError)) throw error; }
+            }
             if (run.materialQuote && pack.data.currentMaterial) {
               operationSignal.throwIfAborted();
               try { currentUserReference = runtime.materials.quoteIdentity(contract.scope, run.materialQuote); }
+              catch (error) { if (!(error instanceof HarnessError)) throw error; }
+            }
+            let currentAgendaReference: unknown;
+            if (run.agendaFocus && pack.data.currentAgenda) {
+              operationSignal.throwIfAborted();
+              try { currentAgendaReference = runtime.agendaFocusForReview(run); }
               catch (error) { if (!(error instanceof HarnessError)) throw error; }
             }
             let currentCampusReference: unknown;
@@ -1719,6 +1735,7 @@ export class Harness {
             const currentMaterialReference = runtime.materialReadPurpose(run, request);
             return verifyReadPurpose(run.ingress.authoredText, { proposed: projectInteractiveProgramReadPurpose(request, currentProgramReference, providedProgramReference), currentTime: contract.now, timeZone: contract.timeZone, scopedSourceLimits: run.ingress.controlProposal?.scopedSourceLimits || [],
               ...(currentUserReference ? { currentUserReference } : {}),
+              ...(currentAgendaReference ? { currentAgendaReference } : {}),
               ...(currentCampusReference ? { currentCampusReference } : {}),
               ...(currentProgramReference ? { currentProgramReference } : {}),
               ...(providedProgramReference ? { providedProgramReference } : {}),
@@ -1730,13 +1747,20 @@ export class Harness {
                 ? { alreadyAdmittedSameConversation: pack.data.history } : {}) }, complete, operationSignal);
           },
           verifyAttentionExpiry: (request, operationSignal = signal) => verifyAttentionExpiry(run.ingress.authoredText, request, complete, operationSignal),
-          verifyLocalDelegation: (action, operationSignal = signal) => checkLocalDelegation({
+          verifyLocalDelegation: (action, operationSignal = signal) => {
+            operationSignal.throwIfAborted();
+            let agendaFocus: ReturnType<typeof runtime.agendaFocusForReview>;
+            try { agendaFocus = runtime.agendaFocusForReview(run); }
+            catch (error) { if (!(error instanceof HarnessError)) throw error; }
+            return checkLocalDelegation({
             current: { id: user.id, text: run.ingress.authoredText, ...(run.ingress.sourceContext ? { sourceContext: run.ingress.sourceContext } : {}) },
             history: Array.isArray(pack.data.history) ? pack.data.history as any[] : [],
             action, now: contract.now, timeZone: contract.timeZone, conversationRetention: contract.retention,
             observations: run.observations, image: run.image,
             selection: run.selection,
-          }, complete, operationSignal),
+            ...(agendaFocus ? { agendaFocus } : {}),
+          }, complete, operationSignal);
+          },
           verifyBusinessChoice: (choice, operationSignal = signal) => checkBusinessChoice({ current: { id: user.id, text: run.ingress.authoredText, ...(run.ingress.sourceContext ? { sourceContext: run.ingress.sourceContext } : {}) },
             history: [...(Array.isArray(pack.data.history) ? pack.data.history as { id: string; role: string; content: string }[] : []),
               ...(Array.isArray(pack.data.volatileConversationHistory) ? pack.data.volatileConversationHistory as { id: string; role: string; content: string }[] : [])],

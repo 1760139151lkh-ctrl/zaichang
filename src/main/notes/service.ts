@@ -8,6 +8,8 @@ import {
   noteStateSchema,
   noteUndoSchema,
   noteUpdateSchema,
+  notebookQuoteReferenceSchema,
+  type NotebookQuote,
   type NoteDocument,
   type NoteHistory,
   type NoteList,
@@ -16,6 +18,7 @@ import {
   type NoteVersion,
 } from '../../shared/notes';
 import type { KernelRepository } from '../storage/repository';
+import { materialQuoteAddress, type MaterialNotes } from '../../shared/materials';
 
 type VersionRecord = NoteDocument & { operation: NoteVersion['operation']; restoredFrom?: number };
 type Origin = { via: 'notebook' | 'conversation'; eventId?: string; material?: NoteDocument['source']['material'] };
@@ -177,6 +180,22 @@ export class NotesService {
       });
     return { items, total, offset: input.offset, hasMore: input.offset + items.length < total };
   }
+  /** The native reader requests only active notes anchored to this exact
+   * original. Full text and edits continue through the ordinary note owner. */
+  forMaterial(resourceId: string, sha256: string, page?: number): MaterialNotes {
+    const records = this.repo.db.prepare(`SELECT payload FROM h_notes
+      WHERE owner=? AND workspace=? AND state='active'
+      AND json_extract(payload,'$.source.material.resourceId')=?
+      AND json_extract(payload,'$.source.material.sha256')=?
+      AND (? IS NULL OR json_extract(payload,'$.source.material.page')=?)
+      ORDER BY updated_at DESC,id LIMIT 101`).all(this.repo.identity.principalId, this.repo.identity.workspaceId,
+        resourceId, sha256, page ?? null, page ?? null);
+    return { items: records.slice(0, 100).map(row => {
+      const note = parse(row)!, source = note.source.material!;
+      return { id: note.id, revision: note.revision, title: note.title,
+        preview: Array.from(note.body).slice(0, 160).join('').replace(/\s+/g, ' '), source: materialQuoteAddress(source) };
+    }), hasMore: records.length > 100 };
+  }
   read(raw: unknown, scope?: ScopeHandle): NotePage {
     this.allowed(scope);
     const input = noteReadSchema.parse(raw);
@@ -199,6 +218,26 @@ export class NotesService {
       total: points.length,
       hasMore: end < points.length,
     };
+  }
+  /** A native selection points at the current saved revision, never a copy
+   * of the textarea or a historical Scene with a fabricated message address. */
+  quoteIdentity(raw: unknown, scope?: ScopeHandle) {
+    this.allowed(scope);
+    const reference = notebookQuoteReferenceSchema.parse(raw), note = this.current(reference.noteId);
+    if (note.state !== 'active' || note.revision !== reference.revision || note.sha256 !== reference.sha256
+      || reference.end > Array.from(note.body).length || scope && this.repo.hasFence(note.id, 'notes:self'))
+      throw new HarnessError('notebook_quote_changed', '这页笔记后来改过，请回到现在的内容重新选这一段。');
+    return { reference, proof: { id: note.id, revision: note.revision, sha256: note.sha256,
+      start: reference.start, end: reference.end } };
+  }
+  quote(raw: unknown, scope?: ScopeHandle): NotebookQuote {
+    const { reference } = this.quoteIdentity(raw, scope);
+    const page = this.read({ id: reference.noteId, revision: reference.revision,
+      offset: reference.start, limit: reference.end - reference.start }, scope);
+    if (page.offset !== reference.start || page.end !== reference.end || !page.body.trim())
+      throw new HarnessError('notebook_quote_empty', '先选一小段想接着聊的笔记。');
+    this.quoteIdentity(reference, scope);
+    return { reference, title: page.note.title || '没有标题的一页', text: page.body };
   }
   create(raw: unknown, scope?: ScopeHandle, origin: Origin = { via: 'notebook' }): NoteMutation {
     this.allowed(scope, true, true);

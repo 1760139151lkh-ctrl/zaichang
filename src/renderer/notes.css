@@ -261,6 +261,30 @@
   padding: 0;
   font: 400 calc(16px * var(--reading-scale, 1))/2.05 var(--font-body);
 }
+.notes-body-field { position: relative; min-width: 0; }
+.notes-quote-action {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 7px 13px;
+  max-width: 100%;
+  border: 1px solid var(--separator);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--accent-hover);
+  box-shadow: 0 5px 22px color-mix(in srgb, var(--text) 10%, transparent);
+  font: 500 12px/1.5 var(--font-body);
+  white-space: nowrap;
+  animation: notes-selection-in 130ms var(--ease) both;
+}
+.notes-quote-action:hover:not(:disabled) { background: var(--accent-soft); }
+.notes-quote-action:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.notes-quote-action:disabled { cursor: wait; opacity: .65; }
+@keyframes notes-selection-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .notes-quote-action { animation: none; } }
 .notes-title::placeholder,
 .notes-body::placeholder {
   color: var(--text-tertiary);

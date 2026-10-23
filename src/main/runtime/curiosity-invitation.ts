@@ -9,6 +9,7 @@ import { curiosityFollowupReferenceSchema, curiosityChapterAddressSchema, curios
 import { storySettingSnapshotSchema } from '../../shared/story-setting';
 import { publicStoryPlace, retainStorySetting, type PublicSettingMap } from './story-setting';
 import { noteSourceProofSchema, type NoteSourceProof } from '../../shared/notes-source';
+import type { VerifiedSelection } from '../../shared/scenes';
 
 export interface CuriosityObservation { tool: string; requestedArguments?: unknown; result: unknown; toolCallId?: string }
 export interface CuriosityContext {
@@ -20,6 +21,8 @@ export interface CuriosityContext {
   deliveredObservationIds: ReadonlySet<string>;
   /** Host-held original note dependencies actually adopted by this run. */
   noteSources?: readonly NoteSourceProof[];
+  /** Only SceneService's current public-map selection, never model arguments. */
+  storySettingSelection?: VerifiedSelection['storySetting'];
   permits?: (ref: WorkSourceRef) => boolean;
 }
 export interface CuriosityResult {
@@ -366,10 +369,16 @@ export class CuriosityInvitationService {
       meaning: '只带可公开的主题与检索词去找一个有内容的新鲜起点，不外传原邀请、旧兴趣或私人背景。实际外发仍由原readPurpose核验；搜索只给候选，事实须展开research.read。也可不联网，直接给明确标作创作的小玩法。',
     }, records: [], bindings: [] };
     if (input.operation === 'put_aside') return this.stop(handle, context, input);
+    const selected = input.operation === 'continue' && input.setting ? context.storySettingSelection : undefined;
+    const framing = selected && input.operation === 'continue' && input.setting
+      && selected.work.id === input.id && selected.work.revision === input.expectedRevision
+      && selected.work.matterRevision === input.expectedMatterRevision && selected.placeId === input.setting.placeId
+      && selected.mapVersion === input.setting.mapVersion ? selected : undefined;
+    if (framing) this.referenceIdentity(handle, framing.work, { sessionId: context.sessionId, allowCrossSession: false });
     let settingAvailable = false, settingUnavailable: string | undefined;
     if (input.setting) {
       if (input.seed.origin !== 'created') throw new HarnessError('story_map_creation', '地图取景接共同创作；外部发现仍按原公开正文来源展开。');
-      try { publicStoryPlace(this.policy, handle, this.publicMap(), input.setting); settingAvailable = true; }
+      try { publicStoryPlace(this.policy, handle, this.publicMap(), input.setting, framing); settingAvailable = true; }
       catch (error) {
         if (!(error instanceof HarnessError) || !['story_map_scope', 'story_map_changed'].includes(error.code)) throw error;
         settingUnavailable = '公共地点暂未对上当前可读地图，这次先保留共同创作，没有把取景附成事实；仍可直接一起玩，愿意时再换一个已核地点。';
@@ -389,6 +398,8 @@ export class CuriosityInvitationService {
     const repeated = this.repo.operation<{ id: string }>(operationKey);
     if (repeated) return this.read(handle, context, repeated.id);
     const previous = input.operation === 'offer' ? undefined : this.current(handle, context, input.id);
+    if (framing && (!previous || framing.work.matterId !== previous.frame.id))
+      throw new HarnessError('curiosity_history_identity', '这处取景属于另一份共同作品，没有把两件事接在一起。');
     const inheritedNotes = input.operation === 'continue' && previous?.option.data.noteSources !== undefined
       ? previous.option.data.noteSources as unknown : [];
     if (!Array.isArray(inheritedNotes)) throw new HarnessError('curiosity_source_changed', '原作品的笔记来由暂时不能完整接上。');
@@ -433,7 +444,8 @@ export class CuriosityInvitationService {
     const directFrameRefs = [...(!checkpoint ? previous?.frame.sourceBinding?.refs || [] : []), currentRef];
     const directOptionRefs = [...(input.operation === 'continue' ? !checkpoint ? previous?.option.sourceBinding?.refs || [] : [] : directFrameRefs), currentRef];
     const uniqueCount = (refs: WorkSourceRef[]) => new Set(refs.map(canonical)).size;
-    const inheritedSetting = input.operation === 'continue' && !input.setting && input.setting !== null && input.seed.origin === 'created'
+    const inheritedSetting = input.operation === 'continue' && (!input.setting || !settingAvailable)
+      && input.setting !== null && input.seed.origin === 'created'
       ? original?.scene.view.setting || (previous?.option.data.setting ? storySettingSnapshotSchema.parse(previous.option.data.setting) : undefined) : undefined;
     const directWithSetting = [...directOptionRefs, ...(inheritedSetting ? [inheritedSetting.evidenceRef] : [])];
     const additionalSources = publicSources.length + (input.setting && settingAvailable ? 1 : 0);
@@ -449,9 +461,8 @@ export class CuriosityInvitationService {
       if (!this.repo.noteSourcesReadable(handle, noteSources))
         throw new HarnessError('curiosity_source_changed', '这次创作引用的一页笔记刚有变化，没有覆盖原稿。');
       const refs = this.retainPublicSources(handle, context, publicSources);
-      const setting = input.setting ? settingAvailable ? retainStorySetting(this.repo, this.policy, handle, context.sessionId, this.publicMap(), input.setting) : undefined
-        : input.operation === 'continue' && input.setting !== null && input.seed.origin === 'created'
-          ? original?.scene.view.setting || (previous?.option.data.setting ? storySettingSnapshotSchema.parse(previous.option.data.setting) : undefined) : undefined;
+      const setting = input.setting && settingAvailable
+        ? retainStorySetting(this.repo, this.policy, handle, context.sessionId, this.publicMap(), input.setting, framing) : inheritedSetting;
       const frameId = previous?.frame.id || randomUUID(), optionId = input.operation === 'continue' && previous ? previous.option.id : randomUUID();
       const frameBinding = this.repo.resolveWorkSourceBinding(handle, [...(!checkpoint ? previous?.frame.sourceBinding?.refs || [] : []), currentRef]);
       const optionBinding = this.repo.resolveWorkSourceBinding(handle, [
@@ -487,7 +498,8 @@ export class CuriosityInvitationService {
       this.repo.saveSourcedWork(handle, option, input.operation === 'continue' ? previous?.option.revision : undefined);
       this.repo.completeOperation(operationKey, 'curiosity_invitation', { id: option.id });
       return { value: { status: input.operation === 'continue' ? 'playing' : 'offered', curiosity: this.view(frame, option),
-        ...(settingUnavailable ? { settingStatus: 'not_attached', settingMeaning: settingUnavailable } : {}),
+        ...(settingUnavailable ? { settingStatus: setting ? 'kept_previous' : 'not_attached',
+          settingMeaning: setting ? '新的公共取景尚未核准，原作品仍保留原取景；这次失败没有清掉原来的镜头或地点。' : settingUnavailable } : {}),
         read: { tool: 'curiosity_invitation', arguments: { operation: 'read', id: option.id } } }, records: [frame, option], bindings: [], assistantWorkSources: chapterSources };
     });
   }

@@ -418,8 +418,11 @@ export function bindProgramSceneSources(admission: ProgramSourceAdmission, scene
       owners.push(...scene.blocks.flatMap(block => block.agendaRecord
         ? [{ kind: 'agenda' as const, id: block.agendaRecord.id, revision: block.agendaRecord.revision }] : []));
     } else if (scene.kind === 'map' && scene.storySetting) {
+      if (!host.repo.noteSourcesReadable(handle, scene.storySetting.noteSources)) fail('取景作品的一处笔记来由已经变化，请从原作品重新展开。');
       bindings.push(scene.storySetting.sourceBinding); assistantSources.push(...(scene.storySetting.assistantWorkSources || []));
-      base.storySetting = { sourceBinding: scene.storySetting.sourceBinding, assistantWorkSources: scene.storySetting.assistantWorkSources || [] };
+      notes.push(...scene.storySetting.noteSources);
+      base.storySetting = { sourceBinding: scene.storySetting.sourceBinding, noteSources: scene.storySetting.noteSources,
+        assistantWorkSources: scene.storySetting.assistantWorkSources || [] };
     }
     metadata.push(base);
   }

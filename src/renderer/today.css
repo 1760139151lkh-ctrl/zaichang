@@ -909,3 +909,97 @@ dialog.panel.agenda-editor {
   .agenda-timeline-card { transition: none; }
 }
 :root[data-motion='reduced'] .agenda-timeline-card { transition: none; }
+
+/* The selected owner stays beside its real place in the day. */
+.app-shell .today-page .page-content { width: min(1200px, calc(100% - 88px)); }
+.today-navigation-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 15px; }
+.today-navigation-row .today-section-tabs { margin-bottom: 0; }
+.today-navigation-row .today-date-heading { margin: 0; gap: 18px; }
+.today-navigation-row .today-date-heading > small { margin: 0; }
+.today-navigation-row .today-date-actions { gap: 18px; }
+.today-browse-tools { display: flex; align-items: center; gap: 25px; }
+.today-browse-tools > .today-campus-tools { flex: 0 0 auto; margin: 0; }
+.today-browse-tools > .today-list-tools { flex: 1; min-width: 0; }
+.today-browse-tools:has(.today-campus-source[open]) { flex-wrap: wrap; }
+.today-browse-tools > .today-campus-tools:has(.today-campus-source[open]) { flex-basis: 100%; }
+.today-workspace { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; align-items: start; }
+.today-main { min-width: 0; }
+.today-page-layout.has-current-object { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 350px); gap: 36px; align-items: start; }
+.today-workspace > .today-agenda-list { min-width: 0; }
+.today-current-object { position: sticky; top: 12px; min-width: 0; padding: 0 0 22px 28px; border-left: 1px solid var(--separator); }
+.agenda-editor-inline { position: relative; min-width: 0; animation: agenda-object-in 170ms var(--ease); }
+.agenda-inline-heading { position: absolute; right: -5px; top: 0; z-index: 1; }
+.agenda-inline-heading > .icon-button { width: 30px; height: 30px; }
+.agenda-editor-inline .panel-body { padding: 0; }
+.agenda-editor-inline .field-label { margin-top: 14px; }
+.agenda-editor-inline .agenda-title-field { margin: 0; padding-right: 28px; }
+.agenda-title-field > span { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.agenda-editor-inline .agenda-title-field input { margin: 0; padding: 2px 0 9px; background: transparent; border: 0; border-radius: 0; color: var(--text); font: 500 23px/1.5 var(--font-display); }
+.agenda-editor-inline .agenda-title-field input:disabled { opacity: 1; }
+.agenda-editor-inline .agenda-edit-comparison { margin-top: 18px; padding: 17px 0; border-block: 1px solid var(--separator); grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr); gap: 7px; }
+.agenda-editor-inline .agenda-edit-time-fields { grid-template-columns: minmax(0, 1fr) 84px; gap: 12px; }
+.agenda-editor-inline .agenda-edit-time-fields > .field-label { margin-top: 14px; }
+.agenda-editor-inline .agenda-edit-time-fields input { font-size: 13px; padding-inline: 9px; }
+.agenda-edit-details { margin-top: 16px; }
+.agenda-edit-details > summary { display: flex; align-items: center; gap: 6px; width: fit-content; cursor: pointer; padding: 4px 0; list-style: none; color: var(--text-secondary); font-size: 13px; }
+.agenda-edit-details > summary::-webkit-details-marker { display: none; }
+.agenda-edit-details[open] > summary svg { transform: rotate(180deg); }
+.agenda-editor:not(.agenda-editor-inline) .agenda-edit-details > summary { display: none; }
+.agenda-editor-inline .agenda-edit-details .field-label { margin: 0; }
+.agenda-editor-inline .agenda-edit-repeat { margin-top: 15px; }
+.agenda-editor-inline .agenda-edit-repeat > label:not(.field-label) { display: inline-flex; margin: 3px 7px 3px 0; padding: 7px 9px; font-size: 12px; }
+.agenda-edit-assessment { margin-top: 18px; }
+.agenda-edit-conflicts { border-left: 2px solid color-mix(in srgb, var(--accent) 65%, #a7624c); padding: 2px 0 2px 13px; }
+.agenda-edit-conflicts > p { margin: 0 0 10px; color: var(--text-secondary); font-size: 12px; line-height: 1.7; }
+.agenda-edit-conflicts > div { display: flex; flex-direction: column; gap: 4px; margin: 10px 0; }
+.agenda-edit-conflicts strong { font-size: 14px; line-height: 1.6; font-weight: 500; overflow-wrap: anywhere; }
+.agenda-edit-conflicts span { font-size: 12px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.agenda-preview-error { color: var(--text-secondary); font-size: 12px; line-height: 1.8; margin: 0 0 10px; }
+.agenda-preview-sources { margin: 13px 0 0; color: var(--text-secondary); font-size: 11px; }
+.agenda-preview-sources > summary { display: flex; align-items: center; gap: 6px; width: fit-content; cursor: pointer; padding: 5px 0; list-style: none; }
+.agenda-preview-sources > summary::-webkit-details-marker { display: none; }
+.agenda-preview-sources[open] > summary svg { transform: rotate(180deg); }
+.agenda-preview-sources > div { padding: 8px 0 0; }
+.agenda-preview-sources p { margin: 6px 0; line-height: 1.8; overflow-wrap: anywhere; }
+.agenda-discuss-link { display: flex; align-items: center; gap: 7px; justify-content: center; width: 100%; margin: 17px 0 0; font-size: 13px; }
+.agenda-place-link { gap: 7px; margin-top: 17px; font-size: 13px; }
+.agenda-cancel-once { display: block; margin: 17px auto 0; color: var(--text-tertiary); font-size: 12px; }
+.today-calendar-problem { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: 16px 0; font-size: 12px; color: var(--text-secondary); }
+.today-calendar-problem .text-button { font-size: inherit; }
+.today-calendar-issue { margin: 14px 0; font-size: 12px; color: var(--text-secondary); }
+.today-move-undo { position: fixed; z-index: 20; left: 50%; bottom: 24px; transform: translateX(-50%); width: min(540px, calc(100% - 40px)); margin: 0; background: var(--surface); box-shadow: 0 8px 30px #30201222; }
+.today-day-loading { padding: 35px 0 35px 66px; color: var(--text-tertiary); font-size: 13px; }
+.today-earlier-arrangement { display: flex; align-items: center; gap: 18px; margin: 18px 0; padding: 15px 0 15px 66px; border-top: 1px dashed var(--separator); }
+.today-earlier-arrangement > div { display: flex; flex: 1; min-width: 0; flex-direction: column; gap: 6px; }
+.today-earlier-arrangement strong { font-size: 14px; font-weight: 500; }
+.today-earlier-arrangement span, .today-earlier-arrangement .text-button { color: var(--text-secondary); font-size: 12px; }
+.agenda-timeline-card.is-selected { border-color: color-mix(in srgb, var(--accent) 65%, var(--border)); box-shadow: 0 4px 18px #57371912; }
+.agenda-timeline-card { transition-property: top, left, width, box-shadow, background; }
+.agenda-timeline-card.has-overlap { border-style: dashed; border-left-style: solid; }
+.agenda-timeline-card.is-short { min-height: 24px; }
+@keyframes agenda-object-in { from { opacity: 0; transform: translateX(7px); } to { opacity: 1; transform: translateX(0); } }
+@media (max-width: 1050px) {
+  .today-page-layout.has-current-object { grid-template-columns: minmax(0, 1fr) minmax(270px, 310px); gap: 23px; }
+  .today-current-object { padding-left: 21px; }
+  .agenda-timeline-card.is-short { flex-direction: column; align-items: flex-start; gap: 1px; }
+}
+@media (max-width: 820px) {
+  .app-shell .today-page .page-content { width: calc(100% - 40px); }
+  .today-page-layout.has-current-object { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .today-current-object { position: relative; top: 0; padding: 20px 0 5px; border-left: 0; border-top: 1px solid var(--separator); }
+  .agenda-editor-inline .agenda-edit-time-fields { grid-template-columns: minmax(0, 1fr) 108px; gap: 16px; }
+  .today-navigation-row { gap: 13px; }
+  .today-navigation-row .today-date-heading { flex: 1; justify-content: flex-end; }
+  .today-navigation-row .today-date-heading > small { display: none; }
+  .today-browse-tools { align-items: flex-start; gap: 12px; }
+  .today-browse-tools > .today-list-tools { flex-wrap: wrap; }
+}
+@media (max-width: 540px) {
+  .agenda-editor-inline .agenda-edit-time-fields { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .today-earlier-arrangement { padding-left: 0; align-items: flex-start; flex-wrap: wrap; }
+  .today-navigation-row .today-date-heading { flex-basis: 100%; }
+  .today-browse-tools { flex-wrap: wrap; }
+  .today-browse-tools > .today-list-tools { flex-basis: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .agenda-editor-inline { animation: none; } }
+:root[data-motion='reduced'] .agenda-editor-inline { animation: none; }

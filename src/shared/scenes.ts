@@ -7,7 +7,8 @@ import { planningTrialConditionSchema, type PlanningComparisonView, type Plannin
 import type { CuriosityScene, CuriosityHistoryReference } from './curiosity-scene';
 import type { RehearsalScene, RehearsalHistoryReference } from './relationship-rehearsal';
 import type { NoteScene, NoteHistoryReference } from './note-presentation';
-import type { MapStorySetting } from './story-setting';
+import type { MapStorySetting, StorySettingRoute } from './story-setting';
+import { mapViewSchema, type MapView } from './map-view';
 import type { CampusAcademicReference } from './campus-academic';
 import type { InteractiveProgramDocument, InteractiveProgramHistoryReference } from './interactive-program';
 
@@ -288,6 +289,7 @@ export const semanticSelectionSchema = z.object({
   pointId: id.optional(), optionId: id.optional(),
   campusScale: campusGpaScaleSchema.optional(),
   planningTrial: planningTrialConditionSchema.optional(),
+  mapView: mapViewSchema.optional(),
 }).strict();
 export type SemanticSelection = z.infer<typeof semanticSelectionSchema>;
 export interface VerifiedSelection extends SemanticSelection {
@@ -304,7 +306,8 @@ export interface VerifiedSelection extends SemanticSelection {
   timeZone?: string;
   discussion?: VerifiedDiscussionFocus;
   planningTrialObservation?: PlanningTrialObservation;
-  storySetting?: { work: MapStorySetting['work']; placeId?: string; legId?: string; mapVersion: string; meaning: string };
+  storySetting?: { work: MapStorySetting['work']; placeId?: string; legId?: string; mapVersion: string;
+    view?: MapView; route?: StorySettingRoute; meaning: string };
 }
 export const sceneReference = (scene: SceneRef) => `${scene.id}@${scene.revision}`;
 export type SceneLayout = 'stack' | 'compare' | 'focus';

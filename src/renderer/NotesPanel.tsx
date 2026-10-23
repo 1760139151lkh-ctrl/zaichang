@@ -20,6 +20,7 @@ import {
   type NoteList,
   type NoteMutation,
   type NotesBridge,
+  type NotebookQuote,
 } from '../shared/notes';
 import { IconButton, PagePanel, uiError } from './ui';
 import { DEFAULT_TIME_ZONE, formatDateTime } from './time';
@@ -28,6 +29,7 @@ import type { MaterialQuoteReference } from '../shared/materials';
 import './notes.css';
 
 type Editor = { note?: NoteDocument; title: string; body: string };
+type NotebookSelection = { key: string; body: string; start: number; end: number; left: number; top: number };
 const fresh = (): Editor => ({ title: '', body: '' });
 const keyOf = (editor: Editor) => editor.note?.id || 'new';
 const isDirty = (editor?: Editor) =>
@@ -93,6 +95,7 @@ export function NotesPanel({
   onUnsavedChange,
   onOpenMaterialSource,
   onOpenMaterials,
+  onQuoteNote,
   active = true,
   focus,
   embedded = false,
@@ -103,6 +106,7 @@ export function NotesPanel({
   onUnsavedChange?: (unsaved: boolean) => void;
   onOpenMaterialSource?: (source: MaterialQuoteReference, discuss?: boolean) => Promise<void>;
   onOpenMaterials?: () => void;
+  onQuoteNote?: (quote: NotebookQuote) => boolean;
   active?: boolean;
   focus?: { locator: Extract<LocalSearchLocator, { kind: 'note' }>; requestId: number };
   embedded?: boolean;
@@ -130,6 +134,11 @@ export function NotesPanel({
   const [closing, setClosing] = useState(false),
     [draftCount, setDraftCount] = useState(0);
   const [sourceError, setSourceError] = useState(''), [sourceOpening, setSourceOpening] = useState(false);
+  const [selection, setSelection] = useState<NotebookSelection>();
+  const [quoteOpening, setQuoteOpening] = useState(false);
+  const quoteSequence = useRef(0), quotePending = useRef(false);
+  const quoteDestination = useRef({ active, onQuoteNote });
+  quoteDestination.current = { active, onQuoteNote };
   const drafts = useRef(new Map<string, Editor>()),
     request = useRef(0),
     listRequest = useRef(0),
@@ -157,6 +166,9 @@ export function NotesPanel({
       host.current
         ?.querySelector<HTMLHeadingElement>('h1, [data-notes-focus]')
         ?.focus({ preventScroll: true });
+  }, [active]);
+  useEffect(() => {
+    if (!active) { quoteSequence.current++; setSelection(undefined); }
   }, [active]);
   useEffect(() => {
     onUnsavedChange?.(dirty || draftCount > 0);
@@ -245,6 +257,7 @@ export function NotesPanel({
     setDraftCount(drafts.current.size);
   }
   function resetFeedback() {
+    quoteSequence.current++; setSelection(undefined);
     setError('');
     setReceipt('');
     setConflict(undefined);
@@ -299,6 +312,7 @@ export function NotesPanel({
   function changeDraft(change: Partial<Pick<Editor, 'title' | 'body'>>) {
     if (!editor) return;
     const next = { ...editor, ...change };
+    quoteSequence.current++; setSelection(undefined);
     setEditor(next);
     setReceipt('');
     setUndoRevision(undefined);
@@ -338,7 +352,7 @@ export function NotesPanel({
         setReceipt('保存好了');
         await loadList();
       }
-      return saved;
+      return saved && result.status === 'saved' ? result.note : false;
     } catch (cause) {
       setError(uiError(cause));
       return false;
@@ -423,6 +437,68 @@ export function NotesPanel({
     try { await onOpenMaterialSource(source, discuss); }
     catch (cause) { if (mounted.current) setSourceError(uiError(cause)); }
     finally { if (mounted.current) setSourceOpening(false); }
+  }
+  function captureNotebookSelection(control: HTMLTextAreaElement) {
+    if (!editor || !active || !onQuoteNote || deleted || busy || quotePending.current || conflict) {
+      setSelection(undefined); return;
+    }
+    const from = control.selectionStart, to = control.selectionEnd;
+    const text = control.value.slice(from, to), length = Array.from(text).length;
+    if (!text.trim() || length > 1200) { setSelection(undefined); return; }
+    const start = Array.from(control.value.slice(0, from)).length;
+    // A textarea's selection has no DOM Range. Use its actual font and wrap
+    // width to place the one action beside the visible selection endpoint.
+    const style = window.getComputedStyle(control), mirror = document.createElement('div');
+    mirror.style.cssText = 'position:fixed;left:-100000px;top:0;visibility:hidden;white-space:pre-wrap;overflow-wrap:break-word;border:0;box-sizing:border-box;';
+    for (const property of ['font-family', 'font-size', 'font-weight', 'font-style', 'line-height', 'letter-spacing', 'word-spacing', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left', 'text-indent', 'tab-size'])
+      mirror.style.setProperty(property, style.getPropertyValue(property));
+    mirror.style.width = `${control.clientWidth}px`;
+    mirror.append(document.createTextNode(control.value.slice(0, from)));
+    const mark = document.createElement('span'); mark.textContent = text; mirror.append(mark);
+    document.body.append(mirror);
+    const rects = mark.getClientRects(), box = rects.item(rects.length - 1), firstBox = rects.item(0), frame = mirror.getBoundingClientRect();
+    const line = Number.parseFloat(style.lineHeight) || 30;
+    const right = (box?.right || frame.left) - frame.left - control.scrollLeft;
+    const beside = right + 196 <= control.clientWidth;
+    const left = Math.max(0, Math.min(control.clientWidth - 184, beside ? right + 12 : (firstBox?.left || frame.left) - frame.left - control.scrollLeft));
+    const top = Math.max(0, Math.min(control.clientHeight - 38, beside
+      ? (box?.top || 0) - frame.top - control.scrollTop + (line - 36) / 2
+      : (firstBox?.top || 0) - frame.top - control.scrollTop - 42));
+    mirror.remove();
+    setSelection({ key: keyOf(editor), body: editor.body, start, end: start + length, left, top });
+  }
+  async function discussNotebookSelection() {
+    if (!selection || !editor || !onQuoteNote || !active || deleted || busy || conflict || quotePending.current
+      || selection.key !== keyOf(editor) || selection.body !== editor.body) return;
+    const selected = selection, token = ++quoteSequence.current, navigation = request.current,
+      destination = quoteDestination.current.onQuoteNote;
+    quotePending.current = true; setQuoteOpening(true); setSourceError('');
+    let attempted: NoteDocument | undefined;
+    try {
+      const note = isDirty(editor) || !editor.note ? await save() : editor.note;
+      if (!note || !mounted.current || !quoteDestination.current.active || token !== quoteSequence.current
+        || navigation !== request.current || note.body !== selected.body) return;
+      attempted = note;
+      const quote = await bridge.notesQuote({ noteId: note.id, revision: note.revision, sha256: note.sha256,
+        start: selected.start, end: selected.end });
+      if (!mounted.current || !quoteDestination.current.active || token !== quoteSequence.current || navigation !== request.current
+        || destination !== quoteDestination.current.onQuoteNote) return;
+      if (destination?.(quote)) setSelection(undefined);
+    } catch (cause) {
+      if (!mounted.current || !quoteDestination.current.active || token !== quoteSequence.current) return;
+      // A source can change between the save receipt and the quote read.
+      // Refresh only that clean saved page; a newer local draft cancels this
+      // attempt above and remains untouched by the late owner response.
+      if (attempted) {
+        try {
+          const current = await readAll(attempted.id);
+          if (!mounted.current || !quoteDestination.current.active || token !== quoteSequence.current || navigation !== request.current) return;
+          if (current.revision !== attempted.revision) { setEditor(editable(current)); setSelection(undefined); }
+        } catch { /* Keep the original read error and current page for retry. */ }
+      }
+      if (mounted.current && token === quoteSequence.current) setSourceError(uiError(cause));
+    }
+    finally { quotePending.current = false; if (mounted.current) setQuoteOpening(false); }
   }
   const date = (value: string) => formatDateTime(value, timeZone);
   const hasContent = !!editor?.title.trim() || !!editor?.body.trim();
@@ -620,7 +696,7 @@ export function NotesPanel({
                         onChange={(event) => changeDraft({ title: event.target.value })}
                       />
                     </label>
-                    <label className="notes-body-label">
+                    <div className="notes-body-field"><label className="notes-body-label">
                       <span className="sr-only">笔记正文</span>
                       <textarea
                         className="notes-body"
@@ -630,8 +706,21 @@ export function NotesPanel({
                         maxLength={NOTE_LIMITS.body}
                         readOnly={deleted || busy}
                         onChange={(event) => changeDraft({ body: event.target.value })}
+                        onSelect={event => captureNotebookSelection(event.currentTarget)}
+                        onScroll={() => setSelection(undefined)}
+                        onBlur={event => {
+                          if (!(event.relatedTarget instanceof Element) || !event.relatedTarget.closest('.notes-quote-action')) setSelection(undefined);
+                        }}
                       />
                     </label>
+                    {selection && selection.key === keyOf(editor) && selection.body === editor.body && onQuoteNote && !deleted && !conflict &&
+                      <button type="button" className="notes-quote-action" style={{ left: selection.left, top: selection.top }}
+                        disabled={busy || quoteOpening} onMouseDown={event => event.preventDefault()}
+                        onBlur={() => setSelection(undefined)} onClick={() => void discussNotebookSelection()}>
+                        <MessageCircle size={15} />{quoteOpening ? '翻到这一段…' : dirty || !editor.note ? '保存并聊这一段' : '聊这一段'}
+                      </button>}
+                    </div>
+                    {sourceError && !editor.note?.source.material && <p className="note-material-source-error" role="alert">{sourceError}</p>}
                     {editor.note?.source.material && <div className="note-material-source">
                       <div className="note-material-source-name"><FileText size={17} /><span>{editor.note.source.material.name}{editor.note.source.material.page ? ` · 第 ${editor.note.source.material.page} 页` : ''}</span></div>
                       <div className="note-material-source-actions">

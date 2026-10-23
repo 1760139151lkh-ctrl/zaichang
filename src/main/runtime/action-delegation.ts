@@ -132,7 +132,8 @@ export async function checkBusinessChoice(
 }
 
 export async function checkLocalDelegation(
-  request: { current: ContextualCurrent; history: ContextualHistory[]; action: unknown; now: string; timeZone: string; conversationRetention?: string; observations?: { tool: string; result: unknown; toolCallId?: string }[]; image?: import('../../shared/types').ImageAttachment; selection?: import('../../shared/scenes').VerifiedSelection },
+  request: { current: ContextualCurrent; history: ContextualHistory[]; action: unknown; now: string; timeZone: string; conversationRetention?: string; observations?: { tool: string; result: unknown; toolCallId?: string }[]; image?: import('../../shared/types').ImageAttachment; selection?: import('../../shared/scenes').VerifiedSelection;
+    agendaFocus?: import('../../shared/agenda').AgendaFocus & { occurrence?: { start: string; end: string | null }; executionAuthorized: false } },
   complete: DeepSeekClient['complete'], signal: AbortSignal,
 ): Promise<DelegationVerdict> {
   const agendaTarget = agendaParameterReviewTarget(request.action);
@@ -145,6 +146,7 @@ export async function checkLocalDelegation(
   const tool: ToolSpec = { type: 'function', function: { name: 'verify_local_delegation', description: '记录你对这个本地可撤销动作与用户当前托付是否相符的理解；外部动作的批准由宿主另行处理。', parameters } };
   const messages: ModelWireMessage[] = [
     ...contextualGuidance(request),
+    ...(request.agendaFocus ? [{ role: 'system' as const, content: 'agendaFocus是宿主刚按当前修订重新读取的本机安排地址；occurrence保留所指单次发生，trial保留这一次完整时长的试放条件。它帮助对应“这件／这个时间”，没有增加本人原话，也不表示同意修改。实际是否托付执行、是单次还是整组、要改哪些字段，继续从当前本人原话及合法前文理解；只讨论或只试放时保持原业务不动。' }] : []),
     ...(agendaTarget ? [{ role: 'system' as const, content: `有时本人想先看一份日程提议，尚未决定保存；这与提案参数的来由是否已经清楚，是两件事。若这次是draft_only，你仍可以在同一次理解里读清它：日期、时长、标题与详情哪些来自本人原话，哪些借用了真实工具记录，哪些只是这次提出的方法或假设。本人尚待决定的部分由draft_only保留，missing记录真实仍缺的参数或条件。
 
 agendaParameterReview由宿主给出眼前这份完整提案的身份和字段。来由确实齐全时，agendaParameterProof.complete可以为true，proposalDigest沿用这份身份；parameters记下你独立理解的标题、类型、时区、全天日期和时长，未知日期或时长保留null，具体开始、提醒和获准详情继续用interpretedStart、interpretedReminderAt、authorizedDetail与detailBasisQuote。fieldSources把每个字段恰好放到一组，basisIds指向basis或parameterBasis中的本人逐字原话，observationIds指向实际提供参数事实的工具观察；proposed标明本次建议或方法选择，不把它当作本人已经说过的事实。recurrence、exceptions、planning、planRef等复杂字段也沿它们实际依据的原话、观察或本次假设说明来由，只有字段名或相同摘要还没有说明这些内容。

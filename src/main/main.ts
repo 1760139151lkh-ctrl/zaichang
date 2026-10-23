@@ -42,6 +42,7 @@ import { conditionSchema } from '../shared/harness';
 import { hasCredentials } from './runtime/redaction';
 import { NativeControls } from './runtime/controls';
 import { NativeCampusCalendar } from './runtime/campus-calendar';
+import { agendaFocusSchema } from '../shared/agenda';
 import { NativeStudyService } from './runtime/study-native';
 import { NativeRehearsalService } from './runtime/rehearsal-native';
 import { NativeProgramLocalState } from './runtime/interactive-program-local-state';
@@ -52,6 +53,8 @@ import { semanticSelectionSchema } from '../shared/scenes';
 import { studyInteractionSchema } from '../shared/study-presentation';
 import { reflectiveLetterSourceInput, letterReferenceSchema, reflectiveLetterProjectInput } from '../shared/reflective-letter';
 import { noteReferenceSchema } from '../shared/note-presentation';
+import { notebookQuoteReferenceSchema } from '../shared/notes';
+import { sharedMapRouteSchema, mapRouteReferenceSchema } from '../shared/map-context';
 import { companionSourceInputSchema, companionFollowupReferenceSchema } from '../shared/companion-source';
 import { campusAcademicReadInputSchema } from '../shared/campus-academic';
 import { curiosityFollowupReferenceSchema } from '../shared/curiosity-source';
@@ -322,6 +325,7 @@ app.whenReady().then(async () => {
   );
   const controls = new NativeControls(store, harness);
   const campusCalendar = new NativeCampusCalendar(store);
+  const agenda = store.runtime.nativeAgenda;
   const study = new NativeStudyService(store, store.runtime.studyPresentation);
   const rehearsal = new NativeRehearsalService(store, store.runtime.rehearsals);
   handle('rehearsal:project', value => rehearsal.project(value));
@@ -384,6 +388,16 @@ app.whenReady().then(async () => {
     } finally { remove(); }
   });
   handle('campus:schedule', value => campusCalendar.read(value));
+  handle('agenda:day', async value => {
+    const operation = new AbortController(), remove = store.runtime.policy.onBarrier(() => operation.abort());
+    try { return await agenda.day(value, operation.signal); }
+    finally { remove(); }
+  });
+  handle('agenda:preview-change', async value => {
+    const operation = new AbortController(), remove = store.runtime.policy.onBarrier(() => operation.abort());
+    try { return await agenda.preview(value, operation.signal); }
+    finally { remove(); }
+  });
   const programLocalState = new NativeProgramLocalState(store);
   handle('program:local-state:read', value => programLocalState.read(value));
   handle('program:local-state:save', value => programLocalState.save(value));
@@ -449,6 +463,7 @@ app.whenReady().then(async () => {
   handle('state', state);
   handle('notes:list', value => store.notes.list(value));
   handle('notes:read', value => store.notes.read(value));
+  handle('notes:quote', value => store.notes.quote(value));
   handle('notes:create', value => store.notes.create(value));
   handle('notes:update', value => store.notes.update(value));
   handle('notes:state', value => store.notes.changeState(value));
@@ -510,6 +525,9 @@ app.whenReady().then(async () => {
         programReference: interactiveProgramReferenceSchema.optional(),
         letterReference: letterReferenceSchema.optional(),
         noteReference: noteReferenceSchema.optional(),
+        notebookQuote: notebookQuoteReferenceSchema.optional(),
+        mapRouteReference: mapRouteReferenceSchema.optional(),
+        agendaFocus: agendaFocusSchema.optional(),
         rehearsalInteraction: rehearsalInteractionSchema.optional(),
         controls: z
           .object({
@@ -531,7 +549,10 @@ app.whenReady().then(async () => {
     return harness.start(input.sessionId, input.content, { ...input.controls, material: input.material, selection: input.selection,
       studyInteraction: input.studyInteraction, companionReference: input.companionReference,
       curiosityReference: input.curiosityReference, letterReference: input.letterReference, noteReference: input.noteReference,
+      notebookQuote: input.notebookQuote,
+      mapRouteReference: input.mapRouteReference,
       programReference: input.programReference,
+      agendaFocus: input.agendaFocus,
       rehearsalInteraction: input.rehearsalInteraction, materialQuote: input.materialQuote }, input.image);
   });
   handle('stop', () => harness.stop());
@@ -733,10 +754,11 @@ app.whenReady().then(async () => {
       throw new Error(result.error?.message || result.reason || '没有移除本机登录信息。');
     return state();
   });
-  handle('map:overview', () => map.overview());
-  handle('map:places', () => map.allPoints());
-  handle('map:data', () => map.dataset());
-  handle('map:data-json', () => map.serializedDataset());
+  const mapView = (raw: unknown) => z.object({ publicOnly: z.boolean().optional() }).strict().parse(raw || {}).publicOnly ? map.publicView() : map;
+  handle('map:overview', raw => mapView(raw).overview());
+  handle('map:places', raw => mapView(raw).allPoints());
+  handle('map:data', raw => mapView(raw).dataset());
+  handle('map:data-json', raw => mapView(raw).serializedDataset());
   handle('map:search', (value) => {
     const input = z
       .object({ query: z.string().trim().min(1).max(100), limit: z.number().int().min(1).max(50).optional() })
@@ -746,9 +768,12 @@ app.whenReady().then(async () => {
   handle('map:location-status', () => map.locationStatus());
   handle('map:locate', async () => { latestDeviceLocation = await mapLocation.read(map.overview()); return latestDeviceLocation; });
   handle('map:share-context', value => {
-    const input = z.object({ enabled: z.boolean(), fromId: z.string().max(160).optional(), includeDevice: z.boolean().optional() }).strict().parse(value);
+    const input = z.object({ enabled: z.boolean(), fromId: z.string().max(160).optional(), includeDevice: z.boolean().optional(),
+      route: sharedMapRouteSchema.optional(), expectedSelectionId: z.string().uuid().optional() }).strict().parse(value);
     if (input.fromId && !map.point(input.fromId)) throw new Error('起点不在当前地图中。');
-    return store.runtime.spatial.share({ enabled: input.enabled, fromId: input.fromId, ...(input.includeDevice ? { device: latestDeviceLocation } : {}) });
+    return store.runtime.spatial.share({ enabled: input.enabled, fromId: input.fromId, route: input.route,
+      expectedSelectionId: input.expectedSelectionId,
+      ...(input.includeDevice ? { device: latestDeviceLocation } : {}) });
   });
   handle('map:context-status', () => store.runtime.spatial.sharedStatus());
   handle('map:location-stop', value => { const input = z.object({ keepSharedContext: z.boolean().optional() }).strict().parse(value || {}); mapLocation.cancel(); latestDeviceLocation = undefined; if (!input.keepSharedContext) store.runtime.spatial.share({ enabled: false }); });
@@ -764,9 +789,12 @@ app.whenReady().then(async () => {
         allowConditional: z.boolean().optional(),
         originAccessId: z.string().max(200).optional(),
         destinationAccessId: z.string().max(200).optional(),
+        publicOnly: z.boolean().optional(),
       })
       .parse(value);
-    return map.route(input.from?.kind==='current' ? {...input,from:{kind:'current',fix:latestDeviceLocation?.fix}} : input);
+    const { publicOnly, ...query } = input;
+    if (publicOnly && query.from?.kind === 'current') throw new Error('在公共地图上选一处取景，不使用设备位置。');
+    return (publicOnly ? map.publicView() : map).route(query.from?.kind==='current' ? {...query,from:{kind:'current',fix:latestDeviceLocation?.fix}} : query);
   });
   handle('action', async (value) => {
     const input = actionCommandSchema.parse(value);
@@ -797,6 +825,7 @@ app.whenReady().then(async () => {
   handle('materials:read', value => store.runtime.materials.nativeReadPage(value));
   handle('materials:quote', value => store.runtime.materials.nativeQuote(value));
   handle('materials:keep-quote', value => store.runtime.materials.nativeKeepQuote(value, store.notes));
+  handle('materials:notes', value => store.runtime.materials.nativeNotes(value, store.notes));
   handle('materials:cancel', () => store.runtime.materials.cancelNativeRead());
   handle('materials:discard', value => {
     const input = z.object({ reference: materialReferenceSchema }).strict().parse(value);
