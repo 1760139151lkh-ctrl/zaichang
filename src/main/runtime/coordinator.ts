@@ -1339,7 +1339,7 @@ export class RuntimeCoordinator {
     controls: InputControls = {},
     hostExecution?: HostIngressExecution & { image?: ImageAttachment },
   ): RunSession {
-    if (controls.noteQuote && controls.noteReference)
+    if ([controls.noteQuote, controls.noteReference, controls.notebookQuote].filter(Boolean).length > 1)
       throw new HarnessError('note_reference_conflict', '这次选中了两处笔记，请保留一处再发送。');
     const conversationPolicy = this.store.conversationPolicy(sessionId);
     if (conversationPolicy) controls = { ...controls, retention: controls.retention === 'session_only' ? 'session_only' : conversationPolicy.retention };
@@ -4791,6 +4791,7 @@ export class RuntimeCoordinator {
     }
     if (session.materialQuote && pack.data.currentMaterial) this.materials.quoteIdentity(pack.contract.scope, session.materialQuote);
     if (session.noteQuote && pack.data.currentNote) this.store.notes.quoteIdentity(pack.contract.scope, session.noteQuote);
+    if (session.notebookQuote && pack.data.currentNote) this.store.notes.notebookQuoteIdentity(session.notebookQuote, pack.contract.scope);
     if (!this.repo.spatialSourcesReadable(pack.contract.scope, pack.receipt.spatialSources || []))
       throw new HarnessError('spatial_source_changed', '刚才采用的地点或它的来由已有变化，需要接回现在的起点。');
     const previousSpatialChanges = canonical(pack.data.spatialBindingChanges || null);

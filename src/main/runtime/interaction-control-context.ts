@@ -33,7 +33,7 @@ export function interactionContextForControls(runtime: Runtime, controls: InputC
     if (controls.noteQuote) {
       runtime.store.notes.quoteIdentity(handle, controls.noteQuote);
       runtime.policy.validate(handle);
-      return { activity: 'study', contentIdentity: 'source_bound_work', focus: 'source_object' };
+      return { activity: 'note_reading', contentIdentity: 'user_note', focus: 'sentence_or_passage' };
     }
     if (controls.mapRouteReference) {
       runtime.spatial.sharedRoute(handle, controls.mapRouteReference);
