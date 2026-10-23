@@ -16,7 +16,10 @@ import mutsumi from './assets/companion/mutsumi.png';
 import anon from '../../assets/brand/mark.svg';
 import tomori from '../../assets/brand/mark.svg';
 import nagi from './assets/companion/nagi.png';
+import { companionArtworkImage, companionMoment, type CompanionMoment } from './companion-variants';
 import './companion.css';
+
+export type { CompanionMoment } from './companion-variants';
 
 // Portrait framing only affects thumbnails. The room always fits the complete
 // image inside its available space, including at the largest chosen scale.
@@ -36,7 +39,7 @@ export interface CompanionPlacement { scale: number; position: number; verticalP
 export interface CompanionPreference {
   character: CharacterId;
   presence: 'window' | 'corner' | 'hidden';
-  light: 'morning' | 'dusk';
+  light: 'morning' | 'dusk' | 'night';
   reducedMotion: boolean;
   scale: number;
   position: number;
@@ -64,7 +67,7 @@ function preference(value: any): CompanionPreference {
   return {
     character: knownCharacter(value?.character) ? value.character : defaults.character,
     presence: ['window', 'corner', 'hidden'].includes(value?.presence) ? value.presence : defaults.presence,
-    light: value?.light === 'dusk' ? 'dusk' : 'morning',
+    light: value?.light === 'night' ? 'night' : value?.light === 'dusk' ? 'dusk' : 'morning',
     reducedMotion: value?.reducedMotion === true,
     scale: typeof value?.scale === 'number' && Number.isFinite(value.scale) ? Math.min(1.3, Math.max(.75, value.scale)) : 1,
     position: typeof value?.position === 'number' && Number.isFinite(value.position) ? Math.min(100, Math.max(0, value.position)) : 50,
@@ -185,8 +188,9 @@ export function useCompanion() {
   if (!context) throw new Error('CompanionProvider is required');
   return context;
 }
-function selectedPicture(value: CompanionState) {
-  return value.character.startsWith('custom:') ? value.pictures.find(item => item.id === value.character)?.image : COMPANIONS.find(item => item.id === value.character)?.image;
+function selectedPicture(value: CompanionState, moment: CompanionMoment = 'chat') {
+  return value.character.startsWith('custom:') ? value.pictures.find(item => item.id === value.character)?.image
+    : companionArtworkImage(COMPANIONS.find(item => item.id === value.character), moment);
 }
 export function companionName(value: CompanionState, id: CharacterId = value.character) {
   return value.names[id] || (id === 'light' ? '只留一束光' : COMPANIONS.find(item => item.id === id)?.name || value.pictures.find(item => item.id === id)?.name || '我的形象');
@@ -360,15 +364,16 @@ function CompanionFigure({ image, name, placement, interaction, onError }: {
   </div>;
 }
 
-export function CompanionScene({ preview = false, quiet = false, immersive = false, placement, interaction }: { preview?: boolean; quiet?: boolean; immersive?: boolean; placement?: CompanionPlacement; interaction?: PlacementInteraction }) {
+export function CompanionScene({ preview = false, quiet = false, immersive = false, moment, placement, interaction }: { preview?: boolean; quiet?: boolean; immersive?: boolean; moment?: CompanionMoment; placement?: CompanionPlacement; interaction?: PlacementInteraction }) {
   const { value } = useCompanion();
-  const image = selectedPicture(value);
+  const sceneMoment = moment ?? companionMoment({ reading: quiet && !preview, night: value.light === 'night' });
+  const image = selectedPicture(value, sceneMoment);
   const showFigure = !!image && (immersive || value.presence === 'window') && value.presence !== 'hidden' && (!quiet || preview);
   const readingRoom = quiet && !preview && !value.character.startsWith('custom:');
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [image]);
   const editable = preview && showFigure ? interaction : undefined;
-  return <div className={`companion-scene ${preview ? 'is-preview' : ''} ${quiet || (preview && value.presence !== 'window') ? 'is-quiet' : ''} ${immersive ? 'is-immersive' : ''} ${value.character.startsWith('custom:') ? 'has-custom-art' : ''}`} data-light={value.light} aria-hidden={editable ? undefined : true}>
+  return <div className={`companion-scene ${preview ? 'is-preview' : ''} ${quiet || (preview && value.presence !== 'window') ? 'is-quiet' : ''} ${immersive ? 'is-immersive' : ''} ${value.character.startsWith('custom:') ? 'has-custom-art' : ''}`} data-light={value.light} data-moment={sceneMoment} aria-hidden={editable ? undefined : true}>
     <div className="window-room room-day" style={{ backgroundImage: `url(${value.light === 'dusk'
       ? readingRoom ? readingDusk : dusk : readingRoom ? readingMorning : morning})` }} />
     <div className="window-room room-night" style={{ backgroundImage: `url(${readingRoom ? readingNight : night})` }} />

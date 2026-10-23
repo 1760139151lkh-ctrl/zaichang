@@ -26,6 +26,7 @@ import {
 import { DEFAULT_TIME_ZONE, formatDateTime, timeZoneLabel, toTimeInput } from './time';
 import type { SharedMatterView } from '../shared/presentation';
 import type { CampusScheduleBlock } from '../shared/campus-calendar';
+import type { AgendaDayResult, AgendaFocus, AgendaOccurrence } from '../shared/agenda';
 import './today.css';
 import { CalendarHandoff } from './CalendarHandoff';
 import { CampusDayControls, CampusScheduleRow, useCampusDaySchedule } from './CampusDaySchedule';
@@ -33,8 +34,9 @@ import { AgendaDayTimeline, agendaDayWindow, agendaTimedRange, campusTimedRange 
 
 export type WorkspaceView = 'chat' | 'agenda' | 'notes' | 'materials' | 'memory' | 'settings' | 'companion';
 type AgendaScope = 'day' | 'all' | 'undated' | 'completed';
-type AgendaEdit = { original: Action; initialStartsAt?: string };
-type AgendaMoveUndo = { previous: Action; saved: Action; error?: string };
+export interface AgendaViewPosition { selectedDate: string; scope: AgendaScope; dayLayout: 'timeline' | 'list'; query: string }
+type AgendaEdit = { original: Action; initialStartsAt?: string; occurrenceDate?: string; occurrenceId?: string };
+type AgendaMoveUndo = { previous: Action; saved: Action; occurrenceDate?: string; previousAt?: string; savedAt?: string; error?: string };
 
 // Civil dates stay independent of the operating system's time zone. All-day
 // dates are already civil dates and must never be shifted through an instant.
@@ -78,6 +80,10 @@ export function AgendaView({
   onState,
   onPresentMatter,
   onMap,
+  onDiscuss,
+  position,
+  focus,
+  onPositionChange,
   matterInteractions,
   onMatterInteraction,
 }: {
@@ -92,17 +98,33 @@ export function AgendaView({
   onState: (state: State) => void;
   onPresentMatter: (matter: SharedMatterView) => void;
   onMap: (id: string) => void;
+  onDiscuss?: (focus: AgendaFocus, label: string) => void;
+  position?: AgendaViewPosition;
+  focus?: AgendaFocus;
+  onPositionChange?: (position: AgendaViewPosition) => void;
   matterInteractions: Record<string, MatterInteraction>;
   onMatterInteraction: (id: string, value: MatterInteractionUpdate) => void;
 }) {
   const zone = state.settings.timeZone || DEFAULT_TIME_ZONE;
   const [today, setToday] = useState(() => toTimeInput(new Date().toISOString(), zone).slice(0, 10));
-  const [selectedDate, setSelectedDate] = useState(today);
+  const [selectedDate, setSelectedDate] = useState(position?.selectedDate || today);
   const [section, setSection] = useState<'agenda' | 'entrusted'>('agenda');
-  const [scope, setScope] = useState<AgendaScope>('day');
-  const [query, setQuery] = useState('');
-  const [editing, setEditing] = useState<AgendaEdit>();
-  const [dayLayout, setDayLayout] = useState<'timeline' | 'list'>('timeline');
+  const [scope, setScope] = useState<AgendaScope>(position?.scope || 'day');
+  const [query, setQuery] = useState(position?.query || '');
+  const [editing, setEditing] = useState<AgendaEdit | undefined>(() => {
+    const owner = focus && state.agenda.find(item => item.id === focus.record.id && (item.revision || 1) === focus.record.revision);
+    return owner && focus ? { original: { ...owner }, occurrenceDate: focus.record.occurrenceDate,
+      occurrenceId: focus.record.occurrenceDate ? `${owner.id}::${focus.record.occurrenceDate}` : owner.id,
+      initialStartsAt: focus.trial?.proposedStart } : undefined;
+  });
+  const [dayLayout, setDayLayout] = useState<'timeline' | 'list'>(position?.dayLayout || 'timeline');
+  const [dayRead, setDayRead] = useState<{ key: string; result: AgendaDayResult }>();
+  const [dayError, setDayError] = useState('');
+  const [dayAttempt, setDayAttempt] = useState(0);
+  const dayGeneration = useRef(0);
+  const zoneRef = useRef(zone);
+  const positionCallback = useRef(onPositionChange);
+  positionCallback.current = onPositionChange;
   const [moveUndo, setMoveUndo] = useState<AgendaMoveUndo>();
   const [undoing, setUndoing] = useState(false);
   const [undoAnnouncement, setUndoAnnouncement] = useState('');
@@ -111,6 +133,14 @@ export function AgendaView({
   const scrollPosition = useRef(0);
   const restorePosition = useRef(true);
   const lastFocus = useRef<HTMLElement | null>(null);
+  const viewingBoundary = JSON.stringify([state.privacyEpoch, state.policyRevision, state.sourceBoundary, state.presentation?.mode || 'private']);
+  const previousBoundary = useRef(viewingBoundary);
+  useEffect(() => {
+    if (previousBoundary.current !== viewingBoundary) {
+      previousBoundary.current = viewingBoundary;
+      setEditing(undefined); setMoveUndo(undefined);
+    }
+  }, [viewingBoundary]);
   useEffect(() => {
     if (!active) return;
     const update = () => setToday(toTimeInput(new Date().toISOString(), zone).slice(0, 10));
@@ -119,11 +149,40 @@ export function AgendaView({
     return () => window.clearInterval(timer);
   }, [zone, active]);
   useEffect(() => {
+    if (zoneRef.current === zone) return;
+    zoneRef.current = zone;
     setSelectedDate(toTimeInput(new Date().toISOString(), zone).slice(0, 10));
   }, [zone]);
+  useEffect(() => {
+    positionCallback.current?.({ selectedDate, scope, dayLayout, query });
+  }, [selectedDate, scope, dayLayout, query]);
 
   const search = query.trim().toLocaleLowerCase();
   const dayWindow = useMemo(() => agendaDayWindow(selectedDate, zone), [selectedDate, zone]);
+  const nativeDayVisible = section === 'agenda' && scope === 'day' && !search && state.presentation?.mode !== 'public';
+  const nativeBoundary = typeof state.privacyEpoch === 'number' && typeof state.policyRevision === 'number' && typeof state.sourceBoundary === 'number'
+    ? { privacyEpoch: state.privacyEpoch, policyRevision: state.policyRevision, sourceBoundary: state.sourceBoundary } : undefined;
+  const dayKey = JSON.stringify([selectedDate, zone, state.privacyEpoch, state.policyRevision, state.sourceBoundary,
+    state.agenda.map(item => [item.id, item.revision || 1]), dayAttempt]);
+  useEffect(() => {
+    const request = ++dayGeneration.current;
+    setDayError('');
+    if (!nativeDayVisible || !nativeBoundary) return;
+    void window.zaichang.agendaDay({ date: selectedDate, timeZone: zone, ...nativeBoundary }).then(result => {
+      if (dayGeneration.current === request) setDayRead({ key: dayKey, result });
+    }).catch(error => {
+      if (dayGeneration.current === request) setDayError(uiError(error));
+    });
+    return () => { dayGeneration.current++; };
+  }, [dayKey, nativeDayVisible]);
+  const currentDay = nativeDayVisible && dayRead?.key === dayKey ? dayRead.result : undefined;
+  const retainedDay = nativeDayVisible && dayRead?.result.date === selectedDate && dayRead.result.timeZone === zone
+    && dayRead.result.privacyEpoch === state.privacyEpoch && dayRead.result.policyRevision === state.policyRevision
+    && dayRead.result.sourceBoundary === state.sourceBoundary ? dayRead.result : undefined;
+  const nativeDay = currentDay || retainedDay;
+  const dayLoading = nativeDayVisible && !!nativeBoundary && !currentDay && !dayError;
+  const earlierUnknown = nativeDay?.issues.filter(issue => issue.status === 'unknown_end' && issue.startsAt
+    && !nativeDay.items.some(value => value.record.id === issue.id && value.start === issue.startsAt)) || [];
   const campusDayVisible =
     active && section === 'agenda' && scope === 'day' && !search && state.presentation?.mode !== 'public';
   const connector = state.campusConnector;
@@ -187,8 +246,9 @@ export function AgendaView({
     const date = actionDate(item, zone);
     grouped.set(date, [...(grouped.get(date) || []), item]);
   }
-  const dayEntries: ({ kind: 'action'; item: Action } | { kind: 'campus'; item: CampusScheduleBlock })[] = [
-    ...filtered.map((item) => ({ kind: 'action' as const, item })),
+  const dayEntries: ({ kind: 'action'; item: Action; occurrence?: AgendaOccurrence } | { kind: 'campus'; item: CampusScheduleBlock })[] = [
+    ...(nativeDay ? nativeDay.items.map(occurrence => ({ kind: 'action' as const, item: occurrence.item, occurrence }))
+      : filtered.map((item) => ({ kind: 'action' as const, item }))),
     ...(campus.result?.items || []).map((item) => ({ kind: 'campus' as const, item })),
   ];
   dayEntries.sort((a, b) => {
@@ -212,10 +272,12 @@ export function AgendaView({
   });
   const timedActions = filtered.filter((item) => !!agendaTimedRange(item));
   const timedCampus = (campus.result?.items || []).filter((item) => !!campusTimedRange(item));
-  const hasTimeline = !!dayWindow && !!(timedActions.length || timedCampus.length);
+  const hasTimeline = !!(nativeDay?.window || dayWindow) && !!((nativeDay
+    ? nativeDay.items.some(value => !value.item.allDayDate && !!value.end) : timedActions.length) || timedCampus.length);
   const showTimeline = scope === 'day' && !search && dayLayout === 'timeline' && hasTimeline;
   const untimedEntries = dayEntries.filter((entry) =>
-    entry.kind === 'action' ? !agendaTimedRange(entry.item) : !campusTimedRange(entry.item),
+    entry.kind === 'action' ? entry.occurrence ? !!entry.item.allDayDate || !entry.occurrence.end : !agendaTimedRange(entry.item)
+      : !campusTimedRange(entry.item),
   );
   const weekday = new Date(`${selectedDate}T12:00:00Z`).getUTCDay();
   const monday = shiftDate(selectedDate, -((weekday + 6) % 7));
@@ -223,6 +285,7 @@ export function AgendaView({
   const datedDays = new Set(
     ordered.filter((item) => !item.done && !item.recurrence).map((item) => actionDate(item, zone)),
   );
+  if (nativeDay?.items.length) datedDays.add(selectedDate);
   const selectedLabel = dateLabel(selectedDate);
   const heading = section === 'entrusted' ? '你交给我的事' : selectedDate === today ? '今天' : '这一天';
 
@@ -242,7 +305,11 @@ export function AgendaView({
       // host to compare-and-swap the revision read immediately above.
       const next = await window.zaichang.action({
         action: 'save',
-        item: {
+        item: operation.occurrenceDate ? {
+          ...current,
+          exceptions: [...(current.exceptions || []).filter(value => value.onDate !== operation.occurrenceDate),
+            ...(operation.previous.exceptions || []).filter(value => value.onDate === operation.occurrenceDate)],
+        } : {
           ...current,
           startsAt: operation.previous.startsAt,
           timeZone: operation.previous.timeZone,
@@ -264,7 +331,8 @@ export function AgendaView({
     }
   }
 
-  function row(item: Action, series = false) {
+  function row(item: Action, series = false, occurrence?: AgendaOccurrence) {
+    const owner = state.agenda.find(value => value.id === item.id) || item;
     const clock = item.allDayDate
       ? '全天'
       : item.startsAt
@@ -283,7 +351,7 @@ export function AgendaView({
         ? `${toTimeInput(item.startsAt, item.timeZone).replace('T', ' ')} · ${timeZoneLabel(item.timeZone)}`
         : '';
     return (
-      <article className={`today-item ${item.done ? 'is-done' : ''}`} key={item.id}>
+      <article className={`today-item ${item.done ? 'is-done' : ''}`} key={occurrence?.occurrenceId || item.id}>
         <div className="today-item-time">
           <span>{clock}</span>
           {end && <small>{end}</small>}
@@ -293,18 +361,19 @@ export function AgendaView({
             label={
               item.done
                 ? `做过的事：${item.title}`
-                : `${series ? '完成整个重复安排' : '记下这件事做完了'}：${item.title}`
+                : `${series || owner.recurrence ? '完成整个重复安排' : '记下这件事做完了'}：${item.title}`
             }
-            disabled={item.done}
-            onClick={() => onAction(item, 'done')}
+            disabled={item.done || dayLoading}
+            onClick={() => onAction(owner, 'done')}
           >
             {item.done ? <Check size={18} /> : <Circle size={19} />}
           </IconButton>
           <button
             type="button"
             className="today-item-content"
+            disabled={dayLoading}
             aria-label={`修改：${item.title}`}
-            onClick={() => setEditing({ original: { ...item } })}
+            onClick={() => setEditing({ original: { ...owner }, occurrenceDate: occurrence?.record.occurrenceDate, occurrenceId: occurrence?.occurrenceId })}
           >
             <strong>{item.title}</strong>
             {item.detail && <span className="today-item-detail">{item.detail}</span>}
@@ -324,16 +393,34 @@ export function AgendaView({
               </span>
             )}
           </button>
-          <IconButton
-            label={`移除：${item.title}`}
+          {!occurrence?.record.occurrenceDate && <IconButton
+            label={`移除${owner.recurrence ? '整个重复安排' : ''}：${item.title}`}
             className="today-item-remove"
-            onClick={() => onAction(item, 'delete')}
+            onClick={() => onAction(owner, 'delete')}
           >
             <X size={15} />
-          </IconButton>
+          </IconButton>}
         </div>
       </article>
     );
+  }
+
+  const editingOccurrence = editing ? nativeDay?.items.find(value => value.occurrenceId === editing.occurrenceId) : undefined;
+  const inlineEditing = !!editing && section === 'agenda' && scope === 'day' && !search;
+  function renderEditor(embedded: boolean) {
+    if (!editing) return null;
+    return <AgendaEditor key={`${editing.original.id}:${editing.occurrenceDate || 'series'}`} embedded={embedded}
+      original={editing.original} current={state.agenda.find(item => item.id === editing.original.id)}
+      timeZone={zone} initialStartsAt={editing.initialStartsAt} initialOccurrenceDate={editing.occurrenceDate}
+      boundary={nativeBoundary} includeCampus={campus.enabled} onDiscuss={onDiscuss} onMap={onMap}
+      onTrialChange={startsAt => setEditing(value => value && value.initialStartsAt !== startsAt ? { ...value, initialStartsAt: startsAt } : value)}
+      onState={onState} onSaved={(saved, previous) => {
+        if (editing.initialStartsAt) {
+          setMoveUndo({ previous: { ...previous }, saved: { ...saved }, occurrenceDate: editing.occurrenceDate,
+            previousAt: editingOccurrence?.start || previous.startsAt, savedAt: editing.initialStartsAt });
+          setUndoAnnouncement('');
+        }
+      }} onClose={() => setEditing(undefined)} />;
   }
 
   return (
@@ -349,6 +436,9 @@ export function AgendaView({
       onClose={onClose}
       className={`agenda-page today-page ${section === 'entrusted' ? 'is-entrusted' : ''}`}
     >
+      <div className={`today-page-layout ${inlineEditing ? 'has-current-object' : ''}`}>
+      <div className="today-main">
+      <div className="today-navigation-row">
       <div className="today-section-tabs" role="tablist" aria-label="今天的内容">
         <button
           type="button"
@@ -372,12 +462,7 @@ export function AgendaView({
           {attention > 0 && <span className="today-attention-dot" aria-label="有一件事需要看看" />}
         </button>
       </div>
-      <div
-        id="today-agenda-panel"
-        role="tabpanel"
-        aria-labelledby="today-agenda-tab"
-        hidden={section !== 'agenda'}
-      >
+      {section === 'agenda' && (
         <div className="today-date-heading">
           <small>{timeZoneLabel(zone)}</small>
           <div className="today-date-actions">
@@ -411,6 +496,14 @@ export function AgendaView({
             <CalendarHandoff date={selectedDate} timeZone={zone} />
           </div>
         </div>
+      )}
+      </div>
+      <div
+        id="today-agenda-panel"
+        role="tabpanel"
+        aria-labelledby="today-agenda-tab"
+        hidden={section !== 'agenda'}
+      >
         <div className="today-week" aria-label="这一周">
           <IconButton
             label="前一周"
@@ -453,6 +546,7 @@ export function AgendaView({
             <ChevronRight size={17} />
           </IconButton>
         </div>
+        <div className="today-browse-tools">
         {state.presentation?.mode !== 'public' && (
           <CampusDayControls campus={campus} dayVisible={campusDayVisible} timeZone={zone} />
         )}
@@ -518,16 +612,17 @@ export function AgendaView({
             )}
           </div>
         </div>
+        </div>
         {search && <p className="today-search-note">在所有日期的本机安排里找「{query.trim()}」</p>}
         {moveUndo && (
           <div className="today-move-undo" role="status">
             <div>
               <p>
-                <strong>{moveUndo.saved.title}</strong> · {formatDateTime(moveUndo.saved.startsAt!, zone)}
+                <strong>{moveUndo.saved.title}</strong> · {formatDateTime(moveUndo.savedAt || moveUndo.saved.startsAt!, zone)}
               </p>
               {moveUndo.error && (
                 <p className="today-move-undo-error">
-                  {moveUndo.error} 原来是 {formatDateTime(moveUndo.previous.startsAt!, zone)}。
+                  {moveUndo.error} 原来是 {formatDateTime(moveUndo.previousAt || moveUndo.previous.startsAt!, zone)}。
                 </p>
               )}
             </div>
@@ -562,7 +657,11 @@ export function AgendaView({
         <div className="sr-only" role="status" aria-live="polite">
           {undoAnnouncement}
         </div>
-        <div className={`today-agenda-list ${scope === 'day' && !search ? 'one-day' : ''}`}>
+        {dayError && <div className="today-calendar-problem" role="status"><span>{dayError}</span>
+          <button type="button" className="text-button" onClick={() => setDayAttempt(value => value + 1)}>再读一次</button></div>}
+        <div className="today-workspace">
+        <div className={`today-agenda-list ${scope === 'day' && !search ? 'one-day' : ''}`} aria-busy={dayLoading}>
+          {dayLoading && !dayEntries.length && <p className="today-day-loading" role="status">正在翻开这一天的安排…</p>}
           {scope === 'day' && !search
             ? !!dayEntries.length && (
                 <section className="today-day-group">
@@ -572,21 +671,33 @@ export function AgendaView({
                       date={selectedDate}
                       timeZone={zone}
                       actions={timedActions}
+                      occurrences={nativeDay?.items}
                       campus={timedCampus}
+                      window={nativeDay?.window}
+                      disabled={dayLoading}
+                      sourceBoundaryKey={viewingBoundary}
+                      selectedOccurrenceId={editing?.occurrenceId || editing?.original.id}
                       draft={
                         editing?.initialStartsAt
-                          ? { original: editing.original, initialStartsAt: editing.initialStartsAt }
+                          ? { original: editingOccurrence?.item || editing.original, initialStartsAt: editing.initialStartsAt,
+                            occurrenceId: editing.occurrenceId, reference: { id: editing.original.id, revision: editing.original.revision || 1,
+                              ...(editing.occurrenceDate ? { occurrenceDate: editing.occurrenceDate } : {}) } }
                           : undefined
                       }
-                      onEdit={(item) => setEditing({ original: { ...item } })}
-                      onPropose={(item, initialStartsAt) =>
-                        setEditing({ original: { ...item }, initialStartsAt })
-                      }
+                      onEdit={(item, reference) => setEditing({ original: { ...(state.agenda.find(value => value.id === reference.id) || item) },
+                        occurrenceDate: reference.occurrenceDate, occurrenceId: reference.occurrenceDate ? `${reference.id}::${reference.occurrenceDate}` : reference.id })}
+                      onPropose={(_item, initialStartsAt, reference, occurrenceId) => {
+                        const owner = state.agenda.find(value => value.id === reference.id
+                          && (value.revision || 1) === reference.revision);
+                        if (dayLoading || !owner) return;
+                        setEditing({ original: { ...owner }, initialStartsAt,
+                          occurrenceDate: reference.occurrenceDate, occurrenceId });
+                      }}
                     />
                   )}
                   {(showTimeline ? untimedEntries : dayEntries).map((entry) =>
                     entry.kind === 'action' ? (
-                      row(entry.item)
+                      row(entry.item, false, entry.occurrence)
                     ) : (
                       <CampusScheduleRow
                         key={entry.item.id}
@@ -608,7 +719,7 @@ export function AgendaView({
                     {items.map((item) => row(item, !!item.recurrence))}
                   </section>
                 ))}
-          {!filtered.length && !campus.result?.items.length && (
+          {!dayLoading && !earlierUnknown.length && !(scope === 'day' && !search ? dayEntries.length : filtered.length) && !campus.result?.items.length && (
             <div className="today-empty">
               <span className="today-empty-line" aria-hidden="true" />
               <h2>
@@ -640,7 +751,17 @@ export function AgendaView({
             </div>
           )}
         </div>
-        {!search && scope !== 'completed' && scope !== 'undated' && !!repeated.length && (
+        </div>
+        {earlierUnknown.map(issue => {
+          const owner = state.agenda.find(item => item.id === issue.id);
+          return <div className="today-earlier-arrangement" key={`${issue.id}:${issue.startsAt}`}>
+            <div><strong>{owner?.title || '先前的一项安排'}</strong><span>{formatDateTime(issue.startsAt!, zone)} 起，结束还没确定</span></div>
+            {owner && <button type="button" className="text-button" onClick={() => setEditing({ original: { ...owner }, occurrenceDate: issue.date,
+              occurrenceId: issue.date ? `${owner.id}::${issue.date}` : owner.id })}>看看这件事<ArrowUpRight size={14} /></button>}
+          </div>;
+        })}
+        {nativeDay?.issues.some(value => value.status !== 'unknown_end') && <p className="today-calendar-issue">有几次重复安排的时刻还没确定，先保留原来的记录。</p>}
+        {!search && scope !== 'completed' && scope !== 'undated' && !!repeated.length && (scope !== 'day' || !nativeDay) && (
           <section className="today-repeated">
             <h2>重复的安排</h2>
             <p>从这里改一次，或调整整个安排。</p>
@@ -707,27 +828,10 @@ export function AgendaView({
           />
         </div>
       )}
-      {active && editing && (
-        <AgendaEditor
-          original={editing.original}
-          current={state.agenda.find((item) => item.id === editing.original.id)}
-          timeZone={zone}
-          initialStartsAt={editing.initialStartsAt}
-          onState={onState}
-          onSaved={(saved, previous) => {
-            if (
-              editing.initialStartsAt &&
-              saved.startsAt &&
-              previous.startsAt &&
-              saved.startsAt !== previous.startsAt
-            ) {
-              setMoveUndo({ previous: { ...previous }, saved: { ...saved } });
-              setUndoAnnouncement('');
-            }
-          }}
-          onClose={() => setEditing(undefined)}
-        />
-      )}
+      </div>
+      {active && inlineEditing && <aside className="today-current-object">{renderEditor(true)}</aside>}
+      </div>
+      {active && editing && !inlineEditing && renderEditor(false)}
     </PagePanel>
     </div>
   );

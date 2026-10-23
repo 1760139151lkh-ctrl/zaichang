@@ -11,7 +11,7 @@ export interface CuriosityToolDefinition {
 }
 export const definitions: CuriosityToolDefinition[] = [{
   name: 'curiosity_invitation', grant: 'evidence:read', mutates: true, schema: curiosityInvitationInput,
-  description: '用户当下想看点新鲜的、一起玩一会儿，或不想再按旧兴趣推荐时，先实际带来一个有内容、现在就能体验的小东西：一段共创、一个谜题或观察，或有原来源的发现，不固定故事或两选一。offer提交title/opening/experience/firstMove，纯创作标created可直接玩；public/mixed须引用本轮真正投递的research.read observationId和正文quote，搜索摘要或子摘要不能当已读原文。brief可先整理可公开主题和检索入口，不外传私人原话/画像，实际搜索仍走原readPurpose。read/continue/another/put_aside沿原ID及revision接着玩、换一个或放下；用户自己的任意回答也可推进同一体验，不必先点按钮。共同虚构能沿原作品继续：记得的是我们一起编过，不把作品里的第一人称或虚构发生当作用户现实经历，也不另建故事人生库。不建目标、爱好标签、提醒或订阅，当前邀请压过旧画像，不能因换一个推定永久不喜欢。不要先问用户选类别或要不要你找，资源暂时失败仍可给不含未核事实、明确标创作的小起点。choices只是可用互动，不必每次展示菜单或追问。取景资料的后端保留不等于地图与作品联动界面已接；该联动当前不可用，不宣传为可点击改写的画面。原共同创作正文与普通校园地图仍可各自使用，公共地点不证明本人到达或真实行程。',
+  description: '用户当下想看点新鲜的、一起玩一会儿，或不想再按旧兴趣推荐时，先实际带来一个有内容、现在就能体验的小东西：一段共创、一个谜题或观察，或有原来源的发现，不固定故事或两选一。offer提交title/opening/experience/firstMove，纯创作标created可直接玩；public/mixed须引用本轮真正投递的research.read observationId和正文quote，搜索摘要或子摘要不能当已读原文。brief可先整理可公开主题和检索入口，不外传私人原话/画像，实际搜索仍走原readPurpose。read/continue/another/put_aside沿原ID及revision接着玩、换一个或放下；用户自己的任意回答也可推进同一体验，不必先点按钮。共同虚构能沿原作品继续：记得的是我们一起编过，不把作品里的第一人称或虚构发生当作用户现实经历，也不另建故事人生库。不建目标、爱好标签、提醒或订阅，当前邀请压过旧画像，不能因换一个推定永久不喜欢。不要先问用户选类别或要不要你找，资源暂时失败仍可给不含未核事实、明确标创作的小起点。choices只是可用互动，不必每次展示菜单或追问。作品需要校园取景时，用present_view.storySetting沿原作品id和两项revision展开公共地图，已有地图给精确map地址。点选仍是临时引用；接着写时按本轮currentSelection.storySetting的placeId/mapVersion给continue.setting，宿主只在作品四地址与地点版本相合时附上明确选取的镜头和公共路段双端。不要自填镜头、节点种类或取景证明。省略setting保留原取景，null移除；公共地点和故事事件不证明本人到达或真实行程。',
 }, { name: 'read_shared_creation', grant: 'evidence:read', schema: sharedCreationReadInput,
   description: '找回并阅读共同作品的早期原章。operation=history可按真实matterId/ownerId或query查目录，order=oldest从最早章开始，复制next继续；这是原messages.Scene的章节地址，不是另存摘要。读正文时用目录/read_assistant_history实际返回的messageId/sceneId/sceneRevision（不传operation），分opening/experience/firstMove按Unicode码点分页。它是当时助手/共创作品，虚构第一人称不是用户现实经历；当前option.seed改变不能替代旧章。阅读/目录不恢复邀请或动作，源与范围每次重核，不读公开缓存冒新事实。',
 }];
@@ -48,6 +48,7 @@ export function executeCuriosityTool(
     const context: CuriosityContext = { sessionId: session.sessionId, events: session.events, ephemeral: session.ephemeral,
       allowCrossSession: session.ingress.contract.memoryMode === 'relevant', observations: session.observations || [],
       deliveredObservationIds: session.deliveredObservationIds || new Set(),
+      ...(session.selection?.storySetting ? { storySettingSelection: structuredClone(session.selection.storySetting) } : {}),
       noteSources: structuredClone(pack.receipt.noteSources || []), permits };
     const result = host.curiosityInvitations.execute(handle, context, input);
     signal.throwIfAborted(); host.policy.validate(handle);

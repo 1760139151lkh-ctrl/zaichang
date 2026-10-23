@@ -10,6 +10,8 @@ import {
   noteUpdateSchema,
   noteQuoteReferenceSchema,
   noteQuoteAddress,
+  notebookQuoteReferenceSchema,
+  type NotebookQuote,
   type NoteDocument,
   type NoteHistory,
   type NoteList,
@@ -20,6 +22,7 @@ import {
   type NoteQuoteReference,
 } from '../../shared/notes';
 import type { KernelRepository } from '../storage/repository';
+import { materialQuoteAddress, type MaterialNotes } from '../../shared/materials';
 
 type VersionRecord = NoteDocument & { operation: NoteVersion['operation']; restoredFrom?: number };
 type Origin = { via: 'notebook' | 'conversation'; eventId?: string; material?: NoteDocument['source']['material'] };
@@ -181,6 +184,22 @@ export class NotesService {
       });
     return { items, total, offset: input.offset, hasMore: input.offset + items.length < total };
   }
+  /** The native reader requests only active notes anchored to this exact
+   * original. Full text and edits continue through the ordinary note owner. */
+  forMaterial(resourceId: string, sha256: string, page?: number): MaterialNotes {
+    const records = this.repo.db.prepare(`SELECT payload FROM h_notes
+      WHERE owner=? AND workspace=? AND state='active'
+      AND json_extract(payload,'$.source.material.resourceId')=?
+      AND json_extract(payload,'$.source.material.sha256')=?
+      AND (? IS NULL OR json_extract(payload,'$.source.material.page')=?)
+      ORDER BY updated_at DESC,id LIMIT 101`).all(this.repo.identity.principalId, this.repo.identity.workspaceId,
+        resourceId, sha256, page ?? null, page ?? null);
+    return { items: records.slice(0, 100).map(row => {
+      const note = parse(row)!, source = note.source.material!;
+      return { id: note.id, revision: note.revision, title: note.title,
+        preview: Array.from(note.body).slice(0, 160).join('').replace(/\s+/g, ' '), source: materialQuoteAddress(source) };
+    }), hasMore: records.length > 100 };
+  }
   read(raw: unknown, scope?: ScopeHandle): NotePage {
     this.allowed(scope);
     const input = noteReadSchema.parse(raw);
@@ -230,6 +249,21 @@ export class NotesService {
       throw new HarnessError('note_quote_range', '这段文字已不在原来的位置，请重新选一下。');
     this.quoteIdentity(scope, reference);
     return { ...noteQuoteAddress(reference), title: page.note.title, text: page.body };
+  }
+  /** Compatibility with existing typed notebook addresses, through the same
+   * owner and metadata-only identity gate used by the current notebook. */
+  notebookQuoteIdentity(raw: unknown, scope?: ScopeHandle) {
+    const reference = notebookQuoteReferenceSchema.parse(raw);
+    const { reference: current } = this.quoteIdentity(scope, { id: reference.noteId,
+      revision: reference.revision, sha256: reference.sha256, start: reference.start, end: reference.end });
+    return { reference, proof: { id: current.id, revision: current.revision, sha256: current.sha256,
+      start: current.start, end: current.end } };
+  }
+  notebookQuote(raw: unknown, scope?: ScopeHandle): NotebookQuote {
+    const { reference } = this.notebookQuoteIdentity(raw, scope);
+    const selected = this.quote({ id: reference.noteId, revision: reference.revision,
+      sha256: reference.sha256, start: reference.start, end: reference.end }, scope);
+    return { reference, title: selected.title, text: selected.text };
   }
   create(raw: unknown, scope?: ScopeHandle, origin: Origin = { via: 'notebook' }): NoteMutation {
     this.allowed(scope, true, true);

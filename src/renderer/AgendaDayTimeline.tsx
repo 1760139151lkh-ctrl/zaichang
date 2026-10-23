@@ -1,6 +1,7 @@
 import {
   useEffect,
   useId,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -11,6 +12,7 @@ import {
 import { BookOpen, Clock3 } from 'lucide-react';
 import type { Action } from '../shared/types';
 import type { CampusScheduleBlock } from '../shared/campus-calendar';
+import type { AgendaOccurrence, AgendaReference } from '../shared/agenda';
 import { fromTimeInput, toTimeInput } from './time';
 
 const MINUTE = 60000;
@@ -53,24 +55,30 @@ export function campusTimedRange(item: CampusScheduleBlock) {
   return Number.isFinite(start) && Number.isFinite(end) && end > start ? { start, end } : undefined;
 }
 
-type Entry = ({ kind: 'action'; item: Action } | { kind: 'campus'; item: CampusScheduleBlock }) & {
+type Entry = ({ kind: 'action'; item: Action; reference: AgendaReference } | { kind: 'campus'; item: CampusScheduleBlock }) & {
   key: string;
   start: number;
   end: number;
   lane: number;
   lanes: number;
 };
-type Move = {
-  id: string;
+type MoveSource = {
   original: Action;
+  reference: AgendaReference;
+  originalStart: number;
+  originalEnd: number;
+  contextKey: string;
+};
+type Move = MoveSource & {
+  id: string;
   startsAt: number;
   rawStartsAt: number;
   mode: 'pointer' | 'keyboard';
 };
-type PointerMove = {
+type PointerMove = MoveSource & {
   pointerId: number;
   node: HTMLButtonElement;
-  original: Action;
+  key: string;
   startY: number;
   clientY: number;
   grabOffset: number;
@@ -80,7 +88,7 @@ type PointerMove = {
   anchor: number;
   viewStart: number;
 };
-export type AgendaMoveDraft = { original: Action; initialStartsAt: string };
+export type AgendaMoveDraft = { original: Action; initialStartsAt: string; occurrenceId?: string; reference?: AgendaReference };
 
 function arrangeLanes(entries: Entry[]) {
   const sorted = [...entries].sort((a, b) => a.start - b.start || a.end - b.end);
@@ -114,8 +122,13 @@ export function AgendaDayTimeline({
   date,
   timeZone,
   actions,
+  occurrences,
   campus,
+  window: hostWindow,
   draft,
+  disabled = false,
+  sourceBoundaryKey,
+  selectedOccurrenceId,
   onEdit,
   onPropose,
 }: {
@@ -123,10 +136,15 @@ export function AgendaDayTimeline({
   date: string;
   timeZone: string;
   actions: Action[];
+  occurrences?: AgendaOccurrence[];
   campus: CampusScheduleBlock[];
+  window?: { from: string; to: string };
   draft?: AgendaMoveDraft;
-  onEdit: (item: Action) => void;
-  onPropose: (item: Action, startsAt: string) => void;
+  disabled?: boolean;
+  sourceBoundaryKey?: string;
+  selectedOccurrenceId?: string;
+  onEdit: (item: Action, reference: AgendaReference) => void;
+  onPropose: (item: Action, startsAt: string, reference: AgendaReference, occurrenceId: string) => void;
 }) {
   const [fullDay, setFullDay] = useState(false);
   const [moving, setMoving] = useState<Move>();
@@ -137,17 +155,23 @@ export function AgendaDayTimeline({
   const stage = useRef<HTMLDivElement>(null);
   const suppressClickUntil = useRef(0);
   const hintId = useId();
-  const day = useMemo(() => agendaDayWindow(date, timeZone), [date, timeZone]);
+  const day = useMemo(() => hostWindow ? { start: Date.parse(hostWindow.from), end: Date.parse(hostWindow.to) }
+    : agendaDayWindow(date, timeZone), [date, timeZone, hostWindow?.from, hostWindow?.to]);
   const entries = useMemo(
     () =>
       arrangeLanes(
         [
-          ...actions.flatMap((item) => {
+          ...(occurrences ? occurrences.flatMap(occurrence => {
+            const start = Date.parse(occurrence.start), end = occurrence.end ? Date.parse(occurrence.end) : NaN;
+            return !occurrence.item.allDayDate && Number.isFinite(end) && end > start
+              ? [{ key: occurrence.occurrenceId, kind: 'action' as const, item: occurrence.item,
+                reference: occurrence.record, start, end, lane: 0, lanes: 1 }] : [];
+          }) : actions.flatMap((item) => {
             const range = agendaTimedRange(item);
             return range
-              ? [{ key: `action:${item.id}`, kind: 'action' as const, item, ...range, lane: 0, lanes: 1 }]
+              ? [{ key: item.id, kind: 'action' as const, item, reference: { id: item.id, revision: item.revision || 1 }, ...range, lane: 0, lanes: 1 }]
               : [];
-          }),
+          })),
           ...campus.flatMap((item) => {
             const range = campusTimedRange(item);
             return range
@@ -156,11 +180,20 @@ export function AgendaDayTimeline({
           }),
         ].filter((entry) => day && entry.end > day.start && entry.start < day.end),
       ),
-    [actions, campus, day],
+    [actions, occurrences, campus, day],
   );
+  const contextKey = JSON.stringify([date, timeZone, sourceBoundaryKey, day?.start, day?.end]);
+  // Compare actual owner values. New arrays and unrelated row updates must not
+  // interrupt a healthy gesture on the same occurrence.
+  const entryVersions = JSON.stringify(entries.filter(entry => entry.kind === 'action').map(entry =>
+    [entry.key, entry.reference.id, entry.reference.revision, entry.reference.occurrenceDate,
+      entry.start, entry.end, entry.item.durationMinutes, entry.item.saved, entry.item.done]));
 
-  const first = day ? Math.min(...entries.map((entry) => entry.start), day.end) : 0;
-  const last = day ? Math.max(...entries.map((entry) => entry.end), day.start) : 0;
+  const trialStart = draft ? Date.parse(draft.initialStartsAt) : NaN;
+  const trialEnd = trialStart + (draft?.original.durationMinutes || 0) * MINUTE;
+  const trialInDay = !!day && Number.isFinite(trialStart) && trialStart < day.end && trialEnd > day.start;
+  const first = day ? Math.min(...entries.map((entry) => entry.start), trialInDay ? trialStart : day.end, day.end) : 0;
+  const last = day ? Math.max(...entries.map((entry) => entry.end), trialInDay ? trialEnd : day.start, day.start) : 0;
   let viewStart = day
     ? Math.max(day.start, day.start + Math.floor((first - day.start) / HOUR) * HOUR - HOUR)
     : 0;
@@ -176,7 +209,10 @@ export function AgendaDayTimeline({
   const pixels = (instant: number) => ((instant - viewStart) / HOUR) * PIXELS_PER_HOUR;
   const height = ((viewEnd - viewStart) / HOUR) * PIXELS_PER_HOUR;
   const clock = (instant: number) => toTimeInput(new Date(instant).toISOString(), timeZone).slice(11, 16);
-  const timeRange = (start: number, end: number) => `${clock(start)} — ${clock(end)}`;
+  const timeRange = (start: number, end: number) => {
+    const stamp = (instant: number) => new Date(instant).toLocaleString('zh-CN', { timeZone, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+    return `${day && start < day.start ? stamp(start) : clock(start)} — ${day && end > day.end ? stamp(end) : end === day?.end ? '24:00' : clock(end)}`;
+  };
 
   function updateMove(value?: Move) {
     movingRef.current = value;
@@ -196,6 +232,18 @@ export function AgendaDayTimeline({
     stopPointer();
     updateMove();
   }
+  function currentMove(key: string, source: MoveSource) {
+    const entry = entries.find(value => value.kind === 'action' && value.key === key);
+    return !disabled && !draft && source.contextKey === contextKey && entry?.kind === 'action'
+      && entry.reference.id === source.reference.id && entry.reference.revision === source.reference.revision
+      && entry.reference.occurrenceDate === source.reference.occurrenceDate
+      && entry.start === source.originalStart && entry.end === source.originalEnd
+      && entry.item.durationMinutes === source.original.durationMinutes && entry.item.saved === true && !entry.item.done;
+  }
+  useLayoutEffect(() => {
+    const active = pointer.current, move = movingRef.current;
+    if ((active && !currentMove(active.key, active)) || (move && !currentMove(move.id, move))) cancelMove();
+  }, [disabled, !!draft, contextKey, entryVersions]);
   useEffect(() => {
     if (!isActive) {
       // A pointer cannot keep dragging an invisible day. A keyboard trial is
@@ -248,8 +296,12 @@ export function AgendaDayTimeline({
       active.max,
     );
     updateMove({
-      id: active.original.id,
+      id: active.key,
       original: active.original,
+      reference: active.reference,
+      originalStart: active.originalStart,
+      originalEnd: active.originalEnd,
+      contextKey: active.contextKey,
       startsAt: snapped,
       rawStartsAt: raw,
       mode: 'pointer',
@@ -278,10 +330,11 @@ export function AgendaDayTimeline({
     }
     frame.current = requestAnimationFrame(followScroll);
   }
-  function beginPointer(event: PointerEvent<HTMLButtonElement>, item: Action) {
-    if (!isActive || event.button !== 0 || !event.isPrimary || !day || !stage.current || draft || item.saved !== true)
+  function beginPointer(event: PointerEvent<HTMLButtonElement>, entry: Extract<Entry, {kind:'action'}>) {
+    const item = entry.item;
+    if (!isActive || event.button !== 0 || !event.isPrimary || !day || !stage.current || draft || disabled || item.saved !== true)
       return;
-    const range = agendaTimedRange(item);
+    const range = { start: entry.start, end: entry.end };
     if (!range || range.start < day.start || range.end > day.end) return;
     cancelMove();
     const node = event.currentTarget;
@@ -291,6 +344,11 @@ export function AgendaDayTimeline({
       pointerId: event.pointerId,
       node,
       original: { ...item },
+      key: entry.key,
+      reference: entry.reference,
+      originalStart: entry.start,
+      originalEnd: entry.end,
+      contextKey,
       startY: event.clientY,
       clientY: event.clientY,
       grabOffset: event.clientY - stage.current.getBoundingClientRect().top - pixels(range.start),
@@ -304,6 +362,7 @@ export function AgendaDayTimeline({
   function movePointer(event: PointerEvent<HTMLButtonElement>) {
     const active = pointer.current;
     if (!active || active.pointerId !== event.pointerId) return;
+    if (!currentMove(active.key, active)) { cancelMove(); return; }
     active.clientY = event.clientY;
     if (!active.moved && Math.abs(active.clientY - active.startY) < 4) return;
     active.moved = true;
@@ -314,29 +373,32 @@ export function AgendaDayTimeline({
     const active = pointer.current,
       move = movingRef.current;
     if (!active || active.pointerId !== event.pointerId) return;
+    if (!currentMove(active.key, active)) { cancelMove(); return; }
     stopPointer();
     updateMove();
     if (active.moved) {
       suppressClickUntil.current = performance.now() + 350;
-      if (move && move.startsAt !== Date.parse(active.original.startsAt!))
-        onPropose(active.original, new Date(move.startsAt).toISOString());
+      if (move && move.startsAt !== active.originalStart)
+        onPropose(active.original, new Date(move.startsAt).toISOString(), active.reference, active.key);
     }
   }
-  function moveKeyboard(event: KeyboardEvent<HTMLButtonElement>, item: Action) {
+  function moveKeyboard(event: KeyboardEvent<HTMLButtonElement>, entry: Extract<Entry, {kind:'action'}>) {
     if (!isActive) return;
+    const item = entry.item;
     const active = movingRef.current;
-    if (event.key === 'Escape' && active?.id === item.id) {
+    if (active && !currentMove(active.id, active)) { cancelMove(); return; }
+    if (event.key === 'Escape' && active?.id === entry.key) {
       event.preventDefault();
       event.stopPropagation();
       cancelMove();
       setAnnouncement('已放回原来的时间。');
       return;
     }
-    if (event.key === 'Enter' && active?.id === item.id && active.mode === 'keyboard') {
+    if (event.key === 'Enter' && active?.id === entry.key && active.mode === 'keyboard') {
       event.preventDefault();
       updateMove();
-      if (active.startsAt !== Date.parse(item.startsAt!))
-        onPropose(active.original, new Date(active.startsAt).toISOString());
+      if (active.startsAt !== active.originalStart)
+        onPropose(active.original, new Date(active.startsAt).toISOString(), active.reference, entry.key);
       return;
     }
     if (
@@ -345,14 +407,15 @@ export function AgendaDayTimeline({
       event.ctrlKey ||
       event.metaKey ||
       draft ||
+      disabled ||
       !day ||
       item.saved !== true
     )
       return;
-    const range = agendaTimedRange(item);
+    const range = { start: entry.start, end: entry.end };
     if (!range || range.start < day.start || range.end > day.end) return;
     event.preventDefault();
-    const previous = active?.id === item.id ? active : undefined;
+    const previous = active?.id === entry.key ? active : undefined;
     const direction = event.key === 'ArrowUp' || event.key === 'ArrowLeft' ? -1 : 1;
     const instant = clamp(
       (previous?.startsAt ?? range.start) + direction * (event.shiftKey ? 1 : 15) * MINUTE,
@@ -360,8 +423,12 @@ export function AgendaDayTimeline({
       Math.max(viewStart, viewEnd - (range.end - range.start)),
     );
     updateMove({
-      id: item.id,
+      id: entry.key,
       original: previous?.original || { ...item },
+      reference: entry.reference,
+      originalStart: entry.start,
+      originalEnd: entry.end,
+      contextKey,
       startsAt: instant,
       rawStartsAt: instant,
       mode: 'keyboard',
@@ -379,18 +446,24 @@ export function AgendaDayTimeline({
     moving ||
     (draft
       ? {
-          id: draft.original.id,
+          id: draft.occurrenceId || draft.original.id,
           original: draft.original,
+          reference: draft.reference || { id: draft.original.id, revision: draft.original.revision || 1 },
           startsAt: Date.parse(draft.initialStartsAt),
           rawStartsAt: Date.parse(draft.initialStartsAt),
           mode: 'keyboard' as const,
         }
       : undefined);
-  const oldRange = visibleMove ? agendaTimedRange(visibleMove.original) : undefined;
+  const oldEntry = visibleMove ? entries.find(entry => entry.kind === 'action' && entry.key === visibleMove.id) : undefined;
+  const oldRange = oldEntry ? { start: oldEntry.start, end: oldEntry.end } : undefined;
   const ghost =
     visibleMove &&
     oldRange &&
-    entries.find((entry) => entry.kind === 'action' && entry.item.id === visibleMove.id);
+    oldEntry;
+  const displayedLanes = visibleMove && oldRange ? arrangeLanes(entries.map(entry => ({ ...entry,
+    ...(entry.key === visibleMove.id ? { start: visibleMove.startsAt, end: visibleMove.startsAt + oldRange.end - oldRange.start } : {}) }))) : entries;
+  const laneByKey = new Map(displayedLanes.map(entry => [entry.key, entry]));
+  const ghostLane = ghost ? laneByKey.get(ghost.key) || ghost : undefined;
   return (
     <section
       className={`agenda-timeline ${moving?.mode === 'pointer' ? 'is-dragging' : ''}`}
@@ -439,8 +512,8 @@ export function AgendaDayTimeline({
                   2,
                   pixels(Math.min(viewEnd, oldRange.end)) - pixels(Math.max(viewStart, oldRange.start)),
                 ),
-                left: `${(ghost.lane / ghost.lanes) * 100}%`,
-                width: `${100 / ghost.lanes}%`,
+                left: `${((ghostLane?.lane || 0) / (ghostLane?.lanes || 1)) * 100}%`,
+                width: `${100 / (ghostLane?.lanes || 1)}%`,
               }}
               aria-hidden="true"
             >
@@ -448,27 +521,31 @@ export function AgendaDayTimeline({
             </div>
           )}
           {entries.map((entry) => {
+            const layout = laneByKey.get(entry.key) || entry;
             const moved =
-              entry.kind === 'action' && visibleMove?.id === entry.item.id ? visibleMove : undefined;
+              entry.kind === 'action' && visibleMove?.id === entry.key ? visibleMove : undefined;
             const start = moved?.rawStartsAt ?? entry.start,
               end = start + entry.end - entry.start;
             const shownStart = Math.max(viewStart, start),
               shownEnd = Math.min(viewEnd, end);
+            if (shownEnd <= shownStart) return null;
             const cardHeight = Math.max(2, pixels(shownEnd) - pixels(shownStart));
             const duration = entry.end - entry.start;
             const labelStart = moved?.startsAt ?? start;
             const isMovable =
               entry.kind === 'action' &&
+              !disabled &&
               entry.item.saved === true &&
               entry.start >= day.start &&
               entry.end <= day.end;
             const style = {
               top: pixels(shownStart),
               height: cardHeight,
-              left: `${(entry.lane / entry.lanes) * 100}%`,
-              width: `${100 / entry.lanes}%`,
+              left: `${(layout.lane / layout.lanes) * 100}%`,
+              width: `${100 / layout.lanes}%`,
             } as CSSProperties;
-            const className = `agenda-timeline-card ${entry.kind === 'campus' ? 'is-campus' : ''} ${moved ? 'is-moving' : ''} ${cardHeight < 48 ? 'is-short' : ''} ${isMovable ? 'is-movable' : ''}`;
+            const overlap = moved && entries.some(other => other.key !== entry.key && labelStart < other.end && labelStart + duration > other.start);
+            const className = `agenda-timeline-card ${entry.kind === 'campus' ? 'is-campus' : ''} ${moved ? 'is-moving' : ''} ${overlap ? 'has-overlap' : ''} ${selectedOccurrenceId === entry.key ? 'is-selected' : ''} ${cardHeight < 48 ? 'is-short' : ''} ${isMovable ? 'is-movable' : ''}`;
             const contents = (
               <>
                 <span className="agenda-timeline-card-title">
@@ -505,20 +582,25 @@ export function AgendaDayTimeline({
                 className={className}
                 style={style}
                 data-agenda-id={item.id}
+                data-occurrence-id={entry.key}
+                aria-pressed={selectedOccurrenceId === entry.key}
                 aria-label={`${item.title}，${timeRange(labelStart, labelStart + duration)}${isMovable ? '，可调整时间' : ''}`}
                 aria-describedby={isMovable ? hintId : undefined}
-                onPointerDown={(event) => beginPointer(event, item)}
+                onPointerDown={(event) => beginPointer(event, entry)}
                 onPointerMove={movePointer}
                 onPointerUp={finishPointer}
                 onPointerCancel={cancelMove}
                 onLostPointerCapture={() => {
                   if (pointer.current) cancelMove();
                 }}
-                onKeyDown={(event) => moveKeyboard(event, item)}
+                onKeyDown={(event) => moveKeyboard(event, entry)}
+                onBlur={() => {
+                  if (movingRef.current?.mode === 'keyboard') updateMove();
+                }}
                 onClick={() => {
                   if (performance.now() >= suppressClickUntil.current) {
                     cancelMove();
-                    onEdit(item);
+                    if (!disabled) onEdit(item, entry.reference);
                   }
                 }}
               >

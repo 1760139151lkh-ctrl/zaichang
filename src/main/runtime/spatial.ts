@@ -2,7 +2,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { z } from 'zod';
 import { HarnessError, type ScopeHandle, type WorkRecord } from '../../shared/harness';
 import type { ImageAttachment } from '../../shared/types';
-import type { LocationStatusResult } from '../../shared/map-v2';
+import type { LocationStatusResult, MapRouteQuery } from '../../shared/map-v2';
 import { routeHasUnverifiedPassages } from '../../shared/map-v2';
 import type { CampusMapAdapter } from '../mapService';
 import type { CampusReferenceAdapter, ImageCrop } from '../capabilities/campus-reference';
@@ -11,6 +11,7 @@ import type { WorkService } from './work';
 import { projectMapRoute } from './map-model-view';
 import { spatialBindingSchema, spatialSourceProofSchema, type SpatialBinding, type SpatialSourceProof } from '../../shared/spatial-source';
 import { resolveSourceQuote } from './source-quote';
+import { sharedMapRouteSchema, mapRouteReferenceSchema, type SharedMapRoute, type MapRouteReference } from '../../shared/map-context';
 
 const id = z.string().min(1).max(160);
 export const spatialInput = z.object({
@@ -19,6 +20,7 @@ export const spatialInput = z.object({
     .describe('given_places包括条件比较与保存的地点对应；user_statement附本次地点原话，提及保存起点仍不表示人正在那里。shared_map_selection与device_observation沿当前原生共享选择。'),
   role: z.string().max(50).optional(), bindingId: id.optional(), source: z.object({ eventId: id, quote: z.string().min(1).max(2000) }).strict().optional(),
   mode: z.enum(['walk', 'bike']).default('walk'), avoidStairs: z.boolean().default(false), arrivalBy: z.string().datetime({ offset: true }).optional(),
+  allowConditional: z.boolean().optional(), originAccessId: id.optional(), destinationAccessId: id.optional(),
   departAt: z.string().datetime({ offset: true }).optional(), mapVersion: z.string().min(1).max(160).optional(),
 }).strict();
 export const spaceControlInput = z.object({
@@ -42,7 +44,8 @@ export interface SpaceControlTarget {
 export interface VisualObservation { id: string; toolCallId?: string; image: ImageAttachment; hash: string; version: string; sourceId: string; source: unknown; crop: ImageCrop | null; scopeId: string; epoch: number }
 export class SpatialService {
   reference?: CampusReferenceAdapter;
-  private shared?: { id: string; endpoint?: SpatialBinding['endpoint']; device?: LocationStatusResult; epoch: number; expiresAt: number };
+  private shared?: { id: string; endpoint?: SpatialBinding['endpoint']; device?: LocationStatusResult; epoch: number; expiresAt: number;
+    route?: { conditions: SharedMapRoute; destination: SpatialBinding['endpoint'] } };
   private visuals = new Map<string, VisualObservation>();
   private visualHolders = new Map<string, Set<string>>();
   constructor(readonly policy: PolicyKernel, readonly work: WorkService, private map: () => CampusMapAdapter | undefined) {
@@ -62,14 +65,44 @@ export class SpatialService {
   }
   /** Called only by a direct host UI control. Location sharing is distinct
    * from turning on the local map's coordinate display. */
-  share(input: { enabled: boolean; fromId?: string; device?: LocationStatusResult }) {
+  share(input: { enabled: boolean; fromId?: string; device?: LocationStatusResult; route?: SharedMapRoute; expectedSelectionId?: string }) {
+    // A late native request can retire only the snapshot it created. It must
+    // not clear a newer map handoff from another already-open view.
+    if (!input.enabled && input.expectedSelectionId && this.shared?.id !== input.expectedSelectionId)
+      return { ...this.sharedStatus(), coordinateEgress: false };
     const connection = this.map();
-    const personal = input.enabled && input.fromId ? connection?.capturePersonalPoint(input.fromId) : undefined;
-    const publicPoint = input.enabled && input.fromId && !personal ? connection?.publicView().point(input.fromId) : undefined;
+    let route: NonNullable<typeof this.shared>['route'];
+    let graphOrigin: SpatialBinding['endpoint'] | undefined;
+    if (input.enabled && input.route) {
+      if (!connection || input.device) throw new HarnessError('map_route_selection', '先选定地图中的两端，再把这条路带回对话。');
+      const conditions = sharedMapRouteSchema.parse(input.route), overview = connection.overview();
+      if (conditions.mapVersion !== overview.version || conditions.profileRevision !== undefined && conditions.profileRevision !== overview.profileRevision)
+        throw new HarnessError('map_route_changed', '地图或地点刚有更新，请从现在的路线重新选择。');
+      if (input.fromId && input.fromId !== conditions.fromId)
+        throw new HarnessError('map_route_selection', '这次起点和正在看的路线没有对应上。');
+      const preview = connection.route({ from: { kind: conditions.fromKind || 'place', id: conditions.fromId },
+        to: { kind: conditions.toKind || 'place', id: conditions.toId }, version: conditions.mapVersion,
+        profileRevision: overview.profileRevision, originAccessId: conditions.originAccessId, destinationAccessId: conditions.destinationAccessId,
+        avoidStairs: conditions.avoidStairs, allowConditional: conditions.allowConditional });
+      if (!preview.from || !preview.to) throw new HarnessError('map_route_selection', '这条路的一端现在已经找不到了，请重新选择。');
+      if (conditions.fromKind === 'node') graphOrigin = { kind: 'public', pointId: preview.from.id };
+      const personalDestination = conditions.toKind !== 'node' ? connection.capturePersonalPoint(conditions.toId) : undefined;
+      const destination = personalDestination ? { kind: 'personal' as const, ...personalDestination }
+        : conditions.toKind === 'node' ? { kind: 'public' as const, pointId: preview.to.id }
+          : connection.publicView().point(conditions.toId) ? { kind: 'public' as const, pointId: connection.publicView().point(conditions.toId)!.id } : undefined;
+      if (!destination) throw new HarnessError('map_route_selection', '这条路的终点现在已经找不到了，请重新选择。');
+      route = { conditions: { ...conditions, ...(overview.profileRevision ? { profileRevision: overview.profileRevision } : {}) }, destination };
+    }
+    const fromId = route?.conditions.fromId || input.fromId;
+    const personal = input.enabled && fromId && !graphOrigin ? connection?.capturePersonalPoint(fromId) : undefined;
+    const publicPoint = input.enabled && fromId && !personal && !graphOrigin ? connection?.publicView().point(fromId) : undefined;
+    if (route && !personal && !publicPoint && !graphOrigin) throw new HarnessError('map_route_selection', '这条路的起点现在已经找不到了，请重新选择。');
     this.shared = input.enabled ? { id: randomUUID(),
-      endpoint: personal ? { kind: 'personal', ...personal } : publicPoint ? { kind: 'public', pointId: publicPoint.id } : undefined,
-      device: input.device, epoch: this.policy.repo.epoch, expiresAt: Date.parse(this.policy.repo.clock.now()) + 120000 } : undefined;
-    return { enabled: !!this.shared, expiresAt: this.shared ? new Date(this.shared.expiresAt).toISOString() : null, coordinateEgress: false };
+      endpoint: graphOrigin || (personal ? { kind: 'personal', ...personal } : publicPoint ? { kind: 'public', pointId: publicPoint.id } : undefined),
+      device: input.device, ...(route ? { route } : {}), epoch: this.policy.repo.epoch, expiresAt: Date.parse(this.policy.repo.clock.now()) + 120000 } : undefined;
+    return { enabled: !!this.shared, expiresAt: this.shared ? new Date(this.shared.expiresAt).toISOString() : null, coordinateEgress: false,
+      ...(this.shared ? { selectionId: this.shared.id } : {}),
+      ...(this.shared?.route ? { routeReference: { selectionId: this.shared.id } } : {}) };
   }
   sharedStatus() {
     const value = this.shared;
@@ -80,6 +113,42 @@ export class SpatialService {
     const selected = this.shared;
     return selected && selected.epoch === this.policy.repo.epoch
       && selected.expiresAt > Date.parse(this.policy.repo.clock.now()) ? selected : undefined;
+  }
+  private sharedRouteRecord(handle: ScopeHandle, raw: MapRouteReference) {
+    const reference = mapRouteReferenceSchema.parse(raw), scope = this.policy.require(handle, 'map:read');
+    const selected = this.currentSelection(), connection = this.map();
+    if (!selected?.route || !selected.endpoint || selected.id !== reference.selectionId || !connection
+      || scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self'
+      || !scope.sources.includes('map:local'))
+      throw new HarnessError('map_route_selection_expired', '刚才带来的路线已经变了，可以在地图里重新选这条路。');
+    const conditions = selected.route.conditions, overview = connection.overview();
+    if (conditions.mapVersion !== overview.version || conditions.profileRevision !== overview.profileRevision)
+      throw new HarnessError('map_route_changed', '地图或地点后来有更新，这次没有沿旧路线继续。');
+    const sources: SpatialSourceProof[] = [];
+    for (const [endpoint, destination] of [[selected.endpoint, false], [selected.route.destination, true]] as const) {
+      const source: SpatialSourceProof = { version: 1, origin: { kind: 'selection', id: selected.id, ...(destination ? { endpoint: 'destination' } : {}) } };
+      if (endpoint.kind === 'personal') {
+        const point = connection.readPersonalPoint(endpoint);
+        if (!point) throw new HarnessError('map_route_changed', '这条路的一端已经改过，请重新选择现在的地点。');
+        source.point = point.proof;
+      }
+      sources.push(source);
+    }
+    if (!this.sourcesCurrent(handle, sources)) throw new HarnessError('map_route_changed', '这条路的一处来源已有变化，请重新打开。');
+    const route = connection.route({ from: { kind: conditions.fromKind || 'place', id: conditions.fromId }, to: { kind: conditions.toKind || 'place', id: conditions.toId },
+      version: conditions.mapVersion, profileRevision: conditions.profileRevision, originAccessId: conditions.originAccessId,
+      destinationAccessId: conditions.destinationAccessId, avoidStairs: conditions.avoidStairs, allowConditional: conditions.allowConditional });
+    return { reference, route, conditions, sources,
+      meaning: '这是用户刚在原地图指向的两端、入口与选路条件，按当前版本重新读取；只是正在比较的路线，不表示人已出发、到达或接受安排。' };
+  }
+  sharedRoute(handle: ScopeHandle, raw: MapRouteReference) {
+    const selected = this.sharedRouteRecord(handle, raw);
+    return { ...selected, route: projectMapRoute(selected.route) };
+  }
+  sharedRouteIdentity(handle: ScopeHandle, raw: MapRouteReference) {
+    const selected = this.sharedRoute(handle, raw);
+    return { origin: 'user_selected_route' as const, reference: selected.reference, conditions: selected.conditions,
+      meaning: '本条UI指向地图里的这条路线；只解释两端与选路条件，不表示用户在任一端或批准出行、定位、日历修改。' };
   }
   private bindingEndpoint(record: WorkRecord): SpatialBinding['endpoint'] | undefined {
     const parsed = spatialBindingSchema.safeParse(record.data.spatialBinding);
@@ -110,7 +179,11 @@ export class SpatialService {
       } else {
         const selection = this.currentSelection();
         if (!selection || selection.id !== proof.origin.id) return false;
-        endpoint = selection.endpoint;
+        if (selection.route) {
+          const overview = connection?.overview(), conditions = selection.route.conditions;
+          if (!overview || conditions.mapVersion !== overview.version || conditions.profileRevision !== overview.profileRevision) return false;
+        }
+        endpoint = proof.origin.endpoint === 'destination' ? selection.route?.destination : selection.endpoint;
       }
       if (!endpoint) return false;
       if (proof.point && (endpoint.kind !== 'personal' || proof.point.profileId !== endpoint.profileId
@@ -140,6 +213,8 @@ export class SpatialService {
     if ((input.role || input.bindingId || ['shared_map_selection', 'device_observation'].includes(input.originKind)) && (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self')) return { status: 'forbidden', reason: '个人地点与设备观察不能被套用到他人或假设场景；仍可使用明确给出的公开地点。' };
     const map = connection.publicView();
     let endpoint: SpatialBinding['endpoint'] | undefined;
+    let sharedConditions: SharedMapRoute | undefined;
+    let selectedRoute: ReturnType<SpatialService['sharedRouteRecord']> | undefined;
     const spatialSources: SpatialSourceProof[] = [];
     let originEvidence: Record<string, unknown> = { kind: input.originKind, userPresenceConfirmed: false };
     if (input.role || input.bindingId) {
@@ -168,7 +243,11 @@ export class SpatialService {
       if (input.originKind === 'shared_map_selection') {
         endpoint = shared.endpoint;
         if (!endpoint) return { status: 'unknown', reason: '这次地图共享没有选定起点，可以先选一处要比较的地点。' };
-        spatialSources.push({ version: 1, origin: { kind: 'selection', id: shared.id } });
+        sharedConditions = shared.route?.conditions;
+        if (shared.route && (input.toId === shared.route.conditions.toId || input.toId === shared.route.destination.pointId)) {
+          selectedRoute = this.sharedRouteRecord(handle, { selectionId: shared.id });
+          spatialSources.push(...selectedRoute.sources);
+        } else spatialSources.push({ version: 1, origin: { kind: 'selection', id: shared.id } });
         originEvidence = { kind: 'user_selected_origin', userPresenceConfirmed: false };
       }
       else {
@@ -182,23 +261,35 @@ export class SpatialService {
       }
     }
     let personal: ReturnType<CampusMapAdapter['readPersonalPoint']>;
-    if (endpoint?.kind === 'personal') {
+    if (selectedRoute) fromId = selectedRoute.conditions.fromId;
+    else if (endpoint?.kind === 'personal') {
       personal = connection.readPersonalPoint(endpoint);
       if (!personal) return { status: 'stale', reason: '选定的个人地点已改变或移除，这次没有换成别的起点。' };
       fromId = personal.publicPointId || 'reference/personal-origin-' + personal.sha256;
       spatialSources[0].point = personal.proof;
-    } else if (endpoint) fromId = endpoint.pointId;
+    } else if (endpoint) fromId = sharedConditions?.fromKind === 'node' ? sharedConditions.fromId : endpoint.pointId;
     if (!fromId) return { status: 'unknown', destination: input.toId, reason: '缺少起点；仍可先提供目的地事实，或按给定候选起点比较。' };
-    const query = { from: { kind: 'place' as const, id: fromId }, to: { kind: 'place' as const, id: input.toId }, avoidStairs: input.avoidStairs, version: input.mapVersion };
-    const route = personal && !personal.publicPointId
+    const given = raw && typeof raw === 'object' ? raw as Record<string, unknown> : {};
+    const avoidStairs = sharedConditions && !Object.hasOwn(given, 'avoidStairs') ? sharedConditions.avoidStairs : input.avoidStairs;
+    const allowConditional = input.allowConditional ?? sharedConditions?.allowConditional;
+    const query: MapRouteQuery = {
+      from: { kind: sharedConditions?.fromKind || 'place', id: fromId },
+      to: { kind: selectedRoute?.conditions.toKind || 'place', id: selectedRoute?.conditions.toId || input.toId },
+      avoidStairs, allowConditional, originAccessId: input.originAccessId ?? sharedConditions?.originAccessId,
+      destinationAccessId: input.destinationAccessId ?? selectedRoute?.conditions.destinationAccessId,
+      version: input.mapVersion || selectedRoute?.conditions.mapVersion,
+      ...(selectedRoute?.conditions.profileRevision ? { profileRevision: selectedRoute.conditions.profileRevision } : {}),
+    };
+    const route = selectedRoute ? connection.route(query) : personal && !personal.publicPointId
       ? map.routeReferences(query, [{ id: fromId, name: personal.name, coordinate: personal.coordinate }]).route : map.route(query);
     if (personal?.publicPointId && route.from) route.from = { ...route.from, displayName: personal.name };
     if (!this.sourcesCurrent(handle, spatialSources)) throw new HarnessError('spatial_source_changed', '刚才选定起点的来由已有变化，需要接回现在的地点。');
-    const materialId = 'route-material:' + createHash('sha256').update(JSON.stringify({ fromId, toId: input.toId, avoidStairs: input.avoidStairs, mode: input.mode, routeStatus: route.status, requestedMapVersion: input.mapVersion || null, mapVersion: route.source.version, spatialSources, originEvidence, departAt: input.departAt || null, arrivalBy: input.arrivalBy || null })).digest('hex');
+    const materialId = 'route-material:' + createHash('sha256').update(JSON.stringify({ query, mode: input.mode, routeStatus: route.status, mapVersion: route.source.version, spatialSources, originEvidence, departAt: input.departAt || null, arrivalBy: input.arrivalBy || null })).digest('hex');
     const summary = { namespace: 'osm-zju-v2', version: route.source.version, sourceDate: route.source.date,
       from: route.from ? { id: route.from.id, label: route.from.displayName } : null, to: route.to ? { id: route.to.id, label: route.to.displayName } : null,
       materialId, preparedAt: now, mapVersion: route.source.version, profileRevision: route.profileRevision || null,
       endpoints: { fromId: route.from?.id || fromId, toId: route.to?.id || input.toId },
+      routeConditions: { avoidStairs, allowConditional: !!allowConditional, originAccessId: query.originAccessId || null, destinationAccessId: query.destinationAccessId || null },
       originQuality: { kind: originEvidence.kind, establishesCurrentUserPosition: originEvidence.userPresenceConfirmed === 'statement_not_device_measurement' ? 'user_report_only' : false, requiresRecheck: ['shared_map_selection', 'device_observation'].includes(input.originKind), observedAt: originEvidence.at || null },
       cameraChanged: false, preparationOnly: true,
       originEvidence, spatialSources, coordinateEgress: false, route: projectMapRoute(route), warnings: route.warnings, unknown: ['楼内走到入口的时间', '排队、停车和当天门禁', '用户实际速度与途中停留'] };

@@ -6,6 +6,7 @@ import { noteSourceProofSchema, type NoteSourceProof } from '../../shared/notes-
 import type { Store } from '../store';
 import type { Message } from '../../shared/types';
 import type { RunSession } from './coordinator';
+import type { NotebookQuoteReference } from '../../shared/notes';
 
 export class NotePresentationService {
   constructor(readonly store: Store) {}
@@ -99,6 +100,17 @@ export class NotePresentationService {
     if (!text.trim()) throw new HarnessError('note_reference_empty', '先选一小段想接着聊的原文。');
     this.readable(handle, proof);
     return { text, title: scene.title, origin: 'user_note' as const, reference: input, sources: [proof], meaning: NOTE_READING_MEANING };
+  }
+  resolveNotebookQuote(handle: ScopeHandle, raw: NotebookQuoteReference) {
+    const selected = this.store.notes.notebookQuote(raw, handle), { proof } = this.store.notes.notebookQuoteIdentity(raw, handle);
+    this.readable(handle, proof);
+    return { ...selected, origin: 'user_note' as const, sources: [proof], meaning: NOTE_READING_MEANING };
+  }
+  notebookQuoteIdentity(handle: ScopeHandle, raw: NotebookQuoteReference) {
+    const { reference, proof } = this.store.notes.notebookQuoteIdentity(raw, handle);
+    this.readable(handle, proof);
+    return { origin: 'user_note' as const, reference, selectedRange: { start: proof.start, end: proof.end },
+      meaning: '本条当前UI指向已保存笔记中的这一段；它只解释当前指代，不扩大笔记读取、记录或修改权限。' };
   }
   /** Identifies the document currently being pointed at without delivering any
    * additional text or granting a later private read. */

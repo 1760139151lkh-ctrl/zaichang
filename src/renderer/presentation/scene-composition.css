@@ -37,9 +37,9 @@
 .conversation-map[data-transitioning='true'] { z-index:70; }
 
 /* A working page needs room for actual writing, including its one composer. */
-.conversation-space:not(.with-materials) .messages:has(.scene-composition.has-focus) { width:calc(100% - 64px); max-width:1160px; }
-.messages:has(.scene-composition.has-focus) .assistant-message > div > .markdown { max-width:800px; }
-.messages:has(.scene-composition.has-focus) .user-message { max-width:min(800px,88%); }
+.conversation-space:not(.with-materials) .messages:has(.scene-composition.has-focus,.interactive-program .interactive-flow:is(.is-row,.is-grid) > .interactive-paper + .interactive-paper) { width:calc(100% - 64px); max-width:1160px; }
+.messages:has(.scene-composition.has-focus,.interactive-program .interactive-flow:is(.is-row,.is-grid) > .interactive-paper + .interactive-paper) .assistant-message > div > .markdown { max-width:800px; }
+.messages:has(.scene-composition.has-focus,.interactive-program .interactive-flow:is(.is-row,.is-grid) > .interactive-paper + .interactive-paper) .user-message { max-width:min(800px,88%); }
 .scene-composition[data-wide='true'] .study-desk[data-source-shared='true'] .study-desk-papers { grid-template-columns:minmax(0,1fr); }
 .scene-composition[data-wide='true'] .note-reading-paper { padding:22px 21px 18px; }
-@media(max-width:600px) { .conversation-space:not(.with-materials) .messages:has(.scene-composition.has-focus) { width:calc(100% - 36px); } }
+@media(max-width:600px) { .conversation-space:not(.with-materials) .messages:has(.scene-composition.has-focus,.interactive-program .interactive-flow:is(.is-row,.is-grid) > .interactive-paper + .interactive-paper) { width:calc(100% - 36px); } }

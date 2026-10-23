@@ -32,6 +32,7 @@ interface Props {
   onClose: () => void;
   notify: (s: string) => void;
   onClear: () => void;
+  onBeforeForget?: () => boolean;
   draft: MutableRefObject<SettingsDraft>;
   memoryWorkspace: MemoryWorkspaceState;
   onMemoryWorkspace: Dispatch<SetStateAction<MemoryWorkspaceState>>;
@@ -54,6 +55,7 @@ export function SettingsPanel({
   onClose,
   notify,
   onClear,
+  onBeforeForget,
   draft,
   memoryWorkspace,
   onMemoryWorkspace,
@@ -774,6 +776,7 @@ export function SettingsPanel({
                       disabled={disabled}
                       onClick={() =>
                         void perform('clear', async () => {
+                          if (onBeforeForget?.() === false) return;
                           onState(await api.clearData());
                           resetCompanion();
                           draft.current = {};

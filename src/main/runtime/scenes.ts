@@ -16,6 +16,7 @@ import { assertRehearsalSnapshotReadable } from './rehearsal-presentation';
 import { rehearsalHistoryReference } from '../../shared/relationship-rehearsal';
 import { noteHistoryReference } from '../../shared/note-presentation';
 import { mapStorySettingSchema } from '../../shared/story-setting';
+import { publicStoryLeg } from './story-setting';
 import { campusAcademicReference, type CampusAcademicReference } from '../../shared/campus-academic';
 import { campusAcademicSnapshot, isAcademicCampus } from './campus-academic';
 import { campusSceneModelSummary } from './campus-model-view';
@@ -186,6 +187,7 @@ export class SceneService {
       const setting = mapStorySettingSchema.safeParse(scene.storySetting);
       if (!setting.success || !scope.sources.includes('work:self') || scope.subjectId !== scope.principalId || scope.worldId !== 'real'
         || !this.store.kernel.workBindingsReadable(handle, [setting.data.sourceBinding])
+        || !this.store.kernel.noteSourcesReadable(handle, setting.data.noteSources)
         || !this.store.kernel.assistantWorkSourcesReadable(handle, setting.data.assistantWorkSources || [])) return false;
     }
     if (scene.kind === 'planning') {
@@ -319,7 +321,7 @@ export class SceneService {
     };
     return options.stageOnly ? scene : this.remember(sessionId, scene, options.runId, options.preparationOnly);
   }
-  map(sessionId: string, routes: MapRouteResult[], options: { previous?: MapScene; stops?: { id?: string; placeId: string; dwellMinutes?: number }[]; runId?: string; preparationOnly?: boolean } = {}): MapScene {
+  map(sessionId: string, routes: MapRouteResult[], options: { previous?: MapScene; stops?: { id?: string; placeId: string; dwellMinutes?: number }[]; runId?: string; preparationOnly?: boolean; stageOnly?: boolean } = {}): MapScene {
     const previous = options.previous, now = this.store.kernel.clock.now();
     const points = routes.length ? [routes[0].from, ...routes.map(route => route.to)] : [];
     if (points.some(point => !point)) throw new HarnessError('scene_endpoints', '路线还没有完整的稳定起终点，不能建立旅程。');
@@ -338,7 +340,7 @@ export class SceneService {
       journey: { id: previous?.journey.id || randomUUID(), revision: (previous?.journey.revision || 0) + 1, stops, legs,
         estimate: { networkM, estimatedAccessM, walkingMinutes, dwellMinutes, totalMinutes: { min: walkingMinutes.min + dwellMinutes, max: walkingMinutes.max + dwellMinutes },
           complete: routes.every(route => ['ready', 'same'].includes(route.status) && !route.distance?.connectorM && !route.originAccess?.conditions?.length && !route.destinationAccess?.conditions?.length && !route.segments?.some(segment => segment.conditions?.length)), basis: '已记录道路按每分钟48–90米作条件估计，加上明确给出的停留时间；接入估计、楼内、门禁、排队和未提供的停留时间另计，不保证抵达时刻。' } }, cameraIntent: 'route', activeLegId: legs[0]?.id };
-    return this.remember(sessionId, scene, options.runId, options.preparationOnly);
+    return options.stageOnly ? scene : this.remember(sessionId, scene, options.runId, options.preparationOnly);
   }
   /** A picture the host itself fetched and verified from a public page. */
   figure(sessionId: string, image: { url: string; pageUrl?: string; pageTitle?: string; alt?: string; caption?: string; mediaType: string; width: number | null; height: number | null;
@@ -528,6 +530,8 @@ export class SceneService {
       throw new HarnessError('selection_target', '试放条件只接在这幅安排里明确选中的完整时间段上。');
     if (input.campusScale && (input.kind !== 'record' || scene.kind !== 'campus' || !isAcademicCampus(scene)))
       throw new HarnessError('selection_target', '绩点制式只用于当前成绩资料中选中的记录。');
+    if (input.mapView && (scene.kind !== 'map' || !scene.storySetting || !['place', 'leg'].includes(input.kind)))
+      throw new HarnessError('selection_target', '取景镜头只随共同作品在这张公共地图上明确选中的地点或路段保存。');
     if (input.kind === 'date' && scene.kind === 'weather') {
       weatherDay = scene.days.find(day => day.date === input.date);
       label = weatherDay?.date;
@@ -570,18 +574,25 @@ export class SceneService {
     }
     if (label && scene.kind === 'map' && scene.storySetting && (input.kind === 'place' || input.kind === 'leg')) {
       const manifest = this.store.runtime.connections.map?.publicView().overview();
-      if (manifest?.version !== scene.storySetting.mapVersion)
+      if (!manifest || manifest.version !== scene.storySetting.mapVersion || manifest.version !== scene.source.version)
         throw new HarnessError('selection_target', '取景所用地图已有变化，先重新打开公共地点。');
       try { this.store.runtime.curiosityInvitations.referenceIdentity(handle, scene.storySetting.work, { sessionId, allowCrossSession: false }); }
       catch (error) {
         if (!(error instanceof HarnessError)) throw error;
         throw new HarnessError('selection_target', '这张取景图指的作品已有后续，先接现在的作品再选地点。');
       }
-      storySetting = { work: scene.storySetting.work, ...(input.placeId ? { placeId: input.placeId } : { legId: input.legId }), mapVersion: manifest.version,
-        meaning: '共同作品在公共地图上的临时取景焦点。地点或道路本身来自公共地图，下一句可据此改写场景；不证明本人到达、GPS、现场事件或真实出行，不自动修改原作品。' };
+      const leg = input.kind === 'leg' ? scene.journey.legs.find(leg => leg.id === input.legId) : undefined;
+      const route = leg ? publicStoryLeg(this.policy, handle,
+        this.store.runtime.connections.map?.publicView(), manifest.version, leg.route) : undefined;
+      if (input.kind === 'leg' && !route) throw new HarnessError('selection_target', '这段取景没有完整的公共起终点，先重新选定。');
+      if (route) label = `${route.route.from!.displayName} → ${route.route.to!.displayName}`;
+      storySetting = { work: scene.storySetting.work,
+        ...(route ? { placeId: route.route.to!.id, legId: input.legId, route: route.endpoints } : { placeId: input.placeId }),
+        ...(input.mapView ? { view: structuredClone(input.mapView) } : {}), mapVersion: manifest.version,
+        meaning: '共同作品在公共地图上的临时取景焦点。地点或路段双端来自公共地图，下一句可据此改写场景；双端存在不证明道路已连通或可通行，路线状态仍按原画面与当前公共结果理解。不证明本人到达、GPS、现场事件或真实出行，不自动修改原作品。' };
     }
     if (!label) throw new HarnessError('selection_target', '选择的对象与这份画面不相符，请重新选择。');
-    const { planningTrial: _rawTrial, ...reference } = input;
+    const { planningTrial: _rawTrial, mapView: _rawMapView, ...reference } = input;
     return { ...reference, label, source: scene.source, ...(record ? { record: structuredClone(record) } : {}),
       ...(scene.kind === 'campus' ? { campusContext: { domain: scene.domain, ...(scene.term ? { term: scene.term } : {}), complete: scene.complete,
         origin: scene.origin, display: scene.academicDisplay ? { ...scene.academicDisplay, scale: input.campusScale || scene.academicDisplay.scale } : undefined,

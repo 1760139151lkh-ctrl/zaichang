@@ -21,6 +21,9 @@ export interface InputControls {
   preparationReference?: import('../../shared/presentation').PreparationFocusReference;
   letterReference?: import('../../shared/reflective-letter').LetterReference;
   noteReference?: import('../../shared/note-presentation').NoteReference;
+  notebookQuote?: import('../../shared/notes').NotebookQuoteReference;
+  mapRouteReference?: import('../../shared/map-context').MapRouteReference;
+  agendaFocus?: import('../../shared/agenda').AgendaFocus;
   materialQuote?: import('../../shared/materials').MaterialQuoteReference;
   noteQuote?: import('../../shared/notes').NoteQuoteReference;
   rehearsalInteraction?: import('../../shared/relationship-rehearsal').RehearsalInteraction;

@@ -45,7 +45,16 @@ export function boundedProgramPresentation(value: unknown,
       gaps.add('geometry_points_not_provided');
     } else if (node.typeName === 'Motion') {
       part.durationMs = props.durationMs; part.iterations = props.iterations;
+      part.releaseBehavior = props.releaseBehavior;
       part.playback = 'configuration_not_browser_completion';
+    } else if (node.typeName === 'Voice') {
+      part.sound = { gateField: props.gateField, frequency: props.frequency, settings: props.settings ?? null,
+        sustainField: props.sustainField, triggerField: props.triggerField,
+        ...(props.trigger === undefined ? {} : { trigger: props.trigger }) };
+      part.playback = 'configuration_not_browser_output';
+    } else if (node.typeName === 'Press') {
+      part.press = { field: props.field, strength: props.strength, pressureField: props.pressureField,
+        triggerField: props.triggerField, hotkey: props.hotkey };
     }
     parts.push(part); end++;
   }
@@ -74,11 +83,20 @@ function programParts(value: unknown, add: (part: DeliveredPart) => void) {
     const identity = { nodeId: props.id, component: node.typeName };
     if (node.typeName === 'Text') add({ ...identity, value: props.value });
     else if (node.typeName === 'Formula') add({ ...identity, tex: props.tex });
-    else if (metadata?.kind === 'graphic') {
+    else if (node.typeName === 'Voice') {
+      add({ ...identity, sound: { gateField: props.gateField, frequency: props.frequency, settings: props.settings ?? null,
+        sustainField: props.sustainField, triggerField: props.triggerField,
+        ...(props.trigger === undefined ? {} : { trigger: props.trigger }) },
+      meaning: '本次已发表初态的声音配置；未给trigger时沿gate上升沿击发，包络与延续仍按组件契约。这不是已启用声音、实际击发或设备听感回执。' });
+    } else if (node.typeName === 'Press') {
+      add({ ...identity, label: props.label, press: { field: props.field, strength: props.strength,
+        pressureField: props.pressureField, triggerField: props.triggerField, hotkey: props.hotkey },
+      meaning: '本次已发表的按住入口及局部字段关联；不是用户已经按过或同意执行的记录。' });
+    } else if (metadata?.kind === 'graphic') {
       add({ ...identity, geometry: Object.fromEntries(Object.entries(props).filter(([key]) => key !== 'children')) });
     } else if (metadata?.kind === 'motion') {
       add({ ...identity, motion: { when: props.when, frames: props.frames, durationMs: props.durationMs,
-        iterations: props.iterations, easing: props.easing }, meaning: '已发布的有限动效配置，不是浏览器播放完成回执。' });
+        iterations: props.iterations, easing: props.easing, releaseBehavior: props.releaseBehavior }, meaning: '已发布的有限动效配置，不是浏览器播放完成回执。' });
     } else if (typeof props.label === 'string' || typeof props.title === 'string') {
       add({ ...identity, ...(typeof props.title === 'string' ? { title: props.title } : {}),
         ...(typeof props.label === 'string' ? { label: props.label } : {}),

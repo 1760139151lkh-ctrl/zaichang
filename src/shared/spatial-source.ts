@@ -31,7 +31,7 @@ export const spatialSourceProofSchema = z.object({
   version: z.literal(1),
   origin: z.discriminatedUnion('kind', [
     z.object({ kind: z.literal('binding'), id, revision: z.number().int().positive() }).strict(),
-    z.object({ kind: z.literal('selection'), id }).strict(),
+    z.object({ kind: z.literal('selection'), id, endpoint: z.literal('destination').optional() }).strict(),
   ]),
   point: personalMapPointProofSchema.optional(),
 }).strict();

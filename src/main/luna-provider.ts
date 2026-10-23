@@ -17,6 +17,7 @@ export const LUNA_ENDPOINT = 'https://chatgpt.com/backend-api/codex/responses';
 export const LUNA_REQUEST_TIMEOUT_MS = MODEL_REQUEST_TIMEOUT_MS;
 export const LUNA_SUBSTITUTE = { providerId: 'openai-app-server', model: LUNA_MODEL, temporaryTestSubstitute: true, replaces: 'deepseek-flash', reasoningEffort: 'max', requestTimeoutMs: LUNA_REQUEST_TIMEOUT_MS } as const;
 type Item = Record<string, any>;
+const LUNA_PROTOCOL_PREFIX = 'zaichang-luna:';
 
 /** This temporary Max contract applies to every role, including legacy callers
  * that request a lower effort. Explicit no-thinking comparisons remain none. */
@@ -36,7 +37,7 @@ function abortableDelay(ms: number, signal: AbortSignal) {
 /** Translate protocol roles and native image parts; never summarize source text. */
 export function lunaInput(messages: ModelWireMessage[], opaque: (id: string) => Item[] | undefined = decodeProtocol): Item[] {
   return messages.flatMap(message => {
-    if (message.role === 'assistant' && message.reasoning_content?.startsWith('zaichang-luna:')) {
+    if (message.role === 'assistant' && message.reasoning_content?.startsWith(LUNA_PROTOCOL_PREFIX)) {
       const items = opaque(message.reasoning_content);
       if (items) return structuredClone(items);
     }
@@ -188,10 +189,11 @@ export class AppServerLunaClient {
         if (!content && !tool_calls.length) throw new ProviderError('Luna 没有返回可用内容。', false, 'empty_response', undefined, usage);
         if (usage && transportAttempts > 1) usage = { ...usage, physical_attempts: transportAttempts, unreported_attempts: transportAttempts - 1 };
         const result: Completion = { content, tool_calls, usage, transportAttempts, responseModel };
-        if (JSON.stringify(items).length > MODEL_WIRE_LIMITS.opaqueCharacters) throw new ProviderError('Luna 协议状态超过传输长度范围。', false, 'protocol_budget', undefined, usage);
+        const protocol = JSON.stringify(items);
+        if (protocol.length > MODEL_WIRE_LIMITS.opaqueCharacters) throw new ProviderError('Luna 协议状态超过传输长度范围。', false, 'protocol_budget', undefined, usage);
         // Same lifecycle as DeepSeek reasoning_content: the host's bounded,
         // scoped in-memory protocol chain carries this across client instances.
-        this.protocol.set(result, 'zaichang-luna:' + JSON.stringify(items));
+        this.protocol.set(result, LUNA_PROTOCOL_PREFIX + protocol);
         // A transport ACK only. The actual model result is never interpreted by
         // Codex's execution loop and is returned exclusively through resolve().
         response.writeHead(200, { 'content-type': 'text/event-stream' });
@@ -253,8 +255,9 @@ export class AppServerLunaClient {
 }
 
 function decodeProtocol(value: string): Item[] {
-  if (value.length > 530000) throw new ProviderError('Luna 协议状态超过本轮上限。', false, 'protocol_budget');
-  const items = JSON.parse(value.slice('zaichang-luna:'.length));
+  if (value.length > LUNA_PROTOCOL_PREFIX.length + MODEL_WIRE_LIMITS.opaqueCharacters)
+    throw new ProviderError('Luna 协议状态超过本轮上限。', false, 'protocol_budget');
+  const items = JSON.parse(value.slice(LUNA_PROTOCOL_PREFIX.length));
   if (!Array.isArray(items) || items.some(item => !['message', 'reasoning', 'function_call'].includes(item.type))) throw new ProviderError('Luna 协议续接内容无效。', false, 'protocol');
   return items;
 }

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import {
   ArrowUpRight,
   BookOpen,
@@ -8,9 +8,11 @@ import {
   Copy,
   Monitor,
   RotateCcw,
+  MapPin,
   X,
 } from 'lucide-react';
 import type { Action, State } from '../shared/types';
+import type { AgendaChangePreview, AgendaFocus } from '../shared/agenda';
 import type { LetterFocusContext } from '../shared/reflective-letter';
 import type {
   MatterSelectionInput,
@@ -38,6 +40,13 @@ export function AgendaEditor({
   current,
   timeZone = DEFAULT_TIME_ZONE,
   initialStartsAt,
+  initialOccurrenceDate,
+  embedded = false,
+  boundary,
+  includeCampus = false,
+  onDiscuss,
+  onMap,
+  onTrialChange,
   onState,
   onSaved,
   onClose,
@@ -47,23 +56,31 @@ export function AgendaEditor({
   timeZone?: string;
   /** A trial position, never a replacement for the original object/revision. */
   initialStartsAt?: string;
+  initialOccurrenceDate?: string;
+  embedded?: boolean;
+  boundary?: Required<Pick<State, 'privacyEpoch' | 'policyRevision' | 'sourceBoundary'>>;
+  includeCampus?: boolean;
+  onDiscuss?: (focus: AgendaFocus, label: string) => void;
+  onMap?: (id: string) => void;
+  onTrialChange?: (startsAt?: string) => void;
   onState: (state: State) => void;
   onSaved?: (saved: Action, previous: Action) => void;
   onClose: () => void;
 }) {
   const zone = original.timeZone || timeZone;
   const originalCivil = toTimeInput(original.startsAt, zone);
-  const anchorDate = original.allDayDate || originalCivil.slice(0, 10);
+  const anchorDate = initialOccurrenceDate || original.allDayDate || originalCivil.slice(0, 10);
   const [repeatScope, setRepeatScope] = useState<'once' | 'series'>(
     original.recurrence ? 'once' : 'series',
   );
   const [occurrenceDate, setOccurrenceDate] = useState(anchorDate);
   const firstException = original.exceptions?.find((item) => item.onDate === anchorDate);
-  const draftInstant = !original.recurrence && !original.allDayDate ? initialStartsAt : undefined;
+  const draftInstant = !original.allDayDate ? initialStartsAt : undefined;
   const [title, setTitle] = useState(original.title);
   const [detail, setDetail] = useState(firstException?.detail ?? original.detail);
   const [time, setTime] = useState(
-    toTimeInput(draftInstant || firstException?.startsAt || original.startsAt, zone),
+    draftInstant || firstException?.startsAt ? toTimeInput(draftInstant || firstException?.startsAt, zone)
+      : original.recurrence && original.startsAt ? `${anchorDate}T${originalCivil.slice(11)}` : originalCivil,
   );
   const [allDayDate, setAllDayDate] = useState(original.allDayDate || '');
   const [duration, setDuration] = useState(
@@ -74,9 +91,16 @@ export function AgendaEditor({
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
   const [base] = useState(original);
+  const titleId = useId();
+  const [preview, setPreview] = useState<AgendaChangePreview>();
+  const [previewError, setPreviewError] = useState('');
+  const [previewing, setPreviewing] = useState(false);
+  const previewGeneration = useRef(0);
+  const trialCallback = useRef(onTrialChange);
+  trialCallback.current = onTrialChange;
   const once = !!original.recurrence && repeatScope === 'once';
   const previousException = original.exceptions?.find((item) => item.onDate === occurrenceDate);
-  const cancelledOccurrence = once && !!previousException?.cancelled;
+  const cancelledOccurrence = once && !!(current ? current.exceptions?.find(item => item.onDate === occurrenceDate) : previousException)?.cancelled;
   const changed = !!current && (current.revision || 1) !== (base.revision || 1);
 
   const editDrafts = useRef<Record<string, { time: string; detail: string; duration: string }>>({});
@@ -142,21 +166,47 @@ export function AgendaEditor({
       : once
         ? (previousException?.durationMinutes ?? original.durationMinutes)
         : original.durationMinutes;
-  async function save(retry = false) {
+  let currentInstant: string | undefined;
+  try { currentInstant = !original.allDayDate ? fromTimeInput(time, zone, draftInstant || previousException?.startsAt || original.startsAt) : undefined; }
+  catch { /* Keep the editable civil value; the form explains it on save. */ }
+  const originalInstant = beforeCivil ? (() => { try { return fromTimeInput(beforeCivil, zone, previousException?.startsAt || original.startsAt); } catch { return undefined; } })() : undefined;
+  const trialInstant = currentInstant && currentInstant !== originalInstant ? currentInstant : undefined;
+  useEffect(() => { trialCallback.current?.(trialInstant); }, [trialInstant]);
+  useEffect(() => {
+    const request = ++previewGeneration.current;
+    setPreview(undefined); setPreviewError(''); setPreviewing(false);
+    if (!boundary || !current || cancelledOccurrence || (!original.allDayDate && !currentInstant)) return;
+    const changes = once ? { ...(currentInstant ? { startsAt: currentInstant } : {}),
+      ...(!original.allDayDate ? { durationMinutes: duration ? Number(duration) : null } : {}), detail }
+      : { title: title.trim(), detail, ...(original.allDayDate ? { allDayDate } : {
+        ...(currentInstant ? { startsAt: currentInstant } : {}), durationMinutes: duration ? Number(duration) : null }) };
+    setPreviewing(true);
+    void api.agendaPreviewChange({ record: { id: current.id, revision: current.revision || 1,
+      ...(once ? { occurrenceDate } : {}) }, changes, timeZone: zone, includeCampus, ...boundary }).then(value => {
+      if (previewGeneration.current === request) setPreview(value);
+    }).catch(caught => {
+      if (previewGeneration.current === request) setPreviewError(errorText(caught));
+    }).finally(() => { if (previewGeneration.current === request) setPreviewing(false); });
+    return () => { previewGeneration.current++; };
+  }, [current?.revision, currentInstant, once, occurrenceDate, title, detail, duration, allDayDate, zone, includeCampus,
+    cancelledOccurrence, boundary?.privacyEpoch, boundary?.policyRevision, boundary?.sourceBoundary]);
+
+  async function save(retry = false, cancelOccurrence = false) {
     setPending(true);
     setError('');
     try {
       const version = retry ? current : base;
       if (!version) throw new Error('这条安排已经移除。你写的内容还在这里。');
-      if (cancelledOccurrence) throw new Error('这一次已经取消。想重新安排时，可以回到对话里说。');
-      const startsAt = original.allDayDate
+      const startsAt = original.allDayDate || cancelOccurrence
         ? undefined
         : fromTimeInput(time, zone, draftInstant || previousException?.startsAt || original.startsAt);
       let item: Action;
       if (once) {
-        const exception = {
-          ...(version.exceptions || []).find((entry) => entry.onDate === occurrenceDate),
+        const previous = (version.exceptions || []).find((entry) => entry.onDate === occurrenceDate);
+        const exception = cancelOccurrence ? { ...previous, onDate: occurrenceDate, cancelled: true } : {
+          ...previous,
           onDate: occurrenceDate,
+          cancelled: cancelOccurrence,
           ...(startsAt ? { startsAt } : {}),
           ...(!original.allDayDate ? { durationMinutes: duration ? Number(duration) : null } : {}),
           detail,
@@ -195,14 +245,7 @@ export function AgendaEditor({
       setPending(false);
     }
   }
-  return (
-    <Modal
-      title="把这件事，挪一挪。"
-      onClose={() => {
-        if (!pending) onClose();
-      }}
-      className="agenda-editor"
-    >
+  const form = (
       <form
         className="panel-body"
         onSubmit={(event) => {
@@ -210,10 +253,10 @@ export function AgendaEditor({
           void save(changed);
         }}
       >
-        <label className="field-label">
-          这件事
+        <label className={`field-label ${embedded ? 'agenda-title-field' : ''}`}>
+          <span>这件事</span>
           <input
-            autoFocus
+            autoFocus={!embedded}
             aria-label="安排标题"
             value={title}
             onChange={(event) => setTitle(event.target.value)}
@@ -327,28 +370,48 @@ export function AgendaEditor({
             </label>
           </div>
         )}
+        <details className="agenda-edit-details" open={!embedded || !!(firstException?.detail || original.detail) || undefined}>
+        <summary>说明<ChevronDown size={13} /></summary>
         <label className="field-label">
-          想补充的话
+          <span className={embedded ? 'sr-only' : ''}>想补充的话</span>
           <textarea
             aria-label="安排说明"
             value={detail}
             onChange={(event) => setDetail(event.target.value)}
-            rows={3}
+            rows={embedded ? 2 : 3}
             maxLength={1500}
           />
         </label>
+        </details>
+        <div className="agenda-edit-assessment" aria-busy={previewing}>
+          {!!preview?.conflicts.length && <div className="agenda-edit-conflicts" role="status">
+            <p>这个时间，和这些安排碰上了</p>
+            {preview.conflicts.map(conflict => <div key={`${conflict.id}:${conflict.start}`}>
+              <strong>{conflict.title}</strong><span>{formatDateTime(conflict.start, zone)}{conflict.end ? ` — ${toTimeInput(conflict.end, zone).slice(11, 16)}` : ' 起，结束未定'}</span>
+            </div>)}
+          </div>}
+          {previewError && <p className="agenda-preview-error" role="status">{previewError}</p>}
+          {preview && <details className="agenda-preview-sources"><summary>看看安排范围<ChevronDown size={12} /></summary>
+            <div><p>{formatDateTime(preview.window.from, zone)} — {formatDateTime(preview.window.to, zone)}</p>
+              {preview.recurringScope === 'series' && <p>这里看到的是起始日期附近的安排，整个系列的其他日期还要另看。</p>}
+              {preview.sourceCoverage.map(source => <p key={source.sourceId}>{source.sourceId === 'local-agenda' ? '本机安排' : '选中的课表'}{source.status === 'complete' ? '' : ' · 还有没读全的范围'}</p>)}
+              {preview.unknown.map((value, index) => <p key={index}>{value}</p>)}</div>
+          </details>}
+        </div>
+        {original.planning?.placeId && onMap && <button type="button" className="text-button agenda-place-link" disabled={pending}
+          onClick={() => onMap(original.planning!.placeId!)}><MapPin size={15} />去地图看看<ArrowUpRight size={14} /></button>}
         {(error || changed || cancelledOccurrence) && (
           <div className="inline-problem" role="alert">
             <p>
               {error ||
                 (cancelledOccurrence
-                  ? '这一次已经取消。想重新安排时，可以回到对话里说。'
+                  ? '这一次原来取消了，其他日期的安排还在。'
                   : '这件事刚在别处改过。下面保留着你的想法。')}
             </p>
             {changed && current && (
               <p>
                 现在的安排：{current.title} ·{' '}
-                {current.allDayDate
+                {cancelledOccurrence ? '这一次已经取消' : current.allDayDate
                   ? `${current.allDayDate} · 全天`
                   : current.startsAt
                     ? formatDateTime(current.startsAt, current.timeZone || timeZone)
@@ -360,17 +423,29 @@ export function AgendaEditor({
         <div className="field-buttons">
           <button
             className="primary-button"
-            disabled={pending || !title.trim() || !current || cancelledOccurrence}
+            disabled={pending || !title.trim() || !current}
           >
-            {pending ? '我记一下…' : changed ? '看过了，按这里改' : '就这样安排'}
+            {pending ? '正在保存…' : cancelledOccurrence ? '重新放回这一次' : changed ? '按这里改' : '保存'}
           </button>
           <button type="button" className="text-button" onClick={onClose} disabled={pending}>
-            先不改
+            取消
           </button>
         </div>
+        {onDiscuss && <button type="button" className="text-button agenda-discuss-link" disabled={pending || !current || changed}
+          onClick={() => {
+            if (!current) return;
+            const focus: AgendaFocus = { record: { id: current.id, revision: current.revision || 1, ...(once ? { occurrenceDate } : {}) },
+              ...(trialInstant && Number(duration) === beforeDuration ? { trial: { proposedStart: trialInstant } } : {}) };
+            onDiscuss(focus, `${original.title}${focus.trial ? ` · ${toTimeInput(trialInstant, zone).slice(11, 16)} 试放` : ''}`);
+          }}>{trialInstant ? '讨论这次试放' : '接着聊这件事'}<ArrowUpRight size={14} /></button>}
+        {once && !cancelledOccurrence && <button type="button" className="text-button agenda-cancel-once" disabled={pending || !current}
+          onClick={() => void save(changed, true)}>取消这一次</button>}
       </form>
-    </Modal>
   );
+  return embedded ? <section className="agenda-editor agenda-editor-inline" aria-labelledby={titleId}>
+    <header className="agenda-inline-heading"><h2 className="sr-only" id={titleId}>{original.title}</h2>
+      <button type="button" className="icon-button" aria-label="收起安排" disabled={pending} onClick={onClose}><X size={17} /></button></header>
+    {form}</section> : <Modal title="调整安排" onClose={() => { if (!pending) onClose(); }} className="agenda-editor">{form}</Modal>;
 }
 
 export function PreparationShelf({

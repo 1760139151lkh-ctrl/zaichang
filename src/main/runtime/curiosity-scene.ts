@@ -13,6 +13,7 @@ export function curiosityContextForRun(host: Host, session: RunSession): Curiosi
   return { sessionId: session.sessionId, events: session.events, ephemeral: session.ephemeral,
     allowCrossSession: session.ingress.contract.memoryMode === 'relevant',
     observations: session.observations || [], deliveredObservationIds: session.deliveredObservationIds || new Set(),
+    ...(session.selection?.storySetting ? { storySettingSelection: structuredClone(session.selection.storySetting) } : {}),
     permits: (ref: WorkSourceRef) => {
       const view = session.attentionEvidenceViews?.[ref.eventId];
       if (!view) return true;
