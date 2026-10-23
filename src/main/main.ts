@@ -52,6 +52,8 @@ import { semanticSelectionSchema } from '../shared/scenes';
 import { studyInteractionSchema } from '../shared/study-presentation';
 import { reflectiveLetterSourceInput, letterReferenceSchema, reflectiveLetterProjectInput } from '../shared/reflective-letter';
 import { noteReferenceSchema } from '../shared/note-presentation';
+import { preparationFocusReferenceSchema } from '../shared/presentation';
+import { noteQuoteReferenceSchema } from '../shared/notes';
 import { companionSourceInputSchema, companionFollowupReferenceSchema } from '../shared/companion-source';
 import { campusAcademicReadInputSchema } from '../shared/campus-academic';
 import { curiosityFollowupReferenceSchema } from '../shared/curiosity-source';
@@ -454,6 +456,7 @@ app.whenReady().then(async () => {
   handle('notes:state', value => store.notes.changeState(value));
   handle('notes:undo', value => store.notes.undo(value));
   handle('notes:history', value => store.notes.history(value));
+  handle('notes:quote', value => store.notes.quote(noteQuoteReferenceSchema.parse(value)));
   handle('messages', (value) => store.runtime.presentation.public ? [] : store.messages(id.parse(value)).flatMap(message => { const safe = store.runtime.presentation.message(message); return safe ? [safe] : []; }));
   handle('presentation:surface', async value => {
     const mode = z.enum(['private', 'public']).parse(value);
@@ -471,6 +474,11 @@ app.whenReady().then(async () => {
     store.runtime.presentation.selectMatter(input.id, input.revision); return state();
   });
   handle('matter:selection', value => { const changed = controls.matterSelection(value); return { ...changed, state: state() }; });
+  handle('preparation:open', value => {
+    if (!store.runtime.presentation.focusPreparation(preparationFocusReferenceSchema.parse(value)))
+      throw new Error('这份准备已经变化或收起来了，请回到现在的那一份。');
+    return state();
+  });
   handle('help:action', value => { controls.help(value); return state(); });
   handle('response:exposure', value => controls.responseExposure(value));
   handle('release:edit', value => { const message = controls.editRelease(value); harness.invalidateConversation(message.sessionId); return message; });
@@ -503,11 +511,13 @@ app.whenReady().then(async () => {
         image: imageAttachmentSchema.optional(),
         material: materialReferenceSchema.optional(),
         materialQuote: materialQuoteReferenceSchema.optional(),
+        noteQuote: noteQuoteReferenceSchema.optional(),
         selection: semanticSelectionSchema.optional(),
         studyInteraction: studyInteractionSchema.optional(),
         companionReference: companionFollowupReferenceSchema.optional(),
         curiosityReference: curiosityFollowupReferenceSchema.optional(),
         programReference: interactiveProgramReferenceSchema.optional(),
+        preparationReference: preparationFocusReferenceSchema.optional(),
         letterReference: letterReferenceSchema.optional(),
         noteReference: noteReferenceSchema.optional(),
         rehearsalInteraction: rehearsalInteractionSchema.optional(),
@@ -522,17 +532,19 @@ app.whenReady().then(async () => {
           .optional(),
       })
       .strict()
+      .refine(input => !(input.noteQuote && input.noteReference), '这次选中了两处笔记，请保留一处再发送。')
       .parse(value);
     if (input.materialQuote) await store.runtime.materials.nativeQuote({
       target: input.material?.resourceId === input.materialQuote.resourceId
         ? { kind: 'pending', reference: input.material } : { kind: 'saved', resourceId: input.materialQuote.resourceId },
       quote: input.materialQuote,
     });
+    if (input.noteQuote) store.notes.quote(input.noteQuote);
     return harness.start(input.sessionId, input.content, { ...input.controls, material: input.material, selection: input.selection,
       studyInteraction: input.studyInteraction, companionReference: input.companionReference,
       curiosityReference: input.curiosityReference, letterReference: input.letterReference, noteReference: input.noteReference,
-      programReference: input.programReference,
-      rehearsalInteraction: input.rehearsalInteraction, materialQuote: input.materialQuote }, input.image);
+      programReference: input.programReference, preparationReference: input.preparationReference,
+      rehearsalInteraction: input.rehearsalInteraction, materialQuote: input.materialQuote, noteQuote: input.noteQuote }, input.image);
   });
   handle('stop', () => harness.stop());
   handle('persona:follow-default', value => {

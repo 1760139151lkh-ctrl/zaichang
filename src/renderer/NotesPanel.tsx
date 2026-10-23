@@ -15,10 +15,13 @@ import {
 } from 'lucide-react';
 import {
   NOTE_LIMITS,
+  noteQuoteAddress,
   type NoteDocument,
   type NoteHistory,
   type NoteList,
   type NoteMutation,
+  type NoteQuote,
+  type NoteQuoteReference,
   type NotesBridge,
 } from '../shared/notes';
 import { IconButton, PagePanel, uiError } from './ui';
@@ -28,6 +31,7 @@ import type { MaterialQuoteReference } from '../shared/materials';
 import './notes.css';
 
 type Editor = { note?: NoteDocument; title: string; body: string };
+type NoteSelection = { editor: Editor; start: number; end: number; left: number; top: number };
 const fresh = (): Editor => ({ title: '', body: '' });
 const keyOf = (editor: Editor) => editor.note?.id || 'new';
 const isDirty = (editor?: Editor) =>
@@ -41,13 +45,9 @@ const editable = (note: NoteDocument): Editor => ({
   body: note.body,
 });
 
-function revealNoteMatch(control: HTMLInputElement | HTMLTextAreaElement, start: number, end: number) {
-  control.focus({ preventScroll: true });
-  control.setSelectionRange(start, end);
-  if (control instanceof HTMLTextAreaElement) {
-    // Native selection does not scroll an off-screen match into a textarea.
-    // Measure its actual wrapped lines with the same text metrics, without
-    // changing the note, caret contents or the editor's saved draft.
+function noteTextPosition(control: HTMLTextAreaElement, start: number, end: number) {
+    // Measure the real editor's wrapped text. The mirror is only geometry;
+    // original text and Unicode source coordinates still belong to the note.
     const style = window.getComputedStyle(control), mirror = document.createElement('div');
     mirror.style.cssText = 'position:fixed;left:-100000px;top:0;visibility:hidden;white-space:pre-wrap;overflow-wrap:break-word;border:0;box-sizing:border-box;';
     for (const property of ['font-family', 'font-size', 'font-weight', 'font-style', 'line-height', 'letter-spacing', 'word-spacing', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left', 'text-indent', 'tab-size']) mirror.style.setProperty(property, style.getPropertyValue(property));
@@ -56,8 +56,15 @@ function revealNoteMatch(control: HTMLInputElement | HTMLTextAreaElement, start:
     const mark = document.createElement('span');
     mark.textContent = control.value.slice(start, end) || '\u200b';
     mirror.append(mark); document.body.append(mirror);
-    control.scrollTop = Math.max(0, mark.offsetTop - control.clientHeight / 2);
+    const position = { top: mark.offsetTop, left: mark.offsetLeft };
     mirror.remove();
+    return position;
+}
+function revealNoteMatch(control: HTMLInputElement | HTMLTextAreaElement, start: number, end: number) {
+  control.focus({ preventScroll: true });
+  control.setSelectionRange(start, end);
+  if (control instanceof HTMLTextAreaElement) {
+    control.scrollTop = Math.max(0, noteTextPosition(control, start, end).top - control.clientHeight / 2);
   }
   control.scrollIntoView({ block: 'nearest' });
 }
@@ -93,6 +100,10 @@ export function NotesPanel({
   onUnsavedChange,
   onOpenMaterialSource,
   onOpenMaterials,
+  onQuote,
+  quoteContext = '',
+  quoteBoundary = '',
+  quoteEnabled = true,
   active = true,
   focus,
   embedded = false,
@@ -103,6 +114,10 @@ export function NotesPanel({
   onUnsavedChange?: (unsaved: boolean) => void;
   onOpenMaterialSource?: (source: MaterialQuoteReference, discuss?: boolean) => Promise<void>;
   onOpenMaterials?: () => void;
+  onQuote?: (quote: NoteQuote) => boolean;
+  quoteContext?: string;
+  quoteBoundary?: string;
+  quoteEnabled?: boolean;
   active?: boolean;
   focus?: { locator: Extract<LocalSearchLocator, { kind: 'note' }>; requestId: number };
   embedded?: boolean;
@@ -130,6 +145,13 @@ export function NotesPanel({
   const [closing, setClosing] = useState(false),
     [draftCount, setDraftCount] = useState(0);
   const [sourceError, setSourceError] = useState(''), [sourceOpening, setSourceOpening] = useState(false);
+  const [selection, setSelection] = useState<NoteSelection>();
+  const [quoting, setQuoting] = useState(false);
+  const quoteGeneration = useRef(0);
+  const quoteDestination = useRef({ context: quoteContext, boundary: quoteBoundary, enabled: quoteEnabled, active, focus });
+  quoteDestination.current = { context: quoteContext, boundary: quoteBoundary, enabled: quoteEnabled, active, focus };
+  const returnSelection = useRef<{ address: NoteQuoteReference; boundary: string;
+    scrollTop: number; pageTop: number; width: number; height: number } | undefined>(undefined);
   const drafts = useRef(new Map<string, Editor>()),
     request = useRef(0),
     listRequest = useRef(0),
@@ -162,6 +184,19 @@ export function NotesPanel({
     onUnsavedChange?.(dirty || draftCount > 0);
   }, [dirty, draftCount, onUnsavedChange]);
   useEffect(() => () => unsavedCallback.current?.(false), []);
+  useEffect(() => {
+    quoteGeneration.current++;
+    setSelection(undefined);
+    setQuoting(false);
+  }, [active, quoteContext]);
+  useEffect(() => { setSelection(undefined); }, [editor]);
+  useEffect(() => { returnSelection.current = undefined; }, [quoteBoundary]);
+  useEffect(() => {
+    if (!selection) return;
+    const dismiss = () => setSelection(undefined);
+    window.addEventListener('resize', dismiss);
+    return () => window.removeEventListener('resize', dismiss);
+  }, [!!selection]);
   useEffect(() => {
     if (closing)
       host.current
@@ -223,12 +258,37 @@ export function NotesPanel({
     const id = editor.note.id,
       revision = editor.note.revision,
       token = ++request.current;
+    const activationFocus = document.activeElement;
     setBusy(true);
     void readAll(id)
       .then((note) => {
-        if (mounted.current && token === request.current && note.revision !== revision) {
+        if (!mounted.current || token !== request.current) return;
+        if (note.revision !== revision) {
           setEditor(editable(note));
           resetFeedback();
+          return;
+        }
+        const resume = returnSelection.current, destination = quoteDestination.current;
+        if (!resume || !destination.active) return;
+        if (resume.boundary !== destination.boundary
+          || destination.focus && destination.focus.requestId !== focusRequest.current || focusPending.current
+          || note.state !== 'active' || note.id !== resume.address.id || note.revision !== resume.address.revision
+          || note.sha256 !== resume.address.sha256 || document.activeElement !== activationFocus) {
+          returnSelection.current = undefined;
+          return;
+        }
+        // The existing owner read qualified the same saved document. Restore
+        // its native editor range once; no copied body or durable focus exists.
+        returnSelection.current = undefined;
+        const control = host.current?.querySelector<HTMLTextAreaElement>('textarea.notes-body');
+        if (!control) return;
+        const points = Array.from(note.body);
+        revealNoteMatch(control, points.slice(0, resume.address.start).join('').length,
+          points.slice(0, resume.address.end).join('').length);
+        if (control.clientWidth === resume.width && control.clientHeight === resume.height) {
+          control.scrollTop = resume.scrollTop;
+          const page = host.current?.querySelector<HTMLElement>('.notes-embedded, .page-panel');
+          if (page) page.scrollTop = resume.pageTop;
         }
       })
       .catch((cause) => {
@@ -245,6 +305,7 @@ export function NotesPanel({
     setDraftCount(drafts.current.size);
   }
   function resetFeedback() {
+    cancelQuote();
     setError('');
     setReceipt('');
     setConflict(undefined);
@@ -298,6 +359,7 @@ export function NotesPanel({
   }
   function changeDraft(change: Partial<Pick<Editor, 'title' | 'body'>>) {
     if (!editor) return;
+    cancelQuote();
     const next = { ...editor, ...change };
     setEditor(next);
     setReceipt('');
@@ -338,7 +400,7 @@ export function NotesPanel({
         setReceipt('保存好了');
         await loadList();
       }
-      return saved;
+      return saved && result.status === 'saved' ? result.note : undefined;
     } catch (cause) {
       setError(uiError(cause));
       return false;
@@ -346,8 +408,58 @@ export function NotesPanel({
       setBusy(false);
     }
   }
+  function selectPassage(control: HTMLTextAreaElement, point?: { x: number; y: number }) {
+    returnSelection.current = undefined;
+    if (!onQuote || !active || !editor || deleted || busy || quoting || control.value !== editor.body) return;
+    const from = control.selectionStart, to = control.selectionEnd;
+    const text = control.value.slice(from, to);
+    if (!text.trim()) { setSelection(undefined); return; }
+    const start = Array.from(control.value.slice(0, from)).length, length = Array.from(text).length;
+    if (length > 4000) { setSelection(undefined); setReceipt('这一段有些长，选短一点再聊。'); return; }
+    const rect = control.getBoundingClientRect();
+    const position = point ? { left: point.x, top: point.y } : (() => {
+      const mark = noteTextPosition(control, from, to);
+      return { left: rect.left + mark.left - control.scrollLeft,
+        top: Math.max(rect.top, rect.top + mark.top - control.scrollTop) };
+    })();
+    setSelection({ editor, start, end: start + length,
+      left: Math.max(16, Math.min(window.innerWidth - 190, position.left)),
+      top: Math.max(84, Math.min(window.innerHeight - 64, position.top - 52)) });
+  }
+  function cancelQuote() {
+    quoteGeneration.current++;
+    returnSelection.current = undefined;
+    setSelection(undefined);
+    setQuoting(false);
+  }
+  async function discussSelection() {
+    if (!selection || selection.editor !== editor || !onQuote || !quoteEnabled || busy || quoting || deleted || conflict) return;
+    const selected = selection, destination = quoteDestination.current.context, generation = ++quoteGeneration.current;
+    setQuoting(true); setError('');
+    try {
+      // "Save and discuss" is one explicit user action. An unsaved edit must
+      // never be described by the earlier saved revision or material source.
+      const note = isDirty(editor) ? await save() : editor.note;
+      if (!note || !mounted.current || generation !== quoteGeneration.current
+        || destination !== quoteDestination.current.context || !quoteDestination.current.active
+        || !quoteDestination.current.enabled) return;
+      if (note.body !== selected.editor.body) throw new Error('这一页的内容变了，请重新选中想聊的那一段。');
+      const quote = await bridge.notesQuote({ id: note.id, revision: note.revision, sha256: note.sha256,
+        start: selected.start, end: selected.end });
+      if (!mounted.current || generation !== quoteGeneration.current || destination !== quoteDestination.current.context
+        || !quoteDestination.current.active || !quoteDestination.current.enabled) return;
+      const control = host.current?.querySelector<HTMLTextAreaElement>('textarea.notes-body');
+      const page = host.current?.querySelector<HTMLElement>('.notes-embedded, .page-panel');
+      const resume = control ? { address: noteQuoteAddress(quote), boundary: quoteDestination.current.boundary,
+        scrollTop: control.scrollTop, pageTop: page?.scrollTop || 0,
+        width: control.clientWidth, height: control.clientHeight } : undefined;
+      if (onQuote(quote)) { returnSelection.current = resume; setSelection(undefined); }
+    } catch (cause) { if (mounted.current && generation === quoteGeneration.current) setError(uiError(cause)); }
+    finally { if (mounted.current && generation === quoteGeneration.current) setQuoting(false); }
+  }
   async function mutate(kind: 'state' | 'undo', target: 'active' | 'deleted' | number) {
     if (!editor?.note || busy) return;
+    cancelQuote();
     setBusy(true);
     setError('');
     try {
@@ -383,6 +495,7 @@ export function NotesPanel({
   }
   async function showHistory(append = false) {
     if (!editor?.note || busy) return;
+    cancelQuote();
     setBusy(true);
     setError('');
     try {
@@ -412,6 +525,7 @@ export function NotesPanel({
     }
   }
   function close() {
+    cancelQuote();
     retainDraft();
     if (dirty || drafts.current.size) setClosing(true);
     else onClose();
@@ -419,6 +533,7 @@ export function NotesPanel({
   async function openMaterial(discuss = false) {
     const source = editor?.note?.source.material;
     if (!source || !onOpenMaterialSource || sourceOpening) return;
+    cancelQuote();
     setSourceOpening(true); setSourceError('');
     try { await onOpenMaterialSource(source, discuss); }
     catch (cause) { if (mounted.current) setSourceError(uiError(cause)); }
@@ -427,7 +542,8 @@ export function NotesPanel({
   const date = (value: string) => formatDateTime(value, timeZone);
   const hasContent = !!editor?.title.trim() || !!editor?.body.trim();
   return (
-    <div className="notes-host" hidden={!active} ref={host}>
+    <div className="notes-host" hidden={!active} ref={host}
+      onScrollCapture={() => setSelection(undefined)}>
       <NotesFrame embedded={embedded} onClose={close}>
         <div className="notes-toolbar">
           <form
@@ -630,8 +746,32 @@ export function NotesPanel({
                         maxLength={NOTE_LIMITS.body}
                         readOnly={deleted || busy}
                         onChange={(event) => changeDraft({ body: event.target.value })}
+                        onPointerUp={event => selectPassage(event.currentTarget, { x: event.clientX, y: event.clientY })}
+                        onKeyUp={event => {
+                          if (event.key === 'Escape') cancelQuote();
+                          else selectPassage(event.currentTarget);
+                        }}
+                        onScroll={() => setSelection(undefined)}
+                        onBlur={event => {
+                          if (!(event.relatedTarget instanceof Element) || !event.relatedTarget.closest('.note-selection-actions')) setSelection(undefined);
+                        }}
                       />
                     </label>
+                    {selection && selection.editor === editor && active && <div className="note-selection-actions"
+                      style={{ left: selection.left, top: selection.top }} role="group" aria-label="笔记选段操作"
+                      onKeyDown={event => {
+                        if (event.key === 'Escape') {
+                          event.preventDefault(); cancelQuote();
+                          host.current?.querySelector<HTMLTextAreaElement>('textarea.notes-body')?.focus({ preventScroll: true });
+                        }
+                      }}
+                      onBlur={event => {
+                        if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) setSelection(undefined);
+                      }}
+                      onMouseDown={event => event.preventDefault()}>
+                      <button type="button" disabled={busy || quoting || !quoteEnabled || !!conflict}
+                        onClick={() => void discussSelection()}><MessageCircle size={16} />{dirty ? '保存并聊这一段' : '聊这一段'}</button>
+                    </div>}
                     {editor.note?.source.material && <div className="note-material-source">
                       <div className="note-material-source-name"><FileText size={17} /><span>{editor.note.source.material.name}{editor.note.source.material.page ? ` · 第 ${editor.note.source.material.page} 页` : ''}</span></div>
                       <div className="note-material-source-actions">

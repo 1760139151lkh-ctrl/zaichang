@@ -7,6 +7,9 @@
 .notes-host[hidden] {
   display: none;
 }
+.note-selection-actions { position:fixed; z-index:25; display:flex; padding:5px; border:1px solid var(--separator); border-radius:12px; background:var(--surface-raised); box-shadow:0 5px 24px #5e45221a; }
+.note-selection-actions button { display:flex; align-items:center; gap:8px; padding:10px 13px; border:0; border-radius:8px; background:transparent; color:var(--text); font:inherit; font-size:13px; white-space:nowrap; }
+.note-selection-actions button:hover { background:var(--accent-soft); color:var(--accent); }
 .notes-page {
   width: 100%;
 }

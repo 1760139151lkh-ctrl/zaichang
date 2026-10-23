@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowUpRight,
   CalendarDays,
@@ -67,6 +67,7 @@ function repeatLabel(item: Action) {
 }
 
 export function AgendaView({
+  active = true,
   state,
   onAction,
   onResume,
@@ -80,6 +81,7 @@ export function AgendaView({
   matterInteractions,
   onMatterInteraction,
 }: {
+  active?: boolean;
   state: State;
   onAction: (item: Action, action: 'done' | 'delete') => void;
   onResume: (id: string) => void;
@@ -105,12 +107,17 @@ export function AgendaView({
   const [undoing, setUndoing] = useState(false);
   const [undoAnnouncement, setUndoAnnouncement] = useState('');
   const [attention, setAttention] = useState(0);
+  const host = useRef<HTMLDivElement>(null);
+  const scrollPosition = useRef(0);
+  const restorePosition = useRef(true);
+  const lastFocus = useRef<HTMLElement | null>(null);
   useEffect(() => {
+    if (!active) return;
     const update = () => setToday(toTimeInput(new Date().toISOString(), zone).slice(0, 10));
     update();
     const timer = window.setInterval(update, 60000);
     return () => window.clearInterval(timer);
-  }, [zone]);
+  }, [zone, active]);
   useEffect(() => {
     setSelectedDate(toTimeInput(new Date().toISOString(), zone).slice(0, 10));
   }, [zone]);
@@ -118,7 +125,7 @@ export function AgendaView({
   const search = query.trim().toLocaleLowerCase();
   const dayWindow = useMemo(() => agendaDayWindow(selectedDate, zone), [selectedDate, zone]);
   const campusDayVisible =
-    section === 'agenda' && scope === 'day' && !search && state.presentation?.mode !== 'public';
+    active && section === 'agenda' && scope === 'day' && !search && state.presentation?.mode !== 'public';
   const connector = state.campusConnector;
   const campusBoundary = JSON.stringify([
     state.privacyEpoch,
@@ -137,6 +144,21 @@ export function AgendaView({
     active: campusDayVisible,
     boundary: campusBoundary,
   });
+  useLayoutEffect(() => {
+    if (!active) { restorePosition.current = true; return; }
+    const previous = lastFocus.current;
+    const focus = previous?.isConnected && previous.getClientRects().length
+      && !previous.matches(':disabled') ? previous : host.current?.querySelector<HTMLElement>('h1');
+    focus?.focus({ preventScroll: true });
+  }, [active]);
+  useLayoutEffect(() => {
+    if (!active || !restorePosition.current) return;
+    const panel = host.current?.querySelector<HTMLElement>('.page-panel');
+    if (panel) panel.scrollTop = scrollPosition.current;
+    // A visible campus day is re-read on return. Its rows can restore the
+    // page's original height; do not replace the saved position while loading.
+    if (!campus.loading) restorePosition.current = false;
+  }, [active, campus.loading, campus.result]);
   const ordered = [...state.agenda].sort((a, b) => {
     const first = actionDate(a, zone) || '9999';
     const second = actionDate(b, zone) || '9999';
@@ -315,6 +337,12 @@ export function AgendaView({
   }
 
   return (
+    <div className="today-workspace" ref={host} hidden={!active} inert={!active}
+      onFocusCapture={event => { if (active) lastFocus.current = event.target as HTMLElement; }}
+      onScrollCapture={event => {
+        if (active && !restorePosition.current && event.target instanceof HTMLElement
+          && event.target.classList.contains('page-panel')) scrollPosition.current = event.target.scrollTop;
+      }}>
     <PagePanel
       title={heading}
       eyebrow={section === 'agenda' ? selectedLabel : undefined}
@@ -540,6 +568,7 @@ export function AgendaView({
                 <section className="today-day-group">
                   {showTimeline && (
                     <AgendaDayTimeline
+                      active={active}
                       date={selectedDate}
                       timeZone={zone}
                       actions={timedActions}
@@ -657,7 +686,7 @@ export function AgendaView({
             : '想在约好的时间听到提醒，可以在偏好里打开。'}
         </p>
       </div>
-      {section === 'entrusted' && (
+      {active && section === 'entrusted' && (
         <div
           id="today-entrusted-panel"
           role="tabpanel"
@@ -678,7 +707,7 @@ export function AgendaView({
           />
         </div>
       )}
-      {editing && (
+      {active && editing && (
         <AgendaEditor
           original={editing.original}
           current={state.agenda.find((item) => item.id === editing.original.id)}
@@ -700,5 +729,6 @@ export function AgendaView({
         />
       )}
     </PagePanel>
+    </div>
   );
 }

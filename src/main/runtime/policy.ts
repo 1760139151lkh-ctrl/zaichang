@@ -18,9 +18,11 @@ export interface InputControls {
   companionReference?: import('../../shared/companion-source').CompanionFollowupReference;
   curiosityReference?: import('../../shared/curiosity-source').CuriosityFollowupReference;
   programReference?: import('../../shared/interactive-program').ProgramFollowupReference;
+  preparationReference?: import('../../shared/presentation').PreparationFocusReference;
   letterReference?: import('../../shared/reflective-letter').LetterReference;
   noteReference?: import('../../shared/note-presentation').NoteReference;
   materialQuote?: import('../../shared/materials').MaterialQuoteReference;
+  noteQuote?: import('../../shared/notes').NoteQuoteReference;
   rehearsalInteraction?: import('../../shared/relationship-rehearsal').RehearsalInteraction;
   selection?: import('../../shared/scenes').SemanticSelection;
   studyInteraction?: import('../../shared/study-presentation').StudyInteraction;

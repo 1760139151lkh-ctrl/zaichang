@@ -50,6 +50,7 @@ import { materialCropSchema } from '../../shared/materials';
 import { SpatialService, spaceControlInput, type VisualObservation } from './spatial';
 import { registerSpatial } from '../capabilities/spatial';
 import { PresentationService } from './presentation';
+import { preparationFocusReferenceSchema, type PreparationFocusReference } from '../../shared/presentation';
 import { SceneService } from './scenes';
 import { discussionArtworkSchema, discussionFocusSchema, discussionModuleRefSchema } from '../../shared/discussion-scene';
 import { CompanionContinuityService } from './companion-continuity';
@@ -62,7 +63,8 @@ import { relationshipRehearsalToolDefinitions, executeRelationshipRehearsalTool 
 import { admitRehearsalIngress, rehearsalIngressMethod } from './rehearsal-ingress';
 import { createRehearsalPresentation } from './rehearsal-presentation';
 import { letterReferenceSchema, type LetterReference } from '../../shared/reflective-letter';
-import { notePresentationInput, noteReferenceSchema, type NoteReference } from '../../shared/note-presentation';
+import { notePresentationInput, noteReferenceSchema, NOTE_READING_MEANING, type NoteReference } from '../../shared/note-presentation';
+import { noteQuoteReferenceSchema, noteQuoteAddress, type NoteQuoteReference } from '../../shared/notes';
 import { NotePresentationService } from './note-presentation';
 import { materialQuoteReferenceSchema, MATERIAL_QUOTE_MEANING, type MaterialQuoteReference } from '../../shared/materials';
 import { PlanningConversationService } from './planning-conversation';
@@ -140,8 +142,10 @@ export interface RunSession {
   letterReference?: LetterReference;
   noteReference?: NoteReference;
   materialQuote?: MaterialQuoteReference;
+  noteQuote?: NoteQuoteReference;
   curiosityReference?: CuriosityFollowupReference;
   programReference?: ProgramFollowupReference;
+  preparationReference?: PreparationFocusReference;
   companionReference?: CompanionFollowupReference;
   studyInteraction?: StudyInteraction;
   studySelection?: { selection: StudyResolvedFocus; intent: 'reference_only' | 'learner_attempt' | 'request_help' | 'hypothetical_exploration';
@@ -1325,6 +1329,8 @@ export class RuntimeCoordinator {
     controls: InputControls = {},
     hostExecution?: HostIngressExecution & { image?: ImageAttachment },
   ): RunSession {
+    if (controls.noteQuote && controls.noteReference)
+      throw new HarnessError('note_reference_conflict', '这次选中了两处笔记，请保留一处再发送。');
     const conversationPolicy = this.store.conversationPolicy(sessionId);
     if (conversationPolicy) controls = { ...controls, retention: controls.retention === 'session_only' ? 'session_only' : conversationPolicy.retention };
     if (controls.material) {
@@ -1481,9 +1487,11 @@ export class RuntimeCoordinator {
       ...(controls.companionReference ? { companionReference: companionFollowupReferenceSchema.parse(controls.companionReference) } : {}),
       ...(controls.curiosityReference ? { curiosityReference: curiosityFollowupReferenceSchema.parse(controls.curiosityReference) } : {}),
       ...(controls.programReference ? { programReference: interactiveProgramReferenceSchema.parse(controls.programReference) } : {}),
+      ...(controls.preparationReference ? { preparationReference: preparationFocusReferenceSchema.parse(controls.preparationReference) } : {}),
       ...(controls.letterReference ? { letterReference: letterReferenceSchema.parse(controls.letterReference) } : {}),
       ...(controls.noteReference ? { noteReference: noteReferenceSchema.parse(controls.noteReference) } : {}),
       ...(controls.materialQuote ? { materialQuote: materialQuoteReferenceSchema.parse(controls.materialQuote) } : {}),
+      ...(controls.noteQuote ? { noteQuote: noteQuoteReferenceSchema.parse(controls.noteQuote) } : {}),
       ...(rehearsalInteraction ? { rehearsalInteraction } : {}),
     };
     this.lastSession = session;
@@ -1573,6 +1581,23 @@ export class RuntimeCoordinator {
         pack.data.currentMaterialUnavailable = '所选原文的版本、位置或当前许可已改变，没有从旧引文副本补回；用户本轮新话完整保留，需要时回到当前允许的原资料重新选段。';
       }
     }
+    if (session.noteQuote) {
+      try {
+        const selected = this.store.notes.quote(session.noteQuote, pack.contract.scope);
+        const reference = noteQuoteAddress(selected);
+        const currentNote = { text: selected.text, title: selected.title, origin: 'user_note', reference,
+          meaning: NOTE_READING_MEANING };
+        const serialized = canonical(currentNote), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+        this.context.recordNoteSources(pack, [reference]);
+        pack.data.currentNote = currentNote;
+        pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+        this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+      } catch (error) {
+        if (!(error instanceof HarnessError)) throw error;
+        session.noteQuote = undefined;
+        pack.data.currentNoteUnavailable = '所选笔记的版本、位置或当前许可已改变，没有从旧引文副本补回；用户本轮新话完整保留，需要时回到当前允许的笔记重新选段。';
+      }
+    }
     if (session.noteReference) {
       try {
         const selected = this.notePresentation.resolveReference(pack.contract.scope, session.noteReference, session.sessionId);
@@ -1587,6 +1612,23 @@ export class RuntimeCoordinator {
         if (!(error instanceof HarnessError)) throw error;
         session.noteReference = undefined;
         pack.data.currentNoteUnavailable = '那页笔记的来源或原文位置目前不能展开，没有从旧副本补回；本轮真实新话仍保留，可以重新读当前允许的笔记。';
+      }
+    }
+    if (session.preparationReference) {
+      try {
+        const selected = this.presentation.preparationIdentity(pack.contract.scope, session.preparationReference);
+        const currentPreparation = { reference: selected.reference,
+          read: { tool: 'inspect_help', arguments: { id: selected.reference.id, expectedRevision: selected.reference.revision,
+            ...(selected.reference.helpRecordId ? { helpRecordId: selected.reference.helpRecordId } : {}) } },
+          meaning: '用户指向这份准备的原地址；这里没有展开正文，也不表示已经接受其中的安排。需要时沿原读取入口核验这一个版本，结合本轮新话继续。' };
+        const serialized = canonical(currentPreparation), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);
+        this.context.recordWorkSources(pack, [selected.record]);
+        pack.data.currentPreparation = currentPreparation;
+        pack.receipt.budget.readBytes += bytes; pack.receipt.budget.estimatedTokens += tokens;
+        this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+      } catch (error) {
+        if (!(error instanceof HarnessError)) throw error;
+        pack.data.currentPreparationUnavailable = '所指准备的版本、来源或时效已经变化，没有借标题换成别的材料；继续理解本轮新话，需要时回读现在允许的内容。';
       }
     }
     if (session.letterReference) {
@@ -2887,6 +2929,14 @@ export class RuntimeCoordinator {
     }
     if (name === 'inspect_help') {
       this.attention.expire();
+      if (session.preparationReference && session.preparationReference.id === args.id)
+        this.presentation.preparationIdentity(handle, session.preparationReference);
+      if (args.id && (args.expectedRevision !== undefined || args.helpRecordId)) {
+        const preparedFocus = this.repo.work(handle, undefined, args.id)[0];
+        if (!preparedFocus || args.expectedRevision !== undefined && preparedFocus.revision !== args.expectedRevision
+          || args.helpRecordId && preparedFocus.data.helpRecordId !== args.helpRecordId)
+          throw new HarnessError('preparation_changed', '这份准备已经变化或收起来了，请回到现在的那一份。');
+      }
       const discovery = !args.id ? this.attention.discoverHelp(handle, args, session.background
         ? this.attention.pending(handle, Number.MAX_SAFE_INTEGER) : undefined) : undefined;
       const candidates = args.id ? this.repo.work(handle, undefined, args.id).filter(record => record.data.type === 'help_opportunity') : discovery!.items;
@@ -4628,7 +4678,30 @@ export class RuntimeCoordinator {
     this.basis.recheck();
     const pack = session.pack;
     if (!pack) return [];
+    const changed: unknown[] = [];
+    const recordChanges = () => {
+      if (changed.length) {
+        if (pack.contract.enhancements?.repairRejudge !== false && pack.receipt.mechanismUses)
+          pack.receipt.mechanismUses.repairRejudge += changed.length;
+        (session.dependencyNotices ||= []).push(...changed);
+        (session.observations ||= []).push({ tool: 'host_state_change', result: { changed, observationKind: 'version_difference_since_last_observation', changedBy: 'not_established',
+          meaning: '这是宿主发现的版本差异，不是本轮助手操作的回执。变化可能发生在本轮之前或由其他操作者完成；只有本轮真实写入记录才能证明助手改了对象。按当前版本重评受影响部分，保留独立安排。' } });
+      }
+      return changed;
+    };
+    if (session.preparationReference) {
+      try { this.presentation.preparationIdentity(pack.contract.scope, session.preparationReference); }
+      catch (error) {
+        if (!(error instanceof HarnessError)) throw error;
+        const meaning = '所指准备的版本、来源或时效已经变化，没有读取另一版正文；用户本轮新话仍保留，需要时重新选择现在的材料。';
+        if (pack.data.currentPreparation) changed.push({ id: session.preparationReference.id,
+          revision: session.preparationReference.revision, status: 'not_available', meaning });
+        delete pack.data.currentPreparation;
+        pack.data.currentPreparationUnavailable = meaning;
+      }
+    }
     if (session.materialQuote && pack.data.currentMaterial) this.materials.quoteIdentity(pack.contract.scope, session.materialQuote);
+    if (session.noteQuote && pack.data.currentNote) this.store.notes.quoteIdentity(pack.contract.scope, session.noteQuote);
     if (!this.repo.spatialSourcesReadable(pack.contract.scope, pack.receipt.spatialSources || []))
       throw new HarnessError('spatial_source_changed', '刚才采用的地点或它的来由已有变化，需要接回现在的起点。');
     const previousSpatialChanges = canonical(pack.data.spatialBindingChanges || null);
@@ -4671,7 +4744,7 @@ export class RuntimeCoordinator {
         throw new HarnessError('memory_history_changed', '刚读的理解历史依据已改变或停止使用，旧历史正文不能继续进入模型；需要按当前来源重新读取。');
     if (!this.repo.assertionReferenceVersionsReadable(pack.contract.scope, pack.receipt.providedObjectVersions))
       throw new HarnessError('memory_reference_changed', '刚才采用的原问答上下文已改变，旧理解不能继续进入模型。');
-    if (pack.contract.enhancements?.repairRejudge === false) return spatialChanges;
+    if (pack.contract.enhancements?.repairRejudge === false) return [...recordChanges(), ...spatialChanges];
     this.policy.validate(pack.contract.scope);
     const versions = new Map<string, (typeof pack.receipt.providedObjectVersions)[number]>();
     const versionKey = (ref: (typeof pack.receipt.providedObjectVersions)[number]) => ref.kind === 'domain'
@@ -4680,9 +4753,13 @@ export class RuntimeCoordinator {
       const key = versionKey(ref);
       if (!versions.has(key) || versions.get(key)!.revision < ref.revision) versions.set(key, ref);
     }
-    const changed: unknown[] = [...spatialChanges];
+    changed.push(...spatialChanges);
     for (const ref of versions.values()) {
       if (ref.kind !== 'work' && ref.kind !== 'assertion' && ref.kind !== 'agenda' && ref.kind !== 'domain') continue;
+      // A selected preparation is an exact address, not a subscription to its
+      // latest body. Its gate above also covers status/expiry without a new
+      // revision; never publish a replacement or mark that replacement read.
+      if (ref.kind === 'work' && ref.id === session.preparationReference?.id) continue;
       const scope = this.policy.validate(pack.contract.scope);
       let artifact = false;
       let currentWork = ref.kind === 'work' ? this.repo.work(pack.contract.scope, undefined, ref.id)[0] : undefined;
@@ -4739,13 +4816,7 @@ export class RuntimeCoordinator {
       }
       session.pendingNoteChanges.clear();
     }
-    if (changed.length) {
-      if (pack.receipt.mechanismUses) pack.receipt.mechanismUses.repairRejudge += changed.length;
-      (session.dependencyNotices ||= []).push(...changed);
-      (session.observations ||= []).push({ tool: 'host_state_change', result: { changed, observationKind: 'version_difference_since_last_observation', changedBy: 'not_established',
-        meaning: '这是宿主发现的版本差异，不是本轮助手操作的回执。变化可能发生在本轮之前或由其他操作者完成；只有本轮真实写入记录才能证明助手改了对象。按当前版本重评受影响部分，保留独立安排。' } });
-    }
-    return changed;
+    return recordChanges();
   }
   prepareModelImages(session: RunSession, original: ModelWireMessage[], phase: string) {
     this.policy.validate(session.ingress.contract.scope);

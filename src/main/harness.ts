@@ -305,7 +305,8 @@ export class Harness {
       admissionSignal.throwIfAborted();
       let admitted: InputControls = { ...controls, replyToOwner: true };
       const referenced = !!(controls.selection || controls.studyInteraction || controls.companionReference || controls.curiosityReference
-        || controls.letterReference || controls.noteReference || controls.programReference || controls.rehearsalInteraction);
+        || controls.letterReference || controls.noteReference || controls.noteQuote || controls.materialQuote
+        || controls.programReference || controls.preparationReference || controls.rehearsalInteraction);
       if (!message.demo && controls.transmission !== 'local_only' && !localCloudRestriction(authoredContent) && !(partition.attachment && hasCredentials(partition.attachment.text))
         && needsControlParse(authoredContent, { attachment: !!partition.attachment || !!material, image: !!image, reference: referenced })) {
         const controlClient = this.clientFactory(this.key(), this.store.settings().model);
@@ -1624,6 +1625,11 @@ export class Harness {
               history: Array.isArray(pack.data.history) ? pack.data.history as { id: string; role: string; content: string }[] : [],
               action: (request as { action?: unknown }).action }, complete, operationSignal);
             let currentUserReference: unknown;
+            if (run.noteQuote && pack.data.currentNote) {
+              operationSignal.throwIfAborted();
+              try { currentUserReference = this.store.notes.quoteIdentity(contract.scope, run.noteQuote); }
+              catch (error) { if (!(error instanceof HarnessError)) throw error; }
+            }
             if (run.noteReference && pack.data.currentNote) {
               operationSignal.throwIfAborted();
               try { currentUserReference = runtime.notePresentation.readPurposeReference(contract.scope, run.noteReference, run.sessionId); }
@@ -2335,7 +2341,8 @@ export class Harness {
       const sourceInvalidated = this.boundaryChanged || error instanceof HarnessError && [
         'privacy_barrier', 'stale_scope', 'stale_child_result', 'child_observation_conflict', 'work_source_changed',
         'letter_source_changed', 'assistant_work_changed', 'interactive_program_source_changed',
-        'note_source_changed', 'spatial_source_changed', 'campus_purpose_changed', 'method_source_changed', 'artifact_source_changed', 'release_source_changed', 'material_navigation_changed',
+        'note_source_changed', 'note_quote_changed', 'note_quote_missing', 'note_quote_range', 'notes_forbidden',
+        'spatial_source_changed', 'campus_purpose_changed', 'method_source_changed', 'artifact_source_changed', 'release_source_changed', 'material_navigation_changed',
         'image_changed', 'image_scope', 'image_integrity', 'image_source',
       ].includes(error.code);
       if (sourceInvalidated || controller.signal.aborted) this.conversationChains.delete(run.sessionId);

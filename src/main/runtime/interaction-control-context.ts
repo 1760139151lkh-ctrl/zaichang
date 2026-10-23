@@ -6,7 +6,7 @@ import type { TurnControlInteractionContext } from './turn-controls';
 import { mapStoryReferenceIdentity } from './story-setting';
 import { programReferenceIdentity } from './interactive-program-sources';
 
-type Runtime = Pick<RuntimeCoordinator, 'repo' | 'policy' | 'store' | 'context' | 'broker' | 'companionSessions' | 'curiosityInvitations' | 'studyCompanion' | 'reflectiveLetters' | 'rehearsals' | 'notePresentation' | 'materials'>;
+type Runtime = Pick<RuntimeCoordinator, 'repo' | 'policy' | 'store' | 'context' | 'broker' | 'companionSessions' | 'curiosityInvitations' | 'studyCompanion' | 'reflectiveLetters' | 'rehearsals' | 'notePresentation' | 'materials' | 'presentation'>;
 
 /** Body-free context for the existing pre-storage control parser. A selected
  * address is re-read through its current owner using read-only permissions.
@@ -16,22 +16,32 @@ export function interactionContextForControls(runtime: Runtime, controls: InputC
   if (controls.transmission === 'local_only' || controls.audience && controls.audience !== 'self'
     || controls.memoryMode === 'current_sources_only' || controls.subjectId && controls.subjectId !== runtime.repo.identity.principalId
     || controls.worldId && controls.worldId !== 'real') return;
-  if (!controls.curiosityReference && !controls.companionReference && !controls.studyInteraction && !controls.letterReference && !controls.rehearsalInteraction && !controls.noteReference && !controls.materialQuote && !controls.programReference && !controls.selection) return;
+  if (!controls.curiosityReference && !controls.companionReference && !controls.studyInteraction && !controls.letterReference && !controls.rehearsalInteraction && !controls.noteReference && !controls.noteQuote && !controls.materialQuote && !controls.programReference && !controls.preparationReference && !controls.selection) return;
   const baseline = runtime.policy.hostScope(), host = runtime.policy.validate(baseline);
   let sources = [...host.sources];
   if (controls.sources) sources = sources.filter(source => controls.sources!.includes(source));
   if (controls.memoryMode === 'none' || !runtime.store.settings().memoryEnabled && !controls.memoryMode)
     sources = sources.filter(source => source !== 'history:self' && source !== 'profile:self');
-  if (!controls.materialQuote && (controls.noteReference ? !sources.includes('notes:self')
+  if (!controls.materialQuote && (controls.noteReference || controls.noteQuote ? !sources.includes('notes:self')
     : controls.programReference ? !sources.includes('history:self') : !sources.includes('work:self'))) return;
   const handle = runtime.policy.hostScope({ sources, purposes: [controls.purpose || 'personal_assistance'], infer: false,
-    grants: host.grants.filter(grant => grant === 'evidence:read' || controls.programReference && grant.endsWith(':read')
+    grants: host.grants.filter(grant => grant === 'evidence:read' || (controls.programReference || controls.preparationReference) && grant.endsWith(':read')
       || !!controls.selection && grant === 'map:read'), currentEventIds: [] });
   try {
+    if (controls.noteQuote) {
+      runtime.store.notes.quoteIdentity(handle, controls.noteQuote);
+      runtime.policy.validate(handle);
+      return { activity: 'note_reading', contentIdentity: 'user_note', focus: 'sentence_or_passage' };
+    }
     if (controls.materialQuote) {
       runtime.materials.quoteIdentity(handle, controls.materialQuote);
       runtime.policy.validate(handle);
       return { activity: 'material_reading', contentIdentity: 'external_document', focus: 'sentence_or_passage' };
+    }
+    if (controls.preparationReference) {
+      runtime.presentation.preparationIdentity(handle, controls.preparationReference);
+      runtime.policy.validate(handle);
+      return { activity: 'prepared_help', contentIdentity: 'source_bound_work', focus: 'source_object' };
     }
     if (controls.programReference) {
       if (!programReferenceIdentity(runtime, handle, { messageId: controls.programReference.messageId,
@@ -90,7 +100,7 @@ export function interactionContextForControls(runtime: Runtime, controls: InputC
  * never grants old content or changes the whole event's inference label. */
 export function creationSourceContextForIngress(runtime: Runtime, controls: InputControls, sessionId: string,
   ingress: Pick<IngressDecision, 'contract' | 'localOnly'>): EvidenceEvent['sourceContext'] | undefined {
-  if (ingress.localOnly || controls.rehearsalInteraction || controls.letterReference || controls.noteReference || controls.materialQuote) return;
+  if (ingress.localOnly || controls.preparationReference || controls.rehearsalInteraction || controls.letterReference || controls.noteReference || controls.noteQuote || controls.materialQuote) return;
   const handle: ScopeHandle = ingress.contract.scope, scope = runtime.policy.validate(handle);
   if (scope.child || scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self'
     || !runtime.policy.can(handle, 'evidence:read')) return;

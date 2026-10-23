@@ -1,3 +1,16 @@
+import { z } from 'zod';
+
+export const preparationFocusReferenceSchema = z.object({
+  id: z.string().min(1).max(160),
+  revision: z.number().int().positive(),
+  helpRecordId: z.string().min(1).max(160).optional(),
+}).strict();
+export type PreparationFocusReference = z.infer<typeof preparationFocusReferenceSchema>;
+export interface PreparationFocusContext {
+  preparationReference: PreparationFocusReference;
+  focusLabel: string;
+}
+
 export interface PreparationView {
   id: string;
   revision: number;

@@ -1,5 +1,7 @@
 # 前端视觉设计入口
 
+**2026-10-23 青春陪伴与连续体验：** [本轮图稿、采用取舍与实施](docs/DESIGN_IMPLEMENTATION_2026-10-23.md)衔接四张新 Image 图稿与完整界面旧稿；[真实运行画面及操作范围](docs/evidence/2026-10-23-youthful-presence/README.md)单独记录。源码、图稿与实际体验不互相替代，本轮未发布新版 EXE 或公共站点。
+
 **2026-10-22 图片搬迁：** 图片实际集中到[前端视觉创新设计](前端视觉创新设计/README.md)，按主题去重、命名；散落原件和空子目录已清理，运行和文档引用同步改好。原提示与采用记录收在同处，历史实现／验收范围保持原样。
 
 2026-10-19 统一入口：[项目基线](docs/PROJECT_BASELINE.md)、[当前动态场景](docs/CONVERSATION_SCENES.md#companion-experience)、[第七批实际观察](docs/CURRENT_STATUS.md#personal-memory-round7)。下文第四批“暂不验证”保留当时范围；之后已授权必要视觉／交互观察及正常Luna动态呈现。设计图、运行资产、实际画面、动效和模型效果分别记录，不能互相代替。

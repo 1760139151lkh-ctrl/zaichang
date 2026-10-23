@@ -8,12 +8,16 @@ import {
   noteStateSchema,
   noteUndoSchema,
   noteUpdateSchema,
+  noteQuoteReferenceSchema,
+  noteQuoteAddress,
   type NoteDocument,
   type NoteHistory,
   type NoteList,
   type NoteMutation,
   type NotePage,
   type NoteVersion,
+  type NoteQuote,
+  type NoteQuoteReference,
 } from '../../shared/notes';
 import type { KernelRepository } from '../storage/repository';
 
@@ -199,6 +203,33 @@ export class NotesService {
       total: points.length,
       hasMore: end < points.length,
     };
+  }
+  /** Only current ownership/version/length metadata is inspected here. A
+   * notebook click does not authorize the model to read its body. */
+  quoteIdentity(scope: ScopeHandle | undefined, raw: NoteQuoteReference) {
+    this.allowed(scope);
+    const reference = noteQuoteReferenceSchema.parse(raw);
+    if (scope && this.repo.hasFence(reference.id, 'notes:self'))
+      throw new HarnessError('notes_forbidden', '这页笔记目前不在助手可读取的来源里。');
+    const row = this.repo.db.prepare(`SELECT revision,state,json_extract(payload,'$.sha256') AS hash,
+      note_codepoint_length(body) AS body_length FROM h_notes WHERE id=? AND owner=? AND workspace=?`)
+      .get(reference.id, this.repo.identity.principalId, this.repo.identity.workspaceId);
+    if (!row || row.state !== 'active')
+      throw new HarnessError('note_quote_missing', '这页笔记已经收起或移除了，先回笔记看看。');
+    if (row.revision !== reference.revision || row.hash !== reference.sha256)
+      throw new HarnessError('note_quote_changed', '这页笔记刚改过，请重新选一下想聊的文字。');
+    if (typeof row.body_length !== 'number' || reference.end > row.body_length)
+      throw new HarnessError('note_quote_range', '这段文字已不在原来的位置，请重新选一下。');
+    return { origin: 'user_note' as const, reference };
+  }
+  quote(raw: NoteQuoteReference, scope?: ScopeHandle): NoteQuote {
+    const { reference } = this.quoteIdentity(scope, raw);
+    const page = this.read({ id: reference.id, revision: reference.revision,
+      offset: reference.start, limit: reference.end - reference.start }, scope);
+    if (page.note.sha256 !== reference.sha256 || page.offset !== reference.start || page.end !== reference.end || !page.body.trim())
+      throw new HarnessError('note_quote_range', '这段文字已不在原来的位置，请重新选一下。');
+    this.quoteIdentity(scope, reference);
+    return { ...noteQuoteAddress(reference), title: page.note.title, text: page.body };
   }
   create(raw: unknown, scope?: ScopeHandle, origin: Origin = { via: 'notebook' }): NoteMutation {
     this.allowed(scope, true, true);

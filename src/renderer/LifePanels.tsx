@@ -15,6 +15,7 @@ import type { LetterFocusContext } from '../shared/reflective-letter';
 import type {
   MatterSelectionInput,
   PreparationView,
+  PreparationFocusContext,
   SharedMatterView,
   SurfaceView,
 } from '../shared/presentation';
@@ -386,10 +387,10 @@ export function PreparationShelf({
   inline?: boolean;
   timeZone?: string;
   onState: (state: State) => void;
-  onContinue: (text: string, context?: LetterFocusContext) => void;
+  onContinue: (text: string, context?: LetterFocusContext | PreparationFocusContext) => void;
   onBodyVisibility?: (body: string | undefined) => void;
   quoteAsMessageBody?: boolean;
-  openRequest?: { id: string; revision: number; helpRecordId: string; requestId: number };
+  openRequest?: { id: string; revision: number; helpRecordId?: string; requestId: number };
 }) {
   const [expanded, setExpanded] = useState(inline),
     [visibleCount, setVisibleCount] = useState(5),
@@ -540,7 +541,8 @@ export function PreparationShelf({
                   <div className="preparation-actions">
                     <button
                       className="text-button"
-                      onClick={() => onContinue(`接着这份「${item.title}」资料，我想说：`)}
+                      onClick={() => onContinue('', { preparationReference: { id: item.id, revision: item.revision,
+                        ...(item.helpRecordId ? { helpRecordId: item.helpRecordId } : {}) }, focusLabel: item.title })}
                     >
                       接着聊这件事
                       <ArrowUpRight size={13} />

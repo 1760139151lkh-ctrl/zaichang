@@ -1,4 +1,6 @@
 /* Today is a quiet paper surface. Its dates are navigation, never a quota. */
+.today-workspace { display:flex; flex:1; min-width:0; min-height:0; flex-direction:column; }
+.today-workspace[hidden] { display:none; }
 .app-shell .today-page {
   background: linear-gradient(
     130deg,

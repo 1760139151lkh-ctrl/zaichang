@@ -18,7 +18,7 @@ function returnToWriter(input: HTMLTextAreaElement | null | undefined) {
 
 /** The same temporary cue for a real line, passage, option or scene object.
  * Its owner reference travels separately; this label is never evidence. */
-export function FocusContextChip({ label, onClear, trial }: { label: string; onClear: () => void; trial?: FocusContextTrial }) {
+export function FocusContextChip({ label, onClear, trial, onOpen }: { label: string; onClear: () => void; trial?: FocusContextTrial; onOpen?: () => void }) {
   return <div className="shared-map-context scene-reference conversation-focus-chip" role="status">
     {trial ? <span className="conversation-focus-trial" title={label}>
       <span className="conversation-focus-trial-label">{trial.label}</span><span aria-hidden="true">→</span>
@@ -32,7 +32,9 @@ export function FocusContextChip({ label, onClear, trial }: { label: string; onC
           returnToWriter(input);
         }} />
       {trial.detail && <span className="conversation-focus-trial-detail">，{trial.detail}</span>}
-    </span> : <span title={label}>{Array.from(label).slice(0, 180).join('')}{Array.from(label).length > 180 ? '…' : ''}</span>}
+    </span> : onOpen ? <button type="button" className="conversation-focus-source" title={label} onClick={onOpen}>
+      {Array.from(label).slice(0, 180).join('')}{Array.from(label).length > 180 ? '…' : ''}
+    </button> : <span title={label}>{Array.from(label).slice(0, 180).join('')}{Array.from(label).length > 180 ? '…' : ''}</span>}
     {trial?.onCancelTrial && <button type="button" aria-label="只取消这次试放" title="只取消这次试放"
       onPointerDown={event => { if (event.button === 0) event.preventDefault(); }} onClick={event => {
         const input = writerFor(event.currentTarget); trial.onCancelTrial?.(); returnToWriter(input);

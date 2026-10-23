@@ -110,6 +110,7 @@ function arrangeLanes(entries: Entry[]) {
 }
 
 export function AgendaDayTimeline({
+  active: isActive = true,
   date,
   timeZone,
   actions,
@@ -118,6 +119,7 @@ export function AgendaDayTimeline({
   onEdit,
   onPropose,
 }: {
+  active?: boolean;
   date: string;
   timeZone: string;
   actions: Action[];
@@ -195,6 +197,13 @@ export function AgendaDayTimeline({
     updateMove();
   }
   useEffect(() => {
+    if (!isActive) {
+      // A pointer cannot keep dragging an invisible day. A keyboard trial is
+      // still a local proposal and can be picked up when the same day returns.
+      if (movingRef.current?.mode === 'pointer') cancelMove();
+      else stopPointer();
+      return;
+    }
     const cancel = (event: globalThis.KeyboardEvent) => {
       if (event.key === 'Escape' && movingRef.current) {
         event.preventDefault();
@@ -210,11 +219,19 @@ export function AgendaDayTimeline({
       window.removeEventListener('blur', cancelMove);
       stopPointer();
     };
-  }, [date, timeZone]);
+  }, [date, timeZone, isActive]);
   useEffect(() => {
     cancelMove();
     setFullDay(false);
   }, [date, timeZone]);
+  useEffect(() => {
+    const move = movingRef.current;
+    if (!move) return;
+    const current = actions.find(item => item.id === move.id);
+    if (!current || (current.revision || 1) !== (move.original.revision || 1)
+      || current.startsAt !== move.original.startsAt || current.durationMinutes !== move.original.durationMinutes)
+      cancelMove();
+  }, [actions]);
 
   function pointerPosition(active: PointerMove) {
     if (!stage.current) return;
@@ -262,7 +279,7 @@ export function AgendaDayTimeline({
     frame.current = requestAnimationFrame(followScroll);
   }
   function beginPointer(event: PointerEvent<HTMLButtonElement>, item: Action) {
-    if (event.button !== 0 || !event.isPrimary || !day || !stage.current || draft || item.saved !== true)
+    if (!isActive || event.button !== 0 || !event.isPrimary || !day || !stage.current || draft || item.saved !== true)
       return;
     const range = agendaTimedRange(item);
     if (!range || range.start < day.start || range.end > day.end) return;
@@ -306,6 +323,7 @@ export function AgendaDayTimeline({
     }
   }
   function moveKeyboard(event: KeyboardEvent<HTMLButtonElement>, item: Action) {
+    if (!isActive) return;
     const active = movingRef.current;
     if (event.key === 'Escape' && active?.id === item.id) {
       event.preventDefault();
@@ -497,9 +515,6 @@ export function AgendaDayTimeline({
                   if (pointer.current) cancelMove();
                 }}
                 onKeyDown={(event) => moveKeyboard(event, item)}
-                onBlur={() => {
-                  if (movingRef.current?.mode === 'keyboard') updateMove();
-                }}
                 onClick={() => {
                   if (performance.now() >= suppressClickUntil.current) {
                     cancelMove();

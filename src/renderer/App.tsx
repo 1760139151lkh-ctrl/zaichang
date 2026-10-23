@@ -3,6 +3,7 @@ import { SettingsPanel, type SettingsDraft } from './SettingsPanel';
 import { NotesPanel } from './NotesPanel';
 import { MaterialsPanel, type MaterialQuote } from './MaterialsPanel';
 import { materialQuoteAddress, type MaterialQuoteReference } from '../shared/materials';
+import { noteQuoteAddress, type NoteQuote, type NoteQuoteReference } from '../shared/notes';
 import { LocalSearchPanel } from './LocalSearchPanel';
 import { ComposerActions } from './ComposerActions';
 import { FocusContextChip } from './FocusContextChip';
@@ -62,7 +63,7 @@ import {
   type MatterInteraction,
   type MatterInteractionUpdate,
 } from './LifePanels';
-import type { PreparationReference, SharedMatterView, SurfaceView } from '../shared/presentation';
+import type { PreparationFocusContext, PreparationFocusReference, SharedMatterView, SurfaceView } from '../shared/presentation';
 import type { Action, ActionEffectRef, Draft, Memory, Message, NavigationTarget, ReleaseArtifact, State } from '../shared/types';
 import { LIMITS } from '../shared/limits';
 import { emptyRoute, type MapRouteResult } from '../shared/map-v2';
@@ -85,7 +86,7 @@ type Panel = 'history' | null;
 type ActionResult = { ok: boolean; error?: string };
 type PresentationFollowup = { text: string; studyInteraction?: StudyInteraction; companionReference?: CompanionFollowupReference;
   curiosityReference?: CuriosityFollowupReference; letterReference?: LetterReference; focusOnly?: boolean; focusLabel?: string;
-  programReference?: ProgramFollowupReference;
+  programReference?: ProgramFollowupReference; preparationReference?: PreparationFocusReference;
   readProgramInputs?: () => ProgramStateValues | undefined;
   rehearsalInteraction?: RehearsalInteraction; noteReference?: NoteReference };
 type ComposerFollowup = PresentationFollowup & {
@@ -160,9 +161,10 @@ export function App() {
   }, []);
   const [notesOpened, setNotesOpened] = useState(false);
   const [materialsOpened, setMaterialsOpened] = useState(false);
+  const [agendaOpened, setAgendaOpened] = useState(false);
   const [notesUnsaved, setNotesUnsaved] = useState(false);
   const [searchTarget, setSearchTarget] = useState<{ locator: LocalSearchLocator; requestId: number }>();
-  const [preparationRequest, setPreparationRequest] = useState<PreparationReference & { requestId: number }>();
+  const [preparationRequest, setPreparationRequest] = useState<PreparationFocusReference & { requestId: number }>();
   const preparationNavigation = useRef(0);
   const searchNavigation = useRef(0), locatedSearch = useRef(0);
   useEffect(() => { setSearchTarget(undefined); }, [state?.privacyEpoch, state?.policyRevision, state?.sourceBoundary]);
@@ -171,6 +173,7 @@ export function App() {
   }, [view]);
   useEffect(() => { if (view === 'notes') setNotesOpened(true); }, [view]);
   useEffect(() => { if (view === 'materials') setMaterialsOpened(true); }, [view]);
+  useEffect(() => { if (view === 'agenda') setAgendaOpened(true); }, [view]);
   const viewRef = useRef(view);
   viewRef.current = view;
   const [matterInteractions, setMatterInteractions] = useState<Record<string, MatterInteraction>>({});
@@ -216,6 +219,9 @@ export function App() {
   const [materialQuote, setMaterialQuote] = useState<MaterialQuote>();
   const materialQuoteRef = useRef<MaterialQuote | undefined>(undefined);
   function clearMaterialQuote() { materialQuoteRef.current = undefined; setMaterialQuote(undefined); }
+  const [noteQuote, setNoteQuote] = useState<NoteQuote>();
+  const noteQuoteRef = useRef<NoteQuote | undefined>(undefined);
+  function clearNoteQuote() { noteQuoteRef.current = undefined; setNoteQuote(undefined); }
   function clearFollowup(dismiss = false) {
     const previous = composerFollowupRef.current;
     if (dismiss && previous) dismissedFollowup.current = automaticFollowupKey(previous, previous.messageId);
@@ -225,14 +231,15 @@ export function App() {
     sceneSelectionRequest.current++; sceneSelectionRef.current = undefined;
     setSceneSelection(undefined); setSceneSelectionLabel('');
   }
-  useEffect(()=>{clearSceneSelection();clearFollowup();clearMaterialQuote();},[sessionId]);
-  useEffect(()=>{clearSceneSelection();clearFollowup();clearMaterialQuote();clearConversationMapViews();},[state?.privacyEpoch,state?.policyRevision,state?.sourceBoundary]);
+  useEffect(()=>{clearSceneSelection();clearFollowup();clearMaterialQuote();clearNoteQuote();},[sessionId]);
+  useEffect(()=>{clearSceneSelection();clearFollowup();clearMaterialQuote();clearNoteQuote();clearConversationMapViews();},[state?.privacyEpoch,state?.policyRevision,state?.sourceBoundary]);
   async function selectScene(value:SemanticSelection){
     const request=++sceneSelectionRequest.current,selectedSession=sessionRef.current,boundary=boundaryRevision.current;
     const scene=messages.flatMap(message=>message.scenes||[]).find(scene=>scene.id===value.sceneId&&scene.revision===value.sceneRevision);
     if (!scene) return;
+    searchNavigation.current++;
     if (studyDockRef.current) { requestComposerMove(); composerDock.returnToChat(); }
-    clearFollowup(); clearMaterialQuote();
+    clearFollowup(); clearMaterialQuote(); clearNoteQuote();
     sceneSelectionRef.current = value;
     setSceneSelection(value);
     setSceneSelectionLabel('接着这里聊');
@@ -379,7 +386,7 @@ export function App() {
   function beginRehearsalCurrentRead(sourceSessionId: string | undefined, messageId: string, boundary: string, rehearsalId: string) {
     if (!draftReady || navigationPending.current || surfaceMode.current === 'public'
       || sourceSessionId !== sessionRef.current || boundary !== boundaryRevision.current
-      || sceneSelectionRef.current || studyDockRef.current) return;
+      || sceneSelectionRef.current || studyDockRef.current || noteQuoteRef.current || materialQuoteRef.current) return;
     const previous = composerFollowupRef.current;
     if (previous && !(previous.focusOnly && previous.messageId === messageId
       && previous.rehearsalInteraction?.kind === 'reference' && previous.rehearsalInteraction.ref.id === rehearsalId)) return;
@@ -393,7 +400,8 @@ export function App() {
         || selectedNavigation !== navigation.current || searchRequest !== searchNavigation.current
         || selectionRequest !== sceneSelectionRequest.current
         || followupVersion !== followupSequence.current || sendVersion !== sendSequence.current
-        || composerFollowupRef.current !== previous || sceneSelectionRef.current || studyDockRef.current) return;
+        || composerFollowupRef.current !== previous || sceneSelectionRef.current || studyDockRef.current
+        || noteQuoteRef.current || materialQuoteRef.current) return;
       accepted = true;
       // This is the result of the user's own open gesture, not an automatic
       // latest-message focus. Attach only its address; leave the writer alone.
@@ -412,7 +420,7 @@ export function App() {
       const latestAssistant = messages.filter(message => message.role === 'assistant').at(-1);
       const key = automaticFollowupKey(request, messageId);
       if (messageId !== latestAssistant?.id || composerFollowupRef.current && !composerFollowupRef.current.focusOnly
-        || sceneSelectionRef.current || materialQuoteRef.current || key && key === dismissedFollowup.current) return;
+        || sceneSelectionRef.current || materialQuoteRef.current || noteQuoteRef.current || key && key === dismissedFollowup.current) return;
       if (key && composerFollowupRef.current?.messageId === messageId
         && automaticFollowupKey(composerFollowupRef.current, messageId) === key) return;
     }
@@ -430,10 +438,11 @@ export function App() {
     }
     const next: ComposerFollowup = { ...request, token: ++followupSequence.current,
       sessionId: sourceSessionId, messageId, boundary, ...(insertedText !== undefined ? { insertedText } : {}) };
-    clearMaterialQuote(); composerFollowupRef.current = next;
+    if (!request.focusOnly) searchNavigation.current++;
+    clearMaterialQuote(); clearNoteQuote(); composerFollowupRef.current = next;
     setComposerFollowup(next);
     if (!request.studyInteraction && studyDockRef.current) { requestComposerMove(); composerDock.returnToChat(); }
-    if (request.studyInteraction || request.companionReference || request.curiosityReference || request.letterReference || request.rehearsalInteraction || request.noteReference || request.programReference) clearSceneSelection();
+    if (request.studyInteraction || request.companionReference || request.curiosityReference || request.letterReference || request.rehearsalInteraction || request.noteReference || request.programReference || request.preparationReference) clearSceneSelection();
     if (request.focusOnly) {
       if (request.curiosityReference) {
         const key = `${sourceSessionId}/${messageId}/${request.curiosityReference.id}`;
@@ -473,10 +482,12 @@ export function App() {
     sendSequence.current++;
     await attempt(() => api.stop());
   }
-  function useSuggestion(text: string, context?: LetterFocusContext) {
+  function useSuggestion(text: string, context?: LetterFocusContext | PreparationFocusContext) {
+    searchNavigation.current++;
     if (context) {
       usePresentationFollowup({ text, ...context }, sessionRef.current,
-        messages.filter(message => message.role === 'assistant').at(-1)?.id || `letter:${context.letterReference.opportunityId}`, boundaryRevision.current);
+        messages.filter(message => message.role === 'assistant').at(-1)?.id || ('preparationReference' in context
+          ? `preparation:${context.preparationReference.id}` : `letter:${context.letterReference.opportunityId}`), boundaryRevision.current);
       return;
     }
     setView('chat');
@@ -523,7 +534,7 @@ export function App() {
       setMemoryNotice(null);
       setToast('');
       setSharedMapContext(undefined);
-      clearSceneSelection(); clearFollowup(); clearMaterialQuote();
+      clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNoteQuote();
       setMapSheet(null);
       setPreviewImage(undefined);
       setPanel(null);
@@ -542,7 +553,7 @@ export function App() {
       setMatterInteractions({});
     }
     if (boundaryRevision.current && revision !== boundaryRevision.current && sessionRef.current) {
-      clearSceneSelection(); clearFollowup(); clearMaterialQuote();
+      clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNoteQuote();
       const selected = sessionRef.current;
       void api
         .messages(selected)
@@ -648,10 +659,27 @@ export function App() {
   }
   requestCloseRef.current = requestClose;
   useEffect(() => api?.onCloseRequest(() => void requestCloseRef.current()), []);
+  async function openPreparationReference(ref: PreparationFocusReference) {
+    if (navigationPending.current || isPublicSurface()) return;
+    const requestId = ++preparationNavigation.current, read = ++searchNavigation.current,
+      boundary = boundaryRevision.current, selectedSession = sessionRef.current;
+    const current = () => requestId === preparationNavigation.current && read === searchNavigation.current
+      && boundary === boundaryRevision.current && selectedSession === sessionRef.current
+      && !navigationPending.current && !isPublicSurface();
+    try {
+      const next = await api.openPreparation(ref);
+      if (!current()) return;
+      updateState(next);
+      if (!next.preparations?.some(item => item.id === ref.id && item.revision === ref.revision && item.helpRecordId === ref.helpRecordId)) {
+        notify('这份准备已经变化或收起来了。'); return;
+      }
+      setView('chat'); setPreparationRequest({ ...ref, requestId });
+    } catch (error) { if (current()) throw error; }
+  }
   // A notification she sent leads back to where she said it.
   const navigateRef = useRef<(target: NavigationTarget) => void>(() => {});
   navigateRef.current = target => {
-    const requestId = ++preparationNavigation.current;
+    const requestId = ++preparationNavigation.current, read = ++searchNavigation.current;
     void (async () => {
       if (target.sessionId) {
         setView('chat');
@@ -660,7 +688,8 @@ export function App() {
       } else if (target.view === 'agenda') setView('agenda');
       if (!target.preparationRef) return;
       const next = await api.state();
-      if (requestId !== preparationNavigation.current || target.sessionId && (sessionRef.current !== target.sessionId || viewRef.current !== 'chat')) return;
+      if (requestId !== preparationNavigation.current || read !== searchNavigation.current
+        || target.sessionId && (sessionRef.current !== target.sessionId || viewRef.current !== 'chat')) return;
       updateState(next);
       const ref = target.preparationRef;
       if (!next.preparations?.some(item => item.id === ref.id && item.revision === ref.revision && item.helpRecordId === ref.helpRecordId)) {
@@ -668,7 +697,9 @@ export function App() {
         return;
       }
       setPreparationRequest({ ...ref, requestId });
-    })().catch(error => notify(errorText(error)));
+    })().catch(error => {
+      if (requestId === preparationNavigation.current && read === searchNavigation.current) notify(errorText(error));
+    });
   };
   useEffect(() => api?.onNavigate?.(target => navigateRef.current(target)), []);
   function updateDraft(part: Partial<Draft>) {
@@ -957,10 +988,11 @@ export function App() {
       image = file?.kind === 'image' ? file : retryImage;
     const selectedScene = consumeDraft ? sceneSelectionRef.current : undefined;
     const selectedMaterialQuote = consumeDraft ? materialQuoteRef.current : undefined;
+    const selectedNoteQuote = consumeDraft ? noteQuoteRef.current : undefined;
     const selectedFollowup = consumeDraft ? composerFollowupRef.current : undefined;
     const validFollowup = selectedFollowup && selectedFollowup.sessionId === selectedSessionId && selectedFollowup.boundary === selectedBoundary
       ? selectedFollowup : undefined;
-    const selectedStudyDock = consumeDraft && !validFollowup && !selectedScene && !selectedMaterialQuote ? studyDockRef.current : undefined;
+    const selectedStudyDock = consumeDraft && !validFollowup && !selectedScene && !selectedMaterialQuote && !selectedNoteQuote ? studyDockRef.current : undefined;
     const studyInteraction: StudyInteraction | undefined = validFollowup?.studyInteraction
       ? validFollowup.studyInteraction.kind !== 'request' && validFollowup.studyInteraction.kind !== 'attempt'
         || validFollowup.insertedText?.trim() === text
@@ -989,6 +1021,7 @@ export function App() {
       && selectedSessionId === sessionRef.current && selectedBoundary === boundaryRevision.current && !isPublicSurface()
       && (!consumeDraft || selectedControls === turnControlsRef.current && selectedScene === sceneSelectionRef.current
         && selectedMaterialQuote === materialQuoteRef.current
+        && selectedNoteQuote === noteQuoteRef.current
         && selectedFollowup?.token === composerFollowupRef.current?.token
         && (!selectedStudyDock || studyAddressUnavailable || selectedStudyDock.key === studyDockRef.current?.key));
     setStarting(true);
@@ -1038,9 +1071,11 @@ export function App() {
         ...(validFollowup?.companionReference ? { companionReference: validFollowup.companionReference } : {}),
         ...(validFollowup?.curiosityReference ? { curiosityReference: validFollowup.curiosityReference } : {}),
         ...(programReference ? { programReference } : {}),
+        ...(validFollowup?.preparationReference ? { preparationReference: validFollowup.preparationReference } : {}),
         ...(validFollowup?.letterReference ? { letterReference: validFollowup.letterReference } : {}),
         ...(noteReference ? { noteReference } : {}),
         ...(selectedMaterialQuote ? { materialQuote: materialQuoteAddress(selectedMaterialQuote) } : {}),
+        ...(selectedNoteQuote ? { noteQuote: noteQuoteAddress(selectedNoteQuote) } : {}),
         ...(rehearsalInteraction ? { rehearsalInteraction } : {}),
         ...(file?.kind === 'text' && file.resource ? { material: file.resource } : {}), ...(image ? { image } : {}) });
       if (isPublicSurface() || selectedNavigation !== navigation.current || selectedBoundary !== boundaryRevision.current) return;
@@ -1059,6 +1094,7 @@ export function App() {
       if (consumeDraft && composerFollowupRef.current?.token === selectedFollowup?.token) clearFollowup();
       if (consumeDraft && sceneSelectionRef.current === selectedScene) clearSceneSelection();
       if (consumeDraft && materialQuoteRef.current === selectedMaterialQuote) clearMaterialQuote();
+      if (consumeDraft && noteQuoteRef.current === selectedNoteQuote) clearNoteQuote();
     } catch (e) {
       notify(errorText(e));
     } finally {
@@ -1143,30 +1179,60 @@ export function App() {
       '\n\n我想继续问：';
     const next = draftRef.current.text ? draftRef.current.text + '\n\n' + quote : quote;
     if (next.length > LIMITS.draftText) { notify('这段有些长，可以少选一点，再接着聊。'); return; }
+    searchNavigation.current++;
     replaceDraft({ ...draftRef.current, text: next });
     setReadingPane('chat');
     requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
   }
   function quoteMaterial(quote: MaterialQuote) {
-    if (!draftReady || navigating || navigationPending.current) return false;
+    if (!draftReady || navigating || navigationPending.current || isPublicSurface()) return false;
+    searchNavigation.current++;
     if (studyDockRef.current) { requestComposerMove(); composerDock.returnToChat(); }
-    clearSceneSelection(); clearFollowup();
+    clearSceneSelection(); clearFollowup(); clearNoteQuote();
     materialQuoteRef.current = quote; setMaterialQuote(quote);
     setReadingPane('chat');
     requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
     return true;
   }
+  function quoteNote(quote: NoteQuote) {
+    if (!draftReady || navigating || navigationPending.current || isPublicSurface()) return false;
+    searchNavigation.current++;
+    if (studyDockRef.current) { requestComposerMove(); composerDock.returnToChat(); }
+    clearSceneSelection(); clearFollowup(); clearMaterialQuote();
+    noteQuoteRef.current = quote; setNoteQuote(quote);
+    setView('chat'); setReadingPane('chat');
+    requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
+    return true;
+  }
+  async function openNoteSource(source: NoteQuoteReference) {
+    if (navigationPending.current || isPublicSurface()) return;
+    const boundary = boundaryRevision.current, selectedSession = sessionRef.current, request = ++searchNavigation.current;
+    const current = () => request === searchNavigation.current && boundary === boundaryRevision.current
+      && selectedSession === sessionRef.current && !navigationPending.current && !isPublicSurface();
+    try {
+      const quote = await api.notesQuote(noteQuoteAddress(source));
+      if (!current()) return;
+      setSearchTarget({ locator: { kind: 'note', noteId: quote.id, revision: quote.revision,
+        field: 'body', offset: quote.start, end: quote.end }, requestId: request });
+      setView('notes');
+    } catch (error) { if (current()) throw error; }
+  }
   async function openMaterialSource(source: MaterialQuoteReference, discuss = false) {
-    const boundary = boundaryRevision.current, selectedSession = sessionRef.current;
+    if (navigationPending.current || isPublicSurface()) return;
+    const boundary = boundaryRevision.current, selectedSession = sessionRef.current, request = ++searchNavigation.current;
+    const current = () => request === searchNavigation.current && boundary === boundaryRevision.current
+      && selectedSession === sessionRef.current && !navigationPending.current && !isPublicSurface();
     const attached = draftRef.current.attachment;
     const target = attached?.kind === 'text' && attached.resource?.resourceId === source.resourceId
       ? { kind: 'pending' as const, reference: attached.resource } : { kind: 'saved' as const, resourceId: source.resourceId };
-    const quote = await api.materialsQuote({ target, quote: materialQuoteAddress(source) });
-    if (boundary !== boundaryRevision.current || selectedSession !== sessionRef.current || isPublicSurface()) return;
-    setSearchTarget({ locator: { kind: 'material', resourceId: quote.resourceId, sha256: quote.sha256,
-      ...(quote.page ? { page: quote.page } : {}), field: 'body', offset: quote.start, end: quote.end }, requestId: ++searchNavigation.current });
-    setView('materials'); setReadingPane(discuss ? 'chat' : 'reader');
-    if (discuss) quoteMaterial(quote);
+    try {
+      const quote = await api.materialsQuote({ target, quote: materialQuoteAddress(source) });
+      if (!current()) return;
+      setSearchTarget({ locator: { kind: 'material', resourceId: quote.resourceId, sha256: quote.sha256,
+        ...(quote.page ? { page: quote.page } : {}), field: 'body', offset: quote.start, end: quote.end }, requestId: request });
+      setView('materials'); setReadingPane(discuss ? 'chat' : 'reader');
+      if (discuss) quoteMaterial(quote);
+    } catch (error) { if (current()) throw error; }
   }
   function openMaterialNote(id: string, revision: number) {
     setSearchTarget({ locator: { kind: 'note', noteId: id, revision, field: 'body', offset: 0, end: 0 }, requestId: ++searchNavigation.current });
@@ -1233,8 +1299,11 @@ export function App() {
         <button type="button" className="material-quote-source" title={materialQuote.text} onClick={() => void attempt(() => openMaterialSource(materialQuote))}>
           <FileText size={16} /><span>{materialQuote.name}{materialQuote.page ? ` · 第 ${materialQuote.page} 页` : ''}</span>
         </button>
-        <button type="button" className="icon-button" aria-label="取消资料引用" onClick={() => { clearMaterialQuote(); inputRef.current?.focus({ preventScroll: true }); }}><X size={14} /></button>
+        <button type="button" className="icon-button" aria-label="取消资料引用" onClick={() => { searchNavigation.current++; clearMaterialQuote(); inputRef.current?.focus({ preventScroll: true }); }}><X size={14} /></button>
       </div>}
+      {noteQuote && <FocusContextChip label={noteQuote.title || '这页笔记'}
+        onOpen={() => void attempt(() => openNoteSource(noteQuote))}
+        onClear={() => { searchNavigation.current++; clearNoteQuote(); inputRef.current?.focus({ preventScroll: true }); }} />}
       {composerFollowup && <FocusContextChip label={composerFollowup.focusLabel || (composerFollowup.studyInteraction ? '接着这一页聊'
         : composerFollowup.companionReference ? '从刚才停下的地方接着聊'
           : composerFollowup.curiosityReference?.focus ? '就刚才指的这一句聊聊'
@@ -1242,6 +1311,7 @@ export function App() {
               : composerFollowup.rehearsalInteraction ? '接着刚才这一段试说'
                 : composerFollowup.noteReference ? '接着这页笔记聊'
                   : composerFollowup.programReference ? '接着这份小作品聊' : '接着刚才这段聊')}
+        onOpen={composerFollowup.preparationReference ? () => void attempt(() => openPreparationReference(composerFollowup.preparationReference!)) : undefined}
         onClear={() => clearFollowup(true)} />}
       {sharedMapContext && (
         <div className="shared-map-context" role="status">
@@ -1532,11 +1602,16 @@ export function App() {
           })}
           onOpenStudySource={input => void attempt(async () => {
             const boundary = boundaryRevision.current, selectedSession = sessionRef.current;
-            if (input.sessionId !== selectedSession || input.messageId !== m.id) return;
-            const paper = await api.studyProject(input), note = paper.problem.origin.note;
-            if (!note || boundary !== boundaryRevision.current || selectedSession !== sessionRef.current) return;
-            await openSearchResult({ kind: 'note', noteId: note.id, revision: note.revision,
-              field: 'body', offset: note.start, end: note.end });
+            if (input.sessionId !== selectedSession || input.messageId !== m.id || navigationPending.current || isPublicSurface()) return;
+            const read = ++searchNavigation.current;
+            const current = () => read === searchNavigation.current && boundary === boundaryRevision.current
+              && selectedSession === sessionRef.current && !navigationPending.current && !isPublicSurface();
+            try {
+              const paper = await api.studyProject(input), note = paper.problem.origin.note;
+              if (!note || !current()) return;
+              await openSearchResult({ kind: 'note', noteId: note.id, revision: note.revision,
+                field: 'body', offset: note.start, end: note.end });
+            } catch (error) { if (current()) throw error; }
           })}
           currentSceneMessages={new Map(messages.flatMap(message=>(message.scenes||[]).map(scene=>[scene.id,message.id] as const)))}
           latestRehearsalRevisions={latestRehearsalRevisions}
@@ -1557,7 +1632,7 @@ export function App() {
           const boundary = `${state?.privacyEpoch}:${state?.policyRevision}:${state?.sourceBoundary ?? 0}`;
           const key = helpBodyKey(m, ref, boundary);
           const onBodyVisibility = isPrimaryHelp(ref, m.primaryHelpRef) ? (body: string | undefined) => reportHelpBody(key, body) : undefined;
-          const onContinue = (text: string, context?: LetterFocusContext) => context ? usePresentationFollowup({ text, ...context }, m.sessionId, m.id,
+          const onContinue = (text: string, context?: LetterFocusContext | PreparationFocusContext) => context ? usePresentationFollowup({ text, ...context }, m.sessionId, m.id,
             `${state?.privacyEpoch}:${state?.policyRevision}:${state?.sourceBoundary ?? 0}`) : useSuggestion(text);
           return material ? <PreparationShelf key={key} inline items={[material]} openRequest={preparationRequest} timeZone={state?.settings.timeZone} onState={updateState}
             onContinue={onContinue} onBodyVisibility={onBodyVisibility}
@@ -1705,8 +1780,10 @@ export function App() {
           )}
         </main>
         </div>
-        {view === 'agenda' && state && (
+        {(agendaOpened || view === 'agenda') && state && (
           <AgendaView
+            key={`${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`}
+            active={view === 'agenda'}
             state={state}
             matterInteractions={matterInteractions}
             onMatterInteraction={updateMatterInteraction}
@@ -1721,7 +1798,7 @@ export function App() {
             onMap={(id) => void showPlace(id)}
           />
         )}
-        {notesOpened && state && <NotesPanel embedded key={state.privacyEpoch} active={view === 'notes'} focus={searchTarget?.locator.kind === 'note' ? { locator: searchTarget.locator, requestId: searchTarget.requestId } : undefined} onUnsavedChange={setNotesUnsaved} onOpenMaterialSource={openMaterialSource} onOpenMaterials={() => setView('materials')} onClose={() => setView('chat')} timeZone={state.settings.timeZone} />}
+        {notesOpened && state && <NotesPanel embedded key={state.privacyEpoch} active={view === 'notes'} focus={searchTarget?.locator.kind === 'note' ? { locator: searchTarget.locator, requestId: searchTarget.requestId } : undefined} onUnsavedChange={setNotesUnsaved} onOpenMaterialSource={openMaterialSource} onOpenMaterials={() => setView('materials')} onQuote={quoteNote} quoteEnabled={draftReady && !navigating} quoteContext={`${sessionId || 'new'}:${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`} quoteBoundary={`${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`} onClose={() => setView('chat')} timeZone={state.settings.timeZone} />}
         {(view === 'settings' || view === 'memory' || view === 'companion') && state && (
           <SettingsPanel
             key={`${view}:${state.privacyEpoch}`}
@@ -1895,7 +1972,7 @@ export function App() {
           onClose={() => setScopeOpen(false)}
           onChange={(value) => {
             const boundary = boundaryRevision.current;
-            clearFollowup(); clearSceneSelection();
+            clearFollowup(); clearSceneSelection(); clearNoteQuote();
             turnControlsRef.current = value;
             setTurnControls(value);
             if (value.retention === 'session_only')

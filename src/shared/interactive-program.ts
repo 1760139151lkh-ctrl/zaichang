@@ -273,5 +273,14 @@ export function snapProgramNumber(value: number, state: Extract<InteractiveState
   if (state.step === undefined) return Math.min(state.max, Math.max(state.min, value));
   const last = Math.floor((state.max - state.min) / state.step + 1e-8);
   const index = Math.max(0, Math.min(last, Math.round((value - state.min) / state.step)));
-  return Math.max(state.min, Math.min(state.max, state.min + index * state.step));
+  // Only a gesture's snapped grid value is rounded, never a typed input. Retain
+  // the declaration's decimal precision without leaking e.g. -3 + 49 * 0.1.
+  const places = (number: number) => {
+    const [coefficient, exponent = '0'] = String(number).toLowerCase().split('e');
+    return Math.max(0, (coefficient.split('.')[1]?.length || 0) - Number(exponent));
+  };
+  const precision = Math.max(places(state.min), places(state.step));
+  const snapped = state.min + index * state.step;
+  const decimal = precision <= 100 ? Number(snapped.toFixed(precision)) : snapped;
+  return Math.max(state.min, Math.min(state.max, decimal));
 }

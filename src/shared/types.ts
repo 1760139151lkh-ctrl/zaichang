@@ -315,6 +315,7 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
   setPresentationSurface(mode: 'private' | 'public'): Promise<State>;
   selectPublicArtifact(input: { sessionId: string; id: string; revision: number }): Promise<State>;
   clearPublicArtifact(): Promise<State>;
+  openPreparation(input: import('./presentation').PreparationFocusReference): Promise<State>;
   helpAction(input: { id: string; expectedRevision: number; operation: 'displayed' | 'opened' | 'dismiss' | 'once' | 'stop_topic' }): Promise<State>;
   shareMapContext(input: { enabled: boolean; fromId?: string; includeDevice?: boolean }): Promise<{ enabled: boolean; expiresAt: string | null; coordinateEgress: boolean }>;
   mapContextStatus(): Promise<{ enabled: boolean; expiresAt: string | null }>;
@@ -331,12 +332,14 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge 
     image?: ImageAttachment;
     material?: import('./materials').MaterialReference;
     materialQuote?: import('./materials').MaterialQuoteReference;
+    noteQuote?: import('./notes').NoteQuoteReference;
     controls?: TurnControls;
     selection?: import('./scenes').SemanticSelection;
     studyInteraction?: import('./study-presentation').StudyInteraction;
     companionReference?: import('./companion-source').CompanionFollowupReference;
     curiosityReference?: import('./curiosity-source').CuriosityFollowupReference;
     programReference?: import('./interactive-program').ProgramFollowupReference;
+    preparationReference?: import('./presentation').PreparationFocusReference;
     letterReference?: import('./reflective-letter').LetterReference;
     noteReference?: import('./note-presentation').NoteReference;
     rehearsalInteraction?: import('./relationship-rehearsal').RehearsalInteraction;

@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { DEFAULT_SETTINGS, type Message, type State } from '../../shared/types';
-import type { ObjectPresentationState, PreparationReference, PreparationView, SharedMatterView, SurfaceView } from '../../shared/presentation';
+import type { ObjectPresentationState, PreparationView, SharedMatterView, SurfaceView } from '../../shared/presentation';
+import { preparationFocusReferenceSchema, type PreparationFocusReference } from '../../shared/presentation';
 import type { Store } from '../store';
 import { historicalReleaseArtifact, readReleaseArtifacts, releaseMessageReadable } from './release-store';
 import { latestReleases, renderReleases } from './release-composer';
@@ -22,7 +23,7 @@ type PresentationRead = { liveCuriosity?: boolean; liveRehearsal?: boolean; live
 /** Audience projection happens before IPC. Public presentation has neither
  * private transcript payloads nor hidden explanations in DOM/ARIA metadata. */
 export class PresentationService {
-  private preparationFocus?: PreparationReference;
+  private preparationFocus?: PreparationFocusReference;
   constructor(readonly store: Store) {}
   private setting() { return this.store.meta<{ mode: 'private' | 'public'; revision: number; selected: { kind?: 'artifact' | 'matter'; sessionId?: string; id: string; revision: number; hash: string }[] }>('presentation_surface', { mode: 'private', revision: 1, selected: [] }); }
   get public() { return this.setting().mode === 'public'; }
@@ -88,16 +89,32 @@ export class PresentationService {
     });
     return { mode: settings.mode, revision: settings.revision, artifacts, ...(settings.selected.length && !artifacts.length ? { notice: '所选内容已经变化，请回到私人视图核对后重新展示。' } : {}) };
   }
-  /** A native notification selects an address, never a cached private body.
+  /** A notification or composer reference selects an address, never a cached private body.
    * Every State projection reopens it through the same current owner gates. */
-  focusPreparation(ref: PreparationReference): boolean {
-    if (this.public || typeof ref?.id !== 'string' || ref.id.length > 160 || !ref.id
-      || typeof ref.helpRecordId !== 'string' || !ref.helpRecordId || ref.helpRecordId.length > 160
-      || !Number.isSafeInteger(ref.revision) || ref.revision < 1) return false;
-    this.preparationFocus = { id: ref.id, revision: ref.revision, helpRecordId: ref.helpRecordId };
-    const found = this.preparations().some(item => item.id === ref.id && item.revision === ref.revision && item.helpRecordId === ref.helpRecordId);
-    if (!found) this.preparationFocus = undefined;
-    return found;
+  focusPreparation(raw: PreparationFocusReference): boolean {
+    const parsed = preparationFocusReferenceSchema.safeParse(raw);
+    if (this.public || !parsed.success) return false;
+    try { this.preparationIdentity(this.store.runtime.policy.hostScope(), parsed.data); }
+    catch (error) { if (error instanceof HarnessError) return false; throw error; }
+    this.preparationFocus = parsed.data;
+    return true;
+  }
+  /** Resolve the exact selected preparation under the caller's current scope.
+   * Metadata only: the assistant still reads its body through inspect_help. */
+  preparationIdentity(handle: ScopeHandle, raw: PreparationFocusReference) {
+    const ref = preparationFocusReferenceSchema.parse(raw), runtime = this.store.runtime;
+    const scope = runtime.policy.require(handle, 'evidence:read');
+    if (this.public || scope.audience !== 'self' || !scope.sources.includes('work:self'))
+      throw new HarnessError('preparation_scope', '这份准备不在当前资料范围内。');
+    runtime.attention.expire();
+    const record = this.store.kernel.work(handle, undefined, ref.id)[0];
+    if (!record || record.data.type !== 'help_opportunity' || record.revision !== ref.revision
+      || (record.data.helpRecordId || undefined) !== ref.helpRecordId
+      || !['prepared', 'question_ready', 'notification_queued'].includes(record.status)
+      || !record.data.artifact || !(Date.parse(String(record.data.expiresAt)) > Date.parse(this.store.kernel.clock.now()))
+      || !runtime.reflectiveLetters.recordReadable(handle, record))
+      throw new HarnessError('preparation_changed', '这份准备已经变化或收起来了，请回到现在的那一份。');
+    return { record, reference: ref };
   }
   preparations(): PreparationView[] {
     if (this.public) return [];
@@ -105,7 +122,7 @@ export class PresentationService {
     const ordinary = runtime.attention.available(scope), ref = this.preparationFocus;
     const focused = ref ? this.store.kernel.workData(scope, ['help_opportunity'], { id: ref.id, revision: ref.revision,
       statuses: ['prepared', 'question_ready', 'notification_queued'], limit: 1 })
-      .filter(record => record.data.helpRecordId === ref.helpRecordId && !!record.data.artifact) : [];
+      .filter(record => (record.data.helpRecordId || undefined) === ref.helpRecordId && !!record.data.artifact) : [];
     if (ref && !focused.length) this.preparationFocus = undefined;
     const records = [...new Map([...focused, ...ordinary].map(record => [record.id, record])).values()];
     return records.flatMap(record => {

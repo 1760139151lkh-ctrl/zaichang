@@ -24,6 +24,8 @@ const id = z.string().min(1).max(160);
 const helpDiscoveryStatuses = ['candidate', 'waiting', 'prepared', 'question_ready', 'notification_queued', 'paused', 'stale', 'expired', 'declined'] as const;
 export const helpDiscoveryInput = z.object({
   id: id.optional(),
+  expectedRevision: z.number().int().positive().optional().describe('沿界面所选准备回读时保留其精确修订，材料变化后不自动换成另一版。'),
+  helpRecordId: id.optional().describe('界面所选准备的原帮助记录；与id、expectedRevision一起回读，不用标题猜同一份。'),
   query: z.string().max(400).optional().describe('在当前可读机会的标题和已准备正文中找词；多个空白分隔的词按任一匹配。未命中时可换表述或省略query分页查看，不代表没有相关材料。'),
   relatedTo: id.optional().describe('已知事项或托付的精确ID，沿实际关联找回准备；不靠标题猜关联。'),
   statuses: z.array(z.enum(helpDiscoveryStatuses)).min(1).max(helpDiscoveryStatuses.length).optional().describe('省略时只发现仍活跃的机会和准备；可显式查看暂停、失效、过期或已放下的记录，但这些状态不是当前可用材料。'),
@@ -32,6 +34,8 @@ export const helpDiscoveryInput = z.object({
   offset: z.number().int().nonnegative().default(0),
   limit: z.number().int().min(1).max(12).default(5),
 }).strict().superRefine((input, context) => {
+  if ((input.expectedRevision !== undefined || input.helpRecordId) && !input.id)
+    context.addIssue({ code: 'custom', path: ['id'], message: '版本与帮助记录只用于指定id的原准备回读。' });
   if (input.from && input.to && Date.parse(input.from) >= Date.parse(input.to))
     context.addIssue({ code: 'custom', path: ['to'], message: '结束时间须晚于开始时间。' });
   if (input.id && (input.query !== undefined || input.relatedTo || input.statuses || input.from || input.to))

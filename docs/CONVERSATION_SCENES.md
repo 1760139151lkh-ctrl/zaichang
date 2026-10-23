@@ -134,6 +134,12 @@ scene1 = WeatherScene("<scene-id>@<revision>")
 
 `helpRefs` 引用的是当前仍可用的准备材料；过期或撤销后，不要求历史回复继续展示旧正文。这与 `Message.scenes / views` 保存当时事实快照的历史策略不同。重复帮助判断和通知去重沿用同一机会与帮助记录，不新增一套场景通知账本。
 
+### 从准备回到当前输入
+
+准备中的「接着聊这件事」把 `PreparationFocusReference` 带到同一输入框，保留已有草稿，不把标题或正文伪装为用户新话。小引用可以移除，也能沿 `preparation:open` 打开原准备。引用包含原 ID、revision 与可选 helpRecordId；宿主按当前来源、状态与时效核验，过期或改版时不借同名标题换读另一份。
+
+当前 context 只放 `currentPreparation` 地址与 `inspect_help` 回读参数；正文仍走原工具。显式读取和每次依赖刷新都核原地址，通用 work 刷新不把这份准备的新正文自动补回，也不把原 receipt 升为已读新版。失效时保留本轮新话并提供无正文提示，关闭可选 repair 增强也不关闭这个来源门禁。实际核查范围见[准备引用与 OpenUI 证据](evidence/2026-10-23-preparation-and-openui.md)。
+
 ## 消息更新、历史与地图资源
 
 组件库在模块级创建，SceneStack 按场景稳定身份设置 React key，消息内容或处理进展更新不重建地图。事实版本可以更新，观看状态由共享地图 surface 按场景身份保留。内嵌与聚焦使用同一地图实例；离屏地图延迟挂载/释放，保留稳定占位，聚焦期间不因聊天位置离屏而卸载。

@@ -118,6 +118,23 @@ export type NoteMutation =
   | { status: 'saved'; note: NoteDocument; previousRevision?: number; reused?: true }
   | { status: 'conflict'; current: NoteDocument };
 
+/** A selection in the current saved notebook document, not an assistant Scene
+ * or a copied client string. Offsets count Unicode code points. */
+export const noteQuoteReferenceSchema = z.object({
+  id: noteId,
+  revision,
+  sha256: z.string().regex(/^[a-f0-9]{64}$/),
+  start: z.number().int().nonnegative().max(NOTE_LIMITS.body),
+  end: z.number().int().positive().max(NOTE_LIMITS.body),
+}).strict().refine(value => value.end > value.start && value.end - value.start <= 4000,
+  '选一小段笔记，再接着聊。');
+export type NoteQuoteReference = z.infer<typeof noteQuoteReferenceSchema>;
+/** Display text is returned by the notebook owner; send accepts only its address. */
+export interface NoteQuote extends NoteQuoteReference { title: string; text: string }
+export function noteQuoteAddress(quote: NoteQuoteReference): NoteQuoteReference {
+  return { id: quote.id, revision: quote.revision, sha256: quote.sha256, start: quote.start, end: quote.end };
+}
+
 export interface NotesBridge {
   notesList(input?: z.input<typeof noteListSchema>): Promise<NoteList>;
   notesRead(input: z.input<typeof noteReadSchema>): Promise<NotePage>;
@@ -126,4 +143,5 @@ export interface NotesBridge {
   notesChangeState(input: z.input<typeof noteStateSchema>): Promise<NoteMutation>;
   notesUndo(input: z.input<typeof noteUndoSchema>): Promise<NoteMutation>;
   notesHistory(input: z.input<typeof noteHistorySchema>): Promise<NoteHistory>;
+  notesQuote(input: NoteQuoteReference): Promise<NoteQuote>;
 }
