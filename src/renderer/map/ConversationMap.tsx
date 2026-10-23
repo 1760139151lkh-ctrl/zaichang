@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type PointerEvent } from 'react';
 import { ChevronDown, ChevronUp, Expand, MapPinned, Pause, Play, Route, X } from 'lucide-react';
 import type { MapScene, SemanticSelection } from '../../shared/scenes';
 import { emptyRoute, routeHasUnverifiedPassages, type MapPoint } from '../../shared/map-v2';
@@ -93,11 +93,43 @@ export function ConversationMap({
   const frame = useRef<HTMLDivElement>(null);
   const expansion = useRef<Animation | undefined>(undefined);
   const expansionOrigin = useRef<DOMRect | undefined>(undefined);
+  const inlineGeometry = useRef<{ width: number; height: number; left: number; top: number } | undefined>(undefined);
+  const focusGesture = useRef<{ pointerId: number; target: HTMLButtonElement; startY: number; lastY: number;
+    lastAt: number; velocity: number; startProgress: number; progress: number; distance: number; wasFocused: boolean; moved: boolean } | undefined>(undefined);
+  const focusState = useRef(focused);
+  const [draggingFocus, setDraggingFocus] = useState(false);
   const [placeholderHeight, setPlaceholderHeight] = useState<number>();
   const [transitioning, setTransitioning] = useState(false);
   const collapsedBeforeFocus = useRef(false);
+  function animateFocus(before: DOMRect, scrubbing = false, visible?: DOMRect) {
+    const element = container.current;
+    expansion.current?.cancel();
+    if (!element || (!scrubbing && prefersQuietMotion())) { setTransitioning(false); return; }
+    const after = element.getBoundingClientRect();
+    if (!after.width || !after.height) { setTransitioning(false); return; }
+    const geometry = (rect: DOMRect) => ({ transformOrigin: '0 0',
+      transform: `translate(${rect.left-after.left}px,${rect.top-after.top}px) scale(${rect.width/after.width},${rect.height/after.height})`, borderRadius: '22px' });
+    const at = focusGesture.current?.progress || 0;
+    const animation = element.animate([
+      { ...geometry(before), offset: 0 },
+      // A restarted transition may not lie exactly on the original home/full
+      // line. Keep the actual visible rectangle at the grabbed progress.
+      ...(visible && at > 0 && at < 1 ? [{ ...geometry(visible), offset: at }] : []),
+      { transformOrigin: '0 0', transform: 'none', offset: 1 },
+    ], { duration: 270, easing: scrubbing ? 'linear' : 'cubic-bezier(.2,.75,.2,1)' });
+    expansion.current = animation;
+    setTransitioning(true);
+    if (scrubbing) {
+      animation.pause();
+      animation.currentTime = (focusGesture.current?.progress || 0) * 270;
+    }
+    void animation.finished.then(() => {
+      if (expansion.current === animation) { expansion.current = undefined; setTransitioning(false); }
+    }, () => { /* A new gesture continues from the visible rectangle. */ });
+    return animation;
+  }
   function focusMap(next: boolean) {
-    if (focused === next) return;
+    if (focusState.current === next) return;
     const element = container.current;
     // Capture the current animated position before interruption. Rapid changes
     // start here rather than replaying a previous entrance.
@@ -106,6 +138,8 @@ export function ConversationMap({
     setTransitioning(!prefersQuietMotion());
     engine.current?.cancelMotion(); setPlaying(false);
     if (next) {
+      const home = element?.getBoundingClientRect(), parent = frame.current?.getBoundingClientRect();
+      if (home && parent) inlineGeometry.current = { width: home.width, height: home.height, left: home.left-parent.left, top: home.top-parent.top };
       collapsedBeforeFocus.current = collapsed;
       setPlaceholderHeight(frame.current?.getBoundingClientRect().height);
       memory.collapsed = false; setCollapsed(false);
@@ -114,30 +148,96 @@ export function ConversationMap({
       memory.collapsed = collapsedBeforeFocus.current;
       setCollapsed(collapsedBeforeFocus.current);
     }
+    focusState.current = next;
     setFocused(next);
   }
   useLayoutEffect(() => {
     const element = container.current, before = expansionOrigin.current;
     expansionOrigin.current = undefined;
-    if (!element || !before || prefersQuietMotion()) { setTransitioning(false); return; }
-    const after = element.getBoundingClientRect();
-    if (!after.width || !after.height) { setTransitioning(false); return; }
-    const animation = element.animate([
-      { transformOrigin:'0 0', transform:`translate(${before.left-after.left}px,${before.top-after.top}px) scale(${before.width/after.width},${before.height/after.height})`, borderRadius:'22px' },
-      { transformOrigin:'0 0', transform:'none' },
-    ], { duration:270, easing:'cubic-bezier(.2,.75,.2,1)' });
-    expansion.current = animation;
-    void animation.finished.then(() => {
-      if (expansion.current === animation) { expansion.current = undefined; setTransitioning(false); }
-    }, () => { /* An interrupted gesture starts from its visible rectangle. */ });
-    return () => animation.cancel();
+    if (!element || !before) { setTransitioning(false); return; }
+    const animation = animateFocus(before, !!focusGesture.current);
+    return () => animation?.cancel();
   }, [focused]);
+  function beginFocusGesture(event: PointerEvent<HTMLButtonElement>) {
+    if (event.button !== 0 || !event.isPrimary || focusGesture.current) return;
+    const element = container.current;
+    if (!element) return;
+    event.preventDefault();
+    event.currentTarget.focus({ preventScroll: true });
+    event.currentTarget.setPointerCapture(event.pointerId);
+    engine.current?.cancelMotion(); setPlaying(false);
+    const wasFocused = focusState.current;
+    const visible = element.getBoundingClientRect();
+    const home = inlineGeometry.current, parent = frame.current?.getBoundingClientRect();
+    const homeRect = wasFocused && home && parent
+      ? new DOMRect(parent.left+home.left, parent.top+home.top, home.width, home.height) : undefined;
+    let startProgress = wasFocused ? 1 : 0;
+    if (homeRect) {
+      expansion.current?.cancel();
+      const full = element.getBoundingClientRect(), dimensions = ['left', 'top', 'width', 'height'] as const;
+      const dimension = dimensions.reduce((best, key) => Math.abs(full[key]-homeRect[key]) > Math.abs(full[best]-homeRect[best]) ? key : best);
+      const range = full[dimension]-homeRect[dimension];
+      if (Math.abs(range) > .5) startProgress = Math.max(0, Math.min(1, (visible[dimension]-homeRect[dimension])/range));
+      const matches = (other: DOMRect) => dimensions.every(key => Math.abs(visible[key]-other[key]) < .5);
+      if (!matches(homeRect) && !matches(full)) startProgress = Math.max(.001, Math.min(.999, startProgress));
+    }
+    const homeTop = homeRect?.top ?? visible.top;
+    const focusedTop = window.innerWidth <= 600 ? 0 : 20;
+    focusGesture.current = { pointerId: event.pointerId, target: event.currentTarget, startY: event.clientY,
+      lastY: event.clientY, lastAt: event.timeStamp, velocity: 0, startProgress, progress: startProgress,
+      distance: Math.max(96, Math.abs(homeTop-focusedTop)), wasFocused, moved: false };
+    setDraggingFocus(true);
+    if (!wasFocused) focusMap(true);
+    else {
+      if (homeRect) animateFocus(homeRect, true, visible);
+    }
+  }
+  function moveFocusGesture(event: PointerEvent<HTMLButtonElement>) {
+    const gesture = focusGesture.current;
+    if (!gesture || gesture.pointerId !== event.pointerId) return;
+    event.preventDefault();
+    const delta = event.clientY - gesture.startY, elapsed = event.timeStamp-gesture.lastAt;
+    if (elapsed > 0) gesture.velocity = (gesture.lastY-event.clientY)/elapsed;
+    gesture.lastY = event.clientY; gesture.lastAt = event.timeStamp;
+    gesture.moved ||= Math.abs(delta) > 5;
+    gesture.progress = Math.max(0, Math.min(1, gesture.startProgress-delta/gesture.distance));
+    if (expansion.current) expansion.current.currentTime = gesture.progress * 270;
+  }
+  function endFocusGesture(cancel = false, settle = true) {
+    const gesture = focusGesture.current;
+    if (!gesture) return;
+    focusGesture.current = undefined; setDraggingFocus(false);
+    const next = cancel ? gesture.wasFocused : !gesture.moved ? !gesture.wasFocused
+      : gesture.progress + (performance.now()-gesture.lastAt < 100 ? gesture.velocity * 100/gesture.distance : 0) > .5;
+    if (gesture.target.hasPointerCapture(gesture.pointerId)) gesture.target.releasePointerCapture(gesture.pointerId);
+    if (!settle) return;
+    if (next) {
+      const before = container.current?.getBoundingClientRect();
+      if (before) animateFocus(before);
+    } else focusMap(false);
+  }
+  useEffect(() => {
+    const cancel = () => endFocusGesture(true);
+    const resize = () => {
+      endFocusGesture(true, false);
+      inlineGeometry.current = undefined;
+      // The previous window's inline rectangle is no longer a drag target.
+      // Return from the visible position; the next expansion measures home anew.
+      if (focusState.current) focusMap(false);
+      else if (expansion.current) {
+        const before = container.current?.getBoundingClientRect();
+        if (before) animateFocus(before);
+      }
+    };
+    window.addEventListener('blur', cancel); window.addEventListener('resize', resize);
+    return () => { window.removeEventListener('blur', cancel); window.removeEventListener('resize', resize); };
+  }, []);
   useEffect(() => () => expansion.current?.cancel(), []);
   const previousInterruption = useRef(interruptionKey);
   // Finish the geometry transition before a map gesture, so pointer
   // coordinates match the camera. A quick return keeps its visible origin.
   const finishFocus = (event?: { target: EventTarget | null; key?: string }) => {
-    if (event?.key === 'Escape' || event?.target instanceof Element && event.target.closest('.conversation-map-expand')) return;
+    if (focusGesture.current || event?.key === 'Escape' || event?.target instanceof Element && event.target.closest('.conversation-map-expand,.conversation-map-grip')) return;
     expansion.current?.finish(); expansion.current = undefined; setTransitioning(false);
   };
   const effectiveLegId = memory.sourceLegId !== scene.activeLegId ? scene.activeLegId : legId;
@@ -280,6 +380,7 @@ export function ConversationMap({
   }, [ready, scene, leg?.id]);
   useEffect(() => {
     if (cancelled || previousInterruption.current !== interruptionKey) {
+      endFocusGesture(true);
       motionRequest.current++;
       engine.current?.cancelMotion();
       setPlaying(false);
@@ -287,6 +388,7 @@ export function ConversationMap({
     }
     previousInterruption.current = interruptionKey;
   }, [ready, cancelled, interruptionKey]);
+  useEffect(() => { endFocusGesture(true); }, [active, scene.revision]);
   useEffect(() => {
     if (!playing || progress === undefined || !route) return;
     const current = engine.current,
@@ -361,6 +463,7 @@ export function ConversationMap({
       className="conversation-map"
       data-focused={focused}
       data-transitioning={transitioning}
+      data-dragging={draggingFocus}
       data-collapsed={collapsed}
       role={focused ? 'dialog' : undefined}
       aria-modal={focused || undefined}
@@ -373,7 +476,8 @@ export function ConversationMap({
           event.preventDefault();
           event.stopPropagation();
           engine.current?.cancelMotion();
-          focusMap(false);
+          if (focusGesture.current) endFocusGesture(true);
+          else focusMap(false);
         }
         if (event.key === 'Tab') {
           const items = Array.from(
@@ -393,6 +497,12 @@ export function ConversationMap({
         }
       }}
     >
+      <button type="button" className="conversation-map-grip" aria-label={focused ? '下拉收回地图，或按回车返回对话' : '上提展开地图，或按回车聚焦查看'}
+        aria-expanded={focused} onPointerDown={beginFocusGesture} onPointerMove={moveFocusGesture}
+        onPointerUp={event => { if (focusGesture.current?.pointerId === event.pointerId) endFocusGesture(); }}
+        onPointerCancel={event => { if (focusGesture.current?.pointerId === event.pointerId) endFocusGesture(true); }}
+        onLostPointerCapture={event => { if (focusGesture.current?.pointerId === event.pointerId) endFocusGesture(true); }}
+        onClick={event => { if (event.detail === 0) focusMap(!focusState.current); }}><span aria-hidden="true" /></button>
       <header className="conversation-map-heading">
         <span className="conversation-map-heading-icon">
           <MapPinned size={19} />

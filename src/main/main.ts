@@ -156,7 +156,7 @@ function ensureTray(): boolean {
   tray = undefined;
   if (process.env.ZAICHANG_TEST === '1') return false;
   try {
-    tray = new Tray(nativeImage.createFromPath(path.join(app.getAppPath(), '前端视觉创新设计/统一图库/原图/运行素材与品牌/icon-9a6d2ebdf831.png')).resize({ width: 16, height: 16 }));
+    tray = new Tray(nativeImage.createFromPath(path.join(app.getAppPath(), 'assets/brand/window-gold.png')).resize({ width: 16, height: 16 }));
     const name = () => store.settings().persona.core.name.trim() || '在场';
     const menu = () => Menu.buildFromTemplate([
       { label: `打开在场`, click: () => showWindow() },
@@ -835,6 +835,7 @@ app.whenReady().then(async () => {
   handle('materials:read', value => store.runtime.materials.nativeReadPage(value));
   handle('materials:quote', value => store.runtime.materials.nativeQuote(value));
   handle('materials:keep-quote', value => store.runtime.materials.nativeKeepQuote(value, store.notes));
+  handle('materials:move-note', value => store.runtime.materials.nativeMoveNote(value, store.notes));
   handle('materials:notes', value => store.runtime.materials.nativeNotes(value, store.notes));
   handle('materials:cancel', () => store.runtime.materials.cancelNativeRead());
   handle('materials:discard', value => {
@@ -951,7 +952,7 @@ app.whenReady().then(async () => {
     backgroundColor: '#171918',
     frame: false,
     show: false,
-    icon: path.join(app.getAppPath(), '前端视觉创新设计/统一图库/原图/运行素材与品牌/icon-9a6d2ebdf831.png'),
+    icon: path.join(app.getAppPath(), 'assets/brand/window-gold.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       contextIsolation: true,

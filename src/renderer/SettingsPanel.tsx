@@ -10,11 +10,12 @@ import { ArrowLeft, Check, ChevronRight, Download, LoaderCircle, Pencil, Trash2,
 import { IconButton, Modal, PagePanel, Switch, uiError } from './ui';
 import { MemoryPanelSimple, SourcePermissions, type MemoryWorkspaceState } from './HarnessViews';
 import type { SettingsUpdate, State } from '../shared/types';
-import { useAppearance } from './appearance';
+import { APPEARANCE_PALETTES, useAppearance } from './appearance';
 import { DEFAULT_INTERACTION } from '../shared/interaction';
 import { PersonaEditor, type PersonaDraft } from './PersonaEditor';
 import { CompanionSettings } from './CompanionSettings';
 import { useCompanion } from './companion';
+import { companionPaletteLight } from './companion-scenes';
 import './settings-refinement.css';
 
 const api = window.zaichang;
@@ -606,6 +607,10 @@ export function SettingsPanel({
                     <div className="rhythm-choice-row"><span>外观</span><div className="rhythm-segmented" role="group" aria-label="外观主题">
                       {([['light', '晨光'], ['dark', '夜色'], ['system', '跟随系统']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={appearance.theme === value} onClick={() => setAppearance({ theme: value })}>{label}</button>)}
                     </div></div>
+                    <div className="rhythm-choice-row"><span>色彩</span><div className="rhythm-segmented" role="group" aria-label="界面色彩">
+                      {APPEARANCE_PALETTES.map(palette => <button type="button" key={palette.id} aria-pressed={appearance.palette === palette.id} disabled={!!pending} onClick={() => void perform('appearance', async () => { setAppearance({ palette: palette.id }); updateCompanion({ light: companionPaletteLight(palette.id) }); })}>{palette.name}</button>)}
+                    </div></div>
+                    {result(['appearance'])}
                     <div className="rhythm-choice-row"><span>正文字号</span><div className="rhythm-segmented" role="group" aria-label="正文字号">
                       {([[1, '标准'], [1.15, '大一点'], [1.3, '再大一点']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={appearance.readingScale === value} onClick={() => setAppearance({ readingScale: value })}>{label}</button>)}
                     </div></div>

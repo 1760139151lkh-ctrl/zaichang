@@ -1,5 +1,21 @@
 # 项目导航
 
+<a id="unified-entry-20261023"></a>
+## 2026-10-23 统一视觉、直接操纵与工程融合入口
+
+本轮已重新授权全面创新、并行实施和工程融合，旧批次的暂停／停止外延不限制本轮工作。先读[视觉与交互标尺](docs/implementation/2026-10-23-unified/visual-standard.md)、[逐图创意—源码映射](docs/implementation/2026-10-23-unified/image-ledger.md)与[本轮交付报告](docs/implementation/2026-10-23-unified/delivery-report.md)。下方旧保存点和当时限制继续保留，不能替代本轮报告的实际状态。
+
+| 要找的能力 | 本轮真实入口 |
+| --- | --- |
+| 角色原景分层、座面拖动与姿态 | `src/renderer/companion-scenes.tsx`、`companion.tsx`、`CompanionSettings.tsx` 与 `src/renderer/assets/companion/scenes/`；背景和人物共享同一母图坐标，alpha 遮罩仅控制可见范围，人物颜色来自母图。 |
+| 四配色与对应房间光线 | `src/renderer/appearance.ts`、`tokens.css`、`SettingsPanel.tsx` 与 `CompanionSettings.tsx`；两处显式配色入口同时保存匹配光线，姿态位置按角色／活动保留。 |
+| 资料／PDF与学习纸 | `src/renderer/MaterialPdfPage.tsx`、`MaterialsPanel.tsx`、`ReadingDivider.tsx`、`presentation/StudySceneView.tsx`；保留原文身份、分屏、选段拖入与批注联动。 |
+| 日程直接操纵 | `src/renderer/AgendaDayTimeline.tsx`、`presentation/PlanningComparisonTimeline.tsx`、`Workspace.tsx`、`LifePanels.tsx`；试放、碰撞、空档、确认、撤回沿同一原对象。 |
+| 对话地图连续展开 | `src/renderer/map/ConversationMap.tsx` 与 `conversation-map.css`；同一 MapSurface／相机，手势可接管展开和收回。 |
+| Luna 动态作品与交互回传 | `src/renderer/presentation/InteractiveProgramView.tsx`、`interactive-graphics.tsx`、`program-local-state.ts` 及原宿主程序状态 owner；真实范围见交付报告。 |
+
+视觉资产实际为祥子、睦、爱音、灯四角色各六状态，另有祥子四主题灯光母图，并非全角色主题姿态笛卡尔积。真实 Luna 已验证地图、原生陪学纸和可拖动交互图形，不代表全部 Scene；Windows 原生 PDF parser 未完成原生端到端验证。Linux 隔离 Electron 已有[实际操作证据](docs/evidence/2026-10-23-native-interactions/README.md)，环境适配、合成输入和生产／发布边界继续分开记录。
+
 **2026-10-23 源码保存点：** [GitHub 同步范围与检查](docs/GITHUB_SYNC_2026-10-23.md)保存当前聊天、资料/PDF、笔记、日程、地图、主题及 Luna 续接的进行中成果；各模块入口与未完成项见 [本轮实施记录](docs/implementation/2026-10-23/branch-integration.md)。
 
 **2026-10-23 青春陪伴与连续体验：** [本轮设计与实施](docs/DESIGN_IMPLEMENTATION_2026-10-23.md)记录四张新 Image 图稿、十二张既有界面稿承接、精确选段与准备引用、今天页面连续性及真实检查边界；[实际画面](docs/evidence/2026-10-23-youthful-presence/README.md)与[模型／宿主证据](docs/evidence/2026-10-23-preparation-and-openui.md)分开保存。本轮未发布新版 EXE 或公共站点。

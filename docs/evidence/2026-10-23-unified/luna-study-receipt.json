@@ -1,0 +1,548 @@
+{
+  "date": "2026-10-23",
+  "scope": "Real Luna generation through original composer, source-bound native study after explicit followup; does not claim first-choice native routing",
+  "paletteProof": [
+    {
+      "scene": "sakiko-chat",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "sakiko-chat-mist",
+      "light": "morning",
+      "artPalette": "mist",
+      "layered": "true"
+    },
+    {
+      "scene": "sakiko-chat-violet",
+      "light": "dusk",
+      "artPalette": "violet",
+      "layered": "true"
+    },
+    {
+      "scene": "sakiko-night",
+      "light": "night",
+      "artPalette": "rain",
+      "layered": "true"
+    }
+  ],
+  "renderProof": [
+    {
+      "scene": "sakiko-chat",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "sakiko-reading",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "sakiko-night",
+      "light": "night",
+      "artPalette": "rain",
+      "layered": "true"
+    },
+    {
+      "scene": "mutsumi-chat",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "mutsumi-reading",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "mutsumi-night",
+      "light": "night",
+      "artPalette": "rain",
+      "layered": "true"
+    },
+    {
+      "scene": "anon-chat",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "anon-reading",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "anon-night",
+      "light": "night",
+      "artPalette": "rain",
+      "layered": "true"
+    },
+    {
+      "scene": "tomori-chat",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "tomori-reading",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "tomori-night",
+      "light": "night",
+      "artPalette": "rain",
+      "layered": "true"
+    }
+  ],
+  "messages": [
+    {
+      "id": "f62d2df7-5e2f-458c-87d8-66011a43d94a",
+      "status": "done",
+      "sceneKinds": [
+        "study_reference"
+      ],
+      "sceneReferences": [
+        {
+          "id": "study-scene:study:b6af36e20a4817fb21e08ac66996e8adcea7e7d753d45f44721bb3d5452ae47d",
+          "revision": 1,
+          "kind": "study_reference",
+          "owner": {
+            "id": "study:b6af36e20a4817fb21e08ac66996e8adcea7e7d753d45f44721bb3d5452ae47d",
+            "revision": 1,
+            "matterId": "4cf07815-a779-4151-8f04-a0ef08ae4d9d"
+          }
+        }
+      ],
+      "modelUsage": [
+        {
+          "phase": "control",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 6768,
+          "cachedInputTokens": 0,
+          "outputTokens": 1261,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 25419,
+          "cachedInputTokens": 0,
+          "outputTokens": 437,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 47813,
+          "cachedInputTokens": 0,
+          "outputTokens": 4283,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 52215,
+          "cachedInputTokens": 0,
+          "outputTokens": 484,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 52744,
+          "cachedInputTokens": 0,
+          "outputTokens": 594,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 53506,
+          "cachedInputTokens": 0,
+          "outputTokens": 492,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 54425,
+          "cachedInputTokens": 0,
+          "outputTokens": 927,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 56259,
+          "cachedInputTokens": 25216,
+          "outputTokens": 1425,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 59370,
+          "cachedInputTokens": 25216,
+          "outputTokens": 4334,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 64124,
+          "cachedInputTokens": 0,
+          "outputTokens": 1487,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 65933,
+          "cachedInputTokens": 0,
+          "outputTokens": 594,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "completion_review",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 36325,
+          "cachedInputTokens": 3328,
+          "outputTokens": 371,
+          "usdMin": null,
+          "usdMax": null
+        }
+      ]
+    },
+    {
+      "id": "e4c427d4-b391-4305-a135-820a43351067",
+      "status": "done",
+      "sceneKinds": [
+        "study_reference"
+      ],
+      "sceneReferences": [
+        {
+          "id": "study-scene:study:b6af36e20a4817fb21e08ac66996e8adcea7e7d753d45f44721bb3d5452ae47d",
+          "revision": 1,
+          "kind": "study_reference",
+          "owner": {
+            "id": "study:b6af36e20a4817fb21e08ac66996e8adcea7e7d753d45f44721bb3d5452ae47d",
+            "revision": 1,
+            "matterId": "4cf07815-a779-4151-8f04-a0ef08ae4d9d"
+          }
+        }
+      ],
+      "modelUsage": [
+        {
+          "phase": "control",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 6756,
+          "cachedInputTokens": 0,
+          "outputTokens": 996,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 26781,
+          "cachedInputTokens": 0,
+          "outputTokens": 194,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 28649,
+          "cachedInputTokens": 0,
+          "outputTokens": 250,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 29096,
+          "cachedInputTokens": 0,
+          "outputTokens": 263,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "completion_review",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 10796,
+          "cachedInputTokens": 0,
+          "outputTokens": 772,
+          "usdMin": null,
+          "usdMax": null
+        }
+      ]
+    }
+  ],
+  "observations": {
+    "ratioBefore": 32.1,
+    "ratioAfter": 44.9,
+    "savedPreference": "44.9",
+    "escapeRestores": 44.9,
+    "composerCount": 1,
+    "draftPreserved": "下一步我想把 x dx 单独写出来。",
+    "rendererErrors": []
+  },
+  "hostRunReceipts": [
+    {
+      "runId": "1d9c12d6-00d1-4d0f-a63c-23795f23f800",
+      "modelUsage": [
+        {
+          "phase": "control",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 6768,
+          "cachedInputTokens": 0,
+          "outputTokens": 1261,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 25419,
+          "cachedInputTokens": 0,
+          "outputTokens": 437,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 47813,
+          "cachedInputTokens": 0,
+          "outputTokens": 4283,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 52215,
+          "cachedInputTokens": 0,
+          "outputTokens": 484,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 52744,
+          "cachedInputTokens": 0,
+          "outputTokens": 594,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 53506,
+          "cachedInputTokens": 0,
+          "outputTokens": 492,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 54425,
+          "cachedInputTokens": 0,
+          "outputTokens": 927,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 56259,
+          "cachedInputTokens": 25216,
+          "outputTokens": 1425,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 59370,
+          "cachedInputTokens": 25216,
+          "outputTokens": 4334,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 64124,
+          "cachedInputTokens": 0,
+          "outputTokens": 1487,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 65933,
+          "cachedInputTokens": 0,
+          "outputTokens": 594,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "completion_review",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 36325,
+          "cachedInputTokens": 3328,
+          "outputTokens": 371,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "background_memory",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 5691,
+          "cachedInputTokens": 0,
+          "outputTokens": 226,
+          "usdMin": null,
+          "usdMax": null
+        }
+      ],
+      "observedResponseModels": [
+        "gpt-6-luna"
+      ],
+      "engine": {
+        "name": "hermes",
+        "commit": "d595e636c83aa0b9606d4e914e1140ae9c796897",
+        "adapterSha256": "b9d3ca0ec13c75d7116049e48d1122388a5fb838b741c197556093e7b7ef2762",
+        "python": "3.13.16"
+      },
+      "interactiveProgramDiagnostics": [
+        {
+          "stepId": "bcc7278c-0269-4d56-9495-c343d397952f",
+          "toolCallId": "call_1619915b59b4439bbe05252981751b71",
+          "rejectionCode": "interactive_program",
+          "component": {
+            "name": "DragHandle",
+            "signature": "DragHandle(id: string, label: string, xField?: string, yField?: string, color?: \"ink\" | \"muted\" | \"accent\" | \"blue\" | \"green\" | \"rose\" | \"paper\", radius?: number, disabled?: boolean)",
+            "issues": [
+              {
+                "stage": "schema",
+                "code": "invalid_type",
+                "path": [
+                  "yField"
+                ],
+                "pathComplete": true,
+                "parameterIndex": 3,
+                "expected": "string"
+              }
+            ],
+            "read": {
+              "tool": "read_skill",
+              "arguments": {
+                "id": "interactive-program",
+                "section": "components",
+                "names": [
+                  "DragHandle"
+                ],
+                "limit": 1
+              }
+            }
+          },
+          "explanationTruncated": false,
+          "includedInSuccessfulModelRequest": true
+        }
+      ]
+    },
+    {
+      "runId": "9d40a9b0-b540-4ca6-beb2-63fd0c23584e",
+      "modelUsage": [
+        {
+          "phase": "control",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 6756,
+          "cachedInputTokens": 0,
+          "outputTokens": 996,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 26781,
+          "cachedInputTokens": 0,
+          "outputTokens": 194,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 28649,
+          "cachedInputTokens": 0,
+          "outputTokens": 250,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 29096,
+          "cachedInputTokens": 0,
+          "outputTokens": 263,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "completion_review",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 10796,
+          "cachedInputTokens": 0,
+          "outputTokens": 772,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "background_memory",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 6109,
+          "cachedInputTokens": 0,
+          "outputTokens": 398,
+          "usdMin": null,
+          "usdMax": null
+        }
+      ],
+      "observedResponseModels": [
+        "gpt-6-luna"
+      ],
+      "engine": {
+        "name": "hermes",
+        "commit": "d595e636c83aa0b9606d4e914e1140ae9c796897",
+        "adapterSha256": "b9d3ca0ec13c75d7116049e48d1122388a5fb838b741c197556093e7b7ef2762",
+        "python": "3.13.16"
+      },
+      "interactiveProgramDiagnostics": []
+    }
+  ]
+}

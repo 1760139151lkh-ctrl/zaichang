@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
+import { useCallback, useContext, useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties, type PointerEvent } from 'react';
 import { ArrowRight, ArrowUpRight, BookOpen, Bookmark, ChevronDown, LoaderCircle, MoreHorizontal, RefreshCw, X } from 'lucide-react';
 import type { Bridge } from '../../shared/types';
 import type { MaterialPage } from '../../shared/materials';
@@ -24,6 +24,82 @@ export interface StudySceneViewProps {
   onOpenMaterial?: (value: { resourceId: string; page?: number }) => void | Promise<void>;
   onOpenSource?: (input: StudyNativeInput) => void | Promise<void>;
   disabled?: boolean;
+}
+
+const studySplitKey = 'zaichang.study-paper-split.v1';
+function savedStudySplit() {
+  try { const value = Number(localStorage.getItem(studySplitKey)); return value >= 24 && value <= 56 ? value : 32.1; }
+  catch { return 32.1; }
+}
+
+/** Only a layout preference is saved. Both papers and the one real composer
+ * stay mounted while the reader gives an equation more room. */
+function StudyPaperDivider() {
+  const divider = useRef<HTMLDivElement>(null);
+  const [value, setValue] = useState(savedStudySplit);
+  const current = useRef(value), limits = useRef({ min: 24, max: 56 });
+  const [bounds, setBounds] = useState(limits.current);
+  const gesture = useRef<{ id: number; start: number } | undefined>(undefined);
+  const keyboardStart = useRef<number | undefined>(undefined);
+  const [moving, setMoving] = useState(false);
+  function apply(request: number) {
+    const next = Math.round(Math.max(limits.current.min, Math.min(limits.current.max, request)) * 10) / 10;
+    current.current = next; setValue(next);
+    const papers = divider.current?.parentElement;
+    papers?.style.setProperty('--study-source-share', `${next}fr`);
+    papers?.style.setProperty('--study-work-share', `${100-next}fr`);
+  }
+  function save() { try { localStorage.setItem(studySplitKey, String(current.current)); } catch { /* The papers can still be resized. */ } }
+  function end(cancel = false) {
+    const active = gesture.current;
+    if (!active) return;
+    gesture.current = undefined; setMoving(false);
+    divider.current?.parentElement?.removeAttribute('data-resizing');
+    if (cancel) apply(active.start); else save();
+    if (divider.current?.hasPointerCapture(active.id)) divider.current.releasePointerCapture(active.id);
+  }
+  useLayoutEffect(() => {
+    const papers = divider.current?.parentElement;
+    if (!papers) return;
+    apply(current.current);
+    const measure = () => {
+      const width = papers.getBoundingClientRect().width - 18;
+      if (width < 602) { end(true); return; }
+      limits.current = { min: Math.max(24, 210/width*100), max: Math.min(56, 100-285/width*100) };
+      setBounds(limits.current); apply(current.current);
+    };
+    const observer = new ResizeObserver(measure); observer.observe(papers); measure();
+    const cancel = () => end(true);
+    window.addEventListener('blur', cancel);
+    return () => { observer.disconnect(); window.removeEventListener('blur', cancel); };
+  }, []);
+  function move(event: PointerEvent<HTMLDivElement>) {
+    if (gesture.current?.id !== event.pointerId) return;
+    const rect = divider.current?.parentElement?.getBoundingClientRect();
+    if (rect?.width) apply((event.clientX-rect.left-9)/(rect.width-18)*100);
+  }
+  return <div ref={divider} className={`study-paper-divider${moving ? ' is-moving' : ''}`} role="separator" tabIndex={0}
+    aria-label="调整原题和推导纸的宽度" aria-orientation="vertical" aria-valuemin={Math.round(bounds.min)}
+    aria-valuemax={Math.round(bounds.max)} aria-valuenow={Math.round(value)} aria-valuetext={`原题占${Math.round(value)}%`}
+    title="拖动调整宽度；双击复原" onPointerDown={event => {
+      if (gesture.current || event.button !== 0 || !event.isPrimary) return;
+      event.preventDefault(); event.stopPropagation(); keyboardStart.current = undefined;
+      gesture.current = { id: event.pointerId, start: current.current }; setMoving(true);
+      event.currentTarget.parentElement?.setAttribute('data-resizing', 'true');
+      event.currentTarget.setPointerCapture(event.pointerId); event.currentTarget.focus({ preventScroll: true });
+    }} onPointerMove={move} onPointerUp={event => { if (gesture.current?.id === event.pointerId) end(); }} onPointerCancel={event => { if (gesture.current?.id === event.pointerId) end(true); }} onLostPointerCapture={event => { if (gesture.current?.id === event.pointerId) end(true); }}
+    onDoubleClick={() => { apply(32.1); save(); }} onKeyDown={event => {
+      if (event.key === 'Escape') {
+        if (gesture.current) { event.preventDefault(); event.stopPropagation(); end(true); }
+        else if (keyboardStart.current !== undefined) { event.preventDefault(); event.stopPropagation(); apply(keyboardStart.current); save(); keyboardStart.current = undefined; }
+        return;
+      }
+      const next = event.key === 'ArrowLeft' ? current.current-(event.shiftKey ? .5 : 2)
+        : event.key === 'ArrowRight' ? current.current+(event.shiftKey ? .5 : 2)
+          : event.key === 'Home' ? limits.current.min : event.key === 'End' ? limits.current.max : undefined;
+      if (next === undefined) return;
+      event.preventDefault(); event.stopPropagation(); keyboardStart.current ??= current.current; apply(next); save();
+    }} onBlur={() => { keyboardStart.current = undefined; end(true); }}><span aria-hidden="true"><i /><i /></span></div>;
 }
 
 /** Only a current owner response enters the paper. A history reference, a
@@ -305,6 +381,7 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
           </div>
         </section>
 
+        <StudyPaperDivider key={requestKey} />
         <section className="study-work-paper" aria-labelledby={headingId}>
           <header className="study-work-heading"><h3 id={headingId}>{current.heading}</h3>
             {current.status === 'active' && <button type="button" className="study-park" onClick={() => void park()} disabled={pending || disabled}>

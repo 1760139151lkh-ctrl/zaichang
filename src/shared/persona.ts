@@ -217,21 +217,24 @@ const originals: Record<OriginalCompanion, { label: string; summary: string; cor
 };
 const exampleList = (id: Exclude<PersonaCore['presetId'], 'custom'>) =>
   PERSONA_SCENARIOS.map((scene, i) => ({ scenario: scene.id, response: responses[id][i] }));
-export const PERSONA_PRESETS: {
+interface PersonaPresetEntry {
   id: PersonaCore['presetId'];
   label: string;
   summary: string;
   core: PersonaCore;
-}[] = [
-  ...ORIGINAL_COMPANIONS.map(id => ({
-    id, label: originals[id].label, summary: originals[id].summary,
-    core: {
-      ...emptyCore, ...originals[id].core, presetId: id,
-      visualBinding: { companionId: id, characterName: originals[id].label, portrayalBasis: 'project_original' as const,
-        notes: '在场为这幅形象原创的性格；可以自由修改。' },
-      examples: exampleList(id),
-    },
-  })),
+}
+// Retired artwork personalities remain readable for saved profiles and history.
+// They are no longer offered as the product's built-in character selection.
+const LEGACY_PERSONA_PRESETS: PersonaPresetEntry[] = ORIGINAL_COMPANIONS.map(id => ({
+  id, label: originals[id].label, summary: originals[id].summary,
+  core: {
+    ...emptyCore, ...originals[id].core, presetId: id,
+    visualBinding: { companionId: id, characterName: originals[id].label, portrayalBasis: 'project_original' as const,
+      notes: '在场为这幅形象原创的性格；可以自由修改。' },
+    examples: exampleList(id),
+  },
+}));
+export const PERSONA_PRESETS: PersonaPresetEntry[] = [
   ...(['sakiko', 'mutsumi', 'anon', 'tomori'] as const).map(id => {
     const portrayal = characterPortrayal(id)!;
     return {
@@ -275,13 +278,13 @@ export const PERSONA_PRESETS: {
   { id: 'custom', label: '自定义', summary: '从你的描述开始', core: { ...emptyCore } },
 ];
 export function personaPreset(id: PersonaCore['presetId']): PersonaCore {
-  const preset = PERSONA_PRESETS.find((entry) => entry.id === id);
+  const preset = [...PERSONA_PRESETS, ...LEGACY_PERSONA_PRESETS].find((entry) => entry.id === id);
   if (!preset) throw new Error('没有这个角色预设。');
   return structuredClone(preset.core);
 }
 /** The ready-made personality for one of the built-in artworks, if any. */
 export function companionPreset(companionId: string): { core: PersonaCore; label: string; summary: string } | undefined {
-  const preset = PERSONA_PRESETS.find(entry => entry.id === companionId && entry.id !== 'custom'
+  const preset = [...PERSONA_PRESETS, ...LEGACY_PERSONA_PRESETS].find(entry => entry.id === companionId && entry.id !== 'custom'
     && entry.core.visualBinding?.companionId === companionId);
   return preset ? { core: structuredClone(preset.core), label: preset.label, summary: preset.summary } : undefined;
 }
@@ -357,10 +360,9 @@ export function migratePersona(guidance = ''): PersonaState {
     history: [],
   };
 }
-/** A brand-new profile starts with the character it sees by default: 澪, with
- * her own voice, instead of a nameless helper behind someone's picture. */
+/** New profiles share the approved default artwork and its editable character. */
 export function initialPersona(): PersonaState {
-  return { schemaVersion: 1, revision: 0, source: 'default', savedAt: null, core: personaPreset('mio'), history: [] };
+  return { schemaVersion: 1, revision: 0, source: 'default', savedAt: null, core: personaPreset('sakiko'), history: [] };
 }
 export const DEFAULT_PERSONA: PersonaState = initialPersona();
 /** A never-saved default role may follow the product default; anything the

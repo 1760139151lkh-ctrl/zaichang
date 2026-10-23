@@ -46,14 +46,14 @@
       "assets/map-v2/sports-details.geojson",
       "assets/map-v2/building-supplement.json",
       "assets/map-v2/source.osm.json.gz",
-      "前端视觉创新设计/统一图库/原图/运行素材与品牌/icon-9a6d2ebdf831.png",
+      "assets/brand/window-gold.png",
       "licenses/**/*",
       "package.json"
     ],
     "asar": true,
     "win": {
       "target": "portable",
-      "icon": "前端视觉创新设计/统一图库/原图/运行素材与品牌/icon-9d25cbff5ee2.ico",
+      "icon": "assets/brand/window-gold.ico",
       "signAndEditExecutable": true
     },
     "portable": {

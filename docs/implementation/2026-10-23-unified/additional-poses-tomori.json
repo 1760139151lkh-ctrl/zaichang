@@ -1,0 +1,132 @@
+{
+  "tool": "built-in GPT Image",
+  "pipeline": "Approved Sakiko activity mother and Tomori identity reference → complete activity mothers → same-canvas alpha silhouettes",
+  "records": [
+    {
+      "id": "tomori-planning-mother",
+      "prompt": "Use case: identity-preserve. Production scene EDIT, not a new composition. INPUT IMAGE 1 is the approved activity mother scene: preserve its exact 1536x1024 full landscape canvas, room, window, outside campus lake view, curtains, bench, cushion, floor, lighting, camera, perspective, character seat contact, complete legs and both shoes positions. Keep the LEFT 60% an empty warm ivory wall, no UI, no words or watermark. INPUT IMAGE 2 supplies ONLY the new character identity and clothing: Tomori Takamatsu from BanG Dream! MyGO!!!!!, short grey-brown bob hair with soft side bangs, amber-brown eyes, youthful clean 2D anime high-school face, grey school blazer with white piping, white shirt, green striped tie, dark pleated skirt, navy knee socks and brown loafers. Replace Sakiko in image1 with Tomori; no long blue hair, no ribbons, no blue Sakiko uniform. Lock image1 lower-body placement and room geometry, not image2's different pose. Preserve crisp elegant 2D anime linework and warm airy light, youthful proportions and original character recognition, not realistic skin, adult face, mature modelling or chibi. Full head, hair, hands, clothing, legs and shoes remain inside the canvas with the same natural room contact. Planning together: retain image1's seated planning action, small open blank cream notebook resting on her lap. One hand supports it and the other index finger lightly points thoughtfully at an empty page. Tomori's reserved, quietly attentive expression: a small concentrated smile, gently lowered eyebrows, thoughtfully considering the page and the person with her. Distinct from chatting; no stone or extra object from identity image2. Notebook pages may have faint blank rule lines but absolutely no writing.",
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-planning-mother.png",
+          "sha256": "7c576d9d394a547b1246458bf43dad2b9b51e81501a0b956b3d9a8e5fb64ba39"
+        },
+        {
+          "path": "src/renderer/assets/companion/scenes/tomori-chat-mother.png",
+          "sha256": "3e9477a7e42c5751d396ef838938b679b3cccffef459353afaa0c6d65b26d120"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/tomori-planning-mother.png",
+        "generatedPath": "exec-ff8f7c05-8ae1-441f-8672-feab2daf3b17.png",
+        "sha256": "04ad6b0bbb10a7a837f1d78297f9812f821c7aa0a072075099fd3492f6431e4e"
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true
+      }
+    },
+    {
+      "id": "tomori-rest-mother",
+      "prompt": "Use case: identity-preserve. Production scene EDIT, not a new composition. INPUT IMAGE 1 is the approved activity mother scene: preserve its exact 1536x1024 full landscape canvas, room, window, outside campus lake view, curtains, bench, cushion, floor, lighting, camera, perspective, character seat contact, complete legs and both shoes positions. Keep the LEFT 60% an empty warm ivory wall, no UI, no words or watermark. INPUT IMAGE 2 supplies ONLY the new character identity and clothing: Tomori Takamatsu from BanG Dream! MyGO!!!!!, short grey-brown bob hair with soft side bangs, amber-brown eyes, youthful clean 2D anime high-school face, grey school blazer with white piping, white shirt, green striped tie, dark pleated skirt, navy knee socks and brown loafers. Replace Sakiko in image1 with Tomori; no long blue hair, no ribbons, no blue Sakiko uniform. Lock image1 lower-body placement and room geometry, not image2's different pose. Preserve crisp elegant 2D anime linework and warm airy light, youthful proportions and original character recognition, not realistic skin, adult face, mature modelling or chibi. Full head, hair, hands, clothing, legs and shoes remain inside the canvas with the same natural room contact. Quiet rest together: retain image1's relaxed seated pose leaning gently into the right cushion, both hands relaxed on a small closed book on her lap; Tomori gazes out toward the left-hand window with a serene shy reflective face and soft closed mouth. Shoulders lowered and relaxed. No hand-to-cheek chat gesture, no rock or extra notebook from image2. Preserve the original complete legs, shoes and comfortable seat contact.",
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-rest-mother.png",
+          "sha256": "b81dc3b83282748936d31478262972719576c1f4a58097b9c0d0619ab86c2aa0"
+        },
+        {
+          "path": "src/renderer/assets/companion/scenes/tomori-chat-mother.png",
+          "sha256": "3e9477a7e42c5751d396ef838938b679b3cccffef459353afaa0c6d65b26d120"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/tomori-rest-mother.png",
+        "generatedPath": "exec-7fcdd8fc-a436-423a-9faa-ef05b9521904.png",
+        "sha256": "b486e0a57a0c2849c5bb8724995e876cbf2a5722be901667a57a6016caf46f16"
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true
+      }
+    },
+    {
+      "id": "tomori-play-mother",
+      "prompt": "Use case: identity-preserve. Production scene EDIT, not a new composition. INPUT IMAGE 1 is the approved activity mother scene: preserve its exact 1536x1024 full landscape canvas, room, window, outside campus lake view, curtains, bench, cushion, floor, lighting, camera, perspective, character seat contact, complete legs and both shoes positions. Keep the LEFT 60% an empty warm ivory wall, no UI, no words or watermark. INPUT IMAGE 2 supplies ONLY the new character identity and clothing: Tomori Takamatsu from BanG Dream! MyGO!!!!!, short grey-brown bob hair with soft side bangs, amber-brown eyes, youthful clean 2D anime high-school face, grey school blazer with white piping, white shirt, green striped tie, dark pleated skirt, navy knee socks and brown loafers. Replace Sakiko in image1 with Tomori; no long blue hair, no ribbons, no blue Sakiko uniform. Lock image1 lower-body placement and room geometry, not image2's different pose. Preserve crisp elegant 2D anime linework and warm airy light, youthful proportions and original character recognition, not realistic skin, adult face, mature modelling or chibi. Full head, hair, hands, clothing, legs and shoes remain inside the canvas with the same natural room contact. A tiny shared creative moment: retain image1's naturally seated lower body and both hands at chest height holding a little warm-ivory origami bird. Tomori looks cautiously proud and a little happy: shy small smile, gently brightened amber eyes, careful hands protecting her small paper bird, no exaggerated open-mouthed Sakiko expression. The paper bird is clearly readable but small and delicate. No stone from identity image2. Preserve all complete fingers, lower body and shoes and the original room.",
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-play-mother.png",
+          "sha256": "2d2d4af4f844324cb4eef5e0be2a1f740af603a34e86e85e071ae0c1dedce808"
+        },
+        {
+          "path": "src/renderer/assets/companion/scenes/tomori-chat-mother.png",
+          "sha256": "3e9477a7e42c5751d396ef838938b679b3cccffef459353afaa0c6d65b26d120"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/tomori-play-mother.png",
+        "generatedPath": "exec-903e3ebe-f072-40dd-8a3a-0d28cb14e0bf.png",
+        "sha256": "564dc8ab57902326f7959bae49d5dd6882c7821bad6234493d6f5ec13dfab4c2"
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true
+      }
+    },
+    {
+      "id": "tomori-planning-canvas-figure",
+      "prompt": "Use case: background-extraction. Production RGBA SEGMENTATION MATTE / alpha silhouette extracted from the supplied approved complete scene. Exact output canvas 1536x1024, same pixel registration as this source image. Keep ONLY Tomori's entire seated character silhouette AND the small open notebook held on her lap as ONE natural foreground mask in the exact source positions. Include the complete head and every short hair edge, both hands and all fingers, every item of clothing, both full legs, socks and both complete shoes; preserve the original pose, scale, proportions and location exactly. Output inside the silhouette as pure WHITE RGB with opaque alpha; outside it must be truly transparent alpha=0, including the whole left wall and the spaces between limbs. Only narrow antialiasing on the exact silhouette edge. This is a full-canvas reusable mask, not a centered standalone portrait: NEVER crop, reposition, enlarge, redraw the pose, add padding or change the canvas aspect. Remove all room, window, bench, cushions, blanket, floor, background plants, light patches and all cast shadows from the mask. No background checkerboard painted in, no grey rectangle, no furniture, no labels, no drop shadow and no glow. The small held object is part of the mask; the bench and anything not held are NOT part. The character must remain at the exact far-right original seated position with the same complete shoes touching the original source floor coordinates.",
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/tomori-planning-mother.png",
+          "sha256": "04ad6b0bbb10a7a837f1d78297f9812f821c7aa0a072075099fd3492f6431e4e"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/tomori-planning-figure.png",
+        "generatedPath": "exec-a39d304f-6715-447d-827e-2c0936564aac.png",
+        "sha256": "4411b3420da4f9762095226f68e34464e44bd3b9ef641970ab7ebf3fb31152cf"
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true
+      }
+    },
+    {
+      "id": "tomori-rest-canvas-figure",
+      "prompt": "Use case: background-extraction. Production RGBA SEGMENTATION MATTE / alpha silhouette extracted from the supplied approved complete scene. Exact output canvas 1536x1024, same pixel registration as this source image. Keep ONLY Tomori's entire seated character silhouette AND the small closed book held on her lap as ONE natural foreground mask in the exact source positions. Include the complete head and every short hair edge, both hands and all fingers, every item of clothing, both full legs, socks and both complete shoes; preserve the original pose, scale, proportions and location exactly. Output inside the silhouette as pure WHITE RGB with opaque alpha; outside it must be truly transparent alpha=0, including the whole left wall and the spaces between limbs. Only narrow antialiasing on the exact silhouette edge. This is a full-canvas reusable mask, not a centered standalone portrait: NEVER crop, reposition, enlarge, redraw the pose, add padding or change the canvas aspect. Remove all room, window, bench, cushions, blanket, floor, background plants, light patches and all cast shadows from the mask. No background checkerboard painted in, no grey rectangle, no furniture, no labels, no drop shadow and no glow. The small held object is part of the mask; the bench and anything not held are NOT part. The character must remain at the exact far-right original seated position with the same complete shoes touching the original source floor coordinates.",
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/tomori-rest-mother.png",
+          "sha256": "b486e0a57a0c2849c5bb8724995e876cbf2a5722be901667a57a6016caf46f16"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/tomori-rest-figure.png",
+        "generatedPath": "exec-afe05aa3-ed6b-499b-966f-ee62fedfcc88.png",
+        "sha256": "9923490024439750cd0804934f12d88b3a1016c4ae69b6affb471608f4351bfc"
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true
+      }
+    },
+    {
+      "id": "tomori-play-canvas-figure",
+      "prompt": "Use case: background-extraction. Production RGBA SEGMENTATION MATTE / alpha silhouette extracted from the supplied approved complete scene. Exact output canvas 1536x1024, same pixel registration as this source image. Keep ONLY Tomori's entire seated character silhouette AND the small origami bird held between her hands as ONE natural foreground mask in the exact source positions. Include the complete head and every short hair edge, both hands and all fingers, every item of clothing, both full legs, socks and both complete shoes; preserve the original pose, scale, proportions and location exactly. Output inside the silhouette as pure WHITE RGB with opaque alpha; outside it must be truly transparent alpha=0, including the whole left wall and the spaces between limbs. Only narrow antialiasing on the exact silhouette edge. This is a full-canvas reusable mask, not a centered standalone portrait: NEVER crop, reposition, enlarge, redraw the pose, add padding or change the canvas aspect. Remove all room, window, bench, cushions, blanket, floor, background plants, light patches and all cast shadows from the mask. No background checkerboard painted in, no grey rectangle, no furniture, no labels, no drop shadow and no glow. The small held object is part of the mask; the bench and anything not held are NOT part. The character must remain at the exact far-right original seated position with the same complete shoes touching the original source floor coordinates.",
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/tomori-play-mother.png",
+          "sha256": "564dc8ab57902326f7959bae49d5dd6882c7821bad6234493d6f5ec13dfab4c2"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/tomori-play-figure.png",
+        "generatedPath": "exec-d7e17e9e-bc38-4541-a296-4e17e0edcb99.png",
+        "sha256": "e3f3e5d3aaf4aeef9ad1f804d6f7fd40225f1c6138e42520a8ac8fe4024a654d"
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true
+      }
+    }
+  ]
+}

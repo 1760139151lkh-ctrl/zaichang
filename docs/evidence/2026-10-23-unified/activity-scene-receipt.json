@@ -1,0 +1,80 @@
+{
+  "extraRuntime": [
+    {
+      "scene": "sakiko-planning",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "sakiko-rest",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "sakiko-play",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "mutsumi-planning",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "mutsumi-rest",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "mutsumi-play",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "anon-planning",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "anon-rest",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "anon-play",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "tomori-planning",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "tomori-rest",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    },
+    {
+      "scene": "tomori-play",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    }
+  ],
+  "playPosition": "-52",
+  "restPosition": "0",
+  "playReturned": "-52",
+  "errors": []
+}

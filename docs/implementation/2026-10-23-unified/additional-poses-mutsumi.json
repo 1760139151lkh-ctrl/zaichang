@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "generator": "image_gen.imagegen (built-in)",
+  "createdAt": "2026-10-23",
+  "purpose": "Three independent Wakaba Mutsumi actions, identity expansion from approved Sakiko action mother canvases. Figure assets are generated alpha only; renderer should retain original mother RGB. No programmatic image extraction or pixel edits.",
+  "records": [
+    {
+      "id": "mutsumi-planning-mother",
+      "sourceExec": "exec-2610e87c-b0a9-4ef7-b462-8229282a6379",
+      "prompt": "Use case: identity-preserve.\nAsset type: full scene mother illustration for a character already seated in an interactive room.\nInput image 1 is the EDIT TARGET, its EXACT 1536x1024 canvas, entire room, composition, wall, window mullions, bench, cushion, plant silhouettes, outside campus view, perspective, lighting, shadows, sitting support and character foot and knee coordinates are locked. Input image 2 is the CHARACTER IDENTITY and CLOTHING reference only, NOT a pose or layout reference.\nPrimary request: Replace ONLY the blue-haired girl in image 1 with Wakaba Mutsumi (若叶睦) from Ave Mujica, exactly recognizable from image 2: long straight pale grey-green hair, neat bangs and two small gold X hairpins, soft amber eyes, youthful fine 2D anime face, pale blue ruffled blouse with bow and blue plaid skirt as image 2. Preserve the exact leg pose and all shoe/foot positions of Image 1; dark stockings and dark brown loafers, both complete shoes remain in frame on the same floor contact points. Do not copy image 2's different leg pose. Keep the planning pose from Image 1: a small OPEN BLANK notebook in her lap, one hand supporting it and the other gently pointing to a blank page with a pencil, quietly considering a thought. Calm attentive look toward the viewer.\nStyle: beautifully drawn youthful delicate 2D anime, clean fine lines and cel-painted face, airy warm daylight and softly detailed environmental light, consistent with both inputs. No adult realism or mature photorealistic face. Natural hands with five fingers.\nComposition constraints: do not crop, zoom, recenter, resize or move the room or girl. Keep FULL 1536x1024 canvas. Keep the LEFT 60% as the same quiet empty warm wall for interface content. No plant enters left content region. Her entire head, held object, skirt, legs and complete shoes must fit exactly in original right-side sitting envelope, hip on the cushion, not floating.\nOnly change character identity/clothing and requested subtle expression; preserve action. No UI, no text, no typography, no watermark. Output one complete opaque scene.",
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-planning-mother.png",
+          "sha256": "7c576d9d394a547b1246458bf43dad2b9b51e81501a0b956b3d9a8e5fb64ba39"
+        },
+        {
+          "path": "src/renderer/assets/companion/scenes/mutsumi-chat-mother.png",
+          "sha256": "c5403ee5a0543234f87e419bbe65c49e031cf55e922008f2d50d4619f86ed788"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/mutsumi-planning-mother.png",
+        "generatedPath": "exec-2610e87c-b0a9-4ef7-b462-8229282a6379.png",
+        "sha256": "da6e1e09beee1e7f1a08dbb63ae7880423187fb1b1899c853d86886afb6f0055"
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGB",
+        "note": "Viewed full mother: youthful 2D identity, same room/window/seat/feet and empty left content area; action matches requested planning/rest/play state."
+      }
+    },
+    {
+      "id": "mutsumi-planning-figure",
+      "sourceExec": "exec-fb693d5b-d213-4d35-82fc-bfea7129dd73",
+      "prompt": "Use case: background-extraction.\nAsset type: character alpha silhouette/cutout aligned to its existing mother illustration.\nInput image is the EDIT TARGET and the ONLY source. Extract EXACTLY the already drawn seated Wakaba Mutsumi and her held object from this image; remove every background pixel to genuine transparency.\nCRITICAL exact canvas registration: output FULL 1536 x 1024 RGBA PNG, same canvas bounds, no cropping, no trimming, no recentering, no zooming and no resizing. Keep ALL character pixels in the EXACT SAME original x,y coordinates, scale, facial identity, pose and shape. Do not redraw, beautify, move, change expression, or invent the character.\nInclude ALL pale grey-green hair strands, hairpins, face, blouse, all arms/hands/fingers, blue plaid skirt, complete legs, dark socks and BOTH COMPLETE BROWN SHOES at the original floor-contact coordinates. Include the ENTIRE object she is holding (open notebook and pencil / closed book / small paper bird as actually present in this source). Treat held object and hands as part of the same foreground. Do not detach or omit any part.\nErase the complete room: wall, floor, window, light, outside view, bench, seat cushion, plants, pillows, blanket, shelf, other books and floor shadow. Background, floor contact shadow and holes around/between hair, arms and legs must be TRUE alpha=0, not a fake checkerboard, white paint or grey backdrop. Keep fine antialiased hair boundaries without opaque room-colored halo. Preserve the original character RGB wherever possible; this output's alpha will mask the original mother RGB. No new ground shadow, no text, no watermark. One transparent aligned cutout.",
+      "inputs": [
+        {
+          "path": "exec-2610e87c-b0a9-4ef7-b462-8229282a6379.png",
+          "sha256": "da6e1e09beee1e7f1a08dbb63ae7880423187fb1b1899c853d86886afb6f0055"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/mutsumi-planning-figure.png",
+        "generatedPath": "exec-fb693d5b-d213-4d35-82fc-bfea7129dd73.png",
+        "sha256": "b673a787dff886d0ac21ca8d7a1c2760dfb26cc587682275924555b663475b9d"
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "alphaExtrema": [
+          0,
+          254
+        ],
+        "note": "Viewed full canvas: same seated registration, full held object and both complete shoes. Generated alpha has faint low-alpha fringe; existing renderer uses its alpha threshold and the original mother RGB. No image pixels edited."
+      }
+    },
+    {
+      "id": "mutsumi-rest-mother",
+      "sourceExec": "exec-7023f7d3-d4ce-493d-9429-7e5d4c12d40b",
+      "prompt": "Use case: identity-preserve.\nAsset type: full scene mother illustration for a character already seated in an interactive room.\nInput image 1 is the EDIT TARGET, its EXACT 1536x1024 canvas, entire room, composition, wall, window mullions, bench, cushion, plant silhouettes, outside campus view, perspective, lighting, shadows, sitting support and character foot and knee coordinates are locked. Input image 2 is the CHARACTER IDENTITY and CLOTHING reference only, NOT a pose or layout reference.\nPrimary request: Replace ONLY the blue-haired girl in image 1 with Wakaba Mutsumi (若叶睦) from Ave Mujica, exactly recognizable from image 2: long straight pale grey-green hair, neat bangs and two small gold X hairpins, soft amber eyes, youthful fine 2D anime face, pale blue ruffled blouse with bow and blue plaid skirt as image 2. Preserve the exact leg pose and all shoe/foot positions of Image 1; dark stockings and dark brown loafers, both complete shoes remain in frame on the same floor contact points. Do not copy image 2's different leg pose. Keep the restful pose from Image 1: a small CLOSED book held on her lap by both relaxed hands, shoulders resting naturally, head turned toward the window, quietly gazing outside.\nStyle: beautifully drawn youthful delicate 2D anime, clean fine lines and cel-painted face, airy warm daylight and softly detailed environmental light, consistent with both inputs. No adult realism or mature photorealistic face. Natural hands with five fingers.\nComposition constraints: do not crop, zoom, recenter, resize or move the room or girl. Keep FULL 1536x1024 canvas. Keep the LEFT 60% as the same quiet empty warm wall for interface content. No plant enters left content region. Her entire head, held object, skirt, legs and complete shoes must fit exactly in original right-side sitting envelope, hip on the cushion, not floating.\nOnly change character identity/clothing and requested subtle expression; preserve action. No UI, no text, no typography, no watermark. Output one complete opaque scene.",
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-rest-mother.png",
+          "sha256": "b81dc3b83282748936d31478262972719576c1f4a58097b9c0d0619ab86c2aa0"
+        },
+        {
+          "path": "src/renderer/assets/companion/scenes/mutsumi-chat-mother.png",
+          "sha256": "c5403ee5a0543234f87e419bbe65c49e031cf55e922008f2d50d4619f86ed788"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/mutsumi-rest-mother.png",
+        "generatedPath": "exec-7023f7d3-d4ce-493d-9429-7e5d4c12d40b.png",
+        "sha256": "1fa4d53d689abcc729067dd2c523df38f115df91ab96e88384e0f4c537f3af56"
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGB",
+        "note": "Viewed full mother: youthful 2D identity, same room/window/seat/feet and empty left content area; action matches requested planning/rest/play state."
+      }
+    },
+    {
+      "id": "mutsumi-rest-figure",
+      "sourceExec": "exec-2779cebf-649c-48e5-b579-79332521a61f",
+      "prompt": "Use case: background-extraction.\nAsset type: character alpha silhouette/cutout aligned to its existing mother illustration.\nInput image is the EDIT TARGET and the ONLY source. Extract EXACTLY the already drawn seated Wakaba Mutsumi and her held object from this image; remove every background pixel to genuine transparency.\nCRITICAL exact canvas registration: output FULL 1536 x 1024 RGBA PNG, same canvas bounds, no cropping, no trimming, no recentering, no zooming and no resizing. Keep ALL character pixels in the EXACT SAME original x,y coordinates, scale, facial identity, pose and shape. Do not redraw, beautify, move, change expression, or invent the character.\nInclude ALL pale grey-green hair strands, hairpins, face, blouse, all arms/hands/fingers, blue plaid skirt, complete legs, dark socks and BOTH COMPLETE BROWN SHOES at the original floor-contact coordinates. Include the ENTIRE object she is holding (open notebook and pencil / closed book / small paper bird as actually present in this source). Treat held object and hands as part of the same foreground. Do not detach or omit any part.\nErase the complete room: wall, floor, window, light, outside view, bench, seat cushion, plants, pillows, blanket, shelf, other books and floor shadow. Background, floor contact shadow and holes around/between hair, arms and legs must be TRUE alpha=0, not a fake checkerboard, white paint or grey backdrop. Keep fine antialiased hair boundaries without opaque room-colored halo. Preserve the original character RGB wherever possible; this output's alpha will mask the original mother RGB. No new ground shadow, no text, no watermark. One transparent aligned cutout.",
+      "inputs": [
+        {
+          "path": "exec-7023f7d3-d4ce-493d-9429-7e5d4c12d40b.png",
+          "sha256": "1fa4d53d689abcc729067dd2c523df38f115df91ab96e88384e0f4c537f3af56"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/mutsumi-rest-figure.png",
+        "generatedPath": "exec-2779cebf-649c-48e5-b579-79332521a61f.png",
+        "sha256": "09aa0d89edd6b3dcfd12c7fa0e7acb43be07fcc804790c5599a7578ac609715d"
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "alphaExtrema": [
+          0,
+          254
+        ],
+        "note": "Viewed full canvas: same seated registration, full held object and both complete shoes. Generated alpha has faint low-alpha fringe; existing renderer uses its alpha threshold and the original mother RGB. No image pixels edited."
+      }
+    },
+    {
+      "id": "mutsumi-play-mother",
+      "sourceExec": "exec-8845f75f-04ca-4473-a857-6a3a4b40d240",
+      "prompt": "Use case: identity-preserve.\nAsset type: full scene mother illustration for a character already seated in an interactive room.\nInput image 1 is the EDIT TARGET, its EXACT 1536x1024 canvas, entire room, composition, wall, window mullions, bench, cushion, plant silhouettes, outside campus view, perspective, lighting, shadows, sitting support and character foot and knee coordinates are locked. Input image 2 is the CHARACTER IDENTITY and CLOTHING reference only, NOT a pose or layout reference.\nPrimary request: Replace ONLY the blue-haired girl in image 1 with Wakaba Mutsumi (若叶睦) from Ave Mujica, exactly recognizable from image 2: long straight pale grey-green hair, neat bangs and two small gold X hairpins, soft amber eyes, youthful fine 2D anime face, pale blue ruffled blouse with bow and blue plaid skirt as image 2. Preserve the exact leg pose and all shoe/foot positions of Image 1; dark stockings and dark brown loafers, both complete shoes remain in frame on the same floor contact points. Do not copy image 2's different leg pose. Keep the play pose from Image 1: both hands delicately holding a small pale folded paper bird at chest height. Mutsumi has a quiet tiny self-satisfied smile, closed or barely parted lips, subtle pride in what she made, not an exaggerated excited open-mouth grin.\nStyle: beautifully drawn youthful delicate 2D anime, clean fine lines and cel-painted face, airy warm daylight and softly detailed environmental light, consistent with both inputs. No adult realism or mature photorealistic face. Natural hands with five fingers.\nComposition constraints: do not crop, zoom, recenter, resize or move the room or girl. Keep FULL 1536x1024 canvas. Keep the LEFT 60% as the same quiet empty warm wall for interface content. No plant enters left content region. Her entire head, held object, skirt, legs and complete shoes must fit exactly in original right-side sitting envelope, hip on the cushion, not floating.\nOnly change character identity/clothing and requested subtle expression; preserve action. No UI, no text, no typography, no watermark. Output one complete opaque scene.",
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-play-mother.png",
+          "sha256": "2d2d4af4f844324cb4eef5e0be2a1f740af603a34e86e85e071ae0c1dedce808"
+        },
+        {
+          "path": "src/renderer/assets/companion/scenes/mutsumi-chat-mother.png",
+          "sha256": "c5403ee5a0543234f87e419bbe65c49e031cf55e922008f2d50d4619f86ed788"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/mutsumi-play-mother.png",
+        "generatedPath": "exec-8845f75f-04ca-4473-a857-6a3a4b40d240.png",
+        "sha256": "1ec0bbc66e6da81c9bd8ecc7ccb0987372fa63b6b5f84906dc57eab8cf51c625"
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGB",
+        "note": "Viewed full mother: youthful 2D identity, same room/window/seat/feet and empty left content area; action matches requested planning/rest/play state."
+      }
+    },
+    {
+      "id": "mutsumi-play-figure",
+      "sourceExec": "exec-b2600493-b7db-4cdf-a150-a53271aa30ae",
+      "prompt": "Use case: background-extraction.\nAsset type: character alpha silhouette/cutout aligned to its existing mother illustration.\nInput image is the EDIT TARGET and the ONLY source. Extract EXACTLY the already drawn seated Wakaba Mutsumi and her held object from this image; remove every background pixel to genuine transparency.\nCRITICAL exact canvas registration: output FULL 1536 x 1024 RGBA PNG, same canvas bounds, no cropping, no trimming, no recentering, no zooming and no resizing. Keep ALL character pixels in the EXACT SAME original x,y coordinates, scale, facial identity, pose and shape. Do not redraw, beautify, move, change expression, or invent the character.\nInclude ALL pale grey-green hair strands, hairpins, face, blouse, all arms/hands/fingers, blue plaid skirt, complete legs, dark socks and BOTH COMPLETE BROWN SHOES at the original floor-contact coordinates. Include the ENTIRE object she is holding (open notebook and pencil / closed book / small paper bird as actually present in this source). Treat held object and hands as part of the same foreground. Do not detach or omit any part.\nErase the complete room: wall, floor, window, light, outside view, bench, seat cushion, plants, pillows, blanket, shelf, other books and floor shadow. Background, floor contact shadow and holes around/between hair, arms and legs must be TRUE alpha=0, not a fake checkerboard, white paint or grey backdrop. Keep fine antialiased hair boundaries without opaque room-colored halo. Preserve the original character RGB wherever possible; this output's alpha will mask the original mother RGB. No new ground shadow, no text, no watermark. One transparent aligned cutout.",
+      "inputs": [
+        {
+          "path": "exec-8845f75f-04ca-4473-a857-6a3a4b40d240.png",
+          "sha256": "1ec0bbc66e6da81c9bd8ecc7ccb0987372fa63b6b5f84906dc57eab8cf51c625"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/mutsumi-play-figure.png",
+        "generatedPath": "exec-b2600493-b7db-4cdf-a150-a53271aa30ae.png",
+        "sha256": "dda6e81d2f88c1d909e4f662aac41e57586a7643300474637a796d8e5b8d7230"
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "alphaExtrema": [
+          0,
+          254
+        ],
+        "note": "Viewed full canvas: same seated registration, full held object and both complete shoes. Generated alpha has faint low-alpha fringe; existing renderer uses its alpha threshold and the original mother RGB. No image pixels edited."
+      }
+    }
+  ]
+}

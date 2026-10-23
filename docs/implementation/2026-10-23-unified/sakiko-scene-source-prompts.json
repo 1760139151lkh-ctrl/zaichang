@@ -1,0 +1,231 @@
+{
+  "date": "2026-10-23",
+  "tool": "image_gen__imagegen",
+  "mode": "built-in EDIT",
+  "recordMeaning": "Exact prompt strings transcribed from this agent's actual tool calls. Input/output files are identified by hashes and normalized references; no inferred or replacement prompts.",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "records": [
+    {
+      "id": "sakiko-reading-mother",
+      "prompt": "Use case: identity-preserve. Asset type: production mother scene for Zaichang companion, reading state. EDIT the provided approved 1536x1024 master image, preserve its full exact canvas framing, camera, room perspective, window, window-seat cushion, bookshelf and floor geometry. This is the SAME room, SAME shot and SAME teenage anime Toyokawa Sakiko (BanG Dream! Ave Mujica/MyGO universe) with SAME youthful delicate face, amber eyes, long wavy pale blue hair with navy bows, navy cardigan, white ribbon, plaid skirt, knee socks and loafers. Change only her reading action: her head/eyes gently lowered to a naturally OPEN book held with BOTH hands in front of her lap. Keep her seated pelvis, torso location, seat contact, leg angles, both complete legs and both complete shoes at exactly the master positions. She quietly concentrates, age-appropriate anime facial proportions, fresh and alive, not a mature realistic woman. Retain airy warm afternoon light and soft illustrated light/shadows, high-end detailed anime environmental painting, not 3D or photorealism. Left 60% stays a quiet clear cream wall and floor safe area with NO plant objects, NO books, NO new furniture, NO UI, NO writing or lettering. Existing natural soft window light/shadow may remain. Any foliage remains only at far right/window edge in its original position. Preserve high quality hand anatomy and book perspective. No cropped feet, no floating, no outline glow, no added border, no text, no UI, no split scene. The output is a complete coherent scene, NOT a cutout or transparent figure. Exact original 1536x1024 canvas.",
+      "referenced_image_paths": [
+        "exec-93ace784-4d66-4b27-893c-176c2051cbe6.png"
+      ],
+      "transparent_background": false,
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true
+      },
+      "inputs": [
+        {
+          "path": "exec-93ace784-4d66-4b27-893c-176c2051cbe6.png",
+          "sha256": "a04225b4e42780032029f89f7eb786a87407d1731fcc5d494fdef14d121b6882",
+          "dimensions": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "bytes": 1975042
+        }
+      ],
+      "output": {
+        "generatedPath": "exec-9763b601-0a64-414f-b385-4c2aadabd1e1.png",
+        "sha256": "de81d55db3281322bba7bcdd5f1263bebfe03efeeb5ccb12a37b9baec406a569",
+        "dimensions": [
+          1536,
+          1024
+        ],
+        "mode": "RGB",
+        "bytes": 1923288,
+        "projectPath": "src/renderer/assets/companion/scenes/sakiko-reading-mother.png",
+        "projectSha256": "de81d55db3281322bba7bcdd5f1263bebfe03efeeb5ccb12a37b9baec406a569"
+      }
+    },
+    {
+      "id": "sakiko-night-mother",
+      "prompt": "Use case: lighting-weather and identity-preserve. Asset type: production mother scene for Zaichang companion, warm rainy NIGHT state. EDIT the approved input master, exact original 1536x1024 full canvas, same camera, room layout, window frame coordinates, window-seat cushion, bookshelf, perspective and body/seating footprint. This is the SAME youthful teenage anime Toyokawa Sakiko with the SAME delicate youthful facial design, amber eyes, pale blue long wavy hair, navy bows, navy cardigan, white ribbon, plaid skirt, knee socks and complete brown loafers. Change the entire scene coherently from daytime to rainy night: all window sky is deep blue-violet rainy nighttime, rain droplets on glass, quiet soft distant campus lights reflected on the lake. NO daytime blue sky, NO sunbeams, NO daylight/night dividing line, NO split-screen. A small warm-gold shaded table lamp on the far right bookshelf/side table is the natural warm key light. Soft cool rain fill, warm amber face and cushion light, grounded contact shadows, graceful detailed anime background, no photorealistic adult face. Her pelvis, torso placement, seated position, complete legs and both complete shoes remain in exactly the input positions. Change her arms naturally to cradle a small white porcelain mug in BOTH hands around her chest/lap; head angled gently toward the viewer, calm friendly interested expression, youthful anime proportions. Remove the book from her hands; keep the rest of room fixed. Left 60% is quiet uncluttered deep warm charcoal-violet wall and floor, clear safe area for future interface, no plant objects, no furniture, no text, no UI. Foliage stays only at the far right/window edge in the original locations. Avoid mature middle-aged realism, cropped shoes, floating body, sticker look, outlines, glow edges, text, watermark, collage. The output is the complete single continuous mother scene, not a cutout. Keep exact 1536x1024 framing.",
+      "referenced_image_paths": [
+        "exec-93ace784-4d66-4b27-893c-176c2051cbe6.png"
+      ],
+      "transparent_background": false,
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true
+      },
+      "inputs": [
+        {
+          "path": "exec-93ace784-4d66-4b27-893c-176c2051cbe6.png",
+          "sha256": "a04225b4e42780032029f89f7eb786a87407d1731fcc5d494fdef14d121b6882",
+          "dimensions": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "bytes": 1975042
+        }
+      ],
+      "output": {
+        "generatedPath": "exec-9cd29833-2c21-464c-8a9d-60286e8c9ae8.png",
+        "sha256": "fb122ec18512c7ae20f0a6bc65750138676f6a4619958cbb3bd91ad22036fc3b",
+        "dimensions": [
+          1536,
+          1024
+        ],
+        "mode": "RGB",
+        "bytes": 1975126,
+        "projectPath": "src/renderer/assets/companion/scenes/sakiko-night-mother.png",
+        "projectSha256": "fb122ec18512c7ae20f0a6bc65750138676f6a4619958cbb3bd91ad22036fc3b"
+      }
+    },
+    {
+      "id": "sakiko-reading-figure",
+      "prompt": "Use case: background-extraction. Extract ONLY Sakiko and the open book held in BOTH of her hands from this exact image onto genuinely transparent RGBA. CRITICAL REGISTRATION: output EXACT full original 1536x1024 canvas; leave the girl at EXACT original x/y coordinates, scale, seating pose, complete leg and both shoe positions. The left area stays fully transparent and empty. DO NOT CROP, DO NOT RECENTER, DO NOT resize/reframe. Preserve precisely the youthful face, all pale blue hair strands, bows, cardigan, skirt, skin, socks, both complete loafers, both hands and held open book from this input. Remove ALL room pixels: wall, floor, seat, cushions, blankets, lamp, plants, bookshelf, window, and contact shadows, making those pixels alpha=0. No backdrop of any color. Clean natural antialiased silhouette without any white halo, white outline, glow rim, matte contamination, shadow cloud, or feathered white border. Do not redraw or beautify her face or change body contour. Think of an exact full-frame alpha extraction aligned to the source image. The result will be used as a registration mask over ORIGINAL source pixels, so position, scale and silhouette accuracy are paramount.",
+      "referenced_image_paths": [
+        "src/renderer/assets/companion/scenes/sakiko-reading-mother.png"
+      ],
+      "transparent_background": true,
+      "review": {
+        "agentViewed": true,
+        "use": "alpha mask only over original mother pixels",
+        "limitation": "The generated RGBA contains a low-alpha halo. Its RGB is not accepted for direct character rendering; the compositor must remove the fringe and display the mother image's original pixels. Dominant body alpha is 253, not 255."
+      },
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-reading-mother.png",
+          "sha256": "de81d55db3281322bba7bcdd5f1263bebfe03efeeb5ccb12a37b9baec406a569",
+          "dimensions": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "bytes": 1923288
+        }
+      ],
+      "output": {
+        "generatedPath": "exec-d6cd92e5-54fa-4a82-bd5e-89ed8acf45b0.png",
+        "sha256": "cd602ca369fe3b2446808daa1ba2bdc7b49d8e321d1ebd2ddfdc1254bbf49f3f",
+        "dimensions": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "bytes": 1160901,
+        "projectPath": "src/renderer/assets/companion/scenes/sakiko-reading-figure.png",
+        "projectSha256": "cd602ca369fe3b2446808daa1ba2bdc7b49d8e321d1ebd2ddfdc1254bbf49f3f"
+      }
+    },
+    {
+      "id": "sakiko-night-figure",
+      "prompt": "Use case: background-extraction. Extract ONLY Sakiko and the warm mug held in BOTH hands from this exact rainy-night image onto genuinely transparent RGBA. CRITICAL REGISTRATION: output EXACT full original 1536x1024 canvas, keep figure at EXACT source pixel x/y coordinates, original scale, head, torso, seat footprint, complete leg angles and both shoe positions. Leave large left portion fully transparent. DO NOT CROP, DO NOT RECENTER, DO NOT resize/reframe. Keep the precise youthful face, all pale blue hair, navy bows, cardigan, skirt, complete skin/socks/both full loafers, hands and held mug. Remove all room, seat, cushions, blankets, floor, wall, window, rain, light, plants, lamp, bookshelf and background shadows to alpha=0. Only the person and held mug remain. No white halo, white or black fringe, glow outline, matte contamination or drop shadow. No redrawing face/body, no invented edges. This will be a full-frame alpha registration mask over ORIGINAL source pixels, so exact position and silhouette matter more than creative rendering.",
+      "referenced_image_paths": [
+        "src/renderer/assets/companion/scenes/sakiko-night-mother.png"
+      ],
+      "transparent_background": true,
+      "review": {
+        "agentViewed": true,
+        "use": "alpha mask only over original mother pixels",
+        "limitation": "The generated RGBA contains a low-alpha halo. Its RGB is not accepted for direct character rendering; the compositor must remove the fringe and display the mother image's original pixels. Dominant body alpha is 253, not 255."
+      },
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-night-mother.png",
+          "sha256": "fb122ec18512c7ae20f0a6bc65750138676f6a4619958cbb3bd91ad22036fc3b",
+          "dimensions": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "bytes": 1975126
+        }
+      ],
+      "output": {
+        "generatedPath": "exec-6cbbb5af-6b83-45c9-915d-30e234522c2a.png",
+        "sha256": "2f6464ba9ec52d61ebee1221bec44801024644040a8c64ce109fe1a094fecb19",
+        "dimensions": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "bytes": 1123607,
+        "projectPath": "src/renderer/assets/companion/scenes/sakiko-night-figure.png",
+        "projectSha256": "2f6464ba9ec52d61ebee1221bec44801024644040a8c64ce109fe1a094fecb19"
+      }
+    },
+    {
+      "id": "sakiko-reading-background",
+      "prompt": "Use case: precise-object-edit. Create a clean BACKGROUND PLATE from the input image by removing ONLY the entire seated anime girl and the open book she is holding. Inpaint the room naturally where the girl covered it: continuous original window seat with the same beige check cushion and supporting woodwork, original pillows, original warm wood floor under where both shoes were. Preserve the EXACT full 1536x1024 canvas, same fixed camera/perspective, and every existing window frame line, sill, window-seat cushion edge, bookshelf, throw blanket, wall and floor geometry at the SAME pixel positions. DO NOT crop, recenter, zoom, shift the window/seat, or redesign the room. Preserve original daytime lighting and original image everywhere outside the removed girl/book. The separate porcelain mug already on the cushion is part of the room and MUST remain at its original location. Left 60% stays the exact quiet clear cream wall/floor area without plants, writing or any added object. No girl or ghost silhouette, no human shadow left behind, no extra people, no UI, no text, no borders. Complete coherent empty room, original 1536x1024 framing.",
+      "referenced_image_paths": [
+        "src/renderer/assets/companion/scenes/sakiko-reading-mother.png"
+      ],
+      "transparent_background": false,
+      "review": {
+        "agentViewed": true,
+        "limitation": "Seat, pillow and floor areas hidden by the original character are generated reconstruction, not recovered original pixels."
+      },
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-reading-mother.png",
+          "sha256": "de81d55db3281322bba7bcdd5f1263bebfe03efeeb5ccb12a37b9baec406a569",
+          "dimensions": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "bytes": 1923288
+        }
+      ],
+      "output": {
+        "generatedPath": "exec-79ba2da0-782e-4076-a3da-cb885ce85742.png",
+        "sha256": "ddaa0510c865611a61756d72219996d8a6b5f0bb5cb46f2c5c129fc9801b371d",
+        "dimensions": [
+          1536,
+          1024
+        ],
+        "mode": "RGB",
+        "bytes": 1881443,
+        "projectPath": "src/renderer/assets/companion/scenes/sakiko-reading-background.png",
+        "projectSha256": "ddaa0510c865611a61756d72219996d8a6b5f0bb5cb46f2c5c129fc9801b371d"
+      }
+    },
+    {
+      "id": "sakiko-night-background",
+      "prompt": "Use case: precise-object-edit. Create a clean rainy-NIGHT BACKGROUND PLATE by removing ONLY the seated anime girl and mug held in her hands. Naturally reconstruct the beige check window-seat cushion, original pillows, woodwork and warm wooden floor hidden by her body and both shoes. CRITICAL: preserve EXACT original full 1536x1024 canvas, fixed camera, perspective, same window frame pixel lines, SAME window-seat cushion edge and position, same right bookshelf and warm gold table lamp, blanket and all room objects. NO crop, recenter, zoom or layout movement. Keep continuous coherent rainy nighttime across the whole window, cool dark blue-violet rain outside and the same warm amber indoor lamp light. Preserve the input image outside the removed person/held mug. Left quiet deep charcoal-violet wall/floor stays uncluttered with no plants or objects added. No ghost girl, no remaining body/shoe shadow, no people, no text, no UI, no dividing line. Output exact 1536x1024 original framing.",
+      "referenced_image_paths": [
+        "src/renderer/assets/companion/scenes/sakiko-night-mother.png"
+      ],
+      "transparent_background": false,
+      "review": {
+        "agentViewed": true,
+        "limitation": "Seat, pillow and floor areas hidden by the original character are generated reconstruction, not recovered original pixels."
+      },
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-night-mother.png",
+          "sha256": "fb122ec18512c7ae20f0a6bc65750138676f6a4619958cbb3bd91ad22036fc3b",
+          "dimensions": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "bytes": 1975126
+        }
+      ],
+      "output": {
+        "generatedPath": "exec-9a342e10-1732-4f0c-9ccf-e6165ce45ab3.png",
+        "sha256": "c16a88c90c0bcdb4a03e42e80f1d39101837a4eacd12423f03803fbe74f375b4",
+        "dimensions": [
+          1536,
+          1024
+        ],
+        "mode": "RGB",
+        "bytes": 1867337,
+        "projectPath": "src/renderer/assets/companion/scenes/sakiko-night-background.png",
+        "projectSha256": "c16a88c90c0bcdb4a03e42e80f1d39101837a4eacd12423f03803fbe74f375b4"
+      }
+    }
+  ],
+  "pathEncoding": "Repository input/output paths are repository-relative. Generated source inputs/outputs are their original exec-*.png basenames. Host workspace directories are intentionally omitted; hashes identify the exact files used."
+}

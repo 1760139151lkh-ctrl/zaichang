@@ -75,6 +75,15 @@ export function materialQuoteAddress(quote: MaterialQuoteReference): MaterialQuo
 }
 export const materialQuoteInputSchema = z.object({ target: materialTargetSchema, quote: materialQuoteReferenceSchema }).strict();
 export const materialKeepQuoteInputSchema = materialQuoteInputSchema.extend({ annotation: z.string().max(4000).optional() });
+/** Reposition a kept annotation on the same immutable source. The notebook
+ * identity and current revision are required; no client body is accepted. */
+export const materialMoveNoteInputSchema = z.object({
+  target: materialTargetSchema,
+  noteId: z.string().regex(/^note-[a-f0-9-]{36}$/),
+  expectedRevision: z.number().int().positive(),
+  from: materialQuoteReferenceSchema,
+  quote: materialQuoteReferenceSchema,
+}).strict();
 export const materialNotesInputSchema = z.object({
   target: materialTargetSchema,
   page: z.number().int().min(1).max(MATERIAL_LIMITS.pages).optional(),
@@ -96,5 +105,6 @@ export interface MaterialsBridge {
   materialsDiscard(input: { reference: MaterialReference }): Promise<void>;
   materialsQuote(input: z.infer<typeof materialQuoteInputSchema>): Promise<MaterialQuote>;
   materialsKeepQuote(input: z.infer<typeof materialKeepQuoteInputSchema>): Promise<import('./notes').NoteMutation>;
+  materialsMoveNote(input: z.infer<typeof materialMoveNoteInputSchema>): Promise<import('./notes').NoteMutation>;
   materialsNotes(input: z.infer<typeof materialNotesInputSchema>): Promise<MaterialNotes>;
 }

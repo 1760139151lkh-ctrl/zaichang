@@ -1,0 +1,222 @@
+{
+  "date": "2026-10-23",
+  "tool": "image_gen__imagegen",
+  "mode": "built-in EDIT",
+  "pathEncoding": "Repository paths are relative; generatedPath preserves only the original generated source basename. Exact prompt strings are those actually sent to Image.",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "records": [
+    {
+      "id": "anon-planning-mother",
+      "prompt": "Use case: identity-preserve. EDIT INPUT IMAGE 1, the approved full-frame scene and exact pose. INPUT IMAGE 2 is ONLY the Chihaya Anon character-identity reference. Replace Sakiko in IMAGE 1 with Chihaya Anon from BanG Dream! It's MyGO!!!!! while preserving the original complete 1536x1024 canvas, fixed camera, room, window frame, cushion front edge, seat, bookshelf, plants, floor, perspective and lighting. Keep the exact torso location, seated pelvis contact, leg angles and both complete shoes at the pixel positions in IMAGE 1. No crop, no zoom, no recentering, no camera or room movement. Anon identity comes from IMAGE 2: very long soft pink hair, large gray-blue eyes, youthful lively delicate anime face, gray school blazer with white piping and gold buttons, white shirt, green striped necktie, gray plaid skirt, dark knee socks, brown loafers. Do not retain Sakiko's blue hair/navy cardigan. Preserve youthful anime age and light airy original painting, never a mature realistic woman. Keep the large quiet left wall/floor negative space exactly clear, no new plants, furniture, UI or lettering. Complete feet naturally contact the floor; seated body naturally contacts the cushion. No stickers, cutout outlines, halo, floating, extra characters, collage, borders, logos or watermarks. Output a complete coherent mother scene, same original 1536x1024 framing. Planning action from IMAGE 1: she holds an OPEN notebook over her lap with one hand, the other hand uses a pencil/index finger to point gently at a place on the open page as if thinking through an arrangement together. A thoughtful interested slight smile, not generic waving. Preserve notebook/pencil anatomy and perspective. Notebook pages have subtle blank lines only, no readable text.",
+      "transparent_background": false,
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-planning-mother.png",
+          "sha256": "7c576d9d394a547b1246458bf43dad2b9b51e81501a0b956b3d9a8e5fb64ba39"
+        },
+        {
+          "path": "src/renderer/assets/companion/scenes/anon-chat-mother.png",
+          "sha256": "9613b668aa0cf1aad0fb928168fffaa50e04c8009184e155dfb5d9bffe4ae3db"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/anon-planning-mother.png",
+        "generatedPath": "exec-19027179-800e-4ead-b2e1-e31728088cce.png",
+        "sha256": "40869ee240a3c3a64f716d71cb282c08056630349707a64584fc37028449b006",
+        "dimensions": [
+          1536,
+          1024
+        ],
+        "mode": "RGB",
+        "bytes": 1918799
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true
+      },
+      "disposition": "selected"
+    },
+    {
+      "id": "anon-rest-mother",
+      "prompt": "Use case: identity-preserve. EDIT INPUT IMAGE 1, the approved full-frame scene and exact pose. INPUT IMAGE 2 is ONLY the Chihaya Anon character-identity reference. Replace Sakiko in IMAGE 1 with Chihaya Anon from BanG Dream! It's MyGO!!!!! while preserving the original complete 1536x1024 canvas, fixed camera, room, window frame, cushion front edge, seat, bookshelf, plants, floor, perspective and lighting. Keep the exact torso location, seated pelvis contact, leg angles and both complete shoes at the pixel positions in IMAGE 1. No crop, no zoom, no recentering, no camera or room movement. Anon identity comes from IMAGE 2: very long soft pink hair, large gray-blue eyes, youthful lively delicate anime face, gray school blazer with white piping and gold buttons, white shirt, green striped necktie, gray plaid skirt, dark knee socks, brown loafers. Do not retain Sakiko's blue hair/navy cardigan. Preserve youthful anime age and light airy original painting, never a mature realistic woman. Keep the large quiet left wall/floor negative space exactly clear, no new plants, furniture, UI or lettering. Complete feet naturally contact the floor; seated body naturally contacts the cushion. No stickers, cutout outlines, halo, floating, extra characters, collage, borders, logos or watermarks. Output a complete coherent mother scene, same original 1536x1024 framing. Rest action from IMAGE 1: she turns her head naturally toward the window and looks outside, quietly taking a breather. Her hands rest gently over a CLOSED book on her lap. Preserve that resting pose and all lower-body positions from IMAGE 1; soft calm youthful profile, no eyes staring at viewer, no new gestures.",
+      "transparent_background": false,
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-rest-mother.png",
+          "sha256": "b81dc3b83282748936d31478262972719576c1f4a58097b9c0d0619ab86c2aa0"
+        },
+        {
+          "path": "src/renderer/assets/companion/scenes/anon-chat-mother.png",
+          "sha256": "9613b668aa0cf1aad0fb928168fffaa50e04c8009184e155dfb5d9bffe4ae3db"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/anon-rest-mother.png",
+        "generatedPath": "exec-1e0fc67f-1fd4-45cf-aa70-ae2c3280e9ce.png",
+        "sha256": "0efb7ba53e3da497ee27750b026a10a162a3b9dbb65bd36e891d8a0d1b53dca2",
+        "dimensions": [
+          1536,
+          1024
+        ],
+        "mode": "RGB",
+        "bytes": 1888290
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true
+      },
+      "disposition": "selected"
+    },
+    {
+      "id": "anon-play-mother",
+      "prompt": "Use case: identity-preserve. EDIT INPUT IMAGE 1, the approved full-frame scene and exact pose. INPUT IMAGE 2 is ONLY the Chihaya Anon character-identity reference. Replace Sakiko in IMAGE 1 with Chihaya Anon from BanG Dream! It's MyGO!!!!! while preserving the original complete 1536x1024 canvas, fixed camera, room, window frame, cushion front edge, seat, bookshelf, plants, floor, perspective and lighting. Keep the exact torso location, seated pelvis contact, leg angles and both complete shoes at the pixel positions in IMAGE 1. No crop, no zoom, no recentering, no camera or room movement. Anon identity comes from IMAGE 2: very long soft pink hair, large gray-blue eyes, youthful lively delicate anime face, gray school blazer with white piping and gold buttons, white shirt, green striped necktie, gray plaid skirt, dark knee socks, brown loafers. Do not retain Sakiko's blue hair/navy cardigan. Preserve youthful anime age and light airy original painting, never a mature realistic woman. Keep the large quiet left wall/floor negative space exactly clear, no new plants, furniture, UI or lettering. Complete feet naturally contact the floor; seated body naturally contacts the cushion. No stickers, cutout outlines, halo, floating, extra characters, collage, borders, logos or watermarks. Output a complete coherent mother scene, same original 1536x1024 framing. Playful action from IMAGE 1: she holds a SMALL folded paper bird delicately between both hands near her chest, showing it with a small fresh lively smile and a little spark of amusement. Keep the gesture modest and natural, not broad flailing, exaggerated adult expression or generic wave. Preserve the exact seated pose and full leg/shoe positions from IMAGE 1.",
+      "transparent_background": false,
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-play-mother.png",
+          "sha256": "2d2d4af4f844324cb4eef5e0be2a1f740af603a34e86e85e071ae0c1dedce808"
+        },
+        {
+          "path": "src/renderer/assets/companion/scenes/anon-chat-mother.png",
+          "sha256": "9613b668aa0cf1aad0fb928168fffaa50e04c8009184e155dfb5d9bffe4ae3db"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/anon-play-mother.png",
+        "generatedPath": "exec-d9498719-8fef-46f0-b980-43a079cc7391.png",
+        "sha256": "1d56312c5a35986d0d72cf0e881a47dc2bf47b7f72fe7877331cb88141a35163",
+        "dimensions": [
+          1536,
+          1024
+        ],
+        "mode": "RGB",
+        "bytes": 1896581
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true
+      },
+      "disposition": "selected"
+    },
+    {
+      "id": "anon-planning-figure",
+      "prompt": "Use case: background-extraction. Produce a precise FULL-CANVAS RGBA ALPHA MASK for the exact seated character in this source image, not a newly composed illustration. Preserve EXACT original 1536x1024 framing and every original character x/y position, head/hair outline, pose, torso, skirt, both complete legs and both full shoes. No cropping, centering, scaling, moving or pose change. The person's entire silhouette and held objects must be a SOLID FULLY OPAQUE charcoal silhouette; interior face/cloth colors are not needed, because software uses only this alpha to reveal the ORIGINAL mother-image RGB pixels. Do NOT render a new face or outfit. The room, seat/cushions, window, floor, wall, plants, bookshelf, blanket and all background/contact shadows must become genuinely transparent alpha=0. The original large empty left portion stays transparent. Trace the true silhouette with at most a 1-pixel antialiased edge; no soft mask cloud, no low-opacity halo, no glow, no broad feathering, no matte border, no shadow or background object included. Exact original 1536x1024 full canvas, complete feet preserved. Include the open notebook, all its pages/covers, and the thin pencil in the character's hands inside the opaque silhouette. Do not include the separate cup sitting on the cushion.",
+      "transparent_background": true,
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/anon-planning-mother.png",
+          "sha256": "40869ee240a3c3a64f716d71cb282c08056630349707a64584fc37028449b006"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/anon-planning-figure.png",
+        "generatedPath": "exec-7ffcd7c6-851b-48c2-855e-82c007e4e926.png",
+        "sha256": "aef11fd261ef1d858a2e64ec99a5591c5ebef08b6a0adaa6dedc52867e74cfb2",
+        "dimensions": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "bytes": 777386
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true,
+        "use": "Alpha mask only to reveal original mother RGB; extracted RGB is intentionally a flat charcoal silhouette, never a visible sticker.",
+        "limitation": "Raw low-alpha fringe exists on planning/rest extraction and must be suppressed in the existing compositor. It is not accepted as a visible character halo."
+      },
+      "disposition": "selected"
+    },
+    {
+      "id": "anon-rest-figure",
+      "prompt": "Use case: background-extraction. Produce a precise FULL-CANVAS RGBA ALPHA MASK for the exact seated character in this source image, not a newly composed illustration. Preserve EXACT original 1536x1024 framing and every original character x/y position, head/hair outline, pose, torso, skirt, both complete legs and both full shoes. No cropping, centering, scaling, moving or pose change. The person's entire silhouette and held objects must be a SOLID FULLY OPAQUE charcoal silhouette; interior face/cloth colors are not needed, because software uses only this alpha to reveal the ORIGINAL mother-image RGB pixels. Do NOT render a new face or outfit. The room, seat/cushions, window, floor, wall, plants, bookshelf, blanket and all background/contact shadows must become genuinely transparent alpha=0. The original large empty left portion stays transparent. Trace the true silhouette with at most a 1-pixel antialiased edge; no soft mask cloud, no low-opacity halo, no glow, no broad feathering, no matte border, no shadow or background object included. Exact original 1536x1024 full canvas, complete feet preserved. Include the closed book on the character's lap and both resting hands inside the opaque silhouette. Preserve the exact window-facing head/hair silhouette.",
+      "transparent_background": true,
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/anon-rest-mother.png",
+          "sha256": "0efb7ba53e3da497ee27750b026a10a162a3b9dbb65bd36e891d8a0d1b53dca2"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/anon-rest-figure.png",
+        "generatedPath": "exec-c3f134e7-36c0-475b-b1f3-a06c66bedfd1.png",
+        "sha256": "2bfed206f6736453655e2e2bbedf633b386765c1e36ed0ce8a25a918e00bc956",
+        "dimensions": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "bytes": 713788
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true,
+        "use": "Alpha mask only to reveal original mother RGB; extracted RGB is intentionally a flat charcoal silhouette, never a visible sticker.",
+        "limitation": "Raw low-alpha fringe exists on planning/rest extraction and must be suppressed in the existing compositor. It is not accepted as a visible character halo."
+      },
+      "disposition": "selected"
+    },
+    {
+      "id": "anon-play-figure",
+      "prompt": "Use case: background-extraction. Make an RGBA alpha extraction mask from this exact source. MANDATORY OUTPUT SIZE IS 1536 pixels wide by 1024 pixels high, identical to the input. Keep every full-frame transparent column and row, including the empty leftmost columns. Do not auto-trim even ONE pixel, do not crop to 1535, do not recenter, resize, zoom or shift. The exact original seated Anon silhouette remains at its source x/y coordinates: long hair, head, torso, uniform/skirt, both hands with the small folded paper bird, complete legs/socks and BOTH complete loafers. Represent only the person and held paper bird as a fully opaque solid charcoal silhouette; interior face/colors are irrelevant because software uses ONLY this alpha mask with the ORIGINAL mother RGB. Every room, seat, cushion, blanket, wall, window, plant, floor and shadow pixel is genuinely transparent alpha=0. No background cloud, glow, halo, drop shadow, broad feathering or matte; only a crisp silhouette with minimal single-pixel antialiasing on its true edge. The whole large left negative-space region remains empty transparent, but its full pixel canvas width must be preserved. Exact original 1536x1024 RGBA, no trim, no repositioning.",
+      "transparent_background": true,
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/anon-play-mother.png",
+          "sha256": "1d56312c5a35986d0d72cf0e881a47dc2bf47b7f72fe7877331cb88141a35163"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/anon-play-figure.png",
+        "generatedPath": "exec-a8e2fc6b-e09c-461f-8e5e-4204a497a979.png",
+        "sha256": "6eea00deeee69aec76ee14bcc2f601be465b382a022c6f2357d1acbbee26135a",
+        "dimensions": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "bytes": 724376
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true,
+        "use": "Alpha mask only to reveal original mother RGB; extracted RGB is intentionally a flat charcoal silhouette, never a visible sticker.",
+        "limitation": "Raw low-alpha fringe must be suppressed by the existing compositor; this is a mask, not accepted direct-display character RGB."
+      },
+      "disposition": "selected"
+    },
+    {
+      "id": "anon-play-figure-discarded-1535",
+      "prompt": "Use case: background-extraction. Produce a precise FULL-CANVAS RGBA ALPHA MASK for the exact seated character in this source image, not a newly composed illustration. Preserve EXACT original 1536x1024 framing and every original character x/y position, head/hair outline, pose, torso, skirt, both complete legs and both full shoes. No cropping, centering, scaling, moving or pose change. The person's entire silhouette and held objects must be a SOLID FULLY OPAQUE charcoal silhouette; interior face/cloth colors are not needed, because software uses only this alpha to reveal the ORIGINAL mother-image RGB pixels. Do NOT render a new face or outfit. The room, seat/cushions, window, floor, wall, plants, bookshelf, blanket and all background/contact shadows must become genuinely transparent alpha=0. The original large empty left portion stays transparent. Trace the true silhouette with at most a 1-pixel antialiased edge; no soft mask cloud, no low-opacity halo, no glow, no broad feathering, no matte border, no shadow or background object included. Exact original 1536x1024 full canvas, complete feet preserved. Include the small folded paper bird held between both hands inside the opaque silhouette, preserving its pointed folds exactly.",
+      "transparent_background": true,
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/anon-play-mother.png",
+          "sha256": "1d56312c5a35986d0d72cf0e881a47dc2bf47b7f72fe7877331cb88141a35163"
+        }
+      ],
+      "output": {
+        "projectPath": "",
+        "generatedPath": "exec-998aafcc-5101-43bf-9f99-9dc742cdbe09.png",
+        "sha256": "c6b3c9595da873387ed2ace7e4249d5e74c6ce1e92b1cff05e9ef1ddcfcd143c",
+        "dimensions": [
+          1535,
+          1024
+        ],
+        "mode": "RGBA",
+        "bytes": 341095
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": false,
+        "use": "Alpha mask only to reveal original mother RGB; extracted RGB is intentionally a flat charcoal silhouette, never a visible sticker.",
+        "limitation": "Raw low-alpha fringe exists on planning/rest extraction and must be suppressed in the existing compositor. It is not accepted as a visible character halo.",
+        "rejection": "Output width 1535 differs from the required 1536 full-frame registration. Discarded and replaced by the selected retry."
+      },
+      "disposition": "discarded"
+    }
+  ]
+}

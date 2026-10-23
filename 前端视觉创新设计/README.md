@@ -1,5 +1,7 @@
 # 在场图片
 
+本轮统一场景入口：[视觉与交互标尺](../docs/implementation/2026-10-23-unified/visual-standard.md)、[184张逐图映射](../docs/implementation/2026-10-23-unified/image-ledger.md)、[实际生成来源与SHA](../docs/implementation/2026-10-23-unified/asset-provenance.json)、[交付与真实操作边界](../docs/implementation/2026-10-23-unified/delivery-report.md)。打样见[祥子跨场景布局](本轮统一场景/祥子-跨场景布局打样.png)；产品分层资产直接在 `src/renderer/assets/companion/scenes/`，不复制成第二套运行图片。
+
 图片统一存放在本目录。按主题找图见[统一图库](统一图库/README.md)，精确尺寸、文件大小、哈希与来源见[图片清单](统一图库/catalog.json)。
 
 ## 分类

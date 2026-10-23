@@ -846,7 +846,7 @@ dialog.panel.agenda-editor {
 .today-layout-toggle > button { display: grid; place-items: center; width: 30px; height: 28px; color: var(--text-tertiary); border-radius: 6px; }
 .today-layout-toggle > button[aria-pressed='true'] { color: var(--accent); background: var(--accent-soft); }
 .today-layout-toggle > button:hover { color: var(--text); }
-.agenda-timeline { margin: 0 0 30px; }
+.agenda-timeline { margin: 0 0 30px; overflow-anchor: none; }
 .agenda-timeline-tools { display: flex; align-items: center; justify-content: space-between; margin: 4px 4px 24px 66px; }
 .agenda-timeline-tools > span { display: flex; align-items: center; gap: 7px; color: var(--text-tertiary); font-size: 11px; font-variant-numeric: tabular-nums; }
 .agenda-timeline-tools .text-button { font-size: 12px; }
@@ -924,7 +924,7 @@ dialog.panel.agenda-editor {
 .today-browse-tools > .today-list-tools { flex: 1; min-width: 0; }
 .today-browse-tools:has(.today-campus-source[open]) { flex-wrap: wrap; }
 .today-browse-tools > .today-campus-tools:has(.today-campus-source[open]) { flex-basis: 100%; }
-.today-workspace { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; align-items: start; }
+.today-main .today-workspace { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; align-items: start; }
 .today-main { min-width: 0; }
 .today-page-layout.has-current-object { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 350px); gap: 36px; align-items: start; }
 .today-workspace > .today-agenda-list { min-width: 0; }
@@ -941,6 +941,7 @@ dialog.panel.agenda-editor {
 .agenda-editor-inline .agenda-edit-comparison { margin-top: 18px; padding: 17px 0; border-block: 1px solid var(--separator); grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr); gap: 7px; }
 .agenda-editor-inline .agenda-edit-time-fields { grid-template-columns: minmax(0, 1fr) 84px; gap: 12px; }
 .agenda-editor-inline .agenda-edit-time-fields > .field-label { margin-top: 14px; }
+.agenda-editor-inline .agenda-edit-time-fields > .field-label:first-child { margin-top: 14px; }
 .agenda-editor-inline .agenda-edit-time-fields input { font-size: 13px; padding-inline: 9px; }
 .agenda-edit-details { margin-top: 16px; }
 .agenda-edit-details > summary { display: flex; align-items: center; gap: 6px; width: fit-content; cursor: pointer; padding: 4px 0; list-style: none; color: var(--text-secondary); font-size: 13px; }
@@ -978,6 +979,14 @@ dialog.panel.agenda-editor {
 .agenda-timeline-card.is-selected { border-color: color-mix(in srgb, var(--accent) 65%, var(--border)); box-shadow: 0 4px 18px #57371912; }
 .agenda-timeline-card { transition-property: top, left, width, box-shadow, background; }
 .agenda-timeline-card.has-overlap { border-style: dashed; border-left-style: solid; }
+.agenda-timeline-feedback { position: sticky; bottom: 16px; z-index: 7; display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; margin: -2px 4px 16px 66px; padding: 13px 16px; border: 1px solid color-mix(in srgb, var(--accent) 23%, var(--border)); border-radius: 13px; background: var(--surface); box-shadow: 0 8px 28px #57371916; }
+.agenda-timeline-trial-time { display: flex; flex: 1; flex-direction: column; gap: 5px; min-width: 150px; }
+.agenda-timeline-trial-time strong { font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.agenda-timeline-trial-time > span { color: var(--text-secondary); font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
+.agenda-timeline-feedback.has-conflict { border-color: color-mix(in srgb, #ad795f 48%, var(--border)); }
+.agenda-timeline-trial-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 9px 18px; }
+.agenda-timeline-trial-actions .text-button { font-size: 12px; white-space: nowrap; }
+.agenda-timeline-trial-actions .text-button:first-child { color: var(--accent); }
 .agenda-timeline-card.is-short { min-height: 24px; }
 @keyframes agenda-object-in { from { opacity: 0; transform: translateX(7px); } to { opacity: 1; transform: translateX(0); } }
 @media (max-width: 1050px) {
@@ -997,6 +1006,7 @@ dialog.panel.agenda-editor {
   .today-browse-tools > .today-list-tools { flex-wrap: wrap; }
 }
 @media (max-width: 540px) {
+  .agenda-timeline-feedback { margin-left: 45px; padding: 11px 12px; bottom: 10px; }
   .agenda-editor-inline .agenda-edit-time-fields { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .today-earlier-arrangement { padding-left: 0; align-items: flex-start; flex-wrap: wrap; }
   .today-navigation-row .today-date-heading { flex-basis: 100%; }

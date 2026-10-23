@@ -1,0 +1,208 @@
+{
+  "input": "一起用陪学纸看看这道题：求不定积分 ∫ x cos(x²) dx。我先写了 u=x²，请只给我下一小步提示，留住我写的这一行，纸面宽度我想自己拉一拉。",
+  "sessionId": "48dde8de-de6d-4351-aafc-dd9764c09c95",
+  "messages": [
+    {
+      "id": "144ce18d-64cf-4d1c-aecd-783fd9153403",
+      "status": "done",
+      "views": [
+        {
+          "id": "eb8945e0-2a2d-48ea-9e8e-be516ec41853",
+          "revision": 1,
+          "libraryVersion": 1,
+          "createdAt": "2026-10-23T12:02:44.580Z",
+          "sceneRefs": [
+            {
+              "id": "study-scene:study:cbd553643371c8d8b5970a59cb744da03043f4a994fa3576b1396e0b6052e44d",
+              "revision": 1
+            }
+          ],
+          "dsl": "root = SceneStack([scene0], \"stack\")\nscene0 = StudyScene(\"study-scene:study:cbd553643371c8d8b5970a59cb744da03043f4a994fa3576b1396e0b6052e44d@1\")",
+          "anchor": {
+            "offset": 0,
+            "before": ""
+          }
+        }
+      ],
+      "scenes": [
+        {
+          "kind": "study_reference",
+          "id": "study-scene:study:cbd553643371c8d8b5970a59cb744da03043f4a994fa3576b1396e0b6052e44d",
+          "revision": 1,
+          "createdAt": "2026-10-23T12:02:44.564Z",
+          "source": {
+            "sourceId": "work:self",
+            "fetchedAt": "2026-10-23T12:02:44.564Z",
+            "version": "study:cbd553643371c8d8b5970a59cb744da03043f4a994fa3576b1396e0b6052e44d@1"
+          },
+          "owner": {
+            "id": "study:cbd553643371c8d8b5970a59cb744da03043f4a994fa3576b1396e0b6052e44d",
+            "revision": 1,
+            "matterId": "1357deef-7183-4ecd-95f3-74cb7bca65c8"
+          },
+          "label": "接着学习这一页",
+          "requiresAsyncRefresh": true,
+          "read": {
+            "tool": "study_companion",
+            "arguments": {
+              "operation": "read",
+              "id": "study:cbd553643371c8d8b5970a59cb744da03043f4a994fa3576b1396e0b6052e44d"
+            }
+          }
+        }
+      ],
+      "modelUsage": [
+        {
+          "phase": "control",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 6766,
+          "cachedInputTokens": 0,
+          "outputTokens": 1804,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 24873,
+          "cachedInputTokens": 0,
+          "outputTokens": 74,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 32263,
+          "cachedInputTokens": 0,
+          "outputTokens": 231,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 33689,
+          "cachedInputTokens": 0,
+          "outputTokens": 397,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 36930,
+          "cachedInputTokens": 0,
+          "outputTokens": 710,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 37874,
+          "cachedInputTokens": 0,
+          "outputTokens": 302,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 38583,
+          "cachedInputTokens": 0,
+          "outputTokens": 607,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 40049,
+          "cachedInputTokens": 0,
+          "outputTokens": 1345,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "verification",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 3994,
+          "cachedInputTokens": 0,
+          "outputTokens": 1525,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 41441,
+          "cachedInputTokens": 33536,
+          "outputTokens": 2273,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "verification",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 3994,
+          "cachedInputTokens": 0,
+          "outputTokens": 1508,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 45360,
+          "cachedInputTokens": 37760,
+          "outputTokens": 166,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "verification",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 3803,
+          "cachedInputTokens": 0,
+          "outputTokens": 1825,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "main",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 45720,
+          "cachedInputTokens": 0,
+          "outputTokens": 365,
+          "usdMin": null,
+          "usdMax": null
+        },
+        {
+          "phase": "completion_review",
+          "responseModel": "gpt-6-luna",
+          "inputTokens": 22502,
+          "cachedInputTokens": 3328,
+          "outputTokens": 1096,
+          "usdMin": null,
+          "usdMax": null
+        }
+      ]
+    }
+  ],
+  "actualRatio": "42",
+  "activity": [
+    {
+      "moment": "reading"
+    }
+  ],
+  "artwork": [
+    {
+      "scene": "sakiko-reading",
+      "light": "morning",
+      "artPalette": "apricot",
+      "layered": "true"
+    }
+  ],
+  "errors": []
+}

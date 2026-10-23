@@ -1,0 +1,14 @@
+{
+  "source": "Reopened the existing agent synthetic native fixture; did not initialize production agenda",
+  "saved": {
+    "id": "qa-analysis",
+    "startsAt": "2026-10-23T01:00:00.000Z",
+    "revision": 4
+  },
+  "undo": {
+    "id": "qa-analysis",
+    "startsAt": "2026-10-23T00:00:00.000Z",
+    "revision": 5
+  },
+  "errors": []
+}

@@ -1,0 +1,86 @@
+{
+  "scope": "Actual isolated Electron renderer, normal composer, real Luna, pointer DragHandle, original Bridge local state and followup",
+  "sessionId": "98a8e7ce-488e-4bba-9cce-41cd01d0f7a7",
+  "original": {
+    "messageId": "c99836fd-3519-4c06-b303-ad307dd9fbe9",
+    "status": "done",
+    "modelUsage": [
+      {
+        "phase": "control",
+        "responseModel": "gpt-6-luna"
+      },
+      {
+        "phase": "control",
+        "responseModel": "gpt-6-luna"
+      },
+      {
+        "phase": "main",
+        "responseModel": "gpt-6-luna"
+      },
+      {
+        "phase": "main",
+        "responseModel": "gpt-6-luna"
+      },
+      {
+        "phase": "main",
+        "responseModel": "gpt-6-luna"
+      },
+      {
+        "phase": "main",
+        "responseModel": "gpt-6-luna"
+      },
+      {
+        "phase": "main",
+        "responseModel": "gpt-6-luna"
+      },
+      {
+        "phase": "completion_review",
+        "responseModel": "gpt-6-luna"
+      }
+    ],
+    "observedResponseModels": [
+      "gpt-6-luna"
+    ],
+    "program": {
+      "id": "36ad094e-bf6c-4000-b290-a9e3d4492add",
+      "revision": 1,
+      "hash": "09353ff788fcfd15bb748f8c76fc6a4bc1d81acd1efd40e256d840cefc1aec0f"
+    }
+  },
+  "programState": {
+    "status": "ready",
+    "stateRevision": 2,
+    "inputs": {
+      "a": 2.5
+    },
+    "updatedAt": "2026-10-23T11:06:16.768Z"
+  },
+  "followup": {
+    "messageId": "ffe73277-c0ca-4ccc-beee-0521ef115234",
+    "status": "done",
+    "content": "刚拖到的 \\(a=2.5\\)，所以 \\(y=2.5\\times2^2=\\boxed{10}\\) 呀～",
+    "modelUsage": [
+      {
+        "phase": "control",
+        "responseModel": "gpt-6-luna"
+      },
+      {
+        "phase": "main",
+        "responseModel": "gpt-6-luna"
+      },
+      {
+        "phase": "completion_review",
+        "responseModel": "gpt-6-luna"
+      }
+    ],
+    "interactiveProgramSources": [
+      {
+        "messageId": "c99836fd-3519-4c06-b303-ad307dd9fbe9",
+        "programId": "36ad094e-bf6c-4000-b290-a9e3d4492add",
+        "revision": 1
+      }
+    ]
+  },
+  "privacyEpoch": 1,
+  "policyRevision": 3
+}

@@ -24,6 +24,7 @@ const bridge: Bridge = {
   materialsDiscard: input => ipcRenderer.invoke('materials:discard', input),
   materialsQuote: input => ipcRenderer.invoke('materials:quote', input),
   materialsKeepQuote: input => ipcRenderer.invoke('materials:keep-quote', input),
+  materialsMoveNote: input => ipcRenderer.invoke('materials:move-note', input),
   materialsNotes: input => ipcRenderer.invoke('materials:notes', input),
   notesList: input => ipcRenderer.invoke('notes:list', input),
   notesRead: input => ipcRenderer.invoke('notes:read', input),

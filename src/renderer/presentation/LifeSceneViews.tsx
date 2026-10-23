@@ -24,7 +24,7 @@ function interval(block: PlanningBlock, zone: string, viewedDay?: string) {
 const sourceName = (id: string) => id === 'local-agenda' ? '本机日历' : ['user-declared', 'current'].includes(id) ? '这次告诉我的安排' : id.startsWith('campus:') ? '校园资料' : id.startsWith('map:') ? '校园路线' : id.startsWith('weather:') ? '环境预报' : '相关资料';
 const blockNames: Record<PlanningBlock['kind'], string> = { busy: '已有安排', work: '待商量', setup: '准备', cleanup: '收尾', transition: '转场 / 休息', protected: '特意留白', free: '尚未安排' };
 const agendaStates: Record<NonNullable<PlanningBlock['agendaRecord']>['state'], string> = {
-  invitation: '邀请 · 未答应', wish: '想做', proposed: '待确认', accepted: '已接受', registered: '已登记',
+  invitation: '邀请 · 未答应', wish: '想做', proposed: '待确认', accepted: '已接受', registered: '排好了',
 };
 function blockDuration(block: PlanningBlock) {
   if (block.agendaRecord?.allDayDate) return '全天记录';
@@ -101,7 +101,7 @@ export function PlanningTime({ scene, selection, onSelect, viewedDay, onViewDay 
   useChoiceVisibility(dates, `${scene.id}@${scene.revision}:${activeDay}`, '[aria-selected="true"]');
   const expired = useExpired(scene.expiresAt || scene.source.expiresAt);
   const unresolved = [...new Set([...scene.conditions, ...(scene.adoption?.blockers || [])])];
-  return <section className={`life-scene planning-scene${comparison ? ' is-comparison' : ''}${agenda ? ' is-agenda-read' : ''}`} aria-label={agenda ? '已登记的本机安排' : '一段属于自己的时间'} data-scene-id={scene.id}>
+  return <section className={`life-scene planning-scene${comparison ? ' is-comparison' : ''}${agenda ? ' is-agenda-read' : ''}`} aria-label={agenda ? '这段时间的安排' : '一段属于自己的时间'} data-scene-id={scene.id}>
     <header className="life-scene-heading">
       <div><h3>{agenda ? '已经记下的安排' : scene.continuation ? '接着上次的安排' : groups.length > 1 ? '这几天，慢慢安排。' : scene.mode === 'draft' ? '一段属于自己的时间' : '看看时间的余地'}</h3>
         {scene.continuation && <p className="planning-continuation">
@@ -147,7 +147,7 @@ export function PlanningTime({ scene, selection, onSelect, viewedDay, onViewDay 
           {agenda && block.originalRange && selectedId === block.id && <span className="planning-time-note">完整时段：{stamp(block.originalRange.start, zone, true)} — {block.originalRange.end ? stamp(block.originalRange.end, zone, true) : '结束未知'}</span>}
         </span>
       </button>;})}
-      {!blocks.length && !emptyDay && <p className="life-scene-empty">{agenda ? scene.agendaRead?.complete ? '这段范围内没有匹配的已登记安排。' : '这次读取还没有可显示的时段，覆盖尚不完整。' : '这次还没有可显示的时段，可以接着说说你想怎样安排。'}</p>}
+      {!blocks.length && !emptyDay && <p className="life-scene-empty">{agenda ? scene.agendaRead?.complete ? '这段时间没有找到相符的安排。' : '这次只读到部分安排，还不能把剩下的时间当作有空。' : '这次还没有可显示的时段，可以接着说说你想怎样安排。'}</p>}
     </div>
     {scene.unscheduled.length > 0 && <details className="life-scene-notes"><summary>还有 {scene.unscheduled.length} 件事没放进来<ChevronDown size={13} /></summary><ul>{scene.unscheduled.map((item, index) => <li key={index}><strong>{item.title}</strong> · {item.reason}</li>)}</ul></details>}
     {unresolved.length > 0 && <details className="life-scene-notes"><summary>有些条件还要核对<ChevronDown size={13} /></summary><ul>{unresolved.map((item, index) => <li key={index}>{item}</li>)}</ul></details>}

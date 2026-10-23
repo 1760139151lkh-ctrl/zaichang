@@ -1,5 +1,13 @@
 # Asset provenance
 
+## 2026-10-23 same-room character scenes
+
+The current [55-asset provenance ledger](implementation/2026-10-23-unified/asset-provenance.json) records selected output hashes, source bindings, exact retained prompts and three rejected candidates. All four characters have six states: chat, reading, planning, rest, play and night. Sakiko additionally supplies the morning-mist and violet-dusk theme mothers. All selected layers share a 1536 × 1024 mother canvas. Runtime uses generated masks only for alpha and displays the matching mother pixels; it does not display the mask's redrawn RGB. The original pilot/input-reference gaps, the rejected retry's unrecorded prompt and limits of generative clean plates remain explicit.
+
+The primary agent reviewed all 55 selected files and all 184 distinct historical images. Image review is separate from runtime evidence and does not certify every character/theme/activity composition or drag interaction. See the [delivery report](implementation/2026-10-23-unified/delivery-report.md) and [visual standard](implementation/2026-10-23-unified/visual-standard.md).
+
+`assets/brand/window-gold.png` and `.ico` are raster exports of this repository's existing door-mark vector, recolored to match the warm interface. The editable source remains `assets/brand/mark.svg`; these are code-native brand exports, not GPT Image artwork.
+
 ## 2026-10-19 live conversation artwork and paper surfaces
 
 The latest [visual-fidelity requirement](source-materials/2026-10-18/visual-fidelity-requirement-20261018.md) asks the implemented composition and motion to carry the generated design's actual character. The following are real, bounded runtime assets extracted or edited with built-in GPT Image from this project's generated references. Text, math, controls and selected objects remain live HTML and source-bound scene data; none of these files is a screenshot used as a working interface.

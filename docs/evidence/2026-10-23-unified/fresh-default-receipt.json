@@ -1,0 +1,17 @@
+{
+  "personaName": "丰川祥子",
+  "visualBinding": {
+    "companionId": "sakiko",
+    "characterName": "丰川祥子",
+    "portrayalBasis": "source_inspired",
+    "portrayalId": "sakiko",
+    "notes": "以官方人物介绍与声优访谈为起点的演绎；对话方式由在场设计，可自由修改。不是官方认证。"
+  },
+  "themeImages": [
+    "theme-home-apricot.png",
+    "theme-home-mist.png",
+    "theme-home-violet.png",
+    "theme-home-rain.png"
+  ],
+  "errors": []
+}

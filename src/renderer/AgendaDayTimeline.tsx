@@ -153,6 +153,7 @@ export function AgendaDayTimeline({
   const pointer = useRef<PointerMove | undefined>(undefined);
   const frame = useRef<number | undefined>(undefined);
   const stage = useRef<HTMLDivElement>(null);
+  const expanding = useRef<{ panel: HTMLElement; offset: number } | undefined>(undefined);
   const suppressClickUntil = useRef(0);
   const hintId = useId();
   const day = useMemo(() => hostWindow ? { start: Date.parse(hostWindow.from), end: Date.parse(hostWindow.to) }
@@ -232,6 +233,57 @@ export function AgendaDayTimeline({
     stopPointer();
     updateMove();
   }
+  function overlaps(key: string, start: number, duration: number) {
+    return entries.filter(entry => entry.key !== key && start < entry.end && start + duration > entry.start);
+  }
+  function nearestOpening(move: Move) {
+    if (!day) return undefined;
+    const duration = move.originalEnd - move.originalStart;
+    const occupied = entries.filter(entry => entry.key !== move.id);
+    const step = 15 * MINUTE;
+    const ceil = (value: number) => day.start + Math.ceil((value - day.start) / step) * step;
+    const floor = (value: number) => day.start + Math.floor((value - day.start) / step) * step;
+    // The closest fitting interval starts at the desired time or touches an
+    // existing interval's edge. Keep all other owners exactly where they are.
+    const candidates = [move.startsAt, day.start, day.end - duration, floor(day.end - duration),
+      ...occupied.flatMap(entry => [entry.end, entry.start - duration, ceil(entry.end), floor(entry.start - duration)])];
+    return [...new Set(candidates)].filter(start => start >= day.start && start + duration <= day.end
+      && !overlaps(move.id, start, duration).length)
+      .sort((a, b) => Math.abs(a - move.startsAt) - Math.abs(b - move.startsAt) || a - b)[0];
+  }
+  function expandDay() {
+    if (fullDay || !day || !stage.current || expanding.current) return;
+    const panel = stage.current.closest<HTMLElement>('.page-panel');
+    if (panel) expanding.current = { panel, offset: pixels(day.start) * -1 };
+    setFullDay(true);
+  }
+  useLayoutEffect(() => {
+    const expansion = expanding.current;
+    if (fullDay && expansion) {
+      expanding.current = undefined;
+      expansion.panel.scrollTop += expansion.offset;
+      const active = pointer.current;
+      if (active?.moved && day) {
+        active.viewStart = day.start;
+        pointerPosition(active);
+      }
+    }
+    const move = movingRef.current;
+    if (move?.mode !== 'keyboard' || !stage.current) return;
+    const panel = stage.current.closest<HTMLElement>('.page-panel');
+    if (!panel) return;
+    const bounds = panel.getBoundingClientRect();
+    const top = stage.current.getBoundingClientRect().top + pixels(move.startsAt);
+    const end = top + (move.originalEnd - move.originalStart) / HOUR * PIXELS_PER_HOUR;
+    if (top < bounds.top + 24) panel.scrollTop -= bounds.top + 24 - top;
+    else if (end > bounds.bottom - 116) panel.scrollTop += Math.min(end - bounds.bottom + 116, top - bounds.top - 24);
+  }, [fullDay, moving?.startsAt]);
+  function proposeMove(move: Move) {
+    if (!isActive || !currentMove(move.id, move)) { cancelMove(); return; }
+    updateMove();
+    if (move.startsAt !== move.originalStart)
+      onPropose(move.original, new Date(move.startsAt).toISOString(), move.reference, move.id);
+  }
   function currentMove(key: string, source: MoveSource) {
     const entry = entries.find(value => value.kind === 'action' && value.key === key);
     return !disabled && !draft && source.contextKey === contextKey && entry?.kind === 'action'
@@ -270,16 +322,9 @@ export function AgendaDayTimeline({
   }, [date, timeZone, isActive]);
   useEffect(() => {
     cancelMove();
+    expanding.current = undefined;
     setFullDay(false);
   }, [date, timeZone]);
-  useEffect(() => {
-    const move = movingRef.current;
-    if (!move) return;
-    const current = actions.find(item => item.id === move.id);
-    if (!current || (current.revision || 1) !== (move.original.revision || 1)
-      || current.startsAt !== move.original.startsAt || current.durationMinutes !== move.original.durationMinutes)
-      cancelMove();
-  }, [actions]);
 
   function pointerPosition(active: PointerMove) {
     if (!stage.current) return;
@@ -353,8 +398,8 @@ export function AgendaDayTimeline({
       clientY: event.clientY,
       grabOffset: event.clientY - stage.current.getBoundingClientRect().top - pixels(range.start),
       moved: false,
-      min: viewStart,
-      max: Math.max(viewStart, viewEnd - (range.end - range.start)),
+      min: day.start,
+      max: Math.max(day.start, day.end - (range.end - range.start)),
       anchor: day.start,
       viewStart,
     };
@@ -365,7 +410,9 @@ export function AgendaDayTimeline({
     if (!currentMove(active.key, active)) { cancelMove(); return; }
     active.clientY = event.clientY;
     if (!active.moved && Math.abs(active.clientY - active.startY) < 4) return;
+    event.preventDefault();
     active.moved = true;
+    expandDay();
     pointerPosition(active);
     if (frame.current === undefined) frame.current = requestAnimationFrame(followScroll);
   }
@@ -378,8 +425,13 @@ export function AgendaDayTimeline({
     updateMove();
     if (active.moved) {
       suppressClickUntil.current = performance.now() + 350;
-      if (move && move.startsAt !== active.originalStart)
-        onPropose(active.original, new Date(move.startsAt).toISOString(), active.reference, active.key);
+      if (move && move.startsAt !== active.originalStart) {
+        const conflicts = overlaps(move.id, move.startsAt, move.originalEnd - move.originalStart);
+        if (conflicts.length) {
+          updateMove({ ...move, rawStartsAt: move.startsAt, mode: 'keyboard' });
+          setAnnouncement(`这个时间和${conflicts.map(entry => entry.item.title).join('、')}重叠。可以试试附近的空档，或继续确认这个时间。`);
+        } else proposeMove(move);
+      }
     }
   }
   function moveKeyboard(event: KeyboardEvent<HTMLButtonElement>, entry: Extract<Entry, {kind:'action'}>) {
@@ -396,9 +448,7 @@ export function AgendaDayTimeline({
     }
     if (event.key === 'Enter' && active?.id === entry.key && active.mode === 'keyboard') {
       event.preventDefault();
-      updateMove();
-      if (active.startsAt !== active.originalStart)
-        onPropose(active.original, new Date(active.startsAt).toISOString(), active.reference, entry.key);
+      proposeMove(active);
       return;
     }
     if (
@@ -415,12 +465,13 @@ export function AgendaDayTimeline({
     const range = { start: entry.start, end: entry.end };
     if (!range || range.start < day.start || range.end > day.end) return;
     event.preventDefault();
+    expandDay();
     const previous = active?.id === entry.key ? active : undefined;
     const direction = event.key === 'ArrowUp' || event.key === 'ArrowLeft' ? -1 : 1;
     const instant = clamp(
       (previous?.startsAt ?? range.start) + direction * (event.shiftKey ? 1 : 15) * MINUTE,
-      viewStart,
-      Math.max(viewStart, viewEnd - (range.end - range.start)),
+      day.start,
+      Math.max(day.start, day.end - (range.end - range.start)),
     );
     updateMove({
       id: entry.key,
@@ -463,11 +514,16 @@ export function AgendaDayTimeline({
   const displayedLanes = visibleMove && oldRange ? arrangeLanes(entries.map(entry => ({ ...entry,
     ...(entry.key === visibleMove.id ? { start: visibleMove.startsAt, end: visibleMove.startsAt + oldRange.end - oldRange.start } : {}) }))) : entries;
   const laneByKey = new Map(displayedLanes.map(entry => [entry.key, entry]));
-  const ghostLane = ghost ? laneByKey.get(ghost.key) || ghost : undefined;
+  const conflicts = moving ? overlaps(moving.id, moving.startsAt, moving.originalEnd - moving.originalStart) : [];
+  const nearby = moving && conflicts.length ? nearestOpening(moving) : undefined;
   return (
     <section
       className={`agenda-timeline ${moving?.mode === 'pointer' ? 'is-dragging' : ''}`}
       aria-label={`${date} 时间轴`}
+      onBlur={event => {
+        if (movingRef.current?.mode === 'keyboard'
+          && (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget))) cancelMove();
+      }}
     >
       <div className="agenda-timeline-tools">
         <span>
@@ -512,8 +568,8 @@ export function AgendaDayTimeline({
                   2,
                   pixels(Math.min(viewEnd, oldRange.end)) - pixels(Math.max(viewStart, oldRange.start)),
                 ),
-                left: `${((ghostLane?.lane || 0) / (ghostLane?.lanes || 1)) * 100}%`,
-                width: `${100 / (ghostLane?.lanes || 1)}%`,
+                left: `${(ghost.lane / ghost.lanes) * 100}%`,
+                width: `${100 / ghost.lanes}%`,
               }}
               aria-hidden="true"
             >
@@ -594,9 +650,6 @@ export function AgendaDayTimeline({
                   if (pointer.current) cancelMove();
                 }}
                 onKeyDown={(event) => moveKeyboard(event, entry)}
-                onBlur={() => {
-                  if (movingRef.current?.mode === 'keyboard') updateMove();
-                }}
                 onClick={() => {
                   if (performance.now() >= suppressClickUntil.current) {
                     cancelMove();
@@ -610,6 +663,25 @@ export function AgendaDayTimeline({
           })}
         </div>
       </div>
+      {moving && <div className={`agenda-timeline-feedback${conflicts.length ? ' has-conflict' : ''}`}>
+        <div className="agenda-timeline-trial-time" role="status" aria-live="polite">
+          <strong>{timeRange(moving.startsAt, moving.startsAt + moving.originalEnd - moving.originalStart)}</strong>
+          <span>{conflicts.length ? `和${conflicts.slice(0, 2).map(entry => `「${entry.item.title}」`).join('、')}${conflicts.length > 2 ? `等${conflicts.length}项安排` : ''}重叠`
+            : '先放在这里看看'}</span>
+        </div>
+        {moving.mode === 'keyboard' && <div className="agenda-timeline-trial-actions">
+          {nearby !== undefined && <button type="button" className="text-button" title="只按时间轴里有完整起止时间的安排寻找空档，保存前会再核对。" onClick={() => {
+            const move = movingRef.current;
+            if (!move || !currentMove(move.id, move)) { cancelMove(); return; }
+            const start = nearestOpening(move);
+            if (start === undefined) return;
+            updateMove({ ...move, startsAt: start, rawStartsAt: start, mode: 'keyboard' });
+            setAnnouncement(`试放在${timeRange(start, start + move.originalEnd - move.originalStart)}，原来的安排还没有改动。`);
+          }}>试试 {clock(nearby)} 的空档</button>}
+          <button type="button" className="text-button" onClick={() => proposeMove(moving)}>{conflicts.length ? '仍放这里' : '用这个时间'}</button>
+          <button type="button" className="text-button" onClick={cancelMove}>放回</button>
+        </div>}
+      </div>}
       <div className="sr-only" role="status" aria-live="polite">
         {announcement}
       </div>

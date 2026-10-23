@@ -1,0 +1,50 @@
+{
+  "fastBefore": {
+    "rect": {
+      "x": 25.755489349365234,
+      "y": 26.976892471313477,
+      "width": 1388.3531494140625,
+      "height": 854.9545288085938,
+      "top": 26.976892471313477,
+      "right": 1414.1086387634277,
+      "bottom": 881.9314212799072,
+      "left": 25.755489349365234
+    },
+    "transition": "true",
+    "anims": [
+      {
+        "time": 183.26999999999316,
+        "state": "running"
+      }
+    ]
+  },
+  "fastAfter": {
+    "rect": {
+      "x": 23.462875366210938,
+      "y": 24.197750091552734,
+      "width": 1392.9925537109375,
+      "height": 856.96435546875,
+      "top": 24.197750091552734,
+      "right": 1416.4554290771484,
+      "bottom": 881.1621055603027,
+      "left": 23.462875366210938
+    },
+    "dragging": "true",
+    "anims": [
+      {
+        "time": 266.8466491699219,
+        "state": "paused"
+      }
+    ]
+  },
+  "resizedMap": {
+    "focused": "false",
+    "sameSurface": true
+  },
+  "focusAgain": "true",
+  "returnedMap": {
+    "focused": "false",
+    "sameSurface": true
+  },
+  "errors": []
+}

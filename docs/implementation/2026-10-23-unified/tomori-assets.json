@@ -1,0 +1,136 @@
+{
+  "tool": "built-in image_gen",
+  "pipeline": "approved Sakiko room grid and Tomori identity -> Tomori reading/night mother -> full-canvas figure alpha extraction",
+  "identity": "高松灯 Takamatsu Tomori / MyGO!!!!!; short gray-purple bob, warm gold-brown eyes, gray blazer white piping, green striped tie",
+  "references": [
+    {
+      "file": "src/renderer/assets/companion/scenes/tomori-chat-mother.png",
+      "sha256": "3e9477a7e42c5751d396ef838938b679b3cccffef459353afaa0c6d65b26d120",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "src/renderer/assets/companion/scenes/sakiko-reading-mother.png",
+      "sha256": "de81d55db3281322bba7bcdd5f1263bebfe03efeeb5ccb12a37b9baec406a569",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "src/renderer/assets/companion/scenes/sakiko-night-mother.png",
+      "sha256": "fb122ec18512c7ae20f0a6bc65750138676f6a4619958cbb3bd91ad22036fc3b",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "src/renderer/assets/companion/scenes/tomori-reading-mother.png",
+      "sha256": "f9a88876e460e0cc12db6e20a737cd43502403162f1709da1196a79227720d59",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "src/renderer/assets/companion/scenes/tomori-night-mother.png",
+      "sha256": "9b4ec44b0a0aa307a95525ad47be65627251fd8ed04e4fa53f6430d9f5f7aaa3",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "src/renderer/assets/companion/scenes/tomori-chat-figure.png",
+      "sha256": "212026b8b235c6538b4edd11526ae75f854dfd9f2266c44004dfe8672886dcc2",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "alpha_nonzero_bbox": [
+        97,
+        107,
+        1481,
+        1024
+      ],
+      "alpha_200_bbox": [
+        903,
+        110,
+        1478,
+        1013
+      ]
+    },
+    {
+      "file": "src/renderer/assets/companion/scenes/tomori-reading-figure.png",
+      "sha256": "15118e336a357e314b2ec5b769dba16aa07674cfe6d8d6fd254d0afb0c8a0b73",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "alpha_nonzero_bbox": [
+        369,
+        97,
+        1490,
+        1024
+      ],
+      "alpha_200_bbox": [
+        885,
+        102,
+        1487,
+        1011
+      ]
+    },
+    {
+      "file": "src/renderer/assets/companion/scenes/tomori-night-figure.png",
+      "sha256": "8b7e2bad87450ebe07c0aa8ca340738151eb1785e62054f54a03dec69ec8e276",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "alpha_nonzero_bbox": [
+        65,
+        61,
+        1473,
+        1011
+      ],
+      "alpha_200_bbox": [
+        895,
+        139,
+        1470,
+        1008
+      ]
+    }
+  ],
+  "shared_backgrounds": [
+    "sakiko-chat-background.png",
+    "sakiko-reading-background.png",
+    "sakiko-night-background.png"
+  ],
+  "render_contract": "Display RGB from each original mother, never the generated figure RGB. Figure is only a full-canvas alpha source; use existing frontend alpha transfer to suppress low-alpha fringe. No crop, recenter, rescale or pixel edit was performed on these files.",
+  "review": "All three input references and all five outputs were individually opened by this agent. Same canvas, complete shoes, held-object silhouettes, canonical clothing/face and room composition checked; full native composite/drag acceptance remains with primary agent."
+}

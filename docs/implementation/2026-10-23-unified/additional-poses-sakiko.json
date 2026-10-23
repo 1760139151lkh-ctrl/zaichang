@@ -1,0 +1,150 @@
+{
+  "tool": "built-in GPT Image",
+  "pipeline": "Additional activity classification → same core character approval → remaining character extension → registered same-canvas layers",
+  "records": [
+    {
+      "id": "sakiko-planning-mother",
+      "prompt": "Production EDIT of the approved complete mother scene. Preserve the EXACT 1536x1024 full canvas, camera, room/furniture/window/bench geometry, character identity and youthful crisp 2D anime style. No UI, no letters or watermark. Sakiko Togawa, light blue hair and low dark ribbons, golden eyes, navy uniform and plaid skirt. Same seated hip contact around (86%,63%), all head/hair and both complete legs/shoes inside frame. LEFT 60% is empty ivory reading wall, natural plants only far-right. Keep original warm airy sunlight, realistic scene contact and directional light without making face photorealistic or adult. Change ONLY character's action/expression (and a small object in her hands); no room changes, no new occluders, no floating feet, no cutout/sticker outline. Planning together: her pose is distinct from chatting; sit upright slightly inclined toward the viewer, hold a small open cream notebook on her lap with one hand, the other hand thoughtfully points at the notebook. Quiet focused, perceptive youthful face with a tiny encouraging smile. The notebook has blank subtle rule lines only, no text. She is genuinely thinking with the user, not gesturing at an invisible button.",
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-chat-mother.png",
+          "sha256": "a04225b4e42780032029f89f7eb786a87407d1731fcc5d494fdef14d121b6882"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/sakiko-planning-mother.png",
+        "generatedPath": "exec-c79ac814-d0a2-43a2-af17-d56f4e5cd75f.png",
+        "sha256": "7c576d9d394a547b1246458bf43dad2b9b51e81501a0b956b3d9a8e5fb64ba39"
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true
+      }
+    },
+    {
+      "id": "sakiko-rest-mother",
+      "prompt": "Production EDIT of the approved complete mother scene. Preserve the EXACT 1536x1024 full canvas, camera, room/furniture/window/bench geometry, character identity and youthful crisp 2D anime style. No UI, no letters or watermark. Sakiko Togawa, light blue hair and low dark ribbons, golden eyes, navy uniform and plaid skirt. Same seated hip contact around (86%,63%), all head/hair and both complete legs/shoes inside frame. LEFT 60% is empty ivory reading wall, natural plants only far-right. Keep original warm airy sunlight, realistic scene contact and directional light without making face photorealistic or adult. Change ONLY character's action/expression (and a small object in her hands); no room changes, no new occluders, no floating feet, no cutout/sticker outline. Quiet rest together: she leans her shoulder comfortably against the right cushion, hands relaxed on a closed book on her lap, gazes out the window to the left with a serene thoughtful expression. Natural relaxed seated posture, shoulders lower, mouth gently at rest. Clearly distinct from the hand-at-cheek chat pose and from reading. Modest school clothing and both feet naturally on the original floor.",
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-chat-mother.png",
+          "sha256": "a04225b4e42780032029f89f7eb786a87407d1731fcc5d494fdef14d121b6882"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/sakiko-rest-mother.png",
+        "generatedPath": "exec-c8295e6d-2bc9-416e-9457-437e33c608f1.png",
+        "sha256": "b81dc3b83282748936d31478262972719576c1f4a58097b9c0d0619ab86c2aa0"
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true
+      }
+    },
+    {
+      "id": "sakiko-play-mother",
+      "prompt": "Production EDIT of the approved complete mother scene. Preserve the EXACT 1536x1024 full canvas, camera, room/furniture/window/bench geometry, character identity and youthful crisp 2D anime style. No UI, no letters or watermark. Sakiko Togawa, light blue hair and low dark ribbons, golden eyes, navy uniform and plaid skirt. Same seated hip contact around (86%,63%), all head/hair and both complete legs/shoes inside frame. LEFT 60% is empty ivory reading wall, natural plants only far-right. Keep original warm airy sunlight, realistic scene contact and directional light without making face photorealistic or adult. Change ONLY character's action/expression (and a small object in her hands); no room changes, no new occluders, no floating feet, no cutout/sticker outline. A little shared creative delight: she holds a small warm-ivory origami bird at chest height, offering it toward the viewer with a shy but lively pleased smile, eyebrows softly lifted. Both hands anatomically correct and youthful face recognizable, small lively gesture rather than an exaggerated comic distortion. Same naturally seated lower body, complete shoes and room contact. This is her quietly proud playful moment after making something together.",
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-chat-mother.png",
+          "sha256": "a04225b4e42780032029f89f7eb786a87407d1731fcc5d494fdef14d121b6882"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/sakiko-play-mother.png",
+        "generatedPath": "exec-6a538478-3238-4d7b-8ec0-552113466130.png",
+        "sha256": "2d2d4af4f844324cb4eef5e0be2a1f740af603a34e86e85e071ae0c1dedce808"
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true
+      }
+    },
+    {
+      "id": "sakiko-planning-figure",
+      "useCase": "background-extraction",
+      "usage": "Alpha mask only; original mother RGB is rendered by frontend. No crop, recenter, resize or pixel editing was performed.",
+      "prompt": "Use case: background-extraction.\nAsset type: exact-position full-canvas RGBA alpha mask for the supplied approved mother illustration, NOT a new character illustration.\nInput image 1 is the edit target, sakiko-planning-mother.png.\nExtract ONLY the complete visible girl and the object held in her hands (the open cream notebook and pencil). Output a flat solid WHITE silhouette of precisely those pixels on a genuinely transparent background. No face details, color, scene, shadows, glow, checkerboard or outline. Opaque white inside the selected girl and held object, transparent outside, clean antialiased outer edge. Preserve small transparent gaps between hair strands, limbs and object.\nRegistration is mandatory: preserve EXACT 1536x1024 landscape canvas and the subject's original x/y position, shape, scale, seated pose and complete silhouette from the mother. The large left area stays transparent. Do NOT center, crop, enlarge, rotate, resize, redesign or re-pose anything. Retain every outer hair strand, both ribbons, all clothing, legs and both complete shoes in their original positions. The white region must follow the mother's visible contour, including held object. Exclude the room, bench, cushion, blanket, flowers, floor and the cast shadow.\nThis output is used ONLY as an alpha mask; frontend displays original mother pixels through the mask. Accuracy of original subject footprint and transparency matters, never add decorative RGB or a replacement character.",
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-planning-mother.png",
+          "sha256": "7c576d9d394a547b1246458bf43dad2b9b51e81501a0b956b3d9a8e5fb64ba39"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/sakiko-planning-figure.png",
+        "generatedPath": "exec-4436d18d-2a53-475e-9ef0-6bd02bb06773.png",
+        "sha256": "6e16ba47e91b43c98e4abad9ff46f7619c212514ead32350507eb36ebe5465ed",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGBA",
+        "alphaExtrema": [
+          0,
+          254
+        ]
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true,
+        "notes": "Complete original-canvas white silhouette with complete shoes and held object area. Generated low-alpha halo is visible; requires primary composite inspection with existing frontend threshold before approval."
+      }
+    },
+    {
+      "id": "sakiko-rest-figure",
+      "useCase": "background-extraction",
+      "usage": "Alpha mask only; original mother RGB is rendered by frontend. No crop, recenter, resize or pixel editing was performed.",
+      "prompt": "Use case: background-extraction.\nAsset type: exact-position full-canvas RGBA alpha mask for the supplied approved mother illustration, NOT a new character illustration.\nInput image 1 is the edit target, sakiko-rest-mother.png.\nExtract ONLY the complete visible girl and the object held in her hands (the closed book on her lap). Output a flat solid WHITE silhouette of precisely those pixels on a genuinely transparent background. No face details, color, scene, shadows, glow, checkerboard or outline. Opaque white inside the selected girl and held object, transparent outside, clean antialiased outer edge. Preserve small transparent gaps between hair strands, limbs and object.\nRegistration is mandatory: preserve EXACT 1536x1024 landscape canvas and the subject's original x/y position, shape, scale, seated pose and complete silhouette from the mother. The large left area stays transparent. Do NOT center, crop, enlarge, rotate, resize, redesign or re-pose anything. Retain every outer hair strand, both ribbons, all clothing, legs and both complete shoes in their original positions. The white region must follow the mother's visible contour, including held object. Exclude the room, bench, cushion, blanket, flowers, floor and the cast shadow.\nThis output is used ONLY as an alpha mask; frontend displays original mother pixels through the mask. Accuracy of original subject footprint and transparency matters, never add decorative RGB or a replacement character.",
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-rest-mother.png",
+          "sha256": "b81dc3b83282748936d31478262972719576c1f4a58097b9c0d0619ab86c2aa0"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/sakiko-rest-figure.png",
+        "generatedPath": "exec-a513bbd0-6bc2-404b-9f95-f899dc467c69.png",
+        "sha256": "2dfdfae7ef61f685bb9c0c337072b23dedb931d37f534f9986b8551cc38e6510",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGBA",
+        "alphaExtrema": [
+          0,
+          254
+        ]
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true,
+        "notes": "Complete original-canvas white silhouette with complete shoes and held object area. Generated low-alpha halo is visible; requires primary composite inspection with existing frontend threshold before approval."
+      }
+    },
+    {
+      "id": "sakiko-play-figure",
+      "useCase": "background-extraction",
+      "usage": "Alpha mask only; original mother RGB is rendered by frontend. No crop, recenter, resize or pixel editing was performed.",
+      "prompt": "Use case: background-extraction.\nAsset type: exact-position full-canvas RGBA alpha mask for the supplied approved mother illustration, NOT a new character illustration.\nInput image 1 is the edit target, sakiko-play-mother.png.\nExtract ONLY the complete visible girl and the object held in her hands (the small cream origami bird). Output a flat solid WHITE silhouette of precisely those pixels on a genuinely transparent background. No face details, color, scene, shadows, glow, checkerboard or outline. Opaque white inside the selected girl and held object, transparent outside, clean antialiased outer edge. Preserve small transparent gaps between hair strands, limbs and object.\nRegistration is mandatory: preserve EXACT 1536x1024 landscape canvas and the subject's original x/y position, shape, scale, seated pose and complete silhouette from the mother. The large left area stays transparent. Do NOT center, crop, enlarge, rotate, resize, redesign or re-pose anything. Retain every outer hair strand, both ribbons, all clothing, legs and both complete shoes in their original positions. The white region must follow the mother's visible contour, including held object. Exclude the room, bench, cushion, blanket, flowers, floor and the cast shadow.\nThis output is used ONLY as an alpha mask; frontend displays original mother pixels through the mask. Accuracy of original subject footprint and transparency matters, never add decorative RGB or a replacement character.",
+      "inputs": [
+        {
+          "path": "src/renderer/assets/companion/scenes/sakiko-play-mother.png",
+          "sha256": "2d2d4af4f844324cb4eef5e0be2a1f740af603a34e86e85e071ae0c1dedce808"
+        }
+      ],
+      "output": {
+        "projectPath": "src/renderer/assets/companion/scenes/sakiko-play-figure.png",
+        "generatedPath": "exec-bb57f094-0b35-454d-ba8e-1557bc261f99.png",
+        "sha256": "1ecd4199c5b040eeca5c1c1f44f158ca70f3c2847fe6a69b9b30af16852daa1f",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGBA",
+        "alphaExtrema": [
+          0,
+          254
+        ]
+      },
+      "review": {
+        "agentViewed": true,
+        "primaryAgentViewedAndApproved": true,
+        "notes": "Complete original-canvas white silhouette with complete shoes and held object area. Generated low-alpha halo is visible; requires primary composite inspection with existing frontend threshold before approval."
+      }
+    }
+  ]
+}

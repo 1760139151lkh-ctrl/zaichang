@@ -14,6 +14,7 @@ import { LetterHistoryCard } from './LetterHistoryCard';
 import { PlanningOfferCard } from './PlanningOfferCard';
 import { ConversationComposerDockContext, useConversationComposerDock } from './ConversationComposerDock';
 import { ReadingDivider } from './ReadingDivider';
+import { companionSceneMoment } from './companion-variants';
 import { ConversationTextFocusContext } from './ConversationTextFocus';
 import { createPortal } from 'react-dom';
 import type { LocalSearchLocator } from '../shared/search';
@@ -225,6 +226,7 @@ export function App() {
   const sceneSelectionRequest=useRef(0);
   const [materialQuote, setMaterialQuote] = useState<MaterialQuote>();
   const materialQuoteRef = useRef<MaterialQuote | undefined>(undefined);
+  const materialConversationTarget = useRef<HTMLElement>(null);
   function clearMaterialQuote() { materialQuoteRef.current = undefined; setMaterialQuote(undefined); }
   const [noteQuote, setNoteQuote] = useState<NoteQuote>();
   const noteQuoteRef = useRef<NoteQuote | undefined>(undefined);
@@ -399,6 +401,24 @@ export function App() {
   const needsReadingRoom = !!latestAssistant && (latestAssistant.content.length >= 560 || latestAssistant.content.split('\n').length >= 14);
   const readingSelectedWork = !!sceneSelection || !!composerDock.target
     || !!currentComposerFollowup && currentComposerFollowup.messageId !== latestAssistant?.id;
+  const selectedCompanionScene = sceneSelection ? messages.flatMap(message => message.scenes || []).find(scene =>
+    scene.id === sceneSelection.sceneId && scene.revision === sceneSelection.sceneRevision) : undefined;
+  const focusedCompanionMessage = currentComposerFollowup
+    ? messages.find(message => message.id === currentComposerFollowup.messageId) : latestAssistant;
+  const latestCompanionView = focusedCompanionMessage?.views?.at(-1);
+  const presentedCompanionScenes = latestCompanionView?.libraryVersion === 1
+    ? latestCompanionView.sceneRefs.flatMap(ref => focusedCompanionMessage?.scenes?.filter(scene =>
+      scene.id === ref.id && scene.revision === ref.revision) || []) : [];
+  const presentedCompanionMoment = latestCompanionView?.comparison ? 'planning'
+    : presentedCompanionScenes.map(companionSceneMoment).find(moment => moment !== undefined);
+  // Current direct references take precedence over the latest displayed paper.
+  // This selects artwork only; no source is read, adopted or changed here.
+  const companionActivity = view === 'materials' || materialQuote || noteQuote || composerDock.target
+    || currentComposerFollowup?.studyInteraction || currentComposerFollowup?.noteReference ? 'reading'
+      : agendaContext ? 'planning'
+        : currentComposerFollowup?.curiosityReference ? 'play'
+          : companionSceneMoment(selectedCompanionScene) || presentedCompanionMoment
+            || (chatSpace === 'reading' || needsReadingRoom || readingSelectedWork || hasScene ? 'reading' : 'chat');
   const canToggleRoom = view === 'chat' && companion.presence === 'window' && !compactConversation && !hasScene && !readingSelectedWork;
   const atWindow = view === 'chat' && companion.presence === 'window'
     && chatSpace !== 'reading' && !readingSelectedWork
@@ -1755,7 +1775,7 @@ export function App() {
       onPointerDownCapture={() => { readingGesture.current++; }}
       onKeyDownCapture={() => { readingGesture.current++; }}>
       <div className="app-main">
-        {view === 'chat' && <CompanionScene quiet={!atWindow} />}
+        {(view === 'chat' || view === 'materials') && <CompanionScene quiet={view !== 'chat' || !atWindow} moment={companionActivity} />}
         {canToggleRoom && <button type="button" className="room-collapse-toggle" aria-expanded={atWindow}
           aria-label={atWindow ? '收起窗景，安静阅读' : '回到窗边'} title={atWindow ? '安静阅读' : '回到窗边'}
           onClick={() => { rememberReadingPosition(); setChatSpace(atWindow ? 'reading' : 'window'); }}><ChevronRight size={17} /></button>}
@@ -1792,11 +1812,12 @@ export function App() {
           active={view === 'materials'} refreshKey={`${messages.length}:${messages.at(-1)?.status || ''}`} compact pending={attachment?.kind === 'text' ? attachment : null} sessionId={sessionId} draftEnabled={draftReady && !navigating}
           boundary={`${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`}
           reference={materialQuote} onUnsavedChange={setMaterialUnsaved}
+          conversationTarget={materialConversationTarget}
           focus={searchTarget?.locator.kind === 'material' ? { locator: searchTarget.locator, requestId: searchTarget.requestId } : undefined}
           onAttach={value => { if (!draftReady || navigating || navigationPending.current) return false; updateDraft({ attachment: value }); return true; }} onQuote={quoteMaterial} onOpenNote={openMaterialNote} onClose={() => setView('chat')}
         />}
         {view === 'materials' && <ReadingDivider />}
-        <main className={`workspace ${empty && view !== 'materials' ? 'welcome' : 'conversation'}`}>
+        <main ref={materialConversationTarget} className={`workspace ${empty && view !== 'materials' ? 'welcome' : 'conversation'}`}>
           {empty && view !== 'materials' ? (
             <div className="welcome-inner">
               <p className="welcome-date">{new Date().toLocaleDateString('zh-CN', { timeZone: state?.settings.timeZone || DEFAULT_TIME_ZONE, weekday: 'long' })}</p>

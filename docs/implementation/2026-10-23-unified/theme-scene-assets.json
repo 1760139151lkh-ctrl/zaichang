@@ -1,0 +1,55 @@
+{
+  "tool": "built-in GPT Image",
+  "use": "same-canvas theme scene layers for current zaichang repository",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "sourcePolicy": "mother pixels supply all character RGB; reused original chat alpha only after direct geometry comparison; background inpainting reconstructs occluded surfaces and is not a pixel-identical original background",
+  "artifacts": [
+    {
+      "path": "src/renderer/assets/companion/scenes/sakiko-chat-mist-mother.png",
+      "generatedFilename": "exec-a680df45-1cab-4db1-bb6e-28093c51471d.png",
+      "sha256": "b8907f7b3e25803a114755f5d0a6b5d06926742e5a7a1d06ba77daab7766fa63",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "src/renderer/assets/companion/scenes/sakiko-chat-violet-mother.png",
+      "generatedFilename": "exec-92f5a813-e96a-4f4c-93a2-af3730b35db7.png",
+      "sha256": "98cf42e8fe09d2972cb7702c1f52967117f938a3e8868e3f01fc15dfe459f419",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "src/renderer/assets/companion/scenes/room-morning-mist-background.png",
+      "generatedFilename": "exec-625bd31c-a667-4344-af8b-da7237288751.png",
+      "sha256": "f939241a81e28702192a28b64a43b7482ec34ced069fbc28c446fdbc72f8b315",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "src/renderer/assets/companion/scenes/room-dusk-violet-background.png",
+      "generatedFilename": "exec-5d8d9282-d26d-4333-b294-3c5e34759590.png",
+      "sha256": "72899c0eed17adb92851e7b49d90ca6dd7dfd0f24d893794ad6078934cb11028",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    }
+  ],
+  "prompts": {
+    "mist": "Use case: precise-object-edit / clean background extraction.\nEdit target: the attached approved 1536×1024 complete room scene.\nRemove ONLY the seated girl and the book she is holding, including all her hair, uniform, legs, shoes and body contact shadows. Reveal the empty padded window seat and the wooden floor naturally behind those removed pixels. Preserve the checked cushion, wooden frame, nearby pillows and blanket, window, curtain, plant, books, left wall, exact camera and perspective, object placement, and the entire approved cool airy morning mist blue, gentle daylight lighting unchanged. This is a same-canvas background layer for the original scene, not a new room. Output exactly the full 1536×1024 frame with no crop, no zoom, no reframing, no extra objects, no character, no human shadow, no text. Outside the girl's former silhouette preserve the target composition and lighting as faithfully as possible. The resulting clean plate must align with the target's full-canvas mother image.",
+    "violet": "Use case: precise-object-edit / clean background extraction.\nEdit target: the attached approved 1536×1024 complete room scene.\nRemove ONLY the seated girl and the book she is holding, including all her hair, uniform, legs, shoes and body contact shadows. Reveal the empty padded window seat and the wooden floor naturally behind those removed pixels. Preserve the checked cushion, wooden frame, nearby pillows and blanket, window, curtain, plant, books, left wall, exact camera and perspective, object placement, and the entire approved lavender violet dusk wall, warm orange low sun and sunset window lighting unchanged. This is a same-canvas background layer for the original scene, not a new room. Output exactly the full 1536×1024 frame with no crop, no zoom, no reframing, no extra objects, no character, no human shadow, no text. Outside the girl's former silhouette preserve the target composition and lighting as faithfully as possible. The resulting clean plate must align with the target's full-canvas mother image."
+  }
+}

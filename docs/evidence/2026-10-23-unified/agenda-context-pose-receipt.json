@@ -1,0 +1,34 @@
+{
+  "dateOnly": {
+    "dayActivity": [
+      {
+        "moment": "chat"
+      }
+    ],
+    "dayArt": [
+      {
+        "scene": "sakiko-chat",
+        "light": "morning",
+        "artPalette": "apricot",
+        "layered": "true"
+      }
+    ],
+    "meaning": "Date-only button fills a normal draft, no agenda object reference; chat is expected."
+  },
+  "object": {
+    "objectActivity": [
+      {
+        "moment": "planning"
+      }
+    ],
+    "objectArt": [
+      {
+        "scene": "sakiko-planning",
+        "light": "morning",
+        "artPalette": "apricot",
+        "layered": "true"
+      }
+    ],
+    "meaning": "Same saved agenda object carried through original discuss button; no model request."
+  }
+}

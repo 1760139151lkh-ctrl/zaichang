@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useId, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
+import { createContext, useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
+import { createPortal } from 'react-dom';
 import { parseCurveExpression, sampleCurve } from '../../shared/curve-expression';
 import type { ComponentRenderProps } from '@openuidev/react-lang';
 import { snapProgramNumber } from '../../shared/interactive-program';
@@ -13,6 +14,7 @@ interface GraphicSpace {
   down: boolean;
   point: (x: unknown, y: unknown, matrix?: Matrix) => Point | undefined;
   pointer: (event: PointerEvent<SVGGElement>, matrix?: Matrix) => Point | undefined;
+  controlsLayer: SVGGElement | null;
 }
 const identity: Matrix = [1, 0, 0, 1, 0, 0];
 const GraphicSpaceContext = createContext<GraphicSpace | null>(null);
@@ -42,6 +44,7 @@ function containsGap(value: unknown): boolean {
 
 export function InteractiveGraphic({ props }: Props) {
   const host = useRef<HTMLDivElement>(null), svg = useRef<SVGSVGElement>(null), [width, setWidth] = useState(760);
+  const [controlsLayer, setControlsLayer] = useState<SVGGElement | null>(null);
   const clip = `interactive-clip-${useId().replace(/:/g, '')}`, title = `${clip}-title`;
   useEffect(() => {
     const element = host.current;
@@ -58,7 +61,7 @@ export function InteractiveGraphic({ props }: Props) {
   const left = insetLeft + (availableWidth - plotWidth) / 2, top = insetTop + (availableHeight - plotHeight) / 2;
   const right = width - left - plotWidth, bottom = height - top - plotHeight, down = props.yDirection === 'down';
   const space: GraphicSpace = {
-    domain, matrix: identity, down,
+    domain, matrix: identity, down, controlsLayer,
     point(x, y, matrix = identity) {
       if (!finite(x) || !finite(y)) return;
       const tx = matrix[0] * x + matrix[2] * y + matrix[4], ty = matrix[1] * x + matrix[3] * y + matrix[5];
@@ -100,6 +103,7 @@ export function InteractiveGraphic({ props }: Props) {
       </g>}
       <GraphicSpaceContext.Provider value={space}><InteractiveGraphicSlot.Provider value={true}>
         <g clipPath={`url(#${clip})`}><InteractiveChildren value={props.children} /></g>
+        <g ref={setControlsLayer} className="interactive-graphic-controls" />
       </InteractiveGraphicSlot.Provider></GraphicSpaceContext.Provider>
     </svg>
     {containsGap(props.children) && <figcaption className="interactive-graphic-gap">尚未给出的量在图中留空。</figcaption>}
@@ -184,10 +188,43 @@ export function InteractiveLabel({ props }: Props) {
 }
 export function InteractiveDragHandle({ props }: Props) {
   const space = useSpace(), controls = useInteractiveControls(), dragging = useRef<number | undefined>(undefined);
+  const origin = useRef<SVGGElement>(null), visual = useRef<SVGGElement>(null);
   const xState = props.xField ? controls.states[props.xField] : undefined, yState = props.yField ? controls.states[props.yField] : undefined;
   const x = xState?.kind === 'number' ? controls.inputs[props.xField] as number : Math.max(space.domain.xMin, Math.min(space.domain.xMax, 0));
   const y = yState?.kind === 'number' ? controls.inputs[props.yField] as number : Math.max(space.domain.yMin, Math.min(space.domain.yMax, 0));
   const point = space.point(x, y, space.matrix), disabled = controls.disabled || props.disabled;
+  // Data stays clipped to its domain, while a boundary control keeps its full
+  // visible circle and hit area. The portal keeps the original React contexts;
+  // its invisible origin also preserves any surrounding native Motion transform.
+  useLayoutEffect(() => {
+    if (!space.controlsLayer || !origin.current || !visual.current) return;
+    let frame: number | undefined;
+    const update = (repeat: boolean) => {
+      const source = origin.current, target = visual.current, layer = space.controlsLayer;
+      if (!source || !target || !layer) return;
+      const sourceMatrix = source.getScreenCTM(), layerMatrix = layer.getScreenCTM();
+      if (sourceMatrix && layerMatrix) {
+        try {
+          const matrix = layerMatrix.inverse().multiply(sourceMatrix);
+          if ([matrix.a, matrix.b, matrix.c, matrix.d, matrix.e, matrix.f].every(finite))
+            target.setAttribute('transform', `matrix(${matrix.a} ${matrix.b} ${matrix.c} ${matrix.d} ${matrix.e} ${matrix.f})`);
+          else target.removeAttribute('transform');
+        } catch { target.removeAttribute('transform'); }
+      }
+      let opacity = 1, moving = false;
+      for (let parent: Element | null = source.parentElement; parent && parent !== source.ownerSVGElement; parent = parent.parentElement) {
+        opacity *= Number(getComputedStyle(parent).opacity) || 0;
+        moving ||= parent.getAnimations().some(animation => animation.playState === 'running' || animation.pending);
+      }
+      target.style.opacity = String(opacity);
+      if (moving && repeat) frame = requestAnimationFrame(() => update(true));
+    };
+    update(false);
+    // Motion starts in its ordinary effect, after this layout pass. One frame
+    // observes that start; subsequent frames are needed only while it moves.
+    frame = requestAnimationFrame(() => update(true));
+    return () => { if (frame !== undefined) cancelAnimationFrame(frame); };
+  }, [space.controlsLayer, controls.renderKey, controls.userAction.serial, point?.x, point?.y]);
   if (!point) return gap();
   const change = (event: PointerEvent<SVGGElement>) => {
     const at = space.pointer(event, space.matrix); if (!at) return;
@@ -208,7 +245,7 @@ export function InteractiveDragHandle({ props }: Props) {
         : y + (event.key === 'ArrowUp' !== space.down ? 1 : -1) * (yState.step ?? (yState.max - yState.min) / 100) * multiplier, yState);
     controls.patch(patch, 'manual', props.id, props.label);
   };
-  return <g data-program-node={props.id} className={`interactive-drag-handle tone-${props.color}`} role="slider" tabIndex={disabled ? -1 : 0}
+  const handle = <g data-program-node={props.id} className={`interactive-drag-handle tone-${props.color}`} role="slider" tabIndex={disabled ? -1 : 0}
     aria-label={props.label} aria-disabled={disabled} aria-valuenow={xState?.kind === 'number' ? x : y}
     aria-valuemin={xState?.kind === 'number' ? xState.min : yState?.kind === 'number' ? yState.min : undefined}
     aria-valuemax={xState?.kind === 'number' ? xState.max : yState?.kind === 'number' ? yState.max : undefined}
@@ -224,4 +261,10 @@ export function InteractiveDragHandle({ props }: Props) {
     <circle className="interactive-handle-target" cx={point.x} cy={point.y} r={Math.max(15, props.radius + 8)} />
     <circle className="interactive-handle-point" cx={point.x} cy={point.y} r={props.radius} />
   </g>;
+  // Keep the original footprint so a Motion using transform-box:fill-box has
+  // the same centre even when this is its only visible control.
+  return <><g ref={origin} aria-hidden="true" pointerEvents="none">
+    <circle cx={point.x} cy={point.y} r={Math.max(15, props.radius + 8)} opacity={0} />
+  </g>{space.controlsLayer
+    ? createPortal(<g ref={visual}>{handle}</g>, space.controlsLayer) : null}</>;
 }

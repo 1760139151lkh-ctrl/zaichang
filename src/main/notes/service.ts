@@ -22,7 +22,7 @@ import {
   type NoteQuoteReference,
 } from '../../shared/notes';
 import type { KernelRepository } from '../storage/repository';
-import { materialQuoteAddress, type MaterialNotes } from '../../shared/materials';
+import { materialQuoteAddress, type MaterialQuoteReference, type MaterialNotes } from '../../shared/materials';
 
 type VersionRecord = NoteDocument & { operation: NoteVersion['operation']; restoredFrom?: number };
 type Origin = { via: 'notebook' | 'conversation'; eventId?: string; material?: NoteDocument['source']['material'] };
@@ -363,6 +363,20 @@ export class NotesService {
       },
       scope,
     );
+  }
+  /** Called only after MaterialsService has re-read both source addresses.
+   * Moving an anchor never replaces the independently edited notebook body. */
+  moveMaterialSource(id: string, expectedRevision: number, from: MaterialQuoteReference,
+    source: MaterialQuoteReference & { name: string }): NoteMutation {
+    return this.change(id, expectedRevision, current => {
+      if (current.state !== 'active' || !current.source.material
+        || JSON.stringify(materialQuoteAddress(current.source.material)) !== JSON.stringify(materialQuoteAddress(from))
+        || from.resourceId !== source.resourceId || from.sha256 !== source.sha256)
+        throw new HarnessError('material_note_changed', '这条笔记的出处有了变化，刚才的试放没有覆盖它。');
+      if (JSON.stringify(materialQuoteAddress(from)) === JSON.stringify(materialQuoteAddress(source))) return current;
+      return { ...current, source: { ...current.source, material: structuredClone(source) },
+        attachmentLocators: [{ resourceId: source.resourceId, name: source.name }], operation: 'edit', restoredFrom: undefined };
+    });
   }
   changeState(raw: unknown, scope?: ScopeHandle): NoteMutation {
     this.allowed(scope, true);

@@ -29,7 +29,7 @@ export const definitions: LifeCollaborationDefinition[] = [
   { name: 'read_study_companion', grant: 'evidence:read', schema: studyCompanionInput.options[1],
     description: '只读原题、你当时的尝试和已经留在同一张陪学纸上的步骤；可接着未读历史，不改变提示深度、不保存新步骤。适合只想找回内容或本轮不保留新记录时使用。' },
   { name: 'study_companion', grant: 'evidence:read', mutates: true, schema: studyCompanionInput,
-    description: '围绕真实原题开一张陪学纸，接住你的尝试、给一点提示、换例子或直接讲清楚，也可回读、暂放和收好。原题来自真正含题目的原话、已读笔记原段或材料；笔记用manage_note read返回的studyProblem，不把“帮我看看笔记”的请求当原题，不把note ID当eventId。已有纸放错题源时用respond.problem沿原ID修正，保留尝试和旧帮助，不重复开纸、不改笔记。每一步保留同一题和当前卡点。当前解释若适合让人轻改条件，可在packet.exploration声明有限二次式a*x²+b*x+c、系数参数与横纵范围，先用packet.text讲清，再联动曲线、同一点的高度和可选切线斜率。原题关系和另举的小例子须分清，不任意执行公式或模型代码，不把有限图示包装成全科模拟器；超范围仍继续正常解释/调查。用户改的是临时演算假设。提示深度由本轮选择，不把助手讲解、调过参数或经过时间当作你已独立掌握。' },
+    description: '围绕真实原题开一张陪学纸，接住你的尝试、给一点提示、换例子或直接讲清楚，也可回读、暂放和收好。原题来自真正含题目的原话、已读笔记原段或材料；笔记用manage_note read返回的studyProblem，不把“帮我看看笔记”的请求当原题，不把note ID当eventId。已有纸放错题源时用respond.problem沿原ID修正，保留尝试和旧帮助，不重复开纸、不改笔记。每一步保留同一题和当前卡点。返回真实id后可用present_view.study展开原生陪学纸；原题与推导纸已有连续宽度调节，不为拖分隔线另抄题目造program。当前解释若适合让人轻改条件，可在packet.exploration声明有限二次式a*x²+b*x+c、系数参数与横纵范围，先用packet.text讲清，再联动曲线、同一点的高度和可选切线斜率。原题关系和另举的小例子须分清，不任意执行公式或模型代码，不把有限图示包装成全科模拟器；超范围仍继续正常解释/调查。用户改的是临时演算假设。提示深度由本轮选择，不把助手讲解、调过参数或经过时间当作你已独立掌握。' },
 ];
 export const lifeCollaborationToolDefinitions = definitions;
 const names = new Set(definitions.map(definition => definition.name));

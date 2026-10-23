@@ -1,4 +1,4 @@
-import { useId, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent } from 'react';
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent } from 'react';
 import { ArrowRight, ArrowUpRight, BookOpen, CalendarDays, Check, ChevronDown, Coffee, Footprints, GripHorizontal, Leaf } from 'lucide-react';
 import type { PlanningComparisonView } from '../../shared/planning-conversation';
 import type { PlanningBlock, PlanningScene, SemanticSelection } from '../../shared/scenes';
@@ -23,8 +23,9 @@ export interface PlanningComparisonTimelineProps {
   disabled?: boolean;
 }
 type DisplayBlock = { key: string; block: PlanningBlock; start: number; end: number };
-type TrialGesture = { mode: 'pointer' | 'keyboard'; sceneId: string; day: string; blockId: string; active: boolean;
-  origin: number; start: number; duration: number; pointerId?: number; pointerX?: number; pointerY?: number; millisecondsPerPixel?: number };
+type TrialGesture = { mode: 'pointer' | 'keyboard'; sceneId: string; sceneRevision: number; day: string; blockId: string; active: boolean;
+  origin: number; start: number; duration: number; pointerId?: number; pointerX?: number; pointerY?: number;
+  lastPointerX?: number; scrollLeft?: number; canvasWidth?: number; millisecondsPerPixel?: number };
 const icons = { busy: CalendarDays, work: BookOpen, setup: Coffee, cleanup: Check, transition: Footprints, protected: Leaf, free: Leaf };
 const names: Record<PlanningBlock['kind'], string> = {
   busy: '原来的安排', work: '这版的安排', setup: '准备', cleanup: '收尾', transition: '转场与休息', protected: '特意留白', free: '留给自己',
@@ -71,7 +72,18 @@ export function PlanningComparisonTimeline({ comparison, scenes, activeBranchId,
   const [focusedKey, setFocusedKey] = useState<string>();
   const [trial, setTrial] = useState<TrialGesture>();
   const trialRef = useRef<TrialGesture | undefined>(undefined), skipClick = useRef(false);
+  const captured = useRef<{ node: HTMLButtonElement; pointerId: number } | undefined>(undefined);
   const updateTrial = (value: TrialGesture | undefined) => { trialRef.current = value; setTrial(value); };
+  const cancelTrial = () => {
+    const pending = trialRef.current, capture = captured.current;
+    captured.current = undefined;
+    updateTrial(undefined);
+    if (pending?.mode === 'pointer' && pending.active) {
+      skipClick.current = true;
+      window.setTimeout(() => { skipClick.current = false; }, 0);
+    }
+    if (capture?.node.hasPointerCapture(capture.pointerId)) capture.node.releasePointerCapture(capture.pointerId);
+  };
   const choices = useMemo(() => comparison.branches.flatMap(branch => {
     const ref = branch.sceneRef; if (!ref) return [];
     const scene = scenes.find(value => value.id === ref.id && value.revision === ref.revision);
@@ -88,8 +100,32 @@ export function PlanningComparisonTimeline({ comparison, scenes, activeBranchId,
     [choices, day.date, from, to]);
   const current = all.find(value => value.branch.branchId === active?.branch.branchId);
   useLayoutEffect(() => {
-    if (trialRef.current && (trialRef.current.sceneId !== current?.scene.id || trialRef.current.day !== day.date || disabled || !onTryMove)) updateTrial(undefined);
-  }, [current?.scene.id, day.date, disabled, onTryMove]);
+    const pending = trialRef.current;
+    const block = current?.blocks.find(value => value.block.id === pending?.blockId);
+    if (pending && (pending.sceneId !== current?.scene.id || pending.sceneRevision !== current?.scene.revision
+      || pending.day !== day.date || disabled || !onTryMove || !block || block.start !== pending.origin
+      || block.end - block.start !== pending.duration)) cancelTrial();
+  }, [current?.scene.id, current?.scene.revision, current?.blocks, day.date, disabled, onTryMove]);
+  useEffect(() => {
+    const cancel = () => cancelTrial();
+    const escape = (event: globalThis.KeyboardEvent) => {
+      if (event.key !== 'Escape' || !trialRef.current) return;
+      event.preventDefault();
+      cancelTrial();
+    };
+    window.addEventListener('blur', cancel);
+    window.addEventListener('resize', cancel);
+    window.addEventListener('keydown', escape);
+    return () => {
+      window.removeEventListener('blur', cancel);
+      window.removeEventListener('resize', cancel);
+      window.removeEventListener('keydown', escape);
+      const capture = captured.current;
+      captured.current = undefined;
+      trialRef.current = undefined;
+      if (capture?.node.hasPointerCapture(capture.pointerId)) capture.node.releasePointerCapture(capture.pointerId);
+    };
+  }, []);
   // Partition only visual overlaps. Use every branch to keep the row of an
   // existing object stable as another arrangement is previewed.
   const lanes = useMemo(() => {
@@ -197,9 +233,17 @@ export function PlanningComparisonTimeline({ comparison, scenes, activeBranchId,
     && !!value.block.end && !value.block.originalRange && Date.parse(value.block.start) >= from && Date.parse(value.block.end) <= to;
   const boundTrial = (value: number, length: number) => Math.max(from, Math.min(to - length, value));
   const trialStart = (value: number, length: number) => boundTrial(Math.round(value / 300_000) * 300_000, length);
+  const pointerTrialStart = (pending: TrialGesture, clientX: number) => {
+    const frame = viewport.current, canvas = frame?.firstElementChild as HTMLElement | null;
+    if (!frame || !canvas || canvas.offsetWidth !== pending.canvasWidth) return undefined;
+    const delta = clientX - pending.pointerX! + frame.scrollLeft - pending.scrollLeft!;
+    return trialStart(pending.origin + delta * pending.millisecondsPerPixel!, pending.duration);
+  };
   const commitTrial = (value: DisplayBlock) => {
     const pending = trialRef.current; updateTrial(undefined);
-    if (!pending?.active || pending.sceneId !== scene.id || pending.blockId !== value.block.id || !canTry(value) || pending.start === pending.origin) return;
+    if (!pending?.active || pending.sceneId !== scene.id || pending.sceneRevision !== scene.revision
+      || pending.day !== day.date || pending.blockId !== value.block.id || pending.origin !== value.start
+      || pending.duration !== value.end - value.start || !canTry(value) || pending.start === pending.origin) return;
     if (pending.mode === 'pointer') {
       skipClick.current = true;
       window.setTimeout(() => { skipClick.current = false; }, 0);
@@ -211,31 +255,40 @@ export function PlanningComparisonTimeline({ comparison, scenes, activeBranchId,
     if (!canTry(value) || event.button !== 0 || !event.isPrimary) return;
     const canvas = viewport.current?.firstElementChild as HTMLElement | null;
     if (!canvas?.offsetWidth) return;
-    updateTrial({ mode: 'pointer', sceneId: scene.id, day: day.date, blockId: value.block.id, active: false,
+    cancelTrial();
+    updateTrial({ mode: 'pointer', sceneId: scene.id, sceneRevision: scene.revision, day: day.date, blockId: value.block.id, active: false,
       origin: value.start, start: value.start, duration: value.end - value.start, pointerId: event.pointerId,
-      pointerX: event.clientX, pointerY: event.clientY, millisecondsPerPixel: span / canvas.offsetWidth });
+      pointerX: event.clientX, pointerY: event.clientY, lastPointerX: event.clientX,
+      scrollLeft: viewport.current!.scrollLeft, canvasWidth: canvas.offsetWidth, millisecondsPerPixel: span / canvas.offsetWidth });
   };
   const pointerMove = (event: PointerEvent<HTMLButtonElement>, value: DisplayBlock) => {
     const pending = trialRef.current;
     if (!pending || pending.mode !== 'pointer' || pending.pointerId !== event.pointerId || pending.sceneId !== scene.id || pending.blockId !== value.block.id) return;
+    if (pending.sceneRevision !== scene.revision || pending.day !== day.date || pending.origin !== value.start
+      || pending.duration !== value.end - value.start || !canTry(value)) { cancelTrial(); return; }
     const delta = event.clientX - pending.pointerX!, vertical = event.clientY - pending.pointerY!;
-    if (!pending.active && Math.abs(vertical) > 8 && Math.abs(vertical) > Math.abs(delta)) { updateTrial(undefined); return; }
+    if (!pending.active && Math.abs(vertical) > 8 && Math.abs(vertical) > Math.abs(delta)) { cancelTrial(); return; }
     if (!pending.active && Math.abs(delta) < 7) return;
     event.preventDefault();
-    if (!event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.setPointerCapture(event.pointerId);
-    updateTrial({ ...pending, active: true, start: trialStart(pending.origin + delta * pending.millisecondsPerPixel!, pending.duration) });
+    if (!event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.setPointerCapture(event.pointerId);
+      captured.current = { node: event.currentTarget, pointerId: event.pointerId };
+    }
+    const start = pointerTrialStart(pending, event.clientX);
+    if (start === undefined) { cancelTrial(); return; }
+    updateTrial({ ...pending, active: true, lastPointerX: event.clientX, start });
   };
   const blockKey = (event: KeyboardEvent<HTMLButtonElement>, value: DisplayBlock) => {
     const pending = trialRef.current;
     if (canTry(value) && event.shiftKey && ['ArrowLeft', 'ArrowRight'].includes(event.key)) {
       event.preventDefault();
-      const previous = pending?.mode === 'keyboard' && pending.sceneId === scene.id && pending.blockId === value.block.id ? pending.start : value.start;
-      updateTrial({ mode: 'keyboard', sceneId: scene.id, day: day.date, blockId: value.block.id, active: true, origin: value.start,
+      const previous = pending?.mode === 'keyboard' && pending.sceneId === scene.id && pending.sceneRevision === scene.revision && pending.blockId === value.block.id ? pending.start : value.start;
+      updateTrial({ mode: 'keyboard', sceneId: scene.id, sceneRevision: scene.revision, day: day.date, blockId: value.block.id, active: true, origin: value.start,
         start: boundTrial(previous + (event.key === 'ArrowRight' ? 1 : -1) * 300_000, value.end - value.start), duration: value.end - value.start });
       return;
     }
     if (pending?.active && pending.sceneId === scene.id && pending.blockId === value.block.id) {
-      if (event.key === 'Escape') { event.preventDefault(); updateTrial(undefined); return; }
+      if (event.key === 'Escape') { event.preventDefault(); cancelTrial(); return; }
       if (pending.mode === 'keyboard' && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); commitTrial(value); return; }
     }
     focus(event);
@@ -251,7 +304,14 @@ export function PlanningComparisonTimeline({ comparison, scenes, activeBranchId,
         onClick={() => { setLocalDay({ id: comparison.comparisonId, date: value.date }); onViewDay?.(value.date); }}>
         {dateName(value.date)}</button>)}
     </div> : null}
-    <div className="comparison-time-viewport" ref={viewport} tabIndex={0} aria-label="同一条时间带，可横向浏览">
+    <div className="comparison-time-viewport" ref={viewport} tabIndex={0} aria-label="同一条时间带，可横向浏览"
+      onScroll={() => {
+        const pending = trialRef.current;
+        if (pending?.mode !== 'pointer') return;
+        if (!pending.active) { updateTrial({ ...pending, scrollLeft: viewport.current!.scrollLeft }); return; }
+        const start = pointerTrialStart(pending, pending.lastPointerX!);
+        if (start === undefined) cancelTrial(); else updateTrial({ ...pending, start });
+      }}>
       <div className="comparison-time-canvas" style={{ minWidth: canvasWidth, height: 36 + laneCount * 88 + (hasMovement ? 43 : 10) } as CSSProperties}>
         <div className="comparison-time-axis" aria-hidden="true">{ticks.map((tick, index) => <span key={tick}
           className={`${index === 0 ? 'is-first' : index === ticks.length - 1 ? 'is-last' : ''}`} style={{ left: `${pos(tick)}%` }}>
@@ -277,9 +337,17 @@ export function PlanningComparisonTimeline({ comparison, scenes, activeBranchId,
               onPointerDown={event => pointerDown(event, value)} onPointerMove={event => pointerMove(event, value)}
               onPointerUp={event => {
                 if (trialRef.current?.mode !== 'pointer' || trialRef.current.pointerId !== event.pointerId) return;
-                if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+                if (trialRef.current.active) {
+                  const start = pointerTrialStart(trialRef.current, event.clientX);
+                  if (start === undefined) { cancelTrial(); return; }
+                  updateTrial({ ...trialRef.current, lastPointerX: event.clientX, start });
+                }
                 commitTrial(value);
-              }} onPointerCancel={() => updateTrial(undefined)}
+                captured.current = undefined;
+                if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+              }} onPointerCancel={cancelTrial}
+              onLostPointerCapture={() => { if (trialRef.current?.mode === 'pointer') cancelTrial(); }}
+              onBlur={() => { if (trialRef.current?.blockId === value.block.id) cancelTrial(); }}
               onFocus={event => { setFocusedKey(value.key); reveal(event.currentTarget); }}
               onClick={() => { if (skipClick.current) { skipClick.current = false; return; }
                 setFocusedKey(value.key); onSelect({ kind: 'time_block', sceneId: scene.id, sceneRevision: scene.revision, blockId: block.id }); }}>

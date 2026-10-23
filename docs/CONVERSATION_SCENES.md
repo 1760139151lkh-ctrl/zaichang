@@ -1,5 +1,16 @@
 # 对话场景与 OpenUI
 
+<a id="unified-scenes-20261023"></a>
+## 2026-10-23 同一场景中的直接操纵与回传
+
+本轮的全面创新与实施授权覆盖旧批次暂停、停止外延的安排。先看[统一标尺](implementation/2026-10-23-unified/visual-standard.md)、[逐图映射](implementation/2026-10-23-unified/image-ledger.md)及[交付报告与证据范围](implementation/2026-10-23-unified/delivery-report.md)；以下旧章节仍描述其当时的接线和核验范围。
+
+场景仍沿原消息、来源证明与状态 owner 组织，不新增第二套聊天或记忆。`companion-scenes.tsx` 负责同幅母图／背景／alpha 及座面轨道；角色外观与宿主人格分别保存。四位内置角色各有闲聊、共读、夜间资产；祥子另有暖杏、晨雾蓝、暮色紫、夜雨暖金灯光母图。四种 UI 配色不意味着已生成全角色×全姿态×全主题矩阵，缺少的组合不以独立人物换色贴图冒充。
+
+直接操纵的入口分别是：`ConversationMap.tsx` 的同画布展开／收回与相机保留；`StudySceneView.tsx`、`ReadingDivider.tsx` 的连续分屏；`MaterialPdfPage.tsx`／`MaterialsPanel.tsx` 的精确选段、拖入与批注联动；`AgendaDayTimeline.tsx`／`PlanningComparisonTimeline.tsx` 的试放、碰撞、空档选择与原对象确认。界面手势先改变其实际局部状态或原对象方案，保存、撤回及继续交流仍沿原 Bridge／Store 与来源版本核验，不能把预览当作业务已保存。
+
+真实 Luna 已走过地图、原生陪学纸与交互图形的生成、操作回传和续问，具体响应、保存与界面观察见交付报告和[原生操作证据](evidence/2026-10-23-native-interactions/README.md)。这不是所有 Scene 的模型链路验收；Windows 原生 PDF 解析到界面的完整端到端路径仍未验证。Linux 隔离 Electron 的环境适配与合成输入也不扩大为生产账号或 Windows 验证。
+
 2026-10-21 同步总览见[项目基线](PROJECT_BASELINE.md#openui动态呈现与地图怎样衔接)。工具取得事实、宿主核准Scene或有限声明式程序、共享OpenUI库呈现、选择回同一输入和实际动作分别有边界；本页描述接线，当前模型与画面证据统一归[本轮状态](CURRENT_STATUS.md#deep-refactor-20261021)。较早停止扩展与暂停安排保留当时范围，当前按[新原话](source-materials/2026-10-21/user-supplements.md)继续。
 
 本阶段新增的通用交互程序沿原 `present_view.program` 与 Message.views 接续：主模型可依眼前问题编排文字、图形、局部输入和动效，不必从业务 Scene 名单或话题演示中挑一项。按需方法 `interactive-program` 的语法、签名和规则来自实际共享库；默认只给能力入口与当前少量纯地址。原地图、天气、日历、校园与笔记仍使用真实 owner；程序引用数据须绑定已经实际提供的工具结果，临时状态不写回来源。

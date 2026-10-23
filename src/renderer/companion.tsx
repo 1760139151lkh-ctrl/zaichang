@@ -7,34 +7,28 @@ import night from './assets/companion/night.png';
 import readingMorning from './assets/companion/reading-morning.png';
 import readingDusk from './assets/companion/reading-dusk.png';
 import readingNight from './assets/companion/reading-night.png';
-import mio from './assets/companion/mio.png';
-import haruka from './assets/companion/haruka.png';
-import saku from './assets/companion/saku.png';
-import sakiko from './assets/companion/sakiko.png';
-import mutsumi from './assets/companion/mutsumi.png';
-// The selected portraits remain in the local visual checkpoint until binary upload succeeds.
-import anon from '../../assets/brand/mark.svg';
-import tomori from '../../assets/brand/mark.svg';
-import nagi from './assets/companion/nagi.png';
-import { companionArtworkImage, companionMoment, type CompanionMoment } from './companion-variants';
+import { companionMoment, type CompanionMoment } from './companion-variants';
+import { CompanionSceneStage, companionSceneArtwork, companionScenePortrait, type SceneCharacter } from './companion-scenes';
+import { useAppearance, type AppearancePalette } from './appearance';
 import './companion.css';
 
 export type { CompanionMoment } from './companion-variants';
 
-// Portrait framing only affects thumbnails. The room always fits the complete
-// image inside its available space, including at the largest chosen scale.
-export const COMPANIONS = [
-  { id: 'sakiko', name: '祥子', category: '二次元', image: sakiko, frame: { height: '100%', top: '0%', anchor: '52%', portrait: '180%', portraitTop: '0%' }, avatar: { left: '-62%', top: '-3%', width: '220%' } },
-  { id: 'mutsumi', name: '睦', category: '二次元', image: mutsumi, frame: { height: '100%', top: '0%', anchor: '51%', portrait: '180%', portraitTop: '0%' }, avatar: { left: '-60%', top: '-3%', width: '220%' } },
-  { id: 'anon', name: '爱音', category: '二次元', image: anon, frame: { height: '100%', top: '0%', anchor: '50%', portrait: '180%', portraitTop: '0%' }, avatar: { left: '-60%', top: '-5%', width: '220%' } },
-  { id: 'tomori', name: '灯', category: '二次元', image: tomori, frame: { height: '100%', top: '0%', anchor: '50%', portrait: '180%', portraitTop: '0%' }, avatar: { left: '-60%', top: '-3%', width: '220%' } },
-  { id: 'mio', name: '澪', category: '插画', image: mio, frame: { height: '100%', top: '0%', anchor: '42%', portrait: '180%', portraitTop: '1%' }, avatar: { left: '-39%', top: '-2%', width: '205%' } },
-  { id: 'haruka', name: '遥', category: '插画', image: haruka, frame: { height: '100%', top: '0%', anchor: '61%', portrait: '175%', portraitTop: '-7%' }, avatar: { left: '-49%', top: '-11%', width: '200%' } },
-  { id: 'saku', name: '朔', category: '插画', image: saku, frame: { height: '100%', top: '0%', anchor: '54%', portrait: '205%', portraitTop: '1%' }, avatar: { left: '-67%', top: '-2%', width: '210%' } },
-  { id: 'nagi', name: '凪', category: '写实', image: nagi, frame: { height: '130%', top: '3%', anchor: '54%', portrait: '220%', portraitTop: '1%' }, avatar: { left: '-46%', top: '-5%', width: '210%' } },
+// All built-in portraits come from their approved complete scene, not a
+// separately generated cutout. Unavailable scene packs are not offered.
+const characterSlots = [
+  { id: 'sakiko', name: '祥子', fullName: '丰川祥子', category: 'Ave Mujica' },
+  { id: 'mutsumi', name: '睦', fullName: '若叶睦', category: 'Ave Mujica' },
+  { id: 'anon', name: '爱音', fullName: '千早爱音', category: 'MyGO!!!!!' },
+  { id: 'tomori', name: '灯', fullName: '高松灯', category: 'MyGO!!!!!' },
 ] as const;
+export const COMPANIONS = characterSlots.map(character => ({
+  ...character, image: companionScenePortrait(character.id) || '',
+  frame: { portrait: '400%', portraitTop: '-8%', anchor: '84%' },
+  avatar: { left: '-450%', top: '-50%', width: '600%' },
+})).filter(character => character.image);
 export const WINDOW_LIGHT = { morning, dusk, night };
-type CharacterId = (typeof COMPANIONS)[number]['id'] | 'light' | `custom:${string}`;
+type CharacterId = SceneCharacter | 'light' | `custom:${string}`;
 export interface CompanionPlacement { scale: number; position: number; verticalPosition: number }
 export interface CompanionPreference {
   character: CharacterId;
@@ -50,6 +44,8 @@ interface CompanionState extends CompanionPreference {
   pictures: CompanionPicture[];
   favorites: CharacterId[];
   names: Record<string, string>;
+  scenePositions: Record<string, number>;
+  retiredFavorites: string[];
 }
 const preferenceKey = 'zaichang.companion.v1';
 const imageKey = 'zaichang.companion.image.v1';
@@ -59,10 +55,11 @@ const pictureLimit = 8;
 const imageBudget = 3_000_000;
 const validImage = (image: unknown): image is string => typeof image === 'string' && image.length <= imageBudget && /^data:image\/(?:png|jpeg|webp);base64,/.test(image);
 const defaults: CompanionPreference = {
-  character: 'mio', presence: 'window', light: 'morning', reducedMotion: false, scale: 1, position: 50, verticalPosition: 100,
+  character: 'sakiko', presence: 'window', light: 'morning', reducedMotion: false, scale: 1, position: 50, verticalPosition: 100,
 };
-const emptyState = (): CompanionState => ({ ...defaults, pictures: [], favorites: [], names: {} });
-const knownCharacter = (id: unknown): id is CharacterId => typeof id === 'string' && (id === 'light' || COMPANIONS.some(item => item.id === id) || /^custom:[a-zA-Z0-9-]{1,80}$/.test(id));
+const emptyState = (): CompanionState => ({ ...defaults, pictures: [], favorites: [], names: {}, scenePositions: {}, retiredFavorites: [] });
+const retiredCharacters = ['mio', 'haruka', 'saku', 'nagi'];
+const knownCharacter = (id: unknown): id is CharacterId => typeof id === 'string' && (id === 'light' || characterSlots.some(item => item.id === id) || /^custom:[a-zA-Z0-9-]{1,80}$/.test(id));
 function preference(value: any): CompanionPreference {
   return {
     character: knownCharacter(value?.character) ? value.character : defaults.character,
@@ -80,7 +77,7 @@ function readCompanion(): CompanionState {
     if (raw) {
       const stored = JSON.parse(raw);
       if (stored.version !== 2) return emptyState();
-      const result: CompanionState = { ...preference(stored), pictures: [], favorites: [], names: {} };
+      const result: CompanionState = { ...preference(stored), pictures: [], favorites: [], names: {}, scenePositions: {}, retiredFavorites: [] };
       for (const item of Array.isArray(stored.pictures) ? stored.pictures.slice(0, pictureLimit) : []) {
         const image = item.legacy ? localStorage.getItem(imageKey) : item.image;
         if (knownCharacter(item.id) && item.id.startsWith('custom:') && validImage(image) && !result.pictures.some(picture => picture.id === item.id))
@@ -90,7 +87,11 @@ function readCompanion(): CompanionState {
       if (!exists(result.character)) result.character = 'light';
       result.favorites = Array.from(new Set<CharacterId>((Array.isArray(stored.favorites) ? stored.favorites : []).filter((id: unknown): id is CharacterId => knownCharacter(id) && exists(id))));
       if (stored.names && typeof stored.names === 'object') for (const [id, name] of Object.entries(stored.names)) {
-        if (knownCharacter(id) && typeof name === 'string' && name.trim()) result.names[id] = name.trim().slice(0, 60);
+        if ((knownCharacter(id) || retiredCharacters.includes(id)) && typeof name === 'string' && name.trim()) result.names[id] = name.trim().slice(0, 60);
+      }
+      result.retiredFavorites = [...new Set([...(Array.isArray(stored.retiredFavorites) ? stored.retiredFavorites : []), ...(Array.isArray(stored.favorites) ? stored.favorites : [])].filter((id: unknown): id is string => typeof id === 'string' && retiredCharacters.includes(id)))];
+      if (stored.scenePositions && typeof stored.scenePositions === 'object') for (const [id, position] of Object.entries(stored.scenePositions).slice(0, 100)) {
+        if (/^[a-z0-9-]{1,100}$/.test(id) && typeof position === 'number' && Number.isFinite(position)) result.scenePositions[id] = Math.max(-1, Math.min(1, position));
       }
       return result;
     }
@@ -119,6 +120,7 @@ const CompanionContext = createContext<{
   removePicture: (id: CharacterId) => void;
   rename: (id: CharacterId, name: string) => void;
   toggleFavorite: (id: CharacterId) => void;
+  setScenePosition: (sceneId: string, position: number) => void;
   reset: () => void;
 } | null>(null);
 
@@ -165,6 +167,11 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
     const current = readCompanion();
     commit({ ...current, favorites: current.favorites.includes(id) ? current.favorites.filter(item => item !== id) : [...current.favorites, id] });
   }, [commit]);
+  const setScenePosition = useCallback((sceneId: string, position: number) => {
+    if (!/^[a-z0-9-]{1,100}$/.test(sceneId) || !Number.isFinite(position)) return;
+    const current = readCompanion();
+    commit({ ...current, scenePositions: { ...current.scenePositions, [sceneId]: Math.max(-1, Math.min(1, position)) } });
+  }, [commit]);
   const reset = useCallback(() => {
     // Keep an empty v2 record: even if old-key cleanup fails, legacy images cannot
     // be rediscovered after the user clears their data.
@@ -180,7 +187,7 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
     window.addEventListener('storage', changed);
     return () => window.removeEventListener('storage', changed);
   }, []);
-  const context = useMemo(() => ({ value, update, setPicture, removePicture, rename, toggleFavorite, reset }), [value, update, setPicture, removePicture, rename, toggleFavorite, reset]);
+  const context = useMemo(() => ({ value, update, setPicture, removePicture, rename, toggleFavorite, setScenePosition, reset }), [value, update, setPicture, removePicture, rename, toggleFavorite, setScenePosition, reset]);
   return <CompanionContext.Provider value={context}>{children}</CompanionContext.Provider>;
 }
 export function useCompanion() {
@@ -188,17 +195,18 @@ export function useCompanion() {
   if (!context) throw new Error('CompanionProvider is required');
   return context;
 }
-function selectedPicture(value: CompanionState, moment: CompanionMoment = 'chat') {
+function selectedPicture(value: CompanionState, moment: CompanionMoment = 'chat', palette: AppearancePalette = 'apricot') {
   return value.character.startsWith('custom:') ? value.pictures.find(item => item.id === value.character)?.image
-    : companionArtworkImage(COMPANIONS.find(item => item.id === value.character), moment);
+    : companionSceneArtwork(value.character, moment, value.light, palette)?.mother;
 }
 export function companionName(value: CompanionState, id: CharacterId = value.character) {
-  return value.names[id] || (id === 'light' ? '只留一束光' : COMPANIONS.find(item => item.id === id)?.name || value.pictures.find(item => item.id === id)?.name || '我的形象');
+  return value.names[id] || (id === 'light' ? '只留一束光' : characterSlots.find(item => item.id === id)?.name || value.pictures.find(item => item.id === id)?.name || '我的形象');
 }
 export function CompanionAvatar({ className = '', size = 34 }: { className?: string; size?: number }) {
   const { value } = useCompanion();
+  const [appearance] = useAppearance();
   const character = COMPANIONS.find(item => item.id === value.character);
-  const image = value.presence === 'hidden' ? undefined : selectedPicture(value);
+  const image = value.presence === 'hidden' ? undefined : selectedPicture(value, 'chat', appearance.palette);
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [image]);
   return <span className={`companion-avatar ${className} ${image && !failed ? '' : 'is-light'}`} style={{ width: size, height: size }} aria-hidden="true">
@@ -365,21 +373,30 @@ function CompanionFigure({ image, name, placement, interaction, onError }: {
 }
 
 export function CompanionScene({ preview = false, quiet = false, immersive = false, moment, placement, interaction }: { preview?: boolean; quiet?: boolean; immersive?: boolean; moment?: CompanionMoment; placement?: CompanionPlacement; interaction?: PlacementInteraction }) {
-  const { value } = useCompanion();
-  const sceneMoment = moment ?? companionMoment({ reading: quiet && !preview, night: value.light === 'night' });
-  const image = selectedPicture(value, sceneMoment);
-  const showFigure = !!image && (immersive || value.presence === 'window') && value.presence !== 'hidden' && (!quiet || preview);
+  const { value, setScenePosition } = useCompanion();
+  const [appearance] = useAppearance();
+  const sceneMoment = moment ?? (immersive ? 'rest' : companionMoment({ reading: quiet && !preview, night: value.light === 'night' }));
+  const artwork = companionSceneArtwork(value.character, sceneMoment, value.light, appearance.palette);
+  const image = selectedPicture(value, sceneMoment, appearance.palette);
+  const showFigure = !!image && (immersive || value.presence === 'window') && value.presence !== 'hidden';
   const readingRoom = quiet && !preview && !value.character.startsWith('custom:');
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [image]);
   const editable = preview && showFigure ? interaction : undefined;
-  return <div className={`companion-scene ${preview ? 'is-preview' : ''} ${quiet || (preview && value.presence !== 'window') ? 'is-quiet' : ''} ${immersive ? 'is-immersive' : ''} ${value.character.startsWith('custom:') ? 'has-custom-art' : ''}`} data-light={value.light} data-moment={sceneMoment} aria-hidden={editable ? undefined : true}>
-    <div className="window-room room-day" style={{ backgroundImage: `url(${value.light === 'dusk'
-      ? readingRoom ? readingDusk : dusk : readingRoom ? readingMorning : morning})` }} />
-    <div className="window-room room-night" style={{ backgroundImage: `url(${readingRoom ? readingNight : night})` }} />
-    <div className="window-wash" />
+  const scene = !!artwork && value.presence === 'window';
+  return <div className={`companion-scene ${preview ? 'is-preview' : ''} ${quiet || (preview && value.presence !== 'window') ? 'is-quiet' : ''} ${immersive ? 'is-immersive' : ''} ${value.character.startsWith('custom:') ? 'has-custom-art' : ''} ${scene ? 'has-scene-art' : ''}`} data-light={value.light} data-moment={sceneMoment} aria-hidden={scene && showFigure ? undefined : editable ? undefined : true}>
+    {scene ? <>
+      <CompanionSceneStage artwork={artwork} name={companionName(value)} position={value.scenePositions[artwork.positionKey] ?? value.scenePositions[artwork.id] ?? 0}
+        onCommit={position => setScenePosition(artwork.positionKey, position)} showFigure={showFigure} interactive={showFigure} />
+      <div className="scene-content-wash" />
+    </> : <>
+      <div className="window-room room-day" style={{ backgroundImage: `url(${value.light === 'dusk'
+        ? readingRoom ? readingDusk : dusk : readingRoom ? readingMorning : morning})` }} />
+      <div className="window-room room-night" style={{ backgroundImage: `url(${readingRoom ? readingNight : night})` }} />
+      <div className="window-wash" />
+      {showFigure && value.character.startsWith('custom:') && !failed && <CompanionFigure key={value.character} image={image!} name={companionName(value)} placement={placement ?? value} interaction={editable} onError={() => setFailed(true)} />}
+    </>}
     {preview && value.presence === 'corner' && <CompanionAvatar className="companion-preview-corner" size={40} />}
-    {showFigure && !failed && <CompanionFigure key={value.character} image={image} name={companionName(value)} placement={placement ?? value} interaction={editable} onError={() => setFailed(true)} />}
   </div>;
 }
 

@@ -1,5 +1,6 @@
 .conversation-map-frame { min-width:0; display:flow-root; }
 .conversation-map {
+  position: relative;
   margin: 22px 0;
   min-width: 0;
   border: 1px solid var(--border);
@@ -36,9 +37,29 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 15px 17px;
+  padding: 19px 17px 15px;
   background: var(--bg);
 }
+.conversation-map .conversation-map-grip {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  width: 72px;
+  min-height: 23px;
+  padding: 0;
+  border-radius: 0 0 12px 12px;
+  cursor: ns-resize;
+  touch-action: none;
+  user-select: none;
+}
+.conversation-map-grip > span { width: 31px; height: 3px; border-radius: 3px; background: var(--text-tertiary); opacity: .48; }
+.conversation-map-grip:is(:hover,:focus-visible) > span,.conversation-map[data-dragging='true'] .conversation-map-grip > span { background: var(--accent); opacity: .8; }
+.conversation-map[data-dragging='true'] { will-change: transform; user-select: none; }
+.conversation-map[data-dragging='true'] .conversation-map-canvas { pointer-events: none; }
 .conversation-map-heading-icon {
   color: var(--accent);
   display: grid;
@@ -311,7 +332,7 @@
   height: auto;
 }
 .conversation-map[data-focused='true'] .conversation-map-heading {
-  padding: 18px 26px;
+  padding: 24px 26px 18px;
 }
 .conversation-map[data-focused='true'] .conversation-map-heading strong {
   font-size: 18px;
@@ -339,7 +360,7 @@
     height: 330px;
   }
   .conversation-map-heading {
-    padding: 12px;
+    padding: 20px 12px 12px;
     gap: 8px;
   }
   .conversation-map-heading strong {
@@ -361,7 +382,7 @@
     margin: 0;
   }
   .conversation-map[data-focused='true'] .conversation-map-heading {
-    padding: 14px;
+    padding: 23px 14px 14px;
   }
   .conversation-map[data-focused='true'] .conversation-map-heading strong {
     font-size: 14px;

@@ -1,0 +1,81 @@
+# 主代理原生窗口复核
+
+2026-10-23，全部图片为真实Electron44.3.0运行截图。使用真实React/preload/Bridge/Store，公开合成题目、安排与公共校园地图；未替换window.zaichang。Linux主机AF_UNIX限制下仅临时调整生成构建物的单实例锁，源码未改，观察结束后正常构建恢复。原生Windows PDF与触摸设备不在这些画面的证据范围。
+
+## 场景与人物
+
+[最终首页](11-home-final.png)与[窄窗聊天](04-chat-narrow-420.png)。场景采用原母图RGB，mask只给alpha，植物不侵入左侧正文。主代理通过实际指针把角色从内侧拖向原座位，位置从-100变为约-1，重载仍为-1；再次拖动后Escape恢复-100。Home/End到两端仍保留完整头脚。键盘已松开后的调整正常保存；未松开即失焦回退由源码检查覆盖，不扩大成该分支真人验证。
+
+- [实际指针移动](01-home-pointer-moved.png)
+- [内侧边界](02-home-seat-left.png)
+- [外侧边界](03-home-seat-right-limit.png)
+
+`scene-{sakiko,mutsumi,anon,tomori}-{chat,reading,night}.png`是逐项点击实际角色/姿态/光线取得的12张预览合成，不是原图副本。主代理亲看全部合成，人物和同场景光向一致；不能由此推定每个人物的全部拖动位置、所有主题与活动组合均已验收。
+
+## 原生陪学纸与真实Luna
+
+正常composer输入积分题及本人尝试，Luna第一轮创建同题owner后曾另做通用program；不是把该选择写成完美原生呈现。正常续问明确打开已有内置陪学纸后，原studyId/revision1展开真实Study Scene，原题、本人尝试与提示分别回读。两轮真实型号均为gpt-6-luna，分别13次及6次请求；地址、型号和模型曾收到的拒绝反馈见[luna-study-receipt.json](luna-study-receipt.json)。没有直接调用工具伪造模型发表结果。
+
+实际指针把原题比例32.1%拉到44.9%，保存偏好为44.9；再次试拉后Escape回44.9。输入草稿“下一步我想把 x dx 单独写出来。”保留，页面只有一个textarea。正常重载后从历史对话打开原消息，比例、原owner和草稿均恢复。实操还发现旁注过窄，改为按推导纸自己的宽度上下重排；新renderer重载复核完成。
+
+- [原比例](05-study-original.png)
+- [拖宽后发现旁注挤窄](06-study-resized.png)
+- [修正后重载：旁注自然排到下方，比例和草稿仍在](07-study-reflow-restored.png)
+
+工具说明同步补充了原生纸已有连续分屏的能力，避免模型为布局另抄一张题。下方追加记录保留修改后新一轮普通请求的首次选择实测，不将一次成功扩大为稳定命中率。
+
+## 地图连续操作
+
+Luna正常对话真实查询东1教学楼到基础图书馆，264米。上提展开、下拉收回，实际Surface保持同一个。下面两条最后补丁另由主代理实际操作：
+
+1. 正在运行的展开动画约183.27ms时抓住grip；接管后动画paused、`data-dragging=true`。抓取前后实际画面x约25.76→23.46、y约26.98→24.20，无跳回全屏或旧原位；随后可连续下拉。
+2. 聚焦中从1440×900缩到1000×760，地图回到内嵌，同Surface。再上提展开，下拉460px收回，仍同Surface。renderer错误为空。
+
+- [连续拖动中](08-map-continuous-drag.png)
+- [动画中接管](09-map-transition-interrupted.png)
+- [缩窗后再次展开/收回](10-map-resize-return.png)
+- [实际几何、动画状态和同Surface回执](map-interruption-receipt.json)
+
+此处使用软件绘图/平面兼容模式，不证明GPU三维路径、所有嵌套场景和触摸设备通过。
+
+## 最终构建后的日程复看
+
+主代理另打开此前已初始化的3项合成安排。不是新增生产日程，也不把准备输入当正常UI创建验收。真实指针08点→10点出现与常微分碰撞；试09点时宿主仍08点revision3。沿原内嵌编辑器保存为同ID09点revision4，点撤回回08点revision5；顶栏仍在y0、高72px，renderer错误为空。
+
+- [打开今天](12-agenda-final-before.png)
+- [真实拖动碰撞](13-agenda-final-collision.png)
+- [保存与撤回后](14-agenda-final-restored.png)
+- [原对象保存/撤回回执](agenda-primary-receipt.json)
+
+其他原生资料、PDF组件及通用Motion的独立证据见本轮交付报告。所有截图片段各自保留实际范围，不由一张合格画面推导全部产品已100%验收。
+
+## 新资料目录默认人格与四主题首页
+
+最终desktop构建后另开全新隔离目录，真实Store默认人格为丰川祥子，visualBinding为sakiko/source_inspired；没有用界面头像替代人格身份。此前截图署名“澪”来自旧隔离目录保留的已存人格，不是新默认仍为无关角色。默认回执见[fresh-default-receipt.json](fresh-default-receipt.json)。
+
+主代理逐项从实际配色入口选择、回到首页后截图并亲看。四张图的导航、输入和按钮坐标一致，整幅光线与UI强调色一起变化，无昼夜切半手柄。没有发送模型请求。
+
+| 暖杏 | 晨雾蓝 |
+| --- | --- |
+| ![暖杏首页](theme-home-apricot.png) | ![晨雾蓝首页](theme-home-mist.png) |
+
+| 暮色紫 | 夜雨暖金 |
+| --- | --- |
+| ![暮色紫首页](theme-home-violet.png) | ![夜雨暖金首页](theme-home-rain.png) |
+
+## 独立活动姿态与普通请求直接展开
+
+追加四角色看安排、休息、整活的12母图/12原位mask后，主代理逐张看过全部文件，并实际点选12项、检查均为对应id且layered=true，再亲看全部实际合成。`activity-{character}-{planning,rest,play}.png`为该轮真实组件截图；[activity-scene-receipt.json](activity-scene-receipt.json)保存实际返回值。
+
+在整活预览中，实际指针把祥子移到-52，切到休息显示0，再切回整活仍-52；[实际位置记忆](16-play-position-memory.png)。[休息入口](17-rest-space-real.png)从首页正常点击打开，使用独立rest母图，不再回退闲聊。宽窗左沿的轻微色差随后在正常合成层修正，不通过放大裁脚处理，最终画面另存。
+
+工具能力说明补充后，用一句不含工具名/ID的普通请求，在全新隔离目录再跑一轮。最终回复done，15次实际请求均为gpt-6-luna；同轮直接发表libraryVersion1、program=false、study_reference与原studyId，没有要求用户另选工具。原题、本人尝试和带公式的小步提示分别展开；实际拖宽，角色随真实Study状态切到sakiko-reading。模型先前被拒的参数与来源范围仍保留，没有通过放宽源校验取得结果。
+
+- [普通请求直接展开的原生学习纸](15-luna-native-first-choice.png)
+- [本轮原始输入、真实view/Scene地址、型号与完成状态](luna-native-first-choice-receipt.json)
+
+这是一条确实发生的首次选择路径，不能据此声称所有语句、学科、复杂来源和角色都稳定命中。
+
+宽窗休息场景左沿色差已在合成层加入同背景色的局部渐变，母图仍按高度保留完整腿脚；主代理重开真实窗口亲看[修正后休息空间](19-rest-edge-fixed.png)，没有留下竖直分界或加入滑块。
+
+最后用已保存的合成日程对象正常点“接着聊这件事”，输入旁保留“数分：把这一页看完”原对象引用，实际活动为planning、图为sakiko-planning、layered=true；没有发送模型请求。日期页的“接着聊这一天”只带普通日期草稿，因此保留chat，不靠正文日期词猜测活动。[对象联动截图](20-agenda-object-planning-pose.png)与[精确回执](agenda-context-pose-receipt.json)分别保留这两种行为。

@@ -122,13 +122,13 @@ test('external card conversion produces a review draft without privileged prompt
   assert.throws(() => previewPersonaCharacterCard('x'.repeat(200_001)));
 });
 
-test('a new profile meets 澪 with her own voice, and the four original characters sound different', async () => {
+test('a new profile meets 祥子 and saved original characters retain their different voices', async () => {
   const { initialPersona, isUntouchedDefaultPersona, ORIGINAL_COMPANIONS, companionPreset } = await import('../../src/shared/persona');
   const fresh = initialPersona();
-  assert.equal(fresh.core.presetId, 'mio');
-  assert.equal(fresh.core.visualBinding?.companionId, 'mio');
-  assert.equal(fresh.core.visualBinding?.portrayalBasis, 'project_original');
-  assert.match(personaGuidance(fresh), /^# 你是澪/);
+  assert.equal(fresh.core.presetId, 'sakiko');
+  assert.equal(fresh.core.visualBinding?.companionId, 'sakiko');
+  assert.equal(fresh.core.visualBinding?.portrayalBasis, 'source_inspired');
+  assert.match(personaGuidance(fresh), /^# 你是丰川祥子/);
   const voices = ORIGINAL_COMPANIONS.map(id => companionPreset(id)!.core.voice);
   assert.equal(new Set(voices).size, 4);
   const prompts = ORIGINAL_COMPANIONS.map(id => personaGuidance({ ...fresh, core: companionPreset(id)!.core }));
@@ -144,7 +144,7 @@ test('shipped defaults migrate once without touching anything the person chose',
   try {
     legacy.putMeta('settings', { mode: 'demo', persona: migratePersona(), interaction: { tone: 'natural', humor: 'none', depth: 'adaptive', initiative: 'prepare', followup: 'meaningful_change' } });
     const migrated = legacy.settings();
-    assert.equal(migrated.persona.core.presetId, 'mio');
+    assert.equal(migrated.persona.core.presetId, 'sakiko');
     assert.equal(migrated.interaction.initiative, 'when_useful');
     assert.equal(migrated.interaction.humor, 'character');
     legacy.saveSettings({ interaction: { tone: 'natural', humor: 'none', depth: 'adaptive', initiative: 'prepare', followup: 'meaningful_change' } });
@@ -161,7 +161,7 @@ test('shipped defaults migrate once without touching anything the person chose',
   } finally { chosen.close(); }
   const fresh = new Store(':memory:');
   try {
-    assert.equal(fresh.settings().persona.core.presetId, 'mio');
+    assert.equal(fresh.settings().persona.core.presetId, 'sakiko');
     assert.equal(fresh.followDefaultCompanion('sakiko').persona.core.presetId, 'sakiko');
     assert.equal(fresh.settings().persona.revision, 0, 'following the artwork is not a user save');
   } finally { fresh.close(); }

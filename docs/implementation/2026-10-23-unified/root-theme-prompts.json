@@ -1,0 +1,16 @@
+{
+  "tool": "built-in image_gen",
+  "input": "sakiko-chat-mother.png",
+  "items": [
+    {
+      "output": "exec-a680df45-1cab-4db1-bb6e-28093c51471d.png",
+      "canonical": "sakiko-chat-mist-mother.png",
+      "prompt": "EDIT the approved mother illustration. Exact same 1536x1024 camera, room geometry, character pixel placement, seated pose and scale, window bench, fully visible legs and shoes, youthful Sakiko identity. No UI, no letters. Preserve anime crisp linework and original face, navy uniform. No plants inside left text safe zone, keep far-right plants. Change ONLY lighting/color/time atmosphere, not geometry or person. Create 晨雾蓝 morning mist palette: clear airy blue-white diffused early daylight, soft cool sky and a faint lakeside morning haze outside; ivory wall remains softly warm and readable, shadows gentler. The room should feel cool fresh and calm, not icy or desaturated. Skin naturally peach, golden eyes recognizable. Cohesive luminous blue and ivory, restrained warm honey wood. No green UI, no green tint. This is a finished production scene asset, not a side-by-side comparison."
+    },
+    {
+      "output": "exec-92f5a813-e96a-4f4c-93a2-af3730b35db7.png",
+      "canonical": "sakiko-chat-violet-mother.png",
+      "prompt": "EDIT the approved mother illustration. Exact same 1536x1024 camera, room geometry, character pixel placement, seated pose and scale, window bench, fully visible legs and shoes, youthful Sakiko identity. No UI, no letters. Preserve anime crisp linework and original face, navy uniform. No plants inside left text safe zone, keep far-right plants. Change ONLY lighting/color/time atmosphere, not geometry or person. Create 暮色紫 golden dusk palette: sunset behind campus lake, warm peach clouds blending soft lavender sky, pale rosy-violet room shadows, small warm highlight on hair and hands, same furniture and youthful face. Left wall remains light cream-lilac, useful for dark reading text. All of the scene is one coherent dusk, never split day/night. Elegant lavender and rose-gold atmosphere, no strong saturated purple wash, no new lamp or geometry. Finished production scene asset."
+    }
+  ]
+}

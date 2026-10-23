@@ -3,7 +3,7 @@ import path from 'node:path';
 import { createHash, randomBytes, randomUUID } from 'node:crypto';
 import { z } from 'zod';
 import { HarnessError, materialNavigationProofSchema, type EvidenceEvent, type ScopeHandle } from '../../shared/harness';
-import { MATERIAL_LIMITS, materialCropSchema, materialReferenceSchema, materialTargetSchema, materialReadSchema, materialQuoteInputSchema, materialKeepQuoteInputSchema, materialNotesInputSchema, materialQuoteReferenceSchema, materialQuoteAddress, type MaterialQuoteReference, type MaterialQuote, type MaterialReference, type MaterialTarget, type MaterialItem, type MaterialPage, type MaterialNotes } from '../../shared/materials';
+import { MATERIAL_LIMITS, materialCropSchema, materialReferenceSchema, materialTargetSchema, materialReadSchema, materialQuoteInputSchema, materialKeepQuoteInputSchema, materialMoveNoteInputSchema, materialNotesInputSchema, materialQuoteReferenceSchema, materialQuoteAddress, type MaterialQuoteReference, type MaterialQuote, type MaterialReference, type MaterialTarget, type MaterialItem, type MaterialPage, type MaterialNotes } from '../../shared/materials';
 import type { TextAttachment } from '../../shared/types';
 import type { KernelRepository } from '../storage/repository';
 import type { PolicyKernel } from '../runtime/policy';
@@ -755,6 +755,17 @@ export class MaterialService {
     const annotation = input.annotation?.trim();
     return notes.create({ title: Array.from(`${quote.name}${quote.page ? ` · 第 ${quote.page} 页` : ''}`).slice(0, 160).join(''), body: quote.text + (annotation ? `\n\n${annotation}` : '') }, undefined,
       { via: 'notebook', material: { ...materialQuoteAddress(quote), name: quote.name } });
+  }
+  async nativeMoveNote(raw: unknown, notes: NotesService) {
+    const input = materialMoveNoteInputSchema.parse(raw);
+    if (input.from.resourceId !== input.quote.resourceId || input.from.sha256 !== input.quote.sha256)
+      throw new HarnessError('material_note_source', '请把笔记留在同一份原文件里。');
+    // Both ends are read through the original owner, including saved/pending
+    // adoption, file hash, page-local Unicode range, and current source scope.
+    await this.nativeQuote({ target: input.target, quote: input.from });
+    const quote = await this.nativeQuote({ target: input.target, quote: input.quote });
+    return notes.moveMaterialSource(input.noteId, input.expectedRevision, input.from,
+      { ...materialQuoteAddress(quote), name: quote.name });
   }
   /** Native notebook projection only. A note's retained source address cannot
    * reopen a withdrawn material or grant the model new source access. */

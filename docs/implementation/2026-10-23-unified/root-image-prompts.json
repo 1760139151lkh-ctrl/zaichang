@@ -1,0 +1,37 @@
+{
+  "tool": "built-in image_gen",
+  "purpose": "在场统一场景，主代理指定与审查",
+  "items": [
+    {
+      "name": "pilot-cross-scenes",
+      "output": "exec-0db66a15-87b4-4b08-be46-388983f341ec.png",
+      "prompt": "Use case: ui-mockup. Create the FIRST STANDARDIZATION PILOT for 在场, a warm Chinese companion desktop app. Input image is the approved STYLE/CHARACTER reference, NOT a pasted UI template. Keep its youthful 2D anime Sakiko Togawa from BanG Dream Ave Mujica: light blue long hair, two low side ribbons, golden eyes, modest navy school sweater and white bow, youthful compact facial structure, crisp anime linework, airy light, never mature photorealistic woman. Design one high-resolution 2-by-2 comparison sheet of FOUR desktop views all with EXACT identical 1440x900 layout grid, same 72px topbar, door outline 在场 top-left, central three-item pill 聊天 今天 留下 same coordinates, avatar/search same top-right. Each panel framed cleanly, no overlapping windows. Panel 1: daylight home, Sakiko naturally seated on real window bench at right x=83%, hips on bench y=68%, both legs/feet anatomically visible, warm cream left reading safe zone x=6-61%, title 回来啦。 and single composer. Panel 2: real reading workspace: document/chat 58:42 with slim functional divider, Sakiko SMALL in a scene inset at far right, not stealing content. Use very short correct math x'=a(t)x+f(t). Panel 3: night conversation SAME ROOM CAMERA and character identity, rain window with warm golden lamp, dark slate-plum left safe zone; her relaxed mug-holding seated pose is distinct. No daytime strip. Panel 4: today timeline minimal paper, real card trial at 17:15, previous time dotted, one small collision popover; Sakiko SMALL at window beyond content, looking at notebook. The role naturally yields space during work. Plants ONLY at the far right/top beyond x72%, NONE near left text. All buttons, headers, composers align across corresponding classes, restrained gold, no green UI. Warm modern Apple-level restraint and tactile paper, soft natural light and convincing spatial continuity. IMPORTANT: one coherent aesthetic, no extra sidebars, no crowded labels, no engineering status text, no unnecessary helper slogans. This is a real implementable design specification with distinct activity poses and comfortable whitespace. Produce an elegant and legible cohesive 2x2 sheet, not a marketing collage.",
+      "status": "design reference; UI copy/math is not runtime data"
+    },
+    {
+      "name": "sakiko-chat-mother",
+      "output": "exec-93ace784-4d66-4b27-893c-176c2051cbe6.png",
+      "prompt": "Production mother-scene illustration for an interactive layered companion room, NO UI and NO text. Wide landscape 1536x1024, fixed straight eye-level camera. Match the youthful clear-lined 2D anime Sakiko Togawa in reference image2 exactly, not a mature realistic woman. Reference1 is the APPROVED shared application style sheet, reference2 supplies crisp character design. A believable warm sunlit cream window nook overlooking a generic Chinese campus lake, small clock tower, gauze curtain, a long upholstered window bench at right, wooden bench base, patterned blue cushion, cream throw and a small side table with closed books. Sakiko with light blue hair, twin dark low side ribbons, amber-gold eyes, navy school sweater, white bow, gray-blue plaid pleated skirt, navy knee socks and brown loafers. She sits naturally at x=82% of image, hips visibly pressing cushion at y=63%, both legs and feet FULLY VISIBLE inside frame ending by y=94%, upper body y=21-63%. Relaxed affectionate-but-subtle smile, one hand lightly at cheek and one hand holding closed book on lap. Young anime face, compact gentle features, normal six-seven head anatomy. LEFT 60% of entire canvas is calm warm ivory wall with delicate natural window-light shadows, absolutely no characters, plants, objects, letters or interface; right window begins at x=64%. Sparse small natural leaves only top-right 12% and far right. No foreground plants intruding toward center. Elegant airy cinematic sunlight, warm ivory and gold, soft blue outdoors; consistent perspective and directional light. The complete person must be part of the original environment with accurate seating contact shadows. Image will be split into matching background and transparent figure layers after approval; avoid occluders crossing her body. All furniture geometry and feet remain readable. Do not crop head, legs or shoes. No sticker outline, glow, cyan edge, photorealism, adult face, oversized bust, green UI, watermark. Make this a finished exquisite anime film still whose generous negative-space composition supports real text over the left side.",
+      "status": "approved production mother"
+    },
+    {
+      "name": "sakiko-chat-mask",
+      "output": "exec-5fe73896-fd30-4cae-8ff0-3aa2bad1e035.png",
+      "prompt": "Precise background-extraction production EDIT. Target is the attached approved mother scene, 1536x1024. Extract ONLY Sakiko Togawa AND the closed book she holds on her lap onto a truly transparent RGBA canvas, keeping the EXACT FULL 1536x1024 canvas and EXACT original pixel position, scale, face, body, pose and complete shoes from the input. Character occupies approximately x58%-99%, head near x81% y14%, seated hips x87% y61%, feet near x65%-77% y94%. Do NOT recenter, do NOT enlarge, do NOT crop tightly, do NOT redraw her, do NOT change face, clothes, hair, pose or lighting. Everything else — ivory wall, window, campus, cushions, throw, floor, furniture, plants, cup, books on side table — must become fully transparent. Preserve only the character's original contact shadow if directly under her hips or shoes as a very subtle alpha shadow, not background patches. Fine natural hair alpha, crisp original anime lines, no cyan/fringe/magenta/white halo, no glow, no new outline, no visible checkerboard. This layer must composite over the mother-scene background at top-left (0,0) without any independent fitting or geometry adjustment. Preserve the exact original source geometry.",
+      "status": "alpha only; generated RGB and halo rejected as visible artwork; runtime alpha table removes low-opacity halo and displays original mother pixels",
+      "inputs": [
+        "src/renderer/assets/companion/scenes/sakiko-chat-mother.png"
+      ]
+    },
+    {
+      "name": "sakiko-chat-mask-retry-rejected",
+      "output": "exec-e1d70060-b7ad-4256-8c73-30525265cc39.png",
+      "prompt": null,
+      "inputs": [
+        "src/renderer/assets/companion/scenes/sakiko-chat-mother.png"
+      ],
+      "disposition": "discarded",
+      "status": "Primary agent inspected and rejected: extraction shifted/redrew the original person. Not copied into runtime. Exact retry prompt was not preserved; no reconstructed prompt is presented as original."
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-23",
+  "mode": "built-in image_gen",
+  "identitySource": "src/renderer/assets/companion/scenes/anon-chat-mother.png",
+  "prompts": {
+    "reading": "Use case: identity-preserve. EDIT INPUT IMAGE 1 (Anon chat mother), using IMAGE 2 ONLY as an action/reading-state template. Exact original 1536x1024 canvas, same camera, room, window geometry, cushion, seat, bookshelf and floor. IMAGE 1 defines the ONE character identity: Chihaya Anon from BanG Dream! It's MyGO!!!!!, youthful teenage anime face with large gray-blue eyes, very long pale pink hair, gray school blazer with white piping and gold buttons, WHITE shirt and GREEN striped necktie, gray plaid skirt, dark knee socks, brown loafers. Preserve this exact identity and school outfit; do not copy Sakiko's blue hair or navy cardigan from image 2. Change ONLY Anon's action: lower her eyes gently toward a naturally OPEN book held in BOTH hands over her lap, quietly engaged with a slight interested smile. Preserve her head scale, torso and pelvis positions, original seat contact, complete leg angles and BOTH complete shoe positions from IMAGE 1; no repositioning. Light remains the same warm airy afternoon. Maintain fresh youthful hand-drawn anime proportions and detailed illustrated environmental light; not an adult realistic woman. The left safe area remains quiet cream wall and floor, no plants or added objects. Foliage remains only on far right in source positions. No UI, text, logos, borders, split image, glowing edge or floating/cropped feet. Complete coherent mother scene, exact same 1536x1024 framing.",
+    "night": "Use case: lighting-weather and identity-preserve. EDIT INPUT IMAGE 1 (Anon chat mother), using IMAGE 2 only as the rainy-night LIGHTING and mug-action template. Output original 1536x1024 full canvas, same camera, window frame, seat cushion edge, bookshelf and floor geometry. Keep the exact youthful teenage ANON identity from IMAGE 1: long pale pink hair, gray-blue eyes, expressive delicate anime face, gray school blazer with white piping and gold buttons, white shirt, GREEN striped necktie, gray plaid skirt, dark knee socks and BOTH brown loafers. No Sakiko blue hair or navy cardigan. Keep Anon's torso, pelvis, seat contact, leg angles and complete shoe positions from IMAGE 1. Change arms to cradle a small porcelain mug with BOTH hands in front of her chest/lap, attentive friendly slightly playful youthful expression toward viewer. Transform the ENTIRE environment into continuous rainy nighttime, all window sky dark blue-violet, rain droplets and quiet campus/lake reflections, a small warm gold shaded lamp on far right in same position as IMAGE 2. Coherent soft amber interior light and cool rainy fill across whole image. Left clear wall becomes quiet deep warm charcoal-violet with no added plants/objects. No daylight, no sunbeams, no daytime/night boundary, no collage. Natural grounded shadows, no floating, no cropped feet, no white halo, no UI, no lettering. Same delicate high-end anime painting as inputs, never mature photorealism. Complete mother scene, no crop or reframing.",
+    "chatFigureMask": "Use case: background-extraction. Create a precise FULL-CANVAS ALPHA MASK of only the seated anime girl and the book she holds in the source. This is a technical silhouette asset, NOT a new illustration. EXACT original 1536x1024 canvas; preserve every original x/y location, head scale, long hair silhouette, hands/book, skirt, complete legs and both complete shoes. DO NOT CROP, CENTER, RESIZE OR REPOSITION. All person and held-book pixels should be fully OPAQUE, with a plain flat solid charcoal RGB fill (interior details and face colors are unnecessary because software will use only the alpha channel to show ORIGINAL source pixels). Every room/background pixel must be alpha=0, including seat, cushions, floor, wall, window, bookshelf, plants and shadows. Preserve fine original outer hair silhouette with only a 1-pixel antialias edge. ABSOLUTELY NO white/colored halo, soft glow, fog, drop shadow, wide feathering or visible backdrop; sharp clean opaque silhouette against real transparency. Leave the entire original empty left region transparent. Output RGBA transparency, exact 1536x1024 full frame.",
+    "readingFigureMask": "Use case: background-extraction. This output is a technical ALPHA SILHOUETTE, not an illustration. Extract the exact original outer silhouette of ONLY Anon and the object held in both hands. Output the EXACT ORIGINAL 1536x1024 canvas with every x/y position and scale UNCHANGED: head, long pink-hair outline, arms/hands, gray uniform, skirt, complete legs, dark socks and both entire loafers remain exactly where they were. NO crop, NO recenter, NO zoom or reframing. Fill the complete person-and-held-object silhouette with one solid fully opaque charcoal color, no interior face or texture is needed; software uses ONLY alpha over ORIGINAL mother-image pixels. Everything outside the silhouette must be genuinely transparent alpha=0, including wall, floor, seat, cushions, plants, window, lamp, bookshelf and shadows. Preserve fine hair silhouette with minimal 1-pixel antialiasing. No low-opacity fog, no feathering, no halo, no glow, no backdrop, no drop shadow, no extra shape around the shoes. The large left original safe region is entirely transparent. Keep full original framing, true RGBA output. The held object is the open book; include both open covers and pages inside the opaque silhouette.",
+    "nightFigureMask": "Use case: background-extraction. This output is a technical ALPHA SILHOUETTE, not an illustration. Extract the exact original outer silhouette of ONLY Anon and the object held in both hands. Output the EXACT ORIGINAL 1536x1024 canvas with every x/y position and scale UNCHANGED: head, long pink-hair outline, arms/hands, gray uniform, skirt, complete legs, dark socks and both entire loafers remain exactly where they were. NO crop, NO recenter, NO zoom or reframing. Fill the complete person-and-held-object silhouette with one solid fully opaque charcoal color, no interior face or texture is needed; software uses ONLY alpha over ORIGINAL mother-image pixels. Everything outside the silhouette must be genuinely transparent alpha=0, including wall, floor, seat, cushions, plants, window, lamp, bookshelf and shadows. Preserve fine hair silhouette with minimal 1-pixel antialiasing. No low-opacity fog, no feathering, no halo, no glow, no backdrop, no drop shadow, no extra shape around the shoes. The large left original safe region is entirely transparent. Keep full original framing, true RGBA output. The held object is the small porcelain mug; include mug and handle with the hands, but DO NOT include the separate mug on the room cushion."
+  },
+  "constraints": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "registration": "original full canvas; no crop or recenter",
+    "figureUse": "alpha mask only over original mother pixels",
+    "background": "shared Sakiko clean plates"
+  },
+  "outputs": {
+    "readingMother": {
+      "file": "src/renderer/assets/companion/scenes/anon-reading-mother.png",
+      "generated": "exec-020559ab-4e31-46a4-aefe-172fb488c93b.png"
+    },
+    "nightMother": {
+      "file": "src/renderer/assets/companion/scenes/anon-night-mother.png",
+      "generated": "exec-d4f6e82a-8506-436e-9fde-feda603c5aac.png"
+    },
+    "chatFigureMask": {
+      "file": "src/renderer/assets/companion/scenes/anon-chat-figure.png",
+      "generated": "exec-70fe6e01-6a30-4164-bf6d-68b1ecd2ad90.png"
+    },
+    "readingFigureMask": {
+      "file": "src/renderer/assets/companion/scenes/anon-reading-figure.png",
+      "generated": "exec-9354a59e-a3d1-4178-b01a-09ba67b161b1.png"
+    },
+    "nightFigureMask": {
+      "file": "src/renderer/assets/companion/scenes/anon-night-figure.png",
+      "generated": "exec-c76314b4-1cc3-405f-9cb7-4b071a74249e.png"
+    }
+  },
+  "review": {
+    "agentViewedAllFive": true,
+    "rootReview": "pending",
+    "figureUse": "RGBA alpha mask only; RGB intentionally flat charcoal. Source mother's original pixels supply the rendered character. Raw low-alpha fringe must be removed by the compositor and is not accepted as a visible character halo.",
+    "alpha": "Main body peaks 253/254, not 255; all three masks have genuinely transparent alpha-0 exterior."
+  }
+}
