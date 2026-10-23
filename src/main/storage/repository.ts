@@ -3874,7 +3874,7 @@ export class KernelRepository {
           OR json_type(payload,'$.contextReceipt.assistantWorkSources') IS NOT NULL
           OR json_type(payload,'$.contextReceipt.personalMethodSources') IS NOT NULL
           OR EXISTS(SELECT 1 FROM json_each(messages.payload,'$.scenes') s WHERE json_type(s.value,'$.continuation')='object'
-            OR json_extract(s.value,'$.kind') IN ('curiosity','discussion'))`).all()) {
+            OR json_extract(s.value,'$.kind') IN ('curiosity','discussion')))` ).all()) {
         const message = JSON.parse(String(row.payload));
         const receiptProvenance = message.contextReceipt?.planningProvenance;
         const provenance = [...(Array.isArray(receiptProvenance) ? receiptProvenance : receiptProvenance === undefined ? [] : [null]),

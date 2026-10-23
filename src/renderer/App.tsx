@@ -125,7 +125,15 @@ export function App() {
   const [view, setView] = useState<WorkspaceView>('chat');
   const [readingPane, setReadingPane] = useState<'reader' | 'chat'>('reader');
   const [resting, setResting] = useState(false);
-  const [focusChat, setFocusChat] = useState(false);
+  const [chatSpace, setChatSpace] = useState<'auto' | 'window' | 'reading'>('auto');
+  const [compactConversation, setCompactConversation] = useState(() => matchMedia('(max-width: 900px)').matches);
+  useEffect(() => { setChatSpace('auto'); }, [sessionId]);
+  useEffect(() => {
+    const media = matchMedia('(max-width: 900px)');
+    const resize = () => { rememberReadingPosition(); setCompactConversation(media.matches); };
+    media.addEventListener('change', resize);
+    return () => media.removeEventListener('change', resize);
+  }, []);
   const [notesOpened, setNotesOpened] = useState(false);
   const [notesUnsaved, setNotesUnsaved] = useState(false);
   const [searchTarget, setSearchTarget] = useState<{ locator: LocalSearchLocator; requestId: number }>();
@@ -327,7 +335,15 @@ export function App() {
   const busy = starting || messages.some((m) => m.status === 'running');
   const empty = messages.length === 0;
   const hasScene = messages.some(message => message.role === 'assistant' && !!message.views?.length);
-  const atWindow = view === 'chat' && companion.presence === 'window' && (empty || (!focusChat && !hasScene));
+  const needsReadingRoom = messages.some(message => message.role === 'assistant' && (message.content.length >= 560 || message.content.split('\n').length >= 14));
+  const atWindow = view === 'chat' && companion.presence === 'window'
+    && (empty || (!compactConversation && !hasScene && (chatSpace === 'window' || (chatSpace === 'auto' && !needsReadingRoom))));
+  useLayoutEffect(() => {
+    const viewport = scrollRef.current, anchor = readingAnchor.current;
+    if (!viewport) return;
+    if (followRef.current) viewport.scrollTop = viewport.scrollHeight;
+    else if (anchor?.element.isConnected) viewport.scrollTop += anchor.element.getBoundingClientRect().top - viewport.getBoundingClientRect().top - anchor.offset;
+  }, [atWindow]);
   const previousConversation = state?.conversations.find(conversation => conversation.id !== sessionId);
   function usePresentationFollowup(request: PresentationFollowup, sourceSessionId: string | undefined, messageId: string, boundary: string) {
     if (!draftReady || navigationPending.current || surfaceMode.current === 'public'
@@ -1425,7 +1441,7 @@ export function App() {
           <WindowControls onClose={() => void requestClose()} />
         </header>
         {(view === 'notes' || view === 'materials') && <div className="retained-heading">
-          <div><p>想留在身边的，都在这里。</p><h1>留下</h1></div>
+          <div><h1>留下</h1></div>
           <nav aria-label="留下的内容">
             <button type="button" aria-current={view === 'notes' ? 'page' : undefined} onClick={() => setView('notes')}>笔记</button>
             <button type="button" aria-current={view === 'materials' ? 'page' : undefined} onClick={() => { setView('materials'); setReadingPane('reader'); }}>资料</button>
@@ -1447,8 +1463,7 @@ export function App() {
           {empty && view !== 'materials' ? (
             <div className="welcome-inner">
               <p className="welcome-date">{new Date().toLocaleDateString('zh-CN', { timeZone: state?.settings.timeZone || DEFAULT_TIME_ZONE, weekday: 'long' })}</p>
-              <h1>慢慢来，我在。</h1>
-              <p className="welcome-copy">今天想先从哪里说起？</p>
+              <h1>回来啦。</h1>
               {loadError && (
                 <div className="harness-inline-error" role="alert">
                   <p>这次没能打开。{loadError}</p>
@@ -1473,7 +1488,7 @@ export function App() {
             <>
               <div className="conversation-heading">
                 <span>{state?.conversations.find(conversation => conversation.id === sessionId)?.title || '我们慢慢说'}</span>
-                {view === 'chat' && companion.presence === 'window' && !hasScene && <button type="button" className="text-button" aria-pressed={focusChat} onClick={() => setFocusChat(value => !value)}><BookOpen size={15} />{focusChat ? '回到窗边' : '安静阅读'}</button>}
+                {view === 'chat' && companion.presence === 'window' && !hasScene && !compactConversation && <button type="button" className="text-button" aria-pressed={!atWindow} onClick={() => { rememberReadingPosition(); setChatSpace(atWindow ? 'reading' : 'window'); }}><BookOpen size={15} />{atWindow ? '安静阅读' : '回到窗边'}</button>}
               </div>
               <div
                 className="message-scroll"

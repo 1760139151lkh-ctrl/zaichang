@@ -198,7 +198,7 @@ export function CompanionScene({ preview = false, quiet = false, immersive = fal
   const { value } = useCompanion();
   const image = selectedPicture(value);
   const frame = COMPANIONS.find(item => item.id === value.character)?.frame;
-  const showFigure = !!image && (immersive || value.presence === 'window') && value.presence !== 'hidden';
+  const showFigure = !!image && (immersive || value.presence === 'window') && value.presence !== 'hidden' && (!quiet || preview);
   const readingRoom = quiet && !preview && !value.character.startsWith('custom:');
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [image]);

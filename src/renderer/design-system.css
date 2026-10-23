@@ -1793,14 +1793,14 @@ summary::marker {
   font: 450 clamp(32px, 3.3vw, 48px)/1.5 var(--font-body);
   letter-spacing: .025em;
   text-align: left;
-  margin-bottom: 8px;
+  margin-bottom: 32px;
 }
 .welcome-copy {
   color: var(--text-secondary);
   font-size: clamp(16px, 1.4vw, 20px);
   margin: 0 0 32px;
 }
-.app-shell.has-window .welcome-inner { width: min(620px, 53%); margin-left: clamp(42px, 7.5vw, 110px); margin-right: auto; }
+.app-shell.has-window .welcome-inner { width: min(640px, 46%); margin-left: clamp(42px, 6vw, 96px); margin-right: auto; }
 .welcome-next { display: flex; gap: 22px; align-items: center; margin-top: 24px; }
 .welcome-next > button { min-height: 42px; display: flex; align-items: center; gap: 11px; text-align: left; color: var(--text-secondary); font-size: 13px; border-radius: 10px; padding: 6px 0; min-width: 0; }
 .welcome-next > button:first-child { max-width: 65%; }
@@ -1811,7 +1811,8 @@ summary::marker {
 .conversation-heading { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 18px; width: var(--reading-width); margin: 6px auto 0; padding: 8px 0 3px; color: var(--text-secondary); font-size: 13px; }
 .conversation-heading > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .conversation-heading .text-button { flex-shrink: 0; font-size: 12px; }
-.app-shell.has-window .conversation-heading, .app-shell.has-window .messages, .app-shell.has-window .bottom-composer { width: min(720px, 62%); margin-left: clamp(36px, 6vw, 95px); margin-right: auto; }
+.app-shell.has-window .conversation-heading, .app-shell.has-window .messages, .app-shell.has-window .bottom-composer { width: min(720px, 48%); margin-left: clamp(32px, 6vw, 80px); margin-right: auto; }
+.conversation-space-actions { display: flex; align-items: center; gap: 18px; }
 .workspace.conversation > .message-scroll, .workspace.conversation > .bottom-composer { position: relative; }
 .workspace.conversation .bottom-composer { background: transparent; }
 .composer-area {

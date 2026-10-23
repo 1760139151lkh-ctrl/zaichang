@@ -821,7 +821,7 @@ app.whenReady().then(async () => {
     title: '在场',
     width: 1220,
     height: 850,
-    minWidth: 680,
+    minWidth: 420,
     minHeight: 570,
     backgroundColor: '#171918',
     frame: false,

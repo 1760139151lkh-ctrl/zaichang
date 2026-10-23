@@ -67,15 +67,23 @@
     box-shadow: 0 12px 45px #221a1812;
   }
   .app-shell.has-window:has(.workspace.welcome) .welcome-date { margin: 0 0 12px; font-size: 12px; }
-  .app-shell.has-window:has(.workspace.welcome) .welcome h1 { margin: 0; font-size: 28px; line-height: 1.45; }
+  .app-shell.has-window:has(.workspace.welcome) .welcome h1 { margin: 0 0 20px; font-size: 28px; line-height: 1.45; }
   .app-shell.has-window:has(.workspace.welcome) .welcome-copy { margin: 10px 0 22px; font-size: 14px; }
   .app-shell.has-window:has(.workspace.welcome) .welcome-next { margin-top: 18px; }
   .app-shell.has-window:has(.workspace.welcome) > .app-main > .companion-scene .companion-figure {
-    height: 52%; width: 80%; right: -6%; bottom: 25%;
+    height: 52%; width: 100%; right: 0; bottom: 30%;
   }
   .app-shell.has-window:has(.workspace.welcome) > .app-main > .companion-scene .window-wash {
     background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 18%, transparent), transparent 42%, var(--bg) 93%);
   }
+}
+@media (max-width: 900px) {
+  .app-shell.has-window:has(.workspace.welcome) .window-room { left: 0; background-position: 70% center; }
+}
+@media (max-width: 900px) and (max-height: 699px) {
+  .app-shell.has-window:has(.workspace.welcome) .welcome-inner { width: min(660px, calc(100% - 48px)); margin: auto; }
+  .app-shell.has-window:has(.workspace.welcome) .companion-figure { display: none; }
+  .app-shell.has-window:has(.workspace.welcome) .window-room { opacity: .06; }
 }
 @media (max-width: 600px) and (min-height: 700px) {
   .app-shell.has-window:has(.workspace.welcome) .welcome-inner { width: calc(100% - 32px); margin: auto 16px 18px; padding: 22px 22px 18px; border-radius: 23px; }
