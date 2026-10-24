@@ -7,14 +7,18 @@ export const TIYI_PUBLIC_RULE_REFERENCES = [
     id: 'zju-tiyi-exercise-2026-4',
     title: '浙江大学本科生课外体育锻炼实施办法（2026年9月修订）',
     url: 'https://tyys.zju.edu.cn/attachments/2026-09/01-1790564985-221699.pdf',
-    documentDate: '2026-09-18', listedAt: '2026-09-28', checkedAt: '2026-10-23',
+    documentDate: '2026-09-18',
+    listedAt: '2026-09-28',
+    checkedAt: '2026-10-23',
     catalogUrl: 'https://tyys.zju.edu.cn/redir.php?catalog_id=172611',
   },
   {
     id: 'zju-tiyi-pe-courses-2026-3',
     title: '浙江大学本科生体育课程修读办法（2026年9月修订）',
     url: 'https://tyys.zju.edu.cn/attachments/2026-09/01-1790564936-221695.pdf',
-    documentDate: '2026-09-18', listedAt: '2026-09-28', checkedAt: '2026-10-23',
+    documentDate: '2026-09-18',
+    listedAt: '2026-09-28',
+    checkedAt: '2026-10-23',
     scope: '非体育类专业普通本科生',
     catalogUrl: 'https://tyys.zju.edu.cn/redir.php?catalog_id=172611',
   },
@@ -42,9 +46,38 @@ export const TIYI_MODULES = [
   { id: 85, resource: 'codoon', label: '咕咚运动' },
 ] as const;
 
-export type TiyiModuleResource = typeof TIYI_MODULES[number]['resource'];
-export type TiyiResource = TiyiModuleResource | 'profile' | 'menus' | 'terms' | 'summary'
-  | 'records' | 'record_detail' | 'statistics' | 'rules' | 'course_terms' | 'courses' | 'attendance';
+export type TiyiModuleResource = (typeof TIYI_MODULES)[number]['resource'];
+export type TiyiResource =
+  | TiyiModuleResource
+  | 'profile'
+  | 'menus'
+  | 'terms'
+  | 'summary'
+  | 'records'
+  | 'record_detail'
+  | 'statistics'
+  | 'rules'
+  | 'course_terms'
+  | 'courses'
+  | 'attendance'
+  | 'sport_rules'
+  | 'sports_id'
+  | 'prejudgment'
+  | 'savesports';
+
+/** One real device sample. Submission never invents a coordinate or a time. */
+export interface TiyiTrackPoint {
+  latitude: number;
+  longitude: number;
+  /** Epoch milliseconds from the device clock. */
+  time: number;
+  accuracy?: number;
+  speed?: number;
+  distance?: number;
+  step?: number;
+  stepRate?: number;
+  valid?: 0 | 1;
+}
 
 export interface TiyiReadArgs {
   resource: TiyiResource;
@@ -68,7 +101,27 @@ export interface TiyiReadArgs {
   end?: number;
   period?: 'WEEK' | 'MONTH' | 'TERM';
   validStatus?: -1 | 0 | 1;
-  subpage?: 'results' | 'schedule' | 'feedback' | 'records' | 'mine' | 'attendance' | 'orders' | 'buddies' | 'training' | 'reservation' | 'art_reservation' | 'certificates';
+  subpage?:
+    | 'results'
+    | 'schedule'
+    | 'feedback'
+    | 'records'
+    | 'mine'
+    | 'attendance'
+    | 'orders'
+    | 'buddies'
+    | 'training'
+    | 'reservation'
+    | 'art_reservation'
+    | 'certificates';
+  /** Official exercise identifiers returned by the school, never invented. */
+  sportId?: string;
+  sportTypeId?: string;
+  track?: TiyiTrackPoint[];
+  beginTime?: string;
+  endTime?: string;
+  name?: string;
+  odometer?: number;
 }
 
 export interface TiyiConnectorState {
@@ -82,8 +135,13 @@ export interface TiyiConnectorState {
   readAllowed?: boolean;
   campusReadAllowed?: boolean;
   via?: 'direct' | 'webvpn';
-  gateway?: { gatewayAuthenticated: boolean; gatewayStatus: 'authenticated' | 'login_required' | 'unavailable'; windowOpen: boolean; reason?: string;
-    diagnostic?: { code: string; httpStatus?: number; networkCode?: string } };
+  gateway?: {
+    gatewayAuthenticated: boolean;
+    gatewayStatus: 'authenticated' | 'login_required' | 'unavailable';
+    windowOpen: boolean;
+    reason?: string;
+    diagnostic?: { code: string; httpStatus?: number; networkCode?: string };
+  };
   reason?: string;
 }
 
@@ -108,7 +166,12 @@ export interface TiyiObservation {
     next?: { snapshotId: string; offset: number; pointer?: string };
     upstreamPagination?: 'whole_response' | 'paged_response' | 'unknown';
     /** A new school query, never a continuation within this saved response. */
-    upstreamNext?: { resource: 'venues' | 'training' | 'counselling' | 'venue_entries'; subpage?: 'orders' | 'training' | 'records'; upstreamPage: number; termId?: string };
+    upstreamNext?: {
+      resource: 'venues' | 'training' | 'counselling' | 'venue_entries';
+      subpage?: 'orders' | 'training' | 'records';
+      upstreamPage: number;
+      termId?: string;
+    };
     venueSelection?: {
       resource: 'venues';
       subpage: 'reservation' | 'art_reservation';

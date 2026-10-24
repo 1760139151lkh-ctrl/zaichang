@@ -92,6 +92,8 @@
 !/scripts/smoke.mjs
 !/scripts/stage-hermes-runtime.mjs
 !/scripts/stage-tiyi-signing.py
+!/scripts/check-tiyi-signing.py
+!/scripts/test-tiyi-signing.py
 !/scripts/test-environment.mjs
 !/scripts/run-luna-test.mjs
 !/scripts/with-deepseek-key.ps1
