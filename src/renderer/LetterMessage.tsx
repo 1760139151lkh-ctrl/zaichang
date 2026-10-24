@@ -117,7 +117,7 @@ export function LetterMessage({ letter, pending, onContinue, onDismiss, onOpenSo
           <div className="letter-paragraph" key={paragraphIndex}>
             <LocalTextFocus key={`${letter.id}@${letter.revision}:${paragraphIndex}`} source={paragraph.text} label="这封信" disabled={!!pending || closing}
               activeRange={activeReference?.opportunityId === letter.id && activeReference.revision === letter.revision
-                && activeReference.paragraphIndex === paragraphIndex ? activeReference : undefined} onFocus={range =>
+                && 'paragraphIndex' in activeReference && activeReference.paragraphIndex === paragraphIndex ? activeReference : undefined} onFocus={range =>
               onContinue('', { letterReference: { opportunityId: letter.id, revision: letter.revision,
                 paragraphIndex, start: range.start, end: range.end },
                 focusLabel: `信里：「${Array.from(range.preview).slice(0, 64).join('')}${Array.from(range.preview).length > 64 ? '…' : ''}」` })}>
@@ -168,7 +168,10 @@ export function LetterMessage({ letter, pending, onContinue, onDismiss, onOpenSo
           </details>
         )}
         <div className="letter-actions">
-          <button type="button" onClick={() => onContinue(`接着这封「${letter.title}」，我想说：`)}>接着聊聊<ArrowUpRight size={13} /></button>
+          <button type="button" disabled={pending || closing} onClick={() => onContinue(`接着这封「${letter.title}」，我想说：`, {
+            letterReference: { opportunityId: letter.id, revision: letter.revision, scope: 'whole' },
+            focusLabel: `这封信：「${letter.title}」`,
+          })}>接着聊聊<ArrowUpRight size={13} /></button>
           <button type="button" disabled={pending || closing} onClick={() => void dismiss()}>先收起</button>
         </div>
       </footer>

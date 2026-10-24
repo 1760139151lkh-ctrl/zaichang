@@ -24,10 +24,14 @@ export const reflectiveLetterSourceInput = z.object({
   paragraphIndex: z.number().int().min(0).max(11), sourceIndex: z.number().int().min(0).max(7),
 }).strict();
 export type ReflectiveLetterSourceInput = z.infer<typeof reflectiveLetterSourceInput>;
-export const letterReferenceSchema = z.object({
+const letterExcerptReferenceSchema = z.object({
   opportunityId: id, revision: z.number().int().positive(), paragraphIndex: z.number().int().min(0).max(11),
   start: z.number().int().nonnegative(), end: z.number().int().positive(),
 }).strict().refine(value => Number.isSafeInteger(value.start) && Number.isSafeInteger(value.end) && value.end > value.start, '来信选句范围无效');
+export const letterReferenceSchema = z.union([
+  letterExcerptReferenceSchema,
+  z.object({ opportunityId: id, revision: z.number().int().positive(), scope: z.literal('whole') }).strict(),
+]);
 export type LetterReference = z.infer<typeof letterReferenceSchema>;
 export interface LetterFocusContext { letterReference: LetterReference; focusLabel: string }
 export const reflectiveLetterProjectInput = z.object({

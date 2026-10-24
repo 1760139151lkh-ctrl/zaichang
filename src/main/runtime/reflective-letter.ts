@@ -609,8 +609,9 @@ export class ReflectiveLetterService {
     return { origin: 'assistant_letter' as const };
   }
 
-  /** A selected sentence is assistant-authored text, not the user's agreement
-   * or a fresh personal fact. Only this exact kept paragraph is expanded. */
+  /** Follow the kept letter's own address. A selected sentence expands only
+   * that range; the footer identifies the whole letter without inventing a
+   * paragraph selection or promoting its reflections to personal facts. */
   resolveReference(handle: ScopeHandle, raw: LetterReference, context?: {
     sessionId: string; allowCrossSession: boolean; permits?: ReflectiveLetterContext['permits'];
   }) {
@@ -622,7 +623,17 @@ export class ReflectiveLetterService {
     if (context && !context.allowCrossSession && record.data.sessionId !== context.sessionId)
       throw new HarnessError('letter_reference_scope', '这封信还不在本轮允许展开的前情里。');
     if (!this.recordReadable(handle, record, context?.permits)) throw new HarnessError('letter_reference_changed', '这句来信的一处来由已改变，先接回当前允许的话。');
-    const document = reflectiveLetterDocumentSchema.parse(record.data.reflectiveLetter), paragraph = document.paragraphs[input.paragraphIndex];
+    const document = reflectiveLetterDocumentSchema.parse(record.data.reflectiveLetter);
+    if ('scope' in input) return {
+      text: document.paragraphs.map(paragraph => paragraph.text).join('\n\n'), origin: 'assistant_letter' as const,
+      label: '这封信', reference: input, paragraphKind: undefined,
+      ...(input.revision === record.revision ? { read: { tool: 'read_reflective_letter' as const, arguments: {
+        operation: 'read' as const, opportunityId: record.id, expectedRevision: input.revision,
+      } } } : {}),
+      ...this.usage(document),
+      meaning: '本人正接着这封助手写的信说话；这是原信地址，未指定其中某句，也没有把信里的解释当作本人赞同或新的经历。',
+    };
+    const paragraph = document.paragraphs[input.paragraphIndex];
     if (!paragraph || input.end > Array.from(paragraph.text).length || input.end - input.start > 1200)
       throw new HarnessError('letter_reference_range', '选中的位置已经不在这封信的这一句里。');
     const text = codePointSlice(paragraph.text, input.start, input.end);
