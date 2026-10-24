@@ -1,0 +1,27 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "soyo",
+  "activity": "chat",
+  "palette": "apricot",
+  "layer": "mask",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-90f704b2-4748-4551-a2b1-58411c956a3d",
+  "prompt": "soyo-chat-apricot-mask-prompt-v1.txt",
+  "promptSha256": "e1a7fa21d106d90077f29e86b45ff681dd0cf09fd524422ddab9a55ebad5552d",
+  "inputs": [
+    {
+      "file": "soyo-chat-apricot-mother-candidate-v1.png",
+      "sha256": "e5860a2adf427032f84d15dcec6c59c8b6ffa7dff8ede6eadf9ec669f4e00b29",
+      "role": "sole input: primary-reviewed complete same-scene mother"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16921-9fe7-73b2-81e9-dfadeae00b4a/exec-90f704b2-4748-4551-a2b1-58411c956a3d.png",
+  "output": {
+    "file": "soyo-chat-apricot-mask-generated-v1.png",
+    "sha256": "29d5d27546cfe5d161ab89f3ad04df5a3558e62b3cfbe9b4bbaf344568db9dc8",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 409559
+  },
+  "stage": "rejected technical matte: dark eyes/interior garment lines cause false transparent holes; raw retained, not used for processing or runtime"
+}

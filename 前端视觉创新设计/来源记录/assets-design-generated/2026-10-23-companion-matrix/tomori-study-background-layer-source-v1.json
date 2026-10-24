@@ -1,0 +1,31 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "tomori",
+  "activity": "study",
+  "light": "apricot",
+  "layer": "empty-background-candidate",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-71b04d79-c9a2-4241-a474-8184189ec219",
+  "inputs": [
+    {
+      "file": "tomori-study-apricot-v3-mother.png",
+      "role": "primary_approved_correct_complete_mother_only",
+      "sha256": "33e690f698cc4856872804014c6285620ec176ce5fe2ae6000887e4c74d3954f"
+    }
+  ],
+  "prompt": "tomori-study-background-layer-prompt-v1.txt",
+  "review": {
+    "designerStatus": "candidate",
+    "primary": "pending",
+    "runtime": "not integrated"
+  },
+  "designerObservation": "Full generated output personally viewed. This remains a technical layer candidate, pending exact source registration/edge review.",
+  "promptSha256": "7fb66470aba0e59193c85223b1fe16834f7af55f31762f1885c834967a0e3aa0",
+  "output": {
+    "file": "tomori-study-background-generated-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2149534,
+    "sha256": "d8d2d142a5cf5af5c3ffdf656ec074e5e7e9d5b92c0f3b6284c8a527f61b35fe"
+  }
+}

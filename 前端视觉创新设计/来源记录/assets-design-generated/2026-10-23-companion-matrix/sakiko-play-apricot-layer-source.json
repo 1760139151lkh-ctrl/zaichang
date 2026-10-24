@@ -1,0 +1,74 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "sakiko",
+  "activity": "play",
+  "palette": "apricot",
+  "mother": {
+    "file": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-mother.png",
+    "sha256": "c81824391b45219eb973c49fc435e5040daa1c310c5f3ad0a4b60adf044f96f3",
+    "approvalRecord": "primary-prototype-reviews.json"
+  },
+  "soleImageInput": "the approved play mother for each extraction call",
+  "mask": {
+    "file": "sakiko-play-apricot-mask-generated-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 815073,
+    "sha256": "982091e966ca10cb2879c3a57bc4a1a5c342ba76cee9eeadf47fe76150395695",
+    "prompt": "sakiko-play-apricot-mask-prompt.txt",
+    "promptSha256": "ac56242c48ffce31435f3a551d61685d4e66b19dd4c4ebbc46759f5123e4375f",
+    "tool": "image_gen.imagegen",
+    "executionId": "exec-c285cb9c-f209-49d4-87b0-f1cdc9d89dd8",
+    "verdict": "producer viewed raw alpha and native SVG light/dark; primary pending"
+  },
+  "background": {
+    "file": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-background.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2135271,
+    "sha256": "a1989f693c6e0c54f82941efe521e2ab20f6203a7e29461599efd3fbfb0b25c5",
+    "prompt": "sakiko-play-apricot-background-prompt.txt",
+    "promptSha256": "82bfa07d938552893871c76a442aba4e4261f4ed5111ca7d29c093bb1863c672",
+    "tool": "image_gen.imagegen",
+    "executionId": "exec-4267f0d9-c46d-4c56-aee6-2b4df42abb44",
+    "verdict": "producer viewed clean room; mild outer detail/tone drift requires final composition review"
+  },
+  "pixelHandling": "Imagegen outputs preserved unchanged. Native SVG draws original mother RGB through the generated alpha using the current Stage filter. No repaired mask or patched background asset was made.",
+  "objectOwnership": "girl and held paper bird in actor mask; all room furniture outside actor",
+  "evidence": {
+    "nativeLight": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-play-native-light-v1.png",
+    "nativeDark": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-play-native-dark-v1.png",
+    "nativeOriginalPosition": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-play-native-generated-bg-composite-v1.png",
+    "primaryLayerReview": "pending",
+    "movementEndpoints": "Native SVG static endpoint images personally inspected using complete generated BG. No old-body residual seen at hypothetical dx +/-18.432px. These are not real Stage gesture or runtime acceptance.",
+    "runtime": "not registered or accepted",
+    "nativeShortEndpointLeft": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-play-native-full-bg-left-v1.png",
+    "nativeShortEndpointRight": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-play-native-full-bg-right-v1.png",
+    "nativeExteriorRejected": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-play-native-erase-empty-v1.png",
+    "proposedRenderer": "Use existing complete generated BG + mother RGB through tight alpha, pending primary layer review; no eraseMask channel."
+  },
+  "alphaNotes": "Raw RGBA max alpha254 with distant very low-alpha speckles; no numeric editing. The existing Stage feFuncA filter was used only in native visual evidence.",
+  "rejectedErase": {
+    "file": "sakiko-play-apricot-erase-generated-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 773498,
+    "sha256": "449e0b992f4b9fc021f4fdd4d04c4b5645802e81f79cd11cb26f089a83912daa",
+    "prompt": "sakiko-play-apricot-erase-prompt.txt",
+    "promptSha256": "7821d84bc87e8ac778b71a3b93f09f5d260eda8709bf00b1e441a2fc99532381",
+    "tool": "image_gen.imagegen",
+    "executionId": "exec-309e8c6f-9107-494a-a793-6e5a45bc63eb",
+    "verdict": "REJECTED: independent erasure still left original hair/skirt/shoe contours in native hidden-actor view; no pixel corrections or renderer channel accepted."
+  },
+  "deterministicCandidate": {
+    "recipe": "sakiko-play-attention-alpha-calibration-v1.json",
+    "script": "sakiko-play-attention-alpha-v1.py",
+    "figure": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-figure.png",
+    "mask": "sakiko-play-apricot-mask-calibrated-v1.png",
+    "nativeLight": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-play-calibrated-light-v1.png",
+    "nativeDark": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-play-calibrated-dark-v1.png",
+    "nativeLeft": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-play-calibrated-full-bg-left-v1.png",
+    "nativeRight": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-play-calibrated-full-bg-right-v1.png",
+    "producerObservation": "Fine curls remain continuous instead of being broken by the former Stage alpha gate; 24 detached noise pixels removed; no old-body residual in full-generated-BG short static endpoint images. Original RGB verified by pixel-byte SHA. Primary and actual Stage interaction remain pending."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "reading",
+  "palette": "violet",
+  "light": "dusk",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-27b1c776-36b7-4835-a0ce-25f260180e5e",
+  "prompt": "soyo-reading-violet-prompt.txt",
+  "promptSha256": "3e1d84b3cef276aad24affff933a45f79194171ecab51860c2077a8ef0473fe5",
+  "inputs": [
+    {
+      "file": "soyo-reading-apricot-mother-candidate-v2.png",
+      "sha256": "68b71f572a6566147acf1bbe104cd05a1bc6e9194ea01039a3e40b785e60f23e",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-27b1c776-36b7-4835-a0ce-25f260180e5e.png",
+  "output": {
+    "file": "soyo-reading-violet-mother-candidate-v1.png",
+    "sha256": "d001705191ac3b7cdc09f2369641df4f9dfab0a22008f5d801d7ac1612430814",
+    "bytes": 2166871,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the approved warm mother and empty violet plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Original supported reading silhouette, youthful identity, hands/book, exact seat relationship and two complete shoes retained. Sun disk remains near x1007/y302 and matching lake column; coherent dusk light reaches body and whole room. Primary mother/layer/runtime approval remains separate."
+}

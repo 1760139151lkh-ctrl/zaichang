@@ -25,7 +25,7 @@ export class CampusReferenceAdapter {
     const lines = readFileSync(index, 'utf8').trim().split(/\r?\n/), header = lines.shift()!.split('\t');
     this.places = lines.map(line => Object.fromEntries(line.split('\t').map((value, index) => [header[index], value]))).map(row => ({ id: row.uid || row.id, name: row.name, aliases: (row.aliases || '').split('|').filter(Boolean) }));
   }
-  overview() { return { connected: !!this.imagePath, namespace: this.namespace, version: this.version, source: this.source, count: this.places.length, meaning: '公开俯瞰图与名称索引；视觉相交不证明路网连通，来源版本不等于实时门禁。' }; }
+  overview() { return { connected: !!this.imagePath, namespace: this.namespace, version: this.version, source: this.source, count: this.places.length, meaning: '公开俯瞰图与地点名称索引，适合认建筑与相对位置；实际可走路线另看路网，当天门禁仍需现场确认。' }; }
   search(query: string, limit = 5) {
     const q = query.normalize('NFKC').trim().toLowerCase();
     return this.places.filter(place => [place.name, place.id, ...place.aliases].some(name => name.normalize('NFKC').toLowerCase().includes(q))).slice(0, limit).map(place => ({ ...place, namespace: this.namespace, version: this.version, source: this.source, nativeMapEquivalence: 'not_established' }));

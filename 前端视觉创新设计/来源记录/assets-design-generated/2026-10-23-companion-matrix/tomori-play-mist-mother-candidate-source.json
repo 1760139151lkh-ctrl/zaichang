@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "play",
+  "light": "mist",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-854713e0-b616-4cad-965b-d059ed73812d",
+  "inputs": [
+    {
+      "file": "tomori-play-apricot-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "7d516b243573ea7cc80cbd6c720eee823dbc0ed4096cf9b7f81e9d65e26de63d"
+    },
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "sourceIdentity": "Existing primary-approved correct complete warm mother relit against approved clean empty-room theme plate; no rejected mother, official artwork or isolated actor input.",
+  "prompt": "tomori-play-mist-mother-candidate-prompt.txt",
+  "promptSha256": "30c77e000a3340378d1862ef0587cc7af656ea01ef2a880da14a023bb2b8b789",
+  "output": {
+    "file": "tomori-play-mist-mother-candidate.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2137693,
+    "sha256": "c5f114cff41ac2d7e93c7c2d4897c8fed55596dab6464be821d6ddcd7dbace45"
+  },
+  "review": {
+    "designerViewed": "complete original 1536x1024 output",
+    "designerStatus": "candidate_ready_for_primary_review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Low half-kneeling stone-observation pose retains its original foreground scale: near shoe fully planted on the rug, rear knee/shin supported and folded rear shoe traceable. Head, paired hands and small stone remain coherent and aligned to the warm mother. Room furniture/camera and distant church remain stable. Morning lighting reaches skin, hair, uniform and rug with natural local colors; no isolated sticker or new sun."
+}

@@ -1,0 +1,242 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "nyamu-chat-apricot-layer-parameters-v2.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": "4.13.0"
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "nyamu-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305",
+  "matte": "nyamu-chat-apricot-mask-candidate-v2.png",
+  "matteSha256": "965a3f7e6d1614f79f47454231d6919b378534ad0b119d4cfe1b73e00de0e4aa",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "includePolygons": [
+    [
+      [
+        1133,
+        729
+      ],
+      [
+        1158,
+        731
+      ],
+      [
+        1157,
+        736
+      ],
+      [
+        1133,
+        734
+      ]
+    ],
+    [
+      [
+        1251,
+        744
+      ],
+      [
+        1274,
+        744
+      ],
+      [
+        1274,
+        749
+      ],
+      [
+        1251,
+        749
+      ]
+    ],
+    [
+      [
+        1274,
+        744
+      ],
+      [
+        1278,
+        744
+      ],
+      [
+        1278,
+        749
+      ],
+      [
+        1274,
+        749
+      ]
+    ]
+  ],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1100,
+      225,
+      1450,
+      835
+    ],
+    "seedThreshold": 110,
+    "uncertainBandPixels": 5,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.35
+  },
+  "alphaChangedPixels": 140220,
+  "alphaNonzeroPixels": 68115,
+  "alphaBounds": [
+    1116,
+    235,
+    1442,
+    824
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "e580cd1871fe02702f9f084be5b1b3ee02eee5fa1fc07162d9f6d75da3835ce5",
+  "figureRgbSha256": "e580cd1871fe02702f9f084be5b1b3ee02eee5fa1fc07162d9f6d75da3835ce5",
+  "background": {
+    "candidate": "nyamu-chat-apricot-background-candidate-v1.png",
+    "candidateSha256": "3a53915946eaf803ccdf7e65d6f5dd32143826208cea516b7058dd28dccc3cd7",
+    "expandPixels": 6,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          1110,
+          590
+        ],
+        [
+          1405,
+          590
+        ],
+        [
+          1415,
+          830
+        ],
+        [
+          1105,
+          830
+        ]
+      ]
+    ],
+    "changedPixels": 139584,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1110,
+          786
+        ],
+        [
+          1187,
+          784
+        ],
+        [
+          1193,
+          824
+        ],
+        [
+          1109,
+          827
+        ]
+      ],
+      [
+        [
+          1210,
+          790
+        ],
+        [
+          1298,
+          791
+        ],
+        [
+          1300,
+          834
+        ],
+        [
+          1209,
+          835
+        ]
+      ],
+      [
+        [
+          1190,
+          570
+        ],
+        [
+          1410,
+          568
+        ],
+        [
+          1417,
+          604
+        ],
+        [
+          1190,
+          607
+        ]
+      ],
+      [
+        [
+          1400,
+          566
+        ],
+        [
+          1451,
+          565
+        ],
+        [
+          1455,
+          599
+        ],
+        [
+          1399,
+          600
+        ]
+      ]
+    ],
+    "featherPixels": 1,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "nyamu-chat-apricot-figure-calibrated-v2.png",
+      "bytes": 2421940,
+      "sha256": "22dc3159c1fa3058eb80335b1a49caf58ee53c19849a61277b297fded9d80b52"
+    },
+    {
+      "file": "nyamu-chat-apricot-mask-calibrated-v2.png",
+      "bytes": 15342,
+      "sha256": "6741efb3f369ed70af30537f6946779d2034ebf5128738aba82bfe6b86b29511"
+    },
+    {
+      "file": "nyamu-chat-apricot-background-calibrated-v2.png",
+      "bytes": 2084861,
+      "sha256": "70ccbdd9b3470f7b0cae81951385a5aca42caf9d954cf66477d9d974916572fb"
+    },
+    {
+      "file": "nyamu-chat-apricot-shadow-calibrated-v2.png",
+      "bytes": 59076,
+      "sha256": "8f9a5cba3e93d06b82f0af0d649b3b6b2fc9502dc4c4e3db924cd3001bf2c087"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

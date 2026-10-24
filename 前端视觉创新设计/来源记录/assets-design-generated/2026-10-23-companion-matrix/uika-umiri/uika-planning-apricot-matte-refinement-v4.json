@@ -1,0 +1,30 @@
+{
+  "kind": "per-source-alpha-refinement",
+  "input": "uika-planning-apricot-matte-prepared-v1.png",
+  "inputSha256": "d092c8022c0beab936b4ac8a01a5ee381f7234995acdc27bc70b4a46e3f63726",
+  "mother": "uika-planning-apricot-mother-candidate-v3.png",
+  "motherSha256": "767aab09d7596550438a1e3ef5ff01e578b4a635cc548b104bd773f211361e1b",
+  "polygon": [
+    [
+      741,
+      325
+    ],
+    [
+      778,
+      325
+    ],
+    [
+      778,
+      385
+    ],
+    [
+      741,
+      385
+    ]
+  ],
+  "method": "Only bounded viewed yellow-leaf/sky mixtures between left hair strands: alpha *= clip((38-(G-B))/8,0,1). All original RGB retained, no geometry, body redraw, global erosion or detached-component deletion.",
+  "changedPixels": 559,
+  "output": "uika-planning-apricot-matte-prepared-v4.png",
+  "outputSha256": "0d3430f5f9f8c79e9d046a547910fd2203497dad983f3ec3c5dba92a86e9526a",
+  "review": "Producer candidate only; Primary and runtime pending."
+}

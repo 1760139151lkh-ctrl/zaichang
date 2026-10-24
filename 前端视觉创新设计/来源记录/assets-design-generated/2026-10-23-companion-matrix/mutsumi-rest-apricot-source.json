@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "mutsumi",
+  "activity": "rest",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-rest-apricot-prompt.txt",
+  "promptSha256": "90d8cedb75f4ce81bfffd7528295ce5aad6c722b2a5cef5416121992cbf25182",
+  "identityText": "mutsumi-identity.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "primary-approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-rest-apricot-mother-candidate-v1.png",
+    "sha256": "8284c773c9ace87cd0bc9fc3d476a5d23442bd2fbfb9db2b640552e1671fd5b6",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-8f22cad5-293a-4268-b499-1241c4404267.png"
+  },
+  "designerObservation": "Whole torso/shoulders in real side/back orientation toward lake; hips and folded legs rest on bench cushion, a visible socked foot lies along seat and farther folded leg is naturally occluded. Two removed complete loafers sit on floor as static room/BG objects. No invented hidden limb for draggable contour. Primary posture/identity approval pending.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

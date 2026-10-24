@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { MapPoint, MapRouteResult } from './map-v2';
 import { planningMaterialProvenanceSchema } from './harness';
-import type { DiscussionScene, VerifiedDiscussionFocus } from './discussion-scene';
+import { discussionArtworkSchema, type DiscussionScene, type VerifiedDiscussionFocus } from './discussion-scene';
 import type { StudyScene, StudyHistoryReference } from './study-presentation';
 import { planningTrialConditionSchema, type PlanningComparisonView, type PlanningTrialObservation } from './planning-conversation';
 import type { CuriosityScene, CuriosityHistoryReference } from './curiosity-scene';
@@ -96,10 +96,14 @@ export interface CampusRecord {
   sourceRecordId?: string;
   grade?: { original: string | null; fivePoint: number | null; fourPoint?: number | null; fourPointLegacy?: number | null;
     hundredPoint?: number | null; hundredPointKind?: string; included: boolean | null; exclusionReason?: string;
-    courseCode?: string; qualityIssues?: string[] };
+    courseCode?: string; qualityIssues?: string[];
+    /** A positive match in the major transcript confirms membership. A missing
+     * match does not establish that a course is outside the user's major. */
+    majorConfirmed?: boolean; creditIncluded?: boolean; earnedCredit?: number | null; earnedCreditRepository?: number | null };
   gpa?: { values: Partial<Record<CampusGpaScale, number | null>>; denominator: number | null;
     eligibleAttempts?: number; countedAttempts?: number; excludedAttempts?: number; incompleteAttempts?: number;
-    complete?: boolean; sourceComplete?: boolean; policy?: string; formula?: string; throughTerm?: string };
+    complete?: boolean; sourceComplete?: boolean; policy?: string; formula?: string; throughTerm?: string;
+    earnedCreditsSumAttempts?: number | null; zeroCreditAttempts?: number };
 }
 export const campusExamTypeLabel = (type: string) => type === 'midterm' ? '期中' : type === 'final' ? '期末' : type;
 export const campusGpaScaleSchema = z.enum(['fivePoint', 'fourPoint', 'fourPointLegacy', 'hundredPoint']);
@@ -283,10 +287,11 @@ const id = z.string().min(1).max(160);
 export const sceneRefSchema = z.object({ id, revision: z.number().int().positive() }).strict();
 export const semanticSelectionSchema = z.object({
   sceneId: id, sceneRevision: z.number().int().positive(),
-  kind: z.enum(['place', 'date', 'leg', 'record', 'time_block', 'environment_sample', 'discussion_point', 'discussion_option']),
+  kind: z.enum(['place', 'date', 'leg', 'record', 'time_block', 'environment_sample', 'discussion_point', 'discussion_option', 'discussion_artwork']),
   placeId: id.optional(), date: z.iso.date().optional(), legId: id.optional(), recordId: id.optional(),
   blockId: id.optional(), sampleId: id.optional(),
   pointId: id.optional(), optionId: id.optional(),
+  artwork: discussionArtworkSchema.optional(),
   campusScale: campusGpaScaleSchema.optional(),
   planningTrial: planningTrialConditionSchema.optional(),
   mapView: mapViewSchema.optional(),

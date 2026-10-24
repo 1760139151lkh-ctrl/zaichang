@@ -1,0 +1,290 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "sakiko-listening-apricot-layer-parameters-v11.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "acd958962a3fbec03faf3be03b5bbe2286df8198fde14ad5a59573780f21b19c",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "sakiko-listening-apricot-mother.png",
+  "motherSha256": "a35aaa3549a04cf9f6fa7e478224f53afdcbfd1f133f6570a643191916189bb1",
+  "matte": "sakiko-listening-apricot-figure-calibrated-v8.png",
+  "matteSha256": "e394253114944e2cc0885b6e5b3d18862fc5ab2eeeb6d11b35defd08c13e0656",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "alpha",
+  "alphaLow": 0,
+  "alphaHigh": 255,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        1361,
+        298
+      ],
+      [
+        1385,
+        298
+      ],
+      [
+        1385,
+        302
+      ],
+      [
+        1361,
+        302
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1358,
+        301,
+        1385,
+        322
+      ],
+      "polygon": [
+        [
+          1358,
+          301
+        ],
+        [
+          1363,
+          302.2
+        ],
+        [
+          1368,
+          302.8
+        ],
+        [
+          1371,
+          304.8
+        ],
+        [
+          1373,
+          308
+        ],
+        [
+          1374.4,
+          314.8
+        ],
+        [
+          1372.8,
+          318
+        ],
+        [
+          1370.2,
+          321
+        ],
+        [
+          1371.1,
+          322
+        ],
+        [
+          1358,
+          322
+        ]
+      ],
+      "featherPixels": 0.15,
+      "mode": "intersect"
+    }
+  ],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 227,
+  "alphaNonzeroPixels": 48583,
+  "alphaBounds": [
+    1179,
+    269,
+    1448,
+    586
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "ca385112ef484096c1c5b23219498861303dda214b5aa77bc1caa3b79199deac",
+  "figureRgbSha256": "ca385112ef484096c1c5b23219498861303dda214b5aa77bc1caa3b79199deac",
+  "background": {
+    "candidate": "sakiko-listening-apricot-background.png",
+    "candidateSha256": "af9cfb8dd2ed3eb36933fe6f19040661aab5f6dd0b60d33c7bdf554c273e605b",
+    "expandPixels": 6,
+    "featherPixels": 1.2,
+    "additionalErasePolygons": [
+      [
+        [
+          1174,
+          573
+        ],
+        [
+          1279,
+          576
+        ],
+        [
+          1280,
+          594
+        ],
+        [
+          1172,
+          591
+        ]
+      ],
+      [
+        [
+          1264,
+          566
+        ],
+        [
+          1322,
+          568
+        ],
+        [
+          1386,
+          565
+        ],
+        [
+          1388,
+          586
+        ],
+        [
+          1320,
+          586
+        ],
+        [
+          1264,
+          579
+        ]
+      ],
+      [
+        [
+          1381,
+          500
+        ],
+        [
+          1420,
+          500
+        ],
+        [
+          1420,
+          576
+        ],
+        [
+          1378,
+          580
+        ]
+      ]
+    ],
+    "changedPixels": 63798,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1177,
+          574
+        ],
+        [
+          1228,
+          575
+        ],
+        [
+          1230,
+          582
+        ],
+        [
+          1177,
+          582
+        ]
+      ],
+      [
+        [
+          1205,
+          581
+        ],
+        [
+          1274,
+          579
+        ],
+        [
+          1277,
+          589
+        ],
+        [
+          1205,
+          591
+        ]
+      ],
+      [
+        [
+          1267,
+          567
+        ],
+        [
+          1317,
+          570
+        ],
+        [
+          1368,
+          574
+        ],
+        [
+          1384,
+          566
+        ],
+        [
+          1388,
+          576
+        ],
+        [
+          1369,
+          582
+        ],
+        [
+          1318,
+          578
+        ],
+        [
+          1266,
+          574
+        ]
+      ]
+    ],
+    "featherPixels": 1,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "sakiko-listening-apricot-figure-calibrated-v11.png",
+      "bytes": 2394076,
+      "sha256": "76f5481891b73841ceb638dc25739e392c8acfb47665385a0b93051965147b5b"
+    },
+    {
+      "file": "sakiko-listening-apricot-mask-calibrated-v11.png",
+      "bytes": 21728,
+      "sha256": "75e77ef1e8a2282ee439407e1ea4ba658248836c5b503ba192e08b65586f7081"
+    },
+    {
+      "file": "sakiko-listening-apricot-background-calibrated-v11.png",
+      "bytes": 2062838,
+      "sha256": "6888d0107930a159e729dd8fc0273a124963512a1eb294abc4eef526f6eccd00"
+    },
+    {
+      "file": "sakiko-listening-apricot-shadow-calibrated-v11.png",
+      "bytes": 28587,
+      "sha256": "5005f17e1093793d26fe2d44975630f349facdeb6a91ba453ba1e923dfdc02f1"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

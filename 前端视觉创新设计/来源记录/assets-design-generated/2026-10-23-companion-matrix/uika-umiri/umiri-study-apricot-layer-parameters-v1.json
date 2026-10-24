@@ -1,0 +1,19 @@
+{
+  "mother": "umiri-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "cb2b45dedddb45a558b4ed49ed28faadddd84aec01c4f10df25b0c9884d71847",
+  "matte": "umiri-study-apricot-mask-raw-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "umiri-study-apricot-figure-calibrated-v1.png",
+  "mask": "umiri-study-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "umiri-study-apricot-background-raw-v1.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [],
+  "background": "umiri-study-apricot-background-calibrated-v1.png",
+  "record": "umiri-study-apricot-layer-processing-v1.json",
+  "reviewNote": "Initial original-RGB extraction for actual visual inspection. Visible-only dark hair/jacket/short skirt, both arms/hands/legs/boots; chair/paper/desk belong to background. Fixed desk-contact pose, travel must be zero. Primary and runtime pending."
+}

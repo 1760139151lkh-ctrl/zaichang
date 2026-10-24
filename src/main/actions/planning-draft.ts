@@ -437,7 +437,7 @@ export function draftCalendarPlan(items: Action[], raw: unknown, retained?: Plan
       eligibleWindows: eligible.map(value => ({ start: iso(value.start), end: iso(value.end) })), eligibleMinutes,
       outsideScopeMinutes: Math.max(0, (day.end - day.start) / minute - eligibleMinutes), occupiedMinutes: eligibleMinutes - freeMinutes,
       reserveShortfallMinutes, status: reserveShortfallMinutes > 1e-8 ? 'existing_commitments_exceed_reserve' : 'within_declared_budget',
-      meaning: '工作分钟仅计本次新增净工作，跨本地午夜拆账；占用和空白仅在本次可安排范围内核算，已扣除已有承诺、保护、准备收尾及共享转场休息。范围之外未纳入安排，不能当作空闲、忙碌、睡眠或可用精力。' };
+      meaning: '工作时长算的是这次新放入的实际工作，跨过当地午夜就分到各自那天。每天的占用和留白都只算这次一起商量的时段，原有约定、保护时间、准备收尾和转场休息已经留好。没有纳入的时间仍留给他自己的生活，这里没有判断那时在做什么。' };
   });
   const allUnknown = unique([...baseUnknown, ...blocks.flatMap(value => value.conditions),
     ...(freeMinutesIn([...occupied, ...transfers], bounds, domain) + 1e-8 < input.reserveMinutes
@@ -453,15 +453,15 @@ export function draftCalendarPlan(items: Action[], raw: unknown, retained?: Plan
     window: { from: input.from, to: input.to, timeZone: input.timeZone },
     scheduleCoverage: { mode: input.scheduleWindows === undefined ? 'horizon_only' : 'provided_windows',
       windows: domain.map(value => ({ start: iso(value.start), end: iso(value.end) })),
-      meaning: input.scheduleWindows === undefined ? '未提供本次整体可安排窗口，仅沿整个核查范围试算；日历未登记占用不证明本人现实可安排。' : '仅使用本次提供窗口与核查范围的交集，含新增工作、准备收尾、转场和休息；范围外未纳入，不推断作息或空闲，也不产生保护事件。' },
+      meaning: input.scheduleWindows === undefined ? '这次还没有单独说哪些时段方便，先在一起查看的这段时间里试排；日历留白的地方，仍要和他商量是否合适。' : '只在这次说好、也正在查看的时段里试排，工作、准备收尾、转场和休息都在里面。其他时间保持原样，也没有额外添上保护安排。' },
     strategy: 'dependency_ready_priority_deadline_constructive', optimality: 'not_claimed', limits: { maxWorkSegments: maxSegments },
     calendarFingerprint, planFingerprint: hash({ input, calendarFingerprint }), sourceRevisions,
-    sourceCoverage: [{ sourceId: 'local-agenda', status: issues.length === 0 ? 'complete' : 'partial', reason: '仅本机已接受且占用时间的具体实例，不证明所有现实承诺或精力。' }, ...input.sourceCoverage.filter(value => value.sourceId !== 'local-agenda')],
+    sourceCoverage: [{ sourceId: 'local-agenda', status: issues.length === 0 ? 'complete' : 'partial', reason: '本机已经确认、确实占时间的安排都在这里；其他约定和今天的精力，还要结合他带来的消息。' }, ...input.sourceCoverage.filter(value => value.sourceId !== 'local-agenda')],
     effectivePreferences: { restMinutes: input.restMinutes, transitionMinutes: input.transitionMinutes, maxScheduledMinutes: input.maxScheduledMinutes, reserveMinutes: input.reserveMinutes, dailyBudgets: input.dailyBudgets,
       taskRhythms: input.tasks.filter(task => task.maximumChunkMinutes !== undefined || task.minimumChunkMinutes !== undefined).map(task => ({ taskId: task.id, splittable: task.splittable, minimumChunkMinutes: task.minimumChunkMinutes ?? (task.splittable ? Math.min(30, task.durationMinutes.max) : task.durationMinutes.max), maximumChunkMinutes: task.maximumChunkMinutes ?? null })) },
     blocks, unscheduled, fixedCommitments: baseOccupied.filter(value => value.kind === 'fixed' || value.retained).map(value => ({ ...value, start: iso(value.start), end: iso(value.end) })),
     protectedWindows, transitions: transfers.map(value => ({ ...value, start: iso(value.start), end: iso(value.end) })),
-    freeWindows: freeWithin([...occupied, ...transfers], domain, bounds).map(value => ({ start: iso(value.start), end: iso(value.end), minutes: (value.end - value.start) / minute, meaning: '本次可安排范围内保留完整占用后的空白，不包含未纳入的时段；现实可用性仍取决于声明的来源与条件。' })),
+    freeWindows: freeWithin([...occupied, ...transfers], domain, bounds).map(value => ({ start: iso(value.start), end: iso(value.end), minutes: (value.end - value.start) / minute, meaning: '这是说好可安排的时段里，给原有事情和完整转场休息留好位置之后的空当；能不能这样过，还要结合这次带来的条件一起看。' })),
     initialFreeMinutes, scheduledMinutes: workMinutes, daySummaries, conditions: allUnknown, issues,
     feasibility: !blocks.length && unscheduled.length ? 'no_plan_constructed' : allUnknown.length ? 'conditional' : unscheduled.length ? 'partial_for_declared_sources' : 'verified_for_declared_sources',
     completeness: unscheduled.length ? 'partial' : 'all_tasks_placed', accepted: false, applied: false,
@@ -469,6 +469,6 @@ export function draftCalendarPlan(items: Action[], raw: unknown, retained?: Plan
       capability: 'local.agenda.save', arguments: { title: block.title, detail: byId.get(block.taskId)!.detail, kind: 'time_block', startsAt: block.start, durationMinutes: block.durationMinutes, timeZone: input.timeZone, planning: { state: 'accepted', flexibility: 'movable', ...(block.placeId ? { placeId: block.placeId } : {}) } },
       applied: false, requiresAuthorization: true, requiresPlanRevalidation: true,
     })),
-    acceptanceContract: '这些是待用户选择或已有适用授权的动作参数，不是已保存安排。采用前核查完整日历指纹和外部来源版本、重新验证全体计划；依赖顺序执行既有save/change，失败须报告真实部分结果。',
+    acceptanceContract: '这份试排还没有写进日历。对方选好，或之前已经明确托付这样安排时，应用会再检查日历和相关资料是否有变，重新看整份计划是否合适，再按事情的先后逐项保存。若中途没能继续，就照实际说明哪些已经留下、哪些还没有。',
   };
 }

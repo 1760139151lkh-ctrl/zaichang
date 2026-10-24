@@ -1,0 +1,2 @@
+.composer-area.is-scene-drop .composer { outline:2px solid var(--focus); outline-offset:4px; }
+.scene-drop-message { margin:0 0 9px; color:var(--text-secondary); font-size:12px; line-height:1.8; }

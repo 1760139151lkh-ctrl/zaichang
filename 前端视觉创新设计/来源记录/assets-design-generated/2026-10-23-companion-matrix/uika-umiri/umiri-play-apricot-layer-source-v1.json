@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-layer-generation",
+  "character": "umiri",
+  "activity": "play",
+  "theme": "apricot",
+  "tool": "image_gen.imagegen",
+  "input": {
+    "file": "umiri-play-apricot-mother-candidate-v2.png",
+    "sha256": "98fd4ab74541817c22b5c54ae0f277a270acf4ca3915acdb7bad94712136e6dd",
+    "role": "sole primary-approved complete correct mother; same-canvas separation only"
+  },
+  "calls": [
+    {
+      "part": "background",
+      "executionId": "exec-020c6c56-d789-4bf1-927f-c53133ac0e5d",
+      "promptFile": "umiri-play-apricot-background-generated-v1-prompt.txt",
+      "promptSha256": "fb6c24a712a9c11a78c84ecd8f89f1357b7e8b5740be5c3ccea0a0f7730979d8",
+      "actualPrompt": "Use case: precise-object-edit. Technical source-registered asset for 在场, full 1536 x 1024 canvas. The ONLY image input is this exact primary-approved correct warm apricot Yahata Umiri / 八幡海铃 mother. Do not make a new pose/face/body/room, crop, zoom, recenter, enlarge a person or restore a different empty room's furniture. This is exact same-canvas separation of this existing correct scene. Remove ONLY the existing woman, all worn clothing/boots, any object held by her and personal hair/palm/body/foot cast/contact shadows. Reveal locally continuous original surfaces behind them. Her full burgundy BASS guitar, strap and every actual string/fret hand belong with the PERSON. All bass parts must be white in the matte / removed in the empty background. The fixed blue pillows, bench cushion and right hanging knit throw remain ENVIRONMENT. Preserve all original leg/boot separation. SOURCE GUIDES: Her hair/head begins near x1245,y278. The whole bass, including the headstock, runs to about x1528,y340..430. Supported hips are near x1330,y570. Both complete boot soles end near y788. Do not crop/recenter any instrument tip. Preserve this source's exact original full room/furniture coordinates: four connected window edges and curtains, chair/back/cushion/legs, desk/lamp/cup/books/papers, bench/pillows/fixed throw, lake/campus, rear-left furniture/shelves/plants/picture, rug/floorboard layout and warm daylight. Only reconstruct the actual occluded local surfaces; no prop/object additions or furniture move/resize/rotation. Remove person-shaped shadows/ghosts from wooden bench front, desk/wall and floor, retaining environmental furniture/leaf/window shadows. No text/UI/logos/watermark/split/arrow or new person. Return one full opaque, exactly source-aligned empty room.",
+      "output": {
+        "file": "umiri-play-apricot-background-generated-v1.png",
+        "sha256": "12e2b7851b5d2af268e4d8c8dfa01dee050ef65bcb55861aa845289c44de55ef",
+        "bytes": 2143891,
+        "width": 1536,
+        "height": 1024
+      },
+      "designerViewed": "full original result; alpha/background still requires precise calibration and light/dark/room review"
+    },
+    {
+      "part": "mask",
+      "executionId": "exec-e98a3f55-56b4-4e9e-a1e8-daedd2fcd29b",
+      "promptFile": "umiri-play-apricot-mask-generated-v1-prompt.txt",
+      "promptSha256": "b24a6ba1da1ca096e71f3ba72c3f9b3abf111cd8cbb91070a9ef8b004724fd6b",
+      "actualPrompt": "Use case: precise-object-edit. Technical source-registered asset for 在场, full 1536 x 1024 canvas. The ONLY image input is this exact primary-approved correct warm apricot Yahata Umiri / 八幡海铃 mother. Do not make a new pose/face/body/room, crop, zoom, recenter, enlarge a person or restore a different empty room's furniture. This is exact same-canvas separation of this existing correct scene. OPAQUE SOURCE-REGISTERED black-white matte: recolor all actual EXISTING visible person and her worn/held things pure WHITE at their ORIGINAL exact coordinates. Recolor environment pure BLACK; do not draw/repose a silhouette or internal face/clothing features. Her full burgundy BASS guitar, strap and every actual string/fret hand belong with the PERSON. All bass parts must be white in the matte / removed in the empty background. The fixed blue pillows, bench cushion and right hanging knit throw remain ENVIRONMENT. Preserve all original leg/boot separation. ORIGINAL LOCATION GUIDES ONLY: Her hair/head begins near x1245,y278. The whole bass, including the headstock, runs to about x1528,y340..430. Supported hips are near x1330,y570. Both complete boot soles end near y788. Do not crop/recenter any instrument tip. Every dark hair/jacket/boot/guitar surface also becomes white; keep true original gaps between limbs/strings hand/torso and fingers black wherever room is visible. Preserve every actual fine hair tip, finger, hem and complete shoe/instrument tip within the original canvas. Exclude every contact/cast shadow, furniture/chair/bench, desk props/lamp, window/curtain/plants, floor/rug. Most of the canvas and all corners stay pure black. Narrow AA only on original outer contours; no grey drawing, glow, broad shadow, texture/noise, labels/UI/logos or new outline. Exact 1536x1024 without rescale/recenter/crop; existing pixels recolored in place only.",
+      "output": {
+        "file": "umiri-play-apricot-mask-generated-v1.png",
+        "sha256": "21bc8c1388bb0d66a1cc95e558df7f02d84d662ebce230207adec2b440030a14",
+        "bytes": 426773,
+        "width": 1536,
+        "height": 1024
+      },
+      "designerViewed": "full original result; alpha/background still requires precise calibration and light/dark/room review"
+    }
+  ],
+  "review": {
+    "primary": "pending",
+    "runtime": "not integrated or accepted"
+  }
+}

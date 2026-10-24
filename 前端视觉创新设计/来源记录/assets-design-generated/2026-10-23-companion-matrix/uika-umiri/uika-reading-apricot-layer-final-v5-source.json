@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "kind": "source-scene-layer-candidate",
+  "character": "uika",
+  "activity": "reading",
+  "theme": "apricot",
+  "status": "producer-reviewed-primary-pending",
+  "transform": "identity; original full 1536x1024 camera, no resizing/translation/warp",
+  "mother": {
+    "path": "uika-reading-apricot-mother-candidate-v1.png",
+    "sha256": "31046bee457ec77259616037f8a6841acdfaba233f225194b84bc4a5bab0da15",
+    "bytes": 2196161,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "generationSource": "uika-reading-apricot-layer-source.json",
+  "matte": {
+    "path": "uika-reading-apricot-matte-prepared-v1.png",
+    "sha256": "e58172546b4da9dfe0a78e6c8f0849d6b38dc178e59c56cdcabe10445bd47d0c",
+    "bytes": 111121,
+    "width": 1536,
+    "height": 1024,
+    "mode": "L"
+  },
+  "matteRefinement": "uika-reading-apricot-matte-refinement-v1.json",
+  "generatedBackground": {
+    "path": "uika-reading-apricot-background-generated-v1.png",
+    "sha256": "c7267f9edf190d2cbc390cdfc8c6858fbd6f130ecb816e09364053b8d167fe6c",
+    "bytes": 2137306,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "backgroundGenerationSource": "uika-reading-apricot-layer-source.json",
+  "parameters": {
+    "path": "uika-reading-apricot-layer-parameters-v5.json",
+    "sha256": "a31fc2ecc1fd4180e8e83f985e3a245c8e807cf8129c8747070e6a92125d3726"
+  },
+  "processing": {
+    "path": "uika-reading-apricot-layer-processing-v5.json",
+    "sha256": "fefd8d317857d3136d44c324f6e5353c2bdf784dda4b7a245d31c05de8ba1e52"
+  },
+  "scene": "uika-reading-apricot.scene.json",
+  "outputs": [
+    {
+      "path": "uika-reading-apricot-figure-calibrated-v5.png",
+      "sha256": "8b0a430365c9357884b34594778b44972f48415170be35550f447bc0d07c5532",
+      "bytes": 2458161,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA"
+    },
+    {
+      "path": "uika-reading-apricot-mask-calibrated-v5.png",
+      "sha256": "8362a49886eee6af8c0a3b04545416157960b402baa8940c124b804256559c93",
+      "bytes": 30531,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA"
+    },
+    {
+      "path": "uika-reading-apricot-background-calibrated-v5.png",
+      "sha256": "5d2a7835d0d5b9b85540f71204dc7bdc8ce26f2e957d80f548b6de7e0de6a547",
+      "bytes": 2116139,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "path": "uika-reading-apricot-shadow-calibrated-v5.png",
+      "sha256": "b59ed0a4fddfa1f8feb2a74ba2723a83ce0eddf98696e680575c12a4ef5e23c0",
+      "bytes": 37059,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA"
+    }
+  ],
+  "sourceRgb": {
+    "motherRgbSha256": "facdd01f049675f810647854fa6fed3c0c1d69dbd6562a33cbcd2cc638be2b0e",
+    "figureRgbSha256": "facdd01f049675f810647854fa6fed3c0c1d69dbd6562a33cbcd2cc638be2b0e",
+    "operation": "all original mother RGB retained; alpha changes visibility only"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observed": [
+      "original full mother",
+      "full-canvas light and dark recomposition",
+      "full empty background",
+      "full room recomposition",
+      "source edge/contact details"
+    ],
+    "note": "Full original person and lap-supported open book in one layer. Original back/pillow and hip/bench support remain fixed; feet stay on their observed source contacts. Pillow, bench, desk/chair and room are excluded from person alpha. No translation away from these supports; travel/slope/perspective=0. Source-local seat/sole shadow only; all Stage, reduced-motion and semantic activity review remains pending."
+  },
+  "primaryReview": {
+    "approved": false,
+    "personallyViewed": false
+  },
+  "runtimeAccepted": false,
+  "recordedAt": "2026-10-24T10:26:56.240433+00:00",
+  "processor": {
+    "path": "../extract-scene-layers.py",
+    "sha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f"
+  }
+}

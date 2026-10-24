@@ -1,0 +1,66 @@
+{
+  "recordType": "theme-mother-gate-navigation",
+  "scope": "Two primary-reviewed warm chat mothers extended to three complete lighting themes; generated candidates only, no primary approval or runtime coverage inferred.",
+  "entries": [
+    {
+      "character": "soyo",
+      "activity": "chat",
+      "theme": "mist",
+      "source": "soyo-chat-mist-source.json",
+      "file": "soyo-chat-mist-mother-candidate-v1.png",
+      "sha256": "f071989d921ca9a23bd07c8d9e78a5aada62d7fb9256ec71cdd8c057a4c12ece",
+      "prompt": "soyo-chat-mist-prompt.txt",
+      "promptSha256": "67664b73fb11936eca50a3f7a9c83c314c0038cd312fb70546fee4850f1b76e9"
+    },
+    {
+      "character": "soyo",
+      "activity": "chat",
+      "theme": "violet",
+      "source": "soyo-chat-violet-source.json",
+      "file": "soyo-chat-violet-mother-candidate-v1.png",
+      "sha256": "444153ca5735202cb0b228f9647cff2578f02c3391070e3c0e3876588f86e8e4",
+      "prompt": "soyo-chat-violet-prompt.txt",
+      "promptSha256": "4feb5045bf3b94398c1417e86ca23b4f526ea4e07998666cce81c7b9766e5e59"
+    },
+    {
+      "character": "soyo",
+      "activity": "chat",
+      "theme": "rain",
+      "source": "soyo-chat-rain-source.json",
+      "file": "soyo-chat-rain-mother-candidate-v1.png",
+      "sha256": "130d8136ac3d77c8618f5cc7a772fb01bd9882efa2a44e44a018c5069b12b4ef",
+      "prompt": "soyo-chat-rain-prompt.txt",
+      "promptSha256": "1292bacce6d32343382b5dd49078c2125866610e338b438c5e3575450b997a71"
+    },
+    {
+      "character": "taki",
+      "activity": "chat",
+      "theme": "mist",
+      "source": "taki-chat-mist-source.json",
+      "file": "taki-chat-mist-mother-candidate-v1.png",
+      "sha256": "e3fc520bcca02e7c72dcee83ea818a288a89676582dfd0870cfb31b86a7261c3",
+      "prompt": "taki-chat-mist-prompt.txt",
+      "promptSha256": "d6fe32b2aca2595f3e3d84725d360ef9317f8d507451f76f8732838872638835"
+    },
+    {
+      "character": "taki",
+      "activity": "chat",
+      "theme": "violet",
+      "source": "taki-chat-violet-source.json",
+      "file": "taki-chat-violet-mother-candidate-v1.png",
+      "sha256": "624b0ffe0243da578e831d38e40ba7283433e3375c6a81a6e792c6d51cc137ab",
+      "prompt": "taki-chat-violet-prompt.txt",
+      "promptSha256": "5b563518a18c080fb13befb69a0a10e93e16c9f526cbfec034e4a009825a947b"
+    },
+    {
+      "character": "taki",
+      "activity": "chat",
+      "theme": "rain",
+      "source": "taki-chat-rain-source.json",
+      "file": "taki-chat-rain-mother-candidate-v1.png",
+      "sha256": "67e9bbef3f413b3bbfc7aae0fe00130e4d85d9d6391907d7241af4470bf2586f",
+      "prompt": "taki-chat-rain-prompt.txt",
+      "promptSha256": "92bebb3f2b6838fc50cd73ec1f3058d30b42bb9443d23c34fa82a29aa11c87c3"
+    }
+  ]
+}

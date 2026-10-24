@@ -1,14 +1,16 @@
-import { HarnessError, type ScopeHandle } from '../../shared/harness';
+import { createHash } from 'node:crypto';
+import { HarnessError, type ScopeData, type ScopeHandle } from '../../shared/harness';
 import {
   agendaDayInputSchema, agendaFocusSchema, agendaPreviewChangeInputSchema,
-  type AgendaChangePreview, type AgendaDayResult, type AgendaFocus, type AgendaOccurrence, type AgendaReference,
+  type AgendaChangePreview, type AgendaDayResult, type AgendaFocus, type AgendaOccurrence, type AgendaPlanningOccupancy, type AgendaReference,
 } from '../../shared/agenda';
 import type { Action } from '../../shared/types';
 import type { Store } from '../store';
 import { expandAgenda, projectCalendarChange } from '../actions/calendar';
 import { planningDayBounds } from '../actions/planning-days';
-import { previewCalendarPlan } from '../actions/planning';
-import { dateInZone } from './semantics';
+import { calendarPlanFingerprint, previewCalendarPlan } from '../actions/planning';
+import { availableIntervals } from '../actions/availability';
+import { canonical, dateInZone } from './semantics';
 
 const MINUTE = 60000;
 const validInstant = (value: unknown): value is string => typeof value === 'string' && Number.isFinite(Date.parse(value));
@@ -84,6 +86,53 @@ export class NativeAgendaService {
     return this.occurrence({ ...row, done: item.done }, zone);
   }
 
+  private planningOccupancy(scope: ScopeData, original: Action, items: Action[]): AgendaPlanningOccupancy | undefined {
+    if (!original.planRef) return;
+    try {
+      const recovery = this.store.runtime.planning.recover(scope, items, { planId: original.planRef.planId });
+      if (recovery.evidence !== 'current_calendar_and_process_ledger' || recovery.blockers.length
+        || !['all_steps_present', 'can_continue_authorized_steps'].includes(recovery.status)) return;
+      // This validates the live ticket's own identity, source and expiry. An
+      // expired or unreadable manifest is never reconstructed from old prose.
+      const { manifest } = this.store.runtime.planning.exportTicket(scope, original.planRef.planId);
+      const unit = manifest.units.find(value => value.blockId === original.planRef!.blockId);
+      const matches = (item: Action, candidate: typeof unit) => !!candidate && !item.done
+        && item.planRef?.planId === manifest.planId && item.planRef.blockId === candidate.blockId
+        && candidate.argumentsDigest === createHash('sha256').update(canonical(Object.fromEntries(candidate.argumentKeys
+          .map(key => [key, (item as unknown as Record<string, unknown>)[key]])))).digest('hex');
+      if (!matches(original, unit)) return;
+      const group = manifest.groups.find(value => value.id === unit?.groupId);
+      if (!group) return;
+      const wholeGroupIntact = group.unitIds.every(blockId => {
+        const value = manifest.units.find(value => value.blockId === blockId);
+        return items.some(item => matches(item, value));
+      });
+      const parts: AgendaPlanningOccupancy['parts'] = [];
+      if (wholeGroupIntact) {
+        if (Date.parse(group.start) > Date.parse(group.reservedStart)) parts.push({ kind: 'setup', start: group.reservedStart, end: group.start });
+        parts.push({ kind: 'work', start: group.start, end: group.end });
+        if (Date.parse(group.reservedEnd) > Date.parse(group.end)) parts.push({ kind: 'cleanup', start: group.end, end: group.reservedEnd });
+      }
+      const boundaries = manifest.boundaries.filter(value => value.fromWorkId === group.id || value.toWorkId === group.id);
+      const relatedUnits = manifest.units.filter(value => value.blockId !== unit!.blockId
+        && (value.groupId === group.id || boundaries.some(boundary => boundary.id === value.boundaryId)));
+      const related: AgendaPlanningOccupancy['related'] = relatedUnits.flatMap(value => {
+        const item = items.find(item => matches(item, value));
+        if (!item) return [];
+        const boundary = boundaries.find(boundary => boundary.id === value.boundaryId);
+        const kind = value.kind === 'work' ? 'work' : boundary?.travelMinutes && boundary.restMinutes ? 'transition'
+          : boundary?.travelMinutes ? 'travel' : 'rest';
+        return [{ record: { id: item.id, revision: item.revision || 1 }, title: item.title, start: value.start, end: value.end, kind }];
+      });
+      return { planId: manifest.planId, parts, related, relatedComplete: wholeGroupIntact && related.length === relatedUnits.length,
+        multipleWorkUnits: group.unitIds.length > 1 };
+    } catch {
+      // The current calendar interval remains readable. No failed ticket lookup
+      // grants access to its old sources, parameters or unadopted units.
+      return undefined;
+    }
+  }
+
   async day(raw: unknown, signal: AbortSignal): Promise<AgendaDayResult> {
     const input = agendaDayInputSchema.parse(raw), runtime = this.store.runtime;
     this.boundary(input); this.zone(input.timeZone);
@@ -128,17 +177,64 @@ export class NativeAgendaService {
     if (campus && !runtime.planning.campusCurrent(scope, campus))
       throw new HarnessError('planning_campus_changed', '课表刚有变化，重新读取后再看看这个时间。');
     const items = this.store.agenda();
+    const conditions = (original.planning?.constraints || []).map(condition => ({ condition, status: 'unknown' as const, sourceId: 'local-agenda' }));
     const preview = previewCalendarPlan(items, { from, to, timeZone: input.timeZone,
       busy: campus?.busy || [], sourceCoverage: campus ? [campus.coverage] : [],
+      conditions,
       // The planner's internal option label is shorter than an agenda title.
       // Keep the complete title on the projected owner, not in this label.
       alternatives: [{ label: '这次修改', change }] });
     const alternative = preview.alternatives[0];
-    const conflicts = alternative.conflicts.map(value => ({ id: value.objectId,
-      title: items.find(item => item.id === value.objectId)?.title || (campus ? '课表中的安排' : '另一项安排'),
-      start: value.start, end: value.end, source: items.some(item => item.id === value.objectId) ? 'agenda' as const : 'campus' as const }));
-    return { record: input.record, window: preview.window,
-      conflicts: [...new Map(conflicts.map(value => [`${value.id}:${value.start}:${value.end}`, value])).values()],
+    const conflicts: AgendaChangePreview['conflicts'] = alternative.conflicts.flatMap(value => {
+      const local = items.find(item => item.id === value.objectId);
+      const localInstances = preview.busy.filter(item => item.id === local?.id && item.start === value.start && item.end === value.end);
+      const owners = local ? (localInstances.length ? localInstances : [undefined]).map(instance => ({ id: local.id, title: local.title, source: 'agenda' as const,
+        record: { id: local.id, revision: local.revision || 1 }, ...(instance ? { occurrenceId: instance.occurrenceId } : {}) }))
+        : (campus?.items.filter(item => item.start === value.start && item.end === value.end) || [])
+          .map(item => ({ id: item.id, title: item.title, source: 'campus' as const }));
+      return (owners.length ? owners : [{ id: value.objectId, title: '课表中的安排', source: 'campus' as const }])
+        .map(owner => ({ ...owner, start: value.start, end: value.end,
+          flexibility: value.flexibility === 'movable' ? 'movable' as const : 'fixed' as const,
+          uncertain: !afterOccurrence.end || !value.end,
+          overlapStart: new Date(Math.max(Date.parse(afterOccurrence.start), Date.parse(value.start))).toISOString(),
+          ...(afterOccurrence.end && value.end ? { overlapEnd: new Date(Math.min(Date.parse(afterOccurrence.end), Date.parse(value.end))).toISOString() } : {}) }));
+    });
+    const alternatives: NonNullable<AgendaChangePreview['alternatives']> = [];
+    // Keep every other occurrence, including other instances of this series.
+    // The calendar's complete saved duration already includes its preparation
+    // and cleanup. Separate travel/rest reservations stay where their owners are.
+    if (conflicts.length && afterOccurrence.end && (!original.recurrence || input.record.occurrenceDate)) {
+      const duration = Date.parse(afterOccurrence.end) - Date.parse(afterOccurrence.start);
+      const requested = Date.parse(afterOccurrence.start);
+      const targetDay = planningDayBounds(dateInZone(afterOccurrence.start, input.timeZone), input.timeZone);
+      const occupied = [...preview.busy.filter(item => item.occurrenceId !== beforeOccurrence?.occurrenceId), ...(campus?.busy || [])];
+      const gaps = availableIntervals({ ...targetDay, busy: occupied, transitionMinutes: { min: 0, max: 0 }, minimumBlockMinutes: duration / MINUTE });
+      const step = 15 * MINUTE, origin = Date.parse(targetDay.from);
+      const ceil = (instant: number) => origin + Math.ceil((instant - origin) / step) * step;
+      const floor = (instant: number) => origin + Math.floor((instant - origin) / step) * step;
+      const candidates = gaps.windows.filter(gap => gap.fitsMinimum === 'yes').flatMap(gap => {
+        const first = ceil(Date.parse(gap.start)), last = floor(Date.parse(gap.end) - duration);
+        return first <= last ? [first, last] : [];
+      });
+      const before = candidates.filter(start => start < requested).sort((a, b) => b - a)[0];
+      const after = candidates.filter(start => start > requested).sort((a, b) => a - b)[0];
+      for (const [start, direction] of [[before, 'earlier'], [after, 'later']] as const) {
+        if (start === undefined) continue;
+        const startsAt = new Date(start).toISOString();
+        const assessment = previewCalendarPlan(items, { from, to, timeZone: input.timeZone,
+          busy: campus?.busy || [], sourceCoverage: campus ? [campus.coverage] : [],
+          conditions,
+          alternatives: [{ label: '换个时间', change: { ...change, changes: { ...input.changes, startsAt } } }] });
+        if (assessment.alternatives[0].violations.length) continue;
+        alternatives.push({ startsAt, end: new Date(start + duration).toISOString(), direction,
+          record: input.record, durationMinutes: duration / MINUTE });
+      }
+    }
+    const occupancy = this.planningOccupancy(scope, original, items);
+    const assessmentKey = createHash('sha256').update(canonical({ calendar: calendarPlanFingerprint(items),
+      campus: campus?.version || null, occupancy: occupancy || null, input })).digest('hex');
+    return { record: input.record, assessmentKey, window: preview.window, alternatives, ...(occupancy ? { occupancy } : {}),
+      conflicts: [...new Map(conflicts.map(value => [`${value.occurrenceId || value.id}:${value.start}:${value.end}`, value])).values()],
       unknown: alternative.unknown, violations: alternative.violations, sourceCoverage: preview.sourceCoverage,
       recurringScope: input.record.occurrenceDate ? 'once' : original.recurrence ? 'series' : 'single',
       assessedOccurrence: afterOccurrence, fetchedAt: this.store.kernel.clock.now(), applied: false };
@@ -149,13 +245,14 @@ export class NativeAgendaService {
   resolveReference(handle: ScopeHandle, raw: AgendaFocus) {
     const focus = agendaFocusSchema.parse(raw), item = this.record(handle, focus.record);
     const occurrence = this.instance(item, focus.record, this.store.settings().timeZone || 'Asia/Shanghai');
-    let trial: { proposedStart: string; proposedEnd: string; durationMinutes: number; executionAuthorized: false } | undefined;
+    let trial: { proposedStart: string; proposedEnd: string | null; durationMinutes: number | null; executionAuthorized: false } | undefined;
     if (focus.trial) {
-      if (!occurrence?.end || !occurrence.item.durationMinutes || item.done || item.allDayDate)
-        throw new HarnessError('agenda_trial', '这次还不能整段试挪，先看看原来的时间和时长。');
+      if (!occurrence || item.done || item.allDayDate)
+        throw new HarnessError('agenda_trial', '先看看这一次的安排，再一起试时间。');
       const proposedStart = new Date(focus.trial.proposedStart).toISOString();
-      trial = { proposedStart, proposedEnd: new Date(Date.parse(proposedStart) + occurrence.item.durationMinutes * MINUTE).toISOString(),
-        durationMinutes: occurrence.item.durationMinutes, executionAuthorized: false };
+      const durationMinutes = focus.trial.durationMinutes === undefined ? occurrence.item.durationMinutes || null : focus.trial.durationMinutes;
+      trial = { proposedStart, proposedEnd: durationMinutes === null ? null
+        : new Date(Date.parse(proposedStart) + durationMinutes * MINUTE).toISOString(), durationMinutes, executionAuthorized: false };
     }
     this.readable(handle);
     return { reference: focus.record, item, occurrence, ...(trial ? { trial } : {}),

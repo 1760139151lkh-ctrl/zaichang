@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "play",
+  "palette": "mist",
+  "light": "morning",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-e56be25b-e6f1-4349-9185-3e8dfca8eff3",
+  "prompt": "taki-play-mist-prompt.txt",
+  "promptSha256": "add5370e1296d19be7e8e7c1cd091a4697543a23afad1444326ea5e64a07dc33",
+  "inputs": [
+    {
+      "file": "taki-play-apricot-mother-candidate-v1.png",
+      "sha256": "bf2bb6c780f72c03b65169347d1deafe8c178afe1a9bf6509848dc239321d0f9",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-e56be25b-e6f1-4349-9185-3e8dfca8eff3.png",
+  "output": {
+    "file": "taki-play-mist-mother-candidate-v1.png",
+    "sha256": "1fd3df8eb80354a12b037a53281da586a264f70d9dd94bcb004bfe385f15a424",
+    "bytes": 2106780,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed with the approved warm mother and target empty plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Actual supported desk-chair drum-pad activity with two held drumsticks, two visible hands and two complete floor loafers retained. Practice pad/books/lamp remain room objects. Whole-room light coherent and violet sun/lake axis near1007/1003. Primary/layer/runtime review remains separate."
+}

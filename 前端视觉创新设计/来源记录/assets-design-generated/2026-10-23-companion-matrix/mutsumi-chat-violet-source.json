@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "intent": "Whole-scene physical time/weather/lighting edit of a primary-approved correct full mother. No character-generation input exception is inferred for rejected mothers.",
+  "prompt": "mutsumi-chat-violet-prompt.txt",
+  "promptSha256": "9d317e1108331309fceb5ed3d6dfd384ea5dda394dd297ce3e3fef81fb364f8c",
+  "inputs": [
+    {
+      "file": "mutsumi-chat-apricot-mother-candidate-v1.png",
+      "role": "sole primary-approved complete mother/edit target",
+      "sha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a",
+      "approvalRecord": "primary-other-mother-reviews.json"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-chat-violet-mother-candidate-v1.png",
+    "sha256": "a6d0f8b0e64322c223b0d78dff528fa9928db15fcc00e0c3b71319ba97c97dc4",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-fcf58146-f9ff-4b1b-ba4f-6d1c0666324d.png"
+  },
+  "producerTransform": "No crop/scale/translation or post-generation color filter applied. Geometry preservation is a visual observation of model output, not a claim of pixel identity across relighting.",
+  "designerObservation": "Complete image personally viewed. Whole sunset exterior with low rose-gold sun/lake reflection, violet-grey room ambient, existing warm local lamp. Low-angle warm foliage shadows remain with the actual sunset direction, not claimed absent; natural skin/wood/material colors. Pose and supported hip/hand/leg/shoe relationship visually held. Primary light consistency review pending.",
+  "primaryReview": "Returned by primary after complete image and approved room-violet comparison: solar disc/vertical lake reflection around x1068 vs fixed room axis x1007,y302, so character switching shifts celestial source. Original input/prompt/output record preserved.",
+  "extraction": "not allowed for returned v1",
+  "runtime": "not registered or verified",
+  "designerStatus": "returned; not supplied as later image input"
+}

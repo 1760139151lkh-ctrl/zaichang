@@ -1,0 +1,39 @@
+{
+  "createdOn": "2026-10-24",
+  "tool": "built-in image_gen.imagegen",
+  "character": "rana",
+  "activity": "chat",
+  "theme": "violet",
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "file": "rana-chat-violet-mother-candidate-v1.png",
+  "sha256": "94f236e5e3f74c36c3dc18a2c01f534e56ef7331428d4e86492ec22318b75843",
+  "prompt": "rana-chat-violet-prompt.txt",
+  "promptSha256": "c7e1264e4715748f3d0bd09e34c6267cbe585164d7fc6bbcaeafedd1fcc5d21e",
+  "originalGeneratedFile": "exec-f5146492-9076-49bc-a421-1b4f66f93982.png",
+  "inputs": [
+    {
+      "file": "rana-chat-apricot-mother-candidate-v1.png",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "role": "primary-approved complete warm mother; sole editable character/geometry target"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "primary-approved clean empty room; lighting/sky/light-axis reference only"
+    }
+  ],
+  "designerPersonallyViewed": true,
+  "designerStatus": "candidate-for-primary-review",
+  "designerObservation": "Complete original supported character retained in same furniture/camera; Sun visibly near (1007,302) and lake reflection near x1003, warm desk lamp and violet shadows coherent. Exact primary light-axis acceptance pending.",
+  "review": {
+    "approvedByPrimary": false,
+    "identityAndProportionAccepted": false,
+    "extractionApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "promptEncoding": "UTF-8; exact submitted string, no added final newline"
+}

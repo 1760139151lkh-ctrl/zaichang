@@ -1,0 +1,157 @@
+{
+  "recordType": "deterministic-observed-source-alpha-repair",
+  "script": "mutsumi-observed-alpha-repairs.py",
+  "scriptSha256": "cbc919e11e9e658ab6561fd4bcf346b14d25cab66e569428baca52f5bf70ff83",
+  "parameters": "mutsumi-listening-apricot-alpha-repair-parameters-v5.json",
+  "parametersSha256": "dfc535707260bc39d4f641ce1b327263d1cdbba640418f0b8b5af29085ce0614",
+  "mother": "mutsumi-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+  "inputAlpha": "mutsumi-listening-apricot-source-alpha-v4.png",
+  "inputAlphaSha256": "236935869e9753cd589874f584f49776a544d7a6da9f4ae157b0d50efd75f651",
+  "outputAlpha": "mutsumi-listening-apricot-source-alpha-v5.png",
+  "outputAlphaSha256": "9a18a460bb70cc0b50f3411feaa0545c99a1528117578540f7fc70a28e8dad9c",
+  "rules": [
+    {
+      "purpose": "Continuous actual pale-mint long-hair panel read on original coordinate crop, not window/leaf pixels. Restore genuine warm hair highlights after v3 yellow-room exclusion.",
+      "mode": "include",
+      "polygon": [
+        [
+          1371,
+          416
+        ],
+        [
+          1378,
+          429
+        ],
+        [
+          1386,
+          451
+        ],
+        [
+          1395,
+          478
+        ],
+        [
+          1399,
+          499
+        ],
+        [
+          1395,
+          518
+        ],
+        [
+          1389,
+          536
+        ],
+        [
+          1380,
+          549
+        ],
+        [
+          1376,
+          546
+        ],
+        [
+          1387,
+          528
+        ],
+        [
+          1391,
+          507
+        ],
+        [
+          1386,
+          485
+        ],
+        [
+          1375,
+          457
+        ],
+        [
+          1368,
+          432
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          80,
+          255
+        ],
+        [
+          1,
+          70,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          1,
+          -12,
+          30
+        ],
+        [
+          1,
+          2,
+          -3,
+          60
+        ]
+      ]
+    },
+    {
+      "purpose": "Original blue pillow only at hair tips, no dark navy sleeve or skin removed.",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1395,
+          485
+        ],
+        [
+          1434,
+          479
+        ],
+        [
+          1434,
+          560
+        ],
+        [
+          1381,
+          558
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          40,
+          255
+        ],
+        [
+          1,
+          50,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          2,
+          0,
+          9,
+          180
+        ],
+        [
+          2,
+          1,
+          4,
+          180
+        ]
+      ]
+    }
+  ],
+  "explicitOriginalRoomExclusions": [],
+  "method": "Only original-canvas alpha visibility corrected inside personally observed RGB/room ROIs; no body/RGB redraw, warp or hidden anatomy completion.",
+  "review": {
+    "primaryLayer": "pending",
+    "runtime": "not registered or exercised"
+  }
+}

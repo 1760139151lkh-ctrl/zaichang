@@ -1,0 +1,194 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "sakiko-study-apricot-layer-parameters-v5.json",
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+  "motherSha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1",
+  "matte": "sakiko-study-apricot-mask.png",
+  "matteSha256": "518f27f08fae3dbe49651a25eb4404c57cbbf2f4d294383f9c1ecaf4bc6ba03b",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        936,
+        603
+      ],
+      [
+        957,
+        601
+      ],
+      [
+        967,
+        727
+      ],
+      [
+        947,
+        729
+      ]
+    ],
+    [
+      [
+        933,
+        613
+      ],
+      [
+        947,
+        611
+      ],
+      [
+        947,
+        628
+      ],
+      [
+        933,
+        628
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          750,
+          480
+        ],
+        [
+          850,
+          480
+        ],
+        [
+          890,
+          625
+        ],
+        [
+          750,
+          625
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    },
+    {
+      "polygon": [
+        [
+          855,
+          585
+        ],
+        [
+          960,
+          585
+        ],
+        [
+          958,
+          615
+        ],
+        [
+          855,
+          615
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    },
+    {
+      "polygon": [
+        [
+          850,
+          609
+        ],
+        [
+          951,
+          601
+        ],
+        [
+          956,
+          614
+        ],
+        [
+          850,
+          635
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    }
+  ],
+  "localColorMatteRefinement": {
+    "seedThreshold": 80,
+    "uncertainBandPixels": 3,
+    "iterations": 3,
+    "edgeFeatherPixels": 0.35
+  },
+  "alphaChangedPixels": 117926,
+  "alphaNonzeroPixels": 37501,
+  "alphaBounds": [
+    804,
+    317,
+    1060,
+    725
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "949332e3472c3f6ad9d07f0933159c5f5e37a214d0f1aa3928219bf6e600879c",
+  "figureRgbSha256": "949332e3472c3f6ad9d07f0933159c5f5e37a214d0f1aa3928219bf6e600879c",
+  "background": {
+    "candidate": "sakiko-study-apricot-background.png",
+    "candidateSha256": "df0c76dc2eea58039a8218eaddbee16bebb26d6a4c21c43c66980a228e8e01ca",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          900,
+          682
+        ],
+        [
+          1068,
+          681
+        ],
+        [
+          1090,
+          754
+        ],
+        [
+          892,
+          754
+        ]
+      ]
+    ],
+    "changedPixels": 60935,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "outputs": [
+    {
+      "file": "sakiko-study-apricot-figure-calibrated-v5.png",
+      "bytes": 2368418,
+      "sha256": "4dc173bc04b0e5e870e8253a54db6005e74a238022a8d1a2f87ee57e360c40d8"
+    },
+    {
+      "file": "sakiko-study-apricot-mask-calibrated-v5.png",
+      "bytes": 14517,
+      "sha256": "2483c25d6170a5de58970efa50871e25116613751cf86dc0a1770762ced46001"
+    },
+    {
+      "file": "sakiko-study-apricot-background-calibrated-v5.png",
+      "bytes": 2045511,
+      "sha256": "e4c1c3ff130301a1a6e8795dcc6c8cd948987c482a878809aa0b9348e0b82d6b"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "recordType": "approved-mother-layer-generation",
+  "tool": "built-in image_gen",
+  "recordedAt": "2026-10-23T22:49:55.088711+00:00",
+  "input": {
+    "file": "umiri-study-apricot-mother-candidate-v1.png",
+    "sha256": "cb2b45dedddb45a558b4ed49ed28faadddd84aec01c4f10df25b0c9884d71847",
+    "role": "sole approved mother; visible-only same-canvas segmentation and local background removal"
+  },
+  "calls": [
+    {
+      "purpose": "mask",
+      "executionId": "exec-23c2d853-ed10-4d18-a062-b2b6acc2946e",
+      "promptFile": "umiri-study-apricot-mask-prompt.txt",
+      "actualPrompt": "Use case: background-extraction\nAsset type: original-position semantic segmentation matte for the approved Umiri study illustration.\nImage 1 is the sole edit target. Produce one fully opaque black-and-white segmentation matte at the exact original 1536 x 1024 full canvas. Keep the woman's exact original position, scale, posture, silhouette and visible occlusion; no crop, zoom, translation, rotation, reposing, anatomy completion or redesign.\nAll visible person pixels must be WHITE, regardless of their original darkness: Umiri's shoulder-length dark hair including fine tips, face/ears/neck, entire black jacket and red top, gray short skirt, both bare legs, both complete black lace-up platform boots including their uppers, laces, soles and heels, BOTH visible forearms and BOTH hands/fingers touching and pointing along the paper. White interiors must be completely solid even on black clothes, black hair and black boots; do not mistake dark material for background. Preserve the actual gaps between legs and between forearms and body as black where room is visible.\nAll non-person pixels must be BLACK: the upholstered chair back/seat and wooden legs, desk and its edges/legs, the paper/book resting on the desk, cup/lamp, window/scenery, walls, floor and all cast or contact shadows. Where the chair occludes her left hip/skirt, retain that exact visible-only person contour and leave chair black. Her hands do not turn the paper underneath white. Do not include desk-edge or chair-seat fragments. Do not invent a held pen or other object. No grayscale body texture; gray is only a thin soft antialiased contour. Return a full-canvas opaque room-black/person-white matte, not a portrait or transparent cutout, with no text or extra panel.",
+      "transparentBackground": false,
+      "output": {
+        "file": "umiri-study-apricot-mask-raw-v1.png",
+        "sha256": "fc342a7a6fdc70d4cdff425b77cd9459a6456f3a3dcc858c8ac8e587157e15be",
+        "bytes": 344149,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-23c2d853-ed10-4d18-a062-b2b6acc2946e.png"
+    },
+    {
+      "purpose": "background",
+      "executionId": "exec-20396490-f5b2-40c0-84e1-f5152ea29b0c",
+      "promptFile": "umiri-study-apricot-background-prompt.txt",
+      "actualPrompt": "Use case: precise-object-edit\nAsset type: matching clean room background for the approved Umiri study mother.\nImage 1 is the sole edit target. Remove only the seated young woman Umiri: all her dark hair, face/body, black jacket/red top/gray skirt, both bare legs, both black boots, both hands and forearms, and her small personal body/boot contact shadows. Reconstruct only the local room surfaces revealed behind her. Keep the exact full 1536 x 1024 canvas, camera, framing, perspective, furniture scale and positions. No crop, zoom, shift, rotation, new person or added object.\nPreserve the original desk, both paper/book surfaces she was touching, cup, lamp and other desk objects precisely at their original size, angle and position. Preserve the original upholstered chair back, seat and wooden legs; complete only the parts previously hidden by her without rotating, moving, shrinking or enlarging this chair. Preserve the original right window bench, pillows/blanket, left desk/chair/shelves/plants, curtains, wall picture, rug, floorboard geometry, sunlight patterns and the complete window landscape. Do not replace this specific mother's desk/chair arrangement with another room layout.\nMatch the original warm apricot daylight, delicate painted texture, wood grain and existing furniture shadows in the tiny revealed regions. No ghost hair, jacket, skirt, legs, shoes, skin, body-shaped blur, boot silhouettes, personal reflection or residual personal contact shadow. Do not intentionally alter unaffected pixels. This will sit behind the original same-position figure RGB, so spatial registration matters more than novelty. One coherent empty full room, no comparison panels, no text or watermark.",
+      "transparentBackground": false,
+      "output": {
+        "file": "umiri-study-apricot-background-raw-v1.png",
+        "sha256": "2ac82c1aa66e9b80044a5e91e1eb78e65505c8eb0695aada1f608c21d9a4db3c",
+        "bytes": 2102013,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-20396490-f5b2-40c0-84e1-f5152ea29b0c.png"
+    }
+  ],
+  "designerReview": {
+    "rawMask": "Viewed full-canvas raw matte. Dark hair/jacket/boots are white; detailed original-RGB overlay inspection follows.",
+    "rawBackground": "Viewed generated full room. This mother desk/chair arrangement remains; only local person-removal patch will be used."
+  },
+  "primaryLayerReview": "pending",
+  "runtimeAccepted": false,
+  "layerProduction": {
+    "status": "designer-reviewed candidate; primary pending",
+    "selectedParameters": "umiri-study-apricot-layer-parameters-v3.json",
+    "selectedProcessingRecord": "umiri-study-apricot-layer-processing-v3.json",
+    "matteRefinement": "umiri-study-apricot-matte-refinement-v2.json",
+    "mattePreparationOutput": "umiri-study-apricot-mask-local-color-v2.png",
+    "productionTool": "../extract-scene-layers.py",
+    "productionToolSha256": "f9a11baa1d7cf915c69341ffd18cea7a8e7d23318a8ea53be56d51775ae80bc0",
+    "transform": "identity; no crop/scale/translation/warp",
+    "outputs": [
+      {
+        "file": "umiri-study-apricot-figure-calibrated-v3.png",
+        "bytes": 2418556,
+        "sha256": "3ae71c48011f9f747b97c7272e252ed0e113768d454dbfb7563d985e1a3e968d"
+      },
+      {
+        "file": "umiri-study-apricot-mask-calibrated-v3.png",
+        "bytes": 26294,
+        "sha256": "d5120b197894e82ddee3f8ce30dba900b87045e7e60cf04a01693d94084ad5b7"
+      },
+      {
+        "file": "umiri-study-apricot-background-calibrated-v3.png",
+        "bytes": 2085256,
+        "sha256": "e942b3e8c3332c894280c761c7a453891ec606c0fac7cd3768d2681a9439adbd"
+      }
+    ],
+    "dataObservations": {
+      "motherRgbSha256": "5bed3d09f8493ba9c73de8e284f58f9611645ce19787a165ecd2bc3a7ea0c590",
+      "figureRgbSha256": "5bed3d09f8493ba9c73de8e284f58f9611645ce19787a165ecd2bc3a7ea0c590",
+      "figureCanvas": [
+        1536,
+        1024
+      ],
+      "maskCanvas": [
+        1536,
+        1024
+      ],
+      "backgroundCanvas": [
+        1536,
+        1024
+      ],
+      "alphaRange": [
+        0,
+        255
+      ],
+      "softAlphaPixels": 6321,
+      "whiteMaskRgbExtrema": [
+        [
+          255,
+          255
+        ],
+        [
+          255,
+          255
+        ],
+        [
+          255,
+          255
+        ]
+      ],
+      "motherFileSha256": "cb2b45dedddb45a558b4ed49ed28faadddd84aec01c4f10df25b0c9884d71847"
+    },
+    "designerObserved": [
+      "Original mother full canvas viewed; complete dark hair/jacket/red top/short skirt, both legs/boots and both hands seen. Mother actually contains a small held pen; retained from original pixels, not invented.",
+      "Generated raw mask and background viewed; exact-position figure over matching background compared with original. No overall zoom or translation observed.",
+      "Full light and dark backings plus enlarged detail viewed after final v3 calibration. Tiny desk-surface triangle between torso/forearms, upholstered chair highlight, external hair sky/leaf/rooftop fragments and boot floor-edge noise cleaned locally.",
+      "A v2 warm-room rejection region incorrectly reached above the boot tops, removing a thin skin strip; v2 rejected. V3 restricts that region below y645 and restores full original bare legs and boot contact.",
+      "Same-mother clean background used only in the expanded/feathered visible-person patch plus explicitly recorded original jacket/boot residual areas; mother RGB retained elsewhere. Final complete BG and full original-position recomposition viewed."
+    ],
+    "reviewImages": [
+      "umiri-study-apricot-review-light-v3.png",
+      "umiri-study-apricot-review-dark-v3.png",
+      "umiri-study-apricot-review-light-detail-v3.png",
+      "umiri-study-apricot-review-dark-detail-v3.png",
+      "umiri-study-apricot-review-recomposed-v3.png"
+    ],
+    "superseded": {
+      "v1": "Initial raw matte extraction; contains desk triangle and small room fragments, not selected.",
+      "v2": "Rejected: warm-room boot region included a visible skin strip above boot openings."
+    },
+    "remaining": [
+      "Primary to independently inspect thin hair/hand/pen edges, boots and original chair occlusion.",
+      "Desk contact requires travel=0; no Stage or user interaction evidence obtained.",
+      "No independent contact-shadow layer produced; fixed-contact treatment left to primary/runtime review."
+    ],
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false,
+    "integrated": false
+  }
+}

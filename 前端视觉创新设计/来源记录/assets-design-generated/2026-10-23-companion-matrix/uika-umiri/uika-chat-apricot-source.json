@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-mother-candidate",
+  "character": "uika",
+  "activity": "chat",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/uika/",
+    "https://anime.bang-dream.com/mygo/character/uika/"
+  ],
+  "input": {
+    "path": "../room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty room; no character pixels used"
+  },
+  "promptFile": "uika-chat-apricot-prompt.txt",
+  "prompt": "Use case: stylized-concept.\nAsset type: a complete same-room character mother illustration for the 在场 companion Stage, 1536 x 1024, warm apricot morning. This is the UI's illustrated room, with no UI baked into the painting.\nONLY INPUT: image 1 is the primary-selected CLEAN EMPTY room v4. It supplies the room geometry, camera, furniture, materials and light. It contains no person. Do not use or imitate a separate person reference. Paint the complete person naturally inside this exact room.\n\nLOCK THE SPACE: retain the full connected window frame and all four corners, the lake/campus view, left rear table/chair, shelves, framed botanical drawing, right desk and chair, lamp, cup, bench, cushions, rug, floor and passage at their existing positions and scale. Same camera and mild seated-eye perspective; no crop, zoom, new furniture, blank panel or white gradient. Preserve the lived-in left background. Put the person on the RIGHT window bench, leaving the left and central reading space free of any new character, foreground plant or prop. The person must belong to the bench and floor, with natural contact shadows and the same window illumination.\n\nSUBJECT: Misumi Uika (三角初華) from BanG Dream! Ave Mujica / MyGO!!!!!, in her original youthful anime identity: a first-year high-school girl around fifteen-sixteen, slim ordinary teenage build and soft youthful face, NOT an adult fashion model and NOT a chibi child. Her short pale blonde bob has a faint warm pink undertone, chin-length ends, light uneven front fringe and longer side strands framing the cheeks. Clear violet eyes, delicate young jaw, small natural nose. Keep this recognizable hairstyle and face, not generic long hair. Official casual wardrobe interpreted indoors: a plain white short-sleeved T-shirt tucked into a pale taupe-gray long skirt, white socks and black-and-white low canvas sneakers. No cap indoors; keep the bob fully visible. Modest everyday clothes, no stage costume or invented uniform.\n\nACTIVITY chat / returning to the room: Uika sits on the FRONT EDGE of the real right bench, near its left half, her pelvis visibly pressing into the cushion. Her body turns three-quarters toward the user's side (camera/left foreground), as though she caught the last half of a sentence and has just looked up. The shoulders are loose, the expression quietly attentive with only a small natural hint of recognition. One relaxed hand lies on her skirt near one knee; the other hand rests lightly on the bench beside the hip. No waving, held cup, book, guitar, speech bubble or staged welcome gesture. This is soft, patient attention, not a stock grin.\n\nANATOMY AND SCALE: approximately head-top y=330, seated pelvis y=590 and both shoe soles on the existing floor around y=880, proportionate to this bench and desk. Keep the whole head, hair, hands, skirt hem, ankles and both shoes visible, with air to the image edges. Two continuous thighs lead naturally to two distinct knees under the long skirt, then to two ankles; the legs rest uncrossed with the knees close and the lower legs gently angled toward the open floor. Both sneakers have believable separate heel/toe contacts on the same floor plane. Do not duplicate or merge feet. The skirt drapes over the real thighs and knees rather than hiding a disconnected skeleton. Hips and shoulders form one balanced supported body; no excessive leg length, twisted ankles, floating seat, extra limbs or furniture growing into clothes.\n\nSTYLE AND LIGHT: polished youthful Japanese anime illustration with fine confident linework and soft detailed environmental painting, matching the input room. Natural skin, subtle apricot rim/bounce light and believable fabric folds; keep material colors distinct, no global orange wash. Keep the entire room in one continuous image, not a character sticker or composited portrait. No text, labels, signatures, logos, watermark, UI, split-screen, duplicate views, arrows or borders. Return ONE complete 1536 x 1024 mother scene.\n",
+  "output": {
+    "path": "uika-chat-apricot-mother-candidate-v1.png",
+    "sha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c",
+    "bytes": 2170043,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T18:41:46.580135+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "初华浅金短发、紫眼和日常衣服可辨；窗榻髋部、手部与两只鞋均完整，双鞋落地；未签身份比例或运行验收。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-c315452f-9567-413e-9dfe-262d87a17ab0"
+}

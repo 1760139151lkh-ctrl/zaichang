@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, BookOpen, ChevronRight, FileText, History, LoaderCircle, MessageCircle, Search, Trash2, X } from 'lucide-react';
-import type { State } from '../shared/types';
+import type { Conversation, State } from '../shared/types';
 import { LOCAL_SEARCH_LIMITS, type LocalSearchBridge, type LocalSearchHit, type LocalSearchKind, type LocalSearchLocator, type LocalSearchPage } from '../shared/search';
 import { IconButton, Modal, uiError } from './ui';
 import { formatDateTime } from './time';
@@ -17,8 +17,9 @@ function Excerpt({ hit }: { hit: LocalSearchHit }) {
 }
 
 /** Owner-only local retrieval. A hit is resolved again before leaving the sheet. */
-export function LocalSearchPanel({ state, busy, onClose, onRestoreFocus, onOpen, onSelect, onDelete }: {
-  state: State;
+export function LocalSearchPanel({ state, conversations, busy, onClose, onRestoreFocus, onOpen, onSelect, onDelete }: {
+  state: Pick<State, 'privacyEpoch' | 'policyRevision' | 'sourceBoundary' | 'settings'>;
+  conversations: Conversation[];
   busy: boolean;
   onClose: () => void;
   onRestoreFocus: () => void;
@@ -28,6 +29,9 @@ export function LocalSearchPanel({ state, busy, onClose, onRestoreFocus, onOpen,
 }) {
   const [query, setQuery] = useState('');
   const [kind, setKind] = useState<'all' | LocalSearchKind>('all');
+  const [scope, setScope] = useState<'all' | 'selected'>('all');
+  const [chosenSessions, setChosenSessions] = useState<string[]>([]);
+  const [scopePickerOpen, setScopePickerOpen] = useState(true);
   const [result, setResult] = useState<LocalSearchPage>();
   const [resultKey, setResultKey] = useState('');
   const [loading, setLoading] = useState(false), [opening, setOpening] = useState('');
@@ -35,39 +39,61 @@ export function LocalSearchPanel({ state, busy, onClose, onRestoreFocus, onOpen,
   const [deleting, setDeleting] = useState(''), [removing, setRemoving] = useState(false);
   const input = useRef<HTMLInputElement>(null);
   const generation = useRef(0), mounted = useRef(true);
-  const boundary = `${state.privacyEpoch}:${state.policyRevision}`;
+  const boundary = `${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`;
   const currentBoundary = useRef(boundary);
   currentBoundary.current = boundary;
   const term = query.trim();
-  const requestKey = `${boundary}:${kind}:${term}`;
-  const visible = resultKey === requestKey && result && result.privacyEpoch === state.privacyEpoch && result.policyRevision === state.policyRevision ? result : undefined;
+  const selectedScope = kind === 'conversation' && scope === 'selected';
+  const availableSessions = new Set(conversations.map(conversation => conversation.id));
+  const sessionIds = [...new Set(chosenSessions.filter(id => availableSessions.has(id)))].sort();
+  const selectionMissing = selectedScope && !sessionIds.length;
+  const requestKey = JSON.stringify([boundary, kind, selectedScope ? sessionIds : null, term]);
+  const currentRequest = useRef(requestKey);
+  currentRequest.current = requestKey;
+  const visible = resultKey === requestKey && result && result.privacyEpoch === state.privacyEpoch
+    && result.policyRevision === state.policyRevision && (result.sourceBoundary ?? 0) === (state.sourceBoundary ?? 0) ? result : undefined;
+
+  function invalidate() {
+    generation.current++;
+    setResult(undefined); setError(''); setOpening(''); setLoading(false); setDeleting('');
+    void api.searchCancel().catch(() => {});
+  }
+  function chooseSession(id: string) {
+    invalidate();
+    setChosenSessions(previous => sessionIds.includes(id) ? previous.filter(value => value !== id)
+      : sessionIds.length < LOCAL_SEARCH_LIMITS.sessions ? [...sessionIds, id] : sessionIds);
+  }
+  function searchInput() {
+    return { query: term, ...(kind === 'all' ? {} : { kinds: [kind] }), ...(selectedScope ? { sessionIds } : {}) };
+  }
 
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; generation.current++; void api.searchCancel().catch(() => {}); }; }, []);
   useEffect(() => {
     const token = ++generation.current;
-    setResult(undefined); setError(''); setOpening(''); setLoading(!!term); setDeleting('');
+    setResult(undefined); setError(''); setOpening(''); setLoading(!!term && !selectionMissing); setDeleting('');
     void api.searchCancel().catch(() => {});
-    if (!term) return;
+    if (!term || selectionMissing) return;
     const timer = window.setTimeout(() => {
-      void api.searchLocal({ query: term, ...(kind === 'all' ? {} : { kinds: [kind] }) }).then(page => {
-        if (mounted.current && token === generation.current && currentBoundary.current === boundary) { setResult(page); setResultKey(requestKey); }
+      void api.searchLocal(searchInput()).then(page => {
+        if (mounted.current && token === generation.current && currentRequest.current === requestKey
+          && currentBoundary.current === boundary) { setResult(page); setResultKey(requestKey); }
       }).catch(cause => {
-        if (mounted.current && token === generation.current) setError(uiError(cause));
-      }).finally(() => { if (mounted.current && token === generation.current) setLoading(false); });
+        if (mounted.current && token === generation.current && currentRequest.current === requestKey) setError(uiError(cause));
+      }).finally(() => { if (mounted.current && token === generation.current && currentRequest.current === requestKey) setLoading(false); });
     }, 180);
     return () => { window.clearTimeout(timer); generation.current++; void api.searchCancel().catch(() => {}); };
-  }, [term, kind, boundary, retry]);
+  }, [requestKey, retry]);
 
   async function more() {
     if (loading || !visible?.nextCursor) return;
     const token = generation.current;
     setLoading(true); setError('');
     try {
-      const page = await api.searchLocal({ query: term, ...(kind === 'all' ? {} : { kinds: [kind] }), cursor: visible.nextCursor });
-      if (!mounted.current || token !== generation.current || currentBoundary.current !== boundary) return;
+      const page = await api.searchLocal({ ...searchInput(), cursor: visible.nextCursor });
+      if (!mounted.current || token !== generation.current || currentRequest.current !== requestKey || currentBoundary.current !== boundary) return;
       setResult(previous => ({ ...page, items: [...new Map([...(previous?.items || []), ...page.items].map(item => [item.id, item])).values()], warnings: [...new Map([...(previous?.warnings || []), ...page.warnings].map(warning => [`${warning.kind}:${warning.code}:${warning.resourceId || ''}`, warning])).values()] }));
-    } catch (cause) { if (mounted.current && token === generation.current) setError(uiError(cause)); }
-    finally { if (mounted.current && token === generation.current) setLoading(false); }
+    } catch (cause) { if (mounted.current && token === generation.current && currentRequest.current === requestKey) setError(uiError(cause)); }
+    finally { if (mounted.current && token === generation.current && currentRequest.current === requestKey) setLoading(false); }
   }
   async function select(hit: LocalSearchHit) {
     if (opening || busy) return;
@@ -75,14 +101,14 @@ export function LocalSearchPanel({ state, busy, onClose, onRestoreFocus, onOpen,
     setOpening(hit.id); setError('');
     try {
       const locator = await api.searchResolve(hit.locator);
-      if (!mounted.current || token !== generation.current || currentBoundary.current !== boundary) return;
+      if (!mounted.current || token !== generation.current || currentRequest.current !== requestKey || currentBoundary.current !== boundary) return;
       await onSelect(locator);
     } catch (cause) {
-      if (mounted.current && token === generation.current) {
+        if (mounted.current && token === generation.current && currentRequest.current === requestKey) {
         setError(uiError(cause));
         setResult(previous => previous && { ...previous, items: previous.items.filter(item => item.id !== hit.id) });
       }
-    } finally { if (mounted.current && token === generation.current) setOpening(''); }
+    } finally { if (mounted.current && token === generation.current && currentRequest.current === requestKey) setOpening(''); }
   }
   async function remove(id: string) {
     setRemoving(true); setError('');
@@ -96,16 +122,34 @@ export function LocalSearchPanel({ state, busy, onClose, onRestoreFocus, onOpen,
       <p className="local-search-intro">找回一句话，也找回当时的思路。</p>
       <div className="local-search-input">
         <Search size={21} strokeWidth={1.5} />
-        <input ref={input} autoFocus aria-label="搜索对话、笔记与资料" placeholder="想找回哪一句？" value={query} maxLength={LOCAL_SEARCH_LIMITS.query} onChange={event => setQuery(event.target.value)} />
-        {query ? <IconButton label="清空搜索" onClick={() => { setQuery(''); input.current?.focus(); }}><X size={17} /></IconButton> : <kbd>⌘ / Ctrl K</kbd>}
+        <input ref={input} autoFocus aria-label={selectedScope ? '在选中的对话里搜索原话' : '搜索对话、笔记与资料'} placeholder="想找回哪一句？" value={query} maxLength={LOCAL_SEARCH_LIMITS.query} onChange={event => { invalidate(); setQuery(event.target.value); }} />
+        {query ? <IconButton label="清空搜索" onClick={() => { invalidate(); setQuery(''); input.current?.focus(); }}><X size={17} /></IconButton> : <kbd>⌘ / Ctrl K</kbd>}
       </div>
       <div className="local-search-kinds" role="group" aria-label="寻找的内容">
-        {kinds.map(option => <button type="button" key={option.value} aria-pressed={kind === option.value} onClick={() => setKind(option.value)}>{option.label}</button>)}
+        {kinds.map(option => <button type="button" key={option.value} aria-pressed={kind === option.value} onClick={() => { if (kind !== option.value) { invalidate(); setKind(option.value); } }}>{option.label}</button>)}
       </div>
+      {kind === 'conversation' && <section className="local-search-scope" aria-label="对话查找范围">
+        <div className="local-scope-choices" role="group" aria-label="要找哪些对话">
+          <button type="button" aria-pressed={scope === 'all'} onClick={() => { if (scope !== 'all') { invalidate(); setScope('all'); } }}>全部对话</button>
+          <button type="button" aria-pressed={scope === 'selected'} onClick={() => { setScopePickerOpen(true); if (scope !== 'selected') { invalidate(); setScope('selected'); } }}>只看这几段</button>
+        </div>
+        {selectedScope && <>
+          {!!sessionIds.length && <div className="local-scope-chips" aria-label="已选对话">{conversations.filter(conversation => sessionIds.includes(conversation.id)).map(conversation =>
+            <button type="button" key={conversation.id} onClick={() => chooseSession(conversation.id)} aria-label={`不再查找：${conversation.title}`}><span>{conversation.title}</span><X size={13} /></button>)}</div>}
+          <details className="local-scope-picker" open={scopePickerOpen} onToggle={event => setScopePickerOpen(event.currentTarget.open)}>
+            <summary>{sessionIds.length ? `在这 ${sessionIds.length} 段对话里找 · 更换范围` : '先选几段对话'}</summary>
+            <div className="local-scope-list">{conversations.map(conversation => <label key={conversation.id}>
+              <input type="checkbox" checked={sessionIds.includes(conversation.id)} disabled={!sessionIds.includes(conversation.id) && sessionIds.length >= LOCAL_SEARCH_LIMITS.sessions} onChange={() => chooseSession(conversation.id)} />
+              <span><strong>{conversation.title}</strong><small>{formatDateTime(conversation.updatedAt, state.settings.timeZone)}</small></span>
+            </label>)}</div>
+            {sessionIds.length >= LOCAL_SEARCH_LIMITS.sessions && <p>一次可以选 {LOCAL_SEARCH_LIMITS.sessions} 段，先留下这次想找的。</p>}
+          </details>
+        </>}
+      </section>}
       <div className="local-search-results" aria-busy={loading}>
-        {!term ? kind === 'all' || kind === 'conversation' ? <>
-          {!!state.conversations.length && <p className="local-search-caption">最近聊过</p>}
-          {state.conversations.map(conversation => <div className="local-recent-row" key={conversation.id}>
+        {selectionMissing ? <div className="local-search-empty"><MessageCircle size={34} strokeWidth={1.2} /><h3>{conversations.length ? '想回到哪几段？' : '还没有留下的对话。'}</h3><p>{conversations.length ? '选好范围后，再找当时说过的话。' : '以后留下的对话，可以在这里选来找。'}</p></div> : !term ? kind === 'all' || kind === 'conversation' ? <>
+          {!!conversations.length && <p className="local-search-caption">{selectedScope ? '这次选中的对话' : '最近聊过'}</p>}
+          {conversations.filter(conversation => !selectedScope || sessionIds.includes(conversation.id)).map(conversation => <div className="local-recent-row" key={conversation.id}>
             <button type="button" className="local-recent-open" disabled={busy || removing} onClick={() => void onOpen(conversation.id)}>
               <span className="local-search-symbol"><MessageCircle size={21} strokeWidth={1.4} /></span>
               <span className="local-recent-copy"><strong>{conversation.title}</strong><small>{formatDateTime(conversation.updatedAt, state.settings.timeZone)}</small></span>
@@ -113,7 +157,7 @@ export function LocalSearchPanel({ state, busy, onClose, onRestoreFocus, onOpen,
             </button>
             {deleting === conversation.id ? <div className="local-search-delete"><span>让这段对话离开？</span><button disabled={busy || removing} onClick={() => void remove(conversation.id)}>删除</button><button disabled={removing} onClick={() => setDeleting('')}>留下</button></div> : <IconButton className="local-recent-remove" label={`删除对话：${conversation.title}`} disabled={busy} onClick={() => setDeleting(conversation.id)}><Trash2 size={15} /></IconButton>}
           </div>)}
-          {!state.conversations.length && <div className="local-search-empty"><History size={34} strokeWidth={1.2} /><h3>故事，从第一次对话开始。</h3><p>以后想起一句话，可以来这里找。</p></div>}
+          {!conversations.length && <div className="local-search-empty"><History size={34} strokeWidth={1.2} /><h3>故事，从第一次对话开始。</h3><p>以后想起一句话，可以来这里找。</p></div>}
         </> : <div className="local-search-empty"><BookOpen size={35} strokeWidth={1.2} /><h3>还记得哪个词？</h3><p>写下它，我们从{kindName[kind]}里找找。</p></div> : <>
           {visible?.items.map(hit => {
             const Icon = hit.kind === 'conversation' ? MessageCircle : hit.kind === 'note' ? BookOpen : FileText;
@@ -129,7 +173,7 @@ export function LocalSearchPanel({ state, busy, onClose, onRestoreFocus, onOpen,
       </div>
       {error && <div className="local-search-problem" role="alert"><p>这次没能接上，我们再找一次。</p><button type="button" className="text-button" onClick={() => setRetry(value => value + 1)}>重新找找</button><details><summary>看看原因</summary><p>{error}</p></details></div>}
       {!!visible?.warnings.length && <details className="local-search-coverage"><summary>有些内容暂时没能一起找</summary>{visible.warnings.map((warning, index) => <p key={index}>{warning.message}</p>)}</details>}
-      <footer className="local-search-footer"><span>只在这台电脑里寻找</span><span>对话 · 笔记 · 资料</span></footer>
+      <footer className="local-search-footer"><span>只在这台电脑里寻找</span><span>{selectedScope ? `仅所选 ${sessionIds.length} 段对话` : kind === 'all' ? '对话 · 笔记 · 资料' : kindName[kind]}</span></footer>
     </div>
   </Modal>;
 }

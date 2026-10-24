@@ -1,0 +1,68 @@
+{
+  "recordType": "original-visible-skirt-tail-alpha-calibration",
+  "input": "uika-attention-apricot-figure-calibrated-v5.png",
+  "inputSha256": "4852f1a764f0667313e33d4bbad548671f520796e1e86f14706da3a31679d7ba",
+  "mother": "uika-attention-apricot-mother-candidate-v1.png",
+  "motherSha256": "9cae27d5754d32654b120910faacaf65077e09499224f2668d912994ee2b78ed",
+  "output": "uika-attention-apricot-matte-source-gap-repaired-v7.png",
+  "outputSha256": "a57903ee44e442281a1e76407973eec8e629ba70f13ab27ca1337a7157860a04",
+  "polygon": [
+    [
+      1197,
+      668
+    ],
+    [
+      1215,
+      668
+    ],
+    [
+      1214,
+      687
+    ],
+    [
+      1213,
+      702
+    ],
+    [
+      1210,
+      716
+    ],
+    [
+      1208,
+      720
+    ],
+    [
+      1203,
+      719
+    ],
+    [
+      1199,
+      717
+    ],
+    [
+      1197,
+      712
+    ],
+    [
+      1195,
+      707
+    ],
+    [
+      1185,
+      706
+    ],
+    [
+      1187,
+      698
+    ],
+    [
+      1192,
+      687
+    ]
+  ],
+  "method": "4x polygon coverage, resampled at original canvas; maximum with previous actual visible figure alpha. No RGB edit or hidden anatomy.",
+  "reason": "Original enlarged source shows actual taupe rear skirt tail between legs. Its former omission left an uncovered tail sliver in empty background.",
+  "superseded": "v6 source-color confidence pitted actual opaque cloth; v7 traces its visible outer seam and keeps interior opaque.",
+  "primaryReview": "pending",
+  "runtimeAccepted": false
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "mutsumi",
+  "activity": "reading",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-reading-apricot-prompt.txt",
+  "promptSha256": "dd3c82ebe6c55c3ea8b73a99968f7dcbee50a9ba6ef80ef75661c9cbbeac1699",
+  "identityText": "mutsumi-identity.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "primary-approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-reading-apricot-mother-candidate-v1.png",
+    "sha256": "6c7ff8d4c3a03cd6525856710c068c69f5b941227b33f97235872354e36f3271",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-5f35b0d1-a15b-4bb7-bab4-0fe5bf2c1bc1.png"
+  },
+  "designerObservation": "Back/hips supported on window bench, hands support own open book, eyes down at page, two sock/shoe chains reach floor; quieter rearward settled posture versus forward desk study. Full visible body inspected; primary pending.",
+  "primaryReview": "Returned by primary after viewing full image and exact prompt: pelvis/knees/spine remained essentially chat, with a book added; genuine recline and diagonal lower body were not realized. Do not use v1 as image input or extract it.",
+  "extraction": "not allowed for returned v1",
+  "runtime": "not registered or verified",
+  "designerStatus": "returned for activity-direction redraw from approved clean room; not a matrix-approved mother"
+}

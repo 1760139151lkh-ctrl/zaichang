@@ -1,0 +1,30 @@
+{
+  "createdOn": "2026-10-24",
+  "tool": "built-in image_gen.imagegen",
+  "useCase": "background-extraction",
+  "character": "anon",
+  "activity": "chat",
+  "theme": "apricot",
+  "assetKind": "mask",
+  "inputs": [
+    {
+      "file": "anon-chat-apricot-mother-candidate-v1.png",
+      "sha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+      "role": "sole input; primary-approved correct complete mother, primary-other-mother-reviews.json"
+    }
+  ],
+  "file": "anon-chat-apricot-mask-generated-v1.png",
+  "sha256": "d6f0b626dc70e2ac61814b4d22004d42ee5fc1471c2f7007afa7520755f140ea",
+  "prompt": "anon-chat-apricot-mask-prompt.txt",
+  "promptSha256": "bd5d6eaf9d10d1f4ef873e44143c16e8a3334e0d11a0e24cd7da7933bb4a51a3",
+  "promptEncoding": "UTF-8; exact submitted string, no added final newline",
+  "originalGeneratedFile": "exec-be8acb93-0eb6-4954-83ad-e16a07e70f58.png",
+  "designerPersonallyViewed": true,
+  "designerStatus": "candidate-for-original-rgb-layer-calibration",
+  "designerObservation": "Full-canvas visible-character white matte, requires actual original-RGB light/dark/room contour review and original furniture holes.",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  }
+}

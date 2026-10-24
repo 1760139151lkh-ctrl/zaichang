@@ -51,7 +51,7 @@ export function PersonaEditor({
   );
   const [pending, setPending] = useState(false);
   const [feedback, setFeedback] = useState<{ text: string; error?: boolean }>();
-  const [scenario, setScenario] = useState<(typeof PERSONA_SCENARIOS)[number]['id']>('departure');
+  const [scenario, setScenario] = useState<(typeof PERSONA_SCENARIOS)[number]['id']>('chat');
   const [undoRevision, setUndoRevision] = useState<number>();
   const [legacySelection, setLegacySelection] = useState('');
   const [candidate, setCandidate] = useState<PersonaCandidate>();
@@ -93,14 +93,23 @@ export function PersonaEditor({
     replace({ ...core, ...value });
   }
   function previewCandidate(next: PersonaCandidate) {
+    importRevision.current++;
     setEditingCandidate(false);
     setCandidate(next);
+  }
+  function dismissCandidate() {
+    importRevision.current++;
+    setCandidate(undefined);
   }
   function patchCandidate(value: Partial<PersonaCore>) {
     setCandidate(current => current ? { ...current, core: { ...current.core, ...value } } : current);
   }
   function acceptCandidate() {
     if (!candidate || locked) return;
+    if (samePersonaCore(candidate.core, editor.core)) {
+      dismissCandidate();
+      return;
+    }
     importRevision.current++;
     const nextEditor: PersonaDraft = {
       expectedRevision: editor.expectedRevision,
@@ -136,7 +145,14 @@ export function PersonaEditor({
         let next: State;
         try { next = await window.zaichang.saveSettings({ personaUpdate: update }); }
         catch (problem) {
-          try { onState(await window.zaichang.state()); } catch { /* The editor keeps its own draft. */ }
+          try {
+            const current = await window.zaichang.state();
+            onState(current);
+            if (current.settings.persona.revision !== update.expectedRevision) {
+              setFeedback({ text: '相处方式刚在另一处改过。你的文字还在，看看新的约定后再决定。' });
+              return;
+            }
+          } catch { /* The editor keeps its own draft. */ }
           throw problem;
         }
         onState(next);
@@ -161,6 +177,8 @@ export function PersonaEditor({
       <p className="persona-lede">形象可以换，相处的方式由你来写。</p>
       <div className="persona-composition">
         <div className="persona-writing">
+      <details className="persona-starting-points">
+      <summary>换一个角色起点</summary>
       <div className="persona-presets" role="group" aria-label="从哪种相处方式开始">
         {PERSONA_PRESETS.map((preset) => (
           <button
@@ -169,15 +187,14 @@ export function PersonaEditor({
             className="persona-preset"
             aria-pressed={core.presetId === preset.id}
             disabled={locked}
-            onClick={() => dirty
-              ? previewCandidate({ core: personaPreset(preset.id), origin: `${preset.label}预设`, external: false })
-              : replace(personaPreset(preset.id))}
+            onClick={() => previewCandidate({ core: { ...personaPreset(preset.id), address: core.address }, origin: `${preset.label}预设`, external: false })}
           >
             <strong>{preset.label}</strong>
             <span>{preset.summary}</span>
           </button>
         ))}
       </div>
+      </details>
       <label className="field-label">
         叫什么
         <input
@@ -263,7 +280,7 @@ export function PersonaEditor({
           {PERSONA_SCENARIOS.map((scene) => (
             <label className="field-label persona-example-field" key={scene.id}>
               {scene.label}
-              <small>{scene.facts}</small>
+              <small>{scene.preview}</small>
               <textarea
                 aria-label={`${scene.label}例句`}
                 value={core.examples.find((example) => example.scenario === scene.id)?.response || ''}
@@ -331,7 +348,7 @@ export function PersonaEditor({
             ))}
           </select>
         </div>
-        <p className="persona-scene">{selectedScene.facts}</p>
+        <p className="persona-scene">{selectedScene.preview}</p>
         <blockquote>{response || '这时，你希望我怎样回应？'}</blockquote>
         <small>这里展示你写下的例句，方便一起调整语气。</small>
       </div>
@@ -415,7 +432,7 @@ export function PersonaEditor({
                 if (format === 'zaichang-persona-template') imported = { core: importPersonaTemplate(text), origin: file.name, external: false };
                 else {
                   const preview = previewPersonaCharacterCard(text);
-                  imported = { core: preview.core, origin: file.name, external: true, ignoredFields: preview.ignoredFields };
+                  imported = { core: { ...preview.core, address: core.address }, origin: file.name, external: true, ignoredFields: preview.ignoredFields };
                 }
                 if (importRevision.current !== importingRevision || draft.current.persona !== beforeImport)
                   return;
@@ -455,7 +472,7 @@ export function PersonaEditor({
       </details>
         </aside>
       </div>
-      {candidate && <Modal title="先看看，再决定" onClose={() => setCandidate(undefined)} fallbackFocus={() => importButtonRef.current?.focus({ preventScroll: true })} className="persona-import-dialog">
+      {candidate && <Modal title="先看看，再决定" onClose={dismissCandidate} fallbackFocus={() => importButtonRef.current?.focus({ preventScroll: true })} className="persona-import-dialog">
         <div className="persona-import-body">
         <div className="persona-import-intro"><span className="persona-import-mark"><BookOpen size={25} /></span><div>{editingCandidate ? <label className="field-label">叫什么<input autoFocus aria-label="预览中的名字" value={candidate.core.name} maxLength={60} onChange={event => patchCandidate({ name: event.target.value })} /></label> : <h3>{candidate.core.name || '还没起名字'}</h3>}<p>{candidate.origin}</p></div></div>
         <div className="persona-import-tools"><p className="persona-import-lede">这份设定还没有生效。</p><button type="button" className="text-button" aria-pressed={editingCandidate} onClick={() => setEditingCandidate(current => !current)}><Pencil size={14} />{editingCandidate ? '收起编辑' : '调整这份设定'}</button></div>
@@ -467,7 +484,7 @@ export function PersonaEditor({
         {candidate.external && <p className="persona-import-note">这里只带入名字、性格与虚构背景。原卡的开场白、世界书和自动执行内容不会加入对话。</p>}
         {dirty && <p className="persona-import-note">你正在写的草稿会先留一份，替换后仍可恢复。</p>}
         </div>
-        <div className="persona-import-actions"><button type="button" className="primary-button" disabled={locked} onClick={acceptCandidate}>{dirty ? '替换编辑草稿' : '放进编辑草稿'}</button><button type="button" className="text-button" onClick={() => setCandidate(undefined)}>先不换</button></div>
+        <div className="persona-import-actions"><button type="button" className="primary-button" disabled={locked} onClick={acceptCandidate}>{dirty ? '替换编辑草稿' : '放进编辑草稿'}</button><button type="button" className="text-button" onClick={dismissCandidate}>先不换</button></div>
       </Modal>}
     </section>
   );

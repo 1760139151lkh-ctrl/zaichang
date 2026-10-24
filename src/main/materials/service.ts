@@ -364,7 +364,7 @@ export class MaterialService {
   private resolve(scope: ScopeHandle, id: string) {
     const { record, allowed } = this.resolveMetadata(scope, id);
     const bytes = record.bytes || fs.readFileSync(this.file(id, '.bin'));
-    if (bytes.length !== record.reference.byteLength || sha(bytes) !== record.reference.sha256) throw new HarnessError('material_integrity', '文件原字节与当前版本不符，未采用读取结果。');
+    if (bytes.length !== record.reference.byteLength || sha(bytes) !== record.reference.sha256) throw new HarnessError('material_integrity', '这次读到的文件字节与登记的版本不同，可以先回原文件核对。');
     return { record, bytes, allowed };
   }
   private navigationRecord(scope: ScopeHandle, id: string, sessionId: string, allowCurrent = false) {
@@ -742,10 +742,46 @@ export class MaterialService {
       return { ...materialQuoteAddress(ref), name: item.name, text: points.slice(ref.start, ref.end).join('') };
     } finally { this.active.delete(controller); }
   }
+  /** A notebook bookmark keeps only an address. An unsent original is still
+   * readable locally while its original draft owns the exact snapshot; this
+   * neither persists its ticket in the note nor admits it to model reads. */
+  async nativeBookmarkQuote(raw: MaterialQuoteReference): Promise<MaterialQuote> {
+    const reference = materialQuoteReferenceSchema.parse(raw);
+    const record = this.records.get(reference.resourceId);
+    const draftOwns = () => !!record && !record.binding && (!!record.draftIds?.size || this.persistedDraftOwns(record));
+    if (!draftOwns()) return this.nativeQuote({ target: { kind: 'saved', resourceId: reference.resourceId }, quote: reference });
+    const quote = await this.nativeQuote({ target: { kind: 'pending', reference: record!.reference }, quote: reference });
+    // Reading a PDF crosses an async boundary. A discarded draft must not
+    // deliver its old excerpt even when another preparation still holds bytes.
+    if (!record!.binding && !draftOwns()) throw new HarnessError('material_unavailable', '原来的草稿已经收起来了，可以重新带来这份资料。');
+    return quote;
+  }
   private assertQuoteMetadata(record: Resource, ref: MaterialQuoteReference) {
     if (record.reference.resourceId !== ref.resourceId || record.reference.sha256 !== ref.sha256
       || (record.reference.mediaType === 'application/pdf' ? ref.page === undefined : ref.page !== undefined))
       throw new HarnessError('material_quote_changed', '这段引用与原文件不一致，请回原文重新选择。');
+  }
+  /** A text bookmark may not widen a problem that was observed only through
+   * a page crop. Whole intersecting PDF runs must fit that original crop;
+   * character geometry is never guessed from the reader's DOM. */
+  async quoteWithinCrop(scope: ScopeHandle, raw: MaterialQuoteReference, rawCrop: unknown, signal: AbortSignal) {
+    const reference = materialQuoteReferenceSchema.parse(raw), crop = materialCropSchema.parse(rawCrop);
+    const { record, bytes } = this.resolve(scope, reference.resourceId);
+    this.assertQuoteMetadata(record, reference);
+    if (record.reference.mediaType !== 'application/pdf') return false;
+    const { parsePdf } = await import('./pdf');
+    const parsed = await parsePdf(bytes, { operation: 'read', page: reference.page }, signal);
+    signal.throwIfAborted(); this.resolve(scope, reference.resourceId);
+    let position = 0, found = false;
+    for (const item of parsed.items || []) {
+      const start = position, end = start + Array.from(item.text).length;
+      position = end + (item.hasEOL ? 1 : 0);
+      if (start >= reference.end || end <= reference.start) continue;
+      found = true;
+      const [left, top, right, bottom] = item.bbox;
+      if (left < crop.x || top < crop.y || right > crop.x + crop.width || bottom > crop.y + crop.height) return false;
+    }
+    return found && reference.end <= Array.from(parsed.text || '').length;
   }
   /** A user-kept excerpt is an independent notebook document. Only its address
    * points back here; saving it does not persist an unsent original file. */

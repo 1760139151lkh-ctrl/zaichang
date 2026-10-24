@@ -1,0 +1,34 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "chat",
+  "palette": "apricot",
+  "light": "morning",
+  "generatedOn": "2026-10-23",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-debcfed5-7780-42c7-a3d1-41c7a4eef46a",
+  "prompt": "soyo-chat-apricot-prompt.txt",
+  "promptSha256": "22f6925f3b66fef97e821e30e799f5d2f8125741c71a1cc7a7d560497c22ae76",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-reviewed clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "soyo-chat-apricot-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2172586,
+    "sha256": "e5860a2adf427032f84d15dcec6c59c8b6ffa7dff8ede6eadf9ec669f4e00b29"
+  },
+  "identityReference": "character-direction.md and text-only identity/wardrobe specification based on personally viewed official profile/full-body art. No character pixels or previous mother in generation input.",
+  "review": {
+    "producerViewed": "complete generated original",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Youthful light-brown long hair and blue eyes, navy-white sailor uniform; supported settled bench seat, lap fingertip contact and complete independent legs/loafers. Submitted for primary identity/proportion review."
+}

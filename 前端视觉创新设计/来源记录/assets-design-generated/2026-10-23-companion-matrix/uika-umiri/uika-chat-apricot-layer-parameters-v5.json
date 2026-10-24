@@ -1,0 +1,235 @@
+{
+  "mother": "uika-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c",
+  "matte": "uika-chat-apricot-matte-prepared-v1.png",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "uika-chat-apricot-figure-calibrated-v5.png",
+  "mask": "uika-chat-apricot-mask-calibrated-v5.png",
+  "backgroundCandidate": "uika-chat-apricot-background-pillow-calibrated-v2.png",
+  "backgroundExpandPixels": 9,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1091,
+        755
+      ],
+      [
+        1233,
+        755
+      ],
+      [
+        1233,
+        780
+      ],
+      [
+        1091,
+        780
+      ]
+    ],
+    [
+      [
+        1194,
+        574
+      ],
+      [
+        1429,
+        574
+      ],
+      [
+        1429,
+        593
+      ],
+      [
+        1194,
+        593
+      ]
+    ]
+  ],
+  "background": "uika-chat-apricot-background-calibrated-v5.png",
+  "record": "uika-chat-apricot-layer-processing-v5.json",
+  "contactShadowPolygons": [
+    [
+      [
+        1093,
+        748
+      ],
+      [
+        1120,
+        745
+      ],
+      [
+        1163,
+        753
+      ],
+      [
+        1164,
+        764
+      ],
+      [
+        1124,
+        768
+      ],
+      [
+        1095,
+        759
+      ]
+    ],
+    [
+      [
+        1132,
+        760
+      ],
+      [
+        1165,
+        757
+      ],
+      [
+        1214,
+        763
+      ],
+      [
+        1224,
+        774
+      ],
+      [
+        1184,
+        781
+      ],
+      [
+        1143,
+        778
+      ]
+    ],
+    [
+      [
+        1250,
+        574
+      ],
+      [
+        1274,
+        569
+      ],
+      [
+        1311,
+        573
+      ],
+      [
+        1348,
+        577
+      ],
+      [
+        1371,
+        573
+      ],
+      [
+        1372,
+        590
+      ],
+      [
+        1280,
+        592
+      ],
+      [
+        1254,
+        584
+      ]
+    ],
+    [
+      [
+        1371,
+        574
+      ],
+      [
+        1427,
+        574
+      ],
+      [
+        1430,
+        590
+      ],
+      [
+        1371,
+        590
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "shadow": "uika-chat-apricot-shadow-calibrated-v5.png",
+  "reviewNote": "v5 extreme original-mother comparison confirms the bright wedge is a continuous raised skirt fold, with cushion weave below its outer dark seam. v4 wrongly excluded the real brown triangular fold surface above that wedge. Restore exact original-RGB fold alpha to the inspected outer seam; keep woven cushion below transparent. No body repaint, same support/travel and source contact method. Primary/runtime pending.",
+  "contactShadowEdgePixels": 3,
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1280,
+        570,
+        1364,
+        603
+      ],
+      "polygon": [
+        [
+          1280,
+          570
+        ],
+        [
+          1361,
+          570
+        ],
+        [
+          1363,
+          574
+        ],
+        [
+          1363,
+          577
+        ],
+        [
+          1359,
+          580
+        ],
+        [
+          1354,
+          582
+        ],
+        [
+          1346,
+          584
+        ],
+        [
+          1337,
+          585
+        ],
+        [
+          1326,
+          588
+        ],
+        [
+          1316,
+          592
+        ],
+        [
+          1310,
+          596
+        ],
+        [
+          1307,
+          600
+        ],
+        [
+          1306,
+          603
+        ],
+        [
+          1280,
+          603
+        ]
+      ],
+      "mode": "replace",
+      "featherPixels": 0.25
+    }
+  ]
+}

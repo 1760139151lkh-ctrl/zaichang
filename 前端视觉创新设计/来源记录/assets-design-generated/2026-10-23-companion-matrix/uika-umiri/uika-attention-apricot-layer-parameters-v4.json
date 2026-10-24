@@ -1,0 +1,152 @@
+{
+  "mother": "uika-attention-apricot-mother-candidate-v1.png",
+  "motherSha256": "9cae27d5754d32654b120910faacaf65077e09499224f2668d912994ee2b78ed",
+  "matte": "uika-attention-apricot-matte-soft-calibrated-v4.png",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 245,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "alphaPolygonRepairs": [],
+  "figure": "uika-attention-apricot-figure-calibrated-v4.png",
+  "mask": "uika-attention-apricot-mask-calibrated-v4.png",
+  "backgroundCandidate": "uika-attention-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 1.2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1095,
+        751
+      ],
+      [
+        1265,
+        751
+      ],
+      [
+        1285,
+        815
+      ],
+      [
+        1095,
+        815
+      ]
+    ],
+    [
+      [
+        1269,
+        588
+      ],
+      [
+        1367,
+        578
+      ],
+      [
+        1368,
+        747
+      ],
+      [
+        1282,
+        763
+      ]
+    ],
+    [
+      [
+        1210,
+        574
+      ],
+      [
+        1435,
+        573
+      ],
+      [
+        1436,
+        603
+      ],
+      [
+        1210,
+        601
+      ]
+    ],
+    [
+      [
+        1238,
+        724
+      ],
+      [
+        1278,
+        724
+      ],
+      [
+        1279,
+        759
+      ],
+      [
+        1238,
+        759
+      ]
+    ]
+  ],
+  "background": "uika-attention-apricot-background-calibrated-v4.png",
+  "contactShadowPolygons": [
+    [
+      [
+        1103,
+        754
+      ],
+      [
+        1247,
+        755
+      ],
+      [
+        1249,
+        790
+      ],
+      [
+        1102,
+        784
+      ]
+    ],
+    [
+      [
+        1280,
+        576
+      ],
+      [
+        1364,
+        572
+      ],
+      [
+        1365,
+        597
+      ],
+      [
+        1277,
+        598
+      ]
+    ],
+    [
+      [
+        1371,
+        572
+      ],
+      [
+        1430,
+        572
+      ],
+      [
+        1435,
+        593
+      ],
+      [
+        1370,
+        594
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "uika-attention-apricot-shadow-calibrated-v4.png",
+  "record": "uika-attention-apricot-layer-processing-v4.json",
+  "reviewNote": "v4 uses v2 soft matte plus source-color exclusion of confirmed sky contamination and local original crown alpha. Actual internal hand/prop/body corrections retained. v3 hard head refinement rejected. Original RGB untouched; primary/runtime pending."
+}

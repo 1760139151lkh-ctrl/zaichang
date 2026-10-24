@@ -1,0 +1,39 @@
+{
+  "createdOn": "2026-10-24",
+  "tool": "built-in image_gen.imagegen",
+  "character": "anon",
+  "activity": "chat",
+  "theme": "violet",
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "file": "anon-chat-violet-mother-candidate-v1.png",
+  "sha256": "2e885585ced5a3ec23b46180dfff8fc88a82412fd44c1d32294b7ea99b56fa8c",
+  "prompt": "anon-chat-violet-prompt.txt",
+  "promptSha256": "8a7625ba145490d28f0ba846f1bd0a0fcad3d5f721dbfc558fea017155fee900",
+  "originalGeneratedFile": "exec-7c592510-50ec-4d90-8e58-f49b356c000d.png",
+  "inputs": [
+    {
+      "file": "anon-chat-apricot-mother-candidate-v1.png",
+      "sha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+      "role": "primary-approved complete warm mother; sole editable character/geometry target"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "primary-approved clean empty room; lighting/sky/light-axis reference only"
+    }
+  ],
+  "designerPersonallyViewed": true,
+  "designerStatus": "candidate-for-primary-review",
+  "designerObservation": "Complete original supported character retained in same furniture/camera; Sun visibly near (1007,302) and lake reflection near x1003, warm desk lamp and violet shadows coherent. Exact primary light-axis acceptance pending.",
+  "review": {
+    "approvedByPrimary": false,
+    "identityAndProportionAccepted": false,
+    "extractionApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "promptEncoding": "UTF-8; exact submitted string, no added final newline"
+}

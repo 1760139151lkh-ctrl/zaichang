@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "attention",
+  "palette": "apricot",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-6cedd20b-d9bc-4384-8192-dcc5296bd658",
+  "prompt": "soyo-attention-apricot-prompt.txt",
+  "promptSha256": "0c70e8ca6d90061d623bde4f8c786ced3c65ef192331d6ffb48d77c36fed0e03",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-approved clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "soyo-attention-apricot-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2131105,
+    "sha256": "c854bfeb6cc56482357a1fbf64ba020b6e42a52cdbe6240157ac89466852784e"
+  },
+  "producerObservation": "Whole original viewed: shifted back/right with one palm on cushion, empty other hand on thigh, head/shoulders turn left toward new desk card. Both full shoe chains and canonical navy identity visible. Card remains room, no held prop; distinct from forward bookmark play. Pending primary mother review.",
+  "review": {
+    "producerViewed": "complete original",
+    "producerDecision": "candidate",
+    "primary": "pending; no producer signature",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

@@ -25,6 +25,8 @@ import { LocalSearchService } from './search';
 import { DraftStore } from './storage/drafts';
 import { Harness } from './harness';
 import { ZjuAdapter } from './zjuAdapter';
+import { TiyiAdapter } from './tiyiAdapter';
+import { TiyiSchoolSession } from './tiyiSchoolSession';
 import { CampusMapAdapter } from './mapService';
 import { MapLocationProvider } from './mapLocation';
 import { CampusReferenceAdapter } from './capabilities/campus-reference';
@@ -44,8 +46,11 @@ import { NativeControls } from './runtime/controls';
 import { NativeCampusCalendar } from './runtime/campus-calendar';
 import { agendaFocusSchema } from '../shared/agenda';
 import { NativeStudyService } from './runtime/study-native';
+import { NativeSourceBookmarkService } from './runtime/source-bookmark-native';
+import { conversationBookmarkReferenceSchema } from '../shared/source-bookmark';
 import { NativeRehearsalService } from './runtime/rehearsal-native';
 import { NativeProgramLocalState } from './runtime/interactive-program-local-state';
+import { NativeWorkoutService } from './runtime/workout-native';
 import { rehearsalInteractionSchema } from '../shared/relationship-rehearsal';
 import { configureNetwork } from './network';
 import { materialReferenceSchema, materialTargetSchema, materialQuoteReferenceSchema } from '../shared/materials';
@@ -106,7 +111,8 @@ if (process.env.ZAICHANG_DATA_DIR) app.setPath('userData', path.resolve(process.
 app.setName('在场');
 // One companion per profile: a second launch brings the existing window back.
 // The lock lives in the (possibly isolated) userData directory set above.
-if (!app.requestSingleInstanceLock()) app.quit();
+const isPrimaryInstance = app.requestSingleInstanceLock();
+if (!isPrimaryInstance) app.quit();
 else app.on('second-instance', () => showWindow());
 let window: BrowserWindow | undefined,
   store: Store,
@@ -119,6 +125,11 @@ let draftCloseConfirmed = false;
 let connectionController: AbortController | undefined;
 let latestDeviceLocation: import('../shared/map-v2').LocationStatusResult | undefined;
 let opportunityScheduler: ReturnType<typeof createOpportunityScheduler> | undefined;
+let workouts: NativeWorkoutService | undefined;
+let tiyiSchool: TiyiSchoolSession | undefined;
+let tiyiConnectController: AbortController | undefined;
+let workoutExitPending = false;
+let workoutDisposed = false;
 let tray: Tray | undefined;
 const desktopNotifications = new Map<string, { cancel: () => void }>();
 let quitting = false;
@@ -290,6 +301,7 @@ function draft(value: unknown): Draft {
 }
 
 app.whenReady().then(async () => {
+  if (!isPrimaryInstance) return;
   Menu.setApplicationMenu(null);
   const dataDir = app.getPath('userData');
   mkdirSync(dataDir, { recursive: true });
@@ -301,6 +313,16 @@ app.whenReady().then(async () => {
   // No request is sent until the user starts a conversation.
   if (projectDeepSeekKey || usingLunaTestTransport()) store.saveSettings({ mode: 'deepseek' });
   zju = new ZjuAdapter(store);
+  tiyiSchool = new TiyiSchoolSession({ parent: () => window });
+  const savedTiyiVia = store.kernel.getMeta<unknown>('tiyi_connection_via', 'direct');
+  let tiyiVia: 'direct' | 'webvpn' = savedTiyiVia === 'webvpn' ? 'webvpn' : 'direct';
+  const tiyi = new TiyiAdapter(path.join(dataDir, 'tiyi'), {
+    getTransport: () => tiyiVia === 'webvpn' ? (request, signal) => tiyiSchool!.request(request, signal) : undefined,
+    connectorPath: app.isPackaged ? path.join(process.resourcesPath, 'tiyi-runtime', 'connector.py')
+      : path.join(app.getAppPath(), 'dist-electron', 'tiyi-runtime', 'connector.py'),
+    ...(app.isPackaged ? { python: path.join(process.env.ZAICHANG_RUNTIME_ROOT!, '.runtime', 'python', 'python.exe') } : {}),
+  });
+  store.runtime.connect({ tiyi });
   const mapProfileDirectory=path.join(homedir(), '.codex', 'skills', 'zju-campus-locator', 'data');
   let mapDirectory=path.join(app.getAppPath(), 'assets', 'map-v2');
   const mapLink=path.join(mapProfileDirectory,'shared-map.json');
@@ -326,9 +348,83 @@ app.whenReady().then(async () => {
     map,
   );
   const controls = new NativeControls(store, harness);
+  workouts = new NativeWorkoutService(store, map, mapLocation, safeStorage, value => {
+    if (window && !window.isDestroyed() && !store.closed && !store.runtime.presentation.public)
+      window.webContents.send('zaichang:workout', value);
+  });
+  store.runtime.connect({ workout: workouts });
+  handle('workout:devices', () => workouts!.devices());
+  handle('workout:state', () => workouts!.state());
+  handle('workout:restore', () => workouts!.restore());
+  handle('workout:start', value => workouts!.start(value));
+  handle('workout:pause', value => workouts!.pause(value));
+  handle('workout:resume', value => workouts!.resume(value));
+  handle('workout:finish', value => workouts!.finish(value));
+  handle('workout:cancel', async value => {
+    try { return await workouts!.cancel(value); }
+    finally { harness.stateChanged(); }
+  });
+  handle('workout:discard-recovery', async () => {
+    try { return await workouts!.discardRecovery(); }
+    finally { harness.stateChanged(); }
+  });
+  const tiyiGrantAllowed = (grant: 'campus:read' | 'campus:tiyi:read') =>
+    store.runtime.policy.grants().includes(grant) && !store.runtime.policy.revoked().includes(grant);
+  const tiyiStatus = () => ({ ...tiyi.describe(), via: tiyiVia, gateway: tiyiSchool!.state(),
+    campusReadAllowed: tiyiGrantAllowed('campus:read'),
+    readAllowed: tiyiGrantAllowed('campus:read') && tiyiGrantAllowed('campus:tiyi:read') });
+  store.runtime.policy.onBarrier(() => {
+    if (store.runtime.policy.revoked().some(grant => grant === 'campus:read' || grant === 'campus:tiyi:read')) {
+      tiyiConnectController?.abort(); tiyiSchool?.cancelRequests(); tiyiSchool?.closeLogin();
+    }
+  });
+  handle('tiyi:status', async raw => {
+    const input = z.object({ refreshGateway: z.boolean().default(false) }).strict().parse(raw || {});
+    if (input.refreshGateway) await tiyiSchool!.inspect(AbortSignal.timeout(25_000));
+    return tiyiStatus();
+  });
+  handle('tiyi:connect', async raw => {
+    const input = z.object({ via: z.enum(['direct', 'webvpn']).default('direct'), accountLogin: z.boolean().default(false) }).strict().parse(raw || {});
+    tiyiConnectController?.abort(); tiyiSchool!.cancelRequests();
+    const controller = new AbortController(); tiyiConnectController = controller;
+    const timer = setTimeout(() => controller.abort(), 120_000);
+    try {
+      store.kernel.write(() => store.kernel.setMeta('tiyi_connection_via', input.via));
+      tiyiVia = input.via;
+      if (!tiyiGrantAllowed('campus:read')) return { ...tiyiStatus(), check: { status: 'unavailable' as const,
+        observedAt: new Date().toISOString(), reason: '校园资料的读取已关闭。在当前页面开启后，就能继续检查体艺连接。' } };
+      if (tiyiVia === 'webvpn') {
+        const gateway = await tiyiSchool!.inspect(controller.signal);
+        controller.signal.throwIfAborted();
+        if (gateway.gatewayStatus === 'unavailable') return { ...tiyiStatus(), check: { status: 'unavailable' as const,
+          observedAt: new Date().toISOString(), reason: gateway.reason || '学校校园连接这次没有完整答复，可以稍后重试。' } };
+        if (!gateway.gatewayAuthenticated || input.accountLogin) {
+          await tiyiSchool!.openLogin(gateway.gatewayAuthenticated && input.accountLogin);
+          return { ...tiyiStatus(), check: { status: 'auth_required' as const, observedAt: new Date().toISOString(),
+            reason: gateway.gatewayAuthenticated ? '校园连接窗口已打开，请在校方页面完成体艺登录后继续。' : '校园连接窗口已打开，登录学校 WebVPN 后可继续。' } };
+        }
+      }
+      const result = await tiyi.authenticate(controller.signal);
+      controller.signal.throwIfAborted();
+      if (result.status === 'fresh') {
+        store.runtime.policy.grant('campus:tiyi:read');
+        harness.stateChanged();
+      }
+      return { ...tiyiStatus(), check: { status: result.status, observedAt: result.observedAt,
+        reason: result.error?.message || result.note } };
+    } finally {
+      clearTimeout(timer);
+      if (tiyiConnectController === controller) tiyiConnectController = undefined;
+    }
+  });
+  handle('tiyi:disconnect', () => {
+    tiyiConnectController?.abort(); tiyiSchool!.cancelRequests(); tiyiSchool!.closeLogin();
+    store.runtime.policy.revoke('campus:tiyi:read'); harness.stateChanged(); return tiyiStatus();
+  });
   const campusCalendar = new NativeCampusCalendar(store);
   const agenda = store.runtime.nativeAgenda;
   const study = new NativeStudyService(store, store.runtime.studyPresentation);
+  const sourceBookmarks = new NativeSourceBookmarkService(store);
   const rehearsal = new NativeRehearsalService(store, store.runtime.rehearsals);
   handle('rehearsal:project', value => rehearsal.project(value));
   handle('note:project', value => {
@@ -338,6 +434,10 @@ app.whenReady().then(async () => {
   });
   handle('study:project', value => study.project(value));
   handle('study:read', value => study.read(value));
+  handle('study:bookmark-preview', value => study.previewBookmark(value));
+  handle('study:bookmark-accept', value => study.acceptBookmark(value));
+  handle('source-bookmark:preview', value => sourceBookmarks.preview(value));
+  handle('source-bookmark:keep', value => sourceBookmarks.keep(value));
   handle('letter:project', value => {
     const runtime = store.runtime, boundary = `${store.kernel.epoch}:${store.kernel.policyRevision}:${runtime.policy.sourceBoundary}`;
     if (runtime.presentation.public) throw new Error('先回到自己的对话，再打开那封信。');
@@ -464,6 +564,7 @@ app.whenReady().then(async () => {
   session.defaultSession.setPermissionCheckHandler(() => false);
   handle('state', state);
   handle('notes:list', value => store.notes.list(value));
+  handle('notes:draft', value => store.notes.nativeDraft(value));
   handle('notes:read', value => store.notes.read(value));
   handle('notes:create', value => store.notes.create(value));
   handle('notes:update', value => store.notes.update(value));
@@ -476,7 +577,7 @@ app.whenReady().then(async () => {
   handle('presentation:surface', async value => {
     const mode = z.enum(['private', 'public']).parse(value);
     store.runtime.presentation.setSurface(mode);
-    if (mode === 'public') { localSearch.cancel(); mapLocation.cancel(); latestDeviceLocation = undefined; connectionController?.abort(); store.runtime.spatial.share({ enabled: false }); await harness.stop(); store.runtime.materials.endConversation(); }
+    if (mode === 'public') { localSearch.cancel(); mapLocation.cancel(); latestDeviceLocation = undefined; connectionController?.abort(); tiyiConnectController?.abort(); tiyiSchool?.cancelRequests(); tiyiSchool?.closeLogin(); store.runtime.spatial.share({ enabled: false }); await workouts?.suspend().catch(() => undefined); await harness.stop(); store.runtime.materials.endConversation(); }
     return state();
   });
   handle('presentation:select', value => {
@@ -522,11 +623,13 @@ app.whenReady().then(async () => {
     const input = z
       .object({
         sessionId: id.optional(),
-        content: z.string().trim().min(1).max(LIMITS.message),
+        content: z.string().min(1).max(LIMITS.message).refine(text => text.trim().length > 0, '先写一句话再发送。'),
+        attachment: z.object({ name: z.string().max(LIMITS.fileName), text: z.string().max(LIMITS.attachmentText) }).strict().optional(),
         image: imageAttachmentSchema.optional(),
         material: materialReferenceSchema.optional(),
         materialQuote: materialQuoteReferenceSchema.optional(),
         noteQuote: noteQuoteReferenceSchema.optional(),
+        conversationQuote: conversationBookmarkReferenceSchema.optional(),
         selection: semanticSelectionSchema.optional(),
         studyInteraction: studyInteractionSchema.optional(),
         companionReference: companionFollowupReferenceSchema.optional(),
@@ -550,7 +653,9 @@ app.whenReady().then(async () => {
           .optional(),
       })
       .strict()
-      .refine(input => [input.noteQuote, input.noteReference, input.notebookQuote].filter(Boolean).length <= 1, '这次选中了两处笔记，请保留一处再发送。')
+      .refine(input => !input.attachment || !input.material && !input.image, '这次只附一份文件或图片，再继续发送。')
+      .refine(input => input.content.length + (input.attachment ? input.attachment.name.length + input.attachment.text.length : 0) <= LIMITS.message, '这段话和附件合起来太长了，可以先选出需要一起看的部分。')
+      .refine(input => [input.materialQuote, input.noteQuote, input.noteReference, input.notebookQuote, input.conversationQuote].filter(Boolean).length <= 1, '这次拿起了几处原文，请先留一处再发送。')
       .parse(value);
     if (input.materialQuote) await store.runtime.materials.nativeQuote({
       target: input.material?.resourceId === input.materialQuote.resourceId
@@ -558,15 +663,19 @@ app.whenReady().then(async () => {
       quote: input.materialQuote,
     });
     if (input.noteQuote) store.notes.quote(input.noteQuote);
-    return harness.start(input.sessionId, input.content, { ...input.controls, material: input.material, selection: input.selection,
+    return harness.start(input.sessionId, input.content, { ...input.controls,
+      attachment: input.attachment ? { id: crypto.randomUUID(), ...input.attachment } : undefined,
+      material: input.material, selection: input.selection,
       studyInteraction: input.studyInteraction, companionReference: input.companionReference,
       curiosityReference: input.curiosityReference, letterReference: input.letterReference, noteReference: input.noteReference,
       notebookQuote: input.notebookQuote, mapRouteReference: input.mapRouteReference, agendaFocus: input.agendaFocus,
       programReference: input.programReference, preparationReference: input.preparationReference,
-      rehearsalInteraction: input.rehearsalInteraction, materialQuote: input.materialQuote, noteQuote: input.noteQuote }, input.image);
+      rehearsalInteraction: input.rehearsalInteraction, materialQuote: input.materialQuote, noteQuote: input.noteQuote,
+      conversationQuote: input.conversationQuote }, input.image);
   });
   handle('stop', () => harness.stop());
   handle('persona:follow-default', value => {
+    noRun();
     store.followDefaultCompanion(z.string().min(1).max(100).parse(value));
     return state();
   });
@@ -1102,6 +1211,7 @@ app.whenReady().then(async () => {
   applyLoginItem();
   if (keepsRunningInTray()) ensureTray();
   app.on('will-quit', () => {
+    tiyiConnectController?.abort(); tiyiSchool?.dispose();
     clearInterval(reminderTimer);
     clearInterval(recoveryTimer);
     opportunityScheduler?.stop();
@@ -1109,7 +1219,16 @@ app.whenReady().then(async () => {
     store.close();
   });
 });
-app.on('before-quit', () => { quitting = true; });
+app.on('before-quit', event => {
+  quitting = true;
+  if (workouts && !workoutDisposed) {
+    event.preventDefault();
+    if (!workoutExitPending) {
+      workoutExitPending = true;
+      void workouts.dispose().catch(() => undefined).finally(() => { workoutDisposed = true; app.quit(); });
+    }
+  }
+});
 app.on('window-all-closed', () => app.quit());
 
 app.on('before-quit', () => mapLocation.cancel());

@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "attention",
+  "light": "mist",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-fd24d0c2-0e93-4e02-a392-b0fa8ac3bc8d",
+  "inputs": [
+    {
+      "file": "tomori-attention-apricot-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "06c582ace8f0cb0c6079ed89c6a1defd3bbb9e05525b7c3af11b4e364499e1f7"
+    },
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "sourceIdentity": "Existing primary-approved correct complete warm mother relit against approved clean empty-room theme plate; no rejected mother, official artwork or isolated actor input.",
+  "prompt": "tomori-attention-mist-mother-candidate-prompt.txt",
+  "promptSha256": "149a757ebe6fc36b9e31b7593c8b0dc9b21b5b13cada5424e00b2362a070083e",
+  "output": {
+    "file": "tomori-attention-mist-mother-candidate.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2113187,
+    "sha256": "86970b331da3e0de0f3d13a26b6305dfd686ba978802649e8bd3c22952bcdffc"
+  },
+  "review": {
+    "designerViewed": "complete original 1536x1024 output",
+    "designerStatus": "candidate_ready_for_primary_review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Seated bookmark handoff retains cushion/pelvis support, extended forearm and hand with the same slim bookmark, stable supporting palm, coherent two legs and both full floor-contact shoes. Head/hand/body scale and fixed furniture/landscape stay consistent with the warm mother. Diffuse mist-morning lighting is coherent across face, pale uniform piping and room; no new sun or rearranged landmark."
+}

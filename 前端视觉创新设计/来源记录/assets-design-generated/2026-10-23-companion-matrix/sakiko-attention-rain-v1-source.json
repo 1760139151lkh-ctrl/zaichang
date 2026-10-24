@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-attention-rain-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-attention-rain-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-attention-apricot-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-rain-candidate-v2.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "sakiko-attention-rain-mother-candidate-v1.png",
+    "sha256": "30fc469677bf53d8381e480cec93e2d764f89f948a74124fd3970d13101bb849",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-6de444b6-0ee7-46ea-9fcb-9f39dfec2f96.png",
+    "executionId": "6de444b6-0ee7-46ea-9fcb-9f39dfec2f96"
+  },
+  "designerObservation": "Personally viewed full mother: supporting palm behind the hip, torso makes room and head turns left toward a small plain card on the real desk. Both shoes and hands remain visible; empty lap hand and gaze differ from play. The card belongs to the stationary room. Needs primary review of the retreat amount and all physical contacts.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "promptSha256": "0f68af6f56593c370c88a8a035acb9d342a61c3bb70d59faaee248fdeb5dd0c3"
+}

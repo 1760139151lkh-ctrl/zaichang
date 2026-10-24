@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "listening",
+  "palette": "rain",
+  "light": "night",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-fdd0ef26-ea41-44cf-af38-23e54e0b7f74",
+  "prompt": "taki-listening-rain-prompt.txt",
+  "promptSha256": "99ba030559e3bbbdd62da8133291f6303a51a8b4d8075a5faf8af432109d917a",
+  "inputs": [
+    {
+      "file": "taki-listening-apricot-mother-candidate-v1.png",
+      "sha256": "d8369e39dc109457df147611494e1741c86512e2bcfc579c92050efb0d134bbb",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-fdd0ef26-ea41-44cf-af38-23e54e0b7f74.png",
+  "output": {
+    "file": "taki-listening-rain-mother-candidate-v1.png",
+    "sha256": "cb677e1e45812da94c0fccbb2b179a37beeab1351d5f40b341d94e9e844946fa",
+    "bytes": 2061997,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the approved warm mother and the target empty plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "One raised socked foot on cushion, one worn floor loafer, exactly one separate empty floor shoe and two supported hands retain the original relations. Identity and complete theme light remain coherent; no independent left night spotlight. Primary/layer/runtime review remains separate."
+}

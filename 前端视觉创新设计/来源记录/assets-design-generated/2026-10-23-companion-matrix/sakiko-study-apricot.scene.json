@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "recordType": "canonical-scene-reference",
+  "canonicalScene": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot.scene.json",
+  "originalCandidateSha256": "c8c89cda3239c742b092f1bafa71b29b864c74e9de15f13f3e21452be4301f26",
+  "originalProducerReview": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-prototype-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Fixed desk/hand contact. Original chair-back/front-leg occlusions are alpha holes; no hidden anatomy painted. Whole visible contour is in frame, fixed pose is not advertised as freely draggable.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json"
+  },
+  "production": "sakiko-study-apricot-layer-processing-v8.json",
+  "parameters": null,
+  "note": "Same visible scene contract and unchanged admitted artwork; canonical registration lives only in the runtime directory. This relocation does not sign runtime acceptance."
+}

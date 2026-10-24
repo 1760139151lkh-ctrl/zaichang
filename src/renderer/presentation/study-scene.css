@@ -74,6 +74,20 @@
 .study-margin-note.is-spacious.is-new { animation-name:study-explanation-unfold; }
 .study-margin-note.has-exploration { padding:0; background:transparent; box-shadow:none; transform:none; }
 .study-margin-note.has-exploration::before { display:none; }
+.study-hint-envelope { justify-self:end; width:min(300px,100%); box-sizing:border-box; margin:4px 0 8px; padding:20px 19px 13px; color:var(--accent); border:1px solid color-mix(in srgb,var(--accent) 18%,var(--separator)); border-radius:3px 9px 4px 4px; background:linear-gradient(165deg,var(--surface-raised) 46%,color-mix(in srgb,var(--accent-soft) 64%,var(--surface-raised)) 47%); box-shadow:1px 5px 12px #58442b0d; transform:rotate(-1.1deg); animation:study-note-unfold 240ms var(--ease); }
+.study-hint-envelope>svg { vertical-align:middle; margin-right:8px; }.study-hint-envelope>span { font-size:14px; font-family:var(--font-handwritten); }
+.study-hint-envelope>div { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:2px 8px; margin-top:12px; }
+.study-hint-envelope button { min-width:40px; min-height:40px; padding:6px 5px; border:0; border-radius:7px; color:var(--text-secondary); background:transparent; font-size:12px; white-space:nowrap; }
+.study-hint-envelope button:first-child { color:var(--accent); }.study-hint-envelope button:hover { color:var(--text); background:color-mix(in srgb,var(--accent-soft) 45%,transparent); }
+.study-hint-expanded-actions { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:2px 7px; margin-top:12px; padding-top:7px; border-top:1px solid color-mix(in srgb,var(--accent) 16%,transparent); }
+.study-hint-expanded-actions button { min-width:40px; min-height:40px; padding:6px 5px; border:0; border-radius:7px; background:transparent; color:var(--text-secondary); font-family:var(--font-ui); font-size:12px; }
+.study-hint-expanded-actions button:hover { color:var(--text); background:color-mix(in srgb,var(--accent-soft) 45%,transparent); }
+.study-work-paper.is-bookmark-drop { box-shadow:inset 0 0 0 2px var(--accent-dim); background:color-mix(in srgb,var(--accent-soft) 20%,transparent); border-radius:12px; }
+.study-source-bookmark { display:flex; gap:10px; margin:20px 0 5px; padding:9px 0 9px 12px; border-left:2px solid var(--accent-dim); color:var(--accent); }.study-source-bookmark>svg { flex:none; margin-top:3px; }.study-source-bookmark>div { min-width:0; }.study-source-bookmark button { display:flex; align-items:center; gap:5px; padding:0; border:0; background:transparent; color:var(--text-secondary); font-size:11px; text-align:left; }.study-source-bookmark blockquote { margin:7px 0 0; max-height:100px; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; color:var(--text); font-family:var(--font-reading); font-size:13px; line-height:1.8; }
+.study-source-bookmark .study-remove-bookmark { align-self:flex-start; flex:none; margin-left:auto; padding:4px; }
+.study-source-bookmark blockquote { white-space:normal; }.study-source-bookmark blockquote p { margin:0 0 8px; white-space:pre-wrap; }.study-source-bookmark blockquote p:last-child { margin-bottom:0; }.study-source-bookmark blockquote .katex-display { font-size:1em; margin:.3em 0; }
+@media(prefers-reduced-motion:reduce) { .study-hint-envelope { animation:none; transform:none; } }
+[data-motion=reduced] .study-hint-envelope { animation:none; transform:none; }
 .study-desk.has-exploration .study-work-heading { margin-bottom:20px; }
 .study-desk.has-exploration .study-work-row { gap:17px; }
 .study-desk.has-exploration .study-manuscript { max-height:170px; }

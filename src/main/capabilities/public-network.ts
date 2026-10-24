@@ -41,7 +41,7 @@ export function publicResourceUrl(input: string) {
   if (url.protocol !== 'https:' || url.username || url.password || (url.port && url.port !== '443') || url.href.length > 8192 ||
       (!isIP(address) && !url.hostname.includes('.')) || /(?:^|\.)(?:localhost|local|internal|test|invalid)$/.test(url.hostname) ||
       (isIP(address) && !publicAddress(address)))
-    throw new HarnessError('public_address_forbidden', '公共资料读取仅接受公开HTTPS地址，不能读取内网或带登录凭据的地址。');
+    throw new HarnessError('public_address_forbidden', '这个地址不适合用公开网页入口打开，请换成公开HTTPS链接；校园登录资料可从校园连接里查看。');
   return url;
 }
 type Address = { address: string; family: number };
@@ -228,9 +228,9 @@ export async function publicFetch(input: string, signal: AbortSignal, ports: Pub
     if (raw.body.length > maximum) throw new HarnessError('public_body_limit', '资料超过读取上限。');
     const body = decodedBody(raw, maximum);
     if (/^application\/pdf(?:;|$)/i.test(raw.headers['content-type'] || '') && !body.subarray(0, 5).equals(Buffer.from('%PDF-')))
-      throw new HarnessError('public_type_unsupported', '来源声明为PDF，但原字节不能确认该类型，未交给解析器或模型。');
+      throw new HarnessError('public_type_unsupported', '来源标成PDF，实际收到的内容却不是PDF格式，这次没能打开。');
     if (imageType.test(raw.headers['content-type'] || '') && !imageMagicMatches(raw.headers['content-type'] || '', body))
-      throw new HarnessError('public_type_unsupported', '来源声明为图片，但原字节不是这种图片格式，没有采用。');
+      throw new HarnessError('public_type_unsupported', '来源说这是一张图片，实际收到的字节却不是对应的格式，这次没能读成图片。');
     const response = new Response(new Uint8Array(body), { status: raw.status, headers: { 'content-type': raw.headers['content-type'] } });
     Object.defineProperty(response, 'url', { value: url.href });
     return response;

@@ -1,0 +1,61 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "sakiko-planning-apricot-layer-parameters-v1.json",
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "sakiko-planning-apricot.png",
+  "motherSha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11",
+  "matte": "sakiko-planning-apricot-mask-generated-v1.png",
+  "matteSha256": "11c90cbc8a7123d527a1f2383c1cc86a55114438e9d4355af95d39d2f02709a4",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaChangedPixels": 121940,
+  "alphaNonzeroPixels": 48964,
+  "alphaBounds": [
+    820,
+    305,
+    1096,
+    762
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "e3c2073b9f2ff74880477d56692093aa22703289308fe7f5cdb3c504d5d96a72",
+  "figureRgbSha256": "e3c2073b9f2ff74880477d56692093aa22703289308fe7f5cdb3c504d5d96a72",
+  "background": {
+    "candidate": "sakiko-planning-apricot-background-generated-v1.png",
+    "candidateSha256": "f2f1183f61fcbfa8b20121e6aa7e9d1d3b21562d2d309cb70f825c444d35db39",
+    "expandPixels": 3,
+    "featherPixels": 1,
+    "changedPixels": 60757,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "outputs": [
+    {
+      "file": "sakiko-planning-apricot-figure-calibrated-v1.png",
+      "bytes": 2408256,
+      "sha256": "147e39248bbf73720848bf4149146bca141cb27dcfcc287db7e8550dfd45e484"
+    },
+    {
+      "file": "sakiko-planning-apricot-mask-calibrated-v1.png",
+      "bytes": 32638,
+      "sha256": "2353181652a352258ed76d29977e5a9d6697525ede837be6a2b94918b68052a4"
+    },
+    {
+      "file": "sakiko-planning-apricot-background-calibrated-v1.png",
+      "bytes": 2062638,
+      "sha256": "9ce102b7e94098c8df6f8a175d0eed9d24bf5cd273e3f60050d1f693443b60ea"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

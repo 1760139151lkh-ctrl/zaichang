@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "recordType": "image-generation-source",
+  "character": "uika",
+  "activity": "study",
+  "theme": "rain",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-d2c0fbd8-3941-4a97-8ecf-4630e3f80f37",
+  "intent": "lighting-weather",
+  "prompt": "uika-study-rain-prompt-v1.txt",
+  "promptFileMatchesActualToolInput": true,
+  "inputs": [
+    {
+      "file": "uika-study-apricot-mother-candidate-v1.png",
+      "role": "primary-approved-correct-warm-mother-edit-target",
+      "sha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "role": "primary-approved-clean-night-rain-lighting-reference-only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "uika-study-rain-mother-candidate-v1.png",
+    "sha256": "35b208af561893e34e76ffa760d6fb34a70c3dac6b83dd29b2d00d9eee8f6d8f",
+    "bytes": 2022836,
+    "width": 1536,
+    "height": 1024
+  },
+  "review": {
+    "designerViewed": "complete original output in Imagegen result",
+    "designerStatus": "candidate-for-primary-review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Same forward study silhouette, chair/desk support and whole shoes retained. Right desk lamp supplies amber working light; rear-left flower corner stays low without a spotlight, outside is a coherent blue rainy night. Full room camera retained.",
+  "promptSha256": "d24dc595bf3fbafbb70c549bd6a72b32201748e124b71ccbf95b110dbb428a5c"
+}

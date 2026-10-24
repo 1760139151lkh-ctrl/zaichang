@@ -1,0 +1,12 @@
+{
+  "reviewer": "primary-agent",
+  "date": "2026-10-23",
+  "stage": "complete-empty-room-lighting-prototypes",
+  "runtimeAccepted": false,
+  "entries": [
+    {"theme":"mist","file":"room-mist-candidate.png","sha256":"2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df","approvedForMotherGeneration":true,"observed":"完整窗框和原房间关系保留；窗外晨雾与室内柔和冷日光一致，木色自然，左后方生活角仍可读。"},
+    {"theme":"violet","file":"room-violet-candidate.png","sha256":"9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3","approvedForMotherGeneration":true,"observed":"窗外金紫暮色、室内局部暖灯与紫灰暗部形成连贯光线；家具和完整窗景留存，没有单纯全图紫色蒙层。"},
+    {"theme":"rain","file":"room-rain-candidate-v2.png","sha256":"707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c","approvedForMotherGeneration":true,"observed":"冷雨夜窗与右桌暖灯一致；已去除不属于夜间的硬叶影，左后方桌椅仍在低照度下可辨。采用v2，v1不据此获得批准。"}
+  ],
+  "limits": "Only empty-room lighting plates have been reviewed. Character illumination, each complete mother, layer edges, registration and real Stage transitions still need separate review. These files do not establish matrix coverage."
+}

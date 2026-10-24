@@ -5,7 +5,7 @@ import { HarnessError, type DelegatedTask } from '../shared/harness';
 import type { Store } from './store';
 import type { RunSession } from './runtime/coordinator';
 import { ProviderError, toolArgumentCharacterLimit, type ToolSpec } from './provider';
-import { redactCredentials } from './runtime/redaction';
+import { redactCredentials, redactCredentialValues } from './runtime/redaction';
 import { DEFERRED_TOOL_FAMILIES, deferredFamily, deferredToolCatalog, USE_TOOL, type DeferredFamily } from './runtime/tool-surface';
 
 const useToolInput = z.object({
@@ -15,10 +15,31 @@ const useToolInput = z.object({
   arguments: z.record(z.string(), z.unknown()).optional(),
 }).strict();
 
+function parameterRequirement(issue: z.ZodIssue): string {
+  // Keep authored business explanations. Standard validation prose can quote
+  // arbitrary submitted keys; the path and code already identify the problem.
+  if (issue.code === 'custom') return redactCredentials(issue.message);
+  if (issue.code === 'invalid_type') {
+    const types: Record<string, string> = { string: '文字', number: '数字', bigint: '整数', boolean: '是或否', array: '一组内容', object: '一份对象', date: '日期', file: '文件' };
+    return `这里需要${types[issue.expected] || '用法中指定的内容'}。`;
+  }
+  if (issue.code === 'too_small' || issue.code === 'too_big') {
+    const amount = issue.code === 'too_small' ? issue.minimum : issue.maximum;
+    const measure = issue.origin === 'string' ? '文字长度' : issue.origin === 'array' ? '项目数量' : '数值';
+    const relation = issue.code === 'too_small' ? issue.inclusive === false ? '大于' : '至少为' : issue.inclusive === false ? '小于' : '至多为';
+    return `${measure}需要${relation}${amount}。`;
+  }
+  if (issue.code === 'unrecognized_keys') return '这里多填了这份用法里没有的项目，可以对照完整用法调整。';
+  if (issue.code === 'invalid_value') return '这里需要从完整用法给出的选项里选择。';
+  if (issue.code === 'invalid_union') return '这里有几种写法，当前这一份还没对应上，可以回看完整用法再选一种。';
+  return '这里的格式还没对上，可以回看这一项的完整用法。';
+}
+
 export interface ToolContext {
   prepareRelease?: import('./runtime/coordinator').RuntimeCallbacks['prepareRelease'];
   verifyPrivacyControl?: import('./runtime/coordinator').RuntimeCallbacks['verifyPrivacyControl'];
   verifyReadPurpose?: import('./runtime/coordinator').RuntimeCallbacks['verifyReadPurpose'];
+  readConversation?: import('./runtime/coordinator').RuntimeCallbacks['readConversation'];
   verifyAttentionExpiry?: import('./runtime/coordinator').RuntimeCallbacks['verifyAttentionExpiry'];
   verifyLocalDelegation?: import('./runtime/coordinator').RuntimeCallbacks['verifyLocalDelegation'];
   verifyBusinessChoice?: import('./runtime/coordinator').RuntimeCallbacks['verifyBusinessChoice'];
@@ -37,6 +58,7 @@ export interface ToolContext {
   map?: import('./mapService').CampusMapAdapter;
   mapCard?: (card: import('../shared/map-v2').MapCard) => void;
   present?: import('./runtime/coordinator').RuntimeCallbacks['present'];
+  companionActivity?: import('./runtime/coordinator').RuntimeCallbacks['companionActivity'];
   attentionMessage?: import('./runtime/coordinator').RuntimeCallbacks['attentionMessage'];
   // Compatibility shape only. Cache eligibility belongs to CapabilityBroker.
   campusMemo?: {
@@ -176,9 +198,9 @@ export class ToolRegistry {
     let requestedArguments: unknown;
     try {
       if (raw.length > toolArgumentCharacterLimit(name))
-        throw new HarnessError('input_budget', '工具参数超过长度上限。');
+        throw new HarnessError('input_budget', '这次填写的内容太长了，可以缩短这一份后再继续，原本要办的事不必删掉。');
       const args = JSON.parse(raw);
-      requestedArguments = JSON.parse(redactCredentials(JSON.stringify(args)));
+      requestedArguments = redactCredentialValues(args);
       if (name === 'read_evidence' && !this.run.pack)
         await this.context.store.runtime.compile(this.run, false, signal);
       const readBaseline = this.run.investigation && ['search_context', 'read_evidence'].includes(name)
@@ -204,6 +226,13 @@ export class ToolRegistry {
       // Reading an older saved page can finish without refreshing its source.
       const deliveredReaderPage = name === 'look_up' && (result as any)?.delivery?.kind === 'page'
         && (result as any)?.delivery?.complete === true;
+      // A ready route has finished its calculation even when entrance/access
+      // conditions keep its knowledge coverage partial. Keep that original
+      // result intact; this only describes whether this tool step finished.
+      const route = (result as any)?.data;
+      const calculatedMapRoute = status === 'partial' && (result as any)?.sourceId === 'map:local'
+        && (name === 'map_route' || name === 'look_up' && args.capability === 'map.route')
+        && route?.schemaVersion === 'map-route/v2' && route.status === 'ready';
       this.context.step({
         id,
         title,
@@ -215,15 +244,25 @@ export class ToolRegistry {
           'unknown',
           'conflict',
           'needs_confirmation',
-        ].includes(status) || ['partial', 'stale'].includes(status) && !deliveredReaderPage
+          'not_queried',
+          'failed_confirmed',
+          'outcome_unknown',
+          'unresolved',
+          'dispatching',
+          'reconciling',
+          'cancel_requested',
+          'cancellation_unknown',
+          'cannot_cancel',
+        ].includes(status) || ['partial', 'stale'].includes(status) && !deliveredReaderPage && !calculatedMapRoute
           ? 'blocked'
           : 'done',
         detail: (result as any)?.reason,
       });
       const identified = toolCallId ? result && typeof result === 'object' && !Array.isArray(result)
         ? { ...result, observationId: toolCallId } : { data: result, observationId: toolCallId } : result;
-      const output = JSON.stringify(identified);
-      let finalResult = JSON.parse(redactCredentials(output));
+      // Keep the normal JSON projection (including toJSON values), then
+      // redact decoded fields without changing quotes or field boundaries.
+      let finalResult = redactCredentialValues(JSON.parse(JSON.stringify(identified)));
       if (name === 'read_evidence' && this.run.pack && typeof args.id === 'string'
         && !['failed', 'forbidden', 'unsupported', 'not_connected', 'unknown', 'stale', 'conflict'].includes((result as any)?.status))
         finalResult = this.context.store.runtime.context.recordEvidenceRead(this.run.pack, result, finalResult, args.id,
@@ -244,15 +283,19 @@ export class ToolRegistry {
         error instanceof HarnessError
           ? error.message
           : error instanceof ProviderError
-            ? name === 'present_view' ? '这次呈现还没完成，原内容仍在。' : '这一步还没完成，已有内容仍在。'
+            ? name === 'present_view' ? '这次还没准备好画面。' : '这次还没拿到可用结果。'
             : error instanceof z.ZodError
-              ? '参数与工具要求没有对齐，具体字段列在下方。'
+              ? '这次有几处没填对，下面留着位置和需要的内容。'
               : error instanceof SyntaxError
-                ? '工具参数还不是有效的 JSON。'
+                ? requestedArguments === undefined
+                  ? '这次的参数没能读开，整理成完整 JSON 后可以继续。'
+                  : '这次有一段返回内容没能读开，还没有拿到可用结果。'
                 : '这一步没有完成。';
       this.context.step({ id, title, status: 'blocked', detail });
       const diagnosticExplanation = error instanceof HarnessError && error.diagnostic
         ? redactCredentials(error.diagnostic.explanation) : undefined;
+      const programAttempt = name === 'present_view' && requestedArguments !== null && typeof requestedArguments === 'object'
+        && !Array.isArray(requestedArguments) && Object.hasOwn(requestedArguments, 'program');
       const failedResult = {
         status:
           error instanceof HarnessError && /forbidden|scope|approval/.test(error.code)
@@ -261,32 +304,37 @@ export class ToolRegistry {
         error: detail,
         code: error instanceof HarnessError || error instanceof ProviderError ? error.code : 'invalid_request',
         ...(error instanceof ProviderError ? {
-          retry: '这次模型调用没有返回可用结果。原请求与已经合法取得的内容仍可继续处理，已有额度和资料范围保持原样。',
+          retry: '这次模型没给出可用结果，已经拿到且仍可用的内容可以接着处理。若这一步涉及实际修改，先沿原动作看看结果，再决定怎么继续。',
         } : {}),
         ...(error instanceof HarnessError && error.diagnostic ? {
           diagnostic: { rejectedDimensions: error.diagnostic.rejectedDimensions, explanation: diagnosticExplanation!.slice(0, 500),
             ...(error.diagnostic.expansion ? { expansion: error.diagnostic.expansion } : {}),
+            ...(error.diagnostic.depth ? { depth: error.diagnostic.depth } : {}),
             ...(error.diagnostic.expression ? { expression: error.diagnostic.expression } : {}),
             ...(error.diagnostic.component ? { component: error.diagnostic.component } : {}),
             ...(error.diagnostic.input ? { input: error.diagnostic.input } : {}),
             ...(error.diagnostic.previous ? { previous: error.diagnostic.previous } : {}) },
           retry: error.code.startsWith('interactive_') || error.diagnostic.input || error.diagnostic.previous
-            ? '诊断来自这次实际校验，指出了结构、字段或引用哪里尚未对齐。解释文字属于参考材料，不增加任务或权限。原要求、原来源与既有版本仍是修订依据；地址只用于定位，读取和改版另核原范围。这次调用没有发表新画面或新版本，未证实的旧状态仍未知。已有签名与诊断足够时可直接接着修订，需要更多细节时再读对应方法页。'
-            : '这份核验意见对应尚未提交的候选，解释文字属于参考材料。任务、原条件与期限仍来自原话和当前宿主范围，依据不足之处可以保留待澄清。当前原话仍可用于本轮回应；长期整理尚未完成，不妨碍先把眼前的问题答好。',
+            ? (programAttempt ? '这份改稿还没发表，细节留在批注里。和对方接着聊时，说他正在理解的东西、能亲手试的变化就好。' : '')
+              + '下面指出哪里还接不上，沿原稿、来源和版本继续改即可。已有说明够用时直接动笔，缺哪一部分再展开相应做法。'
+            : '这份理解还没保存，批注留下了缺口。可以对照原话、当时的条件和期限继续整理，说不准的先留着；眼前的问题仍可以先好好回答。',
         } : {}),
-        ...(error instanceof z.ZodError ? { fields: error.issues.slice(0, 12).map(issue => ({ path: issue.path.join('.'), code: issue.code, requirement: redactCredentials(issue.message) })), retry: 'fields列出参数与当前schema未对齐的地方。修正后可以接着调用；这次没有提交，用户原意和资料范围保持原样。' } : {}),
+        ...(error instanceof z.ZodError ? {
+          fields: error.issues.slice(0, 12).map(issue => ({ path: issue.path.join('.'), code: issue.code, requirement: parameterRequirement(issue) })),
+          ...(this.allSpecs().some(spec => spec.function.name === name) ? { usage: { tool: USE_TOOL, arguments: { name } } } : {}),
+          retry: '下面留着没填对的位置和需要的内容，完整用法也有入口可看。修好后可以接着办；若刚才涉及实际修改，先核对原动作的结果。',
+        } : {}),
       };
       (this.run.observations ||= []).push({ tool: name, requestedArguments, result: failedResult, ...(toolCallId ? { toolCallId } : {}) });
-      const programAttempt = name === 'present_view' && requestedArguments !== null && typeof requestedArguments === 'object'
-        && !Array.isArray(requestedArguments) && Object.hasOwn(requestedArguments, 'program');
       const programDiagnostic = error instanceof HarnessError ? error.diagnostic : undefined;
-      if ((programAttempt || programDiagnostic?.expansion || programDiagnostic?.expression || programDiagnostic?.component || programDiagnostic?.input || programDiagnostic?.previous) && this.run.pack) {
+      if ((programAttempt || programDiagnostic?.expansion || programDiagnostic?.depth || programDiagnostic?.expression || programDiagnostic?.component || programDiagnostic?.input || programDiagnostic?.previous) && this.run.pack) {
         const receipt = this.run.pack.receipt;
         receipt.interactiveProgramDiagnostics = [...(receipt.interactiveProgramDiagnostics || []), {
           stepId: id, ...(toolCallId ? { toolCallId } : {}),
           rejectionCode: error instanceof HarnessError && /^[a-z][a-z0-9_]{0,79}$/.test(error.code)
             ? error.code : error instanceof z.ZodError ? 'invalid_program_envelope' : 'program_rejected',
           ...(programDiagnostic?.expansion ? { expansion: structuredClone(programDiagnostic.expansion) } : {}),
+          ...(programDiagnostic?.depth ? { depth: structuredClone(programDiagnostic.depth) } : {}),
           ...(programDiagnostic?.expression ? { expression: structuredClone(programDiagnostic.expression) } : {}),
           ...(programDiagnostic?.component ? { component: structuredClone(programDiagnostic.component) } : {}),
           ...(programDiagnostic?.input ? { input: structuredClone(programDiagnostic.input) } : {}),
@@ -298,9 +346,8 @@ export class ToolRegistry {
       return JSON.stringify(failedResult);
     }
   }
-  /** The gateway for specialized tools. Describing returns the same contract
-   * the host validates; calling runs the ordinary execute path, so the
-   * observation, step and receipt carry the real tool name. */
+  /** Reads any current tool's original contract. Specialized tools call the
+   * ordinary execute path; everyday tools keep their direct entry point. */
   private async useTool(raw: string, toolCallId?: string, operationSignal?: AbortSignal): Promise<string> {
     const signal = AbortSignal.any([this.context.signal, this.run.signal, ...(operationSignal ? [operationSignal] : [])]);
     signal.throwIfAborted();
@@ -308,40 +355,60 @@ export class ToolRegistry {
     const respond = (result: unknown) => {
       signal.throwIfAborted();
       this.context.store.runtime.policy.validate(this.run.ingress.contract.scope);
-      (this.run.observations ||= []).push({ tool: USE_TOOL, requestedArguments, result, ...(toolCallId ? { toolCallId } : {}) });
-      return JSON.stringify(result);
+      const safeResult = redactCredentialValues(result);
+      (this.run.observations ||= []).push({ tool: USE_TOOL, requestedArguments, result: safeResult, ...(toolCallId ? { toolCallId } : {}) });
+      return JSON.stringify(safeResult);
     };
     try {
-      if (raw.length > toolArgumentCharacterLimit(USE_TOOL)) throw new HarnessError('input_budget', '工具参数超过长度上限。');
+      if (raw.length > toolArgumentCharacterLimit(USE_TOOL)) throw new HarnessError('input_budget', '这次填写的内容太长了，可以缩短这一份后再继续，原本要办的事不必删掉。');
       const request = useToolInput.parse(JSON.parse(raw));
-      requestedArguments = JSON.parse(redactCredentials(JSON.stringify(request)));
+      requestedArguments = redactCredentialValues(request);
       const available = this.allSpecs(), { name } = request;
       if (!name) {
-        if (request.arguments !== undefined) throw new HarnessError('tool_name_required', '这份参数含arguments，但没有连到具体工具的name；query与family可以帮助找到当前可用的名称和用途。');
+        if (request.arguments !== undefined) throw new HarnessError('tool_name_required', '已经填了要办的内容，还差工具名。可以先用query找用途，或翻一翻目录；找到后把name和arguments一起交来。');
         return respond(deferredToolCatalog(available, request));
       }
       if (request.query !== undefined || request.family !== undefined)
-        throw new HarnessError('tool_mode_conflict', 'name指向一个具体工具，query与family描述目录范围；这份参数同时带了两种查找方式，尚未对应到同一次读取或调用。');
-      const spec = available.find(item => item.function.name === name && deferredFamily(name));
-      if (!spec && !available.some(item => item.function.name === name)
-        && available.some(item => item.function.name === 'look_up') && this.context.store.runtime.broker.describe(name))
-        return this.execute('look_up', JSON.stringify({ source: 'capability', capability: name, describeOnly: true }), toolCallId, signal);
-      if (!spec) return respond({ status: 'failed', code: 'tool_unavailable',
-        error: '当前专门目录没有这个工具；若它在本轮直接提供，directTool会给出原入口。目录范围和实际调用许可仍随当前任务变化。',
-        discover: { tool: USE_TOOL, arguments: {} },
-        ...(available.some(item => item.function.name === name) ? { directTool: name } : {}),
-      });
-      if (request.arguments === undefined) return respond({ status: 'schema', name, description: spec.function.description,
+        throw new HarnessError('tool_mode_conflict', '这次同时给了具体工具名和目录查找条件。看用法或办事时保留name；想找工具时保留query或family。');
+      const spec = available.find(item => item.function.name === name);
+      if (!spec
+        && available.some(item => item.function.name === 'look_up')) {
+        const capability = this.context.store.runtime.broker.describe(name);
+        if (capability) {
+          if (request.arguments === undefined)
+            return this.execute('look_up', JSON.stringify({ source: 'capability', capability: name, describeOnly: true }), toolCallId, signal);
+          return respond({ status: 'failed', code: 'capability_entry_required',
+            error: capability.effect === 'read'
+              ? '这是一份资料的读取方式，要办的内容已经保留在下面的入口里，沿look_up继续就好。'
+              : '这项会修改实际安排，沿原行动入口继续办理；下面可以先看它的完整用法。',
+            usage: { tool: 'look_up', arguments: { source: 'capability', capability: name, describeOnly: true } },
+            ...(capability.effect === 'read' ? { continuation: { tool: 'look_up', arguments: {
+              source: 'capability', capability: name, arguments: request.arguments,
+            } } } : {}),
+          });
+        }
+      }
+      if (spec && request.arguments === undefined) return respond({ status: 'schema', name, description: spec.function.description,
         parameters: spec.function.parameters,
-        next: 'parameters是这个工具当前完整的参数结构，name连回同一入口，arguments承载实际参数。已经读过且条件未变的合同仍可继续使用；你可以按眼前需要决定是否调用或再查其他能力。' });
+        ...(!deferredFamily(name) ? { directTool: name } : {}),
+        next: deferredFamily(name)
+          ? '这里是这项工具的完整用法。要用时保留同一个name，把需要的内容填进arguments。刚看过而且条件没变，可以直接接着用，也可以继续找别的办法。'
+          : `这里是${name}的完整用法，实际使用时从${name}原入口继续，把下面的参数直接填给它即可。已经了解的用法不必反复展开。` });
+      if (!spec || !deferredFamily(name)) return respond({ status: 'failed', code: 'tool_unavailable',
+        error: spec
+          ? '这个工具这次已经直接提供，从原入口继续就好。'
+          : '这次的专门目录里没找到这个工具，可以沿下面的入口重新找用途，也可以用look_up找其他资料来源的做法。',
+        discover: { tool: USE_TOOL, arguments: {} },
+        ...(spec ? { directTool: name, continuation: { tool: name, arguments: request.arguments } } : {}),
+      });
       return this.execute(name, JSON.stringify(request.arguments), toolCallId, signal);
     } catch (error) {
       if (signal.aborted) throw error;
       return respond({ status: 'failed', code: error instanceof HarnessError ? error.code : 'invalid_request',
         error: error instanceof HarnessError ? error.message : error instanceof z.ZodError
-          ? '这份目录参数还没有对应到现有结构；query/family描述查找范围，name定位具体入口，arguments承载对象形式的实际参数，fields保留未对齐的位置。'
-          : 'use_tool 的参数不是有效 JSON。',
-        ...(error instanceof z.ZodError ? { fields: error.issues.slice(0, 8).map(issue => ({ path: issue.path.join('.'), code: issue.code })) } : {}),
+          ? '这次有几处没填对，下面保留了位置。找工具可以填query或family；已经知道工具名就填name，要办的内容放进arguments。'
+          : '这次的参数没有读开，整理成完整JSON后，可以从同一个入口继续。',
+        ...(error instanceof z.ZodError ? { fields: error.issues.slice(0, 8).map(issue => ({ path: issue.path.join('.'), code: issue.code, requirement: parameterRequirement(issue) })) } : {}),
         discover: { tool: USE_TOOL, arguments: {} },
       });
     }

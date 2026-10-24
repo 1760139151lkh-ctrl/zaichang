@@ -7,6 +7,7 @@ import type { ActionRuntime } from '../actions/runtime';
 import type { BasisService } from './basis';
 import { canonical, codePointSlice } from './semantics';
 import { resolveRetainedSourceQuote, resolveSourceQuote, resolveUniqueQuoteRange } from './source-quote';
+import type { OwnedArtifactProof, OwnedArtifactReference } from './study-companion';
 
 const citation = z.object({
   eventId: z.string().max(160), quote: z.string().min(1).max(4000),
@@ -21,13 +22,13 @@ const citation = z.object({
 const supportedText = z.object({ text: z.string().max(1200), source: citation }).strict();
 export const collaborationInput = z.object({
   operation: z.enum(['frame', 'request', 'progress', 'repair', 'withdraw', 'choose', 'experience']),
-  selectedOptionId: z.string().max(160).nullable().optional().describe('choose专用：用户本轮明确采用的现有稳定方案ID；明确撤销选择时为null。找回、比较、询问或助手建议不能算采用。只更新当前事项的选择，不登记日程或对外执行。'),
+  selectedOptionId: z.string().max(160).nullable().optional().describe('choose记下本人这轮明确选定的已有方案ID；撤销选择时为null。找回、比较、询问和助手建议仍是商量过程。这一步只留下选择，日程和实际行动各自继续办理。'),
   id: z.string().max(160).optional(), expectedRevision: z.number().int().positive().optional(),
-  expectedOptionRevision: z.number().int().positive().optional().describe('choose时已读方案的版本；不保存聊天的独立业务选择必须提交。'),
+  expectedOptionRevision: z.number().int().positive().optional().describe('choose时刚读到的方案版本；即使这轮不留聊天，单独保留业务选择时也沿这份版本对应。'),
   source: citation.optional(),
   title: z.string().min(1).max(160).optional(),
   expectedResult: z.string().max(1600).optional(),
-  kind: z.enum(['answer', 'action', 'artifact']).optional().describe('说明、比较是answer；拟稿等可交付内容是artifact；真实改变外部/本地业务状态才是action。'),
+  kind: z.enum(['answer', 'action', 'artifact']).optional().describe('在当前回复里完成的说明、比较、讲题或一起续写是answer；明确另要独立稿件、或要留下可续用的学习纸等作品是artifact；改变日历、提醒、发送等实际业务状态是action。按这次想得到的结果理解。'),
   frame: z.object({
     question: z.string().max(1200),
     confirmedFacts: z.array(supportedText).max(12),
@@ -65,7 +66,7 @@ export class CollaborationService {
     if (!evidence || evidence.speaker !== 'user')
       throw new HarnessError('unsupported_evidence', '这项记录没有对应的用户原话。');
     const resolved = resolveSourceQuote(evidence, source);
-    if (!resolved) throw new HarnessError('unsupported_evidence', '这段记录原话的位置不唯一、已改变或不完整；请扩大逐字引文，或提供真实的contentVersion/start/end。');
+    if (!resolved) throw new HarnessError('unsupported_evidence', '这段原话还没对到唯一的位置，或原文已经变了。可以多带几句原话，或沿原来的完整版本和起止位置重新找。');
     return { event: evidence, source: resolved };
   }
 
@@ -98,18 +99,18 @@ export class CollaborationService {
         requiresReassessment: true, verifiedOutcome: false };
       if (source.contentVersion !== event.contentVersion || !Number.isInteger(source.start) || !Number.isInteger(source.end)
         || source.start < 0 || source.end <= source.start || source.end > Array.from(event.text).length)
-        return [{ ...pointer, reviewReason: 'source_changed', meaning: '只保留历史记录身份；原文版本或定位已变化，没有沿旧副本恢复理由、条件或结果。' }];
+        return [{ ...pointer, reviewReason: 'source_changed', meaning: '还能认出有过这段经历，但原文或位置已经变了，这次没有展开当时的理由、条件和结果。' }];
       const quote = codePointSlice(event.text, source.start, source.end);
       // Partial forgetting deliberately retains the source version and masks
       // only the deleted span. A locator must not reclassify that mask as a
       // fresh user report, nor suppress another intact span in the same event.
       if (!source.quoteSha256 || source.quoteSha256 !== createHash('sha256').update(quote).digest('hex'))
-        return [{ ...pointer, reviewReason: 'source_changed', meaning: '这段原话已删除或改变，只保留历史记录身份；没有从旧副本恢复正文、理由或条件。' }];
+        return [{ ...pointer, reviewReason: 'source_changed', meaning: '这段原话已删除或改变，现在只留下这段经历的地址，当时的正文、理由和条件都没有带回来。' }];
       let reviewReason = 'current_conditions_unverified';
       try { this.experienceSource(scope, { eventId: event.id, quote, contentVersion: source.contentVersion, start: source.start, end: source.end }); }
       catch (error) {
         if (!(error instanceof HarnessError) || error.code !== 'experience_source_changed') throw error;
-        return [{ ...pointer, reviewReason: 'source_changed', meaning: '这段原话对应的理解已更正，只保留历史记录身份；不再从经历副本输出旧理由或条件。' }];
+        return [{ ...pointer, reviewReason: 'source_changed', meaning: '本人后来更正过这段话的意思，这次只带回经历的地址，旧理由和条件先不带进来。' }];
       }
       if (option.revision !== entry.optionRevision) reviewReason = 'option_changed';
       else if (typeof entry.recheckAt === 'string' && Date.parse(entry.recheckAt) <= Date.parse(this.repo.clock.now())) reviewReason = 'recheck_due';
@@ -120,7 +121,11 @@ export class CollaborationService {
       };
       return [{ ...pointer, source: { ...source, quote }, reportedText: quote, validWhen: condition(entry.validWhen), stopWhen: condition(entry.stopWhen),
         recheckAt: entry.recheckAt ?? null, reviewTimeOrigin: 'assistant_proposed_recheck', observation: 'user_report', currentOptionRevision: option.revision, currentOptionStatus: option.status, reviewReason,
-        meaning: '这份材料保留用户当时逐字说过的报告、理由、条件和时间，说明当时怎样看待同一个方案。它仍属于本人报告，外部结果是否核实、今天是否仍这样想，各有待相应事实支持；没有新材料也尚未说明原理由已经失效。原方案版本与reviewReason能帮助理解这次还缺什么，你可以结合当前原话判断怎样继续。读回这段经历本身没有采用方案或修改日程。' }];
+        meaning: reviewReason === 'option_changed'
+          ? '这是你当时说过的理由、条件和经过。方案后来变了，先看看变的是哪一处，再一起判断原来的理由还适不适合；日程和实际行动仍留在原处。'
+          : reviewReason === 'recheck_due'
+            ? '到了先前提议回看这件事的时候。当时的理由、条件和经过都在这里，可以结合眼前的新情况再商量；实际结果仍看原记录。'
+            : '这是你当时说过的理由、条件和经过，按当时的处境留下。今天是否有了变化，继续听眼前的话、看实际记录；还没有新消息时，原来的理由也值得认真看。' }];
     });
   }
 
@@ -135,11 +140,11 @@ export class CollaborationService {
       const experiences = this.experiences(scope, record);
       return { ...record, data: { ...record.data,
         historicalInterpretations: Array.isArray(record.data.tentativeUnderstanding) ? record.data.tentativeUnderstanding : [], tentativeUnderstanding: [],
-        interpretationUse: '这些解释来自当时的商量，记录的是当时如何理解这件事；今天的状态与意愿仍由当前原话和可读依据说明。basisUses列出与这件事关联的依据使用记录及当前适用判断，是否适合接着使用，可以按眼前情况判断。',
-        rejectionUse: 'rejectedOptions保留当时拒绝的原话、理由和适用条件，方便理解那个选择的来由。缺少稳定方案ID的旧记录尚未对应到某个现有选项；这些理由今天是否仍适用、是否超出当时的条件，还需要当前材料支持，也没有因此成为永久偏好。',
+        interpretationUse: '这些是当时一起商量出的理解，所借的依据也一同带回了。今天是什么处境、想怎样做，继续接眼前这句话。',
+        rejectionUse: '这里留着当时为什么不选、在什么条件下不选的原话。有些旧记录还没找到对应的现有方案，可以先留白；今天条件变了，想法也可以重新商量。',
         decisionExperiences: experiences,
         decisionExperienceCoverage: { returned: experiences.length,
-          meaning: '这里展开的是当前可读的原文与同一方案的经历。没有展开或只剩历史标记时，当时的理由仍可能存在，只是这次没有可用正文，旧副本也没有绕过来源范围补进来。该事项的经历最多保留64条，容量边界不会通过悄悄丢弃旧记录来腾出。' },
+          meaning: '这里展开了这次还能读到的同一方案经历。有的原话这次读不到，只留下了可辨认的位置；当时的留白就先留着。原来的记录逐条保留，存满时会说明哪一步还没添进去。' },
       } };
     });
     const relatedOptions = [...optionIds].flatMap(id => this.repo.work(scope, undefined, String(id)))
@@ -148,11 +153,15 @@ export class CollaborationService {
     const related = this.repo.relatedWorkPage(scope, parents, relation.relatedOffset || 0, limit);
     return { status: total ? 'fresh' : 'not_found', items: projected, basisUses, relatedOptions, relatedRecords: related.items, nextOffset,
       relatedCoverage: { parentIds: parents, totalMatches: related.total, nextOffset: related.nextOffset, complete: related.nextOffset === null,
-        meaning: '这些工作记录连在本次回读的事项下，返回各自当前可读的版本。relatedTo标明同一事项，relatedOffset与nextOffset衔接该关联范围的后页；其他事项和已失效来源没有混在这一页里。读到关联记录并没有新增日程或对外行动。' },
+        meaning: related.nextOffset === null
+          ? '这次能找到的相关记录已翻到这里，各自留着原来的来处。接着商量可以从这些前情起步，日程和对外行动仍保持原样。'
+          : '这些记录都连着眼前这件事，后面还有一页可以继续翻。先把前情读清，再接这次的想法；日程和对外行动仍保持原样。' },
       decisionState: { recordedDecisions: projected.flatMap(record => Array.isArray(record.data.decisions) ? record.data.decisions : []), acceptedOptionIds: relatedOptions.filter(option => option.status === 'accepted').map(option => option.id),
         selectedOptionIds: projected.flatMap(record => typeof record.data.selectedOptionId === 'string' ? [record.data.selectedOptionId] : []),
-        meaning: '这里带回已有决定及其原稳定选项。找回一件事、指向某种办法或继续比较，说明此刻在谈哪里；是否接受仍有赖本轮明确原话，旧决定也不自动替今天定案。你可以保有自己的判断和倾向，结合当前意愿继续商量；角色的建议与本人已经作出的选择，各有自己的含义和来源。' },
-      coverage: { complete: nextOffset === null, totalMatches: total, returned: items.length, meaning: 'This page contains matching work records within the current permitted scope. A nextOffset points to the remaining matches in that same range; the page does not establish that the full conversation history has been read.' } };
+        meaning: '这里留着过去的决定和当时所指的方案。找回来或继续比较，先说明现在在谈哪一件；今天选不选，继续听本人这次的意思。你可以带着自己的判断一起商量，也让建议和本人已经作出的决定各留在原来的位置。' },
+      coverage: { complete: nextOffset === null, totalMatches: total, returned: items.length,
+        meaning: nextOffset === null ? '这次找到的记录已翻到这一页。相关原话若还需要更完整的前后文，可以沿各自来处继续读。'
+          : '这里先带回一页找到的记录，后面还有同一范围的内容可以接着翻。各段原话也留着自己的来处。' } };
   }
 
   requests(scope: ScopeHandle, sessionId: string, openOnly = false) {
@@ -173,7 +182,7 @@ export class CollaborationService {
     for (const record of [frame, option]) if (Object.hasOwn(record.data, 'sourceIds')) {
       const sources = record.data.sourceIds;
       if (!Array.isArray(sources) || sources.some(source => typeof source !== 'string' || !permitted.has(source)))
-        throw new HarnessError('source_forbidden', '这份事项或方案依赖的来源不在当前许可内。');
+        throw new HarnessError('source_forbidden', '这份事项或方案用过的资料，这次还不能打开。');
     }
     return this.repo.write(() => {
       this.repo.invalidate(frame.id, 'selection_changed');
@@ -247,10 +256,12 @@ export class CollaborationService {
       const selectedOptionId = args.selectedOptionId;
       const option = args.selectedOptionId === null ? undefined : this.repo.work(scope, undefined, args.selectedOptionId)[0];
       if (args.selectedOptionId !== null && (!option || !(old.data.optionIds as string[] || []).includes(option.id) || !['option', 'plan'].includes(option.kind) || ['rejected', 'blocked', 'stale', 'cancelled'].includes(option.status))) throw new HarnessError('choice_missing', '这个方案已改变或不属于当前事项。');
+      if (option && args.expectedOptionRevision !== undefined && option.revision !== args.expectedOptionRevision)
+        throw new HarnessError('version_conflict', '这个方案刚刚变过，先看看现在的内容，再决定怎样继续。');
       return this.repo.write(() => {
         this.repo.invalidate(old.id, 'selection_changed');
         return this.work.update(scope, old.id, old.revision, { status: 'active', evidenceIds: [...new Set([...old.evidenceIds, evidence.id])], data: { ...old.data,
-          selectedOptionId, selection: { optionId: selectedOptionId, sourceEventId: evidence.id, selectedAt: this.repo.clock.now(), actualBusinessEffects: false },
+          selectedOptionId, selection: { optionId: selectedOptionId, optionRevision: option?.revision ?? null, sourceEventId: evidence.id, selectedAt: this.repo.clock.now(), actualBusinessEffects: false },
         } });
       });
     }
@@ -337,7 +348,7 @@ export class CollaborationService {
       const action = this.actions.get(scope, args.actionId);
       const receipts = this.actions.receipts(scope, args.actionId);
       if (!action || action.status !== 'succeeded' || !receipts.some(receipt => receipt.status === 'confirmed_success'))
-        throw new HarnessError('receipt_required', '没有已核实的完成回执。');
+        throw new HarnessError('receipt_required', '还没找到这项操作确实办成的记录。');
       // Receipt existence is necessary; exact request/parameter correspondence
       // is still checked against the final answer before closing the request.
       return this.work.update(scope, old.id, old.revision, { evidenceIds: requestEvidence, data: { ...revisedRequest, state: 'in_progress', proposedResultRefs: [args.actionId] } });
@@ -347,7 +358,12 @@ export class CollaborationService {
   }
 
   /** Called only by the host's final review, never an acting-model tool. */
-  finalize(scope: ScopeHandle, record: WorkRecord, state: 'answered' | 'succeeded', responseId: string, actionIds: string[] = [], resolution: { kind?: 'answer' | 'action' | 'artifact'; basisQuote?: string; artifactIds?: string[]; artifacts?: import('../../shared/types').ReleaseArtifact[] } = {}) {
+  finalize(scope: ScopeHandle, record: WorkRecord, state: 'answered' | 'succeeded', responseId: string, actionIds: string[] = [], resolution: {
+    kind?: 'answer' | 'action' | 'artifact'; basisQuote?: string; artifactIds?: string[];
+    artifacts?: import('../../shared/types').ReleaseArtifact[];
+    ownedArtifacts?: OwnedArtifactReference[];
+    ownedArtifactProofs?: OwnedArtifactProof[];
+  } = {}) {
     let kind = String(record.data.requestKind), data = record.data;
     if (resolution.kind && resolution.kind !== kind) {
       const saved = record.data.source as { eventId?: unknown } | undefined;
@@ -365,10 +381,33 @@ export class CollaborationService {
     }
     if (kind === 'action' && state === 'answered') return this.work.update(scope, record.id, record.revision, { status: 'unfulfilled', data: { ...data, state: 'unfulfilled', reason: '本次已说明情况，尚未核实操作完成。', resultRefs: [responseId] } });
     if (kind === 'action' && (state !== 'succeeded' || !actionIds.length || actionIds.some(id => !this.actions.receipts(scope, id).some(receipt => receipt.status === 'confirmed_success'))))
-      throw new HarnessError('receipt_required', '动作请求没有核实的回执，不能标为办成。');
+      throw new HarnessError('receipt_required', '这项操作还缺确实办成的记录，先留在尚未完成的地方。');
     const artifacts = (resolution.artifactIds || []).map(id => resolution.artifacts?.find(artifact => artifact.id === id && artifact.privacyEpoch === this.repo.epoch && record.evidenceIds.includes(artifact.sourceMessageId)));
-    if (kind === 'artifact' && (!artifacts.length || artifacts.some(artifact => !artifact))) throw new HarnessError('artifact_required', '成稿请求没有实际可交付的稿件。');
+    const ownedArtifacts = [...new Map((resolution.ownedArtifacts || []).map(reference =>
+      [canonical(reference), reference])).values()].map(reference => {
+      const proof = resolution.ownedArtifactProofs?.find(value => value.reference.owner === reference.owner
+        && value.reference.id === reference.id && value.reference.revision === reference.revision);
+      if (!proof) throw new HarnessError('artifact_required', '这份成果还没回到原来的保存位置核对，先找回实际留下的那一版。');
+      proof.assertCurrent();
+      const saved = data.source as { eventId?: unknown } | undefined;
+      const event = typeof saved?.eventId === 'string' ? this.repo.evidence(scope, saved.eventId) : undefined;
+      const request = event && resolveRetainedSourceQuote(event, saved);
+      const source = proof.reference.requestSource;
+      // An old paper from another request cannot satisfy a new save merely
+      // because its title or subject looks similar. The owner must retain the
+      // actual save's user source, covering this request's exact source span.
+      if (!request || source.eventId !== request.eventId || source.contentVersion !== request.contentVersion
+        || source.start > request.start || source.end < request.end
+        || !proof.reference.sourceBinding.refs.some(ref => canonical(ref) === canonical(source)))
+        throw new HarnessError('artifact_request_source', '这份成果还没对到这次想保存的那段原话，先沿本次请求核对。');
+      return { owner: reference.owner, id: reference.id, revision: reference.revision };
+    });
+    if (kind === 'artifact' && (artifacts.some(artifact => !artifact) || !artifacts.length && !ownedArtifacts.length))
+      throw new HarnessError('artifact_required', '成稿请求还没有对到实际保存并交付的那份内容。');
     const finalState = kind === 'action' ? state : 'answered';
-    return this.work.update(scope, record.id, record.revision, { status: finalState, data: { ...data, state: finalState, resultRefs: [responseId, ...actionIds, ...artifacts.filter(Boolean).map(artifact => `artifact:${artifact!.id}@${artifact!.revision}`)] } });
+    return this.work.update(scope, record.id, record.revision, { status: finalState, data: { ...data, state: finalState,
+      ...(ownedArtifacts.length ? { ownedArtifactRefs: ownedArtifacts } : {}),
+      resultRefs: [responseId, ...actionIds, ...artifacts.filter(Boolean).map(artifact => `artifact:${artifact!.id}@${artifact!.revision}`),
+        ...ownedArtifacts.map(reference => `owned:${reference.owner}:${reference.id}@${reference.revision}`)] } });
   }
 }

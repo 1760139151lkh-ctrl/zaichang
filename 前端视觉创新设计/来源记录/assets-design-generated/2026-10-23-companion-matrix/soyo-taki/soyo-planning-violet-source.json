@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "planning",
+  "palette": "violet",
+  "light": "dusk",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-44f4af31-f56b-4565-a53d-3703d8f6d760",
+  "prompt": "soyo-planning-violet-prompt.txt",
+  "promptSha256": "44a1d85fa0fe8d69c7fb5eb0656d7fb5fa50356c847ca37a96901093e87fe11b",
+  "inputs": [
+    {
+      "file": "soyo-planning-apricot-mother-candidate-v2.png",
+      "sha256": "e002a836c881d736966bce3a254de9ef5e4a0417efc5b260eaeaea64d85904d6",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-44f4af31-f56b-4565-a53d-3703d8f6d760.png",
+  "output": {
+    "file": "soyo-planning-violet-mother-candidate-v1.png",
+    "sha256": "5a8adfc2c4fecc6ee82951df6ca994186c23f533e3c32764fde375fcec0faaad",
+    "bytes": 2172001,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed against the exact approved warm-v2 planning mother and empty target plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Original far-left pulled-out desk chair, supported hips, paper-pointing fingertip, other knee hand and two floor loafers retained. Desk/lamp stay fixed; no bench substitution or independent person shrinking. Full-room light coherent, violet sun/lake axisnear1007/1003, rain corner quiet. Actual fixed desk calibration must use this distinct left placement. Primary/layer/runtime review separate."
+}

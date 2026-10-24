@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordType": "image-generation-source",
+  "character": "umiri",
+  "activity": "study",
+  "theme": "rain",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-a5529cae-33de-46b1-8f9c-71937812f6a3",
+  "intent": "lighting-weather",
+  "prompt": "umiri-study-rain-prompt-v1.txt",
+  "promptFileMatchesActualToolInput": true,
+  "recordedAt": "2026-10-24T08:04:54.124Z",
+  "inputs": [
+    {
+      "file": "umiri-study-apricot-mother-candidate-v1.png",
+      "role": "primary-approved-correct-warm-mother-edit-target",
+      "sha256": "cb2b45dedddb45a558b4ed49ed28faadddd84aec01c4f10df25b0c9884d71847"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "role": "primary-approved-clean-theme-lighting-reference-only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "umiri-study-rain-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "509ed4f81eaf6d0cfaa8738b0fc22353046ec507240a3bdf921804ee29277c37",
+    "bytes": 2056417
+  },
+  "review": {
+    "designerViewed": "complete original Imagegen output",
+    "designerStatus": "candidate-for-primary-review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Desk study pose, coherent page-directed hands, hip-chair and two floor-boot contacts preserved; whole room is rainy night with a single fixed lamp.",
+  "promptSha256": "b64b11c7edd016eb3c9d7016d280de892f4759c21f1de18ecda63a210420f5cb"
+}

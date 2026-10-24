@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "planning",
+  "light": "mist",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-c7947062-e43d-4625-b533-cbc7feb21054",
+  "inputs": [
+    {
+      "file": "tomori-planning-apricot-v2-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "5347c9bd9992cc514203294e4b1cbea93e0dacbd012b97f8db8a2aaef98569de"
+    },
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "sourceIdentity": "Existing primary-approved correct complete warm mother relit against approved clean empty-room theme plate; no rejected mother, official artwork or isolated actor input.",
+  "prompt": "tomori-planning-mist-mother-candidate-v2-prompt.txt",
+  "promptSha256": "3411b1cb3898c7a6306c522df571346cfa8632bf8081e8e69aa06495bc5f3359",
+  "output": {
+    "file": "tomori-planning-mist-mother-candidate-v2.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2071713,
+    "sha256": "c7a104400a8e0b9c26c0c76b7f2a3137ab77cab5a57f6ba6b2cb363343b80ec0"
+  },
+  "review": {
+    "designerViewed": "complete original 1536x1024 output",
+    "designerStatus": "candidate_ready_for_primary_review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Replacement from the same approved warm mother plus clean mist plate; rejected v1 was not input. The displaced church is gone from the left gap and remains naturally behind the standing head/body at the original landmark. Full standing silhouette, notebook/pen hands, both weight-bearing complete shoes and all furniture retain their original positions. Diffuse morning atmosphere and local cloth/skin illumination are coherent."
+}

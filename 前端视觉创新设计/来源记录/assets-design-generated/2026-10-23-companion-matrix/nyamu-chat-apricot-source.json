@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-chat-apricot-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "chat",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "nyamu-chat-apricot-prompt.txt",
+  "identityText": "nyamu-identity.txt",
+  "identityBasis": "Official MyGO/Ave Mujica profiles and original images personally viewed as human references only; third-party pixels were NOT image inputs.",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "nyamu-chat-apricot-mother-candidate-v1.png",
+    "sha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-d53d5e82-c767-4f82-b0f9-055582e179e6.png"
+  },
+  "designerObservation": "Complete mother viewed. Purple bob/red-purple eyes, gray off-shoulder blouse/black skirt/choker/ankle-strap shoes are visible. Slight forward/open-shoulder bench posture, near hand grounded on cushion and other hand on thigh; complete feet contact floor. Figure is somewhat taller/larger than Mutsumi candidate and needs primary room-scale comparison. No recording device or fixed wink.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-study-mist-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "study",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-scene physical relighting of this exact primary-approved warm activity mother; no other character inputs",
+  "prompt": "nyamu-study-mist-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-study-apricot-mother-candidate-v1.png",
+      "role": "sole image edit target; primary-approved correct complete activity mother",
+      "sha256": "5a8e11981cd588f7274b848cf661b2eee415a6a63103cea342d8d660c9409579"
+    }
+  ],
+  "output": {
+    "file": "nyamu-study-mist-mother-candidate-v1.png",
+    "sha256": "3bb0b8f4504b059b3c2210751c86f682f6a19ece567b22f1f35f38111352f183",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-289e83bc-bf94-4976-84b9-16571adfd820.png"
+  },
+  "ownershipAndPose": "Keep the exact side/back forward study posture in the existing right desk chair: hips fully seated, forearms/pencil and paper have original real desktop support, eyes down to the same line. Preserve naturally occluded far hand/body/shoe portions; never invent visible anatomy behind furniture. Paper on desk stays a BACKGROUND object, held pencil belongs with character. Fixed desk posture, no new reach or pose.",
+  "designerObservation": "Full image personally viewed. Original side/back forward study posture, eye-to-paper relation, supported arms/pencil, seated hips, separate legs/complete shoes and natural far-side occlusion visually retained. Exact chair/desk footprint remains. Soft blue-white cloud/mist window light across person/wood/floor; old hard apricot leaf shadows removed. Natural skin, lavender-purple bob/red-purple eye, gray blouse and black skirt/shoes remain intrinsic colors.",
+  "observedGaps": [
+    "Primary mother review pending; no layers/calibration/Stage acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

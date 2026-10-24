@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "mother": "mutsumi-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "066435e9a63e68d8d026773f7154a8b50275e0c78f0451aa69c99082b7581606",
+  "matte": "mutsumi-study-apricot-mask-candidate-v2.png",
+  "matteSha256": "d2c0fdfe77c4f370057b8139d01bdad932e81e96670c710e0061b98391a14357",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "mutsumi-study-apricot-figure-calibrated-v4.png",
+  "mask": "mutsumi-study-apricot-mask-calibrated-v4.png",
+  "backgroundCandidate": "mutsumi-study-apricot-background-candidate-v1.png",
+  "background": "mutsumi-study-apricot-background-calibrated-v4.png",
+  "shadow": "mutsumi-study-apricot-shadow-calibrated-v4.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        937,
+        681
+      ],
+      [
+        1068,
+        681
+      ],
+      [
+        1082,
+        738
+      ],
+      [
+        932,
+        738
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        944,
+        688
+      ],
+      [
+        998,
+        687
+      ],
+      [
+        1004,
+        710
+      ],
+      [
+        942,
+        711
+      ]
+    ],
+    [
+      [
+        1000,
+        701
+      ],
+      [
+        1064,
+        699
+      ],
+      [
+        1071,
+        719
+      ],
+      [
+        1001,
+        724
+      ]
+    ],
+    [
+      [
+        893,
+        589
+      ],
+      [
+        999,
+        587
+      ],
+      [
+        1001,
+        611
+      ],
+      [
+        891,
+        612
+      ]
+    ],
+    [
+      [
+        973,
+        477
+      ],
+      [
+        1008,
+        474
+      ],
+      [
+        1012,
+        493
+      ],
+      [
+        975,
+        496
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [
+    [
+      [
+        955,
+        601
+      ],
+      [
+        969,
+        601
+      ],
+      [
+        979,
+        727
+      ],
+      [
+        965,
+        727
+      ]
+    ]
+  ],
+  "includePolygons": [],
+  "alphaPolygonRepairs": [],
+  "record": "mutsumi-study-apricot-layer-processing-v4.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "Preserve original fine raw hair alpha; v2 whole-head GrabCut rejected after actual dark/light inspection. Refinement restricted to lower body/clothing/shoes. Original chat left-knee grey-white small fold and both genuine skirt hem edges deliberately retained. Study chair-leg gaps are furniture occlusions, not missing anatomy. Original/figure/alpha 5x crops confirm near-sock warm fringe at x992..1011,y620..691 mixes background wood into alpha; local original-color exclusion removes only that edge. Genuine brown shoe heel from y692 downward is preserved.",
+  "localColorMatteRefinement": {
+    "region": [
+      833,
+      505,
+      1071,
+      731
+    ],
+    "seedThreshold": 110,
+    "uncertainBandPixels": 5,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.3
+  },
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          780,
+          499
+        ],
+        [
+          892,
+          499
+        ],
+        [
+          904,
+          613
+        ],
+        [
+          780,
+          613
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 15,
+      "redOverBlue": 35
+    },
+    {
+      "polygon": [
+        [
+          895,
+          591
+        ],
+        [
+          960,
+          591
+        ],
+        [
+          960,
+          614
+        ],
+        [
+          895,
+          614
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 18,
+      "redOverBlue": 45
+    },
+    {
+      "polygon": [
+        [
+          992,
+          620
+        ],
+        [
+          1011,
+          620
+        ],
+        [
+          1011,
+          691
+        ],
+        [
+          992,
+          691
+        ]
+      ],
+      "redMin": 45,
+      "redOverGreen": 12,
+      "redOverBlue": 12
+    }
+  ]
+}

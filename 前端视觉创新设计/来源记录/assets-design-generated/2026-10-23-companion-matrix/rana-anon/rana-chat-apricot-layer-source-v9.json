@@ -1,0 +1,60 @@
+{
+  "recordType": "original-mother-deterministic-layers",
+  "createdOn": "2026-10-24",
+  "character": "rana",
+  "activity": "chat",
+  "theme": "apricot",
+  "mother": {
+    "file": "rana-chat-apricot-mother-candidate-v1.png",
+    "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+    "primaryReviewRecord": "../primary-other-mother-reviews.json",
+    "prompt": "rana-chat-apricot-prompt.txt",
+    "promptSha256": "fe9287841dd3f2c83059a3914394c5489301f6d51842ae8370f5278c928ad59a"
+  },
+  "imageGenerationInputs": {
+    "backgroundSource": "rana-chat-apricot-background-source.json",
+    "backgroundPrompt": "rana-chat-apricot-background-prompt.txt",
+    "backgroundPromptSha256": "4dfcf2596c018c84e4192baa8be9aa042a609e5d12df4d2f1a11a4cf3716a4d0",
+    "generatedMaskSource": "rana-chat-apricot-mask-source.json",
+    "generatedMaskUsed": false
+  },
+  "production": {
+    "processor": "rana-chat-apricot-layer-production.py",
+    "processorSha256": "14d12aba090a145870b484ebf0905c3ded0da7d71b5a2bff6ada4efd230e48fd",
+    "sharedProcessor": "../extract-scene-layers.py",
+    "parameters": "rana-chat-apricot-layer-parameters-v9.json",
+    "record": "rana-chat-apricot-layer-production-v9.json",
+    "recordSha256": "02b27a4205171fcb52322f3945fae9cd5abf60ef43d0f6386c1df4493d226071",
+    "figureRgbEqualsMotherRgb": true
+  },
+  "outputs": [
+    {
+      "file": "rana-chat-apricot-figure-candidate-v9.png",
+      "bytes": 2436678,
+      "sha256": "714ea5f9107e1e799c790d921140ecfa87502f10cb33d808d89a3ab18bc0cc5a"
+    },
+    {
+      "file": "rana-chat-apricot-mask-candidate-v9.png",
+      "bytes": 15212,
+      "sha256": "feb39b3967c8fd8787db6c600bdd444fac2bda8bc63d4cba7b3facc0973a3be7"
+    },
+    {
+      "file": "rana-chat-apricot-background-candidate-v9.png",
+      "bytes": 2108457,
+      "sha256": "d478299aae1bd2953338cf13cee783bce48472e420ced60e2f9c48c05fa0b027"
+    },
+    {
+      "file": "rana-chat-apricot-shadow-candidate-v9.png",
+      "bytes": 36810,
+      "sha256": "752322c4b74f53e51c7e24cafa5be0ca03d23fc59cc6e39dff68e97ef524df54"
+    }
+  ],
+  "scene": "rana-chat-apricot-candidate-v9.scene.json",
+  "designerPersonallyViewed": true,
+  "designerObservation": "Original-coordinate alpha only. Viewed full approved mother, source hands/knee/shin/boot details, final light/dark composites and whole-room zero/-4/+4px source-over positions. Source shin highlight restored only in alpha. Complete hands, both boots, source face and clothing RGB retained. Furniture outside local reveal/contact patch retained; local seat indentation seam removed using this mother-generated empty-room candidate. This is static layer evidence, not actual runtime or primary acceptance.",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  }
+}

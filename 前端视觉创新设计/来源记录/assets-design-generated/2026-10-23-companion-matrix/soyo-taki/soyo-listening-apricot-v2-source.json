@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "listening",
+  "palette": "apricot",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-9acb6fc5-bd87-4212-9aec-8eb63e0b3780",
+  "prompt": "soyo-listening-apricot-v2-prompt.txt",
+  "promptSha256": "0cbd59d079a9102a8a9f32f864e8986b06c68b1fe3e08593af099af68b7cc3db",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-approved clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "soyo-listening-apricot-mother-candidate-v2.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2181513,
+    "sha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4"
+  },
+  "producerObservation": "Fresh clean-room generation, not an edit of rejected anatomy. Exactly two visible hands now: one over raised knees, one palm on cushion. Both independent socked feet supported on cushion, two removed loafers on floor; navy outfit/blue-eyed identity retained. Original desk cup omitted by generation; primary should judge scene continuity. Pending primary mother review.",
+  "review": {
+    "producerViewed": "complete original",
+    "producerDecision": "candidate",
+    "primary": "pending; no producer signature",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

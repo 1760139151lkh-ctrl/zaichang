@@ -1,12 +1,13 @@
 import { z } from 'zod';
 import type { Action } from '../../shared/types';
 import { HarnessError } from '../../shared/harness';
-import { calendarFieldsSchema, localCalendarChangeSchema } from '../../shared/calendar';
+import { calendarCommitment, calendarFieldsSchema, localCalendarChangeSchema } from '../../shared/calendar';
 import { availableIntervals } from './availability';
 import { expandAgenda, localStamp, normalizeCalendarInput, projectCalendarChange } from './calendar';
 import { resolveLocalTime } from '../runtime/semantics';
 import { planningDayBounds } from './planning-days';
 export { planningDraftInput, draftCalendarPlan, calendarPlanFingerprint, assertDraftCalendarCurrent } from './planning-draft';
+export { calendarCommitment } from '../../shared/calendar';
 
 const instant = z.string().datetime({ offset: true });
 const fields = z.object({
@@ -27,10 +28,6 @@ export const planningPreviewInput = z.object({
   }).strict().refine(value => !!value.save !== !!value.change, '每个选项只能新增一个安排或修改一个原对象。')).max(3).default([]),
 }).strict();
 
-export function calendarCommitment(item: Pick<Action, 'planning' | 'kind'>) {
-  const state = item.planning?.state || 'accepted';
-  return { state, flexibility: item.planning?.flexibility || 'fixed', occupiesTime: state === 'accepted' && (!item.kind || ['event', 'time_block'].includes(item.kind)) };
-}
 function intervalOf(item: Record<string, unknown>, timeZone: string) {
   const bounds = item.allDayDate ? planningDayBounds(String(item.allDayDate), String(item.timeZone || timeZone)) : undefined;
   const start = bounds?.from || (typeof item.startsAt === 'string' ? item.startsAt : undefined);
@@ -118,5 +115,5 @@ export function previewCalendarPlan(items: Action[], raw: unknown) {
     pending: expanded.items.filter(item => calendarCommitment(item as unknown as Action).state !== 'accepted'),
     acceptedMovable: expanded.items.filter(item => calendarCommitment(item as unknown as Action).state === 'accepted' && calendarCommitment(item as unknown as Action).flexibility === 'movable'),
     issues: expanded.issues, conditions: input.conditions, alternatives, applied: false,
-    meaning: '空档只来自已提供和本地登记的区间。邀请、愿望、方案未视为承诺；可移动块仍保留。每项提议只改同一目标并绑定其版本，经当前或既有授权与宿主校验才提交；地点、天气、资源和精力条件仍需按需核实。' };
+    meaning: '这里把带来的时间记录和本机安排放在一起比较，邀请和想法还留在待商量的一边，原来可挪动的安排也还在。每个改法都连着原来那件事和它此刻的版本；对方已经同意的可以继续保存，还在比较的先让他挑。保存前应用会再看原安排有没有变化。地点、天气、所需物品和他今天的精力，可以按这次选择继续了解。' };
 }

@@ -38,6 +38,14 @@ export function useConversationComposerDock(scope: {
   const [revision, changed] = useState(0);
   const [requestedKey, request] = useState<string>();
   const [dismissedKey, dismiss] = useState<string>();
+  const [dismissedReference, dismissReference] = useState<string>();
+  const referenceKey = (focus: StudyFocusRef) => `${scope.sessionId}/${scope.boundaryKey}/${focus.studyId}@${focus.studyRevision}`;
+  useLayoutEffect(() => {
+    if (!scope.referenceFocus) return;
+    // A newly read explicit reference can return to a previously put-aside
+    // paper. The same unchanged reference cannot undo a later user dismissal.
+    dismiss(undefined); dismissReference(undefined); request(undefined);
+  }, [scope.referenceFocus]);
   const register = useCallback((target: ComposerDockTarget) => {
     targets.current.set(target.key, target); changed(value => value + 1);
     return () => {
@@ -53,17 +61,27 @@ export function useConversationComposerDock(scope: {
   }, []);
   const activate = useCallback((key: string) => {
     onActivate.current?.();
-    dismiss(undefined); request(targets.current.get(key)?.identity);
+    dismiss(undefined); dismissReference(undefined); request(targets.current.get(key)?.identity);
     requestAnimationFrame(() => targets.current.get(key)?.element.querySelector<HTMLTextAreaElement>('textarea')?.focus({ preventScroll: true }));
   }, []);
   const target = useMemo(() => {
     if (!scope.enabled) return undefined;
     const eligible = [...targets.current.values()].filter(value => value.visible && value.element.isConnected
-      && value.sessionId === scope.sessionId && value.boundaryKey === scope.boundaryKey);
+      && value.sessionId === scope.sessionId && value.boundaryKey === scope.boundaryKey
+      && referenceKey(value.focus) !== dismissedReference);
+    const reference = scope.referenceFocus;
+    const referenced = reference && eligible.find(value => value.identity !== dismissedKey
+      && value.focus.studyId === reference.studyId && value.focus.studyRevision === reference.studyRevision
+      && value.focus.sceneId === reference.sceneId && value.focus.sceneRevision === reference.sceneRevision);
     return eligible.find(value => value.identity === requestedKey && value.identity !== dismissedKey)
-      || eligible.filter(value => value.messageId === scope.latestAssistantMessageId && value.identity !== dismissedKey).at(-1);
-  }, [scope.sessionId, scope.boundaryKey, scope.enabled, scope.latestAssistantMessageId, requestedKey, dismissedKey, revision]);
-  const returnToChat = useCallback(() => { if (target) dismiss(target.identity); request(undefined); }, [target]);
+      || referenced || (reference ? undefined : eligible.filter(value => value.messageId === scope.latestAssistantMessageId && value.identity !== dismissedKey).at(-1));
+  }, [scope.sessionId, scope.boundaryKey, scope.enabled, scope.latestAssistantMessageId, scope.referenceFocus, requestedKey, dismissedKey, dismissedReference, revision]);
+  const returnToChat = useCallback((focus?: StudyFocusRef) => {
+    if (target) dismiss(target.identity);
+    const reference = focus || target?.focus || scope.referenceFocus;
+    if (reference) dismissReference(referenceKey(reference));
+    request(undefined);
+  }, [target, scope.sessionId, scope.boundaryKey, scope.referenceFocus]);
   const refreshStudy = useCallback(async (studyId: string) => {
     const current = [...targets.current.values()].find(value => value.focus.studyId === studyId
       && value.sessionId === scope.sessionId && value.boundaryKey === scope.boundaryKey);

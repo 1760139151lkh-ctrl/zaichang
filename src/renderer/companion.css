@@ -15,23 +15,28 @@
 .companion-avatar.is-light { background: var(--accent-soft); }
 .companion-scene { position: absolute; inset: 0; overflow: hidden; pointer-events: none; isolation: isolate; }
 .scene-stage-viewport { position:absolute; inset:0; overflow:hidden; background:var(--bg); }
-.companion-scene:not(.is-preview):not(.is-quiet) .scene-canvas::after { position:absolute; z-index:3; top:0; bottom:0; left:0; width:240px; content:''; pointer-events:none; background:linear-gradient(90deg,var(--bg),transparent); }
+.companion-scene.is-quiet:not(.is-preview) .scene-canvas::after { position:absolute; z-index:3; top:0; bottom:0; left:0; width:240px; content:''; pointer-events:none; background:linear-gradient(90deg,var(--bg),transparent); }
 .scene-canvas { position:absolute; left:0; top:0; transform-origin:0 0; pointer-events:none; }
 .scene-layer { position:absolute; inset:0; display:block; width:100%; height:100%; max-width:none; pointer-events:none; user-select:none; }
-.scene-actor-layer { position:absolute; inset:0; transition:transform 440ms var(--ease); will-change:transform; }
-.scene-stage-viewport.is-moving .scene-actor-layer { transition:none; }
+.scene-actor-layer { position:absolute; inset:0; will-change:transform; }
 .scene-character-grab { position:absolute; cursor:grab; touch-action:none; user-select:none; pointer-events:auto; outline:0; border-radius:24px; -webkit-app-region:no-drag; }
 .scene-stage-viewport.is-moving .scene-character-grab { cursor:grabbing; }
 .scene-focus-ring { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; opacity:0; }
 .scene-focus-ring polygon { fill:none; stroke:var(--focus); stroke-width:3; stroke-linejoin:round; stroke-dasharray:6 5; }
-.scene-character-grab:focus-visible + .scene-focus-ring { opacity:1; }
+.scene-character-grab:focus-visible ~ .scene-focus-ring { opacity:1; }
 .scene-position-problem { position:absolute; right:16px; bottom:16px; max-width:260px; margin:0; padding:12px 16px; border-radius:14px; background:var(--surface-raised); color:var(--text-secondary); font-size:12px; line-height:1.7; }
 .scene-foreground { z-index:2; }
 .scene-content-wash { position:absolute; inset:0; background:linear-gradient(90deg,var(--bg) 0%,color-mix(in srgb,var(--bg) 97%,transparent) 37%,color-mix(in srgb,var(--bg) 82%,transparent) 48%,transparent 65%); pointer-events:none; }
 .companion-preview .scene-content-wash,.rest-space .scene-content-wash { background:linear-gradient(90deg,color-mix(in srgb,var(--bg) 85%,transparent),transparent 50%); }
 .companion-preview .scene-content-wash { display:none; }
-.companion-scene.is-quiet.has-scene-art .scene-stage-viewport { inset:84px 22px auto auto; width:174px; height:116px; border-radius:15px; box-shadow:0 5px 24px #49331b0b; }
+.companion-scene.is-quiet.has-scene-art .scene-stage-viewport { background:transparent; }
 .companion-scene.is-quiet.has-scene-art .scene-content-wash { display:none; }
+.companion-scene.is-quiet.has-scene-art:not(.is-preview) .scene-content-wash {
+  display:block;
+  /* Match the reading column's 44px inset and 800px limit. The full room
+     stays beside the paper while its bright plate cannot wash out the text. */
+  background:linear-gradient(90deg,var(--bg) 0,var(--bg) min(844px,calc(100% - 286px)),transparent min(904px,calc(100% - 226px)));
+}
 .companion-preview .companion-scene.is-quiet.has-scene-art .scene-stage-viewport { inset:0; width:auto; height:auto; border-radius:0; box-shadow:none; }
 /* Empty layout surfaces pass through to the scene; text, controls and
    their scroll descendants keep first claim on input. */
@@ -49,7 +54,13 @@
 .companion-moment-choices button { flex:1; min-height:32px; padding:5px 3px; border-radius:9px; color:var(--text-secondary); font-size:11px; white-space:nowrap; }
 .companion-moment-choices button[aria-pressed='true'] { color:var(--accent); background:var(--accent-soft); }
 @media(max-width:1199px) {
-  .companion-scene.is-quiet.has-scene-art:not(.is-preview) .scene-stage-viewport { display:none; }
+  .companion-scene.is-quiet.has-scene-art:not(.is-preview) .scene-stage-viewport { opacity:.12; }
+  .companion-scene.is-quiet.has-scene-art:not(.is-preview) .scene-actor-layer { visibility:hidden; }
+}
+@media(min-width:1200px) {
+  .app-main:has(> .companion-scene.is-quiet.has-scene-art) > .conversation-space:not(.with-materials) .conversation-heading,
+  .app-main:has(> .companion-scene.is-quiet.has-scene-art) > .conversation-space:not(.with-materials) .messages,
+  .app-main:has(> .companion-scene.is-quiet.has-scene-art) > .conversation-space:not(.with-materials) .bottom-composer { width:min(800px,calc(100% - 330px)); margin-left:44px; margin-right:auto; }
 }
 @media(max-width:900px) and (min-height:700px) {
   .app-shell.has-window:has(.workspace.welcome) > .app-main > .companion-scene.has-scene-art .scene-stage-viewport { bottom:39%; }

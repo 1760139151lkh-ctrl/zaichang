@@ -25,6 +25,7 @@ export interface InputControls {
   mapRouteReference?: import('../../shared/map-context').MapRouteReference;
   agendaFocus?: import('../../shared/agenda').AgendaFocus;
   materialQuote?: import('../../shared/materials').MaterialQuoteReference;
+  conversationQuote?: import('../../shared/source-bookmark').ConversationBookmarkReference;
   noteQuote?: import('../../shared/notes').NoteQuoteReference;
   rehearsalInteraction?: import('../../shared/relationship-rehearsal').RehearsalInteraction;
   selection?: import('../../shared/scenes').SemanticSelection;
@@ -83,12 +84,10 @@ export interface IngressDecision {
   requestFragments: RequestFragment[];
   localOnly: boolean;
 }
-export function splitUserInput(text: string, eventId: string, supplied?: InputControls['attachment']) {
-  if (supplied) return { authoredText: text, attachment: supplied };
-  const marker = text.match(/\n\n\[用户附上的文字资料：([^\]]+)\]\n/);
-  return marker?.index === undefined ? { authoredText: text, attachment: undefined } : {
-    authoredText: text.slice(0, marker.index), attachment: { id: eventId + ':file', name: marker[1], text: text.slice(marker.index + marker[0].length) },
-  };
+export function splitUserInput(text: string, _eventId: string, supplied?: InputControls['attachment']) {
+  // Source identity comes from the structured host input, never a phrase the
+  // person could also have typed while quoting or discussing that format.
+  return { authoredText: text, attachment: supplied };
 }
 const baseSources = [
   'current',
@@ -317,13 +316,14 @@ export class PolicyKernel {
     controls: InputControls = {},
     hostExecution?: HostIngressExecution,
   ): IngressDecision {
-    // Existing renderer embeds text attachments. The typed field takes precedence; the legacy boundary is conservative.
+    // Authored words and host-supplied attachments arrive with separate identities.
     const { attachment, authoredText } = splitUserInput(text, eventId, controls.attachment);
     const control = controls.semantic;
     if (controls.enhancements && process.env.ZAICHANG_TEST !== '1') throw new HarnessError('test_only', '消融开关只用于隔离评估。');
     const timeZone = controls.timeZone || settings.timeZone || 'Asia/Shanghai';
     try { new Intl.DateTimeFormat('en', { timeZone }); } catch { throw new HarnessError('time_zone', '时区设置不正确，请选择有效时区。'); }
-    const localOnly = controls.transmission === 'local_only' || localCloudRestriction(authoredText) || (!!attachment && hasCredentials(attachment.text));
+    const localOnly = controls.transmission === 'local_only' || localCloudRestriction(authoredText)
+      || (!!attachment && Object.values(attachment).some(value => typeof value === 'string' && hasCredentials(value)));
     const temporary = localOnly || control?.uncertainControls.some(c => c.dimension === 'retention') || controls.retention === 'session_only' || controls.memoryMode === 'session_only' || control?.retention === 'session_only' || (!control && isEphemeral(authoredText));
     const retention = temporary ? 'session_only'
       : controls.retention === 'history_no_inference' || control?.retention === 'history_no_inference' ? 'history_no_inference'

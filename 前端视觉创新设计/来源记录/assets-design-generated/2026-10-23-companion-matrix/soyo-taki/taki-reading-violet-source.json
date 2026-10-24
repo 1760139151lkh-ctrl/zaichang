@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "reading",
+  "palette": "violet",
+  "light": "dusk",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-5838f85c-824a-4f12-8c04-1c0b6131b3e4",
+  "prompt": "taki-reading-violet-prompt.txt",
+  "promptSha256": "0a8c8cc82e896974c372bd3012ad987aceeab61ac05bdb4c40e070e7e2afe99d",
+  "inputs": [
+    {
+      "file": "taki-reading-apricot-mother-candidate-v2.png",
+      "sha256": "950b6f05f48f6b0ca0335bdffb0468379b95e95576e1afd8da487be488f5314b",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-5838f85c-824a-4f12-8c04-1c0b6131b3e4.png",
+  "output": {
+    "file": "taki-reading-violet-mother-candidate-v1.png",
+    "sha256": "073ec0bc896d5cc23a5aaf22793d2d0f5b16ba97046bfa8e7a1c2a0def8f3212",
+    "bytes": 2213772,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the approved warm mother and empty violet plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Original supported reading silhouette, youthful identity, hands/book, exact seat relationship and two complete shoes retained. Sun disk remains near x1007/y302 and matching lake column; coherent dusk light reaches body and whole room. Primary mother/layer/runtime approval remains separate."
+}

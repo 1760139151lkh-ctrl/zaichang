@@ -106,8 +106,13 @@ export interface MessageHostStatus {
   text: string;
 }
 export interface Message {
+  /** Host-checked projection of the retained authored event into this plain
+   * message body. Attachment labels are outside this range. Address only. */
+  authoredSource?: { eventId: string; contentVersion: number; sha256: string; displayStart: 0; displayEnd: number };
   /** Ephemeral transport/owner activity, never source content or a saved view. */
   presentationActivity?: { callId: string; kind: 'view'; phase: 'generating' | 'checking'; anchor: number };
+  /** Foreground main-assistant room activity; never personality or user facts. */
+  companionActivity?: import('./companion-activity').CompanionActivityHint;
   helpRefs?: { id: string; revision: number; helpRecordId: string; kind?: 'reflective_letter' }[];
   /** Host-signed identity when this message's whole body is the prepared artifact. */
   primaryHelpRef?: { id: string; revision: number; helpRecordId: string };
@@ -296,12 +301,42 @@ export interface RuntimeOverview {
   };
   storage: { atRestEncrypted: boolean; keyProtection: string };
 }
+export interface WorkoutDeviceSelection {
+  source: 'windows' | 'adb' | 'hdc' | 'ios-simulator';
+  deviceId?: string;
+}
+export interface WorkoutDeviceChoice {
+  source: WorkoutDeviceSelection['source'];
+  deviceId: string;
+  deviceLabel: string;
+  status: 'connected' | 'unavailable' | 'unauthorized' | 'offline';
+  provenance: 'device' | 'simulated' | 'unknown';
+  reason?: string;
+}
 export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge, AgendaBridge {
+  tiyiStatus(input?: { refreshGateway?: boolean }): Promise<import('./tiyi').TiyiConnectorState>;
+  tiyiConnect(input?: { via?: 'direct' | 'webvpn'; accountLogin?: boolean }): Promise<import('./tiyi').TiyiConnectorState & { check: {
+    status: import('./tiyi').TiyiObservation['status']; observedAt: string; reason?: string } }>;
+  tiyiDisconnect(): Promise<import('./tiyi').TiyiConnectorState>;
+  workoutDevices(): Promise<WorkoutDeviceChoice[]>;
+  workoutState(): Promise<import('./workout').WorkoutState>;
+  workoutStart(input: import('./workout').WorkoutStartRequest & { device: WorkoutDeviceSelection }): Promise<import('./workout').WorkoutState>;
+  workoutPause(input: import('./workout').WorkoutSessionReference): Promise<import('./workout').WorkoutState>;
+  workoutResume(input: import('./workout').WorkoutSessionReference & { device?: WorkoutDeviceSelection }): Promise<import('./workout').WorkoutState>;
+  workoutFinish(input: import('./workout').WorkoutSessionReference): Promise<import('./workout').WorkoutState>;
+  workoutCancel(input: import('./workout').WorkoutSessionReference & { device?: WorkoutDeviceSelection }): Promise<import('./workout').WorkoutState>;
+  workoutRestore(): Promise<import('./workout').WorkoutState>;
+  workoutDiscardRecovery(): Promise<import('./workout').WorkoutState>;
+  onWorkout(callback: (state: import('./workout').WorkoutState) => void): () => void;
   readProgramLocalState(input: import('./interactive-program').ProgramLocalStateAddress): Promise<import('./interactive-program').ProgramLocalStateReceipt>;
   saveProgramLocalState(input: import('./interactive-program').ProgramLocalStateSave): Promise<import('./interactive-program').ProgramLocalStateReceipt>;
   rehearsalProject(input: import('./relationship-rehearsal').RehearsalNativeInput): Promise<import('./relationship-rehearsal').RehearsalScene>;
   studyProject(input: import('./study-presentation').StudyNativeInput): Promise<import('./study-presentation').StudyScene>;
   studyRead(input: import('./study-presentation').StudyNativeInput): Promise<import('./study-presentation').StudyScene>;
+  studyBookmarkPreview(input: import('./study-presentation').StudyBookmarkInput): Promise<import('./study-presentation').StudyBookmarkPreview>;
+  studyBookmarkAccept(input: import('./study-presentation').StudyBookmarkInput): Promise<import('./study-presentation').StudyScene>;
+  sourceBookmarkPreview(input: import('./source-bookmark').SourceBookmarkReference): Promise<import('./source-bookmark').SourceBookmarkPreview>;
+  sourceBookmarkKeep(input: import('./source-bookmark').SourceBookmarkKeepInput): Promise<import('./notes').NoteMutation>;
   letterSource(input: import('./reflective-letter').ReflectiveLetterSourceInput): Promise<import('./reflective-letter').ReflectiveLetterSourceView>;
   letterProject(input: import('./reflective-letter').ReflectiveLetterProjectInput): Promise<import('./presentation').PreparationView>;
   noteProject(input: import('./note-presentation').NoteNativeInput): Promise<import('./note-presentation').NoteScene>;
@@ -331,9 +366,11 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge,
   send(input: {
     sessionId?: string;
     content: string;
+    attachment?: { name: string; text: string };
     image?: ImageAttachment;
     material?: import('./materials').MaterialReference;
     materialQuote?: import('./materials').MaterialQuoteReference;
+    conversationQuote?: import('./source-bookmark').ConversationBookmarkReference;
     noteQuote?: import('./notes').NoteQuoteReference;
     notebookQuote?: import('./notes').NotebookQuoteReference;
     mapRouteReference?: import('./map-context').MapRouteReference;
@@ -395,7 +432,7 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge,
     receipts: import('./harness').EffectReceipt[];
   }>;
   permission(input: {
-    scope: 'campus:read' | 'map:read' | 'location:read';
+    scope: 'campus:read' | 'campus:tiyi:read' | 'map:read' | 'location:read';
     enabled: boolean;
   }): Promise<RuntimeOverview>;
   deleteConversation(id: string): Promise<State>;

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-chat-rain-room4",
+  "character": "sakiko",
+  "activity": "chat",
+  "light": "night",
+  "palette": "rain",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-chat-rain-mother-candidate-v1.png",
+  "background": "sakiko-chat-rain-background-calibrated-v3.png",
+  "figure": "sakiko-chat-rain-figure-calibrated-v3.png",
+  "mask": "sakiko-chat-rain-mask-calibrated-v3.png",
+  "shadow": "sakiko-chat-rain-shadow-calibrated-v3.png",
+  "seat": [
+    0.85546875,
+    0.572265625
+  ],
+  "ground": [
+    0.775390625,
+    0.7822265625
+  ],
+  "bodyBounds": [
+    0.7252604166666666,
+    0.251953125,
+    0.931640625,
+    0.787109375
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "83% 25%, 87% 28%, 89% 35%, 92% 46%, 91% 52%, 94% 58%, 90% 59%, 88% 61%, 83% 60%, 82% 68%, 83% 79%, 78% 79%, 77% 75%, 76% 78%, 73% 78%, 73% 75%, 77% 65%, 78% 58%, 75% 56%, 77% 52%, 79% 49%, 78% 45%, 79% 36%, 80% 29%",
+  "travel": 0.008,
+  "slope": 0.04,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Same-mother original RGB and identity transform. Matching clean background, soft technical matte and thin source contact residual. Short support-tangent movement only; static endpoints inspected separately from runtime.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json"
+  },
+  "production": "sakiko-chat-rain-layer-processing-v3.json"
+}

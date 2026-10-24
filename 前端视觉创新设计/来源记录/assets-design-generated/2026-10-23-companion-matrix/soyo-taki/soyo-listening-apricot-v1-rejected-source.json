@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "listening",
+  "palette": "apricot",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-7a3aa333-13f9-40b7-9345-ea09744859df",
+  "prompt": "soyo-listening-apricot-prompt.txt",
+  "promptSha256": "82c7d101d6a16b83b600d9070973530888dc9ec0627a711f8d39201454d7dd60",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-approved clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "soyo-listening-apricot-mother-rejected-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2152472,
+    "sha256": "d8f6c1630b4912279c4bd96c4bb3acf2a14bc834524ddcdd32d3db3bf4fc3a64"
+  },
+  "producerObservation": "REJECTED after enlarged original detail: three hands, one at face plus two on knees, imply an extra arm. No mask repair, pixel correction or subsequent character-reference reuse allowed. Repaint from clean room only.",
+  "review": {
+    "producerViewed": "complete original plus detail where necessary",
+    "producerDecision": "rejected",
+    "primary": "not submitted for approval; excluded from coverage",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

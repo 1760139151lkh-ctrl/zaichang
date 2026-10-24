@@ -1,0 +1,155 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "tomori-chat-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "acd958962a3fbec03faf3be03b5bbe2286df8198fde14ad5a59573780f21b19c",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": "4.13.0"
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "tomori-chat-apricot-mother.png",
+  "motherSha256": "7e2d61d5874ede02beba0808b329b18922dfe6b3f20f2d923a9c2ea4c22978d9",
+  "matte": "tomori-chat-matte-registered-v1.png",
+  "matteSha256": "67ceb78bb3e2459d3ca21b9bb048edd9ba67760bbb45990c42cbebd12320d85b",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1140,
+      250,
+      1455,
+      805
+    ],
+    "seedThreshold": 80,
+    "uncertainBandPixels": 8,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.4
+  },
+  "alphaChangedPixels": 61425,
+  "alphaNonzeroPixels": 55844,
+  "alphaBounds": [
+    1156,
+    271,
+    1443,
+    784
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "8c50363240f07a3056f8ed6cc979aa9eb7d0db5d3a3458eb57e16c6301c753d4",
+  "figureRgbSha256": "8c50363240f07a3056f8ed6cc979aa9eb7d0db5d3a3458eb57e16c6301c753d4",
+  "background": {
+    "candidate": "tomori-chat-background-generated-v1.png",
+    "candidateSha256": "f27d812a003fcd66e19c425bbf6afa28ec391b1d9208fb5fd094184fdd24086a",
+    "expandPixels": 10,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          1147,
+          725
+        ],
+        [
+          1275,
+          725
+        ],
+        [
+          1275,
+          798
+        ],
+        [
+          1147,
+          798
+        ]
+      ],
+      [
+        [
+          1180,
+          563
+        ],
+        [
+          1445,
+          563
+        ],
+        [
+          1445,
+          604
+        ],
+        [
+          1180,
+          604
+        ]
+      ]
+    ],
+    "changedPixels": 89149,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1155,
+          753
+        ],
+        [
+          1188,
+          746
+        ],
+        [
+          1262,
+          754
+        ],
+        [
+          1270,
+          786
+        ],
+        [
+          1162,
+          789
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "tomori-chat-figure-calibrated-v1.png",
+      "bytes": 2406691,
+      "sha256": "34ee5cfc9491ec01476192354a5fedfdbc52b2442290e977ac6084767b1af3ba"
+    },
+    {
+      "file": "tomori-chat-mask-calibrated-v1.png",
+      "bytes": 14452,
+      "sha256": "a9f462ea1d58e1a294b826877f3240b54789304d79dd3cfa72e86eeb0be76327"
+    },
+    {
+      "file": "tomori-chat-background-calibrated-v1.png",
+      "bytes": 2074405,
+      "sha256": "3e70511755697dda60b9949926c3c5edc42f7b6d43c8562c9cabf8318b7f06ff"
+    },
+    {
+      "file": "tomori-chat-shadow-calibrated-v1.png",
+      "bytes": 37423,
+      "sha256": "e7104e0ae9c5656bee4bca57b9ddd630df7de0dd30c08e13958f03899376e150"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

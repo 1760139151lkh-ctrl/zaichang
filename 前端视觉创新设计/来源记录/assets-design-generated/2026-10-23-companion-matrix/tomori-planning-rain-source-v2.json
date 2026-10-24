@@ -1,0 +1,43 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "planning",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-5ea97264-ee17-453a-af2e-4c92372e773a",
+  "inputs": [
+    {
+      "file": "tomori-planning-apricot-v2-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "5347c9bd9992cc514203294e4b1cbea93e0dacbd012b97f8db8a2aaef98569de"
+    },
+    {
+      "file": "room-rain-candidate-v2.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "sourceIdentity": "Approved correct complete warm planning-v2 mother is the sole editable person/pose/geometry target; approved clean rain-v2 plate supplies whole-scene light/sky only. Rejected rain-v1 candidate was never input.",
+  "prompt": "tomori-planning-rain-prompt-v2.txt",
+  "promptSha256": "78235ce0d3921455e97a33b358ff004019cef0bb8ce9253005c086b38b7e8948",
+  "output": {
+    "file": "tomori-planning-rain-mother-candidate-v2.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2074523,
+    "sha256": "925b38b969f46e2de7dba7cd454b49a2d7bee683ad3dbd7e0a0c7f7a3e8bddad"
+  },
+  "review": {
+    "designerViewed": "complete original 1536x1024 output",
+    "designerStatus": "candidate_ready_for_primary_review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Replacement removes the displaced tower from the visible left gap. Original x≈1218/y270..365 clocktower footprint is naturally occluded by the unchanged standing head/shoulder/body; no duplicate spire or tall landmark was introduced elsewhere. Nearby town clusters, mountain ridge, shoreline, window/mullions, original furniture and lamp remain consistent. Full standing scale, notebook/pen hand positions, coherent legs and both weight-bearing loafers remain. Warm original desk-lamp night light, rainy window and no new rear flower/wall spotlight or daytime hard leaf shadows.",
+  "supersedesCandidate": {
+    "file": "tomori-planning-rain-mother-candidate.png",
+    "reason": "rejected moved clocktower; not used as image input"
+  }
+}

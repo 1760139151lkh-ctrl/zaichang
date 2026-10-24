@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "mutsumi-chat-apricot-room4",
+  "character": "mutsumi",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "mutsumi-chat-apricot-mother-candidate-v1.png",
+  "background": "mutsumi-chat-apricot-background-calibrated-v4.png",
+  "figure": "mutsumi-chat-apricot-figure-calibrated-v4.png",
+  "mask": "mutsumi-chat-apricot-mask-calibrated-v4.png",
+  "shadow": "mutsumi-chat-apricot-shadow-calibrated-v4.png",
+  "seat": [
+    0.8645833333333334,
+    0.58203125
+  ],
+  "ground": [
+    0.7942708333333334,
+    0.7666015625
+  ],
+  "bodyBounds": [
+    0.7291666666666666,
+    0.25390625,
+    0.9231770833333334,
+    0.7705078125
+  ],
+  "safeTextBoundary": 0.705,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "84.3099% 25.5859%, 87.0443% 26.2695%, 88.8672% 30.0781%, 89.7786% 35.6445%, 90.6901% 40.5273%, 91.8620% 48.3398%, 90.4948% 51.7578%, 91.0156% 56.1523%, 92.2526% 58.5938%, 89.5833% 59.8633%, 84.6354% 60.8398%, 82.4870% 59.1797%, 82.2266% 66.5039%, 81.6406% 73.7305%, 81.7708% 75.8789%, 80.5339% 76.9531%, 77.3438% 76.5625%, 77.3438% 75.0977%, 75.6510% 75.8789%, 72.9167% 75.3906%, 73.2422% 73.5352%, 74.7396% 71.4844%, 75.5208% 67.2852%, 76.6927% 61.7188%, 77.9297% 57.0312%, 76.8229% 56.5430%, 77.0833% 55.2734%, 79.2969% 53.5156%, 80.0781% 48.7305%, 78.9714% 50.9766%, 78.7109% 49.4141%, 80.3385% 42.8711%, 80.5990% 39.5508%, 80.4036% 34.6680%, 80.8594% 29.2969%, 82.0964% 26.3672%",
+  "travel": 0.0078125,
+  "slope": 0.12048192771084337,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "runtimeAccepted": false,
+    "runtimeReviewRecord": "primary-runtime-reviews.json",
+    "producerNote": "Independent chat calibration from this mother's cushion front seam observed approximately (1095,598)→(1510,648), slope 50/415. Seat is approximate body/cushion contact centre, not a claim to see hidden bones. Ground is front shoe sole, no separate body scale. Limited 12px each side stays on same bench/floor corridor; private endpoint compositions inspected, real Stage/motion still pending. Both genuine skirt hems and left-knee small fold retained; original fine hair glow/strands retained. Old leg cast shadows removed from bench front with matching clean BG; contact residual is separate edge-limited RGBA, no floor patch follows actor."
+  },
+  "production": "mutsumi-chat-apricot-layer-processing-v4.json"
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-mother-candidate",
+  "character": "uika",
+  "activity": "planning",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/uika/",
+    "https://anime.bang-dream.com/mygo/character/uika/"
+  ],
+  "input": {
+    "path": "../room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty room; no character pixels used"
+  },
+  "promptFile": "uika-planning-apricot-v3-prompt.txt",
+  "prompt": "Use case: stylized-concept. One complete 1536 x 1024 warm-apricot same-room mother scene.\n\nTHE ONLY PERSON MUST BE MISUMI UIKA (三角初華), the recognizable first-year high-school girl from BanG Dream! Ave Mujica / MyGO!!!!!, around fifteen-sixteen. Her hair is a SHORT CHIN-LENGTH PALE-BLONDE BOB, with a faint warm pink undertone, delicate front fringe and cheek-framing short side strands. Clear VIOLET EYES, soft young jaw, ordinary slim teenage proportions. No hair below the neck, no brown/dark hair, no adult model face, no unfamiliar person. Keep her original youthful identity from this text.\nConsistent official casual clothes interpreted indoors: plain white short-sleeved T-shirt, pale taupe-gray LONG SKIRT, white socks and black-and-white low canvas sneakers. No cap indoors, stage costume or invented uniform.\n\nONLY INPUT image 1 is the approved CLEAN EMPTY room v4. It contains NO person. Do not use any previous planning candidate or another character image.\nHARD FURNITURE LOCK: the right desk keeps its EXACT original position, width/depth, table edges and legs. The lamp stays at its original place near (1075,450), cup beside it, desktop approximately x=825..1140,y=490..515. Do not slide or widen the table, shift the lamp toward the bench or replace any furniture. Only the existing desk chair may rotate a LITTLE within its original footprint. Same 1536x1024 camera, complete window frame with four corners, lake/campus view, rear-left table/chair/shelves/framed drawing, right bench/cushions/throw/rug, original floor passage and light. No new furniture, foreground table, enlarged chair/person, zoom/crop, blank wall or white gradient.\n\nPLANNING ACTION: Uika sits SIDEWAYS ON THE REAL DESK CHAIR, not on the bench. Her pelvis rests fully on the chair cushion near (930,590); both thighs and uncrossed knees angle diagonally toward the desk. She sits UPRIGHT FROM THE HIPS, shoulders high and open, and her whole UPPER TORSO HALF-TURNS back toward the user on the left. The waist twist is clear and natural, one continuous supported body. Her head top is near (930,325) and both complete sneakers remain grounded near y=750. Do not repeat a bench-chat torso/legs with a notebook added. Do not hunch/lean forward over the table as in hard study.\nTwo SMALL PAPER POSSIBILITIES lie flat next to each other on the original free desktop area, without moving the lamp, cup or desk. They carry only faint loose nonverbal pencil marks, no readable dates/numbers/formula/calendar/UI. One hand rests lightly at one page edge with real desktop contact. Her other elbow remains close to the torso and the palm opens gently between the two possibilities, as if comparing their conditions. Both arms have continuous shoulders/elbows/wrists and clear five-finger hands; paper and palms do not float.\nHer violet gaze returns UP from the papers toward the speaker on the left. Her expression is thoughtful and quietly curious, mouth relaxed, no stock grin or service smile. The upright side-chair support and half-turned open torso must remain a different pose even with all paper hidden. No lap-held book, clipboard, phone, cup or tutorial pointer.\n\nANATOMY: hips and thighs are borne by the actual chair, the long skirt drapes naturally over two distinct knees, ordinary-length calves lead to two separate grounded sneakers. No crossed/merged legs, excessive fashion-model length, floating pelvis, chair piercing clothes, broken ankle/wrist or extra limb. Show the complete short bob/head, both hands, hem, socks and shoes with air to the canvas edges. The left/central live reading lane stays free of the person and props.\n\nSTYLE: fine youthful Japanese-anime character linework integrated with the input's softly detailed environmental painting. Same warm morning window light and contact shadows on skin, white tee, taupe fabric and wood; no global orange wash. ONE continuous believable room, no cutout sticker, fashion portrait, duplicate view, text, UI, logo, watermark, border, inset or arrow. Return one complete same-size mother scene.\n",
+  "output": {
+    "path": "uika-planning-apricot-mother-candidate-v3.png",
+    "sha256": "767aab09d7596550438a1e3ef5ff01e578b4a635cc548b104bd773f211361e1b",
+    "bytes": 2177808,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T21:02:11.479067+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "短浅金bob与紫眼身份恢复，桌椅侧坐直身、肩背半转比较，明显区别bench chat和study前倾。桌灯/桌宽原区域保留；椅位朝侧前转，待主代理精确复核。唯一clean v4输入，不使用v1/v2人物。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-2165683f-0d89-428b-ae17-21630269d994"
+}

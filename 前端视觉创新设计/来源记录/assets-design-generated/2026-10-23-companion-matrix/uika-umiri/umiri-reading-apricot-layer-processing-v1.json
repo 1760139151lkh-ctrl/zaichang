@@ -1,0 +1,220 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "umiri-reading-apricot-layer-parameters-v1.json",
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "umiri-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "5543b970656b878a7f7114429e3d1325c4aa64ba036eb998912831cd87cfa974",
+  "matte": "umiri-reading-apricot-mask-raw-v2.png",
+  "matteSha256": "274243498fd2785d664c75f48cf379bce1533f764fe84632d3edb6ba3977a614",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 129016,
+  "alphaNonzeroPixels": 60852,
+  "alphaBounds": [
+    1091,
+    273,
+    1441,
+    774
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "f38319fc84dc440cabdbd53e4d6f5457fcf68a2a09791d1c216ad821e5f7c065",
+  "figureRgbSha256": "f38319fc84dc440cabdbd53e4d6f5457fcf68a2a09791d1c216ad821e5f7c065",
+  "background": {
+    "candidate": "umiri-reading-apricot-background-raw-v1.png",
+    "candidateSha256": "0db117a61daca5d93dcc4f2e802d2d6fe5d6cdf440e0a5fea08df1e6acff7a7d",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          1091,
+          748
+        ],
+        [
+          1157,
+          750
+        ],
+        [
+          1159,
+          761
+        ],
+        [
+          1093,
+          763
+        ]
+      ],
+      [
+        [
+          1168,
+          763
+        ],
+        [
+          1257,
+          762
+        ],
+        [
+          1258,
+          777
+        ],
+        [
+          1171,
+          779
+        ]
+      ],
+      [
+        [
+          1264,
+          578
+        ],
+        [
+          1359,
+          577
+        ],
+        [
+          1363,
+          588
+        ],
+        [
+          1261,
+          588
+        ]
+      ],
+      [
+        [
+          1380,
+          576
+        ],
+        [
+          1437,
+          577
+        ],
+        [
+          1437,
+          588
+        ],
+        [
+          1380,
+          586
+        ]
+      ]
+    ],
+    "changedPixels": 81185,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1091,
+          748
+        ],
+        [
+          1157,
+          750
+        ],
+        [
+          1159,
+          761
+        ],
+        [
+          1093,
+          763
+        ]
+      ],
+      [
+        [
+          1168,
+          763
+        ],
+        [
+          1257,
+          762
+        ],
+        [
+          1258,
+          777
+        ],
+        [
+          1171,
+          779
+        ]
+      ],
+      [
+        [
+          1264,
+          578
+        ],
+        [
+          1359,
+          577
+        ],
+        [
+          1363,
+          588
+        ],
+        [
+          1261,
+          588
+        ]
+      ],
+      [
+        [
+          1380,
+          576
+        ],
+        [
+          1437,
+          577
+        ],
+        [
+          1437,
+          588
+        ],
+        [
+          1380,
+          586
+        ]
+      ]
+    ],
+    "featherPixels": 0.7,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "umiri-reading-apricot-figure-calibrated-v1.png",
+      "bytes": 2438577,
+      "sha256": "0e19209bbf1888c45c76d931ad00ae4bab465d82ef6c3475ac9b2b37fb166356"
+    },
+    {
+      "file": "umiri-reading-apricot-mask-calibrated-v1.png",
+      "bytes": 35966,
+      "sha256": "0ebb3c92cc9e01fcf711a26639d03dc2d1c25a71a14309a4f83ab65e18d7a665"
+    },
+    {
+      "file": "umiri-reading-apricot-background-calibrated-v1.png",
+      "bytes": 2092712,
+      "sha256": "3b0e8b94f967bca8139b25a170d8bcc959c59f019fb54cf3f787484221840ca6"
+    },
+    {
+      "file": "umiri-reading-apricot-shadow-candidate-v1.png",
+      "bytes": 35077,
+      "sha256": "ce0074a4b7142d6613399c7ef933a9b7f02ee59ce687dd38dd0b08e88e0ff014"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

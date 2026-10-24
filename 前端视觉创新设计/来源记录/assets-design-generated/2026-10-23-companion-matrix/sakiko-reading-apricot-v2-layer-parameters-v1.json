@@ -1,0 +1,62 @@
+{
+  "mother": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+  "motherSha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b",
+  "matte": "sakiko-reading-apricot-v2-mask.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "localColorMatteRefinement": {
+    "seedThreshold": 80,
+    "uncertainBandPixels": 3,
+    "iterations": 3,
+    "edgeFeatherPixels": 0.35
+  },
+  "figure": "sakiko-reading-apricot-v2-figure-calibrated-v1.png",
+  "mask": "sakiko-reading-apricot-v2-mask-calibrated-v1.png",
+  "backgroundCandidate": "sakiko-reading-apricot-v2-background.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1160,
+        610
+      ],
+      [
+        1390,
+        610
+      ],
+      [
+        1390,
+        764
+      ],
+      [
+        1160,
+        785
+      ]
+    ],
+    [
+      [
+        1040,
+        705
+      ],
+      [
+        1235,
+        705
+      ],
+      [
+        1255,
+        825
+      ],
+      [
+        1030,
+        810
+      ]
+    ]
+  ],
+  "background": "sakiko-reading-apricot-v2-background-calibrated-v1.png",
+  "record": "sakiko-reading-apricot-v2-layer-processing-v1.json",
+  "reviewNote": "Opaque generated matte is in place but includes faint interior line art. Optional local-color matte refinement operates only within a 3px uncertain silhouette band with original RGB seeds; it changes alpha only and restores no hidden anatomy. Candidate requires manual light/dark and empty-background inspection."
+}

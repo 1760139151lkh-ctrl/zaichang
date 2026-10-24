@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { workSourceRefSchema, type WorkSourceBinding, type WorkSourceRef } from './harness';
 import { explorableStudySchema, type ExplorableStudySpec } from './explorable-study';
 import type { NoteSourceProof } from './notes-source';
+import type { SourceBookmarkPreview } from './source-bookmark';
 
 const id = z.string().min(1).max(160);
 export const studyCitationSchema = workSourceRefSchema.safeExtend({ quote: z.string().min(1).max(8000) }).strict();
@@ -52,7 +53,9 @@ export interface StudyOrigin {
   start?: number;
   end?: number;
   resourceId?: string;
+  sha256?: string;
   page?: number;
+  crop?: { x: number; y: number; width: number; height: number } | null;
   name?: string;
   note?: NoteSourceProof;
   interpretation?: 'original_excerpt' | 'assistant_page_description';
@@ -67,9 +70,11 @@ export interface StudyCompanionView {
   mode: StudyMode;
   focus: string;
   problem: { display: string; origin: StudyOrigin };
+  bookmark?: SourceBookmarkPreview;
   attempts: { id: string; text: string; origin: 'user_report'; source: WorkSourceRef; receivedAt: string }[];
   steps: { id: string; kind: z.infer<typeof studyPacketInput>['kind']; title?: string;
     text: string; origin: 'assistant_generated'; nextMove: string; mode: StudyMode; providedAt: string;
+    problemScope?: 'current_problem' | 'prior_problem' | 'unverified_legacy_problem';
     exploration?: ExplorableStudySpec }[];
   currentStep?: StudyCompanionView['steps'][number];
   historyCoverage: { attempts: { returned: number; total: number }; steps: { returned: number; total: number };

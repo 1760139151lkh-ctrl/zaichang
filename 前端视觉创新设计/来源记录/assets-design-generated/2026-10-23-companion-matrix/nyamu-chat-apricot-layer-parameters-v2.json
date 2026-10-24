@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "mother": "nyamu-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305",
+  "matte": "nyamu-chat-apricot-mask-candidate-v2.png",
+  "matteSha256": "965a3f7e6d1614f79f47454231d6919b378534ad0b119d4cfe1b73e00de0e4aa",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "nyamu-chat-apricot-figure-calibrated-v2.png",
+  "mask": "nyamu-chat-apricot-mask-calibrated-v2.png",
+  "backgroundCandidate": "nyamu-chat-apricot-background-candidate-v1.png",
+  "background": "nyamu-chat-apricot-background-calibrated-v2.png",
+  "shadow": "nyamu-chat-apricot-shadow-calibrated-v2.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1110,
+        590
+      ],
+      [
+        1405,
+        590
+      ],
+      [
+        1415,
+        830
+      ],
+      [
+        1105,
+        830
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1110,
+        786
+      ],
+      [
+        1187,
+        784
+      ],
+      [
+        1193,
+        824
+      ],
+      [
+        1109,
+        827
+      ]
+    ],
+    [
+      [
+        1210,
+        790
+      ],
+      [
+        1298,
+        791
+      ],
+      [
+        1300,
+        834
+      ],
+      [
+        1209,
+        835
+      ]
+    ],
+    [
+      [
+        1190,
+        570
+      ],
+      [
+        1410,
+        568
+      ],
+      [
+        1417,
+        604
+      ],
+      [
+        1190,
+        607
+      ]
+    ],
+    [
+      [
+        1400,
+        566
+      ],
+      [
+        1451,
+        565
+      ],
+      [
+        1455,
+        599
+      ],
+      [
+        1399,
+        600
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [],
+  "includePolygons": [
+    [
+      [
+        1133,
+        729
+      ],
+      [
+        1158,
+        731
+      ],
+      [
+        1157,
+        736
+      ],
+      [
+        1133,
+        734
+      ]
+    ],
+    [
+      [
+        1251,
+        744
+      ],
+      [
+        1274,
+        744
+      ],
+      [
+        1274,
+        749
+      ],
+      [
+        1251,
+        749
+      ]
+    ],
+    [
+      [
+        1274,
+        744
+      ],
+      [
+        1278,
+        744
+      ],
+      [
+        1278,
+        749
+      ],
+      [
+        1274,
+        749
+      ]
+    ]
+  ],
+  "alphaPolygonRepairs": [],
+  "record": "nyamu-chat-apricot-layer-processing-v2.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "OriginalRGB constrained boundary refinement of registered matte; false alpha holes through original black ankle straps explicitly filled. Whole-figure trial must be visually inspected against actual fine bob/hands/ruffles/straps; no approval or RGB repaint.",
+  "localColorMatteRefinement": {
+    "region": [
+      1100,
+      225,
+      1450,
+      835
+    ],
+    "seedThreshold": 110,
+    "uncertainBandPixels": 5,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.35
+  }
+}

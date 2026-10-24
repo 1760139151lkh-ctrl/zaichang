@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "rest",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-e14a1d72-c28b-4310-8478-165c976f6411",
+  "inputs": [
+    {
+      "file": "tomori-rest-apricot-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "b0f751e5feeff86ddbb8074945a9564487d4d60da05b4955137f2481a972fd90"
+    },
+    {
+      "file": "room-rain-candidate-v2.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "sourceIdentity": "Primary-approved correct complete warm mother is the sole editable/person/pose/geometry target; approved clean rain-v2 plate is lighting/sky reference only. No rejected mother or isolated actor input.",
+  "prompt": "tomori-rest-rain-prompt.txt",
+  "promptSha256": "b0be7ffa7f99490646aee4308da86774ff68e12b7c9f1913d9cd288abf25038a",
+  "output": {
+    "file": "tomori-rest-rain-mother-candidate.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2078314,
+    "sha256": "82b25b1d903ffb7c0c0ce5bbec42f18b8dab75426b3812828dc0decc72bd5551"
+  },
+  "review": {
+    "designerViewed": "complete original 1536x1024 output",
+    "designerStatus": "candidate_ready_for_primary_review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Original side-back seated rest pose, hand/closed book positions, cushion/pelvis support and two complete floor-contact loafers remain coherent. Window frame, desks/chairs, lamp and distant church stay consistent. Complete rain-night scene has warm falloff from the original main desk lamp plus cool window fill; daytime hard leaf marks are removed and the left rear flower/wall area has no added spotlight."
+}

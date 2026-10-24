@@ -1,0 +1,233 @@
+{
+  "mother": "rana-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+  "matte": "rana-chat-apricot-alpha-calibrated-v9.png",
+  "alphaSource": "luminance",
+  "alphaLow": 5,
+  "alphaHigh": 250,
+  "figure": "rana-chat-apricot-figure-candidate-v9.png",
+  "mask": "rana-chat-apricot-mask-candidate-v9.png",
+  "record": "rana-chat-apricot-layer-production-v9.json",
+  "backgroundCandidate": "rana-chat-apricot-background-generated-v1.png",
+  "background": "rana-chat-apricot-background-candidate-v9.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1.2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1190,
+        550
+      ],
+      [
+        1390,
+        550
+      ],
+      [
+        1398,
+        621
+      ],
+      [
+        1190,
+        621
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1108,
+        721
+      ],
+      [
+        1177,
+        712
+      ],
+      [
+        1193,
+        723
+      ],
+      [
+        1184,
+        740
+      ],
+      [
+        1110,
+        744
+      ]
+    ],
+    [
+      [
+        1232,
+        754
+      ],
+      [
+        1278,
+        744
+      ],
+      [
+        1311,
+        744
+      ],
+      [
+        1316,
+        766
+      ],
+      [
+        1240,
+        780
+      ]
+    ],
+    [
+      [
+        1250,
+        570
+      ],
+      [
+        1330,
+        568
+      ],
+      [
+        1387,
+        566
+      ],
+      [
+        1410,
+        579
+      ],
+      [
+        1342,
+        588
+      ],
+      [
+        1250,
+        582
+      ]
+    ]
+  ],
+  "contactShadowEdgePixels": 3,
+  "contactShadowFeatherPixels": 1.1,
+  "shadow": "rana-chat-apricot-shadow-candidate-v9.png",
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          1225,
+          477
+        ],
+        [
+          1263,
+          477
+        ],
+        [
+          1263,
+          488
+        ],
+        [
+          1240,
+          510
+        ],
+        [
+          1225,
+          510
+        ]
+      ],
+      "redMin": 150,
+      "redOverGreen": 35,
+      "redOverBlue": 65
+    }
+  ],
+  "excludePolygons": [
+    [
+      [
+        1248,
+        474
+      ],
+      [
+        1256,
+        474
+      ],
+      [
+        1260,
+        476
+      ],
+      [
+        1257,
+        480
+      ],
+      [
+        1248,
+        480
+      ]
+    ],
+    [
+      [
+        1368,
+        575
+      ],
+      [
+        1391,
+        575
+      ],
+      [
+        1391,
+        578
+      ],
+      [
+        1368,
+        578
+      ]
+    ],
+    [
+      [
+        1251,
+        684
+      ],
+      [
+        1254,
+        683
+      ],
+      [
+        1254,
+        687
+      ],
+      [
+        1252,
+        690
+      ],
+      [
+        1249,
+        691
+      ],
+      [
+        1249,
+        687
+      ]
+    ],
+    [
+      [
+        1257,
+        695
+      ],
+      [
+        1259,
+        693
+      ],
+      [
+        1260,
+        697
+      ],
+      [
+        1261,
+        703
+      ],
+      [
+        1260,
+        707
+      ],
+      [
+        1257,
+        709
+      ]
+    ]
+  ]
+}

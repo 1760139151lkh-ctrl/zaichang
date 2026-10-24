@@ -1,0 +1,148 @@
+{
+  "mother": "rana-study-apricot-mother-candidate-v2.png",
+  "motherSha256": "fb66bbcfffc5f3d42b421c8769cc53ae7f1b605246a68187f5043435eabbe205",
+  "matte": "rana-study-apricot-mask-generated-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 240,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "rana-study-apricot-figure-calibrated-v1.png",
+  "mask": "rana-study-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "rana-study-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 3,
+  "backgroundFeatherPixels": 1.5,
+  "background": "rana-study-apricot-background-calibrated-v2.png",
+  "record": "rana-study-apricot-layer-processing-v2.json",
+  "reviewNote": "Fixed desk, zero travel. Original character RGB/alpha contract retained. Explicit observed desk/wall/seat/boot cast-shadow regions use this mother's generated clean room; original residual darkness/colour is a separate normal source-over RGBA layer, not a copied wall/floor image or multiply rectangle. Primary image and actual runtime review remain pending.",
+  "shadow": "rana-study-apricot-shadow-calibrated-v2.png",
+  "backgroundErasePolygons": [
+    [
+      [
+        883,
+        503
+      ],
+      [
+        1003,
+        503
+      ],
+      [
+        1009,
+        534
+      ],
+      [
+        891,
+        540
+      ]
+    ],
+    [
+      [
+        835,
+        569
+      ],
+      [
+        956,
+        570
+      ],
+      [
+        958,
+        601
+      ],
+      [
+        835,
+        596
+      ]
+    ],
+    [
+      [
+        898,
+        705
+      ],
+      [
+        1030,
+        699
+      ],
+      [
+        1041,
+        731
+      ],
+      [
+        1041,
+        753
+      ],
+      [
+        902,
+        756
+      ],
+      [
+        890,
+        735
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        883,
+        503
+      ],
+      [
+        1003,
+        503
+      ],
+      [
+        1009,
+        534
+      ],
+      [
+        891,
+        540
+      ]
+    ],
+    [
+      [
+        835,
+        569
+      ],
+      [
+        956,
+        570
+      ],
+      [
+        958,
+        601
+      ],
+      [
+        835,
+        596
+      ]
+    ],
+    [
+      [
+        898,
+        705
+      ],
+      [
+        1030,
+        699
+      ],
+      [
+        1041,
+        731
+      ],
+      [
+        1041,
+        753
+      ],
+      [
+        902,
+        756
+      ],
+      [
+        890,
+        735
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2
+}

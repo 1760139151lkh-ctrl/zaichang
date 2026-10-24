@@ -1,5 +1,6 @@
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
-import { createServer } from 'node:http';
+import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
+import { Socket } from 'node:net';
 import { createInterface } from 'node:readline';
 import { existsSync, readdirSync } from 'node:fs';
 import { mkdtemp, rmdir } from 'node:fs/promises';
@@ -18,6 +19,138 @@ export const LUNA_REQUEST_TIMEOUT_MS = MODEL_REQUEST_TIMEOUT_MS;
 export const LUNA_SUBSTITUTE = { providerId: 'openai-app-server', model: LUNA_MODEL, temporaryTestSubstitute: true, replaces: 'deepseek-flash', reasoningEffort: 'max', requestTimeoutMs: LUNA_REQUEST_TIMEOUT_MS } as const;
 type Item = Record<string, any>;
 const LUNA_PROTOCOL_PREFIX = 'zaichang-luna:';
+const TRANSPORT_IDLE_MS = 15000;
+
+function waitFor<T>(pending: Promise<T>, signal: AbortSignal): Promise<T> {
+  signal.throwIfAborted();
+  return new Promise((resolve, reject) => {
+    const abort = () => { signal.removeEventListener('abort', abort); reject(signal.reason); };
+    signal.addEventListener('abort', abort, { once: true });
+    pending.then(value => { signal.removeEventListener('abort', abort); resolve(value); }, error => {
+      signal.removeEventListener('abort', abort); reject(error);
+    });
+    if (signal.aborted) abort();
+  });
+}
+
+type LunaDependencies = { fetcher?: typeof fetch; executable?: string; spawn?: typeof spawn };
+type TransportRequest = {
+  admitted: boolean;
+  handle: (request: IncomingMessage, response: ServerResponse) => Promise<void>;
+  fail: (error: unknown) => void;
+};
+
+/** Only the authenticated pipe is shared. Each request has its own ephemeral
+ * thread and one-use route; the real prompt never enters App Server history. */
+class LunaTransport {
+  readonly ready: Promise<void>;
+  closed = false;
+  reusable = true;
+  cwd = '';
+  port = 0;
+  config: Record<string, unknown> = {};
+  readonly requests = new Map<string, TransportRequest>();
+  readonly turns = new Map<string, () => void>();
+  private readonly pending = new Map<number, { resolve(value: any): void; reject(error: unknown): void }>();
+  private readonly server = createServer((request, response) => {
+    const active = request.method === 'POST' && this.requests.get(request.url || '');
+    if (!active || active.admitted || this.closed) { response.writeHead(404).end(); return; }
+    active.admitted = true;
+    void active.handle(request, response).catch(active.fail);
+  });
+  private child?: ChildProcessWithoutNullStreams;
+  private nextId = 0;
+  private leases = 0;
+  private authMode: string | null | undefined;
+  private idle?: ReturnType<typeof setTimeout>;
+  private readonly onExit = () => this.close(new DOMException('Model transport closed', 'AbortError'));
+
+  constructor(private readonly dependencies: LunaDependencies, private readonly accountChanged: () => void) {
+    process.once('beforeExit', this.onExit);
+    process.once('exit', this.onExit);
+    this.ready = this.initialize().catch(error => { this.close(error); throw error; });
+    this.ready.catch(() => {});
+  }
+  retain() {
+    if (this.closed) throw new ProviderError('App Server 代测进程已结束。', false, 'transport');
+    clearTimeout(this.idle); this.idle = undefined; this.leases++;
+    this.reference(true);
+  }
+  release() {
+    this.leases--;
+    if (this.closed || this.leases) return;
+    if (!this.reusable) { this.close(); return; }
+    this.reference(false);
+    this.idle = setTimeout(() => this.close(), TRANSPORT_IDLE_MS);
+    this.idle.unref();
+  }
+  retire() { this.reusable = false; if (!this.leases) this.close(); }
+  private reference(active: boolean) {
+    if (active) { this.server.ref(); this.child?.ref(); } else { this.server.unref(); this.child?.unref(); }
+    for (const stream of [this.child?.stdin, this.child?.stdout, this.child?.stderr])
+      if (stream instanceof Socket) { if (active) stream.ref(); else stream.unref(); }
+  }
+  rpc(method: string, params: unknown): Promise<any> {
+    if (this.closed || !this.child) return Promise.reject(new ProviderError('App Server 代测进程已结束。', false, 'transport'));
+    return new Promise((resolve, reject) => {
+      const id = ++this.nextId;
+      this.pending.set(id, { resolve, reject });
+      this.child!.stdin.write(JSON.stringify({ id, method, params }) + '\n', error => {
+        if (error) { this.pending.delete(id); reject(new ProviderError('App Server 暂时无法接收请求。', false, 'transport')); }
+      });
+    });
+  }
+  close(reason: unknown = new DOMException('Model transport closed', 'AbortError')) {
+    if (this.closed) return;
+    this.closed = true; clearTimeout(this.idle);
+    process.removeListener('beforeExit', this.onExit); process.removeListener('exit', this.onExit);
+    for (const request of this.requests.values()) request.fail(reason);
+    this.requests.clear(); this.turns.clear();
+    for (const call of this.pending.values()) call.reject(reason);
+    this.pending.clear();
+    const cleanup = () => { if (this.cwd) void rmdir(this.cwd).catch(() => {}); };
+    if (this.child && this.child.exitCode === null && this.child.signalCode === null) {
+      this.reference(true);
+      this.child.once('exit', cleanup); this.child.kill();
+    } else cleanup();
+    this.server.closeAllConnections(); this.server.close();
+  }
+  private async initialize() {
+    this.cwd = await mkdtemp(path.join(tmpdir(), 'zaichang-luna-'));
+    if (this.closed) { await rmdir(this.cwd).catch(() => {}); throw new DOMException('Model boundary invalidated', 'AbortError'); }
+    await new Promise<void>((resolve, reject) => { this.server.once('error', reject); this.server.listen(0, '127.0.0.1', resolve); });
+    if (this.closed) throw new DOMException('Model boundary invalidated', 'AbortError');
+    this.port = (this.server.address() as { port: number }).port;
+    const features = Object.fromEntries(['shell_tool', 'unified_exec', 'shell_snapshot', 'multi_agent', 'apps', 'plugins', 'remote_plugin', 'browser_use', 'computer_use', 'image_generation', 'memories', 'hooks', 'goals', 'skill_search', 'sleep_tool', 'workspace_dependencies', 'context_management', 'code_mode', 'view_image'].map(name => [name, false]));
+    this.config = { features, web_search: 'disabled', tools: { view_image: false }, project_doc_max_bytes: 0, history: { persistence: 'none' }, model_context_window: 1_000_000, model_auto_compact_token_limit: 999_999_999 };
+    this.child = (this.dependencies.spawn || spawn)(this.dependencies.executable || lunaExecutable(), ['app-server', ...Object.entries(features).flatMap(([name, value]) => ['-c', `features.${name}=${value}`])], { cwd: this.cwd, env: lunaEnvironment(), windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] }) as ChildProcessWithoutNullStreams;
+    this.child.stderr.resume();
+    this.child.on('error', () => this.close(new ProviderError('App Server 代测进程暂时无法启动。', false, 'transport')));
+    this.child.on('exit', () => this.close(new ProviderError('App Server 代测进程已结束。', false, 'transport')));
+    createInterface({ input: this.child.stdout }).on('line', line => {
+      try {
+        const message = JSON.parse(line);
+        if (message.id !== undefined && !message.method) {
+          const call = this.pending.get(message.id); if (!call) return;
+          this.pending.delete(message.id);
+          message.error ? call.reject(new ProviderError('App Server 未接受代测协议。', false, 'protocol')) : call.resolve(message.result);
+        } else if (message.id !== undefined) {
+          this.child?.stdin.write(JSON.stringify({ id: message.id, error: { code: -32601, message: 'Model transport exposes no native tool executor.' } }) + '\n');
+        } else if (message.method === 'turn/completed') this.turns.get(message.params?.threadId)?.();
+        // Initial auth is announced lazily when the first thread starts.
+        else if (message.method === 'account/updated') {
+          const mode = typeof message.params?.authMode === 'string' ? message.params.authMode : null;
+          if (mode === null || this.authMode !== undefined && mode !== this.authMode) this.accountChanged();
+          this.authMode = mode;
+        } else if (message.method === 'account/login/completed' && message.params?.success && this.authMode !== undefined) this.accountChanged();
+      } catch { this.close(new ProviderError('App Server 返回了无效传输帧。', false, 'protocol')); }
+    });
+    await this.rpc('initialize', { clientInfo: { name: 'zaichang_luna_test_transport', version: '1' }, capabilities: { experimentalApi: true } });
+    this.child.stdin.write('{"method":"initialized"}\n');
+    const inherited = await this.rpc('config/read', { cwd: this.cwd, includeLayers: false });
+    this.config.mcp_servers = Object.fromEntries(Object.keys(inherited.config?.mcp_servers || {}).map(name => [name, { enabled: false }]));
+  }
+}
 
 /** This temporary Max contract applies to every role, including legacy callers
  * that request a lower effort. Explicit no-thinking comparisons remain none. */
@@ -73,7 +206,10 @@ export class AppServerLunaClient {
   readonly capabilities = { providerId: LUNA_SUBSTITUTE.providerId, protocol: 'app-server-responses', protocolVersion: 'single-completion-v1', version: 'single-completion-v1', modalities: ['text', 'image'], toolDialect: 'function_calls', endpoint: LUNA_ENDPOINT, strictEndpoint: LUNA_ENDPOINT, thinking: true, reasoningContent: true, toolCalls: true, toolContinuation: true, strictTools: true, structuredOutput: false, opaqueState: 'bounded_tool_chain' };
   private protocol = new WeakMap<Completion, string>();
   private controllers = new Set<AbortController>();
-  constructor(private dependencies: { fetcher?: typeof fetch; executable?: string; spawn?: typeof spawn } = {}) {}
+  private transport?: LunaTransport;
+  private readonly transports = new Set<LunaTransport>();
+  private accountIdentity?: string;
+  constructor(private dependencies: LunaDependencies = {}) {}
   providerMetadata(options?: CompletionOptions): ProviderMetadata {
     return { ...LUNA_SUBSTITUTE, reasoningEffort: lunaReasoningEffort(options), endpoint: LUNA_ENDPOINT, protocol: this.capabilities.protocol, protocolVersion: this.capabilities.protocolVersion, capabilities: { ...this.capabilities }, limits: { maxOutputTokens: options?.maxOutputTokens || 4096, contextTokens: 1_000_000, outputEnforcement: 'advisory' } };
   }
@@ -82,7 +218,10 @@ export class AppServerLunaClient {
   }
   invalidateBoundary() {
     this.protocol = new WeakMap();
+    this.accountIdentity = undefined;
     for (const controller of this.controllers) controller.abort(new DOMException('Model boundary invalidated', 'AbortError'));
+    for (const transport of this.transports) transport.close();
+    this.transports.clear(); this.transport = undefined;
   }
   async complete(messages: ModelWireMessage[], tools: ToolSpec[], callerSignal: AbortSignal, onText?: (text: string) => void, options?: CompletionOptions): Promise<Completion> {
     const boundary = new AbortController(); this.controllers.add(boundary);
@@ -98,6 +237,7 @@ export class AppServerLunaClient {
         return result;
       } catch (error) {
         options?.onToolCallProgress?.({ kind: 'reset' });
+        if (error instanceof ProviderError && error.code === 'authentication') this.invalidateBoundary();
         const transient = error instanceof ProviderError ? error.retryable : error instanceof TypeError && ['terminated', 'fetch failed'].includes(error.message);
         if (signal.aborted || deliveredText || !transient || attempt || options?.allowTransportRetry === false) {
           if (error && typeof error === 'object') Object.assign(error, { transportAttempts: attempt + 1 });
@@ -122,16 +262,22 @@ export class AppServerLunaClient {
     const body = lunaRequest(messages, tools, options);
     const controller = new AbortController(); this.controllers.add(controller);
     const signal = AbortSignal.any([callerSignal, controller.signal, AbortSignal.timeout(LUNA_REQUEST_TIMEOUT_MS)]);
-    const cwd = await mkdtemp(path.join(tmpdir(), 'zaichang-luna-'));
+    const transport = this.transport && !this.transport.closed && this.transport.reusable ? this.transport : (this.transport = new LunaTransport(this.dependencies, () => this.invalidateBoundary()));
+    for (const previous of this.transports) if (previous.closed) this.transports.delete(previous);
+    this.transports.add(transport);
+    transport.retain();
     const route = '/' + randomUUID();
-    let child: ChildProcessWithoutNullStreams | undefined;
+    let threadId: string | undefined, turnId: string | undefined, nativeFinished = false, succeeded = false;
+    let threadStarted: Promise<any> | undefined, turnStarted: Promise<any> | undefined;
+    let nativeDone!: () => void;
+    const nativeEnded = new Promise<void>(resolve => { nativeDone = resolve; });
     let resolve!: (value: Completion) => void, reject!: (reason: unknown) => void;
     const completion = new Promise<Completion>((yes, no) => { resolve = yes; reject = no; });
     // Avoid unhandled rejection while initialize/thread/start are outstanding.
     completion.catch(() => {});
     let admitted = false;
-    const server = createServer(async (request, response) => {
-      if (request.method !== 'POST' || request.url !== route + '/responses' || admitted || signal.aborted) { response.writeHead(404).end(); return; }
+    const active: TransportRequest = { admitted: false, fail: error => { controller.abort(error); reject(error); }, handle: async (request, response) => {
+      if (signal.aborted) { response.writeHead(404).end(); return; }
       admitted = true;
       let transportAttempts = 0;
       try {
@@ -139,6 +285,14 @@ export class AppServerLunaClient {
       let bytes = 0; for await (const chunk of request) { bytes += chunk.length; if (bytes > 8_000_000) { response.writeHead(413).end(); reject(new ProviderError('App Server 请求超过传输上限。')); return; } }
       const authorization = request.headers.authorization;
       if (!authorization?.startsWith('Bearer ')) { response.writeHead(401).end(); reject(new ProviderError('App Server 尚未登录，请先在 Codex 登录。', false, 'authentication', 401)); return; }
+        const account = request.headers['chatgpt-account-id'];
+        if (typeof account === 'string') {
+          if (this.accountIdentity !== undefined && this.accountIdentity !== account) {
+            this.invalidateBoundary();
+            throw new ProviderError('模型账号已改变，这次连接已停止。', false, 'authentication');
+          }
+          this.accountIdentity = account;
+        }
         const headers: Record<string, string> = { authorization, 'content-type': 'application/json', accept: 'text/event-stream', 'openai-beta': 'responses=experimental' };
         for (const name of ['chatgpt-account-id', 'originator', 'user-agent']) { const value = request.headers[name]; if (typeof value === 'string') headers[name] = value; }
         const fetcher = this.dependencies.fetcher || fetch;
@@ -153,6 +307,7 @@ export class AppServerLunaClient {
         let ended = false, content = '', responseModel: string | undefined, usage: Completion['usage'];
         const items: Item[] = [];
         await readSSE(upstream, data => {
+          signal.throwIfAborted();
           if (!data || data === '[DONE]') return;
           const event = JSON.parse(data);
           if (event.type === 'response.output_item.added' && event.item?.type === 'function_call'
@@ -193,63 +348,61 @@ export class AppServerLunaClient {
         if (protocol.length > MODEL_WIRE_LIMITS.opaqueCharacters) throw new ProviderError('Luna 协议状态超过传输长度范围。', false, 'protocol_budget', undefined, usage);
         // Same lifecycle as DeepSeek reasoning_content: the host's bounded,
         // scoped in-memory protocol chain carries this across client instances.
+        signal.throwIfAborted();
         this.protocol.set(result, LUNA_PROTOCOL_PREFIX + protocol);
         // A transport ACK only. The actual model result is never interpreted by
         // Codex's execution loop and is returned exclusively through resolve().
         response.writeHead(200, { 'content-type': 'text/event-stream' });
         response.end('data: ' + JSON.stringify({ type: 'response.completed', response: { id: 'bridge_ack', status: 'completed', output: [] } }) + '\n\n');
+        succeeded = true;
         resolve(result);
       } catch (error) {
         if (error && typeof error === 'object') Object.assign(error, { transportAttempts });
-        response.writeHead(502).end(); reject(error);
+        if (!response.headersSent) response.writeHead(502);
+        response.end(); reject(error);
       }
-    });
-    const pending = new Map<number, { resolve(value: any): void; reject(reason: unknown): void }>();
-    let nextId = 0;
-    const abort = () => { reject(signal.reason); for (const call of pending.values()) call.reject(signal.reason); child?.kill(); };
+    } };
+    transport.requests.set(route + '/responses', active);
+    const abort = () => { reject(signal.reason); transport.requests.delete(route + '/responses'); };
     signal.addEventListener('abort', abort, { once: true });
     try {
-      await new Promise<void>(yes => server.listen(0, '127.0.0.1', yes));
+      await waitFor(transport.ready, signal);
       signal.throwIfAborted();
-      const port = (server.address() as { port: number }).port;
-      const features = Object.fromEntries(['shell_tool', 'unified_exec', 'shell_snapshot', 'multi_agent', 'apps', 'plugins', 'remote_plugin', 'browser_use', 'computer_use', 'image_generation', 'memories', 'hooks', 'goals', 'skill_search', 'sleep_tool', 'workspace_dependencies', 'context_management', 'code_mode', 'view_image'].map(name => [name, false]));
-      const config = { features, web_search: 'disabled', tools: { view_image: false }, project_doc_max_bytes: 0, history: { persistence: 'none' }, model_context_window: 1_000_000, model_auto_compact_token_limit: 999_999_999,
-        model_provider: 'zaichang_luna_test', model_providers: { zaichang_luna_test: { name: 'Luna temporary test transport', base_url: `http://127.0.0.1:${port}${route}`, wire_api: 'responses', requires_openai_auth: true, request_max_retries: 0, stream_max_retries: 0 } } };
-      child = (this.dependencies.spawn || spawn)(this.dependencies.executable || lunaExecutable(), ['app-server', ...Object.entries(features).flatMap(([name, value]) => ['-c', `features.${name}=${value}`])], { cwd, env: lunaEnvironment(), windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] }) as ChildProcessWithoutNullStreams;
-      child.stderr.resume(); // never persist CLI logs, which may contain prompts
-      child.on('error', error => { reject(error); for (const call of pending.values()) call.reject(error); });
-      child.on('exit', () => { const error = new ProviderError('App Server 代测进程已结束。'); reject(error); for (const call of pending.values()) call.reject(error); });
-      createInterface({ input: child.stdout }).on('line', line => {
-        try {
-          const message = JSON.parse(line);
-          if (message.id !== undefined && !message.method) { const call = pending.get(message.id); if (!call) return; pending.delete(message.id); message.error ? call.reject(new ProviderError('App Server 未接受代测协议。', false, 'protocol')) : call.resolve(message.result); }
-          // Native tool calls are never part of this transport contract.
-          else if (message.id !== undefined) { child?.stdin.write(JSON.stringify({ id: message.id, error: { code: -32601, message: 'Model transport exposes no native tool executor.' } }) + '\n'); }
-          else if (message.method === 'turn/completed' && !admitted) reject(new ProviderError('App Server 未发起模型请求。', false, 'authentication'));
-        } catch { reject(new ProviderError('App Server 返回了无效传输帧。', false, 'protocol')); }
-      });
-      const rpc = (method: string, params: unknown) => new Promise<any>((yes, no) => { const id = ++nextId; pending.set(id, { resolve: yes, reject: no }); child!.stdin.write(JSON.stringify({ id, method, params }) + '\n'); });
-      await rpc('initialize', { clientInfo: { name: 'zaichang_luna_test_transport', version: '1' }, capabilities: { experimentalApi: true } });
-      child.stdin.write('{"method":"initialized"}\n');
-      // Discover only configured names through the supported read API, then
-      // disable every inherited MCP server before creating the ephemeral turn.
-      // The configuration object is never logged, persisted or forwarded.
-      const inherited = await rpc('config/read', { cwd, includeLayers: false });
-      Object.assign(config, { mcp_servers: Object.fromEntries(Object.keys(inherited.config?.mcp_servers || {}).map(name => [name, { enabled: false }])) });
-      const started = await rpc('thread/start', { model: LUNA_MODEL, modelProvider: 'zaichang_luna_test', allowProviderModelFallback: false, cwd, ephemeral: true, baseInstructions: 'Complete the transport request.', developerInstructions: '', environments: [], selectedCapabilityRoots: [], approvalPolicy: 'never', sandbox: 'read-only', config });
+      const config = { ...transport.config, model_provider: 'zaichang_luna_test', model_providers: { zaichang_luna_test: { name: 'Luna temporary test transport', base_url: `http://127.0.0.1:${transport.port}${route}`, wire_api: 'responses', requires_openai_auth: true, request_max_retries: 0, stream_max_retries: 0 } } };
+      threadStarted = transport.rpc('thread/start', { model: LUNA_MODEL, modelProvider: 'zaichang_luna_test', allowProviderModelFallback: false, cwd: transport.cwd, ephemeral: true, baseInstructions: 'Complete the transport request.', developerInstructions: '', environments: [], selectedCapabilityRoots: [], approvalPolicy: 'never', sandbox: 'read-only', config });
+      const started = await waitFor(threadStarted, signal);
       if (started.model !== LUNA_MODEL || started.thread.ephemeral !== true) throw new ProviderError('App Server 模型或临时会话契约不符。', false, 'model_mismatch');
-      await rpc('turn/start', { threadId: started.thread.id, input: [{ type: 'text', text: 'Transport request.', text_elements: [] }], effort: body.reasoning.effort });
-      return await completion;
+      threadId = started.thread.id;
+      transport.turns.set(threadId!, () => {
+        nativeFinished = true; nativeDone();
+        if (!succeeded) active.fail(new ProviderError(admitted ? 'App Server 代测请求未完成。' : 'App Server 未发起模型请求。', false, admitted ? 'protocol' : 'authentication'));
+      });
+      turnStarted = transport.rpc('turn/start', { threadId, input: [{ type: 'text', text: 'Transport request.', text_elements: [] }], effort: body.reasoning.effort });
+      const turn = await waitFor(turnStarted, signal); turnId = turn.turn?.id;
+      return await waitFor(completion, signal);
     } finally {
       signal.removeEventListener('abort', abort); controller.abort(); this.controllers.delete(controller);
-      if (child && child.exitCode === null && child.signalCode === null) {
-        const stopped = new Promise<void>(yes => child!.once('exit', () => yes()));
-        child.kill(); await stopped;
-      }
-      server.closeAllConnections(); await new Promise<void>(yes => server.close(() => yes()));
-      // Only remove the exact empty scratch directory created above; no
-      // recursive cleanup of user data or shared Codex authentication files.
-      await rmdir(cwd).catch(() => {});
+      transport.requests.delete(route + '/responses');
+      if (threadId && transport.turns.has(threadId)) transport.turns.set(threadId, () => { nativeFinished = true; nativeDone(); });
+      // The caller need not wait for a transport ACK. Retain only the native
+      // IDs during bounded cleanup; no prompt, output or credentials are sent.
+      void (async () => {
+        const cleanupSignal = AbortSignal.timeout(2000);
+        try {
+          if (!threadId && threadStarted) threadId = (await waitFor(threadStarted, cleanupSignal)).thread?.id;
+          if (!threadId || transport.closed) return;
+          if (succeeded) await waitFor(nativeEnded, cleanupSignal);
+          else if (!nativeFinished) {
+            if (!turnId && turnStarted) turnId = (await waitFor(turnStarted, cleanupSignal)).turn?.id;
+            if (turnId) await waitFor(transport.rpc('turn/interrupt', { threadId, turnId }), cleanupSignal);
+          }
+          await waitFor(transport.rpc('thread/unsubscribe', { threadId }), cleanupSignal);
+        } catch {
+          // Finish independent in-flight requests, then retire a process whose
+          // native cleanup could not be acknowledged instead of retaining stubs.
+          transport.retire();
+        } finally { if (threadId) transport.turns.delete(threadId); transport.release(); }
+      })();
     }
   }
 }

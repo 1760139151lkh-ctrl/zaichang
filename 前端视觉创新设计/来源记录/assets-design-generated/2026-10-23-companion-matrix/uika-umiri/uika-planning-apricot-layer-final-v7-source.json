@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "kind": "source-scene-layer-candidate",
+  "character": "uika",
+  "activity": "planning",
+  "theme": "apricot",
+  "status": "producer-reviewed-primary-pending",
+  "transform": "identity; original full 1536x1024 camera, no resizing/translation/warp",
+  "mother": {
+    "path": "uika-planning-apricot-mother-candidate-v3.png",
+    "sha256": "767aab09d7596550438a1e3ef5ff01e578b4a635cc548b104bd773f211361e1b",
+    "bytes": 2177808,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "generationSource": "uika-planning-apricot-layer-source.json",
+  "matte": {
+    "path": "uika-planning-apricot-matte-prepared-v4.png",
+    "sha256": "0d3430f5f9f8c79e9d046a547910fd2203497dad983f3ec3c5dba92a86e9526a",
+    "bytes": 101048,
+    "width": 1536,
+    "height": 1024,
+    "mode": "L"
+  },
+  "matteRefinement": "uika-planning-apricot-matte-refinement-v4.json",
+  "generatedBackground": {
+    "path": "uika-planning-apricot-background-generated-v2.png",
+    "sha256": "cd7791fd60026a5878915ddb28d9b2a9b37d979b73b8b50b0222e7eb4737bfe8",
+    "bytes": 2134532,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "backgroundGenerationSource": "uika-planning-apricot-background-v2-source.json",
+  "parameters": {
+    "path": "uika-planning-apricot-layer-parameters-v7.json",
+    "sha256": "a775ddf87319feabf5f201b2847c5f2ffe3ce55c014c4edac66ac04cfc0479f3"
+  },
+  "processing": {
+    "path": "uika-planning-apricot-layer-processing-v7.json",
+    "sha256": "ea56fa764507e11435ba2a7a9251eed147b005c845395f244480883d9f34c1e2"
+  },
+  "scene": "uika-planning-apricot.scene.json",
+  "outputs": [
+    {
+      "path": "uika-planning-apricot-figure-calibrated-v7.png",
+      "sha256": "c5ce341151af155a8a2dbee7c9f283d0d9011e3a9986b7bb40ad35d81c70f0ad",
+      "bytes": 2443476,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA"
+    },
+    {
+      "path": "uika-planning-apricot-mask-calibrated-v7.png",
+      "sha256": "76de81cb1fc50b2b1bd875ab32db8a4d2dca77e1f882b6f6978750968057b16c",
+      "bytes": 26754,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA"
+    },
+    {
+      "path": "uika-planning-apricot-background-calibrated-v7.png",
+      "sha256": "88db8717ba601355eb13efe3a289f558484c44f580c4a39a851ea7ca24abc0c6",
+      "bytes": 2105235,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "path": "uika-planning-apricot-shadow-calibrated-v7.png",
+      "sha256": "d9a41475c8d1628dbe9e44a5ec921ac33a5d1e58ad6dfe2d596ca2d314ec374e",
+      "bytes": 37223,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA"
+    }
+  ],
+  "sourceRgb": {
+    "motherRgbSha256": "74e65a1d6db54004f30d238e2ce57a638ff85dfc33ec7f876a3dd5a83e9a43b6",
+    "figureRgbSha256": "74e65a1d6db54004f30d238e2ce57a638ff85dfc33ec7f876a3dd5a83e9a43b6",
+    "operation": "all original mother RGB retained; alpha changes visibility only"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observed": [
+      "original full mother",
+      "full-canvas light and dark recomposition",
+      "full empty background",
+      "full room recomposition",
+      "source edge/contact details"
+    ],
+    "note": "Actual upright side-chair support: pelvis/visible skirt stays on original chair cushion; original chair-back occlusion is excluded from person alpha without inventing hidden body. Resting forearm contacts fixed desk and shoes stay on floor. Both planning papers remain in background. Exact source hair alpha cleanup only, no face/body repaint; travel/slope/perspective=0. Fresh clean background v2 and original local contact RGBA; all Stage and runtime review remains pending."
+  },
+  "primaryReview": {
+    "approved": false,
+    "personallyViewed": false
+  },
+  "runtimeAccepted": false,
+  "recordedAt": "2026-10-24T10:26:56.665241+00:00",
+  "processor": {
+    "path": "../extract-scene-layers.py",
+    "sha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f"
+  },
+  "notForAdoption": {
+    "layerVersions": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "backgroundPreparations": [
+      "uika-planning-apricot-background-prepared-v2.png",
+      "uika-planning-apricot-background-prepared-v3.png",
+      "uika-planning-apricot-background-prepared-v4.png"
+    ],
+    "reason": "Superseded cleanup experiments: v2-v5 exposed extra generated drawer details or original-visible RGB patch seams; v6 still retained a local under-desk body cast shadow. Final v7 uses only generated-background-v2 and its explicit erase/contact polygons, not any background-prepared image."
+  }
+}

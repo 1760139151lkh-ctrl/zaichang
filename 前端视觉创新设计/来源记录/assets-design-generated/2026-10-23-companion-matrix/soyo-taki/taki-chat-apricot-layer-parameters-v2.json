@@ -1,0 +1,38 @@
+{
+  "mother": "taki-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f",
+  "matte": "taki-chat-apricot-mask-generated-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "localColorMatteRefinement": {
+    "region": [1150, 300, 1390, 568],
+    "seedThreshold": 80,
+    "uncertainBandPixels": 3,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.35
+  },
+  "backgroundCandidate": "taki-chat-apricot-background-generated-v1.png",
+  "background": "taki-chat-apricot-background-calibrated-v2.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [[1089, 735], [1187, 735], [1190, 779], [1087, 779]],
+    [[1235, 751], [1318, 751], [1328, 805], [1235, 805]],
+    [[1180, 578], [1381, 578], [1381, 622], [1180, 622]]
+  ],
+  "contactShadowPolygons": [
+    [[1087, 736], [1184, 736], [1191, 778], [1086, 778]],
+    [[1234, 751], [1318, 751], [1326, 803], [1234, 803]],
+    [[1180, 573], [1381, 573], [1381, 624], [1180, 624]]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "taki-chat-apricot-shadow-calibrated-v2.png",
+  "figure": "taki-chat-apricot-figure-calibrated-v2.png",
+  "mask": "taki-chat-apricot-mask-calibrated-v2.png",
+  "record": "taki-chat-apricot-layer-processing-v2.json",
+  "reviewNote": "Local soft-alpha refinement removes blue window fragments within the generated hair matte only. Matching background is patched solely at the former figure/contact footprint. Original RGB is unchanged; no body repair or runtime admission."
+}

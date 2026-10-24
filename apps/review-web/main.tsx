@@ -30,7 +30,7 @@ async function start() {
   const initial = scene === 'route-demo' && from && to ? service.route({from:{kind:'place',id:from.id},to:{kind:'place',id:to.id}}) : scene === 'building-focus' && focus ? {...emptyRoute(),to:focus} : emptyRoute();
   function Review() {
     const [open,setOpen] = useState(true);
-    return open ? <MapSheet initialRoute={initial} reviewScene={scene} onClose={()=>setOpen(false)} onWindowClose={()=>setOpen(false)}
+    return open ? <MapSheet publicOnly initialRoute={initial} reviewScene={scene} onClose={()=>setOpen(false)} onWindowClose={()=>setOpen(false)}
       returnLabel="返回地图介绍" reviewControls={<label className="review-scenes"><span>查看</span><select aria-label="地图预览场景" value={scene} onChange={e=>{const url=new URL(location.href);url.searchParams.set('scene',e.target.value);location.assign(url.href);}}>{Object.entries(scenes).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label>} /> :
       <main className="review-home"><h1>在场 · 校园地图</h1><p>浏览紫金港的建筑与道路，选择两点比较步行路线。</p><button onClick={()=>setOpen(true)}>打开地图</button><p>公开地图预览 · 个人资料保留在桌面端</p><a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a></main>;
   }

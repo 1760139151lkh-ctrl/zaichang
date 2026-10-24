@@ -1,4 +1,5 @@
 import { build } from 'esbuild';
+import { copyFile, mkdir } from 'node:fs/promises';
 import { stageMaterialRuntime } from './material-runtime.mjs';
 import { stageEmbeddingRuntime } from './embedding-runtime.mjs';
 await build({
@@ -13,6 +14,8 @@ await build({
   loader: { '.md': 'text' },
   sourcemap: true,
 });
+await mkdir('dist-electron/tiyi-runtime', { recursive: true });
+await copyFile('src/main/integrations/tiyi_connector.py', 'dist-electron/tiyi-runtime/connector.py');
 if (process.platform === 'win32' && process.arch === 'x64') {
   await stageMaterialRuntime('dist-electron/material-runtime');
   await stageEmbeddingRuntime('dist-electron/embedding-runtime');

@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "play",
+  "palette": "violet",
+  "light": "dusk",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-edfce304-9f41-4f4f-ab87-ed4bf2199bc8",
+  "prompt": "taki-play-violet-prompt.txt",
+  "promptSha256": "899febe4e563274d0ac56af5a9c7cb96e2149fd191dc542bb2315b54d33ff118",
+  "inputs": [
+    {
+      "file": "taki-play-apricot-mother-candidate-v1.png",
+      "sha256": "bf2bb6c780f72c03b65169347d1deafe8c178afe1a9bf6509848dc239321d0f9",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-edfce304-9f41-4f4f-ab87-ed4bf2199bc8.png",
+  "output": {
+    "file": "taki-play-violet-mother-candidate-v1.png",
+    "sha256": "9fef92966caa9edfc3a0d855745820e295ab2252d9ebf0b499a4b758f25c1e9f",
+    "bytes": 2152847,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed with the approved warm mother and target empty plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Actual supported desk-chair drum-pad activity with two held drumsticks, two visible hands and two complete floor loafers retained. Practice pad/books/lamp remain room objects. Whole-room light coherent and violet sun/lake axis near1007/1003. Primary/layer/runtime review remains separate."
+}

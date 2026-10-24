@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "nyamu",
+  "activity": "chat",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "whole-environment physical relighting of primary-approved complete mother; pose and furniture locked",
+  "identityText": "nyamu-identity.txt",
+  "inputs": [
+    {
+      "file": "nyamu-chat-apricot-mother-candidate-v1.png",
+      "role": "sole image input/edit target; primary-approved correct complete mother",
+      "sha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305"
+    }
+  ],
+  "approvalBasis": "primary-other-mother-reviews.json; original Nyamu chat mother approved for correct anatomy/identity/support/activity; theme review separate",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "asset": "nyamu-chat-mist-mother-candidate-v1.png",
+  "palette": "mist",
+  "light": "morning",
+  "prompt": "nyamu-chat-mist-prompt.txt",
+  "output": {
+    "file": "nyamu-chat-mist-mother-candidate-v1.png",
+    "sha256": "8b0927bd5391ec2ead8b09d7e874d2db85f4014cd3a86497fa291ead21d5c131",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-f30ad886-6ef4-4a98-9f01-ba49a3e1e05d.png"
+  },
+  "designerObservation": "Full 1536x1024 output personally viewed. Same youthful face, open-shoulder forward chat lean, supported hip/palm and complete adjacent legs/shoes; same furniture/window composition visually retained. Outside is cloudy blue-white lake mist with softened city; all hard apricot leaf shadows and sun pools removed across left wall/floor/rug. Broad cool diffuse window light reaches room with natural timber still warm; face/arms/legs keep natural peach, bob remains lavender-purple, eyes red-purple, ruffled blouse gray and skirt/shoes black rather than dyed blue. Character highlights are softened and not retained sharp apricot rim. Candidate needs primary full-room lighting/geometry comparison; no layer or runtime acceptance claimed.",
+  "observedGaps": [
+    "Primary gate review pending; exact layers/calibration not started."
+  ]
+}

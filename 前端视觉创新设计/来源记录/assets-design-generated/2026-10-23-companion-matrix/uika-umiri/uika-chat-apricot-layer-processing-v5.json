@@ -1,0 +1,295 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "uika-chat-apricot-layer-parameters-v5.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "uika-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c",
+  "matte": "uika-chat-apricot-matte-prepared-v1.png",
+  "matteSha256": "394c58ca162c2d94062c5be5f0604c77680c37c5994e376701865cc3fa80ee94",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1280,
+        570,
+        1364,
+        603
+      ],
+      "polygon": [
+        [
+          1280,
+          570
+        ],
+        [
+          1361,
+          570
+        ],
+        [
+          1363,
+          574
+        ],
+        [
+          1363,
+          577
+        ],
+        [
+          1359,
+          580
+        ],
+        [
+          1354,
+          582
+        ],
+        [
+          1346,
+          584
+        ],
+        [
+          1337,
+          585
+        ],
+        [
+          1326,
+          588
+        ],
+        [
+          1316,
+          592
+        ],
+        [
+          1310,
+          596
+        ],
+        [
+          1307,
+          600
+        ],
+        [
+          1306,
+          603
+        ],
+        [
+          1280,
+          603
+        ]
+      ],
+      "mode": "replace",
+      "featherPixels": 0.25
+    }
+  ],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 651,
+  "alphaNonzeroPixels": 70327,
+  "alphaBounds": [
+    1091,
+    255,
+    1425,
+    770
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "0e989ba2b22ca087f21fe846849e6b28d0ef7fbafa364241d00c237b4691263d",
+  "figureRgbSha256": "0e989ba2b22ca087f21fe846849e6b28d0ef7fbafa364241d00c237b4691263d",
+  "background": {
+    "candidate": "uika-chat-apricot-background-pillow-calibrated-v2.png",
+    "candidateSha256": "7d3d56aaae6c5fa6dd5255ebbb3ca2989e3c8cffa0585da9e4f4676d3ed93b9a",
+    "expandPixels": 9,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          1091,
+          755
+        ],
+        [
+          1233,
+          755
+        ],
+        [
+          1233,
+          780
+        ],
+        [
+          1091,
+          780
+        ]
+      ],
+      [
+        [
+          1194,
+          574
+        ],
+        [
+          1429,
+          574
+        ],
+        [
+          1429,
+          593
+        ],
+        [
+          1194,
+          593
+        ]
+      ]
+    ],
+    "changedPixels": 100537,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1093,
+          748
+        ],
+        [
+          1120,
+          745
+        ],
+        [
+          1163,
+          753
+        ],
+        [
+          1164,
+          764
+        ],
+        [
+          1124,
+          768
+        ],
+        [
+          1095,
+          759
+        ]
+      ],
+      [
+        [
+          1132,
+          760
+        ],
+        [
+          1165,
+          757
+        ],
+        [
+          1214,
+          763
+        ],
+        [
+          1224,
+          774
+        ],
+        [
+          1184,
+          781
+        ],
+        [
+          1143,
+          778
+        ]
+      ],
+      [
+        [
+          1250,
+          574
+        ],
+        [
+          1274,
+          569
+        ],
+        [
+          1311,
+          573
+        ],
+        [
+          1348,
+          577
+        ],
+        [
+          1371,
+          573
+        ],
+        [
+          1372,
+          590
+        ],
+        [
+          1280,
+          592
+        ],
+        [
+          1254,
+          584
+        ]
+      ],
+      [
+        [
+          1371,
+          574
+        ],
+        [
+          1427,
+          574
+        ],
+        [
+          1430,
+          590
+        ],
+        [
+          1371,
+          590
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "uika-chat-apricot-figure-calibrated-v5.png",
+      "bytes": 2440882,
+      "sha256": "cea28ccc5d752a2acc327437ada1752b4f3751a662de4eeed9543992b1269729"
+    },
+    {
+      "file": "uika-chat-apricot-mask-calibrated-v5.png",
+      "bytes": 31745,
+      "sha256": "bb0322774511e0b37e801039246689eb45df4296783144ed3825b842dd2ec090"
+    },
+    {
+      "file": "uika-chat-apricot-background-calibrated-v5.png",
+      "bytes": 2093637,
+      "sha256": "861058f0ce0c29ab3e3ec9bcceef9b83030d9983a806151856c091be563390f2"
+    },
+    {
+      "file": "uika-chat-apricot-shadow-calibrated-v5.png",
+      "bytes": 42717,
+      "sha256": "0da4a25dfee45d9aa766d916800a080a3bfee6def6d97012977edbbb8bf4c3a1"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

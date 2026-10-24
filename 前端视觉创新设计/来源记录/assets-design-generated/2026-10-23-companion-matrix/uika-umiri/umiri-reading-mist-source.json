@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-themed-mother-candidate",
+  "character": "umiri",
+  "activity": "reading",
+  "theme": "mist",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "executionId": "exec-4a27a13c-42fb-441a-a189-b48f63c70fba",
+  "input": {
+    "path": "umiri-reading-apricot-mother-candidate-v2.png",
+    "sha256": "5543b970656b878a7f7114429e3d1325c4aa64ba036eb998912831cd87cfa974",
+    "role": "sole primary-approved complete apricot activity mother"
+  },
+  "promptFile": "umiri-reading-mist-prompt.txt",
+  "actualPrompt": "Asset ID: umiri-reading-mist. Activity: reading. Theme: mist.\nSOLE APPROVED INPUT: umiri-reading-apricot-mother-candidate-v2.png; complete original apricot activity mother only.\nUse case: lighting-weather. Make ONE complete 1536 x 1024 same-room themed mother by relighting the supplied primary-approved character reading scene.\nONLY INPUT IMAGE 1 is the EDIT TARGET, a complete approved apricot mother with its original person. This is a whole-scene LIGHTING AND WEATHER EDIT, not a new composition or new pose.\nLOCK EVERYTHING GEOMETRIC: exact canvas, camera and perspective; exact person's face, age, hairstyle, body, expression, posture, hands/fingers, clothing folds, hems, both feet/shoes, scale and position; exact window frame and all four corners, curtains, lake/campus landmarks, rear-left table/chair/shelves/framed drawing, right desk/chair/lamp/cup/book, bench/pillows/throw, rug and all furniture feet. Keep the chair in THIS mother, even if it differs from the original empty-room chair orientation. Do not restore/reposition a chair, move a lamp or widen a desk. Do not crop, zoom, enlarge, redesign, move the person or add another person.\nThe left lived-in depth and open central floor stay visible. Relight the PERSON and the WHOLE ROOM together so hair, skin, clothes, wood, linen, window glass, exterior and contact shadows agree with the same illumination. Skin and clothing retain their own material colors, not a full-image color filter, tinted overlay, green cast, black layer or white gradient. Preserve fine youthful Japanese-anime character linework and the softly detailed painted environment. No text, UI, logo, watermark, split-screen, border, arrows, inset or duplicate view.\n\nIDENTITY LOCK: this is Yahata Umiri (八幡海鈴), the same youthful charcoal-gray shoulder-length flipped-tip hair, gray-teal eyes, short black jacket, dark-red top, gray short skirt, choker/earrings and black platform boots already painted in the input. Keep her ORIGINAL READING v2 bench side-seat: the complete open book is held by the left hand on her lap, her right supporting palm presses the cushion near the blue pillow, hips/gray skirt supported, both legs and both complete black boots remain in original positions. Keep the book pages/covers, fingers and quiet downward gaze exactly; do not move to a desk chair or restore the rejected reading v1 pose.\n\nTHEME MIST / clear blue-white morning:\nThe same lake and distant campus have light low morning haze, bright clear pale-blue sky and soft small clouds. Haze stays OUTSIDE, not inside the room. The big window supplies broad diffuse cool morning light, softer and less amber than the apricot source. Soften the strong apricot sun streaks and leaf projections into gentle broad daylight/shadows. The same curtains, window reflections, wall bounce, wood floor, pillows and cloth reflect this fresh blue-white daylight; retain ivory plaster, honey wood and neutral fabric rather than making every material blue. The existing lamp is OFF in daylight, same exact fixture and position.\nThe person receives a subtle cool window rim and soft neutral fill, natural readable skin, original hair/eye/clothing hues and ordinary contact shadows. No icy cyan face, desaturated gray room or indoor fog. One continuous airy human-scale space, not a new room.\nReturn the complete exact-size same-character, same-pose, same-furniture scene.",
+  "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-4a27a13c-42fb-441a-a189-b48f63c70fba.png",
+  "output": {
+    "path": "umiri-reading-mist-mother-candidate-v1.png",
+    "sha256": "cb33b5601a4ee55f956f9a9d2412eedda0a2a8a8ac31170ad7736c7109d48d08",
+    "bytes": 2128587,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-24T00:25:03.225152+00:00"
+  },
+  "designerReview": {
+    "status": "viewed-candidate",
+    "observed": "Approved reading v2 bench pose, complete lap book, book hand, supporting palm, legs/boots and empty desk-chair retained. Whole blue-white morning with low lake haze outside, lamp off; no indoor fog or skin tint."
+  },
+  "primaryReview": "pending",
+  "layersAccepted": false,
+  "runtimeAccepted": false
+}

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "uika-play-apricot-room4",
+  "character": "uika",
+  "activity": "play",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "uika-play-apricot-mother-candidate-v1.png",
+  "background": "uika-play-apricot-background-calibrated-v6.png",
+  "figure": "uika-play-apricot-figure-calibrated-v6.png",
+  "mask": "uika-play-apricot-mask-calibrated-v6.png",
+  "shadow": "uika-play-apricot-shadow-calibrated-v6.png",
+  "seat": [
+    0.8776041666666666,
+    0.564453125
+  ],
+  "ground": [
+    0.798828125,
+    0.744140625
+  ],
+  "bodyBounds": [
+    0.740234375,
+    0.2783203125,
+    0.982421875,
+    0.748046875
+  ],
+  "safeTextBoundary": 0.72,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "97.5260% 37.6953%, 94.7266% 38.5742%, 93.6849% 39.8438%, 90.4948% 41.5039%, 89.4531% 38.4766%, 86.8490% 37.4023%, 87.5651% 36.4258%, 87.6953% 37.0117%, 88.2161% 35.0586%, 88.0208% 32.8125%, 88.4115% 33.5938%, 87.3047% 30.2734%, 84.9609% 27.8320%, 82.8776% 28.8086%, 82.0964% 30.3711%, 81.2500% 36.0352%, 81.6406% 37.5000%, 81.9010% 36.0352%, 82.0964% 37.5977%, 82.4870% 37.9883%, 82.4870% 37.1094%, 83.0078% 38.0859%, 82.7474% 36.1328%, 83.9193% 38.5742%, 82.2917% 38.3789%, 76.7578% 42.9688%, 77.3438% 44.2383%, 76.1719% 47.0703%, 76.0417% 51.9531%, 77.4740% 54.8828%, 78.3203% 54.5898%, 77.0833% 56.9336%, 75.2604% 64.4531%, 76.3021% 66.1133%, 77.1484% 65.8203%, 76.8229% 67.9688%, 75.6510% 69.1406%, 75.7161% 70.2148%, 74.2188% 71.7773%, 74.0234% 72.8516%, 76.3672% 73.4375%, 78.3203% 71.4844%, 78.4505% 67.2852%, 78.9714% 66.6992%, 78.8411% 67.2852%, 79.4271% 67.4805%, 79.6875% 64.4531%, 80.0130% 65.0391%, 80.2083% 64.0625%, 80.2083% 68.9453%, 79.1667% 69.9219%, 79.4271% 70.6055%, 77.2786% 72.8516%, 77.2135% 73.9258%, 79.5573% 74.5117%, 82.3568% 73.1445%, 81.9010% 68.1641%, 82.4219% 64.0625%, 82.9427% 64.2578%, 82.9427% 65.8203%, 83.3984% 66.3086%, 83.3984% 69.6289%, 86.9141% 69.3359%, 86.8490% 58.3984%, 87.8906% 57.0312%, 89.3229% 56.7383%, 90.1693% 54.1016%, 89.3229% 47.9492%, 90.1693% 49.7070%, 91.0156% 49.3164%, 92.4479% 45.3125%, 92.2526% 42.0898%, 94.0104% 41.1133%, 94.9870% 41.2109%, 95.3125% 41.9922%, 95.3125% 41.1133%, 96.0286% 40.9180%, 96.3542% 41.6016%, 96.2240% 40.9180%, 97.0052% 40.5273%, 97.2656% 41.3086%, 97.2005% 40.6250%, 97.9818% 40.1367%",
+  "travel": 0.005208333333333333,
+  "slope": 0.12,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "runtimeAccepted": false,
+    "runtimeReviewRecord": "../primary-runtime-reviews.json",
+    "producerNote": "Independent source calibration: approx visible hip/cushion contact (1348,578), near shoe sole (1227,762). Complete guitar body/neck/headstock/tuning pegs and both actual hands remain original figure pixels; real furniture is background. Only 8px each side along the same bench seam is proposed, preserving at least 19px right guitar-tip margin. Raw internal hand matte lines filled; real arm/guitar/leg air stays open. Raw crown notch and sky rim corrected in alpha against original source crop. Separate original source contact residual, 3px near visible figure, no moved floor patch. Static short-range endpoints personally viewed, runtime motion pending."
+  },
+  "production": "uika-play-apricot-layer-processing-v6.json",
+  "parameters": "uika-play-apricot-layer-parameters-v6.json"
+}

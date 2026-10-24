@@ -2,7 +2,6 @@ import * as ml from 'maplibre-gl';
 import type { FeatureCollection, Feature, Position } from 'geojson';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import fontUnicodeRanges from '@fontsource-variable/noto-sans-sc/unicode.json';
-import 'maplibre-gl/dist/maplibre-gl.css';
 import { fromLonLat, toLonLat } from 'ol/proj';
 import type { LocationFix, MapPoint, MapRouteResult, LngLat } from '../../shared/map-v2';
 import { mapRoutePointName } from '../../shared/map-v2';

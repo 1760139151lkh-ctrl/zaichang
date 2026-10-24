@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "chat",
+  "palette": "rain",
+  "light": "night",
+  "generatedOn": "2026-10-23",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-44279f6c-8d8b-4845-b208-b328e983c24b",
+  "prompt": "soyo-chat-rain-prompt.txt",
+  "promptSha256": "1292bacce6d32343382b5dd49078c2125866610e338b438c5e3575450b997a71",
+  "inputs": [
+    {
+      "file": "soyo-chat-apricot-mother-candidate-v1.png",
+      "role": "primary-reviewed correct complete mother: identity, full pose and furniture support",
+      "sha256": "e5860a2adf427032f84d15dcec6c59c8b6ffa7dff8ede6eadf9ec669f4e00b29"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "role": "primary-reviewed empty complete target lighting plate",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16921-9fe7-73b2-81e9-dfadeae00b4a/exec-44279f6c-8d8b-4845-b208-b328e983c24b.png",
+  "output": {
+    "file": "soyo-chat-rain-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2060831,
+    "sha256": "130d8136ac3d77c8618f5cc7a772fb01bd9882efa2a44e44a018c5069b12b4ef"
+  },
+  "review": {
+    "producerViewed": "complete generated original and its approved warm mother/target plate personally compared",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Same youthful light-brown hair/blue eyes/navy-white uniform and settled lap-fingertip chat silhouette; complete shoes and real bench support. Whole room has coherent cold rainy exterior and local warm desk-lamp illumination; no retained sharp daytime leaf shadow. Primary mother, layer and runtime review remain pending."
+}

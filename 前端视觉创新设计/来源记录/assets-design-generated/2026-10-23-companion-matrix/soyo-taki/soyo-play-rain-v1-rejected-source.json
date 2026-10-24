@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "play",
+  "palette": "rain",
+  "light": "night",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-74c19099-fdca-4f56-bbbe-3a61a3dec868",
+  "prompt": "soyo-play-rain-prompt.txt",
+  "promptSha256": "e6d9e726b37e1b894a357e9b5eaac07d54342c15f16590134e6f2f63a836bbe1",
+  "inputs": [
+    {
+      "file": "soyo-play-apricot-mother-candidate-v1.png",
+      "sha256": "81e654d671e5da16986fe32fe6e742c12042c684cad689f59885706eb29cc1f4",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-74c19099-fdca-4f56-bbbe-3a61a3dec868.png",
+  "output": {
+    "file": "soyo-play-rain-mother-rejected-v1.png",
+    "sha256": "2a74d3b983efddcc101c1862585a7b623e5a5ede3012503584dd69cd8bd50d36",
+    "bytes": 2084722,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "rejected",
+  "review": {
+    "producerViewed": "Complete original personally viewed with the approved target rain plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Character support is correct, but exterior town tower shifted toaboutx1127 instead of approved rain plate x1218; not adopted and never reused as input. Correct-source retry fixes exterior layout, not anatomy."
+}

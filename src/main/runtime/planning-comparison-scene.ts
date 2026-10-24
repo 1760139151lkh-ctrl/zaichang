@@ -166,7 +166,7 @@ export function resolvePlanningComparisonSelection(host: Pick<RuntimeCoordinator
   const option = host.repo.work(handle, 'option', optionId)[0], frame = host.repo.work(handle, 'episode', basis.matterId)[0];
   if (!option || !frame || frame.data.type !== 'collaboration_frame' || option.data.type !== 'planning_alternative'
     || option.data.matterId !== frame.id || !Array.isArray(frame.data.optionIds) || !frame.data.optionIds.includes(option.id))
-    throw new HarnessError('planning_comparison_source', '原来的商量现在不可读，未借旧画面恢复来源或采用权。');
+    throw new HarnessError('planning_comparison_source', '原来的商量现在不能读取。打开旧图也不会重新允许读那些资料或修改安排。');
   const historical = option.revision !== basis.optionRevision;
   const label = basis.title || (historical ? '那时一起看过的这一版' : option.title);
   return { target: { kind: 'discussion_option', optionId }, matter: { id: frame.id, revision: frame.revision }, label,
@@ -175,7 +175,7 @@ export function resolvePlanningComparisonSelection(host: Pick<RuntimeCoordinator
       rationale: basis.intent ?? null, selected: basis.selected, sourceRefs: structuredClone(basis.sourceBinding.refs) } } : {}),
     sourceBinding: structuredClone(basis.sourceBinding), planningReference: { comparisonId: basis.comparisonId,
       viewedRevision: basis.optionRevision, currentRevision: option.revision, historicalReference: historical },
-    meaning: '用户指向这幅当时推演里的一个办法，准备接着商量。可以谈原来的取舍，不代表现在仍然可行、已经选择或授权执行；采用前按currentRevision回读原owner和真实安排，不复活旧票据。' };
+    meaning: '本人指着当时试排的一版接着说，可以沿原来的取舍继续商量。它现在是否可行、本人是否选定、是否允许修改安排，仍要分别看当前情况。真要照这版安排时，先按这里给出的当前版本回到原方案核对最新日历；旧图不能让过期的保存步骤重新生效。' };
 }
 
 /** The selected original scene supplies the date, zone, object and full work

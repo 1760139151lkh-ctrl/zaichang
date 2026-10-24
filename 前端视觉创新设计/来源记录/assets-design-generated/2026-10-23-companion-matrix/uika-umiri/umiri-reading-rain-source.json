@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordType": "image-generation-source",
+  "character": "umiri",
+  "activity": "reading",
+  "theme": "rain",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-08068ea0-59cc-4bc4-b7f2-fb5d163add37",
+  "intent": "lighting-weather",
+  "prompt": "umiri-reading-rain-prompt-v1.txt",
+  "promptFileMatchesActualToolInput": true,
+  "recordedAt": "2026-10-24T08:04:54.147Z",
+  "inputs": [
+    {
+      "file": "umiri-reading-apricot-mother-candidate-v2.png",
+      "role": "primary-approved-correct-warm-mother-edit-target",
+      "sha256": "5543b970656b878a7f7114429e3d1325c4aa64ba036eb998912831cd87cfa974"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "role": "primary-approved-clean-theme-lighting-reference-only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "umiri-reading-rain-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "d9af1aaaf1bf2be92adcb7b8e48b715306715544aed7d4b66b503017b1726ba5",
+    "bytes": 2045842
+  },
+  "review": {
+    "designerViewed": "complete original Imagegen output",
+    "designerStatus": "candidate-for-primary-review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Bench reading/book and bracing palm preserved, both complete boots and natural seat support retained under coherent night light.",
+  "promptSha256": "be3014f742e24fee828f2d9a6336e4dd18229d98bb8462b2352526ca4d2a17fc"
+}

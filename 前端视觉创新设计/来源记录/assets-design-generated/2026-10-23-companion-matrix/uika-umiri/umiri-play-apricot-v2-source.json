@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-mother-candidate",
+  "character": "umiri",
+  "activity": "play",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/umiri/",
+    "https://anime.bang-dream.com/mygo/character/umiri/"
+  ],
+  "input": {
+    "path": "../room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty room; no character pixels used"
+  },
+  "promptFile": "umiri-play-apricot-v2-prompt.txt",
+  "prompt": "Use case: stylized-concept. Asset: ONE complete 1536 x 1024 warm-apricot morning mother scene for the 在场 companion Stage, with the whole room and whole person.\nONLY INPUT image 1 is the primary-selected CLEAN EMPTY room v4. It supplies architecture, camera, ordinary furniture scale, materials and light and contains no person. Generate this complete human-in-room scene from text; no portrait, old mother or separate cutout is an input.\nPRESERVE THE ROOM: same mild seated-eye perspective, full connected window frame including every corner, lake/campus view, rear-left table/chair/bookshelves/framed drawing, right desk/chair/lamp/cup, bench/cushions/throw, rug and complete floor passage. Keep furniture in its original area and ordinary scale. No new foreground table/chair, enlarged person, zoom, crop, blank wall, white gradient or erased left living detail. Keep the left/central live-reading lane free of new character parts and props. Add real contact shadows where this person is supported. One coherent morning window light with natural skin and distinct material colors, not an orange wash.\nSTYLE: original youthful Japanese-anime identity, restrained fine character linework in the input's softly detailed environmental painting. Neither an adult fashion portrait nor a chibi child. A naturally inhabited continuous room, never a separately pasted sticker. No other person, text, UI, logos, watermarks, split-screen, arrows, borders, insets or duplicate views. Show complete head/hair, hands, clothing hems and feet with air inside the canvas.\n\nCHARACTER: Yahata Umiri (八幡海鈴), BanG Dream! Ave Mujica / MyGO!!!!!, around fifteen-sixteen, first-year high-school girl. Charcoal-gray shoulder-length hair with a subtle cool undertone, divided side-swept fringe exposing a little forehead, cheek-framing strands and gently outward-flipped tips. Calm clear gray-teal eyes, soft teenage jaw, ordinary slim youthful proportions, not an adult fashion model. Consistent official casual clothes: short black biker jacket with simple lapels/zips over dark-red V-neck top, plain gray short skirt, simple black choker, small silver earrings, black lace-up mid-calf platform boots. Clothing keeps its original colors, modest natural styling without eroticized emphasis or invented uniform.\n\nCRITICAL play COMPOSITION: the ORIGINAL RIGHT DESK CHAIR STAYS EMPTY and EXACTLY WHERE IT IS. Umiri plays ON THE RIGHT WINDOW BENCH. The room remains a wide environmental view, not a bass portrait. Do not move a chair forward or left.\nPlace the complete human-and-bass silhouette within roughly x=1090..1510 and y=305..790 of the 1536x1024 canvas. Her head is near (1300,320), supported hips near (1300,575), boots on the original floor around y=770. The whole bass, including headstock, ends safely INSIDE the right image edge before x=1510. No person, instrument or prop enters the center/left reading area. Do not enlarge or crop her to make the bass fit.\n\nPLAYING RELATIONSHIP: Umiri is a young bassist trying a short rhythmic answer. She sits on the front of the real right bench cushion, hips and both thighs supported, torso tilted a little forward and diagonally toward the room, shoulders asymmetrical due to the fret arm. An UNBRANDED DARK-WINE SOLID-BODY ELECTRIC BASS rests on her real thigh, supported by that thigh, the picking forearm and a simple shoulder strap. The continuous slender neck angles toward the UPPER RIGHT, with full fretboard/strings/tuning pegs/headstock visible. Scale the instrument and her to the room together, never shorten/crop the neck or zoom the chair.\nOne hand frets naturally, thumb behind the neck and fingertips on actual strings. The other hand's index/middle fingers gently pluck near the pickups, forearm relaxed on the bass body. Her gray-teal gaze follows the fretting hand, face concentrated and slightly wry, mouth closed, not a camera grin or a girl merely posing with a prop. Exactly two continuous arms and five-finger hands; no fused wrist, extra hand, reversed fret grip, floating bass or acoustic sound hole.\nThe gray skirt drapes modestly over two supported thighs. Two distinct knees are naturally offset for playing balance and lead through normal-length lower legs to two complete black platform boots on the original floor plane. Both boots have heel/forefoot contact, no knee through another thigh, crossed anatomy, floating pelvis, huge stretched legs or hidden foot. Her torso and arm actions must express actual bass playing, not a book swapped for a guitar.\nThis is a project-original informal music interaction, not a claim of an official instrument brand/model or real concert. No stage, amp, mic stand, phone, book, cup, readable score, logo or added furniture. Keep a whole wide room, empty original chair and clear floor passage.\n",
+  "output": {
+    "path": "umiri-play-apricot-mother-candidate-v2.png",
+    "sha256": "98fd4ab74541817c22b5c54ae0f277a270acf4ca3915acdb7bad94712136e6dd",
+    "bytes": 2209880,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T19:19:30.922972+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "v2改右窗榻、原桌椅留空，琴体落腿/肩带/双手有演奏关系，双靴支承，琴头完整但近画布右缘须主审复核轮廓余量。不输入v1。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-4ddcc82a-a067-4a14-9812-7d3ca16a0e5f"
+}

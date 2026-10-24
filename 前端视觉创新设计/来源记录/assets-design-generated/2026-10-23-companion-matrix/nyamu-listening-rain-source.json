@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-listening-rain-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "listening",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-scene physical relighting of this exact primary-approved warm activity mother; no other character inputs",
+  "prompt": "nyamu-listening-rain-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-listening-apricot-mother-candidate-v1.png",
+      "role": "sole image edit target; primary-approved correct complete activity mother",
+      "sha256": "823f7606e5add858c9834ea290822cc78e0b0c3ae1309f367bd2a2bf1d862b6e"
+    }
+  ],
+  "output": {
+    "file": "nyamu-listening-rain-mother-candidate-v1.png",
+    "sha256": "ca273c24c84b8d15c0ee52d2d0175abe374fe343ac03fda0eb470480c4c10e0a",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-2594edbe-ba94-4487-a39f-d0cfebea45de.png"
+  },
+  "ownershipAndPose": "Keep exact gathered bench listening posture, lowered shoulders, both hands loosely together low on lap, quiet responsive gaze toward left speaker, original fully supported hips and both complete shoes. No prop or new facial performance.",
+  "designerObservation": "Full image personally viewed. Quiet lap-handed gathered listening silhouette, source expression and supported hips/complete legs/shoes retained. Dark rainy glass/lake/city and existing warm desk lamp give continuous warm/cool night across character and room. Left wall/pillar dim and smooth without daytime leaf silhouettes; vase's immediate local flower shadow and soft localized lamp/floor reflection remain. Natural skin and gray/black outfit remain legible, no bright daytime pasted character.",
+  "observedGaps": [
+    "Primary mother review pending; no layers/calibration/Stage acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

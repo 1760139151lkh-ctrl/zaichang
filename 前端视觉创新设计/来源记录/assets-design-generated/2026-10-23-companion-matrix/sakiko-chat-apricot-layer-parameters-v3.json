@@ -1,0 +1,157 @@
+{
+  "mother": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+  "motherSha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+  "matte": "sakiko-chat-apricot-mask.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [
+    [
+      [
+        1205,
+        537
+      ],
+      [
+        1273,
+        542
+      ],
+      [
+        1304,
+        526
+      ],
+      [
+        1304,
+        535
+      ],
+      [
+        1273,
+        550
+      ],
+      [
+        1205,
+        545
+      ]
+    ]
+  ],
+  "excludePolygons": [],
+  "figure": "../../../运行素材/companion/scenes/sakiko-chat-apricot-figure-calibrated-v3.png",
+  "mask": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mask-calibrated-v3.png",
+  "backgroundCandidate": "sakiko-chat-apricot-background.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1235,
+        607
+      ],
+      [
+        1360,
+        620
+      ],
+      [
+        1362,
+        746
+      ],
+      [
+        1235,
+        783
+      ]
+    ],
+    [
+      [
+        1090,
+        735
+      ],
+      [
+        1275,
+        725
+      ],
+      [
+        1310,
+        835
+      ],
+      [
+        1090,
+        820
+      ]
+    ]
+  ],
+  "background": "../../../运行素材/companion/scenes/sakiko-chat-apricot-background-calibrated-v3.png",
+  "record": "sakiko-chat-apricot-layer-processing-v3.json",
+  "reviewNote": "v3 preserves the v2 figure/matching background; adds only a normal source-over residual contact shadow in manually located shoe/cushion ROIs, reusing integrated_craft method. No multiply, no floor RGB patch, no source body RGB changes.",
+  "contactShadowPolygons": [
+    [
+      [
+        1111,
+        761
+      ],
+      [
+        1140,
+        761
+      ],
+      [
+        1179,
+        768
+      ],
+      [
+        1181,
+        779
+      ],
+      [
+        1145,
+        781
+      ],
+      [
+        1112,
+        775
+      ]
+    ],
+    [
+      [
+        1162,
+        773
+      ],
+      [
+        1192,
+        772
+      ],
+      [
+        1234,
+        778
+      ],
+      [
+        1238,
+        790
+      ],
+      [
+        1200,
+        795
+      ],
+      [
+        1162,
+        787
+      ]
+    ],
+    [
+      [
+        1190,
+        580
+      ],
+      [
+        1410,
+        579
+      ],
+      [
+        1415,
+        606
+      ],
+      [
+        1190,
+        614
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "shadow": "../../../运行素材/companion/scenes/sakiko-chat-apricot-shadow-calibrated-v3.png"
+}

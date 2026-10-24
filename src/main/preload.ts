@@ -1,11 +1,32 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { Bridge, RunEvent } from '../shared/types';
 const bridge: Bridge = {
+  tiyiStatus: input => ipcRenderer.invoke('tiyi:status', input),
+  tiyiConnect: input => ipcRenderer.invoke('tiyi:connect', input),
+  tiyiDisconnect: () => ipcRenderer.invoke('tiyi:disconnect'),
+  workoutDevices: () => ipcRenderer.invoke('workout:devices'),
+  workoutState: () => ipcRenderer.invoke('workout:state'),
+  workoutStart: input => ipcRenderer.invoke('workout:start', input),
+  workoutPause: input => ipcRenderer.invoke('workout:pause', input),
+  workoutResume: input => ipcRenderer.invoke('workout:resume', input),
+  workoutFinish: input => ipcRenderer.invoke('workout:finish', input),
+  workoutCancel: input => ipcRenderer.invoke('workout:cancel', input),
+  workoutRestore: () => ipcRenderer.invoke('workout:restore'),
+  workoutDiscardRecovery: () => ipcRenderer.invoke('workout:discard-recovery'),
+  onWorkout: callback => {
+    const listener = (_event: Electron.IpcRendererEvent, state: import('../shared/workout').WorkoutState) => callback(state);
+    ipcRenderer.on('zaichang:workout', listener);
+    return () => ipcRenderer.removeListener('zaichang:workout', listener);
+  },
   readProgramLocalState: input => ipcRenderer.invoke('program:local-state:read', input),
   saveProgramLocalState: input => ipcRenderer.invoke('program:local-state:save', input),
   rehearsalProject: input => ipcRenderer.invoke('rehearsal:project', input),
   studyProject: input => ipcRenderer.invoke('study:project', input),
   studyRead: input => ipcRenderer.invoke('study:read', input),
+  studyBookmarkPreview: input => ipcRenderer.invoke('study:bookmark-preview', input),
+  studyBookmarkAccept: input => ipcRenderer.invoke('study:bookmark-accept', input),
+  sourceBookmarkPreview: input => ipcRenderer.invoke('source-bookmark:preview', input),
+  sourceBookmarkKeep: input => ipcRenderer.invoke('source-bookmark:keep', input),
   letterSource: input => ipcRenderer.invoke('letter:source', input),
   letterProject: input => ipcRenderer.invoke('letter:project', input),
   noteProject: input => ipcRenderer.invoke('note:project', input),
@@ -27,6 +48,7 @@ const bridge: Bridge = {
   materialsMoveNote: input => ipcRenderer.invoke('materials:move-note', input),
   materialsNotes: input => ipcRenderer.invoke('materials:notes', input),
   notesList: input => ipcRenderer.invoke('notes:list', input),
+  notesDraft: input => ipcRenderer.invoke('notes:draft', input),
   notesRead: input => ipcRenderer.invoke('notes:read', input),
   notesQuote: input => ipcRenderer.invoke('notes:quote', input),
   notesCreate: input => ipcRenderer.invoke('notes:create', input),

@@ -1,0 +1,19 @@
+{
+  "mother": "sakiko-chat-mist-mother-candidate-v1.png",
+  "motherSha256": "bda7f03d62e096dbc892b8d1e5b7fed446a3b3886d8255f70bbe2fb5db45efd0",
+  "matte": "sakiko-chat-mist-mask-generated-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "sakiko-chat-mist-figure-calibrated-v1.png",
+  "mask": "sakiko-chat-mist-mask-calibrated-v1.png",
+  "backgroundCandidate": "sakiko-chat-mist-background-generated-v1.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [],
+  "background": "sakiko-chat-mist-background-calibrated-v1.png",
+  "record": "sakiko-chat-mist-layer-processing-v1.json",
+  "reviewNote": "First same-position matte calibration candidate only. Original mother RGB preserved; no affine transform, anatomy or face repaint. Shadow and any book interior/edge correction await individual inspection."
+}

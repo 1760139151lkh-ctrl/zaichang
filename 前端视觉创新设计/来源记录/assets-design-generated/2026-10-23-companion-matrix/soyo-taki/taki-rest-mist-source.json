@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "rest",
+  "palette": "mist",
+  "light": "morning",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-5a78f098-a29a-4b13-966e-fe1e3569704b",
+  "prompt": "taki-rest-mist-prompt.txt",
+  "promptSha256": "d7e18f1e18c0551991a524813a0fa8a680cd571cbd274fde2933eddcbfc0c21b",
+  "inputs": [
+    {
+      "file": "taki-rest-apricot-mother-candidate-v1.png",
+      "sha256": "c946307e511b2a1f60652c04ec44e00a4a6d4c23ad3ded44043587f708983ee4",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-5a78f098-a29a-4b13-966e-fe1e3569704b.png",
+  "output": {
+    "file": "taki-rest-mist-mother-candidate-v1.png",
+    "sha256": "a9b1a5839a4c20540243b279cfbc7f919636f42c0630475a0e944803cfd74467",
+    "bytes": 2109850,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the primary-approved warm mother and target empty lighting plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Actual whole-body back/side view toward the lake, original supported bench posture and both floor loafers retained; youthful original identity and pale mist room light are coherent. Primary/layer/runtime review remains separate."
+}

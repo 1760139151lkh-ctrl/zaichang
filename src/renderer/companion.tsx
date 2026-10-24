@@ -8,24 +8,30 @@ import readingMorning from '../../前端视觉创新设计/运行素材/companio
 import readingDusk from '../../前端视觉创新设计/运行素材/companion/reading-dusk.png';
 import readingNight from '../../前端视觉创新设计/运行素材/companion/reading-night.png';
 import { companionMoment, type CompanionMoment } from './companion-variants';
-import { CompanionSceneStage, companionSceneArtwork, companionScenePortrait, type SceneCharacter } from './companion-scenes';
+import { CompanionSceneStage, companionSceneArtwork, companionScenePortrait, companionPaletteLight, type SceneCharacter } from './companion-scenes';
 import { useAppearance, type AppearancePalette } from './appearance';
 import './companion.css';
 
 export type { CompanionMoment } from './companion-variants';
 
-// All built-in portraits come from their approved complete scene, not a
-// separately generated cutout. Unavailable scene packs are not offered.
+// Identity crops use the primary-approved original scene pixels. A portrait
+// makes its character selectable without claiming any activity pack is ready.
 const characterSlots = [
   { id: 'sakiko', name: '祥子', fullName: '丰川祥子', category: 'Ave Mujica' },
   { id: 'mutsumi', name: '睦', fullName: '若叶睦', category: 'Ave Mujica' },
-  { id: 'anon', name: '爱音', fullName: '千早爱音', category: 'MyGO!!!!!' },
+  { id: 'uika', name: '初华', fullName: '三角初华', category: 'Ave Mujica' },
+  { id: 'umiri', name: '海铃', fullName: '八幡海铃', category: 'Ave Mujica' },
+  { id: 'nyamu', name: '若麦', fullName: '祐天寺若麦', category: 'Ave Mujica' },
   { id: 'tomori', name: '灯', fullName: '高松灯', category: 'MyGO!!!!!' },
+  { id: 'anon', name: '爱音', fullName: '千早爱音', category: 'MyGO!!!!!' },
+  { id: 'rana', name: '乐奈', fullName: '要乐奈', category: 'MyGO!!!!!' },
+  { id: 'soyo', name: '素世', fullName: '长崎素世', category: 'MyGO!!!!!' },
+  { id: 'taki', name: '立希', fullName: '椎名立希', category: 'MyGO!!!!!' },
 ] as const;
 export const COMPANIONS = characterSlots.map(character => ({
   ...character, image: companionScenePortrait(character.id) || '',
-  frame: { portrait: '400%', portraitTop: '-8%', anchor: '84%' },
-  avatar: { left: '-450%', top: '-50%', width: '600%' },
+  frame: { portrait: '122%', portraitTop: '0%', anchor: '50%' },
+  avatar: { left: '0%', top: '0%', width: '100%' },
 })).filter(character => character.image);
 export const WINDOW_LIGHT = { morning, dusk, night };
 type CharacterId = SceneCharacter | 'light' | `custom:${string}`;
@@ -115,8 +121,8 @@ export function prefersQuietMotion() {
 
 const CompanionContext = createContext<{
   value: CompanionState;
-  update: (patch: Partial<CompanionPreference>) => void;
-  setPicture: (dataUrl: string, name: string) => void;
+  update: (patch: Partial<CompanionPreference>, positions?: Record<string, number>, expected?: { preference: CompanionPreference; positions: Record<string, number> }) => void;
+  setPicture: (dataUrl: string, name: string, select?: boolean) => `custom:${string}`;
   removePicture: (id: CharacterId) => void;
   rename: (id: CharacterId, name: string) => void;
   toggleFavorite: (id: CharacterId) => void;
@@ -134,20 +140,31 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
     document.documentElement.dataset.motion = next.reducedMotion ? 'reduced' : 'full';
     setValue(next);
   }, []);
-  const update = useCallback((patch: Partial<CompanionPreference>) => {
+  const update = useCallback((patch: Partial<CompanionPreference>, positions?: Record<string, number>, expected?: { preference: CompanionPreference; positions: Record<string, number> }) => {
     const current = readCompanion();
-    const next = { ...current, ...preference({ ...current, ...patch }) };
+    if (expected && ((Object.keys(expected.preference) as (keyof CompanionPreference)[]).some(key => current[key] !== expected.preference[key])
+      || [...new Set([...Object.keys(current.scenePositions), ...Object.keys(expected.positions)])].some(key => current.scenePositions[key] !== expected.positions[key]))) {
+      setValue(current);
+      document.documentElement.dataset.motion = current.reducedMotion ? 'reduced' : 'full';
+      throw new Error('这里的选择刚在另一处改过。试看的样子还在，看看新选择后再决定。');
+    }
+    const scenePositions = { ...current.scenePositions };
+    if (positions) for (const [key, position] of Object.entries(positions)) {
+      if (/^[a-z0-9-]{1,100}$/.test(key) && Number.isFinite(position)) scenePositions[key] = Math.max(-1, Math.min(1, position));
+    }
+    const next = { ...current, ...preference({ ...current, ...patch }), scenePositions };
     if (next.character.startsWith('custom:') && !next.pictures.some(item => item.id === next.character)) throw new Error('这张图片已经不在收藏里了，选另一张吧。');
     commit(next);
   }, [commit]);
-  const setPicture = useCallback((dataUrl: string, name: string) => {
+  const setPicture = useCallback((dataUrl: string, name: string, select = true) => {
     if (!validImage(dataUrl)) throw new Error('这张图片太大了，换一张小一点的试试。');
     const current = readCompanion();
     if (current.pictures.length >= pictureLimit) throw new Error('这里已经放了 8 张自选图片。先移走一张，再把新的带进来吧。');
     if (current.pictures.reduce((total, item) => total + item.image.length, 0) + dataUrl.length > imageBudget)
       throw new Error('这些图片快放满了。可以换一张小些的，或先移走一张不常用的。');
     const id = `custom:${crypto.randomUUID()}` as const;
-    commit({ ...current, character: id, scale: 1, position: 50, verticalPosition: 100, pictures: [...current.pictures, { id, image: dataUrl, name: name.trim().slice(0, 60) || '我的形象' }] });
+    commit({ ...current, ...(select ? { character: id, scale: 1, position: 50, verticalPosition: 100 } : {}), pictures: [...current.pictures, { id, image: dataUrl, name: name.trim().slice(0, 60) || '我的形象' }] });
+    return id;
   }, [commit]);
   const removePicture = useCallback((id: CharacterId) => {
     const current = readCompanion();
@@ -195,18 +212,29 @@ export function useCompanion() {
   if (!context) throw new Error('CompanionProvider is required');
   return context;
 }
+/** A setting can try a room and move its character without changing the saved
+ * room. The real provider remains the single owner of local preferences. */
+export function CompanionPreviewProvider({ preference: preview, positions, onPositionChange, children }: {
+  preference: CompanionPreference; positions: Record<string, number>;
+  onPositionChange: (key: string, position: number) => void; children: ReactNode;
+}) {
+  const current = useCompanion();
+  return <CompanionContext.Provider value={{ ...current, value: { ...current.value, ...preview, scenePositions: positions }, setScenePosition: onPositionChange }}>{children}</CompanionContext.Provider>;
+}
 function selectedPicture(value: CompanionState, moment: CompanionMoment = 'chat', palette: AppearancePalette = 'apricot') {
   return value.character.startsWith('custom:') ? value.pictures.find(item => item.id === value.character)?.image
-    : companionSceneArtwork(value.character, moment, value.light, palette)?.mother;
+    : companionSceneArtwork(value.character, moment, companionPaletteLight(palette), palette)?.mother;
 }
 export function companionName(value: CompanionState, id: CharacterId = value.character) {
   return value.names[id] || (id === 'light' ? '只留一束光' : characterSlots.find(item => item.id === id)?.name || value.pictures.find(item => item.id === id)?.name || '我的形象');
 }
 export function CompanionAvatar({ className = '', size = 34 }: { className?: string; size?: number }) {
   const { value } = useCompanion();
-  const [appearance] = useAppearance();
   const character = COMPANIONS.find(item => item.id === value.character);
-  const image = value.presence === 'hidden' ? undefined : selectedPicture(value, 'chat', appearance.palette);
+  // The portrait identifies this character. It does not claim a matching
+  // room, activity or light asset exists for the current stage.
+  const image = value.presence === 'hidden' ? undefined
+    : value.character.startsWith('custom:') ? selectedPicture(value) : character?.image;
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [image]);
   return <span className={`companion-avatar ${className} ${image && !failed ? '' : 'is-light'}`} style={{ width: size, height: size }} aria-hidden="true">
@@ -372,25 +400,27 @@ function CompanionFigure({ image, name, placement, interaction, onError }: {
   </div>;
 }
 
-export function CompanionScene({ preview = false, quiet = false, immersive = false, moment, placement, interaction }: { preview?: boolean; quiet?: boolean; immersive?: boolean; moment?: CompanionMoment; placement?: CompanionPlacement; interaction?: PlacementInteraction }) {
+export function CompanionScene({ preview = false, quiet = false, immersive = false, moment, placement, interaction, paletteOverride }: { preview?: boolean; quiet?: boolean; immersive?: boolean; moment?: CompanionMoment; placement?: CompanionPlacement; interaction?: PlacementInteraction; paletteOverride?: AppearancePalette }) {
   const { value, setScenePosition } = useCompanion();
   const [appearance] = useAppearance();
-  const sceneMoment = moment ?? (immersive ? 'rest' : companionMoment({ reading: quiet && !preview, night: value.light === 'night' }));
-  const artwork = companionSceneArtwork(value.character, sceneMoment, value.light, appearance.palette);
-  const image = selectedPicture(value, sceneMoment, appearance.palette);
+  const palette = paletteOverride ?? appearance.palette;
+  const light = value.character === 'light' || value.character.startsWith('custom:') ? value.light : companionPaletteLight(palette);
+  const sceneMoment = moment ?? (immersive ? 'rest' : companionMoment({ reading: quiet && !preview, night: light === 'night' }));
+  const artwork = companionSceneArtwork(value.character, sceneMoment, light, palette);
+  const image = selectedPicture(value, sceneMoment, palette);
   const showFigure = !!image && (immersive || value.presence === 'window') && value.presence !== 'hidden';
   const readingRoom = quiet && !preview && !value.character.startsWith('custom:');
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [image]);
   const editable = preview && showFigure ? interaction : undefined;
   const scene = !!artwork && value.presence === 'window';
-  return <div className={`companion-scene ${preview ? 'is-preview' : ''} ${quiet || (preview && value.presence !== 'window') ? 'is-quiet' : ''} ${immersive ? 'is-immersive' : ''} ${value.character.startsWith('custom:') ? 'has-custom-art' : ''} ${scene ? 'has-scene-art' : ''}`} data-light={value.light} data-moment={sceneMoment} aria-hidden={scene && showFigure ? undefined : editable ? undefined : true}>
+  return <div className={`companion-scene ${preview ? 'is-preview' : ''} ${quiet || (preview && value.presence !== 'window') ? 'is-quiet' : ''} ${immersive ? 'is-immersive' : ''} ${value.character.startsWith('custom:') ? 'has-custom-art' : ''} ${scene ? 'has-scene-art' : ''}`} data-light={light} data-moment={sceneMoment} aria-hidden={scene && showFigure ? undefined : editable ? undefined : true}>
     {scene ? <>
       <CompanionSceneStage artwork={artwork} name={companionName(value)} position={value.scenePositions[artwork.positionKey] ?? value.scenePositions[artwork.id] ?? 0}
-        onCommit={position => setScenePosition(artwork.positionKey, position)} showFigure={showFigure} interactive={showFigure} />
+        onCommit={position => setScenePosition(artwork.positionKey, position)} showFigure={showFigure} interactive={showFigure} quiet={quiet && !preview} reducedMotion={value.reducedMotion} previewOnly={preview} />
       <div className="scene-content-wash" />
     </> : <>
-      <div className="window-room room-day" style={{ backgroundImage: `url(${value.light === 'dusk'
+      <div className="window-room room-day" style={{ backgroundImage: `url(${light === 'dusk'
         ? readingRoom ? readingDusk : dusk : readingRoom ? readingMorning : morning})` }} />
       <div className="window-room room-night" style={{ backgroundImage: `url(${readingRoom ? readingNight : night})` }} />
       <div className="window-wash" />

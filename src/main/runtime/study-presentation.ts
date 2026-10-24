@@ -38,6 +38,7 @@ export class StudyPresentationService {
     // Returning to discovery must not redisplay an earlier full explanation.
     // The main model generates a fresh requested move through the owner tool.
     return help && help.mode === view.mode
+      && help.problemScope !== 'prior_problem' && help.problemScope !== 'unverified_legacy_problem'
       && (view.mode !== 'small_hint' || help.kind === 'question' || help.kind === 'hint')
       && (view.mode === 'explain' || help.kind !== 'explanation') ? help : undefined;
   }
@@ -62,6 +63,7 @@ export class StudyPresentationService {
       historyWindow: { offset: options.historyOffset || 0, limit: options.historyLimit || 4 },
       heading: view.title, status: view.status, mode: view.mode, focus,
       problem: { text: view.problem.display, origin: view.problem.origin }, learnerLines: view.attempts,
+      ...(view.bookmark ? { bookmark: view.bookmark } : {}),
       ...(attempt ? { learnerAttempt: attempt } : {}),
       attemptChoices: view.attempts.map(value => ({ id: value.id, receivedAt: value.receivedAt })),
       ...(help ? { help } : {}), helpState: help ? 'provided' : 'not_yet_provided_for_current_mode',
@@ -76,7 +78,7 @@ export class StudyPresentationService {
           arguments: { operation: 'read', id: view.id, ...(view.historyCoverage.nextOffset !== null ? { historyOffset: view.historyCoverage.nextOffset } : {}) } } },
       refresh: { tool: 'study_companion', arguments: { operation: 'read', id: view.id } },
       bodyPolicy: 'async_current_owner_read_required',
-      meaning: '这张画面只展开当前原题、本人依次留下的真实尝试、一段已提供的帮助和下一步。选择只是继续交流的引用；看过讲解、切换方式和收好这一页都不证明掌握。' };
+      meaning: '这张纸把原题、你留下的尝试、一起讲过的内容和下一步放在同一处。点到哪一行，就能沿那一行接着聊；哪里想自己试、哪里想换个讲法，继续听你这次的意思。' };
     scene.actions = view.interaction.actions.flatMap(action => {
       if (!Object.hasOwn(requestedModes, action.id)) return [];
       const actionId = action.id as StudyScene['actions'][number]['id'];
@@ -108,7 +110,7 @@ export class StudyPresentationService {
       throw new HarnessError('study_scene_changed', '原题、学习步骤或可用来源已经变化，请展开当前这张学习纸。');
     const expected = this.build(current, { focus: scene.focus, historyOffset: scene.historyWindow.offset,
       historyLimit: scene.historyWindow.limit }, scene.createdAt, scene.source.fetchedAt);
-    if (canonical(expected) !== canonical(scene)) throw new HarnessError('study_scene_changed', '这张画面的内容和当前学习纸不一致，没有采用旧题目或旧答案。');
+    if (canonical(expected) !== canonical(scene)) throw new HarnessError('study_scene_changed', '这张画面和现在的学习纸没对上，可以先重新打开当前原题和这一段帮助。');
     return current;
   }
 
@@ -128,7 +130,8 @@ export class StudyPresentationService {
     else { text = scene.nextMove.text; origin = 'assistant_suggestion'; }
     const selection: StudyResolvedFocus = { ref: selected, matterId: view.matterId, text, origin,
       ...(source ? { source } : {}), sourceBinding: view.sourceBinding,
-      meaning: '用户只引用了同一道题中的这一处。题意转述、本人报告和助手帮助保持各自身份；没有接受答案、证明完成或批准日程。' };
+      ...(view.bookmark ? { bookmark: view.bookmark } : {}),
+      meaning: '对方这次指到了同一道题里的这一处，可以从这里接着聊。原题、他自己写过的尝试和一起讲过的内容，都留着各自的来处。' };
     return { selection, records: [current.record], projection: current.projection };
   }
 
@@ -147,12 +150,12 @@ export class StudyPresentationService {
     if (input.kind === 'attempt') {
       if (!input.text.trim()) throw new HarnessError('study_attempt_empty', '写下你现在想到的一步，就能从这里继续。');
       return { ...resolved, intent: 'learner_attempt' as const, text: input.text,
-        meaning: '这是用户即将发送的新尝试文本。宿主正常收到新用户消息后才可记录；不是独立正确或掌握的证明。' };
+        meaning: '这是刚写下、准备带回对话的一步。等对方发出来，就能沿这段自己的尝试继续想，再一起看它站不站得住。' };
     }
     const action = scene.actions.find(value => value.id === input.actionId);
     if (!action) throw new HarnessError('study_action_changed', '这一步的学习入口已变化，请从当前画面继续。');
     return { ...resolved, intent: 'request_help' as const, text: action.request, requestedMode: action.requestedMode,
-      meaning: '当前用户请求这一种帮助方式。先形成真实新用户消息，由主模型根据当前题目和尝试生成下一段；没有提前展开或采用隐藏答案。' };
+      meaning: '对方这次想换成这种讲法。把这个选择带回对话，就能从同一道题、当前这一步接着讲。' };
   }
 
   /** This is the only synchronous history/IPC fallback. It cannot authorize or

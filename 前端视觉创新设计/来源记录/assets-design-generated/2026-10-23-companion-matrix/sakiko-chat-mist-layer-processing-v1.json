@@ -1,0 +1,71 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "sakiko-chat-mist-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f9d7adc6be3c5e8f7d2336dd06d1579e65961131a6e47802e3235f95a6d1d0c3",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "sakiko-chat-mist-mother-candidate-v1.png",
+  "motherSha256": "bda7f03d62e096dbc892b8d1e5b7fed446a3b3886d8255f70bbe2fb5db45efd0",
+  "matte": "sakiko-chat-mist-mask-generated-v1.png",
+  "matteSha256": "b90d1ed47cedb37e641455438b687fc93ea18efec3c147dac93e6d11f05c2202",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 128689,
+  "alphaNonzeroPixels": 76848,
+  "alphaBounds": [
+    1100,
+    242,
+    1437,
+    806
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "f625e968aaa98e4e8c3cbb3b7c881d470f750ac8a06e66df8f8987d26b705108",
+  "figureRgbSha256": "f625e968aaa98e4e8c3cbb3b7c881d470f750ac8a06e66df8f8987d26b705108",
+  "background": {
+    "candidate": "sakiko-chat-mist-background-generated-v1.png",
+    "candidateSha256": "d118b6d7f6979f16842ddf3137cad1c137d515127505867cc4cca80534a0359e",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [],
+    "changedPixels": 95250,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": null,
+  "outputs": [
+    {
+      "file": "sakiko-chat-mist-figure-calibrated-v1.png",
+      "bytes": 2368467,
+      "sha256": "2ff2aeac0a7e60dc0ffbeadeaf1f3c18a34c4917d36dbdfc3704bbd2fa1f0938"
+    },
+    {
+      "file": "sakiko-chat-mist-mask-calibrated-v1.png",
+      "bytes": 44908,
+      "sha256": "2bb401426148100722aaa3c2924cca522b4a3e718435d1e947153c399100bbf1"
+    },
+    {
+      "file": "sakiko-chat-mist-background-calibrated-v1.png",
+      "bytes": 2018157,
+      "sha256": "9ed4a42b9d57427796807cd0f95e0c4e1e405e1365eb7ea52a51d18111f8797b"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

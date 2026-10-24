@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "uika-listening-apricot",
+  "character": "uika",
+  "activity": "listening",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "uika-listening-apricot-mother-candidate-v1.png",
+  "background": "uika-listening-apricot-background-calibrated-v4.png",
+  "figure": "uika-listening-apricot-figure-calibrated-v4.png",
+  "mask": "uika-listening-apricot-mask-calibrated-v4.png",
+  "shadow": "uika-listening-apricot-shadow-calibrated-v4.png",
+  "seat": [
+    0.9049479166666666,
+    0.564453125
+  ],
+  "ground": [
+    0.83203125,
+    0.572265625
+  ],
+  "bodyBounds": [
+    0.759765625,
+    0.26171875,
+    0.9427083333333334,
+    0.5771484375
+  ],
+  "safeTextBoundary": 0.72,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "84.766% 26.465%, 84.440% 26.758%, 83.724% 28.223%, 83.073% 30.273%, 82.682% 32.227%, 82.487% 33.887%, 82.747% 34.180%, 82.747% 35.352%, 83.138% 35.840%, 83.333% 36.523%, 83.398% 36.230%, 83.724% 36.719%, 83.333% 37.305%, 83.138% 38.574%, 82.747% 39.941%, 81.901% 40.820%, 81.576% 41.797%, 81.576% 42.480%, 81.771% 43.164%, 79.557% 48.438%, 79.167% 50.195%, 78.190% 52.344%, 77.409% 52.441%, 76.823% 53.320%, 76.302% 53.711%, 75.977% 54.199%, 75.977% 54.492%, 77.083% 54.980%, 77.604% 54.980%, 77.865% 55.371%, 78.646% 55.371%, 78.711% 55.566%, 79.362% 55.762%, 80.339% 57.129%, 81.641% 57.129%, 81.836% 57.324%, 82.682% 57.520%, 83.724% 57.422%, 84.440% 56.934%, 85.352% 56.934%, 87.240% 56.348%, 87.630% 56.738%, 88.607% 56.836%, 88.737% 56.641%, 90.365% 56.836%, 91.081% 56.738%, 90.951% 56.543%, 91.016% 56.445%, 93.490% 56.543%, 94.206% 56.348%, 93.880% 55.957%, 93.424% 54.688%, 92.839% 54.102%, 92.969% 52.148%, 92.448% 51.465%, 92.578% 50.000%, 92.057% 49.023%, 92.057% 48.633%, 91.667% 48.145%, 92.122% 47.363%, 92.188% 46.777%, 91.667% 45.801%, 91.667% 42.383%, 91.471% 41.406%, 91.602% 40.234%, 91.341% 37.500%, 91.081% 36.816%, 90.755% 36.426%, 89.583% 36.230%, 89.258% 36.523%, 88.997% 36.523%, 88.542% 35.840%, 88.672% 35.645%, 88.997% 35.938%, 88.932% 35.547%, 89.258% 35.254%, 89.258% 35.547%, 89.388% 35.547%, 89.583% 34.766%, 89.844% 35.059%, 90.169% 34.180%, 90.430% 34.277%, 90.169% 33.984%, 90.169% 33.691%, 90.495% 33.008%, 90.365% 32.227%, 90.495% 32.031%, 90.560% 32.422%, 90.560% 31.738%, 90.365% 32.129%, 89.583% 29.883%, 88.542% 27.832%, 87.891% 26.953%, 86.654% 26.270%, 86.068% 26.270%, 85.547% 26.562%, 85.156% 26.367%",
+  "travel": 0.005208333333333333,
+  "slope": 0.06,
+  "perspective": 0,
+  "parameters": "uika-listening-apricot-layer-parameters-v4.json",
+  "production": "uika-listening-apricot-layer-processing-v4.json",
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "awaiting-primary-registration",
+    "producerNote": "Original RGB identity transform. Empty floor sneakers are room-owned and never move with the figure. A candidate 8px bench-tangent range only, pending primary original-room endpoint review; no claim of movement to another support.",
+    "runtimeReviewRecord": "../primary-runtime-reviews.json"
+  }
+}

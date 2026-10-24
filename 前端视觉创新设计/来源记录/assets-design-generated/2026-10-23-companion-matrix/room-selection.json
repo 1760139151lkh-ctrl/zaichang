@@ -1,0 +1,12 @@
+{
+  "reviewer": "primary-agent",
+  "date": "2026-10-23",
+  "personallyViewed": ["room-apricot-candidate-v1.png", "room-apricot-candidate-v2.png", "room-apricot-candidate-v3.png", "room-apricot-candidate-v4.png"],
+  "selected": "room-apricot-candidate-v4.png",
+  "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+  "approvedForCharacterPrototypes": true,
+  "runtimeAccepted": false,
+  "scope": "One apricot empty room; no character pose, extraction, other theme, or interactive result is accepted by this record.",
+  "reason": "完整窗框、大窗视野、左后完整小桌与轻书架挂画、右桌椅和窗榻、座面前方地面与通道同时成立；比v2保住生活层次，比v1/v3减少中央家具对正文的争抢。",
+  "next": "Use this clean room as the sole visual input for distinct Sakiko chat and study prototypes, then the other six activity classes. Primary review of each complete character scene precedes extraction and expansion."
+}

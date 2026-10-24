@@ -1,0 +1,124 @@
+{
+  "mother": "umiri-planning-apricot-mother-candidate-v2.png",
+  "motherSha256": "78ca56bc6b2fff62341a26018251a84a62185ea6d614af14b2903ff323976f23",
+  "matte": "umiri-planning-apricot-mask-local-color-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        935,
+        596
+      ],
+      [
+        948,
+        596
+      ],
+      [
+        953,
+        599
+      ],
+      [
+        956,
+        604
+      ],
+      [
+        957,
+        610
+      ],
+      [
+        956,
+        614
+      ],
+      [
+        952,
+        618
+      ],
+      [
+        950,
+        621
+      ],
+      [
+        950,
+        636
+      ],
+      [
+        935,
+        638
+      ]
+    ]
+  ],
+  "figure": "umiri-planning-apricot-figure-calibrated-v2.png",
+  "mask": "umiri-planning-apricot-mask-calibrated-v2.png",
+  "record": "umiri-planning-apricot-layer-processing-v2.json",
+  "reviewNote": "Original RGB only, local alpha cleanup for outer hair sky/leaf/cloud margins and manually traced chair-seat protrusion behind calf. Matching BG v3 retains two fixed option sheets and no independent extra left desktop prop; only person patch and explicit boot shadow areas used. Fixed hand/desk contact requires travel zero. Primary/runtime pending.",
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          815,
+          508
+        ],
+        [
+          837,
+          508
+        ],
+        [
+          856,
+          612
+        ],
+        [
+          815,
+          612
+        ]
+      ],
+      "redMin": 150,
+      "redOverGreen": 20,
+      "redOverBlue": 35
+    }
+  ],
+  "backgroundCandidate": "umiri-planning-apricot-background-raw-v3.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        944,
+        714
+      ],
+      [
+        1008,
+        709
+      ],
+      [
+        1018,
+        741
+      ],
+      [
+        941,
+        742
+      ]
+    ],
+    [
+      [
+        1000,
+        737
+      ],
+      [
+        1089,
+        731
+      ],
+      [
+        1092,
+        768
+      ],
+      [
+        1000,
+        771
+      ]
+    ]
+  ],
+  "background": "umiri-planning-apricot-background-calibrated-v2.png"
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "mutsumi-study-violet-mother-candidate-v1.png",
+  "character": "mutsumi",
+  "activity": "study",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical whole-environment relighting; source pose/furniture/occlusion locked; approved empty-room reference for light only",
+  "prompt": "mutsumi-study-violet-prompt.txt",
+  "promptSha256": "6a5e6e2c61a8b911dc568337326664cf0bc5c2457f535ae142f9b51680ad7b9c",
+  "inputs": [
+    {
+      "file": "mutsumi-study-apricot-mother-candidate-v1.png",
+      "sha256": "066435e9a63e68d8d026773f7154a8b50275e0c78f0451aa69c99082b7581606",
+      "role": "Image 1: approved complete correct warm activity mother; sole character/pose/furniture edit target"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "Image 2: approved empty-room dusk celestial/light-axis reference only; sun1007,302 and lake-columnx1007, no geometry/character replacement"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-study-violet-mother-candidate-v1.png",
+    "sha256": "a550eb90d9517d129677c5922b4375c192f4311d1012ccc967597b4632757f07",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-32716205-a7fe-4f1c-91ec-a27f8479a37c.png"
+  },
+  "designerObservation": "Full image personally viewed. Source supported study pose and furniture retained. Whole room dusk light is coherent but sunset disk appears shifted right of reference x1007 (about x1036 visually); lake column follows that shifted axis. Designer rejects celestial alignment and regenerates from correct warm mother plus approved violet plate, never this failed candidate.",
+  "observedGaps": [
+    "Rejected celestial-axis drift; not eligible for extraction/expansion."
+  ],
+  "designerStatus": "rejected by producer for shifted sun/column",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "createdDate": "2026-10-23",
+  "role": "tomori",
+  "light": "apricot",
+  "assetType": "full-room-mother-candidate",
+  "generator": "built-in image_gen",
+  "inputPolicy": "Only the approved character-free room plate was supplied. Canonical character identity and uniform were described in text; no official or previous character image was supplied.",
+  "input": {
+    "file": "room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "width": 1536,
+    "height": 1024
+  },
+  "canonicalTextReferences": [
+    "https://anime.bang-dream.com/mygo/character/tomori/",
+    "https://anime.bang-dream.com/avemujica/character/tomori/"
+  ],
+  "originDirectory": "C:/Users/17601/.codex/generated_images/01a16ab8-afe2-7652-90df-67279a32d94b",
+  "designerViewed": true,
+  "designerViewMethod": "view_image of the saved full 1536x1024 original, after generation",
+  "primaryReview": {
+    "status": "pending",
+    "approvedByPrimary": false
+  },
+  "layersExtracted": false,
+  "runtimeRegistered": false,
+  "runtimeVerified": false,
+  "coverageStatus": "candidate_only; no approved matrix or runtime coverage claimed",
+  "cleanup": "No generated original or rejected candidate was deleted.",
+  "activity": "reading",
+  "executionId": "7aea2322-0a45-4821-a4fc-66a69045e909",
+  "output": {
+    "file": "tomori-reading-apricot-mother.png",
+    "sha256": "e86706be55da3cc2a2072327f6e9543d867b06149d45fc8ca2bb275163b6fa36",
+    "bytes": 2189524,
+    "width": 1536,
+    "height": 1024
+  },
+  "prompt": {
+    "file": "tomori-reading-apricot-prompt.txt",
+    "sha256": "e23987a7f9351c996581e38d29cf48b21307f8d1e50f1115e592480a40a7fa1a"
+  },
+  "designerReview": {
+    "status": "candidate_for_primary_review",
+    "observations": [
+      "Grey-lavender short bob, rose-brown eyes, white-piped blazer, striped green tie, tartan skirt, dark below-knee socks and two whole loafers are visible.",
+      "Pelvis and thighs are supported on the existing window bench; shoulders recline toward the far-right checked cushion and the lower back meets it.",
+      "Eyes look down-left to an open book resting low over the thighs, with both hands handling the page rather than pointing out a derivation.",
+      "Two separate lower legs angle left-front; both whole black loafers meet the wooden floor with contact shadows.",
+      "Full rectangular window, both desks, empty main chair, bench and blanket remain in the same visible room composition."
+    ],
+    "primaryQuestions": [
+      "Compare full-size identity and body/leg proportions against the approved Tomori chat and study v3 mothers.",
+      "Confirm the back support and relaxed shoulder diagonal are sufficiently distinct from upright chat and forward study."
+    ]
+  },
+  "originalOutput": "exec-7aea2322-0a45-4821-a4fc-66a69045e909.png"
+}

@@ -1,0 +1,20 @@
+{
+  "recordType": "original-scene-alpha-calibration",
+  "input": "uika-play-apricot-matte-soft-calibrated-v4.png",
+  "output": "uika-play-apricot-matte-soft-calibrated-v5.png",
+  "outputSha256": "461787714e86200e2eb3b852f4ac05078db2d29160c9b86ceefbe85b6b3836f9",
+  "operation": "alpha zero only for saturated source gold leaf color, G-B>60 and R-B>80, in source head region",
+  "region": [
+    1230,
+    270,
+    1380,
+    410
+  ],
+  "removedAlphaPixels": 127,
+  "bodyRgb": "unchanged original mother",
+  "primaryReview": "pending",
+  "runtimeAccepted": false,
+  "inputSha256": "ea1d91718f7ee16350562be9f85fe5879f866f6cc8e96cdf7ed8b06f799984c9",
+  "mother": "uika-play-apricot-mother-candidate-v1.png",
+  "motherSha256": "5217e87de50ac8ff072d231a2cc07d985303cbc4f034a97355f0d98bb6a53454"
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "mutsumi",
+  "activity": "play",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-play-apricot-prompt.txt",
+  "promptSha256": "78de42f755a306d2e50caf546233a9ca6aba71fa0dab1eed8d1fb8509ff7bef3",
+  "identityText": "mutsumi-identity.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "primary-approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-play-apricot-mother-candidate-v1.png",
+    "sha256": "c8603c334d9d5b0d75b2d3daefbfa752e533b1dd4b2aedb4e563cd6121c5dabf",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-f9ec1991-581d-4a20-96c1-dd7731670e5d.png"
+  },
+  "designerObservation": "Real forward lean and low offered leaf-shaped item supported by other palm. Rejected by producer because a new gold pendant appears at the collar in addition to the allowed left-chest school badge, deviating from fixed outfit.",
+  "designerStatus": "rejected; not supplied as later image input",
+  "primaryReview": "not requested for rejected v1",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

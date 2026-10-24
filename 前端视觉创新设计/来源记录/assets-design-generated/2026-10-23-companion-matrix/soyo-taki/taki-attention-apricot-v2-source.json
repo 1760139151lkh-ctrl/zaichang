@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "attention",
+  "palette": "apricot",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-e22d3cf0-b724-4e9b-bd2f-5fd6e5ad22e8",
+  "prompt": "taki-attention-apricot-v2-prompt.txt",
+  "promptSha256": "62d49e90a4a9df91eb4fc7ad5255f84a6edef6e918c15e09948da424c438a51d",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole approved clean empty room, no previous character pixels",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "taki-attention-apricot-mother-candidate-v2.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2133149,
+    "sha256": "23c79a3ce36b887e2c2f57f37558cbe5ace84014c9a03524e31872028004a2f5"
+  },
+  "producerObservation": "Complete original viewed: desk-side supported chair, two hands/pencil/page coherent, head turned toward stationary bench card, complete planted shoes. Additional text-only desk anchors constrained the renewed clean-room generation; furniture remains painterly approximate, primary same-room/pose judgment pending. No old mother image reused.",
+  "review": {
+    "producerViewed": true,
+    "primary": "pending; no producer signature",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

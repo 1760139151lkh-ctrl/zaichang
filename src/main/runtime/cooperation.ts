@@ -4,6 +4,7 @@ import type { KernelRepository } from '../storage/repository';
 import type { WorkService } from './work';
 import type { PlanningMaterialProvenance } from '../actions/planning-intent-contract';
 import type { NoteSourceProof } from '../../shared/notes-source';
+import { workoutSourceObjectId, type WorkoutSourceProof } from '../../shared/workout-source';
 
 export interface HelpRecordInput {
   responseId?: string;
@@ -24,6 +25,7 @@ export interface HelpRecordInput {
   resultRefs?: string[];
   planningProvenance?: PlanningMaterialProvenance[];
   noteSources?: NoteSourceProof[];
+  workoutSources?: WorkoutSourceProof[];
 }
 export type HelpContactEvent = 'displayed' | 'opened' | 'conversation_published' | 'submitted_to_os' | 'provider_delivered' | 'seen' | 'submission_started' | 'unknown';
 
@@ -49,12 +51,15 @@ export class CooperationService {
       throw new HarnessError('planning_material_changed', '帮助所依据的规划材料已改变，没有保存旧内容。');
     if (input.noteSources && !this.repo.noteSourcesReadable(handle, input.noteSources))
       throw new HarnessError('note_source_changed', '这次帮助引用的一页笔记现在读不到了。');
+    if (input.workoutSources && !this.repo.workoutSourcesReadable(handle, input.workoutSources))
+      throw new HarnessError('workout_source_changed', '这次帮助所看的运动记录已经移除，先前摘要没有继续保存成准备。');
     const record = this.work.create(handle, 'feedback', input.title, {
       type: 'cooperation_record', sessionId: input.sessionId, matterId: input.matterId,
       sourceIds: (input.sourceIds || []).filter(source => !['current', 'history:self'].includes(source)),
       ...(input.planningProvenance ? { materialPlanningContractVersion: 1, planningProvenance: JSON.parse(JSON.stringify(input.planningProvenance)) } : {}),
       ...(input.requiredGrants ? { materialGrantContractVersion: 1, requiredGrants: [...new Set(input.requiredGrants)] } : {}),
       ...(input.noteSources ? { materialNoteContractVersion: 1, noteSources: structuredClone(input.noteSources) } : {}),
+      ...(input.workoutSources ? { materialWorkoutContractVersion: 1, workoutSources: structuredClone(input.workoutSources) } : {}),
       responseId: input.responseId || null, opportunityId: input.opportunityId || null,
       ...(input.preparationRevision === undefined ? {} : { preparationRevision: input.preparationRevision }),
       reason: input.reason, actionDescription: input.actionDescription, basisFingerprint: input.basisFingerprint,
@@ -64,6 +69,8 @@ export class CooperationService {
       feedbackMeaning: '生成、显示、系统提交、用户打开、明确反馈和现实结果分别记录；沉默不代表任何评价。',
     }, { id, status: 'generated', evidenceIds: input.evidenceIds });
     for (const evidenceId of input.evidenceIds) this.repo.addDependency(handle, { consumerId: id, producerId: evidenceId, producerRevision: 0, sensitivity: 'privacy', invalidation: 'block' });
+    for (const source of input.workoutSources || []) this.repo.addDependency(handle, { consumerId: id,
+      producerId: workoutSourceObjectId(source.workoutId), producerRevision: 0, sensitivity: 'privacy', invalidation: 'block' });
     if (input.responseId) this.repo.addDependency(handle, { consumerId: id, producerId: input.responseId, producerRevision: 0, sensitivity: 'privacy', invalidation: 'block' });
     // A revision of an interpretation does not erase what was actually said.
     // Privacy deletion still follows the original evidence dependency.

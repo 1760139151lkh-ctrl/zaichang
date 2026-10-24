@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-chat-violet-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "chat",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-chat-violet-v1-actualprompt.txt",
+  "promptSha256": "732b3f6b1ccdc5a48e20bc762282023cad9ba7f916f38471c43fca4064298000",
+  "identityBasis": "Sakiko Togawa canon identity supplied as text only; approved apricot activity mothers personally viewed for activity understanding, never supplied as image inputs.",
+  "inputs": [
+    {
+      "file": "room-violet-candidate.png",
+      "role": "primary-reviewed clean EMPTY theme room; sole image input",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "sakiko-chat-violet-mother-candidate-v1.png",
+    "sha256": "8e9b860772095ed911c4c257d6d6769e5c5064f4c793e325e65eadc9e79e1e88",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-c268afbb-9639-4baa-89cb-824886d908a9.png",
+    "executionId": "c268afbb-9639-4baa-89cb-824886d908a9"
+  },
+  "designerObservation": "Full mother personally viewed: gold-violet dusk, local lamp and cool shadow light the same youthful Sakiko; complete bench-supported pelvis, supporting hand and two uncrossed full legs/shoes visible. Reserved attention rather than rigid straight-backed pose. Whole room retained; needs primary review.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

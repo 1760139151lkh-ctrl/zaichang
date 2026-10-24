@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "method": "Original RGB retained; fill only actual opaque original face pixels missed by RGB difference segmentation. No body or furniture geometry change. Refined from personally viewed original-coordinate 10x face/hand and chair-leg details; no shifted generated matte is used.",
+  "mother": "soyo-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "cf664fa1fc6dcdd8fd9c8dc1cd542d4142bbe05d5d9809a101e6d58907858411",
+  "rawMask": "soyo-study-apricot-alpha-difference-v1.png",
+  "rawMaskSha256": "d16bfadbdd68c046174e63d47fbd8a223029e653aa960f6d05a0ec54d92b5284",
+  "noiseRange": [
+    8,
+    247
+  ],
+  "outerNoiseBounds": [
+    798,
+    325,
+    1035,
+    707
+  ],
+  "softOriginalPixelInclusions": [
+    {
+      "polygon": [
+        [
+          918,
+          382
+        ],
+        [
+          929,
+          382
+        ],
+        [
+          935,
+          391
+        ],
+        [
+          933,
+          396
+        ],
+        [
+          927,
+          399
+        ],
+        [
+          927,
+          403
+        ],
+        [
+          923,
+          407
+        ],
+        [
+          917,
+          411
+        ],
+        [
+          912,
+          414
+        ],
+        [
+          909,
+          413
+        ],
+        [
+          908,
+          407
+        ],
+        [
+          910,
+          395
+        ]
+      ],
+      "supersampling": 4
+    }
+  ],
+  "figureOutput": "soyo-study-apricot-figure-calibrated-v3.png",
+  "maskOutput": "soyo-study-apricot-mask-calibrated-v3.png",
+  "maskFormat": "L",
+  "processingSourceOutput": "soyo-study-apricot-layer-source-v3.json"
+}

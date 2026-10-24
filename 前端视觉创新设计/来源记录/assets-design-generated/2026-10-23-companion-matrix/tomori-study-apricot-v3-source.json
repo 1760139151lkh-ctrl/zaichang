@@ -1,0 +1,34 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "study",
+  "light": "apricot",
+  "revision": 3,
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-658e2894-058d-4bd1-ab84-a3c2cbeb51bf",
+  "prompt": "tomori-study-apricot-v3-prompt.txt",
+  "promptSha256": "a7e53c0223a8606fa5bc50237cc3fc603ac8ca7f18001f32d0899b49cb42cdd3",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved_clean_empty_room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "tomori-study-apricot-v3-mother.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2197576,
+    "sha256": "33e690f698cc4856872804014c6285620ec176ce5fe2ae6000887e4c74d3954f"
+  },
+  "review": {
+    "designerViewed": "complete original 1536x1024 output",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "history": "V1 shifted desk/chair/props; V2 kept desk better but still relocated the main chair. Neither is counted or used as image input. V3 changes the proposed support to the existing bench, preserving the empty main chair.",
+  "designerObservation": "A genuine forward seated lean with lowered eyes follows the lap-supported notebook line. Pelvis and thighs have real bench support, complete uncrossed shins and both black loafers contact the floor. Main desks/chair and room geometry stay in place. Compared with chat, gaze, head/shoulder height, torso lean and working hands change; primary must decide whether this is sufficient independent study weight rather than merely an opened book."
+}

@@ -306,7 +306,7 @@ export const evidenceSchema = z
       kind: z.literal('shared_creation'), origin: z.literal('user_interface_reference'),
       artifactId: objectId, artifactRevision: z.number().int().positive(),
       matterId: objectId, matterRevision: z.number().int().positive(),
-      referenceKind: z.enum(['work', 'map_place', 'map_leg']),
+      referenceKind: z.enum(['work', 'map_place', 'map_leg', 'discussion_frame']),
       chapter: z.object({ messageId: objectId, sceneId: objectId, sceneRevision: z.number().int().positive() }).strict().optional(),
     }).strict(), z.object({
       kind: z.literal('interactive_program'), origin: z.literal('user_interface_reference'),
@@ -616,6 +616,16 @@ export interface InteractiveProgramExpansionDiagnostic {
   read?: InteractiveProgramExpressionDiagnostic['read'];
   builtinRead?: { tool: 'read_skill'; arguments: { id: string; section: 'grammar' } };
 }
+/** Actual bounded compiler location only; never authored names or values. */
+export interface InteractiveProgramDepthDiagnostic {
+  phase: 'statement_references' | 'ast_structure' | 'reference_expansion';
+  depth: number;
+  limit: number;
+  statementOrdinal: number;
+  location: string;
+  referenceSemantics: 'ordinary_refs_inline';
+  read: { tool: 'read_skill'; arguments: { id: string; section: 'grammar' } };
+}
 type InteractiveProgramOperandKind = 'number' | 'string' | 'boolean' | 'number?' | 'string?' | 'boolean?' | 'null' | 'unknown';
 /** Host-created expression shape and registry signatures only. location is
  * an ordinal/numeric path; no authored identifiers or source text belong here. */
@@ -634,6 +644,8 @@ export interface InteractiveProgramExpressionDiagnostic {
 export interface InteractiveProgramComponentDiagnostic {
   name: string;
   signature: string;
+  /** Present only when the source walker knows the actual declaration. */
+  statementOrdinal?: number;
   issues: {
     stage: 'schema' | 'contract';
     code: 'invalid_type' | 'too_big' | 'too_small' | 'invalid_format' | 'not_multiple_of' | 'unrecognized_keys'
@@ -650,6 +662,8 @@ export interface InteractiveProgramComponentDiagnostic {
     minimum?: number;
     maximum?: number;
     inclusive?: boolean;
+    /** Fixed schema keys only, never names from the rejected input. */
+    allowedProperties?: string[];
   }[];
   read: { tool: 'read_skill'; arguments: { id: string; section: 'components'; names: string[]; limit: number } };
 }
@@ -720,18 +734,26 @@ export interface InitialContextComposition {
 export interface CampusSavedReadingProof {
   sourceId: 'campus:zju-account'; bundleId: string; resource: string; version: string;
   sourceIdentity: string; headIdentity: string; selection: 'saved_head' | 'historical'; collectedAt?: string;
+  /** Metadata-only discovery of a prior read; never reuse of its body or permission. */
+  navigation?: { sessionId: string; messageId: string; receiptId: string; addressSha256: string;
+    authorizations: { eventId: string; contentVersion: number }[] };
 }
-export interface CampusReadingAddress {
+export const campusReadingSelectorSchema = z.object({ resource: z.literal('gpa_overall'), object: z.literal('major_gpa'),
+  messageId: objectId.optional() }).strict();
+export type CampusReadingSelector = z.infer<typeof campusReadingSelectorSchema>;
+export type CampusReadingAddress = {
   sourceId: 'campus:zju-account'; snapshot: CampusSavedReadingProof;
   read: { capability: 'campus.query' | 'campus.lookup'; arguments: Record<string, unknown> };
-  next?: { capability: 'campus.query' | 'campus.lookup'; arguments: Record<string, unknown> };
-  page: { offset: number; returned: number; nextOffset: number | null };
   evaluation: { at?: string; paging: 'fixed_conditions' | 'evaluation_dependent'; dynamicValues: boolean };
   observedAt: string;
   /** Actual host read-completion order within this reply; absent in older receipts. */
   readOrdinal?: number;
   contract: CapabilityContractRef;
-}
+} & ({
+  page: { offset: number; returned: number; nextOffset: number | null };
+  next?: { capability: 'campus.query' | 'campus.lookup'; arguments: Record<string, unknown> };
+  object?: never;
+} | { object: { kind: 'major_gpa' }; page?: never; next?: never });
 /** Original draft bound to assistant text actually supplied in this run.
  * An address does not claim that its whole body was read or that it is current. */
 export interface ReleaseSource { sessionId: string; messageId: string; artifactId: string; revision: number }
@@ -770,7 +792,7 @@ export interface ContextReceipt {
    * not that the model understood it or any program was published. */
   interactiveProgramDiagnostics?: { stepId: string; toolCallId?: string;
     rejectionCode?: string;
-    expansion?: InteractiveProgramExpansionDiagnostic; expression?: InteractiveProgramExpressionDiagnostic;
+    expansion?: InteractiveProgramExpansionDiagnostic; depth?: InteractiveProgramDepthDiagnostic; expression?: InteractiveProgramExpressionDiagnostic;
     component?: InteractiveProgramComponentDiagnostic; input?: InteractiveProgramInputDiagnostic;
     previous?: InteractiveProgramPreviousDiagnostic; explanationTruncated: boolean;
     includedInSuccessfulModelRequest?: boolean }[];
@@ -787,6 +809,8 @@ export interface ContextReceipt {
   campusReadingIncomplete?: true;
   /** Actual note revision/range provenance, never a personal fact or read ACK. */
   noteSources?: import('./notes-source').NoteSourceProof[];
+  /** Actual local workout summary addresses; cancellation follows the exact workout ID. */
+  workoutSources?: import('./workout-source').WorkoutSourceProof[];
   /** Actual host-qualified map endpoint dependencies, never original words or coordinates. */
   spatialSources?: import('./spatial-source').SpatialSourceProof[];
   /** Source-bound learning processes actually provided to this model run. */
@@ -1126,7 +1150,7 @@ export class HarnessError extends Error {
     public retry: 'never' | 'read' | 'reconcile' = 'never',
     /** Model-facing diagnostic; callers must not promote it to a UI status. */
     public diagnostic?: { rejectedDimensions: string[]; explanation: string;
-      expansion?: InteractiveProgramExpansionDiagnostic; expression?: InteractiveProgramExpressionDiagnostic;
+      expansion?: InteractiveProgramExpansionDiagnostic; depth?: InteractiveProgramDepthDiagnostic; expression?: InteractiveProgramExpressionDiagnostic;
       component?: InteractiveProgramComponentDiagnostic; input?: InteractiveProgramInputDiagnostic;
       previous?: InteractiveProgramPreviousDiagnostic },
   ) {

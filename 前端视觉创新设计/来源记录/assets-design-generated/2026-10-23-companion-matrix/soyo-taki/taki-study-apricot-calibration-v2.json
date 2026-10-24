@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "method": "Original RGB retained; fill only opaque original face, sleeve and skirt missed by room-color segmentation, preserving actual chair occlusion and the original feet. No body reconstruction or RGB redraw.",
+  "mother": "taki-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "49515d600d10286f1af4f808fbf285f4e2abfd1cabd05d6b319f3fdcbd6d0166",
+  "rawMask": "taki-study-apricot-alpha-difference-v1.png",
+  "rawMaskSha256": "bdec1cefef67d7e8f6e1a12129bfe26d6d0230636bd2eeaa26302cc7c626431f",
+  "noiseRange": [8, 247],
+  "outerNoiseBounds": [812, 335, 1060, 716],
+  "softOriginalPixelInclusions": [
+    {"polygon": [[958,400],[972,400],[971,409],[964,417],[956,426],[950,427],[946,420],[946,412]], "supersampling": 4},
+    {"polygon": [[936,470],[947,476],[963,480],[975,480],[982,486],[979,493],[964,501],[953,504],[943,498]], "supersampling": 4},
+    {"polygon": [[983,475],[990,468],[997,465],[1002,470],[1006,479],[1004,490],[991,495],[983,490]], "supersampling": 4},
+    {"polygon": [[860,515],[881,519],[907,524],[920,535],[943,540],[966,545],[979,551],[975,568],[962,582],[947,595],[938,598],[917,589],[898,588],[878,584],[871,575],[866,549]], "supersampling": 4}
+  ],
+  "originalClothInclusions": [
+    {"polygon": [[928,594],[954,594],[963,631],[973,667],[993,687],[986,697],[960,694],[941,696],[935,684],[936,658]], "maxRgb": 180, "blueBelowGreenLimit": 30}
+  ],
+  "figureOutput": "taki-study-apricot-figure-calibrated-v2.png",
+  "maskOutput": "taki-study-apricot-mask-calibrated-v2.png",
+  "maskFormat": "L",
+  "processingSourceOutput": "taki-study-apricot-layer-source-v2.json"
+}

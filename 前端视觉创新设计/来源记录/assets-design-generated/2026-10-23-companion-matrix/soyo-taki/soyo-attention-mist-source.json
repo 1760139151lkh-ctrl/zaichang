@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "attention",
+  "palette": "mist",
+  "light": "morning",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-e567a925-d50d-4dae-8f38-115d40ed6d0f",
+  "prompt": "soyo-attention-mist-prompt.txt",
+  "promptSha256": "c026dc313d5f53491fabc528338d749544955d1dc391ee7977de89615e7aa3d4",
+  "inputs": [
+    {
+      "file": "soyo-attention-apricot-mother-candidate-v1.png",
+      "sha256": "c854bfeb6cc56482357a1fbf64ba020b6e42a52cdbe6240157ac89466852784e",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-e567a925-d50d-4dae-8f38-115d40ed6d0f.png",
+  "output": {
+    "file": "soyo-attention-mist-mother-candidate-v1.png",
+    "sha256": "4ac4a67661d435904c3a05ecb2c61989996700aaca3a9b4bb5e4f0eafaa26af8",
+    "bytes": 2067706,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed with approved warm mother and target empty plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Whole torso/head and eyes remain directed at the stationary desk card; original rear supporting palm, low knee hand, bench hips and two floor loafers retained. Mist light coherent, no pose or chair replacement. Primary/layer/runtime review remains separate."
+}

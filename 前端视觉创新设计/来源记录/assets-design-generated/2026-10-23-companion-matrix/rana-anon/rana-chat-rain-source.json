@@ -1,0 +1,39 @@
+{
+  "createdOn": "2026-10-24",
+  "tool": "built-in image_gen.imagegen",
+  "character": "rana",
+  "activity": "chat",
+  "theme": "rain",
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "file": "rana-chat-rain-mother-candidate-v1.png",
+  "sha256": "5d1010cf861a61b95c300cc6ddbcd7e6e2060e12ca4fe4fe24276c4880f41678",
+  "prompt": "rana-chat-rain-prompt.txt",
+  "promptSha256": "bd7c13a3e2af76327ced2758770ccf473e384189cb49a73c536076d357bbb59e",
+  "originalGeneratedFile": "exec-e9c7d94f-f343-4b06-a0ba-014f774ced0b.png",
+  "inputs": [
+    {
+      "file": "rana-chat-apricot-mother-candidate-v1.png",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "role": "primary-approved complete warm mother; sole editable character/geometry target"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "primary-approved clean empty room; lighting/sky/light-axis reference only"
+    }
+  ],
+  "designerPersonallyViewed": true,
+  "designerStatus": "candidate-for-primary-review",
+  "designerObservation": "Complete original supported character retained in same furniture/camera; rainy dark-blue window, single original desk lamp warm pool, no hard daylight leaf shadows or bright left-rear flower spotlight. Character receives coherent warm/cool light.",
+  "review": {
+    "approvedByPrimary": false,
+    "identityAndProportionAccepted": false,
+    "extractionApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "promptEncoding": "UTF-8; exact submitted string, no added final newline"
+}

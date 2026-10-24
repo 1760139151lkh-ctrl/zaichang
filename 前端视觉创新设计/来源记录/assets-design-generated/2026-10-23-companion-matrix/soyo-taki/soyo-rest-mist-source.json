@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "rest",
+  "palette": "mist",
+  "light": "morning",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-7933cc99-e46b-4749-8beb-96e21cb5cddc",
+  "prompt": "soyo-rest-mist-prompt.txt",
+  "promptSha256": "a4ac9c95f6713bd04acb02f184fbe2f15f6aed72ad95e7ade082172a5d657994",
+  "inputs": [
+    {
+      "file": "soyo-rest-apricot-mother-candidate-v1.png",
+      "sha256": "c1be74d29d85a6ac0a2976acdcb3632fe625d46fef9535ca6ed6f33eabeb6e61",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-7933cc99-e46b-4749-8beb-96e21cb5cddc.png",
+  "output": {
+    "file": "soyo-rest-mist-mother-candidate-v1.png",
+    "sha256": "c84ed1d32ef628e6528c22d3cf17be198f2baaf0353c61f8398edf25362aed12",
+    "bytes": 2089620,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the primary-approved warm mother and target empty lighting plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Actual whole-body back/side view toward the lake, relaxed supported palms/hips and two floor loafers retained; pale mist light is coherent across the whole original room. Primary/layer/runtime review remains separate."
+}

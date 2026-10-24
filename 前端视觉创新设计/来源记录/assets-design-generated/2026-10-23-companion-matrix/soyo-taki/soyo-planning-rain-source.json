@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "planning",
+  "palette": "rain",
+  "light": "night",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-26fb6f1d-945f-45a7-a2b5-361335d1c622",
+  "prompt": "soyo-planning-rain-prompt.txt",
+  "promptSha256": "643b6cdb16e74578fdb583c44971bc90d15337461e387af4f7f42dad70ddd1f6",
+  "inputs": [
+    {
+      "file": "soyo-planning-apricot-mother-candidate-v2.png",
+      "sha256": "e002a836c881d736966bce3a254de9ef5e4a0417efc5b260eaeaea64d85904d6",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-26fb6f1d-945f-45a7-a2b5-361335d1c622.png",
+  "output": {
+    "file": "soyo-planning-rain-mother-candidate-v1.png",
+    "sha256": "bff992606231236fd913b0bf6049156c3207f57021f64c2bb58ea32ef2a50df8",
+    "bytes": 2128879,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed against the exact approved warm-v2 planning mother and empty target plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Original far-left pulled-out desk chair, supported hips, paper-pointing fingertip, other knee hand and two floor loafers retained. Desk/lamp stay fixed; no bench substitution or independent person shrinking. Full-room light coherent, violet sun/lake axisnear1007/1003, rain corner quiet. Actual fixed desk calibration must use this distinct left placement. Primary/layer/runtime review separate."
+}

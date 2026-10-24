@@ -1,0 +1,85 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "apricot",
+  "mother": {
+    "file": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-mother.png",
+    "sha256": "5631cdd842797d1e46b898b9e5914f250cb5d66e8a058878eee2547e1f707017",
+    "approvalRecord": "primary-prototype-reviews.json"
+  },
+  "soleImageInput": "the approved attention mother for each extraction call",
+  "mask": {
+    "file": "sakiko-attention-apricot-mask-generated-v2.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 744652,
+    "sha256": "f149f7535385d69133f0c01f8b0f57e182a5a6cfa70317dbfeea04817ba039d9",
+    "prompt": "sakiko-attention-apricot-mask-v2-prompt.txt",
+    "promptSha256": "5a5e30b7191345e993a02976227c42aabeb2bbcf3ec7950a8789603b8da175da",
+    "tool": "image_gen.imagegen",
+    "executionId": "exec-5840fdb5-e1c1-4511-82a2-bb958661f213",
+    "verdict": "producer viewed native light/dark and original-position composite; coordinates returned to original footprint; primary pending"
+  },
+  "rejectedMask": {
+    "file": "sakiko-attention-apricot-mask-generated-v1-rejected.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 847609,
+    "sha256": "0fe64bb6537f6123be802136aabcf5c1e1077a66149567a88fd758c71b361433",
+    "prompt": "sakiko-attention-apricot-mask-prompt.txt",
+    "promptSha256": "1cbf9498591907ba2ac29c074f1e28b28b95e6dd388a92a76135b087d1a6ba1c",
+    "tool": "image_gen.imagegen",
+    "executionId": "exec-5ca3fff7-8aa6-4ed5-847c-23e91c354e67",
+    "verdict": "REJECTED: enlarged and shifted original footprint upward, head at about y144 instead of y285. Not usable for composition or registration."
+  },
+  "background": {
+    "file": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-background.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2114681,
+    "sha256": "eed37175265d0af116b6373548e440b83b646e14c35f0958786160a5e46744bf",
+    "prompt": "sakiko-attention-apricot-background-prompt.txt",
+    "promptSha256": "466749b8525cf100145538c017eb3f9c3aabd7c520817ed56282855f0ab01325",
+    "tool": "image_gen.imagegen",
+    "executionId": "exec-0160eb3f-0d78-49ec-8bef-9cd1314981d5",
+    "verdict": "producer viewed card retained on desk and room without person; final composition review pending"
+  },
+  "pixelHandling": "Imagegen outputs preserved unchanged. Native SVG draws mother RGB through raw v2 alpha; no corrected silhouette, patched background or redrawn face.",
+  "objectOwnership": "only girl in actor matte; small ivory desk card remains stationary in background",
+  "evidence": {
+    "nativeLight": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-attention-native-light-v2.png",
+    "nativeDark": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-attention-native-dark-v2.png",
+    "nativeOriginalPosition": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-attention-native-generated-bg-composite-v2.png",
+    "primaryLayerReview": "pending",
+    "movementEndpoints": "Native SVG static endpoints inspected on full generated BG at hypothetical dx +/-13.824px. No old-body residual seen and desk card stayed stationary. Not actual Stage motion/interaction acceptance.",
+    "runtime": "not registered or accepted",
+    "nativeShortEndpointLeft": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-attention-native-full-bg-left-v2.png",
+    "nativeShortEndpointRight": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-attention-native-full-bg-right-v2.png",
+    "nativeExteriorRejected": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-attention-native-erase-empty-v1.png",
+    "proposedRenderer": "Existing full generated BG + mother RGB through tight v2 alpha, pending primary layer review; no eraseMask channel."
+  },
+  "rejectedErase": {
+    "file": "sakiko-attention-apricot-erase-generated-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 725043,
+    "sha256": "6dca76073a530631efb97d25ebb9f482b0e79134c43693be5071a61c438c030d",
+    "prompt": "sakiko-attention-apricot-erase-prompt.txt",
+    "promptSha256": "3f464656efc2b93210800422fcccca67a853f2f5b875ff36b15b8f509c8334e4",
+    "tool": "image_gen.imagegen",
+    "executionId": "exec-eef3da51-ee7c-4726-bf06-372977802272",
+    "verdict": "REJECTED: erasure did not fully cover original contour; native hidden-actor still showed old hair/skirt/leg traces. No pixel repair or renderer channel accepted."
+  },
+  "deterministicCandidate": {
+    "recipe": "sakiko-play-attention-alpha-calibration-v1.json",
+    "script": "sakiko-play-attention-alpha-v1.py",
+    "figure": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-figure.png",
+    "mask": "sakiko-attention-apricot-mask-calibrated-v1.png",
+    "nativeLight": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-attention-calibrated-light-v1.png",
+    "nativeDark": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-attention-calibrated-dark-v1.png",
+    "nativeLeft": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-attention-calibrated-full-bg-left-v1.png",
+    "nativeRight": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-attention-calibrated-full-bg-right-v1.png",
+    "producerObservation": "Soft hair alpha retained; 9 detached noise pixels removed. Identity/palm/skirt/shoes unchanged RGB, card stationary on generated BG, no old-body residual at hypothetical short static endpoints. Pending primary and actual Stage interaction."
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "reading",
+  "palette": "apricot",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-9c40fc33-1aaf-4c93-92cf-17a6327f9554",
+  "prompt": "taki-reading-apricot-prompt.txt",
+  "promptSha256": "eccde953af3ac517f129cabee5b4d7a52ad9b11fb3e2814f803365634c572740",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-approved clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "taki-reading-apricot-mother-rejected-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2177678,
+    "sha256": "78b6661788652d2cc8104d036815cfc08a880d6de88352917ab62e74014eb290"
+  },
+  "producerObservation": "REJECTED. Missing cached identity/room text in actual prompt caused cream/plaid/white-sock wardrobe drift. Original retained only as rejected provenance; not used as any visual input.",
+  "review": {
+    "producerViewed": "complete original",
+    "primary": "pending unless separately signed in primary review record",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

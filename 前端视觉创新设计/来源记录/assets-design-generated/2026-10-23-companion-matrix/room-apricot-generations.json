@@ -1,0 +1,13 @@
+{
+  "recordType": "image-generation-source-history",
+  "date": "2026-10-23",
+  "tool": "image_gen.imagegen",
+  "canvas": [1536, 1024],
+  "sourcePlate": {"path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-background.png", "sha256": "ddaa0510c865611a61756d72219996d8a6b5f0bb5cb46f2c5c129fc9801b371d", "role": "clean empty room, no person"},
+  "generations": [
+    {"id":"room-apricot-v1","executionId":"exec-9c2f25ca-84c1-4d81-b28f-e55d498da539","prompt":"room-apricot-prompt.txt","input":"sourcePlate","output":"room-apricot-candidate-v1.png","bytes":2299072,"sha256":"069736eafd6a483b778de1da6195db54eb007f6685ed54d476cab238fed3856a","designerViewed":true,"primaryReview":"room-selection.json","decision":"rejected for prototype expansion","reason":"Window top is cropped; central main desk/chair compete with real content. Warm light, left rear life and textile detail are retained as design observations only."},
+    {"id":"room-apricot-v2","executionId":"exec-3262e6d6-216b-4d51-9c78-d8e22d5dd116","prompt":"room-apricot-v2-prompt.txt","input":"sourcePlate","output":"room-apricot-candidate-v2.png","bytes":2148512,"sha256":"a85f4a04407e54be27b5052d4d1c95ccd9a4db287e157b68c469ae7d83e44676","designerViewed":true,"primaryReview":"room-selection.json","decision":"not selected","reason":"More complete window, wider camera and usable floor; excessive central empty plaster and far-left table partly cropped reduce life."},
+    {"id":"room-apricot-v3","executionId":"exec-45d78726-78d8-4562-8205-e275517203f5","prompt":"room-apricot-v3-prompt.txt","input":"room-apricot-candidate-v1.png","inputSha256":"069736eafd6a483b778de1da6195db54eb007f6685ed54d476cab238fed3856a","output":"room-apricot-candidate-v3.png","bytes":2232334,"sha256":"fd5458b95a46b7a285aba6b8bbe3da363b36bbe82c1b2e20cdedefc1ced00913","designerViewed":true,"primaryReview":"room-selection.json","decision":"not selected","reason":"Complete top frame and strong life/light, but chair/main desk remain central; primary selected v4 for the first pose."},
+    {"id":"room-apricot-v4","executionId":"exec-151281a5-ee61-41aa-bf00-7951ec0eed18","prompt":"room-apricot-v4-prompt.txt","input":"room-apricot-candidate-v2.png","inputSha256":"a85f4a04407e54be27b5052d4d1c95ccd9a4db287e157b68c469ae7d83e44676","output":"room-apricot-candidate-v4.png","bytes":2243850,"sha256":"fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa","designerViewed":true,"primaryReview":"room-selection.json","decision":"selected by primary for character prototypes only","reason":"Wider complete window, full left rear little table/shelves/art, right work desk/chair and bench with open floor coexist; no character/layer/theme/runtime acceptance implied."}
+  ]
+}

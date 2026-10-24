@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "mutsumi",
+  "activity": "study",
+  "palette": "apricot",
+  "kind": "background",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-study-apricot-background-extraction-v1-prompt.txt",
+  "promptSha256": "21b7f9c7011c67ada6f9dbc2df2afdbbf0756cc8773a2425e44cc0e2e1930a12",
+  "inputs": [
+    {
+      "file": "mutsumi-study-apricot-mother-candidate-v1.png",
+      "sha256": "066435e9a63e68d8d026773f7154a8b50275e0c78f0451aa69c99082b7581606",
+      "role": "sole edit target; primary-approved correct complete mother, no erroneous mother or mask supplied"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-study-apricot-background-candidate-v1.png",
+    "sha256": "2413996cee9491ec5fa5fb48ff58c21f85f7274735744f79bbd025295f52f636",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-708acd51-71f6-4c4e-85c3-7c870589099d.png"
+  },
+  "designerObservation": "Full output viewed. Matching empty study room retains the actual occupied chair position, desk/lamp/page, full window/room layout. Candidate for local original-room registration; no person remains.",
+  "designerStatus": "candidate for deterministic registration",
+  "primaryReview": "pending; producer cannot approve",
+  "runtime": "not registered or verified"
+}

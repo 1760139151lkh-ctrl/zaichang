@@ -1,0 +1,27 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "taki",
+  "activity": "chat",
+  "palette": "apricot",
+  "layer": "background",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-e13d24b1-d290-47e3-a24a-74409168e7a9",
+  "prompt": "taki-chat-apricot-background-prompt-v1.txt",
+  "promptSha256": "ae11c0b23486488e5341992f5da1e4deb3ba18ba445a75c80181dfd99f9a5e3a",
+  "inputs": [
+    {
+      "file": "taki-chat-apricot-mother-candidate-v1.png",
+      "sha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f",
+      "role": "sole input: primary-reviewed complete same-scene mother"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16921-9fe7-73b2-81e9-dfadeae00b4a/exec-e13d24b1-d290-47e3-a24a-74409168e7a9.png",
+  "output": {
+    "file": "taki-chat-apricot-background-generated-v1.png",
+    "sha256": "ddc9008d68fbe902dcd834e8888a895ab2259721d9ddcf5d1f697f3896bc3e87",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2156216
+  },
+  "stage": "raw imagegen extraction; not calibrated or admitted"
+}

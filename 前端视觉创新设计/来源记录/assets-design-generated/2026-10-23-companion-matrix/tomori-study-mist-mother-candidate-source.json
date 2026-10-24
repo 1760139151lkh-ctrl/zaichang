@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "study",
+  "light": "mist",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-c3814ee0-10e3-4d52-9899-87b56a3ba063",
+  "inputs": [
+    {
+      "file": "tomori-study-apricot-v3-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "33e690f698cc4856872804014c6285620ec176ce5fe2ae6000887e4c74d3954f"
+    },
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "sourceIdentity": "Existing primary-approved correct complete warm mother relit against approved clean empty-room theme plate; no rejected mother, official artwork or isolated actor input.",
+  "prompt": "tomori-study-mist-mother-candidate-prompt.txt",
+  "promptSha256": "b9d7b4321a0b3809094a78056d68e22a516a3743e5057d13b34644d0e591d362",
+  "output": {
+    "file": "tomori-study-mist-mother-candidate.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2124525,
+    "sha256": "b8ed821dbb99f05efcf1db76f218d1c9c761cb677770c1739db1856e290b2957"
+  },
+  "review": {
+    "designerViewed": "complete original 1536x1024 output",
+    "designerStatus": "candidate_ready_for_primary_review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Forward-leaning lap-notebook study pose, hands, coherent separate lower legs and both full flat loafers retained at warm-mother coordinates; unchanged furniture and full camera. Diffuse morning lake/sky and local body/room illumination match the clean mist plate. No new sun or rear-wall spotlight."
+}

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "room-plate-candidate",
+  "theme": "mist",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "input": {
+    "path": "room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty-room input; primary-selected for prototypes"
+  },
+  "promptFile": "room-mist-prompt.txt",
+  "prompt": "Use case: lighting-weather.\nAsset type: one complete empty-room background for the 在场 companion Stage, exactly the input's 1536 x 1024 canvas.\nInput image 1 is the ONLY input: the primary-selected CLEAN EMPTY room-apricot-candidate-v4. It contains no person. This is a whole-room relighting edit, not a new composition.\n\nLOCK THE ROOM: Keep exactly the same camera, perspective, framing and architectural/furniture pixel layout. Preserve all four connected window-frame sides and corners, the broad lake view, the whole small rear-left desk/chair, bookshelves and framed drawing, the main right writing desk and its chair, lamp fixture, bench, pillows, throw, rug and every visible furniture foot. Keep the same object boundaries and passage. Do not move, enlarge, shrink, crop, replace or add furniture or plants. Keep the rear-left lived-in detail; do not clear it into a blank wall or cover it with fog.\n\nChange the complete scene to MIST: a clear, quiet blue-white early morning, with very light distant haze over the same lake and campus silhouettes. The large window is the single coherent source of soft diffuse morning light. The sky, glass reflections, curtains, wall bounce, wood reflections and floor shadows must all agree with this time of day. Reduce the strong apricot sun streaks into soft, broad cool daylight and gentle shadows. Retain natural ivory plaster, honey wood and neutral linen rather than tinting every material blue. The existing desk lamp is switched off in daylight; keep its exact shape and position. Natural foliage keeps its own restrained green, never becomes a green cast over the room. The atmosphere is airy and readable, not icy, neon cyan, desaturated gray or covered with indoor mist.\n\nPreserve the input's fine youthful Japanese-anime environmental painting, fabric texture and warm human-scale room. One continuous real space with physically consistent light. No person, human silhouette, face, portrait, standee or doll. No text, UI, buttons, arrows, labels, comparison strip, split-screen line, watermark or logo. No full-image color filter, translucent blue overlay, white gradient or pasted blank panel. Return the complete same-size room.",
+  "output": {
+    "path": "room-mist-candidate.png",
+    "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+    "bytes": 2177794,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T17:16:32.418881+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "窗外蓝白晨雾、室内冷漫反射与木材本色形成整体；完整窗框、左后生活角、桌椅与窗榻关系可见。家具像素注册仍由主代理复核。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false
+}

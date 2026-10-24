@@ -1,0 +1,423 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "uika-study-apricot-layer-parameters-v11.json",
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "uika-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0",
+  "matte": "uika-study-apricot-mask-local-color-v5.png",
+  "matteSha256": "fa13904e1ca93d8d80b014d7af9fc5cb291310e250020dbac056f19baa6c8756",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [
+    [
+      [
+        939,
+        697
+      ],
+      [
+        941,
+        690
+      ],
+      [
+        949,
+        695
+      ],
+      [
+        958,
+        694
+      ],
+      [
+        968,
+        690
+      ],
+      [
+        975,
+        695
+      ],
+      [
+        986,
+        701
+      ],
+      [
+        984,
+        708
+      ],
+      [
+        940,
+        707
+      ]
+    ],
+    [
+      [
+        962,
+        682
+      ],
+      [
+        967,
+        675
+      ],
+      [
+        975,
+        678
+      ],
+      [
+        983,
+        683
+      ],
+      [
+        992,
+        686
+      ],
+      [
+        1003,
+        691
+      ],
+      [
+        1000,
+        697
+      ],
+      [
+        971,
+        697
+      ],
+      [
+        961,
+        690
+      ]
+    ],
+    [
+      [
+        884,
+        485
+      ],
+      [
+        891,
+        486
+      ],
+      [
+        899,
+        485
+      ],
+      [
+        906,
+        483
+      ],
+      [
+        912,
+        484
+      ],
+      [
+        917,
+        484
+      ],
+      [
+        922,
+        485
+      ],
+      [
+        925,
+        486
+      ],
+      [
+        928,
+        487
+      ],
+      [
+        930,
+        489
+      ],
+      [
+        927,
+        491
+      ],
+      [
+        922,
+        492
+      ],
+      [
+        915,
+        493
+      ],
+      [
+        904,
+        494
+      ],
+      [
+        895,
+        495
+      ],
+      [
+        885,
+        496
+      ]
+    ]
+  ],
+  "excludePolygons": [
+    [
+      [
+        826,
+        594
+      ],
+      [
+        861,
+        593
+      ],
+      [
+        867,
+        594
+      ],
+      [
+        874,
+        597
+      ],
+      [
+        879,
+        603
+      ],
+      [
+        883,
+        611
+      ],
+      [
+        887,
+        619
+      ],
+      [
+        890,
+        625
+      ],
+      [
+        826,
+        632
+      ]
+    ],
+    [
+      [
+        790,
+        510
+      ],
+      [
+        811,
+        510
+      ],
+      [
+        815,
+        520
+      ],
+      [
+        820,
+        536
+      ],
+      [
+        824,
+        556
+      ],
+      [
+        828,
+        575
+      ],
+      [
+        833,
+        590
+      ],
+      [
+        838,
+        596
+      ],
+      [
+        790,
+        598
+      ]
+    ],
+    [
+      [
+        885,
+        615
+      ],
+      [
+        888,
+        617
+      ],
+      [
+        892,
+        624
+      ],
+      [
+        891,
+        627
+      ],
+      [
+        885,
+        627
+      ]
+    ],
+    [
+      [
+        859,
+        320
+      ],
+      [
+        930,
+        320
+      ],
+      [
+        930,
+        347
+      ],
+      [
+        925,
+        344
+      ],
+      [
+        920,
+        341
+      ],
+      [
+        915,
+        339
+      ],
+      [
+        910,
+        337
+      ],
+      [
+        905,
+        336
+      ],
+      [
+        900,
+        335
+      ],
+      [
+        895,
+        335
+      ],
+      [
+        890,
+        335
+      ],
+      [
+        885,
+        336
+      ],
+      [
+        880,
+        338
+      ],
+      [
+        875,
+        341
+      ],
+      [
+        870,
+        345
+      ],
+      [
+        865,
+        350
+      ],
+      [
+        860,
+        355
+      ],
+      [
+        859,
+        355
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          850,
+          590
+        ],
+        [
+          896,
+          590
+        ],
+        [
+          898,
+          632
+        ],
+        [
+          850,
+          632
+        ]
+      ],
+      "redMin": 70,
+      "redOverGreen": 30,
+      "redOverBlue": 65
+    }
+  ],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 105853,
+  "alphaNonzeroPixels": 35396,
+  "alphaBounds": [
+    795,
+    336,
+    1027,
+    720
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "e36f1c998a67fdd31016f7f1e9802b97c7cb550ef4a9fbf3424b32a2b11df36c",
+  "figureRgbSha256": "e36f1c998a67fdd31016f7f1e9802b97c7cb550ef4a9fbf3424b32a2b11df36c",
+  "background": {
+    "candidate": "uika-study-apricot-background-raw-v1.png",
+    "candidateSha256": "a7d8f91663bfd8fe1bc4da942ec4c69fb791c9320af9d0c2143ec33c526fc9fc",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          927,
+          666
+        ],
+        [
+          1028,
+          666
+        ],
+        [
+          1037,
+          741
+        ],
+        [
+          927,
+          741
+        ]
+      ]
+    ],
+    "changedPixels": 53105,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": null,
+  "outputs": [
+    {
+      "file": "uika-study-apricot-figure-calibrated-v11.png",
+      "bytes": 2446052,
+      "sha256": "5ca26ae635445c047eaed864883781be273ba2481ecaa0b9eff81cdb3913ee54"
+    },
+    {
+      "file": "uika-study-apricot-mask-calibrated-v11.png",
+      "bytes": 23926,
+      "sha256": "be3e89555432ba72b4e4d1fea04639adb1897ab215d5804d0db5109c76841b09"
+    },
+    {
+      "file": "uika-study-apricot-background-calibrated-v11.png",
+      "bytes": 2122207,
+      "sha256": "e2d40d22f5cf6eb6ff4d5f59bd5e81c0b2b481fc3b92d8e0ea58aa1e90bc3e7e"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

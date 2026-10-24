@@ -7,6 +7,8 @@ import type { LocalSearchLocator } from '../shared/search';
 import { uiError } from './ui';
 import { MaterialPdfPage, type MaterialPageSelection } from './MaterialPdfPage';
 import { useMaterialReadingPosition } from './useMaterialReadingPosition';
+import { useBookmarkTray, writeBookmarkTransfer } from './SourceBookmarkTray';
+import type { MaterialReturnAddress } from './workspace-return';
 import './materials.css';
 
 export type { MaterialQuote } from '../shared/materials';
@@ -27,6 +29,8 @@ interface Props {
   onClose: () => void;
   children?: ReactNode;
   conversationTarget?: RefObject<HTMLElement | null>;
+  onReturnAddressChange?: (address: MaterialReturnAddress | undefined) => void;
+  resume?: { address: MaterialReturnAddress; requestId: number };
 }
 const api = window.zaichang;
 const targetId = (target?: MaterialTarget) => target?.kind === 'pending' ? target.reference.resourceId : target?.resourceId;
@@ -38,7 +42,8 @@ const readingError = (problem: unknown) => {
 };
 
 /** A view onto the host's original snapshots, never another material store. */
-export function MaterialsPanel({ pending, sessionId, boundary, compact = false, active = true, refreshKey, draftEnabled = true, focus, reference, onUnsavedChange, onAttach, onQuote, onOpenNote, onClose, children, conversationTarget }: Props) {
+export function MaterialsPanel({ pending, sessionId, boundary, compact = false, active = true, refreshKey, draftEnabled = true, focus, reference, onUnsavedChange, onAttach, onQuote, onOpenNote, onClose, children, conversationTarget, onReturnAddressChange, resume }: Props) {
+  const bookmarkTray = useBookmarkTray();
   const [items, setItems] = useState<MaterialItem[]>([]);
   const [target, setTarget] = useState<MaterialTarget>();
   const [document, setDocument] = useState<MaterialPage>();
@@ -88,10 +93,68 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
   const selectedId = targetId(target);
   const readingKey = `${selectedId || ''}:${page}:${offset}:${view}`;
   const currentReadingKey = useRef(readingKey); currentReadingKey.current = readingKey;
-  const selected = pendingRef?.resourceId === selectedId ? pendingRef : items.find(item => item.resourceId === selectedId) || document?.item;
+  const documentReadingKey = useRef('');
+  const currentBoundary = boundaryRef.current === boundary;
+  const selected = currentBoundary ? pendingRef?.resourceId === selectedId ? pendingRef : items.find(item => item.resourceId === selectedId) || document?.item : undefined;
+  const returnCallback = useRef(onReturnAddressChange); returnCallback.current = onReturnAddressChange;
+  const resumeRequest = useRef(0), resumeSelection = useRef<{ boundary: string; quote: MaterialQuoteReference; readDone: boolean } | undefined>(undefined);
+  const resumeInFlight = useRef(false);
+  const readerNavigation = useRef(0);
+  const interruptResume = () => {
+    const interrupted = resumeInFlight.current;
+    readerNavigation.current++; resumeInFlight.current = false; resumeSelection.current = undefined;
+    if (interrupted) { if (document) setLoading(false); else setRetry(value => value + 1); }
+  };
+  const reportReturnAddress = () => {
+    if (!active || !currentBoundary || loading || !document || documentReadingKey.current !== readingKey
+      || document.item.resourceId !== selectedId || resumeInFlight.current
+      || resume && resumeRequest.current !== resume.requestId) return;
+    returnCallback.current?.({ resourceId: document.item.resourceId, sha256: document.item.sha256,
+      page, offset, view, zoom, scrollTop: scroller.current?.scrollTop || 0,
+      ...(quote?.resourceId === document.item.resourceId && quote.sha256 === document.item.sha256 && quote.page === document.page
+        ? { selection: materialQuoteAddress(quote) } : {}) });
+  };
+  useEffect(() => { reportReturnAddress(); }, [active, loading, document, page, offset, view, zoom, quote]);
+  useEffect(() => {
+    if (!active || !resume || resumeRequest.current === resume.requestId) return;
+    resumeRequest.current = resume.requestId;
+    resumeInFlight.current = true;
+    request.current++; const navigation = ++readerNavigation.current;
+    let live = true; const address = resume.address, originalBoundary = boundary;
+    void api.materialsList({ sessionId }).then(next => {
+      if (!live || navigation !== readerNavigation.current || originalBoundary !== destination.current.boundary) return;
+      const item = next.find(value => value.resourceId === address.resourceId && value.sha256 === address.sha256)
+        || (pendingRef?.resourceId === address.resourceId && pendingRef.sha256 === address.sha256 ? pendingRef : undefined);
+      if (!item) { interruptResume(); setNotice('那份原文现在不在桌边了，可以重新带来它。'); return; }
+      setItems(next); setHighlight(undefined); setQuote(undefined); setPage(address.page); setOffset(address.offset);
+      setView(address.view); setZoom(address.zoom); setListOpen(false);
+      positions.current.set(`${address.resourceId}:${address.page}:${address.offset}:${address.view}`, address.scrollTop);
+      resumeSelection.current = address.selection ? { boundary: originalBoundary, quote: address.selection, readDone: false } : undefined;
+      setTarget(pendingRef?.resourceId === item.resourceId ? { kind: 'pending', reference: pendingRef } : { kind: 'saved', resourceId: item.resourceId });
+    }).catch(problem => { if (live && navigation === readerNavigation.current && originalBoundary === destination.current.boundary) {
+      interruptResume(); setNotice(readingError(problem));
+    } });
+    return () => { live = false; };
+  }, [active, resume?.requestId, boundary, sessionId]);
+  useEffect(() => {
+    const selected = resumeSelection.current;
+    if (!active || !selected?.readDone || !target || !document || selected.boundary !== boundary
+      || selected.quote.resourceId !== document.item.resourceId || selected.quote.sha256 !== document.item.sha256
+      || selected.quote.page !== document.page) return;
+    resumeSelection.current = undefined; let live = true; const navigation = readerNavigation.current, originalKey = readingKey;
+    void api.materialsQuote({ target, quote: selected.quote }).then(value => {
+      if (!live || navigation !== readerNavigation.current || originalKey !== currentReadingKey.current || selected.boundary !== destination.current.boundary) return;
+      setQuote(value); setQuotePosition({ left: 12, top: 76 });
+      setHighlight({ kind: 'material', resourceId: value.resourceId, sha256: value.sha256,
+        ...(value.page ? { page: value.page } : {}), field: 'body', offset: value.start, end: value.end });
+    }).catch(problem => { if (live && navigation === readerNavigation.current && originalKey === currentReadingKey.current) setNotice(readingError(problem)); });
+    return () => { live = false; };
+  }, [active, document, target, boundary]);
   function dropSurface() { return conversationTarget?.current || conversation.current; }
 
   function clearQuoteTransfer() {
+    const transfer = quoteTransfer.current;
+    if (transfer) bookmarkTray?.release({ kind: 'material', reference: transfer.quote, target: transfer.target });
     quoteTransfer.current = undefined;
     const pointer = quotePointer.current; quotePointer.current = undefined;
     if (pointer?.element.hasPointerCapture(pointer.id)) pointer.element.releasePointerCapture(pointer.id);
@@ -107,7 +170,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     if (!draggingQuote) return;
     const cancel = (event: globalThis.KeyboardEvent) => {
       if (event.key !== 'Escape') return;
-      event.preventDefault(); clearQuoteTransfer(); setNotice('原文还在这一页。');
+      event.preventDefault(); event.stopPropagation(); clearQuoteTransfer(); setNotice('原文还在这一页。');
     };
     window.addEventListener('keydown', cancel, true);
     window.addEventListener('blur', clearQuoteTransfer);
@@ -117,11 +180,12 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     const surface = conversationTarget?.current;
     if (!surface || !active) return;
     const over = (event: globalThis.DragEvent) => {
+      if (bookmarkTray && event.target instanceof Element && event.target.closest('[data-bookmark-target]')) return;
       if (!quoteTransfer.current) return;
       event.preventDefault(); event.stopPropagation(); if (event.dataTransfer) event.dataTransfer.dropEffect = 'copy'; setDropActive(true);
     };
     const leave = (event: globalThis.DragEvent) => { if (!(event.relatedTarget instanceof Node) || !surface.contains(event.relatedTarget)) setDropActive(false); };
-    const drop = (event: globalThis.DragEvent) => { if (!quoteTransfer.current) return; event.preventDefault(); event.stopPropagation(); void dropQuote(); };
+    const drop = (event: globalThis.DragEvent) => { if (!quoteTransfer.current || bookmarkTray && event.target instanceof Element && event.target.closest('[data-bookmark-target]')) return; event.preventDefault(); event.stopPropagation(); void dropQuote(); };
     surface.addEventListener('dragover', over, true); surface.addEventListener('dragleave', leave); surface.addEventListener('drop', drop, true);
     surface.classList.toggle('is-receiving-quote', draggingQuote); surface.classList.toggle('is-drop-active', dropActive);
     return () => {
@@ -130,15 +194,17 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     };
   }, [conversationTarget, active, draggingQuote, dropActive, sessionId, boundary]);
   function startQuoteTransfer(source: MaterialQuoteReference) {
-    if (!active || !draftEnabled || !target || (!children && !conversationTarget?.current) || quoteBusy) return false;
+    if (!active || !draftEnabled || !target || (!children && !conversationTarget?.current && !bookmarkTray) || quoteBusy) return false;
     if (source.end - source.start > 4000) { setNotice('这段有些长，选短一点，我们接着聊。'); return false; }
     quoteTransfer.current = { target, quote: materialQuoteAddress(source), sessionId, boundary };
+    bookmarkTray?.stage({ kind: 'material', reference: materialQuoteAddress(source), target });
     setDraggingQuote(true); return true;
   }
   async function dropQuote() {
     const transfer = quoteTransfer.current;
     clearQuoteTransfer();
     if (!transfer) return;
+    if (bookmarkTray) { await bookmarkTray.offer({ kind: 'material', reference: transfer.quote, target: transfer.target }, 'chat'); return; }
     const generation = ++quoteTransferRequest.current, originalReadingKey = currentReadingKey.current;
     setQuoteBusy(true); setNotice('');
     try {
@@ -157,6 +223,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     // Only an in-memory transfer from this reader is accepted on drop. The
     // payload contains an address, never client-authored text or authority.
     event.dataTransfer.clearData();
+    if (target) writeBookmarkTransfer(event.dataTransfer, { kind: 'material', reference: materialQuoteAddress(source), target });
     event.dataTransfer.setData('application/x-zaichang-material', JSON.stringify(materialQuoteAddress(source)));
     event.dataTransfer.effectAllowed = 'copy';
   }
@@ -177,10 +244,15 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
   function endQuotePointer(event: PointerEvent<HTMLButtonElement>) {
     if (quotePointer.current?.id !== event.pointerId) return;
     const moved = quotePointer.current.moved;
+    const receiver = window.document.elementFromPoint(event.clientX, event.clientY)?.closest<HTMLElement>('[data-bookmark-target]');
+    if (moved && receiver?.dataset.bookmarkTarget && bookmarkTray && quoteTransfer.current) {
+      const source = quoteTransfer.current; clearQuoteTransfer();
+      void bookmarkTray.offer({ kind: 'material', reference: source.quote, target: source.target }, receiver.dataset.bookmarkTarget); return;
+    }
     const bounds = dropSurface()?.getBoundingClientRect();
     const accepted = quotePointer.current.moved && bounds && event.clientX >= bounds.left && event.clientX <= bounds.right && event.clientY >= bounds.top && event.clientY <= bounds.bottom;
     if (accepted) void dropQuote();
-    else { clearQuoteTransfer(); if (!moved) void useQuote('chat'); }
+    else { clearQuoteTransfer(); if (!moved) void useQuote(bookmarkTray ? 'tray' : 'chat'); }
   }
 
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; selectionRequest.current++; void api.materialsCancel(); }; }, []);
@@ -207,7 +279,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
   useEffect(() => {
     if (!quote) return;
     const clear = (event: globalThis.PointerEvent) => {
-      if (!(event.target instanceof Element) || !event.target.closest('.material-selection-actions')) setQuote(undefined);
+      if (!(event.target instanceof Element) || !event.target.closest('.material-selection-actions, .source-bookmark-tray')) setQuote(undefined);
     };
     window.addEventListener('pointerdown', clear);
     return () => window.removeEventListener('pointerdown', clear);
@@ -219,6 +291,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
   useEffect(() => {
     if (!focus || focusRequest.current === focus.requestId) return;
     focusRequest.current = focus.requestId;
+    interruptResume(); request.current++;
     const locator = focus.locator;
     revealPending.current = true;
     setTarget(pendingRef?.resourceId === locator.resourceId ? { kind: 'pending', reference: pendingRef } : { kind: 'saved', resourceId: locator.resourceId });
@@ -271,6 +344,11 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     setLoading(true); setError(''); setNotice(''); setQuote(undefined); setDocument(undefined);
     void api.materialsRead({ target, page, offset, view }).then(result => {
       if (id !== request.current) return;
+      documentReadingKey.current = readingKey;
+      resumeInFlight.current = false;
+      if (resumeSelection.current?.boundary === boundary && resumeSelection.current.quote.resourceId === result.item.resourceId
+        && resumeSelection.current.quote.sha256 === result.item.sha256 && resumeSelection.current.quote.page === result.page)
+        resumeSelection.current.readDone = true;
       setDocument(result);
       requestAnimationFrame(() => {
         if (id !== request.current) return;
@@ -279,7 +357,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
         else scroller.current?.scrollTo({ top: previousScroll });
         readingPositions.save(result.item, { page, offset, view, zoom, scrollTop: scroller.current?.scrollTop || 0 });
       });
-    }).catch(problem => { if (id === request.current) setError(readingError(problem)); })
+    }).catch(problem => { if (id === request.current) { resumeInFlight.current = false; setError(readingError(problem)); } })
       .finally(() => { if (id === request.current) setLoading(false); });
     return () => { request.current++; void api.materialsCancel(); };
   }, [target, page, offset, view, boundary, retry, active, pendingRef?.resourceId]);
@@ -308,6 +386,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
   }, [document, highlight]);
 
   function open(item: MaterialItem, pendingItem = false) {
+    interruptResume(); request.current++;
     setHighlight(undefined);
     const bookmark = bookmarks.current.get(item.resourceId) || readingPositions.restore(item);
     setPage(bookmark?.page || 1); setOffset(bookmark?.offset || 0);
@@ -316,6 +395,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     setListOpen(false); setQuery('');
   }
   async function attach() {
+    interruptResume(); request.current++;
     if (!destination.current.enabled) return;
     const id = ++selectionRequest.current;
     const originalDestination = { ...destination.current };
@@ -379,7 +459,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
       top: Math.max(76, Math.min(container.height - 110, rect.top - container.top - 52)) });
     setNotice(''); setSavedNote(undefined);
   }, [document]);
-  async function useQuote(operation: 'chat' | 'note') {
+  async function useQuote(operation: 'chat' | 'note' | 'tray') {
     if (!quote || !target || quoteBusy || !destination.current.active || operation === 'chat' && !destination.current.enabled) return;
     const selected = quote, originalDestination = { ...destination.current }, originalReadingKey = currentReadingKey.current;
     const generation = ++quoteTransferRequest.current;
@@ -389,6 +469,9 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     setQuoteBusy(true); setNotice('');
     try {
       const input = { target, quote: materialQuoteAddress(selected) };
+      if (operation === 'tray' && bookmarkTray) {
+        await bookmarkTray.pick({ kind: 'material', reference: input.quote, target }); return;
+      }
       if (operation === 'note') {
         const current = await api.materialsQuote(input);
         if (!stillCurrent()) return;
@@ -486,11 +569,13 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
   function resumeNote() {
     const draft = [...noteDrafts.current.values()].at(-1);
     if (!draft) return;
+    interruptResume(); request.current++;
     setTarget(draft.target); setPage(draft.quote.page || 1);
     setOffset(draft.quote.page ? Math.floor(draft.quote.start / MATERIAL_LIMITS.readCodePoints) * MATERIAL_LIMITS.readCodePoints : Math.max(0, draft.quote.start - 120));
     setView(draft.quote.page ? 'page' : 'text'); setNoteEditor(draft);
   }
   function changeZoom(value: number) {
+    interruptResume();
     const viewport = scroller.current;
     const ratio = viewport && viewport.scrollHeight > viewport.clientHeight ? viewport.scrollTop / (viewport.scrollHeight - viewport.clientHeight) : 0;
     setZoom(value);
@@ -521,7 +606,10 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     <button className="text-button materials-add" onClick={() => void attach()} disabled={choosing || !draftEnabled}><Plus size={17} />{choosing ? '等你选好…' : '再添一份资料'}</button>
   </div>;
   return <section hidden={!active} className={`materials-panel ${compact ? 'is-compact' : ''} ${children ? 'has-conversation' : ''}`} aria-label="资料原文">
-    <div className="materials-reader" ref={reader}>
+    <div className="materials-reader" ref={reader} data-source-current={currentBoundary} aria-hidden={!currentBoundary} inert={!currentBoundary}
+      onPointerDownCapture={() => { if (resumeInFlight.current) interruptResume(); }}
+      onWheelCapture={() => { if (resumeInFlight.current) interruptResume(); }}
+      onKeyDownCapture={() => { if (resumeInFlight.current) interruptResume(); }}>
       {!target && <header className="materials-heading"><button className="text-button" onClick={onClose}><ArrowLeft size={16} />回到聊天</button></header>}
       {!target ? <div className="materials-welcome">
         <div className="materials-welcome-copy"><h1>资料</h1></div>
@@ -543,10 +631,11 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
           if (!loading && document && scroller.current) {
             positions.current.set(readingKey, scroller.current.scrollTop);
             readingPositions.save(document.item, { page, offset, view, zoom, scrollTop: scroller.current.scrollTop });
+            reportReturnAddress();
           }
           if (quote) setQuote(undefined);
         }}>
-          {loading ? <div className="materials-opening" role="status"><LoaderCircle size={23} className="spin" /><p>正在翻开这一页…</p></div> : error ? <div className="materials-recovery" role="alert">
+          {!currentBoundary || loading || !!document && documentReadingKey.current !== readingKey ? <div className="materials-opening" role="status"><LoaderCircle size={23} className="spin" /><p>正在翻开这一页…</p></div> : error ? <div className="materials-recovery" role="alert">
             <div className="materials-paper-mark"><FileText size={48} strokeWidth={1} /></div><h2>这份文件没能打开。</h2><p>你可以再试一次，也可以换一份原文件。</p>
             <div className="field-buttons"><button className="primary-button" onClick={() => setRetry(value => value + 1)}>再试一次</button><button className="subtle-button" onClick={() => void attach()} disabled={choosing || !draftEnabled}>重新选择</button></div>
             <details><summary>看看原因</summary><p>{error}</p></details>
@@ -568,14 +657,15 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
             {view === 'text' && document.needsVisual && document.text && <p className="materials-page-note">这一页还有图表，切到「页面」可以一起看。</p>}
           </> : null}
         </div>
-        {quote && <div className="material-selection-actions" style={quotePosition} role="group" aria-label="选段操作" onMouseDown={event => event.preventDefault()}>
-          {(!!children || !!conversationTarget) && <button type="button" className="material-drag-quote" aria-label="把选段拖到对话，也可以点击聊这一段" title="拖到对话"
+        {quote && currentBoundary && !loading && documentReadingKey.current === readingKey && <div className="material-selection-actions" style={quotePosition} role="group" aria-label="选段操作" onMouseDown={event => event.preventDefault()}>
+          {(!!children || !!conversationTarget || !!bookmarkTray) && <button type="button" className="material-drag-quote" aria-label="拿起选段，放到推导纸、笔记或对话" title="拿到纸边"
             disabled={!draftEnabled || quoteBusy} onPointerDown={beginQuotePointer} onPointerMove={moveQuotePointer}
             onPointerUp={endQuotePointer} onPointerCancel={clearQuoteTransfer}
             onLostPointerCapture={() => { if (quotePointer.current) clearQuoteTransfer(); }}
-            onClick={event => { if (event.detail === 0) void useQuote('chat'); }}><GripVertical size={17} /></button>}
+            onClick={event => { if (event.detail === 0) void useQuote(bookmarkTray ? 'tray' : 'chat'); }}><GripVertical size={17} /></button>}
           <button disabled={!draftEnabled || quoteBusy} onClick={() => void useQuote('chat')}><MessageCircle size={17} />聊这一段</button>
           <button disabled={quoteBusy || notePending} onClick={() => void useQuote('note')}><BookmarkPlus size={17} />记一笔</button>
+          {bookmarkTray && <button disabled={quoteBusy} onClick={() => void useQuote('tray')}><BookOpen size={16} />书签夹</button>}
         </div>}
         {noteEditor && boundaryRef.current === boundary && <section className="material-margin-editor" aria-label="这一处的笔记" aria-busy={notePending}
           onKeyDown={event => { if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); closeNote(); } }}>
@@ -586,12 +676,15 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
             maxLength={noteEditor.note ? 200000 : 4000} disabled={notePending} placeholder="刚才想到的…"
             onChange={event => setNoteEditor(current => current ? { ...current, body: event.target.value, error: undefined } : current)} />
           {noteEditor.error && <p role="alert">{noteEditor.error}</p>}
-          <footer>{noteEditor.note && onOpenNote && <button type="button" className="text-button" disabled={notePending}
+          <footer>{bookmarkTray && <button type="button" className="text-button" disabled={notePending}
+              onClick={() => void bookmarkTray.pick({ kind: 'material', reference: materialQuoteAddress(noteEditor.quote), target: noteEditor.target })}>
+              <BookOpen size={14} />拿起这一处原文</button>}
+            {noteEditor.note && onOpenNote && <button type="button" className="text-button" disabled={notePending}
               onClick={() => onOpenNote(noteEditor.note!.id, noteEditor.note!.revision)}>打开笔记<ArrowUpRight size={13} /></button>}
             <button type="button" className="primary-button" disabled={notePending || !!noteEditor.note && !noteEditor.body.trim()} onClick={() => void saveNote()}>
               {notePending ? <LoaderCircle size={15} className="spin" /> : <BookmarkPlus size={15} />}留在笔记</button></footer>
         </section>}
-        <footer className="materials-footer">
+        <footer className="materials-footer" hidden={!currentBoundary}>
           <select className="materials-zoom" aria-label="阅读缩放" value={zoom} onChange={event => changeZoom(Number(event.target.value))}>
             {[85, 100, 115, 130, 150].map(value => <option key={value} value={value}>{value}%</option>)}
           </select>
@@ -610,9 +703,9 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
         <button type="button" className="text-button" title={notesError} onClick={() => setNotesRefresh(value => value + 1)}>再看一次</button></div>}
     </div>
     {children && <div ref={conversation} className={`materials-conversation${draggingQuote ? ' is-receiving-quote' : ''}${dropActive ? ' is-drop-active' : ''}`}
-      onDragOverCapture={event => { if (!quoteTransfer.current) return; event.preventDefault(); event.stopPropagation(); event.dataTransfer.dropEffect = 'copy'; setDropActive(true); }}
+      onDragOverCapture={event => { if (!quoteTransfer.current || bookmarkTray && event.target instanceof Element && event.target.closest('[data-bookmark-target]')) return; event.preventDefault(); event.stopPropagation(); event.dataTransfer.dropEffect = 'copy'; setDropActive(true); }}
       onDragLeave={event => { if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) setDropActive(false); }}
-      onDropCapture={event => { if (!quoteTransfer.current) return; event.preventDefault(); event.stopPropagation(); void dropQuote(); }}>
+      onDropCapture={event => { if (!quoteTransfer.current || bookmarkTray && event.target instanceof Element && event.target.closest('[data-bookmark-target]')) return; event.preventDefault(); event.stopPropagation(); void dropQuote(); }}>
       {children}{draggingQuote && <div className="material-drop-invitation" aria-hidden="true"><MessageCircle size={18} />放进对话</div>}
     </div>}
     {dragPreview && <div className="material-drag-preview" style={{ left: dragPreview.x, top: dragPreview.y }} aria-hidden="true"><FileText size={16} />这一段原文</div>}

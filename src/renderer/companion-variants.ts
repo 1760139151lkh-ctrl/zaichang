@@ -1,11 +1,7 @@
 import type { SceneSnapshot } from '../shared/scenes';
+import type { CompanionActivity } from '../shared/companion-activity';
 
-export type CompanionMoment = 'chat' | 'reading' | 'planning' | 'rest' | 'play' | 'night';
-
-export interface CompanionArtwork {
-  image: string;
-  variants?: Partial<Record<CompanionMoment, string>>;
-}
+export type CompanionMoment = CompanionActivity | 'night';
 
 /** Only the visible activity and light choose artwork; personality is separate. */
 export function companionMoment({ reading = false, night = false }: { reading?: boolean; night?: boolean }): CompanionMoment {
@@ -17,16 +13,15 @@ export function companionMoment({ reading = false, night = false }: { reading?: 
 export function companionSceneMoment(scene: SceneSnapshot | undefined): CompanionMoment | undefined {
   switch (scene?.kind) {
     case 'planning': return 'planning';
-    case 'study': case 'study_reference': case 'note': case 'note_reference':
+    case 'study': case 'study_reference': return 'study';
+    case 'rehearsal': case 'rehearsal_reference': return 'listening';
+    case 'note': case 'note_reference':
     case 'campus': case 'campus_reference': case 'discussion': return 'reading';
     case 'curiosity': case 'curiosity_reference': return 'play';
     // Shared creation uses a typed Work reference, not a distinct Scene kind.
-    case 'map': return scene.storySetting ? 'play' : undefined;
+    case 'map': return scene.storySetting ? 'play' : 'attention';
+    case 'figure': case 'weather': case 'environment': return 'attention';
     default: return undefined;
   }
 }
 
-/** A missing pose keeps the selected character's existing artwork. */
-export function companionArtworkImage(artwork: CompanionArtwork | undefined, moment: CompanionMoment = 'chat') {
-  return artwork?.variants?.[moment] ?? artwork?.image;
-}

@@ -1,0 +1,67 @@
+{
+  "purpose": "local alpha sky/leaf/cloud noise cleanup only; original RGB read only",
+  "input": "umiri-planning-apricot-mask-raw-v1.png",
+  "inputSha256": "ee2e8eca14ab64acbfacd243c51884206f830830aab528b2c8c01f17f397f9b2",
+  "reference": "umiri-planning-apricot-mother-candidate-v2.png",
+  "referenceSha256": "78ca56bc6b2fff62341a26018251a84a62185ea6d614af14b2903ff323976f23",
+  "regionXYXY": [
+    772,
+    288,
+    910,
+    426
+  ],
+  "protectedOriginalHeadInterior": [
+    [
+      804,
+      323
+    ],
+    [
+      823,
+      303
+    ],
+    [
+      847,
+      300
+    ],
+    [
+      874,
+      314
+    ],
+    [
+      890,
+      336
+    ],
+    [
+      893,
+      360
+    ],
+    [
+      881,
+      386
+    ],
+    [
+      866,
+      399
+    ],
+    [
+      840,
+      404
+    ],
+    [
+      816,
+      400
+    ],
+    [
+      801,
+      385
+    ],
+    [
+      795,
+      358
+    ]
+  ],
+  "rule": "Begin raw luminance. In half-open region, outside Pillow ImageDraw protectedOriginalHeadInterior polygon, where luminance>0 set zero if (G>R+3 and B>R+5) or (G-B>65 and R-G<35) or (R>170 and B>R-8 and G>R-15). Preserve every other raw byte. No erosion/component deletion/body repaint.",
+  "changedAlphaPixels": 2103,
+  "output": "umiri-planning-apricot-mask-local-color-v1.png",
+  "outputSha256": "8389099720c350f47b435ebad08153fb7331c64287dd5f41214e33f4b865980a"
+}

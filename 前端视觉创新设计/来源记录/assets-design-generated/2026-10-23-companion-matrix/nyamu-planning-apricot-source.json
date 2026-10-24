@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-planning-apricot-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "planning",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "nyamu-planning-apricot-prompt.txt",
+  "identityText": "nyamu-identity.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "nyamu-planning-apricot-mother-candidate-v1.png",
+    "sha256": "91744632175dc40c2bfeb03d08e6d24ad1996feada1bb6ecdc1653696a1582bb",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-8d7a2afc-f41b-4b9b-ba61-d9b925e1a9ea.png"
+  },
+  "designerObservation": "Full image viewed. Upright half-turn and both low desktop arms differ from absorbed study; separate leg chains and complete shoes contact floor. Youthful fixed identity/outfit preserved. However eyes meet viewer rather than comparing actual paper pair; designer rejects this planning attention relation and regenerates from clean room, never from this image.",
+  "designerStatus": "rejected for planning gaze; not eligible for expansion",
+  "primaryReview": "not requested for rejected v1",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

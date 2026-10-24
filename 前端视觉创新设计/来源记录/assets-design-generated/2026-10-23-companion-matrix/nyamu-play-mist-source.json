@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-play-mist-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "play",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-scene physical relighting of this exact primary-approved warm activity mother; no other character inputs",
+  "prompt": "nyamu-play-mist-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-play-apricot-mother-candidate-v1.png",
+      "role": "sole image edit target; primary-approved correct complete activity mother",
+      "sha256": "73cf1bdecedd78833a534a05692764ecd91d87b63bfd9ca91d5deb08b123c3ed"
+    }
+  ],
+  "output": {
+    "file": "nyamu-play-mist-mother-candidate-v1.png",
+    "sha256": "021354c8e10adf5427bcb651671810aeaaa871b89603f2f43e82626ef6de6c92",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-0e3d3c3d-33f7-4e4f-b6b7-aa98e19e34c0.png"
+  },
+  "ownershipAndPose": "Keep exact full torso diagonal forward lean from supported bench hips, one planted cushion palm balancing, opposite hand offering same tiny folded-paper creature. Preserve all hands/fingers and complete original leg/shoe chains. Held paper creature belongs with CHARACTER, not background. No added craft or camera.",
+  "designerObservation": "Full image personally viewed. Original diagonal forward pelvis/ribcage lean, support palm on cushion and opposite offering hand/paper creature preserved, same bright youthful expression without added wink. Both original complete shoe/leg chains and fixed room retained. Held paper creature remains character-owned. Diffuse blue-white mist/lake/room light removes original hard golden tree/sun shadows while preserving natural skin, lavender hair/red-purple eyes, gray blouse and black skirt/shoes.",
+  "observedGaps": [
+    "Primary mother review pending; no layers/calibration/Stage acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

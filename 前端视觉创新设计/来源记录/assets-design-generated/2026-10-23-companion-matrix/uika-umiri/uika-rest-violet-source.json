@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-theme-mother-candidate",
+  "character": "uika",
+  "activity": "rest",
+  "theme": "violet",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/uika/",
+    "https://anime.bang-dream.com/mygo/character/uika/"
+  ],
+  "input": {
+    "path": "uika-rest-apricot-mother-candidate-v1.png",
+    "sha256": "c90f589bdd923d6b5520eaec6368fd6b27ade6627bf0c39288b4b9852aee551c",
+    "role": "sole primary-approved exact-activity full apricot mother; lighting-weather edit only"
+  },
+  "promptFile": "uika-rest-violet-prompt.txt",
+  "prompt": "Use case: lighting-weather. One complete 1536 x 1024 same-room themed mother.\nThe ONLY INPUT image 1 is the PRIMARY-APPROVED APRICOT MOTHER FOR THIS EXACT ACTIVITY. It is the full edit target, not a reference portrait. Relight it as a whole; do not recompose or create a new pose.\nLOCK source geometry, face/age/hair, expression/gaze, body proportions, exact hands/fingers/feet and support contacts, clothing folds, all props/held items, empty shoes, chair orientation, desk width/lamp/cup position, bench/pillows/throw, all window frame corners and continuous architecture, distant campus landmarks, rear-left table/shelves/drawing, rug and floorboards. No crop/zoom/enlargement, body relocation, anatomy completion, chair restoration from another room or furniture drift. The provided activity silhouette stays unchanged, including all fine hair/prop/shoe tips inside the same full canvas.\nThis is MISUMI UIKA (三角初華): the same youthful short chin-length pale-blonde bob with a faint pink undertone, violet eyes, white T-shirt, long taupe-gray skirt and original socks/footwear arrangement in this approved input. Do not substitute an adult, long brown hair or another girl. Her original outfit and object colors remain material colors under new light.\nRelight the whole person AND room together: exterior/sky/water/glass, lamp, walls/wood/linen, hair/skin/clothes/objects and contact shadows must agree. Natural skin, readable eyes/hands, real cloth/wood colors. No flat color filter, uniform orange/purple wash, black overlay, green cast, white gradient, pasted bright face, blank wall, split day/night, extra light source, new prop/person or background replacement. Fine youthful anime linework and the same softly detailed painted environment. No text/UI/logos/watermarks/arrows/borders/insets.\n\nSOURCE ACTIVITY REST: preserve the whole body turned toward the WINDOW in three-quarter BACK/SIDE, calm profile looking OUTSIDE, hips and sideways-folded legs/sock feet on the bench, supporting palm and relaxed lap hand. The two empty sneakers stay on the floor. Do not rotate her face back toward the viewer, raise knees into a hug or add a book.\n\nTHEME VIOLET: rose-gold SUNSET over the SAME lake/campus, low warm horizon fading into lilac/violet upper clouds, coherent dusk and water reflections over the whole connected window. Muted violet interior shadows and restrained rose/amber bounce, preserving material colors. Turn ON the EXISTING desk lamp in its exact source position, modest local warm pool on desk/chair/bench. The person receives that lamp light and dusk window rim coherently; natural youthful skin and readable hair/clothes/objects, not neon purple skin or uniform orange tint. Do not move the lamp or change the source pose/room.\nReturn ONE complete exact-size scene with source composition and anatomy unchanged.\n",
+  "output": {
+    "path": "uika-rest-violet-mother-candidate-v1.png",
+    "sha256": "db85e9a230b5f51cb2319fb7098d05c0cb35ae4d3519f3b698ea525d3c1a26b3",
+    "bytes": 2198305,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-24T00:43:41.077289+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "朝窗侧背身/榻上折腿袜脚/后撑掌和地面空鞋保持，整窗日落玫金/室内紫影及原位暖灯反射连续，肤衣家具未整体染紫。",
+    "independentLightAxisReview": {
+      "status": "rejected-light-axis",
+      "personallyViewed": true,
+      "observedSunXApprox": 1041,
+      "referenceSunXApprox": 1007,
+      "reason": "Original whole image has a visibly right-shifted solar disc and matching reflection relative to the approved same-theme light-axis plate. New whole-scene relighting uses only the correct warm mother and clean reference, never this rejected image.",
+      "replacementSource": "uika-rest-violet-v2-source.json",
+      "replacementOutput": "uika-rest-violet-mother-candidate-v2.png",
+      "primaryApproval": false
+    },
+    "status": "rejected-light-axis"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-e97791cf-3eb6-4411-9879-74a43fc73009"
+}

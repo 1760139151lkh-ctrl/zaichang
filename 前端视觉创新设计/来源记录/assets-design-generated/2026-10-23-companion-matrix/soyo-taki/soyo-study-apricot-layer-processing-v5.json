@@ -1,0 +1,306 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "soyo-study-apricot-layer-parameters-v5.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "acd958962a3fbec03faf3be03b5bbe2286df8198fde14ad5a59573780f21b19c",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "soyo-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "cf664fa1fc6dcdd8fd9c8dc1cd542d4142bbe05d5d9809a101e6d58907858411",
+  "matte": "soyo-study-apricot-mask-calibrated-v3.png",
+  "matteSha256": "63eeb6e6bdb5620aa8abd0cbb8b329dae8d59ca6f6dfc84d92f577f8b9e9d680",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 1295,
+  "alphaNonzeroPixels": 25327,
+  "alphaBounds": [
+    809,
+    334,
+    1027,
+    701
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "be5bc28f5b07e19aed6525ddf5e5c2c0de7d891d5fd90479b9b4fe5cf8fb77e9",
+  "figureRgbSha256": "be5bc28f5b07e19aed6525ddf5e5c2c0de7d891d5fd90479b9b4fe5cf8fb77e9",
+  "background": {
+    "candidate": "soyo-study-apricot-background-generated-v1.png",
+    "candidateSha256": "4ec1b22b4f174c1a5593f4df54f06c5171f1c1faa4b662e102b65732b943a466",
+    "expandPixels": 6,
+    "featherPixels": 1.2,
+    "additionalErasePolygons": [
+      [
+        [
+          896,
+          667
+        ],
+        [
+          1034,
+          667
+        ],
+        [
+          1038,
+          713
+        ],
+        [
+          896,
+          713
+        ]
+      ],
+      [
+        [
+          881,
+          326
+        ],
+        [
+          926,
+          326
+        ],
+        [
+          956,
+          353
+        ],
+        [
+          957,
+          400
+        ],
+        [
+          939,
+          427
+        ],
+        [
+          950,
+          465
+        ],
+        [
+          977,
+          474
+        ],
+        [
+          982,
+          492
+        ],
+        [
+          956,
+          500
+        ],
+        [
+          946,
+          506
+        ],
+        [
+          961,
+          541
+        ],
+        [
+          977,
+          550
+        ],
+        [
+          984,
+          591
+        ],
+        [
+          990,
+          639
+        ],
+        [
+          1003,
+          674
+        ],
+        [
+          1033,
+          686
+        ],
+        [
+          1031,
+          701
+        ],
+        [
+          1004,
+          705
+        ],
+        [
+          959,
+          700
+        ],
+        [
+          954,
+          691
+        ],
+        [
+          948,
+          648
+        ],
+        [
+          936,
+          616
+        ],
+        [
+          930,
+          620
+        ],
+        [
+          925,
+          659
+        ],
+        [
+          941,
+          678
+        ],
+        [
+          945,
+          692
+        ],
+        [
+          938,
+          701
+        ],
+        [
+          904,
+          700
+        ],
+        [
+          898,
+          689
+        ],
+        [
+          901,
+          661
+        ],
+        [
+          904,
+          625
+        ],
+        [
+          906,
+          609
+        ],
+        [
+          889,
+          593
+        ],
+        [
+          873,
+          583
+        ],
+        [
+          870,
+          521
+        ],
+        [
+          850,
+          505
+        ],
+        [
+          819,
+          501
+        ],
+        [
+          800,
+          487
+        ],
+        [
+          800,
+          459
+        ],
+        [
+          811,
+          414
+        ],
+        [
+          836,
+          374
+        ]
+      ]
+    ],
+    "changedPixels": 55505,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          896,
+          665
+        ],
+        [
+          1038,
+          665
+        ],
+        [
+          1038,
+          714
+        ],
+        [
+          896,
+          714
+        ]
+      ],
+      [
+        [
+          852,
+          576
+        ],
+        [
+          975,
+          576
+        ],
+        [
+          975,
+          615
+        ],
+        [
+          852,
+          615
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "soyo-study-apricot-figure-calibrated-v4.png",
+      "bytes": 2439061,
+      "sha256": "a43e30ef7b80f5e19d3009dd2722b85dff5e63612282f62f4f80a7c6d13758e3"
+    },
+    {
+      "file": "soyo-study-apricot-mask-calibrated-v4.png",
+      "bytes": 14495,
+      "sha256": "08b88c66d7813a40047ba683944d0dee5b9b9177351821150ecea8747760396f"
+    },
+    {
+      "file": "soyo-study-apricot-background-calibrated-v5.png",
+      "bytes": 2119393,
+      "sha256": "a16ef82757210f6ae975ec573d81067dace5eef62ea004827a0511e4e1d92f39"
+    },
+    {
+      "file": "soyo-study-apricot-shadow-calibrated-v5.png",
+      "bytes": 31627,
+      "sha256": "88fa52fb9f4a39fae681654864e57aeef74ce21df86c6124960469f9cc2ecd64"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

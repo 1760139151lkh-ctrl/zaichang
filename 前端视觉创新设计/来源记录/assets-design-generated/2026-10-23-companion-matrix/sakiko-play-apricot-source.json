@@ -1,0 +1,36 @@
+{
+  "asset": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-mother.png",
+  "character": "sakiko",
+  "activity": "play",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "mode": "RGB",
+  "bytes": 2194593,
+  "generatedOn": "2026-10-23",
+  "generator": "built-in image_gen.imagegen",
+  "generationId": "exec-06a5fd55-8220-4092-89b6-33ba91d98962",
+  "prompt": "sakiko-play-apricot-prompt.txt",
+  "promptSha256": "d409a100e2e81d653cb21e4384b66ee4cc54c2fb3fa547398865e7dd7a3ea68e",
+  "inputs": [
+    {
+      "asset": "room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+      "role": "sole image input; primary-reviewed clean empty room"
+    }
+  ],
+  "outputSha256": "c81824391b45219eb973c49fc435e5040daa1c310c5f3ad0a4b60adf044f96f3",
+  "personPixelsUsedAsInput": false,
+  "identityReference": "Text only, aligned to the shared Sakiko chat prompt; official character images are not generation inputs.",
+  "evidence": {
+    "generated": true,
+    "personallyViewedByProducer": true,
+    "producerObservation": "Distinct forward seated lean, one palm supported on cushion, offering a small folded paper bird, staggered planted shoes. Hair, hands, legs and both shoes remain complete with canvas margin. Primary acceptance remains pending.",
+    "submittedForPrimaryReview": true,
+    "approvedByPrimary": false,
+    "extracted": false,
+    "runtimeAccepted": false,
+    "interactionChecked": false
+  }
+}

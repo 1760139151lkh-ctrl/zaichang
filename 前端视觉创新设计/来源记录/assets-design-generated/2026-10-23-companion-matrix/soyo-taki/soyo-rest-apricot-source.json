@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "rest",
+  "palette": "apricot",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-f72dd5b4-d6a7-4220-bb98-434564f9be90",
+  "prompt": "soyo-rest-apricot-prompt.txt",
+  "promptSha256": "6bba84ac4daf5582b7411198e1ddd073742e8d5508ce74ad1ae25748715ab2e3",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-approved clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "soyo-rest-apricot-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2159553,
+    "sha256": "c1be74d29d85a6ac0a2976acdcb3632fe625d46fef9535ca6ed6f33eabeb6e61"
+  },
+  "producerObservation": "Whole original viewed: real three-quarter back/side torso toward lake, hands idle on thigh/seat, two separate lowered legs and complete planted loafers. Navy uniform and light-brown hair retained, no work prop or camera-facing chat pose. Pending primary review.",
+  "review": {
+    "producerViewed": "complete original plus detail where necessary",
+    "producerDecision": "candidate",
+    "primary": "pending; no producer signature",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

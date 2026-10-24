@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-mother-candidate",
+  "character": "uika",
+  "activity": "play",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/uika/",
+    "https://anime.bang-dream.com/mygo/character/uika/"
+  ],
+  "input": {
+    "path": "../room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty room; no character pixels used"
+  },
+  "promptFile": "uika-play-apricot-prompt.txt",
+  "prompt": "Use case: stylized-concept. Asset: ONE complete 1536 x 1024 warm-apricot morning mother scene for the 在场 companion Stage, with the whole room and whole person.\nONLY INPUT image 1 is the primary-selected CLEAN EMPTY room v4. It supplies architecture, camera, ordinary furniture scale, materials and light and contains no person. Generate this complete human-in-room scene from text; no portrait, old mother or separate cutout is an input.\nPRESERVE THE ROOM: same mild seated-eye perspective, full connected window frame including every corner, lake/campus view, rear-left table/chair/bookshelves/framed drawing, right desk/chair/lamp/cup, bench/cushions/throw, rug and complete floor passage. Keep furniture in its original area and ordinary scale. No new foreground table/chair, enlarged person, zoom, crop, blank wall, white gradient or erased left living detail. Keep the left/central live-reading lane free of new character parts and props. Add real contact shadows where this person is supported. One coherent morning window light with natural skin and distinct material colors, not an orange wash.\nSTYLE: original youthful Japanese-anime identity, restrained fine character linework in the input's softly detailed environmental painting. Neither an adult fashion portrait nor a chibi child. A naturally inhabited continuous room, never a separately pasted sticker. No other person, text, UI, logos, watermarks, split-screen, arrows, borders, insets or duplicate views. Show complete head/hair, hands, clothing hems and feet with air inside the canvas.\n\nCHARACTER: Misumi Uika (三角初華), BanG Dream! Ave Mujica / MyGO!!!!!, around fifteen-sixteen, first-year high-school girl. Recognizable short chin-length pale-blonde bob with a faint warm pink undertone, fine lightly uneven front fringe and longer cheek-framing strands; clear violet eyes, soft young jaw and slim natural teenage shoulders. Consistent official casual clothes interpreted indoors: simple white short-sleeved T-shirt, pale taupe-gray long skirt, white socks, black-and-white low canvas sneakers. No cap indoors, stage costume or invented uniform. Keep a clear youthful face, no mature makeup or glamour.\n\nACTIVITY play / music and a small shared discovery:\nUika sits on the RIGHT WINDOW BENCH in a clear guitar-playing posture, hips fully supported and torso rotated slightly toward the room. Keep her ordinary teenage scale near the bench, head around (1280,315), hips around (1280,575), both complete sneakers grounded near y=780. Her knees are slightly staggered at natural playing height, not crossed or raised into a hug.\nA small ordinary UNBRANDED ACOUSTIC GUITAR rests with its lower curved body on her real right thigh, supported by the thigh and the forearm. The full instrument is inside the canvas, with its neck pointing diagonally to the UPPER RIGHT and headstock ending safely before the right image edge, not extending left into the reading lane. Keep a real continuous body/neck/strings/fretboard/headstock. One hand lightly frets the neck, with thumb behind it and natural fingers on strings; the other hand is poised over the sound hole/strings in a gentle picking motion. Both arms change naturally to this playing relationship. No floating guitar, instrument fused to a wrist, impossible reversed grip, extra hand, duplicated neck or fingers.\nHer shoulders open and tilt toward the guitar, eyes briefly following the fretting hand, lips softly parted as if testing a little melodic phrase rather than delivering a stock smile. She is a young musician trying something with the other person, not posing with a guitar prop. This is a project-original informal musical interaction, not a claim of a specific concert or official instrument model. No amplifier, stage, microphone stand, phone, book, cup or added large furniture.\nThe long taupe skirt drapes around two supported thighs and normal knees; two distinct lower legs and sneakers remain connected and supported. Her hand, guitar edge and skirt overlap have clear natural occlusions and contact shadows. Leave every shoe, finger, guitar tip and hair tip on the full canvas with air to the frame. No readable music, logos or writing on the guitar.\n",
+  "output": {
+    "path": "uika-play-apricot-mother-candidate-v1.png",
+    "sha256": "5217e87de50ac8ff072d231a2cc07d985303cbc4f034a97355f0d98bb6a53454",
+    "bytes": 2168335,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T19:15:32.969876+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "琴体落大腿、手臂包琴与另一手按弦形成演奏关系，完整琴颈/双鞋在画布；木吉他为项目原创日常演绎，不冒充官方器型号/演出。待主审。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-7e17485f-048a-4a90-b056-f881be8c98e1"
+}

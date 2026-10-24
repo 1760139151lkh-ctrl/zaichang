@@ -249,6 +249,7 @@
   font-weight: 500;
   color: var(--accent);
 }
+.conversation-map-issue { margin: 0; padding: 0 20px 14px; color: var(--text-secondary); font-size: 12px; line-height: 1.7; }
 .conversation-map-caption button {
   display: flex;
   align-items: center;

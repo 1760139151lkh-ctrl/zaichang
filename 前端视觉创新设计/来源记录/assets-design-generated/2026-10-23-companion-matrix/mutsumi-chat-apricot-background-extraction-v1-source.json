@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "apricot",
+  "kind": "background",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-chat-apricot-background-extraction-v1-prompt.txt",
+  "promptSha256": "b2ceae18bb03ffe29c00b2931d0426d20dfb39595162cde707c8b2f0a741e4de",
+  "inputs": [
+    {
+      "file": "mutsumi-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a",
+      "role": "sole edit target; primary-approved correct complete mother, no erroneous mother or mask supplied"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-chat-apricot-background-candidate-v1.png",
+    "sha256": "0848c40f2a43698244eead3d1946bd403309baae84e82c8db7d857316607aece",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-3d36c8f4-361b-4760-bdd2-764ff261fe93.png"
+  },
+  "designerObservation": "Full output viewed. Complete matching chat empty room; original bench/pillow/throw/desk/chair/lamp/window coordinates retained optically. Candidate for local original-room registration, not independently accepted.",
+  "designerStatus": "candidate for deterministic registration",
+  "primaryReview": "pending; producer cannot approve",
+  "runtime": "not registered or verified"
+}

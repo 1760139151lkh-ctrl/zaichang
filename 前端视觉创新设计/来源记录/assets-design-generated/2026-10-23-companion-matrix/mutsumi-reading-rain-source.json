@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "mutsumi-reading-rain-mother-candidate-v1.png",
+  "character": "mutsumi",
+  "activity": "reading",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-environment physical relight of exact approved complete warm activity mother, with approved empty light/axis reference only where explicit",
+  "prompt": "mutsumi-reading-rain-prompt.txt",
+  "promptSha256": "5f92d86f5f4f81214b6567cbc855df5474c5de17491d34cc4874d90213dad39e",
+  "inputs": [
+    {
+      "file": "mutsumi-reading-apricot-mother-candidate-v2.png",
+      "sha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+      "role": "sole input/edit target; approved complete correct warm activity mother"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-reading-rain-mother-candidate-v1.png",
+    "sha256": "5979f63f3ada9e2f741811b0c543d9b8a3300e0e297a8a3ab7cf3f977e0706b6",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-258ea1bf-ec17-4f47-95ef-f7df894bf839.png"
+  },
+  "ownerAndSupport": "Preserve the newly approved genuine recline against the existing blue cushion: pelvis/knees/shoes diagonal left, head side/down to book. Book is held/body-owned. Do not straighten her into the returned chat-like reading-v1.",
+  "designerObservation": "Full image personally viewed. Source reclined diagonal reading posture and blue-cushion support/held book retained, original full legs/loafers and furniture unchanged. Dark rainy glass/lake/city and existing single warm lamp form one mixed night; warm face/book/hair planes with cool window fill, no old day leaf/window silhouette on wall/floor. Pale mint hair remains recognizable under amber illumination, navy/white uniform and intrinsic skin/wood stay legible; held book character-owned.",
+  "observedGaps": [
+    "Primary per-mother review pending; layers/calibration/Stage acceptance separate."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

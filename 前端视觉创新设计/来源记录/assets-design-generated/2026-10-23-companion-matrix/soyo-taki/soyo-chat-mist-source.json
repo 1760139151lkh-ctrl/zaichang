@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "chat",
+  "palette": "mist",
+  "light": "morning",
+  "generatedOn": "2026-10-23",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-f09cc8f1-1faf-4691-8578-025f1155baa4",
+  "prompt": "soyo-chat-mist-prompt.txt",
+  "promptSha256": "67664b73fb11936eca50a3f7a9c83c314c0038cd312fb70546fee4850f1b76e9",
+  "inputs": [
+    {
+      "file": "soyo-chat-apricot-mother-candidate-v1.png",
+      "role": "primary-reviewed correct complete mother; identity, full pose and furniture support",
+      "sha256": "e5860a2adf427032f84d15dcec6c59c8b6ffa7dff8ede6eadf9ec669f4e00b29"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "role": "primary-reviewed empty target complete lighting plate",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16921-9fe7-73b2-81e9-dfadeae00b4a/exec-f09cc8f1-1faf-4691-8578-025f1155baa4.png",
+  "output": {
+    "file": "soyo-chat-mist-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2111555,
+    "sha256": "f071989d921ca9a23bd07c8d9e78a5aada62d7fb9256ec71cdd8c057a4c12ece"
+  },
+  "producerObservation": "Same youthful light-brown hair/blue eyes/navy-white uniform and settled lap-fingertip chat silhouette; complete shoes and real bench support. Whole room has coherent blue-white diffuse morning and lake mist, preserving wood and natural skin. Primary mother, layer and runtime review remain pending.",
+  "review": {
+    "producerViewed": "complete generated original and its approved warm mother/target plate personally compared",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

@@ -135,20 +135,22 @@ export const MaterialPdfPage = memo(function MaterialPdfPage({ document: page, z
     suppressPinClick.current = performance.now() + 400;
     if (current.source.start === current.note.source.start && current.source.end === current.note.source.end) return;
     onMoveNote?.(current.note, current.source);
-    setAnnouncement('正在挪动这条笔记。');
+    // The parent announces the actual native save or conflict. A local pin
+    // cannot keep announcing progress after that owner has finished.
+    setAnnouncement('');
   }
   function keyPin(event: KeyboardEvent<HTMLButtonElement>, note: MaterialNote) {
     if (!onMoveNote || moveDisabled) return;
-    if (event.key === 'Escape' && pinMoveRef.current) { event.preventDefault(); cancelPin(); setAnnouncement('仍在原处。'); return; }
-    if ((event.key === ' ' || event.key === 'Enter') && pinMoveRef.current?.keyboard) { event.preventDefault(); commitPin(); return; }
+    if (event.key === 'Escape' && pinMoveRef.current) { event.preventDefault(); event.stopPropagation(); cancelPin(); setAnnouncement('仍在原处。'); return; }
+    if ((event.key === ' ' || event.key === 'Enter') && pinMoveRef.current?.keyboard) { event.preventDefault(); event.stopPropagation(); commitPin(); return; }
     if (event.key === ' ') {
-      event.preventDefault();
+      event.preventDefault(); event.stopPropagation();
       updatePin({ note, source: note.source, x: 0, y: 0, originX: 0, originY: 0, keyboard: true, moved: true });
       setAnnouncement('用上下方向键选择原文，回车放下，Escape 放回。'); return;
     }
     const current = pinMoveRef.current;
     if (!current?.keyboard || !['ArrowUp', 'ArrowDown'].includes(event.key)) return;
-    event.preventDefault();
+    event.preventDefault(); event.stopPropagation();
     const runs = (page.textRuns || []).filter(run => sourceFor(run));
     const index = runs.findIndex(run => run.start <= (current.source?.start ?? note.source.start) && run.end > (current.source?.start ?? note.source.start));
     const next = runs[Math.max(0, Math.min(runs.length - 1, (index < 0 ? 0 : index) + (event.key === 'ArrowDown' ? 1 : -1)))];

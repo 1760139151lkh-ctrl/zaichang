@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-theme-mother-candidate",
+  "character": "uika",
+  "activity": "listening",
+  "theme": "violet",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "executionId": "exec-d7249f9f-5d5c-4c2c-8711-e5b11298b90c",
+  "inputs": [
+    {
+      "path": "uika-listening-apricot-mother-candidate-v1.png",
+      "sha256": "15a28c195ddba558286dbba8025fa0669239f6d98dbce7becb40ffcc87dd4db8",
+      "role": "image 1 sole primary-approved correct warm mother, all person/pose/props/furniture geometry authority"
+    },
+    {
+      "path": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "image 2 primary-approved clean violet plate; sun (1007,302), reflected-light axis and coherent lighting only, never furniture or anatomy"
+    }
+  ],
+  "promptFile": "uika-listening-violet-v2-prompt.txt",
+  "actualPrompt": "SOLE TARGET FILE: uika-listening-apricot-mother-candidate-v1.png. Activity: listening. Theme: violet. Asset ID: uika-listening-violet-v2.\nUse case: lighting-weather. One complete 1536 x 1024 same-room themed mother.\nTWO INPUTS WITH DIFFERENT ROLES:\nImage 1 is the PRIMARY-APPROVED APRICOT MOTHER FOR THIS EXACT ACTIVITY: the full EDIT TARGET. Keep its exact person, pose, source chair and furniture geometry, not a reference portrait.\nImage 2 is the PRIMARY-APPROVED EMPTY ROOM-VIOLET lighting reference. It contains NO PERSON. Use it ONLY to anchor the sunset solar position, water reflection axis, whole-room lighting direction and theme. Do not replace Image 1 with Image 2 or copy its different chair orientation. Keep every person/prop/furniture pixel position from Image 1; relight that complete target scene coherently.\nLOCK source geometry, face/age/hair, expression/gaze, body proportions, exact hands/fingers/feet and support contacts, clothing folds, all props/held items, empty shoes, chair orientation, desk width/lamp/cup position, bench/pillows/throw, all window frame corners and continuous architecture, distant campus landmarks, rear-left table/shelves/drawing, rug and floorboards. No crop/zoom/enlargement, body relocation, anatomy completion, chair restoration from another room or furniture drift. The provided activity silhouette stays unchanged, including all fine hair/prop/shoe tips inside the same full canvas.\nThis is MISUMI UIKA (三角初華): the same youthful short chin-length pale-blonde bob with a faint pink undertone, violet eyes, white T-shirt, long taupe-gray skirt and original socks/footwear arrangement in this approved input. Do not substitute an adult, long brown hair or another girl. Her original outfit and object colors remain material colors under new light.\nRelight the whole person AND room together: exterior/sky/water/glass, lamp, walls/wood/linen, hair/skin/clothes/objects and contact shadows must agree. Natural skin, readable eyes/hands, real cloth/wood colors. No flat color filter, uniform orange/purple wash, black overlay, green cast, white gradient, pasted bright face, blank wall, split day/night, extra light source, new prop/person or background replacement. Fine youthful anime linework and the same softly detailed painted environment. No text/UI/logos/watermarks/arrows/borders/insets.\n\nSOURCE ACTIVITY LISTENING: keep BOTH KNEES naturally drawn up, both WHITE-SOCKED FEET resting ON THE CUSHION, pelvis/back supported by the right bench/pillows and loose forearms over knees. Two EMPTY black-white sneakers stay at their exact FLOOR positions as environment objects; do not put shoes on her sock feet or lower her legs. Preserve the source attentive face/gaze, not a forced grin.\n\nTHEME VIOLET: rose-gold SUNSET over the SAME lake/campus, low warm horizon fading into lilac/violet upper clouds, coherent dusk and water reflections over the whole connected window. Muted violet interior shadows and restrained rose/amber bounce, preserving material colors. Turn ON the EXISTING desk lamp in its exact source position, modest local warm pool on desk/chair/bench. The person receives that lamp light and dusk window rim coherently; natural youthful skin and readable hair/clothes/objects, not neon purple skin or uniform orange tint. Do not move the lamp or change the source pose/room.\n\nMANDATORY FIXED VIOLET SUN / LIGHT-AXIS ANCHOR from Image 2:\nThe actual single round sun disc center is approximately pixel (1007,302) on the 1536 x 1024 full canvas, just above the mountain horizon LEFT of the fixed distant clock tower at x≈1218. Keep that SAME sun position, size and low horizon as Image 2. Its bright narrow vertical lake reflection column stays under that sun at x≈1007, from the far shore toward the same window sill. Do not move the sun toward the lamp or over the tower/right window, do not choose a new sunset composition for this activity, and never add a second sun. Main solar illumination, wall leaf-shadow direction, curtain rim, floor/material reflections and the person's sunset rim must agree with Image 2. The existing desk lamp stays in Image 1's exact position and adds only its modest nearby warm pool; it is not a new sun or an excuse for a shifted daylight axis.\nMatch the continuous sky/lake/campus dusk in Image 2 while preserving Image 1's camera, landmarks and all foreground geometry. The reference gives light/weather and source direction, not new furniture or anatomy. Material colors stay natural. Keep the target youthful identity, hands, seated support and complete shoes unchanged.\n\nReturn ONE complete exact-size scene with source composition and anatomy unchanged.\n",
+  "actualPromptSha256": "a303f2493243fbe55f3804b8a19145ee24996812e08497042d07b32dbfc3c694",
+  "promptFileSha256": "a303f2493243fbe55f3804b8a19145ee24996812e08497042d07b32dbfc3c694",
+  "output": {
+    "path": "uika-listening-violet-mother-candidate-v2.png",
+    "sha256": "5cf990c438b40dae70fd71872c178c3a86249f95b61e95861f0187db712a9dc2",
+    "bytes": 2233056,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-24T09:17:14.256743+00:00"
+  },
+  "replacesSource": "uika-listening-violet-source.json",
+  "designerReview": {
+    "status": "viewed-candidate",
+    "personallyViewed": true,
+    "sunCenterApprox": [
+      1007,
+      302
+    ],
+    "lakeReflectionAxisApproxX": 1007,
+    "sourcePixelObservation": {
+      "method": "Read-only bright-disc largest-component centroid in [980,285,1035,315] with R>248 G>225 B>150; water bright-axis weighted max(G-185,0) in [980,400,1030,460] with R>245 B>100. Observed after full-image review; not artwork editing or an approval rule. Bright centroid is not geometric disc center.",
+      "sunBrightCentroid": [
+        1005.32,
+        301.08
+      ],
+      "reflectionBrightAxisX": 1002.57
+    },
+    "observation": "Personally viewed full new project image beside the correct warm mother and clean violet plate. Both knees, white-socked cushion feet, loose forearms, original youthful face and two empty floor sneakers remain. Source bench/pillow/desk/chair geometry and complete canvas preserved. One sun/lake reflection now match the approved axis; local lamp and continuous room/person dusk illumination remain coherent, with no second sun or added spotlight."
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "layersAccepted": false,
+  "runtimeAccepted": false,
+  "promptSha256": "a303f2493243fbe55f3804b8a19145ee24996812e08497042d07b32dbfc3c694",
+  "promptFileMatchesActualToolInput": true
+}

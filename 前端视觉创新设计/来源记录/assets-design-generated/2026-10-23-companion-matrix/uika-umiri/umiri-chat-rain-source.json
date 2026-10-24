@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-theme-mother-candidate",
+  "character": "umiri",
+  "activity": "chat",
+  "theme": "rain",
+  "status": "generated-needs-redraw",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/umiri/",
+    "https://anime.bang-dream.com/mygo/character/umiri/"
+  ],
+  "input": {
+    "path": "umiri-chat-apricot-mother-candidate-v2.png",
+    "sha256": "beb0028df130f510fce228bd127495d0375ecf8998c81a50137617e4482af8ee",
+    "role": "sole input: primary-approved full apricot chat mother; lighting-weather edit only"
+  },
+  "promptFile": "umiri-chat-rain-prompt.txt",
+  "prompt": "Use case: lighting-weather. Make ONE complete 1536 x 1024 same-room themed mother by relighting the supplied primary-approved character chat scene.\nONLY INPUT IMAGE 1 is the EDIT TARGET, a complete approved apricot mother with its original person. This is a whole-scene LIGHTING AND WEATHER EDIT, not a new composition or new pose.\nLOCK EVERYTHING GEOMETRIC: exact canvas, camera and perspective; exact person's face, age, hairstyle, body, expression, posture, hands/fingers, clothing folds, hems, both feet/shoes, scale and position; exact window frame and all four corners, curtains, lake/campus landmarks, rear-left table/chair/shelves/framed drawing, right desk/chair/lamp/cup/book, bench/pillows/throw, rug and all furniture feet. Keep the chair in THIS mother, even if it differs from the original empty-room chair orientation. Do not restore/reposition a chair, move a lamp or widen a desk. Do not crop, zoom, enlarge, redesign, move the person or add another person.\nThe left lived-in depth and open central floor stay visible. Relight the PERSON and the WHOLE ROOM together so hair, skin, clothes, wood, linen, window glass, exterior and contact shadows agree with the same illumination. Skin and clothing retain their own material colors, not a full-image color filter, tinted overlay, green cast, black layer or white gradient. Preserve fine youthful Japanese-anime character linework and the softly detailed painted environment. No text, UI, logo, watermark, split-screen, border, arrows, inset or duplicate view.\n\nIDENTITY LOCK: this is Yahata Umiri (八幡海鈴), the same youthful charcoal-gray shoulder-length flipped-tip hair, gray-teal eyes, short black jacket, dark-red top, gray short skirt, choker/earrings and black platform boots already painted in the input. Keep her outward-turned original desk-chair chat pose, supporting palm, knee hand and both boots unchanged. Do not move her forward or enlarge her into a portrait.\n\nTHEME RAIN / rainy night with a warm desk lamp:\nChange the ENTIRE window to the same lake/campus at deep blue rainy NIGHT, subtle rain streaks and droplets on the glass, distant warm window/street lights reflected across dark lake water, cloudy night sky and dark natural foliage. No daylight sky or sunlight remains anywhere in the window.\nThe existing desk lamp is ON in its exact source position and is the main warm indoor light. Its physically plausible warm light reaches the nearby tabletop, chair, bench, wood reflections and the person; cool rainy-window ambient supplies a gentle opposite rim/fill. Preserve clear natural skin and readable face, hair, hands, skirt/jacket and both shoes. Black cloth/leather keeps detail; white tee/linen stays material white under mixed light, not flat orange.\nREMOVE ALL DAYTIME HARD LEAF/SUN SHADOWS from walls and floor; they cannot survive this overcast rain night. Rebuild the same room's soft lamplight/contact shadows and damp-window reflections consistently. Keep the left lived-in shelf/table/drawing readable at lower light, not buried under a black overlay or cropped away. No uniform dark filter, orange wash, split day/night halves or pasted bright face. One coherent complete warm-inside/cool-rain-outside room.\nReturn the complete exact-size same-character, same-pose, same-furniture scene.\n",
+  "output": {
+    "path": "umiri-chat-rain-mother-candidate-v1.png",
+    "sha256": "85af4906c04b8aa5c66f050898dd0f26b3c4e8b9a1b9269de5836966aba9365f",
+    "bytes": 2190161,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T21:37:56.835868+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "夜雨窗景与暖灯共同改光，日间大叶影消退，原椅/手/靴姿保持且黑衣面部可读；左花瓶附近暖反射偏亮，与Uika门样一并交主审核光源感。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-0c9dc789-46c2-4781-98dc-cf1b7358fdc2",
+  "primaryFeedback": "Primary viewed and returned rain v1: implausibly bright independent warm spot on distant left rear vase/wall, like a second unseen light. Redraw only from approved apricot mother with one right-desk lamp and dim left indirect reflection."
+}

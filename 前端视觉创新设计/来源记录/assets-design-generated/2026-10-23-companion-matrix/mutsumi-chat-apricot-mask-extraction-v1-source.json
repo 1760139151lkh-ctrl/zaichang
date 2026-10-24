@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "apricot",
+  "kind": "matte",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-chat-apricot-mask-extraction-v1-prompt.txt",
+  "promptSha256": "1e596633b316caf713d5efbd5e3e20646e5869a5db8c2472a431395c7ab79db6",
+  "inputs": [
+    {
+      "file": "mutsumi-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a",
+      "role": "sole edit target; primary-approved correct complete mother, no erroneous mother or mask supplied"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-chat-apricot-mask-candidate-v1.png",
+    "sha256": "4be00ba5357ef2877c3535c5dec0d77446b52795478e46994abd8667be3ee534",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-b9a13b0d-da47-48d3-96e9-7cd757ecc18e.png"
+  },
+  "designerObservation": "Rejected after full output inspection. Mask enlarged and lifted person (head near y133 instead of source y265) and interpreted navy clothes as black internal line-art. Not used as input or production matte.",
+  "designerStatus": "rejected; enlarged/misaligned and internal monochrome detail",
+  "primaryReview": "pending; producer cannot approve",
+  "runtime": "not registered or verified"
+}

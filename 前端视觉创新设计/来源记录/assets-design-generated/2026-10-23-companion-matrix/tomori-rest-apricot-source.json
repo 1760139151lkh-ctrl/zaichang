@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "createdDate": "2026-10-23",
+  "role": "tomori",
+  "light": "apricot",
+  "assetType": "full-room-mother-candidate",
+  "generator": "built-in image_gen",
+  "inputPolicy": "Only the approved character-free room plate was supplied. Canonical character identity and uniform were described in text; no official or previous character image was supplied.",
+  "input": {
+    "file": "room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "width": 1536,
+    "height": 1024
+  },
+  "canonicalTextReferences": [
+    "https://anime.bang-dream.com/mygo/character/tomori/",
+    "https://anime.bang-dream.com/avemujica/character/tomori/"
+  ],
+  "originDirectory": "C:/Users/17601/.codex/generated_images/01a16ab8-afe2-7652-90df-67279a32d94b",
+  "designerViewed": true,
+  "designerViewMethod": "view_image of the saved full 1536x1024 original, after generation",
+  "primaryReview": {
+    "status": "pending",
+    "approvedByPrimary": false
+  },
+  "layersExtracted": false,
+  "runtimeRegistered": false,
+  "runtimeVerified": false,
+  "coverageStatus": "candidate_only; no approved matrix or runtime coverage claimed",
+  "cleanup": "No generated original or rejected candidate was deleted.",
+  "activity": "rest",
+  "executionId": "6b691645-c0ec-42f2-874f-6b6afd365245",
+  "output": {
+    "file": "tomori-rest-apricot-mother.png",
+    "sha256": "b0f751e5feeff86ddbb8074945a9564487d4d60da05b4955137f2481a972fd90",
+    "bytes": 2166942,
+    "width": 1536,
+    "height": 1024
+  },
+  "prompt": {
+    "file": "tomori-rest-apricot-prompt.txt",
+    "sha256": "317f85a9be9f55925bf9f3d65a70da17dbd47e2ee88835db864c47987512441c"
+  },
+  "designerReview": {
+    "status": "candidate_for_primary_review",
+    "observations": [
+      "Torso and shoulder line turn toward the real window; the blazer back and a narrow quiet left face profile are visible, rather than merely changing the eyes in a chat pose.",
+      "The pelvis rests on the original bench; one palm is low beside the hip at the seat/notebook edge, the other hand rests on a thigh.",
+      "The closed notebook is set aside on the bench to the right of the figure in the actual output, instead of the prompt's requested left side; it is not presented or read.",
+      "Adjacent knees lead to separate shins and two complete uncrossed black loafers on the floor.",
+      "The complete fixed camera room, empty main chair, desks and lake window remain visible."
+    ],
+    "primaryQuestions": [
+      "Judge whether the outward turn and relaxed supporting arm express rest strongly enough, despite the relatively upright upper back.",
+      "Review the palm/seat/notebook contact and full youthful proportions; no layer correction has been attempted."
+    ]
+  },
+  "originalOutput": "exec-6b691645-c0ec-42f2-874f-6b6afd365245.png"
+}

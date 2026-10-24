@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "listening",
+  "light": "violet",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-6f910cac-86dc-4301-87cb-1124952a52e6",
+  "generatedAtUtc": "2026-10-24T12:52:23.946118+00:00",
+  "inputs": [
+    {
+      "file": "tomori-listening-apricot-v2-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "5e7191c4c0aacd44ba34a9ecafa796cd77bf7592dbbe763acf6b175ee9d12428"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "sourceIdentity": "Approved correct complete warm mother relit against approved empty lighting plate only.",
+  "prompt": "tomori-listening-violet-prompt.txt",
+  "promptSha256": "689ec08d88a9685ba6753c8ac1b030f15b864b9610c752ee4dfa351c3c2d8053",
+  "output": {
+    "file": "tomori-listening-violet-mother-candidate.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2150474,
+    "sha256": "9a8f7a10437b1175fe3d8acab9b68666c475ea69fb8599546d00f7444b22f74b"
+  },
+  "review": {
+    "designerViewed": "complete original full scene",
+    "designerStatus": "candidate",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Complete output personally viewed. Original supported pose, scale and fixed furnishings appear retained. Sun and lake reflection visually near approved1007/302 andx1003. Primary image/prompt review still pending."
+}

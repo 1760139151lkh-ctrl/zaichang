@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-planning-mist-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "planning",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-scene physical relighting of this exact primary-approved warm activity mother; no other character inputs",
+  "prompt": "nyamu-planning-mist-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-planning-apricot-mother-candidate-v2.png",
+      "role": "sole image edit target; primary-approved correct complete activity mother",
+      "sha256": "2520ef07069e0ec07b4cc2de51181f072626ce9f8f06a83ddf401c7e4ac24c27"
+    }
+  ],
+  "output": {
+    "file": "nyamu-planning-mist-mother-candidate-v1.png",
+    "sha256": "4e76c86efd5e3b8b9b625fc581313fa85a55a37c0ddd7aea51ca4f046fa78b1c",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-38d48382-627c-47ed-9610-5c7321981dc1.png"
+  },
+  "ownershipAndPose": "Keep exact upright half-turned chair posture, both low forearms/hands comparing the two actual desktop cards, eyes down to cards, original supported hips and floor-contact shoes. Both static cards belong to BACKGROUND. No pose change into writing or viewer performance.",
+  "designerObservation": "Full image personally viewed. Exact approved planning-v2 upright half-turn and downward comparison gaze/low hands retained, both cards still flat on actual desktop as background objects. Original chair/hips and separate complete legs/shoes unchanged visually. Soft blue-white lake mist/window diffuse light across room and character, natural warm wood and gray/black intrinsic outfit preserved; no sharp old sunny leaf projections.",
+  "observedGaps": [
+    "Primary mother review pending; no layers/calibration/Stage acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

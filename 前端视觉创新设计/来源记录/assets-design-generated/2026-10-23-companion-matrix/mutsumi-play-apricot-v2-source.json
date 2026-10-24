@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "mutsumi",
+  "activity": "play",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-play-apricot-v2-prompt.txt",
+  "promptSha256": "7ef3c1b156ba797453bbdc8ff4b8be5eba9d23cbf2764600f02315d654061e1f",
+  "identityText": "mutsumi-identity.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "primary-approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-play-apricot-mother-candidate-v2.png",
+    "sha256": "bddfde972af4dc64865025af3035883e0a1e15497e17ed52bc9ef9a7e6d058df",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-55716641-8e26-4358-a765-2d217fa205cc.png"
+  },
+  "designerObservation": "Entire mother viewed. Real diagonally forward torso from supported hips; one cushion palm balances while the other low hand offers folded leaf-shaped paper bookmark. Quiet lightly amused direct attention, complete knees/socks/shoes with floor contact. Fixed Tsukinomori sailor uniform and left-chest gold school badge; unwanted v1 neck pendant is gone. No character image or rejected v1 was supplied as input. Primary full identity/posture/scale review pending.",
+  "designerStatus": "candidate awaiting primary review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

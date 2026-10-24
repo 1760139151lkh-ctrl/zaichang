@@ -1,0 +1,219 @@
+{
+  "mother": "sakiko-chat-violet-mother-candidate-v1.png",
+  "motherSha256": "8e9b860772095ed911c4c257d6d6769e5c5064f4c793e325e65eadc9e79e1e88",
+  "matte": "sakiko-chat-violet-mask-generated-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [
+    [
+      [
+        1218,
+        530
+      ],
+      [
+        1220,
+        519
+      ],
+      [
+        1260,
+        500
+      ],
+      [
+        1299,
+        508
+      ],
+      [
+        1299,
+        520
+      ],
+      [
+        1268,
+        543
+      ],
+      [
+        1248,
+        539
+      ]
+    ],
+    [
+      [
+        1145,
+        764
+      ],
+      [
+        1166,
+        746
+      ],
+      [
+        1166,
+        768
+      ],
+      [
+        1158,
+        775
+      ]
+    ],
+    [
+      [
+        1200,
+        767
+      ],
+      [
+        1215,
+        751
+      ],
+      [
+        1216,
+        775
+      ],
+      [
+        1206,
+        780
+      ]
+    ]
+  ],
+  "excludePolygons": [],
+  "figure": "sakiko-chat-violet-figure-calibrated-v4.png",
+  "mask": "sakiko-chat-violet-mask-calibrated-v4.png",
+  "backgroundCandidate": "sakiko-chat-violet-background-generated-v1.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1174,
+        587
+      ],
+      [
+        1386,
+        587
+      ],
+      [
+        1386,
+        722
+      ],
+      [
+        1280,
+        768
+      ],
+      [
+        1225,
+        703
+      ]
+    ],
+    [
+      [
+        1080,
+        748
+      ],
+      [
+        1240,
+        740
+      ],
+      [
+        1320,
+        770
+      ],
+      [
+        1320,
+        840
+      ],
+      [
+        1080,
+        840
+      ]
+    ]
+  ],
+  "background": "sakiko-chat-violet-background-calibrated-v4.png",
+  "record": "sakiko-chat-violet-layer-processing-v4.json",
+  "reviewNote": "Candidate local head-only alpha refinement against original RGB. Reject previous pink-sky color key and hand-traced hard ROI crown because they respectively perforated warm highlights and left boundary stubs. Only head ROI alpha may change; all RGB and remaining soft matte stay source-exact. Must inspect before admitting.",
+  "contactShadowPolygons": [
+    [
+      [
+        1103,
+        797
+      ],
+      [
+        1150,
+        796
+      ],
+      [
+        1156,
+        804
+      ],
+      [
+        1103,
+        805
+      ]
+    ],
+    [
+      [
+        1147,
+        807
+      ],
+      [
+        1217,
+        806
+      ],
+      [
+        1222,
+        814
+      ],
+      [
+        1148,
+        814
+      ]
+    ],
+    [
+      [
+        1345,
+        584
+      ],
+      [
+        1375,
+        581
+      ],
+      [
+        1378,
+        588
+      ],
+      [
+        1347,
+        591
+      ]
+    ],
+    [
+      [
+        1390,
+        586
+      ],
+      [
+        1428,
+        586
+      ],
+      [
+        1431,
+        591
+      ],
+      [
+        1392,
+        592
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "shadow": "sakiko-chat-violet-shadow-calibrated-v4.png",
+  "localColorMatteRefinement": {
+    "region": [
+      1190,
+      220,
+      1375,
+      360
+    ],
+    "seedThreshold": 80,
+    "uncertainBandPixels": 15,
+    "iterations": 5,
+    "edgeFeatherPixels": 0.3
+  }
+}

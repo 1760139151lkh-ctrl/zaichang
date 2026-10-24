@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-listening-apricot-mother.png",
+  "character": "sakiko",
+  "activity": "listening",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-listening-apricot-prompt.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "sakiko-listening-apricot-mother.png",
+    "sha256": "a35aaa3549a04cf9f6fa7e478224f53afdcbfd1f133f6570a643191916189bb1",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-beba4c2f-d2ec-4f75-ae5b-1749ea6e412f.png"
+  },
+  "designerObservation": "Complete room inspected. Sakiko is compactly folded on the right bench, forearms resting on raised adjacent knees, both socked feet on the cushion; two empty brown loafers rest on the floor. Hips and cushion contact, complete hair/ribbons/hands and shoe margin visible. This is an original companion depiction; primary approval and detailed anatomy acceptance remain pending.",
+  "primaryReview": "Complete mother approved for extraction in primary-owned primary-prototype-reviews.json; layer and runtime review remain pending.",
+  "extraction": "Attempted; see sakiko-listening-apricot-extraction-source.json. No mask accepted or registered.",
+  "runtime": "not registered or verified"
+}

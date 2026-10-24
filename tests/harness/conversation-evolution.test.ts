@@ -157,9 +157,9 @@ test('notebook question correction keeps one study owner, exact Unicode sources 
     const problem = { kind: 'note' as const, id: proof.id, revision: proof.revision, start, end };
     const open = { operation: 'open' as const, matterId: matter.id, expectedMatterRevision: matter.revision, source,
       title: '合成学习纸', problem, mode: 'small_hint' as const, focus: '交叉项', nextStart: '只向前一步' };
-    await assert.rejects(study.execute(handle, open, { sessionId }), /先沿manage_note/);
+    await assert.rejects(study.execute(handle, open, { sessionId }), /还没读到笔记里的实际题目/);
     await assert.rejects(study.execute(handle, { ...open, problem: { ...problem, end: end + 1 } },
-      { sessionId, noteSources: [proof] }), /先沿manage_note/, 'an unread character must not be borrowed from the stored note');
+      { sessionId, noteSources: [proof] }), /还没读到笔记里的实际题目/, 'an unread character must not be borrowed from the stored note');
     const attemptText = '我写到 E(X)=np。', helpingText = '先把不同指标的交叉项单独写出来。';
     // Reproduce the real old paper: the requested activity was mistakenly
     // stored as its question. Repair must retain this owner and the real work.

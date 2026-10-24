@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "mutsumi",
+  "activity": "reading",
+  "palette": "apricot",
+  "kind": "matte",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-reading-apricot-mask-extraction-v2-prompt.txt",
+  "promptSha256": "0a2eb4acd227d79a0b61d666e1bf281b6365d95e8dfb26455c546510f2c45e2d",
+  "inputs": [
+    {
+      "file": "mutsumi-reading-apricot-mother-candidate-v2.png",
+      "sha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+      "role": "sole approved complete warm mother edit target"
+    },
+    {
+      "file": "mutsumi-reading-apricot-background-candidate-v1.png",
+      "sha256": "d8ab8545fd9502694d9d37309ceb9ff5778f882d5d3b689c9a00e90ca9a88935",
+      "role": "matching empty background; segmentation alignment reference only"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-reading-apricot-mask-candidate-v2.png",
+    "sha256": "f09f9d09560a208e5f89ea1d329cea408aa47b0d681c08f36809ed2eac8365c8",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-c8589532-ab86-4146-878b-e9da2ff17415.png"
+  },
+  "designerObservation": "Second mask personally viewed. Diagonal shoe locations recovered but head silhouette still extends about8px above original hair; not adopted for alpha. Deterministic source-canvas trimap will use original RGB and matching BG only.",
+  "designerStatus": "rejected for final matte; observed coordinate drift",
+  "primaryReview": "pending; producer cannot approve",
+  "runtime": "not registered or verified"
+}

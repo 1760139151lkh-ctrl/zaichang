@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-attention-mist-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "attention",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-scene physical relighting of this exact primary-approved warm activity mother; no other character inputs",
+  "prompt": "nyamu-attention-mist-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-attention-apricot-mother-candidate-v3.png",
+      "role": "sole image edit target; primary-approved correct complete activity mother",
+      "sha256": "12f2cd65c5ff361c4dcf91adeee7c117c2fece5113b9461eb7b8201f2da28451"
+    }
+  ],
+  "output": {
+    "file": "nyamu-attention-mist-mother-candidate-v1.png",
+    "sha256": "9547f4dc3eab54492638b056476344077fc6d7a4bd52d0bd05c81dab3d214e48",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-45cfe5c4-4608-4138-8a9e-4ab9d52c569c.png"
+  },
+  "ownershipAndPose": "Keep exact left-facing head/shoulders/ribcage/pelvis/thigh turn toward the upright cream card ON THE EXISTING BLUE DESKTOP BOOK. Card position and supported folded base do not move, card belongs to BACKGROUND. Low hand on own thigh, other palm behind hip on cushion, original separate floor-contact shoes retained. Do not change into front-facing chat or window-only rest.",
+  "designerObservation": "Full image personally viewed. Exact approved attention-v3 whole-body leftward turn, gaze toward upright cream card on existing blue desktop book, low thigh hand and cushion support palm preserved. Card remains static background on actual book, no window-sill relocation. Original complete legs/shoes and fixed room remain. Misty pale lake/sky and diffuse blue-white window light remove hard apricot leaf/sun projections; natural skin and lavender/red-purple identity with gray/black garments retained.",
+  "observedGaps": [
+    "Primary mother review pending; no layers/calibration/Stage acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

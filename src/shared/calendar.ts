@@ -39,6 +39,14 @@ export const calendarFieldsSchema = z.object({
   planning: calendarPlanningSchema.optional().describe('state分别标识未答应的邀请、愿望、未接受方案和已接受安排。它在prepare_action的待确认参数里描述采用后将保存的业务状态；卡片当前是否等待接受、是否真正提交，仍由动作的awaiting_approval、saved和真实回执表示，参数含accepted不会自行写入日历。旧对象没有这个字段时，仍沿用原已登记安排的含义；movable说明有讨论调整的空间，实际改动另归本人托付与原动作事务。'),
 });
 export type CalendarFields = z.infer<typeof calendarFieldsSchema>;
+
+/** Shared projection of an owner's declared commitment; dates alone do not accept it. */
+export function calendarCommitment(item: Pick<CalendarFields, 'planning' | 'kind'>) {
+  const state = item.planning?.state || 'accepted';
+  return { state, flexibility: item.planning?.flexibility || 'fixed', occupiesTime: state === 'accepted'
+    && (!item.kind || ['event', 'time_block'].includes(item.kind)) };
+}
+
 export const localCalendarChangeSchema = z.object({
   operation: z.enum(['update', 'delete', 'change_occurrence']),
   targetId: z.string().min(1).max(160),

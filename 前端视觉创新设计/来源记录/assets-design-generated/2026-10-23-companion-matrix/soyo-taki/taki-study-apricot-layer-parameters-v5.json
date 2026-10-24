@@ -1,0 +1,278 @@
+{
+  "mother": "taki-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "49515d600d10286f1af4f808fbf285f4e2abfd1cabd05d6b319f3fdcbd6d0166",
+  "matte": "taki-study-apricot-mask-calibrated-v3.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "backgroundCandidate": "taki-study-apricot-background-generated-v1.png",
+  "background": "taki-study-apricot-background-calibrated-v5.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1.2,
+  "backgroundErasePolygons": [
+    [
+      [
+        930,
+        671
+      ],
+      [
+        1064,
+        671
+      ],
+      [
+        1064,
+        720
+      ],
+      [
+        930,
+        720
+      ]
+    ],
+    [
+      [
+        911,
+        338
+      ],
+      [
+        944,
+        341
+      ],
+      [
+        978,
+        365
+      ],
+      [
+        988,
+        390
+      ],
+      [
+        977,
+        419
+      ],
+      [
+        954,
+        439
+      ],
+      [
+        973,
+        470
+      ],
+      [
+        1001,
+        474
+      ],
+      [
+        1004,
+        493
+      ],
+      [
+        988,
+        505
+      ],
+      [
+        969,
+        508
+      ],
+      [
+        965,
+        524
+      ],
+      [
+        987,
+        544
+      ],
+      [
+        998,
+        566
+      ],
+      [
+        1003,
+        607
+      ],
+      [
+        1014,
+        650
+      ],
+      [
+        1029,
+        680
+      ],
+      [
+        1057,
+        696
+      ],
+      [
+        1058,
+        710
+      ],
+      [
+        1030,
+        714
+      ],
+      [
+        993,
+        707
+      ],
+      [
+        979,
+        695
+      ],
+      [
+        969,
+        654
+      ],
+      [
+        959,
+        622
+      ],
+      [
+        955,
+        630
+      ],
+      [
+        955,
+        665
+      ],
+      [
+        979,
+        681
+      ],
+      [
+        984,
+        697
+      ],
+      [
+        975,
+        707
+      ],
+      [
+        940,
+        704
+      ],
+      [
+        933,
+        690
+      ],
+      [
+        934,
+        659
+      ],
+      [
+        934,
+        627
+      ],
+      [
+        925,
+        609
+      ],
+      [
+        901,
+        599
+      ],
+      [
+        874,
+        585
+      ],
+      [
+        870,
+        530
+      ],
+      [
+        852,
+        507
+      ],
+      [
+        828,
+        505
+      ],
+      [
+        814,
+        493
+      ],
+      [
+        816,
+        464
+      ],
+      [
+        830,
+        421
+      ],
+      [
+        867,
+        372
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        896,
+        665
+      ],
+      [
+        1038,
+        665
+      ],
+      [
+        1038,
+        714
+      ],
+      [
+        896,
+        714
+      ]
+    ],
+    [
+      [
+        852,
+        576
+      ],
+      [
+        975,
+        576
+      ],
+      [
+        975,
+        615
+      ],
+      [
+        852,
+        615
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "taki-study-apricot-shadow-calibrated-v5.png",
+  "figure": "taki-study-apricot-figure-calibrated-v4.png",
+  "mask": "taki-study-apricot-mask-calibrated-v4.png",
+  "record": "taki-study-apricot-layer-processing-v5.json",
+  "reviewNote": "Fixed study pose, original RGB and visible chair occlusion retained. Difference alpha v1 plus original-coordinate face/cloth corrections v3; no altered-position generated mask used. Primary layer and real Stage review remain pending. Matching background removes the complete explicitly observed old figure footprint including missed wisps and old contact remnants; figure/mask v4 remain byte-identical.",
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          812,
+          459
+        ],
+        [
+          842,
+          459
+        ],
+        [
+          842,
+          503
+        ],
+        [
+          812,
+          503
+        ]
+      ],
+      "redMin": 170,
+      "redOverGreen": 30,
+      "redOverBlue": 50
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-planning-apricot-mother-candidate-v2.png",
+  "character": "nyamu",
+  "activity": "planning",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "nyamu-planning-apricot-v2-prompt.txt",
+  "identityText": "nyamu-identity.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "nyamu-planning-apricot-mother-candidate-v2.png",
+    "sha256": "2520ef07069e0ec07b4cc2de51181f072626ce9f8f06a83ddf401c7e4ac24c27",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-05d6a851-506d-4434-a319-07359d430a49.png"
+  },
+  "designerObservation": "Full image viewed. Downward youthful profile now looks at the two actual cards; upright torso, low supported comparison hands, hips on chair cushion, and separate legs/full floor-contact shoes observed. Fixed gray blouse/black skirt/choker/shoes retained. No pencil-writing and no viewer performance; upright comparison differs from study's forward side/back pencil posture and reading's lap-book retreat. Two paper cards on desk are static background objects. Chair has outward swivel comparable to study; primary should judge integrated optical relation.",
+  "designerStatus": "candidate awaiting primary review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

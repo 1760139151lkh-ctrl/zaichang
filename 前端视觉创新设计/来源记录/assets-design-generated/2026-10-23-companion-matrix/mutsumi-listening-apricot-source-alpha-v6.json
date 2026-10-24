@@ -1,0 +1,142 @@
+{
+  "recordType": "deterministic-observed-source-alpha-repair",
+  "script": "mutsumi-observed-alpha-repairs.py",
+  "scriptSha256": "cbc919e11e9e658ab6561fd4bcf346b14d25cab66e569428baca52f5bf70ff83",
+  "parameters": "mutsumi-listening-apricot-alpha-repair-parameters-v6.json",
+  "parametersSha256": "dbf06a60fd897b9b038c232c14d0ff22d29540d06b86a3e4f9f201e310636006",
+  "mother": "mutsumi-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+  "inputAlpha": "mutsumi-listening-apricot-source-alpha-v5.png",
+  "inputAlphaSha256": "9a18a460bb70cc0b50f3411feaa0545c99a1528117578540f7fc70a28e8dad9c",
+  "outputAlpha": "mutsumi-listening-apricot-source-alpha-v6.png",
+  "outputAlphaSha256": "a2410580693b43ce9a9baae37ca7162de51982052081d49c5b45dfa219500b17",
+  "rules": [
+    {
+      "purpose": "Original actual thick right hair panel; no global yellow removal, native gold highlights retained",
+      "mode": "include",
+      "polygon": [
+        [
+          1370,
+          416
+        ],
+        [
+          1378,
+          431
+        ],
+        [
+          1385,
+          452
+        ],
+        [
+          1393,
+          480
+        ],
+        [
+          1397,
+          500
+        ],
+        [
+          1392,
+          519
+        ],
+        [
+          1384,
+          536
+        ],
+        [
+          1376,
+          546
+        ],
+        [
+          1373,
+          539
+        ],
+        [
+          1385,
+          518
+        ],
+        [
+          1389,
+          498
+        ],
+        [
+          1381,
+          475
+        ],
+        [
+          1373,
+          453
+        ]
+      ],
+      "channels": [],
+      "differences": []
+    }
+  ],
+  "explicitOriginalRoomExclusions": [
+    [
+      [
+        1428,
+        440
+      ],
+      [
+        1436,
+        440
+      ],
+      [
+        1436,
+        536
+      ],
+      [
+        1428,
+        536
+      ]
+    ],
+    [
+      [
+        1395,
+        435
+      ],
+      [
+        1403,
+        446
+      ],
+      [
+        1411,
+        463
+      ],
+      [
+        1410,
+        484
+      ],
+      [
+        1404,
+        498
+      ],
+      [
+        1399,
+        505
+      ],
+      [
+        1396,
+        501
+      ],
+      [
+        1398,
+        484
+      ],
+      [
+        1392,
+        458
+      ],
+      [
+        1392,
+        450
+      ]
+    ]
+  ],
+  "method": "Only original-canvas alpha visibility corrected inside personally observed RGB/room ROIs; no body/RGB redraw, warp or hidden anatomy completion.",
+  "review": {
+    "primaryLayer": "pending",
+    "runtime": "not registered or exercised"
+  }
+}

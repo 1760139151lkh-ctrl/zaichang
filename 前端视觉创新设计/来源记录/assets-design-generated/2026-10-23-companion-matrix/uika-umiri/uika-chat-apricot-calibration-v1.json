@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 1,
+  "kind": "deterministic-alpha-calibration-candidate",
+  "character": "uika",
+  "activity": "chat",
+  "theme": "apricot",
+  "authorization": "Explicit user permission for exact same-scene mask/original-RGB calibration only.",
+  "script": "uika-chat-apricot-calibrate-v1.py",
+  "scriptSha256": "6c9fc1b57309dc6ea481224128b95479a55b23d0fcf22e56985c67777728af65",
+  "input": {
+    "mother": "uika-chat-apricot-mother-candidate-v1.png",
+    "motherSha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c",
+    "rawMask": "uika-chat-apricot-mask-generated-v1.png",
+    "rawMaskSha256": "5fec0916781edf85b9520b243edb333774212e12af7ec4f3a78bde7963d68ed4",
+    "preparedMatte": "uika-chat-apricot-matte-prepared-v1.png",
+    "preparedMatteSha256": "394c58ca162c2d94062c5be5f0604c77680c37c5994e376701865cc3fa80ee94"
+  },
+  "sharedProduction": {
+    "script": "../extract-scene-layers.py",
+    "scriptSha256": "f9a11baa1d7cf915c69341ffd18cea7a8e7d23318a8ea53be56d51775ae80bc0",
+    "parameters": "uika-chat-apricot-layer-parameters-v1.json",
+    "parametersSha256": "c7b98cae9756afb2ce60f59aff2fe6010fa1c847bab2b4b28a85e347a1de34fa",
+    "record": "uika-chat-apricot-layer-processing-v1.json"
+  },
+  "parameters": {
+    "alphaNoiseMax": 8,
+    "alphaOpaqueMin": 250,
+    "selection": "all source pixels retained except explicit viewed background regions; no connected-component deletion",
+    "roomBackgroundExclusions": {
+      "polygons": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            1080,
+            0
+          ],
+          [
+            1080,
+            1023
+          ],
+          [
+            0,
+            1023
+          ]
+        ],
+        [
+          [
+            1436,
+            0
+          ],
+          [
+            1535,
+            0
+          ],
+          [
+            1535,
+            1023
+          ],
+          [
+            1436,
+            1023
+          ]
+        ],
+        [
+          [
+            1080,
+            0
+          ],
+          [
+            1436,
+            0
+          ],
+          [
+            1436,
+            244
+          ],
+          [
+            1080,
+            244
+          ]
+        ],
+        [
+          [
+            1080,
+            784
+          ],
+          [
+            1436,
+            784
+          ],
+          [
+            1436,
+            1023
+          ],
+          [
+            1080,
+            1023
+          ]
+        ],
+        [
+          [
+            1207,
+            710
+          ],
+          [
+            1212,
+            710
+          ],
+          [
+            1212,
+            717
+          ],
+          [
+            1207,
+            717
+          ]
+        ],
+        [
+          [
+            1209,
+            726
+          ],
+          [
+            1215,
+            726
+          ],
+          [
+            1215,
+            733
+          ],
+          [
+            1209,
+            733
+          ]
+        ],
+        [
+          [
+            1155,
+            771
+          ],
+          [
+            1166,
+            771
+          ],
+          [
+            1166,
+            774
+          ],
+          [
+            1155,
+            774
+          ]
+        ]
+      ],
+      "pixels": 28
+    },
+    "armGapBackgroundExclusion": {
+      "rect": [
+        1257,
+        470,
+        1265,
+        479
+      ],
+      "sourceColors": "G-R>2 or (G-B>50 and R-B>70); skin is retained",
+      "operation": "alpha zero only for confirmed gap room colors, not a rectangular body cut"
+    },
+    "morphology": "none",
+    "otherAlphaValues": "unchanged",
+    "hairBackgroundExclusion": {
+      "rect": [
+        1220,
+        250,
+        1390,
+        395
+      ],
+      "greenMinusRedMin": 2,
+      "blueMinusRedMin": 4,
+      "operation": "set source lake/sky-color alpha to zero only",
+      "pixels": 300
+    },
+    "outerHairBackgroundExclusion": {
+      "rects": [
+        [
+          1220,
+          285,
+          1250,
+          380
+        ],
+        [
+          1350,
+          280,
+          1390,
+          380
+        ]
+      ],
+      "skyBlueMinusRedMinExclusive": 8,
+      "goldLeafGreenMinusBlueMinExclusive": 60,
+      "goldLeafRedMinusBlueMinExclusive": 80,
+      "operation": "alpha zero only for source sky/leaf colors next to actual blonde contour",
+      "pixels": 144
+    },
+    "lowerBobLeftLeafExclusion": {
+      "rowAndFirstPossibleHairX": [
+        [
+          328,
+          1234
+        ],
+        [
+          340,
+          1237
+        ],
+        [
+          350,
+          1240
+        ],
+        [
+          360,
+          1244
+        ],
+        [
+          370,
+          1249
+        ],
+        [
+          380,
+          1254
+        ]
+      ],
+      "operation": "remove alpha left of actual source lower-bob border only",
+      "pixels": 155
+    },
+    "originalSkirtFoldInclusions": {
+      "polygons": [
+        [
+          [
+            1122,
+            676
+          ],
+          [
+            1150,
+            670
+          ],
+          [
+            1152,
+            680
+          ],
+          [
+            1145,
+            690
+          ],
+          [
+            1140,
+            697
+          ],
+          [
+            1127,
+            689
+          ],
+          [
+            1121,
+            682
+          ]
+        ],
+        [
+          [
+            1160,
+            660
+          ],
+          [
+            1180,
+            662
+          ],
+          [
+            1184,
+            673
+          ],
+          [
+            1176,
+            693
+          ],
+          [
+            1172,
+            703
+          ],
+          [
+            1158,
+            700
+          ],
+          [
+            1147,
+            697
+          ],
+          [
+            1153,
+            679
+          ]
+        ],
+        [
+          [
+            1206,
+            681
+          ],
+          [
+            1237,
+            692
+          ],
+          [
+            1226,
+            699
+          ],
+          [
+            1247,
+            713
+          ],
+          [
+            1251,
+            725
+          ],
+          [
+            1234,
+            727
+          ],
+          [
+            1226,
+            717
+          ],
+          [
+            1208,
+            710
+          ],
+          [
+            1199,
+            700
+          ]
+        ]
+      ],
+      "polygonAntialias": "4x coverage sampled back to original canvas",
+      "clothConfidence": "min(clamp((26-(G-B))/5),clamp((54-(R-G))/6))",
+      "operation": "restore original visible cloth alpha only; preserve source-mixed soft edge",
+      "pixels": 1728
+    },
+    "rgbOperation": "unmodified original full-canvas mother RGB with calibrated alpha"
+  },
+  "canvas": [
+    1536,
+    1024
+  ],
+  "alphaBounds": [
+    1091,
+    255,
+    1425,
+    770
+  ],
+  "alphaNonzeroPixels": 70135,
+  "motherRgbSha256": "0e989ba2b22ca087f21fe846849e6b28d0ef7fbafa364241d00c237b4691263d",
+  "figureRgbSha256": "0e989ba2b22ca087f21fe846849e6b28d0ef7fbafa364241d00c237b4691263d",
+  "figure": {
+    "path": "uika-chat-apricot-figure-calibrated-v1.png",
+    "sha256": "841240ea985ef38dc69cbc57757b9184053ac19fd312caad02e4d74deb70d5c9",
+    "bytes": 2440987
+  },
+  "mask": {
+    "path": "uika-chat-apricot-mask-calibrated-v1.png",
+    "sha256": "2d3b149728b536838efe1e6b2fc2c1f1a8e70a1415bf018089dac17efd351662",
+    "bytes": 31975
+  },
+  "background": {
+    "path": "uika-chat-apricot-background-calibrated-v1.png",
+    "sha256": "16d0ca27e4f6963774d4e0c97fe616587225624d2258bfe66b5a4423ed8eb7b0",
+    "bytes": 2093851,
+    "generatedInput": "uika-chat-apricot-background-generated-v1.png",
+    "generatedInputSha256": "a96a177b231e82b70ca553024cd0e4a2ae5505ad450bba85b559f87ef1126c8a",
+    "repairMask": "shared tool: explicit alpha plus erase polygons, expanded 9px, feather 2px",
+    "contactRegions": [
+      [
+        1082,
+        746,
+        1242,
+        789
+      ],
+      [
+        1185,
+        565,
+        1438,
+        602
+      ]
+    ],
+    "outsideRepair": "unmodified mother RGB",
+    "registration": "same full canvas and coordinates; no transform, resize or crop"
+  },
+  "shadow": {
+    "path": "uika-chat-apricot-shadow-calibrated-v1.png",
+    "sha256": "f8c7de0ab139cfe6f2336bec52bb72c9e40ae7081cf798d7d068e3ce9e3109ed",
+    "bytes": 43848,
+    "source": "original-mother shoe-floor darkening relative to matching empty background",
+    "rgb": "source-pair residual C=(motherRGB-emptyRGB*(1-A))/A; figure RGB unchanged",
+    "contactPolygons": [
+      [
+        [
+          1093,
+          748
+        ],
+        [
+          1120,
+          745
+        ],
+        [
+          1163,
+          753
+        ],
+        [
+          1164,
+          764
+        ],
+        [
+          1124,
+          768
+        ],
+        [
+          1095,
+          759
+        ]
+      ],
+      [
+        [
+          1132,
+          760
+        ],
+        [
+          1165,
+          757
+        ],
+        [
+          1214,
+          763
+        ],
+        [
+          1224,
+          774
+        ],
+        [
+          1184,
+          781
+        ],
+        [
+          1143,
+          778
+        ]
+      ]
+    ],
+    "alphaFormula": "clamp(maxChannels((emptyRGB-sourceRGB)/emptyRGB),0,.82) * selectedSourceFloor * (1-figureAlpha)",
+    "edgeFilter": "1.2px feather on selected source-floor boundary only",
+    "bodyPixels": "excluded by figure alpha",
+    "review": "candidate; contact/double-shadow and finite-translation review pending"
+  },
+  "inspectionEvidence": ".test-data/uika-umiri-layer-review/",
+  "review": "Candidate only. Light/dark and matching-background inspection required; no primary layer or runtime acceptance."
+}

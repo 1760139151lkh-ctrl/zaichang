@@ -1,0 +1,185 @@
+{
+  "mother": "uika-listening-apricot-mother-candidate-v1.png",
+  "motherSha256": "15a28c195ddba558286dbba8025fa0669239f6d98dbce7becb40ffcc87dd4db8",
+  "matte": "uika-listening-apricot-figure-calibrated-v3.png",
+  "alphaSource": "alpha",
+  "alphaLow": 0,
+  "alphaHigh": 255,
+  "excludePolygons": [],
+  "figure": "uika-listening-apricot-figure-calibrated-v4.png",
+  "mask": "uika-listening-apricot-mask-calibrated-v4.png",
+  "backgroundCandidate": "uika-listening-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1.2,
+  "background": "uika-listening-apricot-background-calibrated-v4.png",
+  "record": "uika-listening-apricot-layer-processing-v4.json",
+  "reviewNote": "Close original-coordinate review found a small blue plaid pillow corner at the far-right hem, partly selected by the raw matte and enlarged by a tiny interior repair. v4 intersects only that original cloth/pillow boundary with the exact soft source contour; no source RGB or body geometry changes. Restored real skirt material between sock feet remains. Empty floor shoes stay BG; original bench contacts remain separate. Primary/runtime pending.",
+  "includePolygons": [],
+  "backgroundErasePolygons": [
+    [
+      [
+        1161,
+        555
+      ],
+      [
+        1210,
+        558
+      ],
+      [
+        1227,
+        574
+      ],
+      [
+        1324,
+        577
+      ],
+      [
+        1418,
+        568
+      ],
+      [
+        1454,
+        571
+      ],
+      [
+        1454,
+        602
+      ],
+      [
+        1161,
+        600
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1167,
+        555
+      ],
+      [
+        1225,
+        568
+      ],
+      [
+        1275,
+        577
+      ],
+      [
+        1321,
+        576
+      ],
+      [
+        1342,
+        584
+      ],
+      [
+        1307,
+        592
+      ],
+      [
+        1238,
+        593
+      ],
+      [
+        1167,
+        572
+      ]
+    ],
+    [
+      [
+        1324,
+        569
+      ],
+      [
+        1371,
+        571
+      ],
+      [
+        1439,
+        570
+      ],
+      [
+        1453,
+        582
+      ],
+      [
+        1439,
+        591
+      ],
+      [
+        1372,
+        591
+      ],
+      [
+        1323,
+        584
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 0.8,
+  "contactShadowEdgePixels": 3,
+  "shadow": "uika-listening-apricot-shadow-calibrated-v4.png",
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1427,
+        550,
+        1450,
+        580
+      ],
+      "polygon": [
+        [
+          1427,
+          550
+        ],
+        [
+          1433,
+          550
+        ],
+        [
+          1433,
+          555
+        ],
+        [
+          1435.5,
+          558.5
+        ],
+        [
+          1437,
+          562
+        ],
+        [
+          1439,
+          566
+        ],
+        [
+          1440.5,
+          569
+        ],
+        [
+          1443,
+          572
+        ],
+        [
+          1447,
+          575.5
+        ],
+        [
+          1448.5,
+          578
+        ],
+        [
+          1450,
+          579.5
+        ],
+        [
+          1427,
+          579.5
+        ]
+      ],
+      "featherPixels": 0.15,
+      "mode": "intersect"
+    }
+  ]
+}

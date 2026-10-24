@@ -1,0 +1,16 @@
+{
+  "recordType": "same-canvas-layer-image-generation",
+  "date": "2026-10-24",
+  "mother": "nyamu-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305",
+  "motherPrimaryRecord": "primary-other-mother-reviews.json",
+  "tool": "image_gen.imagegen",
+  "inputRole": "Each call uses only the same correct Primary-approved complete mother; no rejected image or independent character input.",
+  "generations": [
+    {"kind": "matching-clean-background", "prompt": "nyamu-chat-apricot-background-extraction-v1-prompt.txt", "file": "nyamu-chat-apricot-background-candidate-v1.png", "sha256": "3a53915946eaf803ccdf7e65d6f5dd32143826208cea516b7058dd28dccc3cd7", "designerReview": "Full output viewed. Room camera/bench/pillows/lamp stay plausible and original girl/contact/cast shadows removed. Later production retains original room RGB outside precise replacement patch; this candidate alone is not an admitted runtime background."},
+    {"kind": "mask", "prompt": "nyamu-chat-apricot-mask-extraction-v1-prompt.txt", "originalOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-37e84fb5-705e-4e92-803b-5b928f3cac68.png", "sha256": "de7229cc36b2b1e162e3992946baccd5814501ec9635fa43c019a15c225e8b2e", "designerReview": "Rejected: enlarged silhouette, hair top about130 instead of239 and shoes end910 instead of823. Not copied to current workspace assets or used as any subsequent generation input."},
+    {"kind": "mask", "prompt": "nyamu-chat-apricot-mask-extraction-v2-prompt.txt", "file": "nyamu-chat-apricot-mask-candidate-v2.png", "sha256": "965a3f7e6d1614f79f47454231d6919b378534ad0b119d4cfe1b73e00de0e4aa", "designerReview": "Full output viewed. Original-scale footprint recovered, still needs originalRGB boundary calibration and false holes in dark choker/ankle straps filled as alpha only; not a finished alpha or runtime approval."}
+  ],
+  "primaryLayerReview": "pending",
+  "runtime": "not registered or verified"
+}

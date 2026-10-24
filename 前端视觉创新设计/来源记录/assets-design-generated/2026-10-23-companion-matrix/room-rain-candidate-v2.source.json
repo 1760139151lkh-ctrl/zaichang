@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "kind": "room-plate-candidate",
+  "theme": "rain",
+  "version": 2,
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "input": {
+    "path": "room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty-room input; v1 rain was not used as an input"
+  },
+  "promptFile": "room-rain-v2-prompt.txt",
+  "prompt": "Use case: lighting-weather.\nAsset type: complete empty companion-room RAIN plate, same 1536 x 1024 canvas.\nThe ONLY image input is the primary-selected CLEAN EMPTY apricot room v4, with no person. Keep its exact camera, framing, perspective and ALL object boundaries: complete four-sided window, left rear desk and chair, shelves/plant/drawing, right writing desk and chair, existing cream lamp, bench/cushions/throw, rug, floorboards and every furniture foot. Do not change room or furniture geometry, add objects, crop the window or clear the lived-in left corner. This is new physical illumination of the existing room, not a filtered or darkened daytime picture.\n\nMake ONE coherent quiet RAINY NIGHT. Outside the entire window is deep cool navy, rain-clouded sky over the SAME mountain/lake/campus outlines, delicate rain on glass and a few distant warm window dots reflected softly in the lake. No sun, sunset, moonbeam or stars. There is NO bright outdoor light capable of casting leaf silhouettes into the room.\n\nCRITICAL LIGHT PHYSICS: the ONE existing cream desk lamp on the right desk is the primary warm indoor light source. Turn it on softly without moving or replacing it. Its amber light makes a LOCAL down-and-out pool around the desk, nearby chair, window bench and a small area of floor in front of them, then falls off gradually. Interior shadows must belong to furniture lit from this lamp. DELETE the input's hard daytime leaf silhouettes and rectangular sunbeams from the left wall and floor; they must not survive as warm yellow patterns. The left rear writing table, shelves and flowers receive only low, soft reflected amber/cool fill, not a mysterious second spotlight. The left walls remain warm-gray/ivory and legible in quiet shadow.\n\nThe night window contributes low diffuse cool-blue fill to curtain edges, the bench edge and a subtle patch of floor, with no sharp leaf shadow or bright rectangular light shaft. Most floorboards are dry matte medium honey-brown with subdued gentle reflections; no golden mirror, no wide orange spotlight across the center, no wet indoor floor. Keep soft fabric weave and quiet wood texture visible. Warmth comes from the real lamp and local bounce; do not flatten the room into gray or crush the left into black. Keep a calm readable warm interior against the cool rainy outside.\n\nSame fine Japanese-anime background painting, restrained atmosphere and natural material colors. No person, face, silhouette, portrait or doll. No text, UI, labels, arrows, split view, divider, watermark or logo. No global color filter, black translucent layer, vignette, white gradient panel, magic glow, green cast or added light fixture. Return the same complete room.",
+  "output": {
+    "path": "room-rain-candidate-v2.png",
+    "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+    "bytes": 2196027,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T17:25:27.293529+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "原白昼式左墙/地面硬叶影已退出，暖光更集中在原台灯附近，左后生活角仍可读。完整窗框及家具视觉保留；主代理仍需亲看并决定。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false
+}

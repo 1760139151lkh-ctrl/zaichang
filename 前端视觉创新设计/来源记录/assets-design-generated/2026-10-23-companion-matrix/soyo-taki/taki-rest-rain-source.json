@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "rest",
+  "palette": "rain",
+  "light": "night",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-86f8b60f-8471-4b4d-b654-6fbf3a57736a",
+  "prompt": "taki-rest-rain-prompt.txt",
+  "promptSha256": "639428457c4b31761040737ab9c04901e2ea13ab078df6eabb66eb5ad8cd5eed",
+  "inputs": [
+    {
+      "file": "taki-rest-apricot-mother-candidate-v1.png",
+      "sha256": "c946307e511b2a1f60652c04ec44e00a4a6d4c23ad3ded44043587f708983ee4",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-86f8b60f-8471-4b4d-b654-6fbf3a57736a.png",
+  "output": {
+    "file": "taki-rest-rain-mother-candidate-v1.png",
+    "sha256": "cd8f66de4993357b8a7b7d6d37565f42166467b63e4ba492b4e31c6001f33540",
+    "bytes": 2043960,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the approved warm mother and its empty theme plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Original whole-body side/back gaze at lake, relaxed supported hands/hips and both floor loafers retained. Rain window and one desk-lamp falloff coherent, rear-left table quiet. Primary/layer/runtime review remains separate."
+}

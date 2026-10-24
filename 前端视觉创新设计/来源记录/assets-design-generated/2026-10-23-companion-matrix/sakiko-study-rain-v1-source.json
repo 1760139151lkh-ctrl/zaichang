@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-study-rain-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "study",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-study-rain-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-study-apricot-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-rain-candidate-v2.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "sakiko-study-rain-mother-candidate-v1.png",
+    "sha256": "7852b8c86fe64a29f22d3f2d17e4dd307d1949d5ad13f049839d2e8a5713fd19",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-074fbc36-aee5-44da-910e-a57395053d1b.png",
+    "executionId": "074fbc36-aee5-44da-910e-a57395053d1b"
+  },
+  "designerObservation": "Personally viewed full mother: seated at the real desk chair, gaze and forearms toward desk work, both lower legs/complete shoes visible and hips supported. The body relation differs from bench chat. Each image uses its matching whole theme exposure. Primary must check actual paper/pencil contact and chair/desk geometry; mist has a raised open page rather than an entirely flat sheet.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "promptSha256": "7fe59951a9811f8e03eaeddf492ce3207cd399bd0e83666cd92dd891312c32d7"
+}

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-study-apricot-room4",
+  "character": "sakiko",
+  "activity": "study",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-study-apricot-mother.png",
+  "background": "sakiko-study-apricot-background-calibrated-v8.png",
+  "figure": "sakiko-study-apricot-figure-calibrated-v8.png",
+  "mask": "sakiko-study-apricot-mask-calibrated-v8.png",
+  "shadow": "sakiko-study-apricot-shadow-calibrated-v8.png",
+  "seat": [
+    0.585,
+    0.577
+  ],
+  "ground": [
+    0.643,
+    0.701
+  ],
+  "bodyBounds": [
+    0.521484375,
+    0.3076171875,
+    0.6901041666666666,
+    0.708984375
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "desk-chair",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "57% 31%, 61% 31%, 64% 36%, 64% 44%, 65% 46%, 64% 49%, 62% 50%, 63% 55%, 65% 59%, 67% 68%, 69% 70%, 69% 71%, 64% 71%, 61% 71%, 59% 69%, 61% 61%, 59% 59%, 56% 59%, 55% 52%, 53% 48%, 52% 45%, 54% 38%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "motherApprovalRecord": "primary-prototype-reviews.json",
+    "layerReview": "accepted-for-original-stage",
+    "producerNote": "Fixed desk/hand contact. Original chair-back/front-leg occlusions are alpha holes; no hidden anatomy painted. Whole visible contour is in frame, fixed pose is not advertised as freely draggable.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json",
+    "stage": "layer-admission-for-original-stage",
+    "reviewer": "primary-agent",
+    "reviewedAt": "2026-10-24T02:21:14.555Z",
+    "observed": "已亲看浅深底与原房间，保留原椅背/椅腿遮挡洞，桌面手部与椅座固定，行程0，实机另审。"
+  },
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-processing-v8.json"
+}

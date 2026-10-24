@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "planning",
+  "light": "mist",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-9aba1a7c-d0c9-45a8-b89d-553c2ceba02c",
+  "inputs": [
+    {
+      "file": "tomori-planning-apricot-v2-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "5347c9bd9992cc514203294e4b1cbea93e0dacbd012b97f8db8a2aaef98569de"
+    },
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "sourceIdentity": "Existing primary-approved correct complete warm mother relit against approved clean empty-room theme plate; no rejected mother, official artwork or isolated actor input.",
+  "prompt": "tomori-planning-mist-mother-candidate-prompt.txt",
+  "promptSha256": "c76cae98fdf94f52466d8041bd7fcd2a7d16d8106ffc6d2e46098bca1ed7743f",
+  "output": {
+    "file": "tomori-planning-mist-mother-candidate.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2119860,
+    "sha256": "41b35896c9686180a11a1b179ca9faef89ae239c74d8fa0b931be32263c00a22"
+  },
+  "review": {
+    "designerViewed": "complete original 1536x1024 output",
+    "designerStatus": "rejected_landscape_landmark_drift",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Rejected: person pose and room geometry retained, but distant church tower moved from its x≈1217 landmark into a gap around x≈1098 left of Tomori. This output must not be used as an edit input or counted as coverage."
+}

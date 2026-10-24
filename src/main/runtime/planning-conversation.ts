@@ -20,7 +20,7 @@ export const planningConversationReadInput = z.object({ matterId: id, optionId: 
 const actionRefSchema = z.object({ stepId, actionId: id, actionRevision: z.number().int().positive() }).strict();
 export const planningConversationContinueInput = planningConversationReadInput.extend({
   actionRefs: z.array(actionRefSchema).max(20).optional()
-    .describe('原行动工具实际返回的动作ID与修订，明确对应本商量的stepId；只是读取地址，宿主仍核原动作、回执与当前日历，不凭同参或模型声明计成功。'),
+    .describe('把原行动工具实际给出的actionId/actionRevision对到这份商量的stepId，便于接着核对那一步。这里只记录原动作地址，接下来仍要检查它的真实结果和当前日历；参数相同、口头说已办好，都不能替代原动作的结果。'),
 }).strict();
 export interface PlanningConversationContext {
   sessionId: string;
@@ -183,9 +183,9 @@ export class PlanningConversationService {
               read: { tool: 'read_planning_alternative', arguments: { matterId: next.id, optionId: option.id, expectedRevision: option.revision } } } : {}) };
         }),
         coverage: { ...comparison.coverage, timelineBodyDelivered: false,
-          meaning: '本次返回同一商量的准确方案地址、真实差异和未排原因。完整占用仍在原owner中，由read_planning_alternative或present_view按预算展开；没有把两份日账和正文重复塞进目录，也没有把目录当作完整正文已读。' },
+          meaning: '这里列的是同一商量中各版的准确地址、实际差别和没排下工作的原因。完整时间安排还在原方案里，可以沿read_planning_alternative读取，或用present_view展开；目录本身没有带来完整时间表。' },
         records: [next, ...options], bindings: [binding], calendarChanged: false, executionAuthorized: false,
-        meaning: '这些办法接在原来的商量里；没有接受方案、写日历或形成新的长期偏好。可以点一版继续谈，明确采用仍走原动作边界。' };
+        meaning: '这些办法已接回原来的商量，日历还没改，也没有因此记下新的长期偏好。本人点一版只是想继续聊；真要照着安排，仍要走对应的原动作步骤。' };
     });
   }
 
@@ -233,7 +233,7 @@ export class PlanningConversationService {
       branch: comparison.branches.find(branch => branch.id === data.branchId) || null,
       continuation: { actionRefs: data.continuationActionRefs || [], ...(data.continuationPlanId ? { planId: data.continuationPlanId } : {}) },
       records: [frame, record], bindings: [record.sourceBinding!], applied: false,
-      meaning: '这是同一商量的当前回读。过去理由和选择不替代今天的意愿；点选不授予行动，原安排改变后须继续商量。' };
+      meaning: '这是把同一份办法放回现在的日历里重看。原来的理由和点选仍保留当时的意思，现在是否照做要听本人这次真正说的意思；点选本身没有允许修改日历，日程有变化时先接着商量。' };
   }
 
   continue(handle: ScopeHandle, items: Action[], raw: unknown, campus?: PlanningCampusConstraints | null, options: PlanningConversationReadOptions = {}) {
@@ -241,11 +241,11 @@ export class PlanningConversationService {
     const value = this.option(handle, address, options), { input: request, scope, frame, data, alternative } = value;
     let record = value.record;
     if (scope.child || !['active', 'needs_review'].includes(frame.status) || ['rejected', 'cancelled', 'stale', 'blocked'].includes(record.status))
-      throw new HarnessError('planning_conversation_inactive', '这件事或这份办法当前不能继续采用；仍可按原话重新商量。');
+      throw new HarnessError('planning_conversation_inactive', '当前范围里还不能沿这版继续推进，可以按原话重新商量。');
     if (request.planId && request.planId !== data.continuationPlanId)
       throw new HarnessError('planning_conversation_plan', '这个规划编号不是本份商量实际生成的后续方案，没有把别的进展接进来。');
     if (data.continuationPlanId && suppliedRefs?.some(ref => !(data.continuationActionRefs || []).some(previous => canonical(previous) === canonical(ref))))
-      throw new HarnessError('planning_conversation_action_reference', '后续方案已经沿这些原动作生成，新的动作引用须另行接着商量，不能补签旧采用。');
+      throw new HarnessError('planning_conversation_action_reference', '后续安排已经依据这些原动作生成。新出现的动作应接着商量，不能拿来证明旧方案当时已获准或办成。');
     if (sameBaseline(items, data.baseline)) {
       const comparison = compareCalendarPlans(items, this.withCampus(handle, data.input, campus));
       const branch = comparison.branches.find(branch => branch.id === data.branchId);
@@ -260,7 +260,7 @@ export class PlanningConversationService {
     if (data.continuationPlanId) return { status: 'continue_existing_plan', matterId: frame.id, optionId: record.id, revision: record.revision,
       remaining: this.planning.recover(scope, items, { planId: data.continuationPlanId }), records: [frame, record], bindings: [record.sourceBinding!],
       actionRefs: data.continuationActionRefs || [],
-      applied: false, atomic: false, meaning: '沿原规划器回读真实已保存步骤；没有重建执行票据或把保存量说成完成量。' };
+      applied: false, atomic: false, meaning: '这里核对原计划中哪些步骤已经保存、哪些还能继续，没有重新生成保存凭据。安排已经写进日历，也不等于事情已经做完。' };
     const declaredSteps = comparisonSteps(data.input, alternative);
     if (data.stepOrder.length !== declaredSteps.length || new Set(data.stepOrder).size !== data.stepOrder.length
       || data.stepOrder.some(id => !declaredSteps.some(step => step.id === id)))
@@ -275,7 +275,7 @@ export class PlanningConversationService {
       const step = steps.find(value => value.id === ref.stepId), action = this.actions.get(handle, ref.actionId);
       if (!step || !action || action.revision !== ref.actionRevision || action.capability !== step.capability
         || !fieldsMatch(step.arguments, action.arguments) || action.arguments.createNew === true)
-        throw new HarnessError('planning_conversation_action_reference', '原动作、当前修订、来源或完整参数没有对上这一步；先沿inspect_action读取实际结果，没有按同参签成功。');
+        throw new HarnessError('planning_conversation_action_reference', '原动作、当前版本、来源或完整参数还没有对上这一步。先用inspect_action核对原结果；参数相同还不能证明这一步办成了。');
       linked.set(ref.stepId, ref);
     }
     const actionRefs = [...linked.values()];
@@ -354,10 +354,10 @@ export class PlanningConversationService {
         ...(item.planRef ? { recover: { capability: 'planning.recover', arguments: { planId: item.planRef.planId } } } : {}) })),
       records: [frame, record], bindings: [record.sourceBinding!], applied: false, atomic: false, executionAuthorized: false };
     if (needsReview) return { ...common, status: 'continue_discussion', nextProposal: null, remaining: null,
-      meaning: '有些真实结果或安排已变化，先接着这件事商量；成功部分保留，未知结果沿inspect核查，不把未完成部分盲重发。' };
+      meaning: '有些安排或原动作的结果变了，先沿这件事接着核对。已经办成的部分留着；结果还不清楚的那一步先用inspect_action看原结果，暂时不再提交一遍。' };
     if (!complete) return { ...common, status: common.completedSteps ? 'partially_applied' : 'ready_to_discuss',
       nextProposal: next?.proposal || null, remaining: null,
-      meaning: '按顺序给原动作提议，每一步仍核当前授权。看中这一版不等于批准；已经成功的步骤不重做，也不冒称整组原子完成。' };
+      meaning: '下一步按原顺序提出，每一步仍要核对本人允许做什么。看中这版并不等于答应修改；已经办成的步骤不再做一次，一部分成功也不能说整份安排都已保存。' };
     const draft = alternativeDraft(data.input, alternative);
     const now = Date.parse(this.repo.clock.now());
     if (!Number.isFinite(now)) throw new HarnessError('planning_clock', '当前时间无法核对，尚未继续安排。');
@@ -398,7 +398,7 @@ export class PlanningConversationService {
       ...(workRhythms.length ? { workRhythms } : {}),
       continue: { tool: 'continue_planning', arguments: { matterId: frame.id, optionId: record.id,
         expectedRevision: nextRecord.revision, planId: remaining.planId } },
-      meaning: '原对象和拟参加活动的真实步骤已核对，剩余工作沿同一规划器在当前日历上试算。继续采用完整planRef及准备休息单位；新的方案仍不是完成或执行授权。' };
+      meaning: '原安排的修改和拟参加活动的实际步骤已核对，剩下的工作正按当前日历重新试排。继续保存时，要带上完整planRef和相应的准备、收尾、休息，沿原步骤办理；这份新试排本身还没保存，也不表示事情做完或本人已答应修改。' };
   }
 }
 

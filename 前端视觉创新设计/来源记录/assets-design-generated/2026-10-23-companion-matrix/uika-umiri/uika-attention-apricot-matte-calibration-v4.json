@@ -1,0 +1,25 @@
+{
+  "recordType": "original-scene-alpha-calibration",
+  "input": "uika-attention-apricot-figure-calibrated-v2.png",
+  "inputSha256": "287a4767f99b42bfbc61e4c520c67e8a0172411b1094d2920fefc0a0bf5951bd",
+  "mother": "uika-attention-apricot-mother-candidate-v1.png",
+  "motherSha256": "9cae27d5754d32654b120910faacaf65077e09499224f2668d912994ee2b78ed",
+  "output": "uika-attention-apricot-matte-soft-calibrated-v4.png",
+  "outputSha256": "d5a3cfb1c9dcf54f90f6550544b37ee79261e3e48d256146a4010d5ef8672e55",
+  "sourceColorSkyExclusions": {
+    "regions": [
+      [
+        1205,
+        250,
+        1385,
+        425
+      ]
+    ],
+    "condition": "B-R>6 and G-R>-2; alpha zero only"
+  },
+  "crownSourceColorFill": null,
+  "changedAlphaPixels": 406,
+  "bodyRgb": "unmodified original mother RGB; no geometry or anatomy edits",
+  "primaryReview": "pending",
+  "runtimeAccepted": false
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-mother-candidate",
+  "character": "uika",
+  "activity": "rest",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/uika/",
+    "https://anime.bang-dream.com/mygo/character/uika/"
+  ],
+  "input": {
+    "path": "../room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty room; no character pixels used"
+  },
+  "promptFile": "uika-rest-apricot-prompt.txt",
+  "prompt": "Use case: stylized-concept. Asset: ONE complete 1536 x 1024 warm-apricot morning mother scene for the 在场 companion Stage, with the whole room and whole person.\nONLY INPUT image 1 is the primary-selected CLEAN EMPTY room v4. It supplies architecture, camera, ordinary furniture scale, materials and light and contains no person. Generate this complete human-in-room scene from text; no portrait, old mother or separate cutout is an input.\nPRESERVE THE ROOM: same mild seated-eye perspective, full connected window frame including every corner, lake/campus view, rear-left table/chair/bookshelves/framed drawing, right desk/chair/lamp/cup, bench/cushions/throw, rug and complete floor passage. Keep furniture in its original area and ordinary scale. No new foreground table/chair, enlarged person, zoom, crop, blank wall, white gradient or erased left living detail. Keep the left/central live-reading lane free of new character parts and props. Add real contact shadows where this person is supported. One coherent morning window light with natural skin and distinct material colors, not an orange wash.\nSTYLE: original youthful Japanese-anime identity, restrained fine character linework in the input's softly detailed environmental painting. Neither an adult fashion portrait nor a chibi child. A naturally inhabited continuous room, never a separately pasted sticker. No other person, text, UI, logos, watermarks, split-screen, arrows, borders, insets or duplicate views. Show complete head/hair, hands, clothing hems and feet with air inside the canvas.\n\nCHARACTER: Misumi Uika (三角初華), BanG Dream! Ave Mujica / MyGO!!!!!, around fifteen-sixteen, first-year high-school girl. Recognizable short chin-length pale-blonde bob with a faint warm pink undertone, fine lightly uneven front fringe and longer cheek-framing strands; clear violet eyes, soft young jaw and slim natural teenage shoulders. Consistent official casual clothes interpreted indoors: simple white short-sleeved T-shirt, pale taupe-gray long skirt, white socks, black-and-white low canvas sneakers. No cap indoors, stage costume or invented uniform. Keep a clear youthful face, no mature makeup or glamour.\n\nACTIVITY rest / looking out at the lake, an unhurried side-and-back silhouette:\nUika has turned her WHOLE SITTING POSTURE away from the user toward the large window. She sits at the right end of the real window bench, pelvis and BOTH THIGHS supported on the cushion, legs folded gently SIDEWAYS ALONG THE BENCH rather than both knees raised to her chest. Her hips and knees point diagonally toward the left window panes; her torso and shoulders turn a little farther toward the lake. The camera sees her young three-quarter BACK/SIDE and a small quiet profile, violet gaze OUTSIDE at the sky, not looking back at the camera. Keep her recognizable short pale-blonde bob fully visible, with a soft natural profile.\nHer two lower legs lie comfortably on the cushion in a loose side-fold, with TWO SEPARATE WHITE-SOCKED FEET visible near the left side of her folded knees; ankles relaxed and continuous. Both sock feet and hips are supported by the same cushion. The long skirt drapes gently over the true thighs/knees/shins without swallowing a missing limb. Her sneakers are removed and sit together ON THE FLOOR in front of the bench, distinct empty objects with no legs in them.\nOne palm rests on the cushion beside/behind her hip to give a real balancing support. The other hand rests loosely in her lap. Shoulders lowered, no raised-knee hug, no book, cup, instrument, wave, task paper or concern expression. She has simply let attention move to the lake and afternoon-like morning sky, with nothing to report or ask. Ordinary scale: head top about y=330, hips near (1350,575), folded legs contained on the right bench. Do not place her in the central floor.\nDraw one continuous supported pelvis-thigh-knee-ankle skeleton, exactly two feet, modest natural long-skirt folds, complete fingers and contact shadows. No twisted neck, extreme torso corkscrew, arched pose, extra knee, floating calf, merged sock feet or shoes on upholstery. Let the room's existing natural window light and quiet wood texture carry the pause.\n",
+  "output": {
+    "path": "uika-rest-apricot-mother-candidate-v1.png",
+    "sha256": "c90f589bdd923d6b5520eaec6368fd6b27ade6627bf0c39288b4b9852aee551c",
+    "bytes": 2177252,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T19:12:17.615514+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "整体向窗三分之二背侧坐，腿侧收于垫、两袜足部分自然交叠而非抱膝，掌压垫承重；脱鞋环境固定。背向注意与chat/listening不同，待主审。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-2f3a6a8c-35f5-4629-a06c-7694b0cc7472"
+}

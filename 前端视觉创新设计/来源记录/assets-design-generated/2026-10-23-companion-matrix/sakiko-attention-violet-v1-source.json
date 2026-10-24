@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-attention-violet-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-attention-violet-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-attention-apricot-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-violet-candidate.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "sakiko-attention-violet-mother-candidate-v1.png",
+    "sha256": "5f26b20065471b9c60cec1a493886a8b62f81d0fecbb750e48f4682519d7ceef",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-27822d9a-f53b-4046-93c6-1e7b6f3bcde2.png",
+    "executionId": "27822d9a-f53b-4046-93c6-1e7b6f3bcde2"
+  },
+  "designerObservation": "Personally viewed full mother: supporting palm behind the hip, torso makes room and head turns left toward a small plain card on the real desk. Both shoes and hands remain visible; empty lap hand and gaze differ from play. The card belongs to the stationary room. Needs primary review of the retreat amount and all physical contacts.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "promptSha256": "73a99cba1fea8c790e39afd65eb92107dc9c1e26f201053e030773da9b7c597b"
+}

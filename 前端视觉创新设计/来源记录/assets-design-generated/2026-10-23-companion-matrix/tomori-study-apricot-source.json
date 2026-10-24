@@ -1,0 +1,34 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "light": "apricot",
+  "tool": "image_gen.imagegen",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved_clean_empty_room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "sourceIdentity": "Official profile/full-figure human inspection and project persona translated to pure text; no official artwork or previous character mother image supplied as input.",
+  "activity": "study",
+  "executionId": "exec-9ee20a0f-205d-4605-8ba3-aa39db8045d8",
+  "prompt": "tomori-study-apricot-prompt.txt",
+  "promptSha256": "9b884c27ec770ee8252da25de9cc130a324dcaccbfe1de9b9e3234562790e15f",
+  "output": {
+    "file": "tomori-study-apricot-mother.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2130469,
+    "sha256": "de6ae8fad77f6bd9a41f44b0ab086ee4a0176d3f5b8dbcdcfe7ba8e8721c4a4f"
+  },
+  "review": {
+    "designerViewed": "complete original 1536x1024 output compared with original clean v4",
+    "designerStatus": "rejected_for_furniture_geometry_change",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Body is a genuine side/rear working lean with complete shoes, but the original main chair/back and desk front geometry shifted left/right and tabletop props moved. It is not eligible for same-room registration. Regenerate from clean empty v4 only; this character output must not become an image input."
+}

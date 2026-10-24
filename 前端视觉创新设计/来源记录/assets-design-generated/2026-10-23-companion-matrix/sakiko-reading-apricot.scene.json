@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "recordType": "canonical-scene-reference",
+  "canonicalScene": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-apricot.scene.json",
+  "originalCandidateSha256": "2a5655ddeca093f4df55011cd7685e7d5dac98fd0cac0ea4c017397310abe972",
+  "originalProducerReview": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-prototype-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Reclined back rests on existing right pillow; fixed anchor preserves back/hip support. Book travels with the figure; pillow is excluded. No arbitrary movement away from its back support.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json"
+  },
+  "production": "sakiko-reading-apricot-v2-layer-processing-v3.json",
+  "parameters": null,
+  "note": "Same visible scene contract and unchanged admitted artwork; canonical registration lives only in the runtime directory. This relocation does not sign runtime acceptance."
+}

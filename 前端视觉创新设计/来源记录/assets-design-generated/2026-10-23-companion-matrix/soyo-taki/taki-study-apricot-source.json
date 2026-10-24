@@ -1,0 +1,34 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "study",
+  "palette": "apricot",
+  "light": "morning",
+  "generatedOn": "2026-10-23",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-28d533c0-61f9-47ed-b6a6-c14dc6e7f1ea",
+  "prompt": "taki-study-apricot-prompt.txt",
+  "promptSha256": "8141ad492119fae49f8f029188e13cec02f89aedad27126bcba87d2e59ffafec",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-reviewed clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "taki-study-apricot-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2131367,
+    "sha256": "49515d600d10286f1af4f808fbf285f4e2abfd1cabd05d6b319f3fdcbd6d0166"
+  },
+  "identityReference": "character-direction.md and text-only identity/wardrobe specification based on personally viewed official profile/full-body art. No character pixels or previous mother in generation input.",
+  "review": {
+    "producerViewed": "complete generated original",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Side chair posture with pencil/page contact and focused downward gaze; producer concerns: chair pulled left and far loafer partly overlaps near leg/chair leg. NOT accepted as a complete extractable contour; primary review/correction pending."
+}

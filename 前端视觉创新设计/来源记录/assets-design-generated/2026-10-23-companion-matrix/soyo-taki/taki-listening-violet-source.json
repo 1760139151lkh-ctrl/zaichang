@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "listening",
+  "palette": "violet",
+  "light": "dusk",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-9011b91e-3a29-44ca-bbab-d60cafa2c1fc",
+  "prompt": "taki-listening-violet-v2-prompt.txt",
+  "promptSha256": "e5fff3c02c84caf977da89f404ef411838e2c02ab5c90449ee1c0ed3e1263620",
+  "inputs": [
+    {
+      "file": "taki-listening-apricot-mother-candidate-v1.png",
+      "sha256": "d8369e39dc109457df147611494e1741c86512e2bcfc579c92050efb0d134bbb",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-9011b91e-3a29-44ca-bbab-d60cafa2c1fc.png",
+  "output": {
+    "file": "taki-listening-violet-mother-candidate-v2.png",
+    "sha256": "8ca0713f6d55f54a17a8d66cb4de3dfdce39218fa4636def3a83fa3dc2b1ecfc",
+    "bytes": 2172003,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the primary-approved warm mother and target empty lighting plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Correct-source v2 retains the original bench, head height and raised socked-foot location; one worn floor loafer and one empty floor shoe stay distinct. Sun and lake axes near1007/1003. The shifted v1 is rejected, never reused. Primary/layer/runtime review remains separate."
+}

@@ -1,0 +1,81 @@
+{
+  "purpose": "local alpha cleanup only; no RGB/anatomy repaint",
+  "input": "uika-study-apricot-mask-raw-v1.png",
+  "inputSha256": "e7424fd235fe6ab2f2ec0bb815043fd56c5d15ea2cdef8d3742b94b84d634857",
+  "reference": "uika-study-apricot-mother-candidate-v1.png",
+  "referenceSha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0",
+  "regionXYXY": [
+    790,
+    329,
+    952,
+    455
+  ],
+  "protectedOriginalHairInterior": [
+    [
+      850,
+      357
+    ],
+    [
+      873,
+      342
+    ],
+    [
+      897,
+      341
+    ],
+    [
+      916,
+      350
+    ],
+    [
+      932,
+      367
+    ],
+    [
+      939,
+      386
+    ],
+    [
+      934,
+      402
+    ],
+    [
+      925,
+      413
+    ],
+    [
+      907,
+      414
+    ],
+    [
+      895,
+      420
+    ],
+    [
+      871,
+      410
+    ],
+    [
+      845,
+      409
+    ],
+    [
+      824,
+      403
+    ],
+    [
+      822,
+      390
+    ],
+    [
+      837,
+      370
+    ]
+  ],
+  "reason": "Only manually inspected contour-region background colors are rejected; protected original hair interior keeps even pale/cool highlights without creating pinholes.",
+  "rule": "Begin with raw mask luminance. Rasterize protectedOriginalHairInterior using Pillow ImageDraw polygon. Within region and outside protection and where raw luminance>0, set luminance=0 if (R<G) or (B>R+10 and G>R-5) or (G-B>65 and R-G<35). All other luminance bytes unchanged; source RGB read only.",
+  "changedAlphaPixels": 1562,
+  "output": "uika-study-apricot-mask-local-color-v2.png",
+  "outputSha256": "251887f5b55c9d6ca1947459d278a5daf537dc069eebbe6b441825bc5c17d852",
+  "transform": "identity"
+}

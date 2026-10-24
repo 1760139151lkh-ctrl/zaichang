@@ -1,0 +1,111 @@
+{
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "backgroundExpandPixels": 10,
+  "backgroundFeatherPixels": 2,
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "mother": "tomori-study-apricot-v3-mother.png",
+  "motherSha256": "33e690f698cc4856872804014c6285620ec176ce5fe2ae6000887e4c74d3954f",
+  "matte": "tomori-study-matte-registered-v1.png",
+  "matteRegistration": {
+    "proposal": "tomori-study-matte-generated-v1.png",
+    "proposalSha256": "38fe127b2da46cde6edc937ca21c71ccad88cf9c2402a6dc5b5b53bf474baf05",
+    "sourceBounds": [
+      998,
+      243,
+      1394,
+      870
+    ],
+    "targetBounds": [
+      1097,
+      342,
+      1368,
+      773
+    ]
+  },
+  "localColorMatteRefinement": {
+    "region": [
+      1078,
+      322,
+      1388,
+      796
+    ],
+    "seedThreshold": 80,
+    "uncertainBandPixels": 12,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.4
+  },
+  "backgroundErasePolygons": [
+    [
+      [
+        1088,
+        721
+      ],
+      [
+        1261,
+        721
+      ],
+      [
+        1261,
+        786
+      ],
+      [
+        1088,
+        786
+      ]
+    ],
+    [
+      [
+        1132,
+        543
+      ],
+      [
+        1377,
+        543
+      ],
+      [
+        1377,
+        608
+      ],
+      [
+        1132,
+        608
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1097,
+        744
+      ],
+      [
+        1136,
+        738
+      ],
+      [
+        1244,
+        745
+      ],
+      [
+        1254,
+        778
+      ],
+      [
+        1101,
+        778
+      ]
+    ]
+  ],
+  "figure": "tomori-study-figure-calibrated-v1.png",
+  "mask": "tomori-study-mask-calibrated-v1.png",
+  "backgroundCandidate": "tomori-study-background-generated-v1.png",
+  "background": "tomori-study-background-calibrated-v1.png",
+  "shadow": "tomori-study-shadow-calibrated-v1.png",
+  "record": "tomori-study-layer-processing-v1.json",
+  "reviewNote": "Only generated alpha proposal is registered/refined against the approved original. Original figure RGB remains entirely source bytes; no body/face/pose/color repair. First technical candidates require full visual review."
+}

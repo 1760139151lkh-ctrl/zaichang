@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordType": "image-generation-source",
+  "character": "uika",
+  "activity": "listening",
+  "theme": "rain",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-05685399-595c-4e87-8957-ab5b3ce195ef",
+  "intent": "lighting-weather",
+  "prompt": "uika-listening-rain-prompt-v1.txt",
+  "promptFileMatchesActualToolInput": true,
+  "recordedAt": "2026-10-24T08:00:08.617Z",
+  "inputs": [
+    {
+      "file": "uika-listening-apricot-mother-candidate-v1.png",
+      "role": "primary-approved-correct-warm-mother-edit-target",
+      "sha256": "15a28c195ddba558286dbba8025fa0669239f6d98dbce7becb40ffcc87dd4db8"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "role": "primary-approved-clean-theme-lighting-reference-only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "uika-listening-rain-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "87c7c6824d51e8fc1a3bdccf41ff7904c3fd0e13f0cf953c403bf5b6b72b367f",
+    "bytes": 2064145
+  },
+  "review": {
+    "designerViewed": "complete original Imagegen output",
+    "designerStatus": "candidate-for-primary-review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Listening silhouette retains knees on bench, low folded arms and supported socked feet; removed shoes stay on floor. Night lighting is coherent without left flower spotlight.",
+  "promptSha256": "ef617991174eb9c7feec6d171fc2ff089f9fbf0ed3401fecdc9689b1fafc2be8"
+}

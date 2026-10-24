@@ -13,6 +13,18 @@ import memoryInquiryMethod from '../../../prompts/memory-inquiry.md';
 
 type Delegation = NonNullable<ContextReceipt['delegations']>[number];
 interface Worker { run: RunSession; task: DelegatedTask; registry: ToolRegistry; metadata: Delegation; sourceRestrictions: SourceRestrictionSnapshot; deliveredObservations: Set<string> }
+type WorkerReport = { _host_children?: string[]; results?: Record<string, unknown>[] };
+
+function toolWireJSON(content: ModelWireMessage['content']): { parsed: true; value: unknown } | { parsed: false } {
+  let text: unknown = content;
+  if (Array.isArray(content) && content.length === 1) {
+    const part = content[0];
+    if (part?.type === 'text' && typeof part.text === 'string' && Object.keys(part).every(key => key === 'type' || key === 'text'))
+      text = part.text;
+  }
+  if (typeof text !== 'string') return { parsed: false };
+  try { return { parsed: true, value: JSON.parse(text) }; } catch { return { parsed: false }; }
+}
 
 /** Uses the same pinned Hermes child protocol as foreground investigations.
  * The original entrustment supplies authority; workers have read-only subsets
@@ -138,6 +150,21 @@ export class BackgroundDelegation {
     return !!row && completed && row.truncated !== true && !row.error
       && typeof row.summary === 'string' && !!row.summary.trim() && row.summary.trim() !== '(empty)';
   }
+  private approvedReport(wire: ModelWireMessage): WorkerReport | undefined {
+    if (wire.role !== 'tool') return;
+    const approved = wire.tool_call_id ? this.reports.get(wire.tool_call_id) as WorkerReport | undefined : undefined;
+    const decoded = toolWireJSON(wire.content);
+    // Registration protects the report even if its body loses the marker or
+    // can no longer be decoded. Accept only the exact host-owned hand-off.
+    if (approved) {
+      if (!decoded.parsed || !Array.isArray(approved._host_children) || canonical(approved) !== canonical(decoded.value))
+        throw new HarnessError('child_report_changed', '这份调查说明和刚才实际收到的内容没有对上，先留在一旁；原来的材料还在。');
+      return approved;
+    }
+    const value = decoded.parsed ? decoded.value as { _host_children?: unknown } | null : null;
+    if (Array.isArray(value?._host_children))
+      throw new HarnessError('child_report_changed', '这份调查说明和刚才实际收到的内容没有对上，先留在一旁；原来的材料还在。');
+  }
   /** The host calls this before and after each child model/tool boundary. */
   async validateBoundary(id?: string) {
     this.validateParent();
@@ -229,7 +256,7 @@ export class BackgroundDelegation {
       },
       result: async (callId, result, signal = this.run.signal) => {
         signal.throwIfAborted(); this.validateParent();
-        let value = structuredClone(result) as { _host_children?: string[]; results?: Record<string, unknown>[] };
+        let value = structuredClone(result) as WorkerReport;
         const ids = Array.isArray(value._host_children) ? value._host_children : [];
         const acceptedTasks: DelegatedTask[] = [];
         for (const id of ids) {
@@ -262,14 +289,10 @@ export class BackgroundDelegation {
   async consume(messages: ModelWireMessage[]) {
     const ready = new Set<Worker>();
     for (const wire of messages.filter(value => value.role === 'tool')) {
-      let ids: unknown, results: Record<string, unknown>[] | undefined;
-      let report: unknown;
-      try { report = JSON.parse(String(wire.content)); const value = report as { _host_children?: unknown; results?: Record<string, unknown>[] }; ids = value._host_children; results = value.results; } catch { continue; }
-      if (!Array.isArray(ids)) continue;
-      const approved = wire.tool_call_id ? this.reports.get(wire.tool_call_id) : undefined;
-      if (!approved || canonical(approved) !== canonical(report))
-        throw new HarnessError('child_report_changed', '这份调查报告与宿主实际收到的同一回执尚未对应上，内容还没有接入。');
-      for (const id of ids) {
+      const report = this.approvedReport(wire);
+      if (!report) continue;
+      const results = report.results;
+      for (const id of report._host_children!) {
         const worker = this.workers.get(String(id));
         if (!worker) throw new HarnessError('child_missing', '这份结果没有对应到本次约定的调查任务。');
         if (worker.metadata.status === 'failed') {
@@ -346,10 +369,10 @@ export class BackgroundDelegation {
     if (!worker || !await this.validateWorker(worker)) throw new HarnessError('stale_child_result', '这项调查或它的资料来处已不再对应当前约定，先前结果没有继续交接。');
     for (const message of messages) {
       if (message.role !== 'tool' || !message.tool_call_id) continue;
-      let value: unknown;
-      try { value = JSON.parse(String(message.content)); } catch { continue; }
+      const wire = toolWireJSON(message.content);
+      if (!wire.parsed) continue;
       if ((worker.run.observations || []).some(observation => observation.toolCallId === message.tool_call_id
-        && canonical(observation.result) === canonical(value))) {
+        && canonical(observation.result) === canonical(wire.value))) {
         worker.deliveredObservations.add(message.tool_call_id);
         (worker.run.deliveredObservationIds ||= new Set()).add(message.tool_call_id);
       }
@@ -361,13 +384,9 @@ export class BackgroundDelegation {
   async deliveredObservationIds(messages: ModelWireMessage[]) {
     const ids = new Set<string>();
     for (const wire of messages) {
-      if (wire.role !== 'tool' || !wire.tool_call_id) continue;
-      const report = this.reports.get(wire.tool_call_id) as { _host_children?: unknown } | undefined;
+      const report = this.approvedReport(wire);
       if (!report) continue;
-      let value: unknown;
-      try { value = JSON.parse(String(wire.content)); } catch { continue; }
-      if (canonical(report) !== canonical(value) || !Array.isArray(report._host_children)) continue;
-      for (const id of report._host_children) {
+      for (const id of report._host_children!) {
         const worker = this.workers.get(String(id));
         if (!worker || worker.metadata.status !== 'consumed') continue;
         if (!await this.validateWorker(worker))

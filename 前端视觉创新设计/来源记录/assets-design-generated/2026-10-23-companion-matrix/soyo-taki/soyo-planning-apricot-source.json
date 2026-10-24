@@ -1,0 +1,37 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "planning",
+  "palette": "apricot",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-2268b1f8-acb3-40e6-8cf5-6493e99da39c",
+  "prompt": "soyo-planning-apricot-prompt.txt",
+  "promptSha256": "636d77731f177e390e233c5b5a03087104349580db7aa6f894713e87e19c0b22",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-approved clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "soyo-planning-apricot-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2162988,
+    "sha256": "56fabdea5b41d01c95ad5a81e5d675ca2831b949a6a4c03125a937aba165c9eb"
+  },
+  "producerObservation": "Complete image viewed: shifted toward left usable bench, lap-supported small notebook and page-corner hand, gaze raised to consider a choice, legs open/diagonal versus chat stillness. Faithful navy uniform, blue eyes, full shoes and real seat. Primary should judge sufficient whole-body distinction; no adoption or calendar result claimed.",
+  "review": {
+    "producerViewed": "complete original",
+    "primary": "returned by primary at image stage",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted",
+    "reason": "Front-edge bench chat-like torso/knees with lap notebook; no sufficiently independent planning body relationship.",
+    "replacedBy": "soyo-planning-apricot-v2-source.json (pending generation)",
+    "designerStatus": "returned-by-primary-image-stage"
+  },
+  "status": "returned",
+  "replacedBy": "soyo-planning-apricot-v2-source.json"
+}

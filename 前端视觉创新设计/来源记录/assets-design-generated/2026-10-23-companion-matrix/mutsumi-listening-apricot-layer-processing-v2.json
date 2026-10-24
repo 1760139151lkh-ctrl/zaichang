@@ -1,0 +1,184 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "mutsumi-listening-apricot-layer-parameters-v2.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "mutsumi-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+  "matte": "mutsumi-listening-apricot-source-alpha-v2.png",
+  "matteSha256": "a6ac5e214df5aa361a6006a11b69c404fa96910fb0f2cf6d1ba89c2da43e5862",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 4,
+  "alphaNonzeroPixels": 54307,
+  "alphaBounds": [
+    1158,
+    261,
+    1427,
+    762
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "94de588f855c7e1be52ec7f38813eb99d483574a88a20db4188bd4bdf9880569",
+  "figureRgbSha256": "94de588f855c7e1be52ec7f38813eb99d483574a88a20db4188bd4bdf9880569",
+  "background": {
+    "candidate": "mutsumi-listening-apricot-background-candidate-v1.png",
+    "candidateSha256": "2bfca815f9f834d6ef1796c00dc9acd4b39b73d155f9a0c052764388e971dad8",
+    "expandPixels": 6,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          1185,
+          585
+        ],
+        [
+          1260,
+          588
+        ],
+        [
+          1253,
+          712
+        ],
+        [
+          1230,
+          729
+        ],
+        [
+          1232,
+          775
+        ],
+        [
+          1146,
+          776
+        ]
+      ]
+    ],
+    "changedPixels": 78834,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1155,
+          557
+        ],
+        [
+          1220,
+          554
+        ],
+        [
+          1221,
+          584
+        ],
+        [
+          1156,
+          587
+        ]
+      ],
+      [
+        [
+          1374,
+          562
+        ],
+        [
+          1434,
+          562
+        ],
+        [
+          1435,
+          590
+        ],
+        [
+          1371,
+          589
+        ]
+      ],
+      [
+        [
+          1278,
+          566
+        ],
+        [
+          1377,
+          568
+        ],
+        [
+          1376,
+          593
+        ],
+        [
+          1275,
+          590
+        ]
+      ],
+      [
+        [
+          1150,
+          740
+        ],
+        [
+          1228,
+          734
+        ],
+        [
+          1232,
+          769
+        ],
+        [
+          1151,
+          774
+        ]
+      ]
+    ],
+    "featherPixels": 1,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "mutsumi-listening-apricot-figure-calibrated-v2.png",
+      "bytes": 2347330,
+      "sha256": "f0fbed18709c1e6494b129d6eb3f8ccb2439734921e1fdf9e91d01d2c459ee78"
+    },
+    {
+      "file": "mutsumi-listening-apricot-mask-calibrated-v2.png",
+      "bytes": 13962,
+      "sha256": "2e3e73fc79ea22aaaa8e8b328b2c6b7248d4f78da53dfdac86adc4cd03895548"
+    },
+    {
+      "file": "mutsumi-listening-apricot-background-calibrated-v2.png",
+      "bytes": 2027713,
+      "sha256": "8d7786b47c3d3de3b53f6e1a423304687f03b4f33a1e2e4644316d4b8f256a7e"
+    },
+    {
+      "file": "mutsumi-listening-apricot-shadow-calibrated-v2.png",
+      "bytes": 33697,
+      "sha256": "9ea792af845cae3f899ed8267543990da7eed5acf94ab39f4c26a8c0fd03ba5c"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

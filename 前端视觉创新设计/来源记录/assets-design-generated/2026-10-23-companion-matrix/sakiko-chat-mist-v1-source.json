@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-chat-mist-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "chat",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-chat-mist-v1-actualprompt.txt",
+  "promptSha256": "3892741f76f7b1fedbec8e83890ef48923cad33beefd77f29af02598916e895d",
+  "identityBasis": "Sakiko Togawa canon identity supplied as text only; approved apricot activity mothers personally viewed for activity understanding, never supplied as image inputs.",
+  "inputs": [
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary-reviewed clean EMPTY theme room; sole image input",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "output": {
+    "file": "sakiko-chat-mist-mother-candidate-v1.png",
+    "sha256": "bda7f03d62e096dbc892b8d1e5b7fed446a3b3886d8255f70bbe2fb5db45efd0",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-02260558-00a2-400e-ae40-8ff7a21977d2.png",
+    "executionId": "02260558-00a2-400e-ae40-8ff7a21977d2"
+  },
+  "designerObservation": "Full mother personally viewed: pale blue morning window light and soft natural skin share the mist plate; youthful blue-haired/gold-eyed Sakiko, relaxed attentive bench posture, supported palm and hips, separate complete knees/calves/loafers. Whole frame and left furniture retained. Needs primary identity/light and contact review.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

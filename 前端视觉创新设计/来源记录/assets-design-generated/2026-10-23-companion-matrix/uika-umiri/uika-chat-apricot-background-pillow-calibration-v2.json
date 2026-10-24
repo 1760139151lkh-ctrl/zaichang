@@ -1,0 +1,55 @@
+{
+  "recordType": "background-only-original-pixel-calibration",
+  "input": "uika-chat-apricot-background-generated-v1.png",
+  "inputSha256": "a96a177b231e82b70ca553024cd0e4a2ae5505ad450bba85b559f87ef1126c8a",
+  "output": "uika-chat-apricot-background-pillow-calibrated-v2.png",
+  "outputSha256": "7d3d56aaae6c5fa6dd5255ebbb3ca2989e3c8cffa0585da9e4f4676d3ed93b9a",
+  "region": [
+    1364,
+    563,
+    1389,
+    580
+  ],
+  "polygon": [
+    [
+      1372,
+      565
+    ],
+    [
+      1384,
+      565
+    ],
+    [
+      1387,
+      575
+    ],
+    [
+      1383,
+      578
+    ],
+    [
+      1371,
+      577
+    ],
+    [
+      1366,
+      574
+    ],
+    [
+      1369,
+      569
+    ]
+  ],
+  "donorRegion": [
+    1334,
+    563,
+    1359,
+    580
+  ],
+  "method": "Same generated empty plate, existing cushion pixels at x-30 and identical y; 4x polygon coverage and 0.45px alpha feather. No anatomy/person RGB, furniture transform or painted color.",
+  "changedPixels": 311,
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

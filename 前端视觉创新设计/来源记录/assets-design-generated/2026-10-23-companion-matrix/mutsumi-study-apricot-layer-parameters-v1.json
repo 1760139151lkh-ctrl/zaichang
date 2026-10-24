@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "mother": "mutsumi-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "066435e9a63e68d8d026773f7154a8b50275e0c78f0451aa69c99082b7581606",
+  "matte": "mutsumi-study-apricot-mask-candidate-v2.png",
+  "matteSha256": "d2c0fdfe77c4f370057b8139d01bdad932e81e96670c710e0061b98391a14357",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "mutsumi-study-apricot-figure-calibrated-v1.png",
+  "mask": "mutsumi-study-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "mutsumi-study-apricot-background-candidate-v1.png",
+  "background": "mutsumi-study-apricot-background-calibrated-v1.png",
+  "shadow": "mutsumi-study-apricot-shadow-calibrated-v1.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        937,
+        681
+      ],
+      [
+        1068,
+        681
+      ],
+      [
+        1082,
+        738
+      ],
+      [
+        932,
+        738
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        944,
+        688
+      ],
+      [
+        998,
+        687
+      ],
+      [
+        1004,
+        710
+      ],
+      [
+        942,
+        711
+      ]
+    ],
+    [
+      [
+        1000,
+        701
+      ],
+      [
+        1064,
+        699
+      ],
+      [
+        1071,
+        719
+      ],
+      [
+        1001,
+        724
+      ]
+    ],
+    [
+      [
+        893,
+        589
+      ],
+      [
+        999,
+        587
+      ],
+      [
+        1001,
+        611
+      ],
+      [
+        891,
+        612
+      ]
+    ],
+    [
+      [
+        973,
+        477
+      ],
+      [
+        1008,
+        474
+      ],
+      [
+        1012,
+        493
+      ],
+      [
+        975,
+        496
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [],
+  "includePolygons": [],
+  "alphaPolygonRepairs": [],
+  "record": "mutsumi-study-apricot-layer-processing-v1.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "Original mother RGB only; raw Imagegen alpha proposal initial calibration, all boundaries require actual image review."
+}

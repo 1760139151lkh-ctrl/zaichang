@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "taki",
+  "activity": "study",
+  "palette": "apricot",
+  "layer": "background",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-7efbd6df-81da-42ef-acad-77e876e851fc",
+  "prompt": "taki-study-apricot-background-prompt-v1.txt",
+  "promptSha256": "cbb3cc5fc67d92f6282ec2bfc9858be102c221517800e69ab1aa8f556fd6f16e",
+  "inputs": [
+    {
+      "file": "taki-study-apricot-mother-candidate-v1.png",
+      "sha256": "49515d600d10286f1af4f808fbf285f4e2abfd1cabd05d6b319f3fdcbd6d0166",
+      "role": "sole exact primary-reviewed complete mother"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-7efbd6df-81da-42ef-acad-77e876e851fc.png",
+  "output": {
+    "file": "taki-study-apricot-background-generated-v1.png",
+    "sha256": "471e75502f33d4d94d6f6fc600e31a512faf7632a958c7da7f2388f1eeaf8632",
+    "bytes": 2088364,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "generated",
+  "producerObservation": "Producer viewed matching original chair and room; only future exact figure patch may use these pixels.",
+  "review": {
+    "primary": "pending",
+    "runtime": "not registered or accepted"
+  }
+}

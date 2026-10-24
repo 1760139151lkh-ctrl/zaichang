@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-play-rain-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "play",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-play-rain-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-play-apricot-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-rain-candidate-v2.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "sakiko-play-rain-mother-candidate-v1.png",
+    "sha256": "cb165a93ffd89d2e15912ac22ffa6dcb1827a5ab1c2c7e7148f5dd812fc8bd51",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-43fff2c7-2f42-489f-9e6f-fa5163e8e4d1.png",
+    "executionId": "43fff2c7-2f42-489f-9e6f-fa5163e8e4d1"
+  },
+  "designerObservation": "Personally viewed full mother: torso leans forward while one palm supports on the bench and the other offers a small paper bird; staggered uncrossed legs and two complete shoes balance the shift. Youthful blue-haired/gold-eyed identity and full theme lighting retained. Needs primary review of the offering fingers, hip compression and floor contacts.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "promptSha256": "963d916461db3f1b0ddccad2a1dfc42ef9ce88599901a6c67ce8bc9ec9034f39"
+}

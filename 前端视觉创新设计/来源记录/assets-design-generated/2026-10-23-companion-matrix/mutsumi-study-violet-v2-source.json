@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "mutsumi-study-violet-mother-candidate-v2.png",
+  "character": "mutsumi",
+  "activity": "study",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical whole-environment relighting; source pose/furniture/occlusion locked; approved empty-room reference for light only",
+  "prompt": "mutsumi-study-violet-v2-prompt.txt",
+  "promptSha256": "6d79838d9a9a22c8c8f8422e6d0154e65b4bdf5156d18395cb2d178db1a937ad",
+  "inputs": [
+    {
+      "file": "mutsumi-study-apricot-mother-candidate-v1.png",
+      "sha256": "066435e9a63e68d8d026773f7154a8b50275e0c78f0451aa69c99082b7581606",
+      "role": "Image 1: approved complete correct warm activity mother; sole character/pose/furniture edit target"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "Image 2: approved empty-room dusk celestial/light-axis reference only; sun1007,302 and lake-columnx1007, no geometry/character replacement"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-study-violet-mother-candidate-v2.png",
+    "sha256": "2a5259f4c8c9cab60fd66332b6ad0889f02b1fac40b547ea5e6732d02c1f1add",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-7e3b237c-48aa-4b58-8608-9fb2ad90e286.png"
+  },
+  "designerObservation": "Full image personally viewed. Sun now visibly centered about x1007,y302 and lake sun-column at reference x1007, following approved empty violet celestial axis. Source side/back working posture, original supported desk/hips, full visible shoe parts and natural far-hand/shoe occlusion retained, no fabricated hidden anatomy. One whole rose-gold/lavender dusk relights pale mint hair/navy-white uniform, youthful natural profile and source wood/furniture with original lamp. Correct warm mother supplied character/geometry; empty violet reference supplied light/axis only.",
+  "observedGaps": [
+    "Primary per-mother optical/axis review pending; no layers/calibration/Stage acceptance."
+  ],
+  "designerStatus": "candidate awaiting primary review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

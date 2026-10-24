@@ -1,0 +1,221 @@
+{
+  "mother": "taki-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f",
+  "matte": "taki-chat-apricot-mask-calibrated-v2.png",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "localColorMatteRefinement": null,
+  "backgroundCandidate": "taki-chat-apricot-background-generated-v1.png",
+  "background": "taki-chat-apricot-background-calibrated-v4.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1089,
+        735
+      ],
+      [
+        1187,
+        735
+      ],
+      [
+        1190,
+        779
+      ],
+      [
+        1087,
+        779
+      ]
+    ],
+    [
+      [
+        1235,
+        751
+      ],
+      [
+        1318,
+        751
+      ],
+      [
+        1328,
+        805
+      ],
+      [
+        1235,
+        805
+      ]
+    ],
+    [
+      [
+        1180,
+        578
+      ],
+      [
+        1381,
+        578
+      ],
+      [
+        1381,
+        622
+      ],
+      [
+        1180,
+        622
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1087,
+        736
+      ],
+      [
+        1184,
+        736
+      ],
+      [
+        1191,
+        778
+      ],
+      [
+        1086,
+        778
+      ]
+    ],
+    [
+      [
+        1234,
+        751
+      ],
+      [
+        1318,
+        751
+      ],
+      [
+        1326,
+        803
+      ],
+      [
+        1234,
+        803
+      ]
+    ],
+    [
+      [
+        1180,
+        573
+      ],
+      [
+        1381,
+        573
+      ],
+      [
+        1381,
+        624
+      ],
+      [
+        1180,
+        624
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "taki-chat-apricot-shadow-calibrated-v4.png",
+  "figure": "taki-chat-apricot-figure-calibrated-v4.png",
+  "mask": "taki-chat-apricot-mask-calibrated-v4.png",
+  "record": "taki-chat-apricot-layer-processing-v4.json",
+  "reviewNote": "Local soft-alpha refinement removes blue window fragments within the generated hair matte only. Matching background is patched solely at the former figure/contact footprint. Original RGB is unchanged; no body repair or runtime admission. Warm room pixels visible through original hair gaps are removed only in the three explicit original-coordinate ROIs; dark original hair pixels remain untouched. The v2 calibrated matte is the source; warm-room cleanup follows its color refinement so the known gaps cannot be refilled by GrabCut.",
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          1159,
+          440
+        ],
+        [
+          1194,
+          440
+        ],
+        [
+          1194,
+          536
+        ],
+        [
+          1159,
+          536
+        ]
+      ],
+      "redMin": 140,
+      "redOverGreen": 15,
+      "redOverBlue": 45
+    },
+    {
+      "polygon": [
+        [
+          1331,
+          451
+        ],
+        [
+          1327,
+          493
+        ],
+        [
+          1336,
+          511
+        ],
+        [
+          1345,
+          535
+        ],
+        [
+          1361,
+          535
+        ],
+        [
+          1361,
+          451
+        ]
+      ],
+      "redMin": 140,
+      "redOverGreen": 15,
+      "redOverBlue": 45
+    },
+    {
+      "polygon": [
+        [
+          1221,
+          493
+        ],
+        [
+          1236,
+          503
+        ],
+        [
+          1236,
+          523
+        ],
+        [
+          1229,
+          535
+        ],
+        [
+          1209,
+          541
+        ],
+        [
+          1208,
+          502
+        ]
+      ],
+      "redMin": 140,
+      "redOverGreen": 15,
+      "redOverBlue": 45
+    }
+  ]
+}

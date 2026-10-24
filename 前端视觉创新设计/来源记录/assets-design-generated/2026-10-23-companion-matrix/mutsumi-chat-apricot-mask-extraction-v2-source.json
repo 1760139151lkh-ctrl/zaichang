@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "apricot",
+  "kind": "matte",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-chat-apricot-mask-extraction-v2-prompt.txt",
+  "promptSha256": "dad3ba45063c5714b031216f702c681a054e1d9c0fbb8f5cb89c76552c361782",
+  "inputs": [
+    {
+      "file": "mutsumi-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a",
+      "role": "sole edit target; primary-approved correct complete mother, no erroneous mother or mask supplied"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-chat-apricot-mask-candidate-v2.png",
+    "sha256": "928db561af67e852b4402634ba739c00028a61e22cb3a8e7f0142470a27afc03",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-fa6d6f3a-31a8-43d3-8e2e-2a35437578fc.png"
+  },
+  "designerObservation": "Full output viewed. Solid same-canvas person silhouette and shoes return to approximate original source coordinates, with strand and body gaps. Raw proposal only; original RGB boundary calibration required.",
+  "designerStatus": "raw alpha proposal, calibration pending",
+  "primaryReview": "pending; producer cannot approve",
+  "runtime": "not registered or verified"
+}

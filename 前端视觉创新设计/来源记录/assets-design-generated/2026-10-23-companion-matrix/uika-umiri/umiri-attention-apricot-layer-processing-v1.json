@@ -1,0 +1,233 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "umiri-attention-apricot-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "db43d023c12a40c4ae145b261f4d4a5fdd83577ac0df4bf80b6359329487b5e0",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": "4.13.0"
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "umiri-attention-apricot-mother-candidate-v1.png",
+  "motherSha256": "2e2a24e6baeb00f8ca22fdb5e3e35a1f8e3e4c95541defe7008abf6e23602d81",
+  "matte": "umiri-attention-apricot-mask-generated-v1.png",
+  "matteSha256": "ac4de4d718739830524ed54b312c676b6237d6b5e61ba5a2feb98dd3cb5ec23b",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": {
+    "region": [
+      780,
+      250,
+      1020,
+      825
+    ],
+    "seedThreshold": 80,
+    "uncertainBandPixels": 5,
+    "iterations": 5,
+    "edgeFeatherPixels": 0.35
+  },
+  "alphaChangedPixels": 134886,
+  "alphaNonzeroPixels": 56477,
+  "alphaBounds": [
+    800,
+    267,
+    993,
+    801
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "8eb750e96df78117c13685624a9edf3e1bec9ee5abdb0279d68f7be00959d1fe",
+  "figureRgbSha256": "8eb750e96df78117c13685624a9edf3e1bec9ee5abdb0279d68f7be00959d1fe",
+  "background": {
+    "candidate": "umiri-attention-apricot-background-generated-v2.png",
+    "candidateSha256": "8164a85b8fbdda0cc48a014ea1845e8698749a6d00cc605610d54e1f35fe82b6",
+    "expandPixels": 7,
+    "featherPixels": 1.2,
+    "additionalErasePolygons": [
+      [
+        [
+          800,
+          715
+        ],
+        [
+          1030,
+          715
+        ],
+        [
+          1030,
+          825
+        ],
+        [
+          800,
+          825
+        ]
+      ],
+      [
+        [
+          805,
+          554
+        ],
+        [
+          1030,
+          554
+        ],
+        [
+          1030,
+          625
+        ],
+        [
+          805,
+          625
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [
+      [
+        [
+          960,
+          482
+        ],
+        [
+          1006,
+          484
+        ],
+        [
+          1005,
+          494
+        ],
+        [
+          978,
+          497
+        ],
+        [
+          958,
+          495
+        ],
+        [
+          958,
+          486
+        ]
+      ]
+    ],
+    "changedPixels": 102263,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          837,
+          759
+        ],
+        [
+          922,
+          759
+        ],
+        [
+          922,
+          814
+        ],
+        [
+          837,
+          814
+        ]
+      ],
+      [
+        [
+          932,
+          742
+        ],
+        [
+          1010,
+          742
+        ],
+        [
+          1010,
+          805
+        ],
+        [
+          932,
+          805
+        ]
+      ],
+      [
+        [
+          802,
+          562
+        ],
+        [
+          949,
+          562
+        ],
+        [
+          949,
+          615
+        ],
+        [
+          802,
+          615
+        ]
+      ],
+      [
+        [
+          941,
+          552
+        ],
+        [
+          1008,
+          552
+        ],
+        [
+          1008,
+          597
+        ],
+        [
+          941,
+          597
+        ]
+      ]
+    ],
+    "featherPixels": 0.7,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "umiri-attention-apricot-figure-calibrated-v1.png",
+      "bytes": 2424072,
+      "sha256": "5e2986d504f48c3e630f6113e04a10c86d4a501589ea16d553c4d69724f78c7c"
+    },
+    {
+      "file": "umiri-attention-apricot-mask-calibrated-v1.png",
+      "bytes": 14470,
+      "sha256": "0d61a5b180b51819b211eba997f7d3eefd7e0b86efcc15bb98aa7663916e78d4"
+    },
+    {
+      "file": "umiri-attention-apricot-background-calibrated-v1.png",
+      "bytes": 2083619,
+      "sha256": "93df767627ba3cfa19e897e17e953ea9103e248a8206492e5c06ee2da2bdfc75"
+    },
+    {
+      "file": "umiri-attention-apricot-shadow-calibrated-v1.png",
+      "bytes": 44168,
+      "sha256": "b9b63fae01a0902572a8d48939b1c645fecf1ea36ede036511db5c04065fb14c"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

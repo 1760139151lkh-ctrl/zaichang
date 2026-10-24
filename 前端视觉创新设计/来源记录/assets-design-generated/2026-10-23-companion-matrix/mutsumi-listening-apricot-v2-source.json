@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "mutsumi",
+  "activity": "listening",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-listening-apricot-v2-prompt.txt",
+  "promptSha256": "f0045ba58e360ec75e77570633bba0de56c7f69ed7e83a00e7e6b9eab542690c",
+  "identityText": "mutsumi-identity.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "primary-approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-listening-apricot-mother-candidate-v2.png",
+    "sha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-e83ce766-7ee1-4fee-b2ed-61b9aae2ce8e.png"
+  },
+  "designerObservation": "Full mother personally viewed. One independent raised knee and socked foot are supported on bench while the other leg descends to a worn loafer on floor. One additional EMPTY loafer is static floor/BG, total exactly two shoes. Whole pelvis/chest turned toward speaker, one forearm relaxed on raised knee and other palm grounded on cushion; lowered shoulders and changed support/weight make a different skeleton from chat. Raised shin folds down-left in actual output rather than prompt down-right, but both leg chains and support are visibly coherent. New drawing only from clean v4, no returned mother image input.",
+  "designerStatus": "candidate awaiting primary review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

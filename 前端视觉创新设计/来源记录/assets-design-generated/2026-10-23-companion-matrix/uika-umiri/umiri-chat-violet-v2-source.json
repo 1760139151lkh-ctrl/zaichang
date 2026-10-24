@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-theme-mother-candidate",
+  "character": "umiri",
+  "activity": "chat",
+  "theme": "violet",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "executionId": "exec-a9d626a8-c1b7-458f-b7bf-110a7f2cda46",
+  "inputs": [
+    {
+      "path": "umiri-chat-apricot-mother-candidate-v2.png",
+      "sha256": "beb0028df130f510fce228bd127495d0375ecf8998c81a50137617e4482af8ee",
+      "role": "image 1 sole edit target, character/pose/scale and all furniture geometry authority"
+    },
+    {
+      "path": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "image 2 lighting/sky/sun center (1007,302) and lake reflection-axis reference only, not furniture/person geometry"
+    }
+  ],
+  "promptFile": "umiri-chat-violet-v2-prompt.txt",
+  "actualPrompt": "Use case: lighting-weather. Asset ID: umiri-chat-violet-v2. One complete 1536 x 1024 coherent dusk mother scene.\n\nTWO INPUTS WITH STRICTLY DIFFERENT ROLES:\nIMAGE 1 is the ONLY EDIT TARGET: the primary-approved complete Umiri chat apricot v2 mother. It is the sole authority for ALL geometry and character pixels: camera/framing, full window, room/furniture positions, the exact existing chair orientation, every character proportion/face/expression/pose/hand/finger/leg/boot and their scale/location.\nIMAGE 2 is ONLY the primary-approved EMPTY ROOM VIOLET LIGHTING/WEATHER REFERENCE. Use it solely for the exact sun-disc center, its lake-reflection axis, sky illumination and coherent dusk lighting. Do NOT import its empty chair position/orientation, furniture geometry or absence of a person. Do not replace image 1 with image 2 or paste a person onto a background.\n\nGEOMETRY LOCK TO IMAGE 1: keep the same complete 1536 x 1024 canvas, mild perspective, all four connected window corners, curtains, existing lake/campus/clocktower landmarks, rear-left table/chair/shelves/plant/framed drawing, right desk/lamp/cup/book, original outward-turned character chair with every visible chair leg, bench/pillows/knitted throw, floorboards and rug. Keep Umiri exactly as she is: youthful charcoal-gray shoulder-length hair with flipped tips, gray-teal eyes, natural young face, short black jacket/red top/gray short skirt/choker/earrings, hand on knee, other palm braced on chair, two knees and both complete black boots. Preserve all original contact/occlusion relationships. No crop, zoom, enlargement, separate person scaling, pose change, body/face redesign or new furniture/object/person.\n\nLOCK THE ONE SUN AND REFLECTION TO IMAGE 2, NOT TO ANOTHER CANDIDATE: the physical sun-disc center is approximately (1007,302) on the full 1536 x 1024 canvas. Match that same reference position and scale, with the single vertical bright reflection column directly BELOW on the lake at approximately x=1007. The existing clocktower stays around x=1218, so the sun and its reflection are clearly LEFT of the clocktower. Do not put the sun at x1080, x1200 or near the right window edge. Do not add a second sun or independent second reflection column. Match the reference's continuous rose-gold horizon, violet/lilac cloud shadows, and distant dusk landscape across the WHOLE connected window. Keep image 1 landmark geometry unchanged.\n\nRelight the WHOLE image 1 room AND Umiri using the same reference-locked rose-gold low window light and quiet violet shadows. Preserve material colors: ivory plaster, honey wood, neutral linen, black leather/red top/gray skirt and natural readable skin. Warm hair/skin/window edges agree with this sun axis; no purple skin, green cast, gray desaturation or flat full-image orange/purple filter. The existing desk lamp in image 1 turns ON at its exact original location/shape, with only its modest physically local warm light pool. It and the one reference-position sunset are the only depicted sources: no new lamp, left-rear spotlight, unexplained light cone or black/white overlay.\n\nMaintain image 1's lived-in left depth and clear central floor; preserve fine original youthful anime linework and softly detailed environment. No text, UI, logos, watermark, split-screen, panel, arrows, inset, borders, cloud/sky collage or duplicate view. Return the full same-person, same-pose, same-furniture scene with the approved reference's exact sun/reflection axis.\n",
+  "actualPromptSha256": "8088c94d6a6afb8f60cc3ccd08be8d666884ceaf5e027c48940f6aa2eb052fc3",
+  "promptFileSha256": "8088c94d6a6afb8f60cc3ccd08be8d666884ceaf5e027c48940f6aa2eb052fc3",
+  "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-a9d626a8-c1b7-458f-b7bf-110a7f2cda46.png",
+  "output": {
+    "path": "umiri-chat-violet-mother-candidate-v2.png",
+    "sha256": "f3a5c7777c51c960cf075cb2fe01bdf35ef87d62c0e0a49d4a227d0459e6959c",
+    "bytes": 2152256,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-24T01:40:15.071562+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "status": "viewed-candidate",
+    "observedSunCenterApprox": [
+      1007,
+      302
+    ],
+    "observedLakeReflectionAxisApproxX": 1007,
+    "observation": "Viewed the full result immediately against both approved inputs. The one physical sun and vertical lake reflection visually align with reference near (1007,302)/x1007, clearly left of clocktower near x1218. Target original outward chair, youthful Umiri identity/size/pose, knee hand, supporting palm, two boots, desk/lamp/cup/window and left living depth retained; reference empty-chair orientation was not imported. Continuous rose-gold window light/violet shadows and original warm lamp with natural skin/material colors. No second sun, new lamp, split treatment or pasted sky/person observed. Primary independent review still pending."
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "layersAccepted": false,
+  "runtimeAccepted": false
+}

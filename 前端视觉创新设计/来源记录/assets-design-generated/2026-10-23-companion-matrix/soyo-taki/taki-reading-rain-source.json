@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "reading",
+  "palette": "rain",
+  "light": "night",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-e3444d19-770b-422a-9243-e1f63e678227",
+  "prompt": "taki-reading-rain-prompt.txt",
+  "promptSha256": "21943de324a56eaf2477003edea95771b50a35e28e0da087d7ab7066e999deea",
+  "inputs": [
+    {
+      "file": "taki-reading-apricot-mother-candidate-v2.png",
+      "sha256": "950b6f05f48f6b0ca0335bdffb0468379b95e95576e1afd8da487be488f5314b",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-e3444d19-770b-422a-9243-e1f63e678227.png",
+  "output": {
+    "file": "taki-reading-rain-mother-candidate-v1.png",
+    "sha256": "1821980ae8b5569facac863e3f11926f23828004e166e58e9018c0d864068261",
+    "bytes": 2083935,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the approved warm mother and empty rain-v2 plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Original book-reading support, face/clothing identity and two complete shoes retained. Cold rainy window and single right desk-lamp illumination are coherent; the left flower/table remains quiet without an extra independent spotlight or daylight shadow. Primary mother/layer/runtime approval remains separate."
+}

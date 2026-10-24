@@ -1,0 +1,45 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "listening",
+  "designerStatus": "returned_by_primary_activity_repetition",
+  "supersededBy": "tomori-listening-apricot-v2-mother.png",
+  "dispositionReason": "Primary rejected v1 because its slight forward lean and low gathered hands repeated chat; anatomy was not declared broken. V1 is not an input to v2 or further generation. V2 is a new full scene from the single clean empty-room v4 input, pending primary review.",
+  "light": "apricot",
+  "revision": 1,
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-ebe17f9d-4cdc-40b8-8946-c8ae9e401320",
+  "prompt": "tomori-listening-apricot-prompt.txt",
+  "promptSha256": "c9e02a97d4220399b874cbed4b4009d5c0f45618e492234588e7543ab0a1ebcc",
+  "promptFileMatchesActualToolInput": true,
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved_clean_empty_room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "tomori-listening-apricot-mother.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2151192,
+    "sha256": "0d7a4372608a0f166e67639bcf18edb752d73309f1f9d3920dc73ac6bcf9a848"
+  },
+  "canonicalTextReferences": [
+    "https://anime.bang-dream.com/mygo/character/tomori/",
+    "https://anime.bang-dream.com/avemujica/character/tomori/"
+  ],
+  "review": {
+    "designerViewed": "complete original 1536x1024 output via view_image",
+    "designerStatus": "candidate_for_primary_review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Supported deeper bench sit, shoulders lowered and gently forward, both hands gathered low at the knees, gaze up-left toward the person. A closed notebook rests on the cushion, not in the hands. Both separate shins/loafers are complete with floor contacts. Main chair/desks/window retained.",
+  "primaryQuestions": [
+    "Compare lowered shoulder/hand balance and attentive raised eyes against upright chat; this must read as receptive stillness, not merely a missing notebook."
+  ]
+}

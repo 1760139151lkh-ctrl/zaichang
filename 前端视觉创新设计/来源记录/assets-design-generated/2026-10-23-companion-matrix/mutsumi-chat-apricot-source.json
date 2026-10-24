@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "mutsumi-chat-apricot-mother-candidate-v1.png",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-chat-apricot-prompt.txt",
+  "identityText": "mutsumi-identity.txt",
+  "identityBasis": "Official MyGO/Ave Mujica profiles and original images personally viewed as human references only; third-party pixels were NOT image inputs.",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-chat-apricot-mother-candidate-v1.png",
+    "sha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-8fc2f2cc-bf77-4747-995d-2cfde5335645.png"
+  },
+  "designerObservation": "Complete mother viewed. Pale mint long straight hair, silver clip, golden-brown eyes and Tsukinomori sailor uniform are visible. Both hands lie on knees; pelvis sits on right bench and separate socks/loafers reach floor. Torso makes a small turn toward the viewer-left. Identity/ratio/anatomy remain for primary review.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

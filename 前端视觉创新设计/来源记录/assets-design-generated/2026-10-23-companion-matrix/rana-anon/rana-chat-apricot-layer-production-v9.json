@@ -1,0 +1,1353 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "rana-chat-apricot-layer-parameters-v9.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "acd958962a3fbec03faf3be03b5bbe2286df8198fde14ad5a59573780f21b19c",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "rana-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+  "matte": "rana-chat-apricot-alpha-calibrated-v9.png",
+  "matteSha256": "02b94e6974e270f80a74deaafe8dad2946e3da64457ea4fb7d51fd870885b0c5",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 5,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        1248,
+        474
+      ],
+      [
+        1256,
+        474
+      ],
+      [
+        1260,
+        476
+      ],
+      [
+        1257,
+        480
+      ],
+      [
+        1248,
+        480
+      ]
+    ],
+    [
+      [
+        1368,
+        575
+      ],
+      [
+        1391,
+        575
+      ],
+      [
+        1391,
+        578
+      ],
+      [
+        1368,
+        578
+      ]
+    ],
+    [
+      [
+        1251,
+        684
+      ],
+      [
+        1254,
+        683
+      ],
+      [
+        1254,
+        687
+      ],
+      [
+        1252,
+        690
+      ],
+      [
+        1249,
+        691
+      ],
+      [
+        1249,
+        687
+      ]
+    ],
+    [
+      [
+        1257,
+        695
+      ],
+      [
+        1259,
+        693
+      ],
+      [
+        1260,
+        697
+      ],
+      [
+        1261,
+        703
+      ],
+      [
+        1260,
+        707
+      ],
+      [
+        1257,
+        709
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          1225,
+          477
+        ],
+        [
+          1263,
+          477
+        ],
+        [
+          1263,
+          488
+        ],
+        [
+          1240,
+          510
+        ],
+        [
+          1225,
+          510
+        ]
+      ],
+      "redMin": 150,
+      "redOverGreen": 35,
+      "redOverBlue": 65
+    }
+  ],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 808,
+  "alphaNonzeroPixels": 54168,
+  "alphaBounds": [
+    1112,
+    285,
+    1451,
+    774
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "954062e79e236898d9824f26c39b3336d38902933d7f4fcff00eb652ecda1218",
+  "figureRgbSha256": "954062e79e236898d9824f26c39b3336d38902933d7f4fcff00eb652ecda1218",
+  "background": {
+    "candidate": "rana-chat-apricot-background-generated-v1.png",
+    "candidateSha256": "798448d3b0881a895d6785e61f3b967e68dd86a40fbf9b4826d99d7f6ff4ff60",
+    "expandPixels": 6,
+    "featherPixels": 1.2,
+    "additionalErasePolygons": [
+      [
+        [
+          1190,
+          550
+        ],
+        [
+          1390,
+          550
+        ],
+        [
+          1398,
+          621
+        ],
+        [
+          1190,
+          621
+        ]
+      ]
+    ],
+    "changedPixels": 77918,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1108,
+          721
+        ],
+        [
+          1177,
+          712
+        ],
+        [
+          1193,
+          723
+        ],
+        [
+          1184,
+          740
+        ],
+        [
+          1110,
+          744
+        ]
+      ],
+      [
+        [
+          1232,
+          754
+        ],
+        [
+          1278,
+          744
+        ],
+        [
+          1311,
+          744
+        ],
+        [
+          1316,
+          766
+        ],
+        [
+          1240,
+          780
+        ]
+      ],
+      [
+        [
+          1250,
+          570
+        ],
+        [
+          1330,
+          568
+        ],
+        [
+          1387,
+          566
+        ],
+        [
+          1410,
+          579
+        ],
+        [
+          1342,
+          588
+        ],
+        [
+          1250,
+          582
+        ]
+      ]
+    ],
+    "featherPixels": 1.1,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "rana-chat-apricot-figure-candidate-v9.png",
+      "bytes": 2436678,
+      "sha256": "714ea5f9107e1e799c790d921140ecfa87502f10cb33d808d89a3ab18bc0cc5a"
+    },
+    {
+      "file": "rana-chat-apricot-mask-candidate-v9.png",
+      "bytes": 15212,
+      "sha256": "feb39b3967c8fd8787db6c600bdd444fac2bda8bc63d4cba7b3facc0973a3be7"
+    },
+    {
+      "file": "rana-chat-apricot-background-candidate-v9.png",
+      "bytes": 2108457,
+      "sha256": "d478299aae1bd2953338cf13cee783bce48472e420ced60e2f9c48c05fa0b027"
+    },
+    {
+      "file": "rana-chat-apricot-shadow-candidate-v9.png",
+      "bytes": 36810,
+      "sha256": "752322c4b74f53e51c7e24cafa5be0ca03d23fc59cc6e39dff68e97ef524df54"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  },
+  "seedProduction": {
+    "processor": "rana-chat-apricot-layer-production.py",
+    "processorSha256": "14d12aba090a145870b484ebf0905c3ded0da7d71b5a2bff6ada4efd230e48fd",
+    "method": "Manually calibrated original-canvas alpha outline, supersampled 4x, then narrow-band source-RGB GrabCut; no generated unregistered silhouette used.",
+    "outline": [
+      [
+        1307,
+        285
+      ],
+      [
+        1320,
+        288
+      ],
+      [
+        1334,
+        295
+      ],
+      [
+        1347,
+        308
+      ],
+      [
+        1356,
+        321
+      ],
+      [
+        1365,
+        341
+      ],
+      [
+        1370,
+        354
+      ],
+      [
+        1369,
+        364
+      ],
+      [
+        1365,
+        375
+      ],
+      [
+        1357,
+        384
+      ],
+      [
+        1352,
+        388
+      ],
+      [
+        1367,
+        389
+      ],
+      [
+        1378,
+        397
+      ],
+      [
+        1385,
+        414
+      ],
+      [
+        1391,
+        438
+      ],
+      [
+        1396,
+        451
+      ],
+      [
+        1404,
+        466
+      ],
+      [
+        1407,
+        470
+      ],
+      [
+        1402,
+        473
+      ],
+      [
+        1395,
+        479
+      ],
+      [
+        1390,
+        484
+      ],
+      [
+        1391,
+        499
+      ],
+      [
+        1394,
+        518
+      ],
+      [
+        1396,
+        532
+      ],
+      [
+        1403,
+        542
+      ],
+      [
+        1404,
+        549
+      ],
+      [
+        1399,
+        554
+      ],
+      [
+        1403,
+        562
+      ],
+      [
+        1407,
+        568
+      ],
+      [
+        1417,
+        568
+      ],
+      [
+        1429,
+        573
+      ],
+      [
+        1440,
+        581
+      ],
+      [
+        1447,
+        584
+      ],
+      [
+        1449,
+        587
+      ],
+      [
+        1443,
+        589
+      ],
+      [
+        1432,
+        583
+      ],
+      [
+        1423,
+        579
+      ],
+      [
+        1429,
+        585
+      ],
+      [
+        1435,
+        589
+      ],
+      [
+        1430,
+        591
+      ],
+      [
+        1413,
+        583
+      ],
+      [
+        1401,
+        580
+      ],
+      [
+        1396,
+        581
+      ],
+      [
+        1383,
+        577
+      ],
+      [
+        1377,
+        568
+      ],
+      [
+        1368,
+        568
+      ],
+      [
+        1363,
+        573
+      ],
+      [
+        1350,
+        576
+      ],
+      [
+        1337,
+        579
+      ],
+      [
+        1327,
+        580
+      ],
+      [
+        1322,
+        575
+      ],
+      [
+        1306,
+        576
+      ],
+      [
+        1292,
+        575
+      ],
+      [
+        1273,
+        574
+      ],
+      [
+        1255,
+        574
+      ],
+      [
+        1247,
+        574
+      ],
+      [
+        1249,
+        588
+      ],
+      [
+        1258,
+        611
+      ],
+      [
+        1265,
+        631
+      ],
+      [
+        1272,
+        651
+      ],
+      [
+        1277,
+        660
+      ],
+      [
+        1286,
+        658
+      ],
+      [
+        1290,
+        664
+      ],
+      [
+        1288,
+        674
+      ],
+      [
+        1295,
+        694
+      ],
+      [
+        1299,
+        711
+      ],
+      [
+        1306,
+        729
+      ],
+      [
+        1307,
+        745
+      ],
+      [
+        1303,
+        751
+      ],
+      [
+        1291,
+        756
+      ],
+      [
+        1287,
+        761
+      ],
+      [
+        1275,
+        767
+      ],
+      [
+        1257,
+        771
+      ],
+      [
+        1242,
+        770
+      ],
+      [
+        1238,
+        766
+      ],
+      [
+        1238,
+        757
+      ],
+      [
+        1243,
+        745
+      ],
+      [
+        1251,
+        735
+      ],
+      [
+        1256,
+        723
+      ],
+      [
+        1255,
+        707
+      ],
+      [
+        1251,
+        695
+      ],
+      [
+        1247,
+        693
+      ],
+      [
+        1249,
+        685
+      ],
+      [
+        1254,
+        679
+      ],
+      [
+        1253,
+        669
+      ],
+      [
+        1250,
+        657
+      ],
+      [
+        1245,
+        638
+      ],
+      [
+        1240,
+        620
+      ],
+      [
+        1234,
+        600
+      ],
+      [
+        1228,
+        583
+      ],
+      [
+        1225,
+        574
+      ],
+      [
+        1226,
+        565
+      ],
+      [
+        1223,
+        573
+      ],
+      [
+        1218,
+        591
+      ],
+      [
+        1210,
+        614
+      ],
+      [
+        1202,
+        633
+      ],
+      [
+        1194,
+        646
+      ],
+      [
+        1192,
+        651
+      ],
+      [
+        1193,
+        660
+      ],
+      [
+        1190,
+        677
+      ],
+      [
+        1185,
+        697
+      ],
+      [
+        1182,
+        705
+      ],
+      [
+        1182,
+        715
+      ],
+      [
+        1179,
+        724
+      ],
+      [
+        1168,
+        728
+      ],
+      [
+        1165,
+        733
+      ],
+      [
+        1148,
+        737
+      ],
+      [
+        1130,
+        738
+      ],
+      [
+        1117,
+        735
+      ],
+      [
+        1113,
+        731
+      ],
+      [
+        1114,
+        723
+      ],
+      [
+        1118,
+        714
+      ],
+      [
+        1126,
+        705
+      ],
+      [
+        1136,
+        695
+      ],
+      [
+        1144,
+        685
+      ],
+      [
+        1148,
+        671
+      ],
+      [
+        1150,
+        656
+      ],
+      [
+        1156,
+        651
+      ],
+      [
+        1156,
+        643
+      ],
+      [
+        1160,
+        639
+      ],
+      [
+        1165,
+        624
+      ],
+      [
+        1173,
+        602
+      ],
+      [
+        1181,
+        578
+      ],
+      [
+        1190,
+        553
+      ],
+      [
+        1198,
+        534
+      ],
+      [
+        1208,
+        526
+      ],
+      [
+        1220,
+        521
+      ],
+      [
+        1227,
+        516
+      ],
+      [
+        1235,
+        509
+      ],
+      [
+        1239,
+        500
+      ],
+      [
+        1241,
+        492
+      ],
+      [
+        1247,
+        485
+      ],
+      [
+        1250,
+        475
+      ],
+      [
+        1249,
+        470
+      ],
+      [
+        1254,
+        463
+      ],
+      [
+        1259,
+        448
+      ],
+      [
+        1266,
+        426
+      ],
+      [
+        1270,
+        412
+      ],
+      [
+        1277,
+        403
+      ],
+      [
+        1273,
+        404
+      ],
+      [
+        1265,
+        400
+      ],
+      [
+        1261,
+        392
+      ],
+      [
+        1258,
+        379
+      ],
+      [
+        1255,
+        363
+      ],
+      [
+        1255,
+        345
+      ],
+      [
+        1258,
+        325
+      ],
+      [
+        1265,
+        307
+      ],
+      [
+        1277,
+        294
+      ],
+      [
+        1291,
+        288
+      ]
+    ],
+    "generatedMaskV1Used": false,
+    "roughExtraction": {
+      "recordType": "deterministic-scene-layer-production",
+      "parameters": "rana-chat-apricot-layer-parameters-v3.json",
+      "processor": "extract-scene-layers.py",
+      "processorSha256": "acd958962a3fbec03faf3be03b5bbe2286df8198fde14ad5a59573780f21b19c",
+      "dependencies": {
+        "Pillow": "12.2.0",
+        "NumPy": "2.4.6",
+        "OpenCV": "4.13.0"
+      },
+      "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+      "mother": "rana-chat-apricot-mother-candidate-v1.png",
+      "motherSha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "matte": "rana-chat-apricot-alpha-seed-v3.png",
+      "matteSha256": "b95bf73da6277f70ebc3cd4f06f3d68db19ab6889aa5f72d13fe8b5fc8880e3d",
+      "matteRegionOverrides": [],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "transform": "identity; no resize/translation/warp",
+      "alphaSource": "luminance",
+      "alphaLow": 5,
+      "alphaHigh": 250,
+      "includePolygons": [],
+      "excludePolygons": [],
+      "excludeWarmRoomRegions": [],
+      "alphaPolygonRepairs": [],
+      "localColorMatteRefinement": {
+        "region": [
+          1100,
+          275,
+          1460,
+          785
+        ],
+        "seedThreshold": 127,
+        "uncertainBandPixels": 5,
+        "iterations": 5,
+        "edgeFeatherPixels": 0.32
+      },
+      "alphaChangedPixels": 10227,
+      "alphaNonzeroPixels": 54642,
+      "alphaBounds": [
+        1112,
+        285,
+        1451,
+        774
+      ],
+      "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+      "motherRgbSha256": "954062e79e236898d9824f26c39b3336d38902933d7f4fcff00eb652ecda1218",
+      "figureRgbSha256": "954062e79e236898d9824f26c39b3336d38902933d7f4fcff00eb652ecda1218",
+      "background": {
+        "candidate": "rana-chat-apricot-background-generated-v1.png",
+        "candidateSha256": "798448d3b0881a895d6785e61f3b967e68dd86a40fbf9b4826d99d7f6ff4ff60",
+        "expandPixels": 6,
+        "featherPixels": 1.2,
+        "additionalErasePolygons": [],
+        "changedPixels": 72188,
+        "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+      },
+      "contactShadow": {
+        "mode": "normal source-over RGBA residual",
+        "polygons": [
+          [
+            [
+              1108,
+              721
+            ],
+            [
+              1177,
+              712
+            ],
+            [
+              1193,
+              723
+            ],
+            [
+              1184,
+              740
+            ],
+            [
+              1110,
+              744
+            ]
+          ],
+          [
+            [
+              1232,
+              754
+            ],
+            [
+              1278,
+              744
+            ],
+            [
+              1311,
+              744
+            ],
+            [
+              1316,
+              766
+            ],
+            [
+              1240,
+              780
+            ]
+          ],
+          [
+            [
+              1250,
+              570
+            ],
+            [
+              1330,
+              568
+            ],
+            [
+              1387,
+              566
+            ],
+            [
+              1410,
+              579
+            ],
+            [
+              1342,
+              588
+            ],
+            [
+              1250,
+              582
+            ]
+          ]
+        ],
+        "featherPixels": 1.1,
+        "maximumDistanceFromFigurePixels": 3,
+        "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+      },
+      "outputs": [
+        {
+          "file": "rana-chat-apricot-figure-candidate-v3.png",
+          "bytes": 2436304,
+          "sha256": "b4d1bda8570da6189359ab9ea0e0639e06cc20666656b931a0536fe08b3a516f"
+        },
+        {
+          "file": "rana-chat-apricot-mask-candidate-v3.png",
+          "bytes": 14092,
+          "sha256": "48d317dfab16e50e9caad7f6a507b99f12501673001559d2cf8d96c8a35e7b38"
+        },
+        {
+          "file": "rana-chat-apricot-background-candidate-v3.png",
+          "bytes": 2109470,
+          "sha256": "7d3ef0b6485b029f428ec380c6598b1f07c793a4f296ce3ada59c9ebe8b90bae"
+        },
+        {
+          "file": "rana-chat-apricot-shadow-candidate-v3.png",
+          "bytes": 34052,
+          "sha256": "9a0067a3b688a4f903d209c3edee26b63f43ce7222ed039582543dfe3a7c03d5"
+        }
+      ],
+      "review": {
+        "primaryLayerReview": "pending",
+        "integrated": false,
+        "runtimeAccepted": false
+      }
+    },
+    "postMatteCalibration": {
+      "sleeveRegion": [
+        1210,
+        465,
+        1266,
+        522
+      ],
+      "sleeveOutline": [
+        [
+          1265,
+          465
+        ],
+        [
+          1265,
+          474
+        ],
+        [
+          1261,
+          475
+        ],
+        [
+          1258,
+          478
+        ],
+        [
+          1257,
+          481
+        ],
+        [
+          1257,
+          484
+        ],
+        [
+          1256,
+          486
+        ],
+        [
+          1255,
+          488
+        ],
+        [
+          1253,
+          490
+        ],
+        [
+          1252,
+          492
+        ],
+        [
+          1250,
+          495
+        ],
+        [
+          1248,
+          498
+        ],
+        [
+          1245,
+          500
+        ],
+        [
+          1240,
+          502
+        ],
+        [
+          1238,
+          504
+        ],
+        [
+          1237,
+          507
+        ],
+        [
+          1237,
+          510
+        ],
+        [
+          1233,
+          512
+        ],
+        [
+          1229,
+          514
+        ],
+        [
+          1225,
+          515
+        ],
+        [
+          1218,
+          519
+        ],
+        [
+          1210,
+          522
+        ],
+        [
+          1266,
+          522
+        ],
+        [
+          1266,
+          465
+        ]
+      ],
+      "backgroundHolePolygon": [
+        [
+          1370,
+          537
+        ],
+        [
+          1375,
+          536
+        ],
+        [
+          1378,
+          544
+        ],
+        [
+          1379,
+          551
+        ],
+        [
+          1379,
+          557
+        ],
+        [
+          1383,
+          560
+        ],
+        [
+          1388,
+          565
+        ],
+        [
+          1390,
+          571
+        ],
+        [
+          1391,
+          575
+        ],
+        [
+          1380,
+          575
+        ],
+        [
+          1372,
+          574
+        ],
+        [
+          1368,
+          573
+        ],
+        [
+          1369,
+          570
+        ],
+        [
+          1376,
+          566
+        ],
+        [
+          1374,
+          562
+        ],
+        [
+          1370,
+          559
+        ],
+        [
+          1370,
+          552
+        ],
+        [
+          1374,
+          545
+        ],
+        [
+          1373,
+          540
+        ]
+      ],
+      "shinRegion": [
+        1223,
+        562,
+        1288,
+        665
+      ],
+      "shinOutline": [
+        [
+          1223,
+          562
+        ],
+        [
+          1253,
+          562
+        ],
+        [
+          1254,
+          569
+        ],
+        [
+          1257,
+          575
+        ],
+        [
+          1261,
+          582
+        ],
+        [
+          1265,
+          589
+        ],
+        [
+          1267,
+          598
+        ],
+        [
+          1269,
+          609
+        ],
+        [
+          1271,
+          622
+        ],
+        [
+          1274,
+          638
+        ],
+        [
+          1278,
+          653
+        ],
+        [
+          1279,
+          659
+        ],
+        [
+          1281,
+          662
+        ],
+        [
+          1273,
+          665
+        ],
+        [
+          1258,
+          665
+        ],
+        [
+          1254,
+          658
+        ],
+        [
+          1251,
+          647
+        ],
+        [
+          1246,
+          632
+        ],
+        [
+          1241,
+          617
+        ],
+        [
+          1237,
+          606
+        ],
+        [
+          1233,
+          595
+        ],
+        [
+          1229,
+          584
+        ],
+        [
+          1225,
+          576
+        ],
+        [
+          1223,
+          570
+        ]
+      ]
+    }
+  }
+}

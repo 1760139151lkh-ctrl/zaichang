@@ -1,0 +1,14 @@
+{
+  "mother": "soyo-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "e5860a2adf427032f84d15dcec6c59c8b6ffa7dff8ede6eadf9ec669f4e00b29",
+  "matte": "soyo-chat-apricot-mask-generated-v2.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "soyo-chat-apricot-figure-calibrated-v1.png",
+  "mask": "soyo-chat-apricot-mask-calibrated-v1.png",
+  "record": "soyo-chat-apricot-layer-processing-v1.json",
+  "reviewNote": "First original-RGB/soft-alpha extraction only. No geometry transform, component deletion, contour completion or RGB repaint. Generated BG and contact shadow calibration follow actual edge review; no runtime admission inferred."
+}

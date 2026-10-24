@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-attention-apricot-mother-candidate-v2.png",
+  "character": "nyamu",
+  "activity": "attention",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "nyamu-attention-apricot-v2-prompt.txt",
+  "identityText": "nyamu-identity.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "nyamu-attention-apricot-mother-candidate-v2.png",
+    "sha256": "f560ff9e1999092aceb237b4dd8092009b9200e600d80514be737440ca9c598e",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-eaed90f6-dad1-4ea7-97e1-62c2eeab43d0.png"
+  },
+  "designerObservation": "Full image viewed. Card moved to rear right desktop/windowsill boundary but support remains visually ambiguous. Hips and knees turn somewhat, but torso still mostly front-facing. Designer does not accept as requested distinct full side-turn; v3 will use card on existing blue desktop book at clear interior tabletop location and an unambiguous full left side silhouette. Regeneration uses clean room only.",
+  "designerStatus": "rejected; insufficient full-body turn and ambiguous object support",
+  "primaryReview": "not requested for rejected v2",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

@@ -1,0 +1,291 @@
+{
+  "mother": "umiri-listening-apricot-mother-candidate-v1.png",
+  "motherSha256": "14542cd757d285f6c2d89e98466e2e2bac75d2601aa0fe61d768996ae679b171",
+  "matte": "umiri-listening-apricot-figure-calibrated-v1.png",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [
+    [
+      [
+        1158,
+        553
+      ],
+      [
+        1168,
+        549
+      ],
+      [
+        1180,
+        548
+      ],
+      [
+        1197,
+        551
+      ],
+      [
+        1212,
+        545
+      ],
+      [
+        1218,
+        546
+      ],
+      [
+        1217,
+        552
+      ],
+      [
+        1212,
+        560
+      ],
+      [
+        1209,
+        566
+      ],
+      [
+        1192,
+        564
+      ],
+      [
+        1162,
+        563
+      ]
+    ]
+  ],
+  "excludePolygons": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1145,
+      538,
+      1242,
+      609
+    ],
+    "seedThreshold": 80,
+    "uncertainBandPixels": 6,
+    "iterations": 5,
+    "edgeFeatherPixels": 0.35
+  },
+  "figure": "umiri-listening-apricot-figure-calibrated-v3.png",
+  "mask": "umiri-listening-apricot-mask-calibrated-v3.png",
+  "backgroundCandidate": "umiri-listening-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 1.2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1180,
+        575
+      ],
+      [
+        1280,
+        575
+      ],
+      [
+        1280,
+        665
+      ],
+      [
+        1170,
+        665
+      ]
+    ],
+    [
+      [
+        1150,
+        742
+      ],
+      [
+        1248,
+        742
+      ],
+      [
+        1248,
+        795
+      ],
+      [
+        1150,
+        795
+      ]
+    ],
+    [
+      [
+        1147,
+        539
+      ],
+      [
+        1228,
+        539
+      ],
+      [
+        1228,
+        578
+      ],
+      [
+        1147,
+        578
+      ]
+    ],
+    [
+      [
+        1191,
+        608
+      ],
+      [
+        1237,
+        608
+      ],
+      [
+        1237,
+        655
+      ],
+      [
+        1191,
+        655
+      ]
+    ]
+  ],
+  "background": "umiri-listening-apricot-background-calibrated-v3.png",
+  "contactShadowPolygons": [
+    [
+      [
+        1170,
+        747
+      ],
+      [
+        1247,
+        747
+      ],
+      [
+        1247,
+        784
+      ],
+      [
+        1170,
+        784
+      ]
+    ],
+    [
+      [
+        1300,
+        559
+      ],
+      [
+        1415,
+        559
+      ],
+      [
+        1415,
+        603
+      ],
+      [
+        1300,
+        603
+      ]
+    ],
+    [
+      [
+        1410,
+        550
+      ],
+      [
+        1470,
+        550
+      ],
+      [
+        1470,
+        593
+      ],
+      [
+        1410,
+        593
+      ]
+    ],
+    [
+      [
+        1150,
+        544
+      ],
+      [
+        1228,
+        544
+      ],
+      [
+        1228,
+        580
+      ],
+      [
+        1150,
+        580
+      ]
+    ]
+  ],
+  "contactShadowEdgePixels": 3,
+  "contactShadowFeatherPixels": 0.7,
+  "shadow": "umiri-listening-apricot-shadow-calibrated-v3.png",
+  "record": "umiri-listening-apricot-layer-processing-v3.json",
+  "reviewNote": "v3 protects already-correct head/body/palm/floor-sock alpha from v1. Only the observed folded-sock and upper-knit ROI is source-color refined; below it the explicit original wool-fringe alpha patch remains. v2 whole-body GMM altered unrelated right-pillow edge and was rejected. All RGB remains original mother; no anatomy/body repaint or hidden content. Primary/runtime pending.",
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1184,
+        570,
+        1242,
+        609
+      ],
+      "polygon": [
+        [
+          1210,
+          570
+        ],
+        [
+          1208,
+          575
+        ],
+        [
+          1206,
+          580
+        ],
+        [
+          1205,
+          585
+        ],
+        [
+          1203,
+          590
+        ],
+        [
+          1202,
+          600
+        ],
+        [
+          1200,
+          608
+        ],
+        [
+          1242,
+          608
+        ],
+        [
+          1242,
+          570
+        ]
+      ],
+      "mode": "intersect",
+      "featherPixels": 0.25
+    }
+  ],
+  "matteRegionOverrides": [
+    {
+      "file": "umiri-listening-apricot-fringe-alpha-v1.png",
+      "sha256": "538749089167da2879ad6abe11128b624a3597ae0406469c532fbd47f2ea6ade",
+      "alphaSource": "alpha",
+      "region": [
+        1194,
+        609,
+        1237,
+        652
+      ]
+    }
+  ]
+}

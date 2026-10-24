@@ -1,0 +1,30 @@
+{
+  "mother": "sakiko-planning-apricot.png",
+  "motherSha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11",
+  "matte": "sakiko-planning-apricot-figure-calibrated-v5.png",
+  "alphaSource": "alpha",
+  "alphaLow": 0,
+  "alphaHigh": 255,
+  "figure": "sakiko-planning-apricot-figure-calibrated-v6.png",
+  "mask": "sakiko-planning-apricot-mask-calibrated-v6.png",
+  "backgroundCandidate": "sakiko-planning-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 3,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [[943,513],[1118,513],[1120,553],[965,551],[942,537]],
+    [[1009,543],[1119,543],[1126,655],[1020,658],[1010,620]],
+    [[949,716],[1046,717],[1100,728],[1113,766],[1083,781],[1007,783],[945,755]]
+  ],
+  "background": "sakiko-planning-apricot-background-calibrated-v6.png",
+  "record": "sakiko-planning-apricot-layer-processing-v6.json",
+  "contactShadowPolygons": [
+    [[964,744],[1000,749],[1036,753],[1038,767],[1001,769],[961,757]],
+    [[1020,727],[1059,734],[1095,736],[1097,750],[1061,755],[1019,743]],
+    [[862,588],[897,588],[930,594],[969,588],[972,608],[931,614],[884,607],[862,600]],
+    [[968,492],[1003,491],[1035,494],[1064,496],[1065,508],[1004,511],[967,504]]
+  ],
+  "contactShadowFeatherPixels": 0.8,
+  "contactShadowEdgePixels": 3,
+  "shadow": "sakiko-planning-apricot-shadow-calibrated-v6.png",
+  "reviewNote": "Original-RGB v5 figure/alpha is unchanged. Empty-background review found source character cast shadows surviving at the desk front, wall below the desk and around the shoe-floor region. Those explicitly observed regions now use this mother's already generated empty background. Separate normal source-over contact residuals are limited to 3px from the original figure within shoe sole, seat and hand/book-to-desk ROIs; no broad floor texture patch or synthetic shadow. Fixed original hand/table relationship remains travel0. Primary approval and runtime admission remain pending."
+}

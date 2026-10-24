@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-attention-apricot-mother-candidate-v3.png",
+  "character": "nyamu",
+  "activity": "attention",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "nyamu-attention-apricot-v3-prompt.txt",
+  "identityText": "nyamu-identity.txt",
+  "identityBasis": "Parent's reviewed official character identity and fixed outfit, supplied as text only. Official images and other character mothers were not image inputs.",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "nyamu-attention-apricot-mother-candidate-v3.png",
+    "sha256": "12f2cd65c5ff361c4dcf91adeee7c117c2fece5113b9461eb7b8201f2da28451",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-9482f07a-a1f2-49cd-913a-b84df002bc3b.png"
+  },
+  "designerObservation": "Full image viewed. Youthful left profile and red-purple eye now face a concrete folded card planted on the existing blue DESKTOP book, which gives unambiguous actual tabletop support. Card belongs to background. Pelvis and both thighs angle left along bench; ribcage/shoulder and head follow into side view, unlike v1/v2 frontal torso. One low hand on own thigh, other palm grounded behind hip on cushion. Complete separate knees/shins/ankles and both left-oriented shoes meet floor; no crossing, limb fusion or invented hidden body observed. Body and object relationship differs from relaxed back-facing window rest, front-opening chat and reaching play. Parent must review full posture/identity/scale before any separation.",
+  "observedGaps": [
+    "Primary review and layers/runtime remain pending; not matrix coverage."
+  ],
+  "designerStatus": "candidate awaiting primary review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

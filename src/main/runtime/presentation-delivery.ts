@@ -83,20 +83,22 @@ function programParts(value: unknown, add: (part: DeliveredPart) => void) {
     const identity = { nodeId: props.id, component: node.typeName };
     if (node.typeName === 'Text') add({ ...identity, value: props.value });
     else if (node.typeName === 'Formula') add({ ...identity, tex: props.tex });
+    else if (node.typeName === 'SourceSlot') add({ ...identity, ref: props.ref,
+      body: 'native_owner_read_required' });
     else if (node.typeName === 'Voice') {
       add({ ...identity, sound: { gateField: props.gateField, frequency: props.frequency, settings: props.settings ?? null,
         sustainField: props.sustainField, triggerField: props.triggerField,
         ...(props.trigger === undefined ? {} : { trigger: props.trigger }) },
-      meaning: '本次已发表初态的声音配置；未给trigger时沿gate上升沿击发，包络与延续仍按组件契约。这不是已启用声音、实际击发或设备听感回执。' });
+      meaning: '这是这次作品的初始声音设置。没有单独的trigger时，发声时机由gate从关闭变为开启来决定，声音的起落和延续仍按这份设置运行。这些设置本身没有记录声音是否已开启、是否真的响过，设备上的听感也要以实际播放为准。' });
     } else if (node.typeName === 'Press') {
       add({ ...identity, label: props.label, press: { field: props.field, strength: props.strength,
         pressureField: props.pressureField, triggerField: props.triggerField, hotkey: props.hotkey },
-      meaning: '本次已发表的按住入口及局部字段关联；不是用户已经按过或同意执行的记录。' });
+      meaning: '这是作品里的按住控件，以及它连接的局部字段。这里说明可以怎样操作，没有记录本人已经按过，也不表示本人答应了任何实际动作。' });
     } else if (metadata?.kind === 'graphic') {
       add({ ...identity, geometry: Object.fromEntries(Object.entries(props).filter(([key]) => key !== 'children')) });
     } else if (metadata?.kind === 'motion') {
       add({ ...identity, motion: { when: props.when, frames: props.frames, durationMs: props.durationMs,
-        iterations: props.iterations, easing: props.easing, releaseBehavior: props.releaseBehavior }, meaning: '已发布的有限动效配置，不是浏览器播放完成回执。' });
+        iterations: props.iterations, easing: props.easing, releaseBehavior: props.releaseBehavior }, meaning: '这是作品中这段动画的播放设置；浏览器是否已经播放完，还要看实际播放状态。' });
     } else if (typeof props.label === 'string' || typeof props.title === 'string') {
       add({ ...identity, ...(typeof props.title === 'string' ? { title: props.title } : {}),
         ...(typeof props.label === 'string' ? { label: props.label } : {}),
@@ -144,15 +146,48 @@ export class PresentationDeliveries {
       sceneRefs: view.sceneRefs.map(({ id, revision }) => ({ id, revision })), parts: [],
       contentCoverage: 'references_only', gaps: [], contentScope: 'assistant_help_and_program_initial_projection' };
     const add = (part: DeliveredPart) => { delivery.parts.push(part); };
+    const placedSceneRefs = new Set<string>();
+    let initialProgram: ReturnType<typeof validateProgramStateAndEvaluate> | undefined;
+    const initialParts: DeliveredPart[] = [];
+    if (view.libraryVersion === 2) {
+      try {
+        if (!view.program) throw new Error('Initial program not provided');
+        initialProgram = validateProgramStateAndEvaluate(view.program, view.program.initialState);
+        programParts(initialProgram.root, part => {
+          initialParts.push(part);
+          if (part.component === 'SourceSlot' && typeof part.ref === 'string') placedSceneRefs.add(part.ref);
+        });
+      } catch {
+        initialProgram = undefined; initialParts.length = 0; placedSceneRefs.clear();
+        delivery.gaps.push('published_program_content_not_available_for_review');
+      }
+    } else for (const ref of view.sceneRefs) placedSceneRefs.add(`${ref.id}@${ref.revision}`);
     for (const scene of scenes) {
       if (!view.sceneRefs.some(ref => ref.id === scene.id && ref.revision === scene.revision)) continue;
-      // This text was authored by the same assistant and actually published
-      // on the paper. Question/material/learner bodies are not re-read here.
+      // A program's sceneRefs are an upper bound. Only an actually placed
+      // SourceSlot in its evaluated initial tree publishes a native surface.
+      if (!placedSceneRefs.has(`${scene.id}@${scene.revision}`)) continue;
+      // This text was authored by the same assistant and published to the
+      // native paper. Its disclosure contract is separate from its availability.
+      // Question/material/learner bodies are not re-read here.
       // Retained line addresses establish visibility, not correctness/mastery.
       if (scene.kind === 'study') {
+        const foldedHint = !!scene.help && scene.mode === 'small_hint';
+        add({ kind: 'native_study_surface', sceneRef: { id: scene.id, revision: scene.revision },
+          owner: { id: scene.owner.id, revision: scene.owner.revision },
+          componentContract: { layout: 'original_question_and_learner_work_on_two_papers',
+            divider: 'pointer_and_keyboard_resizable_without_copying_the_problem',
+            writing: 'same_live_conversation_composer_at_the_work_paper',
+            ...(foldedHint ? { hint: { initialDisclosure: 'folded_until_person_opens',
+              choices: ['open', 'smaller_hint', 'keep_for_later', 'put_down'],
+              restoredLocalChoice: 'same_problem_and_help_address_only',
+              browserExposure: 'not_observed_by_publication' } } : {}) },
+          meaning: '这次发表的是原生陪学组件，原题、本人尝试和提示由同一owner回读；两张纸、可调分隔线与原输入槽是组件已有行为。这里说明实际发表了哪种界面及其行为合同，未观察浏览器后来的手势、收好或接过，也不证明对方已经看过或掌握。' });
         add({ kind: 'teaching_on_paper', sceneRef: { id: scene.id, revision: scene.revision },
           owner: { id: scene.owner.id, revision: scene.owner.revision }, mode: scene.mode,
           helpState: scene.helpState,
+          disclosure: !scene.help ? 'not_provided'
+            : foldedHint ? 'available_in_folded_note_not_automatically_revealed' : 'expanded_on_paper',
           ...(scene.help ? { help: { id: scene.help.id, origin: scene.help.origin,
             ...(scene.help.title ? { title: scene.help.title } : {}), text: scene.help.text } } : {}) });
         add({ kind: 'retained_learner_line_addresses', sceneRef: { id: scene.id, revision: scene.revision },
@@ -162,18 +197,10 @@ export class PresentationDeliveries {
       // Other native source bodies remain in their actual tool observations;
       // a SceneRef alone neither supplies those bodies nor proves completion.
     }
-    if (view.program) {
-      try {
-        const evaluated = validateProgramStateAndEvaluate(view.program, view.program.initialState);
-        add({ kind: 'interactive_initial_state', inputs: evaluated.inputs,
-          meaning: '本次真正发布的初始局部状态；不是用户后来未传回的手势、本人事实或业务执行结果。' });
-        programParts(evaluated.root, add);
-      } catch {
-        // Publication remains real if the optional review projection cannot
-        // be recovered. Never replace missing bindings with empty data or
-        // claim a readable document merely from an opaque program address.
-        delivery.gaps.push('published_program_content_not_available_for_review');
-      }
+    if (initialProgram) {
+      add({ kind: 'interactive_initial_state', inputs: initialProgram.inputs,
+        meaning: '这是这次作品实际发表时的起始状态。本人之后若又拖动或按下，要以随后真正传回的交互为准；控件初值也不能当成本人的实际情况或事情已经办成。' });
+      initialParts.forEach(add);
     }
     if (delivery.parts.length) delivery.contentCoverage = delivery.gaps.length ? 'partial' : 'complete';
     this.current.delete(view.id);
@@ -183,6 +210,6 @@ export class PresentationDeliveries {
   forReview() {
     const items = [...this.current.values()].reverse().map(delivery => structuredClone(delivery));
     return { items,
-      meaning: '仅本轮及其接续中已成功发布、当前仍保留的内容。原样文字与实际初态可用于核对回答；引用、空卡片或partial不证明内容完整，发布也不表示正确、已读、采用、掌握或业务成功。其余依据仍看实际工具观察；不能因这里没有转送某个来源正文就断言那张画面未交付。' };
+      meaning: '这里收的是本轮及接续中确实已发表、目前仍保留在这条回复里的内容，可以用原样文字和真正的起始状态核对回答。只给地址、空卡片或标为partial的片段时，还不能据此说完整正文都在这里。发表过也不说明内容正确、对方已经看过、看懂、选定或掌握，更不说明实际事情已办成。其他事实仍看相应工具真正读到的结果；某份来源正文没有在这里再列一遍，也不表示那张画面没有交给对方。' };
   }
 }

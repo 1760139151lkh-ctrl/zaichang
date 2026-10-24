@@ -1,0 +1,34 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "chat",
+  "palette": "apricot",
+  "light": "morning",
+  "generatedOn": "2026-10-23",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-86734368-7f0e-4e5c-b8da-d826f7c8c578",
+  "prompt": "taki-chat-apricot-prompt.txt",
+  "promptSha256": "ae37e539befb2a1e7f5e71b6df0dd125b9d53183a2702768e1f4977fb2143eee",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-reviewed clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "taki-chat-apricot-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2209951,
+    "sha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f"
+  },
+  "identityReference": "character-direction.md and text-only identity/wardrobe specification based on personally viewed official profile/full-body art. No character pixels or previous mother in generation input.",
+  "review": {
+    "producerViewed": "complete generated original",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Youthful purple-black long hair/purple eyes and tan-white-red uniform; torso inclines forward with forearms on thighs and staggered planted loafers. Direct serious gaze rather than fixed anger. Primary review pending."
+}

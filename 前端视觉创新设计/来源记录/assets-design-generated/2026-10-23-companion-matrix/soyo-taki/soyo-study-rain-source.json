@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "study",
+  "palette": "rain",
+  "light": "night",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-066a8cdf-dd36-4563-a4cf-fb06ec679dce",
+  "prompt": "soyo-study-rain-prompt.txt",
+  "promptSha256": "3580eecec0ac96432aec3184e64adf166824ee55bd7f2d9702712cc4975f342c",
+  "inputs": [
+    {
+      "file": "soyo-study-apricot-mother-candidate-v1.png",
+      "sha256": "cf664fa1fc6dcdd8fd9c8dc1cd542d4142bbe05d5d9809a101e6d58907858411",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-066a8cdf-dd36-4563-a4cf-fb06ec679dce.png",
+  "output": {
+    "file": "soyo-study-rain-mother-candidate-v1.png",
+    "sha256": "d28fa515a5b9828d57778897b2de9e15e106c717fea430517f5fa944c603b533",
+    "bytes": 2081319,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "generated-self-review-pending",
+  "review": {
+    "producerViewed": "pending actual complete output review after this tool result",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}
+

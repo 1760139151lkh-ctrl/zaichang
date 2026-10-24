@@ -1,0 +1,179 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "umiri-study-apricot-layer-parameters-v3.json",
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "umiri-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "cb2b45dedddb45a558b4ed49ed28faadddd84aec01c4f10df25b0c9884d71847",
+  "matte": "umiri-study-apricot-mask-local-color-v2.png",
+  "matteSha256": "53402c238c2f13fd83ba877cd7cd06fa1f36a5990689318e0fb600f9eb635582",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        894,
+        472
+      ],
+      [
+        896,
+        475
+      ],
+      [
+        898,
+        478
+      ],
+      [
+        900,
+        480
+      ],
+      [
+        902,
+        481
+      ],
+      [
+        892,
+        481
+      ],
+      [
+        893,
+        476
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          805,
+          514
+        ],
+        [
+          826,
+          514
+        ],
+        [
+          836,
+          584
+        ],
+        [
+          805,
+          584
+        ]
+      ],
+      "redMin": 150,
+      "redOverGreen": 20,
+      "redOverBlue": 35
+    },
+    {
+      "polygon": [
+        [
+          892,
+          645
+        ],
+        [
+          1026,
+          645
+        ],
+        [
+          1026,
+          729
+        ],
+        [
+          892,
+          729
+        ]
+      ],
+      "redMin": 100,
+      "redOverGreen": 25,
+      "redOverBlue": 50
+    }
+  ],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 101172,
+  "alphaNonzeroPixels": 39284,
+  "alphaBounds": [
+    797,
+    311,
+    1019,
+    725
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "5bed3d09f8493ba9c73de8e284f58f9611645ce19787a165ecd2bc3a7ea0c590",
+  "figureRgbSha256": "5bed3d09f8493ba9c73de8e284f58f9611645ce19787a165ecd2bc3a7ea0c590",
+  "background": {
+    "candidate": "umiri-study-apricot-background-raw-v1.png",
+    "candidateSha256": "2ac82c1aa66e9b80044a5e91e1eb78e65505c8eb0695aada1f608c21d9a4db3c",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          887,
+          681
+        ],
+        [
+          1029,
+          678
+        ],
+        [
+          1032,
+          742
+        ],
+        [
+          887,
+          742
+        ]
+      ],
+      [
+        [
+          866,
+          494
+        ],
+        [
+          939,
+          494
+        ],
+        [
+          944,
+          536
+        ],
+        [
+          866,
+          536
+        ]
+      ]
+    ],
+    "changedPixels": 59092,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": null,
+  "outputs": [
+    {
+      "file": "umiri-study-apricot-figure-calibrated-v3.png",
+      "bytes": 2418556,
+      "sha256": "3ae71c48011f9f747b97c7272e252ed0e113768d454dbfb7563d985e1a3e968d"
+    },
+    {
+      "file": "umiri-study-apricot-mask-calibrated-v3.png",
+      "bytes": 26294,
+      "sha256": "d5120b197894e82ddee3f8ce30dba900b87045e7e60cf04a01693d94084ad5b7"
+    },
+    {
+      "file": "umiri-study-apricot-background-calibrated-v3.png",
+      "bytes": 2085256,
+      "sha256": "e942b3e8c3332c894280c761c7a453891ec606c0fac7cd3768d2681a9439adbd"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

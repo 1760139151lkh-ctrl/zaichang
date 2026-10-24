@@ -2,6 +2,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { HarnessError, type ScopeHandle } from '../../shared/harness';
 import {
   noteCreateSchema,
+  noteDraftInputSchema,
   noteHistorySchema,
   noteListSchema,
   noteReadSchema,
@@ -18,6 +19,8 @@ import {
   type NoteMutation,
   type NotePage,
   type NoteVersion,
+  type NoteDraft,
+  type NoteDraftResult,
   type NoteQuote,
   type NoteQuoteReference,
 } from '../../shared/notes';
@@ -25,7 +28,7 @@ import type { KernelRepository } from '../storage/repository';
 import { materialQuoteAddress, type MaterialQuoteReference, type MaterialNotes } from '../../shared/materials';
 
 type VersionRecord = NoteDocument & { operation: NoteVersion['operation']; restoredFrom?: number };
-type Origin = { via: 'notebook' | 'conversation'; eventId?: string; material?: NoteDocument['source']['material'] };
+type Origin = { via: 'notebook' | 'conversation'; eventId?: string; material?: NoteDocument['source']['material']; notebook?: NoteDocument['source']['notebook']; conversation?: NoteDocument['source']['conversation']; referenceOnly?: true };
 export interface NoteChange {
   id: string;
   revision: number;
@@ -54,12 +57,61 @@ export class NotesService {
           PRIMARY KEY(note_id,revision));
         CREATE TABLE IF NOT EXISTS h_note_operations(
           event_id TEXT NOT NULL,fingerprint TEXT NOT NULL,note_id TEXT NOT NULL REFERENCES h_notes(id) ON DELETE CASCADE,
-          PRIMARY KEY(event_id,fingerprint));`);
+          PRIMARY KEY(event_id,fingerprint));
+        CREATE TABLE IF NOT EXISTS h_note_drafts(
+          owner TEXT NOT NULL,workspace TEXT NOT NULL,draft_key TEXT NOT NULL,revision INTEGER NOT NULL,
+          base_revision INTEGER,updated_at TEXT NOT NULL,payload TEXT NOT NULL,
+          PRIMARY KEY(owner,workspace,draft_key));`);
     });
   }
   onChanged(callback: (change: NoteChange) => void) {
     this.listeners.add(callback);
     return () => this.listeners.delete(callback);
+  }
+
+  /** Unfinished notebook writing belongs to this same native notebook owner.
+   * Drafts are excluded from model tools, note versions, search, and export. */
+  nativeDraft(raw: unknown): NoteDraftResult {
+    const input = noteDraftInputSchema.parse(raw), epoch = this.repo.epoch;
+    const { principalId: owner, workspaceId: workspace } = this.repo.identity;
+    const rowFor = (key: string) => this.repo.db.prepare('SELECT payload FROM h_note_drafts WHERE owner=? AND workspace=? AND draft_key=?').get(owner, workspace, key);
+    const parseDraft = (row: ReturnType<typeof rowFor>) => row ? JSON.parse(String(row.payload)) as NoteDraft : undefined;
+    const current = 'key' in input ? parseDraft(rowFor(input.key)) : undefined;
+    if (input.operation === 'list') {
+      const rows = this.repo.db.prepare(`SELECT draft_key,revision,base_revision,updated_at FROM h_note_drafts d
+        WHERE owner=? AND workspace=? AND (draft_key='new' OR EXISTS(SELECT 1 FROM h_notes n
+          WHERE n.id=d.draft_key AND n.owner=d.owner AND n.workspace=d.workspace AND n.state='active')) ORDER BY updated_at DESC`).all(owner, workspace);
+      return { epoch, status: 'current', items: rows.map(row => ({ key: String(row.draft_key), revision: Number(row.revision),
+        ...(row.base_revision === null ? {} : { baseRevision: Number(row.base_revision) }), updatedAt: String(row.updated_at) })) };
+    }
+    if (input.key !== 'new') {
+      const note = this.current(input.key);
+      if (note.state !== 'active') throw new HarnessError('note_draft_closed', '这页已经收起来了，没有从旧草稿接回正文。');
+    }
+    if (input.operation === 'read') return { epoch, status: 'current', ...(current ? { draft: current } : {}) };
+    return this.repo.write(() => {
+      if (input.expectedEpoch !== this.repo.epoch) throw new HarnessError('note_draft_boundary', '笔记的本机范围刚有变化，刚写的字还在眼前，请重新打开后再收好。');
+      const now = parseDraft(rowFor(input.key));
+      if ((now?.revision || 0) !== input.expectedDraftRevision) return { epoch, status: 'conflict', ...(now ? { draft: now } : {}) };
+      if (input.key !== 'new' && this.current(input.key).state !== 'active')
+        throw new HarnessError('note_draft_closed', '这页已经收起来了，没有从旧草稿接回正文。');
+      if (input.operation === 'discard') {
+        this.repo.db.prepare('DELETE FROM h_note_drafts WHERE owner=? AND workspace=? AND draft_key=? AND revision=?')
+          .run(owner, workspace, input.key, input.expectedDraftRevision);
+        return { epoch, status: 'discarded' };
+      }
+      if (input.key !== 'new') {
+        if (input.baseRevision === undefined) throw new HarnessError('note_draft_version', '这页草稿需要保留原来那一版的位置。');
+        this.version(input.key, input.baseRevision);
+      }
+      const draft: NoteDraft = { key: input.key, revision: input.expectedDraftRevision + 1, title: input.title, body: input.body,
+        ...(input.baseRevision ? { baseRevision: input.baseRevision } : {}), updatedAt: this.repo.clock.now() };
+      this.repo.db.prepare(`INSERT INTO h_note_drafts VALUES(?,?,?,?,?,?,?)
+        ON CONFLICT(owner,workspace,draft_key) DO UPDATE SET revision=excluded.revision,base_revision=excluded.base_revision,
+        updated_at=excluded.updated_at,payload=excluded.payload`).run(owner, workspace, draft.key, draft.revision,
+        draft.baseRevision || null, draft.updatedAt, JSON.stringify(draft));
+      return { epoch, status: 'saved', draft };
+    });
   }
   private notify(change: NoteChange) {
     // Delivery failure cannot turn a committed document into a failed save.
@@ -116,7 +168,15 @@ export class NotesService {
   }
   private document(record: VersionRecord): NoteDocument {
     const { operation: _, restoredFrom: __, ...note } = record;
-    return structuredClone(note);
+    const document = structuredClone(note);
+    // A kept reference owns only its address and the person's independent
+    // writing. Older anchor moves also stored the original file name; do not
+    // revive that source-derived label through history, export or model reads.
+    if (document.source.referenceOnly && document.source.material) {
+      document.source.material.name = '原来的资料';
+      document.attachmentLocators = document.attachmentLocators.map(locator => ({ ...locator, name: '原来的资料' }));
+    }
+    return document;
   }
   private put(note: VersionRecord) {
     this.repo.db
@@ -138,6 +198,8 @@ export class NotesService {
     this.repo.db
       .prepare('INSERT INTO h_note_versions VALUES(?,?,?)')
       .run(note.id, note.revision, JSON.stringify(note));
+    if (note.state === 'deleted') this.repo.db.prepare('DELETE FROM h_note_drafts WHERE owner=? AND workspace=? AND draft_key=?')
+      .run(note.ownerId, note.workspaceId, note.id);
     // A changed note triggers review; it must not silently cancel an independent
     // accepted calendar entry through the generic privacy invalidation path.
     const change: NoteChange = {
@@ -214,6 +276,31 @@ export class NotesService {
     const points = Array.from(body),
       offset = Math.min(input.offset, points.length),
       end = Math.min(points.length, offset + input.limit);
+    const linked = note.source.referenceOnly ? note.source : undefined;
+    let notebookCurrent = true;
+    if (linked?.notebook) {
+      try { this.quoteIdentity(scope, linked.notebook); }
+      catch (error) { if (error instanceof HarnessError) notebookCurrent = false; else throw error; }
+    }
+    const originalRead: NotePage['originalRead'] = linked?.material ? {
+      state: 'address_only',
+      reference: { kind: 'material', reference: materialQuoteAddress(linked.material) },
+      read: { tool: 'look_up', arguments: { source: 'capability', capability: 'materials.read', arguments: {
+        resourceId: linked.material.resourceId, ...(linked.material.page ? { page: linked.material.page } : {}),
+        offset: linked.material.start, limit: linked.material.end - linked.material.start } } },
+      meaning: '这里保留了原文件这一段的地址，没有把原句复制进笔记正文；这次没有确认文件仍在或当前可读。需要解释时，回原资料owner核同一文件哈希、页内位置和当前范围，再读这一段。文件不在时，本人另写的字仍在这页；不能拿另一份同名文件冒充原句。',
+    } : linked?.notebook && !notebookCurrent ? { state: 'changed', reference: { kind: 'notebook', reference: linked.notebook },
+      meaning: '原句所在的笔记已经改版或收起，旧书签现在不能读作当前原句。这次只交付本页自己写的正文；旧地址没有恢复历史正文的许可，也不能换成新版本后说是原来的话。',
+    } : linked?.notebook ? { state: 'address_only', reference: { kind: 'notebook', reference: linked.notebook },
+      read: { tool: 'manage_note', arguments: { operation: 'read', input: { id: linked.notebook.id, revision: linked.notebook.revision,
+        offset: linked.notebook.start, limit: linked.notebook.end - linked.notebook.start } } },
+      meaning: '原句属于另一页笔记的这个确切版本；这里的正文是本人另外写的想法。原句未随这次读取展开，需要时仍回原owner核版本和范围。',
+    } : linked?.conversation ? { state: 'address_only', reference: { kind: 'conversation', reference: linked.conversation },
+      read: { tool: 'read_evidence', arguments: { id: linked.conversation.messageId, offset: linked.conversation.start,
+        limit: linked.conversation.end - linked.conversation.start,
+        ...(linked.conversation.contentVersion === undefined ? {} : { expectedVersion: linked.conversation.contentVersion }) } },
+      meaning: '这里只保留原消息这一段的地址，笔记正文只含本人另外写的字；这次没有展开或确认原消息仍可读。需要解释时先按当前许可读这一段，并核原contentVersion与哈希；删除、范围、位置或版本变化时，不能从本页补出旧原句，也不能把当前不同的字冒充这句旧话。',
+    } : undefined;
     return {
       note,
       body: points.slice(offset, end).join(''),
@@ -221,6 +308,7 @@ export class NotesService {
       end,
       total: points.length,
       hasMore: end < points.length,
+      ...(originalRead ? { originalRead } : {}),
     };
   }
   /** Only current ownership/version/length metadata is inspected here. A
@@ -308,6 +396,9 @@ export class NotesService {
           via: origin.via,
           ...(origin.eventId ? { eventId: origin.eventId } : {}),
           ...(origin.material ? { material: structuredClone(origin.material) } : {}),
+          ...(origin.notebook ? { notebook: structuredClone(origin.notebook) } : {}),
+          ...(origin.conversation ? { conversation: structuredClone(origin.conversation) } : {}),
+          ...(origin.referenceOnly ? { referenceOnly: true } : {}),
         },
         effectiveAt: null,
         coverage: 'document_only',
@@ -374,8 +465,9 @@ export class NotesService {
         || from.resourceId !== source.resourceId || from.sha256 !== source.sha256)
         throw new HarnessError('material_note_changed', '这条笔记的出处有了变化，刚才的试放没有覆盖它。');
       if (JSON.stringify(materialQuoteAddress(from)) === JSON.stringify(materialQuoteAddress(source))) return current;
-      return { ...current, source: { ...current.source, material: structuredClone(source) },
-        attachmentLocators: [{ resourceId: source.resourceId, name: source.name }], operation: 'edit', restoredFrom: undefined };
+      const name = current.source.referenceOnly ? '原来的资料' : source.name;
+      return { ...current, source: { ...current.source, material: { ...structuredClone(source), name } },
+        attachmentLocators: [{ resourceId: source.resourceId, name }], operation: 'edit', restoredFrom: undefined };
     });
   }
   changeState(raw: unknown, scope?: ScopeHandle): NoteMutation {
@@ -445,11 +537,13 @@ export class NotesService {
   }
   /** Used only by the existing all-data deletion/export paths, never a model tool. */
   clear() {
-    this.repo.write(() =>
+    this.repo.write(() => {
       this.repo.db
         .prepare('DELETE FROM h_notes WHERE owner=? AND workspace=?')
-        .run(this.repo.identity.principalId, this.repo.identity.workspaceId),
-    );
+        .run(this.repo.identity.principalId, this.repo.identity.workspaceId);
+      this.repo.db.prepare('DELETE FROM h_note_drafts WHERE owner=? AND workspace=?')
+        .run(this.repo.identity.principalId, this.repo.identity.workspaceId);
+    });
   }
   export(): NoteDocument[] {
     return this.repo.db

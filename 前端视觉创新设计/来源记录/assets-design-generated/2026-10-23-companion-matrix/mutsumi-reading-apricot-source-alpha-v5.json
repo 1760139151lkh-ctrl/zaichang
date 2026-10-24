@@ -1,0 +1,201 @@
+{
+  "recordType": "deterministic-observed-source-alpha-repair",
+  "script": "mutsumi-observed-alpha-repairs.py",
+  "scriptSha256": "cbc919e11e9e658ab6561fd4bcf346b14d25cab66e569428baca52f5bf70ff83",
+  "parameters": "mutsumi-reading-apricot-alpha-repair-parameters-v5.json",
+  "parametersSha256": "87d8a26c41d61cbe18d40b09116c1ad523fb9616b4ee852fc4f9ee61a9ee0e28",
+  "mother": "mutsumi-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+  "inputAlpha": "mutsumi-reading-apricot-source-alpha-v4.png",
+  "inputAlphaSha256": "5d3be1d558c30db3b32a3a75aba5f1ed713af169671a8e30cfcf91033724544c",
+  "outputAlpha": "mutsumi-reading-apricot-source-alpha-v5.png",
+  "outputAlphaSha256": "81c8914f22d4693c65eaf7ba4dbdaf1b3ab3999ac0c77ed93139e68ac8c1caa0",
+  "rules": [
+    {
+      "purpose": "Actual continuous original pale-mint hair panel; restore its own warm glints formerly over-selected as exterior yellow. Interior source hair ROI read directly from source coordinate crop.",
+      "mode": "include",
+      "polygon": [
+        [
+          1426,
+          426
+        ],
+        [
+          1434,
+          429
+        ],
+        [
+          1440,
+          452
+        ],
+        [
+          1443,
+          473
+        ],
+        [
+          1436,
+          495
+        ],
+        [
+          1421,
+          519
+        ],
+        [
+          1404,
+          540
+        ],
+        [
+          1397,
+          540
+        ],
+        [
+          1411,
+          518
+        ],
+        [
+          1420,
+          491
+        ],
+        [
+          1425,
+          466
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          80,
+          255
+        ],
+        [
+          1,
+          70,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          1,
+          -12,
+          30
+        ],
+        [
+          1,
+          2,
+          -3,
+          60
+        ]
+      ]
+    },
+    {
+      "purpose": "Remaining original wood in lower interleg room gap above and between real shoes, bounded by original leg grid; navy socks and brown shoes outside this actual gap stay.",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1118,
+          680
+        ],
+        [
+          1157,
+          680
+        ],
+        [
+          1149,
+          696
+        ],
+        [
+          1140,
+          705
+        ],
+        [
+          1124,
+          715
+        ],
+        [
+          1124,
+          700
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          40,
+          205
+        ],
+        [
+          1,
+          0,
+          165
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          1,
+          12,
+          180
+        ],
+        [
+          0,
+          2,
+          15,
+          180
+        ]
+      ]
+    },
+    {
+      "purpose": "Dim original blue pillow at back-to-seat edge, outside the dark coat and pale warm hair material.",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1408,
+          535
+        ],
+        [
+          1460,
+          515
+        ],
+        [
+          1475,
+          584
+        ],
+        [
+          1404,
+          584
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          40,
+          255
+        ],
+        [
+          1,
+          50,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          2,
+          0,
+          9,
+          180
+        ],
+        [
+          2,
+          1,
+          4,
+          180
+        ]
+      ]
+    }
+  ],
+  "explicitOriginalRoomExclusions": [],
+  "method": "Only original-canvas alpha visibility corrected inside personally observed RGB/room ROIs; no body/RGB redraw, warp or hidden anatomy completion.",
+  "review": {
+    "primaryLayer": "pending",
+    "runtime": "not registered or exercised"
+  }
+}

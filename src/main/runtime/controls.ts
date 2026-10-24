@@ -7,7 +7,8 @@ import { HarnessError, objectId, personalLabel } from '../../shared/harness';
 import { hasCredentials } from './redaction';
 import { readReleaseArtifacts } from './release-store';
 import { latestReleases, renderReleases } from './release-composer';
-import { attentionChangeInput, type AttentionControlItem, type AttentionControlPage } from '../../shared/attention-control';
+import { attentionChangeInput, attentionSourceName, type AttentionControlItem, type AttentionControlPage } from '../../shared/attention-control';
+import { usingLunaTestTransport } from '../model-selection';
 
 /** Trusted native controls. These are never registered as model or extension tools. */
 export class NativeControls {
@@ -39,6 +40,7 @@ export class NativeControls {
       const item = runtime.attention.nativeItem(this.attentionScope(), input.id);
       const text = input.operation === 'pause' ? `先暂停「${item.title}」这件托付。`
         : input.operation === 'stop' ? `不再继续「${item.title}」这件托付。`
+          : input.operation === 'revise' ? `修改「${item.title}」这件托付的约定：允许参考${input.changes!.sources.map(attentionSourceName).join('、')}；${input.changes!.until ? `到 ${input.changes!.until} 为止` : '不设结束时间'}。其余约定和仍有效的暂停继续保留。`
           : `解除「${item.title}」中选中的这次暂停，沿用仍有效的原约定。`;
       const eventId = randomUUID(), identity = repo.identity, scope = this.attentionScope(eventId);
       const event = repo.ingest(scope, { id: eventId, ownerId: identity.principalId, workspaceId: identity.workspaceId,
@@ -285,8 +287,11 @@ export class NativeControls {
   }
   async retry(value: unknown) {
     if (this.harness.running) throw new HarnessError('run_active', '先停止当前回复，再重试整理。');
-    if (this.store.settings().mode !== 'deepseek' || !this.store.settings().memoryEnabled)
-      throw new HarnessError('model_unavailable', '连接 DeepSeek 并开启记忆后才能重试整理。');
+    const settings = this.store.settings();
+    if (!settings.memoryEnabled)
+      throw new HarnessError('model_unavailable', '记忆现在暂停着。接着整理前，需要先开启记忆。');
+    if (settings.mode !== 'deepseek')
+      throw new HarnessError('model_unavailable', `先到「连接与资料」启用${usingLunaTestTransport() ? ' Luna' : '模型连接'}，再接着整理。`);
     const id = objectId.parse(value),
       r = this.store.runtime,
       scope = r.policy.hostScope(),
@@ -316,7 +321,7 @@ export class NativeControls {
   }
   permission(raw: unknown) {
     const input = z
-      .object({ scope: z.enum(['campus:read', 'map:read', 'location:read']), enabled: z.boolean() })
+      .object({ scope: z.enum(['campus:read', 'campus:tiyi:read', 'map:read', 'location:read']), enabled: z.boolean() })
       .strict()
       .parse(raw);
     this.store.runtime.policy[input.enabled ? 'grant' : 'revoke'](input.scope);

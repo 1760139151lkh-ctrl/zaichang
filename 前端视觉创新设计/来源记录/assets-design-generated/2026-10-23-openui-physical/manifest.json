@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-23",
+  "generator": "built-in image_gen.imagegen",
+  "inputImages": [],
+  "transparentBackground": false,
+  "promptFile": "prompt-v2.md",
+  "earlierCall": {
+    "promptFile": "prompt.md",
+    "sha256": "865875482b6b00bca449790eb36a7914b49a6e824a6ba11f1cc467c07b62f11b",
+    "bytes": 2284881,
+    "disposition": "本次任务误生的头像身份与聊天壳不采用；仓库内图片副本移除，保留本次真实Prompt与哈希，不作后续输入"
+  },
+  "output": {
+    "file": "paper-physical-work-v2.png",
+    "sha256": "ef991b369f9807b639e54c49e20f3c8b069da29569e38a6ef0ad2f1476b5a3fa",
+    "bytes": 2347511,
+    "width": 1024,
+    "height": 1536
+  },
+  "purpose": "在场原对话内的连续OpenUI物理作品设计来源；不是运行背景或科学机构图",
+  "review": {
+    "agentViewed": true,
+    "parentViewed": false,
+    "grade": "C",
+    "use": "温润纸面、波形直接操作、就近参数、同一作品内机构与声音的关系",
+    "exclude": "示例数值、黑白键排列、机械几何与物理准确性",
+    "runtimeAcceptance": "not_claimed"
+  },
+  "provenance": "本轮用户授权的内置GPT Image生成图；无第三方输入；仅同步现有仓库的设计资料，不进入公共review或应用包"
+}

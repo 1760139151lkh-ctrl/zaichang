@@ -10,6 +10,7 @@ export const discussionArtworkSchema = z.object({
   optionId: id.optional(),
 }).strict();
 export type DiscussionArtwork = z.infer<typeof discussionArtworkSchema>;
+export const discussionArtworkLabel = (assetId: DiscussionArtwork['assetId']) => assetId === 'night_bridge' ? '桥边夜景' : '伞下的来信';
 const sourceQuote = z.object({ eventId: id, contentVersion: revision,
   start: z.number().int().nonnegative(), end: z.number().int().positive(),
   quote: z.string().min(1).max(4000),
@@ -19,6 +20,7 @@ const sourceQuote = z.object({ eventId: id, contentVersion: revision,
 export const discussionFocusSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('discussion_point'), pointId: id }).strict(),
   z.object({ kind: z.literal('discussion_option'), optionId: id }).strict(),
+  z.object({ kind: z.literal('discussion_artwork'), artwork: discussionArtworkSchema }).strict(),
 ]);
 export type DiscussionFocus = z.infer<typeof discussionFocusSchema>;
 
@@ -108,6 +110,7 @@ export interface VerifiedDiscussionFocus {
   label: string;
   point?: DiscussionPoint;
   branch?: DiscussionBranch;
+  artwork?: DiscussionArtwork;
   sourceBinding: DiscussionContent['provenance']['sourceBinding'];
   viewedMatterRevision?: number;
   historicalReference?: boolean;

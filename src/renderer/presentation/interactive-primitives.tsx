@@ -9,7 +9,7 @@ import { InteractiveGraphic, InteractiveGroup, InteractiveLine, InteractivePolyl
   InteractiveLabel, InteractiveDragHandle, InteractiveRect, InteractivePolygon } from './interactive-graphics';
 import { InteractiveMotion } from './interactive-motion';
 import { InteractivePress } from './interactive-press';
-import { InteractiveVoice } from './interactive-audio';
+import { InteractiveVoice, InteractiveAudioTrace } from './interactive-audio';
 
 type Props = ComponentRenderProps<Record<string, any>>;
 type NumberState = Extract<InteractiveStateDeclaration, { kind: 'number' }>;
@@ -274,7 +274,8 @@ function InteractiveSourceSlot({ props }: Props) {
 const renderers: Record<InteractiveComponentName, ComponentRenderer<any>> = {
   Document: InteractiveDocument, Flow: InteractiveFlow, Paper: InteractivePaper, Text: InteractiveText, Formula: InteractiveFormula,
   Number: InteractiveNumber, TextInput: InteractiveTextInput, SequenceInput: InteractiveSequenceInput, Choice: InteractiveChoice,
-  Toggle: InteractiveToggle, Press: InteractivePress, Voice: InteractiveVoice, Button: InteractiveButton, SourceSlot: InteractiveSourceSlot, Graphic: InteractiveGraphic,
+  Toggle: InteractiveToggle, Press: InteractivePress, Voice: InteractiveVoice, AudioTrace: InteractiveAudioTrace,
+  Button: InteractiveButton, SourceSlot: InteractiveSourceSlot, Graphic: InteractiveGraphic,
   Group: InteractiveGroup, Line: InteractiveLine, Polyline: InteractivePolyline, Curve: InteractiveCurve, Circle: InteractiveCircle,
   Rect: InteractiveRect, Polygon: InteractivePolygon, Label: InteractiveLabel, DragHandle: InteractiveDragHandle, Motion: InteractiveMotion,
 };

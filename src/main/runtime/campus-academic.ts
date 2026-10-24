@@ -1,6 +1,6 @@
 import { createHash, randomUUID } from 'node:crypto';
 import type { CampusGpaScale, CampusRecord, CampusScene } from '../../shared/scenes';
-import { campusQueryContinuation, validateCampusQuery } from '../capabilities/campus-query';
+import { campusLookupOnSnapshot, campusQueryContinuation, campusQueryOnSnapshot, validateCampusQuery } from '../capabilities/campus-query';
 
 const text = (value: unknown, max = 400): string | undefined => typeof value === 'string' && value.trim() && value.length <= max ? value.trim() : undefined;
 const number = (value: unknown): number | null => typeof value === 'number' && Number.isFinite(value) ? value : null;
@@ -48,6 +48,10 @@ export function campusAcademicSnapshot(result: { status: string; sourceId: strin
           ...(text(record.gpa_exclusion_reason, 600) ? { exclusionReason: text(record.gpa_exclusion_reason, 600) } : {}),
           ...(text(record.course_code, 100) ? { courseCode: text(record.course_code, 100) } : {}),
           ...(text(record.hundredPoint_kind, 100) ? { hundredPointKind: text(record.hundredPoint_kind, 100) } : {}),
+          ...(typeof record.major === 'boolean' ? { majorConfirmed: record.major } : {}),
+          ...(typeof record.creditIncluded === 'boolean' ? { creditIncluded: record.creditIncluded } : {}),
+          ...(Object.hasOwn(record, 'earnedCredit') ? { earnedCredit: number(record.earnedCredit) } : {}),
+          ...(Object.hasOwn(record, 'earnedCredit_repository') ? { earnedCreditRepository: number(record.earnedCredit_repository) } : {}),
           ...(Array.isArray(record.quality_issues) ? { qualityIssues: record.quality_issues.flatMap(issue => text(issue, 200) ? [text(issue, 200)!] : []).slice(0, 20) } : {}) } });
       continue;
     }
@@ -61,6 +65,8 @@ export function campusAcademicSnapshot(result: { status: string; sourceId: strin
         ...(count(record.counted_attempts) === undefined ? {} : { countedAttempts: count(record.counted_attempts) }),
         ...(Array.isArray(record.excluded_attempts) ? { excludedAttempts: record.excluded_attempts.length } : {}),
         ...(Array.isArray(record.incomplete_attempts) ? { incompleteAttempts: record.incomplete_attempts.length } : {}),
+        ...(Array.isArray(record.zero_credit_attempts) ? { zeroCreditAttempts: record.zero_credit_attempts.length } : {}),
+        ...(Object.hasOwn(record, 'earned_credits_sum_attempts') ? { earnedCreditsSumAttempts: number(record.earned_credits_sum_attempts) } : {}),
         ...(typeof record.complete === 'boolean' ? { complete: record.complete } : {}),
         ...(typeof record.source_complete === 'boolean' ? { sourceComplete: record.source_complete } : {}),
         ...(policy ? { policy } : domain !== 'gpa_overall' ? { policy: 'all_attempts' } : {}),
@@ -70,11 +76,17 @@ export function campusAcademicSnapshot(result: { status: string; sourceId: strin
   const total = count(data.total_matches ?? data.total), rowTerms = [...new Set(rows.flatMap(row => row.term || row.gpa?.throughTerm || []))],
     term = rowTerms.length === 1 ? rowTerms[0] : undefined;
   const nextOffset = data.next_offset ?? data.nextOffset, offset = count(nextOffset);
-  let next: Record<string, unknown> | undefined;
+  let next: Record<string, unknown> | undefined, read: Record<string, unknown> | undefined;
   if (query) {
-    try { next = campusQueryContinuation(validateCampusQuery(request), data)?.arguments; }
+    try { const original = validateCampusQuery(request); next = campusQueryContinuation(original, data)?.arguments;
+      read = campusQueryOnSnapshot(original, data)?.arguments; }
     catch { /* An invalid original query is not a new read address. */ }
-  } else if (offset !== undefined && offset > (count(request.offset) || 0)) next = { ...request, offset, refresh: false };
+  } else {
+    const pinned = campusLookupOnSnapshot(request, data);
+    read = pinned?.arguments;
+    if (pinned?.evaluation.paging === 'fixed_conditions' && offset !== undefined && offset > (count(request.offset) || 0))
+      next = { ...pinned.arguments, offset };
+  }
   const fetchedAt = text(result.fetchedAt, 100) && Number.isFinite(Date.parse(result.fetchedAt!)) ? result.fetchedAt! : '';
   return { kind: 'campus', id: randomUUID(), revision: 1, createdAt: now, domain: domain as CampusScene['domain'],
     source: { sourceId: result.sourceId, fetchedAt, expiresAt: result.expiresAt,
@@ -84,8 +96,8 @@ export function campusAcademicSnapshot(result: { status: string; sourceId: strin
     requiredGrants: ['campus:read', domain === 'grades' ? 'campus:grades:read' : 'campus:gpa:read'],
     academicDisplay: { mode: rows.length === 1 ? 'detail' : 'table', scale: scales.find(scale => rows.some(row => row.gpa
       ? Object.hasOwn(row.gpa.values, scale) : row.grade && Object.hasOwn(row.grade, scale))) || 'fivePoint' }, resultStatus: result.status as 'fresh' | 'partial' | 'stale',
-    academicRead: { capability: query ? 'campus.query' : 'campus.lookup', arguments: { ...request, refresh: false,
-      ...(query && typeof data.bundle_id === 'string' && /^[A-Za-z0-9_-]{1,160}$/.test(data.bundle_id) ? { bundleId: data.bundle_id } : {}) } },
+    academicRead: { capability: query ? 'campus.query' : 'campus.lookup', arguments: read || { ...request, refresh: false } },
+    ...((data.sourceCoverage || data.coverage) ? { sourceCoverage: structuredClone(data.sourceCoverage || data.coverage) } : {}),
     ...(data.snapshotProof ? { academicSnapshotProof: data.snapshotProof } : {}),
     ...(next ? { continuation: { capability: query ? 'campus.query' : 'campus.lookup', arguments: next } } : {}) };
 }

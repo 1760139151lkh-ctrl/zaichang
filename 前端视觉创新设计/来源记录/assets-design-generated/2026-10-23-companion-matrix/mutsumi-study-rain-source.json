@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "mutsumi",
+  "activity": "study",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-study-rain-prompt.txt",
+  "promptSha256": "c28b8fbf1622079f895be210966295a60cdfe253bbbc36071d51fcf18a0a758b",
+  "inputs": [
+    {
+      "file": "mutsumi-study-apricot-mother-candidate-v1.png",
+      "role": "sole primary-approved correct activity apricot mother/edit target",
+      "sha256": "066435e9a63e68d8d026773f7154a8b50275e0c78f0451aa69c99082b7581606",
+      "approvalRecord": "primary-other-mother-reviews.json"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-study-rain-mother-candidate-v1.png",
+    "sha256": "47e16974e9e2a8963ef99c1e1d77a69fd74ba6cd1684cb2cc3c87b9981cd1fc8",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-91920d89-576e-4656-b6a3-f9ecf47a1e62.png"
+  },
+  "producerTransform": "No crop, separate scale, translation or post-generation filter; whole-scene physical relight requested.",
+  "generationStatus": "candidate awaiting producer/primary full-image review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not allowed for returned v1",
+  "runtime": "not registered or verified",
+  "designerStatus": "returned by producer; do not use as later image input",
+  "designerObservation": "Full output personally inspected. Although rain window/character/desk relight and supported pose remain readable, isolated warm floor pool left of desk around680,710 suggests residual/unmotivated second warm illumination. Returned for physical-light consistency; no pixel repair or failed-output feedback."
+}

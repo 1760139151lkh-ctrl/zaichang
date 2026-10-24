@@ -1,0 +1,317 @@
+{
+  "mother": "sakiko-chat-violet-mother-candidate-v1.png",
+  "motherSha256": "8e9b860772095ed911c4c257d6d6769e5c5064f4c793e325e65eadc9e79e1e88",
+  "matte": "sakiko-chat-violet-mask-generated-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [
+    [
+      [
+        1218,
+        530
+      ],
+      [
+        1220,
+        519
+      ],
+      [
+        1260,
+        500
+      ],
+      [
+        1299,
+        508
+      ],
+      [
+        1299,
+        520
+      ],
+      [
+        1268,
+        543
+      ],
+      [
+        1248,
+        539
+      ]
+    ],
+    [
+      [
+        1145,
+        764
+      ],
+      [
+        1166,
+        746
+      ],
+      [
+        1166,
+        768
+      ],
+      [
+        1158,
+        775
+      ]
+    ],
+    [
+      [
+        1200,
+        767
+      ],
+      [
+        1215,
+        751
+      ],
+      [
+        1216,
+        775
+      ],
+      [
+        1206,
+        780
+      ]
+    ],
+    [
+      [
+        1280,
+        375
+      ],
+      [
+        1300,
+        363
+      ],
+      [
+        1323,
+        386
+      ],
+      [
+        1337,
+        430
+      ],
+      [
+        1277,
+        430
+      ],
+      [
+        1268,
+        400
+      ]
+    ],
+    [
+      [
+        1219,
+        503
+      ],
+      [
+        1232,
+        497
+      ],
+      [
+        1244,
+        504
+      ],
+      [
+        1253,
+        518
+      ],
+      [
+        1252,
+        530
+      ],
+      [
+        1247,
+        534
+      ],
+      [
+        1233,
+        529
+      ],
+      [
+        1220,
+        522
+      ]
+    ],
+    [
+      [
+        1214,
+        516
+      ],
+      [
+        1258,
+        497
+      ],
+      [
+        1303,
+        506
+      ],
+      [
+        1303,
+        522
+      ],
+      [
+        1271,
+        547
+      ],
+      [
+        1220,
+        538
+      ]
+    ]
+  ],
+  "excludePolygons": [],
+  "figure": "sakiko-chat-violet-figure-calibrated-v7.png",
+  "mask": "sakiko-chat-violet-mask-calibrated-v7.png",
+  "backgroundCandidate": "sakiko-chat-violet-background-generated-v1.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1174,
+        587
+      ],
+      [
+        1386,
+        587
+      ],
+      [
+        1386,
+        722
+      ],
+      [
+        1280,
+        768
+      ],
+      [
+        1225,
+        703
+      ]
+    ],
+    [
+      [
+        1080,
+        748
+      ],
+      [
+        1240,
+        740
+      ],
+      [
+        1320,
+        770
+      ],
+      [
+        1320,
+        840
+      ],
+      [
+        1080,
+        840
+      ]
+    ]
+  ],
+  "background": "sakiko-chat-violet-background-calibrated-v7.png",
+  "record": "sakiko-chat-violet-layer-processing-v7.json",
+  "reviewNote": "V7 keeps the corrected same-mother v2 head/complete hair matte and restores v1 technical matte at the original opaque blouse ROI, where v2 had drawn false internal black line art. Lap book/hand interiors made opaque in explicit original-source polygons. Original RGB identity; matching empty plus thin normalRGBA contact shadow. Candidate only.",
+  "contactShadowPolygons": [
+    [
+      [
+        1103,
+        797
+      ],
+      [
+        1150,
+        796
+      ],
+      [
+        1156,
+        804
+      ],
+      [
+        1103,
+        805
+      ]
+    ],
+    [
+      [
+        1147,
+        807
+      ],
+      [
+        1217,
+        806
+      ],
+      [
+        1222,
+        814
+      ],
+      [
+        1148,
+        814
+      ]
+    ],
+    [
+      [
+        1345,
+        584
+      ],
+      [
+        1375,
+        581
+      ],
+      [
+        1378,
+        588
+      ],
+      [
+        1347,
+        591
+      ]
+    ],
+    [
+      [
+        1390,
+        586
+      ],
+      [
+        1428,
+        586
+      ],
+      [
+        1431,
+        591
+      ],
+      [
+        1392,
+        592
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "shadow": "sakiko-chat-violet-shadow-calibrated-v7.png",
+  "matteRegionOverrides": [
+    {
+      "file": "sakiko-chat-violet-mask-generated-v2.png",
+      "sha256": "88c9df5dcf1390af1d7c083febceba178dec33d3780d9f1ff59b712fe3068c35",
+      "alphaSource": "luminance",
+      "region": [
+        1150,
+        220,
+        1450,
+        541
+      ]
+    },
+    {
+      "file": "sakiko-chat-violet-mask-generated-v1.png",
+      "sha256": "b1c0ec80d6918d1c4322f369a1762f534885733635cb4308f7389a17095fe8f3",
+      "alphaSource": "luminance",
+      "region": [
+        1245,
+        375,
+        1345,
+        450
+      ]
+    }
+  ]
+}

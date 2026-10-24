@@ -1,0 +1,32 @@
+{
+  "asset": "sakiko-planning-apricot.png",
+  "character": "sakiko",
+  "activity": "planning",
+  "light": "apricot",
+  "createdOn": "2026-10-23",
+  "tool": "built-in image_gen.imagegen",
+  "mode": "same-room character compositing",
+  "prompt": "sakiko-planning-apricot-prompt.txt",
+  "promptSha256": "fb6e88986563c6d268d5d106bab399f8772d95ba906d1e8449f295bf4272e6b6",
+  "input": {
+    "file": "room-apricot-candidate-v4.png",
+    "role": "sole visual input: primary-approved clean empty room",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "characterPixelsProvided": false
+  },
+  "output": {
+    "width": 1536,
+    "height": 1024,
+    "sha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11",
+    "executionId": "e4d09e5a-4d2c-4afe-aded-f0f6169e366b",
+    "originalGeneratedFile": "exec-e4d09e5a-4d2c-4afe-aded-f0f6169e366b.png"
+  },
+  "review": {
+    "designerPersonallyViewed": true,
+    "designerObservation": "Whole room and complete figure are visible. Hips sit on the existing chair cushion; both knees, shins and complete loafers remain separate and meet the floor. The open notebook is angled in her hands above the desk beside a loose sheet; the torso remains mostly directed toward the desk with a slight return of the head. Primary must decide whether that half-turn and comparison sufficiently distinguish planning from study.",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false,
+    "separated": false
+  },
+  "scope": "One full mother image for primary review only; no extraction, runtime registration, theme expansion, character expansion, or matrix coverage acceptance."
+}

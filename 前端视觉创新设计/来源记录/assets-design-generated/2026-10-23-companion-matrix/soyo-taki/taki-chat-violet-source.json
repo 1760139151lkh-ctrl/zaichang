@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "chat",
+  "palette": "violet",
+  "light": "dusk",
+  "generatedOn": "2026-10-23",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-dce4392d-a517-4b32-aec4-f57ba93be55c",
+  "prompt": "taki-chat-violet-prompt.txt",
+  "promptSha256": "5b563518a18c080fb13befb69a0a10e93e16c9f526cbfec034e4a009825a947b",
+  "inputs": [
+    {
+      "file": "taki-chat-apricot-mother-candidate-v1.png",
+      "role": "primary-reviewed correct complete mother: identity, full pose and furniture support",
+      "sha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "role": "primary-reviewed empty complete target lighting plate",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16921-9fe7-73b2-81e9-dfadeae00b4a/exec-dce4392d-a517-4b32-aec4-f57ba93be55c.png",
+  "output": {
+    "file": "taki-chat-violet-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2176292,
+    "sha256": "624b0ffe0243da578e831d38e40ba7283433e3375c6a81a6e792c6d51cc137ab"
+  },
+  "review": {
+    "producerViewed": "complete generated original and its approved warm mother/target plate personally compared",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Same youthful purple-black hair/purple eyes/tan-white uniform/red ribbon and forward chat silhouette, independent staggered legs and complete shoes. Whole room has coherent rose-gold dusk/violet shadows; sun disk remains near x1006,y301 with the same lake reflection and desk warm light. Primary mother, layer and runtime review remain pending."
+}

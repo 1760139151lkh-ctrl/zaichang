@@ -1,0 +1,19 @@
+{
+  "mother": "uika-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0",
+  "matte": "uika-study-apricot-mask-raw-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "uika-study-apricot-figure-calibrated-v1.png",
+  "mask": "uika-study-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "uika-study-apricot-background-raw-v1.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [],
+  "background": "uika-study-apricot-background-calibrated-v1.png",
+  "record": "uika-study-apricot-layer-processing-v1.json",
+  "reviewNote": "Initial visible-only matte extraction for inspection. No hidden anatomy, chair or paper included; fixed desk-contact pose. Raw mask shoe interiors still require local alpha correction before acceptance."
+}

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "asset": "mutsumi-attention-rain-mother-candidate-v1.png",
+  "character": "mutsumi",
+  "activity": "attention",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical whole-environment relighting; approved correct warm mother is sole character/pose/furniture edit target; approved empty theme plate is lighting/sky/source-axis reference only",
+  "prompt": "mutsumi-attention-rain-relight-v2-prompt.txt",
+  "promptSha256": "76b2b25b98e5611f67d7c5d9376c88bcaea8cac70f808ef2a42abbf82ed2429c",
+  "inputs": [
+    {
+      "file": "mutsumi-attention-apricot-mother-candidate-v1.png",
+      "sha256": "2d52ca09896e34164375bfff8348fd4ac2d7c6ca4c5ae52d91b5eba708bbe3d2",
+      "role": "Image 1: primary-approved complete warm activity mother; sole editable character/geometry target"
+    },
+    {
+      "file": "room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "Image 2: primary-approved clean empty room; lighting/sky/source-axis reference only, never furniture/body replacement"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-attention-rain-mother-candidate-v1.png",
+    "sha256": "e198178b7fd7fe90f535319be69e5bffd2f85ae7f7c3d32fbf1539c2f26cdea6",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-4fe6d608-022c-402d-878c-435592905b96.png"
+  },
+  "ownerAndSupport": "Preserve source bench-edge pose presenting the small static note on desk with open palm, other hand braced on cushion, knees softly together and both full floor-supported loafers. The note remains a background object at exact source desktop position; do not pick it up, add legible words or change hand/hips contact.",
+  "designerObservation": "Full generated image personally viewed against approved warm attention mother and empty rain plate. Same open palm toward unchanged static desktop note, supporting rear palm/hips, knees and two complete floor-supported loafers retained. Lamp remains sole nearby amber source; cool rainy window and dim readable left-rear corner have no new spotlight or old daytime leaf/sun strips. Note stays original desk background object.",
+  "geometryObservation": {
+    "coordinateSystem": "1536x1024 original mother canvas",
+    "hipsSeatApprox": [
+      1301,
+      572
+    ],
+    "rearPalmCushionApprox": [
+      1418,
+      582
+    ],
+    "openPalmApprox": [
+      1182,
+      476
+    ],
+    "floorShoesApprox": [
+      [
+        1167,
+        765
+      ],
+      [
+        1231,
+        776
+      ]
+    ],
+    "note": "Small desk note is fixed background content; open hand is a gesture, not a source/action acceptance."
+  },
+  "observedGaps": [
+    "Primary per-mother optical review pending; image producer cannot sign primary approval.",
+    "No extracted layers, final calibration or Stage/runtime acceptance yet."
+  ],
+  "designerStatus": "candidate awaiting primary review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

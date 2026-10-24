@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-study-violet-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "study",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-study-violet-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-study-apricot-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-violet-candidate.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "sakiko-study-violet-mother-candidate-v1.png",
+    "sha256": "c92a1d13aa46c10a52792138bbe5766ddf1bc4492e6bf677dff6f66faf3effc9",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-3b3635d5-ea57-405c-b99e-cc0ded4e0257.png",
+    "executionId": "3b3635d5-ea57-405c-b99e-cc0ded4e0257"
+  },
+  "designerObservation": "Personally viewed full mother: seated at the real desk chair, gaze and forearms toward desk work, both lower legs/complete shoes visible and hips supported. The body relation differs from bench chat. Each image uses its matching whole theme exposure. Primary must check actual paper/pencil contact and chair/desk geometry; mist has a raised open page rather than an entirely flat sheet.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "promptSha256": "576a35c231de8b96ed6a3a9073a9ba417e96b9d9b472d0895e6b96146b72e4a6"
+}

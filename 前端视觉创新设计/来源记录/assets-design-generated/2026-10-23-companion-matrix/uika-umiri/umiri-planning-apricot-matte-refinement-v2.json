@@ -1,0 +1,86 @@
+{
+  "purpose": "local alpha sky/leaf/cloud noise cleanup only; original RGB read only",
+  "input": "umiri-planning-apricot-mask-raw-v1.png",
+  "inputSha256": "ee2e8eca14ab64acbfacd243c51884206f830830aab528b2c8c01f17f397f9b2",
+  "reference": "umiri-planning-apricot-mother-candidate-v2.png",
+  "referenceSha256": "78ca56bc6b2fff62341a26018251a84a62185ea6d614af14b2903ff323976f23",
+  "regionXYXY": [
+    772,
+    288,
+    910,
+    426
+  ],
+  "protectedOriginalHeadInterior": [
+    [
+      804,
+      323
+    ],
+    [
+      823,
+      303
+    ],
+    [
+      847,
+      300
+    ],
+    [
+      874,
+      314
+    ],
+    [
+      890,
+      336
+    ],
+    [
+      893,
+      360
+    ],
+    [
+      881,
+      386
+    ],
+    [
+      866,
+      399
+    ],
+    [
+      840,
+      404
+    ],
+    [
+      816,
+      400
+    ],
+    [
+      801,
+      385
+    ],
+    [
+      795,
+      358
+    ]
+  ],
+  "rule": "Begin raw luminance. In original hair region outside protected head, clear blue/leaf colors as v1. Neutral cloud rejection only in [772,288,910,397], never neck/collar. In chairFabricRegion clear source color where R>100, R-G<45 and R-B>25; darker actual warm skin has larger R-G and remains. Clear alpha in chairLegRegion left of actual calf. No whole-body operation or RGB changes.",
+  "changedAlphaPixels": 2260,
+  "output": "umiri-planning-apricot-mask-local-color-v2.png",
+  "outputSha256": "df13b19f75d732cf556e3d9b2702a7ce1779d47234027008b71aa7ee1c879bf1",
+  "neutralCloudRegionXYXY": [
+    772,
+    288,
+    910,
+    397
+  ],
+  "chairFabricRegionXYXY": [
+    935,
+    596,
+    958,
+    637
+  ],
+  "chairLegRegionXYXY": [
+    935,
+    618,
+    952,
+    638
+  ],
+  "reason": "v2 layer traced polygon nicked rear-calf skin; replace it with precise original fabric-color and left wood-region alpha rejection, preserving actual calf. Restrict neutral head cleanup away from choker/neck highlights."
+}

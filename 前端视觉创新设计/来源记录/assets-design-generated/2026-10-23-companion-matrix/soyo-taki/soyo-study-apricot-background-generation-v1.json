@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "soyo",
+  "activity": "study",
+  "palette": "apricot",
+  "layer": "background",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-84d083a1-7890-46f3-89ac-a5350480f0a5",
+  "prompt": "soyo-study-apricot-background-prompt-v1.txt",
+  "promptSha256": "cbb3cc5fc67d92f6282ec2bfc9858be102c221517800e69ab1aa8f556fd6f16e",
+  "inputs": [
+    {
+      "file": "soyo-study-apricot-mother-candidate-v1.png",
+      "sha256": "cf664fa1fc6dcdd8fd9c8dc1cd542d4142bbe05d5d9809a101e6d58907858411",
+      "role": "sole exact primary-reviewed complete mother"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-84d083a1-7890-46f3-89ac-a5350480f0a5.png",
+  "output": {
+    "file": "soyo-study-apricot-background-generated-v1.png",
+    "sha256": "4ec1b22b4f174c1a5593f4df54f06c5171f1c1faa4b662e102b65732b943a466",
+    "bytes": 2135612,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "generated",
+  "producerObservation": "Producer viewed matching original chair and room; only future exact figure patch may use these pixels.",
+  "review": {
+    "primary": "pending",
+    "runtime": "not registered or accepted"
+  }
+}

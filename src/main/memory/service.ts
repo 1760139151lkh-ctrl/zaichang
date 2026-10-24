@@ -1,12 +1,14 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { z } from 'zod';
 import type { Assertion, AssertionCitation, EvidenceEvent, MemoryChange, MemoryReferenceContext, MemoryView, ScopeHandle } from '../../shared/harness';
-import { always, changeSchema, HarnessError, personalLabel } from '../../shared/harness';
+import { always, assertionSchema, changeSchema, HarnessError, personalLabel, workSourceBindingSchema } from '../../shared/harness';
 import type { KernelRepository, MemoryContextDirectoryPosition, MemoryContextScope, PrivacyFence, ReviewedSourceRestriction } from '../storage/repository';
 import type { IngressDecision, PolicyKernel } from '../runtime/policy';
 import { canonical, codePointSlice, locateQuote } from '../runtime/semantics';
 import { hasCredentials } from '../runtime/redaction';
 import { ProviderError } from '../provider';
+import type { PersonalMethodOwnership, PersonalMethodService } from '../runtime/personal-methods';
+import { personalMethodInput } from '../runtime/personal-methods';
 import { activeContextRequests, advanceMemoryContextDirectory, buildMemoryContext, canonicalContextRequests, containsContextRange, contextBrowseSchema, contextRequestSchema, contextRequestSignature, memoryContextAttemptSignature, memoryContextIdentity,
   validateMemoryContextSnapshot, MEMORY_CONTEXT_METHOD, type ContextBrowseDirection, type ContextRequest, type ContextRequestResult, type MemorySourceDirectory, type MemorySourceWindow } from './context-windows';
 
@@ -26,6 +28,9 @@ export interface SemanticReview {
   allSourcesSupportClaim?: boolean;
   supportSetComplete?: boolean;
   sourceReviews?: { eventId: string; contentVersion: number; start: number; end: number; supported: boolean }[];
+  /** A whole candidate belongs to this already accepted procedural choice,
+   * rather than an independent fact about the person. */
+  personalMethodOwner?: string | null;
   /** Required only for a host-bound current owner projection; never a global grant. */
   authorizesOwnerProjection?: boolean;
   preservesReferenceContext?: boolean;
@@ -40,6 +45,10 @@ export interface MemoryChangeReceipt {
     sourceCoverage: 'complete' | 'incomplete' };
   interpretationOfPastAccuracy: 'not_established_by_revision';
   meaning: string;
+}
+export interface PersonalMethodReconciliationReview {
+  sameProceduralMethod: boolean; allVersionsOnlyMethod: boolean; conditionChangePreservesOtherSteps: boolean;
+  independentPersonalFacts: boolean; reason: string;
 }
 export const currentOwnerChangeSchema = changeSchema.omit({ targetId: true, expectedRevision: true, unresolvedTime: true,
   supports: true, referenceContexts: true, sourceStartCodePoint: true, sourceEndCodePoint: true }).extend({
@@ -57,6 +66,9 @@ export type CurrentOwnerChange = z.infer<typeof currentOwnerChangeSchema>;
  * repository-derived context and never writes this projection to memory.
  */
 export interface MemoryContext {
+  /** Exact accepted method-choice receipts; addresses only, not another copy
+   * of the method or a claim about the person's preferences. */
+  personalMethodOwners?: PersonalMethodOwnership[];
   methodVersion?: string;
   sourceSignature?: string;
   sourceDirectory?: MemorySourceDirectory[];
@@ -183,11 +195,164 @@ export class MemoryService {
   }[] = [];
   reviewer?: MemoryReviewer;
   extractor?: Extractor;
+  personalMethodOwner?: Pick<PersonalMethodService, 'ownership' | 'recoverSavedOwnership'>;
+  methodReconciliationReviewer?: (proposal: unknown, signal: AbortSignal) => Promise<PersonalMethodReconciliationReview>;
   paused = false;
   constructor(
     readonly repo: KernelRepository,
     readonly policy: PolicyKernel,
   ) {}
+
+  /** Repair only the fully attributable old duplication of one saved method
+   * and one condition amendment. This is a present repair, never retroactive
+   * approval of the amendment or a general source-unblocking operation. */
+  async reconcilePersonalMethod(handle: ScopeHandle, input: { legacySave: unknown; methodId: string; expectedMethodRevision: number;
+    assertionId: string; expectedAssertionRevision: number }, signal: AbortSignal = new AbortController().signal) {
+    const legacy = personalMethodInput.parse(input.legacySave);
+    if (legacy.operation !== 'save' || !this.personalMethodOwner || !this.methodReconciliationReviewer)
+      throw new HarnessError('method_reconciliation_unavailable', '当时的完整来由还没能核清，先保留原来的记录。');
+    const owners = this.personalMethodOwner.recoverSavedOwnership(handle, legacy);
+    const owner = owners.find(item => item.methodId === input.methodId && item.legacyOperationId);
+    if (!owner) throw new HarnessError('method_reconciliation_proof', '这份方法没有对应到原先那次真实保存。');
+    const inspect = () => {
+      const scope = this.policy.require(handle, 'memory:write'); this.policy.require(handle, 'work:write');
+      if (!scope.infer || scope.child || scope.audience !== 'self' || scope.subjectId !== scope.principalId
+        || scope.worldId !== 'real' || scope.retention !== 'purpose_scoped')
+        throw new HarnessError('method_reconciliation_scope', '现在还不能整理这份本人的帮法，原记录先留着。');
+      const currentOwner = this.personalMethodOwner!.ownership(handle, [owner.source]).find(value => value.receiptId === owner.receiptId);
+      if (!currentOwner || this.repo.hasFence(input.methodId.slice('personal:'.length), 'work:self'))
+        throw new HarnessError('method_reconciliation_proof', '那份方法已经放下了，没有重新打开旧内容。');
+      const filter = this.repo.filter(handle), row = this.repo.db.prepare(`SELECT r.payload FROM h_work r WHERE ${filter.sql}
+        AND r.id=? AND r.kind='recipe_candidate' AND json_extract(r.payload,'$.data.type')='personal_method'`)
+        .get(...filter.params, input.methodId.slice('personal:'.length));
+      if (!currentOwner || !row || this.repo.hasFence(input.methodId.slice('personal:'.length), 'work:self'))
+        throw new HarnessError('method_reconciliation_proof', '原方法或它的来由已经放下了，没有重新打开。');
+      const method = JSON.parse(String(row.payload)) as import('../../shared/harness').WorkRecord;
+      const parsed = personalMethodInput.parse({ operation: 'save', method: method.data.method, source: legacy.source });
+      if (parsed.operation !== 'save' || method.status !== 'active' || method.revision !== input.expectedMethodRevision
+        || method.revision !== owner.methodRevision + 1 || this.repo.verifyPersonalMethodSources?.(handle, method.data.methodSources) !== true)
+        throw new HarnessError('method_reconciliation_changed', '现在的方法和这次要核对的那一版不同，先保留现状。');
+      const { conditions: oldConditions, ...oldSteps } = legacy.method;
+      const { conditions: newConditions, ...newSteps } = parsed.method;
+      if (canonical(oldSteps) !== canonical(newSteps) || canonical(oldConditions) === canonical(newConditions))
+        throw new HarnessError('method_reconciliation_scope', '这次还不只是适用条件的误会，原步骤需要另行看清。');
+      const binding = workSourceBindingSchema.parse(method.sourceBinding);
+      const initialRefs = [owner.source, ...legacy.supports.map(({ quote: _quote, ...ref }) => ref),
+        ...legacy.assistance.flatMap(source => {
+          const original = this.repo.personalMethodAssistantSource(handle, source);
+          if (!original) throw new HarnessError('method_reconciliation_source', '当时真正给过的帮助现在翻不到了。');
+          return original.sourceRefs;
+        })];
+      const initial = [...new Map(initialRefs.map(ref => [canonical(ref), ref])).values()];
+      const newRefs = binding.refs.filter(ref => !initial.some(prior => canonical(prior) === canonical(ref)));
+      if (newRefs.length !== 1 || initial.some(ref => !binding.refs.some(current => canonical(current) === canonical(ref))))
+        throw new HarnessError('method_reconciliation_source', '这份方法还牵着其他来由，没有只按一次条件修改来修复。');
+      const amendment = newRefs[0];
+      const source = this.repo.evidence(handle, amendment.eventId);
+      if (!source || !['active', 'redacted'].includes(source.status) || source.speaker !== 'user' || source.authority !== 'user_statement'
+        || source.parentEventId || source.contentVersion !== amendment.contentVersion)
+        throw new HarnessError('method_reconciliation_source', '当时改条件的那句话现在不完整，先保留原记录。');
+      for (const ref of binding.refs) if (!this.repo.citationMetadata(handle, { ...ref, role: 'support' }))
+        throw new HarnessError('method_reconciliation_source', '一处原话已经撤回或变化，没有重开旧内容。');
+      const current = this.repo.assertion(handle, input.assertionId);
+      if (!current || current.revision !== input.expectedAssertionRevision || current.revision !== 2 || current.status !== 'active')
+        throw new HarnessError('method_reconciliation_changed', '那份重复的理解已有变化，先保留现在的记录。');
+      const versions = this.repo.db.prepare('SELECT revision,payload FROM h_assertion_versions WHERE id=? ORDER BY revision')
+        .all(current.id).map(version => assertionSchema.parse(JSON.parse(String(version.payload))));
+      const citations = this.repo.db.prepare(`SELECT assertion_revision,event_id,content_version,start_cp,end_cp,role
+        FROM h_assertion_citations WHERE assertion_id=? ORDER BY assertion_revision,event_id,start_cp,end_cp`).all(current.id);
+      if (versions.length !== 2 || versions.some((version, index) => version.revision !== index + 1 || version.status !== 'active'
+        || version.ownerId !== scope.principalId || version.workspaceId !== scope.workspaceId || version.subjectId !== scope.principalId
+        || version.worldId !== 'real' || version.predicate !== current.predicate || version.referenceContexts?.length)
+        || citations.length !== 2 || citations.some((citation, index) => Number(citation.assertion_revision) !== index + 1
+          || citation.role !== 'primary' || Number(citation.content_version) !== (index ? amendment.contentVersion : owner.source.contentVersion)
+          || citation.event_id !== (index ? amendment.eventId : owner.source.eventId)
+          || !Number.isSafeInteger(citation.start_cp) || !Number.isSafeInteger(citation.end_cp)
+          || Number(citation.start_cp) < (index ? amendment.start : owner.source.start)
+          || Number(citation.end_cp) > (index ? amendment.end : owner.source.end)
+          || Number(citation.end_cp) <= Number(citation.start_cp)))
+        throw new HarnessError('method_reconciliation_proof', '旧理解还混着其他事实或来由，不能把它当成同一份帮法移开。');
+      const oldCitation = citations[0], newCitation = citations[1];
+      const log = this.repo.db.prepare('SELECT * FROM h_assertion_revision_log WHERE assertion_id=? ORDER BY revision').all(current.id);
+      const originalLog = log.find(item => Number(item.revision) === 1);
+      const correction = log.find(item => Number(item.revision) === 2);
+      if (log.length !== 2 || !originalLog || originalLog.operation !== 'ADD' || originalLog.previous_revision !== null
+        || originalLog.cause_event_id !== owner.source.eventId || Number(originalLog.cause_version) !== owner.source.contentVersion
+        || Number(originalLog.cause_start) !== Number(oldCitation.start_cp) || Number(originalLog.cause_end) !== Number(oldCitation.end_cp)
+        || !correction || correction.operation !== 'CORRECT' || Number(correction.previous_revision) !== 1
+        || correction.cause_event_id !== amendment.eventId || Number(correction.cause_version) !== amendment.contentVersion
+        || Number(correction.cause_start) !== Number(newCitation.start_cp) || Number(correction.cause_end) !== Number(newCitation.end_cp))
+        throw new HarnessError('method_reconciliation_proof', '旧更正的办理过程没有完全对上，先不改变它的限制。');
+      const restriction = this.repo.db.prepare('SELECT * FROM h_source_restrictions WHERE event_id=? AND predicate=?')
+        .get(owner.source.eventId, current.predicate);
+      const spans = this.repo.db.prepare('SELECT * FROM h_source_restriction_spans WHERE event_id=? AND predicate=?')
+        .all(owner.source.eventId, current.predicate);
+      if (!restriction || restriction.operation !== 'CORRECT' || restriction.replacement_event_id !== amendment.eventId
+        || spans.length !== 1 || Number(spans[0].content_version) !== owner.source.contentVersion
+        || Number(spans[0].start_cp) !== Number(oldCitation.start_cp) || Number(spans[0].end_cp) !== Number(oldCitation.end_cp)
+        || spans[0].effective_from !== versions[1].temporal.recordedFrom
+        || !(Date.parse(String(correction.committed_at)) >= Date.parse(versions[1].temporal.recordedFrom)))
+        throw new HarnessError('method_reconciliation_proof', '那条限制还不能精确归到这次重复更正，没有移开它。');
+      const competing = this.repo.db.prepare(`SELECT 1 FROM h_assertion_citations c JOIN h_assertion_versions v
+        ON v.id=c.assertion_id AND v.revision=c.assertion_revision WHERE c.event_id=? AND c.assertion_id!=?
+        AND json_extract(v.payload,'$.predicate')=? LIMIT 1`).get(owner.source.eventId, current.id, current.predicate);
+      if (competing) throw new HarnessError('method_reconciliation_proof', '同一处限制还关乎另一项理解，先保留各自的来由。');
+      for (const ref of binding.refs) for (const stopped of this.repo.sourceRestrictions(handle, ref.eventId)) {
+        if (stopped.ranges.length && !stopped.ranges.some(range => range.contentVersion === ref.contentVersion
+          && range.start < ref.end && range.end > ref.start)) continue;
+        if (ref.eventId !== owner.source.eventId || stopped.predicate !== current.predicate || stopped.operation !== 'CORRECT'
+          || stopped.replacementEventId !== amendment.eventId || stopped.rangeUnknown)
+          throw new HarnessError('method_reconciliation_source', '这份方法另有真实的停止或更正，原限制会留下。');
+      }
+      return { owner: currentOwner, method: { id: method.id, revision: method.revision, binding, old: legacy.method, current: parsed.method },
+        amendment: { ...amendment, quote: codePointSlice(source.text, amendment.start, amendment.end) }, current, versions, citations,
+        restriction, spans, log };
+    };
+    const snapshot = inspect(), digest = createHash('sha256').update(canonical(snapshot)).digest('hex');
+    const review = await this.methodReconciliationReviewer(snapshot, signal);
+    signal.throwIfAborted();
+    if (!review.sameProceduralMethod || !review.allVersionsOnlyMethod || !review.conditionChangePreservesOtherSteps || review.independentPersonalFacts)
+      throw new HarnessError('method_reconciliation_unknown', '这些内容还不能只归作同一份帮法，原来的记录都先留下。');
+    try { return this.repo.write(() => {
+      const fresh = inspect();
+      if (createHash('sha256').update(canonical(fresh)).digest('hex') !== digest)
+        throw new HarnessError('method_reconciliation_changed', '核对期间原记录刚有变化，没有沿旧内容修复。');
+      const now = this.repo.clock.now(), predicate = fresh.current.predicate;
+      this.repo.db.prepare('DELETE FROM h_source_restriction_spans WHERE event_id=? AND predicate=?').run(owner.source.eventId, predicate);
+      this.repo.db.prepare(`DELETE FROM h_source_restrictions WHERE event_id=? AND predicate=? AND operation='CORRECT'
+        AND replacement_event_id=?`).run(owner.source.eventId, predicate, fresh.amendment.eventId);
+      const retired: Assertion = { ...fresh.current, revision: fresh.current.revision + 1, status: 'retracted',
+        temporal: { ...fresh.current.temporal, recordedFrom: now, recordedTo: now } };
+      const locators = [{ eventId: fresh.amendment.eventId, contentVersion: fresh.amendment.contentVersion,
+        start: Number(fresh.citations[1].start_cp), end: Number(fresh.citations[1].end_cp), role: 'primary' as const }];
+      this.repo.saveAssertion(handle, retired, fresh.current.revision, locators);
+      this.repo.noteAssertionRevision(handle, { id: retired.id, revision: retired.revision }, { operation: 'personal_method_owner_reconcile',
+        causeEventId: fresh.amendment.eventId, causeContentVersion: fresh.amendment.contentVersion,
+        causeStart: fresh.amendment.start, causeEnd: fresh.amendment.end });
+      this.repo.refreshSourceConstraints();
+      if (!this.repo.workBindingsReadable(handle, [fresh.method.binding]) || this.repo.hasFence(fresh.method.id, 'work:self')
+        || !this.personalMethodOwner!.ownership(handle, [owner.source]).some(value => value.receiptId === owner.receiptId))
+        throw new HarnessError('method_reconciliation_source', '修复后仍有一处来由不能使用，已保留原状。');
+      const receiptId = 'method-owner-reconcile:' + createHash('sha256').update(canonical({ digest, now })).digest('hex');
+      this.repo.completeOperation(receiptId, 'personal_method_reconciliation', { at: now, methodId: input.methodId,
+        methodRevision: fresh.method.revision, assertionId: retired.id, previousAssertionRevision: fresh.current.revision,
+        assertionRevision: retired.revision, legacyOperationId: owner.legacyOperationId, ownerReceiptId: owner.receiptId,
+        source: owner.source, amendment: { eventId: fresh.amendment.eventId, contentVersion: fresh.amendment.contentVersion,
+          start: fresh.amendment.start, end: fresh.amendment.end }, removedCorrection: { predicate, snapshotDigest: digest },
+        review: { sameProceduralMethod: review.sameProceduralMethod, allVersionsOnlyMethod: review.allVersionsOnlyMethod,
+          conditionChangePreservesOtherSteps: review.conditionChangePreservesOtherSteps, independentPersonalFacts: review.independentPersonalFacts,
+          digest: createHash('sha256').update(canonical(review)).digest('hex') }, restoresPastApproval: false });
+      this.repo.invalidate(retired.id, 'personal_method_owner_reconciled');
+      this.repo.outbox('work_changed', fresh.method.id);
+      return { repaired: true, receiptId, methodId: input.methodId, methodRevision: fresh.method.revision,
+        duplicateAssertion: { id: retired.id, revision: retired.revision, status: retired.status }, restoresPastApproval: false };
+    }); } catch (error) {
+      // Source constraint refresh also updates repository-local bookkeeping.
+      // Rebuild it only after write() has rolled back a failed reconciliation.
+      this.repo.refreshSourceConstraints();
+      throw error;
+    }
+  }
   private clip(value: string, max = 600) {
     const text = value.trim();
     if (Array.from(text).length <= max) return text;
@@ -268,6 +433,8 @@ export class MemoryService {
     return {
       anchors,
       conditions,
+      personalMethodOwners: this.personalMethodOwner?.ownership(handle, [{ eventId: event.id,
+        contentVersion: event.contentVersion, start: 0, end: Array.from(event.text).length }]) || [],
     };
   }
   private contextScope(handle: ScopeHandle, eventId: string, binding?: MemoryContextScope) {
@@ -693,10 +860,13 @@ export class MemoryService {
           unresolvedTime: retirement.temporal.unresolvedExpression };
       const { existingAssertion: _untrustedTarget, proposedRetirement: _untrustedRetirement, currentOwnerProjection: _untrustedProjection,
         hostReferenceContexts: _untrustedReferences,
+        personalMethodOwners: _untrustedMethodOwners,
         hostSupportSet: _untrustedSupports, ...providedContext } = options.reviewContext || {};
       const hostSupportSet = this.resolveSupportSet(handle, change, event, oldTarget);
       const hostReferenceContexts = this.resolveReferenceContexts(handle, change, event, oldTarget, providedContext);
-      const reviewContext: MemoryContext = { ...providedContext, hostSupportSet, hostReferenceContexts };
+      const methodRefs = hostSupportSet.citations.map(({ eventId, contentVersion, start, end }) => ({ eventId, contentVersion, start, end }));
+      const personalMethodOwners = this.personalMethodOwner?.ownership(handle, methodRefs) || [];
+      const reviewContext: MemoryContext = { ...providedContext, hostSupportSet, hostReferenceContexts, personalMethodOwners };
       let previousCitations: AssertionCitation[] = [];
       if (oldTarget) {
         const oldCitations = this.repo.assertionCitations(handle, oldTarget.id);
@@ -723,6 +893,18 @@ export class MemoryService {
         review = await this.reviewer(change, event, signal, reviewContext);
       signal.throwIfAborted();
       this.policy.validate(handle);
+      const currentMethodOwners = this.personalMethodOwner?.ownership(handle, methodRefs) || [];
+      if (canonical(currentMethodOwners) !== canonical(personalMethodOwners))
+        throw new HarnessError('memory_context_changed', '刚才一起留下的帮法已经变化，先按现在那一份继续整理。');
+      if (!options.trustedControl && personalMethodOwners.length) {
+        if (review?.personalMethodOwner === undefined)
+          throw new HarnessError('method_ownership_unknown', '这段话里有已经留下的帮法，其他独立的意思还需要分清。');
+        if (review.personalMethodOwner !== null) {
+          if (!personalMethodOwners.some(owner => owner.receiptId === review!.personalMethodOwner))
+            throw new HarnessError('method_ownership_unknown', '这份帮法的来由和刚才核对的内容没有对上，先留在原处。');
+          throw new HarnessError('memory_not_needed', '这份帮法已经在原来的方法里留好，其他独立的事实仍可分别理解。');
+        }
+      }
       if (hostReferenceContexts.length || oldTarget?.referenceContexts?.length) {
         const key = (value: { messageId: string; start: number; end: number; contentSha256: string }) =>
           canonical([value.messageId, value.start, value.end, value.contentSha256]);
@@ -850,6 +1032,11 @@ export class MemoryService {
     this.repo.write(() => {
       this.policy.validate(handle);
       validateMemoryContextSnapshot(this.repo, handle, event, extractionContext, !!change.supports?.length);
+      if (extractionContext?.personalMethodOwners) {
+        const refs = (extractionContext.hostSupportSet?.citations || []).map(({ eventId, contentVersion, start, end }) => ({ eventId, contentVersion, start, end }));
+        if (canonical(this.personalMethodOwner?.ownership(handle, refs) || []) !== canonical(extractionContext.personalMethodOwners))
+          throw new HarnessError('memory_context_changed', '这份帮法刚有变化，其他独立的意思先按现在的来由再看一遍。');
+      }
       // Capture locators before saveAssertion replaces the old evidence links.
       const oldLocators = old ? this.repo.assertionCitations(handle, old.id) : [];
       // Review is asynchronous. A correction may have stopped this source

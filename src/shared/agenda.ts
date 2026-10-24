@@ -19,7 +19,8 @@ export type AgendaReference = z.infer<typeof agendaReferenceSchema>;
 
 export const agendaFocusSchema = z.object({
   record: agendaReferenceSchema,
-  trial: z.object({ proposedStart: z.string().datetime({ offset: true }) }).strict().optional(),
+  trial: z.object({ proposedStart: z.string().datetime({ offset: true }),
+    durationMinutes: z.number().int().min(1).max(1440).nullable().optional() }).strict().optional(),
 }).strict();
 export type AgendaFocus = z.infer<typeof agendaFocusSchema>;
 
@@ -56,10 +57,28 @@ export const agendaPreviewChangeInputSchema = z.object({
 }).strict();
 export type AgendaPreviewChangeInput = z.input<typeof agendaPreviewChangeInputSchema>;
 
+export interface AgendaPlanningOccupancy {
+  planId: string;
+  /** Actual current intervals, never a second plan or an accepted move. */
+  parts: { kind: 'setup' | 'work' | 'cleanup'; start: string; end: string }[];
+  related: { record: AgendaReference; title: string; start: string; end: string;
+    kind: 'work' | 'travel' | 'rest' | 'transition' }[];
+  relatedComplete: boolean;
+  multipleWorkUnits: boolean;
+}
+
 export interface AgendaChangePreview {
   record: AgendaReference;
+  /** Binds the reviewed calculation to the actual calendar and source snapshot. */
+  assessmentKey?: string;
   window: { from: string; to: string; timeZone: string };
-  conflicts: { id: string; title: string; start: string; end: string | null; source: 'agenda' | 'campus' }[];
+  conflicts: { id: string; title: string; start: string; end: string | null; source: 'agenda' | 'campus';
+    record?: AgendaReference; occurrenceId?: string;
+    flexibility?: 'fixed' | 'movable'; uncertain?: boolean; overlapStart?: string; overlapEnd?: string }[];
+  /** Same owner and complete duration; selecting one still only changes the draft. */
+  alternatives?: { startsAt: string; end: string; direction: 'earlier' | 'later';
+    record: AgendaReference; durationMinutes: number }[];
+  occupancy?: AgendaPlanningOccupancy;
   unknown: string[];
   violations: string[];
   sourceCoverage: { sourceId: string; status: string; reason?: string }[];

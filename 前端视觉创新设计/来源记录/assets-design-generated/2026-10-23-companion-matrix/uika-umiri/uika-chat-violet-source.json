@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-theme-mother-candidate",
+  "character": "uika",
+  "activity": "chat",
+  "theme": "violet",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/uika/",
+    "https://anime.bang-dream.com/mygo/character/uika/"
+  ],
+  "input": {
+    "path": "uika-chat-apricot-mother-candidate-v1.png",
+    "sha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c",
+    "role": "sole input: primary-approved full apricot chat mother; lighting-weather edit only"
+  },
+  "promptFile": "uika-chat-violet-prompt.txt",
+  "prompt": "Use case: lighting-weather. Make ONE complete 1536 x 1024 same-room themed mother by relighting the supplied primary-approved character chat scene.\nONLY INPUT IMAGE 1 is the EDIT TARGET, a complete approved apricot mother with its original person. This is a whole-scene LIGHTING AND WEATHER EDIT, not a new composition or new pose.\nLOCK EVERYTHING GEOMETRIC: exact canvas, camera and perspective; exact person's face, age, hairstyle, body, expression, posture, hands/fingers, clothing folds, hems, both feet/shoes, scale and position; exact window frame and all four corners, curtains, lake/campus landmarks, rear-left table/chair/shelves/framed drawing, right desk/chair/lamp/cup/book, bench/pillows/throw, rug and all furniture feet. Keep the chair in THIS mother, even if it differs from the original empty-room chair orientation. Do not restore/reposition a chair, move a lamp or widen a desk. Do not crop, zoom, enlarge, redesign, move the person or add another person.\nThe left lived-in depth and open central floor stay visible. Relight the PERSON and the WHOLE ROOM together so hair, skin, clothes, wood, linen, window glass, exterior and contact shadows agree with the same illumination. Skin and clothing retain their own material colors, not a full-image color filter, tinted overlay, green cast, black layer or white gradient. Preserve fine youthful Japanese-anime character linework and the softly detailed painted environment. No text, UI, logo, watermark, split-screen, border, arrows, inset or duplicate view.\n\nIDENTITY LOCK: this is Misumi Uika (三角初華), the same youthful short pale-blonde/pink-undertone chin-length bob, violet eyes, white short-sleeved tee, long taupe-gray skirt, white socks and black-and-white sneakers already painted in the input. Keep her front-edge right window-bench chat pose and both palms/feet unchanged. Do not invent long brown hair or another character.\n\nTHEME VIOLET / rose-gold dusk:\nThe same lake/campus skyline is at sunset: low warm rose-gold light at the horizon, fading violet/lilac upper clouds and soft dusk over the distant mountains. The sunset and water reflections occupy the WHOLE connected window view coherently. Interior shadows acquire quiet muted violet while direct/reflective surfaces receive restrained rose/amber light. Retain the room's real material colors and depth, not a flat purple or orange filter.\nSwitch ON the existing desk lamp at exactly its source location, with a modest independent warm pool on the tabletop and nearby chair/bench surfaces. The lamp's light, window dusk rim, material reflections and the person's face/skin/hair/clothes all obey the same two real sources. Natural skin remains readable and youthful, no neon purple skin or white-out garment. Do not move the lamp or alter its shape. Preserve the same geometry and original chat pose in one continuous dusk room.\nReturn the complete exact-size same-character, same-pose, same-furniture scene.\n",
+  "output": {
+    "path": "uika-chat-violet-mother-candidate-v1.png",
+    "sha256": "33669e3fb118266e4151f67203b87a37815292b5b63dd8a0ebd5b4558df58cd7",
+    "bytes": 2204969,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T21:22:06.775428+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "玫瑰金窗外夕光、紫影与独立暖灯共同作用，人物姿势/家具关系保持；肤色仍可读，首格完整光线门样待主审。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-2a223c82-e3b9-4a68-9d24-fe6844d5e952"
+}

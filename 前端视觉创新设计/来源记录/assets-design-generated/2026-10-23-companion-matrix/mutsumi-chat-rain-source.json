@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "intent": "Whole-scene physical time/weather/lighting edit of a primary-approved correct full mother. No character-generation input exception is inferred for rejected mothers.",
+  "prompt": "mutsumi-chat-rain-prompt.txt",
+  "promptSha256": "60a98feeaa5acfc7d0bd7b371d36cefdf3c23f6c8f2834b1f182016b4cd1d908",
+  "inputs": [
+    {
+      "file": "mutsumi-chat-apricot-mother-candidate-v1.png",
+      "role": "sole primary-approved complete mother/edit target",
+      "sha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a",
+      "approvalRecord": "primary-other-mother-reviews.json"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-chat-rain-mother-candidate-v1.png",
+    "sha256": "be681e743dc587fd220e86b833a182c79bb26530da7ec7eb7066eb75f971eb1f",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-85b16cb4-f4c3-4343-91c3-91f0c404e1ee.png"
+  },
+  "producerTransform": "No crop/scale/translation or post-generation color filter applied. Geometry preservation is a visual observation of model output, not a claim of pixel identity across relighting.",
+  "designerObservation": "Complete image personally viewed. Rainy night glass/city/lake and warm existing desk lamp, no daytime hard leaf shadows. Entire room exposure changes and left rear furniture remains discernible. Face/materials share warm interior light with cooler window fill; a strong warm highlight on upper/right hair and bright nearby floor reflection remain, requiring primary source-direction judgment rather than assuming a passed night exposure. Original pose/body support visually preserved.",
+  "primaryReview": "pending; theme gate only, producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

@@ -1,0 +1,221 @@
+{
+  "recordType": "original-scene-portrait-production",
+  "processor": "extract-approved-portraits.py",
+  "processorSha256": "3b5ae4e7849d707d61dfb9ed6bdf328da6b484a7366d2a0ae4f20765cee9a331",
+  "parameters": "portrait-crops.json",
+  "parametersSha256": "62c5b8d387efcf976a592145f9bb0844bddd354398a60e084dc771ead3af17c9",
+  "entries": [
+    {
+      "character": "sakiko",
+      "mother": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "crop": [
+        1183,
+        240,
+        1423,
+        480
+      ],
+      "approvalRecord": "primary-prototype-reviews.json",
+      "motherSha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+      "output": "运行素材/companion/portraits/sakiko-portrait.png",
+      "outputSha256": "0b8385ba49fa2fd5b4e530c1f001e56b983c1a38f8743163044576e2e1cf36cd",
+      "width": 240,
+      "height": 240,
+      "pixelMethod": "Exact original RGB crop; no resize or repaint.",
+      "review": {
+        "primaryPortraitReview": "pending",
+        "integratedVisualReview": "pending"
+      }
+    },
+    {
+      "character": "mutsumi",
+      "mother": "mutsumi-chat-apricot-mother-candidate-v1.png",
+      "crop": [
+        1188,
+        243,
+        1428,
+        483
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json",
+      "motherSha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a",
+      "output": "运行素材/companion/portraits/mutsumi-portrait.png",
+      "outputSha256": "5499d11207e377e9fd6ff7e80b38afe6b9465cf2627c937ee0a1026652169e22",
+      "width": 240,
+      "height": 240,
+      "pixelMethod": "Exact original RGB crop; no resize or repaint.",
+      "review": {
+        "primaryPortraitReview": "pending",
+        "integratedVisualReview": "pending"
+      }
+    },
+    {
+      "character": "uika",
+      "mother": "uika-umiri/uika-chat-apricot-mother-candidate-v1.png",
+      "crop": [
+        1174,
+        233,
+        1414,
+        473
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json",
+      "motherSha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c",
+      "output": "运行素材/companion/portraits/uika-portrait.png",
+      "outputSha256": "756de567544fb26a8bf252a083db1ef1aaddd4f077207a61d7f09882116b09d5",
+      "width": 240,
+      "height": 240,
+      "pixelMethod": "Exact original RGB crop; no resize or repaint.",
+      "review": {
+        "primaryPortraitReview": "pending",
+        "integratedVisualReview": "pending"
+      }
+    },
+    {
+      "character": "umiri",
+      "mother": "uika-umiri/umiri-chat-apricot-mother-candidate-v2.png",
+      "crop": [
+        814,
+        282,
+        1014,
+        482
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json",
+      "motherSha256": "beb0028df130f510fce228bd127495d0375ecf8998c81a50137617e4482af8ee",
+      "output": "运行素材/companion/portraits/umiri-portrait.png",
+      "outputSha256": "838856aecd7161e3fadbdbbb5ce092da37601d2e03008c030c94ebe99f320a4f",
+      "width": 200,
+      "height": 200,
+      "pixelMethod": "Exact original RGB crop; no resize or repaint.",
+      "review": {
+        "primaryPortraitReview": "pending",
+        "integratedVisualReview": "pending"
+      }
+    },
+    {
+      "character": "nyamu",
+      "mother": "nyamu-chat-apricot-mother-candidate-v1.png",
+      "crop": [
+        1170,
+        214,
+        1410,
+        454
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json",
+      "motherSha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305",
+      "output": "运行素材/companion/portraits/nyamu-portrait.png",
+      "outputSha256": "c31c207d2a84f7d48fc892658435d1797a790042f3e77f179606008c50359182",
+      "width": 240,
+      "height": 240,
+      "pixelMethod": "Exact original RGB crop; no resize or repaint.",
+      "review": {
+        "primaryPortraitReview": "pending",
+        "integratedVisualReview": "pending"
+      }
+    },
+    {
+      "character": "tomori",
+      "mother": "tomori-chat-apricot-mother.png",
+      "crop": [
+        1180,
+        246,
+        1420,
+        486
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json",
+      "motherSha256": "7e2d61d5874ede02beba0808b329b18922dfe6b3f20f2d923a9c2ea4c22978d9",
+      "output": "运行素材/companion/portraits/tomori-portrait.png",
+      "outputSha256": "2eef9ff7ad6f29a8f3a3bbae86c8489ecae13d0ec06eb1d3277f713e76f8186e",
+      "width": 240,
+      "height": 240,
+      "pixelMethod": "Exact original RGB crop; no resize or repaint.",
+      "review": {
+        "primaryPortraitReview": "pending",
+        "integratedVisualReview": "pending"
+      }
+    },
+    {
+      "character": "anon",
+      "mother": "rana-anon/anon-chat-apricot-mother-candidate-v1.png",
+      "crop": [
+        1170,
+        214,
+        1410,
+        454
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json",
+      "motherSha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+      "output": "运行素材/companion/portraits/anon-portrait.png",
+      "outputSha256": "78aed8f88a1e619ae90ffec4caede69df23ab3d919c490bb1cdef45b8107214c",
+      "width": 240,
+      "height": 240,
+      "pixelMethod": "Exact original RGB crop; no resize or repaint.",
+      "review": {
+        "primaryPortraitReview": "pending",
+        "integratedVisualReview": "pending"
+      }
+    },
+    {
+      "character": "rana",
+      "mother": "rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+      "crop": [
+        1180,
+        263,
+        1420,
+        503
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json",
+      "motherSha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "output": "运行素材/companion/portraits/rana-portrait.png",
+      "outputSha256": "1f8e587578b4affc3eb8d0203639f7a5e03b74c8130219355181e60cad4e5d23",
+      "width": 240,
+      "height": 240,
+      "pixelMethod": "Exact original RGB crop; no resize or repaint.",
+      "review": {
+        "primaryPortraitReview": "pending",
+        "integratedVisualReview": "pending"
+      }
+    },
+    {
+      "character": "soyo",
+      "mother": "soyo-taki/soyo-chat-apricot-mother-candidate-v1.png",
+      "crop": [
+        1175,
+        252,
+        1415,
+        492
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json",
+      "motherSha256": "e5860a2adf427032f84d15dcec6c59c8b6ffa7dff8ede6eadf9ec669f4e00b29",
+      "output": "运行素材/companion/portraits/soyo-portrait.png",
+      "outputSha256": "aa2606746cda46376db3892c7c4a383debd3735db9d8957b18ca96f13f8c6d08",
+      "width": 240,
+      "height": 240,
+      "pixelMethod": "Exact original RGB crop; no resize or repaint.",
+      "review": {
+        "primaryPortraitReview": "pending",
+        "integratedVisualReview": "pending"
+      }
+    },
+    {
+      "character": "taki",
+      "mother": "soyo-taki/taki-chat-apricot-mother-candidate-v1.png",
+      "crop": [
+        1130,
+        287,
+        1370,
+        527
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json",
+      "motherSha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f",
+      "output": "运行素材/companion/portraits/taki-portrait.png",
+      "outputSha256": "a8f82618b0ab1aa42f332beeb9bc991e41820d5282ced24dbdecdf142b4530e1",
+      "width": 240,
+      "height": 240,
+      "pixelMethod": "Exact original RGB crop; no resize or repaint.",
+      "review": {
+        "primaryPortraitReview": "pending",
+        "integratedVisualReview": "pending"
+      }
+    }
+  ],
+  "scope": "Identity portraits only; does not add an activity, theme, layer or Stage runtime acceptance.",
+  "doesNotGrantStageAcceptance": true
+}

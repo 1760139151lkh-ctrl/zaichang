@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "asset": "mutsumi-play-mist-mother-candidate-v1.png",
+  "character": "mutsumi",
+  "activity": "play",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical whole-environment relighting; approved correct warm mother is sole character/pose/furniture edit target; approved empty theme plate is lighting/sky/source-axis reference only",
+  "prompt": "mutsumi-play-mist-relight-v2-prompt.txt",
+  "promptSha256": "c65e94bc3b656c783158caeab8f5de6be4ecb3b880f8a1d164fc05116957b45c",
+  "inputs": [
+    {
+      "file": "mutsumi-play-apricot-mother-candidate-v2.png",
+      "sha256": "bddfde972af4dc64865025af3035883e0a1e15497e17ed52bc9ef9a7e6d058df",
+      "role": "Image 1: primary-approved complete warm activity mother; sole editable character/geometry target"
+    },
+    {
+      "file": "room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "Image 2: primary-approved clean empty room; lighting/sky/source-axis reference only, never furniture/body replacement"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-play-mist-mother-candidate-v1.png",
+    "sha256": "94ed9cb55642122c96d4eb50c5bcf7fcb480a956f68176769a9cd38a68ac1ec4",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-ff63a064-f93e-4d80-8b0e-ef75a6b48fbf.png"
+  },
+  "ownerAndSupport": "Preserve source supported bench-edge lean toward viewer, hand offering one small leaf, rear palm on cushion, same intact two knees/ankles and full floor-supported loafers. This quiet tiny leaf discovery is Mutsumi's restrained play, not a generic big gesture. Do not change leaf, hand pose, body scale or hip/cushion contacts.",
+  "designerObservation": "Full generated image personally viewed against approved warm play v2 mother and empty mist plate. Same restrained leaf-offering hand, slightly forward torso, original supported hips/rear palm, two intact knees/ankles and full floor-supported loafers. Youthful mint-hair/silver-clip identity and props preserved; morning diffuse pale-blue room fill, lamp off.",
+  "geometryObservation": {
+    "coordinateSystem": "1536x1024 original mother canvas",
+    "hipsSeatApprox": [
+      1293,
+      586
+    ],
+    "rearPalmCushionApprox": [
+      1399,
+      598
+    ],
+    "leafHandApprox": [
+      1246,
+      500
+    ],
+    "floorShoesApprox": [
+      [
+        1110,
+        797
+      ],
+      [
+        1210,
+        824
+      ]
+    ],
+    "note": "Image-stage approximate support observations only; no layer calibration or runtime admission implied."
+  },
+  "observedGaps": [
+    "Primary per-mother optical review pending; image producer cannot sign primary approval.",
+    "No extracted layers, final calibration or Stage/runtime acceptance yet."
+  ],
+  "designerStatus": "candidate awaiting primary review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

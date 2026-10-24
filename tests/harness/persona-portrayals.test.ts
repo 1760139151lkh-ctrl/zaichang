@@ -67,12 +67,12 @@ test('portrayals retain factual preconditions and separate source facts from pro
   for (const id of ['sakiko', 'mutsumi'] as const) {
     const state = { ...migratePersona(), core: personaPreset(id) };
     const prompt = personaGuidance(state);
-    assert.match(prompt, /尚不知道出发位置，不能核实是否来得及/);
-    assert.match(prompt, /日程写入失败，尚未持久化/);
+    assert.match(prompt, /还不知道对方从哪里出发，所以还算不准现在走是否来得及/);
+    assert.match(prompt, /这次日程没有保存成功，写下的内容仍在/);
     assert.match(prompt, /用户改过的描述与口吻优先/);
     assert.match(prompt, /不是用户记忆/);
-    assert.match(prompt, /不同角色使用同一组真实依据和动作回执/);
-    assert.match(prompt, /不能自动修改角色核心/);
+    assert.match(prompt, /同一件事，换谁来陪，依据的仍是同样的真实资料和实际办成的结果/);
+    assert.match(prompt, /保存过的名字、人格与约定沿原样珍惜；对方亲手修改后/);
     const read = characterPortrayal(id)!;
     read.establishedTraits[0] = 'mutated' as never;
     assert.notEqual(characterPortrayal(id)!.establishedTraits[0], 'mutated');

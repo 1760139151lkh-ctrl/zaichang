@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-play-mist-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "play",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-play-mist-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-play-apricot-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "output": {
+    "file": "sakiko-play-mist-mother-candidate-v1.png",
+    "sha256": "e9ab0ebe390cd7a13b638f124eb359cdcf30d407b592987ca5600a90d30ca2e6",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-c4ebc9c6-fdd6-4bfc-b341-58f18f102b91.png",
+    "executionId": "c4ebc9c6-fdd6-4bfc-b341-58f18f102b91"
+  },
+  "designerObservation": "Personally viewed full mother: torso leans forward while one palm supports on the bench and the other offers a small paper bird; staggered uncrossed legs and two complete shoes balance the shift. Youthful blue-haired/gold-eyed identity and full theme lighting retained. Needs primary review of the offering fingers, hip compression and floor contacts.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "promptSha256": "d13c35a568c49d263740d6a462cb8a71e9c962356dff6553b47876ca684e8273"
+}

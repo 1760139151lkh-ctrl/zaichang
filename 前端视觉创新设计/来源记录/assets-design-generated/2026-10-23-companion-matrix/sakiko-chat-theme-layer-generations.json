@@ -1,0 +1,138 @@
+{
+  "recordType": "image-generation-layer-source",
+  "entries": [
+    {
+      "theme": "mist",
+      "part": "background",
+      "tool": "image_gen.imagegen",
+      "input": "sakiko-chat-mist-mother-candidate-v1.png",
+      "promptFile": "sakiko-chat-mist-background-prompt.txt",
+      "executionId": "exec-840fb9b8-1b17-4239-94b5-271be51c3fb1",
+      "output": "sakiko-chat-mist-background-generated-v1.png",
+      "inputSha256": "bda7f03d62e096dbc892b8d1e5b7fed446a3b3886d8255f70bbe2fb5db45efd0",
+      "promptSha256": "1d4c4dfff089c19aa4ca302dd71d041fade86f10d33b21a15509e06e09438f53",
+      "outputSha256": "d118b6d7f6979f16842ddf3137cad1c137d515127505867cc4cca80534a0359e",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "designerViewed": true,
+      "primaryReview": "pending",
+      "runtimeAccepted": false
+    },
+    {
+      "theme": "violet",
+      "part": "background",
+      "tool": "image_gen.imagegen",
+      "input": "sakiko-chat-violet-mother-candidate-v1.png",
+      "promptFile": "sakiko-chat-violet-background-prompt.txt",
+      "executionId": "exec-9e16e6de-c706-4b87-ba8d-df697c0911ea",
+      "output": "sakiko-chat-violet-background-generated-v1.png",
+      "inputSha256": "8e9b860772095ed911c4c257d6d6769e5c5064f4c793e325e65eadc9e79e1e88",
+      "promptSha256": "14963a6709741f857554a51f671f7b4ee19fef9bf549a19949fc13ddc1fddb64",
+      "outputSha256": "c7e62a42837223cc9d78bddbc04a80a01b2bb564ce35027b95242929cdc7dba8",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "designerViewed": true,
+      "primaryReview": "pending",
+      "runtimeAccepted": false
+    },
+    {
+      "theme": "rain",
+      "part": "background",
+      "tool": "image_gen.imagegen",
+      "input": "sakiko-chat-rain-mother-candidate-v1.png",
+      "promptFile": "sakiko-chat-rain-background-prompt.txt",
+      "executionId": "exec-d23a5afd-e2ff-4cf5-8905-403af6adfa33",
+      "output": "sakiko-chat-rain-background-generated-v1.png",
+      "inputSha256": "a57a3b22791dd9525d9e1dc565fe76866edb7c4d067e3cb94d67e6dfb06628a6",
+      "promptSha256": "2c1ce7aff0a81c51df5e79be1f71911c12bb8a98eb56b5b4f0887e025445a39f",
+      "outputSha256": "5fa0770192f217490ec811e2fe7304766e1e65d6b4c3a67b19abb8b89f16ae41",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "designerViewed": true,
+      "primaryReview": "pending",
+      "runtimeAccepted": false
+    },
+    {
+      "theme": "mist",
+      "part": "mask",
+      "tool": "image_gen.imagegen",
+      "input": "sakiko-chat-mist-mother-candidate-v1.png",
+      "promptFile": "sakiko-chat-mist-mask-prompt.txt",
+      "executionId": "exec-dc1e7bc5-2291-4039-b9e7-211e8e846969",
+      "output": "sakiko-chat-mist-mask-generated-v1.png",
+      "inputSha256": "bda7f03d62e096dbc892b8d1e5b7fed446a3b3886d8255f70bbe2fb5db45efd0",
+      "promptSha256": "b8c1387fc73a34e23cf2aa9096cc790cb19785aa5f0dc38f640e80b927d33bd2",
+      "outputSha256": "b90d1ed47cedb37e641455438b687fc93ea18efec3c147dac93e6d11f05c2202",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "designerViewed": true,
+      "primaryReview": "pending",
+      "runtimeAccepted": false
+    },
+    {
+      "theme": "violet",
+      "part": "mask",
+      "tool": "image_gen.imagegen",
+      "input": "sakiko-chat-violet-mother-candidate-v1.png",
+      "promptFile": "sakiko-chat-violet-mask-prompt.txt",
+      "executionId": "exec-179dc1ba-be95-429c-bae3-be2bc4efaab9",
+      "output": "sakiko-chat-violet-mask-generated-v1.png",
+      "inputSha256": "8e9b860772095ed911c4c257d6d6769e5c5064f4c793e325e65eadc9e79e1e88",
+      "promptSha256": "b8c1387fc73a34e23cf2aa9096cc790cb19785aa5f0dc38f640e80b927d33bd2",
+      "outputSha256": "b1c0ec80d6918d1c4322f369a1762f534885733635cb4308f7389a17095fe8f3",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "designerViewed": true,
+      "primaryReview": "pending",
+      "runtimeAccepted": false
+    },
+    {
+      "theme": "rain",
+      "part": "mask",
+      "tool": "image_gen.imagegen",
+      "input": "sakiko-chat-rain-mother-candidate-v1.png",
+      "promptFile": "sakiko-chat-rain-mask-prompt.txt",
+      "executionId": "exec-429b979d-2cc9-4d54-9157-be16aee547bb",
+      "output": "sakiko-chat-rain-mask-generated-v1.png",
+      "inputSha256": "a57a3b22791dd9525d9e1dc565fe76866edb7c4d067e3cb94d67e6dfb06628a6",
+      "promptSha256": "b8c1387fc73a34e23cf2aa9096cc790cb19785aa5f0dc38f640e80b927d33bd2",
+      "outputSha256": "8333d41c304dff0d16d1bd6665d14b70196cb310cfc032fa0766fbae68185cdb",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "designerViewed": true,
+      "primaryReview": "pending",
+      "runtimeAccepted": false
+    },
+    {
+      "theme": "violet",
+      "part": "mask",
+      "tool": "image_gen.imagegen",
+      "input": "sakiko-chat-violet-mother-candidate-v1.png",
+      "inputSha256": "8e9b860772095ed911c4c257d6d6769e5c5064f4c793e325e65eadc9e79e1e88",
+      "promptFile": "sakiko-chat-violet-mask-generated-v2-prompt.txt",
+      "promptSha256": "36db4c3f0dde5f0c416a29ac75a4ae7eab375e8e729c43559e2c95b0f5db78ce",
+      "executionId": "exec-5f301b63-51b7-4bd8-8c0b-49ff749a0ee0",
+      "output": "sakiko-chat-violet-mask-generated-v2.png",
+      "outputSha256": "88c9df5dcf1390af1d7c083febceba178dec33d3780d9f1ff59b712fe3068c35",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "reason": "Raw v1 crown matte extended above true hair; v2 specifically corrects existing crown location. V2 body line art is not blindly accepted.",
+      "primaryReview": "pending",
+      "runtimeAccepted": false
+    }
+  ]
+}

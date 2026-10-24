@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-theme-mother-candidate",
+  "character": "umiri",
+  "activity": "chat",
+  "theme": "mist",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/umiri/",
+    "https://anime.bang-dream.com/mygo/character/umiri/"
+  ],
+  "input": {
+    "path": "umiri-chat-apricot-mother-candidate-v2.png",
+    "sha256": "beb0028df130f510fce228bd127495d0375ecf8998c81a50137617e4482af8ee",
+    "role": "sole input: primary-approved full apricot chat mother; lighting-weather edit only"
+  },
+  "promptFile": "umiri-chat-mist-prompt.txt",
+  "prompt": "Use case: lighting-weather. Make ONE complete 1536 x 1024 same-room themed mother by relighting the supplied primary-approved character chat scene.\nONLY INPUT IMAGE 1 is the EDIT TARGET, a complete approved apricot mother with its original person. This is a whole-scene LIGHTING AND WEATHER EDIT, not a new composition or new pose.\nLOCK EVERYTHING GEOMETRIC: exact canvas, camera and perspective; exact person's face, age, hairstyle, body, expression, posture, hands/fingers, clothing folds, hems, both feet/shoes, scale and position; exact window frame and all four corners, curtains, lake/campus landmarks, rear-left table/chair/shelves/framed drawing, right desk/chair/lamp/cup/book, bench/pillows/throw, rug and all furniture feet. Keep the chair in THIS mother, even if it differs from the original empty-room chair orientation. Do not restore/reposition a chair, move a lamp or widen a desk. Do not crop, zoom, enlarge, redesign, move the person or add another person.\nThe left lived-in depth and open central floor stay visible. Relight the PERSON and the WHOLE ROOM together so hair, skin, clothes, wood, linen, window glass, exterior and contact shadows agree with the same illumination. Skin and clothing retain their own material colors, not a full-image color filter, tinted overlay, green cast, black layer or white gradient. Preserve fine youthful Japanese-anime character linework and the softly detailed painted environment. No text, UI, logo, watermark, split-screen, border, arrows, inset or duplicate view.\n\nIDENTITY LOCK: this is Yahata Umiri (八幡海鈴), the same youthful charcoal-gray shoulder-length flipped-tip hair, gray-teal eyes, short black jacket, dark-red top, gray short skirt, choker/earrings and black platform boots already painted in the input. Keep her outward-turned original desk-chair chat pose, supporting palm, knee hand and both boots unchanged. Do not move her forward or enlarge her into a portrait.\n\nTHEME MIST / clear blue-white morning:\nThe same lake and distant campus have light low morning haze, bright clear pale-blue sky and soft small clouds. Haze stays OUTSIDE, not inside the room. The big window supplies broad diffuse cool morning light, softer and less amber than the apricot source. Soften the strong apricot sun streaks and leaf projections into gentle broad daylight/shadows. The same curtains, window reflections, wall bounce, wood floor, pillows and cloth reflect this fresh blue-white daylight; retain ivory plaster, honey wood and neutral fabric rather than making every material blue. The existing lamp is OFF in daylight, same exact fixture and position.\nThe person receives a subtle cool window rim and soft neutral fill, natural readable skin, original hair/eye/clothing hues and ordinary contact shadows. No icy cyan face, desaturated gray room or indoor fog. One continuous airy human-scale space, not a new room.\nReturn the complete exact-size same-character, same-pose, same-furniture scene.\n",
+  "output": {
+    "path": "umiri-chat-mist-mother-candidate-v1.png",
+    "sha256": "d6061f7a14f0377bc309ebb226224b95058d2f2880e4e28dd85d30a65c8a23f4",
+    "bytes": 2139808,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T21:17:48.095986+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "晨雾窗景与冷漫反射、自然肤色、黑衣细节和原椅姿态并存；灯熄，完整环境光门样待主审。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-f06f61b1-0a9b-4832-9f17-4ef605250c60"
+}

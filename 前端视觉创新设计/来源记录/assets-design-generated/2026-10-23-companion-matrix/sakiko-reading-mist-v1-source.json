@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-reading-mist-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "reading",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-reading-mist-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-reading-apricot-v2-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "output": {
+    "file": "sakiko-reading-mist-mother-candidate-v1.png",
+    "sha256": "e566e59993b2908692cb74ebabd2ec026f3864600b0fe3d5aeb8430d48743cd7",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-9cae9e76-6c99-429c-9d36-bab077690563.png",
+    "executionId": "9cae9e76-6c99-429c-9d36-bab077690563"
+  },
+  "designerObservation": "Personally viewed full mother: whole pelvis/thighs/legs angle left, upper back/shoulder against right cushions, eyes down on a thigh-supported open book; complete feet and hands remain visible. Reclined side reading differs from front-facing chat and forward desk work. Needs primary review, not extraction/runtime approval.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "promptSha256": "25b41afb5362b9d32ac7582c92a8ad8a99303f83363378d424423d9be1696d29"
+}

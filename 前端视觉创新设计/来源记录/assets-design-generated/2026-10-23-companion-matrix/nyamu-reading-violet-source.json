@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-reading-violet-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "reading",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical relighting: Image 1 correct approved activity mother locks character/geometry; Image 2 approved empty violet plate fixes exact shared celestial/light axis only",
+  "prompt": "nyamu-reading-violet-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-reading-apricot-mother-candidate-v1.png",
+      "role": "Image 1: sole character source and edit target, correct primary-approved activity mother; pose/furniture/props locked",
+      "sha256": "679651a0af996b08b6be27a01aff2dd5d4ce21f7ee03cd41db8f0231329e903b"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "role": "Image 2: approved empty room, exact sun center/lake-column axis and whole-room dusk illumination only; not character or furniture replacement",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "nyamu-reading-violet-mother-candidate-v1.png",
+    "sha256": "f3374f2ca9b9ee597cc2c6bd3e856c62b9682f031828cae88f4b99fbff5e4780",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-f5df6f4f-3c18-470c-a1e1-976591fb0884.png"
+  },
+  "ownershipAndPose": "Keep the exact three-quarter outward chair posture, upper back supported by original chair back, elbows gathered to a low held lap book, gaze down into her own page. Keep all original legs/shoes and original chair swivel/footprint. Held book belongs with CHARACTER.",
+  "designerObservation": "Full image personally viewed. Sun visually about x=1007,y=302, lake column on same reference x. Original leaned-back chair reading silhouette, low book gathered hands, correct chair footprint/hip and full leg/shoe support retained. Book remains character layer. Whole room rose-gold/lavender dusk and local lamp match the approved empty plate's shared axis; natural skin and fixed gray/black outfit with youthful purple identity retained.",
+  "observedGaps": [
+    "Primary review of each complete mother pending; no layer/runtime acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

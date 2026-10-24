@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "apricot",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "mother": "mutsumi-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a",
+  "coordinateSystem": "original full canvas; identity RGB registration",
+  "seatPixels": [
+    1328,
+    596
+  ],
+  "groundPixels": [
+    1220,
+    785
+  ],
+  "bodyBoundsPixels": [
+    1120,
+    260,
+    1418,
+    789
+  ],
+  "hitPolygonPixels": [
+    [
+      1295,
+      262
+    ],
+    [
+      1337,
+      269
+    ],
+    [
+      1365,
+      308
+    ],
+    [
+      1379,
+      365
+    ],
+    [
+      1393,
+      415
+    ],
+    [
+      1411,
+      495
+    ],
+    [
+      1390,
+      530
+    ],
+    [
+      1398,
+      575
+    ],
+    [
+      1417,
+      600
+    ],
+    [
+      1376,
+      613
+    ],
+    [
+      1300,
+      623
+    ],
+    [
+      1267,
+      606
+    ],
+    [
+      1263,
+      681
+    ],
+    [
+      1254,
+      755
+    ],
+    [
+      1256,
+      777
+    ],
+    [
+      1237,
+      788
+    ],
+    [
+      1188,
+      784
+    ],
+    [
+      1188,
+      769
+    ],
+    [
+      1162,
+      777
+    ],
+    [
+      1120,
+      772
+    ],
+    [
+      1125,
+      753
+    ],
+    [
+      1148,
+      732
+    ],
+    [
+      1160,
+      689
+    ],
+    [
+      1178,
+      632
+    ],
+    [
+      1197,
+      584
+    ],
+    [
+      1180,
+      579
+    ],
+    [
+      1184,
+      566
+    ],
+    [
+      1218,
+      548
+    ],
+    [
+      1230,
+      499
+    ],
+    [
+      1213,
+      522
+    ],
+    [
+      1209,
+      506
+    ],
+    [
+      1234,
+      439
+    ],
+    [
+      1238,
+      405
+    ],
+    [
+      1235,
+      355
+    ],
+    [
+      1242,
+      300
+    ],
+    [
+      1261,
+      270
+    ]
+  ],
+  "travelPixelsEachSide": 12.0,
+  "slope": 0.12048192771084337,
+  "perspective": 0,
+  "observedSupportAndLimits": "Independent chat calibration from this mother's cushion front seam observed approximately (1095,598)→(1510,648), slope 50/415. Seat is approximate body/cushion contact centre, not a claim to see hidden bones. Ground is front shoe sole, no separate body scale. Limited 12px each side stays on same bench/floor corridor; private endpoint compositions inspected, real Stage/motion still pending. Both genuine skirt hems and left-knee small fold retained; original fine hair glow/strands retained. Old leg cast shadows removed from bench front with matching clean BG; contact residual is separate edge-limited RGBA, no floor patch follows actor.",
+  "sourceRgbProof": {
+    "motherRgbSha256": "585b3d6129214e5829bf846b334f6babb432fe7d727e5b51101c875247cd8f85",
+    "figureRgbSha256": "585b3d6129214e5829bf846b334f6babb432fe7d727e5b51101c875247cd8f85"
+  },
+  "production": "mutsumi-chat-apricot-layer-processing-v4.json",
+  "review": {
+    "primary": "pending; producer cannot approve",
+    "runtime": "pending; not registered or exercised"
+  }
+}

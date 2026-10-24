@@ -1,0 +1,196 @@
+{
+  "mother": "uika-listening-apricot-mother-candidate-v1.png",
+  "motherSha256": "15a28c195ddba558286dbba8025fa0669239f6d98dbce7becb40ffcc87dd4db8",
+  "matte": "uika-listening-apricot-figure-calibrated-v2.png",
+  "alphaSource": "alpha",
+  "alphaLow": 0,
+  "alphaHigh": 255,
+  "excludePolygons": [],
+  "figure": "uika-listening-apricot-figure-calibrated-v3.png",
+  "mask": "uika-listening-apricot-mask-calibrated-v3.png",
+  "backgroundCandidate": "uika-listening-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1.2,
+  "background": "uika-listening-apricot-background-calibrated-v3.png",
+  "record": "uika-listening-apricot-layer-processing-v3.json",
+  "reviewNote": "Final local interior-alpha repair after original-coordinate full-image inspection. Restore the last source-visible taupe cloth pinholes at [1285,525] and [1331,548], plus tiny enclosed shirt/skirt pixels; original source shows cloth rather than open room between the socked legs. Source RGB, full canvas and body geometry unchanged. No primary/runtime approval.",
+  "includePolygons": [
+    [
+      [
+        1283,
+        523
+      ],
+      [
+        1297,
+        523
+      ],
+      [
+        1297,
+        533
+      ],
+      [
+        1283,
+        533
+      ]
+    ],
+    [
+      [
+        1329,
+        546
+      ],
+      [
+        1335,
+        546
+      ],
+      [
+        1335,
+        553
+      ],
+      [
+        1329,
+        553
+      ]
+    ],
+    [
+      [
+        1408,
+        487
+      ],
+      [
+        1411,
+        487
+      ],
+      [
+        1411,
+        490
+      ],
+      [
+        1408,
+        490
+      ]
+    ],
+    [
+      [
+        1439,
+        567
+      ],
+      [
+        1443,
+        567
+      ],
+      [
+        1443,
+        571
+      ],
+      [
+        1439,
+        571
+      ]
+    ]
+  ],
+  "backgroundErasePolygons": [
+    [
+      [
+        1161,
+        555
+      ],
+      [
+        1210,
+        558
+      ],
+      [
+        1227,
+        574
+      ],
+      [
+        1324,
+        577
+      ],
+      [
+        1418,
+        568
+      ],
+      [
+        1454,
+        571
+      ],
+      [
+        1454,
+        602
+      ],
+      [
+        1161,
+        600
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1167,
+        555
+      ],
+      [
+        1225,
+        568
+      ],
+      [
+        1275,
+        577
+      ],
+      [
+        1321,
+        576
+      ],
+      [
+        1342,
+        584
+      ],
+      [
+        1307,
+        592
+      ],
+      [
+        1238,
+        593
+      ],
+      [
+        1167,
+        572
+      ]
+    ],
+    [
+      [
+        1324,
+        569
+      ],
+      [
+        1371,
+        571
+      ],
+      [
+        1439,
+        570
+      ],
+      [
+        1453,
+        582
+      ],
+      [
+        1439,
+        591
+      ],
+      [
+        1372,
+        591
+      ],
+      [
+        1323,
+        584
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 0.8,
+  "contactShadowEdgePixels": 3,
+  "shadow": "uika-listening-apricot-shadow-calibrated-v3.png"
+}

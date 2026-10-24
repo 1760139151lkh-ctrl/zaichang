@@ -1,0 +1,28 @@
+{
+  "mother": "sakiko-rest-apricot-mother.png",
+  "motherSha256": "ffdf5ac11d9d25da5347120dd7b5f19bf68a6211c991c373e1c6d2f623cebfbf",
+  "matte": "sakiko-rest-apricot-figure-calibrated-v4.png",
+  "alphaSource": "alpha",
+  "alphaLow": 0,
+  "alphaHigh": 255,
+  "figure": "sakiko-rest-apricot-figure-calibrated-v7.png",
+  "mask": "sakiko-rest-apricot-mask-calibrated-v7.png",
+  "backgroundCandidate": "sakiko-rest-apricot-background.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1.2,
+  "backgroundErasePolygons": [
+    [[1112,596],[1225,596],[1235,741],[1253,770],[1192,781],[1061,756],[1056,726],[1114,710]]
+  ],
+  "background": "sakiko-rest-apricot-background-calibrated-v7.png",
+  "record": "sakiko-rest-apricot-layer-processing-v7.json",
+  "contactShadowPolygons": [
+    [[1076,710],[1117,716],[1157,712],[1158,724],[1115,728],[1075,720]],
+    [[1133,733],[1175,738],[1223,731],[1225,745],[1181,750],[1132,744]],
+    [[1263,566],[1300,571],[1346,567],[1378,565],[1379,579],[1336,584],[1290,580],[1263,575]],
+    [[1295,575],[1322,576],[1350,582],[1351,592],[1326,591],[1296,584]]
+  ],
+  "contactShadowFeatherPixels": 0.8,
+  "contactShadowEdgePixels": 3,
+  "shadow": "sakiko-rest-apricot-shadow-calibrated-v7.png",
+  "reviewNote": "Current calibrated v4 original-RGB figure/alpha is unchanged. Close comparison found that the previous empty background also removed the original shoe/bench contact shadows. This version extracts source-over residuals only within explicit original shoe-sole, skirt/seat and support-hand ROIs, limited to 3px from the existing figure. No synthetic ellipse, floor RGB patch, anatomy editing or translation. Pose remains fixed travel0. Existing golden rim at the rear ribbon is kept because close original-coordinate review shows the warm-lit original ribbon/hair edge; no unproven broad color removal. Primary and runtime approval pending."
+}

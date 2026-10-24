@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { mapEngineLoader } from './scripts/map-engine-loader';
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), mapEngineLoader()],
   publicDir: false,
   base: './',
   optimizeDeps: { entries: ['index.html'] },

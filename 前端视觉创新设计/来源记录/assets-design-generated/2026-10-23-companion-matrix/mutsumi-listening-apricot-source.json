@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "mutsumi",
+  "activity": "listening",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-listening-apricot-prompt.txt",
+  "promptSha256": "fb449698ea6d9be48f141525cf15b613af3fbbbb32e9a32aeee31d570e5cfb8e",
+  "identityText": "mutsumi-identity.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "primary-approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-listening-apricot-mother-candidate-v1.png",
+    "sha256": "33434cb471849b693461c09f4ad85021f02d40333e7a7ef2b41d32cc030929d5",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-c16e8220-7f9f-4704-a464-17a276424d7e.png"
+  },
+  "designerObservation": "Shoulders/upper body incline toward speaker, hands low together on lap, head gently inclined, no book/prop. Two separate sock/shoe chains reach floor. Difference from chat is a quieter gathered forward attention rather than opening gesture; primary across-activity comparison remains pending.",
+  "primaryReview": "Returned by primary after viewing full image and exact prompt: nearly chat skeleton, only lower hands and slight head tilt; genuine supported weight/orientation difference was not realized. Do not use v1 as image input or extract it.",
+  "extraction": "not allowed for returned v1",
+  "runtime": "not registered or verified",
+  "designerStatus": "returned for activity-direction redraw from approved clean room; not a matrix-approved mother"
+}

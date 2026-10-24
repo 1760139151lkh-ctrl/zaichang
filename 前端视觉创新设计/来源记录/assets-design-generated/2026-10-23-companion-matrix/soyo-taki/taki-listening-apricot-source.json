@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "listening",
+  "palette": "apricot",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-ef3f9bb6-0346-4ff8-b70c-7fdd1864200a",
+  "prompt": "taki-listening-apricot-prompt.txt",
+  "promptSha256": "bd5789dba19114ab46dcdc6bcf1afff7f1dc46a5a4b48eb61b9d951e29b3f633",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-approved clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "taki-listening-apricot-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2148535,
+    "sha256": "d8369e39dc109457df147611494e1741c86512e2bcfc579c92050efb0d134bbb"
+  },
+  "producerObservation": "Whole original viewed: one raised left knee/socked foot supported on cushion, right shoe/foot on floor, relaxed forearm on knee and other palm on cushion; exactly one removed loafer stays on floor. New asymmetrical quiet body relation, canonical tan/red outfit. Pending primary anatomy/identity review.",
+  "review": {
+    "producerViewed": "complete original plus detail where necessary",
+    "producerDecision": "candidate",
+    "primary": "pending; no producer signature",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

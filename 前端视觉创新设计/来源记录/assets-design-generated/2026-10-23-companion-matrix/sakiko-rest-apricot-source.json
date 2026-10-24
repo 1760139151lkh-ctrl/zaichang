@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-rest-apricot-mother.png",
+  "character": "sakiko",
+  "activity": "rest",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-rest-apricot-prompt.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "sakiko-rest-apricot-mother.png",
+    "sha256": "ffdf5ac11d9d25da5347120dd7b5f19bf68a6211c991c373e1c6d2f623cebfbf",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-a745f0df-be36-4e0e-81d0-c95fb52573b7.png"
+  },
+  "designerObservation": "Complete room inspected. Torso, shoulders and gaze have a real side/back orientation toward the lake, with hair across the back; one visible hand rests on the cushion, one on the skirt, two separate knees/shins and complete loafers reach the floor. Bench supports the pelvis. No held prop. Primary review of anatomy and comparison across all eight activities remains pending.",
+  "primaryReview": "Complete mother approved for extraction in primary-owned primary-prototype-reviews.json; layer and runtime review remain pending.",
+  "extraction": "Attempted; see sakiko-rest-apricot-extraction-source.json. No mask accepted or registered.",
+  "runtime": "not registered or verified"
+}

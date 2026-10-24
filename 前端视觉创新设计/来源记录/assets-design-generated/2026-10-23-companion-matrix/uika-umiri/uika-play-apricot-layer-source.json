@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "kind": "layer-generation-source",
+  "character": "uika",
+  "activity": "play",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "input": {
+    "path": "uika-play-apricot-mother-candidate-v1.png",
+    "sha256": "5217e87de50ac8ff072d231a2cc07d985303cbc4f034a97355f0d98bb6a53454",
+    "role": "sole primary-approved correct complete warm mother; original RGB extraction and same-camera room removal only"
+  },
+  "calls": [
+    {
+      "part": "mask",
+      "executionId": "exec-f14ec1e3-de68-4ff7-912a-a44c3fca51d4",
+      "promptFile": "uika-play-apricot-mask-submitted-prompt.txt",
+      "actualPrompt": "Use case: precise-object-edit. Technical exact-source opaque BLACK/WHITE segmentation, full 1536 x 1024, no transparency.\nONLY INPUT is the complete primary-approved Uika PLAY warm-apricot mother v1. Recolor the EXISTING SOURCE-VISIBLE person and her actually held items IN PLACE: solid WHITE foreground, solid BLACK room. This is a source-registered recolor of original pixels, never a new body drawing, portrait or silhouette re-posed from imagination.\nSource person and her FULL acoustic guitar stay within about x1130..1510,y280..772. Preserve original face, mouth/gaze, short pale-blonde bob, white tee, complete taupe skirt, both calves/socks and both WORN floor sneakers. The complete guitar body, continuous neck, full headstock/tuning pegs and both real picking/fretting hands belong to the FIGURE. Keep every tip inside the exact original right margin; no crop or short/new neck.\nKeep exact full canvas, camera, source position, proportions and all contours. No scale, recenter, crop, zoom, limb completion or anatomy change. All pixels above the actual source crown, left of the actual small far-right person and below its actual shoe/sock contacts remain black. Trace the actual original edge, not the approximate bounds as rectangles.\nWHITE includes all source-visible hair tips, face/neck, clothing and folds/hem, real arms/hands/fingers, legs/ankles/socks and WORN footwear where actually worn, plus only the held book/guitar/bookmark when specified. Solid white inside, even where original dark hair/clothing/shadow/print appears; NO internal face/cloth/prop lines or gray drawing. Preserve actual BLACK air gaps between fingers, arms, legs, guitar/hand/body and all room gaps.\nBLACK excludes the entire desk/chair/bench/cushions/pillows/knitted throw, original desktop books/papers/cup/lamp, window/curtains/sky/lake/plants, rear furniture, floor/rug and ALL cast/contact shadows. Empty floor shoes specified as room remain BLACK. Do not annex cushion fabric, wood, leaves, window sky or a pillow to her edge; do not invent hidden anatomy through furniture.\nOnly a narrow antialias at the actual original contour. No glow, blur, gray inside, color, UI, text, label, watermark, arrow, border, inset or altered composition. Return ONE full same-size opaque registered matte. ORIGINAL mother RGB will be extracted later without resizing, never a newly drawn isolated body.\n",
+      "actualPromptSha256": "17afcf38e4bf22f37ea2b3e11f95291377245d3ae76da3db06f7c66f4677ade0",
+      "promptFileSha256": "17afcf38e4bf22f37ea2b3e11f95291377245d3ae76da3db06f7c66f4677ade0",
+      "draftPromptFile": "uika-play-apricot-mask-prompt.txt",
+      "draftPromptFileSha256": "17afcf38e4bf22f37ea2b3e11f95291377245d3ae76da3db06f7c66f4677ade0",
+      "output": {
+        "path": "uika-play-apricot-mask-generated-v1.png",
+        "sha256": "ea1efe6ca947ee698d20b5cb69068137d8d8b37b1f30ab285b9e41818f794ef2",
+        "bytes": 379920,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "status": "generated-pending-original-rgb-calibration"
+    },
+    {
+      "part": "background",
+      "executionId": "exec-0869e0aa-95e7-498b-8fa0-407be3a54218",
+      "promptFile": "uika-play-apricot-background-submitted-prompt.txt",
+      "actualPrompt": "Use case: precise-object-edit. Exact SAME-CANVAS EMPTY-ROOM extraction, full opaque 1536 x 1024, not a room redesign.\nONLY INPUT is the complete primary-approved Uika PLAY warm-apricot mother v1. Remove ONLY the actual small person with her worn clothing/footwear and actually held figure items, plus the cast/contact shadows caused by that person on the bench, furniture, wall and floor. Reconstruct the source-matching empty cushion/pillow/window/floor immediately behind the removed areas. No person-colored remnant or human-shaped shadow remains.\nSOURCE OWNERSHIP: Source person and her FULL acoustic guitar stay within about x1130..1510,y280..772. Preserve original face, mouth/gaze, short pale-blonde bob, white tee, complete taupe skirt, both calves/socks and both WORN floor sneakers. The complete guitar body, continuous neck, full headstock/tuning pegs and both real picking/fretting hands belong to the FIGURE. Keep every tip inside the exact original right margin; no crop or short/new neck.\nKeep EMPTY FLOOR SHOES specified as stationary room objects exactly in place with their own floor shadows; do not remove them with her. Remove WORN shoes together with their original wearer. Remove actually held guitar/bookmark when specified. Keep all independent original desktop paper/books/cup/lamp and fixed furniture.\nLock the exact source camera, full 1536x1024 rectangle, all connected window corners, curtains/lake/campus landmarks, rear-left desk/chair/shelves/plant/framed art, right desk width/drawers/chair orientation/lamp/cup/books, bench/pillows/throw, floorboards and rug. Source pixels outside the actual former person and her cast-shadow footprint remain unchanged. Never import another empty-room chair, move the desk/lamp, widen bench, erase the left furnishings or restore a different furniture layout. The cushion may relax only where her real body was.\nRetain natural same warm-apricot illumination and original material textures. No new furniture or props, no free-floating held item, skin/hair/finger/cloth/shoe remnant, silhouette, ghost, retained wearer shadow, crop, zoom, white gradient, color wash, text/UI/logo/watermark/inset/border/arrows. One complete same-camera naturally empty room with only that local person removal repaired.\n",
+      "actualPromptSha256": "347616b7ed306402f5b967a1566d72e8b578cc2a386530068f8ef287bc25298b",
+      "promptFileSha256": "347616b7ed306402f5b967a1566d72e8b578cc2a386530068f8ef287bc25298b",
+      "draftPromptFile": "uika-play-apricot-background-prompt.txt",
+      "draftPromptFileSha256": "347616b7ed306402f5b967a1566d72e8b578cc2a386530068f8ef287bc25298b",
+      "output": {
+        "path": "uika-play-apricot-background-generated-v1.png",
+        "sha256": "78874fb0caea5a250fb564a801c9a0f2102fd53c5fa1e13354123306cb9dafae",
+        "bytes": 2123692,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "status": "generated-pending-original-rgb-calibration"
+    }
+  ],
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "recordedAt": "2026-10-24T11:04:17.126164+00:00",
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "Raw generated output personally viewed at full canvas; original-RGB alpha registration, edges, contact shadows and empty-room ghost removal require deterministic calibration and final review. No primary/runtime admission."
+  },
+  "layerProduction": {
+    "status": "designer-reviewed candidate; primary layer and runtime review pending",
+    "selectedParameters": "uika-play-apricot-layer-parameters-v6.json",
+    "selectedProcessingRecord": "uika-play-apricot-layer-processing-v6.json",
+    "scene": "uika-play-apricot.scene.json",
+    "matteCalibrationRecords": [
+      "uika-play-apricot-matte-calibration-v4.json",
+      "uika-play-apricot-matte-calibration-v5.json",
+      "uika-play-apricot-matte-calibration-v6.json"
+    ],
+    "outputs": [
+      {
+        "file": "uika-play-apricot-figure-calibrated-v6.png",
+        "bytes": 2434488,
+        "sha256": "12f1978775d123fa03107057c80732ce2ad023fbb6e95c27ffa8fd948965cc19"
+      },
+      {
+        "file": "uika-play-apricot-mask-calibrated-v6.png",
+        "bytes": 24582,
+        "sha256": "e48d7747fec0e94392ceaecc0c02259e2c79951a561d7ec9bd1b5ca8eb6ab7a9"
+      },
+      {
+        "file": "uika-play-apricot-background-calibrated-v6.png",
+        "bytes": 2088843,
+        "sha256": "e58c655dd79545712f73f225f3a193a8197725f79cb39ca992cf98468279ab1c"
+      },
+      {
+        "file": "uika-play-apricot-shadow-calibrated-v6.png",
+        "bytes": 45568,
+        "sha256": "ea1a75ee5506a3d7a2e443b74e831cbf0fefa3ebb8bf6eafc50f573d9aca3f87"
+      }
+    ],
+    "motherRgbSha256": "aefbe491eb1c764f8be9a20f317ac58206c1eb7ab54d2d75dfc5c3f4467ab4f2",
+    "figureRgbSha256": "aefbe491eb1c764f8be9a20f317ac58206c1eb7ab54d2d75dfc5c3f4467ab4f2",
+    "transform": "identity; no resize/translation/warp",
+    "designerObserved": [
+      "Independent source calibration: approx visible hip/cushion contact (1348,578), near shoe sole (1227,762). Complete guitar body/neck/headstock/tuning pegs and both actual hands remain original figure pixels; real furniture is background. Only 8px each side along the same bench seam is proposed, preserving at least 19px right guitar-tip margin. Raw internal hand matte lines filled; real arm/guitar/leg air stays open. Raw crown notch and sky rim corrected in alpha against original source crop. Separate original source contact residual, 3px near visible figure, no moved floor patch. Static short-range endpoints personally viewed, runtime motion pending."
+    ],
+    "reviewImagesPrivateDirectory": ".test-data/uika-play-attention-layer-review",
+    "reviewImages": [
+      "play-v6-light.png",
+      "play-v6-dark.png",
+      "play-v6-empty.png",
+      "play-v6-room-dx0.png",
+      "play-v6-room-dx-8.png",
+      "play-v6-room-dx8.png"
+    ],
+    "superseded": {
+      "v1": "Initial explicit fills; attention paper repair wrongly cleared shirt behind it, play crown notch/sky remained; rejected.",
+      "v2": "Correct internal hand/paper ownership; remaining source sky/leaf fringe; intermediate only.",
+      "v3": "Rejected head local-color refinement removed genuine fine hair and admitted adjacent leaf pixels.",
+      "v4": "Soft source matte retained; play crown bright-hair color threshold produced pinholes; intermediate only.",
+      "v5": "Source-traced crown restored; last 88 mixed-blue crown pixels removed in v6."
+    },
+    "remaining": [
+      "Primary must inspect final fine hair, original hand/prop boundaries and contact shadows before layer admission.",
+      "Static 8px endpoints do not establish real Stage, keyboard, spring or interruption behavior."
+    ],
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false,
+    "integrated": false
+  }
+}

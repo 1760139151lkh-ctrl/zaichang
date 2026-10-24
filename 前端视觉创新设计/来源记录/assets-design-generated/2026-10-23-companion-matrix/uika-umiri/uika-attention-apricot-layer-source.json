@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "kind": "layer-generation-source",
+  "character": "uika",
+  "activity": "attention",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "input": {
+    "path": "uika-attention-apricot-mother-candidate-v1.png",
+    "sha256": "9cae27d5754d32654b120910faacaf65077e09499224f2668d912994ee2b78ed",
+    "role": "sole primary-approved correct complete warm mother; original RGB extraction and same-camera room removal only"
+  },
+  "calls": [
+    {
+      "part": "mask",
+      "executionId": "exec-3d2b957f-f78b-49ff-8d14-9e887c4259bd",
+      "promptFile": "uika-attention-apricot-mask-submitted-prompt.txt",
+      "actualPrompt": "Use case: precise-object-edit. Technical exact-source opaque BLACK/WHITE segmentation, full 1536 x 1024, no transparency.\nONLY INPUT is the complete primary-approved Uika ATTENTION warm-apricot mother v1. Recolor the EXISTING SOURCE-VISIBLE person and her actually held items IN PLACE: solid WHITE foreground, solid BLACK room. This is a source-registered recolor of original pixels, never a new body drawing, portrait or silhouette re-posed from imagination.\nSource person and thin ivory bookmark stay within about x1100..1420,y260..789. Preserve exact original youthful face and short pale-blonde bob, gentle forward torso turn and short reach, real bookmark/finger overlap, the other supporting palm, full taupe skirt, both calves/socks and both complete WORN grounded sneakers. The offered thin bookmark belongs to the FIGURE. Do not enlarge the reach or move it into the central room.\nKeep exact full canvas, camera, source position, proportions and all contours. No scale, recenter, crop, zoom, limb completion or anatomy change. All pixels above the actual source crown, left of the actual small far-right person and below its actual shoe/sock contacts remain black. Trace the actual original edge, not the approximate bounds as rectangles.\nWHITE includes all source-visible hair tips, face/neck, clothing and folds/hem, real arms/hands/fingers, legs/ankles/socks and WORN footwear where actually worn, plus only the held book/guitar/bookmark when specified. Solid white inside, even where original dark hair/clothing/shadow/print appears; NO internal face/cloth/prop lines or gray drawing. Preserve actual BLACK air gaps between fingers, arms, legs, guitar/hand/body and all room gaps.\nBLACK excludes the entire desk/chair/bench/cushions/pillows/knitted throw, original desktop books/papers/cup/lamp, window/curtains/sky/lake/plants, rear furniture, floor/rug and ALL cast/contact shadows. Empty floor shoes specified as room remain BLACK. Do not annex cushion fabric, wood, leaves, window sky or a pillow to her edge; do not invent hidden anatomy through furniture.\nOnly a narrow antialias at the actual original contour. No glow, blur, gray inside, color, UI, text, label, watermark, arrow, border, inset or altered composition. Return ONE full same-size opaque registered matte. ORIGINAL mother RGB will be extracted later without resizing, never a newly drawn isolated body.\n",
+      "actualPromptSha256": "d8e3da2c00f2f6fe61d8570f1267989f86c28e7c52c142c032fef96e302080f0",
+      "promptFileSha256": "d8e3da2c00f2f6fe61d8570f1267989f86c28e7c52c142c032fef96e302080f0",
+      "draftPromptFile": "uika-attention-apricot-mask-prompt.txt",
+      "draftPromptFileSha256": "d8e3da2c00f2f6fe61d8570f1267989f86c28e7c52c142c032fef96e302080f0",
+      "output": {
+        "path": "uika-attention-apricot-mask-generated-v1.png",
+        "sha256": "6f6a74b19794d3e8fdf47b35882393ba44ca3706136ba9b4317fa778a047a125",
+        "bytes": 387397,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "status": "generated-pending-original-rgb-calibration"
+    },
+    {
+      "part": "background",
+      "executionId": "exec-35989210-b303-416f-a88d-047e98582253",
+      "promptFile": "uika-attention-apricot-background-submitted-prompt.txt",
+      "actualPrompt": "Use case: precise-object-edit. Exact SAME-CANVAS EMPTY-ROOM extraction, full opaque 1536 x 1024, not a room redesign.\nONLY INPUT is the complete primary-approved Uika ATTENTION warm-apricot mother v1. Remove ONLY the actual small person with her worn clothing/footwear and actually held figure items, plus the cast/contact shadows caused by that person on the bench, furniture, wall and floor. Reconstruct the source-matching empty cushion/pillow/window/floor immediately behind the removed areas. No person-colored remnant or human-shaped shadow remains.\nSOURCE OWNERSHIP: Source person and thin ivory bookmark stay within about x1100..1420,y260..789. Preserve exact original youthful face and short pale-blonde bob, gentle forward torso turn and short reach, real bookmark/finger overlap, the other supporting palm, full taupe skirt, both calves/socks and both complete WORN grounded sneakers. The offered thin bookmark belongs to the FIGURE. Do not enlarge the reach or move it into the central room.\nKeep EMPTY FLOOR SHOES specified as stationary room objects exactly in place with their own floor shadows; do not remove them with her. Remove WORN shoes together with their original wearer. Remove actually held guitar/bookmark when specified. Keep all independent original desktop paper/books/cup/lamp and fixed furniture.\nLock the exact source camera, full 1536x1024 rectangle, all connected window corners, curtains/lake/campus landmarks, rear-left desk/chair/shelves/plant/framed art, right desk width/drawers/chair orientation/lamp/cup/books, bench/pillows/throw, floorboards and rug. Source pixels outside the actual former person and her cast-shadow footprint remain unchanged. Never import another empty-room chair, move the desk/lamp, widen bench, erase the left furnishings or restore a different furniture layout. The cushion may relax only where her real body was.\nRetain natural same warm-apricot illumination and original material textures. No new furniture or props, no free-floating held item, skin/hair/finger/cloth/shoe remnant, silhouette, ghost, retained wearer shadow, crop, zoom, white gradient, color wash, text/UI/logo/watermark/inset/border/arrows. One complete same-camera naturally empty room with only that local person removal repaired.\n",
+      "actualPromptSha256": "78acf6b0aadc374edf41980165b9815a2754543e950ff8d4ac83582f7e9376b2",
+      "promptFileSha256": "78acf6b0aadc374edf41980165b9815a2754543e950ff8d4ac83582f7e9376b2",
+      "draftPromptFile": "uika-attention-apricot-background-prompt.txt",
+      "draftPromptFileSha256": "78acf6b0aadc374edf41980165b9815a2754543e950ff8d4ac83582f7e9376b2",
+      "output": {
+        "path": "uika-attention-apricot-background-generated-v1.png",
+        "sha256": "e76a49b26094394ad59bf7047fe791ea74a6f1053ea67406800c355c1772c3f8",
+        "bytes": 2106556,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "status": "generated-pending-original-rgb-calibration"
+    }
+  ],
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "recordedAt": "2026-10-24T11:04:17.165828+00:00",
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "Raw generated output personally viewed at full canvas; original-RGB alpha registration, edges, contact shadows and empty-room ghost removal require deterministic calibration and final review. No primary/runtime admission."
+  },
+  "layerProduction": {
+    "status": "designer-reviewed candidate; primary layer and runtime review pending",
+    "selectedParameters": "uika-attention-apricot-layer-parameters-v5.json",
+    "selectedProcessingRecord": "uika-attention-apricot-layer-processing-v5.json",
+    "scene": "uika-attention-apricot.scene.json",
+    "matteCalibrationRecords": [
+      "uika-attention-apricot-matte-calibration-v4.json",
+      "uika-attention-apricot-matte-calibration-v5.json"
+    ],
+    "outputs": [
+      {
+        "file": "uika-attention-apricot-figure-calibrated-v5.png",
+        "bytes": 2430530,
+        "sha256": "4852f1a764f0667313e33d4bbad548671f520796e1e86f14706da3a31679d7ba"
+      },
+      {
+        "file": "uika-attention-apricot-mask-calibrated-v5.png",
+        "bytes": 25959,
+        "sha256": "58c328ae12db2446b9b78e16a3e1a8a5fbfc23490dc7590099cff01c87a1441e"
+      },
+      {
+        "file": "uika-attention-apricot-background-calibrated-v5.png",
+        "bytes": 2092490,
+        "sha256": "61be0c7615b88863162109724a4f5e61b11f70f6a2275f8712058aba137bded5"
+      },
+      {
+        "file": "uika-attention-apricot-shadow-calibrated-v5.png",
+        "bytes": 49460,
+        "sha256": "87ce667fd33c5e02857d98eeb0b82da5a0daf2e9102ab45fa62f202dd3567aa1"
+      }
+    ],
+    "motherRgbSha256": "d6de36aedc066bcfdf68ba6a313cd1293dbadfec47db4fc7161f9f792fdf7291",
+    "figureRgbSha256": "d6de36aedc066bcfdf68ba6a313cd1293dbadfec47db4fc7161f9f792fdf7291",
+    "transform": "identity; no resize/translation/warp",
+    "designerObserved": [
+      "Independent source calibration: approx visible hip/cushion contact (1338,582), near shoe sole (1204,781). Actual offered ivory bookmark, all real fingers, support palm and both worn shoes belong to figure. Paper is held in front of original shirt, therefore no false rectangular alpha hole behind it; internal printed/contour lines are opaque. Only 8px each side along the same bench seam is proposed; contact remains over the same cushion/floor corridor. Fine source hair retained, blue sky and saturated gold leaf contamination excluded locally. Separate original shoe/hip/support-palm contact residual, 3px near figure. Static endpoints personally viewed; no runtime acceptance."
+    ],
+    "reviewImagesPrivateDirectory": ".test-data/uika-play-attention-layer-review",
+    "reviewImages": [
+      "attention-v5-light.png",
+      "attention-v5-dark.png",
+      "attention-v5-empty.png",
+      "attention-v5-room-dx0.png",
+      "attention-v5-room-dx-8.png",
+      "attention-v5-room-dx8.png"
+    ],
+    "superseded": {
+      "v1": "Initial explicit fills; attention paper repair wrongly cleared shirt behind it, play crown notch/sky remained; rejected.",
+      "v2": "Correct internal hand/paper ownership; remaining source sky/leaf fringe; intermediate only.",
+      "v3": "Rejected head local-color refinement removed genuine fine hair and admitted adjacent leaf pixels.",
+      "v4": "Soft source matte retained; play crown bright-hair color threshold produced pinholes; intermediate only."
+    },
+    "remaining": [
+      "Primary must inspect final fine hair, original hand/prop boundaries and contact shadows before layer admission.",
+      "Static 8px endpoints do not establish real Stage, keyboard, spring or interruption behavior."
+    ],
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false,
+    "integrated": false
+  }
+}

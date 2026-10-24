@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "mutsumi",
+  "activity": "planning",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-planning-apricot-prompt.txt",
+  "promptSha256": "8ef234a90f6bd765a1663d65e3d9265f6600fc79329a8678fec15384855dca57",
+  "identityText": "mutsumi-identity.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "primary-approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-planning-apricot-mother-candidate-v1.png",
+    "sha256": "ebcd02b354a1661687afdd2e9a92d6c3b7531bc7555a98eb0563516eff83ddd1",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-ed31ee25-9c04-4181-a088-91a8aa1a56b1.png"
+  },
+  "designerObservation": "Upright desk-chair posture with chest opened partway toward shared space; both low hands compare two actual static cards, gaze down at them. Both knees/shoes supported. Chair rotates/pulls out left of the empty plate and needs primary same-room judgment; no layer acceptance.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "mother": "mutsumi-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a",
+  "matte": "mutsumi-chat-apricot-mask-candidate-v2.png",
+  "matteSha256": "928db561af67e852b4402634ba739c00028a61e22cb3a8e7f0142470a27afc03",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "mutsumi-chat-apricot-figure-calibrated-v1.png",
+  "mask": "mutsumi-chat-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "mutsumi-chat-apricot-background-candidate-v1.png",
+  "background": "mutsumi-chat-apricot-background-calibrated-v1.png",
+  "shadow": "mutsumi-chat-apricot-shadow-calibrated-v1.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1105,
+        754
+      ],
+      [
+        1270,
+        753
+      ],
+      [
+        1280,
+        804
+      ],
+      [
+        1110,
+        804
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1120,
+        760
+      ],
+      [
+        1182,
+        753
+      ],
+      [
+        1191,
+        774
+      ],
+      [
+        1130,
+        781
+      ]
+    ],
+    [
+      [
+        1187,
+        774
+      ],
+      [
+        1254,
+        766
+      ],
+      [
+        1265,
+        786
+      ],
+      [
+        1190,
+        796
+      ]
+    ],
+    [
+      [
+        1197,
+        603
+      ],
+      [
+        1397,
+        599
+      ],
+      [
+        1407,
+        618
+      ],
+      [
+        1197,
+        622
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [],
+  "includePolygons": [],
+  "alphaPolygonRepairs": [],
+  "record": "mutsumi-chat-apricot-layer-processing-v1.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "Original mother RGB only; raw Imagegen alpha proposal initial calibration, all boundaries require actual image review."
+}

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "mutsumi",
+  "activity": "study",
+  "palette": "apricot",
+  "kind": "matte",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-study-apricot-mask-extraction-v2-prompt.txt",
+  "promptSha256": "8451d1441c2d764e23ac20bdc5262d5043e799f20b1c55c1c0fb8435d36a5b35",
+  "inputs": [
+    {
+      "file": "mutsumi-study-apricot-mother-candidate-v1.png",
+      "sha256": "066435e9a63e68d8d026773f7154a8b50275e0c78f0451aa69c99082b7581606",
+      "role": "sole edit target; primary-approved correct complete mother, no erroneous mother or mask supplied"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-study-apricot-mask-candidate-v2.png",
+    "sha256": "d2c0fdfe77c4f370057b8139d01bdad932e81e96670c710e0061b98391a14357",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-d9298d03-def2-4a0f-86dd-fb8693b09436.png"
+  },
+  "designerObservation": "Full output viewed. Solid same-canvas side/back working body proposal with natural shoe/chair-leg gaps. Raw proposal still needs exact chair-back exclusion and original RGB boundary calibration; never treated as hidden anatomy.",
+  "designerStatus": "raw alpha proposal, calibration pending",
+  "primaryReview": "pending; producer cannot approve",
+  "runtime": "not registered or verified"
+}

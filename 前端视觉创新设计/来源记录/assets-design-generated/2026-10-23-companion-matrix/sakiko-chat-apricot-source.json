@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-source",
+  "character": "sakiko",
+  "activity": "chat",
+  "light": "apricot",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-d8418fde-abc3-4e24-9baf-3a91cfce42af",
+  "prompt": "sakiko-chat-apricot-prompt.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved_clean_empty_room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2169168,
+    "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+    "originalOutputBasename": "sakiko-chat-apricot-mother.png"
+  },
+  "sourceIdentity": "Shared sakiko-identity.txt pure text; no character pixels, official artwork, wrong-pose mother, or independent cutout supplied.",
+  "review": {
+    "designerViewed": "complete generated original",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Natural parallel-knee window-bench pose, pelvis supported by linen cushion, right hand on cushion, two complete loafers on floor, youthful blue-haired amber-eyed identity and full contour margin. Character is deliberately restrained relative to the whole room; primary must judge approachability/scale in the actual composition."
+}

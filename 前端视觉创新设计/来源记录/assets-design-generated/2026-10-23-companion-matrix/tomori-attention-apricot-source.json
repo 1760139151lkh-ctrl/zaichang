@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "createdDate": "2026-10-23",
+  "role": "tomori",
+  "light": "apricot",
+  "assetType": "full-room-mother-candidate",
+  "generator": "built-in image_gen",
+  "inputPolicy": "Only the approved character-free room plate was supplied. Canonical character identity and uniform were described in text; no official or previous character image was supplied.",
+  "input": {
+    "file": "room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "width": 1536,
+    "height": 1024
+  },
+  "canonicalTextReferences": [
+    "https://anime.bang-dream.com/mygo/character/tomori/",
+    "https://anime.bang-dream.com/avemujica/character/tomori/"
+  ],
+  "originDirectory": "C:/Users/17601/.codex/generated_images/01a16ab8-afe2-7652-90df-67279a32d94b",
+  "designerViewed": true,
+  "designerViewMethod": "view_image of the saved full 1536x1024 original, after generation",
+  "primaryReview": {
+    "status": "pending",
+    "approvedByPrimary": false
+  },
+  "layersExtracted": false,
+  "runtimeRegistered": false,
+  "runtimeVerified": false,
+  "coverageStatus": "candidate_only; no approved matrix or runtime coverage claimed",
+  "cleanup": "No generated original or rejected candidate was deleted.",
+  "activity": "attention",
+  "executionId": "c9e5b0d3-8a07-448b-9185-1a9af72526be",
+  "output": {
+    "file": "tomori-attention-apricot-mother.png",
+    "sha256": "06c582ace8f0cb0c6079ed89c6a1defd3bbb9e05525b7c3af11b4e364499e1f7",
+    "bytes": 2182726,
+    "width": 1536,
+    "height": 1024
+  },
+  "prompt": {
+    "file": "tomori-attention-apricot-prompt.txt",
+    "sha256": "268aa011bb7c449c3f943a0b21e382539faddb7ecc13bc3e29697016ade1b560"
+  },
+  "designerReview": {
+    "status": "candidate_for_primary_review",
+    "observations": [
+      "Tomori remains genuinely seated on the front window bench with two whole uncrossed loafers on the floor.",
+      "One forearm opens leftward below shoulder height and the hand visibly grips a small cream bookmark; the other palm supports at the actual seat beside her hip.",
+      "Head is raised toward the handover direction and mouth only slightly open, rather than looking down into the reading or study pose.",
+      "Uniform, grey-lavender bob, youthful face and two coherent hands remain visible; there are no rays, warning panel or extra person.",
+      "All room anchors, both empty desks/chair, full window, bench, cushions and blanket remain in the same composition."
+    ],
+    "primaryQuestions": [
+      "Judge whether the low outward arm, raised gaze and shoulder turn produce a distinct brief handover instead of an embellished chat.",
+      "Review the small bookmark grip, hand anatomy and body proportions in the full-size mother."
+    ]
+  },
+  "originalOutput": "exec-c9e5b0d3-8a07-448b-9185-1a9af72526be.png"
+}

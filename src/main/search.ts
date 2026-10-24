@@ -10,7 +10,8 @@ import { parsePdf, type PdfResult } from './materials/pdf';
 
 type PdfReader = (bytes: Buffer, request: { operation: 'read'; page: number }, signal: AbortSignal) => Promise<PdfResult>;
 type SearchState = {
-  query: string; kinds: LocalSearchKind[]; epoch: number; policy: number; generation: number; expires: number;
+  query: string; kinds: LocalSearchKind[]; sessionIds?: string[];
+  epoch: number; policy: number; boundary: number; generation: number; expires: number;
   messageBefore: number; noteBefore: number; done: Set<LocalSearchKind>; nextKind: number;
   materials: MaterialItem[]; materialIndex: number; materialPage: number; materialTitleChecked: boolean;
   warnings: Map<string, LocalSearchWarning>;
@@ -71,15 +72,23 @@ export class LocalSearchService {
   }
   private current(state: SearchState, signal: AbortSignal) {
     signal.throwIfAborted(); this.privateView();
-    if (state.epoch !== this.store.kernel.epoch || state.policy !== this.store.kernel.policyRevision || state.generation !== this.generation)
+    if (state.epoch !== this.store.kernel.epoch || state.policy !== this.store.kernel.policyRevision
+      || state.boundary !== this.store.runtime.policy.sourceBoundary || state.generation !== this.generation)
       throw new HarnessError('search_scope_changed', '资料范围刚刚变了，请重新找一次。');
+    if (state.sessionIds) {
+      const existing = this.store.db.prepare(`SELECT count(*) AS count FROM sessions WHERE id IN (${state.sessionIds.map(() => '?').join(',')})`)
+        .get(...state.sessionIds);
+      if (Number(existing?.count) !== state.sessionIds.length)
+        throw new HarnessError('search_scope_changed', '选中的一段对话已经不在这里了，请重新选择。');
+    }
   }
   private canReadEvidence() {
     const policy = this.store.runtime.policy;
     return policy.can(policy.hostScope({ infer: false }), 'evidence:read');
   }
-  private newState(query: string, selected: LocalSearchKind[]): SearchState {
-    const state: SearchState = { query, kinds: selected, epoch: this.store.kernel.epoch, policy: this.store.kernel.policyRevision,
+  private newState(query: string, selected: LocalSearchKind[], sessionIds?: string[]): SearchState {
+    const state: SearchState = { query, kinds: selected, sessionIds,
+      epoch: this.store.kernel.epoch, policy: this.store.kernel.policyRevision, boundary: this.store.runtime.policy.sourceBoundary,
       generation: this.generation, expires: Date.now() + 120_000, messageBefore: Number.MAX_SAFE_INTEGER, noteBefore: Number.MAX_SAFE_INTEGER,
       done: new Set(), nextKind: 0, materials: [], materialIndex: 0, materialPage: 1, materialTitleChecked: false, warnings: new Map() };
     // The local notebook has its own owner UI permission, independent of model
@@ -94,24 +103,28 @@ export class LocalSearchService {
   }
   async search(raw: unknown): Promise<LocalSearchPage> {
     const input = localSearchSchema.parse(raw); this.privateView();
+    const sessionIds = input.sessionIds ? [...new Set(input.sessionIds)].sort() : undefined;
+    const selected: LocalSearchKind[] = [...new Set<LocalSearchKind>(sessionIds ? ['conversation'] : input.kinds || kinds)];
     let state: SearchState;
     if (input.cursor) {
       const previous = this.cursors.get(input.cursor);
       this.cursors.delete(input.cursor);
       if (!previous || previous.expires < Date.now() || previous.query !== input.query
-        || input.kinds && JSON.stringify([...new Set(input.kinds)].sort()) !== JSON.stringify([...previous.kinds].sort()))
+        || JSON.stringify([...selected].sort()) !== JSON.stringify([...previous.kinds].sort())
+        || JSON.stringify(sessionIds) !== JSON.stringify(previous.sessionIds))
         throw new HarnessError('search_cursor_expired', '这次查找已经结束了，可以再找一次。');
       state = previous;
     } else {
       this.cancel();
-      state = this.newState(input.query, [...new Set(input.kinds || kinds)]);
+      state = this.newState(input.query, selected, sessionIds);
     }
     const controller = new AbortController();
     this.active?.abort(); this.active = controller;
     const items: LocalSearchHit[] = [];
     try {
       this.current(state, controller.signal);
-      if (!input.query) return { items, nextCursor: null, complete: true, warnings: [], privacyEpoch: state.epoch, policyRevision: state.policy };
+      if (!input.query) return { items, nextCursor: null, complete: true, warnings: [],
+        privacyEpoch: state.epoch, policyRevision: state.policy, sourceBoundary: state.boundary };
       // Each continuation visits bounded source units; all three kinds get a
       // turn, so a long transcript does not starve notebooks or documents.
       for (let scanned = 0, pdfPages = 0; scanned < 72 && items.length < input.limit && state.done.size < state.kinds.length; scanned++) {
@@ -133,7 +146,7 @@ export class LocalSearchService {
       const nextCursor = state.done.size < state.kinds.length ? randomUUID() : null;
       if (nextCursor) { state.expires = Date.now() + 120_000; this.cursors.set(nextCursor, state); }
       return { items, nextCursor, complete: !nextCursor && state.warnings.size === 0,
-        warnings: [...state.warnings.values()], privacyEpoch: state.epoch, policyRevision: state.policy };
+        warnings: [...state.warnings.values()], privacyEpoch: state.epoch, policyRevision: state.policy, sourceBoundary: state.boundary };
     } finally { if (this.active === controller) this.active = undefined; }
   }
   private message(id: string) {
@@ -180,10 +193,11 @@ export class LocalSearchService {
     return { message: projected, title: retiredTitleSource ? '一段对话' : String(row.title), content: String(row.content) };
   }
   private nextMessage(state: SearchState): LocalSearchHit | null {
+    const subset = state.sessionIds ? ` AND m.session_id IN (${state.sessionIds.map(() => '?').join(',')})` : '';
     const row = this.store.db.prepare(`SELECT m.rowid AS position,m.id FROM messages m JOIN sessions s ON s.id=m.session_id
-      WHERE m.rowid<? AND (instr(lower(m.content),lower(?))>0 OR
+      WHERE m.rowid<?${subset} AND (instr(lower(m.content),lower(?))>0 OR
         (instr(lower(s.title),lower(?))>0 AND m.rowid=(SELECT max(x.rowid) FROM messages x WHERE x.session_id=m.session_id)))
-      ORDER BY m.rowid DESC LIMIT 1`).get(state.messageBefore, state.query, state.query);
+      ORDER BY m.rowid DESC LIMIT 1`).get(state.messageBefore, ...(state.sessionIds || []), state.query, state.query);
     if (!row) { state.done.add('conversation'); return null; }
     state.messageBefore = Number(row.position);
     const current = this.message(String(row.id));

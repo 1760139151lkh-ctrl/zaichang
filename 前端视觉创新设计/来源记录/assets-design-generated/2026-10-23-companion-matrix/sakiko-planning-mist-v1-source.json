@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-planning-mist-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "planning",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-planning-mist-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-planning-apricot-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "output": {
+    "file": "sakiko-planning-mist-mother-candidate-v1.png",
+    "sha256": "9da977ad01b05bf59cdf0f41d68eddc436e0ab46f086203a1f89adbe840f9f54",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-fb3e95e1-a785-456e-930d-181df051f1f3.png",
+    "executionId": "fb3e95e1-a785-456e-930d-181df051f1f3"
+  },
+  "designerObservation": "Personally viewed full mother: pelvis sits on the real desk chair; knees face front-right while torso/face half-turn toward the conversation and hands compare the supported small notebook and loose paper at the desk. Both complete shoes remain on the floor. Needs primary review of hand/page support and the whole theme light.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "promptSha256": "ee2e613f882fb862a5eb4c8738bfe35eed5251fe7d600097bfc057b11ff8f01e"
+}

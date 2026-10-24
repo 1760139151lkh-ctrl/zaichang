@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "asset": "mutsumi-listening-rain-mother-candidate-v1.png",
+  "character": "mutsumi",
+  "activity": "listening",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical whole-environment relighting; approved correct warm mother is sole character/pose/furniture edit target; approved empty theme plate is lighting/sky/source-axis reference only",
+  "prompt": "mutsumi-listening-rain-relight-v2-prompt.txt",
+  "promptSha256": "b31a36d34a3f3d55725559888a751d502ddac2f00070c2576cd982c628b7514c",
+  "inputs": [
+    {
+      "file": "mutsumi-listening-apricot-mother-candidate-v2.png",
+      "sha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+      "role": "Image 1: primary-approved complete warm activity mother; sole editable character/geometry target"
+    },
+    {
+      "file": "room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "Image 2: primary-approved clean empty room; lighting/sky/source-axis reference only, never furniture/body replacement"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-listening-rain-mother-candidate-v1.png",
+    "sha256": "4cee93b1460a8dc44298ee446d1ad01cb385c8d69943f8361a7759ac7a6a51a2",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-3c45db5a-63dc-4b9e-93bb-b788477d4bb8.png"
+  },
+  "ownerAndSupport": "Preserve seated listening pose on right bench, one knee drawn up and its socked foot supported on cushion, other leg continuing down into its floor-supported loafer. Exactly one removed loafer stays parked separately on floor at source position. Keep natural hip/cushion and rear palm support, slightly tilted attentive head and hand resting at raised knee. Do not invent a second worn shoe.",
+  "designerObservation": "Full generated image personally viewed against approved warm listening v2 mother and empty rain plate. Same supported raised-knee listening and socked cushion foot, other worn floor-supported loafer, one parked removed loafer; no new second worn shoe or changed pose. Rain-window cool fill and sole source lamp amber pool replace daytime sun; left rear corner dim without invented spotlight.",
+  "geometryObservation": {
+    "coordinateSystem": "1536x1024 original mother canvas",
+    "hipsSeatApprox": [
+      1315,
+      561
+    ],
+    "raisedSockFootCushionApprox": [
+      1193,
+      565
+    ],
+    "wornFloorShoeApprox": [
+      1192,
+      751
+    ],
+    "parkedLoaferApprox": [
+      1276,
+      754
+    ],
+    "note": "One socked foot is supported on the cushion, one worn shoe on floor, one separately removed shoe. No requirement that both feet touch floor."
+  },
+  "observedGaps": [
+    "Primary per-mother optical review pending; image producer cannot sign primary approval.",
+    "No extracted layers, final calibration or Stage/runtime acceptance yet."
+  ],
+  "designerStatus": "candidate awaiting primary review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

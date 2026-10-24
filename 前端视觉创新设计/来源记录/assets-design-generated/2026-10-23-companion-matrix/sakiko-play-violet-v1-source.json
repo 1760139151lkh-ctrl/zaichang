@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-play-violet-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "play",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-play-violet-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-play-apricot-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-violet-candidate.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "sakiko-play-violet-mother-candidate-v1.png",
+    "sha256": "893a9a71b7dea7c42bfd4caeff4c7cc5a6b9b5ad17353ea57e512632c67d0aa5",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-1e80abc6-8a1f-44f0-8f03-aad633600e9c.png",
+    "executionId": "1e80abc6-8a1f-44f0-8f03-aad633600e9c"
+  },
+  "designerObservation": "Personally viewed full mother: torso leans forward while one palm supports on the bench and the other offers a small paper bird; staggered uncrossed legs and two complete shoes balance the shift. Youthful blue-haired/gold-eyed identity and full theme lighting retained. Needs primary review of the offering fingers, hip compression and floor contacts.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "promptSha256": "35e0b5538a1fa887c8fb43064c797edf0373d7f2d3bec162272d67171fa93a87"
+}

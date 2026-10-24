@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-chat-violet-mother-candidate-v2.png",
+  "character": "nyamu",
+  "activity": "chat",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-environment relighting with approved complete apricot mother as sole character/edit target and approved empty violet plate as shared celestial/light-axis reference.",
+  "prompt": "nyamu-chat-violet-v2-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-chat-apricot-mother-candidate-v1.png",
+      "role": "Image 1: primary-approved complete mother, edit target and sole character pixels; locks supported pose, identity and furniture",
+      "sha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "role": "Image 2: approved empty room; exact sun center/lake reflection axis and whole-environment dusk illumination only; no character source",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "nyamu-chat-violet-mother-candidate-v2.png",
+    "sha256": "85e644776566544e41369dcc8f2dece8cbf30720edcacb86839f1aa594b06c46",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-4fbf7daa-fac6-4fd5-b8dc-4f5a074bdfc2.png"
+  },
+  "designerObservation": "Full image personally viewed. Sunset disk visually centered about x=1007,y=302 and lake column directly below, matching approved empty violet reference rather than v1's lateral shift. Nyamu youthful face, lavender bob/red-purple eyes, gray blouse/black skirt/shoes and full supported chat pose visually retained; fixed camera/desk/chair/bench positions remain. Full room is coherent rose-gold sky/window and lavender dusk shadow with existing warm desk lamp, natural skin and material colors; no split/filter. Primary celestial-axis and integrated optical comparison required.",
+  "observedGaps": [
+    "Primary gate review pending; no other violet activities produced under this candidate.",
+    "Layers, calibration and Stage acceptance separate."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

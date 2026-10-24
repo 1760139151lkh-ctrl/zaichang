@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "mutsumi-study-apricot-room4",
+  "character": "mutsumi",
+  "activity": "study",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "mutsumi-study-apricot-mother-candidate-v1.png",
+  "background": "mutsumi-study-apricot-background-calibrated-v6.png",
+  "figure": "mutsumi-study-apricot-figure-calibrated-v6.png",
+  "mask": "mutsumi-study-apricot-mask-calibrated-v6.png",
+  "shadow": "mutsumi-study-apricot-shadow-calibrated-v6.png",
+  "seat": [
+    0.6061197916666666,
+    0.5791015625
+  ],
+  "ground": [
+    0.6705729166666666,
+    0.69921875
+  ],
+  "bodyBounds": [
+    0.5481770833333334,
+    0.3115234375,
+    0.6901041666666666,
+    0.7021484375
+  ],
+  "safeTextBoundary": 0.52,
+  "support": "desk-chair",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "61.3932% 31.2500%, 63.7370% 32.3242%, 64.8438% 35.0586%, 64.9089% 37.4023%, 63.8672% 38.9648%, 63.1510% 40.6250%, 63.3464% 43.8477%, 64.9740% 46.1914%, 65.4948% 46.3867%, 65.5599% 47.6562%, 63.7370% 48.8281%, 62.5651% 49.3164%, 62.1094% 51.3672%, 64.1276% 53.5156%, 65.6901% 54.7852%, 66.7318% 56.5430%, 66.8620% 62.2070%, 67.7083% 67.0898%, 69.0104% 68.6523%, 69.0104% 69.8242%, 67.1875% 70.4102%, 65.3646% 69.8242%, 65.2995% 68.6523%, 65.1042% 62.0117%, 63.9323% 59.4727%, 63.8672% 62.6953%, 63.2161% 63.8672%, 63.1510% 66.3086%, 64.9089% 67.4805%, 64.9740% 68.7500%, 63.5417% 69.2383%, 61.6536% 68.9453%, 61.6536% 67.3828%, 62.2396% 65.5273%, 62.0443% 61.8164%, 61.5234% 59.4727%, 58.5286% 58.5938%, 58.0729% 56.0547%, 57.5521% 52.0508%, 57.2917% 49.3164%, 55.0130% 48.7305%, 55.3385% 45.8984%, 56.8359% 40.5273%, 58.3333% 36.3281%, 60.0911% 32.2266%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "runtimeAccepted": false,
+    "runtimeReviewRecord": "primary-runtime-reviews.json",
+    "producerNote": "Independent fixed study calibration from this actual occupied desk chair, hip/cushion contact and near shoe sole. Travel0 because forearm/page/desk and chair-back/front-leg occlusions form multiple fixed support contacts; translating the actor would reveal unpainted naturally hidden far anatomy or break the desk contact. Visible original far sock/shoe fragments deliberately retained around exact chair occlusion holes, no completion invented. Near-sock 1px warm mixed-background fringe at y620..685 removed by alpha only; real brown shoe/heel below kept. Entire visible furniture foreground is held in matching BG and real alpha holes, no movable furniture layer. Final full-canvas light inspection found a second 2px wood-color tab on outer sock at x1025,y625..641; v6 alpha-only cleanup removes it, confirmed against original 5x crop. Original body RGB remains untouched; real brown shoe heel retained."
+  },
+  "production": "mutsumi-study-apricot-layer-processing-v6.json"
+}

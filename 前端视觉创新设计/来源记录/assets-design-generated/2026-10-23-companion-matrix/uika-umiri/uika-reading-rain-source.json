@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordType": "image-generation-source",
+  "character": "uika",
+  "activity": "reading",
+  "theme": "rain",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-591ef46e-d88e-4de1-a593-cde3ec2e1026",
+  "intent": "lighting-weather",
+  "prompt": "uika-reading-rain-prompt-v1.txt",
+  "promptFileMatchesActualToolInput": true,
+  "recordedAt": "2026-10-24T07:57:33.283Z",
+  "inputs": [
+    {
+      "file": "uika-reading-apricot-mother-candidate-v1.png",
+      "role": "primary-approved-correct-warm-mother-edit-target",
+      "sha256": "31046bee457ec77259616037f8a6841acdfaba233f225194b84bc4a5bab0da15"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "role": "primary-approved-clean-theme-lighting-reference-only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "uika-reading-rain-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "02a88b282c0690b215099f3f9584817104282dbb5e2111a04877723526568fd2",
+    "bytes": 2059424
+  },
+  "review": {
+    "designerViewed": "complete original Imagegen output",
+    "designerStatus": "candidate-for-primary-review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Reclined bench/book silhouette and complete shoes retained; full rainy room and fixed amber desk lamp without isolated rear flower spotlight.",
+  "promptSha256": "fd401ca2067dc5d0d179ae4d49ceac9a7af287e8d2bf5277c3991a5118eae9c8"
+}

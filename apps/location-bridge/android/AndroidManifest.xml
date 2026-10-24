@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="cn.zaichang.location" android:versionCode="4" android:versionName="0.1.3">
+  <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="35" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_HEALTH" />
+  <queries><package android:name="com.nemu.nlp" /></queries>
+  <application android:label="在场位置桥" android:theme="@android:style/Theme.Material.Light.NoActionBar" android:debuggable="true" android:allowBackup="false" android:supportsRtl="true">
+    <activity android:name=".BridgeActivity" android:exported="true" android:launchMode="singleTop">
+      <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>
+    </activity>
+    <service android:name=".LocationService" android:exported="false" android:foregroundServiceType="location|health" />
+    <receiver android:name=".StopReceiver" android:exported="true" android:permission="android.permission.DUMP" />
+  </application>
+</manifest>

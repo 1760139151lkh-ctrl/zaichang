@@ -1,0 +1,105 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "sakiko-reading-apricot-v2-layer-parameters-v1.json",
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+  "motherSha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b",
+  "matte": "sakiko-reading-apricot-v2-mask.png",
+  "matteSha256": "6b9e303a79b69b100ed1cbe3bc2e9145aee6f701f4582d70a5aae47a5cef71e9",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "localColorMatteRefinement": {
+    "seedThreshold": 80,
+    "uncertainBandPixels": 3,
+    "iterations": 3,
+    "edgeFeatherPixels": 0.35
+  },
+  "alphaChangedPixels": 137104,
+  "alphaNonzeroPixels": 58965,
+  "alphaBounds": [
+    1065,
+    311,
+    1498,
+    774
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "0f2dfbbb12c8d46946e058e5b95470cbc9fe108e6a5da48c4ea73254b7cda64f",
+  "figureRgbSha256": "0f2dfbbb12c8d46946e058e5b95470cbc9fe108e6a5da48c4ea73254b7cda64f",
+  "background": {
+    "candidate": "sakiko-reading-apricot-v2-background.png",
+    "candidateSha256": "916b0070bc0697cac13283ec326058aaaa24a75948856ca08f7a19f8c0ccd1f6",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          1160,
+          610
+        ],
+        [
+          1390,
+          610
+        ],
+        [
+          1390,
+          764
+        ],
+        [
+          1160,
+          785
+        ]
+      ],
+      [
+        [
+          1040,
+          705
+        ],
+        [
+          1235,
+          705
+        ],
+        [
+          1255,
+          825
+        ],
+        [
+          1030,
+          810
+        ]
+      ]
+    ],
+    "changedPixels": 118463,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "outputs": [
+    {
+      "file": "sakiko-reading-apricot-v2-figure-calibrated-v1.png",
+      "bytes": 2427676,
+      "sha256": "5f58544125a55ffe8fbd51b81987a54feadf5a68036a8e0317d0566a6e2be293"
+    },
+    {
+      "file": "sakiko-reading-apricot-v2-mask-calibrated-v1.png",
+      "bytes": 15649,
+      "sha256": "710c4da7068b52100a545e9826768d9f7e1053bd7f3a97aea3e9dd54483b2740"
+    },
+    {
+      "file": "sakiko-reading-apricot-v2-background-calibrated-v1.png",
+      "bytes": 2085993,
+      "sha256": "e63009a6bf3d2dc5f2d39b60b221ae4a2c9f87227e0ec9d196a1505c512816a0"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

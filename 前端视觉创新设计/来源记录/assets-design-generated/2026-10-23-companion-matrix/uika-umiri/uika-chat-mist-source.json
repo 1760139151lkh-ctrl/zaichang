@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-theme-mother-candidate",
+  "character": "uika",
+  "activity": "chat",
+  "theme": "mist",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/uika/",
+    "https://anime.bang-dream.com/mygo/character/uika/"
+  ],
+  "input": {
+    "path": "uika-chat-apricot-mother-candidate-v1.png",
+    "sha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c",
+    "role": "sole input: primary-approved full apricot chat mother; lighting-weather edit only"
+  },
+  "promptFile": "uika-chat-mist-prompt.txt",
+  "prompt": "Use case: lighting-weather. Make ONE complete 1536 x 1024 same-room themed mother by relighting the supplied primary-approved character chat scene.\nONLY INPUT IMAGE 1 is the EDIT TARGET, a complete approved apricot mother with its original person. This is a whole-scene LIGHTING AND WEATHER EDIT, not a new composition or new pose.\nLOCK EVERYTHING GEOMETRIC: exact canvas, camera and perspective; exact person's face, age, hairstyle, body, expression, posture, hands/fingers, clothing folds, hems, both feet/shoes, scale and position; exact window frame and all four corners, curtains, lake/campus landmarks, rear-left table/chair/shelves/framed drawing, right desk/chair/lamp/cup/book, bench/pillows/throw, rug and all furniture feet. Keep the chair in THIS mother, even if it differs from the original empty-room chair orientation. Do not restore/reposition a chair, move a lamp or widen a desk. Do not crop, zoom, enlarge, redesign, move the person or add another person.\nThe left lived-in depth and open central floor stay visible. Relight the PERSON and the WHOLE ROOM together so hair, skin, clothes, wood, linen, window glass, exterior and contact shadows agree with the same illumination. Skin and clothing retain their own material colors, not a full-image color filter, tinted overlay, green cast, black layer or white gradient. Preserve fine youthful Japanese-anime character linework and the softly detailed painted environment. No text, UI, logo, watermark, split-screen, border, arrows, inset or duplicate view.\n\nIDENTITY LOCK: this is Misumi Uika (三角初華), the same youthful short pale-blonde/pink-undertone chin-length bob, violet eyes, white short-sleeved tee, long taupe-gray skirt, white socks and black-and-white sneakers already painted in the input. Keep her front-edge right window-bench chat pose and both palms/feet unchanged. Do not invent long brown hair or another character.\n\nTHEME MIST / clear blue-white morning:\nThe same lake and distant campus have light low morning haze, bright clear pale-blue sky and soft small clouds. Haze stays OUTSIDE, not inside the room. The big window supplies broad diffuse cool morning light, softer and less amber than the apricot source. Soften the strong apricot sun streaks and leaf projections into gentle broad daylight/shadows. The same curtains, window reflections, wall bounce, wood floor, pillows and cloth reflect this fresh blue-white daylight; retain ivory plaster, honey wood and neutral fabric rather than making every material blue. The existing lamp is OFF in daylight, same exact fixture and position.\nThe person receives a subtle cool window rim and soft neutral fill, natural readable skin, original hair/eye/clothing hues and ordinary contact shadows. No icy cyan face, desaturated gray room or indoor fog. One continuous airy human-scale space, not a new room.\nReturn the complete exact-size same-character, same-pose, same-furniture scene.\n",
+  "output": {
+    "path": "uika-chat-mist-mother-candidate-v1.png",
+    "sha256": "f51db45b26f76abd106e1b796f3d7a650d2c26ea584cb6a94832507999db27ae",
+    "bytes": 2167802,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T21:14:16.345011+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "完整晨雾窗景、自然冷漫反射与原人/家具构图保留；灯熄，肤色自然。首格光线门样待主审，不扩其他活动。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-7a519768-efd8-44e8-94be-f912047c8e0e"
+}

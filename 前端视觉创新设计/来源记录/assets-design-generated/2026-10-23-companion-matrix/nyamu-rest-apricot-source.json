@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-rest-apricot-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "rest",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "nyamu-rest-apricot-prompt.txt",
+  "identityText": "nyamu-identity.txt",
+  "identityBasis": "Parent's reviewed official character identity and fixed outfit, supplied as text only. Official images and other character mothers were not image inputs.",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "nyamu-rest-apricot-mother-candidate-v1.png",
+    "sha256": "c6264d37f43bef35ee7aad4108a49b6cc977b3bba98c74233ea4aff967926fd8",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-d85f80ef-00a3-431b-abe4-01ae153c64e2.png"
+  },
+  "designerObservation": "Full image viewed. Whole shoulders/ribcage show a genuine three-quarter back/side turn into lake landscape; youthful purple bob and visible side profile preserved, no look back at viewer. Both hips grounded in bench cushion, one palm on cushion beside hip and other hand resting low on own thigh. Two separate continuous knee/shin/ankle chains and complete floor-contact shoes observed. This is genuinely window-facing rather than a chat torso with head-only rotation. The back of the gray blouse includes ruffle/bow detail generated for unseen outfit side; primary should judge consistency with fixed official-inspired outfit, without treating unseen details as canon.",
+  "observedGaps": [
+    "Back-of-blouse detail is project generated rather than an official claim; primary outfit consistency review pending."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

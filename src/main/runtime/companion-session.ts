@@ -34,14 +34,14 @@ export class CompanionSessionService {
     const scope = this.work.policy.require(handle, write ? 'work:write' : 'evidence:read');
     if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self'
       || !scope.sources.includes('work:self') || write && (scope.child || scope.retention !== 'purpose_scoped'))
-      throw new HarnessError('companion_scope', '当前范围不能保存或读取本人的共同做事断点。');
+      throw new HarnessError('companion_scope', '这次还不能打开或保存这份共同做事的记录。');
     return scope;
   }
 
   private cite(handle: ScopeHandle, input: CompanionCitation, user = false): CompanionLocator {
     const event = this.repo.evidence(handle, input.eventId), source = event && resolveSourceQuote(event, input);
     if (!event || !source || user && (event.speaker !== 'user' || event.authority !== 'user_statement'))
-      throw new HarnessError('companion_source_changed', '共同做事需要可核对的原话位置；本人报告不能由助手或材料代替。');
+      throw new HarnessError('companion_source_changed', '这一步还没接到完整的原话。若要留下你的尝试或结果，请选你本人说的那一段。');
     const ref = { eventId: event.id, contentVersion: source.contentVersion, start: source.start, end: source.end };
     this.repo.resolveWorkSourceBinding(handle, [ref]);
     return { ...ref, quoteSha256: hash(source.quote) };
@@ -50,7 +50,7 @@ export class CompanionSessionService {
   private currentSource(handle: ScopeHandle, input: CompanionCitation): CompanionLocator {
     const source = this.cite(handle, input, true), scope = this.repo.scope(handle), event = this.repo.evidence(handle, source.eventId)!;
     if (!scope.currentEventIds.includes(event.id) || event.kind !== 'user_message')
-      throw new HarnessError('companion_current_source', '共同做事的开始、断点或状态变化须接到本轮本人原话，不能由附件命令或时钟代替。');
+      throw new HarnessError('companion_current_source', '这次开始、停下或接着做的意思，还没接到你眼前这句话。');
     return source;
   }
 
@@ -124,14 +124,14 @@ export class CompanionSessionService {
         if (material.kind === 'assistant_message') {
           const original = this.repo.learningAssistantSource(handle, material);
           if (!original || codePointSlice(original.text, material.start, material.end) !== material.quote)
-            throw new HarnessError('companion_material_changed', '这份助手材料的原消息或依据不可核对，未复制它作为回来时的起点。');
+            throw new HarnessError('companion_material_changed', '这段讲解的原消息或所用资料变了，先回到现在能打开的那一处。');
           return { kind: material.kind, label: material.label, messageId: material.messageId, start: material.start, end: material.end,
             contentSha256: original.contentSha256, sourceRefs: original.sourceRefs };
         }
         const source = this.cite(handle, material.source);
         if (material.kind === 'evidence') return { kind: material.kind, label: material.label, source };
         const stored = { ...material, source };
-        if (!this.fileCurrent(handle, stored)) throw new HarnessError('companion_material_changed', '这份文件地址与宿主收到的原材料不一致，未保存替代文件或猜测页码。');
+        if (!this.fileCurrent(handle, stored)) throw new HarnessError('companion_material_changed', '这份资料与原来收到的文件对不上，先从当前原文件找回这一页。');
         return stored;
       }),
       attemptReports: input.attemptReports.map(source => this.cite(handle, source, true)),
@@ -139,7 +139,7 @@ export class CompanionSessionService {
         const learning = this.repo.work(handle, 'experience', linked.id)[0];
         if (!learning || learning.data.type !== 'learning_process' || learning.data.matterId !== matterId || learning.revision !== linked.revision
           || learning.status !== 'recorded' || !learning.sourceBinding)
-          throw new HarnessError('companion_learning_changed', '这份学习过程不属于同一事项的当前记录，未把旧尝试或相似题目接到这里。');
+          throw new HarnessError('companion_learning_changed', '这份学习过程和眼前这件事的记录对不上，先找回这里原来的尝试。');
         this.learning.assertCurrent(handle, learning.id, learning.revision);
         return { id: learning.id, revision: learning.revision, sourceBinding: learning.sourceBinding };
       }),
@@ -149,13 +149,13 @@ export class CompanionSessionService {
   write(handle: ScopeHandle, sessionId: string, raw: CompanionSessionWriteInput) {
     const args = companionSessionWriteSchema.parse(raw), scope = this.scope(handle, true), source = this.currentSource(handle, args.source);
     const recordId = this.idFor(args.matterId);
-    if (args.id && args.id !== recordId) throw new HarnessError('companion_address', '共同做事须属于这一条原事项，不能另建平行会话。');
+    if (args.id && args.id !== recordId) throw new HarnessError('companion_address', '这份停点属于另一件事，先回到正在一起做的这一件。');
     if (args.operation === 'stop') return this.stop(handle, args, source, recordId);
     return this.repo.write(() => {
       const matter = this.repo.work(handle, 'episode', args.matterId)[0];
       if (!matter || matter.data.type !== 'collaboration_frame' || matter.revision !== args.expectedMatterRevision)
         throw new HarnessError('companion_matter_changed', '共同事项已变化，请先恢复当前版本再接着做。');
-      if (!['active', 'needs_review'].includes(matter.status)) throw new HarnessError('companion_matter_closed', '原事项已结束；找回断点不会重新开启它。');
+      if (!['active', 'needs_review'].includes(matter.status)) throw new HarnessError('companion_matter_closed', '原来这件事已经结束。想重新开始，可以先说说这次想做什么。');
       const metadata = this.repo.sourcedWorkMetadata(handle, recordId);
       if (metadata && (metadata.type !== 'companion_session' || metadata.kind !== 'plan' || metadata.matterId !== matter.id))
         throw new HarnessError('companion_address', '共同做事地址与原事项不一致。');
@@ -164,25 +164,25 @@ export class CompanionSessionService {
       const old = args.operation === 'begin' ? undefined : this.current(handle, matter.id, recordId);
       if (args.operation === 'begin') {
         if (metadata && !['finished', 'stopped'].includes(metadata.status))
-          throw new HarnessError('companion_already_started', '这一事项已有共同做事会话；继续记录断点或明确恢复，不另开一个副本。');
+          throw new HarnessError('companion_already_started', '这件事已经留着一份停点，可以从那里继续记，或接回上次没做完的一步。');
         if (!args.checkpoint) throw new HarnessError('companion_checkpoint_required', '开始共同做事需要真实当前材料和回来起点。');
-      } else if (!old) throw new HarnessError('companion_unavailable', '旧断点或其材料已改变／不可读；未从副本恢复旧工作。');
+      } else if (!old) throw new HarnessError('companion_unavailable', '上次的停点或资料现在读不到了，可以从眼前仍能打开的内容接着做。');
       if (args.operation === 'checkpoint' && (!args.checkpoint || old!.data.state !== 'active')
         || args.operation === 'hold' && old!.data.state !== 'active'
         || args.operation === 'resume' && !['active', 'held'].includes(old!.data.state)
         || args.operation === 'finish' && !['active', 'held'].includes(old!.data.state))
-        throw new HarnessError('companion_state', '当前共同做事状态不适用这项变更；时间流逝或读取不会自动继续。');
+        throw new HarnessError('companion_state', '这件事现在的停留位置与这一步对不上，先看看是要继续、暂放还是收好。');
       if (args.interruption && args.operation !== 'hold' || (args.finishKind || args.outcomeReport) && args.operation !== 'finish')
         throw new HarnessError('companion_transition', '中断和收尾依据只属于相应的状态变化。');
       const interruptionSource = args.operation === 'hold' ? args.interruption ? this.currentSource(handle, args.interruption) : source : undefined;
       const outcomeReport = args.operation === 'finish' && args.outcomeReport ? this.cite(handle, args.outcomeReport, true) : null;
       if (args.finishKind === 'user_reported_done' && !outcomeReport)
-        throw new HarnessError('companion_outcome_required', '本人说做完需要真实报告地址，不能按计时或助手完成推定。');
+        throw new HarnessError('companion_outcome_required', '还没找到你说已经做完的那段话，先把实际做到哪里留下来。');
       const now = this.repo.clock.now(), previous = old?.data;
       const checkpoint = args.checkpoint ? this.checkpoint(handle, matter.id, args.checkpoint) : previous!.checkpoint;
       const state: CompanionSessionData['state'] = args.operation === 'hold' ? 'held' : args.operation === 'finish' ? 'finished' : 'active';
       const sessions = [...new Set([...(previous?.sessionIds || []), sessionId])];
-      if (sessions.length > 128) throw new HarnessError('companion_session_limit', '这一共同事项的会话地址已达保存上限，未静默丢弃旧地址。');
+      if (sessions.length > 128) throw new HarnessError('companion_session_limit', '这件事连接过的对话已经存满了，原来的记录都还在，这次暂时没添进去。');
       const data: CompanionSessionData = { type: 'companion_session', version: 1, matterId: matter.id,
         runId: previous?.runId || randomUUID(), state, sessionId, sessionIds: sessions,
         startedAt: previous?.startedAt || now, updatedAt: now, startedBy: previous?.startedBy || source,
@@ -215,19 +215,24 @@ export class CompanionSessionService {
           producerRevision: linked.revision, sensitivity: 'privacy', invalidation: 'block' });
       return { status: 'saved', id: record.id, revision: record.revision, matterId: matter.id, records: [record],
         scene: this.project({ record, data, matter }),
-        meaning: '已保留同一事项的工作断点；没有登记提醒、执行任务或判断独立掌握。' };
+        meaning: state === 'held' ? '这件事先停在这里，原来的材料和下一步都留好了，回来时可以从同一处接起。'
+          : state === 'finished' ? args.finishKind === 'user_reported_done'
+            ? '你这次说做完的那段话和收尾位置已留好；实际结果仍可沿原记录查看。'
+            : '这一段已经收好，当时做到哪里和用过的材料都留在原处。'
+          : '这件事的新停点已留好，可以沿同一份材料和刚才的思路继续；日历与提醒仍在各自原来的地方。' };
     });
   }
 
   private stop(handle: ScopeHandle, args: CompanionSessionWriteInput, source: CompanionLocator, recordId: string) {
     if (args.checkpoint || args.interruption || args.finishKind || args.outcomeReport)
-      throw new HarnessError('companion_stop_input', '停止只结束这一会话，不借此替换旧正文或重新开放材料。');
+      throw new HarnessError('companion_stop_input', '这一步是把共做页停下。要改正文或材料，请回到原来的那一处。');
     return this.repo.write(() => {
       const metadata = this.repo.sourcedWorkMetadata(handle, recordId);
       if (!metadata || metadata.type !== 'companion_session' || metadata.kind !== 'plan' || metadata.matterId !== args.matterId)
         throw new HarnessError('companion_missing', '没有找到这一事项的共同做事会话。');
       if (metadata.revision !== args.expectedRevision) throw new HarnessError('companion_revision', '共同做事状态已变化，请按当前版本停止。');
-      if (metadata.status === 'stopped') return { status: 'stopped', id: recordId, revision: metadata.revision, matterId: args.matterId, records: [] as WorkRecord[] };
+      if (metadata.status === 'stopped') return { status: 'stopped', id: recordId, revision: metadata.revision, matterId: args.matterId, records: [] as WorkRecord[],
+        meaning: '这份共做页已经停下了，原来的日程和学习记录仍各在原处。' };
       const at = this.repo.clock.now(), revision = metadata.revision + 1;
       // This new control address does not replace, supplement or reauthorize
       // the old working-content binding. Keeping lastTransition intact also
@@ -238,7 +243,7 @@ export class CompanionSessionService {
       this.repo.invalidate(recordId, 'companion_session_stopped');
       this.repo.outbox('work_changed', recordId);
       return { status: 'stopped', id: recordId, revision, matterId: args.matterId, records: [] as WorkRecord[],
-        meaning: '已结束这一共同做事会话；未展开旧正文，不取消独立安排或学习记录。' };
+        meaning: '这份共做页已停下。原来的日程和学习记录仍各在原处，这次没有打开较早的正文。' };
     });
   }
 
@@ -267,7 +272,7 @@ export class CompanionSessionService {
           .map(({ kind: _kind, label: _label, ...material }) => material),
         materials: point.materials.filter(material => material.kind === 'file').map(({ label: _label, ...material }) => material),
         learningProcessRefs: point.learningProcessRefs, personalMethodSources: record.personalMethodSources || [] },
-      meaning: '共同做事的当前工作解释；不是人物事实、任务完成、独立掌握或新的执行授权。' });
+      meaning: '这里留着当时怎样理解这件事、做到哪一步、下次从哪里接。它是一起做事的笔记；今天的想法和实际结果，继续听眼前的话、看原来的记录。' });
   }
 
   read(handle: ScopeHandle, raw: CompanionSessionReadInput, permits?: Permission) {
@@ -278,16 +283,17 @@ export class CompanionSessionService {
       const metadata = this.repo.sourcedWorkMetadata(handle, id);
       const found = metadata?.type === 'companion_session' && metadata.matterId === args.matterId && metadata.kind === 'plan' ? metadata : undefined;
       return { status: found ? 'fresh' : 'not_found', matterId: args.matterId, ...(found ? { control: found } : {}), records: [] as WorkRecord[],
-        meaning: '仅管理已知共同做事会话；没有展开或重新授权旧正文。' };
+        meaning: found ? '找到了这份共做页的停留状态，较早的正文和资料还没有打开。'
+          : '这里没有找到这件事留下的共做页。' };
     }
     const current = this.current(handle, args.matterId, id, permits);
     return current ? { status: 'fresh', matterId: args.matterId, records: [current.record], scene: this.project(current),
       checkpoint: { ...current.data.checkpoint,
-        interpretationUse: '这是助手当时的工作解释；恢复时按当前原话、材料和条件重评，不视为人物事实。' },
+        interpretationUse: '这是助手当时怎么理解这件事的记录。接着做时，把它放回今天的原话、材料和处境里再看。' },
       sourceBinding: current.record.sourceBinding, outcomeReport: current.data.outcomeReport,
-      meaning: '回读不改变active/held/finished/stopped状态；继续须有当前原话，完成／尝试报告仍未被外部核实。' }
+      meaning: '停点已经找回，仍留在原来的位置。下一句可以接你这次想做的事；其中的尝试与完成经过来自你当时的讲述，外部结果另看原记录。' }
       : { status: 'not_available', matterId: args.matterId, records: [] as WorkRecord[],
-        meaning: '会话、原事项或相关依据当前不可读／已改变；未从旧副本恢复，独立事项仍可继续。' };
+        meaning: '这份停点或它用过的资料这次读不到。可以从眼前仍能打开的内容继续，其他独立的事情仍留在原处。' };
   }
 
   context(handle: ScopeHandle, matterId: string, permits?: Permission) {
@@ -300,7 +306,7 @@ export class CompanionSessionService {
       currentObstacle: point.currentObstacle?.text || null, nextStep: point.nextStep?.text || null, returnPoint: point.returnPoint.text,
       materialCount: point.materials.length, attemptReportCount: point.attemptReports.length,
       read: { tool: 'read_companion_session', arguments: { matterId, id: record.id } }, resumeRequiresCurrentRequest: true,
-      meaning: '仅是可续回的共同做事线索；先回读当前来源，找回本身不恢复工作、提醒或动作授权。' }),
+      meaning: '这里留着一处可以接回的共做页。先打开看看原来的停点，再顺着这次想做的事继续；原有提醒和安排各在原处。' }),
       record, sourceBinding: record.sourceBinding,
       learningProcessVersions: point.learningProcessRefs.map(({ id, revision }) => ({ id, revision })) };
   }
@@ -325,7 +331,8 @@ export class CompanionSessionService {
       availability: 'read_before_resuming' as const })), records: picked.map(value => value.record),
       learningProcessVersions: picked.flatMap(value => value.data.checkpoint.learningProcessRefs.map(({ id, revision }) => ({ id, revision }))),
       moreMayExist: rows.length === scan || values.length > picked.length,
-      meaning: '只提供当前合法的共同做事地址，不展开断点或材料；找回不代表自动继续。' };
+      meaning: picked.length ? '这些共做页现在还能找回，具体的停点和材料要打开后才看得见。今天要不要接着做，仍跟着这次的话走。'
+        : '这次还没有带回能接上的共做页。眼前这件事可以照常聊，想找哪处旧停点也可以沿原记录继续看。' };
   }
 
   scene(handle: ScopeHandle, matterId: string, permits?: Permission) {
@@ -536,6 +543,6 @@ export class CompanionSessionService {
     this.scope(handle);
     const value = this.current(handle, matterId, id, permits);
     if (!value || value.record.revision !== revision)
-      throw new HarnessError('companion_changed', '刚读的共同做事断点或其依据已变化，未采用旧解释或旧材料。');
+      throw new HarnessError('companion_changed', '刚才留下的停点或它所依据的资料变了，可以沿现在的内容接着做。');
   }
 }

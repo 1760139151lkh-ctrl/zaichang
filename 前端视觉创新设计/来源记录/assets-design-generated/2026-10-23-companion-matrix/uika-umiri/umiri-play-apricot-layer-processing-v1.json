@@ -1,0 +1,188 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "umiri-play-apricot-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "db43d023c12a40c4ae145b261f4d4a5fdd83577ac0df4bf80b6359329487b5e0",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": "4.13.0"
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "umiri-play-apricot-mother-candidate-v2.png",
+  "motherSha256": "98fd4ab74541817c22b5c54ae0f277a270acf4ca3915acdb7bad94712136e6dd",
+  "matte": "umiri-play-apricot-mask-generated-v1.png",
+  "matteSha256": "21bc8c1388bb0d66a1cc95e558df7f02d84d662ebce230207adec2b440030a14",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1110,
+      250,
+      1536,
+      820
+    ],
+    "seedThreshold": 80,
+    "uncertainBandPixels": 4,
+    "iterations": 5,
+    "edgeFeatherPixels": 0.35
+  },
+  "alphaChangedPixels": 156966,
+  "alphaNonzeroPixels": 76995,
+  "alphaBounds": [
+    1138,
+    271,
+    1528,
+    793
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "220eed40cb666ae6542e26edfd3ab17e20144dfb8e89faf890c20003e4708c70",
+  "figureRgbSha256": "220eed40cb666ae6542e26edfd3ab17e20144dfb8e89faf890c20003e4708c70",
+  "background": {
+    "candidate": "umiri-play-apricot-background-generated-v1.png",
+    "candidateSha256": "12e2b7851b5d2af268e4d8c8dfa01dee050ef65bcb55861aa845289c44de55ef",
+    "expandPixels": 7,
+    "featherPixels": 1.2,
+    "additionalErasePolygons": [
+      [
+        [
+          1125,
+          565
+        ],
+        [
+          1395,
+          565
+        ],
+        [
+          1395,
+          720
+        ],
+        [
+          1110,
+          812
+        ]
+      ],
+      [
+        [
+          1110,
+          735
+        ],
+        [
+          1340,
+          735
+        ],
+        [
+          1340,
+          815
+        ],
+        [
+          1110,
+          815
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 139548,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1125,
+          741
+        ],
+        [
+          1225,
+          741
+        ],
+        [
+          1225,
+          802
+        ],
+        [
+          1125,
+          802
+        ]
+      ],
+      [
+        [
+          1240,
+          747
+        ],
+        [
+          1325,
+          747
+        ],
+        [
+          1325,
+          808
+        ],
+        [
+          1240,
+          808
+        ]
+      ],
+      [
+        [
+          1255,
+          552
+        ],
+        [
+          1410,
+          552
+        ],
+        [
+          1410,
+          612
+        ],
+        [
+          1255,
+          612
+        ]
+      ]
+    ],
+    "featherPixels": 0.7,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "umiri-play-apricot-figure-calibrated-v1.png",
+      "bytes": 2470749,
+      "sha256": "b153e613158d41b00cea6407a0ec8bd8108ad54031d6b013276d68a919505464"
+    },
+    {
+      "file": "umiri-play-apricot-mask-calibrated-v1.png",
+      "bytes": 16909,
+      "sha256": "9019e4a5df28dbcd51eb75e5ecbdfe312b2f3d9ac1c0843778e576e1326ebcd6"
+    },
+    {
+      "file": "umiri-play-apricot-background-calibrated-v1.png",
+      "bytes": 2105090,
+      "sha256": "e70f9f1981422843c27d9379a1d675c6c3925e12c764cb6ce05ebac79072ef18"
+    },
+    {
+      "file": "umiri-play-apricot-shadow-calibrated-v1.png",
+      "bytes": 53524,
+      "sha256": "7960bb636589c4cadf10a9b11b62dee77ed4a0bbc4a0cee90af4d43724da2d0e"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "recordType": "original-mother-fixed-study-layers",
+  "createdOn": "2026-10-24",
+  "character": "anon",
+  "activity": "study",
+  "theme": "apricot",
+  "mother": {
+    "file": "anon-study-apricot-mother-candidate-v1.png",
+    "sha256": "2e9a7c010f52939149c5a93b43eb3f1ab996f9ed25bbcbaa3a7522038b1f9fbe",
+    "primaryReviewRecord": "../primary-other-mother-reviews.json",
+    "prompt": "anon-study-apricot-prompt.txt",
+    "promptSha256": "2433c7815c202589586974c4b4ab3970afbd5f1d6628f261f721fa94d710dc98"
+  },
+  "imageGenerationInputs": {
+    "maskSource": "anon-study-apricot-mask-source.json",
+    "maskPrompt": "anon-study-apricot-mask-prompt.txt",
+    "maskPromptSha256": "3e3eed1bbdd4910c4d92fdb6e7324b5bfc0bd8083dedb76d8f3eb747ea53ec4a",
+    "backgroundSource": "anon-study-apricot-background-source.json",
+    "backgroundPrompt": "anon-study-apricot-background-prompt.txt",
+    "backgroundPromptSha256": "4d00e7181fb9f95e1dbd4d67ffed9d881db5f8275a857f4a95faca85d85ef4d2",
+    "additionalImageCalls": 0
+  },
+  "production": {
+    "processor": "study-cast-shadow-production.py",
+    "processorSha256": "524cf8a15984f9dc0fc5a265c329cb9ab0068ad34a530d539bb3355bec6ebb06",
+    "sharedProcessor": "../extract-scene-layers.py",
+    "parameters": "anon-study-apricot-layer-parameters-v3.json",
+    "record": "anon-study-apricot-layer-processing-v3.json",
+    "recordSha256": "15621f15f71575d563b38bfef841810144ff8d17cbdab1db5c71eb80378e5ab7",
+    "figureRgbEqualsMotherRgb": true,
+    "figureRgbaUnchangedFromPriorCalibration": true
+  },
+  "outputs": [
+    {
+      "file": "anon-study-apricot-figure-calibrated-v2.png",
+      "bytes": 2460531,
+      "sha256": "3a9bb503d78907ffcbfbaeff9bb55d76d77da338cf694ae62dbf4c4e93436b72"
+    },
+    {
+      "file": "anon-study-apricot-mask-calibrated-v2.png",
+      "bytes": 24746,
+      "sha256": "baeeb8f7da049e91724f59d76d955ae7ca9826af1f0f999ace6d831ce7519432"
+    },
+    {
+      "file": "anon-study-apricot-background-calibrated-v3.png",
+      "bytes": 2118784,
+      "sha256": "7a932e6c2c5b59cca7553d1b2a4437f2116a9c5eab92545c9ae9c2bf3ec67349"
+    },
+    {
+      "file": "anon-study-apricot-shadow-calibrated-v3.png",
+      "bytes": 87337,
+      "sha256": "1ef0900099b8f3f2f710ef2a94694363a6ceb38cfa9ac2d3284c4b333bb2abc9"
+    }
+  ],
+  "scene": "anon-study-apricot-candidate-v3.scene.json",
+  "designerPersonallyViewed": true,
+  "designerObservation": "Viewed approved complete original mother, prior alpha on dark background, final light/dark figure composites, full empty and full original-room reconstruction, and desk/wall/seat/shoe contact crops. Existing canonical figure/mask PNGs reused byte-for-byte. Human-cast shadow cleared from empty background and restored by separate source-residual normal RGBA inside explicit ROIs. Fixed original desk, forearms, chair and shoe support; travel=0. Static asset review only, no runtime or primary acceptance.",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  }
+}

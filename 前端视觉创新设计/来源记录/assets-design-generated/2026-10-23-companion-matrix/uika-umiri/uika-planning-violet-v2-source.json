@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-theme-mother-candidate",
+  "character": "uika",
+  "activity": "planning",
+  "theme": "violet",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/uika/",
+    "https://anime.bang-dream.com/mygo/character/uika/"
+  ],
+  "input": {
+    "path": "uika-planning-apricot-mother-candidate-v3.png",
+    "sha256": "767aab09d7596550438a1e3ef5ff01e578b4a635cc548b104bd773f211361e1b",
+    "role": "image1 primary-approved exact-activity whole mother v3; sole edit target for identity/body/props/furniture geometry"
+  },
+  "promptFile": "uika-planning-violet-v2-prompt.txt",
+  "prompt": "Use case: lighting-weather. One complete 1536 x 1024 same-room themed mother.\nTWO INPUTS WITH DIFFERENT ROLES:\nImage 1 is the PRIMARY-APPROVED APRICOT MOTHER FOR THIS EXACT ACTIVITY: the full EDIT TARGET. Keep its exact person, pose, source chair and furniture geometry, not a reference portrait.\nImage 2 is the PRIMARY-APPROVED EMPTY ROOM-VIOLET lighting reference. It contains NO PERSON. Use it ONLY to anchor the sunset solar position, water reflection axis, whole-room lighting direction and theme. Do not replace Image 1 with Image 2 or copy its different chair orientation. Keep every person/prop/furniture pixel position from Image 1; relight that complete target scene coherently.\nLOCK source geometry, face/age/hair, expression/gaze, body proportions, exact hands/fingers/feet and support contacts, clothing folds, all props/held items, empty shoes, chair orientation, desk width/lamp/cup position, bench/pillows/throw, all window frame corners and continuous architecture, distant campus landmarks, rear-left table/shelves/drawing, rug and floorboards. No crop/zoom/enlargement, body relocation, anatomy completion, chair restoration from another room or furniture drift. The provided activity silhouette stays unchanged, including all fine hair/prop/shoe tips inside the same full canvas.\nThis is MISUMI UIKA (三角初華): the same youthful short chin-length pale-blonde bob with a faint pink undertone, violet eyes, white T-shirt, long taupe-gray skirt and original socks/footwear arrangement in this approved input. Do not substitute an adult, long brown hair or another girl. Her original outfit and object colors remain material colors under new light.\nRelight the whole person AND room together: exterior/sky/water/glass, lamp, walls/wood/linen, hair/skin/clothes/objects and contact shadows must agree. Natural skin, readable eyes/hands, real cloth/wood colors. No flat color filter, uniform orange/purple wash, black overlay, green cast, white gradient, pasted bright face, blank wall, split day/night, extra light source, new prop/person or background replacement. Fine youthful anime linework and the same softly detailed painted environment. No text/UI/logos/watermarks/arrows/borders/insets.\n\nSOURCE ACTIVITY PLANNING: this is the approved NEW v3 desk-chair UPRIGHT SIDE SEAT with whole upper torso half-turned toward the user, comparing two small sheets. Keep that exact upright half-turn and all desk/lamp/chair geometry. Do not revert to bench chat, lean forward into study or widen/slide the desk. Preserve the actual open palm and page-edge hand.\n\nTHEME VIOLET: rose-gold SUNSET over the SAME lake/campus, low warm horizon fading into lilac/violet upper clouds, coherent dusk and water reflections over the whole connected window. Muted violet interior shadows and restrained rose/amber bounce, preserving material colors. Turn ON the EXISTING desk lamp in its exact source position, modest local warm pool on desk/chair/bench. The person receives that lamp light and dusk window rim coherently; natural youthful skin and readable hair/clothes/objects, not neon purple skin or uniform orange tint. Do not move the lamp or change the source pose/room.\n\nMANDATORY FIXED VIOLET SUN / LIGHT-AXIS ANCHOR from Image 2:\nThe actual single round sun disc center is approximately pixel (1007,302) on the 1536 x 1024 full canvas, just above the mountain horizon LEFT of the fixed distant clock tower at x≈1218. Keep that SAME sun position, size and low horizon as Image 2. Its bright narrow vertical lake reflection column stays under that sun at x≈1007, from the far shore toward the same window sill. Do not move the sun toward the lamp or over the tower/right window, do not choose a new sunset composition for this activity, and never add a second sun. Main solar illumination, wall leaf-shadow direction, curtain rim, floor/material reflections and the person's sunset rim must agree with Image 2. The existing desk lamp stays in Image 1's exact position and adds only its modest nearby warm pool; it is not a new sun or an excuse for a shifted daylight axis.\nMatch the continuous sky/lake/campus dusk in Image 2 while preserving Image 1's camera, landmarks and all foreground geometry. The reference gives light/weather and source direction, not new furniture or anatomy. Material colors stay natural. Keep the target youthful identity, hands, seated support and complete shoes unchanged.\n\nReturn ONE complete exact-size scene with source composition and anatomy unchanged.\n",
+  "output": {
+    "path": "uika-planning-violet-mother-candidate-v2.png",
+    "sha256": "7d3570137ff667a0673fb6acb16eea0f3af5d5a33148501068ba8afa69f87474",
+    "bytes": 2179773,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-24T01:42:03.981571+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "太阳实际回到约(1007,302)及湖面同轴日柱，钟楼/完整窗框保持；planning v3直身半转/桌纸前臂/示意掌/原椅与双鞋不移，夕照紫影/原位台灯连贯。仅正确暖杏v3+approved空房照明参考输入，未用退violet。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-db0f4dd0-b181-479d-bbad-c3d396d55f27",
+  "inputs": [
+    {
+      "path": "uika-planning-apricot-mother-candidate-v3.png",
+      "sha256": "767aab09d7596550438a1e3ef5ff01e578b4a635cc548b104bd773f211361e1b",
+      "role": "image1 primary-approved exact-activity whole mother v3; sole edit target for identity/body/props/furniture geometry"
+    },
+    {
+      "path": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "image2 primary-approved empty room-violet; illumination direction and solar/water-axis reference only, not furniture replacement"
+    }
+  ]
+}

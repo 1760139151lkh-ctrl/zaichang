@@ -1,0 +1,29 @@
+{
+  "activity": "listening",
+  "seatPixel": [
+    1355,
+    573
+  ],
+  "groundPixel": [
+    1228,
+    581
+  ],
+  "bodyBoundsPixel": [
+    1179,
+    269,
+    1448,
+    586
+  ],
+  "hitPolygonMethod": "Largest actual alpha>128 contour, 4px polyline simplification; complete full-canvas coordinates. No invented body points.",
+  "safeTextBoundaryMethod": "Actual leftmost nonzero figure pixel minus 64px of margin; individual pose only.",
+  "contactShadowObservation": "Separate normal source-over RGBA contact residual from original mother, limited to explicit sock/seat and skirt-hip/seat polygons and <=3 source pixels from body alpha. No floor-shoe shadow in actor. Generated clean BG explicitly erases original body/contact shadows before movement; no synthetic ellipse/multiply/floor patch.",
+  "travelReason": "Compact hips, knees and socked feet all supported by the same bench cushion. Candidate short tangent range is +/-12.288px only; floor loafers stay fixed in BG. Seat edge locally about 0.09 vertical/horizontal.",
+  "groundMeaning": "Contact of sock feet with bench cushion; not a fictitious floor foot.",
+  "runtime": "Not registered or exercised. Pending primary layer/geometry/Stage review.",
+  "shadowProduction": "sakiko-listening-apricot-layer-processing-v8.json",
+  "endpointEvidence": {
+    "method": "Pillow static full-resolution BG -> normalRGBA source contact residual -> originalRGB figure. Exact dx +/-12.288, dy +/-1.10592 inspection transforms only, not browser/Electron drag evidence.",
+    "left": ".test-data/life-layer-review/listening-shadow-v8-full-bg-left.png",
+    "right": ".test-data/life-layer-review/listening-shadow-v8-full-bg-right.png"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "play",
+  "palette": "rain",
+  "light": "night",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-f89fae8f-60b4-4fb9-a275-7769c62216a3",
+  "prompt": "taki-play-rain-prompt.txt",
+  "promptSha256": "739ab3358ef1af2142ca1652703f70219820629b2dbf0a28dd4c7113a73130c8",
+  "inputs": [
+    {
+      "file": "taki-play-apricot-mother-candidate-v1.png",
+      "sha256": "bf2bb6c780f72c03b65169347d1deafe8c178afe1a9bf6509848dc239321d0f9",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-f89fae8f-60b4-4fb9-a275-7769c62216a3.png",
+  "output": {
+    "file": "taki-play-rain-mother-candidate-v1.png",
+    "sha256": "8ba7683c9e6c0bf6bf9bf77eb8afdc0466590e94fddbe0d3aa42cced9646d3d1",
+    "bytes": 2055076,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed with approved warm mother and target empty plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Supported original desk-chair drum-pad posture, two held sticks, exact pad/desk contact and two complete floor loafers retained. Single desk-lamp/rain light coherent and outside town clock tower stays in its intended right-window location. Primary/layer/runtime review remains separate."
+}

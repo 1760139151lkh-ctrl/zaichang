@@ -49,14 +49,14 @@ function nativeProperty(name: string | undefined, pointer: string | undefined): 
     ? kind as NonNullable<NativeParserInput['errors'][number]['property']>['expected'] : undefined;
   return { path, pathComplete, ...(parameterIndex >= 0 ? { parameterIndex } : {}), ...(expected ? { expected } : {}) };
 }
-function componentFailure(name: string, problem: NonNullable<ReturnType<typeof inspectInteractivePrimitiveProperties>>): never {
+function componentFailure(name: string, problem: NonNullable<ReturnType<typeof inspectInteractivePrimitiveProperties>>, statementOrdinal?: number): never {
   const definitions = spec.library.components || {};
   const definition = Object.hasOwn(definitions, name) ? definitions[name] : undefined;
   if (!definition) fail(problem.message);
   throw new HarnessError('interactive_program', problem.message, 'never', { rejectedDimensions: ['component_properties'],
-    component: { name, signature: definition.signature, issues: problem.issues.slice(0, 4),
+    component: { name, signature: definition.signature, ...(statementOrdinal === undefined ? {} : { statementOrdinal }), issues: problem.issues.slice(0, 4),
       read: { tool: 'read_skill', arguments: { id: INTERACTIVE_PROGRAM_METHOD_ID, section: 'components', names: [name], limit: 1 } } },
-    explanation: 'component给出当前真实签名；issues仅含已知schema字段或数字下标，不含输入值。parameterIndex从0计，表示该字段在组件签名中的参数位置，不是源码声明位置。按实际约束修订同一作品，未发表新版本。' });
+    explanation: 'component给出当前真实签名；issues仅含已知schema字段或数字下标，不含输入值。parameterIndex从0计，表示该字段在组件签名中的参数位置；statementOrdinal只在源码遍历确知时给出，从1计，同声明可有多个同类部件，不猜具体出现位置。按实际约束修订同一作品，未发表新版本。' });
 }
 
 /** Bound data remains a live projection; neither this clone nor its digest is
@@ -196,14 +196,18 @@ function evaluateProgram(sourceDsl: string, states: InteractiveProgramDocument['
   // A finite trajectory does not change its own endpoints as $ui advances.
   // Check every declared branch through the same native evaluator, including
   // Motion nodes not materialized by the initial condition.
-  for (const statement of statements.values()) walkAST(statement, node => {
-    if (node.k !== 'Comp' || node.name !== 'Motion') return;
-    const frames = node.args[1];
-    if (!frames || !stateIndependent(frames, new Set())) fail('Motion 帧需要与可调输入和 Each 局部值无关的有限纯表达式。');
-    const problem = inspectInteractivePrimitiveProperties('Motion', { id: 'motion-frame-boundary',
-      frames: evaluate(frames, context, { library }) }, states);
-    if (problem) componentFailure('Motion', problem);
-  });
+  let motionStatementOrdinal = 0;
+  for (const statement of statements.values()) {
+    motionStatementOrdinal++;
+    walkAST(statement, node => {
+      if (node.k !== 'Comp' || node.name !== 'Motion') return;
+      const frames = node.args[1];
+      if (!frames || !stateIndependent(frames, new Set())) fail('Motion 帧需要与可调输入和 Each 局部值无关的有限纯表达式。');
+      const problem = inspectInteractivePrimitiveProperties('Motion', { id: 'motion-frame-boundary',
+        frames: evaluate(frames, context, { library }) }, states);
+      if (problem) componentFailure('Motion', problem, motionStatementOrdinal);
+    });
+  }
   const inspection = inspectInteractiveProgram(sourceDsl, policy);
   statements = inspection.statements;
   values.clear();

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "mother": "nyamu-chat-apricot-mother-candidate-v1.png",
+  "motherPrimaryRecord": "primary-other-mother-reviews.json",
+  "coordinateSystem": "same original full 1536x1024 canvas",
+  "seatPixels": [
+    1340,
+    582
+  ],
+  "seatMeaning": "approximate original hip/cushion contact centre, not an assertion of hidden bone coordinates",
+  "groundPixels": [
+    1237,
+    822
+  ],
+  "groundMeaning": "near shoe forefoot sole contact",
+  "benchFrontSeamPixels": [
+    [
+      1095,
+      591
+    ],
+    [
+      1510,
+      646
+    ]
+  ],
+  "travelPixelsEachDirection": 9,
+  "slope": 0.13253012048192772,
+  "perspective": 0,
+  "backgroundChoice": {
+    "file": "nyamu-chat-apricot-background-candidate-v1.png",
+    "reason": "full generated same-mother matching plate preserves coherent floor sunbeams; rejected local broad erasure composite showed a visible seam",
+    "source": "nyamu-chat-apricot-extraction-source.json"
+  },
+  "figureRgbPolicy": "entire original mother RGB byte payload retained; only alpha changes visibility",
+  "foreground": "none; this mother is in front of bench, no desk occlusion crosses the figure",
+  "limitations": [
+    "Primary layer review pending",
+    "Actual Stage gestures and motion pending"
+  ],
+  "scene": "nyamu-chat-apricot.scene.json"
+}

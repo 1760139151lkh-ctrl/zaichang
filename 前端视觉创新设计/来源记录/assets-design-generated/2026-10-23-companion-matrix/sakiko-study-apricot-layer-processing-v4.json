@@ -1,0 +1,188 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "sakiko-study-apricot-layer-parameters-v4.json",
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+  "motherSha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1",
+  "matte": "sakiko-study-apricot-mask.png",
+  "matteSha256": "518f27f08fae3dbe49651a25eb4404c57cbbf2f4d294383f9c1ecaf4bc6ba03b",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        936,
+        603
+      ],
+      [
+        957,
+        601
+      ],
+      [
+        967,
+        727
+      ],
+      [
+        947,
+        729
+      ]
+    ],
+    [
+      [
+        933,
+        613
+      ],
+      [
+        947,
+        611
+      ],
+      [
+        947,
+        628
+      ],
+      [
+        933,
+        628
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          750,
+          480
+        ],
+        [
+          850,
+          480
+        ],
+        [
+          890,
+          625
+        ],
+        [
+          750,
+          625
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    },
+    {
+      "polygon": [
+        [
+          855,
+          585
+        ],
+        [
+          960,
+          585
+        ],
+        [
+          958,
+          615
+        ],
+        [
+          855,
+          615
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    },
+    {
+      "polygon": [
+        [
+          850,
+          609
+        ],
+        [
+          951,
+          601
+        ],
+        [
+          956,
+          614
+        ],
+        [
+          850,
+          635
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    }
+  ],
+  "alphaChangedPixels": 111670,
+  "alphaNonzeroPixels": 37622,
+  "alphaBounds": [
+    801,
+    315,
+    1060,
+    726
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "949332e3472c3f6ad9d07f0933159c5f5e37a214d0f1aa3928219bf6e600879c",
+  "figureRgbSha256": "949332e3472c3f6ad9d07f0933159c5f5e37a214d0f1aa3928219bf6e600879c",
+  "background": {
+    "candidate": "sakiko-study-apricot-background.png",
+    "candidateSha256": "df0c76dc2eea58039a8218eaddbee16bebb26d6a4c21c43c66980a228e8e01ca",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          900,
+          682
+        ],
+        [
+          1068,
+          681
+        ],
+        [
+          1090,
+          754
+        ],
+        [
+          892,
+          754
+        ]
+      ]
+    ],
+    "changedPixels": 62471,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "outputs": [
+    {
+      "file": "sakiko-study-apricot-figure-calibrated-v4.png",
+      "bytes": 2373903,
+      "sha256": "8fdf6c16c0d34726f1e282cb36376dffb904485ab61a4a30ae448efebcc2e43a"
+    },
+    {
+      "file": "sakiko-study-apricot-mask-calibrated-v4.png",
+      "bytes": 25625,
+      "sha256": "27eafb137b6f96d1209c3456cd6f3939b530190f7cf8e4675f9b5ff097112532"
+    },
+    {
+      "file": "sakiko-study-apricot-background-calibrated-v4.png",
+      "bytes": 2045058,
+      "sha256": "a9160458e92b5ddbfff913b642363c6976f30f53060b31d0f6b97ce851f02f26"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

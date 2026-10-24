@@ -51,7 +51,7 @@ export function projectInteractiveProgramReadPurpose(request: unknown,
     sourceSlotBoundary: 'patch' in input ? 'arguments.sceneRefs plus exact previous surviving SourceSlots after original owner revalidation' : 'arguments.sceneRefs',
     ...('patch' in input ? { editMode: 'statement_patch', explicitInputFields: Object.keys(input.inputChanges || {}).length,
       inheritance: 'original exact previous source closure; no new permission or new read acknowledgement' } : {}),
-    meaning: '拟创作或修订回复内交互。绑定仅为声明，Scene引用是SourceSlot的范围上界；不证明资料已读或权限。原请求、正式引用与本轮实际交付的原件各自帮助判断用途；没有正式界面引用不等于原件不匹配。之后仍核原Scene、绑定、CAS、编译与来源门。',
+    meaning: '这里是在准备一件放进回复的作品，或接着修改原作。下面列的是想引用的资料地址，正文是否读到还要看实际读取；能放进作品的原画面也只在所列范围内。可以结合对方这次的原话、当前指着的作品，以及这轮真正读回的原作来理解用途；没有界面引用时，仍可沿已读原作认清是否同一件。应用接着会核对资料能否使用、原作版本和作品写法。',
   } } };
 }
 

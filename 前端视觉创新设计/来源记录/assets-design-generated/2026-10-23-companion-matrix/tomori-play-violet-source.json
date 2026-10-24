@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "play",
+  "light": "violet",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-4aefbb1d-1211-4ca7-969c-28ea133ce13e",
+  "generatedAtUtc": "2026-10-24T13:05:46.807900+00:00",
+  "inputs": [
+    {
+      "file": "tomori-play-apricot-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "7d516b243573ea7cc80cbd6c720eee823dbc0ed4096cf9b7f81e9d65e26de63d"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "sourceIdentity": "Approved correct complete warm mother relit against approved clean lighting plate only; no rejected figure input.",
+  "prompt": "tomori-play-violet-prompt.txt",
+  "promptSha256": "fb86a98d0d17ad99c51fd1a1b328565af3a82f00017ae4bbce393bfe342df780",
+  "output": {
+    "file": "tomori-play-violet-mother-candidate.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2199252,
+    "sha256": "931816d4ea0c2b6d2a85264873ab1d3e077731ab8cf9132817bd88e6c81863ad"
+  },
+  "review": {
+    "designerViewed": "complete original full scene",
+    "designerStatus": "candidate",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Complete output personally viewed. Original distinct supported posture, whole body scale, props and furniture appear retained. Full coherent violet illumination, sun visually at approved1007/302 and lake reflection nearx1003. Primary image/prompt review pending."
+}

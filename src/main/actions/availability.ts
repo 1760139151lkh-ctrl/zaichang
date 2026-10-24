@@ -36,5 +36,5 @@ export function availableIntervals(input: {
     cursor = Math.max(cursor, end);
   }
   return { windows, unknownEnds, status: unknownEnds.length ? 'conditional' : 'calculated', basis: 'supplied_intervals_and_costs', environmentVerified: false,
-    meaning: '已扣除每段必要转换成本；未知结束时间按保守边界处理。计算结果不替代来源覆盖、设备或开放时间核查。' };
+    meaning: '这些空当已经留出了每次转场需要的时间；还不知道何时结束的事，先给它多留了一些余地。这里依据的是带来的时间记录，相关设备能否使用、场所是否开放，仍要看各自的实际消息。' };
 }

@@ -1,0 +1,82 @@
+{
+  "purpose": "local source contact-shadow support production, not a test",
+  "alphaInput": "umiri-planning-apricot-figure-calibrated-v3.png",
+  "threshold": 128,
+  "contacts": [
+    {
+      "contact": "rear-heel",
+      "roiXYXY": [
+        950,
+        708,
+        970,
+        742
+      ],
+      "edgePoints": 20,
+      "first": [
+        950,
+        730
+      ],
+      "last": [
+        969,
+        731
+      ]
+    },
+    {
+      "contact": "rear-toe",
+      "roiXYXY": [
+        982,
+        700,
+        1009,
+        741
+      ],
+      "edgePoints": 27,
+      "first": [
+        982,
+        724
+      ],
+      "last": [
+        1008,
+        741
+      ]
+    },
+    {
+      "contact": "front-heel",
+      "roiXYXY": [
+        1007,
+        730,
+        1035,
+        765
+      ],
+      "edgePoints": 28,
+      "first": [
+        1007,
+        755
+      ],
+      "last": [
+        1034,
+        756
+      ]
+    },
+    {
+      "contact": "front-toe",
+      "roiXYXY": [
+        1050,
+        729,
+        1084,
+        765
+      ],
+      "edgePoints": 34,
+      "first": [
+        1050,
+        753
+      ],
+      "last": [
+        1083,
+        745
+      ]
+    }
+  ],
+  "rule": "In each manually selected boot sole/heel ROI, for each x take last y whose original alpha>128, top=(x,y+1), bottom=(x,y+3). These narrow contact strips use shared normal source-over residual formula with 0.5px feather. V4 changes chair/head alpha only; these boot contours unchanged.",
+  "parameters": "umiri-planning-apricot-layer-parameters-v4.json",
+  "travel": "fixed desk-contact pose, recommend zero"
+}

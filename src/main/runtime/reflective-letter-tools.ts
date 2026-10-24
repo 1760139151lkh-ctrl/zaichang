@@ -84,9 +84,9 @@ export function executeReflectiveLetterTool(host: ReflectiveLetterHost, session:
       const text = canonical(value), bytes = Buffer.byteLength(text), tokens = Math.ceil(Array.from(text).length / 1.4);
       if (usage) {
         if (usage.workSourceBindings.some(binding => binding.refs.some(ref => !context.permits!(ref))))
-          throw new HarnessError('letter_source_forbidden', '来信的部分来由已经退出本次范围，未采用旧正文。');
+          throw new HarnessError('letter_source_forbidden', '来信所依据的一部分内容，现在不再适合这次使用；旧信先留在一旁。');
         if (usage.reflectiveLetterSources?.some(metadata => !host.reflectiveLetters.metadataReadable(handle, metadata, context.permits)))
-          throw new HarnessError('letter_source_changed', '这封信所用的原资料或经历已改变，未采用旧正文。');
+          throw new HarnessError('letter_source_changed', '这封信所用的原资料或经历刚刚有了变化，可以先回原处看看现在的意思。');
         host.context.recordWorkSourceBindings(pack, usage.workSourceBindings);
         host.context.recordLearningProcesses(pack, usage.learningProcessVersions);
         host.context.recordReflectiveLetterSources(pack, usage.reflectiveLetterSources || []);

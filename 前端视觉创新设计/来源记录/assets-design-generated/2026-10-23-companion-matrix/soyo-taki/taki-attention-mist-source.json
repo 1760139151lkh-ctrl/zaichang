@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "attention",
+  "palette": "mist",
+  "light": "morning",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-d124b962-e1a1-45ee-bb6e-757b9b773756",
+  "prompt": "taki-attention-mist-prompt.txt",
+  "promptSha256": "2954fe8da2e11dfb0d1255f48b40d88513637104a922fa12fc66deba5e1d9273",
+  "inputs": [
+    {
+      "file": "taki-attention-apricot-mother-candidate-v2.png",
+      "sha256": "23c79a3ce36b887e2c2f57f37558cbe5ace84014c9a03524e31872028004a2f5",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-d124b962-e1a1-45ee-bb6e-757b9b773756.png",
+  "output": {
+    "file": "taki-attention-mist-mother-candidate-v1.png",
+    "sha256": "d5e3ddd5b14fe4f74b734b06a1a122353a54ecb4e32c5216f50bbb0bebfb74f5",
+    "bytes": 2110812,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed against its approved warm source and exact target empty plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Actual chair/desk hand contact retained, torso/head and purple eyes are directed to the stationary blank card on the right bench; two original complete shoes and youthful uniform unchanged. Whole-room theme light coherent, violet sun/lake axisnear1007/1003 and rain left corner quiet. Primary/layer/runtime review remains separate."
+}

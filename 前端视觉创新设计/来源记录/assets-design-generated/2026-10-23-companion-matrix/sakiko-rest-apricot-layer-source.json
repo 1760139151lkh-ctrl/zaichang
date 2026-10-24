@@ -1,0 +1,47 @@
+{
+  "parameters": "sakiko-rest-apricot-calibration-v6.json",
+  "figure": "sakiko-rest-apricot-figure-calibrated-v4.png",
+  "figureSha256": "f5b2f8de82beca9c3d1acf6147f740676a014a7789ebe7f2725a20d5e601979c",
+  "mask": "sakiko-rest-apricot-alpha-calibrated-v6.png",
+  "maskSha256": "73ab28146295d1976a9d261d2ef40e2f480a0389383bad0ecfac29acf4ea9981",
+  "fullCanvas": [
+    1536,
+    1024
+  ],
+  "alphaBounds": [
+    1078,
+    276,
+    1437,
+    746
+  ],
+  "alphaNonzero": 54731,
+  "rgbSource": "sakiko-rest-apricot-mother.png",
+  "registeredBackground": {
+    "background": "sakiko-rest-apricot-background-calibrated-v5.png",
+    "backgroundSha256": "38f918d81fd031345a0777a1ca3fca0bf446c5f113fe8daa2faf5fa390f0f6d4"
+  },
+  "recordType": "deterministic-companion-layer-source",
+  "script": "listening-rest-layer-calibration.py",
+  "scriptSha256": "4bc4f4414d5a04a8864107b6f8da5d2e61ad0ff9ef897e2707c343da463b87e1",
+  "parametersSha256": "4f2e3c70f9945e47f6f9448103c45d2ec4dda9dd6433f04916a074a4940e0bc3",
+  "motherSha256": "ffdf5ac11d9d25da5347120dd7b5f19bf68a6211c991c373e1c6d2f623cebfbf",
+  "rawMaskSha256": "a721b56b42b1cd7d8c467e5be8ddaad75102529069f2b095f445541a0c3d114c",
+  "identityTransform": [
+    1,
+    0,
+    0,
+    1,
+    0,
+    0
+  ],
+  "rgbByteSha256": "685fbf47a605f2d86614eb3914b821f4532a25e7b96e4586071e0fd23b7ce1f1",
+  "figureRgbByteSha256": "685fbf47a605f2d86614eb3914b821f4532a25e7b96e4586071e0fd23b7ce1f1",
+  "rgbChangedPixels": 0,
+  "alphaChangedPixelsFromRawLuminance": 130533,
+  "alphaFormat": "L",
+  "originalInputsUnmodified": true,
+  "review": {
+    "primaryLayer": "pending; producer cannot approve",
+    "runtime": "not registered or accepted"
+  }
+}

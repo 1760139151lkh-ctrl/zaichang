@@ -1,0 +1,27 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "soyo",
+  "activity": "chat",
+  "palette": "apricot",
+  "layer": "mask",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-f230e2cb-3021-479e-9cc8-c2e7539b7043",
+  "prompt": "soyo-chat-apricot-mask-prompt-v2.txt",
+  "promptSha256": "ef6b71e5ff3de0706b589130c134e8d87c7d782cb34d998f90e81fbaf4aec82e",
+  "inputs": [
+    {
+      "file": "soyo-chat-apricot-mother-candidate-v1.png",
+      "sha256": "e5860a2adf427032f84d15dcec6c59c8b6ffa7dff8ede6eadf9ec669f4e00b29",
+      "role": "sole input: primary-reviewed complete same-scene mother"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16921-9fe7-73b2-81e9-dfadeae00b4a/exec-f230e2cb-3021-479e-9cc8-c2e7539b7043.png",
+  "output": {
+    "file": "soyo-chat-apricot-mask-generated-v2.png",
+    "sha256": "ebd59f609048e10eb0deb5be390c682551dd241688161a9920224e73c138c667",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 357942
+  },
+  "stage": "raw imagegen extraction; not calibrated or admitted"
+}

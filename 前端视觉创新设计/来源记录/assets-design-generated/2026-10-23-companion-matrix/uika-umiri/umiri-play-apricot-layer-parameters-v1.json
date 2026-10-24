@@ -1,0 +1,127 @@
+{
+  "mother": "umiri-play-apricot-mother-candidate-v2.png",
+  "motherSha256": "98fd4ab74541817c22b5c54ae0f277a270acf4ca3915acdb7bad94712136e6dd",
+  "matte": "umiri-play-apricot-mask-generated-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1110,
+      250,
+      1536,
+      820
+    ],
+    "seedThreshold": 80,
+    "uncertainBandPixels": 4,
+    "iterations": 5,
+    "edgeFeatherPixels": 0.35
+  },
+  "figure": "umiri-play-apricot-figure-calibrated-v1.png",
+  "mask": "umiri-play-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "umiri-play-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 1.2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1125,
+        565
+      ],
+      [
+        1395,
+        565
+      ],
+      [
+        1395,
+        720
+      ],
+      [
+        1110,
+        812
+      ]
+    ],
+    [
+      [
+        1110,
+        735
+      ],
+      [
+        1340,
+        735
+      ],
+      [
+        1340,
+        815
+      ],
+      [
+        1110,
+        815
+      ]
+    ]
+  ],
+  "background": "umiri-play-apricot-background-calibrated-v1.png",
+  "contactShadowPolygons": [
+    [
+      [
+        1125,
+        741
+      ],
+      [
+        1225,
+        741
+      ],
+      [
+        1225,
+        802
+      ],
+      [
+        1125,
+        802
+      ]
+    ],
+    [
+      [
+        1240,
+        747
+      ],
+      [
+        1325,
+        747
+      ],
+      [
+        1325,
+        808
+      ],
+      [
+        1240,
+        808
+      ]
+    ],
+    [
+      [
+        1255,
+        552
+      ],
+      [
+        1410,
+        552
+      ],
+      [
+        1410,
+        612
+      ],
+      [
+        1255,
+        612
+      ]
+    ]
+  ],
+  "contactShadowEdgePixels": 3,
+  "contactShadowFeatherPixels": 0.7,
+  "shadow": "umiri-play-apricot-shadow-calibrated-v1.png",
+  "record": "umiri-play-apricot-layer-processing-v1.json",
+  "reviewNote": "Initial original-RGB source-registered candidate; matte only refined against source pixels. Held bass/note belongs with actor, furniture remains fixed. Local source contact residuals limited to 3px. Primary and runtime pending."
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-planning-rain-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "planning",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-scene physical relighting of this exact primary-approved warm activity mother; no other character inputs",
+  "prompt": "nyamu-planning-rain-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-planning-apricot-mother-candidate-v2.png",
+      "role": "sole image edit target; primary-approved correct complete activity mother",
+      "sha256": "2520ef07069e0ec07b4cc2de51181f072626ce9f8f06a83ddf401c7e4ac24c27"
+    }
+  ],
+  "output": {
+    "file": "nyamu-planning-rain-mother-candidate-v1.png",
+    "sha256": "99ba76f3a2c96d1336d097906b2b1d2b61c1b1566244dcb7f403f15f959ac887",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-90e9b3f4-9ea5-44db-92fc-892787af626b.png"
+  },
+  "ownershipAndPose": "Keep exact upright half-turned chair posture, both low forearms/hands comparing the two actual desktop cards, eyes down to cards, original supported hips and floor-contact shoes. Both static cards belong to BACKGROUND. No pose change into writing or viewer performance.",
+  "designerObservation": "Full image personally viewed. Approved upright planning-v2 source pose, low comparison hands, actual desktop cards and source furniture preserved; both cards remain background. Lamp locally illuminates paper/face/forearms with cool rainy-window/lake fill, all one night. Left wall/corner smooth dim exposure without daytime leaf pattern; floor has localized lamp pool and broad cool reflection. Natural youthful face, lavender hair/red-purple eye, gray blouse/black skirt/shoes and complete floor support remain.",
+  "observedGaps": [
+    "Primary mother review pending; no layers/calibration/Stage acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

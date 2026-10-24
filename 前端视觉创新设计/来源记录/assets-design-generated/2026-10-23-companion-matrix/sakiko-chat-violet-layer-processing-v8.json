@@ -1,0 +1,403 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "sakiko-chat-violet-layer-parameters-v8.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "6ba1aadcecb16f7833df6a931b4e672201f53ad4ec50654fb00786a55c48376d",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "sakiko-chat-violet-mother-candidate-v1.png",
+  "motherSha256": "8e9b860772095ed911c4c257d6d6769e5c5064f4c793e325e65eadc9e79e1e88",
+  "matte": "sakiko-chat-violet-mask-generated-v1.png",
+  "matteSha256": "b1c0ec80d6918d1c4322f369a1762f534885733635cb4308f7389a17095fe8f3",
+  "matteRegionOverrides": [
+    {
+      "file": "sakiko-chat-violet-mask-generated-v2.png",
+      "sha256": "88c9df5dcf1390af1d7c083febceba178dec33d3780d9f1ff59b712fe3068c35",
+      "alphaSource": "luminance",
+      "region": [
+        1150,
+        220,
+        1480,
+        541
+      ]
+    },
+    {
+      "file": "sakiko-chat-violet-mask-generated-v1.png",
+      "sha256": "b1c0ec80d6918d1c4322f369a1762f534885733635cb4308f7389a17095fe8f3",
+      "alphaSource": "luminance",
+      "region": [
+        1245,
+        375,
+        1345,
+        450
+      ]
+    }
+  ],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [
+    [
+      [
+        1218,
+        530
+      ],
+      [
+        1220,
+        519
+      ],
+      [
+        1260,
+        500
+      ],
+      [
+        1299,
+        508
+      ],
+      [
+        1299,
+        520
+      ],
+      [
+        1268,
+        543
+      ],
+      [
+        1248,
+        539
+      ]
+    ],
+    [
+      [
+        1145,
+        764
+      ],
+      [
+        1166,
+        746
+      ],
+      [
+        1166,
+        768
+      ],
+      [
+        1158,
+        775
+      ]
+    ],
+    [
+      [
+        1200,
+        767
+      ],
+      [
+        1215,
+        751
+      ],
+      [
+        1216,
+        775
+      ],
+      [
+        1206,
+        780
+      ]
+    ],
+    [
+      [
+        1280,
+        375
+      ],
+      [
+        1300,
+        363
+      ],
+      [
+        1323,
+        386
+      ],
+      [
+        1337,
+        430
+      ],
+      [
+        1277,
+        430
+      ],
+      [
+        1268,
+        400
+      ]
+    ],
+    [
+      [
+        1219,
+        503
+      ],
+      [
+        1232,
+        497
+      ],
+      [
+        1244,
+        504
+      ],
+      [
+        1253,
+        518
+      ],
+      [
+        1252,
+        530
+      ],
+      [
+        1247,
+        534
+      ],
+      [
+        1233,
+        529
+      ],
+      [
+        1220,
+        522
+      ]
+    ],
+    [
+      [
+        1214,
+        516
+      ],
+      [
+        1258,
+        497
+      ],
+      [
+        1303,
+        506
+      ],
+      [
+        1303,
+        522
+      ],
+      [
+        1271,
+        547
+      ],
+      [
+        1220,
+        538
+      ]
+    ],
+    [
+      [
+        1220,
+        522
+      ],
+      [
+        1240,
+        505
+      ],
+      [
+        1310,
+        505
+      ],
+      [
+        1310,
+        535
+      ],
+      [
+        1266,
+        552
+      ],
+      [
+        1220,
+        539
+      ]
+    ]
+  ],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 134914,
+  "alphaNonzeroPixels": 81207,
+  "alphaBounds": [
+    1104,
+    242,
+    1453,
+    812
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "dfabe8455fb979d5456cbf10c4bd112d1d55935676921761e4ce611af3d0ae96",
+  "figureRgbSha256": "dfabe8455fb979d5456cbf10c4bd112d1d55935676921761e4ce611af3d0ae96",
+  "background": {
+    "candidate": "sakiko-chat-violet-background-generated-v1.png",
+    "candidateSha256": "c7e62a42837223cc9d78bddbc04a80a01b2bb564ce35027b95242929cdc7dba8",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          1174,
+          587
+        ],
+        [
+          1386,
+          587
+        ],
+        [
+          1386,
+          722
+        ],
+        [
+          1280,
+          768
+        ],
+        [
+          1225,
+          703
+        ]
+      ],
+      [
+        [
+          1080,
+          748
+        ],
+        [
+          1240,
+          740
+        ],
+        [
+          1320,
+          770
+        ],
+        [
+          1320,
+          840
+        ],
+        [
+          1080,
+          840
+        ]
+      ]
+    ],
+    "changedPixels": 138535,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1103,
+          797
+        ],
+        [
+          1150,
+          796
+        ],
+        [
+          1156,
+          804
+        ],
+        [
+          1103,
+          805
+        ]
+      ],
+      [
+        [
+          1147,
+          807
+        ],
+        [
+          1217,
+          806
+        ],
+        [
+          1222,
+          814
+        ],
+        [
+          1148,
+          814
+        ]
+      ],
+      [
+        [
+          1345,
+          584
+        ],
+        [
+          1375,
+          581
+        ],
+        [
+          1378,
+          588
+        ],
+        [
+          1347,
+          591
+        ]
+      ],
+      [
+        [
+          1390,
+          586
+        ],
+        [
+          1428,
+          586
+        ],
+        [
+          1431,
+          591
+        ],
+        [
+          1392,
+          592
+        ]
+      ]
+    ],
+    "featherPixels": 1,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "sakiko-chat-violet-figure-calibrated-v8.png",
+      "bytes": 2511382,
+      "sha256": "03385581cfb3da476881e7f5998353331d2a003de7d0c17393fc3c3c8931f1f8"
+    },
+    {
+      "file": "sakiko-chat-violet-mask-calibrated-v8.png",
+      "bytes": 48186,
+      "sha256": "e00d31f6bfef729ae0d1abf879f310f616fd964f5493821f461153e4b4e86ddc"
+    },
+    {
+      "file": "sakiko-chat-violet-background-calibrated-v8.png",
+      "bytes": 2132331,
+      "sha256": "b00b4ce21ffef719216b957415d2efc4434dc6d0b9ef788524b185cf0be940c8"
+    },
+    {
+      "file": "sakiko-chat-violet-shadow-calibrated-v8.png",
+      "bytes": 51551,
+      "sha256": "685a3d279ee9e8aa17d79d5cd81d24d0b9cc090758f3726ee110338af26f6202"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

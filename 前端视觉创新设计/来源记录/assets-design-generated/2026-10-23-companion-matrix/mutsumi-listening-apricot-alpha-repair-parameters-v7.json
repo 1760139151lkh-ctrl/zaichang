@@ -1,0 +1,35 @@
+{
+  "activity": "listening",
+  "schemaVersion": 1,
+  "mother": "mutsumi-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+  "inputAlpha": "mutsumi-listening-apricot-source-alpha-v6.png",
+  "inputAlphaSha256": "a2410580693b43ce9a9baae37ca7162de51982052081d49c5b45dfa219500b17",
+  "observedOriginalColorRules": [],
+  "explicitOriginalRoomExclusions": [
+    [
+      [
+        1258,
+        574
+      ],
+      [
+        1266,
+        572
+      ],
+      [
+        1286,
+        576
+      ],
+      [
+        1294,
+        582
+      ],
+      [
+        1257,
+        583
+      ]
+    ]
+  ],
+  "outputAlpha": "mutsumi-listening-apricot-source-alpha-v7.png",
+  "record": "mutsumi-listening-apricot-source-alpha-v7.json"
+}

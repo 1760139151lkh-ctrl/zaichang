@@ -1,0 +1,42 @@
+{
+  "kind": "original-scene-alpha-only-production",
+  "script": "nyamu-chat-apricot-refine-matte-v4.py",
+  "scriptSha256": "495ee162a636f65b5c1a7dc15f97181717374e3318e69d25e1d340e87978a540",
+  "inputs": [
+    {
+      "file": "nyamu-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305"
+    },
+    {
+      "file": "nyamu-chat-apricot-mask-calibrated-v1.png",
+      "sha256": "162557f11eb48401a8ca2a4b3a2d7108cb4bb8dbae6dd6245a65783ae8852503"
+    },
+    {
+      "file": "nyamu-chat-apricot-mask-calibrated-v2.png",
+      "sha256": "6741efb3f369ed70af30537f6946779d2034ebf5128738aba82bfe6b86b29511"
+    }
+  ],
+  "region": [
+    1200,
+    225,
+    1385,
+    390
+  ],
+  "upperCap": [
+    1200,
+    225,
+    1385,
+    276
+  ],
+  "method": "Original raw fine-hair alpha restored only in the original head region. The upper cap alone intersects the originalRGB constrained refinement to remove misplaced white sky halo. Body/black ankle straps retain separately inspected originalRGB refinement. No RGB repaint, geometry shift, resizing or new anatomy.",
+  "output": {
+    "file": "nyamu-chat-apricot-matte-calibrated-v4.png",
+    "sha256": "bc6d96f58d4d2db20b9e1b5c13b302b2cdf5bd9c12e7367248fd3a51de2cc257"
+  },
+  "canvas": [
+    1536,
+    1024
+  ],
+  "primaryReview": "pending",
+  "runtime": "not registered"
+}

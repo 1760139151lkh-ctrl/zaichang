@@ -35,7 +35,11 @@ export function useProgramLocalState(key: string, program: InteractiveProgramDoc
       if (current.ephemeral || current.revision === undefined || !current.pending) return;
       const inputs = current.pending; current.pending = undefined;
       const signature = JSON.stringify(retainedProgramState(doc.states, inputs));
-      if (signature === current.saved) return;
+      if (signature === current.saved) {
+        if (unsaved.current?.key === key && JSON.stringify(retainedProgramState(doc.states, unsaved.current.inputs)) === signature)
+          unsaved.current = undefined;
+        return;
+      }
       current.saving = (async () => {
         try {
           const result = await window.zaichang.saveProgramLocalState({ ...source, expectedStateRevision: current.revision!, inputs });
@@ -83,7 +87,9 @@ export function useProgramLocalState(key: string, program: InteractiveProgramDoc
     if (!current || current.key !== key || !doc || current.ephemeral) return;
     current.edited = true;
     unsaved.current = { key, inputs };
-    if (JSON.stringify(retainedProgramState(doc.states, inputs)) === current.saved) return;
+    // A return to the saved value may overtake an older queued or in-flight
+    // write. It is still the latest intent; only flush can deduplicate it
+    // against the receipt of that earlier write.
     current.pending = inputs;
     if (current.timer) clearTimeout(current.timer);
     current.timer = setTimeout(() => { current.timer = undefined; void current.flush(); }, 120);

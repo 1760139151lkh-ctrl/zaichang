@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "listening",
+  "palette": "mist",
+  "light": "morning",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-d1f28cd5-596a-4d29-bd43-03a6bb56c5d3",
+  "prompt": "taki-listening-mist-prompt.txt",
+  "promptSha256": "70be6d0aabcefc553c6fd331af6f3350e3361bbfb81479af424014460aaf4fba",
+  "inputs": [
+    {
+      "file": "taki-listening-apricot-mother-candidate-v1.png",
+      "sha256": "d8369e39dc109457df147611494e1741c86512e2bcfc579c92050efb0d134bbb",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-d1f28cd5-596a-4d29-bd43-03a6bb56c5d3.png",
+  "output": {
+    "file": "taki-listening-mist-mother-candidate-v1.png",
+    "sha256": "bdc98f941df23c519de26d1e2847e93c5f0860f30879d551ad08899c08567305",
+    "bytes": 2122057,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the approved warm mother and the target empty plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "One raised socked foot on cushion, one worn floor loafer, exactly one separate empty floor shoe and two supported hands retain the original relations. Identity and complete theme light remain coherent; no independent left night spotlight. Primary/layer/runtime review remains separate."
+}

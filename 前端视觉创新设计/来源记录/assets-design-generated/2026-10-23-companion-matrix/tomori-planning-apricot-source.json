@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "planning",
+  "light": "apricot",
+  "revision": 1,
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-728ce15b-8192-4d38-85b1-49183dc68be3",
+  "prompt": "tomori-planning-apricot-prompt.txt",
+  "promptSha256": "650b8b0f994b46527f2c01cc0de9098127adbe3f1be738e77c0a924cad9a1d23",
+  "promptFileMatchesActualToolInput": true,
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved_clean_empty_room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "tomori-planning-apricot-mother.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2178503,
+    "sha256": "17e8e59890880e3b83139c90bd19651b79066ad3c62b496c4ffdb5b68344035b"
+  },
+  "canonicalTextReferences": [
+    "https://anime.bang-dream.com/mygo/character/tomori/",
+    "https://anime.bang-dream.com/avemujica/character/tomori/"
+  ],
+  "review": {
+    "designerViewed": "complete original 1536x1024 output via view_image",
+    "designerStatus": "rejected_as_fixed_room_candidate",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Whole standing figure and two shoes are coherent, but the main chair shifts left and the desk widens/moves compared with the clean plate. Kept as generation history, not used as input, not counted; v2 is independent clean-room-only redraw."
+}

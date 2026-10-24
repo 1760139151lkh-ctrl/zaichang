@@ -3,6 +3,7 @@ import type { SceneRef, SceneSource } from './scenes';
 import type { WorkSourceBinding, WorkSourceRef } from './harness';
 import type { StudyCompanionView, StudyMode, StudyOrigin } from './study-companion';
 import { explorableStudyValuesSchema, formatExplorableNumber, validateExplorableValues, type ExplorableStudyObservation, type ExplorableStudyValues } from './explorable-study';
+import { sourceBookmarkReferenceSchema, type SourceBookmarkPreview } from './source-bookmark';
 
 const id = z.string().min(1).max(160);
 export const studyFocusTargetSchema = z.discriminatedUnion('kind', [
@@ -28,6 +29,12 @@ export const studyNativeInputSchema = z.object({ sessionId: id, studyId: id, stu
   messageId: id.optional(), focus: studyFocusTargetSchema.optional(),
   historyOffset: z.number().int().nonnegative().optional(), historyLimit: z.number().int().min(1).max(8).optional() }).strict();
 export type StudyNativeInput = z.infer<typeof studyNativeInputSchema>;
+export const studyBookmarkInputSchema = studyNativeInputSchema.safeExtend({
+  bookmark: sourceBookmarkReferenceSchema.nullable(),
+  expectedRevision: z.number().int().positive(),
+}).strict();
+export type StudyBookmarkInput = z.infer<typeof studyBookmarkInputSchema>;
+export interface StudyBookmarkPreview extends SourceBookmarkPreview { studyId: string; studyRevision: number }
 
 /** One current teaching move, compiled from the real learning owner's read.
  * It is a presentation snapshot, never a new learning record or permission. */
@@ -42,6 +49,7 @@ export interface StudyScene extends SceneRef {
   mode: StudyMode;
   focus: StudyFocusTarget;
   problem: { text: string; origin: StudyOrigin };
+  bookmark?: SourceBookmarkPreview;
   learnerLines: StudyCompanionView['attempts'];
   learnerAttempt?: { id: string; text: string; origin: 'user_report'; source: WorkSourceRef; receivedAt: string };
   attemptChoices: { id: string; receivedAt: string }[];
@@ -78,6 +86,7 @@ export interface StudyResolvedFocus {
   origin: 'original_problem' | 'assistant_problem_description' | 'user_report' | 'assistant_generated' | 'assistant_suggestion';
   source?: WorkSourceRef;
   sourceBinding: WorkSourceBinding;
+  bookmark?: SourceBookmarkPreview;
   exploration?: ExplorableStudyObservation;
   meaning: string;
 }

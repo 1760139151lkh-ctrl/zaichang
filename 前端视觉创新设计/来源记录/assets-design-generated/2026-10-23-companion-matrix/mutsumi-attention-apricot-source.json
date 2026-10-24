@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "mutsumi",
+  "activity": "attention",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-attention-apricot-prompt.txt",
+  "promptSha256": "f5b9877297535cc7ed09bc4e4177217d0713785fd39f7c3a0e4d26788238a9ab",
+  "identityText": "mutsumi-identity.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "primary-approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-attention-apricot-mother-candidate-v1.png",
+    "sha256": "2d52ca09896e34164375bfff8348fd4ac2d7c6ca4c5ae52d91b5eba708bbe3d2",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-1434ee2e-e5d7-4905-8e89-71ab05d08104.png"
+  },
+  "designerObservation": "Shoulders/head turn toward a concrete small card resting on the actual desk. One low open hand indicates it, other palm contacts cushion beside hips, two continuous separate legs/shoes supported. Small quiet half-turn versus forward reaching play; exact activity distinction awaits primary across-eight review. Static card is BG, not body.",
+  "designerStatus": "candidate awaiting primary review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

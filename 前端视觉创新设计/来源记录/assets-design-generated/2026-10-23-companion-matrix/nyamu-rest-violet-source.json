@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-rest-violet-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "rest",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical relighting: Image 1 correct approved activity mother locks character/geometry; Image 2 approved empty violet plate fixes exact shared celestial/light axis only",
+  "prompt": "nyamu-rest-violet-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-rest-apricot-mother-candidate-v1.png",
+      "role": "Image 1: sole character source and edit target, correct primary-approved activity mother; pose/furniture/props locked",
+      "sha256": "c6264d37f43bef35ee7aad4108a49b6cc977b3bba98c74233ea4aff967926fd8"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "role": "Image 2: approved empty room, exact sun center/lake-column axis and whole-room dusk illumination only; not character or furniture replacement",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "nyamu-rest-violet-mother-candidate-v1.png",
+    "sha256": "bc08c9f69120ec034b8ca513817b06d7d271628fcc63dd9064560f6eb686c3bf",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-d8427eac-1832-488d-9b82-6d9c30fe8018.png"
+  },
+  "ownershipAndPose": "Keep exact three-quarter back/side whole-body turn into lake/window, both hips on original bench cushion, one low hand on thigh and other supported on cushion, separate legs/shoes at original positions. Preserve the generated gray blouse back ruffle/tie detail as this project's approved daily interpretation; do not change it or claim an official canonical back view.",
+  "designerObservation": "Full image personally viewed. Genuine back/side whole-body window turn with original supported hip/palm/thigh hand and complete legs/shoes retained; original project's gray blouse back tie/ruffle retained without canonical claim. Sun x≈1007,y≈302 and lake column at same reference x. Whole rose-gold/lavender dusk and existing lamp share actual light on youthful lavender identity/gray-black garments and timber, no geometry substitution from empty reference.",
+  "observedGaps": [
+    "Primary review of each complete mother pending; no layer/runtime acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

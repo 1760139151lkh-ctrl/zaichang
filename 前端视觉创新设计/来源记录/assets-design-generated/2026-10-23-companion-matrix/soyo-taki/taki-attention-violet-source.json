@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "attention",
+  "palette": "violet",
+  "light": "dusk",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-bc710d71-e35c-4809-9985-ba070c83fb03",
+  "prompt": "taki-attention-violet-prompt.txt",
+  "promptSha256": "fef7de53634a27b482635dc8892538094a4097d51f2fa5b17bb4df0041c5a892",
+  "inputs": [
+    {
+      "file": "taki-attention-apricot-mother-candidate-v2.png",
+      "sha256": "23c79a3ce36b887e2c2f57f37558cbe5ace84014c9a03524e31872028004a2f5",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-bc710d71-e35c-4809-9985-ba070c83fb03.png",
+  "output": {
+    "file": "taki-attention-violet-mother-candidate-v1.png",
+    "sha256": "6e0052e936f12b408fa0451d83889702e3742a756f214b5d8becebde55f22f82",
+    "bytes": 2138990,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed against its approved warm source and exact target empty plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Actual chair/desk hand contact retained, torso/head and purple eyes are directed to the stationary blank card on the right bench; two original complete shoes and youthful uniform unchanged. Whole-room theme light coherent, violet sun/lake axisnear1007/1003 and rain left corner quiet. Primary/layer/runtime review remains separate."
+}

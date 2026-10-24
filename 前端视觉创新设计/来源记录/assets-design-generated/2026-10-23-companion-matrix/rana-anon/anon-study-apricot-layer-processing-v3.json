@@ -1,0 +1,452 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "anon-study-apricot-layer-parameters-v3.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "anon-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "2e9a7c010f52939149c5a93b43eb3f1ab996f9ed25bbcbaa3a7522038b1f9fbe",
+  "matte": "anon-study-apricot-mask-generated-v1.png",
+  "matteSha256": "5602e1948761afebb08552c76da9d8b6d5dd3fee09829e5e68977e397f0ce9d7",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 240,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        770,
+        550,
+        904,
+        607
+      ],
+      "mode": "intersect",
+      "featherPixels": 0.25,
+      "polygon": [
+        [
+          770,
+          550
+        ],
+        [
+          904,
+          550
+        ],
+        [
+          904,
+          583
+        ],
+        [
+          883,
+          584
+        ],
+        [
+          876,
+          585
+        ],
+        [
+          870,
+          588
+        ],
+        [
+          861,
+          592
+        ],
+        [
+          853,
+          595
+        ],
+        [
+          847,
+          594
+        ],
+        [
+          840,
+          591
+        ],
+        [
+          829,
+          590
+        ],
+        [
+          820,
+          588
+        ],
+        [
+          805,
+          586
+        ],
+        [
+          793,
+          583
+        ],
+        [
+          783,
+          581
+        ],
+        [
+          776,
+          576
+        ],
+        [
+          770,
+          573
+        ]
+      ]
+    }
+  ],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 116853,
+  "alphaNonzeroPixels": 42298,
+  "alphaBounds": [
+    748,
+    329,
+    1033,
+    734
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "837f24765eb7854000a0018a38fc227befa240178a582601fdab8df16bf17e86",
+  "figureRgbSha256": "837f24765eb7854000a0018a38fc227befa240178a582601fdab8df16bf17e86",
+  "background": {
+    "candidate": "anon-study-apricot-background-generated-v1.png",
+    "candidateSha256": "a3f3f4bf553764e833caa9f61a8fc4e2f30f7ef305511dc793ddfc415553c088",
+    "expandPixels": 3,
+    "featherPixels": 1.5,
+    "additionalErasePolygons": [
+      [
+        [
+          880,
+          508
+        ],
+        [
+          973,
+          507
+        ],
+        [
+          1000,
+          525
+        ],
+        [
+          998,
+          543
+        ],
+        [
+          882,
+          538
+        ]
+      ],
+      [
+        [
+          886,
+          537
+        ],
+        [
+          1054,
+          541
+        ],
+        [
+          1052,
+          651
+        ],
+        [
+          904,
+          639
+        ],
+        [
+          904,
+          586
+        ],
+        [
+          886,
+          585
+        ]
+      ],
+      [
+        [
+          795,
+          582
+        ],
+        [
+          902,
+          580
+        ],
+        [
+          905,
+          607
+        ],
+        [
+          787,
+          603
+        ]
+      ],
+      [
+        [
+          912,
+          711
+        ],
+        [
+          1037,
+          703
+        ],
+        [
+          1046,
+          731
+        ],
+        [
+          1070,
+          748
+        ],
+        [
+          930,
+          765
+        ],
+        [
+          910,
+          744
+        ]
+      ]
+    ],
+    "changedPixels": 76383,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          880,
+          508
+        ],
+        [
+          973,
+          507
+        ],
+        [
+          1000,
+          525
+        ],
+        [
+          998,
+          543
+        ],
+        [
+          882,
+          538
+        ]
+      ],
+      [
+        [
+          886,
+          537
+        ],
+        [
+          1054,
+          541
+        ],
+        [
+          1052,
+          651
+        ],
+        [
+          904,
+          639
+        ],
+        [
+          904,
+          586
+        ],
+        [
+          886,
+          585
+        ]
+      ],
+      [
+        [
+          795,
+          582
+        ],
+        [
+          902,
+          580
+        ],
+        [
+          905,
+          607
+        ],
+        [
+          787,
+          603
+        ]
+      ],
+      [
+        [
+          912,
+          711
+        ],
+        [
+          1037,
+          703
+        ],
+        [
+          1046,
+          731
+        ],
+        [
+          1070,
+          748
+        ],
+        [
+          930,
+          765
+        ],
+        [
+          910,
+          744
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": null,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "anon-study-apricot-figure-calibrated-v2.png",
+      "bytes": 2460531,
+      "sha256": "3a9bb503d78907ffcbfbaeff9bb55d76d77da338cf694ae62dbf4c4e93436b72"
+    },
+    {
+      "file": "anon-study-apricot-mask-calibrated-v2.png",
+      "bytes": 24746,
+      "sha256": "baeeb8f7da049e91724f59d76d955ae7ca9826af1f0f999ace6d831ce7519432"
+    },
+    {
+      "file": "anon-study-apricot-background-calibrated-v3.png",
+      "bytes": 2118784,
+      "sha256": "7a932e6c2c5b59cca7553d1b2a4437f2116a9c5eab92545c9ae9c2bf3ec67349"
+    },
+    {
+      "file": "anon-study-apricot-shadow-calibrated-v3.png",
+      "bytes": 87337,
+      "sha256": "1ef0900099b8f3f2f710ef2a94694363a6ceb38cfa9ac2d3284c4b333bb2abc9"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  },
+  "castShadowProduction": {
+    "processor": "study-cast-shadow-production.py",
+    "processorSha256": "524cf8a15984f9dc0fc5a265c329cb9ab0068ad34a530d539bb3355bec6ebb06",
+    "baseParameters": "anon-study-apricot-layer-parameters-v2.json",
+    "regions": [
+      [
+        [
+          880,
+          508
+        ],
+        [
+          973,
+          507
+        ],
+        [
+          1000,
+          525
+        ],
+        [
+          998,
+          543
+        ],
+        [
+          882,
+          538
+        ]
+      ],
+      [
+        [
+          886,
+          537
+        ],
+        [
+          1054,
+          541
+        ],
+        [
+          1052,
+          651
+        ],
+        [
+          904,
+          639
+        ],
+        [
+          904,
+          586
+        ],
+        [
+          886,
+          585
+        ]
+      ],
+      [
+        [
+          795,
+          582
+        ],
+        [
+          902,
+          580
+        ],
+        [
+          905,
+          607
+        ],
+        [
+          787,
+          603
+        ]
+      ],
+      [
+        [
+          912,
+          711
+        ],
+        [
+          1037,
+          703
+        ],
+        [
+          1046,
+          731
+        ],
+        [
+          1070,
+          748
+        ],
+        [
+          930,
+          765
+        ],
+        [
+          910,
+          744
+        ]
+      ]
+    ],
+    "identity": "Original desk, wall, seat and boot shadow residuals only inside explicit source-coordinate ROIs; figure pixels excluded.",
+    "motion": "travel=0; original desk/hand/chair/foot relation only; no free translation claim"
+  }
+}

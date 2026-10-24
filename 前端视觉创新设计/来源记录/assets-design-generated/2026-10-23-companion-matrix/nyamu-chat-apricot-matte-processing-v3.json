@@ -1,0 +1,43 @@
+{
+  "kind": "original-rgb-constrained-alpha-only-production",
+  "script": "nyamu-chat-apricot-refine-matte-v3.py",
+  "scriptSha256": "e22428e2c21a8ece93223fd3bda9c38d727a55fd723b60376beb1bb408374b7b",
+  "inputs": [
+    {
+      "role": "mother",
+      "file": "nyamu-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305"
+    },
+    {
+      "role": "raw",
+      "file": "nyamu-chat-apricot-mask-calibrated-v1.png",
+      "sha256": "162557f11eb48401a8ca2a4b3a2d7108cb4bb8dbae6dd6245a65783ae8852503"
+    },
+    {
+      "role": "refined",
+      "file": "nyamu-chat-apricot-mask-calibrated-v2.png",
+      "sha256": "6741efb3f369ed70af30537f6946779d2034ebf5128738aba82bfe6b86b29511"
+    }
+  ],
+  "headRegion": [
+    1200,
+    225,
+    1385,
+    390
+  ],
+  "method": "Head alpha = raw intersect (refined union original-RGB purple/pink fine-hair support). Body/ankles retain the separately inspected originalRGB GrabCut alpha. This keeps the raw visible hair gaps, restores actual colored fine hair, and excludes white sky halo; no RGB repaint, resize, warp or inferred anatomy.",
+  "hairColorSupport": {
+    "redMinusGreenMin": 6,
+    "blueMinusGreenMin": -3
+  },
+  "output": {
+    "file": "nyamu-chat-apricot-matte-calibrated-v3.png",
+    "sha256": "f82cae5756be57314011437d9267bcdece5325a239589fb49669c72a1fb011d4"
+  },
+  "canvas": [
+    1536,
+    1024
+  ],
+  "primaryReview": "pending",
+  "runtime": "not registered"
+}

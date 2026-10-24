@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "reading",
+  "light": "mist",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-8dbcb681-e58d-4ea6-8261-baf83d2827ee",
+  "inputs": [
+    {
+      "file": "tomori-reading-apricot-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "e86706be55da3cc2a2072327f6e9543d867b06149d45fc8ca2bb275163b6fa36"
+    },
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "sourceIdentity": "Existing primary-approved correct complete warm mother relit against approved clean empty-room theme plate; no rejected mother, official artwork or isolated actor input.",
+  "prompt": "tomori-reading-mist-mother-candidate-prompt.txt",
+  "promptSha256": "1bea076497fadf16bf4bcd94b0fff460d15ce46085b1607580adfa6122160e00",
+  "output": {
+    "file": "tomori-reading-mist-mother-candidate.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2107786,
+    "sha256": "75e691cdd7f9aa12d86ebde8202472d1873ee4aaabb1497dd9b1f1f701dcf42f"
+  },
+  "review": {
+    "designerViewed": "complete original 1536x1024 output",
+    "designerStatus": "candidate_ready_for_primary_review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Relaxed reading pose retains cushion support, book in both hands, coherent legs and two complete shoes at the original floor coordinates. Architecture, lamp, chair and camera remain stable. Whole scene has diffuse mist-morning daylight with warm wood and readable natural clothing colors; no new sun or spotlight."
+}

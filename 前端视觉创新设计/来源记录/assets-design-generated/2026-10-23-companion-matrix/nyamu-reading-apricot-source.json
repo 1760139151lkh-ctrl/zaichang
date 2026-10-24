@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-reading-apricot-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "reading",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "nyamu-reading-apricot-prompt.txt",
+  "identityText": "nyamu-identity.txt",
+  "identityBasis": "Parent's reviewed official character identity and fixed outfit, supplied as text only. Official images and other character mothers were not image inputs.",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "nyamu-reading-apricot-mother-candidate-v1.png",
+    "sha256": "679651a0af996b08b6be27a01aff2dd5d4ce21f7ee03cd41db8f0231329e903b",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-bec5e069-0146-4aa9-95f1-f5b1d43cbcd7.png"
+  },
+  "designerObservation": "Full image viewed at original canvas. Youthful purple bob/red-purple eyes and fixed gray blouse/black skirt/choker/ankle-strap shoes preserved. Three-quarter outward reading posture; upper back meets chair back, hips fully seated, elbows gathered to low held book, eyes angled down. Two separate proportional leg chains and complete floor-contact shoes visible. The chair is swivelled outward and its left silhouette is somewhat left of the empty-room original footprint; parent should compare optical placement with approved study. Reading is backward/gathered relative to study's forward tabletop silhouette. Held book belongs with character.",
+  "observedGaps": [
+    "Pending primary optical comparison of chair footprint and reading retreat; no approval claimed."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

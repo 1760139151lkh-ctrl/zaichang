@@ -1,0 +1,60 @@
+{
+  "recordType": "source-visible-background-protection",
+  "mother": "uika-play-apricot-mother-candidate-v1.png",
+  "motherSha256": "5217e87de50ac8ff072d231a2cc07d985303cbc4f034a97355f0d98bb6a53454",
+  "parameters": "uika-play-apricot-layer-parameters-v8.json",
+  "backgroundPreservePolygons": [
+    [
+      [
+        1248,
+        386
+      ],
+      [
+        1258,
+        386
+      ],
+      [
+        1261,
+        389
+      ],
+      [
+        1260,
+        392
+      ],
+      [
+        1253,
+        395
+      ],
+      [
+        1248,
+        396
+      ]
+    ],
+    [
+      [
+        1275,
+        385
+      ],
+      [
+        1278,
+        385
+      ],
+      [
+        1278,
+        388
+      ],
+      [
+        1276,
+        388
+      ],
+      [
+        1275,
+        387
+      ]
+    ]
+  ],
+  "reason": "Original enlarged coordinate crops show these two polygons are genuinely visible cool window gaps, not hair/neck/shoulder. Preserve only these exact original pixels; no hidden surface or mixed hair-edge pixels inferred.",
+  "superseded": "v7 pixelwise cool-color preservation retained unnecessarily irregular edge texture in empty plate; narrowed to actual gap interiors.",
+  "primaryReview": "pending",
+  "runtimeAccepted": false
+}

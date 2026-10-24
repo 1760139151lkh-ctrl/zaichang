@@ -4,6 +4,16 @@
 
 当前继续本轮新的深度完善，较早[阶段收尾安排](source-materials/2026-10-18/stage-close-and-luna-validation-20261019.md)保留当时适用范围。以下机制说明不自动成为运行通过记录，实际结果仍回到当前状态。
 
+## 2026-10-24 主循环与原所有者补充
+
+- `ConversationRhythm` 只发布原主模型实际写出的正文。每次主请求带回当前回复的接续位置和已核工具观察地址，成功送达、实际接话和最终回答分别处理；来源变化会废弃旧草稿。锁定 Hermes 同批工具全部返回后才继续主模型，没有另设等待播报模型或定时台词。
+- `read_assistant_history` 的 `textOnly` 路径先按同对话的真实回复身份本地定位，再沿本轮签发、绑定原文哈希和 Unicode 窗口的 `passageId` 读取。定位和上一条身份导航不发送正文，窄读不附带旧天气、校园或文件材料。有局部材料限制时，复合历史读取先交精确入口，不能凭一次用途判断把局部许可变成整段历史许可；普通无限源读取和其他独立来源仍各走原入口。
+- 原生学习纸的保存结果由 `StudyCompanionService.completionArtifact` 回原所有者核当前版本、题源和绑定，提供仅宿主持有的再次检查回调。完成复核只选择真实候选的 `owner/id/revision`，再由 `CollaborationService.finalize` 核对原请求来源。保存、画面实际发表、用户看见和掌握仍是不同事实；普通私下讲解与即兴共写可以直接在当前回复完成，对外或明确独立成稿仍走 `ReleaseArtifact`。
+- 本人帮法使用既有 `h_operations` 的 `personal_method_choice` 保存办理地址、范围、哈希、版本和变更字段，不复制帮法正文。后台提取与提交前都向原方法所有者取当前证明，避免把同一程序性帮法再存成普通人物断言；混合原话中的独立事实仍可单独处理。隐私清理仅保留尚合法的这类纯元信息，真正方法、来源或重叠片段撤回会删除相应证明。
+- 对可完整归因的旧重复帮法更正，宿主维护接口在当前范围内重新核证原保存哈希、方法当前条件、断言版本、引用及精确更正记录。只移开证据充分的错误派生更正，不补签过去的批准，不撤销遗忘边界。事务失败同时恢复数据库与来源约束缓存。
+
+实施与实际复查范围见[第一阶段继续深化](evidence/2026-10-24-stage01-deepening.md)。
+
 本文描述当前 `src/` 的职责与运行接缝，本轮整理于2026-10-21。入口和文件归属以 [PROJECT_NAVIGATION](../PROJECT_NAVIGATION.md) 为准；功能现状见 [CURRENT_STATUS](CURRENT_STATUS.md)，学生 Harness 的历史验收、迁移和未接入范围见 [STUDENT_HARNESS](STUDENT_HARNESS.md)。本轮需求与机制对应见 [HARNESS_EVOLUTION](HARNESS_EVOLUTION.md)，个人记忆、连续性及本轮新增机制的源码取舍见 [本轮研究](research/PERSONAL_MEMORY_CONTINUITY_2026-10-18.md)，此前底座研究见 [HARNESS_RESEARCH](research/HARNESS_RESEARCH_2026-10-18.md)。源码存在、已经接入、当前授权可用和真实业务完成分别判断。
 
 本轮对话画面沿[最新视觉要求](source-materials/2026-10-18/visual-fidelity-requirement-20261018.md)落实图稿、动效和既有OpenUI。有限Scene仍由宿主从真实owner编译，界面在同一消息里改变焦点与布局；图像素材和动画不新增事实、工具执行权或第二聊天循环。必要视觉观察不等于产品模型、外部业务或长期体验验收。
@@ -28,6 +38,10 @@
 - **任务、行动与读取范围（2026-10-22）。** `scopedSourceLimits`保存本人确实提出的局部材料限制，任务对象或“只比较、先别改”的行动选择本身不签出额外读取禁令。后续`verifyReadPurpose`将前一步的范围解释作为可复核线索，回到完整原话判断具体读取是否必要、范围是否相符；逐字引用和模型解释各有身份。它的意见仍不增加宿主来源权限，真实局部/全轮限源和动作核验继续生效。本轮没有引入恢复权限工具或派生scope。
 - **排练创建与当前回复的用途（2026-10-22）。** `coordinator`向原用途核验解释`manage_relationship_rehearsal.begin`实际核这一共同事项，并可能接回同事项已有排练，不能笼统称作读取私人历史。可选的`hostCurrentMatter`只从本轮真实新建且已递送的frame取得：剥离工具信封的observationId后，与当前原记录完整核同一版本；显式引用全部回到当前原话，再核原来源。普通frame沿既有`declaredFrameSourceRefs`，不为它补造sourceBinding。这个背景不跳过用途核验或原owner事务，不给旧排练补许可。`present_view`另说明实际去向是当前助手回复及当前受众，不调用邮件、联系人或站外消息；呈现需要的原内容仍按地址、版本和用途核读，不因显示而扩大来源或受众。
 - **工具目录的资格与参数（2026-10-22）。** Broker完整目录用`scopeEligible`表示当前来源/权限/主体/世界/设备资格，`connection`独立表示接通状态；初始`capabilityDirectory`只列已通过discover的摘要，不再用执行布尔字段表示写能力已批准。read沿原look_up提出，写入沿各自原动作事务，仍核具体托付、参数版本及执行许可。能力详情带`contractKind=capability`及原`look_up`读取地址，inputSchema的实参放在内层arguments；写能力没有此读取执行地址。专门入口误收已登记能力名时，只沿原lookup返回同一说明，原业务参数不执行。没有新增登记表或放宽invoke。专门工具目录只在schema确有顶层required时给该摘要，分支联合不造空必填列表，完整签名仍从同一use_tool取得。
+- **本轮按需接回前情（2026-10-23）。** 需要单独核读取用途的前台不再在主助手开口前自动询问是否读旧聊天或材料目录。主助手可沿原`restore_collaboration`的`type=conversation`选择`references`或`recent`；前者只取同会话原材料地址，后者沿原ContextCompiler接回最多5条近期保存消息及一条可能较早的同话题锚点、对应事项与观察。用途说明如实包含这个范围；当前来源、取消、主体、用途与版本仍复核，子调查和后台不能调用该前台闭包。整段临时聊天在使用约定完全一致且没有局部限源或来源歧义时，可保留最多6条已说出的纯文字；受限制时仍按需核对。它不重放旧工具协议，也不把附件正文混入本人原话。
+- **有来源的缓存（2026-10-23）。** 旧画面目录只给地址；旧Scene／旅程正文先核用途再从原owner按精确版本读取，同轮确已读过的版本可继续。附件及实际材料读取与已有的笔记、校园等证明共同使协议退出跨轮缓存，不能借旧工具结果绕开下一轮原owner；临时材料在内存中仍存在与新scope可重新读取是不同状态。个人方法保存另以`reviewDigest`绑定核对过的整份预览，局部修订先与原方法合并，再核来源与CAS。
+- **地图回读的实际观察（2026-10-23）。** `present_view`在原用途与精确Scene读取之后，将同版本的路线语义事实放入`mapReadings`，省略几何，记录实际字节、来源、修订和原观测时刻。故事取景仍带`fictional_setting`与作品地址，并继承原binding、笔记和章节证明；校园原生表格的UI-only ACK不随这一步展开行数据。主工具及`look_up`的两点路线均传原Scene的`journeyEstimate`，已记录道路与估算接入分开；ready仅表示图内候选路线已算出，不表示楼门或全程通行已经核实。
+- **私下点评与独立成稿（2026-10-23）。** 外向稿件准备只取得本轮已经准入的私下前情和选定观察；不给整理步骤额外的历史读取权。稿件用途与给本人的点评分开，写作者只收到为相应收件人准备的材料。独立稿件仍沿原owner保存版本和发送状态，主聊天不能替代实际稿件交付。
 - **原话和参考材料。** 原`generationInput`与`ingress.authoredText`不变；Hermes history里的应用参考包裹为单个`referenceMaterial` JSON对象，避免相邻文本合并后把应用引导尾句抄进本人引文。实际sourceQuote仍沿原owner校验。自然更正与当前新话保存范围分别理解；CORRECT回执沿原记录提供前后版本和来源身份元数据，修订不自动归因为谁曾记错。
 - **问句语境与原件交接。** `source-windows-v3`从实际event位置回读相邻助手问题；`referenceContexts`保存其消息地址、精确范围、hash及冻结来由，用于解释短答，仍不把助手话当本人事实。现行与历史理解、正文采用、遗忘和迟到提交均核这些依赖。search实际交付的原文标明精确bodyCoverage与actualReadRanges；仅同run确已递送、原scope/来源/限制仍相符的重复读取可复用用途证明，实际回读与计量仍发生。子调查交接原件短片段和续读地址，父助手实际消费后再继承来由。
 - **真实图片。** 公开Figure与模型视觉可复用同一ResearchImage owner；`research.image(observe=true)`和`research.read(view=image)`经原VisualObservation、toolImages、prepareModelImages发送像素。PDF页与局部放大仍由材料owner生成。图片展示、像素进入请求、语义看懂分别记证；路径、caption或展示成功不能代替模型真的收到像素。 每次工具观察保留独立队列副本及toolCallId，不按像素hash合并不同出处/调用，也不静默只取最后两图。图像owner在入缓存后、淘汰前经宿主同步回调按父run持有待用观察及其必要原PDF记录；Broker缓存/共享/新结果的返回也沿同一交接，原LRU只淘汰未持有项。回调守父run生命周期，单次RPC取消仍由原等待者门处理，避免首等待者离开误停其它共享读取；活跃run可临时超过原缓存数，根finish幂等释放后恢复原限额，前后台子调查沿budgetOwner归同一父run。撤源、删除与原barrier仍直接清图，不受持有阻挡。公开图句柄另绑定原文件SHA，归一像素相同也不覆盖不同原版本（research.image5）。
@@ -38,6 +52,7 @@
 - **局部互动。** 通用Press、Voice、几何和Motion使用同一受检`$ui`；`Document.presentation=flow`让解释与Paper共享状态。声音由真实用户动作开启，在失焦、隐藏、离开或来源退出时停止。非transient局部值在原Message.views内按精确版本/hash与CAS保存；transient的按住、播放和发声状态复位。持续看同一作品的增量修订可保仍相同声明／初态的手调值，未改模型原初态或伪造新的引用输入。
 - **主动与渠道。** 无新消息的presence创作先准备、再经一次真实send_check_in送回原会话，完整回执后原run正常收束；已显示/打开通过原NativeControls记录，未回应不连续来访。持续托付保原来源、期限、原话与channel；in_app发布不排OS通知，原local_notification另走其批准渠道。暂停保留仍合法的过去回告，不恢复后续工作。
 - **传输和等待。** Luna完整响应按真实usage计量，声明输出数是advisory，取消旧host_post_completion的事后token拒收。工具JSON物理保护与既有64KB DSL契约一致，实际服务incomplete、协议类型、取消与来源门仍有效。Luna单请求最多10分钟；父模型Hermes RPC预留10秒返回余量，sidecar配对再留10秒。普通工具和child RPC仍175秒，显式缩短探针仍有效；原scope到期与用户取消可更早结束，子调查授权期限不延长。固定上游Hermes版本未升级。
+- **本轮传输生命周期（2026-10-23）。** 每个Luna client懒建并短暂复用自己的App Server进程和loopback服务，每次completion仍新建临时thread与随机路由。并发请求和取消分别处理；边界失效、空闲、进程退出及前后台run收尾关闭相应资源，没有全局会话池或新的聊天循环。它减少重复准备成本，不改变推理强度，也不保证模型首字等待消失。
 - **原生上下文压缩。** 原固定48,000估算tokens门曾让保护中的对话尾段比压缩前还大，并在同一作品中反复触发。当前把provider已经声明的有效contextTokens交给锁定Hermes的原compressor，由其原生窗口、输出预留和阈值策略判断；只有上游窗口未知时才沿旧fallback。显式threshold与forceInitial保留供原检查使用，没有关闭压缩或新增摘要循环。实际窗口声明不是已经做过满窗压力验证。
 
 ## 一个主助手，宿主保有执行权
@@ -248,6 +263,8 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 
 本人的现实私有关注另有最小管理范围：关闭记忆后仍能按真实名称定位和停止旧关注，但管理输出不含原始 rule/quote、旧聊天或准备正文。后台仅展开托付实际引用的授权片段；按原证据 ID 读取也受相同片段和版本限制。此管理通道不授予普通历史、人物资料或材料正文读取。
 
+共同创作页的插画可沿 `discussion_artwork` 临时选择进入原 composer。`application/x-zaichang-scene-frame` 只传当前 session、Scene ID/修订及固定插画 assetId/optionId，不传图片 URI、正文或写入指令；未知/过大载荷不进入这条链，也不占用资料/PDF 的 SourceBookmark MIME。点击、键盘和原生拖放最终共用同一 selection，可取消，原草稿不改。宿主沿原 Discussion frame、分支和 sourceBinding 回读核验；入站前只读取已发表原页的地址与来源元数据，核过后形成 `shared_creation/discussion_frame` sourceContext，正式上下文仍沿原 owner 读原内容。插画不是 mapPlace、GPS 或现场天气；拖入不采用分支、不另存作品、不增加旧文读取许可。
+
 ## 精确支持、来源坐标与整理恢复
 
 `h_assertion_citations`按每次理解修订保存event/version/Unicode范围及primary/support/authorization角色，不复制引文正文；当前与历史读取各核自己的完整引用集。提案可声明最多16个支持片段，同源不相邻片段分开。宿主先逐字、范围、权限、版本核对，再由语义review核声明片段自身是否支持候选的主体、条件、时间及用途。完整正文只能发现遗漏或反驳，不能给未声明的引用补条件。旧单源review缺扩展字段保持兼容，任何显式否定和不完整的新支持声明都拒绝；这不构成自然语言完整性的形式证明。
@@ -280,6 +297,10 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 ## 持续托付与变化发现
 
 `manage_attention` 保存当前用户明确的规则、来源、期限、渠道和停止条件。来源范围需要支持承诺的后续准备，不能只包含最初探测变化的来源；核验不足时由主助手补齐既有许可内的来源或收窄承诺。`probe` 是可选的具体读取方案，广义托付不依赖预填主题关键词或固定探查。
+
+同一托付的来源和期限修订走 `revise`，保留原 `h_work` ID、原始托付依据和暂停/一次等既有规则；`follow` 仍只用于新托付。原生详情的 `attentionChange` 同时核 `expectedRevision` 与 `controlVersion`，当前原话或原生编辑的真实控制事件加入原对象依赖，不复制成新的关注。来源选择守首次托付的 `sourceBoundary`，且须当前仍可用；在这个边界内新保存的选择可以改动，撤权后的来源不能因重新勾选而恢复旧许可。旧记录没有初始边界时只以当前集合为边界，不猜回曾删除的来源。派生关注同时守父来源与期限，已停止、到期或失去原许可的约定不能由编辑恢复。新托付保存宿主 `permissionEpoch`，之后相关读取权限的撤权 fence 会持续拦住旧许可，即使重新打开全局权限；旧记录按原 `approvedAt` 对应 fence 判断，不回填新的批准。
+
+修订会让同一托付及派生关注的旧机会和准备退出，清除待发表 artifact 并取消其可选提醒；越过新父边界的派生关注置为 inactive，原 watch 的结束时间随同更新。已发生的曝光、独立帮助历史和独立固定提醒继续保留。编辑冲突回读当前约定，保留当前纸面草稿，不自动重试覆盖；界面采用 `EntrustedRevision`，不经本地专注计时器的 `focus-session`。
 
 业务快照的 upsert/tombstone、记事本同事务的 `note_attention`、本地日历同事务的 `agenda_attention`，共用 [`storage/domains.ts`](../src/main/storage/domains.ts) 的 journal、连续 ack 水位和轮转读游标。笔记事件只带文档 ID/修订等元数据；日历事件不复制 title、detail 或自定义地点文字，正文按当前许可从真实对象回读。日历删除和恢复延续同一对象的版本高水位，同值写入不重复出事件，回滚不留下事件。没有关注消费者的本地日历写只保留结构业务账本；新托付通过初始发现读取当前状态。暂时不可读或暂停的消费者保持可恢复，不阻挡同源可读关注。
 
@@ -411,9 +432,25 @@ renderer复用`LifeSceneViews.tsx`的原连续时间线，用“接着上次的�
 
 review-web 仅替换公共地图存储边界，读取构建明确选定且校验哈希的公共文件；没有桌面 IPC、账号、助手状态、模型请求、私有文件、数据库或 profile 持久化。公共白名单以外的读取会拒绝。对话与网页预览共用现有地图实现。
 
+review-web 入口显式传递 `publicOnly`，不挂载运动控件，也不提供本机出发入口；取消选路回到原公共地点浏览。地图资料、程序载入与绘制故障分开恢复，重试保留同一 surface、选择、相机与草稿，不刷新整页。两份 Vite 配置共用 [`map-engine-loader.ts`](../scripts/map-engine-loader.ts) 生成唯一延迟模块地址，只有明确模块重试才附新查询参数；构建核对该模块的 JavaScript/CSS 依赖已由宿主载入。旧实例回调沿 generation 退出，不能盖写重试结果。实际桌面与公共浏览器的失败、解除、恢复记录见[主代理桌面复核](evidence/2026-10-23-stage02-desktop.md)。
+
 公开搜索的Bing RSS响应由锁定生产依赖`@xmldom/xmldom`按XML模式读取，先确认无namespace的rss根和唯一直接channel，再取直接item；真空channel不当格式错。非RSS/畸形XML窄转failed并保HTTP元数据，取消和未知异常不吞，空候选仍非不存在证据；旧合法网页缓存不因一次搜索格式失败清空。HTML原文及解析器原异常不作为可信宿主说明送回模型。
 
 公开search/read的HTTP实体字节经`capabilities/public-text.ts`按BOM、HTTP charset及相应HTML有界meta/XML声明或签名解码，缺省UTF8；原生TextDecoder严格拒绝不支持声明和非法字节，不猜编码或以替代字符冒充成功。这是静态资料读取的有界处理，不是完整浏览器嗅探。旧`sha256`仍是解码后完整原文的UTF8指纹，`textDecoding`另给解压实体字节指纹、大小、编码、选择来由及版本。新resourceId同时绑定实体指纹和解码版本/编码，Unicode分页/定位属于实际提取文字；search为5、read为7。网络安全、压缩、PDF及图片像素仍沿原owner处理。
+
+## 本地运动与校方体艺来源
+
+[`WorkoutSessionKernel`](../src/main/runtime/workout-session.ts) 是单一本地运动 owner，[`NativeWorkoutService`](../src/main/runtime/workout-native.ts) 提供有限私人 IPC；renderer 控制不自算另一套运动时间。原始测点、因果滤波、实际路网的候选匹配、可信时间与学校计次各有含义。系统安全存储只将加密正文写入原 SQLite；恢复先暂停，暂停/结束/取消均释放原订阅。停止失败保留未知结果，重启后沿加密的原运动身份与实际 producer 做仅停采核对；取消移除本地正文后，独立加密的清理控制只留必要身份，不保原始时刻、轨迹或指标。来源证明沿实际读取进入原上下文、准备和历史，精确取消屏障不因普通测点、暂停或修订而触发。
+
+位置流复用 [`MapLocationProvider`](../src/main/mapLocation.ts) 的独立运动入口，短时地图定位与运动订阅分别结束。Android 原生桥与 iOS CoreLocation 桥的源码在 [`apps/location-bridge`](../apps/location-bridge/)；Mac 使用用户本机配置的普通 SSH，不依赖 Codex 会话。模拟器来源具有粘性，传感器缺失保持未知。当前平台实际证据见[第二阶段](evidence/2026-10-23-stage02.md)，源码存在不等于真机已跑。
+
+Android 的原单调时钟报告与可比较时钟分列；设备报告超出本次开机范围时保留原值并标明未知，不猜偏移。GPS 与 network 的全部原观察仍归同一运动 owner，派生计算按同设备、同 boot、新鲜度与报告精度选择；未选点有独立原因，来源切换断段。可靠静止的自动暂停复用原暂停与真停采，继续只由明确操作开启。
+
+`workout.current` 只从该 owner 读取一刻的有限摘要，按实际用途及本人/现实/私下来源约束进入原 Harness；不含坐标、轨迹和设备身份，不创建后台陪跑循环。学校体艺由 [`TiyiAdapter`](../src/main/tiyiAdapter.ts) 与独立连接器持有认证和加密原响应，Broker 只取得分页去标投影。功能目录、学校网页、实际本人记录与学校有效次数分别表明真实覆盖，不以本地运动或实践积分替代学校回执。
+
+体艺直连与 WebVPN 是用户明确选择的连接方式，选择保存在原宿主 SQLite 元数据中；方式元数据自身不签发读取许可，也不证明登录仍有效。原许可的保存与撤回继续归 PolicyKernel，认证状态重新核查。WebVPN 使用产品自己的持久 Session，不复制外部浏览器 Cookie；校园总权限与体艺子权限分别核查。场馆学校分页是新的观察，原 snapshotId/pointer 续读仍只回到同一加密响应；两种继续入口不混成固定历史版本。
+
+体艺 direct 连接器保留学校原 HTTP 业务协议及 CAS service，UAA 后端请求限 HTTPS 既有登录/公钥路径，显式不使用环境或系统 HTTP 代理。业务 URL 限既有学校域和模块/精确场馆地址。场馆原生会话先经初始化与空表单登录换取本次 Connection 的独立 token，校验同一账号；原生 token、场馆 token 与 OAuth 交换值不混用、不作为记录投影。可选宿主通道仅为这两条精确认证路径增加方法和头部范围，不增加预约或支付能力。当前直连实据见[修复记录](evidence/2026-10-24-tiyi-direct-repair.md)。
 
 ## 生产传输、代测和部署边界
 
@@ -425,6 +462,6 @@ Luna 接现有 Codex 账号的单次 completion 传输，Hermes 继续运行主�
 
 实际型号由`luna-provider.ts`从返回事件的`response.model`取得，经`Completion.responseModel`写入本次`modelUsage[].responseModel`与`provider.observedResponseModels`；配置中的model名称不替代这份证据。阶段状态分别记录正常主流程、实际工具、Scene／renderer与点选续问，不把合成资料或校园只读结果混作业务写入成功。
 
-常规构建生成 Electron、renderer、stdio 地图桥和隔离公共预览；Windows 打包另暂存锁定 Hermes/Python 与有许可的原生 PDF 运行时。依赖安装、编译、合成宿主检查、真实模型调用和业务成功各自验收。当前桌面不含 Android 工程、手机同步接口或已部署持续宿主；`ClockPort`、`DeliveryPort`、SQLite 与模型/工具回调是后续接入点。生产 DeepSeek、校园外部服务和手机生命周期仍需各自验收。
+常规构建生成 Electron、renderer、stdio 地图桥和隔离公共预览；Windows 打包另暂存锁定 Hermes/Python 与有许可的原生 PDF 运行时。依赖安装、编译、合成宿主检查、真实模型调用和业务成功各自验收。已有 Android/iOS 原生位置桥工程，完整口袋伴侣、手机同步接口与已部署持续宿主仍分别演进；`ClockPort`、`DeliveryPort`、SQLite 与模型/工具回调是后续接入点。生产 DeepSeek、校园外部服务和手机生命周期仍需各自验收。
 
 本轮按用户最新补充执行后端 → GPT Image → 前端：先完成本轮可实施的后端机制与对应核查，再开始图像先行的页面工作；Luna 通道不可用或个别远期连接缺失不作为全面停止前端的门禁。类型、机制与合成宿主证据不能代替真实模型、真实来源或长期体验；未接外源复验、手机生命周期等只限制对应能力，界面不得把它们包装成已完成。最新需求与历史要求的关系见[本轮补充](source-materials/2026-10-18/continuation-requirements.md)。

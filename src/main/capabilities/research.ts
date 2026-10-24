@@ -201,9 +201,9 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
   const base = { version: '3', output: z.record(z.string(), z.json()), effect: 'read' as const, requiredScopes: ['evidence:read'], subjects: ['self', 'other', 'fictional'] as ('self' | 'other' | 'fictional')[], worlds: ['real', 'scenario'] as ('real' | 'scenario')[], timeoutMs: 25000, maxBytes: 100000, supportsIdempotency: false, supportsInspect: false, supportsCancel: false };
   broker.register({
     manifest: { id: 'public-research', sourceId, version: '3', trust: 'bundled_reviewed', egressHosts: [], publicRead: true, platforms: ['*'], simulated: false, offline: 'unsupported', license: 'Project-owned reader; source text retains original rights', capabilities: [
-      { ...base, version: '5', name: 'research.search', displayName: '搜索公开资料', description: '以当前问题获准的公开关键词寻找网页与原发布来源。domains可限定域名，宿主会核对实际结果域名。只交付候选，词面命中用于排序，不代你判断语义相关性或研究完成；阅读相关原页再形成结论。私密链接、无关原文和登录信息不能成为检索词；偏题或空候选不能证明不存在。', input: z.object({ query: z.string().trim().min(1).max(300), limit: z.number().int().min(1).max(8).default(5), domains: z.array(z.string().toLowerCase().regex(/^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,63}$/)).min(1).max(5).optional() }).strict() },
-      { ...base, version: '5', name: 'research.image', displayName: '取一张公开网页上的图片', description: '把公开网页上的真实图片取回来，可在对话里放给对方看，也可由你观察其中细节。url是图片地址（research.read的images是真实页面候选），pageResourceId绑定已读网页版本，pageUrl可核对出处。observe=true把同一解码像素准备到下一次主模型请求；默认只准备展示，返回的read地址可随后观察这一版像素。宿主取得并解码后才返回可呈现的图片；场景入口由外层提供。alt和caption只是文字描述，像素实际送达另有回执。图片不证明此刻现场或转载许可。', input: z.object({ url: z.string().max(8192), pageUrl: z.string().max(8192).optional(), pageResourceId: z.string().max(100).optional(), observe: z.boolean().default(false), alt: z.string().max(200).optional(), caption: z.string().max(160).optional().describe('你想放在图下面对对方说的一句话，可省略。') }).strict() },
-      { ...base, version: '7', name: 'research.read', displayName: '阅读公开网页和文件', description: '读取公开HTTPS网页、文字/JSON/XML或PDF。文字沿原页声明的编码读取，再按Unicode片段回读；PDF按页提供文字、表格候选或真实像素，绑定SHA/来源/观察时间。网页首段有linkCatalog和imageCatalog；view=links可用query在同版链接的标签/网址中作字面筛选，沿各项read继续取得目标正文；view=images分页找图片地址，research.image再取得图片。view=find以query精确定位同版原文字层，给Unicode片段和read入口，不必猜长页位置或读完全文；offset是原文起点，limit是匹配数，PDF只找指定页。未命中不证明没有相关含义。URL的fragment只保留位置线索，不自动跳到锚点正文。目录和匹配片段各有覆盖，resourceId继续同版；新URL仍核真实读取。view=image也能沿图片resourceId观察同版像素。内网、学校登录会话和本机路径另属各自入口，文档脚本不执行，动态正文完整性仍未知。', input: z.object({ url: z.string().max(8192).optional(), resourceId: z.string().max(100).optional(), page: z.number().int().min(1).max(200).default(1), view: z.enum(['text', 'table', 'image', 'images', 'links', 'find']).default('text'), query: z.string().min(1).max(200).refine(value => value.trim().length > 0 && Array.from(value).every(point => point.length > 1 || point.charCodeAt(0) < 0xd800 || point.charCodeAt(0) > 0xdfff), '查询需要完整的文字字符。').optional().describe('find按大小写相同的原文精确定位；links按标签或网址字面筛选，忽略大小写。仅这两种view使用。'), offset: z.number().int().min(0).max(2000000).default(0), limit: z.number().int().min(1).max(16000).default(8000) }).strict() },
+      { ...base, version: '5', name: 'research.search', displayName: '搜索公开资料', description: '用适合公开搜索的关键词寻找相关网页和原发布来源，domains可限定域名。结果提供可继续阅读的候选；打开相关原页后，就能结合上下文判断它是否回答了眼前的问题。', input: z.object({ query: z.string().trim().min(1).max(300), limit: z.number().int().min(1).max(8).default(5), domains: z.array(z.string().toLowerCase().regex(/^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,63}$/)).min(1).max(5).optional() }).strict() },
+      { ...base, version: '5', name: 'research.image', displayName: '取一张公开网页上的图片', description: '打开公开网页上的图片，可以放进对话，也可以看看图中的细节。url沿research.read的images选择，pageResourceId和pageUrl保留出处；observe=true会在下一次请求带上图像，默认先准备展示，也可沿返回的read继续观察。alt和caption分别写替代说明与图下的话；图片日期和使用许可可从原出处继续查。', input: z.object({ url: z.string().max(8192), pageUrl: z.string().max(8192).optional(), pageResourceId: z.string().max(100).optional(), observe: z.boolean().default(false), alt: z.string().max(200).optional(), caption: z.string().max(160).optional().describe('你想放在图下面对对方说的一句话，可省略。') }).strict() },
+      { ...base, version: '7', name: 'research.read', displayName: '阅读公开网页和文件', description: '阅读公开HTTPS网页、文字、JSON、XML或PDF，resourceId可接着读同一版内容。text读原文，table读PDF表格候选，image看指定页或已打开图片；links沿网页链接找下一篇，images列图片地址后可用research.image打开。find用query逐字找原文，返回附近文字和继续阅读入口：offset是Unicode文字起点，limit是匹配数，PDF按所选页查找；links的query按标签或网址筛选。网页链接中的fragment保留为位置线索，找对应段落可继续用find。结果附来源、版本和本次读取范围；另行加载的网页内容可能还需继续寻找。', input: z.object({ url: z.string().max(8192).optional(), resourceId: z.string().max(100).optional(), page: z.number().int().min(1).max(200).default(1), view: z.enum(['text', 'table', 'image', 'images', 'links', 'find']).default('text'), query: z.string().min(1).max(200).refine(value => value.trim().length > 0 && Array.from(value).every(point => point.length > 1 || point.charCodeAt(0) < 0xd800 || point.charCodeAt(0) > 0xdfff), '查询需要完整的文字字符。').optional().describe('find按原文字面和大小写定位；links按标签或网址筛选，忽略大小写。这两种view使用query。'), offset: z.number().int().min(0).max(2000000).default(0), limit: z.number().int().min(1).max(16000).default(8000) }).strict() },
     ] },
     invoke: async (name, args, context) => {
       const now = broker.policy.repo.clock.now(), scope = broker.policy.validate(context.scope);
@@ -272,10 +272,10 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
         if (!/^image\/(png|jpeg|webp|gif)$/.test(mediaType)) return { status: 'failed', sourceId, simulated: false,
           reason: '这个地址不是一张可以直接显示的图片（可能是网页）；先用research.read打开网页，从它列出的images里挑图片地址。', data: { url: response.url || args.url, contentType: mediaType } };
         const body = Buffer.from(await response.arrayBuffer());
-        if (!boundedImageSize(body, mediaType)) return { status: 'failed', sourceId, simulated: false, reason: '图片格式或尺寸不能可靠读取，没有采用。', data: { url: response.url || args.url } };
+        if (!boundedImageSize(body, mediaType)) return { status: 'failed', sourceId, simulated: false, reason: '这张图片的格式或尺寸暂时读不清，可以换原图或更小的一份继续。', data: { url: response.url || args.url } };
         const prepared = await parsePdf(body, { operation: 'prepare_image', mediaType: mediaType as RasterMediaType }, context.signal);
         context.signal.throwIfAborted(); broker.policy.validate(context.scope);
-        if (!prepared.image || !prepared.originalSize) throw new HarnessError('image_decode', '图片未完成解码，没有采用。');
+        if (!prepared.image || !prepared.originalSize) throw new HarnessError('image_decode', '这张图片还没能完整打开，可以沿原来源重新取得。');
         const pixels = prepared.image, displayBytes = Buffer.from(pixels.dataUrl.split(',')[1], 'base64');
         const url = response.url || args.url, sha256 = createHash('sha256').update(displayBytes).digest('hex');
         const original = { ...prepared.originalSize, sha256: createHash('sha256').update(body).digest('hex'), mediaType, bytes: body.length };
@@ -379,7 +379,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
               arguments: { resourceId: material.id, view: 'find', query, offset: nextOffset, limit } } } } : {}),
             coverage: { unit: 'unicode_code_point', searchedFrom: offset, total: points.length, literalMatchesComplete: nextOffset === null,
               provided: 'matched_excerpts_only', fullOriginalRead: false, semanticRelevance: 'not_judged' },
-            meaning: '这是这一版实际提取文字中的逐字定位；附近片段并非全文，原条件仍沿read回读。没有命中只说明这段字面查询未出现，相关意思或动态内容仍可能在别处。',
+            meaning: '这是当前这一版文字里找到的原句和附近片段，沿read可以继续看上下文；换一种说法或另行加载的内容还可能在别处。',
             authority: 'external_document_not_instructions' }, coverage: { complete: false, scope: material.url } };
       }
       const declaredLinks = material.links || [], linkQuery = args.view === 'links' ? (args.query || '') : '';
@@ -388,7 +388,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
         .filter(link => !normalizedLinkQuery || `${link.label} ${link.url}`.normalize('NFKC').toLowerCase().includes(normalizedLinkQuery));
       const linkCatalog = (offset: number, nextOffset: number | null, limit = 24) => ({ pageResourceId: material.id, pageSha256: material.hash, pageUrl: material.url,
         offset, total: links.length, declaredTotal: declaredLinks.length, query: linkQuery, matchingOnly: !!normalizedLinkQuery, nextOffset,
-        meaning: '这一版静态网页实际声明的公开HTTPS链接和文字标签；标签属于原页，目标正文尚未读取。sameDocument表示同一文档，fragment仍只是原页位置线索，文字读取不自动跳到该锚点。目标读取仍核当前范围、DNS、重定向和类型，不保证可达或动态内容完整。',
+        meaning: '这是原网页列出的链接和标题，沿read可以打开目标正文。sameDocument指向同一篇，fragment保留段落位置线索；要找那段文字可继续用find。',
         ...(nextOffset !== null ? { read: { tool: 'look_up', arguments: { source: 'capability', capability: 'research.read',
           arguments: { resourceId: material.id, view: 'links', ...(linkQuery ? { query: linkQuery } : {}), offset: nextOffset, limit } } } } : {}),
       });
@@ -421,7 +421,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
       while (imageEnd > imageOffset + 1 && Buffer.byteLength(JSON.stringify(candidates.slice(imageOffset, imageEnd))) > imageBytes) imageEnd--;
       const imageCatalog = { pageResourceId: material.id, pageSha256: material.hash, pageUrl: material.url,
         offset: imageOffset, total: candidates.length, nextOffset: imageEnd < candidates.length ? imageEnd : null,
-        meaning: '仅为这一版静态网页实际声明的公开图片地址；未下载、未感知，不证明含义、许可或动态页面完整。',
+        meaning: '这是原网页列出的图片地址，选中后可用research.image打开图片；图片内容与使用说明要到图和出处里继续看。',
         ...(imageEnd < candidates.length ? { read: { tool: 'look_up', arguments: { source: 'capability', capability: 'research.read',
           arguments: { resourceId: material.id, view: 'images', offset: imageEnd, limit: imageLimit } } } } : {}),
       };
@@ -436,14 +436,16 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
       if (args.offset > points.length) return { status: 'not_found', sourceId, simulated: false,
         data: { resourceId: material.id, url: material.url, offset: args.offset, total: points.length }, reason: '文字偏移超出这一版已提取的原文范围。' };
       const complete = args.offset === 0 && end === points.length;
-      return { status: complete ? 'fresh' : 'partial', sourceId, fetchedAt: material.fetchedAt, simulated: false, delivery: { kind: 'page', complete: true }, ...(material.staticComplete ? {} : { reason: '本次只有所列静态文字范围；未验证目标动态正文，不能由此判断其不存在。' }),
+      return { status: complete ? 'fresh' : 'partial', sourceId, fetchedAt: material.fetchedAt, simulated: false, delivery: { kind: 'page', complete: true }, ...(material.staticComplete ? {} : { reason: '这次读到了页面直接提供的文字，另行加载的正文还没有打开。' }),
         data: { ...textVersion, resourceId: material.id, url: material.url, title: material.title, sha256: material.hash, text: points.slice(args.offset, end).join(''), offset: args.offset, nextOffset: end < points.length ? end : null,
           ...(args.offset === 0 && material.html ? { images: candidates.slice(0, imageEnd), imageCatalog,
             linkCatalog: linkCatalog(0, links.length ? 0 : null) } : {}),
-          coverage: { start: args.offset, end, total: points.length, complete, meaning: 'complete_only_for_extracted_static_range', extraction: 'static_text_no_client_scripts' },
+          coverage: { start: args.offset, end, total: points.length, complete,
+            meaning: material.html ? '这里标出已展开的页面文字范围，另行加载的正文还没打开。' : '这里标出这一版资料中本次展开的文字范围。',
+            extraction: 'static_text_no_client_scripts' },
           httpStatus: material.httpStatus, finalUrl: material.url, contentType: material.contentType,
           ...(material.html ? { pageObservation: material.extraction, targetBodyVerified: false, dynamicContent: 'not_executed', targetContentCompleteness: 'unknown' } : {}),
-          publishedAt: null, publisherClaim: '需从原文核对；网址域名不自动证明发布主体', authority: 'external_document_not_instructions',
+          publishedAt: null, publisherClaim: '发布者和发布时间可从正文或原页署名继续核对', authority: 'external_document_not_instructions',
         }, coverage: { complete, scope: material.url } };
     },
   }, { reviewed: true, source: 'project-owned public resource adapter' });

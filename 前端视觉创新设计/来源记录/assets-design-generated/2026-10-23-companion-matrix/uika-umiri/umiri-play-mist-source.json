@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-themed-mother-candidate",
+  "character": "umiri",
+  "activity": "play",
+  "theme": "mist",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "executionId": "exec-8582a0e6-eb4b-4efe-92ab-f6f9e80f519e",
+  "input": {
+    "path": "umiri-play-apricot-mother-candidate-v2.png",
+    "sha256": "98fd4ab74541817c22b5c54ae0f277a270acf4ca3915acdb7bad94712136e6dd",
+    "role": "sole primary-approved complete apricot activity mother"
+  },
+  "promptFile": "umiri-play-mist-prompt.txt",
+  "actualPrompt": "Asset ID: umiri-play-mist. Activity: play. Theme: mist.\nSOLE APPROVED INPUT: umiri-play-apricot-mother-candidate-v2.png; complete original apricot activity mother only.\nUse case: lighting-weather. Make ONE complete 1536 x 1024 same-room themed mother by relighting the supplied primary-approved character play scene.\nONLY INPUT IMAGE 1 is the EDIT TARGET, a complete approved apricot mother with its original person. This is a whole-scene LIGHTING AND WEATHER EDIT, not a new composition or new pose.\nLOCK EVERYTHING GEOMETRIC: exact canvas, camera and perspective; exact person's face, age, hairstyle, body, expression, posture, hands/fingers, clothing folds, hems, both feet/shoes, scale and position; exact window frame and all four corners, curtains, lake/campus landmarks, rear-left table/chair/shelves/framed drawing, right desk/chair/lamp/cup/book, bench/pillows/throw, rug and all furniture feet. Keep the chair in THIS mother, even if it differs from the original empty-room chair orientation. Do not restore/reposition a chair, move a lamp or widen a desk. Do not crop, zoom, enlarge, redesign, move the person or add another person.\nThe left lived-in depth and open central floor stay visible. Relight the PERSON and the WHOLE ROOM together so hair, skin, clothes, wood, linen, window glass, exterior and contact shadows agree with the same illumination. Skin and clothing retain their own material colors, not a full-image color filter, tinted overlay, green cast, black layer or white gradient. Preserve fine youthful Japanese-anime character linework and the softly detailed painted environment. No text, UI, logo, watermark, split-screen, border, arrows, inset or duplicate view.\n\nIDENTITY LOCK: this is Yahata Umiri (八幡海鈴), the same youthful charcoal-gray shoulder-length flipped-tip hair, gray-teal eyes, short black jacket, dark-red top, gray short skirt, choker/earrings and black platform boots already painted in the input. Keep her ORIGINAL approved PLAY v2 bass-playing pose on the right bench. The dark-wine electric bass lies on her real thigh, one hand frets the actual neck and the other plucks by the pickups, with the original strap and concentrated gaze. The entire continuous bass neck angles to the UPPER RIGHT and its full tuning pegs/headstock remain inside the canvas exactly as the source. Keep human and instrument scale/position together; do not enlarge only her, shrink/crop/shorten the bass neck or move the empty original desk chair. Both original boot contacts remain.\n\nTHEME MIST / clear blue-white morning:\nThe same lake and distant campus have light low morning haze, bright clear pale-blue sky and soft small clouds. Haze stays OUTSIDE, not inside the room. The big window supplies broad diffuse cool morning light, softer and less amber than the apricot source. Soften the strong apricot sun streaks and leaf projections into gentle broad daylight/shadows. The same curtains, window reflections, wall bounce, wood floor, pillows and cloth reflect this fresh blue-white daylight; retain ivory plaster, honey wood and neutral fabric rather than making every material blue. The existing lamp is OFF in daylight, same exact fixture and position.\nThe person receives a subtle cool window rim and soft neutral fill, natural readable skin, original hair/eye/clothing hues and ordinary contact shadows. No icy cyan face, desaturated gray room or indoor fog. One continuous airy human-scale space, not a new room.\nReturn the complete exact-size same-character, same-pose, same-furniture scene.",
+  "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-8582a0e6-eb4b-4efe-92ab-f6f9e80f519e.png",
+  "output": {
+    "path": "umiri-play-mist-mother-candidate-v1.png",
+    "sha256": "a597164bbdb103e434a5618c0732ebea3273e7ba0779135137bcde15d5f5268e",
+    "bytes": 2165122,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-24T00:57:19.363101+00:00"
+  },
+  "designerReview": {
+    "status": "viewed-candidate",
+    "observed": "Approved play v2 complete dark-wine bass and continuous upper-right neck/headstock/tuning pegs preserved inside full canvas, both actual playing hands and strap/thigh support retained. Human/instrument not separately scaled, original empty desk-chair and grounded boots stable. Full blue-white morning, exterior haze, lamp off, natural skin."
+  },
+  "primaryReview": "pending",
+  "layersAccepted": false,
+  "runtimeAccepted": false
+}

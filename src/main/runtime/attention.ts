@@ -19,6 +19,7 @@ import { campusQueryGrants, campusQueryInput, campusResources, validateCampusQue
 import { attentionListInput, attentionChangeInput, type AttentionControlItem, type AttentionControlPage, type AttentionChangeInput } from '../../shared/attention-control';
 import { resolveSourceQuote, type SourceQuoteInput } from './source-quote';
 import { noteSourceProofSchema, type NoteSourceProof } from '../../shared/notes-source';
+import { workoutObservationSources, workoutSourceObjectId, workoutSourceProofSchema } from '../../shared/workout-source';
 
 const id = z.string().min(1).max(160);
 const helpDiscoveryStatuses = ['candidate', 'waiting', 'prepared', 'question_ready', 'notification_queued', 'paused', 'stale', 'expired', 'declined'] as const;
@@ -53,7 +54,7 @@ const citation = z.object({
     context.addIssue({ code: 'custom', path: ['start'], message: '精确原话位置需要完整的contentVersion/start/end，且end须晚于start；不能忽略不完整位置重新寻找引文。' });
 });
 export const attentionControlInput = z.object({
-  operation: z.enum(['follow', 'pause', 'once', 'avoid', 'stop', 'resume', 'feedback', 'read']),
+  operation: z.enum(['follow', 'revise', 'pause', 'once', 'avoid', 'stop', 'resume', 'feedback', 'read']),
   targetId: id.optional(), expectedRevision: z.number().int().positive().optional(),
   source: citation.optional(), title: z.string().min(1).max(160).optional(),
   rule: z.string().min(1).max(1200).optional().describe('这一条限制所适用的内容。不同范围或期限的限制分别保存，不把整句的多个限制塞进同一个到期记录。'), until: z.string().datetime({ offset: true }).nullable().optional().describe('只属于当前这一项控制的到期时间。停止某种主动理由而没有明确终点时用null；时限归属有歧义也不自动恢复该主动行为，不借用同句另一项临时暂停的期限。'),
@@ -251,11 +252,19 @@ export class AttentionService {
   private nativeView(handle: ScopeHandle, focus: WorkRecord): AttentionControlItem {
     const scope = this.policy.validate(handle), rules = this.rules(handle, focus.id), now = Date.parse(this.repo.clock.now());
     const sources = Array.isArray(focus.data.sources) ? focus.data.sources.filter((source): source is string => typeof source === 'string') : [];
+    const sourceBoundary = Array.isArray(focus.data.sourceBoundary) ? focus.data.sourceBoundary.filter((source): source is string => typeof source === 'string') : sources;
+    const parent = typeof focus.data.matterId === 'string' ? this.repo.work(this.managementScope(handle), undefined, focus.data.matterId)[0] : undefined;
     const required = new Set<string>(sources.map(source => source === 'map:local' ? 'map:read' : source === 'weather:open-meteo' ? 'weather:read'
       : source === 'profile:self' ? 'memory:read' : source.startsWith('campus:') ? 'campus:read' : 'evidence:read'));
     const probe = focus.data.probe as { capability?: string } | null;
     if (probe?.capability) for (const grant of this.broker.describe(probe.capability)?.requiredScopes || []) required.add(grant);
-    const permitted = sources.every(source => scope.sources.includes(source)) && [...required].every(grant => scope.grants.includes(grant));
+    const permissionCurrent = this.focusPermissionCurrent(focus);
+    const grantsPresent = sources.every(source => scope.sources.includes(source)) && [...required].every(grant => scope.grants.includes(grant));
+    const permitted = grantsPresent && permissionCurrent;
+    const availableSources = sourceBoundary.filter(source => scope.sources.includes(source) && scope.grants.includes(source === 'map:local' ? 'map:read' : source === 'weather:open-meteo' ? 'weather:read'
+      : source === 'profile:self' ? 'memory:read' : source.startsWith('campus:') ? 'campus:read' : 'evidence:read')
+      && this.focusPermissionCurrent({ ...focus, data: { ...focus.data, sources: [source], probe: null } })
+      && (parent?.data.type !== 'attention_focus' || (parent.data.sources as string[]).includes(source)));
     const until = typeof focus.data.until === 'string' ? focus.data.until : null;
     const expired = focus.status === 'expired' || !!until && Date.parse(until) <= now;
     const ended = focus.status !== 'active' || rules.some(rule => rule.data.operation === 'stop');
@@ -266,14 +275,17 @@ export class AttentionService {
     const controlVersion = createHash('sha256').update(canonical({ focus: { id: focus.id, revision: focus.revision, status: focus.status },
       rules: rules.map(rule => ({ id: rule.id, revision: rule.revision, operation: rule.data.operation, until: rule.data.until })).sort((a, b) => a.id.localeCompare(b.id)),
       status, activeParent, permitted, epoch: this.repo.epoch, policy: this.repo.policyRevision })).digest('hex');
-    return { id: focus.id, title: focus.title, revision: focus.revision, controlVersion, status, sources, until,
+    return { id: focus.id, title: focus.title, revision: focus.revision, controlVersion, status, sources, sourceBoundary, until,
       ...(typeof focus.data.sessionId === 'string' && focus.data.sessionId ? { sessionId: focus.data.sessionId } : {}),
       channel: focus.data.channel === 'local_notification' ? 'local_notification' : 'in_app',
       pauseRules: pauses.map(rule => ({ id: rule.id, revision: rule.revision, until: typeof rule.data.until === 'string' ? rule.data.until : null,
         resumable: !expired && !ended && permitted && activeParent && rule.data.matterId === focus.id && !rule.data.targetOpportunityId })),
       canPause: !expired && !ended && activeParent && !pauses.length,
       canStop: !expired && !ended,
-      ...(!permitted ? { unavailableReason: 'source_permission' as const } : !activeParent && !expired && !ended ? { unavailableReason: 'parent_inactive' as const } : {}),
+      canRevise: !expired && !ended && activeParent && availableSources.length > 0,
+      availableSources,
+      maximumUntil: parent?.data.type === 'attention_focus' && typeof parent.data.until === 'string' ? parent.data.until : null,
+      ...(!permitted ? { unavailableReason: grantsPresent ? 'permission_retracted' as const : 'source_permission' as const } : !activeParent && !expired && !ended ? { unavailableReason: 'parent_inactive' as const } : {}),
     };
   }
 
@@ -282,7 +294,11 @@ export class AttentionService {
     const input = attentionChangeInput.parse(raw), item = this.nativeItem(handle, input.id);
     if (item.revision !== input.expectedRevision || item.controlVersion !== input.expectedControlVersion)
       throw new HarnessError('revision_conflict', '这件事有了变化，先看看现在的约定再决定。');
-    if (input.operation === 'resume') {
+    if (input.operation === 'revise') {
+      if (!item.canRevise) throw new HarnessError('attention_ended', '这件事目前不能继续原来的约定，请回到对话看看。');
+      this.control(handle, '', { operation: 'revise', targetId: item.id, expectedRevision: item.revision, source,
+        sources: input.changes!.sources, until: input.changes!.until });
+    } else if (input.operation === 'resume') {
       const rule = item.pauseRules.find(rule => rule.id === input.ruleId && rule.revision === input.ruleRevision);
       if (!rule?.resumable) throw new HarnessError('attention_not_resumable', '这次暂停现在不能解除。回到对话，我们重新看看原来的约定。');
       this.control(handle, '', { operation: 'resume', targetId: rule.id, expectedRevision: rule.revision, source });
@@ -318,6 +334,51 @@ export class AttentionService {
     if (input.targetId && !target) throw new HarnessError('target_missing', '需要先定位受影响的事项。');
     if (target && input.expectedRevision !== undefined && input.expectedRevision !== target.revision) throw new HarnessError('revision_conflict', '事项已经变化，请读取当前版本。');
     if (input.until && Date.parse(input.until) <= Date.parse(this.repo.clock.now())) throw new HarnessError('expired_control', '指定的范围已经结束。');
+    if (input.operation === 'revise') {
+      if (!target || target.data.type !== 'attention_focus' || input.expectedRevision === undefined)
+        throw new HarnessError('focus_required', '请先选中这件托付的当前版本，再修改约定。');
+      const item = this.nativeItem(handle, target.id);
+      if (!item.canRevise) throw new HarnessError('attention_ended', '这件事已经停下或原来的条件有了变化，不会重新开始旧约定。');
+      if (input.title !== undefined || input.rule !== undefined || input.channel !== undefined || input.eventCategory !== undefined || input.probe !== undefined || input.wakeAt !== undefined)
+        throw new HarnessError('focus_revision_fields', '这次可以修改原有资料范围和结束时间；关注的内容和提醒方式仍保留原约定。');
+      const sources = [...new Set(input.sources || item.sources)], until = input.until === undefined ? item.until : input.until;
+      if (!sources.length || sources.some(source => !item.availableSources.includes(source)))
+        throw new HarnessError('focus_scope', '只能从这件事原本允许、现在仍能使用的资料中选择。');
+      if (item.maximumUntil && (!until || Date.parse(until) > Date.parse(item.maximumUntil)))
+        throw new HarnessError('focus_scope', '这件事不能超过它所属约定的结束时间。');
+      if (canonical([...sources].sort()) === canonical([...item.sources].sort()) && until === item.until)
+        throw new HarnessError('attention_unchanged', '这次选择和现在的约定一样，原来的内容仍然保留。');
+      return this.repo.write(() => {
+        const probe = target.data.probe as { capability?: string } | null;
+        const keepProbe = !probe?.capability || sources.includes(this.broker.describe(probe.capability)?.sourceId || '');
+        const updated = this.work.update(management, target.id, target.revision, { evidenceIds: [...new Set([...target.evidenceIds, event.id])],
+          data: { ...target.data, sources, until, revisionSource: { ...source }, revisedAt: this.repo.clock.now(),
+            sourceBoundary: item.sourceBoundary, probe: keepProbe ? target.data.probe || null : null, publicProbeHash: keepProbe ? target.data.publicProbeHash || null : null,
+            wakeAt: ((target.data.wakeAt as string[] | undefined) || []).filter(at => Date.parse(at) > Date.parse(this.repo.clock.now()) && (!until || Date.parse(at) < Date.parse(until))),
+            pendingProbe: null, materialWakes: [], discoveryPending: true, nextScanAt: this.repo.clock.now() } });
+        this.repo.addDependency(handle, { consumerId: updated.id, producerId: event.id, producerRevision: event.contentVersion, sensitivity: 'privacy', invalidation: 'block' });
+        const family = new Set([updated.id]), focuses = this.records(management, 'attention_focus');
+        for (let pass = 0; pass < focuses.length; pass++) {
+          const size = family.size;
+          for (const child of focuses) if (family.has(String(child.data.matterId))) family.add(child.id);
+          if (family.size === size) break;
+        }
+        // A narrower agreement cannot leave queued work or a late preparation
+        // holding the previous scope. Existing exposure/history stays history.
+        for (const opportunity of this.records(management, 'help_opportunity')) {
+          if (!family.has(String(opportunity.data.bindingId)) || ![...activeChoices, 'paused'].includes(opportunity.status)) continue;
+          this.reminders.cancel(opportunity.id);
+          this.work.update(management, opportunity.id, opportunity.revision, { status: 'stale', data: { ...opportunity.data, artifact: null, invalidationReason: 'attention_revised' } });
+        }
+        for (const child of focuses) if (child.id !== updated.id && family.has(child.id) && child.status === 'active' && !this.bindingActive(management, child)) {
+          this.work.update(management, child.id, child.revision, { status: 'inactive', data: { ...child.data, invalidationReason: 'parent_attention_revised' } });
+          this.repo.db.prepare("UPDATE h_watches SET status='inactive' WHERE goal_id=?").run(child.id);
+        }
+        this.repo.db.prepare("UPDATE h_watches SET payload=json_set(payload,'$.actionableUntil',?),novelty_key=NULL WHERE goal_id=? AND status='active'")
+          .run(until || new Date(Date.parse(this.repo.clock.now()) + 365 * 86400000).toISOString(), updated.id);
+        return updated;
+      });
+    }
     if (input.operation === 'follow') {
       if (!input.title || !input.rule || !input.sources?.length) throw new HarnessError('focus_incomplete', '需要明确关注什么、用途、来源和允许的方式。');
       if (input.sources.some(source => !scope.sources.includes(source))) throw new HarnessError('source_forbidden', '关注不能扩大本轮资料范围。');
@@ -338,10 +399,10 @@ export class AttentionService {
       const existing = this.repo.work(handle, undefined, focusId)[0];
       if (existing) return existing;
       const focus = this.work.create(handle, 'window', input.title, { type: 'attention_focus', sessionId, matterId: input.targetId || null,
-        rule: input.rule, governingRule: verified.parentFocus ? target!.data.rule : input.rule, until: input.until || null, eventCategory: input.eventCategory || 'all', sources: input.sources,
+        rule: input.rule, governingRule: verified.parentFocus ? target!.data.rule : input.rule, until: input.until || null, eventCategory: input.eventCategory || 'all', sources: input.sources, sourceBoundary: input.sources,
         channel: input.channel || 'in_app', source: { ...source }, probe: input.probe || null, publicProbeHash: verified.publicProbeHash || null,
         wakeAt: [...new Set(input.wakeAt || [])].sort(), completedWakes: [], discoveryPending: true,
-        nextScanAt: this.repo.clock.now(), lastFingerprint: null, approvedAt: this.repo.clock.now(),
+        nextScanAt: this.repo.clock.now(), lastFingerprint: null, approvedAt: this.repo.clock.now(), permissionEpoch: this.repo.epoch,
         meaning: '获准的关注，不是用户新目标或行动授权。',
       }, { id: focusId, status: 'active', evidenceIds: [event.id] });
       for (const producerId of [event.id, ...(target ? [target.id] : [])]) this.repo.addDependency(handle, { consumerId: focus.id, producerId, producerRevision: 0, sensitivity: 'privacy', invalidation: 'block' });
@@ -439,7 +500,7 @@ export class AttentionService {
 
   private controlMetadata(record: WorkRecord): WorkRecord {
     const data = record.data, selected: WorkRecord['data'] = { type: data.type!, controlMetadataOnly: true };
-    for (const key of ['matterId', 'bindingId', 'operation', 'until', 'channel', 'sources', 'targetOpportunityId', 'targetBindingId', 'targetObjectId', 'maximumDisplays', 'onceUse', 'onceContractVersion'])
+    for (const key of ['matterId', 'bindingId', 'operation', 'until', 'channel', 'sources', 'sourceBoundary', 'targetOpportunityId', 'targetBindingId', 'targetObjectId', 'maximumDisplays', 'onceUse', 'onceContractVersion'])
       if (data[key] !== undefined) selected[key] = data[key];
     let title = data.type === 'attention_focus' ? record.title : '可选帮助';
     if (data.type === 'attention_rule') {
@@ -461,12 +522,28 @@ export class AttentionService {
     }
   }
 
+  private focusPermissionCurrent(focus: WorkRecord) {
+    if (focus.data.type !== 'attention_focus') return true;
+    const sources = (focus.data.sources as string[] | undefined) || [], required = new Set<string>(sources.map(source => source === 'map:local' ? 'map:read' : source === 'weather:open-meteo' ? 'weather:read'
+      : source === 'profile:self' ? 'memory:read' : source.startsWith('campus:') ? 'campus:read' : 'evidence:read'));
+    const probe = focus.data.probe as { capability?: string } | null;
+    if (probe?.capability) for (const grant of this.broker.describe(probe.capability)?.requiredScopes || []) required.add(grant);
+    const epoch = typeof focus.data.permissionEpoch === 'number' ? focus.data.permissionEpoch : undefined;
+    return !this.repo.fences().some(fence => fence.kind === 'revoke' && !!fence.scope && required.has(fence.scope)
+      && (epoch !== undefined ? fence.epoch > epoch : Date.parse(fence.createdAt) >= Date.parse(String(focus.data.approvedAt || focus.data.recordedAt || ''))));
+  }
+
   private bindingActive(handle: ScopeHandle, binding: WorkRecord, visited = new Set<string>()): boolean {
     if (binding.status !== 'active' || visited.has(binding.id) || binding.data.until && Date.parse(String(binding.data.until)) <= Date.parse(this.repo.clock.now())) return false;
+    if (!this.focusPermissionCurrent(binding)) return false;
     visited.add(binding.id);
     if (binding.data.type !== 'attention_focus' || !binding.data.matterId) return true;
     const parent = this.repo.work(handle, undefined, String(binding.data.matterId))[0];
-    return !!parent && this.bindingActive(handle, parent, visited);
+    if (!parent || !this.bindingActive(handle, parent, visited)) return false;
+    if (parent.data.type === 'attention_focus' && (Array.isArray(binding.data.sources) && binding.data.sources.some(source => !(parent.data.sources as string[] || []).includes(String(source)))
+      || parent.data.until && (!binding.data.until || Date.parse(String(binding.data.until)) > Date.parse(String(parent.data.until)))
+      || binding.data.channel === 'local_notification' && parent.data.channel !== 'local_notification')) return false;
+    return true;
   }
 
   private noteCurrent(id: string, revision: number, state = 'active') {
@@ -883,6 +960,13 @@ export class AttentionService {
       .map(proof => [canonical(proof), proof])).values()];
     if (!this.repo.noteSourcesReadable(handle, noteSources))
       throw new HarnessError('material_note_changed', '这份准备引用的一页笔记现在读不到了。');
+    const storedWorkoutSources = opportunity.data.workoutSources === undefined ? []
+      : workoutSourceProofSchema.array().parse(opportunity.data.workoutSources);
+    const workoutSources = [...new Map([...storedWorkoutSources,
+      ...(!reused ? material.flatMap(item => workoutObservationSources(item!.result)) : [])]
+      .map(proof => [canonical(proof), proof])).values()];
+    if (!this.repo.workoutSourcesReadable(handle, workoutSources))
+      throw new HarnessError('workout_source_changed', '这份准备所看的运动记录已经移除，先前摘要没有继续保存成准备。');
     const sourceIds = [...new Set([...this.storedMaterialSources(handle, opportunity), ...materialSources.flat(), ...supplied.map(event => event!.sourceId), ...questionBasis.map(item => item.readSource)])];
     const materialGrants = material.map((item, index) => this.materialGrants(item!, materialSources[index]));
     const suppliedGrants = supplied.map(event => {
@@ -894,7 +978,7 @@ export class AttentionService {
       ...sourceIds.map(source => source === 'map:local' ? 'map:read' : source === 'weather:open-meteo' ? 'weather:read'
         : source === 'profile:self' ? 'memory:read' : source.startsWith('campus:') ? 'campus:read' : 'evidence:read'),
       ...materialGrants.flat(), ...suppliedGrants.flat()])];
-    if (sourceIds.some(source => !scope.sources.includes(source))) throw new HarnessError('material_source_forbidden', '当前范围不再允许读取这份准备所依据的实际来源，旧材料没有采用。');
+    if (sourceIds.some(source => !scope.sources.includes(source))) throw new HarnessError('material_source_forbidden', '准备这份内容时看过的一份资料，现在不能再读；这份旧材料先留在一旁。');
     if (['prepare', 'notify', 'ask'].includes(input.choice) && !input.artifact) throw new HarnessError('artifact_required', '没有真实产物，不能显示已准备。');
     if (input.choice === 'prepare' && !material.length && !supplied.length && !reused) throw new HarnessError('material_not_read', '安静准备须有实际查询或已提供材料。');
     for (const item of material) if (!item || ['inspect_help'].includes(item.tool) || (item.result as any)?.catalogOnly || (item.result as any)?.inputSchema || ['failed', 'forbidden', 'not_connected', 'unknown', 'error'].includes(String((item.result as any)?.status))) throw new HarnessError('material_unavailable', '引用的查询没有取得可用资料；能力说明和机会本身不是新查询材料。');
@@ -946,6 +1030,7 @@ export class AttentionService {
         materialPlanningContractVersion: 1, planningProvenance: planningProvenance || [],
         materialSourceContractVersion: 1, sourceIds, materialGrantContractVersion: 1, requiredGrants, questionBasis,
         materialNoteContractVersion: 1, noteSources,
+        materialWorkoutContractVersion: 1, workoutSources: z.json().parse(workoutSources),
         expiresAt: new Date(Math.min(Date.parse(String(opportunity.data.expiresAt)), ...materialExpiries.map(Date.parse))).toISOString(),
         reconsiderAt: input.reconsiderAt || (choice === 'wait' ? new Date(Date.parse(this.repo.clock.now()) + 1800000).toISOString() : null), artifact: ['none', 'wait'].includes(choice) ? null : JSON.parse(JSON.stringify({ ...input.artifact!, ...(sceneSnapshots ? { scenes: sceneSnapshots } : {}) })),
         material: reused ? opportunity.data.material : [...material.map((item, index) => { const result = item!.result as { sourceId?: string; observedAt?: string; fetchedAt?: string; expiresAt?: string; note?: { id: string; revision: number } }; return { tool: item!.tool, observationId: item!.toolCallId!, resultHash: createHash('sha256').update(canonical(item!.result)).digest('hex'), sourceIds: materialSources[index], requiredGrants: materialGrants[index], ...(result.sourceId ? { sourceId: result.sourceId } : {}), ...(result.expiresAt ? { expiresAt: result.expiresAt } : {}), versions: z.json().parse(this.materialVersions(item!.result)), ...(item!.tool === 'manage_note' && result.note ? { sourceId: 'notes:self', noteId: result.note.id, noteRevision: result.note.revision } : {}), observedAt: result.observedAt || result.fetchedAt || this.repo.clock.now() }; }), ...supplied.map((event, index) => ({ evidenceId: event!.id, contentVersion: event!.contentVersion, sourceId: event!.sourceId, requiredGrants: suppliedGrants[index], versions: z.json().parse(this.evidenceVersions(event!)), resultHash: createHash('sha256').update(event!.text).digest('hex') }))],
@@ -956,6 +1041,8 @@ export class AttentionService {
       for (const version of materialVersions) this.repo.addDependency(handle, { consumerId: next.id,
         producerId: version.kind === 'domain' ? `domain:${version.domain}:${version.id}` : version.kind === 'agenda' ? this.repo.calendarVersionId(version.id, version.revision) : version.id,
         producerRevision: version.revision, sensitivity: 'hard', invalidation: 'block' });
+      for (const source of workoutSources) this.repo.addDependency(handle, { consumerId: next.id,
+        producerId: workoutSourceObjectId(source.workoutId), producerRevision: 0, sensitivity: 'privacy', invalidation: 'block' });
       for (const basis of basisRecords) this.basis.link(handle, basis!, next.id);
       let conversationHelpRef: { id: string; revision: number; helpRecordId: string } | undefined;
       if (['prepare', 'ask', 'notify'].includes(choice)) {
@@ -967,7 +1054,7 @@ export class AttentionService {
         const help = originalHelp || this.cooperation.record(handle, { opportunityId: next.id, preparationRevision: next.revision, sessionId: String(next.data.sessionId), matterId: bindingId,
           title: input.artifact!.title, reason: input.reason, actionDescription: input.actionDescription,
           basisFingerprint: String(next.data.fingerprint), evidenceIds: next.evidenceIds, sourceIds, requiredGrants, basisIds: input.basisIds, resultRefs: [next.id],
-          planningProvenance: planningProvenance as PlanningMaterialProvenance[] || [], noteSources });
+          planningProvenance: planningProvenance as PlanningMaterialProvenance[] || [], noteSources, workoutSources });
         next.data.helpRecordId = help.id;
         this.repo.db.prepare('UPDATE h_work SET payload=? WHERE id=?').run(JSON.stringify(next), next.id);
         if (input.presentInConversation || inAppNotify) conversationHelpRef = { id: next.id, revision: next.revision, helpRecordId: help.id };

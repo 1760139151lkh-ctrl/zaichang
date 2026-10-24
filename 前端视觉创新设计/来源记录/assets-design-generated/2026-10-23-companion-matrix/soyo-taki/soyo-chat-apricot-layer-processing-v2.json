@@ -1,0 +1,169 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "soyo-chat-apricot-layer-parameters-v2.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "4d4ba6a4a9d6e08d040ef33c9678acb7bb039f6afe2fbce02261c4c818083816",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": "4.13.0"
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "soyo-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "e5860a2adf427032f84d15dcec6c59c8b6ffa7dff8ede6eadf9ec669f4e00b29",
+  "matte": "soyo-chat-apricot-mask-generated-v2.png",
+  "matteSha256": "ebd59f609048e10eb0deb5be390c682551dd241688161a9920224e73c138c667",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1160,
+      270,
+      1405,
+      510
+    ],
+    "seedThreshold": 80,
+    "uncertainBandPixels": 3,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.35
+  },
+  "alphaChangedPixels": 116592,
+  "alphaNonzeroPixels": 53109,
+  "alphaBounds": [
+    1169,
+    279,
+    1395,
+    781
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "a859dc970f59368cfacdd8583cb12185ccf73da89d8c1b95c70c6de64d93a7ce",
+  "figureRgbSha256": "a859dc970f59368cfacdd8583cb12185ccf73da89d8c1b95c70c6de64d93a7ce",
+  "background": {
+    "candidate": "soyo-chat-apricot-background-generated-v1.png",
+    "candidateSha256": "2602fd709bb76877453e1fb23b461953d3fa3a3c323ba98e39e0645882dd7d96",
+    "expandPixels": 7,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          1157,
+          741
+        ],
+        [
+          1284,
+          741
+        ],
+        [
+          1301,
+          794
+        ],
+        [
+          1163,
+          794
+        ]
+      ],
+      [
+        [
+          1165,
+          576
+        ],
+        [
+          1385,
+          576
+        ],
+        [
+          1385,
+          622
+        ],
+        [
+          1165,
+          622
+        ]
+      ]
+    ],
+    "changedPixels": 80534,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1167,
+          744
+        ],
+        [
+          1291,
+          744
+        ],
+        [
+          1300,
+          791
+        ],
+        [
+          1162,
+          791
+        ]
+      ],
+      [
+        [
+          1170,
+          570
+        ],
+        [
+          1384,
+          570
+        ],
+        [
+          1384,
+          622
+        ],
+        [
+          1170,
+          622
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "soyo-chat-apricot-figure-calibrated-v2.png",
+      "bytes": 2426654,
+      "sha256": "8958ec7dea3a1dec70cd61ed0739f36063dfdd55f424328a639f9b0c918b9d00"
+    },
+    {
+      "file": "soyo-chat-apricot-mask-calibrated-v2.png",
+      "bytes": 21061,
+      "sha256": "edf8f77287a4fd5e400261fa912dd9d6448d2007c72ac17f08ac621a6ef456bf"
+    },
+    {
+      "file": "soyo-chat-apricot-background-calibrated-v2.png",
+      "bytes": 2085906,
+      "sha256": "912029cf739034613f5e29bd0b6e5870b2a0bd5b51c37f92f2daf0d2ab661103"
+    },
+    {
+      "file": "soyo-chat-apricot-shadow-calibrated-v2.png",
+      "bytes": 38671,
+      "sha256": "320760ea2090a3aad9d71127c0a2939b82c851cbe771e5705c389bc765e7169c"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

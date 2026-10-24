@@ -1,0 +1,14 @@
+{
+  "mother": "umiri-planning-apricot-mother-candidate-v2.png",
+  "motherSha256": "78ca56bc6b2fff62341a26018251a84a62185ea6d614af14b2903ff323976f23",
+  "matte": "umiri-planning-apricot-mask-raw-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "umiri-planning-apricot-figure-calibrated-v1.png",
+  "mask": "umiri-planning-apricot-mask-calibrated-v1.png",
+  "record": "umiri-planning-apricot-layer-processing-v1.json",
+  "reviewNote": "Initial original-RGB visible-only mask extraction for inspection, no matching background adopted yet. Generated BG v1 adds an extra desk sheet and is rejected. Fixed desk contact requires travel zero; no source or runtime approval signed."
+}

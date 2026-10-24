@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "play",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-a259e3b1-fbd0-42a5-bdf7-c42d97af05cf",
+  "inputs": [
+    {
+      "file": "tomori-play-apricot-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "7d516b243573ea7cc80cbd6c720eee823dbc0ed4096cf9b7f81e9d65e26de63d"
+    },
+    {
+      "file": "room-rain-candidate-v2.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "sourceIdentity": "Primary-approved correct complete warm mother is the sole editable/person/pose/geometry target; approved clean rain-v2 plate is lighting/sky reference only. No rejected mother or isolated actor input.",
+  "prompt": "tomori-play-rain-prompt.txt",
+  "promptSha256": "03ae8fbe7d03efcfb17de2eb06762063b4b76beb7530e0158df2e5a6f9f9a330",
+  "output": {
+    "file": "tomori-play-rain-mother-candidate.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2097052,
+    "sha256": "e45677758348da52728e4362bcff2470be9969d171c3a1a574fcb787d877ad13"
+  },
+  "review": {
+    "designerViewed": "complete original 1536x1024 output",
+    "designerStatus": "candidate_ready_for_primary_review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Exact low half-kneeling stone-observation composition remains: near full flat loafer planted on rug, rear knee/shin supported and folded rear shoe visible, paired hands holding the same small stone and original foreground scale. Fixed furniture/window/church remain consistent. Warm illumination originates at the original main desk lamp with restrained blue rainy-window fill and coherent rug contact shadows. No daytime hard leaf projection or new rear flower/wall spotlight."
+}

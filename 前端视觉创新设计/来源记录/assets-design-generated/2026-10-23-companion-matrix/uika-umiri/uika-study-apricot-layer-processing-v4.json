@@ -1,0 +1,239 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "uika-study-apricot-layer-parameters-v4.json",
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "uika-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0",
+  "matte": "uika-study-apricot-mask-raw-v1.png",
+  "matteSha256": "e7424fd235fe6ab2f2ec0bb815043fd56c5d15ea2cdef8d3742b94b84d634857",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [
+    [
+      [
+        939,
+        697
+      ],
+      [
+        941,
+        690
+      ],
+      [
+        949,
+        695
+      ],
+      [
+        958,
+        694
+      ],
+      [
+        968,
+        690
+      ],
+      [
+        975,
+        695
+      ],
+      [
+        986,
+        701
+      ],
+      [
+        984,
+        708
+      ],
+      [
+        940,
+        707
+      ]
+    ],
+    [
+      [
+        962,
+        682
+      ],
+      [
+        967,
+        675
+      ],
+      [
+        975,
+        678
+      ],
+      [
+        983,
+        683
+      ],
+      [
+        992,
+        686
+      ],
+      [
+        1003,
+        691
+      ],
+      [
+        1000,
+        697
+      ],
+      [
+        971,
+        697
+      ],
+      [
+        961,
+        690
+      ]
+    ]
+  ],
+  "excludePolygons": [
+    [
+      [
+        826,
+        594
+      ],
+      [
+        861,
+        593
+      ],
+      [
+        867,
+        594
+      ],
+      [
+        874,
+        597
+      ],
+      [
+        879,
+        603
+      ],
+      [
+        883,
+        611
+      ],
+      [
+        887,
+        619
+      ],
+      [
+        890,
+        625
+      ],
+      [
+        826,
+        632
+      ]
+    ],
+    [
+      [
+        790,
+        510
+      ],
+      [
+        811,
+        510
+      ],
+      [
+        815,
+        520
+      ],
+      [
+        820,
+        536
+      ],
+      [
+        824,
+        556
+      ],
+      [
+        828,
+        575
+      ],
+      [
+        833,
+        590
+      ],
+      [
+        838,
+        596
+      ],
+      [
+        790,
+        598
+      ]
+    ],
+    [
+      [
+        885,
+        615
+      ],
+      [
+        888,
+        617
+      ],
+      [
+        892,
+        624
+      ],
+      [
+        891,
+        627
+      ],
+      [
+        885,
+        627
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 105688,
+  "alphaNonzeroPixels": 35311,
+  "alphaBounds": [
+    795,
+    332,
+    1027,
+    720
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "e36f1c998a67fdd31016f7f1e9802b97c7cb550ef4a9fbf3424b32a2b11df36c",
+  "figureRgbSha256": "e36f1c998a67fdd31016f7f1e9802b97c7cb550ef4a9fbf3424b32a2b11df36c",
+  "background": {
+    "candidate": "uika-study-apricot-background-raw-v1.png",
+    "candidateSha256": "a7d8f91663bfd8fe1bc4da942ec4c69fb791c9320af9d0c2143ec33c526fc9fc",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [],
+    "changedPixels": 48476,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "outputs": [
+    {
+      "file": "uika-study-apricot-figure-calibrated-v4.png",
+      "bytes": 2446409,
+      "sha256": "0ab3ca2ebfe8cff1b4caf0ddc06f7d627c0cbd2ae12b8fbfcfa3ea197c040639"
+    },
+    {
+      "file": "uika-study-apricot-mask-calibrated-v4.png",
+      "bytes": 24427,
+      "sha256": "578b414b1d527aaa8337f21a371a87d0190400f3ce1d08d4bc73a52a96c04ff5"
+    },
+    {
+      "file": "uika-study-apricot-background-calibrated-v4.png",
+      "bytes": 2122597,
+      "sha256": "37a2d89e518399792bddbe7c24da221981ca6826b48b9954d4f53895cb21dc64"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

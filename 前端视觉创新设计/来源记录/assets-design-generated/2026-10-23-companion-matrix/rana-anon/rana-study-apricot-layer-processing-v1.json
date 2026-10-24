@@ -1,0 +1,73 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "rana-study-apricot-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "acd958962a3fbec03faf3be03b5bbe2286df8198fde14ad5a59573780f21b19c",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "rana-study-apricot-mother-candidate-v2.png",
+  "motherSha256": "fb66bbcfffc5f3d42b421c8769cc53ae7f1b605246a68187f5043435eabbe205",
+  "matte": "rana-study-apricot-mask-generated-v1.png",
+  "matteSha256": "b99d472ced537122a4fdf2e5514ecf1cc0044f5e42cfa05bd4fb662dc0038fae",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 240,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 107538,
+  "alphaNonzeroPixels": 35455,
+  "alphaBounds": [
+    809,
+    333,
+    1028,
+    726
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "66c0b71e49ea82ca09079b855dfad43ee0c7e16d34112a4299458702744a3d9d",
+  "figureRgbSha256": "66c0b71e49ea82ca09079b855dfad43ee0c7e16d34112a4299458702744a3d9d",
+  "background": {
+    "candidate": "rana-study-apricot-background-generated-v1.png",
+    "candidateSha256": "13b07e061979f17281aeda3e1153a45e65ebe2ced92ae69aa5ad2fc8f6241931",
+    "expandPixels": 3,
+    "featherPixels": 1,
+    "additionalErasePolygons": [],
+    "changedPixels": 45213,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": null,
+  "outputs": [
+    {
+      "file": "rana-study-apricot-figure-calibrated-v1.png",
+      "bytes": 2435826,
+      "sha256": "b2cc7ceaec540facaee33f7bad57dc92d4c2be2ac9edcc23e321791414d7e7b1"
+    },
+    {
+      "file": "rana-study-apricot-mask-calibrated-v1.png",
+      "bytes": 21118,
+      "sha256": "f8acb7c03e909e6e98317a3a206729fece251753c2c901f52715ef91dcea8fdf"
+    },
+    {
+      "file": "rana-study-apricot-background-calibrated-v1.png",
+      "bytes": 2112014,
+      "sha256": "c43e4a76668f09576aa4cab792c87eeb1da12d6e9fd71098af3a842fa75d5cb2"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

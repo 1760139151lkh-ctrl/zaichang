@@ -1,0 +1,100 @@
+{
+  "recordType": "original-coordinate-alpha-production",
+  "processor": "taki-chat-apricot-refine-matte-v6.py",
+  "processorSha256": "5ef06b30600eff39d13f30095a74c54ce5abf23bb541d8b6da64c9f59651e077",
+  "mother": "taki-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f",
+  "inputMatte": "taki-chat-apricot-mask-calibrated-v2.png",
+  "inputMatteSha256": "031a8958f5b9f0f4ab41b43bc55ad15cf5eb23ce8104e63263d2ff99b2a4336a",
+  "outputMatte": "taki-chat-apricot-soft-gap-matte-v6.png",
+  "outputMatteSha256": "a95174f83fed0274982691f1af5e2a9ac5eabedb10e878e60970a9b801c6cf66",
+  "polygons": [
+    [
+      [
+        1159,
+        440
+      ],
+      [
+        1193,
+        440
+      ],
+      [
+        1191,
+        476
+      ],
+      [
+        1187,
+        500
+      ],
+      [
+        1190,
+        524
+      ],
+      [
+        1159,
+        524
+      ]
+    ],
+    [
+      [
+        1331,
+        451
+      ],
+      [
+        1327,
+        493
+      ],
+      [
+        1336,
+        511
+      ],
+      [
+        1345,
+        535
+      ],
+      [
+        1361,
+        535
+      ],
+      [
+        1361,
+        451
+      ]
+    ],
+    [
+      [
+        1222,
+        497
+      ],
+      [
+        1235,
+        501
+      ],
+      [
+        1235,
+        526
+      ],
+      [
+        1228,
+        535
+      ],
+      [
+        1219,
+        537
+      ],
+      [
+        1225,
+        524
+      ],
+      [
+        1220,
+        514
+      ]
+    ]
+  ],
+  "method": "Only known warm room RGB in explicit hair-gap coordinates attenuates alpha; original dark hair and all pixels outside those gaps retain the calibrated v2 alpha.",
+  "changedAlphaPixels": 502,
+  "rgbModified": false,
+  "primaryLayerReview": "pending",
+  "runtimeAccepted": false
+}

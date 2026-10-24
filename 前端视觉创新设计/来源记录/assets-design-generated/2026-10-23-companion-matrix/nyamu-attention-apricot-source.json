@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-attention-apricot-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "attention",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "nyamu-attention-apricot-prompt.txt",
+  "identityText": "nyamu-identity.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "nyamu-attention-apricot-mother-candidate-v1.png",
+    "sha256": "49339c8e8137bc07f4d8ed5d84726354a18ed40020dd5f7fded6d7f02dd059a5",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-211ae11e-7291-47b5-9b5e-f1227bf8b1d3.png"
+  },
+  "designerObservation": "Full image viewed. Figure is anatomically supported with full leg/shoe chains, but the new card is on rear windowsill rather than actual desktop, and shoulders remain frontal while only head turns. Designer rejects activity-object relation and regenerates solely from clean room, never from this candidate.",
+  "designerStatus": "rejected; wrong new-object support and insufficient torso turn",
+  "primaryReview": "not requested for rejected v1",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

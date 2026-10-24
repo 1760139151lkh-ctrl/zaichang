@@ -1,0 +1,225 @@
+{
+  "activity": "reading",
+  "schemaVersion": 1,
+  "mother": "mutsumi-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+  "inputAlpha": "mutsumi-reading-apricot-source-alpha-v5.png",
+  "inputAlphaSha256": "81c8914f22d4693c65eaf7ba4dbdaf1b3ab3999ac0c77ed93139e68ac8c1caa0",
+  "observedOriginalColorRules": [
+    {
+      "purpose": "Original continuous actual main right hair panel restored without a global color rule; traced from personally viewed original head coordinate crop, keeping native lit/blue-reflected hair RGB",
+      "mode": "include",
+      "polygon": [
+        [
+          1430,
+          418
+        ],
+        [
+          1446,
+          439
+        ],
+        [
+          1452,
+          460
+        ],
+        [
+          1450,
+          480
+        ],
+        [
+          1440,
+          503
+        ],
+        [
+          1425,
+          525
+        ],
+        [
+          1414,
+          536
+        ],
+        [
+          1411,
+          532
+        ],
+        [
+          1424,
+          513
+        ],
+        [
+          1434,
+          488
+        ],
+        [
+          1437,
+          463
+        ],
+        [
+          1432,
+          439
+        ]
+      ],
+      "channels": [],
+      "differences": []
+    },
+    {
+      "purpose": "Original wood in small upper interleg room triangle, distinct from brighter true skin/navy socks in original coordinates",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1185,
+          604
+        ],
+        [
+          1207,
+          604
+        ],
+        [
+          1207,
+          622
+        ],
+        [
+          1185,
+          622
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          40,
+          205
+        ],
+        [
+          1,
+          0,
+          165
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          1,
+          12,
+          180
+        ],
+        [
+          0,
+          2,
+          15,
+          180
+        ]
+      ]
+    },
+    {
+      "purpose": "Complete observed lower interleg wood gap, no real brown shoe in this original-coordinate region; navy sock stays because it is not warm wood",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1118,
+          680
+        ],
+        [
+          1157,
+          680
+        ],
+        [
+          1149,
+          696
+        ],
+        [
+          1140,
+          705
+        ],
+        [
+          1124,
+          715
+        ],
+        [
+          1124,
+          700
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          40,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          1,
+          12,
+          180
+        ],
+        [
+          0,
+          2,
+          15,
+          180
+        ]
+      ]
+    }
+  ],
+  "explicitOriginalRoomExclusions": [
+    [
+      [
+        1434,
+        539
+      ],
+      [
+        1480,
+        539
+      ],
+      [
+        1480,
+        590
+      ],
+      [
+        1408,
+        590
+      ],
+      [
+        1408,
+        557
+      ],
+      [
+        1415,
+        544
+      ]
+    ],
+    [
+      [
+        1455,
+        444
+      ],
+      [
+        1460,
+        447
+      ],
+      [
+        1465,
+        456
+      ],
+      [
+        1465,
+        462
+      ],
+      [
+        1458,
+        472
+      ],
+      [
+        1456,
+        468
+      ],
+      [
+        1457,
+        458
+      ]
+    ]
+  ],
+  "outputAlpha": "mutsumi-reading-apricot-source-alpha-v6.png",
+  "record": "mutsumi-reading-apricot-source-alpha-v6.json"
+}

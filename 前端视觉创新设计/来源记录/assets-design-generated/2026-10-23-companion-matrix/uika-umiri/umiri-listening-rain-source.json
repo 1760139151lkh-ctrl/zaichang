@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordType": "image-generation-source",
+  "character": "umiri",
+  "activity": "listening",
+  "theme": "rain",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-04b1cf2e-886a-40b3-9e39-8987e139ad60",
+  "intent": "lighting-weather",
+  "prompt": "umiri-listening-rain-prompt-v1.txt",
+  "promptFileMatchesActualToolInput": true,
+  "recordedAt": "2026-10-24T08:06:45.614Z",
+  "inputs": [
+    {
+      "file": "umiri-listening-apricot-mother-candidate-v1.png",
+      "role": "primary-approved-correct-warm-mother-edit-target",
+      "sha256": "14542cd757d285f6c2d89e98466e2e2bac75d2601aa0fe61d768996ae679b171"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "role": "primary-approved-clean-theme-lighting-reference-only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "umiri-listening-rain-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "f74542ace8b565f54c08b04511e2fcac73cb368169b94fe5e029368bef345923",
+    "bytes": 2100432
+  },
+  "review": {
+    "designerViewed": "complete original Imagegen output",
+    "designerStatus": "candidate-for-primary-review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Asymmetric listening support preserved: folded bench leg, floor sock foot, quiet blanket hand, bracing palm and two separate removed boots.",
+  "promptSha256": "cfea3098dae810d63dcf42da09493fc270c6aae83be7dec249ba5f0a9d9c71cb"
+}

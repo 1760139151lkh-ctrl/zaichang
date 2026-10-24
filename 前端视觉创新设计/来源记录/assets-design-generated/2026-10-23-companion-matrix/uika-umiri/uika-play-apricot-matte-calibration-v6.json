@@ -1,0 +1,19 @@
+{
+  "recordType": "original-scene-alpha-calibration",
+  "input": "uika-play-apricot-figure-calibrated-v5.png",
+  "output": "uika-play-apricot-matte-soft-calibrated-v6.png",
+  "outputSha256": "e48d7747fec0e94392ceaecc0c02259e2c79951a561d7ec9bd1b5ca8eb6ab7a9",
+  "region": [
+    1260,
+    275,
+    1341,
+    311
+  ],
+  "operation": "After source crown contour repair, alpha zero only for source blue sky color B-R>6 and G-R>-2; no RGB edit.",
+  "removedAlphaPixels": 88,
+  "primaryReview": "pending",
+  "runtimeAccepted": false,
+  "inputSha256": "36bdf6e3a6eee3ec4af0797a454047d6148debc79a7a527fb8d7869cf39f2ea4",
+  "mother": "uika-play-apricot-mother-candidate-v1.png",
+  "motherSha256": "5217e87de50ac8ff072d231a2cc07d985303cbc4f034a97355f0d98bb6a53454"
+}

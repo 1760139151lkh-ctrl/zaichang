@@ -156,7 +156,7 @@ class CapabilityValidationError extends HarnessError {
   readonly validation: NonNullable<CapabilityResult['validation']>;
   constructor(target: 'arguments' | 'result', error: z.ZodError) {
     super(target === 'arguments' ? 'invalid_arguments' : 'invalid_result',
-      target === 'arguments' ? '查询参数格式不符，请按能力字段修正后重试。' : '来源返回的数据格式不符合约定。', target === 'arguments' ? 'read' : 'never');
+      target === 'arguments' ? '这次有几处没填对，位置留在下面；看一眼这项能力的完整用法就能接着改。' : '这次来源给的内容还没能读成可用资料，原查询和出错位置已留下。', target === 'arguments' ? 'read' : 'never');
     this.validation = { target, issues: validationIssues(error) };
   }
 }
@@ -289,7 +289,7 @@ export class CapabilityBroker {
     return {
       name: d.name,
       displayName: d.displayName || d.name,
-      description: d.description || '按声明的参数和权限访问此能力；结果中的来源、时效与覆盖决定其用途。',
+      description: d.description || `查看“${d.displayName || d.name}”的完整用法，再按眼前需要填写参数。`,
       version: d.version,
       capabilityContract: { ...entry.contract },
       effect: d.effect,
@@ -303,10 +303,10 @@ export class CapabilityBroker {
     };
   }
   assertContract(name: string, expected: CapabilityContractRef | undefined) {
-    if (!expected) throw new HarnessError('capability_contract_missing', '旧动作没有绑定能力契约；请保留已有回执，并按当前能力重新准备未执行的动作。');
+    if (!expected) throw new HarnessError('capability_contract_missing', '这份旧动作还缺当时的办理方式。先保留已有结果，没办的部分可以按当前用法重新准备。');
     const entry = this.capabilities.get(name);
     if (!entry || canonical(entry.contract) !== canonical(expected))
-      throw new HarnessError('capability_contract_changed', '动作的能力提供方或契约已改变；不能把原批准或核查标识交给当前能力。');
+      throw new HarnessError('capability_contract_changed', '这件事的办理方式已经换了。先沿原动作核对已有结果，剩下的再按当前用法准备。');
     return this.describe(name)!;
   }
   validateArguments(name: string, args: unknown) {
@@ -333,7 +333,8 @@ export class CapabilityBroker {
   }
   catalog(handle: ScopeHandle, query = '', offset = 0, limit = 12) {
     const eligible = new Set(this.discover(handle).map(item => item.name));
-    const normalized = query.normalize('NFKC').toLowerCase();
+    query = query.normalize('NFKC').trim();
+    const normalized = query.toLowerCase();
     // CJK substrings help retrieve Chinese names. Splitting Latin words into
     // bigrams made "email" match "map" via "ma", producing unrelated pages.
     const cjk = [...normalized.matchAll(/[\p{Script=Han}]+/gu)].flatMap(match => {
@@ -343,21 +344,37 @@ export class CapabilityBroker {
     const terms = [...new Set([...normalized.split(/\s+/).filter(Boolean), ...(normalized.match(/[a-z0-9_.:-]+/g) || []), ...cjk])];
     const rows = [...this.capabilities.keys()].map(name => this.describe(name)!).map(row => {
       const text = `${row.name} ${row.displayName} ${row.description}`.normalize('NFKC').toLowerCase();
-      return { row, score: terms.reduce((score, term) => score + (text.includes(term) ? term.length : 0), 0) };
-    }).filter(result => !query || result.score > 0).sort((a, b) => b.score - a.score).map(result => result.row);
+      return { row, score: normalized === row.name.toLowerCase() ? Number.MAX_SAFE_INTEGER
+        : terms.reduce((score, term) => score + (text.includes(term) ? term.length : 0), 0) };
+    }).filter(result => !normalized || result.score > 0)
+      .sort((a, b) => b.score - a.score || a.row.name.localeCompare(b.row.name, 'en')).map(result => result.row);
     const items = rows.slice(offset, offset + limit).map(row => ({ ...row,
       scopeEligible: eligible.has(row.name),
+      describe: { tool: 'look_up', arguments: { source: 'capability', capability: row.name, describeOnly: true } },
     }));
-    return { items, nextOffset: offset + limit < rows.length ? offset + limit : null, total: rows.length, catalogOnly: true,
-      coverage: { query, matchingOnly: !!query, returned: items.length, totalMatches: rows.length, meaning: '这是已登记能力的说明目录，筛选未命中不表示没有能力。scopeEligible只表示当前来源、身份、世界、设备和权限范围相符；connection说明提供方是否接通。读取可沿look_up提出，仍核具体用途；写入须沿对应动作流程核具体托付、参数版本与执行许可，不能通过look_up直接执行。目录、范围相符和接通都不表示动作获准或已经发生。' },
+    const nextOffset = offset + items.length < rows.length ? offset + items.length : null;
+    return { items, nextOffset, total: rows.length, catalogOnly: true,
+      ...(nextOffset !== null ? { continuation: { tool: 'look_up', arguments: {
+        source: 'capability', ...(query ? { query } : {}), offset: nextOffset, limit,
+      } } } : {}),
+      ...(normalized ? { browse: { tool: 'look_up', arguments: { source: 'capability', offset: 0, limit } } } : {}),
+      coverage: { query, matchingOnly: !!normalized, offset, returned: items.length, totalMatches: rows.length,
+        meaning: rows.length
+          ? `找到${rows.length}种相关做法，本页列出${items.length}种；每项都留着展开用法的入口。${nextOffset !== null ? '还有下一页。' : '这份目录已翻到末页。'}每项旁边保留这次是否可用、来源是否连接的实际情况。`
+          : '这次没找到相近做法，可以换个用途再找，或从完整目录里看看。' },
     };
   }
   detail(handle: ScopeHandle, name: string) {
     this.policy.validate(handle);
     const entry = this.capabilities.get(name);
-    if (!entry) return { status: 'not_found' };
+    if (!entry) return { status: 'not_found', reason: '当前目录里没有这个名称，可以换个用途再找。',
+      discover: { tool: 'look_up', arguments: { source: 'capability' } } };
     const { $schema: _, ...inputSchema } = z.toJSONSchema(entry.definition.input);
-    return { ...this.describe(name), inputSchema, status: 'described', effectMeaning: entry.definition.effect, timeoutMs: entry.definition.timeoutMs, outputBytesLimit: entry.definition.maxBytes };
+    return { ...this.describe(name), inputSchema, status: 'described', effectMeaning: entry.definition.effect,
+      meaning: entry.definition.effect === 'read'
+        ? '这里是这份资料的读法，具体内容还没打开。照下面的用法填写后，沿look_up读取即可。'
+        : '这里是这件事的办理方式。具体修改沿原行动入口继续，已有结果也沿同一动作核对。',
+      timeoutMs: entry.definition.timeoutMs, outputBytesLimit: entry.definition.maxBytes };
   }
   private context(
     handle: ScopeHandle,
@@ -576,7 +593,7 @@ export class CapabilityBroker {
               return {
                 status: 'unsupported',
                 sourceId: m.sourceId,
-                reason: '提供方不支持核查，请人工核实。',
+                reason: '这个来源还没有可回查结果的入口，需要到原服务看看刚才办成了没有。',
                 simulated: m.simulated,
               };
             raw = await bounded(() => provider.inspect!(name, options.inspectKey!, invocation));
@@ -585,7 +602,7 @@ export class CapabilityBroker {
               return {
                 status: 'unsupported',
                 sourceId: m.sourceId,
-                reason: '提供方不支持撤销。',
+                reason: '这个来源还没有直接撤回的入口，可以到原服务查看有哪些取消办法。',
                 simulated: m.simulated,
               };
             raw = await bounded(() => provider.cancel!(name, options.cancelKey!, invocation));
@@ -617,7 +634,7 @@ export class CapabilityBroker {
           )
             result.status = 'stale';
           if (result.status === 'known_absent' && result.coverage?.complete !== true)
-            throw new HarnessError('incomplete_absence', '不完整结果不能证明没有约束。');
+            throw new HarnessError('incomplete_absence', '这份资料还没看全，空白部分仍可能有安排或条件；可以沿原查询继续读取。');
           if (d.effect === 'read' && this.policy.repo.domainRevision !== domainRevision)
             throw new HarnessError('source_changed', '资料版本已改变，请按最新状态重新查询。');
           if (d.effect === 'read' && s.retention !== 'session_only' && result.status === 'fresh' && result.expiresAt && this.inFlight.get(flightKey) === flight) {
@@ -677,7 +694,7 @@ export class CapabilityBroker {
       const result: CapabilityResult = {
         status,
         sourceId: m.sourceId,
-        reason: error instanceof HarnessError ? error.message : '来源返回无效或未完成的数据。',
+        reason: error instanceof HarnessError ? error.message : '这次来源还没给出可用结果，已经读到的其他资料仍可接着处理。',
         ...(error instanceof CapabilityValidationError ? { validation: error.validation } : {}),
         simulated: m.simulated,
       };

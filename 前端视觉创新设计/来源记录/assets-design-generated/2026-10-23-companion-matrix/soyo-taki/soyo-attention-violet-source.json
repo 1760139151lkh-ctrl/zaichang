@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "attention",
+  "palette": "violet",
+  "light": "dusk",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-b3934af8-6a97-4a8a-9893-0d47ca069316",
+  "prompt": "soyo-attention-violet-prompt.txt",
+  "promptSha256": "49a3279db76bdaafd99760c95059c44f8a5ebf877064af2a694c5d6e4166313b",
+  "inputs": [
+    {
+      "file": "soyo-attention-apricot-mother-candidate-v1.png",
+      "sha256": "c854bfeb6cc56482357a1fbf64ba020b6e42a52cdbe6240157ac89466852784e",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-b3934af8-6a97-4a8a-9893-0d47ca069316.png",
+  "output": {
+    "file": "soyo-attention-violet-mother-candidate-v1.png",
+    "sha256": "39af99b9595b97ba95eb0e5bc03a7bb9ba664d59146bf39ae47219857cba4235",
+    "bytes": 2162166,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed against its actual image inputs; source method is recorded exactly.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Original supported bench posture, eyes/head toward the stationary desk card, rear supporting palm and both floor shoes preserved. Sun/lake axes near1007/1003 and full dusk light coherent. Primary/layer/runtime review remains separate."
+}

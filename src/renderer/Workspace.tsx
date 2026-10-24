@@ -31,11 +31,12 @@ import './today.css';
 import { CalendarHandoff } from './CalendarHandoff';
 import { CampusDayControls, CampusScheduleRow, useCampusDaySchedule } from './CampusDaySchedule';
 import { AgendaDayTimeline, agendaDayWindow, agendaTimedRange, campusTimedRange } from './AgendaDayTimeline';
+import { workspaceReturnAddressSchema, type AgendaReturnAddress } from './workspace-return';
 
 export type WorkspaceView = 'chat' | 'agenda' | 'notes' | 'materials' | 'memory' | 'settings' | 'companion';
 type AgendaScope = 'day' | 'all' | 'undated' | 'completed';
 export interface AgendaViewPosition { selectedDate: string; scope: AgendaScope; dayLayout: 'timeline' | 'list'; query: string }
-type AgendaEdit = { original: Action; initialStartsAt?: string; occurrenceDate?: string; occurrenceId?: string };
+type AgendaEdit = { original: Action; initialStartsAt?: string; trialDurationMinutes?: number | null; occurrenceDate?: string; occurrenceId?: string; restoreRequestId?: number };
 type AgendaMoveUndo = { previous: Action; saved: Action; occurrenceDate?: string; previousAt?: string; savedAt?: string; error?: string };
 
 // Civil dates stay independent of the operating system's time zone. All-day
@@ -84,6 +85,8 @@ export function AgendaView({
   position,
   focus,
   onPositionChange,
+  onReturnAddressChange,
+  resume,
   matterInteractions,
   onMatterInteraction,
 }: {
@@ -102,6 +105,8 @@ export function AgendaView({
   position?: AgendaViewPosition;
   focus?: AgendaFocus;
   onPositionChange?: (position: AgendaViewPosition) => void;
+  onReturnAddressChange?: (address: AgendaReturnAddress | undefined) => void;
+  resume?: { address: AgendaReturnAddress; requestId: number };
   matterInteractions: Record<string, MatterInteraction>;
   onMatterInteraction: (id: string, value: MatterInteractionUpdate) => void;
 }) {
@@ -115,7 +120,7 @@ export function AgendaView({
     const owner = focus && state.agenda.find(item => item.id === focus.record.id && (item.revision || 1) === focus.record.revision);
     return owner && focus ? { original: { ...owner }, occurrenceDate: focus.record.occurrenceDate,
       occurrenceId: focus.record.occurrenceDate ? `${owner.id}::${focus.record.occurrenceDate}` : owner.id,
-      initialStartsAt: focus.trial?.proposedStart } : undefined;
+      initialStartsAt: focus.trial?.proposedStart, trialDurationMinutes: focus.trial?.durationMinutes } : undefined;
   });
   const [dayLayout, setDayLayout] = useState<'timeline' | 'list'>(position?.dayLayout || 'timeline');
   const [dayRead, setDayRead] = useState<{ key: string; result: AgendaDayResult }>();
@@ -128,6 +133,14 @@ export function AgendaView({
   const [moveUndo, setMoveUndo] = useState<AgendaMoveUndo>();
   const [undoing, setUndoing] = useState(false);
   const [undoAnnouncement, setUndoAnnouncement] = useState('');
+  const [returnError, setReturnError] = useState('');
+  const [returnCurrentId, setReturnCurrentId] = useState<string>();
+  const lastResume = useRef<number | undefined>(undefined);
+  const pendingResume = useRef<number | undefined>(undefined);
+  const resumeIntent = useRef(0);
+  const restoreFocus = useRef<{ id: string; revision: number; occurrenceId: string; date: string } | undefined>(undefined);
+  const returnCallback = useRef(onReturnAddressChange);
+  returnCallback.current = onReturnAddressChange;
   const [attention, setAttention] = useState(0);
   const host = useRef<HTMLDivElement>(null);
   const scrollPosition = useRef(0);
@@ -135,10 +148,95 @@ export function AgendaView({
   const lastFocus = useRef<HTMLElement | null>(null);
   const viewingBoundary = JSON.stringify([state.privacyEpoch, state.policyRevision, state.sourceBoundary, state.presentation?.mode || 'private']);
   const previousBoundary = useRef(viewingBoundary);
+  const returnContext = useRef({ state, active, zone, boundary: viewingBoundary });
+  returnContext.current = { state, active, zone, boundary: viewingBoundary };
+  useEffect(() => {
+    if (!editing && (pendingResume.current === resume?.requestId && pendingResume.current !== undefined
+      || active && resume && lastResume.current !== resume.requestId)) return;
+    const address = editing && previousBoundary.current === viewingBoundary && state.presentation?.mode !== 'public' ? {
+      record: { id: editing.original.id, revision: editing.original.revision || 1,
+        ...(editing.occurrenceDate ? { occurrenceDate: editing.occurrenceDate } : {}) },
+      timeZone: editing.original.timeZone || zone,
+      ...(editing.initialStartsAt ? { trial: { proposedStart: editing.initialStartsAt,
+        ...(editing.trialDurationMinutes !== undefined ? { durationMinutes: editing.trialDurationMinutes } : {}) } } : {}),
+    } : undefined;
+    const parsed = address && workspaceReturnAddressSchema.safeParse({ view: 'agenda', agenda: address });
+    returnCallback.current?.(parsed && parsed.success ? parsed.data.agenda : undefined);
+  }, [editing?.original.id, editing?.original.revision, editing?.occurrenceDate, editing?.initialStartsAt,
+    editing?.trialDurationMinutes, zone, state.presentation?.mode, viewingBoundary, active, resume?.requestId, returnError]);
+  useEffect(() => {
+    if (!active || !resume || lastResume.current === resume.requestId) return;
+    lastResume.current = resume.requestId;
+    pendingResume.current = resume.requestId;
+    const intent = ++resumeIntent.current;
+    let live = true;
+    const parsed = workspaceReturnAddressSchema.safeParse({ view: 'agenda', agenda: resume.address });
+    const address = parsed.success ? parsed.data.agenda : undefined;
+    const currentOwner = address && state.agenda.find(item => item.id === address.record.id);
+    const owner = currentOwner && (currentOwner.revision || 1) === address?.record.revision ? currentOwner : undefined;
+    if (!address || !owner || state.presentation?.mode === 'public' || address.record.occurrenceDate && !owner.recurrence
+      || address.trial && (owner.done || owner.allDayDate)
+      || address.timeZone !== (owner.timeZone || zone)) {
+      setReturnError(state.presentation?.mode === 'public' ? '回到自己的对话后，再打开这份安排。'
+        : !address ? '这张书签现在打不开，可以从当天安排重新接上。'
+          : !currentOwner ? '现在没找到书签里的这件事，可以看看当天安排。'
+            : !owner ? '这件事后来改过，先看看现在这一版。'
+              : address.timeZone !== (owner.timeZone || zone) ? '先按现在的时区，重新看看这件事。'
+                : '这一次现在不能按原来的时段试放，可以看看目前的安排。');
+      setReturnCurrentId(state.presentation?.mode !== 'public' ? currentOwner?.id : undefined);
+      pendingResume.current = undefined;
+      if (!editing) returnCallback.current?.(undefined);
+      return;
+    }
+    const intended = () => {
+      const context = returnContext.current;
+      return live && context.active && context.boundary === viewingBoundary && context.zone === zone
+        && lastResume.current === resume.requestId && resumeIntent.current === intent;
+    };
+    const current = () => intended() && returnContext.current.state.agenda.some(item => item.id === owner.id
+      && (item.revision || 1) === address.record.revision);
+    void (async () => {
+      let start = owner.startsAt, occurrenceId = owner.id;
+      if (address.record.occurrenceDate) {
+        const exception = owner.exceptions?.find(value => value.onDate === address.record.occurrenceDate);
+        const date = exception?.startsAt ? toTimeInput(exception.startsAt, address.timeZone).slice(0, 10) : address.record.occurrenceDate;
+        if (typeof state.privacyEpoch !== 'number' || typeof state.policyRevision !== 'number' || typeof state.sourceBoundary !== 'number')
+          throw new Error('重新打开这件事后，就可以接着看了。');
+        const day = await window.zaichang.agendaDay({ date, timeZone: address.timeZone, privacyEpoch: state.privacyEpoch,
+          policyRevision: state.policyRevision, sourceBoundary: state.sourceBoundary });
+        if (!current()) { if (intended()) throw new Error('这件事后来改过，先看看现在这一版。'); return; }
+        const occurrence = day.items.find(item => item.record.id === owner.id && item.record.revision === address.record.revision
+          && item.record.occurrenceDate === address.record.occurrenceDate);
+        if (!occurrence) throw new Error('这一次的安排后来有了变化，先看看现在这一版。');
+        start = occurrence.start; occurrenceId = occurrence.occurrenceId;
+      }
+      if (!current()) { if (intended()) throw new Error('这件事后来改过，先看看现在这一版。'); return; }
+      // Owner instants are shown in the current view's zone; all-day dates
+      // remain civil dates. A recurrence's original date is not an instant.
+      const date = owner.allDayDate && !address.trial ? address.record.occurrenceDate || owner.allDayDate
+        : toTimeInput(address.trial?.proposedStart || start, zone).slice(0, 10);
+      if (!date) throw new Error('这件事还没定日期，可以从全部安排里继续。');
+      pendingResume.current = undefined;
+      setReturnError(''); setReturnCurrentId(undefined); setSection('agenda'); setScope('day'); setQuery(''); setDayLayout('timeline'); setSelectedDate(date);
+      restoreFocus.current = { id: owner.id, revision: owner.revision || 1, date, occurrenceId };
+      setEditing(value => value?.original.id === owner.id && (value.original.revision || 1) === address.record.revision
+        && value.occurrenceDate === address.record.occurrenceDate && value.initialStartsAt === address.trial?.proposedStart
+        && value.trialDurationMinutes === address.trial?.durationMinutes ? value : {
+          original: { ...owner }, occurrenceDate: address.record.occurrenceDate, occurrenceId,
+          initialStartsAt: address.trial?.proposedStart, trialDurationMinutes: address.trial?.durationMinutes, restoreRequestId: resume.requestId,
+        });
+    })().catch(error => {
+      if (!intended()) return;
+      pendingResume.current = undefined;
+      setReturnError(uiError(error)); setReturnCurrentId(returnContext.current.state.agenda.some(item => item.id === owner.id) ? owner.id : undefined);
+      if (!editing) returnCallback.current?.(undefined);
+    }).finally(() => { if (pendingResume.current === resume.requestId) pendingResume.current = undefined; });
+    return () => { live = false; if (pendingResume.current === resume.requestId) pendingResume.current = undefined; };
+  }, [active, resume?.requestId, viewingBoundary, zone]);
   useEffect(() => {
     if (previousBoundary.current !== viewingBoundary) {
       previousBoundary.current = viewingBoundary;
-      setEditing(undefined); setMoveUndo(undefined);
+      setEditing(undefined); setMoveUndo(undefined); setReturnError(''); setReturnCurrentId(undefined); restoreFocus.current = undefined;
     }
   }, [viewingBoundary]);
   useEffect(() => {
@@ -181,6 +279,23 @@ export function AgendaView({
     && dayRead.result.sourceBoundary === state.sourceBoundary ? dayRead.result : undefined;
   const nativeDay = currentDay || retainedDay;
   const dayLoading = nativeDayVisible && !!nativeBoundary && !currentDay && !dayError;
+  useEffect(() => {
+    const pending = restoreFocus.current;
+    if (!pending || !active || dayLoading || !host.current) return;
+    if (selectedDate !== pending.date || editing?.original.id !== pending.id || (editing.original.revision || 1) !== pending.revision) return;
+    restoreFocus.current = undefined;
+    const intent = resumeIntent.current;
+    const frame = requestAnimationFrame(() => {
+      if (!host.current || host.current.hidden || resumeIntent.current !== intent) return;
+      const source = [...host.current.querySelectorAll<HTMLButtonElement>('[data-occurrence-id]')]
+        .find(node => node.dataset.occurrenceId === pending.occurrenceId);
+      source?.scrollIntoView({ block: matchMedia('(max-width: 820px)').matches ? 'start' : 'center' });
+      const field = host.current.querySelector<HTMLInputElement>('.agenda-editor input[aria-label="安排开始时间"]')
+        || host.current.querySelector<HTMLInputElement>('.agenda-editor input:not(:disabled)');
+      field?.focus({ preventScroll: true });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [active, dayLoading, selectedDate, editing?.original.id, editing?.original.revision, editing?.restoreRequestId, resume?.requestId]);
   const earlierUnknown = nativeDay?.issues.filter(issue => issue.status === 'unknown_end' && issue.startsAt
     && !nativeDay.items.some(value => value.record.id === issue.id && value.start === issue.startsAt)) || [];
   const campusDayVisible =
@@ -272,8 +387,13 @@ export function AgendaView({
   });
   const timedActions = filtered.filter((item) => !!agendaTimedRange(item));
   const timedCampus = (campus.result?.items || []).filter((item) => !!campusTimedRange(item));
+  const trialStart = editing?.initialStartsAt ? Date.parse(editing.initialStartsAt) : NaN;
+  const trialMinutes = editing?.trialDurationMinutes === null ? null : editing?.trialDurationMinutes ?? editing?.original.durationMinutes;
+  const trialEnd = Number.isFinite(trialStart) && trialMinutes ? trialStart + trialMinutes * 60000 : trialStart;
+  const hasTrialOnDay = !!dayWindow && Number.isFinite(trialStart) && trialStart < dayWindow.end
+    && (trialMinutes ? trialEnd > dayWindow.start : trialStart >= dayWindow.start);
   const hasTimeline = !!(nativeDay?.window || dayWindow) && !!((nativeDay
-    ? nativeDay.items.some(value => !value.item.allDayDate && !!value.end) : timedActions.length) || timedCampus.length);
+    ? nativeDay.items.some(value => !value.item.allDayDate && !!value.end) : timedActions.length) || timedCampus.length || hasTrialOnDay);
   const showTimeline = scope === 'day' && !search && dayLayout === 'timeline' && hasTimeline;
   const untimedEntries = dayEntries.filter((entry) =>
     entry.kind === 'action' ? entry.occurrence ? !!entry.item.allDayDate || !entry.occurrence.end : !agendaTimedRange(entry.item)
@@ -288,6 +408,34 @@ export function AgendaView({
   if (nativeDay?.items.length) datedDays.add(selectedDate);
   const selectedLabel = dateLabel(selectedDate);
   const heading = section === 'entrusted' ? '你交给我的事' : selectedDate === today ? '今天' : '这一天';
+
+  function closeEditor() {
+    const occurrenceId = editing?.occurrenceId || editing?.original.id;
+    setEditing(undefined);
+    restoreFocus.current = undefined;
+    const intent = resumeIntent.current;
+    requestAnimationFrame(() => {
+      if (!active || !host.current || host.current.hidden || resumeIntent.current !== intent) return;
+      const source = [...host.current.querySelectorAll<HTMLButtonElement>('[data-occurrence-id]')]
+        .find(node => node.dataset.occurrenceId === occurrenceId);
+      (source && !source.disabled ? source : host.current.querySelector<HTMLElement>('.page-heading h1'))?.focus({ preventScroll: true });
+    });
+  }
+  function focusEditor(time = false) {
+    const intent = resumeIntent.current;
+    requestAnimationFrame(() => {
+      if (!active || !host.current || host.current.hidden || resumeIntent.current !== intent) return;
+      const first = host.current.querySelector<HTMLInputElement>(time ? '.agenda-editor input[aria-label="安排开始时间"]'
+        : '.agenda-editor input[aria-label="安排标题"]');
+      const field = first && !first.disabled ? first : host.current.querySelector<HTMLInputElement>('.agenda-editor input[aria-label="安排开始时间"]')
+        || host.current.querySelector<HTMLInputElement>('.agenda-editor input:not(:disabled)');
+      field?.focus({ preventScroll: true });
+    });
+  }
+  function takeOverReturn() {
+    resumeIntent.current++; pendingResume.current = undefined; restoreFocus.current = undefined;
+    if (!editing) returnCallback.current?.(undefined);
+  }
 
   async function undoMove() {
     if (!moveUndo || undoing) return;
@@ -371,13 +519,15 @@ export function AgendaView({
           <button
             type="button"
             className="today-item-content"
+            data-occurrence-id={occurrence?.occurrenceId || owner.id}
             disabled={dayLoading}
             aria-label={`修改：${item.title}`}
-            onClick={() => setEditing({ original: { ...owner }, occurrenceDate: occurrence?.record.occurrenceDate, occurrenceId: occurrence?.occurrenceId })}
+            onClick={() => { restoreFocus.current = undefined;
+              setEditing({ original: { ...owner }, occurrenceDate: occurrence?.record.occurrenceDate, occurrenceId: occurrence?.occurrenceId }); focusEditor(); }}
           >
             <strong>{item.title}</strong>
             {item.detail && <span className="today-item-detail">{item.detail}</span>}
-            {(series || sourceClock || item.demo || item.coverage === 'conditional' || item.done) && (
+            {(series || sourceClock || item.demo || item.coverage === 'conditional' && !!item.missingNeeds?.length || item.done) && (
               <span className="today-item-context">
                 {series && (
                   <span>
@@ -389,7 +539,7 @@ export function AgendaView({
                 {sourceClock && <span>{sourceClock}</span>}
                 {item.done && <span>做过的事</span>}
                 {item.demo && <span>体验时留下的安排</span>}
-                {item.coverage === 'conditional' && <span>出发前，还有条件需要看看</span>}
+                {item.coverage === 'conditional' && !!item.missingNeeds?.length && <span>出发前，还有条件需要看看</span>}
               </span>
             )}
           </button>
@@ -409,22 +559,37 @@ export function AgendaView({
   const inlineEditing = !!editing && section === 'agenda' && scope === 'day' && !search;
   function renderEditor(embedded: boolean) {
     if (!editing) return null;
-    return <AgendaEditor key={`${editing.original.id}:${editing.occurrenceDate || 'series'}`} embedded={embedded}
+    return <AgendaEditor key={`${editing.original.id}:${editing.original.revision || 1}:${editing.occurrenceDate || 'series'}`} embedded={embedded}
       original={editing.original} current={state.agenda.find(item => item.id === editing.original.id)}
       timeZone={zone} initialStartsAt={editing.initialStartsAt} initialOccurrenceDate={editing.occurrenceDate}
+      initialDurationMinutes={editing.trialDurationMinutes} restoreRequestId={editing.restoreRequestId}
       boundary={nativeBoundary} includeCampus={campus.enabled} onDiscuss={onDiscuss} onMap={onMap}
-      onTrialChange={startsAt => setEditing(value => value && value.initialStartsAt !== startsAt ? { ...value, initialStartsAt: startsAt } : value)}
-      onState={onState} onSaved={(saved, previous) => {
-        if (editing.initialStartsAt) {
-          setMoveUndo({ previous: { ...previous }, saved: { ...saved }, occurrenceDate: editing.occurrenceDate,
-            previousAt: editingOccurrence?.start || previous.startsAt, savedAt: editing.initialStartsAt });
+      calendarVersionKey={dayKey}
+      onReload={item => { restoreFocus.current = undefined; setEditing(value => value ? { original: { ...item },
+        ...(item.recurrence && value.occurrenceDate ? { occurrenceDate: value.occurrenceDate,
+          occurrenceId: `${item.id}::${value.occurrenceDate}` } : { occurrenceId: item.id }) } : value); focusEditor(); }}
+      onTrialChange={(startsAt, durationMinutes) => setEditing(value => value
+        && (value.initialStartsAt !== startsAt || value.trialDurationMinutes !== durationMinutes)
+        ? { ...value, initialStartsAt: startsAt, trialDurationMinutes: durationMinutes } : value)}
+      onState={onState} onSaved={(saved, previous, timing) => {
+        if (timing?.kind === 'time_change' || !timing && editing.initialStartsAt) {
+          setMoveUndo({ previous: { ...previous }, saved: { ...saved }, occurrenceDate: timing ? timing.occurrenceDate : editing.occurrenceDate,
+            previousAt: timing?.before || editingOccurrence?.start || previous.startsAt, savedAt: timing?.after || editing.initialStartsAt });
           setUndoAnnouncement('');
         }
-      }} onClose={() => setEditing(undefined)} />;
+      }} onClose={closeEditor} />;
   }
 
   return (
     <div className="today-workspace" ref={host} hidden={!active} inert={!active}
+      onPointerDownCapture={takeOverReturn}
+      onKeyDownCapture={takeOverReturn}
+      onKeyDown={event => {
+        if (!event.defaultPrevented && event.key === 'Escape' && editing
+          && !(event.target instanceof HTMLElement && event.target.closest('.agenda-editor'))) {
+          event.preventDefault(); event.stopPropagation(); closeEditor();
+        }
+      }}
       onFocusCapture={event => { if (active) lastFocus.current = event.target as HTMLElement; }}
       onScrollCapture={event => {
         if (active && !restorePosition.current && event.target instanceof HTMLElement
@@ -657,13 +822,23 @@ export function AgendaView({
         <div className="sr-only" role="status" aria-live="polite">
           {undoAnnouncement}
         </div>
+        {returnError && <div className="today-calendar-problem" role="status"><span>{returnError}</span>
+          {returnCurrentId && <button type="button" className="text-button" onClick={() => {
+            const owner = state.agenda.find(item => item.id === returnCurrentId);
+            if (!owner) return;
+            const date = actionDate(owner, owner.timeZone || zone);
+            if (date) { setSelectedDate(date); setScope('day'); } else setScope('undated');
+            setQuery(''); setSection('agenda'); setEditing({ original: { ...owner }, occurrenceId: owner.id });
+            setReturnError(''); setReturnCurrentId(undefined);
+          }}>看看现在</button>}
+          <button type="button" className="text-button" onClick={() => { setReturnError(''); setReturnCurrentId(undefined); }}>收起</button></div>}
         {dayError && <div className="today-calendar-problem" role="status"><span>{dayError}</span>
           <button type="button" className="text-button" onClick={() => setDayAttempt(value => value + 1)}>再读一次</button></div>}
         <div className="today-workspace">
         <div className={`today-agenda-list ${scope === 'day' && !search ? 'one-day' : ''}`} aria-busy={dayLoading}>
           {dayLoading && !dayEntries.length && <p className="today-day-loading" role="status">正在翻开这一天的安排…</p>}
           {scope === 'day' && !search
-            ? !!dayEntries.length && (
+            ? (!!dayEntries.length || hasTrialOnDay) && (
                 <section className="today-day-group">
                   {showTimeline && (
                     <AgendaDayTimeline
@@ -677,21 +852,25 @@ export function AgendaView({
                       disabled={dayLoading}
                       sourceBoundaryKey={viewingBoundary}
                       selectedOccurrenceId={editing?.occurrenceId || editing?.original.id}
+                      onViewDate={date => { setSelectedDate(date); setScope('day'); setQuery(''); }}
                       draft={
                         editing?.initialStartsAt
-                          ? { original: editingOccurrence?.item || editing.original, initialStartsAt: editing.initialStartsAt,
+                          ? { original: editingOccurrence?.item || editing.original, initialStartsAt: editing.initialStartsAt, durationMinutes: editing.trialDurationMinutes,
                             occurrenceId: editing.occurrenceId, reference: { id: editing.original.id, revision: editing.original.revision || 1,
                               ...(editing.occurrenceDate ? { occurrenceDate: editing.occurrenceDate } : {}) } }
                           : undefined
                       }
-                      onEdit={(item, reference) => setEditing({ original: { ...(state.agenda.find(value => value.id === reference.id) || item) },
-                        occurrenceDate: reference.occurrenceDate, occurrenceId: reference.occurrenceDate ? `${reference.id}::${reference.occurrenceDate}` : reference.id })}
+                      onEdit={(item, reference) => { restoreFocus.current = undefined;
+                        setEditing({ original: { ...(state.agenda.find(value => value.id === reference.id) || item) },
+                          occurrenceDate: reference.occurrenceDate, occurrenceId: reference.occurrenceDate ? `${reference.id}::${reference.occurrenceDate}` : reference.id }); focusEditor(); }}
                       onPropose={(_item, initialStartsAt, reference, occurrenceId) => {
                         const owner = state.agenda.find(value => value.id === reference.id
                           && (value.revision || 1) === reference.revision);
                         if (dayLoading || !owner) return;
+                        restoreFocus.current = undefined;
                         setEditing({ original: { ...owner }, initialStartsAt,
                           occurrenceDate: reference.occurrenceDate, occurrenceId });
+                        focusEditor(true);
                       }}
                     />
                   )}
@@ -719,7 +898,7 @@ export function AgendaView({
                     {items.map((item) => row(item, !!item.recurrence))}
                   </section>
                 ))}
-          {!dayLoading && !earlierUnknown.length && !(scope === 'day' && !search ? dayEntries.length : filtered.length) && !campus.result?.items.length && (
+          {!dayLoading && !hasTrialOnDay && !earlierUnknown.length && !(scope === 'day' && !search ? dayEntries.length : filtered.length) && !campus.result?.items.length && (
             <div className="today-empty">
               <span className="today-empty-line" aria-hidden="true" />
               <h2>
@@ -829,7 +1008,7 @@ export function AgendaView({
         </div>
       )}
       </div>
-      {active && inlineEditing && <aside className="today-current-object">{renderEditor(true)}</aside>}
+      {inlineEditing && <aside className="today-current-object">{renderEditor(true)}</aside>}
       </div>
       {active && editing && !inlineEditing && renderEditor(false)}
     </PagePanel>

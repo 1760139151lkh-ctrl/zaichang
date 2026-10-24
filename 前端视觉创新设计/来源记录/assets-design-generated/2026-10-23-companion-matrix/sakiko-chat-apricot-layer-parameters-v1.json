@@ -1,0 +1,45 @@
+{
+  "mother": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+  "motherSha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+  "matte": "sakiko-chat-apricot-mask.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [
+    [
+      [
+        1205,
+        537
+      ],
+      [
+        1273,
+        542
+      ],
+      [
+        1304,
+        526
+      ],
+      [
+        1304,
+        535
+      ],
+      [
+        1273,
+        550
+      ],
+      [
+        1205,
+        545
+      ]
+    ]
+  ],
+  "excludePolygons": [],
+  "figure": "../../../运行素材/companion/scenes/sakiko-chat-apricot-figure-calibrated-v3.png",
+  "mask": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mask-calibrated-v3.png",
+  "backgroundCandidate": "sakiko-chat-apricot-background.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "background": "sakiko-chat-apricot-background-calibrated-v1.png",
+  "record": "sakiko-chat-apricot-layer-processing-v1.json",
+  "reviewNote": "Book's front/page edge was incorrectly black in generated opaque matte; included only actual held-book interior from original mother coordinates. No face/body/wardrobe pixels repainted. Background patch is a candidate, not primary-approved."
+}

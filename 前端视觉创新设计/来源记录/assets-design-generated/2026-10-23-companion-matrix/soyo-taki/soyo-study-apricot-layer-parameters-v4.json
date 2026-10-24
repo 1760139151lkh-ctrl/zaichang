@@ -1,0 +1,79 @@
+{
+  "mother": "soyo-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "cf664fa1fc6dcdd8fd9c8dc1cd542d4142bbe05d5d9809a101e6d58907858411",
+  "matte": "soyo-study-apricot-mask-calibrated-v3.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "backgroundCandidate": "soyo-study-apricot-background-generated-v1.png",
+  "background": "soyo-study-apricot-background-calibrated-v4.png",
+  "backgroundExpandPixels": 2,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        896,
+        667
+      ],
+      [
+        1034,
+        667
+      ],
+      [
+        1038,
+        713
+      ],
+      [
+        896,
+        713
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        896,
+        665
+      ],
+      [
+        1038,
+        665
+      ],
+      [
+        1038,
+        714
+      ],
+      [
+        896,
+        714
+      ]
+    ],
+    [
+      [
+        852,
+        576
+      ],
+      [
+        975,
+        576
+      ],
+      [
+        975,
+        615
+      ],
+      [
+        852,
+        615
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "soyo-study-apricot-shadow-calibrated-v4.png",
+  "figure": "soyo-study-apricot-figure-calibrated-v4.png",
+  "mask": "soyo-study-apricot-mask-calibrated-v4.png",
+  "record": "soyo-study-apricot-layer-processing-v4.json",
+  "reviewNote": "Fixed study pose, original RGB and visible chair occlusion retained. Difference alpha v1 plus original-coordinate face/cloth corrections v3; no altered-position generated mask used. Primary layer and real Stage review remain pending."
+}

@@ -1,0 +1,220 @@
+{
+  "mother": "uika-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0",
+  "matte": "uika-study-apricot-mask-local-color-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [
+    [
+      [
+        939,
+        697
+      ],
+      [
+        941,
+        690
+      ],
+      [
+        949,
+        695
+      ],
+      [
+        958,
+        694
+      ],
+      [
+        968,
+        690
+      ],
+      [
+        975,
+        695
+      ],
+      [
+        986,
+        701
+      ],
+      [
+        984,
+        708
+      ],
+      [
+        940,
+        707
+      ]
+    ],
+    [
+      [
+        962,
+        682
+      ],
+      [
+        967,
+        675
+      ],
+      [
+        975,
+        678
+      ],
+      [
+        983,
+        683
+      ],
+      [
+        992,
+        686
+      ],
+      [
+        1003,
+        691
+      ],
+      [
+        1000,
+        697
+      ],
+      [
+        971,
+        697
+      ],
+      [
+        961,
+        690
+      ]
+    ]
+  ],
+  "excludePolygons": [
+    [
+      [
+        826,
+        594
+      ],
+      [
+        861,
+        593
+      ],
+      [
+        867,
+        594
+      ],
+      [
+        874,
+        597
+      ],
+      [
+        879,
+        603
+      ],
+      [
+        883,
+        611
+      ],
+      [
+        887,
+        619
+      ],
+      [
+        890,
+        625
+      ],
+      [
+        826,
+        632
+      ]
+    ],
+    [
+      [
+        790,
+        510
+      ],
+      [
+        811,
+        510
+      ],
+      [
+        815,
+        520
+      ],
+      [
+        820,
+        536
+      ],
+      [
+        824,
+        556
+      ],
+      [
+        828,
+        575
+      ],
+      [
+        833,
+        590
+      ],
+      [
+        838,
+        596
+      ],
+      [
+        790,
+        598
+      ]
+    ],
+    [
+      [
+        885,
+        615
+      ],
+      [
+        888,
+        617
+      ],
+      [
+        892,
+        624
+      ],
+      [
+        891,
+        627
+      ],
+      [
+        885,
+        627
+      ]
+    ]
+  ],
+  "figure": "uika-study-apricot-figure-calibrated-v5.png",
+  "mask": "uika-study-apricot-mask-calibrated-v5.png",
+  "backgroundCandidate": "uika-study-apricot-background-raw-v1.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [],
+  "background": "uika-study-apricot-background-calibrated-v5.png",
+  "record": "uika-study-apricot-layer-processing-v5.json",
+  "reviewNote": "v5 uses the separately recorded local hair/sky-color alpha cleanup, plus a restricted warm-chair color exclusion on the previously inspected seat crescent. No largest-component deletion, hidden-body completion, RGB changes or transform. Desk-contact pose stays fixed.",
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          850,
+          590
+        ],
+        [
+          896,
+          590
+        ],
+        [
+          898,
+          632
+        ],
+        [
+          850,
+          632
+        ]
+      ],
+      "redMin": 70,
+      "redOverGreen": 30,
+      "redOverBlue": 65
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "createdAt": "2026-10-23",
+  "tool": "built-in image_gen.imagegen",
+  "useCase": "ui-mockup",
+  "inputImages": [],
+  "prompt": "Use case: ui-mockup. Create a single polished design board containing TWO SEPARATE narrow desktop windows for the existing Chinese companion app 在场, side by side on a pale warm-gray board, each window 460px wide. These are responsive narrow views, not mobile chrome. Both use warm ivory paper, restrained gold and gray, crisp readable Chinese. Top two-row navigation has 在场 plus chat/today/leave, title 今天 and date. Window A is a cross-day scheduling trial: title 整理报告, original time 10月23日 16:00–17:30 shown as a faint dashed paper outline, proposed time 10月24日 16:00–17:30 appears as a gold paper strip; the next day's real vertical timeline below has one fixed pale blue course 14:00–15:30, and original date/time remains visible in the detail comparison. Small date landing strip 前一天 这一天 后一天 with 后一天 highlighted. A compact bottom sheet carries 原来 10月23日16:00 → 试放 10月24日16:00, an editable datetime and 90分钟 complete duration. Primary 采用这个时间, quiet secondary 先放回, smaller 讨论这次试放. Window B shows the SAME object after its saved version was changed elsewhere while the trial remained open: preserve trial content and comparison, no fake success banner. The saved-current row visibly reads 现在的安排 10月24日17:00; one restrained factual sentence 这件事后来有了改动。你的试放还在这里。 Action 看看现在这一版, disabled primary 采用这个时间, and active 取消. The time-axis, tick labels, complete object title and bottom actions must fit without clipping or shrinking below readable size. Mood is thoughtful care through legible relationships, no sentimental slogans, no giant character and no pasted portrait; hint of window light at outer edge only. No engineering fields, audit language, numeric coverage percentages, red alert dashboard, fake calendar success or complex toolbars. This board explains responsive layout and state continuity with real component-ready positions, not an illustration pasted into a UI.",
+  "output": "跨日试放与旧草案窄窗-v3.png",
+  "sha256": "822abf4415600459dba820cdc8c19f7ab7411d87484888503aa1f806ac738e2b",
+  "canvas": { "width": 1536, "height": 1024 },
+  "purpose": "Responsive cross-day trial and stale draft design source; not runtime UI.",
+  "edits": [
+    {
+      "inputSha256": "0c853d17feff45e509f70815c88b49cd301ce743768bcaa3d80ab9404e6dcea8",
+      "prompt": "Edit this UI concept board precisely. Preserve its two-window layout, typography size, paper materials, clean comparison relationships and all useful controls. Fix ONLY these fidelity mistakes: (1) this is the year 2026. October 23 is Friday (周五), October 24 is Saturday (周六), October 25 is Sunday (周日). Correct EVERY date and weekday label consistently in both windows and the date picker: 2026年10月24日. The selected trial target is 10月24日 (周六). (2) Top navigation must say 聊天 / 今天 / 留下, never 离开. (3) Remove the red-yellow-green macOS window dots from both windows; use a quiet neutral title-bar with no dots, since the actual product is Windows. (4) Left fixed course label should be 常微分方程, 14:00–15:30, in both views; keep the genuine pale-blue fixed course hierarchy. (5) Keep original 10月23日 (周五) 16:00–17:30, trial 10月24日 (周六) 16:00–17:30, and in right window current-saved 10月24日 (周六) 17:00–18:30 distinct. At the top the date landing strip must be relative to original October 23: 前一天 10月22日(周四), 这一天10月23日(周五), 后一天10月24日(周六) with 后一天 highlighted. Maintain warm ivory paper, gold accent, readable Chinese, no new visual decoration, no character added. Keep the board as a responsive UI design reference, not a photo.",
+      "outputSha256": "c395f8a18356f0938d8a3df6b4a9a2ba6edc841dab9642673a896500cb2f0733",
+      "outcome": "Date/nav/native chrome corrected, two date landing labels still inaccurate; superseded."
+    },
+    {
+      "inputSha256": "c395f8a18356f0938d8a3df6b4a9a2ba6edc841dab9642673a896500cb2f0733",
+      "prompt": "Precise UI text edit only. In BOTH windows, replace the ENTIRE three date buttons directly below the 今天 heading with identical correct text. First button: 前一天 on line one and 10月22日 on line two. Second button: 这一天 on line one and 10月23日 on line two. Third gold button: 后一天 on line one and 10月24日 on line two. Remove ALL weekday names or parentheses from these six buttons. Exactly these three dates in both windows: 22, 23, 24. Change no other pixels, dates, text, controls, layout, colors, shadows, proportions or paper texture. All the bottom original/trial/current dates, 2026 date field, and existing top heading date remain as they are.",
+      "outputSha256": "822abf4415600459dba820cdc8c19f7ab7411d87484888503aa1f806ac738e2b",
+      "outcome": "Both date landing strips now show exactly October 22/23/24; final selected concept."
+    }
+  ],
+  "review": {
+    "agentViewed": true,
+    "parentViewed": false,
+    "observations": "两次定点文字修正后，日期/星期/留下导航/2026日期框与去除macOS圆点均已亲看。保留原/试放/当前三版及窄窗底部操作关系；实际日期、权限、确认与对象身份沿宿主数据。"
+  },
+  "implementation": [
+    "src/renderer/AgendaDayTimeline.tsx",
+    "src/renderer/LifePanels.tsx:AgendaEditor"
+  ]
+}

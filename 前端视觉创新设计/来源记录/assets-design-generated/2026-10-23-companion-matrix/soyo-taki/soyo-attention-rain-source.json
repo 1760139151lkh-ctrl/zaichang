@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "attention",
+  "palette": "rain",
+  "light": "night",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-d5dc595b-975e-4931-897d-0cfb0919bb27",
+  "prompt": "soyo-attention-rain-prompt.txt",
+  "promptSha256": "314bdb01400bda8baee0346c082eab1e8a4ad8f8125520bf8e0774066b5abaf6",
+  "inputs": [
+    {
+      "file": "soyo-attention-apricot-mother-candidate-v1.png",
+      "sha256": "c854bfeb6cc56482357a1fbf64ba020b6e42a52cdbe6240157ac89466852784e",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-d5dc595b-975e-4931-897d-0cfb0919bb27.png",
+  "output": {
+    "file": "soyo-attention-rain-mother-candidate-v1.png",
+    "sha256": "b41eee4047f167a453c2ebf49a039454354bf86a79e9d1a015facb3be4416055",
+    "bytes": 2031794,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed against its actual image inputs; source method is recorded exactly.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Original supported bench posture, eyes/head toward the stationary desk card, rear supporting palm and both floor shoes preserved. Coherent one-lamp rainy night and quiet left living corner, without extra spotlight. Primary/layer/runtime review remains separate."
+}

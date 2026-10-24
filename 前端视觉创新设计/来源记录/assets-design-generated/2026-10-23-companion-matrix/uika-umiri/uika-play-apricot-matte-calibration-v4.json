@@ -1,0 +1,45 @@
+{
+  "recordType": "original-scene-alpha-calibration",
+  "input": "uika-play-apricot-figure-calibrated-v2.png",
+  "inputSha256": "d936b097a3f06806e615c283b192c8c4cda968845b6f9aadf55f42f81d286280",
+  "mother": "uika-play-apricot-mother-candidate-v1.png",
+  "motherSha256": "5217e87de50ac8ff072d231a2cc07d985303cbc4f034a97355f0d98bb6a53454",
+  "output": "uika-play-apricot-matte-soft-calibrated-v4.png",
+  "outputSha256": "ea1d91718f7ee16350562be9f85fe5879f866f6cc8e96cdf7ed8b06f799984c9",
+  "sourceColorSkyExclusions": {
+    "regions": [
+      [
+        1230,
+        275,
+        1380,
+        420
+      ],
+      [
+        1170,
+        410,
+        1230,
+        470
+      ],
+      [
+        1370,
+        420,
+        1430,
+        515
+      ]
+    ],
+    "condition": "B-R>6 and G-R>-2; alpha zero only"
+  },
+  "crownSourceColorFill": {
+    "region": [
+      1282,
+      278,
+      1308,
+      298
+    ],
+    "confidence": "min(clamp((R-G-2)/8),clamp((R-B+3)/20))*255"
+  },
+  "changedAlphaPixels": 621,
+  "bodyRgb": "unmodified original mother RGB; no geometry or anatomy edits",
+  "primaryReview": "pending",
+  "runtimeAccepted": false
+}

@@ -1,0 +1,146 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "uika-rest-apricot-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "uika-rest-apricot-mother-candidate-v1.png",
+  "motherSha256": "c90f589bdd923d6b5520eaec6368fd6b27ade6627bf0c39288b4b9852aee551c",
+  "matte": "uika-rest-apricot-mask-generated-v2.png",
+  "matteSha256": "34041b655b9ac6fa3110ce2805a692a606a7535e7c20f4255dd9a06f1589a178",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        0,
+        0
+      ],
+      [
+        1145,
+        0
+      ],
+      [
+        1145,
+        1023
+      ],
+      [
+        0,
+        1023
+      ]
+    ],
+    [
+      [
+        1490,
+        0
+      ],
+      [
+        1535,
+        0
+      ],
+      [
+        1535,
+        1023
+      ],
+      [
+        1490,
+        1023
+      ]
+    ],
+    [
+      [
+        1145,
+        0
+      ],
+      [
+        1490,
+        0
+      ],
+      [
+        1490,
+        280
+      ],
+      [
+        1145,
+        280
+      ]
+    ],
+    [
+      [
+        1145,
+        610
+      ],
+      [
+        1490,
+        610
+      ],
+      [
+        1490,
+        1023
+      ],
+      [
+        1145,
+        1023
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 98428,
+  "alphaNonzeroPixels": 38303,
+  "alphaBounds": [
+    1146,
+    293,
+    1472,
+    588
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "f062fd20fc90fc2dae51d74714697d1539db0ab674f5085336ae23a445bc60a4",
+  "figureRgbSha256": "f062fd20fc90fc2dae51d74714697d1539db0ab674f5085336ae23a445bc60a4",
+  "background": {
+    "candidate": "uika-rest-apricot-background-generated-v1.png",
+    "candidateSha256": "dc628abbe86ecf7d5d22efd82c361f0def1d3aeceef379a349345eb0b3844b08",
+    "expandPixels": 6,
+    "featherPixels": 1.2,
+    "additionalErasePolygons": [],
+    "changedPixels": 50470,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": null,
+  "outputs": [
+    {
+      "file": "uika-rest-apricot-figure-calibrated-v1.png",
+      "bytes": 2440783,
+      "sha256": "8e7873f77c566904e3f4dfc4806e76943c40cd0f7df6bbbfc19c9c1831a8664d"
+    },
+    {
+      "file": "uika-rest-apricot-mask-calibrated-v1.png",
+      "bytes": 21831,
+      "sha256": "5c599234d0242232d77b9b9fa5708b615be5ec3a28b427fd78f3cd4587c1a89f"
+    },
+    {
+      "file": "uika-rest-apricot-background-calibrated-v1.png",
+      "bytes": 2120448,
+      "sha256": "7bd67b7d1866c67e3714664b69b73801d7f2820419fed74b8b49727e7bead043"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

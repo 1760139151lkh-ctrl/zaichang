@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "method": "Only generated mask alpha corrected; figure RGB copied byte-for-byte from the primary-approved mother. No anatomy/RGB redraw, scale, translation, crop or furniture transformation.",
+  "noiseRange": [
+    8,
+    247
+  ],
+  "outerNoiseBounds": [
+    1055,
+    255,
+    1465,
+    765
+  ],
+  "mother": "sakiko-rest-apricot-mother.png",
+  "motherSha256": "ffdf5ac11d9d25da5347120dd7b5f19bf68a6211c991c373e1c6d2f623cebfbf",
+  "rawMask": "sakiko-rest-apricot-mask-candidate-v3.png",
+  "rawMaskSha256": "a721b56b42b1cd7d8c467e5be8ddaad75102529069f2b095f445541a0c3d114c",
+  "warmBackgroundExclusions": [
+    {
+      "rect": [
+        1363,
+        310,
+        1401,
+        365
+      ],
+      "greenMinusBlue": 28,
+      "redMinusBlue": 35
+    }
+  ],
+  "figureOutput": "sakiko-rest-apricot-figure-calibrated-v4.png",
+  "maskOutput": "sakiko-rest-apricot-alpha-calibrated-v6.png",
+  "review": "Candidate only; primary layer approval not granted.",
+  "ownership": "Full original support hand and all hair/socks/worn shoes remain in body; the yellow leaf behind the head is room.",
+  "explicitRoomExclusions": [],
+  "removeIslandsSmallerThan": 5,
+  "pillowBoundaryExclusions": [
+    {
+      "rowAndLastBodyX": [
+        [
+          306,
+          1363
+        ],
+        [
+          312,
+          1364
+        ],
+        [
+          318,
+          1364
+        ],
+        [
+          324,
+          1364
+        ],
+        [
+          328,
+          1365
+        ],
+        [
+          332,
+          1368
+        ],
+        [
+          338,
+          1370
+        ],
+        [
+          342,
+          1370
+        ],
+        [
+          345,
+          1367
+        ],
+        [
+          350,
+          1368
+        ],
+        [
+          355,
+          1370
+        ],
+        [
+          360,
+          1373
+        ]
+      ],
+      "edgeWidth": 1.2
+    }
+  ],
+  "backgroundRegistration": {
+    "input": "sakiko-rest-apricot-background.png",
+    "inputSha256": "8e9a1cbf81bd3901ecd0a5400388a1f83f0689ad2926dada97768256cc08dd1e",
+    "dilationPixels": 6,
+    "featherSigma": 1.2,
+    "output": "sakiko-rest-apricot-background-calibrated-v5.png",
+    "method": "Original mother visible room retained outside person and its observed bench-front/floor cast-shadow region. Existing generated clean BG fills only those removal areas with recorded dilation/feather. No newly generated or redrawn body pixels.",
+    "additionalInpaintPolygons": [
+      [
+        [
+          1112,
+          596
+        ],
+        [
+          1225,
+          596
+        ],
+        [
+          1235,
+          741
+        ],
+        [
+          1253,
+          770
+        ],
+        [
+          1192,
+          781
+        ],
+        [
+          1061,
+          756
+        ],
+        [
+          1056,
+          726
+        ],
+        [
+          1114,
+          710
+        ]
+      ]
+    ]
+  },
+  "maskFormat": "L",
+  "processingSourceOutput": "sakiko-rest-apricot-layer-source.json"
+}

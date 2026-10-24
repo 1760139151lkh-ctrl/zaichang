@@ -1,0 +1,163 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "tomori-study-layer-parameters-v5.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "tomori-study-apricot-v3-mother.png",
+  "motherSha256": "33e690f698cc4856872804014c6285620ec176ce5fe2ae6000887e4c74d3954f",
+  "matte": "tomori-study-matte-registered-v5.png",
+  "matteSha256": "419eff1b9dc43bd25db69fc077fe249b3f7a3e8f56c6a02c4804a856835dd9cf",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        1276,
+        352
+      ],
+      [
+        1299,
+        352
+      ],
+      [
+        1299,
+        368
+      ],
+      [
+        1276,
+        368
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 3030,
+  "alphaNonzeroPixels": 43971,
+  "alphaBounds": [
+    1097,
+    344,
+    1376,
+    772
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "f71dbfa7c005a7bab16158e7c1053c962c5fbf35e73d54339b73e8f4d6a747c3",
+  "figureRgbSha256": "f71dbfa7c005a7bab16158e7c1053c962c5fbf35e73d54339b73e8f4d6a747c3",
+  "background": {
+    "candidate": "tomori-study-background-generated-v1.png",
+    "candidateSha256": "d8d2d142a5cf5af5c3ffdf656ec074e5e7e9d5b92c0f3b6284c8a527f61b35fe",
+    "expandPixels": 10,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          1088,
+          721
+        ],
+        [
+          1261,
+          721
+        ],
+        [
+          1261,
+          786
+        ],
+        [
+          1088,
+          786
+        ]
+      ],
+      [
+        [
+          1132,
+          543
+        ],
+        [
+          1377,
+          543
+        ],
+        [
+          1377,
+          608
+        ],
+        [
+          1132,
+          608
+        ]
+      ]
+    ],
+    "changedPixels": 80117,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1097,
+          744
+        ],
+        [
+          1136,
+          738
+        ],
+        [
+          1244,
+          745
+        ],
+        [
+          1254,
+          778
+        ],
+        [
+          1101,
+          778
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "tomori-study-figure-calibrated-v5.png",
+      "bytes": 2453025,
+      "sha256": "0655a2e91e0c7e2105dd1f2599d379e2fadb3ccb605bb2f047b29f869b7956b8"
+    },
+    {
+      "file": "tomori-study-mask-calibrated-v5.png",
+      "bytes": 18536,
+      "sha256": "fb68e592f2abd51fcb7ce917aded773764bf5d113e04bad3f6a1e8e74d6832c6"
+    },
+    {
+      "file": "tomori-study-background-calibrated-v5.png",
+      "bytes": 2116389,
+      "sha256": "f14d4f3af35db60057a9d39d014743124acc9ef8309da59a6b6c00c7dfa31ca8"
+    },
+    {
+      "file": "tomori-study-shadow-calibrated-v5.png",
+      "bytes": 36096,
+      "sha256": "f7a790d6cb43ed25fdc58b31d9669084cc0a63edc0b7a8a741359e66673bf2ec"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

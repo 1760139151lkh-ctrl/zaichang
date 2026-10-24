@@ -1,6 +1,14 @@
 import { spawn, type ChildProcess } from 'node:child_process';
 import type { LocationStatusResult, MapOverview, LocationFix } from '../shared/map-v2';
 import { classifyFix, abruptFixJump } from '../shared/map-routing';
+import { createWorkoutLocationStream, discoverLocationDevices, type WorkoutLocationOptions } from './device-location';
+import { createIosWorkoutLocationStream, discoverIosLocationDevices } from './ios-location';
+import type { WorkoutRecordingSource } from '../shared/workout';
+
+type WorkoutProviderOptions = Omit<WorkoutLocationOptions, 'source'> & {
+  source?: WorkoutRecordingSource['source'];
+  configurationPath?: string;
+};
 
 // Windows' own location service, not a web IP lookup and not a phone location.
 // One short-lived request; no coordinates are written to disk or sent to the model.
@@ -21,6 +29,15 @@ try {
 finally { if($watcher){$watcher.Stop();$watcher.Dispose()} }
 `;
 export class MapLocationProvider {
+  /** Recording owns this stream separately from short-lived map navigation. */
+  createWorkoutStream(options: WorkoutProviderOptions = {}) {
+    return options.source === 'ios-simulator' ? createIosWorkoutLocationStream(options)
+      : createWorkoutLocationStream({ ...options, source: options.source });
+  }
+  discoverDevices(options: Pick<WorkoutProviderOptions, 'source' | 'executablePath' | 'configurationPath'> = {}) {
+    return options.source === 'ios-simulator' ? discoverIosLocationDevices(options)
+      : discoverLocationDevices({ ...options, source: options.source });
+  }
   private child: ChildProcess | undefined;
   private revision = 0;
   private previousFix: LocationFix | undefined;

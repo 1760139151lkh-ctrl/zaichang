@@ -1,0 +1,63 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "uika-study-apricot-layer-parameters-v1.json",
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "uika-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0",
+  "matte": "uika-study-apricot-mask-raw-v1.png",
+  "matteSha256": "e7424fd235fe6ab2f2ec0bb815043fd56c5d15ea2cdef8d3742b94b84d634857",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 104516,
+  "alphaNonzeroPixels": 35660,
+  "alphaBounds": [
+    795,
+    332,
+    1027,
+    720
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "e36f1c998a67fdd31016f7f1e9802b97c7cb550ef4a9fbf3424b32a2b11df36c",
+  "figureRgbSha256": "e36f1c998a67fdd31016f7f1e9802b97c7cb550ef4a9fbf3424b32a2b11df36c",
+  "background": {
+    "candidate": "uika-study-apricot-background-raw-v1.png",
+    "candidateSha256": "a7d8f91663bfd8fe1bc4da942ec4c69fb791c9320af9d0c2143ec33c526fc9fc",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [],
+    "changedPixels": 49362,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "outputs": [
+    {
+      "file": "uika-study-apricot-figure-calibrated-v1.png",
+      "bytes": 2447603,
+      "sha256": "ce8d9cedbd3772b14db7eb376a408cd4fbe312f1c23436bc1e52d74ff79e1ebe"
+    },
+    {
+      "file": "uika-study-apricot-mask-calibrated-v1.png",
+      "bytes": 26332,
+      "sha256": "f6a2eb5563610fec3a043ceb1a2e13f6bf23453fc0077ef7a64f438d22f72adf"
+    },
+    {
+      "file": "uika-study-apricot-background-calibrated-v1.png",
+      "bytes": 2122564,
+      "sha256": "d78a840e7491ff03341298e8ebfb222fe32ef8f678583afaa6d7f754465685df"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

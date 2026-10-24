@@ -1,0 +1,177 @@
+{
+  "mother": "anon-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+  "matte": "anon-chat-apricot-mask-generated-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 240,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "anon-chat-apricot-figure-calibrated-v3.png",
+  "mask": "anon-chat-apricot-mask-calibrated-v3.png",
+  "backgroundCandidate": "anon-chat-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 3,
+  "backgroundFeatherPixels": 1,
+  "background": "anon-chat-apricot-background-calibrated-v3.png",
+  "record": "anon-chat-apricot-layer-processing-v3.json",
+  "reviewNote": "v3 separates the actual bench-front cast of both lower legs from the empty background into normal source-derived RGBA, in addition to the 3px seat/shoe/palm contact band. Original figure RGB and anatomy unchanged; same-room preview max +/-4px. No runtime sign-off.",
+  "backgroundErasePolygons": [
+    [
+      [
+        1182,
+        567
+      ],
+      [
+        1458,
+        567
+      ],
+      [
+        1458,
+        611
+      ],
+      [
+        1182,
+        611
+      ]
+    ],
+    [
+      [
+        1137,
+        757
+      ],
+      [
+        1284,
+        757
+      ],
+      [
+        1284,
+        810
+      ],
+      [
+        1137,
+        810
+      ]
+    ],
+    [
+      [
+        1189,
+        591
+      ],
+      [
+        1270,
+        589
+      ],
+      [
+        1289,
+        696
+      ],
+      [
+        1283,
+        750
+      ],
+      [
+        1269,
+        768
+      ],
+      [
+        1197,
+        765
+      ],
+      [
+        1193,
+        704
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1183,
+        566
+      ],
+      [
+        1456,
+        566
+      ],
+      [
+        1456,
+        601
+      ],
+      [
+        1183,
+        601
+      ]
+    ],
+    [
+      [
+        1138,
+        756
+      ],
+      [
+        1207,
+        756
+      ],
+      [
+        1207,
+        790
+      ],
+      [
+        1138,
+        790
+      ]
+    ],
+    [
+      [
+        1192,
+        773
+      ],
+      [
+        1282,
+        773
+      ],
+      [
+        1282,
+        807
+      ],
+      [
+        1192,
+        807
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "anon-chat-apricot-shadow-calibrated-v3.png",
+  "castShadowPolygons": [
+    [
+      [
+        1189,
+        591
+      ],
+      [
+        1270,
+        589
+      ],
+      [
+        1289,
+        696
+      ],
+      [
+        1283,
+        750
+      ],
+      [
+        1269,
+        768
+      ],
+      [
+        1197,
+        765
+      ],
+      [
+        1193,
+        704
+      ]
+    ]
+  ]
+}

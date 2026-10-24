@@ -1,0 +1,71 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "sakiko-chat-rain-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f9d7adc6be3c5e8f7d2336dd06d1579e65961131a6e47802e3235f95a6d1d0c3",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "sakiko-chat-rain-mother-candidate-v1.png",
+  "motherSha256": "a57a3b22791dd9525d9e1dc565fe76866edb7c4d067e3cb94d67e6dfb06628a6",
+  "matte": "sakiko-chat-rain-mask-generated-v1.png",
+  "matteSha256": "8333d41c304dff0d16d1bd6665d14b70196cb310cfc032fa0766fbae68185cdb",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 136044,
+  "alphaNonzeroPixels": 68949,
+  "alphaBounds": [
+    1114,
+    258,
+    1431,
+    806
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "05e23e27fe53a07c0544c41b338b54311d72dc05871e326640b696e45cb22a82",
+  "figureRgbSha256": "05e23e27fe53a07c0544c41b338b54311d72dc05871e326640b696e45cb22a82",
+  "background": {
+    "candidate": "sakiko-chat-rain-background-generated-v1.png",
+    "candidateSha256": "5fa0770192f217490ec811e2fe7304766e1e65d6b4c3a67b19abb8b89f16ae41",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [],
+    "changedPixels": 87769,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": null,
+  "outputs": [
+    {
+      "file": "sakiko-chat-rain-figure-calibrated-v1.png",
+      "bytes": 2312864,
+      "sha256": "b4c356d629fa3d2d9509b5870bb3a5c98ee1b556bef74e830be41d9eb9f16960"
+    },
+    {
+      "file": "sakiko-chat-rain-mask-calibrated-v1.png",
+      "bytes": 39905,
+      "sha256": "e2a2e7302c0ac78926dbdbf8068559f478348dddebe64dbb30bfc1f2850c281c"
+    },
+    {
+      "file": "sakiko-chat-rain-background-calibrated-v1.png",
+      "bytes": 1989766,
+      "sha256": "453586f9e2ce84c6323c0474679857e476de36d9b9fbe01214d1e889c91aa188"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

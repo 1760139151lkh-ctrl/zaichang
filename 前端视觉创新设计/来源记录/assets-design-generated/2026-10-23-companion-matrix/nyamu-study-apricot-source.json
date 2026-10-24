@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-study-apricot-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "study",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "nyamu-study-apricot-prompt.txt",
+  "identityText": "nyamu-identity.txt",
+  "identityBasis": "Official MyGO/Ave Mujica profiles and original images personally viewed as human references only; third-party pixels were NOT image inputs.",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "nyamu-study-apricot-mother-candidate-v1.png",
+    "sha256": "5a8e11981cd588f7274b848cf661b2eee415a6a63103cea342d8d660c9409579",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-895620d8-db83-436f-be92-f74da3a922bf.png"
+  },
+  "designerObservation": "Complete mother viewed. Same bob/casual outfit, real desk-chair side/back orientation and near supported pencil hand, gaze directed toward the paper. Far hand/page contact and the two knee-to-shoe chains require primary close inspection; no production acceptance is claimed.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

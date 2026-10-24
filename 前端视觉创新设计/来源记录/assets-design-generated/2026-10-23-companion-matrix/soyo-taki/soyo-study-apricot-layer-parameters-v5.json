@@ -1,0 +1,245 @@
+{
+  "mother": "soyo-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "cf664fa1fc6dcdd8fd9c8dc1cd542d4142bbe05d5d9809a101e6d58907858411",
+  "matte": "soyo-study-apricot-mask-calibrated-v3.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "backgroundCandidate": "soyo-study-apricot-background-generated-v1.png",
+  "background": "soyo-study-apricot-background-calibrated-v5.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1.2,
+  "backgroundErasePolygons": [
+    [
+      [
+        896,
+        667
+      ],
+      [
+        1034,
+        667
+      ],
+      [
+        1038,
+        713
+      ],
+      [
+        896,
+        713
+      ]
+    ],
+    [
+      [
+        881,
+        326
+      ],
+      [
+        926,
+        326
+      ],
+      [
+        956,
+        353
+      ],
+      [
+        957,
+        400
+      ],
+      [
+        939,
+        427
+      ],
+      [
+        950,
+        465
+      ],
+      [
+        977,
+        474
+      ],
+      [
+        982,
+        492
+      ],
+      [
+        956,
+        500
+      ],
+      [
+        946,
+        506
+      ],
+      [
+        961,
+        541
+      ],
+      [
+        977,
+        550
+      ],
+      [
+        984,
+        591
+      ],
+      [
+        990,
+        639
+      ],
+      [
+        1003,
+        674
+      ],
+      [
+        1033,
+        686
+      ],
+      [
+        1031,
+        701
+      ],
+      [
+        1004,
+        705
+      ],
+      [
+        959,
+        700
+      ],
+      [
+        954,
+        691
+      ],
+      [
+        948,
+        648
+      ],
+      [
+        936,
+        616
+      ],
+      [
+        930,
+        620
+      ],
+      [
+        925,
+        659
+      ],
+      [
+        941,
+        678
+      ],
+      [
+        945,
+        692
+      ],
+      [
+        938,
+        701
+      ],
+      [
+        904,
+        700
+      ],
+      [
+        898,
+        689
+      ],
+      [
+        901,
+        661
+      ],
+      [
+        904,
+        625
+      ],
+      [
+        906,
+        609
+      ],
+      [
+        889,
+        593
+      ],
+      [
+        873,
+        583
+      ],
+      [
+        870,
+        521
+      ],
+      [
+        850,
+        505
+      ],
+      [
+        819,
+        501
+      ],
+      [
+        800,
+        487
+      ],
+      [
+        800,
+        459
+      ],
+      [
+        811,
+        414
+      ],
+      [
+        836,
+        374
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        896,
+        665
+      ],
+      [
+        1038,
+        665
+      ],
+      [
+        1038,
+        714
+      ],
+      [
+        896,
+        714
+      ]
+    ],
+    [
+      [
+        852,
+        576
+      ],
+      [
+        975,
+        576
+      ],
+      [
+        975,
+        615
+      ],
+      [
+        852,
+        615
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "soyo-study-apricot-shadow-calibrated-v5.png",
+  "figure": "soyo-study-apricot-figure-calibrated-v4.png",
+  "mask": "soyo-study-apricot-mask-calibrated-v4.png",
+  "record": "soyo-study-apricot-layer-processing-v5.json",
+  "reviewNote": "Fixed study pose, original RGB and visible chair occlusion retained. Difference alpha v1 plus original-coordinate face/cloth corrections v3; no altered-position generated mask used. Primary layer and real Stage review remain pending. Matching background removes the complete explicitly observed old figure footprint including missed wisps and old contact remnants; figure/mask v4 remain byte-identical."
+}

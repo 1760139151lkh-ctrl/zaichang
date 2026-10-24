@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-mother-candidate",
+  "character": "uika",
+  "activity": "attention",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/uika/",
+    "https://anime.bang-dream.com/mygo/character/uika/"
+  ],
+  "input": {
+    "path": "../room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty room; no character pixels used"
+  },
+  "promptFile": "uika-attention-apricot-prompt.txt",
+  "prompt": "Use case: stylized-concept. Asset: ONE complete 1536 x 1024 warm-apricot morning mother scene for the 在场 companion Stage, with the whole room and whole person.\nONLY INPUT image 1 is the primary-selected CLEAN EMPTY room v4. It supplies architecture, camera, ordinary furniture scale, materials and light and contains no person. Generate this complete human-in-room scene from text; no portrait, old mother or separate cutout is an input.\nPRESERVE THE ROOM: same mild seated-eye perspective, full connected window frame including every corner, lake/campus view, rear-left table/chair/bookshelves/framed drawing, right desk/chair/lamp/cup, bench/cushions/throw, rug and complete floor passage. Keep furniture in its original area and ordinary scale. No new foreground table/chair, enlarged person, zoom, crop, blank wall, white gradient or erased left living detail. Keep the left/central live-reading lane free of new character parts and props. Add real contact shadows where this person is supported. One coherent morning window light with natural skin and distinct material colors, not an orange wash.\nSTYLE: original youthful Japanese-anime identity, restrained fine character linework in the input's softly detailed environmental painting. Neither an adult fashion portrait nor a chibi child. A naturally inhabited continuous room, never a separately pasted sticker. No other person, text, UI, logos, watermarks, split-screen, arrows, borders, insets or duplicate views. Show complete head/hair, hands, clothing hems and feet with air inside the canvas.\n\nCHARACTER: Misumi Uika (三角初華), BanG Dream! Ave Mujica / MyGO!!!!!, around fifteen-sixteen, first-year high-school girl. Recognizable short chin-length pale-blonde bob with a faint warm pink undertone, fine lightly uneven front fringe and longer cheek-framing strands; clear violet eyes, soft young jaw and slim natural teenage shoulders. Consistent official casual clothes interpreted indoors: simple white short-sleeved T-shirt, pale taupe-gray long skirt, white socks, black-and-white low canvas sneakers. No cap indoors, stage costume or invented uniform. Keep a clear youthful face, no mature makeup or glamour.\n\nACTIVITY attention / a small one-time bookmark hand-off:\nUika is seated on the RIGHT WINDOW BENCH with hips and thighs supported, lower body angled along the bench toward the left. She has just turned her upper body and face BACK TOWARD THE USER from a side-facing position. Her shoulders and torso lean forward a little as one continuous balanced body, not simply the neutral greeting pose. Both sneaker-clad feet remain naturally planted on the original floor, uncrossed, ordinary length and clear floor contacts.\nONE PALM remains on the bench beside/behind her hip to support the small forward turn. The other arm reaches a SHORT comfortable distance diagonally toward the left/user, elbow still bent, offering a small THIN PAPER BOOKMARK lying across her open palm. Keep the entire hand and bookmark in the right part of the room, around x=1150..1230,y=495; it does not reach into the central reading text. It is a modest slip of ivory paper, no book, clipboard, envelope, screen, words, numbers or symbol. Five fingers are relaxed and connected, not fused to the paper.\nHer violet eyes follow the offered little bookmark and then the person, with a tiny natural amused recognition, closed relaxed mouth. She is making the new thing easy to pick up, not beckoning, waving, asking for attention or demanding a response. A short hand-off, not an endlessly looping welcome gesture.\nOrdinary bench scale: head near (1320,315), hips around (1330,575), complete sneakers near y=785. The long skirt drapes over two natural supported thighs and knees. Exactly two arms/two legs, clear hand-seat contact, no extra finger/foot, overlong leg, broken wrist, floating pelvis or paper without support. Show all hair/hand/paper/shoe tips with air to the full image boundary. Keep the original desk chair empty, shared window and complete open floor unchanged.\n",
+  "output": {
+    "path": "uika-attention-apricot-mother-candidate-v1.png",
+    "sha256": "9cae27d5754d32654b120910faacaf65077e09499224f2668d912994ee2b78ed",
+    "bytes": 2172725,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T19:21:01.627420+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "回身向人、小幅前倾递薄书签，另一掌压座，双鞋落地；手臂透视前伸/纸片承接区别chat，未画招手循环。待主审。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-af690ea0-37a8-4729-a3ac-d443144a848a"
+}

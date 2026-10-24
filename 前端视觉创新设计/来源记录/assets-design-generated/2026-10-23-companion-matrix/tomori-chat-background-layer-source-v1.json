@@ -1,0 +1,31 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "tomori",
+  "activity": "chat",
+  "light": "apricot",
+  "layer": "empty-background-candidate",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-b1b94c35-c0d1-45b9-bed9-e478cfb1c65f",
+  "inputs": [
+    {
+      "file": "tomori-chat-apricot-mother.png",
+      "role": "primary_approved_correct_complete_mother_only",
+      "sha256": "7e2d61d5874ede02beba0808b329b18922dfe6b3f20f2d923a9c2ea4c22978d9"
+    }
+  ],
+  "prompt": "tomori-chat-background-layer-prompt-v1.txt",
+  "review": {
+    "designerStatus": "candidate",
+    "primary": "pending",
+    "runtime": "not integrated"
+  },
+  "designerObservation": "Full generated output personally viewed. This remains a technical layer candidate, pending exact source registration/edge review.",
+  "promptSha256": "8b2d87f5e8192bbda33ddc4f84f7feef7932856426d0f9b6d02a1ef1b4ab0250",
+  "output": {
+    "file": "tomori-chat-background-generated-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2097837,
+    "sha256": "f27d812a003fcd66e19c425bbf6afa28ec391b1d9208fb5fd094184fdd24086a"
+  }
+}

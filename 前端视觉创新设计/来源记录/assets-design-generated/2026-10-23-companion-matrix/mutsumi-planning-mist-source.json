@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "mutsumi-planning-mist-mother-candidate-v1.png",
+  "character": "mutsumi",
+  "activity": "planning",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-environment physical relight of exact approved complete warm activity mother, with approved empty light/axis reference only where explicit",
+  "prompt": "mutsumi-planning-mist-prompt.txt",
+  "promptSha256": "9811031ea5b36e864006f50efd2d43fd157ea78f722005de5e5d96dd3b27676c",
+  "inputs": [
+    {
+      "file": "mutsumi-planning-apricot-mother-candidate-v1.png",
+      "sha256": "ebcd02b354a1661687afdd2e9a92d6c3b7531bc7555a98eb0563516eff83ddd1",
+      "role": "sole input/edit target; approved complete correct warm activity mother"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-planning-mist-mother-candidate-v1.png",
+    "sha256": "ef5edb1eb59c87db4547d148f5faacdd36895661e67645da31c7d25049754a1f",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-85480996-57f0-4f94-acf0-3c7091e9ac7f.png"
+  },
+  "ownerAndSupport": "Preserve upright half-turned desk-chair comparison and low hands at the two static desk cards. Cards are room/BG objects; do not pick them up or change gesture. Fixed table contacts and natural occlusions remain.",
+  "designerObservation": "Full image personally viewed. Source upright half-turned desk-chair comparison, both low hands at actual static desktop cards, original chair/hips/complete leg-loafer support retained. Cards stay background objects. Whole pale-blue mist/window diffuse illumination removes old crisp golden tree/window shadows; lamp off, skin/wood naturally warm under cool fill, long mint hair/golden-brown eye and navy-white uniform remain identifiable.",
+  "observedGaps": [
+    "Primary per-mother review pending; layers/calibration/Stage acceptance separate."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

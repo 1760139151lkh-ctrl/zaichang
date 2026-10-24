@@ -1,0 +1,177 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "umiri-planning-apricot-layer-parameters-v2.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "4d4ba6a4a9d6e08d040ef33c9678acb7bb039f6afe2fbce02261c4c818083816",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "umiri-planning-apricot-mother-candidate-v2.png",
+  "motherSha256": "78ca56bc6b2fff62341a26018251a84a62185ea6d614af14b2903ff323976f23",
+  "matte": "umiri-planning-apricot-mask-local-color-v1.png",
+  "matteSha256": "8389099720c350f47b435ebad08153fb7331c64287dd5f41214e33f4b865980a",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        935,
+        596
+      ],
+      [
+        948,
+        596
+      ],
+      [
+        953,
+        599
+      ],
+      [
+        956,
+        604
+      ],
+      [
+        957,
+        610
+      ],
+      [
+        956,
+        614
+      ],
+      [
+        952,
+        618
+      ],
+      [
+        950,
+        621
+      ],
+      [
+        950,
+        636
+      ],
+      [
+        935,
+        638
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          815,
+          508
+        ],
+        [
+          837,
+          508
+        ],
+        [
+          856,
+          612
+        ],
+        [
+          815,
+          612
+        ]
+      ],
+      "redMin": 150,
+      "redOverGreen": 20,
+      "redOverBlue": 35
+    }
+  ],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 106002,
+  "alphaNonzeroPixels": 45444,
+  "alphaBounds": [
+    777,
+    295,
+    1085,
+    760
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "93db942158bb2c4ee2d7b38626347c21a937a3e3943f5ecdd36c3684167e71cb",
+  "figureRgbSha256": "93db942158bb2c4ee2d7b38626347c21a937a3e3943f5ecdd36c3684167e71cb",
+  "background": {
+    "candidate": "umiri-planning-apricot-background-raw-v3.png",
+    "candidateSha256": "15263aecd1f017daaedc0de6c58a53c941f00e8aa938530f6177c0235af2ef37",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          944,
+          714
+        ],
+        [
+          1008,
+          709
+        ],
+        [
+          1018,
+          741
+        ],
+        [
+          941,
+          742
+        ]
+      ],
+      [
+        [
+          1000,
+          737
+        ],
+        [
+          1089,
+          731
+        ],
+        [
+          1092,
+          768
+        ],
+        [
+          1000,
+          771
+        ]
+      ]
+    ],
+    "changedPixels": 62697,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": null,
+  "outputs": [
+    {
+      "file": "umiri-planning-apricot-figure-calibrated-v2.png",
+      "bytes": 2427563,
+      "sha256": "1d0ca1582f298628020655c1e63e633d20d297f80123864942939c9b1b44112d"
+    },
+    {
+      "file": "umiri-planning-apricot-mask-calibrated-v2.png",
+      "bytes": 27680,
+      "sha256": "75c5f364b9f433530d671460ec100cce03cb8dc671372072e7865ce391a804e7"
+    },
+    {
+      "file": "umiri-planning-apricot-background-calibrated-v2.png",
+      "bytes": 2091167,
+      "sha256": "2dee72cb18de1b78881e9415ef7a12be67651fbaf67f9d06cddbd0bc9a80349e"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

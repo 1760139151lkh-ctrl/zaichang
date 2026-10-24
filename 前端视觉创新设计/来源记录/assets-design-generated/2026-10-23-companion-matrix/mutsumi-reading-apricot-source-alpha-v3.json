@@ -1,0 +1,343 @@
+{
+  "recordType": "deterministic-observed-source-alpha-repair",
+  "script": "mutsumi-observed-alpha-repairs.py",
+  "scriptSha256": "cbc919e11e9e658ab6561fd4bcf346b14d25cab66e569428baca52f5bf70ff83",
+  "parameters": "mutsumi-reading-apricot-alpha-repair-parameters-v3.json",
+  "parametersSha256": "3770a6d117dc79827eaf0172b31b3af2cec146286652adb28a17a19c702022ad",
+  "mother": "mutsumi-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+  "inputAlpha": "mutsumi-reading-apricot-source-alpha-v2.png",
+  "inputAlphaSha256": "4320ec472b96dad360fea64ab73dd87085e84036dd57e3ae3f4f3138d7ac2a65",
+  "outputAlpha": "mutsumi-reading-apricot-source-alpha-v3.png",
+  "outputAlphaSha256": "9fdac5db922187d1f10742b46604691ab712c5ba11c85922ad5b5b095d0bd8a0",
+  "rules": [
+    {
+      "purpose": "Original navy sock pixels on both diagonal legs, including the wrongly omitted front shin; no furniture in this specific leg region is navy",
+      "mode": "include",
+      "polygon": [
+        [
+          1035,
+          585
+        ],
+        [
+          1246,
+          585
+        ],
+        [
+          1246,
+          727
+        ],
+        [
+          1035,
+          727
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          0,
+          145
+        ],
+        [
+          1,
+          0,
+          145
+        ]
+      ],
+      "differences": [
+        [
+          2,
+          0,
+          -2,
+          90
+        ],
+        [
+          2,
+          1,
+          2,
+          90
+        ]
+      ]
+    },
+    {
+      "purpose": "Original pink skin of actual front knee between hem and sock; observed source ROI, not a new leg",
+      "mode": "include",
+      "polygon": [
+        [
+          1205,
+          537
+        ],
+        [
+          1224,
+          542
+        ],
+        [
+          1242,
+          558
+        ],
+        [
+          1244,
+          581
+        ],
+        [
+          1230,
+          608
+        ],
+        [
+          1212,
+          624
+        ],
+        [
+          1191,
+          613
+        ],
+        [
+          1178,
+          603
+        ],
+        [
+          1192,
+          575
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          190,
+          255
+        ],
+        [
+          1,
+          125,
+          235
+        ],
+        [
+          2,
+          115,
+          220
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          1,
+          30,
+          90
+        ],
+        [
+          1,
+          2,
+          10,
+          40
+        ]
+      ]
+    },
+    {
+      "purpose": "Original bright open page to viewer-left of held book, including page tips/spine; no page reconstruction",
+      "mode": "include",
+      "polygon": [
+        [
+          1237,
+          462
+        ],
+        [
+          1252,
+          463
+        ],
+        [
+          1278,
+          485
+        ],
+        [
+          1292,
+          488
+        ],
+        [
+          1305,
+          505
+        ],
+        [
+          1283,
+          511
+        ],
+        [
+          1252,
+          492
+        ],
+        [
+          1240,
+          480
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          190,
+          255
+        ],
+        [
+          1,
+          170,
+          255
+        ],
+        [
+          2,
+          145,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          1,
+          -5,
+          40
+        ]
+      ]
+    },
+    {
+      "purpose": "Actual blue plaid pillow/sky showing through source hair gaps, only right support/left face edge room ROIs; navy clothes below brightness threshold remain",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1407,
+          490
+        ],
+        [
+          1482,
+          490
+        ],
+        [
+          1482,
+          587
+        ],
+        [
+          1407,
+          587
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          90,
+          255
+        ],
+        [
+          1,
+          90,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          2,
+          0,
+          9,
+          180
+        ],
+        [
+          2,
+          1,
+          4,
+          180
+        ]
+      ]
+    },
+    {
+      "purpose": "Original blue lake in left hair/face gaps",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1307,
+          337
+        ],
+        [
+          1345,
+          337
+        ],
+        [
+          1345,
+          434
+        ],
+        [
+          1307,
+          434
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          80,
+          255
+        ],
+        [
+          1,
+          80,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          2,
+          0,
+          8,
+          180
+        ],
+        [
+          2,
+          1,
+          3,
+          180
+        ]
+      ]
+    },
+    {
+      "purpose": "Original yellow exterior leaves beside right hair, distinguish high yellow chroma from pale mint original hair",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1428,
+          375
+        ],
+        [
+          1485,
+          375
+        ],
+        [
+          1485,
+          542
+        ],
+        [
+          1428,
+          542
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          125,
+          255
+        ],
+        [
+          1,
+          100,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          1,
+          2,
+          45,
+          180
+        ]
+      ]
+    }
+  ],
+  "explicitOriginalRoomExclusions": [],
+  "method": "Only original-canvas alpha visibility corrected inside personally observed RGB/room ROIs; no body/RGB redraw, warp or hidden anatomy completion.",
+  "review": {
+    "primaryLayer": "pending",
+    "runtime": "not registered or exercised"
+  }
+}

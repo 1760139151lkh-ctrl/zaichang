@@ -1,0 +1,71 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "sakiko-chat-violet-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f9d7adc6be3c5e8f7d2336dd06d1579e65961131a6e47802e3235f95a6d1d0c3",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "sakiko-chat-violet-mother-candidate-v1.png",
+  "motherSha256": "8e9b860772095ed911c4c257d6d6769e5c5064f4c793e325e65eadc9e79e1e88",
+  "matte": "sakiko-chat-violet-mask-generated-v1.png",
+  "matteSha256": "b1c0ec80d6918d1c4322f369a1762f534885733635cb4308f7389a17095fe8f3",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 132625,
+  "alphaNonzeroPixels": 82321,
+  "alphaBounds": [
+    1104,
+    232,
+    1439,
+    812
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "dfabe8455fb979d5456cbf10c4bd112d1d55935676921761e4ce611af3d0ae96",
+  "figureRgbSha256": "dfabe8455fb979d5456cbf10c4bd112d1d55935676921761e4ce611af3d0ae96",
+  "background": {
+    "candidate": "sakiko-chat-violet-background-generated-v1.png",
+    "candidateSha256": "c7e62a42837223cc9d78bddbc04a80a01b2bb564ce35027b95242929cdc7dba8",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [],
+    "changedPixels": 103626,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": null,
+  "outputs": [
+    {
+      "file": "sakiko-chat-violet-figure-calibrated-v1.png",
+      "bytes": 2514952,
+      "sha256": "063c9edde35a036c07f9463f1e2b65f3541ad56b6f88990dc597465c466100b2"
+    },
+    {
+      "file": "sakiko-chat-violet-mask-calibrated-v1.png",
+      "bytes": 53913,
+      "sha256": "d741f94ad21cdb0ac77c045bacc06599e655df3996ddbc6aecab7ee7a837a0d9"
+    },
+    {
+      "file": "sakiko-chat-violet-background-calibrated-v1.png",
+      "bytes": 2133377,
+      "sha256": "d16d686d7cc436e29934087dd6bf7288fc90d87e0f8369f0d7fdb7a3d4f97250"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

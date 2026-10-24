@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "mutsumi",
+  "activity": "listening",
+  "palette": "apricot",
+  "kind": "background",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-listening-apricot-background-extraction-v1-prompt.txt",
+  "promptSha256": "72ab0ad78ab422a1144cec63eba1119693b1cd15cf56c51e1cd56084916fab1f",
+  "inputs": [
+    {
+      "file": "mutsumi-listening-apricot-mother-candidate-v2.png",
+      "sha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+      "role": "sole approved complete warm mother edit target"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-listening-apricot-background-candidate-v1.png",
+    "sha256": "2bfca815f9f834d6ef1796c00dc9acd4b39b73d155f9a0c052764388e971dad8",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-089371df-4f19-400b-a2b6-93e0e7860e12.png"
+  },
+  "designerObservation": "Full generated clean-room output viewed. Listening person and one body-worn shoe removed, separate empty floor loafer retained. Candidate requires local original-room registration; detached shoe original pixels will remain static BG.",
+  "designerStatus": "candidate for original-room registration",
+  "primaryReview": "pending; producer cannot approve",
+  "runtime": "not registered or verified"
+}

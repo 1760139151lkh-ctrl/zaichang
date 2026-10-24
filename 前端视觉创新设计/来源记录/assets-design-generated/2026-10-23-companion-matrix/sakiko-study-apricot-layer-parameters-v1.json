@@ -1,0 +1,43 @@
+{
+  "mother": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+  "motherSha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1",
+  "matte": "sakiko-study-apricot-mask.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          750,
+          480
+        ],
+        [
+          850,
+          480
+        ],
+        [
+          890,
+          625
+        ],
+        [
+          750,
+          625
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    }
+  ],
+  "figure": "sakiko-study-apricot-figure-calibrated-v1.png",
+  "mask": "sakiko-study-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "sakiko-study-apricot-background.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "background": "sakiko-study-apricot-background-calibrated-v1.png",
+  "record": "sakiko-study-apricot-layer-processing-v1.json",
+  "reviewNote": "Generated opaque matte invented a hidden hip silhouette across the existing chair back. Exclude only original warm chair RGB in the manually viewed chair polygon, retaining navy clothing/blue hair. No anatomy reconstruction. Fixed desk contact requires travel0. Background patch remains a candidate."
+}

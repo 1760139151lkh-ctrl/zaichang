@@ -1,0 +1,19 @@
+{
+  "mother": "sakiko-chat-violet-mother-candidate-v1.png",
+  "motherSha256": "8e9b860772095ed911c4c257d6d6769e5c5064f4c793e325e65eadc9e79e1e88",
+  "matte": "sakiko-chat-violet-mask-generated-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "sakiko-chat-violet-figure-calibrated-v1.png",
+  "mask": "sakiko-chat-violet-mask-calibrated-v1.png",
+  "backgroundCandidate": "sakiko-chat-violet-background-generated-v1.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [],
+  "background": "sakiko-chat-violet-background-calibrated-v1.png",
+  "record": "sakiko-chat-violet-layer-processing-v1.json",
+  "reviewNote": "First same-position matte calibration candidate only. Original mother RGB preserved; no affine transform, anatomy or face repaint. Shadow and any book interior/edge correction await individual inspection."
+}

@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "asset": "mutsumi-rest-mist-mother-candidate-v1.png",
+  "character": "mutsumi",
+  "activity": "rest",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical whole-environment relighting; approved correct warm mother is sole character/pose/furniture edit target; approved empty theme plate is lighting/sky/source-axis reference only",
+  "prompt": "mutsumi-rest-mist-relight-v2-prompt.txt",
+  "promptSha256": "8ba35617addc3c1ca2562cf76adbe88a28772123b4391a3c59b6b67f90171515",
+  "inputs": [
+    {
+      "file": "mutsumi-rest-apricot-mother-candidate-v1.png",
+      "sha256": "8284c773c9ace87cd0bc9fc3d476a5d23442bd2fbfb9db2b640552e1671fd5b6",
+      "role": "Image 1: primary-approved complete warm activity mother; sole editable character/geometry target"
+    },
+    {
+      "file": "room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "Image 2: primary-approved clean empty room; lighting/sky/source-axis reference only, never furniture/body replacement"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-rest-mist-mother-candidate-v1.png",
+    "sha256": "72ba05145896974bf6690fb53151daa00cd989e5e91c0dad6dd07a0d341148b4",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-ded5477b-ab64-40f2-9545-e8960603d8a4.png"
+  },
+  "ownerAndSupport": "Preserve sideways bent-leg rest on right bench, torso facing the window with the same calm turned profile. Both naturally folded socked legs rest on cushion; both removed loafers remain paired on floor in exact source positions. Keep palm/cushion contacts, rear hand partly hidden by body and hair naturally; no fabricated extra limbs.",
+  "designerObservation": "Full generated image personally viewed against approved warm rest mother and empty mist plate. Sideways folded socked legs and hip weight remain on bench cushion, rear palm still supported, natural far-hand/leg occlusions retained; paired removed loafers stay together on floor. Source window-facing profile and hair silhouette preserved; airy mist/cool diffuse room fill, lamp off.",
+  "geometryObservation": {
+    "coordinateSystem": "1536x1024 original mother canvas",
+    "hipsSeatApprox": [
+      1350,
+      552
+    ],
+    "rearPalmCushionApprox": [
+      1421,
+      572
+    ],
+    "foldedSockFootApprox": [
+      1307,
+      592
+    ],
+    "parkedPairApprox": [
+      1179,
+      736
+    ],
+    "note": "Folded legs stay cushion-supported; shoes are separate floor objects. Approximate image-stage observations, not registered calibration."
+  },
+  "observedGaps": [
+    "Primary per-mother optical review pending; image producer cannot sign primary approval.",
+    "No extracted layers, final calibration or Stage/runtime acceptance yet."
+  ],
+  "designerStatus": "candidate awaiting primary review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

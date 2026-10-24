@@ -1,0 +1,38 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "chat",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-dfea9b19-2e71-4ace-9bac-233ee2220c51",
+  "inputs": [
+    {
+      "file": "tomori-chat-apricot-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "7e2d61d5874ede02beba0808b329b18922dfe6b3f20f2d923a9c2ea4c22978d9"
+    },
+    {
+      "file": "room-rain-candidate-v2.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "sourceIdentity": "Existing correct complete primary-reviewed warm mother relit against clean empty-room theme reference; no official artwork, rejected mother or isolated figure input.",
+  "prompt": "tomori-chat-rain-prompt.txt",
+  "promptSha256": "3cf2d9ac3cd4e342c88b6f59acc69d2c1ccbff32e03478807f895b804d38435b",
+  "output": {
+    "file": "tomori-chat-rain-mother-candidate.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2102642,
+    "sha256": "aa5633a61d78f05ffe799975ece0a8f70d1e8007a0ac5243d11601837e03d00e"
+  },
+  "review": {
+    "designerViewed": "complete original 1536x1024 output",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Complete blue rain night with main-desk lamp illumination and soft falloff on original seated Tomori. Rear flowers/wall are dim, without invented spotlight; daytime hard leaf shadows removed. Designer viewed complete output; primary still pending."
+}

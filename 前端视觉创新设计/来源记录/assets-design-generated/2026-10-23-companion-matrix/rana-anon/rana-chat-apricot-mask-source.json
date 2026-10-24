@@ -1,0 +1,30 @@
+{
+  "createdOn": "2026-10-24",
+  "tool": "built-in image_gen.imagegen",
+  "useCase": "background-extraction",
+  "character": "rana",
+  "activity": "chat",
+  "theme": "apricot",
+  "assetKind": "mask",
+  "inputs": [
+    {
+      "file": "rana-chat-apricot-mother-candidate-v1.png",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "role": "sole input; primary-approved correct complete mother, primary-other-mother-reviews.json"
+    }
+  ],
+  "file": "rana-chat-apricot-mask-generated-v1.png",
+  "sha256": "ca57bb7872acbd1f7c205cd84b300278505dcac54d817aabb4f8b5868427139a",
+  "prompt": "rana-chat-apricot-mask-prompt.txt",
+  "promptSha256": "bd5d6eaf9d10d1f4ef873e44143c16e8a3334e0d11a0e24cd7da7933bb4a51a3",
+  "promptEncoding": "UTF-8; exact submitted string, no added final newline",
+  "originalGeneratedFile": "exec-cf92f49d-c9d8-4146-ad4c-6627e88ef798.png",
+  "designerPersonallyViewed": true,
+  "designerStatus": "not-eligible-unregistered-matte",
+  "designerObservation": "Generated silhouette shifted and changed scale relative to original mother. Must not become runtime alpha directly. Original mother unchanged; only deterministic source-aware matte registration may be attempted, no body repaint.",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  }
+}

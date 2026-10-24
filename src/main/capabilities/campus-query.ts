@@ -7,7 +7,7 @@ export const campusResources = ['classes', 'courses', 'exams', 'grades', 'gpa_se
 const resource = z.enum(campusResources);
 const field = z.string().regex(/^[A-Za-z_][A-Za-z0-9_.-]{0,100}$/);
 const sensitive = /^(password|passwd|secret|token|ticket|cookie|authorization|credential|raw_response|body_b64|email|phone|mobile|account|student.?id|student.?no|card.?no|identity.?id|sno|xh|yhm|xm|zgh|custid|acctid|cardid|bankacc|cert)$/i;
-const where = z.record(z.string(), z.json()).describe('筛选DSL：单项用{field,op,value}，字段名取自schema；op为eq/ne/in/not_in/contains/starts_with/ends_with/length_gt/length_eq/gt/gte/lt/lte/missing/exists。and或or的值为条件数组，not的值为条件对象；any/all的值为{field,where}。不支持把字段名直接当对象键。');
+const where = z.record(z.string(), z.json()).describe('单项条件写{field,op,value}，字段名取自schema；op可选eq/ne/in/not_in/contains/starts_with/ends_with/length_gt/length_eq/gt/gte/lt/lte/missing/exists。组合条件用and/or加条件数组，not加条件对象，any/all加{field,where}。');
 const sort = z.array(z.union([field, z.object({ field, descending: z.boolean().optional() }).strict()])).max(12);
 export const campusSelectSchema = z.object({
   resource, resources: z.array(resource).max(5).optional(),
@@ -16,7 +16,7 @@ export const campusSelectSchema = z.object({
   where: where.optional(), after_join_where: where.optional(), having: where.optional(),
   join: z.object({ resource, left_on: field, right_on: field, as: field.optional(), kind: z.enum(['left', 'inner']).optional() }).strict().optional(),
   fields: z.array(field).max(40).optional(), group_by: z.array(field).max(8).optional(), distinct: z.array(field).max(8).optional(),
-  metrics: z.array(z.object({ op: z.enum(['count', 'count_where', 'fraction', 'count_distinct', 'sum', 'mean', 'median', 'min', 'max', 'first', 'last', 'weighted_mean']), field: field.optional(), weight: field.optional(), where: where.optional().describe('指标内where仅适用于count_where和fraction。sum/mean/weighted_mean等必须用外层spec.where先筛选，不能以指标内where改变分母。'), as: field.optional() }).strict()).max(16).optional(),
+  metrics: z.array(z.object({ op: z.enum(['count', 'count_where', 'fraction', 'count_distinct', 'sum', 'mean', 'median', 'min', 'max', 'first', 'last', 'weighted_mean']), field: field.optional(), weight: field.optional(), where: where.optional().describe('count_where和fraction可在指标内填where；sum、mean、weighted_mean等先用外层spec.where选出参与计算的记录。'), as: field.optional() }).strict()).max(16).optional(),
   sort: sort.optional(), order_by: sort.optional(), offset: z.number().int().min(0).max(1000000).optional(), limit: z.number().int().min(1).max(100).optional(),
 }).strict();
 export const campusQueryInput = z.object({
@@ -29,10 +29,67 @@ export const campusQueryInput = z.object({
   pointer: z.string().max(500).optional(), fields: z.array(field).max(40).optional(),
   offset: z.number().int().min(0).max(1000000).default(0).describe('本次分页起点；spec未另填offset时也适用于组合查询。'),
   limit: z.number().int().min(1).max(50).default(8).describe('本次返回条数；spec未另填limit时也适用于组合查询，不截短原始数据。'),
-  refresh: z.boolean().default(false).describe('false读取现有快照，不因缺数据启动采集。quick/select的true按根resource相关来源窄刷新，依赖同账号、同学期的当前latest基线；关联资源仍各有实际采集时间。原连接器会在本机读取和归一化旧完整学业快照，宿主一并核这份用途与实际新采集范围。缺基线不全采，固定bundle/version与续页保持false；明确整包更新另用campus.overview。'), academicYear: z.string().regex(/^20\d{2}-20\d{2}$/).optional(), term: z.enum(['1', '2']).optional(),
+  refresh: z.boolean().default(false).describe('false查看已有记录；quick/select的true更新所选resource相关来源，使用同账号、同学期已有的最新记录作为底稿。各关联来源保留各自查询时间。沿bundleId和版本续读时保持false；需要整包更新可用campus.overview。'), academicYear: z.string().regex(/^20\d{2}-20\d{2}$/).optional(), term: z.enum(['1', '2']).optional(),
 }).strict();
 export type CampusQuery = z.infer<typeof campusQueryInput>;
 export const examCourseRecordsPointer = '/normalized/exam_course_records';
+export const majorGpaPointer = '/normalized/transcript/major';
+export const majorGpaFields = {
+  source_complete: '主修来源这次是否完整；成绩和主修两份来源的具体情况在coverage中',
+  gpa: '一个对象，包含fivePoint、fourPoint、fourPointLegacy、hundredPoint四个尺度的加权均值；只选五分均绩时用gpa.fivePoint，而不是整个gpa对象',
+  'gpa.fivePoint': '主修匹配记录的五分制加权均值',
+  'gpa.fourPoint': '同一主修匹配范围的本机4.3换算均值',
+  'gpa.fourPointLegacy': '同一主修匹配范围的4.0封顶换算均值',
+  'gpa.hundredPoint': '同一主修匹配范围的百分等值加权均值',
+  gpa_credit_denominator: '这些主修记录实际计入的学分分母，与全部课程修读分母分开',
+  eligible_attempts: '满足本机计入规则的修读数',
+  counted_attempts: '实际有可用绩点和正学分、参与加权的修读数',
+  excluded_attempts: '本机分析规则排除的记录标识与原因；仅显式选择时返回',
+  incomplete_attempts: '本应计入而缺少可用学分或绩点的记录标识；仅显式选择时返回',
+  zero_credit_attempts: '零学分记录标识，不增加分母；仅显式选择时返回',
+  earned_credits_sum_attempts: '逐次取得学分相加，重修可能重复',
+  complete: '这次主修汇总计算是否完整；成绩和主修两份来源的具体情况在coverage中',
+  formula: '原连接器记录的加权公式',
+} as const;
+export const majorGpaReadFields = ['gpa', 'gpa_credit_denominator', 'eligible_attempts', 'counted_attempts', 'complete', 'source_complete', 'formula'] as const;
+const courseSummaryFields = ['key', 'name', 'semester_id', 'credit', 'teachers', 'confirmed', 'online'];
+
+/** A snapshot also contains historical courses joined from grades and exams.
+ * Selecting its timetable semester alone does not select those course rows. */
+function hasCourseSemesterCondition(value: unknown): boolean {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const condition = value as Record<string, unknown>;
+  if (condition.field === 'semester_id') return true;
+  return ['and', 'or'].some(key => Array.isArray(condition[key]) && condition[key].some(hasCourseSemesterCondition))
+    || hasCourseSemesterCondition(condition.not);
+}
+
+function requireCourseSemester(value: unknown): string {
+  if (typeof value !== 'string' || !/^20\d{2}-20\d{2}-[12]$/.test(value))
+    throw new HarnessError('campus_semester_unknown', '这份课程资料没有写明学期，其中还含历年课程；需要补齐学期后再看本学期安排。');
+  return value;
+}
+
+export function campusCourseLookupFilters(filters: readonly string[] | undefined, semesterId: unknown): string[] {
+  const selected = [...(filters || [])];
+  if (!selected.some(value => value.split(':', 1)[0].trim() === 'semester_id'))
+    selected.push(`semester_id:eq:${requireCourseSemester(semesterId)}`);
+  return selected;
+}
+
+/** Preserve explicit course-semester choices, including cross-semester ones.
+ * A quick query keeps its original narrow projection when a where is added. */
+export function campusCourseQueryForSemester(input: CampusQuery, semesterId: unknown): CampusQuery {
+  if (!['quick', 'select'].includes(input.operation) || (input.resource || input.spec?.resource) !== 'courses'
+    || (input.spec?.resources?.length || 0) > 1
+    || [input.spec?.where, input.spec?.after_join_where, input.spec?.having].some(hasCourseSemesterCondition)) return input;
+  const semester = requireCourseSemester(semesterId), next = structuredClone(input);
+  const selected = next.spec || { resource: 'courses' as const,
+    fields: next.fields?.length ? [...next.fields] : [...courseSummaryFields], offset: next.offset, limit: next.limit };
+  const condition = { field: 'semester_id', op: 'eq', value: semester };
+  next.spec = { ...selected, where: selected.where ? { and: [selected.where, condition] } : condition };
+  return validateCampusQuery(next);
+}
 const grants: Partial<Record<(typeof campusResources)[number], string>> = {
   grades: 'campus:grades:read', retakes: 'campus:grades:read', gpa_semesters: 'campus:gpa:read', gpa_overall: 'campus:gpa:read', gpa_cumulative: 'campus:gpa:read',
   reservations: 'campus:reservations:read', reservation_violations: 'campus:reservations:read', card_accounts: 'campus:card:read', transactions: 'campus:transactions:read', student_profile: 'campus:profile:read', roles: 'campus:profile:read',
@@ -44,14 +101,25 @@ export const normalizedRoots: Record<(typeof campusResources)[number], string> =
 export function validateCampusQuery(raw: unknown) {
   const input = campusQueryInput.parse(raw);
   const examCourseRead = input.pointer === examCourseRecordsPointer;
+  const majorGpaRead = input.pointer === majorGpaPointer;
+  if (majorGpaRead && (input.operation !== 'read' || input.resource !== 'gpa_overall'))
+    throw new HarnessError('major_gpa_read_only', '主修汇总沿同一份绩点资料的固定地址读取；它不是新的汇总算法或组合查询。');
+  if (majorGpaRead && (input.offset !== 0 || input.spec !== undefined || input.model !== undefined
+    || input.academicYear !== undefined || input.term !== undefined || input.fromBundle !== undefined || input.toBundle !== undefined || input.refresh))
+    throw new HarnessError('major_gpa_read_parameters', '这份主修汇总按原快照与版本读取；字段只选择已有汇总内容，不另作筛选、学期选择或分页。');
+  if (majorGpaRead) {
+    input.fields = input.fields?.length ? input.fields : [...majorGpaReadFields];
+    if (input.fields.some(name => !Object.hasOwn(majorGpaFields, name)))
+      throw new HarnessError('major_gpa_read_fields', '主修汇总只可选择字段说明里的汇总值；这里没有逐科成绩或其它对象。');
+  }
   if (examCourseRead && (input.operation !== 'read' || input.resource !== 'exams'))
     throw new HarnessError('exam_course_read_only', '考试课程原行只沿exams资源的固定read地址读取；它不是考试事件查询或组合查询。');
   if (examCourseRead && (input.fields !== undefined || input.spec !== undefined || input.model !== undefined
     || input.academicYear !== undefined || input.term !== undefined || input.fromBundle !== undefined || input.toBundle !== undefined || input.refresh))
-    throw new HarnessError('exam_course_read_parameters', '这个地址按原快照顺序读取完整课程原行，只接受快照、版本、offset和limit；字段、筛选、学期选择或刷新不能缩窄这次读取。');
+    throw new HarnessError('exam_course_read_parameters', '这里按原记录顺序展开考试课程；带上原快照、版本、offset和limit就能继续。需要另选字段或条件时可用quick/select。');
   if (input.spec && !['quick', 'select'].includes(input.operation))
-    throw new HarnessError('query_spec_operation', 'spec用于quick或select；read按原对象指针、diff按顶层fields取用，不能用会被忽略的spec缩窄它们。');
-  if (!['resources', 'schema'].includes(input.operation) && !input.resource && !input.spec) throw new HarnessError('resource_required', '先选择具体资源，不能默认读取所有个人资料。');
+    throw new HarnessError('query_spec_operation', '这一步使用的条件入口不同：quick/select接收spec，read沿原正文地址读取，diff在顶层fields选择比较字段。');
+  if (!['resources', 'schema'].includes(input.operation) && !input.resource && !input.spec) throw new HarnessError('resource_required', '先选一项要看的资料，例如课程、考试或成绩。');
   if (input.operation === 'schema' && !input.model) throw new HarnessError('model_required', '请选择要了解的字段模型。');
   if (input.operation === 'select' && !input.spec) throw new HarnessError('query_required', '组合查询需要具体spec。');
   if (input.spec && input.resource && input.spec.resource !== input.resource) throw new HarnessError('resource_mismatch', '声明资源与查询资源不一致。');
@@ -87,23 +155,56 @@ export function validateCampusQuery(raw: unknown) {
     if (Array.isArray(value)) { for (const item of value) validateFields(item, depth + 1); return; }
     if (!value || typeof value !== 'object') return;
     for (const [key, item] of Object.entries(value)) {
-      if (['field', 'left_on', 'right_on', 'end_field', 'weight'].includes(key) && typeof item === 'string' && item.split('.').some(segment => sensitive.test(segment))) throw new HarnessError('credential_field', '不能查询凭据或身份标识字段。');
-      if (['fields', 'group_by', 'distinct', 'sort', 'order_by'].includes(key) && Array.isArray(item) && item.some(field => typeof field === 'string' && field.split('.').some(segment => sensitive.test(segment)))) throw new HarnessError('credential_field', '不能查询凭据或身份标识字段。');
+      if (['field', 'left_on', 'right_on', 'end_field', 'weight'].includes(key) && typeof item === 'string' && item.split('.').some(segment => sensitive.test(segment))) throw new HarnessError('credential_field', '这个字段保留在本机账号连接中；可从schema选择当前可读的课程、成绩等字段。');
+      if (['fields', 'group_by', 'distinct', 'sort', 'order_by'].includes(key) && Array.isArray(item) && item.some(field => typeof field === 'string' && field.split('.').some(segment => sensitive.test(segment)))) throw new HarnessError('credential_field', '所选字段中有保留在本机账号连接的内容；可从schema选择当前可读的课程、成绩等字段。');
       validateFields(item, depth + 1);
     }
   };
   validateFields(input);
   if (input.operation === 'read') {
-    if (!input.bundleId || !input.resource || !input.pointer) throw new HarnessError('navigation_required', '原对象读取需要资源、快照ID和规范化对象指针。');
+    if (!input.bundleId || !input.resource || !input.pointer) throw new HarnessError('navigation_required', '继续打开原文需要刚才返回的资料项、记录编号和正文地址。');
     const root = normalizedRoots[input.resource];
-    if (!examCourseRead && (!input.pointer.startsWith(root) || (!root.endsWith('_') && input.pointer !== root && !input.pointer.startsWith(root + '/')))
+    if (!examCourseRead && !majorGpaRead && (!input.pointer.startsWith(root) || (!root.endsWith('_') && input.pointer !== root && !input.pointer.startsWith(root + '/')))
       || input.pointer.split('/').some(segment => sensitive.test(segment)))
-      throw new HarnessError('pointer_forbidden', '指针不属于当前获准资源；不能通过原始响应导航扩大范围。');
+      throw new HarnessError('pointer_forbidden', '这个正文地址属于另一项资料，请沿当前资料返回的入口继续。');
     // Generic source envelopes need endpoint verification before data access.
-    if (root === '/normalized/items' || input.resource === 'source_status') throw new HarnessError('pointer_ambiguous', '该资源用quick/select保留真实来源边界；不能用通用指针越过资源校验。');
+    if (root === '/normalized/items' || input.resource === 'source_status') throw new HarnessError('pointer_ambiguous', '这项资料可用quick/select打开，返回内容会保留每项原来的来源。');
   }
   if (input.operation === 'diff' && (!input.fromBundle || !input.toBundle || !input.resource)) throw new HarnessError('bundles_required', '比较需要两份真实快照与具体资源。');
   return input;
+}
+
+/** Keep a displayed lookup page on its actual source, including the course
+ * predicate added by the adapter. Relative windows become fixed instants;
+ * time-dependent membership still needs a new query instead of a next page. */
+export function campusLookupOnSnapshot(input: Record<string, any>, result: Record<string, any>) {
+  const bundleId = result.bundleId ?? result.bundle_id, proof = result.snapshotProof;
+  const resource = input.domain === 'schedule' ? 'classes' : input.domain === 'gpa' ? 'gpa_overall' : input.domain;
+  if (typeof bundleId !== 'string' || !/^[A-Za-z0-9_-]{1,160}$/.test(bundleId)
+    || input.bundleId && input.bundleId !== bundleId || proof?.bundleId !== bundleId
+    || proof.sourceId !== 'campus:zju-account' || proof.resource !== resource
+    || typeof proof.version !== 'string' || !/^[a-f0-9]{64}$/.test(proof.version)
+    || input.expectedSnapshotVersion && input.expectedSnapshotVersion !== proof.version) return;
+  const args: Record<string, any> = { ...structuredClone(input), bundleId, expectedSnapshotVersion: proof.version, refresh: false };
+  if (args.domain === 'courses' && Array.isArray(result.recordSelection?.filters)
+    && result.recordSelection.filters.every((filter: unknown) => typeof filter === 'string'))
+    args.filters = [...result.recordSelection.filters];
+  const interval = result.timeInterval ?? result.time_interval;
+  const instant = (value: unknown): value is string => typeof value === 'string' && Number.isFinite(Date.parse(value));
+  let fixed = true;
+  if (args.at) { if (instant(interval?.from)) args.at = interval.from; else fixed = false; }
+  else if (args.window || args.from || args.to) {
+    if ((args.window || args.from) && !instant(interval?.from) || (args.window || args.to) && !instant(interval?.to)) fixed = false;
+    else { delete args.window; if (instant(interval?.from)) args.from = interval.from; if (instant(interval?.to)) args.to = interval.to; }
+  }
+  const dynamic = new Set(['ongoing', 'ended', 'minutes_from_now']);
+  if ((args.filters || []).some((filter: string) => dynamic.has(filter.split(':')[0].split('.').at(-1)!))
+    || typeof args.sort === 'string' && args.sort.split(',').some((part: string) => dynamic.has(part.trim().replace(/^-/, '').split('.').at(-1)!))) fixed = false;
+  return { arguments: args, evaluation: {
+    ...(instant(result.evaluatedAt ?? result.evaluated_at) ? { at: result.evaluatedAt ?? result.evaluated_at } : {}),
+    paging: fixed ? 'fixed_conditions' as const : 'evaluation_dependent' as const,
+    dynamicValues: ['schedule', 'exams'].includes(args.domain) && (!args.fields || args.fields.some((field: string) => dynamic.has(field.split('.').at(-1)!))),
+  } };
 }
 
 export function requireCampusQueryScope(policy: PolicyKernel, scope: ScopeHandle, input: CampusQuery) {
@@ -171,7 +272,10 @@ export function campusLookupReadsCourseGrades(input: { domain?: string; fields?:
 /** Preserve the evaluated window; relative selectors are not re-evaluated at
  * the next page. Time-derived membership/order needs a new query baseline. */
 export function campusQueryOnSnapshot(input: CampusQuery, result: Record<string, any>) {
-  const pinned = structuredClone(input), time = pinned.spec?.time, interval = result.time_interval;
+  let pinned: CampusQuery;
+  try { pinned = structuredClone(campusCourseQueryForSemester(input, result.semester_id)); }
+  catch (error) { if (error instanceof HarnessError && error.code === 'campus_semester_unknown') return; throw error; }
+  const time = pinned.spec?.time, interval = result.time_interval;
   const validTime = (value: unknown): value is string => typeof value === 'string' && Number.isFinite(Date.parse(value));
   let fixed = true;
   if (time?.at) {
@@ -224,9 +328,9 @@ export function campusQueryContinuation(input: CampusQuery, result: Record<strin
   return { capability: 'campus.query' as const, arguments: validateCampusQuery(next),
     meaning: input.operation === 'read' && input.resource === 'exams' && input.pointer === examCourseRecordsPointer
       ? '沿同一版本的考试课程原行继续；课程原行数与逐场考试数分别计数。'
-      : input.operation === 'history' ? '沿同一资源目录继续列快照元信息；目录可能新增或变化，这不是固定快照中的个人记录。'
-      : input.operation === 'diff' ? '继续比较原来两份指定快照；这里只报告观察差异，不把来源采集时刻当作实际发生时刻。'
+      : input.operation === 'history' ? '接着看这项资料的保存版本目录，目录会随新查询更新。'
+      : input.operation === 'diff' ? '接着比较原来选中的两份记录；变化发生在两次观察之间，确切发生时间仍看原文。'
       : input.spec?.join || (input.spec?.resources?.length || 0) > 1
-      ? '继续同一查询并固定已返回的主快照；关联来源仍由原连接器重新核对，不把主快照当作全部关联来源的版本证明。'
-      : '沿已解析的查询条件与同一数据快照继续；页内ongoing等相对当前时刻的显示值仍会重评。已读一页不等于全部读完，翻完也不消除原来源缺口。' };
+      ? '接着看同一查询的下一页，主记录保持这一版，关联来源会继续核对各自的版本。'
+      : '按刚才的条件接着看同一份记录；正在进行等时间状态会按当前时刻更新，原来源缺失的部分仍会标明。' };
 }

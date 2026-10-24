@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-themed-mother-candidate",
+  "character": "umiri",
+  "activity": "attention",
+  "theme": "violet",
+  "status": "generated-needs-redraw",
+  "tool": "built-in image_gen",
+  "executionId": "exec-966c890d-521d-49f3-ada0-3500969bfe5c",
+  "input": {
+    "path": "umiri-attention-apricot-mother-candidate-v1.png",
+    "sha256": "2e2a24e6baeb00f8ca22fdb5e3e35a1f8e3e4c95541defe7008abf6e23602d81",
+    "role": "sole primary-approved complete apricot activity mother"
+  },
+  "promptFile": "umiri-attention-violet-prompt.txt",
+  "actualPrompt": "Asset ID: umiri-attention-violet. Activity: attention. Theme: violet.\nSOLE APPROVED INPUT: umiri-attention-apricot-mother-candidate-v1.png; complete original apricot activity mother only.\nUse case: lighting-weather. Make ONE complete 1536 x 1024 same-room themed mother by relighting the supplied primary-approved character attention scene.\nONLY INPUT IMAGE 1 is the EDIT TARGET, a complete approved apricot mother with its original person. This is a whole-scene LIGHTING AND WEATHER EDIT, not a new composition or new pose.\nLOCK EVERYTHING GEOMETRIC: exact canvas, camera and perspective; exact person's face, age, hairstyle, body, expression, posture, hands/fingers, clothing folds, hems, both feet/shoes, scale and position; exact window frame and all four corners, curtains, lake/campus landmarks, rear-left table/chair/shelves/framed drawing, right desk/chair/lamp/cup/book, bench/pillows/throw, rug and all furniture feet. Keep the chair in THIS mother, even if it differs from the original empty-room chair orientation. Do not restore/reposition a chair, move a lamp or widen a desk. Do not crop, zoom, enlarge, redesign, move the person or add another person.\nThe left lived-in depth and open central floor stay visible. Relight the PERSON and the WHOLE ROOM together so hair, skin, clothes, wood, linen, window glass, exterior and contact shadows agree with the same illumination. Skin and clothing retain their own material colors, not a full-image color filter, tinted overlay, green cast, black layer or white gradient. Preserve fine youthful Japanese-anime character linework and the softly detailed painted environment. No text, UI, logo, watermark, split-screen, border, arrows, inset or duplicate view.\n\nIDENTITY LOCK: this is Yahata Umiri (八幡海鈴), the same youthful charcoal-gray shoulder-length flipped-tip hair, gray-teal eyes, short black jacket, dark-red top, gray short skirt, choker/earrings and black platform boots already painted in the input. Keep her ORIGINAL ATTENTION pose on the outward-turned desk chair: one hand extends the same small plain card/bookmark toward the user, the other supports her on the seat; keep the original face, welcoming slight head angle, short skirt, two uncrossed legs and both full black boots grounded in their exact source places. Do not swap card for book/cup or move her to the bench. Preserve actual finger/card overlap and the original chair angle.\n\nTHEME VIOLET / rose-gold dusk:\nThe same lake/campus skyline is at sunset: low warm rose-gold light at the horizon, fading violet/lilac upper clouds and soft dusk over the distant mountains. The sunset and water reflections occupy the WHOLE connected window view coherently. Interior shadows acquire quiet muted violet while direct/reflective surfaces receive restrained rose/amber light. Retain the room's real material colors and depth, not a flat purple or orange filter.\nSwitch ON the existing desk lamp at exactly its source location, with a modest independent warm pool on the tabletop and nearby chair/bench surfaces. The lamp's light, window dusk rim, material reflections and the person's face/skin/hair/clothes all obey the same two real sources. Natural skin remains readable and youthful, no neon purple skin or white-out garment. Do not move the lamp or alter its shape. Preserve the same geometry and original attention pose in one continuous dusk room.\nReturn the complete exact-size same-character, same-pose, same-furniture scene.",
+  "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-966c890d-521d-49f3-ada0-3500969bfe5c.png",
+  "output": {
+    "path": "umiri-attention-violet-mother-candidate-v1.png",
+    "sha256": "c15df9ff83ea78b0f5d83544b5fbe2455b8c9d6add48ca36c1947f67cd313686",
+    "bytes": 2173920,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-24T01:08:38.390632+00:00"
+  },
+  "designerReview": {
+    "status": "viewed-candidate",
+    "observed": "Original outward chair and offered card/finger overlap, other supporting hand, face, skirt, both boots and fixed desk/lamp/cup preserved. Full rose-gold sunset/lake reflections/violet shadows and original warm lamp light the same room and natural skin; no new lamp or split treatment."
+  },
+  "primaryReview": "pending",
+  "layersAccepted": false,
+  "runtimeAccepted": false,
+  "redrawReason": "Root unified violet sun center near (1007,302) and x1007 lake reflection against approved room-violet. Old character-violet v1 sunlight position varied and is not an input to correction."
+}

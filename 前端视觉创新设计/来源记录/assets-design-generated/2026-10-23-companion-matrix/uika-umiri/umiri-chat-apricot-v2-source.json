@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-mother-candidate",
+  "character": "umiri",
+  "activity": "chat",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/umiri/",
+    "https://anime.bang-dream.com/mygo/character/umiri/"
+  ],
+  "input": {
+    "path": "../room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty room; rejected v1 was not an input"
+  },
+  "promptFile": "umiri-chat-apricot-v2-prompt.txt",
+  "prompt": "Use case: stylized-concept. Create one complete 1536 x 1024 warm-apricot mother scene for the 在场 room.\nONLY INPUT image 1 is the approved CLEAN EMPTY room v4. Use it for the whole space. There is NO person-reference input. Do not generate a foreground portrait: the room stays the main composition and the girl is an ordinary-scale seated resident within it.\n\nCRITICAL SPATIAL LOCK:\nThe existing right desk chair stays at its existing desk. Keep its seat center near pixel (950,600), its ground contact around y=730 and its normal height. It may rotate outward a little, but MUST NOT move left into the center or forward onto the foreground rug. Do not enlarge it. Preserve the desk, lamp, cup, window, bench and the complete room at exactly the input camera and scale.\nThe girl's COMPLETE silhouette should fit approximately inside x=820..1090, y=320..790 of this 1536x1024 canvas. Her head top is about y=325, seated pelvis about (950,590), boot soles around y=775. Do not place any part of her left of x=800. Keep these world-scale relationships: her boots end only a little in front of the chair's feet, not near the bottom of the picture. Keep the entire window and every left-side living detail visible.\n\nSUBJECT: Yahata Umiri (八幡海鈴), the original BanG Dream! Ave Mujica / MyGO!!!!! first-year high-school girl, fifteen-sixteen. A youthful, slim ordinary teenage build, soft young jaw and clear gray-teal anime eyes. Charcoal-gray shoulder-length hair with a subtle cool undertone, a divided side-swept fringe, small visible forehead and slightly outward-flipped shoulder tips. Keep the hairstyle and youthful eyes recognizable. No mature makeup, seductive expression, adult fashion-model body or chibi proportions.\nOfficial casual clothing: short black biker jacket over a dark-red V-neck top, a plain gray short skirt, simple black choker, small silver earrings and black lace-up mid-calf platform boots. Keep these natural clothing colors and modest everyday teenage character styling.\n\nCHAT action: Umiri sits on the original chair cushion near its FRONT edge, turned three-quarters out toward the room/left foreground. The torso stays compact, relaxed and upright over supported hips. One palm rests lightly on the cushion beside the hip, the other hand rests on a knee. She has just looked across at the person who spoke, calm and perceptive, with a tiny wry closed-mouth smile. No cup, clipboard, phone, instrument, wave or work-service gesture.\nTwo thighs remain on the cushion; two distinct uncrossed knees, ordinary-length lower legs, and two separate complete boots meet the original floor in front of the chair. Knees rest close naturally. One boot may be slightly ahead of the other with both soles firmly supported. No elongated legs, repeated knee, twisted ankle, floating pelvis or chair penetrating clothes. Show both hands, head, hair tips, skirt hem and both boot soles without edge crop. The skirt drapes modestly over the supported thighs, with no low camera angle.\n\nPreserve all four window-frame edges/corners, same lake/campus view, rear-left table/chair/bookshelves/framed drawing, right desk/lamp/cup, bench/pillows/throw and empty central floor passage. No new chair/table, no person or giant object in the left or central reading area, no blank wall, gradient or fog over the lived-in detail. Same coherent morning illumination and contact shadows under boots and at the chair cushion.\n\nPolished youthful Japanese-anime character linework within the input's detailed soft environmental painting; black leather has natural highlights and folds, not a flat black silhouette. One continuous complete room, no pasted character sticker, close-up fashion portrait, photo look, text, UI, logo, watermark, split-screen, arrow, border, inset or duplicate view. Return the whole same-size scene.\n",
+  "output": {
+    "path": "umiri-chat-apricot-mother-candidate-v2.png",
+    "sha256": "beb0028df130f510fce228bd127495d0375ecf8998c81a50137617e4482af8ee",
+    "bytes": 2120803,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T18:47:13.901184+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "v2恢复普通桌椅尺度与右侧关系，外转椅坐与压座手势可见，双靴完整支承，深灰肩发与灰青眼及原作日常衣服可辨；原作身份和比例待根审。椅子转向，需本母图同源背景。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-7242a3ef-a674-4aa9-914b-b05370c579c0"
+}

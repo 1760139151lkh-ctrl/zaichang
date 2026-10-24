@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-study-rain-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "study",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-scene physical relighting of this exact primary-approved warm activity mother; no other character inputs",
+  "prompt": "nyamu-study-rain-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-study-apricot-mother-candidate-v1.png",
+      "role": "sole image edit target; primary-approved correct complete activity mother",
+      "sha256": "5a8e11981cd588f7274b848cf661b2eee415a6a63103cea342d8d660c9409579"
+    }
+  ],
+  "output": {
+    "file": "nyamu-study-rain-mother-candidate-v1.png",
+    "sha256": "a20c65f61c457a8049a12056cb5911cf34f336b9bc646392359d9b0f5787ad8f",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-bf48dfb4-5e1b-42dc-94b6-051a7426e417.png"
+  },
+  "ownershipAndPose": "Keep the exact side/back forward study posture in the existing right desk chair: hips fully seated, forearms/pencil and paper have original real desktop support, eyes down to the same line. Preserve naturally occluded far hand/body/shoe portions; never invent visible anatomy behind furniture. Paper on desk stays a BACKGROUND object, held pencil belongs with character. Fixed desk posture, no new reach or pose.",
+  "designerObservation": "Full image personally viewed. Exact side/back study/pencil pose and source's genuine furniture occlusion retained, original seated hip and full visible leg/shoe support intact. Cold rainy glass/city/lake night and existing desk lamp give separate cool fill and localized warm paper/near face/forearm light. Left wall/pillar have smooth low exposure without daytime leaf projections; floor has soft lamp pool and cool reflection, no daylight strips. Gray blouse/black skirt and youthful purple identity remain.",
+  "observedGaps": [
+    "Primary mother review pending; no layers/calibration/Stage acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

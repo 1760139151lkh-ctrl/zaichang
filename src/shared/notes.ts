@@ -83,6 +83,11 @@ export interface NoteMetadata {
     /** Original address only; opening it rechecks the MaterialService owner.
      * The user's deliberately kept note remains a notebook document. */
     material?: import('./materials').MaterialQuoteReference & { name: string };
+    notebook?: NoteQuoteReference;
+    conversation?: import('./source-bookmark').ConversationBookmarkReference;
+    /** The source remains with its original owner; body is the person's own
+     * writing, never a cached copy of that excerpt. */
+    referenceOnly?: true;
   };
   /** A note may quote another person or describe fiction; no subject is inferred. */
   effectiveAt: string | null;
@@ -105,6 +110,9 @@ export interface NotePage {
   end: number;
   total: number;
   hasMore: boolean;
+  originalRead?: { reference: import('./source-bookmark').SourceBookmarkReference; meaning: string } & (
+    { state: 'address_only'; read: { tool: string; arguments: Record<string, unknown> } }
+    | { state: 'changed'; read?: never });
 }
 export interface NoteList {
   items: NoteSummary[];
@@ -147,7 +155,24 @@ export function noteQuoteAddress(quote: NoteQuoteReference): NoteQuoteReference 
   return { id: quote.id, revision: quote.revision, sha256: quote.sha256, start: quote.start, end: quote.end };
 }
 
+const draftKey = z.union([noteId, z.literal('new')]);
+export const noteDraftInputSchema = z.discriminatedUnion('operation', [
+  z.object({ operation: z.literal('list') }).strict(),
+  z.object({ operation: z.literal('read'), key: draftKey }).strict(),
+  z.object({ operation: z.literal('write'), key: draftKey, expectedEpoch: z.number().int().nonnegative(),
+    expectedDraftRevision: z.number().int().nonnegative(), baseRevision: revision.optional(),
+    title: z.string().max(NOTE_LIMITS.title), body: z.string().max(NOTE_LIMITS.body) }).strict(),
+  z.object({ operation: z.literal('discard'), key: draftKey, expectedEpoch: z.number().int().nonnegative(),
+    expectedDraftRevision: revision }).strict(),
+]);
+export type NoteDraftInput = z.infer<typeof noteDraftInputSchema>;
+export interface NoteDraftAddress { key: string; revision: number; baseRevision?: number; updatedAt: string }
+export interface NoteDraft extends NoteDraftAddress { title: string; body: string }
+export interface NoteDraftResult { epoch: number; status: 'current' | 'saved' | 'conflict' | 'discarded';
+  draft?: NoteDraft; items?: NoteDraftAddress[] }
+
 export interface NotesBridge {
+  notesDraft(input: NoteDraftInput): Promise<NoteDraftResult>;
   notesQuote(input: NotebookQuoteReference): Promise<NotebookQuote>;
   notesList(input?: z.input<typeof noteListSchema>): Promise<NoteList>;
   notesRead(input: z.input<typeof noteReadSchema>): Promise<NotePage>;

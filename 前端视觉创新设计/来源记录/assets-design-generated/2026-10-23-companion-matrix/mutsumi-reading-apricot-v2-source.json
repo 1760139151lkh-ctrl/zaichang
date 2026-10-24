@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "mutsumi",
+  "activity": "reading",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-reading-apricot-v2-prompt.txt",
+  "promptSha256": "653d197752f2809c4a175ba0858c9b2050074f5e3ded3c952aef6ff6b43556e8",
+  "identityText": "mutsumi-identity.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "primary-approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-reading-apricot-mother-candidate-v2.png",
+    "sha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-4caf6932-a079-4080-9cc3-60e546a9f13e.png"
+  },
+  "designerObservation": "Full mother personally viewed. Pelvis/thighs/knees/loafers now visibly angle left, spine reclines backward toward the existing right pillow and the upper/mid back makes real cushion contact. Head turns left/down toward book supported on lap and both hands. Complete separate knees/socks/shoes with floor contact; materially different from upright chat. This is a new drawing from clean v4, not a pixel repair or reuse of returned reading-v1.",
+  "designerStatus": "candidate awaiting primary review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

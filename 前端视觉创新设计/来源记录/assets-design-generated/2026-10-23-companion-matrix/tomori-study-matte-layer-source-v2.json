@@ -1,0 +1,31 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "tomori",
+  "activity": "study",
+  "light": "apricot",
+  "layer": "matte",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-052f220a-5c93-4d1b-a348-77e2c144f2a5",
+  "inputs": [
+    {
+      "file": "tomori-study-apricot-v3-mother.png",
+      "role": "primary_approved_correct_complete_mother_only",
+      "sha256": "33e690f698cc4856872804014c6285620ec176ce5fe2ae6000887e4c74d3954f"
+    }
+  ],
+  "prompt": "tomori-study-matte-layer-prompt-v2.txt",
+  "promptSha256": "1b304fc9b37186f9f2d04428f1206a5cc58ee0c73b6cb10c43d1e69d96294c48",
+  "output": {
+    "file": "tomori-study-matte-generated-v2.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 364965,
+    "sha256": "440681d1df72d428fc480d2339fe163275452c8b70d2a47d99f515def72e17bc"
+  },
+  "review": {
+    "designerStatus": "returned_registration_drift",
+    "primary": "not submitted",
+    "runtime": "not used"
+  },
+  "designerObservation": "Explicit coordinate request still produced a shifted/larger technical silhouette. Do not use directly; final layer uses deterministic calibration of the earlier proposal against original pixels instead. Neither generated matte supplies figure RGB or body geometry."
+}

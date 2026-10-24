@@ -11,6 +11,19 @@ const api = window.zaichang;
 export const failureText = uiError;
 const date = (v?: string) => (v ? formatDateTime(v) : '');
 const localTime = toTimeInput;
+function processingUnavailable(state: State) {
+  if (!state.settings.memoryEnabled) return '记忆现在关着。接着整理前，需要先开启记忆。';
+  if (state.settings.mode !== 'deepseek')
+    return `先在「连接与资料」启用${state.modelRuntime?.displayName ? ` ${state.modelRuntime.displayName}` : '模型连接'}，再接着整理。`;
+  if (!state.settings.hasKey && !state.modelRuntime?.temporaryTestSubstitute)
+    return '先在「连接与资料」留好密钥，再接着整理。';
+  return '';
+}
+function processingLine(item: RuntimeOverview['processing'][number]) {
+  if (item.pending)
+    return `还有 ${item.pending} 段原话没整理完${item.failed ? `，${item.failed} 段还没读明白` : ''}`;
+  return item.failed ? `有 ${item.failed} 段原话没能整理好` : '有些原话还需要再看一看';
+}
 const names: Record<string, string> = {
   schedule: '课程安排',
   exams: '考试',
@@ -638,23 +651,21 @@ export function UnderstandingPanel({
           <summary>
             还有原文待整理 <span>{data.processing.length} 条</span>
           </summary>
-          <p className="harness-muted">按段保留处理状态。重试只使用有权保留和整理的原文。</p>
+          {processingUnavailable(state) && <p className="harness-muted">{processingUnavailable(state)}</p>}
           {data.processing.map((p) => (
             <div className="processing-row" key={p.eventId}>
               <div>
                 <span>{p.fileName || date(p.receivedAt)}</span>
                 <small>
-                  {p.pending ? `${p.pending} 段待处理` : '有内容待确认'}
-                  {p.failed ? ` · ${p.failed} 段需重试或补充` : ''}
+                  {processingLine(p)}
                 </small>
               </div>
               <button
                 className="text-button"
-                disabled={!!pending || busy || state.settings.mode !== 'deepseek'}
+                disabled={!!pending || busy || !!processingUnavailable(state)}
                 onClick={() =>
                   void act('retry', async () => {
                     setData(await api.retryProcessing(p.eventId));
-                    setStatus('本次整理已检查；尚不明确的内容仍保留待确认。');
                   })
                 }
               >
@@ -663,9 +674,6 @@ export function UnderstandingPanel({
               </button>
             </div>
           ))}
-          {state.settings.mode !== 'deepseek' && (
-            <p className="harness-muted">连接 DeepSeek 后可整理，本地示例不会猜测个人事实。</p>
-          )}
         </details>
       )}
     </section>
@@ -1507,20 +1515,19 @@ export function MemoryPanel({
           <summary>
             还有内容待整理 <span>{data.processing.length} 条</span>
           </summary>
-          <p className="harness-muted">处理状态只在需要时显示；未整理的原文不会被默认为长期理解。</p>
+          {processingUnavailable(state) && <p className="harness-muted">{processingUnavailable(state)}</p>}
           {data.processing.map((item) => (
             <div className="processing-row" key={item.eventId}>
               <div>
                 <span>{item.fileName || date(item.receivedAt)}</span>
-                <small>{item.pending ? `${item.pending} 段待处理` : '有内容待确认'}</small>
+                <small>{processingLine(item)}</small>
               </div>
               <button
                 className="text-button"
-                disabled={!!pending || busy || state.settings.mode !== 'deepseek'}
+                disabled={!!pending || busy || !!processingUnavailable(state)}
                 onClick={() =>
                   void act('retry', async () => {
                     setData(await api.retryProcessing(item.eventId));
-                    setNotice('已重新检查；仍不明确的内容会保留待确认。');
                   })
                 }
               >
@@ -1858,22 +1865,21 @@ export function MemoryPanelSimple({
             {!!data?.processing.length && (
               <section className="memory-subgroup processing-overview">
                 <h3>还没整理完</h3>
-                <p className="harness-muted">不明确的原话不会自动变成长期理解。</p>
+                {processingUnavailable(state) && <p className="harness-muted">{processingUnavailable(state)}</p>}
                 {data.processing.map((item) => (
                   <div className="processing-row" key={item.eventId}>
                     <div>
                       <span>{item.fileName || date(item.receivedAt)}</span>
                       <small>
-                        {item.pending ? `还有 ${item.pending} 段没整理清楚` : '有些原话还需要再看一看'}
+                        {processingLine(item)}
                       </small>
                     </div>
                     <button
                       className="text-button"
-                      disabled={!!pending || busy || state.settings.mode !== 'deepseek'}
+                      disabled={!!pending || busy || !!processingUnavailable(state)}
                       onClick={() =>
                         void act('retry', async () => {
                           setData(await api.retryProcessing(item.eventId));
-                          setNotice('没读清楚的地方，会继续留在这里，等你来决定。');
                         })
                       }
                     >

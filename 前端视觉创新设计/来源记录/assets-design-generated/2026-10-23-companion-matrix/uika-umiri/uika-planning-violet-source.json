@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-theme-mother-candidate",
+  "character": "uika",
+  "activity": "planning",
+  "theme": "violet",
+  "status": "generated-needs-redraw",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/uika/",
+    "https://anime.bang-dream.com/mygo/character/uika/"
+  ],
+  "input": {
+    "path": "uika-planning-apricot-mother-candidate-v3.png",
+    "sha256": "767aab09d7596550438a1e3ef5ff01e578b4a635cc548b104bd773f211361e1b",
+    "role": "sole primary-approved exact-activity full apricot mother v3; lighting-weather edit only"
+  },
+  "promptFile": "uika-planning-violet-prompt.txt",
+  "prompt": "Use case: lighting-weather. One complete 1536 x 1024 same-room themed mother.\nThe ONLY INPUT image 1 is the PRIMARY-APPROVED APRICOT MOTHER FOR THIS EXACT ACTIVITY. It is the full edit target, not a reference portrait. Relight it as a whole; do not recompose or create a new pose.\nLOCK source geometry, face/age/hair, expression/gaze, body proportions, exact hands/fingers/feet and support contacts, clothing folds, all props/held items, empty shoes, chair orientation, desk width/lamp/cup position, bench/pillows/throw, all window frame corners and continuous architecture, distant campus landmarks, rear-left table/shelves/drawing, rug and floorboards. No crop/zoom/enlargement, body relocation, anatomy completion, chair restoration from another room or furniture drift. The provided activity silhouette stays unchanged, including all fine hair/prop/shoe tips inside the same full canvas.\nThis is MISUMI UIKA (三角初華): the same youthful short chin-length pale-blonde bob with a faint pink undertone, violet eyes, white T-shirt, long taupe-gray skirt and original socks/footwear arrangement in this approved input. Do not substitute an adult, long brown hair or another girl. Her original outfit and object colors remain material colors under new light.\nRelight the whole person AND room together: exterior/sky/water/glass, lamp, walls/wood/linen, hair/skin/clothes/objects and contact shadows must agree. Natural skin, readable eyes/hands, real cloth/wood colors. No flat color filter, uniform orange/purple wash, black overlay, green cast, white gradient, pasted bright face, blank wall, split day/night, extra light source, new prop/person or background replacement. Fine youthful anime linework and the same softly detailed painted environment. No text/UI/logos/watermarks/arrows/borders/insets.\n\nSOURCE ACTIVITY PLANNING: this is the approved NEW v3 desk-chair UPRIGHT SIDE SEAT with whole upper torso half-turned toward the user, comparing two small sheets. Keep that exact upright half-turn and all desk/lamp/chair geometry. Do not revert to bench chat, lean forward into study or widen/slide the desk. Preserve the actual open palm and page-edge hand.\n\nTHEME VIOLET: rose-gold SUNSET over the SAME lake/campus, low warm horizon fading into lilac/violet upper clouds, coherent dusk and water reflections over the whole connected window. Muted violet interior shadows and restrained rose/amber bounce, preserving material colors. Turn ON the EXISTING desk lamp in its exact source position, modest local warm pool on desk/chair/bench. The person receives that lamp light and dusk window rim coherently; natural youthful skin and readable hair/clothes/objects, not neon purple skin or uniform orange tint. Do not move the lamp or change the source pose/room.\nReturn ONE complete exact-size scene with source composition and anatomy unchanged.\n",
+  "output": {
+    "path": "uika-planning-violet-mother-candidate-v1.png",
+    "sha256": "bf3e11bc26285e7c0cc29487525502849759742ced2ef9bb20401d2b78d39f3f",
+    "bytes": 2190057,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-24T00:37:06.300450+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "已批v3直身椅上半转比较及桌面前臂/示意掌/鞋与桌灯区域保持；整窗日落紫影与原灯暖光、家具和肤色材质反射相互一致。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-c946ba1a-19cf-4f12-afb6-ff4138ad6f81",
+  "primaryFeedback": "Root personally required a common violet solar anchor near (1007,302) from approved room-violet. This v1 has a significantly shifted actual sun and lake reflection axis; no use as generation input/layer/runtime."
+}

@@ -390,7 +390,7 @@ export class PlanningApplicationService {
     if (ticket.campus) {
       try {
         if (!this.campusPort?.current(scope, ticket.campus)) blockers.push('校园安排的保存快照、账号或读取范围已改变，原快照已不能支持后续采用；当前可读的校园安排与已保存的本人日历能为新试算提供依据。');
-      } catch { blockers.push('当前不能复核校园安排快照，尚未采用旧方案。'); }
+      } catch { blockers.push('学校安排这次还没能核清，继续按原方案办理前需要看看当前记录。'); }
     }
     if (!ticket.output.blocks.length && !ticket.hostContext?.retained.work.length)
       blockers.push('本次没有构造出可采用的工作安排。');
@@ -403,7 +403,7 @@ export class PlanningApplicationService {
         try {
           if (this.campusPort?.currentVersion(scope, source.sourceVersion) !== true)
             blockers.push('校园来源的当前保存版本还无法确认与原依据一致，后续试算仍缺少当前可读的校园记录。');
-        } catch { blockers.push('当前不能复核校园来源的保存版本，未采用旧方案。'); }
+        } catch { blockers.push('学校资料的当前保存版本还没能核清，需要先接上现在这份记录。'); }
         continue;
       }
       let current: string | number | null | undefined;

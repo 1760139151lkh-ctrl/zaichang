@@ -1,0 +1,32 @@
+{
+  "mother": "umiri-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "5543b970656b878a7f7114429e3d1325c4aa64ba036eb998912831cd87cfa974",
+  "matte": "umiri-reading-apricot-mask-raw-v2.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "umiri-reading-apricot-figure-calibrated-v1.png",
+  "mask": "umiri-reading-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "umiri-reading-apricot-background-raw-v1.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [[1091,748],[1157,750],[1159,761],[1093,763]],
+    [[1168,763],[1257,762],[1258,777],[1171,779]],
+    [[1264,578],[1359,577],[1363,588],[1261,588]],
+    [[1380,576],[1437,577],[1437,588],[1380,586]]
+  ],
+  "background": "umiri-reading-apricot-background-calibrated-v1.png",
+  "contactShadowPolygons": [
+    [[1091,748],[1157,750],[1159,761],[1093,763]],
+    [[1168,763],[1257,762],[1258,777],[1171,779]],
+    [[1264,578],[1359,577],[1363,588],[1261,588]],
+    [[1380,576],[1437,577],[1437,588],[1380,586]]
+  ],
+  "contactShadowFeatherPixels": 0.7,
+  "shadow": "umiri-reading-apricot-shadow-candidate-v1.png",
+  "record": "umiri-reading-apricot-layer-processing-v1.json",
+  "reviewNote": "Initial original-position extraction from corrected raw mask v2; raw mask v1 enlarged and rejected, not used. Shadow is normal source-over RGBA residual only within explicit original sole/hip/palm contacts, not generic multiply. Actual right supporting palm near cushion/pillow edge limits physical travel; no scene/drag approval."
+}

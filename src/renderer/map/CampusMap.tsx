@@ -35,12 +35,21 @@ import { rankMapPoints, uniqueExactMapPoint } from '../../shared/map-names';
 import { initialSelection, selectionReducer, type SelectionState } from './map-state';
 import type { MapData, CampusMapEngine, SavedCamera } from './map-engine';
 import type { MapRouteReference, SharedMapRoute } from '../../shared/map-context';
+import engineModuleUrl from 'virtual:zaichang-map-engine-url';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import './map.css';
 import './map-surface.css';
 import { WindowControls } from '../ui';
+import { WorkoutControls } from './WorkoutControls';
 
 const api = window.zaichang;
 const dataCaches = new Map<boolean, MapData>();
+const engineUrl = new URL(engineModuleUrl, import.meta.url);
+let engineModuleRetry = 0;
+function loadEngine(fresh: boolean) {
+  if (fresh) engineUrl.searchParams.set('mapRetry', String(++engineModuleRetry));
+  return import(/* @vite-ignore */ engineUrl.href) as Promise<typeof import('./map-engine')>;
+}
 export interface MapSurfaceMemory { camera?: SavedCamera; selection?: SelectionState; entered?: boolean; sharedSelectionId?: string }
 export interface MapContextHandoff {
   text: string;
@@ -188,7 +197,9 @@ export function MapSurface({
   sharedSelectionId?: string;
 }) {
   const stage = useRef<HTMLDivElement>(null),
-    engine = useRef<CampusMapEngine | undefined>(undefined);
+    engine = useRef<CampusMapEngine | undefined>(undefined),
+    engineGeneration = useRef(0),
+    retryEngineModule = useRef(false);
   const searchId=useId();
   const handlers = useRef({onChoose,onEngine,onTakeControl});
   handlers.current={onChoose,onEngine,onTakeControl};
@@ -199,8 +210,10 @@ export function MapSurface({
     search = useRef<HTMLInputElement>(null),
     coverage = useRef<HTMLSpanElement>(null);
   const [data, setData] = useState<MapData>(),
-    [loadError, setLoadError] = useState(''),
+    [dataError, setDataError] = useState(false),
+    [engineError, setEngineError] = useState<'load' | 'render'>(),
     [attempt, setAttempt] = useState(0),
+    [engineAttempt, setEngineAttempt] = useState(0),
     [engineReady, setEngineReady] = useState(false);
   const dataRef=useRef(data);dataRef.current=data;
   const [selection, dispatch] = useReducer(selectionReducer, initialRoute, (r) => inline&&memory.selection?memory.selection:reviewScene === 'building-focus' && r.to ? {...initialSelection, destination:r.to} : initialState(r,memory,initialConditions)),
@@ -352,94 +365,130 @@ export function MapSurface({
   }, []);
   useEffect(() => {
     const controller = new AbortController();
-    setLoadError('');
+    setDataError(false);
     loadData(controller.signal, publicOnly)
       .then((d) => {
         if (!controller.signal.aborted) {setData(d);if(!initialRoute.to)dispatch({type:'rebind',places:d.places});}
       })
-      .catch((e) => {
-        if (!controller.signal.aborted) setLoadError(String(e.message || e));
+      .catch(() => {
+        if (!controller.signal.aborted) setDataError(true);
       });
     return () => controller.abort();
   }, [attempt, publicOnly]);
   useEffect(() => {
     if (!data || !stage.current) return;
-    if(engine.current?.supportsSpace){engine.current.updateData(data);return;}
+    if(engine.current?.supportsSpace){
+      try { engine.current.updateData(data); }
+      catch { setEngineError('render'); setEngineReady(false); }
+      return;
+    }
     let disposed = false;
-    import('./map-engine')
+    const generation = ++engineGeneration.current;
+    const current = () => !disposed && alive.current && engineGeneration.current === generation;
+    const fresh = retryEngineModule.current;
+    retryEngineModule.current = false;
+    loadEngine(fresh)
       .then(({ createCampusMap }) => {
-        if (disposed || !stage.current) return;
-        const map = createCampusMap(
-          stage.current,
-          data,
-          {
-            choose,
-            candidates: setCandidates,
-            hover: setHover,
-            blank: () => {
-              setHover(undefined);
-              setCandidates([]);
-              setSearchOpen(false);
-            },
-            user,
-            camera: (c) => {
-              memory.camera = c;
-              if(Math.abs((c.pitch||0)-pitchValue.current)>.1){pitchValue.current=c.pitch||0;setPitch(c.pitch||0);}
-              if (c.rotation !== feedback.current.rotation) {
-                const needle = compass.current?.querySelector('i');
-                if (needle) needle.style.transform = `rotate(${c.rotation}rad)`;
-                feedback.current.rotation = c.rotation;
-              }
-              const lat = (Math.atan(Math.exp(c.center[1] / 6378137)) * 360) / Math.PI - 90;
-              if (coverage.current) {
-                const covered = inBounds(
-                  [(c.center[0] * 180) / Math.PI / 6378137, lat],
-                  dataRef.current?.manifest.bounds||data.manifest.bounds,
-                );
-                if (coverage.current.hidden !== covered) coverage.current.hidden = covered;
-              }
-              if (scale.current) {
-                if(c.scale){scale.current.style.width=`${c.scale.width}px`;scale.current.textContent=c.scale.meters>=1000?`${c.scale.meters/1000} km`:`${c.scale.meters} m`;scale.current.title=c.scale.reference;scale.current.dataset.reference=c.scale.reference;return;}
-                const ground = c.resolution * Math.cos((lat * Math.PI) / 180),
-                  ideal = ground * 90,
-                  power = 10 ** Math.floor(Math.log10(ideal)),
-                  m =
-                    [1, 2, 5, 10]
-                      .map((v) => v * power)
-                      .filter((v) => v <= ideal)
-                      .at(-1) || power;
-                const width = Math.round((m / ground) * 10) / 10,
-                  label = m >= 1000 ? `${m / 1000} km` : `${m} m`;
-                if (width !== feedback.current.width) {
-                  scale.current.style.width = `${width}px`;
-                  feedback.current.width = width;
+        if (!current() || !stage.current) return;
+        try {
+          const map = createCampusMap(
+            stage.current,
+            data,
+            {
+              choose,
+              candidates: setCandidates,
+              hover: setHover,
+              blank: () => {
+                setHover(undefined);
+                setCandidates([]);
+                setSearchOpen(false);
+              },
+              user,
+              camera: (c) => {
+                if (!current()) return;
+                memory.camera = c;
+                if(Math.abs((c.pitch||0)-pitchValue.current)>.1){pitchValue.current=c.pitch||0;setPitch(c.pitch||0);}
+                if (c.rotation !== feedback.current.rotation) {
+                  const needle = compass.current?.querySelector('i');
+                  if (needle) needle.style.transform = `rotate(${c.rotation}rad)`;
+                  feedback.current.rotation = c.rotation;
                 }
-                if (label !== feedback.current.label) {
-                  scale.current.textContent = label;
-                  feedback.current.label = label;
+                const lat = (Math.atan(Math.exp(c.center[1] / 6378137)) * 360) / Math.PI - 90;
+                if (coverage.current) {
+                  const covered = inBounds(
+                    [(c.center[0] * 180) / Math.PI / 6378137, lat],
+                    dataRef.current?.manifest.bounds||data.manifest.bounds,
+                  );
+                  if (coverage.current.hidden !== covered) coverage.current.hidden = covered;
                 }
-              }
+                if (scale.current) {
+                  if(c.scale){scale.current.style.width=`${c.scale.width}px`;scale.current.textContent=c.scale.meters>=1000?`${c.scale.meters/1000} km`:`${c.scale.meters} m`;scale.current.title=c.scale.reference;scale.current.dataset.reference=c.scale.reference;return;}
+                  const ground = c.resolution * Math.cos((lat * Math.PI) / 180),
+                    ideal = ground * 90,
+                    power = 10 ** Math.floor(Math.log10(ideal)),
+                    m =
+                      [1, 2, 5, 10]
+                        .map((v) => v * power)
+                        .filter((v) => v <= ideal)
+                        .at(-1) || power;
+                  const width = Math.round((m / ground) * 10) / 10,
+                    label = m >= 1000 ? `${m / 1000} km` : `${m} m`;
+                  if (width !== feedback.current.width) {
+                    scale.current.style.width = `${width}px`;
+                    feedback.current.width = width;
+                  }
+                  if (label !== feedback.current.label) {
+                    scale.current.textContent = label;
+                    feedback.current.label = label;
+                  }
+                }
+              },
+              ready: () => {
+                if (current()) {
+                  setEngineError(undefined);
+                  setEngineReady(true);handlers.current.onEngine?.(engine.current);
+                }
+              },
+              error: () => { if (current()) { setEngineError('render'); setEngineReady(false); } },
             },
-            ready: () => {
-              if (alive.current) {setEngineReady(true);handlers.current.onEngine?.(engine.current);}
-            },
-            error: setLoadError,
-          },
-          memory.camera,
-          {initialRoute:inline?routeRef.current:undefined,cooperativeGestures:inline},
-        );
-        engine.current = map;
-        if (touched.current) map.takeControl();
-      })
-      .catch((e) => setLoadError(String(e.message || e)));
+            memory.camera,
+            {initialRoute:inline?routeRef.current:undefined,cooperativeGestures:inline},
+          );
+          engine.current = map;
+          if (touched.current) map.takeControl();
+        } catch { if (current()) setEngineError('render'); }
+      }, () => { if (current()) setEngineError('load'); });
     return () => {
-      disposed = true;
       if(alive.current&&engine.current?.supportsSpace)return;
+      disposed = true;
       setEngineReady(false);
       engine.current?.dispose();
       engine.current = undefined;
     };
-  }, [data]);
+  }, [data, engineAttempt]);
+  function retryMap() {
+    stage.current?.focus({ preventScroll: true });
+    if (dataError) {
+      dataCaches.delete(publicOnly);
+      setAttempt((a) => a + 1);
+    }
+    if (engineError) {
+      // Keep this surface, selection and camera. Recreate only its failed
+      // renderer; re-reading unchanged data cannot repair that renderer.
+      const previous = engine.current;
+      retryEngineModule.current = engineError === 'load';
+      engineGeneration.current++;
+      engine.current = undefined;
+      try { if (previous) memory.camera = previous.snapshot(); } catch {}
+      try { previous?.dispose(); } catch {}
+      stage.current?.replaceChildren();
+      handlers.current.onEngine?.(undefined);
+      setEngineReady(false);
+      setEngineAttempt((a) => a + 1);
+    }
+    setDataError(false);
+    setEngineError(undefined);
+  }
   useEffect(()=>()=>{engine.current?.dispose();engine.current=undefined;handlers.current.onEngine?.(undefined);},[]);
   useEffect(() => {
     const current=engine.current;
@@ -474,6 +523,9 @@ export function MapSurface({
   useEffect(()=>{
     if(!inline||sceneRouteRef.current===initialRoute)return;
     sceneRouteRef.current=initialRoute;memory.selection=undefined;
+    // Returning from a local route preview can have no origin. Rebuild this
+    // selection from the original endpoints instead of retaining the trial A.
+    dispatch({type:'clear'}); dispatch({type:'browse'});
     if(initialRoute.from)dispatch({type:'start',point:initialRoute.from});
     if(initialRoute.to)dispatch({type:'choose',point:initialRoute.to});
   },[inline,initialRoute,memory]);
@@ -642,7 +694,12 @@ export function MapSurface({
       setCandidates([]);
       stage.current?.focus();
     } else if (selection.mode === 'two' && selection.stage !== 'browse') {
-      dispatch({ type: 'current' });
+      if (publicOnly) {
+        const point = selection.destination || selection.origin;
+        dispatch({ type: 'clear' });
+        dispatch({ type: 'browse' });
+        if (point) dispatch({ type: 'choose', point });
+      } else dispatch({ type: 'current' });
       stage.current?.focus();
     } else onClose();
   }
@@ -883,17 +940,11 @@ export function MapSurface({
             <button onClick={() => setCandidates([])}>取消</button>
           </div>
         )}
-        {loadError ? (
+        {dataError || engineError ? (
           <div className="campus-v2-empty" role="alert">
             <MapPinned size={28} />
             <strong>这次没能展开地图</strong>
-            <p>{loadError}</p>
-            <button
-              onClick={() => {
-                dataCaches.delete(publicOnly);
-                setAttempt((a) => a + 1);
-              }}
-            >
+            <button onClick={retryMap}>
               再打开一次
             </button>
           </div>
@@ -904,7 +955,7 @@ export function MapSurface({
             </div>
           )
         )}
-        {selection.mode==='browse' && p && <section className="campus-v3-place campus-v2-route campus-v2-obstruction" aria-label="地点详情"><div><strong>{p.displayName}</strong><button aria-label={collapsed?'展开地点详情':'收起地点详情'} onClick={()=>setCollapsed(!collapsed)}>{collapsed?'展开':'收起'}</button></div>{!collapsed&&<>{!p.graphNodeId&&<p>{placeStatusText(p)}</p>}<div className="campus-v2-route-actions">{p.kind==='water'?<button onClick={()=>{user();dispatch({type:'two'});}}>选择岸边起点</button>:<><button onClick={()=>{user();dispatch({type:'start',point:p});stage.current?.focus({preventScroll:true});}}>从这里选路</button><button onClick={()=>{user();dispatch({type:'current'});}}>从本机位置出发</button>{p.entrances.length>0&&<button onClick={()=>{setEntrances(!entrances);engine.current?.showEntrances(!entrances);}}>{entrances?'收起入口':'查看入口'}</button>}</>}</div>{venue&&<details className="campus-v3-venue"><summary>跑道与场地资料</summary><p>{venue.nominalLapBasis}</p><p>{venue.lapBasis}</p><p>{venue.markingBasis}</p><p>{venue.laneBasis}</p><p>{venue.displayBasis}</p><small>这里可以看看场地，不会记下跑步圈数。</small></details>}{p.waterBasis&&<details className="campus-v3-venue"><summary>水域与岸线资料</summary><p>{p.waterBasis}</p></details>}{(p.modelBasis||p.sourceCorrection)&&<details className="campus-v3-venue"><summary>{p.modelBasis?"建筑形态与资料":"场地资料"}</summary>{p.modelBasis&&<p>{p.modelBasis}</p>}{p.sourceCorrection&&<p>{p.sourceCorrection.basis}</p>}</details>}{p.personal?.note&&<p>{p.personal.note}</p>}</>}</section>}
+        {selection.mode==='browse' && p && <section className="campus-v3-place campus-v2-route campus-v2-obstruction" aria-label="地点详情"><div><strong>{p.displayName}</strong><button aria-label={collapsed?'展开地点详情':'收起地点详情'} onClick={()=>setCollapsed(!collapsed)}>{collapsed?'展开':'收起'}</button></div>{!collapsed&&<>{!p.graphNodeId&&<p>{placeStatusText(p)}</p>}<div className="campus-v2-route-actions">{p.kind==='water'?<button onClick={()=>{user();dispatch({type:'two'});}}>选择岸边起点</button>:<><button onClick={()=>{user();dispatch({type:'start',point:p});stage.current?.focus({preventScroll:true});}}>从这里选路</button>{!publicOnly&&<button onClick={()=>{user();dispatch({type:'current'});}}>从本机位置出发</button>}{p.entrances.length>0&&<button onClick={()=>{setEntrances(!entrances);engine.current?.showEntrances(!entrances);}}>{entrances?'收起入口':'查看入口'}</button>}</>}</div>{venue&&<details className="campus-v3-venue"><summary>跑道与场地资料</summary><p>{venue.nominalLapBasis}</p><p>{venue.lapBasis}</p><p>{venue.markingBasis}</p><p>{venue.laneBasis}</p><p>{venue.displayBasis}</p><small>这里可以看看场地，不会记下跑步圈数。</small></details>}{p.waterBasis&&<details className="campus-v3-venue"><summary>水域与岸线资料</summary><p>{p.waterBasis}</p></details>}{(p.modelBasis||p.sourceCorrection)&&<details className="campus-v3-venue"><summary>{p.modelBasis?"建筑形态与资料":"场地资料"}</summary>{p.modelBasis&&<p>{p.modelBasis}</p>}{p.sourceCorrection&&<p>{p.sourceCorrection.basis}</p>}</details>}{p.personal?.note&&<p>{p.personal.note}</p>}</>}</section>}
         {selection.mode!=='browse' && (p || selection.origin || selection.mode === 'two') && (
           <section
             className="campus-v2-route campus-v2-obstruction"
@@ -999,7 +1050,7 @@ export function MapSurface({
                 return place&&<div key={endpoint}><strong>{endpoint==='origin'?'出发':'抵达'} · {place.displayName}{place.undergroundStation&&used?' · '+used.name:''}</strong>{place.roadReference?<p>这里是路上的位置，到楼门怎么走还不清楚。</p>:choices.length?<label><select aria-label={endpoint==='origin'?'选择出发入口':'选择抵达入口'} value={(endpoint==='origin'?selection.originAccessId:selection.destinationAccessId)||''} onChange={e=>dispatch({type:'access',endpoint,id:e.target.value||undefined})}><option value="">比较这些有记录的入口</option>{choices.map(([id,name])=><option key={id} value={id}>{name}</option>)}</select></label>:<p>入口在哪还不清楚。虚线绕开了图上障碍，只是估算的连接。</p>}</div>;
               })}
               {!!(selection.origin?.entrances.length||p?.entrances.length)&&<button onClick={()=>{setEntrances(!entrances);engine.current?.showEntrances(!entrances);}}>{entrances?'收起入口标记':'查看已记录入口'}</button>}
-              {selection.mode==='two'&&<button onClick={()=>{user();dispatch({type:'current'});}}>从本机位置出发</button>}
+              {!publicOnly&&selection.mode==='two'&&<button onClick={()=>{user();dispatch({type:'current'});}}>从本机位置出发</button>}
               {route.warnings.map((warning,i)=><p key={i}>{warning}</p>)}
             </div>}
             {onUseContext && (!choosingEndpoint||routeDetails) && (
@@ -1047,6 +1098,7 @@ export function MapSurface({
           >
             {locationLabel(location)}
           </button>
+          {!publicOnly && !inline && <WorkoutControls />}
           <button
             className="campus-v2-help"
             aria-label="地图操作说明"
@@ -1106,7 +1158,7 @@ export function MapSurface({
                 </>
               )}
             </p>
-            <p>未连接手机位置。地图关闭后停止定位，不保存轨迹。</p>
+            <p>地图上的本机定位在关闭地图后停止；运动记录由运动卡单独控制，设备、来源和保存方式都在卡片里。</p>
             {tracking.current && (
               <button className="campus-v2-stop-location" onClick={stopLocation}>
                 停止本机定位

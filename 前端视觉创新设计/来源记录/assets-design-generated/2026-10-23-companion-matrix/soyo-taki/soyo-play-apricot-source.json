@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "play",
+  "palette": "apricot",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-8b136857-3838-48e1-bab5-38aa85e2ee77",
+  "prompt": "soyo-play-apricot-prompt.txt",
+  "promptSha256": "d35aa80987d657a3a9d53d1d70cdd85938a260a020ca166a698886ad92320b87",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-approved clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "soyo-play-apricot-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2202232,
+    "sha256": "81e654d671e5da16986fe32fe6e742c12042c684cad689f59885706eb29cc1f4"
+  },
+  "producerObservation": "Whole image viewed: clear forward seated lean and staggered planted feet, paper bookmark pinched/offered by one hand, other palm supports cushion. Two full shoes and coherent leg chains, youthful navy sailor identity. Held bookmark belongs actor; no claimed real gift/note. Primary review pending.",
+  "review": {
+    "producerViewed": "complete original",
+    "producerDecision": "candidate",
+    "primary": "pending; no producer signature",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "study",
+  "light": "apricot",
+  "revision": 2,
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-683333cd-34f2-4980-a159-e7fcb538f5ef",
+  "prompt": "tomori-study-apricot-v2-prompt.txt",
+  "promptSha256": "165922d93aa255f906384400890ac8b0f1ad3584207438e491e23bb0b185f74c",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved_clean_empty_room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "tomori-study-apricot-v2-mother.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2165754,
+    "sha256": "27225d86ea85a6257151021828625e908b80facf6ba5d9e003ad9ec0aea424e4"
+  },
+  "review": {
+    "designerViewed": "complete original compared with clean empty v4",
+    "designerStatus": "not_eligible_for_fixed_chair_anchor",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Desk and tabletop props better preserved, but the cream chair and person shifted substantially left from the clean-room chair anchor. No structure repair or alpha workaround. A separate bench-supported forward co-reading alternative will use clean room only; v2 is never an image input."
+}

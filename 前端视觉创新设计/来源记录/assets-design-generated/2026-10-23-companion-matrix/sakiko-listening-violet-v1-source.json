@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-listening-violet-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "listening",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-listening-violet-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-listening-apricot-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-violet-candidate.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "sakiko-listening-violet-mother-candidate-v1.png",
+    "sha256": "596927f6a0f00a6aadf9a38d277dd2be49b6ede52d910af03280b4005ced1ba6",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-6059e86c-cc7b-4cd6-a5bd-672336473f17.png",
+    "executionId": "6059e86c-cc7b-4cd6-a5bd-672336473f17"
+  },
+  "designerObservation": "Personally viewed full mother: loose compact knees and forearms on the bench, complete socked feet supported on the cushion; two removed loafers remain on the floor. Quiet attentive gaze and lowered shoulders differ from chat. Shoes belong to the stationary room in later extraction. Needs primary review.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "promptSha256": "471a3bce1dc5b084b0d6bcaa53bd0f15d37fc2fbb77ee8b474574d37ab54ebf9"
+}

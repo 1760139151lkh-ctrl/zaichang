@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "rest",
+  "palette": "apricot",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-56a2a63b-f416-42bf-a0d7-6417ec6f720c",
+  "prompt": "taki-rest-apricot-prompt.txt",
+  "promptSha256": "ed2f27c34af430cec0c582400181159b2f03402edd7c1483deb6df5be18a3021",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-approved clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "taki-rest-apricot-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2165883,
+    "sha256": "c946307e511b2a1f60652c04ec44e00a4a6d4c23ad3ded44043587f708983ee4"
+  },
+  "producerObservation": "Whole original viewed: torso/back shoulder and head actually face window, nearer palm presses cushion, other hand idle, two separate diagonal lowered legs/full shoes. Purple-black hair and tan sailor outfit retained, no work prop. Pending primary review.",
+  "review": {
+    "producerViewed": "complete original plus detail where necessary",
+    "producerDecision": "candidate",
+    "primary": "pending; no producer signature",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

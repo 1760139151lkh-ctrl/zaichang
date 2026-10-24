@@ -1,0 +1,281 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "rana-study-apricot-layer-parameters-v2.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "rana-study-apricot-mother-candidate-v2.png",
+  "motherSha256": "fb66bbcfffc5f3d42b421c8769cc53ae7f1b605246a68187f5043435eabbe205",
+  "matte": "rana-study-apricot-mask-generated-v1.png",
+  "matteSha256": "b99d472ced537122a4fdf2e5514ecf1cc0044f5e42cfa05bd4fb662dc0038fae",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 240,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 107538,
+  "alphaNonzeroPixels": 35455,
+  "alphaBounds": [
+    809,
+    333,
+    1028,
+    726
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "66c0b71e49ea82ca09079b855dfad43ee0c7e16d34112a4299458702744a3d9d",
+  "figureRgbSha256": "66c0b71e49ea82ca09079b855dfad43ee0c7e16d34112a4299458702744a3d9d",
+  "background": {
+    "candidate": "rana-study-apricot-background-generated-v1.png",
+    "candidateSha256": "13b07e061979f17281aeda3e1153a45e65ebe2ced92ae69aa5ad2fc8f6241931",
+    "expandPixels": 3,
+    "featherPixels": 1.5,
+    "additionalErasePolygons": [
+      [
+        [
+          883,
+          503
+        ],
+        [
+          1003,
+          503
+        ],
+        [
+          1009,
+          534
+        ],
+        [
+          891,
+          540
+        ]
+      ],
+      [
+        [
+          835,
+          569
+        ],
+        [
+          956,
+          570
+        ],
+        [
+          958,
+          601
+        ],
+        [
+          835,
+          596
+        ]
+      ],
+      [
+        [
+          898,
+          705
+        ],
+        [
+          1030,
+          699
+        ],
+        [
+          1041,
+          731
+        ],
+        [
+          1041,
+          753
+        ],
+        [
+          902,
+          756
+        ],
+        [
+          890,
+          735
+        ]
+      ]
+    ],
+    "changedPixels": 57266,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          883,
+          503
+        ],
+        [
+          1003,
+          503
+        ],
+        [
+          1009,
+          534
+        ],
+        [
+          891,
+          540
+        ]
+      ],
+      [
+        [
+          835,
+          569
+        ],
+        [
+          956,
+          570
+        ],
+        [
+          958,
+          601
+        ],
+        [
+          835,
+          596
+        ]
+      ],
+      [
+        [
+          898,
+          705
+        ],
+        [
+          1030,
+          699
+        ],
+        [
+          1041,
+          731
+        ],
+        [
+          1041,
+          753
+        ],
+        [
+          902,
+          756
+        ],
+        [
+          890,
+          735
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": null,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "rana-study-apricot-figure-calibrated-v1.png",
+      "bytes": 2435826,
+      "sha256": "b2cc7ceaec540facaee33f7bad57dc92d4c2be2ac9edcc23e321791414d7e7b1"
+    },
+    {
+      "file": "rana-study-apricot-mask-calibrated-v1.png",
+      "bytes": 21118,
+      "sha256": "f8acb7c03e909e6e98317a3a206729fece251753c2c901f52715ef91dcea8fdf"
+    },
+    {
+      "file": "rana-study-apricot-background-calibrated-v2.png",
+      "bytes": 2110035,
+      "sha256": "59542ebc693a1d5d2f8f3c83efdc5925a06aca9f4475bcead82566cc633dbf4b"
+    },
+    {
+      "file": "rana-study-apricot-shadow-calibrated-v2.png",
+      "bytes": 58528,
+      "sha256": "06ee5687a44b21e32e47fe3933b8fcc4eb2b104f22bc109c6ad6e2a93fa1df6c"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  },
+  "castShadowProduction": {
+    "processor": "study-cast-shadow-production.py",
+    "processorSha256": "524cf8a15984f9dc0fc5a265c329cb9ab0068ad34a530d539bb3355bec6ebb06",
+    "baseParameters": "rana-study-apricot-layer-parameters-v1.json",
+    "regions": [
+      [
+        [
+          883,
+          503
+        ],
+        [
+          1003,
+          503
+        ],
+        [
+          1009,
+          534
+        ],
+        [
+          891,
+          540
+        ]
+      ],
+      [
+        [
+          835,
+          569
+        ],
+        [
+          956,
+          570
+        ],
+        [
+          958,
+          601
+        ],
+        [
+          835,
+          596
+        ]
+      ],
+      [
+        [
+          898,
+          705
+        ],
+        [
+          1030,
+          699
+        ],
+        [
+          1041,
+          731
+        ],
+        [
+          1041,
+          753
+        ],
+        [
+          902,
+          756
+        ],
+        [
+          890,
+          735
+        ]
+      ]
+    ],
+    "identity": "Original desk, wall, seat and boot shadow residuals only inside explicit source-coordinate ROIs; figure pixels excluded.",
+    "motion": "travel=0; original desk/hand/chair/foot relation only; no free translation claim"
+  }
+}

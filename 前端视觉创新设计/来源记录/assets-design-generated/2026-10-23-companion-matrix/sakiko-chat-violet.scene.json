@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-chat-violet-room4",
+  "character": "sakiko",
+  "activity": "chat",
+  "light": "dusk",
+  "palette": "violet",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-chat-violet-mother-candidate-v1.png",
+  "background": "sakiko-chat-violet-background-calibrated-v9.png",
+  "figure": "sakiko-chat-violet-figure-calibrated-v9.png",
+  "mask": "sakiko-chat-violet-mask-calibrated-v9.png",
+  "shadow": "sakiko-chat-violet-shadow-calibrated-v9.png",
+  "seat": [
+    0.8567708333333334,
+    0.57421875
+  ],
+  "ground": [
+    0.7591145833333334,
+    0.7890625
+  ],
+  "bodyBounds": [
+    0.71875,
+    0.236328125,
+    0.9459635416666666,
+    0.79296875
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "83% 24%, 87% 27%, 89% 34%, 94% 47%, 91% 53%, 94% 58%, 90% 60%, 88% 61%, 82% 59%, 80% 69%, 80% 80%, 75% 80%, 72% 79%, 74% 71%, 77% 63%, 78% 58%, 75% 57%, 76% 53%, 79% 50%, 76% 47%, 78% 39%, 79% 31%, 80% 26%",
+  "travel": 0.008,
+  "slope": 0.045,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Same-mother original RGB and identity transform. Matching clean background, soft technical matte and thin source contact residual. Short support-tangent movement only; static endpoints inspected separately from runtime.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json"
+  },
+  "production": "sakiko-chat-violet-layer-processing-v9.json"
+}

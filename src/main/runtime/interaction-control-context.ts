@@ -5,8 +5,9 @@ import type { IngressDecision, InputControls } from './policy';
 import type { TurnControlInteractionContext } from './turn-controls';
 import { mapStoryReferenceIdentity } from './story-setting';
 import { programReferenceIdentity } from './interactive-program-sources';
+import { NativeSourceBookmarkService } from './source-bookmark-native';
 
-type Runtime = Pick<RuntimeCoordinator, 'repo' | 'policy' | 'store' | 'context' | 'broker' | 'companionSessions' | 'curiosityInvitations' | 'studyCompanion' | 'reflectiveLetters' | 'rehearsals' | 'notePresentation' | 'materials' | 'presentation' | 'nativeAgenda' | 'spatial'>;
+type Runtime = Pick<RuntimeCoordinator, 'repo' | 'policy' | 'store' | 'context' | 'broker' | 'companionSessions' | 'curiosityInvitations' | 'studyCompanion' | 'reflectiveLetters' | 'rehearsals' | 'notePresentation' | 'materials' | 'presentation' | 'nativeAgenda' | 'spatial' | 'scenes'>;
 
 /** Body-free context for the existing pre-storage control parser. A selected
  * address is re-read through its current owner using read-only permissions.
@@ -16,7 +17,7 @@ export function interactionContextForControls(runtime: Runtime, controls: InputC
   if (controls.transmission === 'local_only' || controls.audience && controls.audience !== 'self'
     || controls.memoryMode === 'current_sources_only' || controls.subjectId && controls.subjectId !== runtime.repo.identity.principalId
     || controls.worldId && controls.worldId !== 'real') return;
-  if (!controls.curiosityReference && !controls.companionReference && !controls.studyInteraction && !controls.letterReference && !controls.rehearsalInteraction && !controls.noteReference && !controls.noteQuote && !controls.preparationReference && !controls.notebookQuote && !controls.mapRouteReference && !controls.agendaFocus && !controls.materialQuote && !controls.programReference && !controls.selection) return;
+  if (!controls.curiosityReference && !controls.companionReference && !controls.studyInteraction && !controls.letterReference && !controls.rehearsalInteraction && !controls.noteReference && !controls.noteQuote && !controls.preparationReference && !controls.notebookQuote && !controls.mapRouteReference && !controls.agendaFocus && !controls.materialQuote && !controls.conversationQuote && !controls.programReference && !controls.selection) return;
   const baseline = runtime.policy.hostScope(), host = runtime.policy.validate(baseline);
   let sources = [...host.sources];
   if (controls.sources) sources = sources.filter(source => controls.sources!.includes(source));
@@ -25,11 +26,16 @@ export function interactionContextForControls(runtime: Runtime, controls: InputC
   if (!controls.materialQuote && (controls.agendaFocus ? !sources.includes('local-agenda')
     : controls.mapRouteReference ? !sources.includes('map:local')
     : controls.noteReference || controls.noteQuote || controls.notebookQuote ? !sources.includes('notes:self')
-    : controls.programReference ? !sources.includes('history:self') : !sources.includes('work:self'))) return;
+    : controls.programReference || controls.conversationQuote ? !sources.includes('history:self') : !sources.includes('work:self'))) return;
   const handle = runtime.policy.hostScope({ sources, purposes: [controls.purpose || 'personal_assistance'], infer: false,
     grants: host.grants.filter(grant => grant === 'evidence:read' || (controls.programReference || controls.preparationReference) && grant.endsWith(':read')
       || (!!controls.selection || !!controls.mapRouteReference) && grant === 'map:read'), currentEventIds: [] });
   try {
+    if (controls.conversationQuote) {
+      new NativeSourceBookmarkService(runtime.store).conversationQuote(handle, controls.conversationQuote);
+      runtime.policy.validate(handle);
+      return { activity: 'message_reading', contentIdentity: 'retained_user_message', focus: 'sentence_or_passage' };
+    }
     if (controls.noteQuote) {
       runtime.store.notes.quoteIdentity(handle, controls.noteQuote);
       runtime.policy.validate(handle);
@@ -105,6 +111,8 @@ export function interactionContextForControls(runtime: Runtime, controls: InputC
       runtime.policy.validate(handle);
       return { activity: 'shared_creation', contentIdentity: 'creation', focus: 'source_object' };
     }
+    if (controls.selection && runtime.scenes.artworkReferenceIdentity(handle, sessionId, controls.selection))
+      return { activity: 'shared_creation', contentIdentity: 'creation', focus: 'source_object' };
   } catch (error) {
     // A stale or no-longer-readable address supplies no context. The normal
     // parser still handles the entire new utterance and its explicit limits.
@@ -131,6 +139,8 @@ export function creationSourceContextForIngress(runtime: Runtime, controls: Inpu
         programId: ref.programId, revision: ref.revision, nodeId: ref.nodeId };
     }
     if (!scope.sources.includes('work:self')) return;
+    const frame = controls.selection ? runtime.scenes.artworkReferenceIdentity(handle, sessionId, controls.selection) : undefined;
+    if (frame) return { kind: 'shared_creation', origin: 'user_interface_reference', ...frame };
     const direct = controls.curiosityReference;
     const mapped = !direct && controls.selection ? mapStoryReferenceIdentity(runtime, handle, sessionId, controls.selection) : undefined;
     const work = direct || mapped?.work;

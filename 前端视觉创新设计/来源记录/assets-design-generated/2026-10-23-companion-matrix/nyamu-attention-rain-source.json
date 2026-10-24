@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-attention-rain-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "attention",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-scene physical relighting of this exact primary-approved warm activity mother; no other character inputs",
+  "prompt": "nyamu-attention-rain-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-attention-apricot-mother-candidate-v3.png",
+      "role": "sole image edit target; primary-approved correct complete activity mother",
+      "sha256": "12f2cd65c5ff361c4dcf91adeee7c117c2fece5113b9461eb7b8201f2da28451"
+    }
+  ],
+  "output": {
+    "file": "nyamu-attention-rain-mother-candidate-v1.png",
+    "sha256": "6b25176eb84bfd2ec20e2bd0cbf64af02cd1b5e56e6e8a116c90f00e2d22d80a",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-93413c22-e657-447f-9586-6540abc19710.png"
+  },
+  "ownershipAndPose": "Keep exact left-facing head/shoulders/ribcage/pelvis/thigh turn toward the upright cream card ON THE EXISTING BLUE DESKTOP BOOK. Card position and supported folded base do not move, card belongs to BACKGROUND. Low hand on own thigh, other palm behind hip on cushion, original separate floor-contact shoes retained. Do not change into front-facing chat or window-only rest.",
+  "designerObservation": "Full image personally viewed. Approved left-facing attention silhouette and gaze reach the same folded desktop card standing on existing blue book; card remains background. Source supported hip/palm and all original visible leg/shoe chains retained, no return to front chat pose. Cold rainy night/window/lake and original local warm desk lamp relight person/card/wood/floor as one environment; left wall/corner no daylight leaf pattern. Natural skin, lavender bob/red-purple eye, gray blouse/black skirt/shoes retained.",
+  "observedGaps": [
+    "Primary mother review pending; no layers/calibration/Stage acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

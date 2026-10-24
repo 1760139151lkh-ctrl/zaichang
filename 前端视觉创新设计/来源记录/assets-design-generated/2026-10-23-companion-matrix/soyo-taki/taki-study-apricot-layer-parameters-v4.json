@@ -1,0 +1,104 @@
+{
+  "mother": "taki-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "49515d600d10286f1af4f808fbf285f4e2abfd1cabd05d6b319f3fdcbd6d0166",
+  "matte": "taki-study-apricot-mask-calibrated-v3.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "backgroundCandidate": "taki-study-apricot-background-generated-v1.png",
+  "background": "taki-study-apricot-background-calibrated-v4.png",
+  "backgroundExpandPixels": 2,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        930,
+        671
+      ],
+      [
+        1064,
+        671
+      ],
+      [
+        1064,
+        720
+      ],
+      [
+        930,
+        720
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        896,
+        665
+      ],
+      [
+        1038,
+        665
+      ],
+      [
+        1038,
+        714
+      ],
+      [
+        896,
+        714
+      ]
+    ],
+    [
+      [
+        852,
+        576
+      ],
+      [
+        975,
+        576
+      ],
+      [
+        975,
+        615
+      ],
+      [
+        852,
+        615
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "taki-study-apricot-shadow-calibrated-v4.png",
+  "figure": "taki-study-apricot-figure-calibrated-v4.png",
+  "mask": "taki-study-apricot-mask-calibrated-v4.png",
+  "record": "taki-study-apricot-layer-processing-v4.json",
+  "reviewNote": "Fixed study pose, original RGB and visible chair occlusion retained. Difference alpha v1 plus original-coordinate face/cloth corrections v3; no altered-position generated mask used. Primary layer and real Stage review remain pending.",
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          812,
+          459
+        ],
+        [
+          842,
+          459
+        ],
+        [
+          842,
+          503
+        ],
+        [
+          812,
+          503
+        ]
+      ],
+      "redMin": 170,
+      "redOverGreen": 30,
+      "redOverBlue": 50
+    }
+  ]
+}

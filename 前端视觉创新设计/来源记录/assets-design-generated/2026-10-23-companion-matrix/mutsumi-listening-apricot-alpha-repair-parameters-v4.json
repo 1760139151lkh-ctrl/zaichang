@@ -1,0 +1,61 @@
+{
+  "activity": "listening",
+  "schemaVersion": 1,
+  "mother": "mutsumi-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+  "inputAlpha": "mutsumi-listening-apricot-source-alpha-v3.png",
+  "inputAlphaSha256": "a9b18175d1c416c26fec57100482694564bc210ea6ef6197b06e70f35c926dd4",
+  "observedOriginalColorRules": [
+    {
+      "purpose": "Dim blue plaid pillow behind original long hair, only high-green blue room pixels; dark navy uniform stays",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1378,
+          433
+        ],
+        [
+          1434,
+          433
+        ],
+        [
+          1434,
+          558
+        ],
+        [
+          1378,
+          558
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          50,
+          255
+        ],
+        [
+          1,
+          70,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          2,
+          0,
+          9,
+          180
+        ],
+        [
+          2,
+          1,
+          4,
+          180
+        ]
+      ]
+    }
+  ],
+  "explicitOriginalRoomExclusions": [],
+  "outputAlpha": "mutsumi-listening-apricot-source-alpha-v4.png",
+  "record": "mutsumi-listening-apricot-source-alpha-v4.json"
+}

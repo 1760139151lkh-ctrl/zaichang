@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-rest-mist-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "rest",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-scene physical relighting of this exact primary-approved warm activity mother; no other character inputs",
+  "prompt": "nyamu-rest-mist-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-rest-apricot-mother-candidate-v1.png",
+      "role": "sole image edit target; primary-approved correct complete activity mother",
+      "sha256": "c6264d37f43bef35ee7aad4108a49b6cc977b3bba98c74233ea4aff967926fd8"
+    }
+  ],
+  "output": {
+    "file": "nyamu-rest-mist-mother-candidate-v1.png",
+    "sha256": "a0831cf09e5056e6ba92c1d6bd4e33cdfd8f84eb00e55f894a3b4b64d4a523d9",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-2a4b26cf-4cbf-4566-88ac-0f12a58f8691.png"
+  },
+  "ownershipAndPose": "Keep exact three-quarter back/side whole-body turn into lake/window, both hips on original bench cushion, one low hand on thigh and other supported on cushion, separate legs/shoes at original positions. Preserve the generated gray blouse back ruffle/tie detail as this project's approved daily interpretation; do not change it or claim an official canonical back view.",
+  "designerObservation": "Full image personally viewed. Genuine back/side torso/head rotation toward lake, source bench hips/palm/thigh hand and separate complete leg/shoe chains retained. Approved project-generated gray blouse back tie/ruffle kept; not claimed official canonical detail. Same room furniture. Soft pale blue-white mist window and whole room diffuse light replace all original sharp leaf/sun patterns; natural skin, lavender hair and gray/black intrinsic garments remain.",
+  "observedGaps": [
+    "Primary mother review pending; no layers/calibration/Stage acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

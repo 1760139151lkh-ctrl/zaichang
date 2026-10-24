@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-attention-violet-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "attention",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical relighting: Image 1 correct approved activity mother locks character/geometry; Image 2 approved empty violet plate fixes exact shared celestial/light axis only",
+  "prompt": "nyamu-attention-violet-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-attention-apricot-mother-candidate-v3.png",
+      "role": "Image 1: sole character source and edit target, correct primary-approved activity mother; pose/furniture/props locked",
+      "sha256": "12f2cd65c5ff361c4dcf91adeee7c117c2fece5113b9461eb7b8201f2da28451"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "role": "Image 2: approved empty room, exact sun center/lake-column axis and whole-room dusk illumination only; not character or furniture replacement",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "nyamu-attention-violet-mother-candidate-v1.png",
+    "sha256": "f18510a8fb99817afb34c6a97c471bd94195a4468a6d41f8cd5083a9720546f8",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-38f25c79-7c63-4e82-9ce5-623a184e6e65.png"
+  },
+  "ownershipAndPose": "Keep exact left-facing head/shoulders/ribcage/pelvis/thigh turn toward the upright cream card ON THE EXISTING BLUE DESKTOP BOOK. Card position and supported folded base do not move, card belongs to BACKGROUND. Low hand on own thigh, other palm behind hip on cushion, original separate floor-contact shoes retained. Do not change into front-facing chat or window-only rest.",
+  "designerObservation": "Full image personally viewed. Source attention-v3 whole-body leftward head/shoulder/pelvis/thigh turn and gaze at actual cream card on existing blue desktop book retained; card stays background. Original hip/palm/sole support and complete leg/shoe chains unchanged visually. Sunset sun about x=1007,y=302 and lake column same reference x. Whole-room rose-gold/lavender dusk with existing lamp relights fixed youthful identity/gray-black outfit and timber naturally; correct activity geometry not replaced by empty reference.",
+  "observedGaps": [
+    "Primary per-mother review pending; no layer/runtime acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

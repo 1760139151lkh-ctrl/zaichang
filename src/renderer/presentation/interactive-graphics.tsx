@@ -1,15 +1,16 @@
-import { createContext, useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
+import { createContext, useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent, type RefObject } from 'react';
 import { createPortal } from 'react-dom';
 import { parseCurveExpression, sampleCurve } from '../../shared/curve-expression';
 import type { ComponentRenderProps } from '@openuidev/react-lang';
 import { snapProgramNumber } from '../../shared/interactive-program';
-import { InteractiveChildren, InteractiveGraphicSlot, useInteractiveControls } from './interactive-context';
+import { InteractiveChildren, InteractiveGraphicSlot, InteractivePressAppearance, useInteractiveControls } from './interactive-context';
 
 type Props = ComponentRenderProps<Record<string, any>>;
 type Point = { x: number; y: number };
 type Matrix = [number, number, number, number, number, number];
 interface GraphicSpace {
   matrix: Matrix;
+  viewport: { width: number; height: number };
   domain: { xMin: number; xMax: number; yMin: number; yMax: number };
   down: boolean;
   point: (x: unknown, y: unknown, matrix?: Matrix) => Point | undefined;
@@ -61,7 +62,7 @@ export function InteractiveGraphic({ props }: Props) {
   const left = insetLeft + (availableWidth - plotWidth) / 2, top = insetTop + (availableHeight - plotHeight) / 2;
   const right = width - left - plotWidth, bottom = height - top - plotHeight, down = props.yDirection === 'down';
   const space: GraphicSpace = {
-    domain, matrix: identity, down, controlsLayer,
+    domain, matrix: identity, down, controlsLayer, viewport: { width, height },
     point(x, y, matrix = identity) {
       if (!finite(x) || !finite(y)) return;
       const tx = matrix[0] * x + matrix[2] * y + matrix[4], ty = matrix[1] * x + matrix[3] * y + matrix[5];
@@ -165,37 +166,55 @@ export function InteractiveCircle({ props }: Props) {
 }
 export function InteractiveRect({ props }: Props) {
   const space = useSpace();
+  const pressAppearance = useContext(InteractivePressAppearance);
   if (!finite(props.x) || !finite(props.y)) return gap();
   const points = [[props.x, props.y], [props.x + props.width, props.y], [props.x + props.width, props.y + props.height],
     [props.x, props.y + props.height]].map(([x, y]) => space.point(x, y, space.matrix));
   if (points.some(point => !point)) return gap();
-  return <polygon data-program-node={props.id} className={`interactive-stroke tone-${props.color}`}
+  return <polygon data-program-node={props.id} className={`interactive-stroke tone-${props.color}${pressAppearance ? ` is-press-${pressAppearance}` : ''}`}
     points={points.map(point => `${point!.x},${point!.y}`).join(' ')}
     style={{ fill: props.filled ? 'currentColor' : 'none' }} strokeWidth={props.strokeWidth} />;
 }
 export function InteractivePolygon({ props }: Props) {
   const space = useSpace();
+  const pressAppearance = useContext(InteractivePressAppearance);
   const points = (props.points as ({ x: number; y: number } | null)[]).map(point => point ? space.point(point.x, point.y, space.matrix) : undefined);
   if (points.some(point => !point)) return gap();
-  return <polygon data-program-node={props.id} className={`interactive-stroke tone-${props.color}`}
+  return <polygon data-program-node={props.id} className={`interactive-stroke tone-${props.color}${pressAppearance ? ` is-press-${pressAppearance}` : ''}`}
     points={points.map(point => `${point!.x},${point!.y}`).join(' ')}
     style={{ fill: props.filled ? 'currentColor' : 'none' }} strokeWidth={props.strokeWidth} />;
 }
 export function InteractiveLabel({ props }: Props) {
   const space = useSpace(), point = space.point(props.x, props.y, space.matrix);
-  return point && props.text != null ? <text data-program-node={props.id} className={`interactive-graphic-label tone-${props.color}`}
-    x={point.x} y={point.y} textAnchor={props.anchor}>{props.text}</text> : gap();
+  const pressAppearance = useContext(InteractivePressAppearance);
+  const origin = useRef<SVGGElement>(null), visual = useRef<SVGGElement>(null), label = useRef<SVGTextElement>(null);
+  const [shift, setShift] = useState({ x: 0, y: 0 });
+  useGraphicOverlay(space, origin, visual, `${point?.x}:${point?.y}:${props.text}:${props.anchor}`);
+  useLayoutEffect(() => {
+    const element = label.current;
+    if (!element || !point) return;
+    const fit = () => {
+      const box = element.getBBox();
+      const x = box.x - (Number(element.getAttribute('x')) - point.x), y = box.y - (Number(element.getAttribute('y')) - point.y);
+      const next = { x: Math.max(4 - x, Math.min(0, space.viewport.width - 4 - x - box.width)),
+        y: Math.max(4 - y, Math.min(0, space.viewport.height - 4 - y - box.height)) };
+      setShift(before => before.x === next.x && before.y === next.y ? before : next);
+    };
+    fit(); const observer = new ResizeObserver(fit); observer.observe(element);
+    return () => observer.disconnect();
+  }, [space.controlsLayer, point?.x, point?.y, props.text, props.anchor, space.viewport.width, space.viewport.height]);
+  if (!point || props.text == null) return gap();
+  return <><g ref={origin} aria-hidden="true" pointerEvents="none"><text className="interactive-graphic-label"
+    x={point.x} y={point.y} textAnchor={props.anchor} opacity={0}>{props.text}</text></g>
+    {space.controlsLayer ? createPortal(<g ref={visual}><text ref={label} data-program-node={props.id}
+      className={`interactive-graphic-label tone-${props.color}${pressAppearance ? ` is-press-${pressAppearance}` : ''}`} x={point.x + shift.x} y={point.y + shift.y}
+      textAnchor={props.anchor}>{props.text}</text></g>, space.controlsLayer) : null}</>;
 }
-export function InteractiveDragHandle({ props }: Props) {
-  const space = useSpace(), controls = useInteractiveControls(), dragging = useRef<number | undefined>(undefined);
-  const origin = useRef<SVGGElement>(null), visual = useRef<SVGGElement>(null);
-  const xState = props.xField ? controls.states[props.xField] : undefined, yState = props.yField ? controls.states[props.yField] : undefined;
-  const x = xState?.kind === 'number' ? controls.inputs[props.xField] as number : Math.max(space.domain.xMin, Math.min(space.domain.xMax, 0));
-  const y = yState?.kind === 'number' ? controls.inputs[props.yField] as number : Math.max(space.domain.yMin, Math.min(space.domain.yMax, 0));
-  const point = space.point(x, y, space.matrix), disabled = controls.disabled || props.disabled;
-  // Data stays clipped to its domain, while a boundary control keeps its full
-  // visible circle and hit area. The portal keeps the original React contexts;
-  // its invisible origin also preserves any surrounding native Motion transform.
+
+/** Labels and controls stay readable at the data boundary. Their invisible
+ * origin preserves a surrounding Motion's actual transform and footprint. */
+function useGraphicOverlay(space: GraphicSpace, origin: RefObject<SVGGElement | null>, visual: RefObject<SVGGElement | null>, key: string) {
+  const controls = useInteractiveControls();
   useLayoutEffect(() => {
     if (!space.controlsLayer || !origin.current || !visual.current) return;
     let frame: number | undefined;
@@ -224,19 +243,61 @@ export function InteractiveDragHandle({ props }: Props) {
     // observes that start; subsequent frames are needed only while it moves.
     frame = requestAnimationFrame(() => update(true));
     return () => { if (frame !== undefined) cancelAnimationFrame(frame); };
-  }, [space.controlsLayer, controls.renderKey, controls.userAction.serial, point?.x, point?.y]);
+  }, [space.controlsLayer, controls.scopeKey, controls.userAction.serial, key]);
+}
+
+export function InteractiveDragHandle({ props }: Props) {
+  const space = useSpace(), controls = useInteractiveControls();
+  const dragging = useRef<{ pointerId: number; scopeKey: string; start: Point; inputs: Record<string, number>; element: SVGGElement } | undefined>(undefined);
+  const origin = useRef<SVGGElement>(null), visual = useRef<SVGGElement>(null);
+  const latest = useRef({ controls, props }); latest.current = { controls, props };
+  const xState = props.xField ? controls.states[props.xField] : undefined, yState = props.yField ? controls.states[props.yField] : undefined;
+  const x = xState?.kind === 'number' ? controls.inputs[props.xField] as number : Math.max(space.domain.xMin, Math.min(space.domain.xMax, 0));
+  const y = yState?.kind === 'number' ? controls.inputs[props.yField] as number : Math.max(space.domain.yMin, Math.min(space.domain.yMax, 0));
+  const point = space.point(x, y, space.matrix), disabled = controls.disabled || props.disabled;
+  const single = xState?.kind === 'number' && yState?.kind !== 'number' ? { field: props.xField, state: xState, value: x, x: x + 1, y }
+    : yState?.kind === 'number' && xState?.kind !== 'number' ? { field: props.yField, state: yState, value: y, x, y: y + 1 } : undefined;
+  const axisPoint = single ? space.point(single.x, single.y, space.matrix) : undefined;
+  const vertical = !!(point && axisPoint && Math.abs(axisPoint.y - point.y) > Math.abs(axisPoint.x - point.x));
+  const increaseKey = point && axisPoint ? vertical ? axisPoint.y < point.y ? 'ArrowUp' : 'ArrowDown'
+    : axisPoint.x < point.x ? 'ArrowLeft' : 'ArrowRight' : undefined;
+  const decreaseKey = increaseKey === 'ArrowUp' ? 'ArrowDown' : increaseKey === 'ArrowDown' ? 'ArrowUp'
+    : increaseKey === 'ArrowLeft' ? 'ArrowRight' : 'ArrowLeft';
+  useGraphicOverlay(space, origin, visual, `${point?.x}:${point?.y}`);
+  const finish = (restore: boolean) => {
+    const active = dragging.current;
+    if (!active) return;
+    dragging.current = undefined;
+    if (active.element.hasPointerCapture(active.pointerId)) active.element.releasePointerCapture(active.pointerId);
+    const current = latest.current;
+    if (restore && active.scopeKey === current.controls.scopeKey && !current.controls.disabled)
+      current.controls.patch(active.inputs, 'manual', current.props.id, current.props.label);
+  };
+  useEffect(() => {
+    const blur = () => finish(true), hidden = () => { if (document.hidden) finish(true); };
+    window.addEventListener('blur', blur); document.addEventListener('visibilitychange', hidden);
+    return () => { finish(false); window.removeEventListener('blur', blur); document.removeEventListener('visibilitychange', hidden); };
+  }, [controls.scopeKey, props.xField, props.yField]);
+  useEffect(() => { if (disabled) finish(false); }, [disabled]);
   if (!point) return gap();
   const change = (event: PointerEvent<SVGGElement>) => {
-    const at = space.pointer(event, space.matrix); if (!at) return;
+    const active = dragging.current, at = space.pointer(event, space.matrix); if (!active || !at) return;
     const patch: Record<string, number> = {};
-    if (xState?.kind === 'number') patch[props.xField] = snapProgramNumber(at.x, xState);
-    if (yState?.kind === 'number') patch[props.yField] = snapProgramNumber(at.y, yState);
+    if (xState?.kind === 'number') patch[props.xField] = snapProgramNumber(active.inputs[props.xField] + at.x - active.start.x, xState);
+    if (yState?.kind === 'number') patch[props.yField] = snapProgramNumber(active.inputs[props.yField] + at.y - active.start.y, yState);
     controls.patch(patch, 'manual', props.id, props.label);
   };
   const key = (event: KeyboardEvent<SVGGElement>) => {
+    if (event.key === 'Escape' && dragging.current) { event.preventDefault(); event.stopPropagation(); finish(true); return; }
     if (disabled || !['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
     event.preventDefault(); event.stopPropagation();
     const patch: Record<string, number> = {}, multiplier = event.shiftKey ? 10 : 1;
+    if (single && increaseKey) {
+      if (!['Home', 'End', increaseKey, decreaseKey].includes(event.key)) return;
+      patch[single.field] = snapProgramNumber(event.key === 'Home' ? single.state.min : event.key === 'End' ? single.state.max
+        : single.value + (event.key === increaseKey ? 1 : -1) * (single.state.step ?? (single.state.max - single.state.min) / 100) * multiplier, single.state);
+      controls.patch(patch, 'manual', props.id, props.label); return;
+    }
     if (xState?.kind === 'number' && ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key))
       patch[props.xField] = snapProgramNumber(event.key === 'Home' ? xState.min : event.key === 'End' ? xState.max
         : x + (event.key === 'ArrowLeft' ? -1 : 1) * (xState.step ?? (xState.max - xState.min) / 100) * multiplier, xState);
@@ -247,16 +308,21 @@ export function InteractiveDragHandle({ props }: Props) {
   };
   const handle = <g data-program-node={props.id} className={`interactive-drag-handle tone-${props.color}`} role="slider" tabIndex={disabled ? -1 : 0}
     aria-label={props.label} aria-disabled={disabled} aria-valuenow={xState?.kind === 'number' ? x : y}
+    aria-orientation={single ? vertical ? 'vertical' : 'horizontal' : undefined}
     aria-valuemin={xState?.kind === 'number' ? xState.min : yState?.kind === 'number' ? yState.min : undefined}
     aria-valuemax={xState?.kind === 'number' ? xState.max : yState?.kind === 'number' ? yState.max : undefined}
     aria-valuetext={[xState ? `x ${display(x)}` : '', yState ? `y ${display(y)}` : ''].filter(Boolean).join('，')}
     onKeyDown={key} onPointerDown={event => {
-      if (disabled || event.button !== 0) return;
+      if (disabled || event.button !== 0 || dragging.current) return;
       event.preventDefault(); event.stopPropagation(); controls.stopMotions();
-      dragging.current = event.pointerId; event.currentTarget.setPointerCapture(event.pointerId); event.currentTarget.focus({ preventScroll: true }); change(event);
-    }} onPointerMove={event => { if (dragging.current === event.pointerId && !disabled) { event.preventDefault(); change(event); } }}
-    onPointerUp={event => { dragging.current = undefined; if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId); }}
-    onPointerCancel={() => { dragging.current = undefined; }}>
+      const at = space.pointer(event, space.matrix); if (!at) return;
+      const inputs: Record<string, number> = {};
+      if (xState?.kind === 'number') inputs[props.xField] = x;
+      if (yState?.kind === 'number') inputs[props.yField] = y;
+      dragging.current = { pointerId: event.pointerId, scopeKey: controls.scopeKey, start: at, inputs, element: event.currentTarget };
+      event.currentTarget.setPointerCapture(event.pointerId); event.currentTarget.focus({ preventScroll: true });
+    }} onPointerMove={event => { if (dragging.current?.pointerId === event.pointerId && !disabled) { event.preventDefault(); change(event); } }}
+    onPointerUp={() => finish(false)} onPointerCancel={() => finish(true)} onLostPointerCapture={() => finish(true)} onBlur={() => finish(true)}>
     <title>{props.label}；拖动或用方向键移动，Shift加快</title>
     <circle className="interactive-handle-target" cx={point.x} cy={point.y} r={Math.max(15, props.radius + 8)} />
     <circle className="interactive-handle-point" cx={point.x} cy={point.y} r={props.radius} />

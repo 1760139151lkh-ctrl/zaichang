@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "kind": "layer-generation-source",
+  "character": "umiri",
+  "activity": "chat",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "input": {
+    "path": "umiri-chat-apricot-mother-candidate-v2.png",
+    "sha256": "beb0028df130f510fce228bd127495d0375ecf8998c81a50137617e4482af8ee",
+    "role": "sole primary-approved whole mother input; no raw mask used as later input"
+  },
+  "calls": [
+    {
+      "part": "mask-v1",
+      "executionId": "exec-521885da-c52b-4d44-81d1-314b08b67df9",
+      "promptFile": "umiri-chat-apricot-mask-prompt.txt",
+      "prompt": "Use case: precise-object-edit. Technical OPAQUE black-and-white segmentation of the supplied approved scene, exactly 1536 x 1024. No transparency.\nThe ONLY input image is the complete primary-approved Umiri chat apricot mother v2. Do NOT draw a new girl, zoom, crop, enlarge, move, improve anatomy or make a portrait. Recolor the EXISTING VISIBLE SOURCE PIXELS IN PLACE: all visible pixels belonging to Umiri become pure WHITE; all room/furniture/background pixels become pure BLACK. Narrow antialias only on actual silhouette boundaries, no internal shading or gray drawing.\n\nEXACT SOURCE REGISTRATION: Umiri remains on the outward-turned desk chair in the source right-middle room, complete small resident silhouette about x=740..1015,y=300..735. Head near (925,350), supported hips near (930,565), two boot soles around y=720. These are location guides only; trace the real input contour precisely rather than boxes or a guessed different body. Most of the full frame and all corners are solid black.\nINCLUDE her complete charcoal-gray flipped hair tips, face/ears/earrings/choker, black jacket, red top, gray skirt, bare hands and every finger, visible thighs/knees/lower legs, and both complete WORN platform boots. Every dark clothing/boot surface also becomes solid WHITE; do not leave black jacket/boot texture lines inside the mask.\nEXCLUDE ALL the chair back, cushion and four legs, desk/table/lamp/cup/book, bench/pillows/throw, floor/rug, curtains/window/campus/plants and every cast/contact shadow. Room gaps between supporting palm/hip, between both legs/boots and between actual fingers stay black where the source shows room. Do not bridge the knees or merge a chair cushion into the skirt. She holds no object in this mother.\nNo gray glow, soft shadow, colored background noise, face drawing, text, watermark, UI, borders, arrows or added shape. This is a source-registered matte to carry original mother RGB later, not a creative redraw. Return the full black canvas with only the existing complete visible Umiri silhouette in white at the exact original position.\n",
+      "output": {
+        "path": "umiri-chat-apricot-mask-generated-v1.png",
+        "sha256": "aff68b757187edbd9dd54b13dd7f68af061dd5a98adfce3b153a37c2ef8180cc",
+        "bytes": 388328,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "designerObservation": "Rejected: silhouette enlarged/repositioned; no later input uses it."
+    },
+    {
+      "part": "mask-v2",
+      "executionId": "exec-ef3b99a0-eca7-49d7-81d0-c4aacec1d37e",
+      "promptFile": "umiri-chat-apricot-mask-v2-prompt.txt",
+      "prompt": "Use case: precise-object-edit. An OPAQUE, exactly 1536 x 1024, SOURCE-REGISTERED black-and-white segmentation. This is a technical recoloring of the input's existing person pixels, NOT drawing a new silhouette.\nThe ONLY input is the complete primary-approved Umiri chat apricot mother v2. Recolor the actual existing visible person WHITE and the actual room BLACK at the SAME source coordinates. Keep every source contour in its original place. Do not extract/enlarge/recenter a portrait or lengthen the torso.\n\nSTRICT ORIGINAL POSITION GUIDES: the original girl's HEAD TOP is around y=305, NOT y=270 or y=250. Her hair/head spans approximately x=865..980,y=305..425. Her complete RIGHT SUPPORTING HAND ends around x=1010,y=584, NOT x=1040. The two boot soles end around y=731, NOT y=790. Complete figure spans roughly x=738..1012,y=305..734. Use these only to verify the INPUT'S actual contour; do not draw boxes or re-pose the body. White person must remain the same exact width/height/pose as the input. Most of the full image stays pure black, including all four corners.\n\nINCLUDE ONLY existing visible Umiri: hair and fine flipped tips, face/ears/earrings/choker, jacket, top, skirt, all skin/hands/fingers/knees/calves, and BOTH COMPLETE WORN boots with their actual laces/tips. These source surfaces become solid WHITE regardless of their dark original colors. Do not leave dark jacket/clothing lines, face features or internal shading.\nEXCLUDE the entire chair back/cushion/legs, desk/lamp/cup/book, bench/pillows/throw, window/curtains/lake/plants, rug/floor and all cast/contact shadows. Actual room gaps between arms/torso, supporting hand/hip, fingers and the two legs/boots stay pure BLACK. Do not fill a chair surface into her skirt or arm.\nOnly the true source silhouette edge may have narrow antialiasing. No gray glow, colored pixel, broad shadow, internal drawing, text, logo, UI, border, labels or added anatomy. It is an exact full-canvas matte for reusing ORIGINAL RGB later, not an artistic redesign.\n",
+      "output": {
+        "path": "umiri-chat-apricot-mask-generated-v2.png",
+        "sha256": "d61b0bec8caa78f71d95f1aeefa001d204bb76bcefda3828dd4da8a85d409a5a",
+        "bytes": 361828,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "designerObservation": "Source location approximately restored; per-source alpha calibration and original-RGB review required."
+    },
+    {
+      "part": "background",
+      "executionId": "exec-a353141c-10c9-4651-b7ae-3b062905c0f7",
+      "promptFile": "umiri-chat-apricot-background-prompt.txt",
+      "prompt": "Use case: precise-object-edit. Technical same-canvas CLEAN BACKGROUND EXTRACTION, NOT a new composition.\nONLY INPUT is the primary-approved Umiri chat apricot mother v2, 1536 x 1024. Remove ONLY the existing person Umiri, her worn clothing/platform boots and her narrow local body/palm/foot contact shadows. Reconstruct the chair cushion/back, original desk area and floor directly behind her as a plausible EMPTY version of THIS SAME mother.\nCRITICAL FURNITURE REGISTRATION: the chair stays at the EXACT outward-turned angle, size, cushion/back position and foot positions shown IN THIS MOTHER. Do not restore the orientation from an earlier empty room. Preserve the actual desk width/position, lamp/cup/book, bench/pillows/throw and every other room object and seam. Same full 1536x1024 canvas, camera, window with all four connected corners, curtains, lake/campus view, rear-left table/chair/bookshelves/framed drawing, rug/floor lines and morning light. Keep source pixels outside the removed person's small footprint in place. No chair enlargement, forward move, table widening, new prop, crop or zoom.\nThe cushion may relax where her hips were, but the existing physical chair stays the same object. Remove all hair/skin/finger/skirt/boot remnants and human-shaped shadows; no silhouette, ghost, floating clothes or leftover shoe. Do not change the room's color or lighting, paint an empty wall, use a white gradient or redesign it. Background remains opaque. No text/UI/logo/watermark/arrow/border/inset. Return the complete same-size locally repaired EMPTY scene.\n",
+      "output": {
+        "path": "umiri-chat-apricot-background-generated-v1.png",
+        "sha256": "c281ad0be5fafdf024772052e65d242564b58d237fe021e9af9a32c5764c1bdf",
+        "bytes": 2082851,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "designerObservation": "Generated matching empty plate; local original-RGB/background review required."
+    }
+  ],
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "recordedAt": "2026-10-23T22:20:52.224936+00:00"
+}

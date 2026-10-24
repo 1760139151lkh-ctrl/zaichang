@@ -1,0 +1,23 @@
+{
+  "activity": "rest",
+  "seatPixel": [
+    1346,
+    577
+  ],
+  "groundPixel": [
+    1180,
+    741
+  ],
+  "bodyBoundsPixel": [
+    1078,
+    276,
+    1437,
+    746
+  ],
+  "hitPolygonMethod": "Largest actual alpha>128 contour, 4px polyline simplification; complete full-canvas coordinates. No invented body points.",
+  "safeTextBoundaryMethod": "Actual leftmost nonzero figure pixel minus 64px of margin; individual pose only.",
+  "contactShadowObservation": "No separately extracted cast-shadow layer; original body shading remains. No synthetic CSS shadow requested.",
+  "travelReason": "Visible palm/hips/cushion-back relation and both worn soles on floor are kept at their original multiple support contacts; fixed anchor, no slider or fabricated missing pose.",
+  "groundMeaning": "Visible near loafer sole/floor contact; farther sole also remains original.",
+  "runtime": "Not registered or exercised. Pending primary layer/geometry/Stage review."
+}

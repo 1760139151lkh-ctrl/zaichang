@@ -1,0 +1,36 @@
+{
+  "asset": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-mother.png",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "mode": "RGB",
+  "bytes": 2188915,
+  "generatedOn": "2026-10-23",
+  "generator": "built-in image_gen.imagegen",
+  "generationId": "exec-88c8f613-09d0-4b50-b8a2-3c17911a42ce",
+  "prompt": "sakiko-attention-apricot-prompt.txt",
+  "promptSha256": "dbf67228a1a670a617385db6ea0509ada7b2aa2b2c252885f9020b488ee9b20a",
+  "inputs": [
+    {
+      "asset": "room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+      "role": "sole image input; primary-reviewed clean empty room"
+    }
+  ],
+  "outputSha256": "5631cdd842797d1e46b898b9e5914f250cb5d66e8a058878eee2547e1f707017",
+  "personPixelsUsedAsInput": false,
+  "identityReference": "Text only, aligned to the shared Sakiko chat prompt; official character images are not generation inputs.",
+  "evidence": {
+    "generated": true,
+    "personallyViewedByProducer": true,
+    "producerObservation": "Seated shift back/right, supporting hand behind hip, head/shoulders turned left toward new desk card, empty other hand resting on lap. Complete independent legs and shoes. Figure appears somewhat smaller than play candidate; same-camera scale requires primary judgment.",
+    "submittedForPrimaryReview": true,
+    "approvedByPrimary": false,
+    "extracted": false,
+    "runtimeAccepted": false,
+    "interactionChecked": false
+  }
+}

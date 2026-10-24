@@ -1,0 +1,229 @@
+{
+  "mother": "sakiko-listening-apricot-mother.png",
+  "motherSha256": "a35aaa3549a04cf9f6fa7e478224f53afdcbfd1f133f6570a643191916189bb1",
+  "matte": "sakiko-listening-apricot-figure-calibrated-v8.png",
+  "alphaSource": "alpha",
+  "alphaLow": 0,
+  "alphaHigh": 255,
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1358,
+        301,
+        1385,
+        322
+      ],
+      "polygon": [
+        [
+          1358,
+          301
+        ],
+        [
+          1363,
+          302.2
+        ],
+        [
+          1368,
+          302.8
+        ],
+        [
+          1371,
+          304.8
+        ],
+        [
+          1373,
+          308
+        ],
+        [
+          1374.4,
+          314.8
+        ],
+        [
+          1372.8,
+          318
+        ],
+        [
+          1370.2,
+          321
+        ],
+        [
+          1371.1,
+          322
+        ],
+        [
+          1358,
+          322
+        ]
+      ],
+      "featherPixels": 0.15,
+      "mode": "intersect"
+    }
+  ],
+  "figure": "sakiko-listening-apricot-figure-calibrated-v11.png",
+  "mask": "sakiko-listening-apricot-mask-calibrated-v11.png",
+  "backgroundCandidate": "sakiko-listening-apricot-background.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1.2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1174,
+        573
+      ],
+      [
+        1279,
+        576
+      ],
+      [
+        1280,
+        594
+      ],
+      [
+        1172,
+        591
+      ]
+    ],
+    [
+      [
+        1264,
+        566
+      ],
+      [
+        1322,
+        568
+      ],
+      [
+        1386,
+        565
+      ],
+      [
+        1388,
+        586
+      ],
+      [
+        1320,
+        586
+      ],
+      [
+        1264,
+        579
+      ]
+    ],
+    [
+      [
+        1381,
+        500
+      ],
+      [
+        1420,
+        500
+      ],
+      [
+        1420,
+        576
+      ],
+      [
+        1378,
+        580
+      ]
+    ]
+  ],
+  "background": "sakiko-listening-apricot-background-calibrated-v11.png",
+  "record": "sakiko-listening-apricot-layer-processing-v11.json",
+  "contactShadowPolygons": [
+    [
+      [
+        1177,
+        574
+      ],
+      [
+        1228,
+        575
+      ],
+      [
+        1230,
+        582
+      ],
+      [
+        1177,
+        582
+      ]
+    ],
+    [
+      [
+        1205,
+        581
+      ],
+      [
+        1274,
+        579
+      ],
+      [
+        1277,
+        589
+      ],
+      [
+        1205,
+        591
+      ]
+    ],
+    [
+      [
+        1267,
+        567
+      ],
+      [
+        1317,
+        570
+      ],
+      [
+        1368,
+        574
+      ],
+      [
+        1384,
+        566
+      ],
+      [
+        1388,
+        576
+      ],
+      [
+        1369,
+        582
+      ],
+      [
+        1318,
+        578
+      ],
+      [
+        1266,
+        574
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "shadow": "sakiko-listening-apricot-shadow-calibrated-v11.png",
+  "reviewNote": "v11 also removes the four-row sky fringe immediately above the corrected original ribbon. Its bounds are entirely outside the original bow/head outline. Original v8 alpha is only reduced in explicit source-coordinate ribbon/sky regions; no foreground is added. Entire source RGB and all pose/contact parameters are unchanged. Primary and runtime review remain pending.",
+  "excludePolygons": [
+    [
+      [
+        1361,
+        298
+      ],
+      [
+        1385,
+        298
+      ],
+      [
+        1385,
+        302
+      ],
+      [
+        1361,
+        302
+      ]
+    ]
+  ]
+}

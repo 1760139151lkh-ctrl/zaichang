@@ -13,6 +13,15 @@ export const weatherInput = z.object({
 }).strict();
 const nullableNumbers = z.array(z.number().nullable());
 const interval = z.object({ from: z.string().datetime({ offset: true }), to: z.string().datetime({ offset: true }) }).strict();
+// Open-Meteo's WMO interpretation codes: https://open-meteo.com/en/docs#weathervariabledocumentation
+const weatherCodeMeanings: Record<number, string> = {
+  0: '晴', 1: '大致晴朗', 2: '多云', 3: '阴', 45: '雾', 48: '雾伴雾凇',
+  51: '小毛毛雨', 53: '中等毛毛雨', 55: '浓密毛毛雨', 56: '轻微冻毛毛雨', 57: '浓密冻毛毛雨',
+  61: '小雨', 63: '中雨', 65: '大雨', 66: '轻微冻雨', 67: '强冻雨',
+  71: '小雪', 73: '中雪', 75: '大雪', 77: '米雪',
+  80: '小阵雨', 81: '中等阵雨', 82: '强阵雨', 85: '小阵雪', 86: '强阵雪',
+  95: '雷暴', 96: '雷暴伴小冰雹', 97: '强雷暴', 99: '雷暴伴大冰雹',
+};
 export const weatherOutput = z.object({
   location: z.string(), timeZone: z.string(),
   reference: z.object({ latitude: z.number(), longitude: z.number(), basis: z.string(), userLocation: z.literal(false) }).strict(),
@@ -23,6 +32,8 @@ export const weatherOutput = z.object({
   }).strict().optional(),
   hourly: z.object({ time: z.array(z.string()), precipitationIntervalStart: z.array(z.string()), temperature_2m: nullableNumbers, precipitation_probability: nullableNumbers, precipitation: nullableNumbers, weather_code: nullableNumbers }).strict().optional(),
   window: z.object({ from: z.string(), to: z.string(), granularity: z.enum(['daily', 'hourly']), complete: z.boolean() }).strict(),
+  weatherCodeMeanings: z.record(z.string(), z.string()).optional(),
+  weatherCodeSource: z.string().optional(),
   observedAt: z.string(), forecastIssuedAt: z.null(), modelVersion: z.literal('not_reported'), limitations: z.array(z.string()),
 }).strict();
 
@@ -30,8 +41,8 @@ export const weatherOutput = z.object({
 export function weatherRequest(raw: unknown, now: string) {
   const input = weatherInput.parse(raw);
   const location = typeof input.location === 'object' ? input.location : input.location === 'Zijingang'
-    ? { label: '紫金港校区参考坐标（非用户定位）', latitude: 30.308, longitude: 120.079, timeZone: 'Asia/Shanghai', basis: 'campus_reference' }
-    : { label: '杭州城市参考坐标（非用户定位）', latitude: 30.2741, longitude: 120.1551, timeZone: 'Asia/Shanghai', basis: 'city_reference' };
+    ? { label: '紫金港校区参考点', latitude: 30.308, longitude: 120.079, timeZone: 'Asia/Shanghai', basis: 'campus_reference' }
+    : { label: '杭州市区参考点', latitude: 30.2741, longitude: 120.1551, timeZone: 'Asia/Shanghai', basis: 'city_reference' };
   try { new Intl.DateTimeFormat('en', { timeZone: location.timeZone }); } catch { throw new HarnessError('time_zone', '天气地点的时区不合法。'); }
   if (!!input.from !== !!input.to || input.date && input.from) throw new HarnessError('weather_window', '按时间窗查询须同时给from/to，且不与date混用。');
   if (input.from && Date.parse(input.to!) <= Date.parse(input.from)) throw new HarnessError('weather_window', '天气查询结束须晚于开始。');
@@ -57,7 +68,7 @@ export function weatherResult(query: ReturnType<typeof weatherRequest>, raw: any
   const expectedDates: string[] = [];
   for (let date = query.first; date <= query.last; date = addDate(date, 1)) expectedDates.push(date);
   const expectedReturnedDates = query.hourly ? [...expectedDates, query.requestLast] : expectedDates;
-  if (!Array.isArray(times) || times.length !== expectedReturnedDates.length || times.some((at: unknown) => typeof at !== 'number' || !Number.isFinite(at)) || columns.some(column => !Array.isArray(raw.daily[column]) || raw.daily[column].length !== times.length)) throw new HarnessError('weather_incomplete', '天气来源没有完整返回所选日期，不能当作已查到。');
+  if (!Array.isArray(times) || times.length !== expectedReturnedDates.length || times.some((at: unknown) => typeof at !== 'number' || !Number.isFinite(at)) || columns.some(column => !Array.isArray(raw.daily[column]) || raw.daily[column].length !== times.length)) throw new HarnessError('weather_incomplete', '天气来源少返回了所选日期的内容，这次预报还没查全。');
   // Open-Meteo daily unix timestamps need the response utc_offset_seconds to recover the date.
   if (!Number.isInteger(raw.utc_offset_seconds) || times.some((at: number, index: number) =>
     new Date((at + raw.utc_offset_seconds) * 1000).toISOString() !== `${expectedReturnedDates[index]}T00:00:00.000Z`
@@ -87,10 +98,13 @@ export function weatherResult(query: ReturnType<typeof weatherRequest>, raw: any
   return { complete, data: weatherOutput.parse({ location: query.location.label, timeZone: query.location.timeZone,
     reference: { latitude: query.location.latitude, longitude: query.location.longitude, basis: query.location.basis, userLocation: false }, forecast, dailyAggregation, ...(hourly ? { hourly } : {}),
     window: { from: query.from, to: query.to, granularity: query.hourly ? 'hourly' : 'daily', complete }, observedAt, forecastIssuedAt: null, modelVersion: 'not_reported',
-    limitations: ['这是公开参考地点的预报，校园某一处的天气可能有差别，不能精确到几分钟。',
-      '按日预报保留来源用固定时差计算的24小时统计。夏令时变化时，它可能不等于当地完整的一天，也不等于这次选的几小时；小时样本的最高或最低值也不能代替它。',
+    weatherCodeMeanings: Object.fromEntries([...forecast.weather_code, ...(hourly?.weather_code || [])].flatMap(code =>
+      code !== null && weatherCodeMeanings[code] ? [[String(code), weatherCodeMeanings[code]]] : [])),
+    weatherCodeSource: 'https://open-meteo.com/en/docs#weathervariabledocumentation',
+    limitations: ['这是所选参考地点的预报，校园局部天气和短时变化可能有差别。',
+      '每日最高、最低等值来自来源标出的24小时统计；选中几小时的情况可看小时预报。',
       ...(!periods.every(period => period.matchesLocalDay) ? ['这次部分日统计与当地完整的一天错开了，只说明标出的那段时间；小时预报是否覆盖完整时段，需要另看。'] : []),
       '小时气温和天气图标表示标出的时刻；降水量和降水概率说的是此前一小时。',
-      '查到的时间不是预报发布的时间；来源没有提供预报的发布时间或所用模型版本。',
-      '缺测是未知，不是没有雨。这份预报不含场地开放信息，也不能判断某个人的身体状况。'] }) };
+      '来源这次没有提供预报发布时间和所用模型版本，observedAt记录的是查询时间。',
+      '缺测时保留空值；准备出门或运动时，可以一起看现场天气、身体感受和场地开放情况。'] }) };
 }

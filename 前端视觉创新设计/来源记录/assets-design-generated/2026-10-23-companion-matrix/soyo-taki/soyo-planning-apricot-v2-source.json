@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "planning",
+  "palette": "apricot",
+  "light": "morning",
+  "generatedOn": "2026-10-23",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-f7d31b41-0108-4ccb-bc85-1f54178b5234",
+  "prompt": "soyo-planning-apricot-prompt-v2.txt",
+  "promptSha256": "523b1ef7e70d607a1a7dc29e164efeb28a7345ec9fb7e8b86881a7682c1a77d0",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+      "role": "sole input: primary-reviewed clean empty room v4; no previous character pixels"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16921-9fe7-73b2-81e9-dfadeae00b4a/exec-f7d31b41-0108-4ccb-bc85-1f54178b5234.png",
+  "output": {
+    "file": "soyo-planning-apricot-mother-candidate-v2.png",
+    "sha256": "e002a836c881d736966bce3a254de9ef5e4a0417efc5b260eaeaea64d85904d6",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2145855
+  },
+  "review": {
+    "producerViewed": "complete original displayed; source contact inspection follows",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

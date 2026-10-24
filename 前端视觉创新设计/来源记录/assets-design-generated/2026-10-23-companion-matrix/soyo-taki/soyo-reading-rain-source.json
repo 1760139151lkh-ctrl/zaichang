@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "reading",
+  "palette": "rain",
+  "light": "night",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-c7582c48-13e7-49b2-988a-f883b94c6ff6",
+  "prompt": "soyo-reading-rain-prompt.txt",
+  "promptSha256": "8f5055a3be1dc7a8d7cfa03c5b7b60b9fde7e5af6b6b2580ebdcc383c2af7311",
+  "inputs": [
+    {
+      "file": "soyo-reading-apricot-mother-candidate-v2.png",
+      "sha256": "68b71f572a6566147acf1bbe104cd05a1bc6e9194ea01039a3e40b785e60f23e",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-c7582c48-13e7-49b2-988a-f883b94c6ff6.png",
+  "output": {
+    "file": "soyo-reading-rain-mother-candidate-v1.png",
+    "sha256": "12a166b566816cc4abb7c7bfd1594df73b1df15a7e13a80a92b0287d8c83195e",
+    "bytes": 2061753,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the approved warm mother and empty rain-v2 plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Original book-reading support, face/clothing identity and two complete shoes retained. Cold rainy window and single right desk-lamp illumination are coherent; the left flower/table remains quiet without an extra independent spotlight or daylight shadow. Primary mother/layer/runtime approval remains separate."
+}

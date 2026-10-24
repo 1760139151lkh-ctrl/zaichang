@@ -1,0 +1,175 @@
+{
+  "activity": "listening",
+  "schemaVersion": 1,
+  "mother": "mutsumi-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+  "inputAlpha": "mutsumi-listening-apricot-source-alpha-v2.png",
+  "inputAlphaSha256": "a6ac5e214df5aa361a6006a11b69c404fa96910fb0f2cf6d1ba89c2da43e5862",
+  "observedOriginalColorRules": [
+    {
+      "purpose": "Original blue lake in left loose-hair gaps, not face/skin",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1211,
+          331
+        ],
+        [
+          1250,
+          331
+        ],
+        [
+          1250,
+          403
+        ],
+        [
+          1211,
+          403
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          80,
+          255
+        ],
+        [
+          1,
+          80,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          2,
+          0,
+          8,
+          180
+        ],
+        [
+          2,
+          1,
+          3,
+          180
+        ]
+      ]
+    },
+    {
+      "purpose": "Original blue plaid pillow behind long right hair, no dark navy uniform removed",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1378,
+          433
+        ],
+        [
+          1434,
+          433
+        ],
+        [
+          1434,
+          558
+        ],
+        [
+          1378,
+          558
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          90,
+          255
+        ],
+        [
+          1,
+          90,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          2,
+          0,
+          9,
+          180
+        ],
+        [
+          2,
+          1,
+          4,
+          180
+        ]
+      ]
+    },
+    {
+      "purpose": "Original yellow exterior foliage behind right long-hair edges, not mint hair highlight",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1372,
+          385
+        ],
+        [
+          1435,
+          385
+        ],
+        [
+          1435,
+          552
+        ],
+        [
+          1372,
+          552
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          125,
+          255
+        ],
+        [
+          1,
+          100,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          1,
+          2,
+          45,
+          180
+        ]
+      ]
+    },
+    {
+      "purpose": "Separate empty floor loafer is room-owned and never appears in actor alpha",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1243,
+          729
+        ],
+        [
+          1324,
+          729
+        ],
+        [
+          1324,
+          782
+        ],
+        [
+          1243,
+          782
+        ]
+      ],
+      "channels": [],
+      "differences": []
+    }
+  ],
+  "explicitOriginalRoomExclusions": [],
+  "outputAlpha": "mutsumi-listening-apricot-source-alpha-v3.png",
+  "record": "mutsumi-listening-apricot-source-alpha-v3.json"
+}

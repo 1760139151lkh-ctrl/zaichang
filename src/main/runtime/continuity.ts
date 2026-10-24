@@ -76,7 +76,7 @@ export function buildContinuityIndex(
   const empty: ContinuityIndex = {
     preparedMaterials: [], openThreads: [], planningIntents: [], providedSourceIds: [], providedEvidenceIds: [], providedObjectVersions: [],
     coverage: { scope: 'none', bounded: true, moreMayExist: false,
-      meaning: '这次没有带入跨轮线索，未完事项或准备材料是否存在仍需各自的来处说明。' },
+      meaning: '这次没有带回先前的线索。想找某件事，可以沿它原来的记录再看。' },
   };
   const scope = repo.scope(contract.scope);
   if (!sessionId || scope.child || scope.audience !== 'self' || scope.subjectId !== scope.principalId ||
@@ -129,7 +129,7 @@ export function buildContinuityIndex(
       prepared.push({ id: record.id, revision: record.revision, title: artifact.title, expiresAt,
         fromCurrentConversation: inConversation(record, sessionId),
         delivery: sameMaterial && (help.data.submittedAt || help.data.deliveredAt) ? 'submitted_or_delivered' : 'not_observed',
-        meaning: '这份准备已有实际内容，这里的精确ID保留它的来处。inspect_help可以带回当前正文、依据与限制；若它与眼前的事相关，你就有机会接着已有的帮助往前走，让本人不用重讲。提醒、接受安排和实际执行各有自己的约定，这条线索只承接准备本身。',
+        meaning: '这件事已经备好了一份内容，可以从这里打开正文，看看当时用了哪些资料、还差哪些条件。若正好接得上眼前的话，就沿着已有的准备往下聊；要提醒、采用安排或实际去做，再接各自的约定。',
       });
       preparedRecords.push(record);
       if (prepared.length > INDEX_LIMIT) break;
@@ -173,7 +173,7 @@ export function buildContinuityIndex(
       id: record.id, revision: record.revision, title: record.title, nextStep: String(record.data.nextStep),
       updatedAt: typeof record.data.updatedAt === 'string' ? record.data.updatedAt : null,
       fromCurrentConversation: inConversation(record, sessionId),
-      meaning: '这条线索来自一件仍开放的事项，上次留下的下一步描述当时谈到了哪里。本人眼前想怎样继续，仍有现在这句话的意思；旧探索保留探索的身份。若需要接回具体背景，restore_collaboration的relatedTo能带回完整决定、条件和原文。',
+      meaning: '这件事上次停在这里，还留着可以往下聊的一步。先前只是探索的想法仍按探索来读；今天想怎样继续，接眼前这句话。需要前情时，可以沿这件事找回当时的决定、条件和原话。',
     })),
     providedSourceIds: [...providedSourceIds],
     providedEvidenceIds: [...evidenceVersions.keys()],
@@ -185,6 +185,6 @@ export function buildContinuityIndex(
     ],
     coverage: { scope: crossConversation ? 'permitted_workspace' : 'current_conversation', bounded: true,
       moreMayExist: bounded || prepared.length > INDEX_LIMIT || frames.length > INDEX_LIMIT || intents.length > INDEX_LIMIT,
-      meaning: '这里提供少量当前许可内的续接候选，排序参考当前会话与记录更新。它们与眼前是否有关，由你结合这次交流判断；更多材料仍可沿inspect_help或restore_collaboration回读。这里没有列出的内容仍可能在原处，这份线索本身也没有让旧事自动开始。' },
+      meaning: '这里先带回几处现在还能打开的线索，眼前这段对话和最近更新的记录排在前面。哪一处接得上这次的话，由你自己判断；想再看更多，可以沿原来的准备或事项继续找。找回前情以后，仍听今天想怎样过。' },
   };
 }

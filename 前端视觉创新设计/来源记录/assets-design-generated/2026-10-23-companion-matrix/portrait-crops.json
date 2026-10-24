@@ -1,0 +1,118 @@
+{
+  "recordType": "original-scene-portrait-crop-parameters",
+  "scope": "Identity portraits only; does not add an activity, theme, layer or Stage runtime acceptance.",
+  "method": "Crop original approved complete-mother RGB only. No resize, face generation, retouch, background replacement or character geometry change.",
+  "outputDirectory": "../../../运行素材/companion/portraits",
+  "entries": [
+    {
+      "character": "sakiko",
+      "mother": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "crop": [
+        1183,
+        240,
+        1423,
+        480
+      ],
+      "approvalRecord": "primary-prototype-reviews.json"
+    },
+    {
+      "character": "mutsumi",
+      "mother": "mutsumi-chat-apricot-mother-candidate-v1.png",
+      "crop": [
+        1188,
+        243,
+        1428,
+        483
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json"
+    },
+    {
+      "character": "uika",
+      "mother": "uika-umiri/uika-chat-apricot-mother-candidate-v1.png",
+      "crop": [
+        1174,
+        233,
+        1414,
+        473
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json"
+    },
+    {
+      "character": "umiri",
+      "mother": "uika-umiri/umiri-chat-apricot-mother-candidate-v2.png",
+      "crop": [
+        814,
+        282,
+        1014,
+        482
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json"
+    },
+    {
+      "character": "nyamu",
+      "mother": "nyamu-chat-apricot-mother-candidate-v1.png",
+      "crop": [
+        1170,
+        214,
+        1410,
+        454
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json"
+    },
+    {
+      "character": "tomori",
+      "mother": "tomori-chat-apricot-mother.png",
+      "crop": [
+        1180,
+        246,
+        1420,
+        486
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json"
+    },
+    {
+      "character": "anon",
+      "mother": "rana-anon/anon-chat-apricot-mother-candidate-v1.png",
+      "crop": [
+        1170,
+        214,
+        1410,
+        454
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json"
+    },
+    {
+      "character": "rana",
+      "mother": "rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+      "crop": [
+        1180,
+        263,
+        1420,
+        503
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json"
+    },
+    {
+      "character": "soyo",
+      "mother": "soyo-taki/soyo-chat-apricot-mother-candidate-v1.png",
+      "crop": [
+        1175,
+        252,
+        1415,
+        492
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json"
+    },
+    {
+      "character": "taki",
+      "mother": "soyo-taki/taki-chat-apricot-mother-candidate-v1.png",
+      "crop": [
+        1130,
+        287,
+        1370,
+        527
+      ],
+      "approvalRecord": "primary-other-mother-reviews.json"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "layer-generation-source",
+  "character": "uika",
+  "activity": "reading",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "input": {
+    "path": "uika-reading-apricot-mother-candidate-v1.png",
+    "sha256": "31046bee457ec77259616037f8a6841acdfaba233f225194b84bc4a5bab0da15",
+    "role": "sole primary-approved whole mother input; visible person and lap book included; room stays separate"
+  },
+  "calls": [
+    {
+      "part": "mask",
+      "executionId": "exec-0f37ffa6-ecd6-4fb1-8331-57e64e14a443",
+      "promptFile": "uika-reading-apricot-mask-prompt.txt",
+      "prompt": "Use case: precise-object-edit. Technical OPAQUE black-and-white segmentation at exactly 1536 x 1024, no transparency.\nThe ONLY input image is the complete primary-approved Uika reading apricot mother. Recolor EXISTING source-visible pixels IN PLACE, not a new person or portrait: all pixels belonging to Uika and the open book physically supported in her lap become pure WHITE; all room and furniture pixels become pure BLACK. Keep the input's exact full canvas, small right-bench position, scale, pose, head, hands, knees and shoes. No crop/zoom/recenter/anatomy redraw.\nRegistration guides: head is at the far-right window bench around x=1340..1455,y=300..420; lap and held book around x=1240..1430,y=485..585; complete shoes near x=1125..1260,y=700..765. Trace the source contour rather than boxes. Do not enlarge the person or raise the head to y=200. Most of the image and all corners remain black.\nWhite includes the original short blonde bob and fine hair, face/neck, white T-shirt, both arms/hands/every finger, long taupe skirt/hem/folds, two visible calves/ankles/socks, both complete WORN sneakers, and the FULL OPEN BOOK (cover and every page edge) that is actually held on her thighs. All surfaces become solid white regardless of dark print/color or original folds. No internal face/cloth/book drawing.\nBlack excludes every pillow/cushion/bench/wood, desk/chair/lamp/cup/book-on-desk, floor/rug, curtains/window/lake/plants and all cast/contact shadows. Actual room gaps between the book and arm, under the lap, between legs/shoes and between genuine fingers remain black. Do not turn a pillow into her shirt/shoulder silhouette or merge a bench edge with the skirt.\nOnly a narrow antialias on the actual silhouette edge. No gray glow, blur, shadow, color pixels, text, labels, UI, logo, watermark, arrow, inset or border. This source-registered matte will carry the ORIGINAL mother RGB later, never a redrawn figure.\n",
+      "output": {
+        "path": "uika-reading-apricot-mask-generated-v1.png",
+        "sha256": "f1cfe51dffb656545486b31d0e21f810520c1831d94ded351df24bee44451d0c",
+        "bytes": 386022,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      }
+    },
+    {
+      "part": "background",
+      "executionId": "exec-df56182f-bdd5-477c-9b26-7cbcf25dfe59",
+      "promptFile": "uika-reading-apricot-background-prompt.txt",
+      "prompt": "Use case: precise-object-edit. Technical SAME-CANVAS clean background extraction, not a room redesign.\nONLY INPUT is the complete primary-approved Uika reading apricot mother, 1536 x 1024. Remove ONLY Uika, her worn clothes/socks/sneakers, the open book held on her lap, and narrow local body/foot contact shadows. Reconstruct the exact pillow/cushion/bench/floor immediately behind them as a plausible EMPTY version of THIS SAME mother scene.\nPreserve exact canvas/camera/perspective/geometry: the full window frame and four connected corners, original lake/campus view, curtains, rear-left table/chair/shelves/framed drawing, right desk/chair/lamp/cup/book-on-desk, window bench/right pillows/throw, floorboards and rug all stay where they are, at the same size and warm light. The right cushion may relax where her back/hips rested, but do not move/replace pillows, widen bench, rotate chair, shift lamp or invent a new furniture layout.\nKeep source pixels outside the removed small far-right person footprint in place. No human, hair/skin/finger/skirt/sock/shoe remnant, floating lap book, silhouette, ghost or leftover body shadow. No new prop, white gradient, empty wall, crop, zoom, text/UI/logo/watermark/border/inset. Return the complete same-size opaque empty room with only that local removal repaired.\n",
+      "output": {
+        "path": "uika-reading-apricot-background-generated-v1.png",
+        "sha256": "c7267f9edf190d2cbc390cdfc8c6858fbd6f130ecb816e09364053b8d167fe6c",
+        "bytes": 2137306,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      }
+    }
+  ],
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "raw mask同画布原位，膝上书与人物同白形；原位完整RGB合成/局部修净仍待进行，BG去人无明显人体残留，枕垫需保原mother可见像素。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "recordedAt": "2026-10-23T23:03:32.220735+00:00"
+}

@@ -1,0 +1,169 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "mutsumi-chat-apricot-layer-parameters-v2.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "acd958962a3fbec03faf3be03b5bbe2286df8198fde14ad5a59573780f21b19c",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": "4.13.0"
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "mutsumi-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a",
+  "matte": "mutsumi-chat-apricot-mask-candidate-v2.png",
+  "matteSha256": "928db561af67e852b4402634ba739c00028a61e22cb3a8e7f0142470a27afc03",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1110,
+      252,
+      1426,
+      798
+    ],
+    "seedThreshold": 110,
+    "uncertainBandPixels": 6,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.3
+  },
+  "alphaChangedPixels": 130399,
+  "alphaNonzeroPixels": 60514,
+  "alphaBounds": [
+    1120,
+    263,
+    1418,
+    789
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "585b3d6129214e5829bf846b334f6babb432fe7d727e5b51101c875247cd8f85",
+  "figureRgbSha256": "585b3d6129214e5829bf846b334f6babb432fe7d727e5b51101c875247cd8f85",
+  "background": {
+    "candidate": "mutsumi-chat-apricot-background-candidate-v1.png",
+    "candidateSha256": "0848c40f2a43698244eead3d1946bd403309baae84e82c8db7d857316607aece",
+    "expandPixels": 6,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          1105,
+          754
+        ],
+        [
+          1270,
+          753
+        ],
+        [
+          1280,
+          804
+        ],
+        [
+          1110,
+          804
+        ]
+      ]
+    ],
+    "changedPixels": 83185,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1120,
+          760
+        ],
+        [
+          1182,
+          753
+        ],
+        [
+          1191,
+          774
+        ],
+        [
+          1130,
+          781
+        ]
+      ],
+      [
+        [
+          1187,
+          774
+        ],
+        [
+          1254,
+          766
+        ],
+        [
+          1265,
+          786
+        ],
+        [
+          1190,
+          796
+        ]
+      ],
+      [
+        [
+          1197,
+          603
+        ],
+        [
+          1397,
+          599
+        ],
+        [
+          1407,
+          618
+        ],
+        [
+          1197,
+          622
+        ]
+      ]
+    ],
+    "featherPixels": 1,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "mutsumi-chat-apricot-figure-calibrated-v2.png",
+      "bytes": 2472125,
+      "sha256": "bf85db0850e2744d1faf4386314dad9cbc0aecf868444086ee5b0377d8e83f40"
+    },
+    {
+      "file": "mutsumi-chat-apricot-mask-calibrated-v2.png",
+      "bytes": 13954,
+      "sha256": "5e503c0fd25ebd8bb8c81d2ee78df2c9d6f9afb24ed0b0d00b18420771ba8a5f"
+    },
+    {
+      "file": "mutsumi-chat-apricot-background-calibrated-v2.png",
+      "bytes": 2137796,
+      "sha256": "b229adfedc702a0573463afa890ac4b85488079211c1bde917e51d39edd5d4e2"
+    },
+    {
+      "file": "mutsumi-chat-apricot-shadow-calibrated-v2.png",
+      "bytes": 33193,
+      "sha256": "400d4e2d49e5d026cffdb1b57fccddcc31feefd487428b9fd57f1da251be3365"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

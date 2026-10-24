@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-study-apricot-room4",
+  "character": "soyo",
+  "activity": "study",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "soyo-study-apricot-mother-candidate-v1.png",
+  "background": "soyo-study-apricot-background-calibrated-v5.png",
+  "figure": "soyo-study-apricot-figure-calibrated-v4.png",
+  "mask": "soyo-study-apricot-mask-calibrated-v4.png",
+  "shadow": "soyo-study-apricot-shadow-calibrated-v5.png",
+  "seat": [
+    0.5989583333333334,
+    0.5703125
+  ],
+  "ground": [
+    0.654296875,
+    0.6806640625
+  ],
+  "bodyBounds": [
+    0.5266927083333334,
+    0.326171875,
+    0.6686197916666666,
+    0.6845703125
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "desk-chair",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": false,
+  "hitPolygon": "57% 33%, 60% 33%, 62% 37%, 61% 43%, 64% 47%, 64% 49%, 62% 49%, 63% 55%, 65% 62%, 67% 67%, 67% 69%, 63% 69%, 61% 67%, 60% 68%, 58% 67%, 59% 59%, 57% 57%, 56% 51%, 53% 48%, 53% 44%, 55% 37%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "production": "soyo-study-apricot-layer-processing-v5.json",
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Fixed desk/hand contact and real original chair-back/front-leg occlusion retained. No hidden anatomy completed; no free-travel promise. Empty background was separately viewed for old body/hair/foot ghosts.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json"
+  }
+}

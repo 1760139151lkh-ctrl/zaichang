@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   type MutableRefObject,
@@ -10,23 +11,29 @@ import { ArrowLeft, Check, ChevronRight, Download, LoaderCircle, Pencil, Trash2,
 import { IconButton, Modal, PagePanel, Switch, uiError } from './ui';
 import { MemoryPanelSimple, SourcePermissions, type MemoryWorkspaceState } from './HarnessViews';
 import type { SettingsUpdate, State } from '../shared/types';
-import { APPEARANCE_PALETTES, useAppearance } from './appearance';
+import { APPEARANCE_PALETTES, useAppearance, type Appearance } from './appearance';
 import { DEFAULT_INTERACTION } from '../shared/interaction';
 import { PersonaEditor, type PersonaDraft } from './PersonaEditor';
 import { CompanionSettings } from './CompanionSettings';
 import { useCompanion } from './companion';
 import { companionPaletteLight } from './companion-scenes';
+import { RichText } from './RichText';
+import { TiyiConnection, type TiyiConnectionFocus } from './TiyiConnection';
 import './settings-refinement.css';
 
 const api = window.zaichang;
+type SettingsTab = '陪伴' | '交流' | '偏好' | '连接' | '记忆' | '资料';
 export interface SettingsDraft {
   apiKey?: string;
   guidance?: string;
   persona?: PersonaDraft;
+  /** Navigation only; privacy changes still clear every editable/private field above. */
+  navigation?: { entry: SettingsTab; tab: SettingsTab; tiyiFocus?: TiyiConnectionFocus; resume?: boolean;
+    positions?: Partial<Record<SettingsTab, number>> };
 }
 interface Props {
   embedded?: boolean;
-  initialTab?: string;
+  initialTab?: SettingsTab;
   state: State;
   busy: boolean;
   onState: (s: State) => void;
@@ -66,8 +73,10 @@ export function SettingsPanel({
   const [appearance, setAppearance] = useAppearance();
   const { reset: resetCompanion, value: companion, update: updateCompanion } = useCompanion();
   const interaction = state.settings.interaction || DEFAULT_INTERACTION;
-  const [tab, setTab] = useState(initialTab);
-  const tabs = embedded ? ['陪伴', '交流', '偏好', '连接'] : ['陪伴', '交流', '偏好', '连接', '记忆'];
+  const resumeNavigation = useRef(draft.current.navigation?.resume && draft.current.navigation.entry === initialTab
+    ? draft.current.navigation : undefined);
+  const [tab, setTab] = useState<SettingsTab>(resumeNavigation.current?.tab || initialTab);
+  const tabs: SettingsTab[] = embedded ? ['陪伴', '交流', '偏好', '连接'] : ['陪伴', '交流', '偏好', '连接', '记忆'];
   const tabNames: Record<string, string> = { 陪伴: '陪伴的样子', 交流: '怎么相处', 偏好: '阅读与节奏', 连接: '连接与资料', 记忆: '关于你' };
   const Frame = embedded ? PagePanel : Modal;
   const [key, setKey] = useState(draft.current.apiKey || '');
@@ -83,6 +92,9 @@ export function SettingsPanel({
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const sourceBackRef = useRef<HTMLButtonElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const positions = useRef<Partial<Record<SettingsTab, number>>>({ ...resumeNavigation.current?.positions });
+  const previewRef = useRef<HTMLDivElement>(null);
+  const previewAnchor = useRef<{ element: HTMLElement; offset: number } | undefined>(undefined);
   const disabled = busy || !!pending;
   const lunaSubstitute = state.modelRuntime?.temporaryTestSubstitute === true;
   useEffect(
@@ -93,17 +105,53 @@ export function SettingsPanel({
   );
   useEffect(() => {
     if (tab !== '资料') return;
+    if (resumeNavigation.current?.tiyiFocus) return;
     const frame = requestAnimationFrame(() => sourceBackRef.current?.focus({ preventScroll: true }));
     return () => cancelAnimationFrame(frame);
   }, [tab]);
-  function changeTab(value: string) {
+  useEffect(() => {
+    const previous = draft.current.navigation;
+    draft.current.navigation = { entry: initialTab, tab, positions: positions.current, resume: true,
+      ...(previous?.entry === initialTab && previous.tab === tab && previous.tiyiFocus ? { tiyiFocus: previous.tiyiFocus } : {}) };
+  }, [draft, initialTab, tab]);
+  function settingsViewport() {
+    return embedded ? bodyRef.current?.closest<HTMLElement>('.page-panel') : bodyRef.current;
+  }
+  useLayoutEffect(() => {
+    const viewport = settingsViewport();
+    if (!viewport) return;
+    viewport.scrollTop = positions.current[tab] || 0;
+    const remember = () => { positions.current[tab] = viewport.scrollTop; };
+    viewport.addEventListener('scroll', remember, { passive: true });
+    return () => viewport.removeEventListener('scroll', remember);
+  }, [tab, embedded]);
+  useLayoutEffect(() => {
+    const viewport = previewRef.current, anchor = previewAnchor.current;
+    if (viewport && anchor?.element.isConnected)
+      viewport.scrollTop += anchor.element.getBoundingClientRect().top - viewport.getBoundingClientRect().top - anchor.offset;
+    previewAnchor.current = undefined;
+  }, [appearance.readingScale, appearance.density]);
+  function changeReadingLayout(patch: Pick<Partial<Appearance>, 'readingScale' | 'density'>) {
+    const viewport = previewRef.current;
+    if (viewport) {
+      const top = viewport.getBoundingClientRect().top;
+      const element = [...viewport.querySelectorAll<HTMLElement>('.markdown > p, .markdown > h2, .markdown > blockquote')]
+        .find(item => item.getBoundingClientRect().bottom > top + 8);
+      if (element) previewAnchor.current = { element, offset: element.getBoundingClientRect().top - top };
+    }
+    setAppearance(patch);
+  }
+  function changeTab(value: SettingsTab) {
+    const viewport = settingsViewport();
+    if (viewport) positions.current[tab] = viewport.scrollTop;
     if (pendingRef.current === 'test') {
       testCancelled.current = true;
       void api.cancelConnection();
     }
+    resumeNavigation.current = undefined;
+    draft.current.navigation = { entry: initialTab, tab: value, positions: positions.current, resume: true };
     setTab(value);
     setFeedback(null);
-    bodyRef.current?.scrollTo({ top: 0 });
   }
   async function perform(action: string, fn: () => Promise<void>) {
     if (pendingRef.current) return;
@@ -217,18 +265,15 @@ export function SettingsPanel({
             <div className="section-heading">
               <div>
                 <h3>{lunaSubstitute ? state.modelRuntime?.displayName : 'DeepSeek'}</h3>
-                <p>
-                  {lunaSubstitute
-                    ? '当前使用 Luna，日常连接仍是 DeepSeek'
-                    : state.settings.mode === 'deepseek' && state.settings.hasKey
+                {!lunaSubstitute && <p>
+                  {state.settings.mode === 'deepseek' && state.settings.hasKey
                       ? '密钥留好了。可以试着连接。'
                       : '留下一把密钥，我们就可以聊起来。'}
-                </p>
+                </p>}
               </div>
             </div>
             {lunaSubstitute ? (
               <div className="model-runtime-note">
-                <p>这次使用 Luna。你选择的资料范围和保留方式仍然有效。</p>
                 <div className="field-buttons">
                   {state.settings.mode === 'demo' && (
                     <button
@@ -502,6 +547,8 @@ export function SettingsPanel({
               'template',
               'disconnect',
             ])}
+            <TiyiConnection disabled={disabled} restoreFocus={resumeNavigation.current?.tiyiFocus}
+              onControlFocus={tiyiFocus => { draft.current.navigation = { entry: initialTab, tab, tiyiFocus }; }} />
             {!connectorReady && (
               <section className="campus-import-block">
                 <div className="connector">
@@ -585,6 +632,7 @@ export function SettingsPanel({
         )}
         {tab === '记忆' && (
           <MemoryPanelSimple
+            key={`${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`}
             state={state}
             onState={onState}
             busy={busy}
@@ -604,6 +652,7 @@ export function SettingsPanel({
                 <div className="rhythm-controls">
                   <section className="preference-section">
                     <h3 className="section-title">阅读的样子</h3>
+                    <p className="preference-scope-note">字号和间距保存在这台设备，这段预览可以边读边试。</p>
                     <div className="rhythm-choice-row"><span>外观</span><div className="rhythm-segmented" role="group" aria-label="外观主题">
                       {([['light', '晨光'], ['dark', '夜色'], ['system', '跟随系统']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={appearance.theme === value} onClick={() => setAppearance({ theme: value })}>{label}</button>)}
                     </div></div>
@@ -612,10 +661,10 @@ export function SettingsPanel({
                     </div></div>
                     {result(['appearance'])}
                     <div className="rhythm-choice-row"><span>正文字号</span><div className="rhythm-segmented" role="group" aria-label="正文字号">
-                      {([[1, '标准'], [1.15, '大一点'], [1.3, '再大一点']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={appearance.readingScale === value} onClick={() => setAppearance({ readingScale: value })}>{label}</button>)}
+                      {([[1, '标准'], [1.15, '大一点'], [1.3, '再大一点']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={appearance.readingScale === value} onClick={() => changeReadingLayout({ readingScale: value })}>{label}</button>)}
                     </div></div>
                     <div className="rhythm-choice-row"><span>内容间距</span><div className="rhythm-segmented" role="group" aria-label="内容间距">
-                      {([['comfortable', '舒展'], ['compact', '紧凑']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={appearance.density === value} onClick={() => setAppearance({ density: value })}>{label}</button>)}
+                      {([['comfortable', '舒展'], ['compact', '紧凑']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={appearance.density === value} onClick={() => changeReadingLayout({ density: value })}>{label}</button>)}
                     </div></div>
                     <Switch label="少一点动态" detail="让画面安静一点。" checked={companion.reducedMotion} onChange={reducedMotion => updateCompanion({ reducedMotion })} />
                   </section>
@@ -634,16 +683,17 @@ export function SettingsPanel({
                     <div className="rhythm-choice-row"><span>主动来聊</span><div className="rhythm-segmented" role="group" aria-label="不为事情、只是来找你聊聊的频率">
                       {([['off', '不用'], ['sometimes', '偶尔'], ['often', '常来']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={(state.settings.companionCheckIns || 'sometimes') === value} disabled={!!pending} onClick={() => void update('checkins', { companionCheckIns: value })}>{label}</button>)}
                     </div></div>
+                    {interaction.initiative === 'quiet' && <p className="preference-scope-note">现在等你开口，主动来聊也先停下。</p>}
                     {result(['initiative', 'followup', 'checkins'])}
                   </section>
                 </div>
                 <aside className="rhythm-preview-column" aria-label="阅读预览与提醒">
-                  <div className={`reading-feel-preview ${appearance.density === 'compact' ? 'is-compact' : ''}`} style={{ fontSize: `${16 * appearance.readingScale}px` }}>
+                  <div className="reading-feel-preview">
                     <span className="reading-preview-label">此刻的阅读感觉</span>
-                    <h3>从一个想法，<br />慢慢说起。</h3>
-                    <p>有时，先把问题留在纸上，也是一种继续。</p>
-                    <p>你可以慢慢想，我会在这里。等你想说的时候，我们再接着聊。</p>
-                    <div className="reading-preview-formula" aria-label="x(t)等于u(t)乘以c(t)">x(t) = u(t)c(t)</div>
+                    <h3>常数，<br />为什么可以变？</h3>
+                    <div ref={previewRef} className="reading-preview-scroll" role="region" aria-label="长文排版预览" tabIndex={0}>
+                      <div className="markdown reading-preview-text"><RichText text={'先从已经知道的解出发。对一阶方程 $x\u2032=a(t)x+b(t)$，暂时放下右边多出来的那一项，取齐次方程的一个非零解 $u(t)$。\n\n现在把新的解写成：\n\n$$x(t)=u(t)c(t)$$\n\n这一步还没有替原方程作出结论。我们只是换一种写法，让已知的 $u(t)$ 留在式子里，再问未知的 $c(t)$ 需要满足什么。\n\n沿着乘积求导，$u\u2032(t)c(t)$ 与右边的 $a(t)u(t)c(t)$ 正好抵消。剩下的是：\n\n$$u(t)c\u2032(t)=b(t)$$\n\n在 $u(t)$ 不为零的这个区间里，就能得到 $c\u2032(t)=b(t)/u(t)$。把这一项积分，再乘回 $u(t)$，便回到了原来的未知函数。\n\n所以，“常数变易”并不是先断言常数会变，而是借已知齐次解重新表达问题。真正需要检查的，是换写后的式子有没有仍然满足原方程。\n\n如果题目还给了一个初始值，最后再用它确定积分常数。每一步都有自己的位置：先认出已知结构，再找剩下的变化，最后回到条件核对。\n\n读到这里，可以停在刚才抵消的那一行，看看上下两边分别留下了什么。'} /></div>
+                    </div>
                   </div>
                   <section className="preference-section reminder-preference">
                     <h3 className="section-title">提醒与通知</h3>

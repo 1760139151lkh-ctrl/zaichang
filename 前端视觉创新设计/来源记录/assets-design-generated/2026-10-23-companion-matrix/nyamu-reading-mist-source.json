@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-reading-mist-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "reading",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-scene physical relighting of this exact primary-approved warm activity mother; no other character inputs",
+  "prompt": "nyamu-reading-mist-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-reading-apricot-mother-candidate-v1.png",
+      "role": "sole image edit target; primary-approved correct complete activity mother",
+      "sha256": "679651a0af996b08b6be27a01aff2dd5d4ce21f7ee03cd41db8f0231329e903b"
+    }
+  ],
+  "output": {
+    "file": "nyamu-reading-mist-mother-candidate-v1.png",
+    "sha256": "1a3e17c249e873d8318dcba8dca64716eb93cf861bac6cae5f8b8b9690842ad2",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-23a6e934-6672-4589-8a44-60dd52b35e83.png"
+  },
+  "ownershipAndPose": "Keep the exact three-quarter outward chair posture, upper back supported by original chair back, elbows gathered to a low held lap book, gaze down into her own page. Keep all original legs/shoes and original chair swivel/footprint. Held book belongs with CHARACTER.",
+  "designerObservation": "Full image personally viewed. Original supported-back chair reading posture, gathered elbows/hands on low held book, exact chair swivel and separate complete legs/shoes visually retained. Book belongs with character. Original room and fixed youthful identity/outfit retained. Blue-white misty lake/window diffuse light reaches face/blouse/wood, hard apricot leaf/sun patterns removed from walls/floor/rug. Skin remains natural, gray blouse and black skirt/shoes not blue-tinted.",
+  "observedGaps": [
+    "Primary mother review pending; no layers/calibration/Stage acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

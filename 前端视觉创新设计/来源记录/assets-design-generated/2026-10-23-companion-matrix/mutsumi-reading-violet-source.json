@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "mutsumi-reading-violet-mother-candidate-v1.png",
+  "character": "mutsumi",
+  "activity": "reading",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-environment physical relight of exact approved complete warm activity mother, with approved empty light/axis reference only where explicit",
+  "prompt": "mutsumi-reading-violet-prompt.txt",
+  "promptSha256": "125d5a9bf31e59ed5ca57d2a030b212b0eaf747479730d56a1f63b5d43f6e099",
+  "inputs": [
+    {
+      "file": "mutsumi-reading-apricot-mother-candidate-v2.png",
+      "sha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+      "role": "Image 1: approved complete correct warm activity mother; sole character/pose/furniture edit target"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "Image 2: approved empty-room dusk celestial/light-axis reference only; sun1007,302 and lake-columnx1007, no geometry/character replacement"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-reading-violet-mother-candidate-v1.png",
+    "sha256": "366582c5a887e3e920054ef56677b3a4bbf59e63ee7543b91d26fd4e382af9ac",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-b505c0d7-17c3-4be8-a748-584731d47d4f.png"
+  },
+  "ownerAndSupport": "Preserve the newly approved genuine recline against the existing blue cushion: pelvis/knees/shoes diagonal left, head side/down to book. Book is held/body-owned. Do not straighten her into the returned chat-like reading-v1.",
+  "designerObservation": "Full image personally viewed. Genuine source reading-v2 recline on blue cushion, pelvis/knees/shoes diagonal left, gaze down to held body-owned book retained; original supported limb chains and room geometry remain. Sun visually about1007,302 and golden lake column at x1007 follow approved empty violet reference. Whole gold-violet room light and existing lamp share natural skin/mint hair/navy-white uniform and timber; no replaced chat pose.",
+  "observedGaps": [
+    "Primary per-mother review pending; layers/calibration/Stage acceptance separate."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

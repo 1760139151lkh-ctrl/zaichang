@@ -66,6 +66,7 @@ export interface AssistantPresentationProps {
   manuscriptText?: string;
   manuscriptSceneId?: string;
   latestRehearsalRevisions?: ReadonlyMap<string, number>;
+  latestStudyRevisions?: ReadonlyMap<string, number>;
   programFocus?: ProgramFollowupReference;
   onRehearsalCurrentReadStart?: (rehearsalId: string) => ((ref: RehearsalRef) => void) | undefined;
   onReaderNavigation?: () => void;
@@ -295,6 +296,8 @@ const StudyScene = defineComponent({
     const context = useContext(SceneContext), scene = context?.snapshots.get(props.ref);
     if (!context?.sessionId || !scene || scene.kind !== 'study' && scene.kind !== 'study_reference') return <UnavailableScene />;
     return <StudySceneView scene={scene} sessionId={context.sessionId} messageId={context.messageId}
+      ownerRevisionHint={context.latestStudyRevisions?.get(scene.owner.id)}
+      ephemeral={context.programStateEphemeral === true}
       boundaryKey={context.boundaryKey || ''} disabled={!context.onFollowup}
       onOpenSource={context.onOpenStudySource}
       onReadStart={context.onReaderNavigation}
@@ -414,7 +417,7 @@ export function AssistantPresentation({
   onSelect,
   selection,
   isStreaming = false,
-  sessionId, messageId, boundaryKey, hostViewBoundaryKey, privacyEpoch, policyRevision, programStateEphemeral, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, programFocus, onFollowup, onRehearsalCurrentReadStart, onReaderNavigation, onOpenDocument, onOpenNote, onOpenStudySource, timeZone,
+  sessionId, messageId, boundaryKey, hostViewBoundaryKey, privacyEpoch, policyRevision, programStateEphemeral, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, latestStudyRevisions, programFocus, onFollowup, onRehearsalCurrentReadStart, onReaderNavigation, onOpenDocument, onOpenNote, onOpenStudySource, timeZone,
 }: AssistantPresentationProps) {
   const surface = useRef<HTMLDivElement>(null);
   usePublicationReveal(surface, isStreaming);
@@ -433,7 +436,7 @@ export function AssistantPresentation({
     );
   }, [scenes, view.sceneRefs]);
   const context = useMemo(
-    () => ({ snapshots, renderMap, onSelect, selection, sessionId, messageId, boundaryKey, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, onFollowup, onRehearsalCurrentReadStart, onReaderNavigation, onOpenDocument, onOpenNote, onOpenStudySource, timeZone,
+    () => ({ snapshots, renderMap, onSelect, selection, sessionId, messageId, boundaryKey, programStateEphemeral, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, latestStudyRevisions, onFollowup, onRehearsalCurrentReadStart, onReaderNavigation, onOpenDocument, onOpenNote, onOpenStudySource, timeZone,
       comparison: view.comparison, comparisonSceneRefs,
       activeComparisonBranch: activeBranch?.branchId,
       onDiscussComparison: (branch: NonNullable<PresentationView['comparison']>['branches'][number]) => {
@@ -442,7 +445,7 @@ export function AssistantPresentation({
       },
       activeComparisonScene: activeBranch?.sceneRef ? `${activeBranch.sceneRef.id}@${activeBranch.sceneRef.revision}` : undefined,
       viewedDay, onViewDay: setViewedDay }),
-    [snapshots, renderMap, onSelect, selection, sessionId, messageId, boundaryKey, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, onFollowup, onRehearsalCurrentReadStart, onReaderNavigation, onOpenDocument, onOpenNote, onOpenStudySource, timeZone,
+    [snapshots, renderMap, onSelect, selection, sessionId, messageId, boundaryKey, programStateEphemeral, manuscriptText, manuscriptSceneId, latestRehearsalRevisions, latestStudyRevisions, onFollowup, onRehearsalCurrentReadStart, onReaderNavigation, onOpenDocument, onOpenNote, onOpenStudySource, timeZone,
       view.comparison, comparisonSceneRefs, activeBranch, viewedDay],
   );
   useEffect(() => setFailed(false), [view.id, view.revision]);
@@ -651,7 +654,7 @@ function CampusRecords({ scene, selection, onSelect }: {
           <button type="button" className="presentation-campus-continue"
             aria-pressed={selectedId === row.id}
             onClick={() => onSelect({ sceneId: scene.id, sceneRevision: scene.revision, kind: 'record', recordId: row.id })}>
-            {selectedId === row.id ? '接着说，我在听' : `接着聊这${isExam ? '场考试' : '门课'}`}<ArrowRight size={16} aria-hidden="true" />
+            {`接着聊这${isExam ? '场考试' : '门课'}`}<ArrowRight size={16} aria-hidden="true" />
           </button>
         </div>
         {(row.startsAt || row.dateLabel || row.location || row.seat !== undefined) && <div className="presentation-campus-when">

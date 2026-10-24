@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "play",
+  "palette": "violet",
+  "light": "dusk",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-574d9979-49fb-4b15-ac82-be95d81416a6",
+  "prompt": "soyo-play-violet-prompt.txt",
+  "promptSha256": "f92ee771dc74eedbdadcfccd465769ebaadd93755a10639c71bcd3be81426d9c",
+  "inputs": [
+    {
+      "file": "soyo-play-apricot-mother-candidate-v1.png",
+      "sha256": "81e654d671e5da16986fe32fe6e742c12042c684cad689f59885706eb29cc1f4",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-574d9979-49fb-4b15-ac82-be95d81416a6.png",
+  "output": {
+    "file": "soyo-play-violet-mother-candidate-v1.png",
+    "sha256": "7e110781feab88210e40fed19ddc67a2b707ebc7a7c0cd14a948a8c1da8e66c5",
+    "bytes": 2201783,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the approved warm mother and its empty theme plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Original forward-leaning held bookmark, supporting palm, bench contact and near/far shoes retained; no lone actor scale change. Dusk sun/lake axes remain near1007/1003 with coherent whole room light. Primary/layer/runtime review remains separate."
+}

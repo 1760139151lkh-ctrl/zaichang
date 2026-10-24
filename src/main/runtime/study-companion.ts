@@ -11,6 +11,7 @@ import { noteSourceProofSchema, type NoteSourceProof } from '../../shared/notes-
 import type { WorkService } from './work';
 import { explorableStudySchema } from '../../shared/explorable-study';
 import { canonical, codePointSlice } from './semantics';
+import { sourceBookmarkAddress, sourceBookmarkReferenceSchema, type SourceBookmarkReference } from '../../shared/source-bookmark';
 
 type Citation = z.infer<typeof studyCitationSchema>;
 type Packet = z.infer<typeof studyPacketInput>;
@@ -30,6 +31,22 @@ export interface StudyCompanionContext {
   /** Host presentation only. Reuse this one complete owner/material check to
    * lay out all existing learner lines; never exposed as a model tool flag. */
   allAttempts?: boolean;
+}
+
+/** A reference to the original owner, not another copy of the learning paper.
+ * Only the host can attach the live validation callback to this reference. */
+export interface OwnedArtifactReference {
+  owner: 'study_companion';
+  id: string;
+  revision: number;
+}
+export interface OwnedArtifactProof {
+  reference: OwnedArtifactReference & {
+    matterId: string;
+    sourceBinding: WorkSourceBinding;
+    requestSource: WorkSourceRef;
+  };
+  assertCurrent: () => void;
 }
 const id = z.string().min(1).max(160);
 const ref = workSourceRefSchema;
@@ -64,7 +81,9 @@ const stateSchema = z.object({ type: z.literal('study_companion'), version: z.li
   noteSources: z.array(noteSourceProofSchema).max(17).default([]),
   mode: studyModeSchema, focus: z.string(), nextStart: z.string(), lastSource: ref,
   attempts: z.array(z.object({ id, source: ref }).strict()).max(32), steps: z.array(storedStep).max(24),
+  helpStepStart: z.number().int().nonnegative().max(24).optional(),
   modeSource: ref, stopPoint: z.object({ text: z.string(), at: z.string(), source: ref }).strict().optional(),
+  bookmark: sourceBookmarkReferenceSchema.optional(),
   closure: z.object({ note: z.string(), at: z.string(), source: ref }).strict().optional(),
   createdAt: z.string(), updatedAt: z.string() }).strip();
 type StudyState = z.infer<typeof stateSchema>;
@@ -77,7 +96,7 @@ const problemIdentity = (problem: StoredProblem | ProblemSource) => problem.kind
   : problem.kind === 'note' ? problem.proof : problem.kind === 'material' ? problem.identity
     : { resourceId: problem.resourceId, version: problem.version, page: problem.page ?? null,
       ...(problem.kind === 'material_text' ? { start: problem.start, end: problem.end } : { crop: problem.crop }) };
-const meaning = '这是这一道题的可接续陪学纸。你的尝试与助手的教学内容分开；提供过提示、看过讲解或收好这一页，都不证明独立完成或掌握。当前帮助方式只属于这次学习，不生成能力标签、成绩或日程。';
+const meaning = '这张陪学纸留着这一道题、你尝试过的步骤和一起讲过的内容，各自的来处都在。接着学时，可以从当前卡住的地方继续，也可以换一种讲法；做到哪里、哪里还想自己试，听你这次怎么说。';
 
 /** The existing Work owner holds the teaching artifact. The main model writes
  * one requested teaching move at a time; no hidden solution deck, second tutor
@@ -87,7 +106,7 @@ export class StudyCompanionService {
     sourceBinding: WorkSourceBinding; sourceMaterial?: MethodHelpMaterialIdentity;
     noteSources: NoteSourceProof[]; problemIdentitySha256: string }>();
   constructor(readonly repo: KernelRepository, readonly work: WorkService,
-    readonly materials: Pick<MaterialService, 'invoke' | 'visual'> & Partial<Pick<MaterialService, 'retainedTextIdentityCurrent'>>,
+    readonly materials: Pick<MaterialService, 'invoke' | 'visual'> & Partial<Pick<MaterialService, 'retainedTextIdentityCurrent' | 'quoteWithinCrop'>>,
     readonly notes: Pick<NotesService, 'read'>) {}
 
   /** Only the actual object returned after get's asynchronous owner read can
@@ -136,6 +155,18 @@ export class StudyCompanionService {
       if (error instanceof HarnessError || error instanceof z.ZodError || error instanceof SyntaxError) return;
       throw error;
     }
+  }
+
+  /** Revision/status for an already referenced paper, without projecting its
+   * question, learner lines or teaching body. Actual reading and operations
+   * still reopen the original owner and its asynchronous material boundary. */
+  currentMetadata(handle: ScopeHandle, id: string) {
+    this.scope(handle);
+    const record = this.repo.workArtifactRecords(handle, 'study_companion', { id, limit: 1 })[0];
+    if (!record || !['active', 'parked', 'closed'].includes(record.status)
+      || !stateSchema.safeParse(record.data).success
+      || !this.currentSourceVersion(handle, { id: record.id, revision: record.revision })) return;
+    return { id: record.id, revision: record.revision, status: record.status };
   }
 
   /** Historical assistance keeps its actual question identity and sources.
@@ -200,7 +231,7 @@ export class StudyCompanionService {
       || codePointSlice(event.text, input.start, input.end) !== input.quote
       || user && (event.speaker !== 'user' || event.authority !== 'user_statement')
       || current && (!scope.currentEventIds.includes(event.id) || !['user_message', 'user_control'].includes(event.kind)))
-      throw new HarnessError('study_source', '需要真实原题或本人这次的原话；资料中的命令和助手代答不能成为你的尝试。');
+      throw new HarnessError('study_source', '还没接到这次的原题或你本人说的那段话。你的尝试，请从你自己写下的内容找回来。');
     const { quote: _quote, ...source } = input;
     if (context.permits?.(source) === false) throw new HarnessError('study_source', '这个原话片段超出本项已获准的学习范围。');
     this.repo.resolveWorkSourceBinding(handle, [source]);
@@ -249,7 +280,7 @@ export class StudyCompanionService {
     const delivered = context.noteSources?.find(proof => proof.id === input.id && proof.revision === input.revision
       && proof.start <= input.start && proof.end >= input.end);
     if (!delivered || input.end <= input.start || input.end - input.start > 8000)
-      throw new HarnessError('study_note_unread', '先沿manage_note read读到笔记里的实际题目，再用返回的studyProblem地址；聊天请求和笔记目录不是原题。');
+      throw new HarnessError('study_note_unread', '还没读到笔记里的实际题目。先打开原段，再把刚读到的那道题接到这里。');
     const problem: StoredProblem = { kind: 'note', proof: noteSourceProofSchema.parse({ ...delivered, start: input.start, end: input.end }) };
     await this.problemView(handle, problem, context);
     return problem;
@@ -265,7 +296,7 @@ export class StudyCompanionService {
       || !(capability === (textRead ? 'materials.read' : 'materials.observe') || textRead && observation.tool === 'read_evidence')
       || data.resourceId !== input.resourceId || (data.page ?? null) !== (input.page ?? null)
       || data.source?.kind !== 'user_selected_file' || typeof data.source.sourceEventId !== 'string')
-      throw new HarnessError('study_material_unread', '先读实际题目片段或观察实际页图，再把它放到陪学纸；文件目录和描述不代表题目已读。');
+      throw new HarnessError('study_material_unread', '还没看见这道题的原文或原页。先打开题目所在的那一处，再放到陪学纸上一起看。');
     const source = data.source, event = this.repo.evidence(handle, source.sourceEventId);
     if (!event || event.sourceId !== source.sourceId || event.contentVersion !== source.contentVersion
       || event.locator?.kind !== 'file' || event.locator.artifactId !== input.resourceId)
@@ -316,12 +347,13 @@ export class StudyCompanionService {
         read: { tool: 'manage_note', arguments: { operation: 'read', input: { id: proof.id, revision: proof.revision,
           offset: proof.start, limit: proof.end - proof.start } } } } };
     }
-    const origin: StudyOrigin = { kind: problem.kind, sourceId: problem.sourceId, resourceId: problem.resourceId,
+    const origin: StudyOrigin = { kind: problem.kind, sourceId: problem.sourceId, resourceId: problem.resourceId, sha256: problem.sha256,
       name: problem.name, ...(problem.page ? { page: problem.page } : {}),
       read: { tool: 'look_up', arguments: { source: 'capability', capability: problem.kind === 'material_text' ? 'materials.read' : 'materials.observe',
         arguments: { resourceId: problem.resourceId, ...(problem.page ? { page: problem.page } : {}),
           ...(problem.kind === 'material_text' ? { offset: problem.start, limit: problem.end - problem.start } : { crop: problem.crop }) } } } };
-    if (problem.kind === 'material_page') return { display: problem.description, origin: { ...origin, interpretation: 'assistant_page_description' } };
+    if (problem.kind === 'material_page') return { display: problem.description, origin: { ...origin,
+      crop: problem.crop as StudyOrigin['crop'], interpretation: 'assistant_page_description' } };
     const read = await this.materials.invoke(handle, 'materials.read', { resourceId: problem.resourceId,
       ...(problem.page ? { page: problem.page } : {}), offset: problem.start, limit: problem.end - problem.start }, signal);
     signal.throwIfAborted(); this.scope(handle);
@@ -330,11 +362,55 @@ export class StudyCompanionService {
     return { display: read.data.text, origin: { ...origin, start: problem.start, end: problem.end, interpretation: 'original_excerpt' } };
   }
 
+  private bookmarkMatches(problem: StoredProblem, bookmark: SourceBookmarkReference, handle: ScopeHandle) {
+    if (bookmark.kind === 'conversation') {
+      const selected = bookmark.reference;
+      if (problem.kind !== 'evidence' || selected.messageId !== problem.ref.eventId
+        || selected.contentVersion !== problem.ref.contentVersion || selected.start < problem.ref.start || selected.end > problem.ref.end) return false;
+      const event = this.repo.evidence(handle, selected.messageId);
+      return !!event && event.sessionId === selected.sessionId && event.contentVersion === selected.contentVersion
+        && sha(event.text) === selected.sha256;
+    }
+    if (bookmark.kind === 'material') {
+      const selected = bookmark.reference;
+      return (problem.kind === 'material_text' || problem.kind === 'material_page')
+        && selected.resourceId === problem.resourceId && selected.sha256 === problem.sha256
+        && selected.page === problem.page
+        && (problem.kind === 'material_page' || selected.start >= problem.start && selected.end <= problem.end);
+    }
+    const selected = bookmark.reference;
+    return problem.kind === 'note' && selected.id === problem.proof.id
+      && selected.revision === problem.proof.revision && selected.sha256 === problem.proof.sha256
+      && selected.start >= problem.proof.start && selected.end <= problem.proof.end;
+  }
+
+  /** A native acceptance only marks an exact place in this existing problem.
+   * No new teaching move, attempted solution, mastery, or source is invented. */
+  async keepBookmark(handle: ScopeHandle, recordId: string, expectedRevision: number,
+    raw: SourceBookmarkReference | null, context: StudyCompanionContext = {}) {
+    this.scope(handle, true);
+    const bookmark = raw === null ? undefined : sourceBookmarkAddress(sourceBookmarkReferenceSchema.parse(raw));
+    const current = await this.get(handle, recordId, context);
+    if (!current || current.record.revision !== expectedRevision)
+      throw new HarnessError('study_changed', '这张纸刚接上了新内容，回到现在这一步再放。');
+    const data = stateSchema.parse(current.record.data);
+    if (current.record.status === 'closed' || bookmark && !this.bookmarkMatches(data.problem, bookmark, handle))
+      throw new HarnessError('study_bookmark_problem', '这张纸留着另一道题。先把这段放在对话里，我们再一起看。');
+    if (bookmark?.kind === 'material' && data.problem.kind === 'material_page' && data.problem.crop
+      && !await this.materials.quoteWithinCrop?.(handle, bookmark.reference, data.problem.crop, signalFor(context)))
+      throw new HarnessError('study_bookmark_crop', '这段在原来取景的题目外。把它先留在对话里，我们再看这一处。');
+    if (canonical(data.bookmark) === canonical(bookmark)) return current;
+    if (bookmark) data.bookmark = bookmark; else delete data.bookmark;
+    data.updatedAt = this.repo.clock.now();
+    const saved = this.save(handle, current.record, data, expectedRevision);
+    return this.get(handle, saved.id, context);
+  }
+
   private packet(handle: ScopeHandle, input: Packet, source: WorkSourceRef, mode: StudyMode, context: StudyCompanionContext): StudyState['steps'][number] {
     if (mode === 'small_hint' && !['question', 'hint'].includes(input.kind))
-      throw new HarnessError('study_hint_boundary', '当前只给一点提示；先保留发现过程，需要讲解或例子时再随本轮请求切换。');
+      throw new HarnessError('study_hint_boundary', '这次说好只给一点提示，先把后面的发现留给你。想听例子或完整讲解，也可以在这里换。');
     if (mode !== 'explain' && input.kind === 'explanation')
-      throw new HarnessError('study_hint_boundary', '完整讲解属于直讲方式；先按用户当前选择切换方式。');
+      throw new HarnessError('study_hint_boundary', '这一步已经展开到完整讲解了。若你现在想直接听清楚，就把这次讲法一起换过来。');
     return { id: randomUUID(), kind: input.kind, ...(input.title ? { title: input.title } : {}), text: input.text,
       ...(input.exploration ? { exploration: input.exploration } : {}),
       nextMove: input.nextMove, mode, source, supports: (input.supports || []).map(value => this.cite(handle, value, context)), providedAt: this.repo.clock.now() };
@@ -394,13 +470,24 @@ export class StudyCompanionService {
       return { id: attempt.id, text: codePointSlice(event.text, attempt.source.start, attempt.source.end),
         origin: 'user_report' as const, source: attempt.source, receivedAt: event.receivedAt };
     });
-    const projectStep = ({ source: _source, supports: _supports, ...step }: StudyState['steps'][number]) => ({ ...step, origin: 'assistant_generated' as const });
+    const legacyProblemUnclear = data.helpStepStart === undefined && data.priorProblemSources.length > 0;
+    const helpStepStart = data.helpStepStart ?? (data.priorProblemSources.length ? data.steps.length : 0);
+    const nextStart = legacyProblemUnclear ? '' : data.nextStart;
+    const projectStep = (stored: StudyState['steps'][number]) => {
+      const { source: _source, supports: _supports, ...step } = stored;
+      const problemScope = legacyProblemUnclear
+        ? 'unverified_legacy_problem' as const : data.steps.indexOf(stored) < helpStepStart ? 'prior_problem' as const : 'current_problem' as const;
+      return { ...step, origin: 'assistant_generated' as const, problemScope };
+    };
+    // The latest delivered teaching move remains addressable for historical
+    // method/help references. problemScope says whether it belongs beside
+    // this question; the presentation must never reveal a prior-problem hint.
     const steps = historyPage(data.steps).map(projectStep), latestStep = data.steps[data.steps.length - 1];
     const nextHistory = (!context.allAttempts && data.attempts.length > historyOffset + historyLimit
       || data.steps.length > historyOffset + historyLimit) ? historyOffset + historyLimit : null;
     const projection: StudyCompanionView = { id: record.id, revision: record.revision, matterId: data.matterId, title: record.title,
-      status: record.status as StudyCompanionView['status'], mode: data.mode, focus: data.focus, problem, attempts, steps,
-      ...(latestStep ? { currentStep: projectStep(latestStep) } : {}), nextStart: data.nextStart,
+      status: record.status as StudyCompanionView['status'], mode: data.mode, focus: legacyProblemUnclear ? '' : data.focus, problem, attempts, steps,
+      ...(latestStep ? { currentStep: projectStep(latestStep) } : {}), nextStart,
       historyCoverage: { attempts: { returned: attempts.length, total: data.attempts.length }, steps: { returned: steps.length, total: data.steps.length },
         nextOffset: nextHistory, ...(nextHistory === null ? {} : { read: { tool: 'study_companion',
           arguments: { operation: 'read', id: record.id, historyOffset: nextHistory, historyLimit } } }) },
@@ -411,7 +498,33 @@ export class StudyCompanionService {
         { id: 'hint', label: '再给一点提示', request: '只给能让我推进一点的小提示，别一起透露后面的突破口。' },
         { id: 'example', label: '换个例子讲', request: '围绕现在这个卡点换一个例子解释，再回到我的原题。' },
         { id: 'explain', label: '直接讲清楚', request: '这次请直接把这里讲清楚，不用坚持之前的小提示方式。' },
-      ], meaning: '操作只把当前这张纸和这一步带回正常对话；不表示完成、掌握或接受安排。' }, updatedAt: data.updatedAt, meaning };
+      ], meaning: '这里可以把想怎么继续讲、想自己试哪一步带回对话，仍沿着同一张纸往下走。' }, updatedAt: data.updatedAt,
+      meaning: record.status === 'parked'
+        ? '这张纸先放在原处，原题和当时留下的内容还在。想继续时，可以沿同一张纸接起。'
+        : record.status === 'closed'
+          ? '这张纸已经收好，原题与当时留下的内容仍可从原纸回读。再有新的探索，可以从新的一页开始。'
+          : '这张学习纸已经留好，原题在这里；实际留下的尝试、卡点和讲过的内容，可以沿各自的位置接着看。' };
+    if (data.bookmark && this.bookmarkMatches(data.problem, data.bookmark, handle)) {
+      const selected = data.bookmark.reference;
+      const relative = selected.start - (data.problem.kind === 'material_text' ? data.problem.start
+        : data.problem.kind === 'note' ? data.problem.proof.start : data.problem.kind === 'evidence' ? data.problem.ref.start : 0);
+      if (data.problem.kind !== 'material_page') projection.bookmark = { reference: data.bookmark,
+        title: problem.origin.name || '这一段原题', text: codePointSlice(problem.display, relative, relative + selected.end - selected.start),
+        ...(data.bookmark.kind === 'material' && data.bookmark.reference.page ? { page: data.bookmark.reference.page } : {}) };
+      else {
+        if (data.problem.crop && (data.bookmark.kind !== 'material'
+          || !await this.materials.quoteWithinCrop?.(handle, data.bookmark.reference, data.problem.crop, signalFor(context))))
+          throw new HarnessError('study_bookmark_crop', '这张书签已经不在原题取景范围里，请回原页重新选。');
+        const read = await this.materials.invoke(handle, 'materials.read', { resourceId: data.problem.resourceId,
+          page: data.problem.page, offset: selected.start, limit: selected.end - selected.start }, signalFor(context));
+        if (typeof read.data?.text === 'string' && read.data.coverage?.start === selected.start && read.data.coverage?.end === selected.end)
+          projection.bookmark = { reference: data.bookmark, title: problem.origin.name || '这一页原题',
+            text: read.data.text, page: data.problem.page };
+        signalFor(context).throwIfAborted(); this.scope(handle);
+        if (this.repo.workArtifactRecords(handle, 'study_companion', { id: record.id, limit: 1 })[0]?.revision !== record.revision)
+          throw new HarnessError('study_changed', '这张纸刚有了变化，请从现在的步骤接着。');
+      }
+    }
     const sourceMaterial = this.sourceMaterial(handle, data.problem);
     this.sourceReads.set(record, { scopeId: handle.id, id: record.id, revision: record.revision, sourceBinding: structuredClone(current),
       noteSources: structuredClone(data.noteSources), problemIdentitySha256: sha(canonical(problemIdentity(data.problem))),
@@ -423,7 +536,7 @@ export class StudyCompanionService {
     this.scope(handle);
     if (input.id && input.matterId || !input.id && !input.matterId || input.id && input.offset
       || !input.id && (input.historyOffset !== undefined || input.historyLimit !== undefined))
-      throw new HarnessError('study_address', '精确读取一张陪学纸用id，寻找同一事项下的纸用matterId和分页。');
+      throw new HarnessError('study_address', '这次找纸的位置混在一起了：可以打开指定的那一张，也可以沿同一件事逐页找。');
     const offset = input.offset || 0, limit = input.limit || 6;
     const rows = this.repo.workArtifactRecords(handle, 'study_companion', { ...(input.id ? { id: input.id } : { matterId: input.matterId }),
       ...(context.restrictToSessionId ? { sessionId: context.restrictToSessionId } : {}), offset, limit: input.id ? 1 : limit + 1 });
@@ -446,7 +559,10 @@ export class StudyCompanionService {
     signalFor(context).throwIfAborted(); this.scope(handle);
     return { status: values.length ? 'fresh' : page.length ? 'unavailable' : 'not_found', items: values.map(value => value.projection),
       records: values.map(value => value.record), unavailable, coverage: { nextOffset: !input.id && rows.length > limit ? offset + limit : null,
-        complete: rows.length <= limit, someUnavailable: values.length < page.length }, meaning };
+        complete: rows.length <= limit, someUnavailable: values.length < page.length },
+      meaning: values.length ? meaning : page.length
+        ? '找到了这张纸的位置，但它用过的题目或资料这次还读不到。可以先沿原来的那一处找回当前内容。'
+        : '这次没有找到对应的陪学纸。想从眼前这道题开始，也可以一起另起一张。' };
   }
 
   /** Small initial-context addresses. No PDF, problem text, answer, teaching
@@ -470,7 +586,8 @@ export class StudyCompanionService {
       status: record.status, read: { tool: 'study_companion', arguments: { operation: 'read', id: record.id } },
       availability: 'requires_owner_read' as const })), records: selected.map(value => value.record),
       moreMayExist: rows.length === scan || available.length > selected.length,
-      meaning: '这里只给陪学纸地址；题目、图像与教学内容须沿read异步复核，不据索引声称已读、已完成或掌握。' };
+      meaning: selected.length ? '这些陪学纸现在还能找回，题目和讲过的内容要打开后才看得见。接着聊时，先看同一道题原来停在哪里。'
+        : '这次还没有带回可接着学的纸。可以沿原来的事情继续找，也可以从眼前这道题开始。' };
   }
 
   /** Body-free UI identity before new-input restrictions have been parsed.
@@ -506,9 +623,37 @@ export class StudyCompanionService {
       || !parsed.success || !record.sourceBinding || this.refs(parsed.data).some(source => context.permits?.(source) === false)
       || canonical(this.noteProofs(parsed.data)) !== canonical(parsed.data.noteSources) || !this.repo.noteSourcesReadable(handle, parsed.data.noteSources)
       || canonical(record.sourceBinding) !== canonical(this.repo.resolveWorkSourceBinding(handle, this.refs(parsed.data))))
-      throw new HarnessError('study_changed', '刚读取的陪学内容或来源已变化，未采用旧步骤。');
+      throw new HarnessError('study_changed', '刚才的学习纸或它所用的原文变了，可以先回到现在的那一处。');
     const matter = this.repo.work(handle, 'episode', parsed.data.matterId)[0];
-    if (!matter || matter.data.type !== 'collaboration_frame') throw new HarnessError('study_matter_changed', '原共同事项已不可读，未采用旧陪学内容。');
+    if (!matter || matter.data.type !== 'collaboration_frame') throw new HarnessError('study_matter_changed', '原来一起做的这件事现在读不到了，旧学习纸先放在一旁。');
+  }
+
+  /** Recover from this owner before final review adopts a saved paper.
+   * Saving and presentation are separate facts: the caller checks actual
+   * delivery when requested; this owner proves content and provenance. */
+  async completionArtifact(handle: ScopeHandle, reference: OwnedArtifactReference, context: StudyCompanionContext = {}): Promise<OwnedArtifactProof> {
+    if (reference.owner !== 'study_companion' || !Number.isSafeInteger(reference.revision) || reference.revision < 1)
+      throw new HarnessError('study_artifact_changed', '这份学习纸的位置还没对上，先从原来的那张纸继续。');
+    const value = await this.get(handle, reference.id, context);
+    if (!value || value.record.revision !== reference.revision || !value.record.sourceBinding)
+      throw new HarnessError('study_artifact_changed', '这份学习纸刚有了变化，先核对现在实际保存的那一版。');
+    const sourceVersion = this.sourceVersionSnapshot(handle, value.record);
+    if (!sourceVersion) throw new HarnessError('study_artifact_changed', '这份学习纸用过的原题或资料变了，先回到现在能读到的那一处。');
+    const data = stateSchema.parse(value.record.data);
+    const minted = { owner: 'study_companion' as const, id: value.record.id, revision: value.record.revision,
+      matterId: data.matterId, sourceBinding: structuredClone(value.record.sourceBinding), requestSource: structuredClone(data.lastSource) };
+    const proofReference = structuredClone(minted);
+    return { reference: proofReference, assertCurrent: () => {
+      this.assertCurrent(handle, minted.id, minted.revision, context);
+      const current = this.repo.workArtifactRecords(handle, 'study_companion', { id: minted.id, limit: 1 })[0];
+      const parsed = stateSchema.safeParse(current?.data);
+      if (!current || !parsed.success || parsed.data.matterId !== minted.matterId
+        || !sameRef(parsed.data.lastSource, minted.requestSource)
+        || canonical(current.sourceBinding) !== canonical(minted.sourceBinding)
+        || !this.verifyFrozenSources(handle, { id: minted.id, ...sourceVersion })
+        || canonical(proofReference) !== canonical(minted))
+        throw new HarnessError('study_artifact_changed', '刚才这份学习纸或它所用的原话变了，先接回现在的内容。');
+    } };
   }
 
   async execute(handle: ScopeHandle, raw: StudyCompanionInput, context: StudyCompanionContext) {
@@ -532,7 +677,7 @@ export class StudyCompanionService {
         source, problem, priorProblemSources: [], noteSources: problem.kind === 'note' ? [problem.proof] : [],
         mode: input.mode, modeSource: source, lastSource: source, focus: input.focus, nextStart: input.nextStart,
         attempts: input.attempt ? [{ id: randomUUID(), source: this.cite(handle, input.attempt, context, true) }] : [],
-        steps: input.packet ? [this.packet(handle, input.packet, source, input.mode, context)] : [], createdAt: now, updatedAt: now };
+        steps: input.packet ? [this.packet(handle, input.packet, source, input.mode, context)] : [], helpStepStart: 0, createdAt: now, updatedAt: now };
       record = { id: recordId, kind: 'experience', ownerId: scope.principalId, workspaceId: scope.workspaceId, subjectId: scope.subjectId,
         worldId: scope.worldId, revision: 1, status: 'active', title: input.title, evidenceIds: [],
         label: { purpose: scope.purposes[0], audience: 'self', retention: 'purpose_scoped', sensitivity: 'personal', infer: false }, data: {} };
@@ -553,6 +698,14 @@ export class StudyCompanionService {
               data.priorProblemSources.push(prior);
             }
             data.problem = problem;
+            delete data.bookmark;
+            // Earlier teaching remains in its real history. It cannot become
+            // the current question's folded hint or next move after a source
+            // correction. Its old focus can also contain an answer or an
+            // obsolete obstacle; only this response may supply a new focus.
+            data.helpStepStart = data.steps.length;
+            data.nextStart = '';
+            data.focus = '';
           }
         }
         if (input.mode) { data.mode = input.mode; data.modeSource = source; }
@@ -560,12 +713,17 @@ export class StudyCompanionService {
           if (!data.attempts.some(value => sameRef(value.source, attempt))) data.attempts.push({ id: randomUUID(), source: attempt }); }
         if (input.packet) {
           if (data.steps.length >= 24) throw new HarnessError('study_sheet_full', '这一页已经有很多步；可以保留现在的起点，换张纸接着想，旧过程不会被截掉。');
+          data.helpStepStart ??= data.priorProblemSources.length ? data.steps.length : 0;
           data.steps.push(this.packet(handle, input.packet, source, data.mode, context));
         }
         if (input.focus !== undefined) data.focus = input.focus;
-        if (input.nextStart !== undefined) data.nextStart = input.nextStart;
+        if (input.nextStart !== undefined) {
+          data.helpStepStart ??= data.priorProblemSources.length ? data.steps.length : 0;
+          data.nextStart = input.nextStart;
+        }
         delete data.stopPoint; record = { ...record, status: 'active' };
       } else if (input.operation === 'park') {
+        data.helpStepStart ??= data.priorProblemSources.length ? data.steps.length : 0;
         data.nextStart = input.nextStart; data.stopPoint = { text: input.nextStart, at: this.repo.clock.now(), source };
         record = { ...record, status: 'parked' };
       } else {

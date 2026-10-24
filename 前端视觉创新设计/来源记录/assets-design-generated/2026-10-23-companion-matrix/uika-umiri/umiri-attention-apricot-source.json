@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-mother-candidate",
+  "character": "umiri",
+  "activity": "attention",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/umiri/",
+    "https://anime.bang-dream.com/mygo/character/umiri/"
+  ],
+  "input": {
+    "path": "../room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty room; no character pixels used"
+  },
+  "promptFile": "umiri-attention-apricot-prompt.txt",
+  "prompt": "Use case: stylized-concept. Asset: ONE complete 1536 x 1024 warm-apricot morning mother scene for the 在场 companion Stage, with the whole room and whole person.\nONLY INPUT image 1 is the primary-selected CLEAN EMPTY room v4. It supplies architecture, camera, ordinary furniture scale, materials and light and contains no person. Generate this complete human-in-room scene from text; no portrait, old mother or separate cutout is an input.\nPRESERVE THE ROOM: same mild seated-eye perspective, full connected window frame including every corner, lake/campus view, rear-left table/chair/bookshelves/framed drawing, right desk/chair/lamp/cup, bench/cushions/throw, rug and complete floor passage. Keep furniture in its original area and ordinary scale. No new foreground table/chair, enlarged person, zoom, crop, blank wall, white gradient or erased left living detail. Keep the left/central live-reading lane free of new character parts and props. Add real contact shadows where this person is supported. One coherent morning window light with natural skin and distinct material colors, not an orange wash.\nSTYLE: original youthful Japanese-anime identity, restrained fine character linework in the input's softly detailed environmental painting. Neither an adult fashion portrait nor a chibi child. A naturally inhabited continuous room, never a separately pasted sticker. No other person, text, UI, logos, watermarks, split-screen, arrows, borders, insets or duplicate views. Show complete head/hair, hands, clothing hems and feet with air inside the canvas.\n\nCHARACTER: Yahata Umiri (八幡海鈴), BanG Dream! Ave Mujica / MyGO!!!!!, around fifteen-sixteen, first-year high-school girl. Charcoal-gray shoulder-length hair with a subtle cool undertone, divided side-swept fringe exposing a little forehead, cheek-framing strands and gently outward-flipped tips. Calm clear gray-teal eyes, soft teenage jaw, ordinary slim youthful proportions, not an adult fashion model. Consistent official casual clothes: short black biker jacket with simple lapels/zips over dark-red V-neck top, plain gray short skirt, simple black choker, small silver earrings, black lace-up mid-calf platform boots. Clothing keeps its original colors, modest natural styling without eroticized emphasis or invented uniform.\n\nCRITICAL attention COMPOSITION: Umiri uses the ORIGINAL RIGHT DESK CHAIR at the original desk footprint, not the window bench and not a chair enlarged into the foreground. Keep the seat near (950,590), chair feet near their original floor contacts, person head top around y=320 and boot soles around y=765. The complete person and offered paper fit approximately x=800..1090,y=315..785. Preserve the desk/window/bench and all open central floor unchanged. Do not move her left or zoom in.\n\nACTION attention / one small offered stopping-place:\nHer hips stay fully on the real cushion, knees and feet supported. She has just turned the chair a little OUT FROM THE DESK and her upper body follows toward the left/user in a compact, practical half-turn. She leans forward only slightly as one balanced body. ONE HAND rests lightly on the cushion beside the hip to support the turn. The OTHER arm reaches a short comfortable distance toward the user, elbow softly bent, carrying a small THIN IVORY BOOKMARK / STOPPING-PLACE PAPER on her fingertips and palm. It is one modest paper slip, not a sheet of instructions, clipboard, book, envelope or screen. The five fingers, wrist and paper edge must stay clearly distinct. No readable text, symbol, number or formula.\nHer young face turns toward the offered point, gray-teal eyes alert but relaxed, with a faint dry friendly smile as if she has quietly made the useful place easy to find. She does not wave, beckon, demand a reply, point like a manager or present a sales leaflet. Make the forearm reach and returning torso action clear enough to differ from the neutral chat pose, without a long arm crossing the reading lane.\nTwo supported thighs under the modest gray skirt, two distinct uncrossed knees, normal-length calves and two complete separate platform boots on the same original floor plane. Both soles/heels have contact shadows, no leg through another thigh, repeated knee, floating seat, long fashion leg, missing boot or chair merged with clothes. Keep every hair/paper/hand/boot tip inside the full frame with breathing room. No extra prop, person, UI or pasted portrait.\n",
+  "output": {
+    "path": "umiri-attention-apricot-mother-candidate-v1.png",
+    "sha256": "2e2a24e6baeb00f8ca22fdb5e3e35a1f8e3e4c95541defe7008abf6e23602d81",
+    "bytes": 2172693,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T19:23:24.470783+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "椅座回身、略前倾递书签，另一掌压垫、双靴支承。相比chat向前轻移，桌椅需本mother matching BG；比例与靠前程度待主审。未代签。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-56563da8-32c6-457e-a005-c3a4430daf0f"
+}

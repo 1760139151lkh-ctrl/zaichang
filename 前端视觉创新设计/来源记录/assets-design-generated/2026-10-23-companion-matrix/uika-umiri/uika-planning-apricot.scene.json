@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "uika-planning-apricot-room4",
+  "character": "uika",
+  "activity": "planning",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "uika-planning-apricot-mother-candidate-v3.png",
+  "background": "uika-planning-apricot-background-calibrated-v7.png",
+  "figure": "uika-planning-apricot-figure-calibrated-v7.png",
+  "mask": "uika-planning-apricot-mask-calibrated-v7.png",
+  "shadow": "uika-planning-apricot-shadow-calibrated-v7.png",
+  "seat": [
+    0.5338541666666666,
+    0.58203125
+  ],
+  "ground": [
+    0.6744791666666666,
+    0.71484375
+  ],
+  "bodyBounds": [
+    0.4837239583333333,
+    0.2802734375,
+    0.697265625,
+    0.716796875
+  ],
+  "safeTextBoundary": 0.45,
+  "support": "desk-chair",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "52.669% 28.027%, 55.404% 28.516%, 56.966% 31.836%, 56.836% 36.914%, 55.924% 39.062%, 53.841% 39.453%, 54.362% 43.652%, 55.794% 45.410%, 57.227% 44.629%, 58.919% 44.336%, 58.333% 45.898%, 57.227% 46.777%, 54.622% 47.168%, 54.948% 48.242%, 58.724% 47.754%, 60.156% 48.730%, 58.984% 49.316%, 54.492% 50.684%, 54.948% 52.246%, 60.547% 52.734%, 62.240% 55.273%, 65.495% 63.477%, 65.039% 65.527%, 66.211% 67.383%, 69.531% 69.824%, 69.727% 71.387%, 65.299% 71.680%, 64.128% 70.996%, 61.654% 70.996%, 61.654% 69.922%, 60.286% 69.531%, 58.724% 70.898%, 56.901% 70.508%, 56.120% 68.262%, 55.078% 66.895%, 56.120% 59.961%, 51.823% 58.203%, 51.237% 54.102%, 50.521% 50.391%, 49.089% 49.023%, 48.633% 45.410%, 48.893% 40.625%, 49.740% 38.965%, 48.633% 37.500%, 48.372% 33.984%, 50.130% 29.980%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Actual upright side-chair support: pelvis/visible skirt stays on original chair cushion; original chair-back occlusion is excluded from person alpha without inventing hidden body. Resting forearm contacts fixed desk and shoes stay on floor. Both planning papers remain in background. Exact source hair alpha cleanup only, no face/body repaint; travel/slope/perspective=0. Fresh clean background v2 and original local contact RGBA; all Stage and runtime review remains pending.",
+    "runtimeAccepted": false
+  },
+  "production": "uika-planning-apricot-layer-processing-v7.json",
+  "parameters": "uika-planning-apricot-layer-parameters-v7.json",
+  "source": "uika-planning-apricot-layer-final-v7-source.json"
+}

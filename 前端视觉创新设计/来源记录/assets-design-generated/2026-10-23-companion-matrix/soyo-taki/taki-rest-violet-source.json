@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "rest",
+  "palette": "violet",
+  "light": "dusk",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-b32dc9e0-1306-4f54-b5b2-ff31f2082d3e",
+  "prompt": "taki-rest-violet-prompt.txt",
+  "promptSha256": "8cbf2d49379a20af3b2fc443df2c2808b5b7598eb96282c3903c4deb3954921b",
+  "inputs": [
+    {
+      "file": "taki-rest-apricot-mother-candidate-v1.png",
+      "sha256": "c946307e511b2a1f60652c04ec44e00a4a6d4c23ad3ded44043587f708983ee4",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-b32dc9e0-1306-4f54-b5b2-ff31f2082d3e.png",
+  "output": {
+    "file": "taki-rest-violet-mother-candidate-v1.png",
+    "sha256": "da594ebc088371c7a35bb457f6f050673be80b220015607ce2c0b1ab84d829a1",
+    "bytes": 2168160,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the approved warm mother and target empty theme plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Actual whole-body back/side posture toward the lake, relaxed original hand/hip bench contacts and two complete floor loafers retained. Coherent whole-room theme light; Violet sun/lake axis is near1007/1003, Rain rear-left corner remains quiet. Primary/layer/runtime review remains separate."
+}

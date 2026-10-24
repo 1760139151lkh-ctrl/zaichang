@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "reading",
+  "palette": "apricot",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-63cb43e3-f856-44da-8185-ef7e723ff531",
+  "prompt": "soyo-reading-apricot-prompt.txt",
+  "promptSha256": "4345c7333ffcf1751975db85ef56a5c679073aee3ec4e7ebe1f2448ec311e5b1",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-approved clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "soyo-reading-apricot-mother-rejected-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2139214,
+    "sha256": "546040d1f4ca3b2341aa2ff8c4a7afe27d125d94d6246ff880b0349ee612c8c5"
+  },
+  "producerObservation": "REJECTED. Actual prompt missed room/identity text and contained two undefined blocks because a transient cross-turn cache was not verified. Wardrobe drifted to cream/plaid. Original prompt and pixels retained; never a generation input or coverage.",
+  "review": {
+    "producerViewed": "complete original",
+    "primary": "pending unless separately signed in primary review record",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

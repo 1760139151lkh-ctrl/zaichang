@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "soyo",
+  "activity": "study",
+  "palette": "apricot",
+  "layer": "mask",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-31109a50-0ce8-41ef-94a9-2871ecbfd5c4",
+  "prompt": "soyo-study-apricot-mask-prompt-v1.txt",
+  "promptSha256": "c18e4f78de2b37d7608d7f076d3fbc84617d538dfd9eb7bfd040b440ec260851",
+  "inputs": [
+    {
+      "file": "soyo-study-apricot-mother-candidate-v1.png",
+      "sha256": "cf664fa1fc6dcdd8fd9c8dc1cd542d4142bbe05d5d9809a101e6d58907858411",
+      "role": "sole exact primary-reviewed complete mother"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-31109a50-0ce8-41ef-94a9-2871ecbfd5c4.png",
+  "output": {
+    "file": "soyo-study-apricot-mask-rejected-v1.png",
+    "sha256": "dafe629be56db9567c15a67e8a8f6c6d51d01488731028333172a4cf491ad7f4",
+    "bytes": 398243,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "rejected",
+  "producerObservation": "Generated silhouette has substantial vertical/scale displacement from the original; never used as an input or alpha.",
+  "review": {
+    "primary": "pending",
+    "runtime": "not registered or accepted"
+  }
+}

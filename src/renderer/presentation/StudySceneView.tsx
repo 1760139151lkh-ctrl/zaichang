@@ -10,6 +10,10 @@ import { ConversationComposerDockContext, StudyComposerSlot } from '../Conversat
 import { ExplorableStudyView } from './ExplorableStudyView';
 import type { ExplorableStudyValues } from '../../shared/explorable-study';
 import { uiError } from '../ui';
+import { readBookmarkTransfer, useBookmarkTray } from '../SourceBookmarkTray';
+import { SOURCE_BOOKMARK_MIME, type SourceBookmarkReference } from '../../shared/source-bookmark';
+import { useSplitMotion } from '../motion/use-split-motion';
+import { useStudyReadingPosition } from '../study-reading-position';
 import './study-scene.css';
 
 type Followup = { text: string; studyInteraction: StudyInteraction; focusLabel?: string };
@@ -17,10 +21,12 @@ export interface StudySceneViewProps {
   scene: StudyScene | StudyHistoryReference;
   sessionId: string;
   messageId?: string;
+  ownerRevisionHint?: number;
+  ephemeral?: boolean;
   boundaryKey: string;
   onFollowup: (value: Followup) => void | Promise<void>;
   onReadStart?: () => void;
-  api?: Pick<Bridge, 'studyProject' | 'studyRead' | 'materialsRead'>;
+  api?: Pick<Bridge, 'studyProject' | 'studyRead' | 'materialsRead'> & Partial<Pick<Bridge, 'studyBookmarkPreview' | 'studyBookmarkAccept'>>;
   onOpenMaterial?: (value: { resourceId: string; page?: number }) => void | Promise<void>;
   onOpenSource?: (input: StudyNativeInput) => void | Promise<void>;
   disabled?: boolean;
@@ -31,90 +37,67 @@ function savedStudySplit() {
   try { const value = Number(localStorage.getItem(studySplitKey)); return value >= 24 && value <= 56 ? value : 32.1; }
   catch { return 32.1; }
 }
+function studyProblemAddress(origin: StudyScene['problem']['origin']) {
+  // Names and owner read recipes are presentation, not a viewing address.
+  // In particular a private note title must not enter local preferences.
+  const { kind, sourceId, eventId, contentVersion, start, end, resourceId, sha256, page, crop, note, interpretation } = origin;
+  return JSON.stringify({ kind, sourceId, eventId, contentVersion, start, end, resourceId, sha256, page, crop, note, interpretation });
+}
 
 /** Only a layout preference is saved. Both papers and the one real composer
  * stay mounted while the reader gives an equation more room. */
 function StudyPaperDivider() {
   const divider = useRef<HTMLDivElement>(null);
-  const [value, setValue] = useState(savedStudySplit);
-  const current = useRef(value), limits = useRef({ min: 24, max: 56 });
-  const [bounds, setBounds] = useState(limits.current);
-  const gesture = useRef<{ id: number; start: number } | undefined>(undefined);
-  const keyboardStart = useRef<number | undefined>(undefined);
-  const [moving, setMoving] = useState(false);
-  function apply(request: number) {
-    const next = Math.round(Math.max(limits.current.min, Math.min(limits.current.max, request)) * 10) / 10;
-    current.current = next; setValue(next);
-    const papers = divider.current?.parentElement;
-    papers?.style.setProperty('--study-source-share', `${next}fr`);
-    papers?.style.setProperty('--study-work-share', `${100-next}fr`);
-  }
-  function save() { try { localStorage.setItem(studySplitKey, String(current.current)); } catch { /* The papers can still be resized. */ } }
-  function end(cancel = false) {
-    const active = gesture.current;
-    if (!active) return;
-    gesture.current = undefined; setMoving(false);
-    divider.current?.parentElement?.removeAttribute('data-resizing');
-    if (cancel) apply(active.start); else save();
-    if (divider.current?.hasPointerCapture(active.id)) divider.current.releasePointerCapture(active.id);
-  }
+  const [initialValue] = useState(savedStudySplit);
+  const motion = useSplitMotion(initialValue, {
+    bounds: { min: 24, max: 56 },
+    onValue: (value, moving) => {
+      const papers = divider.current?.parentElement;
+      papers?.style.setProperty('--study-source-share', `${value}fr`);
+      papers?.style.setProperty('--study-work-share', `${100-value}fr`);
+      if (moving) papers?.setAttribute('data-resizing', 'true'); else papers?.removeAttribute('data-resizing');
+    },
+    onCommit: value => { try { localStorage.setItem(studySplitKey, String(value)); } catch { /* The papers can still be resized. */ } },
+  });
   useLayoutEffect(() => {
     const papers = divider.current?.parentElement;
     if (!papers) return;
-    apply(current.current);
+    let measuredWidth = -1;
     const measure = () => {
       const width = papers.getBoundingClientRect().width - 18;
-      if (width < 602) { end(true); return; }
-      limits.current = { min: Math.max(24, 210/width*100), max: Math.min(56, 100-285/width*100) };
-      setBounds(limits.current); apply(current.current);
+      if (Math.abs(width - measuredWidth) < .25) return;
+      measuredWidth = width;
+      if (width <= 602) { motion.cancel(); return; }
+      motion.constrain({ min: Math.max(24, 210/width*100), max: Math.min(56, 100-285/width*100) });
     };
     const observer = new ResizeObserver(measure); observer.observe(papers); measure();
-    const cancel = () => end(true);
-    window.addEventListener('blur', cancel);
-    return () => { observer.disconnect(); window.removeEventListener('blur', cancel); };
+    return () => observer.disconnect();
   }, []);
   function move(event: PointerEvent<HTMLDivElement>) {
-    if (gesture.current?.id !== event.pointerId) return;
     const rect = divider.current?.parentElement?.getBoundingClientRect();
-    if (rect?.width) apply((event.clientX-rect.left-9)/(rect.width-18)*100);
+    if (rect?.width) motion.move((event.clientX-rect.left-9)/(rect.width-18)*100, event.pointerId);
   }
-  return <div ref={divider} className={`study-paper-divider${moving ? ' is-moving' : ''}`} role="separator" tabIndex={0}
-    aria-label="调整原题和推导纸的宽度" aria-orientation="vertical" aria-valuemin={Math.round(bounds.min)}
-    aria-valuemax={Math.round(bounds.max)} aria-valuenow={Math.round(value)} aria-valuetext={`原题占${Math.round(value)}%`}
-    title="拖动调整宽度；双击复原" onPointerDown={event => {
-      if (gesture.current || event.button !== 0 || !event.isPrimary) return;
-      event.preventDefault(); event.stopPropagation(); keyboardStart.current = undefined;
-      gesture.current = { id: event.pointerId, start: current.current }; setMoving(true);
-      event.currentTarget.parentElement?.setAttribute('data-resizing', 'true');
-      event.currentTarget.setPointerCapture(event.pointerId); event.currentTarget.focus({ preventScroll: true });
-    }} onPointerMove={move} onPointerUp={event => { if (gesture.current?.id === event.pointerId) end(); }} onPointerCancel={event => { if (gesture.current?.id === event.pointerId) end(true); }} onLostPointerCapture={event => { if (gesture.current?.id === event.pointerId) end(true); }}
-    onDoubleClick={() => { apply(32.1); save(); }} onKeyDown={event => {
-      if (event.key === 'Escape') {
-        if (gesture.current) { event.preventDefault(); event.stopPropagation(); end(true); }
-        else if (keyboardStart.current !== undefined) { event.preventDefault(); event.stopPropagation(); apply(keyboardStart.current); save(); keyboardStart.current = undefined; }
-        return;
-      }
-      const next = event.key === 'ArrowLeft' ? current.current-(event.shiftKey ? .5 : 2)
-        : event.key === 'ArrowRight' ? current.current+(event.shiftKey ? .5 : 2)
-          : event.key === 'Home' ? limits.current.min : event.key === 'End' ? limits.current.max : undefined;
-      if (next === undefined) return;
-      event.preventDefault(); event.stopPropagation(); keyboardStart.current ??= current.current; apply(next); save();
-    }} onBlur={() => { keyboardStart.current = undefined; end(true); }}><span aria-hidden="true"><i /><i /></span></div>;
+  return <div ref={divider} className={`study-paper-divider${motion.moving ? ' is-moving' : ''}`} role="separator" tabIndex={0}
+    aria-label="调整原题和推导纸的宽度" aria-orientation="vertical" aria-valuemin={Math.round(motion.bounds.min)}
+    aria-valuemax={Math.round(motion.bounds.max)} aria-valuenow={Math.round(motion.value)} aria-valuetext={`原题占${Math.round(motion.value)}%`}
+    title="拖动调整宽度；双击复原" {...motion.bind} onPointerMove={move}
+    onDoubleClick={() => motion.reset(32.1)}><span aria-hidden="true"><i /><i /></span></div>;
 }
 
 /** Only a current owner response enters the paper. A history reference, a
  * prior render or an old reply never acts as a material/source permission. */
-export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFollowup, onReadStart,
+export function StudySceneView({ scene, sessionId, messageId, ownerRevisionHint, ephemeral = false, boundaryKey, onFollowup, onReadStart,
   api = window.zaichang, onOpenMaterial, onOpenSource, disabled = false }: StudySceneViewProps) {
   const headingId = useId(), originalId = useId();
   const root = useRef<HTMLElement>(null);
   const workRow = useRef<HTMLDivElement>(null), writtenLine = useRef<HTMLDivElement>(null), marginNote = useRef<HTMLElement>(null);
   const manuscript = useRef<HTMLDivElement>(null), question = useRef<HTMLDivElement>(null);
-  const paperScroll = useRef<{ owner: string; manuscript: number; atEnd: boolean; question: number } | undefined>(undefined);
+  const paperScroll = useRef<{ owner: string; manuscript: number; atEnd: boolean; question: number;
+    questionLeft?: number; manuscriptLeft?: number } | undefined>(undefined);
   const generation = useRef(0), materialGeneration = useRef(0);
   const lastShown = useRef<{ owner: string; help?: string; attempt?: string } | undefined>(undefined);
   const ownerKey = `${sessionId}:${scene.owner.id}`;
-  const requestKey = `${ownerKey}@${scene.owner.revision}:${messageId || ''}:${boundaryKey}`;
+  const requestKey = `${ownerKey}@${scene.owner.revision}:${ownerRevisionHint || scene.owner.revision}:${messageId || ''}:${boundaryKey}`;
   const liveKey = useRef(requestKey); liveKey.current = requestKey;
   const [visible, setVisible] = useState(false);
   const [loaded, setLoaded] = useState<{ key: string; scene: StudyScene }>();
@@ -124,7 +107,73 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
   const [source, setSource] = useState<MaterialPage>(), [sourceError, setSourceError] = useState('');
   const [shellHeight, setShellHeight] = useState(0), [reveal, setReveal] = useState({ initial: true, help: false, attempt: false });
   const [pencilLink, setPencilLink] = useState<{ width: number; height: number; path: string; x: number; y: number }>();
+  const tray = useBookmarkTray();
+  const bookmarkTarget = `study:${sessionId}:${scene.owner.id}`;
+  const [dropActive, setDropActive] = useState(false);
+  const [hintState, setHintState] = useState<{ key: string; state: 'open' | 'later' | 'down' }>();
+  const hintEphemeral = useRef(ephemeral);
+  const hintFocus = useRef<{ key: string; view: string; state: 'open' | 'later' | 'down'; interaction?: number;
+    previous: Element | null } | undefined>(undefined);
   const current = loaded?.key === requestKey ? loaded.scene : undefined;
+  const currentReady = !!current;
+  const reading = useStudyReadingPosition({ sessionId, studyId: scene.owner.id,
+    ownerRevision: current?.owner.revision || scene.owner.revision, boundaryKey, enabled: !disabled && !ephemeral });
+  const capturePaperScroll = useCallback(() => {
+    if (!question.current && !manuscript.current) return;
+    const value = { owner: ownerKey, question: question.current?.scrollTop || 0,
+      questionLeft: question.current?.scrollLeft || 0, manuscript: manuscript.current?.scrollTop || 0,
+      manuscriptLeft: manuscript.current?.scrollLeft || 0,
+      atEnd: !manuscript.current || manuscript.current.scrollHeight - manuscript.current.clientHeight - manuscript.current.scrollTop < 20 };
+    paperScroll.current = value;
+    reading.save(value);
+  }, [ownerKey, reading]);
+  const hintKey = current?.help ? `${boundaryKey}:${ownerKey}:${current.help.id}:${studyProblemAddress(current.problem.origin)}` : '';
+  const foldedHint = !!current?.help && current.mode === 'small_hint';
+  const hintOpen = !foldedHint || hintState?.key === hintKey && hintState.state === 'open';
+  const hintDown = foldedHint && hintState?.key === hintKey && hintState.state === 'down';
+  const keepHint = (state: 'open' | 'later' | 'down') => {
+    hintFocus.current = { key: hintKey, view: requestKey, state, interaction: tray?.getInteractionVersion(),
+      previous: document.activeElement };
+    setHintState({ key: hintKey, state });
+    if (ephemeral) return;
+    try { localStorage.setItem(`zaichang.study-hint.${ownerKey}`, JSON.stringify({ key: hintKey, state })); } catch { /* The hint can still be opened here. */ }
+  };
+  useEffect(() => {
+    const changedRetention = hintEphemeral.current !== ephemeral;
+    hintEphemeral.current = ephemeral;
+    if (changedRetention) setHintState(undefined);
+    // A re-read briefly removes the paper. Keep its in-window choice for the
+    // same exact hint; a temporary conversation must never need storage to
+    // stay open after 接过. A different owner/help/problem has another key.
+    if (!hintKey) {
+      if (currentReady && !ephemeral) {
+        try { localStorage.removeItem(`zaichang.study-hint.${ownerKey}`); } catch { /* No current hint needs a stored choice. */ }
+        setHintState(undefined);
+      }
+      return;
+    }
+    if (ephemeral) {
+      if (!changedRetention) setHintState(value => value?.key === hintKey ? value : undefined);
+      return;
+    }
+    try {
+      const kept = JSON.parse(localStorage.getItem(`zaichang.study-hint.${ownerKey}`) || 'null');
+      const valid = kept?.key === hintKey && ['open', 'later', 'down'].includes(kept.state);
+      if (kept && !valid) localStorage.removeItem(`zaichang.study-hint.${ownerKey}`);
+      setHintState(valid ? kept : undefined);
+    } catch { setHintState(undefined); }
+  }, [hintKey, ownerKey, ephemeral, currentReady]);
+  useLayoutEffect(() => {
+    const intent = hintFocus.current;
+    if (!intent || !hintState) return;
+    hintFocus.current = undefined;
+    if (intent.key !== hintKey || intent.view !== requestKey || intent.interaction !== tray?.getInteractionVersion()) return;
+    if (intent.state === 'later' && intent.previous?.isConnected && document.activeElement === intent.previous) return;
+    const control = intent.state === 'open' ? marginNote.current?.querySelector<HTMLElement>('.readable-focus')
+      : intent.state === 'down' ? root.current?.querySelector<HTMLElement>('.study-help-choices .study-hint')
+        : root.current?.querySelector<HTMLElement>('.study-hint-envelope button');
+    control?.focus({ preventScroll: true });
+  }, [hintState, hintKey, requestKey, tray]);
   const referenced = useContext(ConversationComposerDockContext)?.referenceFocus;
   const referencedPart = current && referenced?.studyId === current.owner.id && referenced.studyRevision === current.owner.revision
     ? referenced.target : undefined;
@@ -134,10 +183,7 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
     const turn = ++generation.current, key = requestKey;
     const papers = root.current?.querySelector<HTMLElement>('.study-desk-papers');
     if (papers && !papers.classList.contains('is-waiting')) setShellHeight(papers.getBoundingClientRect().height);
-    if (manuscript.current || question.current) paperScroll.current = { owner: ownerKey,
-      manuscript: manuscript.current?.scrollTop || 0,
-      atEnd: !manuscript.current || manuscript.current.scrollHeight - manuscript.current.clientHeight - manuscript.current.scrollTop < 20,
-      question: question.current?.scrollTop || 0 };
+    capturePaperScroll();
     materialGeneration.current++; setSource(undefined); setSourceOpen(false); setSourcePending(false); setSourceError('');
     setLoaded(undefined); setPending(true); setError('');
     try {
@@ -157,7 +203,33 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
     } catch (problem) {
       if (generation.current === turn && liveKey.current === key) { setWritingAddress(undefined); setError(uiError(problem)); }
     } finally { if (generation.current === turn && liveKey.current === key) setPending(false); }
-  }, [api, requestKey, ownerKey, sessionId, messageId, scene.owner.id, scene.owner.revision]);
+  }, [api, requestKey, ownerKey, sessionId, messageId, scene.owner.id, scene.owner.revision, capturePaperScroll]);
+
+  const openHint = async () => {
+    const offered = current, key = requestKey, interaction = tray?.getInteractionVersion();
+    if (!offered?.help || pending || disabled) return;
+    const next = await refresh();
+    if (!next || liveKey.current !== key || interaction !== tray?.getInteractionVersion() || next.help?.id !== offered.help.id
+      || studyProblemAddress(next.problem.origin) !== studyProblemAddress(offered.problem.origin)) return;
+    keepHint('open');
+  };
+
+  useEffect(() => {
+    if (!tray || !current || current.status === 'closed' || !api.studyBookmarkPreview || !api.studyBookmarkAccept || disabled) return;
+    const key = requestKey, revision = current.owner.revision;
+    const input = (bookmark: SourceBookmarkReference) => ({ sessionId, messageId, studyId: scene.owner.id,
+      studyRevision: scene.owner.revision, expectedRevision: revision, bookmark });
+    return tray.register({ key: bookmarkTarget, label: current.heading,
+      location: { sessionId, studyId: scene.owner.id, messageId },
+      preview: reference => api.studyBookmarkPreview!(input(reference)),
+      accept: async reference => {
+        if (liveKey.current !== key) throw new Error('这张纸刚换到另一处了，请重新放。');
+        const next = await api.studyBookmarkAccept!(input(reference));
+        if (liveKey.current !== key) return;
+        setLoaded({ key, scene: next });
+        await refresh();
+      } });
+  }, [tray, current?.owner.revision, current?.status, requestKey, bookmarkTarget, api, disabled, refresh]);
 
   useEffect(() => {
     const node = root.current;
@@ -177,14 +249,6 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
   }, [refresh, visible]);
 
   useLayoutEffect(() => {
-    if (!current) return;
-    const kept = paperScroll.current?.owner === ownerKey ? paperScroll.current : undefined;
-    if (question.current && kept) question.current.scrollTop = kept.question;
-    if (manuscript.current) manuscript.current.scrollTop = !kept || kept.atEnd && reveal.attempt
-      ? manuscript.current.scrollHeight : kept.manuscript;
-  }, [current?.owner.revision, current?.learnerAttempt?.id, current?.help?.id, ownerKey, reveal.attempt]);
-
-  useLayoutEffect(() => {
     // A material reader can preserve a standalone equation with inline TeX
     // delimiters. Give that original equation its own reading scale without
     // rewriting the material or enlarging mathematics inside ordinary prose.
@@ -193,7 +257,22 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
       paragraph.classList.toggle('study-core-formula', content.length === 1
         && content[0] instanceof HTMLElement && content[0].classList.contains('katex'));
     }
-  }, [current?.problem.text, source?.text, sourceOpen]);
+  }, [current?.owner.revision, current?.problem.text, source?.text, sourceOpen]);
+
+  useLayoutEffect(() => {
+    if (!current) return;
+    // Apply the original formula's reading scale first. Restoring against the
+    // temporarily smaller formula clamps a valid horizontal address too soon.
+    const kept = paperScroll.current?.owner === ownerKey ? paperScroll.current : reading.restore();
+    if (question.current && kept) {
+      question.current.scrollTop = kept.question;
+      question.current.scrollLeft = kept.questionLeft || 0;
+    }
+    if (manuscript.current) {
+      manuscript.current.scrollTop = !kept || kept.atEnd && reveal.attempt ? manuscript.current.scrollHeight : kept.manuscript;
+      manuscript.current.scrollLeft = kept?.manuscriptLeft || 0;
+    }
+  }, [current?.owner.revision, current?.learnerAttempt?.id, current?.help?.id, ownerKey, reveal.attempt]);
 
   useLayoutEffect(() => {
     const row = workRow.current, attempt = writtenLine.current, note = marginNote.current;
@@ -226,24 +305,25 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
     const paper = manuscript.current; paper?.addEventListener('scroll', measure, { passive: true });
     measure(); void document.fonts.ready.then(measure);
     return () => { alive = false; observer.disconnect(); attempt.removeEventListener('animationend', measure); note.removeEventListener('animationend', measure); paper?.removeEventListener('scroll', measure); };
-  }, [current?.owner.revision, current?.help?.id, current?.learnerAttempt?.id, requestKey]);
+  }, [current?.owner.revision, current?.help?.id, current?.learnerAttempt?.id, requestKey, hintOpen]);
 
   const sameVisibleStep = (before: StudyScene, next: StudyScene) => before.owner.revision === next.owner.revision
     && before.mode === next.mode && before.help?.id === next.help?.id;
 
-  const act = async (actionId: StudyScene['actions'][number]['id']) => {
+  const act = async (actionId: StudyScene['actions'][number]['id'], text?: string) => {
     if (!current || pending || disabled) return;
-    const before = current, key = requestKey, next = await refresh();
-    if (!next || key !== liveKey.current || !sameVisibleStep(before, next)) return;
+    const before = current, key = requestKey, interaction = tray?.getInteractionVersion(), next = await refresh();
+    if (!next || key !== liveKey.current || interaction !== tray?.getInteractionVersion() || !sameVisibleStep(before, next)) return;
     setPending(true);
-    try { await onFollowup(studyFollowup(next, actionId)); }
+    try { await onFollowup({ ...studyFollowup(next, actionId), ...(text ? { text } : {}) }); }
     catch (problem) { if (liveKey.current === key) setError(uiError(problem)); }
     finally { if (liveKey.current === key) setPending(false); }
   };
+  const requestSmallerHint = () => void act('hint', '把眼前这一点再缩小一些，只给一个能让我接着想的小问题，先别展开后面的步骤。');
 
   const referencePart = async (target: StudyFocusTarget) => {
     if (!current || pending || disabled) return;
-    const before = current, key = requestKey, turn = generation.current;
+    const before = current, key = requestKey, turn = generation.current, interaction = tray?.getInteractionVersion();
     let cleared = false;
     setPending(true);
     try {
@@ -252,7 +332,7 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
       // Compare the returned current owner before carrying this actual point.
       const next = await api.studyProject({ sessionId, messageId, studyId: scene.owner.id,
         studyRevision: scene.owner.revision, historyLimit: 8 });
-      if (key !== liveKey.current || generation.current !== turn) return;
+      if (key !== liveKey.current || generation.current !== turn || interaction !== tray?.getInteractionVersion()) return;
       if (!sameVisibleStep(before, next)
         || target.kind === 'attempt' && !next.learnerLines.some(line => line.id === target.attemptId)
         || target.kind === 'help' && next.help?.id !== target.stepId) { await refresh(); return; }
@@ -272,8 +352,8 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
 
   const park = async () => {
     if (!current || pending || disabled) return;
-    const before = current, key = requestKey, next = await refresh();
-    if (!next || key !== liveKey.current || !sameVisibleStep(before, next)) return;
+    const before = current, key = requestKey, interaction = tray?.getInteractionVersion(), next = await refresh();
+    if (!next || key !== liveKey.current || interaction !== tray?.getInteractionVersion() || !sameVisibleStep(before, next)) return;
     const target: StudyFocusTarget = next.nextMove.stepId ? { kind: 'next', stepId: next.nextMove.stepId } : { kind: 'next' };
     setPending(true);
     try { await onFollowup({ text: '今天先到这里，帮我留着从这一处接下去。', studyInteraction: { kind: 'reference',
@@ -284,7 +364,7 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
 
   const continueExploration = async (values: ExplorableStudyValues) => {
     if (!current?.help?.exploration || pending || disabled || current.status === 'closed') return;
-    const before = current, key = requestKey, turn = generation.current;
+    const before = current, key = requestKey, turn = generation.current, interaction = tray?.getInteractionVersion();
     let cleared = false;
     setPending(true);
     try {
@@ -293,7 +373,7 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
       // its stored address may precede the current owner being compared here.
       const next = await api.studyProject({ sessionId, messageId, studyId: scene.owner.id,
         studyRevision: scene.owner.revision, historyLimit: 8 });
-      if (key !== liveKey.current || generation.current !== turn) return;
+      if (key !== liveKey.current || generation.current !== turn || interaction !== tray?.getInteractionVersion()) return;
       if (!sameVisibleStep(before, next)) { await refresh(); return; }
       await onFollowup(studyExplorationFollowup(next, values));
     } catch (problem) {
@@ -308,10 +388,10 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
   const openOriginal = async () => {
     if (!current || pending || disabled) return;
     if (sourceOpen) { materialGeneration.current++; setSourceOpen(false); setSource(undefined); return; }
-    const before = current, key = requestKey, next = await refresh();
-    if (!next || key !== liveKey.current || !sameVisibleStep(before, next)) return;
+    const before = current, key = requestKey, interaction = tray?.getInteractionVersion(), next = await refresh();
+    if (!next || key !== liveKey.current || interaction !== tray?.getInteractionVersion() || !sameVisibleStep(before, next)) return;
     const origin = next.problem.origin;
-    if (origin.kind === 'note') {
+    if (origin.kind === 'note' || next.bookmark && onOpenSource) {
       try { await onOpenSource?.({ sessionId, messageId, studyId: scene.owner.id, studyRevision: scene.owner.revision }); }
       catch (problem) { if (liveKey.current === key) setError(uiError(problem)); }
       return;
@@ -332,12 +412,23 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
     finally { if (materialGeneration.current === turn && liveKey.current === key) setSourcePending(false); }
   };
 
+  const removeBookmark = async () => {
+    if (!current || !api.studyBookmarkAccept || pending || disabled) return;
+    const key = requestKey; setPending(true); setError('');
+    try {
+      const next = await api.studyBookmarkAccept({ sessionId, messageId, studyId: scene.owner.id,
+        studyRevision: scene.owner.revision, expectedRevision: current.owner.revision, bookmark: null });
+      if (liveKey.current === key) setLoaded({ key, scene: next });
+    } catch (problem) { if (liveKey.current === key) setError(uiError(problem)); }
+    finally { if (liveKey.current === key) setPending(false); }
+  };
+
   const sourceName = current?.problem.origin.name || (current?.problem.origin.kind === 'evidence' ? '这次的原题' : '原来的资料');
   const closed = current?.status === 'closed';
   const action = (id: StudyScene['actions'][number]['id']) => current?.actions.find(value => value.id === id);
   const historyMore = current && current.historyWindow.offset + current.attemptChoices.length < current.history.attemptCount;
-  const hasExploration = !!current?.help?.exploration;
-  const spacious = hasExploration || current?.help?.kind === 'explanation' || (current?.help?.text.length || 0) > 600;
+  const hasExploration = hintOpen && !!current?.help?.exploration;
+  const spacious = hintOpen && (hasExploration || current?.help?.kind === 'explanation' || (current?.help?.text.length || 0) > 600);
   // A same-boundary read can clear all old source text while the one real
   // editor stays put. This retained address is not permission to send or
   // display anything: App still reopens the owner before a study send.
@@ -369,7 +460,7 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
             {(current.problem.origin.resourceId || current.problem.origin.note && onOpenSource) && <button type="button" onClick={() => void openOriginal()} disabled={pending || disabled}
               aria-expanded={current.problem.origin.note ? undefined : sourceOpen}>{current.problem.origin.note ? '打开原笔记' : <>{sourceOpen ? '收起原' : '看看原'}{current.problem.origin.page ? '页' : '文'}</>}{sourceOpen ? <X size={13} aria-hidden="true" /> : <ArrowUpRight size={13} aria-hidden="true" />}</button>}</header>
           <div className="study-question-label"><h4 id={originalId}>这一题</h4></div>
-          <div ref={question} className="study-question">{sourceOpen ? <div className="study-original-inline" aria-label="原来的学习资料" aria-busy={sourcePending}>
+          <div ref={question} className="study-question" onScroll={capturePaperScroll}>{sourceOpen ? <div className="study-original-inline" aria-label="原来的学习资料" aria-busy={sourcePending}>
             {sourcePending ? <p role="status">正在打开原{current.problem.origin.page ? '页' : '文'}…</p>
               : sourceError ? <p role="status">{sourceError}</p>
                 : source?.image ? <img src={source.image.dataUrl} width={source.image.width} height={source.image.height}
@@ -382,7 +473,10 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
         </section>
 
         <StudyPaperDivider key={requestKey} />
-        <section className="study-work-paper" aria-labelledby={headingId}>
+        <section className={`study-work-paper${dropActive ? ' is-bookmark-drop' : ''}`} data-bookmark-target={bookmarkTarget} aria-labelledby={headingId}
+          onDragOver={event => { if (tray && event.dataTransfer.types.includes(SOURCE_BOOKMARK_MIME)) { event.preventDefault(); event.stopPropagation(); event.dataTransfer.dropEffect = 'copy'; setDropActive(true); } }}
+          onDragLeave={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setDropActive(false); }}
+          onDrop={event => { const reference = readBookmarkTransfer(event.dataTransfer); setDropActive(false); if (reference && tray) { event.preventDefault(); event.stopPropagation(); void tray.offer(reference, bookmarkTarget); } }}>
           <header className="study-work-heading"><h3 id={headingId}>{current.heading}</h3>
             {current.status === 'active' && <button type="button" className="study-park" onClick={() => void park()} disabled={pending || disabled}>
               <Bookmark size={14} aria-hidden="true" /><span>先放一放</span></button>}</header>
@@ -393,7 +487,7 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
             </svg>}
             <div className="study-my-work">
               <label>{current.learnerAttempt ? '我想到这里' : '从这里试试看'}</label>
-              {current.learnerAttempt ? <div ref={manuscript} className="study-manuscript" aria-label="自己留下的推导">
+              {current.learnerAttempt ? <div ref={manuscript} className="study-manuscript" aria-label="自己留下的推导" onScroll={capturePaperScroll}>
                 {current.learnerLines.map(line => <div className={`study-manuscript-line${line.id === current.learnerAttempt?.id ? ' is-current' : ''}`} key={line.id}>
                   <ReadableFocus key={`${current.owner.revision}:${line.id}`} label="我写的这一行"
                     active={referencedPart?.kind === 'attempt' && referencedPart.attemptId === line.id} disabled={pending || disabled}
@@ -403,13 +497,13 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
                   </ReadableFocus>
                 </div>)}
               </div>
-                : <div className="study-starting-point"><RichText text={current.nextMove.text} /></div>}
+                : hintOpen ? <div className="study-starting-point"><RichText text={current.nextMove.text} /></div> : null}
               {(historyMore || current.historyWindow.offset > 0) && <button type="button" className="study-earlier" disabled={pending || disabled}
                 onClick={() => void refresh({ historyOffset: current.historyWindow.offset > 0 ? 0 : current.historyWindow.offset + current.historyWindow.limit,
                   historyLimit: current.historyWindow.limit })}>
                 {current.historyWindow.offset > 0 ? '回到刚才那一步' : '前面的尝试'}<ChevronDown size={12} aria-hidden="true" /></button>}
             </div>
-            {current.help && <aside ref={marginNote} key={current.help.id} className={`study-margin-note${spacious ? ' is-spacious' : ''}${hasExploration ? ' has-exploration' : ''}${reveal.help ? ' is-new' : ''}`} aria-label="现在这一点帮助">
+            {current.help && hintOpen && <aside ref={marginNote} key={current.help.id} className={`study-margin-note${spacious ? ' is-spacious' : ''}${hasExploration ? ' has-exploration' : ''}${reveal.help ? ' is-new' : ''}`} aria-label="现在这一点帮助">
               <ReadableFocus key={`${current.owner.revision}:${current.help.id}`} label="眼前这段提示"
                 active={referencedPart?.kind === 'help' && referencedPart.stepId === current.help.id} disabled={pending || disabled}
                 onFocus={() => void referencePart({ kind: 'help', stepId: current.help!.id })}>
@@ -418,19 +512,34 @@ export function StudySceneView({ scene, sessionId, messageId, boundaryKey, onFol
               </ReadableFocus>
               {current.help.exploration && <ExplorableStudyView key={current.help.id} spec={current.help.exploration}
                 disabled={pending || disabled || closed} onContinue={continueExploration} />}
+              {foldedHint && <div className="study-hint-expanded-actions">
+                <button type="button" disabled={pending || disabled} onClick={requestSmallerHint}>更小一点</button>
+                <button type="button" disabled={pending || disabled} onClick={() => keepHint('later')}>收好</button>
+                <button type="button" disabled={pending || disabled} onClick={() => keepHint('down')}>放下</button>
+              </div>}
+            </aside>}
+            {foldedHint && !hintOpen && !hintDown && <aside className="study-hint-envelope" aria-label="纸边的小提示">
+              <Bookmark size={16} aria-hidden="true" /><span>{hintState?.state === 'later' ? '收在纸边的小提示' : '给这一行的一点提示'}</span>
+              <div><button type="button" disabled={pending || disabled} onClick={() => void openHint()}>接过</button>
+                <button type="button" disabled={pending || disabled} onClick={requestSmallerHint}>更小一点</button>
+                <button type="button" disabled={pending || disabled} onClick={() => keepHint('later')}>收好</button>
+                <button type="button" disabled={pending || disabled} onClick={() => keepHint('down')}>放下</button></div>
             </aside>}
           </div>
+
+          {current.bookmark && <div className="study-source-bookmark"><BookOpen size={15} aria-hidden="true" /><div><button type="button" onClick={() => void openOriginal()}>{current.bookmark.title}{current.bookmark.page ? ` · 第 ${current.bookmark.page} 页` : ''}<ArrowUpRight size={12} /></button><blockquote><RichText text={current.bookmark.text} /></blockquote></div><button type="button" className="study-remove-bookmark" aria-label="拿掉这一张书签" disabled={pending || disabled || closed} onClick={() => void removeBookmark()}><X size={14} /></button></div>}
 
           {current.status === 'parked' && current.stopPoint && <div className="study-bookmark-point"><Bookmark size={16} aria-hidden="true" />
             <p>{current.stopPoint.text}</p></div>}
           {closed && current.closure ? <p className="study-closed-note">{current.closure.text}</p> : null}
-          {!closed && current.learnerAttempt && <div className="study-next-move"><RichText text={current.nextMove.text} /></div>}
+          {!closed && current.learnerAttempt && hintOpen && <div className="study-next-move"><RichText text={current.nextMove.text} /></div>}
           {writingPlace}
           {!closed && <footer className="study-help-choices">
-              {action('hint') && <button type="button" className="study-hint" disabled={pending || disabled} onClick={() => void act('hint')}>
+              {hintDown && <button type="button" className="study-hint" onClick={() => keepHint('later')}>纸边的小提示<Bookmark size={13} /></button>}
+              {action('hint') && (!foldedHint || hintOpen) && <button type="button" className="study-hint" disabled={pending || disabled} onClick={() => void act('hint')}>
                 {current.help ? '再给一点提示' : '给我一点提示'}<ArrowRight size={14} aria-hidden="true" /></button>}
               <div className="study-other-choices">
-                <details onKeyDown={event => { if (event.key === 'Escape') { event.currentTarget.open = false; event.currentTarget.querySelector('summary')?.focus(); } }}
+                <details onKeyDown={event => { if (event.key === 'Escape' && event.currentTarget.open) { event.preventDefault(); event.stopPropagation(); event.currentTarget.open = false; event.currentTarget.querySelector('summary')?.focus(); } }}
                   onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) event.currentTarget.open = false; }}>
                   <summary aria-label="换一种一起学的方式"><MoreHorizontal size={18} aria-hidden="true" /></summary>
                   <div>{action('example') && <button type="button" disabled={pending || disabled} onClick={event => {

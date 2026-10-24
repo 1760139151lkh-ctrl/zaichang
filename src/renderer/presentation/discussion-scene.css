@@ -53,5 +53,13 @@
 .discussion-original-passages blockquote { margin: 0; padding: 2px 0 2px 14px; border-left: 1px solid var(--separator); line-height: 1.9; white-space: pre-wrap; }
 .discussion-unfolded-quote { background: none; border: 0; padding: 18px 0; line-height: 1.9 !important; white-space: pre-wrap; }
 .discussion-paper button:focus-visible, .discussion-originals summary:focus-visible { outline: 2px solid var(--accent, #b6965f); outline-offset: 5px; }
+.discussion-manuscript[data-selected='true']::before { background: var(--accent); }
+.discussion-manuscript[data-selected='true'] { background: color-mix(in srgb, var(--wash) 62%, transparent); }
+.discussion-manuscript-copy { display: block; overflow: hidden; min-width: 0; border: 0; padding: 0; background: none; }
+.discussion-artwork-frame { display: block; padding: 0; border: 0; background: none; pointer-events: auto; mask-image: none; cursor: grab !important; }
+.discussion-artwork-frame:active { cursor: grabbing !important; }
+.discussion-artwork-frame>img { display: block; width: 100%; pointer-events: none; mask-image: radial-gradient(ellipse closest-side, #000 78%, transparent 100%); }
+.discussion-artwork-frame[aria-pressed='true'] { outline: 1px solid var(--accent); outline-offset: 3px; border-radius: var(--radius); }
+.discussion-story-lead>img { max-height: 280px; object-fit: contain; }
 @media (max-width: 600px) { .discussion-paper-heading { display: block; padding-bottom: 18px; } .discussion-marginalia { margin-top: 16px; } .discussion-manuscript { padding: 20px 24px 22px 15px; } .discussion-manuscript-title { font-size: 17px; } .discussion-manuscript-arrow { right: 0; } .discussion-story-art, .discussion-main-art { float: none; display: block; width: calc(100% + 15px); margin: 0 -8px 14px; } }
 @media (prefers-reduced-motion: reduce) { .discussion-manuscript, .discussion-manuscript::before { transition: none; } .discussion-paper, .discussion-manuscript[aria-pressed='true'] .discussion-story-art { animation: none; } }

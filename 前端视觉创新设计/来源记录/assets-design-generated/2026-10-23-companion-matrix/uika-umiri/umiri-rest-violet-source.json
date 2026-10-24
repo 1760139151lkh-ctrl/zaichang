@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-themed-mother-candidate",
+  "character": "umiri",
+  "activity": "rest",
+  "theme": "violet",
+  "status": "generated-needs-redraw",
+  "tool": "built-in image_gen",
+  "executionId": "exec-9c61c877-48c5-4c5f-843a-929e9cff6f7c",
+  "input": {
+    "path": "umiri-rest-apricot-mother-candidate-v1.png",
+    "sha256": "6b87f182136d50c688a202a5ed0eee455644c859b4544b4e3481e7499d45c8e8",
+    "role": "sole primary-approved complete apricot activity mother"
+  },
+  "promptFile": "umiri-rest-violet-prompt.txt",
+  "actualPrompt": "Asset ID: umiri-rest-violet. Activity: rest. Theme: violet.\nSOLE APPROVED INPUT: umiri-rest-apricot-mother-candidate-v1.png; complete original apricot activity mother only.\nUse case: lighting-weather. Make ONE complete 1536 x 1024 same-room themed mother by relighting the supplied primary-approved character rest scene.\nONLY INPUT IMAGE 1 is the EDIT TARGET, a complete approved apricot mother with its original person. This is a whole-scene LIGHTING AND WEATHER EDIT, not a new composition or new pose.\nLOCK EVERYTHING GEOMETRIC: exact canvas, camera and perspective; exact person's face, age, hairstyle, body, expression, posture, hands/fingers, clothing folds, hems, both feet/shoes, scale and position; exact window frame and all four corners, curtains, lake/campus landmarks, rear-left table/chair/shelves/framed drawing, right desk/chair/lamp/cup/book, bench/pillows/throw, rug and all furniture feet. Keep the chair in THIS mother, even if it differs from the original empty-room chair orientation. Do not restore/reposition a chair, move a lamp or widen a desk. Do not crop, zoom, enlarge, redesign, move the person or add another person.\nThe left lived-in depth and open central floor stay visible. Relight the PERSON and the WHOLE ROOM together so hair, skin, clothes, wood, linen, window glass, exterior and contact shadows agree with the same illumination. Skin and clothing retain their own material colors, not a full-image color filter, tinted overlay, green cast, black layer or white gradient. Preserve fine youthful Japanese-anime character linework and the softly detailed painted environment. No text, UI, logo, watermark, split-screen, border, arrows, inset or duplicate view.\n\nIDENTITY LOCK: this is Yahata Umiri (八幡海鈴), the same youthful charcoal-gray shoulder-length flipped-tip hair, gray-teal eyes, short black jacket, dark-red top, gray short skirt, choker/earrings and black platform boots already painted in the input. Keep her ORIGINAL REST posture leaning back on the right bench, face and gaze turned toward the window to the LEFT, one hand on thigh and the other braced on the bench. Both uncrossed legs and complete black boots stay at their original floor contacts. Keep original cushion/pillow support, quiet face and body rotation; do not turn to the user or add a book/phone.\n\nTHEME VIOLET / rose-gold dusk:\nThe same lake/campus skyline is at sunset: low warm rose-gold light at the horizon, fading violet/lilac upper clouds and soft dusk over the distant mountains. The sunset and water reflections occupy the WHOLE connected window view coherently. Interior shadows acquire quiet muted violet while direct/reflective surfaces receive restrained rose/amber light. Retain the room's real material colors and depth, not a flat purple or orange filter.\nSwitch ON the existing desk lamp at exactly its source location, with a modest independent warm pool on the tabletop and nearby chair/bench surfaces. The lamp's light, window dusk rim, material reflections and the person's face/skin/hair/clothes all obey the same two real sources. Natural skin remains readable and youthful, no neon purple skin or white-out garment. Do not move the lamp or alter its shape. Preserve the same geometry and original rest pose in one continuous dusk room.\nReturn the complete exact-size same-character, same-pose, same-furniture scene.",
+  "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-9c61c877-48c5-4c5f-843a-929e9cff6f7c.png",
+  "output": {
+    "path": "umiri-rest-violet-mother-candidate-v1.png",
+    "sha256": "b3485847c8d363a182c4b3e4a89d5664741f1932725d0cc8893b81b619722f1a",
+    "bytes": 2195355,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-24T00:55:02.406748+00:00"
+  },
+  "designerReview": {
+    "status": "viewed-candidate",
+    "observed": "Original bench rest lean, leftward window gaze, thigh hand/supporting palm, both complete grounded boots and all furniture retained. Sunset window with lake reflections and original warm desk lamp relight entire space; natural warm face/legs, no purple-skin filter."
+  },
+  "primaryReview": "pending",
+  "layersAccepted": false,
+  "runtimeAccepted": false,
+  "redrawReason": "Root unified violet sun center near (1007,302) and x1007 lake reflection against approved room-violet. Old character-violet v1 sunlight position varied and is not an input to correction."
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-rest-mist-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "rest",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-rest-mist-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-rest-apricot-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "output": {
+    "file": "sakiko-rest-mist-mother-candidate-v1.png",
+    "sha256": "8d01618d806afa455fb37c7a129a6ed0ec045e718aba070556e3ee75545e4b2c",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-2ab3d9a2-791c-42cc-9f7b-8ded15ad850d.png",
+    "executionId": "2ab3d9a2-791c-42cc-9f7b-8ded15ad850d"
+  },
+  "designerObservation": "Personally viewed full mother: head and gaze turn toward the lake/window, empty hands rest on thigh/cushion, supported bench pelvis and two complete shoes; no prop swap. Mist/violet show a clear back shoulder and back hair toward the viewer. Rain is closer to a side profile with less back turn, requiring primary comparison against the stronger rest body relation.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "promptSha256": "7da49a91b5b20870cce6cc433df1081b98151b682b5864811c1a42cf40c237ad"
+}

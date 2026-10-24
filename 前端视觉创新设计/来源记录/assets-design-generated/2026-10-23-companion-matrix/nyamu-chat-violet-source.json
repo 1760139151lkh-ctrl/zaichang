@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "nyamu",
+  "activity": "chat",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "whole-environment physical relighting of primary-approved complete mother; pose and furniture locked",
+  "identityText": "nyamu-identity.txt",
+  "inputs": [
+    {
+      "file": "nyamu-chat-apricot-mother-candidate-v1.png",
+      "role": "sole image input/edit target; primary-approved correct complete mother",
+      "sha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305"
+    }
+  ],
+  "approvalBasis": "primary-other-mother-reviews.json; original Nyamu chat mother approved for correct anatomy/identity/support/activity; theme review separate",
+  "primaryReview": "returned by primary: sunlight disk around x=1075,y=295 and lake column shifted from approved room-violet reference around x=1007,y=302; not eligible for expansion. Original prompt/output preserved. Regenerate from correct apricot mother plus approved empty violet light-axis reference, never this rejected candidate.",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "asset": "nyamu-chat-violet-mother-candidate-v1.png",
+  "palette": "violet",
+  "light": "dusk",
+  "prompt": "nyamu-chat-violet-prompt.txt",
+  "output": {
+    "file": "nyamu-chat-violet-mother-candidate-v1.png",
+    "sha256": "5f0dd20c116caeec2efdc06e678e1ae560dca0277b2c72c29003cfc3e03b4efb",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-500eb03e-8f66-4653-b2b9-ea17add11824.png"
+  },
+  "designerObservation": "Full 1536x1024 output personally viewed and manually compared with approved room-violet-candidate and approved Sakiko chat violet, neither used as pixel inputs. Whole scene is rose-gold/mauve sunset with lower horizon sun and matching lake reflection, warm existing lamp, lavender-gray unlit walls and folds. Dusk leaf projections remain as long low warm light shapes, comparable with approved violet plate; this is not mist/no-shadow lighting. Natural timber and peach skin retained, lavender-purple bob/red-purple eyes/gray blouse/black skirt/shoes remain intrinsic fixed colors under dusk light. Same forward chat pose, complete legs/shoes, supported palm/hip and room geometry visually retained. Primary lighting/geometry review remains pending.",
+  "observedGaps": [
+    "Long warm dusk projections remain intentionally comparable to approved violet plate; primary must judge consistency.",
+    "Layers and exact calibration not started."
+  ]
+}

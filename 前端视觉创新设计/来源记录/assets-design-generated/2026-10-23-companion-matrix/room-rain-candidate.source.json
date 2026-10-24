@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "room-plate-candidate",
+  "theme": "rain",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "input": {
+    "path": "room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty-room input; primary-selected for prototypes"
+  },
+  "promptFile": "room-rain-prompt.txt",
+  "prompt": "Use case: lighting-weather.\nAsset type: one complete empty-room background for the 在场 companion Stage, exactly the input's 1536 x 1024 canvas.\nInput image 1 is the ONLY input: the primary-selected CLEAN EMPTY room-apricot-candidate-v4. It contains no person. This is a whole-room night-and-rain lighting edit, not a new composition.\n\nLOCK THE ROOM: Keep the exact camera, perspective, framing and architectural/furniture pixel layout. Preserve all four connected outer window-frame sides and corners, the same lake/mountain/campus silhouettes, the full rear-left desk/chair, shelves, books, contained plants and drawing, the main right desk/chair, existing cream lamp, bench, pillows, throw, rug and every visible furniture foot. Keep the same object boundaries, cloth patterns and open passage. Do not move, crop, resize, replace or add furniture, plants, lamps, portraits or decoration. Keep the lived-in left corner; do not turn it into a black or blank panel.\n\nChange the COMPLETE scene to RAINY NIGHT WITH WARM LAMP LIGHT: outside the entire window is the same quiet lake under a dark blue rain-clouded sky, gentle readable rain droplets/streaks on the glass, dim natural tree shapes and a few restrained warm windows reflected in the lake. No daylight sun or sunset and no visible stars through rain clouds. The existing cream lamp on the right writing desk is switched on and is the clear warm amber indoor key light. Its shade glows softly; warm light falls locally onto the desk, chair edge, nearby linen cushion and dry wooden floor, with real directional shadows and gradual falloff. Cool blue window light provides gentle fill along the curtains and more distant surfaces. Keep the left rear table, books, shelves and plant readable in modest reflected light rather than crushing them into darkness. Plaster remains warm gray/ivory in the lamplight, honey wood has restrained amber reflection, and linen remains tactile. The floor is dry, never a wet mirror. The warm interior and cool rainy outside share one continuous coherent room.\n\nPreserve the same fine youthful Japanese-anime background painting and calm human-scale atmosphere. This is not the apricot picture covered with a black or blue layer: sky, lamp emission, material reflections, bounce and shadow must actually change together. No person, human silhouette, face, portrait, standee or doll. No text, UI, buttons, arrows, labels, comparison strips, split-screen divider, logo or watermark. No neon green lighting, global green cast, uniform color filter, black translucent overlay, vignette hiding furniture or white fog panel. Return the complete same-size room.",
+  "output": {
+    "path": "room-rain-candidate.png",
+    "sha256": "883d8ae217b001b9722ff7756d62aa8b45980262990758485b1bfbd28ecb6596",
+    "bytes": 2199707,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T17:22:02.557039+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "窗外完整雨夜与室内暖灯已形成，但我的初看仍有白昼式硬光斑残留风险，需主代理复核并继续修正；不记为通过。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false
+}

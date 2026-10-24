@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-themed-mother-candidate",
+  "character": "umiri",
+  "activity": "play",
+  "theme": "violet",
+  "status": "generated-needs-redraw",
+  "tool": "built-in image_gen",
+  "executionId": "exec-b4322cbc-2811-4690-b3e2-67a88e7c9bea",
+  "input": {
+    "path": "umiri-play-apricot-mother-candidate-v2.png",
+    "sha256": "98fd4ab74541817c22b5c54ae0f277a270acf4ca3915acdb7bad94712136e6dd",
+    "role": "sole primary-approved complete apricot activity mother"
+  },
+  "promptFile": "umiri-play-violet-prompt.txt",
+  "actualPrompt": "Asset ID: umiri-play-violet. Activity: play. Theme: violet.\nSOLE APPROVED INPUT: umiri-play-apricot-mother-candidate-v2.png; complete original apricot activity mother only.\nUse case: lighting-weather. Make ONE complete 1536 x 1024 same-room themed mother by relighting the supplied primary-approved character play scene.\nONLY INPUT IMAGE 1 is the EDIT TARGET, a complete approved apricot mother with its original person. This is a whole-scene LIGHTING AND WEATHER EDIT, not a new composition or new pose.\nLOCK EVERYTHING GEOMETRIC: exact canvas, camera and perspective; exact person's face, age, hairstyle, body, expression, posture, hands/fingers, clothing folds, hems, both feet/shoes, scale and position; exact window frame and all four corners, curtains, lake/campus landmarks, rear-left table/chair/shelves/framed drawing, right desk/chair/lamp/cup/book, bench/pillows/throw, rug and all furniture feet. Keep the chair in THIS mother, even if it differs from the original empty-room chair orientation. Do not restore/reposition a chair, move a lamp or widen a desk. Do not crop, zoom, enlarge, redesign, move the person or add another person.\nThe left lived-in depth and open central floor stay visible. Relight the PERSON and the WHOLE ROOM together so hair, skin, clothes, wood, linen, window glass, exterior and contact shadows agree with the same illumination. Skin and clothing retain their own material colors, not a full-image color filter, tinted overlay, green cast, black layer or white gradient. Preserve fine youthful Japanese-anime character linework and the softly detailed painted environment. No text, UI, logo, watermark, split-screen, border, arrows, inset or duplicate view.\n\nIDENTITY LOCK: this is Yahata Umiri (八幡海鈴), the same youthful charcoal-gray shoulder-length flipped-tip hair, gray-teal eyes, short black jacket, dark-red top, gray short skirt, choker/earrings and black platform boots already painted in the input. Keep her ORIGINAL approved PLAY v2 bass-playing pose on the right bench. The dark-wine electric bass lies on her real thigh, one hand frets the actual neck and the other plucks by the pickups, with the original strap and concentrated gaze. The entire continuous bass neck angles to the UPPER RIGHT and its full tuning pegs/headstock remain inside the canvas exactly as the source. Keep human and instrument scale/position together; do not enlarge only her, shrink/crop/shorten the bass neck or move the empty original desk chair. Both original boot contacts remain.\n\nTHEME VIOLET / rose-gold dusk:\nThe same lake/campus skyline is at sunset: low warm rose-gold light at the horizon, fading violet/lilac upper clouds and soft dusk over the distant mountains. The sunset and water reflections occupy the WHOLE connected window view coherently. Interior shadows acquire quiet muted violet while direct/reflective surfaces receive restrained rose/amber light. Retain the room's real material colors and depth, not a flat purple or orange filter.\nSwitch ON the existing desk lamp at exactly its source location, with a modest independent warm pool on the tabletop and nearby chair/bench surfaces. The lamp's light, window dusk rim, material reflections and the person's face/skin/hair/clothes all obey the same two real sources. Natural skin remains readable and youthful, no neon purple skin or white-out garment. Do not move the lamp or alter its shape. Preserve the same geometry and original play pose in one continuous dusk room.\nReturn the complete exact-size same-character, same-pose, same-furniture scene.",
+  "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-b4322cbc-2811-4690-b3e2-67a88e7c9bea.png",
+  "output": {
+    "path": "umiri-play-violet-mother-candidate-v1.png",
+    "sha256": "a7fa624e09d8cbd7ce7dfebfb00ca487ebd31ba35cbfd32df74a43cd33c81d29",
+    "bytes": 2199225,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-24T00:59:34.225293+00:00"
+  },
+  "designerReview": {
+    "status": "viewed-candidate",
+    "observed": "Original play v2 whole bass, continuous upper-right neck with full tuning pegs/headstock inside frame, actual fretting/plucking hands, strap, thigh support and two boots unchanged. Empty desk chair stays fixed. Whole rose-gold sunset/violet shadow room with original warm lamp and natural skin, no shortened instrument or portrait scaling."
+  },
+  "primaryReview": "pending",
+  "layersAccepted": false,
+  "runtimeAccepted": false,
+  "redrawReason": "Root unified violet sun center near (1007,302) and x1007 lake reflection against approved room-violet. Old character-violet v1 sunlight position varied and is not an input to correction."
+}

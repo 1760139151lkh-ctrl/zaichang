@@ -1,0 +1,64 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "umiri-study-apricot-layer-parameters-v1.json",
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "umiri-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "cb2b45dedddb45a558b4ed49ed28faadddd84aec01c4f10df25b0c9884d71847",
+  "matte": "umiri-study-apricot-mask-raw-v1.png",
+  "matteSha256": "fc342a7a6fdc70d4cdff425b77cd9459a6456f3a3dcc858c8ac8e587157e15be",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 102001,
+  "alphaNonzeroPixels": 39839,
+  "alphaBounds": [
+    797,
+    309,
+    1022,
+    726
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "5bed3d09f8493ba9c73de8e284f58f9611645ce19787a165ecd2bc3a7ea0c590",
+  "figureRgbSha256": "5bed3d09f8493ba9c73de8e284f58f9611645ce19787a165ecd2bc3a7ea0c590",
+  "background": {
+    "candidate": "umiri-study-apricot-background-raw-v1.png",
+    "candidateSha256": "2ac82c1aa66e9b80044a5e91e1eb78e65505c8eb0695aada1f608c21d9a4db3c",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [],
+    "changedPixels": 53584,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": null,
+  "outputs": [
+    {
+      "file": "umiri-study-apricot-figure-calibrated-v1.png",
+      "bytes": 2419289,
+      "sha256": "fcc346aa608d7ecec5a0d13bdd49b077a645531e5ed42ebe960468377f7bf847"
+    },
+    {
+      "file": "umiri-study-apricot-mask-calibrated-v1.png",
+      "bytes": 27249,
+      "sha256": "853190b06aedacf1912d019c7d9a1cb3cebf2ead78b0e4e47411c785746e1252"
+    },
+    {
+      "file": "umiri-study-apricot-background-calibrated-v1.png",
+      "bytes": 2086047,
+      "sha256": "7dc58d8f2033e047cc551f7f89d032f26a9ad77123591b487918c570a3f749a6"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

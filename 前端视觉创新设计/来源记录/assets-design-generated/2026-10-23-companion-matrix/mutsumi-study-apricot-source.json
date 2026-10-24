@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "mutsumi-study-apricot-mother-candidate-v1.png",
+  "character": "mutsumi",
+  "activity": "study",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-study-apricot-prompt.txt",
+  "identityText": "mutsumi-identity.txt",
+  "identityBasis": "Official MyGO/Ave Mujica profiles and original images personally viewed as human references only; third-party pixels were NOT image inputs.",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-study-apricot-mother-candidate-v1.png",
+    "sha256": "066435e9a63e68d8d026773f7154a8b50275e0c78f0451aa69c99082b7581606",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-c6c687be-9b53-46b8-b533-996ef4bc5bf5.png"
+  },
+  "designerObservation": "Complete mother viewed. Same mint hair/uniform identity, real side/back work posture on existing desk chair, head/gaze toward paper and supported near forearm. Two shoes are on floor; the farther heel has chair-leg adjacency requiring primary inspection. Identity/ratio/full support remain for primary review.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

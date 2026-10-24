@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-themed-mother-candidate",
+  "character": "umiri",
+  "activity": "listening",
+  "theme": "violet",
+  "status": "generated-needs-redraw",
+  "tool": "built-in image_gen",
+  "executionId": "exec-177d5e1c-f4df-4974-b1bc-45e743442bdb",
+  "input": {
+    "path": "umiri-listening-apricot-mother-candidate-v1.png",
+    "sha256": "14542cd757d285f6c2d89e98466e2e2bac75d2601aa0fe61d768996ae679b171",
+    "role": "sole primary-approved complete apricot activity mother"
+  },
+  "promptFile": "umiri-listening-violet-prompt.txt",
+  "actualPrompt": "Asset ID: umiri-listening-violet. Activity: listening. Theme: violet.\nSOLE APPROVED INPUT: umiri-listening-apricot-mother-candidate-v1.png; complete original apricot activity mother only.\nUse case: lighting-weather. Make ONE complete 1536 x 1024 same-room themed mother by relighting the supplied primary-approved character listening scene.\nONLY INPUT IMAGE 1 is the EDIT TARGET, a complete approved apricot mother with its original person. This is a whole-scene LIGHTING AND WEATHER EDIT, not a new composition or new pose.\nLOCK EVERYTHING GEOMETRIC: exact canvas, camera and perspective; exact person's face, age, hairstyle, body, expression, posture, hands/fingers, clothing folds, hems, both feet/shoes, scale and position; exact window frame and all four corners, curtains, lake/campus landmarks, rear-left table/chair/shelves/framed drawing, right desk/chair/lamp/cup/book, bench/pillows/throw, rug and all furniture feet. Keep the chair in THIS mother, even if it differs from the original empty-room chair orientation. Do not restore/reposition a chair, move a lamp or widen a desk. Do not crop, zoom, enlarge, redesign, move the person or add another person.\nThe left lived-in depth and open central floor stay visible. Relight the PERSON and the WHOLE ROOM together so hair, skin, clothes, wood, linen, window glass, exterior and contact shadows agree with the same illumination. Skin and clothing retain their own material colors, not a full-image color filter, tinted overlay, green cast, black layer or white gradient. Preserve fine youthful Japanese-anime character linework and the softly detailed painted environment. No text, UI, logo, watermark, split-screen, border, arrows, inset or duplicate view.\n\nIDENTITY LOCK: this is Yahata Umiri (八幡海鈴), the same youthful charcoal-gray shoulder-length flipped-tip hair, gray-teal eyes, short black jacket, dark-red top, gray short skirt, choker/earrings and black platform boots already painted in the input. Keep her ORIGINAL LISTENING bench posture: one socked leg is folded and supported on the seat beneath the existing knitted throw; the other socked foot hangs down to the original floor contact. Preserve both hands, the loose throw across knees, original supportive gaze and all folds. Her pair of removed black boots stays exactly on the floor as environment objects. Do not put those boots back on, add a third leg or stretch both feet to the floor.\n\nTHEME VIOLET / rose-gold dusk:\nThe same lake/campus skyline is at sunset: low warm rose-gold light at the horizon, fading violet/lilac upper clouds and soft dusk over the distant mountains. The sunset and water reflections occupy the WHOLE connected window view coherently. Interior shadows acquire quiet muted violet while direct/reflective surfaces receive restrained rose/amber light. Retain the room's real material colors and depth, not a flat purple or orange filter.\nSwitch ON the existing desk lamp at exactly its source location, with a modest independent warm pool on the tabletop and nearby chair/bench surfaces. The lamp's light, window dusk rim, material reflections and the person's face/skin/hair/clothes all obey the same two real sources. Natural skin remains readable and youthful, no neon purple skin or white-out garment. Do not move the lamp or alter its shape. Preserve the same geometry and original listening pose in one continuous dusk room.\nReturn the complete exact-size same-character, same-pose, same-furniture scene.",
+  "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-177d5e1c-f4df-4974-b1bc-45e743442bdb.png",
+  "output": {
+    "path": "umiri-listening-violet-mother-candidate-v1.png",
+    "sha256": "7ca530794583341d6b823e5dcc3636084878ccbdbcfef7aa0d6f6dd8716e9d0c",
+    "bytes": 2131218,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-24T00:50:18.660217+00:00"
+  },
+  "designerReview": {
+    "status": "viewed-candidate",
+    "observed": "Original folded socked bench leg and other socked floor foot, hands/throw and floor removed boots retained. Existing chair/desk/lamp position unchanged. Continuous sunset window and warm lit lamp illuminate room and natural skin coherently, violet shadows not purple skin."
+  },
+  "primaryReview": "pending",
+  "layersAccepted": false,
+  "runtimeAccepted": false,
+  "redrawReason": "Root unified violet sun center near (1007,302) and x1007 lake reflection against approved room-violet. Old character-violet v1 sunlight position varied and is not an input to correction."
+}

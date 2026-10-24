@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-23",
+  "tool": "image_gen built-in",
+  "use": "UI design reference, not runtime screenshot or completion evidence",
+  "prompts": "prompts.md",
+  "selection": "Not adopted. Latest user correction requires classification and complete scene composition before any further generation or visual replacement.",
+  "images": [
+    {
+      "sha256": "c974af878191fe7ac8f16137cafa9c3482d2ae43f81bd59c8ebd8d57032683d2",
+      "path": "原图/界面设计-对话与动态内容/主壳连续窗光方案A-c974af878191.png",
+      "bytes": 1638244,
+      "category": "界面设计-对话与动态内容",
+      "title": "主壳连续窗光方案A",
+      "dimensions": {
+        "width": 1586,
+        "height": 992
+      },
+      "gitSync": true,
+      "review": "Generated for current authorized private project; design reference, not runtime or acceptance evidence.",
+      "selection": "Retained candidate only; not adopted after latest user correction.",
+      "origins": [
+        {
+          "kind": "Codex generated image",
+          "tool": "image_gen built-in",
+          "generatedDirectory": "01a1679d-abd4-7e61-b42c-b4ec7572a875",
+          "originalFilename": "exec-82fb8200-d2be-4216-9a7e-61c0c1773997.png"
+        }
+      ]
+    },
+    {
+      "sha256": "4cc54899da6f2ef4fc54dfbc47e1a1c6dd9daf6533356bc7903787a16d00187c",
+      "path": "原图/界面设计-对话与动态内容/主壳可收拢窗框初稿-4cc54899da6f.png",
+      "bytes": 1696519,
+      "category": "界面设计-对话与动态内容",
+      "title": "主壳可收拢窗框初稿",
+      "dimensions": {
+        "width": 1586,
+        "height": 992
+      },
+      "gitSync": true,
+      "review": "Generated for current authorized private project; design reference, not runtime or acceptance evidence.",
+      "selection": "Retained candidate only; not adopted after latest user correction.",
+      "origins": [
+        {
+          "kind": "Codex generated image",
+          "tool": "image_gen built-in",
+          "generatedDirectory": "01a1679d-abd4-7e61-b42c-b4ec7572a875",
+          "originalFilename": "exec-499ccad1-763e-445f-a4cc-2d5e4d2b7d8a.png"
+        }
+      ]
+    },
+    {
+      "sha256": "a076d70b6abb53f045da613f6e611481db4e09593860fc27e0d174ae06ee63b0",
+      "path": "原图/界面设计-对话与动态内容/主壳可收拢窗框方案B-a076d70b6abb.png",
+      "bytes": 1712073,
+      "category": "界面设计-对话与动态内容",
+      "title": "主壳可收拢窗框方案B",
+      "dimensions": {
+        "width": 1586,
+        "height": 992
+      },
+      "gitSync": true,
+      "review": "Generated for current authorized private project; design reference, not runtime or acceptance evidence.",
+      "selection": "Retained candidate only; not adopted after latest user correction.",
+      "origins": [
+        {
+          "kind": "Codex generated image",
+          "tool": "image_gen built-in",
+          "generatedDirectory": "01a1679d-abd4-7e61-b42c-b4ec7572a875",
+          "originalFilename": "exec-cdab5a65-5adf-4130-aa9e-3cb14f57c700.png"
+        }
+      ]
+    },
+    {
+      "sha256": "fb99fd235d1101cfc2635e032fc53ee6e36b7022661a19e838f3c7a452c2474a",
+      "path": "原图/界面设计-设置与人格/四主题初稿-fb99fd235d11.png",
+      "bytes": 2048676,
+      "category": "界面设计-设置与人格",
+      "title": "四主题初稿",
+      "dimensions": {
+        "width": 1586,
+        "height": 992
+      },
+      "gitSync": true,
+      "review": "Generated for current authorized private project; design reference, not runtime or acceptance evidence.",
+      "selection": "Retained candidate only; not adopted after latest user correction.",
+      "origins": [
+        {
+          "kind": "Codex generated image",
+          "tool": "image_gen built-in",
+          "generatedDirectory": "01a1679d-abd4-7e61-b42c-b4ec7572a875",
+          "originalFilename": "exec-616e9916-2f05-443d-bd55-5ed6086c3c73.png"
+        }
+      ]
+    },
+    {
+      "sha256": "ad5616ba5d3d8f86024c0ad70e2da172f4869691c076b1c1f335fec56ad2ef6a",
+      "path": "原图/界面设计-设置与人格/四主题阅读面修订-ad5616ba5d3d.png",
+      "bytes": 1906819,
+      "category": "界面设计-设置与人格",
+      "title": "四主题阅读面修订",
+      "dimensions": {
+        "width": 1586,
+        "height": 992
+      },
+      "gitSync": true,
+      "review": "Generated for current authorized private project; design reference, not runtime or acceptance evidence.",
+      "selection": "Retained candidate only; not adopted after latest user correction.",
+      "origins": [
+        {
+          "kind": "Codex generated image",
+          "tool": "image_gen built-in",
+          "generatedDirectory": "01a1679d-abd4-7e61-b42c-b4ec7572a875",
+          "originalFilename": "exec-c6400057-2d87-4043-9313-19cb17e8a82b.png"
+        }
+      ]
+    },
+    {
+      "sha256": "5ad8b3b27eec6625544da0f5324aa067a8726fe6a6b532a3b945162ac6a3e854",
+      "path": "原图/界面设计-设置与人格/四主题中性阅读面-5ad8b3b27eec.png",
+      "bytes": 1916700,
+      "category": "界面设计-设置与人格",
+      "title": "四主题中性阅读面",
+      "dimensions": {
+        "width": 1586,
+        "height": 992
+      },
+      "gitSync": true,
+      "review": "Generated for current authorized private project; design reference, not runtime or acceptance evidence.",
+      "selection": "Retained candidate only; not adopted after latest user correction.",
+      "origins": [
+        {
+          "kind": "Codex generated image",
+          "tool": "image_gen built-in",
+          "generatedDirectory": "01a1679d-abd4-7e61-b42c-b4ec7572a875",
+          "originalFilename": "exec-1262d7f8-3cfb-48ba-8cf2-a3a59ae49d53.png"
+        }
+      ]
+    }
+  ]
+}

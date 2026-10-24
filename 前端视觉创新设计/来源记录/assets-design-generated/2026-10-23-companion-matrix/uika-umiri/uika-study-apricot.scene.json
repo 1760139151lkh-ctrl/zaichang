@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "uika-study-apricot-room4",
+  "character": "uika",
+  "activity": "study",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "uika-study-apricot-mother-candidate-v1.png",
+  "background": "uika-study-apricot-background-calibrated-v12.png",
+  "figure": "uika-study-apricot-figure-calibrated-v12.png",
+  "mask": "uika-study-apricot-mask-calibrated-v12.png",
+  "shadow": "uika-study-apricot-shadow-calibrated-v12.png",
+  "seat": [
+    0.552734375,
+    0.5810546875
+  ],
+  "ground": [
+    0.6334635416666666,
+    0.701171875
+  ],
+  "bodyBounds": [
+    0.517578125,
+    0.328125,
+    0.6686197916666666,
+    0.703125
+  ],
+  "safeTextBoundary": 0.5,
+  "support": "desk-chair",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "57.6823% 32.8125%, 54.4271% 37.3047%, 54.4922% 38.1836%, 55.0130% 37.5000%, 54.6875% 39.2578%, 54.8177% 38.6719%, 55.6641% 40.0391%, 53.8411% 41.9922%, 51.8229% 48.4375%, 52.9948% 50.1953%, 54.4271% 57.9102%, 56.4453% 57.9102%, 57.6823% 59.1797%, 58.1380% 61.0352%, 56.9010% 61.2305%, 56.7057% 64.0625%, 59.8307% 67.0898%, 61.1979% 66.2109%, 61.0026% 69.6289%, 64.8438% 69.9219%, 66.5365% 67.8711%, 65.6250% 67.3828%, 65.1693% 68.1641%, 65.2995% 67.1875%, 64.2578% 66.0156%, 63.6068% 66.2109%, 63.4115% 63.6719%, 64.3880% 62.5000%, 62.1094% 54.3945%, 56.6406% 52.7344%, 55.4036% 50.7812%, 56.5104% 48.2422%, 57.2917% 50.1953%, 62.0443% 48.5352%, 61.9141% 47.2656%, 60.8724% 45.7031%, 61.1979% 46.8750%, 60.4818% 47.5586%, 57.4870% 47.1680%, 56.9010% 41.5039%, 57.1615% 41.1133%, 57.3568% 41.9922%, 57.6172% 40.7227%, 58.1380% 43.1641%, 58.2682% 41.6016%, 58.7240% 41.3086%, 58.6589% 41.8945%, 59.3750% 40.9180%, 58.8542% 42.5781%, 59.5703% 40.8203%, 59.3099% 42.6758%, 60.0911% 39.8438%, 59.8307% 43.1641%, 60.4818% 39.7461%, 60.8724% 39.8438%, 61.3281% 38.2812%, 61.2630% 36.2305%, 61.5234% 36.8164%, 60.4818% 33.8867%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "runtimeAccepted": false,
+    "runtimeReviewRecord": "../primary-runtime-reviews.json",
+    "producerNote": "Fixed desk-contact pose: travel0, perspective0. Original pen belongs to figure; real desktop paper and chair stay background. Existing v11 visible-body alpha retained; only matching-background wall/body shadow removal and 3px original source contacts added. Chair occlusion holes remain honest; no hidden anatomy completed. No runtime observation or primary layer acceptance here."
+  },
+  "production": "uika-study-apricot-layer-processing-v12.json",
+  "parameters": "uika-study-apricot-layer-parameters-v12.json"
+}

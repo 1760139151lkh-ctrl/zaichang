@@ -1,0 +1,190 @@
+{
+  "mother": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+  "motherSha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b",
+  "matte": "sakiko-reading-apricot-v2-mask.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        1496,
+        451
+      ],
+      [
+        1520,
+        451
+      ],
+      [
+        1520,
+        580
+      ],
+      [
+        1436,
+        580
+      ],
+      [
+        1437,
+        548
+      ],
+      [
+        1448,
+        522
+      ],
+      [
+        1452,
+        511
+      ],
+      [
+        1469,
+        508
+      ],
+      [
+        1472,
+        502
+      ],
+      [
+        1460,
+        495
+      ],
+      [
+        1464,
+        488
+      ],
+      [
+        1484,
+        481
+      ],
+      [
+        1498,
+        474
+      ],
+      [
+        1501,
+        460
+      ]
+    ]
+  ],
+  "localColorMatteRefinement": null,
+  "figure": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-figure-calibrated-v3.png",
+  "mask": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mask-calibrated-v3.png",
+  "backgroundCandidate": "sakiko-reading-apricot-v2-background.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1160,
+        610
+      ],
+      [
+        1390,
+        610
+      ],
+      [
+        1390,
+        764
+      ],
+      [
+        1160,
+        785
+      ]
+    ],
+    [
+      [
+        1040,
+        705
+      ],
+      [
+        1235,
+        705
+      ],
+      [
+        1255,
+        825
+      ],
+      [
+        1030,
+        810
+      ]
+    ]
+  ],
+  "background": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-background-calibrated-v3.png",
+  "record": "sakiko-reading-apricot-v2-layer-processing-v3.json",
+  "reviewNote": "Same v2 source-RGB figure with explicitly excluded pillow outside hair; adds only normal-RGBA source contact residuals in narrow shoe/cushion ROIs. No source body repaint or geometry transforms.",
+  "contactShadowPolygons": [
+    [
+      [
+        1063,
+        735
+      ],
+      [
+        1090,
+        733
+      ],
+      [
+        1140,
+        735
+      ],
+      [
+        1146,
+        746
+      ],
+      [
+        1100,
+        751
+      ],
+      [
+        1065,
+        745
+      ]
+    ],
+    [
+      [
+        1095,
+        763
+      ],
+      [
+        1125,
+        760
+      ],
+      [
+        1182,
+        764
+      ],
+      [
+        1189,
+        777
+      ],
+      [
+        1140,
+        781
+      ],
+      [
+        1097,
+        776
+      ]
+    ],
+    [
+      [
+        1260,
+        589
+      ],
+      [
+        1435,
+        589
+      ],
+      [
+        1435,
+        610
+      ],
+      [
+        1260,
+        614
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "shadow": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-shadow-calibrated-v3.png"
+}

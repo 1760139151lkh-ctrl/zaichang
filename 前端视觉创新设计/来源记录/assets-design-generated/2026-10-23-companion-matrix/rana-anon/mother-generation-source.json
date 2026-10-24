@@ -1,0 +1,80 @@
+{
+  "createdOn": "2026-10-23",
+  "tool": "built-in image_gen.imagegen",
+  "stage": "complete mother artwork for primary identity/proportion review",
+  "canvas": { "width": 1536, "height": 1024 },
+  "soleInputForEveryCall": {
+    "file": "../room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "primary-approved clean empty room",
+    "characterPixelsProvided": false,
+    "priorMotherPixelsProvided": false
+  },
+  "entries": [
+    {
+      "character": "anon", "activity": "chat", "light": "apricot",
+      "file": "anon-chat-apricot-mother-candidate-v1.png",
+      "sha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+      "prompt": "anon-chat-apricot-prompt.txt",
+      "promptSha256": "d2a45cd383a8274d3cc1c9bf58d5ad1b64768cbf3691b5d8c903ba8212cea45d",
+      "originalGeneratedFile": "exec-7e4086f7-eabb-4d59-9ba2-47675f90706a.png",
+      "designerPersonallyViewed": true,
+      "designerObservation": "Pink hair, blue-gray eyes and Haneoka clothing retain identity. Pelvis and supporting palm meet the bench; a small open hand gestures toward herself, both knees/shins and complete loafers visible with floor contact. Primary still must judge face/proportions and the whole composition.",
+      "offeredForPrimaryReview": true
+    },
+    {
+      "character": "anon", "activity": "study", "light": "apricot",
+      "file": "anon-study-apricot-mother-candidate-v1.png",
+      "sha256": "2e9a7c010f52939149c5a93b43eb3f1ab996f9ed25bbcbaa3a7522038b1f9fbe",
+      "prompt": "anon-study-apricot-prompt.txt",
+      "promptSha256": "2433c7815c202589586974c4b4ab3970afbd5f1d6628f261f721fa94d710dc98",
+      "originalGeneratedFile": "exec-70bd073f-662d-4434-971f-f6d9b5855148.png",
+      "designerPersonallyViewed": true,
+      "designerObservation": "Torso actually leans forward from the seated hips and gaze follows the paper; wrists/forearms and fingertips meet the tabletop/paper. Both legs and complete shoes are visible. Chair shifted relative to empty room; this is recorded rather than claiming pixel registration, and any later separation must use this mother-specific geometry.",
+      "offeredForPrimaryReview": true
+    },
+    {
+      "character": "rana", "activity": "chat", "light": "apricot",
+      "file": "rana-chat-apricot-mother-candidate-v1.png",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "prompt": "rana-chat-apricot-prompt.txt",
+      "promptSha256": "fe9287841dd3f2c83059a3914394c5489301f6d51842ae8370f5278c928ad59a",
+      "originalGeneratedFile": "exec-f49919ce-d2f0-4115-a90e-d20aec0496d8.png",
+      "designerPersonallyViewed": true,
+      "designerObservation": "Silver-white bob, two distinct correct front-view eye colors and black/white casual styling visible. One palm supports the bench, other rests on knee; boots meet floor at different depths. Knees/thighs have closer diagonal overlap than requested, so primary must inspect the independent leg chains rather than infer correctness from the boots alone.",
+      "offeredForPrimaryReview": true
+    },
+    {
+      "character": "rana", "activity": "study", "light": "apricot", "variant": 1,
+      "file": "rana-study-apricot-mother-candidate-v1.png",
+      "sha256": "050b9df78bbda19b41ad57dfa01541b4b461e8b70247801f8f3e5c7b865e3c41",
+      "prompt": "rana-study-apricot-prompt.txt",
+      "promptSha256": "b2ffadfc99c70b0dfeba008c24572cef8ed64e3beb0e08dc2bb554c6d3966167",
+      "originalGeneratedFile": "exec-0a165d73-6bad-45d8-b143-b23736f69a26.png",
+      "designerPersonallyViewed": true,
+      "designerRejected": true,
+      "reason": "Head/gaze turns toward the user instead of the paper, weakening the actual co-reading relationship.",
+      "offeredForPrimaryReview": false,
+      "replacedBy": "rana-study-apricot-mother-candidate-v2.png"
+    },
+    {
+      "character": "rana", "activity": "study", "light": "apricot", "variant": 2,
+      "file": "rana-study-apricot-mother-candidate-v2.png",
+      "sha256": "fb66bbcfffc5f3d42b421c8769cc53ae7f1b605246a68187f5043435eabbe205",
+      "prompt": "rana-study-apricot-v2-prompt.txt",
+      "promptSha256": "fdfb7e5599dbfb87c1657040c7d9e2a319afe4bb2dc8d1d8a155b9c8f4c88bfc",
+      "originalGeneratedFile": "exec-396c4594-8a5b-469a-8766-367a29f6e1d4.png",
+      "designerPersonallyViewed": true,
+      "designerObservation": "Re-generated only from the clean empty room. Downward side-profile gaze now meets the actual paper and hand contact; torso leans forward from supported hips. Chair, both knees/shins and both complete boots remain visible. Desk/chair/book positions differ from empty room, requiring the complete mother's own layers later.",
+      "offeredForPrimaryReview": true
+    }
+  ],
+  "primaryReview": {
+    "approvedByPrimary": false,
+    "identityAndProportionAccepted": false,
+    "extractionApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "scope": "Two characters, chat/study apricot prototypes only. Four offered complete mothers, one retained designer-rejected study attempt. No other activities/themes generated, no image pixel editing, no separation or coverage fallback."
+}

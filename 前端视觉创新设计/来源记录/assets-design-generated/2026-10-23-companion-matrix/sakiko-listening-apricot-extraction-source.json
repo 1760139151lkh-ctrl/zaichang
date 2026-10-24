@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "tool": "image_gen.imagegen (built-in)",
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "productionStatus": "Raw imagegen mask attempts remain unchanged. User-authorized deterministic original-scene alpha calibration/registration produced current candidates; primary layer and runtime approval remain pending.",
+  "character": "sakiko",
+  "activity": "listening",
+  "palette": "apricot",
+  "mother": {
+    "file": "sakiko-listening-apricot-mother.png",
+    "sha256": "a35aaa3549a04cf9f6fa7e478224f53afdcbfd1f133f6570a643191916189bb1"
+  },
+  "calls": [
+    {
+      "purpose": "white-body/black-room segmentation",
+      "prompt": "sakiko-listening-apricot-mask-prompt.txt",
+      "input": "sakiko-listening-apricot-mother.png",
+      "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-bfd9c198-8e27-4fd8-91e6-83dceba69378.png",
+      "sha256": "35fc64eada895126f6aca1b0180fe5d3ef773792343bd182125b9cebbeead425",
+      "mode": "RGB",
+      "projectDiagnostic": "sakiko-listening-apricot-mask-candidate-v1.png",
+      "decision": "Rejected as production mask: pillow/window leaf contamination and missing real lower skirt; black/white noise remains. Position approximately aligns."
+    },
+    {
+      "purpose": "matching background by removing seated person; keep detached floor shoes",
+      "prompt": "sakiko-listening-apricot-background-prompt.txt",
+      "input": "sakiko-listening-apricot-mother.png",
+      "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-7a9d6a42-31e0-49c4-b01c-9abfac39dfc4.png",
+      "sha256": "af9cfb8dd2ed3eb36933fe6f19040661aab5f6dd0b60d33c7bdf554c273e605b",
+      "mode": "RGB",
+      "projectCandidate": "sakiko-listening-apricot-background.png",
+      "decision": "Candidate only, both detached brown loafers visibly retained at original floor location; primary layer/composite review pending."
+    },
+    {
+      "purpose": "targeted segmentation retry from original mother, no previous wrong image input",
+      "prompt": "sakiko-listening-apricot-mask-v2-prompt.txt",
+      "input": "sakiko-listening-apricot-mother.png",
+      "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-499d4fe8-1297-47df-bccf-0442f7195878.png",
+      "sha256": "73ef1c69fb003d915ddadfccf1a5ec10493930c16ae662908680efddd31cf21c",
+      "mode": "RGB",
+      "decision": "Rejected: output includes gray/black internal drawing and extends white body into the right cushion rather than a clean person silhouette."
+    }
+  ],
+  "diagnostics": {
+    "localOnly": ".test-data/life-layer-review/",
+    "files": [
+      "listening-light.png",
+      "listening-dark.png",
+      "listening-recombined.png",
+      "listening-light-detail.png",
+      "listening-dark-detail.png",
+      "listening-mother-detail.png"
+    ],
+    "method": "Original mother RGB composited with raw generated grayscale mask for inspection on light/dark/matching-background; cropped/enlarged details are inspection evidence, not reusable source images."
+  },
+  "layerOwnership": "Two detached floor loafers stay in background, not body mask. Sock feet, knees, full skirt, hands, hair and navy ribbons belong to character. No cast shadow included in raw mask by intent.",
+  "deterministicCandidate": {
+    "parameters": "sakiko-listening-apricot-calibration-v7.json",
+    "processingSource": "sakiko-listening-apricot-layer-source.json",
+    "script": "listening-rest-layer-calibration.py",
+    "figure": "sakiko-listening-apricot-figure-calibrated-v7.png",
+    "alpha": "sakiko-listening-apricot-alpha-calibrated-v7.png",
+    "background": "sakiko-listening-apricot-background-calibrated-v7.png",
+    "environment": {
+      "python": "3.13.14",
+      "Pillow": "12.2.0",
+      "numpy": "2.4.6",
+      "scipy": "1.18.0"
+    },
+    "figureRgbPolicy": "All RGB copied byte-for-byte from mother; only alpha changes. Full 1536x1024, identity transform. No anatomy/room re-illustration.",
+    "evidence": {
+      "light": ".test-data/life-layer-review/listening-final-light-detail.png",
+      "dark": ".test-data/life-layer-review/listening-final-dark-detail.png",
+      "originalPosition": ".test-data/life-layer-review/listening-final-recombined.png",
+      "backgroundEndpoint": "sakiko-listening-apricot-background-calibrated-v7.png"
+    },
+    "geometry": "sakiko-listening-apricot-geometry-observations.json",
+    "scene": "sakiko-listening-apricot.scene.json",
+    "primary": "pending; producer cannot approve",
+    "runtime": "not registered or exercised"
+  },
+  "separateContactShadowCandidate": {
+    "parameters": "sakiko-listening-apricot-layer-parameters-v8.json",
+    "processor": "extract-scene-layers.py",
+    "record": "sakiko-listening-apricot-layer-processing-v8.json",
+    "figure": "sakiko-listening-apricot-figure-calibrated-v8.png",
+    "background": "sakiko-listening-apricot-background-calibrated-v8.png",
+    "shadow": "sakiko-listening-apricot-shadow-calibrated-v8.png",
+    "mask": "sakiko-listening-apricot-mask-calibrated-v8.png",
+    "alphaChangeFromInspectedV7": 0,
+    "figureRgbChangedPixels": 0,
+    "shadowBoundsPixels": [
+      1176,
+      568,
+      1389,
+      589
+    ],
+    "shadowNonzeroPixels": 937,
+    "floorShadowPixels": 0,
+    "floorShoeRegionChangedPixels": 0,
+    "mode": "normal source-over RGBA source contact residual",
+    "primary": "pending root source/endpoint review; no self approval",
+    "runtime": "not admitted or exercised"
+  },
+  "independentLayerFinish": {
+    "parameters": "sakiko-listening-apricot-layer-parameters-v11.json",
+    "processing": "sakiko-listening-apricot-layer-processing-v11.json",
+    "scene": "sakiko-listening-apricot.scene.json",
+    "actualMotherPrompt": "sakiko-listening-apricot-prompt.txt",
+    "actualMotherPromptSha256": "0e8113e4ffacefeb621fd6eda46861dc04ac49fb5fdd8046594c24cbd020848d",
+    "outputs": {
+      "figure": "sakiko-listening-apricot-figure-calibrated-v11.png",
+      "mask": "sakiko-listening-apricot-mask-calibrated-v11.png",
+      "background": "sakiko-listening-apricot-background-calibrated-v11.png",
+      "shadow": "sakiko-listening-apricot-shadow-calibrated-v11.png"
+    },
+    "producerViewed": [
+      "original full mother",
+      "full light and dark",
+      "enlarged original-coordinate edges",
+      "complete original-position room composite",
+      "integer +/-12px short-travel room composites, not runtime"
+    ],
+    "observation": "v11 also removes the four-row sky fringe immediately above the corrected original ribbon. Its bounds are entirely outside the original bow/head outline. Original v8 alpha is only reduced in explicit source-coordinate ribbon/sky regions; no foreground is added. Entire source RGB and all pose/contact parameters are unchanged. Primary and runtime review remain pending.",
+    "primaryApproval": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "privateEvidence": ".test-data/life-layer-review/finish-listening-v11-{light,dark,room}.png"
+  }
+}

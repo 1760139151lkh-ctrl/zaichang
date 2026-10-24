@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-play-violet-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "play",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical relighting: Image 1 correct approved activity mother locks character/geometry; Image 2 approved empty violet plate fixes exact shared celestial/light axis only",
+  "prompt": "nyamu-play-violet-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-play-apricot-mother-candidate-v1.png",
+      "role": "Image 1: sole character source and edit target, correct primary-approved activity mother; pose/furniture/props locked",
+      "sha256": "73cf1bdecedd78833a534a05692764ecd91d87b63bfd9ca91d5deb08b123c3ed"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "role": "Image 2: approved empty room, exact sun center/lake-column axis and whole-room dusk illumination only; not character or furniture replacement",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "nyamu-play-violet-mother-candidate-v1.png",
+    "sha256": "cb8701e88d30989debc9cd0a079bf4be8a3d5715374c3941df3250cfc0e7f301",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-a3a70063-622d-423e-8343-0a478abb95d0.png"
+  },
+  "ownershipAndPose": "Keep exact full torso diagonal forward lean from supported bench hips, one planted cushion palm balancing, opposite hand offering same tiny folded-paper creature. Preserve all hands/fingers and complete original leg/shoe chains. Held paper creature belongs with CHARACTER, not background. No added craft or camera.",
+  "designerObservation": "Full image personally viewed. Exact whole-body forward lean, support palm on cushion, offering hand and same paper creature retained, all original hips/knees/ankles/full shoes supported. Paper creature remains character layer. Sun x≈1007,y≈302 and aligned lake reflection as approved reference. Dusk window/lamp light and lavender shade physically shared by skin, gray/black garments and room; source youthful identity/expression and furniture unchanged.",
+  "observedGaps": [
+    "Primary review of each complete mother pending; no layer/runtime acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

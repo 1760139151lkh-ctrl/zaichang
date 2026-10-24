@@ -1,0 +1,172 @@
+{
+  "mother": "sakiko-chat-rain-mother-candidate-v1.png",
+  "motherSha256": "a57a3b22791dd9525d9e1dc565fe76866edb7c4d067e3cb94d67e6dfb06628a6",
+  "matte": "sakiko-chat-rain-mask-generated-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [
+    [
+      [
+        1204,
+        533
+      ],
+      [
+        1204,
+        538
+      ],
+      [
+        1254,
+        557
+      ],
+      [
+        1295,
+        546
+      ],
+      [
+        1295,
+        542
+      ],
+      [
+        1255,
+        522
+      ],
+      [
+        1238,
+        523
+      ]
+    ]
+  ],
+  "excludePolygons": [],
+  "figure": "sakiko-chat-rain-figure-calibrated-v3.png",
+  "mask": "sakiko-chat-rain-mask-calibrated-v3.png",
+  "backgroundCandidate": "sakiko-chat-rain-background-generated-v1.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1175,
+        587
+      ],
+      [
+        1386,
+        587
+      ],
+      [
+        1386,
+        724
+      ],
+      [
+        1280,
+        767
+      ],
+      [
+        1230,
+        704
+      ]
+    ],
+    [
+      [
+        1095,
+        746
+      ],
+      [
+        1285,
+        743
+      ],
+      [
+        1340,
+        778
+      ],
+      [
+        1340,
+        837
+      ],
+      [
+        1095,
+        837
+      ]
+    ]
+  ],
+  "background": "sakiko-chat-rain-background-calibrated-v3.png",
+  "record": "sakiko-chat-rain-layer-processing-v3.json",
+  "reviewNote": "Local held-book opaque interiors and actual shoe-leather mask holes filled in alpha only. Original mother RGB remains exact. Source human cast-shadow remnants in matching background removed in explicit same-scene regions; narrow normalRGBA source contact residuals kept separately. Candidate for primary light/dark/empty/short-travel inspection. Contact residual additionally limited to within 3 source pixels of actual figure alpha to remove broad floor-texture strips at short-travel endpoints.",
+  "contactShadowPolygons": [
+    [
+      [
+        1114,
+        791
+      ],
+      [
+        1173,
+        792
+      ],
+      [
+        1181,
+        800
+      ],
+      [
+        1116,
+        802
+      ]
+    ],
+    [
+      [
+        1195,
+        800
+      ],
+      [
+        1276,
+        799
+      ],
+      [
+        1280,
+        807
+      ],
+      [
+        1196,
+        810
+      ]
+    ],
+    [
+      [
+        1350,
+        585
+      ],
+      [
+        1382,
+        582
+      ],
+      [
+        1385,
+        589
+      ],
+      [
+        1352,
+        592
+      ]
+    ],
+    [
+      [
+        1390,
+        585
+      ],
+      [
+        1427,
+        585
+      ],
+      [
+        1431,
+        590
+      ],
+      [
+        1393,
+        591
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "shadow": "sakiko-chat-rain-shadow-calibrated-v3.png",
+  "contactShadowEdgePixels": 3
+}

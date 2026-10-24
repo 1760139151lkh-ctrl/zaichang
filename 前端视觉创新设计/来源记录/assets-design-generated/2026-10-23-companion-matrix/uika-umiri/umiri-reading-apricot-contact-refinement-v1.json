@@ -1,0 +1,137 @@
+{
+  "purpose": "contact shadow support mask production, not a test",
+  "alphaInput": "umiri-reading-apricot-figure-calibrated-v2.png",
+  "threshold": 128,
+  "contacts": [
+    {
+      "contact": "left-front",
+      "roiXYXY": [
+        1096,
+        730,
+        1139,
+        765
+      ],
+      "edgePoints": 43,
+      "first": [
+        1096,
+        752
+      ],
+      "last": [
+        1138,
+        754
+      ]
+    },
+    {
+      "contact": "left-heel",
+      "roiXYXY": [
+        1146,
+        710,
+        1158,
+        760
+      ],
+      "edgePoints": 11,
+      "first": [
+        1146,
+        745
+      ],
+      "last": [
+        1156,
+        742
+      ]
+    },
+    {
+      "contact": "right-front",
+      "roiXYXY": [
+        1173,
+        747,
+        1226,
+        780
+      ],
+      "edgePoints": 53,
+      "first": [
+        1173,
+        767
+      ],
+      "last": [
+        1225,
+        769
+      ]
+    },
+    {
+      "contact": "right-heel",
+      "roiXYXY": [
+        1241,
+        733,
+        1256,
+        780
+      ],
+      "edgePoints": 15,
+      "first": [
+        1241,
+        763
+      ],
+      "last": [
+        1255,
+        759
+      ]
+    },
+    {
+      "contact": "hip",
+      "roiXYXY": [
+        1268,
+        570,
+        1311,
+        590
+      ],
+      "edgePoints": 43,
+      "first": [
+        1268,
+        577
+      ],
+      "last": [
+        1310,
+        582
+      ]
+    },
+    {
+      "contact": "skirt-hem",
+      "roiXYXY": [
+        1313,
+        575,
+        1359,
+        590
+      ],
+      "edgePoints": 46,
+      "first": [
+        1313,
+        581
+      ],
+      "last": [
+        1358,
+        579
+      ]
+    },
+    {
+      "contact": "palm",
+      "roiXYXY": [
+        1385,
+        574,
+        1436,
+        587
+      ],
+      "edgePoints": 51,
+      "first": [
+        1385,
+        582
+      ],
+      "last": [
+        1435,
+        582
+      ]
+    }
+  ],
+  "rule": "For each manually selected ROI and each covered x, locate the last y with alpha>128 inside that ROI. Polygon top follows (x,y+1); bottom returns along (x,y+3). No extrapolation to unobserved x; 0.5px feather applied by shared production tool.",
+  "parameters": "umiri-reading-apricot-layer-parameters-v3.json",
+  "warning": "Only local residue support, not a calibrated travel/physical simulation.",
+  "appliesUnchangedTo": "umiri-reading-apricot-layer-parameters-v5.json; same lower source alpha; v5 changes only matching-background old cast-shadow clearing, not contact-support geometry"
+}

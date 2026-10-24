@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "reading",
+  "light": "violet",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-0f5c500d-668c-4ffa-a30a-627aa7b0cd4c",
+  "generatedAtUtc": "2026-10-24T12:34:54.791310+00:00",
+  "inputs": [
+    {
+      "file": "tomori-reading-apricot-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "e86706be55da3cc2a2072327f6e9543d867b06149d45fc8ca2bb275163b6fa36"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "sourceIdentity": "Approved full warm mother relit as one complete room with corresponding approved empty lighting plate; no rejected person or isolated figure input.",
+  "prompt": "tomori-reading-violet-prompt.txt",
+  "promptSha256": "bae673af95dab5b9cd9de013a8406cbcb583c1a015576917c41c29c8442c2af0",
+  "output": {
+    "file": "tomori-reading-violet-mother-candidate.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2188986,
+    "sha256": "e97d0d6d5492fb6dce6d31aad869a662cab7ab86db70d1c734ebe801c3ea54d8"
+  },
+  "review": {
+    "designerViewed": "complete original full scene",
+    "designerStatus": "candidate",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Complete output personally viewed. Original distinct supported pose, figure scale and fixed furniture appear preserved. Sun disk and lake reflection visually remain at approved plate axis near1007/302 andx1003; full violet room/person illumination. Primary image/prompt review still required."
+}

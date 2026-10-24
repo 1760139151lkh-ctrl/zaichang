@@ -1,0 +1,91 @@
+{
+  "recordType": "runtime-scene-candidate-source-map",
+  "createdOn": "2026-10-23",
+  "scope": "Source map for two owned scenes; authoritative coordinates and primary layer/runtime decisions live only in each .scene.json.",
+  "alphaRecipe": "sakiko-play-attention-alpha-calibration-v1.json",
+  "shadowRecipe": "sakiko-play-attention-shadow-calibration-v1.json",
+  "scenes": [
+    {
+      "scene": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4.scene.json",
+      "character": "sakiko",
+      "activity": "play",
+      "palette": "apricot",
+      "motherPrompt": "sakiko-play-apricot-prompt.txt",
+      "generationAndLayerSource": "sakiko-play-apricot-layer-source.json",
+      "runtimeImages": [
+        {
+          "file": "sakiko-play-apricot-v4-mother.png",
+          "bytes": 2194593,
+          "sha256": "c81824391b45219eb973c49fc435e5040daa1c310c5f3ad0a4b60adf044f96f3"
+        },
+        {
+          "file": "sakiko-play-apricot-v4-background.png",
+          "bytes": 2135271,
+          "sha256": "a1989f693c6e0c54f82941efe521e2ab20f6203a7e29461599efd3fbfb0b25c5"
+        },
+        {
+          "file": "sakiko-play-apricot-v4-figure.png",
+          "bytes": 2466044,
+          "sha256": "be5aa89cda6ed51084f17055fc96c4820aa4af74c13df488fcb898ce3e9a21bb"
+        },
+        {
+          "file": "sakiko-play-apricot-v4-shadow.png",
+          "bytes": 18983,
+          "sha256": "f15bb68662cae420191766651918371e16b448fd6dce371492edc5aad7b94034"
+        }
+      ],
+      "producerReview": "Original-RGB soft figure and source-pair contact shadow inspected on light/dark and corrected-pivot legal endpoints. Primary layer and runtime decisions live only in .scene.json; these independent captures do not constitute App runtime acceptance.",
+      "geometryEvidence": {
+        "authoritativeScene": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4.scene.json",
+        "seatMeaning": "Visible hip/cloth-to-cushion support contact, corrected after original-mother coordinate closeup and primary confirmation.",
+        "groundMeaning": "Front complete loafer sole contact on floor; not a two-shoe midpoint or calculated center of mass.",
+        "frame": "identity on original full canvas; figure/shadow pixels unchanged",
+        "legalEnds": "u=-1 and u=1 fit current safeTextBoundary and canvas; same finite actor transform about authoritative corrected seat.",
+        "left": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-play-shadow-seat-v2-left.png",
+        "right": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-play-shadow-seat-v2-right.png",
+        "captureKind": "Independent native SVG same-layer endpoint inspection, not an actual App Stage gesture/runtime acceptance."
+      }
+    },
+    {
+      "scene": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4.scene.json",
+      "character": "sakiko",
+      "activity": "attention",
+      "palette": "apricot",
+      "motherPrompt": "sakiko-attention-apricot-prompt.txt",
+      "generationAndLayerSource": "sakiko-attention-apricot-layer-source.json",
+      "runtimeImages": [
+        {
+          "file": "sakiko-attention-apricot-v4-mother.png",
+          "bytes": 2188915,
+          "sha256": "5631cdd842797d1e46b898b9e5914f250cb5d66e8a058878eee2547e1f707017"
+        },
+        {
+          "file": "sakiko-attention-apricot-v4-background.png",
+          "bytes": 2114681,
+          "sha256": "eed37175265d0af116b6373548e440b83b646e14c35f0958786160a5e46744bf"
+        },
+        {
+          "file": "sakiko-attention-apricot-v4-figure.png",
+          "bytes": 2459318,
+          "sha256": "3d0f61e0b1199e736140a50f34b48f21098063c0c0afce6682a20f1cfdddc8dc"
+        },
+        {
+          "file": "sakiko-attention-apricot-v4-shadow.png",
+          "bytes": 26922,
+          "sha256": "f767f15e2beb27b4524fe61f0778428ee62f44366fd64efadb5dd7a9a9968c42"
+        }
+      ],
+      "producerReview": "Original-RGB soft figure and source-pair contact shadow inspected on light/dark and corrected-pivot legal endpoints. Primary layer and runtime decisions live only in .scene.json; these independent captures do not constitute App runtime acceptance.",
+      "geometryEvidence": {
+        "authoritativeScene": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4.scene.json",
+        "seatMeaning": "Visible hip/cloth-to-cushion support contact, corrected after original-mother coordinate closeup and primary confirmation.",
+        "groundMeaning": "Front complete loafer sole contact on floor; not a two-shoe midpoint or calculated center of mass.",
+        "frame": "identity on original full canvas; figure/shadow pixels unchanged",
+        "legalEnds": "u=-1 and u=1 fit current safeTextBoundary and canvas; same finite actor transform about authoritative corrected seat.",
+        "left": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-attention-shadow-seat-v2-left.png",
+        "right": "../../../仅本机/2026-10-23-companion-layer-review/sakiko-attention-shadow-seat-v2-right.png",
+        "captureKind": "Independent native SVG same-layer endpoint inspection, not an actual App Stage gesture/runtime acceptance."
+      }
+    }
+  ]
+}

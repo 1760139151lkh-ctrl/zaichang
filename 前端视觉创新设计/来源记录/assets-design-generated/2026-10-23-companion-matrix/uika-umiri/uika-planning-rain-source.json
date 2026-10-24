@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordType": "image-generation-source",
+  "character": "uika",
+  "activity": "planning",
+  "theme": "rain",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-b1b38942-1c4a-4eb7-97ec-12bf2c61f55f",
+  "intent": "lighting-weather",
+  "prompt": "uika-planning-rain-prompt-v1.txt",
+  "promptFileMatchesActualToolInput": true,
+  "recordedAt": "2026-10-24T07:57:33.302Z",
+  "inputs": [
+    {
+      "file": "uika-planning-apricot-mother-candidate-v3.png",
+      "role": "primary-approved-correct-warm-mother-edit-target",
+      "sha256": "767aab09d7596550438a1e3ef5ff01e578b4a635cc548b104bd773f211361e1b"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "role": "primary-approved-clean-theme-lighting-reference-only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "uika-planning-rain-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "d2718cb41d8f1e7f8931b6835b0397cf55bda421659e5c71c0757d854c9ab1b1",
+    "bytes": 2143973
+  },
+  "review": {
+    "designerViewed": "complete original Imagegen output",
+    "designerStatus": "candidate-for-primary-review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Turned planning silhouette, extended existing chair, supported folio/desk hands and complete planted shoes retained; full coherent night scene, no isolated rear flower spotlight.",
+  "promptSha256": "8145f507770095f2253fb002489bcf47e25beb9e3e205504b31ac4372adba70e"
+}

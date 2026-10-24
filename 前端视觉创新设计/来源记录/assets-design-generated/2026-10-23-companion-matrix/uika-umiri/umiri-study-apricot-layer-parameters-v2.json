@@ -1,0 +1,140 @@
+{
+  "mother": "umiri-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "cb2b45dedddb45a558b4ed49ed28faadddd84aec01c4f10df25b0c9884d71847",
+  "matte": "umiri-study-apricot-mask-local-color-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        894,
+        472
+      ],
+      [
+        896,
+        475
+      ],
+      [
+        898,
+        478
+      ],
+      [
+        900,
+        480
+      ],
+      [
+        902,
+        481
+      ],
+      [
+        892,
+        481
+      ],
+      [
+        893,
+        476
+      ]
+    ]
+  ],
+  "figure": "umiri-study-apricot-figure-calibrated-v2.png",
+  "mask": "umiri-study-apricot-mask-calibrated-v2.png",
+  "backgroundCandidate": "umiri-study-apricot-background-raw-v1.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        887,
+        681
+      ],
+      [
+        1029,
+        678
+      ],
+      [
+        1032,
+        742
+      ],
+      [
+        887,
+        742
+      ]
+    ]
+  ],
+  "background": "umiri-study-apricot-background-calibrated-v2.png",
+  "record": "umiri-study-apricot-layer-processing-v2.json",
+  "reviewNote": "Local alpha removes identified desk triangle between forearms/body, chair-rim highlights, tiny warm floor/roof fragments; separately recorded local cool-sky/leaf alpha noise cleanup protects actual head. Both hands and actual left-hand pen remain visible original pixels. Background boot-contact remnants cleared through this mother clean plate. Fixed desk-contact pose travel zero. Primary/runtime pending.",
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          805,
+          514
+        ],
+        [
+          826,
+          514
+        ],
+        [
+          836,
+          584
+        ],
+        [
+          805,
+          584
+        ]
+      ],
+      "redMin": 150,
+      "redOverGreen": 20,
+      "redOverBlue": 35
+    },
+    {
+      "polygon": [
+        [
+          892,
+          618
+        ],
+        [
+          1026,
+          618
+        ],
+        [
+          1026,
+          729
+        ],
+        [
+          892,
+          729
+        ]
+      ],
+      "redMin": 100,
+      "redOverGreen": 25,
+      "redOverBlue": 50
+    },
+    {
+      "polygon": [
+        [
+          934,
+          318
+        ],
+        [
+          943,
+          318
+        ],
+        [
+          943,
+          331
+        ],
+        [
+          934,
+          331
+        ]
+      ],
+      "redMin": 165,
+      "redOverGreen": 0,
+      "redOverBlue": 0
+    }
+  ]
+}

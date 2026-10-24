@@ -1,0 +1,86 @@
+{
+  "purpose": "local alpha sky/leaf/cloud noise cleanup only; original RGB read only",
+  "input": "umiri-planning-apricot-mask-raw-v1.png",
+  "inputSha256": "ee2e8eca14ab64acbfacd243c51884206f830830aab528b2c8c01f17f397f9b2",
+  "reference": "umiri-planning-apricot-mother-candidate-v2.png",
+  "referenceSha256": "78ca56bc6b2fff62341a26018251a84a62185ea6d614af14b2903ff323976f23",
+  "regionXYXY": [
+    772,
+    288,
+    910,
+    426
+  ],
+  "protectedOriginalHeadInterior": [
+    [
+      804,
+      323
+    ],
+    [
+      823,
+      303
+    ],
+    [
+      847,
+      300
+    ],
+    [
+      874,
+      314
+    ],
+    [
+      890,
+      336
+    ],
+    [
+      893,
+      360
+    ],
+    [
+      881,
+      386
+    ],
+    [
+      866,
+      399
+    ],
+    [
+      840,
+      404
+    ],
+    [
+      816,
+      400
+    ],
+    [
+      801,
+      385
+    ],
+    [
+      795,
+      358
+    ]
+  ],
+  "rule": "Begin raw luminance, preserve previous v2 local head/cloud rules. In chairFabricRegion clear source pixels with R>100, R-G<63 and R-B>25; in chairLegRegion clear alpha left of actual calf. Targeted source pixel inspection found chair fabric R-G43..60 versus actual calf about64..77; no whole-body classification. Original RGB read only.",
+  "changedAlphaPixels": 2550,
+  "output": "umiri-planning-apricot-mask-local-color-v3.png",
+  "outputSha256": "0ca3fcb2abdbda2d26aa4fed1bb9b0fa4ef87f47dfce998f2414af8ad393517d",
+  "neutralCloudRegionXYXY": [
+    772,
+    288,
+    910,
+    397
+  ],
+  "chairFabricRegionXYXY": [
+    935,
+    596,
+    958,
+    618
+  ],
+  "chairLegRegionXYXY": [
+    935,
+    618,
+    954,
+    638
+  ],
+  "reason": "Removes remaining curved chair-fabric/wood sliver without the rejected hard polygon that nicked the calf; neutral cloud cleanup remains above neck."
+}

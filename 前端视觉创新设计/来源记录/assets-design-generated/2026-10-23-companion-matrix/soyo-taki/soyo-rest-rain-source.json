@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "rest",
+  "palette": "rain",
+  "light": "night",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-f097bfbb-1f3c-4123-8339-cf6f4c70129a",
+  "prompt": "soyo-rest-rain-prompt.txt",
+  "promptSha256": "066a69d8efc9532aefe20346b6412cb23b6e3ca393dc2fdfe50d3b2d74d0fe51",
+  "inputs": [
+    {
+      "file": "soyo-rest-apricot-mother-candidate-v1.png",
+      "sha256": "c1be74d29d85a6ac0a2976acdcb3632fe625d46fef9535ca6ed6f33eabeb6e61",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-f097bfbb-1f3c-4123-8339-cf6f4c70129a.png",
+  "output": {
+    "file": "soyo-rest-rain-mother-candidate-v1.png",
+    "sha256": "6fcdaffc6e614022dc8dfeeced933a313821d0f673904776bca2d7c57d083c80",
+    "bytes": 1987774,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the approved warm mother and target empty theme plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Actual whole-body back/side posture toward the lake, relaxed original hand/hip bench contacts and two complete floor loafers retained. Coherent whole-room theme light; Violet sun/lake axis is near1007/1003, Rain rear-left corner remains quiet. Primary/layer/runtime review remains separate."
+}

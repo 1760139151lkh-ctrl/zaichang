@@ -1,0 +1,168 @@
+{
+  "mother": "sakiko-planning-apricot.png",
+  "motherSha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11",
+  "matte": "sakiko-planning-apricot-figure-calibrated-v3.png",
+  "alphaSource": "alpha",
+  "alphaLow": 0,
+  "alphaHigh": 255,
+  "excludePolygons": [
+    [
+      [
+        838,
+        505
+      ],
+      [
+        844,
+        505
+      ],
+      [
+        846,
+        510
+      ],
+      [
+        847,
+        515
+      ],
+      [
+        849,
+        522
+      ],
+      [
+        851,
+        528
+      ],
+      [
+        853,
+        535
+      ],
+      [
+        838,
+        535
+      ]
+    ],
+    [
+      [
+        1062,
+        464
+      ],
+      [
+        1068,
+        464
+      ],
+      [
+        1068,
+        474
+      ],
+      [
+        1058,
+        474
+      ],
+      [
+        1059,
+        470
+      ]
+    ]
+  ],
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1010,
+        457,
+        1066,
+        467
+      ],
+      "polygon": [
+        [
+          1010,
+          467
+        ],
+        [
+          1015,
+          465.5
+        ],
+        [
+          1017.5,
+          462
+        ],
+        [
+          1021,
+          462
+        ],
+        [
+          1030,
+          463
+        ],
+        [
+          1040,
+          464
+        ],
+        [
+          1051,
+          464.5
+        ],
+        [
+          1062,
+          465
+        ],
+        [
+          1062,
+          467
+        ],
+        [
+          1010,
+          467
+        ]
+      ],
+      "featherPixels": 0.1,
+      "mode": "intersect"
+    },
+    {
+      "region": [
+        815,
+        488,
+        836,
+        498
+      ],
+      "polygon": [
+        [
+          834,
+          488
+        ],
+        [
+          836,
+          488
+        ],
+        [
+          836,
+          498
+        ],
+        [
+          834,
+          496
+        ],
+        [
+          833,
+          494
+        ],
+        [
+          832.5,
+          492
+        ],
+        [
+          834,
+          490
+        ]
+      ],
+      "featherPixels": 0.1,
+      "mode": "intersect"
+    }
+  ],
+  "figure": "sakiko-planning-apricot-figure-calibrated-v5.png",
+  "mask": "sakiko-planning-apricot-mask-calibrated-v5.png",
+  "backgroundCandidate": "sakiko-planning-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 3,
+  "backgroundFeatherPixels": 1,
+  "background": "sakiko-planning-apricot-background-calibrated-v5.png",
+  "record": "sakiko-planning-apricot-layer-processing-v5.json",
+  "reviewNote": "v4 rejected: replacing the book-top ROI could select new exterior pixels. v5 intersects the original v3 alpha with the directly observed book upper edge and chair/hair junction only. Explicit original-coordinate exclusions remove the cream chair strip below the left hair and the yellow leaf just outside the right book edge. No foreground pixel is added. No broad hair color selection, RGB/body repaint, rescale or warp. Fixed tabletop contact remains travel0. Primary approval and runtime admission remain pending."
+}

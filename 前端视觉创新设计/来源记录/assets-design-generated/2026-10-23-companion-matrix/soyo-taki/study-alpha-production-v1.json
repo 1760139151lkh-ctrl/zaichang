@@ -1,0 +1,47 @@
+{
+  "recordType": "deterministic-original-coordinate-alpha-production",
+  "processor": "produce-study-alpha.py",
+  "processorSha256": "6b977e2d58230f3e60e3a0cd2283fa5443954b49c7bf65f7952eb10680587d80",
+  "parameters": "study-alpha-parameters-v1.json",
+  "parametersSha256": "c6f37a46023937252573198a3ae0ef91396c8af99709769ed6820e70a32d1edb",
+  "OpenCV": "4.13.0",
+  "method": "Original-coordinate matching-background difference trimap and local GrabCut; changes alpha only, never body RGB or geometry.",
+  "outputs": [
+    {
+      "character": "soyo",
+      "mother": "soyo-study-apricot-mother-candidate-v1.png",
+      "motherSha256": "cf664fa1fc6dcdd8fd9c8dc1cd542d4142bbe05d5d9809a101e6d58907858411",
+      "background": "soyo-study-apricot-background-generated-v1.png",
+      "backgroundSha256": "4ec1b22b4f174c1a5593f4df54f06c5171f1c1faa4b662e102b65732b943a466",
+      "alpha": "soyo-study-apricot-alpha-difference-v1.png",
+      "alphaSha256": "d16bfadbdd68c046174e63d47fbd8a223029e653aa960f6d05a0ec54d92b5284",
+      "alphaBounds": [
+        808,
+        333,
+        1028,
+        702
+      ],
+      "primaryLayerReview": "pending",
+      "runtimeAccepted": false
+    },
+    {
+      "character": "taki",
+      "mother": "taki-study-apricot-mother-candidate-v1.png",
+      "motherSha256": "49515d600d10286f1af4f808fbf285f4e2abfd1cabd05d6b319f3fdcbd6d0166",
+      "background": "taki-study-apricot-background-generated-v1.png",
+      "backgroundSha256": "471e75502f33d4d94d6f6fc600e31a512faf7632a958c7da7f2388f1eeaf8632",
+      "alpha": "taki-study-apricot-alpha-difference-v1.png",
+      "alphaSha256": "bdec1cefef67d7e8f6e1a12129bfe26d6d0230636bd2eeaa26302cc7c626431f",
+      "alphaBounds": [
+        819,
+        343,
+        1056,
+        711
+      ],
+      "primaryLayerReview": "pending",
+      "runtimeAccepted": false
+    }
+  ],
+  "bodyRgbModified": false,
+  "geometryTransform": "identity"
+}

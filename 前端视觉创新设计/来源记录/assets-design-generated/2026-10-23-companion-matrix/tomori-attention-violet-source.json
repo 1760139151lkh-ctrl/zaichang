@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "attention",
+  "light": "violet",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-abad3017-0be7-40ad-8768-9d4c5658ae97",
+  "generatedAtUtc": "2026-10-24T13:05:46.826067+00:00",
+  "inputs": [
+    {
+      "file": "tomori-attention-apricot-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "06c582ace8f0cb0c6079ed89c6a1defd3bbb9e05525b7c3af11b4e364499e1f7"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "sourceIdentity": "Approved correct complete warm mother relit against approved clean lighting plate only; no rejected figure input.",
+  "prompt": "tomori-attention-violet-prompt.txt",
+  "promptSha256": "1e5d333a910a92d5c7a0dfc3f111162439a43c0132b0ef48b61808f44327e9d9",
+  "output": {
+    "file": "tomori-attention-violet-mother-candidate.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2188410,
+    "sha256": "9be717d3f961c99602c1105194ad4e426b55d3e70e767cfa2ccb18392acadf5e"
+  },
+  "review": {
+    "designerViewed": "complete original full scene",
+    "designerStatus": "candidate",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Complete output personally viewed. Original distinct supported posture, whole body scale, props and furniture appear retained. Full coherent violet illumination, sun visually at approved1007/302 and lake reflection nearx1003. Primary image/prompt review pending."
+}

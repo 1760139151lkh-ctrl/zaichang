@@ -1,0 +1,325 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "umiri-reading-apricot-layer-parameters-v2.json",
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "umiri-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "5543b970656b878a7f7114429e3d1325c4aa64ba036eb998912831cd87cfa974",
+  "matte": "umiri-reading-apricot-mask-local-color-v1.png",
+  "matteSha256": "0e96fe398e08fe25761cc9f038aa6de2233ef31b1ea43bed63b33b62fbbfcd06",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        1396,
+        562
+      ],
+      [
+        1445,
+        562
+      ],
+      [
+        1445,
+        581
+      ],
+      [
+        1436,
+        580
+      ],
+      [
+        1429,
+        578
+      ],
+      [
+        1424,
+        575
+      ],
+      [
+        1420,
+        572
+      ],
+      [
+        1414,
+        570
+      ],
+      [
+        1404,
+        568
+      ],
+      [
+        1396,
+        568
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 127891,
+  "alphaNonzeroPixels": 60157,
+  "alphaBounds": [
+    1091,
+    273,
+    1439,
+    774
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "f38319fc84dc440cabdbd53e4d6f5457fcf68a2a09791d1c216ad821e5f7c065",
+  "figureRgbSha256": "f38319fc84dc440cabdbd53e4d6f5457fcf68a2a09791d1c216ad821e5f7c065",
+  "background": {
+    "candidate": "umiri-reading-apricot-background-raw-v1.png",
+    "candidateSha256": "0db117a61daca5d93dcc4f2e802d2d6fe5d6cdf440e0a5fea08df1e6acff7a7d",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          1091,
+          748
+        ],
+        [
+          1157,
+          750
+        ],
+        [
+          1159,
+          761
+        ],
+        [
+          1093,
+          763
+        ]
+      ],
+      [
+        [
+          1168,
+          763
+        ],
+        [
+          1257,
+          762
+        ],
+        [
+          1258,
+          777
+        ],
+        [
+          1171,
+          779
+        ]
+      ],
+      [
+        [
+          1264,
+          578
+        ],
+        [
+          1359,
+          577
+        ],
+        [
+          1363,
+          588
+        ],
+        [
+          1261,
+          588
+        ]
+      ],
+      [
+        [
+          1380,
+          576
+        ],
+        [
+          1437,
+          577
+        ],
+        [
+          1437,
+          588
+        ],
+        [
+          1380,
+          586
+        ]
+      ]
+    ],
+    "changedPixels": 80381,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1095,
+          754
+        ],
+        [
+          1138,
+          756
+        ],
+        [
+          1138,
+          760
+        ],
+        [
+          1095,
+          759
+        ]
+      ],
+      [
+        [
+          1142,
+          747
+        ],
+        [
+          1158,
+          746
+        ],
+        [
+          1158,
+          754
+        ],
+        [
+          1142,
+          756
+        ]
+      ],
+      [
+        [
+          1172,
+          767
+        ],
+        [
+          1224,
+          772
+        ],
+        [
+          1224,
+          777
+        ],
+        [
+          1172,
+          772
+        ]
+      ],
+      [
+        [
+          1235,
+          759
+        ],
+        [
+          1256,
+          756
+        ],
+        [
+          1256,
+          767
+        ],
+        [
+          1235,
+          771
+        ]
+      ],
+      [
+        [
+          1254,
+          580
+        ],
+        [
+          1294,
+          582
+        ],
+        [
+          1301,
+          584
+        ],
+        [
+          1301,
+          586
+        ],
+        [
+          1253,
+          584
+        ]
+      ],
+      [
+        [
+          1304,
+          582
+        ],
+        [
+          1359,
+          579
+        ],
+        [
+          1361,
+          583
+        ],
+        [
+          1304,
+          587
+        ]
+      ],
+      [
+        [
+          1381,
+          579
+        ],
+        [
+          1414,
+          581
+        ],
+        [
+          1435,
+          582
+        ],
+        [
+          1437,
+          585
+        ],
+        [
+          1384,
+          584
+        ]
+      ]
+    ],
+    "featherPixels": 0.6,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "umiri-reading-apricot-figure-calibrated-v2.png",
+      "bytes": 2437687,
+      "sha256": "772505edbca04068946f3c0a7a22b845259bd1df51c6c921c316ccc0f1f8c3a0"
+    },
+    {
+      "file": "umiri-reading-apricot-mask-calibrated-v2.png",
+      "bytes": 34727,
+      "sha256": "cb9d63cf9a0975639ed5258ec200889755af62fdbed7f98f909a299b9e868700"
+    },
+    {
+      "file": "umiri-reading-apricot-background-calibrated-v2.png",
+      "bytes": 2092706,
+      "sha256": "f3b92ea654ccf0b7b6e32feeb1fd09698cfef2e5d205bdcd97017124dd2256f1"
+    },
+    {
+      "file": "umiri-reading-apricot-shadow-candidate-v2.png",
+      "bytes": 30444,
+      "sha256": "ba3c232256e6a03990462487fdbdd5f2cd2c76eb7e4f6d803e04d8e6262650ca"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

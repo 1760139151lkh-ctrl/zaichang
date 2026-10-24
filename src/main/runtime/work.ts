@@ -139,6 +139,15 @@ export class WorkService {
     this.policy.require(handle, 'work:write');
     const old = this.repo.work(handle, undefined, id)[0];
     if (!old) throw new HarnessError('work_missing', '事项不存在或不可读取。');
+    if (old.data.type === 'attention_focus' && changes.data) {
+      const boundary = old.data.sourceBoundary || old.data.sources;
+      if (changes.data.type !== 'attention_focus'
+        || changes.data.sourceBoundary !== undefined && canonical(changes.data.sourceBoundary) !== canonical(boundary)
+        || old.data.permissionEpoch !== undefined && changes.data.permissionEpoch !== old.data.permissionEpoch
+        || !Array.isArray(changes.data.sources) || !Array.isArray(boundary)
+        || changes.data.sources.some(source => !boundary.includes(source)))
+        throw new HarnessError('attention_boundary_changed', '这件托付的最初资料边界不能被改写，请沿原约定修改。');
+    }
     const priorNavigation = old.data.materialNavigationSources === undefined ? [] : materialNavigationProofSchema.array().parse(old.data.materialNavigationSources);
     const next = { ...old, ...changes, data: materialNavigationData({ ...(changes.data || old.data), recordedAt: old.data.recordedAt || this.repo.clock.now(), updatedAt: this.repo.clock.now() }, priorNavigation), revision: old.revision + 1 };
     this.repo.saveWork(handle, next, revision);

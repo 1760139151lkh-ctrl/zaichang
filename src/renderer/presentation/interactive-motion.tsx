@@ -17,6 +17,7 @@ export function InteractiveMotion({ props }: ComponentRenderProps<Record<string,
   const current = useRef(controls); current.current = controls;
   const element = useRef<HTMLDivElement | SVGGElement>(null);
   const tracks = useRef<readonly string[]>([]);
+  const visible = useRef(true);
   const run = useRef<{ generation: number; raf?: number; animation?: Animation }>({ generation: 0 });
   const previous = useRef({ when: props.when as unknown, action: controls.userAction.serial });
   const startedAction = useRef(0);
@@ -33,7 +34,10 @@ export function InteractiveMotion({ props }: ComponentRenderProps<Record<string,
   }, [controls.scopeKey]);
   useEffect(() => {
     const hidden = () => { if (document.hidden) cancel(); };
-    const observer = new IntersectionObserver(entries => { if (!entries.some(entry => entry.isIntersecting)) cancel(); });
+    const observer = new IntersectionObserver(entries => {
+      visible.current = entries.some(entry => entry.isIntersecting);
+      if (!visible.current) cancel();
+    });
     const work = element.current?.closest('.interactive-document') || element.current;
     if (work) observer.observe(work);
     window.addEventListener('blur', cancel); document.addEventListener('visibilitychange', hidden);
@@ -53,7 +57,8 @@ export function InteractiveMotion({ props }: ComponentRenderProps<Record<string,
     const userStarted = action.origin === 'button' || action.origin === 'control' || action.origin === 'choice';
     if (!action.serial || !userStarted || Object.is(old.when, props.when)) return;
     if (props.when === false && props.releaseBehavior === 'finish') return;
-    if (current.current.disabled || props.when === undefined || props.when === null || props.when === false) { cancel(); return; }
+    if (current.current.disabled || document.hidden || !document.hasFocus() || !visible.current
+      || props.when === undefined || props.when === null || props.when === false) { cancel(); return; }
     // A user-started finite stage can trigger another stage. Each node has
     // one start per real action, so its own writes cannot make an auto-loop.
     if (startedAction.current === action.serial) return;

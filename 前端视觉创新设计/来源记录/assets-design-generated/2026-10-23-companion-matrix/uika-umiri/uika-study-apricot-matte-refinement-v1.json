@@ -1,0 +1,19 @@
+{
+  "purpose": "local alpha cleanup only; no RGB/anatomy repaint",
+  "input": "uika-study-apricot-mask-raw-v1.png",
+  "inputSha256": "e7424fd235fe6ab2f2ec0bb815043fd56c5d15ea2cdef8d3742b94b84d634857",
+  "reference": "uika-study-apricot-mother-candidate-v1.png",
+  "referenceSha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0",
+  "regionXYXY": [
+    790,
+    329,
+    952,
+    455
+  ],
+  "reason": "Manually viewed hair crop shows raw segmentation blue-sky arcs and a few yellow leaf pixels outside the real warm blonde hair. Reject only those local background colors. Eye violet is retained because its green is much lower than red.",
+  "rule": "Within region and where raw luminance>0: set luminance=0 if (R<G) or (B>R+10 and G>R-5) or (G-B>65 and R-G<35); all other raw luminance bytes unchanged. Mother RGB is read only.",
+  "changedAlphaPixels": 1878,
+  "output": "uika-study-apricot-mask-local-color-v1.png",
+  "outputSha256": "6369842b3d5621fad4db1c1e5f715985656d8517b26e74bcfd50de1172a47ed2",
+  "transform": "identity"
+}

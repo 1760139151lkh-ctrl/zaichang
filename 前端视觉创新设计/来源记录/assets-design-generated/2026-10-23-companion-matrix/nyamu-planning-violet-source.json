@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-planning-violet-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "planning",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical relighting: Image 1 correct approved activity mother locks character/geometry; Image 2 approved empty violet plate fixes exact shared celestial/light axis only",
+  "prompt": "nyamu-planning-violet-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-planning-apricot-mother-candidate-v2.png",
+      "role": "Image 1: sole character source and edit target, correct primary-approved activity mother; pose/furniture/props locked",
+      "sha256": "2520ef07069e0ec07b4cc2de51181f072626ce9f8f06a83ddf401c7e4ac24c27"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "role": "Image 2: approved empty room, exact sun center/lake-column axis and whole-room dusk illumination only; not character or furniture replacement",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "nyamu-planning-violet-mother-candidate-v1.png",
+    "sha256": "2a79fa0899553f3c26550060c5313713858572aac6a527adc5b3799b382b2596",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-dbac84cb-3e96-40c6-ada6-f49653617d80.png"
+  },
+  "ownershipAndPose": "Keep exact upright half-turned chair posture, both low forearms/hands comparing the two actual desktop cards, eyes down to cards, original supported hips and floor-contact shoes. Both static cards belong to BACKGROUND. No pose change into writing or viewer performance.",
+  "designerObservation": "Full image personally viewed. Approved planning-v2 upright half-turn, low hands comparing two actual desktop cards and eyes down, original chair/hip and complete leg/shoe support retained. Cards remain background. Sun visually x≈1007,y≈302 with lake column at reference same x, whole room rose-gold/lavender dusk coherent with original lamp. Fixed youthful purple identity/gray-black outfit and original activity furniture unchanged.",
+  "observedGaps": [
+    "Primary review of each complete mother pending; no layer/runtime acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

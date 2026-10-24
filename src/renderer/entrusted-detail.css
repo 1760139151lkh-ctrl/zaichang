@@ -61,6 +61,26 @@
 .entrusted-materials .preparation-shelf { margin:0; }
 .entrusted-materials .preparation-body { font-size:13px; }
 .entrusted-other-materials { min-width:0; }
+.entrusted-agreement-edit { display:flex; justify-content:flex-end; }
+.entrusted-agreement-edit>.text-button { min-height:40px; }
+.entrusted-revision { border-block:1px solid var(--separator); padding:22px 0; }
+.work-receipts .entrusted-revision h3 { font-size:18px; font-weight:520; margin:0 0 22px; }
+.entrusted-revision fieldset { border:0; padding:0; margin:0 0 24px; min-width:0; }
+.entrusted-revision legend { padding:0; font-size:13px; color:var(--text-secondary); margin-bottom:8px; }
+.entrusted-source-choices { display:flex; flex-wrap:wrap; gap:6px 24px; }
+.entrusted-source-choices label,.entrusted-deadline-choice { display:flex; align-items:center; gap:10px; min-height:42px; font-size:14px; cursor:pointer; }
+.entrusted-revision input[type=checkbox],.entrusted-revision input[type=radio] { accent-color:var(--accent); width:18px; height:18px; flex:0 0 auto; margin:0; }
+.entrusted-source-choices small { display:block; color:var(--text-tertiary); font-size:11px; }
+.entrusted-deadline-input { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:3px 0 5px 28px; font-size:12px; color:var(--text-secondary); }
+.entrusted-deadline-input input { min-height:42px; padding:8px 10px; border:1px solid var(--separator); border-radius:var(--radius-control,12px); background:var(--surface); color:var(--text); max-width:100%; min-width:0; font:inherit; font-size:14px; }
+.entrusted-revision fieldset>p { font-size:12px; color:var(--text-secondary); line-height:1.8; }
+.entrusted-revision-comparison { display:flex; flex-wrap:wrap; gap:9px; padding-top:16px; border-top:1px solid var(--separator); font-size:13px; color:var(--text-secondary); }
+.entrusted-revision-comparison strong { font-weight:500; color:var(--accent); }
+.entrusted-revision-actions { display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; }
+.entrusted-revision-actions>button { min-height:42px; padding:10px 22px; justify-content:center; }
+.entrusted-revision-conflict { margin-top:18px; font-size:13px; line-height:1.9; color:var(--text-secondary); }
+.entrusted-revision-conflict>p { margin:0 0 6px; }
+.entrusted-revision :is(button,input):focus-visible { outline:2px solid var(--focus); outline-offset:3px; }
 
 @media(max-width:650px) { .entrusted-past>div { display:flex; gap:7px; overflow-x:auto; overflow-y:hidden; max-height:none; } .entrusted-past>div>.entrusted-choice { flex:0 0 min(280px,90%); } .entrusted-agreement dl>div { font-size:13px; } }
 

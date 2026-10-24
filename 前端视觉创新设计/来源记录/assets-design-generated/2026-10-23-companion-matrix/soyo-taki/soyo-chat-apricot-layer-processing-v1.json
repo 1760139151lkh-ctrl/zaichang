@@ -1,0 +1,60 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "soyo-chat-apricot-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "4d4ba6a4a9d6e08d040ef33c9678acb7bb039f6afe2fbce02261c4c818083816",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "soyo-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "e5860a2adf427032f84d15dcec6c59c8b6ffa7dff8ede6eadf9ec669f4e00b29",
+  "matte": "soyo-chat-apricot-mask-generated-v2.png",
+  "matteSha256": "ebd59f609048e10eb0deb5be390c682551dd241688161a9920224e73c138c667",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 112190,
+  "alphaNonzeroPixels": 55297,
+  "alphaBounds": [
+    1169,
+    276,
+    1395,
+    781
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "a859dc970f59368cfacdd8583cb12185ccf73da89d8c1b95c70c6de64d93a7ce",
+  "figureRgbSha256": "a859dc970f59368cfacdd8583cb12185ccf73da89d8c1b95c70c6de64d93a7ce",
+  "background": null,
+  "contactShadow": null,
+  "outputs": [
+    {
+      "file": "soyo-chat-apricot-figure-calibrated-v1.png",
+      "bytes": 2431910,
+      "sha256": "7c20affeaf60111dfafa62e80322aea67a63d24e25772d386e3e8b43bf0c699e"
+    },
+    {
+      "file": "soyo-chat-apricot-mask-calibrated-v1.png",
+      "bytes": 31243,
+      "sha256": "d968f6f85bb345e2a61c593ecb6e4907aa2582951b479f6795d3c64865c20de5"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "parameters": "taki-study-apricot-calibration-v2.json",
+  "figure": "taki-study-apricot-figure-calibrated-v2.png",
+  "figureSha256": "63da5791e8d2374bccad471cda0351ab45e57bfbb6f00a4c69a02477e766ab5e",
+  "mask": "taki-study-apricot-mask-calibrated-v2.png",
+  "maskSha256": "f57a435a3c91af33a73a6b0f0e40bbb2f402d932cb98730b428b5f3182e7db01",
+  "fullCanvas": [
+    1536,
+    1024
+  ],
+  "alphaBounds": [
+    819,
+    343,
+    1056,
+    711
+  ],
+  "alphaNonzero": 31824,
+  "rgbSource": "taki-study-apricot-mother-candidate-v1.png",
+  "registeredBackground": null,
+  "recordType": "deterministic-companion-layer-source",
+  "script": "listening-rest-layer-calibration.py",
+  "scriptSha256": "4bc4f4414d5a04a8864107b6f8da5d2e61ad0ff9ef897e2707c343da463b87e1",
+  "parametersSha256": "39158debfc1e446f8d6c6a1c69d6d7734d716c6cde6159e46ca21ec71a9e829a",
+  "motherSha256": "49515d600d10286f1af4f808fbf285f4e2abfd1cabd05d6b319f3fdcbd6d0166",
+  "rawMaskSha256": "bdec1cefef67d7e8f6e1a12129bfe26d6d0230636bd2eeaa26302cc7c626431f",
+  "identityTransform": [
+    1,
+    0,
+    0,
+    1,
+    0,
+    0
+  ],
+  "rgbByteSha256": "36233137a1e8480e0256d3edc3366fc1b8165254a0edcc7aa6aed1b8d87af069",
+  "figureRgbByteSha256": "36233137a1e8480e0256d3edc3366fc1b8165254a0edcc7aa6aed1b8d87af069",
+  "rgbChangedPixels": 0,
+  "alphaChangedPixelsFromRawLuminance": 11507,
+  "alphaFormat": "L",
+  "originalInputsUnmodified": true,
+  "review": {
+    "primaryLayer": "pending; producer cannot approve",
+    "runtime": "not registered or accepted"
+  }
+}

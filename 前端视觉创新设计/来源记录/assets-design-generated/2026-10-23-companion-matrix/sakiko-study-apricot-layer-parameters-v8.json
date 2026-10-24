@@ -1,0 +1,327 @@
+{
+  "mother": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+  "motherSha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1",
+  "matte": "sakiko-study-apricot-mask.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        936,
+        603
+      ],
+      [
+        957,
+        601
+      ],
+      [
+        967,
+        727
+      ],
+      [
+        947,
+        729
+      ]
+    ],
+    [
+      [
+        933,
+        613
+      ],
+      [
+        947,
+        611
+      ],
+      [
+        947,
+        628
+      ],
+      [
+        933,
+        628
+      ]
+    ],
+    [
+      [
+        755,
+        490
+      ],
+      [
+        776,
+        494
+      ],
+      [
+        815,
+        495
+      ],
+      [
+        832,
+        497
+      ],
+      [
+        840,
+        502
+      ],
+      [
+        848,
+        513
+      ],
+      [
+        853,
+        536
+      ],
+      [
+        860,
+        559
+      ],
+      [
+        866,
+        582
+      ],
+      [
+        873,
+        603
+      ],
+      [
+        883,
+        611
+      ],
+      [
+        870,
+        619
+      ],
+      [
+        790,
+        612
+      ],
+      [
+        772,
+        602
+      ],
+      [
+        760,
+        575
+      ],
+      [
+        755,
+        525
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          750,
+          480
+        ],
+        [
+          850,
+          480
+        ],
+        [
+          890,
+          625
+        ],
+        [
+          750,
+          625
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    },
+    {
+      "polygon": [
+        [
+          855,
+          585
+        ],
+        [
+          960,
+          585
+        ],
+        [
+          958,
+          615
+        ],
+        [
+          855,
+          615
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    },
+    {
+      "polygon": [
+        [
+          850,
+          609
+        ],
+        [
+          951,
+          601
+        ],
+        [
+          956,
+          614
+        ],
+        [
+          850,
+          635
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    },
+    {
+      "polygon": [
+        [
+          895,
+          620
+        ],
+        [
+          940,
+          620
+        ],
+        [
+          940,
+          684
+        ],
+        [
+          895,
+          684
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    }
+  ],
+  "figure": "../../../运行素材/companion/scenes/sakiko-study-apricot-figure-calibrated-v8.png",
+  "mask": "../../../运行素材/companion/scenes/sakiko-study-apricot-mask-calibrated-v8.png",
+  "backgroundCandidate": "sakiko-study-apricot-background.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        900,
+        682
+      ],
+      [
+        1068,
+        681
+      ],
+      [
+        1090,
+        754
+      ],
+      [
+        892,
+        754
+      ]
+    ]
+  ],
+  "background": "../../../运行素材/companion/scenes/sakiko-study-apricot-background-calibrated-v8.png",
+  "record": "sakiko-study-apricot-layer-processing-v8.json",
+  "reviewNote": "Same source RGB, same soft figure matte except explicit physical chair-back exclusion removes pale chair-rim specks. Original chair naturally occludes lower hair, torso, and left shin; hidden anatomy is not repainted. Fixed travel0. Source residual normal-RGBA contacts remain.",
+  "contactShadowPolygons": [
+    [
+      [
+        910,
+        708
+      ],
+      [
+        937,
+        706
+      ],
+      [
+        981,
+        708
+      ],
+      [
+        985,
+        719
+      ],
+      [
+        950,
+        723
+      ],
+      [
+        910,
+        718
+      ]
+    ],
+    [
+      [
+        988,
+        713
+      ],
+      [
+        1015,
+        711
+      ],
+      [
+        1060,
+        714
+      ],
+      [
+        1065,
+        727
+      ],
+      [
+        1024,
+        730
+      ],
+      [
+        988,
+        722
+      ]
+    ],
+    [
+      [
+        864,
+        590
+      ],
+      [
+        965,
+        590
+      ],
+      [
+        964,
+        606
+      ],
+      [
+        865,
+        608
+      ]
+    ],
+    [
+      [
+        969,
+        482
+      ],
+      [
+        994,
+        481
+      ],
+      [
+        1000,
+        492
+      ],
+      [
+        970,
+        494
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "shadow": "../../../运行素材/companion/scenes/sakiko-study-apricot-shadow-calibrated-v8.png"
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-reading-rain-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "reading",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-scene physical relighting of this exact primary-approved warm activity mother; no other character inputs",
+  "prompt": "nyamu-reading-rain-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-reading-apricot-mother-candidate-v1.png",
+      "role": "sole image edit target; primary-approved correct complete activity mother",
+      "sha256": "679651a0af996b08b6be27a01aff2dd5d4ce21f7ee03cd41db8f0231329e903b"
+    }
+  ],
+  "output": {
+    "file": "nyamu-reading-rain-mother-candidate-v1.png",
+    "sha256": "0064c50330298950657b27563de65b7896ae17e03643c0a1ea6f4eba090d66f1",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-30e31b0d-b34a-4a2d-8be2-0c59160f601a.png"
+  },
+  "ownershipAndPose": "Keep the exact three-quarter outward chair posture, upper back supported by original chair back, elbows gathered to a low held lap book, gaze down into her own page. Keep all original legs/shoes and original chair swivel/footprint. Held book belongs with CHARACTER.",
+  "designerObservation": "Full image personally viewed. Original leaned-back lap-book reading silhouette, chair-back/hip support, gathered hands and book, complete floor-contact shoes and furniture positions retained. Cool rainy glass/lake/city night and actual desk-lamp warm falloff reach book/near face/legs; left wall/pillar lack daytime tree-leaf projections. Local vase shadow is immediate to actual flowers. Floor reflections softened to night pool, no sun rectangles. Youthful lavender/red-purple identity and gray/black intrinsic outfit preserved.",
+  "observedGaps": [
+    "Primary mother review pending; no layers/calibration/Stage acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

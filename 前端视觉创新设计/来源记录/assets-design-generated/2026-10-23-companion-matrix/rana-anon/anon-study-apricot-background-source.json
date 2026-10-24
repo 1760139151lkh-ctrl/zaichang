@@ -1,0 +1,30 @@
+{
+  "createdOn": "2026-10-24",
+  "tool": "built-in image_gen.imagegen",
+  "useCase": "precise-object-edit",
+  "character": "anon",
+  "activity": "study",
+  "theme": "apricot",
+  "assetKind": "background",
+  "inputs": [
+    {
+      "file": "anon-study-apricot-mother-candidate-v1.png",
+      "sha256": "2e9a7c010f52939149c5a93b43eb3f1ab996f9ed25bbcbaa3a7522038b1f9fbe",
+      "role": "sole input; primary-approved correct complete mother, primary-other-mother-reviews.json"
+    }
+  ],
+  "file": "anon-study-apricot-background-generated-v1.png",
+  "sha256": "a3f3f4bf553764e833caa9f61a8fc4e2f30f7ef305511dc793ddfc415553c088",
+  "prompt": "anon-study-apricot-background-prompt.txt",
+  "promptSha256": "4d00e7181fb9f95e1dbd4d67ffed9d881db5f8275a857f4a95faca85d85ef4d2",
+  "promptEncoding": "UTF-8; exact submitted string, no added final newline",
+  "originalGeneratedFile": "exec-508ebbd0-0e63-4274-ab61-451adeab6137.png",
+  "designerPersonallyViewed": true,
+  "designerStatus": "candidate-for-original-rgb-layer-calibration",
+  "designerObservation": "Complete generated empty room; some texture changes outside removed person. Only local revealed-body region may be used with unoccluded original mother retained.",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  }
+}

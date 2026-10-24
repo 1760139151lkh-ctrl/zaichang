@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-theme-mother-candidate",
+  "character": "umiri",
+  "activity": "planning",
+  "theme": "violet",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "executionId": "exec-0b71452f-7044-462e-ad2e-d8edbb2910e9",
+  "inputs": [
+    {
+      "path": "umiri-planning-apricot-mother-candidate-v2.png",
+      "sha256": "78ca56bc6b2fff62341a26018251a84a62185ea6d614af14b2903ff323976f23",
+      "role": "image 1 sole approved activity edit target and all person/furniture geometry authority"
+    },
+    {
+      "path": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "image 2 only dusk lighting/sky with sun (1007,302) and x1007 lake reflection, never furniture geometry"
+    }
+  ],
+  "promptFile": "umiri-planning-violet-v2-prompt.txt",
+  "actualPrompt": "SOLE TARGET FILE: umiri-planning-apricot-mother-candidate-v2.png. Activity: planning. Theme: violet.\nUse case: lighting-weather. Asset ID: umiri-planning-violet-v2. One complete 1536 x 1024 coherent dusk mother scene.\n\nTWO INPUTS WITH STRICTLY DIFFERENT ROLES:\nIMAGE 1 is the ONLY EDIT TARGET: the primary-approved complete Umiri planning apricot v2 mother. It is the sole authority for ALL geometry and character pixels: camera/framing, full window, room/furniture positions, the exact existing chair orientation, every character proportion/face/expression/pose/hand/finger/leg/boot and their scale/location.\nIMAGE 2 is ONLY the primary-approved EMPTY ROOM VIOLET LIGHTING/WEATHER REFERENCE. Use it solely for the exact sun-disc center, its lake-reflection axis, sky illumination and coherent dusk lighting. Do NOT import its empty chair position/orientation, furniture geometry or absence of a person. Do not replace image 1 with image 2 or paste a person onto a background.\n\nGEOMETRY LOCK TO IMAGE 1: keep the same complete 1536 x 1024 canvas, mild perspective, all four connected window corners, curtains, existing lake/campus/clocktower landmarks, rear-left table/chair/shelves/plant/framed drawing, right desk/lamp/cup/book, original outward-turned character chair with every visible chair leg, bench/pillows/knitted throw, floorboards and rug. IDENTITY AND ACTIVITY LOCK: this is Yahata Umiri (八幡海鈴), the same youthful charcoal-gray shoulder-length flipped-tip hair, gray-teal eyes, short black jacket, dark-red top, gray short skirt, choker/earrings and black platform boots already painted in the input. Keep her ORIGINAL approved PLANNING v2 upright desk-chair half-turn toward the user, open shoulders and original calm upward gaze. One hand touches the near possibility sheet and the other opens between the two small flat sheets on the original desk. Keep the exact source lamp/cup/desk/chair geometry, uncrossed knees and both grounded boots. Do not hunch into study or drift the lamp/desk rightward. Preserve all original contact/occlusion relationships. No crop, zoom, enlargement, separate person scaling, pose change, body/face redesign or new furniture/object/person.\n\nLOCK THE ONE SUN AND REFLECTION TO IMAGE 2, NOT TO ANOTHER CANDIDATE: the physical sun-disc center is approximately (1007,302) on the full 1536 x 1024 canvas. Match that same reference position and scale, with the single vertical bright reflection column directly BELOW on the lake at approximately x=1007. The existing clocktower stays around x=1218, so the sun and its reflection are clearly LEFT of the clocktower. Do not put the sun at x1080, x1200 or near the right window edge. Do not add a second sun or independent second reflection column. Match the reference's continuous rose-gold horizon, violet/lilac cloud shadows, and distant dusk landscape across the WHOLE connected window. Keep image 1 landmark geometry unchanged.\n\nRelight the WHOLE image 1 room AND Umiri using the same reference-locked rose-gold low window light and quiet violet shadows. Preserve material colors: ivory plaster, honey wood, neutral linen, black leather/red top/gray skirt and natural readable skin. Warm hair/skin/window edges agree with this sun axis; no purple skin, green cast, gray desaturation or flat full-image orange/purple filter. The existing desk lamp in image 1 turns ON at its exact original location/shape, with only its modest physically local warm light pool. It and the one reference-position sunset are the only depicted sources: no new lamp, left-rear spotlight, unexplained light cone or black/white overlay.\n\nMaintain image 1's lived-in left depth and clear central floor; preserve fine original youthful anime linework and softly detailed environment. No text, UI, logos, watermark, split-screen, panel, arrows, inset, borders, cloud/sky collage or duplicate view. Return the full same-person, same-pose, same-furniture scene with the approved reference's exact sun/reflection axis.\n",
+  "actualPromptSha256": "e23dc13c458143b0c80fb3764746b02f5eab26c6dc8728389c7d1b73ad559897",
+  "promptFileSha256": "e707ca2a691afc9841c38b9dafc4d091ab37dfa65b771ad5379aed45dc40bcc9",
+  "output": {
+    "path": "umiri-planning-violet-mother-candidate-v2.png",
+    "sha256": "0d100f7fa5609443bc2cabfaa32074818f2851562a51f7830ba0ea280d541f54",
+    "bytes": 2181778,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-24T03:42:10.453489+00:00"
+  },
+  "designerReview": {
+    "status": "viewed-candidate",
+    "personallyViewed": true,
+    "sunCenterApprox": [
+      1007,
+      302
+    ],
+    "lakeReflectionAxisApproxX": 1007,
+    "observation": "Full result viewed: sun/lake column now match approved x1007 reference instead of old right-window sun. Approved planning v2 upright half-turn, two papers/hand gestures, source chair/desk/lamp/cup and boots preserved. Warm lamp and whole dusk room/person consistent; no furniture drift or purple skin.",
+    "independentLightAxisReview": {
+      "status": "retained-candidate-not-regenerated",
+      "personallyViewed": true,
+      "sunBrightCentroid": [
+        1006.76,
+        301.13
+      ],
+      "reflectionBrightAxisX": 1003.61,
+      "observation": "Full figure, original activity support, complete shoes/props, furniture and single connected dusk window remain coherent. Sun and lake column remain close to the approved plate axis, with no tens-of-pixels displacement; retain existing v2 artwork and actual call records.",
+      "primaryApproval": false
+    }
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "layersAccepted": false,
+  "runtimeAccepted": false
+}

@@ -1,0 +1,276 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "sakiko-planning-apricot-layer-parameters-v6.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "acd958962a3fbec03faf3be03b5bbe2286df8198fde14ad5a59573780f21b19c",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "sakiko-planning-apricot.png",
+  "motherSha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11",
+  "matte": "sakiko-planning-apricot-figure-calibrated-v5.png",
+  "matteSha256": "b1d550b9916b485bcd65aae3465ec145b20de951f52ea63998e014dc1f537d85",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "alpha",
+  "alphaLow": 0,
+  "alphaHigh": 255,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 0,
+  "alphaNonzeroPixels": 48252,
+  "alphaBounds": [
+    822,
+    305,
+    1096,
+    762
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "e3c2073b9f2ff74880477d56692093aa22703289308fe7f5cdb3c504d5d96a72",
+  "figureRgbSha256": "e3c2073b9f2ff74880477d56692093aa22703289308fe7f5cdb3c504d5d96a72",
+  "background": {
+    "candidate": "sakiko-planning-apricot-background-generated-v1.png",
+    "candidateSha256": "f2f1183f61fcbfa8b20121e6aa7e9d1d3b21562d2d309cb70f825c444d35db39",
+    "expandPixels": 3,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          943,
+          513
+        ],
+        [
+          1118,
+          513
+        ],
+        [
+          1120,
+          553
+        ],
+        [
+          965,
+          551
+        ],
+        [
+          942,
+          537
+        ]
+      ],
+      [
+        [
+          1009,
+          543
+        ],
+        [
+          1119,
+          543
+        ],
+        [
+          1126,
+          655
+        ],
+        [
+          1020,
+          658
+        ],
+        [
+          1010,
+          620
+        ]
+      ],
+      [
+        [
+          949,
+          716
+        ],
+        [
+          1046,
+          717
+        ],
+        [
+          1100,
+          728
+        ],
+        [
+          1113,
+          766
+        ],
+        [
+          1083,
+          781
+        ],
+        [
+          1007,
+          783
+        ],
+        [
+          945,
+          755
+        ]
+      ]
+    ],
+    "changedPixels": 80665,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          964,
+          744
+        ],
+        [
+          1000,
+          749
+        ],
+        [
+          1036,
+          753
+        ],
+        [
+          1038,
+          767
+        ],
+        [
+          1001,
+          769
+        ],
+        [
+          961,
+          757
+        ]
+      ],
+      [
+        [
+          1020,
+          727
+        ],
+        [
+          1059,
+          734
+        ],
+        [
+          1095,
+          736
+        ],
+        [
+          1097,
+          750
+        ],
+        [
+          1061,
+          755
+        ],
+        [
+          1019,
+          743
+        ]
+      ],
+      [
+        [
+          862,
+          588
+        ],
+        [
+          897,
+          588
+        ],
+        [
+          930,
+          594
+        ],
+        [
+          969,
+          588
+        ],
+        [
+          972,
+          608
+        ],
+        [
+          931,
+          614
+        ],
+        [
+          884,
+          607
+        ],
+        [
+          862,
+          600
+        ]
+      ],
+      [
+        [
+          968,
+          492
+        ],
+        [
+          1003,
+          491
+        ],
+        [
+          1035,
+          494
+        ],
+        [
+          1064,
+          496
+        ],
+        [
+          1065,
+          508
+        ],
+        [
+          1004,
+          511
+        ],
+        [
+          967,
+          504
+        ]
+      ]
+    ],
+    "featherPixels": 0.8,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "sakiko-planning-apricot-figure-calibrated-v6.png",
+      "bytes": 2407569,
+      "sha256": "b1d550b9916b485bcd65aae3465ec145b20de951f52ea63998e014dc1f537d85"
+    },
+    {
+      "file": "sakiko-planning-apricot-mask-calibrated-v6.png",
+      "bytes": 31480,
+      "sha256": "362f63b0088a1cd34827f02e03634c7b69ad75165536e56e2ff9c7e7b530e8fc"
+    },
+    {
+      "file": "sakiko-planning-apricot-background-calibrated-v6.png",
+      "bytes": 2060577,
+      "sha256": "fddcc81c23ce44d9ded09bcbd6f25c9242c4e22726de22a8876695ca1c9e2569"
+    },
+    {
+      "file": "sakiko-planning-apricot-shadow-calibrated-v6.png",
+      "bytes": 35680,
+      "sha256": "e72370d1c7ca97fea9154c69636e8f961e7478500963b3b2d58126418f54086d"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

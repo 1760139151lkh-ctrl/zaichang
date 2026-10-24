@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "mutsumi",
+  "activity": "reading",
+  "palette": "apricot",
+  "kind": "background",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-reading-apricot-background-extraction-v1-prompt.txt",
+  "promptSha256": "469f6831a360759bfe7f1363b6b241eab032ef5da1eef362d8bf685a7dbe6875",
+  "inputs": [
+    {
+      "file": "mutsumi-reading-apricot-mother-candidate-v2.png",
+      "sha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+      "role": "sole approved complete warm mother edit target"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-reading-apricot-background-candidate-v1.png",
+    "sha256": "d8ab8545fd9502694d9d37309ceb9ff5778f882d5d3b689c9a00e90ca9a88935",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-326bb676-1f58-4607-9a20-d0b8e2f177df.png"
+  },
+  "designerObservation": "Full generated clean-room output viewed. Reading person and body-held lap book removed, existing blue plaid/floral support pillows and original furniture/camera preserved optically. Candidate requires local original-room registration.",
+  "designerStatus": "candidate for original-room registration",
+  "primaryReview": "pending; producer cannot approve",
+  "runtime": "not registered or verified"
+}

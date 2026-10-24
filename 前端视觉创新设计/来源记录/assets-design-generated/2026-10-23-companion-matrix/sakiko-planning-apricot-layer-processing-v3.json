@@ -1,0 +1,131 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "sakiko-planning-apricot-layer-parameters-v3.json",
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "sakiko-planning-apricot.png",
+  "motherSha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11",
+  "matte": "sakiko-planning-apricot-mask-generated-v1.png",
+  "matteSha256": "11c90cbc8a7123d527a1f2383c1cc86a55114438e9d4355af95d39d2f02709a4",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          838,
+          518
+        ],
+        [
+          868,
+          518
+        ],
+        [
+          868,
+          536
+        ],
+        [
+          838,
+          536
+        ]
+      ],
+      "redMin": 100,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    },
+    {
+      "polygon": [
+        [
+          860,
+          585
+        ],
+        [
+          956,
+          585
+        ],
+        [
+          956,
+          613
+        ],
+        [
+          860,
+          613
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    },
+    {
+      "polygon": [
+        [
+          946,
+          510
+        ],
+        [
+          978,
+          510
+        ],
+        [
+          979,
+          538
+        ],
+        [
+          953,
+          533
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    }
+  ],
+  "alphaChangedPixels": 122292,
+  "alphaNonzeroPixels": 48532,
+  "alphaBounds": [
+    820,
+    305,
+    1096,
+    762
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "e3c2073b9f2ff74880477d56692093aa22703289308fe7f5cdb3c504d5d96a72",
+  "figureRgbSha256": "e3c2073b9f2ff74880477d56692093aa22703289308fe7f5cdb3c504d5d96a72",
+  "background": {
+    "candidate": "sakiko-planning-apricot-background-generated-v1.png",
+    "candidateSha256": "f2f1183f61fcbfa8b20121e6aa7e9d1d3b21562d2d309cb70f825c444d35db39",
+    "expandPixels": 3,
+    "featherPixels": 1,
+    "changedPixels": 60294,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "outputs": [
+    {
+      "file": "sakiko-planning-apricot-figure-calibrated-v3.png",
+      "bytes": 2407722,
+      "sha256": "ce170d9be259d60c29d499366b4a3124fa413ba800b6fc32f0c609cd41018d0e"
+    },
+    {
+      "file": "sakiko-planning-apricot-mask-calibrated-v3.png",
+      "bytes": 31848,
+      "sha256": "0e1ecf30754fa06da2210f800a5490339025e3a0bae1a4cfe95a790f0f961e32"
+    },
+    {
+      "file": "sakiko-planning-apricot-background-calibrated-v3.png",
+      "bytes": 2062771,
+      "sha256": "b05c47b721cd830c595b94510797676097273ec44a1706e18f74f988eef086cb"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

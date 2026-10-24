@@ -3,7 +3,7 @@ import { existsSync, readFileSync, statSync, mkdtempSync, writeFileSync, unlinkS
 import { homedir, tmpdir } from 'node:os';
 import path from 'node:path';
 import type { Store } from './store';
-import { examCourseRecordsPointer, normalizedRoots, validateCampusQuery, type CampusQuery } from './capabilities/campus-query';
+import { campusCourseLookupFilters, campusCourseQueryForSemester, examCourseRecordsPointer, majorGpaFields, majorGpaPointer, majorGpaReadFields, normalizedRoots, validateCampusQuery, type CampusQuery } from './capabilities/campus-query';
 import { campusSourceEndpoint, CampusSnapshotProofs, type CampusSnapshotProof } from './capabilities/campus-saved-source';
 import { campusSnapshotStructureProgram } from './capabilities/campus-snapshot-structure';
 import { HarnessError } from '../shared/harness';
@@ -41,6 +41,7 @@ export type CampusRefreshScope = 'academic' | 'domain';
 
 export interface CampusReadArgs {
   domain: CampusDomain;
+  query?: string;
   courseId?: string;
   academicYear?: string;
   term?: '1' | '2';
@@ -125,10 +126,11 @@ const SUMMARY_FIELDS: Partial<Record<CampusDomain, string[]>> = {
   learning_courses: ['id', 'name', 'course_code', 'credit', 'semester_id', 'start_date', 'end_date', 'study_completeness'],
   exams: ['id', 'name', 'type', 'startTime', 'endTime', 'dateLabel', 'location', 'seat', 'time_precision'],
   assignments: ['id', 'name', 'course', 'deadline', 'status'],
-  grades: ['id', 'name', 'semester_id', 'credit', 'original', 'fivePoint', 'gpaIncluded', 'gpa_exclusion_reason'],
-  gpa_semesters: ['semester_id', 'gpa', 'gpa_credit_denominator', 'eligible_attempts', 'counted_attempts', 'excluded_attempts', 'complete'],
-  gpa_cumulative: ['through_semester', 'gpa', 'gpa_credit_denominator', 'eligible_attempts', 'counted_attempts', 'complete'],
-  retakes: ['course_key', 'course_code', 'name', 'attempts', 'selected', 'selection_policy'],
+  grades: ['id', 'name', 'course_code', 'repeat_group', 'semester_id', 'credit', 'original', 'fivePoint', 'fourPoint', 'fourPointLegacy', 'hundredPoint', 'hundredPoint_kind', 'major', 'gpaIncluded', 'gpa_exclusion_reason', 'creditIncluded', 'earnedCredit', 'earnedCredit_repository', 'quality_issues'],
+  gpa: ['policy', 'gpa', 'gpa_credit_denominator', 'eligible_attempts', 'counted_attempts', 'excluded_attempts', 'incomplete_attempts', 'source_complete', 'complete', 'formula', 'earned_credits_sum_attempts', 'zero_credit_attempts'],
+  gpa_semesters: ['semester_id', 'gpa', 'gpa_credit_denominator', 'eligible_attempts', 'counted_attempts', 'excluded_attempts', 'incomplete_attempts', 'source_complete', 'complete', 'formula', 'earned_credits_sum_attempts', 'zero_credit_attempts'],
+  gpa_cumulative: ['through_semester', 'gpa', 'gpa_credit_denominator', 'eligible_attempts', 'counted_attempts', 'incomplete_attempts', 'source_complete', 'complete', 'formula', 'earned_credits_sum_attempts', 'zero_credit_attempts'],
+  retakes: ['course_group', 'attempt_ids', 'first_attempt_id', 'highest_attempt_id', 'chronology_quality'],
   projects: ['id', 'projectName', 'categoryName', 'score', 'statusLabel', 'approved', 'countsTowardTotal', 'activityStart', 'activityEnd'],
   activities: ['activity_id', 'course_id', 'name', 'type', 'starts_at', 'deadline', 'scores', 'completion'],
   reservations: ['nameMerge', 'startTime', 'endTime', 'statusName', 'record_semantics'],
@@ -141,8 +143,16 @@ const SUMMARY_FIELDS: Partial<Record<CampusDomain, string[]>> = {
   cancelled_classes: ['session_uid', 'original_date', 'reason'],
 };
 export const campusSummaryFields = (domain: CampusDomain): string[] | undefined => SUMMARY_FIELDS[domain]?.slice();
+/** The lookup's explicit course-name query must select source rows too. */
+export function campusGradeLookupFilters(filters: readonly string[] | undefined, query?: string): string[] {
+  const selected = [...(filters || [])], name = query?.trim().replaceAll('(', '（').replaceAll(')', '）');
+  const predicate = name ? `name:contains:${name}` : undefined;
+  if (predicate && !selected.includes(predicate)) selected.push(predicate);
+  return selected;
+}
 const SAFE_MODEL_FIELDS = new Set([
   ...Object.values(SUMMARY_FIELDS).flat(),
+  ...Object.keys(majorGpaFields),
   'date', 'dateLabel', 'title', 'name', 'status', 'source', 'updatedAt', 'fetched_at',
   'startTime', 'endTime', 'location', 'teacher', 'summary', 'deadline', 'credit', 'amount_unit',
 ]);
@@ -389,6 +399,7 @@ function compactResult(result: any, domain?: CampusDomain): any {
     snapshotProofs: result.snapshotProofs,
     expectedSnapshotVersion: result.expectedSnapshotVersion,
     semester_id: result.semester_id,
+    recordSelection: result.recordSelection,
     counts: result.counts,
     grade_attempts: result.grade_attempts,
     practice_projects: result.practice_projects,
@@ -552,7 +563,7 @@ export class ZjuAdapter {
             ? undefined
             : authStatus === 'failed'
               ? '登录信息已保存，但最近一次登录校验没有完成。'
-              : '登录信息已保存，第一次读取时会用浙大统一身份认证校验。'
+              : '登录信息已保存；现有资料可在本机读取，更新时再校验学校登录。'
           : '还没有在本机保存浙大统一身份认证信息。',
       };
     } catch {
@@ -985,6 +996,13 @@ export class ZjuAdapter {
     return history?.status === 'ok' && history.found?.bundle_id === bundleId;
   }
 
+  private async academicSemester(bundleId: string | undefined, signal: AbortSignal): Promise<string | undefined> {
+    if (!bundleId) return undefined;
+    const history = await this.savedHistory(signal, item => item?.bundle_id === bundleId && item.kind === 'academic');
+    const semester = history?.found?.semester_id;
+    return typeof semester === 'string' && /^20\d{2}-20\d{2}-[12]$/.test(semester) ? semester : undefined;
+  }
+
   async capabilities(signal: AbortSignal) {
     const root = this.root();
     if (!root) return { status: 'unavailable', reason: '浙大个人信息连接器尚未配置。', connector: this.describe() };
@@ -1003,6 +1021,7 @@ export class ZjuAdapter {
   async query(raw: CampusQuery, signal: AbortSignal, acquisition?: CampusAcquisition): Promise<any> {
     const args = validateCampusQuery(raw), connector = this.describe();
     const examCourseRead = args.operation === 'read' && args.resource === 'exams' && args.pointer === examCourseRecordsPointer;
+    const majorGpaRead = args.operation === 'read' && args.resource === 'gpa_overall' && args.pointer === majorGpaPointer;
     const readingIdentity = ['resources', 'schema'].includes(args.operation) ? undefined : this.snapshotProofs.readingSourceIdentity();
     if (args.refresh && (!['quick', 'select'].includes(args.operation) || args.bundleId || args.expectedSnapshotVersion))
       throw new HarnessError('campus_snapshot_request', '刷新需要新的资源查询起点；固定快照、版本和原页导航仍保留原地址，本次没有把它们当作刷新。');
@@ -1013,6 +1032,11 @@ export class ZjuAdapter {
         requires: ['bundleId'], optional: ['expectedSnapshotVersion', 'offset', 'limit'],
         schema: { tool: 'look_up', arguments: { source: 'capability', capability: 'campus.query', arguments: { operation: 'schema', model: 'exam_course_record' } } },
         meaning: '这是宿主对已保存考试课程原行的读取说明，不是连接器新增的查询资源，也没有读取正文。旧快照可能缺少这个路径；按原数组顺序独立分页，不提供筛选、组合或刷新。',
+      }, {
+        source: 'host_adapter', model: 'major_gpa', resource: 'gpa_overall', operation: 'read', pointer: majorGpaPointer,
+        requires: ['bundleId'], optional: ['expectedSnapshotVersion', 'fields'], defaultFields: [...majorGpaReadFields],
+        schema: { tool: 'look_up', arguments: { source: 'capability', capability: 'campus.query', arguments: { operation: 'schema', model: 'major_gpa' } } },
+        meaning: '沿同一保存快照读取已确认主修课程的现成汇总。它和全部修读分别保有学分分母，读取时一起核对成绩与主修来源；这里只介绍地址，尚未读到本人均绩。',
       }] };
       const root = this.root();
       if (result.status !== 'ok' || !root) return result;
@@ -1035,6 +1059,10 @@ export class ZjuAdapter {
       }
     }
     if (args.operation === 'schema') {
+      if (args.model === 'major_gpa') return { status: 'ok', model: args.model, source: 'host_adapter', recordRead: false,
+        resource: 'gpa_overall', pointer: majorGpaPointer, recordKind: 'major_gpa',
+        fields: majorGpaFields, defaultFields: [...majorGpaReadFields],
+        meaning: '这是保存资料里已确认主修全部修读的分析汇总，不是学校另行给出的正式审核结果。read沿固定对象地址读取所选汇总字段，没有逐行分页；offset为0，fields只选择显示内容，不重算分母。默认不返回排除、缺项和零学分记录的标识。' };
       if (args.model === 'exam_course_record') return { status: 'ok', model: args.model, source: 'host_adapter', recordRead: false,
         resource: 'exams', pointer: examCourseRecordsPointer, recordKind: 'exam_course_record',
         fields: { id: '考试来源中的课程标识；缺失不补写', name: '来源课程名称', credit: '来源学分；缺失不填零',
@@ -1097,6 +1125,8 @@ export class ZjuAdapter {
     }
     if (examCourseRead && !binding)
       return { status: 'forbidden', recordRead: false, reason: '当前账号与这份保存快照的实际文件版本尚未对应，没有读取考试课程原行。' };
+    if (majorGpaRead && !binding)
+      return { status: 'forbidden', recordRead: false, reason: '当前账号与这份保存快照的实际版本尚未对应，还没有读取主修均绩。' };
     if (args.expectedSnapshotVersion && (!args.bundleId || !this.snapshotProofs.matchesReadingVersion(args.bundleId, resource, args.expectedSnapshotVersion)))
       return { status: 'conflict', snapshotChanged: true, recordRead: false, reason: '原页的数据版本在读取前已经不再对应，这次没有读取另一个版本来替代。' };
     if (bundle && singleResource && ['quick', 'select'].includes(args.operation)) {
@@ -1108,6 +1138,8 @@ export class ZjuAdapter {
         if (unavailable) return { ...unavailable, authentication, read_only: true };
       }
     }
+    if (resource === 'courses' && ['quick', 'select'].includes(args.operation))
+      Object.assign(args, campusCourseQueryForSemester(args, await this.academicSemester(bundle, signal)));
     let result: any;
     if (args.operation === 'history') {
       result = await this.run(['history', '--offset', String(args.offset), '--limit', String(args.limit)], signal);
@@ -1115,6 +1147,61 @@ export class ZjuAdapter {
       if (Array.isArray(result.items)) result = { ...result, items: result.items.filter((item: any) => item.kind === sourceKind), requested_resource: resource, note: '只列匹配类别的快照元信息；分页仍沿原目录offset，空页不表示后面没有。' };
     } else if (args.operation === 'read') {
       result = await this.run(['read', '--bundle', args.bundleId!, '--pointer', args.pointer!, '--offset', String(args.offset), '--limit', String(args.limit)], signal);
+      if (majorGpaRead) {
+        const current = () => {
+          signal.throwIfAborted();
+          return !!binding && this.savedBindingCurrent(binding)
+            && (!args.expectedSnapshotVersion || this.snapshotProofs.matchesReadingVersion(args.bundleId!, resource, args.expectedSnapshotVersion));
+        };
+        const changed = () => ({ status: 'conflict', snapshotChanged: true, recordRead: false,
+          reason: '读取时账号或这份保存资料变了，还需要沿现在的版本重新看主修均绩。' });
+        if (!current()) return changed();
+        if (result.status !== 'ok') {
+          const { data: _data, records: _records, ...unread } = sanitize(result);
+          return { ...unread, resource, recordKind: 'major_gpa', recordRead: false, authentication, read_only: true };
+        }
+        const stats = result.data;
+        if (result.bundle_id !== args.bundleId || result.pointer !== majorGpaPointer
+          || result.nested_values_truncated === true || result.truncated_for_model === true
+          || !stats || typeof stats !== 'object' || Array.isArray(stats)
+          || !stats.gpa || typeof stats.gpa !== 'object' || Array.isArray(stats.gpa))
+          return { status: 'partial', recordRead: false, resource, recordKind: 'major_gpa', bundle_id: args.bundleId,
+            reason: '这份主修汇总的内容或完整性还没有对应，不能把它当成零分或完整结果。' };
+        const sources: Record<string, { complete?: boolean; fetchedAt?: string; freshness: string; stale?: boolean }> = {};
+        const issues: string[] = [];
+        for (const dataset of ['grades', 'major']) {
+          const pointers = ['completeness', 'collected_at', 'freshness'].map(field => `/datasets/${dataset}/${field}`);
+          const metadata = await Promise.all(pointers.map(async pointer => {
+            try { return await this.run(['read', '--bundle', args.bundleId!, '--pointer', pointer, '--limit', '1'], signal); }
+            catch (error) { if (signal.aborted) throw error; return undefined; }
+          }));
+          if (!current()) return changed();
+          const matches = (value: any, index: number) => value?.status === 'ok' && value.bundle_id === args.bundleId
+            && value.pointer === pointers[index] && value.nested_values_truncated !== true && value.truncated_for_model !== true;
+          const [completeness, collected, freshness] = metadata;
+          const complete = matches(completeness, 0) && typeof completeness.data?.complete === 'boolean' ? completeness.data.complete : undefined;
+          const fetchedAt = matches(collected, 1) && typeof collected.data === 'string' && Number.isFinite(Date.parse(collected.data)) ? collected.data : undefined;
+          const stale = matches(freshness, 2) && typeof freshness.data?.stale === 'boolean' ? freshness.data.stale : undefined;
+          const freshnessAbsent = freshness?.status === 'error' && freshness.error?.code === 'POINTER_NOT_FOUND';
+          sources[dataset] = { ...(complete === undefined ? {} : { complete }), ...(fetchedAt ? { fetchedAt } : {}),
+            freshness: freshnessAbsent ? 'not_recorded' : stale === undefined ? 'unknown' : stale ? 'cached_after_failed_refresh' : 'recorded_not_stale',
+            ...(stale === undefined ? {} : { stale }) };
+          if (complete !== true) issues.push(`${dataset}_source_${complete === false ? 'incomplete' : 'quality_unknown'}`);
+          if (!fetchedAt) issues.push(`${dataset}_source_time_unknown`);
+          if (!freshnessAbsent && stale !== false) issues.push(`${dataset}_source_${stale === true ? 'cached_after_failed_refresh' : 'freshness_unknown'}`);
+        }
+        if (stats.complete !== true) issues.push('major_gpa_calculation_incomplete');
+        if (stats.source_complete !== true) issues.push('major_gpa_source_incomplete');
+        const selectedFields = args.fields || [...majorGpaReadFields];
+        const projected = Object.fromEntries(selectedFields.flatMap(field => {
+          const container = field.startsWith('gpa.') ? stats.gpa : stats, name = field.startsWith('gpa.') ? field.slice(4) : field;
+          return Object.hasOwn(container, name) ? [[field, container[name]]] : [];
+        }));
+        result = { ...result, data: projected, selectedFields, resource, recordKind: 'major_gpa', calculationScope: 'source_confirmed_major_all_attempts',
+          status: issues.length ? 'partial' : 'ok', coverage: { complete: issues.length === 0, issues, sources,
+            source_fetched_at: Object.fromEntries(Object.entries(sources).flatMap(([name, source]) => source.fetchedAt ? [[name, source.fetchedAt]] : [])) },
+          meaning: '这是原连接器按主修来源匹配到的修读记录算出的均绩，有自己的学分分母；成绩与主修两份来源各自保留采集时间和完整性。未匹配到的修读没有据此判为非主修，学校审核所用的权重或课程替代仍要看实际适用规则。' };
+      }
       if (examCourseRead) {
         const current = () => {
           signal.throwIfAborted();
@@ -1237,7 +1324,7 @@ export class ZjuAdapter {
     const validate = () => {
       signal.throwIfAborted();
       if (proof.resource !== 'classes' || !this.isCurrentSnapshot(proof))
-        throw new HarnessError('planning_campus_changed', '校园保存快照或账号已改变，未采用旧日程质量说明。');
+        throw new HarnessError('planning_campus_changed', '学校记录的保存版本或账号刚刚变了，需要沿现在的资料重新看这段安排。');
     };
     validate();
     const coverage = await this.run(['read', '--bundle', proof.bundleId, '--pointer', '/normalized/schedule_quality/coverage', '--limit', '1'], signal);
@@ -1395,6 +1482,8 @@ export class ZjuAdapter {
   }
 
   async read(args: CampusReadArgs, signal: AbortSignal, acquisition?: CampusAcquisition) {
+    if (args.query?.trim() && args.domain !== 'grades')
+      throw new HarnessError('campus_lookup_query_unsupported', '文字检索目前按成绩中的课程名称筛选；这类资料需要按已有字段选择范围，这次没有忽略检索词去读整份资料。');
     const connector = this.describe();
     const readingIdentity = DOMAIN_RESOURCE[args.domain] ? this.snapshotProofs.readingSourceIdentity() : undefined;
     if (!connector.available)
@@ -1604,12 +1693,18 @@ export class ZjuAdapter {
     if (unsupportedFields.length) throw new Error('该字段不在安全摘要范围内，请缩小到工具提供的可读字段。');
     const fields = args.fields?.length ? args.fields : SUMMARY_FIELDS[args.domain];
     if (fields?.length) cli.push('--fields', fields.join(','));
-    for (const filter of args.filters || []) cli.push('--filter', filter);
+    const filters = args.domain === 'courses'
+      ? campusCourseLookupFilters(args.filters, await this.academicSemester(academicBundle, signal))
+      : args.domain === 'grades' ? campusGradeLookupFilters(args.filters, args.query) : args.filters || [];
+    for (const filter of filters) cli.push('--filter', filter);
     if (args.sort) cli.push(`--sort=${args.sort}`);
     cli.push('--limit', String(Math.min(50, Math.max(1, args.limit || 8))));
     cli.push('--offset', String(Math.max(0, args.offset || 0)));
     if (args.refresh && !ACADEMIC_RESOURCES.has(args.domain)) cli.push('--refresh');
     let result = await this.run(cli, signal, args.refresh ? 85_000 : 35_000);
+    if (['courses', 'grades'].includes(args.domain)) result = { ...result, recordSelection: { filters,
+      ...(args.sort ? { sort: args.sort } : {}), semester: filters.some(filter => filter.split(':', 1)[0].trim() === 'semester_id')
+        ? 'semester_predicate_provided' : 'no_semester_predicate' } };
     if (refreshIssues.length) result = { ...result, status: 'partial', refreshIssues,
       reason: '本次部分来源刷新未完成，结果仍保留其旧采集时间与缺口。',
       coverage: { ...result.coverage, complete: false, issues: [...(result.coverage?.issues || []), 'resource_refresh_incomplete'] } };

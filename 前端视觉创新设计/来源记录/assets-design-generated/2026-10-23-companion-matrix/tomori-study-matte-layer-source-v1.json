@@ -1,0 +1,31 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "tomori",
+  "activity": "study",
+  "light": "apricot",
+  "layer": "matte",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-58788fee-264f-4d43-914e-61f8c37368fa",
+  "inputs": [
+    {
+      "file": "tomori-study-apricot-v3-mother.png",
+      "role": "primary_approved_correct_complete_mother_only",
+      "sha256": "33e690f698cc4856872804014c6285620ec176ce5fe2ae6000887e4c74d3954f"
+    }
+  ],
+  "prompt": "tomori-study-matte-layer-prompt-v1.txt",
+  "review": {
+    "designerStatus": "returned_registration_drift",
+    "primary": "pending",
+    "runtime": "not integrated"
+  },
+  "designerObservation": "Generated matte enlarged and displaced body relative to unchanged source; rejected as technical registration input, no body geometry may be taken from it. Source mother remains approved and unchanged.",
+  "promptSha256": "81dfc1761068802d9e81eb7c04bca6cdbd6add9d6c0fdf528b4033c67ceb668f",
+  "output": {
+    "file": "tomori-study-matte-generated-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 415152,
+    "sha256": "38fe127b2da46cde6edc937ca21c71ccad88cf9c2402a6dc5b5b53bf474baf05"
+  }
+}

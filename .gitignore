@@ -58,6 +58,8 @@
 !/scripts/verify-map-optimality.py
 !/scripts/verify-zju-account.ts
 !/scripts/build-map-bridge.mjs
+!/scripts/map-engine-loader.ts
+!/src/renderer/map/map-engine-loader.d.ts
 !/scripts/build-map-v3.py
 !/scripts/check-review.mjs
 !/scripts/desktop-smoke.mjs
@@ -107,6 +109,15 @@
 !/vite.review.config.ts
 !/src/**
 !/apps/review-web/**
+!/apps/location-bridge/android/AndroidManifest.xml
+!/apps/location-bridge/android/build.py
+!/apps/location-bridge/android/README.md
+!/apps/location-bridge/android/src/**/*.java
+!/apps/location-bridge/ios/LocationBridge.swift
+!/apps/location-bridge/ios/Info.plist
+!/apps/location-bridge/ios/build.sh
+!/apps/location-bridge/ios/build.py
+!/apps/location-bridge/ios/README.md
 !/docs/**
 !/licenses/**
 # Private/generated data never belongs in this repository.

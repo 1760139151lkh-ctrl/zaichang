@@ -1,0 +1,31 @@
+{
+  "recordType": "image-generation-source",
+  "character": "sakiko",
+  "activity": "reading",
+  "light": "apricot",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-a6185b6b-7645-4af3-89ae-a6415a3338a9",
+  "prompt": "sakiko-reading-apricot-prompt.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved_clean_empty_room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "sakiko-reading-apricot-mother.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2203742,
+    "sha256": "4e904af2cab43ee905ad96575095050b48cb3f6eabed9f0b1c608c0a65cc833a"
+  },
+  "sourceIdentity": "Pure text from sakiko-chat-apricot-prompt.txt; no character image or official artwork supplied to image generation.",
+  "review": {
+    "designerViewed": "complete original image",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Existing bench and right cushion support the seated figure; shoulders settle back, book rests across thighs, both separate lower legs and complete loafers visibly reach the floor. Full window and room camera remain. Primary must judge youthful identity, hand contacts and whether gaze is sufficiently directed into the open book rather than toward the viewer."
+}

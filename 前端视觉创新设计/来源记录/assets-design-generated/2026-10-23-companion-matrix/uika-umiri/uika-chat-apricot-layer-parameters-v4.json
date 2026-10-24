@@ -1,0 +1,243 @@
+{
+  "mother": "uika-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c",
+  "matte": "uika-chat-apricot-matte-prepared-v1.png",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "uika-chat-apricot-figure-calibrated-v4.png",
+  "mask": "uika-chat-apricot-mask-calibrated-v4.png",
+  "backgroundCandidate": "uika-chat-apricot-background-pillow-calibrated-v2.png",
+  "backgroundExpandPixels": 9,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1091,
+        755
+      ],
+      [
+        1233,
+        755
+      ],
+      [
+        1233,
+        780
+      ],
+      [
+        1091,
+        780
+      ]
+    ],
+    [
+      [
+        1194,
+        574
+      ],
+      [
+        1429,
+        574
+      ],
+      [
+        1429,
+        593
+      ],
+      [
+        1194,
+        593
+      ]
+    ]
+  ],
+  "background": "uika-chat-apricot-background-calibrated-v4.png",
+  "record": "uika-chat-apricot-layer-processing-v4.json",
+  "contactShadowPolygons": [
+    [
+      [
+        1093,
+        748
+      ],
+      [
+        1120,
+        745
+      ],
+      [
+        1163,
+        753
+      ],
+      [
+        1164,
+        764
+      ],
+      [
+        1124,
+        768
+      ],
+      [
+        1095,
+        759
+      ]
+    ],
+    [
+      [
+        1132,
+        760
+      ],
+      [
+        1165,
+        757
+      ],
+      [
+        1214,
+        763
+      ],
+      [
+        1224,
+        774
+      ],
+      [
+        1184,
+        781
+      ],
+      [
+        1143,
+        778
+      ]
+    ],
+    [
+      [
+        1250,
+        574
+      ],
+      [
+        1274,
+        569
+      ],
+      [
+        1311,
+        573
+      ],
+      [
+        1348,
+        577
+      ],
+      [
+        1371,
+        573
+      ],
+      [
+        1372,
+        590
+      ],
+      [
+        1280,
+        592
+      ],
+      [
+        1254,
+        584
+      ]
+    ],
+    [
+      [
+        1371,
+        574
+      ],
+      [
+        1427,
+        574
+      ],
+      [
+        1430,
+        590
+      ],
+      [
+        1371,
+        590
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "shadow": "uika-chat-apricot-shadow-calibrated-v4.png",
+  "reviewNote": "v4: same source-RGB alpha-only rear skirt-fold correction as v3. Small generated-pillow extension in empty plate cleaned with existing same-row cushion pixels; explicit donor coordinates in background-pillow-calibration-v2.json. No person paint or furniture transform; source residual contact limited to 3px. Primary/runtime pending.",
+  "contactShadowEdgePixels": 3,
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1295,
+        570,
+        1364,
+        587
+      ],
+      "polygon": [
+        [
+          1295,
+          570
+        ],
+        [
+          1361,
+          570
+        ],
+        [
+          1363,
+          574
+        ],
+        [
+          1363,
+          576
+        ],
+        [
+          1360,
+          579
+        ],
+        [
+          1355,
+          581
+        ],
+        [
+          1349,
+          583
+        ],
+        [
+          1342,
+          584
+        ],
+        [
+          1337,
+          584
+        ],
+        [
+          1331,
+          583
+        ],
+        [
+          1323,
+          581
+        ],
+        [
+          1317,
+          579
+        ],
+        [
+          1314,
+          579
+        ],
+        [
+          1309,
+          581
+        ],
+        [
+          1303,
+          584
+        ],
+        [
+          1295,
+          585
+        ]
+      ],
+      "mode": "replace",
+      "featherPixels": 0.2
+    }
+  ]
+}

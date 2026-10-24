@@ -1,0 +1,158 @@
+{
+  "mother": "sakiko-listening-apricot-mother.png",
+  "motherSha256": "a35aaa3549a04cf9f6fa7e478224f53afdcbfd1f133f6570a643191916189bb1",
+  "matte": "sakiko-listening-apricot-figure-calibrated-v7.png",
+  "matteSha256": "e394253114944e2cc0885b6e5b3d18862fc5ab2eeeb6d11b35defd08c13e0656",
+  "alphaSource": "alpha",
+  "alphaLow": 0,
+  "alphaHigh": 255,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "sakiko-listening-apricot-figure-calibrated-v8.png",
+  "mask": "sakiko-listening-apricot-mask-calibrated-v8.png",
+  "backgroundCandidate": "sakiko-listening-apricot-background.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1.2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1174,
+        573
+      ],
+      [
+        1279,
+        576
+      ],
+      [
+        1280,
+        594
+      ],
+      [
+        1172,
+        591
+      ]
+    ],
+    [
+      [
+        1264,
+        566
+      ],
+      [
+        1322,
+        568
+      ],
+      [
+        1386,
+        565
+      ],
+      [
+        1388,
+        586
+      ],
+      [
+        1320,
+        586
+      ],
+      [
+        1264,
+        579
+      ]
+    ],
+    [
+      [
+        1381,
+        500
+      ],
+      [
+        1420,
+        500
+      ],
+      [
+        1420,
+        576
+      ],
+      [
+        1378,
+        580
+      ]
+    ]
+  ],
+  "background": "sakiko-listening-apricot-background-calibrated-v8.png",
+  "record": "sakiko-listening-apricot-layer-processing-v8.json",
+  "contactShadowPolygons": [
+    [
+      [
+        1177,
+        574
+      ],
+      [
+        1228,
+        575
+      ],
+      [
+        1230,
+        582
+      ],
+      [
+        1177,
+        582
+      ]
+    ],
+    [
+      [
+        1205,
+        581
+      ],
+      [
+        1274,
+        579
+      ],
+      [
+        1277,
+        589
+      ],
+      [
+        1205,
+        591
+      ]
+    ],
+    [
+      [
+        1267,
+        567
+      ],
+      [
+        1317,
+        570
+      ],
+      [
+        1368,
+        574
+      ],
+      [
+        1384,
+        566
+      ],
+      [
+        1388,
+        576
+      ],
+      [
+        1369,
+        582
+      ],
+      [
+        1318,
+        578
+      ],
+      [
+        1266,
+        574
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "shadow": "sakiko-listening-apricot-shadow-calibrated-v8.png",
+  "reviewNote": "Uses primary-inspected exact source-RGB figure v7 as alpha input, with no new matte change. Extract only original sock-foot/cushion and skirt-hip/cushion contact residuals. The two detached floor loafers and their floor shadows remain stationary BG; no floor shoe contact ROI. Background explicit erase regions clear original body/soft-contact shadow around those contacts and adjacent pillow before native short-travel inspection. Candidate only; no producer approval or runtime admission."
+}

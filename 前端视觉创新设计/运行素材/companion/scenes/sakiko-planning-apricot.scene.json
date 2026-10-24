@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-planning-apricot-room4",
+  "character": "sakiko",
+  "activity": "planning",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-planning-apricot.png",
+  "background": "sakiko-planning-apricot-background-calibrated-v6.png",
+  "figure": "sakiko-planning-apricot-figure-calibrated-v6.png",
+  "mask": "sakiko-planning-apricot-mask-calibrated-v6.png",
+  "seat": [
+    0.5963541667,
+    0.576171875
+  ],
+  "ground": [
+    0.6510416667,
+    0.736328125
+  ],
+  "bodyBounds": [
+    0.5338541667,
+    0.2978515625,
+    0.7135416667,
+    0.744140625
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "desk-chair",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "59% 30%, 63% 30%, 65% 35%, 64% 44%, 69% 45%, 70% 48%, 67% 50%, 64% 50%, 65% 55%, 67% 57%, 68% 69%, 71% 72%, 71% 74%, 68% 74%, 66% 73%, 64% 74%, 63% 72%, 63% 62%, 61% 60%, 57% 59%, 55% 52%, 54% 48%, 54% 43%, 56% 35%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-planning-apricot-layer-processing-v6.json",
+  "parameters": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-planning-apricot-layer-parameters-v6.json",
+  "review": {
+    "approvedByPrimary": true,
+    "motherApprovalRecord": "primary-prototype-reviews.json",
+    "layerReview": "accepted-for-original-stage",
+    "producerNote": "Original mother RGB retained exactly. Handled navy notebook belongs to the figure. Chair, desk, flat cream sheet, cup and lamp stay fixed in the mother-specific empty background. Character cast-shadow ghosts on desk/wall/floor have been removed; only explicit source contact residuals near hand/book, skirt/seat and soles use the separate shadow. Fixed hand/table contact admits no independent translation. No hidden anatomy inferred.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json",
+    "independentLayerFinish": {
+      "version": 6,
+      "producerViewed": "full light/dark, enlarged original-coordinate edges, complete room composite and empty background",
+      "primary": "accepted-for-original-stage",
+      "runtime": "pending actual original Stage observation"
+    },
+    "reviewer": "primary-agent",
+    "reviewedAt": "2026-10-24T13:30:20.205Z",
+    "stage": "layer-admission-for-original-stage",
+    "observed": "主代理亲看v6浅深底、完整空BG/原房间及加工记录；旧桌下人体投影已清，纸/桌/椅固定，手持本与人物原RGB同层，行程0。待原Stage实际呈现。"
+  },
+  "shadow": "sakiko-planning-apricot-shadow-calibrated-v6.png"
+}

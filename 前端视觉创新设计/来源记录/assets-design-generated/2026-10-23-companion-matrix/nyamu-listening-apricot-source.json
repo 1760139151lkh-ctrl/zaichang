@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-listening-apricot-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "listening",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "nyamu-listening-apricot-prompt.txt",
+  "identityText": "nyamu-identity.txt",
+  "identityBasis": "Parent's reviewed official character identity and fixed outfit, supplied as text only. Official images and other character mothers were not image inputs.",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "nyamu-listening-apricot-mother-candidate-v1.png",
+    "sha256": "823f7606e5add858c9834ea290822cc78e0b0c3ae1309f367bd2a2bf1d862b6e",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-443174cd-74fb-468e-ac54-e840e5328244.png"
+  },
+  "designerObservation": "Full image viewed. Gray off-shoulder fixed outfit, youthful bob and red-purple eyes preserved. Bench-supported hips and modest skirt folds; shoulder line is lowered, both forearms gathered to hands loosely meeting on lap, head attentively angled toward left person. No held prop or performance wink/grin. Complete adjacent separate knees, proportional shins and both floor-contact ankle-strap shoes visible. Compared with approved chat, hands are withdrawn from cushion/open display into lap and torso more gathered. No observed broken joint or furniture intersection; primary activity/scale comparison remains pending.",
+  "observedGaps": [
+    "Not primary-reviewed or extracted; producer does not claim matrix completion."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

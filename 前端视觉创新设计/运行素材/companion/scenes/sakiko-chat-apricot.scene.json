@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-chat-apricot-room4",
+  "character": "sakiko",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-chat-apricot-mother.png",
+  "background": "sakiko-chat-apricot-background-calibrated-v3.png",
+  "figure": "sakiko-chat-apricot-figure-calibrated-v3.png",
+  "mask": "sakiko-chat-apricot-mask-calibrated-v3.png",
+  "shadow": "sakiko-chat-apricot-shadow-calibrated-v3.png",
+  "seat": [
+    0.842,
+    0.58
+  ],
+  "ground": [
+    0.767,
+    0.761
+  ],
+  "bodyBounds": [
+    0.7259114583333334,
+    0.2509765625,
+    0.9322916666666666,
+    0.767578125
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "81% 25%, 85% 25%, 88% 34%, 90% 44%, 91% 55%, 93% 57%, 93% 59%, 87% 60%, 82% 61%, 81% 73%, 79% 77%, 73% 76%, 73% 73%, 75% 60%, 76% 49%, 78% 36%, 79% 27%",
+  "travel": 0.008,
+  "slope": 0.09,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "motherApprovalRecord": "primary-prototype-reviews.json",
+    "layerReview": "accepted-for-original-stage",
+    "producerNote": "Short candidate bench-tangent travel, approximately 12px each side; source contact shadow follows the actor. Actual original Stage motion/contact remains unaccepted.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json",
+    "stage": "layer-admission-for-original-stage",
+    "reviewer": "primary-agent",
+    "reviewedAt": "2026-10-24T02:21:14.536Z",
+    "observed": "已亲看浅深底、原房间及±12px原影端点，人物边缘/座面/双鞋支承成立，实机另审。"
+  },
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-layer-processing-v3.json"
+}

@@ -1,5 +1,5 @@
 import { ArrowUpRight, ChevronDown } from 'lucide-react';
-import type { DiscussionPoint, DiscussionScene } from '../../shared/discussion-scene';
+import { discussionArtworkLabel, type DiscussionArtwork, type DiscussionPoint, type DiscussionScene } from '../../shared/discussion-scene';
 import type { SemanticSelection } from '../../shared/scenes';
 import { CompanionSessionView } from './CompanionSessionView';
 import type { CompanionFollowupReference } from '../../shared/companion-source';
@@ -8,6 +8,7 @@ import bridgeArt from '../../../前端视觉创新设计/精选图稿/C-交互�
 import lampArt from '../../../前端视觉创新设计/精选图稿/C-交互基因/R176-雨夜伞下人影.png';
 import { RichText } from '../RichText';
 import './discussion-scene.css';
+import { writeSceneFrameTransfer } from '../../shared/scene-transfer';
 
 export interface DiscussionSceneViewProps {
   scene: DiscussionScene;
@@ -39,6 +40,14 @@ export function DiscussionSceneView({ scene, selection, onSelect, onContinue, hi
   const pointSelection = (point: DiscussionPoint) => onSelect({ sceneId: scene.id, sceneRevision: scene.revision,
     kind: 'discussion_point', pointId: point.id });
   const isPointSelected = (point: DiscussionPoint) => selected?.kind === 'discussion_point' && selected.pointId === point.id;
+  const artworkFrame = (art: DiscussionArtwork, className: string) => {
+    const reference: SemanticSelection = { sceneId: scene.id, sceneRevision: scene.revision, kind: 'discussion_artwork', artwork: art };
+    const active = selected?.kind === 'discussion_artwork' && selected.artwork?.assetId === art.assetId && selected.artwork.optionId === art.optionId;
+    return <button type="button" key={`${art.assetId}:${art.optionId || ''}`} className={`discussion-artwork-frame ${className}`}
+      aria-label={`把「${discussionArtworkLabel(art.assetId)}」拿到这句话旁`} aria-pressed={active} draggable
+      onDragStart={event => { event.stopPropagation(); writeSceneFrameTransfer(event.dataTransfer, { version: 1, sessionId: scene.sessionId, selection: reference }); }}
+      onClick={() => onSelect(reference)}><img src={art.assetId === 'night_bridge' ? bridgeArt : lampArt} alt={discussionArtworkLabel(art.assetId)} draggable={false} /></button>;
+  };
 
   return <section className={`discussion-paper ${scene.coWork.length && !scene.branches.length ? 'is-continuation' : ''}`} aria-label={`一起商量：${scene.matter.question}`}>
     <header className="discussion-paper-heading">
@@ -49,7 +58,7 @@ export function DiscussionSceneView({ scene, selection, onSelect, onContinue, hi
       </div>}
     </header>
     {manuscriptText && <div className="discussion-main-manuscript">
-      {primaryArt && <img className="discussion-main-art" src={primaryArt.assetId === 'night_bridge' ? bridgeArt : lampArt} alt="" aria-hidden="true" />}
+      {primaryArt && artworkFrame(primaryArt, 'discussion-main-art')}
       <RichText text={manuscriptText} />
     </div>}
     {!hideBranches && scene.branches.length > 0 && <div className="discussion-manuscripts" aria-label="接着想的几种可能">
@@ -58,21 +67,21 @@ export function DiscussionSceneView({ scene, selection, onSelect, onContinue, hi
         const repeatedInManuscript = !!(manuscriptText && branch.rationale
           && scene.provenance.optionRefs.some(ref => ref.id === branch.id && ref.revision === branch.revision)
           && manuscriptText.replace(/\s/gu, '').includes(branch.rationale.replace(/\s/gu, '')));
-        return <button type="button" className="discussion-manuscript" key={branch.id} aria-pressed={focused}
+        return <article className="discussion-manuscript" key={branch.id} data-selected={focused || selected?.kind === 'discussion_artwork' && selected.artwork?.optionId === branch.id || undefined}
           data-in-manuscript={repeatedInManuscript || undefined}
-          data-changed={scene.continuity.changedOptionIds.includes(branch.id) || undefined}
+          data-changed={scene.continuity.changedOptionIds.includes(branch.id) || undefined}>
+          {scene.artwork.filter(art => art.optionId === branch.id && art !== primaryArt).map(art => artworkFrame(art, 'discussion-story-art'))}
+          <button type="button" className="discussion-manuscript-copy" aria-pressed={focused}
           onClick={() => onSelect({ sceneId: scene.id, sceneRevision: scene.revision, kind: 'discussion_option', optionId: branch.id })}>
-          {scene.artwork.filter(art => art.optionId === branch.id && art !== primaryArt).map(art => <img className="discussion-story-art" key={art.assetId}
-            src={art.assetId === 'night_bridge' ? bridgeArt : lampArt} alt="" aria-hidden="true" />)}
           <span className="discussion-manuscript-title">{branch.title}</span>
           {branch.selected && <span className="discussion-chosen">{scene.history ? '当时选的这一版' : '你选的这一版'}</span>}
           {branch.rationale && !repeatedInManuscript && <span className="discussion-manuscript-text">{branch.rationale}</span>}
           <ArrowUpRight className="discussion-manuscript-arrow" size={16} aria-hidden="true" />
-        </button>;
+          </button>
+        </article>;
       })}
     </div>}
-    {scene.artwork.filter(art => !art.optionId && art !== primaryArt).map(art => <img className="discussion-story-lead" key={art.assetId}
-      src={art.assetId === 'night_bridge' ? bridgeArt : lampArt} alt="" aria-hidden="true" />)}
+    {scene.artwork.filter(art => !art.optionId && art !== primaryArt).map(art => artworkFrame(art, 'discussion-story-lead'))}
     {open && <button type="button" className="discussion-open-question" onClick={() => pointSelection(open)} aria-pressed={isPointSelected(open)}>
       {open.text}
     </button>}

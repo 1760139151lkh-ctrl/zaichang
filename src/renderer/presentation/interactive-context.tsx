@@ -28,7 +28,7 @@ interface InteractiveControls {
   reset: (keys?: string[], nodeId?: string, label?: string) => void;
   continueFrom: (nodeId: string, label?: string) => void;
   registerMotion: (cancel: () => void, fields: () => readonly string[]) => () => void;
-  acquirePress: (field: string, nodeId: string) => boolean;
+  acquirePress: (field: string, nodeId: string, pressureField?: string) => boolean;
   releasePress: (field: string, nodeId: string) => boolean;
   stopMotions: () => void;
 }
@@ -39,6 +39,7 @@ export function useInteractiveControls() {
   return value;
 }
 export const InteractiveGraphicSlot = createContext(false);
+export const InteractivePressAppearance = createContext<'plain' | 'light' | 'dark' | undefined>(undefined);
 
 class InteractivePartBoundary extends Component<{ children: ReactNode; resetKey: string; graphic: boolean }, { failed: boolean }> {
   state = { failed: false };
@@ -78,7 +79,7 @@ export function InteractiveDocument({ props }: ComponentRenderProps<Record<strin
   const [error, setError] = useState('');
   const [userAction, setUserAction] = useState<InteractiveControls['userAction']>({ serial: 0, origin: 'manual' });
   const motions = useRef(new Map<() => void, () => readonly string[]>()), latest = useRef(field.value), setter = useRef(field.setValue);
-  const pressOwners = useRef(new Map<string, Set<string>>());
+  const pressOwners = useRef(new Map<string, { owners: Set<string>; pressureField?: string }>());
   const admittedScope = useRef(host?.scopeKey);
   const changingScope = !!host && admittedScope.current !== host.scopeKey;
   setter.current = field.setValue;
@@ -126,14 +127,18 @@ export function InteractiveDocument({ props }: ComponentRenderProps<Record<strin
     renderKey: `${host.document.hash}:${JSON.stringify(current)}`, scopeKey: host.scopeKey,
     userAction: changingScope ? { serial: 0, origin: 'manual' } : userAction, patch, stopMotions: () => stopMotions(),
     registerMotion(cancel, fields) { motions.current.set(cancel, fields); return () => { motions.current.delete(cancel); }; },
-    acquirePress(field, nodeId) {
-      const owners = pressOwners.current.get(field) || new Set<string>(), first = owners.size === 0;
-      owners.add(nodeId); pressOwners.current.set(field, owners); return first;
+    acquirePress(field, nodeId, pressureField) {
+      const active = pressOwners.current.get(field);
+      if (active) { active.owners.add(nodeId); return false; }
+      pressOwners.current.set(field, { owners: new Set([nodeId]), pressureField }); return true;
     },
     releasePress(field, nodeId) {
-      const owners = pressOwners.current.get(field);
-      if (!owners?.delete(nodeId) || owners.size) return false;
-      pressOwners.current.delete(field); return true;
+      const active = pressOwners.current.get(field);
+      if (!active?.owners.delete(nodeId) || active.owners.size) return false;
+      pressOwners.current.delete(field);
+      // The first holder supplied the pressure. Whichever entrance releases
+      // last must clear that same field, including after the first unmounts.
+      return patch({ [field]: false, ...(active.pressureField ? { [active.pressureField]: 0 } : {}) }, 'control');
     },
     reset(keys, nodeId, label) {
       stopMotions();

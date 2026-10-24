@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-play-apricot-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "play",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "nyamu-play-apricot-prompt.txt",
+  "identityText": "nyamu-identity.txt",
+  "identityBasis": "Parent's reviewed official character identity and fixed outfit, supplied as text only. Official images and other character mothers were not image inputs.",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "nyamu-play-apricot-mother-candidate-v1.png",
+    "sha256": "73cf1bdecedd78833a534a05692764ecd91d87b63bfd9ca91d5deb08b123c3ed",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-6b21f766-2462-46db-9c36-ef3e9f633ab0.png"
+  },
+  "designerObservation": "Full image viewed. Youthful bob and red-purple eyes with bright open expression, fixed gray blouse/black skirt/choker/shoes retained. Whole torso leans diagonally forward from seated hips; one arm offers a small folded-paper creature, the other palm visibly supports on cushion beside hip. Genuine asymmetry and forward center of mass differ from lap-handed listening and neutral chat. Paper creature stays inside right-side shared space and belongs with character for later layer extraction. Separate adjacent knees and both continuous shin/ankle/shoe chains complete and planted on floor; no limb crossing or furniture intersection observed. Primary optical scale and hand review remain pending.",
+  "observedGaps": [
+    "No primary approval or extraction; not runtime coverage."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

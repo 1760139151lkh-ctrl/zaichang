@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "method": "Only generated mask alpha corrected; figure RGB copied byte-for-byte from the primary-approved mother. No anatomy/RGB redraw, scale, translation, crop or furniture transformation.",
+  "noiseRange": [
+    8,
+    247
+  ],
+  "outerNoiseBounds": [
+    1055,
+    255,
+    1465,
+    765
+  ],
+  "mother": "sakiko-rest-apricot-mother.png",
+  "motherSha256": "ffdf5ac11d9d25da5347120dd7b5f19bf68a6211c991c373e1c6d2f623cebfbf",
+  "rawMask": "sakiko-rest-apricot-mask-candidate-v3.png",
+  "rawMaskSha256": "a721b56b42b1cd7d8c467e5be8ddaad75102529069f2b095f445541a0c3d114c",
+  "warmBackgroundExclusions": [
+    {
+      "rect": [
+        1363,
+        310,
+        1401,
+        365
+      ],
+      "greenMinusBlue": 28,
+      "redMinusBlue": 35
+    }
+  ],
+  "figureOutput": "sakiko-rest-apricot-figure-calibrated-v1.png",
+  "maskOutput": "sakiko-rest-apricot-mask-calibrated-v1.png",
+  "review": "Candidate only; primary layer approval not granted.",
+  "ownership": "Full original support hand and all hair/socks/worn shoes remain in body; the yellow leaf behind the head is room."
+}

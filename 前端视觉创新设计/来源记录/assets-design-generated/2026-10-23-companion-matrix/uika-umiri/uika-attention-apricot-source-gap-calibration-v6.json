@@ -1,0 +1,76 @@
+{
+  "recordType": "original-source-gap-alpha-and-background-calibration",
+  "input": "uika-attention-apricot-figure-calibrated-v5.png",
+  "inputSha256": "4852f1a764f0667313e33d4bbad548671f520796e1e86f14706da3a31679d7ba",
+  "mother": "uika-attention-apricot-mother-candidate-v1.png",
+  "motherSha256": "9cae27d5754d32654b120910faacaf65077e09499224f2668d912994ee2b78ed",
+  "output": "uika-attention-apricot-matte-source-gap-repaired-v6.png",
+  "outputSha256": "1b83bb6a798fda91b0edc3baeedd2d2a010c3e826f560e1b819607f220171f1c",
+  "restoredVisibleSourcePolygons": [
+    [
+      [
+        1197,
+        668
+      ],
+      [
+        1215,
+        668
+      ],
+      [
+        1214,
+        687
+      ],
+      [
+        1213,
+        702
+      ],
+      [
+        1210,
+        716
+      ],
+      [
+        1208,
+        721
+      ],
+      [
+        1201,
+        721
+      ],
+      [
+        1197,
+        719
+      ],
+      [
+        1195,
+        715
+      ],
+      [
+        1194,
+        710
+      ],
+      [
+        1186,
+        708
+      ],
+      [
+        1184,
+        706
+      ],
+      [
+        1187,
+        698
+      ],
+      [
+        1192,
+        687
+      ]
+    ]
+  ],
+  "reason": "Original gray/taupe rear skirt tail is visibly present between the calves. Generated matte wrongly treated it as air; restore actual cloth alpha, excluding the warmer wood below its real hem.",
+  "colorConfidence": "min(clamp((35-(R-G))/6),clamp((30-(G-B))/6))",
+  "changedAlphaPixels": 844,
+  "backgroundPreservePolygons": [],
+  "backgroundPreserveRule": null,
+  "primaryReview": "pending",
+  "runtimeAccepted": false
+}

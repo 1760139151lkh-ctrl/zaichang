@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "planning",
+  "palette": "apricot",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-f09b44c3-ba3c-4cc9-b8e5-8eb4e445c296",
+  "prompt": "taki-planning-apricot-prompt.txt",
+  "promptSha256": "5252cd87db1bc21866cfdfa1eadf3055d6ade444c4ce6048e305f65c65033497",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-approved clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "taki-planning-apricot-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2148107,
+    "sha256": "f0fa68c1f8f0257063bdae886dd258b415af26e127382e8c2bb3b95f6f7050ff"
+  },
+  "producerObservation": "Complete image viewed: chair/lower body turned outward, torso settled back, pencil paused over actual desk notebook, head/eyes toward the person instead of study page. Two planted shoes, true chair/forearm support, tan/red/dark-sock styling retained. Pending primary mother review.",
+  "review": {
+    "producerViewed": "complete original",
+    "primary": "pending; no producer signature",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

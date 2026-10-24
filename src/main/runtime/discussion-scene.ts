@@ -1,6 +1,6 @@
 import { createHash, randomUUID } from 'node:crypto';
 import {
-  discussionArtworkSchema, discussionContentSchema, discussionFocusSchema, discussionModuleRefSchema,
+  discussionArtworkLabel, discussionArtworkSchema, discussionContentSchema, discussionFocusSchema, discussionModuleRefSchema,
   type DiscussionBranch, type DiscussionContent, type DiscussionFocus,
     type DiscussionArtwork, type DiscussionModuleRef, type DiscussionPoint, type DiscussionScene, type DiscussionSnapshotMetadata, type VerifiedDiscussionFocus,
 } from '../../shared/discussion-scene';
@@ -240,15 +240,21 @@ export class DiscussionSceneProjector {
     const same = !!old && canonical(sceneContent(old)) === canonical(content);
     let focus: DiscussionFocus | null = input.focus ? discussionFocusSchema.parse(input.focus) : null;
     let focusRelation: DiscussionScene['continuity']['focusRelation'] = focus ? 'explicit' : 'none';
-    const contains = (target: DiscussionFocus) => target.kind === 'discussion_point' ? points.has(target.pointId) : branches.has(target.optionId);
+    const contains = (target: DiscussionFocus) => target.kind === 'discussion_point' ? points.has(target.pointId)
+      : target.kind === 'discussion_option' ? branches.has(target.optionId)
+        : content.artwork.some(art => art.assetId === target.artwork.assetId && art.optionId === target.artwork.optionId);
     if (focus && !contains(focus)) throw new HarnessError('discussion_focus', '这一点已经变化，重新选一下眼前的内容。');
     if (!focus && old?.continuity.focus) {
       const retained = old.continuity.focus;
       if (!contains(retained)) focusRelation = 'removed';
       else {
         focus = retained;
-        const before = retained.kind === 'discussion_point' ? oldPoints.get(retained.pointId) : oldBranches.get(retained.optionId);
-        const after = retained.kind === 'discussion_point' ? points.get(retained.pointId) : branches.get(retained.optionId);
+        const before = retained.kind === 'discussion_point' ? oldPoints.get(retained.pointId)
+          : retained.kind === 'discussion_option' ? oldBranches.get(retained.optionId)
+            : [old.artwork.find(art => art.assetId === retained.artwork.assetId && art.optionId === retained.artwork.optionId), oldBranches.get(retained.artwork.optionId || '')];
+        const after = retained.kind === 'discussion_point' ? points.get(retained.pointId)
+          : retained.kind === 'discussion_option' ? branches.get(retained.optionId)
+            : [content.artwork.find(art => art.assetId === retained.artwork.assetId && art.optionId === retained.artwork.optionId), branches.get(retained.artwork.optionId || '')];
         focusRelation = canonical(before) === canonical(after) ? 'retained' : 'changed';
       }
     }
@@ -355,13 +361,17 @@ export class DiscussionSceneProjector {
     const snapshot = this.snapshot(handle, sessionId, scene, admission);
     const target = discussionFocusSchema.parse(raw);
     const point = target.kind === 'discussion_point' ? scene.points.find(point => point.id === target.pointId) : undefined;
-    const branch = target.kind === 'discussion_option' ? scene.branches.find(option => option.id === target.optionId) : undefined;
-    if (!point && !branch) throw new HarnessError('discussion_focus', '这一点不在眼前这页商量里，重新选一下。');
-    return { target, matter: { id: scene.matter.id, revision: snapshot.history?.currentMatterRevision || scene.matter.revision }, label: point?.text || branch!.title,
+    const artwork = target.kind === 'discussion_artwork' ? scene.artwork.find(art => art.assetId === target.artwork.assetId && art.optionId === target.artwork.optionId) : undefined;
+    const branch = target.kind === 'discussion_option' ? scene.branches.find(option => option.id === target.optionId)
+      : artwork?.optionId ? scene.branches.find(option => option.id === artwork.optionId) : undefined;
+    if (!point && !branch && !artwork || target.kind === 'discussion_artwork' && !artwork) throw new HarnessError('discussion_focus', '这一点不在眼前这页商量里，重新选一下。');
+    return { target, matter: { id: scene.matter.id, revision: snapshot.history?.currentMatterRevision || scene.matter.revision }, label: artwork ? `${discussionArtworkLabel(artwork.assetId)}${branch ? ` · ${branch.title}` : ''}` : point?.text || branch!.title,
       ...(point ? { point: structuredClone(point) } : {}), ...(branch ? { branch: structuredClone(branch) } : {}),
+      ...(artwork ? { artwork: structuredClone(artwork) } : {}),
       sourceBinding: structuredClone(scene.provenance.sourceBinding),
       ...(snapshot.history ? { viewedMatterRevision: scene.matter.revision, historicalReference: true } : {}),
       meaning: (snapshot.history ? '用户指的是当时这一页的内容；原事项已有后续，解释与方案保留当时版本，改变事项前先回读当前原owner。' : '')
+        + (artwork ? '这张插画来自原页的共同创作取景，仍连着当时的分支与来由。它是想象场景，不是地图地点、现场雨情或本人到达；下一句可以沿这张图接着写，原作品还没有因点选或拖动而改写。' : '')
         + '这是临时交流引用，不表示赞同解释、选择方案、实际做到这一步、长期偏好或行动授权；不改变原事项、教学状态、安排或提醒。' };
   }
 }

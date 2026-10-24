@@ -17,6 +17,7 @@ import { campusAcademicReference } from '../../shared/campus-academic';
 import { isAcademicCampus } from './campus-academic';
 import { programMessageProjection } from './interactive-program-sources';
 import { orderCampusPageViews } from './campus-page-order';
+import { validCompanionActivityHint } from '../../shared/companion-activity';
 
 type PresentationRead = { liveCuriosity?: boolean; liveRehearsal?: boolean; liveNote?: boolean; liveCampus?: boolean; liveProgram?: boolean };
 
@@ -208,6 +209,8 @@ export class PresentationService {
   /** Historical IPC and exports must apply the same source gate as scene tools. */
   sourceCurrentMessage(value: Message, options: PresentationRead = {}): Message {
     const runtime = this.store.runtime, scope = runtime.policy.hostScope();
+    if (value.companionActivity && (value.role !== 'assistant' || value.proactive || !['running', 'done'].includes(value.status)
+      || !validCompanionActivityHint(value.companionActivity, value.id))) value = { ...value, companionActivity: undefined };
     value = programMessageProjection(runtime, value, { live: options.liveProgram });
     if (value.releaseArtifacts?.length) {
       const originals = value.releaseArtifacts;
@@ -254,7 +257,7 @@ export class PresentationService {
     if (value.role === 'assistant' && !bodyReadable) return { ...value,
       content: '', responseText: undefined,
       hostStatus: { kind: 'notice', code: 'source_changed', text: '这条回复的依据已改变，正文暂不可读。' },
-      steps: [], obligations: [], actions: [], mapCards: undefined, scenes: [], views: [],
+      steps: [], obligations: [], actions: [], mapCards: undefined, scenes: [], views: [], companionActivity: undefined,
       releaseArtifacts: undefined, helpRefs: undefined, primaryHelpRef: undefined, cooperationId: undefined,
       contextReceipt: undefined, objectStates: undefined, image: undefined };
     const denied = new Set(snapshots.filter(scene => !this.studySnapshot(scene) && scene.kind !== 'study_reference' && scene.kind !== 'curiosity_reference' && scene.kind !== 'rehearsal_reference' && scene.kind !== 'note_reference'
@@ -277,10 +280,16 @@ export class PresentationService {
     });
     const workVersions = new Map<string, number>();
     for (const ref of safe.contextReceipt?.providedObjectVersions || []) if (ref.kind === 'work') workVersions.set(ref.id, Math.max(workVersions.get(ref.id) || 0, ref.revision));
+    const workScope = this.store.runtime.policy.hostScope();
     for (const [id, historicalRevision] of workVersions) {
-      const current = this.store.kernel.work(this.store.runtime.policy.hostScope(), undefined, id)[0];
+      // Generic Work deliberately withholds teaching artifacts. Absence there
+      // is not deletion; the typed owner can return just current metadata.
+      const current = this.store.kernel.work(workScope, undefined, id)[0]
+        || (id.startsWith('study:') ? this.store.runtime.studyCompanion.currentMetadata(workScope, id) : undefined);
       const relation = !current ? 'removed' : current.revision === historicalRevision ? 'current' : 'changed';
-      objectStates.push({ id, kind: 'work', historicalRevision, currentRevision: current?.revision || null, relation, operationAvailable: relation === 'current' && !['stale', 'blocked', 'cancelled'].includes(current?.status || '') });
+      objectStates.push({ id, kind: 'work', historicalRevision, currentRevision: current?.revision || null, relation,
+        operationAvailable: relation === 'current' && !['stale', 'blocked', 'cancelled'].includes(current?.status || '')
+          && !(id.startsWith('study:') && current?.status === 'closed') });
     }
     const boundary = this.store.runtime.policy.validate(this.store.runtime.policy.hostScope());
     return { ...safe, objectStates,

@@ -1,0 +1,129 @@
+{
+  "method": "Explicit source-local alpha removal only; no RGB repaint, body redraw, transform, global erosion or connected-component deletion.",
+  "mother": "uika-planning-apricot-mother-candidate-v3.png",
+  "motherSha256": "767aab09d7596550438a1e3ef5ff01e578b4a635cc548b104bd773f211361e1b",
+  "rawMatte": "uika-planning-apricot-mask-generated-v1.png",
+  "rawMatteSha256": "8addf8ba06051a4716d111918f975a1a3a3d004277c65464094b2492f62fc65b",
+  "script": "uika-planning-apricot-refine-matte-v1.py",
+  "scriptSha256": "6d67618acfcab4f2d2fb01e76d25354f043a8d730b216f893a1efcd6db67e3ea",
+  "regions": [
+    {
+      "name": "Located cool window mixtures between fine left hair strands",
+      "polygon": [
+        [
+          741,
+          315
+        ],
+        [
+          765,
+          315
+        ],
+        [
+          785,
+          337
+        ],
+        [
+          773,
+          384
+        ],
+        [
+          741,
+          384
+        ]
+      ],
+      "confidence": "clip((R-G+15)/55,0,1)",
+      "changedPixels": 851
+    },
+    {
+      "name": "Located dark warm wood protruding from back shirt edge",
+      "polygon": [
+        [
+          744,
+          489
+        ],
+        [
+          758,
+          489
+        ],
+        [
+          758,
+          501
+        ],
+        [
+          744,
+          501
+        ]
+      ],
+      "changedPixels": 59
+    },
+    {
+      "name": "Located detached sky/leaf speck above open fingers",
+      "polygon": [
+        [
+          894,
+          451
+        ],
+        [
+          902,
+          451
+        ],
+        [
+          902,
+          459
+        ],
+        [
+          894,
+          459
+        ]
+      ],
+      "changedPixels": 57
+    },
+    {
+      "name": "Located wooden drawer triangle between forearm and skirt waist",
+      "polygon": [
+        [
+          816,
+          516
+        ],
+        [
+          850,
+          516
+        ],
+        [
+          850,
+          537
+        ],
+        [
+          816,
+          537
+        ]
+      ],
+      "changedPixels": 236
+    },
+    {
+      "name": "Four individually viewed brown drawer edge pixels",
+      "points": [
+        [
+          837,
+          527
+        ],
+        [
+          838,
+          528
+        ],
+        [
+          839,
+          529
+        ],
+        [
+          841,
+          530
+        ]
+      ],
+      "changedPixels": 4
+    }
+  ],
+  "output": "uika-planning-apricot-matte-prepared-v1.png",
+  "outputSha256": "d092c8022c0beab936b4ac8a01a5ee381f7234995acdc27bc70b4a46e3f63726",
+  "review": "Designer inspecting; primary layer/Stage/runtime pending."
+}

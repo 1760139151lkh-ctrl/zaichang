@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import {
   Check,
   BookOpen,
+  Bookmark,
   ChevronLeft,
   ChevronRight,
   History,
@@ -23,11 +24,15 @@ import {
   type NoteQuote,
   type NoteQuoteReference,
   type NotesBridge,
+  type NoteDraftAddress,
 } from '../shared/notes';
 import { IconButton, PagePanel, uiError } from './ui';
 import { DEFAULT_TIME_ZONE, formatDateTime } from './time';
 import type { LocalSearchLocator } from '../shared/search';
-import type { MaterialQuoteReference } from '../shared/materials';
+import { materialQuoteAddress, type MaterialQuoteReference } from '../shared/materials';
+import { readBookmarkTransfer, useBookmarkTray, writeBookmarkTransfer } from './SourceBookmarkTray';
+import { SOURCE_BOOKMARK_MIME, sourceBookmarkReferenceSchema, type ConversationBookmarkReference, type SourceBookmarkPreview, type SourceBookmarkReference } from '../shared/source-bookmark';
+import type { NoteReturnAddress } from './workspace-return';
 import './notes.css';
 
 type Editor = { note?: NoteDocument; title: string; body: string };
@@ -100,6 +105,9 @@ export function NotesPanel({
   onUnsavedChange,
   onOpenMaterialSource,
   onOpenMaterials,
+  onOpenConversationSource,
+  onReturnAddressChange,
+  resume,
   onQuote,
   quoteContext = '',
   quoteBoundary = '',
@@ -114,6 +122,9 @@ export function NotesPanel({
   onUnsavedChange?: (unsaved: boolean) => void;
   onOpenMaterialSource?: (source: MaterialQuoteReference, discuss?: boolean) => Promise<void>;
   onOpenMaterials?: () => void;
+  onOpenConversationSource?: (reference: ConversationBookmarkReference) => Promise<void>;
+  onReturnAddressChange?: (address: NoteReturnAddress | undefined) => void;
+  resume?: { address: NoteReturnAddress; requestId: number };
   onQuote?: (quote: NoteQuote) => boolean;
   quoteContext?: string;
   quoteBoundary?: string;
@@ -124,6 +135,7 @@ export function NotesPanel({
   bridge?: NotesBridge;
   timeZone?: string;
 }) {
+  const bookmarkTray = useBookmarkTray();
   const [list, setList] = useState<NoteList>({
     items: [],
     total: 0,
@@ -145,6 +157,9 @@ export function NotesPanel({
   const [closing, setClosing] = useState(false),
     [draftCount, setDraftCount] = useState(0);
   const [sourceError, setSourceError] = useState(''), [sourceOpening, setSourceOpening] = useState(false);
+  const [loadedExcerpt, setLoadedExcerpt] = useState<{ key: string; value: SourceBookmarkPreview }>(), [excerptLoading, setExcerptLoading] = useState(false),
+    [excerptError, setExcerptError] = useState(''), [excerptRefresh, setExcerptRefresh] = useState(0);
+  const excerptGeneration = useRef(0);
   const [selection, setSelection] = useState<NoteSelection>();
   const [quoting, setQuoting] = useState(false);
   const quoteGeneration = useRef(0);
@@ -156,12 +171,149 @@ export function NotesPanel({
     request = useRef(0),
     listRequest = useRef(0),
     mounted = useRef(true);
+  const savedDrafts = useRef(new Map<string, NoteDraftAddress>()), draftEpoch = useRef<number | undefined>(undefined);
+  const draftQueues = useRef(new Map<string, Promise<void>>()), draftTimers = useRef(new Map<string, ReturnType<typeof setTimeout>>());
+  const queuedDrafts = useRef(new Map<string, { value: Editor; boundary: string; epoch?: number }>()), draftConflicts = useRef(new Set<string>());
+  const draftContext = useRef(quoteBoundary); draftContext.current = quoteBoundary;
+  const [recentDraft, setRecentDraft] = useState<string>();
+  const backedDrafts = useRef(new Map<string, Editor>());
+  const [draftBackupRevision, bumpDraftBackup] = useState(0);
   const host = useRef<HTMLDivElement>(null);
   const focusRequest = useRef(0), focusPending = useRef<typeof focus>(undefined);
   const unsavedCallback = useRef(onUnsavedChange);
   unsavedCallback.current = onUnsavedChange;
   const dirty = isDirty(editor),
     deleted = editor?.note?.state === 'deleted';
+  const excerptKey = `${quoteBoundary}:${editor?.note?.id || ''}@${editor?.note?.revision || 0}`;
+  const sourceExcerpt = active && !deleted && loadedExcerpt?.key === excerptKey ? loadedExcerpt.value : undefined;
+  const returnCallback = useRef(onReturnAddressChange); returnCallback.current = onReturnAddressChange;
+  const resumeRequest = useRef(0), resumeAddress = useRef<NoteReturnAddress | undefined>(undefined);
+  const editorCurrent = useRef(editor); editorCurrent.current = editor;
+  const viewingGeneration = useRef(0);
+  const [resumeProof, setResumeProof] = useState(0);
+  const reportReturnAddress = (includeSelection = true) => {
+    if (!active || !editor || deleted || resumeAddress.current || resume && resumeRequest.current !== resume.requestId) return;
+    const control = host.current?.querySelector<HTMLTextAreaElement>('textarea.notes-body'),
+      page = host.current?.querySelector<HTMLElement>('.notes-embedded, .page-panel');
+    returnCallback.current?.({ id: editor.note?.id || 'new',
+      ...(editor.note ? { revision: editor.note.revision, sha256: editor.note.sha256 } : {}),
+      ...(includeSelection && !dirty && editor.note && selection?.editor === editor ? { selection: {
+        id: editor.note.id, revision: editor.note.revision, sha256: editor.note.sha256, start: selection.start, end: selection.end } } : {}),
+      scrollTop: control?.scrollTop || 0, pageTop: page?.scrollTop || 0 });
+  };
+  useEffect(() => { reportReturnAddress(); }, [active, editor, selection, dirty, deleted]);
+  useEffect(() => {
+    if (!active || !resume || busy || resumeRequest.current === resume.requestId) return;
+    resumeRequest.current = resume.requestId; resumeAddress.current = resume.address;
+    setResumeProof(0); const requestId = resume.requestId;
+    void (resume.address.id === 'new' ? newNote() : open(resume.address.id)).then(success => {
+      if (success && resumeRequest.current === requestId) setResumeProof(requestId);
+      else if (resumeRequest.current === requestId) resumeAddress.current = undefined;
+    });
+  }, [active, resume?.requestId, busy]);
+  useEffect(() => {
+    const address = resumeAddress.current;
+    if (!active || busy || !address || !editor || resumeProof !== resumeRequest.current || (editor.note?.id || 'new') !== address.id) return;
+    resumeAddress.current = undefined;
+    const requestId = resumeRequest.current, context = quoteBoundary, currentEditor = editor, viewing = viewingGeneration.current;
+    requestAnimationFrame(() => {
+      if (!mounted.current || !quoteDestination.current.active || quoteDestination.current.boundary !== context
+        || resumeRequest.current !== requestId || editorCurrent.current !== currentEditor || viewingGeneration.current !== viewing) return;
+      const control = host.current?.querySelector<HTMLTextAreaElement>('textarea.notes-body'),
+        page = host.current?.querySelector<HTMLElement>('.notes-embedded, .page-panel');
+      if (control) control.scrollTop = address.scrollTop || 0;
+      if (page) page.scrollTop = address.pageTop || 0;
+      if (!address.selection || dirty || conflict || !editor.note || editor.note.revision !== address.revision
+        || editor.note.sha256 !== address.sha256 || !control) { control?.focus({ preventScroll: true }); reportReturnAddress(); return; }
+      const points = Array.from(editor.body), start = points.slice(0, address.selection.start).join('').length,
+        end = points.slice(0, address.selection.end).join('').length;
+      if (address.selection.end > points.length) { control.focus({ preventScroll: true }); reportReturnAddress(); return; }
+      revealNoteMatch(control, start, end);
+      selectPassage(control);
+      reportReturnAddress();
+    });
+  }, [active, busy, editor, resumeProof]);
+  const sourceReference = (note?: NoteDocument): SourceBookmarkReference | undefined => {
+    if (!note?.source.referenceOnly) return;
+    const { material, notebook, conversation } = note.source;
+    return material ? { kind: 'material', reference: materialQuoteAddress(material) } : notebook ? { kind: 'notebook', reference: notebook }
+      : conversation ? { kind: 'conversation', reference: conversation } : undefined;
+  };
+  useEffect(() => {
+    const turn = ++excerptGeneration.current, reference = sourceReference(editor?.note);
+    setLoadedExcerpt(undefined); setExcerptError(''); setExcerptLoading(false);
+    if (!active || deleted || !reference) return;
+    setExcerptLoading(true);
+    void window.zaichang.sourceBookmarkPreview(reference).then(value => {
+      if (turn === excerptGeneration.current) setLoadedExcerpt({ key: excerptKey, value });
+    }).catch(cause => { if (turn === excerptGeneration.current) setExcerptError(uiError(cause)); })
+      .finally(() => { if (turn === excerptGeneration.current) setExcerptLoading(false); });
+    return () => { excerptGeneration.current++; };
+  }, [active, editor?.note?.id, editor?.note?.revision, deleted, quoteBoundary, excerptRefresh]);
+  const updateDraftCount = () => {
+    const keys = new Set([...savedDrafts.current.keys(), ...drafts.current.keys()]);
+    setDraftCount(keys.size); setRecentDraft(keys.values().next().value);
+  };
+  const queueDraftWrite = (key: string, value: Editor | undefined,
+    context = draftContext.current, epochAtQueue = draftEpoch.current) => {
+    const previous = draftQueues.current.get(key) || Promise.resolve();
+    const task = previous.catch(() => undefined).then(async () => {
+      if (typeof bridge.notesDraft !== 'function' || draftContext.current !== context) return;
+      if (value && draftConflicts.current.has(key)) return;
+      let known = savedDrafts.current.get(key), epoch = epochAtQueue;
+      if (epoch === undefined) {
+        const result = await bridge.notesDraft({ operation: 'read', key });
+        if (draftContext.current !== context) return;
+        epoch = result.epoch; draftEpoch.current = result.epoch;
+        if (result.draft) { known = result.draft; savedDrafts.current.set(key, result.draft); }
+      }
+      const result = value ? await bridge.notesDraft({ operation: 'write', key, expectedEpoch: epoch,
+        expectedDraftRevision: known?.revision || 0, ...(value.note ? { baseRevision: value.note.revision } : {}), title: value.title, body: value.body })
+        : known ? await bridge.notesDraft({ operation: 'discard', key, expectedEpoch: epoch,
+          expectedDraftRevision: known.revision }) : undefined;
+      if (!result || draftContext.current !== context) return;
+      if (result.status === 'conflict') {
+        draftConflicts.current.add(key);
+        if (mounted.current) setError('另一处也写了这页。眼前的字还在，先把两边的想法留住，再决定保存哪一版。');
+        return;
+      }
+      if (result.draft) savedDrafts.current.set(key, result.draft);
+      else savedDrafts.current.delete(key);
+      if (value) backedDrafts.current.set(key, value); else backedDrafts.current.delete(key);
+      draftConflicts.current.delete(key);
+      if (mounted.current) { updateDraftCount(); bumpDraftBackup(value => value + 1); }
+    }).catch(cause => { if (mounted.current && draftContext.current === context) setError(uiError(cause)); });
+    draftQueues.current.set(key, task); return task;
+  };
+  const flushDraft = (key: string) => {
+    const timer = draftTimers.current.get(key); if (timer) clearTimeout(timer); draftTimers.current.delete(key);
+    const queued = queuedDrafts.current.get(key); queuedDrafts.current.delete(key);
+    return queued ? queueDraftWrite(key, queued.value, queued.boundary, queued.epoch) : draftQueues.current.get(key);
+  };
+  const scheduleDraft = (value: Editor) => {
+    const key = keyOf(value), timer = draftTimers.current.get(key);
+    if (timer) clearTimeout(timer);
+    queuedDrafts.current.set(key, { value, boundary: draftContext.current, epoch: draftEpoch.current });
+    draftTimers.current.set(key, setTimeout(() => void flushDraft(key), 250));
+  };
+  const discardDraft = (key: string) => {
+    const timer = draftTimers.current.get(key); if (timer) clearTimeout(timer); draftTimers.current.delete(key);
+    queuedDrafts.current.delete(key);
+    return queueDraftWrite(key, undefined);
+  };
+  useEffect(() => {
+    if (!active || typeof bridge.notesDraft !== 'function') return;
+    let live = true;
+    void bridge.notesDraft({ operation: 'list' }).then(result => {
+      if (!live) return;
+      if (draftEpoch.current !== undefined && draftEpoch.current !== result.epoch) {
+        drafts.current.clear(); draftConflicts.current.clear(); backedDrafts.current.clear();
+      }
+      draftEpoch.current = result.epoch;
+      savedDrafts.current = new Map((result.items || []).map(value => [value.key, value])); updateDraftCount();
+    }).catch(cause => { if (live) setError(uiError(cause)); });
+    return () => { live = false; for (const key of queuedDrafts.current.keys()) void flushDraft(key); };
+  }, [active, quoteBoundary, bridge]);
   useEffect(() => {
     mounted.current = true;
     return () => {
@@ -181,8 +333,11 @@ export function NotesPanel({
         ?.focus({ preventScroll: true });
   }, [active]);
   useEffect(() => {
-    onUnsavedChange?.(dirty || draftCount > 0);
-  }, [dirty, draftCount, onUnsavedChange]);
+    onUnsavedChange?.(typeof bridge.notesDraft === 'function'
+      ? [...drafts.current].some(([key, draft]) => backedDrafts.current.get(key) !== draft)
+        || !!editor && dirty && backedDrafts.current.get(keyOf(editor)) !== editor
+      : dirty || draftCount > 0);
+  }, [dirty, draftCount, editor, draftBackupRevision, onUnsavedChange]);
   useEffect(() => () => unsavedCallback.current?.(false), []);
   useEffect(() => {
     quoteGeneration.current++;
@@ -235,8 +390,14 @@ export function NotesPanel({
     if (!active || !focus || busy || focusRequest.current === focus.requestId) return;
     focusRequest.current = focus.requestId;
     focusPending.current = focus;
+    const requestId = focus.requestId, context = quoteBoundary;
     setState('active'); setQuery(''); setAppliedQuery('');
-    void open(focus.locator.noteId);
+    void open(focus.locator.noteId).then(success => {
+      // A bookmark can create a page while this already-active notebook is
+      // open. Refresh its real owner list as well as opening the new editor.
+      if (success && focusRequest.current === requestId && quoteDestination.current.active
+        && quoteDestination.current.boundary === context) void loadList('active', '');
+    });
   }, [active, focus, busy]);
   useEffect(() => {
     const pending = focusPending.current;
@@ -258,7 +419,8 @@ export function NotesPanel({
     const id = editor.note.id,
       revision = editor.note.revision,
       token = ++request.current;
-    const activationFocus = document.activeElement;
+    const activationFocus = document.activeElement, activationViewing = viewingGeneration.current,
+      activationInteraction = bookmarkTray?.getInteractionVersion();
     setBusy(true);
     void readAll(id)
       .then((note) => {
@@ -273,7 +435,8 @@ export function NotesPanel({
         if (resume.boundary !== destination.boundary
           || destination.focus && destination.focus.requestId !== focusRequest.current || focusPending.current
           || note.state !== 'active' || note.id !== resume.address.id || note.revision !== resume.address.revision
-          || note.sha256 !== resume.address.sha256 || document.activeElement !== activationFocus) {
+          || note.sha256 !== resume.address.sha256 || document.activeElement !== activationFocus
+          || activationViewing !== viewingGeneration.current || activationInteraction !== bookmarkTray?.getInteractionVersion()) {
           returnSelection.current = undefined;
           return;
         }
@@ -300,9 +463,9 @@ export function NotesPanel({
   }, [active]);
 
   function retainDraft() {
-    if (editor && isDirty(editor)) drafts.current.set(keyOf(editor), editor);
+    if (editor && isDirty(editor)) { drafts.current.set(keyOf(editor), editor); scheduleDraft(editor); void flushDraft(keyOf(editor)); }
     else if (editor) drafts.current.delete(keyOf(editor));
-    setDraftCount(drafts.current.size);
+    updateDraftCount();
   }
   function resetFeedback() {
     cancelQuote();
@@ -329,33 +492,57 @@ export function NotesPanel({
     }
     return { ...first.note, body };
   }
-  async function open(id: string) {
-    if (busy) return;
+  async function open(id: string, stillRequested: () => boolean = () => true) {
+    if (busy || !stillRequested()) return false;
     retainDraft();
     resetFeedback();
     const token = ++request.current;
     const draft = drafts.current.get(id);
-    if (draft) {
-      setEditor(draft);
-      return;
-    }
     setBusy(true);
     try {
       const note = await readAll(id);
-      if (mounted.current && token === request.current) setEditor(editable(note));
+      const kept = !draft && note.state === 'active' && typeof bridge.notesDraft === 'function'
+        ? await bridge.notesDraft({ operation: 'read', key: id }) : undefined;
+      if (kept) { draftEpoch.current = kept.epoch; if (kept.draft) savedDrafts.current.set(id, kept.draft); }
+      const original = kept?.draft?.baseRevision && kept.draft.baseRevision !== note.revision
+        ? await readAll(id, kept.draft.baseRevision) : note;
+      if (mounted.current && token === request.current && stillRequested()) {
+        const resumed = note.state === 'active' ? draft || (kept?.draft ? { note: original,
+          title: kept.draft.title, body: kept.draft.body } : undefined) : undefined;
+        setEditor(resumed || editable(note));
+        if (resumed) { drafts.current.set(id, resumed); if (kept?.draft) backedDrafts.current.set(id, resumed);
+          if (resumed.note?.revision !== note.revision) setConflict(note); }
+        updateDraftCount();
+        return true;
+      }
     } catch (cause) {
-      if (mounted.current && token === request.current) setError(uiError(cause));
+      if (mounted.current && token === request.current && stillRequested()) setError(uiError(cause));
     } finally {
       if (mounted.current && token === request.current) setBusy(false);
     }
+    return false;
   }
-  function newNote() {
-    if (busy) return;
+  async function newNote() {
+    if (busy) return false;
     retainDraft();
     resetFeedback();
-    ++request.current;
+    const token = ++request.current;
     setState('active');
-    setEditor(drafts.current.get('new') || fresh());
+    const local = drafts.current.get('new');
+    if (local || typeof bridge.notesDraft !== 'function') { setEditor(local || fresh()); return true; }
+    setBusy(true);
+    try {
+      const kept = await bridge.notesDraft({ operation: 'read', key: 'new' });
+      if (!mounted.current || token !== request.current) return;
+      draftEpoch.current = kept.epoch;
+      if (kept.draft) { savedDrafts.current.set('new', kept.draft); const resumed = { title: kept.draft.title, body: kept.draft.body };
+        drafts.current.set('new', resumed); backedDrafts.current.set('new', resumed); setEditor(resumed); }
+      else setEditor(fresh());
+      updateDraftCount();
+      return true;
+    } catch (cause) { if (mounted.current && token === request.current) setError(uiError(cause)); }
+    finally { if (mounted.current && token === request.current) setBusy(false); }
+    return false;
   }
   function changeDraft(change: Partial<Pick<Editor, 'title' | 'body'>>) {
     if (!editor) return;
@@ -364,17 +551,17 @@ export function NotesPanel({
     setEditor(next);
     setReceipt('');
     setUndoRevision(undefined);
-    if (isDirty(next)) drafts.current.set(keyOf(next), next);
-    else drafts.current.delete(keyOf(next));
-    setDraftCount(drafts.current.size);
+    if (isDirty(next)) { drafts.current.set(keyOf(next), next); scheduleDraft(next); }
+    else { drafts.current.delete(keyOf(next)); void discardDraft(keyOf(next)); }
+    updateDraftCount();
   }
   function acceptResult(result: NoteMutation) {
     if (result.status === 'conflict') {
       setConflict(result.current);
       return false;
     }
-    if (editor) drafts.current.delete(keyOf(editor));
-    setDraftCount(drafts.current.size);
+    if (editor) { drafts.current.delete(keyOf(editor)); void discardDraft(keyOf(editor)); }
+    updateDraftCount();
     setEditor(editable(result.note));
     setConflict(undefined);
     setUndoRevision(result.previousRevision);
@@ -434,28 +621,87 @@ export function NotesPanel({
   }
   async function discussSelection() {
     if (!selection || selection.editor !== editor || !onQuote || !quoteEnabled || busy || quoting || deleted || conflict) return;
-    const selected = selection, destination = quoteDestination.current.context, generation = ++quoteGeneration.current;
+    const selected = selection, destination = quoteDestination.current, generation = ++quoteGeneration.current,
+      interaction = bookmarkTray?.getInteractionVersion();
+    const current = () => mounted.current && generation === quoteGeneration.current
+      && destination.context === quoteDestination.current.context && destination.boundary === quoteDestination.current.boundary
+      && quoteDestination.current.active && quoteDestination.current.enabled
+      && interaction === bookmarkTray?.getInteractionVersion();
     setQuoting(true); setError('');
     try {
       // "Save and discuss" is one explicit user action. An unsaved edit must
       // never be described by the earlier saved revision or material source.
       const note = isDirty(editor) ? await save() : editor.note;
-      if (!note || !mounted.current || generation !== quoteGeneration.current
-        || destination !== quoteDestination.current.context || !quoteDestination.current.active
-        || !quoteDestination.current.enabled) return;
+      if (!note || !current()) return;
       if (note.body !== selected.editor.body) throw new Error('这一页的内容变了，请重新选中想聊的那一段。');
       const quote = await bridge.notesQuote({ id: note.id, revision: note.revision, sha256: note.sha256,
         start: selected.start, end: selected.end });
-      if (!mounted.current || generation !== quoteGeneration.current || destination !== quoteDestination.current.context
-        || !quoteDestination.current.active || !quoteDestination.current.enabled) return;
+      if (!current()) return;
       const control = host.current?.querySelector<HTMLTextAreaElement>('textarea.notes-body');
       const page = host.current?.querySelector<HTMLElement>('.notes-embedded, .page-panel');
       const resume = control ? { address: noteQuoteAddress(quote), boundary: quoteDestination.current.boundary,
         scrollTop: control.scrollTop, pageTop: page?.scrollTop || 0,
         width: control.clientWidth, height: control.clientHeight } : undefined;
       if (onQuote(quote)) { returnSelection.current = resume; setSelection(undefined); }
-    } catch (cause) { if (mounted.current && generation === quoteGeneration.current) setError(uiError(cause)); }
+    } catch (cause) { if (current()) setError(uiError(cause)); }
     finally { if (mounted.current && generation === quoteGeneration.current) setQuoting(false); }
+  }
+  async function pickSelection() {
+    if (!selection || selection.editor !== editor || !bookmarkTray || busy || quoting || deleted || conflict) return;
+    const selected = selection, generation = ++quoteGeneration.current, destination = quoteDestination.current,
+      interaction = bookmarkTray.getInteractionVersion();
+    const current = () => mounted.current && generation === quoteGeneration.current
+      && destination.context === quoteDestination.current.context && destination.boundary === quoteDestination.current.boundary
+      && quoteDestination.current.active && destination.enabled === quoteDestination.current.enabled
+      && interaction === bookmarkTray.getInteractionVersion();
+    setQuoting(true); setError('');
+    try {
+      const note = isDirty(editor) ? await save() : editor.note;
+      if (!note || !current()) return;
+      if (note.body !== selected.editor.body) throw new Error('这一页的内容变了，请重新选中想拿起的那一段。');
+      const quote = await bridge.notesQuote({ id: note.id, revision: note.revision, sha256: note.sha256,
+        start: selected.start, end: selected.end });
+      if (!current()) return;
+      await bookmarkTray.pick({ kind: 'notebook', reference: noteQuoteAddress(quote) });
+    } catch (cause) { if (current()) setError(uiError(cause)); }
+    finally { if (mounted.current && generation === quoteGeneration.current) setQuoting(false); }
+  }
+  async function openNotebookSource() {
+    const source = editor?.note?.source.notebook;
+    if (!source || sourceOpening || busy) return;
+    const destination = quoteDestination.current, interaction = bookmarkTray?.getInteractionVersion();
+    const current = () => mounted.current && quoteDestination.current.active
+      && destination.context === quoteDestination.current.context && destination.boundary === quoteDestination.current.boundary
+      && interaction === bookmarkTray?.getInteractionVersion();
+    setSourceOpening(true); setSourceError('');
+    try {
+      await bridge.notesQuote(source);
+      if (!current() || !await open(source.id, current)) return;
+      requestAnimationFrame(() => {
+        if (!current()) return;
+        const control = host.current?.querySelector<HTMLTextAreaElement>('textarea.notes-body');
+        if (!control) return;
+        const points = Array.from(control.value), start = points.slice(0, source.start).join('').length,
+          end = points.slice(0, source.end).join('').length;
+        revealNoteMatch(control, start, end);
+      });
+    } catch (cause) { if (current()) setSourceError(uiError(cause)); }
+    finally { if (mounted.current) setSourceOpening(false); }
+  }
+  async function recoverOriginalPage() {
+    if (!editor?.note || busy || sourceOpening) return;
+    const source = editor.note.source, destination = quoteDestination.current, interaction = bookmarkTray?.getInteractionVersion();
+    const current = () => mounted.current && quoteDestination.current.active
+      && destination.context === quoteDestination.current.context && destination.boundary === quoteDestination.current.boundary
+      && interaction === bookmarkTray?.getInteractionVersion();
+    // The user explicitly opens today's original page. The old quote address
+    // on this kept page is not rewritten to that newer version.
+    if (source.notebook) { await open(source.notebook.id, current); return; }
+    if (source.material && onOpenMaterials) {
+      retainDraft();
+      await Promise.allSettled([...queuedDrafts.current.keys()].map(key => flushDraft(key)));
+      if (current()) onOpenMaterials();
+    }
   }
   async function mutate(kind: 'state' | 'undo', target: 'active' | 'deleted' | number) {
     if (!editor?.note || busy) return;
@@ -524,10 +770,18 @@ export function NotesPanel({
       setBusy(false);
     }
   }
-  function close() {
+  async function close() {
+    if (busy) return;
     cancelQuote();
     retainDraft();
-    if (dirty || drafts.current.size) setClosing(true);
+    if (typeof bridge.notesDraft !== 'function') { if (dirty || drafts.current.size) setClosing(true); else onClose(); return; }
+    setBusy(true);
+    const token = ++request.current, closingContext = quoteDestination.current.context;
+    await Promise.allSettled([...new Set([...queuedDrafts.current.keys(), ...draftQueues.current.keys()])].map(key => flushDraft(key)));
+    if (!mounted.current || token !== request.current) return;
+    setBusy(false);
+    if (!quoteDestination.current.active || quoteDestination.current.context !== closingContext) return;
+    if ([...drafts.current].some(([key, draft]) => backedDrafts.current.get(key) !== draft)) setClosing(true);
     else onClose();
   }
   async function openMaterial(discuss = false) {
@@ -543,7 +797,9 @@ export function NotesPanel({
   const hasContent = !!editor?.title.trim() || !!editor?.body.trim();
   return (
     <div className="notes-host" hidden={!active} ref={host}
-      onScrollCapture={() => setSelection(undefined)}>
+      onPointerDownCapture={() => { viewingGeneration.current++; }} onWheelCapture={() => { viewingGeneration.current++; }}
+      onKeyDownCapture={() => { viewingGeneration.current++; }}
+      onScrollCapture={() => { setSelection(undefined); reportReturnAddress(false); }}>
       <NotesFrame embedded={embedded} onClose={close}>
         <div className="notes-toolbar">
           <form
@@ -594,6 +850,7 @@ export function NotesPanel({
                 className="text-button"
                 disabled={busy}
                 onClick={() => {
+                  for (const key of drafts.current.keys()) void discardDraft(key);
                   drafts.current.clear();
                   setDraftCount(0);
                   setEditor(editor?.note ? editable(editor.note) : undefined);
@@ -653,7 +910,7 @@ export function NotesPanel({
                   <strong>{note.title || '没有标题的一页'}</strong>
                   {note.preview && <span className="notes-preview">{note.preview}</span>}
                   <small>
-                    {drafts.current.has(note.id) ? '还有没保存的字' : date(note.updatedAt)}
+                    {drafts.current.has(note.id) || savedDrafts.current.has(note.id) ? '还有没写完的字' : date(note.updatedAt)}
                   </small>
                 </button>
               ))}
@@ -667,7 +924,7 @@ export function NotesPanel({
                 再翻一些
               </button>
             )}
-            {draftCount > 0 && drafts.current.has('new') && editor?.note && (
+            {draftCount > 0 && (drafts.current.has('new') || savedDrafts.current.has('new')) && editor?.note && (
               <button className="text-button notes-more" disabled={busy} onClick={newNote}>
                 接着写刚才那一页
               </button>
@@ -679,9 +936,9 @@ export function NotesPanel({
                 <div>
                   <p className="notes-start-title">留一点位置，给你的想法。</p>
                   <p>一句话也好，慢慢写也好。</p>
-                  <button className="text-button" disabled={busy} onClick={newNote}>
+                  <button className="text-button" disabled={busy} onClick={() => recentDraft && recentDraft !== 'new' ? void open(recentDraft) : void newNote()}>
                     <Plus size={17} />
-                    写下第一句
+                    {recentDraft ? '接着写刚才那一页' : '写下第一句'}
                   </button>
                 </div>
               </div>
@@ -695,7 +952,7 @@ export function NotesPanel({
                       {deleted
                         ? '收在这里，随时可以放回笔记'
                         : dirty
-                          ? '刚写的字还没保存'
+                          ? '还在写的这一版'
                           : editor.note
                             ? date(editor.note.updatedAt)
                             : '新的一页'}
@@ -719,6 +976,9 @@ export function NotesPanel({
                   </div>
                   <form
                     className="notes-editor"
+                    data-bookmark-target="note"
+                    onDragOver={event => { if (bookmarkTray && event.dataTransfer.types.includes(SOURCE_BOOKMARK_MIME)) { event.preventDefault(); event.stopPropagation(); event.dataTransfer.dropEffect = 'copy'; } }}
+                    onDrop={event => { const reference = readBookmarkTransfer(event.dataTransfer); if (reference && bookmarkTray) { event.preventDefault(); event.stopPropagation(); void bookmarkTray.offer(reference, 'note'); } }}
                     onSubmit={(event) => {
                       event.preventDefault();
                       void save();
@@ -736,6 +996,29 @@ export function NotesPanel({
                         onChange={(event) => changeDraft({ title: event.target.value })}
                       />
                     </label>
+                    {editor.note?.source.referenceOnly && <section className="note-live-excerpt" aria-label="留在这页旁的原文" aria-busy={excerptLoading}>
+                      {sourceExcerpt && <><header><BookOpen size={15} /><span>{sourceExcerpt.title}{sourceExcerpt.page ? ` · 第 ${sourceExcerpt.page} 页` : ''}</span></header><blockquote onDragStart={event => {
+                        const selection = window.getSelection(), node = event.currentTarget;
+                        if (!selection?.rangeCount || selection.isCollapsed || node.textContent !== sourceExcerpt.text) { event.preventDefault(); return; }
+                        const range = selection.getRangeAt(0);
+                        if (!node.contains(range.startContainer) || !node.contains(range.endContainer)) { event.preventDefault(); return; }
+                        const prefix = range.cloneRange(); prefix.selectNodeContents(node); prefix.setEnd(range.startContainer, range.startOffset);
+                        const start = sourceExcerpt.reference.reference.start + Array.from(prefix.toString()).length,
+                          end = start + Array.from(range.toString()).length;
+                        const reference = sourceBookmarkReferenceSchema.parse({ ...sourceExcerpt.reference,
+                          reference: { ...sourceExcerpt.reference.reference, start, end } });
+                        writeBookmarkTransfer(event.dataTransfer, reference);
+                      }}>{sourceExcerpt.text}</blockquote>
+                        <div>{sourceExcerpt.reference.kind === 'material' && onOpenMaterialSource && <button type="button" className="text-button" onClick={() => void openMaterial()}>回到原文</button>}
+                          {sourceExcerpt.reference.kind === 'notebook' && <button type="button" className="text-button" onClick={() => void openNotebookSource()}>回到原句</button>}
+                          {sourceExcerpt.reference.kind === 'conversation' && onOpenConversationSource && <button type="button" className="text-button" onClick={() => {
+                            const reference = sourceExcerpt.reference; if (reference.kind === 'conversation') void onOpenConversationSource(reference.reference).catch(cause => setExcerptError(uiError(cause)));
+                          }}>回到原句</button>}
+                          {bookmarkTray && <button type="button" className="text-button" draggable onDragStart={event => writeBookmarkTransfer(event.dataTransfer, sourceExcerpt.reference)} onClick={() => void bookmarkTray.pick(sourceExcerpt.reference)}><Bookmark size={14} />拿到纸边</button>}</div></>}
+                      {excerptLoading && <p role="status">翻回留下的那一段…</p>}{excerptError && <><p role="status">{excerptError}</p><div>
+                        {(editor.note.source.notebook || editor.note.source.material && onOpenMaterials) && <button type="button" className="text-button" disabled={busy || sourceOpening} onClick={() => void recoverOriginalPage()}>{editor.note.source.notebook ? '看看现在的原页' : '重新带来资料'}</button>}
+                        <button type="button" className="text-button" disabled={busy || excerptLoading} onClick={() => setExcerptRefresh(value => value + 1)}>再看一次</button></div></>}
+                    </section>}
                     <label className="notes-body-label">
                       <span className="sr-only">笔记正文</span>
                       <textarea
@@ -747,13 +1030,26 @@ export function NotesPanel({
                         readOnly={deleted || busy}
                         onChange={(event) => changeDraft({ body: event.target.value })}
                         onPointerUp={event => selectPassage(event.currentTarget, { x: event.clientX, y: event.clientY })}
+                        onKeyDown={event => {
+                          if (event.key === 'Escape' && selection?.editor === editor) {
+                            event.preventDefault(); event.stopPropagation(); cancelQuote();
+                          }
+                        }}
                         onKeyUp={event => {
                           if (event.key === 'Escape') cancelQuote();
                           else selectPassage(event.currentTarget);
                         }}
                         onScroll={() => setSelection(undefined)}
+                        onDragStart={event => {
+                          if (!bookmarkTray) return;
+                          if (dirty || !editor.note) { event.preventDefault(); setReceipt('这句还在草稿里，可以点「保存并拿起」。'); return; }
+                          if (!selection || selection.editor !== editor) { event.preventDefault(); return; }
+                          writeBookmarkTransfer(event.dataTransfer, { kind: 'notebook', reference: {
+                            id: editor.note.id, revision: editor.note.revision, sha256: editor.note.sha256,
+                            start: selection.start, end: selection.end } });
+                        }}
                         onBlur={event => {
-                          if (!(event.relatedTarget instanceof Element) || !event.relatedTarget.closest('.note-selection-actions')) setSelection(undefined);
+                          if (!(event.relatedTarget instanceof Element) || !event.relatedTarget.closest('.note-selection-actions, .source-bookmark-tray')) setSelection(undefined);
                         }}
                       />
                     </label>
@@ -766,13 +1062,18 @@ export function NotesPanel({
                         }
                       }}
                       onBlur={event => {
-                        if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) setSelection(undefined);
+                        if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)
+                          && !(event.relatedTarget instanceof Element && event.relatedTarget.closest('.source-bookmark-tray'))) setSelection(undefined);
                       }}
                       onMouseDown={event => event.preventDefault()}>
                       <button type="button" disabled={busy || quoting || !quoteEnabled || !!conflict}
                         onClick={() => void discussSelection()}><MessageCircle size={16} />{dirty ? '保存并聊这一段' : '聊这一段'}</button>
+                      {bookmarkTray && <button type="button" disabled={busy || quoting || !!conflict} onClick={() => void pickSelection()}><Bookmark size={16} />{dirty ? '保存并拿起' : '书签夹'}</button>}
                     </div>}
-                    {editor.note?.source.material && <div className="note-material-source">
+                    {editor.note?.source.notebook && !editor.note.source.referenceOnly && <div className="note-material-source"><div className="note-material-source-name"><FileText size={17} /><span>从原来的笔记留来</span></div>
+                      <button type="button" className="text-button" disabled={sourceOpening || busy} onClick={() => void openNotebookSource()}><BookOpen size={16} />回到原句</button></div>}
+                    {editor.note?.source.notebook && sourceError && <p className="note-material-source-error" role="status">{sourceError}</p>}
+                    {editor.note?.source.material && !editor.note.source.referenceOnly && <div className="note-material-source">
                       <div className="note-material-source-name"><FileText size={17} /><span>{editor.note.source.material.name}{editor.note.source.material.page ? ` · 第 ${editor.note.source.material.page} 页` : ''}</span></div>
                       <div className="note-material-source-actions">
                         {onOpenMaterialSource && <><button type="button" className="text-button" disabled={sourceOpening} onClick={() => void openMaterial()}><BookOpen size={16} />回到原文</button>
@@ -884,8 +1185,9 @@ export function NotesPanel({
                             onClick={() => {
                               setEditor(editable(conflict));
                               drafts.current.delete(conflict.id);
+                              void discardDraft(conflict.id);
                               setConflict(undefined);
-                              setDraftCount(drafts.current.size);
+                              updateDraftCount();
                             }}
                           >
                             采用新的内容

@@ -1,0 +1,249 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "taki-chat-apricot-layer-parameters-v8.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "4d4ba6a4a9d6e08d040ef33c9678acb7bb039f6afe2fbce02261c4c818083816",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "taki-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f",
+  "matte": "taki-chat-apricot-mask-calibrated-v6.png",
+  "matteSha256": "d201943a2a3b5fa2b6fbc0d6fc0a831fc8d4c85659a07f82c9654d951a4dcc09",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        1189,
+        492
+      ],
+      [
+        1197,
+        492
+      ],
+      [
+        1196,
+        500
+      ],
+      [
+        1189,
+        500
+      ]
+    ],
+    [
+      [
+        1319,
+        500
+      ],
+      [
+        1330,
+        500
+      ],
+      [
+        1327,
+        508
+      ],
+      [
+        1321,
+        509
+      ]
+    ],
+    [
+      [
+        1327,
+        489
+      ],
+      [
+        1330,
+        489
+      ],
+      [
+        1330,
+        497
+      ],
+      [
+        1323,
+        497
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 206,
+  "alphaNonzeroPixels": 50672,
+  "alphaBounds": [
+    1104,
+    312,
+    1383,
+    784
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "62120ddf52552d3fb20956f1d25cc7591adb0f61b9c9acaa10a67d306ef5a810",
+  "figureRgbSha256": "62120ddf52552d3fb20956f1d25cc7591adb0f61b9c9acaa10a67d306ef5a810",
+  "background": {
+    "candidate": "taki-chat-apricot-background-generated-v1.png",
+    "candidateSha256": "ddc9008d68fbe902dcd834e8888a895ab2259721d9ddcf5d1f697f3896bc3e87",
+    "expandPixels": 7,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          1089,
+          735
+        ],
+        [
+          1187,
+          735
+        ],
+        [
+          1190,
+          779
+        ],
+        [
+          1087,
+          779
+        ]
+      ],
+      [
+        [
+          1235,
+          751
+        ],
+        [
+          1318,
+          751
+        ],
+        [
+          1328,
+          805
+        ],
+        [
+          1235,
+          805
+        ]
+      ],
+      [
+        [
+          1180,
+          578
+        ],
+        [
+          1381,
+          578
+        ],
+        [
+          1381,
+          622
+        ],
+        [
+          1180,
+          622
+        ]
+      ]
+    ],
+    "changedPixels": 83234,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1087,
+          736
+        ],
+        [
+          1184,
+          736
+        ],
+        [
+          1191,
+          778
+        ],
+        [
+          1086,
+          778
+        ]
+      ],
+      [
+        [
+          1234,
+          751
+        ],
+        [
+          1318,
+          751
+        ],
+        [
+          1326,
+          803
+        ],
+        [
+          1234,
+          803
+        ]
+      ],
+      [
+        [
+          1180,
+          573
+        ],
+        [
+          1381,
+          573
+        ],
+        [
+          1381,
+          624
+        ],
+        [
+          1180,
+          624
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "taki-chat-apricot-figure-calibrated-v8.png",
+      "bytes": 2469617,
+      "sha256": "a6f2c0d0734190005605c84eb895e507b5a5ca26f6e854c70a8958407d61bc11"
+    },
+    {
+      "file": "taki-chat-apricot-mask-calibrated-v8.png",
+      "bytes": 22698,
+      "sha256": "eb3215245b8a8cfca66729497f180f3c7ab65ed44865436fed865bb5e32b8844"
+    },
+    {
+      "file": "taki-chat-apricot-background-calibrated-v8.png",
+      "bytes": 2127254,
+      "sha256": "92c06cc0af5ac5ffe0ab5054395337dd68cd456e2aa9c72093d59a51e0c5774b"
+    },
+    {
+      "file": "taki-chat-apricot-shadow-calibrated-v8.png",
+      "bytes": 38713,
+      "sha256": "adca20f5d8697dcc06c6e1171a3118a60c644335f0893cd46c304005303a4781"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

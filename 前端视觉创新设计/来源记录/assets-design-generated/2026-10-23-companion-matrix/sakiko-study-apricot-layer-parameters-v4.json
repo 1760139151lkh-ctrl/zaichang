@@ -1,0 +1,146 @@
+{
+  "mother": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+  "motherSha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1",
+  "matte": "sakiko-study-apricot-mask.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        936,
+        603
+      ],
+      [
+        957,
+        601
+      ],
+      [
+        967,
+        727
+      ],
+      [
+        947,
+        729
+      ]
+    ],
+    [
+      [
+        933,
+        613
+      ],
+      [
+        947,
+        611
+      ],
+      [
+        947,
+        628
+      ],
+      [
+        933,
+        628
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          750,
+          480
+        ],
+        [
+          850,
+          480
+        ],
+        [
+          890,
+          625
+        ],
+        [
+          750,
+          625
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    },
+    {
+      "polygon": [
+        [
+          855,
+          585
+        ],
+        [
+          960,
+          585
+        ],
+        [
+          958,
+          615
+        ],
+        [
+          855,
+          615
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    },
+    {
+      "polygon": [
+        [
+          850,
+          609
+        ],
+        [
+          951,
+          601
+        ],
+        [
+          956,
+          614
+        ],
+        [
+          850,
+          635
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    }
+  ],
+  "figure": "sakiko-study-apricot-figure-calibrated-v4.png",
+  "mask": "sakiko-study-apricot-mask-calibrated-v4.png",
+  "backgroundCandidate": "sakiko-study-apricot-background.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        900,
+        682
+      ],
+      [
+        1068,
+        681
+      ],
+      [
+        1090,
+        754
+      ],
+      [
+        892,
+        754
+      ]
+    ]
+  ],
+  "background": "sakiko-study-apricot-background-calibrated-v4.png",
+  "record": "sakiko-study-apricot-layer-processing-v4.json",
+  "reviewNote": "v3 detail found two tiny warm chair fragments at x936/y618 and narrow front-leg edge. v4 excludes only those manually located room pieces and clears the narrow original floor-shadow region. Existing chair occlusions remain holes; no hidden body is painted."
+}

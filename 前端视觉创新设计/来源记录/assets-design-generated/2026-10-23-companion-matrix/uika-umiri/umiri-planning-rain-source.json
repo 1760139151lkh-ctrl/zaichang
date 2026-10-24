@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordType": "image-generation-source",
+  "character": "umiri",
+  "activity": "planning",
+  "theme": "rain",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-c06a3117-e85c-4b00-9fa2-067b1e03e847",
+  "intent": "lighting-weather",
+  "prompt": "umiri-planning-rain-prompt-v1.txt",
+  "promptFileMatchesActualToolInput": true,
+  "recordedAt": "2026-10-24T08:06:45.601Z",
+  "inputs": [
+    {
+      "file": "umiri-planning-apricot-mother-candidate-v2.png",
+      "role": "primary-approved-correct-warm-mother-edit-target",
+      "sha256": "78ca56bc6b2fff62341a26018251a84a62185ea6d614af14b2903ff323976f23"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "role": "primary-approved-clean-theme-lighting-reference-only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "umiri-planning-rain-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "80523201d75813279f8d704be0e25095b23bb1a67948a1e61ec4c6f37cbf459b",
+    "bytes": 2096712
+  },
+  "review": {
+    "designerViewed": "complete original Imagegen output",
+    "designerStatus": "candidate-for-primary-review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Turned planning gesture, real pulled-back chair and supported two-page desk folio retained, both boots complete; lamp/light source fixed.",
+  "promptSha256": "2fb686424d59ba059f059b77ff983d842498c1f95c19163f92cdcea8826e9719"
+}

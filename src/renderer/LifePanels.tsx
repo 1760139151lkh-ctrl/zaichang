@@ -12,7 +12,8 @@ import {
   X,
 } from 'lucide-react';
 import type { Action, State } from '../shared/types';
-import type { AgendaChangePreview, AgendaFocus } from '../shared/agenda';
+import type { AgendaChangePreview, AgendaFocus, AgendaPreviewChangeInput } from '../shared/agenda';
+import { calendarCommitment } from '../shared/calendar';
 import type { LetterFocusContext } from '../shared/reflective-letter';
 import type {
   MatterSelectionInput,
@@ -40,6 +41,8 @@ export function AgendaEditor({
   current,
   timeZone = DEFAULT_TIME_ZONE,
   initialStartsAt,
+  initialDurationMinutes,
+  restoreRequestId,
   initialOccurrenceDate,
   embedded = false,
   boundary,
@@ -47,6 +50,8 @@ export function AgendaEditor({
   onDiscuss,
   onMap,
   onTrialChange,
+  calendarVersionKey,
+  onReload,
   onState,
   onSaved,
   onClose,
@@ -56,15 +61,20 @@ export function AgendaEditor({
   timeZone?: string;
   /** A trial position, never a replacement for the original object/revision. */
   initialStartsAt?: string;
+  initialDurationMinutes?: number | null;
+  restoreRequestId?: number;
   initialOccurrenceDate?: string;
   embedded?: boolean;
   boundary?: Required<Pick<State, 'privacyEpoch' | 'policyRevision' | 'sourceBoundary'>>;
   includeCampus?: boolean;
   onDiscuss?: (focus: AgendaFocus, label: string) => void;
   onMap?: (id: string) => void;
-  onTrialChange?: (startsAt?: string) => void;
+  onTrialChange?: (startsAt?: string, durationMinutes?: number | null) => void;
+  calendarVersionKey?: string;
+  onReload?: (item: Action) => void;
   onState: (state: State) => void;
-  onSaved?: (saved: Action, previous: Action) => void;
+  onSaved?: (saved: Action, previous: Action, timing?: { before?: string; after?: string;
+    occurrenceDate?: string; kind: 'time_change' | 'other' }) => void;
   onClose: () => void;
 }) {
   const zone = original.timeZone || timeZone;
@@ -84,11 +94,25 @@ export function AgendaEditor({
   );
   const [allDayDate, setAllDayDate] = useState(original.allDayDate || '');
   const [duration, setDuration] = useState(
-    firstException?.durationMinutes === null
+    initialDurationMinutes === null || initialDurationMinutes === undefined && firstException?.durationMinutes === null
       ? ''
-      : String(firstException?.durationMinutes ?? original.durationMinutes ?? ''),
+      : String(initialDurationMinutes ?? firstException?.durationMinutes ?? original.durationMinutes ?? ''),
   );
+  const lastRestore = useRef(restoreRequestId);
+  useEffect(() => {
+    if (restoreRequestId === undefined || lastRestore.current === restoreRequestId) return;
+    lastRestore.current = restoreRequestId;
+    setTime(initialStartsAt || firstException?.startsAt ? toTimeInput(initialStartsAt || firstException?.startsAt, zone)
+      : original.recurrence && original.startsAt ? `${anchorDate}T${originalCivil.slice(11)}` : originalCivil);
+    setDuration(initialDurationMinutes === null || initialDurationMinutes === undefined && firstException?.durationMinutes === null ? ''
+      : String(initialDurationMinutes ?? firstException?.durationMinutes ?? original.durationMinutes ?? ''));
+  }, [restoreRequestId, initialStartsAt, initialDurationMinutes, zone]);
   const [pending, setPending] = useState(false);
+  const editorLive = useRef(true);
+  useLayoutEffect(() => {
+    editorLive.current = true;
+    return () => { editorLive.current = false; };
+  }, []);
   const [error, setError] = useState('');
   const [base] = useState(original);
   const titleId = useId();
@@ -147,12 +171,18 @@ export function AgendaEditor({
     let end = '';
     try {
       const instant = fromTimeInput(civil, zone, instantHint || original.startsAt);
-      if (instant && minutes)
-        end = ` — ${toTimeInput(new Date(Date.parse(instant) + minutes * 60000).toISOString(), zone).slice(11, 16)}`;
+      if (instant && minutes) {
+        const endCivil = toTimeInput(new Date(Date.parse(instant) + minutes * 60000).toISOString(), zone);
+        end = ` — ${endCivil.slice(0, 10) !== civil.slice(0, 10) ? `${endCivil.slice(5, 10).replace('-', '月')}日 ` : ''}${endCivil.slice(11, 16)}`;
+      }
     } catch {
       /* An incomplete or ambiguous draft is explained by the existing save validation. */
     }
     return `${civil.slice(5, 10).replace('-', '月')}日 ${civil.slice(11, 16)}${end}`;
+  }
+  function endDescription(start: string, end: string) {
+    return toTimeInput(start, zone).slice(0, 10) === toTimeInput(end, zone).slice(0, 10)
+      ? toTimeInput(end, zone).slice(11, 16) : formatDateTime(end, zone);
   }
   const beforeCivil =
     once && original.startsAt
@@ -170,33 +200,49 @@ export function AgendaEditor({
   try { currentInstant = !original.allDayDate ? fromTimeInput(time, zone, draftInstant || previousException?.startsAt || original.startsAt) : undefined; }
   catch { /* Keep the editable civil value; the form explains it on save. */ }
   const originalInstant = beforeCivil ? (() => { try { return fromTimeInput(beforeCivil, zone, previousException?.startsAt || original.startsAt); } catch { return undefined; } })() : undefined;
-  const trialInstant = currentInstant && currentInstant !== originalInstant ? currentInstant : undefined;
-  useEffect(() => { trialCallback.current?.(trialInstant); }, [trialInstant]);
-  useEffect(() => {
-    const request = ++previewGeneration.current;
-    setPreview(undefined); setPreviewError(''); setPreviewing(false);
-    if (!boundary || !current || cancelledOccurrence || (!original.allDayDate && !currentInstant)) return;
+  const trialInstant = currentInstant && (currentInstant !== originalInstant || Number(duration) !== (beforeDuration || 0)) ? currentInstant : undefined;
+  function assessmentInput(): AgendaPreviewChangeInput | undefined {
+    if (!boundary || !current || changed || cancelledOccurrence || (!original.allDayDate && !currentInstant)
+      || !title.trim() || duration && (!Number.isInteger(Number(duration)) || Number(duration) < 1 || Number(duration) > 1440)) return;
     const changes = once ? { ...(currentInstant ? { startsAt: currentInstant } : {}),
       ...(!original.allDayDate ? { durationMinutes: duration ? Number(duration) : null } : {}), detail }
       : { title: title.trim(), detail, ...(original.allDayDate ? { allDayDate } : {
         ...(currentInstant ? { startsAt: currentInstant } : {}), durationMinutes: duration ? Number(duration) : null }) };
+    return { record: { id: base.id, revision: base.revision || 1, ...(once ? { occurrenceDate } : {}) },
+      changes, timeZone: zone, includeCampus, ...boundary };
+  }
+  useEffect(() => { trialCallback.current?.(trialInstant, Number.isInteger(Number(duration))
+    && Number(duration) > 0 && Number(duration) <= 1440 ? Number(duration) : null); }, [trialInstant, duration]);
+  useEffect(() => {
+    const request = ++previewGeneration.current;
+    setPreview(undefined); setPreviewError(''); setPreviewing(false);
+    const input = assessmentInput();
+    if (!input) return;
     setPreviewing(true);
-    void api.agendaPreviewChange({ record: { id: current.id, revision: current.revision || 1,
-      ...(once ? { occurrenceDate } : {}) }, changes, timeZone: zone, includeCampus, ...boundary }).then(value => {
+    void api.agendaPreviewChange(input).then(value => {
       if (previewGeneration.current === request) setPreview(value);
     }).catch(caught => {
       if (previewGeneration.current === request) setPreviewError(errorText(caught));
     }).finally(() => { if (previewGeneration.current === request) setPreviewing(false); });
     return () => { previewGeneration.current++; };
-  }, [current?.revision, currentInstant, once, occurrenceDate, title, detail, duration, allDayDate, zone, includeCampus,
+  }, [current?.revision, currentInstant, once, occurrenceDate, title, detail, duration, allDayDate, zone, includeCampus, calendarVersionKey,
     cancelledOccurrence, boundary?.privacyEpoch, boundary?.policyRevision, boundary?.sourceBoundary]);
 
-  async function save(retry = false, cancelOccurrence = false) {
+  async function save(cancelOccurrence = false) {
     setPending(true);
     setError('');
     try {
-      const version = retry ? current : base;
+      const version = base;
       if (!version) throw new Error('这条安排已经移除。你写的内容还在这里。');
+      if (!current || changed) throw new Error('这件事后来有了改动，先看看现在这一版。你的试放还留在这里。');
+      const input = !cancelOccurrence && assessmentInput();
+      if (input) {
+        const fresh = await api.agendaPreviewChange(input);
+        if (!preview?.assessmentKey || !fresh.assessmentKey || fresh.assessmentKey !== preview.assessmentKey) {
+          if (editorLive.current) setPreview(fresh);
+          throw new Error('这次试放要重新看一眼。对照旁边的安排，合适时再保存。');
+        }
+      }
       const startsAt = original.allDayDate || cancelOccurrence
         ? undefined
         : fromTimeInput(time, zone, draftInstant || previousException?.startsAt || original.startsAt);
@@ -232,9 +278,11 @@ export function AgendaEditor({
       const next = await api.action({ action: 'save', item });
       onState(next);
       const saved = next.agenda.find(entry => entry.id === item.id);
-      if (saved) onSaved?.(saved, version);
-      onClose();
+      if (saved) onSaved?.(saved, version, { before: originalInstant, after: startsAt,
+        ...(once ? { occurrenceDate } : {}), kind: trialInstant && !cancelOccurrence && !cancelledOccurrence ? 'time_change' : 'other' });
+      if (editorLive.current) onClose();
     } catch (caught) {
+      if (!editorLive.current) return;
       setError(errorText(caught));
       try {
         onState(await api.state());
@@ -242,15 +290,18 @@ export function AgendaEditor({
         /* The edit remains available if refreshing is also unavailable. */
       }
     } finally {
-      setPending(false);
+      if (editorLive.current) setPending(false);
     }
   }
   const form = (
       <form
         className="panel-body"
+        onKeyDown={event => {
+          if (event.key === 'Escape' && !pending) { event.preventDefault(); event.stopPropagation(); onClose(); }
+        }}
         onSubmit={(event) => {
           event.preventDefault();
-          void save(changed);
+          void save();
         }}
       >
         <label className={`field-label ${embedded ? 'agenda-title-field' : ''}`}>
@@ -262,7 +313,7 @@ export function AgendaEditor({
             onChange={(event) => setTitle(event.target.value)}
             required
             maxLength={160}
-            disabled={once}
+            disabled={once || pending}
           />
         </label>
         {!!original.recurrence && (
@@ -273,6 +324,7 @@ export function AgendaEditor({
                 type="radio"
                 name="repeat-scope"
                 checked={repeatScope === 'once'}
+                disabled={pending}
                 onChange={() => chooseScope('once')}
               />
               只改这一次
@@ -282,6 +334,7 @@ export function AgendaEditor({
                 type="radio"
                 name="repeat-scope"
                 checked={repeatScope === 'series'}
+                disabled={pending}
                 onChange={() => chooseScope('series')}
               />
               整个重复安排
@@ -293,6 +346,7 @@ export function AgendaEditor({
                   type="date"
                   aria-label="选择重复安排的发生日期"
                   value={occurrenceDate}
+                  disabled={pending}
                   onChange={(event) => chooseOccurrence(event.target.value)}
                   required
                 />
@@ -316,7 +370,7 @@ export function AgendaEditor({
           </div>
           <span aria-hidden="true">→</span>
           <div>
-            <small>现在</small>
+            <small>{trialInstant ? '试试这个时间' : '现在'}</small>
             <strong>
               {timeDescription(
                 time,
@@ -337,6 +391,7 @@ export function AgendaEditor({
                 type="date"
                 aria-label="安排日期"
                 value={allDayDate}
+                disabled={pending}
                 onChange={(event) => setAllDayDate(event.target.value)}
                 required
               />
@@ -351,12 +406,13 @@ export function AgendaEditor({
                 step="1"
                 aria-label="安排开始时间"
                 value={time}
+                disabled={pending}
                 onChange={(event) => setTime(event.target.value)}
                 required={!!original.startsAt}
               />
             </label>
             <label className="field-label">
-              留多久 · 分钟
+              {original.planRef ? '整段占用' : '留多久'} · 分钟
               <input
                 type="number"
                 aria-label="安排时长"
@@ -364,6 +420,7 @@ export function AgendaEditor({
                 max="1440"
                 placeholder="不定"
                 value={duration}
+                disabled={pending}
                 onChange={(event) => setDuration(event.target.value)}
                 required={!once && !!original.durationMinutes}
               />
@@ -377,6 +434,7 @@ export function AgendaEditor({
           <textarea
             aria-label="安排说明"
             value={detail}
+            disabled={pending}
             onChange={(event) => setDetail(event.target.value)}
             rows={embedded ? 2 : 3}
             maxLength={1500}
@@ -384,11 +442,31 @@ export function AgendaEditor({
         </label>
         </details>
         <div className="agenda-edit-assessment" aria-busy={previewing}>
+          {preview?.occupancy && <details className="agenda-sandbox-occupancy"><summary>原来的准备与转场<ChevronDown size={12} /></summary>
+            <div>{preview.occupancy.parts.map(part => <p key={`${part.kind}:${part.start}`}>
+              <span>{{ setup: '准备', work: '做这件事', cleanup: '收尾' }[part.kind]}</span>
+              <time>{formatDateTime(part.start, zone)} — {endDescription(part.start, part.end)}</time>
+            </p>)}
+            {preview.occupancy.related.map(part => <p key={part.record.id}><span>{part.title}</span>
+              <time>{formatDateTime(part.start, zone)} — {endDescription(part.start, part.end)}</time></p>)}
+            {!preview.occupancy.relatedComplete && <p>还有关联时段，需要一起看看。</p>}
+            </div>
+          </details>}
           {!!preview?.conflicts.length && <div className="agenda-edit-conflicts" role="status">
-            <p>这个时间，和这些安排碰上了</p>
-            {preview.conflicts.map(conflict => <div key={`${conflict.id}:${conflict.start}`}>
-              <strong>{conflict.title}</strong><span>{formatDateTime(conflict.start, zone)}{conflict.end ? ` — ${toTimeInput(conflict.end, zone).slice(11, 16)}` : ' 起，结束未定'}</span>
+            <p>{preview.conflicts.some(conflict => conflict.uncertain) ? '这段时间，需要和这些安排一起看看' : '这个时间，和这些安排碰上了'}</p>
+            {preview.conflicts.map(conflict => <div key={`${conflict.occurrenceId || conflict.id}:${conflict.start}`}>
+              <strong>{conflict.title}</strong><span>{formatDateTime(conflict.start, zone)}{conflict.end ? ` — ${endDescription(conflict.start, conflict.end)}` : ' 起，结束未定'}</span>
+              {conflict.uncertain && <span>结束时间还没定，可能会碰上。</span>}
+              {conflict.overlapStart && conflict.overlapEnd && <span className="agenda-conflict-overlap">碰在 {toTimeInput(conflict.overlapStart, zone).slice(11, 16)} — {endDescription(conflict.overlapStart, conflict.overlapEnd)}</span>}
             </div>)}
+          </div>}
+          {!!preview?.alternatives?.length && <div className="agenda-sandbox-alternatives" role="group" aria-label="换个时间试放">
+            {preview.alternatives.map(alternative => <button type="button" key={alternative.startsAt}
+              disabled={pending || changed} onClick={() => setTime(toTimeInput(alternative.startsAt, zone))}>
+              <span>{alternative.direction === 'earlier' ? '往前留一整段' : '往后留一整段'}</span>
+              <strong>{toTimeInput(alternative.startsAt, zone).slice(11, 16)} — {endDescription(alternative.startsAt, alternative.end)}</strong>
+              <ChevronRight size={15} aria-hidden="true" />
+            </button>)}
           </div>}
           {previewError && <p className="agenda-preview-error" role="status">{previewError}</p>}
           {preview && <details className="agenda-preview-sources"><summary>看看安排范围<ChevronDown size={12} /></summary>
@@ -400,11 +478,11 @@ export function AgendaEditor({
         </div>
         {original.planning?.placeId && onMap && <button type="button" className="text-button agenda-place-link" disabled={pending}
           onClick={() => onMap(original.planning!.placeId!)}><MapPin size={15} />去地图看看<ArrowUpRight size={14} /></button>}
-        {(error || changed || cancelledOccurrence) && (
+        {(error || changed || cancelledOccurrence || !current) && (
           <div className="inline-problem" role="alert">
             <p>
               {error ||
-                (cancelledOccurrence
+                (!current ? '这件事已经移除了。你写的内容还留在这里。' : cancelledOccurrence
                   ? '这一次原来取消了，其他日期的安排还在。'
                   : '这件事刚在别处改过。下面保留着你的想法。')}
             </p>
@@ -418,28 +496,34 @@ export function AgendaEditor({
                     : '还没定时间'}
               </p>
             )}
+            {changed && current && onReload && <button type="button" className="text-button" disabled={pending}
+              onClick={() => onReload(current)}>看看现在这一版<ArrowUpRight size={14} /></button>}
           </div>
         )}
         <div className="field-buttons">
           <button
             className="primary-button"
-            disabled={pending || !title.trim() || !current}
+            disabled={pending || !title.trim() || !current || changed || previewing || !!previewError}
           >
-            {pending ? '正在保存…' : cancelledOccurrence ? '重新放回这一次' : changed ? '按这里改' : '保存'}
+            {pending ? '正在保存…' : cancelledOccurrence ? '重新放回这一次' : trialInstant
+              ? calendarCommitment(original).occupiesTime ? '采用这个时间' : '保存这个时间' : '保存'}
           </button>
           <button type="button" className="text-button" onClick={onClose} disabled={pending}>
-            取消
+            {trialInstant ? '先放回' : '取消'}
           </button>
         </div>
-        {onDiscuss && <button type="button" className="text-button agenda-discuss-link" disabled={pending || !current || changed}
+        {onDiscuss && <button type="button" className="text-button agenda-discuss-link" disabled={pending || !current || changed
+          || !!duration && (!Number.isInteger(Number(duration)) || Number(duration) < 1 || Number(duration) > 1440)}
           onClick={() => {
             if (!current) return;
             const focus: AgendaFocus = { record: { id: current.id, revision: current.revision || 1, ...(once ? { occurrenceDate } : {}) },
-              ...(trialInstant && Number(duration) === beforeDuration ? { trial: { proposedStart: trialInstant } } : {}) };
-            onDiscuss(focus, `${original.title}${focus.trial ? ` · ${toTimeInput(trialInstant, zone).slice(11, 16)} 试放` : ''}`);
-          }}>{trialInstant ? '讨论这次试放' : '接着聊这件事'}<ArrowUpRight size={14} /></button>}
-        {once && !cancelledOccurrence && <button type="button" className="text-button agenda-cancel-once" disabled={pending || !current}
-          onClick={() => void save(changed, true)}>取消这一次</button>}
+              ...(trialInstant ? { trial: { proposedStart: trialInstant, durationMinutes: duration ? Number(duration) : null } } : {}) };
+            onDiscuss(focus, `${original.title}${focus.trial ? ` · ${formatDateTime(trialInstant!, zone)} · ${duration ? `${Number(duration)}分钟` : '结束未定'}试放` : ''}`);
+          }}>{trialInstant && preview?.occupancy && (preview.occupancy.related.length > 0 || preview.occupancy.multipleWorkUnits)
+            ? '连同准备和转场一起商量' : trialInstant && original.planRef ? '一起看看整段安排'
+              : trialInstant ? '讨论这次试放' : '接着聊这件事'}<ArrowUpRight size={14} /></button>}
+        {once && !cancelledOccurrence && <button type="button" className="text-button agenda-cancel-once" disabled={pending || !current || changed}
+          onClick={() => void save(true)}>取消这一次</button>}
       </form>
   );
   return embedded ? <section className="agenda-editor agenda-editor-inline" aria-labelledby={titleId}>

@@ -1,5 +1,5 @@
 import type { ModelWireMessage } from '../provider';
-import { redactCredentials } from './redaction';
+import { redactCredentialValues } from './redaction';
 
 /** Keep actual source content, IDs, versions, gaps and errors intact. Tool
  * schemas and repeated host instructions are not new evidence for a reviewer. */
@@ -42,13 +42,13 @@ export function conversationObservations(messages: ModelWireMessage[]): unknown[
   const calls = new Map<string, { tool: string; requestedArguments?: unknown }>();
   for (const message of messages) for (const call of message.tool_calls || []) {
     let requestedArguments: unknown;
-    try { requestedArguments = JSON.parse(redactCredentials(call.function.arguments)); } catch { /* Malformed input is not reconstructed. */ }
+    try { requestedArguments = redactCredentialValues(JSON.parse(call.function.arguments)); } catch { /* Malformed input is not reconstructed. */ }
     calls.set(call.id, { tool: call.function.name, requestedArguments });
   }
   return messages.flatMap(message => {
     if (message.role !== 'tool' || !message.tool_call_id || typeof message.content !== 'string' || !calls.has(message.tool_call_id)) return [];
     let result: unknown;
     try { result = JSON.parse(message.content); } catch { result = { text: message.content }; }
-    return [{ ...calls.get(message.tool_call_id), toolCallId: message.tool_call_id, origin: 'prior_conversation', result }];
+    return [{ ...calls.get(message.tool_call_id), toolCallId: message.tool_call_id, origin: 'prior_conversation', result: redactCredentialValues(result) }];
   });
 }

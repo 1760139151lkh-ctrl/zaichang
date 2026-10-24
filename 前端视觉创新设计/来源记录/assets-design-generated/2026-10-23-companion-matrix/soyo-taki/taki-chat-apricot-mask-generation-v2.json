@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "taki",
+  "activity": "chat",
+  "palette": "apricot",
+  "layer": "mask",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-cf9d65d6-030b-4830-98a0-7de1d215320e",
+  "prompt": "taki-chat-apricot-mask-prompt-v2.txt",
+  "promptSha256": "fe90f8a3876623bb9887158f689c7da97f5732b185d3461b5cef70b293ff344a",
+  "inputs": [
+    {
+      "file": "taki-chat-apricot-mother-candidate-v1.png",
+      "sha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f",
+      "role": "sole exact primary-reviewed complete mother"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-cf9d65d6-030b-4830-98a0-7de1d215320e.png",
+  "output": {
+    "file": "taki-chat-apricot-mask-rejected-v2.png",
+    "sha256": "e6a0af87a70444e70105d171dc79362802c947b71044e556792c8e0fd476d7f2",
+    "bytes": 563852,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "rejected",
+  "producerObservation": "Generated grayscale figure rather than opaque matte, translated and resized; never used as an input or alpha.",
+  "review": {
+    "primary": "pending",
+    "runtime": "not registered or accepted"
+  }
+}

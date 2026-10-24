@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-chat-mist-room4",
+  "character": "sakiko",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-chat-mist-mother-candidate-v1.png",
+  "background": "sakiko-chat-mist-background-calibrated-v3.png",
+  "figure": "sakiko-chat-mist-figure-calibrated-v3.png",
+  "mask": "sakiko-chat-mist-mask-calibrated-v3.png",
+  "shadow": "sakiko-chat-mist-shadow-calibrated-v3.png",
+  "seat": [
+    0.849609375,
+    0.5751953125
+  ],
+  "ground": [
+    0.7571614583333334,
+    0.7841796875
+  ],
+  "bodyBounds": [
+    0.7161458333333334,
+    0.236328125,
+    0.935546875,
+    0.787109375
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "83% 24%, 87% 27%, 89% 34%, 93% 46%, 91% 52%, 94% 58%, 90% 60%, 88% 61%, 82% 60%, 80% 68%, 80% 79%, 75% 79%, 72% 78%, 74% 71%, 77% 63%, 78% 58%, 75% 57%, 76% 54%, 79% 51%, 77% 47%, 78% 39%, 79% 31%, 80% 26%",
+  "travel": 0.008,
+  "slope": 0.04,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Same-mother original RGB and identity transform. Matching clean background, soft technical matte and thin source contact residual. Short support-tangent movement only; static endpoints inspected separately from runtime.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json"
+  },
+  "production": "sakiko-chat-mist-layer-processing-v3.json"
+}

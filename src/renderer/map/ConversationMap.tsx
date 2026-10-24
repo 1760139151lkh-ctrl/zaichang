@@ -1,11 +1,14 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type PointerEvent } from 'react';
 import { ChevronDown, ChevronUp, Expand, MapPinned, Pause, Play, Route, X } from 'lucide-react';
 import type { MapScene, SemanticSelection } from '../../shared/scenes';
-import { emptyRoute, routeHasUnverifiedPassages, type MapPoint } from '../../shared/map-v2';
-import { MapSurface, type MapSurfaceMemory } from './CampusMap';
+import { emptyRoute, mapPointEndpoint, routeHasUnverifiedPassages, type MapPoint, type MapRouteResult } from '../../shared/map-v2';
+import type { SharedMapRoute } from '../../shared/map-context';
+import { MapSurface, type MapSurfaceMemory, type MapContextHandoff } from './CampusMap';
 import type { CampusMapEngine } from './map-engine';
 import './conversation-map.css';
 import { prefersQuietMotion } from '../companion';
+import { useSpringValue } from '../motion/use-spring';
+import { uiError } from '../ui';
 
 interface ViewMemory extends MapSurfaceMemory {
   legId?: string;
@@ -17,8 +20,10 @@ interface ViewMemory extends MapSurfaceMemory {
   display?: string;
 }
 const views = new Map<string, ViewMemory>();
+const viewResets = new Set<() => void>();
 export function clearConversationMapViews() {
   views.clear();
+  viewResets.forEach(reset => reset());
 }
 function viewMemory(key: string, continuationKey?: string): ViewMemory {
   let value = views.get(key);
@@ -32,6 +37,7 @@ function viewMemory(key: string, continuationKey?: string): ViewMemory {
 function distance(m: number) {
   return m >= 1000 ? `${(m / 1000).toFixed(2)} 公里` : `${Math.round(m)} 米`;
 }
+const focusAnimationTime = (progress: number) => (progress + .15) / 1.3 * 270;
 
 /** A scene's fact snapshot is immutable. Only its local camera/preview/selection is saved here. */
 export function ConversationMap({
@@ -40,6 +46,7 @@ export function ConversationMap({
   continuationKey,
   onSelect,
   onContinue,
+  onUseMapContext,
   historical = false,
   cancelled = false,
   interruptionKey,
@@ -51,6 +58,7 @@ export function ConversationMap({
   continuationKey?: string;
   onSelect: (selection: SemanticSelection) => void;
   onContinue?: () => void;
+  onUseMapContext?: (value: MapContextHandoff) => boolean | void;
   historical?: boolean;
   cancelled?: boolean;
   interruptionKey?: string;
@@ -61,6 +69,7 @@ export function ConversationMap({
   // retain their fact object so streaming prose cannot restart map effects.
   const scene = useMemo(() => snapshot, [snapshot.id, snapshot.revision]);
   const memory = useRef(viewMemory(memoryKey, continuationKey)).current;
+  const sourceVersion = useRef(scene.source.version);
   const userCameraRequest =
     allowCameraRequests &&
     !historical &&
@@ -80,11 +89,19 @@ export function ConversationMap({
       memory.sourceLegId !== scene.activeLegId ? scene.activeLegId : memory.legId || scene.activeLegId,
     ),
     [selected, setSelected] = useState(memory.selected);
+  useEffect(() => {
+    if (sourceVersion.current === scene.source.version) return;
+    sourceVersion.current = scene.source.version;
+    memory.selected = undefined; setSelected(undefined);
+  }, [scene.source.version, memory]);
   const [ready, setReady] = useState(false),
     [explaining, setExplaining] = useState(false),
     [progress, setProgress] = useState<number>(),
     [playing, setPlaying] = useState(false);
   const [entrances, setEntrances] = useState(false);
+  const [pickingOrigin, setPickingOrigin] = useState(false), [originPreview, setOriginPreview] = useState<MapRouteResult>();
+  const [routePending, setRoutePending] = useState(false), [routeIssue, setRouteIssue] = useState(''), [sharing, setSharing] = useState(false);
+  const routeRequest = useRef(0), alive = useRef(true);
   const engine = useRef<CampusMapEngine | undefined>(undefined),
     container = useRef<HTMLElement>(null),
     expandButton = useRef<HTMLButtonElement>(null);
@@ -92,6 +109,8 @@ export function ConversationMap({
   const motionRequest = useRef(0);
   const frame = useRef<HTMLDivElement>(null);
   const expansion = useRef<Animation | undefined>(undefined);
+  const expansionSpring = useSpringValue(1, { stiffness: 290, damping: 33, bounds: [-.12, 1.12] });
+  const expansionVector = useRef([0, 0, 0, 0]);
   const expansionOrigin = useRef<DOMRect | undefined>(undefined);
   const inlineGeometry = useRef<{ width: number; height: number; left: number; top: number } | undefined>(undefined);
   const focusGesture = useRef<{ pointerId: number; target: HTMLButtonElement; startY: number; lastY: number;
@@ -103,6 +122,7 @@ export function ConversationMap({
   const collapsedBeforeFocus = useRef(false);
   function animateFocus(before: DOMRect, scrubbing = false, visible?: DOMRect) {
     const element = container.current;
+    const previous = expansionSpring.stop(), vector = expansionVector.current;
     expansion.current?.cancel();
     if (!element || (!scrubbing && prefersQuietMotion())) { setTransitioning(false); return; }
     const after = element.getBoundingClientRect();
@@ -110,30 +130,53 @@ export function ConversationMap({
     const geometry = (rect: DOMRect) => ({ transformOrigin: '0 0',
       transform: `translate(${rect.left-after.left}px,${rect.top-after.top}px) scale(${rect.width/after.width},${rect.height/after.height})`, borderRadius: '22px' });
     const at = focusGesture.current?.progress || 0;
+    const nextVector = [after.left-before.left, after.top-before.top, after.width-before.width, after.height-before.height];
+    const extent = nextVector.reduce((sum, value) => sum + value * value, 0);
+    const inherited = extent ? nextVector.reduce((sum, value, index) => sum + value * vector[index] * previous.velocity, 0) / extent : 0;
+    expansionVector.current = nextVector;
+    const rectangleAt = (progress: number) => new DOMRect(before.left + nextVector[0] * progress,
+      before.top + nextVector[1] * progress, Math.max(1, before.width + nextVector[2] * progress), Math.max(1, before.height + nextVector[3] * progress));
     const animation = element.animate([
-      { ...geometry(before), offset: 0 },
+      // Leave a little room beyond each endpoint for the velocity carried by
+      // a reversal. The final owner state remains exactly home or full size.
+      { ...geometry(rectangleAt(-.15)), offset: 0 },
+      { ...geometry(before), offset: .15 / 1.3 },
       // A restarted transition may not lie exactly on the original home/full
       // line. Keep the actual visible rectangle at the grabbed progress.
-      ...(visible && at > 0 && at < 1 ? [{ ...geometry(visible), offset: at }] : []),
-      { transformOrigin: '0 0', transform: 'none', offset: 1 },
-    ], { duration: 270, easing: scrubbing ? 'linear' : 'cubic-bezier(.2,.75,.2,1)' });
+      ...(visible && at > 0 && at < 1 ? [{ ...geometry(visible), offset: (at + .15) / 1.3 }] : []),
+      { transformOrigin: '0 0', transform: 'none', offset: 1.15 / 1.3 },
+      { ...geometry(rectangleAt(1.15)), offset: 1 },
+    ], { duration: 270, easing: 'linear', fill: 'both' });
     expansion.current = animation;
+    animation.pause();
     setTransitioning(true);
     if (scrubbing) {
-      animation.pause();
-      animation.currentTime = (focusGesture.current?.progress || 0) * 270;
+      expansionSpring.set(at);
+      animation.currentTime = focusAnimationTime(focusGesture.current?.progress || 0);
+    } else {
+      expansionSpring.set(0, inherited);
+      expansionSpring.animate(1, { onRest: () => {
+        if (expansion.current !== animation) return;
+        animation.cancel(); expansion.current = undefined; setTransitioning(false);
+      } });
     }
-    void animation.finished.then(() => {
-      if (expansion.current === animation) { expansion.current = undefined; setTransitioning(false); }
-    }, () => { /* A new gesture continues from the visible rectangle. */ });
     return animation;
   }
+  useLayoutEffect(() => {
+    if (expansion.current) {
+      expansion.current.currentTime = focusAnimationTime(expansionSpring.value);
+      if (expansionSpring.value === 1 && !focusGesture.current) {
+        expansion.current.cancel(); expansion.current = undefined; setTransitioning(false);
+      }
+    }
+  }, [expansionSpring.value]);
   function focusMap(next: boolean) {
     if (focusState.current === next) return;
     const element = container.current;
     // Capture the current animated position before interruption. Rapid changes
     // start here rather than replaying a previous entrance.
     expansionOrigin.current = element?.getBoundingClientRect();
+    expansionSpring.stop();
     expansion.current?.cancel();
     setTransitioning(!prefersQuietMotion());
     engine.current?.cancelMotion(); setPlaying(false);
@@ -144,6 +187,7 @@ export function ConversationMap({
       setPlaceholderHeight(frame.current?.getBoundingClientRect().height);
       memory.collapsed = false; setCollapsed(false);
     } else {
+      cancelOrigin(false);
       setPlaceholderHeight(undefined);
       memory.collapsed = collapsedBeforeFocus.current;
       setCollapsed(collapsedBeforeFocus.current);
@@ -168,6 +212,7 @@ export function ConversationMap({
     engine.current?.cancelMotion(); setPlaying(false);
     const wasFocused = focusState.current;
     const visible = element.getBoundingClientRect();
+    expansionSpring.stop();
     const home = inlineGeometry.current, parent = frame.current?.getBoundingClientRect();
     const homeRect = wasFocused && home && parent
       ? new DOMRect(parent.left+home.left, parent.top+home.top, home.width, home.height) : undefined;
@@ -201,7 +246,8 @@ export function ConversationMap({
     gesture.lastY = event.clientY; gesture.lastAt = event.timeStamp;
     gesture.moved ||= Math.abs(delta) > 5;
     gesture.progress = Math.max(0, Math.min(1, gesture.startProgress-delta/gesture.distance));
-    if (expansion.current) expansion.current.currentTime = gesture.progress * 270;
+    expansionSpring.set(gesture.progress, gesture.velocity * 1000 / gesture.distance);
+    if (expansion.current) expansion.current.currentTime = focusAnimationTime(gesture.progress);
   }
   function endFocusGesture(cancel = false, settle = true) {
     const gesture = focusGesture.current;
@@ -238,7 +284,7 @@ export function ConversationMap({
   // coordinates match the camera. A quick return keeps its visible origin.
   const finishFocus = (event?: { target: EventTarget | null; key?: string }) => {
     if (focusGesture.current || event?.key === 'Escape' || event?.target instanceof Element && event.target.closest('.conversation-map-expand,.conversation-map-grip')) return;
-    expansion.current?.finish(); expansion.current = undefined; setTransitioning(false);
+    expansionSpring.set(1); expansion.current?.cancel(); expansion.current = undefined; setTransitioning(false);
   };
   const effectiveLegId = memory.sourceLegId !== scene.activeLegId ? scene.activeLegId : legId;
   const leg =
@@ -246,12 +292,34 @@ export function ConversationMap({
     scene.journey.legs.find((value) => value.id === scene.activeLegId) ||
     scene.journey.legs[0];
   const browseRoute = useMemo(() => ({ ...emptyRoute(), to: scene.place }), [scene.place]);
-  const route = leg?.route || browseRoute;
+  const originalRoute = leg?.route || browseRoute;
+  const route = originPreview || originalRoute;
   const previewRoute = useRef(route);
   const changedRoute = previewRoute.current !== route;
   const total = scene.journey.legs.reduce((sum, value) => sum + (value.route.distance?.totalM || 0), 0);
   const dwell = scene.journey.stops.reduce((sum, value) => sum + (value.dwellMinutes || 0), 0);
   const valid = scene.journey.legs.every((value) => value.route.status === 'ready');
+  function cancelOrigin(clear = true) {
+    routeRequest.current++; setPickingOrigin(false); setRoutePending(false); setSharing(false); setRouteIssue('');
+    if (clear) setOriginPreview(undefined);
+  }
+  useEffect(() => {
+    cancelOrigin();
+  }, [scene.id, scene.revision, active, cancelled, interruptionKey]);
+  useEffect(() => {
+    alive.current = true;
+    return () => { alive.current = false; routeRequest.current++; };
+  }, []);
+  useEffect(() => {
+    const reset = () => {
+      cancelOrigin(); memory.selected = undefined; memory.selection = undefined; memory.manual = true;
+      setSelected(undefined); motionRequest.current++; engine.current?.cancelMotion();
+      setExplaining(false); setPlaying(false); setProgress(undefined);
+      if (focusState.current) focusMap(false);
+    };
+    viewResets.add(reset);
+    return () => { viewResets.delete(reset); };
+  }, [memory]);
   useEffect(() => {
     if (memory.sourceLegId !== scene.activeLegId) {
       memory.sourceLegId = scene.activeLegId;
@@ -388,7 +456,10 @@ export function ConversationMap({
     }
     previousInterruption.current = interruptionKey;
   }, [ready, cancelled, interruptionKey]);
-  useEffect(() => { endFocusGesture(true); }, [active, scene.revision]);
+  useEffect(() => {
+    endFocusGesture(true);
+    if (!active && focusState.current) focusMap(false);
+  }, [active, scene.revision]);
   useEffect(() => {
     if (!playing || progress === undefined || !route) return;
     const current = engine.current,
@@ -420,9 +491,66 @@ export function ConversationMap({
     setPlaying(false);
   }
   function choose(point: MapPoint) {
+    if (pickingOrigin) { void selectOrigin(point); return; }
     memory.selected = point;
     setSelected(point);
-    onSelect({ sceneId: scene.id, sceneRevision: scene.revision, kind: 'place', placeId: point.id });
+    const camera = scene.storySetting && engine.current?.snapshot();
+    onSelect({ sceneId: scene.id, sceneRevision: scene.revision, kind: 'place', placeId: point.id,
+      ...(camera && camera.center.length === 2 ? { mapView: { center: [camera.center[0], camera.center[1]], resolution: camera.resolution,
+        rotation: camera.rotation, pitch: camera.pitch || 0 } } : {}) });
+  }
+  async function selectOrigin(point: MapPoint) {
+    const destination = originalRoute.to;
+    if (!destination || destination.kind === 'water' || scene.storySetting) return;
+    if (point.kind === 'water') { setRouteIssue('选岸边的地点作起点吧，水面这里可以先看看。'); return; }
+    const request = ++routeRequest.current;
+    const requestingEngine = engine.current, cameraTicket = requestingEngine?.ownership.ticket();
+    setRoutePending(true); setRouteIssue(''); setOriginPreview(undefined);
+    try {
+      const result = await window.zaichang.mapRoute({ from: mapPointEndpoint(point), to: mapPointEndpoint(destination),
+        version: scene.source.version, avoidStairs: false, allowConditional: false });
+      if (!alive.current || request !== routeRequest.current) return;
+      setOriginPreview(result); setPickingOrigin(false); setSelected(undefined);
+      memory.manual = true;
+      if (requestingEngine && requestingEngine === engine.current && cameraTicket !== undefined && requestingEngine.ownership.accepts(cameraTicket)) {
+        requestingEngine.cancelMotion(); requestingEngine.fitRoute(result);
+      }
+    } catch (error) {
+      if (alive.current && request === routeRequest.current) setRouteIssue(uiError(error) || '这次没找到这段路，换个起点再看看。');
+    } finally { if (alive.current && request === routeRequest.current) setRoutePending(false); }
+  }
+  async function keepOriginRoute() {
+    const result = originPreview, callback = onUseMapContext;
+    if (!result?.from || !result.to || !callback || sharing || scene.storySetting
+      || ['idle', 'loading', 'error', 'missing_origin', 'missing_destination', 'outside'].includes(result.status)) return;
+    const from = mapPointEndpoint(result.from), to = mapPointEndpoint(result.to);
+    if (from.kind === 'current' || to.kind === 'current') return;
+    const conditions: SharedMapRoute = { fromId: from.id, fromKind: from.kind, toId: to.id, toKind: to.kind,
+      mapVersion: result.source.version, ...(result.profileRevision ? { profileRevision: result.profileRevision } : {}),
+      avoidStairs: false, allowConditional: false };
+    const request = ++routeRequest.current; let selectionId: string | undefined;
+    setSharing(true); setRouteIssue('');
+    try {
+      const handoff = await window.zaichang.shareMapContext({ enabled: true, route: conditions });
+      selectionId = handoff.selectionId;
+      if (!alive.current || request !== routeRequest.current) {
+        if (selectionId) await window.zaichang.shareMapContext({ enabled: false, expectedSelectionId: selectionId });
+        return;
+      }
+      if (!handoff.enabled || !handoff.expiresAt || !handoff.routeReference) throw new Error('这条路还没带回去，再试一次。');
+      const accepted = callback({ text: '', label: `${result.from.displayName} → ${result.to.displayName}`,
+        expiresAt: handoff.expiresAt, selectionId, routeReference: handoff.routeReference,
+        previewRoute: structuredClone(result), routeConditions: conditions,
+        previewMemory: { ...(memory.camera ? { camera: structuredClone(memory.camera) } : {}), sharedSelectionId: selectionId, entered: true } });
+      if (accepted === false) {
+        if (selectionId) await window.zaichang.shareMapContext({ enabled: false, expectedSelectionId: selectionId });
+        return;
+      }
+      focusMap(false); onContinue?.();
+    } catch (error) {
+      if (selectionId) void window.zaichang.shareMapContext({ enabled: false, expectedSelectionId: selectionId }).catch(() => {});
+      if (alive.current && request === routeRequest.current) setRouteIssue(uiError(error) || '这条路还没带回去，再试一次。');
+    } finally { if (alive.current && request === routeRequest.current) setSharing(false); }
   }
   async function explain() {
     if (!route || !engine.current) return;
@@ -437,6 +565,7 @@ export function ConversationMap({
   function pickLeg(id: string) {
     const next = scene.journey.legs.find((value) => value.id === id);
     if (!next) return;
+    cancelOrigin();
     setLegId(id);
     memory.legId = id;
     memory.manual = false;
@@ -450,6 +579,7 @@ export function ConversationMap({
     onSelect({ sceneId: scene.id, sceneRevision: scene.revision, kind: 'leg', legId: id });
   }
   function collapse() {
+    cancelOrigin(false);
     memory.manual = true;
     engine.current?.cancelMotion();
     setPlaying(false);
@@ -471,6 +601,9 @@ export function ConversationMap({
       onPointerDownCapture={finishFocus} onWheelCapture={finishFocus}
       onKeyDown={(event) => {
         finishFocus(event);
+        if (event.key === 'Escape' && (pickingOrigin || originPreview || routePending)) {
+          event.preventDefault(); event.stopPropagation(); cancelOrigin(); return;
+        }
         if (!focused) return;
         if (event.key === 'Escape') {
           event.preventDefault();
@@ -509,13 +642,14 @@ export function ConversationMap({
         </span>
         <div>
           <strong>
-            {scene.journey.stops.map((stop) => stop.label).join(' → ') ||
+            {scene.storySetting ? `作品取景 · ${selected?.displayName || scene.storySetting.place?.label || scene.place?.displayName || '紫金港'}` : originPreview
+              ? `${originPreview.from?.displayName || '所选起点'} → ${originPreview.to?.displayName || '目的地'}` : scene.journey.stops.map((stop) => stop.label).join(' → ') ||
               scene.place?.displayName ||
               '紫金港 · 校园与周边'}
           </strong>
           <small>
             {historical ? '当时的路线 · ' : ''}
-            {!leg
+            {scene.storySetting ? '' : originPreview ? originPreview.distance ? `${distance(originPreview.distance.totalM)} · 先看看这条路` : originPreview.reason : !leg
               ? ''
               : valid
                 ? `${distance(total)}${scene.journey.estimate ? ` · 道路约 ${scene.journey.estimate.walkingMinutes.min}–${scene.journey.estimate.walkingMinutes.max} 分钟` : ''}${dwell ? ` · 停留 ${dwell} 分钟` : ''}`
@@ -560,7 +694,7 @@ export function ConversationMap({
               <div className="conversation-map-rest" aria-label="保留的校园地图视图" />
             )}
           </div>
-          {!!leg && (
+          {!!leg && !originPreview && (
             <div className="conversation-map-journey" aria-label="旅程停靠顺序">
               {scene.journey.stops.map((stop, index) => (
                 <span key={stop.id} className="conversation-map-stop">
@@ -595,9 +729,9 @@ export function ConversationMap({
           )}
           <div className="conversation-map-caption">
             <div>
-              {selected ? (
+              {pickingOrigin ? <strong>在图上选个起点，也可以搜地点</strong> : selected ? (
                 <strong>关于「{selected.displayName}」</strong>
-              ) : leg ? (
+              ) : leg || originPreview ? (
                 <span>
                   {route.from?.displayName} <span aria-hidden="true">→</span> {route.to?.displayName}
                 </span>
@@ -605,7 +739,7 @@ export function ConversationMap({
                 <span>{scene.place?.displayName || '紫金港校园'}</span>
               )}
               <small>
-                {!leg
+                {scene.storySetting ? '' : routePending ? '正在找从这里过去的路' : !leg && !originPreview
                   ? ''
                   : route.status !== 'ready'
                     ? route.reason
@@ -616,11 +750,11 @@ export function ConversationMap({
                         : '沿着图上有记录的步行道路'}
               </small>
             </div>
-            {!!leg && (
+            {((!!leg || !!originPreview) && !scene.storySetting) && (
               <>
                 <button
                   disabled={!ready || route.status !== 'ready'}
-                  onClick={() => (explaining ? engine.current?.cancelMotion() : void explain())}
+                  onClick={() => { if (explaining) { engine.current?.cancelMotion(); takeControl(); } else void explain(); }}
                 >
                   <Route size={15} />
                   {explaining ? '停止讲解' : '讲解这段路'}
@@ -649,9 +783,21 @@ export function ConversationMap({
                 </button>
               </>
             )}
-            {!leg && selected && <button onClick={() => choose(selected)}>聊聊这里</button>}
+            {!scene.storySetting && onUseMapContext && originalRoute.to && originalRoute.to.kind !== 'water' && (!originalRoute.from || originPreview || pickingOrigin) && <>
+              {!pickingOrigin && <button disabled={!ready || routePending || sharing} onClick={() => {
+                cancelOrigin(); setPickingOrigin(true); setSelected(undefined); memory.manual = true; engine.current?.takeControl();
+                if (collapsed) { memory.collapsed = false; setCollapsed(false); }
+                container.current?.querySelector<HTMLInputElement>('.campus-v2-search input')?.focus({ preventScroll: true });
+              }}>{originPreview ? '换个起点' : '选择起点'}</button>}
+              {(pickingOrigin || originPreview || routePending) && <button disabled={sharing} onClick={() => cancelOrigin()}>先放下</button>}
+              {originPreview?.from && originPreview.to && !['idle', 'loading', 'error', 'missing_origin', 'missing_destination', 'outside'].includes(originPreview.status)
+                && <button disabled={sharing} onClick={() => void keepOriginRoute()}>{sharing ? '正在带回' : originPreview.status === 'ready' ? '带这条路回对话' : '带这两处回对话'}</button>}
+            </>}
+            {scene.storySetting && selected && <button onClick={() => { choose(selected); focusMap(false); onContinue?.(); }}>接着写这一幕</button>}
+            {!leg && selected && !scene.storySetting && !pickingOrigin && <button onClick={() => choose(selected)}>聊聊这里</button>}
           </div>
-          {!!leg && (
+          {routeIssue && <p className="conversation-map-issue" role="status">{routeIssue}</p>}
+          {(!!leg || !!originPreview) && !scene.storySetting && (
             <details className="conversation-map-evidence">
               <summary>看看入口和路线怎么来的</summary>
               <div>

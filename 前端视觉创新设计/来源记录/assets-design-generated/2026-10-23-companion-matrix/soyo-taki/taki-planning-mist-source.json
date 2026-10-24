@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "planning",
+  "palette": "mist",
+  "light": "morning",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-22ebe230-4bae-4164-84cd-395debe98f00",
+  "prompt": "taki-planning-mist-prompt.txt",
+  "promptSha256": "0edb105f92eb0575115b102b090ba3a749f3bf8ea9aa71f4601c826924a8bca7",
+  "inputs": [
+    {
+      "file": "taki-planning-apricot-mother-candidate-v1.png",
+      "sha256": "f0fa68c1f8f0257063bdae886dd258b415af26e127382e8c2bb3b95f6f7050ff",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-22ebe230-4bae-4164-84cd-395debe98f00.png",
+  "output": {
+    "file": "taki-planning-mist-mother-candidate-v1.png",
+    "sha256": "59d2cee09d28d070a77fa1252aebf6c0d634380fd0468e03189159759add3ae1",
+    "bytes": 2100310,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed against the approved warm planning mother and exact empty lighting plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Upright half-turn from actual desk-chair, held pencil and other low hand on same supported notebook, original chair/hip support and two grounded complete shoes retained. Distinct from downward study and bench chat; coherent theme light with violet sun/lake axes near1007/1003 and quiet rain left corner. Primary/layer/runtime review remains separate."
+}

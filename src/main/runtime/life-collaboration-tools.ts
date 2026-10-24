@@ -21,15 +21,15 @@ export const definitions: LifeCollaborationDefinition[] = [
   { name: 'read_companion', grant: 'evidence:read', schema: companionReadInput,
     description: '接回我们聊过但没说完的话题、共同用过的说法，或你曾给过的表达反馈。可按名字找，也可读一条准确地址；没有下一步、任务或期限也能继续聊。读取不要求现在继续，不将旧感受或一句反馈变成长久的人物判断。' },
   { name: 'manage_companion', grant: 'work:write', mutates: true, schema: companionManageInput,
-    description: '为值得接着聊的话题、用户实际采用的共同说法和真实表达反馈留一个入口，或按当前原话修订、续聊、暂放、结束。来源须是本人真实原话；助手自己提过的话不代表双方已经采用。不记录好感度或情绪档案。明确希望以后沿用的相处习惯另用manage_method的conversation用途，不改角色核心、不排程或后台联系。' },
+    description: '为值得接着聊的话题、两人真正用起来的共同说法和本人给过的表达反馈留一个入口，也能按今天的话修订、续聊、暂放或结束。本人原话说明这份意思；只是你提过的说法，还要看看对方有没有一起用过。这里留具体相处的来由，没有好感度或情绪档案。明确希望以后也这样相处时，可用manage_method的conversation用途留下帮法；角色核心、日程和后台联系仍走各自的选择。' },
   { name: 'read_companion_session', grant: 'evidence:read', schema: companionSessionReadSchema,
-    description: '找回同一件事一起做到哪里、当时希望怎样帮、哪些材料还在那里，以及回来时从哪一小步接起。材料地址只是入口，回读断点不代表已读材料、做完、掌握或恢复执行。仅为停止已知会话时可以只取当前状态。' },
+    description: '找回同一件事一起做到哪里、当时希望怎样帮、哪些材料还在那里，以及回来时从哪一小步接起。沿资料的来处打开原文，再接今天想做的事；实际做到哪里，看各自留下的尝试与结果。只想停下这段共做过程时，读当前状态就够了。' },
   { name: 'manage_companion_session', grant: 'work:write', mutates: true, schema: companionSessionWriteSchema,
-    description: '沿已有真实事项开始一起做、留下当前起点、暂放、回来接着做或收尾。帮助可以是听一会儿、一起理、只提示或直接帮做；从本轮原话理解，不强迫把烦恼变成计划。暂停和收尾不判断掌握，不登记计时提醒或完成其他业务。' },
+    description: '沿已有共同事项开始一起做、留下当前起点、暂放、回来接着做或收尾。听一会儿、一起理、只提示或直接帮做，都沿对方本轮的意思。这里照顾一起做事的进度；日历、固定提醒和其他业务继续回各自原来的地方办理。' },
   { name: 'read_study_companion', grant: 'evidence:read', schema: studyCompanionInput.options[1],
-    description: '只读原题、你当时的尝试和已经留在同一张陪学纸上的步骤；可接着未读历史，不改变提示深度、不保存新步骤。适合只想找回内容或本轮不保留新记录时使用。' },
+    description: '打开同一张陪学纸上的原题、你当时的尝试和已经讲过的步骤，也能接着翻较早的过程。适合这次只想找回内容的时候，原来的讲法和停留位置保持原样。' },
   { name: 'study_companion', grant: 'evidence:read', mutates: true, schema: studyCompanionInput,
-    description: '围绕真实原题开一张陪学纸，接住你的尝试、给一点提示、换例子或直接讲清楚，也可回读、暂放和收好。原题来自真正含题目的原话、已读笔记原段或材料；笔记用manage_note read返回的studyProblem，不把“帮我看看笔记”的请求当原题，不把note ID当eventId。已有纸放错题源时用respond.problem沿原ID修正，保留尝试和旧帮助，不重复开纸、不改笔记。每一步保留同一题和当前卡点。返回真实id后可用present_view.study展开原生陪学纸；原题与推导纸已有连续宽度调节，不为拖分隔线另抄题目造program。当前解释若适合让人轻改条件，可在packet.exploration声明有限二次式a*x²+b*x+c、系数参数与横纵范围，先用packet.text讲清，再联动曲线、同一点的高度和可选切线斜率。原题关系和另举的小例子须分清，不任意执行公式或模型代码，不把有限图示包装成全科模拟器；超范围仍继续正常解释/调查。用户改的是临时演算假设。提示深度由本轮选择，不把助手讲解、调过参数或经过时间当作你已独立掌握。' },
+    description: '把原题、你写过的尝试和这次讲过的内容放到同一张陪学纸，回来可以从原处继续。先找回或建立共同事项（update_collaboration的frame），它的id用作matterId；另行登记的请求有自己的id。source留这次保存或更正的完整请求，原题另留自己的真实出处：已读到的聊天原段、笔记或文件页。已有纸就沿同一张纸修正题目、换讲法、暂放或收好，原来的过程留在历史里。按这次需要保存或展开原生学习画面；适合时也可配有限二次式a*x²+b*x+c的小图，改系数和取值，看高度与斜率怎样一起变。原题与另举的例子各自讲清，只提示、一起走一步或完整讲解，都沿这次真正想听的深度。' },
 ];
 export const lifeCollaborationToolDefinitions = definitions;
 const names = new Set(definitions.map(definition => definition.name));
@@ -69,7 +69,7 @@ function checkInputSources(host: LifeCollaborationHost, session: RunSession, inp
     && typeof value.start === 'number' && typeof value.end === 'number') {
     const reply = host.repo.learningAssistantSource(handle, { messageId: value.messageId, start: value.start, end: value.end, quote: value.quote });
     if (!reply || reply.sourceRefs.some(source => !exactPermits(host, session, source)))
-      throw new HarnessError('life_source_scope', '那句旧回复的来由现在不能完整带入，不能从片段补回其他私人内容。');
+      throw new HarnessError('life_source_scope', '那句旧回复用过的资料，这次还不能完整打开。可以先回到能一起看的片段。');
   }
   if (Array.isArray(value.learningProcessRefs)) for (const linked of value.learningProcessRefs) {
     const ref = linked as { id?: unknown; revision?: unknown }, record = typeof ref.id === 'string' ? host.repo.work(handle, 'experience', ref.id)[0] : undefined;
@@ -124,9 +124,11 @@ export function executeLifeCollaborationTool(
       && record.sourceBinding.refs.every(permits) && (allowCrossSession || inConversation(record, session.sessionId)));
     const ensureMatter = (matterId: string) => {
       const matter = host.repo.work(handle, 'episode', matterId)[0];
-      if (!matter || !allowCrossSession && !inConversation(matter, session.sessionId)
+      if (!matter && host.repo.work(handle, undefined, matterId)[0]?.data.type === 'request_item')
+        throw new HarnessError('life_matter_kind', '这里需要正在一起学的共同事项，刚带来的是单独登记的请求。先找回或建立共同事项，再接这张纸。');
+      if (!matter || matter.data.type !== 'collaboration_frame' || !allowCrossSession && !inConversation(matter, session.sessionId)
         || matter.sourceBinding && matter.sourceBinding.refs.some(ref => !permits(ref)))
-        throw new HarnessError('life_matter_scope', '这件事还没在本轮允许的前情里打开，不能跨到另一段对话接着做。');
+        throw new HarnessError('life_matter_scope', '这次还没有打开这件事的前情，先回到能一起看的那一段。');
       return matter;
     };
     const admit = (value: unknown, records: WorkRecord[] = [], bindings: WorkSourceBinding[] = [], options: {
@@ -139,10 +141,10 @@ export function executeLifeCollaborationTool(
         if (record.data.type === 'collaboration_frame') host.companionContinuity.assertCurrent(handle, record.id, record.revision);
         else if (record.data.type === 'companion_session') host.companionSessions.assertCurrent(handle, record.id, record.revision, String(record.data.matterId), permits);
         else if (record.data.type === 'study_companion') host.studyCompanion.assertCurrent(handle, record.id, record.revision, studyContext);
-        else throw new HarnessError('life_owner', '这份材料需要回到原来的阅读入口，不能在相处或陪学入口替代读取。');
+        else throw new HarnessError('life_owner', '这份材料要回到它原来的阅读入口才能打开。');
       }
       if (bindings.some(binding => binding.refs.some(ref => !permits(ref))))
-        throw new HarnessError('life_source_scope', '这段回复的部分来由不在当前允许范围内，未采用旧正文。');
+        throw new HarnessError('life_source_scope', '这段回复用过的一部分资料，这次还不能打开，旧正文没有带回来。');
       const text = canonical(value), bytes = Buffer.byteLength(text), tokens = Math.ceil(Array.from(text).length / 1.4);
       host.context.recordWorkSources(pack, records);
       host.context.recordWorkSourceBindings(pack, bindings);
@@ -174,6 +176,8 @@ export function executeLifeCollaborationTool(
         return item;
       });
       const projected = { ...view, items: visibleItems,
+        ...(view.items.length && !visibleItems.length ? { status: 'unavailable',
+          meaning: '找到了话题的位置，但这次能一起看的前情还不够，正文先留在原处。可以接着眼前的话聊。' } : {}),
         coverage: { ...view.coverage, returned: visibleItems.length, someUnavailable: visibleItems.length !== view.items.length || withheldTarget } };
       return admit(projected, allowed, replyBindings, { history: replyBindings.length > 0 });
     }
@@ -190,7 +194,7 @@ export function executeLifeCollaborationTool(
       if (!args.metadataOnly && args.operation !== 'stop') ensureMatter(args.matterId);
       if (writing && !['begin', 'stop'].includes(args.operation)) {
         const prior = host.companionSessions.read(handle, { matterId: args.matterId, id: args.id }, permits);
-        if (!permittedRecords(prior.records).length) throw new HarnessError('life_matter_scope', '这次尚不能采用原断点的完整来由，先打开允许的那一处。');
+        if (!permittedRecords(prior.records).length) throw new HarnessError('life_matter_scope', '上次停在这里时用过的资料，这次还不能完整打开。先回到能一起看的那一处。');
       }
       const result = writing ? host.companionSessions.write(handle, session.sessionId, args as z.infer<typeof companionSessionWriteSchema>)
         : host.companionSessions.read(handle, args as z.infer<typeof companionSessionReadSchema>, permits);
@@ -199,7 +203,7 @@ export function executeLifeCollaborationTool(
       };
       const allowed = permittedRecords(records), pointer = allowed[0] ? modulePointer(allowed[0]) : undefined;
       const visible = records.length && !allowed.length ? { status: 'not_available', matterId: args.matterId,
-        meaning: '原断点的部分依据不在这次允许的范围里，没有沿旧副本展开。' }
+        meaning: '上次停的位置还在，但它用过的一部分资料这次不能打开，正文没有带回来。' }
         : { ...view, ...(scene ? { coWork: scene } : {}), ...(pointer ? { discussionModule: pointer } : {}) };
       return admit(visible, allowed, [], { history: allowed.some(record => Array.isArray(record.data.sourceIds) && record.data.sourceIds.includes('history:self')) });
     }
@@ -214,6 +218,10 @@ export function executeLifeCollaborationTool(
     const allowed = permittedRecords(records), ids = new Set(allowed.map(record => record.id));
     const items = view.items.filter(item => ids.has(item.id));
     const pointers = allowed.flatMap(record => { const pointer = modulePointer(record); return pointer ? [pointer] : []; });
-    return admit({ ...view, items, ...(pointers.length ? { discussionModules: pointers } : {}) }, allowed);
+    return admit({ ...view, items, ...(pointers.length ? { discussionModules: pointers } : {}),
+      ...(view.items.length !== items.length && 'coverage' in view
+        ? { coverage: { ...view.coverage, someUnavailable: true } } : {}),
+      ...(view.items.length && !items.length ? { status: 'unavailable',
+        meaning: '这张纸的位置找到了，但正文这次还不能带回来。保存结果可以沿原来的学习事项核对，眼前仍能继续聊。' } : {}) }, allowed);
   }
 }

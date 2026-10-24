@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "study",
+  "palette": "violet",
+  "light": "dusk",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-5da416e0-ce81-4706-abab-0a6b55b45ad6",
+  "prompt": "soyo-study-violet-prompt.txt",
+  "promptSha256": "b55fcac1163a693dcfe2ac904fa19c900f2251f843c8e6d34214d9ff8aae5f8e",
+  "inputs": [
+    {
+      "file": "soyo-study-apricot-mother-candidate-v1.png",
+      "sha256": "cf664fa1fc6dcdd8fd9c8dc1cd542d4142bbe05d5d9809a101e6d58907858411",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-5da416e0-ce81-4706-abab-0a6b55b45ad6.png",
+  "output": {
+    "file": "soyo-study-violet-mother-candidate-v1.png",
+    "sha256": "251367e4be844206ef5538c2490dd381eeed1bfc0862e5b8c05e3115cdb91350",
+    "bytes": 2167594,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "generated-self-review-pending",
+  "review": {
+    "producerViewed": "pending actual complete output review after this tool result",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}
+

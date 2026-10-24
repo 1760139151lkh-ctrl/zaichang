@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordType": "image-generation-source",
+  "character": "uika",
+  "activity": "play",
+  "theme": "rain",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-2a9f83b5-89af-4e77-9b96-d3040bc45387",
+  "intent": "lighting-weather",
+  "prompt": "uika-play-rain-prompt-v1.txt",
+  "promptFileMatchesActualToolInput": true,
+  "recordedAt": "2026-10-24T08:02:10.238Z",
+  "inputs": [
+    {
+      "file": "uika-play-apricot-mother-candidate-v1.png",
+      "role": "primary-approved-correct-warm-mother-edit-target",
+      "sha256": "5217e87de50ac8ff072d231a2cc07d985303cbc4f034a97355f0d98bb6a53454"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "role": "primary-approved-clean-theme-lighting-reference-only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "uika-play-rain-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "27841b7ac14f7e0920c847323fcf8f4f8ec4aea7d1dbf289da9809874a1e93f7",
+    "bytes": 2115027
+  },
+  "review": {
+    "designerViewed": "complete original Imagegen output",
+    "designerStatus": "candidate-for-primary-review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Bench guitar music silhouette and hand/neck/strings relationships retained, both complete floor shoes and whole guitar head visible. Coherent single-lamp rainy night.",
+  "promptSha256": "0c8a86951549396f9c6a30413287a90f6a0e45110e45d50b158dbe5b4aab4e92"
+}

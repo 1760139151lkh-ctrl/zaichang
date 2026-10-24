@@ -1,0 +1,17 @@
+.tiyi-connection {border-top:1px solid var(--separator);margin-top:26px;padding:24px 0 8px;color:var(--text);}
+.tiyi-connection-main {display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.tiyi-connection-main h3 {font-size:17px;font-weight:540;margin:0;}
+.tiyi-connection-main>.primary-button {min-height:40px;min-width:142px;flex:none;}
+.tiyi-connection button {font:inherit;}
+.tiyi-connection .primary-button,.tiyi-connection .subtle-button {font-size:13px;}
+.tiyi-connection-feedback {margin:13px 0 0;color:var(--text-secondary);font-size:13px;line-height:1.8;overflow-wrap:anywhere;}
+.tiyi-connection-feedback p {margin:0;}
+.tiyi-connection-feedback small {display:block;margin-top:4px;font-size:11px;color:var(--text-tertiary);}
+.tiyi-connection-alternatives {margin-top:18px;padding-top:12px;border-top:1px solid var(--separator);}
+.tiyi-connection-alternatives>summary {cursor:pointer;color:var(--text-secondary);font-size:12px;line-height:1.8;min-height:30px;padding:4px 0;}
+.tiyi-connection-alternative-actions {display:flex;align-items:center;flex-wrap:wrap;gap:10px 18px;margin-top:10px;}
+.tiyi-connection-alternative-actions>.text-button {font-size:12px;display:inline-flex;align-items:center;gap:6px;min-height:36px;}
+.tiyi-connection-school-note {margin:10px 0 0;color:var(--text-secondary);font-size:12px;line-height:1.8;}
+.tiyi-connection .tiyi-connection-stop {font-size:12px;min-height:36px;margin:14px 0 0;}
+.tiyi-connection :is(button,summary):focus-visible {outline:2px solid var(--accent);outline-offset:3px;}
+@media(max-width:520px) {.tiyi-connection-main {align-items:flex-start;gap:14px;flex-direction:column;}.tiyi-connection-main>.primary-button {width:100%;}.tiyi-connection-alternative-actions {align-items:stretch;flex-direction:column;gap:8px;}.tiyi-connection-alternative-actions>.text-button {align-self:flex-start;}}

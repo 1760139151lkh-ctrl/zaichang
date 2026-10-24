@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordType": "image-generation-source",
+  "character": "uika",
+  "activity": "rest",
+  "theme": "rain",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-3a78f1bb-2e1f-49ed-a924-11a941d3ce2d",
+  "intent": "lighting-weather",
+  "prompt": "uika-rest-rain-prompt-v1.txt",
+  "promptFileMatchesActualToolInput": true,
+  "recordedAt": "2026-10-24T08:00:08.631Z",
+  "inputs": [
+    {
+      "file": "uika-rest-apricot-mother-candidate-v1.png",
+      "role": "primary-approved-correct-warm-mother-edit-target",
+      "sha256": "c90f589bdd923d6b5520eaec6368fd6b27ade6627bf0c39288b4b9852aee551c"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "role": "primary-approved-clean-theme-lighting-reference-only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "uika-rest-rain-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "a86aa95795e2154b50c1f3feaf341a68a01b035d56a1933c3c8fde198ea8f6cc",
+    "bytes": 2085940
+  },
+  "review": {
+    "designerViewed": "complete original Imagegen output",
+    "designerStatus": "candidate-for-primary-review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Window-facing folded-sideways rest support preserved, including supporting palm, cushion feet and separate shoes on the floor. Full rainy room and single fixed lamp retained.",
+  "promptSha256": "0425db037a4dff37fb69e5df1c5556a46af963ea22e0506bf96a303c1426b80b"
+}

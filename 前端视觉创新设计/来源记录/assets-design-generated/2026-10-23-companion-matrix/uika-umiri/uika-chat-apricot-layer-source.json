@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "kind": "layer-generation-source",
+  "character": "uika",
+  "activity": "chat",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "input": {
+    "path": "uika-chat-apricot-mother-candidate-v1.png",
+    "sha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c",
+    "role": "primary-approved complete mother; sole input for extraction"
+  },
+  "calls": [
+    {
+      "part": "mask",
+      "executionId": "exec-031f4107-5633-4b60-8d19-e95e996838ae",
+      "promptFile": "uika-chat-apricot-mask-prompt.txt",
+      "prompt": "Use case: precise-object-edit. Technical same-canvas SEGMENTATION, not a new illustration or portrait.\nOutput an OPAQUE black-and-white matte at exactly 1536 x 1024 with no transparency.\nThe ONLY input image is the complete primary-approved Uika chat mother. Do not redesign the girl, change her pose or repaint a person. Recolor the pixels of the EXISTING visible person IN PLACE: every visible pixel of Uika becomes solid pure WHITE, every pixel of the ROOM becomes pure BLACK. Only the actual outer/inner silhouette edges may have narrow antialiasing.\n\nEXACT REGISTRATION: preserve the full canvas, camera and source coordinate system. The person is small at the RIGHT of a wide room. Keep the head around x=1240..1370,y=258..390; torso around x=1235..1390,y=370..555; long skirt around x=1120..1380,y=520..735; shoes around x=1090..1220,y=705..770; supporting hand around x=1370..1425,y=565..590. These are only location guides; TRACE THE ACTUAL INPUT CONTOUR, not rectangles or a different silhouette. Do not zoom/crop/enlarge/recenter the girl or move the head/feet. Most of the canvas stays pure black, including every canvas corner.\n\nINCLUDE ONLY the original existing girl's complete hair tips, face, neck, T-shirt, bare arms and every finger, long skirt hem, two calves/ankles, socks and both complete WORN black-and-white sneakers. All these body/clothing surfaces become solid white even if their original RGB is dark or contains folds. There is NO book, paper or held prop in this mother.\nEXCLUDE the cushion, pillows, bench, its wood, every room object, desk/lamp/cup/chair, window/curtains/lake, plants, rug/floor and ALL cast/contact shadows. The gaps between arm and torso, between legs/shoes and between fingers stay black wherever the input shows room. Do not paint pillow into the shoulder/hand silhouette or fill a room gap. Do not include floor patches under shoe soles.\nNo internal drawing, face lines, gray cloth folds, colored pixels, glow, blur, shadow, writing, arrows, labels, borders or watermark. This matte will carry the UNMODIFIED original mother RGB later; it must match its exact visible body silhouette and preserve every original contour, not invent anatomy or a hidden surface. Return the complete same-size black canvas with only that source-registered person white.\n",
+      "output": {
+        "path": "uika-chat-apricot-mask-generated-v1.png",
+        "sha256": "5fec0916781edf85b9520b243edb333774212e12af7ec4f3a78bde7963d68ed4",
+        "bytes": 372276,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      }
+    },
+    {
+      "part": "background",
+      "executionId": "exec-67180935-1f1f-4c6c-809a-edef723e6032",
+      "promptFile": "uika-chat-apricot-background-prompt.txt",
+      "prompt": "Use case: precise-object-edit. Technical same-canvas CLEAN BACKGROUND EXTRACTION, NOT a new room.\nInput image 1 is the complete primary-approved Uika chat mother, 1536 x 1024. Remove ONLY the existing girl Uika, all her worn clothing/shoes and the narrow local cast/contact shadows made by her on the cushion/bench and floor. There is no book or held prop in this mother. Reconstruct the exact linen cushion, right pillows, bench wood and floor immediately behind the removed person as a plausible empty version of THIS SAME mother scene.\n\nPRESERVE REGISTRATION: exact full 1536 x 1024 canvas, same camera, perspective and room scale. Keep the complete four-sided window frame, lake/campus/trees/sky, curtains, left table/chair/bookshelves/framed drawing, right desk/chair/lamp/cup/book, bench/pillows/throw, rug, floor lines, window sunlight and every visible piece of furniture unchanged. Do not move, straighten, resize or replace any furniture or change colors/light. Visible pixels outside the removed person's small right-hand footprint should remain their source positions. The cushion may relax where her hips were, but keep its existing seam, fabric, edge and perspective.\nNo human remnant, hair, hand, sock, sneaker, ghost silhouette, floating cloth, invented prop, UI, text, watermark, border or logo. No zoom, crop, white gradient, new empty wall or redesign. Background stays opaque. Return the whole exact-size EMPTY scene with only the local removal repaired.\n",
+      "output": {
+        "path": "uika-chat-apricot-background-generated-v1.png",
+        "sha256": "a96a177b231e82b70ca553024cd0e4a2ae5505ad450bba85b559f87ef1126c8a",
+        "bytes": 2132244,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      }
+    }
+  ],
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "mask保持整幅坐标，小白人轮廓基本对位，但仍有背景低alpha噪点，需只校准mask且用原母图RGB审浅/深底；去人BG完整无残人体，需注册并保住母图轮廓外原像素，未签layers。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "recordedAt": "2026-10-23T19:29:03.771650+00:00",
+  "layerProduction": {
+    "status": "designer-reviewed candidate; primary layer and runtime review pending",
+    "selectedParameters": "uika-chat-apricot-layer-parameters-v5.json",
+    "selectedProcessingRecord": "uika-chat-apricot-layer-processing-v5.json",
+    "scene": "uika-chat-apricot.scene.json",
+    "outputs": [
+      {
+        "file": "uika-chat-apricot-figure-calibrated-v5.png",
+        "bytes": 2440882,
+        "sha256": "cea28ccc5d752a2acc327437ada1752b4f3751a662de4eeed9543992b1269729"
+      },
+      {
+        "file": "uika-chat-apricot-mask-calibrated-v5.png",
+        "bytes": 31745,
+        "sha256": "bb0322774511e0b37e801039246689eb45df4296783144ed3825b842dd2ec090"
+      },
+      {
+        "file": "uika-chat-apricot-background-calibrated-v5.png",
+        "bytes": 2093637,
+        "sha256": "861058f0ce0c29ab3e3ec9bcceef9b83030d9983a806151856c091be563390f2"
+      },
+      {
+        "file": "uika-chat-apricot-shadow-calibrated-v5.png",
+        "bytes": 42717,
+        "sha256": "0da4a25dfee45d9aa766d916800a080a3bfee6def6d97012977edbbb8bf4c3a1"
+      }
+    ],
+    "motherRgbSha256": "0e989ba2b22ca087f21fe846849e6b28d0ef7fbafa364241d00c237b4691263d",
+    "figureRgbSha256": "0e989ba2b22ca087f21fe846849e6b28d0ef7fbafa364241d00c237b4691263d",
+    "transform": "identity; no resize/translation/warp",
+    "designerObserved": [
+      "Same-canvas original RGB; actual hip/cushion point and front shoe sole independently inspected. Only a 12px corridor each side on the same window bench is proposed; no chair/desk moves with her. Source rear skirt fold restored with alpha only. Same generated empty plate cushion pixels repair its tiny lower pillow extension. Original shoe/hip/palm contact residual is a separate edge-limited RGBA layer. Static endpoints are not runtime motion acceptance.",
+      "Same-canvas original RGB; actual hip/cushion point and front shoe sole independently inspected. Only a 12px corridor each side on the same window bench is proposed; no chair/desk moves with her. Source rear skirt fold restored with alpha only. Same generated empty plate cushion pixels repair its tiny lower pillow extension. Original shoe/hip/palm contact residual is a separate edge-limited RGBA layer. Static endpoints are not runtime motion acceptance. v5 extreme original crop confirms bright wedge is actual raised skirt fold above woven cushion; restore original brown triangular fold surface wrongly omitted in v4 alpha, bounded by actual cloth/cushion dark seam. Bright fold is continuous with front drape, no floating knife-shaped fragment remains."
+    ],
+    "reviewImagesPrivateDirectory": ".test-data/uika-existing-layer-review",
+    "reviewImages": [
+      "chat-v5-light.png",
+      "chat-v5-dark.png",
+      "chat-v5-empty.png",
+      "chat-v5-room-dx0.png",
+      "chat-v5-room-dx-12.png",
+      "chat-v5-room-dx12.png"
+    ],
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false,
+    "integrated": false,
+    "backgroundCalibration": "uika-chat-apricot-background-pillow-calibration-v2.json",
+    "superseded": {
+      "v1-v2": "Rear skirt fold omitted in alpha; incomplete seat/palm shadow.",
+      "v3": "Skirt fold restored; tiny generated-pillow extension remained in empty plate.",
+      "v4": "Rejected local hip alpha: actual upper brown triangular skirt fold omitted, leaving only bright lower strip as a false sharp wedge."
+    },
+    "remaining": [
+      "Primary inspect corrected original skirt fold/fine hair and full scene before layer admission.",
+      "Real Stage pointer/keyboard motion and final runtime acceptance not observed here."
+    ],
+    "foldReview": {
+      "originalMotherCropDirectory": ".test-data/uika-existing-layer-review",
+      "sourceCrops": [
+        "chat-white-wedge-context-mother.png",
+        "chat-white-wedge-close-mother.png",
+        "chat-white-wedge-close-grid.png"
+      ],
+      "candidateCrop": "chat-white-wedge-context-figure-v5.png",
+      "finding": "Raised folded skirt cloth, connected to front drape; cushion is below outer dark seam and has distinct vertical weave. v4 alpha removed real brown upper fold, corrected in v5 using original pixels only.",
+      "sourceRegion": [
+        1280,
+        570,
+        1364,
+        603
+      ]
+    }
+  },
+  "layerProductionHistory": [
+    {
+      "status": "designer-reviewed candidate; primary layer and runtime review pending",
+      "selectedParameters": "uika-chat-apricot-layer-parameters-v5.json",
+      "selectedProcessingRecord": "uika-chat-apricot-layer-processing-v5.json",
+      "scene": "uika-chat-apricot.scene.json",
+      "outputs": [
+        {
+          "file": "uika-chat-apricot-figure-calibrated-v5.png",
+          "bytes": 2440882,
+          "sha256": "cea28ccc5d752a2acc327437ada1752b4f3751a662de4eeed9543992b1269729"
+        },
+        {
+          "file": "uika-chat-apricot-mask-calibrated-v5.png",
+          "bytes": 31745,
+          "sha256": "bb0322774511e0b37e801039246689eb45df4296783144ed3825b842dd2ec090"
+        },
+        {
+          "file": "uika-chat-apricot-background-calibrated-v5.png",
+          "bytes": 2093637,
+          "sha256": "861058f0ce0c29ab3e3ec9bcceef9b83030d9983a806151856c091be563390f2"
+        },
+        {
+          "file": "uika-chat-apricot-shadow-calibrated-v5.png",
+          "bytes": 42717,
+          "sha256": "0da4a25dfee45d9aa766d916800a080a3bfee6def6d97012977edbbb8bf4c3a1"
+        }
+      ],
+      "motherRgbSha256": "0e989ba2b22ca087f21fe846849e6b28d0ef7fbafa364241d00c237b4691263d",
+      "figureRgbSha256": "0e989ba2b22ca087f21fe846849e6b28d0ef7fbafa364241d00c237b4691263d",
+      "transform": "identity; no resize/translation/warp",
+      "designerObserved": [
+        "Same-canvas original RGB; actual hip/cushion point and front shoe sole independently inspected. Only a 12px corridor each side on the same window bench is proposed; no chair/desk moves with her. Source rear skirt fold restored with alpha only. Same generated empty plate cushion pixels repair its tiny lower pillow extension. Original shoe/hip/palm contact residual is a separate edge-limited RGBA layer. Static endpoints are not runtime motion acceptance.",
+        "Same-canvas original RGB; actual hip/cushion point and front shoe sole independently inspected. Only a 12px corridor each side on the same window bench is proposed; no chair/desk moves with her. Source rear skirt fold restored with alpha only. Same generated empty plate cushion pixels repair its tiny lower pillow extension. Original shoe/hip/palm contact residual is a separate edge-limited RGBA layer. Static endpoints are not runtime motion acceptance. v5 extreme original crop confirms bright wedge is actual raised skirt fold above woven cushion; restore original brown triangular fold surface wrongly omitted in v4 alpha, bounded by actual cloth/cushion dark seam. Bright fold is continuous with front drape, no floating knife-shaped fragment remains."
+      ],
+      "reviewImagesPrivateDirectory": ".test-data/uika-existing-layer-review",
+      "reviewImages": [
+        "chat-v5-light.png",
+        "chat-v5-dark.png",
+        "chat-v5-empty.png",
+        "chat-v5-room-dx0.png",
+        "chat-v5-room-dx-12.png",
+        "chat-v5-room-dx12.png"
+      ],
+      "primaryLayerReview": "pending",
+      "runtimeAccepted": false,
+      "integrated": false,
+      "backgroundCalibration": "uika-chat-apricot-background-pillow-calibration-v2.json",
+      "superseded": {
+        "v1-v2": "Rear skirt fold omitted in alpha; incomplete seat/palm shadow.",
+        "v3": "Skirt fold restored; tiny generated-pillow extension remained in empty plate.",
+        "v4": "Rejected local hip alpha: actual upper brown triangular skirt fold omitted, leaving only bright lower strip as a false sharp wedge."
+      },
+      "remaining": [
+        "Primary inspect corrected original skirt fold/fine hair and full scene before layer admission.",
+        "Real Stage pointer/keyboard motion and final runtime acceptance not observed here."
+      ],
+      "foldReview": {
+        "originalMotherCropDirectory": ".test-data/uika-existing-layer-review",
+        "sourceCrops": [
+          "chat-white-wedge-context-mother.png",
+          "chat-white-wedge-close-mother.png",
+          "chat-white-wedge-close-grid.png"
+        ],
+        "candidateCrop": "chat-white-wedge-context-figure-v5.png",
+        "finding": "Raised folded skirt cloth, connected to front drape; cushion is below outer dark seam and has distinct vertical weave. v4 alpha removed real brown upper fold, corrected in v5 using original pixels only.",
+        "sourceRegion": [
+          1280,
+          570,
+          1364,
+          603
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-mother-candidate",
+  "character": "umiri",
+  "activity": "study",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/umiri/",
+    "https://anime.bang-dream.com/mygo/character/umiri/"
+  ],
+  "input": {
+    "path": "../room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty room; no character pixels used"
+  },
+  "promptFile": "umiri-study-apricot-prompt.txt",
+  "prompt": "Use case: stylized-concept.\nAsset type: one full 1536 x 1024 character-in-room mother illustration for the 在场 companion Stage, warm apricot morning.\nThe ONLY input image 1 is the approved CLEAN EMPTY room v4. It contains no human and supplies the room camera, environment, furniture scale, materials and light. Draw the whole original character from the text; no person reference, earlier mother or pasted sticker is an input.\n\nSPACE AND SCALE FIRST: preserve the same complete window frame/all four corners, same lake/campus view, rear-left table/chair/shelves/framed drawing, right writing desk/lamp/cup, bench/cushions/throw, floor and rug. The right desk stays at the window in its original position. Use the existing desk chair at that desk; a small rotation is allowed for real seated access but no enlarged or foreground chair. Keep the person approximately within x=790..1080, y=320..790. Her seated hips rest on the real chair cushion around y=590, and both boots contact the existing floor only a little in front of the chair feet. Do not move her into the central foreground or make her a large portrait. Preserve the left and center reading lane and all the room's lived-in depth; no blank panels or white gradients.\n\nIDENTITY: Yahata Umiri (八幡海鈴), the original BanG Dream! Ave Mujica / MyGO!!!!! first-year high-school girl, around fifteen-sixteen. Youthful soft jaw and calm clear gray-teal anime eyes, slim ordinary teenage shoulders and build. Charcoal-gray shoulder-length hair with a slight cool undertone, a divided side-swept fringe exposing a little forehead, cheek-framing strands and gently flipped-out shoulder tips. No adult fashion-model face, heavy makeup, sultry expression or chibi proportions.\nConsistent official casual wardrobe: short black biker jacket with simple lapels/zipper details over a dark-red V-neck top, plain gray short skirt, simple black choker, small silver earrings, black lace-up mid-calf platform boots. Keep the original clothing colors and modest natural teenage styling, no stage costume or fabricated uniform.\n\nSTUDY action, distinct from greeting: Umiri sits oriented TO THE RIGHT DESK, shown from a clean three-quarter side view. Her pelvis is supported by the chair cushion and her torso is compact and upright with a small precise forward incline. Both forearms approach the real desktop comfortably, shoulders not raised. One hand lies flat on the edge of a single working sheet to hold it in place; the other hand's index finger indicates ONE actual short graphite line ON THAT SAME SHEET. The paper is fully supported flat by the desk, not floating or resting on her lap. She looks DOWN at the indicated line, a quiet concentrated face as if checking the exact condition that lets the next step follow. No face-to-camera pose, grin, book held up, clipboard, phone or service gesture. The sheet shows only faint ordinary pencil marks, no readable formula or text.\nMake each arm continuous from the shoulder through elbow and wrist to a clear five-finger hand. Elbow/forearm/desk contact and page contact must make physical sense; fingers do not merge with the desktop. Her attention is practical and exact, with no exaggerated tutoring performance.\n\nTWO SUPPORTED LEGS: seated thighs rest on the cushion, skirt drapes modestly over them, two distinct uncrossed knees lead to normal-length lower legs and two complete platform boots on the same floor plane. Knees near one another naturally, both soles have clear contacts and small cast shadows. No long fashion legs, extra knee, awkward crossing, floating seat, broken ankle or merged boots. Show the complete head/hair tips, both hands, skirt hem and both boot soles, all inside the canvas with air around them. Real chair occlusion only where the original chair back belongs.\n\nFinish with fine youthful Japanese-anime character linework integrated into the input's softly detailed environmental painting. Coherent warm morning window light and bounce on skin, readable black leather, red fabric and boot surfaces; no global orange filter. One continuous full room with furniture contact shadows, not a sticker, separate portrait or composited split. No other person, text, UI, logo, watermark, arrows, border, inset or duplicate view. Return ONE same-size complete mother scene.\n",
+  "output": {
+    "path": "umiri-study-apricot-mother-candidate-v1.png",
+    "sha256": "cb2b45dedddb45a558b4ed49ed28faadddd84aec01c4f10df25b0c9884d71847",
+    "bytes": 2161076,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T18:48:53.365052+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "共读目光落纸、双臂落桌，髋部坐椅与双靴落地连贯；侧身比chat明确，纸上指行在全景中较轻。椅相对v4转向，后续需同母图空景分离；原作脸与比例待根审。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-5c984992-db39-4694-a448-35d6e4ed2a87"
+}

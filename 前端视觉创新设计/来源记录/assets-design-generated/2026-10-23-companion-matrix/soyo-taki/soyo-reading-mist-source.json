@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "reading",
+  "palette": "mist",
+  "light": "morning",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-d7171b12-c0a5-4708-a17c-fe8287100ce6",
+  "prompt": "soyo-reading-mist-prompt.txt",
+  "promptSha256": "a294b640173816bb34f679826bad0fa3fec3aa2a00c0760a137e729a5852b392",
+  "inputs": [
+    {
+      "file": "soyo-reading-apricot-mother-candidate-v2.png",
+      "sha256": "68b71f572a6566147acf1bbe104cd05a1bc6e9194ea01039a3e40b785e60f23e",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-d7171b12-c0a5-4708-a17c-fe8287100ce6.png",
+  "output": {
+    "file": "soyo-reading-mist-mother-candidate-v1.png",
+    "sha256": "31922747787547a93240fbc2a0ab1c9da706500e44e8e5347c216e9b61c39838",
+    "bytes": 2119480,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the approved warm mother and empty mist plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Actual supported reading silhouette, youthful identity, hands/book, distinct original seat and two complete shoes remain. Whole room has coherent pale mist daylight with natural skin and wood; no geometry/pose replacement observed. Primary mother/layer/runtime approval remains separate."
+}

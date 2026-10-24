@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "mother": "nyamu-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305",
+  "matte": "nyamu-chat-apricot-mask-candidate-v2.png",
+  "matteSha256": "965a3f7e6d1614f79f47454231d6919b378534ad0b119d4cfe1b73e00de0e4aa",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "nyamu-chat-apricot-figure-calibrated-v1.png",
+  "mask": "nyamu-chat-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "nyamu-chat-apricot-background-candidate-v1.png",
+  "background": "nyamu-chat-apricot-background-calibrated-v1.png",
+  "shadow": "nyamu-chat-apricot-shadow-calibrated-v1.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [[[1110,590],[1405,590],[1415,830],[1105,830]]],
+  "contactShadowPolygons": [
+    [[1110,786],[1187,784],[1193,824],[1109,827]],
+    [[1210,790],[1298,791],[1300,834],[1209,835]],
+    [[1190,570],[1410,568],[1417,604],[1190,607]],
+    [[1400,566],[1451,565],[1455,599],[1399,600]]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [],
+  "includePolygons": [],
+  "alphaPolygonRepairs": [],
+  "record": "nyamu-chat-apricot-layer-processing-v1.json",
+  "review": {"approvedByPrimary": false, "runtimeAccepted": false},
+  "producerNote": "Raw registered second mask only; inspect exact originalRGB borders before final candidate. No RGB repaint/resize/geometry correction. Independent contact ROIs from current mother; old long figure shadows explicitly replaced from matching clean background."
+}

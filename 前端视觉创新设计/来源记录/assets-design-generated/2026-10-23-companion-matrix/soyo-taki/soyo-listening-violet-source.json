@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "listening",
+  "palette": "violet",
+  "light": "dusk",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-243b7e92-9509-403b-b02f-d0970e2199c4",
+  "prompt": "soyo-listening-violet-prompt.txt",
+  "promptSha256": "40c3368422032574ed69518486c69cc36f8f7c044c7bcafd19eb40635e372f86",
+  "inputs": [
+    {
+      "file": "soyo-listening-apricot-mother-candidate-v2.png",
+      "sha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-243b7e92-9509-403b-b02f-d0970e2199c4.png",
+  "output": {
+    "file": "soyo-listening-violet-mother-candidate-v1.png",
+    "sha256": "455da2443aa1f8bd66ed1c55283b0762ef66d2f0fcd3df2877282b114ac12553",
+    "bytes": 2198194,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the approved warm mother and its empty theme plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Both socked feet supported by the bench, two actual hands and two empty shoes on the floor retained. Quiet attentive identity and full-room theme light are coherent; Violet sun/lake axes remain near1007/1003, Rain has no independent left spotlight. Primary/layer/runtime review remains separate."
+}

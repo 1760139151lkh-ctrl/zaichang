@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "listening",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-d0856e03-df06-443b-a526-722486537a75",
+  "generatedAtUtc": "2026-10-24T12:52:23.977048+00:00",
+  "inputs": [
+    {
+      "file": "tomori-listening-apricot-v2-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "5e7191c4c0aacd44ba34a9ecafa796cd77bf7592dbbe763acf6b175ee9d12428"
+    },
+    {
+      "file": "room-rain-candidate-v2.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "sourceIdentity": "Approved correct complete warm mother relit against approved empty lighting plate only.",
+  "prompt": "tomori-listening-rain-prompt.txt",
+  "promptSha256": "1c2cc7df7c2f5adfa6189c9571fcf43d5a21c49f1b8faa10dc1d340e103f984c",
+  "output": {
+    "file": "tomori-listening-rain-mother-candidate.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2079826,
+    "sha256": "bc524614a4b3a105458d259cf8e20363a01b48d9f1c95367ec729bc60173a209"
+  },
+  "review": {
+    "designerViewed": "complete original full scene",
+    "designerStatus": "candidate",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Complete output personally viewed. Original supported pose, scale and fixed furnishings appear retained. Original warm lamp and blue rain scene, no left rear spotlight/daytime hard shadows. Primary image/prompt review still pending."
+}

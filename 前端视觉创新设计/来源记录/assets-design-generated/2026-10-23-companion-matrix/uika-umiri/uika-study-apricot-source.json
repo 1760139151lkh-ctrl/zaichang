@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-mother-candidate",
+  "character": "uika",
+  "activity": "study",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/uika/",
+    "https://anime.bang-dream.com/mygo/character/uika/"
+  ],
+  "input": {
+    "path": "../room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty room; no character pixels used"
+  },
+  "promptFile": "uika-study-apricot-prompt.txt",
+  "prompt": "Use case: stylized-concept.\nAsset type: one complete character-in-room mother illustration for the 在场 companion Stage, exactly 1536 x 1024, warm apricot morning.\nONLY INPUT image 1: the approved CLEAN EMPTY room v4. This image provides the room, perspective, furniture scale and lighting, and has NO human. Create the whole person in this room from the text. No character photo, old mother, separate portrait or sticker is an input.\n\nPRESERVE THE ROOM: same full canvas, camera, gently seated-eye perspective, all four complete window-frame edges/corners, lake and campus view, rear-left table/chair/shelves/drawing, window bench/cushions/throw, existing desk/lamp/cup/rug and complete floor passage. Keep the right desk where it is. The existing desk chair may turn just slightly within its present footprint so a real person can use the desk; retain its real cushion, back, legs and size. Do not move or invent another desk, add a foreground table, crop the room or erase its left lived-in details. Let the LEFT/CENTER remain unobstructed for live reading text. No white gradient or blank overlay.\n\nIDENTITY: Misumi Uika (三角初華), BanG Dream! Ave Mujica / MyGO!!!!!, a fifteen-sixteen-year-old first-year high-school girl in the original youthful anime character language. Short chin-length pale blonde bob with subtle warm pink undertone, lightly uneven fine front fringe and longer cheek-framing side strands; violet eyes and a clear soft teenage face. Slim natural teenage shoulders and build, modest ordinary proportions, not tall adult fashion-model anatomy or chibi. Official casual clothes interpreted indoors consistently: simple white short-sleeved T-shirt, pale taupe-gray long skirt, white socks and black-and-white low canvas sneakers; no cap indoors, no stage costume or fabricated uniform.\n\nACTIVITY study / hard shared reading: Uika is seated on the existing DESK CHAIR, actually turned toward the right writing desk. Her hips rest fully on the chair cushion, her torso inclines gently toward a single small sheet of working paper resting FLAT on the right desk. A readable three-quarter SIDE view shows her young face looking DOWN at that same paper, not posing for the viewer. One forearm has a substantial quiet contact along the desktop and its hand holds the page steady; the other hand holds one pencil just above a small margin mark, as if following why one step cancels. Both hands belong to continuous relaxed arms. She is listening to the argument and tracing it patiently, with thoughtful focused eyes, not broadly smiling or pointing to empty air. The small paper has only faint nonverbal graphite lines, no readable text or formula.\n\nSUPPORT AND WHOLE BODY: use realistic scale for this chair and desktop: head near the upper half of the window's lower view, shoulders comfortably above the desktop, elbows able to rest on it without raised shoulders. A single continuous ribcage and pelvis, naturally bent thighs supported by the cushion, knees and lower legs under the long skirt and two distinct ankles/shoes on the existing floor. Feet rest side by side naturally, not crossed; both heels and forefeet have floor contacts. Keep both complete shoes, skirt hem, head, hair tips and hands on the canvas with space around them. No feet hidden behind an inexplicable new board, no long unsupported legs, floating hips, chair going through her body, broken wrists or extra limbs. Use the actual chair back as real occlusion only where physically appropriate, not as an excuse for a missing body. Maintain a clear desk-arm contact and small contact shadows; future movement must not detach that contact.\n\nFinish as a fine youthful Japanese anime character with restrained clean linework and the input's carefully painted warm human-scale environment. Her skin and white tee receive the same morning window bounce; taupe cloth, wood and skin retain separate natural material colors. One integrated continuous room, not a cutout pasted over a backdrop. No other person, text, labels, logo, watermark, UI, split-screen, arrows, inset panels or borders. Return one complete same-size mother image.\n",
+  "output": {
+    "path": "uika-study-apricot-mother-candidate-v1.png",
+    "sha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0",
+    "bytes": 2187698,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T18:43:27.125521+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "侧身坐椅前倾，双臂与纸在桌面建立接触，双鞋完整落地，髋腿连续。椅子相对v4转向并左移，日后必须从本母图提同源空景，不能直叠回v4。身份比例待主审。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-8fb3b69a-a3cf-4f7e-b57d-8859c3876f0a"
+}

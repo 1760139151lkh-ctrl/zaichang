@@ -1,0 +1,35 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "play",
+  "palette": "rain",
+  "light": "night",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-b282964e-6dc4-47f0-b2ff-2966995be63a",
+  "prompt": "soyo-play-rain-v3-prompt.txt",
+  "promptSha256": "ccd9241ce50a740600745878bace42c565a92fd5511751adad47331736a19621",
+  "inputs": [
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "sole input: primary-approved clean empty night room; new complete body drawn from text, no mother or failed figure input"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-b282964e-6dc4-47f0-b2ff-2966995be63a.png",
+  "output": {
+    "file": "soyo-play-rain-mother-candidate-v3.png",
+    "sha256": "98dee27d3441cb471b8c4352454192f5d124ddf59cd19b839cca8fb36df8b685",
+    "bytes": 2071489,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed against its actual image inputs; source method is recorded exactly.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Clean-only complete redraw from approved rain plate, with no person/mother/failed-output image input. Tower is backnearx1218. New youthful Soyo body has real bench-hip compression, rear supporting palm, a held paper bookmark and two distinct proportional uncrossed legs ending in complete grounded loafers. The forward lean is physically balanced. This new night body needs its own later calibration, not inherited warm anchors. Primary/layer/runtime review remains separate."
+}

@@ -1,0 +1,144 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "tomori-chat-layer-parameters-v2.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "tomori-chat-apricot-mother.png",
+  "motherSha256": "7e2d61d5874ede02beba0808b329b18922dfe6b3f20f2d923a9c2ea4c22978d9",
+  "matte": "tomori-chat-matte-registered-v1.png",
+  "matteSha256": "67ceb78bb3e2459d3ca21b9bb048edd9ba67760bbb45990c42cbebd12320d85b",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 53412,
+  "alphaNonzeroPixels": 56513,
+  "alphaBounds": [
+    1158,
+    270,
+    1434,
+    782
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "8c50363240f07a3056f8ed6cc979aa9eb7d0db5d3a3458eb57e16c6301c753d4",
+  "figureRgbSha256": "8c50363240f07a3056f8ed6cc979aa9eb7d0db5d3a3458eb57e16c6301c753d4",
+  "background": {
+    "candidate": "tomori-chat-background-generated-v1.png",
+    "candidateSha256": "f27d812a003fcd66e19c425bbf6afa28ec391b1d9208fb5fd094184fdd24086a",
+    "expandPixels": 10,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          1147,
+          725
+        ],
+        [
+          1275,
+          725
+        ],
+        [
+          1275,
+          798
+        ],
+        [
+          1147,
+          798
+        ]
+      ],
+      [
+        [
+          1180,
+          563
+        ],
+        [
+          1445,
+          563
+        ],
+        [
+          1445,
+          604
+        ],
+        [
+          1180,
+          604
+        ]
+      ]
+    ],
+    "changedPixels": 91833,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1155,
+          753
+        ],
+        [
+          1188,
+          746
+        ],
+        [
+          1262,
+          754
+        ],
+        [
+          1270,
+          786
+        ],
+        [
+          1162,
+          789
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "tomori-chat-figure-calibrated-v2.png",
+      "bytes": 2413707,
+      "sha256": "0e768b42e592ffad1640a5b409b456395e54ad21ca4590a5eeeac49300c87333"
+    },
+    {
+      "file": "tomori-chat-mask-calibrated-v2.png",
+      "bytes": 28384,
+      "sha256": "f53a74ac8e0c51b0f66d9d8a9038d9724e3fca8ae8f796d9c10f2c73f808db4c"
+    },
+    {
+      "file": "tomori-chat-background-calibrated-v2.png",
+      "bytes": 2074370,
+      "sha256": "c5fee773880a167ddb11573bfa4889590acff6a4568552cb26819b9c4d070f80"
+    },
+    {
+      "file": "tomori-chat-shadow-calibrated-v2.png",
+      "bytes": 39635,
+      "sha256": "3abb7b62277775a0dfe6000d21b0bb5e0c8c049b5fea49773aa0a4dae2f86e0e"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

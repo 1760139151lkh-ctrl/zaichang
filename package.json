@@ -51,6 +51,13 @@
       "package.json"
     ],
     "asar": true,
+    "extraResources": [
+      {
+        "from": "dist-electron/tiyi-runtime",
+        "to": "tiyi-runtime",
+        "filter": ["connector.py"]
+      }
+    ],
     "win": {
       "target": "portable",
       "icon": "前端视觉创新设计/运行素材/brand/window-gold.ico",

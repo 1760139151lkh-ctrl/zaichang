@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "uika-attention-apricot-room4",
+  "character": "uika",
+  "activity": "attention",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "uika-attention-apricot-mother-candidate-v1.png",
+  "background": "uika-attention-apricot-background-calibrated-v5.png",
+  "figure": "uika-attention-apricot-figure-calibrated-v5.png",
+  "mask": "uika-attention-apricot-mask-calibrated-v5.png",
+  "shadow": "uika-attention-apricot-shadow-calibrated-v5.png",
+  "seat": [
+    0.87109375,
+    0.568359375
+  ],
+  "ground": [
+    0.7838541666666666,
+    0.7626953125
+  ],
+  "bodyBounds": [
+    0.71875,
+    0.251953125,
+    0.931640625,
+    0.765625
+  ],
+  "safeTextBoundary": 0.7,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "85.2865% 25.8789%, 82.4219% 25.8789%, 80.6641% 28.7109%, 79.2969% 36.7188%, 80.1432% 34.8633%, 80.0130% 37.8906%, 80.5990% 38.5742%, 80.4036% 37.5000%, 81.1849% 38.4766%, 81.3151% 37.7930%, 81.7057% 38.0859%, 81.2500% 44.1406%, 82.4870% 44.7266%, 81.9010% 46.2891%, 82.6172% 48.5352%, 81.1849% 50.4883%, 78.4505% 52.0508%, 75.9115% 55.2734%, 73.4375% 66.0156%, 74.3490% 67.1875%, 74.2839% 68.0664%, 75.3906% 68.6523%, 75.8464% 67.9688%, 74.0885% 71.9727%, 72.1354% 73.7305%, 72.2005% 74.9023%, 74.1536% 75.2930%, 76.1719% 74.2188%, 75.5859% 75.7812%, 77.0182% 76.3672%, 80.4688% 75.0000%, 80.2734% 70.2148%, 80.7292% 67.5781%, 81.2500% 68.0664%, 81.2500% 70.3125%, 82.6823% 71.7773%, 84.6354% 71.5820%, 84.6354% 70.2148%, 85.4167% 69.1406%, 84.3750% 59.4727%, 85.1562% 58.0078%, 88.4115% 56.6406%, 88.6068% 52.6367%, 87.6953% 49.1211%, 88.2812% 46.6797%, 89.7135% 56.9336%, 93.0990% 57.3242%, 90.4948% 55.6641%, 89.6484% 44.3359%, 90.5599% 43.1641%, 89.4531% 37.7930%, 87.0443% 36.6211%, 88.2161% 34.6680%, 88.2812% 35.7422%, 88.4115% 32.9102%, 88.8672% 34.3750%, 88.6719% 31.8359%, 88.5417% 32.6172%, 87.3047% 28.6133%",
+  "travel": 0.005208333333333333,
+  "slope": 0.12,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "runtimeAccepted": false,
+    "runtimeReviewRecord": "../primary-runtime-reviews.json",
+    "producerNote": "Independent source calibration: approx visible hip/cushion contact (1338,582), near shoe sole (1204,781). Actual offered ivory bookmark, all real fingers, support palm and both worn shoes belong to figure. Paper is held in front of original shirt, therefore no false rectangular alpha hole behind it; internal printed/contour lines are opaque. Only 8px each side along the same bench seam is proposed; contact remains over the same cushion/floor corridor. Fine source hair retained, blue sky and saturated gold leaf contamination excluded locally. Separate original shoe/hip/support-palm contact residual, 3px near figure. Static endpoints personally viewed; no runtime acceptance."
+  },
+  "production": "uika-attention-apricot-layer-processing-v5.json",
+  "parameters": "uika-attention-apricot-layer-parameters-v5.json"
+}

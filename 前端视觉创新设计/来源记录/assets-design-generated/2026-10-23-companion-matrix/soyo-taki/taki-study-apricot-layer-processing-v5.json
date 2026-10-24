@@ -1,0 +1,338 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "taki-study-apricot-layer-parameters-v5.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "acd958962a3fbec03faf3be03b5bbe2286df8198fde14ad5a59573780f21b19c",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "taki-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "49515d600d10286f1af4f808fbf285f4e2abfd1cabd05d6b319f3fdcbd6d0166",
+  "matte": "taki-study-apricot-mask-calibrated-v3.png",
+  "matteSha256": "813d4a5ddc9f95c7dd04dbc7a19d14ece787fbc6a7dd63e2350fa9300c5aa60e",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          812,
+          459
+        ],
+        [
+          842,
+          459
+        ],
+        [
+          842,
+          503
+        ],
+        [
+          812,
+          503
+        ]
+      ],
+      "redMin": 170,
+      "redOverGreen": 30,
+      "redOverBlue": 50
+    }
+  ],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 1520,
+  "alphaNonzeroPixels": 29708,
+  "alphaBounds": [
+    825,
+    344,
+    1055,
+    710
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "36233137a1e8480e0256d3edc3366fc1b8165254a0edcc7aa6aed1b8d87af069",
+  "figureRgbSha256": "36233137a1e8480e0256d3edc3366fc1b8165254a0edcc7aa6aed1b8d87af069",
+  "background": {
+    "candidate": "taki-study-apricot-background-generated-v1.png",
+    "candidateSha256": "471e75502f33d4d94d6f6fc600e31a512faf7632a958c7da7f2388f1eeaf8632",
+    "expandPixels": 6,
+    "featherPixels": 1.2,
+    "additionalErasePolygons": [
+      [
+        [
+          930,
+          671
+        ],
+        [
+          1064,
+          671
+        ],
+        [
+          1064,
+          720
+        ],
+        [
+          930,
+          720
+        ]
+      ],
+      [
+        [
+          911,
+          338
+        ],
+        [
+          944,
+          341
+        ],
+        [
+          978,
+          365
+        ],
+        [
+          988,
+          390
+        ],
+        [
+          977,
+          419
+        ],
+        [
+          954,
+          439
+        ],
+        [
+          973,
+          470
+        ],
+        [
+          1001,
+          474
+        ],
+        [
+          1004,
+          493
+        ],
+        [
+          988,
+          505
+        ],
+        [
+          969,
+          508
+        ],
+        [
+          965,
+          524
+        ],
+        [
+          987,
+          544
+        ],
+        [
+          998,
+          566
+        ],
+        [
+          1003,
+          607
+        ],
+        [
+          1014,
+          650
+        ],
+        [
+          1029,
+          680
+        ],
+        [
+          1057,
+          696
+        ],
+        [
+          1058,
+          710
+        ],
+        [
+          1030,
+          714
+        ],
+        [
+          993,
+          707
+        ],
+        [
+          979,
+          695
+        ],
+        [
+          969,
+          654
+        ],
+        [
+          959,
+          622
+        ],
+        [
+          955,
+          630
+        ],
+        [
+          955,
+          665
+        ],
+        [
+          979,
+          681
+        ],
+        [
+          984,
+          697
+        ],
+        [
+          975,
+          707
+        ],
+        [
+          940,
+          704
+        ],
+        [
+          933,
+          690
+        ],
+        [
+          934,
+          659
+        ],
+        [
+          934,
+          627
+        ],
+        [
+          925,
+          609
+        ],
+        [
+          901,
+          599
+        ],
+        [
+          874,
+          585
+        ],
+        [
+          870,
+          530
+        ],
+        [
+          852,
+          507
+        ],
+        [
+          828,
+          505
+        ],
+        [
+          814,
+          493
+        ],
+        [
+          816,
+          464
+        ],
+        [
+          830,
+          421
+        ],
+        [
+          867,
+          372
+        ]
+      ]
+    ],
+    "changedPixels": 57522,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          896,
+          665
+        ],
+        [
+          1038,
+          665
+        ],
+        [
+          1038,
+          714
+        ],
+        [
+          896,
+          714
+        ]
+      ],
+      [
+        [
+          852,
+          576
+        ],
+        [
+          975,
+          576
+        ],
+        [
+          975,
+          615
+        ],
+        [
+          852,
+          615
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "taki-study-apricot-figure-calibrated-v4.png",
+      "bytes": 2382704,
+      "sha256": "9b66c1f460f9330c7e8a7ba17627669228a12af03723bbc2b489ec9382fc6d18"
+    },
+    {
+      "file": "taki-study-apricot-mask-calibrated-v4.png",
+      "bytes": 14514,
+      "sha256": "3395a2fade3d4cd6cb309332b89a4a96afa964c1db267faaf99cce3cb9544871"
+    },
+    {
+      "file": "taki-study-apricot-background-calibrated-v5.png",
+      "bytes": 2064052,
+      "sha256": "df4895df33c313f8f575904486a1ad2a4df432e280b0f657c406b1a0dc35cc5c"
+    },
+    {
+      "file": "taki-study-apricot-shadow-calibrated-v5.png",
+      "bytes": 29984,
+      "sha256": "d12bbcc009a1b2a74a928f93109752d4b08bc9671841ef526dc71bd74f904c8d"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

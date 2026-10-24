@@ -1,0 +1,187 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "umiri-listening-apricot-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": "4.13.0"
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "umiri-listening-apricot-mother-candidate-v1.png",
+  "motherSha256": "14542cd757d285f6c2d89e98466e2e2bac75d2601aa0fe61d768996ae679b171",
+  "matte": "umiri-listening-apricot-mask-generated-v1.png",
+  "matteSha256": "ededf924b8e41093995ead94e0ee363d33e2b4f8648bab08cdd53bb513e35aa3",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1140,
+      250,
+      1490,
+      800
+    ],
+    "seedThreshold": 80,
+    "uncertainBandPixels": 6,
+    "iterations": 5,
+    "edgeFeatherPixels": 0.35
+  },
+  "alphaChangedPixels": 121998,
+  "alphaNonzeroPixels": 54578,
+  "alphaBounds": [
+    1176,
+    272,
+    1455,
+    777
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "2382b080a179e029154c3c5e73fb346cd9b4826d3a060a43bd2b31751ccf18ae",
+  "figureRgbSha256": "2382b080a179e029154c3c5e73fb346cd9b4826d3a060a43bd2b31751ccf18ae",
+  "background": {
+    "candidate": "umiri-listening-apricot-background-generated-v1.png",
+    "candidateSha256": "2bc336b22c0963d1ef6dc86f6b9b2d2272bd1e43b3f83f8a35b8a219956ff1c2",
+    "expandPixels": 7,
+    "featherPixels": 1.2,
+    "additionalErasePolygons": [
+      [
+        [
+          1180,
+          575
+        ],
+        [
+          1280,
+          575
+        ],
+        [
+          1280,
+          665
+        ],
+        [
+          1170,
+          665
+        ]
+      ],
+      [
+        [
+          1150,
+          742
+        ],
+        [
+          1248,
+          742
+        ],
+        [
+          1248,
+          795
+        ],
+        [
+          1150,
+          795
+        ]
+      ]
+    ],
+    "changedPixels": 79564,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1170,
+          747
+        ],
+        [
+          1247,
+          747
+        ],
+        [
+          1247,
+          784
+        ],
+        [
+          1170,
+          784
+        ]
+      ],
+      [
+        [
+          1300,
+          559
+        ],
+        [
+          1415,
+          559
+        ],
+        [
+          1415,
+          603
+        ],
+        [
+          1300,
+          603
+        ]
+      ],
+      [
+        [
+          1410,
+          550
+        ],
+        [
+          1470,
+          550
+        ],
+        [
+          1470,
+          593
+        ],
+        [
+          1410,
+          593
+        ]
+      ]
+    ],
+    "featherPixels": 0.7,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "umiri-listening-apricot-figure-calibrated-v1.png",
+      "bytes": 2461511,
+      "sha256": "d9d20294901510c1bbf980b46c03f0c5ef2729adc91166b067ece62c5703d1de"
+    },
+    {
+      "file": "umiri-listening-apricot-mask-calibrated-v1.png",
+      "bytes": 13416,
+      "sha256": "33aa94ab85b99cae30379c73d868219b7b67dfddaee5681e7b8b07a80c477c23"
+    },
+    {
+      "file": "umiri-listening-apricot-background-calibrated-v1.png",
+      "bytes": 2125368,
+      "sha256": "21b45798e514f4ad3206e9ad48e5eccd4976bc86e5929a3c6b8ac627d3561d18"
+    },
+    {
+      "file": "umiri-listening-apricot-shadow-calibrated-v1.png",
+      "bytes": 38063,
+      "sha256": "73f3e7ba3c137c7e21d6463fe7298e498c34a5950d117c9dd33a2554ff7a9e86"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

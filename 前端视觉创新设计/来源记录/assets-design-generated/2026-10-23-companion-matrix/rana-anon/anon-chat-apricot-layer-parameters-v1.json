@@ -1,0 +1,18 @@
+{
+  "mother": "anon-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+  "matte": "anon-chat-apricot-mask-generated-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 240,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "anon-chat-apricot-figure-calibrated-v1.png",
+  "mask": "anon-chat-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "anon-chat-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 3,
+  "backgroundFeatherPixels": 1,
+  "background": "anon-chat-apricot-background-calibrated-v1.png",
+  "record": "anon-chat-apricot-layer-processing-v1.json",
+  "reviewNote": "Initial exact original-RGB extraction from this primary-approved complete mother. Entire original room retained outside grown character patch. Needs actual light/dark/original-room edge and furniture-occlusion review; no body repaint or pixel translation. Primary layer review pending."
+}

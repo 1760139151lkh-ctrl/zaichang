@@ -1,0 +1,39 @@
+{
+  "createdOn": "2026-10-24",
+  "tool": "built-in image_gen.imagegen",
+  "character": "anon",
+  "activity": "chat",
+  "theme": "mist",
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "file": "anon-chat-mist-mother-candidate-v1.png",
+  "sha256": "5b95d8fd128272f718a6db53dbaef7b31bf42fe525f07636abe64dc4fe9b2cd1",
+  "prompt": "anon-chat-mist-prompt.txt",
+  "promptSha256": "0e0bc5ba9b0704e98f6811048f94f8b584b2a13d58340ce01564c43a22ac6cc9",
+  "originalGeneratedFile": "exec-2c4900ff-43a5-4439-b06d-95db0aa572bb.png",
+  "inputs": [
+    {
+      "file": "anon-chat-apricot-mother-candidate-v1.png",
+      "sha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+      "role": "primary-approved complete warm mother; sole editable character/geometry target"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "primary-approved clean empty room; lighting/sky/light-axis reference only"
+    }
+  ],
+  "designerPersonallyViewed": true,
+  "designerStatus": "candidate-for-primary-review",
+  "designerObservation": "Complete original supported character retained in the same furniture/camera. Soft blue sky, lake mist, subdued floor and coherent cool daylight; no extra lamp.",
+  "review": {
+    "approvedByPrimary": false,
+    "identityAndProportionAccepted": false,
+    "extractionApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "promptEncoding": "UTF-8; exact submitted string, no added final newline"
+}

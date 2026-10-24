@@ -1,0 +1,260 @@
+{
+  "activity": "reading",
+  "schemaVersion": 1,
+  "mother": "mutsumi-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+  "inputAlpha": "mutsumi-reading-apricot-source-alpha-v3.png",
+  "inputAlphaSha256": "9fdac5db922187d1f10742b46604691ab712c5ba11c85922ad5b5b095d0bd8a0",
+  "observedOriginalColorRules": [
+    {
+      "purpose": "Observed original true front-thigh skin and hem continuity; source coordinate grid read directly, no invented anatomy",
+      "mode": "include",
+      "polygon": [
+        [
+          1225,
+          538
+        ],
+        [
+          1237,
+          540
+        ],
+        [
+          1248,
+          554
+        ],
+        [
+          1249,
+          569
+        ],
+        [
+          1245,
+          585
+        ],
+        [
+          1234,
+          613
+        ],
+        [
+          1228,
+          624
+        ],
+        [
+          1211,
+          616
+        ],
+        [
+          1202,
+          604
+        ],
+        [
+          1206,
+          577
+        ],
+        [
+          1210,
+          555
+        ],
+        [
+          1218,
+          543
+        ]
+      ],
+      "channels": [],
+      "differences": []
+    },
+    {
+      "purpose": "Complete actual opened left page fan and spine boundary traced from original x1220..1340,y450..530 grid; preserve paper texture/source RGB, not only dark cover",
+      "mode": "include",
+      "polygon": [
+        [
+          1238,
+          470
+        ],
+        [
+          1247,
+          468
+        ],
+        [
+          1247,
+          461
+        ],
+        [
+          1250,
+          460
+        ],
+        [
+          1254,
+          463
+        ],
+        [
+          1261,
+          469
+        ],
+        [
+          1265,
+          470
+        ],
+        [
+          1270,
+          475
+        ],
+        [
+          1276,
+          476
+        ],
+        [
+          1283,
+          480
+        ],
+        [
+          1286,
+          482
+        ],
+        [
+          1284,
+          486
+        ],
+        [
+          1273,
+          495
+        ],
+        [
+          1269,
+          500
+        ],
+        [
+          1250,
+          485
+        ],
+        [
+          1238,
+          473
+        ]
+      ],
+      "channels": [],
+      "differences": []
+    },
+    {
+      "purpose": "Warm wood between the actual navy shins above shoe transitions, inspected original leg coordinate grid; bright skin and navy pixels excluded by observed color bounds",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1080,
+          620
+        ],
+        [
+          1242,
+          620
+        ],
+        [
+          1242,
+          686
+        ],
+        [
+          1080,
+          686
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          40,
+          205
+        ],
+        [
+          1,
+          0,
+          165
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          1,
+          12,
+          180
+        ],
+        [
+          0,
+          2,
+          15,
+          180
+        ]
+      ]
+    },
+    {
+      "purpose": "Blue plaid support pillow only, including its dim lower portion behind coat, distinct from dark navy source clothes",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1407,
+          490
+        ],
+        [
+          1482,
+          490
+        ],
+        [
+          1482,
+          587
+        ],
+        [
+          1407,
+          587
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          50,
+          255
+        ],
+        [
+          1,
+          70,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          2,
+          0,
+          9,
+          180
+        ],
+        [
+          2,
+          1,
+          4,
+          180
+        ]
+      ]
+    }
+  ],
+  "explicitOriginalRoomExclusions": [
+    [
+      [
+        1126,
+        686
+      ],
+      [
+        1145,
+        686
+      ],
+      [
+        1137,
+        699
+      ],
+      [
+        1128,
+        707
+      ],
+      [
+        1125,
+        710
+      ]
+    ]
+  ],
+  "outputAlpha": "mutsumi-reading-apricot-source-alpha-v4.png",
+  "record": "mutsumi-reading-apricot-source-alpha-v4.json"
+}

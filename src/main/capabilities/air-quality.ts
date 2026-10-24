@@ -65,8 +65,9 @@ export function airQualityResult(query: ReturnType<typeof airQualityRequest>, ra
     window: { from: query.from, to: query.to, complete }, samples,
     units: { pm2_5: 'μg/m³', pm10: 'μg/m³', us_aqi: 'US AQI', european_aqi: 'European AQI' },
     kind: 'model_forecast', retrievedAt, issuedAt: null, source: 'Open-Meteo / CAMS', sourceUrl: 'https://open-meteo.com/en/docs/air-quality-api',
-    limitations: ['这是公共参考点的模型网格预报，不是设备位置或校园现场传感器读数。',
-      'US AQI与European AQI制式不同，均不能直接称为中国官方AQI或互相混用。',
-      '小时样本是对应时刻的预报；非整点窗口包含起点之前最近的整点样本，不证明整个时段始终如此。',
-       '缺测是未知；查到的时间不是预报发布的时间。单凭这些数值，不能判断某人是否适宜运动或场地是否开放。'] }) };
+    limitations: ['预报来自所选公共参考点附近的模型网格，校园某一处的现场情况可能有差别。',
+      'US AQI和European AQI分别保留各自制式；中国官方AQI可另查本地发布。',
+      '每条小时预报对应标出的时刻；非整点查询会带上起点之前最近的整点供参考。',
+      '缺测时保留空值；来源这次没有给出预报发布时间。',
+      '计划运动时，还可以一起看身体感受、天气和场地开放情况。'] }) };
 }

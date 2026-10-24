@@ -5,7 +5,7 @@ import type { CampusGpaScale, CampusRecord, CampusScene, SemanticSelection } fro
 import { uiError } from '../ui';
 import './campus-academic.css';
 
-const labels: Record<CampusGpaScale, string> = { fivePoint: '五分制', fourPoint: '4.3 制换算', fourPointLegacy: '传统 4 制换算', hundredPoint: '百分等值' };
+const labels: Record<CampusGpaScale, string> = { fivePoint: '五分制', fourPoint: '4.3 制换算', fourPointLegacy: '4.0 封顶换算', hundredPoint: '百分等值' };
 const maxima: Record<CampusGpaScale, number> = { fivePoint: 5, fourPoint: 4.3, fourPointLegacy: 4, hundredPoint: 100 };
 const policies: Record<string, string> = { all_attempts: '全部修读', first_attempt: '首次修读', highest_attempt: '最高成绩', repository_first_response: '来源首条记录' };
 const format = (value: unknown) => typeof value === 'number' && Number.isFinite(value)

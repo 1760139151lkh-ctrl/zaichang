@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordType": "image-generation-source",
+  "character": "umiri",
+  "activity": "attention",
+  "theme": "rain",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-5e43faa7-04eb-4ed9-a880-cadb585ad7dd",
+  "intent": "lighting-weather",
+  "prompt": "umiri-attention-rain-prompt-v1.txt",
+  "promptFileMatchesActualToolInput": true,
+  "recordedAt": "2026-10-24T08:14:01.668Z",
+  "inputs": [
+    {
+      "file": "umiri-attention-apricot-mother-candidate-v1.png",
+      "role": "primary-approved-correct-warm-mother-edit-target",
+      "sha256": "2e2a24e6baeb00f8ca22fdb5e3e35a1f8e3e4c95541defe7008abf6e23602d81"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "role": "primary-approved-clean-theme-lighting-reference-only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "umiri-attention-rain-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "9f44f5432767597ee0bd8c721f378d95143d85a4992ac658c1d5bbe9f9b750f8",
+    "bytes": 2080233
+  },
+  "review": {
+    "designerViewed": "complete original Imagegen output",
+    "designerStatus": "candidate-for-primary-review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Forward note offer with bracing seat hand and pulled-out desk chair retained, both boots planted and complete. Full consistent rainy-night room, one fixed desk lamp and no isolated rear flower spotlight.",
+  "promptSha256": "97492e3aa4d1e3ec1ef73d04d7aecff1187248298ed7e1bbbc7d3296431132f3"
+}

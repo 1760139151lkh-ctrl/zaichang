@@ -1,0 +1,108 @@
+{
+  "reviewer": "primary-agent",
+  "date": "2026-10-23",
+  "stage": "complete-mother-artwork-only",
+  "allEightActivitiesAccepted": true,
+  "motherExpansionReleased": true,
+  "runtimeExpansionReleased": false,
+  "runtimeAccepted": false,
+  "entries": [
+    {
+      "activity": "chat",
+      "file": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+      "approvedForExtraction": true,
+      "observed": "青春身份清楚；髋落窗榻、撑垫手有接触，双膝小腿与完整鞋连续并合理落地，视线与轻侧身朝向当前交流；四周留有余量。",
+      "promptReviewed": true,
+      "promptFile": "sakiko-chat-apricot-prompt.txt",
+      "promptSha256": "38fd1a3323fc4db08c8d347661fa9894423701b56b06a2fd5a99f6f4bb8db1e9"
+    },
+    {
+      "activity": "study",
+      "file": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1",
+      "approvedForExtraction": true,
+      "observed": "实际向桌面侧前倾，手、笔与纸由桌面承托；椅面、腿与脚关系成立。家具相对空房变化，必须沿本母图生成匹配背景，不能套空房或其他姿态背景。",
+      "promptReviewed": true,
+      "promptFile": "sakiko-study-apricot-prompt.txt",
+      "promptSha256": "c48efe37a82cf256d21601969948d60ca6f8a5b902d06b0c0ba521c8b662d8ab"
+    },
+    {
+      "activity": "reading",
+      "file": "sakiko-reading-apricot-mother.png",
+      "sha256": "4e904af2cab43ee905ad96575095050b48cb3f6eabed9f0b1c608c0a65cc833a",
+      "approvedForExtraction": false,
+      "anatomyAccepted": true,
+      "observed": "全八类横向比对后撤回活动批准：主要只换书与前臂，髋、膝踝和躯干仍过于接近聊天。v2须真正后靠右垫、骨盆与双腿朝左斜转，头肩随阅读转向；保留青春身份与正确支承，不以道具计新姿态。"
+    },
+    {
+      "activity": "reading",
+      "file": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b",
+      "approvedForExtraction": true,
+      "observed": "亲看完整母图及实际Prompt：上背靠右垫、双肩放下，目光落书页；骨盆、双膝小腿与完整双鞋真实斜向左，与聊天迎向说话者的姿态明确区别。书由双手与腿承托，座面与落脚有接触。仅批准母图分离，尚未准入运行。",
+      "promptReviewed": true,
+      "promptFile": "sakiko-reading-apricot-v2-prompt.txt",
+      "promptSha256": "73708b27bb209f9ac062a146a9daf38786998a00e39f9ebaca35ae1ba6b0e282"
+    },
+    {
+      "activity": "planning",
+      "file": "sakiko-planning-apricot.png",
+      "sha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11",
+      "approvedForExtraction": true,
+      "observed": "坐骨落真实椅面，转向桌面比较小本与纸，手腕与桌面支承可见，双膝踝鞋独立连续；后续study须保持真正前倾共读的区别。",
+      "promptReviewed": true,
+      "promptFile": "sakiko-planning-apricot-prompt.txt",
+      "promptSha256": "fb6e88986563c6d268d5d106bab399f8772d95ba906d1e8449f295bf4272e6b6"
+    },
+    {
+      "activity": "play",
+      "file": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-mother.png",
+      "sha256": "c81824391b45219eb973c49fc435e5040daa1c310c5f3ad0a4b60adf044f96f3",
+      "approvedForExtraction": true,
+      "observed": "前倾递纸鸟、另一掌撑垫与前后错步提供真实重心差别；较近的头脚是此姿态的前景关系，不将人物单独缩放去套其他姿态。两鞋与支承完整，保留独立校准。",
+      "promptReviewed": true,
+      "promptFile": "sakiko-play-apricot-prompt.txt",
+      "promptSha256": "d409a100e2e81d653cb21e4384b66ee4cc54c2fb3fa547398865e7dd7a3ea68e"
+    },
+    {
+      "activity": "attention",
+      "file": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-mother.png",
+      "sha256": "5631cdd842797d1e46b898b9e5914f250cb5d66e8a058878eee2547e1f707017",
+      "approvedForExtraction": true,
+      "observed": "向后右侧退让、肩头转向左边新卡，后掌与髋有支承；与play前倾递物形成不同关系，双腿和鞋完整。桌上的卡属于房间层，不能随人物拖动。",
+      "promptReviewed": true,
+      "promptFile": "sakiko-attention-apricot-prompt.txt",
+      "promptSha256": "dbf67228a1a670a617385db6ea0509ada7b2aa2b2c252885f9020b488ee9b20a"
+    },
+    {
+      "activity": "listening",
+      "file": "sakiko-listening-apricot-mother.png",
+      "sha256": "a35aaa3549a04cf9f6fa7e478224f53afdcbfd1f133f6570a643191916189bb1",
+      "approvedForExtraction": true,
+      "observed": "放松抱膝、双臂轻搭膝，袜脚由坐垫支承，身体朝说话者；膝踝脚与手可辨。脱下的两只便鞋应留原地房间层，不能被人物层一起拖走。",
+      "promptReviewed": true,
+      "promptFile": "sakiko-listening-apricot-prompt.txt",
+      "promptSha256": "0e8113e4ffacefeb621fd6eda46861dc04ac49fb5fdd8046594c24cbd020848d"
+    },
+    {
+      "activity": "rest",
+      "file": "sakiko-rest-apricot-mother.png",
+      "sha256": "ffdf5ac11d9d25da5347120dd7b5f19bf68a6211c991c373e1c6d2f623cebfbf",
+      "approvedForExtraction": true,
+      "observed": "躯干肩背与目光真正转向湖窗，手闲放、髋由窗榻承托，双腿踝鞋完整；属于离开交流视线的休息，不是换杯子的正面闲聊。",
+      "promptReviewed": true,
+      "promptFile": "sakiko-rest-apricot-prompt.txt",
+      "promptSha256": "8583efe811a0ecc0c311f56b1a46d6fbf9db7fb0c3c968dc1c1a2c0e7b786174"
+    }
+  ],
+  "extractionRequirements": [
+    "Each accepted mother needs a registered background and figure/mask at the same full canvas and pixel coordinates; furniture or color drift must be judged on the actual composite.",
+    "Extract only the body and objects actually held. Listening floor shoes and attention desk card remain stationary in the room/background or a separate room layer.",
+    "Primary must inspect extracted edges over light/dark backgrounds before scene review.approvedByPrimary admits the asset into the original Stage. Asset admission does not grant runtime acceptance: the integrated Stage, contacts, dragging, cancellation and transitions must then be inspected before runtimeAccepted can be true.",
+    "The eight complete Sakiko activity mothers have passed primary review, so other character mothers may proceed, first chat/study for identity and scale review. This does not release unreviewed layers or runtime registrations."
+  ],
+  "identitySpellingNote": "Future identity specifications use Sakiko Togawa, as on https://anime.bang-dream.com/mygo/character/sakiko/ . Historical submitted prompts containing Toyokawa remain unchanged as actual call records.",
+  "dataEntryNote": "Primary-agent actual image/Prompt approvals recorded by visual_matrix on explicit primary-agent instruction; no independent worker approval inferred.",
+  "lastDataEntryUtc": "2026-10-24T02:27:10.645831+00:00"
+}

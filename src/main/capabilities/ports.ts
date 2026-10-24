@@ -83,7 +83,7 @@ export class ObservationPort {
     if (!s.sources.includes(input.sourceId))
       throw new HarnessError('source_forbidden', '这份观察不在当前允许的来源中。');
     if (input.quality === 'verified' && !review.verifiedSource)
-      throw new HarnessError('source_not_verified', '外部正文不能自行声明官方验证。');
+      throw new HarnessError('source_not_verified', '这份内容还缺少可核对的官方来源。');
     if (input.kind === 'learning') learningSchema.parse(input.data);
     if (input.kind === 'feedback') feedbackSchema.parse(input.data);
     if (input.kind === 'wellness') wellnessSchema.parse(input.data);
@@ -242,7 +242,7 @@ export class ObservationPort {
   ) {
     const notice = this.read(handle, id);
     if (!notice || notice.kind !== 'notice' || notice.quality !== 'verified' || !review.verified)
-      throw new HarnessError('notice_not_verified', '通知尚未核实，不能改写业务事实。');
+      throw new HarnessError('notice_not_verified', '这条通知还没核实，原来的事项记录暂时保留。');
     return this.domains.apply(handle, {
       sourceId: notice.sourceId,
       domain: change.domain,
@@ -325,7 +325,7 @@ export class SyncPort {
       actor = this.devices.get(device),
       operation = syncOperationSchema.parse(raw);
     if (!actor || actor.id !== operation.deviceId)
-      throw new HarnessError('untrusted_device', '设备身份未通过宿主验证。');
+      throw new HarnessError('untrusted_device', '还没能确认这台设备的身份，请先完成配对。');
     const prior = this.repo.db
       .prepare('SELECT status,object_id,base_revision,epoch FROM h_sync_operations WHERE device_id=? AND operation_id=?')
       .get(actor.id, operation.operationId);
@@ -337,20 +337,20 @@ export class SyncPort {
     try {
       this.policy.require(handle, 'work:write');
       if (operation.policyEpoch !== this.repo.epoch)
-        throw new HarnessError('stale_epoch', '设备提案早于最新隐私屏障。');
+        throw new HarnessError('stale_epoch', '这份设备修改使用的是先前的资料范围，请按现在的范围重新核对。');
       if (this.repo.hasFence(operation.objectId))
-        throw new HarnessError('deleted_object', '被删除的对象不能通过同步恢复。');
+        throw new HarnessError('deleted_object', '这项内容已经删除，旧设备带回的修改没有应用。');
       if (operation.delta.operation === 'propose_external_action')
         throw new HarnessError(
           actor.online ? 'approval_required' : 'offline_unsafe',
-          '同步只保留提案，不能直接执行外部动作。',
+          '这份同步内容可保留为提案，实际办理请从原动作入口继续。',
         );
       const old = this.repo.work(handle, undefined, operation.objectId)[0];
       if (!old) throw new HarnessError('object_missing', '同步对象不存在。');
       currentWork = old;
       if (old.sourceBinding || old.data.type === 'planning_intent')
         return { accepted: false, code: 'typed_work_writer_required', objectId: old.id, currentRevision: old.revision,
-          meaning: '这份持续规格须按原话和当前版本修改，不能合并设备提案。' };
+          meaning: '这项托付有自己的修改入口，可带着原话和当前版本到那里继续修改。' };
       const permittedSources = new Set(s.sources.filter(source => source !== 'current'));
       for (const data of [old.data, operation.delta.data]) {
         if (!data || !Object.hasOwn(data, 'sourceIds')) continue;
@@ -360,28 +360,28 @@ export class SyncPort {
       }
       if (prior) {
         if (prior.object_id !== operation.objectId || Number(prior.base_revision) !== operation.baseRevision)
-          return { accepted: false, code: 'operation_identity_conflict', meaning: '操作标识已用于另一份提案；原提案保留，没有执行新参数。' };
+          return { accepted: false, code: 'operation_identity_conflict', meaning: '这个编号已对应另一份修改，原提案还在；新修改请使用新的编号。' };
         const stored = this.repo.db.prepare("SELECT json_extract(result,'$.requestFingerprint') AS fingerprint FROM h_sync_operations WHERE device_id=? AND operation_id=?").get(actor.id, operation.operationId)!;
         if (stored.fingerprint && stored.fingerprint !== requestFingerprint)
-          return { accepted: false, code: 'operation_identity_conflict', meaning: '同一操作标识的提议内容已经改变，原提案保留；修改意图需使用新的操作标识。' };
+          return { accepted: false, code: 'operation_identity_conflict', meaning: '这次内容与该编号先前提交的修改不同，原提案还在；新内容请另用一个编号提交。' };
         if (!stored.fingerprint) return { accepted: false, code: 'legacy_operation_requires_review',
-          meaning: '旧操作没有可核对的完整意图标识，原记录保留；请按当前对象版本核对结果或以新的操作标识提交，不自动恢复。' };
+          meaning: '旧记录缺少完整的修改内容可供核对，原记录还在；可以先看当前结果，需要修改时重新提交。' };
         if (prior.status !== 'pending' || !actor.online) {
           if (Number(prior.epoch) !== this.repo.epoch) return { accepted: false, code: 'stale_receipt', objectId: old.id,
-            currentRevision: old.revision, meaning: '旧范围的操作结果没有重用，也没有重新执行；可按当前范围核对对象。' };
+            currentRevision: old.revision, meaning: '资料使用范围已经变过，可以重新看看当前结果；这次没有重复执行旧修改。' };
           const cached = JSON.parse(String(this.repo.db.prepare('SELECT result FROM h_sync_operations WHERE device_id=? AND operation_id=?').get(actor.id, operation.operationId)!.result));
           if (cached.proposed && Number(prior.status === 'pending' ? prior.base_revision : cached.currentRevision) !== old.revision)
             return { accepted: false, code: 'stale_receipt', objectId: old.id, currentRevision: old.revision,
-              meaning: '这份未应用提案的比较版本已经改变，旧正文没有重用或执行；需要按当前版本重新核对。' };
+              meaning: '原内容已经更新，这份待修改提案还没应用；可以和当前版本重新比一比。' };
           return cached;
         }
         mayUpdatePrior = true;
       }
       if (old.revision !== operation.baseRevision) throw new HarnessError('revision_conflict', '当前版本已改变，保留修改提案供比较。');
       if (old.status === 'cancelled')
-        throw new HarnessError('cancelled_object', '已取消目标不能由旧设备重新激活。');
+        throw new HarnessError('cancelled_object', '这项托付已经取消，旧设备带回的修改没有应用。');
       if (!actor.online) {
-        result = { accepted: false, pending: true, code: 'offline_pending', objectId: old.id, expectedRevision: operation.baseRevision, proposed: operation.delta, meaning: '修改只暂存在这台设备，尚未更新权威对象。恢复后重新核对版本与权限。' };
+        result = { accepted: false, pending: true, code: 'offline_pending', objectId: old.id, expectedRevision: operation.baseRevision, proposed: operation.delta, meaning: '修改已暂存在这台设备，还没同步到原事项；连接恢复后可先核对当前版本和资料使用范围，再继续同步。' };
       } else {
       const updated = this.work.update(handle, old.id, operation.baseRevision, {
         ...(operation.delta.title ? { title: operation.delta.title } : {}),
@@ -528,7 +528,7 @@ export class WatchPort {
       bindingId = watch.bindingId || watch.goalId,
       goal = bindingId ? this.repo.work(handle, undefined, bindingId)[0] : undefined;
     if (!goal || goal.status !== 'active' || !(goal.kind === 'goal' || goal.data.type === 'attention_focus'))
-      throw new HarnessError('inactive_goal', '主动检查必须关联有效目标或用户明确允许的关注。');
+      throw new HarnessError('inactive_goal', '这次检查还没有对应到正在托付的事；可以先说清想继续留意什么。');
     this.repo.write(() => {
       this.repo.db
         .prepare('INSERT INTO h_watches VALUES(?,?,?,?,?,?,?,?)')

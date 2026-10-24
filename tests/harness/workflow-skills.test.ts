@@ -21,7 +21,7 @@ test('workflow discovery is fully pageable and a filtered miss is not capability
   const miss = listWorkflowSkills({ query: 'unregistered_connector_name' });
   assert.equal(miss.total, 0);
   assert.equal(miss.coverage.matchingOnly, true);
-  assert.match(miss.coverage.meaning, /未命中不证明能力不存在/);
+  assert.match(miss.coverage.meaning, /这次只按这些词找.*完整目录仍可沿browse打开/);
   assert.throws(() => listWorkflowSkills({ offset: -1 }));
   assert.throws(() => listWorkflowSkills({ limit: 100 }));
 });
@@ -70,7 +70,7 @@ test('optional unavailable abilities do not claim to block all relevant help', (
   if (result.status !== 'read') throw new Error('expected skill');
   assert.equal(result.readiness, 'ready_for_known_requirements');
   assert.equal(result.requirements.find(item => item.name === 'air_quality.lookup')?.availability.state, 'not_registered');
-  assert.match(result.limitation, /具体查询覆盖/);
+  assert.match(result.limitation, /实际读到了多少、资料新到哪一步/);
 });
 
 test('explicit visual binding preserves voice and remains a versioned user-authored role choice', () => {
@@ -101,9 +101,9 @@ test('persona examples carry their factual preconditions and private legacy data
   }));
   assert.equal(new Set(prompts).size, 3);
   for (const prompt of prompts) {
-    assert.match(prompt, /日程写入失败，尚未持久化/);
+    assert.match(prompt, /这次日程没有保存成功，写下的内容仍在/);
     assert.match(prompt, /例子里的结果也属于当时/);
-    assert.match(prompt, /不同角色使用同一组真实依据和动作回执/);
-    assert.match(prompt, /不能自动修改角色核心/);
+    assert.match(prompt, /同一件事，换谁来陪，依据的仍是同样的真实资料和实际办成的结果/);
+    assert.match(prompt, /保存过的名字、人格与约定沿原样珍惜；对方亲手修改后/);
   }
 });

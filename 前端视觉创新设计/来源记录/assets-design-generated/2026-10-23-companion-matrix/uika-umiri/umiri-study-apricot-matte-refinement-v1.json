@@ -1,0 +1,116 @@
+{
+  "purpose": "local alpha cleanup only, original RGB read only",
+  "input": "umiri-study-apricot-mask-raw-v1.png",
+  "inputSha256": "fc342a7a6fdc70d4cdff425b77cd9459a6456f3a3dcc858c8ac8e587157e15be",
+  "reference": "umiri-study-apricot-mother-candidate-v1.png",
+  "referenceSha256": "cb2b45dedddb45a558b4ed49ed28faadddd84aec01c4f10df25b0c9884d71847",
+  "regionsXYXY": [
+    [
+      805,
+      307,
+      952,
+      405
+    ],
+    [
+      911,
+      405,
+      939,
+      441
+    ]
+  ],
+  "protectedOriginalHeadInterior": [
+    [
+      879,
+      320
+    ],
+    [
+      897,
+      312
+    ],
+    [
+      915,
+      313
+    ],
+    [
+      930,
+      327
+    ],
+    [
+      939,
+      340
+    ],
+    [
+      945,
+      357
+    ],
+    [
+      940,
+      377
+    ],
+    [
+      928,
+      388
+    ],
+    [
+      928,
+      404
+    ],
+    [
+      924,
+      427
+    ],
+    [
+      916,
+      432
+    ],
+    [
+      909,
+      418
+    ],
+    [
+      900,
+      403
+    ],
+    [
+      882,
+      397
+    ],
+    [
+      871,
+      393
+    ],
+    [
+      861,
+      400
+    ],
+    [
+      844,
+      404
+    ],
+    [
+      824,
+      401
+    ],
+    [
+      823,
+      383
+    ],
+    [
+      833,
+      356
+    ],
+    [
+      850,
+      337
+    ],
+    [
+      865,
+      328
+    ]
+  ],
+  "rule": "Begin raw luminance. Inside either half-open region, outside Pillow ImageDraw protectedOriginalHeadInterior polygon, and raw luminance>0: set luminance to zero if (G>R+5 and B>R+5) or (G-B>60 and R-G<35). All other bytes preserved. No morphology, component deletion or RGB changes.",
+  "changedAlphaPixels": 1264,
+  "output": "umiri-study-apricot-mask-local-color-v1.png",
+  "outputSha256": "468f2426a52c003bb7369c206afcecc731171f0dae189cc80615586c5a180c5c",
+  "reason": "Only manually identified blue-sky/water and yellow-leaf fragments beyond dark-hair outline. Bulk head/skin/real highlights protected."
+}

@@ -1,0 +1,168 @@
+{
+  "mother": "sakiko-chat-mist-mother-candidate-v1.png",
+  "motherSha256": "bda7f03d62e096dbc892b8d1e5b7fed446a3b3886d8255f70bbe2fb5db45efd0",
+  "matte": "sakiko-chat-mist-mask-generated-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [
+    [
+      [
+        1208,
+        544
+      ],
+      [
+        1229,
+        529
+      ],
+      [
+        1305,
+        531
+      ],
+      [
+        1304,
+        538
+      ],
+      [
+        1270,
+        558
+      ],
+      [
+        1208,
+        553
+      ]
+    ]
+  ],
+  "excludePolygons": [],
+  "figure": "sakiko-chat-mist-figure-calibrated-v3.png",
+  "mask": "sakiko-chat-mist-mask-calibrated-v3.png",
+  "backgroundCandidate": "sakiko-chat-mist-background-generated-v1.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1180,
+        588
+      ],
+      [
+        1380,
+        588
+      ],
+      [
+        1380,
+        720
+      ],
+      [
+        1270,
+        767
+      ],
+      [
+        1230,
+        704
+      ]
+    ],
+    [
+      [
+        1088,
+        748
+      ],
+      [
+        1245,
+        743
+      ],
+      [
+        1330,
+        780
+      ],
+      [
+        1330,
+        841
+      ],
+      [
+        1088,
+        841
+      ]
+    ]
+  ],
+  "background": "sakiko-chat-mist-background-calibrated-v3.png",
+  "record": "sakiko-chat-mist-layer-processing-v3.json",
+  "reviewNote": "Local held-book opaque interiors and actual shoe-leather mask holes filled in alpha only. Original mother RGB remains exact. Source human cast-shadow remnants in matching background removed in explicit same-scene regions; narrow normalRGBA source contact residuals kept separately. Candidate for primary light/dark/empty/short-travel inspection. Contact residual additionally limited to within 3 source pixels of actual figure alpha to remove broad floor-texture strips at short-travel endpoints.",
+  "contactShadowPolygons": [
+    [
+      [
+        1101,
+        793
+      ],
+      [
+        1151,
+        793
+      ],
+      [
+        1157,
+        801
+      ],
+      [
+        1102,
+        802
+      ]
+    ],
+    [
+      [
+        1152,
+        801
+      ],
+      [
+        1223,
+        801
+      ],
+      [
+        1226,
+        809
+      ],
+      [
+        1150,
+        810
+      ]
+    ],
+    [
+      [
+        1350,
+        584
+      ],
+      [
+        1374,
+        581
+      ],
+      [
+        1378,
+        588
+      ],
+      [
+        1354,
+        591
+      ]
+    ],
+    [
+      [
+        1392,
+        585
+      ],
+      [
+        1428,
+        585
+      ],
+      [
+        1430,
+        589
+      ],
+      [
+        1395,
+        590
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "shadow": "sakiko-chat-mist-shadow-calibrated-v3.png",
+  "contactShadowEdgePixels": 3
+}

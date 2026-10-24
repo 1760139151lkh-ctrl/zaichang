@@ -1,5 +1,7 @@
 import { HarnessError, type ScopeHandle } from '../../shared/harness';
-import { studyNativeInputSchema, type StudyNativeInput, type StudyScene } from '../../shared/study-presentation';
+import { studyBookmarkInputSchema, studyNativeInputSchema, type StudyBookmarkInput, type StudyBookmarkPreview,
+  type StudyNativeInput, type StudyScene } from '../../shared/study-presentation';
+import { NativeSourceBookmarkService } from './source-bookmark-native';
 import type { Store } from '../store';
 import type { StudyPresentationService } from './study-presentation';
 
@@ -14,14 +16,14 @@ export class NativeStudyService {
       runtime.presentation.public, settings.memoryEnabled, settings.weatherEnabled]);
   }
 
-  private scope() {
+  private scope(write = false) {
     const { runtime } = this.store;
     if (runtime.presentation.public) throw new HarnessError('private_view_required', '先回到自己的对话，再接着学习这一页。');
     const settings = this.store.settings(), base = runtime.policy.validate(runtime.policy.hostScope());
     return runtime.policy.hostScope({ sources: base.sources.filter(source =>
       (settings.memoryEnabled || !['history:self', 'profile:self'].includes(source))
       && (settings.weatherEnabled || source !== 'weather:open-meteo')),
-      grants: base.grants.filter(grant => grant.endsWith(':read')), currentEventIds: [], infer: false, audience: 'self' });
+      grants: base.grants.filter(grant => grant.endsWith(':read') || write && grant === 'work:write'), currentEventIds: [], infer: false, audience: 'self' });
   }
 
   private conversation(sessionId: string) {
@@ -72,4 +74,50 @@ export class NativeStudyService {
   }
 
   async read(raw: StudyNativeInput): Promise<StudyScene> { return this.project(raw); }
+
+  async previewBookmark(raw: StudyBookmarkInput): Promise<StudyBookmarkPreview> {
+    const input = studyBookmarkInputSchema.parse(raw), { bookmark, expectedRevision, ...address } = input;
+    if (!bookmark) throw new HarnessError('study_bookmark_empty', '先从原文拿起想放过来的那一段。');
+    const boundary = this.boundary(), current = await this.project(address), origin = current.problem.origin;
+    if (current.owner.revision !== expectedRevision || current.status === 'closed')
+      throw new HarnessError('study_changed', '这张纸刚接上了新内容，回到现在这一步再放。');
+    const selected = bookmark.reference;
+    const sameProblem = bookmark.kind === 'conversation'
+      ? origin.kind === 'evidence' && origin.eventId === bookmark.reference.messageId
+        && (bookmark.reference.contentVersion === undefined || bookmark.reference.contentVersion === origin.contentVersion)
+        && origin.start !== undefined && origin.end !== undefined && selected.start >= origin.start && selected.end <= origin.end
+      : bookmark.kind === 'material'
+      ? origin.resourceId === bookmark.reference.resourceId && origin.sha256 === bookmark.reference.sha256
+        && origin.page === bookmark.reference.page && (origin.kind === 'material_page'
+          || origin.start !== undefined && origin.end !== undefined && selected.start >= origin.start && selected.end <= origin.end)
+      : origin.kind === 'note' && origin.note?.id === bookmark.reference.id
+        && origin.note.revision === bookmark.reference.revision && origin.note.sha256 === bookmark.reference.sha256
+        && selected.start >= origin.note.start && selected.end <= origin.note.end;
+    if (!sameProblem) throw new HarnessError('study_bookmark_problem', '这张纸留着另一道题。先把这段放在对话里，我们再一起看。');
+    if (bookmark.kind === 'material' && origin.kind === 'material_page' && origin.crop
+      && !await this.store.runtime.materials.quoteWithinCrop(this.scope(), bookmark.reference, origin.crop, new AbortController().signal))
+      throw new HarnessError('study_bookmark_crop', '这段在原来取景的题目外。把它先留在对话里，我们再看这一处。');
+    const preview = await new NativeSourceBookmarkService(this.store).preview(bookmark);
+    const now = await this.project(address);
+    if (now.owner.revision !== expectedRevision || boundary !== this.boundary())
+      throw new HarnessError('study_changed', '这张纸刚有了变化，请从现在的步骤接着。');
+    return { ...preview, studyId: current.owner.id, studyRevision: current.owner.revision };
+  }
+
+  async acceptBookmark(raw: StudyBookmarkInput): Promise<StudyScene> {
+    const input = studyBookmarkInputSchema.parse(raw), { bookmark, expectedRevision, ...address } = input;
+    const boundary = this.boundary();
+    const adopted = bookmark ? (await this.previewBookmark(input)).reference : null;
+    if (!bookmark && (await this.project(address)).owner.revision !== expectedRevision)
+      throw new HarnessError('study_changed', '这张纸刚有了变化，请从现在的步骤接着。');
+    const handle = this.scope(true), admission = this.authorize(handle, address);
+    if (boundary !== this.boundary()) throw new HarnessError('study_boundary_changed', '资料刚有变化，请回原处再拿一次。');
+    await this.store.runtime.studyCompanion.keepBookmark(handle, input.studyId, expectedRevision, adopted,
+      { ...(admission.attached ? {} : { restrictToSessionId: input.sessionId }) });
+    const value = await this.presentation.project(handle, { studyId: input.studyId },
+      { ...(admission.attached ? {} : { restrictToSessionId: input.sessionId }) });
+    this.store.runtime.policy.validate(handle);
+    if (boundary !== this.boundary()) throw new HarnessError('study_boundary_changed', '资料刚有变化，请从当前对话重新打开这一页。');
+    return value.scene;
+  }
 }

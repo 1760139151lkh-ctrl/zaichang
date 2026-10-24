@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "reading",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-151f01ba-ba1f-4c6b-b2d9-278f573db19e",
+  "generatedAtUtc": "2026-10-24T12:34:54.808642+00:00",
+  "inputs": [
+    {
+      "file": "tomori-reading-apricot-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "e86706be55da3cc2a2072327f6e9543d867b06149d45fc8ca2bb275163b6fa36"
+    },
+    {
+      "file": "room-rain-candidate-v2.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "sourceIdentity": "Approved full warm mother relit as one complete room with corresponding approved empty lighting plate; no rejected person or isolated figure input.",
+  "prompt": "tomori-reading-rain-prompt.txt",
+  "promptSha256": "b7579474da2563d83a16a0232ede01ebd615f6e292859e36f67ef2581ff6504f",
+  "output": {
+    "file": "tomori-reading-rain-mother-candidate.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2078133,
+    "sha256": "7433dad731e7d99ebb16fc5b8e7d34133acf5e3e3d62e64815700db81d0b82c2"
+  },
+  "review": {
+    "designerViewed": "complete original full scene",
+    "designerStatus": "candidate",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Complete output personally viewed. Original distinct supported pose, figure scale and fixed furniture appear preserved. Full blue rain night and original desk-lamp falloff; no new left rear flower/wall spotlight or daytime hard leaf shadows. Primary image/prompt review still required."
+}

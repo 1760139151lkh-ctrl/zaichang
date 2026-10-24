@@ -1,0 +1,346 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "uika-listening-apricot-layer-parameters-v2.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "uika-listening-apricot-mother-candidate-v1.png",
+  "motherSha256": "15a28c195ddba558286dbba8025fa0669239f6d98dbce7becb40ffcc87dd4db8",
+  "matte": "uika-listening-apricot-mask-generated-v1.png",
+  "matteSha256": "ab77cd918832fb05322c03f7b2a080fc467c9d955530f85aed62673094899d16",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [
+    [
+      [
+        1208,
+        540
+      ],
+      [
+        1230,
+        526
+      ],
+      [
+        1260,
+        526
+      ],
+      [
+        1290,
+        530
+      ],
+      [
+        1321,
+        536
+      ],
+      [
+        1339,
+        561
+      ],
+      [
+        1339,
+        578
+      ],
+      [
+        1311,
+        583
+      ],
+      [
+        1280,
+        583
+      ],
+      [
+        1250,
+        580
+      ],
+      [
+        1226,
+        579
+      ],
+      [
+        1212,
+        562
+      ]
+    ],
+    [
+      [
+        1277,
+        407
+      ],
+      [
+        1295,
+        409
+      ],
+      [
+        1315,
+        412
+      ],
+      [
+        1336,
+        414
+      ],
+      [
+        1345,
+        418
+      ],
+      [
+        1343,
+        421
+      ],
+      [
+        1314,
+        416
+      ],
+      [
+        1294,
+        413
+      ],
+      [
+        1277,
+        411
+      ]
+    ]
+  ],
+  "excludePolygons": [
+    [
+      [
+        0,
+        0
+      ],
+      [
+        1145,
+        0
+      ],
+      [
+        1145,
+        1023
+      ],
+      [
+        0,
+        1023
+      ]
+    ],
+    [
+      [
+        1480,
+        0
+      ],
+      [
+        1535,
+        0
+      ],
+      [
+        1535,
+        1023
+      ],
+      [
+        1480,
+        1023
+      ]
+    ],
+    [
+      [
+        1145,
+        0
+      ],
+      [
+        1480,
+        0
+      ],
+      [
+        1480,
+        255
+      ],
+      [
+        1145,
+        255
+      ]
+    ],
+    [
+      [
+        1145,
+        610
+      ],
+      [
+        1480,
+        610
+      ],
+      [
+        1480,
+        1023
+      ],
+      [
+        1145,
+        1023
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 108774,
+  "alphaNonzeroPixels": 48702,
+  "alphaBounds": [
+    1167,
+    268,
+    1448,
+    591
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "81efc651651c6aea6010e03404d5c2776a5ea9df1c91459a2ccc7a7c78c60858",
+  "figureRgbSha256": "81efc651651c6aea6010e03404d5c2776a5ea9df1c91459a2ccc7a7c78c60858",
+  "background": {
+    "candidate": "uika-listening-apricot-background-generated-v1.png",
+    "candidateSha256": "99a13bb48d0d7f8b242d5c29fb273eeb20bdd16975ef2cc98fa45876fe3d7f79",
+    "expandPixels": 6,
+    "featherPixels": 1.2,
+    "additionalErasePolygons": [
+      [
+        [
+          1161,
+          555
+        ],
+        [
+          1210,
+          558
+        ],
+        [
+          1227,
+          574
+        ],
+        [
+          1324,
+          577
+        ],
+        [
+          1418,
+          568
+        ],
+        [
+          1454,
+          571
+        ],
+        [
+          1454,
+          602
+        ],
+        [
+          1161,
+          600
+        ]
+      ]
+    ],
+    "changedPixels": 66141,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1167,
+          555
+        ],
+        [
+          1225,
+          568
+        ],
+        [
+          1275,
+          577
+        ],
+        [
+          1321,
+          576
+        ],
+        [
+          1342,
+          584
+        ],
+        [
+          1307,
+          592
+        ],
+        [
+          1238,
+          593
+        ],
+        [
+          1167,
+          572
+        ]
+      ],
+      [
+        [
+          1324,
+          569
+        ],
+        [
+          1371,
+          571
+        ],
+        [
+          1439,
+          570
+        ],
+        [
+          1453,
+          582
+        ],
+        [
+          1439,
+          591
+        ],
+        [
+          1372,
+          591
+        ],
+        [
+          1323,
+          584
+        ]
+      ]
+    ],
+    "featherPixels": 0.8,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "uika-listening-apricot-figure-calibrated-v2.png",
+      "bytes": 2442641,
+      "sha256": "59bd5253b7ea9536759585b90759ad75ee269daa2afbccb5d644129ba1eedde6"
+    },
+    {
+      "file": "uika-listening-apricot-mask-calibrated-v2.png",
+      "bytes": 19411,
+      "sha256": "bac619fd71c872d995951a1c6e3f08b2dd2f8db86335e9dac86f20de6e06eb2e"
+    },
+    {
+      "file": "uika-listening-apricot-background-calibrated-v2.png",
+      "bytes": 2117627,
+      "sha256": "2484849e375c6c7ff855d6353842a1664b16fc02629a1d1718a9668b6fd1c797"
+    },
+    {
+      "file": "uika-listening-apricot-shadow-calibrated-v2.png",
+      "bytes": 34327,
+      "sha256": "8eb71c719f91d74c8e573ba121de8a680780ff94601619750e4c5c1dc32f6031"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

@@ -3,10 +3,11 @@ import react from '@vitejs/plugin-react';
 import path from 'node:path';
 import fs from 'node:fs';
 import {gzipSync} from 'node:zlib';
+import {mapEngineLoader} from './scripts/map-engine-loader';
 const mapFiles = ['manifest.json','places.json','network.json','geography.geojson','display-geography.geojson','sports-details.geojson','shared-facts.json','venues.json','building-supplement.json','source.osm.json.gz'];
 const licenseFiles=['ODbL-1.0.txt','Building-data-attribution.txt','NotoSansSC-OFL.txt','MapLibre-BSD-3-Clause.txt','MapLibre-Style-Spec.txt','Earcut-ISC.txt','OpenLayers-BSD-2-Clause.txt'];
 export default defineConfig({
-  root:'apps/review-web',base:'./',publicDir:false,plugins:[react(),{
+  root:'apps/review-web',base:'./',publicDir:false,plugins:[react(),mapEngineLoader(),{
     name:'public-map-only',
     configureServer(server) {
       server.middlewares.use((req,res,next)=>{

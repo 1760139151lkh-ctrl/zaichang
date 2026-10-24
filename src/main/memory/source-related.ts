@@ -124,11 +124,11 @@ export class SourceRelatedService {
     const scope = this.repo.scope(handle);
     if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self'
       || !scope.sources.includes('work:self') || !scope.grants.includes('evidence:read'))
-      throw new HarnessError('source_related_scope', '当前范围不能从原文查找本人的工作记录。');
+      throw new HarnessError('source_related_scope', '这次能看的资料里还没有本人的这些工作记录。');
     if (!Number.isSafeInteger(options.maxRows) || options.maxRows < 0
       || options.sessionId !== undefined && (!options.sessionId || options.sessionId.length > 160)
       || options.permits && !options.projectionKey)
-      throw new HarnessError('source_related_scope', '来源关联目录缺少有效的宿主范围或读取预算。');
+      throw new HarnessError('source_related_scope', '这次查找的范围或阅读余量还没对上，目录没有展开。');
     const input = sourceRelatedInput.parse(raw), now = Date.parse(this.repo.clock.now());
     for (const [id, position] of this.cursors) if (position.expiresAt <= now) this.cursors.delete(id);
     const prior = input.sourceCursor ? this.cursors.get(input.sourceCursor) : undefined;
@@ -136,7 +136,7 @@ export class SourceRelatedService {
       throw new HarnessError('source_related_cursor_expired', '来源关联目录的位置已过期或进程已重启，请从当前原文地址重新查找。');
     const queryBinding = this.repo.resolveWorkSourceBinding(handle, input.sourceRefs || prior!.refs);
     if (queryBinding.refs.some(ref => options.permits?.(ref) === false))
-      throw new HarnessError('source_related_scope', '原文地址超出本项获准的精确片段，未读取关联目录。');
+      throw new HarnessError('source_related_scope', '这处原文超出了本次一起看的片段，先沿那一段查找。');
     const binding = digest({ principal: scope.principalId, workspace: scope.workspaceId, subject: scope.subjectId, world: scope.worldId,
       audience: scope.audience, retention: scope.retention, infer: scope.infer, child: scope.child,
       epoch: scope.privacyEpoch, policy: scope.policyRevision, current: [...scope.currentEventIds].sort(),
@@ -212,7 +212,7 @@ export class SourceRelatedService {
     const value = { status, items,
       coverage: { nextCursor, complete, scanned,
         ...(nextCursor ? { read: { tool: 'restore_collaboration', arguments: { type: 'source_related', sourceCursor: nextCursor, limit } } } : {}),
-        meaning: '只枚举当前许可和会话范围内、已声明来源关系的候选记录。精确交叠不证明同一事项或当前适用；旧记录的整条原文关联范围未知。目录不是正文、全部历史、已读回执或采用，沿各原入口重新读取当前版本。空partial页仍可按nextCursor继续。' } };
+        meaning: '这一页只列与你给的原话有记录关联、这次可以看的条目，正文还在各自的read入口。片段重叠只是找到它的线索，是否同一件事、今天是否适合，还得打开再看；旧记录有时只连到整条原话，没标出具体哪一段。这里没有展开全部历史，也没有替本人选定或执行什么。空页若还有nextCursor，可以继续往后翻。' } };
     return { value, records: [...records.values()], bindings: [...bindings.values()] };
   }
 }

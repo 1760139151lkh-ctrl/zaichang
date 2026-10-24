@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-source",
+  "character": "sakiko",
+  "activity": "study",
+  "light": "apricot",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-4f485c9a-1f47-4da6-b061-4afbf2160759",
+  "prompt": "sakiko-study-apricot-prompt.txt",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved_clean_empty_room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2121467,
+    "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1",
+    "originalOutputBasename": "sakiko-study-apricot-mother.png"
+  },
+  "sourceIdentity": "Shared sakiko-identity.txt pure text; no character pixels, official artwork, wrong-pose mother, or independent cutout supplied.",
+  "review": {
+    "designerViewed": "complete generated original",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Real three-quarter-back/side seated chair posture, focused gaze at same paper, near forearm and wrist at desk height, hips on padded chair seat, both complete knees/ankles/shoes on visible floor. The generation shifted chair/desk slightly, so a later background must be separated from THIS approved mother; v4 cannot simply be reused beneath a figure. Actual body reaches about x805, requiring primary review of Stage/content relation. Desk contacts require travel=0 or an independently justified tiny range."
+}

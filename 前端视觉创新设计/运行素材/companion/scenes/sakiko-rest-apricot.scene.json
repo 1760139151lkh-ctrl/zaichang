@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-rest-apricot",
+  "character": "sakiko",
+  "activity": "rest",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-rest-apricot-mother.png",
+  "background": "sakiko-rest-apricot-background-calibrated-v7.png",
+  "figure": "sakiko-rest-apricot-figure-calibrated-v7.png",
+  "seat": [
+    0.876302,
+    0.563477
+  ],
+  "ground": [
+    0.768229,
+    0.723633
+  ],
+  "bodyBounds": [
+    0.701823,
+    0.269531,
+    0.935547,
+    0.728516
+  ],
+  "safeTextBoundary": 0.660156,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "87.370% 27.734%, 85.286% 27.051%, 83.854% 28.027%, 82.878% 29.688%, 82.747% 30.469%, 83.138% 29.199%, 82.943% 31.445%, 83.138% 31.934%, 83.203% 30.957%, 83.333% 31.836%, 83.008% 33.496%, 83.268% 34.668%, 83.464% 34.375%, 83.268% 37.012%, 83.398% 36.426%, 83.594% 37.988%, 82.422% 40.137%, 83.138% 39.844%, 82.552% 42.480%, 83.268% 44.043%, 83.398% 46.094%, 80.794% 48.828%, 79.818% 48.926%, 78.581% 50.586%, 76.172% 52.148%, 73.763% 65.918%, 71.940% 68.750%, 70.508% 69.238%, 70.247% 70.508%, 72.266% 70.898%, 73.763% 70.215%, 74.414% 70.801%, 74.089% 72.168%, 76.302% 72.559%, 77.604% 71.777%, 79.362% 72.168%, 79.427% 69.922%, 78.776% 66.895%, 78.971% 59.375%, 78.451% 55.957%, 79.167% 55.859%, 80.208% 57.812%, 81.510% 58.691%, 82.422% 56.934%, 84.831% 56.152%, 85.417% 57.031%, 85.547% 56.250%, 87.044% 57.324%, 86.654% 56.348%, 87.760% 57.227%, 87.435% 56.055%, 89.193% 55.762%, 89.714% 55.078%, 90.234% 51.562%, 89.974% 50.781%, 90.430% 49.902%, 90.299% 51.270%, 90.885% 50.000%, 90.951% 50.684%, 91.471% 48.438%, 91.667% 49.414%, 91.276% 50.195%, 91.602% 49.902%, 91.732% 48.145%, 92.643% 49.121%, 92.513% 50.293%, 92.839% 50.000%, 92.904% 49.219%, 92.318% 48.145%, 93.424% 47.363%, 92.839% 47.949%, 91.992% 47.559%, 92.839% 45.312%, 92.904% 45.996%, 92.643% 44.141%, 92.904% 44.238%, 91.536% 42.383%, 91.211% 39.648%, 92.122% 41.016%, 91.797% 42.383%, 92.122% 40.820%, 89.193% 36.719%, 89.583% 36.328%, 88.737% 33.691%, 89.128% 32.812%, 88.151% 28.809%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "independentLayerFinish": {
+      "version": 7,
+      "producerViewed": "full light/dark, enlarged original-coordinate edges, complete room composite; listening also +/-12px inspection only",
+      "primary": "accepted-for-original-stage",
+      "runtime": "pending actual original Stage observation"
+    },
+    "reviewer": "primary-agent",
+    "reviewedAt": "2026-10-24T13:30:20.196Z",
+    "stage": "layer-admission-for-original-stage",
+    "layerReview": "accepted-for-original-stage",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json",
+    "observed": "主代理亲看v7浅深底、完整空BG/原房间，鞋底/掌/髋原影成立、无旧人体，望窗姿态固定行程0。待原Stage实际呈现。"
+  },
+  "mask": "sakiko-rest-apricot-mask-calibrated-v7.png",
+  "shadow": "sakiko-rest-apricot-shadow-calibrated-v7.png",
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-rest-apricot-layer-processing-v7.json",
+  "parameters": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-rest-apricot-layer-parameters-v7.json"
+}

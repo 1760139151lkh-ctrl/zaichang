@@ -1,0 +1,83 @@
+{
+  "mother": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+  "motherSha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+  "matte": "sakiko-chat-apricot-mask.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [
+    [
+      [
+        1205,
+        537
+      ],
+      [
+        1273,
+        542
+      ],
+      [
+        1304,
+        526
+      ],
+      [
+        1304,
+        535
+      ],
+      [
+        1273,
+        550
+      ],
+      [
+        1205,
+        545
+      ]
+    ]
+  ],
+  "excludePolygons": [],
+  "figure": "../../../运行素材/companion/scenes/sakiko-chat-apricot-figure-calibrated-v3.png",
+  "mask": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mask-calibrated-v3.png",
+  "backgroundCandidate": "sakiko-chat-apricot-background.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1235,
+        607
+      ],
+      [
+        1360,
+        620
+      ],
+      [
+        1362,
+        746
+      ],
+      [
+        1235,
+        783
+      ]
+    ],
+    [
+      [
+        1090,
+        735
+      ],
+      [
+        1275,
+        725
+      ],
+      [
+        1310,
+        835
+      ],
+      [
+        1090,
+        820
+      ]
+    ]
+  ],
+  "background": "../../../运行素材/companion/scenes/sakiko-chat-apricot-background-calibrated-v3.png",
+  "record": "sakiko-chat-apricot-layer-processing-v2.json",
+  "reviewNote": "v1 empty-background endpoint left original body cast shadows on bench front and floor beyond the figure matte. v2 includes those manually viewed room-shadow regions in the clean-background patch; figure itself unchanged from v1. No RGB repaint or body transform."
+}

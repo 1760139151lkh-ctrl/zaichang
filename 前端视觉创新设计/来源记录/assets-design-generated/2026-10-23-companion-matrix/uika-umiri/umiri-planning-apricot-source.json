@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-mother-candidate",
+  "character": "umiri",
+  "activity": "planning",
+  "theme": "apricot",
+  "status": "generated-needs-redraw",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/umiri/",
+    "https://anime.bang-dream.com/mygo/character/umiri/"
+  ],
+  "input": {
+    "path": "../room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty room; no character pixels used"
+  },
+  "promptFile": "umiri-planning-apricot-prompt.txt",
+  "prompt": "Use case: stylized-concept. Asset: ONE complete 1536 x 1024 warm-apricot morning mother scene for the 在场 companion Stage, with the whole room and whole person.\nONLY INPUT image 1 is the primary-selected CLEAN EMPTY room v4. It supplies architecture, camera, ordinary furniture scale, materials and light and contains no person. Generate this complete human-in-room scene from text; no portrait, old mother or separate cutout is an input.\nPRESERVE THE ROOM: same mild seated-eye perspective, full connected window frame including every corner, lake/campus view, rear-left table/chair/bookshelves/framed drawing, right desk/chair/lamp/cup, bench/cushions/throw, rug and complete floor passage. Keep furniture in its original area and ordinary scale. No new foreground table/chair, enlarged person, zoom, crop, blank wall, white gradient or erased left living detail. Keep the left/central live-reading lane free of new character parts and props. Add real contact shadows where this person is supported. One coherent morning window light with natural skin and distinct material colors, not an orange wash.\nSTYLE: original youthful Japanese-anime identity, restrained fine character linework in the input's softly detailed environmental painting. Neither an adult fashion portrait nor a chibi child. A naturally inhabited continuous room, never a separately pasted sticker. No other person, text, UI, logos, watermarks, split-screen, arrows, borders, insets or duplicate views. Show complete head/hair, hands, clothing hems and feet with air inside the canvas.\n\nCHARACTER: Yahata Umiri (八幡海鈴), BanG Dream! Ave Mujica / MyGO!!!!!, around fifteen-sixteen, first-year high-school girl. Charcoal-gray shoulder-length hair with a subtle cool undertone, divided side-swept fringe exposing a little forehead, cheek-framing strands and gently outward-flipped tips. Calm clear gray-teal eyes, soft teenage jaw, ordinary slim youthful proportions, not an adult fashion model. Consistent official casual clothes: short black biker jacket with simple lapels/zips over dark-red V-neck top, plain gray short skirt, simple black choker, small silver earrings, black lace-up mid-calf platform boots. Clothing keeps its original colors, modest natural styling without eroticized emphasis or invented uniform.\n\nACTIVITY planning / comparing two possibilities, not a completed calendar:\nUmiri sits on the original chair at the RIGHT writing desk, at ordinary resident scale, with head near (920,325), supported pelvis around (920,585), and both boots on the floor near y=760. The chair may rotate slightly but remains at its original desk, never enlarging or moving into the foreground. Her hips and knees still face the desk, while her UPPER BODY and shoulders TURN BACK TOWARD THE LEFT USER in a clear three-quarter conversation twist. She is looking up at the other person to hear which condition matters, not down in the same hard-study pose.\nTWO small separate sheets lie flat on the real desktop, a little apart, like two rough possibilities. No printed calendar, boxes, dates, numbers, readable text or UI. One hand stays lightly on the nearer sheet, the other forearm rests on the desktop and its hand opens gently between the two papers. Neither paper is being signed or written into a formal schedule. Her expression is perceptive and precise with a tiny dry, kind half-smile, not a service grin or lecturing finger in the air. This is offering two useful directions and leaving a decision open.\nBoth hands/forearms have real desktop contact and continuous shoulders/elbows/wrists. Her gray skirt rests naturally over two supported thighs; two uncrossed knees point toward the desk, and normal-length calves lead to two complete separate platform boots on one floor plane. All hips, hands, legs and boots physically belong to this real chair and desk. No floating palms/paper, chair through the body, extra limb, lost boot or overlong legs. Keep the whole hair/head and soles inside canvas. Her open torso and returning gaze must distinguish this from the down-looking two-arm study scene.\n",
+  "output": {
+    "path": "umiri-planning-apricot-mother-candidate-v1.png",
+    "sha256": "4c213c04af8dcd56d42b7d6eba0fcec0d8c33b63357324cc087e331206f8ad42",
+    "bytes": 2220332,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T19:10:43.417862+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "髋腿向桌，上身和视线回转向人，开放掌与两张平放纸作比较；双靴支承。桌面比v4略扩且椅位转向，必须本mother matching BG与travel=0，未代签。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-c91df360-2787-4a4f-a6e1-84ed7b5b84ee",
+  "primaryFeedback": "Primary returned planning v1: Uika repeats bench-chat support/torso; Umiri shifts/widens desk and lamp. Only clean v4 may be used to redraw."
+}

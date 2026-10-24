@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "planning",
+  "palette": "violet",
+  "light": "dusk",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-a54119c6-717b-4981-8827-d8efdfe41d31",
+  "prompt": "taki-planning-violet-prompt.txt",
+  "promptSha256": "dd9a26947d5b6f3d1d9d0b6e90a5d22201d2ee460e241b07e78a97d68aa957d2",
+  "inputs": [
+    {
+      "file": "taki-planning-apricot-mother-candidate-v1.png",
+      "sha256": "f0fa68c1f8f0257063bdae886dd258b415af26e127382e8c2bb3b95f6f7050ff",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-a54119c6-717b-4981-8827-d8efdfe41d31.png",
+  "output": {
+    "file": "taki-planning-violet-mother-candidate-v1.png",
+    "sha256": "bdde60cdbe026f18b0d22c6f2864a5e400113f9c6b4ce27db81bb9cdfb364bfd",
+    "bytes": 2170091,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed against the approved warm planning mother and exact empty lighting plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Upright half-turn from actual desk-chair, held pencil and other low hand on same supported notebook, original chair/hip support and two grounded complete shoes retained. Distinct from downward study and bench chat; coherent theme light with violet sun/lake axes near1007/1003 and quiet rain left corner. Primary/layer/runtime review remains separate."
+}

@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "kind": "layer-generation-source",
+  "character": "uika",
+  "activity": "listening",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "input": {
+    "path": "uika-listening-apricot-mother-candidate-v1.png",
+    "sha256": "15a28c195ddba558286dbba8025fa0669239f6d98dbce7becb40ffcc87dd4db8",
+    "role": "sole primary-approved correct complete warm mother; original RGB extraction and same-camera room removal only"
+  },
+  "calls": [
+    {
+      "part": "mask",
+      "executionId": "exec-e9227ac4-e116-4efd-9b11-11dfb8815658",
+      "promptFile": "uika-listening-apricot-mask-submitted-prompt.txt",
+      "actualPrompt": "Use case: precise-object-edit. Technical exact-source opaque BLACK/WHITE segmentation, full 1536 x 1024, no transparency.\nONLY INPUT is the complete primary-approved Uika LISTENING warm-apricot mother v1. Recolor the EXISTING SOURCE-VISIBLE person and her actually held items IN PLACE: solid WHITE foreground, solid BLACK room. This is a source-registered recolor of original pixels, never a new body drawing, portrait or silhouette re-posed from imagination.\nSource person stays entirely within about x1160..1460,y270..590. Her crown remains near y272, never y130/200. Preserve compact knees drawn up, both white-socked feet supported ON the bench, original loose forearms over knees, exact youthful face, short pale-blonde bob, white tee and complete taupe skirt. TWO EMPTY black/white sneakers on floor around x1175..1285,y725..790 are stationary ROOM OBJECTS, not part of her body.\nKeep exact full canvas, camera, source position, proportions and all contours. No scale, recenter, crop, zoom, limb completion or anatomy change. All pixels above the actual source crown, left of the actual small far-right person and below its actual shoe/sock contacts remain black. Trace the actual original edge, not the approximate bounds as rectangles.\nWHITE includes all source-visible hair tips, face/neck, clothing and folds/hem, real arms/hands/fingers, legs/ankles/socks and WORN footwear where actually worn, plus only the held book/guitar/bookmark when specified. Solid white inside, even where original dark hair/clothing/shadow/print appears; NO internal face/cloth/prop lines or gray drawing. Preserve actual BLACK air gaps between fingers, arms, legs, guitar/hand/body and all room gaps.\nBLACK excludes the entire desk/chair/bench/cushions/pillows/knitted throw, original desktop books/papers/cup/lamp, window/curtains/sky/lake/plants, rear furniture, floor/rug and ALL cast/contact shadows. Empty floor shoes specified as room remain BLACK. Do not annex cushion fabric, wood, leaves, window sky or a pillow to her edge; do not invent hidden anatomy through furniture.\nOnly a narrow antialias at the actual original contour. No glow, blur, gray inside, color, UI, text, label, watermark, arrow, border, inset or altered composition. Return ONE full same-size opaque registered matte. ORIGINAL mother RGB will be extracted later without resizing, never a newly drawn isolated body.\n",
+      "actualPromptSha256": "3ef31b390077f1f664b6d13e5ee19a9e59ad9669fe3fa40dbd15306fc09b7502",
+      "promptFileSha256": "3ef31b390077f1f664b6d13e5ee19a9e59ad9669fe3fa40dbd15306fc09b7502",
+      "draftPromptFile": "uika-listening-apricot-mask-prompt.txt",
+      "draftPromptFileSha256": "3ef31b390077f1f664b6d13e5ee19a9e59ad9669fe3fa40dbd15306fc09b7502",
+      "output": {
+        "path": "uika-listening-apricot-mask-generated-v1.png",
+        "sha256": "ab77cd918832fb05322c03f7b2a080fc467c9d955530f85aed62673094899d16",
+        "bytes": 331595,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "status": "generated-pending-original-rgb-calibration"
+    },
+    {
+      "part": "background",
+      "executionId": "exec-c5fb0b44-092f-487b-a3c0-3fc7913b89b5",
+      "promptFile": "uika-listening-apricot-background-submitted-prompt.txt",
+      "actualPrompt": "Use case: precise-object-edit. Exact SAME-CANVAS EMPTY-ROOM extraction, full opaque 1536 x 1024, not a room redesign.\nONLY INPUT is the complete primary-approved Uika LISTENING warm-apricot mother v1. Remove ONLY the actual small person with her worn clothing/footwear and actually held figure items, plus the cast/contact shadows caused by that person on the bench, furniture, wall and floor. Reconstruct the source-matching empty cushion/pillow/window/floor immediately behind the removed areas. No person-colored remnant or human-shaped shadow remains.\nSOURCE OWNERSHIP: Source person stays entirely within about x1160..1460,y270..590. Her crown remains near y272, never y130/200. Preserve compact knees drawn up, both white-socked feet supported ON the bench, original loose forearms over knees, exact youthful face, short pale-blonde bob, white tee and complete taupe skirt. TWO EMPTY black/white sneakers on floor around x1175..1285,y725..790 are stationary ROOM OBJECTS, not part of her body.\nKeep EMPTY FLOOR SHOES specified as stationary room objects exactly in place with their own floor shadows; do not remove them with her. Remove WORN shoes together with their original wearer. Remove actually held guitar/bookmark when specified. Keep all independent original desktop paper/books/cup/lamp and fixed furniture.\nLock the exact source camera, full 1536x1024 rectangle, all connected window corners, curtains/lake/campus landmarks, rear-left desk/chair/shelves/plant/framed art, right desk width/drawers/chair orientation/lamp/cup/books, bench/pillows/throw, floorboards and rug. Source pixels outside the actual former person and her cast-shadow footprint remain unchanged. Never import another empty-room chair, move the desk/lamp, widen bench, erase the left furnishings or restore a different furniture layout. The cushion may relax only where her real body was.\nRetain natural same warm-apricot illumination and original material textures. No new furniture or props, no free-floating held item, skin/hair/finger/cloth/shoe remnant, silhouette, ghost, retained wearer shadow, crop, zoom, white gradient, color wash, text/UI/logo/watermark/inset/border/arrows. One complete same-camera naturally empty room with only that local person removal repaired.\n",
+      "actualPromptSha256": "02c85b230eeb01b3addd65c76902c5429233a4d6f0f3eacf6592d97bb7f6c2e9",
+      "promptFileSha256": "02c85b230eeb01b3addd65c76902c5429233a4d6f0f3eacf6592d97bb7f6c2e9",
+      "draftPromptFile": "uika-listening-apricot-background-prompt.txt",
+      "draftPromptFileSha256": "02c85b230eeb01b3addd65c76902c5429233a4d6f0f3eacf6592d97bb7f6c2e9",
+      "output": {
+        "path": "uika-listening-apricot-background-generated-v1.png",
+        "sha256": "99a13bb48d0d7f8b242d5c29fb273eeb20bdd16975ef2cc98fa45876fe3d7f79",
+        "bytes": 2150653,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "status": "generated-pending-original-rgb-calibration"
+    }
+  ],
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "recordedAt": "2026-10-24T11:04:17.072908+00:00",
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "Raw generated output personally viewed at full canvas; original-RGB alpha registration, edges, contact shadows and empty-room ghost removal require deterministic calibration and final review. No primary/runtime admission."
+  },
+  "deterministicCandidate": {
+    "parameters": "uika-listening-apricot-layer-parameters-v4.json",
+    "processing": "uika-listening-apricot-layer-processing-v4.json",
+    "scene": "uika-listening-apricot.scene.json",
+    "figureRgbPolicy": "Entire original mother RGB unchanged; only visibility alpha and source-matching empty-room/shadow layers derived.",
+    "ownership": "Visible person and worn socks/skirt belong to figure; two detached floor sneakers, furniture, cushions/pillows and knitted throw belong to room.",
+    "geometry": {
+      "seatPixels": [
+        1390,
+        578
+      ],
+      "frontSockContactPixels": [
+        1278,
+        586
+      ],
+      "groundSupport": "bench cushion, not the wooden floor",
+      "visibleBodyBoundsPixels": [
+        1167,
+        268,
+        1448,
+        591
+      ],
+      "travelPixels": 8.0,
+      "slope": 0.06,
+      "occlusion": "Only source-visible body/cloth retained. Actual gaps between profile hair and room, and supporting arm/torso where present, remain transparent. No hidden anatomy inferred."
+    },
+    "primaryLayerApproval": false,
+    "runtimeAccepted": false
+  }
+}

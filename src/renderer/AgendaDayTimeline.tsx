@@ -13,7 +13,9 @@ import { BookOpen, Clock3 } from 'lucide-react';
 import type { Action } from '../shared/types';
 import type { CampusScheduleBlock } from '../shared/campus-calendar';
 import type { AgendaOccurrence, AgendaReference } from '../shared/agenda';
+import { calendarCommitment } from '../shared/calendar';
 import { fromTimeInput, toTimeInput } from './time';
+import { SpringLayoutButton } from './motion/SpringLayoutButton';
 
 const MINUTE = 60000;
 const HOUR = 60 * MINUTE;
@@ -74,12 +76,15 @@ type Move = MoveSource & {
   startsAt: number;
   rawStartsAt: number;
   mode: 'pointer' | 'keyboard';
+  targetDate?: string;
 };
 type PointerMove = MoveSource & {
   pointerId: number;
   node: HTMLButtonElement;
   key: string;
   startY: number;
+  startX: number;
+  clientX: number;
   clientY: number;
   grabOffset: number;
   moved: boolean;
@@ -87,8 +92,15 @@ type PointerMove = MoveSource & {
   max: number;
   anchor: number;
   viewStart: number;
+  localStartsAt: number;
 };
-export type AgendaMoveDraft = { original: Action; initialStartsAt: string; occurrenceId?: string; reference?: AgendaReference };
+export type AgendaMoveDraft = { original: Action; initialStartsAt: string; durationMinutes?: number | null; occurrenceId?: string; reference?: AgendaReference };
+
+function shiftDate(date: string, days: number) {
+  const value = new Date(`${date}T12:00:00Z`);
+  value.setUTCDate(value.getUTCDate() + days);
+  return value.toISOString().slice(0, 10);
+}
 
 function arrangeLanes(entries: Entry[]) {
   const sorted = [...entries].sort((a, b) => a.start - b.start || a.end - b.end);
@@ -101,6 +113,9 @@ function arrangeLanes(entries: Entry[]) {
     });
   };
   for (const entry of sorted) {
+    // Short preparations still need a readable label. Partition their visible
+    // rectangles without changing any owner interval or conflict arithmetic.
+    const visualEnd = Math.max(entry.end, entry.start + 24 / PIXELS_PER_HOUR * HOUR);
     if (entry.start >= groupEnd) {
       finish();
       group = [];
@@ -109,9 +124,9 @@ function arrangeLanes(entries: Entry[]) {
     }
     const free = ends.findIndex((end) => end <= entry.start);
     entry.lane = free < 0 ? ends.length : free;
-    ends[entry.lane] = entry.end;
+    ends[entry.lane] = visualEnd;
     group.push(entry);
-    groupEnd = Math.max(groupEnd, entry.end);
+    groupEnd = Math.max(groupEnd, visualEnd);
   }
   finish();
   return sorted;
@@ -131,6 +146,7 @@ export function AgendaDayTimeline({
   selectedOccurrenceId,
   onEdit,
   onPropose,
+  onViewDate,
 }: {
   active?: boolean;
   date: string;
@@ -145,14 +161,17 @@ export function AgendaDayTimeline({
   selectedOccurrenceId?: string;
   onEdit: (item: Action, reference: AgendaReference) => void;
   onPropose: (item: Action, startsAt: string, reference: AgendaReference, occurrenceId: string) => void;
+  onViewDate?: (date: string) => void;
 }) {
   const [fullDay, setFullDay] = useState(false);
   const [moving, setMoving] = useState<Move>();
   const [announcement, setAnnouncement] = useState('');
+  const [moveError, setMoveError] = useState('');
   const movingRef = useRef<Move | undefined>(undefined);
   const pointer = useRef<PointerMove | undefined>(undefined);
   const frame = useRef<number | undefined>(undefined);
   const stage = useRef<HTMLDivElement>(null);
+  const dayLandings = useRef<HTMLDivElement>(null);
   const expanding = useRef<{ panel: HTMLElement; offset: number } | undefined>(undefined);
   const suppressClickUntil = useRef(0);
   const hintId = useId();
@@ -191,8 +210,11 @@ export function AgendaDayTimeline({
       entry.start, entry.end, entry.item.durationMinutes, entry.item.saved, entry.item.done]));
 
   const trialStart = draft ? Date.parse(draft.initialStartsAt) : NaN;
-  const trialEnd = trialStart + (draft?.original.durationMinutes || 0) * MINUTE;
-  const trialInDay = !!day && Number.isFinite(trialStart) && trialStart < day.end && trialEnd > day.start;
+  const trialMinutes = draft?.durationMinutes === null ? undefined : draft?.durationMinutes ?? draft?.original.durationMinutes;
+  const trialKnown = typeof trialMinutes === 'number' && trialMinutes > 0;
+  const trialEnd = trialStart + (trialKnown ? trialMinutes * MINUTE : 0);
+  const trialInDay = !!day && Number.isFinite(trialStart) && trialStart < day.end
+    && (trialKnown ? trialEnd > day.start : trialStart >= day.start);
   const first = day ? Math.min(...entries.map((entry) => entry.start), trialInDay ? trialStart : day.end, day.end) : 0;
   const last = day ? Math.max(...entries.map((entry) => entry.end), trialInDay ? trialEnd : day.start, day.start) : 0;
   let viewStart = day
@@ -212,8 +234,20 @@ export function AgendaDayTimeline({
   const clock = (instant: number) => toTimeInput(new Date(instant).toISOString(), timeZone).slice(11, 16);
   const timeRange = (start: number, end: number) => {
     const stamp = (instant: number) => new Date(instant).toLocaleString('zh-CN', { timeZone, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
-    return `${day && start < day.start ? stamp(start) : clock(start)} — ${day && end > day.end ? stamp(end) : end === day?.end ? '24:00' : clock(end)}`;
+    return `${day && (start < day.start || start >= day.end) ? stamp(start) : clock(start)} — ${day && (end > day.end || end <= day.start) ? stamp(end) : end === day?.end ? '24:00' : clock(end)}`;
   };
+  function onDate(instant: number, targetDate: string) {
+    try {
+      const value = fromTimeInput(`${targetDate}T${toTimeInput(new Date(instant).toISOString(), timeZone).slice(11)}`, timeZone,
+        new Date(instant).toISOString());
+      setMoveError('');
+      return value ? Date.parse(value) : undefined;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : '这一天的时刻需要重新选一下。';
+      setAnnouncement(message); setMoveError(message);
+      return undefined;
+    }
+  }
 
   function updateMove(value?: Move) {
     movingRef.current = value;
@@ -232,14 +266,16 @@ export function AgendaDayTimeline({
     if (pointer.current?.moved) suppressClickUntil.current = performance.now() + 350;
     stopPointer();
     updateMove();
+    setMoveError('');
   }
   function overlaps(key: string, start: number, duration: number) {
-    return entries.filter(entry => entry.key !== key && start < entry.end && start + duration > entry.start);
+    return entries.filter(entry => entry.key !== key && (entry.kind === 'campus' || calendarCommitment(entry.item).occupiesTime)
+      && start < entry.end && start + duration > entry.start);
   }
   function nearestOpening(move: Move) {
     if (!day) return undefined;
     const duration = move.originalEnd - move.originalStart;
-    const occupied = entries.filter(entry => entry.key !== move.id);
+    const occupied = entries.filter(entry => entry.key !== move.id && (entry.kind === 'campus' || calendarCommitment(entry.item).occupiesTime));
     const step = 15 * MINUTE;
     const ceil = (value: number) => day.start + Math.ceil((value - day.start) / step) * step;
     const floor = (value: number) => day.start + Math.floor((value - day.start) / step) * step;
@@ -269,7 +305,7 @@ export function AgendaDayTimeline({
       }
     }
     const move = movingRef.current;
-    if (move?.mode !== 'keyboard' || !stage.current) return;
+    if (move?.mode !== 'keyboard' || move.targetDate && move.targetDate !== date || !stage.current) return;
     const panel = stage.current.closest<HTMLElement>('.page-panel');
     if (!panel) return;
     const bounds = panel.getBoundingClientRect();
@@ -328,6 +364,15 @@ export function AgendaDayTimeline({
 
   function pointerPosition(active: PointerMove) {
     if (!stage.current) return;
+    const landing = [...(dayLandings.current?.querySelectorAll<HTMLButtonElement>('[data-agenda-drop-date]') || [])]
+      .find(node => { const bounds = node.getBoundingClientRect(); return active.clientX >= bounds.left && active.clientX <= bounds.right
+        && active.clientY >= bounds.top && active.clientY <= bounds.bottom; });
+    if (landing?.dataset.agendaDropDate) {
+      const startsAt = onDate(active.localStartsAt, landing.dataset.agendaDropDate);
+      if (startsAt !== undefined) updateMove({ ...active, id: active.key, startsAt, rawStartsAt: startsAt,
+        mode: 'pointer', targetDate: landing.dataset.agendaDropDate });
+      return;
+    }
     const raw = clamp(
       active.viewStart +
         ((active.clientY - stage.current.getBoundingClientRect().top - active.grabOffset) / PIXELS_PER_HOUR) *
@@ -340,6 +385,7 @@ export function AgendaDayTimeline({
       active.min,
       active.max,
     );
+    active.localStartsAt = snapped;
     updateMove({
       id: active.key,
       original: active.original,
@@ -368,7 +414,7 @@ export function AgendaDayTimeline({
           : active.clientY > bounds.bottom - edge
             ? Math.min(12, (active.clientY - bounds.bottom + edge) / 5)
             : 0;
-      if (velocity) {
+      if (velocity && !movingRef.current?.targetDate) {
         panel.scrollTop += velocity;
         pointerPosition(active);
       }
@@ -395,13 +441,16 @@ export function AgendaDayTimeline({
       originalEnd: entry.end,
       contextKey,
       startY: event.clientY,
+      startX: event.clientX,
+      clientX: event.clientX,
       clientY: event.clientY,
-      grabOffset: event.clientY - stage.current.getBoundingClientRect().top - pixels(range.start),
+      grabOffset: event.clientY - node.getBoundingClientRect().top,
       moved: false,
       min: day.start,
       max: Math.max(day.start, day.end - (range.end - range.start)),
       anchor: day.start,
       viewStart,
+      localStartsAt: range.start,
     };
   }
   function movePointer(event: PointerEvent<HTMLButtonElement>) {
@@ -409,7 +458,8 @@ export function AgendaDayTimeline({
     if (!active || active.pointerId !== event.pointerId) return;
     if (!currentMove(active.key, active)) { cancelMove(); return; }
     active.clientY = event.clientY;
-    if (!active.moved && Math.abs(active.clientY - active.startY) < 4) return;
+    active.clientX = event.clientX;
+    if (!active.moved && Math.hypot(active.clientY - active.startY, active.clientX - active.startX) < 4) return;
     event.preventDefault();
     active.moved = true;
     expandDay();
@@ -426,7 +476,9 @@ export function AgendaDayTimeline({
     if (active.moved) {
       suppressClickUntil.current = performance.now() + 350;
       if (move && move.startsAt !== active.originalStart) {
-        const conflicts = overlaps(move.id, move.startsAt, move.originalEnd - move.originalStart);
+        if (move.targetDate && move.targetDate !== date) { proposeMove(move); return; }
+        const conflicts = calendarCommitment(move.original).occupiesTime
+          ? overlaps(move.id, move.startsAt, move.originalEnd - move.originalStart) : [];
         if (conflicts.length) {
           updateMove({ ...move, rawStartsAt: move.startsAt, mode: 'keyboard' });
           setAnnouncement(`这个时间和${conflicts.map(entry => entry.item.title).join('、')}重叠。可以试试附近的空档，或继续确认这个时间。`);
@@ -451,6 +503,19 @@ export function AgendaDayTimeline({
       proposeMove(active);
       return;
     }
+    if (['PageUp', 'PageDown'].includes(event.key) && !event.altKey && !event.ctrlKey && !event.metaKey
+      && !draft && !disabled && day && item.saved === true && entry.start >= day.start && entry.end <= day.end) {
+      event.preventDefault();
+      const previous = active?.id === entry.key ? active : undefined;
+      const previousStart = previous?.startsAt ?? entry.start;
+      const targetDate = shiftDate(toTimeInput(new Date(previousStart).toISOString(), timeZone).slice(0, 10), event.key === 'PageDown' ? 1 : -1);
+      const startsAt = onDate(previousStart, targetDate);
+      if (startsAt === undefined) return;
+      updateMove({ id: entry.key, original: previous?.original || { ...item }, reference: entry.reference,
+        originalStart: entry.start, originalEnd: entry.end, contextKey, startsAt, rawStartsAt: startsAt, mode: 'keyboard', targetDate });
+      setAnnouncement(`${item.title}，试放在${timeRange(startsAt, startsAt + entry.end - entry.start)}。回车继续，Escape放回。`);
+      return;
+    }
     if (
       !['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key) ||
       event.altKey ||
@@ -467,11 +532,12 @@ export function AgendaDayTimeline({
     event.preventDefault();
     expandDay();
     const previous = active?.id === entry.key ? active : undefined;
+    const targetDay = previous?.targetDate ? agendaDayWindow(previous.targetDate, timeZone) || day : day;
     const direction = event.key === 'ArrowUp' || event.key === 'ArrowLeft' ? -1 : 1;
     const instant = clamp(
       (previous?.startsAt ?? range.start) + direction * (event.shiftKey ? 1 : 15) * MINUTE,
-      day.start,
-      Math.max(day.start, day.end - (range.end - range.start)),
+      targetDay.start,
+      Math.max(targetDay.start, targetDay.end - (range.end - range.start)),
     );
     updateMove({
       id: entry.key,
@@ -483,13 +549,14 @@ export function AgendaDayTimeline({
       startsAt: instant,
       rawStartsAt: instant,
       mode: 'keyboard',
+      ...(previous?.targetDate ? { targetDate: previous.targetDate } : {}),
     });
     setAnnouncement(
       `${item.title}，试放在 ${timeRange(instant, instant + range.end - range.start)}。按回车确认，Escape 放回。`,
     );
   }
 
-  if (!day || !entries.length) return null;
+  if (!day || !entries.length && !trialInDay) return null;
   const ticks: number[] = [];
   for (let tick = viewStart; tick <= viewEnd; tick += HOUR) ticks.push(tick);
   if (ticks.at(-1) !== viewEnd) ticks.push(viewEnd);
@@ -507,14 +574,23 @@ export function AgendaDayTimeline({
       : undefined);
   const oldEntry = visibleMove ? entries.find(entry => entry.kind === 'action' && entry.key === visibleMove.id) : undefined;
   const oldRange = oldEntry ? { start: oldEntry.start, end: oldEntry.end } : undefined;
+  const destinationEntry: Entry | undefined = draft && trialInDay && trialKnown && !oldEntry ? {
+    key: draft.occurrenceId || draft.original.id, kind: 'action', item: draft.original,
+    reference: draft.reference || { id: draft.original.id, revision: draft.original.revision || 1 },
+    start: trialStart, end: trialEnd, lane: 0, lanes: 1,
+  } : undefined;
+  const drawingEntries = destinationEntry ? [...entries, destinationEntry] : entries;
   const ghost =
     visibleMove &&
     oldRange &&
     oldEntry;
-  const displayedLanes = visibleMove && oldRange ? arrangeLanes(entries.map(entry => ({ ...entry,
-    ...(entry.key === visibleMove.id ? { start: visibleMove.startsAt, end: visibleMove.startsAt + oldRange.end - oldRange.start } : {}) }))) : entries;
+  const projectedOutside = !!moving?.targetDate && moving.targetDate !== date;
+  const displayedLanes = visibleMove && !projectedOutside && !(draft && !moving && !trialKnown) ? arrangeLanes(drawingEntries.map(entry => ({ ...entry,
+    ...(entry.key === visibleMove.id ? { start: visibleMove.startsAt, end: visibleMove.startsAt
+      + (draft && !moving ? trialEnd - trialStart : entry.end - entry.start) } : {}) }))) : drawingEntries;
   const laneByKey = new Map(displayedLanes.map(entry => [entry.key, entry]));
-  const conflicts = moving ? overlaps(moving.id, moving.startsAt, moving.originalEnd - moving.originalStart) : [];
+  const conflicts = moving && calendarCommitment(moving.original).occupiesTime && (!moving.targetDate || moving.targetDate === date)
+    ? overlaps(moving.id, moving.startsAt, moving.originalEnd - moving.originalStart) : [];
   const nearby = moving && conflicts.length ? nearestOpening(moving) : undefined;
   return (
     <section
@@ -542,9 +618,19 @@ export function AgendaDayTimeline({
           {fullDay ? '回到安排' : '看全天'}
         </button>
       </div>
+      {moveError && <p className="agenda-timeline-time-problem" role="alert">{moveError}</p>}
+      {moving && <div className="agenda-timeline-day-landings" ref={dayLandings} role="group" aria-label="试放到另一天">
+        {[-1, 0, 1].map(offset => { const target = shiftDate(date, offset); return <button type="button" key={target}
+          data-agenda-drop-date={target} className={moving.targetDate === target ? 'is-target' : ''}
+          onClick={() => { const move = movingRef.current; if (!move) return;
+            const start = onDate(move.startsAt, target); if (start === undefined) return;
+            proposeMove({ ...move, startsAt: start, rawStartsAt: start, targetDate: target }); }}>
+          <span>{offset === -1 ? '前一天' : offset === 1 ? '后一天' : '这一天'}</span><time>{target.slice(5).replace('-', ' / ')}</time>
+        </button>; })}
+      </div>}
       <p id={hintId} className="sr-only">
         拖动试放时间，松手后确认。方向键每次移动十五分钟，Shift 加方向键移动一分钟；回车打开确认，Escape
-        放回。课程仅供查看。
+        放回。PageUp、PageDown试放到前一天、后一天。也可以拖到时间轴上方的日期。课程仅供查看。
       </p>
       <div className="agenda-timeline-stage" ref={stage} style={{ height }}>
         {ticks.map((instant) => (
@@ -576,20 +662,26 @@ export function AgendaDayTimeline({
               <span>{clock(oldRange.start)}</span>
             </div>
           )}
-          {entries.map((entry) => {
+          {drawingEntries.map((entry) => {
             const layout = laneByKey.get(entry.key) || entry;
             const moved =
               entry.kind === 'action' && visibleMove?.id === entry.key ? visibleMove : undefined;
-            const start = moved?.rawStartsAt ?? entry.start,
-              end = start + entry.end - entry.start;
+            if (moved && draft && !moving && !trialKnown) return null;
+            const duration = moved && draft && !moving ? trialEnd - trialStart : entry.end - entry.start;
+            // Keep the captured/focused source node mounted while it is being
+            // carried to another date. The new date is shown by the landing
+            // and the trial, then its own day is read from the host.
+            const start = moved && moving?.id === entry.key && projectedOutside
+              ? pointer.current?.localStartsAt ?? entry.start : moved?.rawStartsAt ?? entry.start,
+              end = start + duration;
             const shownStart = Math.max(viewStart, start),
               shownEnd = Math.min(viewEnd, end);
             if (shownEnd <= shownStart) return null;
             const cardHeight = Math.max(2, pixels(shownEnd) - pixels(shownStart));
-            const duration = entry.end - entry.start;
             const labelStart = moved?.startsAt ?? start;
             const isMovable =
               entry.kind === 'action' &&
+              !draft &&
               !disabled &&
               entry.item.saved === true &&
               entry.start >= day.start &&
@@ -600,8 +692,11 @@ export function AgendaDayTimeline({
               left: `${(layout.lane / layout.lanes) * 100}%`,
               width: `${100 / layout.lanes}%`,
             } as CSSProperties;
-            const overlap = moved && entries.some(other => other.key !== entry.key && labelStart < other.end && labelStart + duration > other.start);
-            const className = `agenda-timeline-card ${entry.kind === 'campus' ? 'is-campus' : ''} ${moved ? 'is-moving' : ''} ${overlap ? 'has-overlap' : ''} ${selectedOccurrenceId === entry.key ? 'is-selected' : ''} ${cardHeight < 48 ? 'is-short' : ''} ${isMovable ? 'is-movable' : ''}`;
+            const commitment = entry.kind === 'action' ? calendarCommitment(entry.item) : undefined;
+            const pendingLabel = commitment?.state === 'wish' ? '想做的事' : commitment?.state === 'invitation' ? '还没答应' : commitment?.state === 'proposed' ? '在商量'
+              : entry.kind === 'action' && !commitment?.occupiesTime ? ({ todo: '待办', deadline: '截止', reminder: '提醒' }[entry.item.kind as 'todo' | 'deadline' | 'reminder'] || '') : '';
+            const overlap = moved && (entry.kind === 'campus' || commitment?.occupiesTime) && overlaps(entry.key, labelStart, duration).length > 0;
+            const className = `agenda-timeline-card ${entry.kind === 'campus' ? 'is-campus' : ''} ${commitment && !commitment.occupiesTime ? 'is-nonoccupying' : ''} ${moved ? 'is-moving' : ''} ${overlap ? 'has-overlap' : ''} ${selectedOccurrenceId === entry.key ? 'is-selected' : ''} ${cardHeight < 48 ? 'is-short' : ''} ${isMovable ? 'is-movable' : ''}`;
             const contents = (
               <>
                 <span className="agenda-timeline-card-title">
@@ -611,7 +706,13 @@ export function AgendaDayTimeline({
                 <span className="agenda-timeline-card-time">
                   {timeRange(labelStart, labelStart + duration)}
                   {entry.kind === 'campus' ? ` · ${entry.item.kind === 'class' ? '课程' : '考试'}` : ''}
+                  {pendingLabel ? ` · ${pendingLabel}` : ''}
                 </span>
+                {moved && commitment?.occupiesTime && overlaps(entry.key, labelStart, duration)
+                  .map(other => <span key={other.key} className="agenda-timeline-overlap" aria-hidden="true"
+                    title={`和${other.item.title}重叠`}
+                    style={{ top: `${Math.max(0, (other.start - labelStart) / duration) * 100}%`,
+                      height: `${(Math.min(labelStart + duration, other.end) - Math.max(labelStart, other.start)) / duration * 100}%` }} />)}
                 {cardHeight >= 84 && (entry.kind === 'campus' ? entry.item.location : entry.item.detail) && (
                   <span className="agenda-timeline-card-detail">
                     {entry.kind === 'campus' ? entry.item.location : entry.item.detail}
@@ -632,15 +733,19 @@ export function AgendaDayTimeline({
               );
             const item = entry.item;
             return (
-              <button
+              <SpringLayoutButton
                 key={entry.key}
                 type="button"
                 className={className}
                 style={style}
+                direct={moving?.id === entry.key && moving.mode === 'pointer'}
+                layoutKey={viewStart}
+                verticalBounds={[0, Math.max(0, height - cardHeight)]}
+                active={isActive}
                 data-agenda-id={item.id}
                 data-occurrence-id={entry.key}
                 aria-pressed={selectedOccurrenceId === entry.key}
-                aria-label={`${item.title}，${timeRange(labelStart, labelStart + duration)}${isMovable ? '，可调整时间' : ''}`}
+                aria-label={`${item.title}，${timeRange(labelStart, labelStart + duration)}${pendingLabel ? `，${pendingLabel}` : ''}${isMovable ? '，可调整时间' : ''}`}
                 aria-describedby={isMovable ? hintId : undefined}
                 onPointerDown={(event) => beginPointer(event, entry)}
                 onPointerMove={movePointer}
@@ -653,21 +758,26 @@ export function AgendaDayTimeline({
                 onClick={() => {
                   if (performance.now() >= suppressClickUntil.current) {
                     cancelMove();
-                    if (!disabled) onEdit(item, entry.reference);
+                    if (!disabled && !(draft && (draft.occurrenceId || draft.original.id) === entry.key)) onEdit(item, entry.reference);
                   }
                 }}
               >
                 {contents}
-              </button>
+              </SpringLayoutButton>
             );
           })}
         </div>
       </div>
+      {draft && (!trialInDay || !trialKnown) && <div className="agenda-timeline-other-day" role="status"><div><strong>{draft.original.title}</strong>
+        <span>试放在 {trialKnown ? timeRange(trialStart, trialEnd) : `${new Date(trialStart).toLocaleString('zh-CN', {
+          timeZone, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })} 起，结束未定`}</span></div>
+        {!trialInDay && onViewDate && <button type="button" className="text-button" onClick={() => onViewDate(toTimeInput(draft.initialStartsAt, timeZone).slice(0, 10))}>看看这一天</button>}
+      </div>}
       {moving && <div className={`agenda-timeline-feedback${conflicts.length ? ' has-conflict' : ''}`}>
         <div className="agenda-timeline-trial-time" role="status" aria-live="polite">
           <strong>{timeRange(moving.startsAt, moving.startsAt + moving.originalEnd - moving.originalStart)}</strong>
           <span>{conflicts.length ? `和${conflicts.slice(0, 2).map(entry => `「${entry.item.title}」`).join('、')}${conflicts.length > 2 ? `等${conflicts.length}项安排` : ''}重叠`
-            : '先放在这里看看'}</span>
+            : moving.targetDate && moving.targetDate !== date ? '到这一天，再看看完整安排' : '先放在这里看看'}</span>
         </div>
         {moving.mode === 'keyboard' && <div className="agenda-timeline-trial-actions">
           {nearby !== undefined && <button type="button" className="text-button" title="只按时间轴里有完整起止时间的安排寻找空档，保存前会再核对。" onClick={() => {

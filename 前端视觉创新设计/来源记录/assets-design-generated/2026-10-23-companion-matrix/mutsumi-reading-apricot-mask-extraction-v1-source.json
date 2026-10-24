@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "mutsumi",
+  "activity": "reading",
+  "palette": "apricot",
+  "kind": "matte",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-reading-apricot-mask-extraction-v1-prompt.txt",
+  "promptSha256": "d961e92ee66919967088320062e58d951467e70ed40866c82ebfe3df6d2c6703",
+  "inputs": [
+    {
+      "file": "mutsumi-reading-apricot-mother-candidate-v2.png",
+      "sha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+      "role": "sole approved complete warm mother edit target"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-reading-apricot-mask-candidate-v1.png",
+    "sha256": "1256cf4066646a77493a70d6f8411c5a10e64c40e2331945bf07a60cefa06fbb",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-388ab374-be06-4390-b044-4aabb22172f8.png"
+  },
+  "designerObservation": "Rejected after full image view: person silhouette and diagonal legs/shoes enlarged and displaced from actual original mother. Not used as production matte or subsequent Imagegen input.",
+  "designerStatus": "rejected; scale/position drift",
+  "primaryReview": "pending; producer cannot approve",
+  "runtime": "not registered or verified"
+}

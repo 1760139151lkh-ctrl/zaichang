@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "listening",
+  "light": "mist",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-f4385e0d-03a1-4f71-bc47-5348fef0c609",
+  "inputs": [
+    {
+      "file": "tomori-listening-apricot-v2-mother.png",
+      "role": "primary_approved_correct_complete_mother_sole_edit_target",
+      "sha256": "5e7191c4c0aacd44ba34a9ecafa796cd77bf7592dbbe763acf6b175ee9d12428"
+    },
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary_approved_clean_theme_plate_lighting_sky_axis_reference_only",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "sourceIdentity": "Existing primary-approved correct complete warm mother relit against approved clean empty-room theme plate; no rejected mother, official artwork or isolated actor input.",
+  "prompt": "tomori-listening-mist-mother-candidate-prompt.txt",
+  "promptSha256": "6a6da9a4dfc903a76d33d1b82305a4d75699a51d0de8a8d4958600e70e3cc260",
+  "output": {
+    "file": "tomori-listening-mist-mother-candidate.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2074629,
+    "sha256": "bd5d975c589b6c68166d60d49069718a04f7bf1ecf866987cd8332f9e6641f9a"
+  },
+  "review": {
+    "designerViewed": "complete original 1536x1024 output",
+    "designerStatus": "candidate_ready_for_primary_review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Settled listening pose retains bench/cushion pelvis support, lap hand, side palm, closed side notebook, coherent two uncrossed legs and two complete loafers. Body scale, landmarks and furniture remain consistent with the warm mother. Mist diffuse daylight reaches skin, uniform and wood naturally; church remains in its original visible position, without a new sun or rear spotlight."
+}

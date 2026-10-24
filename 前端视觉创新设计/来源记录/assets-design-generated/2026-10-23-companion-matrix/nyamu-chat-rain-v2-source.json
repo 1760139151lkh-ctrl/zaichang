@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "nyamu",
+  "activity": "chat",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "whole-environment physical relighting of primary-approved complete mother; pose and furniture locked",
+  "identityText": "nyamu-identity.txt",
+  "inputs": [
+    {
+      "file": "nyamu-chat-apricot-mother-candidate-v1.png",
+      "role": "sole image input/edit target; primary-approved correct complete mother",
+      "sha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305"
+    }
+  ],
+  "approvalBasis": "primary-other-mother-reviews.json; original Nyamu chat mother approved for correct anatomy/identity/support/activity; theme review separate",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "asset": "nyamu-chat-rain-mother-candidate-v2.png",
+  "palette": "rain",
+  "light": "night",
+  "prompt": "nyamu-chat-rain-v2-prompt.txt",
+  "output": {
+    "file": "nyamu-chat-rain-mother-candidate-v2.png",
+    "sha256": "50d6445a7dfcacc38e1f1d49394c91223abea3979e6d84f161d4145fc6114e94",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-7f92e30d-2398-4420-8513-0b0850134e10.png"
+  },
+  "designerObservation": "Full 1536x1024 image personally viewed. Original daytime leaf patterns removed from left wall/corner; local flower shadow only remains immediately around actual vase, with smooth dim matte wall and readable left furniture. Floor now has a softer localized warm lamp pool and broad subdued blue reflection, no sharp window sun rectangle or diagonal leaf sunbeam. Outside is continuous dark cool lake/city rainy night with glass droplets/trails and distant lights; existing desk lamp is independent nearby warm source. Character receives amber local light and cool fill; natural peach skin, lavender-purple bob/red-purple eyes, gray blouse and black skirt/shoes preserved. Original full chat pose, hip/palm/sole support and complete leg/shoe chains visually retained. Lamp-side rim/falloff and full room night exposure require primary judgment; no exact pixel registration or runtime acceptance claimed.",
+  "observedGaps": [
+    "Primary gate lighting review pending; no layers/calibration/runtime."
+  ]
+}

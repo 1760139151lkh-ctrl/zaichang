@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "reading",
+  "palette": "apricot",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-f0bab2ed-ef51-47ba-8af5-84fd4ab71102",
+  "prompt": "soyo-reading-apricot-v2-prompt.txt",
+  "promptSha256": "50c221cd89c98ba3b3ffca31b2950a5354afed996f17a4718fcf82013592d0d8",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-approved clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "soyo-reading-apricot-mother-candidate-v2.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2189991,
+    "sha256": "68b71f572a6566147acf1bbe104cd05a1bc6e9194ea01039a3e40b785e60f23e"
+  },
+  "producerObservation": "Complete original viewed: established light-brown/blue-eye navy sailor uniform restored; real side/reclined bench posture, gaze into lap-supported open book, diagonal leg direction and full loafers. Distinct from frontal chat. Pending primary acceptance.",
+  "review": {
+    "producerViewed": "complete original",
+    "primary": "pending unless separately signed in primary review record",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

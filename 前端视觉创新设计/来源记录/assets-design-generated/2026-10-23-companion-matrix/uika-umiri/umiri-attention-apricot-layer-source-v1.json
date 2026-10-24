@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-layer-generation",
+  "character": "umiri",
+  "activity": "attention",
+  "theme": "apricot",
+  "tool": "image_gen.imagegen",
+  "input": {
+    "file": "umiri-attention-apricot-mother-candidate-v1.png",
+    "sha256": "2e2a24e6baeb00f8ca22fdb5e3e35a1f8e3e4c95541defe7008abf6e23602d81",
+    "role": "sole primary-approved complete correct mother; same-canvas separation only"
+  },
+  "calls": [
+    {
+      "part": "background",
+      "executionId": "exec-9b9978bf-945e-4db6-a967-db7b72749473",
+      "promptFile": "umiri-attention-apricot-background-generated-v1-prompt.txt",
+      "promptSha256": "a554f4bdf98afd33dcf34f7e9bc46bbbeef33ec238eb34be0d9371fd4fc68c8a",
+      "actualPrompt": "Use case: precise-object-edit. Technical source-registered asset for 在场, full 1536 x 1024 canvas. The ONLY image input is this exact primary-approved correct warm apricot Yahata Umiri / 八幡海铃 mother. Do not make a new pose/face/body/room, crop, zoom, recenter, enlarge a person or restore a different empty room's furniture. This is exact same-canvas separation of this existing correct scene. Remove ONLY the existing woman, all worn clothing/boots, any object held by her and personal hair/palm/body/foot cast/contact shadows. Reveal locally continuous original surfaces behind them. The tiny blank note held by her outreaching hand belongs with the PERSON, together with all original skin/jacket/skirt/worn boots. The pulled-out chair back/seat/four legs remain ENVIRONMENT and must NOT be restored to an older empty-room orientation. Do not leave a floating note or replace it with a desk sheet. SOURCE GUIDES: Her head top is near x875,y274, supporting hips near x906,y582, and both complete floor boots end near y796. Her forward hand and tiny note are around x835,y450. The already pulled-out cream chair remains at this mother's exact angle/location. Preserve this source's exact original full room/furniture coordinates: four connected window edges and curtains, chair/back/cushion/legs, desk/lamp/cup/books/papers, bench/pillows/fixed throw, lake/campus, rear-left furniture/shelves/plants/picture, rug/floorboard layout and warm daylight. Only reconstruct the actual occluded local surfaces; no prop/object additions or furniture move/resize/rotation. Remove person-shaped shadows/ghosts from wooden bench front, desk/wall and floor, retaining environmental furniture/leaf/window shadows. No text/UI/logos/watermark/split/arrow or new person. Return one full opaque, exactly source-aligned empty room.",
+      "output": {
+        "file": "umiri-attention-apricot-background-generated-v1.png",
+        "sha256": "983b92320d526548154437dd27d74446826496726965e3ec4aa8a9ca09c9d36a",
+        "bytes": 2133192,
+        "width": 1536,
+        "height": 1024
+      },
+      "designerViewed": "full original result; alpha/background still requires precise calibration and light/dark/room review",
+      "designerStatus": "rejected-extra-beige-book",
+      "designerObservation": "Generated an extra beige closed book on newly exposed left desktop; rejected as the final matching plate."
+    },
+    {
+      "part": "mask",
+      "executionId": "exec-952a25e4-0cbe-4a8e-8a5f-85a231dac224",
+      "promptFile": "umiri-attention-apricot-mask-generated-v1-prompt.txt",
+      "promptSha256": "4ec039bedde09e6f19f0608296a65543399f67763e758db50d70760b8cd81b40",
+      "actualPrompt": "Use case: precise-object-edit. Technical source-registered asset for 在场, full 1536 x 1024 canvas. The ONLY image input is this exact primary-approved correct warm apricot Yahata Umiri / 八幡海铃 mother. Do not make a new pose/face/body/room, crop, zoom, recenter, enlarge a person or restore a different empty room's furniture. This is exact same-canvas separation of this existing correct scene. OPAQUE SOURCE-REGISTERED black-white matte: recolor all actual EXISTING visible person and her worn/held things pure WHITE at their ORIGINAL exact coordinates. Recolor environment pure BLACK; do not draw/repose a silhouette or internal face/clothing features. The tiny blank note held by her outreaching hand belongs with the PERSON, together with all original skin/jacket/skirt/worn boots. The pulled-out chair back/seat/four legs remain ENVIRONMENT and must NOT be restored to an older empty-room orientation. Do not leave a floating note or replace it with a desk sheet. ORIGINAL LOCATION GUIDES ONLY: Her head top is near x875,y274, supporting hips near x906,y582, and both complete floor boots end near y796. Her forward hand and tiny note are around x835,y450. The already pulled-out cream chair remains at this mother's exact angle/location. Every dark hair/jacket/boot/guitar surface also becomes white; keep true original gaps between limbs/strings hand/torso and fingers black wherever room is visible. Preserve every actual fine hair tip, finger, hem and complete shoe/instrument tip within the original canvas. Exclude every contact/cast shadow, furniture/chair/bench, desk props/lamp, window/curtain/plants, floor/rug. Most of the canvas and all corners stay pure black. Narrow AA only on original outer contours; no grey drawing, glow, broad shadow, texture/noise, labels/UI/logos or new outline. Exact 1536x1024 without rescale/recenter/crop; existing pixels recolored in place only.",
+      "output": {
+        "file": "umiri-attention-apricot-mask-generated-v1.png",
+        "sha256": "ac4de4d718739830524ed54b312c676b6237d6b5e61ba5a2feb98dd3cb5ec23b",
+        "bytes": 397675,
+        "width": 1536,
+        "height": 1024
+      },
+      "designerViewed": "full original result; alpha/background still requires precise calibration and light/dark/room review"
+    },
+    {
+      "part": "background",
+      "executionId": "exec-90db83d6-efb4-419a-9b61-bbb9487d6cf2",
+      "promptFile": "umiri-attention-apricot-background-generated-v2-prompt.txt",
+      "promptSha256": "165e3b0acb117d75f48741af691df04d539951388d8552e0dd018bed31604500",
+      "actualPrompt": "Use case: precise-object-edit. Technical source-registered asset for 在场, full 1536 x 1024 canvas. The ONLY image input is this exact primary-approved correct warm apricot Yahata Umiri / 八幡海铃 mother. Do not make a new pose/face/body/room, crop, zoom, recenter, enlarge a person or restore a different empty room's furniture. This is exact same-canvas separation of this existing correct scene. Remove ONLY the existing woman, all worn clothing/boots, any object held by her and personal hair/palm/body/foot cast/contact shadows. Reveal locally continuous original surfaces behind them. The tiny blank note held by her outreaching hand belongs with the PERSON, together with all original skin/jacket/skirt/worn boots. The pulled-out chair back/seat/four legs remain ENVIRONMENT and must NOT be restored to an older empty-room orientation. Do not leave a floating note or replace it with a desk sheet. SOURCE GUIDES: Her head top is near x875,y274, supporting hips near x906,y582, and both complete floor boots end near y796. Her forward hand and tiny note are around x835,y450. The already pulled-out cream chair remains at this mother's exact angle/location. Preserve this source's exact original full room/furniture coordinates: four connected window edges and curtains, chair/back/cushion/legs, desk/lamp/cup/books/papers, bench/pillows/fixed throw, lake/campus, rear-left furniture/shelves/plants/picture, rug/floorboard layout and warm daylight. Only reconstruct the actual occluded local surfaces; no prop/object additions or furniture move/resize/rotation. Remove person-shaped shadows/ghosts from wooden bench front, desk/wall and floor, retaining environmental furniture/leaf/window shadows. No text/UI/logos/watermark/split/arrow or new person. Return one full opaque, exactly source-aligned empty room.\nNEWLY EXPOSED DESKTOP IS BARE WOOD: the left rear part of the desk newly uncovered where her shoulder/arm used to hide it, approximately x820..947,y470..510, must be plain original honey-colored wood with original edges. NO additional beige book/notebook, white pad, paper stack, pencil case or new prop there. In particular, do not add a closed beige object near x880..932,y482..495. Keep ONLY the actual original blue book already visible near x950..1005, cup and lamp in their original positions. This empty-person plate comes independently from the provided correct mother only, not from a failed extraction. Preserve the pulled-out chair and all its actual geometry. Remove the woman/note/shadows, do not invent objects underneath her.",
+      "output": {
+        "file": "umiri-attention-apricot-background-generated-v2.png",
+        "sha256": "8164a85b8fbdda0cc48a014ea1845e8698749a6d00cc605610d54e1f35fe82b6",
+        "bytes": 2131706,
+        "width": 1536,
+        "height": 1024
+      },
+      "designerViewed": "full original result; alpha/background still requires precise calibration and light/dark/room review",
+      "designerStatus": "candidate-needs-original-blue-book-preservation",
+      "designerObservation": "Newly exposed left desktop is bare wood, but generated plate omits the original visible blue book; final local background must preserve actual visible original blue-book RGB only, without inventing occluded content."
+    }
+  ],
+  "review": {
+    "primary": "pending",
+    "runtime": "not integrated or accepted"
+  }
+}

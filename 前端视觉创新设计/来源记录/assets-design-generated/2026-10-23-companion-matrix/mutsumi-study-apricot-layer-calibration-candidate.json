@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "character": "mutsumi",
+  "activity": "study",
+  "palette": "apricot",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "mother": "mutsumi-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "066435e9a63e68d8d026773f7154a8b50275e0c78f0451aa69c99082b7581606",
+  "coordinateSystem": "original full canvas; identity RGB registration",
+  "seatPixels": [
+    931,
+    593
+  ],
+  "groundPixels": [
+    1030,
+    716
+  ],
+  "bodyBoundsPixels": [
+    842,
+    319,
+    1060,
+    719
+  ],
+  "hitPolygonPixels": [
+    [
+      943,
+      320
+    ],
+    [
+      979,
+      331
+    ],
+    [
+      996,
+      359
+    ],
+    [
+      997,
+      383
+    ],
+    [
+      981,
+      399
+    ],
+    [
+      970,
+      416
+    ],
+    [
+      973,
+      449
+    ],
+    [
+      998,
+      473
+    ],
+    [
+      1006,
+      475
+    ],
+    [
+      1007,
+      488
+    ],
+    [
+      979,
+      500
+    ],
+    [
+      961,
+      505
+    ],
+    [
+      954,
+      526
+    ],
+    [
+      985,
+      548
+    ],
+    [
+      1009,
+      561
+    ],
+    [
+      1025,
+      579
+    ],
+    [
+      1027,
+      637
+    ],
+    [
+      1040,
+      687
+    ],
+    [
+      1060,
+      703
+    ],
+    [
+      1060,
+      715
+    ],
+    [
+      1032,
+      721
+    ],
+    [
+      1004,
+      715
+    ],
+    [
+      1003,
+      703
+    ],
+    [
+      1000,
+      635
+    ],
+    [
+      982,
+      609
+    ],
+    [
+      981,
+      642
+    ],
+    [
+      971,
+      654
+    ],
+    [
+      970,
+      679
+    ],
+    [
+      997,
+      691
+    ],
+    [
+      998,
+      704
+    ],
+    [
+      976,
+      709
+    ],
+    [
+      947,
+      706
+    ],
+    [
+      947,
+      690
+    ],
+    [
+      956,
+      671
+    ],
+    [
+      953,
+      633
+    ],
+    [
+      945,
+      609
+    ],
+    [
+      899,
+      600
+    ],
+    [
+      892,
+      574
+    ],
+    [
+      884,
+      533
+    ],
+    [
+      880,
+      505
+    ],
+    [
+      845,
+      499
+    ],
+    [
+      850,
+      470
+    ],
+    [
+      873,
+      415
+    ],
+    [
+      896,
+      372
+    ],
+    [
+      923,
+      330
+    ]
+  ],
+  "travelPixelsEachSide": 0,
+  "slope": 0,
+  "perspective": 0,
+  "observedSupportAndLimits": "Independent fixed study calibration from this actual occupied desk chair, hip/cushion contact and near shoe sole. Travel0 because forearm/page/desk and chair-back/front-leg occlusions form multiple fixed support contacts; translating the actor would reveal unpainted naturally hidden far anatomy or break the desk contact. Visible original far sock/shoe fragments deliberately retained around exact chair occlusion holes, no completion invented. Near-sock 1px warm mixed-background fringe at y620..685 removed by alpha only; real brown shoe/heel below kept. Entire visible furniture foreground is held in matching BG and real alpha holes, no movable furniture layer. Final full-canvas light inspection found a second 2px wood-color tab on outer sock at x1025,y625..641; v6 alpha-only cleanup removes it, confirmed against original 5x crop. Original body RGB remains untouched; real brown shoe heel retained.",
+  "sourceRgbProof": {
+    "motherRgbSha256": "5575d82e9ef3e5cf279f5f77ae159cd17941bce857ecaa7d31254e2d719dbb3c",
+    "figureRgbSha256": "5575d82e9ef3e5cf279f5f77ae159cd17941bce857ecaa7d31254e2d719dbb3c"
+  },
+  "production": "mutsumi-study-apricot-layer-processing-v6.json",
+  "review": {
+    "primary": "pending; producer cannot approve",
+    "runtime": "pending; not registered or exercised"
+  }
+}

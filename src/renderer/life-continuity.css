@@ -1,0 +1,34 @@
+.focus-lamp {
+  display: flex; align-items: center; gap: 11px; width: max-content; max-width: 100%;
+  min-height: 40px; color: var(--text-secondary); font-size: 12px;
+}
+.composer-presence-tools { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 1px 8px 0; }
+.composer-presence-tools > .text-button { font-size: 12px; color: var(--text-secondary); min-height: 40px; }
+.focus-lamp-light { display: grid; place-items: center; color: var(--text-tertiary); position: relative; isolation: isolate; }
+.focus-lamp[data-state='running'] .focus-lamp-light { color: var(--accent); }
+.focus-lamp[data-state='running'] .focus-lamp-light::before { content: ''; position: absolute; width: 38px; height: 25px; top: 6px; z-index: -1; background: radial-gradient(ellipse, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%); }
+.focus-lamp-time { font-variant-numeric: tabular-nums; min-width: 38px; color: var(--text); }
+.focus-lamp button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 40px; padding: 0 4px; border: 0; border-radius: 8px; background: transparent; color: inherit; font: inherit; white-space: nowrap; cursor: pointer; }
+.focus-lamp button:hover { color: var(--accent); }
+.focus-lamp button:focus-visible,.return-bookmark button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.focus-lamp button:disabled { opacity: .45; cursor: default; }
+.focus-lamp .focus-lamp-icon { width: 28px; }
+.focus-lamp-issue { color: var(--text-secondary); font-size: 11px; }
+.return-bookmark { display: flex; align-items: center; gap: 13px; padding: 17px 0; max-width: 640px; border-block: 1px solid color-mix(in srgb, var(--accent) 20%, transparent); color: var(--text); }
+.return-bookmark-mark { align-self: flex-start; margin-top: 3px; color: var(--accent); flex-shrink: 0; }
+.return-bookmark-copy { flex: 1; min-width: 0; }
+.return-bookmark-copy strong { display: block; font-size: 14px; font-weight: 500; line-height: 1.6; overflow-wrap: anywhere; }
+.return-bookmark-copy > span { display: block; margin-top: 2px; color: var(--text-secondary); font-size: 11px; line-height: 1.6; }
+.return-bookmark-copy p { margin: 7px 0 0; color: var(--text-secondary); font-size: 12px; line-height: 1.8; overflow-wrap: anywhere; white-space: pre-wrap; }
+.return-bookmark button { border: 0; background: transparent; color: var(--text-secondary); font: inherit; cursor: pointer; border-radius: 8px; }
+.return-bookmark-resume { display: inline-flex; align-items: center; gap: 5px; min-height: 40px; font-size: 12px !important; color: var(--accent) !important; flex-shrink: 0; }
+.return-bookmark-dismiss { display: grid; place-items: center; width: 28px; min-height: 40px; flex-shrink: 0; }
+.return-bookmark button:hover { background: var(--wash); }
+.return-bookmark button:disabled { opacity: .45; cursor: default; }
+@media (max-width: 600px) {
+  .focus-lamp { gap: 9px; }
+  .focus-lamp-issue { max-width: 120px; }
+  .return-bookmark { gap: 8px; }
+  .return-bookmark-mark { display: none; }
+  .return-bookmark-copy strong { font-size: 13px; }
+}

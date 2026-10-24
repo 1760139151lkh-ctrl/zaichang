@@ -1,0 +1,21 @@
+{
+  "createdAt": "2026-10-23",
+  "tool": "built-in image_gen.imagegen",
+  "useCase": "ui-mockup",
+  "inputImages": [],
+  "prompt": "Use case: ui-mockup. Asset type: Zaichang existing desktop app schedule sandbox design, one complete high-fidelity interface at 1440x1000. Design a warm, beautifully readable paper schedule sandbox in a subtle sunlit window room. This is a university companion app whose personality feels considerate and human. Preserve the established top navigation positions: 在场 left, 聊天 今天 留下 centered. Main content is an elegant single daily vertical timeline, 65% width; right side 35% is one calm paper edit sheet. Title 今天, date 10月23日 周五, warm gray paper, restrained gold for personal blocks and pale mist blue for fixed university classes. In timeline: fixed class 常微分方程 14:00–15:30 stays still; dinner 和朋友吃晚饭 18:00–19:00 stays still. User is moving 整理报告, originally 16:00–17:30; retain a dashed ghost at 16:00 and elevated warm gold trial block 17:30–19:00 overlapping dinner, with a readable edge marking the actual overlap 18:00–19:00. Below timeline header a slim three-date landing strip 今天 明天 后天 allows cross-day trial without destroying same event identity. Right sheet has original and trial times, editable date/time, complete occupancy of 90 minutes; present two beautiful low-density alternative actions as quiet paper slips: 晚饭前留一整段 16:30–18:00 and 晚饭后慢慢写 19:00–20:30. No claims of success. Primary button 采用这个时间, secondary 先放回. Smaller discussion action 一起想想. Keep text deeply readable, no giant character, no avatar required for this work surface; space and warm window light quietly carry the companion presence. Footer can show 继续讨论 as a subtle text action. Avoid glass everywhere, heavy borders, stacked mini dashboards, decorative progress bars, neon green, engineering field names, percentages, metrics, and fake statistics. This must feel like a thoughtful arrangement on a real paper desk, with clear visual causality between old position, new position, protected appointments and alternatives. Render all Chinese accurately and leave clean component-ready geometry.",
+  "output": "安排冲突试放沙盘.png",
+  "sha256": "25e94849af51431a81b8466b0c5f06c3104af6364487c885d46ab9bdcc613896",
+  "canvas": { "width": 1505, "height": 1045 },
+  "purpose": "Design source only; timeline, proposals and owner state remain actual components.",
+  "review": {
+    "agentViewed": true,
+    "parentViewed": true,
+    "observations": "原时间虚影、新时段冲突带、原新时间与两条协调落点有清楚因果。采用这些关系，不照搬烧字、旁注装饰或把图贴成页面。"
+  },
+  "implementation": [
+    "src/renderer/AgendaDayTimeline.tsx",
+    "src/renderer/LifePanels.tsx:AgendaEditor",
+    "src/main/runtime/native-agenda.ts"
+  ]
+}

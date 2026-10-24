@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-layer-generation",
+  "character": "umiri",
+  "activity": "rest",
+  "theme": "apricot",
+  "tool": "image_gen.imagegen",
+  "input": {
+    "file": "umiri-rest-apricot-mother-candidate-v1.png",
+    "sha256": "6b87f182136d50c688a202a5ed0eee455644c859b4544b4e3481e7499d45c8e8",
+    "role": "sole primary-approved complete correct mother; same-canvas separation only"
+  },
+  "calls": [
+    {
+      "part": "background",
+      "executionId": "exec-8ca5d944-6d28-4862-98ee-b2af75a3e969",
+      "promptFile": "umiri-rest-apricot-background-generated-v1-prompt.txt",
+      "promptSha256": "7e599610ab9da9c0416c7f969715ed3c84d43432644308c3ece76c5472c687ea",
+      "actualPrompt": "Use case: precise-object-edit. Technical source-registered asset for 在场, full 1536 x 1024 canvas. The ONLY image input is this exact primary-approved correct warm apricot Yahata Umiri / 八幡海铃 mother. Do not make a new pose/face/body/room, crop, zoom, recenter, enlarge a person or restore a different empty room's furniture. This is exact same-canvas separation of this existing correct scene. Remove ONLY all existing visible person pixels: hair, skin, jacket/top/skirt, arms/hands/fingers, both legs/socks/worn footwear and her personal body/palm/foot shadows. Reveal a plausible empty version of the SAME source behind her. Preserve every already visible pixel relationship: this mother's actual chair/back/seat/legs position and orientation, desk/lamp/cup/books, bench/cushions/throw, four connected window edges, curtains, lake/campus, rear-left table/shelves/plants/picture, rug/floorboard seams and warm sunlight. Locally complete surfaces hidden by her only; do not change objects or add props. She holds no prop. Her WORN black boots, jacket, skirt and every original visible finger belong to the person. Both blue/cream bench pillows, cushion and fixed draped blanket remain ENVIRONMENT. Keep her leftward profile, do not rotate her face. SOURCE LOCATION: approximate original head (1366,330), supported hip (1353,569), supporting hand on cushion (1432,571), complete boots near (1140,750) and (1215,772). Clear all residual human-shaped cast shadows/reflections on cushion, wooden bench front, wall and floor without clearing environmental window/plant/furniture shadows. No ghost hair, face, skin, clothing or footprint-shaped blur. Keep original tone and texture, no white gradient or color filter, text/UI/logos/watermarks/panels/arrows. Return the entire opaque empty room, exactly aligned with input.",
+      "output": {
+        "file": "umiri-rest-apricot-background-generated-v1.png",
+        "sha256": "b61482d537d5a0c2f1c87d74b1719c9da5d4c5e735b3590d97f4ba06e9815f38",
+        "bytes": 2119134,
+        "width": 1536,
+        "height": 1024
+      },
+      "designerViewed": "full original result; alpha/background still requires precise calibration and light/dark/room review"
+    },
+    {
+      "part": "mask",
+      "executionId": "exec-8e4c4f1b-a1a2-44d5-997d-e91eff5683d4",
+      "promptFile": "umiri-rest-apricot-mask-generated-v1-prompt.txt",
+      "promptSha256": "d1ca8f19a6872ee2a77de7cb21d1362e3bb3697891e1830bc5aed193dff28792",
+      "actualPrompt": "Use case: precise-object-edit. Technical source-registered asset for 在场, full 1536 x 1024 canvas. The ONLY image input is this exact primary-approved correct warm apricot Yahata Umiri / 八幡海铃 mother. Do not make a new pose/face/body/room, crop, zoom, recenter, enlarge a person or restore a different empty room's furniture. This is exact same-canvas separation of this existing correct scene. Return an OPAQUE black-and-white source segmentation, not a new silhouette. Recolor the EXISTING PERSON and only her held or worn things pure WHITE at their ORIGINAL exact source coordinates; recolor room/background/props pure BLACK. Dark hair, jacket, skirt and worn boots also become solid white without internal shading. Only actual silhouette boundaries have narrow antialias. She holds no prop. Her WORN black boots, jacket, skirt and every original visible finger belong to the person. Both blue/cream bench pillows, cushion and fixed draped blanket remain ENVIRONMENT. Keep her leftward profile, do not rotate her face. SOURCE COORDINATE GUIDES ONLY: approximate original head (1366,330), supported hip (1353,569), supporting hand on cushion (1432,571), complete boots near (1140,750) and (1215,772). Do not move or trace a bounding box; follow the actual original face/hair/finger/hem/sock/shoe boundaries and actual gaps between limbs. Every existing room gap between hand/torso, fingers, legs/feet stays black; do not bridge it or fill bench/chair into the girl. Exclude ALL shadows, furniture/cushions, desks/lamp/paper/cup, window/curtain/campus/plants, floor and rug. The vast untouched remainder and all four canvas corners are pure black. No grey face drawing, room texture/noise, glow, new limb, logo/text/UI/arrows/border. Exactly 1536x1024, no rescale/recenter/crop; a registered matte only.",
+      "output": {
+        "file": "umiri-rest-apricot-mask-generated-v1.png",
+        "sha256": "24de123eef19b7498fb4dcc253edc38398fc0fb37eb8a904829de7ac5ceaa925",
+        "bytes": 382386,
+        "width": 1536,
+        "height": 1024
+      },
+      "designerViewed": "full original result; alpha/background still requires precise calibration and light/dark/room review",
+      "designerStatus": "rejected-misregistered",
+      "designerObservation": "Mask extends shoes below the source and enlarges silhouette; never used as a later image input."
+    },
+    {
+      "part": "mask",
+      "executionId": "exec-867a02e3-392a-4804-9480-7355d3dc3e2f",
+      "promptFile": "umiri-rest-apricot-mask-generated-v2-prompt.txt",
+      "promptSha256": "c443a7790c273980053443eaf9d9e71da29cb6bc4561365564f64ccc162e2d95",
+      "actualPrompt": "Use case: precise-object-edit. Technical source-registered asset for 在场, full 1536 x 1024 canvas. The ONLY image input is this exact primary-approved correct warm apricot Yahata Umiri / 八幡海铃 mother. Do not make a new pose/face/body/room, crop, zoom, recenter, enlarge a person or restore a different empty room's furniture. This is exact same-canvas separation of this existing correct scene. Return an OPAQUE black-and-white source segmentation, not a new silhouette. Recolor the EXISTING PERSON and only her held or worn things pure WHITE at their ORIGINAL exact source coordinates; recolor room/background/props pure BLACK. Dark hair, jacket, skirt and worn boots also become solid white without internal shading. Only actual silhouette boundaries have narrow antialias. She holds no prop. Her WORN black boots, jacket, skirt and every original visible finger belong to the person. Both blue/cream bench pillows, cushion and fixed draped blanket remain ENVIRONMENT. Keep her leftward profile, do not rotate her face. SOURCE COORDINATE GUIDES ONLY: approximate original head (1366,330), supported hip (1353,569), supporting hand on cushion (1432,571), complete boots near (1140,750) and (1215,772). Do not move or trace a bounding box; follow the actual original face/hair/finger/hem/sock/shoe boundaries and actual gaps between limbs. Every existing room gap between hand/torso, fingers, legs/feet stays black; do not bridge it or fill bench/chair into the girl. Exclude ALL shadows, furniture/cushions, desks/lamp/paper/cup, window/curtain/campus/plants, floor and rug. The vast untouched remainder and all four canvas corners are pure black. No grey face drawing, room texture/noise, glow, new limb, logo/text/UI/arrows/border. Exactly 1536x1024, no rescale/recenter/crop; a registered matte only.\nCRITICAL PRECISE REGISTRATION CORRECTION: this is a RECOLOR of existing pixels, never a redrawn/elongated silhouette. Source head/hair begins near y=277, NOT y=259. Both original shoe soles stop at about y=775, NOT y=805. The full leftmost shoe is near x=1106, NOT x=1070; the rightmost original supporting fingertip ends near x=1459, NOT x=1490. Preserve the source head, shoulder, waist, knee and boot ratios rather than extending shins. Do not introduce 30 extra pixels below the shoes or scale the person larger. The input image is the only truth; follow its original contour exactly on the unchanged canvas. Her face is left profile. Existing body pixels become white in place, no face/features inside it, room pure black.",
+      "output": {
+        "file": "umiri-rest-apricot-mask-generated-v2.png",
+        "sha256": "5093569b0c431a66f7df64356727e3a9b9e9145b5bd802764cfd7f7117cd1c9c",
+        "bytes": 357323,
+        "width": 1536,
+        "height": 1024
+      },
+      "designerViewed": "full original result; alpha/background still requires precise calibration and light/dark/room review",
+      "designerStatus": "candidate-needs-original-pixel-refinement",
+      "designerObservation": "Fresh source-only mask restores full shoe extent and supporting palm near source coordinates; precise matte refinement still needed."
+    }
+  ],
+  "review": {
+    "primary": "pending",
+    "runtime": "not integrated or accepted"
+  }
+}

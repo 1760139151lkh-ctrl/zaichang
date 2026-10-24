@@ -1,0 +1,152 @@
+{
+  "recordType": "designer-whole-scene-light-axis-observation",
+  "date": "2026-10-23",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "scope": "Eight existing Sakiko violet full mothers compared visually with the primary-approved violet empty room. No artwork, sky, pose or RGB was edited for this observation. This record does not approve artwork, layers or runtime.",
+  "method": {
+    "wholeImagesPersonallyViewed": true,
+    "sun": "After full-image inspection: bright solar disc component within [980,285,1035,315], R>248 G>225 B>150, 8-connected largest component. This is a bright-pixel centroid, not an asserted astronomical/geometric disc center; geometric disc center visually about [1007,302].",
+    "reflection": "Within water [980,400,1030,460], x weighted by max(G-185,0) where R>245 and B>100. Approximate bright reflected-light axis only; observed after whole images, not an automated approval rule."
+  },
+  "conclusion": "All eight disc bright centroids and reflected-light axes differ from plate by less than one source pixel. No 60–160px sun displacement observed. Planning lamp/furniture changes are a separate review issue.",
+  "entries": [
+    {
+      "file": "room-violet-candidate.png",
+      "sunBrightCentroid": [
+        1006.17,
+        300.69
+      ],
+      "sunBrightBounds": [
+        990,
+        291,
+        1025,
+        310
+      ],
+      "reflectionAxisAtY400to460": 1003.24,
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    },
+    {
+      "file": "sakiko-chat-violet-mother-candidate-v1.png",
+      "sunBrightCentroid": [
+        1006.22,
+        300.53
+      ],
+      "sunBrightBounds": [
+        991,
+        291,
+        1024,
+        310
+      ],
+      "reflectionAxisAtY400to460": 1003.24,
+      "sha256": "8e9b860772095ed911c4c257d6d6769e5c5064f4c793e325e65eadc9e79e1e88"
+    },
+    {
+      "file": "sakiko-study-violet-mother-candidate-v1.png",
+      "sunBrightCentroid": [
+        1006.6,
+        300.26
+      ],
+      "sunBrightBounds": [
+        991,
+        291,
+        1025,
+        309
+      ],
+      "reflectionAxisAtY400to460": 1003.63,
+      "sha256": "c92a1d13aa46c10a52792138bbe5766ddf1bc4492e6bf677dff6f66faf3effc9"
+    },
+    {
+      "file": "sakiko-reading-violet-mother-candidate-v1.png",
+      "sunBrightCentroid": [
+        1006.47,
+        300.49
+      ],
+      "sunBrightBounds": [
+        989,
+        291,
+        1025,
+        310
+      ],
+      "reflectionAxisAtY400to460": 1003.3,
+      "sha256": "4f512a989803b310115f132af688ca2b9bfb226e2494e8cd56c0ffaab8ae2476"
+    },
+    {
+      "file": "sakiko-planning-violet-mother-candidate-v1.png",
+      "sunBrightCentroid": [
+        1006.46,
+        300.95
+      ],
+      "sunBrightBounds": [
+        990,
+        292,
+        1024,
+        310
+      ],
+      "reflectionAxisAtY400to460": 1003.93,
+      "sha256": "edd303f8d67aeea2aa1271c621f36ac0c5a59aa9b491fb820578ddd28aef6561"
+    },
+    {
+      "file": "sakiko-listening-violet-mother-candidate-v1.png",
+      "sunBrightCentroid": [
+        1006.58,
+        300.56
+      ],
+      "sunBrightBounds": [
+        991,
+        291,
+        1024,
+        310
+      ],
+      "reflectionAxisAtY400to460": 1003.6,
+      "sha256": "596927f6a0f00a6aadf9a38d277dd2be49b6ede52d910af03280b4005ced1ba6"
+    },
+    {
+      "file": "sakiko-rest-violet-mother-candidate-v1.png",
+      "sunBrightCentroid": [
+        1006.32,
+        300.6
+      ],
+      "sunBrightBounds": [
+        991,
+        291,
+        1024,
+        310
+      ],
+      "reflectionAxisAtY400to460": 1003.41,
+      "sha256": "63996f946cf9355d90bd370bd76831e4323ea01b38786d51bc403cde55094506"
+    },
+    {
+      "file": "sakiko-play-violet-mother-candidate-v1.png",
+      "sunBrightCentroid": [
+        1006.75,
+        300.46
+      ],
+      "sunBrightBounds": [
+        992,
+        291,
+        1024,
+        310
+      ],
+      "reflectionAxisAtY400to460": 1003.4,
+      "sha256": "893a9a71b7dea7c42bfd4caeff4c7cc5a6b9b5ad17353ea57e512632c67d0aa5"
+    },
+    {
+      "file": "sakiko-attention-violet-mother-candidate-v1.png",
+      "sunBrightCentroid": [
+        1006.31,
+        300.59
+      ],
+      "sunBrightBounds": [
+        991,
+        291,
+        1024,
+        310
+      ],
+      "reflectionAxisAtY400to460": 1003.29,
+      "sha256": "5f26b20065471b9c60cec1a493886a8b62f81d0fecbb750e48f4682519d7ceef"
+    }
+  ]
+}

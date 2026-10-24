@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "reading",
+  "palette": "mist",
+  "light": "morning",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-0e23a420-59f2-493b-8f76-d91d599e0edf",
+  "prompt": "taki-reading-mist-prompt.txt",
+  "promptSha256": "689b1d64eaec221a085265df107a33e598d81efd2b6381e05da32bd28dfedc54",
+  "inputs": [
+    {
+      "file": "taki-reading-apricot-mother-candidate-v2.png",
+      "sha256": "950b6f05f48f6b0ca0335bdffb0468379b95e95576e1afd8da487be488f5314b",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-0e23a420-59f2-493b-8f76-d91d599e0edf.png",
+  "output": {
+    "file": "taki-reading-mist-mother-candidate-v1.png",
+    "sha256": "2c8741a06ec6cb8569795c3596941306b3db6fb337fad72ce3e8b7c85d3d2462",
+    "bytes": 2097912,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the approved warm mother and empty mist plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Actual supported reading silhouette, youthful identity, hands/book, distinct original seat and two complete shoes remain. Whole room has coherent pale mist daylight with natural skin and wood; no geometry/pose replacement observed. Primary mother/layer/runtime approval remains separate."
+}

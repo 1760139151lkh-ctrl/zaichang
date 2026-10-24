@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "listening",
+  "palette": "violet",
+  "light": "dusk",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-360db9f4-3c49-4251-9a53-35ef9d3e441a",
+  "prompt": "taki-listening-violet-prompt.txt",
+  "promptSha256": "f8b8984105164a468f634ea579a5cc286eb30ca98d4bbeceb7cfd6f0750b50d2",
+  "inputs": [
+    {
+      "file": "taki-listening-apricot-mother-candidate-v1.png",
+      "sha256": "d8369e39dc109457df147611494e1741c86512e2bcfc579c92050efb0d134bbb",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-360db9f4-3c49-4251-9a53-35ef9d3e441a.png",
+  "output": {
+    "file": "taki-listening-violet-mother-rejected-v1.png",
+    "sha256": "e4c17696013158e9a0288c6b903e9f6b6c4a18c17298a22825b76c0684beecb8",
+    "bytes": 2189052,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "rejected",
+  "review": {
+    "producerViewed": "Complete original output personally compared with its approved warm mother and the mist/rain siblings.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Sun axis is correct but the bench cushion and supported upper body/head/raised socked foot were lowered roughly20px relative to the approved warm geometry. Not adopted and never used as an input; new attempt uses only the approved warm mother plus empty violet plate."
+}

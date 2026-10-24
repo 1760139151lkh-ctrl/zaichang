@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "asset": "mutsumi-planning-violet-mother-candidate-v1.png",
+  "character": "mutsumi",
+  "activity": "planning",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical whole-environment relighting; approved correct warm mother is sole character/pose/furniture edit target; approved empty theme plate is lighting/sky/source-axis reference only",
+  "prompt": "mutsumi-planning-violet-relight-v2-prompt.txt",
+  "promptSha256": "7b0d6328a91e0738967c47dd7241a71ec0972d87db11b70aa6d832ca504a0b29",
+  "inputs": [
+    {
+      "file": "mutsumi-planning-apricot-mother-candidate-v1.png",
+      "sha256": "ebcd02b354a1661687afdd2e9a92d6c3b7531bc7555a98eb0563516eff83ddd1",
+      "role": "Image 1: primary-approved complete warm activity mother; sole editable character/geometry target"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "Image 2: primary-approved clean empty room; lighting/sky/source-axis reference only, never furniture/body replacement"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-planning-violet-mother-candidate-v1.png",
+    "sha256": "994dedec136996adc5eb74e9a791f9d85fed8f9d97d676b1ea42ab493ce15e14",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-0d864618-72a8-4f45-bc33-34153bf2f1fa.png"
+  },
+  "ownerAndSupport": "Preserve upright half-turned desk-chair comparison, both low hands at the two static desktop cards, the original occupied chair shifted left of the default empty chair; cards stay background objects. Natural chair/hips support, continuous knees/ankles and two floor-supported loafers, original desk-palm contacts. Do not replace the occupied planning furniture with Image2.",
+  "designerObservation": "Full generated image personally viewed against approved warm planning mother and empty violet plate. Original occupied desk-chair position, upright half-turned torso, both hands touching static desktop cards, hips/seat and both complete floor-supported loafers preserved. Sun visible about (1007,302), bright lake column about x1003-1007; coherent warm rim and lavender ambient. Original lamp/furniture stay in place, no geometry substitution from empty plate.",
+  "geometryObservation": {
+    "coordinateSystem": "1536x1024 original mother canvas",
+    "hipsSeatApprox": [
+      875,
+      584
+    ],
+    "frontFloorShoeApprox": [
+      995,
+      727
+    ],
+    "note": "Image-stage approximate observations only; not extracted-layer calibration. Original occupied chair and cards deliberately differ from empty plate.",
+    "sunApprox": [
+      1007,
+      302
+    ],
+    "lakeLightAxisApprox": 1005
+  },
+  "observedGaps": [
+    "Primary per-mother optical review pending; image producer cannot sign primary approval.",
+    "No extracted layers, final calibration or Stage/runtime acceptance yet."
+  ],
+  "designerStatus": "candidate awaiting primary review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

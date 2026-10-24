@@ -3,6 +3,7 @@ import { randomUUID, createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { AsyncLocalStorage } from 'node:async_hooks';
+import { z } from 'zod';
 import type {
   Assertion,
   AssertionCitation,
@@ -25,6 +26,7 @@ import type {
   MemoryReferenceContext,
   MaterialNavigationProof,
   CampusSavedReadingProof,
+  CampusReadingSelector,
   ReleaseSource,
 } from '../../shared/harness';
 import { HarnessError, assertionSchema, evidenceSchema, workSchema, workSourceBindingSchema, workSourceRefSchema, assistantWorkSourceSchema, interactiveProgramSourceSchema, memoryReferenceSchema, materialNavigationProofSchema } from '../../shared/harness';
@@ -41,10 +43,25 @@ import { companionSceneProjectionSchema, type CompanionSceneProjection } from '.
 import { discussionModuleRefSchema, type DiscussionScene, type DiscussionSnapshotMetadata } from '../../shared/discussion-scene';
 import { campusSensitiveReadSchema, type CampusSensitiveRead } from '../../shared/campus-academic';
 import { noteSourceProofSchema, type NoteSourceProof } from '../../shared/notes-source';
+import { workoutSourceProofSchema, workoutSourceObjectId, type WorkoutSourceProof } from '../../shared/workout-source';
 import { historicalWorkSourceSchema, type HistoricalWorkSource } from '../../shared/method-work-help';
 import { spatialBindingSchema, spatialSourceProofSchema, type SpatialBinding, type SpatialSourceProof } from '../../shared/spatial-source';
 
 type Row = Record<string, unknown>;
+// Privacy cleanup may retain only the address-only owner-choice receipt. In
+// particular, arbitrary operation results and user-authored method text do not
+// qualify just because their kind happens to have this name.
+const personalMethodChoiceMetadataSchema = z.object({
+  version: z.literal(1), ownerId: z.string(), workspaceId: z.string(),
+  methodId: z.string().regex(/^personal:[0-9a-f-]{36}$/), methodRevision: z.number().int().positive(),
+  operation: z.enum(['save', 'revise', 'disable']), source: workSourceRefSchema,
+  sourceQuoteSha256: z.string().regex(/^[a-f0-9]{64}$/),
+  changedFields: z.array(z.enum(['name', 'description', 'instructions', 'requirements', 'usage', 'conditions',
+    'conditions.when', 'conditions.adaptToCurrent', 'conditions.avoidWhen', 'status'])).max(12),
+  reviewDigest: z.string().regex(/^[a-f0-9]{64}$/).optional(),
+  legacyOperationId: z.string().regex(/^personal-method:[a-f0-9]{64}$/).optional(),
+  recordedAt: z.string().datetime().optional(),
+}).strict().refine(value => !!value.reviewDigest !== !!value.legacyOperationId);
 type SpatialBindingVersionMetadata = { revision: number; type: string; placeId?: string; evidenceIds: string[];
   spatialBinding?: SpatialBinding; range?: 'unknown' };
 export type AssistantWorkProofState = { checked: Map<string, boolean | 'checking'>; permits?: (ref: WorkSourceRef) => boolean; sessionId?: string; localDisplay?: boolean };
@@ -117,6 +134,8 @@ const columns = `owner TEXT NOT NULL, workspace TEXT NOT NULL, subject TEXT NOT 
 export class KernelRepository {
   private readonly methodApplications = new AsyncLocalStorage<{ scopeId: string; items: readonly PersonalMethodApplication[] }>();
   private readonly spatialApplications = new AsyncLocalStorage<{ scopeId: string; items: readonly SpatialSourceProof[] }>();
+  private readonly workoutApplications = new AsyncLocalStorage<{ scopeId: string; items: readonly WorkoutSourceProof[] }>();
+  private readonly withdrawnWorkouts = new Set<string>();
   private readonly memoryReferenceChecks = new Set<string>();
   verifyCompanionSnapshotMetadata?: (handle: ScopeHandle,
     header: Pick<CompanionSceneProjection, 'id' | 'revision' | 'matterId' | 'matterRevision' | 'snapshotProof'>,
@@ -142,6 +161,11 @@ export class KernelRepository {
     if (!this.spatialSourcesReadable(handle, sources))
       throw new HarnessError('spatial_source_changed', '这次采用的地点依据已经变化。');
     return this.spatialApplications.run({ scopeId: handle.id, items: structuredClone(sources) }, operation);
+  }
+  withWorkoutSources<T>(handle: ScopeHandle, sources: readonly WorkoutSourceProof[], operation: () => T): T {
+    if (!this.workoutSourcesReadable(handle, sources))
+      throw new HarnessError('workout_source_changed', '这次用到的运动记录已经取消。');
+    return this.workoutApplications.run({ scopeId: handle.id, items: structuredClone(sources) }, operation);
   }
   readonly identity: HostIdentity;
   readonly clock: ClockPort;
@@ -677,7 +701,7 @@ export class KernelRepository {
               const prior = JSON.parse(entry) as Row;
               return ['eventId', 'predicate', 'content_version', 'start_cp', 'end_cp', 'effective_from'].every(key => prior[key] === restriction[key]);
             }))));
-        if (!state.canReview || !newlyReviewed) throw new HarnessError('source_restrictions_changed', '复核期间支持片段的限制发生变化，未采用旧结果。');
+        if (!state.canReview || !newlyReviewed) throw new HarnessError('source_restrictions_changed', '刚才那几段资料的使用约定变了，先放下旧判断，沿现在的约定继续。');
         this.db.prepare('INSERT OR REPLACE INTO h_citation_restriction_receipts VALUES(?,?)')
           .run(this.citationKey(ref.id, ref.revision, citation), state.snapshot);
       }
@@ -956,6 +980,8 @@ export class KernelRepository {
     });
   }
   hasFence(objectId: string, sourceId?: string): boolean {
+    if (objectId.startsWith('workout:') && (this.withdrawnWorkouts.has(objectId)
+      || this.getMeta('withdrawn:' + objectId, false))) return true;
     return this.fences().some(
       (f) =>
         f.kind === 'delete' &&
@@ -963,6 +989,13 @@ export class KernelRepository {
           f.sourceIds.includes(objectId) ||
           (!!sourceId && f.sourceIds.includes(sourceId))),
     );
+  }
+  /** Cancel begins here, before the broader durable cleanup. No workout body is retained. */
+  withdrawWorkoutSource(workoutId: string): void {
+    const objectId = workoutSourceObjectId(workoutId);
+    this.withdrawnWorkouts.add(objectId);
+    // Keep the exact tombstone in SQLite too, if writing the separate fence file fails.
+    if (!this.getMeta('withdrawn:' + objectId, false)) this.write(() => this.setMeta('withdrawn:' + objectId, true));
   }
   sourceOrigins(source: LineageSource, range?: { start: number; end: number }) { return sourceOriginSpans(this.db, source, range); }
   sameSourceOrigin(left: EvidenceEvent, leftRange: { start: number; end: number }, right: EvidenceEvent, rightRange: { start: number; end: number }) {
@@ -1367,7 +1400,7 @@ export class KernelRepository {
             WHEN field.type IN ('array','object') THEN json(field.value) ELSE field.value END)
           FROM json_each(receipt.value) field WHERE field.key IN ('id','privacyEpoch','providedEvidenceIds','providedSourceIds','providedObjectVersions',
             'planningProvenance','historicalAssertionVersions','learningProcessVersions','workSourceBindings','reflectiveLetterSources',
-            'assistantWorkSources','personalMethodSources','noteSources','campusSensitiveReads','campusReadingProofs','campusReadingSources',
+            'assistantWorkSources','personalMethodSources','noteSources','workoutSources','campusSensitiveReads','campusReadingProofs','campusReadingSources',
              'campusReadingIncomplete','interactiveProgramSources','toolAttempts','campusReadingAddresses','releaseSources','materialNavigationSources','spatialSources')
             AND (field.key!='campusReadingAddresses' OR json_type(receipt.value,'$.campusReadingProofs') IS NULL))))
           FROM json_each(draft.value,'$.sourceReceipts') receipt))) FROM json_each(payload,'$.releaseArtifacts') draft) AS release_headers,
@@ -1378,6 +1411,8 @@ export class KernelRepository {
       json_type(payload,'$.contextReceipt.materialNavigationSources') AS material_navigation_type,
       json_extract(payload,'$.contextReceipt.spatialSources') AS spatial_sources,
       json_type(payload,'$.contextReceipt.spatialSources') AS spatial_sources_type,
+      json_extract(payload,'$.contextReceipt.workoutSources') AS workout_sources,
+      json_type(payload,'$.contextReceipt.workoutSources') AS workout_sources_type,
       json_extract(payload,'$.contextReceipt.providedSourceIds') AS provided_sources,
       json_extract(payload,'$.contextReceipt.providedObjectVersions') AS object_versions,
       (SELECT json_group_array(json_object('accepted',json('true'),'sourceEventId',json_extract(image.value,'$.sourceEventId'),
@@ -1478,6 +1513,8 @@ export class KernelRepository {
             ? JSON.parse(String(row.material_navigation)) : null }),
           ...(row.spatial_sources_type === null ? {} : { spatialSources: row.spatial_sources_type === 'array'
             ? JSON.parse(String(row.spatial_sources)) : null }),
+          ...(row.workout_sources_type === null ? {} : { workoutSources: row.workout_sources_type === 'array'
+            ? JSON.parse(String(row.workout_sources)) : null }),
           ...(row.evidence_ids === null ? {} : { providedEvidenceIds: JSON.parse(String(row.evidence_ids)) }),
           ...(row.provided_sources === null ? {} : { providedSourceIds: JSON.parse(String(row.provided_sources)) }),
           ...(row.object_versions === null ? {} : { providedObjectVersions: JSON.parse(String(row.object_versions)) }),
@@ -1821,6 +1858,44 @@ export class KernelRepository {
     }
     return [...new Map(sources.map(source => [canonical(source), source])).values()];
   }
+  workoutSourcesReadable(handle: ScopeHandle, raw: unknown): boolean {
+    if (raw === undefined) return true;
+    const parsed = workoutSourceProofSchema.array().max(256).safeParse(raw);
+    if (!parsed.success) return false;
+    if (!parsed.data.length) return true;
+    const scope = this.scope(handle);
+    if (scope.principalId !== this.identity.principalId || scope.workspaceId !== this.identity.workspaceId
+      || scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self'
+      || !scope.sources.includes('workout:self') || !scope.grants.includes('evidence:read')) return false;
+    // A later sample or pause does not erase an independently legal observation.
+    return parsed.data.every(proof => !this.hasFence(workoutSourceObjectId(proof.workoutId), 'workout:self'));
+  }
+  workWorkoutSources(handle: ScopeHandle, records: Pick<WorkRecord, 'id' | 'revision'>[]): WorkoutSourceProof[] {
+    const scope = this.scope(handle), sources: WorkoutSourceProof[] = [];
+    for (const record of records) {
+      const row = this.db.prepare(`SELECT revision,json_extract(payload,'$.data.workoutSources') AS sources
+        FROM h_work WHERE id=? AND owner=? AND workspace=?`)
+        .get(record.id, scope.principalId, scope.workspaceId);
+      if (!row || row.sources === null) continue;
+      if (row.revision !== record.revision) throw new HarnessError('work_source_changed', '刚才那份材料已有变化，需要接回现在的版本。');
+      const raw: unknown = typeof row.sources === 'string' ? JSON.parse(row.sources) : row.sources;
+      if (!this.workoutSourcesReadable(handle, raw)) throw new HarnessError('workout_source_changed', '这份材料用到的运动记录已经取消，先回到现在保留的内容。');
+      sources.push(...workoutSourceProofSchema.array().parse(raw));
+    }
+    return [...new Map(sources.map(source => [canonical(source), source])).values()];
+  }
+  conversationWorkoutSources(handle: ScopeHandle, sessionId: string, messageIds: string[]): WorkoutSourceProof[] {
+    const scope = this.scope(handle);
+    if (!scope.sources.includes('history:self') || !scope.grants.includes('evidence:read') || scope.audience !== 'self'
+      || scope.subjectId !== scope.principalId || scope.worldId !== 'real') return [];
+    const sources: WorkoutSourceProof[] = [];
+    for (const row of this.conversationPlanningMetadata(sessionId, new Set(messageIds))) {
+      if (!this.planningMessageReadable(handle, row.value)) throw new HarnessError('workout_source_changed', '刚读的前情用到一份已取消的运动记录，这次没有继续使用。');
+      if (row.value.contextReceipt.workoutSources !== undefined)
+        sources.push(...workoutSourceProofSchema.array().parse(row.value.contextReceipt.workoutSources));
+    }
+    return [...new Map(sources.map(source => [canonical(source), source])).values()];
+  }
   /** Only notebook ownership, state, hash and Unicode length metadata leave this query. */
   noteSourcesReadable(handle: ScopeHandle, raw: unknown): boolean {
     if (!Array.isArray(raw) || raw.length > 256) return false;
@@ -1948,6 +2023,78 @@ export class KernelRepository {
       } catch { /* A damaged receipt is not a readable query address. */ }
     }
     return result.sort((a, b) => a.messageOrdinal - b.messageOrdinal);
+  }
+  /** Only prior owner addresses and their authorization headers; never reply
+   * text, grade values, or renewed permission to read the original body. */
+  conversationCampusReadingNavigation(handle: ScopeHandle, sessionId: string, selector: CampusReadingSelector, audit = true) {
+    const scope = this.scope(handle), revoked = this.getMeta<string[]>('revoked', []);
+    if (selector.resource !== 'gpa_overall' || selector.object !== 'major_gpa'
+      || selector.messageId !== undefined && (typeof selector.messageId !== 'string' || !selector.messageId || selector.messageId.length > 160)
+      || scope.child || scope.principalId !== this.identity.principalId || scope.workspaceId !== this.identity.workspaceId
+      || scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self'
+      || !scope.sources.includes('history:self') || !scope.sources.includes('campus:zju-account')
+      || !scope.grants.includes('evidence:read') || !scope.grants.includes('campus:read')
+      || revoked.some(grant => ['evidence:read', 'campus:read', 'campus:gpa:read'].includes(grant))
+      || this.hasFence('history:self') || this.hasFence('campus:zju-account')) return [];
+    const matches = `json_extract(a.value,'$.sourceId')='campus:zju-account'
+      AND json_extract(a.value,'$.snapshot.resource')='gpa_overall'
+      AND json_extract(a.value,'$.object.kind')='major_gpa'
+      AND json_extract(a.value,'$.read.capability')='campus.query'
+      AND json_extract(a.value,'$.read.arguments.resource')='gpa_overall'`;
+    const row = this.db.prepare(`SELECT m.id,m.created_at,m.rowid AS ordinal,
+      json_extract(m.payload,'$.contextReceipt.id') AS receipt_id,
+      json_extract(m.payload,'$.contextReceipt.campusSensitiveReads') AS sensitive_reads,
+      (SELECT json_group_array(json(a.value)) FROM json_each(json_extract(m.payload,'$.contextReceipt.campusReadingAddresses')) a WHERE ${matches}) AS addresses
+      FROM messages m WHERE m.session_id=? AND m.role='assistant' AND json_extract(m.payload,'$.status')='done'
+      AND json_type(m.payload,'$.contextReceipt.id')='text'
+      AND json_type(m.payload,'$.contextReceipt.campusReadingAddresses')='array'
+      AND json_array_length(m.payload,'$.contextReceipt.campusReadingAddresses') BETWEEN 1 AND 6
+      AND COALESCE(json_extract(m.payload,'$.contextReceipt.campusReadingIncomplete'),0)!=1
+      AND EXISTS(SELECT 1 FROM json_each(json_extract(m.payload,'$.contextReceipt.campusReadingAddresses')) a WHERE ${matches})
+      ${selector.messageId ? 'AND m.id=?' : ''} ORDER BY m.created_at DESC,m.rowid DESC LIMIT 1`)
+      .get(sessionId, ...(selector.messageId ? [selector.messageId] : []));
+    if (!row || this.hasFence(String(row.id), 'history:self') || typeof row.receipt_id !== 'string'
+      || !row.receipt_id || row.receipt_id.length > 160 || typeof row.addresses !== 'string' || typeof row.sensitive_reads !== 'string') return [];
+    let addresses: unknown, sensitiveReads: unknown;
+    try { addresses = JSON.parse(row.addresses); sensitiveReads = JSON.parse(row.sensitive_reads); }
+    catch { return []; }
+    if (!Array.isArray(addresses) || !addresses.length || addresses.length > 6 || !Array.isArray(sensitiveReads) || sensitiveReads.length > 64) return [];
+    const reads = sensitiveReads.flatMap(value => {
+      const parsed = campusSensitiveReadSchema.safeParse(value);
+      return parsed.success && parsed.data.resource === 'gpa_overall' && parsed.data.sourceId === 'campus:zju-account'
+        && parsed.data.grant === 'campus:gpa:read' ? [parsed.data] : [];
+    });
+    const authorizations = [...new Map(reads.map(read => [read.authorizationEventId + ':' + read.authorizationContentVersion,
+      { eventId: read.authorizationEventId, contentVersion: read.authorizationContentVersion }])).values()]
+      .sort((left, right) => left.eventId.localeCompare(right.eventId) || left.contentVersion - right.contentVersion);
+    if (!authorizations.length || authorizations.some(ref => {
+      if (this.hasFence(ref.eventId, 'history:self')) return true;
+      const original = this.db.prepare(`SELECT json_extract(payload,'$.contentVersion') AS version FROM h_evidence
+        WHERE id=? AND owner=? AND workspace=? AND subject=? AND world='real' AND status='active'
+        AND json_extract(payload,'$.speaker')='user' AND json_extract(payload,'$.authority')='user_statement'`)
+        .get(ref.eventId, scope.principalId, scope.workspaceId, scope.principalId);
+      return !original || original.version !== ref.contentVersion;
+    })) return [];
+    if (audit) this.recordAccess(handle, { id: row.id, source: 'history:self' }, 'conversation_campus_address_navigation');
+    return addresses.map(address => ({ messageId: String(row.id), messageCreatedAt: String(row.created_at),
+      messageOrdinal: Number(row.ordinal), address,
+      navigation: { sessionId, messageId: String(row.id), receiptId: row.receipt_id as string,
+        addressSha256: createHash('sha256').update(canonical(address)).digest('hex'), authorizations } }));
+  }
+  campusReadingNavigationCurrent(handle: ScopeHandle, raw: unknown): boolean {
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return false;
+    const proof = raw as CampusSavedReadingProof;
+    if (proof.navigation === undefined) return true;
+    const navigation = proof.navigation;
+    if (!navigation || typeof navigation !== 'object' || proof.resource !== 'gpa_overall'
+      || typeof navigation.sessionId !== 'string' || typeof navigation.messageId !== 'string'
+      || typeof navigation.addressSha256 !== 'string' || !/^[a-f0-9]{64}$/.test(navigation.addressSha256)) return false;
+    const { navigation: _navigation, ...snapshot } = proof;
+    return this.conversationCampusReadingNavigation(handle, navigation.sessionId,
+      { resource: 'gpa_overall', object: 'major_gpa', messageId: navigation.messageId }, false)
+      .some(candidate => canonical(candidate.navigation) === canonical(navigation)
+        && candidate.address && typeof candidate.address === 'object'
+        && canonical((candidate.address as { snapshot?: unknown }).snapshot) === canonical(snapshot));
   }
   conversationCampusReadingSources(handle: ScopeHandle, sessionId: string, messageIds: string[]): CampusSavedReadingProof[] {
     const scope = this.scope(handle);
@@ -2724,7 +2871,7 @@ export class KernelRepository {
       && Number.isSafeInteger(ref.revision) && ref.revision > 0 && !!this.assertionHistoryVersion(handle, ref.id, ref.revision));
   }
   /** Metadata-only gate for source-bound planning and historical understanding text. */
-  planningMessageReadable(handle: ScopeHandle, value: { contextReceipt?: { providedSourceIds?: unknown; providedObjectVersions?: unknown; imageRequests?: unknown; planningProvenance?: unknown; historicalAssertionVersions?: unknown; learningProcessVersions?: unknown; workSourceBindings?: unknown; reflectiveLetterSources?: unknown; assistantWorkSources?: unknown; personalMethodSources?: unknown; noteSources?: unknown; materialNavigationSources?: unknown; spatialSources?: unknown; campusSensitiveReads?: unknown; campusReadingAddresses?: unknown; campusReadingProofs?: unknown; campusReadingSources?: unknown; campusReadingIncomplete?: unknown; interactiveProgramSources?: unknown; toolAttempts?: unknown; releaseSources?: unknown }; scenes?: unknown; releaseArtifacts?: unknown; legacyRelease?: boolean },
+  planningMessageReadable(handle: ScopeHandle, value: { contextReceipt?: { providedSourceIds?: unknown; providedObjectVersions?: unknown; imageRequests?: unknown; planningProvenance?: unknown; historicalAssertionVersions?: unknown; learningProcessVersions?: unknown; workSourceBindings?: unknown; reflectiveLetterSources?: unknown; assistantWorkSources?: unknown; personalMethodSources?: unknown; noteSources?: unknown; workoutSources?: unknown; materialNavigationSources?: unknown; spatialSources?: unknown; campusSensitiveReads?: unknown; campusReadingAddresses?: unknown; campusReadingProofs?: unknown; campusReadingSources?: unknown; campusReadingIncomplete?: unknown; interactiveProgramSources?: unknown; toolAttempts?: unknown; releaseSources?: unknown }; scenes?: unknown; releaseArtifacts?: unknown; legacyRelease?: boolean },
     proofs: AssistantWorkProofState = { checked: new Map() }) {
     if ((value.releaseArtifacts !== undefined || value.legacyRelease)
       && this.verifyReleaseMessage?.(handle, value.releaseArtifacts, value.contextReceipt, !!value.legacyRelease, proofs) !== true) return false;
@@ -2732,6 +2879,9 @@ export class KernelRepository {
       && this.verifyReleaseSources?.(handle, value.contextReceipt.releaseSources, false, proofs) !== true) return false;
     if (!this.materialNavigationSourcesReadable(handle, value.contextReceipt?.materialNavigationSources)) return false;
     if (!this.spatialSourcesReadable(handle, value.contextReceipt?.spatialSources)) return false;
+    if (!this.workoutSourcesReadable(handle, value.contextReceipt?.workoutSources)) return false;
+    if (value.contextReceipt?.workoutSources === undefined && Array.isArray(value.contextReceipt?.toolAttempts)
+      && value.contextReceipt.toolAttempts.some(attempt => attempt && typeof attempt === 'object' && attempt.capability === 'workout.current')) return false;
     if (value.contextReceipt?.providedObjectVersions !== undefined
       && (!Array.isArray(value.contextReceipt.providedObjectVersions)
         || !this.assertionReferenceVersionsReadable(handle, value.contextReceipt.providedObjectVersions, proofs.localDisplay))) return false;
@@ -2936,6 +3086,7 @@ export class KernelRepository {
   private workSourceFilter(handle: ScopeHandle, alias = 'r') {
     const scope = this.scope(handle), allowed: string[] = [], derivedAllowed: string[] = [], planning = this.planningMaterialFilter(handle, alias);
     const letters = this.reflectiveLetterSourceFilter(handle, alias), notes = this.noteMaterialFilter(handle, alias),
+      workouts = this.workoutSourceFilter(handle, alias),
       materialNavigation = this.materialNavigationSourceFilter(handle, alias), spatial = this.spatialSourceFilter(handle, alias);
     for (const row of this.db.prepare(`SELECT id,json_extract(payload,'$.sourceBinding') AS binding,
       json_extract(payload,'$.data.methodSources') AS method_sources,json_extract(payload,'$.data.type') AS type,
@@ -2969,8 +3120,23 @@ export class KernelRepository {
       AND NOT (COALESCE(json_extract(${alias}.payload,'$.data.type'),'')='collaboration_frame'
         AND COALESCE(json_type(${alias}.payload,'$.data.companion'),'null')!='null')
       AND (json_type(${alias}.payload,'$.personalMethodSources') IS NULL OR ${alias}.id IN (SELECT value FROM json_each(?)))
-      AND ${planning.sql} AND ${letters.sql} AND ${notes.sql} AND ${materialNavigation.sql} AND ${spatial.sql}`,
-      params: [JSON.stringify(allowed), JSON.stringify(derivedAllowed), ...planning.params, ...letters.params, ...notes.params, ...materialNavigation.params, ...spatial.params] };
+      AND ${planning.sql} AND ${letters.sql} AND ${notes.sql} AND ${workouts.sql} AND ${materialNavigation.sql} AND ${spatial.sql}`,
+      params: [JSON.stringify(allowed), JSON.stringify(derivedAllowed), ...planning.params, ...letters.params, ...notes.params, ...workouts.params, ...materialNavigation.params, ...spatial.params] };
+  }
+  /** A copied workout summary keeps its original permission and withdrawal
+   * address before titles, search matches, counts or exports can reveal it. */
+  private workoutSourceFilter(handle: ScopeHandle, alias: string) {
+    const scope = this.scope(handle), denied: string[] = [];
+    for (const row of this.db.prepare(`SELECT id,json_extract(payload,'$.data.workoutSources') AS sources,
+      json_type(payload,'$.data.workoutSources') AS sources_type FROM h_work
+      WHERE owner=? AND workspace=? AND json_type(payload,'$.data.workoutSources') IS NOT NULL`)
+      .all(scope.principalId, scope.workspaceId)) {
+      try {
+        if (row.sources_type !== 'array' || !this.workoutSourcesReadable(handle, JSON.parse(String(row.sources))))
+          denied.push(String(row.id));
+      } catch (error) { if (error instanceof SyntaxError) denied.push(String(row.id)); else throw error; }
+    }
+    return { sql: `${alias}.id NOT IN (SELECT value FROM json_each(?))`, params: [JSON.stringify(denied)] };
   }
   private spatialSourceFilter(handle: ScopeHandle, alias: string) {
     const scope = this.scope(handle), denied: string[] = [];
@@ -3096,6 +3262,7 @@ export class KernelRepository {
       : `json_extract(r.payload,'$.data.type')='${artifactType}'`;
     const candidates = this.db.prepare(`SELECT r.id,json_extract(r.payload,'$.sourceBinding') AS binding,
       json_extract(r.payload,'$.data.noteSources') AS note_sources,
+      json_extract(r.payload,'$.data.workoutSources') AS workout_sources,
       json_extract(r.payload,'$.personalMethodSources') AS personal_methods FROM h_work r
       WHERE ${f.sql} AND ${type} AND json_type(r.payload,'$.sourceBinding')='object'
       ${options.id ? 'AND r.id=?' : ''}
@@ -3115,7 +3282,9 @@ export class KernelRepository {
       try {
         const methods: unknown = row.personal_methods === null ? [] : JSON.parse(String(row.personal_methods));
         const notes: unknown = row.note_sources === null ? [] : JSON.parse(String(row.note_sources));
-        return this.noteSourcesReadable(handle, notes) && Array.isArray(methods) && methods.every(source => this.verifyPersonalMethodSources?.(handle, source) === true)
+        const workouts: unknown = row.workout_sources === null ? [] : JSON.parse(String(row.workout_sources));
+        return this.noteSourcesReadable(handle, notes) && this.workoutSourcesReadable(handle, workouts)
+          && Array.isArray(methods) && methods.every(source => this.verifyPersonalMethodSources?.(handle, source) === true)
           && this.workBindingReadable(handle, JSON.parse(String(row.binding)));
       }
       catch (error) { if (error instanceof SyntaxError) return false; throw error; }
@@ -3316,6 +3485,19 @@ export class KernelRepository {
         throw new HarnessError('spatial_source_changed', '这份事项所用的地点依据已经变化。');
       if (sources.length) work.data.spatialSources = sources;
     }
+    if (!spatial) {
+      const workoutContext = this.workoutApplications.getStore();
+      const previousSources = workoutSourceProofSchema.array().parse(oldWork?.data.workoutSources || []);
+      const hostSources = workoutContext?.scopeId === handle.id ? workoutContext.items : [];
+      const allowed = new Map([...previousSources, ...hostSources].map(source => [canonical(source), source]));
+      const requested = workoutSourceProofSchema.array().parse(work.data.workoutSources || []);
+      if (requested.some(source => !allowed.has(canonical(source))))
+        throw new HarnessError('workout_source_unread', '这份事项提到的运动摘要还没有实际读到。');
+      const sources = [...allowed.values()];
+      if (!this.workoutSourcesReadable(handle, sources))
+        throw new HarnessError('workout_source_changed', '这份事项用到的运动记录已经取消，没有保存旧摘要。');
+      if (sources.length) work.data.workoutSources = sources;
+    }
     const context = this.methodApplications.getStore();
     const applied = context?.scopeId === handle.id && work.data.type !== 'personal_method' ? context.items.filter(application => {
       const sameMatter = work.id === application.matterId || work.data.matterId === application.matterId;
@@ -3384,6 +3566,9 @@ export class KernelRepository {
       for (const proof of spatialSourceProofSchema.array().parse(work.data.spatialSources || []))
         this.addDependency(handle, { consumerId: work.id, producerId: proof.origin.id,
           producerRevision: proof.origin.kind === 'binding' ? proof.origin.revision : 0, sensitivity: 'privacy', invalidation: 'block' });
+      for (const proof of workoutSourceProofSchema.array().parse(work.data.workoutSources || []))
+        this.addDependency(handle, { consumerId: work.id, producerId: workoutSourceObjectId(proof.workoutId),
+          producerRevision: proof.revision, sensitivity: 'privacy', invalidation: 'block' });
       if (spatial && oldWork && spatialType(oldWork.data.type)) for (const eventId of oldWork.evidenceIds)
         this.db.prepare(`DELETE FROM h_dependencies WHERE consumer_id=? AND producer_id=? AND producer_revision=?
           AND sensitivity='privacy' AND invalidation='block'`).run(work.id, eventId,
@@ -3984,6 +4169,62 @@ export class KernelRepository {
       .get(event.id);
     if (!row || row.session_id !== event.sessionId) return;
     return { createdAt: String(row.created_at), ordinal: Number(row.ordinal), sessionId: String(row.session_id), ref };
+  }
+  /** The immediately preceding published reply, qualified like assistantHistory.
+   * SQL returns identity/count/status only; no prose, title or attached material
+   * enters this navigation result. An unreadable latest reply is not replaced
+   * by an older reply under the same "previous" identity. */
+  latestAssistantReplyIdentity(handle: ScopeHandle, sessionId: string, excludeIds: readonly string[] = []) {
+    const envelope = this.assistantHistoryEnvelope(handle, true);
+    if (!envelope || this.hasFence('history:self')) return;
+    const latest = this.db.prepare(`SELECT m.id FROM messages m WHERE m.session_id=? AND m.role='assistant'
+      AND ${assistantReplyStatusSql()} AND m.id NOT IN (SELECT value FROM json_each(?))
+      ORDER BY m.created_at DESC,m.rowid DESC LIMIT 1`).get(sessionId, JSON.stringify(excludeIds));
+    return latest ? this.assistantReplyIdentity(handle, sessionId, String(latest.id)) : undefined;
+  }
+  /** Exact reply identity only, with the same current source qualification. */
+  assistantReplyIdentity(handle: ScopeHandle, sessionId: string, messageId: string) {
+    const envelope = this.assistantHistoryEnvelope(handle, true);
+    if (!envelope || this.hasFence('history:self') || this.hasFence(messageId, 'history:self')) return;
+    const row = this.db.prepare(`${envelope.permitted} SELECT p.id,p.session_id,p.created_at,
+      note_codepoint_length(m.content) AS code_points,json_extract(m.payload,'$.status') AS reply_status
+      FROM permitted p JOIN messages m ON m.id=p.id WHERE p.id=? AND p.session_id=? LIMIT 1`)
+      .get(...envelope.params, messageId, sessionId);
+    if (!row || !Number.isSafeInteger(row.code_points) || Number(row.code_points) <= 0) return;
+    const source = this.conversationPlanningMetadata(sessionId, new Set([String(row.id)]))[0];
+    if (!source || !this.planningMessageReadable(handle, source.value)) return;
+    return { messageId: String(row.id), sessionId: String(row.session_id), createdAt: String(row.created_at),
+      codePoints: Number(row.code_points), status: String(row.reply_status), bodyProvided: false as const,
+      ...assistantReplyState(row.reply_status) };
+  }
+  /** One explicit navigation step. Qualify the anchor and its immediate prior
+   * published reply; never jump across an unreadable reply to an older one. */
+  previousAssistantReplyIdentity(handle: ScopeHandle, sessionId: string, anchorMessageId: string) {
+    if (!this.assistantReplyIdentity(handle, sessionId, anchorMessageId)) return;
+    const previous = this.db.prepare(`SELECT m.id FROM messages m JOIN messages anchor ON anchor.id=? AND anchor.session_id=m.session_id
+      WHERE m.session_id=? AND m.role='assistant' AND ${assistantReplyStatusSql()}
+      AND (m.created_at<anchor.created_at OR (m.created_at=anchor.created_at AND m.rowid<anchor.rowid))
+      ORDER BY m.created_at DESC,m.rowid DESC LIMIT 1`).get(anchorMessageId, sessionId);
+    return previous ? this.assistantReplyIdentity(handle, sessionId, String(previous.id)) : undefined;
+  }
+  /** Local source for the narrow text navigator. Qualify metadata before
+   * selecting prose, and return no Scene/material projections. The caller
+   * exposes only locator metadata or its separately approved exact window. */
+  assistantTextForLocalRead(handle: ScopeHandle, sessionId: string, messageId: string,
+    purpose: 'locate' | 'passage', permits?: (ref: WorkSourceRef) => boolean) {
+    const envelope = this.assistantHistoryEnvelope(handle, true);
+    if (!envelope || this.hasFence(messageId, 'history:self') || this.hasFence('history:self')) return;
+    const identity = this.db.prepare(`${envelope.permitted} SELECT id,session_id,created_at FROM permitted WHERE id=? AND session_id=? LIMIT 1`)
+      .get(...envelope.params, messageId, sessionId);
+    if (!identity) return;
+    const source = this.conversationPlanningMetadata(sessionId, new Set([messageId]))[0];
+    if (!source || !this.planningMessageReadable(handle, source.value, { checked: new Map(), permits })) return;
+    const body = this.db.prepare(`SELECT m.content,json_extract(m.payload,'$.status') AS reply_status FROM messages m
+      WHERE m.id=? AND m.session_id=? AND m.role='assistant' AND ${assistantReplyStatusSql()} LIMIT 1`).get(messageId, sessionId);
+    if (!body) return;
+    this.recordAccess(handle, { id: messageId, source: 'history:self' }, 'assistant_text_' + purpose);
+    return { id: messageId, sessionId, createdAt: String(identity.created_at), text: String(body.content),
+      authority: 'assistant_history_not_user_fact' as const, ...assistantReplyState(body.reply_status) };
   }
   /** Navigation qualification only. Select no reply/scene body and record no
    * assistant read. Exact body provenance is still checked by assistantHistory. */
@@ -4608,6 +4849,43 @@ export class KernelRepository {
     });
     return children.map(row => String(row.id));
   }
+  private personalMethodChoiceSurvivesCleanup(operationId: string, raw: unknown, fence: PrivacyFence): boolean {
+    if (!/^personal-method-choice:[a-f0-9]{64}$/u.test(operationId)) return false;
+    let value: unknown;
+    try { value = typeof raw === 'string' ? JSON.parse(raw) : raw; }
+    catch (error) { if (error instanceof SyntaxError) return false; throw error; }
+    const parsed = personalMethodChoiceMetadataSchema.safeParse(value);
+    if (!parsed.success) return false;
+    const receipt = parsed.data, ref = receipt.source, methodId = receipt.methodId.slice('personal:'.length);
+    const { recordedAt: _recordedAt, ...identity } = receipt;
+    if (operationId !== 'personal-method-choice:' + createHash('sha256').update(canonical(identity)).digest('hex')) return false;
+    if (receipt.ownerId !== this.identity.principalId || receipt.workspaceId !== this.identity.workspaceId
+      || fence.sourceIds.includes('work:self') || [...fence.objectIds, ...fence.sourceIds].some(id => id === receipt.methodId || id === methodId)
+      || this.hasFence(receipt.methodId, 'work:self') || this.hasFence(methodId, 'work:self')) return false;
+    const method = this.db.prepare(`SELECT revision FROM h_work WHERE id=? AND owner=? AND workspace=?
+      AND subject=? AND world='real' AND audience='self' AND kind='recipe_candidate'
+      AND json_extract(payload,'$.data.type')='personal_method'`).get(methodId, receipt.ownerId, receipt.workspaceId, receipt.ownerId);
+    if (!method || Number(method.revision) < receipt.methodRevision) return false;
+    const sourceRow = this.db.prepare(`SELECT payload,source FROM h_evidence WHERE id=? AND owner=? AND workspace=?
+      AND subject=? AND world='real' AND version=? AND status IN ('active','redacted')`)
+      .get(ref.eventId, receipt.ownerId, receipt.workspaceId, receipt.ownerId, ref.contentVersion);
+    let rawSource: unknown;
+    try { rawSource = sourceRow ? JSON.parse(String(sourceRow.payload)) : undefined; }
+    catch (error) { if (error instanceof SyntaxError) return false; throw error; }
+    const parsedSource = evidenceSchema.safeParse(rawSource);
+    if (!parsedSource.success) return false;
+    const source = parsedSource.data;
+    if (source.id !== ref.eventId || source.ownerId !== receipt.ownerId || source.workspaceId !== receipt.workspaceId
+      || source.subjectId !== receipt.ownerId || source.worldId !== 'real' || source.contentVersion !== ref.contentVersion
+      || source.sourceId !== sourceRow!.source || !['active', 'redacted'].includes(source.status)
+      || source.speaker !== 'user' || source.authority !== 'user_statement' || source.parentEventId
+      || ref.end > Array.from(source.text).length || this.hasFence(source.id, source.sourceId)
+      || this.blockedDeletedLineage(source, ref, false)) return false;
+    // A correction can stop inference without withdrawing the old accepted
+    // choice. Only privacy erasure/version/range changes revoke this metadata;
+    // no new scope is minted and no method prose is recovered here.
+    return createHash('sha256').update(codePointSlice(source.text, ref.start, ref.end)).digest('hex') === receipt.sourceQuoteSha256;
+  }
   cleanupFence(fence: PrivacyFence) {
     if (fence.kind !== 'delete') return;
     const noteMaterials = this.noteMaterialsAffectedBy(fence);
@@ -5032,6 +5310,22 @@ export class KernelRepository {
           for (const dependent of this.invalidate(id, 'source_deleted', preserved)) affected.add(dependent);
         }
       }
+      const workoutSourcesAffected = (raw: unknown): boolean => {
+        if (raw === undefined) return false;
+        const parsed = workoutSourceProofSchema.array().max(256).safeParse(raw);
+        return !parsed.success || parsed.data.some(proof => fence.sourceIds.includes('workout:self')
+          || fence.objectIds.includes(workoutSourceObjectId(proof.workoutId)));
+      };
+      for (const row of this.db.prepare(`SELECT id,json_extract(payload,'$.data.workoutSources') AS sources
+        FROM h_work WHERE json_type(payload,'$.data.workoutSources') IS NOT NULL`).all()) {
+        let remove: boolean;
+        try { remove = workoutSourcesAffected(JSON.parse(String(row.sources))); }
+        catch (error) { if (error instanceof SyntaxError) remove = true; else throw error; }
+        if (remove) {
+          const id = String(row.id); affected.add(id);
+          for (const dependent of this.invalidate(id, 'source_deleted', preserved)) affected.add(dependent);
+        }
+      }
       const spatialSourcesAffected = (raw: unknown): boolean => {
         if (raw === undefined) return false;
         const parsed = spatialSourceProofSchema.array().max(256).safeParse(raw);
@@ -5087,6 +5381,7 @@ export class KernelRepository {
           OR json_type(payload,'$.contextReceipt.assistantWorkSources') IS NOT NULL
           OR json_type(payload,'$.contextReceipt.personalMethodSources') IS NOT NULL
           OR json_type(payload,'$.contextReceipt.spatialSources') IS NOT NULL
+          OR json_type(payload,'$.contextReceipt.workoutSources') IS NOT NULL
           OR EXISTS(SELECT 1 FROM json_each(messages.payload,'$.scenes') s WHERE json_type(s.value,'$.continuation')='object'
             OR json_extract(s.value,'$.kind') IN ('curiosity','discussion')))`).all()) {
         const message = JSON.parse(String(row.payload));
@@ -5141,7 +5436,8 @@ export class KernelRepository {
             || proof.kind === 'material' && [proof.resourceId, proof.sourceEventId, proof.parentEventId].some(id => fence.objectIds.includes(id)));
         }));
         if (historicalAffected || learningAffected || workAffected || assistantWorksAffected || personalMethodsAffected || creationAffected || coWorkAffected || lettersAffected
-          || spatialSourcesAffected(message.contextReceipt?.spatialSources) || provenance.some(planningProvenanceAffected)) {
+          || spatialSourcesAffected(message.contextReceipt?.spatialSources) || workoutSourcesAffected(message.contextReceipt?.workoutSources)
+          || provenance.some(planningProvenanceAffected)) {
           const id = String(row.id); affected.add(id);
           for (const dependent of this.invalidate(id, 'source_deleted', preserved)) affected.add(dependent);
         }
@@ -5250,7 +5546,10 @@ export class KernelRepository {
           AND COALESCE(json_extract(payload,'$.data.type'),'') NOT IN ('spatial_role','spatial_alias','spatial_crosswalk')`)
         .run();
       this.db.prepare('DELETE FROM h_proposals').run();
-      this.db.prepare('DELETE FROM h_operations').run();
+      const survivingMethodChoices = this.db.prepare("SELECT id,result FROM h_operations WHERE kind='personal_method_choice'").all()
+        .filter(row => this.personalMethodChoiceSurvivesCleanup(String(row.id), row.result, fence)).map(row => String(row.id));
+      this.db.prepare('DELETE FROM h_operations WHERE id NOT IN (SELECT value FROM json_each(?))')
+        .run(JSON.stringify(survivingMethodChoices));
       this.db.prepare('DELETE FROM h_runs').run();
       this.db
         .prepare("UPDATE h_jobs SET payload='{}',status='cancelled',fence=fence+1 WHERE status='cancelled'")

@@ -9,11 +9,11 @@ const offerInput = z.object({ matterId: z.string().min(1).max(160), expectedMatt
   comparison: planningComparisonInput, sourceRefs: z.array(workSourceRefSchema).min(1).max(32) }).strict();
 export const definitions: { name: string; description: string; schema: z.ZodType; grant?: string; mutates?: boolean }[] = [
   { name: 'offer_planning_alternatives', grant: 'work:write', mutates: true, schema: offerInput,
-    description: '把两到四种实质不同的完整安排接到已恢复的同一商量里。先用planning.compare推演也可以直接给本次原规格与分支；可保留原约定、移动原对象、拟参加未答应活动或换任务偏重。同一任务可用taskPreferences.rhythm比较连着做完或按较短上限拆开做，保留同一完整工作量和逐段准备收尾；原任务不允许拆就不能拆。workRhythms返回真实段落与准备收尾事实，由主助手解释取舍，不给人格或效率打分。sourceRefs是这次实际依据的精确原话，不把模型理由冒充用户偏好。只保存非执行方案与原option身份，日历不变；没排完的节奏不冒充完整另一版，失败分支和未排任务保留原因，不能换名字凑数。' },
+    description: '把两到四种实质不同的完整安排放回正在商量的同一件事。可以先用planning.compare试算，也可以给本次的完整条件和分支：保留原约定、挪动某项安排、试放尚未答应的活动，或调整任务偏重。taskPreferences.rhythm可以比较连着做和分段做，但要保留同样的完整工作量及每段准备收尾，原任务允许拆分时才拆。workRhythms给出实际段落和准备收尾，方便解释取舍，不评价本人的性格或效率。sourceRefs对应实际依据的精确原话，你想到的理由仍是你的理解。这里只留下可继续商量的方案及同一option地址，日历还没改；没排完的工作与各版遇到的问题都带上原因，实质相同的安排不靠换标题变成另一版。' },
   { name: 'read_planning_alternative', grant: 'evidence:read', schema: planningConversationReadInput,
-    description: '回到同一件生活商量的一个准确方案，按当前真实日历重看保留、移动、拟参加活动、剩余任务和条件。过去的点选只是讨论；原安排变了就继续商量，不把历史图当现在能直接采用的方案。' },
+    description: '沿准确地址找回同一件事的一版安排，放回当前日历里重看哪些保留、哪些挪动、想参加什么、还有什么没排下，以及原来的条件。过去点过这一版，说明当时想接着谈；原安排变了就继续商量，旧图不能替代现在可保存的方案。' },
   { name: 'continue_planning', grant: 'evidence:read', mutates: true, schema: planningConversationContinueInput,
-    description: '沿同一方案核对真实原动作、回执和当前日历，给下一项原对象change或新活动save提议。原行动工具返回后用actionRefs把准确stepId/actionId/actionRevision接回来；只凭相同参数不归因成功，缺失引用先inspect。每项仍走现有行动授权，不因选过方案自动执行。已成功部分不重做，未知先inspect，其他安排变化就回到同一商量。前置修改确实完成后用原planner续排完整工作/准备/休息，work:write下只记原动作地址和实际planId引用，不另建成功账本或执行循环，不把已安排说成已完成。' },
+    description: '沿同一版安排核对原动作的真实结果和当前日历，再给下一项原安排的change或新活动的save提议。原行动工具带回结果后，用actionRefs接上准确的stepId/actionId/actionRevision；没有原动作地址时先用inspect_action核对，参数相同还不能说明这一步已办成。每项仍按本人对具体动作的许可办理，点选方案本身不会执行。已办成的部分留着，结果不清楚的先核原动作，日程有变化就接着商量。前面的修改确实完成后，再用原规划器续排完整工作、准备、收尾和休息；有work:write时只保存原动作地址和实际planId，后续仍回原动作检查结果，安排好了也不等于事情做完。' },
 ];
 export const planningConversationToolDefinitions = definitions;
 const names = new Set(definitions.map(value => value.name));
@@ -70,7 +70,7 @@ export function executePlanningConversationTool(host: PlanningConversationToolHo
       const { records = [], bindings = [], ...view } = result as { records?: WorkRecord[]; bindings?: WorkSourceBinding[]; [key: string]: any };
       const actualBindings = [...bindings, ...records.flatMap(allSources)];
       if (actualBindings.some(binding => binding.refs.some(ref => !permits(ref))))
-        throw new HarnessError('work_source_changed', '实际带回的来源范围刚刚改变，未采用旧正文。');
+        throw new HarnessError('work_source_changed', '这份内容所用的原话范围刚刚变了，这次没有继续带入旧正文。');
       for (const record of records) if (host.repo.work(handle, undefined, record.id)[0]?.revision !== record.revision)
         throw new HarnessError('revision_conflict', '商量已更新，先沿当前版本继续。');
       const serialized = canonical(view), bytes = Buffer.byteLength(serialized), tokens = Math.ceil(Array.from(serialized).length / 1.4);

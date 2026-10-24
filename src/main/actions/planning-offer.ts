@@ -76,7 +76,7 @@ export class PlanningOfferService {
     const action = this.actions.get(handle, item.id), offer = action?.planningOffer;
     if (!action || !offer || action.revision !== item.revision || action.digest !== item.approvalDigest
       || canonical(item.planningOffer) !== canonical(offer))
-      throw new HarnessError('approval_mismatch', '这张卡的完整内容或版本已经改变，本次没有采用较早的方案。');
+      throw new HarnessError('approval_mismatch', '这张卡的内容刚刚变过，可以先看看现在这一版，再决定要不要这样安排。');
     if (item.done) throw new HarnessError('completion_scope', '采用一份安排与完成其中的工作是不同的事情。');
     for (const unit of offer.units) {
       // Each new step retains the original offer's dependencies and expiry.

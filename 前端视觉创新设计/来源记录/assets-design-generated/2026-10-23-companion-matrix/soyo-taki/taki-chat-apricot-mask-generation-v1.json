@@ -1,0 +1,27 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "taki",
+  "activity": "chat",
+  "palette": "apricot",
+  "layer": "mask",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-4ce6344c-6d94-427b-9321-2f46565af655",
+  "prompt": "taki-chat-apricot-mask-prompt-v1.txt",
+  "promptSha256": "0b7af2121ba8083098e07120db641b0b4235b841722a086387b3a10f07110fdf",
+  "inputs": [
+    {
+      "file": "taki-chat-apricot-mother-candidate-v1.png",
+      "sha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f",
+      "role": "sole primary-reviewed correct mother"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16921-9fe7-73b2-81e9-dfadeae00b4a/exec-4ce6344c-6d94-427b-9321-2f46565af655.png",
+  "output": {
+    "file": "taki-chat-apricot-mask-generated-v1.png",
+    "sha256": "cb670fd8bac7938b1ae33dab02e9946de78893dbec4f0b0de5122149fd1c4a71",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 367205
+  },
+  "stage": "raw imagegen matte; requires original-coordinate inspection and calibration"
+}

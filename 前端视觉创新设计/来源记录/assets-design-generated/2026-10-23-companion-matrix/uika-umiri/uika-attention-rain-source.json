@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordType": "image-generation-source",
+  "character": "uika",
+  "activity": "attention",
+  "theme": "rain",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-90715cc6-fea2-4031-977b-6a4bfcb6b4bd",
+  "intent": "lighting-weather",
+  "prompt": "uika-attention-rain-prompt-v1.txt",
+  "promptFileMatchesActualToolInput": true,
+  "recordedAt": "2026-10-24T08:02:10.256Z",
+  "inputs": [
+    {
+      "file": "uika-attention-apricot-mother-candidate-v1.png",
+      "role": "primary-approved-correct-warm-mother-edit-target",
+      "sha256": "9cae27d5754d32654b120910faacaf65077e09499224f2668d912994ee2b78ed"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "role": "primary-approved-clean-theme-lighting-reference-only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "uika-attention-rain-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "67280527c41c8407a05aeac2ca8dd2d532e78a742cd9a606b41b7a4145caa56c",
+    "bytes": 2029529
+  },
+  "review": {
+    "designerViewed": "complete original Imagegen output",
+    "designerStatus": "candidate-for-primary-review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Forward note-offering gesture and rear palm/bench support preserved, original full shoes retained. Tiny blank note stays a prop, coherent rainy illumination and no extra spotlight.",
+  "promptSha256": "588697a9eca0587c3720fe078ece50c871e1825f016ea751d234e6ad338080e6"
+}

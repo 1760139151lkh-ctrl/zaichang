@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "reading",
+  "palette": "apricot",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-b873b142-557c-4677-b379-ea9183b16969",
+  "prompt": "taki-reading-apricot-v2-prompt.txt",
+  "promptSha256": "acd710224c05b8896a6537fe192bdc98e9c7a3c9b454b02e16cf70bea901cebb",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-approved clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "taki-reading-apricot-mother-candidate-v2.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2182464,
+    "sha256": "950b6f05f48f6b0ca0335bdffb0468379b95e95576e1afd8da487be488f5314b"
+  },
+  "producerObservation": "Complete original viewed: purple-black hair/purple eyes, tan-red sailor set and dark socks restored; supported-back desk chair posture, no pencil, gaze into supported book; two shoes and real chair relation visible. Pending primary acceptance.",
+  "review": {
+    "producerViewed": "complete original",
+    "primary": "pending unless separately signed in primary review record",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

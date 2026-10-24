@@ -10,10 +10,12 @@ import {
   type LocationStatusResult,
   type MapAccessCandidate,
 } from '../shared/map-v2';
-import { WalkingGraph, metersBetween, classifyFix, inBounds } from '../shared/map-routing';
+import { WalkingGraph, metersBetween, classifyFix, inBounds, allowsFootAccess } from '../shared/map-routing';
 import { fromLocal, toLocal, estimateAccess } from './mapProfile';
 import { rankMapPoints } from '../shared/map-names';
 import type { PersonalMapPointSelector, PersonalMapPointProof } from '../shared/spatial-source';
+import type { WorkoutMapFix, WorkoutMapMatch } from '../shared/map-workout';
+import { CampusWorkoutMatcher } from './map-workout';
 export type { PersonalMapPointSelector, PersonalMapPointProof } from '../shared/spatial-source';
 import { restoreLandscapeDetailParents, restoreRecordedRoadDisplays, retainBridgeStatusConditions, retainPublishedFootRestrictions, retainPublishedPlaceAccessConditions, retainUnverifiedOfficialCorrespondences, routeConditionWarning, qualifyUndergroundStations } from '../shared/map-v3';
 
@@ -47,6 +49,7 @@ export class CampusMapAdapter {
   private dataStamp=0;
   private displayGeography:object={type:'FeatureCollection',features:[]};
   private sports:object={type:'FeatureCollection',features:[]};
+  private workoutMatcher?: { graph:MapGraph; stamp:number; matcher:CampusWorkoutMatcher };
   constructor(private directory: string, private options: { profileDirectory?: string; profileId?: string } = {}) {
     const read = (name: string) => JSON.parse(readFileSync(path.join(directory, name), 'utf8'));
     this.points = [];
@@ -296,6 +299,18 @@ export class CampusMapAdapter {
       && current.mapVersion === proof.mapVersion && current.sha256 === proof.sha256 && current.publicPointId === proof.publicPointId;
   }
   sharedSnapshot(){this.refreshProfile();return {manifest:this.overview(),places:this.allPoints(),facts:structuredClone(this.sharedFacts)};}
+  /** Local derived observations only; the workout owner retains the raw fix and
+   * its own distance/segment decisions. Public source geography is used here,
+   * never display curves, user landmarks or estimated venue reference loops. */
+  matchWorkoutFix(fix:WorkoutMapFix):WorkoutMapMatch {
+    this.refreshData();
+    if(!this.workoutMatcher||this.workoutMatcher.graph!==this.baseGraph||this.workoutMatcher.stamp!==this.dataStamp
+      ||this.manifest.dataStatus!=='ready'){
+      this.workoutMatcher={graph:this.baseGraph,stamp:this.dataStamp,
+        matcher:new CampusWorkoutMatcher(this.baseGraph,this.manifest,this.sharedFacts?.venues||[],this.geography)};
+    }
+    return this.workoutMatcher.matcher.match(fix);
+  }
   verificationGraph(){this.refreshProfile();return structuredClone(this.walking.graph);}
   routeReferences(query:MapRouteQuery,references:{id:string;name:string;coordinate:[number,number]}[]){
     this.refreshProfile();
@@ -325,6 +340,39 @@ export class CampusMapAdapter {
       .map(point => ({ point, distance: metersBetween(reference.coordinate, point.coordinate) }))
       .filter(item => item.distance <= Math.min(1000, radiusMeters)).sort((a, b) => a.distance - b.distance)
       .slice(0, Math.min(6, limit)).map(item => structuredClone(item.point));
+  }
+  /** A lake/area reference is useful for browsing but may have no walking
+   * endpoint. Discover separate named public places with recorded graph access;
+   * choosing one remains an explicit change of endpoint, never an invented door. */
+  nearbyWalkablePlaces(id: string, radiusMeters = 600, limit = 6) {
+    this.refreshProfile();
+    const reference = this.byId.get(this.canonical(id));
+    if (!reference || !['water', 'area'].includes(reference.kind) || this.manifest.dataStatus !== 'ready') return [];
+    const radius = Math.max(0, Math.min(1000, radiusMeters)), seen = new Set<string>();
+    return this.points.flatMap(point => {
+      if (point.id === reference.id || point.personal || point.historicalReference || ['water', 'area', 'node'].includes(point.kind)
+        || !point.displayName.trim() || /^未命名/.test(point.displayName)) return [];
+      const canonicalId = this.canonical(point.id);
+      if (seen.has(canonicalId)) return [];
+      const straightM = metersBetween(reference.coordinate, point.coordinate);
+      if (straightM > radius) return [];
+      const recorded = point.accessCandidates ?? point.entrances.filter(entrance => entrance.connected)
+        .map(entrance => ({ nodeId: entrance.id, kind: 'entrance' as const, conditions: undefined }));
+      const access = recorded.filter(candidate => !candidate.conditions?.length
+        && (this.walking.adjacency.get(candidate.nodeId) || []).some(({ edge }) => allowsFootAccess(edge.foot) && !edge.conditions?.length));
+      if (!access.length) return [];
+      const connectedBridgeNames = [...new Set(access.flatMap(candidate =>
+        (this.walking.adjacency.get(candidate.nodeId) || []).flatMap(({ edge }) =>
+          edge.bridge && edge.name?.trim() && allowsFootAccess(edge.foot) && !edge.conditions?.length ? [edge.name.trim()] : [])))];
+      seen.add(canonicalId);
+      return [{ point: structuredClone(point), straightM,
+        endpoint: { kind: 'place' as const, id: point.id },
+        relation: 'nearby_alternative' as const, forPlaceId: reference.id,
+        distanceBasis: 'between_public_reference_points' as const,
+        accessKinds: [...new Set(access.map(candidate => candidate.kind))], connectedBridgeNames }];
+    }).sort((a, b) => Number(!a.connectedBridgeNames.includes(a.point.displayName)) - Number(!b.connectedBridgeNames.includes(b.point.displayName))
+      || Number(a.point.kind !== 'landmark') - Number(b.point.kind !== 'landmark')
+      || a.straightM - b.straightM).slice(0, Math.max(1, Math.min(8, limit)));
   }
   deviceCandidates(coordinate: [number, number], accuracy: number) {
     if (!Number.isFinite(accuracy) || accuracy > 150 || accuracy < 0) return [];
@@ -484,7 +532,11 @@ export class CampusMapAdapter {
     const result: MapRouteResult = {
       ...base,
       status: 'ready',
-      reason: assumptionWarning?'包含待核通路的假设路线':estimateOnly?'只有接入估计；没有已记录的步行路段':estimateDominant?'主要为接入估计；实际入口与走法待核':connectorM>0?'当前路网与合格接入候选中的最短估计路线':from.roadReference||to.roadReference?'当前道路参考点与已记录接入之间的路网路线':'已知入口之间的路网最短路线',
+      reason: assumptionWarning?'已按所列通行条件成立时的情况算出路线，待核的通路保留在各路段中'
+        :estimateOnly?'两处参考点接到同一路网位置，这份结果只有接入估计，可先看两处关系；实际走法仍待核实'
+        :estimateDominant?'这份结果主要是接入估计，只有很短的已记录道路；实际入口与走法仍待核实'
+        :connectorM>0?'已记录道路这一段已经算好，可以先带着两端接入估计看这份路线；实际门口、楼内和当天通行仍需现场核对'
+        :from.roadReference||to.roadReference?'当前道路参考点与已记录接入之间的路网路线已经算好':'已知入口之间的路网路线已经算好',
       routeBasis: estimateOnly?'access_estimate_only':estimateDominant?'access_estimate_dominant':connectorM>0?'recorded_network_with_estimates':'recorded_network',
       coordinates,
       nodeIds: found.nodeIds,

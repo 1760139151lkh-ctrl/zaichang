@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "tool": "image_gen.imagegen (built-in)",
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "productionStatus": "Raw imagegen mask attempts remain unchanged. User-authorized deterministic original-scene alpha calibration/registration produced current candidates; primary layer and runtime approval remain pending.",
+  "character": "sakiko",
+  "activity": "rest",
+  "palette": "apricot",
+  "mother": {
+    "file": "sakiko-rest-apricot-mother.png",
+    "sha256": "ffdf5ac11d9d25da5347120dd7b5f19bf68a6211c991c373e1c6d2f623cebfbf"
+  },
+  "calls": [
+    {
+      "purpose": "white-body/black-room segmentation",
+      "prompt": "sakiko-rest-apricot-mask-prompt.txt",
+      "input": "sakiko-rest-apricot-mother.png",
+      "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-f183ab4e-df14-46e9-8482-80571935a84d.png",
+      "sha256": "5d614d9503ac4df2aab83e9d7c3565065df0035922cf97b5fb1e1d991c148e05",
+      "mode": "RGB",
+      "decision": "Rejected: silhouette rescaled/moved; shoe bottoms around y790 versus original around y742."
+    },
+    {
+      "purpose": "matching background by removing seated person and worn shoes",
+      "prompt": "sakiko-rest-apricot-background-prompt.txt",
+      "input": "sakiko-rest-apricot-mother.png",
+      "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-0eff5f4f-5c65-4907-9425-5c25209857ec.png",
+      "sha256": "8e9a1cbf81bd3901ecd0a5400388a1f83f0689ad2926dada97768256cc08dd1e",
+      "mode": "RGB",
+      "projectCandidate": "sakiko-rest-apricot-background.png",
+      "decision": "Candidate only, original room retained visually; primary layer/composite review pending."
+    },
+    {
+      "purpose": "segmentation retry using original exact-location instruction",
+      "prompt": "sakiko-rest-apricot-mask-v2-prompt.txt",
+      "input": "sakiko-rest-apricot-mother.png",
+      "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-75c83e65-ef1d-44a5-b5c4-cbec391abdb6.png",
+      "sha256": "c1853085b2131d98759148cf5609ca937da3989f8d4fa06a6770ed3a7e631668",
+      "mode": "RGB",
+      "decision": "Rejected: enlarged/shifted character with head around y234 instead of original around y277."
+    },
+    {
+      "purpose": "transparent extraction directly from original mother",
+      "prompt": "sakiko-rest-apricot-cutout-prompt.txt",
+      "input": "sakiko-rest-apricot-mother.png",
+      "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-e5d5b77a-a7cb-4bbd-baa6-c01505ebeb32.png",
+      "sha256": "891962b1af065c8f354953094084635601ec7f37e0c8d359bd871acd28bcba31",
+      "mode": "RGBA",
+      "decision": "Rejected: substantial enlargement/repositioning and halo; never used as new generation input."
+    },
+    {
+      "purpose": "short Chinese strict original-coordinate segmentation",
+      "prompt": "sakiko-rest-apricot-mask-v3-prompt.txt",
+      "input": "sakiko-rest-apricot-mother.png",
+      "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-1b1eac13-cb2f-4c6a-8d10-d7fb81a3f7f4.png",
+      "sha256": "a721b56b42b1cd7d8c467e5be8ddaad75102529069f2b095f445541a0c3d114c",
+      "mode": "RGB",
+      "projectDiagnostic": "sakiko-rest-apricot-mask-candidate-v3.png",
+      "decision": "Diagnostic only: original head/shoes/hand align and most hair/fingertips preserved, but a small golden window leaf remains selected beside the right head/ribbon; not accepted."
+    },
+    {
+      "purpose": "targeted window-leaf exclusion retry from original mother",
+      "prompt": "sakiko-rest-apricot-mask-v4-prompt.txt",
+      "input": "sakiko-rest-apricot-mother.png",
+      "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-897762b3-1fdd-436a-95e9-5f7ca3f074bf.png",
+      "sha256": "b0c940c80a2bbd62282a276427d8c0d7fc9f57933adaf0d0c8200820ab2e9f0f",
+      "mode": "RGB",
+      "decision": "Rejected: navy hair ribbon is dark instead of solid white and internal gray drawing remains; no production adoption."
+    }
+  ],
+  "diagnostics": {
+    "localOnly": ".test-data/life-layer-review/",
+    "files": [
+      "rest-light.png",
+      "rest-dark.png",
+      "rest-recombined.png",
+      "rest-light-detail.png",
+      "rest-dark-detail.png",
+      "rest-mother-detail.png"
+    ],
+    "method": "Original mother RGB composited with raw v3 grayscale mask for inspection on light/dark/matching-background; cropped/enlarged details are inspection evidence, not reusable source images."
+  },
+  "layerOwnership": "Both shoes in this mother are worn and belong to character. Full cushion-supporting hand, hair ends, sock and shoe edges must remain. Window leaf, pillow and cast/contact shadows belong outside mask.",
+  "deterministicCandidate": {
+    "parameters": "sakiko-rest-apricot-calibration-v6.json",
+    "processingSource": "sakiko-rest-apricot-layer-source.json",
+    "script": "listening-rest-layer-calibration.py",
+    "figure": "sakiko-rest-apricot-figure-calibrated-v4.png",
+    "alpha": "sakiko-rest-apricot-alpha-calibrated-v6.png",
+    "background": "sakiko-rest-apricot-background-calibrated-v5.png",
+    "environment": {
+      "python": "3.13.14",
+      "Pillow": "12.2.0",
+      "numpy": "2.4.6",
+      "scipy": "1.18.0"
+    },
+    "figureRgbPolicy": "All RGB copied byte-for-byte from mother; only alpha changes. Full 1536x1024, identity transform. No anatomy/room re-illustration.",
+    "evidence": {
+      "light": ".test-data/life-layer-review/rest-final-light-detail.png",
+      "dark": ".test-data/life-layer-review/rest-final-dark-detail.png",
+      "originalPosition": ".test-data/life-layer-review/rest-final-recombined.png",
+      "backgroundEndpoint": "sakiko-rest-apricot-background-calibrated-v5.png"
+    },
+    "geometry": "sakiko-rest-apricot-geometry-observations.json",
+    "scene": "sakiko-rest-apricot.scene.json",
+    "primary": "pending; producer cannot approve",
+    "runtime": "not registered or exercised"
+  },
+  "independentLayerFinish": {
+    "parameters": "sakiko-rest-apricot-layer-parameters-v7.json",
+    "processing": "sakiko-rest-apricot-layer-processing-v7.json",
+    "scene": "sakiko-rest-apricot.scene.json",
+    "actualMotherPrompt": "sakiko-rest-apricot-prompt.txt",
+    "actualMotherPromptSha256": "8583efe811a0ecc0c311f56b1a46d6fbf9db7fb0c3c968dc1c1a2c0e7b786174",
+    "outputs": {
+      "figure": "sakiko-rest-apricot-figure-calibrated-v7.png",
+      "mask": "sakiko-rest-apricot-mask-calibrated-v7.png",
+      "background": "sakiko-rest-apricot-background-calibrated-v7.png",
+      "shadow": "sakiko-rest-apricot-shadow-calibrated-v7.png"
+    },
+    "producerViewed": [
+      "original full mother",
+      "full light and dark",
+      "enlarged original-coordinate edges",
+      "complete original-position room composite"
+    ],
+    "observation": "Current calibrated v4 original-RGB figure/alpha is unchanged. Close comparison found that the previous empty background also removed the original shoe/bench contact shadows. This version extracts source-over residuals only within explicit original shoe-sole, skirt/seat and support-hand ROIs, limited to 3px from the existing figure. No synthetic ellipse, floor RGB patch, anatomy editing or translation. Pose remains fixed travel0. Existing golden rim at the rear ribbon is kept because close original-coordinate review shows the warm-lit original ribbon/hair edge; no unproven broad color removal. Primary and runtime approval pending.",
+    "primaryApproval": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "privateEvidence": ".test-data/life-layer-review/finish-rest-v7-{light,dark,room}.png"
+  }
+}

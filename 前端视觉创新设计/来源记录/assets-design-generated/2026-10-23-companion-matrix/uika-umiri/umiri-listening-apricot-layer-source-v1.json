@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-layer-generation",
+  "character": "umiri",
+  "activity": "listening",
+  "theme": "apricot",
+  "tool": "image_gen.imagegen",
+  "input": {
+    "file": "umiri-listening-apricot-mother-candidate-v1.png",
+    "sha256": "14542cd757d285f6c2d89e98466e2e2bac75d2601aa0fe61d768996ae679b171",
+    "role": "sole primary-approved complete correct mother; same-canvas separation only"
+  },
+  "calls": [
+    {
+      "part": "background",
+      "executionId": "exec-24faf511-97e8-45f3-84b8-a9fad469fc26",
+      "promptFile": "umiri-listening-apricot-background-generated-v1-prompt.txt",
+      "promptSha256": "7043161bf26a4e1d7fb1b85e56445cce4442d79d576ee280dacdb9daedfb2d2f",
+      "actualPrompt": "Use case: precise-object-edit. Technical source-registered asset for 在场, full 1536 x 1024 canvas. The ONLY image input is this exact primary-approved correct warm apricot Yahata Umiri / 八幡海铃 mother. Do not make a new pose/face/body/room, crop, zoom, recenter, enlarge a person or restore a different empty room's furniture. This is exact same-canvas separation of this existing correct scene. Remove ONLY all existing visible person pixels: hair, skin, jacket/top/skirt, arms/hands/fingers, both legs/socks/worn footwear and her personal body/palm/foot shadows. Reveal a plausible empty version of the SAME source behind her. Preserve every already visible pixel relationship: this mother's actual chair/back/seat/legs position and orientation, desk/lamp/cup/books, bench/cushions/throw, four connected window edges, curtains, lake/campus, rear-left table/shelves/plants/picture, rug/floorboard seams and warm sunlight. Locally complete surfaces hidden by her only; do not change objects or add props. The knitted throw OVER HER LAP belongs with the person and must be included/removed together. Her pair of REMOVED BLACK BOOTS standing on the floor near (1290,720) are ENVIRONMENT objects and must remain black in the matte / remain in the empty background. The bench pillows and original fixed knitted throw hanging at far right stay environment. Do not invent another leg or put boots back on her. SOURCE LOCATION: approximate original head top (1332,270), supporting pelvis (1350,580), folded leg on bench, one socked foot around (1202,770). Clear all residual human-shaped cast shadows/reflections on cushion, wooden bench front, wall and floor without clearing environmental window/plant/furniture shadows. No ghost hair, face, skin, clothing or footprint-shaped blur. Keep original tone and texture, no white gradient or color filter, text/UI/logos/watermarks/panels/arrows. Return the entire opaque empty room, exactly aligned with input.",
+      "output": {
+        "file": "umiri-listening-apricot-background-generated-v1.png",
+        "sha256": "2bc336b22c0963d1ef6dc86f6b9b2d2272bd1e43b3f83f8a35b8a219956ff1c2",
+        "bytes": 2151129,
+        "width": 1536,
+        "height": 1024
+      },
+      "designerViewed": "full original result; alpha/background still requires precise calibration and light/dark/room review"
+    },
+    {
+      "part": "mask",
+      "executionId": "exec-5be599ba-522c-4ad5-8979-844be417dcfb",
+      "promptFile": "umiri-listening-apricot-mask-generated-v1-prompt.txt",
+      "promptSha256": "cc2a2788c7cb73a4be2884fd24da07d9f21a37807af9969371c161c0d92212d8",
+      "actualPrompt": "Use case: precise-object-edit. Technical source-registered asset for 在场, full 1536 x 1024 canvas. The ONLY image input is this exact primary-approved correct warm apricot Yahata Umiri / 八幡海铃 mother. Do not make a new pose/face/body/room, crop, zoom, recenter, enlarge a person or restore a different empty room's furniture. This is exact same-canvas separation of this existing correct scene. Return an OPAQUE black-and-white source segmentation, not a new silhouette. Recolor the EXISTING PERSON and only her held or worn things pure WHITE at their ORIGINAL exact source coordinates; recolor room/background/props pure BLACK. Dark hair, jacket, skirt and worn boots also become solid white without internal shading. Only actual silhouette boundaries have narrow antialias. The knitted throw OVER HER LAP belongs with the person and must be included/removed together. Her pair of REMOVED BLACK BOOTS standing on the floor near (1290,720) are ENVIRONMENT objects and must remain black in the matte / remain in the empty background. The bench pillows and original fixed knitted throw hanging at far right stay environment. Do not invent another leg or put boots back on her. SOURCE COORDINATE GUIDES ONLY: approximate original head top (1332,270), supporting pelvis (1350,580), folded leg on bench, one socked foot around (1202,770). Do not move or trace a bounding box; follow the actual original face/hair/finger/hem/sock/shoe boundaries and actual gaps between limbs. Every existing room gap between hand/torso, fingers, legs/feet stays black; do not bridge it or fill bench/chair into the girl. Exclude ALL shadows, furniture/cushions, desks/lamp/paper/cup, window/curtain/campus/plants, floor and rug. The vast untouched remainder and all four canvas corners are pure black. No grey face drawing, room texture/noise, glow, new limb, logo/text/UI/arrows/border. Exactly 1536x1024, no rescale/recenter/crop; a registered matte only.",
+      "output": {
+        "file": "umiri-listening-apricot-mask-generated-v1.png",
+        "sha256": "ededf924b8e41093995ead94e0ee363d33e2b4f8648bab08cdd53bb513e35aa3",
+        "bytes": 362536,
+        "width": 1536,
+        "height": 1024
+      },
+      "designerViewed": "full original result; alpha/background still requires precise calibration and light/dark/room review"
+    }
+  ],
+  "review": {
+    "primary": "pending",
+    "runtime": "not integrated or accepted"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "recordType": "image-generation-extraction-history",
+  "date": "2026-10-23",
+  "tool": "image_gen.imagegen",
+  "canvas": [1536,1024],
+  "entries": [
+    {"activity":"chat","part":"background","input":"sakiko-chat-apricot-mother.png","inputSha256":"163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1","executionId":"exec-7f92f7c1-25d3-43ae-aa83-57664acb582c","prompt":"sakiko-chat-apricot-background-prompt.txt","output":"sakiko-chat-apricot-background.png","designerViewed":true,"primaryReview":"pending","integrated":false,"runtime":false},
+    {"activity":"study","part":"background","input":"sakiko-study-apricot-mother.png","inputSha256":"a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1","executionId":"exec-95518853-5d7a-4142-aec9-072ebac31f13","prompt":"sakiko-study-apricot-background-prompt.txt","output":"sakiko-study-apricot-background.png","designerViewed":true,"primaryReview":"pending","integrated":false,"runtime":false},
+    {"activity":"chat","part":"figure","input":"sakiko-chat-apricot-mother.png","executionId":"exec-7016b5e8-d9d3-428b-b5b9-65b5186d5668","prompt":"sakiko-chat-apricot-figure-prompt.txt","transparentBackground":true,"outputInWorkspace":false,"designerViewed":true,"decision":"rejected; not copied into project","reason":"Tool enlarged/repositioned the subject and added broad glow; full canvas size did not establish source-pixel registration.","integrated":false,"runtime":false},
+    {"activity":"study","part":"figure","input":"sakiko-study-apricot-mother.png","executionId":"exec-ea5abc1e-7bbc-49f0-8980-ae8d2cefeb9c","prompt":"sakiko-study-apricot-figure-prompt.txt","transparentBackground":true,"outputInWorkspace":false,"designerViewed":true,"decision":"rejected; not copied into project","reason":"Tool enlarged/repositioned the subject and painted hidden contour; broad glow violates same-canvas extraction.","integrated":false,"runtime":false}
+  ],
+  "nextMethod": "The user explicitly granted deterministic exact-scene layer processing. Opaque same-position black/white mattes and matching clean backgrounds were generated with imagegen; extract-scene-layers.py calibrates alpha and composes each figure from the unchanged original mother RGB without affine transforms or anatomy repainting. Failed transparent-imagegen extracts remain rejected.",
+  "currentLayerCandidates": [
+    {"activity":"chat","parameters":"sakiko-chat-apricot-layer-parameters-v3.json","processing":"sakiko-chat-apricot-layer-processing-v3.json","scene":"sakiko-chat-apricot.scene.json","primaryLayerReview":"pending","runtime":false},
+    {"activity":"study","parameters":"sakiko-study-apricot-layer-parameters-v8.json","processing":"sakiko-study-apricot-layer-processing-v8.json","scene":"sakiko-study-apricot.scene.json","primaryLayerReview":"pending","runtime":false},
+    {"activity":"reading","motherVersion":2,"parameters":"sakiko-reading-apricot-v2-layer-parameters-v3.json","processing":"sakiko-reading-apricot-v2-layer-processing-v3.json","scene":"sakiko-reading-apricot.scene.json","primaryLayerReview":"pending","runtime":false}
+  ]
+}

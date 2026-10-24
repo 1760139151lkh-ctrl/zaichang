@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "method": "Original RGB retained; fill only actual opaque original face pixels missed by RGB difference segmentation. No body or furniture geometry change.",
+  "mother": "soyo-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "cf664fa1fc6dcdd8fd9c8dc1cd542d4142bbe05d5d9809a101e6d58907858411",
+  "rawMask": "soyo-study-apricot-alpha-difference-v1.png",
+  "rawMaskSha256": "d16bfadbdd68c046174e63d47fbd8a223029e653aa960f6d05a0ec54d92b5284",
+  "noiseRange": [8, 247],
+  "outerNoiseBounds": [798, 325, 1035, 707],
+  "softOriginalPixelInclusions": [
+    {"polygon": [[922,382],[937,382],[943,389],[939,400],[931,408],[920,416],[915,417],[908,410],[907,396],[913,385]], "supersampling": 4}
+  ],
+  "figureOutput": "soyo-study-apricot-figure-calibrated-v2.png",
+  "maskOutput": "soyo-study-apricot-mask-calibrated-v2.png",
+  "maskFormat": "L",
+  "processingSourceOutput": "soyo-study-apricot-layer-source-v2.json"
+}

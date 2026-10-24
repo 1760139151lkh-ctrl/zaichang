@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "mother": "nyamu-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305",
+  "matte": "nyamu-chat-apricot-matte-calibrated-v4.png",
+  "matteSha256": "bc6d96f58d4d2db20b9e1b5c13b302b2cdf5bd9c12e7367248fd3a51de2cc257",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "nyamu-chat-apricot-figure-calibrated-v4.png",
+  "mask": "nyamu-chat-apricot-mask-calibrated-v4.png",
+  "backgroundCandidate": "nyamu-chat-apricot-background-candidate-v1.png",
+  "background": "nyamu-chat-apricot-background-calibrated-v4.png",
+  "shadow": "nyamu-chat-apricot-shadow-calibrated-v4.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1110,
+        590
+      ],
+      [
+        1405,
+        590
+      ],
+      [
+        1415,
+        830
+      ],
+      [
+        1105,
+        830
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1110,
+        803
+      ],
+      [
+        1157,
+        799
+      ],
+      [
+        1162,
+        819
+      ],
+      [
+        1110,
+        823
+      ]
+    ],
+    [
+      [
+        1155,
+        797
+      ],
+      [
+        1176,
+        794
+      ],
+      [
+        1178,
+        815
+      ],
+      [
+        1155,
+        817
+      ]
+    ],
+    [
+      [
+        1210,
+        813
+      ],
+      [
+        1266,
+        807
+      ],
+      [
+        1271,
+        828
+      ],
+      [
+        1210,
+        831
+      ]
+    ],
+    [
+      [
+        1273,
+        793
+      ],
+      [
+        1294,
+        790
+      ],
+      [
+        1297,
+        812
+      ],
+      [
+        1273,
+        815
+      ]
+    ],
+    [
+      [
+        1190,
+        570
+      ],
+      [
+        1410,
+        568
+      ],
+      [
+        1417,
+        604
+      ],
+      [
+        1190,
+        607
+      ]
+    ],
+    [
+      [
+        1400,
+        566
+      ],
+      [
+        1451,
+        565
+      ],
+      [
+        1455,
+        599
+      ],
+      [
+        1399,
+        600
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [],
+  "includePolygons": [],
+  "alphaPolygonRepairs": [],
+  "record": "nyamu-chat-apricot-layer-processing-v4.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "Raw fine bob restored below the upper cap; upper cap alone intersects originalRGB refinement to exclude original sky halo. Color-only v3 fine-hair selection rejected after viewing disconnected speckles. Body/ankle straps use originalRGB refinement. Shadow ROIs only source sole/heel and hip/palm contact. No source RGB changed."
+}

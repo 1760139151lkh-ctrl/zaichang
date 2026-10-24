@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "planning",
+  "palette": "mist",
+  "light": "morning",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-612b1e01-895c-4088-b209-9b48ddd623ab",
+  "prompt": "soyo-planning-mist-prompt.txt",
+  "promptSha256": "5dad0cdab390f032e090152b279a13956fd4f6ec399ba9369ae1a5a24b70f8e5",
+  "inputs": [
+    {
+      "file": "soyo-planning-apricot-mother-candidate-v2.png",
+      "sha256": "e002a836c881d736966bce3a254de9ef5e4a0417efc5b260eaeaea64d85904d6",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-612b1e01-895c-4088-b209-9b48ddd623ab.png",
+  "output": {
+    "file": "soyo-planning-mist-mother-candidate-v1.png",
+    "sha256": "1bf0b824aaf598b47f83ae40ccc4321961e5413459903a2b1427827d5082aa47",
+    "bytes": 2092469,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed against the exact approved warm-v2 planning mother and empty target plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Original far-left pulled-out desk chair, supported hips, paper-pointing fingertip, other knee hand and two floor loafers retained. Desk/lamp stay fixed; no bench substitution or independent person shrinking. Full-room light coherent, violet sun/lake axisnear1007/1003, rain corner quiet. Actual fixed desk calibration must use this distinct left placement. Primary/layer/runtime review separate."
+}

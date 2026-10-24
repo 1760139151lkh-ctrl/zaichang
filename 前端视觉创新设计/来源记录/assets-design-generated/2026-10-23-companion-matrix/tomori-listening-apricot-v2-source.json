@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "listening",
+  "light": "apricot",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-4daf8a5c-c984-48ce-b186-9b36df2bebdb",
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved_clean_empty_room_only_image_input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "sourceIdentity": "Official full-figure identity translated to text only. Rejected listening v1 and all previous character images excluded from inputs.",
+  "prompt": "tomori-listening-apricot-v2-prompt.txt",
+  "promptSha256": "25f7f216045bf157a0f26b91048ebb333ed8e76d618888910256e0a5d1b824d0",
+  "output": {
+    "file": "tomori-listening-apricot-v2-mother.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2144101,
+    "sha256": "5e7191c4c0aacd44ba34a9ecafa796cd77bf7592dbbe763acf6b175ee9d12428"
+  },
+  "review": {
+    "designerViewed": "complete original output",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Clear rightward diagonal torso/shoulder weight with right arm and palm on original cushion/seat, left hand resting low on thigh. Closed notebook at side, separate uncrossed legs and whole loafers at floor contacts. Original desks/chair unchanged. Actual output palm carries support more than the requested elbow contact; primary must judge activity distinction and exact body/cushion relation. No author acceptance."
+}

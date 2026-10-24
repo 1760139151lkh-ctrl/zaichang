@@ -1,0 +1,100 @@
+{
+  "mother": "anon-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "2e9a7c010f52939149c5a93b43eb3f1ab996f9ed25bbcbaa3a7522038b1f9fbe",
+  "matte": "anon-study-apricot-mask-generated-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 240,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "anon-study-apricot-figure-calibrated-v2.png",
+  "mask": "anon-study-apricot-mask-calibrated-v2.png",
+  "backgroundCandidate": "anon-study-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 3,
+  "backgroundFeatherPixels": 1,
+  "background": "anon-study-apricot-background-calibrated-v2.png",
+  "record": "anon-study-apricot-layer-processing-v2.json",
+  "reviewNote": "v2 alpha only: original-source coordinate inspection removes cream chair-seat triangles below the actual skirt hem. No RGB/anatomy/pose changes; original knee/thigh contour retained. Primary review pending.",
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        770,
+        550,
+        904,
+        607
+      ],
+      "mode": "intersect",
+      "featherPixels": 0.25,
+      "polygon": [
+        [
+          770,
+          550
+        ],
+        [
+          904,
+          550
+        ],
+        [
+          904,
+          583
+        ],
+        [
+          883,
+          584
+        ],
+        [
+          876,
+          585
+        ],
+        [
+          870,
+          588
+        ],
+        [
+          861,
+          592
+        ],
+        [
+          853,
+          595
+        ],
+        [
+          847,
+          594
+        ],
+        [
+          840,
+          591
+        ],
+        [
+          829,
+          590
+        ],
+        [
+          820,
+          588
+        ],
+        [
+          805,
+          586
+        ],
+        [
+          793,
+          583
+        ],
+        [
+          783,
+          581
+        ],
+        [
+          776,
+          576
+        ],
+        [
+          770,
+          573
+        ]
+      ]
+    }
+  ]
+}

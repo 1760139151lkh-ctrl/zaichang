@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "chat",
+  "palette": "mist",
+  "light": "morning",
+  "generatedOn": "2026-10-23",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-c941524b-e06b-4abc-8e6a-e30565b0a87f",
+  "prompt": "taki-chat-mist-prompt.txt",
+  "promptSha256": "d6fe32b2aca2595f3e3d84725d360ef9317f8d507451f76f8732838872638835",
+  "inputs": [
+    {
+      "file": "taki-chat-apricot-mother-candidate-v1.png",
+      "role": "primary-reviewed correct complete mother: identity, full pose and furniture support",
+      "sha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "role": "primary-reviewed empty complete target lighting plate",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16921-9fe7-73b2-81e9-dfadeae00b4a/exec-c941524b-e06b-4abc-8e6a-e30565b0a87f.png",
+  "output": {
+    "file": "taki-chat-mist-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2119679,
+    "sha256": "e3fc520bcca02e7c72dcee83ea818a288a89676582dfd0870cfb31b86a7261c3"
+  },
+  "review": {
+    "producerViewed": "complete generated original and its approved warm mother/target plate personally compared",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Same youthful purple-black hair/purple eyes/tan-white uniform/red ribbon and forward chat silhouette, independent staggered legs and complete shoes. Whole room has coherent blue-white diffuse morning and lake mist, preserving wood and natural skin. Primary mother, layer and runtime review remain pending."
+}

@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-theme-mother-candidate",
+  "character": "umiri",
+  "activity": "rest",
+  "theme": "violet",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "executionId": "exec-63863b4f-0232-40a0-84bc-c2aeeb2b440d",
+  "inputs": [
+    {
+      "path": "umiri-rest-apricot-mother-candidate-v1.png",
+      "sha256": "6b87f182136d50c688a202a5ed0eee455644c859b4544b4e3481e7499d45c8e8",
+      "role": "image 1 sole approved activity edit target and all person/furniture geometry authority"
+    },
+    {
+      "path": "../room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "image 2 only dusk lighting/sky with sun (1007,302) and x1007 lake reflection, never furniture geometry"
+    }
+  ],
+  "promptFile": "umiri-rest-violet-v2-submitted-prompt.txt",
+  "actualPrompt": "SOLE TARGET FILE: umiri-rest-apricot-mother-candidate-v1.png. Activity: rest. Theme: violet.\nUse case: lighting-weather. Asset ID: umiri-rest-violet-v2. One complete 1536 x 1024 coherent dusk mother scene.\n\nTWO INPUTS WITH STRICTLY DIFFERENT ROLES:\nIMAGE 1 is the ONLY EDIT TARGET: the primary-approved complete Umiri rest apricot v1 mother. It is the sole authority for ALL geometry and character pixels: camera/framing, full window, room/furniture positions, the exact existing chair orientation, every character proportion/face/expression/pose/hand/finger/leg/boot and their scale/location.\nIMAGE 2 is ONLY the primary-approved EMPTY ROOM VIOLET LIGHTING/WEATHER REFERENCE. Use it solely for the exact sun-disc center, its lake-reflection axis, sky illumination and coherent dusk lighting. Do NOT import its empty chair position/orientation, furniture geometry or absence of a person. Do not replace image 1 with image 2 or paste a person onto a background.\n\nGEOMETRY LOCK TO IMAGE 1: keep the same complete 1536 x 1024 canvas, mild perspective, all four connected window corners, curtains, existing lake/campus/clocktower landmarks, rear-left table/chair/shelves/plant/framed drawing, right desk/lamp/cup/book, original outward-turned character chair with every visible chair leg, bench/pillows/knitted throw, floorboards and rug. IDENTITY AND ACTIVITY LOCK: this is Yahata Umiri (八幡海鈴), the same youthful charcoal-gray shoulder-length flipped-tip hair, gray-teal eyes, short black jacket, dark-red top, gray short skirt, choker/earrings and black platform boots already painted in the input. Keep her ORIGINAL REST posture leaning back on the right bench, face and gaze turned toward the window to the LEFT, one hand on thigh and the other braced on the bench. Both uncrossed legs and complete black boots stay at their original floor contacts. Keep original cushion/pillow support, quiet face and body rotation; do not turn to the user or add a book/phone. Preserve all original contact/occlusion relationships. No crop, zoom, enlargement, separate person scaling, pose change, body/face redesign or new furniture/object/person.\n\nLOCK THE ONE SUN AND REFLECTION TO IMAGE 2, NOT TO ANOTHER CANDIDATE: the physical sun-disc center is approximately (1007,302) on the full 1536 x 1024 canvas. Match that same reference position and scale, with the single vertical bright reflection column directly BELOW on the lake at approximately x=1007. The existing clocktower stays around x=1218, so the sun and its reflection are clearly LEFT of the clocktower. Do not put the sun at x1080, x1200 or near the right window edge. Do not add a second sun or independent second reflection column. Match the reference's continuous rose-gold horizon, violet/lilac cloud shadows, and distant dusk landscape across the WHOLE connected window. Keep image 1 landmark geometry unchanged.\n\nRelight the WHOLE image 1 room AND Umiri using the same reference-locked rose-gold low window light and quiet violet shadows. Preserve material colors: ivory plaster, honey wood, neutral linen, black leather/red top/gray skirt and natural readable skin. Warm hair/skin/window edges agree with this sun axis; no purple skin, green cast, gray desaturation or flat full-image orange/purple filter. The existing desk lamp in image 1 turns ON at its exact original location/shape, with only its modest physically local warm light pool. It and the one reference-position sunset are the only depicted sources: no new lamp, left-rear spotlight, unexplained light cone or black/white overlay.\n\nMaintain image 1's lived-in left depth and clear central floor; preserve fine original youthful anime linework and softly detailed environment. No text, UI, logos, watermark, split-screen, panel, arrows, inset, borders, cloud/sky collage or duplicate view. Return the full same-person, same-pose, same-furniture scene with the approved reference's exact sun/reflection axis.\n",
+  "actualPromptSha256": "4b84e0c15e4079d6f58b4cafc78b588bfcbe0e810dff0b4b717bf80952640a0d",
+  "promptFileSha256": "4b84e0c15e4079d6f58b4cafc78b588bfcbe0e810dff0b4b717bf80952640a0d",
+  "output": {
+    "path": "umiri-rest-violet-mother-candidate-v2.png",
+    "sha256": "8676928624a2d35e4b77c60e03e4d1189e41b9ae575b231983dbb4565e52f7fd",
+    "bytes": 2230497,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-24T08:36:15.050860+00:00"
+  },
+  "designerReview": {
+    "status": "viewed-candidate",
+    "personallyViewed": true,
+    "sunCenterApprox": [
+      1007,
+      302
+    ],
+    "lakeReflectionAxisApproxX": 1007,
+    "sourcePixelObservation": {
+      "method": "After whole-image inspection: bright solar-disc largest component within [980,285,1035,315], R>248 G>225 B>150; water x-weighted max(G-185,0) in [980,400,1030,460] with R>245 B>100. Read-only observation, not artwork editing or an approval rule. Bright centroid is not the geometric disc center.",
+      "sunBrightCentroid": [
+        1006.48,
+        301.58
+      ],
+      "reflectionBrightAxisX": 1002.89
+    },
+    "observation": "Full result viewed: original side-facing head looks left to the window, hips/bench and rear pillow support remain; one hand rests on thigh and one braces the seat. Both original uncrossed legs and complete boot-floor contacts fit inside the full canvas. One solar disc left of the clocktower with the same lake reflection column; furniture and local lamp retained. No book, face-to-camera reset or new light source observed."
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "layersAccepted": false,
+  "runtimeAccepted": false,
+  "draftPromptFile": "umiri-rest-violet-v2-prompt.txt",
+  "draftPromptFileSha256": "e4ea8cc78b10953ee38279f059fdf53a03de9f35a8bc638650994aa70f2f46d2",
+  "promptSha256": "4b84e0c15e4079d6f58b4cafc78b588bfcbe0e810dff0b4b717bf80952640a0d",
+  "promptFileMatchesActualToolInput": true
+}

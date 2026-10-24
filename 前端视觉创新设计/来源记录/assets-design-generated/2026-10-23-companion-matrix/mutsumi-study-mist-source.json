@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "mutsumi",
+  "activity": "study",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-study-mist-prompt.txt",
+  "promptSha256": "55eb813e5c06258f5b64cf053bc9466fbdd7195d0dc2cb2eef64189672b483a8",
+  "inputs": [
+    {
+      "file": "mutsumi-study-apricot-mother-candidate-v1.png",
+      "role": "sole primary-approved correct activity apricot mother/edit target",
+      "sha256": "066435e9a63e68d8d026773f7154a8b50275e0c78f0451aa69c99082b7581606",
+      "approvalRecord": "primary-other-mother-reviews.json"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-study-mist-mother-candidate-v1.png",
+    "sha256": "c4c2903877bb26b8ce8cdf611002adef02f0f8089164d0067538d4efe68ec57b",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-30389cfb-8642-4cab-a084-fe5665bd9924.png"
+  },
+  "producerTransform": "No crop, separate scale, translation or post-generation filter; whole-scene physical relight requested.",
+  "generationStatus": "candidate awaiting producer/primary full-image review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

@@ -1,0 +1,105 @@
+{
+  "purpose": "local alpha cleanup only; no RGB/anatomy repaint",
+  "input": "uika-study-apricot-mask-raw-v1.png",
+  "inputSha256": "e7424fd235fe6ab2f2ec0bb815043fd56c5d15ea2cdef8d3742b94b84d634857",
+  "reference": "uika-study-apricot-mother-candidate-v1.png",
+  "referenceSha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0",
+  "regionXYXY": [
+    790,
+    340,
+    859,
+    416
+  ],
+  "protectedOriginalHairInterior": [
+    [
+      848,
+      357
+    ],
+    [
+      868,
+      342
+    ],
+    [
+      889,
+      337
+    ],
+    [
+      902,
+      340
+    ],
+    [
+      917,
+      347
+    ],
+    [
+      930,
+      360
+    ],
+    [
+      940,
+      374
+    ],
+    [
+      946,
+      391
+    ],
+    [
+      940,
+      404
+    ],
+    [
+      932,
+      415
+    ],
+    [
+      920,
+      430
+    ],
+    [
+      908,
+      438
+    ],
+    [
+      898,
+      427
+    ],
+    [
+      887,
+      419
+    ],
+    [
+      873,
+      412
+    ],
+    [
+      854,
+      416
+    ],
+    [
+      840,
+      410
+    ],
+    [
+      824,
+      407
+    ],
+    [
+      813,
+      400
+    ],
+    [
+      819,
+      386
+    ],
+    [
+      834,
+      370
+    ]
+  ],
+  "reason": "Restrict color cleanup to identified left outer sky/leaf arcs only. Crown, forehead highlights, face, hanging front locks and shirt are not subjected to color rejection. Earlier overbroad variants are rejected.",
+  "rule": "Begin raw mask luminance. Pillow ImageDraw polygon defines protectedOriginalHairInterior. Inside region and outside protection and raw luminance>0, set luminance=0 if (R<G) or (B>R-8 and G>R-18) or (G-B>50 and R-G<35). Every other luminance byte unchanged. Original RGB read only.",
+  "changedAlphaPixels": 174,
+  "output": "uika-study-apricot-mask-local-color-v5.png",
+  "outputSha256": "fa13904e1ca93d8d80b014d7af9fc5cb291310e250020dbac056f19baa6c8756",
+  "transform": "identity"
+}

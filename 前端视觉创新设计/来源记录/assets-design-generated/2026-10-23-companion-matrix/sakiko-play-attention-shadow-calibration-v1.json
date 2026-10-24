@@ -1,0 +1,320 @@
+{
+  "recordType": "deterministic-original-contact-shadow-extraction",
+  "authorization": "Explicit user permission for precise same-scene layering; only measured source-pair residuals, no body/face/pose repaint.",
+  "script": "sakiko-play-attention-shadow-v1.py",
+  "scriptSha256": "508b805c25146da3a6e08e04cc272466537f44c050c6b42066c29478054c3145",
+  "methodReference": "uika-umiri/uika-chat-apricot-calibrate-v1.py source-pair residual method; no borrowed contact coordinates",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "libraries": {
+    "Pillow": "12.2.0",
+    "numpy": "2.4.6"
+  },
+  "renderOrder": "matching full generated BG, transformed shadow, same transformed original-RGB RGBA figure",
+  "items": [
+    {
+      "activity": "play",
+      "inputs": [
+        {
+          "file": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-mother.png",
+          "sha256": "c81824391b45219eb973c49fc435e5040daa1c310c5f3ad0a4b60adf044f96f3"
+        },
+        {
+          "file": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-background.png",
+          "sha256": "a1989f693c6e0c54f82941efe521e2ab20f6203a7e29461599efd3fbfb0b25c5"
+        },
+        {
+          "file": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-figure.png",
+          "sha256": "be5aa89cda6ed51084f17055fc96c4820aa4af74c13df488fcb898ce3e9a21bb"
+        }
+      ],
+      "registration": "identity on original full canvas; matching room/camera manually compared; no body or image transform",
+      "contactPolygons": {
+        "frontShoeFloor": [
+          [
+            1090,
+            827
+          ],
+          [
+            1123,
+            826
+          ],
+          [
+            1165,
+            835
+          ],
+          [
+            1173,
+            845
+          ],
+          [
+            1160,
+            856
+          ],
+          [
+            1121,
+            858
+          ],
+          [
+            1084,
+            848
+          ]
+        ],
+        "rearShoeFloor": [
+          [
+            1190,
+            794
+          ],
+          [
+            1210,
+            790
+          ],
+          [
+            1258,
+            799
+          ],
+          [
+            1273,
+            809
+          ],
+          [
+            1270,
+            819
+          ],
+          [
+            1235,
+            825
+          ],
+          [
+            1191,
+            816
+          ]
+        ],
+        "hipCushion": [
+          [
+            1144,
+            585
+          ],
+          [
+            1200,
+            580
+          ],
+          [
+            1300,
+            594
+          ],
+          [
+            1364,
+            594
+          ],
+          [
+            1366,
+            611
+          ],
+          [
+            1295,
+            619
+          ],
+          [
+            1180,
+            607
+          ],
+          [
+            1140,
+            598
+          ]
+        ],
+        "palmCushion": [
+          [
+            1353,
+            582
+          ],
+          [
+            1435,
+            585
+          ],
+          [
+            1446,
+            600
+          ],
+          [
+            1405,
+            608
+          ],
+          [
+            1355,
+            601
+          ]
+        ]
+      },
+      "formula": "A=clamp(maxChannels((B-M)/max(B,1)),0,.82)*localSourceContact*(1-figureAlpha); C=clip((M-B*(1-A))/A,0,255)",
+      "rgbaMeaning": "normal source-over source-pair residual, not multiply or a painted black ellipse",
+      "featherPixels": 1.2,
+      "maxOpacity": 0.82,
+      "nonzeroAlphaPixels": 3751,
+      "alphaBounds": [
+        1081,
+        582,
+        1448,
+        860
+      ],
+      "output": {
+        "file": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-shadow.png",
+        "sha256": "f15bb68662cae420191766651918371e16b448fd6dce371492edc5aad7b94034",
+        "bytes": 18983
+      },
+      "review": "candidate only; light/dark and matching-background endpoints need actual review; no primary/runtime signature"
+    },
+    {
+      "activity": "attention",
+      "inputs": [
+        {
+          "file": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-mother.png",
+          "sha256": "5631cdd842797d1e46b898b9e5914f250cb5d66e8a058878eee2547e1f707017"
+        },
+        {
+          "file": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-background.png",
+          "sha256": "eed37175265d0af116b6373548e440b83b646e14c35f0958786160a5e46744bf"
+        },
+        {
+          "file": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-figure.png",
+          "sha256": "3d0f61e0b1199e736140a50f34b48f21098063c0c0afce6682a20f1cfdddc8dc"
+        }
+      ],
+      "registration": "identity on original full canvas; matching room/camera manually compared; no body or image transform",
+      "contactPolygons": {
+        "leftShoeFloor": [
+          [
+            1122,
+            754
+          ],
+          [
+            1148,
+            751
+          ],
+          [
+            1184,
+            758
+          ],
+          [
+            1196,
+            769
+          ],
+          [
+            1178,
+            780
+          ],
+          [
+            1138,
+            779
+          ],
+          [
+            1118,
+            769
+          ]
+        ],
+        "rightShoeFloor": [
+          [
+            1178,
+            771
+          ],
+          [
+            1210,
+            767
+          ],
+          [
+            1258,
+            774
+          ],
+          [
+            1275,
+            784
+          ],
+          [
+            1265,
+            800
+          ],
+          [
+            1218,
+            802
+          ],
+          [
+            1181,
+            790
+          ]
+        ],
+        "hipCushion": [
+          [
+            1175,
+            572
+          ],
+          [
+            1210,
+            566
+          ],
+          [
+            1350,
+            583
+          ],
+          [
+            1380,
+            591
+          ],
+          [
+            1380,
+            607
+          ],
+          [
+            1310,
+            618
+          ],
+          [
+            1190,
+            599
+          ]
+        ],
+        "palmCushion": [
+          [
+            1370,
+            570
+          ],
+          [
+            1445,
+            570
+          ],
+          [
+            1455,
+            588
+          ],
+          [
+            1415,
+            598
+          ],
+          [
+            1375,
+            589
+          ]
+        ]
+      },
+      "formula": "A=clamp(maxChannels((B-M)/max(B,1)),0,.82)*localSourceContact*(1-figureAlpha); C=clip((M-B*(1-A))/A,0,255)",
+      "rgbaMeaning": "normal source-over source-pair residual, not multiply or a painted black ellipse",
+      "featherPixels": 1.2,
+      "maxOpacity": 0.82,
+      "nonzeroAlphaPixels": 6148,
+      "alphaBounds": [
+        1116,
+        566,
+        1458,
+        805
+      ],
+      "output": {
+        "file": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-shadow.png",
+        "sha256": "f767f15e2beb27b4524fe61f0778428ee62f44366fd64efadb5dd7a9a9968c42",
+        "bytes": 26922
+      },
+      "review": "candidate only; light/dark and matching-background endpoints need actual review; no primary/runtime signature"
+    }
+  ]
+}

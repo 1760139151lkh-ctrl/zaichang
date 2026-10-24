@@ -1,0 +1,14 @@
+{
+  "mother": "taki-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f",
+  "matte": "taki-chat-apricot-mask-generated-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "taki-chat-apricot-figure-calibrated-v1.png",
+  "mask": "taki-chat-apricot-mask-calibrated-v1.png",
+  "record": "taki-chat-apricot-layer-processing-v1.json",
+  "reviewNote": "First original-RGB/soft-alpha extraction only. No geometry transform, component deletion, contour completion or RGB repaint. Generated BG and contact shadow calibration follow actual edge review; no runtime admission inferred."
+}

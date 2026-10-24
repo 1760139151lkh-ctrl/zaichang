@@ -12,6 +12,24 @@ dialog.panel.local-search-panel { width: min(890px, calc(100vw - 64px)); max-hei
 .local-search-kinds { display: inline-flex; gap: 3px; padding: 4px; border-radius: 25px; margin: 20px 0 22px; background: var(--wash); }
 .local-search-kinds button { padding: 8px 24px; font-size: 13px; border-radius: 22px; color: var(--text-secondary); }
 .local-search-kinds button[aria-pressed='true'] { color: var(--surface); background: var(--accent); }
+.local-search-scope { margin: -6px 0 24px; padding-bottom: 18px; border-bottom: 1px solid var(--separator); }
+.local-scope-choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.local-scope-choices button { padding: 8px 14px; border: 1px solid var(--separator); border-radius: 10px; font-size: 12px; color: var(--text-secondary); }
+.local-scope-choices button[aria-pressed='true'] { border-color: var(--accent-dim); color: var(--accent); background: color-mix(in srgb, var(--accent) 6%, transparent); }
+.local-scope-chips { display: flex; flex-wrap: wrap; gap: 7px; margin: 14px 0 12px; }
+.local-scope-chips button { display: inline-flex; align-items: center; gap: 9px; max-width: 100%; padding: 7px 10px; border-radius: 9px; background: var(--accent-soft); color: var(--text-secondary); font-size: 12px; text-align: left; }
+.local-scope-chips button span { overflow-wrap: anywhere; }
+.local-scope-chips button svg { flex-shrink: 0; }
+.local-scope-picker { margin-top: 12px; font-size: 12px; color: var(--text-secondary); }
+.local-scope-picker summary { cursor: pointer; line-height: 1.8; padding: 4px 0; color: var(--accent); }
+.local-scope-list { max-height: 210px; overflow: auto; overscroll-behavior: contain; margin-top: 8px; padding: 2px 6px 2px 0; }
+.local-scope-list label { display: flex; align-items: center; gap: 12px; padding: 10px 4px; border-bottom: 1px solid var(--separator); cursor: pointer; }
+.local-scope-list input { flex: 0 0 auto; width: 16px; height: 16px; margin: 0; accent-color: var(--accent); }
+.local-scope-list label > span { min-width: 0; }
+.local-scope-list strong { display: block; font-size: 13px; font-weight: 500; line-height: 1.6; overflow-wrap: anywhere; }
+.local-scope-list small { display: block; margin-top: 3px; font-size: 11px; color: var(--text-tertiary); }
+.local-scope-list label:has(input:disabled) { opacity: .5; cursor: default; }
+.local-scope-picker > p { font-size: 12px; line-height: 1.8; margin-bottom: 0; }
 .local-search-results { min-height: 230px; }
 .local-search-caption { font-size: 11px; letter-spacing: .08em; color: var(--text-tertiary); margin: 0 0 10px 3px; }
 .local-search-hit { width: 100%; display: flex; align-items: center; text-align: left; gap: 19px; padding: 20px 17px; border: 1px solid var(--separator); border-radius: 16px; margin-bottom: 11px; background: color-mix(in srgb, var(--surface) 77%, var(--bg)); }

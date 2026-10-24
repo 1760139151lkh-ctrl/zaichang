@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "intent": "Whole-scene physical time/weather/lighting edit of a primary-approved correct full mother. No character-generation input exception is inferred for rejected mothers.",
+  "prompt": "mutsumi-chat-mist-prompt.txt",
+  "promptSha256": "09796955747c09be5f7a840fcc9ce5ae5c378d4c0d366c0d3c1cb6faccf274d3",
+  "inputs": [
+    {
+      "file": "mutsumi-chat-apricot-mother-candidate-v1.png",
+      "role": "sole primary-approved complete mother/edit target",
+      "sha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a",
+      "approvalRecord": "primary-other-mother-reviews.json"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-chat-mist-mother-candidate-v1.png",
+    "sha256": "2cdd610f3588b60b55e14300ff4f06674ccecf0d0452f380cb8e1ae0d78556fb",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-bcb082f6-ca00-4ac8-adb3-aef05104a7e9.png"
+  },
+  "producerTransform": "No crop/scale/translation or post-generation color filter applied. Geometry preservation is a visual observation of model output, not a claim of pixel identity across relighting.",
+  "designerObservation": "Complete image personally viewed against approved apricot mother. Overcast blue-white morning and lake mist, soft cool-neutral room with natural wood and skin; former hard golden wall/floor leaf shadows removed. Mint hair/navy-white uniform retain material identity. Same chat hips/hands/knees/shoes and furniture visually preserved. Lamp appears unlit in daytime. Primary light/anatomy review pending.",
+  "primaryReview": "pending; theme gate only, producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

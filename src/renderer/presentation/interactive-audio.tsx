@@ -11,6 +11,8 @@ interface Scope {
   sync: (id: string, voice: Voice) => void;
   remove: (id: string) => void;
   enabled: boolean; count: number; issue: string;
+  playing: number;
+  signal: () => Float32Array | undefined;
   toggle: (trusted: boolean) => void;
 }
 const AudioScope = createContext<Scope | null>(null);
@@ -22,11 +24,16 @@ export function InteractiveAudioScope({ scopeKey, inputs, userAction, disabled, 
   scopeKey: string; inputs: ProgramStateValues; userAction: { serial: number; origin: string }; disabled: boolean; children: ReactNode;
 }) {
   const root = useRef<HTMLDivElement>(null), context = useRef<AudioContext | undefined>(undefined), master = useRef<GainNode | undefined>(undefined);
+  const analyser = useRef<AnalyserNode | undefined>(undefined), samples = useRef(new Float32Array(1024));
   const voices = useRef(new Map<string, Voice>()), sounds = useRef(new Set<Sound>());
   const [enabled, setEnabled] = useState(false), [count, setCount] = useState(0), [issue, setIssue] = useState('');
+  const [playing, setPlaying] = useState(0);
   const current = useRef({ enabled, disabled, userAction }); current.current = { enabled, disabled, userAction };
   const armed = useRef(false), visible = useRef(true);
-  const mix = () => { if (context.current && master.current) master.current.gain.setTargetAtTime(.7 / Math.max(1, sounds.current.size), context.current.currentTime, .008); };
+  const mix = () => {
+    if (context.current && master.current) master.current.gain.setTargetAtTime(.7 / Math.max(1, sounds.current.size), context.current.currentTime, .008);
+    setPlaying(sounds.current.size);
+  };
   const stopAll = () => {
     armed.current = false;
     for (const sound of sounds.current) { try { sound.oscillator.stop(); } catch { /* already ended */ } sound.oscillator.disconnect(); sound.gain.disconnect(); }
@@ -46,8 +53,10 @@ export function InteractiveAudioScope({ scopeKey, inputs, userAction, disabled, 
     if (current.current.disabled || !visible.current) return;
     try {
       if (!context.current || context.current.state === 'closed') {
-        const clock = new AudioContext(), output = clock.createGain();
-        output.gain.value = .7; output.connect(clock.destination); context.current = clock; master.current = output;
+        const clock = new AudioContext(), output = clock.createGain(), trace = clock.createAnalyser();
+        trace.fftSize = samples.current.length;
+        output.gain.value = .7; output.connect(trace); trace.connect(clock.destination);
+        context.current = clock; master.current = output; analyser.current = trace;
       }
       // Scheduling during a trusted resume keeps the first press intact.
       // A later blur may disarm it; the resolved promise must not re-arm it.
@@ -80,9 +89,15 @@ export function InteractiveAudioScope({ scopeKey, inputs, userAction, disabled, 
     else if (value.sustainLevel === 0) oscillator.stop(now + (value.attackMs + value.decayMs) / 1000 + .02);
   };
   const api = useMemo(() => ({
+    signal() {
+      if (!analyser.current || !armed.current || !sounds.current.size || !current.current.enabled || current.current.disabled
+        || context.current?.state !== 'running') return;
+      analyser.current.getFloatTimeDomainData(samples.current); return samples.current;
+    },
     sync(id: string, voice: Voice) {
       const before = voices.current.get(id); voices.current.set(id, voice);
-      if (!before) { setCount(voices.current.size); return; }
+      setCount([...voices.current.values()].filter(value => value.frequency !== null).length);
+      if (!before) return;
       const newStrike = voice.trigger === undefined ? !before.gate && voice.gate : typeof voice.trigger === 'boolean'
         ? before.trigger === false && voice.trigger : before.trigger !== undefined && before.trigger !== voice.trigger;
       if (newStrike && current.current.userAction.origin !== 'reset' && current.current.userAction.serial > 0) {
@@ -105,7 +120,7 @@ export function InteractiveAudioScope({ scopeKey, inputs, userAction, disabled, 
         }
     },
     remove(id: string) {
-      voices.current.delete(id); setCount(voices.current.size);
+      voices.current.delete(id); setCount([...voices.current.values()].filter(value => value.frequency !== null).length);
       for (const sound of [...sounds.current]) if (sound.id === id) {
         try { sound.oscillator.stop(); } catch { /* already ended */ } sound.oscillator.disconnect(); sound.gain.disconnect(); sounds.current.delete(sound);
       }
@@ -120,15 +135,20 @@ export function InteractiveAudioScope({ scopeKey, inputs, userAction, disabled, 
     if (root.current) observer.observe(root.current);
     return () => {
       observer.disconnect(); window.removeEventListener('blur', disarm); document.removeEventListener('visibilitychange', hidden);
-      stopAll(); void context.current?.close(); context.current = undefined; master.current = undefined;
+      stopAll(); analyser.current?.disconnect(); void context.current?.close(); context.current = undefined; master.current = undefined; analyser.current = undefined;
     };
   }, [scopeKey]);
   useEffect(() => { if (disabled || !enabled) stopAll(); }, [disabled, enabled]);
   const gesture = (trusted: boolean) => { if (trusted && current.current.enabled && !current.current.disabled) void activate(); };
-  const value: Scope = { ...api, inputs, enabled, count, issue,
+  // React portal events still cross this provider. A native source surface
+  // owns its own focus/drag lifecycle, even when it is displayed by SourceSlot.
+  const ownsGesture = (target: EventTarget | null) => target instanceof Element && !!root.current?.contains(target)
+    && !target.closest('.interactive-source-slot');
+  const value: Scope = { ...api, inputs, enabled, count, issue, playing,
     toggle: trusted => { if (!trusted) return; if (current.current.enabled) { stopAll(); setEnabled(false); } else { setEnabled(true); void activate(); } } };
   return <AudioScope.Provider value={value}><div ref={root} className="interactive-audio-scope"
     onPointerDownCapture={event => {
+      if (!ownsGesture(event.target)) return;
       gesture(event.nativeEvent.isTrusted);
       if (event.target instanceof Element) {
         const article = root.current?.querySelector<HTMLElement>('.interactive-document');
@@ -140,7 +160,8 @@ export function InteractiveAudioScope({ scopeKey, inputs, userAction, disabled, 
       if (event.relatedTarget instanceof Node && root.current?.contains(event.relatedTarget)) return;
       stopAll(); void context.current?.suspend();
     }}
-    onKeyDownCapture={event => gesture(event.nativeEvent.isTrusted)} onClickCapture={event => gesture(event.nativeEvent.isTrusted)}>{children}</div></AudioScope.Provider>;
+    onKeyDownCapture={event => { if (ownsGesture(event.target)) gesture(event.nativeEvent.isTrusted); }}
+    onClickCapture={event => { if (ownsGesture(event.target)) gesture(event.nativeEvent.isTrusted); }}>{children}</div></AudioScope.Provider>;
 }
 
 export function InteractiveSoundToggle() {
@@ -163,4 +184,51 @@ export function InteractiveVoice({ props }: ComponentRenderProps<Record<string, 
   useEffect(() => { scope?.sync(props.id, voice); }, [scope?.sync, props.id, key]);
   useEffect(() => () => { scope?.remove(props.id); }, [scope?.remove, props.id]);
   return null;
+}
+
+/** A view of the same synthesizer output, never a second oscillator or a
+ * fictional signal inferred from model-authored geometry. */
+export function InteractiveAudioTrace({ props }: ComponentRenderProps<Record<string, any>>) {
+  const scope = useContext(AudioScope), root = useRef<SVGSVGElement>(null), path = useRef<SVGPathElement>(null);
+  const height = Number(props.height), baseline = `M0,${height / 2}L760,${height / 2}`;
+  useEffect(() => {
+    let frame: number | undefined, visible = false;
+    let sampledAt = 0;
+    const preference = matchMedia('(prefers-reduced-motion: reduce)');
+    const clear = () => { if (frame !== undefined) cancelAnimationFrame(frame); frame = undefined; path.current?.setAttribute('d', baseline); };
+    const draw = (now = performance.now()) => {
+      if (!visible || document.hidden || !scope?.enabled || !scope.playing) { clear(); return; }
+      if ((document.documentElement.dataset.motion === 'reduced' || preference.matches) && now - sampledAt < 200) {
+        frame = requestAnimationFrame(draw); return;
+      }
+      sampledAt = now;
+      const values = scope.signal();
+      if (values) {
+        // A rising zero crossing steadies periodic sounds without changing
+        // their amplitude, time scale or the audio sent to the device.
+        let start = 0;
+        for (let index = 1; index < values.length / 2; index++)
+          if (values[index - 1] <= 0 && values[index] > 0) { start = index; break; }
+        const count = Math.min(512, values.length - start), pieces: string[] = [];
+        for (let index = 0; index < count; index += 4) {
+          // Zoom may leave the view, but must not invent clipped signal peaks.
+          const x = index / (count - 1) * 760, y = height / 2 - values[start + index] * props.magnification * (height / 2 - 5);
+          pieces.push(`${index ? 'L' : 'M'}${x.toFixed(2)},${y.toFixed(2)}`);
+        }
+        path.current?.setAttribute('d', pieces.join(''));
+      } else path.current?.setAttribute('d', baseline);
+      frame = requestAnimationFrame(draw);
+    };
+    const observer = new IntersectionObserver(entries => { visible = entries.some(entry => entry.isIntersecting); if (visible) { clear(); draw(); } else clear(); });
+    if (root.current) observer.observe(root.current);
+    const visibility = () => { clear(); if (!document.hidden) draw(); };
+    document.addEventListener('visibilitychange', visibility); draw();
+    return () => { clear(); observer.disconnect(); document.removeEventListener('visibilitychange', visibility); };
+  }, [scope?.signal, scope?.enabled, scope?.playing, height, props.magnification]);
+  return <figure className="interactive-audio-trace" data-program-node={props.id}>
+    <svg ref={root} viewBox={`0 0 760 ${height}`} width="100%" height={height} overflow="hidden" role="img" aria-label={props.label}>
+      <path className="interactive-stroke tone-muted" d={baseline} strokeWidth={.6} opacity={.35} />
+      <path ref={path} className={`interactive-stroke tone-${props.color}`} d={baseline} strokeWidth={1.6} fill="none" />
+    </svg>
+  </figure>;
 }

@@ -1,0 +1,180 @@
+{
+  "mother": "uika-play-apricot-mother-candidate-v1.png",
+  "motherSha256": "5217e87de50ac8ff072d231a2cc07d985303cbc4f034a97355f0d98bb6a53454",
+  "matte": "uika-play-apricot-matte-source-gap-repaired-v9.png",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 245,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "alphaPolygonRepairs": [],
+  "figure": "uika-play-apricot-figure-calibrated-v9.png",
+  "mask": "uika-play-apricot-mask-calibrated-v9.png",
+  "backgroundCandidate": "uika-play-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 1.2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1120,
+        738
+      ],
+      [
+        1300,
+        738
+      ],
+      [
+        1305,
+        789
+      ],
+      [
+        1120,
+        789
+      ]
+    ],
+    [
+      [
+        1279,
+        580
+      ],
+      [
+        1377,
+        574
+      ],
+      [
+        1378,
+        743
+      ],
+      [
+        1300,
+        759
+      ]
+    ],
+    [
+      [
+        1160,
+        558
+      ],
+      [
+        1380,
+        564
+      ],
+      [
+        1380,
+        601
+      ],
+      [
+        1160,
+        592
+      ]
+    ],
+    [
+      [
+        1246,
+        600
+      ],
+      [
+        1368,
+        600
+      ],
+      [
+        1368,
+        754
+      ],
+      [
+        1246,
+        754
+      ]
+    ]
+  ],
+  "background": "uika-play-apricot-background-calibrated-v9.png",
+  "contactShadowPolygons": [
+    [
+      [
+        1133,
+        740
+      ],
+      [
+        1277,
+        743
+      ],
+      [
+        1277,
+        772
+      ],
+      [
+        1129,
+        766
+      ]
+    ],
+    [
+      [
+        1280,
+        570
+      ],
+      [
+        1378,
+        569
+      ],
+      [
+        1381,
+        595
+      ],
+      [
+        1280,
+        597
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "uika-play-apricot-shadow-calibrated-v9.png",
+  "record": "uika-play-apricot-layer-processing-v9.json",
+  "reviewNote": "v9 direct original pixel reading confirms (1278,384) is peach hair RGB(224,155,126), old alpha13. Restore source-warm hair in inspected small [1268,369,1285,386], preserve only actual cool window gap rows x1275..1278,y387..388. No warm hair pixels held in static background; other original visible gap polygon retained. Original RGB untouched; primary/runtime pending.",
+  "backgroundPreservePolygons": [
+    [
+      [
+        1248,
+        386
+      ],
+      [
+        1258,
+        386
+      ],
+      [
+        1261,
+        389
+      ],
+      [
+        1260,
+        392
+      ],
+      [
+        1253,
+        395
+      ],
+      [
+        1248,
+        396
+      ]
+    ],
+    [
+      [
+        1275,
+        387
+      ],
+      [
+        1278,
+        387
+      ],
+      [
+        1278,
+        388
+      ],
+      [
+        1275,
+        388
+      ]
+    ]
+  ]
+}

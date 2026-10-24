@@ -1,0 +1,125 @@
+{
+  "purpose": "local alpha cleanup only; no RGB/anatomy repaint",
+  "input": "uika-study-apricot-mask-raw-v1.png",
+  "inputSha256": "e7424fd235fe6ab2f2ec0bb815043fd56c5d15ea2cdef8d3742b94b84d634857",
+  "reference": "uika-study-apricot-mother-candidate-v1.png",
+  "referenceSha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0",
+  "regionPolygon": [
+    [
+      790,
+      329
+    ],
+    [
+      952,
+      329
+    ],
+    [
+      952,
+      450
+    ],
+    [
+      874,
+      450
+    ],
+    [
+      874,
+      420
+    ],
+    [
+      790,
+      420
+    ]
+  ],
+  "protectedOriginalHairInterior": [
+    [
+      848,
+      357
+    ],
+    [
+      868,
+      342
+    ],
+    [
+      889,
+      337
+    ],
+    [
+      902,
+      340
+    ],
+    [
+      917,
+      347
+    ],
+    [
+      930,
+      360
+    ],
+    [
+      940,
+      374
+    ],
+    [
+      946,
+      391
+    ],
+    [
+      940,
+      404
+    ],
+    [
+      932,
+      415
+    ],
+    [
+      920,
+      430
+    ],
+    [
+      908,
+      438
+    ],
+    [
+      898,
+      427
+    ],
+    [
+      887,
+      419
+    ],
+    [
+      873,
+      412
+    ],
+    [
+      854,
+      416
+    ],
+    [
+      840,
+      410
+    ],
+    [
+      824,
+      407
+    ],
+    [
+      813,
+      400
+    ],
+    [
+      819,
+      386
+    ],
+    [
+      834,
+      370
+    ]
+  ],
+  "reason": "v3 cleanup was rejected because overly broad region nicked white shoulder/highlights. v4 restricts cleanup to hair perimeter and protects the actual full head silhouette read from mother.",
+  "rule": "Begin raw mask luminance. Pillow ImageDraw polygons define region and protectedOriginalHairInterior. Inside region and outside protection and raw luminance>0, set luminance=0 if (R<G) or (B>R-8 and G>R-18) or (G-B>50 and R-G<35). Other luminance bytes unchanged. Source RGB read only.",
+  "changedAlphaPixels": 1583,
+  "output": "uika-study-apricot-mask-local-color-v4.png",
+  "outputSha256": "c70723b5ea3693c2512796848b9d1b18452612a6e60a070dc9c45c188597ea38",
+  "transform": "identity"
+}

@@ -1,0 +1,90 @@
+{
+  "mother": "uika-rest-apricot-mother-candidate-v1.png",
+  "motherSha256": "c90f589bdd923d6b5520eaec6368fd6b27ade6627bf0c39288b4b9852aee551c",
+  "matte": "uika-rest-apricot-mask-generated-v2.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "excludePolygons": [
+    [
+      [
+        0,
+        0
+      ],
+      [
+        1145,
+        0
+      ],
+      [
+        1145,
+        1023
+      ],
+      [
+        0,
+        1023
+      ]
+    ],
+    [
+      [
+        1490,
+        0
+      ],
+      [
+        1535,
+        0
+      ],
+      [
+        1535,
+        1023
+      ],
+      [
+        1490,
+        1023
+      ]
+    ],
+    [
+      [
+        1145,
+        0
+      ],
+      [
+        1490,
+        0
+      ],
+      [
+        1490,
+        280
+      ],
+      [
+        1145,
+        280
+      ]
+    ],
+    [
+      [
+        1145,
+        610
+      ],
+      [
+        1490,
+        610
+      ],
+      [
+        1490,
+        1023
+      ],
+      [
+        1145,
+        1023
+      ]
+    ]
+  ],
+  "figure": "uika-rest-apricot-figure-calibrated-v1.png",
+  "mask": "uika-rest-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "uika-rest-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1.2,
+  "background": "uika-rest-apricot-background-calibrated-v1.png",
+  "record": "uika-rest-apricot-layer-processing-v1.json",
+  "reviewNote": "Initial original-RGB registration from the actual same-canvas generated matte. Explicit exterior noise bounds only; no anatomy redraw or rescale. Internal strokes/edge ownership and empty background require actual visual calibration; not primary/runtime accepted."
+}

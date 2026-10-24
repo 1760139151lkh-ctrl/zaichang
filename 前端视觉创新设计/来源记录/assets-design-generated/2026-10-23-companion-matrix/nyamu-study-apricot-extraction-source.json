@@ -1,0 +1,15 @@
+{
+  "recordType": "same-canvas-layer-image-generation",
+  "date": "2026-10-24",
+  "mother": "nyamu-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "5a8e11981cd588f7274b848cf661b2eee415a6a63103cea342d8d660c9409579",
+  "motherPrimaryRecord": "primary-other-mother-reviews.json",
+  "tool": "image_gen.imagegen",
+  "inputRole": "Both calls use only the same correct Primary-approved complete mother; no rejected character or mask input.",
+  "generations": [
+    {"kind": "matching-clean-background", "prompt": "nyamu-study-apricot-background-extraction-v1-prompt.txt", "file": "nyamu-study-apricot-background-candidate-v1.png", "sha256": "7f6da477226a8c34e39cb43f87fcc404caef78bcbde5091ad1a9f65f72e78bd8", "designerReview": "Full output viewed. Swiveled chair/desk/paper/lamp remain in their original footprint, visible girl removed; local reconstruction still needs recombination review."},
+    {"kind": "mask", "prompt": "nyamu-study-apricot-mask-extraction-v1-prompt.txt", "file": "nyamu-study-apricot-mask-candidate-v1.png", "sha256": "e201672c8cb8f56e588e8873ab4463ad746223f8a0455f2d1cd0f541ccf89cb4", "designerReview": "Full output viewed. Original-size footprint/head306/shoes706 retained; no white chair, but dark shoulder/ankle straps and eye have false alpha holes to repair from actual original pixels. Original furniture occlusions remain, not hidden-body repaint."}
+  ],
+  "primaryLayerReview": "pending",
+  "runtime": "not registered or verified"
+}

@@ -1,0 +1,20 @@
+{
+  "recordType": "original-pixel-local-alpha-production",
+  "mother": "umiri-listening-apricot-mother-candidate-v1.png",
+  "motherSha256": "14542cd757d285f6c2d89e98466e2e2bac75d2601aa0fe61d768996ae679b171",
+  "region": [
+    1194,
+    609,
+    1237,
+    652
+  ],
+  "method": "min(clamp((B-82)/32), clamp((G-118)/30)); only observed beige wool against darker wooden bench below cushion",
+  "scope": "Visible original lower knit fringes only; not applied to skin, hair, clothing body or hidden anatomy.",
+  "processor": "umiri-listening-apricot-fringe-alpha-v1.py",
+  "processorSha256": "8cad68942379618af0969d1ef0d09d78b4ae8053041e9b970975d1704eefdbcb",
+  "output": {
+    "file": "umiri-listening-apricot-fringe-alpha-v1.png",
+    "sha256": "538749089167da2879ad6abe11128b624a3597ae0406469c532fbd47f2ea6ade"
+  },
+  "review": "Candidate alpha patch; original RGB extraction and light/dark/source-room review remain separate."
+}

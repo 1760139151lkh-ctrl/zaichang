@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "chat",
+  "palette": "rain",
+  "light": "night",
+  "generatedOn": "2026-10-23",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-b11173d9-f665-42d7-ac98-87c26f37e4c8",
+  "prompt": "taki-chat-rain-prompt.txt",
+  "promptSha256": "92bebb3f2b6838fc50cd73ec1f3058d30b42bb9443d23c34fa82a29aa11c87c3",
+  "inputs": [
+    {
+      "file": "taki-chat-apricot-mother-candidate-v1.png",
+      "role": "primary-reviewed correct complete mother: identity, full pose and furniture support",
+      "sha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "role": "primary-reviewed empty complete target lighting plate",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16921-9fe7-73b2-81e9-dfadeae00b4a/exec-b11173d9-f665-42d7-ac98-87c26f37e4c8.png",
+  "output": {
+    "file": "taki-chat-rain-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2064036,
+    "sha256": "67e9bbef3f413b3bbfc7aae0fe00130e4d85d9d6391907d7241af4470bf2586f"
+  },
+  "producerObservation": "Same youthful purple-black hair/purple eyes/tan-white uniform/red ribbon and forward chat silhouette, independent staggered legs and complete shoes. Whole room has coherent cold rainy exterior and local warm desk-lamp illumination; no retained sharp daytime leaf shadow. Primary mother, layer and runtime review remain pending.",
+  "review": {
+    "producerViewed": "complete generated original and its approved warm mother/target plate personally compared",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

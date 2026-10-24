@@ -138,29 +138,34 @@ export function friendlyError(e: unknown): string {
   return '这次处理未完成。';
 }
 export async function readSSE(response: Response, onData: (data: string) => void, signal?: AbortSignal, maximumPendingCharacters = 1_000_000) {
-  if (!response.body) throw new ProviderError('DeepSeek 没有返回内容，请重试。');
+  signal?.throwIfAborted();
+  if (!response.body) throw new ProviderError('这次连接没有带回内容，可以再试一次。');
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
   let pending = '',
     lines: string[] = [],
-    eventId = '';
-  const seen = new Set<string>();
+    eventCharacters = 0,
+    skipLF = false;
   const emit = () => {
-    if (lines.length && (!eventId || !seen.has(eventId))) {
-      onData(lines.join('\n'));
-      if (eventId) seen.add(eventId);
-      if (seen.size > 2048) throw new ProviderError('流式事件超出本轮上限。');
-    }
+    signal?.throwIfAborted();
+    if (lines.length) onData(lines.join('\n'));
     lines = [];
-    eventId = '';
+    eventCharacters = 0;
   };
   const line = (value: string) => {
+    if (value.length > maximumPendingCharacters) throw new ProviderError('返回内容超出本次处理上限。');
     if (!value) {
       emit();
       return;
     }
-    if (value.startsWith('data:')) lines.push(value.slice(5).replace(/^ /, ''));
-    else if (value.startsWith('id:')) eventId = value.slice(3).trim();
+    if (value === 'data' || value.startsWith('data:')) {
+      const data = value === 'data' ? '' : value.slice(5).replace(/^ /, '');
+      eventCharacters += data.length + (lines.length ? 1 : 0);
+      if (eventCharacters > maximumPendingCharacters) throw new ProviderError('返回内容超出本次处理上限。');
+      lines.push(data);
+    }
+    // SSE IDs identify a resume position, not unique content. This reader
+    // never reconnects, so equal IDs must not swallow later deltas.
   };
   const abort = () => {
     void reader.cancel(signal?.reason).catch(() => {});
@@ -168,20 +173,30 @@ export async function readSSE(response: Response, onData: (data: string) => void
   signal?.addEventListener('abort', abort, { once: true });
   try {
     while (true) {
+      signal?.throwIfAborted();
       const { value, done } = await reader.read();
       signal?.throwIfAborted();
-      pending += decoder.decode(value, { stream: !done });
+      let decoded = decoder.decode(value, { stream: !done });
+      if (skipLF && decoded) {
+        if (decoded.startsWith('\n')) decoded = decoded.slice(1);
+        skipLF = false;
+      }
+      pending += decoded;
       let index: number;
-      while ((index = pending.indexOf('\n')) >= 0) {
-        const value = pending.slice(0, index).replace(/\r$/, '');
-        pending = pending.slice(index + 1);
+      while ((index = pending.search(/[\r\n]/)) >= 0) {
+        signal?.throwIfAborted();
+        const value = pending.slice(0, index);
+        const cr = pending[index] === '\r';
+        skipLF = cr && index === pending.length - 1;
+        const width = cr && pending[index + 1] === '\n' ? 2 : 1;
+        pending = pending.slice(index + width);
         line(value);
       }
-      if (pending.length > maximumPendingCharacters) throw new ProviderError('返回内容超出本次处理上限。');
+      if (eventCharacters + pending.length > maximumPendingCharacters) throw new ProviderError('返回内容超出本次处理上限。');
       if (done) break;
     }
-    if (pending) line(pending.replace(/\r$/, ''));
-    emit();
+    // Only a blank line dispatches an SSE event. A disconnected final frame
+    // must not turn an unfinished completion into a successful response.
   } finally {
     signal?.removeEventListener('abort', abort);
     await reader.cancel().catch(() => {});
@@ -338,7 +353,7 @@ export class DeepSeekClient {
             thinking: { type: options?.thinking || 'disabled' },
             ...(options?.reasoningEffort ? { reasoning_effort: options.reasoningEffort } : {}),
           }),
-          signal: AbortSignal.any([signal, AbortSignal.timeout(90_000)]),
+          signal: AbortSignal.any([signal, AbortSignal.timeout(MODEL_REQUEST_TIMEOUT_MS)]),
         },
       );
       if (response.ok) break;

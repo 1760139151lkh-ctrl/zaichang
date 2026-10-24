@@ -1,5 +1,5 @@
 import { autoClose, parseExpression, split, tokenize, type ASTNode } from '@openuidev/lang-core';
-import { HarnessError, type InteractiveProgramExpansionDiagnostic, type InteractiveProgramExpressionDiagnostic } from '../../shared/harness';
+import { HarnessError, type InteractiveProgramDepthDiagnostic, type InteractiveProgramExpansionDiagnostic, type InteractiveProgramExpressionDiagnostic } from '../../shared/harness';
 import { PROGRAM_AST_RULES } from '../../shared/interactive-program';
 import type { InteractiveFunctionReturnRule, InteractiveFunctionCardinalityRule } from '../../shared/interactive-functions';
 
@@ -162,13 +162,23 @@ export function inspectInteractiveProgram(dsl: string, policy: ProgramAstPolicy,
       explanation: 'statementOrdinal从1计；location的sN表示第N条声明，后续数字从0计：调用参数、数组项、对象值按原顺序，二元为左/右，三元为条件/真/假，Each模板为2。functions来自当前库；nullable返回量保留未知，不隐式当作0或false。仅修订对应表达式后再提交。' });
   };
   const statementOrdinals = new Map([...statements.keys()].map((name, index) => [name, index + 1]));
+  const depthFailure = (phase: InteractiveProgramDepthDiagnostic['phase'], depth: number,
+    statementOrdinal: number, location: string): never => {
+    throw new HarnessError('interactive_program', '交互引用嵌套过深。', 'never', {
+      rejectedDimensions: ['depth'],
+      depth: { phase, depth, limit: policy.limits.depth, statementOrdinal, location: location.slice(-160),
+        referenceSemantics: 'ordinary_refs_inline',
+        read: { tool: 'read_skill', arguments: { id: policy.functionHelp.methodId, section: 'grammar' } } },
+      explanation: 'depth是本次实际停止处的深度，不是全稿最大值。statementOrdinal从1计，location只含声明序号、子项序号与r/t引用或模板步。普通声明Ref逐处内联，声明拆多行不会缓存中间值。可用Each遍历只含一条纯参数记录的数组，在内联模板中读取已求值的局部记录；分阶段计算应守同一有限深度和集合上界，不提取引用局部变量的全局声明。这里没有发表新版本，仍沿原作品修订。',
+    });
+  };
   const checkedStatements = new Set<string>(), checkingStatements = new Set<string>();
   function checkStatement(name: string, referenceDepth = 0): void {
     if (checkingStatements.has(name)) fail(`交互声明 ${name} 形成循环引用。`);
     if (checkedStatements.has(name)) return;
-    if (referenceDepth > policy.limits.depth) fail('交互引用嵌套过深。');
     const node = statements.get(name), ordinal = statementOrdinals.get(name);
     if (!node || ordinal === undefined) fail('交互引用尚未声明。');
+    if (referenceDepth > policy.limits.depth) depthFailure('statement_references', referenceDepth, ordinal, `s${ordinal}`);
     checkingStatements.add(name);
     try {
       check(node, new Set(), 0, ordinal, `s${ordinal}`, referenceDepth);
@@ -176,7 +186,8 @@ export function inspectInteractiveProgram(dsl: string, policy: ProgramAstPolicy,
     } finally { checkingStatements.delete(name); }
   }
   const check = (node: ASTNode, locals: ReadonlySet<string>, depth: number, statementOrdinal: number, location: string, referenceDepth: number): void => {
-    if (++nodeCount > policy.limits.nodes || depth > policy.limits.depth) fail('交互结构超过当前范围。');
+    if (depth > policy.limits.depth) depthFailure('ast_structure', depth, statementOrdinal, location);
+    if (++nodeCount > policy.limits.nodes) fail('交互结构超过当前范围。');
     let childOrdinal = 0;
     const child = (value: ASTNode) => check(value, locals, depth + 1, statementOrdinal, `${location}/${childOrdinal++}`, referenceDepth);
     switch (node.k) {
@@ -360,7 +371,7 @@ export function inspectInteractiveProgram(dsl: string, policy: ProgramAstPolicy,
   const expansion = (node: ASTNode, visiting: ReadonlySet<string>, depth: number, locals: ReadonlyMap<string, number>,
     placedSources: Set<string>, loops: LoopCost[], statementOrdinal: number,
     location: string): number => {
-    if (depth > policy.limits.depth) fail('交互引用嵌套过深。');
+    if (depth > policy.limits.depth) depthFailure('reference_expansion', depth, statementOrdinal, location);
     let size = 1;
     const charge = (amount: number) => {
       size += amount;

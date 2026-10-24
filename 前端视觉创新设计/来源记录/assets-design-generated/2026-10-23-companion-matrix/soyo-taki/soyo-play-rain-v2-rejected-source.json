@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "play",
+  "palette": "rain",
+  "light": "night",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-46fcc70a-e68e-4d5f-a253-aab6ad4a0f7a",
+  "prompt": "soyo-play-rain-v2-prompt.txt",
+  "promptSha256": "c4c10c30499dab30a93c7a3c7cdf270ecc225359bc86ae06dcddfa8e2b3354d8",
+  "inputs": [
+    {
+      "file": "soyo-play-apricot-mother-candidate-v1.png",
+      "sha256": "81e654d671e5da16986fe32fe6e742c12042c684cad689f59885706eb29cc1f4",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-46fcc70a-e68e-4d5f-a253-aab6ad4a0f7a.png",
+  "output": {
+    "file": "soyo-play-rain-mother-rejected-v2.png",
+    "sha256": "1d80ebd363ae1659f8beeb4b5dce1d6b529c684ccef975c43ca587ad70abfe52",
+    "bytes": 2081233,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "rejected",
+  "review": {
+    "producerViewed": "Complete original personally viewed against the actual target night plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Body support coherent but town tower still drifts toaboutx1173 rather than the actual plate1218. Not adopted or reused. Next full scene is redrawn from the clean night plate only, with textual identity/support constraints."
+}

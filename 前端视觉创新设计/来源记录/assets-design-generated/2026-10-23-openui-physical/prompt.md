@@ -1,0 +1,15 @@
+# 纸面连续物理作品 · 原始生成 Prompt
+
+2026-10-23，通过内置 `image_gen.imagegen`，`transparent_background=false`，无输入图。此处逐字保留调用 Prompt；不代表图中人物身份、机构几何或数学读数已核准。
+
+当前选择第二次纯纸页方案，见 `prompt-v2.md` 与 `manifest.json`。首版错误头像及另造聊天壳的图片副本已经退出仓库；下方为第一次调用原文与当时提取的关系，不是当前采用回执。
+
+```text
+Use case: ui-mockup. Design a high-fidelity desktop interaction concept for the Chinese companion app 在场, one continuous warm ivory paper work inside a quiet chat, not a dashboard and not multiple unrelated cards. Show a tasteful editorial learning work that makes physical causality tangible. Top half: a wide ochre sine wave with three clear small draggable handles directly on amplitude crest, phase axis and time cursor, with a fine muted-blue ghost wave showing the previous setting. The handles are real-looking controls, nearby compact actual values for 幅值, 相位, 时间, no instruction paragraphs. Bottom half: an elegant large side-cutaway mechanism of a grand piano, six physically connected readable parts left-to-right and vertically: depressed ivory key lever on a balance pin, whippen and escapement/jack, pivoting hammer with felt head, horizontal taut string above, felt damper lifted off string, and a sustain pedal with visible linkage lifting damper rail. A faint outline of grand-piano curved rim provides recognition without blocking the cutaway. A warm-gold flash is localized to the hammer-string contact; a subtle wave on the string expresses vibration. A compact strip of three piano keys at the bottom aligns with the cutaway; below the mechanism a single narrow control row: 轻/重 dynamics, 慢放 speed, 听听声音, and 踏板. Place a compact physically correct equation f₁ = (1/2L)√(T/μ) near length/tension controls, not a page of engineering metrics. One small chat sentence beside the work from 丰川祥子: 这一声，先从指尖开始。 The character is only a small tasteful circular anime avatar; no floating body illustration or extra character scenery. Existing app style: warm gray ink, restrained muted gold, a hint of fog blue, quiet 40px controls and soft 12px corners, 18px paper corner only if needed, generous white space, legible Chinese typography and fine SVG-like scientific drawing. No black or navy engineering board, no green UI, no glass nested cards, no status badges, no arbitrary arrows or dominant split line. Accurate physical relationship is more important than decoration. The composition must feel like a usable, delightful scientific paper placed between two people at a sunlit desk, with text and controls intended to be implemented as native components rather than baked background.
+```
+
+采用：波形、观察点与就近控件共享一张纸；暖金/雾蓝区分正在改变的关系；声音与可按的图形位于同一作品。保留 R181–R185 的参数、机构、当前输入回聊的交互基因。
+
+舍弃：生成图另造的左侧聊天壳、人物头像与角色身份、所有示意读数、机械造型。实现仍在原聊天与 OpenUI 有限共享库中，按真实公式和机构阶段构作，不把图片贴成应用，也不把错画的琴槌/弦当物理证据。
+
+物理参照：[Yamaha 钢琴击弦机与制音器](https://www.yamaha.com/en/musical_instrument_guide/piano/mechanism/mechanism003.html)、[Yamaha 三角钢琴与延音踏板](https://www.yamaha.com/en/musical_instrument_guide/piano/selection/)、[UNSW 弦、驻波与谐波](https://www.phys.unsw.edu.au/jw/strings.html)。水平弦由琴槌从下方击发，脱进后琴槌不持续顶弦；延音只使制音器离弦，不持续补能。理想柔弦公式是教学近似，真实钢琴的弦刚性与共鸣未因此被模拟。

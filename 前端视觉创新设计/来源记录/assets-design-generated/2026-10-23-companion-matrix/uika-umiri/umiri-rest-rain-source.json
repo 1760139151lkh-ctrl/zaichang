@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordType": "image-generation-source",
+  "character": "umiri",
+  "activity": "rest",
+  "theme": "rain",
+  "light": "rain",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-a67e8734-62d6-46d8-94e9-c76224df66d6",
+  "intent": "lighting-weather",
+  "prompt": "umiri-rest-rain-prompt-v1.txt",
+  "promptFileMatchesActualToolInput": true,
+  "recordedAt": "2026-10-24T08:14:01.636Z",
+  "inputs": [
+    {
+      "file": "umiri-rest-apricot-mother-candidate-v1.png",
+      "role": "primary-approved-correct-warm-mother-edit-target",
+      "sha256": "6b87f182136d50c688a202a5ed0eee455644c859b4544b4e3481e7499d45c8e8"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "role": "primary-approved-clean-theme-lighting-reference-only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "umiri-rest-rain-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "59d64879ec44ee18761b20d7dd4f0c05812775c2fc2603db3628ec607634edb7",
+    "bytes": 2095215
+  },
+  "review": {
+    "designerViewed": "complete original Imagegen output",
+    "designerStatus": "candidate-for-primary-review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Quiet window-facing rest silhouette and real bench/palm/two-boot support preserved. Full consistent rainy-night room, one fixed desk lamp and no isolated rear flower spotlight.",
+  "promptSha256": "8f75f20e89a370f154a6a9a156e7189b12c2e37f2504a60df2e0be8b8277f22e"
+}

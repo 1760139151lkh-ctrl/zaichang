@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-listening-mist-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "listening",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-scene physical relighting of this exact primary-approved warm activity mother; no other character inputs",
+  "prompt": "nyamu-listening-mist-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-listening-apricot-mother-candidate-v1.png",
+      "role": "sole image edit target; primary-approved correct complete activity mother",
+      "sha256": "823f7606e5add858c9834ea290822cc78e0b0c3ae1309f367bd2a2bf1d862b6e"
+    }
+  ],
+  "output": {
+    "file": "nyamu-listening-mist-mother-candidate-v1.png",
+    "sha256": "f708ee081e38ad7a6d2bef93d676c58249e135b2e36715e907e5f3136f806a58",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-bbf0113a-bf09-4820-9bf4-10c9326c9c4d.png"
+  },
+  "ownershipAndPose": "Keep exact gathered bench listening posture, lowered shoulders, both hands loosely together low on lap, quiet responsive gaze toward left speaker, original fully supported hips and both complete shoes. No prop or new facial performance.",
+  "designerObservation": "Full image personally viewed. Exact gathered bench-listening pose, lowered shoulders, low lap hands, quiet attentive head angle, hips/cushion and full leg/shoe support visually retained, no prop added. Cool diffuse misted window/city/lake light is shared by skin/gray blouse/black skirt/wood/floor; hard original sunny leaf shadows removed. Lavender bob and red-purple eyes remain youthful and intrinsic colors.",
+  "observedGaps": [
+    "Primary mother review pending; no layers/calibration/Stage acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

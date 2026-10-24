@@ -1,0 +1,45 @@
+{
+  "createdAt": "2026-10-23",
+  "tool": "built-in image_gen.imagegen",
+  "purpose": "在场 A思路破冰便签与B桌边书签托盘的设计参考，真实控件由React与原owner实现。",
+  "images": [
+    {
+      "id": "A-hint-note",
+      "executionId": "exec-10884133-b553-42ca-8afc-a9d9c9f70d69",
+      "file": "思路破冰便签-设计稿.png",
+      "prompt": "Use case: ui-mockup. Create a polished desktop product design for the existing Chinese companion app 在场. New scene A: a very small folded hint note beside a real mathematical study paper, warm paper desk, ivory and muted restrained gold. 1536x1024 landscape composition. A single top navigation centered 聊天 今天 留下. Under it a real PDF on the left 56% and study derivation on the right 44%, stable wide readable equations and generous paper margins. Real short math content: y′+2y=e^x and learner line μ(x)=e^(2x). The current hint is a tiny folded note with its contents concealed; the only visible label is 给这一行的一点提示, and small grounded actions 接过, 更小一点, 收好, 放下. No answer or formula visible on the folded note. The folded note sits near the learner line like a thoughtful classmate gently passed it, not a modal or a floating alert. Upper right a small calm youthful anime portrait of Togawa Sakiko (long light blue hair, gold eyes, black hair bow), never covering math. Thin warm rule, subtle warm window light, clean 40px controls, precise professional typography. Preserve original PDF width and no overlaid toolbar across the next equation. Do not use green UI, task dashboards, huge cards, progress metrics, stickers, explanatory slogans, engineering fields, full room compressed into a thumbnail, or mature realistic faces. This is a single integrated product screen; show no surrounding device frame.",
+      "selection": "采用折叠便签与原推导行的邻接关系、接过/更小一点/收好/放下；不采用自动完整解题、超大人物、错误今天选中状态。",
+      "reviewedBy": "study_materials",
+      "rootReviewed": true,
+      "runtimeVerified": false,
+      "sha256": "b96c00301bd29b0a98e94a9ac1071a1ea03af5047f449022227f8ea346c48330",
+      "bytes": 1888131,
+      "rootReviewScope": "已亲看原图，认可折叠便签四动作与同源书签可取消预览关系；不采纳烧字答案、大人物、重复正文或非原作头像；不代表运行验证。"
+    },
+    {
+      "id": "B-bookmark-tray",
+      "executionId": "exec-ab003e38-1252-4d24-b474-31cdf5587c11",
+      "file": "桌边书签托盘-设计稿.png",
+      "prompt": "Use case: ui-mockup. Design one high-fidelity desktop screen for 在场, a warm Chinese companion app. New scene B: a desktop bookmark tray connects a selected PDF excerpt to the same study paper, a note, or the one chat composer. Clean actual software interface, not a photograph of paper. Wide 1536x1024 canvas. Ivory app surface with subtle warm window light, centered top navigation 聊天 今天 留下 with 聊天 active, small anime avatar only 40px, no large character illustration. Left 56% width real PDF viewer with file title 一阶线性方程.pdf, page 12 / 36 and highlighted sentence 给定任意解 x(t)，定义 c(t)=x(t)/u(t). Right study paper has heading 常数为什么可以变 and learner's one line 我想先弄清这个定义，后面的推导先不展开. No solved proof and no additional formulas. At the bottom edge between papers, a very light open bookmark tray, like a shallow small paper rail, contains a picked-up paper strip labeled 一阶线性方程.pdf · 第12页 and the selected sentence. Below are three clear destinations: 推导纸 笔记 对话. Show 推导纸 as the chosen destination with a compact cancellable preview on its paper, not a big modal; title 放在这道题旁, excerpt shown once, two small actions 收下 and 放回. Keep main reading unobscured and plenty of whitespace. Typography elegant readable Chinese sans, thin golden source rule, restrained warm gray and muted gold, 40px controls and 12px corner. No green UI, task metrics, technical IDs, safety disclaimers, dashed arrows, enormous cards or explanatory paragraphs. Show the complete integrated screen with aligned headings and one composer at bottom right containing the user's existing untouched draft.",
+      "selection": "采用轻书签夹、真实文件页码、来源条、目标与可取消预览；不采用底部重复正文、假数学推导、macOS窗口按钮或不符阵容头像。",
+      "reviewedBy": "study_materials",
+      "rootReviewed": true,
+      "runtimeVerified": false,
+      "sha256": "c6b978a758f47421ca7cb0b8268d4233b408c5b3c1b6070c9b15a54064691148",
+      "bytes": 1456217,
+      "rootReviewScope": "已亲看原图，认可折叠便签四动作与同源书签可取消预览关系；不采纳烧字答案、大人物、重复正文或非原作头像；不代表运行验证。"
+    },
+    {
+      "id": "B-source-recovery",
+      "executionId": "exec-f847182d-e323-4f1a-a986-d4b5816ac5ee",
+      "file": "书签来源改变-窄窗恢复.png",
+      "prompt": "Use case: ui-mockup. A refined narrow-window design for the existing Chinese companion desktop app 在场, portrait 1024x1536, single full app viewport with no device mockup. This is the recovery state of a source-backed personal note: the original quoted note has changed, but the user's own independent unfinished writing stays intact. Warm ivory paper, restrained muted gold, careful readable Chinese typography, no illustration and no character in this focused reading state. At top the same elegant app header with 在场 and centered 聊天 今天 留下, 留下 selected. In this narrow layout the file list is collapsed behind a small back/list control. One continuous warm paper page below. Editable note title 变易常数的这一点. A small gold ruled source area titled 留在纸边的原文 does NOT show the withdrawn old quote and does NOT substitute new text. It says 原笔记后来改过了 and has one quiet action 看看现在的原页 and a secondary 再看一次. Under this, the user's own actual writing is preserved visibly: 我想先弄清为什么可以这样定义，再接后面的推导。今天先写到这里，疑问还留着。 Include one long user-authored mathematical line at its normal reading size, allowed to scroll horizontally rather than shrink: c(t)=x(t)/u(t), followed by a short blank writing line. Bottom has calm controls 保存笔记 and 先放下. No success badges, no progress, no revision/hash/permission jargon, no apologies, no giant white editing box, no full answer or automatically solved proof, no green UI, no meaningless decorations. Make the source and independent writing clearly separate by spatial grouping and a single thin gold source rule, with the editable writing the main subject. Maintain 40px useful controls, 12px basic corners, delicate warm shadows only on necessary surfaces. This is a real interface design, not photographed stationery.",
+      "selection": "采用独立annotation保留、失效原句不复制/不替换、明确看现在原页与重试；不采用巨大的品牌字、烧字公式或重画导航。生成在referenceOnly机制后，为恢复态精修先出稿再加原owner恢复入口。",
+      "reviewedBy": "study_materials",
+      "rootReviewed": false,
+      "runtimeVerified": false,
+      "sha256": "362ccd193bc0aafba41891b4ca053088a0c12c535fca4f7cc444bd3fb05d393a",
+      "bytes": 1422072
+    }
+  ]
+}

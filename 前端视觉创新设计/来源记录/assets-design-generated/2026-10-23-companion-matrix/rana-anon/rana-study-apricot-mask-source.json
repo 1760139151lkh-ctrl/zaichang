@@ -1,0 +1,30 @@
+{
+  "createdOn": "2026-10-24",
+  "tool": "built-in image_gen.imagegen",
+  "useCase": "background-extraction",
+  "character": "rana",
+  "activity": "study",
+  "theme": "apricot",
+  "assetKind": "mask",
+  "inputs": [
+    {
+      "file": "rana-study-apricot-mother-candidate-v2.png",
+      "sha256": "fb66bbcfffc5f3d42b421c8769cc53ae7f1b605246a68187f5043435eabbe205",
+      "role": "sole input; primary-approved correct complete mother, primary-other-mother-reviews.json"
+    }
+  ],
+  "file": "rana-study-apricot-mask-generated-v1.png",
+  "sha256": "b99d472ced537122a4fdf2e5514ecf1cc0044f5e42cfa05bd4fb662dc0038fae",
+  "prompt": "rana-study-apricot-mask-prompt.txt",
+  "promptSha256": "3e3eed1bbdd4910c4d92fdb6e7324b5bfc0bd8083dedb76d8f3eb747ea53ec4a",
+  "promptEncoding": "UTF-8; exact submitted string, no added final newline",
+  "originalGeneratedFile": "exec-98974d3e-62c5-450a-b083-3f2dc141e74f.png",
+  "designerPersonallyViewed": true,
+  "designerStatus": "candidate-for-original-rgb-layer-calibration",
+  "designerObservation": "Full-canvas visible-character white matte, requires actual original-RGB light/dark/room contour review and original furniture holes.",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "kind": "layer-generation-source",
+  "character": "uika",
+  "activity": "planning",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "input": {
+    "path": "uika-planning-apricot-mother-candidate-v3.png",
+    "sha256": "767aab09d7596550438a1e3ef5ff01e578b4a635cc548b104bd773f211361e1b",
+    "role": "sole primary-approved full mother v3; visible person only; fixed desk papers/furniture remain separate"
+  },
+  "calls": [
+    {
+      "part": "mask",
+      "executionId": "exec-df1caa4b-807e-43b6-a221-0e0f63b7d2de",
+      "promptFile": "uika-planning-apricot-mask-prompt.txt",
+      "prompt": "Use case: precise-object-edit. Technical OPAQUE black-and-white segmentation at exactly 1536 x 1024, no transparency.\nONLY INPUT: the primary-approved whole Uika planning apricot mother v3. Recolor EXISTING visible source pixels IN PLACE. All visible Uika pixels become WHITE, every room/furniture/desk-paper pixel BLACK. This is a source-registered silhouette recolor, NOT a new person drawing, portrait or pose.\nKeep the exact canvas, camera, SCALE AND POSITION: her short bob crown around x=790,y=290; source hair/head approximately x=750..870,y=288..405; shirt/shoulders and hands around x=748..926,y=395..517; skirt to x=1007,y=721; two worn sneakers around x=946..1071,y=681..733. These guides locate the source, not rectangular paint instructions. Trace every exact visible source contour without enlargement, shift, crop, zoom or recenter. The pose is upright on the existing side-turned chair, upper body half-turned toward the viewer, one forearm/hand resting on desk and the other small open hand above it.\nWHITE: all actual fine blonde hair, face/neck, white T-shirt, visible arms/hands/fingers, the complete source-visible long taupe skirt/folds/hem, two calves/white socks, both complete worn canvas sneakers. WHITE is solid regardless of original shadow/color/cloth seams; no face or fold drawing inside. If the CHAIR BACK occludes her lower back/hip, leave that furniture black and trace only source-visible person; do not hallucinate hidden anatomy through it.\nBLACK: chair cushion/back/legs, both working papers lying FLAT ON THE DESK, tabletop and drawer, lamp/cup/window, lake/plants, left furniture, bench/pillows/throw, floorboards/rug and all body/contact/cast shadows. Real sky/wood/room gaps between hair strands, fingers, open palm and forearm, bent arms, between skirt and furniture, and between ankles/shoes stay black. Do not merge paper with her fingers or include wooden desk strips.\nOnly a narrow source-edge antialias. No gray interior, glow, blur, shadow, color, text, UI, label, logo, watermark, inset, arrow or border. Full same-size opaque black image with the single exact small source person silhouette white, no other change. Original mother RGB will be used later, never a redrawn figure.\n",
+      "output": {
+        "path": "uika-planning-apricot-mask-generated-v1.png",
+        "sha256": "8addf8ba06051a4716d111918f975a1a3a3d004277c65464094b2492f62fc65b",
+        "bytes": 345295,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      }
+    },
+    {
+      "part": "background",
+      "executionId": "exec-d32343fd-97ed-474f-ac1e-935447011af6",
+      "promptFile": "uika-planning-apricot-background-prompt.txt",
+      "prompt": "Use case: precise-object-edit. Technical SAME-CANVAS empty background extraction, not a room redesign.\nONLY INPUT is the primary-approved complete Uika planning apricot mother v3, exactly 1536 x 1024. Remove ONLY Uika, her worn clothes/socks/sneakers and narrow immediate body/shoe contact shadows. Reconstruct plausible source-matching empty chair cushion/back and window/desktop/floor immediately behind her small figure. The two planning papers are FLAT ON THE FIXED DESK: KEEP BOTH papers and their nonverbal lines, desk, lamp and cup exactly in place. They do not travel with the figure. Do not remove the desk papers or invent a lap book.\nKeep EXACT camera/canvas/perspective and furniture pixel geometry. Existing slightly turned chair stays in THIS mother's current position/scale, do not return it to another empty-room prototype. Preserve the full window frame/corners, lake/campus, curtains, rear-left table/chair/shelves/framed drawing, right fixed desk width/drawer/legs/lamp/cup/papers, empty window bench/pillows/throw, floorboards/rug and full warm-apricot lighting. Do not widen/move/rotate the desk, shift lamp/cup, enlarge chair, move bench or add furniture.\nMost source pixels outside the former figure footprint remain in place. No human, hair, fingers, cloth, socks, sneakers, silhouette, ghost, remaining local person/shoe shadow, new props, blank white overlay, crop, zoom, text, UI, watermark, inset or border. Return ONE complete same-size opaque empty version of this exact scene, with only this small person removal locally repaired.\n",
+      "output": {
+        "path": "uika-planning-apricot-background-generated-v1.png",
+        "sha256": "7147836a441d73045e010fa382f58ad898d522675c2207feceaa26a8250e5953",
+        "bytes": 2118567,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      }
+    }
+  ],
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "实际浅/深底及原位整房重合成逐像素核：清局部发际窗色混合、后衣摆木尖、手上浮点与桌板三角，保真拇指/指间空气/灰裙/椅遮挡，人物整个RGB与mother一致。鞋sole+1..3px normal source-over残差接触影无大地板片；手臂落桌固定travel=0。图层主审/Stage/runtime均待。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "recordedAt": "2026-10-24T00:58:31.104257+00:00",
+  "processing": "uika-planning-apricot-layer-processing-v1.json",
+  "matteRefinement": "uika-planning-apricot-matte-refinement-v1.json"
+}

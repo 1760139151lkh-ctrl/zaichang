@@ -1,0 +1,219 @@
+{
+  "mother": "uika-play-apricot-mother-candidate-v1.png",
+  "motherSha256": "5217e87de50ac8ff072d231a2cc07d985303cbc4f034a97355f0d98bb6a53454",
+  "matte": "uika-play-apricot-matte-soft-calibrated-v5.png",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 245,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1260,
+        275,
+        1340,
+        310
+      ],
+      "mode": "replace",
+      "featherPixels": 0.25,
+      "polygon": [
+        [
+          1260,
+          309
+        ],
+        [
+          1265,
+          302
+        ],
+        [
+          1270,
+          297
+        ],
+        [
+          1275,
+          293
+        ],
+        [
+          1280,
+          290
+        ],
+        [
+          1285,
+          288
+        ],
+        [
+          1290,
+          287
+        ],
+        [
+          1295,
+          285
+        ],
+        [
+          1300,
+          285
+        ],
+        [
+          1305,
+          285.5
+        ],
+        [
+          1310,
+          286.5
+        ],
+        [
+          1315,
+          288.5
+        ],
+        [
+          1320,
+          291
+        ],
+        [
+          1325,
+          294.5
+        ],
+        [
+          1330,
+          298.5
+        ],
+        [
+          1335,
+          304
+        ],
+        [
+          1340,
+          310
+        ],
+        [
+          1260,
+          310
+        ]
+      ]
+    }
+  ],
+  "figure": "uika-play-apricot-figure-calibrated-v5.png",
+  "mask": "uika-play-apricot-mask-calibrated-v5.png",
+  "backgroundCandidate": "uika-play-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 1.2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1120,
+        738
+      ],
+      [
+        1300,
+        738
+      ],
+      [
+        1305,
+        789
+      ],
+      [
+        1120,
+        789
+      ]
+    ],
+    [
+      [
+        1279,
+        580
+      ],
+      [
+        1377,
+        574
+      ],
+      [
+        1378,
+        743
+      ],
+      [
+        1300,
+        759
+      ]
+    ],
+    [
+      [
+        1160,
+        558
+      ],
+      [
+        1380,
+        564
+      ],
+      [
+        1380,
+        601
+      ],
+      [
+        1160,
+        592
+      ]
+    ],
+    [
+      [
+        1246,
+        600
+      ],
+      [
+        1368,
+        600
+      ],
+      [
+        1368,
+        754
+      ],
+      [
+        1246,
+        754
+      ]
+    ]
+  ],
+  "background": "uika-play-apricot-background-calibrated-v5.png",
+  "contactShadowPolygons": [
+    [
+      [
+        1133,
+        740
+      ],
+      [
+        1277,
+        743
+      ],
+      [
+        1277,
+        772
+      ],
+      [
+        1129,
+        766
+      ]
+    ],
+    [
+      [
+        1280,
+        570
+      ],
+      [
+        1378,
+        569
+      ],
+      [
+        1381,
+        595
+      ],
+      [
+        1280,
+        597
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "uika-play-apricot-shadow-calibrated-v5.png",
+  "record": "uika-play-apricot-layer-processing-v5.json",
+  "reviewNote": "v5: preserve source soft hair while removing saturated original gold-leaf contamination. PLAY crown alpha traced against actual enlarged original source contour instead of color-keying white highlights; no hair RGB or pose edits. All actual prop/finger interiors retained. Primary/runtime pending."
+}

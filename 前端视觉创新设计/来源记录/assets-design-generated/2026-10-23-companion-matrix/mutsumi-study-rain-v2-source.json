@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "mutsumi-study-rain-mother-candidate-v2.png",
+  "character": "mutsumi",
+  "activity": "study",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical whole-environment relighting; source pose/furniture/occlusion locked; approved empty-room reference for light only",
+  "prompt": "mutsumi-study-rain-v2-prompt.txt",
+  "promptSha256": "0916b4655a65df2ae113d0ebea083675636f335d2f0592a06c44b49c72b88c5d",
+  "inputs": [
+    {
+      "file": "mutsumi-study-apricot-mother-candidate-v1.png",
+      "sha256": "066435e9a63e68d8d026773f7154a8b50275e0c78f0451aa69c99082b7581606",
+      "role": "Image 1: approved complete correct warm activity mother; sole character/pose/furniture edit target"
+    },
+    {
+      "file": "room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "Image 2: approved empty-room night exposure/connected single lamp-zone reference only; no character or geometry source"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-study-rain-mother-candidate-v2.png",
+    "sha256": "6394727eb53b209849d6116e1e1ed10b5e02c0d8aa622714ae2cdcc32b9ff9e9",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-d7bab255-014d-4a95-8dfa-35b0403760c6.png"
+  },
+  "designerObservation": "Full image personally viewed. Source side/back working posture and original supported desk/hips and partial far-side hand/shoe occlusion retained without fabrication. Cold rainy night/window and original warm lamp light on page/face/hair coherent. Daytime leaf shadows removed from walls/corner. Floor includes a warm lobe to left of working chair; it appears connected by wider dim falloff, but primary must inspect against the previous detached-second-pool rejection and approved rain reference. This is a candidate, not lighting acceptance. Mint hair/navy-white uniform and youthful natural profile retained.",
+  "observedGaps": [
+    "Primary must judge left-of-chair warm lobe connectivity/one-source floor falloff; no pass claimed."
+  ],
+  "designerStatus": "candidate awaiting primary lighting review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

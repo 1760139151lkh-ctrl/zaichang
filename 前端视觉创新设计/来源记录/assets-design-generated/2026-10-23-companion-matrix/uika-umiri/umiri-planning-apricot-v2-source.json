@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-mother-candidate",
+  "character": "umiri",
+  "activity": "planning",
+  "theme": "apricot",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/umiri/",
+    "https://anime.bang-dream.com/mygo/character/umiri/"
+  ],
+  "input": {
+    "path": "../room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty room; no character pixels used"
+  },
+  "promptFile": "umiri-planning-apricot-v2-prompt.txt",
+  "prompt": "Use case: stylized-concept. One complete 1536 x 1024 warm-apricot same-room mother illustration.\n\nCHARACTER: Yahata Umiri (八幡海鈴), the recognizable first-year high-school girl from BanG Dream! Ave Mujica / MyGO!!!!!, around fifteen-sixteen. CHARCOAL-GRAY SHOULDER-LENGTH HAIR with a slight cool undertone, divided side-swept fringe, a little forehead, cheek-framing strands and gently outward-flipped tips. Calm clear GRAY-TEAL EYES, soft young jaw, ordinary slim teenage body, not an adult model. Her official everyday outfit is a short black biker jacket with simple lapels/zips over a dark-red V-neck top, plain gray short skirt, small silver earrings, simple black choker and black lace-up mid-calf platform boots. Keep this original youthful identity and these clothing colors, no mature makeup or fabricated uniform.\n\nONLY INPUT image 1 is the approved CLEAN EMPTY room v4. It has no person. Do not use the earlier planning candidate or any person image.\nFIXED DESK AND LAMP ARE THE HIGHEST GEOMETRY PRIORITY: preserve the existing right desk EXACTLY at its original source position and size. Its desktop remains roughly x=825..1140,y=490..515. The lamp stays fixed near (1075,450), the cup stays beside it, and the original table legs/width stay where they are. Do NOT widen the desk, shift it right toward the bench, move the lamp/cup right or redraw a second desk. The window bench begins in its original place. Only the original desk CHAIR may make a small outward rotation within its ordinary footprint, no large left/forward move or enlarged chair.\nSame full 1536x1024 canvas, camera and mild seated-eye perspective. Preserve all four connected window corners, lake/campus/trees/sky, curtains, rear-left table/chair/bookshelves/framed drawing, bench/pillows/throw/rug and floor passage. No new furniture, foreground table, zoom/crop, blank wall or white gradient. The left/center reading lane stays free of the person.\n\nPLANNING BODY: Umiri is properly seated on the real desk chair, pelvis and thighs supported near (950,590), complete head near y=320 and both boots grounded near y=770. Her hips and uncrossed knees remain oriented toward the desk. She sits UPRIGHT and her WHOLE UPPER TORSO HALF-TURNS back toward the left user, with open shoulders and a natural waist rotation. Her face and gaze look UP at the person, not down at a study sheet. Keep this clear turn through the body, not merely a head twist or a hard-study forward hunch.\nTWO SMALL POSSIBILITY SHEETS lie flat next to each other only within the original free desk area, without moving the book, cup or lamp. They show a few faint nonverbal pencil marks, no legible text/calendar/dates/numbers/formula/UI. One hand touches the edge of the nearer sheet on the real desktop. The other hand opens softly between the two options, forearm still supported near the desk edge and elbow close to her body. Her gaze and faint dry, friendly half-smile suggest a useful comparison, leaving a real choice open. She is not signing, filling a formal schedule, issuing instructions or pretending something has been executed.\nBoth arms remain continuous with clear wrists and five-finger hands. Paper is supported and flat, no floating hand/clipboard. The gray skirt drapes modestly over two supported thighs; two distinct knees and normal-length calves lead to two complete separate boots sharing the original floor plane, with real heel/forefoot contacts. No crossed/merged anatomy, long fashion legs, floating pelvis, chair piercing clothes, extra finger/limb or cropped boot.\nKeep all hair/hand/paper/shoe tips on the full canvas with air around them. Fine youthful Japanese-anime linework in the input's softly detailed environment, same coherent morning window light, natural skin and readable leather highlights. No stock grin, seductive pose, service performance, sticker portrait, other person, text, UI, logo, watermark, arrow, border or inset. Return one continuous same-size room scene.\n",
+  "output": {
+    "path": "umiri-planning-apricot-mother-candidate-v2.png",
+    "sha256": "78ca56bc6b2fff62341a26018251a84a62185ea6d614af14b2903ff323976f23",
+    "bytes": 2162720,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T21:06:36.435565+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "回到原桌灯/桌宽区域，椅侧转直身、上身目光回向人作两小纸比较，双靴有支承。只clean v4输入，椅侧转幅度仍交根亲判，不用matching BG开脱家具漂移。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false,
+  "executionId": "exec-722d8935-f0f8-4baa-9d1d-9e867951d7a9"
+}

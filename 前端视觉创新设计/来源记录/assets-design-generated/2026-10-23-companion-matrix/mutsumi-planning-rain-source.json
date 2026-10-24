@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "asset": "mutsumi-planning-rain-mother-candidate-v1.png",
+  "character": "mutsumi",
+  "activity": "planning",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical whole-environment relighting; approved correct warm mother is sole character/pose/furniture edit target; approved empty theme plate is lighting/sky/source-axis reference only",
+  "prompt": "mutsumi-planning-rain-relight-v2-prompt.txt",
+  "promptSha256": "f5dc16557c5183ad5f5eafde3e63a0b6b6ae89a734140d587f00b084092e39a0",
+  "inputs": [
+    {
+      "file": "mutsumi-planning-apricot-mother-candidate-v1.png",
+      "sha256": "ebcd02b354a1661687afdd2e9a92d6c3b7531bc7555a98eb0563516eff83ddd1",
+      "role": "Image 1: primary-approved complete warm activity mother; sole editable character/geometry target"
+    },
+    {
+      "file": "room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "Image 2: primary-approved clean empty room; lighting/sky/source-axis reference only, never furniture/body replacement"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-planning-rain-mother-candidate-v1.png",
+    "sha256": "0e4ddeead5495bb17cf9757e62827131f943bf995151ab58c347c0417f331323",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-d17fa080-287d-4778-84c9-bb7d35aa4cfe.png"
+  },
+  "ownerAndSupport": "Preserve upright half-turned desk-chair comparison, both low hands at the two static desktop cards, the original occupied chair shifted left of the default empty chair; cards stay background objects. Natural chair/hips support, continuous knees/ankles and two floor-supported loafers, original desk-palm contacts. Do not replace the occupied planning furniture with Image2.",
+  "designerObservation": "Full generated image personally viewed against approved warm planning mother and empty rain plate. Original occupied desk-chair, low hands/static cards, hips/seat, knees and two floor-supported loafers retained. Deep rainy window and lamp-lit desktop have coherent local amber falloff; old golden sunlight and sharp leaf/window strips removed. Left rear flower/wall corner remains dim without a new spotlight.",
+  "geometryObservation": {
+    "coordinateSystem": "1536x1024 original mother canvas",
+    "hipsSeatApprox": [
+      875,
+      584
+    ],
+    "frontFloorShoeApprox": [
+      995,
+      727
+    ],
+    "note": "Image-stage approximate observations only; not extracted-layer calibration. Original occupied chair and cards deliberately differ from empty plate."
+  },
+  "observedGaps": [
+    "Primary per-mother optical review pending; image producer cannot sign primary approval.",
+    "No extracted layers, final calibration or Stage/runtime acceptance yet."
+  ],
+  "designerStatus": "candidate awaiting primary review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

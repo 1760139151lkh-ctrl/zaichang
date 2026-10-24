@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "taki-study-apricot-room4",
+  "character": "taki",
+  "activity": "study",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "taki-study-apricot-mother-candidate-v1.png",
+  "background": "taki-study-apricot-background-calibrated-v5.png",
+  "figure": "taki-study-apricot-figure-calibrated-v4.png",
+  "mask": "taki-study-apricot-mask-calibrated-v4.png",
+  "shadow": "taki-study-apricot-shadow-calibrated-v5.png",
+  "seat": [
+    0.5989583333333334,
+    0.5732421875
+  ],
+  "ground": [
+    0.6725260416666666,
+    0.689453125
+  ],
+  "bodyBounds": [
+    0.537109375,
+    0.3359375,
+    0.6868489583333334,
+    0.693359375
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "desk-chair",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": false,
+  "hitPolygon": "59% 34%, 62% 34%, 64% 38%, 63% 43%, 66% 47%, 65% 49%, 64% 49%, 65% 56%, 66% 63%, 69% 68%, 69% 70%, 64% 70%, 62% 68%, 61% 68%, 61% 62%, 59% 59%, 57% 58%, 56% 52%, 54% 48%, 54% 44%, 56% 38%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "production": "taki-study-apricot-layer-processing-v5.json",
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Fixed desk/hand contact and real original chair-back/front-leg occlusion retained. No hidden anatomy completed; no free-travel promise. Empty background was separately viewed for old body/hair/foot ghosts.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json"
+  }
+}

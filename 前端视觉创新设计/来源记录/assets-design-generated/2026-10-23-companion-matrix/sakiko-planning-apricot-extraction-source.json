@@ -1,0 +1,98 @@
+{
+  "character": "sakiko",
+  "activity": "planning",
+  "light": "apricot",
+  "createdOn": "2026-10-23",
+  "tool": "built-in image_gen.imagegen",
+  "mother": {
+    "file": "sakiko-planning-apricot.png",
+    "sha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11",
+    "soleVisualInputForBothCalls": true,
+    "primaryExtractionApproval": "primary-prototype-reviews.json:planning"
+  },
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "layerOwnership": {
+    "figure": "Sakiko, clothing and worn shoes, open navy notebook actively handled by her hands",
+    "room": "actual mother chair and desk, flat cream loose sheet, cup, lamp and all other fixed furnishings",
+    "shadow": "No generated mask shadow admitted; contacts still require original-scene composite review"
+  },
+  "generations": [
+    {
+      "kind": "background",
+      "file": "sakiko-planning-apricot-background-generated-v1.png",
+      "sha256": "f2f1183f61fcbfa8b20121e6aa7e9d1d3b21562d2d309cb70f825c444d35db39",
+      "prompt": "sakiko-planning-apricot-background-prompt.txt",
+      "promptSha256": "aa71086634b44bdbb0b8fc9875bb5c279bf03ca62ee36bf8a2b058466f4f7fe3",
+      "executionId": "ee7a5150-f463-4828-b3fe-09befbb40b3c",
+      "originalGeneratedFile": "exec-ee7a5150-f463-4828-b3fe-09befbb40b3c.png",
+      "designerPersonallyViewed": true,
+      "observation": "Complete opaque room with girl and handled navy notebook removed; fixed flat sheet, cup and lamp remain. Furniture locations broadly match the mother, while textures and some small details were redrawn. Exact registration and original-scene composite are not accepted by this observation."
+    },
+    {
+      "kind": "mask",
+      "file": "sakiko-planning-apricot-mask-generated-v1.png",
+      "sha256": "11c90cbc8a7123d527a1f2383c1cc86a55114438e9d4355af95d39d2f02709a4",
+      "prompt": "sakiko-planning-apricot-mask-prompt.txt",
+      "promptSha256": "f6212d1a88ac59a913186572cf5a64b8e8227a5610855ba207394958ccd7de8e",
+      "executionId": "c634fb9e-4157-48d9-aea3-3440f1d70f6c",
+      "originalGeneratedFile": "exec-c634fb9e-4157-48d9-aea3-3440f1d70f6c.png",
+      "designerPersonallyViewed": true,
+      "observation": "Full-canvas black/white silhouette includes the character, hair curls, both shoes and handled notebook; chair, desk and flat sheet excluded. Some interior gray trace remains and contour registration requires actual original-RGB composite inspection. One generation only; no repeated blind mask generations or pixel edits performed."
+    }
+  ],
+  "review": {
+    "approvedByPrimary": false,
+    "originalRgbCompositeViewed": false,
+    "lightAndDarkEdgesViewed": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "next": "Primary personally reviews the current candidate over light/dark grounds and its actual room composite, then decides layer admission and any further alpha/background correction. No scene registration has been performed.",
+  "designerLayerReview": {
+    "authorization": "User explicitly approved limited Python original-scene alpha/registration/background correction on 2026-10-23.",
+    "tool": "extract-scene-layers.py",
+    "currentCandidateParameters": "sakiko-planning-apricot-layer-parameters-v3.json",
+    "currentCandidateProcessing": "sakiko-planning-apricot-layer-processing-v3.json",
+    "personallyViewed": [
+      "v1 full light, dark and room composite",
+      "v1 enlarged untouched original contact crop",
+      "v2 enlarged dark detail",
+      "v3 full light and room composite, enlarged dark detail"
+    ],
+    "observations": "v1 exposed warm chair/desk fragments. v2 broad local warm-hair criteria damaged warm-lit fine strands and was rejected. v3 withdraws broad hair regions, preserving original generated soft matte and only correcting explicitly located room fragments below hair, under skirt and at desk edge. Hair contour remains a primary review item.",
+    "rgb": "Entire original mother RGB retained exactly; motherRgbSha256 equals figureRgbSha256. No face/anatomy/clothing/pose repaint or resize/translation/warp.",
+    "layerOwnership": "Handled open navy notebook with figure; flat cream sheet, chair, desk, lamp and cup fixed in room.",
+    "motion": "Fixed tabletop contact: travel0/perspective0 until deliberately changing the complete pose.",
+    "primaryLayerApproval": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "independentLayerFinish": {
+    "parameters": "sakiko-planning-apricot-layer-parameters-v6.json",
+    "processing": "sakiko-planning-apricot-layer-processing-v6.json",
+    "scene": "sakiko-planning-apricot.scene.json",
+    "actualMotherPrompt": "sakiko-planning-apricot-prompt.txt",
+    "actualMotherPromptSha256": "fb6e88986563c6d268d5d106bab399f8772d95ba906d1e8449f295bf4272e6b6",
+    "outputs": {
+      "figure": "sakiko-planning-apricot-figure-calibrated-v6.png",
+      "mask": "sakiko-planning-apricot-mask-calibrated-v6.png",
+      "background": "sakiko-planning-apricot-background-calibrated-v6.png",
+      "shadow": "sakiko-planning-apricot-shadow-calibrated-v6.png"
+    },
+    "producerViewed": [
+      "original full mother",
+      "full light and dark",
+      "enlarged original-coordinate edges",
+      "complete original-position room composite",
+      "complete empty background"
+    ],
+    "observation": "Original-RGB v5 figure/alpha is unchanged. Empty-background review found source character cast shadows surviving at the desk front, wall below the desk and around the shoe-floor region. Those explicitly observed regions now use this mother's already generated empty background. Separate normal source-over contact residuals are limited to 3px from the original figure within shoe sole, seat and hand/book-to-desk ROIs; no broad floor texture patch or synthetic shadow. Fixed original hand/table relationship remains travel0. Primary approval and runtime admission remain pending.",
+    "primaryApproval": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "privateEvidence": ".test-data/life-layer-review/finish-planning-v6-{light,dark,room}.png"
+  }
+}

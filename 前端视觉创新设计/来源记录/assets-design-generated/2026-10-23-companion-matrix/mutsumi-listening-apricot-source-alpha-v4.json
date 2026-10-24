@@ -1,0 +1,69 @@
+{
+  "recordType": "deterministic-observed-source-alpha-repair",
+  "script": "mutsumi-observed-alpha-repairs.py",
+  "scriptSha256": "cbc919e11e9e658ab6561fd4bcf346b14d25cab66e569428baca52f5bf70ff83",
+  "parameters": "mutsumi-listening-apricot-alpha-repair-parameters-v4.json",
+  "parametersSha256": "b08c347bc59b9d59d806a9f99207914a9adca9696b1307f84196a861661ef9a3",
+  "mother": "mutsumi-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+  "inputAlpha": "mutsumi-listening-apricot-source-alpha-v3.png",
+  "inputAlphaSha256": "a9b18175d1c416c26fec57100482694564bc210ea6ef6197b06e70f35c926dd4",
+  "outputAlpha": "mutsumi-listening-apricot-source-alpha-v4.png",
+  "outputAlphaSha256": "236935869e9753cd589874f584f49776a544d7a6da9f4ae157b0d50efd75f651",
+  "rules": [
+    {
+      "purpose": "Dim blue plaid pillow behind original long hair, only high-green blue room pixels; dark navy uniform stays",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1378,
+          433
+        ],
+        [
+          1434,
+          433
+        ],
+        [
+          1434,
+          558
+        ],
+        [
+          1378,
+          558
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          50,
+          255
+        ],
+        [
+          1,
+          70,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          2,
+          0,
+          9,
+          180
+        ],
+        [
+          2,
+          1,
+          4,
+          180
+        ]
+      ]
+    }
+  ],
+  "explicitOriginalRoomExclusions": [],
+  "method": "Only original-canvas alpha visibility corrected inside personally observed RGB/room ROIs; no body/RGB redraw, warp or hidden anatomy completion.",
+  "review": {
+    "primaryLayer": "pending",
+    "runtime": "not registered or exercised"
+  }
+}

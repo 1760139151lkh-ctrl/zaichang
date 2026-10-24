@@ -1,0 +1,127 @@
+{
+  "mother": "umiri-listening-apricot-mother-candidate-v1.png",
+  "motherSha256": "14542cd757d285f6c2d89e98466e2e2bac75d2601aa0fe61d768996ae679b171",
+  "matte": "umiri-listening-apricot-mask-generated-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1140,
+      250,
+      1490,
+      800
+    ],
+    "seedThreshold": 80,
+    "uncertainBandPixels": 6,
+    "iterations": 5,
+    "edgeFeatherPixels": 0.35
+  },
+  "figure": "umiri-listening-apricot-figure-calibrated-v1.png",
+  "mask": "umiri-listening-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "umiri-listening-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 1.2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1180,
+        575
+      ],
+      [
+        1280,
+        575
+      ],
+      [
+        1280,
+        665
+      ],
+      [
+        1170,
+        665
+      ]
+    ],
+    [
+      [
+        1150,
+        742
+      ],
+      [
+        1248,
+        742
+      ],
+      [
+        1248,
+        795
+      ],
+      [
+        1150,
+        795
+      ]
+    ]
+  ],
+  "background": "umiri-listening-apricot-background-calibrated-v1.png",
+  "contactShadowPolygons": [
+    [
+      [
+        1170,
+        747
+      ],
+      [
+        1247,
+        747
+      ],
+      [
+        1247,
+        784
+      ],
+      [
+        1170,
+        784
+      ]
+    ],
+    [
+      [
+        1300,
+        559
+      ],
+      [
+        1415,
+        559
+      ],
+      [
+        1415,
+        603
+      ],
+      [
+        1300,
+        603
+      ]
+    ],
+    [
+      [
+        1410,
+        550
+      ],
+      [
+        1470,
+        550
+      ],
+      [
+        1470,
+        593
+      ],
+      [
+        1410,
+        593
+      ]
+    ]
+  ],
+  "contactShadowEdgePixels": 3,
+  "contactShadowFeatherPixels": 0.7,
+  "shadow": "umiri-listening-apricot-shadow-calibrated-v1.png",
+  "record": "umiri-listening-apricot-layer-processing-v1.json",
+  "reviewNote": "Initial independently calibrated original-RGB layer candidate. Generated matte is refined against actual source pixels only; whole original RGB unchanged, no body repaint/warp. Removed boots remain environmental in listening; fixed furniture and local original shadows follow separate owners. Primary and runtime pending."
+}

@@ -1,0 +1,244 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "anon-chat-apricot-layer-parameters-v3.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "anon-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+  "matte": "anon-chat-apricot-mask-generated-v1.png",
+  "matteSha256": "d6f0b626dc70e2ac61814b4d22004d42ee5fc1471c2f7007afa7520755f140ea",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 240,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 142734,
+  "alphaNonzeroPixels": 74593,
+  "alphaBounds": [
+    1146,
+    232,
+    1454,
+    800
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "147c417c50fcf49c3a16487b42b3a4f2dcd6e49276e54d97413ada36a9c30b59",
+  "figureRgbSha256": "147c417c50fcf49c3a16487b42b3a4f2dcd6e49276e54d97413ada36a9c30b59",
+  "background": {
+    "candidate": "anon-chat-apricot-background-generated-v1.png",
+    "candidateSha256": "ffefae86497751b32c08df51b49613ef13a4a931f861869ca3ad7c7f1cc333e6",
+    "expandPixels": 3,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          1182,
+          567
+        ],
+        [
+          1458,
+          567
+        ],
+        [
+          1458,
+          611
+        ],
+        [
+          1182,
+          611
+        ]
+      ],
+      [
+        [
+          1137,
+          757
+        ],
+        [
+          1284,
+          757
+        ],
+        [
+          1284,
+          810
+        ],
+        [
+          1137,
+          810
+        ]
+      ],
+      [
+        [
+          1189,
+          591
+        ],
+        [
+          1270,
+          589
+        ],
+        [
+          1289,
+          696
+        ],
+        [
+          1283,
+          750
+        ],
+        [
+          1269,
+          768
+        ],
+        [
+          1197,
+          765
+        ],
+        [
+          1193,
+          704
+        ]
+      ]
+    ],
+    "changedPixels": 103557,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1183,
+          566
+        ],
+        [
+          1456,
+          566
+        ],
+        [
+          1456,
+          601
+        ],
+        [
+          1183,
+          601
+        ]
+      ],
+      [
+        [
+          1138,
+          756
+        ],
+        [
+          1207,
+          756
+        ],
+        [
+          1207,
+          790
+        ],
+        [
+          1138,
+          790
+        ]
+      ],
+      [
+        [
+          1192,
+          773
+        ],
+        [
+          1282,
+          773
+        ],
+        [
+          1282,
+          807
+        ],
+        [
+          1192,
+          807
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "anon-chat-apricot-figure-calibrated-v3.png",
+      "bytes": 2438955,
+      "sha256": "6df4a608133be187881aaaac4642441387af45990d13f906812a6156c9ce45b1"
+    },
+    {
+      "file": "anon-chat-apricot-mask-calibrated-v3.png",
+      "bytes": 37272,
+      "sha256": "86d065eaaedfad62c314de7fa1285191290d90b1069925af026681a91fa83e35"
+    },
+    {
+      "file": "anon-chat-apricot-background-calibrated-v3.png",
+      "bytes": 2089501,
+      "sha256": "8829b9ac0ba0be8a629fd15991247fc40d886e5f0d396c2156fd793a7fe08a7f"
+    },
+    {
+      "file": "anon-chat-apricot-shadow-calibrated-v3.png",
+      "bytes": 68726,
+      "sha256": "5321d669b66b3b53c1295007a073bad8b6b1bd30dd1782fcad58903a72ee73c6"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  },
+  "castShadow": {
+    "processor": "anon-chat-apricot-layer-production.py",
+    "processorSha256": "cfae7ddcfb4ddfb293b58d47c1b09b0c01038df395d52c6c153025b77d3d632c",
+    "polygons": [
+      [
+        [
+          1189,
+          591
+        ],
+        [
+          1270,
+          589
+        ],
+        [
+          1289,
+          696
+        ],
+        [
+          1283,
+          750
+        ],
+        [
+          1269,
+          768
+        ],
+        [
+          1197,
+          765
+        ],
+        [
+          1193,
+          704
+        ]
+      ]
+    ],
+    "method": "Original bench-front leg shadow solved as normal source-over RGBA against the same mother's clean background inside explicit source shadow ROIs; visible figure excluded. This cast region is separate from the 3px contact shadow band. No copied floor/bench RGB rectangle.",
+    "combinedWithContactShadow": true
+  }
+}

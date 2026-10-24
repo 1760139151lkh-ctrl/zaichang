@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-themed-mother-candidate",
+  "character": "umiri",
+  "activity": "listening",
+  "theme": "mist",
+  "status": "generated",
+  "tool": "built-in image_gen",
+  "executionId": "exec-67f854b7-2a67-4b46-8bfb-2d85f3952a6e",
+  "input": {
+    "path": "umiri-listening-apricot-mother-candidate-v1.png",
+    "sha256": "14542cd757d285f6c2d89e98466e2e2bac75d2601aa0fe61d768996ae679b171",
+    "role": "sole primary-approved complete apricot activity mother"
+  },
+  "promptFile": "umiri-listening-mist-prompt.txt",
+  "actualPrompt": "Asset ID: umiri-listening-mist. Activity: listening. Theme: mist.\nSOLE APPROVED INPUT: umiri-listening-apricot-mother-candidate-v1.png; complete original apricot activity mother only.\nUse case: lighting-weather. Make ONE complete 1536 x 1024 same-room themed mother by relighting the supplied primary-approved character listening scene.\nONLY INPUT IMAGE 1 is the EDIT TARGET, a complete approved apricot mother with its original person. This is a whole-scene LIGHTING AND WEATHER EDIT, not a new composition or new pose.\nLOCK EVERYTHING GEOMETRIC: exact canvas, camera and perspective; exact person's face, age, hairstyle, body, expression, posture, hands/fingers, clothing folds, hems, both feet/shoes, scale and position; exact window frame and all four corners, curtains, lake/campus landmarks, rear-left table/chair/shelves/framed drawing, right desk/chair/lamp/cup/book, bench/pillows/throw, rug and all furniture feet. Keep the chair in THIS mother, even if it differs from the original empty-room chair orientation. Do not restore/reposition a chair, move a lamp or widen a desk. Do not crop, zoom, enlarge, redesign, move the person or add another person.\nThe left lived-in depth and open central floor stay visible. Relight the PERSON and the WHOLE ROOM together so hair, skin, clothes, wood, linen, window glass, exterior and contact shadows agree with the same illumination. Skin and clothing retain their own material colors, not a full-image color filter, tinted overlay, green cast, black layer or white gradient. Preserve fine youthful Japanese-anime character linework and the softly detailed painted environment. No text, UI, logo, watermark, split-screen, border, arrows, inset or duplicate view.\n\nIDENTITY LOCK: this is Yahata Umiri (八幡海鈴), the same youthful charcoal-gray shoulder-length flipped-tip hair, gray-teal eyes, short black jacket, dark-red top, gray short skirt, choker/earrings and black platform boots already painted in the input. Keep her ORIGINAL LISTENING bench posture: one socked leg is folded and supported on the seat beneath the existing knitted throw; the other socked foot hangs down to the original floor contact. Preserve both hands, the loose throw across knees, original supportive gaze and all folds. Her pair of removed black boots stays exactly on the floor as environment objects. Do not put those boots back on, add a third leg or stretch both feet to the floor.\n\nTHEME MIST / clear blue-white morning:\nThe same lake and distant campus have light low morning haze, bright clear pale-blue sky and soft small clouds. Haze stays OUTSIDE, not inside the room. The big window supplies broad diffuse cool morning light, softer and less amber than the apricot source. Soften the strong apricot sun streaks and leaf projections into gentle broad daylight/shadows. The same curtains, window reflections, wall bounce, wood floor, pillows and cloth reflect this fresh blue-white daylight; retain ivory plaster, honey wood and neutral fabric rather than making every material blue. The existing lamp is OFF in daylight, same exact fixture and position.\nThe person receives a subtle cool window rim and soft neutral fill, natural readable skin, original hair/eye/clothing hues and ordinary contact shadows. No icy cyan face, desaturated gray room or indoor fog. One continuous airy human-scale space, not a new room.\nReturn the complete exact-size same-character, same-pose, same-furniture scene.",
+  "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-67f854b7-2a67-4b46-8bfb-2d85f3952a6e.png",
+  "output": {
+    "path": "umiri-listening-mist-mother-candidate-v1.png",
+    "sha256": "d36ef5d18f6d50b8c9c11d5df4e83e251eaa222e8280df0b13a0a18e58064600",
+    "bytes": 2152071,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-24T00:43:41.660025+00:00"
+  },
+  "designerReview": {
+    "status": "viewed-candidate",
+    "observed": "Original folded socked bench leg, other socked floor foot, knee throw and both hands retained; removed pair of boots still on floor. Fixed furniture geometry, whole fresh blue-white morning with exterior lake haze and lamp off; natural skin."
+  },
+  "primaryReview": "pending",
+  "layersAccepted": false,
+  "runtimeAccepted": false
+}

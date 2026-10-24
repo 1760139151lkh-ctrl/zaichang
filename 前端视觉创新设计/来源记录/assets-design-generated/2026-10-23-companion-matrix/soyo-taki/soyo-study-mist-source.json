@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "study",
+  "palette": "mist",
+  "light": "morning",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-a909bfe7-f768-4475-9146-2ab47c3c2703",
+  "prompt": "soyo-study-mist-prompt.txt",
+  "promptSha256": "f9e3d9e510210ed8e671bb83d6254f58698da2bcea0519aceb926609961ff922",
+  "inputs": [
+    {
+      "file": "soyo-study-apricot-mother-candidate-v1.png",
+      "sha256": "cf664fa1fc6dcdd8fd9c8dc1cd542d4142bbe05d5d9809a101e6d58907858411",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-a909bfe7-f768-4475-9146-2ab47c3c2703.png",
+  "output": {
+    "file": "soyo-study-mist-mother-candidate-v1.png",
+    "sha256": "4b84e7c098ea2c8b1e9a77c203fa06a4ff4484288ed35d5b7266393a51976ec7",
+    "bytes": 2119563,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "generated-self-review-pending",
+  "review": {
+    "producerViewed": "pending actual complete output review after this tool result",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}
+

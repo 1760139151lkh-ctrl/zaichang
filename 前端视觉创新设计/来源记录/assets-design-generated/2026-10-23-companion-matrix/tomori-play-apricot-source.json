@@ -1,0 +1,43 @@
+{
+  "recordType": "image-generation-source",
+  "character": "tomori",
+  "identity": "Takamatsu Tomori / 高松燈",
+  "activity": "play",
+  "light": "apricot",
+  "revision": 1,
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-d94a3d70-005f-4707-ad96-8606d6b7695e",
+  "prompt": "tomori-play-apricot-prompt.txt",
+  "promptSha256": "35986bc80dad5003aeb70776a9e19e09f66cec62407f774ccde78457ebe85b8c",
+  "promptFileMatchesActualToolInput": true,
+  "inputs": [
+    {
+      "file": "room-apricot-candidate-v4.png",
+      "role": "approved_clean_empty_room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "tomori-play-apricot-mother.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2190883,
+    "sha256": "7d516b243573ea7cc80cbd6c720eee823dbc0ed4096cf9b7f81e9d65e26de63d"
+  },
+  "canonicalTextReferences": [
+    "https://anime.bang-dream.com/mygo/character/tomori/",
+    "https://anime.bang-dream.com/avemujica/character/tomori/"
+  ],
+  "review": {
+    "designerViewed": "complete original 1536x1024 output via view_image",
+    "designerStatus": "candidate_for_primary_review",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not integrated or verified"
+  },
+  "designerObservation": "Stable half-kneel on the open floor: one knee/shin supported, other complete loafer planted, rear whole loafer toes contact the floor. Torso curls inward/right around a small stone supported and turned by both hands; focused eye line differs from shared leftward paper study. Complete figure/room retained.",
+  "primaryQuestions": [
+    "The kneeling figure is farther forward than the bench poses and begins near x=930; judge room perspective, complete rear knee-to-ankle path and text-safe space rather than assuming a common body scale.",
+    "Actual stone appears somewhat larger than the requested 3 cm; judge restrained interest/identity and real hand support before any approval."
+  ]
+}

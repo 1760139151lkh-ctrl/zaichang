@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "nyamu",
+  "activity": "chat",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "whole-environment physical relighting of primary-approved complete mother; pose and furniture locked",
+  "identityText": "nyamu-identity.txt",
+  "inputs": [
+    {
+      "file": "nyamu-chat-apricot-mother-candidate-v1.png",
+      "role": "sole image input/edit target; primary-approved correct complete mother",
+      "sha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305"
+    }
+  ],
+  "approvalBasis": "primary-other-mother-reviews.json; original Nyamu chat mother approved for correct anatomy/identity/support/activity; theme review separate",
+  "primaryReview": "not requested for rejected candidate",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "asset": "nyamu-chat-rain-mother-candidate-v1.png",
+  "palette": "rain",
+  "light": "night",
+  "prompt": "nyamu-chat-rain-prompt.txt",
+  "output": {
+    "file": "nyamu-chat-rain-mother-candidate-v1.png",
+    "sha256": "002aa54c0adce5545040dc73ccf8e808740e81acb7ebfb919b725526f7ee4469",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-ceac5358-bbdd-49eb-9d84-b750eedb6004.png"
+  },
+  "designerObservation": "Full image viewed. Supported pose and intrinsic identity/outfit retained; rainy night sky/glass, lake lights and existing warm lamp present. However the left wall/corner retain warm daytime leaf silhouettes, and some floor reflections remain directional bright golden streaks. Designer rejects this whole-room night-light relation and regenerates solely from approved apricot mother, never from this rejected rain candidate.",
+  "designerStatus": "rejected for retained daytime leaf/sun projections",
+  "observedGaps": [
+    "Not eligible for theme expansion or extraction."
+  ]
+}

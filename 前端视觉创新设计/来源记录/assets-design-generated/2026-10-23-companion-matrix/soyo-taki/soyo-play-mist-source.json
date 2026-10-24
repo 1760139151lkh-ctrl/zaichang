@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "play",
+  "palette": "mist",
+  "light": "morning",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-9c48625b-bee3-4dfe-8439-2bbefcc311eb",
+  "prompt": "soyo-play-mist-prompt.txt",
+  "promptSha256": "50dae133b439a98c255f62ee80feeb8f49526f4988dea7f6cee743edfb1907f1",
+  "inputs": [
+    {
+      "file": "soyo-play-apricot-mother-candidate-v1.png",
+      "sha256": "81e654d671e5da16986fe32fe6e742c12042c684cad689f59885706eb29cc1f4",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-9c48625b-bee3-4dfe-8439-2bbefcc311eb.png",
+  "output": {
+    "file": "soyo-play-mist-mother-candidate-v1.png",
+    "sha256": "a6cbe40c4474359f6764c01a241ab2c20f18cd2274b9adccedbf2f83b0d73dc2",
+    "bytes": 2163575,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed and compared with the approved warm mother and its empty theme plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Original forward-leaning held bookmark, second supporting palm, bench hips and near/far complete floor shoes retained. Clear mist light affects room and character naturally. Primary/layer/runtime review remains separate."
+}

@@ -1,0 +1,142 @@
+{
+  "recordType": "mother-candidate-navigation",
+  "palette": "apricot",
+  "light": "morning",
+  "stage": "current generated full-mother candidates; primary decisions are maintained by the primary agent",
+  "identityDirection": "character-direction.md",
+  "soleImageInput": {
+    "file": "../room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+  },
+  "activities": [
+    "chat",
+    "study",
+    "reading",
+    "planning",
+    "listening",
+    "rest",
+    "play",
+    "attention"
+  ],
+  "characters": [
+    {
+      "id": "soyo",
+      "mothers": [
+        {
+          "activity": "chat",
+          "source": "soyo-chat-apricot-source.json",
+          "file": "soyo-chat-apricot-mother-candidate-v1.png",
+          "sha256": "e5860a2adf427032f84d15dcec6c59c8b6ffa7dff8ede6eadf9ec669f4e00b29"
+        },
+        {
+          "activity": "study",
+          "source": "soyo-study-apricot-source.json",
+          "file": "soyo-study-apricot-mother-candidate-v1.png",
+          "sha256": "cf664fa1fc6dcdd8fd9c8dc1cd542d4142bbe05d5d9809a101e6d58907858411"
+        },
+        {
+          "activity": "reading",
+          "source": "soyo-reading-apricot-v2-source.json",
+          "file": "soyo-reading-apricot-mother-candidate-v2.png",
+          "sha256": "68b71f572a6566147acf1bbe104cd05a1bc6e9194ea01039a3e40b785e60f23e"
+        },
+        {
+          "activity": "planning",
+          "source": "soyo-planning-apricot-v2-source.json",
+          "file": "soyo-planning-apricot-mother-candidate-v2.png",
+          "sha256": "e002a836c881d736966bce3a254de9ef5e4a0417efc5b260eaeaea64d85904d6"
+        },
+        {
+          "activity": "listening",
+          "source": "soyo-listening-apricot-v2-source.json",
+          "file": "soyo-listening-apricot-mother-candidate-v2.png",
+          "sha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4"
+        },
+        {
+          "activity": "rest",
+          "source": "soyo-rest-apricot-source.json",
+          "file": "soyo-rest-apricot-mother-candidate-v1.png",
+          "sha256": "c1be74d29d85a6ac0a2976acdcb3632fe625d46fef9535ca6ed6f33eabeb6e61"
+        },
+        {
+          "activity": "play",
+          "source": "soyo-play-apricot-source.json",
+          "file": "soyo-play-apricot-mother-candidate-v1.png",
+          "sha256": "81e654d671e5da16986fe32fe6e742c12042c684cad689f59885706eb29cc1f4"
+        },
+        {
+          "activity": "attention",
+          "source": "soyo-attention-apricot-source.json",
+          "file": "soyo-attention-apricot-mother-candidate-v1.png",
+          "sha256": "c854bfeb6cc56482357a1fbf64ba020b6e42a52cdbe6240157ac89466852784e"
+        }
+      ]
+    },
+    {
+      "id": "taki",
+      "mothers": [
+        {
+          "activity": "chat",
+          "source": "taki-chat-apricot-source.json",
+          "file": "taki-chat-apricot-mother-candidate-v1.png",
+          "sha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f"
+        },
+        {
+          "activity": "study",
+          "source": "taki-study-apricot-source.json",
+          "file": "taki-study-apricot-mother-candidate-v1.png",
+          "sha256": "49515d600d10286f1af4f808fbf285f4e2abfd1cabd05d6b319f3fdcbd6d0166"
+        },
+        {
+          "activity": "reading",
+          "source": "taki-reading-apricot-v2-source.json",
+          "file": "taki-reading-apricot-mother-candidate-v2.png",
+          "sha256": "950b6f05f48f6b0ca0335bdffb0468379b95e95576e1afd8da487be488f5314b"
+        },
+        {
+          "activity": "planning",
+          "source": "taki-planning-apricot-source.json",
+          "file": "taki-planning-apricot-mother-candidate-v1.png",
+          "sha256": "f0fa68c1f8f0257063bdae886dd258b415af26e127382e8c2bb3b95f6f7050ff"
+        },
+        {
+          "activity": "listening",
+          "source": "taki-listening-apricot-source.json",
+          "file": "taki-listening-apricot-mother-candidate-v1.png",
+          "sha256": "d8369e39dc109457df147611494e1741c86512e2bcfc579c92050efb0d134bbb"
+        },
+        {
+          "activity": "rest",
+          "source": "taki-rest-apricot-source.json",
+          "file": "taki-rest-apricot-mother-candidate-v1.png",
+          "sha256": "c946307e511b2a1f60652c04ec44e00a4a6d4c23ad3ded44043587f708983ee4"
+        },
+        {
+          "activity": "play",
+          "source": "taki-play-apricot-source.json",
+          "file": "taki-play-apricot-mother-candidate-v1.png",
+          "sha256": "bf2bb6c780f72c03b65169347d1deafe8c178afe1a9bf6509848dc239321d0f9"
+        },
+        {
+          "activity": "attention",
+          "source": "taki-attention-apricot-v2-source.json",
+          "file": "taki-attention-apricot-mother-candidate-v2.png",
+          "sha256": "23c79a3ce36b887e2c2f57f37558cbe5ace84014c9a03524e31872028004a2f5"
+        }
+      ]
+    }
+  ],
+  "rejectedSources": [
+    "soyo-reading-apricot-v1-rejected-source.json",
+    "taki-reading-apricot-v1-rejected-source.json",
+    "soyo-listening-apricot-v1-rejected-source.json",
+    "soyo-planning-apricot-source.json"
+  ],
+  "alternateHeldSource": "taki-attention-apricot-source.json",
+  "extractionConstraints": {
+    "study": "Matching BG must come from each approved mother; true chair/table occlusion retained, travel0, no invented hidden contour.",
+    "takiPlay": "Practice pad stays with desk/room; only two held drumsticks belong to actor; fixed desk-contact anchor.",
+    "listening": "Removed floor shoes stay in room, socked feet belong to actor.",
+    "attention": "Desk/bench card is stationary room object; held pencil only belongs to Taki actor."
+  }
+}

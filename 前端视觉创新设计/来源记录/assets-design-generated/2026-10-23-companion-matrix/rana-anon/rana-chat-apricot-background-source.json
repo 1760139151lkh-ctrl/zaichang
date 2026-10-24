@@ -1,0 +1,30 @@
+{
+  "createdOn": "2026-10-24",
+  "tool": "built-in image_gen.imagegen",
+  "useCase": "precise-object-edit",
+  "character": "rana",
+  "activity": "chat",
+  "theme": "apricot",
+  "assetKind": "background",
+  "inputs": [
+    {
+      "file": "rana-chat-apricot-mother-candidate-v1.png",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "role": "sole input; primary-approved correct complete mother, primary-other-mother-reviews.json"
+    }
+  ],
+  "file": "rana-chat-apricot-background-generated-v1.png",
+  "sha256": "798448d3b0881a895d6785e61f3b967e68dd86a40fbf9b4826d99d7f6ff4ff60",
+  "prompt": "rana-chat-apricot-background-prompt.txt",
+  "promptSha256": "4dfcf2596c018c84e4192baa8be9aa042a609e5d12df4d2f1a11a4cf3716a4d0",
+  "promptEncoding": "UTF-8; exact submitted string, no added final newline",
+  "originalGeneratedFile": "exec-704fd727-a848-4417-ac68-95d900b712c3.png",
+  "designerPersonallyViewed": true,
+  "designerStatus": "candidate-for-original-rgb-layer-calibration",
+  "designerObservation": "Complete generated empty room; some texture changes outside removed person. Only local revealed-body region may be used with unoccluded original mother retained.",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  }
+}

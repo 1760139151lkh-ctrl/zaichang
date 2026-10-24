@@ -1,0 +1,72 @@
+{
+  "purpose": "local alpha background-noise cleanup only; no RGB/anatomy repaint",
+  "input": "umiri-reading-apricot-mask-raw-v2.png",
+  "inputSha256": "274243498fd2785d664c75f48cf379bce1533f764fe84632d3edb6ba3977a614",
+  "reference": "umiri-reading-apricot-mother-candidate-v2.png",
+  "referenceSha256": "5543b970656b878a7f7114429e3d1325c4aa64ba036eb998912831cd87cfa974",
+  "regionsXYXY": [
+    [
+      1210,
+      270,
+      1358,
+      416
+    ],
+    [
+      1180,
+      461,
+      1230,
+      492
+    ]
+  ],
+  "protectedOriginalHeadInterior": [
+    [
+      1241,
+      307
+    ],
+    [
+      1251,
+      285
+    ],
+    [
+      1278,
+      279
+    ],
+    [
+      1306,
+      287
+    ],
+    [
+      1326,
+      309
+    ],
+    [
+      1338,
+      338
+    ],
+    [
+      1330,
+      360
+    ],
+    [
+      1320,
+      379
+    ],
+    [
+      1299,
+      384
+    ],
+    [
+      1272,
+      386
+    ],
+    [
+      1248,
+      368
+    ]
+  ],
+  "rule": "Begin raw luminance. Inside either half-open region and outside Pillow ImageDraw protectedOriginalHeadInterior polygon, where luminance>0 set zero if (G>R+3 and B>R+5) or (G-B>65 and R-G<35). Every other raw luminance byte is preserved; original RGB read only.",
+  "changedAlphaPixels": 1691,
+  "output": "umiri-reading-apricot-mask-local-color-v1.png",
+  "outputSha256": "0e96fe398e08fe25761cc9f038aa6de2233ef31b1ea43bed63b33b62fbbfcd06",
+  "reason": "Observed blue-sky/leaf margins outside actual dark-hair contour and blue window fringe on book page outer edge; eye/face/bulk hair protected."
+}

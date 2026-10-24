@@ -1,0 +1,38 @@
+{
+  "recordType": "deterministic-original-rgb-trimap-production",
+  "script": "mutsumi-source-matte.py",
+  "scriptSha256": "1107dbbceb57dedb3810d193fb5bfb24c3ce3081cda4db536a850302d7d1c0c3",
+  "parameters": "mutsumi-reading-apricot-source-matte-parameters-v2.json",
+  "parametersSha256": "3efa37b40a255f6b68046026bbe44a246df637072c19b85515525fc8789465fc",
+  "inputs": [
+    {
+      "file": "mutsumi-reading-apricot-mother-candidate-v2.png",
+      "sha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+      "role": "primary-approved sole original body RGB/geometry"
+    },
+    {
+      "file": "mutsumi-reading-apricot-background-candidate-v1.png",
+      "sha256": "d8ab8545fd9502694d9d37309ceb9ff5778f882d5d3b689c9a00e90ca9a88935",
+      "role": "matching empty background for original-position difference/trimap only"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-reading-apricot-source-alpha-v2.png",
+    "sha256": "4320ec472b96dad360fea64ab73dd87085e84036dd57e3ae3f4f3138d7ac2a65"
+  },
+  "canvas": [
+    1536,
+    1024
+  ],
+  "alphaBounds": [
+    1039,
+    306,
+    1474,
+    751
+  ],
+  "method": "Observed original-coordinate visible contour and room-hole trimap with original RGB/matching BG difference seeds; no erroneous generated mask, body/RGB transform, repaint or hidden-anatomy completion.",
+  "review": {
+    "primaryLayer": "pending",
+    "runtime": "not registered or accepted"
+  }
+}

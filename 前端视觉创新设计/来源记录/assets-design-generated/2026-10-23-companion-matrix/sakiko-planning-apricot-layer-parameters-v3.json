@@ -1,0 +1,89 @@
+{
+  "mother": "sakiko-planning-apricot.png",
+  "motherSha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11",
+  "matte": "sakiko-planning-apricot-mask-generated-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          838,
+          518
+        ],
+        [
+          868,
+          518
+        ],
+        [
+          868,
+          536
+        ],
+        [
+          838,
+          536
+        ]
+      ],
+      "redMin": 100,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    },
+    {
+      "polygon": [
+        [
+          860,
+          585
+        ],
+        [
+          956,
+          585
+        ],
+        [
+          956,
+          613
+        ],
+        [
+          860,
+          613
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    },
+    {
+      "polygon": [
+        [
+          946,
+          510
+        ],
+        [
+          978,
+          510
+        ],
+        [
+          979,
+          538
+        ],
+        [
+          953,
+          533
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    }
+  ],
+  "figure": "sakiko-planning-apricot-figure-calibrated-v3.png",
+  "mask": "sakiko-planning-apricot-mask-calibrated-v3.png",
+  "backgroundCandidate": "sakiko-planning-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 3,
+  "backgroundFeatherPixels": 1,
+  "background": "sakiko-planning-apricot-background-calibrated-v3.png",
+  "record": "sakiko-planning-apricot-layer-processing-v3.json",
+  "reviewNote": "v2 hair-region color criterion removed some warm-lit fine strands. v3 withdraws those broad hair polygons, preserves the original generated soft hair matte, and only removes a small explicitly observed warm chair fragment below the hair tail plus original chair-seat/desk-edge pixels. Original mother RGB/body/face/pose unchanged; no global erosion, rescale or independent sticker. Primary contour review pending; fixed tabletop contact travel0."
+}

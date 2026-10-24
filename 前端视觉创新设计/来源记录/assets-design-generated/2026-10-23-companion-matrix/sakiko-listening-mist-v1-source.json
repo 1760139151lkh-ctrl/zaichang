@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-listening-mist-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "listening",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-listening-mist-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-listening-apricot-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "output": {
+    "file": "sakiko-listening-mist-mother-candidate-v1.png",
+    "sha256": "d875dd1e06c9631a37248e39609e6fa11e3377ef26e7fc17533a231a7420be64",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-ff255678-1ed2-4f2e-b265-2f40e87d9b4f.png",
+    "executionId": "ff255678-1ed2-4f2e-b265-2f40e87d9b4f"
+  },
+  "designerObservation": "Personally viewed full mother: loose compact knees and forearms on the bench, complete socked feet supported on the cushion; two removed loafers remain on the floor. Quiet attentive gaze and lowered shoulders differ from chat. Shoes belong to the stationary room in later extraction. Needs primary review.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "promptSha256": "1e31a7167495d60d9eb25456d8635ef0121dbfb64210bc15ed2d42d10c732b2f"
+}

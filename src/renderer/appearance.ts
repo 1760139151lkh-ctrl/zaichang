@@ -40,6 +40,12 @@ function applyAppearance(value: Appearance) {
   document.documentElement.dataset.density = value.density;
   document.documentElement.style.setProperty('--reading-scale', String(value.readingScale));
 }
+/** Applies a setting's local preview. Closing or cancelling the setting reads
+ * the current saved choice again, including changes from another window. */
+export function previewAppearance(patch: Partial<Appearance>) {
+  applyAppearance({ ...readAppearance(), ...patch });
+  return () => applyAppearance(readAppearance());
+}
 export function initializeAppearance() {
   applyAppearance(readAppearance());
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
@@ -61,8 +67,13 @@ export function useAppearance() {
   }, []);
   return [
     value,
-    (patch: Partial<Appearance>) => {
-      const next = { ...readAppearance(), ...patch };
+    (patch: Partial<Appearance>, expectedPalette?: AppearancePalette) => {
+      const current = readAppearance();
+      if (expectedPalette !== undefined && current.palette !== expectedPalette) {
+        window.dispatchEvent(new Event('appearance-change'));
+        throw new Error('色彩刚在另一处换过。试看的样子还在，先看看新的选择吧。');
+      }
+      const next = { ...current, ...patch };
       localStorage.setItem(key, JSON.stringify(next));
       applyAppearance(next);
       window.dispatchEvent(new Event('appearance-change'));

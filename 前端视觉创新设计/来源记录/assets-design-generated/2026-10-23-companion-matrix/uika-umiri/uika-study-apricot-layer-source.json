@@ -1,0 +1,182 @@
+{
+  "recordType": "approved-mother-layer-generation",
+  "tool": "built-in image_gen",
+  "recordedAt": "2026-10-23T21:58:59.116168+00:00",
+  "input": {
+    "file": "uika-study-apricot-mother-candidate-v1.png",
+    "sha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0",
+    "role": "sole approved mother; complete same-canvas segmentation and local background removal, no other image input"
+  },
+  "calls": [
+    {
+      "purpose": "mask",
+      "executionId": "exec-8ddec3d8-edce-487c-83ba-b7320eb57f89",
+      "promptFile": "uika-study-apricot-mask-prompt.txt",
+      "actualPrompt": "Use case: background-extraction\nAsset type: same-canvas semantic segmentation matte for the approved Uika study illustration.\nInput image 1 is the sole edit target, not a style reference. Produce a fully opaque black-and-white segmentation image at exactly 1536 x 1024, with every visible Uika/person pixel solid white and every room/object/background pixel solid black. Preserve the original coordinate system, framing, scale, silhouette and occlusion: do not crop, move, resize, re-pose, complete hidden anatomy or redraw the character. Keep softly antialiased edges and fine hair tips.\nWhite includes only the visible young woman: short pale blonde bob and hair wisps, face/neck/ears, white shirt, all visible arms and hands, her long taupe pleated skirt including its complete hem, visible socks and both black-and-white sneakers, and the actual small pen held in her hand if visible. Preserve the narrow spaces between arm/body and legs/shoes as black whenever room is visible through them. The opaque upholstered chair back/seat that occludes the woman remains black, leaving the same visible-only shape as the mother.\nBlack includes the entire room, window, scenery, chair and all chair legs, desk and desk legs, paper/notebook lying on the desk, tableware, lamp, floor and all cast/contact shadows. The white silhouette must not grow into the desktop or paper simply because her hand touches them. No chair fabric or wood goes white. No floor reflections, chair-leg fragments, shoe shadows or rectangular backdrop. No grayscale painting of body details: the person interior is white, the room interior black; gray only for a thin antialiased contour. Output a clean full-canvas segmentation matte, not a portrait, not a collage, not a transparent image.",
+      "transparentBackground": false,
+      "output": {
+        "file": "uika-study-apricot-mask-raw-v1.png",
+        "sha256": "e7424fd235fe6ab2f2ec0bb815043fd56c5d15ea2cdef8d3742b94b84d634857",
+        "bytes": 354700,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      }
+    },
+    {
+      "purpose": "background",
+      "executionId": "exec-20059018-68b7-4496-b452-83b8fdcb895c",
+      "promptFile": "uika-study-apricot-background-prompt.txt",
+      "actualPrompt": "Use case: precise-object-edit\nAsset type: matching clean background plate for the approved Uika study illustration.\nInput image 1 is the sole edit target. Remove only the seated young woman Uika, including all hair, body, clothes, socks, both shoes and her actually held pen, plus her small body/foot contact shadows. Reconstruct only the background previously hidden by her. Keep the exact full 1536 x 1024 canvas and the identical camera, scale, perspective and placement of every furnishing. No crop, shift, zoom, new subject or new object.\nThe desk, paper/notebook resting on it, lamp and cup remain exactly where they are, with their exact size, angle, shape and lighting. The upholstered chair stays in the mother's original position and perspective: preserve the original visible chair back, seat and wooden legs and complete only their locally hidden parts. Preserve the right window bench and its fabric, blanket, the floorboards and sunlight, the entire window with the same landscape, left desk/shelves/plants, curtains, wall drawing and rug. Do not rotate or enlarge the chair or desk. Do not redesign the room or borrow another empty-room layout.\nReconstruct the small revealed window/desk/chair/floor regions with matching original warm apricot daylight and the same delicate illustration texture. No ghost hair, skin, white shirt, taupe skirt, socks, shoes, person-shaped blur, residual shadow or reflection. Do not change any unaffected pixels intentionally. This is a clean plate for compositing the original mother pixels back into the same positions, so exact spatial alignment matters more than stylistic novelty. One coherent full scene, no side-by-side comparison, no text or watermark.",
+      "transparentBackground": false,
+      "output": {
+        "file": "uika-study-apricot-background-raw-v1.png",
+        "sha256": "a7d8f91663bfd8fe1bc4da942ec4c69fb791c9320af9d0c2143ec33c526fc9fc",
+        "bytes": 2163335,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      }
+    }
+  ],
+  "designerReview": {
+    "rawMask": "Viewed full canvas: correct visible-body position, room black; shoe upper interiors incorrectly black and need explicit local alpha fill.",
+    "rawBackground": "Viewed full canvas: character removed; original desk/chair shape and perspective appear aligned. Local reconstructed regions only will be used, not whole generated room."
+  },
+  "primaryLayerReview": "pending",
+  "runtimeAccepted": false,
+  "layerProduction": {
+    "status": "designer-reviewed candidate; primary layer and runtime review pending",
+    "selectedParameters": "uika-study-apricot-layer-parameters-v12.json",
+    "selectedProcessingRecord": "uika-study-apricot-layer-processing-v12.json",
+    "scene": "uika-study-apricot.scene.json",
+    "outputs": [
+      {
+        "file": "uika-study-apricot-figure-calibrated-v12.png",
+        "bytes": 2446052,
+        "sha256": "5ca26ae635445c047eaed864883781be273ba2481ecaa0b9eff81cdb3913ee54"
+      },
+      {
+        "file": "uika-study-apricot-mask-calibrated-v12.png",
+        "bytes": 23926,
+        "sha256": "be3e89555432ba72b4e4d1fea04639adb1897ab215d5804d0db5109c76841b09"
+      },
+      {
+        "file": "uika-study-apricot-background-calibrated-v12.png",
+        "bytes": 2121934,
+        "sha256": "d91bbf5b7ef1ab98e3d7754ce0d9e3232f5bd2ab8a32d67cc581aa123cea58fb"
+      },
+      {
+        "file": "uika-study-apricot-shadow-calibrated-v12.png",
+        "bytes": 31926,
+        "sha256": "17f1cf9db8790466c1946293c6ea6be3a38d26e815897345393da97fd1772864"
+      }
+    ],
+    "motherRgbSha256": "e36f1c998a67fdd31016f7f1e9802b97c7cb550ef4a9fbf3424b32a2b11df36c",
+    "figureRgbSha256": "e36f1c998a67fdd31016f7f1e9802b97c7cb550ef4a9fbf3424b32a2b11df36c",
+    "transform": "identity; no resize/translation/warp",
+    "designerObserved": [
+      "Fixed desk-contact pose: travel0, perspective0. Original pen belongs to figure; real desktop paper and chair stay background. Existing v11 visible-body alpha retained; only matching-background wall/body shadow removal and 3px original source contacts added. Chair occlusion holes remain honest; no hidden anatomy completed. No runtime observation or primary layer acceptance here."
+    ],
+    "reviewImagesPrivateDirectory": ".test-data/uika-existing-layer-review",
+    "reviewImages": [
+      "study-v12-light.png",
+      "study-v12-dark.png",
+      "study-v12-empty.png",
+      "study-v12-room-dx0.png"
+    ],
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false,
+    "integrated": false,
+    "superseded": {
+      "v11": "Body alpha retained; empty plate still contained original wall/body shadow."
+    },
+    "remaining": [
+      "Primary inspect original chair occlusion and new wall patch/contact result before admission.",
+      "Fixed desk contact must remain travel0; no real runtime observation here."
+    ]
+  },
+  "layerProductionHistory": [
+    {
+      "status": "designer-reviewed-candidate; primary layer review pending",
+      "selectedParameters": "uika-study-apricot-layer-parameters-v11.json",
+      "selectedProcessingRecord": "uika-study-apricot-layer-processing-v11.json",
+      "matteRefinement": "uika-study-apricot-matte-refinement-v5.json",
+      "mattePreparationOutput": "uika-study-apricot-mask-local-color-v5.png",
+      "productionTool": "../extract-scene-layers.py",
+      "productionToolSha256": "f9a11baa1d7cf915c69341ffd18cea7a8e7d23318a8ea53be56d51775ae80bc0",
+      "transform": "identity; no crop/scale/translation/warp",
+      "outputs": [
+        {
+          "file": "uika-study-apricot-figure-calibrated-v11.png",
+          "bytes": 2446052,
+          "sha256": "5ca26ae635445c047eaed864883781be273ba2481ecaa0b9eff81cdb3913ee54"
+        },
+        {
+          "file": "uika-study-apricot-mask-calibrated-v11.png",
+          "bytes": 23926,
+          "sha256": "be3e89555432ba72b4e4d1fea04639adb1897ab215d5804d0db5109c76841b09"
+        },
+        {
+          "file": "uika-study-apricot-background-calibrated-v11.png",
+          "bytes": 2122207,
+          "sha256": "e2d40d22f5cf6eb6ff4d5f59bd5e81c0b2b481fc3b92d8e0ea58aa1e90bc3e7e"
+        }
+      ],
+      "dataObservations": {
+        "motherRgbSha256": "e36f1c998a67fdd31016f7f1e9802b97c7cb550ef4a9fbf3424b32a2b11df36c",
+        "figureRgbSha256": "e36f1c998a67fdd31016f7f1e9802b97c7cb550ef4a9fbf3424b32a2b11df36c",
+        "rgbaFigureSize": [
+          1536,
+          1024
+        ],
+        "rgbaMaskSize": [
+          1536,
+          1024
+        ],
+        "backgroundSize": [
+          1536,
+          1024
+        ],
+        "alphaRange": [
+          0,
+          255
+        ],
+        "softAlphaPixels": 5328,
+        "maskRgbMinimum": 255,
+        "originalMotherSha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0"
+      },
+      "designerObserved": [
+        "Original full mother and figure-over-matching-background recomposition viewed at full canvas; desk/chair alignment and hand/seat/shoe contact retained.",
+        "Light and dark backings viewed full and close detail; missing rear forearm/left hand and black shoe upper interiors restored with local alpha from original RGB. Actual held pen retained; desk paper and chair remain background.",
+        "Local chair-back highlight and seat/wood crescent removed from alpha; shoe sole remnants cleared from matching background only. Original floorboards and room RGB remain outside the explicit patch.",
+        "Head contour color cleanup restricted to left sky/leaf arcs after broad cleanup caused highlight pinholes; crown exterior polygon follows inspected original rounded hair contour. Fine warm/pale rim stays original mother RGB.",
+        "No anatomy, face, garment, limb or pose repainted. No generic largest-component deletion."
+      ],
+      "reviewImages": [
+        "uika-study-apricot-review-light-v11.png",
+        "uika-study-apricot-review-dark-v11.png",
+        "uika-study-apricot-review-light-detail-v11.png",
+        "uika-study-apricot-review-dark-detail-v11.png",
+        "uika-study-apricot-review-recomposed-v11.png"
+      ],
+      "superseded": {
+        "v1-v7": "intermediate calibration only; not selected",
+        "v8-v9": "rejected: overbroad hair-region color cleanup damaged bright edge/shirt alpha",
+        "v10": "rejected: horizontal crown cutoff flattened rounded outline"
+      },
+      "remaining": [
+        "Primary must inspect thin hair/hand edges and original chair occlusion before adopting.",
+        "Desk-contact pose requires travel=0; no drag/Stage/interaction evidence obtained here.",
+        "No separate foot shadow asset produced; final contact-shadow treatment belongs to primary/runtime review."
+      ],
+      "runtimeAccepted": false,
+      "integrated": false,
+      "primaryLayerReview": "pending"
+    }
+  ]
+}

@@ -659,3 +659,4 @@
 .note-material-source-actions .text-button { font-size:12px; }
 .note-material-source-error { flex-basis:100%; font-size:12px; color:var(--text-secondary); }
 .note-material-source-error p { margin:0 0 6px; line-height:1.7; }
+.note-live-excerpt { margin:4px 0 20px; padding:10px 0 10px 15px; border-left:2px solid var(--accent-dim); color:var(--text-secondary); }.note-live-excerpt header { display:flex; align-items:center; gap:8px; font-size:12px; }.note-live-excerpt blockquote { margin:10px 0 0; max-height:200px; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; color:var(--text); font-family:var(--font-reading); font-size:14px; line-height:1.9; }.note-live-excerpt>div { display:flex; align-items:center; gap:16px; margin-top:10px; }.note-live-excerpt .text-button { font-size:11px; }.note-live-excerpt>p { margin:8px 0; font-size:12px; line-height:1.8; }

@@ -1,0 +1,73 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "anon-study-apricot-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "acd958962a3fbec03faf3be03b5bbe2286df8198fde14ad5a59573780f21b19c",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "anon-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "2e9a7c010f52939149c5a93b43eb3f1ab996f9ed25bbcbaa3a7522038b1f9fbe",
+  "matte": "anon-study-apricot-mask-generated-v1.png",
+  "matteSha256": "5602e1948761afebb08552c76da9d8b6d5dd3fee09829e5e68977e397f0ce9d7",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 240,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 116611,
+  "alphaNonzeroPixels": 42769,
+  "alphaBounds": [
+    748,
+    329,
+    1033,
+    734
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "837f24765eb7854000a0018a38fc227befa240178a582601fdab8df16bf17e86",
+  "figureRgbSha256": "837f24765eb7854000a0018a38fc227befa240178a582601fdab8df16bf17e86",
+  "background": {
+    "candidate": "anon-study-apricot-background-generated-v1.png",
+    "candidateSha256": "a3f3f4bf553764e833caa9f61a8fc4e2f30f7ef305511dc793ddfc415553c088",
+    "expandPixels": 3,
+    "featherPixels": 1,
+    "additionalErasePolygons": [],
+    "changedPixels": 54027,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": null,
+  "outputs": [
+    {
+      "file": "anon-study-apricot-figure-calibrated-v1.png",
+      "bytes": 2460834,
+      "sha256": "37a55cd90e75cf77e6ee9f2b821a6ea59e337ce5064db36e1e30ad5b2b9d6e14"
+    },
+    {
+      "file": "anon-study-apricot-mask-calibrated-v1.png",
+      "bytes": 25058,
+      "sha256": "f7d5883a969f8350b74497bc427f2709d55da79a7f6d5ee48afb376269657f4b"
+    },
+    {
+      "file": "anon-study-apricot-background-calibrated-v1.png",
+      "bytes": 2120290,
+      "sha256": "b522da372b94aa7868e26ee04a5b10502e261b3cd9524d1b48d5164ba26fea31"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

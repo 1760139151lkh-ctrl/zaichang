@@ -1,0 +1,962 @@
+{
+  "schemaVersion": 1,
+  "recordType": "canonical-artwork-location-migration",
+  "scope": "Only byte-identical PNG copies of the five primary-admitted Sakiko apricot registrations; original prompts and actual tool arguments unchanged. No body/image edits or runtime acceptance.",
+  "canonicalDirectory": "前端视觉创新设计/运行素材/companion/scenes",
+  "assets": [
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-attention-apricot-background-generated-v1.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-attention-apricot-v4-background.png",
+      "sha256": "eed37175265d0af116b6373548e440b83b646e14c35f0958786160a5e46744bf",
+      "bytes": 2114681,
+      "originalOutputBasename": "sakiko-attention-apricot-background-generated-v1.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-attention-apricot-figure-calibrated-v1.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-attention-apricot-v4-figure.png",
+      "sha256": "3d0f61e0b1199e736140a50f34b48f21098063c0c0afce6682a20f1cfdddc8dc",
+      "bytes": 2459318,
+      "originalOutputBasename": "sakiko-attention-apricot-figure-calibrated-v1.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-attention-apricot-mother-candidate-v1.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-attention-apricot-v4-mother.png",
+      "sha256": "5631cdd842797d1e46b898b9e5914f250cb5d66e8a058878eee2547e1f707017",
+      "bytes": 2188915,
+      "originalOutputBasename": "sakiko-attention-apricot-mother-candidate-v1.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-attention-apricot-shadow-calibrated-v1.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-attention-apricot-v4-shadow.png",
+      "sha256": "f767f15e2beb27b4524fe61f0778428ee62f44366fd64efadb5dd7a9a9968c42",
+      "bytes": 26922,
+      "originalOutputBasename": "sakiko-attention-apricot-shadow-calibrated-v1.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-background-calibrated-v2.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-background-calibrated-v3.png",
+      "sha256": "df123979646adb5679fd7d20f5920f2d2fa7b8c9d613c5c1e8e545bd93181e9a",
+      "bytes": 2079184,
+      "originalOutputBasename": "sakiko-chat-apricot-background-calibrated-v2.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-background-calibrated-v3.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-background-calibrated-v3.png",
+      "sha256": "df123979646adb5679fd7d20f5920f2d2fa7b8c9d613c5c1e8e545bd93181e9a",
+      "bytes": 2079184,
+      "originalOutputBasename": "sakiko-chat-apricot-background-calibrated-v3.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-figure-calibrated-v1.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-figure-calibrated-v3.png",
+      "sha256": "45a4eea88210b9dbaaeecc0eaf0da5f7f774593e57131d02a70445e070be906c",
+      "bytes": 2434592,
+      "originalOutputBasename": "sakiko-chat-apricot-figure-calibrated-v1.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-figure-calibrated-v2.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-figure-calibrated-v3.png",
+      "sha256": "45a4eea88210b9dbaaeecc0eaf0da5f7f774593e57131d02a70445e070be906c",
+      "bytes": 2434592,
+      "originalOutputBasename": "sakiko-chat-apricot-figure-calibrated-v2.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-figure-calibrated-v3.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-figure-calibrated-v3.png",
+      "sha256": "45a4eea88210b9dbaaeecc0eaf0da5f7f774593e57131d02a70445e070be906c",
+      "bytes": 2434592,
+      "originalOutputBasename": "sakiko-chat-apricot-figure-calibrated-v3.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-mask-calibrated-v1.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-mask-calibrated-v3.png",
+      "sha256": "0f88304377b32a4eec701d80f834d7e551125f4b47cef5c375e1d640dd7c024f",
+      "bytes": 38883,
+      "originalOutputBasename": "sakiko-chat-apricot-mask-calibrated-v1.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-mask-calibrated-v2.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-mask-calibrated-v3.png",
+      "sha256": "0f88304377b32a4eec701d80f834d7e551125f4b47cef5c375e1d640dd7c024f",
+      "bytes": 38883,
+      "originalOutputBasename": "sakiko-chat-apricot-mask-calibrated-v2.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-mask-calibrated-v3.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-mask-calibrated-v3.png",
+      "sha256": "0f88304377b32a4eec701d80f834d7e551125f4b47cef5c375e1d640dd7c024f",
+      "bytes": 38883,
+      "originalOutputBasename": "sakiko-chat-apricot-mask-calibrated-v3.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-mother.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+      "bytes": 2169168,
+      "originalOutputBasename": "sakiko-chat-apricot-mother.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-shadow-calibrated-v3.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-shadow-calibrated-v3.png",
+      "sha256": "ce670e6143339820ef799b558fb14d67805291a5c9b23720593f5e388ceaab7e",
+      "bytes": 54616,
+      "originalOutputBasename": "sakiko-chat-apricot-shadow-calibrated-v3.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-play-apricot-background-generated-v1.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-play-apricot-v4-background.png",
+      "sha256": "a1989f693c6e0c54f82941efe521e2ab20f6203a7e29461599efd3fbfb0b25c5",
+      "bytes": 2135271,
+      "originalOutputBasename": "sakiko-play-apricot-background-generated-v1.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-play-apricot-figure-calibrated-v1.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-play-apricot-v4-figure.png",
+      "sha256": "be5aa89cda6ed51084f17055fc96c4820aa4af74c13df488fcb898ce3e9a21bb",
+      "bytes": 2466044,
+      "originalOutputBasename": "sakiko-play-apricot-figure-calibrated-v1.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-play-apricot-mother-candidate-v1.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-play-apricot-v4-mother.png",
+      "sha256": "c81824391b45219eb973c49fc435e5040daa1c310c5f3ad0a4b60adf044f96f3",
+      "bytes": 2194593,
+      "originalOutputBasename": "sakiko-play-apricot-mother-candidate-v1.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-play-apricot-shadow-calibrated-v1.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-play-apricot-v4-shadow.png",
+      "sha256": "f15bb68662cae420191766651918371e16b448fd6dce371492edc5aad7b94034",
+      "bytes": 18983,
+      "originalOutputBasename": "sakiko-play-apricot-shadow-calibrated-v1.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-background-calibrated-v2.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-apricot-v2-background-calibrated-v3.png",
+      "sha256": "01a715a997f5050558d0839ddc45449c76e66c7e7c98a1d2069f1853ede3b201",
+      "bytes": 2085394,
+      "originalOutputBasename": "sakiko-reading-apricot-v2-background-calibrated-v2.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-background-calibrated-v3.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-apricot-v2-background-calibrated-v3.png",
+      "sha256": "01a715a997f5050558d0839ddc45449c76e66c7e7c98a1d2069f1853ede3b201",
+      "bytes": 2085394,
+      "originalOutputBasename": "sakiko-reading-apricot-v2-background-calibrated-v3.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-figure-calibrated-v2.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-apricot-v2-figure-calibrated-v3.png",
+      "sha256": "24046b83d784104159921fde11ed26b716981e74e6b7cec8faaa68e5ce202130",
+      "bytes": 2440334,
+      "originalOutputBasename": "sakiko-reading-apricot-v2-figure-calibrated-v2.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-figure-calibrated-v3.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-apricot-v2-figure-calibrated-v3.png",
+      "sha256": "24046b83d784104159921fde11ed26b716981e74e6b7cec8faaa68e5ce202130",
+      "bytes": 2440334,
+      "originalOutputBasename": "sakiko-reading-apricot-v2-figure-calibrated-v3.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-mask-calibrated-v2.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-apricot-v2-mask-calibrated-v3.png",
+      "sha256": "9ef5c1297bbef2d36505c24b5ed1dd6c9b09d991bf640ff91a91864ee8e510eb",
+      "bytes": 41796,
+      "originalOutputBasename": "sakiko-reading-apricot-v2-mask-calibrated-v2.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-mask-calibrated-v3.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-apricot-v2-mask-calibrated-v3.png",
+      "sha256": "9ef5c1297bbef2d36505c24b5ed1dd6c9b09d991bf640ff91a91864ee8e510eb",
+      "bytes": 41796,
+      "originalOutputBasename": "sakiko-reading-apricot-v2-mask-calibrated-v3.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-mother.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b",
+      "bytes": 2170827,
+      "originalOutputBasename": "sakiko-reading-apricot-v2-mother.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-shadow-calibrated-v3.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-apricot-v2-shadow-calibrated-v3.png",
+      "sha256": "9892602bc6b6868f12ef9ecab9762ffc71927357a2923a27870ab5c12cdcda8c",
+      "bytes": 57879,
+      "originalOutputBasename": "sakiko-reading-apricot-v2-shadow-calibrated-v3.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-background-calibrated-v8.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-background-calibrated-v8.png",
+      "sha256": "ff083bdf2515e8e50117be6423e9956e65abb1bd37446c0e9b4b5e4ca03971e4",
+      "bytes": 2045112,
+      "originalOutputBasename": "sakiko-study-apricot-background-calibrated-v8.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-figure-calibrated-v8.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-figure-calibrated-v8.png",
+      "sha256": "457be91bfa73ed5845068a64ec8ea2a01c5209cf3df90c98ea7bbcb8e5d8fba0",
+      "bytes": 2373767,
+      "originalOutputBasename": "sakiko-study-apricot-figure-calibrated-v8.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-mask-calibrated-v8.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-mask-calibrated-v8.png",
+      "sha256": "a7973c80bfd366ba2cbbe40ed55326b7dbf73267609c636ce228b7519419ea26",
+      "bytes": 25320,
+      "originalOutputBasename": "sakiko-study-apricot-mask-calibrated-v8.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-mother.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1",
+      "bytes": 2121467,
+      "originalOutputBasename": "sakiko-study-apricot-mother.png"
+    },
+    {
+      "from": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-shadow-calibrated-v8.png",
+      "to": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-shadow-calibrated-v8.png",
+      "sha256": "f834058e2c1aa7a76d230826da587afd01cda14e74fc34fd52d9a7e768a61556",
+      "bytes": 34043,
+      "originalOutputBasename": "sakiko-study-apricot-shadow-calibrated-v8.png"
+    }
+  ],
+  "metadataOwnersChanged": [
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/portrait-crops.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/portrait-production.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-prototype-reviews.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-attention-apricot-layer-source.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-attention-apricot-source.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-layer-parameters-v1.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-layer-parameters-v2.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-layer-parameters-v3.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-layer-processing-v1.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-layer-processing-v2.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-layer-processing-v3.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-source.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot.scene.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-play-apricot-layer-source.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-play-apricot-source.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-play-attention-alpha-calibration-v1.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-play-attention-shadow-calibration-v1.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-layer-parameters-v1.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-layer-parameters-v2.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-layer-parameters-v3.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-layer-processing-v1.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-layer-processing-v2.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-layer-processing-v3.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-source.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot.scene.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-parameters-v1.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-parameters-v2.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-parameters-v3.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-parameters-v4.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-parameters-v5.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-parameters-v6.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-parameters-v7.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-parameters-v8.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-processing-v1.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-processing-v2.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-processing-v3.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-processing-v4.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-processing-v5.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-processing-v6.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-processing-v7.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-layer-processing-v8.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot-source.json",
+    "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-study-apricot.scene.json"
+  ],
+  "referenceEdits": [
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/entries/0/mother",
+      "from": "sakiko-chat-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/entries/0/mother",
+      "from": "sakiko-chat-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/entries/0/file",
+      "from": "sakiko-chat-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/entries/1/file",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/entries/3/file",
+      "from": "sakiko-reading-apricot-v2-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/entries/5/file",
+      "from": "sakiko-play-apricot-mother-candidate-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-mother.png",
+      "sha256": "c81824391b45219eb973c49fc435e5040daa1c310c5f3ad0a4b60adf044f96f3"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/entries/6/file",
+      "from": "sakiko-attention-apricot-mother-candidate-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-mother.png",
+      "sha256": "5631cdd842797d1e46b898b9e5914f250cb5d66e8a058878eee2547e1f707017"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother/file",
+      "from": "sakiko-attention-apricot-mother-candidate-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-mother.png",
+      "sha256": "5631cdd842797d1e46b898b9e5914f250cb5d66e8a058878eee2547e1f707017"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/background/file",
+      "from": "sakiko-attention-apricot-background-generated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-background.png",
+      "sha256": "eed37175265d0af116b6373548e440b83b646e14c35f0958786160a5e46744bf"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/deterministicCandidate/figure",
+      "from": "sakiko-attention-apricot-figure-calibrated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-figure.png",
+      "sha256": "3d0f61e0b1199e736140a50f34b48f21098063c0c0afce6682a20f1cfdddc8dc"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/asset",
+      "from": "sakiko-attention-apricot-mother-candidate-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-mother.png",
+      "sha256": "5631cdd842797d1e46b898b9e5914f250cb5d66e8a058878eee2547e1f707017"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-chat-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/figure",
+      "from": "sakiko-chat-apricot-figure-calibrated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-figure-calibrated-v3.png",
+      "sha256": "45a4eea88210b9dbaaeecc0eaf0da5f7f774593e57131d02a70445e070be906c"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mask",
+      "from": "sakiko-chat-apricot-mask-calibrated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mask-calibrated-v3.png",
+      "sha256": "0f88304377b32a4eec701d80f834d7e551125f4b47cef5c375e1d640dd7c024f"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-chat-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/figure",
+      "from": "sakiko-chat-apricot-figure-calibrated-v2.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-figure-calibrated-v3.png",
+      "sha256": "45a4eea88210b9dbaaeecc0eaf0da5f7f774593e57131d02a70445e070be906c"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mask",
+      "from": "sakiko-chat-apricot-mask-calibrated-v2.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mask-calibrated-v3.png",
+      "sha256": "0f88304377b32a4eec701d80f834d7e551125f4b47cef5c375e1d640dd7c024f"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/background",
+      "from": "sakiko-chat-apricot-background-calibrated-v2.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-background-calibrated-v3.png",
+      "sha256": "df123979646adb5679fd7d20f5920f2d2fa7b8c9d613c5c1e8e545bd93181e9a"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-chat-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/figure",
+      "from": "sakiko-chat-apricot-figure-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-figure-calibrated-v3.png",
+      "sha256": "45a4eea88210b9dbaaeecc0eaf0da5f7f774593e57131d02a70445e070be906c"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mask",
+      "from": "sakiko-chat-apricot-mask-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mask-calibrated-v3.png",
+      "sha256": "0f88304377b32a4eec701d80f834d7e551125f4b47cef5c375e1d640dd7c024f"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/background",
+      "from": "sakiko-chat-apricot-background-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-background-calibrated-v3.png",
+      "sha256": "df123979646adb5679fd7d20f5920f2d2fa7b8c9d613c5c1e8e545bd93181e9a"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/shadow",
+      "from": "sakiko-chat-apricot-shadow-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-shadow-calibrated-v3.png",
+      "sha256": "ce670e6143339820ef799b558fb14d67805291a5c9b23720593f5e388ceaab7e"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-chat-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/0/file",
+      "from": "sakiko-chat-apricot-figure-calibrated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-figure-calibrated-v3.png",
+      "sha256": "45a4eea88210b9dbaaeecc0eaf0da5f7f774593e57131d02a70445e070be906c"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/1/file",
+      "from": "sakiko-chat-apricot-mask-calibrated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mask-calibrated-v3.png",
+      "sha256": "0f88304377b32a4eec701d80f834d7e551125f4b47cef5c375e1d640dd7c024f"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-chat-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/0/file",
+      "from": "sakiko-chat-apricot-figure-calibrated-v2.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-figure-calibrated-v3.png",
+      "sha256": "45a4eea88210b9dbaaeecc0eaf0da5f7f774593e57131d02a70445e070be906c"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/1/file",
+      "from": "sakiko-chat-apricot-mask-calibrated-v2.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mask-calibrated-v3.png",
+      "sha256": "0f88304377b32a4eec701d80f834d7e551125f4b47cef5c375e1d640dd7c024f"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/2/file",
+      "from": "sakiko-chat-apricot-background-calibrated-v2.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-background-calibrated-v3.png",
+      "sha256": "df123979646adb5679fd7d20f5920f2d2fa7b8c9d613c5c1e8e545bd93181e9a"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-chat-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/0/file",
+      "from": "sakiko-chat-apricot-figure-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-figure-calibrated-v3.png",
+      "sha256": "45a4eea88210b9dbaaeecc0eaf0da5f7f774593e57131d02a70445e070be906c"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/1/file",
+      "from": "sakiko-chat-apricot-mask-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mask-calibrated-v3.png",
+      "sha256": "0f88304377b32a4eec701d80f834d7e551125f4b47cef5c375e1d640dd7c024f"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/2/file",
+      "from": "sakiko-chat-apricot-background-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-background-calibrated-v3.png",
+      "sha256": "df123979646adb5679fd7d20f5920f2d2fa7b8c9d613c5c1e8e545bd93181e9a"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/3/file",
+      "from": "sakiko-chat-apricot-shadow-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-shadow-calibrated-v3.png",
+      "sha256": "ce670e6143339820ef799b558fb14d67805291a5c9b23720593f5e388ceaab7e"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/output/file",
+      "from": "sakiko-chat-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother/file",
+      "from": "sakiko-play-apricot-mother-candidate-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-mother.png",
+      "sha256": "c81824391b45219eb973c49fc435e5040daa1c310c5f3ad0a4b60adf044f96f3"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/background/file",
+      "from": "sakiko-play-apricot-background-generated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-background.png",
+      "sha256": "a1989f693c6e0c54f82941efe521e2ab20f6203a7e29461599efd3fbfb0b25c5"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/deterministicCandidate/figure",
+      "from": "sakiko-play-apricot-figure-calibrated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-figure.png",
+      "sha256": "be5aa89cda6ed51084f17055fc96c4820aa4af74c13df488fcb898ce3e9a21bb"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/asset",
+      "from": "sakiko-play-apricot-mother-candidate-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-mother.png",
+      "sha256": "c81824391b45219eb973c49fc435e5040daa1c310c5f3ad0a4b60adf044f96f3"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/items/0/mother/file",
+      "from": "sakiko-play-apricot-mother-candidate-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-mother.png",
+      "sha256": "c81824391b45219eb973c49fc435e5040daa1c310c5f3ad0a4b60adf044f96f3"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/items/0/figure/file",
+      "from": "sakiko-play-apricot-figure-calibrated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-figure.png",
+      "sha256": "be5aa89cda6ed51084f17055fc96c4820aa4af74c13df488fcb898ce3e9a21bb"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/items/1/mother/file",
+      "from": "sakiko-attention-apricot-mother-candidate-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-mother.png",
+      "sha256": "5631cdd842797d1e46b898b9e5914f250cb5d66e8a058878eee2547e1f707017"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/items/1/figure/file",
+      "from": "sakiko-attention-apricot-figure-calibrated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-figure.png",
+      "sha256": "3d0f61e0b1199e736140a50f34b48f21098063c0c0afce6682a20f1cfdddc8dc"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/items/0/inputs/0/file",
+      "from": "sakiko-play-apricot-mother-candidate-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-mother.png",
+      "sha256": "c81824391b45219eb973c49fc435e5040daa1c310c5f3ad0a4b60adf044f96f3"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/items/0/inputs/1/file",
+      "from": "sakiko-play-apricot-background-generated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-background.png",
+      "sha256": "a1989f693c6e0c54f82941efe521e2ab20f6203a7e29461599efd3fbfb0b25c5"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/items/0/inputs/2/file",
+      "from": "sakiko-play-apricot-figure-calibrated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-figure.png",
+      "sha256": "be5aa89cda6ed51084f17055fc96c4820aa4af74c13df488fcb898ce3e9a21bb"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/items/0/output/file",
+      "from": "sakiko-play-apricot-shadow-calibrated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-shadow.png",
+      "sha256": "f15bb68662cae420191766651918371e16b448fd6dce371492edc5aad7b94034"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/items/1/inputs/0/file",
+      "from": "sakiko-attention-apricot-mother-candidate-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-mother.png",
+      "sha256": "5631cdd842797d1e46b898b9e5914f250cb5d66e8a058878eee2547e1f707017"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/items/1/inputs/1/file",
+      "from": "sakiko-attention-apricot-background-generated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-background.png",
+      "sha256": "eed37175265d0af116b6373548e440b83b646e14c35f0958786160a5e46744bf"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/items/1/inputs/2/file",
+      "from": "sakiko-attention-apricot-figure-calibrated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-figure.png",
+      "sha256": "3d0f61e0b1199e736140a50f34b48f21098063c0c0afce6682a20f1cfdddc8dc"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/items/1/output/file",
+      "from": "sakiko-attention-apricot-shadow-calibrated-v1.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-shadow.png",
+      "sha256": "f767f15e2beb27b4524fe61f0778428ee62f44366fd64efadb5dd7a9a9968c42"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-reading-apricot-v2-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-reading-apricot-v2-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/figure",
+      "from": "sakiko-reading-apricot-v2-figure-calibrated-v2.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-figure-calibrated-v3.png",
+      "sha256": "24046b83d784104159921fde11ed26b716981e74e6b7cec8faaa68e5ce202130"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mask",
+      "from": "sakiko-reading-apricot-v2-mask-calibrated-v2.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mask-calibrated-v3.png",
+      "sha256": "9ef5c1297bbef2d36505c24b5ed1dd6c9b09d991bf640ff91a91864ee8e510eb"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/background",
+      "from": "sakiko-reading-apricot-v2-background-calibrated-v2.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-background-calibrated-v3.png",
+      "sha256": "01a715a997f5050558d0839ddc45449c76e66c7e7c98a1d2069f1853ede3b201"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-reading-apricot-v2-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/figure",
+      "from": "sakiko-reading-apricot-v2-figure-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-figure-calibrated-v3.png",
+      "sha256": "24046b83d784104159921fde11ed26b716981e74e6b7cec8faaa68e5ce202130"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mask",
+      "from": "sakiko-reading-apricot-v2-mask-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mask-calibrated-v3.png",
+      "sha256": "9ef5c1297bbef2d36505c24b5ed1dd6c9b09d991bf640ff91a91864ee8e510eb"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/background",
+      "from": "sakiko-reading-apricot-v2-background-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-background-calibrated-v3.png",
+      "sha256": "01a715a997f5050558d0839ddc45449c76e66c7e7c98a1d2069f1853ede3b201"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/shadow",
+      "from": "sakiko-reading-apricot-v2-shadow-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-shadow-calibrated-v3.png",
+      "sha256": "9892602bc6b6868f12ef9ecab9762ffc71927357a2923a27870ab5c12cdcda8c"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-reading-apricot-v2-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-reading-apricot-v2-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/0/file",
+      "from": "sakiko-reading-apricot-v2-figure-calibrated-v2.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-figure-calibrated-v3.png",
+      "sha256": "24046b83d784104159921fde11ed26b716981e74e6b7cec8faaa68e5ce202130"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/1/file",
+      "from": "sakiko-reading-apricot-v2-mask-calibrated-v2.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mask-calibrated-v3.png",
+      "sha256": "9ef5c1297bbef2d36505c24b5ed1dd6c9b09d991bf640ff91a91864ee8e510eb"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/2/file",
+      "from": "sakiko-reading-apricot-v2-background-calibrated-v2.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-background-calibrated-v3.png",
+      "sha256": "01a715a997f5050558d0839ddc45449c76e66c7e7c98a1d2069f1853ede3b201"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-reading-apricot-v2-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/0/file",
+      "from": "sakiko-reading-apricot-v2-figure-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-figure-calibrated-v3.png",
+      "sha256": "24046b83d784104159921fde11ed26b716981e74e6b7cec8faaa68e5ce202130"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/1/file",
+      "from": "sakiko-reading-apricot-v2-mask-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mask-calibrated-v3.png",
+      "sha256": "9ef5c1297bbef2d36505c24b5ed1dd6c9b09d991bf640ff91a91864ee8e510eb"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/2/file",
+      "from": "sakiko-reading-apricot-v2-background-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-background-calibrated-v3.png",
+      "sha256": "01a715a997f5050558d0839ddc45449c76e66c7e7c98a1d2069f1853ede3b201"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/3/file",
+      "from": "sakiko-reading-apricot-v2-shadow-calibrated-v3.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-shadow-calibrated-v3.png",
+      "sha256": "9892602bc6b6868f12ef9ecab9762ffc71927357a2923a27870ab5c12cdcda8c"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/output/file",
+      "from": "sakiko-reading-apricot-v2-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/figure",
+      "from": "sakiko-study-apricot-figure-calibrated-v8.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-figure-calibrated-v8.png",
+      "sha256": "457be91bfa73ed5845068a64ec8ea2a01c5209cf3df90c98ea7bbcb8e5d8fba0"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mask",
+      "from": "sakiko-study-apricot-mask-calibrated-v8.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mask-calibrated-v8.png",
+      "sha256": "a7973c80bfd366ba2cbbe40ed55326b7dbf73267609c636ce228b7519419ea26"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/background",
+      "from": "sakiko-study-apricot-background-calibrated-v8.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-background-calibrated-v8.png",
+      "sha256": "ff083bdf2515e8e50117be6423e9956e65abb1bd37446c0e9b4b5e4ca03971e4"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/shadow",
+      "from": "sakiko-study-apricot-shadow-calibrated-v8.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-shadow-calibrated-v8.png",
+      "sha256": "f834058e2c1aa7a76d230826da587afd01cda14e74fc34fd52d9a7e768a61556"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/mother",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/0/file",
+      "from": "sakiko-study-apricot-figure-calibrated-v8.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-figure-calibrated-v8.png",
+      "sha256": "457be91bfa73ed5845068a64ec8ea2a01c5209cf3df90c98ea7bbcb8e5d8fba0"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/1/file",
+      "from": "sakiko-study-apricot-mask-calibrated-v8.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mask-calibrated-v8.png",
+      "sha256": "a7973c80bfd366ba2cbbe40ed55326b7dbf73267609c636ce228b7519419ea26"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/2/file",
+      "from": "sakiko-study-apricot-background-calibrated-v8.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-background-calibrated-v8.png",
+      "sha256": "ff083bdf2515e8e50117be6423e9956e65abb1bd37446c0e9b4b5e4ca03971e4"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/outputs/3/file",
+      "from": "sakiko-study-apricot-shadow-calibrated-v8.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-shadow-calibrated-v8.png",
+      "sha256": "f834058e2c1aa7a76d230826da587afd01cda14e74fc34fd52d9a7e768a61556"
+    },
+    {
+      "owner": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix",
+      "pointer": "/output/file",
+      "from": "sakiko-study-apricot-mother.png",
+      "to": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    }
+  ],
+  "state": "complete",
+  "removedDuplicateCount": 31,
+  "removedLogicalBytes": 45370767,
+  "cleanupMeaning": "Logical sizes of exact removed duplicates; no claim about physical disk space recovered."
+}

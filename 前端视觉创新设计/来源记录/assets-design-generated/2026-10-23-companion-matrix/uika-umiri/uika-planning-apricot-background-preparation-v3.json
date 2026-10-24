@@ -1,0 +1,35 @@
+{
+  "kind": "source-visible-background-preservation",
+  "generatedBackground": "uika-planning-apricot-background-generated-v1.png",
+  "generatedBackgroundSha256": "7147836a441d73045e010fa382f58ad898d522675c2207feceaa26a8250e5953",
+  "mother": "uika-planning-apricot-mother-candidate-v3.png",
+  "motherSha256": "767aab09d7596550438a1e3ef5ff01e578b4a635cc548b104bd773f211361e1b",
+  "alpha": "uika-planning-apricot-matte-prepared-v4.png",
+  "alphaSha256": "0d3430f5f9f8c79e9d046a547910fd2203497dad983f3ec3c5dba92a86e9526a",
+  "preservePolygon": [
+    [
+      818,
+      508
+    ],
+    [
+      947,
+      500
+    ],
+    [
+      947,
+      550
+    ],
+    [
+      852,
+      550
+    ],
+    [
+      818,
+      529
+    ]
+  ],
+  "method": "Only actually source-visible warm wooden desk/drawer pixels inside the named gap polygon with alpha=0, R-G>=32, G-B>=25 and R<230 are copied in place from original mother. Generated removal remains behind all body alpha pixels; no hidden body/seat contact shadow is reinserted.",
+  "copiedSourceVisiblePixels": 1875,
+  "output": "uika-planning-apricot-background-prepared-v3.png",
+  "outputSha256": "d17557c3be9a27b8ba3fc0dfd7be537ad3eb3aec85c3230bf03a5c60ff36fa2a"
+}

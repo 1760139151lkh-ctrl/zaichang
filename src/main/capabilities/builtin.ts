@@ -1,6 +1,8 @@
 import { z } from 'zod';
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import type { CampusMapAdapter } from '../mapService';
+import type { TiyiAdapter } from '../tiyiAdapter';
+import type { WorkoutSummaryOwner } from './workout';
 import { CAMPUS_ACCOUNT_SOURCE_ID, type ZjuAdapter, type CampusDomain } from '../zjuAdapter';
 import type { DomainService } from '../storage/domains';
 import type { KernelRepository } from '../storage/repository';
@@ -23,9 +25,31 @@ import { projectMapSearchPoint } from '../runtime/map-model-view';
 export interface BuiltinConnections {
   map?: CampusMapAdapter;
   campus?: ZjuAdapter;
+  tiyi?: TiyiAdapter;
+  workout?: WorkoutSummaryOwner;
   weatherEnabled: () => boolean;
 }
 const jsonObject = z.record(z.string(), z.json());
+function projectWalkingSearchPoint(point: Parameters<typeof projectMapSearchPoint>[0]) {
+  const projected = projectMapSearchPoint(point);
+  // Search delivers place and walking facts. The complete map retains its
+  // rendering prescriptions, approximate volumes and visual audit notes.
+  const fields = ['id', 'displayName', 'aliases', 'kind', 'scope', 'graphNodeId', 'roadReference',
+    'source', 'geometryStatus', 'historicalReference', 'undergroundStation', 'entrances', 'accessSummary',
+    'accessReviewBasis', 'nearbyRoadReferences', 'coordinate', 'coordinateMeaning', 'officialIds', 'legacyIds', 'sourceCorrection'];
+  const accessCount = point.accessCandidates?.length ?? point.entrances.filter(entrance => entrance.connected).length;
+  return { ...Object.fromEntries(fields.flatMap(key => projected[key] !== undefined ? [[key, projected[key]]] : [])),
+    walkingEndpoint: {
+      role: point.kind === 'water' ? 'browse_only' : point.undergroundStation ? 'station_entrance'
+        : point.roadReference ? 'road_point' : accessCount ? 'place_with_access_candidates' : 'place_reference_only',
+      hasAccessCandidates: accessCount > 0,
+      meaning: point.kind === 'water' ? '这里标的是水面；步行路线可以另外选附近的桥或道路点。'
+        : !accessCount ? '当前资料还没有给出可用接入，具体原因与附近道路点保留在结果中。'
+          : point.undergroundStation ? '步行路线按已记录地铁出入口计算，进站和站内换乘另算。'
+            : '接入方式、估计距离和通行条件见所列入口与候选，具体走法由路线返回。',
+    },
+  };
+}
 const campusDomains = [
   'schedule',
   'courses',
@@ -56,7 +80,7 @@ const campusDomains = [
 ] as const;
 export const campusInput = z
   .object({
-    domain: z.enum(campusDomains).describe('选择资料类别。courses清单可能含多个学期，academicYear/term选择的是采集快照；单学期清单用filters的semester_id条件。浙大账号的sports兼容入口查看当前资源目录，结果为capability_assessment，并未读取跑步明细；已导入的体育材料另属campus.imported_lookup。'),
+    domain: z.enum(campusDomains).describe('要读的资料类别。单学期课程与成绩用filters选择来源中的semester_id；academicYear/term选择采集时期。sports会带回体育资料的可读入口，导入的旧体育材料用campus.imported_lookup。'),
     courseId: z.string().regex(/^\d{1,32}$/).optional(),
     academicYear: z.string().regex(/^20\d{2}-20\d{2}$/).optional().describe('选择采集快照的学年；其中课程和成绩仍可能跨多个学期，行范围另看semester_id筛选。'),
     term: z.enum(['1', '2']).optional().describe('选择采集快照的学期；单学期课程/成绩使用filters的semester_id:eq:来源中的学期ID。成绩呈现也可用同源Scene的campusDisplay.semesterId。'),
@@ -69,19 +93,19 @@ export const campusInput = z
       .array(z.string().regex(/^[A-Za-z0-9_.-]{1,80}$/))
       .max(24)
       .optional(),
-    filters: z.array(z.string().max(160)).max(6).optional().describe('规范字段精确筛选，格式field:operator:value，多项AND；如semester_id:eq:YYYY-YYYY-2（ID必须来自真实记录）。不能只在回答中挑出9门却呈现未筛的19门Scene。'),
+    filters: z.array(z.string().max(160)).max(6).optional().describe('按来源字段筛选，格式field:operator:value，多项条件同时满足。单学期用semester_id:eq:原记录里的学期ID，返回的清单与画面会一起采用这份筛选。'),
     sort: z.string().max(100).optional(),
     offset: z.number().int().min(0).max(10000).optional(),
     bundleId: z.string().regex(/^[a-f0-9]{32}$/).optional().describe('沿原读取地址继续同一快照；与refresh是不同查询。'),
     expectedSnapshotVersion: z.string().regex(/^[a-f0-9]{64}$/).optional(),
     window: z.string().max(40).optional(),
     limit: z.number().int().min(1).max(50).default(12),
-    refresh: z.boolean().default(false).describe('false沿现有资料读取。学业类别的true按当前资源相关来源窄刷新，需有同账号、同学期的当前latest基线；原连接器仍在本机读取并归一化旧完整学业快照，宿主会连同实际新采集范围核用途。缺基线不改为整包采集；保存清单续页保持false与原快照地址。'),
+    refresh: z.boolean().default(false).describe('通常读已保存资料。确需更新时填true，学业资料会沿同账号、同学期已有资料更新相关部分；缺少可接续的旧资料时会说明缺口。翻下一页保持false，保留上一页的资料地址。'),
   })
   .strict();
 const campusOverviewInput = z
   .object({
-    refresh: z.boolean().default(false).describe('整包学业刷新会同时采集成绩等来源；includeSensitiveDomains仅决定返回的领域，不能把采集范围缩成无敏感来源。'),
+    refresh: z.boolean().default(false).describe('true重新采集整份学业资料，其中包括成绩；includeSensitiveDomains选择这次展示的类别。'),
     includeSensitiveDomains: z.boolean().default(false),
     academicYear: z.string().regex(/^20\d{2}-20\d{2}$/).optional(),
     term: z.enum(['1', '2']).optional(),
@@ -144,6 +168,13 @@ const campusImportOutput = z
     origin: z.literal('legacy_import'),
     authenticated: z.literal(false),
     total: z.number().int().nonnegative().optional(),
+    totalMeaning: z.enum(['matching_retained_records', 'matching_records_within_source_limit']).optional(),
+    offset: z.number().int().nonnegative().optional(),
+    nextOffset: z.number().int().nonnegative().nullable().optional(),
+    snapshotVersion: z.string().regex(/^[a-f0-9]{64}$/).optional(),
+    continuation: jsonObject.optional(),
+    sourceRead: z.object({ limit: z.literal(6000), returned: z.number().int().nonnegative(), limitReached: z.boolean(), meaning: z.string() }).strict().optional(),
+    truncated_for_model: z.boolean().optional(),
     cached: z.literal(true),
     snapshotAt: z.string().optional(),
   })
@@ -152,11 +183,11 @@ export const localActionInput = z
   .object({
     ...calendarFieldsSchema.shape,
     title: z.string().min(1).max(160),
-    detail: z.string().max(1500).default('').describe('仅保存用户明确提供且业务对象确实需要的补充内容；没有补充内容时省略或传空字符串，不写“用户要求登记”等内部说明。'),
+    detail: z.string().max(1500).default('').describe('安排需要的补充内容，照对方实际交代的填写；没有时留空。'),
     startsAt: z.string().datetime({ offset: true }).optional(),
     durationMinutes: z.number().int().min(1).max(1440).optional(),
     demo: z.boolean().optional(),
-    planRef: z.object({ planId: z.string().min(1).max(160), blockId: z.string().min(1).max(160) }).strict().optional().describe('采用planning.draft返回的具体保存单位时完整保留；宿主再次核对参数、日历、权限、顺序和有效期。'),
+    planRef: z.object({ planId: z.string().min(1).max(160), blockId: z.string().min(1).max(160) }).strict().optional().describe('沿planning.draft的原安排保存时，复制它返回的完整地址。'),
   })
   .strict();
 const base = (
@@ -256,7 +287,7 @@ function examCourseRecordsNavigation(campus: ZjuAdapter, result: any) {
     read: { capability: 'campus.query', arguments: { operation: 'read', resource: 'exams',
       bundleId: proof.bundleId, expectedSnapshotVersion: proof.version, pointer: examCourseRecordsPointer,
       offset: 0, limit: 8, refresh: false } },
-    meaning: '有些课没带考试时间，可能没列进逐场考试表，却还在这份按课程保存的资料里。这里还只是地址，没有打开内容。两份清单各翻各页，刚才限定的科目和日期不会自动筛到这份课程清单；旧资料也可能没有保存这一部分。' };
+    meaning: '还有一份按课程保存的考试资料，可能能找到没写考试时间的科目。沿这个地址打开，它有自己的分页与科目范围；旧资料里若缺这一部分，读取时会说明。' };
 }
 export function calendarLocalTimes(item: Record<string, unknown>, fallbackTimeZone: string): Record<string, unknown> {
   const timeZone = typeof item.timeZone === 'string' ? item.timeZone : fallbackTimeZone;
@@ -317,7 +348,7 @@ export function registerBuiltins(
     read: async (scope, from, to, signal) => {
       if (!campusScopeCurrent(scope) || !connections.campus) return null;
       return readCampusPlanningConstraints(connections.campus, scope, from, to, signal, () => {
-        if (!campusScopeCurrent(scope)) throw new HarnessError('planning_campus_scope_changed', '校园资料读取范围已改变，未采用旧约束。');
+        if (!campusScopeCurrent(scope)) throw new HarnessError('planning_campus_scope_changed', '学校资料这次能读的范围刚刚变了，安排所用的条件需要跟着重新看。');
       });
     },
     current: (scope, snapshot) => campusScopeCurrent(scope) && !!connections.campus?.describe().available && snapshot.proofs.length > 0
@@ -327,9 +358,9 @@ export function registerBuiltins(
   });
   register({
     manifest: manifest('situation', 'current', [base('situation.read', z.object({
-      from: z.string().datetime({ offset: true }).describe('跨来源比较所需窗口的起点，to必须在其后且跨度不超过31天；不是整学期原课表查询。'), to: z.string().datetime({ offset: true }).describe('本次综合窗口终点，与from最多相隔31天。'), timeZone: z.string().max(100).default('Asia/Shanghai'),
-      limit: z.number().int().min(1).max(20).default(8).describe('各类结果的有界摘录数，不能据此宣称全学期课程完整；它也不会去除来源证明与覆盖说明。'),
-    }).strict(), jsonObject, ['evidence:read'], { version: '3', timeoutMs: 90000, worlds: ['real'], displayName: '读取有界当前情境', description: '只在需要跨来源比较时，按最长31天的明确时间窗汇合当前范围允许的本地安排、已接受承诺、有效目标与校园保存快照。单独查看原课表、课程或考试，直接用campus.lookup或campus.query按真实学期、日期、分页读取，其真实sceneRef可交present_view；本工具不是原课表阅读的前置，也不签发课表Scene。已连接并获准时沿原连接器默认读取，可能完成认证或补齐缺少的学期快照，再分页核对课程、考试与校历例外，不必用户重录。日期实例附localStartsAt/localEndsAt和timeZone，未知结束为null。学校计划与本人接受的本地安排分别显示，源采集完整不保证未来不变。未读取、未覆盖和已知空白分开，日历空不证明现实空闲或精力充足。' })]),
+      from: z.string().datetime({ offset: true }).describe('一起查看安排的起点，to在其后，最多看31天。'), to: z.string().datetime({ offset: true }).describe('这次一起查看的终点。'), timeZone: z.string().max(100).default('Asia/Shanghai'),
+      limit: z.number().int().min(1).max(20).default(8).describe('每类先带回多少条；结果会留下还有多少内容和资料来由。'),
+    }).strict(), jsonObject, ['evidence:read'], { version: '3', timeoutMs: 90000, worlds: ['real'], displayName: '一起看看近日安排', description: '把最多31天里的已存安排、已经答应的事、当前目标与可读校园安排放在一起，方便商量接下来怎么过。校园已连接时会接回原资料，必要时补齐缺少的学期；每项保留当地时间、来源与还没看全的部分。精力和意愿等对方来说。只想看某份课表或考试时，直接用campus.lookup或campus.query读原清单，返回的画面地址可直接展示。' })]),
     invoke: async (_name, args, ctx) => {
       const scope = policy.validate(ctx.scope), now = repo.clock.now();
       if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self') throw new HarnessError('situation_scope', '个人情境只在本人的现实私有范围内读取。');
@@ -338,7 +369,7 @@ export function registerBuiltins(
       policy.validate(ctx.scope);
       const campusCalendar = campusSnapshot ? { ...campusConstraintSummary(campusSnapshot),
         items: campusSnapshot.busy.slice(0, args.limit).map(item => calendarLocalTimes({ startsAt: item.start, endsAt: item.end,
-          title: item.title, sourceId: item.sourceId, sourceVersion: item.sourceVersion, meaning: '学校快照中的计划安排，不是实际出席或新的日历采用。' }, args.timeZone)),
+          title: item.title, sourceId: item.sourceId, sourceVersion: item.sourceVersion, meaning: '这是学校保存资料里的安排，实际出席与本人日历另有记录。' }, args.timeZone)),
         truncated: campusSnapshot.busy.length > args.limit, totalKnownScheduledItems: campusSnapshot.busy.length } : null;
       const mayReadAgenda = scope.sources.includes('local-agenda');
       const agenda = mayReadAgenda ? repo.db.prepare('SELECT payload FROM agenda').all().map(row => JSON.parse(String(row.payload))) : [];
@@ -355,7 +386,7 @@ export function registerBuiltins(
         return { domain, status: result.status, completeForWindow: false, truncated: result.records.length > args.limit,
           records: result.records.filter(record => !campusSnapshot || record.sourceId !== CAMPUS_ACCOUNT_SOURCE_ID)
             .slice(0, args.limit).map(record => ({ ...record, value: safeRecord(calendarLocalTimes(record.value, args.timeZone)) })),
-          meaning: '只汇合已存且当前可读的具体来源记录；这次读取不触发联网同步，不能证明学校全量课次、例外或临时变化已覆盖。' };
+          meaning: '这里接回了这次可读的已存记录。还想核对临时调课或完整课次时，可以沿校园原资料继续查。' };
       }) : [];
       const acceptedLocal = localItems.filter(item => calendarCommitment(item as any).state === 'accepted');
       const acceptedDated = acceptedLocal.filter(item => calendarCommitment(item as any).occupiesTime).map(item => ({ ...item, sourceId: 'local-agenda' }));
@@ -371,32 +402,33 @@ export function registerBuiltins(
         goals, commitments, campus, campusCalendar, nextKnownScheduledItem,
         coverage: { localAgenda: mayReadAgenda ? 'local_registered_occurrences_only' : 'not_in_scope', work: scope.sources.includes('work:self') ? 'bounded_authorized_records' : 'not_in_scope',
           campus: campusSnapshot ? 'current_saved_account_snapshot_not_live_confirmation' : mayReadCampus ? 'stored_records_only_not_live_complete' : 'not_in_scope', notes: 'not_read', location: 'not_read', weather: 'not_read', energy: 'unknown' },
-        unknown: ['日历空白不证明现实空闲，仍须核查相关来源覆盖。', '没有本人当前自述时，可用精力、意愿和情绪保持未知。', 'nextAcceptedCommitment仅是当前已读记录中下一项；未读来源仍可能有更早安排。'] };
+        unknown: ['空白处是这次资料里没列安排的时间，其他约定还要一起看。', '今天有多少精力、想怎么过，等对方说。', '下一项取自刚才读到的安排，其他来源若有更早的事，继续读时再接上。'] };
       return { status: 'fresh', sourceId: 'current', data: JSON.parse(JSON.stringify(data)), fetchedAt: now, coverage: { complete: false, scope: 'bounded allowed local situation; omitted sources remain unknown' }, simulated: false };
     },
   });
   register({
     manifest: manifest('local-agenda', 'local-agenda', [
       base('planning.compare', planningComparisonInput, jsonObject, ['evidence:read'], { version: '2', timeoutMs: 90000, cacheScope: 'handle',
-        displayName: '一起商量几种安排', description: '在同一真实日历和原任务条件下比较2–4个完整生活分支。主助手提出各自要保留的东西、原对象改动、尚未接受的拟参加活动和本次任务偏重。同一份工作可以通过taskPreferences.rhythm试连续做或按更短上限拆开做，原本允许拆分才可拆，不缩总时长、不放宽原单段上限。宿主复用原preview/draft计算逐段准备收尾、转场休息、留白与未排任务，workRhythms给真实段落和准备收尾成本，不做人格评分；未排完不能冒充同工作量完整另一版。同结果不会换标题凑数。校园来源获准且可读时读取同一保存快照作为各分支约束。比较只读，邀请仅在相应分支中假设参加，不变成现实承诺；不创建执行planId或写日历。' }),
-      base('planning.draft', planningDraftInput, jsonObject, ['evidence:read'], { version: '2', timeoutMs: 90000, displayName: '编排多任务日程草案', description: '只读构造有依赖、期限、可拆分时长、精力、准备清理、转场休息和保护留白的草案；返回未排任务及原因。当前范围允许且已连接时，宿主自动读取同一保存快照的课程、考试与校历例外作为约束，不必把课表手工复制进busy或本机日历。保存快照不是实时确认、出席或本人一定有空。不会替用户接受或自动写日历。采用时按acceptanceProposals顺序完整保留planRef及参数；日历、校园快照或未知条件变化会阻断旧票据，重新试算保留已成功步骤。' }),
-      base('planning.recover', planningRecoveryInput, jsonObject, ['evidence:read'], { version: '1', cacheScope: 'handle', worlds: ['real'], displayName: '接着安排未完成的计划', description: '按planId只读核对真实日历里已保存的步骤和当前票据；区分可继续、已经变化、已过期和重启后须重算，避免重复创建已成功的安排。不恢复旧授权，不直接提交。' }),
-      ...(planningIntents ? [base('planning.replan', planningIntentReplanInput, jsonObject, ['evidence:read'], { version: '2', timeoutMs: 90000, cacheScope: 'handle', worlds: ['real'], displayName: '接着商量保留的规划', description: '按已读intent id与expectedRevision，回读有来源的原规格、当前日历和真实采用凭据，保留原范围与预算并用同一规划器重新试算。校园来源获准且可读时重新核对保存快照。返回新planId和短票据；不持久修改意图、不复活旧批准，不把已安排当完成。来源、采用或过去进度不明时保留具体缺口。' })] : []),
-      base('planning.preview', planningPreviewInput, jsonObject, ['evidence:read'], { version: '1', displayName: '比较可行时段与安排修改', description: '读本地具体日历实例并复用区间计算，比较最多三个方案。固定承诺、可移动已接受块均保留；邀请、愿望、未接受方案不当成硬承诺。空白不等于现实空闲。返回原对象ID/revision绑定的save/change提议和冲突、天气/资源等未知；只读不提交，实际采用通过现有本地动作授权入口。' }),
-      base('local.agenda.change', localCalendarChangeSchema, z.object({}).strict(), ['local:write'], { effect: 'local_write', worlds: ['real'], supportsIdempotency: true, supportsInspect: true, supportsCancel: true, description: '按对象版本修改、删除本地安排或更改单个重复实例；事务执行并支持受版本保护的撤销。' }),
+        displayName: '一起商量几种安排', description: '用同一份日历和校园资料试2–4种过法，看看各自保住了什么、挪动了什么、还剩什么。工作总量、原本的拆分条件、准备收尾、转场、休息和留白都会一起算；taskPreferences.rhythm可比较连续做与分段做。结果给出真实差别与未排完的工作，眼前仍是一场比较，决定采用后再保存。' }),
+      base('planning.draft', planningDraftInput, jsonObject, ['evidence:read'], { version: '2', timeoutMs: 90000, displayName: '排一份照顾周全的草案', description: '把事情按期限、前后依赖、完整工作时长和可拆分条件试排，连准备、收尾、转场、休息与留白一起留好。可读的校园课程、考试和校历会自动接进来。结果说明排得下什么、什么还放不下；想采用时沿acceptanceProposals与原planRef继续。中途安排变了可重新试算，已经保存的部分会留下。' }),
+      base('planning.recover', planningRecoveryInput, jsonObject, ['evidence:read'], { version: '1', cacheScope: 'handle', worlds: ['real'], displayName: '接着安排未完成的计划', description: '沿原planId看看哪些安排已经保存、哪些还能接着办，以及哪里变了需要重新商量。这里先核对实际结果，已经办好的会保留，剩下的沿返回入口继续。' }),
+      ...(planningIntents ? [base('planning.replan', planningIntentReplanInput, jsonObject, ['evidence:read'], { version: '2', timeoutMs: 90000, cacheScope: 'handle', worlds: ['real'], displayName: '接着商量保留的规划', description: '沿已读规划的id与expectedRevision，带着原来要照顾的条件、目前的日历和已保存部分重新试排。可读的校园资料会一起核对。返回新的草案地址，并保留当时用了哪些资料、后来办到哪里和仍没弄清的地方；接着采用新草案即可。' })] : []),
+      base('planning.preview', planningPreviewInput, jsonObject, ['evidence:read'], { version: '1', displayName: '看看怎样调整更合适', description: '在当前日历里试最多三种调整，保留固定约定，也看已经答应但能挪动的安排。返回每种方案的冲突、需要补问的条件和连回原对象的修改提议。这里先试放，真正决定这样改时沿原本地行动保存。' }),
+      base('local.agenda.change', localCalendarChangeSchema, z.object({}).strict(), ['local:write'], { effect: 'local_write', worlds: ['real'], supportsIdempotency: true, supportsInspect: true, supportsCancel: true, displayName: '调整原来的安排', description: '沿原对象和版本修改、删除安排，或只改重复安排中的这一次。结果保留实际变化，也能沿原记录核对与撤回。' }),
       base('local.agenda.save', localActionInput, z.object({}).strict(), ['local:write'], {
         effect: 'local_write',
         worlds: ['real'],
         supportsIdempotency: true,
         supportsInspect: true,
         supportsCancel: true,
+        displayName: '保存这份安排', description: '把已经说清的安排存进本地日历，保留原日期、提醒时刻与补充内容。采用整份规划时沿它的planRef保存，结果可回读，也能撤回。',
       }),
       base(
         'local.agenda.read',
         z.object({ query: z.string().max(100).optional(), from: z.string().datetime({ offset: true }).optional(), to: z.string().datetime({ offset: true }).optional(), timeZone: z.string().max(100).optional() }).strict(),
         z.object({ items: z.array(jsonObject), issues: z.array(jsonObject).optional() }).strict(),
         ['evidence:read'],
-        { version: '2', description: '按日期范围读取本地未完成安排。日期实例附localStartsAt/localEndsAt和timeZone，保留原始UTC事实，未知结束为null。不填query可读取该时段全部有日期安排；query只对标题作逐字包含筛选，不解析日期、星期或事项类型。带query的空结果只说明标题不匹配，不能证明该日期没有安排。' },
+        { version: '2', displayName: '翻看已存安排', description: '按起止日期看本地未完成安排，每次重复安排会展开成当天的实例，带当地时间与时区。query只找标题里含这段文字的项；想看整个时段就留空。结束时间没写的仍留空，待定与冲突会随结果一起带回。' },
       ),
     ]),
     invoke: async (name, args, ctx) => {
@@ -453,7 +485,7 @@ export function registerBuiltins(
   register({
     manifest: manifest('campus-read', CAMPUS_ACCOUNT_SOURCE_ID, [
       base('campus.query', campusQueryInput, jsonObject, ['campus:read'], {
-        version: '8', displayName: '校园资源、字段与组合查询', description: '查询本人课程、课表、考试、逐科成绩、各学期与总GPA/绩点、实践等原资料。resources发现真实资源、schemaModels及宿主保存资料读法，schema查字段；quick/select支持相关分页、关联、汇总、冲突、转场和空档；continuation沿同一查询/快照读下一页，read回读规范化原对象。exam_course_record是同一exams资源下按课程保留的原考试记录读法，含没有返回时间文字的课程，仅按固定指针分页读取；与逐场考试分别计数，不冒充CLI新增查询。history/diff比较快照。成绩保留所有修读、学分、原分数与计入状态；GPA各制式、全修读/首次/最高政策、分母和缺失分开。实践积分不等于跑步有效次数，未列出的字段不猜成零。当前账号可核的已存学业快照可在本机读取；authentication区分本地库读取与实际SSO校验，来源采集时间另列。查询只读，不预约、支付或选退课。snapshotProof只说明真实来源快照，不把旧观察变成实时确认。', timeoutMs: 90000, maxBytes: 140000,
+        version: '9', displayName: '细查课程、成绩和绩点', description: '查本人课程、课表、考试、逐科成绩、各学期与总绩点、实践等原资料。resources看看有哪些资料，schema看来源字段，quick/select做筛选、关联与汇总；continuation接着同一份查询翻页，read打开原对象，history/diff看后来变化。没写时间的考试还可沿exam_course_record地址查课程记录；主修GPA沿同份资料的major地址读。结果保留学分、原分数、修读次数、计入政策与分母，各种GPA分别看。实践和跑步各有统计入口。账号核对方式、资料保存时间与缺项也会带回，方便判断还要查哪里。', timeoutMs: 90000, maxBytes: 140000,
       }),
       base(
         'campus.lookup',
@@ -461,12 +493,13 @@ export function registerBuiltins(
         z.union([campusAccountOutput, campusNavigationOutput, z.object({ kind: z.literal('capability_assessment'), domain: z.enum(campusDomains), recordRead: z.literal(false),
           requestedMeasures: z.array(z.string()), catalog: jsonObject }).strict()]),
         ['campus:read'],
-        { version: '13', timeoutMs: 90000, displayName: '本人校园资料', description: '按领域读取本人课程/课表/考试、成绩、GPA/学期绩点、实践与已有校园记录。考试逐场清单还可给同快照的courseRecords未读地址，供需要时查看原课程记录中没有返回时间的部分；两份清单分别分页，地址不证明正文已读。没有记录映射的类别返回kind=capability_assessment和本次实际资源目录；recordRead=false说的是本次没有读取个人记录，与某份记录为空不同。practice/projects提供实践记点、学分与项目，和体育有效打卡次数是不同的统计量。实际记录附真实分页、修读口径、分母与统计范围，统计期也可能未知。当前账号可核的已存学业快照可在本机读取；authentication区分本地库读取与实际SSO校验，来源采集时间另列。这些材料可供你判断眼前的问题能算到哪一步、接下来哪里值得查。查询是只读的，不办理预约、选课或支付。' },
+        { version: '15', timeoutMs: 90000, displayName: '本人校园资料', description: '按类别翻本人课程、课表、考试、成绩、绩点、实践和已有校园记录。成绩可按课程名与filters筛选，单学期沿来源中的学期ID选择。考试逐场清单外，还有courseRecords地址可查没写时间的课程记录，两份清单分别翻页。暂未对应记录的类别会带回可读资料目录，实际读取情况另列。每份结果保留修读口径、分母、统计期、下一页和资料时间；实践学分与体育打卡次数各查各的来源。' },
       ),
       base('campus.overview', campusOverviewInput, jsonObject, ['campus:read'], {
         version: '5',
         timeoutMs: 90000,
         maxBytes: 140000,
+        displayName: '看看校园资料有哪些', description: '查看所选采集时期的校园资料概览与各类读取入口。通常接回已存资料；refresh会重新采集整份学业资料，includeSensitiveDomains选择这次带回哪些类别。想看具体课程、考试或成绩时，沿相应清单继续读。',
       }),
     ]),
     connectionStatus: () => {
@@ -602,6 +635,7 @@ export function registerBuiltins(
         const wrapped = (await connections.campus!.read(
           {
             domain: args.domain as CampusDomain,
+            query: args.query,
             courseId: args.courseId,
             academicYear: args.academicYear,
             term: args.term,
@@ -660,7 +694,7 @@ export function registerBuiltins(
             institutionId: 'zju',
             termId: String(result.semester_id || 'unspecified'),
             termIdMeaning: 'snapshot_collection_period' as const,
-            recordSelection: { filters: args.filters || [], ...(args.sort ? { sort: args.sort } : {}),
+            recordSelection: result.recordSelection || { filters: args.filters || [], ...(args.sort ? { sort: args.sort } : {}),
               semester: (args.filters || []).some((filter: string) => filter.split(':')[0].trim() === 'semester_id')
                 ? 'semester_predicate_provided' as const : 'no_semester_predicate' as const },
             ...(courseRecords ? { courseRecords } : {}),
@@ -688,7 +722,8 @@ export function registerBuiltins(
               ? new Date(Date.parse(snapshotAt) + 300000).toISOString()
               : undefined,
           coverage: {
-            complete: !contentTruncated && (result.coverage?.complete === true || result.completeness?.complete === true) && result.next_offset == null,
+            complete: !contentTruncated && (result.coverage?.complete === true || result.completeness?.complete === true)
+              && result.next_offset == null && (result.offset ?? args.offset ?? 0) === 0,
             scope: args.domain,
           },
           reason: result.reason || result.error?.message,
@@ -707,9 +742,11 @@ export function registerBuiltins(
   // configured, so it cannot masquerade as a current ZJU account result.
   register({
     manifest: manifest('campus-import', 'campus:local', [
-      base('campus.imported_lookup', campusInput, campusImportOutput, ['campus:read']),
+      base('campus.imported_lookup', campusInput.extend({
+        expectedSnapshotVersion: z.string().regex(/^[a-f0-9]{64}$/).optional().describe('续页复制原结果的snapshotVersion，资料或筛选范围改变时从第一页重新读取。'),
+      }), campusImportOutput, ['campus:read'], { version: '2', displayName: '翻看导入的校园材料', description: '读这台电脑上导入的旧课次、考试、体育、地点或规则。日期和关键词可筛选，下一页沿原资料版本继续；来源与保存时间随结果带回。当前账号里的课程、成绩和GPA可另用campus.lookup或campus.query查。' }),
     ]),
-    connectionStatus: () => ({ connected: !!repo.getMeta('campus_import_metadata'), reason: '只读已导入的离线快照；它不代表当前校园账号。' }),
+    connectionStatus: () => ({ connected: !!repo.getMeta('campus_import_metadata'), reason: '这里读的是这台电脑上导入的校园材料，账号资料另有入口。' }),
     invoke: async (_name, args, ctx) => {
       const metadata = repo.getMeta<{ institutionId: string; termId: string; source: string; updatedAt?: string }>(
         'campus_import_metadata',
@@ -718,14 +755,14 @@ export function registerBuiltins(
         return {
           status: 'unsupported',
           sourceId: 'campus:local',
-          reason: '这台电脑上还没有导入的校园资料，这次没有取得本人记录；这与查到记录为空不同。账号来源能读到哪些统计，要看实际提供的资源和字段，连接本身还不说明某项统计已经可读。本人另给的学校页面、导出材料或数字，也各有自己的来源与口径，可以结合实际内容理解它们能支持什么。',
+          reason: '这台电脑上还没有导入校园材料。若校园账号已连接，可以沿campus.lookup或campus.query查；对方手头的学校页面或导出材料也可接着看。',
           simulated: false,
         };
       const importedDomain = args.domain === 'practice' || args.domain === 'sports' ? 'sports' : args.domain;
       if (!['schedule', 'exams', 'sports', 'places', 'rules'].includes(importedDomain)) return {
         status: 'unsupported', sourceId: 'campus:local', simulated: false,
         coverage: { complete: false, scope: args.domain },
-        reason: '这份本地导入只包含课次、考试、体育、地点和规则；未提供这一类别，不能据此判断该类别没有记录。',
+        reason: '这份导入材料只有课次、考试、体育、地点和规则。其他学业资料可沿campus.lookup或campus.query查账号来源。',
       };
       const result = domains.resolve(ctx.scope, importedDomain, {
         institutionId: metadata.institutionId,
@@ -735,6 +772,19 @@ export function registerBuiltins(
         query: args.query,
         limit: 6000,
       });
+      const sourceLimitReached = result.records.length >= 6000;
+      const snapshotVersion = createHash('sha256').update(JSON.stringify({
+        metadata, domain: args.domain, from: args.from || null, to: args.to || null, query: args.query || null,
+        records: result.records.map(record => ({ id: record.id, sourceId: record.sourceId, revision: record.revision,
+          evidenceId: record.evidenceId, fetchedAt: record.fetchedAt, status: record.status })),
+      })).digest('hex');
+      const offset = args.offset || 0;
+      if (args.expectedSnapshotVersion && args.expectedSnapshotVersion !== snapshotVersion || offset > 0 && !args.expectedSnapshotVersion)
+        return { status: 'conflict', sourceId: 'campus:local', simulated: false,
+          coverage: { complete: false, scope: args.domain },
+          reason: args.expectedSnapshotVersion
+            ? '导入资料或这次筛选的范围已经变了，可以从第一页重新接着看。'
+            : '续页还缺原资料版本。先从第一页取得snapshotVersion，沿那一页留下的地址继续。' };
       let records = result.records;
       if (args.from)
         records = records.filter(
@@ -745,14 +795,17 @@ export function registerBuiltins(
           (r) => !r.value.startsAt || Date.parse(String(r.value.startsAt)) < Date.parse(args.to),
         );
       if (args.query) records = records.filter((r) => JSON.stringify(r.value).includes(args.query));
-      const status = result.status === 'conflict' ? 'conflict' : records.length ? 'stale' : 'not_found';
+      const page = records.slice(offset, offset + args.limit), nextOffset = offset + page.length < records.length ? offset + page.length : null;
+      const truncated = { value: false };
+      const deliveredRecords = page.map(record => safeRecord(record.value, 0, truncated));
+      const status = result.status === 'conflict' ? 'conflict' : records.length ? 'stale' : sourceLimitReached ? 'partial' : 'not_found';
       return {
         status,
         sourceId: 'campus:local',
         data: {
           domain: args.domain,
-          records: records.slice(0, args.limit).map((r) => safeRecord(r.value)),
-          materialVersions: records.slice(0, args.limit).map(record => ({ kind: 'domain', id: record.id, revision: record.revision, sourceId: record.sourceId,
+          records: deliveredRecords,
+          materialVersions: page.map(record => ({ kind: 'domain', id: record.id, revision: record.revision, sourceId: record.sourceId,
             domain: record.domain, institutionId: record.institutionId, termId: record.termId })),
           conflicts: result.conflicts.map((g) => ({ id: g[0].id, sources: g.map((r) => r.sourceId) })),
           source: metadata.source,
@@ -762,12 +815,22 @@ export function registerBuiltins(
           origin: 'legacy_import',
           authenticated: false,
           total: records.length,
+          totalMeaning: sourceLimitReached ? 'matching_records_within_source_limit' : 'matching_retained_records',
+          offset, nextOffset, snapshotVersion,
+          ...(nextOffset !== null ? { continuation: { tool: 'look_up', arguments: { source: 'capability', capability: 'campus.imported_lookup',
+            arguments: { domain: args.domain, ...(args.from ? { from: args.from } : {}), ...(args.to ? { to: args.to } : {}),
+              ...(args.query ? { query: args.query } : {}), offset: nextOffset, limit: args.limit, expectedSnapshotVersion: snapshotVersion, refresh: false } } } } : {}),
+          sourceRead: { limit: 6000, returned: result.records.length, limitReached: sourceLimitReached,
+            meaning: sourceLimitReached
+              ? '先取到了6000条已存材料，total数的是这批里符合筛选的记录。续页接着看这批；想找更远的记录，可以缩小日期或关键词范围。'
+              : 'total数的是符合这次筛选的已存记录，本页打开其中一段。资料保存时间随结果带回，想看后来变化可以再查账号来源。' },
+          ...(truncated.value ? { truncated_for_model: true } : {}),
           cached: true,
           snapshotAt: metadata.updatedAt,
         },
         fetchedAt: metadata.updatedAt || records[0]?.fetchedAt,
-        coverage: { complete: result.records.length <= args.limit, scope: args.domain },
-        reason: '这是本地离线快照，不是当前浙大账号查询。',
+        coverage: { complete: !sourceLimitReached && !truncated.value && offset === 0 && nextOffset === null, scope: args.domain },
+        reason: '这里是离线导入的校园资料，保存时间随记录留着；账号资料另有读取入口。',
         simulated: false,
       };
     },
@@ -786,6 +849,7 @@ export function registerBuiltins(
     manifest: manifest('spatial', 'map:local', [
       base('map.overview', z.object({}).strict(), jsonObject, ['map:read'], {
         subjects: ['self', 'other', 'fictional'],
+        displayName: '看看校园地图', description: '看当前公共校园地图的范围、资料版本和可找的地点类型，再沿map.search查具体地点。',
       }),
       base(
         'map.search',
@@ -794,10 +858,10 @@ export function registerBuiltins(
           .strict(),
         z.object({ matches: z.array(jsonObject) }).strict(),
         ['map:read'],
-        { version: '3', subjects: ['self', 'other', 'fictional'], description: '按自然地点名、既有别名或类别检索当前公共地图；可带当前地图标题中的范围限定，范围不是新增地点别名。无匹配先核范围/已有别名，不要求用户背内部名称或猜ID。候选保留公共参考坐标、入口、全部接入候选ID/条件分组与对应来源；摘要不是已选择路线，详细接入由map.route核，完整几何仍在原地图，不是本人位置。' },
+        { version: '4', subjects: ['self', 'other', 'fictional'], displayName: '找校园里的地方', description: '按平常叫法、已有别名或类别找地点，可加当前地图范围。结果留下地点、入口、接入条件与原资料地址；湖面或区域还会列附近独立命名、能接到路网的可选落点。可以明确说明选哪处来试算，交map.route看路，再随对方想去的位置调整。' },
       ),
-      base('map.route', routeInput, jsonObject, ['map:read'], { subjects: ['self', 'other', 'fictional'] }),
-      base('map.location_status', z.object({}).strict(), jsonObject, ['map:read']),
+      base('map.route', routeInput, jsonObject, ['map:read'], { subjects: ['self', 'other', 'fictional'], displayName: '看看这段路怎么走', description: '沿地图找到的地点或路网节点试算路线，保留原起终点、方向和入口条件。路线算好后会分别列出已记录道路和估计接入，可先带着这些条件展开这一版走法。确实缺少接入时，结果会留下可继续核对的候选入口。' }),
+      base('map.location_status', z.object({}).strict(), jsonObject, ['map:read'], { displayName: '看看地图当前的定位情况', description: '查看公共地图目前保留的定位状态与原因，需要具体起点时可继续找地点或接回本人刚说的位置。' }),
     ]),
     connectionStatus: () => ({ connected: !!connections.map && connections.map.overview().version !== 'unavailable', reason: connections.map ? undefined : '地图数据尚未装配。' }),
     invoke: (name, args) => {
@@ -813,7 +877,13 @@ export function registerBuiltins(
         name === 'map.overview'
           ? publicMap.overview()
           : name === 'map.search'
-            ? { matches: publicMap.search(args.query, args.limit).map(projectMapSearchPoint) }
+            ? { matches: publicMap.search(args.query, args.limit).map(point => {
+              const nearby = publicMap.nearbyWalkablePlaces(point.id);
+              return { ...projectWalkingSearchPoint(point), ...(nearby.length ? { nearbyWalkablePlaces: nearby.map(candidate => ({
+                ...candidate, point: projectWalkingSearchPoint(candidate.point),
+                meaning: '这是附近另一个有自己名字和来源的可选落点，距离按两处公共参考点直量。connectedBridgeNames来自接入路网中的实际桥段名。选它试路时会换成这个终点；实际路程和接入估计继续由map.route计算。',
+              })) } : {}) };
+            }) }
             : name === 'map.route'
               ? publicMap.route(args)
               : publicMap.locationStatus();
@@ -833,7 +903,11 @@ export function registerBuiltins(
           complete: name !== 'map.route' || status === 'fresh',
           scope: 'Shared public ground facts, recorded entrances and explicitly estimated access',
         },
-        reason: name === 'map.route' && status === 'partial' ? v.status==='ready' ? '道路段与接入估计分开；虚线接入、条件门点和楼内通行未现场确认，不能将候选路线当作保证可达。' : '原起点到路网的连接仍未知；conditionalOrigins只说明候选入口之间的已记录路段。' : v.reason,
+        reason: name === 'map.route' && status === 'partial' ? v.status==='ready'
+          ? v.routeBasis === 'recorded_network_with_estimates' && !v.segments?.some((segment: any) => segment.conditions?.length)
+            ? `已记录道路这一段已经算好，可以先看这份带接入估计的路线。两端共约${Math.round(v.distance?.connectorM || 0)}米是估计接入，门口、楼内和当天通行仍需现场核对。`
+            : v.reason
+          : '还缺从原起点接到路网的那一段。候选入口之间已有道路可看，可以先核对从哪个入口出发。' : v.reason,
         simulated: false,
       };
     },
@@ -841,10 +915,10 @@ export function registerBuiltins(
   register({
     manifest: manifest('weather', 'weather:open-meteo', [
       base('weather.lookup', weatherInput, weatherOutput, ['weather:read'], {
-        version: '5', displayName: '地点与时间窗天气预报', description: '按公开参考地点查询当地今天起七天的预报。date查单日；from/to查小时窗，小时覆盖与日统计各自判断。dailyAggregation保留来源固定偏移24小时统计的实际区间、当地自然日和是否重合；forecast保留来源原值，不能当成小时窗内极值。缺测为null，获取时间不是发布时间；参考点不是设备定位，校园分钟级天气与场地开放仍未知。缓存区分完整地点、时区和时间窗。',
+        version: '5', displayName: '看看那时的天气', description: '按公开地点查当地今天起七天的预报。date看一天，from/to看具体小时；结果保留原预报、当地时区、资料时间和缺测。日统计也会写明实际统计时段，想看某几小时的雨风就沿小时资料判断。场地是否开放另查场馆来源。',
       }),
       base('air_quality.lookup', airQualityInput, airQualityOutput, ['weather:read'], {
-        version: '2', displayName: '公共参考地点空气质量预报', description: '按公开参考地点查询PM2.5、PM10、US AQI与European AQI，默认未来24小时，可查询所选地点当地今天起五个自然日内的时间窗。沿既有环境查询许可，不读取设备GPS；不同AQI制式不可混称中国官方AQI，预报不等于校园实测或个人运动安全保证。',
+        version: '2', displayName: '看看那里的空气预报', description: '按公开地点查PM2.5、PM10及美国、欧洲两种AQI预报，默认未来24小时，也可选当地今天起五天里的时段。结果会写明预报地点、时段与指数制式，方便结合当天实际感受商量出门安排。',
       }),
     ], ['api.open-meteo.com', 'air-quality-api.open-meteo.com']),
     connectionStatus: () => ({ connected: connections.weatherEnabled(), reason: connections.weatherEnabled() ? undefined : '天气查询未开启。' }),
@@ -857,7 +931,7 @@ export function registerBuiltins(
         return { status: result.complete ? 'fresh' : 'partial', sourceId: 'weather:open-meteo', data: result.data,
           fetchedAt: now, expiresAt: new Date(Date.parse(now) + 1800000).toISOString(), simulated: false,
           coverage: { complete: result.complete, scope: 'Public-reference CAMS forecast; US and European indices only', until: query.to },
-          ...(result.complete ? {} : { reason: '来源有缺测或小时覆盖不足，不能当作完整时段结论。' }) };
+          ...(result.complete ? {} : { reason: '这段时间有些小时还缺数据，已拿到的小时值保留在结果里。可以先看已有部分，或换一个较短时段继续查。' }) };
       }
       const query = weatherRequest(args, repo.clock.now()), response = await ctx.request(query.url.toString());
       if (!response.ok) throw new HarnessError('weather_failed', '天气服务未完成查询。');
@@ -865,7 +939,7 @@ export function registerBuiltins(
       return { status: result.complete ? 'fresh' : 'partial', sourceId: 'weather:open-meteo', data: result.data,
         fetchedAt: observedAt, expiresAt: new Date(Math.min(Date.parse(observedAt) + 1800000, Date.parse(dayBounds(dateInZone(observedAt, query.location.timeZone), query.location.timeZone).to))).toISOString(),
         coverage: { complete: result.complete, scope: `${query.location.label}; ${query.from} to ${query.to}; ${query.hourly ? 'hourly' : 'daily'} forecast`, until: query.to }, simulated: false,
-        ...(result.complete ? {} : { reason: '来源有缺测、小时覆盖不足，或日统计区间与当地自然日不重合；各自范围保留在结果中。' }) };
+        ...(result.complete ? {} : { reason: '这份预报还有缺测或时段未对齐的地方，具体位置随结果留下。想看某几小时的变化，可以沿小时资料继续查。' }) };
     },
   });
   register({
@@ -875,6 +949,7 @@ export function registerBuiltins(
         z.object({ query: z.string().min(1).max(100) }).strict(),
         z.object({ results: z.array(jsonObject) }).strict(),
         ['evidence:read'],
+        { displayName: '找回说过的原话', description: '按文字查已保存的原话，带回原文、说话来由、版本和时间。后来更正或停止使用的部分也会留下说明，接话时可以连同当时的条件一起看。' },
       ),
     ]),
     invoke: (_name, args, ctx) => ({

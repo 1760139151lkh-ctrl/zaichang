@@ -1,0 +1,39 @@
+{
+  "recordType": "image-generation-source",
+  "character": "soyo",
+  "activity": "chat",
+  "palette": "violet",
+  "light": "dusk",
+  "generatedOn": "2026-10-23",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-9015ebd5-7c29-469c-ab49-8e3b15263a65",
+  "prompt": "soyo-chat-violet-prompt.txt",
+  "promptSha256": "4feb5045bf3b94398c1417e86ca23b4f526ea4e07998666cce81c7b9766e5e59",
+  "inputs": [
+    {
+      "file": "soyo-chat-apricot-mother-candidate-v1.png",
+      "role": "primary-reviewed correct complete mother: identity, full pose and furniture support",
+      "sha256": "e5860a2adf427032f84d15dcec6c59c8b6ffa7dff8ede6eadf9ec669f4e00b29"
+    },
+    {
+      "file": "../room-violet-candidate.png",
+      "role": "primary-reviewed empty complete target lighting plate",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16921-9fe7-73b2-81e9-dfadeae00b4a/exec-9015ebd5-7c29-469c-ab49-8e3b15263a65.png",
+  "output": {
+    "file": "soyo-chat-violet-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2162546,
+    "sha256": "444153ca5735202cb0b228f9647cff2578f02c3391070e3c0e3876588f86e8e4"
+  },
+  "review": {
+    "producerViewed": "complete generated original and its approved warm mother/target plate personally compared",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Same youthful light-brown hair/blue eyes/navy-white uniform and settled lap-fingertip chat silhouette; complete shoes and real bench support. Whole room has coherent rose-gold dusk/violet shadows; sun disk remains near x1006,y301 with the same lake reflection and desk warm light. Primary mother, layer and runtime review remain pending."
+}

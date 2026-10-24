@@ -1,0 +1,135 @@
+{
+  "mother": "uika-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0",
+  "matte": "uika-study-apricot-mask-raw-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [
+    [
+      [
+        939,
+        697
+      ],
+      [
+        941,
+        690
+      ],
+      [
+        949,
+        695
+      ],
+      [
+        958,
+        694
+      ],
+      [
+        968,
+        690
+      ],
+      [
+        975,
+        695
+      ],
+      [
+        986,
+        701
+      ],
+      [
+        984,
+        708
+      ],
+      [
+        940,
+        707
+      ]
+    ],
+    [
+      [
+        962,
+        682
+      ],
+      [
+        967,
+        675
+      ],
+      [
+        975,
+        678
+      ],
+      [
+        983,
+        683
+      ],
+      [
+        992,
+        686
+      ],
+      [
+        1003,
+        691
+      ],
+      [
+        1000,
+        697
+      ],
+      [
+        971,
+        697
+      ],
+      [
+        961,
+        690
+      ]
+    ]
+  ],
+  "excludePolygons": [
+    [
+      [
+        826,
+        594
+      ],
+      [
+        861,
+        593
+      ],
+      [
+        867,
+        594
+      ],
+      [
+        874,
+        597
+      ],
+      [
+        879,
+        603
+      ],
+      [
+        883,
+        611
+      ],
+      [
+        887,
+        619
+      ],
+      [
+        890,
+        625
+      ],
+      [
+        826,
+        632
+      ]
+    ]
+  ],
+  "figure": "uika-study-apricot-figure-calibrated-v3.png",
+  "mask": "uika-study-apricot-mask-calibrated-v3.png",
+  "backgroundCandidate": "uika-study-apricot-background-raw-v1.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [],
+  "background": "uika-study-apricot-background-calibrated-v3.png",
+  "record": "uika-study-apricot-layer-processing-v3.json",
+  "reviewNote": "The v2 detailed view retained a cushion/wood crescent under the skirt. v3 excludes that exact manually traced chair crescent, keeping the visible rear skirt and both shoes. Shoe interior alpha is filled locally; RGB remains exactly from mother. Fixed desk-contact pose, no scene registration or runtime acceptance."
+}

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "recordType": "canonical-scene-reference",
+  "canonicalScene": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot.scene.json",
+  "originalCandidateSha256": "7de1e5a33b3c1cba603932b898ff3bfb6f74c3966edaea6e448c5ded902f1f09",
+  "originalProducerReview": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-prototype-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Short candidate bench-tangent travel, approximately 12px each side; source contact shadow follows the actor. Actual original Stage motion/contact remains unaccepted.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json"
+  },
+  "production": "sakiko-chat-apricot-layer-processing-v3.json",
+  "parameters": null,
+  "note": "Same visible scene contract and unchanged admitted artwork; canonical registration lives only in the runtime directory. This relocation does not sign runtime acceptance."
+}

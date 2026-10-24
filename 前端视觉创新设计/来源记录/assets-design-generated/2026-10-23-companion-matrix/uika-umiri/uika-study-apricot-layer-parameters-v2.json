@@ -1,0 +1,131 @@
+{
+  "mother": "uika-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0",
+  "matte": "uika-study-apricot-mask-raw-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [
+    [
+      [
+        939,
+        697
+      ],
+      [
+        941,
+        690
+      ],
+      [
+        949,
+        695
+      ],
+      [
+        958,
+        694
+      ],
+      [
+        968,
+        690
+      ],
+      [
+        975,
+        695
+      ],
+      [
+        986,
+        701
+      ],
+      [
+        984,
+        708
+      ],
+      [
+        940,
+        707
+      ]
+    ],
+    [
+      [
+        962,
+        682
+      ],
+      [
+        967,
+        675
+      ],
+      [
+        975,
+        678
+      ],
+      [
+        983,
+        683
+      ],
+      [
+        992,
+        686
+      ],
+      [
+        1003,
+        691
+      ],
+      [
+        1000,
+        697
+      ],
+      [
+        971,
+        697
+      ],
+      [
+        961,
+        690
+      ]
+    ]
+  ],
+  "excludePolygons": [
+    [
+      [
+        831,
+        596
+      ],
+      [
+        862,
+        596
+      ],
+      [
+        867,
+        598
+      ],
+      [
+        872,
+        604
+      ],
+      [
+        875,
+        611
+      ],
+      [
+        878,
+        619
+      ],
+      [
+        881,
+        624
+      ],
+      [
+        831,
+        632
+      ]
+    ]
+  ],
+  "figure": "uika-study-apricot-figure-calibrated-v2.png",
+  "mask": "uika-study-apricot-mask-calibrated-v2.png",
+  "backgroundCandidate": "uika-study-apricot-background-raw-v1.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [],
+  "background": "uika-study-apricot-background-calibrated-v2.png",
+  "record": "uika-study-apricot-layer-processing-v2.json",
+  "reviewNote": "Explicitly fills only shoe-upper interior holes in this manually inspected region; removes the identified chair seat/wood fragment under the skirt. The mother RGB remains intact and no hidden anatomy is generated. Fixed desk contact; not approved for dragging."
+}

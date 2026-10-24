@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "asset": "mutsumi-listening-violet-mother-candidate-v1.png",
+  "character": "mutsumi",
+  "activity": "listening",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical whole-environment relighting; approved correct warm mother is sole character/pose/furniture edit target; approved empty theme plate is lighting/sky/source-axis reference only",
+  "prompt": "mutsumi-listening-violet-relight-v2-prompt.txt",
+  "promptSha256": "6a4653cb859f9460c77241e8b39d07ef54bb0bef679227b42fa85822bfd32033",
+  "inputs": [
+    {
+      "file": "mutsumi-listening-apricot-mother-candidate-v2.png",
+      "sha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+      "role": "Image 1: primary-approved complete warm activity mother; sole editable character/geometry target"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "Image 2: primary-approved clean empty room; lighting/sky/source-axis reference only, never furniture/body replacement"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-listening-violet-mother-candidate-v1.png",
+    "sha256": "455979215ee103c975142b0bd417f9ad2e67ea2d6093c33648f5b72d2ceb2c9c",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-36b933d9-1f07-45dc-bb4e-9e82d4679c0e.png"
+  },
+  "ownerAndSupport": "Preserve seated listening pose on right bench, one knee drawn up and its socked foot supported on cushion, other leg continuing down into its floor-supported loafer. Exactly one removed loafer stays parked separately on floor at source position. Keep natural hip/cushion and rear palm support, slightly tilted attentive head and hand resting at raised knee. Do not invent a second worn shoe.",
+  "designerObservation": "Full generated image personally viewed against approved warm listening v2 mother and empty violet plate. Same tilted listening head, raised socked foot/cushion, downward leg in floor-supported loafer, single parked removed loafer and supported hips/palm preserved. Sun about (1007,302), lake column on shared x1003-1007; coherent gold-violet dusk with local source lamp.",
+  "geometryObservation": {
+    "coordinateSystem": "1536x1024 original mother canvas",
+    "hipsSeatApprox": [
+      1315,
+      561
+    ],
+    "raisedSockFootCushionApprox": [
+      1193,
+      565
+    ],
+    "wornFloorShoeApprox": [
+      1192,
+      751
+    ],
+    "parkedLoaferApprox": [
+      1276,
+      754
+    ],
+    "note": "One socked foot is supported on the cushion, one worn shoe on floor, one separately removed shoe. No requirement that both feet touch floor.",
+    "sunApprox": [
+      1007,
+      302
+    ],
+    "lakeLightAxisApprox": 1005
+  },
+  "observedGaps": [
+    "Primary per-mother optical review pending; image producer cannot sign primary approval.",
+    "No extracted layers, final calibration or Stage/runtime acceptance yet."
+  ],
+  "designerStatus": "candidate awaiting primary review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

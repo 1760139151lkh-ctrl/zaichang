@@ -1,0 +1,211 @@
+{
+  "recordType": "approved-mother-layer-generation",
+  "tool": "built-in image_gen",
+  "input": {
+    "file": "umiri-planning-apricot-mother-candidate-v2.png",
+    "sha256": "78ca56bc6b2fff62341a26018251a84a62185ea6d614af14b2903ff323976f23",
+    "role": "sole approved planning v2 mother; no planning v1 or violet input"
+  },
+  "calls": [
+    {
+      "purpose": "visible-only opaque segmentation mask",
+      "executionId": "exec-f4c8e5c0-134c-4180-af44-9fcaf654001b",
+      "promptFile": "umiri-planning-apricot-mask-prompt.txt",
+      "actualPrompt": "Use case: background-extraction. Asset ID: umiri-planning-apricot-visible-mask-v1.\nImage 1 is the SOLE EDIT TARGET, the approved complete Umiri planning apricot v2 mother. Transform its existing person pixels to WHITE and existing room pixels to opaque BLACK at the exact ORIGINAL coordinates. Return one 1536 x 1024 full-canvas opaque segmentation matte. No crop, zoom, translation, scaling, reposing, redraw, invented hidden anatomy or object.\nKeep the original rounded crown near x840/y297, her exact half-turned upright torso and face, original skirt/seat occlusion, both original arms/hands, knees, calves and boots. The whole existing visible person spans approximately x788..1085/y296..759; these are original-source checkpoints, not permission to distort the silhouette. The upper open hand is near x920..978/y462..494; the lower paper-touching hand near x920..961/y501..526. Both boots remain near their original source floor positions and must not enlarge or move.\nWHITE includes only every visible person pixel: charcoal shoulder-length hair and fine tips, face/ears/neck, entire black jacket with sleeves and cuffs, red top, gray short skirt with the complete visible hem, both bare legs, original visible socks if any, and both complete black platform boots including all dark uppers/laces/heels/soles. Keep the two hands and all original visible fingers, both forearms and wrists complete, including the palm opened between the two desk options and the other hand touching the near paper edge. White interiors must be SOLID regardless of dark original material; gray only for a thin antialiased contour. Keep every actual room-visible hole/gap between body/arms/legs as black.\nBLACK includes all furniture and environment: the two flat sheets on the desk, any desk book/cup/lamp, desk top/edge/drawers/legs, chair back/seat/wooden legs, bench/pillows/throw, window/scenery, curtains, walls, left room objects, floor/rug and all cast/contact shadows. Do not turn paper under fingers white. Where the original opaque chair occludes her jacket/skirt, preserve that exact visible-only contour and keep chair black; do not complete the body behind it. No new held pen, card, book or other prop. No room fragments around hands, hem or boots. No grayscale body details, transparent sticker, portrait crop, border, text or extra panel.\n",
+      "actualPromptSha256": "4ab54903c251c7a1c8c0c666feaeb9a345ab1ec43079ad463ec968593663a6bf",
+      "promptFileSha256": "4ab54903c251c7a1c8c0c666feaeb9a345ab1ec43079ad463ec968593663a6bf",
+      "transparentBackground": false,
+      "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-f4c8e5c0-134c-4180-af44-9fcaf654001b.png",
+      "output": {
+        "file": "umiri-planning-apricot-mask-raw-v1.png",
+        "sha256": "ee2e8eca14ab64acbfacd243c51884206f830830aab528b2c8c01f17f397f9b2",
+        "bytes": 352504,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB",
+        "recordedAt": "2026-10-24T02:02:09.860658+00:00"
+      },
+      "status": "generated-candidate"
+    },
+    {
+      "purpose": "same-mother matching clean background",
+      "executionId": "exec-4b09eff3-fcf2-4e01-b276-ef259363cffc",
+      "promptFile": "umiri-planning-apricot-background-prompt.txt",
+      "actualPrompt": "Use case: precise-object-edit. Asset ID: umiri-planning-apricot-matching-background-v1.\nImage 1 is the SOLE EDIT TARGET, the approved complete Umiri planning apricot v2 mother. Remove only Umiri: all hair/face/body, black jacket/red top/gray skirt, both arms and hands/fingers, both legs and black boots, and her personal body/foot contact or cast shadows. Reconstruct only the locally revealed room surfaces. Keep the identical complete 1536 x 1024 canvas, original camera/perspective, furniture size and coordinates. No crop, zoom, translation, rotation, substitute room, new person or new object.\nThe two small flat possibility sheets on the original desktop are FIXED ENVIRONMENT: keep both papers at their exact original size, angle, position and supported relationship, including where the near hand was touching an edge. Do not remove these sheets with the person or move them. Preserve the original desk/lamp/cup/book geometry, their original positions and ordinary scale. Preserve all visible upholstered chair back/seat and wooden legs in this planning v2 mother's exact orientation; complete only the chair parts actually hidden by her. Do not restore an empty-room chair from another image or rotate/enlarge this chair.\nKeep the original full connected window frame, lake/campus landmarks, curtains, rear-left table/chair/shelves/plant/framed drawing, right bench/pillows/knitted throw, floorboards, rug and original environmental window/leaf/furniture shadows. Match the original warm apricot daylight, wood grain, neutral fabric and delicate painted texture in the newly revealed local window/chair/desk/floor areas. No ghost hair, skin, hands, jacket, skirt, boot silhouette, personal leg/body shadow, reflection or person-shaped blur. Do not intentionally change unaffected pixels. This empty plate will receive the original same-position figure RGB, so exact alignment matters more than novelty. One coherent full empty room only, no text, UI, watermark, comparison panel or border.\n",
+      "actualPromptSha256": "f7e91cf62c81cf5378e1fb84c68bbc87f7c4cf8d1c5fac9a251ba542eac69b8b",
+      "promptFileSha256": "f7e91cf62c81cf5378e1fb84c68bbc87f7c4cf8d1c5fac9a251ba542eac69b8b",
+      "transparentBackground": false,
+      "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-4b09eff3-fcf2-4e01-b276-ef259363cffc.png",
+      "output": {
+        "file": "umiri-planning-apricot-background-raw-v1.png",
+        "sha256": "e1fbf3750ace4e0dd33c60ae3fe9e2af6cceff23993d7f5f399133b4f1efaacd",
+        "bytes": 2126355,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB",
+        "recordedAt": "2026-10-24T02:04:58.921033+00:00"
+      },
+      "status": "generated-needs-redraw",
+      "reason": "Extra third paper introduced on newly revealed left desktop; two original option sheets must remain fixed, left revealed wood bare."
+    },
+    {
+      "purpose": "same-mother matching clean background, remove extra-paper failure",
+      "executionId": "exec-88a3deab-446b-4450-86da-da78a411f3d7",
+      "promptFile": "umiri-planning-apricot-background-v2-prompt.txt",
+      "actualPrompt": "Use case: precise-object-edit. Asset ID: umiri-planning-apricot-matching-background-v2.\nImage 1 is the SOLE EDIT TARGET: original approved Umiri planning apricot v2 mother. This is a person-removal clean plate only. Remove Umiri and her personal body/foot shadows while keeping the exact full 1536 x 1024 canvas, camera, room geometry and every existing furniture/object coordinate. Do not crop, zoom, translate, rotate, enlarge furniture or import another room.\n\nCRITICAL DESKTOP OBJECT COUNT AND COORDINATES: preserve exactly the TWO existing flat option sheets in the input, one near x930..1002/y499..519 and the other near x1003..1068/y505..523. Keep their actual source shape/angle/marks and supported position; do not shift them to these approximate boxes or alter their original edges. The existing thin closed book/material at the rear desk edge near x956..998/y487..496 is a separate already-present object; keep it as in the source. The cup stays around x1027/y483 and lamp around x1085/y451, all original size/shape.\nThe LEFT newly revealed desk surface around x825..924/y490..520 MUST BE BARE ORIGINAL GOLDEN WOOD. No third white sheet, open book, pad, folded paper or new stationery in that cleared region. The near hand, open palm and jacket disappear, but they do not create extra objects underneath. Do not create a second row of option sheets. Keep the two actual option papers on the right half exactly where they already are.\n\nRemove all actual visible woman pixels: charcoal hair, face/body, black jacket/red top/gray short skirt, both arms/hands/fingers, both bare legs and both black boots. Reconstruct only the local background hidden by her. Preserve all existing visible chair-back fabric/seat/wooden legs at this planning mother's exact orientation; complete its locally hidden seat and legs, without resizing or rotating. Keep the original desk top/edge/drawers/legs, right bench/pillows/throw, full window/lake/campus landmarks/curtains, rear-left table/chair/shelves/plants/framed drawing, floorboards/rug and environmental sunlight/leaf/furniture shadows unchanged.\nMatch the original warm apricot daylight and delicate painted wood/fabric texture in the revealed window/chair/desk/floor regions. Clear ghost hair/skin/clothes/boots, personal leg/arm cast shadows and reflections without erasing environmental shadows. No person-shaped blur, leftover body fragments, extra person or prop. Preserve unaffected pixels intentionally; this plate must align under the original same-position figure RGB. One complete empty room, no text, UI, logos, watermark, border or comparison panels.\n",
+      "actualPromptSha256": "44cb30e74849320efc890359156d3b346d086faa22aeba445b92008e4ccddf8f",
+      "promptFileSha256": "44cb30e74849320efc890359156d3b346d086faa22aeba445b92008e4ccddf8f",
+      "transparentBackground": false,
+      "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-88a3deab-446b-4450-86da-da78a411f3d7.png",
+      "output": {
+        "file": "umiri-planning-apricot-background-raw-v2.png",
+        "sha256": "a9a825e5b2691947f0436708b2dc2a1c0adb5c0f000b75594b582d5670f143bc",
+        "bytes": 2120234,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB",
+        "recordedAt": "2026-10-24T02:20:51.842730+00:00"
+      },
+      "status": "generated-needs-redraw",
+      "reason": "Option sheet count corrected, but a new small closed book appeared on newly revealed left rear desktop near x865..915/y483..493, outside original visible rear book. Requesting bare newly exposed wood again from approved mother only."
+    },
+    {
+      "purpose": "same-mother matching clean background, bare exposed desktop with no extra prop",
+      "executionId": "exec-08b68c25-b1c1-4cd9-a76a-76b7ed6610f6",
+      "promptFile": "umiri-planning-apricot-background-v3-prompt.txt",
+      "actualPrompt": "Use case: precise-object-edit. Asset ID: umiri-planning-apricot-matching-background-v3.\nThe ONLY input is the approved original Umiri planning apricot v2 mother. Make its exact 1536 x 1024 matching person-removal plate, preserving original full canvas/camera and furniture geometry. Remove the woman, both arms/hands/legs/boots and personal cast/contact shadows, revealing locally continuous original room surfaces. No crop, zoom, shift, furniture rotation/resize, new prop or new person.\n\nDESKTOP COUNT IS STRICT: EXACTLY TWO flat option sheets, at their original source locations near x930..1002/y499..519 and x1003..1068/y505..523, plus ONLY the one already visible thin closed book/material at the rear near x956..998/y487..496. Preserve those actual original shapes/edges/angles, not newly drawn approximate rectangles. The original cup and lamp stay exactly where they are.\nALL desktop newly revealed behind the woman/arm on the LEFT is BARE GOLDEN WOOD, INCLUDING THE REAR EDGE from approximately x820 to x930 wherever the original tabletop exists. In particular, do not put any closed book/notebook at x865..920/y480..497, and do not put any extra white sheet at x840..928/y492..520. Do not move the existing one rear book leftward. NO third sheet, NO second book, NO extra pad, fold, card, pencil, cup or stationery in that left revealed surface. Keep the tabletop's existing real front/rear/left edges; do not extend wood above the original tabletop or alter the desk outline.\n\nPreserve the original chair orientation and every visible chair-back/seat/leg pixel relationship; only complete chair surfaces hidden by her body. Do not restore an unrelated empty-room chair. Keep original desk/drawers/legs/lamp/cup, bench/pillows/throw, complete connected window/lake/campus landmarks/curtains, left table/chair/shelves/plants/framed picture, rug and floorboard layout. Keep environmental window, plant and furniture shadows. Reconstruct only the actual former woman/boot/shadow local regions with coherent matching warm apricot daylight and original delicate illustration texture/wood grain/fabric.\nNo ghost person, face, hair, skin, jacket, skirt, boot, personal leg shadow, reflection or body-shaped blur. No changed unaffected region, text, UI, watermark, border, collage or comparison panel. The result must align behind the original character RGB and retain exactly the two option sheets and the one original rear book, with bare wood on the newly exposed left desktop.\n",
+      "actualPromptSha256": "77db89740a63c2e3f58163cd8d680f775dda440f9be901feb776a541e04dbbc4",
+      "promptFileSha256": "77db89740a63c2e3f58163cd8d680f775dda440f9be901feb776a541e04dbbc4",
+      "transparentBackground": false,
+      "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-08b68c25-b1c1-4cd9-a76a-76b7ed6610f6.png",
+      "output": {
+        "file": "umiri-planning-apricot-background-raw-v3.png",
+        "sha256": "15263aecd1f017daaedc0de6c58a53c941f00e8aa938530f6177c0235af2ef37",
+        "bytes": 2111271,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB",
+        "recordedAt": "2026-10-24T02:28:02.408147+00:00"
+      },
+      "status": "generated-candidate"
+    }
+  ],
+  "designerReview": {
+    "rawMask": "Full raw viewed; original scale/pose remained, dark boots/jacket white and both hands present.",
+    "rawBackgroundV1": "Rejected extra third option sheet on exposed left desktop.",
+    "rawBackgroundV2": "Rejected extra small closed book on exposed left rear desktop.",
+    "rawBackgroundV3": "Viewed full room: no extra independent left desktop object; two original option sheets stay on right with original rear book/material. Only local same-mother person/shadow patch adopted, original room RGB kept outside patch."
+  },
+  "primaryLayerReview": "pending",
+  "runtimeAccepted": false,
+  "status": "generated-candidate",
+  "layerProduction": {
+    "status": "designer-reviewed candidate; primary pending",
+    "selectedParameters": "umiri-planning-apricot-layer-parameters-v4.json",
+    "selectedProcessingRecord": "umiri-planning-apricot-layer-processing-v4.json",
+    "matteRefinement": "umiri-planning-apricot-matte-refinement-v3.json",
+    "contactRefinement": "umiri-planning-apricot-contact-refinement-v1.json",
+    "productionTool": "../extract-scene-layers.py",
+    "productionToolSha256": "4d4ba6a4a9d6e08d040ef33c9678acb7bb039f6afe2fbce02261c4c818083816",
+    "transform": "identity; no crop, scaling, translation or warp",
+    "outputs": [
+      {
+        "file": "umiri-planning-apricot-figure-calibrated-v4.png",
+        "bytes": 2427524,
+        "sha256": "5b4daffbd9cc2faca7ceba32ed23bcd978a36b29846c98fa5b4645ad858b57aa"
+      },
+      {
+        "file": "umiri-planning-apricot-mask-calibrated-v4.png",
+        "bytes": 27596,
+        "sha256": "279d2ea1a0715af0415034f2c3b83146a593ad090b9d4e8dddcc545d1103e301"
+      },
+      {
+        "file": "umiri-planning-apricot-background-calibrated-v4.png",
+        "bytes": 2091152,
+        "sha256": "f913aa5ab5b800aa2e86725f63571a8d966eedf078451807c797f8e6ffdf8725"
+      },
+      {
+        "file": "umiri-planning-apricot-shadow-candidate-v4.png",
+        "bytes": 28075,
+        "sha256": "3a59e2a43e052a143937cdbc2a96c685b81eb62153d94d78fc9c0622c538d339"
+      }
+    ],
+    "dataObservations": {
+      "motherFileSha256": "78ca56bc6b2fff62341a26018251a84a62185ea6d614af14b2903ff323976f23",
+      "motherRgbSha256": "93db942158bb2c4ee2d7b38626347c21a937a3e3943f5ecdd36c3684167e71cb",
+      "figureRgbSha256": "93db942158bb2c4ee2d7b38626347c21a937a3e3943f5ecdd36c3684167e71cb",
+      "figureCanvas": [
+        1536,
+        1024
+      ],
+      "maskCanvas": [
+        1536,
+        1024
+      ],
+      "backgroundCanvas": [
+        1536,
+        1024
+      ],
+      "shadowCanvas": [
+        1536,
+        1024
+      ],
+      "softFigureAlphaPixels": 6851,
+      "whiteMaskRgbExtrema": [
+        [
+          255,
+          255
+        ],
+        [
+          255,
+          255
+        ],
+        [
+          255,
+          255
+        ]
+      ],
+      "shadowAlphaBounds": [
+        949,
+        724,
+        1085,
+        762
+      ],
+      "shadowAlphaExtrema": [
+        0,
+        179
+      ]
+    },
+    "designerObserved": [
+      "Fresh approved planning apricot v2 full mother viewed and SHA checked; no old planning v1 or violet used.",
+      "Both open palm and near-paper hand/fingers, original black jacket/red top/gray skirt, thighs/calves/complete boots remain original RGB. Both desk sheets, lamp/cup and chair stay background.",
+      "Light/dark full canvas and enlarged details, complete clean BG and original-position recomposition viewed after final v4. Local outer sky/leaf/cloud alpha noise and chair fabric/wood fragments removed only where observed.",
+      "Broad chair exclusion v2 nicked calf/neck highlights and was rejected. V4 locally distinguishes original chair fabric/wood from actual skin; visible-only calf contour retains the original chair-seat occlusion, no hidden body painted. Neutral cloud cleanup does not run on neck highlights.",
+      "Thin normal source-over contact residual uses only actual boot sole/heel lower contours in four source ROIs, one pixel beyond edge through two more pixels with 0.5px feather. Viewed light/dark and recomposition; no broad floor rectangle/multiply patch observed.",
+      "Raw BG v1/v2 extra desktop objects were not inputs to regeneration or production. Final BG v3 came independently from approved mother; original RGB outside the person/explicit boot-shadow patch retained."
+    ],
+    "reviewImages": [
+      "umiri-planning-apricot-review-light-v4.png",
+      "umiri-planning-apricot-review-dark-v4.png",
+      "umiri-planning-apricot-review-light-detail-v4.png",
+      "umiri-planning-apricot-review-dark-detail-v4.png",
+      "umiri-planning-apricot-review-recomposed-v4.png"
+    ],
+    "rejectedOrSuperseded": {
+      "rawBgV1": "Extra third option sheet; rejected.",
+      "rawBgV2": "Extra left rear closed book; rejected.",
+      "layerV1": "Initial mask-only inspection, no matching BG adopted.",
+      "layerV2": "Rejected hard local chair polygon nicked visible calf/neck highlight alpha.",
+      "layerV3": "Intermediate chair fabric-edge cleanup, superseded by final locally refined source chair-color rejection and thin boot contact shadow."
+    },
+    "remaining": [
+      "Primary independently inspect fine hair, fingers/paper edges, chair-seat/calf occlusion and separate boot contact-shadow candidate.",
+      "Desk-contact planning pose requires travel=0; no app Stage, pointer/keyboard or motion evidence obtained.",
+      "No scene/manifest/runtime registration or primary signature made."
+    ],
+    "contactShadowMode": "separate normal source-over source residual; never multiply or generic floor RGB",
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false,
+    "integrated": false
+  }
+}

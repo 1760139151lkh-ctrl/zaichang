@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "play",
+  "palette": "apricot",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-bc62f67e-8626-48e0-831c-8edfcb086b94",
+  "prompt": "taki-play-apricot-prompt.txt",
+  "promptSha256": "47f1c38751a7c40d0324ba75a338a3b049bfff0b127fdea9c3ddd56843d63ef4",
+  "inputs": [
+    {
+      "file": "../room-apricot-candidate-v4.png",
+      "role": "sole image input; primary-approved clean empty room",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "taki-play-apricot-mother-candidate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2120243,
+    "sha256": "bf2bb6c780f72c03b65169347d1deafe8c178afe1a9bf6509848dc239321d0f9"
+  },
+  "producerObservation": "Whole image viewed: real chair-supported active posture and two natural drumstick grips; one tip at existing desk-supported practice pad, another raised. Two complete planted loafers. Tan/red/dark-sock identity retained. Pad is room/desk property, sticks held by actor; later desk-contact anchor must be fixed. No audio/action claim. Primary mother review pending.",
+  "review": {
+    "producerViewed": "complete original",
+    "producerDecision": "candidate",
+    "primary": "pending; no producer signature",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  }
+}

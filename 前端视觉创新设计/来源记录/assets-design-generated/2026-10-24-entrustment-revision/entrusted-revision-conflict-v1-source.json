@@ -1,0 +1,19 @@
+{
+  "kind": "ui-mockup",
+  "tool": "image_gen.imagegen",
+  "createdAt": "2026-10-24",
+  "prompt": "entrusted-revision-conflict-prompt.txt",
+  "inputs": [{"file": "entrusted-revision-v1.png", "role": "同一编辑区的构图与材质参考，不是产品截图", "sha256": "d61ae18a5865ad26b405ab3f48775b1d776a3aa6e3a51c052e8cce42a0e6fd7b"}],
+  "output": "entrusted-revision-conflict-v1.png",
+  "sha256": "5f326fe0dc399c314cd983b8504260da683b8daa78ffbe8a4e07ec5761bf25cb",
+  "purpose": "同一托付发生并发修订时保留原编辑草稿、回看现在的约定、显式继续编辑和取消。",
+  "designerReview": {
+    "viewed": true,
+    "decision": "retain-conflict-editing-relation",
+    "adopt": ["同位置保留来源与日期草稿", "当前约定的具体事实", "显式核对后继续", "保存暂不可用与取消仍可用", "无绿色UI"],
+    "omit": ["新增按钮与装饰口号", "每项来源的辅助解释", "把草稿期限放进详情标题：产品标题必须始终显示当前已保存约定，而非草稿"]
+  },
+  "primaryReviewed": false,
+  "runtimeVerified": false,
+  "implementation": ["src/renderer/EntrustedPanel.tsx", "src/renderer/EntrustedRevision.tsx"]
+}

@@ -68,7 +68,7 @@ export class CuriosityInvitationService {
       || event.contentVersion !== ref.contentVersion || ref.end > Array.from(event.text).length
       || codePointSlice(event.text, ref.start, ref.end) !== ref.quote
       || context.permits?.(ref) === false)
-      throw new HarnessError('curiosity_source', '先接住本轮真实的探索邀请或继续、换一个、放下的原话，不能用旧兴趣或助手建议代替。');
+      throw new HarnessError('curiosity_source', '这次还没对上本人这轮想探索、继续、换一个或放下的原话。以前的兴趣和你提出的点子可以帮助理解，眼前的选择还需要听本人说。');
     if (!context.ephemeral && scope.retention === 'purpose_scoped' && scope.sources.includes('work:self')
       && scope.grants.includes('work:write')) this.repo.resolveWorkSourceBinding(handle, [this.ref(ref)]);
     return event;
@@ -80,7 +80,7 @@ export class CuriosityInvitationService {
   private materials(handle: ScopeHandle, context: CuriosityContext, seed: CuriositySeed): CuriosityPublicSource[] {
     if (seed.origin === 'created') return [];
     const scope = this.policy.require(handle, 'evidence:read');
-    if (!scope.sources.includes('web:public')) throw new HarnessError('curiosity_public_scope', '这次没有开放公开资料来源，仍可直接给一个明确标作创作的小玩法。');
+    if (!scope.sources.includes('web:public')) throw new HarnessError('curiosity_public_scope', '这次还不能查公开资料，也可以直接一起玩一段创作，把虚构的部分说明白。');
     const sources = seed.citations.map(citation => {
       const observation = context.observations.find(item => item.toolCallId === citation.observationId
         && context.deliveredObservationIds.has(citation.observationId));
@@ -90,11 +90,11 @@ export class CuriosityInvitationService {
         || !['fresh', 'partial'].includes(String(result.status)) || typeof data?.text !== 'string'
         || !data.text.includes(citation.quote) || typeof data.url !== 'string'
         || typeof result.fetchedAt !== 'string' || !Number.isFinite(Date.parse(result.fetchedAt)))
-        throw new HarnessError('curiosity_public_source', '这处公开事实还没有本轮真正读到的正文依据；先展开原来源，或给不含该事实的纯创作。');
+        throw new HarnessError('curiosity_public_source', '这处公开事实还没在本轮读到的原文里找到。可以打开原来源再看看，也可以先给一段不借用这项事实的创作。');
       let url: URL;
       try { url = new URL(data.url); } catch { throw new HarnessError('curiosity_public_source', '公开材料的原地址不可用。'); }
       if (url.protocol !== 'https:' || url.username || url.password)
-        throw new HarnessError('curiosity_public_source', '公开材料需要实际读取的无凭据HTTPS来源。');
+        throw new HarnessError('curiosity_public_source', '这份公开材料还需要实际读到的HTTPS地址，地址中也不能带账号或密码。');
       return { observationId: citation.observationId, url: url.href,
         title: typeof data.title === 'string' && data.title.trim() ? data.title.trim().slice(0, 400) : url.hostname,
         quote: citation.quote, fetchedAt: result.fetchedAt,
@@ -126,7 +126,7 @@ export class CuriosityInvitationService {
       || !Array.isArray(frame.data.optionIds) || !frame.data.optionIds.includes(option.id)
       || !context.allowCrossSession && !member(frame, context.sessionId)
       || [...frame.sourceBinding.refs, ...option.sourceBinding.refs].some(ref => context.permits?.(ref) === false))
-      throw new HarnessError('curiosity_source_changed', '原邀请或它的来源已经变化，没有从旧副本恢复内容。');
+      throw new HarnessError('curiosity_source_changed', '原邀请或它用过的资料，这次还不能完整打开。可以沿现在能看的部分继续。');
     if (!this.repo.workBindingsReadable(handle, [frame.sourceBinding, option.sourceBinding]))
       throw new HarnessError('curiosity_source_changed', '这份体验的当前来源已改变，先沿仍允许的内容继续。');
     for (const address of this.chapterSources(option)) this.historicalChapter(handle, context, address);
@@ -151,7 +151,7 @@ export class CuriosityInvitationService {
       originLabel: seed.origin === 'created' ? '一起玩的创作' : seed.origin === 'public' ? '从公开资料带来的发现' : '公开资料与一起玩的创作',
       publicSources, presentation: 'experience_first', choices: ['offered', 'playing'].includes(status) && frame.status === 'active' ? [...choices] : [],
       ...(option.data.setting ? { setting: storySettingSnapshotSchema.parse(option.data.setting) } : {}),
-      meaning: '这是当下可拒绝、可按自己的回答继续的体验，不是目标、兴趣标签、订阅或已接受安排。创作保留为我们共同编过的作品，虚构命题不变成用户现实经历。公开依据保留实际读取时间，只证明该次所读；开放时间、费用和现场条件重新用于决定前仍需查当前来源。' };
+      meaning: '这次可以一起玩、换一个，也可以放下，照眼前的回答接着走。这份体验没有变成长期目标、爱好、订阅或已定安排；一起编过的故事仍是作品里的事。公开资料带着当时的阅读时间，真要据此出门或花钱时，再看开放时间、费用和现场条件有没有变化。' };
   }
 
   read(handle: ScopeHandle, context: CuriosityContext, id: string): CuriosityResult {
@@ -173,7 +173,7 @@ export class CuriosityInvitationService {
           matterId: frame.id, matterRevision: frame.revision,
           publicRead: view.publicSources.map(source => ({ tool: 'look_up', arguments: {
             source: 'capability', capability: 'research.read', arguments: { url: source.url, view: 'text' } } })),
-          meaning: '原公开依据还未在这轮真正回读，没有把旧内容当作现行发现。可以沿原公开地址读后再打开；来源暂时拿不到，也可直接另给一个明确标作创作的小体验，不要求等网络。',
+          meaning: '这轮还没重新读到当时的公开资料，先沿publicRead里的原地址看看。暂时打不开也没关系，可以先一起玩一段创作，把它和现实发现分清。',
         }, records: [frame, option], bindings: [] };
       view.publicSources = this.materials(handle, context, { ...curiositySeedSchema.parse(option.data.seed), citations });
     }
@@ -209,9 +209,9 @@ export class CuriosityInvitationService {
         read: { tool: 'read_shared_creation', arguments: { ...address, field, offset: 0, limit: input.limit } } })),
       fromChapter: address,
       ...(view.setting ? { setting: view.setting,
-        settingMeaning: '原章当时的公共地图取景，故事事件仍为虚构；重新在当前地图呈现前核版本，不冒充当前现场。' } : {}),
+        settingMeaning: '这是写那一章时选的公共地图取景，故事里的事仍是虚构。现在再放到地图上时，先看看地图有没有更新。' } : {}),
       currentWork: { tool: 'restore_collaboration', arguments: { id: view.matterId } },
-      meaning: '这是原回复中当时已存的共同创作原章，虚构命题不成为用户现实经历。阅读不回滚当前作品，不恢复旧邀请、兴趣、提醒或行动；续写前接当前原对象与本轮真实新愿望。' },
+      meaning: '这里读到的是当时一起写下的原章，故事里的事仍留在作品里。现在的作品没有被改回旧版，放下过的邀请、兴趣记录、提醒和行动也都没有恢复。想续写时，接着同一份作品和今天的新愿望继续。' },
       records: [], bindings: [chapter.scene.provenance.sourceBinding], assistantWorkSources: [address] };
   }
 
@@ -231,7 +231,7 @@ export class CuriosityInvitationService {
         read: { tool: 'read_shared_creation', arguments: addresses[index] } })),
       coverage: { complete: page.complete, bodyRead: false, order: input.order },
       next: page.nextCursor ? { tool: 'read_shared_creation', arguments: { ...input, operation: 'history', cursor: page.nextCursor } } : null,
-      meaning: '这里只找回原共同作品的章节地址与标题，还没有逐字读章正文。最早/最近是原消息顺序，不是作品质量或人物成长排序；空partial有next仍须继续。目录和回读都不恢复邀请或行动。' },
+      meaning: '这一页找回的是原章节的标题和地址，正文可以沿各自的read打开。最早、最近按原消息先后排列，没有给作品或人打分。空页若还有next，可以接着翻；找回或阅读旧章，都没有重新开启邀请和行动。' },
       records: [], bindings: page.items.map(chapter => chapter.scene.provenance.sourceBinding), assistantWorkSources: addresses };
   }
 
@@ -285,7 +285,7 @@ export class CuriosityInvitationService {
         ...(focus ? { focus: { ...focus, text: codePointSlice(view[focus.field], focus.start, focus.end), origin: 'shared_creation' } } : {}),
         read: { tool: 'read_shared_creation', arguments: reference.chapter },
         currentWork: { tool: 'restore_collaboration', arguments: { id: view.matterId } },
-        meaning: '本人在引用原消息中的这一章，不是当前seed里的同名位置。先读原章，再接当前同一事项与这句新愿望，用fromChapter继续；引用本身不回滚版本、不接受旧选择，也不把虚构变成现实经历。' },
+        meaning: '本人指的是原消息中的这一章，同名的当前段落可能已经改过。沿read读到原章后，可以用fromChapter接着同一份作品和这句新愿望继续。这次引用没有改回旧版、替本人选回旧方案，故事里的事也仍是故事。' },
         records: [], bindings: [chapter.scene.provenance.sourceBinding], assistantWorkSources: [reference.chapter] };
     }
     const { frame, option } = this.current(handle, context, reference.id);
@@ -299,12 +299,12 @@ export class CuriosityInvitationService {
     const focusReadable = !focus || seed.origin === 'created' || this.read(handle, context, option.id).value.status === 'available';
     const focused = focus ? { ...focus, ...(focusReadable
       ? { text: codePointSlice(seed[focus.field], focus.start, focus.end), origin: seed.origin === 'created' ? 'shared_creation' : seed.origin,
-        meaning: '作品里当前这一处，不是用户现实经历；公开命题只按本轮实际读到的来源解释。' }
-      : { status: 'read_required', meaning: '这里只定位到旧作品的一处，尚未把缓存的公开正文当本轮已读。' }) } : undefined;
+        meaning: '这是作品里当前这一处，和本人现实经历分开理解；其中的公开事实沿这轮实际读到的资料解释。' }
+      : { status: 'read_required', meaning: '已经找到旧作品的这一处，相关公开原文还没有在这轮重新打开。' }) } : undefined;
     return { reference,
       projection: { ...reference, ...(focused ? { focus: focused } : {}), status: option.status,
         read: { tool: 'curiosity_invitation', arguments: { operation: 'read', id: option.id } },
-        meaning: '用户这句正接着同一份体验。引用没有展开正文、证明公开资料新读、恢复已放下的邀请或形成兴趣标签；先依当前原话接住，确要采用旧内容时沿原read入口。' },
+        meaning: '本人这句正接着同一份体验。眼前先有了它的地址，正文和相关公开资料还要沿read打开；放下过的邀请没有因此恢复，也没有留下新的爱好判断。先顺着今天的话接住，需要前情时再翻开。' },
       records: [frame, option], bindings: [frame.sourceBinding!, option.sourceBinding!], assistantWorkSources: this.chapterSources(option) };
   }
 
@@ -332,7 +332,7 @@ export class CuriosityInvitationService {
       + ':' + input.source.start + ':' + input.source.end;
     const repeated = this.repo.operation<{ id: string; revision: number; matterId: string; matterRevision: number }>(operationKey);
     if (repeated) return { value: { status: 'already_put_aside', ...repeated, repeated: true,
-      meaning: '这次放下已经记录，没有重做或恢复旧内容；也没有取消独立安排。' }, records: [], bindings: [] };
+      meaning: '这次已经放下了；再收到这一步，也只是同一件事，不会重开旧内容或连带取消其他安排。' }, records: [], bindings: [] };
     const option = this.repo.sourcedWorkMetadata(handle, input.id);
     const frame = option?.matterId ? this.repo.sourcedWorkMetadata(handle, option.matterId) : undefined;
     if (!option || option.kind !== 'option' || option.type !== 'curiosity_invitation' || !frame
@@ -354,7 +354,7 @@ export class CuriosityInvitationService {
     });
     return { value: { status: 'put_aside', id: option.id, revision: option.revision + 1,
       matterId: frame.id, matterRevision: frame.revision + 1,
-      meaning: '这次先放下，不建立提醒、不追问原因，也不据此判定永久不喜欢。' }, records: [], bindings: [] };
+      meaning: '这次先放在这里，没有另设提醒。可以让这件事安静停下，不必追问原因，也不用把今天的选择读成以后都不喜欢。' }, records: [], bindings: [] };
   }
 
   execute(handle: ScopeHandle, context: CuriosityContext, raw: unknown): CuriosityResult {
@@ -366,7 +366,7 @@ export class CuriosityInvitationService {
     if (input.operation === 'brief') return { value: { status: 'public_brief', publicTopic: input.publicTopic,
       queries: input.queries, research: input.queries.map(query => ({ tool: 'look_up', arguments: {
         source: 'capability', capability: 'research.search', arguments: { query, limit: 5 } } })),
-      meaning: '只带可公开的主题与检索词去找一个有内容的新鲜起点，不外传原邀请、旧兴趣或私人背景。实际外发仍由原readPurpose核验；搜索只给候选，事实须展开research.read。也可不联网，直接给明确标作创作的小玩法。',
+      meaning: '这里整理了可公开的主题和检索词，原邀请、过去的兴趣和私人背景都没有随它带出去。发起查询时仍沿这次同意的用途；搜索结果先帮你找材料，事实可以打开research.read再看。也可以先不联网，一起玩一段说清是创作的小内容。',
     }, records: [], bindings: [] };
     if (input.operation === 'put_aside') return this.stop(handle, context, input);
     const selected = input.operation === 'continue' && input.setting ? context.storySettingSelection : undefined;
@@ -381,7 +381,7 @@ export class CuriosityInvitationService {
       try { publicStoryPlace(this.policy, handle, this.publicMap(), input.setting, framing); settingAvailable = true; }
       catch (error) {
         if (!(error instanceof HarnessError) || !['story_map_scope', 'story_map_changed'].includes(error.code)) throw error;
-        settingUnavailable = '公共地点暂未对上当前可读地图，这次先保留共同创作，没有把取景附成事实；仍可直接一起玩，愿意时再换一个已核地点。';
+        settingUnavailable = '这处公共地点还没在现在能看的地图里对上，取景暂时没附上，创作仍可以继续。想换场景时，再找一处地图上能认出的地方。';
       }
     }
     const publicSources = this.materials(handle, context, input.seed);
@@ -389,7 +389,7 @@ export class CuriosityInvitationService {
     if (context.ephemeral || retainingScope.retention === 'session_only' || !retainingScope.sources.includes('work:self')
       || !retainingScope.grants.includes('work:write')) return {
       value: { status: 'conversation_only', seed: input.seed, publicSources,
-        ...(input.setting ? { settingStatus: settingUnavailable ? 'not_attached' : 'not_saved', settingMeaning: settingUnavailable || '创作正文仍可直接玩；这次未另存可恢复的作品取景关系，公共地图仍可正常浏览。' } : {}),
+        ...(input.setting ? { settingStatus: settingUnavailable ? 'not_attached' : 'not_saved', settingMeaning: settingUnavailable || '这轮可以直接接着创作，公共地图也能照常看；这处取景没有另存成下次会恢复的记录。' } : {}),
         originLabel: input.seed.origin === 'created' ? '一起玩的创作' : '本轮实际读到的公开资料',
         meaning: '现在可以直接一起玩或接着聊，没有另存探索记录、目标或爱好。' }, records: [], bindings: [] };
     this.owner(handle, true);
@@ -454,7 +454,7 @@ export class CuriosityInvitationService {
         persistence: 'original_chapter_required',
         ...(previous ? { preserveOriginal: { tool: 'present_view', arguments: { curiosity: {
           id: previous.option.id, expectedRevision: previous.option.revision, expectedMatterRevision: previous.frame.revision } } } } : {}),
-        meaning: '新内容可以在这轮直接一起玩，但尚未覆盖原作品。过去仍是未形成可用原章的工作片段，不能裁掉它们或虚构一个已交付章节来继续保存；主助手可沿原呈现入口保留真正原作，之后的新愿望再接合法原章。不要让用户管理内部章节或声称这一段已经保存。' },
+        meaning: '这轮的新内容可以先接着玩，原作品还没有被覆盖。前面的内容还没留成能回读的原章，可以先沿preserveOriginal把真正的原作呈现、留好，再接今天的新愿望；原来的片段都保留着。这一步的新内容还没保存，整理章节的细节由你照顾，不必交给本人。' },
       records: [], bindings: [], assistantWorkSources: [] };
     return this.repo.write(() => {
       this.source(handle, context, input.source);
@@ -487,7 +487,7 @@ export class CuriosityInvitationService {
           requiredGrants: optionBinding.requiredGrants, currentWishOverridesOldInterests: true,
           ...(input.operation === 'continue' && input.fromChapter ? { continuedFrom: input.fromChapter } : {}),
           ...(chapterSources.length ? { assistantWorkSources: chapterSources } : {}),
-          meaning: '这次体验不是兴趣标签、目标、接受或执行；新鲜与否由用户决定。' }, optionBinding,
+          meaning: '这是这一次一起试的新内容，喜欢到哪里、是否继续，照今天的回答来。它没有变成长期爱好、目标或已经答应执行的安排。' }, optionBinding,
         input.operation === 'continue' ? previous?.option : undefined);
       if (input.operation === 'another' && previous) {
         const old = { ...previous.option, status: 'replaced', revision: previous.option.revision + 1,
@@ -499,7 +499,7 @@ export class CuriosityInvitationService {
       this.repo.completeOperation(operationKey, 'curiosity_invitation', { id: option.id });
       return { value: { status: input.operation === 'continue' ? 'playing' : 'offered', curiosity: this.view(frame, option),
         ...(settingUnavailable ? { settingStatus: setting ? 'kept_previous' : 'not_attached',
-          settingMeaning: setting ? '新的公共取景尚未核准，原作品仍保留原取景；这次失败没有清掉原来的镜头或地点。' : settingUnavailable } : {}),
+          settingMeaning: setting ? '新的公共取景还没对上，原作品仍保留原来的镜头和地点。' : settingUnavailable } : {}),
         read: { tool: 'curiosity_invitation', arguments: { operation: 'read', id: option.id } } }, records: [frame, option], bindings: [], assistantWorkSources: chapterSources };
     });
   }

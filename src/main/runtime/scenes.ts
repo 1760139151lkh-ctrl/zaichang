@@ -1,7 +1,7 @@
 import { createHash, randomUUID } from 'node:crypto';
 import type { Store } from '../store';
 import type { PolicyKernel } from './policy';
-import { HarnessError, type ScopeHandle, type CampusSavedReadingProof } from '../../shared/harness';
+import { HarnessError, workSourceBindingSchema, type ScopeHandle, type CampusSavedReadingProof } from '../../shared/harness';
 import type { MapRouteResult } from '../../shared/map-v2';
 import { campusDisplayInputSchema, normalizeWeatherSceneCoverage, planningContinuationSchema, sceneViewDsl, semanticSelectionSchema, type CampusRecord, type CampusScene, type EnvironmentSample, type MapScene, type PlanningBlock, type PlanningScene, type PresentationView, type SceneRef, type SceneSnapshot, type SemanticSelection, type VerifiedSelection, type WeatherScene, type FigureScene } from '../../shared/scenes';
 import { environmentSnapshot, planningSnapshot } from './scene-projections';
@@ -20,7 +20,7 @@ import { publicStoryLeg } from './story-setting';
 import { campusAcademicReference, type CampusAcademicReference } from '../../shared/campus-academic';
 import { campusAcademicSnapshot, isAcademicCampus } from './campus-academic';
 import { campusSceneModelSummary } from './campus-model-view';
-import { campusQueryContinuation, validateCampusQuery } from '../capabilities/campus-query';
+import { campusLookupOnSnapshot, campusQueryContinuation, campusQueryOnSnapshot, validateCampusQuery } from '../capabilities/campus-query';
 
 /** A strict projection of the installed connector's named fields. No prose parsing,
  * guessed course matches, aggregate rows, or model-authored facts enter a scene. */
@@ -100,14 +100,18 @@ export function campusSnapshot(result: { status: string; sourceId: string; data?
   const nextOffset = data.next_offset ?? data.nextOffset;
   const sourceOffset = Number.isSafeInteger(data.offset) && data.offset >= 0 ? data.offset
     : query && Number.isSafeInteger(request?.spec?.offset) ? request?.spec?.offset : Number.isSafeInteger(request?.offset) ? request?.offset : 0;
-  let continuation: CampusScene['continuation'];
+  let continuation: CampusScene['continuation'], read: Record<string, unknown> | undefined;
   if (query && request) {
     try {
-      const next = campusQueryContinuation(validateCampusQuery(request), data);
+      const original = validateCampusQuery(request), next = campusQueryContinuation(original, data);
       if (next) continuation = { capability: next.capability, arguments: next.arguments };
+      read = campusQueryOnSnapshot(original, data)?.arguments;
     } catch { /* An invalid original query is not a new read address. */ }
-  } else if (Number.isSafeInteger(nextOffset) && nextOffset > sourceOffset && request) {
-    continuation = { capability: 'campus.lookup', arguments: { ...request, offset: nextOffset, refresh: false } };
+  } else if (account && request) {
+    const pinned = campusLookupOnSnapshot(request, data);
+    read = pinned?.arguments;
+    if (pinned?.evaluation.paging === 'fixed_conditions' && Number.isSafeInteger(nextOffset) && nextOffset > sourceOffset)
+      continuation = { capability: 'campus.lookup', arguments: { ...pinned.arguments, offset: nextOffset } };
   }
   return { kind: 'campus', id: randomUUID(), revision: 1, createdAt: now, domain,
     source: { sourceId: result.sourceId, fetchedAt, expiresAt: result.expiresAt,
@@ -116,7 +120,7 @@ export function campusSnapshot(result: { status: string; sourceId: string; data?
     origin: imported ? 'legacy_import' : 'zju_account', ...(term ? { term } : {}), records: rows,
     resultStatus: result.status as 'fresh' | 'partial' | 'stale',
     ...((data.sourceCoverage || data.coverage) ? { sourceCoverage: structuredClone(data.sourceCoverage || data.coverage) } : {}),
-    ...(account && request ? { nativeRead: { capability: (query ? 'campus.query' : 'campus.lookup') as 'campus.query' | 'campus.lookup', arguments: structuredClone(request),
+    ...(account && request ? { nativeRead: { capability: (query ? 'campus.query' : 'campus.lookup') as 'campus.query' | 'campus.lookup', arguments: read || structuredClone(request),
       ...(data.snapshotProof ? { snapshotProof: structuredClone(data.snapshotProof) } : {}) } } : {}),
     ...(account ? { nativePage: { offset: sourceOffset, returned: data.records.length } } : {}),
     ...(continuation ? { continuation } : {}),
@@ -152,7 +156,7 @@ export class SceneService {
     try { return this.policy.can(approved.handle, expected) && this.academicScopeAuthorized?.(approved.handle, expected) === true; }
     catch (error) { if (error instanceof HarnessError) return false; throw error; }
   }
-  private permitted(handle: ScopeHandle, scene: SceneSnapshot, runId?: string, localDisplay = false) {
+  private permitted(handle: ScopeHandle, scene: SceneSnapshot, runId?: string, localDisplay = false, metadataOnly = false) {
     const scope = this.policy.validate(handle);
     if (scene.kind === 'campus_reference') return this.academicReadable(handle, scene, runId, localDisplay);
     if (scene.kind === 'campus' && isAcademicCampus(scene) && !this.academicReadable(handle, scene, runId, localDisplay)) return false;
@@ -195,7 +199,12 @@ export class SceneService {
       catch (error) { if (error instanceof HarnessError) return false; throw error; }
     }
     if (scene.kind === 'discussion') {
-      try { this.discussions.snapshot(handle, scene.sessionId, scene); return true; }
+      try {
+        if (metadataOnly) this.discussions.snapshotMetadata(handle, { sessionId: scene.sessionId,
+          matter: scene.matter, createdAt: scene.createdAt, sourceBinding: scene.provenance.sourceBinding });
+        else this.discussions.snapshot(handle, scene.sessionId, scene);
+        return true;
+      }
       catch (error) {
         if (error instanceof HarnessError || error instanceof Error && error.name === 'ZodError') return false;
         throw error;
@@ -273,12 +282,15 @@ export class SceneService {
     if (sameRun) return true;
     return livePreparation();
   }
-  available(handle: ScopeHandle, sessionId: string, runId?: string, attached?: SceneRef) {
+  private summaryCandidates(handle: ScopeHandle, sessionId: string, runId?: string, attached?: SceneRef, metadataOnly = false) {
     const latest = new Map<string, SceneSnapshot>();
-    for (const scene of this.all(sessionId)) if (this.permitted(handle, scene, runId) && this.canRestore(handle, sessionId, scene, runId, attached) && (!latest.has(scene.id) || latest.get(scene.id)!.revision < scene.revision)) {
-      latest.delete(scene.id); latest.set(scene.id, scene.kind === 'discussion' ? this.discussionSnapshot(handle, scene) : scene);
+    for (const scene of this.all(sessionId)) if (this.permitted(handle, scene, runId, false, metadataOnly) && this.canRestore(handle, sessionId, scene, runId, attached, metadataOnly) && (!latest.has(scene.id) || latest.get(scene.id)!.revision < scene.revision)) {
+      latest.delete(scene.id); latest.set(scene.id, scene.kind === 'discussion' && !metadataOnly ? this.discussionSnapshot(handle, scene) : scene);
     }
     return [...latest.values()];
+  }
+  available(handle: ScopeHandle, sessionId: string, runId?: string, attached?: SceneRef) {
+    return this.summaryCandidates(handle, sessionId, runId, attached);
   }
   get(handle: ScopeHandle, sessionId: string, ref: SceneRef, runId?: string, attached = false) {
     const scene = this.all(sessionId).find(scene => scene.id === ref.id && scene.revision === ref.revision);
@@ -288,6 +300,46 @@ export class SceneService {
     if (scene.kind === 'note' || scene.kind === 'note_reference')
       throw new HarnessError('note_current_read', '先沿manage_note read真正读到原页，再用present_view.note展开，不恢复缓存正文。');
     return scene.kind === 'discussion' ? this.discussionSnapshot(handle, scene) : structuredClone(scene);
+  }
+  /** Exact host-created version identity; this never grants source access. */
+  createdInRun(ref: SceneRef, runId: string) {
+    return this.runSnapshots.get(`${ref.id}@${ref.revision}`) === runId;
+  }
+  /** Locate an old itinerary without opening its stops, route or old prose. */
+  journeyReference(handle: ScopeHandle, sessionId: string, journeyId: string, runId: string, attached?: SceneRef) {
+    const scope = this.policy.require(handle, 'map:read');
+    if (scope.audience !== 'self' || !scope.sources.includes('map:local')) return;
+    const cached = (this.sessions.get(sessionId) || []).filter((scene): scene is MapScene => scene.kind === 'map'
+      && scene.journey.id === journeyId).sort((a, b) => b.revision - a.revision)[0];
+    const historyAllowed = scope.sources.includes('history:self') && this.policy.can(handle, 'evidence:read');
+    const columns = `json_extract(s.value,'$.id') AS id,json_extract(s.value,'$.revision') AS revision,
+      json_extract(s.value,'$.journey.revision') AS journeyRevision,json_extract(s.value,'$.source.sourceId') AS sourceId`;
+    const stored = historyAllowed || attached
+      ? this.store.db.prepare(`SELECT m.id AS originId,${columns}
+        FROM messages m,json_each(m.payload,'$.scenes') s WHERE m.session_id=? AND m.role='assistant'
+        AND json_extract(s.value,'$.kind')='map' AND json_extract(s.value,'$.journey.id')=?
+        ${historyAllowed ? '' : "AND json_extract(s.value,'$.id')=? AND json_extract(s.value,'$.revision')=?"}
+        ORDER BY json_extract(s.value,'$.revision') DESC,m.created_at DESC,m.rowid DESC LIMIT 1`)
+        .get(sessionId, journeyId, ...(historyAllowed ? [] : [attached!.id, attached!.revision]))
+      : undefined;
+    const owner = this.store.kernel.filter(handle, 'r');
+    const prepared = scope.sources.includes('work:self') && this.policy.can(handle, 'evidence:read')
+      ? this.store.db.prepare(`SELECT r.id AS originId,${columns}
+        FROM h_work r,json_each(r.payload,'$.data.artifact.scenes') s WHERE ${owner.sql}
+        AND json_extract(r.payload,'$.data.type')='help_opportunity' AND json_extract(r.payload,'$.data.sessionId')=?
+        AND r.status IN ('prepared','question_ready','notification_queued')
+        AND json_extract(s.value,'$.kind')='map' AND json_extract(s.value,'$.journey.id')=?
+        ORDER BY json_extract(s.value,'$.revision') DESC,r.rowid DESC LIMIT 1`).get(...owner.params, sessionId, journeyId)
+      : undefined;
+    const persisted = [stored, prepared].filter(value => value && !this.store.kernel.hasFence(String(value.originId)))
+      .sort((a, b) => Number(b!.revision) - Number(a!.revision))[0];
+    const address = cached && (!persisted || cached.revision >= Number(persisted.revision))
+      ? { id: cached.id, revision: cached.revision, journeyRevision: cached.journey.revision,
+        sourceId: cached.source.sourceId }
+      : persisted ? { id: String(persisted.id), revision: Number(persisted.revision), journeyRevision: Number(persisted.journeyRevision),
+        sourceId: String(persisted.sourceId) } : undefined;
+    if (!address || this.store.kernel.hasFence(address.id)) return;
+    return { ...address, journeyId, createdThisRun: this.createdInRun(address, runId) };
   }
   remember<T extends SceneSnapshot>(sessionId: string, scene: T, runId?: string, preparationOnly = false): T {
     const items = (this.sessions.get(sessionId) || []).filter(item => item.id !== scene.id || item.revision !== scene.revision);
@@ -514,6 +566,45 @@ export class SceneService {
     const scene = this.discussions.project(handle, sessionId, { ...input, previous }, options.admission);
     return options.stageOnly ? scene : this.remember(sessionId, scene, options.runId, options.preparationOnly);
   }
+  /** Body-free identity before ingress controls. Formal selection below still
+   * reads the original source-checked frame; a drag grants no content access. */
+  artworkReferenceIdentity(handle: ScopeHandle, sessionId: string, raw: SemanticSelection) {
+    const input = semanticSelectionSchema.parse(raw), scope = this.policy.require(handle, 'evidence:read');
+    if (input.kind !== 'discussion_artwork' || !input.artwork || scope.child || scope.audience !== 'self'
+      || scope.worldId !== 'real' || scope.subjectId !== scope.principalId || !scope.sources.includes('work:self')) return;
+    if ([input.placeId, input.date, input.legId, input.recordId, input.blockId, input.sampleId, input.pointId, input.optionId,
+      input.mapView, input.planningTrial, input.campusScale].some(value => value !== undefined)) return;
+    const row = this.store.kernel.db.prepare(`SELECT m.id AS message_id,
+      json_extract(s.value,'$.matter.id') AS matter_id,json_extract(s.value,'$.matter.revision') AS matter_revision,
+      json_extract(s.value,'$.matter.needsReview') AS needs_review,json_extract(s.value,'$.createdAt') AS created_at,
+      json_extract(s.value,'$.provenance.sourceBinding') AS source_binding
+      FROM messages m JOIN json_each(m.payload,'$.scenes') s WHERE m.session_id=? AND m.role='assistant'
+      AND json_extract(m.payload,'$.status')='done' AND json_extract(s.value,'$.sessionId')=?
+      AND json_extract(s.value,'$.kind')='discussion' AND json_extract(s.value,'$.id')=? AND json_extract(s.value,'$.revision')=?
+      AND json_extract(s.value,'$.source.sourceId')='work:self'
+      AND EXISTS(SELECT 1 FROM json_each(s.value,'$.artwork') art WHERE json_extract(art.value,'$.assetId')=?
+        AND COALESCE(json_extract(art.value,'$.optionId'),'')=?)
+      AND (? IS NULL OR EXISTS(SELECT 1 FROM json_each(s.value,'$.branches') branch WHERE json_extract(branch.value,'$.id')=?))
+      AND EXISTS(SELECT 1 FROM h_evidence e WHERE json_extract(e.payload,'$.sessionId')=m.session_id
+        AND e.owner=? AND e.workspace=? AND e.subject=? AND e.world='real' AND e.status!='deleted')
+      AND NOT EXISTS(SELECT 1 FROM h_evidence e WHERE json_extract(e.payload,'$.sessionId')=m.session_id AND (e.owner!=? OR e.workspace!=?))
+      AND NOT EXISTS(SELECT 1 FROM json_each(COALESCE(json_extract(m.payload,'$.contextReceipt.providedSourceIds'),'["work:self"]')) src
+        WHERE src.value NOT IN (SELECT value FROM json_each(?))) LIMIT 1`)
+      .get(sessionId, sessionId, input.sceneId, input.sceneRevision, input.artwork.assetId, input.artwork.optionId || '',
+        input.artwork.optionId || null, input.artwork.optionId || null, scope.principalId, scope.workspaceId, scope.principalId,
+        scope.principalId, scope.workspaceId, JSON.stringify(scope.sources));
+    if (!row || this.store.kernel.hasFence(String(row.message_id)) || this.store.kernel.hasFence(input.sceneId)) return;
+    let rawBinding: unknown;
+    try { rawBinding = JSON.parse(String(row.source_binding)); } catch { return; }
+    const binding = workSourceBindingSchema.safeParse(rawBinding);
+    if (!binding.success || typeof row.matter_id !== 'string' || !Number.isSafeInteger(row.matter_revision) || Number(row.matter_revision) < 1) return;
+    const metadata: DiscussionSnapshotMetadata = { sessionId, matter: { id: row.matter_id, revision: Number(row.matter_revision), needsReview: !!row.needs_review },
+      createdAt: String(row.created_at), sourceBinding: binding.data };
+    this.discussions.snapshotMetadata(handle, metadata);
+    this.policy.validate(handle);
+    return { artifactId: input.sceneId, artifactRevision: input.sceneRevision,
+      matterId: metadata.matter.id, matterRevision: metadata.matter.revision, referenceKind: 'discussion_frame' as const };
+  }
   selection(handle: ScopeHandle, sessionId: string, raw: SemanticSelection, runId?: string): VerifiedSelection {
     const input = semanticSelectionSchema.parse(raw), scene = this.get(handle, sessionId, { id: input.sceneId, revision: input.sceneRevision }, runId, true);
     let label: string | undefined;
@@ -524,7 +615,7 @@ export class SceneService {
     let environmentSample: EnvironmentSample | undefined;
     let weatherDay: VerifiedSelection['weatherDay'];
     let discussion: ReturnType<DiscussionSceneProjector['verifyFocus']> | undefined;
-    const targets = [input.placeId, input.date, input.legId, input.recordId, input.blockId, input.sampleId, input.pointId, input.optionId].filter(value => value !== undefined);
+    const targets = [input.placeId, input.date, input.legId, input.recordId, input.blockId, input.sampleId, input.pointId, input.optionId, input.artwork].filter(value => value !== undefined);
     if (targets.length !== 1) throw new HarnessError('selection_target', '选择的对象与这份画面不相符；每次引用只选择一个对象。');
     if (input.planningTrial && (input.kind !== 'time_block' || scene.kind !== 'planning'))
       throw new HarnessError('selection_target', '试放条件只接在这幅安排里明确选中的完整时间段上。');
@@ -532,6 +623,8 @@ export class SceneService {
       throw new HarnessError('selection_target', '绩点制式只用于当前成绩资料中选中的记录。');
     if (input.mapView && (scene.kind !== 'map' || !scene.storySetting || !['place', 'leg'].includes(input.kind)))
       throw new HarnessError('selection_target', '取景镜头只随共同作品在这张公共地图上明确选中的地点或路段保存。');
+    if (input.artwork && (input.kind !== 'discussion_artwork' || scene.kind !== 'discussion'))
+      throw new HarnessError('selection_target', '作品插画只连回它原来的那页创作。');
     if (input.kind === 'date' && scene.kind === 'weather') {
       weatherDay = scene.days.find(day => day.date === input.date);
       label = weatherDay?.date;
@@ -566,6 +659,10 @@ export class SceneService {
     if (scene.kind === 'discussion' && (input.kind === 'discussion_point' && input.pointId || input.kind === 'discussion_option' && input.optionId)) {
       discussion = this.discussions.verifyFocus(handle, sessionId, scene, input.kind === 'discussion_point'
         ? { kind: 'discussion_point', pointId: input.pointId! } : { kind: 'discussion_option', optionId: input.optionId! });
+      label = discussion.label;
+    }
+    if (scene.kind === 'discussion' && input.kind === 'discussion_artwork' && input.artwork) {
+      discussion = this.discussions.verifyFocus(handle, sessionId, scene, { kind: 'discussion_artwork', artwork: input.artwork });
       label = discussion.label;
     }
     if (scene.kind === 'planning' && input.kind === 'discussion_option' && input.optionId) {
@@ -603,14 +700,24 @@ export class SceneService {
       ...(discussion ? { discussion } : {}),
       ...(planningTrialObservation ? { planningTrialObservation } : {}),
       ...(storySetting ? { storySetting } : {}),
-      selectedAt: this.store.kernel.clock.now(), meaning: (planningTrialObservation ? 'planningTrialObservation是界面手势或时刻编辑提交的临时试放条件，不是本人逐字原话、已评估可行的安排或执行授权；完整日期、时区、原对象及完整工作量由原画面核对，须沿同一事项/原planner继续商量准备、收尾、休息、冲突与其他条件。若试放落点不能成立要说明具体影响，不能在别处排好就声称这个落点已可行。本人真实新话优先，不能把这条界面条件另存成长期偏好或假造用户引文。' : '')
+      selectedAt: this.store.kernel.clock.now(), meaning: input.kind === 'discussion_artwork'
+        ? '对方把原共同创作页里这幅插画拿到了这句话旁，分支与原稿的来由都留在原处。可以沿这张图继续写、评论或换一个想法；这次拖动没有选择采用分支，也没有改写或另存作品。桥、夜雨和伞下人影都在想象场景中，不是校园定位或现场记录。'
+        : (planningTrialObservation ? 'planningTrialObservation是界面手势或时刻编辑提交的临时试放条件，不是本人逐字原话、已评估可行的安排或执行授权；完整日期、时区、原对象及完整工作量由原画面核对，须沿同一事项/原planner继续商量准备、收尾、休息、冲突与其他条件。若试放落点不能成立要说明具体影响，不能在别处排好就声称这个落点已可行。本人真实新话优先，不能把这条界面条件另存成长期偏好或假造用户引文。' : '')
         + (timeBlock?.agendaRecord ? 'timeBlock.agendaRecord指本次读取时已有的本机记录及确切修订/重复实例；其state保留原邀请、愿望、待确认或已登记/接受状态。选择只引用，不能把旧读取当当前版本或把待确认事项当已接受；修改前沿local.agenda.read回读原owner，按targetId/expectedRevision和原occurrenceDate走既有动作。' : '')
         + '用户在当前对话界面明确选中的临时引用/试算；不是当前位置、到达证明、接受安排、长期偏好或行动授权。校园记录保留查询时刻，不代表之后没有变化；日期只确定当天，下午的具体起止时间仍以原话和真实日程核对。规划草案及planRefs采用前重新核查现有票据、覆盖与完整占用；跨日画面部分的originalRange保留原时段，planRefs仍指完整采用单位，不能只采用切片而省掉其他占用。旧画面不会恢复过期票据。小时温度对应时刻，降水对应标明的前一小时，空气指数保留自己的制式；都不是现场观察或个人运动安全结论。' };
   }
-  summaries(handle: ScopeHandle, sessionId: string, runId?: string, attached?: SceneRef) {
-    const available = this.available(handle, sessionId, runId, attached), recent = available.slice(-6);
+  summaries(handle: ScopeHandle, sessionId: string, runId?: string, attached?: SceneRef, metadataOnly = false) {
+    const available = this.summaryCandidates(handle, sessionId, runId, attached, metadataOnly), recent = available.slice(-6);
     const journey = [...available].reverse().find(scene => scene.kind === 'map' && scene.journey.legs.length > 0);
     const selected = journey && !recent.some(scene => scene.id === journey.id) ? [journey, ...recent.slice(-5)] : recent;
+    // A scoped read needs only addresses to recover its intended original.
+    // In particular, do not rebuild discussion bodies or carry old calendar
+    // blocks, route labels, private source prose or captions into that lookup.
+    if (metadataOnly) return selected.map(scene => {
+      const source: SceneSnapshot['source'] = { sourceId: scene.source.sourceId, fetchedAt: scene.source.fetchedAt };
+      return { id: scene.id, revision: scene.revision, kind: scene.kind, source, addressOnly: true as const,
+        meaning: '这是本对话里原画面的地址，正文还没有随它展开；具体内容仍沿当前问题和资料范围回到原件读取。' };
+    });
     return selected.map(scene => scene.kind === 'note' ? noteHistoryReference(scene) : scene.kind === 'rehearsal' ? rehearsalHistoryReference(scene) : scene.kind === 'map' ? { id: scene.id, revision: scene.revision, kind: scene.kind, source: scene.source,
       ...(scene.place ? { place: { id: scene.place.id, label: scene.place.displayName } } : {}),
       ...(scene.storySetting ? { storySetting: scene.storySetting } : {}),

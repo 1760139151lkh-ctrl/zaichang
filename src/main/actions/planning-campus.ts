@@ -24,7 +24,7 @@ export function campusConstraintSummary(campus: PlanningCampusConstraints) {
       collectedAt: proof.collectedAt, sourceFetchedAt: proof.sourceFetchedAt, coverage: proof.coverage, original: proof.original })),
     scheduleQuality: campus.scheduleQuality,
     cancelledCount: campus.cancelledCount, pendingCount: campus.pendingCount, issues: campus.issues,
-    meaning: '课程和考试只作为当前保存快照的时间约束；没有复制进本机日历，不代表出席，也不证明剩余时段本人有空。校历校核状态与未来调课风险仍保留，快照改变须重新试算。' };
+    meaning: '试排时已经为这份课表里的课程和考试留出时间，原来的日历没有增加新条目。这里记的是学校的安排，实际是否到场仍看本人的经历；其他留白还要结合他的生活来商量。校历待核的地方和可能调课的情况也一并留着，学校安排有变时再重排。' };
 }
 const sourceId = 'campus:zju-account' as const;
 const instant = (raw: unknown): string | undefined => typeof raw === 'string' && /T.*(?:Z|[+-]\d{2}:\d{2})$/.test(raw)

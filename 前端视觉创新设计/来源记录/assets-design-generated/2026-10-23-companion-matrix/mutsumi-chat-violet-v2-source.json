@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-chat-violet-v2-prompt.txt",
+  "promptSha256": "b5caea83f060780311fabe0b78c85f9bc7b5f6816424de900b9f39606f2bce35",
+  "inputs": [
+    {
+      "file": "mutsumi-chat-apricot-mother-candidate-v1.png",
+      "role": "IMAGE1 sole edit target/character-pose-furniture source, primary-approved correct full mother",
+      "sha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "role": "IMAGE2 empty-room lighting/solar-axis reference only, no character source or furniture replacement",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-chat-violet-mother-candidate-v2.png",
+    "sha256": "0f92fe7f15b616456770d9925b81435aa9b71d9830b755b3f2fd920c8fda8f49",
+    "sourceOutput": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-33f73aa4-f2ba-4d7a-9041-f4cabc1df050.png"
+  },
+  "designerObservation": "Full output personally viewed beside approved room-violet plate. Solar disc visually returns to shared approximately1007,302 axis and lake sun-column under same x. Full geometry, Mutsumi identity/pose/clothing and true support preserved by visual comparison; whole room receives rose-gold/lavender dusk and local warm desk lamp. No failed violet-v1 supplied as input. Primary exact light-axis/whole mother review pending.",
+  "producerTransform": "No post-generation crop/scale/translation/color filter/pixel correction applied.",
+  "primaryReview": "pending; theme gate only, producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

@@ -1,0 +1,105 @@
+{
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "backgroundExpandPixels": 10,
+  "backgroundFeatherPixels": 2,
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "mother": "tomori-chat-apricot-mother.png",
+  "motherSha256": "7e2d61d5874ede02beba0808b329b18922dfe6b3f20f2d923a9c2ea4c22978d9",
+  "matte": "tomori-chat-matte-registered-v4.png",
+  "matteRegistration": {
+    "proposal": "tomori-chat-matte-generated-v1.png",
+    "proposalSha256": "d8ead6d22cb334d2416f7a597057b99f3ba905c1222808758ec682087fda6429",
+    "sourceBounds": [
+      1158,
+      267,
+      1441,
+      784
+    ],
+    "targetBounds": [
+      1158,
+      270,
+      1434,
+      782
+    ]
+  },
+  "backgroundErasePolygons": [
+    [
+      [
+        1147,
+        725
+      ],
+      [
+        1275,
+        725
+      ],
+      [
+        1275,
+        798
+      ],
+      [
+        1147,
+        798
+      ]
+    ],
+    [
+      [
+        1180,
+        563
+      ],
+      [
+        1445,
+        563
+      ],
+      [
+        1445,
+        604
+      ],
+      [
+        1180,
+        604
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1155,
+        753
+      ],
+      [
+        1188,
+        746
+      ],
+      [
+        1262,
+        754
+      ],
+      [
+        1270,
+        786
+      ],
+      [
+        1162,
+        789
+      ]
+    ]
+  ],
+  "figure": "tomori-chat-figure-calibrated-v4.png",
+  "mask": "tomori-chat-mask-calibrated-v4.png",
+  "backgroundCandidate": "tomori-chat-background-generated-v1.png",
+  "background": "tomori-chat-background-calibrated-v4.png",
+  "shadow": "tomori-chat-shadow-calibrated-v4.png",
+  "record": "tomori-chat-layer-processing-v4.json",
+  "reviewNote": "Source-color matte registration with explicit original skin/pencil seed pixels; these thin real structures had no definite foreground inside the broad erosion band. Only alpha is calibrated; original RGB unchanged.",
+  "registeredRefinement": {
+    "uncertainBandPixels": 8,
+    "edgeFeatherPixels": 0.6,
+    "foregroundPolygons": [],
+    "backgroundPolygons": []
+  }
+}

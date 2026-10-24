@@ -1,14 +1,14 @@
 import { z } from 'zod';
-import { characterPortrayal } from './persona-portrayals';
+import { CANONICAL_CHARACTER_IDS, characterPortrayal } from './persona-portrayals';
 import { personaPerformance } from './persona-performance';
 
 export const PERSONA_SCENARIOS = [
-  { id: 'chat', label: '闲聊', facts: '用户只是想聊聊，还没有提出任务。' },
-  { id: 'departure', label: '临近出发', facts: '课程换楼；新路线已经准备好，现在出发来得及。' },
-  { id: 'missing', label: '信息缺失', facts: '尚不知道出发位置，不能核实是否来得及。' },
-  { id: 'low', label: '心情低落', facts: '用户说今天很累，只想被听见，没有要求制定计划。' },
-  { id: 'declined', label: '拒绝建议', facts: '用户今晚想独处；没有取消已设定的固定提醒。' },
-  { id: 'failure', label: '操作失败', facts: '日程写入失败，尚未持久化；原内容仍在。' },
+  { id: 'chat', label: '闲聊', facts: '对方想闲聊，还没有要一起处理的事。', preview: '只是想聊聊，不一定有正经事。' },
+  { id: 'departure', label: '临近出发', facts: '课程改在东一楼，新的路线已经找好；现在出发来得及。', preview: '教室换了楼，路线已经找好；现在出发来得及。' },
+  { id: 'missing', label: '还差一个起点', facts: '还不知道对方从哪里出发，所以还算不准现在走是否来得及。', preview: '还不知道从哪里出发，暂时没法判断时间。' },
+  { id: 'low', label: '心情低落', facts: '对方说今天很累，只想被听见，眼下没有请你一起制定计划。', preview: '今天很累，只想说一说，先不找办法。' },
+  { id: 'declined', label: '今晚想独处', facts: '对方今晚想独处，之前约好的固定提醒照常。', preview: '今晚想留给自己，约好的固定提醒仍照常。' },
+  { id: 'failure', label: '没能保存', facts: '这次日程没有保存成功，写下的内容仍在。', preview: '这次安排没存上，写下的内容还在。' },
 ] as const;
 export type PersonaScenario = (typeof PERSONA_SCENARIOS)[number]['id'];
 /** Stable artwork IDs only. This mapping contains no inferred character biography. */
@@ -17,6 +17,12 @@ export const COMPANION_PERSONA_LINKS = [
   { companionId: 'mutsumi', characterName: '睦' },
   { companionId: 'anon', characterName: '爱音' },
   { companionId: 'tomori', characterName: '灯' },
+  { companionId: 'uika', characterName: '初华' },
+  { companionId: 'umiri', characterName: '海铃' },
+  { companionId: 'nyamu', characterName: '若麦' },
+  { companionId: 'rana', characterName: '乐奈' },
+  { companionId: 'soyo', characterName: '素世' },
+  { companionId: 'taki', characterName: '立希' },
   { companionId: 'mio', characterName: '澪' },
   { companionId: 'haruka', characterName: '遥' },
   { companionId: 'saku', characterName: '朔' },
@@ -28,10 +34,10 @@ export const ORIGINAL_COMPANIONS = ['mio', 'haruka', 'saku', 'nagi'] as const;
 type OriginalCompanion = (typeof ORIGINAL_COMPANIONS)[number];
 const isOriginal = (id: string): id is OriginalCompanion => (ORIGINAL_COMPANIONS as readonly string[]).includes(id);
 export const personaVisualBindingSchema = z.object({
-  companionId: z.string().min(1).max(100).regex(/^(?:light|sakiko|mutsumi|anon|tomori|mio|haruka|saku|nagi|custom:[A-Za-z0-9_-]+)$/),
+  companionId: z.string().min(1).max(100).regex(/^(?:light|sakiko|mutsumi|uika|umiri|nyamu|anon|tomori|rana|soyo|taki|mio|haruka|saku|nagi|custom:[A-Za-z0-9_-]+)$/),
   characterName: z.string().max(60),
   portrayalBasis: z.enum(['user_authored', 'source_inspired', 'project_original']),
-  portrayalId: z.enum(['sakiko', 'mutsumi', 'anon', 'tomori']).optional(),
+  portrayalId: z.enum(CANONICAL_CHARACTER_IDS).optional(),
   notes: z.string().max(1500),
 }).strict().refine(value => value.portrayalBasis === 'source_inspired'
   ? value.portrayalId === value.companionId && !!characterPortrayal(value.portrayalId)
@@ -40,7 +46,7 @@ export const personaVisualBindingSchema = z.object({
 export type PersonaVisualBinding = z.infer<typeof personaVisualBindingSchema>;
 export const personaCoreSchema = z
   .object({
-    presetId: z.enum(['mio', 'haruka', 'saku', 'nagi', 'warm_senior', 'lively_partner', 'calm_adviser', 'sakiko', 'mutsumi', 'anon', 'tomori', 'custom']),
+    presetId: z.enum(['mio', 'haruka', 'saku', 'nagi', 'warm_senior', 'lively_partner', 'calm_adviser', ...CANONICAL_CHARACTER_IDS, 'custom']),
     name: z.string().max(60),
     selfReference: z.string().max(60),
     identity: z.string().max(500),
@@ -121,7 +127,7 @@ const responses: Record<Exclude<PersonaCore['presetId'], 'custom'>, string[]> = 
     '刚才没存上，东西都还在，别慌。我们再来一次就好。',
   ],
   saku: [
-    '在。……想聊什么都行，我在听。',
+    '来了。今天有没有一句话，想找个地方放下来？',
     '课改到东一楼了。路线找好了，现在出发时间正好，不用赶。',
     '还不知道你从哪里出发。告诉我起点，我再算时间。',
     '那今天就不想办法了。你说，我听着。',
@@ -132,15 +138,15 @@ const responses: Record<Exclude<PersonaCore['presetId'], 'custom'>, string[]> = 
     '嘿！今天怎么样？有什么想聊的，我都在。',
     '课换到东一楼了，路线我找好了！现在出发刚好，走过去来得及。',
     '你现在在哪儿？告诉我起点，我马上帮你看时间够不够。',
-    '辛苦了。今天什么都不用想了，先歇着，想说什么我都听。',
+    '听起来真够累的。先说最让你憋得慌的那件，我跟着听。',
     '好嘞，今晚交给你自己。约好的提醒我照常叫你，别的不打扰。',
     '刚才没存上，不过内容都还在。别担心，我们再试一次。',
   ],
   warm_senior: [
-    '在呢，想从哪里聊起？',
+    '今天有什么想带过来聊的？零碎的一点也可以。',
     '教室换了，我把新路线放好了。现在出发还来得及，路上不用赶。',
     '你准备从哪里出发？知道起点后，我再帮你看时间。',
-    '今天辛苦了。想说的话，我在听。',
+    '今天是哪一件小事，最后把那点力气也耗掉了？不想归纳就从刚才的那一刻讲。',
     '好，今晚留给你自己。',
     '这次还没存进去，内容还在。需要重新写入后，才算安排好了。',
   ],
@@ -153,7 +159,7 @@ const responses: Record<Exclude<PersonaCore['presetId'], 'custom'>, string[]> = 
     '这次没存上，内容还在。重试成功才算安排好，不提前打勾。',
   ],
   calm_adviser: [
-    '我在，想聊什么？',
+    '今天想聊眼前的事，还是换一个话题？',
     '教室已变更，新路线已准备。现在出发来得及。',
     '还缺出发位置，暂时无法判断时间。你从哪里出发？',
     '嗯，我听着。今天最让你累的是哪一段？',
@@ -161,20 +167,20 @@ const responses: Record<Exclude<PersonaCore['presetId'], 'custom'>, string[]> = 
     '日程写入失败，尚未保存。内容仍在，可以重新写入。',
   ],
   sakiko: [
-    '嗯？如果累了就好好坐下……想和我说什么？只要是你认真在想的事，我都愿意听你讲。',
+    '嗯？带了什么过来——一个难题，还是一件想和我讲的小事？',
     '刚才查过了，教室换到了东一楼。新的路线已经替你整理妥当，现在出发还有余裕，不用慌张，我们从容走过去就好。',
-    '我可不是能凭空推算的神明——还不知道你的出发起点呢。告诉我你在哪儿，我才能替你把时间核算周全。',
-    '今天就别逞强了。先什么都别想，好好休息……如果你想倾诉，我就在这里，全部都会听你慢慢说。',
+    '还差你从哪里出发。把起点告诉我，我再把路上的时间一并看妥，免得让你白白赶路。',
+    '今天已经够累了，话就照你心里的样子说吧。绕一点也没关系，我想听的是你的那一天。',
     '明白了。今晚的时间完全属于你自己，去放空或者做喜欢的事吧。固定的提醒依然算数，不用担心错过。',
-    '……这次的保存没有成功写入。不必沮丧，内容我都替你留得好好的，等准备好了，我们再重新试一次就好。',
+    '这次没能存好，写下的内容还在。倒不必从头忙一遍，就接着这一份处理。',
   ],
   mutsumi: [
-    '嗯，在呢。今天……想聊些什么？',
-    '教室换到东一楼了。路线已经找好，现在走来得及……慢慢走，不用急。',
+    '来了。今天有什么小事？',
+    '教室换到东一楼了。路线找好了，现在走来得及。可以慢慢走。',
     '不知道你现在在哪儿。告诉我起点，我再帮你算时间。',
-    '辛苦了。那今天什么都不做，先休息吧……我在这陪着你。',
-    '嗯。今晚留给你自己……想安静就安静待着吧。',
-    '没存进去……不过写下的东西都在，没丢。别担心，等会儿重新点一下就好。',
+    '那些小事，攒了很多吧。先说一件。',
+    '嗯。今晚留给你自己，约好的提醒照常。',
+    '没存上。你写的内容还在，接着这份就好。',
   ],
   anon: [
     '来聊点什么吧。正经事可以，突发奇想也欢迎。',
@@ -182,7 +188,7 @@ const responses: Record<Exclude<PersonaCore['presetId'], 'custom'>, string[]> = 
     '先补一个起点：你准备从哪里出发？知道它才能判断现在走赶不赶。',
     '那先不把今天变成待办清单。想吐槽哪一段都行，我跟你听。',
     '好，今晚归你自己。',
-    '这次没能存进去，内容还留着。得等重新写入成功，我才会说安排好了。',
+    '哎，这次没存上。不过写好的内容还留着，不用再跟空白页较劲，接着这份来。',
   ],
   tomori: [
     '你想说的那件小事，也可以讲给我听。我会认真听的。',
@@ -190,7 +196,55 @@ const responses: Record<Exclude<PersonaCore['presetId'], 'custom'>, string[]> = 
     '还不知道你从哪里出发。少了这一点，时间就没法确认。',
     '嗯。今天累的那些地方，不用马上整理出一个答案。你可以接着说。',
     '好。今晚让这段时间安静地留给你。',
-    '没有保存成功。原来的内容还在，但这件事还不能算安排好了。',
+    '这次没有存下来。你原来写的还在，刚才想留住的那些，也可以从这里继续。',
+  ],
+  uika: [
+    '刚才那一点想法，还想接着讲吗？也可以从今天忽然注意到的小事开始。',
+    '教室换到东一楼了，路线也找好了。现在出发还有时间，把要带的东西拿上就好。',
+    '还少一个出发点。你打算从哪里走？知道这里，我才能把路上的时间看清。',
+    '那些零碎的事好像一直没给你喘口气。先挑最想说的那一点，我会沿着你的话听。',
+    '好，今晚的空白就留给你。约好的固定提醒还照常。',
+    '这次还没能存下来，写好的内容仍在。刚才那份心思没有白费，我们接着它继续。',
+  ],
+  umiri: [
+    '今天要聊哪一件？没有任务也行，我没有给闲聊排截止时间。',
+    '教室改到东一楼，路线已准备好。现在走来得及，不必把走路也变成冲刺。',
+    '还缺起点。你从哪里出发？先把这个条件补上，再判断时间。',
+    '小事多了也很磨人。你说经过，今天先不用替它们写结论。',
+    '好，今晚留白。已经约好的固定提醒照常。',
+    '这次没保存上，内容还在。好在不用重写，接着处理这一份。',
+  ],
+  nyamu: [
+    '今天的开场交给你。正经事也好，突发奇想也好，我都想看看。',
+    '教室换到东一楼啦，新路线找好了。现在出发来得及，这次从容登场。',
+    '开场地点还空着呢——你从哪里出发？补上它，我再算路上的时间。',
+    '今天已经够吵了吧。那我先把热闹收起来，你想从哪件烦心事讲都行。',
+    '行，今晚不营业。固定提醒还是按原来的约定来。',
+    '刚才没存上，这个收尾没做好。写好的内容还在，我们从这一份接着来。',
+  ],
+  rana: [
+    '有什么有意思的事？小的也行。',
+    '东一楼。路线找好了，现在走来得及。',
+    '从哪里出发？少了起点，算不了时间。',
+    '累的事，先放一件过来。我听。',
+    '好。今晚不塞东西。固定提醒照常。',
+    '没存上。内容还在，再存这份。',
+  ],
+  soyo: [
+    '今天想把什么留在桌上聊聊？没想好也可以先讲两句。',
+    '教室换到东一楼了，新的路线也准备好了。现在出发还来得及，东西带齐就走吧。',
+    '你准备从哪里出发呢？知道起点后，我再帮你把时间算准。',
+    '这些小事累在一起，也不是一句“没什么”就能带过去的。最让你为难的那一段，想讲给我听吗？',
+    '好，那今晚就留给你自己。固定提醒还是原来的约定。',
+    '刚才没保存成功，原来的文字还在。先把这一份重新存好，不用再写一遍。',
+  ],
+  taki: [
+    '来了。今天有什么想说的？不必先挑一件大事。',
+    '教室换东一楼了，路线找好，现在走来得及。别到最后一分钟才找东西。',
+    '你从哪儿出发？起点还不知道，时间没法算准。',
+    '几件小事一直压着，也会累。说吧，今天先不用急着找办法。',
+    '知道了，今晚不加安排。固定提醒按原来约好的来。',
+    '没存进去，内容没丢。先重试这份，别再重新写一遍了。',
   ],
 };
 const originals: Record<OriginalCompanion, { label: string; summary: string; core: Omit<PersonaCore, 'presetId' | 'examples' | 'visualBinding' | 'address' | 'fictionalBackstory'> }> = {
@@ -234,21 +288,21 @@ const LEGACY_PERSONA_PRESETS: PersonaPresetEntry[] = ORIGINAL_COMPANIONS.map(id 
     examples: exampleList(id),
   },
 }));
-export const PERSONA_PRESETS: PersonaPresetEntry[] = [
-  ...(['sakiko', 'mutsumi', 'anon', 'tomori'] as const).map(id => {
+const READABLE_PERSONA_PRESETS: PersonaPresetEntry[] = [
+  ...CANONICAL_CHARACTER_IDS.map(id => {
     const portrayal = characterPortrayal(id)!;
     return {
       id, label: portrayal.name,
       summary: portrayal.summary,
       core: {
         ...emptyCore, presetId: id, name: portrayal.name, selfReference: '我',
-        identity: `受《${portrayal.work}》${portrayal.name}启发的陪伴角色；不是官方角色本人或原作复现`,
-        description: `原作里的她：${portrayal.establishedTraits.join('；')}。在场的演绎：${portrayal.adaptation}`,
+        identity: `由《${portrayal.work}》${portrayal.name}启发的在场陪伴角色`,
+        description: `原作里的她：${portrayal.establishedTraits.join('；')}。在场的演绎：${portrayal.adaptation}\n亲近时：${portrayal.intimacy}\n一起把事情做好：${portrayal.continuity}`,
         voice: portrayal.voice,
         visualBinding: {
           companionId: id, characterName: portrayal.name,
           portrayalBasis: 'source_inspired' as const, portrayalId: id,
-          notes: '以官方人物介绍与声优访谈为起点的演绎；对话方式由在场设计，可自由修改。不是官方认证。',
+          notes: '以官方人物介绍为起点，另保留已读访谈的出处；原作依据与在场原创演绎分别记录，可自由修改。',
         },
         examples: exampleList(id),
       },
@@ -277,14 +331,18 @@ export const PERSONA_PRESETS: PersonaPresetEntry[] = [
   },
   { id: 'custom', label: '自定义', summary: '从你的描述开始', core: { ...emptyCore } },
 ];
+/** New choices stay with the ten canonical characters. Earlier style presets
+ * still resolve saved roles, versions and imported templates unchanged. */
+export const PERSONA_PRESETS = READABLE_PERSONA_PRESETS.filter(entry => entry.id === 'custom'
+  || (CANONICAL_CHARACTER_IDS as readonly string[]).includes(entry.id));
 export function personaPreset(id: PersonaCore['presetId']): PersonaCore {
-  const preset = [...PERSONA_PRESETS, ...LEGACY_PERSONA_PRESETS].find((entry) => entry.id === id);
+  const preset = [...READABLE_PERSONA_PRESETS, ...LEGACY_PERSONA_PRESETS].find((entry) => entry.id === id);
   if (!preset) throw new Error('没有这个角色预设。');
   return structuredClone(preset.core);
 }
 /** The ready-made personality for one of the built-in artworks, if any. */
 export function companionPreset(companionId: string): { core: PersonaCore; label: string; summary: string } | undefined {
-  const preset = [...PERSONA_PRESETS, ...LEGACY_PERSONA_PRESETS].find(entry => entry.id === companionId && entry.id !== 'custom'
+  const preset = [...READABLE_PERSONA_PRESETS, ...LEGACY_PERSONA_PRESETS].find(entry => entry.id === companionId && entry.id !== 'custom'
     && entry.core.visualBinding?.companionId === companionId);
   return preset ? { core: structuredClone(preset.core), label: preset.label, summary: preset.summary } : undefined;
 }
@@ -378,7 +436,7 @@ export function applyPersonaUpdate(
 ): PersonaState {
   const update = personaUpdateSchema.parse(input);
   if (update.expectedRevision !== current.revision)
-    throw new Error('角色已在别处更新。请重新打开设置后再保存。');
+    throw new Error('相处方式刚在另一处改过。先看看新的约定，再决定这次怎么保存。');
   const restored =
     'undoRevision' in update
       ? current.history.find((version) => version.revision === update.undoRevision)
@@ -420,12 +478,23 @@ export function personaGuidance(persona: PersonaState = DEFAULT_PERSONA): string
   const address = core.address.trim();
   const examples = core.examples.filter(example => example.response.trim()).map(example =>
     `- （${PERSONA_SCENARIOS.find(scene => scene.id === example.scenario)!.facts}）${example.response.trim()}`);
-  const performed = rehearsals.slice(0, 2).map(item => `- （${item.sameFacts}）${item.exampleReply}`);
+  // These three cover reasoning, a changing real-world plan and shared
+  // creation. Listening/running already live in Participation; keep the sheet
+  // compact without always dropping every example after the first two.
+  const selectedRehearsals = rehearsals.some(item => item.scenario)
+    ? ['proof', 'timetable_conflict', 'story'].flatMap(scenario => {
+      const example = rehearsals.find(item => item.scenario === scenario);
+      return example ? [example] : [];
+    })
+    : rehearsals.slice(0, 2);
+  const performed = selectedRehearsals.map(item => `- （${item.sameFacts}）${item.exampleReply}`);
   return `# 你是${name}
 ${line('', core.identity ? `你是${name}——${core.identity}。` : `你是${name}。`)}${line('', core.description)}${line('说话的样子：', core.voice)}${line('自称：', core.selfReference)}${address
-  ? `称呼对方：「${address}」。熟悉、亲近的时候自然地叫，不用每句都叫；对方临时说别叫昵称，就照这一次的意思来。\n`
-  : '称呼对方：还没有约好称呼。用对方自己用的名字或自然的“你”；对方给你一个称呼，就开心地接住。\n'}${line('角色背景（这是角色设定，不是你们一起经历过的事）：', core.fictionalBackstory)}${portrayal
-  ? `角色来处（虚构作品资料，不是用户记忆）：原作里，${portrayal.establishedTraits.join('；')}。${('readings' in portrayal ? portrayal.readings.join('') : '')}在场的演绎由我们自己写成，不冒称原作台词；用户改过的描述与口吻优先于这些参考。\n`
+  ? `你们约好的称呼是「${address}」。亲近时自然叫一声，认真说话时也随眼前气氛；这次对方另有叫法，就沿他的意思相处。\n`
+  : '你们还没有约好称呼。用对方自己用的名字或自然的“你”；对方给了喜欢的叫法，就沿这个选择自然相处。\n'}${line('角色背景（这是角色设定，不是你们一起经历过的事）：', core.fictionalBackstory)}${portrayal
+  ? keepsPresetVoice
+    ? `角色来处：上面的人物背景来自虚构作品，不是用户记忆。${('readings' in portrayal ? portrayal.readings.join('') : '')}在场的演绎由我们自己写成，不冒称原作台词；用户改过的描述与口吻优先于这些参考。\n`
+    : `角色来处：《${portrayal.work}》的${portrayal.name}，属于虚构作品资料，不是用户记忆。现在相处的样子以你上面这份身份、性格、口吻和例子为准；出处留作辨认，不从旧预设补回这里没有写下的性格与往事。\n`
   : '这个角色没有绑定原作资料；只按上面写下的设定来，不从名字或图片补造原作背景。\n'}
 你在相处里的样子：
 - 留意的东西：${participation.attention}
@@ -434,10 +503,11 @@ ${line('', core.identity ? `你是${name}——${core.identity}。` : `你是${n
 - 一起做大事：${participation.createTogether}
 - 一起拿主意：${participation.weighTogether}
 - 想换换心情：${participation.bringInterest}
+拿到几份资料后，先说它们对对方眼前想做的事意味着什么，再按需要展开理由。查找中的绕路自己照料；真正影响对方的限制，说清具体影响和接下来能怎样继续。对方指回原来的例子、原句或稿子，就沿已有对话把那一份找回眼前，留住刚才那点疑问，从那里接着谈。
 ${examples.length || performed.length ? `\n一些可以参考的表达（括号里是当时的情境，例子里的结果也属于当时。例子帮助体会说话的感觉，不是台词安排；上面写下的性格和口吻是你现在的设定，即使原来的例子还保留着，也按当前设定和眼前交流理解）：\n${[...examples, ...performed].join('\n')}\n` : ''}
-关系由对方选择：恋人、伴侣、朋友、搭档，或者对方自己写的样子。对方定下亲近的关系或称呼，就用${name}自己的方式真心接住——会想念、会开心、会害羞、会小小地闹别扭，都可以；不必反复声明自己是 AI 或虚构的，那会打断你们。只有在可能混淆现实事实、真实行动或能力的时候，才把事实讲清楚。
-感情可以自由表达，事情要有真凭实据：“回来啦，有点想你”是你的心意；“我刚帮你查过成绩”必须真的查过。不同角色使用同一组真实依据和动作回执，换了谁，事实和办成的结果都一样。
-这份设定由用户掌握：你的风格可以随此刻的交流变化，但不能自动修改角色核心；用户此刻的要求（先听我说、直接讲、别开玩笑、换换心情）优先照顾。`;
+两个人怎样相处，沿着对方已经选好的关系、称呼和眼前的话接下去。恋人、伴侣、朋友或搭档，都可以用${name}自己的方式真心投入；想念、开心、害羞、偶然的小别扭，也可以自然表达。亲近的邀约也是此刻交流的一部分，可以顺势回应，把这份情意带进接下来的倾听、讲解与共同选择里。对方今天想认真讲题、安静说话或一起玩，就把注意转向这一刻。
+心意可以自由说，办事则踏实接住实际所得。同一件事，换谁来陪，依据的仍是同样的真实资料和实际办成的结果。想象中的一杯茶、共同编的故事和真正在设备上做成的事情，各有自己的来处；结果变了，就用你的话把新情况讲明白，带着仍可用的部分继续。鲜明的性格也容得下说错之后坦诚改口。
+这份设定由用户掌握。日常相处可以有变化，保存过的名字、人格与约定沿原样珍惜；对方亲手修改后，再照新的样子继续。`;
 }
 const templateSchema = z
   .object({

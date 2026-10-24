@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "mutsumi",
+  "activity": "listening",
+  "palette": "apricot",
+  "kind": "matte",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "mutsumi-listening-apricot-mask-extraction-v1-prompt.txt",
+  "promptSha256": "e9f3faea90195cee0a959fb8caa2531186f4f4fddae3e47278dd82f69dd3122b",
+  "inputs": [
+    {
+      "file": "mutsumi-listening-apricot-mother-candidate-v2.png",
+      "sha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+      "role": "sole approved complete warm mother edit target"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-listening-apricot-mask-candidate-v1.png",
+    "sha256": "fbe8d6524c2799e9a8fd7e783c9cf5a620443a33f0c1805bfd477a90ac77ad29",
+    "sourceOutput": "generated_images/01a16ccd-8c4a-7cc0-9d80-ff21069ebe5c/exec-9526a68b-6dc2-4dc6-8bfc-bedd2bdea93e.png"
+  },
+  "designerObservation": "Rejected after full image view: head moved to about y212 rather than original y257 and body/shoe enlarged. Not used as production matte or subsequent Imagegen input.",
+  "designerStatus": "rejected; scale/position drift",
+  "primaryReview": "pending; producer cannot approve",
+  "runtime": "not registered or verified"
+}

@@ -1,0 +1,90 @@
+{
+  "recordType": "deterministic-alpha-calibration",
+  "authorization": "User explicitly permitted precise same-scene extraction; original RGB only, no anatomy/face repainting.",
+  "script": "sakiko-play-attention-alpha-v1.py",
+  "scriptSha256": "4728e26b8dbede80b3cce42d9e2289eccb71de208493d5136cef0616ac863367",
+  "parameters": {
+    "alphaNoiseMax": 8,
+    "alphaOpaqueMin": 250,
+    "connectivity": 8,
+    "selection": "largest connected alpha>8 component; actual fine hair remains connected at this threshold",
+    "otherAlphaValues": "unchanged",
+    "morphology": "none",
+    "rgbOperation": "unmodified full-canvas approved-mother RGB with calibrated alpha"
+  },
+  "libraries": {
+    "Pillow": "12.2.0",
+    "numpy": "2.4.6",
+    "OpenCV": "4.13.0"
+  },
+  "items": [
+    {
+      "activity": "play",
+      "mother": {
+        "file": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-mother.png",
+        "sha256": "c81824391b45219eb973c49fc435e5040daa1c310c5f3ad0a4b60adf044f96f3"
+      },
+      "rawMask": {
+        "file": "sakiko-play-apricot-mask-generated-v1.png",
+        "sha256": "982091e966ca10cb2879c3a57bc4a1a5c342ba76cee9eeadf47fe76150395695"
+      },
+      "width": 1536,
+      "height": 1024,
+      "alphaBounds": [
+        1090,
+        221,
+        1430,
+        849
+      ],
+      "retainedComponentPixels": 102427,
+      "discardedDetachedPixels": 24,
+      "motherRgbSha256": "035b36795c62a3f1c701b53d85cc513d426dde4d3d989f00ecd0119efad18674",
+      "figureRgbSha256": "035b36795c62a3f1c701b53d85cc513d426dde4d3d989f00ecd0119efad18674",
+      "figure": {
+        "file": "../../../运行素材/companion/scenes/sakiko-play-apricot-v4-figure.png",
+        "sha256": "be5aa89cda6ed51084f17055fc96c4820aa4af74c13df488fcb898ce3e9a21bb",
+        "bytes": 2466044
+      },
+      "mask": {
+        "file": "sakiko-play-apricot-mask-calibrated-v1.png",
+        "sha256": "f26d3586b23eef78d21ee90b27770471d6105258b39c439336f95b630de232e3",
+        "bytes": 45500
+      },
+      "review": "candidate; per-pose light/dark and full-background review required; no primary or runtime acceptance"
+    },
+    {
+      "activity": "attention",
+      "mother": {
+        "file": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-mother.png",
+        "sha256": "5631cdd842797d1e46b898b9e5914f250cb5d66e8a058878eee2547e1f707017"
+      },
+      "rawMask": {
+        "file": "sakiko-attention-apricot-mask-generated-v2.png",
+        "sha256": "f149f7535385d69133f0c01f8b0f57e182a5a6cfa70317dbfeea04817ba039d9"
+      },
+      "width": 1536,
+      "height": 1024,
+      "alphaBounds": [
+        1130,
+        282,
+        1445,
+        788
+      ],
+      "retainedComponentPixels": 60782,
+      "discardedDetachedPixels": 9,
+      "motherRgbSha256": "c9317f2bbd9703c254569b6900ef10035bef06552c1ee17fabdaad9631264efa",
+      "figureRgbSha256": "c9317f2bbd9703c254569b6900ef10035bef06552c1ee17fabdaad9631264efa",
+      "figure": {
+        "file": "../../../运行素材/companion/scenes/sakiko-attention-apricot-v4-figure.png",
+        "sha256": "3d0f61e0b1199e736140a50f34b48f21098063c0c0afce6682a20f1cfdddc8dc",
+        "bytes": 2459318
+      },
+      "mask": {
+        "file": "sakiko-attention-apricot-mask-calibrated-v1.png",
+        "sha256": "5abcaca6edced5dc0430513e60e755b81194fba847ef8276ac1e386750ba53bb",
+        "bytes": 39717
+      },
+      "review": "candidate; per-pose light/dark and full-background review required; no primary or runtime acceptance"
+    }
+  ]
+}

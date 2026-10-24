@@ -1,0 +1,85 @@
+{
+  "mother": "../../../运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+  "motherSha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1",
+  "matte": "sakiko-study-apricot-mask.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        937,
+        600
+      ],
+      [
+        949,
+        599
+      ],
+      [
+        965,
+        716
+      ],
+      [
+        954,
+        719
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          750,
+          480
+        ],
+        [
+          850,
+          480
+        ],
+        [
+          890,
+          625
+        ],
+        [
+          750,
+          625
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    },
+    {
+      "polygon": [
+        [
+          855,
+          585
+        ],
+        [
+          960,
+          585
+        ],
+        [
+          958,
+          615
+        ],
+        [
+          855,
+          615
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 12,
+      "redOverBlue": 20
+    }
+  ],
+  "figure": "sakiko-study-apricot-figure-calibrated-v2.png",
+  "mask": "sakiko-study-apricot-mask-calibrated-v2.png",
+  "backgroundCandidate": "sakiko-study-apricot-background.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "background": "sakiko-study-apricot-background-calibrated-v2.png",
+  "record": "sakiko-study-apricot-layer-processing-v2.json",
+  "reviewNote": "v1 light/dark review found warm chair-seat strip and front chair leg inside the opaque generated silhouette. v2 removes only those manually located original-room pixels, preserving original mother RGB and visible occlusion holes. No anatomy reconstruction. Fixed desk contact travel0."
+}

@@ -1,0 +1,68 @@
+{
+  "recordType": "original-scene-selected-layer-source",
+  "date": "2026-10-24",
+  "scene": "nyamu-chat-apricot.scene.json",
+  "sceneSha256": "12aa9c36217332e0ceee748de79293314ec7ae5a1608f825cfbdc280371d52dd",
+  "selected": {
+    "mother": {
+      "file": "nyamu-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "file": "nyamu-chat-apricot-background-candidate-v1.png",
+      "sha256": "3a53915946eaf803ccdf7e65d6f5dd32143826208cea516b7058dd28dccc3cd7",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figure": {
+      "file": "nyamu-chat-apricot-figure-calibrated-v4.png",
+      "sha256": "792767b54cf1d88f5bc24049588087ec5fc2fabbbdb1a632e22223fb9fc59f88",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "mask": {
+      "file": "nyamu-chat-apricot-mask-calibrated-v4.png",
+      "sha256": "97b292d289e69f840bc6f7e9562aa2e7a57d92a29c695e3a600b8116c4711d53",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "shadow": {
+      "file": "nyamu-chat-apricot-shadow-calibrated-v4.png",
+      "sha256": "a4ea1097af89f0c6cf04e1dd6d94669fa9739db5edd2913a19fce76710e498e3",
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "extractionGenerations": "nyamu-chat-apricot-extraction-source.json",
+  "maskProduction": [
+    "nyamu-chat-apricot-layer-parameters-v1.json",
+    "nyamu-chat-apricot-layer-parameters-v2.json",
+    "nyamu-chat-apricot-refine-matte-v4.py",
+    "nyamu-chat-apricot-matte-processing-v4.json"
+  ],
+  "figureProduction": "nyamu-chat-apricot-layer-processing-v4.json",
+  "rgbMethod": "Entire original mother RGB byte payload, identity coordinates, alpha-only visibility; no face/body/pose repaint",
+  "motherRgbByteSha256": "e580cd1871fe02702f9f084be5b1b3ee02eee5fa1fc07162d9f6d75da3835ce5",
+  "figureRgbByteSha256": "e580cd1871fe02702f9f084be5b1b3ee02eee5fa1fc07162d9f6d75da3835ce5",
+  "actualRgbPayloadEqual": true,
+  "selectedBackgroundMethod": "Use the complete matching clean room generated from this same correct approved mother. The diagnostic partial replacement backgrounds remain unadopted because their broad foot-shadow patch made a sunbeam seam. Figure and contact shadow are still derived from the original mother; contact ROIs share this matching background locally.",
+  "designerObservation": "Personally viewed full mother/actual prompt, both alpha-generation outputs, raw/refined dark/light/room and fine-head/ankle crops, empty matching room and final recombination, standalone shadow and +/-9px same-plane support endpoints. Discarded enlarged first model matte, blocky whole-head v2 and speckled color-only v3 head. Original fine bob and true straps/ruffles preserved in v4; local replacement floor seam avoided through full matching BG. Endpoints keep hip/palm on cushion and short heels/forefeet on ground.",
+  "review": {
+    "approvedByPrimary": false,
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false,
+    "integrated": false
+  }
+}

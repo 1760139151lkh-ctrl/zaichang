@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-play-rain-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "play",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Whole-scene physical relighting of this exact primary-approved warm activity mother; no other character inputs",
+  "prompt": "nyamu-play-rain-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-play-apricot-mother-candidate-v1.png",
+      "role": "sole image edit target; primary-approved correct complete activity mother",
+      "sha256": "73cf1bdecedd78833a534a05692764ecd91d87b63bfd9ca91d5deb08b123c3ed"
+    }
+  ],
+  "output": {
+    "file": "nyamu-play-rain-mother-candidate-v1.png",
+    "sha256": "016151d7ea5564e74bee5f71302d38a3764ea6e54ef2d3ebb43f9c7286ec8cff",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-21725860-8e36-40a1-bdf2-de969bb6e72f.png"
+  },
+  "ownershipAndPose": "Keep exact full torso diagonal forward lean from supported bench hips, one planted cushion palm balancing, opposite hand offering same tiny folded-paper creature. Preserve all hands/fingers and complete original leg/shoe chains. Held paper creature belongs with CHARACTER, not background. No added craft or camera.",
+  "designerObservation": "Full image personally viewed. Exact approved forward creative-reach pose, cushion-palm balance, held paper creature and original hip/knee/ankle/full shoes remain. Whole environment rainy night with cool glass/lake/city and existing lamp's local amber light shared by hand/prop/face/garments/wood. Left wall/corner matte low light has no original daytime tree pattern; floor is soft localized amber pool plus cool reflection, no sun rectangles. Intrinsic youthful identity/outfit retained; paper creature remains character layer.",
+  "observedGaps": [
+    "Primary mother review pending; no layers/calibration/Stage acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

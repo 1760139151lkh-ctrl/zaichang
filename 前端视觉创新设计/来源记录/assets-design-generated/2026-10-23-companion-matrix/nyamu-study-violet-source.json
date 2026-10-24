@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-study-violet-mother-candidate-v1.png",
+  "character": "nyamu",
+  "activity": "study",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "method": "Physical relighting: Image 1 correct approved activity mother locks character/geometry; Image 2 approved empty violet plate fixes exact shared celestial/light axis only",
+  "prompt": "nyamu-study-violet-prompt.txt",
+  "inputs": [
+    {
+      "file": "nyamu-study-apricot-mother-candidate-v1.png",
+      "role": "Image 1: sole character source and edit target, correct primary-approved activity mother; pose/furniture/props locked",
+      "sha256": "5a8e11981cd588f7274b848cf661b2eee415a6a63103cea342d8d660c9409579"
+    },
+    {
+      "file": "room-violet-candidate.png",
+      "role": "Image 2: approved empty room, exact sun center/lake-column axis and whole-room dusk illumination only; not character or furniture replacement",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "nyamu-study-violet-mother-candidate-v1.png",
+    "sha256": "fc99af177c810d87e5427574caae6d20e7f516fc1b6d563008a1175a3434cac8",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-563e046f-af11-4abe-84ee-652729ebfc20.png"
+  },
+  "ownershipAndPose": "Keep the exact side/back forward study posture in the existing right desk chair: hips fully seated, forearms/pencil and paper have original real desktop support, eyes down to the same line. Preserve naturally occluded far hand/body/shoe portions; never invent visible anatomy behind furniture. Paper on desk stays a BACKGROUND object, held pencil belongs with character. Fixed desk posture, no new reach or pose.",
+  "designerObservation": "Full image personally viewed. Sun visually about x=1007,y=302 and lake reflection below at same x, matching approved violet plate. Source side/back forward writing posture, eyes to same paper, desk-supported forearms and correct chair/hip/full visible shoe chains preserved, natural far-side occlusion not invented. Rose-gold window light and lamp with lavender shadow relight gray blouse/black skirt/youthful lavender identity and timber as one dusk; source geometry and props retained.",
+  "observedGaps": [
+    "Primary review of each complete mother pending; no layer/runtime acceptance."
+  ],
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified"
+}

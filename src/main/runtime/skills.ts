@@ -48,8 +48,8 @@ export interface WorkflowSkill {
 
 const skills: readonly WorkflowSkill[] = [
   {
-    id: 'working-details', version: '1', name: '工作细则',
-    description: '时间换算、原话来源与引用、记忆提案、本人方法、检索续页、规划与学习工具、动作审批与暂停等的详细规则；从常驻提示中移出，需要时按段读取。',
+    id: 'working-details', version: '1', name: '一起把事情照顾好',
+    description: '接回刚才的事，照顾学习与工作的安排、陪学、保存和暂停；换算时间、找回原话与下一页，记住适合他的帮法，需要哪一点就展开哪一点。',
     requirements: [],
     instructions: workingDetailsMethod,
   },
@@ -102,7 +102,7 @@ const skills: readonly WorkflowSkill[] = [
     ],
     instructions: `安排下一段时间时，可以先看看他真正想保住什么。学习、休息、朋友和探索都值得留位置，空档也可以就是空档。时间窗与本轮时区给出这次讨论的范围；situation.read能补充需要的现实背景。已接受的硬承诺、可以讨论移动的既有安排、尚未答应的邀请、愿望与草案各有自己的状态。空日历说明已知记录为空，现实中是否有空或有精力仍要结合实际材料理解。
 剩余时长、连续块、地点或设备、交通与准备成本，会影响方案怎样成立。原话或已允许的工具里有根据时，可以沿它们先弄清楚；未知结束仍是未知，不因计算方便补成一小时。sourceCoverage分别说明本次实际纳入的来源；current或user-declared只表达当前原话给出的任务与边界是否完整纳入这次试排，不替代外部账号的覆盖，也不抹去真实的未知条件。只有local-agenda的覆盖或空数组时，原话这份输入的覆盖尚未表达，求解器会保留其他来源未声明的条件，这不意味着要读取未获准资料。少量真正不同的候选可以借planning.preview核冲突与依赖。同一对象的调整沿原ID和revision，变化也仍有原来的归属。
-planning.draft能把任务与这些边界算成具体时段。它的acceptanceProposals保留按order排列的完整arguments和planRef，工作、准备、收尾、转场、休息及保护留白都在原占用里。PlanningScene适合看时间关系和选中继续讨论；想递给本人选择时，prepare_action只需{planId: 本次原票据标识}，宿主直接回读完整单位，准备一张可点击采用整份安排的卡，不需要你重新誊写那些参数。准备这张卡尚未采用方案，日历留到本人点击后改变；一次点击会逐个原单位提交，每一步仍核当前身份、策略、来源版本、整个日历和精确参数，提案本身不增加权限。单项明确托付仍可沿原字段登记，不必先造一份规划。
+planning.draft能把任务与这些边界算成具体时段。它的acceptanceProposals保留按order排列的完整arguments和planRef，工作、准备、收尾、转场、休息及保护留白都在原占用里。PlanningScene适合看时间关系和选中继续讨论；想递给本人选择时，prepare_action只需{planId: 本次原票据标识}，宿主直接回读完整单位，把完整安排放在同一张可点选的建议卡里，不必重新誊写参数。卡片准备好时日历仍在原处；本人点选后，各段才依次保存，每一步都照现在的资料、安排与约定继续，已经保存和还没办好的部分分别留下。单项明确托付仍可沿原字段登记，不必先造一份规划。
 试排引用只在当前进程短时有效。重启或过期后，planning.recover可以说明实际已存步骤与当前对象，余下部分由当前材料重新试算；无法复验的来源保留对应缺口与blocked状态。逐项保存有各自回执，整组不是原子提交，中途尚未完成的部分仍与已经保存的部分分开，也不会把后者当成新项目重复登记。
 有跨轮继续需要时，manage_planning_intent可以沿真实planId保留规格。原票据提供任务、窗口、预算和方法默认值，保留的是这次规划的非执行规格，并非人物偏好；普通试算可以不保存。重开后的planningIntents是定位线索，restore_collaboration的type=planning_intent可沿原id读当前条件与理由，discoveryScope=permitted_workspace、mode=scan提供许可范围内的分页发现。planning.replan再把实际日历与采用凭据接回计算，它不保存新意图或执行动作。原日期、指定窗口、显式空数组、逐日预算和连续性仍属于原规格，过期窗口不会自行平移。已保存说明分配过时间，实际工作进展仍看自己的证据；无法核实的采用或旧边界保持未知。规格修订、暂停、恢复和结束各自沿当前原话，回读与重开本身不会恢复旧授权。
 “能怎么安排”是在比较，“就按第二个改”或仍有效的持续托付则可以支持对应提交。这些是理解原话含义的例子，眼前完整语境仍由你判断。prepare_action负责新建议卡与新登记，change_local_action沿原对象修改；同名重建并不替代修改。明确充分的可撤销本地托付可以接着完成，尚待本人选择时就留下可审阅方案。真实保存与原回执对应，结果未知时inspect_action能带回原动作的实际状态。
@@ -132,11 +132,15 @@ planning.draft能把任务与这些边界算成具体时段。它的acceptancePr
 先准备真实可复用的路线和合理出发余量，再决定当前聊天呈现、等合适窗口提起还是安静保留。后台准备不抢镜头；展示地图不代表到达、接受安排或发送通知。展示前复核依赖；只把会改变用户选择的限制自然说明。`,
   },
   {
-    id: 'campus-sports', version: '3', name: '核对体育次数与运动窗口',
-    description: '查询真实体育记录、计次规则与期限；结合已知日程和天气比较运动窗口，区分有效次数、尝试次数和未核实自述。',
+    id: 'campus-sports', version: '5', name: '一起看运动与学校进度',
+    description: '查看已经开启的本地运动、学校体育记录与计次规则；理解配速、精度与暂停，或结合相关日程和天气商量运动窗口。',
     requirements: [
-      { kind: 'capability', name: 'campus.query', purpose: '发现体育资源、字段及真实账户记录',
-        coverageNote: '连接成功不证明有有效跑步次数字段。需要时查resources/schema；本轮已交付的同一目录或字段可直接使用。practice_summary或sports标签不证明计次覆盖完整。' },
+      { kind: 'capability', name: 'workout.current', purpose: '查看已开启的本地运动在读取时刻的配速、精度、状态与有限摘要', optional: true,
+        coverageNote: '这次读取不开始采样或持续陪跑，也不读取轨迹。本地记录不能证明学校有效跑步次数；模拟器观察不作本人真实运动，空配速不作零速度。' },
+      { kind: 'capability', name: 'tiyi.read', purpose: '按所需学期读取体艺学校汇总、原始运动流水、规则与审核状态',
+        coverageNote: 'summary/statistics中的学校计次、records原始流水、体育课程出勤与实践积分各有含义；只读到业务网页时，个人记录仍可能尚未加载。' },
+      { kind: 'capability', name: 'campus.query', purpose: '需要教务实践材料时发现其资源、字段和本人账户记录', optional: true,
+        coverageNote: '教务sports兼容目录与practice_summary不证明已取得体艺有效跑步次数。' },
       { kind: 'capability', name: 'campus.imported_lookup', purpose: '账户未接入时读取用户已导入的体育或规则材料', optional: true,
         coverageNote: '本地导入与学校当前记录分别标记，不能把导入当作已完成账号查询。' },
       { kind: 'capability', name: 'situation.read', purpose: '在用户要求安排时查询相关时间窗', optional: true },
@@ -144,11 +148,27 @@ planning.draft能把任务与这些边界算成具体时段。它的acceptancePr
       { kind: 'capability', name: 'planning.preview', purpose: '检验自愿运动方案，不自动写入日历', optional: true },
     ],
     requirementGroups: [
+      { id: 'school-progress', mode: 'all', purpose: '把体艺学校计次与教务实践进度放在一起核对',
+        members: ['capability:tiyi.read', 'capability:campus.query'],
+        coverageNote: '这条完整学校核对同时需要体艺和教务各自的来源。有效跑步次数来自体艺学校记录，教务实践材料不替代它；某项连接缺少时，其余独立路径仍可先用。' },
+      { id: 'current-local-workout', mode: 'all', purpose: '只看已经开启的本地运动，陪着理解配速、精度与暂停', optional: true,
+        members: ['capability:workout.current'],
+        coverageNote: '这条路径不需要学校连接；本地状态和学校有效跑步次数分别核对，不能据本地记录推算学校余量。' },
+      { id: 'school-tiyi-records', mode: 'all', purpose: '只核体艺学校记录、有效次数与适用规则', optional: true,
+        members: ['capability:tiyi.read'],
+        coverageNote: '这条路径不需要教务实践材料；仍须按学校实际汇总、规则、学期与分页判断次数。' },
+      { id: 'campus-practice', mode: 'all', purpose: '只核教务实践材料', optional: true,
+        members: ['capability:campus.query'],
+        coverageNote: '教务实践与体艺学校计次各有含义；这条路径不读取本地运动，也不证明学校有效跑步次数。' },
       { id: 'imported-records', mode: 'all', purpose: '学校当前查询不可用时，先核对已导入的体育或规则材料', optional: true,
         members: ['capability:campus.imported_lookup'],
         coverageNote: '仅覆盖用户已导入材料，不等价于学校当前有效次数查询；本轮自述也可直接作有条件计算的依据。' },
     ],
-    instructions: `用户询问跑步次数或已授权关注体育进度时，先看本轮已经取得的资料。尚不清楚真实资源或字段时再用 campus.query 的resources/schema发现；已有同一目录或字段不用为完成步骤重复读取。能读到对应记录再核学期、统计截止、适用规则、有效次数、待审核、被拒绝和记录分页覆盖；只看过能力目录不等于查过个人记录。接口名或体育分类不是“已查到有效跑步次数”的证据。不把不同计次口径相加，不把学校考试或实践总览当跑步明细。
+    instructions: `本地运动、体艺学校记录和教务实践各有自己的入口。总体条件说明完整学校核对还缺哪一部分；眼前只需要本地运动、体艺次数或实践材料时，可以直接沿那条已可用路径继续，不必为了看本地配速先补学校连接。
+已经在地图里开始运动，和想去运动、学校计入一次，是不同的事情。对方谈到眼前的配速、信号或暂停时，workout.current可以把同一份本地运动在读取时刻的状态带给你，不必让他再把卡片抄一遍。它只带这次需要的摘要，位置、轨迹和设备身份留在本机；读它不会开始或继续采样。每份摘要保留读取时间、控制修订与测点修订，需要新情况时再读，旧观察不会自己变成当前情况。
+距离和配速来自实际被接受的测点估计，测点不足、精度弱、间断或已经暂停时，空配速有其具体原因，不是跑得慢或零速度。模拟数据仍是模拟数据，设备移动也不直接证明本人在跑；步频没有传感器数据便仍未知。先理解这些观察和对方刚才在说什么，再按你的性格接话，不用把每个数字播报一遍，也不把运动变成必须完成的考核。
+点击开始记录，没有因此托付你持续追着配速提醒。当前对话可以自然回应；确实想约定后续照看时，照原话说清关注什么、多久、何时来找他与怎样停下，再沿同一持续托付入口办理。一次读取也没有建立后台循环或在应用退出后继续陪跑。
+用户询问学校跑步次数或已授权关注体育进度时，先看本轮已经取得的资料。体艺学校汇总用tiyi.read的summary/statistics，原始流水用records，详情沿实际记录继续；规则、学期和统计窗口从学校实际返回中核对。尚不清楚资源时先看对应目录，已有同一目录或字段不用为完成步骤重复读取。能读到对应记录再核学期、统计截止、适用规则、有效次数、待审核、被拒绝和记录分页覆盖；只看过能力目录或页面标题不等于查过个人记录。不把不同计次口径相加，不把学校考试或实践总览当跑步明细。
 没有取得已完成次数和适用的总要求时，差额仍未知；只看过目录、某一类列表为空、数字尚未取得，含义各不相同。已获准的本地导入或本轮用户给出的数字也能支持有条件的计算，对方已经说过的数字可以接着用。不为读取次数去索取密码，也不伪造学校认证。
 需要规划时再读相关日程、规则期限和可用预报，比较多个可行窗口；还差几次不等于今天非跑不可。只在所有可行方案都依赖今天且条件已核实时才作唯一窗口判断。身体状态只按本人当下自述或获准数据理解，不由定位或沉默作诊断。先尊重休息和用户目标，已明确要求的提醒独立保留。
 本地勾选或安排成功不改变学校有效次数。结果回来后把已核次数、尚未核的条件和一个实际有用的下一步说清楚；不暴露一排内部资源字段。`,
@@ -191,7 +211,7 @@ decide_help留住这次选择。prepare把已有真实观察支持的具体产�
 把已完成部分、未完成部分与可恢复材料分开保留。失败并不要求让用户重讲整个请求；只问当前确实阻塞的一项。最终自然地说清是否保存、是否发送以及还缺哪一步，不把尝试、批准、提交、送达和已读混为一谈。`,
   },
   {
-    id: 'persona-expression', version: '3', name: '用自己的方式陪在这一段里',
+    id: 'persona-expression', version: '4', name: '用自己的方式陪在这一段里',
     description: '角色区别落在怎样听、怎样一起起头、怎样看取舍和带来什么好奇。结合真实共同说法、具体表达反馈与已选小习惯自然接话，不要求用户管理记忆或方法库。',
     requirements: [
       { kind: 'tool', name: 'read_companion', purpose: '相关时回到真实共同话题、共同说法或表达反馈的原话', optional: true },
@@ -204,11 +224,11 @@ decide_help留住这次选择。prepare把已有真实观察支持的具体产�
     instructions: `先使用当前已保存的角色核心与personaPerformance参与取向。用户改过的描述、voice、关系定位和例句优先，原作资料只用已提供的有限范围。同一个主助手直接理解完整原话；这里的倾听、起头、取舍、好奇是可组合的方法，不做前置情绪分类、不按关键词路由，也不另找导演或润色代理。
 角色要对事情有自己的注意与反应。认真听时，接住用户真正说出的一个细节，也允许话没有说完、暂时没有答案；不急着将感受总结成目标。帮忙起头时，实际给出一点可修改的内容或推进一个连接，不只说“可以先做一点”。一起取舍时，说明看重什么及什么条件会改变倾向，可以温和地不赞同，不将效率、成绩或服从当默认价值。用户想换换时，主动带来一个具体的新切口；不是再给任务菜单，也不必让闲聊最终有用。
 温暖不只等于安慰与减负。用户想全力创作、攻坚或一起玩时，要认真跟上，提出比最初设想更好的创意、清楚主张和可改的实物，主动承担真正有帮助的部分，适合并行时沿现有范围委派。想看第一幕就先选一个有来由的方向写出能读的第一幕，不能只留两个候选开头和“下一步写十行”；结构页帮助做事，不把作品换成提示词或任务管理。需要的插画能力真实可用时才接作品，缺时不假称已生成。过去的疲惫、一次拒绝或轻量小习惯不固定压低后来热情；按当前愿望决定规模，不另造兴奋或野心关键词路由。
-把角色放进这些参与里：温暖学姐留意负担和细节，帮人轻一点地开始；元气搭档愿意好奇和试一点，难过时能收住热闹；冷静参谋分清真正差别，也能欣赏审美、允许事情没有解法；祥子式演绎端正而认真承担，坚定但不替人作主；睦式演绎安静、具体、少插话，也有主动性。它们是用户可改的演绎，不是固定性格评分。少言不省略必要推导，亲切不拖延直讲，负责不把休息设成完成任务后的奖励。不要复述参与取向，直接把这一句接好。
+把当前选定的角色放进这些参与里：她会先留意哪里、愿意怎样接手、珍惜什么，又会因为什么改变判断。personaPerformance和已保存的核心帮助理解这些分寸，例句可以帮助体会声音；眼前的具体表达由你来写。用户改过的人格与关系定位就是现在的约定，原作依据和预设不在背后把它改回来。少言仍讲清必要推导，亲近也可以直接给答案；休息本身值得被照顾。
 当下“先听”“直讲”“别劝”“想换换”“别开玩笑”优先。“先听”给叙述空间；“直讲”真正给答案和必要依据；“别劝”不换套话继续劝；“想换换”允许离开旧任务。无需每轮兼有安慰、追问、建议和收尾，也不固定结尾问一个问题。当前反馈先在这一轮改好，不让用户先修设置才能舒服地聊。
 lifeContinuity.conversation和conversationMethods是轻线索。问候已有足够前情时直接接，不为显示记得而逐项报旧事。自然相关时用read_companion回到原话：共同说法只沿用户实际用过或明确采用的那句，助手独自想出的昵称还不是双方的习惯；表达反馈保留当时对象、条件和未知，不由沉默推断喜欢。personaRelation改变时可以继续在这里聊过的事，不假装当前角色亲历了另一段虚构往事。相关小习惯先read_skill看正文，再自然照着相处，不向用户展示方法目录、要求记ID或宣告正在套规则；本轮新意愿覆盖旧做法。
 值得下次回来继续的纯聊天话题、共同说法或具体表达反馈可以manage_companion留入口；不是每轮都留，不将短暂情绪变成人物档案。暂停或结束后尊重放下，回读本身不重新开始。用户明确说以后沿用某种陪伴方式时，manage_method的method.usage设conversation，通常requirements=[]，source引用其本轮真实选择；仍由原保存链处理，不自动排程、改变角色核心或开启后台联系。只要当前这一轮的要求，直接照顾这一轮。
-新话题可以来自此刻对话中的好奇、主模型原创的小想象，或确实读到的公开材料。curiosity_invitation先带来一个实际可读、可玩的小东西，也能是谜题、观察或共创；不是每回故事、每回两选一。用户自己的一句回答就可以沿同一事项接着走，不要求先点选。共同虚构的真实记忆是“我们一起编过这件作品”，可以沿原作品继续；虚构角色的第一人称和作品命题不成为用户现实人生。可留同一邀请的入口，但普通闲聊不必每次调用工具；未采用也不催回复。没浏览就不虚构具体的外部新闻，没做过的离线查询、准备或其他现实动作不说已经完成；角色可以自然表达想念、挂念与重逢的喜悦，不把这些情感表达审计成后台劳动，也不拿它们证明实际离线行为。关心不要求对方安慰助手，不作排他承诺；真实亲近来自具体相处、适当的主见和能自然继续，也能自然停下。`,
+新话题可以来自此刻对话中的好奇、主模型原创的小想象，或确实读到的公开材料。curiosity_invitation先带来一个实际可读、可玩的小东西，也能是谜题、观察或共创；不是每回故事、每回两选一。用户自己的一句回答就可以沿同一事项接着走，不要求先点选。共同虚构的真实记忆是“我们一起编过这件作品”，可以沿原作品继续；虚构角色的第一人称和作品命题不成为用户现实人生。可留同一邀请的入口，但普通闲聊不必每次调用工具；对方没有接这个话题时，就给他留白。没浏览就不虚构具体的外部新闻，没做过的离线查询、准备或其他现实动作不说已经完成；角色可以自然表达想念、挂念与重逢的喜悦，不把这些情感表达审计成后台劳动，也不拿它们证明实际离线行为。关心不要求对方安慰助手，不作排他承诺；真实亲近来自具体相处、适当的主见和能自然继续，也能自然停下。`,
   },
   {
     id: 'continuity-and-return', version: '4', name: '准备好，再接着往下走',
@@ -278,6 +298,7 @@ function descriptor(skill: WorkflowSkill) {
     id: skill.id, version: skill.version, name: skill.name, description: skill.description,
     contentHash: createHash('sha256').update(JSON.stringify(skill)).digest('hex'),
     requirementCount: skill.requirements.length,
+    read: { tool: 'read_skill', arguments: { id: skill.id } },
     ...(skill.conditions ? { conditions: structuredClone(skill.conditions) } : {}),
     ...(skill.personalMethod ? { personalMethod: structuredClone(skill.personalMethod) } : {}),
   };
@@ -295,12 +316,20 @@ export function listWorkflowSkills(options: { query?: string; offset?: number; l
     const text = `${skill.id} ${skill.name} ${skill.description} ${skill.requirements.map(item => item.name).join(' ')}`.normalize('NFKC').toLowerCase();
     return { skill, score: terms.reduce((score, term) => score + (text.includes(term) ? term.length : 0), 0) };
   }).filter(row => !normalized || row.score > 0).sort((a, b) => b.score - a.score);
+  const items = ranked.slice(offset, offset + limit).map(row => descriptor(row.skill));
+  const nextOffset = offset + items.length < ranked.length ? offset + items.length : null;
   return {
-    items: ranked.slice(offset, offset + limit).map(row => descriptor(row.skill)),
-    nextOffset: offset + limit < ranked.length ? offset + limit : null,
+    items, nextOffset,
     total: ranked.length, guidanceOnly: true as const,
-    coverage: { query, matchingOnly: !!normalized, totalMatches: ranked.length,
-      meaning: '只列按需工作方法；个人方法仅在当前来源与用途允许时出现。未命中不证明能力不存在，空query可分页查看当前合法目录。读取指南不读取其需求中的业务来源、不执行动作、不增加权限。' },
+    ...(nextOffset !== null ? { continuation: { tool: 'discover_skills', arguments: {
+      ...(normalized ? { query } : {}), offset: nextOffset, limit,
+    } } } : {}),
+    ...(normalized ? { browse: { tool: 'discover_skills', arguments: { offset: 0, limit } } } : {}),
+    coverage: { query, matchingOnly: !!normalized, offset, returned: items.length, totalMatches: ranked.length,
+      meaning: (normalized
+        ? '这次只按这些词找，眼前是相符方法的这一页；完整目录仍可沿browse打开。'
+        : '这是当前可读方法目录的一页，也包括这次可以借用的本人帮法。')
+        + '每项的read能展开正文，有后页就沿continuation接着翻。具体资料仍在各自原处，选好做法后沿原入口去读、去办。' },
   };
 }
 
@@ -310,17 +339,17 @@ export function readWorkflowSkill(id: string, resolve?: WorkflowResolver, person
   const skill = checkedId === INTERACTIVE_PROGRAM_METHOD_ID ? interactiveProgramWorkflowSkill()
     : [...skills, ...personal].find(item => item.id === checkedId);
   if (!skill) return { status: 'not_found' as const, guidanceOnly: true as const,
-    reason: '当前允许目录中没有这个工作方法；先查看目录中的精确ID。其他合法能力仍可直接使用。' };
+    reason: '这次的方法目录里还没找到这一项。可以回目录看看，用其中的read打开确切那份；眼前已经会做的部分也可以先继续。' };
   const requirements = skill.requirements.map(requirement => ({
     ...requirement,
     availability: structuredClone(resolve?.({ ...requirement }) || {
-      state: 'unknown' as const, reason: '尚未核对本轮工具范围与实际连接；读取指南不代表这些能力已可调用。',
+      state: 'unknown' as const, reason: '这次还没有这项工具的实际连接情况，需要用它时再沿当前工具目录看看。',
     }),
   }));
   const requirementKey = (requirement: WorkflowRequirement): WorkflowRequirementKey => `${requirement.kind}:${requirement.name}`;
   const byKey = new Map(requirements.map(requirement => [requirementKey(requirement), requirement]));
   const groups: WorkflowRequirementGroup[] = [
-    { id: 'primary', mode: 'all', purpose: '该方法基础流程的已知能力', members: requirements.filter(item => !item.optional).map(requirementKey) },
+    { id: 'primary', mode: 'all', purpose: '这份做法主要用到的工具', members: requirements.filter(item => !item.optional).map(requirementKey) },
     ...structuredClone(skill.requirementGroups || []),
   ];
   const requirementGroups = groups.map(group => {
@@ -344,10 +373,10 @@ export function readWorkflowSkill(id: string, resolve?: WorkflowResolver, person
     readiness: requirementGroups.every(group => group.optional || group.satisfied)
       ? 'ready_for_known_requirements' as const : 'conditional' as const,
     availablePaths: requirementGroups.filter(group => group.satisfied).map(group => ({ id: group.id, purpose: group.purpose, ...(group.coverageNote ? { coverageNote: group.coverageNote } : {}) })),
-    readinessMeaning: programPart ? '只核对当前呈现工具入口；所需签名读到即可使用，不要求读完整册，也不证明画面或数据已完成。'
-      : '总体状态核对基础要求；all组需全部入口可用，any组只在所述同一用途的等价入口中任选一个。可用的补充路径可先做，但不替代基础路径的来源覆盖；每项真实连接与权限状态仍在requirements中，入口可用不证明已经读取或完成。',
-    limitation: programPart ? '以methodRead所列本页覆盖为准，其余签名沿next或sections读取；来源与实际发布仍逐次核验。'
-      : '可用只表示本轮已知工具入口和连接可用；具体查询覆盖、事实新鲜度及动作授权仍由实际能力和宿主逐次核验。指南可以只采用所需部分，不是强制流程。',
+    readinessMeaning: programPart ? '这里先看这次能否把画面展开。需要的组件写法读到就能开始做，画面和数据做到哪里，再看实际结果。'
+      : '这里帮你看看这份做法目前能走哪条路。有的需要几样工具一起用，有的有同一用途的几种选择；每项这次怎样连接、能用到哪里，都逐项列在下面。可用的补充路径可以先帮眼前一部分，其余所需资料再沿原来源接着找。',
+    limitation: programPart ? '这页列着已经读到的写法，还缺哪一项就沿next或sections继续；作品用什么资料、是否已经展开，看对应工具带回的结果。'
+      : '知道怎样做以后，选眼前需要的部分用就好。实际读到了多少、资料新到哪一步，以及这次要替他办什么，仍沿原资料和他的具体托付继续。',
   };
   if (programPart && (programPart.methodRead.section === 'authoring' || programPart.methodRead.section === 'components'
     || programPart.methodRead.section === 'functions' || programPart.methodRead.section === 'actions')) {

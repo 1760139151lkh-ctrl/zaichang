@@ -1,0 +1,77 @@
+{
+  "recordType": "exact-source-hair-and-visible-gap-calibration",
+  "input": "uika-play-apricot-figure-calibrated-v8.png",
+  "inputSha256": "9a85e4c2f7597a15cb37a93cfefb5b0820bd5a89c46526a347411df782021e59",
+  "mother": "uika-play-apricot-mother-candidate-v1.png",
+  "motherSha256": "5217e87de50ac8ff072d231a2cc07d985303cbc4f034a97355f0d98bb6a53454",
+  "output": "uika-play-apricot-matte-source-gap-repaired-v9.png",
+  "outputSha256": "fb5d67c92b51aaf152eee1cd5414b5074894e7676479717b450778f9b9b1bd2a",
+  "restoredHairRegion": [
+    1268,
+    369,
+    1285,
+    386
+  ],
+  "confidence": "min(clamp((R-G+2)/8),clamp((R-B+6)/25)); exclude G-B>63",
+  "observedSourcePixel": {
+    "xy": [
+      1278,
+      384
+    ],
+    "rgb": [
+      224,
+      155,
+      126
+    ],
+    "previousAlpha": 13
+  },
+  "backgroundPreservePolygons": [
+    [
+      [
+        1248,
+        386
+      ],
+      [
+        1258,
+        386
+      ],
+      [
+        1261,
+        389
+      ],
+      [
+        1260,
+        392
+      ],
+      [
+        1253,
+        395
+      ],
+      [
+        1248,
+        396
+      ]
+    ],
+    [
+      [
+        1275,
+        387
+      ],
+      [
+        1278,
+        387
+      ],
+      [
+        1278,
+        388
+      ],
+      [
+        1275,
+        388
+      ]
+    ]
+  ],
+  "backgroundProof": "Original exact pixels x1275..1278,y387..388 are cool blue-gray visible window air; earlier larger small polygon crossed warm hair and was rejected. Only observed visible background is preserved, no hidden pixels.",
+  "primaryReview": "pending",
+  "runtimeAccepted": false
+}

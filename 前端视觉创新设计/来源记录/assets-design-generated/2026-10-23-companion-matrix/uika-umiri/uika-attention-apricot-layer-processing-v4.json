@@ -1,0 +1,212 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "uika-attention-apricot-layer-parameters-v4.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "uika-attention-apricot-mother-candidate-v1.png",
+  "motherSha256": "9cae27d5754d32654b120910faacaf65077e09499224f2668d912994ee2b78ed",
+  "matte": "uika-attention-apricot-matte-soft-calibrated-v4.png",
+  "matteSha256": "d5a3cfb1c9dcf54f90f6550544b37ee79261e3e48d256146a4010d5ef8672e55",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 245,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 0,
+  "alphaNonzeroPixels": 71758,
+  "alphaBounds": [
+    1104,
+    258,
+    1431,
+    784
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "d6de36aedc066bcfdf68ba6a313cd1293dbadfec47db4fc7161f9f792fdf7291",
+  "figureRgbSha256": "d6de36aedc066bcfdf68ba6a313cd1293dbadfec47db4fc7161f9f792fdf7291",
+  "background": {
+    "candidate": "uika-attention-apricot-background-generated-v1.png",
+    "candidateSha256": "e76a49b26094394ad59bf7047fe791ea74a6f1053ea67406800c355c1772c3f8",
+    "expandPixels": 7,
+    "featherPixels": 1.2,
+    "additionalErasePolygons": [
+      [
+        [
+          1095,
+          751
+        ],
+        [
+          1265,
+          751
+        ],
+        [
+          1285,
+          815
+        ],
+        [
+          1095,
+          815
+        ]
+      ],
+      [
+        [
+          1269,
+          588
+        ],
+        [
+          1367,
+          578
+        ],
+        [
+          1368,
+          747
+        ],
+        [
+          1282,
+          763
+        ]
+      ],
+      [
+        [
+          1210,
+          574
+        ],
+        [
+          1435,
+          573
+        ],
+        [
+          1436,
+          603
+        ],
+        [
+          1210,
+          601
+        ]
+      ],
+      [
+        [
+          1238,
+          724
+        ],
+        [
+          1278,
+          724
+        ],
+        [
+          1279,
+          759
+        ],
+        [
+          1238,
+          759
+        ]
+      ]
+    ],
+    "changedPixels": 115126,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1103,
+          754
+        ],
+        [
+          1247,
+          755
+        ],
+        [
+          1249,
+          790
+        ],
+        [
+          1102,
+          784
+        ]
+      ],
+      [
+        [
+          1280,
+          576
+        ],
+        [
+          1364,
+          572
+        ],
+        [
+          1365,
+          597
+        ],
+        [
+          1277,
+          598
+        ]
+      ],
+      [
+        [
+          1371,
+          572
+        ],
+        [
+          1430,
+          572
+        ],
+        [
+          1435,
+          593
+        ],
+        [
+          1370,
+          594
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "uika-attention-apricot-figure-calibrated-v4.png",
+      "bytes": 2430558,
+      "sha256": "4c5fba6500122e084cecac7c508d06beb3eb1c1fcd76c782b1e50f2b95b0d045"
+    },
+    {
+      "file": "uika-attention-apricot-mask-calibrated-v4.png",
+      "bytes": 26025,
+      "sha256": "d5a3cfb1c9dcf54f90f6550544b37ee79261e3e48d256146a4010d5ef8672e55"
+    },
+    {
+      "file": "uika-attention-apricot-background-calibrated-v4.png",
+      "bytes": 2092486,
+      "sha256": "41cab7441971a5e9e33957fbff679cb1ffa5a0ad6013830da7dcfe18ab6fc794"
+    },
+    {
+      "file": "uika-attention-apricot-shadow-calibrated-v4.png",
+      "bytes": 49463,
+      "sha256": "514dbdc75b195f3448c91da92942790e2efe2aea31a713b56dd85440425e0c6a"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

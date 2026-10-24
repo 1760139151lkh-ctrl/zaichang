@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "character-mother-candidate",
+  "character": "umiri",
+  "activity": "reading",
+  "theme": "apricot",
+  "status": "generated-needs-redraw",
+  "tool": "built-in image_gen",
+  "executionId": "exec-156ef2ab-9541-4285-adf4-e445e1873425",
+  "officialIdentitySources": [
+    "https://anime.bang-dream.com/avemujica/character/umiri/",
+    "https://anime.bang-dream.com/mygo/character/umiri/"
+  ],
+  "input": {
+    "path": "../room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "role": "sole clean empty room; no character pixels used"
+  },
+  "promptFile": "umiri-reading-apricot-prompt.txt",
+  "prompt": "Use case: stylized-concept. Asset: ONE complete 1536 x 1024 warm-apricot morning mother scene for the 在场 companion Stage, with the whole room and whole person.\nONLY INPUT image 1 is the primary-selected CLEAN EMPTY room v4. It supplies architecture, camera, ordinary furniture scale, materials and light and contains no person. Generate this complete human-in-room scene from text; no portrait, old mother or separate cutout is an input.\nPRESERVE THE ROOM: same mild seated-eye perspective, full connected window frame including every corner, lake/campus view, rear-left table/chair/bookshelves/framed drawing, right desk/chair/lamp/cup, bench/cushions/throw, rug and complete floor passage. Keep furniture in its original area and ordinary scale. No new foreground table/chair, enlarged person, zoom, crop, blank wall, white gradient or erased left living detail. Keep the left/central live-reading lane free of new character parts and props. Add real contact shadows where this person is supported. One coherent morning window light with natural skin and distinct material colors, not an orange wash.\nSTYLE: original youthful Japanese-anime identity, restrained fine character linework in the input's softly detailed environmental painting. Neither an adult fashion portrait nor a chibi child. A naturally inhabited continuous room, never a separately pasted sticker. No other person, text, UI, logos, watermarks, split-screen, arrows, borders, insets or duplicate views. Show complete head/hair, hands, clothing hems and feet with air inside the canvas.\n\nCHARACTER: Yahata Umiri (八幡海鈴), BanG Dream! Ave Mujica / MyGO!!!!!, around fifteen-sixteen, first-year high-school girl. Charcoal-gray shoulder-length hair with a subtle cool undertone, divided side-swept fringe exposing a little forehead, cheek-framing strands and gently outward-flipped tips. Calm clear gray-teal eyes, soft teenage jaw, ordinary slim youthful proportions, not an adult fashion model. Consistent official casual clothes: short black biker jacket with simple lapels/zips over dark-red V-neck top, plain gray short skirt, simple black choker, small silver earrings, black lace-up mid-calf platform boots. Clothing keeps its original colors, modest natural styling without eroticized emphasis or invented uniform.\n\nACTIVITY reading: Umiri is seated SIDEWAYS at the original right writing desk, with her hips supported on the ordinary desk-chair cushion. Small chair rotation for seated access is allowed but keep the seat near its existing desk position, not in the central foreground. Her complete figure fits roughly x=790..1080 and y=320..790, with boots near the chair's floor contacts. Her torso is calm and more upright/reclined than in hard-study, the shoulders loose.\nA small OPEN BOOK lies flat on the real desk in front of her. One forearm rests comfortably along the desktop and one index finger keeps her reading place on an actual page. The other hand holds a short pencil off to the margin, paused rather than pointing instructions. Her face is a natural three-quarter side view and gray-teal eyes look down to the open book; no looking at viewer, smile or tutoring gesture. This is quiet private reading and a moment of checking a note, not a greeting, clipboard task or held-up prop.\nTwo thighs rest on the cushion, the gray skirt drapes modestly over them, two distinct uncrossed knees bend naturally, normal-length lower legs end in two complete separate black platform boots firmly on the existing floor plane. A gentle ankle offset is fine but no leg crosses into another thigh and no floating boot. Keep the chair back/desk/arms physically consistent. Clear five-finger hands, natural wrists, believable page support and small contact shadows, no extra limbs. The book has faint nonverbal print, no readable text or formula.\n",
+  "output": {
+    "path": "umiri-reading-apricot-mother-candidate-v1.png",
+    "sha256": "046c0ccca4e7f35813bec512e4da79b8a224d224937c5ab16617abcf11a060db",
+    "bytes": 2205132,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "recordedAt": "2026-10-23T19:01:40.534321+00:00"
+  },
+  "designerReview": {
+    "personallyViewed": true,
+    "observation": "桌边侧身前倾与study过近，主要变化为书与笔；不计合格姿态覆盖，回clean v4重画窗榻侧座。"
+  },
+  "primaryReview": {
+    "personallyViewed": false,
+    "approved": false
+  },
+  "runtimeAccepted": false
+}

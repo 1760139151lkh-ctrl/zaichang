@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight, BookOpen, CalendarDays, Check, ChevronDown, C
 import type { PlanningComparisonView } from '../../shared/planning-conversation';
 import type { PlanningBlock, PlanningScene, SemanticSelection } from '../../shared/scenes';
 import './planning-comparison-timeline.css';
+import { SpringLayoutButton } from '../motion/SpringLayoutButton';
 
 type Branch = PlanningComparisonView['branches'][number];
 export interface PlanningTrialMove {
@@ -24,7 +25,7 @@ export interface PlanningComparisonTimelineProps {
 }
 type DisplayBlock = { key: string; block: PlanningBlock; start: number; end: number };
 type TrialGesture = { mode: 'pointer' | 'keyboard'; sceneId: string; sceneRevision: number; day: string; blockId: string; active: boolean;
-  origin: number; start: number; duration: number; pointerId?: number; pointerX?: number; pointerY?: number;
+  origin: number; start: number; duration: number; pointerOrigin?: number; pointerId?: number; pointerX?: number; pointerY?: number;
   lastPointerX?: number; scrollLeft?: number; canvasWidth?: number; millisecondsPerPixel?: number };
 const icons = { busy: CalendarDays, work: BookOpen, setup: Coffee, cleanup: Check, transition: Footprints, protected: Leaf, free: Leaf };
 const names: Record<PlanningBlock['kind'], string> = {
@@ -237,7 +238,7 @@ export function PlanningComparisonTimeline({ comparison, scenes, activeBranchId,
     const frame = viewport.current, canvas = frame?.firstElementChild as HTMLElement | null;
     if (!frame || !canvas || canvas.offsetWidth !== pending.canvasWidth) return undefined;
     const delta = clientX - pending.pointerX! + frame.scrollLeft - pending.scrollLeft!;
-    return trialStart(pending.origin + delta * pending.millisecondsPerPixel!, pending.duration);
+    return trialStart((pending.pointerOrigin ?? pending.origin) + delta * pending.millisecondsPerPixel!, pending.duration);
   };
   const commitTrial = (value: DisplayBlock) => {
     const pending = trialRef.current; updateTrial(undefined);
@@ -256,8 +257,9 @@ export function PlanningComparisonTimeline({ comparison, scenes, activeBranchId,
     const canvas = viewport.current?.firstElementChild as HTMLElement | null;
     if (!canvas?.offsetWidth) return;
     cancelTrial();
+    const pointerOrigin = from + (event.currentTarget.getBoundingClientRect().left - canvas.getBoundingClientRect().left) / canvas.offsetWidth * span;
     updateTrial({ mode: 'pointer', sceneId: scene.id, sceneRevision: scene.revision, day: day.date, blockId: value.block.id, active: false,
-      origin: value.start, start: value.start, duration: value.end - value.start, pointerId: event.pointerId,
+      origin: value.start, pointerOrigin, start: value.start, duration: value.end - value.start, pointerId: event.pointerId,
       pointerX: event.clientX, pointerY: event.clientY, lastPointerX: event.clientX,
       scrollLeft: viewport.current!.scrollLeft, canvasWidth: canvas.offsetWidth, millisecondsPerPixel: span / canvas.offsetWidth });
   };
@@ -326,7 +328,9 @@ export function PlanningComparisonTimeline({ comparison, scenes, activeBranchId,
             const width = (value.end - value.start) * 100 / span, compact = width * canvasWidth / 100 < 106;
             const label = block.kind === 'free' ? '留给自己' : block.label;
             const conditional = block.comparisonChange?.kind === 'added', movable = canTry(value);
-            return <button type="button" key={value.key} data-timeline-block={block.id}
+            return <SpringLayoutButton type="button" key={value.key} data-timeline-block={block.id}
+              layoutKey={`${day.date}:${from}:${to}`} active={!disabled}
+              verticalBounds={[0, 36 + (laneCount - 1) * 88]}
               className={`comparison-time-block is-${block.kind}${different ? ' is-different' : ''}${anchor ? ' is-anchor' : ''}${compact ? ' is-compact' : ''}${block.end === null ? ' is-unknown' : ''}${conditional ? ' is-conditional' : ''}${selectedId === block.id ? ' is-selected' : ''}${movable ? ' can-try-move' : ''}${ghost?.key === value.key ? ' is-being-tried' : ''}`}
               style={{ left: `${pos(value.start)}%`, width: `${width}%`, top: 36 + (lanes.get(value.key) || 0) * 88 } as CSSProperties}
               title={`${conditional ? '如果这样安排：' : ''}${label} · ${interval(block, zone)}${anchor ? ' · 原安排保留' : ''}${movable ? ' · 拖动试着换个时间' : ''}`}
@@ -356,7 +360,7 @@ export function PlanningComparisonTimeline({ comparison, scenes, activeBranchId,
               <span className="comparison-time-block-clock">{block.end === null ? '结束待定' : `${time(value.start, zone)} — ${time(value.end, zone)}`}</span>
               {anchor && <span className="comparison-time-anchor" aria-hidden="true">留在这里</span>}
               {conditional && <span className="comparison-time-conditional">如果这样安排</span>}
-            </button>;
+            </SpringLayoutButton>;
           })}
         </div>
         {ghost && trial && <div className="comparison-time-trial" role="status" style={{ left: `${pos(trial.start)}%`, width: `${trial.duration * 100 / span}%`,
