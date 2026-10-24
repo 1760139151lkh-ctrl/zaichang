@@ -1,0 +1,51 @@
+{
+  "kind": "ui-mockup",
+  "theme": "apricot",
+  "scope": "character-personality-review",
+  "method": "built-in image_gen.imagegen",
+  "completedOn": "2026-10-24 22:10:16 UTC",
+  "promptFile": "personality-review-apricot-v1-prompt.txt",
+  "inputImages": [],
+  "originalOutput": "generated_images/01a16fb5-c3c9-7621-be1c-b9ffbaa2fbff/exec-0461e865-6ea0-4d62-bb39-1f25d0d21fd8.png",
+  "generationSessionId": "01a16fb5-c3c9-7621-be1c-b9ffbaa2fbff",
+  "generationEventId": "exec-0461e865-6ea0-4d62-bb39-1f25d0d21fd8",
+  "output": "personality-review-apricot-v1.png",
+  "width": 1536,
+  "height": 1024,
+  "bytes": 1948945,
+  "sha256": "dce448a2be64602209d49002dd8271cc8c88c929f57f175d52464f9746f0e121",
+  "status": "approved_relationship_reference_pending_runtime",
+  "primaryReviewed": true,
+  "primaryReview": {
+    "reviewer": "primary agent",
+    "recordedOn": "2026-10-24 22:53:40 UTC",
+    "decision": "approved_as_relationship_reference",
+    "scope": [
+      "preserve an existing nickname while reviewing all editable candidate words",
+      "adopt a candidate into the local editing draft before persistence",
+      "read current saved wording without changing the draft or its expected revision",
+      "replace current saved wording only through an explicit version-checked action"
+    ],
+    "excluded": [
+      "generated global navigation",
+      "wallpaper and room replacement",
+      "unnecessary long instructional copy",
+      "using the design image as product UI"
+    ],
+    "runtimeVerification": "pending actual Desktop inspection"
+  },
+  "runtimeAccepted": false,
+  "addressExampleProvenance": {
+    "kind": "source_example_used_as_synthetic_design_content",
+    "source": "src/shared/persona-portrayals.ts, sakiko.intimacy conditional example",
+    "privateDataRead": false,
+    "realUserPreferenceClaimed": false,
+    "note": "No runtime persona settings, SQLite records or private memory text were read to choose the example address. The source-code example is conditional and does not establish the user's real nickname. Public adoption remains subject to the primary audit."
+  },
+  "referenceRelationships": [
+    "U012: gallery and real room preview remain separate from personality adoption",
+    "R092: writing and example retain a stable relationship"
+  ],
+  "adoptionNotes": "Detail design reference only. Preserve the nickname and review-before-draft relationship using real controls. Do not copy the generated top navigation or use the full image as product UI.",
+  "initialInspection": "The generated sheet makes original nickname preservation legible without extra explanatory text, shows readable personality excerpts and a stable bottom draft/cancel action pair. Fine paper texture and surrounding warm light support existing references. Primary visual acceptance is pending."
+}

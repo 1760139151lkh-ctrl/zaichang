@@ -49,7 +49,7 @@ export function useProgramLocalState(key: string, program: InteractiveProgramDoc
           if (result.status === 'conflict') {
             current.conflicted = true; current.failedSave = false;
             current.pending = undefined;
-            if (current.active) setIssue('另一处也改过这页。要接回那一份，还是留下眼前的调整？');
+            if (current.active) setIssue('另一处也改过这页。眼前的调整还在。');
           } else if (result.status === 'ephemeral') current.ephemeral = true;
           else {
             current.saved = signature; current.failedSave = false;

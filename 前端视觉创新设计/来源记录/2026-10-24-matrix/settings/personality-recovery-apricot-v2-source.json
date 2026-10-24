@@ -1,0 +1,54 @@
+{
+  "kind": "ui-mockup",
+  "scope": "personality-draft-recovery",
+  "theme": "apricot",
+  "method": "built-in image_gen.imagegen",
+  "completedOn": "2026-10-24 22:15:43 UTC",
+  "promptFile": "personality-recovery-apricot-v2-prompt.txt",
+  "inputImages": [
+    {
+      "path": "personality-recovery-apricot-v1.png",
+      "role": "precise text-only edit target; no people or structural body references",
+      "sha256": "183a63d0009ba479abaf063ecf493ff16389c52fac62fbd64ddcf338d4b587b1"
+    }
+  ],
+  "originalOutput": "generated_images/01a16fb5-c3c9-7621-be1c-b9ffbaa2fbff/exec-c6dc13a1-3307-49dc-ad19-6b1b0d91087c.png",
+  "generationSessionId": "01a16fb5-c3c9-7621-be1c-b9ffbaa2fbff",
+  "generationEventId": "exec-c6dc13a1-3307-49dc-ad19-6b1b0d91087c",
+  "output": "personality-recovery-apricot-v2.png",
+  "width": 1536,
+  "height": 1024,
+  "bytes": 1714383,
+  "sha256": "6fb77de6b193a6c8c0f334e789bdf174142e0c7f01bfd16fcfcf3562f219d6cb",
+  "status": "approved_relationship_reference_pending_runtime",
+  "primaryReviewed": true,
+  "primaryReview": {
+    "reviewer": "primary agent",
+    "recordedOn": "2026-10-24 22:53:40 UTC",
+    "decision": "approved_as_relationship_reference",
+    "scope": [
+      "preserve an existing nickname while reviewing all editable candidate words",
+      "adopt a candidate into the local editing draft before persistence",
+      "read current saved wording without changing the draft or its expected revision",
+      "replace current saved wording only through an explicit version-checked action"
+    ],
+    "excluded": [
+      "generated global navigation",
+      "wallpaper and room replacement",
+      "unnecessary long instructional copy",
+      "using the design image as product UI"
+    ],
+    "runtimeVerification": "pending actual Desktop inspection"
+  },
+  "runtimeAccepted": false,
+  "addressExampleProvenance": {
+    "kind": "source_example_used_as_synthetic_design_content",
+    "source": "src/shared/persona-portrayals.ts, sakiko.intimacy conditional example; retained from the v1 edit target",
+    "contrastingExample": "Artificially shortened by the generating agent in v1 to show a visible difference between the draft and saved sample.",
+    "privateDataRead": false,
+    "realUserPreferenceClaimed": false,
+    "note": "No runtime persona settings, SQLite records or private memory text were read to choose either example address. The source-code example is conditional and does not establish the user's real nickname. Public adoption remains subject to the primary audit."
+  },
+  "initialInspection": "The generic reassurance sentence has been replaced with the requested situated example. Original layout, caret and draft, the current saved text inset and the nickname difference remain visible. The draft/compare/explicit replace relationship is clear. Primary review and actual UI inspection remain pending.",
+  "adoptionNotes": "Reference for recovery within the existing editor. Do not use image as interface, change global layout, or copy the synthetic example into role defaults. Reading current saved text does not rebase expectedRevision; overwrite remains an explicit existing-owner operation."
+}

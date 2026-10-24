@@ -291,7 +291,7 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
       </CompanionPreviewProvider>
       <div className="companion-preview-controls">
         <div className="companion-moment-choices" role="group" aria-label="陪伴的时刻">
-          {([['chat', '闲聊'], ['study', '一起推导'], ['reading', '看书'], ['planning', '看安排'], ['listening', '听你说'], ['rest', '坐一会儿'], ['play', '小发现'], ['attention', '新对象']] as const).map(([id, label]) => <button type="button" key={id} aria-pressed={moment === id} onClick={() => chooseMoment(id)}>{label}</button>)}
+          {([['chat', '闲聊'], ['study', '一起推导'], ['reading', '看书'], ['planning', '看安排'], ['listening', '听你说'], ['rest', '坐一会儿'], ['play', '小发现'], ['attention', '新对象'], ['resume', '接着这里']] as const).map(([id, label]) => <button type="button" key={id} aria-pressed={moment === id} onClick={() => chooseMoment(id)}>{label}</button>)}
         </div>
       </div>
     </div>

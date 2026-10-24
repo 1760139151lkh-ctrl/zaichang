@@ -1,0 +1,8 @@
+Use case: text-localization, precise text-only edit.
+Target image: the attached 在场 personality editing recovery mockup.
+Change exactly one thing: replace the sample reply in the paper quotation on the upper right under 试着这样说. The current unwanted text starts with 我在这儿 and contains 慢慢说. Remove that entire reply. Replace it with this exact Chinese text, readable and correctly rendered over three calm lines:
+“白天一直撑着从容，
+到现在才觉得委屈。
+最难咽下的那一句，讲给我听吧。”
+This is an editable example of 丰川祥子's personal voice, never a global reassurance template.
+Preserve everything else: all layout, top navigation, window and outer room light, warm paper, left draft and its caret, both different nickname fields 小灰灰 and 小灰, the expanded read-only saved-text inset, footer buttons, scale, typography, margins, colors, paper edges. No added objects, no new avatar or person. Do not reword the existing left-side or recovery copy. No green UI. This is a design reference only.

@@ -1,0 +1,32 @@
+{
+  "key": "anon/study/violet",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-24T22:49:14.774Z",
+  "stage": "complete whole-scene lighting edit",
+  "file": "anon-study-violet-mother-v1.png",
+  "sha256": "9a1a6cd8b7510aca8fe51ab8cefdd68259e16de9ed0abc1e3df3210546e8413d",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "originalOutputBasename": "exec-2121756b-4152-4c6e-b6a4-aaf28e2e6260.png",
+  "prompt": "anon-study-violet-mother-v1.prompt.txt",
+  "inputs": [
+    {
+      "file": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-study-apricot-mother-candidate-v1.png",
+      "role": "approved apricot complete mother; edit target",
+      "sha256": "2e9a7c010f52939149c5a93b43eb3f1ab996f9ed25bbcbaa3a7522038b1f9fbe"
+    },
+    {
+      "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-violet-candidate.png",
+      "role": "clean-room light reference only",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "designerPersonallyViewed": true,
+  "primaryMotherReview": "pending_current_root_review",
+  "layers": "not_produced",
+  "runtime": "not_registered",
+  "promptSha256": "77bb50b0a23f21a8b4a8f670a760fe39cdc44b03fe3be07094fd0555361831c2",
+  "designerObservation": "Viewed complete generated original at production time: original action, youthful Anon identity, independent leg chains and full loafers remain; hips/forearms or bench contact coherent. Whole room follows requested light, one sunset/reflection for violet or no daytime leaf shadows for rain, with original paper/book gaze and no generic smile."
+}

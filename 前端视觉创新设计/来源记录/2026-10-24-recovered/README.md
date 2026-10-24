@@ -21,6 +21,19 @@
 
 这四张均只登记为 **B 级原景分离背景候选**。每张图的同名 `.prompt.txt` 是原工具事件记录的 `revisedPrompt`，不是事后补写的生成描述。它们的完整原母图也在本线逐张打开对照。背景好看不等于人物 alpha、原像素配准、接触影、拖动终点或运行准入已经通过；本次未据此修改 renderer 或批准运行场景。
 
+## 已接回原生产来源
+
+四张背景的生产入口仍是各自原母图的 source 文件，新增的 `recoveredBackground` 指向本目录的唯一原文件、精确 Prompt 与原母图哈希。没有为恢复另造一套场景选择或审批来源。
+
+| 原生产入口 | 分离时的实际物件边界 |
+| --- | --- |
+| [若麦 attention v3 source](../assets-design-generated/2026-10-23-companion-matrix/nyamu-attention-apricot-v3-source.json) | 书上竖卡留在背景，人物与穿着的鞋归 figure。 |
+| [若麦 play v1 source](../assets-design-generated/2026-10-23-companion-matrix/nyamu-play-apricot-source.json) | 手里纸偶随人物一起提取，原桌面书杯灯保留。 |
+| [睦 attention v1 source](../assets-design-generated/2026-10-23-companion-matrix/mutsumi-attention-apricot-source.json) | 灯旁竖卡留在背景，不因视线或手势把它改成手持物。 |
+| [爽世 study violet source](../assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-study-violet-source.json) | 原椅背、椅腿与摊纸留在背景，保留真实遮挡，桌前行程为 0，不补绘被挡肢体。 |
+
+`recoveredBackground.file`、`prompt`、`inputMother.file` 都相对其 source 文件解析。生产者可以直接取这一组继续同母图分离；四个来源仍明确 `primaryLayerApproved: false` 与 `runtimeAccepted: false`，没有沿用失败 mask 或把背景候选算成动作覆盖。
+
 ## 如何核对
 
 [recovery.json](recovery.json) 的每条记录包含原工具、执行 ID、来源聊天、UTC 时间、原生成路径、原文件 SHA-256、工具事件结果与文件字节是否一致、初查工作区路径、当时的 Git 跟踪状态，以及是否在本恢复线亲看。四张恢复图还携带母图路径与母图哈希；21 张未保留尝试写明了逐图去留理由。
@@ -28,3 +41,5 @@
 本次来源核对覆盖全部 541 张成功输出，实际新增候选只占 4 张。516 张已有图的来源核实不冒充本线重新看完它们，也不代替当前角色专线的母图逐张审查、主代理审美签字或真实界面操作。未生成的主题格应继续通过 image generation 补齐，不能解释为“网络中断把图弄丢了”。
 
 本目录仅保存精选生成图、它们的图像 Prompt 和必要来源元数据；没有保存 raw sessions、私人消息正文、账号、凭据、数据库或浏览器资料。
+
+本轮公开提交的精确选取见 [publication-scope.json](publication-scope.json)，Prompt 与来源的隐私审读边界见 [公开素材审读](PUBLICATION_REVIEW.md)。清单只选当前四个生产组合及其原输入，不允许递归强制加入全部视觉工作目录。

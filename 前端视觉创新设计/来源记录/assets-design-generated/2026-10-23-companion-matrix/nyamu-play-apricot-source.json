@@ -29,6 +29,26 @@
     "No primary approval or extraction; not runtime coverage."
   ],
   "primaryReview": "pending; producer cannot approve",
-  "extraction": "not started",
-  "runtime": "not registered or verified"
+  "extraction": "matching background recovered; figure alpha, contact shadow and runtime acceptance remain pending",
+  "runtime": "not registered or verified",
+  "recoveredBackground": {
+    "file": "../../2026-10-24-recovered/nyamu-play-apricot-background-recovered-v1.png",
+    "sha256": "5f9cfb51fcc0aa72c18d093f6019b2e750684c8e277356ed30cd826a6f6f7bb6",
+    "bytes": 2122790,
+    "width": 1536,
+    "height": 1024,
+    "classification": "B-background-candidate",
+    "inputMother": { "file": "nyamu-play-apricot-mother-candidate-v1.png", "sha256": "73cf1bdecedd78833a534a05692764ecd91d87b63bfd9ca91d5deb08b123c3ed" },
+    "tool": "image_gen.imagegen (built-in)",
+    "executionId": "exec-59020b53-73a8-4cdd-bf78-76dc969e85a6",
+    "sourceConversationId": "01a16ccb-3714-7601-af9b-0bcd44f0f596",
+    "completedAtUtc": "2026-10-24T19:01:37.727Z",
+    "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-59020b53-73a8-4cdd-bf78-76dc969e85a6.png",
+    "prompt": "../../2026-10-24-recovered/nyamu-play-apricot-background-recovered-v1.prompt.txt",
+    "promptSha256": "afff853eae70727297f6757cfce8344206a2e57d8b6553b3addb5302ead3c170",
+    "recoveryRecord": "../../2026-10-24-recovered/recovery.json",
+    "ownership": "Held folded paper creature belongs to the girl and leaves with her; original desktop book, cup and lamp stay in background.",
+    "productionUse": "Same-mother layer extraction candidate only. Keep source canvas coordinates; extract girl and held paper together without a loose floating prop.",
+    "review": { "producerViewedAgainstMother": true, "primaryViewedBackground": true, "primaryLayerApproved": false, "runtimeAccepted": false }
+  }
 }

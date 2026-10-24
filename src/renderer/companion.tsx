@@ -137,7 +137,7 @@ function readCompanion(): CompanionState {
         if (/^[a-z0-9-]{1,100}$/.test(id) && typeof position === 'number' && Number.isFinite(position)) result.scenePositions[id] = Math.max(-1, Math.min(1, position));
       }
       if (stored.sceneChoices && typeof stored.sceneChoices === 'object') for (const [key, sceneId] of Object.entries(stored.sceneChoices)) {
-        if (Object.keys(result.sceneChoices).length >= 320) break;
+        if (Object.keys(result.sceneChoices).length >= 360) break;
         if (registeredChoice(key, sceneId)) result.sceneChoices[key] = sceneId as string;
       }
       return result;
@@ -206,7 +206,7 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
       if (!registeredChoice(key, sceneId)) throw new Error('有一个坐姿现在还不能采用，试看的样子还在。');
       sceneChoices[key] = sceneId;
     }
-    if (Object.keys(sceneChoices).length > 320) throw new Error('这些坐姿选择暂时还不能一起留下，原来的选择还在。');
+    if (Object.keys(sceneChoices).length > 360) throw new Error('这些坐姿选择暂时还不能一起留下，原来的选择还在。');
     const next = { ...current, ...preference({ ...current, ...patch }), scenePositions, sceneChoices };
     if (next.character.startsWith('custom:') && !next.pictures.some(item => item.id === next.character)) throw new Error('这张图片已经不在收藏里了，选另一张吧。');
     commit(next);
@@ -255,7 +255,7 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
       throw new Error('这里的样子刚换过。原来的选择还在，看看现在的房间再决定。');
     const selected = checkedSceneChoice(current, scope, choice, expected);
     const sceneChoices = { ...current.sceneChoices, [scope]: selected.sceneId };
-    if (Object.keys(sceneChoices).length > 320) throw new Error('这些坐姿选择暂时还不能一起留下，原来的选择还在。');
+    if (Object.keys(sceneChoices).length > 360) throw new Error('这些坐姿选择暂时还不能一起留下，原来的选择还在。');
     commit({ ...current, sceneChoices,
       scenePositions: { ...current.scenePositions, [selected.positionKey]: selected.position } });
   }, [commit]);

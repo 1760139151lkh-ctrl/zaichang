@@ -1,11 +1,11 @@
 """Personal sport rules and the official exercise submission protocol.
 
-The official client serialises ``UploadJsonSports`` with Gson, then transforms
+The official client builds ``UploadJsonSports``, then transforms
 that JSON into the ``jsonsports`` request value before posting it to
 ``api/l/v6.1/prejudgment`` or ``api/l/v7/savesports``. Field names and the
-request headers were recovered from the shipped application; the body
-transform is kept pluggable because its native encoder lives in the official
-application bundle, not in this repository.
+request headers follow the shipped client contract; the body transform is kept
+pluggable because its encoder is supplied by the official client component,
+not by this repository.
 
 This module never invents a track, a distance or a receipt. A submission needs
 a real, host-supplied track and returns the school's own answer unchanged.
@@ -68,7 +68,7 @@ def _point(raw, index):
 
 
 def build_payload(connection, args):
-    """Build the recovered UploadJsonSports object from caller-owned facts."""
+    """Build the UploadJsonSports object from caller-owned facts."""
     user = connection.session["user"]
     sport_id = args.get("sportId")
     if not isinstance(sport_id, str) or not re.fullmatch(
@@ -160,9 +160,9 @@ def encode_value(payload, encoder, secret):
         return raw
     if encoder != "aes":
         raise Failure("SPORT_ENCODER_UNKNOWN", "没有这个锻炼数据编码方式。")
-    # Recovered static parameters of the official AES helper. The school may
-    # still require the original application's native transform; a rejection
-    # is returned as-is and never reported as a successful submission.
+    # Encoding parameters used by the official client. The school may still
+    # require the official client's encoder; a rejection is returned as-is and
+    # never reported as a successful submission.
     try:
         from Crypto.Cipher import AES
         from Crypto.Util.Padding import pad

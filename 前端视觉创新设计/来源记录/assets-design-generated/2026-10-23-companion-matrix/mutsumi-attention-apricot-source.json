@@ -26,6 +26,26 @@
   "designerObservation": "Shoulders/head turn toward a concrete small card resting on the actual desk. One low open hand indicates it, other palm contacts cushion beside hips, two continuous separate legs/shoes supported. Small quiet half-turn versus forward reaching play; exact activity distinction awaits primary across-eight review. Static card is BG, not body.",
   "designerStatus": "candidate awaiting primary review",
   "primaryReview": "pending; producer cannot approve",
-  "extraction": "not started",
-  "runtime": "not registered or verified"
+  "extraction": "matching background recovered; figure alpha, contact shadow and runtime acceptance remain pending",
+  "runtime": "not registered or verified",
+  "recoveredBackground": {
+    "file": "../../2026-10-24-recovered/mutsumi-attention-apricot-background-recovered-v1.png",
+    "sha256": "d172787d612b90b83888ec456798fb023f9a5bf32a8f543b1c91fdbe142e3649",
+    "bytes": 2096315,
+    "width": 1536,
+    "height": 1024,
+    "classification": "B-background-candidate",
+    "inputMother": { "file": "mutsumi-attention-apricot-mother-candidate-v1.png", "sha256": "2d52ca09896e34164375bfff8348fd4ac2d7c6ca4c5ae52d91b5eba708bbe3d2" },
+    "tool": "image_gen.imagegen (built-in)",
+    "executionId": "exec-705c4e82-1c23-4916-9c8b-4d00b7cd876e",
+    "sourceConversationId": "01a16ccb-3714-7601-af9b-0bcd44f0f596",
+    "completedAtUtc": "2026-10-24T18:59:31.335Z",
+    "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-705c4e82-1c23-4916-9c8b-4d00b7cd876e.png",
+    "prompt": "../../2026-10-24-recovered/mutsumi-attention-apricot-background-recovered-v1.prompt.txt",
+    "promptSha256": "318224b1fa00f4abff1c73317e2c3996f2aa2f9d47d6087597f961fcbfde6343",
+    "recoveryRecord": "../../2026-10-24-recovered/recovery.json",
+    "ownership": "Original upright card beside the right desk lamp remains a static room object; the girl and both worn loafers leave the room layer.",
+    "productionUse": "Same-mother layer extraction candidate only. Keep source canvas coordinates and the card's original support; do not use the failed attention mask.",
+    "review": { "producerViewedAgainstMother": true, "primaryViewedBackground": true, "primaryLayerApproved": false, "runtimeAccepted": false }
+  }
 }

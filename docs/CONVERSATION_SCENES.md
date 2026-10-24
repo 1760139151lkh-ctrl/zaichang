@@ -2,7 +2,7 @@
 
 <a id="unified-scenes-20261023"></a>
 
-本页维护当前动态界面契约，更新于2026-10-23。真实实现与证据范围见[当前状态](CURRENT_STATUS.md)，视觉规则见[FRONTEND_DESIGN](../FRONTEND_DESIGN.md)，下一步缺口见[逐页手术单](../前端视觉创新设计/2026-10-23-深度评鉴/逐页手术单.md)。旧阶段暂停/停止创新安排已失效；历史精确说明另存[场景档案](CONVERSATION_SCENES_HISTORY_20261023.md)。
+本页维护当前动态界面契约，更新于2026-10-24。真实实现与证据范围见[当前状态](CURRENT_STATUS.md)，视觉规则见[FRONTEND_DESIGN](../FRONTEND_DESIGN.md)，下一步缺口见[逐页手术单](../前端视觉创新设计/2026-10-23-深度评鉴/逐页手术单.md)。旧阶段暂停/停止创新安排已失效；历史精确说明另存[场景档案](CONVERSATION_SCENES_HISTORY_20261023.md)。
 
 动态界面属于同一段交流：真实结果从原回复展开，用户操作接回原对象和原输入，关闭后保留位置与草稿。`src/`是唯一实现，OpenUI使用锁定`@openuidev/react-lang 1.0.1`，不另用聊天外壳、默认皮肤或新地图替代在场。
 
@@ -48,6 +48,14 @@ scene1 = WeatherScene("<scene-id>@<revision>")
 因此已有“用户操作→宿主保存→原对象续聊”的真实实现。它不表示每帧都请求Luna，不自动改日历/笔记，也不证明所有请求都能自然自主生成合适作品。旧真实Luna样本覆盖地图、陪学纸和交互图形等有限范围；本轮是否重跑及结果以当前状态为准。
 
 局部值可随同一消息恢复，按住、播放、发声和活动动画在重开时复位，避免自动响。声音须由用户动作启动，减少动态与取消继续有效。当前`interactive-motion.tsx`等使用有限WebAnimations/easing；不是全产品弹簧物理已完成的证明。
+
+有限动效的每帧受检输入只暂存在原`program-local-state` writer内存；停止、显式flush或该writer卸载时，再保存一次实际停点中的非transient值。父组件先卸载、作品换版或资料范围变化时，旧writer仍只持有自己的原地址，宿主重新核来源、privacy epoch、hash与CAS；不借旧清理回调改写新的scope。`settled`只是保存通知，不修改`$ui`、增加userAction或触发声音、Continue和模型请求。重读后重建的Renderer另核generation，旧实例的清理与迟到状态不能覆盖新种子。
+
+保存发生冲突时，原纸和眼前输入继续保留，暂停自动覆盖，在同页显示“另一处也改过这页。眼前的调整还在。”与并列的“接回另一份／留下眼前这份”。前者重读原owner保存的位置；后者经用户明确选择、重新读取当前修订后再尝试CAS，不绕过新的冲突。接回期间忽略旧动效落点；重读失败保留本次选择与当前内容，不默默倒向覆盖另一份。原composer草稿不因此改写。
+
+`DragHandle`抓取时锁定该次Group坐标系并只接收同一pointerId；Escape、失焦与取消回到抓取前的局部值，方向键可接管手势。新增`violet`数据色；历史`green`字段仍可解析，但显示为暮紫，新作品使用现行颜色名称。
+
+2026-10-24的[局部冲突恢复稿v3](../前端视觉创新设计/补充图稿/2026-10-24-matrix/openui/openui-local-conflict-recovery-v3.png)已由主代理亲看，接受同页纸、当前草稿与恢复动作的设计关系；图中曲线仍只作设计参考，运行数学由原生`Curve`求值。完整Prompt与独立尝试见[来源记录](../前端视觉创新设计/来源记录/2026-10-24-matrix/openui/openui-local-conflict-recovery-v3-source.json)：首次404和v2数学错误分别保留，均不计为合格运行图。本轮类型、既有Curve与smoke检查已通过，尚未取得这些修改后的Windows实际拖动、冲突选择、切页恢复、真实Luna续聊与设备听感证据，不能用图稿批准或检查结果代替这些体验。
 
 关键实现：`shared/interactive-library.ts`、`interactive-program.ts`、`main/runtime/interactive-program.ts`、`interactive-program-local-state.ts`、`renderer/presentation/InteractiveProgramView.tsx`与`interactive-{context,primitives,graphics,motion,press,audio}.tsx`。
 

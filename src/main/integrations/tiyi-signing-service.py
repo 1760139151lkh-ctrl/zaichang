@@ -2,7 +2,7 @@
 
 This file contains no proprietary binary. It imports ``native_signer`` and the
 official application library from the host-provided signer directory, so the
-original APK assets stay outside the repository.
+official client assets stay outside the repository.
 
 Wire protocol (one JSON object per line):
 

@@ -30,6 +30,26 @@
   ],
   "designerStatus": "candidate awaiting primary review",
   "primaryReview": "pending; producer cannot approve",
-  "extraction": "not started",
-  "runtime": "not registered or verified"
+  "extraction": "matching background recovered; figure alpha, contact shadow and runtime acceptance remain pending",
+  "runtime": "not registered or verified",
+  "recoveredBackground": {
+    "file": "../../2026-10-24-recovered/nyamu-attention-apricot-background-recovered-v1.png",
+    "sha256": "900f9c156c8aa16cab463e5295861638634e338d22c001edcf5bf0cf2995513b",
+    "bytes": 2150141,
+    "width": 1536,
+    "height": 1024,
+    "classification": "B-background-candidate",
+    "inputMother": { "file": "nyamu-attention-apricot-mother-candidate-v3.png", "sha256": "12f2cd65c5ff361c4dcf91adeee7c117c2fece5113b9461eb7b8201f2da28451" },
+    "tool": "image_gen.imagegen (built-in)",
+    "executionId": "exec-33d28809-7268-45fd-8ef8-8d73c701e1cc",
+    "sourceConversationId": "01a16ccb-3714-7601-af9b-0bcd44f0f596",
+    "completedAtUtc": "2026-10-24T19:00:30.580Z",
+    "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-33d28809-7268-45fd-8ef8-8d73c701e1cc.png",
+    "prompt": "../../2026-10-24-recovered/nyamu-attention-apricot-background-recovered-v1.prompt.txt",
+    "promptSha256": "708c7d76037f2289c662e958c4409194afe34a1341356aad90fa08740f158bd0",
+    "recoveryRecord": "../../2026-10-24-recovered/recovery.json",
+    "ownership": "Original upright card on the desktop blue book stays in background; the girl and both worn shoes are removed.",
+    "productionUse": "Same-mother layer extraction candidate only. Keep source canvas coordinates; do not substitute another activity's mother or use a failed mask.",
+    "review": { "producerViewedAgainstMother": true, "primaryViewedBackground": true, "primaryLayerApproved": false, "runtimeAccepted": false }
+  }
 }

@@ -33,6 +33,20 @@ export function samePersonaCore(left: PersonaCore, right: PersonaCore) {
   };
   return snapshot(left) === snapshot(right);
 }
+function SavedPersonaWords({ core }: { core: PersonaCore }) {
+  const basic = [['name', '叫什么'], ['description', '你希望怎样相处'], ['address', '如何称呼你']] as const;
+  const more = [['selfReference', '自称'], ['identity', '角色中的身份或关系'], ['voice', '表达方式'], ['fictionalBackstory', '角色中的故事']] as const;
+  return <div className="persona-current-words" role="region" aria-label="现在留下的文字" tabIndex={0}>
+    <p className="persona-current-label">现在留下的文字</p>
+    <dl>{basic.map(([field, label]) => <div key={field}><dt>{label}</dt><dd>{core[field] || '还没有写'}</dd></div>)}</dl>
+    <details className="persona-current-details">
+      <summary>再看细一点</summary>
+      <dl>{more.map(([field, label]) => <div key={field}><dt>{label}</dt><dd>{core[field] || '还没有写'}</dd></div>)}</dl>
+      <div className="persona-current-examples">{PERSONA_SCENARIOS.map(scene => <section key={scene.id}><h5>{scene.label}</h5><p>{core.examples.find(example => example.scenario === scene.id)?.response || '还没有写例句'}</p></section>)}</div>
+      {core.visualBinding && <p className="persona-current-binding">对应的形象 · {core.visualBinding.characterName || '自己的形象'}</p>}
+    </details>
+  </div>;
+}
 export function PersonaEditor({
   persona,
   legacyGuidance,
@@ -59,12 +73,14 @@ export function PersonaEditor({
   const [feedback, setFeedback] = useState<{ text: string; error?: boolean }>();
   const [scenario, setScenario] = useState<(typeof PERSONA_SCENARIOS)[number]['id']>('chat');
   const [undoRevision, setUndoRevision] = useState<number>();
+  const [reviewedRevision, setReviewedRevision] = useState<number>();
   const [legacySelection, setLegacySelection] = useState('');
   const [candidate, setCandidate] = useState<PersonaCandidate | undefined>(() => draft.current.personaPreview?.candidate);
   const [editingCandidate, setEditingCandidate] = useState(() => draft.current.personaPreview?.editing ?? false);
   const importButtonRef = useRef<HTMLButtonElement>(null);
   const candidateTriggerRef = useRef<HTMLButtonElement | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const importRevision = useRef(0);
   const core = editor.core;
   const locked = pending || saving;
@@ -147,6 +163,7 @@ export function PersonaEditor({
     delete draft.current.persona;
     setFeedback(undefined);
     setUndoRevision(undefined);
+    setReviewedRevision(undefined);
   }
   async function save(update: NonNullable<SettingsUpdate['personaUpdate']>) {
     if (locked) return;
@@ -163,7 +180,7 @@ export function PersonaEditor({
             const current = await window.zaichang.state();
             onState(current);
             if (current.settings.persona.revision !== update.expectedRevision) {
-              setFeedback({ text: '相处方式刚在另一处改过。你的文字还在，看看新的约定后再决定。' });
+              setFeedback({ text: '这里的相处方式有了改动。你的草稿还留着。' });
               return;
             }
           } catch { /* The editor keeps its own draft. */ }
@@ -176,6 +193,7 @@ export function PersonaEditor({
         });
         if (draft.current.persona === submittedDraft) delete draft.current.persona;
         setUndoRevision(undefined);
+        setReviewedRevision(undefined);
         setFeedback({ text: 'undoRevision' in update ? '我们回到以前的约定了' : '以后就这样相处' });
       });
     } finally {
@@ -223,6 +241,7 @@ export function PersonaEditor({
       <label className="field-label">
         你希望怎样相处
         <textarea
+          ref={descriptionRef}
           aria-label="你希望怎样相处"
           value={core.description}
           maxLength={4000}
@@ -315,6 +334,13 @@ export function PersonaEditor({
           ))}
         </div>
       </details>
+      {stale && (
+        <div className="persona-conflict">
+          <div className="persona-conflict-heading"><p role="status">这里的文字后来改过了。</p><button type="button" className="text-button" aria-expanded={reviewedRevision !== undefined} onClick={() => setReviewedRevision(reviewedRevision === persona.revision ? undefined : persona.revision)}>{reviewedRevision === persona.revision ? '收起另一份' : reviewedRevision === undefined ? '看看另一份' : '看看刚改的文字'}</button></div>
+          {reviewedRevision !== undefined && <SavedPersonaWords core={persona.core} />}
+          <div className="persona-conflict-actions"><button type="button" className="primary-button" disabled={locked || busy || !dirty || reviewedRevision !== persona.revision} onClick={() => { if (reviewedRevision === persona.revision) void save({ expectedRevision: reviewedRevision, core }); }}>{locked && <LoaderCircle size={14} className="spin" />}用这份草稿替换</button><button type="button" className="text-button" disabled={locked} onClick={() => descriptionRef.current?.focus()}>继续改草稿</button></div>
+        </div>
+      )}
       <div className="field-buttons">
         <button
           className="primary-button"
@@ -330,12 +356,6 @@ export function PersonaEditor({
         )}
         {dirty && !stale && <small className="setting-hint">这次的想法还没留下</small>}
       </div>
-      {stale && (
-        <div className="persona-conflict" role="alert">
-          <p>这里已经有了新的约定（{persona.core.name || '在场'}）。你写的文字还在；继续使用这份草稿，下次保存会替换当前约定。</p>
-          <button type="button" className="text-button" disabled={locked} onClick={() => { const next = { ...editor, expectedRevision: persona.revision }; keepEditor(next); setFeedback({ text: '草稿保留着。检查后再保存，就会成为新的约定。' }); }}>继续使用这份草稿</button>
-        </div>
-      )}
       {feedback && (
         <p
           className={`inline-status ${feedback.error ? 'error' : ''}`}

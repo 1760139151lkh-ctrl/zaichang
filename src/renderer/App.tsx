@@ -583,6 +583,7 @@ export function App() {
     : view === 'materials' || materialQuote || noteQuote || conversationQuote || currentComposerFollowup?.noteReference ? 'reading'
       : agendaContext ? 'planning'
         : currentComposerFollowup?.curiosityReference ? 'play'
+          : view === 'chat' && empty && startupReturn && startupReturnBoundary.current === boundaryRevision.current ? 'resume'
           : companionSceneMoment(selectedCompanionScene) || companionHint || presentedCompanionMoment
             || (chatSpace === 'reading' || needsReadingRoom || readingSelectedWork || hasScene ? 'reading' : 'chat');
   const canToggleRoom = view === 'chat' && companion.presence === 'window' && !compactConversation && !hasScene && !readingSelectedWork;

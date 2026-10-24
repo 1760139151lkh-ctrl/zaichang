@@ -1,7 +1,7 @@
 """Read-only Tiyi connection. Credentials and complete observations stay in DPAPI.
 
 The optional application signing component is installed by the host separately;
-its original APK binary is not redistributed with this project.
+its official client binary is not redistributed with this project.
 """
 
 import base64

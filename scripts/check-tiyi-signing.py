@@ -2,7 +2,7 @@
 
 The school's application library and certificate are not redistributed with
 this project. Point ``--signer-directory`` at a directory that already holds
-the original ``main.py``, ``native_signer.py``, ``libAMapSDK_Location_v6_6_0.so``
+the official ``main.py``, ``native_signer.py``, ``libAMapSDK_Location_v6_6_0.so``
 and ``app-cert.der``. This tool only checks them and can run an offline
 self-test through the long-lived service used by the connector.
 

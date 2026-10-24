@@ -47,6 +47,7 @@
 - **真实图片。** 公开Figure与模型视觉可复用同一ResearchImage owner；`research.image(observe=true)`和`research.read(view=image)`经原VisualObservation、toolImages、prepareModelImages发送像素。PDF页与局部放大仍由材料owner生成。图片展示、像素进入请求、语义看懂分别记证；路径、caption或展示成功不能代替模型真的收到像素。 每次工具观察保留独立队列副本及toolCallId，不按像素hash合并不同出处/调用，也不静默只取最后两图。图像owner在入缓存后、淘汰前经宿主同步回调按父run持有待用观察及其必要原PDF记录；Broker缓存/共享/新结果的返回也沿同一交接，原LRU只淘汰未持有项。回调守父run生命周期，单次RPC取消仍由原等待者门处理，避免首等待者离开误停其它共享读取；活跃run可临时超过原缓存数，根finish幂等释放后恢复原限额，前后台子调查沿budgetOwner归同一父run。撤源、删除与原barrier仍直接清图，不受持有阻挡。公开图句柄另绑定原文件SHA，归一像素相同也不覆盖不同原版本（research.image5）。
 
 原消息图片仍只由原user Message保存像素。新上传的EvidenceEvent记录宿主绑定的`imageSource`，包含原版本、SHA、格式与尺寸；`runtime/evidence-images.ts`按原event／session／user行重核，`read_evidence(view=image)`再经本轮用途取得整图，不从助手副本或邻近消息猜来源。局部原话许可不获得整图，旧缺绑定记录不补签。实际发送仍走原toolImages，前后复核原像素；`imageRequests`只说明该轮实际送图，已采用的`providedObjectVersions`中evidence项保留`imageSha256`作为后续来源依赖，普通再读文字不抹掉它。历史采用继续核实际原owner，像素改变只影响依赖它的内容，不复制旧送图收据冒充再次发送。
+
 - **同一消息的发表。** host自动地图预览带`automatic`身份，显式组合覆盖其全部引用时接管该预览位置，独立显式组合保留。Scene缓存按id＋revision保留实际被各view引用的版本。正文分段保留Markdown空白；完成审阅同时看实际已发表内容，既不要求数据再抄一遍，也不把成功显示当正确或接受。原续改环路最多保留同一消息两份已被替换的末段，标记`superseded_tail`及曝光未知；当前仍在正文的稳定前段不重复复制。真正父前台核对发送前先刷新来源，再从当前Rhythm取这些材料，取消/来源失效/失败/接受沿原生命周期清理。旧末段只解释先前说过什么和为何改口，原请求的交付仍须在当前正文或保留画面里，不以旧稿补足当前缺项，也不额外给角色增加义务或台词。
 - **制作中的状态。** 传输只公开真实函数调用的id/name元数据，生成参数与内部推理不出界。前台真实present_view产生`Message.presentationActivity`，公开正文先flush再确定锚点；原工具执行进入checking。失败、重试、取消、来源退出和结束均清理，Store不把它存为历史。正式内容仍经过全部编译与来源检查，多次发表／同作patch与稳定节点入场让作品逐步完整。
 - **局部互动。** 通用Press、Voice、几何和Motion使用同一受检`$ui`；`Document.presentation=flow`让解释与Paper共享状态。声音由真实用户动作开启，在失焦、隐藏、离开或来源退出时停止。非transient局部值在原Message.views内按精确版本/hash与CAS保存；transient的按住、播放和发声状态复位。持续看同一作品的增量修订可保仍相同声明／初态的手调值，未改模型原初态或伪造新的引用输入。
@@ -122,16 +123,16 @@
 
 这份活动身份也需要进入原有记忆链。`creationSourceContextForIngress`在新语句的控制已生效后，按实际scope重核纯创作owner或原MapScene的作品地址；仅将作品／事项修订、可选原章地址和引用类型保存为原event的`sourceContext.kind=shared_creation`。没有旧正文、地点坐标或可恢复的授权，旧无身份事件不猜填。原`source-windows-v3`从实际event向current、priorEvents和提供的sourceWindows带入同一元数据，恢复仍重建合法原文窗口。主上下文、原extractor／reviewer、业务判断与外发投影按sourceContext的kind采用同一语义说明，排练与创作不混用。创作愿望／修改交流是真实活动，作品命题不是本人经历；不将整条原话设为infer=false，混合的独立现实自述仍走原精确片段、用途及记录许可复核，没有新增分类调用或后台循环。
 
-| 内容 | 原状态所有者与本轮接线 |
-| --- | --- |
-| 没说完的话题、共同说法、表达反馈 | 原collaboration frame的companion资料；`CompanionContinuityService`按当前原话读取。明确沿用的相处方法仍归带来源的personal method，角色核心独立。 |
-| 一起做到哪一步 | 原matter下的`companion_session`；当前帮法、解释、材料地址与停点按本人原话更新，离开和回读不自动继续执行。 |
-| 同一道题的陪学 | 原matter下的`study_companion`；本人尝试、助手教学和真实材料地址分别保留，异步`get/read`后才编译StudyScene。帮助深度可随本轮选择改变，不生成掌握标签。 |
-| 消息内共同商量 | DiscussionScene是同一frame／option的只读当前投影，合并原话、工作假设和眼前小步的可读关系；选择带回原对话。 |
-| 一封回顾 | 原help opportunity的准备与cooperation／呈现；ReflectiveLetterService只采用实际投递原文、材料和学习报告，来源脚注由受限IPC回读。 |
-| 安排分支 | `PlanningConversationService`把比较归回原frame／option，复用同一planner及原动作／日历；下一修改或保存仍从原Action链办理。 |
-| 一件可以马上体验的新鲜事 | 当前curiosity invitation及原frame／option；创作与实际读过的公开资料分别归因，不生成兴趣评分或周期推送。 |
-| 先试说，再决定怎样表达 | 原relationship rehearsal owner保留本人意图、实际试说与一种可能回应；同一主助手生成模拟，Scene与原输入携带当前引用，不另起角色代理或对外发送。 |
+| 内容                             | 原状态所有者与本轮接线                                                                                                                                |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 没说完的话题、共同说法、表达反馈 | 原collaboration frame的companion资料；`CompanionContinuityService`按当前原话读取。明确沿用的相处方法仍归带来源的personal method，角色核心独立。       |
+| 一起做到哪一步                   | 原matter下的`companion_session`；当前帮法、解释、材料地址与停点按本人原话更新，离开和回读不自动继续执行。                                             |
+| 同一道题的陪学                   | 原matter下的`study_companion`；本人尝试、助手教学和真实材料地址分别保留，异步`get/read`后才编译StudyScene。帮助深度可随本轮选择改变，不生成掌握标签。 |
+| 消息内共同商量                   | DiscussionScene是同一frame／option的只读当前投影，合并原话、工作假设和眼前小步的可读关系；选择带回原对话。                                            |
+| 一封回顾                         | 原help opportunity的准备与cooperation／呈现；ReflectiveLetterService只采用实际投递原文、材料和学习报告，来源脚注由受限IPC回读。                       |
+| 安排分支                         | `PlanningConversationService`把比较归回原frame／option，复用同一planner及原动作／日历；下一修改或保存仍从原Action链办理。                             |
+| 一件可以马上体验的新鲜事         | 当前curiosity invitation及原frame／option；创作与实际读过的公开资料分别归因，不生成兴趣评分或周期推送。                                               |
+| 先试说，再决定怎样表达           | 原relationship rehearsal owner保留本人意图、实际试说与一种可能回应；同一主助手生成模拟，Scene与原输入携带当前引用，不另起角色代理或对外发送。         |
 
 `life-collaboration-tools.ts`、`reflective-letter-tools.ts`、`planning-conversation-tools.ts`和`curiosity-tools.ts`把这些owner接回coordinator工具入口。renderer读取有限Scene／原准备视图；回读、临时选择和草稿继续均经过既有Bridge，不在界面直接执行模型工具。来源依赖沿实际提供的ContextReceipt、子报告采用、历史与导出传播；学习正文恢复由原材料owner异步办理。当前均为本批源码，运行与体验范围见[第七批状态](CURRENT_STATUS.md#personal-memory-round7)。
 
@@ -231,13 +232,13 @@ flowchart LR
 
 scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、用途、受众、grants、留存、推断许可、隐私 epoch、策略版本和截止时间。模型只提出请求，宿主在编译、读取、提交和结果采用处复验。子任务只能收缩父范围，不能延长授权；重试不会自动续签。
 
-| 边界 | 当前责任 |
-| --- | --- |
-| 资料读取 | 来源、主体与世界、用途、当前证据和细分权限共同决定。整轮限源与一项托付/草稿的局部限源分开，相关操作另核用途。公共 `map:local` 不等于本人位置或个人地点角色，`local-agenda` 不等于学校导入快照 `campus:local`。 |
-| 模型传输 | 当前输入和可发送材料受本机/云端选择约束；允许查公共地图不代表允许上传设备位置。公开网络读取另检查目标、重定向与凭据，接口类型本身不构成操作系统沙箱。 |
-| 聊天留存 | 原文保留、长期提取和当前读取分开。`session_only` 不把聊天、普通派生和恢复队列当作持久历史；整段临时聊天的退出清理能在重开时恢复。关闭个性记忆不等于删除原文或独立业务对象。 |
-| 独立业务保存 | 笔记保存、日历登记、外发草稿和真正发送分别核验。不留聊天时，经过独立委托核验的本地动作可保留最小业务参数和回执；没有委托就不持久化提议。 |
-| 版本和失效 | 证据、work、日历、笔记和业务记录各有版本。依赖边绑定实际对象及版本；更正、删除、撤权、改期或到期使相应派生结果失效。摘要、缓存和迟到子任务不能让旧结果重新取得效力。 |
+| 边界         | 当前责任                                                                                                                                                                                                       |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 资料读取     | 来源、主体与世界、用途、当前证据和细分权限共同决定。整轮限源与一项托付/草稿的局部限源分开，相关操作另核用途。公共 `map:local` 不等于本人位置或个人地点角色，`local-agenda` 不等于学校导入快照 `campus:local`。 |
+| 模型传输     | 当前输入和可发送材料受本机/云端选择约束；允许查公共地图不代表允许上传设备位置。公开网络读取另检查目标、重定向与凭据，接口类型本身不构成操作系统沙箱。                                                          |
+| 聊天留存     | 原文保留、长期提取和当前读取分开。`session_only` 不把聊天、普通派生和恢复队列当作持久历史；整段临时聊天的退出清理能在重开时恢复。关闭个性记忆不等于删除原文或独立业务对象。                                    |
+| 独立业务保存 | 笔记保存、日历登记、外发草稿和真正发送分别核验。不留聊天时，经过独立委托核验的本地动作可保留最小业务参数和回执；没有委托就不持久化提议。                                                                       |
+| 版本和失效   | 证据、work、日历、笔记和业务记录各有版本。依赖边绑定实际对象及版本；更正、删除、撤权、改期或到期使相应派生结果失效。摘要、缓存和迟到子任务不能让旧结果重新取得效力。                                           |
 
 `SpatialService.relation`的普通两点与设备候选使用同一publicView，不能把本地UI的个人叠加标作公共结果。个人起点只采用真实业务对应或原生共享选择固定的profileId／pointId，另一端仍公共；同公共坐标复用原公共点路由，坐标调整才在publicView临时加入reference。MapService读取只投影该点必要名称／坐标，proof保摘要及map版本；无关点修改不使它失效，个人点移除也不回落公共点。估时明确只覆盖已记录道路，不含估算接入与楼内时间。
 
@@ -279,16 +280,16 @@ scope 绑定 owner/workspace、资料主体、现实或假设世界、来源、�
 
 ## 持久状态的归属
 
-| 状态 | 所有者与含义 |
-| --- | --- |
-| 原始证据与人物理解 | [`memory/service.ts`](../src/main/memory/service.ts)、`memory/model.ts` 和 repository：原文、带条件/时间/主体的断言、支持与更正分开。自动提取在后台队列运行，候选经语义复核；提交时重验原证据、目标修订与当前隐私状态。分页、片段限制和持久恢复共同维护可继续读取的依据。相处建议和推断不能冒作用户明确设定。 |
-| 用户记事本 | [`notes/service.ts`](../src/main/notes/service.ts)、[`shared/notes.ts`](../src/shared/notes.ts)：独立原文、全文搜索、分页、CAS 编辑、历史、撤销和回收站。文档时间不自动成为正文里事情的发生时间，未知主体保持未知。保存笔记不自动生成日程或人物事实；删除笔记不连带取消独立已接受日历。 |
-| 用户设定的角色 | [`shared/persona.ts`](../src/shared/persona.ts)、`interaction.ts` 与 Store 设置：角色核心、用户例句、修订/恢复和纯角色模板，与五轴交互偏好共同作用。纯角色在关闭记忆时仍生效；旧 `guidance` 的混合私人内容保留私有原文，不能整段迁成常驻角色提示。预览例句是本地示例。 |
-| 事项与协作过程 | [`runtime/work.ts`](../src/main/runtime/work.ts)、`basis.ts`、`collaboration.ts`：目标、承诺、方案、对话事项、依据使用和未决条件，保留各自版本。持续规划由同一 `h_work` 的 `plan/planning_intent` 持有规格，采用证明仍归原动作、回执和日历。同一事项的决策经历关联稳定方案和来源定位；用户报告不自动成为永久偏好、已接受选择或外部结果。任务步骤不等于生活承诺，空日历不等于有精力。 |
-| 日历与动作 | [`actions/calendar.ts`](../src/main/actions/calendar.ts)、`local-calendar.ts`、`runtime.ts`：日程实例、重复例外、批准、幂等意图、补偿和回执。`Store.writeAgendaProjection/deleteAction` 是本地共同写入口。 |
-| 关注与已准备材料 | [`runtime/attention.ts`](../src/main/runtime/attention.ts)、`work.ts`、`cooperation.ts`：明确托付、限制、机会、材料、参与选择和真实曝光。发现机会不自动通知；沉默、点击或采纳不被解释为满意度或新人格事实。 |
-| 附件与公开资源 | [`materials/service.ts`](../src/main/materials/service.ts)、`pdf.ts`、`worker.ts`、`capabilities/research.ts`：文件、分页、PDF/图像处理和带范围的继续读取句柄，不把整份大文件当作无限上下文。 |
-| 陪伴外观与阅读偏好 | renderer 的 [`companion.tsx`](../src/renderer/companion.tsx) / [`appearance.ts`](../src/renderer/appearance.ts)：本机 localStorage 中的形象、自选图片、窗景和阅读外观，与主机人格和SQLite业务数据分开。`SettingsPanel` 清理成功后调用 `resetCompanion`；导出/清理不能仅凭数据库回执推定覆盖全部窗口存储，新前端完整路径仍需自己的验收。 |
+| 状态               | 所有者与含义                                                                                                                                                                                                                                                                                                                                                                         |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 原始证据与人物理解 | [`memory/service.ts`](../src/main/memory/service.ts)、`memory/model.ts` 和 repository：原文、带条件/时间/主体的断言、支持与更正分开。自动提取在后台队列运行，候选经语义复核；提交时重验原证据、目标修订与当前隐私状态。分页、片段限制和持久恢复共同维护可继续读取的依据。相处建议和推断不能冒作用户明确设定。                                                                        |
+| 用户记事本         | [`notes/service.ts`](../src/main/notes/service.ts)、[`shared/notes.ts`](../src/shared/notes.ts)：独立原文、全文搜索、分页、CAS 编辑、历史、撤销和回收站。文档时间不自动成为正文里事情的发生时间，未知主体保持未知。保存笔记不自动生成日程或人物事实；删除笔记不连带取消独立已接受日历。                                                                                              |
+| 用户设定的角色     | [`shared/persona.ts`](../src/shared/persona.ts)、`interaction.ts` 与 Store 设置：角色核心、用户例句、修订/恢复和纯角色模板，与五轴交互偏好共同作用。纯角色在关闭记忆时仍生效；旧 `guidance` 的混合私人内容保留私有原文，不能整段迁成常驻角色提示。预览例句是本地示例。                                                                                                               |
+| 事项与协作过程     | [`runtime/work.ts`](../src/main/runtime/work.ts)、`basis.ts`、`collaboration.ts`：目标、承诺、方案、对话事项、依据使用和未决条件，保留各自版本。持续规划由同一 `h_work` 的 `plan/planning_intent` 持有规格，采用证明仍归原动作、回执和日历。同一事项的决策经历关联稳定方案和来源定位；用户报告不自动成为永久偏好、已接受选择或外部结果。任务步骤不等于生活承诺，空日历不等于有精力。 |
+| 日历与动作         | [`actions/calendar.ts`](../src/main/actions/calendar.ts)、`local-calendar.ts`、`runtime.ts`：日程实例、重复例外、批准、幂等意图、补偿和回执。`Store.writeAgendaProjection/deleteAction` 是本地共同写入口。                                                                                                                                                                           |
+| 关注与已准备材料   | [`runtime/attention.ts`](../src/main/runtime/attention.ts)、`work.ts`、`cooperation.ts`：明确托付、限制、机会、材料、参与选择和真实曝光。发现机会不自动通知；沉默、点击或采纳不被解释为满意度或新人格事实。                                                                                                                                                                          |
+| 附件与公开资源     | [`materials/service.ts`](../src/main/materials/service.ts)、`pdf.ts`、`worker.ts`、`capabilities/research.ts`：文件、分页、PDF/图像处理和带范围的继续读取句柄，不把整份大文件当作无限上下文。                                                                                                                                                                                        |
+| 陪伴外观与阅读偏好 | renderer 的 [`companion.tsx`](../src/renderer/companion.tsx) / [`appearance.ts`](../src/renderer/appearance.ts)：本机 localStorage 中的形象、自选图片、窗景和阅读外观，与主机人格和SQLite业务数据分开。`SettingsPanel` 清理成功后调用 `resetCompanion`；导出/清理不能仅凭数据库回执推定覆盖全部窗口存储，新前端完整路径仍需自己的验收。                                              |
 
 角色预设现包含丰川祥子与若叶睦；[`shared/persona-portrayals.ts`](../src/shared/persona-portrayals.ts) 分开保存有限官方材料、项目演绎与出处。`selectCompanionPersona` 在明确操作下采用对应预设或保留已编辑人格，仍通过原有 expectedRevision 保存；换图不隐式更改角色。`previewPersonaCharacterCard` 将 Character Card V2 JSON 转为待审阅文字草稿，不执行系统提示覆盖、世界书、宏或脚本，不把虚构场景写成用户经历。后端函数存在与前端接线分别核对，原作忠实及长期风格仍需真实对话证据。
 
@@ -456,7 +457,7 @@ iOS 模拟桥保留 CoreLocation 原始测量时间；同一次命令、订阅�
 
 体艺 direct 连接器保留学校原 HTTP 业务协议及 CAS service，UAA 后端请求限 HTTPS 既有登录/公钥路径，显式不使用环境或系统 HTTP 代理。业务 URL 限既有学校域和模块/精确场馆地址。场馆原生会话先经初始化与空表单登录换取本次 Connection 的独立 token，校验同一账号；原生 token、场馆 token 与 OAuth 交换值不混用、不作为记录投影。可选宿主通道仅为这两条精确认证路径增加方法和头部范围，不增加预约或支付能力。当前直连实据见[修复记录](evidence/2026-10-24-tiyi-direct-repair.md)。
 
-[`tiyi_modules`](../src/main/integrations/tiyi_modules/) 将学业考勤、体测毕业、队伍赛事与场馆活动分成数据读取模块，共用原 Connection、认证和响应 owner。只读 POST 限辅导站/入场流水的固定路径与三个查询字段；学校续页形成新观察，保存续页固定原 snapshot、正文位置与查询条件。本人数据层返回明确空列表仍是完成读取，另以 `no_records` 表达空结果；公共目录/人数实况、权限拒绝、服务错误和未返回报告不能冒充个人记录已读。签名组件仍由用户另行安装；其两个公开 Python 依赖按 [`signing-lock.json`](../runtime/tiyi/signing-lock.json) 的官方地址、版本、哈希和许可单独分发，不修改 Hermes 锁，也不打包学校 APK、凭据或原响应。
+[`tiyi_modules`](../src/main/integrations/tiyi_modules/) 将学业考勤、体测毕业、队伍赛事与场馆活动分成数据读取模块，共用原 Connection、认证和响应 owner。只读 POST 限辅导站/入场流水的固定路径与三个查询字段；学校续页形成新观察，保存续页固定原 snapshot、正文位置与查询条件。本人数据层返回明确空列表仍是完成读取，另以 `no_records` 表达空结果；公共目录/人数实况、权限拒绝、服务错误和未返回报告不能冒充个人记录已读。签名组件仍由用户另行安装；其两个公开 Python 依赖按 [`signing-lock.json`](../runtime/tiyi/signing-lock.json) 的官方地址、版本、哈希和许可单独分发，不修改 Hermes 锁，也不打包官方客户端组件、凭据或原响应。
 
 ## 生产传输、代测和部署边界
 

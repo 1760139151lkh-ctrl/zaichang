@@ -1,0 +1,33 @@
+{
+  "recordedAt": "2026-10-24 22:14:27 UTC",
+  "tool": "image_gen.imagegen",
+  "useCase": "scientific-educational / precise-object-edit",
+  "attempt": 3,
+  "previousAttempt": "openui-local-conflict-recovery-v2-source.json",
+  "promptFile": "openui-local-conflict-recovery-v3-prompt.txt",
+  "inputs": [
+    {
+      "role": "edit_target",
+      "path": "前端视觉创新设计/补充图稿/2026-10-24-matrix/openui/openui-local-conflict-recovery-v2-math-rejected.png",
+      "sha256": "d13f94f751db2d463e3c94f75e3c1b8b148e40dc8d35b6710f5dd7587602b392"
+    }
+  ],
+  "transparentBackground": false,
+  "status": "design_relationship_accepted_runtime_unverified",
+  "originalOutput": "generated_images/01a16fb5-989b-7080-86b3-499424c446b1/exec-5e191344-3fae-459c-bc09-3bdcfbdc8b4f.png",
+  "projectOutput": "前端视觉创新设计/补充图稿/2026-10-24-matrix/openui/openui-local-conflict-recovery-v3.png",
+  "sha256": "c6a835b58adf4354379996597efd9702f386b7627a9da58939b32f3affc2577b",
+  "runtimeAdoption": false,
+  "inspection": {
+    "by": "openui_craft",
+    "result": "layout_and_recovery_candidate_ready_for_parent_review",
+    "observations": "Two component waves now visibly mirror around zero; gold sum remains at zero; probe values coincide. Current paper, inline recovery line and composer remain together. Generated graph is a layout reference; runtime math remains native Curve evaluation, not raster geometry."
+  },
+  "parentReview": {
+    "by": "root",
+    "basis": "direct image inspection",
+    "acceptedScope": "The sin/antiphase/zero-sum relationship, same paper, current draft and inline recovery choices may serve as a local design reference.",
+    "runtimeVerified": false
+  },
+  "verificationBoundary": "The parent accepted the local design relationship after viewing v3. Integrated Windows interaction, current-program persistence and Luna followup have not been verified. The image is a design reference only and is not rendered as the product."
+}

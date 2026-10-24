@@ -1,4 +1,4 @@
-export const companionActivities = ['chat', 'study', 'reading', 'planning', 'listening', 'rest', 'play', 'attention'] as const;
+export const companionActivities = ['chat', 'study', 'reading', 'planning', 'listening', 'rest', 'play', 'attention', 'resume'] as const;
 export type CompanionActivity = typeof companionActivities[number];
 
 /** A host-bound visual choice in one published reply. It is neither a fact

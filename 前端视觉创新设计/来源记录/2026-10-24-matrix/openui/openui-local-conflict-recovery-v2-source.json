@@ -1,0 +1,22 @@
+{
+  "recordedAt": "2026-10-24 22:12:27 UTC",
+  "tool": "image_gen.imagegen",
+  "useCase": "ui-mockup",
+  "attempt": 2,
+  "previousAttempt": "openui-local-conflict-recovery-v1-source.json",
+  "promptFile": "openui-local-conflict-recovery-v2-prompt.txt",
+  "inputs": [],
+  "transparentBackground": false,
+  "status": "generated_rejected_for_math",
+  "originalOutput": "generated_images/01a16fb5-989b-7080-86b3-499424c446b1/exec-447f6408-7f27-4c61-8d25-baed0fe294e2.png",
+  "projectOutput": "前端视觉创新设计/补充图稿/2026-10-24-matrix/openui/openui-local-conflict-recovery-v2-math-rejected.png",
+  "sha256": "d13f94f751db2d463e3c94f75e3c1b8b148e40dc8d35b6710f5dd7587602b392",
+  "runtimeAdoption": false,
+  "inspection": {
+    "by": "openui_craft",
+    "result": "rejected_for_mathematical_content",
+    "strengths": "Same paper, visible current graph and draft; quiet inline recovery line and two parallel actions.",
+    "defects": "phi=pi and zero sum are labelled, but two component curves are not negatives; probe dots are at inconsistent ordinates."
+  },
+  "verificationBoundary": "This candidate may inform recovery spacing only; it is not a correct waveform diagram, runtime asset, or parent approval."
+}

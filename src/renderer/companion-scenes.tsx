@@ -33,6 +33,7 @@ export interface CompanionSceneArtwork extends SceneCalibration {
   background?: string;
   figure?: string;
   mask?: string;
+  maskMode?: 'alpha' | 'luminance';
   shadow?: string;
   foreground?: string;
   width: number;
@@ -66,6 +67,7 @@ interface SceneRegistration extends Omit<SceneCalibration, 'contactShadow'> {
   background: string;
   figure?: string;
   mask?: string;
+  maskMode?: 'alpha' | 'luminance';
   shadow?: string;
   foreground?: string;
   contactShadow: { mode: SceneCalibration['contactShadow'] };
@@ -84,6 +86,8 @@ const registrations = Object.entries(registrationFiles).filter(([, item]) => {
     && item.light === companionPaletteLight(item.palette)
     && registeredFile(item.mother) && registeredFile(item.background) && (registeredFile(item.figure) || registeredFile(item.mask))
     && (!item.figure || registeredFile(item.figure)) && (!item.mask || registeredFile(item.mask))
+    && (item.maskMode === undefined || ['alpha', 'luminance'].includes(item.maskMode))
+    && (item.maskMode !== 'luminance' || registeredFile(item.mask))
     && (!item.shadow || registeredFile(item.shadow)) && (!item.foreground || registeredFile(item.foreground))
     && Number.isFinite(item.width) && item.width > 0 && Number.isFinite(item.height) && item.height > 0
     && Array.isArray(item.seat) && item.seat.length === 2 && item.seat.every(unit)
@@ -265,6 +269,8 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
   const [moving, setMoving] = useState(false);
   const [failedLayer, setFailedLayer] = useState(false);
   const [failedMother, setFailedMother] = useState(false);
+  const [imageAttempt, setImageAttempt] = useState(0);
+  const [openedMother, setOpenedMother] = useState<string>();
   const [saveError, setSaveError] = useState(false);
   const [targetsOpen, setTargetsOpen] = useState(false);
   const targetsOpenRef = useRef(false);
@@ -275,10 +281,17 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
   const transferEntry = useRef<HTMLButtonElement>(null);
   const confirmTransfer = useRef<HTMLButtonElement>(null);
   const [transferError, setTransferError] = useState('');
+  const [openingTransfer, setOpeningTransfer] = useState(false);
+  const openingTransferRef = useRef(false);
   const [pendingTransfer, setPendingTransfer] = useState<{ target: SceneTransferTarget; origin: { sceneId: string; position: number }; scope?: string }>();
   const pendingTransferRef = useRef(pendingTransfer);
   pendingTransferRef.current = pendingTransfer;
   const shown = pendingTransfer?.target.artwork ?? artwork;
+  const imageKey = `${shown.id}:${imageAttempt}`;
+  const currentImageKey = useRef(imageKey);
+  currentImageKey.current = imageKey;
+  const imageSource = (url: string | undefined) => url && imageAttempt ? `${url}${url.includes('?') ? '&' : '?'}scene-retry=${imageAttempt}` : url;
+  const motherReady = openedMother === imageKey;
   const shownBounds = seatPositionBounds(shown);
   const shownPosition = pendingTransfer ? Math.max(shownBounds[0], Math.min(shownBounds[1], pendingTransfer.target.position)) : value;
   const latest = useRef({ onCommit, position, artwork, quiet, previewOnly, transferTargets, transferScope, onTransferCommit });
@@ -289,8 +302,8 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
   const pendingOrigin = useRef<number | undefined>(undefined);
   const pendingTarget = useRef<number | undefined>(undefined);
   const layered = !!shown.background && (!!shown.figure || !!shown.mask) && !failedLayer;
-  const canSlide = interactive && showFigure && layered && !failedMother && !pendingTransfer && artwork.contourComplete && bounds[1] - bounds[0] > .0001;
-  const canTransfer = interactive && showFigure && layered && !failedMother && !pendingTransfer && !!onTransferCommit && transferTargets.length > 0;
+  const canSlide = interactive && showFigure && layered && motherReady && !failedMother && !pendingTransfer && artwork.contourComplete && bounds[1] - bounds[0] > .0001;
+  const canTransfer = interactive && showFigure && layered && motherReady && !failedMother && !pendingTransfer && !!onTransferCommit && transferTargets.length > 0;
   const canMove = canSlide || canTransfer;
   // Keep the room full-height while yielding to the paper. A horizontal
   // camera shift clears the person without turning the room into a thumbnail.
@@ -330,6 +343,7 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
   }
   function closeTransfer(restoreFocus = false) {
     pendingTransferRef.current = undefined;
+    openingTransferRef.current = false; setOpeningTransfer(false);
     setPendingTransfer(undefined); setTargetsOpen(false); setHoveredTarget(undefined); hoveredTargetRef.current = undefined; setTransferError('');
     if (restoreFocus) requestAnimationFrame(() => (transferEntry.current ?? handle.current)?.focus({ preventScroll: true }));
   }
@@ -341,18 +355,42 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
     const next = { target: valid, origin: { sceneId: current.artwork.id, position: current.position }, scope: current.transferScope };
     pendingTransferRef.current = next; setPendingTransfer(next); setTargetsOpen(false); setHoveredTarget(undefined); hoveredTargetRef.current = undefined; setTransferError('');
   }
-  function acceptTransfer() {
-    const pending = pendingTransferRef.current, current = latest.current;
-    if (!pending || failedLayer || failedMother) return;
+  async function acceptTransfer() {
+    const pending = pendingTransferRef.current;
+    let current = latest.current;
+    if (!pending || !current.onTransferCommit || failedLayer || failedMother || openingTransferRef.current) return;
     if (pending.origin.sceneId !== current.artwork.id || pending.scope !== current.transferScope || !current.transferTargets.some(item => item.sceneId === pending.target.sceneId)) {
       closeTransfer(true); return;
     }
+    openingTransferRef.current = true; setOpeningTransfer(true); setTransferError('');
+    let layersOpened = false;
     try {
+      const target = pending.target.artwork;
+      // Confirm only a complete, decoded pose. A quick click must not save a
+      // destination whose first image request is still loading or has failed.
+      const layers = [target.mother, target.background, target.figure || target.mask, target.shadow, target.foreground];
+      await Promise.all([...new Set(layers.filter((url): url is string => !!url))].map(async url => {
+        const layer = new Image(); layer.src = imageSource(url)!;
+        await layer.decode();
+        if (layer.naturalWidth !== target.width || layer.naturalHeight !== target.height)
+          throw new Error('这里的画面还没完整打开。原来的位置还在，可以先回去再试。');
+      }));
+      layersOpened = true;
+      current = latest.current;
+      if (pendingTransferRef.current !== pending) return;
+      if (!current.onTransferCommit || pending.origin.sceneId !== current.artwork.id || pending.scope !== current.transferScope
+        || pending.origin.position !== current.position || !current.transferTargets.some(item => item.sceneId === pending.target.sceneId)) {
+        closeTransfer(true); return;
+      }
       const { sceneId, moment, positionKey, position } = pending.target;
-      current.onTransferCommit?.({ sceneId, moment, positionKey, position }, pending.origin);
+      current.onTransferCommit({ sceneId, moment, positionKey, position }, pending.origin);
       closeTransfer(true);
     } catch (problem) {
-      setTransferError(problem instanceof Error ? problem.message : '这个位置暂时没能留下，试看的样子还在。');
+      if (pendingTransferRef.current === pending) setTransferError(problem instanceof Error && problem.name === 'Error'
+        ? problem.message : layersOpened ? '这个位置暂时没能留下，试看的样子还在。'
+          : '这里的画面还没完整打开。原来的位置还在，可以先回去再试。');
+    } finally {
+      if (pendingTransferRef.current === pending) { openingTransferRef.current = false; setOpeningTransfer(false); }
     }
   }
   function finish(cancel: boolean) {
@@ -399,7 +437,7 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
     finish(true); keyboardOrigin.current = undefined; pendingOrigin.current = undefined; pendingTarget.current = undefined;
     closeTransfer(); setFailedLayer(false); setFailedMother(false); setSaveError(false); apply(position);
   }, [artwork.id, transferScope]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     setFailedLayer(false); setFailedMother(false);
   }, [shown.id]);
   useEffect(() => {
@@ -413,6 +451,7 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
   useEffect(() => {
     if (pendingTransferRef.current && pendingTransferRef.current.origin.position !== position) closeTransfer();
     if (gesture.current && legal(position) !== gesture.current.savedOrigin) finish(true);
+    if (keyboardOrigin.current !== undefined && legal(position) !== keyboardOrigin.current) keyboardOrigin.current = undefined;
     if (!gesture.current && keyboardOrigin.current === undefined) {
       if (previewOnly && pendingOrigin.current !== undefined && pendingTarget.current === legal(position)) return;
       pendingOrigin.current = undefined; pendingTarget.current = undefined; spring.animate(legal(position));
@@ -504,31 +543,41 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
     transform: `translate(${dx}px, ${dx * shown.slope}px) scale(${1 + shownPosition * shown.perspective})`,
   };
   const verifyLayer = (image: HTMLImageElement) => {
+    if (currentImageKey.current !== imageKey) return;
     if (image.naturalWidth !== shown.width || image.naturalHeight !== shown.height) setFailedLayer(true);
   };
+  const failLayer = () => { if (currentImageKey.current === imageKey) setFailedLayer(true); };
+  const failMother = () => { if (currentImageKey.current === imageKey) setFailedMother(true); };
+  const retryImages = () => {
+    finish(true); cancelKeyboard(); cancelPending(); closeTransfer();
+    setFailedMother(false); setFailedLayer(false); setOpenedMother(undefined); setImageAttempt(current => current + 1);
+  };
+  const showEmptyRoom = failedMother && !!shown.background && !failedLayer;
   const seatName = shown.support === 'floor' ? '地面上' : shown.support === 'desk-chair' ? '桌边' : shown.support === 'sofa' ? '沙发上' : '窗边';
   return <div ref={viewport} className={`scene-stage-viewport${moving ? ' is-moving' : ''}${pendingTransfer ? ' is-trying-place' : ''}`} data-scene={shown.id} data-activity={shown.activity} data-art-source={shown.source.kind} data-light={shown.light} data-art-palette={shown.palette} data-support={shown.support} data-layered={layered}>
-    <img key={`mother-${shown.id}`} src={shown.mother} alt="" hidden style={{ display: 'none' }} onLoad={event => {
+    <img key={`mother-${imageKey}`} src={imageSource(shown.mother)} alt="" hidden style={{ display: 'none' }} onLoad={event => {
+      if (currentImageKey.current !== imageKey) return;
       if (event.currentTarget.naturalWidth !== shown.width || event.currentTarget.naturalHeight !== shown.height) setFailedMother(true);
-    }} onError={() => setFailedMother(true)} />
-    {!shown.figure && shown.mask && <img src={shown.mask} alt="" hidden style={{ display: 'none' }}
-      onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} />}
-    {!failedMother && <div key={`canvas-${shown.id}`} className="scene-canvas" style={{ width: shown.width, height: shown.height,
+      else setOpenedMother(imageKey);
+    }} onError={failMother} />
+    {!shown.figure && shown.mask && <img key={`mask-${imageKey}`} src={imageSource(shown.mask)} alt="" hidden style={{ display: 'none' }}
+      onLoad={event => verifyLayer(event.currentTarget)} onError={failLayer} />}
+    {(!failedMother || showEmptyRoom) && <div key={`canvas-${imageKey}`} className="scene-canvas" style={{ width: shown.width, height: shown.height,
       transform: `translate(${stageX}px, ${stageY}px) scale(${scale})` }}>
-      {layered ? <>
-        <img className="scene-layer" src={shown.background} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} />
-        {showFigure && <div className="scene-actor-layer" style={actorStyle}>
-          {shown.shadow && <img className="scene-layer" src={shown.shadow} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} />}
-          {shown.figure ? <img className="scene-layer" src={shown.figure} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} /> : <svg className="scene-layer" viewBox={`0 0 ${shown.width} ${shown.height}`} aria-hidden="true">
+      {layered || showEmptyRoom ? <>
+        <img className="scene-layer" src={imageSource(shown.background)} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={failLayer} />
+        {showFigure && motherReady && !failedMother && <div className="scene-actor-layer" style={actorStyle}>
+          {shown.shadow && <img className="scene-layer" src={imageSource(shown.shadow)} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={failLayer} />}
+          {shown.figure ? <img className="scene-layer" src={imageSource(shown.figure)} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={failLayer} /> : <svg className="scene-layer" viewBox={`0 0 ${shown.width} ${shown.height}`} aria-hidden="true">
             <defs>
               <filter id={`${svgId}-alpha`} colorInterpolationFilters="sRGB">
                 <feComponentTransfer><feFuncA type="table" tableValues="0 0 0 0 0 0 0 0 1 1 1" /></feComponentTransfer>
               </filter>
-              <mask id={`${svgId}-figure`} maskUnits="userSpaceOnUse" x="0" y="0" width={shown.width} height={shown.height} style={{ maskType: 'alpha' }}>
-                <image href={shown.mask} width={shown.width} height={shown.height} preserveAspectRatio="none" filter={`url(#${svgId}-alpha)`} onError={() => setFailedLayer(true)} />
+              <mask id={`${svgId}-figure`} maskUnits="userSpaceOnUse" x="0" y="0" width={shown.width} height={shown.height} style={{ maskType: shown.maskMode ?? 'alpha' }}>
+                <image href={imageSource(shown.mask)} width={shown.width} height={shown.height} preserveAspectRatio="none" filter={shown.maskMode === 'luminance' ? undefined : `url(#${svgId}-alpha)`} onError={failLayer} />
               </mask>
             </defs>
-            <image href={shown.mother} width={shown.width} height={shown.height} preserveAspectRatio="none" mask={`url(#${svgId}-figure)`} onError={() => setFailedLayer(true)} />
+            <image href={imageSource(shown.mother)} width={shown.width} height={shown.height} preserveAspectRatio="none" mask={`url(#${svgId}-figure)`} onError={failLayer} />
           </svg>}
           {canMove && <div ref={handle} className="scene-character-grab" role={canSlide ? 'slider' : 'button'} tabIndex={0}
             aria-label={`${name}在${seatName}的位置`} aria-orientation={canSlide ? 'horizontal' : undefined} aria-valuemin={canSlide ? Math.round(bounds[0] * 100) : undefined} aria-valuemax={canSlide ? Math.round(bounds[1] * 100) : undefined} aria-describedby={instructionsId}
@@ -541,8 +590,8 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
           {canMove && <span id={instructionsId} className="sr-only">{canSlide ? '方向键调整位置，Shift加方向键微调；回车留下这个位置。' : ''}{canTransfer ? '空格或回车选择另一处家具，先试坐再决定。' : ''}Escape取消。</span>}
           {canMove && <svg className="scene-focus-ring" viewBox={`0 0 ${shown.width} ${shown.height}`} aria-hidden="true"><polygon points={focusPoints} /></svg>}
         </div>}
-        {shown.foreground && <img className="scene-layer scene-foreground" src={shown.foreground} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} />}
-      </> : showFigure ? <img className="scene-layer" src={shown.mother} alt="" draggable={false} onError={() => setFailedMother(true)} /> : null}
+        {shown.foreground && <img className="scene-layer scene-foreground" src={imageSource(shown.foreground)} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={failLayer} />}
+      </> : showFigure && motherReady ? <img className="scene-layer" src={imageSource(shown.mother)} alt="" draggable={false} onError={failMother} /> : null}
     </div>}
     {(canTransfer || pendingTransfer) && <div className="scene-transfer-ui" data-open={targetsOpen}>
       {canTransfer && !pendingTransfer && <button ref={transferEntry} type="button" className="scene-transfer-entry" aria-expanded={targetsOpen}
@@ -561,10 +610,11 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
       {pendingTransfer && <div className="scene-transfer-preview" role="group" aria-label={`试坐${pendingTransfer.target.label}`}>
         <span>{pendingTransfer.target.label}</span>
         <button type="button" onClick={() => closeTransfer(true)}>先不换</button>
-        <button ref={confirmTransfer} type="button" className="scene-transfer-accept" disabled={failedLayer || failedMother} onClick={acceptTransfer}>就坐这里</button>
+        <button ref={confirmTransfer} type="button" className="scene-transfer-accept" disabled={failedLayer || failedMother || openingTransfer} aria-busy={openingTransfer || undefined} onClick={acceptTransfer}>就坐这里</button>
         {(transferError || failedLayer || failedMother) && <p role="alert">{transferError || '这里的画面暂时没打开，先回原处再试一次吧。'}</p>}
       </div>}
     </div>}
-    {saveError && <p className="scene-position-problem" role="alert">刚才的位置没能留下，先回到原处了。再试一次吧。</p>}
+    {(failedMother || failedLayer) && !pendingTransfer && <div className="scene-position-problem" role="alert"><span>窗边的画面没能完整打开，原来的选择还在。</span><button type="button" className="text-button" onClick={retryImages}>再打开一次</button></div>}
+    {saveError && !failedMother && !failedLayer && <p className="scene-position-problem" role="alert">刚才的位置没能留下，先回到原处了。再试一次吧。</p>}
   </div>;
 }

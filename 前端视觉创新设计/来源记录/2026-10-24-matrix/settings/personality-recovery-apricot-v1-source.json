@@ -1,0 +1,31 @@
+{
+  "kind": "ui-mockup",
+  "scope": "personality-draft-recovery",
+  "theme": "apricot",
+  "method": "built-in image_gen.imagegen",
+  "completedOn": "2026-10-24 22:13:50 UTC",
+  "promptFile": "personality-recovery-apricot-v1-prompt.txt",
+  "inputImages": [],
+  "originalOutput": "generated_images/01a16fb5-c3c9-7621-be1c-b9ffbaa2fbff/exec-3305d81c-4877-4acf-9a2b-495a2a32d730.png",
+  "generationSessionId": "01a16fb5-c3c9-7621-be1c-b9ffbaa2fbff",
+  "generationEventId": "exec-3305d81c-4877-4acf-9a2b-495a2a32d730",
+  "output": "personality-recovery-apricot-v1.png",
+  "width": 1536,
+  "height": 1024,
+  "bytes": 1883509,
+  "sha256": "183a63d0009ba479abaf063ecf493ff16389c52fac62fbd64ddcf338d4b587b1",
+  "status": "superseded_by_targeted_text_edit_v2",
+  "supersededBy": "personality-recovery-apricot-v2-source.json",
+  "primaryReviewed": false,
+  "runtimeAccepted": false,
+  "addressExampleProvenance": {
+    "kind": "source_example_used_as_synthetic_design_content",
+    "source": "src/shared/persona-portrayals.ts, sakiko.intimacy conditional example",
+    "contrastingExample": "Artificially shortened by the generating agent to show a visible difference between the draft and saved sample.",
+    "privateDataRead": false,
+    "realUserPreferenceClaimed": false,
+    "note": "No runtime persona settings, SQLite records or private memory text were read to choose either example address. The source-code example is conditional and does not establish the user's real nickname. Public adoption remains subject to the primary audit."
+  },
+  "initialInspection": "Draft stays in the same editor, current saved wording is a read-only paper inset, and nickname difference remains visible. The example reply introduced a generic reassurance phrase not requested by the prompt and unsuitable for adoption; a targeted text-only follow-up is needed. No UI references this image.",
+  "peerInput": "OpenUI cautioned against calling a remote edit a newly agreed relationship. Study emphasized keeping the draft and original expected revision intact; reading another saved text does not grant overwrite permission."
+}

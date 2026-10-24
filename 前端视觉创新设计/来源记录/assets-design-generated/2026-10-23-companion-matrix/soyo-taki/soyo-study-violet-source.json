@@ -36,5 +36,25 @@
     "layers": "not extracted",
     "runtime": "not registered or accepted"
   },
-  "producerObservation": "True side/back paper-working posture retained, natural chair-back/front-leg occlusions not completed, actual supported arm/hand and same desk contact preserved. Visible knees/socks/shoes remain proportional and supported. Whole-room theme light coherent with violet sun/lake axisnear1007/1003 and quiet rain left corner. Fixed desk pose, later extraction must use matching background and travel0. Primary/layer/runtime review remains separate."
+  "producerObservation": "True side/back paper-working posture retained, natural chair-back/front-leg occlusions not completed, actual supported arm/hand and same desk contact preserved. Visible knees/socks/shoes remain proportional and supported. Whole-room theme light coherent with violet sun/lake axisnear1007/1003 and quiet rain left corner. Fixed desk pose, later extraction must use matching background and travel0. Primary/layer/runtime review remains separate.",
+  "recoveredBackground": {
+    "file": "../../../2026-10-24-recovered/soyo-study-violet-background-recovered-v1.png",
+    "sha256": "252c5105e6baab734f43b435439b1e328a854fd0fd5d0f6caeb1826a3fe38564",
+    "bytes": 2155149,
+    "width": 1536,
+    "height": 1024,
+    "classification": "B-background-candidate",
+    "inputMother": { "file": "soyo-study-violet-mother-candidate-v1.png", "sha256": "251367e4be844206ef5538c2490dd381eeed1bfc0862e5b8c05e3115cdb91350" },
+    "tool": "image_gen.imagegen (built-in)",
+    "executionId": "exec-77559a74-5f63-47a0-97ac-bf689bae1964",
+    "sourceConversationId": "01a16cce-453d-7650-b67b-b373d16a0f93",
+    "completedAtUtc": "2026-10-24T19:05:07.866Z",
+    "sourceOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-77559a74-5f63-47a0-97ac-bf689bae1964.png",
+    "prompt": "../../../2026-10-24-recovered/soyo-study-violet-background-recovered-v1.prompt.txt",
+    "promptSha256": "0342a3e2bd2e3b4c2b5a08093b09b0b16a08aa2dc4b109319847e332080188da",
+    "recoveryRecord": "../../../2026-10-24-recovered/recovery.json",
+    "ownership": "Original fixed chair and stationary desktop paper remain room objects; the girl and actually worn shoes leave with the figure. Keep the single dusk sun and lake reflection axis.",
+    "productionUse": "Same-mother fixed-contact layer extraction candidate only. Preserve actual chair/desk occlusions and travel0; do not invent hidden limbs or copy a generic empty-room chair.",
+    "review": { "producerViewedAgainstMother": true, "primaryViewedBackground": true, "primaryLayerApproved": false, "runtimeAccepted": false }
+  }
 }
