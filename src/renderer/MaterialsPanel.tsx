@@ -151,6 +151,9 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     return () => { live = false; };
   }, [active, document, target, boundary]);
   function dropSurface() { return conversationTarget?.current || conversation.current; }
+  function bookmarkSource() {
+    return (document?.image ? reader.current?.querySelector<HTMLElement>('.material-pdf-text-layer') : prose.current) || scroller.current;
+  }
 
   function clearQuoteTransfer() {
     const transfer = quoteTransfer.current;
@@ -197,14 +200,14 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     if (!active || !draftEnabled || !target || (!children && !conversationTarget?.current && !bookmarkTray) || quoteBusy) return false;
     if (source.end - source.start > 4000) { setNotice('这段有些长，选短一点，我们接着聊。'); return false; }
     quoteTransfer.current = { target, quote: materialQuoteAddress(source), sessionId, boundary };
-    bookmarkTray?.stage({ kind: 'material', reference: materialQuoteAddress(source), target });
+    bookmarkTray?.stage({ kind: 'material', reference: materialQuoteAddress(source), target }, bookmarkSource());
     setDraggingQuote(true); return true;
   }
   async function dropQuote() {
     const transfer = quoteTransfer.current;
     clearQuoteTransfer();
     if (!transfer) return;
-    if (bookmarkTray) { await bookmarkTray.offer({ kind: 'material', reference: transfer.quote, target: transfer.target }, 'chat'); return; }
+    if (bookmarkTray) { await bookmarkTray.offer({ kind: 'material', reference: transfer.quote, target: transfer.target }, 'chat', bookmarkSource()); return; }
     const generation = ++quoteTransferRequest.current, originalReadingKey = currentReadingKey.current;
     setQuoteBusy(true); setNotice('');
     try {
@@ -247,7 +250,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     const receiver = window.document.elementFromPoint(event.clientX, event.clientY)?.closest<HTMLElement>('[data-bookmark-target]');
     if (moved && receiver?.dataset.bookmarkTarget && bookmarkTray && quoteTransfer.current) {
       const source = quoteTransfer.current; clearQuoteTransfer();
-      void bookmarkTray.offer({ kind: 'material', reference: source.quote, target: source.target }, receiver.dataset.bookmarkTarget); return;
+      void bookmarkTray.offer({ kind: 'material', reference: source.quote, target: source.target }, receiver.dataset.bookmarkTarget, bookmarkSource()); return;
     }
     const bounds = dropSurface()?.getBoundingClientRect();
     const accepted = quotePointer.current.moved && bounds && event.clientX >= bounds.left && event.clientX <= bounds.right && event.clientY >= bounds.top && event.clientY <= bounds.bottom;
@@ -470,7 +473,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     try {
       const input = { target, quote: materialQuoteAddress(selected) };
       if (operation === 'tray' && bookmarkTray) {
-        await bookmarkTray.pick({ kind: 'material', reference: input.quote, target }); return;
+        await bookmarkTray.pick({ kind: 'material', reference: input.quote, target }, bookmarkSource()); return;
       }
       if (operation === 'note') {
         const current = await api.materialsQuote(input);
@@ -677,7 +680,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
             onChange={event => setNoteEditor(current => current ? { ...current, body: event.target.value, error: undefined } : current)} />
           {noteEditor.error && <p role="alert">{noteEditor.error}</p>}
           <footer>{bookmarkTray && <button type="button" className="text-button" disabled={notePending}
-              onClick={() => void bookmarkTray.pick({ kind: 'material', reference: materialQuoteAddress(noteEditor.quote), target: noteEditor.target })}>
+              onClick={() => void bookmarkTray.pick({ kind: 'material', reference: materialQuoteAddress(noteEditor.quote), target: noteEditor.target }, noteInput.current || bookmarkSource())}>
               <BookOpen size={14} />拿起这一处原文</button>}
             {noteEditor.note && onOpenNote && <button type="button" className="text-button" disabled={notePending}
               onClick={() => onOpenNote(noteEditor.note!.id, noteEditor.note!.revision)}>打开笔记<ArrowUpRight size={13} /></button>}

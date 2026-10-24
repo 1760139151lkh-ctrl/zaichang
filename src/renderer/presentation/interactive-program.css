@@ -28,7 +28,7 @@
 .interactive-program .tone-muted { color:var(--text-tertiary); }
 .interactive-program .tone-accent { color:var(--accent); }
 .interactive-program .tone-blue { color:#5c8092; }
-.interactive-program .tone-green { color:#68836a; }
+.interactive-program :is(.tone-violet,.tone-green) { color:#8a7899; }
 .interactive-program .tone-rose { color:#a47879; }
 .interactive-program .tone-paper { color:var(--surface-raised); }
 .interactive-audio-scope { min-width:0; }

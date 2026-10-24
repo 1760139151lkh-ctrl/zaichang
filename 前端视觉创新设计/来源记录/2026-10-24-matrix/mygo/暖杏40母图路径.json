@@ -1,0 +1,326 @@
+{
+  "sourceCatalog": "前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\matrix-coverage.json",
+  "scope": "Original8ActivityApricotMothers",
+  "cells": [
+    {
+      "key": "tomori/chat/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\tomori-chat-apricot-mother.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-apricot-source.json",
+      "sha256": "7e2d61d5874ede02beba0808b329b18922dfe6b3f20f2d923a9c2ea4c22978d9",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "tomori/study/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\tomori-study-apricot-v3-mother.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-study-apricot-v3-source.json",
+      "sha256": "33e690f698cc4856872804014c6285620ec176ce5fe2ae6000887e4c74d3954f",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "tomori/reading/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\tomori-reading-apricot-mother.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-reading-apricot-source.json",
+      "sha256": "e86706be55da3cc2a2072327f6e9543d867b06149d45fc8ca2bb275163b6fa36",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "tomori/planning/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\tomori-planning-apricot-v2-mother.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-planning-apricot-v2-source.json",
+      "sha256": "5347c9bd9992cc514203294e4b1cbea93e0dacbd012b97f8db8a2aaef98569de",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "tomori/listening/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\tomori-listening-apricot-v2-mother.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-listening-apricot-v2-source.json",
+      "sha256": "5e7191c4c0aacd44ba34a9ecafa796cd77bf7592dbbe763acf6b175ee9d12428",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "tomori/rest/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\tomori-rest-apricot-mother.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-rest-apricot-source.json",
+      "sha256": "b0f751e5feeff86ddbb8074945a9564487d4d60da05b4955137f2481a972fd90",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "tomori/play/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\tomori-play-apricot-mother.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-play-apricot-source.json",
+      "sha256": "7d516b243573ea7cc80cbd6c720eee823dbc0ed4096cf9b7f81e9d65e26de63d",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "tomori/attention/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\tomori-attention-apricot-mother.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-attention-apricot-source.json",
+      "sha256": "06c582ace8f0cb0c6079ed89c6a1defd3bbb9e05525b7c3af11b4e364499e1f7",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "anon/chat/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-chat-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/mother-generation-source.json",
+      "sha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "anon/study/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-study-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/mother-generation-source.json",
+      "sha256": "2e9a7c010f52939149c5a93b43eb3f1ab996f9ed25bbcbaa3a7522038b1f9fbe",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "anon/reading/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-reading-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/remaining-apricot-mother-source.json",
+      "sha256": "ab281c84f38b313452d13e14cb2f06f98319a619223f744ada27b562b5bcb0c5",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "anon/planning/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-planning-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/remaining-apricot-mother-source.json",
+      "sha256": "74aae35f25cf35d0c1c34ca150e650956bd60218a8e759d15ad44abbb41adc4e",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "anon/listening/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-listening-apricot-mother-candidate-v2.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/remaining-apricot-mother-source.json",
+      "sha256": "352fc80272d9ae4e224225980bd270b2481516dbd32c0b7a0dc5814e8c3457bb",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "anon/rest/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-rest-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/remaining-apricot-mother-source.json",
+      "sha256": "55d2d4d6873bb1089bef893e5fe4e9d953a3e8d1eca651d50a575532e8c0ffbd",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "anon/play/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-play-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/remaining-apricot-mother-source.json",
+      "sha256": "520fc3043a78335d838c1cc9e831ea5b99b2d2865e86580e156de346efd5bd81",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "anon/attention/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-attention-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/remaining-apricot-mother-source.json",
+      "sha256": "f695acaaabfb0395d5b0f33a649fa9bb2d3fefeac454d15d1146d31066550b3d",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "rana/chat/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\rana-chat-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/mother-generation-source.json",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "rana/study/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\rana-study-apricot-mother-candidate-v2.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/mother-generation-source.json",
+      "sha256": "fb66bbcfffc5f3d42b421c8769cc53ae7f1b605246a68187f5043435eabbe205",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "rana/reading/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\rana-reading-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/remaining-apricot-mother-source.json",
+      "sha256": "23b3b23ce749b7cdc1d5a31616ac1f45b53a7d0bd1694787bc1895736933df8e",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "rana/planning/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\rana-planning-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/remaining-apricot-mother-source.json",
+      "sha256": "bd7dc06d03e6f576af6f0b261caff31c4abb790d340b161020ce0ad610bc4ce9",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "rana/listening/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\rana-listening-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/remaining-apricot-mother-source.json",
+      "sha256": "003c65c7172f9c5083f248e58436400c5f0bd22e6904ae47b25d50e5c5c000b7",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "rana/rest/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\rana-rest-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/remaining-apricot-mother-source.json",
+      "sha256": "ec8691c20d844b33cbe0bd31042bd9985d70be75d6770ca0de6cbc557e8d2ea7",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "rana/play/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\rana-play-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/remaining-apricot-mother-source.json",
+      "sha256": "50744be0906941af37756061c3cc3b1f425f39e0a69036912533751037afb311",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "rana/attention/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\rana-attention-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/remaining-apricot-mother-source.json",
+      "sha256": "cb0b50da63a832bb76915690e538ac3aae157e2d40c84a6ba467c6ea49dda672",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "soyo/chat/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\soyo-chat-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-chat-apricot-source.json",
+      "sha256": "e5860a2adf427032f84d15dcec6c59c8b6ffa7dff8ede6eadf9ec669f4e00b29",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "soyo/study/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\soyo-study-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-study-apricot-source.json",
+      "sha256": "cf664fa1fc6dcdd8fd9c8dc1cd542d4142bbe05d5d9809a101e6d58907858411",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "soyo/reading/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\soyo-reading-apricot-mother-candidate-v2.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-reading-apricot-v2-source.json",
+      "sha256": "68b71f572a6566147acf1bbe104cd05a1bc6e9194ea01039a3e40b785e60f23e",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "soyo/planning/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\soyo-planning-apricot-mother-candidate-v2.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-planning-apricot-v2-source.json",
+      "sha256": "e002a836c881d736966bce3a254de9ef5e4a0417efc5b260eaeaea64d85904d6",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "soyo/listening/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\soyo-listening-apricot-mother-candidate-v2.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-listening-apricot-v2-source.json",
+      "sha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "soyo/rest/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\soyo-rest-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-rest-apricot-source.json",
+      "sha256": "c1be74d29d85a6ac0a2976acdcb3632fe625d46fef9535ca6ed6f33eabeb6e61",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "soyo/play/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\soyo-play-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-play-apricot-source.json",
+      "sha256": "81e654d671e5da16986fe32fe6e742c12042c684cad689f59885706eb29cc1f4",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "soyo/attention/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\soyo-attention-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-attention-apricot-source.json",
+      "sha256": "c854bfeb6cc56482357a1fbf64ba020b6e42a52cdbe6240157ac89466852784e",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "taki/chat/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\taki-chat-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-chat-apricot-source.json",
+      "sha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "taki/study/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\taki-study-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-study-apricot-source.json",
+      "sha256": "49515d600d10286f1af4f808fbf285f4e2abfd1cabd05d6b319f3fdcbd6d0166",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "taki/reading/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\taki-reading-apricot-mother-candidate-v2.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-reading-apricot-v2-source.json",
+      "sha256": "950b6f05f48f6b0ca0335bdffb0468379b95e95576e1afd8da487be488f5314b",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "taki/planning/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\taki-planning-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-planning-apricot-source.json",
+      "sha256": "f0fa68c1f8f0257063bdae886dd258b415af26e127382e8c2bb3b95f6f7050ff",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "taki/listening/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\taki-listening-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-listening-apricot-source.json",
+      "sha256": "d8369e39dc109457df147611494e1741c86512e2bcfc579c92050efb0d134bbb",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "taki/rest/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\taki-rest-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-rest-apricot-source.json",
+      "sha256": "c946307e511b2a1f60652c04ec44e00a4a6d4c23ad3ded44043587f708983ee4",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "taki/play/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\taki-play-apricot-mother-candidate-v1.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-play-apricot-source.json",
+      "sha256": "bf2bb6c780f72c03b65169347d1deafe8c178afe1a9bf6509848dc239321d0f9",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    },
+    {
+      "key": "taki/attention/apricot",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\taki-attention-apricot-mother-candidate-v2.png",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-attention-apricot-v2-source.json",
+      "sha256": "23c79a3ce36b887e2c2f57f37558cbe5ace84014c9a03524e31872028004a2f5",
+      "exists": true,
+      "review": "pending_current_visual_inspection"
+    }
+  ]
+}

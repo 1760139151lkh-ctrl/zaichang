@@ -71,6 +71,7 @@
   .companion-scene.is-quiet.has-scene-art:not(.is-preview) .scene-transfer-ui { display:none; }
 }
 @media(min-width:1200px) {
+  .app-main:has(> .companion-scene.is-quiet.has-scene-art) > .conversation-space:not(.with-materials) .welcome-inner,
   .app-main:has(> .companion-scene.is-quiet.has-scene-art) > .conversation-space:not(.with-materials) .conversation-heading,
   .app-main:has(> .companion-scene.is-quiet.has-scene-art) > .conversation-space:not(.with-materials) .messages,
   .app-main:has(> .companion-scene.is-quiet.has-scene-art) > .conversation-space:not(.with-materials) .bottom-composer { width:min(800px,calc(100% - 330px)); margin-left:44px; margin-right:auto; }

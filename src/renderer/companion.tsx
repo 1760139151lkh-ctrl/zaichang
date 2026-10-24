@@ -9,7 +9,7 @@ import readingDusk from '../../前端视觉创新设计/运行素材/companion/r
 import readingNight from '../../前端视觉创新设计/运行素材/companion/reading-night.png';
 import { companionMoment, type CompanionMoment } from './companion-variants';
 import { companionActivities } from '../shared/companion-activity';
-import { CompanionSceneStage, companionSceneArtwork, companionScenePortrait, companionPaletteLight, companionRegisteredSceneArtwork, companionSceneTransferTargets, type SceneCharacter, type SceneTransferChoice } from './companion-scenes';
+import { CompanionSceneStage, companionSceneArtwork, companionScenePosition, companionScenePortrait, companionPaletteLight, companionRegisteredSceneArtwork, companionSceneTransferTargets, type SceneCharacter, type SceneTransferChoice } from './companion-scenes';
 import { APPEARANCE_PALETTES, readAppearance, useAppearance, type AppearancePalette } from './appearance';
 import './companion.css';
 
@@ -89,19 +89,19 @@ function checkedSceneChoice(value: CompanionState, key: string, choice: SceneTra
   const scope = choiceScope(key);
   const target = registeredChoice(key, choice.sceneId);
   if (!scope || value.character !== scope.character || !target || !Number.isFinite(choice.position)
-    || target.positionKey !== choice.positionKey || choice.positionKey !== `${scope.character}-${choice.moment}`)
+    || target.positionKey !== choice.positionKey || target.activity !== choice.moment)
     throw new Error('这个坐姿现在还不能采用，原来的位置还在。');
   const selected = value.sceneChoices[key];
   const original = selected ? registeredChoice(key, selected)
     : companionSceneArtwork(scope.character, scope.moment, companionPaletteLight(scope.palette), scope.palette);
   const source = original && companionRegisteredSceneArtwork(original.id, scope.character, companionPaletteLight(scope.palette), scope.palette);
-  const sourcePosition = source ? value.scenePositions[source.positionKey] ?? value.scenePositions[source.id] ?? 0 : 0;
+  const sourcePosition = source ? companionScenePosition(source, value.scenePositions) : 0;
   if (!source || expected && (selected !== expected.currentChoice || source.id !== expected.sceneId || sourcePosition !== expected.position))
     throw new Error('这里的坐姿刚在另一处改过。原来的选择还在，看看现在的样子再决定。');
   const targets = companionSceneTransferTargets(scope.character, source, companionPaletteLight(scope.palette), scope.palette, value.scenePositions, scope.moment);
   if (!targets.some((item: SceneTransferChoice) => item.sceneId === choice.sceneId && item.moment === choice.moment && item.positionKey === choice.positionKey))
     throw new Error('这个地方现在还不能坐，原来的位置还在。');
-  return { ...choice, position: target.travel === 0 ? 0 : Math.max(-1, Math.min(1, choice.position)) };
+  return { ...choice, position: companionScenePosition(target, { [target.positionKey]: choice.position }) };
 }
 function preference(value: any): CompanionPreference {
   return {
@@ -133,7 +133,7 @@ function readCompanion(): CompanionState {
         if ((knownCharacter(id) || retiredCharacters.includes(id)) && typeof name === 'string' && name.trim()) result.names[id] = name.trim().slice(0, 60);
       }
       result.retiredFavorites = [...new Set([...(Array.isArray(stored.retiredFavorites) ? stored.retiredFavorites : []), ...(Array.isArray(stored.favorites) ? stored.favorites : [])].filter((id: unknown): id is string => typeof id === 'string' && retiredCharacters.includes(id)))];
-      if (stored.scenePositions && typeof stored.scenePositions === 'object') for (const [id, position] of Object.entries(stored.scenePositions).slice(0, 100)) {
+      if (stored.scenePositions && typeof stored.scenePositions === 'object') for (const [id, position] of Object.entries(stored.scenePositions).slice(0, 640)) {
         if (/^[a-z0-9-]{1,100}$/.test(id) && typeof position === 'number' && Number.isFinite(position)) result.scenePositions[id] = Math.max(-1, Math.min(1, position));
       }
       if (stored.sceneChoices && typeof stored.sceneChoices === 'object') for (const [key, sceneId] of Object.entries(stored.sceneChoices)) {
@@ -160,17 +160,23 @@ export function prefersQuietMotion() {
   return document.documentElement.dataset.motion === 'reduced' || matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-const CompanionContext = createContext<{
+let CompanionContext = createContext<{
   value: CompanionState;
   update: (patch: Partial<CompanionPreference>, positions?: Record<string, number>, expected?: CompanionExpected, choicesPatch?: Record<string, string>) => void;
   setPicture: (dataUrl: string, name: string, select?: boolean) => `custom:${string}`;
   removePicture: (id: CharacterId) => void;
   rename: (id: CharacterId, name: string) => void;
   toggleFavorite: (id: CharacterId) => void;
-  setScenePosition: (sceneId: string, position: number) => void;
+  setScenePosition: (sceneId: string, position: number, expectedPosition?: number) => void;
   setSceneChoice: (scope: string, choice: SceneTransferChoice, expected?: SceneChoiceExpected) => void;
   reset: () => void;
 } | null>(null);
+// A room-art edit also refreshes this module. Keep the context identity so a
+// mounted provider and consumers refreshed in separate boundaries stay paired.
+if (import.meta.hot) {
+  CompanionContext = import.meta.hot.data.companionContext ?? CompanionContext;
+  import.meta.hot.data.companionContext = CompanionContext;
+}
 
 export function CompanionProvider({ children }: { children: ReactNode }) {
   const [value, setValue] = useState(readCompanion);
@@ -233,9 +239,13 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
     const current = readCompanion();
     commit({ ...current, favorites: current.favorites.includes(id) ? current.favorites.filter(item => item !== id) : [...current.favorites, id] });
   }, [commit]);
-  const setScenePosition = useCallback((sceneId: string, position: number) => {
+  const setScenePosition = useCallback((sceneId: string, position: number, expectedPosition?: number) => {
     if (!/^[a-z0-9-]{1,100}$/.test(sceneId) || !Number.isFinite(position)) return;
     const current = readCompanion();
+    if (expectedPosition !== undefined && (current.scenePositions[sceneId] ?? 0) !== expectedPosition) {
+      setValue(current);
+      throw new Error('这里的位置刚在另一处挪过。看看现在的样子，再决定坐在哪里吧。');
+    }
     commit({ ...current, scenePositions: { ...current.scenePositions, [sceneId]: Math.max(-1, Math.min(1, position)) } });
   }, [commit]);
   const setSceneChoice = useCallback((scope: string, choice: SceneTransferChoice, expected?: SceneChoiceExpected) => {
@@ -473,7 +483,7 @@ export function CompanionScene({ preview = false, quiet = false, immersive = fal
   const scope = companionSceneChoiceKey(value.character, semanticMoment, palette);
   const chosenArtwork = registeredChoice(scope, value.sceneChoices[scope]);
   const artwork = chosenArtwork ?? companionSceneArtwork(value.character, semanticMoment, light, palette);
-  const sceneMoment = chosenArtwork ? chosenArtwork.positionKey.slice(value.character.length + 1) as CompanionMoment : semanticMoment;
+  const sceneMoment = chosenArtwork?.activity ?? semanticMoment;
   const image = value.character.startsWith('custom:') ? selectedPicture(value, semanticMoment, palette) : artwork?.mother;
   const transferTargets = artwork ? companionSceneTransferTargets(value.character, artwork, light, palette, value.scenePositions, semanticActivity) : [];
   const showFigure = !!image && (immersive || value.presence === 'window') && value.presence !== 'hidden';
@@ -484,8 +494,8 @@ export function CompanionScene({ preview = false, quiet = false, immersive = fal
   const scene = !!artwork && value.presence === 'window';
   return <div className={`companion-scene ${preview ? 'is-preview' : ''} ${quiet || (preview && value.presence !== 'window') ? 'is-quiet' : ''} ${immersive ? 'is-immersive' : ''} ${value.character.startsWith('custom:') ? 'has-custom-art' : ''} ${scene ? 'has-scene-art' : ''}`} data-light={light} data-moment={sceneMoment} aria-hidden={scene && showFigure ? undefined : editable ? undefined : true}>
     {scene ? <>
-      <CompanionSceneStage artwork={artwork} name={companionName(value)} position={value.scenePositions[artwork.positionKey] ?? value.scenePositions[artwork.id] ?? 0}
-        onCommit={position => setScenePosition(artwork.positionKey, position)} transferTargets={transferTargets} transferScope={scope}
+      <CompanionSceneStage artwork={artwork} name={companionName(value)} position={companionScenePosition(artwork, value.scenePositions)}
+        onCommit={position => setScenePosition(artwork.positionKey, position, value.scenePositions[artwork.positionKey] ?? 0)} transferTargets={transferTargets} transferScope={scope}
         onTransferCommit={(choice: SceneTransferChoice, origin: Pick<SceneChoiceExpected, 'sceneId' | 'position'>) => setSceneChoice(scope, choice, { ...origin, currentChoice: value.sceneChoices[scope] })}
         showFigure={showFigure} interactive={showFigure} quiet={quiet && !preview} reducedMotion={value.reducedMotion} previewOnly={preview} />
       <div className="scene-content-wash" />

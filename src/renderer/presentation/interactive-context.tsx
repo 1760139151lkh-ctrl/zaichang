@@ -15,7 +15,7 @@ export interface InteractiveHost {
   onLocalChange?: (inputs: ProgramStateValues, change: { origin: ChangeOrigin; fields: string[] }) => void;
 }
 export const InteractiveHostContext = createContext<InteractiveHost | null>(null);
-export type ChangeOrigin = 'manual' | 'control' | 'choice' | 'button' | 'reset' | 'motion';
+export type ChangeOrigin = 'manual' | 'control' | 'choice' | 'button' | 'reset' | 'motion' | 'settled';
 interface InteractiveControls {
   states: InteractiveStateDeclarations;
   inputs: ProgramStateValues;
@@ -23,14 +23,15 @@ interface InteractiveControls {
   disabled: boolean;
   renderKey: string;
   scopeKey: string;
-  userAction: { serial: number; origin: Exclude<ChangeOrigin, 'motion'> };
-  patch: (patch: Record<string, unknown>, origin?: ChangeOrigin, nodeId?: string, label?: string) => boolean;
+  userAction: { serial: number; origin: Exclude<ChangeOrigin, 'motion' | 'settled'> };
+  patch: (patch: Record<string, unknown>, origin?: Exclude<ChangeOrigin, 'settled'>, nodeId?: string, label?: string) => boolean;
   reset: (keys?: string[], nodeId?: string, label?: string) => void;
   continueFrom: (nodeId: string, label?: string) => void;
   registerMotion: (cancel: () => void, fields: () => readonly string[]) => () => void;
   acquirePress: (field: string, nodeId: string, pressureField?: string) => boolean;
   releasePress: (field: string, nodeId: string) => boolean;
   stopMotions: () => void;
+  settleMotion: (fields: readonly string[]) => void;
 }
 const InteractiveControlsContext = createContext<InteractiveControls | null>(null);
 export function useInteractiveControls() {
@@ -104,7 +105,7 @@ export function InteractiveDocument({ props }: ComponentRenderProps<Record<strin
     setUserAction({ serial: 0, origin: 'manual' });
   }, [host?.scopeKey, changingScope, current]);
   if (!host || !current) return <div className="interactive-part-error" role="status">这份内容的局部输入暂时无法接回，请沿原回复重新打开。</div>;
-  const patch = (values: Record<string, unknown>, origin: ChangeOrigin = 'manual', nodeId?: string, label?: string) => {
+  const patch = (values: Record<string, unknown>, origin: Exclude<ChangeOrigin, 'settled'> = 'manual', nodeId?: string, label?: string) => {
     if (host.disabled) return false;
     if (origin !== 'motion') stopMotions(origin === 'button' || origin === 'control' ? Object.keys(values) : undefined);
     try {
@@ -126,6 +127,9 @@ export function InteractiveDocument({ props }: ComponentRenderProps<Record<strin
     states: host.document.states, inputs: current, readInputs: () => structuredClone(latest.current!), disabled: host.disabled,
     renderKey: `${host.document.hash}:${JSON.stringify(current)}`, scopeKey: host.scopeKey,
     userAction: changingScope ? { serial: 0, origin: 'manual' } : userAction, patch, stopMotions: () => stopMotions(),
+    settleMotion(fields) {
+      if (fields.length) host.onLocalChange?.(latest.current!, { origin: 'settled', fields: [...fields] });
+    },
     registerMotion(cancel, fields) { motions.current.set(cancel, fields); return () => { motions.current.delete(cancel); }; },
     acquirePress(field, nodeId, pressureField) {
       const active = pressOwners.current.get(field);

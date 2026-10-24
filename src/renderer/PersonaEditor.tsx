@@ -19,7 +19,12 @@ export interface PersonaDraft {
   core: PersonaCore;
   beforeReplacement?: { expectedRevision: number; core: PersonaCore };
 }
-type PersonaCandidate = { core: PersonaCore; origin: string; external: boolean; ignoredFields?: string[] };
+type PersonaCandidate = { core: PersonaCore; origin: string; external: boolean; ignoredFields?: string[]; preserveAddress?: boolean };
+export interface PersonaPreviewDraft {
+  candidate: PersonaCandidate;
+  editing: boolean;
+  editor: PersonaDraft;
+}
 export function samePersonaCore(left: PersonaCore, right: PersonaCore) {
   const snapshot = (core: PersonaCore) => {
     const value = personaCoreSchema.parse(core);
@@ -39,7 +44,7 @@ export function PersonaEditor({
 }: {
   persona: PersonaState;
   legacyGuidance: string;
-  draft: MutableRefObject<{ persona?: PersonaDraft }>;
+  draft: MutableRefObject<{ persona?: PersonaDraft; personaPreview?: PersonaPreviewDraft }>;
   onState: (state: State) => void;
   busy: boolean;
   saving: boolean;
@@ -47,16 +52,18 @@ export function PersonaEditor({
 }) {
   const [editor, setEditor] = useState<PersonaDraft>(
     () =>
-      draft.current.persona || { expectedRevision: persona.revision, core: structuredClone(persona.core) },
+      draft.current.persona || draft.current.personaPreview?.editor
+        || { expectedRevision: persona.revision, core: structuredClone(persona.core) },
   );
   const [pending, setPending] = useState(false);
   const [feedback, setFeedback] = useState<{ text: string; error?: boolean }>();
   const [scenario, setScenario] = useState<(typeof PERSONA_SCENARIOS)[number]['id']>('chat');
   const [undoRevision, setUndoRevision] = useState<number>();
   const [legacySelection, setLegacySelection] = useState('');
-  const [candidate, setCandidate] = useState<PersonaCandidate>();
-  const [editingCandidate, setEditingCandidate] = useState(false);
+  const [candidate, setCandidate] = useState<PersonaCandidate | undefined>(() => draft.current.personaPreview?.candidate);
+  const [editingCandidate, setEditingCandidate] = useState(() => draft.current.personaPreview?.editing ?? false);
   const importButtonRef = useRef<HTMLButtonElement>(null);
+  const candidateTriggerRef = useRef<HTMLButtonElement | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const importRevision = useRef(0);
   const core = editor.core;
@@ -65,12 +72,17 @@ export function PersonaEditor({
   const stale = editor.expectedRevision !== persona.revision;
   const selectedScene = PERSONA_SCENARIOS.find((entry) => entry.id === scenario)!;
   const response = core.examples.find((entry) => entry.scenario === scenario)?.response;
+  const candidateCore = candidate && (candidate.preserveAddress ? { ...candidate.core, address: core.address } : candidate.core);
   useEffect(() => {
-    if (!draft.current.persona && editor.expectedRevision !== persona.revision) {
+    if (candidate) draft.current.personaPreview = { candidate, editing: editingCandidate, editor };
+    else delete draft.current.personaPreview;
+  }, [draft, candidate, editingCandidate, editor]);
+  useEffect(() => {
+    if (!candidate && !draft.current.persona && editor.expectedRevision !== persona.revision) {
       importRevision.current++;
       setEditor({ expectedRevision: persona.revision, core: structuredClone(persona.core) });
     }
-  }, [persona, editor.expectedRevision, draft]);
+  }, [persona, editor.expectedRevision, draft, candidate]);
   useEffect(
     () => () => {
       importRevision.current++;
@@ -92,31 +104,33 @@ export function PersonaEditor({
   function patch(value: Partial<PersonaCore>) {
     replace({ ...core, ...value });
   }
-  function previewCandidate(next: PersonaCandidate) {
+  function previewCandidate(next: PersonaCandidate, trigger = importButtonRef.current) {
     importRevision.current++;
+    candidateTriggerRef.current = trigger;
     setEditingCandidate(false);
-    setCandidate(next);
+    setCandidate({ ...next, preserveAddress: !!core.address && next.core.address !== core.address });
   }
   function dismissCandidate() {
     importRevision.current++;
+    delete draft.current.personaPreview;
     setCandidate(undefined);
   }
   function patchCandidate(value: Partial<PersonaCore>) {
-    setCandidate(current => current ? { ...current, core: { ...current.core, ...value } } : current);
+    setCandidate(current => current ? { ...current, ...('address' in value ? { preserveAddress: false } : {}), core: { ...current.core, ...value } } : current);
   }
   function acceptCandidate() {
-    if (!candidate || locked) return;
-    if (samePersonaCore(candidate.core, editor.core)) {
+    if (!candidateCore || locked) return;
+    if (samePersonaCore(candidateCore, editor.core)) {
       dismissCandidate();
       return;
     }
     importRevision.current++;
     const nextEditor: PersonaDraft = {
       expectedRevision: editor.expectedRevision,
-      core: candidate.core,
+      core: structuredClone(candidateCore),
       beforeReplacement: { expectedRevision: editor.expectedRevision, core: structuredClone(editor.core) },
     };
-    keepEditor(nextEditor); setCandidate(undefined);
+    keepEditor(nextEditor); delete draft.current.personaPreview; setCandidate(undefined);
     setFeedback({ text: '已放进编辑草稿。可以继续调整，留下约定后才会生效。' });
   }
   function restoreReplacedDraft() {
@@ -187,7 +201,7 @@ export function PersonaEditor({
             className="persona-preset"
             aria-pressed={core.presetId === preset.id}
             disabled={locked}
-            onClick={() => previewCandidate({ core: { ...personaPreset(preset.id), address: core.address }, origin: `${preset.label}预设`, external: false })}
+            onClick={(event) => previewCandidate({ core: { ...personaPreset(preset.id), address: core.address }, origin: `${preset.label}预设`, external: false }, event.currentTarget)}
           >
             <strong>{preset.label}</strong>
             <span>{preset.summary}</span>
@@ -472,14 +486,30 @@ export function PersonaEditor({
       </details>
         </aside>
       </div>
-      {candidate && <Modal title="先看看，再决定" onClose={dismissCandidate} fallbackFocus={() => importButtonRef.current?.focus({ preventScroll: true })} className="persona-import-dialog">
+      {candidate && candidateCore && <Modal title="先看看，再决定" onClose={dismissCandidate} fallbackFocus={() => (candidateTriggerRef.current?.isConnected ? candidateTriggerRef.current : importButtonRef.current)?.focus({ preventScroll: true })} className="persona-import-dialog">
         <div className="persona-import-body">
         <div className="persona-import-intro"><span className="persona-import-mark"><BookOpen size={25} /></span><div>{editingCandidate ? <label className="field-label">叫什么<input autoFocus aria-label="预览中的名字" value={candidate.core.name} maxLength={60} onChange={event => patchCandidate({ name: event.target.value })} /></label> : <h3>{candidate.core.name || '还没起名字'}</h3>}<p>{candidate.origin}</p></div></div>
         <div className="persona-import-tools"><p className="persona-import-lede">这份设定还没有生效。</p><button type="button" className="text-button" aria-pressed={editingCandidate} onClick={() => setEditingCandidate(current => !current)}><Pencil size={14} />{editingCandidate ? '收起编辑' : '调整这份设定'}</button></div>
         <div className="persona-import-content">
+          {(candidate.core.identity || editingCandidate) && <section>{editingCandidate ? <label className="field-label">角色中的身份或关系<input aria-label="预览中的身份或关系" value={candidate.core.identity} maxLength={500} onChange={event => patchCandidate({ identity: event.target.value })} /></label> : <><h4>角色中的身份或关系</h4><p>{candidate.core.identity}</p></>}</section>}
+          <section className="persona-import-addresses">
+            <h4>称呼</h4>
+            <div className="persona-import-name-grid">
+              {editingCandidate ? <>
+                <label className="field-label">自称<input aria-label="预览中的自称" value={candidate.core.selfReference} maxLength={60} onChange={event => patchCandidate({ selfReference: event.target.value })} /></label>
+                <label className="field-label">如何称呼你<input aria-label="预览中如何称呼你" value={candidateCore.address} maxLength={100} placeholder="还没有约定" onChange={event => patchCandidate({ address: event.target.value })} /></label>
+              </> : <><div><span>自称</span><p>{candidate.core.selfReference || '还没有写'}</p></div><div><span>如何称呼你</span><p>{candidateCore.address || '还没有约定'}</p></div></>}
+            </div>
+            {!!core.address && candidate.core.address !== core.address && <label className="persona-keep-address"><input type="checkbox" checked={!!candidate.preserveAddress} onChange={event => setCandidate(current => current && ({ ...current, preserveAddress: event.target.checked }))} />保留我们原来的称呼<span>{core.address}</span></label>}
+          </section>
           <section>{editingCandidate ? <label className="field-label">怎样相处<textarea aria-label="预览中的相处方式" rows={3} value={candidate.core.description} maxLength={4000} onChange={event => patchCandidate({ description: event.target.value })} /></label> : <><h4>怎样相处</h4><p>{candidate.core.description || '还没有写性格。'}</p></>}</section>
           {(candidate.core.voice || editingCandidate) && <section>{editingCandidate ? <label className="field-label">说话的方式<textarea aria-label="预览中的说话方式" rows={3} value={candidate.core.voice} maxLength={1000} onChange={event => patchCandidate({ voice: event.target.value })} /></label> : <><h4>说话的方式</h4><p>{candidate.core.voice}</p></>}</section>}
           {(candidate.core.fictionalBackstory || editingCandidate) && <section>{editingCandidate ? <label className="field-label">虚构的背景<textarea aria-label="预览中的虚构背景" rows={3} value={candidate.core.fictionalBackstory} maxLength={1000} onChange={event => patchCandidate({ fictionalBackstory: event.target.value })} /></label> : <><h4>虚构的背景</h4><p>{candidate.core.fictionalBackstory}</p></>}</section>}
+          <section className="persona-import-examples">
+            <div className="persona-preview-heading"><h4>试着这样说</h4><select aria-label="设定预览中的情境" value={scenario} onChange={event => setScenario(event.target.value as typeof scenario)}>{PERSONA_SCENARIOS.map(scene => <option key={scene.id} value={scene.id}>{scene.label}</option>)}</select></div>
+            <p className="persona-scene">{selectedScene.preview}</p>
+            {editingCandidate ? <label className="field-label">她的回应<textarea aria-label="预览中的情境例句" rows={3} value={candidate.core.examples.find(example => example.scenario === scenario)?.response || ''} maxLength={500} onChange={event => patchCandidate({ examples: [...candidate.core.examples.filter(example => example.scenario !== scenario), ...(event.target.value ? [{ scenario, response: event.target.value }] : [])] })} /></label> : <blockquote>{candidate.core.examples.find(example => example.scenario === scenario)?.response || '这一刻，留给她顺着你的话回应。'}</blockquote>}
+          </section>
         </div>
         {candidate.external && <p className="persona-import-note">这里只带入名字、性格与虚构背景。原卡的开场白、世界书和自动执行内容不会加入对话。</p>}
         {dirty && <p className="persona-import-note">你正在写的草稿会先留一份，替换后仍可恢复。</p>}

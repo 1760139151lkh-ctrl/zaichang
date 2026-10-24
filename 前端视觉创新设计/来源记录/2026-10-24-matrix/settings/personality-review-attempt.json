@@ -1,0 +1,17 @@
+{
+  "kind": "ui-mockup",
+  "scope": "character-personality-review",
+  "attemptedOn": "2026-10-24 21:31:32 UTC",
+  "method": "built-in image_gen.imagegen",
+  "prompt": "Use case: ui-mockup. Create a polished landscape product-design mockup for the existing Chinese companion desktop app 在场. This is a restrained detail design for reviewing a character's editable personality before adoption, not a new app. Warm ivory paper, fine muted gold lines, calm Chinese typography, generous but useful whitespace, no green UI. At 1440×1000, show the existing simple top navigation 聊天 今天 留下; below a settings tab strip 陪伴的样子 怎么相处 阅读与节奏 连接与资料. Main content: a centered paper-like sheet titled 先看看，再决定. It feels like looking over a thoughtfully written letter together at a sunlit wooden desk, with a subtle window shadow at the outer edge only. No illustration of a human or body anywhere; no avatars required. In the sheet header: 丰川祥子 and a small text action 调整这份设定. On the left a clear editable character introduction under 怎样相处, then 说话的方式, with plausible Chinese prose retaining dignity and teenage liveliness. On the right a small folded-note-like section 称呼: 自称 我, 如何称呼你 小灰灰; visually preserve the user's chosen nickname rather than erase it. Lower right a quiet excerpt area 试着这样说 with the short example 先把你卡住的那一行留在这里，我们接着它看。 At the bottom, sticky separate real-looking buttons 放进编辑草稿 and 先不换. A small local option 使用我们原来的称呼 is checked. No dashboard cards, no gradients across the content, no technical statuses, no progress counters, no all-caps English. Design a clear relationship between the character's own voice and the person's existing chosen nickname: warmth comes from preserving what was already agreed and allowing careful revision, not from reassuring slogans. Show all text readable and controls aligned. This is a design reference; no screenshot of source code, no photorealistic people, no bright green.",
+  "inputImages": [],
+  "outcome": "failed_before_generation",
+  "observedError": "http 404 Not Found: proxy_route_not_found / Unsupported router route.",
+  "outputs": [],
+  "runtimeAccepted": false,
+  "existingReferenceFiles": [
+    "前端视觉创新设计/精选图稿/B-微调复用/U012-角色与主题选择界面.png",
+    "前端视觉创新设计/精选图稿/C-交互基因/R092-怎样相处.png"
+  ],
+  "referenceUse": "Preserve the existing gallery/room preview and writing/example composition. No generated image is referenced by the product."
+}

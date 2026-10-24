@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "character": "sakiko",
+  "sceneCategory": "S9_RESUME",
+  "semanticAction": "welcome-resume",
+  "palette": "apricot",
+  "intendedCanvas": [1536, 1024],
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-resume-apricot-v1-prompt.txt",
+  "promptFileSha256": "d2ab504e4e6f7875b17d1a02cb73e53e0e22a288603aa364c26feb0e8fb45bb9",
+  "submittedPrompt": "UTF-8 contents of promptFile with leading/trailing whitespace trimmed, read by Get-Content -Raw",
+  "inputs": [
+    {
+      "role": "sole spatial and lighting reference; approved empty room, no figure",
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "transparentBackground": false,
+  "attempts": [
+    {
+      "observedAtUtc": "2026-10-24T21:24:47Z",
+      "timeMeaning": "time when exact failure was recorded; invocation preceded this timestamp",
+      "status": "tool-error-before-output",
+      "source": "image_gen.imagegen call via functions.exec",
+      "error": "image generation failed: http 404 Not Found: Some(\"{\\\"error\\\":{\\\"type\\\":\\\"proxy_route_not_found\\\",\\\"message\\\":\\\"Unsupported router route.\\\"}}\")",
+      "outputPath": null,
+      "outputSha256": null,
+      "modelSessionTerminated": false
+    }
+  ],
+  "status": "awaiting-generated-mother",
+  "review": {
+    "personallyViewedOutput": false,
+    "approvedByPrimary": false,
+    "runtimeAccepted": false,
+    "note": "No image was returned. This is a saved design intent, not a completed matrix cell. No CLI/API fallback was invoked."
+  }
+}

@@ -1,23 +1,33 @@
-import { useEffect, useRef, useState, type CSSProperties, type MutableRefObject } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type MutableRefObject } from 'react';
 import { Check, ChevronDown, Heart, ImagePlus, LoaderCircle, Moon, Plus, SlidersHorizontal, Sun, Sunset, Trash2, Undo2 } from 'lucide-react';
 import { companionPreset, selectCompanionPersona, type PersonaState, type PersonaUpdate } from '../shared/persona';
 import { characterPortrayal } from '../shared/persona-portrayals';
 import type { State } from '../shared/types';
 import { samePersonaCore, type PersonaDraft } from './PersonaEditor';
 import { COMPANIONS, CompanionScene, CompanionPreviewProvider, WINDOW_LIGHT, companionName, companionSceneChoiceKey, useCompanion, type CompanionPreference, type CompanionPlacement, type CompanionMoment } from './companion';
-import { APPEARANCE_PALETTES, previewAppearance, useAppearance } from './appearance';
+import { APPEARANCE_PALETTES, previewAppearance, useAppearance, type AppearancePalette } from './appearance';
 import { companionSceneArtwork, companionPaletteLight, companionRegisteredSceneArtwork, type SceneTransferChoice } from './companion-scenes';
 import { Switch, uiError } from './ui';
 import './companion-settings.css';
 
 const categories = ['全部', 'Ave Mujica', 'MyGO!!!!!', '我的收藏'] as const;
+export interface CompanionSettingsDraft {
+  preference: CompanionPreference;
+  palette: AppearancePalette;
+  positions: Record<string, number>;
+  choices: Record<string, string>;
+  baseline: string;
+  positionEdits: string[];
+  choiceEdits: string[];
+  moment: CompanionMoment;
+}
 function roomPreference(value: CompanionPreference): CompanionPreference {
   const { character, presence, light, reducedMotion, scale, position, verticalPosition } = value;
   return { character, presence, light, reducedMotion, scale, position, verticalPosition };
 }
 export function CompanionSettings({ persona, draft, onState, busy, saving, saveOperation, onEditPersona }: {
   persona: PersonaState;
-  draft: MutableRefObject<{ persona?: PersonaDraft }>;
+  draft: MutableRefObject<{ persona?: PersonaDraft; companion?: CompanionSettingsDraft }>;
   onState: (state: State) => void;
   busy: boolean;
   saving: boolean;
@@ -26,14 +36,15 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
 }) {
   const { value: savedValue, update, setPicture, removePicture, rename, toggleFavorite } = useCompanion();
   const [appearance, setAppearance] = useAppearance();
-  const [preview, setPreview] = useState(() => roomPreference(savedValue));
-  const [palette, setPalette] = useState(appearance.palette);
-  const [positions, setPositions] = useState(() => ({ ...savedValue.scenePositions }));
-  const [choices, setChoices] = useState(() => ({ ...savedValue.sceneChoices }));
-  const positionEdits = useRef(new Set<string>());
-  const choiceEdits = useRef(new Set<string>());
+  const retainedPreview = useRef(draft.current.companion);
+  const [preview, setPreview] = useState(() => retainedPreview.current?.preference ?? roomPreference(savedValue));
+  const [palette, setPalette] = useState(retainedPreview.current?.palette ?? appearance.palette);
+  const [positions, setPositions] = useState(() => ({ ...(retainedPreview.current?.positions ?? savedValue.scenePositions) }));
+  const [choices, setChoices] = useState(() => ({ ...(retainedPreview.current?.choices ?? savedValue.sceneChoices) }));
+  const positionEdits = useRef(new Set(retainedPreview.current?.positionEdits));
+  const choiceEdits = useRef(new Set(retainedPreview.current?.choiceEdits));
   const savedStamp = JSON.stringify({ preference: roomPreference(savedValue), palette: appearance.palette, positions: savedValue.scenePositions, choices: savedValue.sceneChoices });
-  const [baseline, setBaseline] = useState(savedStamp);
+  const [baseline, setBaseline] = useState(retainedPreview.current?.baseline ?? savedStamp);
   const previewStamp = JSON.stringify({ preference: preview, palette, positions, choices });
   const roomDirty = previewStamp !== savedStamp;
   const roomStale = savedStamp !== baseline && previewStamp !== savedStamp;
@@ -52,13 +63,20 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
   const [name, setName] = useState(savedName);
   const sliderOrigin = useRef<CompanionPlacement | undefined>(undefined);
   const [adjusting, setAdjusting] = useState(false);
-  const [moment, setMoment] = useState<CompanionMoment>('chat');
+  const [moment, setMoment] = useState<CompanionMoment>(retainedPreview.current?.moment ?? 'chat');
   const [roleMode, setRoleMode] = useState<'use_character_preset' | 'preserve_role'>('preserve_role');
   const [rolePending, setRolePending] = useState(false);
   const [roleFeedback, setRoleFeedback] = useState<{ text: string; error?: boolean }>();
   const [roleUndo, setRoleUndo] = useState<{ previous: number; saved: number }>();
   const [roleSample, setRoleSample] = useState<'study' | 'chat' | 'play'>('chat');
   useEffect(() => () => { request.current++; }, []);
+  useEffect(() => {
+    if (roomDirty) draft.current.companion = {
+      preference: preview, palette, positions, choices, baseline,
+      positionEdits: [...positionEdits.current], choiceEdits: [...choiceEdits.current], moment,
+    };
+    else delete draft.current.companion;
+  }, [draft, roomDirty, preview, palette, positions, choices, baseline, moment]);
   useEffect(() => setName(savedName), [value.character, savedName]);
   useEffect(() => {
     if (savedStamp === baseline) return;
@@ -105,6 +123,7 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
   }
   function cancelPreview() {
     request.current++; setOpening(false);
+    delete draft.current.companion;
     positionEdits.current.clear();
     choiceEdits.current.clear();
     setPreview(roomPreference(savedValue)); setPalette(appearance.palette); setPositions({ ...savedValue.scenePositions }); setChoices({ ...savedValue.sceneChoices }); setBaseline(savedStamp); setError('');
@@ -183,6 +202,17 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
     if (sliderOrigin.current) setPlacement(sliderOrigin.current);
     sliderOrigin.current = undefined;
   }
+  function adjustPlacementKey(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Escape' && sliderOrigin.current) {
+      event.preventDefault(); event.stopPropagation(); cancelSlider();
+    } else if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown'].includes(event.key)) {
+      sliderOrigin.current ??= placement;
+    }
+  }
+  function finishSlider() {
+    sliderOrigin.current = undefined;
+    savePlacement();
+  }
   async function saveRole(input: PersonaUpdate, undo = false) {
     if (roleLocked || draft.current.persona) return;
     const previousRevision = persona.revision;
@@ -242,9 +272,9 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
           </div>}
           {!custom && activeScene && <button type="button" className="text-button companion-seat-reset" onClick={() => previewPosition(activeScene.positionKey, 0)}>回到原处</button>}
           {custom && <div className="companion-placement">
-            <label>远近<input type="range" aria-label="人物大小" min="0.75" max="1.3" step="0.01" value={placement.scale} onChange={event => setPlacement(current => ({ ...current, scale: Number(event.target.value) }))} onPointerDown={() => { sliderOrigin.current = placement; }} onPointerUp={() => { sliderOrigin.current = undefined; savePlacement(); }} onPointerCancel={cancelSlider} onKeyUp={() => savePlacement()} onBlur={() => savePlacement()} /></label>
-            <label>左右<input type="range" aria-label="人物位置" min="0" max="100" step="1" value={placement.position} onChange={event => setPlacement(current => ({ ...current, position: Number(event.target.value) }))} onPointerDown={() => { sliderOrigin.current = placement; }} onPointerUp={() => { sliderOrigin.current = undefined; savePlacement(); }} onPointerCancel={cancelSlider} onKeyUp={() => savePlacement()} onBlur={() => savePlacement()} /></label>
-            <label>高低<input type="range" aria-label="人物高低" min="0" max="100" step="1" value={placement.verticalPosition} onChange={event => setPlacement(current => ({ ...current, verticalPosition: Number(event.target.value) }))} onPointerDown={() => { sliderOrigin.current = placement; }} onPointerUp={() => { sliderOrigin.current = undefined; savePlacement(); }} onPointerCancel={cancelSlider} onKeyUp={() => savePlacement()} onBlur={() => savePlacement()} /></label>
+            <label>远近<input type="range" aria-label="人物大小" min="0.75" max="1.3" step="0.01" value={placement.scale} onChange={event => setPlacement(current => ({ ...current, scale: Number(event.target.value) }))} onPointerDown={() => { sliderOrigin.current = placement; }} onPointerUp={finishSlider} onPointerCancel={cancelSlider} onKeyDown={adjustPlacementKey} onKeyUp={event => { if (event.key !== 'Escape') savePlacement(); }} onBlur={finishSlider} /></label>
+            <label>左右<input type="range" aria-label="人物位置" min="0" max="100" step="1" value={placement.position} onChange={event => setPlacement(current => ({ ...current, position: Number(event.target.value) }))} onPointerDown={() => { sliderOrigin.current = placement; }} onPointerUp={finishSlider} onPointerCancel={cancelSlider} onKeyDown={adjustPlacementKey} onKeyUp={event => { if (event.key !== 'Escape') savePlacement(); }} onBlur={finishSlider} /></label>
+            <label>高低<input type="range" aria-label="人物高低" min="0" max="100" step="1" value={placement.verticalPosition} onChange={event => setPlacement(current => ({ ...current, verticalPosition: Number(event.target.value) }))} onPointerDown={() => { sliderOrigin.current = placement; }} onPointerUp={finishSlider} onPointerCancel={cancelSlider} onKeyDown={adjustPlacementKey} onKeyUp={event => { if (event.key !== 'Escape') savePlacement(); }} onBlur={finishSlider} /></label>
             <button type="button" className="text-button" onClick={() => setPlacement({ scale: 1, position: 50, verticalPosition: 100 })}>回到原处</button>
           </div>}
         </div>}

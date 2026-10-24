@@ -13,8 +13,8 @@ import { MemoryPanelSimple, SourcePermissions, type MemoryWorkspaceState } from 
 import type { SettingsUpdate, State } from '../shared/types';
 import { APPEARANCE_PALETTES, useAppearance, type Appearance } from './appearance';
 import { DEFAULT_INTERACTION } from '../shared/interaction';
-import { PersonaEditor, type PersonaDraft } from './PersonaEditor';
-import { CompanionSettings } from './CompanionSettings';
+import { PersonaEditor, type PersonaDraft, type PersonaPreviewDraft } from './PersonaEditor';
+import { CompanionSettings, type CompanionSettingsDraft } from './CompanionSettings';
 import { useCompanion } from './companion';
 import { companionPaletteLight } from './companion-scenes';
 import { RichText } from './RichText';
@@ -27,6 +27,8 @@ export interface SettingsDraft {
   apiKey?: string;
   guidance?: string;
   persona?: PersonaDraft;
+  personaPreview?: PersonaPreviewDraft;
+  companion?: CompanionSettingsDraft;
   /** Navigation only; privacy changes still clear every editable/private field above. */
   navigation?: { entry: SettingsTab; tab: SettingsTab; tiyiFocus?: TiyiConnectionFocus; resume?: boolean;
     positions?: Partial<Record<SettingsTab, number>> };
@@ -140,6 +142,18 @@ export function SettingsPanel({
       if (element) previewAnchor.current = { element, offset: element.getBoundingClientRect().top - top };
     }
     setAppearance(patch);
+  }
+  async function changePalette(palette: Appearance['palette']) {
+    await perform('appearance', async () => {
+      const previous = appearance.palette;
+      setAppearance({ palette }, previous);
+      try { updateCompanion({ light: companionPaletteLight(palette) }); }
+      catch (problem) {
+        try { setAppearance({ palette: previous }, palette); }
+        catch { throw new Error('这次没能完整留下光线，先看看现在的样子，再试一次。'); }
+        throw problem;
+      }
+    });
   }
   function changeTab(value: SettingsTab) {
     const viewport = settingsViewport();
@@ -657,7 +671,7 @@ export function SettingsPanel({
                       {([['light', '晨光'], ['dark', '夜色'], ['system', '跟随系统']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={appearance.theme === value} onClick={() => setAppearance({ theme: value })}>{label}</button>)}
                     </div></div>
                     <div className="rhythm-choice-row"><span>色彩</span><div className="rhythm-segmented" role="group" aria-label="界面色彩">
-                      {APPEARANCE_PALETTES.map(palette => <button type="button" key={palette.id} aria-pressed={appearance.palette === palette.id} disabled={!!pending} onClick={() => void perform('appearance', async () => { setAppearance({ palette: palette.id }); updateCompanion({ light: companionPaletteLight(palette.id) }); })}>{palette.name}</button>)}
+                      {APPEARANCE_PALETTES.map(palette => <button type="button" key={palette.id} aria-pressed={appearance.palette === palette.id} disabled={!!pending} onClick={() => void changePalette(palette.id)}>{palette.name}</button>)}
                     </div></div>
                     {result(['appearance'])}
                     <div className="rhythm-choice-row"><span>正文字号</span><div className="rhythm-segmented" role="group" aria-label="正文字号">

@@ -193,6 +193,18 @@ dialog.panel.persona-import-dialog[open] { display: flex; flex-direction: column
 .persona-import-note { font-size: 12px; line-height: 1.8; color: var(--text-secondary); margin: 18px 0 0; }
 .persona-import-content .field-label { margin: 0; }
 .persona-import-content textarea { font-size: 13px; line-height: 1.8; resize: vertical; }
+.persona-import-content input { width: 100%; min-width: 0; }
+.persona-import-name-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+.persona-import-name-grid > div { min-width: 0; }
+.persona-import-name-grid > div > span { display: block; color: var(--text-secondary); font-size: 11px; margin-bottom: 5px; }
+.persona-import-name-grid p { color: var(--text); }
+.persona-keep-address { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; color: var(--text-secondary); font-size: 12px; line-height: 1.7; margin-top: 15px; cursor: pointer; }
+.persona-import-content .persona-keep-address > input { width: 16px; height: 16px; margin: 0 2px 0 0; padding: 0; flex: 0 0 auto; accent-color: var(--accent); }
+.persona-keep-address > span { color: var(--text); overflow-wrap: anywhere; }
+.persona-import-examples .persona-preview-heading { align-items: center; gap: 12px; }
+.persona-import-examples .persona-preview-heading > h4 { margin: 0; }
+.persona-import-examples .persona-scene { margin: 14px 0 10px; font-size: 12px; }
+.persona-import-examples > blockquote { margin: 0; padding: 16px 18px; border-left: 2px solid var(--accent-dim); background: var(--accent-soft); border-radius: 0 12px 12px 0; color: var(--text); font-size: 14px; line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; }
 .persona-import-actions { display: flex; flex-shrink: 0; align-items: center; gap: 22px; padding: 20px 28px 28px; border-top: 1px solid var(--separator); }
 .persona-import-actions .primary-button { flex: 1; justify-content: center; min-height: 43px; }
 @media (max-width: 900px) {
@@ -205,4 +217,6 @@ dialog.panel.persona-import-dialog[open] { display: flex; flex-direction: column
  .persona-import-body { padding: 22px; }
  .persona-import-actions { padding: 16px 22px 22px; gap: 16px; }
  .persona-import-intro h3 { font-size: 21px; }
+ .persona-import-name-grid { gap: 12px; }
+ .persona-import-examples .persona-preview-heading { flex-wrap: wrap; }
 }

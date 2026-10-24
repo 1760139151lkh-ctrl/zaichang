@@ -10,7 +10,8 @@ import { INTERACTIVE_PROGRAM_LIMITS, PROGRAM_AST_RULES, PROGRAM_LIBRARY_VERSION,
   type InteractiveStateDeclarations, type ProgramDataMap } from './interactive-program';
 
 const finite = z.number().finite(), coordinate = finite.nullable().default(null);
-const color = z.enum(['ink', 'muted', 'accent', 'blue', 'green', 'rose', 'paper']);
+const color = z.enum(['ink', 'muted', 'accent', 'blue', 'violet', 'green', 'rose', 'paper'])
+  .describe('沿当前纸面的有限颜色；用 ink、muted、accent、blue、violet、rose 或 paper。green 只供历史作品兼容，现显示为暮紫，新的图形请用 violet。');
 const text = z.string().max(INTERACTIVE_PROGRAM_LIMITS.text);
 const point = z.object({ x: coordinate, y: coordinate }).strict().nullable();
 const uiBinding = z.record(z.string(), z.unknown()); markReactive(uiBinding);

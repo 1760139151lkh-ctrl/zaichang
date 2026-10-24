@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, type CSSProperties, type Ref } from 'react';
+import { useContext, useEffect, useLayoutEffect, useRef, type CSSProperties, type Ref } from 'react';
 import type { ComponentRenderProps } from '@openuidev/react-lang';
 import { snapProgramNumber } from '../../shared/interactive-program';
 import { InteractiveChildren, InteractiveGraphicSlot, useInteractiveControls } from './interactive-context';
@@ -18,14 +18,23 @@ export function InteractiveMotion({ props }: ComponentRenderProps<Record<string,
   const element = useRef<HTMLDivElement | SVGGElement>(null);
   const tracks = useRef<readonly string[]>([]);
   const visible = useRef(true);
-  const run = useRef<{ generation: number; raf?: number; animation?: Animation }>({ generation: 0 });
+  const run = useRef<{ generation: number; raf?: number; animation?: Animation; scopeKey?: string; unsettled: boolean }>({ generation: 0, unsettled: false });
   const previous = useRef({ when: props.when as unknown, action: controls.userAction.serial });
   const startedAction = useRef(0);
+  const settle = () => {
+    if (!run.current.unsettled) return;
+    run.current.unsettled = false;
+    if (run.current.scopeKey === current.current.scopeKey) current.current.settleMotion(tracks.current);
+  };
   const cancel = () => {
     run.current.generation += 1;
     if (run.current.raf !== undefined) cancelAnimationFrame(run.current.raf);
     run.current.animation?.cancel(); run.current.raf = undefined; run.current.animation = undefined;
+    settle();
   };
+  // Stop before paint. The original writer also holds the latest checked
+  // frame, so parent-first unmounts never need to call a retired scope.
+  useLayoutEffect(() => () => cancel(), [controls.scopeKey]);
   useEffect(() => {
     cancel(); startedAction.current = 0;
     previous.current = { when: props.when, action: 0 };
@@ -66,6 +75,7 @@ export function InteractiveMotion({ props }: ComponentRenderProps<Record<string,
     const frames = structuredClone(props.frames) as Frame[], duration = props.durationMs as number, iterations = props.iterations as number;
     const fields = [...new Set(frames.flatMap(frame => Object.keys(frame.values || {})))];
     tracks.current = fields;
+    run.current.scopeKey = current.current.scopeKey; run.current.unsettled = fields.length > 0;
     const last: Record<string, number> = Object.fromEntries(fields.map(key => [key, current.current.inputs[key] as number]));
     // Carry only explicitly animated tracks, never a snapshot of the record.
     const keyframes = frames.map(frame => {
@@ -82,10 +92,10 @@ export function InteractiveMotion({ props }: ComponentRenderProps<Record<string,
       }
       return !fields.length || current.current.patch(patch, 'motion');
     };
-    if (reducedMotion()) { write(1); return; }
+    if (reducedMotion()) { write(1); settle(); return; }
     const hasVisual = frames.some(frame => frame.opacity !== undefined || frame.x !== undefined || frame.y !== undefined
       || frame.rotate !== undefined || frame.scale !== undefined);
-    if (!element.current?.animate) { write(1); return; }
+    if (!element.current?.animate) { write(1); settle(); return; }
     // Numeric and visual tracks read one browser timing function. Empty
     // property frames still provide the same native clock for numeric-only work.
     const animation = element.current.animate(hasVisual ? frames.map(visualFrame)
@@ -101,7 +111,7 @@ export function InteractiveMotion({ props }: ComponentRenderProps<Record<string,
       const finished = animation.playState === 'finished';
       const progress = finished ? 1 : animation.effect.getComputedTiming().progress;
       if (typeof progress === 'number' && !write(progress)) { cancel(); return; }
-      if (finished) { run.current.raf = undefined; return; }
+      if (finished) { run.current.raf = undefined; settle(); return; }
       run.current.raf = requestAnimationFrame(tick);
     };
     if (fields.length) run.current.raf = requestAnimationFrame(tick);

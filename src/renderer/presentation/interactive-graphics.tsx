@@ -248,7 +248,8 @@ function useGraphicOverlay(space: GraphicSpace, origin: RefObject<SVGGElement | 
 
 export function InteractiveDragHandle({ props }: Props) {
   const space = useSpace(), controls = useInteractiveControls();
-  const dragging = useRef<{ pointerId: number; scopeKey: string; start: Point; inputs: Record<string, number>; element: SVGGElement } | undefined>(undefined);
+  const dragging = useRef<{ pointerId: number; scopeKey: string; start: Point; matrix: Matrix;
+    inputs: Record<string, number>; element: SVGGElement } | undefined>(undefined);
   const origin = useRef<SVGGElement>(null), visual = useRef<SVGGElement>(null);
   const latest = useRef({ controls, props }); latest.current = { controls, props };
   const xState = props.xField ? controls.states[props.xField] : undefined, yState = props.yField ? controls.states[props.yField] : undefined;
@@ -281,7 +282,11 @@ export function InteractiveDragHandle({ props }: Props) {
   useEffect(() => { if (disabled) finish(false); }, [disabled]);
   if (!point) return gap();
   const change = (event: PointerEvent<SVGGElement>) => {
-    const active = dragging.current, at = space.pointer(event, space.matrix); if (!active || !at) return;
+    const active = dragging.current;
+    if (!active) return;
+    // A group may itself read the field being dragged. Keep the grab's
+    // coordinate frame so its new transform cannot subtract the last move.
+    const at = space.pointer(event, active.matrix); if (!at) return;
     const patch: Record<string, number> = {};
     if (xState?.kind === 'number') patch[props.xField] = snapProgramNumber(active.inputs[props.xField] + at.x - active.start.x, xState);
     if (yState?.kind === 'number') patch[props.yField] = snapProgramNumber(active.inputs[props.yField] + at.y - active.start.y, yState);
@@ -291,6 +296,7 @@ export function InteractiveDragHandle({ props }: Props) {
     if (event.key === 'Escape' && dragging.current) { event.preventDefault(); event.stopPropagation(); finish(true); return; }
     if (disabled || !['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
     event.preventDefault(); event.stopPropagation();
+    finish(false);
     const patch: Record<string, number> = {}, multiplier = event.shiftKey ? 10 : 1;
     if (single && increaseKey) {
       if (!['Home', 'End', increaseKey, decreaseKey].includes(event.key)) return;
@@ -319,10 +325,13 @@ export function InteractiveDragHandle({ props }: Props) {
       const inputs: Record<string, number> = {};
       if (xState?.kind === 'number') inputs[props.xField] = x;
       if (yState?.kind === 'number') inputs[props.yField] = y;
-      dragging.current = { pointerId: event.pointerId, scopeKey: controls.scopeKey, start: at, inputs, element: event.currentTarget };
+      dragging.current = { pointerId: event.pointerId, scopeKey: controls.scopeKey, start: at,
+        matrix: [...space.matrix], inputs, element: event.currentTarget };
       event.currentTarget.setPointerCapture(event.pointerId); event.currentTarget.focus({ preventScroll: true });
     }} onPointerMove={event => { if (dragging.current?.pointerId === event.pointerId && !disabled) { event.preventDefault(); change(event); } }}
-    onPointerUp={() => finish(false)} onPointerCancel={() => finish(true)} onLostPointerCapture={() => finish(true)} onBlur={() => finish(true)}>
+    onPointerUp={event => { if (dragging.current?.pointerId === event.pointerId) finish(false); }}
+    onPointerCancel={event => { if (dragging.current?.pointerId === event.pointerId) finish(true); }}
+    onLostPointerCapture={event => { if (dragging.current?.pointerId === event.pointerId) finish(true); }} onBlur={() => finish(true)}>
     <title>{props.label}；拖动或用方向键移动，Shift加快</title>
     <circle className="interactive-handle-target" cx={point.x} cy={point.y} r={Math.max(15, props.radius + 8)} />
     <circle className="interactive-handle-point" cx={point.x} cy={point.y} r={props.radius} />

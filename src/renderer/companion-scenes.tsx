@@ -2,9 +2,11 @@ import { useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties
 import type { CompanionMoment } from './companion-variants';
 import type { AppearancePalette } from './appearance';
 import { useSpringValue } from './motion/use-spring';
+import { companionActivities, type CompanionActivity } from '../shared/companion-activity';
 
 export type SceneCharacter = 'sakiko' | 'mutsumi' | 'anon' | 'tomori' | 'uika' | 'umiri' | 'nyamu' | 'rana' | 'soyo' | 'taki';
 export type SceneLight = 'morning' | 'dusk' | 'night';
+const sceneCharacters: readonly SceneCharacter[] = ['sakiko', 'mutsumi', 'anon', 'tomori', 'uika', 'umiri', 'nyamu', 'rana', 'soyo', 'taki'];
 export interface SceneCalibration {
   seat: readonly [number, number];
   ground: readonly [number, number];
@@ -21,6 +23,9 @@ export interface SceneCalibration {
 }
 export interface CompanionSceneArtwork extends SceneCalibration {
   id: string;
+  character: SceneCharacter;
+  activity: CompanionActivity;
+  source: { kind: 'registered' | 'legacy'; registration?: string; mother: string; background?: string };
   light: SceneLight;
   palette: AppearancePalette;
   positionKey: string;
@@ -69,11 +74,14 @@ interface SceneRegistration extends Omit<SceneCalibration, 'contactShadow'> {
 const registrationFiles = import.meta.glob('../../前端视觉创新设计/运行素材/companion/scenes/*.scene.json', { eager: true, import: 'default' }) as Record<string, SceneRegistration>;
 const registeredFile = (name: string | undefined) => name && /^[-a-z0-9]+\.png$/.test(name)
   ? images[`../../前端视觉创新设计/运行素材/companion/scenes/${name}`] : undefined;
-const registrations = Object.values(registrationFiles).filter(item => {
+const registrations = Object.entries(registrationFiles).filter(([, item]) => {
   if (!item || typeof item !== 'object') return false;
   const unit = (value: number) => Number.isFinite(value) && value >= 0 && value <= 1;
   return item.schemaVersion === 1 && item.review?.approvedByPrimary === true
     && typeof item.id === 'string' && /^[a-z0-9-]+$/.test(item.id)
+    && sceneCharacters.includes(item.character) && companionActivities.includes(item.activity)
+    && ['morning', 'dusk', 'night'].includes(item.light) && ['apricot', 'mist', 'violet', 'rain'].includes(item.palette)
+    && item.light === companionPaletteLight(item.palette)
     && registeredFile(item.mother) && registeredFile(item.background) && (registeredFile(item.figure) || registeredFile(item.mask))
     && (!item.figure || registeredFile(item.figure)) && (!item.mask || registeredFile(item.mask))
     && (!item.shadow || registeredFile(item.shadow)) && (!item.foreground || registeredFile(item.foreground))
@@ -92,7 +100,7 @@ const registrations = Object.values(registrationFiles).filter(item => {
       : item.floorContact === undefined)
     && typeof item.contourComplete === 'boolean' && ['included', 'separate', 'none'].includes(item.contactShadow?.mode)
     && (item.contactShadow.mode !== 'separate' || registeredFile(item.shadow));
-});
+}).map(([path, item]) => ({ ...item, registrationPath: path.replace('../../', '') }));
 // Coordinates refer to the original 1536×1024 canvas. Each surviving master
 // was inspected independently; a new pose must bring its own calibration.
 export const companionSceneCalibrations: Record<string, SceneCalibration> = {
@@ -142,14 +150,22 @@ function seatPositionBounds(artwork: CompanionSceneArtwork): readonly [number, n
   return minimum <= maximum ? [minimum, maximum] : [0, 0];
 }
 
-function registeredArtwork(registration: SceneRegistration): CompanionSceneArtwork {
+function registeredArtwork(registration: typeof registrations[number]): CompanionSceneArtwork {
   return {
-    ...registration, contactShadow: registration.contactShadow.mode, positionKey: `${registration.character}-${registration.activity}`,
+    ...registration, contactShadow: registration.contactShadow.mode, positionKey: registration.id,
+    source: { kind: 'registered', registration: registration.registrationPath, mother: registration.mother, background: registration.background },
     mother: registeredFile(registration.mother)!, background: registeredFile(registration.background),
     figure: registeredFile(registration.figure), mask: registeredFile(registration.mask),
     shadow: registration.contactShadow.mode === 'separate' ? registeredFile(registration.shadow) : undefined,
     foreground: registeredFile(registration.foreground),
   };
+}
+/** Position belongs to this exact pose and room. A different scene must never
+ * inherit a displacement calibrated for another support surface. */
+export function companionScenePosition(artwork: CompanionSceneArtwork, positions: Readonly<Record<string, number>>) {
+  const bounds = seatPositionBounds(artwork);
+  const stored = positions[artwork.positionKey] ?? positions[artwork.id] ?? 0;
+  return Math.max(bounds[0], Math.min(bounds[1], Number.isFinite(stored) ? stored : 0));
 }
 export function companionRegisteredSceneArtwork(sceneId: string, character: string, light: SceneLight, palette: AppearancePalette): CompanionSceneArtwork | undefined {
   const registration = registrations.find(item => item.id === sceneId && item.character === character && item.light === light && item.palette === palette);
@@ -162,12 +178,13 @@ export function companionSceneTransferTargets(character: string, current: Compan
   const result: SceneTransferTarget[] = [];
   for (const support of ['window-seat', 'desk-chair', 'sofa', 'floor'] as const) {
     const candidates = matching.filter(item => item.support === support);
-    const preferred = support === 'desk-chair' ? ['study', 'planning'] : support === 'window-seat' ? [semanticMoment === 'reading' ? 'reading' : 'chat', 'reading', 'rest'] : ['rest', 'chat', 'play'];
+    const preferred = support === 'desk-chair' ? [semanticMoment, 'study', 'planning']
+      : support === 'window-seat' ? [semanticMoment, 'reading', 'chat', 'rest'] : [semanticMoment, 'rest', 'chat', 'play'];
     const selected = preferred.map(activity => candidates.find(item => item.activity === activity)).find(Boolean) ?? candidates[0];
     if (!selected) continue;
-    const artwork = registeredArtwork(selected), bounds = seatPositionBounds(artwork);
+    const artwork = registeredArtwork(selected);
     result.push({ artwork, sceneId: selected.id, moment: selected.activity, positionKey: artwork.positionKey,
-      position: Math.max(bounds[0], Math.min(bounds[1], positions[artwork.positionKey] ?? positions[artwork.id] ?? 0)),
+      position: companionScenePosition(artwork, positions),
       label: support === 'desk-chair' ? '桌边' : support === 'sofa' ? '沙发上' : support === 'floor' ? '地面上' : '窗边' });
   }
   return result;
@@ -189,11 +206,20 @@ export function companionSceneArtwork(character: string, moment: CompanionMoment
   const room = sceneLight === 'night' ? 'sakiko-night'
     : activity === 'reading' ? 'sakiko-reading' : 'sakiko-chat';
   return {
-    id, light: sceneLight, palette: artworkPalette, positionKey: `${character}-${activity}`, width: 1536, height: 1024,
+    id, character: character as SceneCharacter, activity, light: sceneLight, palette: artworkPalette, positionKey: id, width: 1536, height: 1024,
+    source: { kind: 'legacy', mother: `${id}-mother.png`, background: `${backgroundSources[id] || (file(id, 'background') ? id : room)}-background.png` },
     ...companionSceneCalibrations[id],
     mother: file(id, 'mother'), background: file(backgroundSources[id] || id, 'background') || file(room, 'background'), mask: file(id, 'mask') || file(id, 'figure'),
     shadow: companionSceneCalibrations[id].contactShadow === 'separate' ? file(id, 'shadow') : undefined, foreground: file(id, 'foreground'),
   };
+}
+
+/** Selection describes the exact cell. Legacy material remains identifiable
+ * and cannot be counted as a newly reviewed matrix scene. */
+export function companionSceneResolution(character: string, moment: CompanionMoment = 'chat', light: SceneLight = 'morning', palette: AppearancePalette = 'apricot') {
+  const artwork = companionSceneArtwork(character, moment, light, palette);
+  return { character, activity: moment === 'night' ? 'chat' : moment, light, palette,
+    status: artwork?.source.kind ?? 'missing', artwork } as const;
 }
 
 export function companionPaletteLight(palette: AppearancePalette): SceneLight {
@@ -258,7 +284,7 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
   const latest = useRef({ onCommit, position, artwork, quiet, previewOnly, transferTargets, transferScope, onTransferCommit });
   latest.current = { onCommit, position, artwork, quiet, previewOnly, transferTargets, transferScope, onTransferCommit };
   const gesture = useRef<{ pointerId: number; x: number; y: number; origin: number; savedOrigin: number; scale: number; tangentX: number; tangentY: number; sampledAt: number; sampledValue: number; velocity: number;
-    assetId: string; previewOnly: boolean; onCommit: (position: number) => void; distance: number; transferIntent: boolean } | undefined>(undefined);
+    assetId: string; previewOnly: boolean; onCommit: (position: number) => void; distance: number } | undefined>(undefined);
   const keyboardOrigin = useRef<number | undefined>(undefined);
   const pendingOrigin = useRef<number | undefined>(undefined);
   const pendingTarget = useRef<number | undefined>(undefined);
@@ -266,19 +292,19 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
   const canSlide = interactive && showFigure && layered && !failedMother && !pendingTransfer && artwork.contourComplete && bounds[1] - bounds[0] > .0001;
   const canTransfer = interactive && showFigure && layered && !failedMother && !pendingTransfer && !!onTransferCommit && transferTargets.length > 0;
   const canMove = canSlide || canTransfer;
-  // The room and every layer share this one camera. Content retreat changes
-  // the room's framing, never the aspect ratio of the person or furniture.
+  // Keep the room full-height while yielding to the paper. A horizontal
+  // camera shift clears the person without turning the room into a thumbnail.
   const fullScale = size.height / shown.height;
   // Clear the whole legal seat interval. Framing must stay fixed while a
   // pointer controls the person, including wide poses beside a narrow paper.
   const bodyLeft = Math.min(...shownBounds.map(at => shown.bodyBounds[0]
     + at * (shown.travel + (shown.bodyBounds[0] - shown.seat[0]) * shown.perspective)));
   const paperEdge = 44 + Math.min(800, Math.max(0, size.width - 330));
-  const clearScale = Math.max(0, size.width - paperEdge - 24) / ((1 - bodyLeft) * shown.width);
-  const sideScale = Math.min(fullScale, Math.max(360, size.height * .7) / shown.height, clearScale);
-  const scale = fullScale + (sideScale - fullScale) * retreat.value;
-  const stageX = size.width - shown.width * scale;
-  const stageY = (size.height - shown.height * scale) * .5 * retreat.value;
+  const scale = fullScale;
+  const fullX = size.width - shown.width * scale;
+  const retreatX = Math.max(0, paperEdge + 24 - (fullX + bodyLeft * shown.width * scale));
+  const stageX = fullX + retreatX * retreat.value;
+  const stageY = 0;
   const apply = (next: number, velocity = 0) => spring.set(legal(next), velocity);
   function commit(next: number) {
     try { latest.current.onCommit(next); setSaveError(false); }
@@ -337,7 +363,7 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
     setMoving(false);
     const transfer = !cancel && active.distance >= 8 ? latest.current.transferTargets.find(item => item.sceneId === hoveredTargetRef.current) : undefined;
     setTargetsOpen(false); setHoveredTarget(undefined); hoveredTargetRef.current = undefined;
-    if (cancel || transfer || active.transferIntent || currentBounds.current[1] - currentBounds.current[0] <= .0001) {
+    if (cancel || transfer || currentBounds.current[1] - currentBounds.current[0] <= .0001) {
       settle(active.savedOrigin, spring.get().velocity, false);
       if (active.previewOnly) active.onCommit(active.savedOrigin);
     }
@@ -363,7 +389,7 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
     const initialSize = element.getBoundingClientRect();
     setSize({ width: initialSize.width, height: initialSize.height });
     const observer = new ResizeObserver(([entry]) => {
-      finish(true); closeTransfer();
+      finish(true); cancelKeyboard(); cancelPending(); closeTransfer();
       setSize({ width: entry.contentRect.width, height: entry.contentRect.height });
     });
     observer.observe(element);
@@ -386,6 +412,7 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
   }, [interactive, showFigure]);
   useEffect(() => {
     if (pendingTransferRef.current && pendingTransferRef.current.origin.position !== position) closeTransfer();
+    if (gesture.current && legal(position) !== gesture.current.savedOrigin) finish(true);
     if (!gesture.current && keyboardOrigin.current === undefined) {
       if (previewOnly && pendingOrigin.current !== undefined && pendingTarget.current === legal(position)) return;
       pendingOrigin.current = undefined; pendingTarget.current = undefined; spring.animate(legal(position));
@@ -421,7 +448,7 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
     const originalX = (worldX - artwork.seat[0] * artwork.width - u * artwork.travel * artwork.width) / (1 + u * artwork.perspective);
     const originalY = (worldY - artwork.seat[1] * artwork.height - u * artwork.travel * artwork.width * artwork.slope) / (1 + u * artwork.perspective);
     gesture.current = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, origin: u, savedOrigin: legal(latest.current.position), scale,
-      assetId: artwork.id, previewOnly, onCommit: latest.current.onCommit, distance: 0, transferIntent: false,
+      assetId: artwork.id, previewOnly, onCommit: latest.current.onCommit, distance: 0,
       sampledAt: performance.now(), sampledValue: u, velocity: snapshot.velocity,
       tangentX: artwork.travel * artwork.width + artwork.perspective * originalX,
       tangentY: artwork.travel * artwork.width * artwork.slope + artwork.perspective * originalY };
@@ -438,9 +465,7 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
       return rect && event.clientX >= rect.left - 14 && event.clientX <= rect.right + 14 && event.clientY >= rect.top - 14 && event.clientY <= rect.bottom + 14;
     });
     hoveredTargetRef.current = hovered?.sceneId; setHoveredTarget(hovered?.sceneId);
-    active.transferIntent ||= canTransfer && active.distance > 44;
-    if (active.transferIntent) { apply(active.savedOrigin); return; }
-    if (!canSlide || hovered) return;
+    if (!canSlide) return;
     // Project both pointer axes onto the actual seat's tangent. The character
     // remains on the seat even if the hand moves vertically off the surface.
     const dx = (event.clientX - active.x) / active.scale, dy = (event.clientY - active.y) / active.scale;
@@ -482,13 +507,13 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
     if (image.naturalWidth !== shown.width || image.naturalHeight !== shown.height) setFailedLayer(true);
   };
   const seatName = shown.support === 'floor' ? '地面上' : shown.support === 'desk-chair' ? '桌边' : shown.support === 'sofa' ? '沙发上' : '窗边';
-  return <div ref={viewport} className={`scene-stage-viewport${moving ? ' is-moving' : ''}${pendingTransfer ? ' is-trying-place' : ''}`} data-scene={shown.id} data-light={shown.light} data-art-palette={shown.palette} data-support={shown.support} data-layered={layered}>
-    <img key={shown.id} src={shown.mother} alt="" hidden style={{ display: 'none' }} onLoad={event => {
+  return <div ref={viewport} className={`scene-stage-viewport${moving ? ' is-moving' : ''}${pendingTransfer ? ' is-trying-place' : ''}`} data-scene={shown.id} data-activity={shown.activity} data-art-source={shown.source.kind} data-light={shown.light} data-art-palette={shown.palette} data-support={shown.support} data-layered={layered}>
+    <img key={`mother-${shown.id}`} src={shown.mother} alt="" hidden style={{ display: 'none' }} onLoad={event => {
       if (event.currentTarget.naturalWidth !== shown.width || event.currentTarget.naturalHeight !== shown.height) setFailedMother(true);
     }} onError={() => setFailedMother(true)} />
     {!shown.figure && shown.mask && <img src={shown.mask} alt="" hidden style={{ display: 'none' }}
       onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} />}
-    {!failedMother && <div key={shown.id} className="scene-canvas" style={{ width: shown.width, height: shown.height,
+    {!failedMother && <div key={`canvas-${shown.id}`} className="scene-canvas" style={{ width: shown.width, height: shown.height,
       transform: `translate(${stageX}px, ${stageY}px) scale(${scale})` }}>
       {layered ? <>
         <img className="scene-layer" src={shown.background} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} />

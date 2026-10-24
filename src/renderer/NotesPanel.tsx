@@ -162,7 +162,7 @@ export function NotesPanel({
   const excerptGeneration = useRef(0);
   const [selection, setSelection] = useState<NoteSelection>();
   const [quoting, setQuoting] = useState(false);
-  const quoteGeneration = useRef(0);
+  const quoteGeneration = useRef(0), bookmarkDrag = useRef<SourceBookmarkReference | undefined>(undefined);
   const quoteDestination = useRef({ context: quoteContext, boundary: quoteBoundary, enabled: quoteEnabled, active, focus });
   quoteDestination.current = { context: quoteContext, boundary: quoteBoundary, enabled: quoteEnabled, active, focus };
   const returnSelection = useRef<{ address: NoteQuoteReference; boundary: string;
@@ -318,6 +318,7 @@ export function NotesPanel({
     mounted.current = true;
     return () => {
       mounted.current = false;
+      releaseBookmarkDrag();
       request.current++;
       listRequest.current++;
       // A restarted mount must retry navigation whose read was just invalidated.
@@ -341,6 +342,7 @@ export function NotesPanel({
   useEffect(() => () => unsavedCallback.current?.(false), []);
   useEffect(() => {
     quoteGeneration.current++;
+    releaseBookmarkDrag();
     setSelection(undefined);
     setQuoting(false);
   }, [active, quoteContext]);
@@ -621,6 +623,10 @@ export function NotesPanel({
     setSelection(undefined);
     setQuoting(false);
   }
+  function releaseBookmarkDrag() {
+    if (bookmarkDrag.current) bookmarkTray?.release(bookmarkDrag.current);
+    bookmarkDrag.current = undefined;
+  }
   async function discussSelection() {
     if (!selection || selection.editor !== editor || !onQuote || !quoteEnabled || busy || quoting || deleted || conflict) return;
     const selected = selection, destination = quoteDestination.current, generation = ++quoteGeneration.current,
@@ -664,7 +670,8 @@ export function NotesPanel({
       const quote = await bridge.notesQuote({ id: note.id, revision: note.revision, sha256: note.sha256,
         start: selected.start, end: selected.end });
       if (!current()) return;
-      await bookmarkTray.pick({ kind: 'notebook', reference: noteQuoteAddress(quote) });
+      await bookmarkTray.pick({ kind: 'notebook', reference: noteQuoteAddress(quote) },
+        host.current?.querySelector<HTMLTextAreaElement>('textarea.notes-body'));
     } catch (cause) { if (current()) setError(uiError(cause)); }
     finally { if (mounted.current && generation === quoteGeneration.current) setQuoting(false); }
   }
@@ -1010,7 +1017,7 @@ export function NotesPanel({
                       />
                     </label>
                     {editor.note?.source.referenceOnly && <section className="note-live-excerpt" aria-label="留在这页旁的原文" aria-busy={excerptLoading}>
-                      {sourceExcerpt && <><header><BookOpen size={15} /><span>{sourceExcerpt.title}{sourceExcerpt.page ? ` · 第 ${sourceExcerpt.page} 页` : ''}</span></header><blockquote onDragStart={event => {
+                      {sourceExcerpt && <><header><BookOpen size={15} /><span>{sourceExcerpt.title}{sourceExcerpt.page ? ` · 第 ${sourceExcerpt.page} 页` : ''}</span></header><blockquote tabIndex={-1} onDragStart={event => {
                         const selection = window.getSelection(), node = event.currentTarget;
                         if (!selection?.rangeCount || selection.isCollapsed || node.textContent !== sourceExcerpt.text) { event.preventDefault(); return; }
                         const range = selection.getRangeAt(0);
@@ -1020,14 +1027,20 @@ export function NotesPanel({
                           end = start + Array.from(range.toString()).length;
                         const reference = sourceBookmarkReferenceSchema.parse({ ...sourceExcerpt.reference,
                           reference: { ...sourceExcerpt.reference.reference, start, end } });
+                        bookmarkDrag.current = reference; bookmarkTray?.stage(reference, node);
                         writeBookmarkTransfer(event.dataTransfer, reference);
-                      }}>{sourceExcerpt.text}</blockquote>
+                      }} onDragEnd={releaseBookmarkDrag}>{sourceExcerpt.text}</blockquote>
                         <div>{sourceExcerpt.reference.kind === 'material' && onOpenMaterialSource && <button type="button" className="text-button" onClick={() => void openMaterial()}>回到原文</button>}
                           {sourceExcerpt.reference.kind === 'notebook' && <button type="button" className="text-button" onClick={() => void openNotebookSource()}>回到原句</button>}
                           {sourceExcerpt.reference.kind === 'conversation' && onOpenConversationSource && <button type="button" className="text-button" onClick={() => {
                             const reference = sourceExcerpt.reference; if (reference.kind === 'conversation') void onOpenConversationSource(reference.reference).catch(cause => setExcerptError(uiError(cause)));
                           }}>回到原句</button>}
-                          {bookmarkTray && <button type="button" className="text-button" draggable onDragStart={event => writeBookmarkTransfer(event.dataTransfer, sourceExcerpt.reference)} onClick={() => void bookmarkTray.pick(sourceExcerpt.reference)}><Bookmark size={14} />拿到纸边</button>}</div></>}
+                          {bookmarkTray && <button type="button" className="text-button" draggable onDragStart={event => {
+                            bookmarkDrag.current = sourceExcerpt.reference;
+                            bookmarkTray.stage(sourceExcerpt.reference, event.currentTarget.closest('.note-live-excerpt')?.querySelector<HTMLElement>('blockquote'));
+                            writeBookmarkTransfer(event.dataTransfer, sourceExcerpt.reference);
+                          }} onDragEnd={releaseBookmarkDrag} onClick={event => void bookmarkTray.pick(sourceExcerpt.reference,
+                            event.currentTarget.closest('.note-live-excerpt')?.querySelector<HTMLElement>('blockquote'))}><Bookmark size={14} />拿到纸边</button>}</div></>}
                       {excerptLoading && <p role="status">翻回留下的那一段…</p>}{excerptError && <><p role="status">{excerptError}</p><div>
                         {(editor.note.source.notebook || editor.note.source.material && onOpenMaterials) && <button type="button" className="text-button" disabled={busy || sourceOpening} onClick={() => void recoverOriginalPage()}>{editor.note.source.notebook ? '看看现在的原页' : '重新带来资料'}</button>}
                         <button type="button" className="text-button" disabled={busy || excerptLoading} onClick={() => setExcerptRefresh(value => value + 1)}>再看一次</button></div></>}
@@ -1057,10 +1070,13 @@ export function NotesPanel({
                           if (!bookmarkTray) return;
                           if (dirty || !editor.note) { event.preventDefault(); setReceipt('这句还在草稿里，可以点「保存并拿起」。'); return; }
                           if (!selection || selection.editor !== editor) { event.preventDefault(); return; }
-                          writeBookmarkTransfer(event.dataTransfer, { kind: 'notebook', reference: {
+                          const reference: SourceBookmarkReference = { kind: 'notebook', reference: {
                             id: editor.note.id, revision: editor.note.revision, sha256: editor.note.sha256,
-                            start: selection.start, end: selection.end } });
+                            start: selection.start, end: selection.end } };
+                          bookmarkDrag.current = reference; bookmarkTray.stage(reference, event.currentTarget);
+                          writeBookmarkTransfer(event.dataTransfer, reference);
                         }}
+                        onDragEnd={releaseBookmarkDrag}
                         onBlur={event => {
                           if (!(event.relatedTarget instanceof Element) || !event.relatedTarget.closest('.note-selection-actions, .source-bookmark-tray')) setSelection(undefined);
                         }}

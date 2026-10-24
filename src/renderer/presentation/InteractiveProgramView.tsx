@@ -85,6 +85,7 @@ export function InteractiveProgramView({ view, messageId, sessionId, privacyEpoc
     doc && sessionId && privacyEpoch !== undefined && policyRevision !== undefined ? { sessionId, messageId, programId: view.id,
       revision: view.revision, programHash: doc.hash, privacyEpoch, policyRevision, ...(programStateEphemeral ? { ephemeral: true } : {}) } : undefined, admitted, continuation.current.inputs);
   const liveKey = useRef<string | undefined>(undefined); liveKey.current = admitted ? stateKey : undefined;
+  const liveGeneration = useRef(local.generation); liveGeneration.current = local.generation;
   const initialState = useMemo(() => {
     if (!doc || !admitted) { latestState.current = undefined; return undefined; }
     try {
@@ -123,24 +124,25 @@ export function InteractiveProgramView({ view, messageId, sessionId, privacyEpoc
     return () => { observer.disconnect(); root.querySelectorAll('.is-program-focused').forEach(element => element.classList.remove('is-program-focused')); };
   }, [activeReference, messageId, view.id, view.revision, doc, retry, boundaryKey]);
   const continueFrom = (nodeId: string, inputs: ProgramStateValues, label?: string, focus = true) => {
-    if (liveKey.current !== stateKey) return;
+    if (liveKey.current !== stateKey || liveGeneration.current !== local.generation) return;
     onFollowup?.({ text: '',
     programReference: { messageId, programId: view.id, revision: view.revision, nodeId, inputs }, focusOnly: !focus,
     readProgramInputs: () => {
-      if (liveKey.current !== stateKey || latestState.current?.key !== stateKey) return undefined;
+      if (liveKey.current !== stateKey || liveGeneration.current !== local.generation || latestState.current?.key !== stateKey) return undefined;
       try { return validateProgramState(doc!.states, latestState.current.inputs); } catch { return undefined; }
     },
     ...(label ? { focusLabel: label } : {}) });
   };
   const localChange = (inputs: ProgramStateValues, change: { origin: ChangeOrigin; fields: string[] }) => {
-    if (liveKey.current !== stateKey || !doc) return;
+    if (liveKey.current !== stateKey || liveGeneration.current !== local.generation || !doc) return;
     const manual = new Set(latestState.current?.key === stateKey ? latestState.current.manualFields : []);
     for (const key of change.fields) {
       if (['manual', 'choice', 'button'].includes(change.origin) && doc.states[key]?.kind !== 'boolean') manual.add(key);
       else manual.delete(key);
     }
     latestState.current = { key: stateKey, generation: local.generation, inputs, manualFields: [...manual] };
-    if (change.origin !== 'motion') local.changed(inputs);
+    if (change.origin === 'motion') local.stage(inputs);
+    else local.changed(inputs, change.origin === 'settled');
   };
   const missingData = !!doc?.bindingAliases.some(alias => !doc.currentData || !Object.hasOwn(doc.currentData, alias));
   if (doc && !admitted) return <section className="interactive-program interactive-boundary-pending" style={{ minHeight: shellHeight || undefined }} aria-busy="true">
@@ -159,12 +161,14 @@ export function InteractiveProgramView({ view, messageId, sessionId, privacyEpoc
       onContinue: continueFrom, onLocalChange: localChange, renderSourceSlot }}>
       <Renderer key={`${messageId}:${view.id}:${boundaryKey}:${retry}:${local.generation}`} response={doc.dsl} library={library}
         initialState={initialState} isStreaming={isStreaming} toolProvider={null} onError={reportErrors} publishObservability={false}
-        onStateUpdate={state => { if (liveKey.current !== stateKey) return;
+        onStateUpdate={state => { if (liveKey.current !== stateKey || liveGeneration.current !== local.generation) return;
           try { latestState.current = { key: stateKey, generation: local.generation, inputs: validateProgramState(doc.states, state.$ui),
             manualFields: latestState.current?.key === stateKey ? latestState.current.manualFields : [] }; } catch { /* Retain the last complete valid inputs. */ } }} />
     </InteractiveHostContext.Provider>
     {local.issue && <p className="interactive-input-error" role="status">{local.issue}
       {local.retryRead && <button type="button" onClick={local.retryRead}>再接一次</button>}
+      {local.resolveConflict && <><button type="button" onClick={() => local.resolveConflict?.('saved')}>接回另一份</button>
+        <button type="button" onClick={() => local.resolveConflict?.('local')}>留下眼前这份</button></>}
     </p>}
     {errors.some(item => item.severity !== 'warning') && <div className="interactive-render-feedback" role="status">
       <span>有一处暂时没能展开，其他内容仍可继续。</span>

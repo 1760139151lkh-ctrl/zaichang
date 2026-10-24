@@ -1,0 +1,28 @@
+{
+  "recordedAt": "2026-10-24 21:34:26 UTC",
+  "tool": "image_gen.imagegen",
+  "useCase": "ui-mockup",
+  "promptFile": "openui-local-conflict-recovery-v1-prompt.txt",
+  "inputs": [],
+  "transparentBackground": false,
+  "status": "generation_failed",
+  "error": {
+    "httpStatus": 404,
+    "type": "proxy_route_not_found",
+    "message": "Unsupported router route."
+  },
+  "output": null,
+  "sha256": null,
+  "adoption": "No generated asset; no approval or runtime image registration.",
+  "relatedRuntime": [
+    "src/renderer/presentation/InteractiveProgramView.tsx",
+    "src/renderer/presentation/program-local-state.ts"
+  ],
+  "existingReferencesViewed": [
+    "前端视觉创新设计/精选图稿/C-交互基因/R181-波形数学修订版.png",
+    "前端视觉创新设计/精选图稿/C-交互基因/R182-钢琴交互设计A.png",
+    "前端视觉创新设计/精选图稿/C-交互基因/R184-钢琴交互设计B.png",
+    "前端视觉创新设计/精选图稿/C-交互基因/R129-对话中断与草稿返回.png"
+  ],
+  "verificationBoundary": "Existing waveform and recovery references were viewed. The new local-conflict state has no generated mockup because the built-in tool route failed; no CLI/API fallback was used."
+}

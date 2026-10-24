@@ -123,6 +123,8 @@
   - [`COMPANION_EXPERIENCES_2026-10-18.md`](ideas/COMPANION_EXPERIENCES_2026-10-18.md) L149–204、L327–382。
 - **源码精确入口**：
   - `prompts/system.md`、`prompts/working-details.md`、`src/main/runtime/prompt-composition.ts`、`src/shared/persona.ts`、`src/shared/persona-portrayals.ts`、`src/shared/persona-performance.ts`、`src/main/runtime/conversation-rhythm.ts`、`src/main/runtime/tool-surface.ts`、`src/main/capabilities/broker.ts`、`src/main/runtime/personal-methods.ts`、`src/main/harness.ts`。
+- **贯穿式微呼吸与生命律动理念（Micro-Breath & Ambient Continuum）**：
+  - 在场不只是“等待命令-调用工具-吐出文本”的死板机器，而是一个与你同呼吸的生命伴侣。在工具调用与思考的间隙，`ConversationRhythm` 应当传递带有生命体温的微呼吸（包括自然的拟真键入延迟、伴侣轻柔的先行接话与动作预备提示），让用户在每一次交互中都能感知到“她就在手边陪伴着，从未离开”。
 
 #### 2. 主代理与子代理在本阶段最易犯的致命错误（防坑预警）
 - **致命错误 A（以为上次跑过 Stage 01 就不用深改了）**：前序会话虽然留了一份 `2026-10-23-stage01.md`，但翻开 `prompts/working-details.md`（如 L67–75 满屏的 `vectorSearch.nextWindow`、`semanticWindowCursor`、`declared_evidence_id`、`parent_original`）和 `src/main/capabilities/*.ts` 的 `meaning`，依然是冷冰冰的说明书腔调！模型读了这种内部说明书，说话立刻就会染上班味。
@@ -305,12 +307,12 @@
     - 跑中：“Yeah！就是这个感觉！跟着鼓点跑起来，One Two Three Go！看看配速表，哇，比上周快了一大截，太有范儿了！”
     - 跑后：“耶！完美收官！快来跟我合个影打卡（比耶手势）～今天消耗了 300 大卡，等下奖励自己一个轻食冰淇淋怎么样？”
 
-##### 3.5 双轨攻坚架构：底层协议引擎与高层 Super App 体验分离
-为了实现最高研发效率，本阶段在工程上确立清晰的双轨协同流水线：
+##### 3.5 双轨攻坚架构：底层协议引擎与高层 Super App 体验分离（锁定 commit 44355da 最新战况）
+针对当前最新工程进展（commit `44355da` 已完成 19 模块全读取与守护进程签名服务 `tiyi-signing-service.py` 0.18s 响应，但底层 `jsonsports` 原生加密 `com.security.inner.apk0000.x.l(70)` 遭遇 HTTP 401 -300，需要真机抓包/Frida 导出 AES 密钥/IV），本阶段严禁因此停滞或草草收工！确立清晰的双轨协同流水线：
 - **A 轨（底层硬核协议专线 · 独立逆向攻坚）**：
-  负责深入挖掘 `native_signer.py` Unicorn ARM64 模拟器、`lib*.so` 原生签名逻辑、MuMu 模拟器抓包与网络链路、19 项内嵌脚本/AJAX 真实接口、打卡全流程（`sporttype` / `prejudgment` / `savesports`）与防作弊规则库，产出稳定、干净、无黑话的底层 Python/TypeScript 标准连接器（`tiyi_connector.py` / `tiyiAdapter.ts`）。
+  保持后台常驻签名守护进程 `tiyi-signing-service.py`，负责 19 项真实数据读取与解析；针对 `jsonsports` 原生加密层，提供优雅的 Mock/Daemon 桥接及真机 Frida Hook 捕获脚本（`scripts/hook-tiyi-aes.js`），确保真机蓝牙打卡数据包一旦接入即可瞬时完成真实闭环，绝不让底层逆向阻碍高层体验构建。
 - **B 轨（高层 Super App 一体化与温柔乡体验总装 · 主工程攻坚）**：
-  无缝承接 A 轨提供的标准数据契约，100% 专注于高维产品创新：打造桌面置顶 Mini Floating Companion HUD 伴跑灵动岛、CampusMap 实时暖金发光轨迹与 Spring Camera 跟随、全天候伴跑三部曲主动调度、十角色极致活人温柔乡演出与温润纸感体艺伴侣工作台，让整个产品达到无可匹敌的一体化水准！
+  无缝承接 A 轨提供的标准数据契约，100% 专注于高维生命级产品创新：打造桌面置顶 Mini Floating Companion HUD 伴跑灵动岛、CampusMap 实时暖金发光轨迹与 Spring Camera 跟随、全天候伴跑三部曲主动调度、十角色极致活人温柔乡演出与温润纸感体艺伴侣工作台，让整个产品达到无可匹敌的一体化水准！
 
 ##### 3.6 贯穿全 App 的无缝流转与灵动微体验（The Ubiquitous & Micro-Fluid Presence）
 本阶段的核心突破是彻底打破「功能模块割裂跳转」的传统软件范式，打造**「如同一呼一吸般自然贯穿、无微不至、极度灵动丝滑」**的生命级产品质感：
@@ -331,13 +333,17 @@
    - 晚间回到书桌，专注灯（`FocusLamp`）自动切换为防疲劳的琥珀暖光；
    - 角色讲题语速自动柔和放慢 15%，优先为你提供一步一步拆解好的直观草稿，日程沙盘自动压缩高强度死磕任务、腾出 40 分钟泡脚或听音乐的放松留白；
    - 深夜就寝前，在床头轻声为你送上独家私语：“今天在东操跑得很棒呢……小腿肌肉拉伸好了吗？快盖好被子，做个好梦，小灰灰 / 老公 / 笨蛋。”
+6. **Gemini Omni Flash 动态灵动视觉与画卷流转（Dynamic Visual Moments & Ambient Video Loops）**：
+   - 利用 `gemini-omni-flash-api`（`gemini-omni-1.1-flash`）的图生视频、首尾帧过渡与无缝循环视频能力，为角色与场景赋予电影级生命力：
+   - **呼吸与发丝微风动效**：在跑前动员、跑后慢走等关键场景，将静态原画扩展为 3–5 秒无缝呼吸循环视频（微风吹动祥子/睦的发梢、操场边缘落叶飘落、晚霞光斑浮动）；
+   - **动态场景过度视频**：从自习室转入夜跑操场时，生成首帧为暖杏书桌、尾帧为紫金港操场暮霭的流畅时空穿梭短视频，无缝串联界面生命流。
 
 #### 4. 升维版「八路重装子代理」实质作战矩阵（前后端协同实打实编码！）
 - **`Subagent 01`（体艺 19 项深层真实协议与打卡逆向打通大师 · 后端一号主力）**：
-  - **独占文件**：`src/main/integrations/tiyi_connector.py`、`src/main/tiyiAdapter.ts`、`src/shared/tiyi.ts`。
+  - **独占文件**：`src/main/integrations/tiyi_connector.py`、`src/main/tiyiAdapter.ts`、`src/shared/tiyi.ts`、`src/main/integrations/tiyi_signer.py`、`src/main/integrations/tiyi-signing-service.py`。
   - **硬核攻坚**：
-    1. 彻底干掉 14 个模块的 HTML 空壳（`recordRead: false`），逆向接入真实内嵌脚本与 AJAX 接口（修学记录、13学期辅导站、13学期次数、体测成绩单与预约、运动队签到、比赛、场馆出入、实况热力、毕业体艺报告）；
-    2. 对齐独立体艺参考项目（`mobile_api.rs`），逆向并实现体育打卡通路（`sporttype`、`prejudgment`、`savesports`）及防作弊规则校验器（配速 3'00"~9'00"、步频、路径点合理性判定）。
+    1. 基于 commit `44355da` 已完成的 19 模块全读取与守护进程签名服务 `tiyi-signing-service.py`，保持 0.18s 极速签名响应，确保校方 19 项真实数据 100% 直连可用；
+    2. 针对底层 `jsonsports` 原生加密（`com.security.inner.apk0000.x.l(70)`）与 -300 错误码，编写标准 Mock/Bridge 模块与 Frida 抓包脚本，完善防作弊规则库（配速 3'00"~9'00"、步频合理性、轨迹连续性校验）。
 - **`Subagent 02`（全天候伴跑状态内核与双端定位时钟融合引擎 · 后端二号主力）**：
   - **独占文件**：`src/main/runtime/workout-session.ts`、`src/main/runtime/workout-native.ts`、`src/main/device-location.ts`、`src/main/ios-location.ts`、`apps/location-bridge/`。
   - **硬核攻坚**：
@@ -353,22 +359,22 @@
   - **独占文件**：新增 `src/renderer/map/CompanionRunningHUD.tsx`、`src/renderer/map/WorkoutControls.tsx`、`src/renderer/map/running-hud.css`。
   - **硬核攻坚**：
     1. 打造极具灵动感的桌面透明置顶 Mini 伴跑岛（可穿透悬浮在 MuMu 模拟器或其他窗口之上），展示大字号配速、累计公里、当前步频、用时与角色动态呼吸头像；
-    2. 支持一键折叠为极小药丸胶囊或展开为全功能伴跑卡片；支持手机端/局域网 Web 伴跑大字仪表盘同步视图。
+    2. 支持一键折叠为极小药丸胶囊或展开为全功能伴跑卡片；果冻弹簧吸附与边缘收拢物理手感；支持手机端/局域网 Web 伴跑大字仪表盘同步视图。
 - **`Subagent 05`（体艺 19 项嵌入式伴侣工作台与打卡雷达 · 前端三号主力）**：
   - **独占文件**：`src/renderer/TiyiConnection.tsx`、`src/renderer/tiyi-connection.css`、新增 `src/renderer/TiyiDashboard.tsx`。
   - **硬核攻坚**：
     1. 打造温润如纸的伴侣式体艺工作台：48 次课外锻炼打卡进度环、打卡日历热力图、体测六维雷达图（身高体重/肺活量/50米/长跑/引体/体前屈）及达标推演；
-    2. 场馆实时空闲场地网格视图（紫金港/玉泉风雨操场与各馆），直观展示可预约时段与人流热度。
+    2. 场馆实时空闲场地网格视图（紫金港/玉泉风雨操场与各馆），直观展示可预约时段与人流热度；丝带卷轴手账封印仪式组件实现。
 - **`Subagent 06`（十角色「温柔乡」伴跑多模态剧本与语气库大师 · 全栈/Persona）**：
   - **独占文件**：`src/shared/persona-performance.ts`、`src/shared/persona-portrayals.ts`、`src/main/capabilities/workout.ts`、`src/main/map-workout.ts`。
   - **硬核攻坚**：
     1. 彻底重写 `workout.ts` 的 `meaning`，100% 清除任何防守人机黑话，把校园路网和场馆名（如「东田径场」「启真湖步道」）温暖交底给模型；
-    2. 为 MyGO!!!!! & Ave Mujica 十位角色分别编写跑前动员、跑中每公里报配速、掉速打气、超速提醒、跑后拉伸、打卡成功的独家定制台词与动态反应逻辑。
+    2. 为 MyGO!!!!! & Ave Mujica 十位角色分别编写跑前动员、跑中每公里报配速、掉速打气、超速提醒、跑后拉伸、打卡成功的独家定制台词与动态反应逻辑，支持瞳孔视线追随与微表情状态流转。
 - **`Subagent 07`（全天候智能伴跑调度与主动关怀枢纽 · Backend Proactivity）**：
   - **独占文件**：`src/main/harness.ts`、`src/main/runtime/opportunities.ts`、`src/main/runtime/attention.ts`、`src/main/capabilities/tiyi.ts`。
   - **硬核攻坚**：
     1. 在主动调度引擎中接入「伴跑机会」（`running-opportunity`）：结合天气、空气质量、课表空闲与本学期打卡剩余进度，自主推演最舒适的约跑时机；
-    2. 运动结束后自动触发 Cooldown 放松提醒，并在 10 分钟后主动送上体能对比小总结与打卡回执确认。
+    2. 运动结束后自动触发 Cooldown 放松提醒，并在 10 分钟后主动送上体能对比小总结与打卡回执确认，生理恢复曲线无缝流转至夜间自习与寝前低语。
 - **`Subagent 08`（真机/MuMu 模拟器/电脑端全链路打卡通路与反伪证验收官 · E2E Red Team）**：
   - **硬核任务**：
     1. 联调 Windows 电脑端独立体艺逻辑、MuMu 模拟器官方体艺 App、真实 ADB 位置桥与桌面伴跑 HUD；
@@ -393,6 +399,11 @@
   - [`COMPANION_EXPERIENCES_2026-10-18.md`](ideas/COMPANION_EXPERIENCES_2026-10-18.md) L27–42。
 - **源码精确入口**：
   - `src/main/memory/service.ts`、`src/main/memory/model.ts`、`src/main/memory/browse.ts`、`src/main/memory/context-windows.ts`、`src/main/memory/semantic-recall.ts`、`src/main/runtime/memory-inquiry.ts`、`src/main/runtime/privacy-control.ts`、`src/main/storage/repository.ts`、`prompts/memory-inquiry.md`。
+- **身心状态、运动因果与生活疲劳连续记忆（Energy, Cadence & Lifecycle Memory Continuum）**：
+  - 记忆绝非死板的静态文本切片，而是贯穿用户 24 小时身心律动的有机因果长河：
+    1. **运动疲劳与生理恢复因果**：如记录「上次在紫金港东操以 5'10" 跑完 3km 后小腿酸痛了两天」，本次排期自动留出 48 小时恢复窗口，并在跑后主动提示大腿与比目鱼肌针对性拉伸；
+    2. **自习心流与疲惫阈值**：如记录「连续攻克微积分 45 分钟后思维易钝化」，自动在该节点递出不剧透小便签或柔声提议极轻度转场；
+    3. **共经风雨的情感锚点与专属默契**：永久封存「在西操差点绊倒被拉住的手」「在气膜馆门口避雨喝奶茶」等共同微记忆，化为不经意间的温柔流露。
 
 #### 2. 主代理与子代理在本阶段最易犯的致命错误（防坑预警）
 - **致命错误 A（把活生生的取舍压扁成死板的「人物画像标签」）**：如果把「今晚不去图书馆，因为平板借室友了」存成 `不喜欢去图书馆`，阻碍条件消失后她依然死板回避。必须保留完整的 `qualifiers`（当时条件）、`FrictionHypothesis`（阻碍假设）与「当时想保住什么」。
@@ -424,6 +435,10 @@
   - [`COMPANION_EXPERIENCES_2026-10-18.md`](ideas/COMPANION_EXPERIENCES_2026-10-18.md) L7–16、L83–122、L317–326、L395–402。
 - **源码精确入口**：
   - `src/main/runtime/work.ts`、`src/main/runtime/continuity.ts`、`src/main/runtime/cooperation.ts`、`src/main/runtime/study-companion.ts`、`src/main/runtime/curiosity-tools.ts`、`src/main/runtime/presentation-delivery.ts`、`src/main/runtime/workspace-return.ts`。
+- **共创作品与时空书签跨界流转（Living Works & Spatial Return Continuum）**：
+  - 共同作品绝不是数据库冷冰冰的孤立字块，而是带着时空坐标的生命信物：
+    1. **校园物理取景签深度锚定**：共写的故事自然带有紫金港实景坐标（如「启真湖畔的长椅」「东田径场看台第三排」），在地图与故事间一键折叠穿梭；
+    2. **温情无亏欠感归来（Living Workspace Return）**：隔天重开或跨应用归来时，书桌光标、草稿推演折痕与情感共鸣点自然保持，像伴侣默默替你按住翻开的书页轻声说“你回来了，刚才写到这儿了呢”，彻底告别生硬弹窗与进度丢失。
 
 #### 2. 主代理与子代理在本阶段最易犯的致命错误（防坑预警）
 - **致命错误 A（把「模型吐出了字」当成「用户已经看懂或接受了」）**：必须严格区分 `generated → rendered → seen → understood → accepted → executed` 六重状态；用户中途点停止，未曝光的后半截绝不能算成「我们聊过」。
@@ -456,6 +471,12 @@
   - [`COMPANION_EXPERIENCES_2026-10-18.md`](ideas/COMPANION_EXPERIENCES_2026-10-18.md) L43–64、L123–140。
 - **源码精确入口**：
   - `src/main/runtime/attention.ts`、`src/main/runtime/opportunities.ts`、`src/main/actions/reminders.ts`、`src/main/actions/planning.ts`、`src/main/actions/local-calendar.ts`、`src/main/runtime/native-agenda.ts`、`src/main/main.ts`。
+- **全天候昼夜生命节律与环境因果主动编织（Circadian Rhythm & Proactive Ambient Weaver）**：
+  - 真正的高维主动性是随一日光影与身心能量无声流淌，如影随形：
+    1. **晨光微拂与温情问候**：晨起感知当日紫金港天气与课表，送上温润的今日寄语与出行/饮水叮嘱；
+    2. **午后自习守护与静默准备（Silent Prepare）**：察觉高负荷学习后，在桌角静默准备好傍晚伴跑或散步方案、温水便签，不贸然打断心流；
+    3. **运动后因果流转与专注灯（FocusLamp）暮色律动**：跑后体能消耗自动影响晚间日程，专注灯转入 2700K 琥珀暖杏光，题解节奏放缓，留出 40 分钟无压缓冲留白；
+    4. **深夜床头低语与睡眠守护**：临睡前检查小腿拉伸完成度，以 10 角色鲜活爱意与私密称呼轻声道晚安，进程进入安心守候状态。
 
 #### 2. 主代理与子代理在本阶段最易犯的致命错误（防坑预警）
 - **致命错误 A（把主动陪伴做成烦人的定时闹钟或周报盘点）**：真正高级的主动性是**先在后台安静查好资料、准备好备选方案放在桌角（`prepare`）**，或者写一封带着共同记忆与温情的桌边短信，绝不是催促打卡的效率周报！
@@ -487,6 +508,11 @@
   - [`docs/CONVERSATION_SCENES.md`](CONVERSATION_SCENES.md)。
 - **源码精确入口**：
   - `src/shared/interactive-library.ts`、`src/shared/scenes.ts`、`src/main/runtime/interactive-program.ts`、`src/main/runtime/interactive-program-authoring.ts`、`src/main/runtime/program-local-state.ts`、`prompts/interactive-program.md`。
+- **多模态物理、运动生物力学与动态影视原语生成（Multimodal Biomechanics & Omni Video Integration）**：
+  - 原理造物从二维静态图表全面跃迁为多模态活体仿真实验室：
+    1. **运动生物力学通用原语**：步频-触地时间-地面反冲力力矩动态仿真、着地角（脚跟/中足/前掌）冲击波耗散动态曲线；
+    2. **物理声学与乐器机械级通用原语**：泛音列衰减包络、弦驻波与乐器箱体共振 WebAudio 声学原语；
+    3. **Gemini Omni Flash 动态微视频原语打通**：在解释高维动态物理现象（如复杂刚体碰撞、流线风阻动态、跑步慢动作落地受力分析）时，提供 Gemini Omni Flash 动态短视频生成接口与播放器原语。
 
 #### 2. 主代理与子代理在本阶段最易犯的致命错误（防坑预警）
 - **致命错误 A（构作文档太肥塞不进上下文，导致模型退化画静态表！）**：`COMPANION_EXPERIENCES` L399–401 真实记录过：整份 `interactive-program` 指南因读取预算超限被截断，导致模型拿不到原语签名而退化成画普通表格！必须做**轻量化高密度原语速查与同作品已用部件自动附带**！
@@ -518,6 +544,13 @@
   - `sources/original/upload/在场-生活融合-完整设计与实施交接.md` L461–468（跨设备不复制两个独立大脑）、L501–506（从手机回到电脑）、L649–658（桌面与手机：同一理解，不同占用方式）；
   - `docs/source-materials/2026-10-18/conversation-scenes-prompt.txt` L260–269；
   - [`zaichang-backend-director/references/extensions-and-evaluation.md`](../.agents/skills/zaichang-backend-director/references/extensions-and-evaluation.md)（`X01`、`X02`、`X04`）。
+- **源码精确入口**：
+  - `src/main/sync/sync-port.ts`、`src/shared/sync-protocol.ts`、`apps/ios-companion/`、`apps/android-companion/`、`apps/location-bridge/`。
+- **跨端灵动岛、实时活动与双纸笔迹无缝流转（Dynamic Island & Cross-Device Continuum）**：
+  - 彻底打通多端物理形态差异，共享同一灵魂与因果世界：
+    1. **iPhone 灵动岛与锁屏实时活动（Live Activities）**：切出应用或息屏慢跑时，灵动岛化为温润脉动胶囊，大字实时配速、步频与角色呼吸微头像无感常驻；
+    2. **iPad 双纸 Apple Pencil 真实墨水（PencilKit/Ink）流转**：左原题右推演，手写笔迹矢量实时回流至权威状态，伴侣在纸角同步标注不剧透红笔微批注；
+    3. **Android（MuMu 模拟器）1:1 同构灵动微岛**：通过系统级透明悬浮窗（Floating Window）复刻 iOS 灵动岛交互体验，ADB 轨迹桥秒级接力。
 
 #### 2. 主代理与子代理在本阶段最易犯的致命错误（防坑预警）
 - **致命错误 A（同时乱写 iOS 和 Android 导致两套 UI 风格、手感与功能完全割裂）**：必须严格执行**「第一批次（M01 + M02-iOS + M03-iPad）：先把跨端同步网关 + iOS Swift 灵动岛/流体手感手机版与 iPad 双纸手写画布打磨到 100 分 → 第二批次（M02/M03-Android）：将完全定型的设计语言、交互弹簧参数与业务状态 1:1 移植到 Android 并部署进本机木木模拟器」**！
