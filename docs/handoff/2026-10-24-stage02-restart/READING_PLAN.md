@@ -39,7 +39,7 @@
 ### Stage 02：浙大教务全口径、浙大体艺 19 项真实数据全打通与实时 GPS 轨迹上地图
 
 - **主代理亲读（仅限顶层协调）**：
-  - [`docs/REFACTOR_ROADMAP_2026-10-22.md`](../../REFACTOR_ROADMAP_2026-10-22.md) 的「三点六、浙大体艺组件总览」、[`docs/handoff/2026-10-24-stage02-restart/audits/05-tiyi-complete-scope.md`](audits/05-tiyi-complete-scope.md)、[`06-workout-devices-and-map.md`](audits/06-workout-devices-and-map.md)、`src/main/tiyiAdapter.ts`、`src/main/capabilities/workout.ts`。
+  - [`docs/REFACTOR_ROADMAP_2026-10-22.md`](../../REFACTOR_ROADMAP_2026-10-22.md) 的「三点六、浙大体艺组件总览」与「3.2.1 自制地图 + 手机 GPS 的打卡总装」、[`docs/handoff/2026-10-24-stage02-restart/audits/05-tiyi-complete-scope.md`](audits/05-tiyi-complete-scope.md)、[`06-workout-devices-and-map.md`](audits/06-workout-devices-and-map.md)、`src/main/tiyiAdapter.ts`、`src/main/capabilities/workout.ts`。
 - **8 路子代理分片深读与实做**：
   - `Subagent 01`：精读 `src/main/integrations/tiyi_connector.py`、`C:/Users/17601/Documents/Codex/2026-09-09/wo-d/work/zju-sports-desktop/src-tauri/src/mobile_api.rs` L1–760，接通 `study_records`、`counselling`（13 学期）、`counts`（13 学期）、`fitness_attendance` 的页面内嵌数据与 AJAX 个人记录接口；
   - `Subagent 02`：接通 `fitness`（`/pft/app/*` 体测成绩/预约/反馈）、`graduation_courses`、`graduation_report`、`classes` 的真实数据接口；

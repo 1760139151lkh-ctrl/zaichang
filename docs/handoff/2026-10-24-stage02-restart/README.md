@@ -48,6 +48,7 @@
   1. **打通体艺 19 项深层真实接口与真机/模拟器打卡通路**：
      - 解析并调用剩余 14 个模块的内嵌脚本与 AJAX API（修学记录、辅导站/次数 13 学期明细、体测单项成绩与预约、运动队考勤、比赛、场馆闸机、实时人数、毕业报告），彻底消灭 `recordRead: False` 空壳；
      - 参考独立体艺电脑端（`mobile_api.rs`）的客户端协议，接通运动记录提交流程（`sporttype`、`prejudgment`、`savesports`），并把配速 3'00"~9'00"/km、步频区间、路径点覆盖落实为提交前校验，实现与 MuMu 模拟器（`net.crigh.mysport` + `cn.zaichang.location`）及电脑版体艺的双端联调闭环验证！
+     - 新增 `src/main/runtime/workout-submission.ts`：从结束的真实 `WorkoutSessionRecord` 取点，校验 revision/设备来源/时间/距离，按 WGS84→GCJ-02 生成体艺提交点与配速、步频、分段字段，先 `prejudgment` 再 `savesports`，回读学校 `validCount`；模型不能自带 `track` 提交。
   2. **前端破界：CampusMap 实时暖金发光轨迹与 Spring 细腻动态运镜**：
      - 在 `CampusMap.tsx` 与 `map-engine.ts` 中渲染温润发光的暖金荧光跑步轨迹、呼吸脉冲点、精度圈与每公里里程碑胶囊；
      - 实现物理弹簧相机跟随与可打断拖拽手感（公共地图 100% 物理隔离私人轨迹）。

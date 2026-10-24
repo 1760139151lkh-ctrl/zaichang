@@ -1,0 +1,32 @@
+{
+  "key": "anon/planning/mist",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-24T23:11:07.080Z",
+  "stage": "complete whole-scene lighting edit",
+  "file": "anon-planning-mist-mother-v1.png",
+  "sha256": "af4945832ed47894483e8cde2852dd66d2c3a6ef8a0c28ac99b3cf35bd953ae8",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "originalOutputBasename": "exec-220ba1af-3b70-43e7-9959-e5f0a9b4099a.png",
+  "prompt": "anon-planning-mist-mother-v1.prompt.txt",
+  "inputs": [
+    {
+      "file": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-planning-apricot-mother-candidate-v1.png",
+      "role": "approved apricot complete mother; edit target",
+      "sha256": "74aae35f25cf35d0c1c34ca150e650956bd60218a8e759d15ad44abbb41adc4e"
+    },
+    {
+      "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png",
+      "role": "clean-room light reference only",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "designerPersonallyViewed": true,
+  "primaryMotherReview": "pending_current_root_review",
+  "layers": "not_produced",
+  "runtime": "not_registered",
+  "promptSha256": "7e59cf75a953283f08962f901c2cf8d93694ce4bdf5a592982e7e078bfb2fab0",
+  "designerObservation": "Personally viewed the complete generated original. Over-shoulder eye contact remains engaged and natural while both hands retain paper; original turned chair and two grounded loafers preserved. Complete requested environment light and natural skin bounce are present, with no split scene, text or UI. Primary approval and integrated layer/runtime remain separate."
+}

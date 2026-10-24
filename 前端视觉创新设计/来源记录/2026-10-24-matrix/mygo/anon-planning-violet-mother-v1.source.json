@@ -1,0 +1,32 @@
+{
+  "key": "anon/planning/violet",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-24T23:13:50.124Z",
+  "stage": "complete whole-scene lighting edit",
+  "file": "anon-planning-violet-mother-v1.png",
+  "sha256": "1d9ae4d134a4bfca0e622854a726cf6e906830cdd3b4d603a30f4946d3e57e33",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "originalOutputBasename": "exec-a2f013cd-714e-4907-b943-7bb1bdeb4461.png",
+  "prompt": "anon-planning-violet-mother-v1.prompt.txt",
+  "inputs": [
+    {
+      "file": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-planning-apricot-mother-candidate-v1.png",
+      "role": "approved apricot complete mother; edit target",
+      "sha256": "74aae35f25cf35d0c1c34ca150e650956bd60218a8e759d15ad44abbb41adc4e"
+    },
+    {
+      "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-violet-candidate.png",
+      "role": "clean-room light reference only",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "designerPersonallyViewed": true,
+  "primaryMotherReview": "pending_current_root_review",
+  "layers": "not_produced",
+  "runtime": "not_registered",
+  "promptSha256": "17c1b2e46454fa00abf6b94f6a3bb91a9a1a5922093e8d618e1c4bb50bf8535e",
+  "designerObservation": "Personally viewed the complete generated original. Over-shoulder eye contact remains engaged and natural while both hands retain paper; original turned chair and two grounded loafers preserved. Complete requested environment light and natural skin bounce are present, with no split scene, text or UI. Primary approval and integrated layer/runtime remain separate."
+}

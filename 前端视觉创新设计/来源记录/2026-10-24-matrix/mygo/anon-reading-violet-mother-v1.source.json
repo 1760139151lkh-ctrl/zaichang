@@ -14,15 +14,19 @@
   "inputs": [
     {
       "file": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-reading-apricot-mother-candidate-v1.png",
-      "role": "approved apricot complete mother; edit target"
+      "role": "approved apricot complete mother; edit target",
+      "sha256": "ab281c84f38b313452d13e14cb2f06f98319a619223f744ada27b562b5bcb0c5"
     },
     {
       "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-violet-candidate.png",
-      "role": "clean-room light reference only"
+      "role": "clean-room light reference only",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
     }
   ],
-  "designerPersonallyViewed": false,
+  "designerPersonallyViewed": true,
   "primaryMotherReview": "pending_current_root_review",
   "layers": "not_produced",
-  "runtime": "not_registered"
+  "runtime": "not_registered",
+  "promptSha256": "0d77edab91f0b5f9ad3a6fc90ce460bae7908f00fe5688aae3b2ff5f7d7bad07",
+  "designerObservation": "Personally viewed the complete generated original. Gaze rests on the actual open book; supported window-bench side sit and both whole loafers retained. Complete requested environment light and natural skin bounce are present, with no split scene, text or UI. Primary approval and integrated layer/runtime remain separate."
 }
