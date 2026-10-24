@@ -2,6 +2,8 @@ import { z } from 'zod';
 import type { DeepSeekClient, ToolSpec } from '../provider';
 import { structuredResult } from './structured-result';
 import { usingLunaTestTransport } from '../model-selection';
+import { HarnessError } from '../../shared/harness';
+import { localCloudRestriction } from './turn-controls';
 
 const wireSchema = z.object({
   neededForCurrentRequest: z.boolean().describe('读这份内容或查这些公开资料，能帮眼前的问题补上什么。独立的常识题通常用不到私人前情；接上指代、读下一页或找到原对象，也可以是必要的一步。能问用户，不等于已有前情就没有帮助；资料公开，也还要与问题有关。'),
@@ -28,6 +30,9 @@ export async function verifyPresenceReadPurpose(authority: PresenceReadAuthority
 }
 async function reviewReadPurpose(original: string, proposed: unknown, complete: DeepSeekClient['complete'], signal: AbortSignal,
   presence?: PresenceReadAuthority) {
+  // A read-purpose model is another cloud boundary, not an exception to the
+  // author's current local-only choice. Check before serializing any proposal.
+  if (!presence && localCloudRestriction(original)) throw new HarnessError('cloud_disabled', '这次内容只留在本机；当前没有可用的离线模型。');
   // The temporary max-effort Luna route counts reasoning and formatting in
   // total output. Keep the production allowance and the complete facade.
   const lunaTestTransport = usingLunaTestTransport();

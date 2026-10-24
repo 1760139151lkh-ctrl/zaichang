@@ -21,15 +21,22 @@ const methodSchema = z.object({ name: z.string().min(1).max(120), description: z
   usage: personalMethodUsageSchema.default('work').describe('work留下一种做事的办法；conversation留下对方希望以后也沿用的相处方式。只靠文字就能做的，requirements可以留空。'),
   conditions: personalMethodConditionsSchema.optional().describe('从那次真正有帮助的地方写起：什么时候适合借用，今天想换一种时怎样跟上。由你来整理，对方用平常的话表达就好。') }).strict()
   .refine(value => new Set(value.requirements.map(item => item.kind + ':' + item.name)).size === value.requirements.length, '同一个方法需求只声明一次。');
+const instructionEditSchema = z.object({ start: z.number().int().nonnegative(), end: z.number().int().positive(),
+  quote: z.string().min(1).max(18000), text: z.string().max(18000),
+}).strict().refine(value => value.end > value.start, '先指到原来想改的那几句。');
 // An amendment names only the parts that changed. In particular, omitting
 // conditions or requirements cannot erase them or reset the method's usage.
 const methodRevisionSchema = z.object({
   name: methodSchema.shape.name.optional(), description: methodSchema.shape.description.optional(),
-  instructions: methodSchema.shape.instructions.optional(), requirements: methodSchema.shape.requirements.optional(),
+  instructions: methodSchema.shape.instructions.optional().describe('整段改写步骤时，留下完整的新正文；只换几句话可用instructionEdits，余下文字原样留下。'),
+  requirements: methodSchema.shape.requirements.optional(),
+  instructionEdits: z.array(instructionEditSchema).min(1).max(12).optional()
+    .describe('只改步骤中的几句话时，指到当前instructions里的原文与新写法，其他文字原样留下。start/end按Unicode码点从0数（😀算1个），end不含；每一处都对照修改前的同一版原文，text留空可删去这一处。'),
   usage: personalMethodUsageSchema.optional(), conditions: personalMethodConditionsSchema.partial().optional(),
 }).strict().refine(value => Object.entries(value).some(([key, part]) => part !== undefined
   && (key !== 'conditions' || Object.values(part).some(field => field !== undefined))), '写下这次想改的那一处，其他地方会留下。')
-  .describe('只写这次想改的地方；conditions也可以只写其中一项，其他步骤、条件和用途都留下。若要整份重写，就把完整方法写出来。');
+  .refine(value => value.instructions === undefined || value.instructionEdits === undefined, '整段重写和只改几句选一种就好，这样改动才清楚。')
+  .describe('只写这次想改的地方；conditions也可以只写其中一项，步骤只改几句话可用instructionEdits，其他内容留下。若要整份重写，就把完整方法写出来。');
 const methodId = z.string().regex(/^personal:[0-9a-f-]{36}$/);
 export const personalMethodInput = z.discriminatedUnion('operation', [
   z.object({ operation: z.literal('save'), method: methodSchema, source: authorizationSchema, supports: z.array(refSchema).max(16).default([]),
@@ -115,7 +122,7 @@ export class PersonalMethodService {
     const scope = this.owner(handle, true), { quote, ...source } = input.source;
     const changedFields = input.operation === 'disable' ? ['status'] : Object.entries(input.method)
       .filter(([, value]) => value !== undefined).flatMap(([field, value]) => field === 'conditions' && value && typeof value === 'object'
-        ? Object.keys(value).map(key => 'conditions.' + key) : [field]);
+        ? Object.keys(value).map(key => 'conditions.' + key) : [field === 'instructionEdits' ? 'instructions' : field]);
     const receipt = ownershipReceiptSchema.parse({ version: 1, ownerId: scope.principalId, workspaceId: scope.workspaceId,
       methodId: id, methodRevision: revision, operation: input.operation, source,
       sourceQuoteSha256: createHash('sha256').update(quote).digest('hex'), changedFields, ...proof, recordedAt: this.repo.clock.now() });
@@ -309,13 +316,32 @@ export class PersonalMethodService {
     return binding;
   }
 
+  private amendInstructions(original: string, edits: z.infer<typeof instructionEditSchema>[]) {
+    const points = Array.from(original), sorted = [...edits].sort((a, b) => a.start - b.start);
+    let end = 0, text = '';
+    for (const edit of sorted) {
+      if (edit.start < end || edit.end > points.length || points.slice(edit.start, edit.end).join('') !== edit.quote)
+        throw new HarnessError('personal_method_instruction_changed', '想改的那几句与现在这版方法没有对上，其他步骤还留着。翻开当前那份，再指到这一处就好。');
+      text += points.slice(end, edit.start).join('') + edit.text;
+      end = edit.end;
+    }
+    return text + points.slice(end).join('');
+  }
+
   private method(input: Exclude<MethodInput, { operation: 'disable' }>, previous?: WorkRecord) {
-    if (input.operation !== 'revise' || input.revisionMode === 'replace') return methodSchema.parse(input.method);
+    if (input.operation !== 'revise') return methodSchema.parse(input.method);
+    if (input.revisionMode === 'replace') {
+      if (input.method.instructionEdits)
+        throw new HarnessError('personal_method_amendment', '只改几句话可以沿amend接着改，整份重写时则留下完整的新方法。');
+      return methodSchema.parse(input.method);
+    }
     if (!previous) throw new HarnessError('personal_method_changed', '原来的方法现在读不完整，先照顾这次想改的地方。');
     const original = methodSchema.parse(previous.data.method);
-    const changes = Object.fromEntries(Object.entries(input.method).filter(([, value]) => value !== undefined));
+    const { instructionEdits, ...fields } = input.method;
+    const changes = Object.fromEntries(Object.entries(fields).filter(([, value]) => value !== undefined));
     const conditions = input.method.conditions && Object.fromEntries(Object.entries(input.method.conditions).filter(([, value]) => value !== undefined));
     return methodSchema.parse({ ...original, ...changes,
+      ...(instructionEdits ? { instructions: this.amendInstructions(original.instructions, instructionEdits) } : {}),
       ...(conditions ? { conditions: { ...original.conditions, ...conditions } } : {}) });
   }
 
@@ -414,8 +440,10 @@ export class PersonalMethodService {
       if (current) this.repo.invalidate(id, 'personal_method_revised');
       return { id: 'personal:' + id, revision: record.revision, status: record.status, guidanceOnly: true as const,
         name: method.name, methodDigest: createHash('sha256').update(canonical(method)).digest('hex'),
-        read: { tool: 'read_skill', id: 'personal:' + id },
-        meaning: input.operation === 'revise'
+        ...(record.status === 'active' ? { read: { tool: 'read_skill', id: 'personal:' + id } } : {}),
+        meaning: record.status === 'disabled'
+          ? '想改的地方已经留好了，这份方法仍按原来的意思放着；眼前怎么帮，照今天来。'
+          : input.operation === 'revise'
           ? '想改的地方已经留好了，其他独立的帮法仍留在原处。下次遇到合适的时候，可以从这一版借一点；今天怎么接力，仍照今天的意思。'
           : '这份做法和当时的来由已经一起留好了。以后碰到合适的时候，可以自然借来帮忙；对方想自己来、想换一种时，就跟着今天的意思走。' };
     });

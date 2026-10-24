@@ -8,19 +8,19 @@ import type { CapabilityBroker, CapabilityDefinition, CapabilityResult, Capabili
 export const TIYI_READ_GRANT = 'campus:tiyi:read';
 
 const moduleDescriptions: Record<TiyiModuleResource, string> = {
-  study_records: '查看学校修学记录入口和当前能打开的内容。个人记录是否已加载会随结果一同说明。',
-  exercise: '查看本人的课外锻炼流水与学校审核状态，可能包含历年记录。summary/statistics可看学校计次，record_detail可看单次配速和用时；精细路线保留在本机。',
+  study_records: '看看学校记下的体艺修学情况。这次读到了个人明细还是入口页，会和内容一起带回。',
+  exercise: '看看自己的课外锻炼记了哪些次、学校审核到哪一步，也可往前翻历年记录。想看学校计次可用summary或statistics，想看某次配速和用时可沿record_detail继续；精细路线保留在本机。',
   notices: '看看学校体艺活动预告和首页通知，包括活动时间、安排与报名入口。',
-  teams: '查看运动队入口；mine查看本人队伍，attendance查看考勤页。',
+  teams: '看看自己参加的运动队和出勤情况；mine打开本人队伍，attendance接着看考勤。',
   westward: '查看西迁活动入口和当前内容；需要重新登录时会带回学校的回复。',
-  counselling: '查看辅导站入口；subpage=records打开考勤页与学校提供的学期选项。',
+  counselling: '看看辅导站的活动和出勤情况；subpage=records打开考勤，并带回学校可选的学期。',
   counts: '查看学校次数查询入口与学期选项。有效锻炼次数、实践积分和刷卡流水会保留各自名称。',
   venues: '看看学校有哪些场馆、所选日期有哪些时段，也可查本人订单、同伴和培训。先从目录选venueSiteId，再带searchDate查当天；reservation和art_reservation分别查看体育与艺术场地。这里返回可选时段与价格。',
   fitness_attendance: '查看身体素质课考勤入口和学校这次返回的内容。',
   training: '看看学校培训课程的班次、时间和费用。',
-  fitness: '查看体测入口；results看成绩页，schedule看预约日历，feedback看已有反馈页。',
+  fitness: '看看体测成绩、预约日历或已有反馈，分别用results、schedule、feedback选择；学校这次实际打开的内容会一同带回。',
   competitions: '查看本人的比赛入口与学校当前发布的内容。个人记录是否已加载会随结果说明。',
-  classes: '查看本人所选学期的体育课程。course_terms提供学校学年和学期，attendance可继续看逐次考勤。返回内容保留课程摘要、每次上课日期与签到状态，便于分清已经发生的出勤和后续课程安排。',
+  classes: '看看所选学期有哪些体育课、哪天上过课、签到记成了什么。先用course_terms选学校的学年和学期，再来查课；想看某门课的每次出勤可沿attendance继续。后面还没上的课也会保留日期。',
   venue_entries: '查看场馆出入记录入口与学校学期选项，保留入场流水的时间和状态。',
   feedback: '查看学校意见反馈入口和已有反馈。',
   venue_live: '看看学校场地实况页，人数等信息附学校这次回复的时间。',
@@ -37,10 +37,10 @@ const extraResources = ['profile', 'menus', 'terms', 'summary', 'records', 'reco
 const resourceNames = ['profile', ...TIYI_MODULES.map(item => item.resource), ...extraResources] as const;
 const reference = z.string().min(1).max(160).regex(/^[^\r\n\0]+$/);
 const pageFields = {
-  refresh: z.boolean().default(false).describe('默认先看本机最近取得的同项资料，没有时再向学校查询。true重新查询；沿snapshotId续读时保持false。'),
+  refresh: z.boolean().default(false).describe('默认先看本机最近取得的同项资料，没有时再向学校查询。想知道现在有没有变化时填true；沿刚才那份记录继续翻页时保持false。'),
   snapshotId: z.string().regex(/^[a-f0-9]{32}$/).optional().describe('刚才返回的本机记录编号，继续阅读时沿用。'),
   pointer: z.string().max(2048).optional().describe('刚才那份记录给出的正文地址，与snapshotId一起继续查看。'),
-  offset: z.number().int().min(0).max(1000000).default(0).describe('从原记录继续的位置；列表按条、文字按Unicode码点计数。下一页入口会带好snapshotId和pointer。'),
+  offset: z.number().int().min(0).max(1000000).default(0).describe('从刚才停下的位置接着看；列表按条、文字按Unicode码点计数。下一页入口已经带好这份记录的编号和正文地址。'),
   limit: z.number().int().min(1).max(50).default(8).describe('本次展开的条数；原始来源仍完整保存在本机，下一页继续读同一份。'),
 };
 const queryFields = {
@@ -217,7 +217,7 @@ function resultOf(observation: TiyiObservation, capability: string, args: TiyiRe
   const schoolNext = source.upstreamNext && tiyiReadInput.safeParse({ ...source.upstreamNext, refresh: true, limit: args.limit ?? 8 });
   const schoolContinuation = schoolNext && schoolNext.success && schoolNext.data.resource === args.resource ? {
     tool: 'look_up', arguments: { source: 'capability', capability: 'tiyi.read', arguments: validateRead(schoolNext.data) },
-    meaning: '继续向学校查询列表的下一页；期间列表可能更新。要继续展开刚才保存的内容，沿原snapshotId和pointer读取。',
+    meaning: '学校还有下一页，可以接着查；这份名单在翻页期间也可能有变化。刚才已保存的内容仍可沿原来的记录编号和正文地址展开。',
   } : undefined;
   return {
     status, sourceId: TIYI_SOURCE_ID, observedAt: observation.observedAt, fetchedAt: observation.fetchedAt,
@@ -248,9 +248,10 @@ function resultOf(observation: TiyiObservation, capability: string, args: TiyiRe
       ...(observation.error ? { error: { code: observation.error.code, ...(observation.error.httpStatus ? { httpStatus: observation.error.httpStatus } : {}) } } : {}),
       meaning: budget.omitted || navigationOnly ? '正文还没展开完，可以沿同一份记录的入口接着看。'
         : venueDataRead ? '学校的场馆目录或当天时段已带回，包含这次查询的空闲、容量、占用和使用条件；选中的时段还没有预留。'
-        : page ? '学校入口页已打开，个人数据还没读到；这一步暂时看不到个人记录。'
+        : page ? '打开了学校入口页，个人明细还没出现在这次回复里。'
         : recordRead ? '这是学校这次返回的体艺内容，汇总、运动流水和审核状态保留着学校各自的名称。'
-          : '这次还没拿到个人体艺内容，学校回复和连接情况在原因中。',
+          : catalog ? '这里是学校的功能目录，可以沿选中的项目继续看。'
+            : '这次还没读到个人体艺内容，学校刚才的回复仍在这份结果里。',
     },
     coverage: { complete, scope: `体艺 ${args.resource}；本次学校响应的当前页` },
     ...(observation.error?.message ? { reason: publicText(observation.error.message).slice(0, 500) }

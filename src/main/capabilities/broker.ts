@@ -210,7 +210,7 @@ export class CapabilityBroker {
   register(provider: CapabilityProvider, approval: { reviewed: boolean; source: string }) {
     const m = provider.manifest;
     if (!approval.reviewed || !approval.source || m.trust === 'untrusted_disabled')
-      throw new HarnessError('unreviewed_provider', '未审核扩展不能运行。');
+      throw new HarnessError('unreviewed_provider', '这份扩展还没核对来源和做法，当前尚未启用。');
     if (this.providers.has(m.id)) throw new HarnessError('provider_exists', '扩展已登记，升级需要显式替换。');
     if (
       !/^[a-zA-Z0-9_.:-]{1,100}$/.test(m.id) ||
@@ -233,7 +233,7 @@ export class CapabilityBroker {
       )
         throw new HarnessError('invalid_capability', '能力名称冲突或预算无效。');
       if (d.effect !== 'read' && d.worlds.includes('scenario'))
-        throw new HarnessError('scenario_effect', '假设世界不能执行副作用。');
+        throw new HarnessError('scenario_effect', '这份演练留在假设情境里，实际修改沿本人的现实事项继续。');
     }
     // Keep reviewed metadata and executable functions independent of later
     // mutations to the caller's provider object. Connection callbacks remain live.
@@ -403,7 +403,7 @@ export class CapabilityBroker {
       request: async (url, init = {}) => {
         this.policy.validate(handle);
         if (m.publicRead) {
-          if (m.trust !== 'bundled_reviewed' || d.effect !== 'read' || (init.method && init.method !== 'GET') || init.body || init.headers) throw new HarnessError('public_request_forbidden', '公共研究只允许不带凭据的只读请求。');
+          if (m.trust !== 'bundled_reviewed' || d.effect !== 'read' || (init.method && init.method !== 'GET') || init.body || init.headers) throw new HarnessError('public_request_forbidden', '这次的读法与公开网页入口没有对上，请求还没发出；可以按原来源的公开链接继续读取。');
           return publicFetch(url, controller.signal);
         }
         const parsed = new URL(url),
@@ -415,11 +415,11 @@ export class CapabilityBroker {
           parsed.password ||
           (parsed.protocol === 'http:' && !['127.0.0.1', 'localhost', '[::1]'].includes(parsed.hostname))
         )
-          throw new HarnessError('egress_forbidden', '此目标地址不在扩展的出站范围内。');
+          throw new HarnessError('egress_forbidden', '这个地址不在此来源已连接的范围里，请求还没发出；可以回到原来源给出的入口继续。');
         if (d.effect === 'read' && !['GET', 'HEAD'].includes(method))
-          throw new HarnessError('effect_mismatch', '只读扩展不能发起写请求。');
+          throw new HarnessError('effect_mismatch', '这里接的是读资料，这次带来的是修改请求；实际修改沿原行动入口继续。');
         if (d.effect === 'external_write' && !idempotencyKey)
-          throw new HarnessError('approval_required', '外部请求缺少获批动作。');
+          throw new HarnessError('approval_required', '这次外部修改还没对应到具体行动，可以接回原事项核对要办的内容，再沿原行动继续。');
         return this.fetcher(url, { ...init, redirect: 'error', signal: controller.signal });
       },
     };
@@ -445,7 +445,7 @@ export class CapabilityBroker {
       return {
         status: 'unsupported',
         sourceId: 'unregistered',
-        reason: '当前目录里没有这项做法，可以沿look_up的capability目录按用途再找，已经取得的资料仍可继续用。',
+        reason: '当前目录里没有这项做法，可以沿look_up的capability目录按用途再找，在这次允许的资料范围内继续。',
         simulated: false,
       };
     const { definition: d, provider } = entry,
@@ -492,7 +492,7 @@ export class CapabilityBroker {
           action.capability !== name ||
           canonical(action.arguments) !== canonical(parsed)
         )
-          throw new HarnessError('invalid_attempt', '这次要改的内容与原行动没有对上，原结果保留着；可以先回看同一行动再继续。');
+          throw new HarnessError('invalid_attempt', '这次要改的内容与原行动没有对上，可以先找回同一原行动，核对当前内容和办理结果，再继续修改。');
         this.assertContract(name, action.capabilityContract);
       }
       if (options.inspectKey || options.cancelKey) {
@@ -568,8 +568,8 @@ export class CapabilityBroker {
       const controller = new AbortController();
       const timer = setTimeout(
         () => controller.abort(new HarnessError('provider_timeout', d.effect === 'read'
-          ? '这份来源等到现在还没返回，其他已读资料仍可继续用；稍后可沿同一查询重新读取。'
-          : '这次还没收到办理结果，是否办成要沿原行动核对；原安排与这次要办的内容都还留着。')),
+          ? '这份来源等到现在还没返回，稍后可在当前允许的范围内沿同一查询重新读取。'
+          : '这次还没收到办理结果，是否办成要沿同一原行动核对；先查当前结果，再决定后续修改。')),
         d.timeoutMs,
       );
       this.active.add(controller);
@@ -703,7 +703,7 @@ export class CapabilityBroker {
       const result: CapabilityResult = {
         status,
         sourceId: m.sourceId,
-        reason: error instanceof HarnessError ? error.message : '这次来源还没给出可用结果，已经读到的其他资料仍可接着处理。',
+        reason: error instanceof HarnessError ? error.message : '这次来源还没给出可用结果，可以在当前允许的范围内换一个来源继续查。',
         ...(error instanceof CapabilityValidationError ? { validation: error.validation } : {}),
         simulated: m.simulated,
       };

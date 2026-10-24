@@ -1096,6 +1096,20 @@ export class Harness {
         disposeModelBoundary = () => client.invalidateBoundary?.();
         const rhythm = new ConversationRhythm(contract.audience === 'self');
         const invalidateDraft = new WeakMap<(text: string) => void, () => void>();
+        const discardForegroundDraft = () => {
+          // A normal source revision keeps the words already confirmed by a
+          // completed tool turn. Withdraw its unfinished tail immediately,
+          // before the next request can write from the revised source.
+          const confirmed = rhythm.current();
+          // Retire the draft while its observation IDs are still available
+          // to the source-change exclusion. Closing it first loses that set.
+          rhythm.discardContinuationContext();
+          delete message.responseText;
+          if (message.content !== confirmed) {
+            message.content = confirmed;
+            publish(true);
+          }
+        };
         let disposeForegroundTextFlush: (() => void) | undefined;
         settleForegroundTextFailure = discardDraft => {
           disposeForegroundTextFlush?.();
@@ -1124,10 +1138,15 @@ export class Harness {
           observed.set(change.id, metadata);
           (active.pendingNoteChanges ||= new Map()).set(change.id, metadata);
           active.noteChangeVersion = (active.noteChangeVersion || 0) + 1;
+          return true;
         };
         releaseNoteChanges = this.store.notes.onChanged(change => {
           if (signal.aborted) return;
-          for (const active of [run, ...[...childRuns.values()].map(child => child.run)]) queueNoteChange(active, change);
+          for (const active of [run, ...[...childRuns.values()].map(child => child.run)]) {
+            const changed = queueNoteChange(active, change);
+            if (changed && active === run && this.activeRun === run && this.controller === controller)
+              discardForegroundDraft();
+          }
         });
         const childReports = new Map<string, { _host_children?: string[]; results?: Record<string, unknown>[] }>();
         const approvedChildIds = (wire: ModelWireMessage): string[] => {
@@ -1234,7 +1253,7 @@ export class Harness {
           };
           validateChildSources();
           const dependencyChanges = await runtime.refreshDependencies(activeRun);
-          if (activeRun === run && dependencyChanges.length) rhythm.discardContinuationContext();
+          if (activeRun === run && dependencyChanges.length) discardForegroundDraft();
           const phase = options?.phase || (tools.length === 1 && tools[0].function.name === 'report_completion_gaps' ? 'completion_review' : tools.length === 1 && tools[0].function.name.startsWith('verify_') ? 'verification' : 'main');
           if (phase === 'completion_review' && activeRun === run && !options?.actorId && !run.background
             && contract.audience === 'self' && tools.length === 1 && tools[0].function.name === 'report_completion_gaps') {
@@ -1245,10 +1264,17 @@ export class Harness {
               if (wire.role !== 'user' || typeof wire.content !== 'string') return wire;
               const parsed = toolWireJSON(wire.content);
               if (!parsed.parsed || !parsed.value || typeof parsed.value !== 'object' || Array.isArray(parsed.value)) return wire;
-              const input = parsed.value as { hostState?: { replyPublication?: { messageId?: unknown } } };
+              const input = parsed.value as { reply?: unknown; hostState?: { replyPublication?: { messageId?: unknown } } };
               if (input?.hostState?.replyPublication?.messageId !== message.id) return wire;
+              const prefix = rhythm.current();
+              // The review already has the complete reply. Mark only the
+              // exact Unicode span of earlier tool-turn prose, after its
+              // normal redaction, so it can follow an explicit later correction.
+              const publishedPrefix = prefix && typeof input.reply === 'string' && input.reply.startsWith(prefix)
+                ? { start: 0, end: Array.from(prefix).length } : undefined;
               return { ...wire, content: JSON.stringify({ ...input, hostState: { ...input.hostState,
-                replyPublication: { messageId: message.id, previousCandidates: rhythm.reviewPublications(message.id) } } }) };
+                replyPublication: { messageId: message.id, ...(publishedPrefix ? { publishedPrefix } : {}),
+                  previousCandidates: rhythm.reviewPublications(message.id) } } }) };
             });
           }
           const noteNoticesInRequest = (activeRun.dependencyNotices || []).filter(notice => !!notice && typeof notice === 'object'
@@ -1279,7 +1305,7 @@ export class Harness {
             if (liveText) {
               validateChildSources();
               const changed = await runtime.refreshDependencies(activeRun);
-              if (changed.length) { liveText = false; rhythm.discardContinuationContext(); if (onText) invalidateDraft.get(onText)?.(); }
+              if (changed.length) { liveText = false; discardForegroundDraft(); if (onText) invalidateDraft.get(onText)?.(); }
             }
           }
           if (liveText) {
@@ -1303,7 +1329,7 @@ export class Harness {
             runtime.validateModelImageSources(activeRun, imageRecords);
             const changed = await runtime.refreshDependencies(activeRun);
             if (changed.length) {
-              rhythm.discardContinuationContext();
+              discardForegroundDraft();
               if (onText) invalidateDraft.get(onText)?.();
               closeText(); return;
             }
@@ -1384,7 +1410,7 @@ export class Harness {
             const extra = Math.max(0, (value.transportAttempts || value.usage?.physical_attempts || 1) - 1);
             run.modelCalls += extra; if (actor) actor.modelCalls += extra;
             const changed = await runtime.refreshDependencies(activeRun);
-            if (changed.length && activeRun === run) rhythm.discardContinuationContext();
+            if (changed.length && activeRun === run) discardForegroundDraft();
             if (changed.length && onText) { invalidateDraft.get(onText)?.(); closeText(); }
             validateSpatialSources(runtime.repo, activeRun);
             if (liveText && !textClosed) {
@@ -2197,7 +2223,7 @@ export class Harness {
         let protocolBoundary = advanceProtocolTurnBoundary(result);
         const refreshNoteChanges = async () => {
           const changes = await runtime.refreshDependencies(run);
-          if (changes.length) rhythm.discardContinuationContext();
+          if (changes.length) discardForegroundDraft();
           return (run.noteChangesSeenByMain || 0) < (run.noteChangeVersion || 0);
         };
         let unseenNoteChanges = await refreshNoteChanges();

@@ -252,7 +252,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
           data: { items, query: args.query, domains, retrieval: 'Bing public RSS', httpStatus: response.status, finalUrl: response.url || url.href,
             textDecoding: decoded.decoding,
             candidateCount: candidates.length, relevance: items.length ? 'unassessed_candidates' : 'empty_candidates',
-            relevanceMeaning: 'queryTermCoverage只度量题名与摘要的词面命中，用于排序；低分不证明内容无关，高分也不证明事实得到支持。',
+            relevanceMeaning: 'queryTermCoverage按题名、摘要与查询词的重合情况排列候选；它是否切题、结论依据在哪里，可以沿原页正文继续看。',
             authority: 'search_candidates_only', targetResearchCompleted: false, notProofOfAbsence: true, nextStep: '这些是待阅读的网页候选。原页可能含摘要没提到的细节；关键规则和期限的适用对象、日期以原文为准。候选偏题或当前页为空时，简短关键词、另一种语言或已知原发布来源仍是可继续的入口。' }, coverage: { complete: false, scope: 'bounded public search results' } };
       }
       if (name === 'research.image') {

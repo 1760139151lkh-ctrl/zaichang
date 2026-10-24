@@ -51,18 +51,20 @@ const ordinaryControls = {
   specificActionLimits: [], release: null, basis: [], uncertain: false, uncertainControls: [],
 };
 const controlProposalWireSchema = proposalSchema.partial();
-const privacyVoiceBoundary = /但是|不过|然而|可是|但|而我|现实中|实际上|至于我|另外|\bbut\b|\bhowever\b|\bin reality\b|\bactually\b/iu;
+const privacyVoiceBoundary = /但是|不过|然而|可是|(?<!不)但|现实中|实际上|至于我|另外|\bbut\b|\bhowever\b|\bin reality\b|\bactually\b/iu;
 const privacyAdoption = /(?:遵守|遵循|按|按照|照着|记住|记牢|执行|照办)(?:这条|这个|以下|这句|我说的|要求|约定|意思|限制|原则|[:：\s])*$/u;
 const englishPrivacyAdoption = /\b(?:follow|obey|apply|remember|honou?r|enforce)\s*(?:(?:this|the|my|following)\s+)?(?:(?:instruction|rule|request|choice|requirement|policy)\s*)?[:：]?\s*$/iu;
+const privacyPreference = /(?:我|本人)(?:现在|这次|本次|本轮)?(?:希望|要求|想要|要|选择)(?:是|就是)?[:：\s]*$|\bI\s+(?:want|require|choose|prefer)\s*:?\s*$/iu;
+const privacySameChoice = /^(?:(?:我的|对我)(?:这轮|本轮|这次|当前)?(?:也|同样)(?:一样|如此|适用)|(?:我|本人)(?:也|同样)(?:是|有)(?:这个|这条|这样的)(?:要求|限制|选择))|^(?:the same (?:goes )?for me|same for me|that is (?:also )?what I want)\b/iu;
 
 /** A mentioned privacy choice is material, not a choice for this request. Only
  * explicit reporting, language questions and closed hypothetical questions are
  * recognized here. An unfamiliar/ambiguous instruction stays local. */
 function mentionedPrivacyChoice(before: string, after: string): boolean {
-  // A new independent instruction does not inherit an earlier hypothetical or
-  // reported speaker. Commas are handled by the caller, so this also covers
-  // changes of voice within a single clause.
+  // Keep the sentence prefix through commas, but reset reported ownership at
+  // an explicit change of voice or a new independent instruction.
   const prefix = before.split(privacyVoiceBoundary).at(-1)!.trim();
+  const clausePrefix = prefix.split(/[，,]/u).at(-1)!.trim();
   const suffix = after.trim().replace(/^[，,：:\s]+/u, '');
   // Transfer matches end at the verb, before the object. A later independent
   // clause in this sentence can still adopt that choice or introduce real data.
@@ -71,28 +73,123 @@ function mentionedPrivacyChoice(before: string, after: string): boolean {
     || /^(?:请|就)?(?:按|按照|遵守|执行|照着|照)(?:这条|这个|上述|以上|刚才|前述)(?:限制|要求|约定|规则|原则)?(?:处理|做|办|执行|来)/u.test(value)
     || /^(?:以下|下面|接下来|这里)(?:是|给你)(?:我的|这次的)?(?:真实|实际)(?:资料|数据|内容|原文|记录)/u.test(value)
     || /^(?:this\s+is\s+my|is\s+my)\s+(?:(?:actual|current|real)\s+)?(?:instruction|request|requirement|choice|policy)\b/iu.test(value)
-    || /^(?:please\s+)?(?:follow|obey|apply|honou?r|enforce)\s+(?:this|that|the above)\s+(?:instruction|request|requirement|choice|policy|rule)\b/iu.test(value))) return false;
+    || /^(?:please\s+)?(?:follow|obey|apply|honou?r|enforce)\s+(?:this|that|the above)\s+(?:instruction|request|requirement|choice|policy|rule)\b/iu.test(value)
+    || privacySameChoice.test(value))) return false;
+  // A comma continues a reported/hypothetical sentence until the author
+  // explicitly takes over. Do not mistake that takeover for more reported text.
+  if (clausePrefix !== prefix && /^(?:(?:而|至于)\s*)?(?:(?:我|本人)(?:的|这次|本次|本轮|现在|要求|希望)|(?:这次|本次|本轮|现在)(?:我|请|也|就))/u.test(clausePrefix)) return false;
   if (/^(?:假设|假如|假想|设想|如果|要是|倘若)(?:我|本人|你)(?:现在|这次|本次|本轮)?(?:说|问|提出|要求)(?:了|过)?[:：\s]*$/u.test(prefix)) return true;
-  if (/(?:遵守|遵循|照办|照做|执行|记住|记牢)(?:这条|这个|以下|这句|我说的|要求|约定|意思|限制|原则|[:：\s])*$/u.test(prefix)
-    || /(?:我|本人|这次|本次|本轮|当前)(?:的)?(?:要求|约定|限制|选择)(?:是|就是|如下|为)?[:：\s]*$/u.test(prefix)) return false;
+  if (/(?:遵守|遵循|照办|照做|执行|记住|记牢)(?:这条|这个|以下|这句|我说的|要求|约定|意思|限制|原则|[:：\s])*$/u.test(clausePrefix)
+    || /(?:我|本人|这次|本次|本轮|当前)(?:的)?(?:要求|约定|限制|选择)(?:是|就是|如下|为)?[:：\s]*$/u.test(clausePrefix)) return false;
+  if (/(?:并?不是(?:说|要求)|没有要求|没说)[:：\s]*$/u.test(clausePrefix)
+    || /\bnot\s+(?:saying|asking|requiring)(?:\s+(?:that|you))?\s*$/iu.test(clausePrefix)) return true;
   // The tail must identify the words/design as the subject. A bare question
   // such as “能不能不出本机” still expresses an actual privacy preference.
   if (/^(?:(?:这句|这段|这个|这种|这条|这样的)(?:话|说法|表达|要求|限制|约定|规则|设计|方案|概念|术语)?\s*)?(?:是(?:什么|啥)意思|意味着什么|怎么(?:理解|解释|翻译)|该怎么(?:理解|解释)|如何(?:理解|解释|翻译))/u.test(suffix)) return true;
   if (/^[^，,。；;\n]*?(?:是(?:什么|啥)意思|意味着什么|(?:有|是)?什么区别)(?:[呢啊呀吗\s]*)(?:[，,]|$)/u.test(suffix)) return true;
-  if (/^(?:(?:请|能不能|可以|帮我|给我|我们|咱们|一起|想|我想|想请你|你能|能否|再)\s*)*(?:解释|说明|翻译|讨论|分析|比较|区分|辨析)(?:一下|下|看看|这句|这段|这个|这种|这条|话|说法|表达|要求|限制|设计|方案|概念|术语|[:：\s])*$/u.test(prefix)) return true;
+  if (/^(?:(?:请|能不能|可以|帮我|给我|我们|咱们|一起|想|我想|想请你|你能|能否|再)\s*)*(?:解释|说明|翻译|讨论|分析|比较|区分|辨析)(?:一下|下|看看|这句|这段|这个|这种|这条|一种|一个|一套|话|说法|表达|要求|限制|设计|方案|概念|术语|[:：\s])*$/u.test(prefix)) return true;
+  // Here the boundary describes an architecture or a phrase being discussed,
+  // rather than where this turn's actual material may be processed.
+  if (/^(?:的)?(?:架构|系统|设计|方案|模式|概念|术语|说法|表达|要求|规则|例子)/u.test(suffix)
+    && /(?:解释|说明|翻译|讨论|分析|比较|区分|辨析|设计|举例|比如|例如|一种|这种|所谓)/u.test(prefix)) return true;
   if (/^(?:打个比方|举个例子|用个比喻|做个比喻|例如|比如|譬如)[:：\s]*$/u.test(prefix)) return true;
   if (/^(?:please\s+)?(?:explain|translate|discuss|compare|what does|what would|what is meant by)\s*(?:the\s+)?(?:(?:phrase|term|instruction|rule|request)\s*)?[:：]?\s*$/iu.test(prefix)) return true;
   if (/^(?:the|a|an|our)?\s*$/iu.test(prefix)
     && /^(?:mode|version|architecture|design|approach|example|term|phrase|policy)\b[^,;\n]*\b(?:is|means|differs|works)\b/iu.test(suffix)) return true;
+  if (/^(?:mode|version|architecture|design|approach|example|term|phrase|policy|system)\b/iu.test(suffix)
+    && /\b(?:explain|discuss|compare|describe|design|build|imagine|consider|want|prefer)\b/iu.test(prefix)) return true;
   // Unquoted indirect speech has the same authority as a quoted example.
   // Do not remove the rest of the sentence: it may contain the user's own
   // independent instruction after the next comma.
-  if (/(?:^|[:：])\s*(?:(?:假设|假如|假想|设想|如果|要是|倘若)\s*)?(?:有人|别人|对方|用户|客户|老师|同学|朋友|室友|角色|主角|他|她|他们|她们)(?:曾经|刚才|之前|可能|也|曾)?(?:说|写道|提到|表示|要求|规定)(?:过|了)?[:：\s]*$/u.test(prefix)) return true;
-  if (/^(?:(?:suppose|imagine|assume)\s+)?(?:(?:a|the|another)\s+)?(?:user|customer|friend|character|someone)\s+(?:says?|said|asks?|asked|writes?|wrote|requests?|requested)\s*:?\s*$/iu.test(prefix)) return true;
-  const hypothetical = /(?:^|[:：])\s*(?:(?:我们|咱们|请|来|先|试着|我想)(?:讨论|考虑|分析|想想|看看)?\s*)*(?:假设|假如|假想|设想|如果|要是|倘若|比如|例如)/u.test(prefix);
+  const reported = /(?:^|[:：])\s*(?:(?:假设|假如|假想|设想|如果|要是|倘若)\s*)?(?:(?:我|你|他|她)的)?(?:有人|别人|对方|用户|客户|老师|同学|朋友|室友|角色|主角|他|她|他们|她们)(?:曾经|刚才|之前|可能|也|曾|会)?(?:说|写道|提到|表示|要求|规定)(?:过|了)?[^。！？；;\n]*$/u.test(prefix)
+    || /^(?:(?:suppose|imagine|assume)\s+)?(?:(?:a|the|another|my|your)\s+)?(?:user|customer|friend|character|someone|he|she|they)\s+(?:says?|said|asks?|asked|writes?|wrote|requests?|requested)\b[^.;!?\n]*$/iu.test(prefix);
+  if (reported) {
+    const preceding = prefix.slice(0, Math.max(prefix.lastIndexOf('，'), prefix.lastIndexOf(','))).trimEnd();
+    // “She said, ...” introduces reported words. After a complete report, a
+    // fresh imperative/object is ambiguous; do not silently assign it to her.
+    return clausePrefix === prefix
+      || /(?:说|写道|提到|表示|要求|规定)(?:过|了)?[:：\s]*$|\b(?:says?|said|asks?|asked|writes?|wrote|requests?|requested)\s*:?\s*$/iu.test(preceding)
+      || /^(?:(?:也|还|并且|而且|同时)\s*)?(?:他的|她的|他们的|她们的)|^(?:(?:and|also)\s+)?(?:his|her|their)\b/iu.test(clausePrefix);
+  }
+  if (/^(?:imagine|suppose|consider)\s+(?:(?:a|the|an)\s+)?(?:system|app|application|architecture|design|scenario)\b/iu.test(prefix)) return true;
+  // A real conditional request (“if this file stays here, how can you help?”)
+  // still chooses a local boundary. Bare if/如果 is not a hypothetical voice.
+  const hypothetical = /(?:^|[:：])\s*(?:(?:我们|咱们|请|来|先|试着|我想)(?:讨论|考虑|分析|想想|看看)?\s*)*(?:假设|假如|假想|设想|比如|例如)/u.test(prefix)
+    || /(?:^|[:：])\s*(?:(?:我们|咱们|请|来|先|试着|我想)\s*)*(?:讨论|分析|比较|设想)(?:一下|一个情景|一种情况)?[:：\s]*(?:如果|要是|倘若)/u.test(prefix);
   return hypothetical && /(?:会(?:怎么|怎样|如何|不会)|(?:应|该|可以|能|要)(?:该)?(?:怎么|怎样|如何)|怎么办|意味着什么|是什么意思|是否|算不算|有什么(?:区别|影响)|如何(?:设计|实现|处理|回应|理解)|(?:帮我|请你|我们来|我想)(?:设计|讨论|分析|实现))/u.test(suffix)
     || /^(?:(?:suppose|imagine|assume)\b|if\s+(?:I|we|someone|(?:a|the)\s+user)\s+(?:say|said|ask|asked|were to (?:say|ask))\b)/iu.test(prefix)
       && /\b(?:how|what|would|should)\b/iu.test(suffix);
+}
+
+interface PrivacyQuote { start: number; end: number; children: PrivacyQuote[]; }
+const blankPrivacyMaterial = (value: string) => value.replace(/[^\r\n]/gu, ' ');
+function adoptsPrivacyChoice(before: string, after: string): boolean {
+  const adopted = privacyAdoption.test(before) || englishPrivacyAdoption.test(before) || privacyPreference.test(before)
+    || /(?:遵守|遵循|按|按照|执行)[^，,。！？；;\n]{1,40}的(?:要求|约定|限制|规则|原则)[:：\s]*$/u.test(before)
+    || /(?:^|[:：])\s*(?:(?:我|本人)(?:这轮|本轮|这次|当前)?|(?:这轮|本轮|这次|当前)(?:我|本人)?)(?:的)?(?:要求|约定|意思|限制|选择)(?:是|就是|如下|为)[:：\s]*$/u.test(before)
+    || /^(?:这|以上|前面|上述)(?:是|就是)(?:我|本人)?(?:这轮|本轮|这次|当前)?的?(?:真实|实际|正式|真正)?(?:要求|约定|意思|限制|选择)/u.test(after)
+    || /\bmy\s+(?:(?:actual|current|real)\s+)?(?:instruction|request|requirement|choice|policy)\s+is\s*:?\s*$/iu.test(before)
+    || /^(?:this\s+is\s+my|is\s+my)\s+(?:(?:actual|current|real)\s+)?(?:instruction|request|requirement|choice|policy)\b/iu.test(after)
+    || privacySameChoice.test(after);
+  return adopted && !mentionedPrivacyChoice(before.replace(privacyAdoption, '').replace(englishPrivacyAdoption, ''), after);
+}
+const privacySentenceBoundary = /[。！？；;.!?\n]/u;
+const privacyBefore = (value: string) => value.trimEnd().split(privacySentenceBoundary).at(-1)!.split(privacyVoiceBoundary).at(-1)!;
+const privacyAfter = (value: string) => value.replace(/^[\s，,。！？；;.!?]+/u, '').split(privacySentenceBoundary)[0];
+
+/** Keep quotation ownership through nesting. Unclosed quotes remain visible to
+ * the conservative local gate instead of hiding the rest of the input. */
+function authoredPrivacyText(text: string, recipientName: RegExp): string {
+  // Markdown quotation is material too. It only becomes a current choice
+  // when the author explicitly asks us to follow that particular passage.
+  const fences = text.replace(/```(?:[a-z][\w-]*[ \t]*\r?\n)?([\s\S]*?)```/giu,
+    (whole: string, inner: string, offset: number) => adoptsPrivacyChoice(privacyBefore(text.slice(0, offset)), privacyAfter(text.slice(offset + whole.length))) ? '\n' + inner + '\n' : blankPrivacyMaterial(whole));
+  const authorText = fences.replace(/(?:^[ \t]*>.*(?:\r?\n|$))+/gmu,
+    (whole: string, offset: number) => adoptsPrivacyChoice(privacyBefore(fences.slice(0, offset)), privacyAfter(fences.slice(offset + whole.length))) ? '\n' + whole.replace(/^[ \t]*> ?/gmu, '') + '\n' : blankPrivacyMaterial(whole));
+  const closing: Record<string, string> = { '“': '”', '「': '」', '"': '"', '‘': '’', '『': '』', "'": "'" };
+  const stack: Array<PrivacyQuote & { closing: string }> = [], roots: PrivacyQuote[] = [];
+  for (let i = 0; i < authorText.length; i++) {
+    const char = authorText[i];
+    if (char === '\\') { i++; continue; }
+    // Apostrophes in don't/user's aren't quotation marks.
+    if ((char === "'" || char === '’') && /[a-z0-9]/iu.test(authorText[i - 1] || '') && /[a-z0-9]/iu.test(authorText[i + 1] || '')) continue;
+    if (stack.at(-1)?.closing === char) {
+      const quote = stack.pop()!;
+      quote.end = i;
+      (stack.at(-1)?.children || roots).push(quote);
+    } else if (closing[char]) stack.push({ start: i, end: -1, children: [], closing: closing[char] });
+  }
+  const render = (start: number, end: number, quotes: PrivacyQuote[], depth = 0): string => {
+    if (depth > 32) return authorText.slice(start, end);
+    let output = '', cursor = start;
+    for (const quote of quotes) {
+      output += authorText.slice(cursor, quote.start);
+      const inner = authorText.slice(quote.start + 1, quote.end);
+      const before = privacyBefore(output), after = privacyAfter(authorText.slice(quote.end + 1, end));
+      output += recipientName.test(inner.trim()) ? inner
+        // The author's explicit adoption supplies current authority. Keep it
+        // separate from the original reporter when scanning the chosen words.
+        : adoptsPrivacyChoice(before, after) ? '\n' + render(quote.start + 1, quote.end, quote.children, depth + 1) + '\n'
+        : blankPrivacyMaterial(authorText.slice(quote.start, quote.end + 1));
+      cursor = quote.end + 1;
+    }
+    return output + authorText.slice(cursor, end);
+  };
+  return render(0, authorText.length, roots);
+}
+
+/** Conservative retention fallback for callers without a semantic proposal.
+ * It shares quote/speaker ownership with admission; a story about somebody's
+ * temporary chat must not change the author's own conversation settings. */
+export function localRetentionRestriction(text: string): boolean {
+  const authored = authoredPrivacyText(text, /$a/u);
+  const sentences = authored.split(privacySentenceBoundary);
+  for (const [index, sentence] of sentences.entries()) {
+    const adoption = adoptsPrivacyChoice('', (sentences[index + 1] || '').trim()) ? ',' + sentences[index + 1] : '';
+    for (const match of sentence.matchAll(/(?:只用于|仅用于|只用在|只用|仅限|仅).*本轮.*(?:不保存|不记录)|(?:这段|这句|本轮|此轮|临时).*不保存|不要保存这段|临时模式|session.only|do not (?:save|store)|don't (?:save|store)|don’t (?:save|store)/giu))
+      if (!mentionedPrivacyChoice(sentence.slice(0, match.index), sentence.slice(match.index + match[0].length) + adoption)) return true;
+  }
+  return false;
 }
 
 /** Local admission examines the governed operation, not the mere presence of
@@ -119,32 +216,11 @@ export function localCloudRestriction(text: string): boolean {
       || /^(?:you|yourself|me|us|him|her|it|them|there)\b/iu.test(target.trim());
   };
   const recipientName = new RegExp('^(?:' + remoteRecipient.source + ')(?:的)?(?:语言)?(?:模型|服务)?$', 'iu');
-  const quotes = /“([^”]*)”|「([^」]*)」|"([^"\n]*)"|‘([^’]*)’|『([^』]*)』/gu;
-  // Quoted examples remain material. An explicit request to follow a quoted
-  // privacy choice gives that choice the author's current authority.
-  const authorText = text.replace(/```[\s\S]*?(?:```|$)/gu, '').replace(/^\s*>.*$/gmu, '');
-  const authored = authorText.replace(quotes, (whole: string, ...args: unknown[]) => {
-    const offset = args[args.length - 2] as number;
-    const inner = whole.slice(1, -1);
-    if (recipientName.test(inner.trim())) return inner;
-    const before = (authorText.slice(0, offset).split(/[。！？；，,;\n]/u).at(-1) || '')
-      .split(privacyVoiceBoundary).at(-1)!;
-    const after = authorText.slice(offset + whole.length).split(/[。！？；\n]/u)[0].replace(/^[\s，,]+/u, '');
-    const adopted = privacyAdoption.test(before) || englishPrivacyAdoption.test(before)
-      || /(?:^|[:：])\s*(?:(?:我|本人)(?:这轮|本轮|这次|当前)?|(?:这轮|本轮|这次|当前)(?:我|本人)?)(?:的)?(?:要求|约定|意思|限制|选择)(?:是|就是|如下|为)[:：\s]*$/u.test(before)
-      || /^(?:这|以上|前面|上述)(?:是|就是)(?:我|本人)?(?:这轮|本轮|这次|当前)?的?(?:真实|实际|正式|真正)?(?:要求|约定|意思|限制|选择)/u.test(after)
-      || /\bmy\s+(?:(?:actual|current|real)\s+)?(?:instruction|request|requirement|choice|policy)\s+is\s*:?\s*$/iu.test(before)
-      || /^(?:this\s+is\s+my|is\s+my)\s+(?:(?:actual|current|real)\s+)?(?:instruction|request|requirement|choice|policy)\b/iu.test(after);
-    // A hypothetical “suppose I ask you to follow ...” does not adopt it.
-    const hypotheticalAdoption = /(?:^|[:：])\s*(?:(?:我们|咱们|请|来|先|试着|我想)(?:讨论|考虑|分析|想想|看看)?\s*)*(?:假设|假如|假想|设想|如果|要是|倘若|比如|例如)/u.test(before)
-      && /(?:怎么|怎样|如何|是否|会不会|算不算|意味着|什么意思)/u.test(after)
-      || /^\s*(?:(?:suppose|imagine|assume)\b|if\s+(?:I|we|someone|(?:a|the)\s+user)\s+(?:say|said|ask|asked|were to (?:say|ask))\b)/iu.test(before)
-        && /\b(?:how|what|would|should)\b/iu.test(after);
-    const adoptionStem = before.replace(privacyAdoption, '').replace(englishPrivacyAdoption, '');
-    return adopted && !hypotheticalAdoption && !mentionedPrivacyChoice(adoptionStem, after) ? inner : ' '.repeat(whole.length);
-  });
-  const clauses = authored.split(/[。！？；;!?\n]/u).flatMap(sentence => [...sentence.matchAll(/[^，,]+/gu)]
-    .map(match => ({ text: match[0], tail: sentence.slice(match.index + match[0].length) })));
+  const authored = authoredPrivacyText(text, recipientName);
+  const sentences = authored.split(privacySentenceBoundary);
+  const clauses = sentences.flatMap((sentence, index) => [...sentence.matchAll(/[^，,]+/gu)]
+    .map(match => ({ text: match[0], before: sentence.slice(0, match.index), tail: sentence.slice(match.index + match[0].length)
+      + (adoptsPrivacyChoice('', (sentences[index + 1] || '').trim()) ? ',' + sentences[index + 1] : '') })));
   const localDevice = '(?:(?:我|本人)的?)?(?:这台|当前)?(?:本机|本地|设备|电脑|计算机)(?!前|后|旁|边|侧|附近|周围)';
   const staysOnDevice = new RegExp('(?:不能|不得|不许|不要|不准|不可|别|勿|不)(?:再|被)?(离开|传出|带出|出)' + localDevice, 'gu');
   const personDepartureSubject = /(?:^|[:：])\s*(?:我们|咱们|你们|他们|她们|本人|我|你|您|他|她)(?:\s|现在|目前|今天|此刻|这会儿|暂时|还|也|都|确实|实在|真的|已经)*$/u;
@@ -155,11 +231,11 @@ export function localCloudRestriction(text: string): boolean {
   const outgoingTransfer = new RegExp('^(?:(?:再|将|把|让|用|使用|通过)\\s*)?' + transfer + '|^(?:把|将|让).+?' + transfer, 'u');
   const recipientFirstTransfer = /^(?:再\s*)?(?:向|往|给).+?(?:上传|发送|传输|传送|提交|交付|提供|递交)/u;
   const remoteProcessing = new RegExp('^(?:让|允许|由|用|使用|调用|交给|交由|交予|通过)?(?:任何|一个|这个|这些|已配置的)?(?:' + remoteRecipient.source + ')(?:的)?(?:语言)?(?:模型|服务)?(?:来|去|接收|处理|分析|阅读|理解|回答|推理|读取|收到|看到|读|看|(?:了|吧|呀)?$)', 'iu');
-  const englishTransfer = /\b(?:do not|don't|never)\s+(upload|send|transmit|share)\b/giu;
-  const englishProcessing = new RegExp("\\b(?:do not|don't|never)\\s+(?:use|call)\\s+(?:a\\s+|the\\s+)?(?:(?:cloud|remote|online)\\s+(?:model|service)|" + modelService + ')', 'giu');
+  const englishTransfer = /\b(?:do not|don't|don’t|never|must not|mustn't|mustn’t)\s+(upload|send|transmit|share)\b/giu;
+  const englishProcessing = new RegExp("\\b(?:do not|don't|don’t|never|must not|mustn't|mustn’t)\\s+(?:use|call)\\s+(?:a\\s+|the\\s+)?(?:(?:cloud|remote|online)\\s+(?:model|service)|" + modelService + ')', 'giu');
   const prohibition = /(?:不要|不许|禁止|不得|不准|不能|不可|别|勿|不允许|不希望|不想|无需|不用|不必|不)\s*/gu;
-  for (const { text: clause, tail } of clauses) {
-    const operative = (start: number, end: number) => !mentionedPrivacyChoice(clause.slice(0, start), clause.slice(end) + tail);
+  for (const { text: clause, before, tail } of clauses) {
+    const operative = (start: number, end: number) => !mentionedPrivacyChoice(before + clause.slice(0, start), clause.slice(end) + tail);
     // A device boundary can have an omitted subject ("不出本机") or an
     // intervening quantifier ("这份资料都不能离开本机"). Neither needs a
     // cloud request to discover that its contents must stay on this device.
@@ -195,6 +271,11 @@ export function localCloudRestriction(text: string): boolean {
     }
     for (const expression of [/\b(?:offline|local)[ -]only\b/giu, englishProcessing])
       for (const match of clause.matchAll(expression)) if (operative(match.index, match.index + match[0].length)) return true;
+    for (const match of clause.matchAll(/\b(?:(?:must|should|may)\s+not|cannot|can't|can’t|never)\s+(?:leave|exit)\s+(?:(?:my|this|the|your)\s+)?(?:device|computer|machine)\b/giu))
+      if (!/\b(?:I|we|you|he|she|they)\s+(?:(?:currently|today|still)\s+)*$/iu.test(clause.slice(0, match.index))
+        && operative(match.index, match.index + match[0].length)) return true;
+    for (const match of clause.matchAll(/\b(?:do not|don't|don’t|never)\s+(?:let|allow)\b[^,;.!?\n]{1,80}\b(?:leave|exit)\s+(?:(?:my|this|the|your)\s+)?(?:device|computer|machine)\b|\b(?:only|solely)\s+(?:process|analyse|analyze|read|run|compute)(?:\s+[^,;.!?\n]{1,60}?)?\s+(?:on|using)\s+(?:(?:my|this|the|your)\s+)?(?:local\s+)?(?:device|computer|machine)\b/giu))
+      if (operative(match.index, match.index + match[0].length)) return true;
     for (const match of clause.matchAll(englishTransfer))
       if ((match[1].toLowerCase() === 'upload' ? uploadRestrictsModelTransmission(clause.slice(match.index))
         : /\b(?:cloud|server|remote|model|online)\b/iu.test(clause) || remoteRecipient.test(clause))

@@ -20,16 +20,18 @@ export const campusSelectSchema = z.object({
   sort: sort.optional(), order_by: sort.optional(), offset: z.number().int().min(0).max(1000000).optional(), limit: z.number().int().min(1).max(100).optional(),
 }).strict();
 export const campusQueryInput = z.object({
-  operation: z.enum(['resources', 'schema', 'quick', 'select', 'read', 'history', 'diff']),
-  resource: resource.optional(), model: z.string().regex(/^[a-z_]{1,60}$/).optional().describe('schema操作必填。先从resources返回的模型目录选择规范化模型名；资源名与模型名不一定相同。'),
+  operation: z.enum(['resources', 'schema', 'quick', 'select', 'read', 'history', 'diff'])
+    .describe('resources看看资料目录，schema看看所选模型有哪些字段；quick挑出一类记录，select组合条件或汇总，read沿原文地址展开，history找以前保存的版本，diff比较两次保存之间的变化。'),
+  resource: resource.optional(), model: z.string().regex(/^[a-z_]{1,60}$/).optional().describe('想查字段写法时填这里。先从resources给出的模型目录选名字；一类资料的名字和它的模型名可能不同。'),
   spec: campusSelectSchema.optional(),
-  bundleId: z.string().regex(/^[A-Za-z0-9_-]{1,160}$/).optional(),
-  expectedSnapshotVersion: z.string().regex(/^[a-f0-9]{64}$/).optional(),
-  fromBundle: z.string().regex(/^[A-Za-z0-9_-]{1,160}$/).optional(), toBundle: z.string().regex(/^[A-Za-z0-9_-]{1,160}$/).optional(),
-  pointer: z.string().max(500).optional(), fields: z.array(field).max(40).optional(),
-  offset: z.number().int().min(0).max(1000000).default(0).describe('本次分页起点；spec未另填offset时也适用于组合查询。'),
-  limit: z.number().int().min(1).max(50).default(8).describe('本次返回条数；spec未另填limit时也适用于组合查询，不截短原始数据。'),
-  refresh: z.boolean().default(false).describe('false查看已有记录；quick/select的true更新所选resource相关来源，使用同账号、同学期已有的最新记录作为底稿。各关联来源保留各自查询时间。沿bundleId和版本续读时保持false；需要整包更新可用campus.overview。'), academicYear: z.string().regex(/^20\d{2}-20\d{2}$/).optional(), term: z.enum(['1', '2']).optional(),
+  bundleId: z.string().regex(/^[A-Za-z0-9_-]{1,160}$/).optional().describe('刚才那份记录的编号，接着翻页或打开原文时沿用。'),
+  expectedSnapshotVersion: z.string().regex(/^[a-f0-9]{64}$/).optional().describe('刚才返回的版本，和记录编号一起沿用，接读同一份内容。'),
+  fromBundle: z.string().regex(/^[A-Za-z0-9_-]{1,160}$/).optional().describe('比较时选作较早一份的记录编号，可从history找到。'),
+  toBundle: z.string().regex(/^[A-Za-z0-9_-]{1,160}$/).optional().describe('比较时选作较后一份的记录编号。变化只说明两次观察之间发生了什么。'),
+  pointer: z.string().max(500).optional().describe('这份记录提供的原文地址，和它的记录编号一起继续展开。'), fields: z.array(field).max(40).optional(),
+  offset: z.number().int().min(0).max(1000000).default(0).describe('从刚才停下的位置继续看；组合查询没有另填起点时，也沿这里继续。'),
+  limit: z.number().int().min(1).max(50).default(8).describe('这次先展开几条；组合查询没有另填条数时也用这里。其余原文仍在，可以接着翻。'),
+  refresh: z.boolean().default(false).describe('默认看已有记录，并保留各份资料的采集时间。想看现在的变化时，quick/select填true重新查询所选资料；同账号、同学期已有的记录会一同保留。接着翻刚才那份记录时保持false，想整体更新可用campus.overview。'), academicYear: z.string().regex(/^20\d{2}-20\d{2}$/).optional(), term: z.enum(['1', '2']).optional(),
 }).strict();
 export type CampusQuery = z.infer<typeof campusQueryInput>;
 export const examCourseRecordsPointer = '/normalized/exam_course_records';
@@ -327,7 +329,7 @@ export function campusQueryContinuation(input: CampusQuery, result: Record<strin
   if (next.spec) next.spec.offset = nextOffset;
   return { capability: 'campus.query' as const, arguments: validateCampusQuery(next),
     meaning: input.operation === 'read' && input.resource === 'exams' && input.pointer === examCourseRecordsPointer
-      ? '沿同一版本的考试课程原行继续；课程原行数与逐场考试数分别计数。'
+      ? '接着看这份考试资料里的课程原记录；这里按课程条数翻页，每门课下的考试场次另外列出。'
       : input.operation === 'history' ? '接着看这项资料的保存版本目录，目录会随新查询更新。'
       : input.operation === 'diff' ? '接着比较原来选中的两份记录；变化发生在两次观察之间，确切发生时间仍看原文。'
       : input.spec?.join || (input.spec?.resources?.length || 0) > 1

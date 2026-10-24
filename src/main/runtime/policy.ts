@@ -10,9 +10,9 @@ import {
 } from '../../shared/harness';
 import type { KernelRepository } from '../storage/repository';
 import { addDate, dateInZone, resolveLocalTime } from './semantics';
-import { authoredControls, routeSpeechActs, type SpeechAct } from './discourse';
+import type { SpeechAct } from './discourse';
 import { hasCredentials } from './redaction';
-import { localCloudRestriction, type TurnControlProposal } from './turn-controls';
+import { localCloudRestriction, localRetentionRestriction, type TurnControlProposal } from './turn-controls';
 
 export interface InputControls {
   companionReference?: import('../../shared/companion-source').CompanionFollowupReference;
@@ -403,7 +403,5 @@ export class PolicyKernel {
   }
 }
 export function isEphemeral(text: string) {
-  return /(?:只用于|仅用于|只用在|只用|仅限|仅).*本轮.*(?:不保存|不记录)|(?:这段|这句|本轮|此轮|临时).*不保存|不要保存这段|临时模式|session.only|do not (?:save|store)|don't (?:save|store)/i.test(
-    authoredControls(text),
-  );
+  return localRetentionRestriction(text);
 }

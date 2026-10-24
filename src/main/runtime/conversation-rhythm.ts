@@ -5,8 +5,8 @@ import { redactCredentials } from './redaction';
  * not add a speaker, a model call, a progress agent or a second conversation. */
 export const CONVERSATION_RHYTHM_GUIDANCE = `# 边做边说
 去查之前、查到一部分之后，你写给对方的话都会沿同一条回复逐渐出现在他眼前。接过需要几步查阅或制作的事，先照自己的性格接住他的原话，再去做：此刻听懂的愿望、让你在意的困难、想替他分担的具体一点，都足够成为真实的接话。具体帮到什么份量、结果怎样，等相关资料读清再往下定。还没遇到的麻烦，等真的遇到再和他说当下的影响与继续的办法。简单的交流直接回应；他明确想安静等结果时，也照他的意思来。
-每次读到工具带回的资料，先看看它与对方刚才的困扰有什么关系。发现了值得马上说的一点，就在接着查之前顺口告诉他；可以说你注意到了什么、哪处还让你拿不准，或为什么要再看另一份资料。手边还有几种可能时，带着你暂时采用的理解和缘由往下试；把其中一种查清了，其他可能也仍留着，等分清再说定。几件事一起查时，也照各自实际回来的结果理解，不用等到最后才把已有发现全倒出来。还没回来的仍是未知；安静等待时不用找话填空。新发现推翻了刚才的判断，就自然地改口，说清让你改主意的那处发现。
-这些前段已经是这次回答的一部分，包括已经讲过的发现、数字、限制和明确没有做的事。收尾接着完成还没讲到的问题，或把前面的发现带到眼下的选择里；换个说法重报一遍，仍是在重复。需要修正、作比较或回应他重新追问时，再取用相关细节，并把变化说清。画面里已有的整张表可以留给对方看，你仍可以指出最值得注意的地方。对方中途补一句或改了主意，就以新的意思为准，已经办成的结果保留。`;
+工具回复里既有事情本身的发现，也有目录、参数和下一页的读法。找到这些读法通常只是手边准备，照着继续查就好。读到真实的新事实、需要实质改变判断，或有了能让对方作选择的进展时，再顺着刚才的话告诉他，把与他眼前处境有关的变化说清。手边还有几种可能时，带着暂时采用的理解往下查，等分清再说定。几件事一起查时，也照各自实际回来的结果理解，不用等到最后才把已有发现全倒出来。一份资料刚回来，只说明这一份有了着落；其他还在查的事情仍各自接着做。等待本身没有带来新发现时，留一点安静也很自然。新发现推翻了刚才的判断，就自然地改口，说清让你改主意的那处发现。
+这些前段已经是这次回答的一部分，包括已经讲过的发现、数字、限制和明确没有做的事。同一项限制已经解释清楚，后面就沿着能继续的方向做；确实有了新的影响，再说变化的那一点。收尾接着完成还没讲到的问题，或把前面的发现带到眼下的选择里；换个说法重报一遍，仍是在重复。需要修正、作比较或回应他重新追问时，再取用相关细节，并把变化说清。画面里已有的整张表可以留给对方看，你仍可以指出最值得注意的地方。对方中途补一句或改了主意，就从那句话重新理解剩下的工作：已经办成的结果如实留下，尚在查的方向和正在写的末段跟着新的意思转过去。`;
 
 /** IDs are drawn from the source-checked tool observations in this exact
  * outgoing foreground request. They describe delivery, never action success
@@ -19,8 +19,8 @@ export interface ConversationContinuationInput { observationIds: readonly string
 export class ConversationRhythm {
   private readonly spoken: string[] = [];
   private generation = 0;
-  private draft?: { generation: number; raw: string; visible: string; observationIds?: string[] };
-  private lastVisibleDraft = '';
+  private draft?: { generation: number; raw: string; publication: string; observationIds?: string[] };
+  private lastPublication = '';
   private continuationStart = 0;
   private readonly deliveredObservationIds = new Set<string>();
   private readonly observationsAfterLastContribution = new Set<string>();
@@ -34,7 +34,7 @@ export class ConversationRhythm {
    * draft; it never appends the old request's partial text a second time. */
   beginDraft() {
     const generation = ++this.generation;
-    this.draft = { generation, raw: '', visible: '' };
+    this.draft = { generation, raw: '', publication: this.lastPublication || this.current() };
     return generation;
   }
 
@@ -59,21 +59,25 @@ export class ConversationRhythm {
   /** The caller admits the current scope/source proof immediately before
    * this projection. No provider completion or action success is implied. */
   previewDraft(generation: number, complete = false): { changed: boolean; text: string } {
-    if (!this.enabled || this.draft?.generation !== generation) return { changed: false, text: this.current() };
-    const text = redactStreamingDraft(this.draft.raw, complete);
-    if (text === this.draft.visible) return { changed: false, text: this.finish(text) };
-    this.draft.visible = text;
-    this.lastVisibleDraft = text;
-    return { changed: true, text: this.finish(text) };
+    if (!this.enabled || this.draft?.generation !== generation) return { changed: false, text: this.currentPublication() };
+    const visible = redactStreamingDraft(this.draft.raw, complete);
+    // A held credential span or a replay of the accepted prefix contributes
+    // no new public words. Compare the projection, not the provider's raw
+    // candidate, so neither creates an empty progress pulse in the UI.
+    if (!visible && !complete) return { changed: false, text: this.draft.publication };
+    const text = !complete && this.partialProseReplay(visible) ? this.current() : this.finish(visible);
+    const changed = text !== this.draft.publication;
+    this.draft.publication = text;
+    this.lastPublication = text;
+    return { changed, text };
   }
 
   /** Reconcile to the provider's authoritative complete content only after
    * its original completion/source checks pass. This is still a tool-turn
    * contribution, not the final completion-review verdict. */
   commitDraft(generation: number, content: string) {
-    if (this.draft?.generation !== generation) return { changed: false, text: this.current() };
-    this.draft = undefined;
-    this.lastVisibleDraft = '';
+    if (this.draft?.generation !== generation) return { changed: false, text: this.currentPublication() };
+    this.closeDraft();
     const offered = this.offer(redactStreamingDraft(content, true));
     // Empty tool turns and exact replays do not count as a new contribution.
     // Advancing this time boundary never claims every result was discussed.
@@ -85,18 +89,17 @@ export class ConversationRhythm {
    * Revoked sources discard the draft; an ordinary interruption may retain
    * only the safe prefix the user actually saw. */
   interruptDraft(discard: boolean) {
-    const visible = this.draft?.visible || this.lastVisibleDraft;
+    const publication = this.draft?.publication || this.lastPublication;
     this.clearReviewPublications();
-    this.draft = undefined;
-    this.lastVisibleDraft = '';
-    return discard ? this.current() : this.finish(visible);
+    this.closeDraft();
+    return discard ? this.current() : publication || this.current();
   }
 
-  acceptFinal() { this.draft = undefined; this.lastVisibleDraft = ''; this.clearReviewPublications(); }
+  acceptFinal() { this.closeDraft(); this.clearReviewPublications(); }
 
   invalidateSources() {
     this.excludeObservationContext();
-    this.spoken.splice(0); this.draft = undefined; this.lastVisibleDraft = ''; this.continuationStart = 0;
+    this.spoken.splice(0); this.closeDraft(); this.continuationStart = 0;
     this.clearReviewPublications();
   }
 
@@ -105,8 +108,7 @@ export class ConversationRhythm {
   discardContinuationContext() {
     this.excludeObservationContext();
     this.continuationStart = Array.from(this.current()).length;
-    this.draft = undefined;
-    this.lastVisibleDraft = '';
+    this.closeDraft();
     this.clearReviewPublications();
   }
 
@@ -128,6 +130,31 @@ export class ConversationRhythm {
 
   clearReviewPublications() { this.priorPublications.splice(0); }
 
+  /** Every existing stop/revision/acceptance boundary retires its generation.
+   * Late stream chunks and completions keep their old token and cannot become
+   * the draft of a later provider request. The caller still owns source proof. */
+  private closeDraft() {
+    this.generation++;
+    this.draft = undefined;
+    this.lastPublication = '';
+  }
+
+  private currentPublication() { return this.draft?.publication ?? this.current(); }
+
+  /** A replayed tail sentence may arrive over several chunks. Keep its exact
+   * unfinished prefix out of the bubble until it either matches fully or
+   * diverges into new prose. This holds words, never invents progress, and is
+   * used only for an unfinished preview, not an authoritative final answer. */
+  private partialProseReplay(content: string) {
+    const before = this.current();
+    if (!plainProse(before)) return false;
+    for (const boundary of before.matchAll(proseBoundary())) {
+      const overlap = before.slice(boundary.index! + boundary[0].length);
+      if (overlap.length > content.length && plainProse(overlap) && overlap.startsWith(content)) return true;
+    }
+    return false;
+  }
+
   /** The parent's current reply, not another history or a claim of being seen.
    * A bounded excerpt stays bounded even after native transcript compression. */
   continuationContext(input?: ConversationContinuationInput) {
@@ -144,7 +171,7 @@ export class ConversationRhythm {
         coverage: start === 0 ? 'complete' as const : 'partial' as const };
     };
     const publishedPrefix = excerpt(prefix, this.continuationStart);
-    const replaceableTail = this.lastVisibleDraft ? excerpt(this.finish(this.lastVisibleDraft).slice(prefix.length)) : undefined;
+    const replaceableTail = this.lastPublication ? excerpt(this.lastPublication.slice(prefix.length)) : undefined;
     const newlyAvailableIds = observationIds.filter(id => !this.deliveredObservationIds.has(id));
     const sinceLastContributionIds = [...new Set([...this.observationsAfterLastContribution, ...newlyAvailableIds])]
       .filter(id => observationIds.includes(id));
@@ -152,12 +179,12 @@ export class ConversationRhythm {
     const observations = sinceLastContributionIds.length ? {
       newlyAvailable: boundedIds(newlyAvailableIds),
       sinceLastContribution: boundedIds(sinceLastContributionIds),
-      meaning: '这些结果已放在眼前这份资料里，原文仍在各自的工具回复中。可以留心刚带来的内容，或最近一次接话之后带来的资料；哪些发现已经讲过，仍看你自己的原话。若其中有值得让对方先知道的变化，可以接着告诉他，再去查剩下的；暂时沿用的前提也带着，让他知道你正在按哪种理解往下试。没什么需要补充时也可以继续做事。',
+      meaning: '这里标出了刚放到手边的工具回复，以及最近一次接话后带来的资料，原文仍在各自的工具回复中。目录、参数、翻页和找到读法通常是手边准备，直接用来继续做。真实的新事实、实质改变的判断，或能让对方作选择的进展，才值得接着告诉他。已经说清的限制留在前段，后面沿能继续的方向做；其他还在查的事情，等各自的结果回来再接着判断。',
     } : undefined;
     // The first request needs the same near-at-hand speaking context as later
     // requests. Requiring existing prose left every request in a silent
     // tool sequence without this near-at-hand speaking context.
-    const opening = !!input && !prefix && !this.lastVisibleDraft;
+    const opening = !!input && !prefix && !this.lastPublication;
     if (!publishedPrefix && !replaceableTail && !observations && !opening) return;
     const continuation = publishedPrefix
       ? '这里的前段已经是这条回复的正文，里面讲过的发现、数字、限制与关心都已留下。接下来完成还没回应的部分，或说新发现怎样改变眼前的判断；前段的整份结果不必在尾段重新报一次。需要纠正哪一处，就直接接着那一处改准。'
@@ -170,7 +197,7 @@ export class ConversationRhythm {
     return { ...(publishedPrefix ? { publishedPrefix } : {}), ...(replaceableTail ? { replaceableTail } : {}),
       ...(observations ? { observations } : {}),
       meaning: continuation + revision + (publishedPrefix || replaceableTail
-        ? '这里放着最近实际显示过的文字；partial只是较早部分这次没有带来，不能由此判断对方读到了哪里。' : '')
+        ? '这里截取了最近实际显示过的文字，较早的部分可能没有带来；显示过也还不知道对方已经读到了哪里。' : '')
         + '具体怎样接话，仍由你结合自己的性格和眼前的交流决定。' };
   }
 
@@ -195,8 +222,8 @@ export class ConversationRhythm {
   current() { return this.spoken.join('\n\n'); }
 
   /** Published tool-turn prose is a stable prefix. Reconcile only an exact
-   * prefix or a repeated paragraph at the join; never reorder earlier words
-   * or remove matching lines from formulas, code or deliberate repetition. */
+   * prefix or complete prose at the join; never reorder earlier words or
+   * search inside a candidate for matching formulas, quotes or code. */
   finish(finalContent: string) {
     const safeFinal = redactStreamingDraft(finalContent, true);
     const before = this.current(), after = safeFinal;
@@ -204,31 +231,39 @@ export class ConversationRhythm {
     if (!after.trim()) return before;
     if (after.startsWith(before)) return after;
     if (before.startsWith(after)) return before;
-    // A final candidate can repeat its opening paragraph, then diverge after
+    // A final candidate can repeat its opening sentence, then diverge after
     // an intervening tool-turn finding. Keep that finding in place and omit
     // only the exact repeated prose opening. Structured material is excluded:
     // a repeated equation, list heading or code block may be intentional.
+    const boundaries = () => plainProse(before) ? proseBoundary() : /\n\s*\n/g;
     let repeatedOpening = 0;
-    for (const boundary of before.matchAll(/\n\s*\n/g)) {
+    for (const boundary of before.matchAll(boundaries())) {
       const end = boundary.index! + boundary[0].length;
-      const opening = before.slice(0, boundary.index!);
+      const opening = before.slice(0, end);
       if (!after.startsWith(before.slice(0, end)) || !plainProse(opening)) break;
       repeatedOpening = end;
     }
     if (repeatedOpening) return before + '\n\n' + after.slice(repeatedOpening);
-    for (const boundary of before.matchAll(/\n\s*\n/g)) {
+    for (const boundary of before.matchAll(boundaries())) {
       const start = boundary.index! + boundary[0].length;
       const overlap = before.slice(start);
-      if (overlap && after.startsWith(overlap)) return before + after.slice(overlap.length);
+      if (plainProse(overlap) && after.startsWith(overlap)) return before + after.slice(overlap.length);
     }
     return before + '\n\n' + after;
   }
 }
 
 function plainProse(text: string) {
-  return Array.from(text.trim()).length >= 8 && /[。！？.!?…][”’"']?$/.test(text.trim())
-    && !/(?:^|\n)[ \t]*(?:#{1,6}\s|[-*+]\s|\d+[.)]\s|>|\|)|[`$“”‘’「」『』"'=≠≤≥∑∫√]|~~~|\\(?:begin|\[|\()/.test(text);
+  const trimmed = text.trim();
+  return Array.from(trimmed).length >= 8 && /[。！？.!?…][”’"']?$/.test(trimmed)
+    && !trimmed.replace(/\r?\n[ \t]*\r?\n/g, '').includes('\n')
+    && !/(?:^|\n)[ \t]*(?:#{1,6}\s|[-*+]\s|\d+[.)]\s|>|\|)|[`$“”‘’「」『』"'=≠≤≥∑∫√+*/^<>×÷]|~~~|\\(?:begin|\[|\()/.test(text);
 }
+
+/** Dots inside a number or identifier are not sentence boundaries. A prose
+ * replay is removed only from the candidate's start, at a complete sentence
+ * already present at the prefix or join; no fuzzy or semantic deletion. */
+function proseBoundary() { return /[。！？!?…][ \t]*|\.(?=\s|$)[ \t]*|\n[ \t]*\n/g; }
 
 /** The existing credential redactor needs complete spans. Keep an open key
  * token or private-key block out of a live prefix until it can be redacted;

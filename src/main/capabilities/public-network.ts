@@ -101,7 +101,7 @@ function currentRoute(url: URL): Route {
     // stay in the agent and are never returned, logged or added to target GET.
     decodeURIComponent(proxy.username); decodeURIComponent(proxy.password);
     return { proxy: proxy.href };
-  } catch { throw new HarnessError('public_proxy_config', '当前代理配置不能用于公开HTTPS读取，请检查所选代理。'); }
+  } catch { throw new HarnessError('public_proxy_config', '当前代理设置还没能用于读取公开网页，可以先核对代理设置，再沿原网址继续。'); }
 }
 async function localAddresses(host: string, signal?: AbortSignal) {
   signal?.throwIfAborted();
@@ -123,7 +123,7 @@ function requestEndpoint(url: URL, addresses: Address[] | undefined, signal: Abo
   if (addresses) transport.hostname = addresses[0].family === 6 ? `[${addresses[0].address}]` : addresses[0].address;
   let agent: Agent;
   try { agent = new Agent({ keepAlive: false, proxyEnv: route.proxy ? { HTTPS_PROXY: route.proxy } : {} }); }
-  catch { throw new HarnessError('public_proxy_config', '当前代理配置不能用于公开HTTPS读取，请检查所选代理。'); }
+  catch { throw new HarnessError('public_proxy_config', '当前代理设置还没能用于读取公开网页，可以先核对代理设置，再沿原网址继续。'); }
   return new Promise((resolve, reject) => {
     let settled = false;
     const finish = (error?: unknown, data?: RawResponse) => {

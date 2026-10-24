@@ -119,16 +119,23 @@ function describeWorkout(view: WorkoutCurrentSummary): string {
   }
   const sport = { walking: '散步', running: '跑步', cycling: '骑行' }[record.sport];
   const status = { recording: '还在记录', paused: '已暂停', finished: '已结束', cancelled: '已取消' }[record.status];
-  const details = [`这次${sport}${status}，距离和配速按已采纳的定位点估算`];
+  const details = [`这次${sport}${status}`];
+  if (record.status === 'paused' && record.pauseReason) details.push({
+    user: '你按下了暂停', stationary: '这段时间没有记到新的路程，记录自动暂停了',
+    interrupted: '上次记录中断了，可以从这里继续', permission: '定位权限还没恢复，新的路程暂时没有记进来',
+    capacity: '这次记录已装满，需要结束后再开始新的一次',
+  }[record.pauseReason]);
   if (record.provenance === 'simulated') details.push('这份记录来自模拟定位');
   else if (record.provenance === 'unknown') details.push('定位来源暂时没辨明');
-  if (record.signal === 'weak') details.push('眼下定位较弱，距离和节奏可能有偏差');
+  if (record.streamStatus === 'denied' && record.pauseReason !== 'permission') details.push('定位权限还没打开');
+  else if (record.streamStatus === 'unavailable') details.push('这会儿设备还没能提供位置');
+  if (record.signal === 'weak') details.push('最近的定位有些飘，距离和节奏先作估计');
   else if (record.signal === 'disconnected') details.push('定位连接断了，新的路程还没记进来');
   else if (record.signal === 'searching') details.push('正在等新的定位');
-  if (record.lastObservation?.quality === 'stale') details.push('最近送来的位置测得较早');
-  if (record.metrics.paceSecondsPerKm === null) details.push('当前配速还没算出来');
-  if (record.metrics.cadenceStepsPerMinute === null) details.push('这次暂时没有步频读数');
-  details.push('学校计入的锻炼次数可以到体艺记录里另看');
+  if (record.lastObservation?.quality === 'stale') details.push(record.status === 'recording'
+    ? '最近送来的位置测得较早，正等新位置接上' : '末次送来的位置测得较早，没添进这次路程');
+  if (record.status === 'recording' && record.metrics.paceSecondsPerKm === null) details.push('当前配速还在等足够的路程');
+  if (record.persistence === 'error') details.push('这次记录暂时还没存好，眼前的内容仍保留着');
   return details.join('；') + '。';
 }
 
@@ -146,7 +153,7 @@ export function registerWorkout(broker: CapabilityBroker, policy: PolicyKernel,
   broker.register({ manifest: {
     id: 'local-workout', version: '2', trust: 'bundled_reviewed', sourceId: WORKOUT_SOURCE_ID,
     capabilities: [{ name: 'workout.current', displayName: '看看这次运动', version: '2',
-      description: '看看已经开启的这次跑步、散步或骑行：当前状态、距离、用时、配速、步频和最近一公里。也会带回定位新鲜度、精度与暂停情况；原始位置和路线留在本机。需要了解后来的进展时可以再读一次，学校计次另查体艺记录。',
+      description: '看看这次跑步、散步或骑行到哪一步了：定位估出的距离和配速、用了多久、步频、刚完成的一公里，以及暂停的缘由。定位的测量时间和精度也在里面，便于陪他看眼下的节奏。原始位置和路线留在本机；想看后来的进展可再读一次，学校计次另查体艺记录。',
       input: z.object({}).strict(),
       output: workoutSummarySchema.extend({ meaning: z.string() }).strict(),
       effect: 'read', requiredScopes: ['evidence:read'], subjects: ['self'], worlds: ['real'],

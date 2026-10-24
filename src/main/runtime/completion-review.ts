@@ -11,8 +11,8 @@ const ownedArtifactReferenceSchema = z.object({
 const reviewSchema = z.object({
   missing: z.array(z.object({ quote: z.string().min(1).max(3000).describe('original里还没被接住的那段连续原话。照原样保留，便于伙伴找回；答复中说得没有依据的地方可以放在contradictions。'), needed: z.string().trim().min(1).max(1500).describe('这处原话与已有帮助之间，还缺哪一点事实、内容或实际结果。把具体差别带给伙伴就好，怎样补上、怎样说仍由他决定。'), disposition: z.enum(['repairable', 'blocked_explained']).default('repairable').describe('同一轮里还有办法补上的地方记为repairable；眼前缺少外部通道或权限、伙伴也已讲清还没做成的部分时，记为blocked_explained。') }).strict()).max(12),
   blocked: z.array(z.object({ quote: z.string().min(1).max(3000), reason: z.string().max(1500) }).strict()).max(12).default([]),
-  contradictions: z.array(z.string().max(1200)).max(12),
-  requests: z.array(z.object({ id: z.string().max(160), status: z.enum(['answered', 'succeeded', 'unresolved']), actionIds: z.array(z.string().max(160)).max(8),
+  contradictions: z.array(z.string().max(1200)).max(12).describe('当前仍未解决、会改变结果的事实冲突。沿整段交流的先后理解，准备去查的意图、已经取得的结果和后来明确的更正各有时间；措辞偏好可以留给伙伴。数量疑点带上对应的原始量、单位与算式，方便核清。'),
+  requests: z.array(z.object({ id: z.string().min(1).max(160).describe('沿这次requests里已有的请求保留原id，方便伙伴找回同一件事；原话里尚未接住的需要仍可以在missing里说明。'), status: z.enum(['answered', 'succeeded', 'unresolved']), actionIds: z.array(z.string().max(160)).max(8),
     kind: z.enum(['answer', 'action', 'artifact']).optional().describe('按对方要怎样收到帮助来理解：当前回复里的讲解、即兴共写或讨论是answer；明确要独立交付的成稿或保留的原生陪学纸是artifact；改变日程、发送等实际事情是action。原记录的分类也可能需要调整。'),
     basisQuote: z.string().min(1).max(3000).optional().describe('调整分类时，保留这个请求的连续原话来说明缘由。稿子写好与已经发出是两件事。'),
     artifactIds: z.array(z.string().max(160)).max(8).optional().describe('独立稿件的ID，沿实际releaseArtifacts选择；已保存的原生陪学纸用ownedArtifacts。'),
@@ -72,7 +72,17 @@ export async function reviewCompletion(input: {
   sourceContext?: EvidenceEvent['sourceContext'];
   attachedMaterial?: { id: string; name: string; text: string; artifactId?: string; speaker: 'external'; authority: 'quotation' };
 }, complete: DeepSeekClient['complete'], signal: AbortSignal): Promise<CompletionReview> {
-  const { $schema: _, ...parameters } = z.toJSONSchema(reviewSchema);
+  const requestIds = [...new Set(input.requests.flatMap(value => {
+    const id = value && typeof value === 'object' ? (value as { id?: unknown }).id : undefined;
+    return typeof id === 'string' && id.length > 0 && id.length <= 160 ? [id] : [];
+  }))];
+  const requestSchema = reviewSchema.shape.requests.unwrap().element;
+  // Report only resolutions for records actually supplied to this review.
+  // An unregistered need still belongs in missing, not in an invented record.
+  const scopedReviewSchema = reviewSchema.extend({ requests: z.array(requestIds.length
+    ? requestSchema.extend({ id: z.enum(requestIds) })
+    : requestSchema).max(requestIds.length ? 20 : 0).default([]) });
+  const { $schema: _, ...parameters } = z.toJSONSchema(scopedReviewSchema);
   const tool: ToolSpec = { type: 'function', function: { name: 'report_completion_gaps', description: '把还没照顾好的需要、说得过强的地方和真正做成的事带回伙伴。', parameters } };
   const hostState = input.hostState as Record<string, unknown> | undefined;
   const ownedArtifacts = (Array.isArray(hostState?.availableOwnedArtifacts) ? hostState.availableOwnedArtifacts : []).flatMap(value => {
@@ -82,7 +92,7 @@ export async function reviewCompletion(input: {
     const parsed = ownedArtifactReferenceSchema.safeParse({ owner: reference.owner, id: reference.id, revision: reference.revision });
     return parsed.success && delivery?.saved === true ? [parsed.data] : [];
   });
-  const groundedReview = reviewSchema.superRefine((value, context) => {
+  const groundedReview = scopedReviewSchema.superRefine((value, context) => {
     for (const [index, gap] of value.missing.entries()) {
       const fromOriginal = input.original.includes(gap.quote);
       const fromReply = gap.disposition === 'repairable' && input.reply.includes(gap.quote);
@@ -92,7 +102,12 @@ export async function reviewCompletion(input: {
       context.addIssue({ code: 'custom', path: ['blocked', index, 'quote'], message: '这件暂时做不成的事，还没找到对应的原话。original里的连续原句能帮助伙伴认清是哪一处需要。' });
     for (const [index, request] of value.requests.entries()) {
       const original = input.requests.find(value => value && typeof value === 'object' && (value as { id?: unknown }).id === request.id) as { data?: { requestKind?: unknown } } | undefined;
-      const kind = request.kind || original?.data?.requestKind;
+      if (!original) {
+        context.addIssue({ code: 'custom', path: ['requests', index, 'id'],
+          message: '这项结果还没对应到这次已有的请求，可以沿requests里的原id再看一眼。这次没有列出请求时，requests数组留空；原话里的遗漏仍照常放在missing。' });
+        continue;
+      }
+      const kind = request.kind || original.data?.requestKind;
       if (kind === 'artifact' && request.status === 'answered' && !request.artifactIds?.length && !request.ownedArtifacts?.length)
         context.addIssue({ code: 'custom', path: ['requests', index],
           message: '这项成稿需要还缺实际作品的地址，可以沿已备好的独立稿或已保存的原生作品核对。' });
@@ -100,8 +115,6 @@ export async function reviewCompletion(input: {
         context.addIssue({ code: 'custom', path: ['requests', index, 'artifactIds'],
           message: '这份是原生作品，沿ownedArtifacts保留它的owner、id和revision；artifactIds留给独立稿件。' });
       if (!request.ownedArtifacts?.length) continue;
-      if (!original) context.addIssue({ code: 'custom', path: ['requests', index, 'id'],
-        message: '这份作品还没连到本轮给出的原请求，沿requests里的原地址再核一下。' });
       if (kind !== 'artifact' || request.status !== 'answered')
         context.addIssue({ code: 'custom', path: ['requests', index, 'ownedArtifacts'],
           message: '已保存的作品可以接住成稿需要；实际安排是否办成，仍沿它自己的动作结果来核对。' });
@@ -220,6 +233,8 @@ export async function reviewCompletion(input: {
   if (hasUnverifiedLocalCampusRecord) observationGuidance.push({ role: 'system', content: "这里读到的是 campus:local 的 legacy_import 资料，live=false、authenticated=false 描述了它的来历；simulated=false 本身并不说明它来自当前学校账号。answerCoverage.localImportedRecords 帮你定位回答里已有的值，也标出了是否来自合成示例。伙伴可以讲清这份导入资料列了什么和适用的日期，现实中的最新情况则看是否另有当前可读的学校来源。对方确实要最新结果、来源也可用时，那一步值得完成；没有这条路时，保留已有信息和实际未知，比重复读同一份资料更有帮助。" });
   if (hasConditionalMapRoute) observationGuidance.push({ role: 'system', content: "这份路线有 conditionalOrigins：candidateOriginId 是候选建筑，candidateEntranceId 是本次计算所用的入口，candidateEntranceRouteConnected 说明这个入口与已记录路网是否相连。originalPlaceToCandidateConnection=unknown 则表示人原先的位置到候选入口这一段还不清楚。answerCoverage.mapCandidates 仅标出名字和分钟数有没有出现。已知入口之间的路段与两端仍未知的连接，需要放在一起理解：前者可以提供有条件的估计，却还不能保证全程赶得上。伙伴已经讲清已知与未知的部分，就可以保留这份帮助，具体怎样说仍由他决定。" });
   if (hasReadyMapRoute) observationGuidance.push({ role: 'system', content: "map_route 的 ready 表示当前图内已经算出一条候选路线，其中也可能有估算接入段；两端是否真有已记录楼门，仍看各自的 entrance 和 access。networkM是已记录路网，connectorM是另列的估算连接，时间覆盖以同一份journeyEstimate或journey.estimate为准。顺着原问题看看出发、到达和比较的对象是否对应；反向距离即使碰巧相同，也可能是在回答另一件事。讨论中的候选可以作为有前提的起点，人的实际位置和入口当天是否开放，则各看相应的原话与资料。已经取得的路线仍有它的用处；原问题需要的入口或比较路线确实可读时，也值得读到它。没有的新资料，重复计算不会凭空补出来。" });
+  if (observedRows.some(observation => observation.tool === 'map_route' && (observation.result as Record<string, unknown> | undefined)?.reviewJourneyTiming))
+    observationGuidance.push({ role: 'system', content: "reviewJourneyTiming 沿同一次旅程的真实估计，把分钟数对应的路段单独放在一起。walkingMinutes只覆盖recordedNetworkM这部分已记录道路；minutesWithDwell再加explicitDwellMinutes，excludedEstimatedAccessM的估算接入仍未计时，未取得的路段和楼内时间也另看。答复同时提到总距离和分钟数时，值得看清这句分钟数究竟指哪一段。说明门口还没核实，与说明这份时间没有计入接入段，照顾的是两个不同的事实。对方给定步速后，按包含估算接入的距离算出的条件值，也与地图本身的道路估时分别理解；清楚说出各自覆盖的部分，就能保留已有帮助。" });
   if (observedRows.some(observation => observation.tool === 'map_search' || observation.tool === 'map_route' || observation.tool === 'map.relations'))
     observationGuidance.push({ role: 'system', content: "地点与入口要沿着这次交流认清。最新纠正放下的旧起点，仍留在过去；其余候选也没有因此变成人的实际位置。相似名称、建筑与入口节点各有自己的地址。先看看现有资料能回答哪一部分，再判断哪个缺少的起点或参照真会改变结论，通常就能找到有用的下一步。" });
   if (Array.isArray((input.hostState as any)?.knownDiscussionPlaces)
@@ -249,6 +264,10 @@ export async function reviewCompletion(input: {
     ...sourceContextGuidance(input.sourceContext).map(content => ({ role: 'system' as const, content })),
     { role: 'system', content: `你在帮一位伙伴看一眼这次交流是否真正照顾到了对方。这里有对方的原话、伙伴已经说出或准备说的话，以及实际读到的资料和做成的事情。希望你带着自己的判断看看：有没有重要的问题漏下了，有没有把猜测说得太确定，有没有答应的事情还没办成。伙伴的性格、亲昵、幽默、详略和自然措辞属于这段关系；你的帮助是发现会改变结果的实质问题，而不是替他重写声音。一处事实还缺条件，就指出那处条件与实际材料的差别；已有内容仍能帮助对方的地方，可以安心留下。反馈也可以没有问题。
 
+这条回复可能是边办事边说出来的，读的时候也沿着它的先后走。开始时准备接手、接下来想查清的事，是当时的打算；资料到来以后说查到了什么，才是在交代取得的结果。途中一度作出的判断，和后来明确对应它的更正，也各有自己的位置。一起看清当前留下的结论：若后来已经把先前哪一点不准确、现在依据什么理解讲明白，且新的结论与真实材料相符，那一处误解已经得到照顾。保留真实说过的经过，与仍坚持旧结论是两回事。若前段确实留下了过强的事实断言，后面却没有明确解释那一点，或新旧两种结果仍让人无法判断，就把这处尚未解开的矛盾具体带回来。仅仅还想换一种说法，或反复要求改写已经澄清的开头，都没有再增加一处事实缺口。
+
+数量也要沿同一份底数核对。每单位所需的时间，乘以用同一单位表示的量，得到这一段的总时间；若改用整段总时间按距离比例换算，那份总时间与作为分母的整段距离也属于同一段。先把原话给出的量、单位与实际采用的算式放到一起，再判断哪里确实算错。地图道路的估时、包含估算接入的距离、按对方指定步速作的条件换算，各有自己的范围；它们可以同时出现，关键是每个数字说明的是哪一部分。指出数值冲突时，清楚的依据与算式能帮伙伴看清差别，也让回看自己的计算有机会被核正。
+
 ${requestOriginGuidance}
 
 这段交流本身就能承接完整的帮助。讲清一道题、临时写几句、接着一段故事往下写，都可以把真实内容直接留在当前回复里。先看对方这次想怎样收到它：在你们的交谈里一起做，还是另外要稿页、独立文件、保存在原生学习纸，或交给某个收件人。文章能够单独读懂，说的是内容完整；是否另留一份文稿，沿对方实际提出的交付需要来。后面这些明确的交付需要各沿原来的成果和行动核对；题材是写作、用了写作工具或已有某份稿件，都没有单独增加一种交付要求。普通正文已经给足的内容，也无需再另做一份同文稿页。
@@ -263,7 +282,7 @@ coverageCandidates 是分段阅读时留下的可能遗漏，帮助你留意长�
 
 hostState.conversationContext 是伙伴这次已经读到的前情。它能帮你理解省略的主语、刚才的选择和正在继续的事；新的明确纠正比旧的解释更贴近眼前。后来澄清了一件事，与伙伴曾经误读或误记，也是不同的事实；声称自己以前犯过某个具体错误时，同样看看当时的原话，普通关心或歉意则由伙伴自然表达。currentMatter 若有仍适用的 nextStep，就看看这一步有没有被接住。一个有依据的比较，或一个答了就能推进原选择的问题，都可能是合适的接续，没必要同时索要选项表、完整比较和一串问题。让人重新讲已经知道的事、或者换成一套无根据的新选择，才容易把原来的事丢下。附带说自己在路上，也可能只是更新处境。时间、指代或事情身份真有会改变答案的歧义时，留一个有用的问题就好。
 
-hostState.replyPublication 则是当前同一条回复的现场来历。previousCandidates 按先后保留了续改前实际发表过、后来被替换的末段，state=superseded_tail表示它已不在当前正文里；publication里的范围与partial说明这次带来了多少，exposure=unknown没有表示对方已经看过。旧片段可以帮助理解“刚才漏了”或后来改口的来由。原请求需要留给对方阅读的内容，仍看当前reply和真正保留的画面；只在被替换的旧片段里出现过，还没有留在当前成稿。旧稿也不会额外增加一份交付要求。没有带来的片段仍是未知，仅凭缺页不能断定伙伴从未说过；具体事实继续与实际原文和观察对照。
+hostState.replyPublication 则是当前同一条回复的现场来历。其中若有publishedPrefix，它标出当前reply里已经随着办事发表的前段位置，start与end按Unicode码点计数，end不含；这段经过继续保留，这次续写和更正发生在后面的末段。发表过本身没有说明对方已读、认可，也没有让一句错误变正确。沿整条回复核清它是当时的打算、暂定判断，还是尚未更正的实际断言，再看后面的说明有没有把相关误解具体解开。需要更正的事实由后文接清，让真实的进展仍然能被读懂。previousCandidates 按先后保留了续改前实际发表过、后来被替换的末段，state=superseded_tail表示它已不在当前正文里；publication里的范围与partial说明这次带来了多少，exposure=unknown没有表示对方已经看过。旧片段可以帮助理解“刚才漏了”或后来改口的来由。原请求需要留给对方阅读的内容，仍看当前reply和真正保留的画面；只在被替换的旧片段里出现过，还没有留在当前成稿。旧稿也不会额外增加一份交付要求。没有带来的片段仍是未知，仅凭缺页不能断定伙伴从未说过；具体事实继续与实际原文和观察对照。
 
 分页材料有原页地址和读取顺序。conversationContext里的campusReading是伙伴已经收到的这类导航，标明原回复、实际页范围与固定条件；它没有替伙伴读取新页，也不证明对方已看。核对“这页里的第一项、第二项”这类相对指代时，先把原话、最近原回复和对应页地址对上，再看答复是否用了那页真实提供的对象与数值。较早页的同名序号不能替代后来正在讨论的页；整份列表的顺序与页内顺序也各有含义。当前原话明确换页或另指对象时按新指向理解。资料不足以认清时留下具体缺口，不从旧页找一个看似能比较的答案。
 

@@ -514,7 +514,7 @@ export function registerBuiltins(
         return {
           status: 'not_connected',
           sourceId,
-          reason: connector?.reason || '还没有连接浙大校园账号，可以在“连接与偏好 → 校园资料”登录；已有导入材料可从campus.imported_lookup继续读。',
+          reason: connector?.reason || '还没有连接浙大校园账号，可以在“连接与偏好 → 校园资料”登录；若已有导入材料，可从campus.imported_lookup继续读。',
           simulated: false,
         };
       if (name === 'campus.query') {
@@ -552,7 +552,7 @@ export function registerBuiltins(
         return {
           status: 'forbidden',
           sourceId,
-          reason: '校园账号还没登录，可以在“连接与偏好 → 校园资料”接上；已有导入材料可从campus.imported_lookup继续读。',
+          reason: '校园账号还没登录，可以在“连接与偏好 → 校园资料”接上；若已有导入材料，可从campus.imported_lookup继续读。',
           simulated: false,
         };
       if (name === 'campus.overview') {
@@ -860,7 +860,7 @@ export function registerBuiltins(
         ['map:read'],
         { version: '4', subjects: ['self', 'other', 'fictional'], displayName: '找校园里的地方', description: '按平常叫法、已有别名或类别找地点，可加当前地图范围。结果留下地点、入口、接入条件与原资料地址；湖面或区域还会列附近独立命名、能接到路网的可选落点。可以明确说明选哪处来试算，交map.route看路，再随对方想去的位置调整。' },
       ),
-      base('map.route', routeInput, jsonObject, ['map:read'], { subjects: ['self', 'other', 'fictional'], displayName: '看看这段路怎么走', description: '沿地图找到的地点或路网节点试算路线，保留原起终点、方向和入口条件。路线算好后会分别列出已记录道路和估计接入，可先带着这些条件展开这一版走法。确实缺少接入时，结果会留下可继续核对的候选入口。' }),
+      base('map.route', routeInput, jsonObject, ['map:read'], { subjects: ['self', 'other', 'fictional'], displayName: '看看这段路怎么走', description: '沿地图找到的地点或路网节点试算路线，保留原起终点、方向和入口条件。结果分开保留已记录道路、估计接入和各段长度；接着聊时围绕眼前要去哪里，说明影响走法、用时或入口选择的差别，细分数字留待需要时展开。确实缺少接入时，可沿候选入口继续核对。' }),
       base('map.location_status', z.object({}).strict(), jsonObject, ['map:read'], { displayName: '看看地图当前的定位情况', description: '查看公共地图目前保留的定位状态与原因，需要具体起点时可继续找地点或接回本人刚说的位置。' }),
     ]),
     connectionStatus: () => ({ connected: !!connections.map && connections.map.overview().version !== 'unavailable', reason: connections.map ? undefined : '地图数据尚未装配。' }),
@@ -923,10 +923,10 @@ export function registerBuiltins(
     ], ['api.open-meteo.com', 'air-quality-api.open-meteo.com']),
     connectionStatus: () => ({ connected: connections.weatherEnabled(), reason: connections.weatherEnabled() ? undefined : '天气查询还没开启，可以在连接与偏好里打开。' }),
     invoke: async (name, args, ctx) => {
-      if (!connections.weatherEnabled()) return { status: 'forbidden', sourceId: 'weather:open-meteo', reason: '天气查询还没开启，可以在连接与偏好里打开；已经查到的路线和安排仍可接着看。', simulated: false };
+      if (!connections.weatherEnabled()) return { status: 'forbidden', sourceId: 'weather:open-meteo', reason: '天气查询还没开启，可以在连接与偏好里打开，再按原地点和时段继续查。', simulated: false };
       if (name === 'air_quality.lookup') {
         const query = airQualityRequest(args, repo.clock.now()), response = await ctx.request(query.url.toString());
-        if (!response.ok) throw new HarnessError('air_quality_failed', `空气质量来源这次没有返回预报（HTTP ${response.status}），已有的天气和路线仍可接着看；稍后可沿同一地点与时段再查。`);
+        if (!response.ok) throw new HarnessError('air_quality_failed', `空气质量来源这次没有返回预报（HTTP ${response.status}），稍后可沿同一地点与时段再查。`);
         const now = repo.clock.now(), result = airQualityResult(query, await response.json(), now);
         return { status: result.complete ? 'fresh' : 'partial', sourceId: 'weather:open-meteo', data: result.data,
           fetchedAt: now, expiresAt: new Date(Date.parse(now) + 1800000).toISOString(), simulated: false,
@@ -934,7 +934,7 @@ export function registerBuiltins(
           ...(result.complete ? {} : { reason: '这段时间有些小时还缺数据，已拿到的小时值保留在结果里。可以先看已有部分，或换一个较短时段继续查。' }) };
       }
       const query = weatherRequest(args, repo.clock.now()), response = await ctx.request(query.url.toString());
-      if (!response.ok) throw new HarnessError('weather_failed', `天气来源这次没有返回预报（HTTP ${response.status}），已有路线和安排仍可接着看；稍后可沿同一地点与时段再查。`);
+      if (!response.ok) throw new HarnessError('weather_failed', `天气来源这次没有返回预报（HTTP ${response.status}），稍后可沿同一地点与时段再查。`);
       const observedAt = repo.clock.now(), result = weatherResult(query, await response.json(), observedAt);
       return { status: result.complete ? 'fresh' : 'partial', sourceId: 'weather:open-meteo', data: result.data,
         fetchedAt: observedAt, expiresAt: new Date(Math.min(Date.parse(observedAt) + 1800000, Date.parse(dayBounds(dateInZone(observedAt, query.location.timeZone), query.location.timeZone).to))).toISOString(),

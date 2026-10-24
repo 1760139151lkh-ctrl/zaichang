@@ -14,6 +14,22 @@ export function observationsForReview(observations: unknown[]): unknown[] {
     // original place -> candidate entrance, not to the candidate's own route.
     // Keep both meanings explicit without changing the original tool result.
     const routeData = evidence.data && typeof evidence.data === 'object' && !Array.isArray(evidence.data) ? evidence.data as Record<string, unknown> : null;
+    if (observation.tool === 'map_route') {
+      const journey = evidence.journey && typeof evidence.journey === 'object' && !Array.isArray(evidence.journey)
+        ? evidence.journey as Record<string, unknown> : null;
+      const estimate = evidence.journeyEstimate ?? journey?.estimate;
+      if (estimate && typeof estimate === 'object' && !Array.isArray(estimate)) {
+        const timing = estimate as Record<string, unknown>;
+        // Both single-leg and multi-stop journeys time the recorded network.
+        // Access estimates remain distances, even when the overall route is ready.
+        evidence.reviewJourneyTiming = {
+          sourceField: evidence.journeyEstimate ? 'journeyEstimate' : 'journey.estimate',
+          recordedNetworkM: timing.networkM, walkingMinutes: timing.walkingMinutes,
+          explicitDwellMinutes: timing.dwellMinutes, minutesWithDwell: timing.totalMinutes,
+          excludedEstimatedAccessM: timing.estimatedAccessM, complete: timing.complete, basis: timing.basis,
+        };
+      }
+    }
     if (observation.tool === 'map_route' && Array.isArray(routeData?.conditionalOrigins)) {
       evidence.reviewConditionalSegments = routeData.conditionalOrigins.slice(0, 5).map(candidate => {
         const item = candidate && typeof candidate === 'object' ? candidate as Record<string, unknown> : {};

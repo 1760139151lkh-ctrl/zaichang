@@ -454,7 +454,7 @@ const specs: SpecDefinition[] = [
   ...(INTERACTIVE_PROGRAM_AVAILABLE ? interactiveProgramReadDefinitions : []),
   {
     name: 'manage_note',
-    description: '用户自己的记事本，保存和读取完整原文，独立于长期记忆与日历。list/read/history只读；create/update/change_state/undo须当前明确委托及原话sourceQuote，不能把随口想法自动排程。读取按offset分页，可继续展开末尾条件。编辑/撤销使用实际expectedRevision，冲突先核对当前版本。',
+    description: '翻看或修改对方自己的记事本，原文留在原笔记里。list/read/history翻目录、正文和旧版本；对方明确托付保存、编辑、改状态或撤回时，用create/update/change_state/undo，并在sourceQuote带上那句原话。正文沿offset接着读，末尾条件也能继续展开。修改和撤回沿已读expectedRevision办理，版本变了先接回当前笔记；日历安排另从原行动入口保存。',
     schema: z.discriminatedUnion('operation', [
       z.object({ operation: z.literal('list'), input: noteListSchema }),
       z.object({ operation: z.literal('read'), input: noteReadSchema }),
@@ -612,11 +612,11 @@ const specs: SpecDefinition[] = [
   {
     name: 'look_up',
     description:
-      '在本轮范围内查资料。source=capability且不填capability时搜索/分页能力目录，支持query、offset、limit；填写capability+describeOnly=true读取schema，填写arguments执行只读能力。weather可传公开location，date查日级，from/to查小时窗；小时问题应查询实际时间窗，日级结果不证明小时能力不可用。campus按domain读取课程、课表、考试等原资料，也可用campus.lookup或campus.query发现与查询；真实返回的sceneRef供present_view呈现，overview只用于确需的总览。situation.read是最长31天的跨源安排、承诺与目标综合，单源原资料查看不以它或规划为前置；未连接、无权限、部分覆盖均有实际状态。local按from/to读本地已存安排，query只筛标题；实际返回的sceneRef可交present_view，记录id/occurrenceId只定位原安排，不是SceneRef。history回查原文。不能指定他人身份或任意文件路径。',
+      '查这次允许使用的原资料。source=capability且不填capability时，按query找用途，offset/limit翻目录；填capability与describeOnly=true看完整读法，再把内容填进arguments读取。目录没找到时可换词或沿browse继续，翻过头可沿restart回到同一查找的第一页。weather按公开location查预报，date看一天，from/to看某几小时的雨风。campus按domain翻课程、课表和考试，细查可用campus.lookup或campus.query；只看一份原清单时直接读它，想把近期安排放在一起商量时可用situation.read，一次最多31天。local按from/to看已存安排，query筛标题；history翻回原话。实际读到的sceneRef可交present_view摊开，记录id与occurrenceId留给原安排的回读和修改。资料是否连接、这次能读多少和下一页在哪，随实际结果一起看。',
     schema: lookUpSchema,
   },
   {
-    name: 'read_understanding', description: '按稳定ID读取完整理解。用户问理解为何变化、当时怎样认为时用view=history；沿同一事实逐修订保留条件、现实有效区间、实际宿主提交时间与变化原话。knownAt查询当时已保存的理解，validAt另核现实有效区间；旧提交时间未知不推算。历史来源仍按当前许可抑制，旧理解不能当当前事实或恢复批准。历史页沿coverage.read继续，不需要用户维护记忆。',
+    name: 'read_understanding', description: '沿原id找回一份理解和它成立的条件。想知道当时怎样想、后来为什么变了，用view=history逐版读变化的原话；knownAt看当时已保存的版本，validAt看现实中适用的时间，旧记录没写的时间保持空缺。历史沿当前可读范围展开，今天是否适用再结合当前原话判断。下一页沿coverage.read继续。',
     schema: understandingReadInput, grant: 'memory:read',
   },
   {
@@ -626,12 +626,12 @@ const specs: SpecDefinition[] = [
   },
   {
     name: 'read_learning',
-    description: '从已有共同学习事项找回原题、本人尝试、已记录提示/答案、尚未解决处和当时条件，预览后沿精确地址回读。compareIds并排两次真实尝试；不同题、条件未知、帮助史不全时不评定成长或独立掌握。用户想自己发现时先按当前要求给最小提示，不直接展示旧答案。缺少帮助记录不证明无帮助。停止已知记录而旧正文不可读时，用id+metadataOnly=true核当前版本再retire；不会恢复正文或创建学习标签。',
+    description: '找回一起学过的原题、对方的尝试、当时给过的提示和还卡住的地方，沿预览里的地址读原文。compareIds可以并排看两次尝试，各自的题目、条件与帮助史一起带回；缺了哪一段就留待再看。对方今天想自己试时，按这次想要的深度给提示，旧答案可等需要时再读。要停止使用一条已知记录而正文已不可读时，可用id与metadataOnly=true取得当前版本，再沿retire放下它。',
     schema: learningReadInput, grant: 'evidence:read',
   },
   {
     name: 'read_evidence',
-    description: '按来源 ID 打开有权使用的原文。默认view=text，offset/limit按Unicode字符分页，沿真实下一页继续；片段不是全文。原用户消息带image.read地址时，view=image及expectedVersion可重新看同版原图；它读取整图像素，文字片段的许可不自动包含整图。图片目录不表示已看见，旧无原图证明的记录不推补。已停用来源仅作历史依据。',
+    description: '沿来源id打开这次可读的原文。默认view=text，offset/limit按Unicode字符分段，沿返回地址继续读上下文。原消息给出image.read时，用view=image与原expectedVersion看同一版整图；文字片段与整图各按这次的可读范围打开。目录列的是原图地址，实际看过的内容随读取结果带回。后来停用的来源保留其历史来由，眼前是否适用再看当前状态。',
     schema: z.object({ id: z.string().min(1).max(160), view: z.enum(['text', 'image']).default('text'),
       expectedVersion: z.number().int().positive().optional(),
       offset: z.number().int().min(0).default(0), limit: z.number().int().min(1).max(20000).default(8000) }).strict()
@@ -642,7 +642,7 @@ const specs: SpecDefinition[] = [
   {
     name: 'propose_memory_change',
     description:
-      '需要立即纠正已有理解或用户明确要求记录时，提出有本轮原文定位的条件理解。普通陈述可先直接回应，后台会整理，不必等待长期保存才能使用当前原话。只是候选，代码和语义复核决定生效；主体/假设/期限不可混淆，绝不授予动作权限。',
+      '对方纠正了已有理解或明确希望记下时，沿这次原话的位置提出修改，把说的是谁、现实还是假设、适用条件与期限一起留好。普通交谈可以先照眼前原话自然回应，值得留下的部分另行整理。结果会说明这份候选是否已经保存；具体安排仍沿原行动办理。',
     schema: changeSchema,
     grant: 'memory:write',
     mutates: true,
@@ -663,7 +663,7 @@ const specs: SpecDefinition[] = [
   },
   {
     name: 'inspect_action',
-    description: '查找当前范围内的动作与真实回执。省略id列出尚未确认结果的动作；指定id并reconcile核查未知结果，不能换标识盲目重发。',
+    description: '看看一件事实际办到了哪里。省略id时列出结果尚未核清的行动；有原id时沿它回读，reconcile继续核对未知结果。等同一件事的结果清楚后，再决定接下来怎样办。',
     schema: z.object({ id: z.string().optional(), reconcile: z.boolean().default(false) }).strict(),
   },
   {
@@ -675,7 +675,7 @@ const specs: SpecDefinition[] = [
   },
   {
     name: 'set_plan',
-    description: '只维护本轮最多五项处理步骤；不把步骤变成用户承诺，没有证据不能称完成。',
+    description: '为这一轮留下最多五个处理步骤，随着实际进展更新正在做、已办好或卡在哪里。这里整理的是你的办事过程；对方答应的事与日历安排各沿原入口保留。',
     schema: z
       .object({
         items: z
@@ -697,7 +697,7 @@ const specs: SpecDefinition[] = [
   {
     name: 'delegate',
     description:
-      '将相互独立的问题交给同一Hermes并行只读调查（前台最多三支、后台最多两支）。每支用sources声明来源，本轮原文或附件用currentEvidenceIds指定。各支仍共用父任务总预算，结果逐支返回真实状态及来源交接目录；一支失败不等于其他已完成材料无效。不能再委派或写入，不继承未声明的私人历史。',
+      '把相互独立的资料问题分头查，前台最多三支、后台最多两支。每支用sources选这次可读的来源，本轮原话或附件用currentEvidenceIds指定；它们在同一份总余量里直接查这些资料，实际修改交回原事项。每支分别带回查到什么、哪里卡住和原资料地址，可以接着判断哪些发现用得上。',
     schema: z
       .object({
         tasks: z
@@ -4954,7 +4954,7 @@ export class RuntimeCoordinator {
         const attemptId = this.broker.invocations.filter(attempt => attempt.scopeId === readHandle.id && attempt.capability === capability).at(-1)?.id;
         signal.throwIfAborted(); this.policy.validate(handle);
         if (capability === 'weather.lookup' && result.status === 'forbidden' && !this.connections.weatherEnabled()) {
-          result = { ...result, reason: '天气查询开关目前关闭，本次未向天气服务发出请求。可在连接设置开启；开启后的默认地点是杭州城市公共参考坐标，不是用户定位。当前仍未取得预报。' };
+          result = { ...result, reason: '天气查询目前关闭，这次还没向天气来源发出请求。可以在连接与偏好里开启，再按想看的地点和时段查。' };
         }
         if (originCandidate && ['fresh', 'partial'].includes(result.status)) {
           const data = result.data as Record<string, unknown>;
@@ -5028,8 +5028,8 @@ export class RuntimeCoordinator {
           const hourly = this.scenes.environment(session.sceneSessionId || session.sessionId, result, capability, session.ingress.contract.id, session.background);
           if (session.pack) session.pack.data.availableScenes = this.scenes.summaries(handle, session.sceneSessionId || session.sessionId, session.ingress.contract.id, undefined, !!session.ingress.requiresReadPurpose);
           return this.withMethodNotes(session, capability, { ...result, sceneRef: { id: hourly?.id || scene.id, revision: hourly?.revision || scene.revision }, ...(hourly ? { dailySceneRef: { id: scene.id, revision: scene.revision } } : {}), presentation: hourly
-            ? 'sceneRef可显示小时窗口，dailySceneRef另指来源日统计。小时覆盖见window，日统计实际区间及当地自然日是否重合见dailyAggregation；二者独立。温度对应时刻，降水对应标明的前一小时，未覆盖部分保持未知。'
-            : 'sceneRef是来源日统计；各日实际区间和当地自然日是否重合见dailyAggregation，不能据此推断逐小时变化。日期选择只是引用，不自动保存日程。' });
+            ? '这一页可以摊开所查时段的小时预报，另有日统计入口可看当天概况。气温说的是标出的时刻，降水说的是此前一小时；已经读到哪些小时、日统计从几点算到几点，以及当地一天的起止，都随结果留着。'
+            : '这一页是按天汇总的天气，每天的实际统计时段和该地点当地一天的起止都留在结果里；两者错开时，按标出的统计时段看。想知道出门那会儿的雨风，可以保留同一地点，用from/to继续查那几小时。' });
         }
         if (capability === 'research.image' && result.status === 'fresh') {
           const resourceId = (result.data as { resourceId?: string } | undefined)?.resourceId;
@@ -5168,7 +5168,7 @@ export class RuntimeCoordinator {
     const method = capability.startsWith('campus.') ? 'campus' : capability.startsWith('map.') ? 'map' : undefined;
     if (!method || session.methodNotes?.includes(method)) return result;
     (session.methodNotes ||= []).push(method);
-    return { ...(result as object), hostUsageGuidance: method === 'campus' ? campusMethod : mapMethod, guidanceMeaning: '宿主提供的使用方法，不是本次用户事实，也不扩大权限。' };
+    return { ...(result as object), hostUsageGuidance: method === 'campus' ? campusMethod : mapMethod, guidanceMeaning: '这份说明介绍怎样接着查资料；眼前读到了什么、哪些内容可用，沿这次实际结果和原来源继续看。' };
   }
   async refreshDependencies(session: RunSession) {
     session.signal.throwIfAborted();

@@ -304,17 +304,32 @@ export class AppServerLunaClient {
           await upstream.body?.cancel();
           throw new ProviderError(`Luna 代测请求未完成（HTTP ${status}）。`, status === 429 || status >= 500, status === 401 ? 'authentication' : status === 402 ? 'quota' : status === 429 ? 'rate_limit' : 'protocol', status);
         }
-        let ended = false, content = '', responseModel: string | undefined, usage: Completion['usage'];
+        let ended = false, finalOutputAvailable = false, content = '', responseModel: string | undefined, usage: Completion['usage'];
         const items: Item[] = [];
+        const itemKinds = new Map<string, { type: string; role?: string }>(), partKinds = new Map<string, string>();
         await readSSE(upstream, data => {
           signal.throwIfAborted();
           if (!data || data === '[DONE]') return;
           const event = JSON.parse(data);
+          if (['response.output_item.added', 'response.output_item.done'].includes(event.type)
+            && typeof event.item?.id === 'string' && typeof event.item.type === 'string')
+            itemKinds.set(event.item.id, { type: event.item.type, role: event.item.role });
+          if (event.type === 'response.content_part.added' && typeof event.item_id === 'string'
+            && Number.isInteger(event.content_index) && typeof event.part?.type === 'string')
+            partKinds.set(event.item_id + ':' + event.content_index, event.part.type);
           if (event.type === 'response.output_item.added' && event.item?.type === 'function_call'
             && typeof event.item.call_id === 'string' && event.item.call_id
             && tools.some(tool => tool.function.name === event.item.name))
             options?.onToolCallProgress?.({ kind: 'call', id: event.item.call_id, name: event.item.name });
-          if (event.type === 'response.output_text.delta') { content += event.delta; if (content.length > MODEL_WIRE_LIMITS.textCharacters) throw new ProviderError('回复达到本次长度上限。'); onText?.(event.delta); }
+          if (event.type === 'response.output_text.delta') {
+            const item = itemKinds.get(event.item_id), part = partKinds.get(event.item_id + ':' + event.content_index);
+            if (typeof event.delta !== 'string' || item && (item.type !== 'message' || item.role !== 'assistant')
+              || part && part !== 'output_text')
+              throw new ProviderError('Luna 返回的正文与原消息类型没有对应上。', false, 'protocol', undefined, usage);
+            content += event.delta;
+            if (content.length > MODEL_WIRE_LIMITS.textCharacters) throw new ProviderError('回复达到本次长度上限。');
+            onText?.(event.delta);
+          }
           if (event.type === 'response.output_item.done') items.push(event.item);
           if (event.response?.usage) {
             const value = event.response.usage;
@@ -331,15 +346,20 @@ export class AppServerLunaClient {
             // A completion may carry items for which no item-done event was
             // emitted. Its nonempty final list is authoritative, not an
             // additive duplicate of the partial streamed list.
-            if (Array.isArray(event.response.output) && event.response.output.length) items.splice(0, items.length, ...event.response.output);
+            if (Array.isArray(event.response.output) && event.response.output.length) {
+              finalOutputAvailable = true;
+              items.splice(0, items.length, ...event.response.output);
+            }
           }
         }, signal, ssePendingCharacterLimit(tools));
         if (!ended) throw new ProviderError('Luna 代测连接在完成前断开。', false, 'protocol', undefined, usage);
         const tool_calls = items.filter(item => item.type === 'function_call').map(item => ({ id: item.call_id, type: 'function' as const, function: { name: item.name, arguments: item.arguments } }));
         if (tool_calls.length > 8 || tool_calls.some(call => !call.id || !tools.some(tool => tool.function.name === call.function.name) || call.function.arguments.length > toolArgumentCharacterLimit(call.function.name))) throw new ProviderError('Luna 返回了不在本轮工具契约内的请求。', false, 'protocol', undefined, usage);
         if (items.some(item => !['message', 'reasoning', 'function_call'].includes(item.type))) throw new ProviderError('Luna 返回了额外原生工具，代测已停止。', false, 'protocol', undefined, usage);
-        const completedText = items.filter(item => item.type === 'message').flatMap(item => item.content || []).map(part => part.text || '').join('');
-        if (completedText) content = completedText;
+        const completedText = items.filter(item => item.type === 'message' && item.role === 'assistant')
+          .flatMap(item => Array.isArray(item.content) ? item.content : [])
+          .filter(part => part.type === 'output_text' && typeof part.text === 'string').map(part => part.text).join('');
+        if (finalOutputAvailable || completedText) content = completedText;
         if (content.length > MODEL_WIRE_LIMITS.textCharacters) throw new ProviderError('回复达到本次长度上限。', false, 'output_length', undefined, usage);
         if (!content && !tool_calls.length) throw new ProviderError('Luna 没有返回可用内容。', false, 'empty_response', undefined, usage);
         if (usage && transportAttempts > 1) usage = { ...usage, physical_attempts: transportAttempts, unreported_attempts: transportAttempts - 1 };
