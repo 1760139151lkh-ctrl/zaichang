@@ -8,6 +8,9 @@ import CoreLocation
     private var timer: Timer?
     private var commandTimer: Timer?
     private var lastCommandId = ""
+    private var lastReadCommandId = ""
+    private var commandProcessedAt: TimeInterval = 0
+    private var commandMonotonic: TimeInterval = 0
     private var closedNonces: [String] = []
     private var workoutId = ""
     private var nonce = ""
@@ -39,7 +42,7 @@ import CoreLocation
         // A command left behind by an earlier process cannot resume location.
         if let data = try? Data(contentsOf: controlFile),
            let old = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-            lastCommandId = old["commandId"] as? String ?? ""
+            lastReadCommandId = old["commandId"] as? String ?? ""
         }
         persist()
         commandTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
@@ -51,23 +54,34 @@ import CoreLocation
         guard let data = try? Data(contentsOf: controlFile), data.count <= 4096,
               let command = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
               command["version"] as? Int == 1,
-              let commandId = command["commandId"] as? String, valid(commandId), commandId != lastCommandId,
-              let issuedAt = command["issuedAt"] as? Double,
+              let commandId = command["commandId"] as? String, valid(commandId), commandId != lastReadCommandId else { return }
+        // Consume the envelope before time/owner checks, so a later clock correction
+        // or the end of another workout cannot turn a previously refused START live.
+        lastReadCommandId = commandId
+        guard let issuedAt = command["issuedAt"] as? Double,
               abs(Date().timeIntervalSince1970 * 1000 - issuedAt) < 15000,
               let action = command["action"] as? String, ["start", "heartbeat", "stop"].contains(action),
               let owner = command["workoutId"] as? String, valid(owner),
               let token = command["nonce"] as? String, valid(token) else { return }
-        lastCommandId = commandId
-        handle(action: action, owner: owner, token: token)
+        // Consumed does not mean accepted: a rejected command must not later replay,
+        // and must not replace the ACK of a healthy owner.
+        handle(action: action, owner: owner, token: token, commandId: commandId)
     }
 
-    private func handle(action: String, owner: String, token: String) {
+    private func acknowledge(_ commandId: String) {
+        lastCommandId = commandId
+        commandProcessedAt = Date().timeIntervalSince1970 * 1000
+        commandMonotonic = ProcessInfo.processInfo.systemUptime
+    }
+
+    private func handle(action: String, owner: String, token: String, commandId: String) {
         let same = owner == workoutId && token == nonce
         switch action {
         case "start":
             guard !closedNonces.contains(token) else { return }
             // No unrelated owner can take over an active subscription.
-            guard !listening || same else { return }
+            guard (!listening && state != "starting") || same else { return }
+            acknowledge(commandId)
             if !same { sequence = 0; points = []; lastLocationTime = 0 }
             workoutId = owner; nonce = token
             deadline = ProcessInfo.processInfo.systemUptime + 20
@@ -83,9 +97,18 @@ import CoreLocation
             startIfAllowed()
         case "heartbeat":
             guard same, listening else { return }
+            acknowledge(commandId)
             deadline = ProcessInfo.processInfo.systemUptime + 20
         case "stop":
-            guard same else { return }
+            if !same {
+                // STOP can overtake a not-yet-consumed START in the private control file.
+                // Remember that nonce without disturbing a different live subscription.
+                if !closedNonces.contains(token) { closedNonces.append(token) }
+                closedNonces = Array(closedNonces.suffix(64))
+                guard !listening && state != "starting" else { persist(); return }
+                workoutId = owner; nonce = token
+            }
+            acknowledge(commandId)
             stop("位置已停止")
         default: return
         }
@@ -155,11 +178,15 @@ import CoreLocation
     }
 
     private func persist() {
+        let observedAt = Date().timeIntervalSince1970 * 1000
+        let commandElapsed: Any = commandMonotonic > 0
+            ? max(0, ProcessInfo.processInfo.systemUptime - commandMonotonic) * 1000 : NSNull()
         let value: [String: Any] = ["version": 1, "workoutId": workoutId, "nonce": nonce,
             "commandId": lastCommandId, "processId": ProcessInfo.processInfo.processIdentifier,
+            "commandProcessedAt": commandProcessedAt, "commandElapsedMs": commandElapsed,
             "closedNonces": closedNonces,
             "status": state, "activeSubscriptions": listening ? 1 : 0,
-            "sequence": sequence, "updatedAt": Date().timeIntervalSince1970 * 1000, "points": points]
+            "sequence": sequence, "updatedAt": observedAt, "points": points]
         guard let data = try? JSONSerialization.data(withJSONObject: value) else { return }
         do { try data.write(to: file, options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication]) }
         catch { stopWithoutWrite() }

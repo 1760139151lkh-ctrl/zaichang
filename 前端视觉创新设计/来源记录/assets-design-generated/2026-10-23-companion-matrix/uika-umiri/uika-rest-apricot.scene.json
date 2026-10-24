@@ -8,10 +8,10 @@
   "width": 1536,
   "height": 1024,
   "mother": "uika-rest-apricot-mother-candidate-v1.png",
-  "background": "uika-rest-apricot-background-calibrated-v3.png",
-  "figure": "uika-rest-apricot-figure-calibrated-v3.png",
-  "mask": "uika-rest-apricot-mask-calibrated-v3.png",
-  "shadow": "uika-rest-apricot-shadow-calibrated-v3.png",
+  "background": "uika-rest-apricot-background-calibrated-v4.png",
+  "figure": "uika-rest-apricot-figure-calibrated-v4.png",
+  "mask": "uika-rest-apricot-mask-calibrated-v4.png",
+  "shadow": "uika-rest-apricot-shadow-calibrated-v4.png",
   "seat": [
     0.8893229166666666,
     0.5634765625
@@ -36,8 +36,8 @@
   "travel": 0,
   "slope": 0,
   "perspective": 0,
-  "parameters": "uika-rest-apricot-layer-parameters-v3.json",
-  "production": "uika-rest-apricot-layer-processing-v3.json",
+  "parameters": "uika-rest-apricot-layer-parameters-v4.json",
+  "production": "uika-rest-apricot-layer-processing-v4.json",
   "review": {
     "approvedByPrimary": false,
     "motherApprovalRecord": "../primary-other-mother-reviews.json",

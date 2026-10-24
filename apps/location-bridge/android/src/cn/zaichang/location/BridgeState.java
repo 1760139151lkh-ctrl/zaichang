@@ -51,7 +51,15 @@ final class BridgeState {
         cancelled.add(session);
         while (cancelled.size() > 64) cancelled.remove(cancelled.iterator().next());
         preferences(context).edit().putStringSet("cancelled", cancelled).commit();
-        if (!owns(context, session, workoutId)) return;
+        if (!owns(context, session, workoutId)) {
+            // An immediate STOP may arrive before its Activity has accepted START.
+            // A nonce tombstone plus an idle receipt closes that request without
+            // stopping or overwriting a different live workout.
+            if (!preferences(context).getString("session", "").isEmpty()) return;
+            preferences(context).edit().putString("workoutId", workoutId).commit();
+            write(context, session, "stopped", "定位已停止。", new JSONArray());
+            return;
+        }
         // removeUpdates is synchronous. Never publish stopped before it succeeds.
         if (!LocationService.stopSession(session)) {
             write(context, session, "unavailable", "设备还没有确认位置读取已停止，请重新连接后重试。", new JSONArray());

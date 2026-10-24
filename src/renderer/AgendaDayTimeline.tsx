@@ -250,9 +250,13 @@ export function AgendaDayTimeline({
   }
 
   function updateMove(value?: Move) {
+    if (!value || !movingRef.current) setAnnouncement('');
     movingRef.current = value;
     setMoving(value);
   }
+  useLayoutEffect(() => {
+    if (!movingRef.current && !draft) setAnnouncement('');
+  }, [contextKey, entryVersions, !!draft]);
   function stopPointer() {
     if (frame.current !== undefined) cancelAnimationFrame(frame.current);
     frame.current = undefined;

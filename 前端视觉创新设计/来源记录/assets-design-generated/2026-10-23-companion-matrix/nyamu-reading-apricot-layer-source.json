@@ -1,0 +1,67 @@
+{
+  "recordType": "original-scene-selected-layer-source",
+  "date": "2026-10-24",
+  "scene": "nyamu-reading-apricot.scene.json",
+  "sceneSha256": "dd0bda815ec671000a5053ad6d33cc9f8016f745e1699ac12aed7d567a8dbb61",
+  "selected": {
+    "mother": {
+      "file": "nyamu-reading-apricot-mother-candidate-v1.png",
+      "sha256": "679651a0af996b08b6be27a01aff2dd5d4ce21f7ee03cd41db8f0231329e903b",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "file": "nyamu-reading-apricot-background-candidate-v1.png",
+      "sha256": "cf7ef869590ade77b637160285962aa18fcfe140e2e5abf975b24f083ca990cb",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figure": {
+      "file": "nyamu-reading-apricot-figure-calibrated-v3.png",
+      "sha256": "0c295b370a1b53550a3c7c4f013548b52f8b2b47a48b928a93100b4c8f21510d",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "mask": {
+      "file": "nyamu-reading-apricot-mask-calibrated-v3.png",
+      "sha256": "3fd38bdbf94af8a34d19dd218c562e480ad0c70313252f17db20bf02fed9e44b",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "shadow": {
+      "file": "nyamu-reading-apricot-shadow-calibrated-v3.png",
+      "sha256": "955553ae8aa59ad01ea37d145178288de5c6d8636dfc2477b6f26dd5568c306e",
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "extractionGenerations": "nyamu-reading-apricot-extraction-source.json",
+  "productionParameters": [
+    "nyamu-reading-apricot-layer-parameters-v1.json",
+    "nyamu-reading-apricot-layer-parameters-v2.json",
+    "nyamu-reading-apricot-layer-parameters-v3.json"
+  ],
+  "figureProduction": "nyamu-reading-apricot-layer-processing-v3.json",
+  "rgbMethod": "Entire original mother RGB payload, identity canvas, alpha-only visibility; no face/body/pose repaint",
+  "motherRgbByteSha256": "b8552193231b6c6e1f84f50622ce5712d51e66909f10f4e42fcec6240f5057cc",
+  "figureRgbByteSha256": "b8552193231b6c6e1f84f50622ce5712d51e66909f10f4e42fcec6240f5057cc",
+  "actualRgbPayloadEqual": true,
+  "selectedBackgroundMethod": "Complete matching clean background generated from sole Primary-approved correct mother, preserving exact occupied-chair orientation/footprint. Partial processed background is diagnostic and not selected because original cast-shadow outside alpha can remain. No floor tile patched into actor/contact layer.",
+  "designerObservation": "Personally viewed approved full mother and actual prompt; matching fullBG and raw mask; source-refined final deep/light figure, full room/empty, isolated normal source-over shadow. Fixed back/chair/seat/two shoes; source fine bob, neckline gap, held book and black straps retained. Primary and actual Stage remain separate.",
+  "review": {
+    "approvedByPrimary": false,
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false,
+    "integrated": false
+  }
+}

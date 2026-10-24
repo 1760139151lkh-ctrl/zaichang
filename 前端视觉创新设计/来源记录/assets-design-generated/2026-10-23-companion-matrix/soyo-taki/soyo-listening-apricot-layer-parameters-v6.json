@@ -1,0 +1,137 @@
+{
+  "mother": "soyo-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4",
+  "matte": "soyo-listening-apricot-alpha-refined-v6.png",
+  "alphaSource": "luminance",
+  "alphaLow": 3,
+  "alphaHigh": 252,
+  "figure": "soyo-listening-apricot-figure-calibrated-v6.png",
+  "mask": "soyo-listening-apricot-mask-calibrated-v6.png",
+  "backgroundCandidate": "soyo-listening-apricot-background-candidate-v1.png",
+  "background": "soyo-listening-apricot-background-calibrated-v6.png",
+  "backgroundExpandPixels": 4,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1277,
+        267
+      ],
+      [
+        1358,
+        268
+      ],
+      [
+        1398,
+        316
+      ],
+      [
+        1425,
+        394
+      ],
+      [
+        1430,
+        483
+      ],
+      [
+        1415,
+        526
+      ],
+      [
+        1448,
+        572
+      ],
+      [
+        1438,
+        591
+      ],
+      [
+        1367,
+        575
+      ],
+      [
+        1267,
+        584
+      ],
+      [
+        1190,
+        596
+      ],
+      [
+        1187,
+        560
+      ],
+      [
+        1197,
+        517
+      ],
+      [
+        1217,
+        465
+      ],
+      [
+        1212,
+        421
+      ],
+      [
+        1247,
+        384
+      ],
+      [
+        1267,
+        356
+      ]
+    ]
+  ],
+  "shadow": "soyo-listening-apricot-shadow-calibrated-v6.png",
+  "contactShadowPolygons": [
+    [
+      [
+        1190,
+        530
+      ],
+      [
+        1450,
+        530
+      ],
+      [
+        1450,
+        600
+      ],
+      [
+        1190,
+        600
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "record": "soyo-listening-apricot-layer-processing-v6.json",
+  "alphaPolygonRepairs": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          1390,
+          475
+        ],
+        [
+          1425,
+          475
+        ],
+        [
+          1425,
+          526
+        ],
+        [
+          1390,
+          526
+        ]
+      ],
+      "redMin": 120,
+      "redOverGreen": 15,
+      "redOverBlue": 35
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-approved-mother-layer-generation",
+  "date": "2026-10-24",
+  "mother": {
+    "file": "nyamu-listening-apricot-mother-candidate-v1.png",
+    "sha256": "823f7606e5add858c9834ea290822cc78e0b0c3ae1309f367bd2a2bf1d862b6e"
+  },
+  "motherApprovalRecord": "primary-other-mother-reviews.json",
+  "tool": "image_gen.imagegen (built-in)",
+  "generations": [
+    {
+      "kind": "matching background v1",
+      "prompt": {
+        "file": "nyamu-listening-apricot-background-v1-prompt.txt",
+        "sha256": "9dd2189cb6ffb98089fdea35397cb9963c9fd253688325ed1da4a1c0702e395c"
+      },
+      "output": {
+        "file": "nyamu-listening-apricot-background-candidate-v1.png",
+        "sha256": "bf2a67485f99ee8ca85411779512da611bea0ce7767e4cf16aba0227f10d5218",
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-03a9e0e0-7fd3-4679-91de-ee8502deb47e.png"
+      },
+      "selectedForProcessing": true,
+      "designerObservation": "Full original room/bench/props preserved, girl/worn shoes removed. Final selects full matching BG to avoid broad original foot cast-shadow partial seams.",
+      "inputs": [
+        {
+          "file": "nyamu-listening-apricot-mother-candidate-v1.png",
+          "sha256": "823f7606e5add858c9834ea290822cc78e0b0c3ae1309f367bd2a2bf1d862b6e"
+        }
+      ]
+    },
+    {
+      "kind": "registered mask v1",
+      "prompt": {
+        "file": "nyamu-listening-apricot-mask-v1-prompt.txt",
+        "sha256": "8a9ffa72fe729466d57a14f22709b116717dbe3e7293bd6cc04f6df72770d779"
+      },
+      "output": {
+        "file": "nyamu-listening-apricot-mask-candidate-v1.png",
+        "sha256": "f9ff371161ed86300b6c532f546d6ee59a2fb8171e7f40b9472eabcf313977fd",
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-66b2e31b-b8cf-4a14-ad63-38b8d75224da.png"
+      },
+      "selectedForProcessing": true,
+      "designerObservation": "Correct original head/feet position, face/strap line holes need original-RGB alpha refinement. No chair/window furniture in actor.",
+      "inputs": [
+        {
+          "file": "nyamu-listening-apricot-mother-candidate-v1.png",
+          "sha256": "823f7606e5add858c9834ea290822cc78e0b0c3ae1309f367bd2a2bf1d862b6e"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "approvedByPrimary": false,
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false
+  }
+}

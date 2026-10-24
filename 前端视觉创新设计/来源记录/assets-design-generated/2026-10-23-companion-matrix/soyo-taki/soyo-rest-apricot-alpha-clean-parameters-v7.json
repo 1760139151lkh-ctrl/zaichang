@@ -1,0 +1,77 @@
+{
+  "mother": "soyo-rest-apricot-mother-candidate-v1.png",
+  "motherSha256": "c1be74d29d85a6ac0a2976acdcb3632fe625d46fef9535ca6ed6f33eabeb6e61",
+  "sourceAlpha": "soyo-rest-apricot-figure-calibrated-v6.png",
+  "sourceAlphaSha256": "1ea08a170691a811094d1cac6bdb4e855c6aa26c3e11a1033aafc17d69262fad",
+  "roomColorExclusions": [],
+  "originalPixelInclusions": [
+    [
+      [
+        1203,
+        566
+      ],
+      [
+        1211,
+        566
+      ],
+      [
+        1218,
+        570
+      ],
+      [
+        1215,
+        574
+      ],
+      [
+        1206,
+        573
+      ]
+    ]
+  ],
+  "output": "soyo-rest-apricot-alpha-clean-v7.png",
+  "record": "soyo-rest-apricot-alpha-clean-source-v7.json",
+  "explicitRoomExclusions": [
+    [
+      [
+        1211,
+        575
+      ],
+      [
+        1217,
+        573
+      ],
+      [
+        1220,
+        579
+      ],
+      [
+        1228,
+        589
+      ],
+      [
+        1240,
+        598
+      ],
+      [
+        1250,
+        604
+      ],
+      [
+        1250,
+        625
+      ],
+      [
+        1214,
+        625
+      ],
+      [
+        1212,
+        608
+      ],
+      [
+        1211,
+        593
+      ]
+    ]
+  ]
+}

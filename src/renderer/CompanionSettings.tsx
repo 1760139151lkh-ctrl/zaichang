@@ -4,9 +4,9 @@ import { companionPreset, selectCompanionPersona, type PersonaState, type Person
 import { characterPortrayal } from '../shared/persona-portrayals';
 import type { State } from '../shared/types';
 import { samePersonaCore, type PersonaDraft } from './PersonaEditor';
-import { COMPANIONS, CompanionScene, CompanionPreviewProvider, WINDOW_LIGHT, companionName, useCompanion, type CompanionPreference, type CompanionPlacement, type CompanionMoment } from './companion';
+import { COMPANIONS, CompanionScene, CompanionPreviewProvider, WINDOW_LIGHT, companionName, companionSceneChoiceKey, useCompanion, type CompanionPreference, type CompanionPlacement, type CompanionMoment } from './companion';
 import { APPEARANCE_PALETTES, previewAppearance, useAppearance } from './appearance';
-import { companionSceneArtwork, companionPaletteLight } from './companion-scenes';
+import { companionSceneArtwork, companionPaletteLight, companionRegisteredSceneArtwork, type SceneTransferChoice } from './companion-scenes';
 import { Switch, uiError } from './ui';
 import './companion-settings.css';
 
@@ -29,13 +29,15 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
   const [preview, setPreview] = useState(() => roomPreference(savedValue));
   const [palette, setPalette] = useState(appearance.palette);
   const [positions, setPositions] = useState(() => ({ ...savedValue.scenePositions }));
+  const [choices, setChoices] = useState(() => ({ ...savedValue.sceneChoices }));
   const positionEdits = useRef(new Set<string>());
-  const savedStamp = JSON.stringify({ preference: roomPreference(savedValue), palette: appearance.palette, positions: savedValue.scenePositions });
+  const choiceEdits = useRef(new Set<string>());
+  const savedStamp = JSON.stringify({ preference: roomPreference(savedValue), palette: appearance.palette, positions: savedValue.scenePositions, choices: savedValue.sceneChoices });
   const [baseline, setBaseline] = useState(savedStamp);
-  const previewStamp = JSON.stringify({ preference: preview, palette, positions });
+  const previewStamp = JSON.stringify({ preference: preview, palette, positions, choices });
   const roomDirty = previewStamp !== savedStamp;
   const roomStale = savedStamp !== baseline && previewStamp !== savedStamp;
-  const value = { ...savedValue, ...preview, scenePositions: positions };
+  const value = { ...savedValue, ...preview, scenePositions: positions, sceneChoices: choices };
   const placement = { scale: preview.scale, position: preview.position, verticalPosition: preview.verticalPosition };
   function setPlacement(next: CompanionPlacement | ((current: CompanionPlacement) => CompanionPlacement)) {
     setPreview(current => ({ ...current, ...(typeof next === 'function' ? next(current) : next) }));
@@ -62,14 +64,18 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
     if (savedStamp === baseline) return;
     if (previewStamp === baseline || previewStamp === savedStamp) {
       positionEdits.current.clear();
-      setPreview(roomPreference(savedValue)); setPalette(appearance.palette); setPositions({ ...savedValue.scenePositions }); setBaseline(savedStamp);
+      choiceEdits.current.clear();
+      setPreview(roomPreference(savedValue)); setPalette(appearance.palette); setPositions({ ...savedValue.scenePositions }); setChoices({ ...savedValue.sceneChoices }); setBaseline(savedStamp);
     }
   }, [savedStamp, baseline, previewStamp]);
   useEffect(() => previewAppearance({ palette }), [palette, appearance]);
   const custom = value.pictures.find(item => item.id === value.character);
   const roomOnly = value.character === 'light';
   const sceneLight = custom || roomOnly ? value.light : companionPaletteLight(palette);
-  const activeScene = companionSceneArtwork(value.character, moment, sceneLight, palette);
+  const sceneScope = companionSceneChoiceKey(value.character, moment, palette);
+  const selectedScene = choices[sceneScope];
+  const activeScene = (selectedScene ? companionRegisteredSceneArtwork(selectedScene, value.character, sceneLight, palette) : undefined)
+    ?? companionSceneArtwork(value.character, moment, sceneLight, palette);
   const hasPortrait = !!custom || COMPANIONS.some(item => item.id === value.character && item.image);
   const roomCanAdopt = roomOnly || value.presence === 'hidden'
     || (value.presence === 'corner' ? hasPortrait : !!custom || !!activeScene);
@@ -100,7 +106,8 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
   function cancelPreview() {
     request.current++; setOpening(false);
     positionEdits.current.clear();
-    setPreview(roomPreference(savedValue)); setPalette(appearance.palette); setPositions({ ...savedValue.scenePositions }); setBaseline(savedStamp); setError('');
+    choiceEdits.current.clear();
+    setPreview(roomPreference(savedValue)); setPalette(appearance.palette); setPositions({ ...savedValue.scenePositions }); setChoices({ ...savedValue.sceneChoices }); setBaseline(savedStamp); setError('');
   }
   function chooseMoment(next: CompanionMoment) {
     setMoment(next);
@@ -118,16 +125,24 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
   }
   function keepPreviewAfterConflict() {
     const edited = Object.fromEntries([...positionEdits.current].map(key => [key, positions[key]]));
-    setPositions({ ...savedValue.scenePositions, ...edited }); setBaseline(savedStamp);
+    const editedChoices = Object.fromEntries([...choiceEdits.current].map(key => [key, choices[key]]));
+    setPositions({ ...savedValue.scenePositions, ...edited }); setChoices({ ...savedValue.sceneChoices, ...editedChoices }); setBaseline(savedStamp);
+  }
+  function previewSceneChoice(scope: string, choice: SceneTransferChoice) {
+    const origin = (JSON.parse(baseline) as { choices?: Record<string, string> }).choices ?? {};
+    if (choice.sceneId !== origin[scope]) choiceEdits.current.add(scope); else choiceEdits.current.delete(scope);
+    setChoices(current => ({ ...current, [scope]: choice.sceneId }));
+    previewPosition(choice.positionKey, choice.position);
   }
   function adoptPreview() {
     if (opening || roomStale || !roomCanAdopt) return;
     perform(() => {
-      const origin = JSON.parse(baseline) as { preference: CompanionPreference; palette: typeof palette; positions: Record<string, number> };
+      const origin = JSON.parse(baseline) as { preference: CompanionPreference; palette: typeof palette; positions: Record<string, number>; choices: Record<string, string> };
       const adopted = custom || roomOnly ? preview : { ...preview, light: companionPaletteLight(palette) };
       setAppearance({ palette }, origin.palette);
       const edited = Object.fromEntries([...positionEdits.current].map(key => [key, positions[key]]));
-      try { update(adopted, edited, origin); setPreview(adopted); }
+      const editedChoices = Object.fromEntries([...choiceEdits.current].map(key => [key, choices[key]]));
+      try { update(adopted, edited, origin, editedChoices); setPreview(adopted); }
       catch (problem) {
         try { setAppearance({ palette: origin.palette }, palette); }
         catch { throw new Error('这次没能完整留下选择。请先看看当前的样子，再试一次。'); }
@@ -241,7 +256,7 @@ export function CompanionSettings({ persona, draft, onState, busy, saving, saveO
         <button type="button" className="primary-button" disabled={opening || !roomDirty || roomStale || rolePending || !roomCanAdopt} onClick={adoptPreview}>采用这个样子</button>
         <button type="button" className="text-button" disabled={!opening && !roomDirty} onClick={cancelPreview}>先不换</button>
       </div>
-      <CompanionPreviewProvider preference={preview} positions={positions} onPositionChange={previewPosition}>
+      <CompanionPreviewProvider preference={preview} positions={positions} choices={choices} onPositionChange={previewPosition} onSceneChoiceChange={previewSceneChoice}>
         <CompanionScene preview moment={moment} paletteOverride={palette} placement={placement} interaction={{ onChange: setPlacement, onCommit: savePlacement }} />
       </CompanionPreviewProvider>
       <div className="companion-preview-controls">

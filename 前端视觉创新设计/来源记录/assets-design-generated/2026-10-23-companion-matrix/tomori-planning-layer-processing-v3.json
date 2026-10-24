@@ -1,0 +1,168 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "tomori-planning-layer-parameters-v3.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "tomori-planning-apricot-v2-mother.png",
+  "motherSha256": "5347c9bd9992cc514203294e4b1cbea93e0dacbd012b97f8db8a2aaef98569de",
+  "matte": "tomori-planning-matte-registered-v3.png",
+  "matteSha256": "ce7eb93ffc33d14a608f586ef7673dde0ac6e0e26b90848516ca377323a4b092",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [
+    [
+      [
+        1280,
+        534
+      ],
+      [
+        1287,
+        534
+      ],
+      [
+        1298,
+        556
+      ],
+      [
+        1297,
+        564
+      ],
+      [
+        1286,
+        567
+      ],
+      [
+        1280,
+        550
+      ]
+    ],
+    [
+      [
+        1268,
+        486
+      ],
+      [
+        1273,
+        486
+      ],
+      [
+        1278,
+        508
+      ],
+      [
+        1274,
+        510
+      ]
+    ]
+  ],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 4745,
+  "alphaNonzeroPixels": 86728,
+  "alphaBounds": [
+    1054,
+    138,
+    1322,
+    921
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "825e3d01c29256a805fe26b6bbafb67f58c07d85427de80145e3fae75ed86cd8",
+  "figureRgbSha256": "825e3d01c29256a805fe26b6bbafb67f58c07d85427de80145e3fae75ed86cd8",
+  "background": {
+    "candidate": "tomori-planning-background-generated-v1.png",
+    "candidateSha256": "0c131ae20d1c925a84348959aa3a258d7a2f00e730dd18bd7845aa9d61c4babb",
+    "expandPixels": 10,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          1130,
+          829
+        ],
+        [
+          1339,
+          829
+        ],
+        [
+          1339,
+          932
+        ],
+        [
+          1130,
+          932
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 137584,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1130,
+          829
+        ],
+        [
+          1339,
+          829
+        ],
+        [
+          1339,
+          932
+        ],
+        [
+          1130,
+          932
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "tomori-planning-figure-calibrated-v3.png",
+      "bytes": 2417268,
+      "sha256": "04f8e31dd55d46d181683dfc88e877767c29ed7655c21f04b99870942960fc7b"
+    },
+    {
+      "file": "tomori-planning-mask-calibrated-v3.png",
+      "bytes": 23165,
+      "sha256": "5f22b4b14511009736753efb5aca54547e774a991f60cdd9355b9e716729c275"
+    },
+    {
+      "file": "tomori-planning-background-calibrated-v3.png",
+      "bytes": 2065484,
+      "sha256": "c6d29324cef95e8e3669f3a40791ea854c3b1e7755e759310e8c0bf05c8ab522"
+    },
+    {
+      "file": "tomori-planning-shadow-calibrated-v3.png",
+      "bytes": 60796,
+      "sha256": "1228d857cceaa24a4f556c90d482ce748a3a2e8b84baaf00dc18fc349b022d0f"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "taki-listening-apricot-room4",
+  "character": "taki",
+  "activity": "listening",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "taki-listening-apricot-mother-candidate-v1.png",
+  "background": "taki-listening-apricot-background-calibrated-v2.png",
+  "figure": "taki-listening-apricot-figure-calibrated-v2.png",
+  "mask": "taki-listening-apricot-mask-calibrated-v2.png",
+  "shadow": "taki-listening-apricot-shadow-calibrated-v2.png",
+  "seat": [
+    0.859375,
+    0.560546875
+  ],
+  "ground": [
+    0.7526041666666666,
+    0.7294921875
+  ],
+  "bodyBounds": [
+    0.7298177083333334,
+    0.28125,
+    0.923828125,
+    0.734375
+  ],
+  "safeTextBoundary": 0.716,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "81.055% 27.344%, 86.263% 27.344%, 88.542% 30.078%, 89.844% 35.645%, 91.471% 42.090%, 91.602% 50.781%, 90.495% 53.711%, 92.773% 56.152%, 91.797% 57.617%, 88.151% 57.520%, 83.529% 56.934%, 80.859% 59.180%, 78.971% 63.086%, 77.214% 69.727%, 78.190% 72.266%, 76.823% 74.219%, 72.266% 73.828%, 72.331% 71.777%, 74.414% 69.727%, 75.846% 63.477%, 77.474% 60.059%, 75.326% 60.352%, 75.065% 58.594%, 76.367% 56.055%, 77.148% 50.488%, 77.734% 46.582%, 78.125% 43.164%, 80.013% 39.648%, 80.729% 35.645%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "production": "taki-listening-apricot-layer-processing-v2.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Original asymmetrical window-seat support retained. Raised sock foot and one worn floor loafer belong to actor; one empty floor loafer stays in room. Fixed original contacts, no free translation.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json"
+  }
+}

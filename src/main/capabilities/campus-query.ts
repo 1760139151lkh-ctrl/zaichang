@@ -35,6 +35,13 @@ export const campusQueryInput = z.object({
 }).strict();
 export type CampusQuery = z.infer<typeof campusQueryInput>;
 export const examCourseRecordsPointer = '/normalized/exam_course_records';
+export const campusExamSummaryFields = ['id', 'name', 'semester_id', 'credit', 'type', 'startTime', 'endTime', 'dateLabel', 'location', 'seat', 'time_precision'] as const;
+export const campusGpaPolicies = {
+  all_attempts: { label: '全部修读', meaning: '保留所有修读记录，再按原计入规则和学分加权；实际计入仍需要可用绩点和正学分。' },
+  first_attempt: { label: '首次修读', meaning: '每个同课分组按学期取最早的一次，再按原计入规则和学分加权；同一学期内的修读先后仍不能确定。' },
+  highest_attempt: { label: '最高成绩', meaning: '每个同课分组按百分成绩或等级等值取最高一次，各种绩点制式沿用同一次修读；同分或全无可比数值时保留来源顺序中的第一条。' },
+  repository_first_response: { label: '来源首条记录', meaning: '每个同课分组取这份资料源记录顺序中的第一条，再按原计入规则和学分加权；这不是第一次修读的时间证明。' },
+} as const;
 export const majorGpaPointer = '/normalized/transcript/major';
 export const majorGpaFields = {
   source_complete: '主修来源这次是否完整；成绩和主修两份来源的具体情况在coverage中',
@@ -102,6 +109,8 @@ export const normalizedRoots: Record<(typeof campusResources)[number], string> =
 
 export function validateCampusQuery(raw: unknown) {
   const input = campusQueryInput.parse(raw);
+  if (input.operation === 'quick' && !input.spec && input.resource === 'exams' && !input.fields?.length)
+    input.fields = [...campusExamSummaryFields];
   const examCourseRead = input.pointer === examCourseRecordsPointer;
   const majorGpaRead = input.pointer === majorGpaPointer;
   if (majorGpaRead && (input.operation !== 'read' || input.resource !== 'gpa_overall'))

@@ -1,0 +1,16 @@
+{
+  "recordType": "built-in-image-generation-source",
+  "tool": "image_gen.imagegen",
+  "input": "taki-attention-apricot-mother-candidate-v2.png",
+  "inputSha256": "23c79a3ce36b887e2c2f57f37558cbe5ace84014c9a03524e31872028004a2f5",
+  "prompt": "taki-attention-apricot-mask-prompt-v2.txt",
+  "promptFileSha256": "d8ee78dcdfb5544730e97406e4b6f5a89977332bedd29dead3336e27c7817b54",
+  "toolPromptTextSha256": "4cacb92718393fd7f469d311c2c6bdb5de336d9abaf6ccf42f30e6b3f97ac7c4",
+  "output": "taki-attention-apricot-mask-candidate-v2.png",
+  "outputSha256": "56fb9f12e1376ac2e51095fd4f763a2b6cee0122316b26d9b7ae87ef497a1c60",
+  "executionId": "exec-fe0cbb51-3d4a-474d-8347-5ebcd64da37f",
+  "toolDefaultOutput": "generated_images/01a16e45-3c23-7790-a62d-04bd03b674e2/exec-fe0cbb51-3d4a-474d-8347-5ebcd64da37f.png",
+  "producerReview": "person-only mask candidate; raw original RGB overlay pending, interior drawn lines need alpha calibration",
+  "primaryReview": "pending",
+  "runtimeAccepted": false
+}

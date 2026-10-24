@@ -1,0 +1,68 @@
+{
+  "recordType": "original-coordinate-alpha-production",
+  "processor": "refine-mist-chat-alpha.py",
+  "processorSha256": "926b3e144c600434da7cca1f185b04b7f98bf13bade306253cda13a8df0ced83",
+  "method": "Remove confirmed bright window-blue fragments from two original hair mattes.\n\nOnly alpha in the inspected outer-hair ROIs changes. Original RGB is untouched;\ndark uniform/hair and warm skin do not meet the room-blue condition.\n",
+  "entries": [
+    {
+      "character": "soyo",
+      "mother": "soyo-chat-mist-mother-candidate-v1.png",
+      "motherSha256": "f071989d921ca9a23bd07c8d9e78a5aada62d7fb9256ec71cdd8c057a4c12ece",
+      "inputMatte": "soyo-chat-mist-mask-calibrated-v1.png",
+      "inputMatteSha256": "eabbc94701448414befc81497935226533d772eed8eb065b13056b690ce4a278",
+      "output": "soyo-chat-mist-original-blue-gap-alpha-v2.png",
+      "outputSha256": "f0e461a916d6d92c59484559582d814da4ee310aa4ed816397e426f5b858f1c1",
+      "polygon": [
+        [
+          1200,
+          320
+        ],
+        [
+          1250,
+          320
+        ],
+        [
+          1250,
+          470
+        ],
+        [
+          1200,
+          470
+        ]
+      ],
+      "changedAlphaPixels": 96,
+      "rgbModified": false,
+      "primaryLayerReview": "pending"
+    },
+    {
+      "character": "taki",
+      "mother": "taki-chat-mist-mother-candidate-v1.png",
+      "motherSha256": "e3fc520bcca02e7c72dcee83ea818a288a89676582dfd0870cfb31b86a7261c3",
+      "inputMatte": "taki-chat-mist-mask-calibrated-v1.png",
+      "inputMatteSha256": "c6e7726d1c2adc4584580b3d8b5e01d7f8d6c4b81b54d2081066aa841cc3c102",
+      "output": "taki-chat-mist-original-blue-gap-alpha-v2.png",
+      "outputSha256": "e6e3bc9179d274cce2e9955378493ce3197cc7cb74760897204d20b3ff2dc61e",
+      "polygon": [
+        [
+          1160,
+          315
+        ],
+        [
+          1210,
+          315
+        ],
+        [
+          1210,
+          550
+        ],
+        [
+          1160,
+          550
+        ]
+      ],
+      "changedAlphaPixels": 150,
+      "rgbModified": false,
+      "primaryLayerReview": "pending"
+    }
+  ]
+}

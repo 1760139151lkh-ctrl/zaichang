@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs';
 import { randomUUID, createHash } from 'node:crypto';
 import { hostname, homedir } from 'node:os';
 import { join } from 'node:path';
-import type { WorkoutCadenceObservation, WorkoutInputFix, WorkoutLocationStream, WorkoutStreamStatus } from '../shared/workout';
+import type { WorkoutCadenceObservation, WorkoutInputFix, WorkoutLocationStream, WorkoutStopOwner, WorkoutStreamStatus } from '../shared/workout';
 
 export interface WorkoutLocationOptions {
   source?: 'windows' | 'adb' | 'hdc';
@@ -138,10 +138,12 @@ class WindowsWorkoutStream implements WorkoutLocationStream {
   private closed?: Promise<void>;
   private status?: (status: WorkoutStreamStatus) => void;
   private generation = 0;
+  private closing?: Promise<void>;
   async start(onFix: (fix: WorkoutInputFix) => void, onStatus: (status: WorkoutStreamStatus) => void) {
-    await this.stop();
-    this.status = onStatus;
     const generation = ++this.generation;
+    await this.closeChild();
+    if (generation !== this.generation) return;
+    this.status = onStatus;
     if (process.platform !== 'win32' || process.env.ZAICHANG_TEST_NO_NATIVE_LOCATION === '1') { onStatus({ status: 'unavailable', reason: '当前宿主没有启用本机定位。' }); return; }
     onStatus({ status: 'starting', reason: '正在向 Windows 请求本次运动的位置。' });
     const child = spawn('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', nativeWatch.replace('__PARENT_PID__', String(process.pid))], { windowsHide: true, stdio: ['ignore', 'pipe', 'ignore'] });
@@ -172,8 +174,19 @@ class WindowsWorkoutStream implements WorkoutLocationStream {
   }
   async stop() {
     this.generation++;
+    await this.closeChild();
+  }
+  private async closeChild() {
+    if (this.closing) return this.closing;
     const child = this.child; this.child = undefined;
-    if (child) { child.kill(); await this.closed; this.status?.({ status: 'stopped', reason: '本机位置读取已停止。' }); }
+    if (!child) return;
+    const pending = (async () => {
+      child.kill(); await this.closed;
+      this.status?.({ status: 'stopped', reason: '本机位置读取已停止。' });
+    })();
+    this.closing = pending;
+    try { await pending; }
+    finally { if (this.closing === pending) this.closing = undefined; }
   }
 }
 
@@ -219,6 +232,7 @@ class AdbWorkoutStream implements WorkoutLocationStream {
       this.serial = this.options.deviceId || device.deviceId;
       if (!/^[\w.:[\]-]+$/.test(this.serial)) throw new Error('invalid device identity');
       const installed = await command(this.path, ['-s', this.serial, 'shell', 'pm', 'path', packageName], signal);
+      if (!this.running || signal.aborted || session !== this.session) return;
       if (!installed.includes('package:')) { this.status({ status: 'unavailable', reason: '这台 Android 设备还没有安装在场位置桥，请先安装后再开始。' }); this.running = false; return; }
       this.launchAttempted = true;
       this.launching = command(this.path, ['-s', this.serial, 'shell', 'am', 'start', '-W', '-n', `${packageName}/.BridgeActivity`, '--es', 'session', session, '--es', 'workoutId', this.workoutId, '--ez', 'simulated', String(this.simulated)], signal, 15000);
@@ -233,7 +247,7 @@ class AdbWorkoutStream implements WorkoutLocationStream {
     let keepaliveAt = 0;
     while (this.running && session === this.session && !signal.aborted) {
       try {
-        if (Date.now() - keepaliveAt >= 5000) { await command(this.path, ['-s', this.serial, 'shell', 'am', 'broadcast', '-a', 'cn.zaichang.location.KEEPALIVE', '-n', `${packageName}/.StopReceiver`, '--es', 'session', session, '--es', 'workoutId', this.workoutId], signal); keepaliveAt = Date.now(); }
+        if (!keepaliveAt || performance.now() - keepaliveAt >= 5000) { await command(this.path, ['-s', this.serial, 'shell', 'am', 'broadcast', '-a', 'cn.zaichang.location.KEEPALIVE', '-n', `${packageName}/.StopReceiver`, '--es', 'session', session, '--es', 'workoutId', this.workoutId], signal); keepaliveAt = performance.now(); }
         const text = await command(this.path, ['-s', this.serial, 'shell', 'run-as', packageName, 'cat', 'files/location-state.json'], signal);
         if (!this.running || signal.aborted || session !== this.session) break;
         const state = JSON.parse(text);
@@ -310,7 +324,9 @@ class AdbWorkoutStream implements WorkoutLocationStream {
   private async sendStop(serial: string, session: string) {
     await command(this.path, ['-s', serial, 'shell', 'am', 'broadcast', '-a', 'cn.zaichang.location.STOP', '-n', `${packageName}/.StopReceiver`, '--es', 'session', session, '--es', 'workoutId', this.workoutId], undefined, 5000);
   }
-  async stop() {
+  async stop(owner?: WorkoutStopOwner) {
+    if (owner && (owner.id !== this.workoutId || owner.recordingSource && owner.recordingSource.source !== 'adb'))
+      throw new Error('这份停止请求属于另一段运动，没有打断当前记录。');
     const hadStream = this.running || !!this.launching || this.launchAttempted;
     this.running = false; this.controller?.abort(); this.wake?.();
     await this.launching?.catch(() => undefined); await this.pumping;

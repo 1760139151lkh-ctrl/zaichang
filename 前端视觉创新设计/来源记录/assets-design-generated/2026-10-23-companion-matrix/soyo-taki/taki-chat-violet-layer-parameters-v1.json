@@ -1,0 +1,146 @@
+{
+  "mother": "taki-chat-violet-mother-candidate-v1.png",
+  "motherSha256": "624b0ffe0243da578e831d38e40ba7283433e3375c6a81a6e792c6d51cc137ab",
+  "matte": "taki-chat-apricot-mask-calibrated-v8.png",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1150,
+      300,
+      1390,
+      450
+    ],
+    "seedThreshold": 80,
+    "uncertainBandPixels": 3,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.35
+  },
+  "backgroundCandidate": "taki-chat-violet-background-generated-v1.png",
+  "background": "taki-chat-violet-background-calibrated-v1.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1089,
+        735
+      ],
+      [
+        1187,
+        735
+      ],
+      [
+        1190,
+        779
+      ],
+      [
+        1087,
+        779
+      ]
+    ],
+    [
+      [
+        1235,
+        751
+      ],
+      [
+        1318,
+        751
+      ],
+      [
+        1328,
+        805
+      ],
+      [
+        1235,
+        805
+      ]
+    ],
+    [
+      [
+        1180,
+        578
+      ],
+      [
+        1381,
+        578
+      ],
+      [
+        1381,
+        622
+      ],
+      [
+        1180,
+        622
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1087,
+        736
+      ],
+      [
+        1184,
+        736
+      ],
+      [
+        1191,
+        778
+      ],
+      [
+        1086,
+        778
+      ]
+    ],
+    [
+      [
+        1234,
+        751
+      ],
+      [
+        1318,
+        751
+      ],
+      [
+        1326,
+        803
+      ],
+      [
+        1234,
+        803
+      ]
+    ],
+    [
+      [
+        1180,
+        573
+      ],
+      [
+        1381,
+        573
+      ],
+      [
+        1381,
+        624
+      ],
+      [
+        1180,
+        624
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "taki-chat-violet-shadow-calibrated-v1.png",
+  "figure": "taki-chat-violet-figure-calibrated-v1.png",
+  "mask": "taki-chat-violet-mask-calibrated-v1.png",
+  "record": "taki-chat-violet-layer-processing-v1.json",
+  "reviewNote": "Own primary-reviewed full themed mother supplies every RGB pixel. Warm same-pose soft alpha is only an explicit initialization; own head RGB refines local edge and matching new background/shadow are independent. No RGB/pose/body redraw or independent resize. Primary layer and actual Stage remain pending.",
+  "excludeWarmRoomRegions": []
+}

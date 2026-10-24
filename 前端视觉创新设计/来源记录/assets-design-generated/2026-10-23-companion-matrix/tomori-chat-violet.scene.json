@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-chat-violet-room4",
+  "character": "tomori",
+  "activity": "chat",
+  "light": "evening",
+  "palette": "violet",
+  "width": 1536,
+  "height": 1024,
+  "mother": "tomori-chat-violet-mother-candidate.png",
+  "background": "tomori-chat-violet-background-calibrated-v4.png",
+  "figure": "tomori-chat-violet-figure-calibrated-v4.png",
+  "mask": "tomori-chat-violet-mask-calibrated-v4.png",
+  "shadow": "tomori-chat-violet-shadow-calibrated-v4.png",
+  "seat": [
+    0.8658854166666666,
+    0.57421875
+  ],
+  "ground": [
+    0.79296875,
+    0.7626953125
+  ],
+  "bodyBounds": [
+    0.7532552083333334,
+    0.2646484375,
+    0.9375,
+    0.765625
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "85.742% 26.562%, 83.268% 27.441%, 81.836% 29.590%, 81.380% 33.008%, 82.357% 36.621%, 80.859% 38.477%, 80.664% 51.465%, 79.688% 52.344%, 78.125% 55.176%, 77.344% 55.371%, 77.930% 56.445%, 78.711% 56.738%, 77.995% 59.766%, 76.628% 71.484%, 75.586% 73.535%, 75.326% 75.293%, 75.716% 75.781%, 77.344% 75.488%, 78.385% 76.465%, 79.557% 76.465%, 82.031% 75.098%, 82.031% 69.922%, 83.464% 62.109%, 83.333% 57.227%, 87.240% 57.910%, 88.737% 57.422%, 89.583% 56.152%, 90.951% 57.227%, 93.685% 57.129%, 92.904% 55.859%, 91.341% 55.566%, 89.714% 46.680%, 89.128% 38.379%, 87.044% 36.523%, 88.216% 34.668%, 88.151% 29.980%, 87.044% 27.344%",
+  "travel": 0.0078125,
+  "slope": 0.08,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerStage": "candidate",
+    "producerNote": "Correct complete theme mother and actual prompt already primary-approved; exact original RGB layer, source contour/contact, anchors and short range require independent primary layer review. Not runtime-admitted."
+  },
+  "calibrationObservation": {
+    "seatPixels": [
+      1330,
+      588
+    ],
+    "groundPixels": [
+      1218,
+      781
+    ],
+    "shortRangePixels": 12,
+    "note": "Same original chat geometry: actual cushion/skirt and whole front loafer contact. All-source theme illumination retained; final live Stage remains pending."
+  },
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-violet-layer-processing-v4.json"
+}

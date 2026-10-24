@@ -11,11 +11,17 @@ const VENUE_READ_PATHS = new Set([
   '/venue-server/api/buddies',
   '/venue-server/api/reservation/campus/venue/info',
   '/venue-server/api/reservation/day/info',
+  '/venue-server/api/gate/statistics/venue/today/entry/site',
 ]);
 const VENUE_AUTH_METHODS = new Map([
   ['/venue-server/api/app/login/init', 'GET'],
   ['/venue-server/api/login', 'POST'],
 ]);
+const READ_POST_PATHS = new Set([
+  '/ms/jwt/app/student/attendance/record/load',
+  '/ptm/jwt/app/zju/venue_entrance/student/load',
+]);
+const VENUE_PROFILE_PATH = /^\/venue-server\/api\/(?:venue\/(?:students|teachers)|register\/users)\/[A-Za-z0-9_-]{1,160}$/;
 const MAX_BODY = 8 * 1024 * 1024;
 const CAS_SERVICES = new Set([
   'http://www.tyys.zju.edu.cn/cgapp-server/cas/appLogin',
@@ -83,11 +89,14 @@ export class TiyiSchoolSession {
     if (!['http:', 'https:'].includes(url.protocol) || !SCHOOL_HOSTS.includes(url.hostname as typeof SCHOOL_HOSTS[number])
       || url.username || url.password || url.port)
       throw new TiyiTransportError('SCHOOL_ROUTE_FORBIDDEN', '这个地址不在体艺连接范围内。');
+    const decoded = decodeURIComponent(url.pathname);
+    if (decoded.includes('\\') || decoded.split('/').some(part => part === '.' || part === '..') || /[\u0000-\u001f]/.test(value + decoded))
+      throw new TiyiTransportError('SCHOOL_ROUTE_FORBIDDEN', '这个体艺地址不完整，请从学校目录重新打开。');
     if (url.hostname === 'zjuam.zju.edu.cn') {
       if (url.protocol !== 'https:' || !['/cas/login', '/cas/v2/getPubKey'].includes(url.pathname))
         throw new TiyiTransportError('SCHOOL_ROUTE_FORBIDDEN', '这个认证步骤不在体艺连接范围内。');
       this.checkService(url);
-    } else if (!MODULE_PATH.test(url.pathname) && !VENUE_READ_PATHS.has(url.pathname) && !VENUE_AUTH_METHODS.has(url.pathname))
+    } else if (!MODULE_PATH.test(url.pathname) && !VENUE_READ_PATHS.has(url.pathname) && !VENUE_AUTH_METHODS.has(url.pathname) && !VENUE_PROFILE_PATH.test(url.pathname))
       throw new TiyiTransportError('SCHOOL_ROUTE_FORBIDDEN', '这个页面不在体艺连接范围内。');
     return url;
   }
@@ -118,7 +127,7 @@ export class TiyiSchoolSession {
           this.checkService(new URL(`${scheme}//${host}${path}${url.search}`));
           return true;
         }
-        return MODULE_PATH.test(path) || VENUE_READ_PATHS.has(path) && (method === undefined || method === 'GET')
+        return MODULE_PATH.test(path) || (VENUE_READ_PATHS.has(path) || VENUE_PROFILE_PATH.test(path)) && (method === undefined || method === 'GET')
           || VENUE_AUTH_METHODS.has(path) && (method === undefined || method === VENUE_AUTH_METHODS.get(path));
       }));
     } catch { return false; }
@@ -300,7 +309,7 @@ export class TiyiSchoolSession {
     const venueLogin = venueAuthMethod === 'POST' && input.method === 'POST';
     if (!['GET', 'POST'].includes(input.method) || venueAuthMethod !== undefined && input.method !== venueAuthMethod || input.method === 'POST'
       && !(upstream.hostname === 'zjuam.zju.edu.cn' && upstream.pathname === '/cas/login')
-      && !/\/api\/l\/v6\/token$/.test(upstream.pathname) && !venueLogin)
+      && !/\/api\/l\/v6\/token$/.test(upstream.pathname) && !venueLogin && !READ_POST_PATHS.has(upstream.pathname))
       throw new TiyiTransportError('SCHOOL_WRITE_FORBIDDEN', '这项连接只查询体艺内容，不提交学校业务。');
     const operation = this.operation(signal);
     try {
@@ -308,15 +317,23 @@ export class TiyiSchoolSession {
       const target = this.routePrefix(upstream.origin) + upstream.pathname + upstream.search;
       const headers: Record<string, string> = {};
       for (const [key, value] of Object.entries(input.headers)) {
-        if (!/^(?:user-agent|accept|content-type|cgauthorization|cgappauthorization|authorization|oauth-token|timestamp|sign|imei|v1|client|buildversion|app-key)$/i.test(key)
+        if (!/^(?:user-agent|accept|content-type|x-requested-with|cgauthorization|cgappauthorization|authorization|oauth-token|timestamp|sign|imei|v1|client|buildversion|app-key)$/i.test(key)
           || typeof value !== 'string' || /[\r\n]/.test(value)
-          || /^cgappauthorization$/i.test(key) && !VENUE_READ_PATHS.has(upstream.pathname) && venueAuthMethod === undefined
+          || /^x-requested-with$/i.test(key) && (value !== 'XMLHttpRequest' || upstream.hostname === 'zjuam.zju.edu.cn')
+          || /^cgappauthorization$/i.test(key) && !VENUE_READ_PATHS.has(upstream.pathname) && !VENUE_PROFILE_PATH.test(upstream.pathname) && venueAuthMethod === undefined
           || /^oauth-token$/i.test(key) && !venueLogin
           || upstream.hostname === 'zjuam.zju.edu.cn' && /^(?:cgauthorization|authorization|timestamp|sign|imei|v1|client|buildversion|app-key)$/i.test(key))
           throw new TiyiTransportError('SCHOOL_HEADER_FORBIDDEN', '体艺连接的请求格式变了，我先停下了；可以重新检查连接。');
         headers[key] = value;
       }
       const body = input.bodyBase64 ? Buffer.from(input.bodyBase64, 'base64') : undefined;
+      if (READ_POST_PATHS.has(upstream.pathname) && input.method === 'POST') {
+        const fields = new URLSearchParams(body?.toString('utf8') ?? '');
+        if ([...fields.keys()].length !== 3 || !['start', 'length', 'termId'].every(key => fields.getAll(key).length === 1)
+          || !/^\d+$/.test(fields.get('start') ?? '') || Number(fields.get('start')) < 1 || Number(fields.get('start')) > 100001
+          || fields.get('length') !== '5' || !/^[A-Za-z0-9_-]{1,160}$/.test(fields.get('termId') ?? ''))
+          throw new TiyiTransportError('SCHOOL_QUERY_INVALID', '学校查询条件不完整，请重新选择学期。');
+      }
       if (venueLogin && body?.length) throw new TiyiTransportError('SCHOOL_WRITE_FORBIDDEN', '场馆连接只提交空的登录表单，不提交学校业务。');
       if (body && body.length > 65536) throw new TiyiTransportError('SCHOOL_REQUEST_TOO_LARGE', '这次校园请求内容过长。');
       const response = await this.hop(target, input.method, headers, body, operation.signal);

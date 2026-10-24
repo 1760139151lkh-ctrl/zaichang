@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { WorkoutCadenceEstimator } from './workout-cadence';
+import { workoutFixTime } from '../../shared/workout';
 import type { LngLat } from '../../shared/map-v2';
 import type { WorkoutMapMatch } from '../../shared/map-workout';
 import type {
@@ -130,6 +131,7 @@ export class WorkoutSessionKernel {
   private activeSince: number | null = null;
   private segmentStartedAt = 0;
   private sourceIdentity = '';
+  private clockOffsetRange?: { clockId: string; earliest: number; latest: number };
   private androidSelection?: { identity: string; selected: AndroidProvider | null;
     gps?: AndroidProviderEvidence; network?: AndroidProviderEvidence };
   private lastMeasuredAt = 0;
@@ -213,6 +215,7 @@ export class WorkoutSessionKernel {
   private breakSegment() {
     if (this.record) this.record.segment++;
     this.androidSelection = undefined;
+    this.clockOffsetRange = undefined;
     this.previous = null; this.anchor = null; this.filter = null;
     this.paceEdges = []; this.stationaryMs = 0;
     if (this.record) { this.record.metrics.paceSecondsPerKm = null; this.record.motion = 'unknown'; }
@@ -408,11 +411,11 @@ export class WorkoutSessionKernel {
     this.persist(); this.notify();
   }
 
-  private reject(raw: WorkoutInputFix, quality: WorkoutPointQuality, preserveSegment = false) {
+  private reject(raw: WorkoutInputFix, quality: WorkoutPointQuality, preserveSegment = false, forceBreak = false) {
     const record = this.record!;
     // Duplicate or late cached callbacks do not erase the newer accepted anchor.
     // A genuine quality / source discontinuity does break the measured segment.
-    const redundant = preserveSegment || (quality === 'timestamp' || quality === 'stale') && this.previous !== null;
+    const redundant = !forceBreak && (preserveSegment || (quality === 'timestamp' || quality === 'stale') && this.previous !== null);
     if (!redundant) this.breakSegment();
     record.rejectedPoints++;
     if (!redundant) record.signal = quality === 'accuracy' ? 'weak' : 'searching';
@@ -490,18 +493,31 @@ export class WorkoutSessionKernel {
     record.provenance = first ? provenance : record.provenance === 'simulated' || provenance === 'simulated' ? 'simulated'
       : record.provenance === 'unknown' || provenance === 'unknown' ? 'unknown' : 'device';
     const identity = `${raw.source}\u0000${raw.deviceId}\u0000${provenance}\u0000${raw.clockId || ''}`;
+    const timing = workoutFixTime(raw, at, MAX_SAMPLE_AGE_MS);
     let quality: WorkoutPointQuality | null = null;
-    if (!validFix(raw)) quality = 'invalid';
+    if (!validFix(raw) || !timing) quality = 'invalid';
     else if (raw.accuracy === null || raw.accuracy > MAX_ACCURACY_METERS) quality = 'accuracy';
-    else if (Math.abs(raw.receivedAt - at) > MAX_SAMPLE_AGE_MS || raw.receivedAt - raw.timestamp > MAX_SAMPLE_AGE_MS
-      || raw.timestamp - raw.receivedAt > 5_000 || raw.timestamp < this.segmentStartedAt) quality = 'stale';
+    else if (!timing.fresh || timing.measuredAt.earliest < this.segmentStartedAt) quality = 'stale';
     else if (this.sourceIdentity && identity !== this.sourceIdentity) quality = 'source-change';
     const providerNotSelected = !quality && this.considerAndroidProvider(raw, identity, at);
+    let clockChanged = false;
+    if (!quality && !providerNotSelected && timing?.offsetMs && raw.clockId) {
+      const range = this.clockOffsetRange?.clockId === raw.clockId ? this.clockOffsetRange : undefined;
+      const earliest = Math.max(range?.earliest ?? -Infinity, timing.offsetMs.earliest);
+      const latest = Math.min(range?.latest ?? Infinity, timing.offsetMs.latest);
+      if (earliest > latest) {
+        // A source or host clock stepped: keep the raw observation, but never measure
+        // an interval across it. The next proven observation opens a new baseline.
+        quality = 'timestamp'; clockChanged = true; this.lastMeasuredAt = 0;
+      } else this.clockOffsetRange = { clockId: raw.clockId, earliest, latest };
+    }
     if (!quality && !providerNotSelected && this.lastMeasuredAt && raw.timestamp <= this.lastMeasuredAt) quality = 'timestamp';
     if (quality) {
       // An unselected weak provider must not erase another still-healthy provider's anchor.
-      this.reject(raw, quality, this.preserveSelectedAndroid(raw, identity, at));
-      if (quality === 'source-change') this.sourceIdentity = identity;
+      this.reject(raw, quality, this.preserveSelectedAndroid(raw, identity, at), clockChanged);
+      if (quality === 'source-change') { this.sourceIdentity = identity; this.lastMeasuredAt = 0; }
+      if (clockChanged && timing?.offsetMs && raw.clockId)
+        this.clockOffsetRange = { clockId: raw.clockId, ...timing.offsetMs };
     } else if (providerNotSelected) {
       record.points.push({ sequence: record.points.length + 1, raw, quality: 'provider-not-selected', segment: record.segment,
         deltaDistanceMeters: 0, trustedDeltaMs: 0, cumulativeDistanceMeters: record.metrics.distanceMeters,
@@ -634,7 +650,7 @@ export class WorkoutSessionKernel {
       record.status = 'recording'; delete record.pauseReason; delete record.pauseDetail; record.revision++;
       record.updatedAt = this.now(); record.signal = 'searching';
       record.stream = { status: 'starting', reason: '正在重新取得位置。' };
-      this.breakSegment(); this.activeSince = this.monotonicNow();
+      this.breakSegment(); this.lastMeasuredAt = 0; this.activeSince = this.monotonicNow();
       this.persist(); this.notify(); void this.openStream(); return this.getState();
     });
   }

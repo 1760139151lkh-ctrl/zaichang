@@ -8,29 +8,30 @@ import type { CapabilityBroker, CapabilityDefinition, CapabilityResult, Capabili
 export const TIYI_READ_GRANT = 'campus:tiyi:read';
 
 const moduleDescriptions: Record<TiyiModuleResource, string> = {
-  study_records: '看看学校记下的体艺修学情况。这次读到了个人明细还是入口页，会和内容一起带回。',
+  study_records: '看看学校记下的体艺修学情况，保留学校的明细与没有记录时的原说明。',
   exercise: '看看自己的课外锻炼记了哪些次、学校审核到哪一步，也可往前翻历年记录。想看学校计次可用summary或statistics，想看某次配速和用时可沿record_detail继续；精细路线保留在本机。',
   notices: '看看学校体艺活动预告和首页通知，包括活动时间、安排与报名入口。',
-  teams: '看看自己参加的运动队和出勤情况；mine打开本人队伍，attendance接着看考勤。',
-  westward: '查看西迁活动入口和当前内容；需要重新登录时会带回学校的回复。',
-  counselling: '看看辅导站的活动和出勤情况；subpage=records打开考勤，并带回学校可选的学期。',
-  counts: '查看学校次数查询入口与学期选项。有效锻炼次数、实践积分和刷卡流水会保留各自名称。',
+  teams: '看看本人的代表队与可申请的队伍；mine单看本人队伍，attendance看逐次考勤与学校可选学期，也可带termId查历史。',
+  westward: '看看学校西迁活动的起止时间、活动安排和本人运动汇总。学校未返回的数值保留为空。',
+  counselling: '看看本人辅导站考勤，带回学校可选学期；termId可选历史，学校还有后续记录时可沿下一页继续。',
+  counts: '看看学校单独“次数查询”中所选学期的记录，termId从学校给出的学期里选择。这份查询与运动汇总分别保留。',
   venues: '看看学校有哪些场馆、所选日期有哪些时段，也可查本人订单、同伴和培训。先从目录选venueSiteId，再带searchDate查当天；reservation和art_reservation分别查看体育与艺术场地。这里返回可选时段与价格。',
-  fitness_attendance: '查看身体素质课考勤入口和学校这次返回的内容。',
+  fitness_attendance: '看看学校当前返回的本人身体素质课程与考勤内容。',
   training: '看看学校培训课程的班次、时间和费用。',
-  fitness: '看看体测成绩、预约日历或已有反馈，分别用results、schedule、feedback选择；学校这次实际打开的内容会一同带回。',
-  competitions: '查看本人的比赛入口与学校当前发布的内容。个人记录是否已加载会随结果说明。',
+  fitness: '看看体测成绩、已有预约或已有反馈，分别用results、schedule、feedback选择。',
+  competitions: '看看本人的比赛报名、成绩、证书和已有反馈。默认一起查看，也可用records、results、certificates、feedback分别打开。',
   classes: '看看所选学期有哪些体育课、哪天上过课、签到记成了什么。先用course_terms选学校的学年和学期，再来查课；想看某门课的每次出勤可沿attendance继续。后面还没上的课也会保留日期。',
-  venue_entries: '查看场馆出入记录入口与学校学期选项，保留入场流水的时间和状态。',
-  feedback: '查看学校意见反馈入口和已有反馈。',
-  venue_live: '看看学校场地实况页，人数等信息附学校这次回复的时间。',
+  venue_entries: '看看本人的场馆入场流水，保留刷入或刷出、时间与场地。termId从学校给出的学期里选择；有更多记录时沿下一页继续。',
+  feedback: '看看本人已有的学校意见反馈，学校暂时未返回时会说明。',
+  venue_live: '看看学校场地人数实况，附本次读取时间。',
   graduation_courses: '查看体测与锻炼课入口及其学期选项。个人成绩是否已加载会随结果说明。',
-  graduation_report: '打开毕业体艺报告入口，返回当前可读的文字与报告图片地址，并说明这次实际读到了哪部分。',
-  codoon: '查看学校提供的咕咚运动入口；连接咕咚需要在它自己的页面完成授权。',
+  graduation_report: '看看学校毕业体艺报告中当前可读的本人指标与说明。',
+  codoon: '看看学校是否提供咕咚入口以及这次能否读取绑定状态。需要独立授权时会说明。',
 };
 
 const subpages: Partial<Record<TiyiModuleResource, readonly NonNullable<TiyiReadArgs['subpage']>[]>> = {
   teams: ['mine', 'attendance'], counselling: ['records'], fitness: ['results', 'schedule', 'feedback'],
+  competitions: ['records', 'results', 'certificates', 'feedback'],
   venues: ['mine', 'orders', 'buddies', 'training', 'reservation', 'art_reservation'],
 };
 const extraResources = ['profile', 'menus', 'terms', 'summary', 'records', 'record_detail', 'statistics', 'rules', 'course_terms', 'courses', 'attendance'] as const;
@@ -49,16 +50,16 @@ const queryFields = {
     const day = new Date(value + 'T00:00:00Z');
     return Number.isFinite(day.getTime()) && day.toISOString().slice(0, 10) === value;
   }, '请使用有效的学校当地日期。').optional().describe('学校当地日期，Asia/Shanghai时区、YYYY-MM-DD格式。与venueSiteId一起查看那天的场地时段。'),
-  upstreamPage: z.number().int().min(0).max(100000).optional().describe('向学校查订单或培训列表的第几页，从0开始；下一页入口会带好页码。展开已保存记录则用snapshotId和offset。'),
-  schoolYear: reference.optional().describe('学校course_terms返回的schoolYear原值，与termId一起选择体育课程学期。'),
-  termId: reference.optional().describe('学校course_terms返回的termId原值。'),
+  upstreamPage: z.number().int().min(0).max(100000).optional().describe('向学校查询列表的第几页，从0开始；下一页入口会带好学期和页码。展开已保存记录则用snapshotId和offset。'),
+  schoolYear: reference.optional().describe('这项查询中学校给出的学年原值；体育课程与termId一起选择学期，体测按其学校年份选项选择。'),
+  termId: reference.optional().describe('这项查询中学校给出的termId原值；各项的学期选择分别保留。'),
   courseId: reference.optional().describe('本人所选学期课程列表中的courseId，只用于逐次attendance。'),
-  recordId: reference.optional().describe('本人运动流水中的sportId，只用于record_detail；连接器会核实属于本人。'),
+  recordId: reference.optional().describe('刚才本人列表给出的原记录ID，用于运动详情或体测预约、反馈详情；会先核实它属于本人。'),
   begin: z.number().int().nonnegative().safe().optional().describe('statistics起点，Unix毫秒；学校时区Asia/Shanghai。'),
   end: z.number().int().nonnegative().safe().optional().describe('statistics终点，Unix毫秒，与begin间隔不超过两年。'),
   period: z.enum(['WEEK', 'MONTH', 'TERM']).optional().describe('学校statistics按周、月或学期统计，具体起止时间另填begin和end。'),
-  validStatus: z.union([z.literal(-1), z.literal(0), z.literal(1)]).optional().describe('statistics采用的学校审核状态原值-1/0/1，含义可结合rules和原记录说明查看。'),
-  subpage: z.enum(['results', 'schedule', 'feedback', 'records', 'mine', 'attendance', 'orders', 'buddies', 'training', 'reservation', 'art_reservation']).optional(),
+  validStatus: z.union([z.literal(-1), z.literal(0), z.literal(1)]).optional().describe('运动统计按学校状态筛选：1为有效，-1为无效；0的统计筛选中文标签尚未核明。省略时查询全部状态。'),
+  subpage: z.enum(['results', 'schedule', 'feedback', 'records', 'mine', 'attendance', 'orders', 'buddies', 'training', 'reservation', 'art_reservation', 'certificates']).optional(),
 };
 export const tiyiReadInput = z.object({ resource: z.enum(resourceNames), ...pageFields, ...queryFields }).strict();
 const output = z.record(z.string(), z.json());
@@ -69,18 +70,51 @@ const venueSelectionSchema = z.object({
   timeZone: z.literal('Asia/Shanghai'),
 }).strict();
 
+// The archived official ExerciseRecordActivity binds totalExerciseCount to
+// 锻炼数 and sends the selected status unchanged through ExerciseRecordPresenter.
+// Its record adapter's checkStatus=0 label is 待审, but that separate field does
+// not establish the statistics validStatus=0 label.
+const exerciseStatusGuide = {
+  label: '学校运动状态筛选', labels: { '1': '有效', '-1': '无效' },
+  unconfirmedLabels: { '0': '学校统计的这个筛选值尚未核明中文标签' },
+  omitted: '全部状态',
+};
+const exerciseFieldGuides = {
+  statistics: {
+    totalExerciseCount: { label: '锻炼记录数', meaning: '学校运动统计在所选时间和状态下记的次数。' },
+    validStatus: exerciseStatusGuide,
+    avgExerciseCount: { label: '平均锻炼次数', meaning: '学校按天或月平均的锻炼次数；周、月统计按天，学期统计按月。' },
+  },
+  summary: {
+    tips: { label: '学校运动汇总说明' },
+    datas: { label: '学校运动汇总项目', meaning: '每项的des是学校说明，value是数值，unit是单位。' },
+  },
+  records: {
+    isValid: { label: '学校运动记录状态原值' },
+    validCount: { label: '这条运动的学校计次值' },
+    checkStatus: { label: '学校附带的审核状态原值' },
+    tip: { label: '学校对这条运动的说明' },
+  },
+} as const;
+
 // Raw replies remain with the local connector. This projection is the model
 // boundary, including fixed-snapshot reads, nested objects and page addresses.
 const privateField = /token|secret|password|passwd|cookie|authorization|credential|ticket|session|^raw(?:response|bytes)?$|^bodyb64$/i;
-const identityField = /^(?:user(?:name|id|no)?|uid|xh|xm|yhm|zgh|sno|student(?:id|no|number|name|num)?|realname|truename|nickname|姓名|学号|身份证(?:号)?|phone(?:number)?|mobile(?:number)?|tel(?:ephone)?|email(?:address)?|account|acctid|custid|card(?:id|no|number)?|bankacc|identity(?:id|no)?|idcard|cert(?:ificate)?(?:no|number)?|imei|deviceid|address|photo|avatar)$/i;
+const identityField = /^(?:user(?:name|id|no)?|uid|feedbackuid|feedbackname|baseStudentId|faceUuid|photoByte|xh|xm|yhm|zgh|sno|student(?:id|no|number|name|num)?|realname|truename|nickname|姓名|学号|身份证(?:号)?|phone(?:number)?|mobile(?:number)?|tel(?:ephone)?|email(?:address)?|account|acctid|custid|card(?:id|no|number)?|bankacc|identity(?:id|no)?|idcard|cert(?:ificate)?(?:no|number)?|imei|deviceid|address|photo|avatar)$/i;
 const locationField = /^(?:lat(?:itude)?|lon(?:gitude)?|lng|coordinates?(?:tr)?|coordinatestr|gps|track|trajectory|routePoints|positionList|locations?|sportsList|jsonsports|mapPoints)$/i;
-const profileIdentityField = /^(?:name|id|birth|birthday|birthDate)$/i;
+const profileIdentityField = /^(?:name|id|birth|birthday|birthDate|birthYear|dateOfBirth|yearOfBirth|出生日期|出生年月|出生年份)$/i;
+const profileField = (field: string) => profileIdentityField.test(field.replace(/[-_]/g, ''));
 const venuePrivateField = /^(?:userphone|orderuid|orderuserid|ordername|doorpwd|ordernocode|ordercode|ordercodelist|buddyno|lockcode)$/i;
 const protectedField = (field: string) => {
   const key = field.replace(/[-_]/g, '');
   return privateField.test(key) || identityField.test(key) || venuePrivateField.test(key) || locationField.test(key);
 };
 const safePointer = (pointer: string) => (pointer === '' || pointer.startsWith('/')) && !pointer.split('/').some(part => protectedField(part.replace(/~1/g, '/').replace(/~0/g, '~')));
+const profilePointer = (pointer: string) => !pointer.split('/').some(part => profileField(part.replace(/~1/g, '/').replace(/~0/g, '~')));
+const profileObservation = (observation: TiyiObservation) => observation.resource === 'profile'
+  || observation.resource === 'venues' && (observation.coverage.profileRead === true
+    || !!observation.data && typeof observation.data === 'object' && !Array.isArray(observation.data)
+      && (observation.data as { profileRead?: unknown }).profileRead === true);
 
 function publicText(value: string): string {
   return value.replace(/https?:\/\/[^\s<>"']+/gi, text => {
@@ -90,7 +124,7 @@ function publicText(value: string): string {
       for (const key of [...url.searchParams.keys()]) if (protectedField(key)) url.searchParams.delete(key);
       return url.toString();
     } catch { return '[学校地址]'; }
-  }).replace(/\beyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\b/g, '[已隐藏登录信息]');
+  }).replace(/;jsessionid=[^\s/?#;<>"']+/gi, '').replace(/\beyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\b/g, '[已隐藏登录信息]');
 }
 
 function project(value: unknown, budget: { remaining: number; bytes: number; omitted: boolean; profile: boolean }, depth = 0): unknown {
@@ -114,12 +148,13 @@ function project(value: unknown, budget: { remaining: number; bytes: number; omi
   if (!value || typeof value !== 'object') return undefined;
   const result: Record<string, unknown> = {};
   for (const [key, item] of Object.entries(value)) {
-    if (protectedField(key) || budget.profile && profileIdentityField.test(key)) continue;
+    if (protectedField(key) || budget.profile && profileField(key)) continue;
     budget.bytes -= Buffer.byteLength(key);
     if (budget.bytes < 0) { budget.omitted = true; break; }
-    if (key === 'pointer' && (typeof item !== 'string' || !safePointer(item))) continue;
+    if (key === 'pointer' && (typeof item !== 'string' || !safePointer(item) || budget.profile && !profilePointer(item))) continue;
     if (key === 'children' && Array.isArray(item)) {
-      result[key] = item.filter(child => child && typeof child === 'object' && typeof child.pointer === 'string' && safePointer(child.pointer))
+      result[key] = item.filter(child => child && typeof child === 'object' && typeof child.pointer === 'string'
+          && safePointer(child.pointer) && (!budget.profile || profilePointer(child.pointer)))
         .map(child => project(child, budget, depth + 1)).filter(child => child !== undefined);
       continue;
     }
@@ -131,7 +166,7 @@ function project(value: unknown, budget: { remaining: number; bytes: number; omi
 
 function validateRead(args: TiyiReadArgs): TiyiReadArgs {
   if (args.pointer !== undefined && (!args.snapshotId || !safePointer(args.pointer)
-    || args.resource === 'profile' && args.pointer.split('/').some(part => profileIdentityField.test(part))))
+    || args.resource === 'profile' && !profilePointer(args.pointer)))
     throw new HarnessError('tiyi_pointer_forbidden', '请沿这份体艺记录提供的正文地址继续，身份、登录信息和精细位置只留在本机。');
   if (args.offset && !args.snapshotId) throw new HarnessError('tiyi_snapshot_required', '继续下一页时需要刚才那份体艺记录；这样不会把两次查询拼在一起。');
   const filters = ['schoolYear', 'termId', 'courseId', 'recordId', 'begin', 'end', 'period', 'validStatus', 'subpage', 'upstreamPage', 'venueSiteId', 'searchDate'] as const;
@@ -140,12 +175,18 @@ function validateRead(args: TiyiReadArgs): TiyiReadArgs {
       throw new HarnessError('tiyi_snapshot_parameters', '续读会保留原来的学期和查询范围；要换条件，请另开一次查询。');
     return args;
   }
-  const schoolPage = args.resource === 'training' || args.resource === 'venues' && ['orders', 'training'].includes(args.subpage || '');
+  const schoolPage = ['training', 'counselling', 'venue_entries'].includes(args.resource) || args.resource === 'venues' && ['orders', 'training'].includes(args.subpage || '');
   const venueSelection = args.resource === 'venues' && (!args.subpage || ['reservation', 'art_reservation'].includes(args.subpage));
   const allowed = new Set<string>(args.resource === 'statistics' ? ['begin', 'end', 'period', 'validStatus']
-    : ['courses', 'classes', 'attendance'].includes(args.resource) ? ['schoolYear', 'termId', ...(args.resource === 'attendance' ? ['courseId'] : [])]
+    : ['courses', 'classes', 'attendance'].includes(args.resource) ? ['schoolYear', 'termId', ...(['classes', 'attendance'].includes(args.resource) ? ['courseId'] : [])]
       : args.resource === 'record_detail' ? ['recordId'] : subpages[args.resource as TiyiModuleResource] ? ['subpage'] : []);
   if (schoolPage) allowed.add('upstreamPage');
+  if (['counts', 'counselling', 'venue_entries'].includes(args.resource) || args.resource === 'teams' && args.subpage === 'attendance') allowed.add('termId');
+  if (args.resource === 'graduation_courses') { allowed.add('schoolYear'); allowed.add('termId'); }
+  if (args.resource === 'fitness') {
+    if (args.subpage !== 'feedback') allowed.add('schoolYear');
+    if (['schedule', 'feedback'].includes(args.subpage || '')) allowed.add('recordId');
+  }
   if (venueSelection) { allowed.add('venueSiteId'); allowed.add('searchDate'); }
   if (filters.some(key => args[key] !== undefined && !allowed.has(key)))
     throw new HarnessError('tiyi_unused_parameters', '这项查询不使用刚才的筛选条件，请按该项的说明查询；学校时间统计、运动详情和体育课程各有自己的入口。');
@@ -167,16 +208,18 @@ function validateRead(args: TiyiReadArgs): TiyiReadArgs {
 function sourceChildren(observation: TiyiObservation) {
   const value = observation.data, root = observation.coverage.pointer ?? '';
   if (!observation.snapshotId || !value || typeof value !== 'object') return [];
+  const profile = profileObservation(observation);
+  const visiblePointer = (pointer: string) => safePointer(pointer) && (!profile || profilePointer(pointer));
   const originalChildren = !Array.isArray(value) && (observation.coverage.navigationOnly || (value as { navigationOnly?: unknown }).navigationOnly === true
     || Object.keys(value).length === 1) && Array.isArray((value as { children?: unknown }).children)
     ? (value as { children: { pointer?: unknown; kind?: unknown; count?: unknown }[] }).children : undefined;
   // A connector directory is synthetic; its children already point into the
   // real response. Appending /children would invent a nonexistent source path.
-  if (originalChildren) return originalChildren.filter(child => child && typeof child.pointer === 'string' && safePointer(child.pointer))
+  if (originalChildren) return originalChildren.filter(child => child && typeof child.pointer === 'string' && visiblePointer(child.pointer))
     .slice(0, 12).map(child => ({ pointer: child.pointer as string,
       kind: typeof child.kind === 'string' ? child.kind.slice(0, 30) : 'unknown',
       sourceReference: { sourceId: TIYI_SOURCE_ID, resource: observation.resource, snapshotId: observation.snapshotId, pointer: child.pointer as string } }));
-  return Object.entries(value).filter(([key]) => !protectedField(key) && !(observation.resource === 'profile' && profileIdentityField.test(key)))
+  return Object.entries(value).filter(([key]) => !protectedField(key) && !(profile && profileField(key)))
     .slice(0, 12).map(([key, child]) => {
     const segment = Array.isArray(value) ? String((observation.coverage.offset ?? 0) + Number(key)) : key;
     const pointer = root + '/' + segment.replace(/~/g, '~0').replace(/\//g, '~1');
@@ -187,7 +230,10 @@ function sourceChildren(observation: TiyiObservation) {
 }
 
 function resultOf(observation: TiyiObservation, capability: string, args: TiyiReadArgs): CapabilityResult {
-  const budget = { remaining: 3000, bytes: 70000, omitted: false, profile: args.resource === 'profile' };
+  const personalProfile = profileObservation(observation) || args.resource === 'venues' && args.subpage === 'mine';
+  if (personalProfile && !profilePointer(observation.coverage.pointer ?? args.pointer ?? ''))
+    throw new HarnessError('tiyi_pointer_forbidden', '请沿个人资料中可读的正文继续查看。');
+  const budget = { remaining: 3000, bytes: 70000, omitted: false, profile: personalProfile };
   const projected = observation.data === undefined ? undefined : project(observation.data, budget);
   const payload = budget.omitted ? undefined : projected;
   const source = observation.coverage;
@@ -198,18 +244,40 @@ function resultOf(observation: TiyiObservation, capability: string, args: TiyiRe
   const navigationOnly = source.navigationOnly === true || !!payload && typeof payload === 'object' && !Array.isArray(payload)
     && ((payload as { navigationOnly?: unknown }).navigationOnly === true
       || Object.keys(payload).length === 1 && Array.isArray((payload as { children?: unknown }).children));
-  const explicitlyNonPersonal = venueSource || !!observation.data && typeof observation.data === 'object' && !Array.isArray(observation.data)
+  const publicModuleData = ['venue_live', 'codoon'].includes(args.resource)
+    || args.resource === 'teams' && /^\/availableTeams(?:\/|$)/.test(source.pointer ?? '')
+    || args.resource === 'westward' && /^\/activityResponse(?:\/|$)/.test(source.pointer ?? '');
+  const explicitlyNonPersonal = venueSource || publicModuleData || !!observation.data && typeof observation.data === 'object' && !Array.isArray(observation.data)
     && (observation.data as { recordRead?: unknown }).recordRead === false;
   const venueDataRead = venueSource && !budget.omitted && !navigationOnly && !page && !catalog
     && observation.data !== undefined && !observation.error;
+  const state = payload && typeof payload === 'object' && !Array.isArray(payload)
+    ? (payload as { readState?: unknown; venueLiveRead?: unknown }).readState : undefined;
+  const stateMeaning = state === 'access_denied' ? '学校当前没有向这个账号开放本人代表队名单；可申请的队伍与本人队伍分别保留。'
+    : state === 'external_entry_only' ? '学校提供了咕咚的外部入口，这次还没有取得绑定状态。'
+      : state === 'activity_unavailable' ? '学校这次没有返回可读取的西迁活动，个人汇总也没有补成零值。'
+        : ['report_not_available', 'image_content_unread', 'report_loading_changed', 'no_personal_report'].includes(String(state)) ? '这次尚未读到报告中的个人指标。'
+          : state === 'no_published_courses' ? '学校这次没有返回所选范围内已公布的体测与锻炼课程。'
+            : state === 'no_records' ? args.resource === 'counts' ? '学校的次数查询在所选学期返回空表。'
+              : args.resource === 'study_records' ? '学校修学记录在本次查询范围内为空。'
+                : '学校这次返回的所选范围内没有记录，查询范围与读取时间保留在同一份结果里。'
+              : state === 'end_of_records' ? '学校这次已返回列表末页；前面读到的记录仍保留在原来的来源里。'
+                : args.resource === 'venue_live' ? '这是学校本次返回的场地人数，读取时间随结果保留。'
+                  : publicModuleData && args.resource === 'teams' ? '这些是学校列出的可申请队伍。'
+                    : publicModuleData && args.resource === 'westward' ? '这是学校发布的西迁活动安排与整体情况。' : undefined;
   const recordRead = !explicitlyNonPersonal && !page && !catalog && !navigationOnly && !budget.omitted && observation.data !== undefined && !observation.error;
+  const fieldGuide = args.resource === 'statistics' ? exerciseFieldGuides.statistics
+    : args.resource === 'summary' ? exerciseFieldGuides.summary
+      : ['records', 'exercise', 'record_detail'].includes(args.resource) ? exerciseFieldGuides.records : undefined;
+  const exerciseMeaning = args.resource === 'statistics' || args.resource === 'summary'
+    ? '这是运动统计记的次数和项目说明，和单独的“次数查询”分别保留。' : undefined;
   const hasSource = observation.data !== undefined && !!observation.snapshotId;
   const complete = source.complete && !budget.omitted && !page && !catalog && !navigationOnly;
   const status: KnowledgeStatus = observation.status === 'auth_required' ? 'not_connected'
     : observation.status === 'unavailable' ? 'failed'
       : observation.status === 'saved' ? complete ? 'stale' : 'partial'
         : !complete ? 'partial' : 'fresh';
-  const next = source.next && safePointer(source.next.pointer || '') ? {
+  const next = source.next && safePointer(source.next.pointer || '') && (!personalProfile || profilePointer(source.next.pointer || '')) ? {
     tool: 'look_up', arguments: { source: 'capability', capability,
       arguments: { ...(capability === 'tiyi.read' ? { resource: args.resource } : {}), snapshotId: source.next.snapshotId,
         offset: source.next.offset, ...(source.next.pointer !== undefined ? { pointer: source.next.pointer } : {}), limit: args.limit ?? 8 } },
@@ -222,13 +290,14 @@ function resultOf(observation: TiyiObservation, capability: string, args: TiyiRe
   return {
     status, sourceId: TIYI_SOURCE_ID, observedAt: observation.observedAt, fetchedAt: observation.fetchedAt,
     ...(hasSource && !budget.omitted ? { delivery: { kind: 'page' as const, complete: true as const } } : {}),
-    data: { resource: args.resource, source: '浙江大学体艺本人账号', recordRead, ...(venueDataRead ? { venueDataRead: true } : {}), ...(payload !== undefined ? { content: payload } : {}),
-      ...(venueSource ? { personalRecordRead: false } : {}),
+    data: { resource: args.resource, source: '浙江大学体艺本人账号', recordRead, personalRecordRead: recordRead,
+      ...(venueDataRead ? { venueDataRead: true } : {}), ...(payload !== undefined ? { content: payload } : {}),
+      ...(fieldGuide ? { fieldGuide } : {}),
       ...(observation.snapshotId ? { snapshotId: observation.snapshotId } : {}),
       sourceCoverage: { ...source, complete, scope: 'returned_response',
         meaning: page ? '学校页面已经打开，个人数据的部分眼下尚未读到。'
           : catalog ? '这是学校提供的功能目录，还没有读取目录下的个人记录。'
-            : '这里是学校这次返回的内容，范围和后续页列在同一份结果里。' },
+            : stateMeaning ?? '这里是学校这次返回的内容，范围和后续页列在同一份结果里。' },
       ...(next ? { continuation: next } : {}),
       ...(schoolContinuation ? { schoolContinuation } : {}),
       ...(venueSelection?.success && observation.snapshotId ? { venueSelection: {
@@ -239,7 +308,7 @@ function resultOf(observation: TiyiObservation, capability: string, args: TiyiRe
           requiredFields: ['venueSiteId', 'searchDate'] },
         meaning: '从目录挑一个场地，带上它的id和学校当地日期，就能看看当天有哪些时段。这里还没有预留场地。',
       } } : {}),
-      ...(observation.snapshotId && source.pointer !== undefined && safePointer(source.pointer) ? {
+      ...(observation.snapshotId && source.pointer !== undefined && safePointer(source.pointer) && (!personalProfile || profilePointer(source.pointer)) ? {
         sourceReference: { sourceId: TIYI_SOURCE_ID, resource: args.resource, snapshotId: observation.snapshotId, pointer: source.pointer },
       } : {}),
       ...(budget.omitted || navigationOnly ? { navigationRequired: true,
@@ -247,6 +316,8 @@ function resultOf(observation: TiyiObservation, capability: string, args: TiyiRe
         meaning: '这项内容较多，沿下面的子项可以接着打开正文。' } : {}),
       ...(observation.error ? { error: { code: observation.error.code, ...(observation.error.httpStatus ? { httpStatus: observation.error.httpStatus } : {}) } } : {}),
       meaning: budget.omitted || navigationOnly ? '正文还没展开完，可以沿同一份记录的入口接着看。'
+        : stateMeaning ? stateMeaning
+        : recordRead && exerciseMeaning ? exerciseMeaning
         : venueDataRead ? '学校的场馆目录或当天时段已带回，包含这次查询的空闲、容量、占用和使用条件；选中的时段还没有预留。'
         : page ? '打开了学校入口页，个人明细还没出现在这次回复里。'
         : recordRead ? '这是学校这次返回的体艺内容，汇总、运动流水和审核状态保留着学校各自的名称。'
@@ -272,9 +343,12 @@ function definition(name: string, label: string, description: string, input: z.Z
 export function registerTiyi(broker: CapabilityBroker, policy: PolicyKernel, getAdapter: () => TiyiAdapter | undefined): void {
   const capabilities = TIYI_MODULES.map(module => definition(`tiyi.${module.resource}`, `浙大体艺·${module.label}`, moduleDescriptions[module.resource],
     z.object({ ...pageFields,
-      ...(module.resource === 'classes' ? { schoolYear: queryFields.schoolYear, termId: queryFields.termId } : {}),
+      ...(module.resource === 'classes' ? { schoolYear: queryFields.schoolYear, termId: queryFields.termId, courseId: queryFields.courseId } : {}),
+      ...(['counts', 'counselling', 'venue_entries', 'teams', 'graduation_courses'].includes(module.resource) ? { termId: queryFields.termId } : {}),
+      ...(['fitness', 'graduation_courses'].includes(module.resource) ? { schoolYear: queryFields.schoolYear } : {}),
+      ...(module.resource === 'fitness' ? { recordId: queryFields.recordId } : {}),
       ...(subpages[module.resource] ? { subpage: z.enum(subpages[module.resource] as [string, ...string[]]).optional() } : {}),
-      ...(['venues', 'training'].includes(module.resource) ? { upstreamPage: queryFields.upstreamPage } : {}),
+      ...(['venues', 'training', 'counselling', 'venue_entries'].includes(module.resource) ? { upstreamPage: queryFields.upstreamPage } : {}),
       ...(module.resource === 'venues' ? { venueSiteId: queryFields.venueSiteId, searchDate: queryFields.searchDate } : {}),
     }).strict()));
   capabilities.push(definition('tiyi.catalog', '浙大体艺查询目录', '看看本机有哪些体艺查询入口，以及学期、统计和详情怎样继续打开。账号当前开放哪些项目可另查menus。', z.object({}).strict()));

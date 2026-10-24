@@ -1,0 +1,297 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "taki-listening-apricot-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "taki-listening-apricot-mother-candidate-v1.png",
+  "motherSha256": "d8369e39dc109457df147611494e1741c86512e2bcfc579c92050efb0d134bbb",
+  "matte": "taki-listening-apricot-mask-candidate-v1.png",
+  "matteSha256": "9a54759b1b60575061e1a30730afe885cf1eedd3f0ae036a1e696572592f0f2e",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 40,
+  "alphaHigh": 245,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        1248,
+        710
+      ],
+      [
+        1332,
+        710
+      ],
+      [
+        1332,
+        780
+      ],
+      [
+        1248,
+        780
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 115926,
+  "alphaNonzeroPixels": 48533,
+  "alphaBounds": [
+    1122,
+    288,
+    1419,
+    752
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "57be749638f3c738eaf003fb2aa640097b53a10ebb13e951f8fa4b9b3533cd11",
+  "figureRgbSha256": "57be749638f3c738eaf003fb2aa640097b53a10ebb13e951f8fa4b9b3533cd11",
+  "background": {
+    "candidate": "taki-listening-apricot-background-candidate-v1.png",
+    "candidateSha256": "371ac8ce8eaf52660f30f874721ca4d027a1843fc89a90e68565041841472e3e",
+    "expandPixels": 5,
+    "featherPixels": 1.2,
+    "additionalErasePolygons": [
+      [
+        [
+          1245,
+          280
+        ],
+        [
+          1325,
+          280
+        ],
+        [
+          1360,
+          308
+        ],
+        [
+          1380,
+          365
+        ],
+        [
+          1405,
+          431
+        ],
+        [
+          1407,
+          520
+        ],
+        [
+          1390,
+          550
+        ],
+        [
+          1425,
+          575
+        ],
+        [
+          1410,
+          590
+        ],
+        [
+          1354,
+          589
+        ],
+        [
+          1283,
+          583
+        ],
+        [
+          1242,
+          606
+        ],
+        [
+          1213,
+          646
+        ],
+        [
+          1186,
+          714
+        ],
+        [
+          1201,
+          740
+        ],
+        [
+          1180,
+          760
+        ],
+        [
+          1110,
+          756
+        ],
+        [
+          1111,
+          735
+        ],
+        [
+          1143,
+          714
+        ],
+        [
+          1165,
+          650
+        ],
+        [
+          1190,
+          615
+        ],
+        [
+          1157,
+          618
+        ],
+        [
+          1153,
+          600
+        ],
+        [
+          1173,
+          574
+        ],
+        [
+          1185,
+          517
+        ],
+        [
+          1194,
+          477
+        ],
+        [
+          1200,
+          442
+        ],
+        [
+          1229,
+          406
+        ],
+        [
+          1240,
+          365
+        ]
+      ],
+      [
+        [
+          1105,
+          705
+        ],
+        [
+          1210,
+          705
+        ],
+        [
+          1210,
+          785
+        ],
+        [
+          1105,
+          785
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [
+      [
+        [
+          1248,
+          710
+        ],
+        [
+          1332,
+          710
+        ],
+        [
+          1332,
+          780
+        ],
+        [
+          1248,
+          780
+        ]
+      ]
+    ],
+    "changedPixels": 83230,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1145,
+          540
+        ],
+        [
+          1425,
+          540
+        ],
+        [
+          1425,
+          620
+        ],
+        [
+          1145,
+          620
+        ]
+      ],
+      [
+        [
+          1105,
+          705
+        ],
+        [
+          1210,
+          705
+        ],
+        [
+          1210,
+          770
+        ],
+        [
+          1105,
+          770
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "taki-listening-apricot-figure-calibrated-v1.png",
+      "bytes": 2405366,
+      "sha256": "b23e6262f059cfe2452f9a3b876736fb41f7e95cb608acfc5aad0eca41b0bc92"
+    },
+    {
+      "file": "taki-listening-apricot-mask-calibrated-v1.png",
+      "bytes": 23622,
+      "sha256": "c3095511e6a64536bf1c0eb35ae3330bad9665040f6d5ec93e5a24acded1c1e1"
+    },
+    {
+      "file": "taki-listening-apricot-background-calibrated-v1.png",
+      "bytes": 2075319,
+      "sha256": "3315007672ee67c72763175c70887bf788dca31fa6b8d41074ef1e9ec56c5f85"
+    },
+    {
+      "file": "taki-listening-apricot-shadow-calibrated-v1.png",
+      "bytes": 45663,
+      "sha256": "18626429f8d3ffc1041145238e079746e22223c17c806b32d58aecb6aa6a59f3"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

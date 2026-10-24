@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "taki",
+  "activity": "chat",
+  "palette": "violet",
+  "layer": "background",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-141d5859-0b35-42e9-ba2b-3165fa975ea5",
+  "prompt": "taki-chat-violet-background-prompt-v1.txt",
+  "promptSha256": "3dfecaf6754714feb31f3e19305a3d80af9e37f45c812410fd5085ed9b38cab1",
+  "inputs": [
+    {
+      "file": "taki-chat-violet-mother-candidate-v1.png",
+      "sha256": "624b0ffe0243da578e831d38e40ba7283433e3375c6a81a6e792c6d51cc137ab",
+      "role": "sole exact primary-reviewed correct complete same-scene theme mother"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-141d5859-0b35-42e9-ba2b-3165fa975ea5.png",
+  "output": {
+    "file": "taki-chat-violet-background-generated-v1.png",
+    "sha256": "16a3cf25a8eaeeb9f41a0e9077240ee5a319f53f6db85f58479f19897e4643a6",
+    "bytes": 2162840,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "clean-background-candidate-for-registration",
+  "review": {
+    "producerViewed": "Complete actual clean background personally viewed with the exact original same-theme mother; no visible person, hair or shoe left. Final local registration/composite remains to inspect.",
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

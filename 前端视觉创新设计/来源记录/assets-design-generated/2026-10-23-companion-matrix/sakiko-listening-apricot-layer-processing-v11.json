@@ -9,7 +9,7 @@
     "OpenCV": null
   },
   "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
-  "mother": "sakiko-listening-apricot-mother.png",
+  "mother": "../../../运行素材/companion/scenes/sakiko-listening-apricot-mother.png",
   "motherSha256": "a35aaa3549a04cf9f6fa7e478224f53afdcbfd1f133f6570a643191916189bb1",
   "matte": "sakiko-listening-apricot-figure-calibrated-v8.png",
   "matteSha256": "e394253114944e2cc0885b6e5b3d18862fc5ab2eeeb6d11b35defd08c13e0656",
@@ -262,24 +262,28 @@
   },
   "outputs": [
     {
-      "file": "sakiko-listening-apricot-figure-calibrated-v11.png",
+      "file": "../../../运行素材/companion/scenes/sakiko-listening-apricot-figure-calibrated-v11.png",
       "bytes": 2394076,
-      "sha256": "76f5481891b73841ceb638dc25739e392c8acfb47665385a0b93051965147b5b"
+      "sha256": "76f5481891b73841ceb638dc25739e392c8acfb47665385a0b93051965147b5b",
+      "originalOutputBasename": "sakiko-listening-apricot-figure-calibrated-v11.png"
     },
     {
-      "file": "sakiko-listening-apricot-mask-calibrated-v11.png",
+      "file": "../../../运行素材/companion/scenes/sakiko-listening-apricot-mask-calibrated-v11.png",
       "bytes": 21728,
-      "sha256": "75e77ef1e8a2282ee439407e1ea4ba658248836c5b503ba192e08b65586f7081"
+      "sha256": "75e77ef1e8a2282ee439407e1ea4ba658248836c5b503ba192e08b65586f7081",
+      "originalOutputBasename": "sakiko-listening-apricot-mask-calibrated-v11.png"
     },
     {
-      "file": "sakiko-listening-apricot-background-calibrated-v11.png",
+      "file": "../../../运行素材/companion/scenes/sakiko-listening-apricot-background-calibrated-v11.png",
       "bytes": 2062838,
-      "sha256": "6888d0107930a159e729dd8fc0273a124963512a1eb294abc4eef526f6eccd00"
+      "sha256": "6888d0107930a159e729dd8fc0273a124963512a1eb294abc4eef526f6eccd00",
+      "originalOutputBasename": "sakiko-listening-apricot-background-calibrated-v11.png"
     },
     {
-      "file": "sakiko-listening-apricot-shadow-calibrated-v11.png",
+      "file": "../../../运行素材/companion/scenes/sakiko-listening-apricot-shadow-calibrated-v11.png",
       "bytes": 28587,
-      "sha256": "5005f17e1093793d26fe2d44975630f349facdeb6a91ba453ba1e923dfdc02f1"
+      "sha256": "5005f17e1093793d26fe2d44975630f349facdeb6a91ba453ba1e923dfdc02f1",
+      "originalOutputBasename": "sakiko-listening-apricot-shadow-calibrated-v11.png"
     }
   ],
   "review": {

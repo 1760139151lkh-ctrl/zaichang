@@ -47,7 +47,7 @@
     },
     {
       "activity": "planning",
-      "file": "sakiko-planning-apricot.png",
+      "file": "../../../运行素材/companion/scenes/sakiko-planning-apricot.png",
       "sha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11",
       "approvedForExtraction": true,
       "observed": "坐骨落真实椅面，转向桌面比较小本与纸，手腕与桌面支承可见，双膝踝鞋独立连续；后续study须保持真正前倾共读的区别。",
@@ -77,7 +77,7 @@
     },
     {
       "activity": "listening",
-      "file": "sakiko-listening-apricot-mother.png",
+      "file": "../../../运行素材/companion/scenes/sakiko-listening-apricot-mother.png",
       "sha256": "a35aaa3549a04cf9f6fa7e478224f53afdcbfd1f133f6570a643191916189bb1",
       "approvedForExtraction": true,
       "observed": "放松抱膝、双臂轻搭膝，袜脚由坐垫支承，身体朝说话者；膝踝脚与手可辨。脱下的两只便鞋应留原地房间层，不能被人物层一起拖走。",
@@ -87,7 +87,7 @@
     },
     {
       "activity": "rest",
-      "file": "sakiko-rest-apricot-mother.png",
+      "file": "../../../运行素材/companion/scenes/sakiko-rest-apricot-mother.png",
       "sha256": "ffdf5ac11d9d25da5347120dd7b5f19bf68a6211c991c373e1c6d2f623cebfbf",
       "approvedForExtraction": true,
       "observed": "躯干肩背与目光真正转向湖窗，手闲放、髋由窗榻承托，双腿踝鞋完整；属于离开交流视线的休息，不是换杯子的正面闲聊。",

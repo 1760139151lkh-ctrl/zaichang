@@ -1,0 +1,10 @@
+{
+  "mother": "soyo-attention-apricot-mother-candidate-v1.png",
+  "motherSha256": "c854bfeb6cc56482357a1fbf64ba020b6e42a52cdbe6240157ac89466852784e",
+  "sourceAlpha": "soyo-attention-apricot-figure-calibrated-v7.png",
+  "sourceAlphaSha256": "840053339e439e2d1cf9ed2f27c48879817e214bc48e9015e9f36a6caba05749",
+  "minimumVisibleAlpha": 12,
+  "removeIslandsSmallerThan": 4,
+  "output": "soyo-attention-apricot-alpha-clean-v8.png",
+  "record": "soyo-attention-apricot-alpha-clean-source-v8.json"
+}

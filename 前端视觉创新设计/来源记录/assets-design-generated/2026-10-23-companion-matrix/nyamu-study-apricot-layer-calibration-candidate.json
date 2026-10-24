@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "mother": "nyamu-study-apricot-mother-candidate-v1.png",
+  "motherPrimaryRecord": "primary-other-mother-reviews.json",
+  "coordinateSystem": "same original full1536x1024",
+  "seatPixels": [
+    886,
+    574
+  ],
+  "groundPixels": [
+    1028,
+    703
+  ],
+  "additionalSupportPixels": {
+    "writingForearmTable": [
+      945,
+      489
+    ]
+  },
+  "support": "desk-chair",
+  "travelPixelsEachDirection": 0,
+  "slope": 0,
+  "perspective": 0,
+  "reason": "Original chair back/seat/frontleg and desk/forearm bind this fixed pose; full original far heel/forefoot fragments stay on opposite sides of real chair occlusion, not invented into a complete visible shin.",
+  "backgroundChoice": {
+    "file": "nyamu-study-apricot-background-candidate-v1.png",
+    "reason": "Complete matching same-mother plate removes old wall/leg cast shadows, keeps actual chair orientation and desk paper."
+  },
+  "scene": "nyamu-study-apricot.scene.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

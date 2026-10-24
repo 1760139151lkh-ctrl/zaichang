@@ -2,7 +2,7 @@
   "recordType": "deterministic-scene-layer-production",
   "parameters": "taki-chat-apricot-layer-parameters-v8.json",
   "processor": "extract-scene-layers.py",
-  "processorSha256": "4d4ba6a4a9d6e08d040ef33c9678acb7bb039f6afe2fbce02261c4c818083816",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
   "dependencies": {
     "Pillow": "12.2.0",
     "NumPy": "2.4.6",
@@ -154,6 +154,7 @@
         ]
       ]
     ],
+    "originalPixelPreservePolygons": [],
     "changedPixels": 83234,
     "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
   },

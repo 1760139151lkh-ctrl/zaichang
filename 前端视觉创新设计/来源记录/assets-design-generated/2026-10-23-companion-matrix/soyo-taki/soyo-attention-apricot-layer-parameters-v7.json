@@ -1,0 +1,203 @@
+{
+  "mother": "soyo-attention-apricot-mother-candidate-v1.png",
+  "motherSha256": "c854bfeb6cc56482357a1fbf64ba020b6e42a52cdbe6240157ac89466852784e",
+  "matte": "soyo-attention-apricot-alpha-clean-v7.png",
+  "alphaSource": "luminance",
+  "alphaLow": 3,
+  "alphaHigh": 252,
+  "figure": "soyo-attention-apricot-figure-calibrated-v7.png",
+  "mask": "soyo-attention-apricot-mask-calibrated-v7.png",
+  "backgroundCandidate": "soyo-attention-apricot-background-candidate-v1.png",
+  "background": "soyo-attention-apricot-background-calibrated-v7.png",
+  "backgroundExpandPixels": 4,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1242,
+        267
+      ],
+      [
+        1316,
+        266
+      ],
+      [
+        1368,
+        298
+      ],
+      [
+        1402,
+        371
+      ],
+      [
+        1425,
+        440
+      ],
+      [
+        1419,
+        502
+      ],
+      [
+        1418,
+        549
+      ],
+      [
+        1452,
+        572
+      ],
+      [
+        1442,
+        589
+      ],
+      [
+        1382,
+        581
+      ],
+      [
+        1367,
+        608
+      ],
+      [
+        1307,
+        623
+      ],
+      [
+        1278,
+        644
+      ],
+      [
+        1275,
+        713
+      ],
+      [
+        1286,
+        748
+      ],
+      [
+        1269,
+        776
+      ],
+      [
+        1220,
+        777
+      ],
+      [
+        1203,
+        760
+      ],
+      [
+        1199,
+        731
+      ],
+      [
+        1175,
+        765
+      ],
+      [
+        1135,
+        772
+      ],
+      [
+        1128,
+        749
+      ],
+      [
+        1158,
+        711
+      ],
+      [
+        1166,
+        632
+      ],
+      [
+        1172,
+        584
+      ],
+      [
+        1191,
+        552
+      ],
+      [
+        1221,
+        530
+      ],
+      [
+        1245,
+        490
+      ],
+      [
+        1238,
+        455
+      ],
+      [
+        1234,
+        401
+      ],
+      [
+        1226,
+        363
+      ]
+    ],
+    [
+      [
+        1120,
+        710
+      ],
+      [
+        1305,
+        710
+      ],
+      [
+        1305,
+        795
+      ],
+      [
+        1120,
+        795
+      ]
+    ]
+  ],
+  "shadow": "soyo-attention-apricot-shadow-calibrated-v7.png",
+  "contactShadowPolygons": [
+    [
+      [
+        1160,
+        540
+      ],
+      [
+        1455,
+        540
+      ],
+      [
+        1455,
+        635
+      ],
+      [
+        1160,
+        635
+      ]
+    ],
+    [
+      [
+        1120,
+        710
+      ],
+      [
+        1290,
+        710
+      ],
+      [
+        1290,
+        790
+      ],
+      [
+        1120,
+        790
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "record": "soyo-attention-apricot-layer-processing-v7.json",
+  "excludePolygons": []
+}

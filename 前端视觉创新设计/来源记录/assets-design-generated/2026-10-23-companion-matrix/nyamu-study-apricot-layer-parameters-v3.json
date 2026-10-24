@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "mother": "nyamu-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "5a8e11981cd588f7274b848cf661b2eee415a6a63103cea342d8d660c9409579",
+  "matte": "nyamu-study-apricot-mask-calibrated-v2.png",
+  "matteSha256": "9a25947ef809d86eb087e3d63fe7788fca4355b471ef2336dc1b8cd4e85adeb8",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "nyamu-study-apricot-figure-calibrated-v3.png",
+  "mask": "nyamu-study-apricot-mask-calibrated-v3.png",
+  "backgroundCandidate": "nyamu-study-apricot-background-candidate-v1.png",
+  "background": "nyamu-study-apricot-background-calibrated-v3.png",
+  "shadow": "nyamu-study-apricot-shadow-calibrated-v3.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        929,
+        678
+      ],
+      [
+        1057,
+        678
+      ],
+      [
+        1062,
+        716
+      ],
+      [
+        927,
+        716
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        932,
+        685
+      ],
+      [
+        982,
+        683
+      ],
+      [
+        987,
+        704
+      ],
+      [
+        929,
+        706
+      ]
+    ],
+    [
+      [
+        990,
+        689
+      ],
+      [
+        1054,
+        686
+      ],
+      [
+        1058,
+        711
+      ],
+      [
+        988,
+        714
+      ]
+    ],
+    [
+      [
+        845,
+        558
+      ],
+      [
+        941,
+        556
+      ],
+      [
+        946,
+        579
+      ],
+      [
+        846,
+        581
+      ]
+    ],
+    [
+      [
+        927,
+        476
+      ],
+      [
+        991,
+        470
+      ],
+      [
+        998,
+        494
+      ],
+      [
+        933,
+        499
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [],
+  "includePolygons": [],
+  "alphaPolygonRepairs": [],
+  "record": "nyamu-study-apricot-layer-processing-v3.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "Body originalRGB alpha refinement kept correct shoulder/ankle straps and removed chair-leg intrusion; far shoe naturally split by original chair foreground, no hidden-body paint. Original pencil shaft restored from registered raw alpha only in the actual source ROI. Fine bob retained. SourceRGB entire payload unchanged; selected final BG will be complete same-mother matching plate to avoid old wall/leg cast-shadow ghosts left by partial replacement.",
+  "matteRegionOverrides": [
+    {
+      "file": "nyamu-study-apricot-mask-calibrated-v1.png",
+      "sha256": "31b24257d7c02498cfaa9a5299f43cd93e851a93fbce8c1f147cda8923cb163b",
+      "alphaSource": "alpha",
+      "region": [
+        971,
+        450,
+        982,
+        473
+      ]
+    }
+  ]
+}

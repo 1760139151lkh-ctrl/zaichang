@@ -1,0 +1,131 @@
+{
+  "mother": "soyo-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4",
+  "baseAlpha": "soyo-listening-apricot-mask-calibrated-v5.png",
+  "completeHeadAlpha": "soyo-listening-apricot-mask-calibrated-v4.png",
+  "headRegion": [
+    1255,
+    270,
+    1377,
+    380
+  ],
+  "hairRegion": [
+    1360,
+    380,
+    1428,
+    475
+  ],
+  "hairRightRows": [
+    [
+      380,
+      1368
+    ],
+    [
+      390,
+      1379
+    ],
+    [
+      400,
+      1390
+    ],
+    [
+      410,
+      1400
+    ],
+    [
+      420,
+      1407
+    ],
+    [
+      430,
+      1407
+    ],
+    [
+      438,
+      1403
+    ],
+    [
+      445,
+      1396
+    ],
+    [
+      452,
+      1392
+    ],
+    [
+      460,
+      1393
+    ],
+    [
+      468,
+      1397
+    ],
+    [
+      475,
+      1398
+    ]
+  ],
+  "observedWispPath": [
+    [
+      1368,
+      366
+    ],
+    [
+      1372,
+      371
+    ],
+    [
+      1380,
+      378
+    ],
+    [
+      1388,
+      385
+    ],
+    [
+      1395,
+      394
+    ],
+    [
+      1402,
+      404
+    ],
+    [
+      1408,
+      414
+    ],
+    [
+      1414,
+      426
+    ],
+    [
+      1418,
+      438
+    ],
+    [
+      1419,
+      447
+    ],
+    [
+      1417,
+      454
+    ],
+    [
+      1412,
+      459
+    ],
+    [
+      1405,
+      463
+    ],
+    [
+      1398,
+      462
+    ]
+  ],
+  "wispWidth": 1.2,
+  "edgeWidth": 1.2,
+  "supersampling": 4,
+  "output": "soyo-listening-apricot-alpha-refined-v6.png",
+  "record": "soyo-listening-apricot-alpha-refinement-v6.json"
+}

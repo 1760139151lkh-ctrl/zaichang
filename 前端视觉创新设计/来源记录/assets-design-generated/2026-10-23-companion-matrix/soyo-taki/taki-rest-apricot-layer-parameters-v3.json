@@ -1,0 +1,189 @@
+{
+  "mother": "taki-rest-apricot-mother-candidate-v1.png",
+  "motherSha256": "c946307e511b2a1f60652c04ec44e00a4a6d4c23ad3ded44043587f708983ee4",
+  "matte": "taki-rest-apricot-alpha-calibrated-v2.png",
+  "alphaSource": "luminance",
+  "alphaLow": 3,
+  "alphaHigh": 252,
+  "figure": "taki-rest-apricot-figure-calibrated-v2.png",
+  "mask": "taki-rest-apricot-mask-calibrated-v2.png",
+  "backgroundCandidate": "taki-rest-apricot-background-candidate-v1.png",
+  "background": "taki-rest-apricot-background-calibrated-v3.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1.2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1270,
+        275
+      ],
+      [
+        1350,
+        275
+      ],
+      [
+        1390,
+        331
+      ],
+      [
+        1417,
+        422
+      ],
+      [
+        1413,
+        501
+      ],
+      [
+        1380,
+        533
+      ],
+      [
+        1390,
+        585
+      ],
+      [
+        1348,
+        598
+      ],
+      [
+        1230,
+        592
+      ],
+      [
+        1205,
+        630
+      ],
+      [
+        1180,
+        700
+      ],
+      [
+        1187,
+        742
+      ],
+      [
+        1105,
+        752
+      ],
+      [
+        1060,
+        738
+      ],
+      [
+        1065,
+        713
+      ],
+      [
+        1088,
+        697
+      ],
+      [
+        1120,
+        638
+      ],
+      [
+        1150,
+        577
+      ],
+      [
+        1177,
+        541
+      ],
+      [
+        1210,
+        523
+      ],
+      [
+        1241,
+        500
+      ],
+      [
+        1268,
+        440
+      ],
+      [
+        1261,
+        368
+      ]
+    ],
+    [
+      [
+        1055,
+        690
+      ],
+      [
+        1245,
+        690
+      ],
+      [
+        1245,
+        785
+      ],
+      [
+        1055,
+        785
+      ]
+    ],
+    [
+      [
+        1070,
+        570
+      ],
+      [
+        1370,
+        570
+      ],
+      [
+        1370,
+        785
+      ],
+      [
+        1070,
+        785
+      ]
+    ]
+  ],
+  "backgroundPreservePolygons": [],
+  "shadow": "taki-rest-apricot-shadow-calibrated-v3.png",
+  "contactShadowPolygons": [
+    [
+      [
+        1160,
+        530
+      ],
+      [
+        1405,
+        530
+      ],
+      [
+        1405,
+        605
+      ],
+      [
+        1160,
+        605
+      ]
+    ],
+    [
+      [
+        1055,
+        690
+      ],
+      [
+        1205,
+        690
+      ],
+      [
+        1205,
+        755
+      ],
+      [
+        1055,
+        755
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "record": "taki-rest-apricot-layer-processing-v3.json"
+}

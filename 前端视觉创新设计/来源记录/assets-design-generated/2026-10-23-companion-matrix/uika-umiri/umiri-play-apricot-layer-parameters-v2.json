@@ -1,0 +1,141 @@
+{
+  "mother": "umiri-play-apricot-mother-candidate-v2.png",
+  "motherSha256": "98fd4ab74541817c22b5c54ae0f277a270acf4ca3915acdb7bad94712136e6dd",
+  "matte": "umiri-play-apricot-figure-calibrated-v1.png",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "umiri-play-apricot-figure-calibrated-v2.png",
+  "mask": "umiri-play-apricot-mask-calibrated-v2.png",
+  "backgroundCandidate": "umiri-play-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 1.2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1125,
+        565
+      ],
+      [
+        1395,
+        565
+      ],
+      [
+        1395,
+        720
+      ],
+      [
+        1110,
+        812
+      ]
+    ],
+    [
+      [
+        1110,
+        735
+      ],
+      [
+        1340,
+        735
+      ],
+      [
+        1340,
+        815
+      ],
+      [
+        1110,
+        815
+      ]
+    ]
+  ],
+  "background": "umiri-play-apricot-background-calibrated-v2.png",
+  "contactShadowPolygons": [
+    [
+      [
+        1125,
+        741
+      ],
+      [
+        1225,
+        741
+      ],
+      [
+        1225,
+        802
+      ],
+      [
+        1125,
+        802
+      ]
+    ],
+    [
+      [
+        1240,
+        747
+      ],
+      [
+        1325,
+        747
+      ],
+      [
+        1325,
+        808
+      ],
+      [
+        1240,
+        808
+      ]
+    ],
+    [
+      [
+        1255,
+        552
+      ],
+      [
+        1410,
+        552
+      ],
+      [
+        1410,
+        612
+      ],
+      [
+        1255,
+        612
+      ]
+    ]
+  ],
+  "contactShadowEdgePixels": 3,
+  "contactShadowFeatherPixels": 0.7,
+  "shadow": "umiri-play-apricot-shadow-calibrated-v2.png",
+  "record": "umiri-play-apricot-layer-processing-v2.json",
+  "reviewNote": "v2 preserves all already inspected v1 figure alpha except the actual triangular source-window gap inside the plucking elbow/bass/torso. A subpixel source-coordinate subtract polygon clears only that observed background, no body RGB repaint or anatomy completion. Other contours/props/support unchanged; primary/runtime pending.",
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1201,
+        449,
+        1228,
+        473
+      ],
+      "polygon": [
+        [
+          1204.5,
+          467.3
+        ],
+        [
+          1223.0,
+          452.5
+        ],
+        [
+          1225.2,
+          468.4
+        ]
+      ],
+      "mode": "subtract",
+      "featherPixels": 0.15
+    }
+  ]
+}

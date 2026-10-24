@@ -832,12 +832,6 @@ h3 {
   color: #cbcdcc;
   border-color: #5d615f;
 }
-.action-caption {
-  display: block;
-  margin-top: 12px;
-  font-size: 9px;
-  color: #9b9f9d;
-}
 .action-edit {
   margin-top: 15px;
   display: grid;
@@ -1561,9 +1555,6 @@ h3 {
 .action-card h3 {
   color: #e1eae5;
 }
-.action-caption {
-  color: #929d98;
-}
 .action-buttons {
   margin-top: 22px;
 }
@@ -1765,7 +1756,6 @@ summary:active {
   .action-eyebrow { color: #6a6b6c !important; }
   .action-card h3 { color: #27343e !important; }
   .action-card > p, .action-time { color: #676869 !important; }
-  .action-caption { color: #737475 !important; }
   .action-card .primary-button { background: #dedfdf; border-color: #c0c1c1; color: #3b3c3d; }
   .action-card .text-button { color: #626364 !important; }
   .saved-action { background: #eeeeed; border-color: #c3c4c4; }
@@ -1841,7 +1831,6 @@ summary:active {
   .action-eyebrow { color: #b0b2b3 !important; }
   .action-card h3, .saved-action strong { color: #e1e2e3 !important; }
   .action-card > p, .action-time, .saved-action small { color: #b4b6b7 !important; }
-  .action-caption { color: #9fa1a2 !important; }
   .action-card .primary-button { background: #d8d9da !important; border-color: #b8babc !important; color: #303234 !important; }
   .action-card .text-button, .saved-action > button { color: #b9bbbc !important; }
   .composer:focus-within { border-color: #85898c !important; box-shadow: 0 0 0 3px #85898c22 !important; }
@@ -1870,7 +1859,7 @@ summary:active {
   .model-button, .model-button:hover { color: #5d6062 !important; }
   .panel-tabs button, .panel-intro, .subtle-button, .suggestions button { color: #5d6062 !important; }
   .action-card, .saved-action { background: #eef0ef !important; border-color: #c3c5c4 !important; color: #303234 !important; }
-  .action-eyebrow, .action-card > p, .action-time, .action-caption, .saved-action small { color: #676a6c !important; }
+  .action-eyebrow, .action-card > p, .action-time, .saved-action small { color: #676a6c !important; }
   .action-card h3, .saved-action strong { color: #303234 !important; }
   .action-card .primary-button { background: #dedfdf !important; border-color: #bfc1c1 !important; color: #343638 !important; }
   .action-card .text-button, .saved-action > button { color: #5d6062 !important; }

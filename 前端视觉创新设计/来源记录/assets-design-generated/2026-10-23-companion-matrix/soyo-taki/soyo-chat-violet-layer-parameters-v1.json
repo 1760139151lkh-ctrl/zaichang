@@ -1,0 +1,110 @@
+{
+  "mother": "soyo-chat-violet-mother-candidate-v1.png",
+  "motherSha256": "444153ca5735202cb0b228f9647cff2578f02c3391070e3c0e3876588f86e8e4",
+  "matte": "soyo-chat-apricot-mask-calibrated-v2.png",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1160,
+      270,
+      1405,
+      450
+    ],
+    "seedThreshold": 80,
+    "uncertainBandPixels": 3,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.35
+  },
+  "backgroundCandidate": "soyo-chat-violet-background-generated-v1.png",
+  "background": "soyo-chat-violet-background-calibrated-v1.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1157,
+        741
+      ],
+      [
+        1284,
+        741
+      ],
+      [
+        1301,
+        794
+      ],
+      [
+        1163,
+        794
+      ]
+    ],
+    [
+      [
+        1165,
+        576
+      ],
+      [
+        1385,
+        576
+      ],
+      [
+        1385,
+        622
+      ],
+      [
+        1165,
+        622
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1167,
+        744
+      ],
+      [
+        1291,
+        744
+      ],
+      [
+        1300,
+        791
+      ],
+      [
+        1162,
+        791
+      ]
+    ],
+    [
+      [
+        1170,
+        570
+      ],
+      [
+        1384,
+        570
+      ],
+      [
+        1384,
+        622
+      ],
+      [
+        1170,
+        622
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "soyo-chat-violet-shadow-calibrated-v1.png",
+  "figure": "soyo-chat-violet-figure-calibrated-v1.png",
+  "mask": "soyo-chat-violet-mask-calibrated-v1.png",
+  "record": "soyo-chat-violet-layer-processing-v1.json",
+  "reviewNote": "Own primary-reviewed full themed mother supplies every RGB pixel. Warm same-pose soft alpha is only an explicit initialization; own head RGB refines local edge and matching new background/shadow are independent. No RGB/pose/body redraw or independent resize. Primary layer and actual Stage remain pending.",
+  "excludeWarmRoomRegions": []
+}

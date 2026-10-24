@@ -443,11 +443,19 @@
     ],
     [
       1121,
-      693
+      694
+    ],
+    [
+      1116,
+      692
+    ],
+    [
+      1119,
+      690
     ],
     [
       1118,
-      686
+      685
     ],
     [
       1120,
@@ -458,8 +466,16 @@
       651
     ],
     [
-      1169,
-      627
+      1184,
+      611
+    ],
+    [
+      1188,
+      605
+    ],
+    [
+      1184,
+      599
     ],
     [
       1185,
@@ -482,6 +498,26 @@
       574
     ],
     [
+      1202,
+      586
+    ],
+    [
+      1203,
+      588
+    ],
+    [
+      1201,
+      589
+    ],
+    [
+      1197,
+      600
+    ],
+    [
+      1199,
+      601
+    ],
+    [
       1196,
       603
     ],
@@ -490,20 +526,24 @@
       605
     ],
     [
-      1181,
-      647
+      1185,
+      637
     ],
     [
       1166,
       678
     ],
     [
-      1160,
-      687
+      1161,
+      686
     ],
     [
-      1154,
-      687
+      1152,
+      693
+    ],
+    [
+      1144,
+      702
     ],
     [
       1143,
@@ -566,80 +606,32 @@
       712
     ],
     [
-      1171,
-      712
-    ],
-    [
       1170,
-      710
+      711
     ],
     [
       1171,
+      706
+    ],
+    [
+      1180,
       705
     ],
     [
-      1179,
-      694
-    ],
-    [
-      1178,
-      691
-    ],
-    [
-      1182,
-      683
-    ],
-    [
-      1181,
-      678
-    ],
-    [
-      1184,
-      678
-    ],
-    [
-      1183,
-      677
+      1180,
+      696
     ],
     [
       1185,
-      676
+      684
     ],
     [
-      1183,
-      673
+      1220,
+      634
     ],
     [
-      1186,
-      671
-    ],
-    [
-      1185,
-      666
-    ],
-    [
-      1190,
-      659
-    ],
-    [
-      1193,
-      660
-    ],
-    [
-      1192,
-      654
-    ],
-    [
-      1214,
-      617
-    ],
-    [
-      1226,
-      623
-    ],
-    [
-      1228,
-      619
+      1227,
+      620
     ],
     [
       1231,
@@ -901,12 +893,12 @@
   "travelPixelsEachSide": 0,
   "slope": 0,
   "perspective": 0,
-  "observedSupportAndLimits": "True source diagonal-left knees/ankles/shoes and reclined upper back against the existing blue pillow. Held open book/pages, both supporting hands and all visible legs remain body-owned; static desk book and blue/floral support pillows are BG. Travel0 preserves real back/pillow pressure plus two floor shoe contacts and lap-held book support; no separate pose scale or imagined new support. Earliest displaced generated masks were rejected and never used. Original RGB retained; alpha comes from original-position RGB/BG trimap plus recorded source-page/skin/navy and exact room/hair-hole corrections. Full original hair envelope cleared in matching BG so no old hair ghost remains. Main lit hair core and real outer hair arc preserved to the inspected source extent; primary must independently judge any finest strand/edge differences. No runtime or animation acceptance implied.",
+  "observedSupportAndLimits": "True source diagonal-left knees/ankles/shoes and reclined upper back against the existing blue pillow. Held open book/pages, both supporting hands and all visible legs remain body-owned; static desk book and blue/floral support pillows are BG. Travel0 preserves real back/pillow pressure plus two floor shoe contacts and lap-held book support; no separate pose scale or imagined new support. Earliest displaced generated masks were rejected and never used. Original RGB retained; alpha comes from original-position RGB/BG trimap plus recorded source-page/skin/navy and exact room/hair-hole corrections. Full original hair envelope cleared in matching BG so no old hair ghost remains. Main lit hair core and real outer hair arc preserved to the inspected source extent; primary must independently judge any finest strand/edge differences. No runtime or animation acceptance implied. Parent final v12 alpha-only shin/gap repair removes v7 flakes without painting or changing geometry. Original near/far sock border inspected at 6x; fixed support parameters unchanged. Primary/runtime remain pending.",
   "sourceRgbProof": {
     "motherRgbSha256": "01ebffb988cfd85a93ba2a0e5171e15d7b3347bde7ad87264ed6aaec4801f41f",
     "figureRgbSha256": "01ebffb988cfd85a93ba2a0e5171e15d7b3347bde7ad87264ed6aaec4801f41f"
   },
-  "production": "mutsumi-reading-apricot-layer-processing-v7.json",
+  "production": "mutsumi-reading-apricot-layer-processing-v12.json",
   "review": {
     "primary": "pending; producer cannot approve",
     "runtime": "pending; not registered or exercised"
@@ -958,9 +950,14 @@
       "parameters": "mutsumi-reading-apricot-alpha-repair-parameters-v6.json"
     },
     {
+      "script": "mutsumi-observed-alpha-repairs.py",
+      "scriptSha256": "cbc919e11e9e658ab6561fd4bcf346b14d25cab66e569428baca52f5bf70ff83",
+      "parameters": "mutsumi-reading-apricot-alpha-repair-parameters-v12.json"
+    },
+    {
       "script": "extract-scene-layers.py",
-      "scriptSha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f",
-      "parameters": "mutsumi-reading-apricot-layer-parameters-v7.json"
+      "scriptSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+      "parameters": "mutsumi-reading-apricot-layer-parameters-v12.json"
     }
   ]
 }

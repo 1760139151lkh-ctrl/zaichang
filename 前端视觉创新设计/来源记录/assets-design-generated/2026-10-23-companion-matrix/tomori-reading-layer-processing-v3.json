@@ -1,0 +1,145 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "tomori-reading-layer-parameters-v3.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "tomori-reading-apricot-mother.png",
+  "motherSha256": "e86706be55da3cc2a2072327f6e9543d867b06149d45fc8ca2bb275163b6fa36",
+  "matte": "tomori-reading-matte-registered-v3.png",
+  "matteSha256": "4c22243fd278fdab511501ae7364d493f20349b6721e44950d81fcf7e5ff2c23",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 2684,
+  "alphaNonzeroPixels": 50720,
+  "alphaBounds": [
+    1027,
+    324,
+    1430,
+    762
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "ec1cc3b4a46bd9a2c1a9dbbbccb44e33025bfa46f38e01f74e98d02333466ce0",
+  "figureRgbSha256": "ec1cc3b4a46bd9a2c1a9dbbbccb44e33025bfa46f38e01f74e98d02333466ce0",
+  "background": {
+    "candidate": "tomori-reading-background-generated-v1.png",
+    "candidateSha256": "df32a873ac477a30e1be1e9e376f6f43c9b7a8c3c87b9bbd7eb0ddf471253a9f",
+    "expandPixels": 10,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          1020,
+          706
+        ],
+        [
+          1175,
+          706
+        ],
+        [
+          1175,
+          778
+        ],
+        [
+          1020,
+          778
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 83826,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1028,
+          722
+        ],
+        [
+          1072,
+          713
+        ],
+        [
+          1162,
+          738
+        ],
+        [
+          1168,
+          761
+        ],
+        [
+          1050,
+          765
+        ]
+      ],
+      [
+        [
+          1275,
+          573
+        ],
+        [
+          1427,
+          573
+        ],
+        [
+          1427,
+          598
+        ],
+        [
+          1275,
+          598
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "tomori-reading-figure-calibrated-v3.png",
+      "bytes": 2443890,
+      "sha256": "3c87cd60cd9b98ef3aeb6a06e12abd3d0f22f16310c54e463a664a70d66a38b2"
+    },
+    {
+      "file": "tomori-reading-mask-calibrated-v3.png",
+      "bytes": 19411,
+      "sha256": "8cfb80426ae1988c24dbd55c6bc733826aa23acb95b0c67288ed8d923cda93a9"
+    },
+    {
+      "file": "tomori-reading-background-calibrated-v3.png",
+      "bytes": 2110379,
+      "sha256": "b01efe7327e961b9864be3221d600246413e6531280c55fdd1fd62f5fbe59456"
+    },
+    {
+      "file": "tomori-reading-shadow-calibrated-v3.png",
+      "bytes": 36554,
+      "sha256": "cdfb8501db907ac75eaac31014f93fd5b37b51d9a2ae78e9ac04887d8d0a045d"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

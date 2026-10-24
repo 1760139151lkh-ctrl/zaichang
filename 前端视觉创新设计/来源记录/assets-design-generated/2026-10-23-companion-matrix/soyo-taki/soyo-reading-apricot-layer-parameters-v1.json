@@ -1,0 +1,140 @@
+{
+  "mother": "soyo-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "68b71f572a6566147acf1bbe104cd05a1bc6e9194ea01039a3e40b785e60f23e",
+  "matte": "soyo-reading-apricot-alpha-original-v1.png",
+  "alphaSource": "luminance",
+  "alphaLow": 3,
+  "alphaHigh": 252,
+  "figure": "soyo-reading-apricot-figure-calibrated-v1.png",
+  "mask": "soyo-reading-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "soyo-reading-apricot-background-candidate-v1.png",
+  "background": "soyo-reading-apricot-background-calibrated-v1.png",
+  "backgroundExpandPixels": 4,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1270,
+        285
+      ],
+      [
+        1340,
+        282
+      ],
+      [
+        1390,
+        317
+      ],
+      [
+        1437,
+        393
+      ],
+      [
+        1452,
+        495
+      ],
+      [
+        1407,
+        588
+      ],
+      [
+        1310,
+        628
+      ],
+      [
+        1255,
+        633
+      ],
+      [
+        1225,
+        739
+      ],
+      [
+        1208,
+        771
+      ],
+      [
+        1105,
+        764
+      ],
+      [
+        1103,
+        726
+      ],
+      [
+        1136,
+        682
+      ],
+      [
+        1170,
+        604
+      ],
+      [
+        1181,
+        546
+      ],
+      [
+        1192,
+        518
+      ],
+      [
+        1190,
+        476
+      ],
+      [
+        1240,
+        481
+      ],
+      [
+        1260,
+        430
+      ],
+      [
+        1250,
+        350
+      ]
+    ]
+  ],
+  "shadow": "soyo-reading-apricot-shadow-calibrated-v1.png",
+  "contactShadowPolygons": [
+    [
+      [
+        1170,
+        548
+      ],
+      [
+        1440,
+        548
+      ],
+      [
+        1440,
+        634
+      ],
+      [
+        1170,
+        634
+      ]
+    ],
+    [
+      [
+        1095,
+        720
+      ],
+      [
+        1225,
+        720
+      ],
+      [
+        1225,
+        780
+      ],
+      [
+        1095,
+        780
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "record": "soyo-reading-apricot-layer-processing-v1.json"
+}

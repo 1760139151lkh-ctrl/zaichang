@@ -1,0 +1,219 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "mutsumi-listening-apricot-layer-parameters-v9.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "mutsumi-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+  "matte": "mutsumi-listening-apricot-source-alpha-v9.png",
+  "matteSha256": "c21a80db897c93a3282606a701a5d36d3f346c1238c8f73b56886eae6a61783e",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 449,
+  "alphaNonzeroPixels": 53233,
+  "alphaBounds": [
+    1158,
+    261,
+    1427,
+    762
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "94de588f855c7e1be52ec7f38813eb99d483574a88a20db4188bd4bdf9880569",
+  "figureRgbSha256": "94de588f855c7e1be52ec7f38813eb99d483574a88a20db4188bd4bdf9880569",
+  "background": {
+    "candidate": "mutsumi-listening-apricot-background-candidate-v1.png",
+    "candidateSha256": "2bfca815f9f834d6ef1796c00dc9acd4b39b73d155f9a0c052764388e971dad8",
+    "expandPixels": 6,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          1185,
+          585
+        ],
+        [
+          1260,
+          588
+        ],
+        [
+          1253,
+          712
+        ],
+        [
+          1230,
+          729
+        ],
+        [
+          1232,
+          775
+        ],
+        [
+          1146,
+          776
+        ]
+      ],
+      [
+        [
+          1215,
+          251
+        ],
+        [
+          1320,
+          250
+        ],
+        [
+          1370,
+          350
+        ],
+        [
+          1423,
+          420
+        ],
+        [
+          1445,
+          503
+        ],
+        [
+          1424,
+          552
+        ],
+        [
+          1395,
+          591
+        ],
+        [
+          1210,
+          590
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 93834,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1155,
+          557
+        ],
+        [
+          1220,
+          554
+        ],
+        [
+          1221,
+          584
+        ],
+        [
+          1156,
+          587
+        ]
+      ],
+      [
+        [
+          1374,
+          562
+        ],
+        [
+          1434,
+          562
+        ],
+        [
+          1435,
+          590
+        ],
+        [
+          1371,
+          589
+        ]
+      ],
+      [
+        [
+          1278,
+          566
+        ],
+        [
+          1377,
+          568
+        ],
+        [
+          1376,
+          593
+        ],
+        [
+          1275,
+          590
+        ]
+      ],
+      [
+        [
+          1150,
+          740
+        ],
+        [
+          1228,
+          734
+        ],
+        [
+          1232,
+          769
+        ],
+        [
+          1151,
+          774
+        ]
+      ]
+    ],
+    "featherPixels": 1,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "mutsumi-listening-apricot-figure-calibrated-v9.png",
+      "bytes": 2347981,
+      "sha256": "1749ef5c25390a7e848ad7ecb4eb5baab6e4db5e0b6897eb5f057d6627a21e5e"
+    },
+    {
+      "file": "mutsumi-listening-apricot-mask-calibrated-v9.png",
+      "bytes": 15416,
+      "sha256": "f0dd1f84c35c84f574a53009bb4714ec119b8fdf797c90fe016fa6348cae4ca6"
+    },
+    {
+      "file": "mutsumi-listening-apricot-background-calibrated-v9.png",
+      "bytes": 2026145,
+      "sha256": "9623189ba60f3a7cada9cddda545e6f2052c5d3e7eaf44253e0dd67d58b7cf2a"
+    },
+    {
+      "file": "mutsumi-listening-apricot-shadow-calibrated-v9.png",
+      "bytes": 42698,
+      "sha256": "5192bd9a13f09798bfaa72d393c0d244b64ee7a0b19f05f2758f85738114cfe2"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

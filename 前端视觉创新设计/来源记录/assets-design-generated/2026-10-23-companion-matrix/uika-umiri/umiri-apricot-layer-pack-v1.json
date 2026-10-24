@@ -1,0 +1,580 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-canvas-companion-layer-candidate-pack",
+  "character": "umiri",
+  "theme": "apricot",
+  "authority": "Candidate source assets only. Root must personally inspect exact files/prompts and original Stage before any primary/runtime admission. No renderer registration or acceptance is inferred from this pack.",
+  "items": [
+    {
+      "activity": "chat",
+      "scene": "umiri-chat-apricot.scene.json",
+      "parameters": "umiri-chat-apricot-layer-parameters-v2.json",
+      "processing": "umiri-chat-apricot-layer-processing-v2.json",
+      "mother": {
+        "file": "umiri-chat-apricot-mother-candidate-v2.png",
+        "sha256": "beb0028df130f510fce228bd127495d0375ecf8998c81a50137617e4482af8ee"
+      },
+      "motherRgbSha256": "ef17492980af32e0629a6e5e579e7e9f2c0f76c41d6465f9ac7554dc8539ba68",
+      "figureRgbSha256": "ef17492980af32e0629a6e5e579e7e9f2c0f76c41d6465f9ac7554dc8539ba68",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "umiri-chat-apricot-figure-calibrated-v2.png",
+          "sha256": "25669bb74c1f4d1231e1960388e4c5869bf67f51979c612959c4c8832ae5820f"
+        },
+        {
+          "layer": "mask",
+          "file": "umiri-chat-apricot-mask-calibrated-v2.png",
+          "sha256": "dab06363ee55d3bddea94202f0b27c9d1cc2bd9bd7577aad7e81980c9ef9df5c"
+        },
+        {
+          "layer": "background",
+          "file": "umiri-chat-apricot-background-calibrated-v2.png",
+          "sha256": "d9355b9f7cf379f81a50e679691db77b01e9ff9b948cdfa06dbf2ef876a36c8e"
+        },
+        {
+          "layer": "shadow",
+          "file": "umiri-chat-apricot-shadow-calibrated-v2.png",
+          "sha256": "b6c6c4dd77cc921c46685f3e2794f548d3b0becc0ec55a6ef958b98a39a4ba17"
+        }
+      ],
+      "actualCallSources": [
+        "umiri-chat-apricot-layer-source-v1.json",
+        "umiri-chat-apricot-layer-source.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "umiri-chat-apricot-background-generated-v2-prompt.txt",
+          "actualPromptSha256": "f16ea15a2e3f5156fb9c2bbb79a1608d58a3363f07ac9a32509f46c990bcd52f",
+          "part": "background",
+          "executionId": "exec-9df68df7-5041-482a-98c6-a50dd6fd69c0"
+        },
+        {
+          "file": "umiri-chat-apricot-mask-prompt.txt",
+          "actualPromptSha256": "5f591cd023e86c2e98e3b20916f21522010c76e3800a5096243dc5edcfce3187",
+          "part": "mask-v1",
+          "executionId": "exec-521885da-c52b-4d44-81d1-314b08b67df9"
+        },
+        {
+          "file": "umiri-chat-apricot-mask-v2-prompt.txt",
+          "actualPromptSha256": "e0c01bd14c23e57f80bec81bb6485b029445476870034a8827685c19adac73f3",
+          "part": "mask-v2",
+          "executionId": "exec-ef3b99a0-eca7-49d7-81d0-c4aacec1d37e"
+        },
+        {
+          "file": "umiri-chat-apricot-background-prompt.txt",
+          "actualPromptSha256": "e15c41fe7f80eacda6ac41829e7c748f346fad5a85c95f3fba8888ad542497c7",
+          "part": "background",
+          "executionId": "exec-a353141c-10c9-4651-b7ae-3b062905c0f7"
+        }
+      ],
+      "support": "desk-chair",
+      "travel": 0,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "study",
+      "scene": "umiri-study-apricot.scene.json",
+      "parameters": "umiri-study-apricot-layer-parameters-v5.json",
+      "processing": "umiri-study-apricot-layer-processing-v5.json",
+      "mother": {
+        "file": "umiri-study-apricot-mother-candidate-v1.png",
+        "sha256": "cb2b45dedddb45a558b4ed49ed28faadddd84aec01c4f10df25b0c9884d71847"
+      },
+      "motherRgbSha256": "5bed3d09f8493ba9c73de8e284f58f9611645ce19787a165ecd2bc3a7ea0c590",
+      "figureRgbSha256": "5bed3d09f8493ba9c73de8e284f58f9611645ce19787a165ecd2bc3a7ea0c590",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "umiri-study-apricot-figure-calibrated-v5.png",
+          "sha256": "2887a600b50ec87fd64607174c6ba0dd56f4d403a739a17515f9e61f209d9551"
+        },
+        {
+          "layer": "mask",
+          "file": "umiri-study-apricot-mask-calibrated-v5.png",
+          "sha256": "2557355b2ed3db5b86a18f2f68f5de1fb241cbb617ba40fd3cf8485f11952cb1"
+        },
+        {
+          "layer": "background",
+          "file": "umiri-study-apricot-background-calibrated-v5.png",
+          "sha256": "5fe0b861958649e6d77d6d6f8ee5ee5477775c6c0ef11782673f38539552844e"
+        },
+        {
+          "layer": "shadow",
+          "file": "umiri-study-apricot-shadow-calibrated-v5.png",
+          "sha256": "29f5eb8637316de56eaf9d4468a288de1775c5f949e153e42956c4fe9d0c1469"
+        }
+      ],
+      "actualCallSources": [
+        "umiri-study-apricot-layer-source.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "umiri-study-apricot-mask-prompt-submitted.txt",
+          "actualPromptSha256": "5ca96cf8d1dce84771abafb1cb3aa325f9596e63d380e735bdc353123af3d31d",
+          "part": "mask",
+          "executionId": "exec-23c2d853-ed10-4d18-a062-b2b6acc2946e"
+        },
+        {
+          "file": "umiri-study-apricot-background-prompt-submitted.txt",
+          "actualPromptSha256": "42999c4b6d914aa2545d24366ebc1560e9771ca5befe1444615b266b1270f787",
+          "part": "background",
+          "executionId": "exec-20396490-f5b2-40c0-84e1-f5152ea29b0c"
+        }
+      ],
+      "support": "desk-chair",
+      "travel": 0,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "reading",
+      "scene": "umiri-reading-apricot.scene.json",
+      "parameters": "umiri-reading-apricot-layer-parameters-v6.json",
+      "processing": "umiri-reading-apricot-layer-processing-v6.json",
+      "mother": {
+        "file": "umiri-reading-apricot-mother-candidate-v2.png",
+        "sha256": "5543b970656b878a7f7114429e3d1325c4aa64ba036eb998912831cd87cfa974"
+      },
+      "motherRgbSha256": "f38319fc84dc440cabdbd53e4d6f5457fcf68a2a09791d1c216ad821e5f7c065",
+      "figureRgbSha256": "f38319fc84dc440cabdbd53e4d6f5457fcf68a2a09791d1c216ad821e5f7c065",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "umiri-reading-apricot-figure-calibrated-v6.png",
+          "bytes": 2437284,
+          "sha256": "d16062a5af9a87e5c55a46ee40ba5c9a942c399f06d2e521543d2d182ed1f38c"
+        },
+        {
+          "layer": "mask",
+          "file": "umiri-reading-apricot-mask-calibrated-v6.png",
+          "bytes": 34167,
+          "sha256": "dc1ee296257b25d6094a174f3ffd04ad19b5a2fbfaf8bd8c87ab283cfae76d71"
+        },
+        {
+          "layer": "background",
+          "file": "umiri-reading-apricot-background-calibrated-v6.png",
+          "bytes": 2091644,
+          "sha256": "6ed5c3088463f083e35330390e8e798e2da026480949acd858182eda2930e0f4"
+        },
+        {
+          "layer": "shadow",
+          "file": "umiri-reading-apricot-shadow-candidate-v5.png",
+          "bytes": 29604,
+          "sha256": "3fb98c104fc4678109f48614b559314f9dd71d74d3435135483ba2f822858e08"
+        }
+      ],
+      "actualCallSources": [
+        "umiri-reading-apricot-layer-source.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "umiri-reading-apricot-mask-prompt-submitted.txt",
+          "actualPromptSha256": "774612d7386fe1b71e4c826290ab994671a407f72319c503af0cfb1f3894a71f",
+          "part": "mask-v1-rejected",
+          "executionId": "exec-fd1df714-c6b3-4a3e-8ac9-fd799b7927e5"
+        },
+        {
+          "file": "umiri-reading-apricot-background-prompt-submitted.txt",
+          "actualPromptSha256": "1836db04720fd02dbc6459f8f9e43749d55bfdc4c73f74960b9c3e94bd88453d",
+          "part": "background",
+          "executionId": "exec-9020dea6-d5d9-4887-85de-595a4c156501"
+        },
+        {
+          "file": "umiri-reading-apricot-mask-v2-prompt-submitted.txt",
+          "actualPromptSha256": "f5e3ccbfdcf4d1c986ee22ca7821659b2369f8309d8994f7a12530252e06f470",
+          "part": "mask-v2-candidate",
+          "executionId": "exec-54087c3d-8f00-4831-8cca-444e6b2abcf5"
+        }
+      ],
+      "support": "window-seat",
+      "travel": 0,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "selfReview": "Independently inspected full light/dark/room/empty and source-coordinate details. V6 removes one old knee-adjacent empty-background dark remnant. Figure/mask bytes remain v5; selected shadow explicitly remains original v5, with the real helper-recomputed v6 shadow recorded unused. No primary approval or runtime acceptance."
+    },
+    {
+      "activity": "planning",
+      "scene": "umiri-planning-apricot.scene.json",
+      "parameters": "umiri-planning-apricot-layer-parameters-v4.json",
+      "processing": "umiri-planning-apricot-layer-processing-v4.json",
+      "mother": {
+        "file": "umiri-planning-apricot-mother-candidate-v2.png",
+        "sha256": "78ca56bc6b2fff62341a26018251a84a62185ea6d614af14b2903ff323976f23"
+      },
+      "motherRgbSha256": "93db942158bb2c4ee2d7b38626347c21a937a3e3943f5ecdd36c3684167e71cb",
+      "figureRgbSha256": "93db942158bb2c4ee2d7b38626347c21a937a3e3943f5ecdd36c3684167e71cb",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "umiri-planning-apricot-figure-calibrated-v4.png",
+          "sha256": "5b4daffbd9cc2faca7ceba32ed23bcd978a36b29846c98fa5b4645ad858b57aa"
+        },
+        {
+          "layer": "mask",
+          "file": "umiri-planning-apricot-mask-calibrated-v4.png",
+          "sha256": "279d2ea1a0715af0415034f2c3b83146a593ad090b9d4e8dddcc545d1103e301"
+        },
+        {
+          "layer": "background",
+          "file": "umiri-planning-apricot-background-calibrated-v4.png",
+          "sha256": "f913aa5ab5b800aa2e86725f63571a8d966eedf078451807c797f8e6ffdf8725"
+        },
+        {
+          "layer": "shadow",
+          "file": "umiri-planning-apricot-shadow-candidate-v4.png",
+          "sha256": "3a59e2a43e052a143937cdbc2a96c685b81eb62153d94d78fc9c0622c538d339"
+        }
+      ],
+      "actualCallSources": [
+        "umiri-planning-apricot-layer-source.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "umiri-planning-apricot-mask-prompt.txt",
+          "actualPromptSha256": "4ab54903c251c7a1c8c0c666feaeb9a345ab1ec43079ad463ec968593663a6bf",
+          "part": "visible-only opaque segmentation mask",
+          "executionId": "exec-f4c8e5c0-134c-4180-af44-9fcaf654001b"
+        },
+        {
+          "file": "umiri-planning-apricot-background-prompt.txt",
+          "actualPromptSha256": "f7e91cf62c81cf5378e1fb84c68bbc87f7c4cf8d1c5fac9a251ba542eac69b8b",
+          "part": "same-mother matching clean background",
+          "executionId": "exec-4b09eff3-fcf2-4e01-b276-ef259363cffc"
+        },
+        {
+          "file": "umiri-planning-apricot-background-v2-prompt.txt",
+          "actualPromptSha256": "44cb30e74849320efc890359156d3b346d086faa22aeba445b92008e4ccddf8f",
+          "part": "same-mother matching clean background, remove extra-paper failure",
+          "executionId": "exec-88a3deab-446b-4450-86da-da78a411f3d7"
+        },
+        {
+          "file": "umiri-planning-apricot-background-v3-prompt.txt",
+          "actualPromptSha256": "77db89740a63c2e3f58163cd8d680f775dda440f9be901feb776a541e04dbbc4",
+          "part": "same-mother matching clean background, bare exposed desktop with no extra prop",
+          "executionId": "exec-08b68c25-b1c1-4cd9-a76a-76b7ed6610f6"
+        }
+      ],
+      "support": "desk-chair",
+      "travel": 0,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "listening",
+      "scene": "umiri-listening-apricot.scene.json",
+      "parameters": "umiri-listening-apricot-layer-parameters-v3.json",
+      "processing": "umiri-listening-apricot-layer-processing-v3.json",
+      "mother": {
+        "file": "umiri-listening-apricot-mother-candidate-v1.png",
+        "sha256": "14542cd757d285f6c2d89e98466e2e2bac75d2601aa0fe61d768996ae679b171"
+      },
+      "motherRgbSha256": "2382b080a179e029154c3c5e73fb346cd9b4826d3a060a43bd2b31751ccf18ae",
+      "figureRgbSha256": "2382b080a179e029154c3c5e73fb346cd9b4826d3a060a43bd2b31751ccf18ae",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "umiri-listening-apricot-figure-calibrated-v3.png",
+          "sha256": "383bd10f54818838255625203d66d4ebcac400ad52ef3d7221d4897024a1fe87"
+        },
+        {
+          "layer": "mask",
+          "file": "umiri-listening-apricot-mask-calibrated-v3.png",
+          "sha256": "6f5be0882e8d726e70d6e794b4ee35826435ffdb841cfe338c3de8464283b938"
+        },
+        {
+          "layer": "background",
+          "file": "umiri-listening-apricot-background-calibrated-v3.png",
+          "sha256": "53b170f49d7f9d8541d86b991afb3f5b5bdf12037677c5d6abc85a76e14dd6d0"
+        },
+        {
+          "layer": "shadow",
+          "file": "umiri-listening-apricot-shadow-calibrated-v3.png",
+          "sha256": "1c80f30e9286e93c1e1f2402e2766f34e613333e38edc92139bb09a17479f755"
+        }
+      ],
+      "actualCallSources": [
+        "umiri-listening-apricot-layer-source-v1.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "umiri-listening-apricot-background-generated-v1-prompt.txt",
+          "actualPromptSha256": null,
+          "part": "background",
+          "executionId": "exec-24faf511-97e8-45f3-84b8-a9fad469fc26"
+        },
+        {
+          "file": "umiri-listening-apricot-mask-generated-v1-prompt.txt",
+          "actualPromptSha256": null,
+          "part": "mask",
+          "executionId": "exec-5be599ba-522c-4ad5-8979-844be417dcfb"
+        }
+      ],
+      "support": "window-seat",
+      "travel": 0,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "rest",
+      "scene": "umiri-rest-apricot.scene.json",
+      "parameters": "umiri-rest-apricot-layer-parameters-v1.json",
+      "processing": "umiri-rest-apricot-layer-processing-v1.json",
+      "mother": {
+        "file": "umiri-rest-apricot-mother-candidate-v1.png",
+        "sha256": "6b87f182136d50c688a202a5ed0eee455644c859b4544b4e3481e7499d45c8e8"
+      },
+      "motherRgbSha256": "3345c4914d0fadc6d5bd3950be2928a512c7e8b21061122a7ce4273095ecfe63",
+      "figureRgbSha256": "3345c4914d0fadc6d5bd3950be2928a512c7e8b21061122a7ce4273095ecfe63",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "umiri-rest-apricot-figure-calibrated-v1.png",
+          "sha256": "c842c2595dbc264f9875c923c44025a20641908368f0473c52569a9af5b3470c"
+        },
+        {
+          "layer": "mask",
+          "file": "umiri-rest-apricot-mask-calibrated-v1.png",
+          "sha256": "a30f5ce68a06436667e18ab7e0f889516cb368b81c76bc6a983b3baa4bcb47a5"
+        },
+        {
+          "layer": "background",
+          "file": "umiri-rest-apricot-background-calibrated-v1.png",
+          "sha256": "e41167007ea22912224ea2df76ad32b9f2377045737ae466d57617fc833c84df"
+        },
+        {
+          "layer": "shadow",
+          "file": "umiri-rest-apricot-shadow-calibrated-v1.png",
+          "sha256": "b117fb223b868db6a2f9847774a6a0ad36f9b6b634c8612a46037145b3165b74"
+        }
+      ],
+      "actualCallSources": [
+        "umiri-rest-apricot-layer-source-v1.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "umiri-rest-apricot-background-generated-v1-prompt.txt",
+          "actualPromptSha256": null,
+          "part": "background",
+          "executionId": "exec-8ca5d944-6d28-4862-98ee-b2af75a3e969"
+        },
+        {
+          "file": "umiri-rest-apricot-mask-generated-v1-prompt.txt",
+          "actualPromptSha256": null,
+          "part": "mask",
+          "executionId": "exec-8e4c4f1b-a1a2-44d5-997d-e91eff5683d4"
+        },
+        {
+          "file": "umiri-rest-apricot-mask-generated-v2-prompt.txt",
+          "actualPromptSha256": "c443a7790c273980053443eaf9d9e71da29cb6bc4561365564f64ccc162e2d95",
+          "part": "mask",
+          "executionId": "exec-867a02e3-392a-4804-9480-7355d3dc3e2f"
+        }
+      ],
+      "support": "window-seat",
+      "travel": 0,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "play",
+      "scene": "umiri-play-apricot.scene.json",
+      "parameters": "umiri-play-apricot-layer-parameters-v2.json",
+      "processing": "umiri-play-apricot-layer-processing-v2.json",
+      "mother": {
+        "file": "umiri-play-apricot-mother-candidate-v2.png",
+        "sha256": "98fd4ab74541817c22b5c54ae0f277a270acf4ca3915acdb7bad94712136e6dd"
+      },
+      "motherRgbSha256": "220eed40cb666ae6542e26edfd3ab17e20144dfb8e89faf890c20003e4708c70",
+      "figureRgbSha256": "220eed40cb666ae6542e26edfd3ab17e20144dfb8e89faf890c20003e4708c70",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "umiri-play-apricot-figure-calibrated-v2.png",
+          "sha256": "7aade1ae94e36244296e05080057d19b1a149199a9b63ba47fead389c5545428"
+        },
+        {
+          "layer": "mask",
+          "file": "umiri-play-apricot-mask-calibrated-v2.png",
+          "sha256": "40f92df64df0dfaa6999c8e1491c7920acaa11cd61af917ef93f2a0b3ce77f95"
+        },
+        {
+          "layer": "background",
+          "file": "umiri-play-apricot-background-calibrated-v2.png",
+          "sha256": "e70f9f1981422843c27d9379a1d675c6c3925e12c764cb6ce05ebac79072ef18"
+        },
+        {
+          "layer": "shadow",
+          "file": "umiri-play-apricot-shadow-calibrated-v2.png",
+          "sha256": "deb064493ad39b8845b13698ec6770174c6c25ea35d767203c7290c7361257dc"
+        }
+      ],
+      "actualCallSources": [
+        "umiri-play-apricot-layer-source-v1.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "umiri-play-apricot-background-generated-v1-prompt.txt",
+          "actualPromptSha256": null,
+          "part": "background",
+          "executionId": "exec-020c6c56-d789-4bf1-927f-c53133ac0e5d"
+        },
+        {
+          "file": "umiri-play-apricot-mask-generated-v1-prompt.txt",
+          "actualPromptSha256": null,
+          "part": "mask",
+          "executionId": "exec-e98a3f55-56b4-4e9e-a1e8-daedd2fcd29b"
+        }
+      ],
+      "support": "window-seat",
+      "travel": 0.004,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background",
+        "source-coordinate static +/-6px composite endpoints; not a motion/runtime proof"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "attention",
+      "scene": "umiri-attention-apricot.scene.json",
+      "parameters": "umiri-attention-apricot-layer-parameters-v2.json",
+      "processing": "umiri-attention-apricot-layer-processing-v2.json",
+      "mother": {
+        "file": "umiri-attention-apricot-mother-candidate-v1.png",
+        "sha256": "2e2a24e6baeb00f8ca22fdb5e3e35a1f8e3e4c95541defe7008abf6e23602d81"
+      },
+      "motherRgbSha256": "8eb750e96df78117c13685624a9edf3e1bec9ee5abdb0279d68f7be00959d1fe",
+      "figureRgbSha256": "8eb750e96df78117c13685624a9edf3e1bec9ee5abdb0279d68f7be00959d1fe",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "umiri-attention-apricot-figure-calibrated-v2.png",
+          "sha256": "ea603fd0719c0f3b6f1d5574b93d67ca8ac3799dd6190405a86e0cd6982f949b"
+        },
+        {
+          "layer": "mask",
+          "file": "umiri-attention-apricot-mask-calibrated-v2.png",
+          "sha256": "839dc8245c85d4e120ae9f2705defbc12c7618e1884dcc07329f32c16d17b7c7"
+        },
+        {
+          "layer": "background",
+          "file": "umiri-attention-apricot-background-calibrated-v2.png",
+          "sha256": "7829494d118ad0e12fc4c5a8b997e3aa8b6d8e3eb91f1ad9da5529e5a847b697"
+        },
+        {
+          "layer": "shadow",
+          "file": "umiri-attention-apricot-shadow-calibrated-v2.png",
+          "sha256": "9591320a6601a60b6638c4ff273d5ae9eaa90704727d7986cd645e7ef55df1c5"
+        }
+      ],
+      "actualCallSources": [
+        "umiri-attention-apricot-layer-source-v1.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "umiri-attention-apricot-background-generated-v1-prompt.txt",
+          "actualPromptSha256": null,
+          "part": "background",
+          "executionId": "exec-9b9978bf-945e-4db6-a967-db7b72749473"
+        },
+        {
+          "file": "umiri-attention-apricot-mask-generated-v1-prompt.txt",
+          "actualPromptSha256": null,
+          "part": "mask",
+          "executionId": "exec-952a25e4-0cbe-4a8e-8a5f-85a231dac224"
+        },
+        {
+          "file": "umiri-attention-apricot-background-generated-v2-prompt.txt",
+          "actualPromptSha256": "165e3b0acb117d75f48741af691df04d539951388d8552e0dd018bed31604500",
+          "part": "background",
+          "executionId": "exec-90db83d6-efb4-419a-9b61-bbb9487d6cf2"
+        }
+      ],
+      "support": "desk-chair",
+      "travel": 0,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "rejectedOrSuperseded": "Keep actual call history in each source. Rest raw matte v1 misregistered; attention BGv1 added a beige book, BGv2 required original visible blue-book preservation. Chat BGv1 extra beige book replaced by fresh BGv2. Study old wall shadow cleared in v5; listening old missing sock/fringes restored in v3; play elbow window-gap cleaned in v2.",
+  "runtimeDirectoryCopied": false
+}

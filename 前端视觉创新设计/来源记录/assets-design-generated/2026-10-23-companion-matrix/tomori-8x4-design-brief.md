@@ -1,10 +1,10 @@
 # 高松灯：八活动、四主题的造型与演出判断
 
-本文件是设计规格与生产位置，不是图片验收或运行覆盖。遵循同目录《空间与矩阵契约.md》的八个活动与四个主题；不把页面分类另算活动。主代理已选择空房 v4，并亲审灯的 chat 与 study v3 完整母图及真实 Prompt，正式记录在 `primary-other-mother-reviews.json`。其余五张暖杏母图已取得图像阶段认可、真实 Prompt 尚待主审；listening v1 因身体演出与 chat 重复退回，v2 从唯一空房重生待审。chat 的晨雾、暮色与夜雨三张完整门样已经生成，采用合格暖母为唯一编辑目标、空主题板只供照明与光轴参考，等待主代理亲审后才扩其它槽。母图、分层准入与实际运行分别记录，不用旧 chat/night 或主题 fallback 填格。
+本文件是设计规格与生产位置，不是运行覆盖证明。遵循同目录《空间与矩阵契约.md》的八个活动与四个主题；不把页面分类另算活动。主代理已亲审灯的八张当前暖杏完整母图与真实 Prompt（study 用 v3、planning/listening 用 v2），也亲审 chat 的晨雾、暮色与夜雨三张门样；正式记录归 `primary-other-mother-reviews.json`。2026-10-24 继续完成其余二十一张主题候选，作者与本线负责人均逐张亲看，仍须 Root 逐张审图和真实 Prompt。每张主题只以对应合格暖母为人物/姿态编辑目标，以对应纯净空主题板提供整场照明与光轴参考；没有把错误候选输入后续调用。母图、分层准入与实际运行分别记录，不用旧 chat/night 或主题 fallback 填格。
 
 ## 亲读依据与边界
 
-2026-10-23 已亲读 MyGO!!!!! 与 Ave Mujica 官方页的完整角色介绍，并亲看各页实际 img src 对应的完整制服立绘，包含头发、双手、袜与鞋。web.open 两站返回503；普通公开HTTP GET两站均200，不能把替代取数成功说成 web.open 已恢复。官方图只在 Git 忽略的 .test-data/canon-reference 人工核对，不进入生成工具输入、运行资产或图库，也不上传。此设计只使用文字身份描述；待生产时唯一图像输入是主审通过的无人物空房。
+2026-10-23 已亲读 MyGO!!!!! 与 Ave Mujica 官方页的完整角色介绍，并亲看各页实际 img src 对应的完整制服立绘，包含头发、双手、袜与鞋。web.open 两站返回503；普通公开HTTP GET两站均200，不能把替代取数成功说成 web.open 已恢复。官方图只在 Git 忽略的 .test-data/canon-reference 人工核对，不进入生成工具输入、运行资产或图库，也不上传。首轮人物只从主审通过的无人物空房与文字身份生成；跨主题才以对应的合格完整暖母和空主题板编辑受光，不输入官方图或退回的人物母图。
 
 官方说明的事实：灯是羽丘女子学园一年级学生，喜欢收集自己喜欢的小物，石头与落叶是明确的例子；她的感受方式有自己的特点。[MyGO!!!!! 官方角色页](https://anime.bang-dream.com/mygo/character/tomori/) 另页说明她与爱音同班，在 MyGO!!!!! 担任主唱和作词，对理解他人的心意有困难。[Ave Mujica 官方角色页](https://anime.bang-dream.com/avemujica/character/tomori/)
 
@@ -29,12 +29,12 @@
 | 活动 | 髋与支承／躯干方向 | 视线与手部 | 与相邻活动的实质区别 |
 | --- | --- | --- | --- |
 | chat | 右窗榻前沿真实落座；髋稳定，身体朝用户轻转，肩背稍内收但不缩成一团；双脚在前方地面各有落点 | 从膝上的合起小本抬眼；一手松扶本边，一手自然留在座面，嘴角可以只有很轻的变化 | 是正在回到彼此的注意，不是展示小石头，也不是一直低头工作 |
-| study | 首版拟用主桌原椅，但生成两次移动了椅／桌，未计覆盖；v3 候选改在原窗榻上真实前倾，髋与双腿由原座面和地面支承 | 目光落在膝上硬本承托的同一行；一手扶纸，另一手沿一个差别停住，不替用户写出不存在的步骤 | 头肩下降、躯干前倾与明确的共同注视是主体；v3 仍须主代理对照 chat 判断，不能仅凭书打开就计 study |
+| study | 首版拟用主桌原椅，但生成两次移动了椅／桌，未计覆盖；主审通过的 v3 改在原窗榻上真实前倾，髋与双腿由原座面和地面支承 | 目光落在膝上硬本承托的同一行；一手扶纸，另一手沿一个差别停住，不替用户写出不存在的步骤 | 头肩下降、躯干前倾与明确的共同注视是主体，Root 已对照 chat 审完整母图；分层和实际演出仍另审 |
 | reading | 右窗榻更深的侧座，背部靠既有靠垫；脊柱较 study 放松，腿自然顺着窗榻前方落下 | 双手在膝上支承摊开的书，视线向左下的原文，不持续望用户；翻页动作幅度很小 | 后靠的重心与稳定低视线，区别 study 的桌边主动辨析，也区别 rest 的望窗 |
-| planning | v1 桌边站姿移动了桌椅，未计；v2 在窗榻前方地面站立，双脚承重并让原桌椅保持空位 | 左前臂支承硬本，视线比较两页；实际右手笔暂停在嘴边，未写入安排 | 与坐姿共读有不同支承和重心；v2 的前景尺度与实际思考手势仍待主审 |
-| listening | 髋比 chat 更靠座面内侧，重心沉下来、肩放低，胸口不主动迎出来；身体只朝说话者略倾，双脚自然前后错一点而不交叉 | 小本合上放在身侧；双手放低到膝前或轻搭在一起，认真看向说话方向；允许中性表情 | 把做事的手收下来，不凭一块新道具冒充倾听，也不强迫安慰式微笑 |
-| rest | 同一窗榻承重，髋不漂；躯干真正转向窗与湖景，呈侧背或三分之二侧面，一手自然扶座面保持平衡 | 视线在窗外，空闲的手松开；书合上放在原座面或桌上，不举给用户 | 不是只转眼珠的 chat；整个肩线与躯干都离开工作方向，不催促未完事项 |
-| play | 实际原型在窗榻前地面稳定半跪，一膝/小腿着地、另一鞋底着地；身体向自己手中小物内收并朝右 | 手掌托一枚石头，另一手轻转其边缘，目光随着形状移动；表情是发现一个具体差别的好奇 | 低位半跪与右向近距观察，区别左向坐姿共读；前景尺度和后侧膝—踝路径仍待主审 |
+| planning | v1 桌边站姿移动了桌椅，未计；主审通过的 v2 在窗榻前方地面站立，双脚承重并让原桌椅保持空位 | 左前臂支承硬本，视线比较两页；实际右手笔暂停在嘴边，未写入安排 | 与坐姿共读有不同支承和重心；v2 母图的前景尺度和思考手势已主审，固定地面层和演出另审 |
+| listening | 轻前倾／合手的 v1 与 chat 重复退回；主审通过的 v2 真正右斜靠垫，髋沉进座面内侧，双脚在前方自然错开而不交叉 | 左手低放膝前，右前臂伸开、掌留在原座面；书合上留在身侧，认真看向说话方向，表情中性自然 | 沉下的髋、右斜的整个躯干和低位支撑手形成安顿的身体关系，不靠换小物或强迫安慰式微笑 |
+| rest | 同一窗榻承重，髋不漂；躯干真正转向窗与湖景，呈侧背或三分之二侧面，右掌实际压在座面上的固定蓝书上 | 视线在窗外，另一手轻放膝边；不举书给用户，原掌与蓝书接触保留，候选行程为 0 | 整个肩线与躯干都离开工作方向，不催促未完事项；不让人物滑离这张固定书 |
+| play | 主审通过的原型在窗榻前地面稳定半跪，一膝/小腿着地、另一鞋底着地；身体向自己手中小物内收并朝右 | 手掌托一枚石头，另一手轻转其边缘，目光随着形状移动；表情是发现一个具体差别的好奇 | 低位半跪与右向近距观察，区别左向坐姿共读；Root 已亲核母图的前景尺度和后侧膝—踝路径，固定地面分层另审 |
 | attention | 髋与双脚仍稳定，身体侧让出左侧内容，再把前臂轻轻伸向同一张纸的边缘；不离座站起或突然扑向画面 | 眼睛先看新出现的小对象，一手递出薄书签或轻扶纸边；另一手继续支承身体 | 是一次有限的交接，手势打开；区别 play 的自足观察。反馈结束后退回当前活动，不循环招手、不抢焦点 |
 
 **主桌椅的难点必须在原型里解决。** v4 的椅子本来朝书桌／窗；不能为了“朝左”把头拧到背后或让臀部坐在椅背上。study/planning 要在真实可用座面上取可信斜侧姿，眼睛看桌面左角的纸；若当前椅面无法承载构图，应先报告并调整该空场景方案，不能在人物 alpha 上硬转、移动背景家具或用遮挡糊掉下肢。窗榻的 reading/rest/listening 也必须各自有真实靠垫或座面的接触关系。
@@ -56,18 +56,32 @@ play 必须看向手中石头的边、纹理或形状；身体围绕一个小而
 
 ## 32 格生产规格（母图与运行分开）
 
-表中每个 ID 都是未来独立母图的身份，不能回退到别角色、别活动或别主题填数。八种姿态先以 apricot 原型逐张亲审，再按主代理批准的次序扩照明；不能因为本表写满就宣称 32 张或 32 格已覆盖。
+表中每个 ID 都有独立完整母图和真实调用来源，不能回退到别角色、别活动或别主题填数。当前三十二张母图已经产出；其中二十一张新主题仍待 Root 主审，尚不代表三十二格已取得分层或运行验收。规划的晨雾/夜雨首版曾将被人物遮住的钟楼挪到别处，已明确退回；两张 v2 仅回正确暖母与空主题板重生，让原钟楼在原位置自然被头肩遮挡。
 
 | 活动 | apricot | mist | violet | rain |
 | --- | --- | --- | --- | --- |
-| chat | tomori-chat-apricot · 根已亲审母图与 Prompt；待分层/运行 | tomori-chat-mist · 完整门样已生成，待主审 | tomori-chat-violet · 完整门样已生成，待主审 | tomori-chat-rain · 完整门样已生成，待主审 |
-| study | tomori-study-apricot-v3 · 根已亲审母图；v1/v2 不计；待分层/运行 | tomori-study-mist · 待生产 | tomori-study-violet · 待生产 | tomori-study-rain · 待生产 |
-| reading | tomori-reading-apricot · 主代理图像认可，实际 Prompt 待审 | tomori-reading-mist · 待生产 | tomori-reading-violet · 待生产 | tomori-reading-rain · 待生产 |
-| planning | tomori-planning-apricot-v2 · 主代理图像认可，实际 Prompt 待审；v1 不计 | tomori-planning-mist · 待生产 | tomori-planning-violet · 待生产 | tomori-planning-rain · 待生产 |
-| listening | tomori-listening-apricot-v2 · 从唯一空房 v4 重生，原 v1 因活动重复退回；v2 待主审 | tomori-listening-mist · 待生产 | tomori-listening-violet · 待生产 | tomori-listening-rain · 待生产 |
-| rest | tomori-rest-apricot · 主代理图像认可，实际 Prompt 待审 | tomori-rest-mist · 待生产 | tomori-rest-violet · 待生产 | tomori-rest-rain · 待生产 |
-| play | tomori-play-apricot · 主代理图像认可，实际 Prompt 待审 | tomori-play-mist · 待生产 | tomori-play-violet · 待生产 | tomori-play-rain · 待生产 |
-| attention | tomori-attention-apricot · 主代理图像认可，实际 Prompt 待审 | tomori-attention-mist · 待生产 | tomori-attention-violet · 待生产 | tomori-attention-rain · 待生产 |
+| chat | tomori-chat-apricot · Root 母图/Prompt通过；暖层 v7 待主审 | tomori-chat-mist · Root 母图/Prompt通过；层 v3 待主审 | tomori-chat-violet · Root 母图/Prompt通过；层 v4 待主审 | tomori-chat-rain · Root 母图/Prompt通过；层 v3 待主审 |
+| study | tomori-study-apricot-v3 · Root 母图/Prompt通过；暖层 v7 待主审 | tomori-study-mist · 已生成，待 Root | tomori-study-violet · 已生成，待 Root | tomori-study-rain · 已生成，待 Root |
+| reading | tomori-reading-apricot · Root 母图/Prompt通过；暖层 v4 待主审 | tomori-reading-mist · 已生成，待 Root | tomori-reading-violet · 已生成，待 Root | tomori-reading-rain · 已生成，待 Root |
+| planning | tomori-planning-apricot-v2 · Root 母图/Prompt通过；暖层 v5，固定地面站姿待层审 | tomori-planning-mist-v2 · 已生成，待 Root；v1 退回 | tomori-planning-violet · 已生成，待 Root | tomori-planning-rain-v2 · 已生成，待 Root；v1 退回 |
+| listening | tomori-listening-apricot-v2 · Root 母图/Prompt通过；暖层 v3 待主审；母 v1 活动重复退回 | tomori-listening-mist · 已生成，待 Root | tomori-listening-violet · 已生成，待 Root | tomori-listening-rain · 已生成，待 Root |
+| rest | tomori-rest-apricot · Root 母图/Prompt通过；暖层 v5 待主审 | tomori-rest-mist · 已生成，待 Root | tomori-rest-violet · 已生成，待 Root | tomori-rest-rain · 已生成，待 Root |
+| play | tomori-play-apricot · Root 母图/Prompt通过；暖层 v6，固定地面半跪待层审 | tomori-play-mist · 已生成，待 Root | tomori-play-violet · 已生成，待 Root | tomori-play-rain · 已生成，待 Root |
+| attention | tomori-attention-apricot · Root 母图/Prompt通过；暖层 v2 待主审 | tomori-attention-mist · 已生成，待 Root | tomori-attention-violet · 已生成，待 Root | tomori-attention-rain · 已生成，待 Root |
 
 八张 apricot 原型要一起比：同一相机、同一青春身份与服装都稳定，同时肩线、髋—脊柱关系、视线和手的任务必须能区分。主代理逐张审完整画面及脸／手／两条腿与双鞋；只有通过的母图才同画布分层、测真实校准、做浅深双底边缘检查，再进入运行注册与实际场景观察。头像必须来自后来通过的同源全身稿，现有头像或官方立绘都不替新母图过关。
+
+### 当前暖层候选
+
+八份 `tomori-{activity}-apricot.scene.json` 目前都保留 `approvedByPrimary:false`，只在来源目录，不在运行目录。当前层版本是 chat/study v7、reading v4、planning v5、listening v3、rest v5、play v6、attention v2；每份记录原母图、真实生成辅助图、配准与原 RGB 提取的参数／处理器 SHA、输出 SHA 和支撑校准。白色软蒙版是 RGBA，轮廓从真实 A 通道提取，不能用它全白的 RGB 做点击范围。
+
+人物 RGB 与原母图逐字节一致；真实写字手、笔和书保留。study 后腰奶白楔形、planning 受光裙褶经原像素放大核对属于原制服，未按暖白颜色切掉。reading 的颈部／裙摆与枕头缺口、listening 的臂间靠垫与掌下固定物碎片、rest 的袖口接掌与背景窗景、attention 的原持卡均逐处校准。play 一根原细发被完整从空背景清掉；只在原线的窄范围约束 Alpha，并把已与原背景混色的细发 Alpha 上限设为 70/255，避免原 RGB 在深底变成不透明窗光条；不重画发丝或身体。
+
+本线已看八份浅深底、原房间及空背景，另亲看 chat ±12px、study/reading ±8px、listening/attention ±6px 的源影探查端点；这不是实际 Stage 动作验收。候选坐面/前鞋接触、轮廓和短行程还须 Root 亲核。planning 站立与 play 半跪沿 `floor` 合同使用同一真实地面接触点作为 seat/ground，分别为候选前鞋 (1279,917) 与承重膝 (1112,919)，由 floor 合同负责人复看原幅确认；travel/slope/perspective 都是 0。rest 原掌压在固定蓝书上，因此也不允许滑离原接触。play 的前景身体更靠中，候选文字安全边界实测用 .58，其余暖层用 .64，不套用同一默认。
+
+### 当前 chat 三主题层候选
+
+`tomori-chat-{mist,violet,rain}.scene.json` 均为 `approvedByPrimary:false`，当前处理版本分别 v3/v4/v3。每张从自己已主审的完整主题母图生成技术蒙版与空房间辅助图，再以本张母图原 RGB 精确分离；没有把暖母人物像素直接贴入另一主题。局部修正清掉窗外城市亮点、颈后屋顶块、指尖以外的靠垫／织物残尾。夜雨右袖的外亮边与中间暗褶经原 RGB/Alpha 横切核实都属于原衣料，只补了错误透明的内缝，未砍掉亮边。
+
+本线已逐张看最终浅深底、空背景、完整合景与 ±12px 源影端点；落日／反光原轴保持，雨夜未加昼影或第二灯。三份主题层仍须 Root 独立层审、实际 Stage 与最终界面验收，不以这些静图说已运行。
 

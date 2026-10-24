@@ -98,11 +98,13 @@ export class CampusWorkoutMatcher {
     const accuracy = typeof fix.accuracy === 'number' && Number.isFinite(fix.accuracy) && fix.accuracy >= 0 ? fix.accuracy : null;
     const result: WorkoutMapMatch = {
       method: 'campus-local-candidates/v1', state: 'unavailable', reason: 'invalid-fix',
-      mapVersion: this.manifest.version, mapSourceDate: this.manifest.sourceDate,
+      mapVersion: this.manifest.version, mapLabel: this.manifest.label, mapSourceDate: this.manifest.sourceDate,
       networkSha256: this.manifest.componentHashes?.['network.json'] || null,
       geographySha256: this.manifest.componentHashes?.['geography.geojson'] || null,
       sharedFactsSha256: this.manifest.componentHashes?.['shared-facts.json'] || null,
-      observedAt: fix.timestamp, fixSource: fix.source, provenance: fix.provenance || 'unknown',
+      observedAt: fix.timestamp, fixSource: fix.source,
+      provenance: fix.mock === true || fix.provenance === 'simulated' ? 'simulated'
+        : fix.provenance === 'device' && fix.mock === false ? 'device' : 'unknown',
       horizontalAccuracyM: accuracy, mapAccuracyM: null, searchRadiusM: null,
       candidates: [], candidateCount: 0, venues: [], interpolated: false, lapCount: null,
     };
@@ -148,6 +150,9 @@ export class CampusWorkoutMatcher {
         boundaryDistanceM: distance, geometryVersion: venue.geometryVersion,
         geometryBasis: role === 'running-track' ? 'source-track-area' as const : 'source-venue-outline' as const,
         nominalLapM: venue.nominalLapM, nominalLapBasis: venue.nominalLapBasis || venue.lapBasis,
+        referenceLoopM: venue.loop && Number.isFinite(venue.geometricLoopM) ? venue.geometricLoopM : null,
+        referenceLoopBasis: venue.lapBasis,
+        venueSourceLocator: `assets/map-v2/venues.json#${venue.id}`,
         sourceLocator: `assets/map-v2/geography.geojson#/features/${index}`, lapCount: null }];
     });
   }

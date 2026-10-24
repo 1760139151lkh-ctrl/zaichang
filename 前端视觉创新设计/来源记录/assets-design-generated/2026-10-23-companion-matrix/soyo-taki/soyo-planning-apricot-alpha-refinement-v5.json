@@ -1,0 +1,25 @@
+{
+  "recordType": "original-coordinate-alpha-refinement",
+  "script": "soyo-planning-apricot-alpha-refine-v5.py",
+  "scriptSha256": "a90f86d2955298eae8f34ef021387726f667cb8e9f12a58598b0e3bf3937cbb3",
+  "parameters": "soyo-planning-apricot-alpha-refinement-parameters-v5.json",
+  "parametersSha256": "b31c9e8c072a8e964779d56815b0543f1b5bde97bfd9de1f2445a86d82b243de",
+  "inputs": [
+    {
+      "file": "soyo-planning-apricot-mother-candidate-v2.png",
+      "sha256": "e002a836c881d736966bce3a254de9ef5e4a0417efc5b260eaeaea64d85904d6"
+    },
+    {
+      "file": "soyo-planning-apricot-mask-calibrated-v4.png",
+      "sha256": "5b4446f592a706339639559e1acefc4899bab041ca3ea7e993ff130d683bc39d"
+    }
+  ],
+  "output": "soyo-planning-apricot-alpha-refined-v5.png",
+  "outputSha256": "fdeb46f709f4f61e6cdb06e7ec73be45bec594e4cf6edbc4bc9af455aeceaa39",
+  "rgbChanged": false,
+  "geometryTransform": "identity",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

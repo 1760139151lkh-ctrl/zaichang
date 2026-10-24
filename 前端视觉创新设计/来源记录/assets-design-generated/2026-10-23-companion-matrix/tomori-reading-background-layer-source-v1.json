@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "tomori",
+  "activity": "reading",
+  "light": "apricot",
+  "layer": "background",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-af75d44b-9df4-4ffc-9bc1-885a31f22306",
+  "inputs": [
+    {
+      "file": "tomori-reading-apricot-mother.png",
+      "role": "primary_approved_correct_complete_mother_only",
+      "sha256": "e86706be55da3cc2a2072327f6e9543d867b06149d45fc8ca2bb275163b6fa36"
+    }
+  ],
+  "prompt": "tomori-reading-background-layer-prompt-v1.txt",
+  "promptSha256": "b89b52a2dec6a03ae153e69ad2b3910ebdc6cc26ce0ea41eaa1ac7f64d563ec2",
+  "output": {
+    "file": "tomori-reading-background-generated-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2120182,
+    "sha256": "df32a873ac477a30e1be1e9e376f6f43c9b7a8c3c87b9bbd7eb0ddf471253a9f"
+  },
+  "review": {
+    "designerViewed": "complete output",
+    "designerStatus": "candidate",
+    "primary": "pending",
+    "runtime": "not used"
+  },
+  "designerObservation": "Complete empty-room candidate viewed; original furniture and source-side props appear retained. Only original-source character patches may use this generated background, not a global room replacement."
+}

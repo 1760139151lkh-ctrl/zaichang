@@ -11,7 +11,7 @@
     1470,
     605
   ],
-  "mother": "sakiko-listening-apricot-mother.png",
+  "mother": "../../../运行素材/companion/scenes/sakiko-listening-apricot-mother.png",
   "motherSha256": "a35aaa3549a04cf9f6fa7e478224f53afdcbfd1f133f6570a643191916189bb1",
   "rawMask": "sakiko-listening-apricot-mask-candidate-v1.png",
   "rawMaskSha256": "35fc64eada895126f6aca1b0180fe5d3ef773792343bd182125b9cebbeead425",

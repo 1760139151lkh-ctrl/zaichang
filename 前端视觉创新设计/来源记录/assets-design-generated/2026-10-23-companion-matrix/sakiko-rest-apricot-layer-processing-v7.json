@@ -9,9 +9,9 @@
     "OpenCV": null
   },
   "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
-  "mother": "sakiko-rest-apricot-mother.png",
+  "mother": "../../../运行素材/companion/scenes/sakiko-rest-apricot-mother.png",
   "motherSha256": "ffdf5ac11d9d25da5347120dd7b5f19bf68a6211c991c373e1c6d2f623cebfbf",
-  "matte": "sakiko-rest-apricot-figure-calibrated-v4.png",
+  "matte": "../../../运行素材/companion/scenes/sakiko-rest-apricot-figure-calibrated-v7.png",
   "matteSha256": "f5b2f8de82beca9c3d1acf6147f740676a014a7789ebe7f2725a20d5e601979c",
   "matteRegionOverrides": [],
   "canvas": [
@@ -204,24 +204,28 @@
   },
   "outputs": [
     {
-      "file": "sakiko-rest-apricot-figure-calibrated-v7.png",
+      "file": "../../../运行素材/companion/scenes/sakiko-rest-apricot-figure-calibrated-v7.png",
       "bytes": 2475888,
-      "sha256": "f5b2f8de82beca9c3d1acf6147f740676a014a7789ebe7f2725a20d5e601979c"
+      "sha256": "f5b2f8de82beca9c3d1acf6147f740676a014a7789ebe7f2725a20d5e601979c",
+      "originalOutputBasename": "sakiko-rest-apricot-figure-calibrated-v7.png"
     },
     {
-      "file": "sakiko-rest-apricot-mask-calibrated-v7.png",
+      "file": "../../../运行素材/companion/scenes/sakiko-rest-apricot-mask-calibrated-v7.png",
       "bytes": 29409,
-      "sha256": "20c0a8526ee618be150a23475c5f45e1ac430d4e709b132fc472c14996bb67d4"
+      "sha256": "20c0a8526ee618be150a23475c5f45e1ac430d4e709b132fc472c14996bb67d4",
+      "originalOutputBasename": "sakiko-rest-apricot-mask-calibrated-v7.png"
     },
     {
-      "file": "sakiko-rest-apricot-background-calibrated-v7.png",
+      "file": "../../../运行素材/companion/scenes/sakiko-rest-apricot-background-calibrated-v7.png",
       "bytes": 2122135,
-      "sha256": "d83f2e4280b19923fb19855bbe1c32f5b81782c749a59ed386f229e711b611ab"
+      "sha256": "d83f2e4280b19923fb19855bbe1c32f5b81782c749a59ed386f229e711b611ab",
+      "originalOutputBasename": "sakiko-rest-apricot-background-calibrated-v7.png"
     },
     {
-      "file": "sakiko-rest-apricot-shadow-calibrated-v7.png",
+      "file": "../../../运行素材/companion/scenes/sakiko-rest-apricot-shadow-calibrated-v7.png",
       "bytes": 35370,
-      "sha256": "3bbc8530ba82ceaf1e04f76602fe7b55564826cabd6bb475a6b3bd386ebc9b61"
+      "sha256": "3bbc8530ba82ceaf1e04f76602fe7b55564826cabd6bb475a6b3bd386ebc9b61",
+      "originalOutputBasename": "sakiko-rest-apricot-shadow-calibrated-v7.png"
     }
   ],
   "review": {

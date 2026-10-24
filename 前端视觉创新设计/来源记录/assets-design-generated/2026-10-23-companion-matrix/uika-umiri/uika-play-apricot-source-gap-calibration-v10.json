@@ -1,0 +1,39 @@
+{
+  "recordType": "original-pixel-hair-and-visible-air-production",
+  "processor": "uika-play-apricot-source-hair-and-air-v10.py",
+  "processorSha256": "e97a4386b5e1fcf34e6d3c56754b5f84f3e05b07ae90d44479cafc3e1f01cb90",
+  "mother": "uika-play-apricot-mother-candidate-v1.png",
+  "motherSha256": "5217e87de50ac8ff072d231a2cc07d985303cbc4f034a97355f0d98bb6a53454",
+  "input": "uika-play-apricot-figure-calibrated-v9.png",
+  "inputSha256": "adad7038f833e595063b02f4d41b4a46dcc61368b7a50bbbd55fe2a101e70f9e",
+  "restoredHairRegions": [
+    [
+      1262,
+      360,
+      1285,
+      397
+    ],
+    [
+      1286,
+      367,
+      1302,
+      390
+    ]
+  ],
+  "hairConfidence": "min(clamp((R-G+2)/8),clamp((R-B+6)/25)); exclude G-B>63",
+  "airRegion": [
+    1248,
+    377,
+    1290,
+    397
+  ],
+  "airSelection": "(B>=R+5 or G>=R+10) and repaired alpha<32; only inspected visible water/tree opening",
+  "preservedAirPixels": 219,
+  "alphaChangedPixels": 281,
+  "output": {
+    "file": "uika-play-apricot-matte-source-gap-repaired-v10.png",
+    "sha256": "a3be65e85997c0c3aa88ab0c8130552ae2c2f7a1345b809e9d32f293fdac086b"
+  },
+  "parameters": "uika-play-apricot-layer-parameters-v10.json",
+  "review": "producer candidate only; primary/runtime pending"
+}

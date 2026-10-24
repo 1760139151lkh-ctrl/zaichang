@@ -1,0 +1,249 @@
+{
+  "mother": "soyo-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4",
+  "matte": "soyo-listening-apricot-mask-calibrated-v23.png",
+  "alphaSource": "alpha",
+  "alphaLow": 0,
+  "alphaHigh": 255,
+  "figure": "soyo-listening-apricot-figure-calibrated-v24.png",
+  "mask": "soyo-listening-apricot-mask-calibrated-v24.png",
+  "backgroundCandidate": "soyo-listening-apricot-background-candidate-v1.png",
+  "background": "soyo-listening-apricot-background-calibrated-v24.png",
+  "backgroundExpandPixels": 4,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1277,
+        267
+      ],
+      [
+        1358,
+        268
+      ],
+      [
+        1398,
+        316
+      ],
+      [
+        1425,
+        394
+      ],
+      [
+        1430,
+        483
+      ],
+      [
+        1415,
+        526
+      ],
+      [
+        1448,
+        572
+      ],
+      [
+        1438,
+        591
+      ],
+      [
+        1367,
+        575
+      ],
+      [
+        1267,
+        584
+      ],
+      [
+        1190,
+        596
+      ],
+      [
+        1187,
+        560
+      ],
+      [
+        1197,
+        517
+      ],
+      [
+        1217,
+        465
+      ],
+      [
+        1212,
+        421
+      ],
+      [
+        1247,
+        384
+      ],
+      [
+        1267,
+        356
+      ]
+    ],
+    [
+      [
+        1306,
+        251
+      ],
+      [
+        1353,
+        251
+      ],
+      [
+        1353,
+        281
+      ],
+      [
+        1306,
+        281
+      ]
+    ]
+  ],
+  "shadow": "soyo-listening-apricot-shadow-calibrated-v24.png",
+  "contactShadowPolygons": [
+    [
+      [
+        1190,
+        530
+      ],
+      [
+        1450,
+        530
+      ],
+      [
+        1450,
+        600
+      ],
+      [
+        1190,
+        600
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "record": "soyo-listening-apricot-layer-processing-v24.json",
+  "alphaPolygonRepairs": [],
+  "excludePolygons": [],
+  "reviewNote": "Original v23 hair alpha retained. Explicit inside-contour sleeve/cuff polygons restore the actual warm cloth highlights accidentally made transparent by raw generated matte. No RGB change, no hidden contour completion. Primary/runtime pending.",
+  "includePolygons": [
+    [
+      [
+        1385,
+        500
+      ],
+      [
+        1392,
+        500
+      ],
+      [
+        1394,
+        505
+      ],
+      [
+        1395,
+        510
+      ],
+      [
+        1397,
+        514
+      ],
+      [
+        1400,
+        518
+      ],
+      [
+        1402,
+        522
+      ],
+      [
+        1402,
+        530
+      ],
+      [
+        1400,
+        536
+      ],
+      [
+        1397,
+        539
+      ],
+      [
+        1398,
+        544
+      ],
+      [
+        1401,
+        549
+      ],
+      [
+        1402,
+        556
+      ],
+      [
+        1396,
+        559
+      ],
+      [
+        1387,
+        561
+      ],
+      [
+        1384,
+        561
+      ],
+      [
+        1383,
+        556
+      ],
+      [
+        1382,
+        551
+      ],
+      [
+        1381,
+        546
+      ],
+      [
+        1378,
+        542
+      ],
+      [
+        1382,
+        535
+      ],
+      [
+        1385,
+        528
+      ]
+    ],
+    [
+      [
+        1379,
+        542
+      ],
+      [
+        1382,
+        544
+      ],
+      [
+        1384,
+        548
+      ],
+      [
+        1384,
+        560
+      ],
+      [
+        1382,
+        558
+      ],
+      [
+        1381,
+        550
+      ]
+    ]
+  ]
+}

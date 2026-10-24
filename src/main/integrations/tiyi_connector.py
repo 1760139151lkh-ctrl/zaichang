@@ -25,6 +25,8 @@ import urllib.parse
 import urllib.request
 import uuid
 from datetime import date, datetime, timezone
+from tiyi_modules.common import Failure, ModuleContext
+from tiyi_modules import read as read_module
 
 SOURCE = 'campus:zju-tiyi'
 HOSTS = {'www.tyys.zju.edu.cn', 'tyys.zju.edu.cn', 'zjuam.zju.edu.cn'}
@@ -34,8 +36,12 @@ BASE = 'http://www.tyys.zju.edu.cn/cgapp-server/'
 SERVICE = BASE + 'cas/appLogin'
 MODULE_PATH = re.compile(r'^/(?:cgapp-server|ptm|pft|cts|ms|venue|gms|club2|westward|ggtypt)(?:/|$)')
 VENUE_READ_PATHS = {'/venue-server/api/orders/mine','/venue-server/api/venue/trains','/venue-server/api/buddies',
-                    '/venue-server/api/reservation/campus/venue/info','/venue-server/api/reservation/day/info'}
+                    '/venue-server/api/reservation/campus/venue/info','/venue-server/api/reservation/day/info',
+                    '/venue-server/api/gate/statistics/venue/today/entry/site'}
 VENUE_AUTH_PATHS = {'/venue-server/api/app/login/init','/venue-server/api/login'}
+VENUE_PROFILE_PATH = re.compile(r'^/venue-server/api/(?:venue/(?:students|teachers)|register/users)/[A-Za-z0-9_-]{1,160}$')
+READ_POST_PATHS = {'/ms/jwt/app/student/attendance/record/load',
+                   '/ptm/jwt/app/zju/venue_entrance/student/load'}
 AGENT = 'zdapp/2.9.6(Linux;Android 12;Zaichang/Windows)'
 MODULES = [(77,'study_records','修学记录'),(5,'exercise','课外锻炼'),(76,'notices','活动预告'),
  (43,'teams','运动队'),(78,'westward','西迁活动'),(75,'counselling','辅导站'),(69,'counts','次数查询'),
@@ -44,16 +50,11 @@ MODULES = [(77,'study_records','修学记录'),(5,'exercise','课外锻炼'),(76
  (72,'feedback','意见反馈'),(62,'venue_live','场地实况'),(81,'graduation_courses','体测与锻炼课'),
  (84,'graduation_report','毕业体艺报告'),(85,'codoon','咕咚运动')]
 SENSITIVE = re.compile(r'token|secret|password|cookie|authorization|ticket|session|^(?:doorPwd|orderNoCode|orderCode(?:List)?|buddyNo|lockCode)$', re.I)
-IDENTITY_FIELDS = {'xh','xm','uid','username','studentname','phone','phonenumber','userphone','mobile','email','idcard','identitycard','orderuid','orderuserid','ordername'}
+IDENTITY_FIELDS = {'xh','xm','uid','userid','basestudentid','faceuuid','username','studentname','phone','phonenumber','userphone','mobile','email','idcard','cardid','photobyte','identitycard','orderuid','orderuserid','ordername','feedbackuid','uidandname'}
 
 
 def now():
     return datetime.now(timezone.utc).isoformat()
-
-
-class Failure(Exception):
-    def __init__(self, code, message, status=None):
-        self.code, self.message, self.status = code, message, status
 
 
 class Blob(ctypes.Structure):
@@ -108,10 +109,13 @@ def safe_url(url):
         allowed = False
     if not allowed:
         raise Failure('SOURCE_NOT_ALLOWED','这个入口需要单独的服务授权，请在学校体艺 App 中继续。')
+    decoded=urllib.parse.unquote(p.path)
+    if '\\' in decoded or any(part in ('.','..') for part in decoded.split('/')) or any(ord(char)<32 for char in url+decoded):
+        raise Failure('SOURCE_NOT_ALLOWED','这个体艺地址不完整，请从学校目录重新打开。')
     if p.hostname == 'zjuam.zju.edu.cn':
         if p.scheme != 'https' or p.path not in ('/cas/login','/cas/v2/getPubKey'):
             raise Failure('SOURCE_NOT_ALLOWED','统一认证只通过学校的安全登录入口继续。')
-    elif p.path not in ('','/','/api/l/v6/token','/venue-server') and not MODULE_PATH.match(p.path) and p.path not in VENUE_READ_PATHS | VENUE_AUTH_PATHS:
+    elif p.path not in ('','/','/api/l/v6/token','/venue-server') and not MODULE_PATH.match(p.path) and p.path not in VENUE_READ_PATHS | VENUE_AUTH_PATHS and not VENUE_PROFILE_PATH.fullmatch(p.path):
         raise Failure('SOURCE_NOT_ALLOWED','这个页面不在体艺查询范围内，请从学校体艺入口继续。')
     return urllib.parse.urlunsplit(p._replace(netloc=p.hostname))
 
@@ -184,6 +188,7 @@ class Connection:
         self.responses = []
         self.resource_coverage = None
         self.venue_session = None
+        self.venue_profile_path = None
         self.deadline = time.monotonic() + 105
 
     def checked_url(self,url):
@@ -191,6 +196,26 @@ class Connection:
 
     def fetch(self, url, headers=None, body=None, method=None):
         url = self.checked_url(url)
+        parsed=urllib.parse.urlsplit(url)
+        method=method or ('POST' if body is not None else 'GET')
+        if method not in ('GET','POST') or body is not None and method!='POST':
+            raise Failure('SCHOOL_WRITE_FORBIDDEN','这项连接只查询体艺内容，不提交学校业务。')
+        if method=='POST' and not (parsed.hostname=='zjuam.zju.edu.cn' and parsed.path=='/cas/login'
+                or re.fullmatch(r'/(?:cgapp-server|ptm|pft|cts|ms|gms|club2|westward|ggtypt)?/?api/l/v6/token',parsed.path)
+                or parsed.path in READ_POST_PATHS or parsed.path=='/venue-server/api/login'):
+            raise Failure('SCHOOL_WRITE_FORBIDDEN','这项连接只查询体艺内容，不提交学校业务。')
+        if parsed.path in READ_POST_PATHS and method=='POST':
+            try:
+                fields=urllib.parse.parse_qs(body.decode('utf8'),strict_parsing=True,keep_blank_values=True)
+                valid=set(fields)=={'start','length','termId'} and all(len(value)==1 for value in fields.values())
+                valid=valid and fields['start'][0].isdigit() and 1<=int(fields['start'][0])<=100001 and fields['length']==['5']
+                valid=valid and bool(re.fullmatch(r'[A-Za-z0-9_-]{1,160}',fields['termId'][0]))
+            except (ValueError,UnicodeError,AttributeError): valid=False
+            if not valid: raise Failure('SCHOOL_QUERY_INVALID','学校查询条件不完整，请重新选择学期。')
+        if parsed.path=='/venue-server/api/login' and body:
+            raise Failure('SCHOOL_WRITE_FORBIDDEN','场馆登录只提交空表单。')
+        if body is not None and len(body)>65536:
+            raise Failure('SCHOOL_REQUEST_TOO_LARGE','这次校园请求内容过长。')
         remaining = self.deadline-time.monotonic()
         if remaining <= 0: raise Failure('TIMEOUT','学校这次还没有完整答复；请稍后重试。')
         h = {'User-Agent':AGENT,'Accept':'*/*'}
@@ -225,6 +250,7 @@ class Connection:
             except urllib.error.HTTPError as error: reply = error
             with reply:
                 raw = reply.read(8*1024*1024+1)
+                self.private_values.update(cookie.value for cookie in self.jar if len(cookie.value)>=8)
                 if len(raw)>8*1024*1024: raise Failure('RESPONSE_TOO_LARGE','学校返回内容超过本次读取容量，请缩小范围。')
                 text = raw.decode(reply.headers.get_content_charset() or 'utf8',errors='replace')
                 self.responses.append({'url':url,'status':reply.code,'at':now(),'bytes':base64.b64encode(raw).decode()})
@@ -244,7 +270,8 @@ class Connection:
         if isinstance(value,str):
             for secret in sorted(self.private_values,key=len,reverse=True):
                 if secret: value = value.replace(secret,'[protected]')
-            value = re.sub(r'(?i)([?&](?:token|ticket|secret|password|session\w*|authorization)=)[^&#\s"\']+',r'\1[protected]',value)
+            value = re.sub(r'(?i)([?&](?:\w*token|ticket|secret|password|session\w*|authorization)=)[^&#\s"\']+',r'\1[protected]',value)
+            value = re.sub(r'(?i)(;jsessionid=)[^/?#;\s"\']+',r'\1[protected]',value)
             return value
         return value
 
@@ -279,6 +306,42 @@ class Connection:
 
     def authenticate(self, force=False):
         if self.session and not force: return
+        if os.name!='nt': return self._authenticate(force)
+        # Native logins replace the previous native session. All helper
+        # processes for this product profile share one short renewal lock.
+        kernel=ctypes.WinDLL('kernel32',use_last_error=True)
+        kernel.CreateMutexW.argtypes=[ctypes.c_void_p,wintypes.BOOL,wintypes.LPCWSTR]
+        kernel.CreateMutexW.restype=wintypes.HANDLE
+        kernel.WaitForSingleObject.argtypes=[wintypes.HANDLE,wintypes.DWORD]
+        kernel.WaitForSingleObject.restype=wintypes.DWORD
+        kernel.ReleaseMutex.argtypes=[wintypes.HANDLE]
+        kernel.ReleaseMutex.restype=wintypes.BOOL
+        kernel.CloseHandle.argtypes=[wintypes.HANDLE]
+        kernel.CloseHandle.restype=wintypes.BOOL
+        name='Local\\ZaichangTiyiAuth-'+hashlib.sha256(str(self.root).casefold().encode('utf8')).hexdigest()
+        handle=kernel.CreateMutexW(None,False,name)
+        if not handle: raise Failure('SESSION_LOCK_FAILED','体艺登录暂时没能打开，请稍后重试。')
+        acquired=False
+        try:
+            remaining=self.deadline-time.monotonic()
+            if remaining<=0: raise Failure('TIMEOUT','学校这次还没有完整答复；请稍后重试。')
+            result=kernel.WaitForSingleObject(handle,max(1,int(remaining*1000)))
+            acquired=result in (0,0x80)  # A killed helper releases its owned mutex.
+            if result==0x102:
+                raise Failure('SESSION_BUSY','另一项体艺查询还在恢复登录，请稍后再试。')
+            if not acquired: raise Failure('SESSION_LOCK_FAILED','体艺登录暂时没能打开，请稍后重试。')
+            return self._authenticate(force)
+        finally:
+            if acquired: kernel.ReleaseMutex(handle)
+            kernel.CloseHandle(handle)
+
+    def _authenticate(self, force=False):
+        if self.session and not force: return
+        if force and self.session:
+            # Another active reader may already have renewed the shared login.
+            # Reuse that reply instead of replacing its healthy school session.
+            latest=load(self.root/'session.dpapi')
+            if latest and latest.get('token')!=self.session['token'] and self.use_session(latest): return
         if force: self.jar.clear()
         if not force:
             for file in (self.root/'session.dpapi',self.legacy/'app-session.dpapi'):
@@ -348,7 +411,13 @@ class Connection:
             save(device_file,device)
         env={k:v for k,v in os.environ.items() if not re.search(r'API_KEY|TOKEN|AUTHORIZATION|COOKIE|SECRET|PASSWORD|PASSWD|CREDENTIAL|PRIVATE_KEY',k,re.I)}
         env.update({'PYTHONUTF8':'1','PYTHONDONTWRITEBYTECODE':'1'})
-        if dependencies: env['PYTHONPATH']=str(Path(dependencies).resolve())
+        dependency_paths=[str(Path(dependencies).resolve())] if dependencies else []
+        helper_directory=Path(__file__).resolve().parent
+        packaged_dependencies=helper_directory/'signing-dependencies'
+        if not packaged_dependencies.is_dir() and tuple(helper_directory.parts[-3:])==('src','main','integrations'):
+            packaged_dependencies=helper_directory.parent.parent.parent/'dist-electron/tiyi-runtime/signing-dependencies'
+        if packaged_dependencies.is_dir(): dependency_paths.append(str(packaged_dependencies))
+        if dependency_paths: env['PYTHONPATH']=os.pathsep.join(dependency_paths)
         try:
             result=subprocess.run([sys.executable,str(Path(directory)/'main.py')],input=json.dumps({'secret':self.session['secret'],'uri':uri,'deviceId':device}),text=True,encoding='utf8',stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,timeout=min(40,max(1,self.deadline-time.monotonic())),env=env,creationflags=0x08000000 if os.name=='nt' else 0)
             value=json.loads(result.stdout) if len(result.stdout)<65536 else {}
@@ -357,7 +426,7 @@ class Connection:
             if any(not isinstance(v,str) or '\n' in v or '\r' in v for v in headers.values()): raise ValueError()
             return headers
         except (OSError,ValueError,KeyError,subprocess.TimeoutExpired):
-            raise Failure('SIGNER_UNAVAILABLE','体艺应用连接组件未完成签名，请检查该组件及其 Python 依赖后重试。')
+            raise Failure('SIGNER_UNAVAILABLE','体艺的应用连接组件暂时不能使用，请在本机重新安装该组件后再试。')
 
     def api(self, endpoint, params=None, base=None, post=False, retry=True):
         self.authenticate()
@@ -381,14 +450,14 @@ class Connection:
         except ValueError: raise Failure('UPSTREAM_FORMAT_CHANGED','学校返回的内容格式发生变化，本次未把它当成空记录。')
         if not isinstance(value,dict): raise Failure('UPSTREAM_FORMAT_CHANGED','学校返回的记录格式发生变化，本次未把它当成空记录。')
         code=str(value.get('code'))
-        if code in ('401','403','-401') and retry:
+        if code in ('401','403','-401','2001') and retry:
             self.authenticate(True)
             return self.api(endpoint,params,base,post,False)
         if code!='200':
             # The complete school reply is already in encrypted responses. Its
             # error text may contain identifiers or internal server paths; it
             # never becomes product copy or model instructions.
-            if code in ('401','403','-401'):
+            if code in ('401','403','-401','2001'):
                 raise Failure('AUTH_REQUIRED','体艺登录已失效，请在校园连接窗口恢复登录后再查询。')
             if code=='2002':
                 raise Failure('UPSTREAM_REJECTED','学校没有接受这次体艺请求。请重新连接后再查；若仍如此，可先在学校体艺 App 查询并检查本机连接组件。')
@@ -454,7 +523,8 @@ class Connection:
 
     def venue_request(self,configuration,path,parameters,post=False,oauth_token=None):
         auth_path=path in ('/api/app/login/init','/api/login')
-        if '/venue-server'+path not in VENUE_READ_PATHS | VENUE_AUTH_PATHS or post != (path=='/api/login') or oauth_token is not None and not post:
+        if ('/venue-server'+path not in VENUE_READ_PATHS | VENUE_AUTH_PATHS and path!=self.venue_profile_path
+                or post != (path=='/api/login') or oauth_token is not None and not post):
             raise Failure('VENUE_QUERY_NOT_ALLOWED','这项场馆请求不是已确认的只读查询，请从场馆目录继续。')
         base,secret,app_key=configuration
         # The published client drops null/undefined query values entirely.
@@ -512,9 +582,16 @@ class Connection:
             raise Failure('VENUE_AUTH_FORMAT_CHANGED','学校场馆没有返回完整的登录信息，请稍后重试。')
         self.private_values.add(access)
         self.venue_session=(configuration[0],access)
+        # The personal-centre URL is derived solely from this verified login.
+        # A caller cannot select a different person's ID or role.
+        self.venue_profile_path=None
+        profile_prefix={3:'/api/venue/students/',4:'/api/venue/teachers/',6:'/api/register/users/'}.get(data.get('role'))
+        profile_id=data.get('userId')
+        if profile_prefix and type(profile_id) in (str,int) and re.fullmatch(r'[A-Za-z0-9_-]{1,160}',str(profile_id)):
+            self.venue_profile_path=profile_prefix+str(profile_id)
 
     def venue_api(self,configuration,path,parameters):
-        if '/venue-server'+path not in VENUE_READ_PATHS:
+        if '/venue-server'+path not in VENUE_READ_PATHS and path!=self.venue_profile_path:
             raise Failure('VENUE_QUERY_NOT_ALLOWED','这项场馆请求不是已确认的只读查询，请从场馆目录继续。')
         if self.venue_session is None or self.venue_session[0]!=configuration[0]: self.venue_login(configuration)
         return self.venue_request(configuration,path,parameters)
@@ -568,14 +645,33 @@ class Connection:
         is_orders=resource=='venues' and sub=='orders'
         is_training=resource=='training' and sub is None or resource=='venues' and sub=='training'
         is_buddies=resource=='venues' and sub=='buddies'
+        is_profile=resource=='venues' and sub=='mine'
         is_discovery=resource=='venues' and sub in (None,'reservation','art_reservation')
-        if not (is_orders or is_training or is_buddies or is_discovery): return None
+        if not (is_orders or is_training or is_buddies or is_discovery or is_profile): return None
         page=args.get('upstreamPage',0)
-        if not isinstance(page,int) or isinstance(page,bool) or not 0<=page<=100000 or args.get('upstreamPage') is not None and (args.get('snapshotId') or is_buddies or is_discovery):
+        if not isinstance(page,int) or isinstance(page,bool) or not 0<=page<=100000 or args.get('upstreamPage') is not None and (args.get('snapshotId') or is_buddies or is_discovery or is_profile):
             raise Failure('INVALID_SCHOOL_PAGE','学校页码只用于场馆订单或培训列表的新查询；保存的记录请沿原地址继续。')
         parsed=urllib.parse.urlsplit(url)
         origin=urllib.parse.urlunsplit(parsed._replace(path='',query='',fragment=''))
         configuration=self.venue_configuration(origin)
+        if is_profile:
+            self.venue_login(configuration)
+            if not self.venue_profile_path:
+                raise Failure('VENUE_PROFILE_UNAVAILABLE','学校场馆没有返回本人的个人中心入口，请先在学校体艺 App 查看。')
+            value=self.venue_api(configuration,self.venue_profile_path,{})
+            data=value.get('data')
+            if not isinstance(data,dict) or str(data.get('uid') or data.get('username') or '')!=self.session['user']:
+                raise Failure('ACCOUNT_SCOPE_MISMATCH','学校场馆的个人资料与本次账号不一致，本次未返回。')
+            self.remember_identities(data)
+            if isinstance(data.get('name'),str) and data['name']:
+                self.private_values.add(data['name'])
+                self.identity_values.add(data['name'])
+            # The encrypted raw response retains the profile's owner ID. It is
+            # not a selectable record and is unnecessary in the public view.
+            value={**value,'data':{**data,'id':'[protected]'}}
+            self.resource_coverage={'complete':True,'upstreamPagination':'whole_response'}
+            return {'recordRead':True,'personalRecordRead':True,'profileRead':True,
+                    'requestScope':{'kind':'own_venue_profile','sourcePage':self.public(url)},'response':value},'records'
         if is_discovery: return self.venue_discovery(args,url,configuration)
         path='/api/orders/mine' if is_orders else '/api/venue/trains' if is_training else '/api/buddies'
         value=self.venue_api(configuration,path,{'page':-1 if is_buddies else page,'size':-1 if is_buddies else 5})
@@ -629,7 +725,7 @@ class Connection:
             if not isinstance(terms,list) or not any(str(t.get('schoolYear'))==year and str(t.get('termId'))==term for t in terms):
                 raise Failure('TERM_NOT_FOUND','学校没有返回这个课程学期，请从学校学期列表重新选择。')
             courses=self.api('l/v6/student/courselist',{'termId':term,'schoolYear':year,'uid':user},base=course_base)
-            if r!='attendance': return courses,'records'
+            if r!='attendance' and not (r=='classes' and args.get('courseId')): return courses,'records'
             course=args.get('courseId')
             if not course or not any(str(t.get('courseId'))==course for t in courses.get('data',[])):
                 raise Failure('COURSE_SCOPE_UNCONFIRMED','这门课不在本人所选学期的体育课程中，请从课程列表重新选择。')
@@ -660,6 +756,8 @@ class Connection:
         if row is None: raise Failure('MODULE_UNAVAILABLE','学校当前没有向本账号开放这项体艺功能。')
         url=row.get('url')
         if not url: raise Failure('NATIVE_APP_REQUIRED','这项功能需要手机传感器或学校 App 页面，请在学校体艺 App 中继续。')
+        if r in ('codoon','westward') and urllib.parse.urlsplit(url).hostname not in HOSTS:
+            return read_module(ModuleContext(self,module,row,url,'',Page(''),{},None),args)
         url=self.checked_url(url)
         try: method=int(row.get('authenticationMethod',1))
         except (ValueError,TypeError): raise Failure('MODULE_AUTH_REQUIRED','学校改变了这项功能的登录方式，请在学校 App 中继续。')
@@ -674,10 +772,14 @@ class Connection:
             if not isinstance(auth,str) or not auth: raise Failure('MODULE_AUTH_REQUIRED','这个体艺子系统没有返回登录，请在学校 App 重新登录后重试。')
             self.private_values.add(auth)
             headers['Authorization']=auth
+            if r=='fitness_attendance':
+                # Club2 chooses the native-auth branch when both are present;
+                # its own UUID is the credential for this scoped module.
+                headers.pop('cgAuthorization',None)
         elif method not in (4,5): raise Failure('MODULE_AUTH_REQUIRED','这项体艺功能还需要单独登录，请在学校 App 中继续。')
         sub=args.get('subpage')
         p=urllib.parse.urlsplit(url)
-        routes={43:{'mine':'/cts/app/sportsTeamList','attendance':'/cts/app/mySignList'},75:{'records':'/ms/jwt/app/student/attendance/record'},3:{'results':'/pft/app/resultList','schedule':'/pft/app/schedulestudent','feedback':'/pft/app/feedback/my'},61:{'mine':'/venue/mobileSelf','orders':'/venue/mobileOrders','buddies':'/venue/mobileBuddies','training':'/venue/mobileTrains','reservation':'/venue/mobileReservation','art_reservation':'/venue/mobileArtReservation'}}
+        routes={43:{'mine':'/cts/app/sportsTeamList','attendance':'/cts/app/mySignList'},75:{'records':'/ms/jwt/app/student/attendance/record'},3:{'results':'/pft/app/resultList','schedule':'/pft/app/schedulestudent','feedback':'/pft/app/feedback/my'},37:{'records':'/gms/app/v3/my_sign','results':'/gms/app/v3/my_result','certificates':'/gms/app/v3/my_certificates','feedback':'/gms/app/v3/competition/my_feed_back'},61:{'mine':'/venue/mobileSelf','orders':'/venue/mobileOrders','buddies':'/venue/mobileBuddies','training':'/venue/mobileTrains','reservation':'/venue/mobileReservation','art_reservation':'/venue/mobileArtReservation'}}
         if sub:
             target=routes.get(module[0],{}).get(sub)
             if not target or p.path.split('/')[1]!=target.split('/')[1]: raise Failure('SUBPAGE_NOT_FOUND','这个体艺入口没有这项子页面，请从该功能首页继续。')
@@ -697,12 +799,7 @@ class Connection:
             r'\s*<script>\s*window\.location\.href\s*=\s*([\'"])https://zjuam\.zju\.edu\.cn/cas/login\?[^\'"<>]*\1\s*;?\s*</script>\s*',body,re.I)
         if '登录过期' in page.text or '登录失效' in page.text or 'execution' in page.inputs or login_only:
             raise Failure('MODULE_AUTH_REQUIRED','这个体艺子系统的登录已过期，请在学校体艺 App 重新登录后再查询。')
-        controls=self.public(page.selects)
-        # These pages may load records later using JavaScript. Text is page
-        # evidence only; an empty shell cannot prove absence of personal records.
-        return {'title':module[2],'url':self.public(url),'text':self.public(page.text),'selectors':controls,
-                'images':self.public(page.images),'links':self.public(page.links),'recordRead':False,
-                'note':'这是学校页面正文。页面可能另行加载记录，不能据空白页面认定没有记录。'},'official_page'
+        return read_module(ModuleContext(self,module,row,url,body,page,headers,token_base),args)
 
 
 def pointer(value, address):
@@ -719,6 +816,12 @@ def main(request):
     c=Connection(request)
     base={'sourceId':SOURCE,'resource':resource,'observedAt':now(),'coverage':{'complete':False,'kind':'unknown'}}
     try:
+        snapshot_id=request.get('snapshotId')
+        if 'snapshotId' in request and (not isinstance(snapshot_id,str) or not re.fullmatch('[a-f0-9]{32}',snapshot_id)):
+            raise Failure('SNAPSHOT_NOT_FOUND','这份体艺记录地址不完整，请重新查询。')
+        if snapshot_id is not None and (request.get('refresh') or any(request.get(field) is not None for field in (
+                'schoolYear','termId','courseId','recordId','begin','end','period','validStatus','subpage','upstreamPage','venueSiteId','searchDate'))):
+            raise Failure('SNAPSHOT_FILTER_CHANGED','续读会保留原来的学期和查询范围；要换条件，请另开一次查询。')
         if request.get('operation')=='catalog':
             return {**base,'status':'fresh','data':{'modules':[{'id':i,'resource':r,'label':l} for i,r,l in MODULES],
                 'readOnly':True,'schoolSubmissionAvailable':False},'coverage':{'complete':True,'kind':'catalog'},
@@ -737,7 +840,6 @@ def main(request):
         if local_session:
             c.private_values.update([local_session.get('token',''),local_session.get('secret','')])
         account=hashlib.sha256(user.encode()).hexdigest()
-        snapshot_id=request.get('snapshotId')
         identity={k:v for k,v in request.items() if k not in ('offset','limit','pointer','refresh','snapshotId','privateDirectory','legacyDirectory','signerDirectory','signerDependencies','operation','hostTransport')}
         key=hashlib.sha256(json.dumps([account,identity],sort_keys=True).encode()).hexdigest()
         cachefile=c.root/'cache'/f'{key}.dpapi'
@@ -771,10 +873,15 @@ def main(request):
             save(c.root/'observations'/f'{snapshot_id}.dpapi',snapshot)
             save(cachefile,{'id':snapshot_id,'at':time.time()})
         source_payload=snapshot['payload']
+        venue_profile_source=resource=='venues' and isinstance(source_payload,dict) and isinstance(source_payload.get('requestScope'),dict) and source_payload['requestScope'].get('kind')=='own_venue_profile'
         training_catalog_source=resource in ('training','venues') and isinstance(source_payload,dict) and isinstance(source_payload.get('requestScope'),dict) and source_payload['requestScope'].get('kind')=='training_catalog'
         source_kind='catalog' if training_catalog_source else snapshot['kind']
         address=request.get('pointer')
         if address is None: address='/data' if isinstance(snapshot['payload'],dict) and 'code' in snapshot['payload'] and 'data' in snapshot['payload'] else ''
+        if not isinstance(address,str) or any(SENSITIVE.search(part) or part.lower() in IDENTITY_FIELDS
+                or (resource=='profile' or venue_profile_source) and part.lower().replace('_','').replace('-','') in ('name','id','birth','birthday','birthdate','birthyear','dateofbirth')
+                for part in (value.replace('~1','/').replace('~0','~') for value in address.split('/')[1:])):
+            raise Failure('PRIVATE_FIELD','这个位置只保留在本机，请从体艺记录正文继续。')
         c.private_values.add(user)
         # Only verified identity values, never passwords/application secrets,
         # accompany the encrypted observation so offline text has the same
@@ -784,6 +891,8 @@ def main(request):
         value=c.public(pointer(snapshot['payload'],address))
         coverage={'complete':source_kind!='official_page','kind':source_kind,'upstreamPagination':'whole_response' if source_kind!='official_page' else 'unknown','pointer':address,'extent':'returned_response'}
         coverage.update(snapshot.get('coverage',{}))
+        if venue_profile_source: coverage['profileRead']=True
+        else: coverage.pop('profileRead',None)
         # The complete immutable source, not the currently selected child,
         # establishes catalogue meaning for both old and fresh observations.
         if training_catalog_source: coverage['kind']='catalog'

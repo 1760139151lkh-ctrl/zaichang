@@ -1,6 +1,10 @@
 .workout-controls {flex:none;pointer-events:auto;}
-.workout-trigger {display:flex;align-items:center;gap:7px;min-height:34px;padding:6px 13px;border:1px solid var(--cm-rim);border-radius:24px;background:var(--cm-glass);color:var(--cm-text);font-size:12px;white-space:nowrap;}
-.workout-trigger[aria-expanded=true] {color:var(--accent);border-color:var(--accent);}
+.campus-v2-footer .workout-trigger {display:flex;align-items:center;gap:7px;min-height:34px;padding:6px 13px;border:1px solid var(--cm-rim);border-radius:24px;background:var(--cm-glass);color:var(--cm-text);font-size:12px;white-space:nowrap;}
+.campus-v2-footer .workout-trigger[aria-expanded=true] {color:var(--accent);border-color:var(--accent);}
+.workout-trigger-distance {display:flex;align-items:baseline;gap:4px;padding-left:9px;border-left:1px solid var(--cm-rim);font-variant-numeric:tabular-nums;color:var(--accent);}
+.workout-trigger-distance small {font-size:10px;color:var(--cm-muted);}
+.workout-map-actions {display:flex;justify-content:center;gap:8px;margin-bottom:8px;}
+.workout-panel .workout-map-actions button {min-height:34px;font-size:12px;color:var(--accent);border:0;padding-inline:10px;}
 .workout-panel {position:absolute;right:0;bottom:calc(100% + 14px);z-index:8;width:360px;max-width:calc(100vw - 56px);max-height:calc(100vh - 200px);overflow:auto;overscroll-behavior:contain;padding:20px;border:1px solid var(--cm-rim);border-radius:24px;background:linear-gradient(135deg,var(--cm-shine),transparent 40%),color-mix(in srgb,var(--bg) 95%,transparent);backdrop-filter:blur(20px);color:var(--cm-text);box-shadow:0 12px 38px #0002;font-size:13px;line-height:1.6;pointer-events:auto;animation:campus-surface-enter 160ms ease-out;}
 .workout-panel:focus {outline:none;}
 .workout-panel button,.workout-panel select {font:inherit;color:inherit;}
@@ -53,6 +57,9 @@
 .workout-record-details dt {color:var(--cm-muted);flex:none;}
 .workout-record-details dd {margin:0;text-align:right;font-variant-numeric:tabular-nums;}
 .workout-record-details dd small {display:block;font-size:11px;color:var(--cm-muted);}
+.workout-splits {list-style:none;margin:12px 0;padding:6px 0;border-top:1px solid var(--cm-rim);font-variant-numeric:tabular-nums;}
+.workout-splits li {display:flex;justify-content:space-between;gap:16px;padding:5px 0;}
+.workout-splits small {font-size:10px;color:var(--cm-muted);margin-left:5px;}
 .workout-panel .workout-text-action {display:flex;border:0;padding:6px 0;min-height:32px;margin:10px auto 0;font-size:11px;color:var(--cm-muted);}
 .workout-notice,.workout-discard {padding:12px 0;margin:8px 0;border-block:1px solid var(--cm-rim);font-size:12px;line-height:1.7;overflow-wrap:anywhere;}
 .workout-notice p,.workout-discard p {margin:0 0 9px;}
@@ -60,7 +67,30 @@
 .workout-inline-actions,.workout-discard>div {display:flex;gap:8px;flex-wrap:wrap;}
 .workout-recovery p {margin:0 0 14px;}
 .workout-recovery button {margin:0 8px 8px 0;}
-@media(max-width:800px) {.workout-panel {right:0;width:340px;max-width:calc(100vw - 32px);padding:18px;max-height:calc(100vh - 190px);}.workout-trigger {font-size:11px;padding-inline:10px;}}
-@media(max-width:520px) {.workout-panel {right:0;bottom:calc(100% + 10px);}.workout-trigger>svg {display:none;}.workout-trigger {padding-inline:9px;}.workout-controls {margin-left:auto;}}
+@media(max-width:800px) {.workout-panel {right:0;width:340px;max-width:calc(100vw - 32px);padding:18px;max-height:calc(100vh - 190px);}.campus-v2-footer .workout-trigger {font-size:11px;padding-inline:10px;}}
+@media(max-width:520px) {.workout-panel {right:0;bottom:calc(100% + 10px);}.workout-trigger>svg {display:none;}.campus-v2-footer .workout-trigger {padding-inline:9px;}.workout-trigger-distance {display:none;}.workout-controls {margin-left:auto;}}
 @media(prefers-reduced-motion:reduce) {.workout-panel {animation:none;}}
 @media(prefers-reduced-transparency:reduce) {.workout-panel {background:var(--bg);backdrop-filter:none;}}
+
+/* Desktop-only geometry, projected by the map already under the pointer. */
+.workout-map-layer {--workout-gold:#b67c2d;--workout-light:#fff7dd;position:absolute;inset:0;z-index:1;width:100%;height:100%;overflow:hidden;pointer-events:none;contain:strict;}
+[data-theme=dark] .workout-map-layer {--workout-gold:#e8b960;--workout-light:#4a3820;}
+.workout-map-layer path {fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.workout-map-layer .workout-map-halo {stroke:var(--workout-gold);stroke-width:10;opacity:.26;filter:blur(4px);}
+.workout-map-layer .workout-map-casing {stroke:var(--workout-light);stroke-width:6;opacity:.9;}
+.workout-map-layer .workout-map-accepted {stroke:var(--workout-gold);stroke-width:3.2;}
+.workout-map-layer .workout-map-weak {stroke:var(--workout-gold);stroke-width:2;stroke-dasharray:3 6;opacity:.55;}
+.workout-map-layer .workout-map-accuracy {fill:var(--workout-gold);fill-opacity:.07;stroke:var(--workout-gold);stroke-width:1;stroke-opacity:.3;}
+.workout-map-start {fill:var(--workout-light);stroke:var(--workout-gold);stroke-width:2;}
+.workout-map-dot {fill:var(--workout-gold);stroke:var(--workout-light);stroke-width:2.5;}
+.workout-map-pulse {fill:var(--workout-gold);opacity:0;transform-origin:0 0;}
+.workout-map-layer[data-live=true] .workout-map-pulse {animation:workout-position-breathe 2.8s ease-in-out infinite;}
+.workout-map-layer[data-live=false] .workout-map-position {opacity:.7;}
+.workout-map-layer[data-weak=true] .workout-map-dot {fill:var(--workout-light);stroke:var(--workout-gold);stroke-dasharray:2 2;}
+.workout-map-layer[data-weak=true] .workout-map-accuracy {stroke-dasharray:4 5;}
+.workout-map-splits circle {fill:var(--workout-light);stroke:var(--workout-gold);stroke-width:1.5;}
+.workout-map-splits text {fill:var(--workout-gold);font:600 10px 'Noto Sans SC Variable',sans-serif;}
+.workout-map-splits g[data-label=false] circle {r:3px;}
+@keyframes workout-position-breathe {0%,100% {opacity:.09;transform:scale(.75);}50% {opacity:.2;transform:scale(1.15);}}
+@media(prefers-reduced-motion:reduce) {.workout-map-layer[data-live=true] .workout-map-pulse {animation:none;opacity:.12;}}
+@media(prefers-contrast:more) {.workout-map-layer .workout-map-accepted {stroke-width:4;}.workout-map-layer .workout-map-casing {stroke-width:8;}.workout-map-layer .workout-map-weak {opacity:.85;}}

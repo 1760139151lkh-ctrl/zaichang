@@ -1,0 +1,26 @@
+{
+  "recordType": "precise-original-air-gap-alpha-cleanup",
+  "script": "soyo-listening-apricot-alpha-window-columns-v17.py",
+  "scriptSha256": "98eec7924bc252628852f0f609583ebae68ac413a7f6604b5ec6ba7f4950c738",
+  "parameters": "soyo-listening-apricot-alpha-window-columns-parameters-v17.json",
+  "parametersSha256": "7a4625b901d4b94b9f0f5f863771660fb7d5f8d4317f3e2ef4cc5ff02ed07462",
+  "inputs": [
+    {
+      "file": "soyo-listening-apricot-mother-candidate-v2.png",
+      "sha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4"
+    },
+    {
+      "file": "soyo-listening-apricot-mask-calibrated-v16.png",
+      "sha256": "3917b573893f277078c42fc52b947429263fd5f16416fa0259651cf6ee050b51"
+    }
+  ],
+  "output": "soyo-listening-apricot-alpha-window-columns-v17.png",
+  "outputSha256": "5e31d2d6aaf2562feb9b53df1efd3d1b0000cf5bcd5142a2c4d60a02b4ad6db7",
+  "alphaChangedPixels": 13,
+  "rgbRepaint": false,
+  "geometryTransform": "identity",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

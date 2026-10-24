@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "tomori",
+  "activity": "chat",
+  "light": "mist",
+  "layer": "background",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-e2161059-991f-45e3-a585-69fa555e6848",
+  "inputs": [
+    {
+      "file": "tomori-chat-mist-mother-candidate.png",
+      "role": "primary_approved_correct_complete_mother_only",
+      "sha256": "7b486d6f2ede9fe4a9dd54515eb10ab5bd8a50c450804c7e4a3cdc3e5a12281d"
+    }
+  ],
+  "prompt": "tomori-chat-mist-background-layer-prompt-v1.txt",
+  "promptSha256": "0c7a83f09bb152be39be0929744c25b63a00645fbbc59c076d89a418cfa757a9",
+  "output": {
+    "file": "tomori-chat-mist-background-generated-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2089826,
+    "sha256": "bf65ace8924f5a6d6301392230e0acd8489ad065319189f4b69f6c22a250dd50"
+  },
+  "review": {
+    "designerViewed": "complete output",
+    "designerStatus": "candidate_for_restricted_room_patch",
+    "primary": "pending",
+    "runtime": "not used"
+  },
+  "designerObservation": "Empty room preserves the theme/fixed room; extraction will keep original mother pixels outside explicit repair patches.",
+  "calibratedCandidateRecord": "tomori-chat-mist-layer-processing-v3.json"
+}

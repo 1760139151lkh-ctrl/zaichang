@@ -1,0 +1,66 @@
+{
+  "recordType": "original-scene-selected-layer-source",
+  "date": "2026-10-24",
+  "scene": "nyamu-listening-apricot.scene.json",
+  "sceneSha256": "102f8e0b86fd48a7bf119fa23bc91ef0e930eb889f5b1cc86cd1c14d27872b50",
+  "selected": {
+    "mother": {
+      "file": "nyamu-listening-apricot-mother-candidate-v1.png",
+      "sha256": "823f7606e5add858c9834ea290822cc78e0b0c3ae1309f367bd2a2bf1d862b6e",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "file": "nyamu-listening-apricot-background-candidate-v1.png",
+      "sha256": "bf2a67485f99ee8ca85411779512da611bea0ce7767e4cf16aba0227f10d5218",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figure": {
+      "file": "nyamu-listening-apricot-figure-calibrated-v2.png",
+      "sha256": "217edf615cc140749e3a94193d0fbd5cf1697a54ae6fc6ec17e8f9328836f4eb",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "mask": {
+      "file": "nyamu-listening-apricot-mask-calibrated-v2.png",
+      "sha256": "b5300c7bead5a469f110856ca9a5d4d5881f6dc931d4d61ea8b5d1b6a81de5bb",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "shadow": {
+      "file": "nyamu-listening-apricot-shadow-calibrated-v2.png",
+      "sha256": "9da5d1239c348004b00f022e06222609ee2b163306c897426519d32a6046fa4c",
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "extractionGenerations": "nyamu-listening-apricot-extraction-source.json",
+  "productionParameters": [
+    "nyamu-listening-apricot-layer-parameters-v1.json",
+    "nyamu-listening-apricot-layer-parameters-v2.json"
+  ],
+  "figureProduction": "nyamu-listening-apricot-layer-processing-v2.json",
+  "rgbMethod": "Entire original mother RGB payload, identity canvas, alpha-only visibility; no face/body/pose repaint",
+  "motherRgbByteSha256": "11137dbdfcad9c1e82283a4195ca627f6f8623a37b607f3a92df1867a12377f2",
+  "figureRgbByteSha256": "11137dbdfcad9c1e82283a4195ca627f6f8623a37b607f3a92df1867a12377f2",
+  "actualRgbPayloadEqual": true,
+  "selectedBackgroundMethod": "Complete matching same-mother clean BG selected. Partial processed BG diagnostic only; sole/seat contact shadow remains separate normal source-over RGBA within3px original support ROIs.",
+  "designerObservation": "Original gathered low-hand listening silhouette, both complete hands on own skirt-covered lap, hips supported by original cushion and both worn ankle-strap shoes on original floor. Registered raw maskv1, sourceRGB full-ROI alpha refinement restores dark straps and actual body, v2 keeps original purple/pink fine bob edge and removes actual blue window from neck/bob gap. No body/face/pose/RGB repaint. Full same-mother matchingBGv1 selected, partial processed BG diagnostic only to avoid original floor cast-shadow seams outside mask. Fixed travel0. Primary/real Stage pending. Personally viewed final original source, actual prompts, raw generations, deep/light, full room/empty and isolated shadow. SourceRGB equality does not replace Primary visual judgment.",
+  "review": {
+    "approvedByPrimary": false,
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false,
+    "integrated": false
+  }
+}

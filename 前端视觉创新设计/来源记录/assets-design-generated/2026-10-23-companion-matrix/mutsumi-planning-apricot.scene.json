@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "mutsumi-planning-apricot-room4",
+  "character": "mutsumi",
+  "activity": "planning",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "mutsumi-planning-apricot-mother-candidate-v1.png",
+  "background": "mutsumi-planning-apricot-background-candidate-v2.png",
+  "figure": "mutsumi-planning-apricot-figure-calibrated-v6.png",
+  "mask": "mutsumi-planning-apricot-mask-calibrated-v6.png",
+  "shadow": "mutsumi-planning-apricot-shadow-calibrated-v6.png",
+  "seat": [
+    0.55859375,
+    0.5859375
+  ],
+  "ground": [
+    0.6393229166666666,
+    0.7138671875
+  ],
+  "bodyBounds": [
+    0.4986979166666667,
+    0.2822265625,
+    0.69140625,
+    0.7216796875
+  ],
+  "safeTextBoundary": 0.48,
+  "support": "desk-chair",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "57.6172% 28.5156%, 56.6406% 29.5898%, 56.7057% 29.9805%, 55.9245% 31.5430%, 54.9479% 35.2539%, 53.8411% 38.5742%, 52.6693% 41.2109%, 51.6276% 43.0664%, 51.8229% 43.0664%, 52.0182% 43.4570%, 51.0417% 46.5820%, 51.1068% 48.0469%, 51.3021% 48.3398%, 51.7578% 48.3398%, 52.6042% 48.7305%, 53.1250% 49.5117%, 53.0599% 49.9023%, 53.5156% 51.8555%, 54.4271% 58.0078%, 55.0130% 58.2031%, 56.7708% 58.2031%, 57.2266% 58.3984%, 57.6172% 58.9844%, 58.4635% 58.8867%, 58.4635% 59.1797%, 57.7474% 59.1797%, 58.3984% 60.8398%, 59.4401% 60.8398%, 60.0260% 60.5469%, 60.8724% 59.6680%, 61.6536% 58.4961%, 61.8490% 58.4961%, 61.7188% 59.4727%, 61.7188% 61.3281%, 62.3698% 66.6992%, 62.3698% 68.2617%, 62.1094% 68.7500%, 61.9141% 69.7266%, 61.9141% 71.3867%, 62.0443% 71.5820%, 63.4115% 71.5820%, 64.4531% 71.9727%, 66.4714% 71.9727%, 66.7318% 70.8984%, 68.6849% 70.8984%, 69.0104% 70.5078%, 68.8802% 69.7266%, 68.4245% 69.3359%, 67.6432% 69.1406%, 66.3411% 67.8711%, 66.0156% 67.3828%, 65.6250% 66.3086%, 65.1693% 64.4531%, 64.7135% 61.6211%, 64.5833% 61.4258%, 64.0625% 57.7148%, 63.9974% 55.8594%, 63.6719% 54.5898%, 61.6536% 53.2227%, 57.6823% 51.6602%, 56.8359% 50.0977%, 56.7708% 49.6094%, 56.9010% 49.4141%, 57.6172% 49.2188%, 57.8125% 48.9258%, 58.5286% 48.8281%, 58.7240% 48.4375%, 60.0911% 48.5352%, 60.3516% 48.3398%, 60.5469% 48.5352%, 60.6771% 48.1445%, 61.0026% 48.4375%, 62.3047% 48.1445%, 62.5000% 48.3398%, 63.9974% 48.7305%, 63.8021% 47.7539%, 63.4115% 47.1680%, 62.6953% 47.1680%, 62.4349% 46.9727%, 62.5000% 46.7773%, 61.9792% 46.7773%, 61.5885% 46.1914%, 60.6771% 46.1914%, 59.9609% 45.8984%, 59.7005% 45.5078%, 59.1146% 42.8711%, 58.9844% 39.8438%, 58.5286% 38.7695%, 58.7891% 38.3789%, 58.9844% 38.3789%, 59.4401% 37.8906%, 59.5703% 37.9883%, 59.4401% 39.2578%, 59.5052% 41.7969%, 59.8958% 44.0430%, 60.2214% 44.2383%, 59.8958% 43.1641%, 59.7656% 41.6016%, 59.7656% 40.0391%, 59.9609% 37.9883%, 60.1563% 37.7930%, 60.2214% 37.9883%, 60.0911% 38.1836%, 60.2214% 38.1836%, 60.2214% 37.5000%, 60.3516% 37.4023%, 60.3516% 37.5977%, 60.4818% 37.3047%, 60.5469% 37.5977%, 60.9375% 36.5234%, 61.1328% 36.7188%, 61.1328% 37.0117%, 61.6536% 35.1563%, 61.9792% 34.7656%, 62.0443% 34.3750%, 62.2396% 34.3750%, 62.2396% 33.7891%, 62.0443% 33.7891%, 61.8490% 33.4961%, 61.7839% 31.9336%, 61.6536% 31.4453%, 61.1979% 30.6641%, 61.1979% 30.3711%, 60.4818% 29.2969%, 59.2448% 28.4180%, 58.1380% 28.3203%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "runtimeAccepted": false,
+    "runtimeReviewRecord": "primary-runtime-reviews.json",
+    "producerNote": "Original upright desk comparison pose with two low hands supported at the original two desktop cards, navy hem/two socks/full shoes from actual original. Source foreground chair occludes hair/left waist; its visible pale fabric including source818,525/530 excluded from alpha. Fine back arc and front ribbon source-traced after original8x coordinate inspection; v2 generic raw additions included leaf islands and were rejected. FullBGv2 preserves exactly two cards plus one original closed book, no extra stack. Source RGB unchanged. Travel0 preserves actual desk/chair/floor supports; fine edge/arc remains for Primary optical judgment, not sourceRGB proof alone. Primary and real Stage review pending."
+  },
+  "production": "mutsumi-planning-apricot-layer-processing-v6.json"
+}

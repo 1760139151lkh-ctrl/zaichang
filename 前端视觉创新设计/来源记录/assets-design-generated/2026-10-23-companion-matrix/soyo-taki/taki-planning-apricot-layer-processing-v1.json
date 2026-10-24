@@ -1,0 +1,501 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "taki-planning-apricot-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "taki-planning-apricot-mother-candidate-v1.png",
+  "motherSha256": "f0fa68c1f8f0257063bdae886dd258b415af26e127382e8c2bb3b95f6f7050ff",
+  "matte": "taki-planning-apricot-alpha-calibrated-v1.png",
+  "matteSha256": "a505aeee7f96224c6e24c90753990b7c2aabcda199edb7f772c9623996a790b4",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 245,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 0,
+  "alphaNonzeroPixels": 43306,
+  "alphaBounds": [
+    761,
+    309,
+    1027,
+    760
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "e5dbe2d7f5365156a1136466161d02768ca9975e38120ab85f5389c0e52800fd",
+  "figureRgbSha256": "e5dbe2d7f5365156a1136466161d02768ca9975e38120ab85f5389c0e52800fd",
+  "background": {
+    "candidate": "taki-planning-apricot-background-generated-v1.png",
+    "candidateSha256": "11df2a165bff6d1e1b7d3d7a7b179a27830df5c3c244e19b31db53f51f82237d",
+    "expandPixels": 5,
+    "featherPixels": 1.2,
+    "additionalErasePolygons": [
+      [
+        [
+          861,
+          699
+        ],
+        [
+          1037,
+          699
+        ],
+        [
+          1052,
+          800
+        ],
+        [
+          855,
+          800
+        ]
+      ],
+      [
+        [
+          857,
+          312
+        ],
+        [
+          837,
+          330
+        ],
+        [
+          806,
+          399
+        ],
+        [
+          812,
+          390
+        ],
+        [
+          811,
+          396
+        ],
+        [
+          772,
+          445
+        ],
+        [
+          763,
+          464
+        ],
+        [
+          762,
+          483
+        ],
+        [
+          768,
+          455
+        ],
+        [
+          790,
+          427
+        ],
+        [
+          770,
+          465
+        ],
+        [
+          766,
+          493
+        ],
+        [
+          768,
+          496
+        ],
+        [
+          772,
+          469
+        ],
+        [
+          785,
+          446
+        ],
+        [
+          774,
+          492
+        ],
+        [
+          781,
+          510
+        ],
+        [
+          781,
+          478
+        ],
+        [
+          782,
+          504
+        ],
+        [
+          790,
+          516
+        ],
+        [
+          786,
+          500
+        ],
+        [
+          789,
+          482
+        ],
+        [
+          792,
+          507
+        ],
+        [
+          799,
+          514
+        ],
+        [
+          795,
+          500
+        ],
+        [
+          803,
+          514
+        ],
+        [
+          792,
+          537
+        ],
+        [
+          805,
+          592
+        ],
+        [
+          822,
+          592
+        ],
+        [
+          839,
+          599
+        ],
+        [
+          879,
+          591
+        ],
+        [
+          912,
+          594
+        ],
+        [
+          898,
+          623
+        ],
+        [
+          889,
+          683
+        ],
+        [
+          881,
+          712
+        ],
+        [
+          873,
+          724
+        ],
+        [
+          871,
+          745
+        ],
+        [
+          879,
+          749
+        ],
+        [
+          893,
+          747
+        ],
+        [
+          913,
+          758
+        ],
+        [
+          939,
+          755
+        ],
+        [
+          936,
+          743
+        ],
+        [
+          919,
+          735
+        ],
+        [
+          905,
+          720
+        ],
+        [
+          903,
+          704
+        ],
+        [
+          940,
+          602
+        ],
+        [
+          945,
+          634
+        ],
+        [
+          968,
+          695
+        ],
+        [
+          964,
+          735
+        ],
+        [
+          985,
+          736
+        ],
+        [
+          1001,
+          747
+        ],
+        [
+          1022,
+          746
+        ],
+        [
+          1023,
+          734
+        ],
+        [
+          998,
+          715
+        ],
+        [
+          986,
+          695
+        ],
+        [
+          961,
+          565
+        ],
+        [
+          937,
+          552
+        ],
+        [
+          878,
+          535
+        ],
+        [
+          877,
+          526
+        ],
+        [
+          887,
+          524
+        ],
+        [
+          891,
+          514
+        ],
+        [
+          932,
+          510
+        ],
+        [
+          920,
+          505
+        ],
+        [
+          937,
+          507
+        ],
+        [
+          938,
+          502
+        ],
+        [
+          930,
+          497
+        ],
+        [
+          953,
+          490
+        ],
+        [
+          959,
+          498
+        ],
+        [
+          955,
+          470
+        ],
+        [
+          946,
+          470
+        ],
+        [
+          938,
+          455
+        ],
+        [
+          943,
+          470
+        ],
+        [
+          932,
+          481
+        ],
+        [
+          899,
+          477
+        ],
+        [
+          900,
+          412
+        ],
+        [
+          904,
+          394
+        ],
+        [
+          905,
+          410
+        ],
+        [
+          906,
+          383
+        ],
+        [
+          908,
+          388
+        ],
+        [
+          913,
+          369
+        ],
+        [
+          911,
+          392
+        ],
+        [
+          913,
+          341
+        ],
+        [
+          906,
+          324
+        ],
+        [
+          896,
+          316
+        ],
+        [
+          876,
+          309
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 74628,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          789,
+          570
+        ],
+        [
+          931,
+          570
+        ],
+        [
+          931,
+          619
+        ],
+        [
+          789,
+          619
+        ]
+      ],
+      [
+        [
+          861,
+          704
+        ],
+        [
+          1034,
+          704
+        ],
+        [
+          1034,
+          777
+        ],
+        [
+          861,
+          777
+        ]
+      ],
+      [
+        [
+          864,
+          480
+        ],
+        [
+          969,
+          480
+        ],
+        [
+          969,
+          519
+        ],
+        [
+          864,
+          519
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "taki-planning-apricot-figure-calibrated-v1.png",
+      "bytes": 2411440,
+      "sha256": "4414d192c1c3455228cebb5e7fdf75dcdc44fa69db0421f23e2ff3dacc6ea4b2"
+    },
+    {
+      "file": "taki-planning-apricot-mask-calibrated-v1.png",
+      "bytes": 27667,
+      "sha256": "717d7b628e74f281e2bce307fa8f90e2b53776b962e959987b45c09fab0d3f4f"
+    },
+    {
+      "file": "taki-planning-apricot-background-calibrated-v1.png",
+      "bytes": 2074215,
+      "sha256": "3fafb358cee82e266f49be20dd6b9c296a7c38992bbc46f7d898aa6501949207"
+    },
+    {
+      "file": "taki-planning-apricot-shadow-calibrated-v1.png",
+      "bytes": 42576,
+      "sha256": "ed90e780b12c8a2382eabe3b93a79ac0a9e706e522ae2b2c8c9fd881364759cc"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

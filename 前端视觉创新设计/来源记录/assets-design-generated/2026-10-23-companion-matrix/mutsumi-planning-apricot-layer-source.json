@@ -1,0 +1,70 @@
+{
+  "recordType": "original-scene-selected-layer-source",
+  "date": "2026-10-24",
+  "scene": "mutsumi-planning-apricot.scene.json",
+  "sceneSha256": "6d3270600431dbe13d478a1f1be0569953ede997f7cbb518b364a5f2ab7286df",
+  "selected": {
+    "mother": {
+      "file": "mutsumi-planning-apricot-mother-candidate-v1.png",
+      "sha256": "ebcd02b354a1661687afdd2e9a92d6c3b7531bc7555a98eb0563516eff83ddd1",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "file": "mutsumi-planning-apricot-background-candidate-v2.png",
+      "sha256": "9ea5576a365c26b29abdb44a9937e3e76f20bcd2c3725cd143a7be0a28a2255c",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figure": {
+      "file": "mutsumi-planning-apricot-figure-calibrated-v6.png",
+      "sha256": "23da733949367003a52a0b0fc72b5c7d050bdb919d8cbec0479997b0790e02f5",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "mask": {
+      "file": "mutsumi-planning-apricot-mask-calibrated-v6.png",
+      "sha256": "259a899bf5be973e0237d1fde999197a30e6377ca0e818868ec3ec04cedb9885",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "shadow": {
+      "file": "mutsumi-planning-apricot-shadow-calibrated-v6.png",
+      "sha256": "a3c349f61a6b2af84c092933aba1be1d640b4029b00e68d361d1e9b6982c6d47",
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "extractionGenerations": "mutsumi-planning-apricot-extraction-source.json",
+  "productionParameters": [
+    "mutsumi-planning-apricot-layer-parameters-v1.json",
+    "mutsumi-planning-apricot-layer-parameters-v2.json",
+    "mutsumi-planning-apricot-layer-parameters-v3.json",
+    "mutsumi-planning-apricot-layer-parameters-v4.json",
+    "mutsumi-planning-apricot-layer-parameters-v5.json",
+    "mutsumi-planning-apricot-layer-parameters-v6.json"
+  ],
+  "figureProduction": "mutsumi-planning-apricot-layer-processing-v6.json",
+  "rgbMethod": "Entire original mother RGB payload, identity canvas, alpha-only visibility; no face/body/pose repaint",
+  "motherRgbByteSha256": "97af0b2719908c077f9c182b4e850f41f1bc8fe1873a01bf648802320992c45a",
+  "figureRgbByteSha256": "97af0b2719908c077f9c182b4e850f41f1bc8fe1873a01bf648802320992c45a",
+  "actualRgbPayloadEqual": true,
+  "selectedBackgroundMethod": "Complete matching clean background v2 generated from sole Primary-approved correct mother, preserving actual occupied chair and original desktop object count. Partial processed background diagnostic, not selected, to avoid old cast-shadow fragments outside alpha.",
+  "designerObservation": "Original upright desk comparison pose with two low hands supported at the original two desktop cards, navy hem/two socks/full shoes from actual original. Source foreground chair occludes hair/left waist; its visible pale fabric including source818,525/530 excluded from alpha. Fine back arc and front ribbon source-traced after original8x coordinate inspection; v2 generic raw additions included leaf islands and were rejected. FullBGv2 preserves exactly two cards plus one original closed book, no extra stack. Source RGB unchanged. Travel0 preserves actual desk/chair/floor supports; fine edge/arc remains for Primary optical judgment, not sourceRGB proof alone. Primary and real Stage review pending. Personally viewed original/actual prompt, generation outputs, final deep/light/fullroom/empty and source enlarged coordinates. No actual Stage/motion acceptance.",
+  "review": {
+    "approvedByPrimary": false,
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false,
+    "integrated": false
+  }
+}

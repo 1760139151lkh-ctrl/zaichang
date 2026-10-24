@@ -25,7 +25,9 @@
         "mode": "RGB",
         "recordedAt": "2026-10-24T02:02:09.860658+00:00"
       },
-      "status": "generated-candidate"
+      "status": "generated-candidate",
+      "promptSha256": "4ab54903c251c7a1c8c0c666feaeb9a345ab1ec43079ad463ec968593663a6bf",
+      "promptFileMatchesActualToolInput": true
     },
     {
       "purpose": "same-mother matching clean background",
@@ -46,7 +48,9 @@
         "recordedAt": "2026-10-24T02:04:58.921033+00:00"
       },
       "status": "generated-needs-redraw",
-      "reason": "Extra third paper introduced on newly revealed left desktop; two original option sheets must remain fixed, left revealed wood bare."
+      "reason": "Extra third paper introduced on newly revealed left desktop; two original option sheets must remain fixed, left revealed wood bare.",
+      "promptSha256": "f7e91cf62c81cf5378e1fb84c68bbc87f7c4cf8d1c5fac9a251ba542eac69b8b",
+      "promptFileMatchesActualToolInput": true
     },
     {
       "purpose": "same-mother matching clean background, remove extra-paper failure",
@@ -67,7 +71,9 @@
         "recordedAt": "2026-10-24T02:20:51.842730+00:00"
       },
       "status": "generated-needs-redraw",
-      "reason": "Option sheet count corrected, but a new small closed book appeared on newly revealed left rear desktop near x865..915/y483..493, outside original visible rear book. Requesting bare newly exposed wood again from approved mother only."
+      "reason": "Option sheet count corrected, but a new small closed book appeared on newly revealed left rear desktop near x865..915/y483..493, outside original visible rear book. Requesting bare newly exposed wood again from approved mother only.",
+      "promptSha256": "44cb30e74849320efc890359156d3b346d086faa22aeba445b92008e4ccddf8f",
+      "promptFileMatchesActualToolInput": true
     },
     {
       "purpose": "same-mother matching clean background, bare exposed desktop with no extra prop",
@@ -87,7 +93,9 @@
         "mode": "RGB",
         "recordedAt": "2026-10-24T02:28:02.408147+00:00"
       },
-      "status": "generated-candidate"
+      "status": "generated-candidate",
+      "promptSha256": "77db89740a63c2e3f58163cd8d680f775dda440f9be901feb776a541e04dbbc4",
+      "promptFileMatchesActualToolInput": true
     }
   ],
   "designerReview": {

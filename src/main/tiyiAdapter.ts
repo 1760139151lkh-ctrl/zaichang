@@ -31,11 +31,18 @@ export class TiyiAdapter {
   private connectorPath(): string {
     if (this.options.connectorPath) return path.resolve(this.options.connectorPath);
     const roots = [
-      path.join(process.cwd(), 'dist-electron', 'tiyi-runtime', 'connector.py'),
-      path.join(process.cwd(), 'src', 'main', 'integrations', 'tiyi_connector.py'),
       path.join(path.dirname(process.execPath), 'resources', 'tiyi-runtime', 'connector.py'),
+      path.join(process.cwd(), 'src', 'main', 'integrations', 'tiyi_connector.py'),
+      path.join(process.cwd(), 'dist-electron', 'tiyi-runtime', 'connector.py'),
     ];
     return roots.find(file => existsSync(file)) ?? roots[0];
+  }
+
+  private runtimeAvailable(): boolean {
+    const helper = this.connectorPath();
+    return existsSync(helper) && (!['connector.py', 'tiyi_connector.py'].includes(path.basename(helper))
+      || ['__init__.py', 'common.py', 'study.py', 'fitness.py', 'community.py']
+        .every(file => existsSync(path.join(path.dirname(helper), 'tiyi_modules', file))));
   }
 
   private hostSettings(): Pick<TiyiRuntimeOptions, 'legacyDirectory' | 'signerDirectory' | 'signerDependencies'> {
@@ -61,7 +68,7 @@ export class TiyiAdapter {
     const legacyDirectory = settings.legacyDirectory ?? (base ? path.join(base, 'local.zju.sports.desktop') : '');
     const sessionSaved = existsSync(path.join(this.privateDirectory, 'session.dpapi'))
       || !!legacyDirectory && existsSync(path.join(legacyDirectory, 'app-session.dpapi'));
-    const runtimeAvailable = existsSync(this.connectorPath());
+    const runtimeAvailable = this.runtimeAvailable();
     const signer = settings.signerDirectory;
     const signerConfigured = !!signer && existsSync(path.join(signer, 'main.py'));
     return {
@@ -83,11 +90,16 @@ export class TiyiAdapter {
 
   async read(args: TiyiReadArgs, signal?: AbortSignal): Promise<TiyiObservation> {
     if (!resources.has(args.resource)) throw new Error('没有找到这项体艺查询。');
-    if (args.snapshotId && !/^[a-f0-9]{32}$/.test(args.snapshotId)) throw new Error('这份体艺记录的地址不完整，请重新打开。');
+    if (args.snapshotId !== undefined && (typeof args.snapshotId !== 'string' || !/^[a-f0-9]{32}$/.test(args.snapshotId)))
+      throw new Error('这份体艺记录的地址不完整，请重新打开。');
     if (args.refresh && args.snapshotId) throw new Error('这次正在续读原记录；需要新记录时请另开一次刷新。');
+    if (args.snapshotId && [args.schoolYear, args.termId, args.courseId, args.recordId, args.begin, args.end,
+      args.period, args.validStatus, args.subpage, args.upstreamPage, args.venueSiteId, args.searchDate].some(value => value !== undefined))
+      throw new Error('续读会保留原来的学期和查询范围；要换条件，请另开一次查询。');
     if (args.upstreamPage !== undefined && (args.snapshotId || !Number.isInteger(args.upstreamPage) || args.upstreamPage < 0 || args.upstreamPage > 100_000
-      || !(args.resource === 'training' && args.subpage === undefined || args.resource === 'venues' && ['orders', 'training'].includes(args.subpage ?? ''))))
-      throw new Error('学校页码只用于场馆订单或培训列表的新查询；保存的记录请沿原地址继续。');
+      || !(args.resource === 'training' && args.subpage === undefined || args.resource === 'venues' && ['orders', 'training'].includes(args.subpage ?? '')
+        || ['counselling', 'venue_entries'].includes(args.resource))))
+      throw new Error('学校页码用于场馆、培训、辅导站或出入记录的新查询；保存的记录请沿原地址继续。');
     if (args.venueSiteId !== undefined || args.searchDate !== undefined) {
       if (args.snapshotId || args.upstreamPage !== undefined || args.resource !== 'venues'
         || args.subpage !== undefined && !['reservation', 'art_reservation'].includes(args.subpage)
@@ -102,7 +114,7 @@ export class TiyiAdapter {
       throw new Error('请选择周、月或学期统计。');
     if (args.validStatus !== undefined && ![-1, 0, 1].includes(args.validStatus))
       throw new Error('请选择有效、无效或待审核记录。');
-    if (args.subpage !== undefined && !['results', 'schedule', 'feedback', 'records', 'mine', 'attendance', 'orders', 'buddies', 'training', 'reservation', 'art_reservation'].includes(args.subpage))
+    if (args.subpage !== undefined && !['results', 'schedule', 'feedback', 'records', 'mine', 'attendance', 'orders', 'buddies', 'training', 'reservation', 'art_reservation', 'certificates'].includes(args.subpage))
       throw new Error('没有找到这个体艺子页面。');
     if ([args.begin, args.end].some(value => value !== undefined && (!Number.isSafeInteger(value) || value < 0)))
       throw new Error('统计时间需要完整的学校时间范围。');
@@ -124,7 +136,7 @@ export class TiyiAdapter {
   private execute(request: Record<string, unknown>, signal?: AbortSignal): Promise<TiyiObservation> {
     if (signal?.aborted) return Promise.reject(new Error('这次体艺查询已停下。'));
     const helper = this.connectorPath();
-    if (!existsSync(helper)) return Promise.reject(new Error('本机还没有体艺连接程序。'));
+    if (!this.runtimeAvailable()) return Promise.reject(new Error('本机的体艺连接文件不完整，请重新安装当前版本后再试。'));
     mkdirSync(this.privateDirectory, { recursive: true });
     const transport = this.options.getTransport ? this.options.getTransport() : this.options.transport;
     const settings = this.hostSettings();
@@ -211,6 +223,7 @@ export class TiyiAdapter {
             || !validSelection
             || !['fresh', 'saved', 'partial', 'auth_required', 'unavailable'].includes(result.status)
             || typeof result.coverage?.complete !== 'boolean'
+            || result.coverage.profileRead !== undefined && typeof result.coverage.profileRead !== 'boolean'
             || !['records', 'official_page', 'catalog', 'unknown'].includes(result.coverage.kind)
             || typeof result.observedAt !== 'string' || !Number.isFinite(Date.parse(result.observedAt))
             || result.snapshotId !== undefined && !/^[a-f0-9]{32}$/.test(result.snapshotId)
@@ -219,7 +232,10 @@ export class TiyiAdapter {
             || result.coverage.upstreamNext !== undefined && (!Number.isInteger(result.coverage.upstreamNext.upstreamPage)
               || result.coverage.upstreamNext.upstreamPage < 0 || result.coverage.upstreamNext.upstreamPage > 100_000
               || !(result.coverage.upstreamNext.resource === 'training' && result.coverage.upstreamNext.subpage === undefined
-                || result.coverage.upstreamNext.resource === 'venues' && ['orders', 'training'].includes(result.coverage.upstreamNext.subpage ?? '')))) throw new Error();
+                || result.coverage.upstreamNext.resource === 'venues' && ['orders', 'training'].includes(result.coverage.upstreamNext.subpage ?? '')
+                || ['counselling', 'venue_entries'].includes(result.coverage.upstreamNext.resource)
+                  && (result.coverage.upstreamNext.termId === undefined || typeof result.coverage.upstreamNext.termId === 'string'
+                    && /^[A-Za-z0-9_-]{1,160}$/.test(result.coverage.upstreamNext.termId))))) throw new Error();
           finish(undefined, result);
         } catch { finish(new Error(code === 0 ? '这次体艺回复没有读完整，请重新查询。' : '这次体艺查询没有完成，请稍后重试。')); }
       });

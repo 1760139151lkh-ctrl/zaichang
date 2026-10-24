@@ -1,0 +1,213 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "taki-chat-mist-layer-parameters-v4.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "taki-chat-mist-mother-candidate-v1.png",
+  "motherSha256": "e3fc520bcca02e7c72dcee83ea818a288a89676582dfd0870cfb31b86a7261c3",
+  "matte": "taki-chat-mist-mask-calibrated-v3.png",
+  "matteSha256": "a959b28711600abe236ec9f80c599d4675711fec7bf6e7bf76425438e6c3a256",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "alpha",
+  "alphaLow": 0,
+  "alphaHigh": 255,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 0,
+  "alphaNonzeroPixels": 50506,
+  "alphaBounds": [
+    1104,
+    311,
+    1383,
+    784
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "65208cc29546f7c095b51b04c3f81a56528a134057e132e3ee71980128c0aacb",
+  "figureRgbSha256": "65208cc29546f7c095b51b04c3f81a56528a134057e132e3ee71980128c0aacb",
+  "background": {
+    "candidate": "taki-chat-mist-background-generated-v1.png",
+    "candidateSha256": "dcfa233f33c5a71076bafc9b46fdaf5b79504e6c7877a3c1497057740b4e41cd",
+    "expandPixels": 7,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          1089,
+          735
+        ],
+        [
+          1187,
+          735
+        ],
+        [
+          1190,
+          779
+        ],
+        [
+          1087,
+          779
+        ]
+      ],
+      [
+        [
+          1235,
+          751
+        ],
+        [
+          1318,
+          751
+        ],
+        [
+          1328,
+          805
+        ],
+        [
+          1235,
+          805
+        ]
+      ],
+      [
+        [
+          1180,
+          578
+        ],
+        [
+          1381,
+          578
+        ],
+        [
+          1381,
+          622
+        ],
+        [
+          1180,
+          622
+        ]
+      ],
+      [
+        [
+          1155,
+          306
+        ],
+        [
+          1393,
+          306
+        ],
+        [
+          1393,
+          548
+        ],
+        [
+          1155,
+          548
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 113850,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1087,
+          736
+        ],
+        [
+          1184,
+          736
+        ],
+        [
+          1191,
+          778
+        ],
+        [
+          1086,
+          778
+        ]
+      ],
+      [
+        [
+          1234,
+          751
+        ],
+        [
+          1318,
+          751
+        ],
+        [
+          1326,
+          803
+        ],
+        [
+          1234,
+          803
+        ]
+      ],
+      [
+        [
+          1180,
+          573
+        ],
+        [
+          1381,
+          573
+        ],
+        [
+          1381,
+          624
+        ],
+        [
+          1180,
+          624
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "taki-chat-mist-figure-calibrated-v3.png",
+      "bytes": 2302512,
+      "sha256": "85290928aaca18d0785484ed05e02210546ef3ddc656fd5b6fcd7b3811a1005a"
+    },
+    {
+      "file": "taki-chat-mist-mask-calibrated-v3.png",
+      "bytes": 22932,
+      "sha256": "a959b28711600abe236ec9f80c599d4675711fec7bf6e7bf76425438e6c3a256"
+    },
+    {
+      "file": "taki-chat-mist-background-calibrated-v4.png",
+      "bytes": 1987903,
+      "sha256": "da1755781c9f19294cbfef3a5550fc962d7daaec9ba739ac83422bd851cb5435"
+    },
+    {
+      "file": "taki-chat-mist-shadow-calibrated-v4.png",
+      "bytes": 47502,
+      "sha256": "20fb616fbe20e2c07c67cc53662882aa922f09d5010a3fb923a31efd080101d6"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

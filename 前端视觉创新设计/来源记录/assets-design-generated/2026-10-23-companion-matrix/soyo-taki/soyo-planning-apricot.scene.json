@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-planning-apricot-room4",
+  "character": "soyo",
+  "activity": "planning",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "soyo-planning-apricot-mother-candidate-v2.png",
+  "background": "soyo-planning-apricot-background-calibrated-v8.png",
+  "figure": "soyo-planning-apricot-figure-calibrated-v7.png",
+  "mask": "soyo-planning-apricot-mask-calibrated-v7.png",
+  "shadow": "soyo-planning-apricot-shadow-calibrated-v8.png",
+  "seat": [
+    0.5416666666666666,
+    0.587890625
+  ],
+  "ground": [
+    0.4641927083333333,
+    0.7607421875
+  ],
+  "bodyBounds": [
+    0.4166666666666667,
+    0.291015625,
+    0.6451822916666666,
+    0.7626953125
+  ],
+  "safeTextBoundary": 0.4,
+  "support": "desk-chair",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "56.576% 28.906%, 57.813% 29.199%, 59.049% 30.078%, 59.961% 31.348%, 60.547% 33.105%, 60.742% 34.766%, 60.547% 35.840%, 60.221% 36.816%, 59.635% 37.402%, 59.375% 38.184%, 59.049% 38.867%, 58.594% 39.453%, 58.984% 40.625%, 59.505% 42.676%, 59.766% 44.629%, 59.440% 45.898%, 60.026% 46.484%, 60.807% 46.289%, 61.328% 46.680%, 62.305% 46.777%, 63.216% 47.266%, 63.932% 48.242%, 64.453% 48.926%, 64.128% 49.121%, 63.607% 48.730%, 63.281% 48.828%, 62.630% 48.633%, 61.979% 48.340%, 61.328% 48.145%, 61.003% 48.730%, 60.091% 49.219%, 58.919% 49.512%, 57.943% 49.512%, 57.227% 48.828%, 56.901% 49.805%, 57.031% 51.758%, 57.487% 54.102%, 57.747% 56.348%, 57.487% 57.324%, 56.771% 58.105%, 55.859% 58.789%, 55.273% 59.668%, 55.078% 60.352%, 53.841% 59.863%, 52.669% 59.180%, 51.497% 58.203%, 51.042% 61.230%, 50.716% 63.477%, 50.130% 65.918%, 49.479% 68.262%, 48.893% 70.605%, 48.828% 72.070%, 49.089% 73.340%, 49.089% 74.512%, 48.633% 75.488%, 47.982% 75.879%, 46.419% 76.172%, 44.857% 75.879%, 44.466% 75.391%, 44.466% 74.609%, 44.987% 73.633%, 46.094% 72.363%, 46.745% 70.703%, 47.266% 68.555%, 47.852% 66.113%, 48.112% 63.574%, 48.438% 60.938%, 48.568% 59.863%, 49.089% 58.203%, 48.503% 59.180%, 47.917% 60.547%, 47.331% 62.402%, 46.680% 64.160%, 46.094% 66.016%, 45.638% 67.676%, 45.378% 69.434%, 45.182% 70.801%, 45.247% 71.875%, 45.052% 72.852%, 44.531% 73.926%, 43.424% 74.707%, 42.122% 74.707%, 41.667% 74.316%, 41.667% 73.535%, 41.927% 72.754%, 42.578% 71.875%, 43.359% 70.508%, 44.076% 68.555%, 44.727% 66.504%, 45.378% 64.160%, 45.898% 61.914%, 46.419% 60.059%, 46.875% 58.398%, 46.484% 59.180%, 46.354% 58.398%, 46.484% 57.715%, 46.354% 57.129%, 47.135% 55.859%, 48.177% 54.297%, 49.544% 52.539%, 50.391% 51.367%, 50.326% 50.195%, 49.935% 49.023%, 49.674% 47.754%, 49.740% 46.387%, 49.349% 46.582%, 48.893% 45.996%, 48.633% 45.117%, 48.763% 43.848%, 49.154% 42.480%, 49.740% 41.504%, 50.781% 40.332%, 51.888% 39.258%, 52.669% 37.305%, 53.255% 34.863%, 53.841% 32.422%, 54.883% 30.371%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "production": "soyo-planning-apricot-layer-processing-v8.json",
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Original full 1536x1024 RGB retained byte-for-byte. Fixed chair/desk/fingertip contact; both stationary papers, chair and lamp stay in room layer. Complete two visible hands/feet, chair gaps and original hair air gaps. Actual left figure edge x640; safe text boundary 0.40. No motion or runtime claim.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json",
+    "runtimeAccepted": false,
+    "producerVisualReview": "Current selected original mother, full actual prompt, light/dark alpha, matching empty room and original-coordinate recomposition personally viewed by soyo_warm_layers; primary and normal Stage/runtime pending."
+  }
+}

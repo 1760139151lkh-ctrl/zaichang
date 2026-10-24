@@ -1,0 +1,52 @@
+{
+  "mother": "taki-listening-apricot-mother-candidate-v1.png",
+  "motherSha256": "d8369e39dc109457df147611494e1741c86512e2bcfc579c92050efb0d134bbb",
+  "sourceAlpha": "taki-listening-apricot-mask-candidate-v1.png",
+  "sourceAlphaSha256": "9a54759b1b60575061e1a30730afe885cf1eedd3f0ae036a1e696572592f0f2e",
+  "sourceAlphaMode": "luminance",
+  "edgeDifference": {
+    "background": "taki-listening-apricot-background-candidate-v1.png",
+    "backgroundSha256": "371ac8ce8eaf52660f30f874721ca4d027a1843fc89a90e68565041841472e3e",
+    "edgePixels": 2,
+    "differenceLow": 5,
+    "differenceHigh": 18
+  },
+  "minimumVisibleAlpha": 12,
+  "removeIslandsSmallerThan": 3,
+  "fillInteriorHolesWithin": [
+    [
+      1256,
+      330,
+      1330,
+      431
+    ],
+    [
+      1255,
+      442,
+      1302,
+      509
+    ]
+  ],
+  "explicitRoomExclusions": [
+    [
+      [
+        1248,
+        710
+      ],
+      [
+        1332,
+        710
+      ],
+      [
+        1332,
+        780
+      ],
+      [
+        1248,
+        780
+      ]
+    ]
+  ],
+  "output": "taki-listening-apricot-alpha-calibrated-v2.png",
+  "record": "taki-listening-apricot-alpha-production-v2.json"
+}

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-chat-mist-room4",
+  "character": "soyo",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "width": 1536,
+  "height": 1024,
+  "mother": "soyo-chat-mist-mother-candidate-v1.png",
+  "background": "soyo-chat-mist-background-calibrated-v3.png",
+  "figure": "soyo-chat-mist-figure-calibrated-v2.png",
+  "mask": "soyo-chat-mist-mask-calibrated-v2.png",
+  "shadow": "soyo-chat-mist-shadow-calibrated-v3.png",
+  "seat": [
+    0.857421875,
+    0.5810546875
+  ],
+  "ground": [
+    0.806640625,
+    0.7607421875
+  ],
+  "bodyBounds": [
+    0.7610677083333334,
+    0.2724609375,
+    0.908203125,
+    0.7626953125
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "83% 27%, 86% 28%, 88% 34%, 90% 48%, 91% 57%, 88% 60%, 85% 67%, 83% 76%, 76% 77%, 76% 73%, 78% 63%, 78% 56%, 79% 47%, 80% 33%",
+  "travel": 0.008,
+  "slope": 0.09,
+  "perspective": 0,
+  "production": "soyo-chat-mist-layer-processing-v3.json",
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Candidate matching room and original RGB figure with preserved calibrated alpha. Complete observed hair footprint cleared from empty room; new normal source-over shadow version follows this BG. Original Stage gestures and primary layer admission remain pending.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json"
+  }
+}

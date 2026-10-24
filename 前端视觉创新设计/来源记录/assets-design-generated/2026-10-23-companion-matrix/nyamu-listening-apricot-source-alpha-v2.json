@@ -1,0 +1,30 @@
+{
+  "recordType": "original-RGB-purple-bob-alpha-calibration",
+  "script": "nyamu-listening-apricot-refine-head-v2.py",
+  "scriptSha256": "82762f093eb11dc02e4961ff42dd54bb41c10fd25030e6124b6e864f18de5a33",
+  "mother": "nyamu-listening-apricot-mother-candidate-v1.png",
+  "motherSha256": "823f7606e5add858c9834ea290822cc78e0b0c3ae1309f367bd2a2bf1d862b6e",
+  "inputAlpha": "nyamu-listening-apricot-mask-calibrated-v1.png",
+  "inputAlphaSha256": "2833e27c38d5f0d06ec3e5f9cd7037604e26c01d8013b7aecf75d04f96f376b9",
+  "registeredMask": "nyamu-listening-apricot-mask-candidate-v1.png",
+  "registeredMaskSha256": "f9ff371161ed86300b6c532f546d6ee59a2fb8171e7f40b9472eabcf313977fd",
+  "originalHairRegion": [
+    1230,
+    280,
+    1356,
+    405
+  ],
+  "originalWindowGapRegion": [
+    1238,
+    365,
+    1349,
+    410
+  ],
+  "method": "Stable original-RGB full body alpha retains original purple hair fine edge from registered raw mask only where original source color is purple/pink. Remove actual blue window in bob/neck gap, not real skin/black choker. RGB/body/pose never painted or moved.",
+  "outputAlpha": "nyamu-listening-apricot-source-alpha-v2.png",
+  "outputAlphaSha256": "70318e5df2fad089d5e9b283034d5ecdd953947f31ed7dc891f9b070472af30e",
+  "review": {
+    "primary": "pending",
+    "runtime": "not registered"
+  }
+}

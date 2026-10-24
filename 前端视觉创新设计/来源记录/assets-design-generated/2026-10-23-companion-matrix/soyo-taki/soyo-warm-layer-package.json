@@ -1,0 +1,499 @@
+{
+  "recordType": "original-scene-layer-asset-package",
+  "character": "soyo",
+  "palette": "apricot",
+  "activities": [
+    "reading",
+    "planning",
+    "listening",
+    "rest",
+    "play",
+    "attention"
+  ],
+  "producer": "soyo_warm_layers",
+  "method": "Original full-canvas RGB payload plus calibrated alpha; same-mother generated clean background only inside original person/cast-shadow patch.",
+  "stage": "source candidates for primary review; not runtime registration",
+  "entries": [
+    {
+      "activity": "reading",
+      "scene": "soyo-reading-apricot.scene.json",
+      "sceneSha256": "ab6df966918e7fe5206f02445775f1e14edb50f2b1ff0bb1cda77deaa2d8bfc4",
+      "layers": [
+        {
+          "role": "mother",
+          "file": "soyo-reading-apricot-mother-candidate-v2.png",
+          "sha256": "68b71f572a6566147acf1bbe104cd05a1bc6e9194ea01039a3e40b785e60f23e",
+          "bytes": 2189991,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "background",
+          "file": "soyo-reading-apricot-background-calibrated-v10.png",
+          "sha256": "8a9abbd7ab90b7b3a8258e41bf2a03f1271bb43ae13ededd865a74431747a516",
+          "bytes": 2113813,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "figure",
+          "file": "soyo-reading-apricot-figure-calibrated-v8.png",
+          "sha256": "e18bede8ec8eee26d26362e6272c7b2ab5b3d2d66a2872af141741e35978a781",
+          "bytes": 2449858,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "mask",
+          "file": "soyo-reading-apricot-mask-calibrated-v8.png",
+          "sha256": "3e61cbeb1bb594a5032be1605d1c93e7d08ab3344ecf961cb549bb5384d20d84",
+          "bytes": 15502,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "shadow",
+          "file": "soyo-reading-apricot-shadow-calibrated-v10.png",
+          "sha256": "aa545e9311091122de08822f98f57cf9b09e117610e17d71e15677993a4b4b01",
+          "bytes": 41147,
+          "canvas": [
+            1536,
+            1024
+          ]
+        }
+      ],
+      "rgbChangedPixels": 0,
+      "motherRgbPayloadSha256": "bec38b4bd120a73e5b4ce459905741bb5034a0783a28a053103682f944922c7b",
+      "figureRgbPayloadSha256": "bec38b4bd120a73e5b4ce459905741bb5034a0783a28a053103682f944922c7b",
+      "support": "window-seat",
+      "seat": [
+        0.8626302083333334,
+        0.580078125
+      ],
+      "ground": [
+        0.76171875,
+        0.740234375
+      ],
+      "bodyBounds": [
+        0.7220052083333334,
+        0.2861328125,
+        0.93359375,
+        0.7490234375
+      ],
+      "safeTextBoundary": 0.7,
+      "travel": 0,
+      "production": "soyo-reading-apricot-layer-processing-v10.json",
+      "layerReview": "pending primary review",
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "planning",
+      "scene": "soyo-planning-apricot.scene.json",
+      "sceneSha256": "e8c4dace0fd52482c76c9907b367878a400e42f5907526c248680a50c82ca92d",
+      "layers": [
+        {
+          "role": "mother",
+          "file": "soyo-planning-apricot-mother-candidate-v2.png",
+          "sha256": "e002a836c881d736966bce3a254de9ef5e4a0417efc5b260eaeaea64d85904d6",
+          "bytes": 2145855,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "background",
+          "file": "soyo-planning-apricot-background-calibrated-v8.png",
+          "sha256": "790b33ade10d977336e0cca0dd47e68c5a3d97542710579719fa39173ec0f9be",
+          "bytes": 2059712,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "figure",
+          "file": "soyo-planning-apricot-figure-calibrated-v7.png",
+          "sha256": "b49834e7c83c1a86be60986c32e052871cbc0d91962386a69a790113f68858b8",
+          "bytes": 2393303,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "mask",
+          "file": "soyo-planning-apricot-mask-calibrated-v7.png",
+          "sha256": "3d04f1fe901367cdb4fc00d8086951bf9162bcd514e634f116c41ad685d52071",
+          "bytes": 14936,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "shadow",
+          "file": "soyo-planning-apricot-shadow-calibrated-v8.png",
+          "sha256": "78fa825259fc98cfcf977199aa9e49df50f0bd79211b6e1a46388e0b9c7656aa",
+          "bytes": 37973,
+          "canvas": [
+            1536,
+            1024
+          ]
+        }
+      ],
+      "rgbChangedPixels": 0,
+      "motherRgbPayloadSha256": "aa021e9a358ad0ba9852d91ef4c85907e1ef28f2219ebccb0eae012201394265",
+      "figureRgbPayloadSha256": "aa021e9a358ad0ba9852d91ef4c85907e1ef28f2219ebccb0eae012201394265",
+      "support": "desk-chair",
+      "seat": [
+        0.5416666666666666,
+        0.587890625
+      ],
+      "ground": [
+        0.4641927083333333,
+        0.7607421875
+      ],
+      "bodyBounds": [
+        0.4166666666666667,
+        0.291015625,
+        0.6451822916666666,
+        0.7626953125
+      ],
+      "safeTextBoundary": 0.4,
+      "travel": 0,
+      "production": "soyo-planning-apricot-layer-processing-v8.json",
+      "layerReview": "pending primary review",
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "listening",
+      "scene": "soyo-listening-apricot.scene.json",
+      "sceneSha256": "465025acc1d66c68a52244a4ba93ebc897f9f7e29a12082dabc59572c66a7503",
+      "layers": [
+        {
+          "role": "mother",
+          "file": "soyo-listening-apricot-mother-candidate-v2.png",
+          "sha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4",
+          "bytes": 2181513,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "background",
+          "file": "soyo-listening-apricot-background-calibrated-v24.png",
+          "sha256": "93147809280fd234cde363f9b5ebff97ce08b6e3b76368fa4238a70701fa36bf",
+          "bytes": 2113987,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "figure",
+          "file": "soyo-listening-apricot-figure-calibrated-v24.png",
+          "sha256": "16a1df11e10d35ec698d4ade5aae1a1d879a6fe59ab394e176d01f514681563f",
+          "bytes": 2446845,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "mask",
+          "file": "soyo-listening-apricot-mask-calibrated-v24.png",
+          "sha256": "026cd30eca9b880adfc5a2580226f187ba5cf5efb3fb6cb9940aaf463a970ff9",
+          "bytes": 26187,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "shadow",
+          "file": "soyo-listening-apricot-shadow-calibrated-v24.png",
+          "sha256": "e792ac65061d79c31141a52097f378c29d8efb9d6772704f694b40cbbce00c72",
+          "bytes": 40410,
+          "canvas": [
+            1536,
+            1024
+          ]
+        }
+      ],
+      "rgbChangedPixels": 0,
+      "motherRgbPayloadSha256": "b3684753ef50dd1edd77bc727b427497264e7c45c7da17a8b92153c27d43d2dc",
+      "figureRgbPayloadSha256": "b3684753ef50dd1edd77bc727b427497264e7c45c7da17a8b92153c27d43d2dc",
+      "support": "window-seat",
+      "seat": [
+        0.8821614583333334,
+        0.5537109375
+      ],
+      "ground": [
+        0.8053385416666666,
+        0.56640625
+      ],
+      "bodyBounds": [
+        0.779296875,
+        0.2509765625,
+        0.9401041666666666,
+        0.5732421875
+      ],
+      "safeTextBoundary": 0.7688802083333334,
+      "travel": 0,
+      "production": "soyo-listening-apricot-layer-processing-v24.json",
+      "layerReview": "pending primary review",
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "rest",
+      "scene": "soyo-rest-apricot.scene.json",
+      "sceneSha256": "43ae58f666398d996e84570012b7f0caedac0815fc994ccfb8aedfc72e78b919",
+      "layers": [
+        {
+          "role": "mother",
+          "file": "soyo-rest-apricot-mother-candidate-v1.png",
+          "sha256": "c1be74d29d85a6ac0a2976acdcb3632fe625d46fef9535ca6ed6f33eabeb6e61",
+          "bytes": 2159553,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "background",
+          "file": "soyo-rest-apricot-background-calibrated-v9.png",
+          "sha256": "ecdcb673ecd27b72fc3173e024f90962289fdba0c4adc0827822e189d083a1e2",
+          "bytes": 2092250,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "figure",
+          "file": "soyo-rest-apricot-figure-calibrated-v9.png",
+          "sha256": "894c1c51391a1c08044263228f7a768a215e1349aea870974ddfb30b406e90b7",
+          "bytes": 2416156,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "mask",
+          "file": "soyo-rest-apricot-mask-calibrated-v9.png",
+          "sha256": "c039a08b7d321e3aa6899f5272328eb2ccffdebc63892d786fb2df0184d593d1",
+          "bytes": 13757,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "shadow",
+          "file": "soyo-rest-apricot-shadow-calibrated-v9.png",
+          "sha256": "6df72addd1b5f69dfd7d0a3e2d7ebc7877630d94b37a13bd87f8172bf0a02ae4",
+          "bytes": 42559,
+          "canvas": [
+            1536,
+            1024
+          ]
+        }
+      ],
+      "rgbChangedPixels": 0,
+      "motherRgbPayloadSha256": "1241c23e608f2ceb2407ef479755bd6c773c71ac28b356eb96cc94cf86f1fc82",
+      "figureRgbPayloadSha256": "1241c23e608f2ceb2407ef479755bd6c773c71ac28b356eb96cc94cf86f1fc82",
+      "support": "window-seat",
+      "seat": [
+        0.8626302083333334,
+        0.5693359375
+      ],
+      "ground": [
+        0.7584635416666666,
+        0.7265625
+      ],
+      "bodyBounds": [
+        0.7018229166666666,
+        0.27734375,
+        0.9290364583333334,
+        0.7353515625
+      ],
+      "safeTextBoundary": 0.6920572916666666,
+      "travel": 0,
+      "production": "soyo-rest-apricot-layer-processing-v9.json",
+      "layerReview": "pending primary review",
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "play",
+      "scene": "soyo-play-apricot.scene.json",
+      "sceneSha256": "4466eade3ae0d0320ade4b6c237eeda160a55b34baba9d149da7db751b072f2d",
+      "layers": [
+        {
+          "role": "mother",
+          "file": "soyo-play-apricot-mother-candidate-v1.png",
+          "sha256": "81e654d671e5da16986fe32fe6e742c12042c684cad689f59885706eb29cc1f4",
+          "bytes": 2202232,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "background",
+          "file": "soyo-play-apricot-background-calibrated-v14.png",
+          "sha256": "63f0420e70325b9bd85765422bbe63cf176760cfa567130718b50fdc05719dc0",
+          "bytes": 2094765,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "figure",
+          "file": "soyo-play-apricot-figure-calibrated-v14.png",
+          "sha256": "8c3e3efb16285ea6f38b194386ed914714392e2cbfd14213fde2917e94fc326a",
+          "bytes": 2472257,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "mask",
+          "file": "soyo-play-apricot-mask-calibrated-v14.png",
+          "sha256": "caa3f6beba3bb2ce2c8f48631ffea999962bc55ef9c3787da2641a68913da4a4",
+          "bytes": 43236,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "shadow",
+          "file": "soyo-play-apricot-shadow-calibrated-v14.png",
+          "sha256": "5d15f7b7df6473791403ecb9e017678c462c0044716fc00fe22c13f00f0827b6",
+          "bytes": 86890,
+          "canvas": [
+            1536,
+            1024
+          ]
+        }
+      ],
+      "rgbChangedPixels": 0,
+      "motherRgbPayloadSha256": "aa158a5542eaa38546b776a5144ddc8d9d4c03825e6ec98f7b34b38891bb90f2",
+      "figureRgbPayloadSha256": "aa158a5542eaa38546b776a5144ddc8d9d4c03825e6ec98f7b34b38891bb90f2",
+      "support": "window-seat",
+      "seat": [
+        0.8626302083333334,
+        0.599609375
+      ],
+      "ground": [
+        0.7115885416666666,
+        0.86328125
+      ],
+      "bodyBounds": [
+        0.693359375,
+        0.232421875,
+        0.935546875,
+        0.8701171875
+      ],
+      "safeTextBoundary": 0.68359375,
+      "travel": 0,
+      "production": "soyo-play-apricot-layer-processing-v14.json",
+      "layerReview": "pending primary review",
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "attention",
+      "scene": "soyo-attention-apricot.scene.json",
+      "sceneSha256": "a7c3b21a24f0a181dc4e4bd43d1277e7e3cb0c954da7f2302119f4ede928b9f5",
+      "layers": [
+        {
+          "role": "mother",
+          "file": "soyo-attention-apricot-mother-candidate-v1.png",
+          "sha256": "c854bfeb6cc56482357a1fbf64ba020b6e42a52cdbe6240157ac89466852784e",
+          "bytes": 2131105,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "background",
+          "file": "soyo-attention-apricot-background-calibrated-v8.png",
+          "sha256": "45a480b6ca9e14942407095ec700e566f043eb00cd78705a4ff4e70167100ae2",
+          "bytes": 2060782,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "figure",
+          "file": "soyo-attention-apricot-figure-calibrated-v8.png",
+          "sha256": "b66a5fcb1c7b4f342fd0800416df9ea1eaa021233fd02a10c5e589a80047a8f0",
+          "bytes": 2398312,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "mask",
+          "file": "soyo-attention-apricot-mask-calibrated-v8.png",
+          "sha256": "c9429d43387bbc189c833c5c958fe010673cb3908da48ea6603258d8858109ae",
+          "bytes": 35144,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        {
+          "role": "shadow",
+          "file": "soyo-attention-apricot-shadow-calibrated-v8.png",
+          "sha256": "bff2fc2e6fefacbac9a1d3b649abd6a88bb2a295e554a138c8889efe1196e318",
+          "bytes": 55298,
+          "canvas": [
+            1536,
+            1024
+          ]
+        }
+      ],
+      "rgbChangedPixels": 0,
+      "motherRgbPayloadSha256": "51f65c39ecd79fdb6c73c22753f314d74eba0228334f75b4f7e4940c98bf10c3",
+      "figureRgbPayloadSha256": "51f65c39ecd79fdb6c73c22753f314d74eba0228334f75b4f7e4940c98bf10c3",
+      "support": "window-seat",
+      "seat": [
+        0.8723958333333334,
+        0.5751953125
+      ],
+      "ground": [
+        0.8111979166666666,
+        0.7490234375
+      ],
+      "bodyBounds": [
+        0.7428385416666666,
+        0.2666015625,
+        0.9453125,
+        0.7568359375
+      ],
+      "safeTextBoundary": 0.7330729166666666,
+      "travel": 0,
+      "production": "soyo-attention-apricot-layer-processing-v8.json",
+      "layerReview": "pending primary review",
+      "runtimeAccepted": false
+    }
+  ],
+  "secondProducerReview": "role_matrix_settings personally inspected all six selected deep/light alpha, complete empty rooms and complete recompositions; final listening24 and play14 reviewed after narrow original-coordinate alpha corrections. Primary and runtime pending."
+}

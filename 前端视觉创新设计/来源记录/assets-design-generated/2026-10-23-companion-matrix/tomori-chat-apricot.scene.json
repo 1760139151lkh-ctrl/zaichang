@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-chat-apricot-room4",
+  "character": "tomori",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "tomori-chat-apricot-mother.png",
+  "background": "tomori-chat-background-calibrated-v7.png",
+  "figure": "tomori-chat-figure-calibrated-v7.png",
+  "mask": "tomori-chat-mask-calibrated-v7.png",
+  "shadow": "tomori-chat-shadow-calibrated-v7.png",
+  "seat": [
+    0.8658854166666666,
+    0.57421875
+  ],
+  "ground": [
+    0.79296875,
+    0.7626953125
+  ],
+  "bodyBounds": [
+    0.7526041666666666,
+    0.2646484375,
+    0.939453125,
+    0.765625
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "86.393% 26.953%, 85.156% 26.562%, 83.333% 27.637%, 82.422% 28.906%, 81.706% 31.348%, 81.706% 34.57%, 82.227% 36.035%, 82.747% 36.328%, 83.008% 35.742%, 83.659% 36.328%, 83.073% 37.207%, 83.138% 36.816%, 81.38% 37.598%, 81.12% 38.184%, 80.599% 51.27%, 79.492% 52.539%, 78.711% 54.492%, 78.06% 54.785%, 78.255% 55.371%, 77.474% 55.273%, 77.93% 56.348%, 78.776% 56.738%, 77.669% 62.012%, 76.888% 70.508%, 75.326% 74.707%, 75.716% 75.488%, 77.344% 75.391%, 78.385% 76.367%, 79.492% 76.367%, 82.031% 74.902%, 81.901% 70.312%, 83.398% 62.012%, 83.203% 57.227%, 87.435% 57.812%, 88.997% 57.129%, 89.453% 56.055%, 90.169% 56.152%, 90.885% 57.129%, 93.815% 57.031%, 92.839% 55.957%, 91.276% 55.762%, 90.885% 52.734%, 90.104% 51.758%, 90.56% 52.148%, 89.974% 47.363%, 89.258% 45.898%, 89.714% 46.387%, 88.932% 37.891%, 86.914% 36.523%, 88.151% 34.668%, 88.151% 30.371%, 87.435% 28.125%",
+  "travel": 0.0078125,
+  "slope": 0.08,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerStage": "candidate",
+    "producerNote": "Parent primary must review source/matte/contact and independently confirm these measured source anchors and short bench-tangent range. No runtime admission or physical motion claim."
+  },
+  "calibrationObservation": {
+    "seatPixels": [
+      1330,
+      588
+    ],
+    "groundPixels": [
+      1218,
+      781
+    ],
+    "shortRangePixels": 12,
+    "note": "Seat is source cushion/skirt support; ground is front whole-loafer contact. Candidate values, not copied legacy defaults. Actual Stage still pending."
+  },
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-layer-processing-v7.json"
+}

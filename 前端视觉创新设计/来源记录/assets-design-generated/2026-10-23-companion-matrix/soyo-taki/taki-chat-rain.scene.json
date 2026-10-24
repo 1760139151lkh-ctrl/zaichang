@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "taki-chat-rain-room4",
+  "character": "taki",
+  "activity": "chat",
+  "light": "night",
+  "palette": "rain",
+  "width": 1536,
+  "height": 1024,
+  "mother": "taki-chat-rain-mother-candidate-v1.png",
+  "background": "taki-chat-rain-background-calibrated-v2.png",
+  "figure": "taki-chat-rain-figure-calibrated-v1.png",
+  "mask": "taki-chat-rain-mask-calibrated-v1.png",
+  "shadow": "taki-chat-rain-shadow-calibrated-v2.png",
+  "seat": [
+    0.8658854167,
+    0.5810546875
+  ],
+  "ground": [
+    0.8255208333,
+    0.7626953125
+  ],
+  "bodyBounds": [
+    0.71875,
+    0.3046875,
+    0.900390625,
+    0.765625
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "80% 30%, 84% 31%, 87% 41%, 89% 53%, 90% 58%, 88% 60%, 85% 66%, 85% 77%, 80% 77%, 80% 71%, 78% 65%, 75% 73%, 72% 75%, 72% 72%, 75% 61%, 78% 53%, 77% 43%, 78% 34%",
+  "travel": 0.006,
+  "slope": 0.09,
+  "perspective": 0,
+  "production": "taki-chat-rain-layer-processing-v2.json",
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Candidate matching room and original RGB figure with preserved calibrated alpha. Complete observed hair footprint cleared from empty room; new normal source-over shadow version follows this BG. Original Stage gestures and primary layer admission remain pending.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "recordType": "built-in-image-generation-source",
+  "operation": "monochrome original-coordinate matte",
+  "actualTool": "image_gen.imagegen",
+  "input": "soyo-play-apricot-mother-candidate-v1.png",
+  "inputSha256": "81e654d671e5da16986fe32fe6e742c12042c684cad689f59885706eb29cc1f4",
+  "prompt": "soyo-play-apricot-mask-prompt-v1.txt",
+  "toolPromptTextSha256": "531aadf56f2e1b24d03ebdaf41233154b5735d75421fbe928f7e0057e8f9154d",
+  "generatedOutput": "soyo-play-apricot-mask-candidate-v1.png",
+  "outputSha256": "ad35338ab96afb099f638bd375c99b177a4894971b6bcc37638ee3baa112cff4",
+  "toolDefaultOutput": "generated_images/01a16e45-3c23-7790-a62d-04bd03b674e2/exec-0604e890-274a-4706-915f-5f7d40de5de2.png",
+  "producerReview": "Exact original-frame raw mask over mother RGB was personally viewed at body and hair details, including hands/feet. No geometry transform applied. Adopted layer calibrates only alpha boundary noise and retains original RGB; primary and runtime pending.",
+  "primaryReview": "pending",
+  "runtimeAccepted": false,
+  "executionId": "exec-0604e890-274a-4706-915f-5f7d40de5de2",
+  "promptFileSha256": "243252ae40d59bb0a15e80c4898e1d931fdc2a3db5d0a5a9f58dec30996d2642"
+}

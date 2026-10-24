@@ -1,0 +1,30 @@
+{
+  "recordType": "original-RGB-alpha-only-head-calibration",
+  "script": "nyamu-reading-apricot-refine-head-v3.py",
+  "scriptSha256": "02a7cd98c72048b44f140cb675900733d78c2f42af318576441e3b3ed5b6183b",
+  "mother": "nyamu-reading-apricot-mother-candidate-v1.png",
+  "motherSha256": "679651a0af996b08b6be27a01aff2dd5d4ce21f7ee03cd41db8f0231329e903b",
+  "inputAlpha": "nyamu-reading-apricot-mask-calibrated-v2.png",
+  "inputAlphaSha256": "a9f7c73abcd91a485859d18751960dcf7d357b4a8c9565b092a9974539db6832",
+  "registeredRawMask": "nyamu-reading-apricot-mask-candidate-v1.png",
+  "registeredRawMaskSha256": "f3e30933a93a38f9c1fc09bf5001563bdbd7819179ff4c368a8465ee13f5eb94",
+  "originalFineHairRegion": [
+    780,
+    329,
+    919,
+    444
+  ],
+  "originalLakeGapRegion": [
+    846,
+    414,
+    873,
+    438
+  ],
+  "method": "Original purple/gold hair RGB retains the registered fine raw edge outside the stable body matte; source blue lake pixels in the actual chin/neck gap are excluded. No original figure RGB, body geometry or colors changed.",
+  "outputAlpha": "nyamu-reading-apricot-source-alpha-v3.png",
+  "outputAlphaSha256": "66a56253504511b0a7bc7269f99bae29937b1da8972ce43bdf01f5d7e20d1435",
+  "review": {
+    "primary": "pending",
+    "runtime": "not registered"
+  }
+}

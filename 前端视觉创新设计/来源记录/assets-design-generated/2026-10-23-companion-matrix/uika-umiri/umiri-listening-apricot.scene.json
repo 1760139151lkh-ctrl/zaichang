@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "id": "umiri-listening-apricot-source-room",
+  "character": "umiri",
+  "activity": "listening",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "umiri-listening-apricot-mother-candidate-v1.png",
+  "background": "umiri-listening-apricot-background-calibrated-v3.png",
+  "figure": "umiri-listening-apricot-figure-calibrated-v3.png",
+  "mask": "umiri-listening-apricot-mask-calibrated-v3.png",
+  "shadow": "umiri-listening-apricot-shadow-calibrated-v3.png",
+  "seat": [
+    0.8854166666666666,
+    0.5712890625
+  ],
+  "ground": [
+    0.7799479166666666,
+    0.7568359375
+  ],
+  "bodyBounds": [
+    0.7513020833333334,
+    0.265625,
+    0.947265625,
+    0.7587890625
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "86.979% 26.758%, 85.938% 26.660%, 84.701% 27.344%, 83.919% 28.418%, 83.464% 29.980%, 83.138% 31.641%, 83.073% 33.203%, 83.203% 33.301%, 83.203% 36.230%, 83.333% 36.328%, 83.333% 37.207%, 83.659% 37.500%, 83.659% 38.281%, 83.333% 38.672%, 83.464% 39.160%, 83.268% 39.258%, 83.398% 40.039%, 83.138% 41.113%, 83.203% 42.188%, 82.617% 43.359%, 82.552% 45.020%, 82.096% 45.703%, 82.031% 47.461%, 81.576% 47.754%, 80.599% 49.316%, 80.013% 51.562%, 79.557% 52.539%, 79.167% 52.539%, 79.036% 52.832%, 78.711% 52.832%, 77.474% 53.613%, 76.107% 53.320%, 75.911% 53.613%, 75.521% 53.613%, 75.195% 54.102%, 75.195% 54.590%, 75.391% 54.980%, 77.995% 55.371%, 78.646% 55.762%, 78.385% 56.641%, 78.190% 58.496%, 78.255% 59.375%, 77.995% 59.473%, 78.190% 59.766%, 77.995% 61.523%, 78.125% 61.621%, 78.125% 61.133%, 78.255% 61.035%, 78.385% 61.230%, 78.255% 62.109%, 78.841% 62.793%, 78.841% 59.961%, 79.297% 59.570%, 79.362% 60.645%, 79.232% 60.645%, 79.232% 59.961%, 79.167% 61.328%, 79.232% 62.402%, 79.362% 62.402%, 79.362% 61.523%, 79.492% 61.426%, 79.622% 61.816%, 79.622% 59.473%, 79.818% 59.375%, 79.948% 61.719%, 80.078% 61.621%, 79.688% 66.602%, 79.427% 68.555%, 79.167% 69.238%, 79.167% 69.922%, 78.060% 72.461%, 76.693% 74.316%, 76.628% 75.195%, 77.018% 75.586%, 78.060% 75.684%, 78.906% 75.293%, 79.753% 73.438%, 80.599% 73.242%, 80.859% 72.852%, 80.794% 70.410%, 80.990% 67.871%, 81.641% 64.160%, 83.268% 57.617%, 86.589% 58.008%, 88.281% 57.422%, 90.169% 57.520%, 91.602% 57.227%, 91.797% 56.934%, 91.862% 56.055%, 91.602% 55.957%, 91.146% 55.273%, 91.211% 54.980%, 90.365% 53.711%, 90.365% 53.418%, 91.146% 52.441%, 91.797% 52.734%, 92.839% 57.227%, 93.294% 57.422%, 93.945% 57.031%, 94.596% 57.227%, 94.596% 56.250%, 93.750% 56.250%, 93.359% 55.762%, 93.034% 53.809%, 92.904% 52.148%, 93.164% 51.855%, 92.969% 51.562%, 93.099% 50.684%, 92.773% 50.293%, 92.904% 49.902%, 92.839% 50.098%, 92.708% 50.000%, 92.839% 49.316%, 92.448% 48.926%, 92.773% 48.340%, 92.904% 47.559%, 92.188% 46.484%, 92.253% 46.191%, 92.513% 46.582%, 92.708% 44.434%, 92.513% 41.992%, 92.318% 42.090%, 92.318% 39.551%, 92.188% 38.672%, 91.992% 38.477%, 92.057% 37.988%, 90.560% 37.500%, 90.430% 37.109%, 90.365% 37.402%, 90.104% 37.402%, 89.453% 36.426%, 89.453% 35.254%, 89.779% 33.008%, 89.518% 30.664%, 88.542% 28.320%, 87.500% 27.051%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "production": "umiri-listening-apricot-layer-processing-v3.json",
+  "parameters": "umiri-listening-apricot-layer-parameters-v3.json",
+  "review": {
+    "approvedByPrimary": false,
+    "stage": "candidate-awaiting-primary-layer-review",
+    "motherApprovalRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-other-mother-reviews.json",
+    "producerNote": "Original mother RGB retained. Each pose has independent visible source contact points and alpha contour. Fixed chair/palm/desk anchors do not admit arbitrary image translation. Only short bench travel on play remains a static candidate; original Stage must be reviewed by Root.",
+    "runtimeAccepted": false
+  },
+  "calibrationNotes": {
+    "pointSpace": "original mother pixels, normalized only for Stage",
+    "seatPixelCandidate": [
+      1360,
+      585
+    ],
+    "groundPixelCandidate": [
+      1198,
+      775
+    ],
+    "textBoundaryMeaning": "Free left part of the mother canvas; actual quiet framing uses full body bounds and the single shared camera. Not a claim about global UI text width.",
+    "primaryCalibrationReview": "pending"
+  }
+}

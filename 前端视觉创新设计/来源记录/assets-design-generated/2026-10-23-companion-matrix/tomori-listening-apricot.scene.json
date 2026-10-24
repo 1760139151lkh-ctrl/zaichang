@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-listening-apricot-room4",
+  "character": "tomori",
+  "activity": "listening",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "tomori-listening-apricot-v2-mother.png",
+  "background": "tomori-listening-background-calibrated-v3.png",
+  "figure": "tomori-listening-figure-calibrated-v3.png",
+  "mask": "tomori-listening-mask-calibrated-v3.png",
+  "shadow": "tomori-listening-shadow-calibrated-v3.png",
+  "seat": [
+    0.8756510416666666,
+    0.5732421875
+  ],
+  "ground": [
+    0.7845052083333334,
+    0.7548828125
+  ],
+  "bodyBounds": [
+    0.7330729166666666,
+    0.30859375,
+    0.9772135416666666,
+    0.7578125
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "91.536% 31.250%, 89.388% 30.957%, 88.021% 32.031%, 86.849% 35.742%, 86.784% 38.965%, 87.109% 39.941%, 85.417% 40.039%, 82.682% 48.926%, 80.143% 50.684%, 77.799% 54.102%, 77.865% 54.590%, 77.279% 54.590%, 77.799% 55.859%, 78.841% 56.445%, 76.497% 61.914%, 75.195% 67.871%, 73.372% 73.145%, 73.438% 74.609%, 75.195% 75.000%, 75.651% 74.512%, 76.367% 68.945%, 80.534% 58.984%, 79.753% 68.555%, 79.167% 70.703%, 76.888% 74.219%, 76.888% 75.098%, 77.539% 75.684%, 79.232% 75.586%, 81.315% 74.023%, 81.120% 69.629%, 82.747% 63.379%, 83.073% 57.812%, 86.589% 57.812%, 90.951% 55.664%, 96.810% 57.324%, 97.656% 57.031%, 96.094% 54.980%, 94.922% 55.078%, 92.904% 51.562%, 93.034% 47.070%, 93.685% 46.387%, 93.034% 45.898%, 93.034% 42.969%, 91.211% 40.820%, 91.992% 40.039%, 92.318% 40.332%, 92.969% 39.160%, 93.294% 34.668%, 92.708% 32.617%",
+  "travel": 0.00390625,
+  "slope": 0.08,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerStage": "candidate",
+    "producerNote": "Primary must inspect source/matte/contact and measured anchors. No runtime admission or live physical motion claim."
+  },
+  "calibrationObservation": {
+    "seatPixels": [
+      1345,
+      587
+    ],
+    "groundPixels": [
+      1205,
+      773
+    ],
+    "shortRangePixels": 6,
+    "note": "Source cushion/skirt contact and whole front loafer; right support palm stays within the original cushion/throw contact across the short candidate range."
+  },
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-listening-layer-processing-v3.json"
+}

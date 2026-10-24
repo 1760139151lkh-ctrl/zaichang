@@ -1,0 +1,169 @@
+{
+  "mother": "soyo-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4",
+  "matte": "soyo-listening-apricot-mask-calibrated-v10.png",
+  "alphaSource": "alpha",
+  "alphaLow": 3,
+  "alphaHigh": 252,
+  "figure": "soyo-listening-apricot-figure-calibrated-v11.png",
+  "mask": "soyo-listening-apricot-mask-calibrated-v11.png",
+  "backgroundCandidate": "soyo-listening-apricot-background-candidate-v1.png",
+  "background": "soyo-listening-apricot-background-calibrated-v11.png",
+  "backgroundExpandPixels": 4,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1277,
+        267
+      ],
+      [
+        1358,
+        268
+      ],
+      [
+        1398,
+        316
+      ],
+      [
+        1425,
+        394
+      ],
+      [
+        1430,
+        483
+      ],
+      [
+        1415,
+        526
+      ],
+      [
+        1448,
+        572
+      ],
+      [
+        1438,
+        591
+      ],
+      [
+        1367,
+        575
+      ],
+      [
+        1267,
+        584
+      ],
+      [
+        1190,
+        596
+      ],
+      [
+        1187,
+        560
+      ],
+      [
+        1197,
+        517
+      ],
+      [
+        1217,
+        465
+      ],
+      [
+        1212,
+        421
+      ],
+      [
+        1247,
+        384
+      ],
+      [
+        1267,
+        356
+      ]
+    ],
+    [
+      [
+        1306,
+        251
+      ],
+      [
+        1353,
+        251
+      ],
+      [
+        1353,
+        281
+      ],
+      [
+        1306,
+        281
+      ]
+    ]
+  ],
+  "shadow": "soyo-listening-apricot-shadow-calibrated-v11.png",
+  "contactShadowPolygons": [
+    [
+      [
+        1190,
+        530
+      ],
+      [
+        1450,
+        530
+      ],
+      [
+        1450,
+        600
+      ],
+      [
+        1190,
+        600
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "record": "soyo-listening-apricot-layer-processing-v11.json",
+  "alphaPolygonRepairs": [],
+  "excludePolygons": [],
+  "matteRegionOverrides": [
+    {
+      "file": "soyo-listening-apricot-mask-calibrated-v9.png",
+      "sha256": "30c24c481d37ed842b6bd6823d26b44c513958c8253da71ea09dc59cf07b2efc",
+      "alphaSource": "alpha",
+      "region": [
+        1360,
+        350,
+        1425,
+        469
+      ]
+    }
+  ],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          1387,
+          469
+        ],
+        [
+          1428,
+          469
+        ],
+        [
+          1428,
+          526
+        ],
+        [
+          1387,
+          526
+        ]
+      ],
+      "redMin": 90,
+      "redOverGreen": 15,
+      "redOverBlue": 30
+    }
+  ],
+  "reviewNote": "Coordinate-aligned built-in semantic mask v9 provides actual hair air gaps; matching-BG difference is limited to three-pixel edge outside that explicit real-hair ROI because same-color mullion would delete true hair. Exact observed lower window strip (below real hair tips) removed by alpha only. Original RGB untouched; primary/runtime pending."
+}

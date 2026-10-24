@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "mother": "mutsumi-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+  "matte": "mutsumi-reading-apricot-source-alpha-v9.png",
+  "matteSha256": "4936735945027ac53839484d46dce23816d7124be052a13a744d09e46b68f32f",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "mutsumi-reading-apricot-figure-calibrated-v9.png",
+  "mask": "mutsumi-reading-apricot-mask-calibrated-v9.png",
+  "backgroundCandidate": "mutsumi-reading-apricot-background-candidate-v1.png",
+  "background": "mutsumi-reading-apricot-background-calibrated-v9.png",
+  "shadow": "mutsumi-reading-apricot-shadow-calibrated-v9.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1040,
+        713
+      ],
+      [
+        1194,
+        716
+      ],
+      [
+        1207,
+        766
+      ],
+      [
+        1032,
+        765
+      ]
+    ],
+    [
+      [
+        1147,
+        594
+      ],
+      [
+        1347,
+        609
+      ],
+      [
+        1314,
+        724
+      ],
+      [
+        1160,
+        724
+      ]
+    ],
+    [
+      [
+        1310,
+        300
+      ],
+      [
+        1410,
+        295
+      ],
+      [
+        1439,
+        338
+      ],
+      [
+        1479,
+        409
+      ],
+      [
+        1490,
+        477
+      ],
+      [
+        1459,
+        533
+      ],
+      [
+        1430,
+        563
+      ],
+      [
+        1398,
+        584
+      ],
+      [
+        1304,
+        552
+      ],
+      [
+        1300,
+        425
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1035,
+        719
+      ],
+      [
+        1104,
+        711
+      ],
+      [
+        1114,
+        738
+      ],
+      [
+        1040,
+        744
+      ]
+    ],
+    [
+      [
+        1096,
+        737
+      ],
+      [
+        1187,
+        728
+      ],
+      [
+        1193,
+        755
+      ],
+      [
+        1100,
+        758
+      ]
+    ],
+    [
+      [
+        1257,
+        587
+      ],
+      [
+        1372,
+        579
+      ],
+      [
+        1380,
+        609
+      ],
+      [
+        1265,
+        620
+      ]
+    ],
+    [
+      [
+        1408,
+        455
+      ],
+      [
+        1463,
+        448
+      ],
+      [
+        1447,
+        570
+      ],
+      [
+        1390,
+        574
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [],
+  "includePolygons": [],
+  "alphaPolygonRepairs": [],
+  "record": "mutsumi-reading-apricot-layer-processing-v9.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "All visible figure RGB comes from original approved mother. Displaced Imagegen masks explicitly rejected and not used. Alpha produced from original-canvas observed contour + matching-BG difference trimap in mutsumi-source-matte.py; source-alpha-v1.json records production. Held lap book is body-owned; blue plaid/floral support pillows are room BG, fixed reclined-back posture. v1 original-coordinate matte had observed false cushion/window and reading-leg exclusion. v2 replaces those uncertain seeds with explicitly observed original-body / room seeds; no generated drifting matte used. v3 source-alpha repairs only personally observed original skin/navy leg/page and exact room-color ROIs; parameters/processor in source-alpha-v3.json. Entire figure RGB remains original. v7 matching-BG registration clears the whole personally observed original hair envelope, including fine strands rejected by earlier alpha, so no old hair outline remains in empty BG. Figure RGB is unchanged; no foreground person is painted. Parent independent v7 light/room review found near-sock alpha flakes/nibbles. v8 trial RGB GrabCut still left notches, so not adopted. v9 only the original grid-confirmed navy sock/wood ROI x1140..1223,y630..691 uses explicit original-RGB navy selection to restore actual cloth; original skin/shoes/book/head excluded from this small repair. No RGB or geometry repaint."
+}

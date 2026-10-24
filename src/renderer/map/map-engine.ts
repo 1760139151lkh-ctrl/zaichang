@@ -570,6 +570,17 @@ export class SpatialCampusMap {
     this.map.fitBounds(box,options,ticket===undefined?undefined:{cameraOwnership:ticket});
   }
   overview(){this.takeControl();this.fit(this.data.manifest.campusBounds,this.duration(300),16.2);}
+  fitCoordinates(coordinates: LngLat[], ticket?: number) {
+    if (!coordinates.length || ticket !== undefined && !this.ownership.accepts(ticket)) return;
+    const bounds = [Infinity, Infinity, -Infinity, -Infinity];
+    for (const [x, y] of coordinates) {
+      if (!Number.isFinite(x) || !Number.isFinite(y)) continue;
+      bounds[0] = Math.min(bounds[0], x); bounds[1] = Math.min(bounds[1], y);
+      bounds[2] = Math.max(bounds[2], x); bounds[3] = Math.max(bounds[3], y);
+    }
+    if (!bounds.every(Number.isFinite)) return;
+    this.fit(bounds, this.duration(300), 18, undefined, ticket ?? this.takeControl());
+  }
   focusPlace(p:MapPoint){this.takeControl();this.fit(p.bounds,this.duration(250),17.4);}
   fitRoute(result:MapRouteResult,ticket?:number,animate=true){
     if(result.status!=='ready'||!result.coordinates.length||ticket!==undefined&&!this.ownership.accepts(ticket))return;

@@ -1,0 +1,70 @@
+{
+  "recordType": "original-scene-selected-layer-source",
+  "date": "2026-10-24",
+  "scene": "mutsumi-rest-apricot.scene.json",
+  "sceneSha256": "97eea6d04dcc66707dc40ec1c0ae54d4906c91d5cc31002e158cbf1a17fdae8f",
+  "selected": {
+    "mother": {
+      "file": "mutsumi-rest-apricot-mother-candidate-v1.png",
+      "sha256": "8284c773c9ace87cd0bc9fc3d476a5d23442bd2fbfb9db2b640552e1671fd5b6",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "file": "mutsumi-rest-apricot-background-calibrated-v5.png",
+      "sha256": "efe10880d1857f00717da7971a2784d41525391e7ad4135e09fb6c2fba062498",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figure": {
+      "file": "mutsumi-rest-apricot-figure-calibrated-v5.png",
+      "sha256": "21f4c9f30ce4c43271e7c983758d86c56d8c3b0b6e46def9da4d8cec1e5a5b18",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "mask": {
+      "file": "mutsumi-rest-apricot-mask-calibrated-v5.png",
+      "sha256": "d8e6737be34845c41b3f4c7e2a2375b92025cad1c112bdbe4c0307229b3ed126",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "shadow": {
+      "file": "mutsumi-rest-apricot-shadow-calibrated-v5.png",
+      "sha256": "eb563bfbf4987b75bff3fe3791dde9d0ff2cc9838ab2422ae63798446a209557",
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "extractionGenerations": "mutsumi-rest-apricot-extraction-source.json",
+  "productionParameters": [
+    "mutsumi-rest-apricot-layer-parameters-v1.json",
+    "mutsumi-rest-apricot-layer-parameters-v2.json",
+    "mutsumi-rest-apricot-layer-parameters-v3.json",
+    "mutsumi-rest-apricot-layer-parameters-v4.json",
+    "mutsumi-rest-apricot-layer-parameters-v5.json"
+  ],
+  "figureProduction": "mutsumi-rest-apricot-layer-processing-v5.json",
+  "rgbMethod": "Entire original mother RGB payload, identity canvas, alpha-only visibility; no face/body/pose repaint",
+  "motherRgbByteSha256": "431d443fc0c971efeecf26a57eff6c9275daa390763a079953b2651da5f0e86a",
+  "figureRgbByteSha256": "431d443fc0c971efeecf26a57eff6c9275daa390763a079953b2651da5f0e86a",
+  "actualRgbPayloadEqual": true,
+  "originalStaticShoeRGBEqual": true,
+  "selectedBackgroundMethod": "Mother RGB retained outside explicit full figure/hair envelope. Matching same-mother BG replaces only original figure region on bench/window; entire original floor and both detached shoes remain byte-identical source RGB.",
+  "designerObservation": "Original side/back lake-facing rest. Folded thigh/sock/foot on cushion, rear palm and hips supported, original far leg naturally hidden and never painted. Both detached empty loafers remain static original roomRGB; actor alpha ends605 and excludes floor shoes. Enlarged/upshifted Imagegen maskv1 rejected, never used as input or matte. SourceRGB/BG trimap, exact original body/skin/arm regions, original-blue-pillow/leaf holes and actual front hair/arm boundary calibrated in alpha only. Rear sleeve continuity and actual exposed thigh/complete foot restored from correct original alpha, no anatomy/RGB repaint. Fine edge/strand remains Primary optical judgment. Fixed travel0. Primary/real Stage pending. Personally viewed final original source, actual prompts, raw generations, deep/light, full room/empty and isolated shadow. SourceRGB equality does not replace Primary visual judgment.",
+  "review": {
+    "approvedByPrimary": false,
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false,
+    "integrated": false
+  }
+}

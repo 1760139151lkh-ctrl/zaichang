@@ -1,0 +1,68 @@
+[
+  {
+    "character": "soyo",
+    "activity": "chat",
+    "palette": "mist",
+    "layer": "background",
+    "mother": "soyo-chat-mist-mother-candidate-v1.png",
+    "motherSha256": "f071989d921ca9a23bd07c8d9e78a5aada62d7fb9256ec71cdd8c057a4c12ece",
+    "prompt": "soyo-chat-mist-background-prompt-v1.txt",
+    "output": "soyo-chat-mist-background-generated-v1.png",
+    "source": "soyo-chat-mist-background-generation-v1.json"
+  },
+  {
+    "character": "soyo",
+    "activity": "chat",
+    "palette": "violet",
+    "layer": "background",
+    "mother": "soyo-chat-violet-mother-candidate-v1.png",
+    "motherSha256": "444153ca5735202cb0b228f9647cff2578f02c3391070e3c0e3876588f86e8e4",
+    "prompt": "soyo-chat-violet-background-prompt-v1.txt",
+    "output": "soyo-chat-violet-background-generated-v1.png",
+    "source": "soyo-chat-violet-background-generation-v1.json"
+  },
+  {
+    "character": "soyo",
+    "activity": "chat",
+    "palette": "rain",
+    "layer": "background",
+    "mother": "soyo-chat-rain-mother-candidate-v1.png",
+    "motherSha256": "130d8136ac3d77c8618f5cc7a772fb01bd9882efa2a44e44a018c5069b12b4ef",
+    "prompt": "soyo-chat-rain-background-prompt-v1.txt",
+    "output": "soyo-chat-rain-background-generated-v1.png",
+    "source": "soyo-chat-rain-background-generation-v1.json"
+  },
+  {
+    "character": "taki",
+    "activity": "chat",
+    "palette": "mist",
+    "layer": "background",
+    "mother": "taki-chat-mist-mother-candidate-v1.png",
+    "motherSha256": "e3fc520bcca02e7c72dcee83ea818a288a89676582dfd0870cfb31b86a7261c3",
+    "prompt": "taki-chat-mist-background-prompt-v1.txt",
+    "output": "taki-chat-mist-background-generated-v1.png",
+    "source": "taki-chat-mist-background-generation-v1.json"
+  },
+  {
+    "character": "taki",
+    "activity": "chat",
+    "palette": "violet",
+    "layer": "background",
+    "mother": "taki-chat-violet-mother-candidate-v1.png",
+    "motherSha256": "624b0ffe0243da578e831d38e40ba7283433e3375c6a81a6e792c6d51cc137ab",
+    "prompt": "taki-chat-violet-background-prompt-v1.txt",
+    "output": "taki-chat-violet-background-generated-v1.png",
+    "source": "taki-chat-violet-background-generation-v1.json"
+  },
+  {
+    "character": "taki",
+    "activity": "chat",
+    "palette": "rain",
+    "layer": "background",
+    "mother": "taki-chat-rain-mother-candidate-v1.png",
+    "motherSha256": "67e9bbef3f413b3bbfc7aae0fe00130e4d85d9d6391907d7241af4470bf2586f",
+    "prompt": "taki-chat-rain-background-prompt-v1.txt",
+    "output": "taki-chat-rain-background-generated-v1.png",
+    "source": "taki-chat-rain-background-generation-v1.json"
+  }
+]

@@ -3,7 +3,8 @@ import { ChevronDown, ChevronUp, Expand, MapPinned, Pause, Play, Route, X } from
 import type { MapScene, SemanticSelection } from '../../shared/scenes';
 import { emptyRoute, mapPointEndpoint, routeHasUnverifiedPassages, type MapPoint, type MapRouteResult } from '../../shared/map-v2';
 import type { SharedMapRoute } from '../../shared/map-context';
-import { MapSurface, type MapSurfaceMemory, type MapContextHandoff } from './CampusMap';
+import type { MapSurfaceMemory, MapContextHandoff } from './CampusMap';
+import { MapSurface } from './DesktopMapSheet';
 import type { CampusMapEngine } from './map-engine';
 import './conversation-map.css';
 import { prefersQuietMotion } from '../companion';

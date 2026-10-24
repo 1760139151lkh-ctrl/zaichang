@@ -9,7 +9,7 @@
     "OpenCV": null
   },
   "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
-  "mother": "sakiko-listening-apricot-mother.png",
+  "mother": "../../../运行素材/companion/scenes/sakiko-listening-apricot-mother.png",
   "motherSha256": "a35aaa3549a04cf9f6fa7e478224f53afdcbfd1f133f6570a643191916189bb1",
   "matte": "sakiko-listening-apricot-figure-calibrated-v8.png",
   "matteSha256": "e394253114944e2cc0885b6e5b3d18862fc5ab2eeeb6d11b35defd08c13e0656",

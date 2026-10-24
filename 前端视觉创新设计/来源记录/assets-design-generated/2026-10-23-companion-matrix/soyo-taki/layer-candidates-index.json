@@ -1,0 +1,1519 @@
+{
+  "recordType": "character-matrix-source-layer-navigation",
+  "summary": {
+    "expectedCells": 64,
+    "currentFullMotherFiles": 64,
+    "primaryMotherPermission": 22,
+    "sourceLayerCandidates": 16,
+    "primaryApprovedLayers": 0,
+    "runtimeAccepted": 0
+  },
+  "meaning": "Current source bytes and review facts only; artwork existence is not runtime scenario coverage.",
+  "primaryMotherRecordSha256": "4c9fb17acd9fd0e4f99a12266fb051091731e8b2224713fe185bd55ca47b86c9",
+  "entries": [
+    {
+      "character": "soyo",
+      "activity": "chat",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "soyo-chat-apricot-mother-candidate-v1.png",
+      "motherSha256": "e5860a2adf427032f84d15dcec6c59c8b6ffa7dff8ede6eadf9ec669f4e00b29",
+      "source": "soyo-chat-apricot-source.json",
+      "sourceSha256": "58dbcafd1a41e15d344793e33b7a69ebac30153570a319f1333ba5581a706938",
+      "actualPrompt": "soyo-chat-apricot-prompt.txt",
+      "actualPromptSha256": "22f6925f3b66fef97e821e30e799f5d2f8125741c71a1cc7a7d560497c22ae76",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "soyo-chat-apricot.scene.json",
+        "sceneSha256": "6633f8aa6dc584955b9ad5ae1be82837585741114b6983e6849ef02412a9f5bf",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "soyo-chat-apricot-background-calibrated-v3.png",
+            "sha256": "15e38994f3e19f342dabe7edd60b75ed33117e46709c47bf82bddf9a61ef3023",
+            "bytes": 2084877
+          },
+          {
+            "role": "figure",
+            "file": "soyo-chat-apricot-figure-calibrated-v2.png",
+            "sha256": "8958ec7dea3a1dec70cd61ed0739f36063dfdd55f424328a639f9b0c918b9d00",
+            "bytes": 2426654
+          },
+          {
+            "role": "mask",
+            "file": "soyo-chat-apricot-mask-calibrated-v2.png",
+            "sha256": "edf8f77287a4fd5e400261fa912dd9d6448d2007c72ac17f08ac621a6ef456bf",
+            "bytes": 21061
+          },
+          {
+            "role": "shadow",
+            "file": "soyo-chat-apricot-shadow-calibrated-v3.png",
+            "sha256": "35f177d23491f6cc38d8557a469f40318baecabe1210d82362ac04b4ff1117c4",
+            "bytes": 52296
+          }
+        ],
+        "production": "soyo-chat-apricot-layer-processing-v3.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "not recorded in scene"
+      }
+    },
+    {
+      "character": "soyo",
+      "activity": "study",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "soyo-study-apricot-mother-candidate-v1.png",
+      "motherSha256": "cf664fa1fc6dcdd8fd9c8dc1cd542d4142bbe05d5d9809a101e6d58907858411",
+      "source": "soyo-study-apricot-source.json",
+      "sourceSha256": "016fc04219ac10ef1f223367bb41d0d6999971c074a90754c0afdaef1f166850",
+      "actualPrompt": "soyo-study-apricot-prompt.txt",
+      "actualPromptSha256": "3828f193d679e75913f0fe2a92ce3c35fd81557eae255f588d5a2792b796d930",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "soyo-study-apricot.scene.json",
+        "sceneSha256": "23e22dfa92295885914d1421e2fc8292d55f62851d39278776b914ca50566abd",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "soyo-study-apricot-background-calibrated-v5.png",
+            "sha256": "a16ef82757210f6ae975ec573d81067dace5eef62ea004827a0511e4e1d92f39",
+            "bytes": 2119393
+          },
+          {
+            "role": "figure",
+            "file": "soyo-study-apricot-figure-calibrated-v4.png",
+            "sha256": "a43e30ef7b80f5e19d3009dd2722b85dff5e63612282f62f4f80a7c6d13758e3",
+            "bytes": 2439061
+          },
+          {
+            "role": "mask",
+            "file": "soyo-study-apricot-mask-calibrated-v4.png",
+            "sha256": "08b88c66d7813a40047ba683944d0dee5b9b9177351821150ecea8747760396f",
+            "bytes": 14495
+          },
+          {
+            "role": "shadow",
+            "file": "soyo-study-apricot-shadow-calibrated-v5.png",
+            "sha256": "88fa52fb9f4a39fae681654864e57aeef74ce21df86c6124960469f9cc2ecd64",
+            "bytes": 31627
+          }
+        ],
+        "production": "soyo-study-apricot-layer-processing-v5.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "not recorded in scene"
+      }
+    },
+    {
+      "character": "soyo",
+      "activity": "reading",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "soyo-reading-apricot-mother-candidate-v2.png",
+      "motherSha256": "68b71f572a6566147acf1bbe104cd05a1bc6e9194ea01039a3e40b785e60f23e",
+      "source": "soyo-reading-apricot-v2-source.json",
+      "sourceSha256": "f013897a26c24d1e4d69ece804de73d80e12b6bbe6dea438b952b61bebb48a32",
+      "actualPrompt": "soyo-reading-apricot-v2-prompt.txt",
+      "actualPromptSha256": "50c221cd89c98ba3b3ffca31b2950a5354afed996f17a4718fcf82013592d0d8",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "soyo-reading-apricot.scene.json",
+        "sceneSha256": "ab6df966918e7fe5206f02445775f1e14edb50f2b1ff0bb1cda77deaa2d8bfc4",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "soyo-reading-apricot-background-calibrated-v10.png",
+            "sha256": "8a9abbd7ab90b7b3a8258e41bf2a03f1271bb43ae13ededd865a74431747a516",
+            "bytes": 2113813
+          },
+          {
+            "role": "figure",
+            "file": "soyo-reading-apricot-figure-calibrated-v8.png",
+            "sha256": "e18bede8ec8eee26d26362e6272c7b2ab5b3d2d66a2872af141741e35978a781",
+            "bytes": 2449858
+          },
+          {
+            "role": "mask",
+            "file": "soyo-reading-apricot-mask-calibrated-v8.png",
+            "sha256": "3e61cbeb1bb594a5032be1605d1c93e7d08ab3344ecf961cb549bb5384d20d84",
+            "bytes": 15502
+          },
+          {
+            "role": "shadow",
+            "file": "soyo-reading-apricot-shadow-calibrated-v10.png",
+            "sha256": "aa545e9311091122de08822f98f57cf9b09e117610e17d71e15677993a4b4b01",
+            "bytes": 41147
+          }
+        ],
+        "production": "soyo-reading-apricot-layer-processing-v10.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "Current selected original mother, full actual prompt, light/dark alpha, matching empty room and original-coordinate recomposition personally viewed by soyo_warm_layers; primary and normal Stage/runtime pending."
+      }
+    },
+    {
+      "character": "soyo",
+      "activity": "planning",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "soyo-planning-apricot-mother-candidate-v2.png",
+      "motherSha256": "e002a836c881d736966bce3a254de9ef5e4a0417efc5b260eaeaea64d85904d6",
+      "source": "soyo-planning-apricot-v2-source.json",
+      "sourceSha256": "7a710ee826ee3cd954d62ad13468cceefb95800e40815d64ca1e753a38e87231",
+      "actualPrompt": "soyo-planning-apricot-prompt-v2.txt",
+      "actualPromptSha256": "523b1ef7e70d607a1a7dc29e164efeb28a7345ec9fb7e8b86881a7682c1a77d0",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "soyo-planning-apricot.scene.json",
+        "sceneSha256": "e8c4dace0fd52482c76c9907b367878a400e42f5907526c248680a50c82ca92d",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "soyo-planning-apricot-background-calibrated-v8.png",
+            "sha256": "790b33ade10d977336e0cca0dd47e68c5a3d97542710579719fa39173ec0f9be",
+            "bytes": 2059712
+          },
+          {
+            "role": "figure",
+            "file": "soyo-planning-apricot-figure-calibrated-v7.png",
+            "sha256": "b49834e7c83c1a86be60986c32e052871cbc0d91962386a69a790113f68858b8",
+            "bytes": 2393303
+          },
+          {
+            "role": "mask",
+            "file": "soyo-planning-apricot-mask-calibrated-v7.png",
+            "sha256": "3d04f1fe901367cdb4fc00d8086951bf9162bcd514e634f116c41ad685d52071",
+            "bytes": 14936
+          },
+          {
+            "role": "shadow",
+            "file": "soyo-planning-apricot-shadow-calibrated-v8.png",
+            "sha256": "78fa825259fc98cfcf977199aa9e49df50f0bd79211b6e1a46388e0b9c7656aa",
+            "bytes": 37973
+          }
+        ],
+        "production": "soyo-planning-apricot-layer-processing-v8.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "Current selected original mother, full actual prompt, light/dark alpha, matching empty room and original-coordinate recomposition personally viewed by soyo_warm_layers; primary and normal Stage/runtime pending."
+      }
+    },
+    {
+      "character": "soyo",
+      "activity": "listening",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "soyo-listening-apricot-mother-candidate-v2.png",
+      "motherSha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4",
+      "source": "soyo-listening-apricot-v2-source.json",
+      "sourceSha256": "5dbe2756b9fd72c594b8f49431914dd00269ecb82fa9259a667d02e5c9e2a092",
+      "actualPrompt": "soyo-listening-apricot-v2-prompt.txt",
+      "actualPromptSha256": "0cbd59d079a9102a8a9f32f864e8986b06c68b1fe3e08593af099af68b7cc3db",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "soyo-listening-apricot.scene.json",
+        "sceneSha256": "465025acc1d66c68a52244a4ba93ebc897f9f7e29a12082dabc59572c66a7503",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "soyo-listening-apricot-background-calibrated-v24.png",
+            "sha256": "93147809280fd234cde363f9b5ebff97ce08b6e3b76368fa4238a70701fa36bf",
+            "bytes": 2113987
+          },
+          {
+            "role": "figure",
+            "file": "soyo-listening-apricot-figure-calibrated-v24.png",
+            "sha256": "16a1df11e10d35ec698d4ade5aae1a1d879a6fe59ab394e176d01f514681563f",
+            "bytes": 2446845
+          },
+          {
+            "role": "mask",
+            "file": "soyo-listening-apricot-mask-calibrated-v24.png",
+            "sha256": "026cd30eca9b880adfc5a2580226f187ba5cf5efb3fb6cb9940aaf463a970ff9",
+            "bytes": 26187
+          },
+          {
+            "role": "shadow",
+            "file": "soyo-listening-apricot-shadow-calibrated-v24.png",
+            "sha256": "e792ac65061d79c31141a52097f378c29d8efb9d6772704f694b40cbbce00c72",
+            "bytes": 40410
+          }
+        ],
+        "production": "soyo-listening-apricot-layer-processing-v24.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "Original full mother, source-coordinate detail, selected light/dark alpha, complete empty room and original-coordinate full-room recomposition personally inspected by role_matrix_settings; normal Stage/runtime pending."
+      }
+    },
+    {
+      "character": "soyo",
+      "activity": "rest",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "soyo-rest-apricot-mother-candidate-v1.png",
+      "motherSha256": "c1be74d29d85a6ac0a2976acdcb3632fe625d46fef9535ca6ed6f33eabeb6e61",
+      "source": "soyo-rest-apricot-source.json",
+      "sourceSha256": "02f34ee2eed023e1af6e77491eb42bb5243df991e7e9e8950d89f48ae736db65",
+      "actualPrompt": "soyo-rest-apricot-prompt.txt",
+      "actualPromptSha256": "6bba84ac4daf5582b7411198e1ddd073742e8d5508ce74ad1ae25748715ab2e3",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "soyo-rest-apricot.scene.json",
+        "sceneSha256": "43ae58f666398d996e84570012b7f0caedac0815fc994ccfb8aedfc72e78b919",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "soyo-rest-apricot-background-calibrated-v9.png",
+            "sha256": "ecdcb673ecd27b72fc3173e024f90962289fdba0c4adc0827822e189d083a1e2",
+            "bytes": 2092250
+          },
+          {
+            "role": "figure",
+            "file": "soyo-rest-apricot-figure-calibrated-v9.png",
+            "sha256": "894c1c51391a1c08044263228f7a768a215e1349aea870974ddfb30b406e90b7",
+            "bytes": 2416156
+          },
+          {
+            "role": "mask",
+            "file": "soyo-rest-apricot-mask-calibrated-v9.png",
+            "sha256": "c039a08b7d321e3aa6899f5272328eb2ccffdebc63892d786fb2df0184d593d1",
+            "bytes": 13757
+          },
+          {
+            "role": "shadow",
+            "file": "soyo-rest-apricot-shadow-calibrated-v9.png",
+            "sha256": "6df72addd1b5f69dfd7d0a3e2d7ebc7877630d94b37a13bd87f8172bf0a02ae4",
+            "bytes": 42559
+          }
+        ],
+        "production": "soyo-rest-apricot-layer-processing-v9.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "Current selected original mother, full actual prompt, light/dark alpha, matching empty room and original-coordinate recomposition personally viewed by soyo_warm_layers; primary and normal Stage/runtime pending."
+      }
+    },
+    {
+      "character": "soyo",
+      "activity": "play",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "soyo-play-apricot-mother-candidate-v1.png",
+      "motherSha256": "81e654d671e5da16986fe32fe6e742c12042c684cad689f59885706eb29cc1f4",
+      "source": "soyo-play-apricot-source.json",
+      "sourceSha256": "ae1788ec6886703c94bbe168e632978c6666a71b4addd5a54e5ccb785abc5dc9",
+      "actualPrompt": "soyo-play-apricot-prompt.txt",
+      "actualPromptSha256": "d35aa80987d657a3a9d53d1d70cdd85938a260a020ca166a698886ad92320b87",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "soyo-play-apricot.scene.json",
+        "sceneSha256": "4466eade3ae0d0320ade4b6c237eeda160a55b34baba9d149da7db751b072f2d",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "soyo-play-apricot-background-calibrated-v14.png",
+            "sha256": "63f0420e70325b9bd85765422bbe63cf176760cfa567130718b50fdc05719dc0",
+            "bytes": 2094765
+          },
+          {
+            "role": "figure",
+            "file": "soyo-play-apricot-figure-calibrated-v14.png",
+            "sha256": "8c3e3efb16285ea6f38b194386ed914714392e2cbfd14213fde2917e94fc326a",
+            "bytes": 2472257
+          },
+          {
+            "role": "mask",
+            "file": "soyo-play-apricot-mask-calibrated-v14.png",
+            "sha256": "caa3f6beba3bb2ce2c8f48631ffea999962bc55ef9c3787da2641a68913da4a4",
+            "bytes": 43236
+          },
+          {
+            "role": "shadow",
+            "file": "soyo-play-apricot-shadow-calibrated-v14.png",
+            "sha256": "5d15f7b7df6473791403ecb9e017678c462c0044716fc00fe22c13f00f0827b6",
+            "bytes": 86890
+          }
+        ],
+        "production": "soyo-play-apricot-layer-processing-v14.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "Original full mother, source-coordinate detail, selected light/dark alpha, complete empty room and original-coordinate full-room recomposition personally inspected by role_matrix_settings; normal Stage/runtime pending."
+      }
+    },
+    {
+      "character": "soyo",
+      "activity": "attention",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "soyo-attention-apricot-mother-candidate-v1.png",
+      "motherSha256": "c854bfeb6cc56482357a1fbf64ba020b6e42a52cdbe6240157ac89466852784e",
+      "source": "soyo-attention-apricot-source.json",
+      "sourceSha256": "9d5135b9c35c10ad4a983a433bd8bb37289937ed3d16d0cce2599da9886e09f1",
+      "actualPrompt": "soyo-attention-apricot-prompt.txt",
+      "actualPromptSha256": "0c70e8ca6d90061d623bde4f8c786ced3c65ef192331d6ffb48d77c36fed0e03",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "soyo-attention-apricot.scene.json",
+        "sceneSha256": "a7c3b21a24f0a181dc4e4bd43d1277e7e3cb0c954da7f2302119f4ede928b9f5",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "soyo-attention-apricot-background-calibrated-v8.png",
+            "sha256": "45a480b6ca9e14942407095ec700e566f043eb00cd78705a4ff4e70167100ae2",
+            "bytes": 2060782
+          },
+          {
+            "role": "figure",
+            "file": "soyo-attention-apricot-figure-calibrated-v8.png",
+            "sha256": "b66a5fcb1c7b4f342fd0800416df9ea1eaa021233fd02a10c5e589a80047a8f0",
+            "bytes": 2398312
+          },
+          {
+            "role": "mask",
+            "file": "soyo-attention-apricot-mask-calibrated-v8.png",
+            "sha256": "c9429d43387bbc189c833c5c958fe010673cb3908da48ea6603258d8858109ae",
+            "bytes": 35144
+          },
+          {
+            "role": "shadow",
+            "file": "soyo-attention-apricot-shadow-calibrated-v8.png",
+            "sha256": "bff2fc2e6fefacbac9a1d3b649abd6a88bb2a295e554a138c8889efe1196e318",
+            "bytes": 55298
+          }
+        ],
+        "production": "soyo-attention-apricot-layer-processing-v8.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "Current selected original mother, full actual prompt, light/dark alpha, matching empty room and original-coordinate recomposition personally viewed by soyo_warm_layers; primary and normal Stage/runtime pending."
+      }
+    },
+    {
+      "character": "taki",
+      "activity": "chat",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "taki-chat-apricot-mother-candidate-v1.png",
+      "motherSha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f",
+      "source": "taki-chat-apricot-source.json",
+      "sourceSha256": "79fd18ab1cfbfc024e32dfe0750a78d2946c9facae733e61368a974c2bff75e3",
+      "actualPrompt": "taki-chat-apricot-prompt.txt",
+      "actualPromptSha256": "ae37e539befb2a1e7f5e71b6df0dd125b9d53183a2702768e1f4977fb2143eee",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "taki-chat-apricot.scene.json",
+        "sceneSha256": "1a8a93365a6a924c25eb9416727bb3d0e3d4f196e56fa0f3c24cda098f7f9639",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "taki-chat-apricot-background-calibrated-v9.png",
+            "sha256": "93858908f6e7227a8639e413b638a0b75f3b62d1eb2dfece4e1d65ace4c833c9",
+            "bytes": 2125705
+          },
+          {
+            "role": "figure",
+            "file": "taki-chat-apricot-figure-calibrated-v8.png",
+            "sha256": "a6f2c0d0734190005605c84eb895e507b5a5ca26f6e854c70a8958407d61bc11",
+            "bytes": 2469617
+          },
+          {
+            "role": "mask",
+            "file": "taki-chat-apricot-mask-calibrated-v8.png",
+            "sha256": "eb3215245b8a8cfca66729497f180f3c7ab65ed44865436fed865bb5e32b8844",
+            "bytes": 22698
+          },
+          {
+            "role": "shadow",
+            "file": "taki-chat-apricot-shadow-calibrated-v9.png",
+            "sha256": "2addbd47f3c9b729831d463771fbe6949cf1201c64d5838c6b104b5793aa46ae",
+            "bytes": 56136
+          }
+        ],
+        "production": "taki-chat-apricot-layer-processing-v9.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "not recorded in scene"
+      }
+    },
+    {
+      "character": "taki",
+      "activity": "study",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "taki-study-apricot-mother-candidate-v1.png",
+      "motherSha256": "49515d600d10286f1af4f808fbf285f4e2abfd1cabd05d6b319f3fdcbd6d0166",
+      "source": "taki-study-apricot-source.json",
+      "sourceSha256": "eee49a79b9d85431e5120a4e3062722933ec891a544ff57894fea88ca637f1b0",
+      "actualPrompt": "taki-study-apricot-prompt.txt",
+      "actualPromptSha256": "8141ad492119fae49f8f029188e13cec02f89aedad27126bcba87d2e59ffafec",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "taki-study-apricot.scene.json",
+        "sceneSha256": "4f2e45de7b238def07dc1a1a3939ac3b59cebaf597ae08b4c122a764b5d526fb",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "taki-study-apricot-background-calibrated-v5.png",
+            "sha256": "df4895df33c313f8f575904486a1ad2a4df432e280b0f657c406b1a0dc35cc5c",
+            "bytes": 2064052
+          },
+          {
+            "role": "figure",
+            "file": "taki-study-apricot-figure-calibrated-v4.png",
+            "sha256": "9b66c1f460f9330c7e8a7ba17627669228a12af03723bbc2b489ec9382fc6d18",
+            "bytes": 2382704
+          },
+          {
+            "role": "mask",
+            "file": "taki-study-apricot-mask-calibrated-v4.png",
+            "sha256": "3395a2fade3d4cd6cb309332b89a4a96afa964c1db267faaf99cce3cb9544871",
+            "bytes": 14514
+          },
+          {
+            "role": "shadow",
+            "file": "taki-study-apricot-shadow-calibrated-v5.png",
+            "sha256": "d12bbcc009a1b2a74a928f93109752d4b08bc9671841ef526dc71bd74f904c8d",
+            "bytes": 29984
+          }
+        ],
+        "production": "taki-study-apricot-layer-processing-v5.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "not recorded in scene"
+      }
+    },
+    {
+      "character": "taki",
+      "activity": "reading",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "taki-reading-apricot-mother-candidate-v2.png",
+      "motherSha256": "950b6f05f48f6b0ca0335bdffb0468379b95e95576e1afd8da487be488f5314b",
+      "source": "taki-reading-apricot-v2-source.json",
+      "sourceSha256": "e777ef3a6393715a12ef4d9875dacecd9c00010bbdfebae7c6c6f34b3e82d4d3",
+      "actualPrompt": "taki-reading-apricot-v2-prompt.txt",
+      "actualPromptSha256": "acd710224c05b8896a6537fe192bdc98e9c7a3c9b454b02e16cf70bea901cebb",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "planning",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "taki-planning-apricot-mother-candidate-v1.png",
+      "motherSha256": "f0fa68c1f8f0257063bdae886dd258b415af26e127382e8c2bb3b95f6f7050ff",
+      "source": "taki-planning-apricot-source.json",
+      "sourceSha256": "71a5c59deedf4ee7d0ade85dafd11a6b5cf1350c5deecba6c856df8e6ae0015e",
+      "actualPrompt": "taki-planning-apricot-prompt.txt",
+      "actualPromptSha256": "5252cd87db1bc21866cfdfa1eadf3055d6ade444c4ce6048e305f65c65033497",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "listening",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "taki-listening-apricot-mother-candidate-v1.png",
+      "motherSha256": "d8369e39dc109457df147611494e1741c86512e2bcfc579c92050efb0d134bbb",
+      "source": "taki-listening-apricot-source.json",
+      "sourceSha256": "144cb3c24154b3269034c62bf51c598f0db6c14743df3d9978786842b2910b76",
+      "actualPrompt": "taki-listening-apricot-prompt.txt",
+      "actualPromptSha256": "bd5789dba19114ab46dcdc6bcf1afff7f1dc46a5a4b48eb61b9d951e29b3f633",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "rest",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "taki-rest-apricot-mother-candidate-v1.png",
+      "motherSha256": "c946307e511b2a1f60652c04ec44e00a4a6d4c23ad3ded44043587f708983ee4",
+      "source": "taki-rest-apricot-source.json",
+      "sourceSha256": "ff752986aa98b2cc7c50926a7b0448071d38c28411fcb862bef6cdbef821c852",
+      "actualPrompt": "taki-rest-apricot-prompt.txt",
+      "actualPromptSha256": "ed2f27c34af430cec0c582400181159b2f03402edd7c1483deb6df5be18a3021",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "play",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "taki-play-apricot-mother-candidate-v1.png",
+      "motherSha256": "bf2bb6c780f72c03b65169347d1deafe8c178afe1a9bf6509848dc239321d0f9",
+      "source": "taki-play-apricot-source.json",
+      "sourceSha256": "aac06f00706778b4c06d3e03ff389cec5102f7b974311a132a4c008ef8625325",
+      "actualPrompt": "taki-play-apricot-prompt.txt",
+      "actualPromptSha256": "47f1c38751a7c40d0324ba75a338a3b049bfff0b127fdea9c3ddd56843d63ef4",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "attention",
+      "palette": "apricot",
+      "light": "morning",
+      "mother": "taki-attention-apricot-mother-candidate-v2.png",
+      "motherSha256": "23c79a3ce36b887e2c2f57f37558cbe5ace84014c9a03524e31872028004a2f5",
+      "source": "taki-attention-apricot-v2-source.json",
+      "sourceSha256": "cf527e27d7bcde8a1f71fe6b3bc2a2533bf90b471c7667e2356bce5b9dc40e86",
+      "actualPrompt": "taki-attention-apricot-v2-prompt.txt",
+      "actualPromptSha256": "62d49e90a4a9df91eb4fc7ad5255f84a6edef6e918c15e09948da424c438a51d",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "chat",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "soyo-chat-mist-mother-candidate-v1.png",
+      "motherSha256": "f071989d921ca9a23bd07c8d9e78a5aada62d7fb9256ec71cdd8c057a4c12ece",
+      "source": "soyo-chat-mist-source.json",
+      "sourceSha256": "49aa27e248bf7d5bb9272779d87e50c7db19cee366b0a2dfd22283ff3405e590",
+      "actualPrompt": "soyo-chat-mist-prompt.txt",
+      "actualPromptSha256": "67664b73fb11936eca50a3f7a9c83c314c0038cd312fb70546fee4850f1b76e9",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "soyo-chat-mist.scene.json",
+        "sceneSha256": "eb106c6e781b3e77d9af09ba511136068700b7e9d1a69b8c35bc41f66666b7f3",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "soyo-chat-mist-background-calibrated-v3.png",
+            "sha256": "d76ad9cec9b055f3234371f1600ebd3f52d3eda350f92137f9fa44240ae3ef69",
+            "bytes": 1977449
+          },
+          {
+            "role": "figure",
+            "file": "soyo-chat-mist-figure-calibrated-v2.png",
+            "sha256": "dabd40b649473a4074da656112fd9c68870ee155d1cc29e4169f45cdd437fc1a",
+            "bytes": 2293061
+          },
+          {
+            "role": "mask",
+            "file": "soyo-chat-mist-mask-calibrated-v2.png",
+            "sha256": "8810d694ddee7f7e4ebc0173c4f6a2523c0dcbcd55589d3955ac6e7d450ad68f",
+            "bytes": 21426
+          },
+          {
+            "role": "shadow",
+            "file": "soyo-chat-mist-shadow-calibrated-v3.png",
+            "sha256": "0b65d6c4a26620ef01dd7f097a98f9facd02cb93564db669e7f24fdcdd94618a",
+            "bytes": 46123
+          }
+        ],
+        "production": "soyo-chat-mist-layer-processing-v3.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "not recorded in scene"
+      }
+    },
+    {
+      "character": "soyo",
+      "activity": "chat",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "soyo-chat-violet-mother-candidate-v1.png",
+      "motherSha256": "444153ca5735202cb0b228f9647cff2578f02c3391070e3c0e3876588f86e8e4",
+      "source": "soyo-chat-violet-source.json",
+      "sourceSha256": "04dc6cd548ae5743d08c35f8b270945ac4aa0c02f5690d6f83f68330f51814ac",
+      "actualPrompt": "soyo-chat-violet-prompt.txt",
+      "actualPromptSha256": "4feb5045bf3b94398c1417e86ca23b4f526ea4e07998666cce81c7b9766e5e59",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "soyo-chat-violet.scene.json",
+        "sceneSha256": "6e1486a49c8d8badc7280d598db014e5d13c7f50828c3d30a9a225d27036834b",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "soyo-chat-violet-background-calibrated-v2.png",
+            "sha256": "8c8ddf3f7e72af10862ea36ae54094abb806927ed9ed136ae3acb8f5f9cb123b",
+            "bytes": 2117551
+          },
+          {
+            "role": "figure",
+            "file": "soyo-chat-violet-figure-calibrated-v1.png",
+            "sha256": "2a6956fdf57c900ff33b68693ab3cc10a89b607d504186612f3cc25b90b7f6d7",
+            "bytes": 2454852
+          },
+          {
+            "role": "mask",
+            "file": "soyo-chat-violet-mask-calibrated-v1.png",
+            "sha256": "3a6cf1562c70ace4b22b71f6b5b945728db591027ca8ee477a8e23ef0024f0cd",
+            "bytes": 21188
+          },
+          {
+            "role": "shadow",
+            "file": "soyo-chat-violet-shadow-calibrated-v2.png",
+            "sha256": "4b3f041f6353a8fc36b7ccd878a4a53a27c02d93aada3eedb5ffbbd68b7fe57a",
+            "bytes": 53850
+          }
+        ],
+        "production": "soyo-chat-violet-layer-processing-v2.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "not recorded in scene"
+      }
+    },
+    {
+      "character": "soyo",
+      "activity": "chat",
+      "palette": "rain",
+      "light": "night",
+      "mother": "soyo-chat-rain-mother-candidate-v1.png",
+      "motherSha256": "130d8136ac3d77c8618f5cc7a772fb01bd9882efa2a44e44a018c5069b12b4ef",
+      "source": "soyo-chat-rain-source.json",
+      "sourceSha256": "a7079d67e0efd96f4511890dc85f4d3fcdc9ce8c0dab5804d25c6656e5b7fa43",
+      "actualPrompt": "soyo-chat-rain-prompt.txt",
+      "actualPromptSha256": "1292bacce6d32343382b5dd49078c2125866610e338b438c5e3575450b997a71",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "soyo-chat-rain.scene.json",
+        "sceneSha256": "e6d468cdb3e0f6e2d6f1f7669461e1aa768a7680b8e16dffb7e89b78f531bae2",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "soyo-chat-rain-background-calibrated-v2.png",
+            "sha256": "19465dd817146330b4bce36c2f180ebf34faa14a2bf4b1d6e99fe91f37d70c0a",
+            "bytes": 1954779
+          },
+          {
+            "role": "figure",
+            "file": "soyo-chat-rain-figure-calibrated-v1.png",
+            "sha256": "a71f6543d1806c53225caecd55b95c49b020342a48b7fbea442802139f3391f9",
+            "bytes": 2254601
+          },
+          {
+            "role": "mask",
+            "file": "soyo-chat-rain-mask-calibrated-v1.png",
+            "sha256": "dae8d4536738f8e42e1df955cd6702aef737876a7d6fa771db041da639b409d3",
+            "bytes": 21273
+          },
+          {
+            "role": "shadow",
+            "file": "soyo-chat-rain-shadow-calibrated-v2.png",
+            "sha256": "a56fc3e0035eb040cb4d7b23aa78209a700292ce68668f9caa14419a4f5ce731",
+            "bytes": 49737
+          }
+        ],
+        "production": "soyo-chat-rain-layer-processing-v2.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "not recorded in scene"
+      }
+    },
+    {
+      "character": "taki",
+      "activity": "chat",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "taki-chat-mist-mother-candidate-v1.png",
+      "motherSha256": "e3fc520bcca02e7c72dcee83ea818a288a89676582dfd0870cfb31b86a7261c3",
+      "source": "taki-chat-mist-source.json",
+      "sourceSha256": "296302f238593f643c6a937d97d74befe27d3c3d1ca602ca3f473f448d4c3c85",
+      "actualPrompt": "taki-chat-mist-prompt.txt",
+      "actualPromptSha256": "d6fe32b2aca2595f3e3d84725d360ef9317f8d507451f76f8732838872638835",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "taki-chat-mist.scene.json",
+        "sceneSha256": "96757345545ccf673cfe4c29946ddf883f8aeabdb5def6aad13fd7b168d6468a",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "taki-chat-mist-background-calibrated-v4.png",
+            "sha256": "da1755781c9f19294cbfef3a5550fc962d7daaec9ba739ac83422bd851cb5435",
+            "bytes": 1987903
+          },
+          {
+            "role": "figure",
+            "file": "taki-chat-mist-figure-calibrated-v3.png",
+            "sha256": "85290928aaca18d0785484ed05e02210546ef3ddc656fd5b6fcd7b3811a1005a",
+            "bytes": 2302512
+          },
+          {
+            "role": "mask",
+            "file": "taki-chat-mist-mask-calibrated-v3.png",
+            "sha256": "a959b28711600abe236ec9f80c599d4675711fec7bf6e7bf76425438e6c3a256",
+            "bytes": 22932
+          },
+          {
+            "role": "shadow",
+            "file": "taki-chat-mist-shadow-calibrated-v4.png",
+            "sha256": "20fb616fbe20e2c07c67cc53662882aa922f09d5010a3fb923a31efd080101d6",
+            "bytes": 47502
+          }
+        ],
+        "production": "taki-chat-mist-layer-processing-v4.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "not recorded in scene"
+      }
+    },
+    {
+      "character": "taki",
+      "activity": "chat",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "taki-chat-violet-mother-candidate-v1.png",
+      "motherSha256": "624b0ffe0243da578e831d38e40ba7283433e3375c6a81a6e792c6d51cc137ab",
+      "source": "taki-chat-violet-source.json",
+      "sourceSha256": "1164b5bfb7b6db2f20139d5c3b487c8055639dba19682cdec0aec49eefa5f195",
+      "actualPrompt": "taki-chat-violet-prompt.txt",
+      "actualPromptSha256": "5b563518a18c080fb13befb69a0a10e93e16c9f526cbfec034e4a009825a947b",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "taki-chat-violet.scene.json",
+        "sceneSha256": "e736488a55726a0b90d3842cfb01d1eeb36d89f2cccc877440872e3ba32dc074",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "taki-chat-violet-background-calibrated-v2.png",
+            "sha256": "d4ccf0324627d46b45a5526745cf1d1881276a15f0914da3038b188b72476e40",
+            "bytes": 2135410
+          },
+          {
+            "role": "figure",
+            "file": "taki-chat-violet-figure-calibrated-v1.png",
+            "sha256": "7756a3fb04bac331d7fe6f83172347a3cea60cb9ece1d7e02e2bbb930ec5d353",
+            "bytes": 2477413
+          },
+          {
+            "role": "mask",
+            "file": "taki-chat-violet-mask-calibrated-v1.png",
+            "sha256": "92b325013e563b290e8a6420a61fa63bd7ee3a306ab1d392f4d234b0c5af4261",
+            "bytes": 22730
+          },
+          {
+            "role": "shadow",
+            "file": "taki-chat-violet-shadow-calibrated-v2.png",
+            "sha256": "5a61ef90981023a8c1fe9dbfe2c324114cbebca2594a0cacdffa601c542f6e08",
+            "bytes": 57333
+          }
+        ],
+        "production": "taki-chat-violet-layer-processing-v2.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "not recorded in scene"
+      }
+    },
+    {
+      "character": "taki",
+      "activity": "chat",
+      "palette": "rain",
+      "light": "night",
+      "mother": "taki-chat-rain-mother-candidate-v1.png",
+      "motherSha256": "67e9bbef3f413b3bbfc7aae0fe00130e4d85d9d6391907d7241af4470bf2586f",
+      "source": "taki-chat-rain-source.json",
+      "sourceSha256": "acf4f4e6af726afadbf98912babb5473978213746c1e99d8b7f557d7aa0e6de9",
+      "actualPrompt": "taki-chat-rain-prompt.txt",
+      "actualPromptSha256": "92bebb3f2b6838fc50cd73ec1f3058d30b42bb9443d23c34fa82a29aa11c87c3",
+      "primaryMotherPermission": true,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": {
+        "scene": "taki-chat-rain.scene.json",
+        "sceneSha256": "254662e8cfa4499aa9f76cb24139248204d5717710c4be5b67544401e989a814",
+        "motherMatchesCurrentCell": true,
+        "files": [
+          {
+            "role": "background",
+            "file": "taki-chat-rain-background-calibrated-v2.png",
+            "sha256": "c72c669c4ddf822d7b2a5cda287fac815439d4ec0f734a7fd1e7172039f39a4e",
+            "bytes": 1953755
+          },
+          {
+            "role": "figure",
+            "file": "taki-chat-rain-figure-calibrated-v1.png",
+            "sha256": "1c9e9fb733afa3d4957449d2b35c10c22d5135bf4bdb6bd4b6abc5696f412715",
+            "bytes": 2251537
+          },
+          {
+            "role": "mask",
+            "file": "taki-chat-rain-mask-calibrated-v1.png",
+            "sha256": "1d5c12e7313dd194614acead430fb3ee607eef9bff2d67c6afa27a9f4635f116",
+            "bytes": 22653
+          },
+          {
+            "role": "shadow",
+            "file": "taki-chat-rain-shadow-calibrated-v2.png",
+            "sha256": "2d058ab7a06e3a4095eeabdc28b7be69eef6467031614c409cfd1e4df062eb05",
+            "bytes": 57106
+          }
+        ],
+        "production": "taki-chat-rain-layer-processing-v2.json",
+        "primaryApproved": false,
+        "runtimeAccepted": false,
+        "producerVisualReview": "not recorded in scene"
+      }
+    },
+    {
+      "character": "soyo",
+      "activity": "reading",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "soyo-reading-mist-mother-candidate-v1.png",
+      "motherSha256": "31922747787547a93240fbc2a0ab1c9da706500e44e8e5347c216e9b61c39838",
+      "source": "soyo-reading-mist-source.json",
+      "sourceSha256": "b3f44772de833c2f69d36cecef2d446e4269f7bee5d65e86ad3cdb0a3017d225",
+      "actualPrompt": "soyo-reading-mist-prompt.txt",
+      "actualPromptSha256": "a294b640173816bb34f679826bad0fa3fec3aa2a00c0760a137e729a5852b392",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "reading",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "soyo-reading-violet-mother-candidate-v1.png",
+      "motherSha256": "d001705191ac3b7cdc09f2369641df4f9dfab0a22008f5d801d7ac1612430814",
+      "source": "soyo-reading-violet-source.json",
+      "sourceSha256": "f8fcaee713b5a6a4ff51c6e21d6a0f748895ae3bf75c68d2b8cd0d08b4d7eed4",
+      "actualPrompt": "soyo-reading-violet-prompt.txt",
+      "actualPromptSha256": "3e1d84b3cef276aad24affff933a45f79194171ecab51860c2077a8ef0473fe5",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "reading",
+      "palette": "rain",
+      "light": "night",
+      "mother": "soyo-reading-rain-mother-candidate-v1.png",
+      "motherSha256": "12a166b566816cc4abb7c7bfd1594df73b1df15a7e13a80a92b0287d8c83195e",
+      "source": "soyo-reading-rain-source.json",
+      "sourceSha256": "ba1de81db3e4eded3d3885632a7d9ea907583d261d56f4491c3ff5e5231daff5",
+      "actualPrompt": "soyo-reading-rain-prompt.txt",
+      "actualPromptSha256": "8f5055a3be1dc7a8d7cfa03c5b7b60b9fde7e5af6b6b2580ebdcc383c2af7311",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "listening",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "soyo-listening-mist-mother-candidate-v1.png",
+      "motherSha256": "b53d149d4274e899e4aa94ffdb86f100f3fe3eda9defa94a1b20ff6fc404e8e1",
+      "source": "soyo-listening-mist-source.json",
+      "sourceSha256": "7dbce3b528d645726dc262f4a7cfa18d98f0cc8cdc5e82309badb12313daecc8",
+      "actualPrompt": "soyo-listening-mist-prompt.txt",
+      "actualPromptSha256": "83b9f7b2b18b13af0b5b8a743aa47519b9e8cdbb47ac5cd8b95a48b7182f1b4d",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "listening",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "soyo-listening-violet-mother-candidate-v1.png",
+      "motherSha256": "455da2443aa1f8bd66ed1c55283b0762ef66d2f0fcd3df2877282b114ac12553",
+      "source": "soyo-listening-violet-source.json",
+      "sourceSha256": "9f950f38e2c6f20deb5a3ec2971673c8d0703f513713807d60a14ebc7aa24716",
+      "actualPrompt": "soyo-listening-violet-prompt.txt",
+      "actualPromptSha256": "40c3368422032574ed69518486c69cc36f8f7c044c7bcafd19eb40635e372f86",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "listening",
+      "palette": "rain",
+      "light": "night",
+      "mother": "soyo-listening-rain-mother-candidate-v1.png",
+      "motherSha256": "04d8fec2596430821163a7797d5d8d9ccde0a20b595da18c6bde19f9e78a7812",
+      "source": "soyo-listening-rain-source.json",
+      "sourceSha256": "06d8c1d383e74e36f286bdb543f56b5813765ef6f10043586e34191a597b8831",
+      "actualPrompt": "soyo-listening-rain-prompt.txt",
+      "actualPromptSha256": "8ac06d1049ae270e89c84b36a9b5c0531e4170b81b1682e6a43c101559570fbd",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "rest",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "soyo-rest-mist-mother-candidate-v1.png",
+      "motherSha256": "c84ed1d32ef628e6528c22d3cf17be198f2baaf0353c61f8398edf25362aed12",
+      "source": "soyo-rest-mist-source.json",
+      "sourceSha256": "816da820291bef11b10990d024e321410ce41dea9546d8f41fcf8f59a299bccf",
+      "actualPrompt": "soyo-rest-mist-prompt.txt",
+      "actualPromptSha256": "a4ac9c95f6713bd04acb02f184fbe2f15f6aed72ad95e7ade082172a5d657994",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "rest",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "soyo-rest-violet-mother-candidate-v1.png",
+      "motherSha256": "b0617ad87aef34f059855c69ea3ceec303db670769f93eda661854cdc6ef2df4",
+      "source": "soyo-rest-violet-source.json",
+      "sourceSha256": "bd28617ecb9ff9544fd8f9ffe6824e7a9186efe3231fce04fc18b3b1c6c94c2c",
+      "actualPrompt": "soyo-rest-violet-prompt.txt",
+      "actualPromptSha256": "c75d4aeaca112540c34ee3c1b0b2518609ee19a66b66976ab1ceb2f33f8ef9ff",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "rest",
+      "palette": "rain",
+      "light": "night",
+      "mother": "soyo-rest-rain-mother-candidate-v1.png",
+      "motherSha256": "6fcdaffc6e614022dc8dfeeced933a313821d0f673904776bca2d7c57d083c80",
+      "source": "soyo-rest-rain-source.json",
+      "sourceSha256": "65ba2103de4dd19f21d536fe7f46f8b8a569fe39160e4a4cc9ec88b8d10b25f0",
+      "actualPrompt": "soyo-rest-rain-prompt.txt",
+      "actualPromptSha256": "066a69d8efc9532aefe20346b6412cb23b6e3ca393dc2fdfe50d3b2d74d0fe51",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "play",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "soyo-play-mist-mother-candidate-v1.png",
+      "motherSha256": "a6cbe40c4474359f6764c01a241ab2c20f18cd2274b9adccedbf2f83b0d73dc2",
+      "source": "soyo-play-mist-source.json",
+      "sourceSha256": "b13c4e46ea2395886f1518cbc476116c4f70b3f606d65522970101c9f431a2cd",
+      "actualPrompt": "soyo-play-mist-prompt.txt",
+      "actualPromptSha256": "50dae133b439a98c255f62ee80feeb8f49526f4988dea7f6cee743edfb1907f1",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "play",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "soyo-play-violet-mother-candidate-v1.png",
+      "motherSha256": "7e110781feab88210e40fed19ddc67a2b707ebc7a7c0cd14a948a8c1da8e66c5",
+      "source": "soyo-play-violet-source.json",
+      "sourceSha256": "3c1c015950b0d17df6f308d48eec9d2551b5a05e3992f71ffadf6ce71299ba56",
+      "actualPrompt": "soyo-play-violet-prompt.txt",
+      "actualPromptSha256": "f92ee771dc74eedbdadcfccd465769ebaadd93755a10639c71bcd3be81426d9c",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "play",
+      "palette": "rain",
+      "light": "night",
+      "mother": "soyo-play-rain-mother-candidate-v3.png",
+      "motherSha256": "98dee27d3441cb471b8c4352454192f5d124ddf59cd19b839cca8fb36df8b685",
+      "source": "soyo-play-rain-source.json",
+      "sourceSha256": "77f66c0b57f92513531612a46c905dd6c2d64e7e5b0bdef65f1f128f82203a47",
+      "actualPrompt": "soyo-play-rain-v3-prompt.txt",
+      "actualPromptSha256": "ccd9241ce50a740600745878bace42c565a92fd5511751adad47331736a19621",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "attention",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "soyo-attention-mist-mother-candidate-v1.png",
+      "motherSha256": "4ac4a67661d435904c3a05ecb2c61989996700aaca3a9b4bb5e4f0eafaa26af8",
+      "source": "soyo-attention-mist-source.json",
+      "sourceSha256": "0defd46b59ac931e8f7ca232ad13b28fa7727608c6d0949cc6c1809047945159",
+      "actualPrompt": "soyo-attention-mist-prompt.txt",
+      "actualPromptSha256": "c026dc313d5f53491fabc528338d749544955d1dc391ee7977de89615e7aa3d4",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "attention",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "soyo-attention-violet-mother-candidate-v1.png",
+      "motherSha256": "39af99b9595b97ba95eb0e5bc03a7bb9ba664d59146bf39ae47219857cba4235",
+      "source": "soyo-attention-violet-source.json",
+      "sourceSha256": "1277c8ffd4a80e84641cd19f81b59c38701d04b7e31bd3c79282b46c5a84c5f7",
+      "actualPrompt": "soyo-attention-violet-prompt.txt",
+      "actualPromptSha256": "49a3279db76bdaafd99760c95059c44f8a5ebf877064af2a694c5d6e4166313b",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "attention",
+      "palette": "rain",
+      "light": "night",
+      "mother": "soyo-attention-rain-mother-candidate-v1.png",
+      "motherSha256": "b41eee4047f167a453c2ebf49a039454354bf86a79e9d1a015facb3be4416055",
+      "source": "soyo-attention-rain-source.json",
+      "sourceSha256": "2ca90ecce8c19f48fdfed1c535e7b183a7775a3e0e72b0421e6fc98c3bd91f66",
+      "actualPrompt": "soyo-attention-rain-prompt.txt",
+      "actualPromptSha256": "314bdb01400bda8baee0346c082eab1e8a4ad8f8125520bf8e0774066b5abaf6",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "reading",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "taki-reading-mist-mother-candidate-v1.png",
+      "motherSha256": "2c8741a06ec6cb8569795c3596941306b3db6fb337fad72ce3e8b7c85d3d2462",
+      "source": "taki-reading-mist-source.json",
+      "sourceSha256": "a22f28f0d33e7691fd8f33d3c24c38e70ceca4c782377720582386883781948c",
+      "actualPrompt": "taki-reading-mist-prompt.txt",
+      "actualPromptSha256": "689b1d64eaec221a085265df107a33e598d81efd2b6381e05da32bd28dfedc54",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "reading",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "taki-reading-violet-mother-candidate-v1.png",
+      "motherSha256": "073ec0bc896d5cc23a5aaf22793d2d0f5b16ba97046bfa8e7a1c2a0def8f3212",
+      "source": "taki-reading-violet-source.json",
+      "sourceSha256": "e4430be8268f00db55693362091c018d24065aec2e4cf1d21bfe28158a7ec4d9",
+      "actualPrompt": "taki-reading-violet-prompt.txt",
+      "actualPromptSha256": "0a8c8cc82e896974c372bd3012ad987aceeab61ac05bdb4c40e070e7e2afe99d",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "reading",
+      "palette": "rain",
+      "light": "night",
+      "mother": "taki-reading-rain-mother-candidate-v1.png",
+      "motherSha256": "1821980ae8b5569facac863e3f11926f23828004e166e58e9018c0d864068261",
+      "source": "taki-reading-rain-source.json",
+      "sourceSha256": "c9753a9ffd5985799544d89671feea03a77b8198ddd5ef18a28e6f513ccb4fcc",
+      "actualPrompt": "taki-reading-rain-prompt.txt",
+      "actualPromptSha256": "21943de324a56eaf2477003edea95771b50a35e28e0da087d7ab7066e999deea",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "planning",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "taki-planning-mist-mother-candidate-v1.png",
+      "motherSha256": "59d2cee09d28d070a77fa1252aebf6c0d634380fd0468e03189159759add3ae1",
+      "source": "taki-planning-mist-source.json",
+      "sourceSha256": "86e083f0f137840740a867d6bbb3f9d436ef6d50b3e7eb9bd8a110c1889520ec",
+      "actualPrompt": "taki-planning-mist-prompt.txt",
+      "actualPromptSha256": "0edb105f92eb0575115b102b090ba3a749f3bf8ea9aa71f4601c826924a8bca7",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "planning",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "taki-planning-violet-mother-candidate-v1.png",
+      "motherSha256": "bdde60cdbe026f18b0d22c6f2864a5e400113f9c6b4ce27db81bb9cdfb364bfd",
+      "source": "taki-planning-violet-source.json",
+      "sourceSha256": "de03cce71c337aae0f6b4c56143ec478f4a1c4805414b9bf96ce7d070e597b0f",
+      "actualPrompt": "taki-planning-violet-prompt.txt",
+      "actualPromptSha256": "dd9a26947d5b6f3d1d9d0b6e90a5d22201d2ee460e241b07e78a97d68aa957d2",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "planning",
+      "palette": "rain",
+      "light": "night",
+      "mother": "taki-planning-rain-mother-candidate-v1.png",
+      "motherSha256": "b70363f79eefc3fe3fe481d1420ca6949545270b20e3a26f656d62fd591fa2b6",
+      "source": "taki-planning-rain-source.json",
+      "sourceSha256": "21031a77df9b3d4f6fa33c902fe4e873bd4b90302e12f0f11c2d523d09cd523a",
+      "actualPrompt": "taki-planning-rain-prompt.txt",
+      "actualPromptSha256": "18bdd53760421b02da4588cd671a196433467d8479337fd17115e1fbaf7d0ed9",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "listening",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "taki-listening-mist-mother-candidate-v1.png",
+      "motherSha256": "bdc98f941df23c519de26d1e2847e93c5f0860f30879d551ad08899c08567305",
+      "source": "taki-listening-mist-source.json",
+      "sourceSha256": "c481e4b921fd71c0f5b0e95fdbeacbfd1147a6e46374736f2d0cca707c9806ca",
+      "actualPrompt": "taki-listening-mist-prompt.txt",
+      "actualPromptSha256": "70be6d0aabcefc553c6fd331af6f3350e3361bbfb81479af424014460aaf4fba",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "listening",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "taki-listening-violet-mother-candidate-v2.png",
+      "motherSha256": "8ca0713f6d55f54a17a8d66cb4de3dfdce39218fa4636def3a83fa3dc2b1ecfc",
+      "source": "taki-listening-violet-source.json",
+      "sourceSha256": "fa557020055b238c54960aec9393b84862c568138d4e04e25ccc0b5d53058dba",
+      "actualPrompt": "taki-listening-violet-v2-prompt.txt",
+      "actualPromptSha256": "e5fff3c02c84caf977da89f404ef411838e2c02ab5c90449ee1c0ed3e1263620",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "listening",
+      "palette": "rain",
+      "light": "night",
+      "mother": "taki-listening-rain-mother-candidate-v1.png",
+      "motherSha256": "cb677e1e45812da94c0fccbb2b179a37beeab1351d5f40b341d94e9e844946fa",
+      "source": "taki-listening-rain-source.json",
+      "sourceSha256": "63e12b45d47df54ef68dcd8ed8f0551ed36c1929eaaa1600fce4c120349691a4",
+      "actualPrompt": "taki-listening-rain-prompt.txt",
+      "actualPromptSha256": "99ba030559e3bbbdd62da8133291f6303a51a8b4d8075a5faf8af432109d917a",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "rest",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "taki-rest-mist-mother-candidate-v1.png",
+      "motherSha256": "a9b1a5839a4c20540243b279cfbc7f919636f42c0630475a0e944803cfd74467",
+      "source": "taki-rest-mist-source.json",
+      "sourceSha256": "c293eef330b1020fe8262f87ad139731489a81fdf06d8b468be4c8f9ca91b050",
+      "actualPrompt": "taki-rest-mist-prompt.txt",
+      "actualPromptSha256": "d7e18f1e18c0551991a524813a0fa8a680cd571cbd274fde2933eddcbfc0c21b",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "rest",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "taki-rest-violet-mother-candidate-v1.png",
+      "motherSha256": "da594ebc088371c7a35bb457f6f050673be80b220015607ce2c0b1ab84d829a1",
+      "source": "taki-rest-violet-source.json",
+      "sourceSha256": "52a6e48d149c25e3995e394d288a593125517faabb6d07e05b27277b2b9b876c",
+      "actualPrompt": "taki-rest-violet-prompt.txt",
+      "actualPromptSha256": "8cbf2d49379a20af3b2fc443df2c2808b5b7598eb96282c3903c4deb3954921b",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "rest",
+      "palette": "rain",
+      "light": "night",
+      "mother": "taki-rest-rain-mother-candidate-v1.png",
+      "motherSha256": "cd8f66de4993357b8a7b7d6d37565f42166467b63e4ba492b4e31c6001f33540",
+      "source": "taki-rest-rain-source.json",
+      "sourceSha256": "5bc6c2a29363857a1be9eb615cb01c3858375ece66bc62e92995eb5d05e3d826",
+      "actualPrompt": "taki-rest-rain-prompt.txt",
+      "actualPromptSha256": "639428457c4b31761040737ab9c04901e2ea13ab078df6eabb66eb5ad8cd5eed",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "play",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "taki-play-mist-mother-candidate-v1.png",
+      "motherSha256": "1fd3df8eb80354a12b037a53281da586a264f70d9dd94bcb004bfe385f15a424",
+      "source": "taki-play-mist-source.json",
+      "sourceSha256": "6827f768b41cfae43060b050d2c3ef84e9766a20433638bb899ddd6e76b4dc48",
+      "actualPrompt": "taki-play-mist-prompt.txt",
+      "actualPromptSha256": "add5370e1296d19be7e8e7c1cd091a4697543a23afad1444326ea5e64a07dc33",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "play",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "taki-play-violet-mother-candidate-v1.png",
+      "motherSha256": "9fef92966caa9edfc3a0d855745820e295ab2252d9ebf0b499a4b758f25c1e9f",
+      "source": "taki-play-violet-source.json",
+      "sourceSha256": "eb241ff482be408c5a4bf9b533ab55b5056ace059630e72ca10e1f7de5fb1033",
+      "actualPrompt": "taki-play-violet-prompt.txt",
+      "actualPromptSha256": "899febe4e563274d0ac56af5a9c7cb96e2149fd191dc542bb2315b54d33ff118",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "play",
+      "palette": "rain",
+      "light": "night",
+      "mother": "taki-play-rain-mother-candidate-v1.png",
+      "motherSha256": "8ba7683c9e6c0bf6bf9bf77eb8afdc0466590e94fddbe0d3aa42cced9646d3d1",
+      "source": "taki-play-rain-source.json",
+      "sourceSha256": "1107c975f922d09dcc17fe1ebd47fd37dd0198b5b887791f300f8109810f4930",
+      "actualPrompt": "taki-play-rain-prompt.txt",
+      "actualPromptSha256": "739ab3358ef1af2142ca1652703f70219820629b2dbf0a28dd4c7113a73130c8",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "attention",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "taki-attention-mist-mother-candidate-v1.png",
+      "motherSha256": "d5e3ddd5b14fe4f74b734b06a1a122353a54ecb4e32c5216f50bbb0bebfb74f5",
+      "source": "taki-attention-mist-source.json",
+      "sourceSha256": "11eb46d9af3a71d731aa2840793a5c2a1405dc00a19945d22cfcf30d9f72df99",
+      "actualPrompt": "taki-attention-mist-prompt.txt",
+      "actualPromptSha256": "2954fe8da2e11dfb0d1255f48b40d88513637104a922fa12fc66deba5e1d9273",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "attention",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "taki-attention-violet-mother-candidate-v1.png",
+      "motherSha256": "6e0052e936f12b408fa0451d83889702e3742a756f214b5d8becebde55f22f82",
+      "source": "taki-attention-violet-source.json",
+      "sourceSha256": "6901116f9b4243c2f20f0c14ff573329ec329624b96c5dfba12de2f0b9c23c79",
+      "actualPrompt": "taki-attention-violet-prompt.txt",
+      "actualPromptSha256": "fef7de53634a27b482635dc8892538094a4097d51f2fa5b17bb4df0041c5a892",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "attention",
+      "palette": "rain",
+      "light": "night",
+      "mother": "taki-attention-rain-mother-candidate-v1.png",
+      "motherSha256": "911da08393779eb6e4eb9f50ee2dc98a0b78b04f232c50927f0edc9691cacf80",
+      "source": "taki-attention-rain-source.json",
+      "sourceSha256": "79954f4f9b38185034c5017ca03d917c881338978b1d93823ed9d90e3ffc56e6",
+      "actualPrompt": "taki-attention-rain-prompt.txt",
+      "actualPromptSha256": "85a7b1669a6b2edd197b6951a6e7d19288a131fd2e03f063b6ef675ed6819dc9",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "study",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "soyo-study-mist-mother-candidate-v1.png",
+      "motherSha256": "4b84e7c098ea2c8b1e9a77c203fa06a4ff4484288ed35d5b7266393a51976ec7",
+      "source": "soyo-study-mist-source.json",
+      "sourceSha256": "9b7d57807be63673931ef3afc7737f7d066da7c031c89145ab27ef57be9b0227",
+      "actualPrompt": "soyo-study-mist-prompt.txt",
+      "actualPromptSha256": "f9e3d9e510210ed8e671bb83d6254f58698da2bcea0519aceb926609961ff922",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "study",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "soyo-study-violet-mother-candidate-v1.png",
+      "motherSha256": "251367e4be844206ef5538c2490dd381eeed1bfc0862e5b8c05e3115cdb91350",
+      "source": "soyo-study-violet-source.json",
+      "sourceSha256": "b6e58c60589298baa6fd1aae612204fdd10b4bce88f1eb05f1c522add31c421d",
+      "actualPrompt": "soyo-study-violet-prompt.txt",
+      "actualPromptSha256": "b55fcac1163a693dcfe2ac904fa19c900f2251f843c8e6d34214d9ff8aae5f8e",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "study",
+      "palette": "rain",
+      "light": "night",
+      "mother": "soyo-study-rain-mother-candidate-v1.png",
+      "motherSha256": "d28fa515a5b9828d57778897b2de9e15e106c717fea430517f5fa944c603b533",
+      "source": "soyo-study-rain-source.json",
+      "sourceSha256": "de115e0f993b861b34d1c12ccf3415ce83e642256af0f7a927b44f69e932f02f",
+      "actualPrompt": "soyo-study-rain-prompt.txt",
+      "actualPromptSha256": "3580eecec0ac96432aec3184e64adf166824ee55bd7f2d9702712cc4975f342c",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "study",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "taki-study-mist-mother-candidate-v1.png",
+      "motherSha256": "a8a8bf13e5a66b0f16198e07160a79ef9eeed09bd4bc79ca39f9f4dc155dc5e2",
+      "source": "taki-study-mist-source.json",
+      "sourceSha256": "81aec101726942cdde33721a9b79ee74bf2f6558b915e7715a3d4447ff9469f1",
+      "actualPrompt": "taki-study-mist-prompt.txt",
+      "actualPromptSha256": "0e116f2ba7fafe901f77472f9e52c9c08693e0c9f9820f2a4f1fd08d6ab3f0be",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "study",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "taki-study-violet-mother-candidate-v1.png",
+      "motherSha256": "20b2bef805c06a54663bbf7bea9ed2e346178bab7ddfcb3601b0985ae0c1d93d",
+      "source": "taki-study-violet-source.json",
+      "sourceSha256": "b61bc9d5ce24f521d51481625435e606122e31643e8ee9f2c6aecd40b33c94e8",
+      "actualPrompt": "taki-study-violet-prompt.txt",
+      "actualPromptSha256": "a763d05e52f9ea150d6755dd822435c949b8492fea8a47d674ea4c6ea3fc7cb9",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "taki",
+      "activity": "study",
+      "palette": "rain",
+      "light": "night",
+      "mother": "taki-study-rain-mother-candidate-v1.png",
+      "motherSha256": "80240b081008c4f327c08823cbfd59e5bd93119b0055373ad7920573e61708ba",
+      "source": "taki-study-rain-source.json",
+      "sourceSha256": "b9e7922f73f42a75dd2780d4b4090812c37c04f0c21bc8105cce8caf25d0cbad",
+      "actualPrompt": "taki-study-rain-prompt.txt",
+      "actualPromptSha256": "566de8bf7a8c28af78b19ef30911962ecf538a3a5bb1efa3c4b14ba7e9bd1b9b",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "planning",
+      "palette": "mist",
+      "light": "morning",
+      "mother": "soyo-planning-mist-mother-candidate-v1.png",
+      "motherSha256": "1bf0b824aaf598b47f83ae40ccc4321961e5413459903a2b1427827d5082aa47",
+      "source": "soyo-planning-mist-source.json",
+      "sourceSha256": "5608cf9dfdef15dbc2043732240b52440a27cf3dd7e594b1d390ec9b4b208ee3",
+      "actualPrompt": "soyo-planning-mist-prompt.txt",
+      "actualPromptSha256": "5dad0cdab390f032e090152b279a13956fd4f6ec399ba9369ae1a5a24b70f8e5",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "planning",
+      "palette": "violet",
+      "light": "dusk",
+      "mother": "soyo-planning-violet-mother-candidate-v1.png",
+      "motherSha256": "5a8adfc2c4fecc6ee82951df6ca994186c23f533e3c32764fde375fcec0faaad",
+      "source": "soyo-planning-violet-source.json",
+      "sourceSha256": "04d676fa1129a71929f14517eb725b1d2d53765274662920983f64b11cb887f6",
+      "actualPrompt": "soyo-planning-violet-prompt.txt",
+      "actualPromptSha256": "44a1d85fa0fe8d69c7fb5eb0656d7fb5fa50356c847ca37a96901093e87fe11b",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    },
+    {
+      "character": "soyo",
+      "activity": "planning",
+      "palette": "rain",
+      "light": "night",
+      "mother": "soyo-planning-rain-mother-candidate-v1.png",
+      "motherSha256": "bff992606231236fd913b0bf6049156c3207f57021f64c2bb58ea32ef2a50df8",
+      "source": "soyo-planning-rain-source.json",
+      "sourceSha256": "cb7105dba69a0dbeacc86bc8e947206f33793a28d0ed38ae18467deadbefca90",
+      "actualPrompt": "soyo-planning-rain-prompt.txt",
+      "actualPromptSha256": "643b6cdb16e74578fdb583c44971bc90d15337461e387af4f7f42dad70ddd1f6",
+      "primaryMotherPermission": false,
+      "primaryMotherRecord": "../primary-other-mother-reviews.json",
+      "layerCandidate": null
+    }
+  ]
+}

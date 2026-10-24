@@ -133,9 +133,6 @@
 .action-eyebrow {
   font-size: 11px;
 }
-.action-caption {
-  font-size: 11px;
-}
 .saved-action {
   display: flex;
   align-items: center;
@@ -699,7 +696,6 @@
   .action-eyebrow { color: #6a6b6c !important; }
   .action-card h3 { color: #27343e !important; }
   .action-card > p, .action-time { color: #676869 !important; }
-  .action-caption { color: #737475 !important; }
   .action-card .primary-button { background: #dedfdf !important; border-color: #c0c1c1 !important; color: #3b3c3d !important; }
   .action-card .text-button { color: #626364 !important; }
   .saved-action > svg, .saved-action strong { color: #666768 !important; }

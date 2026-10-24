@@ -1,0 +1,159 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "soyo-chat-mist-layer-parameters-v2.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "soyo-chat-mist-mother-candidate-v1.png",
+  "motherSha256": "f071989d921ca9a23bd07c8d9e78a5aada62d7fb9256ec71cdd8c057a4c12ece",
+  "matte": "soyo-chat-mist-original-blue-gap-alpha-v2.png",
+  "matteSha256": "f0e461a916d6d92c59484559582d814da4ee310aa4ed816397e426f5b858f1c1",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 22,
+  "alphaNonzeroPixels": 52992,
+  "alphaBounds": [
+    1169,
+    279,
+    1395,
+    781
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "797a7454d706f52ab4c0829932975dc873f94dde61b16fe2622299d4fabff557",
+  "figureRgbSha256": "797a7454d706f52ab4c0829932975dc873f94dde61b16fe2622299d4fabff557",
+  "background": {
+    "candidate": "soyo-chat-mist-background-generated-v1.png",
+    "candidateSha256": "593759ae16aedb58104efe8b85a001ea36890ed07eb1145117c79d4f6ae441af",
+    "expandPixels": 7,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          1157,
+          741
+        ],
+        [
+          1284,
+          741
+        ],
+        [
+          1301,
+          794
+        ],
+        [
+          1163,
+          794
+        ]
+      ],
+      [
+        [
+          1165,
+          576
+        ],
+        [
+          1385,
+          576
+        ],
+        [
+          1385,
+          622
+        ],
+        [
+          1165,
+          622
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 80581,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1167,
+          744
+        ],
+        [
+          1291,
+          744
+        ],
+        [
+          1300,
+          791
+        ],
+        [
+          1162,
+          791
+        ]
+      ],
+      [
+        [
+          1170,
+          570
+        ],
+        [
+          1384,
+          570
+        ],
+        [
+          1384,
+          622
+        ],
+        [
+          1170,
+          622
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "soyo-chat-mist-figure-calibrated-v2.png",
+      "bytes": 2293061,
+      "sha256": "dabd40b649473a4074da656112fd9c68870ee155d1cc29e4169f45cdd437fc1a"
+    },
+    {
+      "file": "soyo-chat-mist-mask-calibrated-v2.png",
+      "bytes": 21426,
+      "sha256": "8810d694ddee7f7e4ebc0173c4f6a2523c0dcbcd55589d3955ac6e7d450ad68f"
+    },
+    {
+      "file": "soyo-chat-mist-background-calibrated-v2.png",
+      "bytes": 1977702,
+      "sha256": "4d9851dc338a30af2a41d6b2fd36034955ef7ce3ce323fd2f6e8b9257570ec86"
+    },
+    {
+      "file": "soyo-chat-mist-shadow-calibrated-v1.png",
+      "bytes": 34982,
+      "sha256": "d5c8f303c6d505e44fe1f19a316e82a100234abd62c04d18f08a1cf09fe7136a"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

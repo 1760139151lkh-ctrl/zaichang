@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "mother": "mutsumi-planning-apricot-mother-candidate-v1.png",
+  "motherSha256": "ebcd02b354a1661687afdd2e9a92d6c3b7531bc7555a98eb0563516eff83ddd1",
+  "matte": "mutsumi-planning-apricot-source-alpha-v2.png",
+  "matteSha256": "f87815321ec820ce22e011d8f40ca303fab4aa2d563ae6b0376d7e831c5eb166",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "mutsumi-planning-apricot-figure-calibrated-v2.png",
+  "mask": "mutsumi-planning-apricot-mask-calibrated-v2.png",
+  "backgroundCandidate": "mutsumi-planning-apricot-background-candidate-v2.png",
+  "background": "mutsumi-planning-apricot-background-calibrated-v2.png",
+  "shadow": "mutsumi-planning-apricot-shadow-calibrated-v2.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        944,
+        698
+      ],
+      [
+        1029,
+        698
+      ],
+      [
+        1035,
+        739
+      ],
+      [
+        944,
+        741
+      ]
+    ],
+    [
+      [
+        988,
+        691
+      ],
+      [
+        1067,
+        692
+      ],
+      [
+        1071,
+        732
+      ],
+      [
+        988,
+        735
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        944,
+        698
+      ],
+      [
+        1029,
+        698
+      ],
+      [
+        1035,
+        739
+      ],
+      [
+        944,
+        741
+      ]
+    ],
+    [
+      [
+        988,
+        691
+      ],
+      [
+        1067,
+        692
+      ],
+      [
+        1071,
+        732
+      ],
+      [
+        988,
+        735
+      ]
+    ],
+    [
+      [
+        813,
+        581
+      ],
+      [
+        932,
+        582
+      ],
+      [
+        938,
+        616
+      ],
+      [
+        811,
+        616
+      ]
+    ],
+    [
+      [
+        886,
+        474
+      ],
+      [
+        995,
+        473
+      ],
+      [
+        998,
+        500
+      ],
+      [
+        886,
+        503
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [],
+  "includePolygons": [],
+  "alphaPolygonRepairs": [],
+  "record": "mutsumi-planning-apricot-layer-processing-v2.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "Registered raw mask invented hair through the original foreground chair. Its personally observed original chair-back/cushion silhouette is excluded before original-RGB local refinement; preserve only actually visible original girl/hair, not hidden anatomy. Matching fullBGv2 keeps original chair orientation and exact two original cards; v1 added tabletop object(s), rejected. Multiple desk/seat/shoe supports require travel0. All Primary/runtime review pending. v2 keeps source original fine hair via recorded color/ROI alpha repair, excludes exact original lake gap/foreground-chair contamination. Original RGB unchanged. Primary pending."
+}

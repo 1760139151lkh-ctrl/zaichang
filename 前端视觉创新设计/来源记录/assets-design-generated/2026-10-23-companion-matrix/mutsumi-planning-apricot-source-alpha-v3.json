@@ -1,0 +1,91 @@
+{
+  "recordType": "original-RGB-source-traced-hair-alpha",
+  "script": "mutsumi-planning-apricot-refine-hair-v3.py",
+  "scriptSha256": "0999a5829e42e3d5ddf097667cc181cebd11f828b4f91c68c690fd917aa2035e",
+  "mother": "mutsumi-planning-apricot-mother-candidate-v1.png",
+  "motherSha256": "ebcd02b354a1661687afdd2e9a92d6c3b7531bc7555a98eb0563516eff83ddd1",
+  "priorAlpha": "mutsumi-planning-apricot-mask-calibrated-v1.png",
+  "priorAlphaSha256": "8ecf6580870a7e5d6dedf268dfd447d154887566e326e86ad687b019b990b4cc",
+  "sourceHairRegion": [
+    760,
+    325,
+    943,
+    498
+  ],
+  "sourceObservedFineCurves": [
+    [
+      [
+        846,
+        342
+      ],
+      [
+        838,
+        360
+      ],
+      [
+        829,
+        375
+      ],
+      [
+        815,
+        393
+      ],
+      [
+        799,
+        415
+      ],
+      [
+        784,
+        441
+      ],
+      [
+        771,
+        468
+      ],
+      [
+        767,
+        484
+      ]
+    ],
+    [
+      [
+        932,
+        380
+      ],
+      [
+        924,
+        393
+      ],
+      [
+        924,
+        414
+      ],
+      [
+        928,
+        436
+      ],
+      [
+        932,
+        451
+      ],
+      [
+        931,
+        458
+      ]
+    ]
+  ],
+  "bandPixels": 2.5,
+  "chairForegroundRegion": [
+    800,
+    500,
+    837,
+    622
+  ],
+  "method": "v2 raw edge additions included actual room leaves as tiny islands, rejected. v3 starts from stable original-RGB v1 alpha, excludes personally observed foreground chair fabric, and retains only source-visible fine hair in two original-coordinate traced curve bands. No RGB/body/geometry repaint.",
+  "outputAlpha": "mutsumi-planning-apricot-source-alpha-v3.png",
+  "outputAlphaSha256": "0020251d34abe797ea237e1329314dcde80a37d7bccf1e16d6b3e12d198eee4a",
+  "review": {
+    "primary": "pending",
+    "runtime": "not registered"
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "tomori-attention-layer-parameters-v2.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "tomori-attention-apricot-mother.png",
+  "motherSha256": "06c582ace8f0cb0c6079ed89c6a1defd3bbb9e05525b7c3af11b4e364499e1f7",
+  "matte": "tomori-attention-matte-registered-v2.png",
+  "matteSha256": "3cf531056fbf0426e912684d6193f204776e29b18ff8f89bb0a54ecae6a447b7",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 3380,
+  "alphaNonzeroPixels": 52332,
+  "alphaBounds": [
+    1108,
+    294,
+    1398,
+    784
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "ece03792b0608f73e3a68f60d1df30030da924de8321f4023aef0540d366ea71",
+  "figureRgbSha256": "ece03792b0608f73e3a68f60d1df30030da924de8321f4023aef0540d366ea71",
+  "background": {
+    "candidate": "tomori-attention-background-generated-v1.png",
+    "candidateSha256": "fc7a69c378b364a658e5f32b36ff4ca4c359a615fb49c02dcf38ef974aa86845",
+    "expandPixels": 10,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          1092,
+          726
+        ],
+        [
+          1247,
+          726
+        ],
+        [
+          1247,
+          798
+        ],
+        [
+          1092,
+          798
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 88280,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1092,
+          726
+        ],
+        [
+          1247,
+          726
+        ],
+        [
+          1247,
+          798
+        ],
+        [
+          1092,
+          798
+        ]
+      ],
+      [
+        [
+          1157,
+          548
+        ],
+        [
+          1408,
+          548
+        ],
+        [
+          1408,
+          609
+        ],
+        [
+          1157,
+          609
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "tomori-attention-figure-calibrated-v2.png",
+      "bytes": 2440883,
+      "sha256": "d43f8f90525c639b7cdc926f261d697f7fad7ba31fff68934a501dd86420bd36"
+    },
+    {
+      "file": "tomori-attention-mask-calibrated-v2.png",
+      "bytes": 19251,
+      "sha256": "8443d9466d12f835c0f85d23c71038a21972ca046bb2ac31c39c6d201da981a7"
+    },
+    {
+      "file": "tomori-attention-background-calibrated-v2.png",
+      "bytes": 2098543,
+      "sha256": "bf084c1d6085e69b9b27d20f00ef413be3d28843df82ec25519e11aaa8ee987d"
+    },
+    {
+      "file": "tomori-attention-shadow-calibrated-v2.png",
+      "bytes": 46711,
+      "sha256": "35938b024f33db69544e10fbc24ffa192632c00141adfaeb2a97f4135b596180"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  },
+  "mattePreparation": {
+    "processor": "tomori-matte-registration.py",
+    "processorSha256": "89219d225d3f435f5b38b5d0b161b17deec6e83530cb5a84fcae142564b2dda7",
+    "parameters": "tomori-attention-layer-parameters-v2.json",
+    "parametersSha256": "d7067293c7588dc9be49ef967645e80ade62c187b49a1c5a1114f33893fb5b5c",
+    "proposalSource": "tomori-attention-matte-layer-source-v1.json",
+    "backgroundSource": "tomori-attention-background-layer-source-v1.json",
+    "dependencies": {
+      "Pillow": "12.2.0",
+      "NumPy": "2.4.6",
+      "OpenCV": "4.13.0"
+    },
+    "transform": "Only generated matte proposal registered, then original-source-colour GrabCut and explicit local alpha caps; source RGB never transformed or repainted.",
+    "alphaRegionCaps": []
+  }
+}

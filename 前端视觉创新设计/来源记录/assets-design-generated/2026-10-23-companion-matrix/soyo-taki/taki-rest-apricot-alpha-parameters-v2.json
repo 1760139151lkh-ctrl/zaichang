@@ -1,0 +1,20 @@
+{
+  "mother": "taki-rest-apricot-mother-candidate-v1.png",
+  "motherSha256": "c946307e511b2a1f60652c04ec44e00a4a6d4c23ad3ded44043587f708983ee4",
+  "sourceAlpha": "taki-rest-apricot-mask-candidate-v1.png",
+  "sourceAlphaSha256": "108e8daad822bd63b2dc7314b31fc3f6395f6b2b584e4be43149ff5f3752f466",
+  "sourceAlphaMode": "luminance",
+  "edgeDifference": {
+    "background": "taki-rest-apricot-background-candidate-v1.png",
+    "backgroundSha256": "effd2b0a4f9c64d726093ea8318a70585f3b2b732ea2f7a1404a87dedd86d510",
+    "edgePixels": 2,
+    "differenceLow": 5,
+    "differenceHigh": 18
+  },
+  "minimumVisibleAlpha": 12,
+  "removeIslandsSmallerThan": 3,
+  "fillInteriorHolesWithin": [],
+  "explicitRoomExclusions": [],
+  "output": "taki-rest-apricot-alpha-calibrated-v2.png",
+  "record": "taki-rest-apricot-alpha-production-v2.json"
+}

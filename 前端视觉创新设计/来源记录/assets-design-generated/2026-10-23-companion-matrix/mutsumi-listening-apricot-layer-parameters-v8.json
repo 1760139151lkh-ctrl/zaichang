@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "mother": "mutsumi-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+  "matte": "mutsumi-listening-apricot-source-alpha-v8.png",
+  "matteSha256": "166ebed01a6115135394a3a4db2cb3c251225b88171955ace3e9c6574e91cde0",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "mutsumi-listening-apricot-figure-calibrated-v8.png",
+  "mask": "mutsumi-listening-apricot-mask-calibrated-v8.png",
+  "backgroundCandidate": "mutsumi-listening-apricot-background-candidate-v1.png",
+  "background": "mutsumi-listening-apricot-background-calibrated-v8.png",
+  "shadow": "mutsumi-listening-apricot-shadow-calibrated-v8.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1185,
+        585
+      ],
+      [
+        1260,
+        588
+      ],
+      [
+        1253,
+        712
+      ],
+      [
+        1230,
+        729
+      ],
+      [
+        1232,
+        775
+      ],
+      [
+        1146,
+        776
+      ]
+    ],
+    [
+      [
+        1215,
+        251
+      ],
+      [
+        1320,
+        250
+      ],
+      [
+        1370,
+        350
+      ],
+      [
+        1423,
+        420
+      ],
+      [
+        1445,
+        503
+      ],
+      [
+        1424,
+        552
+      ],
+      [
+        1395,
+        591
+      ],
+      [
+        1210,
+        590
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1155,
+        557
+      ],
+      [
+        1220,
+        554
+      ],
+      [
+        1221,
+        584
+      ],
+      [
+        1156,
+        587
+      ]
+    ],
+    [
+      [
+        1374,
+        562
+      ],
+      [
+        1434,
+        562
+      ],
+      [
+        1435,
+        590
+      ],
+      [
+        1371,
+        589
+      ]
+    ],
+    [
+      [
+        1278,
+        566
+      ],
+      [
+        1377,
+        568
+      ],
+      [
+        1376,
+        593
+      ],
+      [
+        1275,
+        590
+      ]
+    ],
+    [
+      [
+        1150,
+        740
+      ],
+      [
+        1228,
+        734
+      ],
+      [
+        1232,
+        769
+      ],
+      [
+        1151,
+        774
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [],
+  "includePolygons": [],
+  "alphaPolygonRepairs": [],
+  "record": "mutsumi-listening-apricot-layer-processing-v8.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "All visible figure RGB comes from original approved mother. Displaced Imagegen masks explicitly rejected and not used. Alpha produced from original-canvas observed contour + matching-BG difference trimap in mutsumi-source-matte.py; source-alpha-v1.json records production. The detached empty loafer is static BG, not a human pixel; multi-contact seated pose remains fixed. v1 original-coordinate matte had observed false cushion/window and reading-leg exclusion. v2 replaces those uncertain seeds with explicitly observed original-body / room seeds; no generated drifting matte used. v3 source-alpha repairs only personally observed original skin/navy leg/page and exact room-color ROIs; parameters/processor in source-alpha-v3.json. Entire figure RGB remains original. v7 matching-BG registration clears the whole personally observed original hair envelope, including fine strands rejected by earlier alpha, so no old hair outline remains in empty BG. Figure RGB is unchanged; no foreground person is painted. Parent final v7 deep/light 5x rear-hair inspection found retained orange window-post strip and blue pillow triangle, and missing true outer fine arc. v8 remattes only observed x1385..1425,y420..538 using source RGB and original-traced panel/bright arc band; original navy sleeve and all RGB/body geometry unchanged. Primary still pending."
+}

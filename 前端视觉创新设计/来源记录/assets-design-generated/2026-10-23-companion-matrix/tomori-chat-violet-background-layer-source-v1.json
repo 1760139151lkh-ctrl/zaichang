@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "tomori",
+  "activity": "chat",
+  "light": "violet",
+  "layer": "background",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-f018db4f-2049-495c-bd48-75e88e5fee48",
+  "inputs": [
+    {
+      "file": "tomori-chat-violet-mother-candidate.png",
+      "role": "primary_approved_correct_complete_mother_only",
+      "sha256": "9843e93e1ffb3931fb8c6509dcc73f4a59a145c5efa6e17c6e3a9ffdf3a1e489"
+    }
+  ],
+  "prompt": "tomori-chat-violet-background-layer-prompt-v1.txt",
+  "promptSha256": "8f5267f0bdac5b96570d754a72fa7c21ca38cf5c9ac28e920ab245250e2d03e0",
+  "output": {
+    "file": "tomori-chat-violet-background-generated-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2168603,
+    "sha256": "e20fbb7d89cd6630702ae378432bdf7a6e5ff46a24021fcab51e33e4c0193693"
+  },
+  "review": {
+    "designerViewed": "complete output",
+    "designerStatus": "candidate_for_restricted_room_patch",
+    "primary": "pending",
+    "runtime": "not used"
+  },
+  "designerObservation": "Empty room preserves the theme/fixed room; extraction will keep original mother pixels outside explicit repair patches.",
+  "calibratedCandidateRecord": "tomori-chat-violet-layer-processing-v4.json"
+}

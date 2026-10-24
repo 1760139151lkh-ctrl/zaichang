@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-attention-apricot-room4",
+  "character": "soyo",
+  "activity": "attention",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "soyo-attention-apricot-mother-candidate-v1.png",
+  "background": "soyo-attention-apricot-background-calibrated-v8.png",
+  "figure": "soyo-attention-apricot-figure-calibrated-v8.png",
+  "mask": "soyo-attention-apricot-mask-calibrated-v8.png",
+  "shadow": "soyo-attention-apricot-shadow-calibrated-v8.png",
+  "seat": [
+    0.8723958333333334,
+    0.5751953125
+  ],
+  "ground": [
+    0.8111979166666666,
+    0.7490234375
+  ],
+  "bodyBounds": [
+    0.7428385416666666,
+    0.2666015625,
+    0.9453125,
+    0.7568359375
+  ],
+  "safeTextBoundary": 0.7330729166666666,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "80.86% 26.07%, 85.68% 25.98%, 89.06% 29.10%, 91.28% 36.23%, 92.77% 42.97%, 92.38% 49.02%, 92.32% 53.61%, 94.53% 55.86%, 93.88% 57.52%, 89.97% 56.74%, 89.00% 59.38%, 85.09% 60.84%, 83.20% 62.89%, 83.01% 69.63%, 83.72% 73.05%, 82.62% 75.78%, 79.43% 75.88%, 78.32% 74.22%, 78.06% 71.39%, 76.50% 74.71%, 73.89% 75.39%, 73.44% 73.14%, 75.39% 69.43%, 75.91% 61.72%, 76.30% 57.03%, 77.54% 53.91%, 79.49% 51.76%, 81.05% 47.85%, 80.60% 44.43%, 80.34% 39.16%, 79.82% 35.45%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "production": "soyo-attention-apricot-layer-processing-v8.json",
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Original RGB and exact seated/hand/sole contacts retained. Fixed support position (travel 0); no unobserved hidden contour or arbitrary repositioning is promised.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json",
+    "runtimeAccepted": false,
+    "producerVisualReview": "Current selected original mother, full actual prompt, light/dark alpha, matching empty room and original-coordinate recomposition personally viewed by soyo_warm_layers; primary and normal Stage/runtime pending."
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "tomori",
+  "activity": "listening",
+  "light": "apricot",
+  "layer": "background",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-a2449103-5b91-4489-8eb3-0e9d06580398",
+  "inputs": [
+    {
+      "file": "tomori-listening-apricot-v2-mother.png",
+      "role": "primary_approved_correct_complete_mother_only",
+      "sha256": "5e7191c4c0aacd44ba34a9ecafa796cd77bf7592dbbe763acf6b175ee9d12428"
+    }
+  ],
+  "prompt": "tomori-listening-background-layer-prompt-v1.txt",
+  "promptSha256": "8fbf06f9f7c42ddf3f910ca3b6ec3e7703c5fb067fbaa7026ef969c5018f32d5",
+  "output": {
+    "file": "tomori-listening-background-generated-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2108713,
+    "sha256": "96920d5a1341184de2f7d384eaa204b728600e9966655aad5adc50ec15edefb0"
+  },
+  "review": {
+    "designerViewed": "complete output",
+    "designerStatus": "candidate_for_restricted_room_patch",
+    "primary": "pending",
+    "runtime": "not used"
+  },
+  "designerObservation": "Empty room output removes the figure and held object; extraction will retain original mother RGB outside an explicit local repair patch, not replace the entire room."
+}

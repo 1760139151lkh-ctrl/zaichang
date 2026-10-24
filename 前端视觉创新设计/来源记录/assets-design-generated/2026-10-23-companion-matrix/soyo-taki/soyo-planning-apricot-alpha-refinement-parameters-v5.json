@@ -1,0 +1,31 @@
+{
+  "mother": "soyo-planning-apricot-mother-candidate-v2.png",
+  "motherSha256": "e002a836c881d736966bce3a254de9ef5e4a0417efc5b260eaeaea64d85904d6",
+  "baseAlpha": "soyo-planning-apricot-mask-calibrated-v4.png",
+  "blueWindowExclusionRegions": [
+    [
+      887,
+      396,
+      915,
+      421
+    ]
+  ],
+  "deskWoodExclusionRegions": [
+    [
+      884,
+      501,
+      932,
+      513
+    ]
+  ],
+  "observedFingertipInclusionRegions": [
+    [
+      978,
+      490,
+      993,
+      505
+    ]
+  ],
+  "output": "soyo-planning-apricot-alpha-refined-v5.png",
+  "record": "soyo-planning-apricot-alpha-refinement-v5.json"
+}

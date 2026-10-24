@@ -58,7 +58,9 @@
       },
       "designerViewed": "full original result; alpha/background still requires precise calibration and light/dark/room review",
       "designerStatus": "candidate-needs-original-blue-book-preservation",
-      "designerObservation": "Newly exposed left desktop is bare wood, but generated plate omits the original visible blue book; final local background must preserve actual visible original blue-book RGB only, without inventing occluded content."
+      "designerObservation": "Newly exposed left desktop is bare wood, but generated plate omits the original visible blue book; final local background must preserve actual visible original blue-book RGB only, without inventing occluded content.",
+      "actualPromptSha256": "165e3b0acb117d75f48741af691df04d539951388d8552e0dd018bed31604500",
+      "promptFileMatchesActualToolInput": true
     }
   ],
   "review": {

@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "tomori",
+  "activity": "chat",
+  "light": "mist",
+  "layer": "matte",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-02c3d45f-7a1c-4be3-8178-cac881623f9b",
+  "inputs": [
+    {
+      "file": "tomori-chat-mist-mother-candidate.png",
+      "role": "primary_approved_correct_complete_mother_only",
+      "sha256": "7b486d6f2ede9fe4a9dd54515eb10ab5bd8a50c450804c7e4a3cdc3e5a12281d"
+    }
+  ],
+  "prompt": "tomori-chat-mist-matte-layer-prompt-v1.txt",
+  "promptSha256": "07ece5cf6a2b538b113e1c47c6301b2b864611b9d3ec7564cabe3af68940d491",
+  "output": {
+    "file": "tomori-chat-mist-matte-generated-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 338434,
+    "sha256": "27cf75e096a9213d6f6a1955fc767d66b1d8be3b4732d3758319765218f10051"
+  },
+  "review": {
+    "designerViewed": "complete output",
+    "designerStatus": "pending_source_pixel_calibration",
+    "primary": "pending",
+    "runtime": "not used"
+  },
+  "designerObservation": "Technical generated silhouette provides no figure RGB; exact original-source alpha registration and edge inspection remain required.",
+  "calibratedCandidateRecord": "tomori-chat-mist-layer-processing-v3.json"
+}

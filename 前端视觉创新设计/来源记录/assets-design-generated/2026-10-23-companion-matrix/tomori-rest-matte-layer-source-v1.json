@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "tomori",
+  "activity": "rest",
+  "light": "apricot",
+  "layer": "matte",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-c471c432-fc8c-448f-a962-236103a2a341",
+  "inputs": [
+    {
+      "file": "tomori-rest-apricot-mother.png",
+      "role": "primary_approved_correct_complete_mother_only",
+      "sha256": "b0f751e5feeff86ddbb8074945a9564487d4d60da05b4955137f2481a972fd90"
+    }
+  ],
+  "prompt": "tomori-rest-matte-layer-prompt-v1.txt",
+  "promptSha256": "9fc23468aee52c97bc062564661e4e5d4de49624521bb351fc43ccb6c771e911",
+  "output": {
+    "file": "tomori-rest-matte-generated-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 500193,
+    "sha256": "05453c8d3d6b12787a26e3017788488448343ee4fed223b962877b62f88b9cc7"
+  },
+  "review": {
+    "designerViewed": "complete output",
+    "designerStatus": "needs_registration",
+    "primary": "pending",
+    "runtime": "not used"
+  },
+  "designerObservation": "Generated silhouette is substantially enlarged/displaced; it is not a registered alpha and supplies no figure RGB. Deterministic source-pixel matte calibration must establish the actual silhouette before use."
+}

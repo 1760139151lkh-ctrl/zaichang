@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-reading-apricot-room4",
+  "character": "soyo",
+  "activity": "reading",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "soyo-reading-apricot-mother-candidate-v2.png",
+  "background": "soyo-reading-apricot-background-calibrated-v10.png",
+  "figure": "soyo-reading-apricot-figure-calibrated-v8.png",
+  "mask": "soyo-reading-apricot-mask-calibrated-v8.png",
+  "shadow": "soyo-reading-apricot-shadow-calibrated-v10.png",
+  "seat": [
+    0.8626302083333334,
+    0.580078125
+  ],
+  "ground": [
+    0.76171875,
+    0.740234375
+  ],
+  "bodyBounds": [
+    0.7220052083333334,
+    0.2861328125,
+    0.93359375,
+    0.7490234375
+  ],
+  "safeTextBoundary": 0.7,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "87.305% 28.809%, 86.979% 29.004%, 85.807% 28.711%, 84.440% 29.297%, 83.073% 31.445%, 82.682% 33.496%, 82.878% 35.742%, 83.984% 37.500%, 83.789% 39.746%, 84.180% 38.281%, 84.180% 42.773%, 83.984% 43.555%, 83.594% 44.043%, 83.529% 44.727%, 83.268% 44.922%, 83.659% 45.020%, 83.724% 45.703%, 83.789% 45.312%, 84.180% 45.508%, 83.919% 45.898%, 84.180% 46.191%, 83.594% 46.191%, 83.464% 46.973%, 83.008% 47.168%, 82.357% 46.777%, 82.227% 47.070%, 81.315% 46.094%, 80.469% 46.094%, 79.883% 46.875%, 79.883% 47.656%, 78.646% 47.266%, 77.995% 47.754%, 80.208% 50.391%, 78.841% 50.977%, 78.385% 51.660%, 77.734% 54.004%, 76.823% 58.984%, 76.953% 59.180%, 75.260% 66.992%, 74.870% 68.066%, 72.396% 71.387%, 72.266% 72.266%, 72.591% 72.754%, 73.503% 72.852%, 73.438% 73.926%, 74.023% 74.512%, 76.172% 74.512%, 78.255% 73.730%, 78.581% 73.340%, 78.581% 71.289%, 78.255% 70.117%, 78.255% 69.141%, 80.990% 60.840%, 81.510% 56.836%, 83.073% 57.227%, 85.872% 60.059%, 87.500% 60.840%, 87.760% 59.570%, 88.281% 58.594%, 90.951% 57.617%, 91.797% 56.348%, 91.797% 55.664%, 90.951% 54.297%, 90.755% 51.465%, 91.276% 50.684%, 91.146% 49.707%, 91.667% 48.438%, 91.992% 49.219%, 92.578% 49.219%, 92.057% 49.121%, 91.927% 48.535%, 92.188% 47.852%, 92.513% 48.340%, 92.253% 47.852%, 92.448% 47.070%, 92.643% 47.168%, 92.578% 47.754%, 93.099% 47.070%, 93.229% 45.605%, 92.839% 45.020%, 93.034% 44.727%, 92.383% 44.043%, 92.578% 43.848%, 92.188% 41.699%, 92.383% 40.723%, 92.122% 40.430%, 92.057% 40.625%, 91.016% 39.160%, 91.016% 37.988%, 90.625% 36.816%, 90.039% 35.938%, 90.104% 35.547%, 89.323% 33.691%, 89.128% 32.031%, 88.281% 30.078%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "production": "soyo-reading-apricot-layer-processing-v10.json",
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Exact original RGB and observed original coordinates. Held open book, both hands, collar, skin, full shoes and original back hair retained; hair air gaps, cushion/pillow and leg-back wood separated into room. Fixed actual bench support, travel0. Final deep/light/full-room/empty composites viewed by producer; primary and runtime remain pending.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json",
+    "runtimeAccepted": false,
+    "producerVisualReview": "Current selected original mother, full actual prompt, light/dark alpha, matching empty room and original-coordinate recomposition personally viewed by soyo_warm_layers; primary and normal Stage/runtime pending."
+  }
+}

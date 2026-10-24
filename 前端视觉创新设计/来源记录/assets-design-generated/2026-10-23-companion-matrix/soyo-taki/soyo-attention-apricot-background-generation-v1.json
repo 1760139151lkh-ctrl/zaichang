@@ -1,0 +1,26 @@
+{
+  "recordType": "built-in-image-generation-source",
+  "operation": "precise-object-edit",
+  "input": "soyo-attention-apricot-mother-candidate-v1.png",
+  "inputSha256": "c854bfeb6cc56482357a1fbf64ba020b6e42a52cdbe6240157ac89466852784e",
+  "prompt": "soyo-attention-apricot-background-prompt-v1.txt",
+  "promptSha256": "7810586056da99ac4d9211a1783836e8640a0ba28e960b77c9594e02567d28f7",
+  "inputRole": "sole original correct primary-approved mother; remove person, preserve same room",
+  "generatedOutput": "soyo-attention-apricot-background-candidate-v1.png",
+  "producerVisualReview": "Generated full empty candidate personally viewed; used only inside same-mother removal patch. Primary review pending.",
+  "primaryReview": "pending",
+  "outputSha256": "e03d4a4c6b8233efe7b55ea7d204d30d6f3467658c93b8148967ba83fdfed37e",
+  "bytes": 2109785,
+  "toolDefaultOutput": "generated_images/01a16e45-3c23-7790-a62d-04bd03b674e2/exec-59bf8209-cd95-4709-bf2a-a13c6b83b203.png",
+  "actualTool": "image_gen.imagegen",
+  "toolPromptTextSha256": "6bbb9cab7dc56e3c6e68da017df10af028f857e683eb20f47589d012d236b09c",
+  "promptTransport": "Exact tool argument hashed from the actual in-session prompt string; prompt file hash remains a separate byte hash.",
+  "toolArguments": {
+    "referenced_image_count": 1,
+    "transparent_background": false,
+    "soleInputFile": "soyo-attention-apricot-mother-candidate-v1.png",
+    "soleInputSha256": "c854bfeb6cc56482357a1fbf64ba020b6e42a52cdbe6240157ac89466852784e"
+  },
+  "executionId": "exec-59bf8209-cd95-4709-bf2a-a13c6b83b203",
+  "promptFileSha256": "7810586056da99ac4d9211a1783836e8640a0ba28e960b77c9594e02567d28f7"
+}

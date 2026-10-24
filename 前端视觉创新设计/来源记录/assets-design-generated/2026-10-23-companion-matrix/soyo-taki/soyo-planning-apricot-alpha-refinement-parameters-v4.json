@@ -1,0 +1,38 @@
+{
+  "recordType": "original-coordinate-alpha-refinement",
+  "mother": "soyo-planning-apricot-mother-candidate-v2.png",
+  "motherSha256": "e002a836c881d736966bce3a254de9ef5e4a0417efc5b260eaeaea64d85904d6",
+  "baseAlpha": "soyo-planning-apricot-mask-calibrated-v3.png",
+  "baseMode": "alpha",
+  "originalHandAlpha": "soyo-planning-apricot-mask-calibrated-v2.png",
+  "handRegion": [
+    934,
+    474,
+    992,
+    509
+  ],
+  "blueWindowExclusionRegions": [
+    [
+      887,
+      396,
+      915,
+      421
+    ],
+    [
+      748,
+      424,
+      782,
+      474
+    ]
+  ],
+  "warmLeafExclusionRegions": [
+    [
+      746,
+      425,
+      780,
+      477
+    ]
+  ],
+  "output": "soyo-planning-apricot-alpha-refined-v4.png",
+  "record": "soyo-planning-apricot-alpha-refinement-v4.json"
+}

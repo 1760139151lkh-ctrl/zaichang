@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "mother": "mutsumi-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+  "inputAlpha": "mutsumi-reading-apricot-source-alpha-v6.png",
+  "inputAlphaSha256": "3d8ef186b17caa2e2470185a4f9cecf1e2eeb555524a5246d113dbe4766f77f5",
+  "observedOriginalColorRules": [
+    {
+      "purpose": "Restore only the actual original navy cloth RGB missing outside earlier uncertain matte; preserve existing skin/shoes and intermediate edge alpha. Extended upward after actual original pixel check confirmed the remaining notch at1181,610=(50,40,44) is real navy cloth, not room. OriginalRGB selection fills it without altering skin/shoes.",
+      "mode": "include",
+      "polygon": [
+        [
+          1120,
+          580
+        ],
+        [
+          1245,
+          580
+        ],
+        [
+          1245,
+          705
+        ],
+        [
+          1120,
+          705
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          0,
+          170
+        ],
+        [
+          1,
+          0,
+          170
+        ],
+        [
+          2,
+          0,
+          170
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          2,
+          -30,
+          14
+        ],
+        [
+          2,
+          1,
+          -1,
+          30
+        ]
+      ]
+    },
+    {
+      "purpose": "Original grid confirms only navy shins and warm wood inside this narrow mid-shin window, not skin/shoes. Exclude confidently warm room fragments, leave uncertain boundary mix unchanged.",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1140,
+          630
+        ],
+        [
+          1245,
+          630
+        ],
+        [
+          1245,
+          691
+        ],
+        [
+          1140,
+          691
+        ]
+      ],
+      "channels": [],
+      "differences": [
+        [
+          0,
+          2,
+          35,
+          255
+        ]
+      ]
+    },
+    {
+      "purpose": "Original pixel samples at apparent upper shin notch are actually warm wood in the real inter-leg gap. Remove that background extension, not a leg. Skin protected by original red-channel range; navy cloth fails warm-wood difference.",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1190,
+          605
+        ],
+        [
+          1175,
+          620
+        ],
+        [
+          1155,
+          640
+        ],
+        [
+          1135,
+          660
+        ],
+        [
+          1120,
+          680
+        ],
+        [
+          1114,
+          692
+        ],
+        [
+          1147,
+          699
+        ],
+        [
+          1163,
+          677
+        ],
+        [
+          1177,
+          650
+        ],
+        [
+          1188,
+          625
+        ],
+        [
+          1198,
+          600
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          0,
+          175
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          2,
+          35,
+          255
+        ]
+      ]
+    }
+  ],
+  "explicitOriginalRoomExclusions": [],
+  "outputAlpha": "mutsumi-reading-apricot-source-alpha-v12.png",
+  "record": "mutsumi-reading-apricot-source-alpha-v12.json"
+}

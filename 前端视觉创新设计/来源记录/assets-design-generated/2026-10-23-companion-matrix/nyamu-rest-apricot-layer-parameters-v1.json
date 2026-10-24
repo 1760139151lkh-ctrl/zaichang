@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "mother": "nyamu-rest-apricot-mother-candidate-v1.png",
+  "motherSha256": "c6264d37f43bef35ee7aad4108a49b6cc977b3bba98c74233ea4aff967926fd8",
+  "matte": "nyamu-rest-apricot-mask-candidate-v2.png",
+  "matteSha256": "a7f60534997a805ef5566804025947248cc0782801e4aa33db54aee5375db0de",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "nyamu-rest-apricot-figure-calibrated-v1.png",
+  "mask": "nyamu-rest-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "nyamu-rest-apricot-background-candidate-v1.png",
+  "background": "nyamu-rest-apricot-background-calibrated-v1.png",
+  "shadow": "nyamu-rest-apricot-shadow-calibrated-v1.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1105,
+        716
+      ],
+      [
+        1184,
+        716
+      ],
+      [
+        1186,
+        753
+      ],
+      [
+        1104,
+        754
+      ]
+    ],
+    [
+      [
+        1170,
+        721
+      ],
+      [
+        1248,
+        721
+      ],
+      [
+        1250,
+        767
+      ],
+      [
+        1169,
+        769
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1105,
+        716
+      ],
+      [
+        1184,
+        716
+      ],
+      [
+        1186,
+        753
+      ],
+      [
+        1104,
+        754
+      ]
+    ],
+    [
+      [
+        1170,
+        721
+      ],
+      [
+        1248,
+        721
+      ],
+      [
+        1250,
+        767
+      ],
+      [
+        1169,
+        769
+      ]
+    ],
+    [
+      [
+        1186,
+        564
+      ],
+      [
+        1397,
+        564
+      ],
+      [
+        1401,
+        601
+      ],
+      [
+        1184,
+        602
+      ]
+    ],
+    [
+      [
+        1398,
+        569
+      ],
+      [
+        1453,
+        569
+      ],
+      [
+        1455,
+        596
+      ],
+      [
+        1396,
+        597
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [],
+  "includePolygons": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1100,
+      285,
+      1455,
+      770
+    ],
+    "seedThreshold": 110,
+    "uncertainBandPixels": 4,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.3
+  },
+  "record": "nyamu-rest-apricot-layer-processing-v1.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "Correct Primary side/back lake-facing mother. Gray back tie is project-original casual depiction, not verified official backside detail. Maskv1 head upshifted, rejected/notcopied/notused. Registered maskv2/full originalRGB alpha retains source profile/low hands/straps/complete shoes and real air gaps. No source geometry/body/RGB paint. Fixed hip/hand/feet contacts, travel0. Primary/runtime pending."
+}

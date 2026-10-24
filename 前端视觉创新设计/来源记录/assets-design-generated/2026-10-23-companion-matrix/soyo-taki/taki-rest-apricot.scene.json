@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "taki-rest-apricot-room4",
+  "character": "taki",
+  "activity": "rest",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "taki-rest-apricot-mother-candidate-v1.png",
+  "background": "taki-rest-apricot-background-calibrated-v3.png",
+  "figure": "taki-rest-apricot-figure-calibrated-v2.png",
+  "mask": "taki-rest-apricot-mask-calibrated-v2.png",
+  "shadow": "taki-rest-apricot-shadow-calibrated-v3.png",
+  "seat": [
+    0.8450520833333334,
+    0.560546875
+  ],
+  "ground": [
+    0.7356770833333334,
+    0.71875
+  ],
+  "bodyBounds": [
+    0.6979166666666666,
+    0.2783203125,
+    0.9205729166666666,
+    0.7236328125
+  ],
+  "safeTextBoundary": 0.685,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "82.682% 26.855%, 87.891% 26.855%, 90.495% 32.324%, 92.253% 41.211%, 91.992% 48.926%, 89.844% 52.051%, 90.495% 57.129%, 87.760% 58.398%, 80.078% 57.813%, 78.451% 61.523%, 76.823% 68.359%, 77.279% 72.461%, 71.940% 73.438%, 69.010% 72.070%, 69.336% 69.629%, 70.833% 68.066%, 72.917% 62.305%, 74.870% 56.348%, 76.628% 52.832%, 78.776% 51.074%, 80.794% 48.828%, 82.552% 42.969%, 82.096% 35.938%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "production": "taki-rest-apricot-layer-processing-v3.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Turned-back original window-seat pose. Original palm/cushion/hip and two full worn shoes retain support; no invented hidden anatomy or translation.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json"
+  }
+}

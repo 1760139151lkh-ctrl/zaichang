@@ -11,7 +11,7 @@
     1465,
     765
   ],
-  "mother": "sakiko-rest-apricot-mother.png",
+  "mother": "../../../运行素材/companion/scenes/sakiko-rest-apricot-mother.png",
   "motherSha256": "ffdf5ac11d9d25da5347120dd7b5f19bf68a6211c991c373e1c6d2f623cebfbf",
   "rawMask": "sakiko-rest-apricot-mask-candidate-v3.png",
   "rawMaskSha256": "a721b56b42b1cd7d8c467e5be8ddaad75102529069f2b095f445541a0c3d114c",
@@ -27,8 +27,8 @@
       "redMinusBlue": 35
     }
   ],
-  "figureOutput": "sakiko-rest-apricot-figure-calibrated-v4.png",
-  "maskOutput": "sakiko-rest-apricot-mask-calibrated-v4.png",
+  "figureOutput": "../../../运行素材/companion/scenes/sakiko-rest-apricot-figure-calibrated-v7.png",
+  "maskOutput": "../../../运行素材/companion/scenes/sakiko-rest-apricot-mask-calibrated-v7.png",
   "review": "Candidate only; primary layer approval not granted.",
   "ownership": "Full original support hand and all hair/socks/worn shoes remain in body; the yellow leaf behind the head is room.",
   "explicitRoomExclusions": [],

@@ -3,6 +3,8 @@ import { z } from 'zod';
 import type { Store } from '../store';
 import type { WorkoutPendingStop, WorkoutSessionRecord, WorkoutSessionStorage } from '../../shared/workout';
 import { workoutSourceObjectId } from '../../shared/workout-source';
+import { workoutFixTime } from '../../shared/workout';
+import type { WorkoutInputFix } from '../../shared/workout';
 
 export interface WorkoutDraftProtection {
   isEncryptionAvailable(): boolean;
@@ -39,6 +41,10 @@ const rawFix = z.object({
   provenance: z.enum(['device', 'simulated', 'unknown']), mock: z.boolean().nullable(),
   reportedElapsedRealtimeMs: number.optional(),
   clockQuality: z.enum(['boot-range-checked', 'outside-boot-range', 'unverified']).optional(),
+  clockCorrelation: z.object({ kind: z.literal('command-reply'), commandId: z.string().uuid(), subscriptionId: z.string().uuid(),
+    basis: z.enum(['state-after-command', 'command-processed']).optional(),
+    sourceProcessId: z.number().int().positive(), sourceObservedAt: number.positive(), hostSentAt: number.positive(),
+    hostReceivedAt: number.positive(), hostElapsedMs: nonnegative, hostSinceAckMs: nonnegative.optional() }).strict().optional(),
 }).passthrough();
 const recordSchema = z.object({
   schemaVersion: z.literal(1), id: z.string().uuid(), revision: z.number().int().positive(), sampleRevision: z.number().int().nonnegative(),
@@ -65,8 +71,11 @@ const recordSchema = z.object({
   persistence: z.object({ status: z.enum(['encrypted-local', 'memory-only', 'error']), reason: z.string().optional() }),
   school: z.object({ submission: z.literal('not-submitted'), validCount: z.null() }),
 }).passthrough().superRefine((record, context) => {
-  for (const point of record.points) if (['accepted', 'provider-not-selected'].includes(point.quality) && !rawFix.safeParse(point.raw).success)
-    context.addIssue({ code: 'custom', message: 'Invalid accepted position' });
+  for (const point of record.points) if (['accepted', 'provider-not-selected'].includes(point.quality)) {
+    const parsed = rawFix.safeParse(point.raw);
+    if (!parsed.success || !workoutFixTime(parsed.data as unknown as WorkoutInputFix, parsed.data.receivedAt)?.fresh)
+      context.addIssue({ code: 'custom', message: 'Invalid accepted position' });
+  }
   if (record.metrics.movingMs > record.metrics.trustedActiveMs + 1 || record.metrics.trustedActiveMs > record.metrics.elapsedActiveMs + 1)
     context.addIssue({ code: 'custom', message: 'Invalid elapsed duration' });
 });

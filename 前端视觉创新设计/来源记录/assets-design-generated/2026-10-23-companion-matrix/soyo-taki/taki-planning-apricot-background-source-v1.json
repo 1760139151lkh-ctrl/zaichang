@@ -1,0 +1,29 @@
+{
+  "recordType": "image-generation-source",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-59ef5075-840e-42de-bcf7-fb527091eabc",
+  "prompt": "taki-planning-apricot-background-prompt-v1.txt",
+  "promptSha256": "9056c6053ae4873984723b87eb7f27ddb40b9548a3aa0903e68c3ae47f7b8991",
+  "inputs": [
+    {
+      "file": "taki-planning-apricot-mother-candidate-v1.png",
+      "sha256": "f0fa68c1f8f0257063bdae886dd258b415af26e127382e8c2bb3b95f6f7050ff",
+      "role": "sole correct original primary-approved mother; remove person and held objects, preserve all stationary room objects"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16e45-e592-7451-9d06-1779d8efd536/exec-59ef5075-840e-42de-bcf7-fb527091eabc.png",
+  "output": {
+    "file": "taki-planning-apricot-background-generated-v1.png",
+    "sha256": "11df2a165bff6d1e1b7d3d7a7b179a27830df5c3c244e19b31db53f51f82237d",
+    "bytes": 2084064,
+    "size": [
+      1536,
+      1024
+    ]
+  },
+  "review": {
+    "producerViewed": "whole returned original-canvas clean background displayed; local registration still pending",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

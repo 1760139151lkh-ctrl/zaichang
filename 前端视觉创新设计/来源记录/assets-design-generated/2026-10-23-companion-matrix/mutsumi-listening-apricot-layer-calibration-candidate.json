@@ -67,7 +67,7 @@
     ],
     [
       1242,
-      354
+      355
     ],
     [
       1242,
@@ -75,27 +75,23 @@
     ],
     [
       1246,
-      365
+      366
     ],
     [
       1247,
-      380
+      379
     ],
     [
       1235,
       390
     ],
     [
-      1237,
-      392
+      1234,
+      393
     ],
     [
-      1227,
-      395
-    ],
-    [
-      1226,
-      397
+      1221,
+      398
     ],
     [
       1217,
@@ -122,16 +118,12 @@
       435
     ],
     [
-      1226,
+      1225,
       434
     ],
     [
       1227,
       439
-    ],
-    [
-      1226,
-      443
     ],
     [
       1223,
@@ -142,16 +134,8 @@
       465
     ],
     [
-      1215,
-      474
-    ],
-    [
       1211,
-      483
-    ],
-    [
-      1211,
-      490
+      489
     ],
     [
       1203,
@@ -202,7 +186,7 @@
       573
     ],
     [
-      1222,
+      1221,
       572
     ],
     [
@@ -230,11 +214,7 @@
       717
     ],
     [
-      1184,
-      722
-    ],
-    [
-      1183,
+      1185,
       721
     ],
     [
@@ -294,16 +274,12 @@
       721
     ],
     [
-      1215,
-      715
-    ],
-    [
       1214,
-      710
+      713
     ],
     [
-      1231,
-      630
+      1220,
+      680
     ],
     [
       1238,
@@ -366,7 +342,7 @@
       579
     ],
     [
-      1375,
+      1376,
       576
     ],
     [
@@ -382,18 +358,6 @@
       578
     ],
     [
-      1418,
-      578
-    ],
-    [
-      1419,
-      576
-    ],
-    [
-      1422,
-      578
-    ],
-    [
       1425,
       577
     ],
@@ -402,16 +366,12 @@
       566
     ],
     [
-      1394,
-      561
-    ],
-    [
-      1396,
-      560
+      1398,
+      563
     ],
     [
       1395,
-      557
+      559
     ],
     [
       1399,
@@ -423,63 +383,59 @@
     ],
     [
       1405,
-      539
-    ],
-    [
-      1405,
-      536
-    ],
-    [
-      1400,
-      531
-    ],
-    [
-      1400,
-      525
-    ],
-    [
-      1397,
-      521
-    ],
-    [
-      1401,
-      515
-    ],
-    [
-      1405,
-      512
-    ],
-    [
-      1406,
-      514
-    ],
-    [
-      1406,
-      497
+      538
     ],
     [
       1399,
-      506
+      537
     ],
     [
-      1395,
-      501
+      1399,
+      531
     ],
     [
-      1397,
-      482
+      1390,
+      516
     ],
     [
-      1391,
-      455
-    ],
-    [
-      1389,
-      453
+      1390,
+      510
     ],
     [
       1392,
-      445
+      510
+    ],
+    [
+      1390,
+      506
+    ],
+    [
+      1392,
+      504
+    ],
+    [
+      1395,
+      505
+    ],
+    [
+      1397,
+      500
+    ],
+    [
+      1394,
+      499
+    ],
+    [
+      1394,
+      485
+    ],
+    [
+      1384,
+      451
+    ],
+    [
+      1384,
+      428
     ],
     [
       1375,
@@ -502,16 +458,88 @@
       415
     ],
     [
+      1368,
+      399
+    ],
+    [
       1366,
-      383
+      394
+    ],
+    [
+      1367,
+      386
+    ],
+    [
+      1377,
+      397
+    ],
+    [
+      1398,
+      431
+    ],
+    [
+      1416,
+      474
+    ],
+    [
+      1418,
+      487
+    ],
+    [
+      1413,
+      504
+    ],
+    [
+      1405,
+      512
+    ],
+    [
+      1396,
+      517
+    ],
+    [
+      1397,
+      519
+    ],
+    [
+      1409,
+      511
+    ],
+    [
+      1408,
+      510
+    ],
+    [
+      1416,
+      502
+    ],
+    [
+      1419,
+      493
+    ],
+    [
+      1419,
+      469
+    ],
+    [
+      1411,
+      449
+    ],
+    [
+      1380,
+      398
+    ],
+    [
+      1365,
+      382
     ],
     [
       1362,
       372
     ],
     [
-      1354,
-      366
+      1355,
+      367
     ],
     [
       1356,
@@ -522,15 +550,7 @@
       365
     ],
     [
-      1355,
-      364
-    ],
-    [
-      1350,
-      367
-    ],
-    [
-      1349,
+      1352,
       365
     ],
     [
@@ -538,19 +558,11 @@
       362
     ],
     [
-      1349,
-      363
-    ],
-    [
-      1349,
+      1345,
       361
     ],
     [
-      1346,
-      362
-    ],
-    [
-      1340,
+      1341,
       358
     ],
     [
@@ -562,8 +574,8 @@
       356
     ],
     [
-      1334,
-      342
+      1332,
+      339
     ],
     [
       1320,
@@ -582,16 +594,16 @@
       293
     ],
     [
-      1308,
-      292
+      1307,
+      290
     ],
     [
       1301,
       279
     ],
     [
-      1288,
-      267
+      1289,
+      268
     ],
     [
       1290,
@@ -601,12 +613,12 @@
   "travelPixelsEachSide": 0,
   "slope": 0,
   "perspective": 0,
-  "observedSupportAndLimits": "Original raised socked foot rests on cushion, forearm on raised knee, hips and rear palm on cushion; other leg descends into exactly one worn floor loafer. The separately removed empty loafer is a static BG object with original pixels, never actor alpha. Travel0 preserves these multiple actual supports and natural body/hand/knee relationships, not a freely sliding sticker. Displaced generated mattes rejected; original RGB only with native-coordinate trimap/observed room holes. Hair arc's interior leaf/window/pillow pixels excluded while actual lit hair is retained from mother; empty BG clears full original hair envelope. Primary layer and real Stage acceptance pending.",
+  "observedSupportAndLimits": "Original raised socked foot rests on cushion, forearm on raised knee, hips and rear palm on cushion; other leg descends into exactly one worn floor loafer. The separately removed empty loafer is a static BG object with original pixels, never actor alpha. Travel0 preserves these multiple actual supports and natural body/hand/knee relationships, not a freely sliding sticker. Displaced generated mattes rejected; original RGB only with native-coordinate trimap/observed room holes. Hair arc's interior leaf/window/pillow pixels excluded while actual lit hair is retained from mother; empty BG clears full original hair envelope. Primary layer and real Stage acceptance pending. Parent source-comparison rejected v7 orange post/blue cushion contamination and missing fine arc. Current v10 retains source-observed true hair and original sleeve, completes original shoulder-connected arc in alpha only. All original RGB unchanged, fixed support/travel0; no anatomy repair. Primary and actual Stage review remain pending.",
   "sourceRgbProof": {
     "motherRgbSha256": "94de588f855c7e1be52ec7f38813eb99d483574a88a20db4188bd4bdf9880569",
     "figureRgbSha256": "94de588f855c7e1be52ec7f38813eb99d483574a88a20db4188bd4bdf9880569"
   },
-  "production": "mutsumi-listening-apricot-layer-processing-v7.json",
+  "production": "mutsumi-listening-apricot-layer-processing-v10.json",
   "review": {
     "primary": "pending; producer cannot approve",
     "runtime": "pending; not registered or exercised"
@@ -665,9 +677,17 @@
       "parameters": "mutsumi-listening-apricot-alpha-repair-parameters-v7.json"
     },
     {
+      "script": "mutsumi-listening-apricot-refine-hair-v9.py",
+      "scriptSha256": "0830229453704d8b60315025be1fb786d706f7c18029a94f690c30cb17fc5d40"
+    },
+    {
+      "script": "mutsumi-listening-apricot-refine-hair-v10.py",
+      "scriptSha256": "b1bcfbde42be2d1fdbce160911ed311d28fbdfe3e62d7064c793a06d11348aba"
+    },
+    {
       "script": "extract-scene-layers.py",
-      "scriptSha256": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f",
-      "parameters": "mutsumi-listening-apricot-layer-parameters-v7.json"
+      "scriptSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+      "parameters": "mutsumi-listening-apricot-layer-parameters-v10.json"
     }
   ]
 }

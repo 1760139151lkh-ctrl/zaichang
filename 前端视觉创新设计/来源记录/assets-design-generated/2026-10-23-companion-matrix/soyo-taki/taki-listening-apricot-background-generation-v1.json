@@ -1,0 +1,27 @@
+{
+  "recordType": "built-in-image-generation-source",
+  "tool": "image_gen.imagegen",
+  "operation": "precise-object-edit",
+  "input": "taki-listening-apricot-mother-candidate-v1.png",
+  "inputSha256": "d8369e39dc109457df147611494e1741c86512e2bcfc579c92050efb0d134bbb",
+  "inputRole": "sole correct primary-approved complete mother",
+  "prompt": "taki-listening-apricot-background-prompt-v1.txt",
+  "promptFileSha256": "0d6825ee48bd4498d5256429a37809e3c6c2e7f677d56b0a2fa65ff5da3095a7",
+  "output": "taki-listening-apricot-background-candidate-v1.png",
+  "producerReview": "pending",
+  "primaryReview": "pending",
+  "runtimeAccepted": false,
+  "outputSha256": "371ac8ce8eaf52660f30f874721ca4d027a1843fc89a90e68565041841472e3e",
+  "bytes": 2088064,
+  "canvas": [
+    1536,
+    1024
+  ],
+  "toolDefaultOutput": "generated_images/01a16e45-3c23-7790-a62d-04bd03b674e2/exec-8c233410-5905-46e3-94f7-d31e6007f7c6.png",
+  "executionId": "exec-8c233410-5905-46e3-94f7-d31e6007f7c6",
+  "toolPromptTextSha256": "e651b69fb89e323997ca52f49fbb08ba6593673644e3a6b2bb99a38742472047",
+  "actualToolArguments": {
+    "referencedImageCount": 1,
+    "transparent_background": false
+  }
+}

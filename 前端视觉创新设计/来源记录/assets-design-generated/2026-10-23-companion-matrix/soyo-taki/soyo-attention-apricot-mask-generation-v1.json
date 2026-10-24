@@ -1,0 +1,17 @@
+{
+  "recordType": "built-in-image-generation-source",
+  "operation": "monochrome original-coordinate matte",
+  "actualTool": "image_gen.imagegen",
+  "input": "soyo-attention-apricot-mother-candidate-v1.png",
+  "inputSha256": "c854bfeb6cc56482357a1fbf64ba020b6e42a52cdbe6240157ac89466852784e",
+  "prompt": "soyo-attention-apricot-mask-prompt-v1.txt",
+  "toolPromptTextSha256": "35f0d15bcdd8489c80e276d42e7977df462dbb8b834c8e4ead3bc9cb0c0f9737",
+  "generatedOutput": "soyo-attention-apricot-mask-candidate-v1.png",
+  "outputSha256": "3572a3489e7765142fa3d2e2fe1cab3a923d932194072d24a635605e89664f55",
+  "toolDefaultOutput": "generated_images/01a16e45-3c23-7790-a62d-04bd03b674e2/exec-0d509e34-4b20-4dec-b59e-b0a649231a34.png",
+  "producerReview": "Exact original-frame raw mask over mother RGB was personally viewed at body and hair details, including hands/feet. No geometry transform applied. Adopted layer calibrates only alpha boundary noise and retains original RGB; primary and runtime pending.",
+  "primaryReview": "pending",
+  "runtimeAccepted": false,
+  "executionId": "exec-0d509e34-4b20-4dec-b59e-b0a649231a34",
+  "promptFileSha256": "0c761e631ce21b2ce2fad696b46d9a2e41af74aee3b729a7e8a2d4af2716cb59"
+}

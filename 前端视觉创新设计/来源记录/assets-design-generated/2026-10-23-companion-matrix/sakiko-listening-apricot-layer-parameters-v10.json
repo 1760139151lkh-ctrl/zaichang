@@ -1,5 +1,5 @@
 {
-  "mother": "sakiko-listening-apricot-mother.png",
+  "mother": "../../../运行素材/companion/scenes/sakiko-listening-apricot-mother.png",
   "motherSha256": "a35aaa3549a04cf9f6fa7e478224f53afdcbfd1f133f6570a643191916189bb1",
   "matte": "sakiko-listening-apricot-figure-calibrated-v8.png",
   "alphaSource": "alpha",

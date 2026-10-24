@@ -1,0 +1,37 @@
+{
+  "recordType": "original-RGB-alpha-only-planning-calibration",
+  "script": "planning-original-alpha-refinements.py",
+  "scriptSha256": "a52f7ba43e417f7f9617a704b2399017af2be4ac7d6853fe32aa397c3e9c422e",
+  "profile": {
+    "who": "nyamu",
+    "motherV": "v2",
+    "maskV": "v2",
+    "motherSha": "2520ef07069e0ec07b4cc2de51181f072626ce9f8f06a83ddf401c7e4ac24c27",
+    "priorSha": "d94135514729c3fa3083de50809ba04412f575591b7b4616a6ca2e350d1c78de",
+    "hairRegion": [
+      849,
+      310,
+      973,
+      426
+    ],
+    "lakeGap": [
+      900,
+      391,
+      950,
+      426
+    ]
+  },
+  "mother": "nyamu-planning-apricot-mother-candidate-v2.png",
+  "motherSha256": "2520ef07069e0ec07b4cc2de51181f072626ce9f8f06a83ddf401c7e4ac24c27",
+  "priorAlpha": "nyamu-planning-apricot-mask-calibrated-v1.png",
+  "priorAlphaSha256": "d94135514729c3fa3083de50809ba04412f575591b7b4616a6ca2e350d1c78de",
+  "registeredRawMask": "nyamu-planning-apricot-mask-candidate-v2.png",
+  "registeredRawMaskSha256": "76fca2e6369d61bdf8f6a56d097d5de628ce40d76a823e5789930bfadc5da066",
+  "outputAlpha": "nyamu-planning-apricot-source-alpha-v2.png",
+  "outputAlphaSha256": "d1c4f21e632d2da2b5c046fd581950bc0be3ed74e88841788ea8c587ebd1dcd5",
+  "method": "Retain original-color hair within personally inspected original head/hair ROI. Remove only source blue lake in Nyamu chin/neck gap or warm chair fabric in Mutsumi original foreground-chair ROI. Original RGB/body/face/geometry never repainted.",
+  "review": {
+    "primary": "pending",
+    "runtime": "not registered"
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "mother": "nyamu-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "5a8e11981cd588f7274b848cf661b2eee415a6a63103cea342d8d660c9409579",
+  "matte": "nyamu-study-apricot-mask-candidate-v1.png",
+  "matteSha256": "e201672c8cb8f56e588e8873ab4463ad746223f8a0455f2d1cd0f541ccf89cb4",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "nyamu-study-apricot-figure-calibrated-v2.png",
+  "mask": "nyamu-study-apricot-mask-calibrated-v2.png",
+  "backgroundCandidate": "nyamu-study-apricot-background-candidate-v1.png",
+  "background": "nyamu-study-apricot-background-calibrated-v2.png",
+  "shadow": "nyamu-study-apricot-shadow-calibrated-v2.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        929,
+        678
+      ],
+      [
+        1057,
+        678
+      ],
+      [
+        1062,
+        716
+      ],
+      [
+        927,
+        716
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        932,
+        685
+      ],
+      [
+        982,
+        683
+      ],
+      [
+        987,
+        704
+      ],
+      [
+        929,
+        706
+      ]
+    ],
+    [
+      [
+        990,
+        689
+      ],
+      [
+        1054,
+        686
+      ],
+      [
+        1058,
+        711
+      ],
+      [
+        988,
+        714
+      ]
+    ],
+    [
+      [
+        845,
+        558
+      ],
+      [
+        941,
+        556
+      ],
+      [
+        946,
+        579
+      ],
+      [
+        846,
+        581
+      ]
+    ],
+    [
+      [
+        927,
+        476
+      ],
+      [
+        991,
+        470
+      ],
+      [
+        998,
+        494
+      ],
+      [
+        933,
+        499
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [
+    [
+      [
+        925,
+        586
+      ],
+      [
+        939,
+        586
+      ],
+      [
+        947,
+        708
+      ],
+      [
+        936,
+        708
+      ]
+    ]
+  ],
+  "includePolygons": [
+    [
+      [
+        940,
+        365
+      ],
+      [
+        948,
+        365
+      ],
+      [
+        948,
+        373
+      ],
+      [
+        940,
+        373
+      ]
+    ]
+  ],
+  "alphaPolygonRepairs": [],
+  "record": "nyamu-study-apricot-layer-processing-v2.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "OriginalRGB body-only boundary refinement below original bob; original chair leg crossing the far ankle is background/foreground occlusion, no hidden-leg repaint. Eye alpha hole restored from actual visible face. Black shoulder/ankle straps remain actual foreground. Fine head above y385 not globally GrabCut.",
+  "localColorMatteRefinement": {
+    "region": [
+      820,
+      385,
+      1060,
+      713
+    ],
+    "seedThreshold": 110,
+    "uncertainBandPixels": 4,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.3
+  }
+}

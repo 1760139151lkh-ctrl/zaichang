@@ -63,8 +63,8 @@
   },
   "layerProduction": {
     "status": "designer-reviewed candidate; primary layer and runtime review pending",
-    "selectedParameters": "uika-play-apricot-layer-parameters-v9.json",
-    "selectedProcessingRecord": "uika-play-apricot-layer-processing-v9.json",
+    "selectedParameters": "uika-play-apricot-layer-parameters-v10.json",
+    "selectedProcessingRecord": "uika-play-apricot-layer-processing-v10.json",
     "scene": "uika-play-apricot.scene.json",
     "matteCalibrationRecords": [
       "uika-play-apricot-matte-calibration-v4.json",
@@ -72,44 +72,45 @@
       "uika-play-apricot-matte-calibration-v6.json",
       "uika-play-apricot-source-gap-calibration-v7.json",
       "uika-play-apricot-source-gap-calibration-v8.json",
-      "uika-play-apricot-source-gap-calibration-v9.json"
+      "uika-play-apricot-source-gap-calibration-v9.json",
+      "uika-play-apricot-source-gap-calibration-v10.json"
     ],
     "outputs": [
       {
-        "file": "uika-play-apricot-figure-calibrated-v9.png",
-        "bytes": 2434184,
-        "sha256": "adad7038f833e595063b02f4d41b4a46dcc61368b7a50bbbd55fe2a101e70f9e"
+        "file": "uika-play-apricot-figure-calibrated-v10.png",
+        "bytes": 2433880,
+        "sha256": "edb1ca687a7128d19f74dc4ddea0a8672c97eb740ddfe84764366abbb2fc8932"
       },
       {
-        "file": "uika-play-apricot-mask-calibrated-v9.png",
-        "bytes": 24075,
-        "sha256": "fb5d67c92b51aaf152eee1cd5414b5074894e7676479717b450778f9b9b1bd2a"
+        "file": "uika-play-apricot-mask-calibrated-v10.png",
+        "bytes": 23517,
+        "sha256": "a3be65e85997c0c3aa88ab0c8130552ae2c2f7a1345b809e9d32f293fdac086b"
       },
       {
-        "file": "uika-play-apricot-background-calibrated-v9.png",
-        "bytes": 2088902,
-        "sha256": "26a028b5b2e18882ac1a5c0284f1a97f33907bcd0b4c251eb1290f170b93ad56"
+        "file": "uika-play-apricot-background-calibrated-v10.png",
+        "bytes": 2089055,
+        "sha256": "395248c1a14d27d6e4e1ba6262ce1bf35a1c87f0cb6ec5d6b7bc1ab633d92362"
       },
       {
-        "file": "uika-play-apricot-shadow-calibrated-v9.png",
-        "bytes": 45525,
-        "sha256": "b1b79a792c86b0e28341801a63e48ef3263639dc72d62ae5aebfad18880963b4"
+        "file": "uika-play-apricot-shadow-calibrated-v10.png",
+        "bytes": 45519,
+        "sha256": "b577a8118faf5986931733cf90b3b96a1e81bd543c0e20788183bb5f20c40930"
       }
     ],
     "motherRgbSha256": "aefbe491eb1c764f8be9a20f317ac58206c1eb7ab54d2d75dfc5c3f4467ab4f2",
     "figureRgbSha256": "aefbe491eb1c764f8be9a20f317ac58206c1eb7ab54d2d75dfc5c3f4467ab4f2",
     "transform": "identity; no resize/translation/warp",
     "designerObserved": [
-      "Independent source calibration: approx visible hip/cushion contact (1348,578), near shoe sole (1227,762). Complete guitar body/neck/headstock/tuning pegs and both actual hands remain original figure pixels; real furniture is background. Only 8px each side along the same bench seam is proposed, preserving at least 19px right guitar-tip margin. Raw internal hand matte lines filled; real arm/guitar/leg air stays open. Raw crown notch and sky rim corrected in alpha against original source crop. Final source-gap review found actual peach hair at (1278,384), RGB(224,155,126), previously alpha13; original visible hair bundles restored with alpha only. Two tight true source-visible window-air polygons retained in matching background; inner gap is precisely x1275..1278,y387..388, with no warm hair pixels frozen into BG. Separate original source contact residual, 3px near visible figure, no moved floor patch. Static short-range endpoints personally viewed, runtime motion pending."
+      "Independent source calibration: approx visible hip/cushion contact (1348,578), near shoe sole (1227,762). Complete guitar body/neck/headstock/tuning pegs and both actual hands remain original figure pixels; real furniture is background. Only 8px each side along the same bench seam is proposed, preserving at least 19px right guitar-tip margin. Raw internal hand matte lines filled; real arm/guitar/leg air stays open. Raw crown notch and sky rim corrected in alpha against original source crop. Final source-gap review found actual peach hair at (1278,384), RGB(224,155,126), previously alpha13; original visible hair bundles restored with alpha only. Two tight true source-visible window-air polygons retained in matching background; inner gap is precisely x1275..1278,y387..388, with no warm hair pixels frozen into BG. Separate original source contact residual, 3px near visible figure, no moved floor patch. Static short-range endpoints personally viewed, runtime motion pending. Final v10 expands only two inspected peach-hair alpha regions and preserves individually source-confirmed cool original air pixels within the adjoining small window opening. A single corrected sample pixel did not suffice; the whole former blue band was compared with the mother. No source RGB repaint or hidden background inference."
     ],
     "reviewImagesPrivateDirectory": ".test-data/uika-play-attention-layer-review",
     "reviewImages": [
-      "play-v9-light.png",
-      "play-v9-dark.png",
-      "play-v9-empty.png",
-      "play-v9-room-dx0.png",
-      "play-v9-room-dx-8.png",
-      "play-v9-room-dx8.png"
+      "play-v10-light.png",
+      "play-v10-dark.png",
+      "play-v10-empty.png",
+      "play-v10-room-dx0.png",
+      "play-v10-room-dx-8.png",
+      "play-v10-room-dx8.png"
     ],
     "superseded": {
       "v1": "Initial explicit fills; attention paper repair wrongly cleared shirt behind it, play crown notch/sky remained; rejected.",
@@ -118,7 +119,8 @@
       "v4": "Soft source matte retained; play crown bright-hair color threshold produced pinholes; intermediate only.",
       "v5": "Source-traced crown restored; last 88 mixed-blue crown pixels removed in v6.",
       "v6": "Actual peach hair bundle at original (1278,384) omitted; brighter generated gap showed through.",
-      "v7-v8": "Intermediate background-preserve bounds refined further to exclude mixed/warm hair-edge source pixels from static BG."
+      "v7-v8": "Intermediate background-preserve bounds refined further to exclude mixed/warm hair-edge source pixels from static BG.",
+      "v9": "Single corrected peach-hair sample did not remove the whole visible blue band. V10 restores only source-confirmed peach strands and source-visible cool air rows, as recorded in finalSourceHairAndAirCalibration."
     },
     "remaining": [
       "Primary must inspect final fine hair, original hand/prop boundaries and contact shadows before layer admission.",
@@ -128,11 +130,19 @@
     "runtimeAccepted": false,
     "integrated": false,
     "sourceGapReview": {
-      "evidenceDirectory": ".test-data/uika-play-attention-layer-review",
-      "originalCrop": "play-gap-mother.png",
-      "finalRoom": "play-v9-room-dx0.png",
-      "finalEmptyCrop": "play-gap-empty-v9.png",
-      "finding": "Independent source calibration: approx visible hip/cushion contact (1348,578), near shoe sole (1227,762). Complete guitar body/neck/headstock/tuning pegs and both actual hands remain original figure pixels; real furniture is background. Only 8px each side along the same bench seam is proposed, preserving at least 19px right guitar-tip margin. Raw internal hand matte lines filled; real arm/guitar/leg air stays open. Raw crown notch and sky rim corrected in alpha against original source crop. Final source-gap review found actual peach hair at (1278,384), RGB(224,155,126), previously alpha13; original visible hair bundles restored with alpha only. Two tight true source-visible window-air polygons retained in matching background; inner gap is precisely x1275..1278,y387..388, with no warm hair pixels frozen into BG. Separate original source contact residual, 3px near visible figure, no moved floor patch. Static short-range endpoints personally viewed, runtime motion pending."
+      "record": "uika-play-apricot-source-gap-calibration-v10.json",
+      "processor": "uika-play-apricot-source-hair-and-air-v10.py",
+      "parameters": "uika-play-apricot-layer-parameters-v10.json",
+      "processing": "uika-play-apricot-layer-processing-v10.json",
+      "scene": "uika-play-apricot.scene.json",
+      "observation": "Full original/source-room comparison identified additional peach strands omitted outside the earlier v9 small ROI and real source-cool water gaps changed by the generated background. v10 restores only original alpha in those two small peach-hair regions and preserves literal original-visible cool air rows, with no person pixels kept in BG. Full room no longer shows the former new blue band.",
+      "primaryApproval": false,
+      "runtimeAccepted": false,
+      "privateEvidence": ".test-data/uika-play-attention-layer-review/play-v10-{light,dark,empty,room-dx0,room-dx-8,room-dx8}.png"
+    },
+    "previousSelectedFields": {
+      "selectedParameters": "uika-play-apricot-layer-parameters-v9.json",
+      "selectedProcessingRecord": "uika-play-apricot-layer-processing-v9.json"
     }
   },
   "layerProductionHistory": [
@@ -197,6 +207,91 @@
       "primaryLayerReview": "pending",
       "runtimeAccepted": false,
       "integrated": false
+    },
+    {
+      "status": "designer-reviewed candidate; primary layer and runtime review pending",
+      "selectedParameters": "uika-play-apricot-layer-parameters-v9.json",
+      "selectedProcessingRecord": "uika-play-apricot-layer-processing-v9.json",
+      "scene": "uika-play-apricot.scene.json",
+      "matteCalibrationRecords": [
+        "uika-play-apricot-matte-calibration-v4.json",
+        "uika-play-apricot-matte-calibration-v5.json",
+        "uika-play-apricot-matte-calibration-v6.json",
+        "uika-play-apricot-source-gap-calibration-v7.json",
+        "uika-play-apricot-source-gap-calibration-v8.json",
+        "uika-play-apricot-source-gap-calibration-v9.json"
+      ],
+      "outputs": [
+        {
+          "file": "uika-play-apricot-figure-calibrated-v9.png",
+          "bytes": 2434184,
+          "sha256": "adad7038f833e595063b02f4d41b4a46dcc61368b7a50bbbd55fe2a101e70f9e"
+        },
+        {
+          "file": "uika-play-apricot-mask-calibrated-v9.png",
+          "bytes": 24075,
+          "sha256": "fb5d67c92b51aaf152eee1cd5414b5074894e7676479717b450778f9b9b1bd2a"
+        },
+        {
+          "file": "uika-play-apricot-background-calibrated-v9.png",
+          "bytes": 2088902,
+          "sha256": "26a028b5b2e18882ac1a5c0284f1a97f33907bcd0b4c251eb1290f170b93ad56"
+        },
+        {
+          "file": "uika-play-apricot-shadow-calibrated-v9.png",
+          "bytes": 45525,
+          "sha256": "b1b79a792c86b0e28341801a63e48ef3263639dc72d62ae5aebfad18880963b4"
+        }
+      ],
+      "motherRgbSha256": "aefbe491eb1c764f8be9a20f317ac58206c1eb7ab54d2d75dfc5c3f4467ab4f2",
+      "figureRgbSha256": "aefbe491eb1c764f8be9a20f317ac58206c1eb7ab54d2d75dfc5c3f4467ab4f2",
+      "transform": "identity; no resize/translation/warp",
+      "designerObserved": [
+        "Independent source calibration: approx visible hip/cushion contact (1348,578), near shoe sole (1227,762). Complete guitar body/neck/headstock/tuning pegs and both actual hands remain original figure pixels; real furniture is background. Only 8px each side along the same bench seam is proposed, preserving at least 19px right guitar-tip margin. Raw internal hand matte lines filled; real arm/guitar/leg air stays open. Raw crown notch and sky rim corrected in alpha against original source crop. Final source-gap review found actual peach hair at (1278,384), RGB(224,155,126), previously alpha13; original visible hair bundles restored with alpha only. Two tight true source-visible window-air polygons retained in matching background; inner gap is precisely x1275..1278,y387..388, with no warm hair pixels frozen into BG. Separate original source contact residual, 3px near visible figure, no moved floor patch. Static short-range endpoints personally viewed, runtime motion pending."
+      ],
+      "reviewImagesPrivateDirectory": ".test-data/uika-play-attention-layer-review",
+      "reviewImages": [
+        "play-v9-light.png",
+        "play-v9-dark.png",
+        "play-v9-empty.png",
+        "play-v9-room-dx0.png",
+        "play-v9-room-dx-8.png",
+        "play-v9-room-dx8.png"
+      ],
+      "superseded": {
+        "v1": "Initial explicit fills; attention paper repair wrongly cleared shirt behind it, play crown notch/sky remained; rejected.",
+        "v2": "Correct internal hand/paper ownership; remaining source sky/leaf fringe; intermediate only.",
+        "v3": "Rejected head local-color refinement removed genuine fine hair and admitted adjacent leaf pixels.",
+        "v4": "Soft source matte retained; play crown bright-hair color threshold produced pinholes; intermediate only.",
+        "v5": "Source-traced crown restored; last 88 mixed-blue crown pixels removed in v6.",
+        "v6": "Actual peach hair bundle at original (1278,384) omitted; brighter generated gap showed through.",
+        "v7-v8": "Intermediate background-preserve bounds refined further to exclude mixed/warm hair-edge source pixels from static BG."
+      },
+      "remaining": [
+        "Primary must inspect final fine hair, original hand/prop boundaries and contact shadows before layer admission.",
+        "Static 8px endpoints do not establish real Stage, keyboard, spring or interruption behavior."
+      ],
+      "primaryLayerReview": "pending",
+      "runtimeAccepted": false,
+      "integrated": false,
+      "sourceGapReview": {
+        "evidenceDirectory": ".test-data/uika-play-attention-layer-review",
+        "originalCrop": "play-gap-mother.png",
+        "finalRoom": "play-v9-room-dx0.png",
+        "finalEmptyCrop": "play-gap-empty-v9.png",
+        "finding": "Independent source calibration: approx visible hip/cushion contact (1348,578), near shoe sole (1227,762). Complete guitar body/neck/headstock/tuning pegs and both actual hands remain original figure pixels; real furniture is background. Only 8px each side along the same bench seam is proposed, preserving at least 19px right guitar-tip margin. Raw internal hand matte lines filled; real arm/guitar/leg air stays open. Raw crown notch and sky rim corrected in alpha against original source crop. Final source-gap review found actual peach hair at (1278,384), RGB(224,155,126), previously alpha13; original visible hair bundles restored with alpha only. Two tight true source-visible window-air polygons retained in matching background; inner gap is precisely x1275..1278,y387..388, with no warm hair pixels frozen into BG. Separate original source contact residual, 3px near visible figure, no moved floor patch. Static short-range endpoints personally viewed, runtime motion pending."
+      }
     }
-  ]
+  ],
+  "finalSourceHairAndAirCalibration": {
+    "record": "uika-play-apricot-source-gap-calibration-v10.json",
+    "processor": "uika-play-apricot-source-hair-and-air-v10.py",
+    "parameters": "uika-play-apricot-layer-parameters-v10.json",
+    "processing": "uika-play-apricot-layer-processing-v10.json",
+    "scene": "uika-play-apricot.scene.json",
+    "observation": "Full original/source-room comparison identified additional peach strands omitted outside the earlier v9 small ROI and real source-cool water gaps changed by the generated background. v10 restores only original alpha in those two small peach-hair regions and preserves literal original-visible cool air rows, with no person pixels kept in BG. Full room no longer shows the former new blue band.",
+    "primaryApproval": false,
+    "runtimeAccepted": false,
+    "privateEvidence": ".test-data/uika-play-attention-layer-review/play-v10-{light,dark,empty,room-dx0,room-dx-8,room-dx8}.png"
+  }
 }

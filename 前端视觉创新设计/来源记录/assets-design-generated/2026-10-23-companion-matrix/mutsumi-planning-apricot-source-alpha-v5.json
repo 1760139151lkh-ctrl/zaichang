@@ -1,0 +1,38 @@
+{
+  "recordType": "source-visible-hair-root-alpha",
+  "script": "mutsumi-planning-apricot-refine-hair-v5.py",
+  "scriptSha256": "be07a7f5ef67ff8bc342805173adaf1b90b1f23ef94c87c7bf43dbeffd3b6782",
+  "inputAlpha": "mutsumi-planning-apricot-source-alpha-v4.png",
+  "inputAlphaSha256": "52f4cb6415e61acd51017e69c1b7464a48652e1a696d35c2d6154d90fe9260bf",
+  "sourceObservedRegion": [
+    913,
+    382,
+    925,
+    401
+  ],
+  "sourceObservedHairRoot": [
+    [
+      916,
+      384
+    ],
+    [
+      923,
+      384
+    ],
+    [
+      920,
+      396
+    ],
+    [
+      914,
+      399
+    ]
+  ],
+  "method": "Actual original gold/mint front hair starts beside the original jaw before continuing as the v4 ribbon. Restore only its visible source-coordinate alpha connection, original RGB unmodified.",
+  "outputAlpha": "mutsumi-planning-apricot-source-alpha-v5.png",
+  "outputAlphaSha256": "eda696a309dec43f209953495cefe6c75aee3422bb2692c47ac18e662f20bb45",
+  "review": {
+    "primary": "pending",
+    "runtime": "not registered"
+  }
+}

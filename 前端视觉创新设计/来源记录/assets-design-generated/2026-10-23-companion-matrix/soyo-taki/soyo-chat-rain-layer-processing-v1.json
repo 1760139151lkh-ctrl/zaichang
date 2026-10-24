@@ -1,0 +1,170 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "soyo-chat-rain-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": "4.13.0"
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "soyo-chat-rain-mother-candidate-v1.png",
+  "motherSha256": "130d8136ac3d77c8618f5cc7a772fb01bd9882efa2a44e44a018c5069b12b4ef",
+  "matte": "soyo-chat-apricot-mask-calibrated-v2.png",
+  "matteSha256": "edf8f77287a4fd5e400261fa912dd9d6448d2007c72ac17f08ac621a6ef456bf",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1160,
+      270,
+      1405,
+      450
+    ],
+    "seedThreshold": 80,
+    "uncertainBandPixels": 3,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.35
+  },
+  "alphaChangedPixels": 1013,
+  "alphaNonzeroPixels": 53106,
+  "alphaBounds": [
+    1169,
+    279,
+    1395,
+    781
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "e7fa12ec743c0377adf1805a1293bf9d2f2cd41c08345c3f86507129b3943fdd",
+  "figureRgbSha256": "e7fa12ec743c0377adf1805a1293bf9d2f2cd41c08345c3f86507129b3943fdd",
+  "background": {
+    "candidate": "soyo-chat-rain-background-generated-v1.png",
+    "candidateSha256": "11b08e7ba3c00e87c3f667e8c4f9b42a56913a89ed509cf9b68bedea0cc0b15c",
+    "expandPixels": 7,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          1157,
+          741
+        ],
+        [
+          1284,
+          741
+        ],
+        [
+          1301,
+          794
+        ],
+        [
+          1163,
+          794
+        ]
+      ],
+      [
+        [
+          1165,
+          576
+        ],
+        [
+          1385,
+          576
+        ],
+        [
+          1385,
+          622
+        ],
+        [
+          1165,
+          622
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 80994,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1167,
+          744
+        ],
+        [
+          1291,
+          744
+        ],
+        [
+          1300,
+          791
+        ],
+        [
+          1162,
+          791
+        ]
+      ],
+      [
+        [
+          1170,
+          570
+        ],
+        [
+          1384,
+          570
+        ],
+        [
+          1384,
+          622
+        ],
+        [
+          1170,
+          622
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "soyo-chat-rain-figure-calibrated-v1.png",
+      "bytes": 2254601,
+      "sha256": "a71f6543d1806c53225caecd55b95c49b020342a48b7fbea442802139f3391f9"
+    },
+    {
+      "file": "soyo-chat-rain-mask-calibrated-v1.png",
+      "bytes": 21273,
+      "sha256": "dae8d4536738f8e42e1df955cd6702aef737876a7d6fa771db041da639b409d3"
+    },
+    {
+      "file": "soyo-chat-rain-background-calibrated-v1.png",
+      "bytes": 1956037,
+      "sha256": "134974565238e7e81aab5665a47f868168a6562e211d27fd3304b64bb8fa7624"
+    },
+    {
+      "file": "soyo-chat-rain-shadow-calibrated-v1.png",
+      "bytes": 38664,
+      "sha256": "dfce6d4b7eaa4e5be469cc1682570b13cef4d080f33306810bfb33901944d654"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

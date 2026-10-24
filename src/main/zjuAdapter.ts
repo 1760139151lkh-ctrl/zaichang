@@ -3,7 +3,7 @@ import { existsSync, readFileSync, statSync, mkdtempSync, writeFileSync, unlinkS
 import { homedir, tmpdir } from 'node:os';
 import path from 'node:path';
 import type { Store } from './store';
-import { campusCourseLookupFilters, campusCourseQueryForSemester, examCourseRecordsPointer, majorGpaFields, majorGpaPointer, majorGpaReadFields, normalizedRoots, validateCampusQuery, type CampusQuery } from './capabilities/campus-query';
+import { campusCourseLookupFilters, campusCourseQueryForSemester, campusExamSummaryFields, campusGpaPolicies, examCourseRecordsPointer, majorGpaFields, majorGpaPointer, majorGpaReadFields, normalizedRoots, validateCampusQuery, type CampusQuery } from './capabilities/campus-query';
 import { campusSourceEndpoint, CampusSnapshotProofs, type CampusSnapshotProof } from './capabilities/campus-saved-source';
 import { campusSnapshotStructureProgram } from './capabilities/campus-snapshot-structure';
 import { HarnessError } from '../shared/harness';
@@ -124,7 +124,7 @@ const SUMMARY_FIELDS: Partial<Record<CampusDomain, string[]>> = {
   schedule: ['uid', 'summary', 'startTime', 'endTime', 'location', 'teacher', 'rescheduled', 'time_precision'],
   courses: ['key', 'name', 'semester_id', 'credit', 'teachers', 'confirmed', 'online'],
   learning_courses: ['id', 'name', 'course_code', 'credit', 'semester_id', 'start_date', 'end_date', 'study_completeness'],
-  exams: ['id', 'name', 'type', 'startTime', 'endTime', 'dateLabel', 'location', 'seat', 'time_precision'],
+  exams: [...campusExamSummaryFields],
   assignments: ['id', 'name', 'course', 'deadline', 'status'],
   grades: ['id', 'name', 'course_code', 'repeat_group', 'semester_id', 'credit', 'original', 'fivePoint', 'fourPoint', 'fourPointLegacy', 'hundredPoint', 'hundredPoint_kind', 'major', 'gpaIncluded', 'gpa_exclusion_reason', 'creditIncluded', 'earnedCredit', 'earnedCredit_repository', 'quality_issues'],
   gpa: ['policy', 'gpa', 'gpa_credit_denominator', 'eligible_attempts', 'counted_attempts', 'excluded_attempts', 'incomplete_attempts', 'source_complete', 'complete', 'formula', 'earned_credits_sum_attempts', 'zero_credit_attempts'],
@@ -278,7 +278,7 @@ function safeRoot(candidate: string | null | undefined): string | null {
   if (
     !existsSync(path.join(root, 'scripts', 'zju.py')) ||
     !existsSync(path.join(root, 'references', 'endpoints.json')) ||
-    !existsSync(path.join(root, 'SKILL.md')) ||
+    (!existsSync(path.join(root, 'SKILL.md')) && !existsSync(path.join(root, 'upstream.json'))) ||
     !existsSync(path.join(root, 'LICENSE'))
   )
     return null;
@@ -400,6 +400,7 @@ function compactResult(result: any, domain?: CampusDomain): any {
     expectedSnapshotVersion: result.expectedSnapshotVersion,
     semester_id: result.semester_id,
     recordSelection: result.recordSelection,
+    policyMeanings: result.policyMeanings,
     counts: result.counts,
     grade_attempts: result.grade_attempts,
     practice_projects: result.practice_projects,
@@ -479,12 +480,17 @@ export class ZjuAdapter {
     if (stored) return stored;
     const explicit = safeRoot(process.env.ZAICHANG_ZJU_SOURCE);
     if (explicit) return explicit;
-    // The installed skill is the source of truth.  Discover it for both dev and
-    // packaged Electron runs so the user does not have to manually import files
-    // or browse to an implementation directory on every machine start.
+    // Explicit settings retain ownership of a selected connector. The product
+    // carries the same reviewed CLI for independent desktop installations;
+    // older installed skills remain a migration input rather than a dependency.
     // Test profiles are intentionally isolated from the real account.
     if (process.env.ZAICHANG_TEST === '1') return null;
+    const resources = (process as NodeJS.Process & { resourcesPath?: string }).resourcesPath
+      || path.join(path.dirname(process.execPath), 'resources');
     const candidates = [
+      path.join(resources, 'zju-runtime'),
+      path.resolve(process.cwd(), 'src', 'main', 'integrations', 'zju'),
+      path.resolve(process.cwd(), 'dist-electron', 'zju-runtime'),
       path.join(homedir(), '.codex', 'skills', 'zju-student-info'),
       process.env.CODEX_HOME
         ? path.join(path.resolve(process.env.CODEX_HOME), 'skills', 'zju-student-info')
@@ -507,7 +513,7 @@ export class ZjuAdapter {
     const root = this.discoveredRoot();
     if (!root) {
       this.store.putMeta('zju_source_disabled', true);
-      throw new Error('还没有找到浙大个人信息技能，请先安装或选择技能目录。');
+      throw new Error('本机的浙大连接程序暂时不可用。可以重新安装应用，或在连接设置中选择已有目录。');
     }
     return this.describe();
   }
@@ -522,7 +528,7 @@ export class ZjuAdapter {
         sourceKind: 'zju_account',
         authStatus: 'needs_login',
         credentialsConfigured: false,
-        reason: '还没有找到浙大个人信息技能。可以安装技能，或在连接设置中选择它。',
+        reason: '本机的浙大连接程序暂时不可用。可以重新安装应用，或在连接设置中选择已有目录。',
       };
     try {
       const verificationPath = path.join(root, 'references', 'verification-latest.json');
@@ -574,7 +580,7 @@ export class ZjuAdapter {
         sourceKind: 'zju_account',
         authStatus: this.credentialsConfigured() ? 'credentials_saved' : 'needs_login',
         credentialsConfigured: this.credentialsConfigured(),
-        reason: '技能目录可用，但连接状态摘要暂时不可读。',
+        reason: '浙大连接程序已找到，账号连接状态暂时没能读到。',
       };
     }
   }
@@ -652,7 +658,7 @@ export class ZjuAdapter {
     const wasDisabled = this.store.meta<boolean>('zju_source_disabled', false);
     if (wasDisabled) this.store.putMeta('zju_source_disabled', false);
     try {
-      if (!this.root()) return { status: 'unavailable', reason: '没有找到浙大个人信息技能。' };
+      if (!this.root()) return { status: 'unavailable', reason: '本机的浙大连接程序暂时不可用。' };
       const result = await this.run(['credentials', 'forget'], signal, 20_000);
       if (result?.status === 'ok') {
         this.store.putMeta('zju_last_verified_at', null);
@@ -815,7 +821,7 @@ export class ZjuAdapter {
   }
 
   private childEnv() {
-    const env = { ...process.env, PYTHONUTF8: '1', PYTHONIOENCODING: 'utf-8' } as Record<string, string | undefined>;
+    const env = { ...process.env, PYTHONUTF8: '1', PYTHONIOENCODING: 'utf-8', PYTHONDONTWRITEBYTECODE: '1' } as Record<string, string | undefined>;
     // The connector never needs model/API secrets. Do not inherit them into a
     // third-party Python process even though the skill itself does not print env.
     for (const key of [
@@ -873,6 +879,15 @@ export class ZjuAdapter {
     if (this.testPorts.python) return this.testPorts.python;
     const configured = process.env.ZAICHANG_PYTHON?.trim();
     if (configured) return configured;
+    const resources = (process as NodeJS.Process & { resourcesPath?: string }).resourcesPath
+      || path.join(path.dirname(process.execPath), 'resources');
+    const interpreter = process.platform === 'win32' ? 'python.exe' : 'bin/python3';
+    const runtimeRoots = [process.env.ZAICHANG_RUNTIME_ROOT, path.join(resources, 'hermes-runtime'), process.cwd()];
+    for (const root of runtimeRoots) {
+      if (!root) continue;
+      const bundled = path.join(root, '.runtime', 'python', interpreter);
+      if (existsSync(bundled)) return (this.resolvedPython = bundled);
+    }
     // The normal Windows launcher is `python`; fall back to `py` for machines
     // where only the launcher is registered. This probe never receives data.
     for (const candidate of process.platform === 'win32' ? ['python', 'py'] : ['python3', 'python']) {
@@ -1070,7 +1085,8 @@ export class ZjuAdapter {
           source_ref: '这条原行在原考试数据集中的位置',
           schedule_state: 'published仅表示来源有非空考试时间文字并生成对象，不代表官方状态或时间已精确解析；no_exam_time_returned表示该原行没有返回时间文字，不证明不考试' },
         meaning: '这是宿主对当前已存结构的说明，不是CLI已有字段模型或个人记录。read只接受这个精确根数组地址，按offset/limit返回完整原行；total_matches计课程原行，与考试对象数分开。旧快照缺路径与实际空数组分别保留。' };
-      return sanitize(await this.run(['schema', args.model!], signal));
+      const result = sanitize(await this.run(['schema', args.model!], signal));
+      return args.model === 'gpa' && result.status === 'ok' ? { ...result, policyMeanings: campusGpaPolicies } : result;
     }
     if (campusAcademicAcquisition('campus.query', args) && !acquisition?.allowAcademicSync)
       return { status: 'forbidden', acquisition: campusAcademicAcquisition('campus.query', args), recordRead: false,
@@ -1340,6 +1356,12 @@ export class ZjuAdapter {
   }
 
   private async withSnapshotProof(result: any, resource: string, signal: AbortSignal) {
+    if (resource === 'gpa_overall' && Array.isArray(result?.records)) {
+      const policyMeanings = Object.fromEntries(result.records.flatMap((record: any) =>
+        typeof record?.policy === 'string' && Object.hasOwn(campusGpaPolicies, record.policy)
+          ? [[record.policy, campusGpaPolicies[record.policy as keyof typeof campusGpaPolicies]]] : []));
+      if (Object.keys(policyMeanings).length) result = { ...result, policyMeanings };
+    }
     if (!result || !/^[a-f0-9]{32}$/.test(String(result.bundle_id || '')) || !['ok', 'partial', 'navigate_required'].includes(String(result.status))) return result;
     const before = this.snapshotProofs.beforeMetadata(resource);
     if (!before) return result;
@@ -1466,7 +1488,7 @@ export class ZjuAdapter {
       authentication,
       lastSsoVerifiedAt: this.describe().lastVerifiedAt,
       batches,
-      note: '这是本人浙大账号产生的完整加密数据集分域索引；模型只收到每个分域的必要摘要，原始字段与完整分页仍在技能的本机加密库中。预约、签到、支付和修改资料均未执行。',
+      note: '这是本人浙大账号资料的分类目录；这里先看各类摘要，原始字段和完整分页仍保存在本机，可以沿原地址接着读。',
     };
   }
 

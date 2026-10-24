@@ -1,0 +1,190 @@
+{
+  "mother": "anon-chat-apricot-mother-candidate-v1.png",
+  "motherSha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+  "matte": "anon-chat-apricot-alpha-calibrated-v6.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 240,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "anon-chat-apricot-figure-calibrated-v6.png",
+  "mask": "anon-chat-apricot-mask-calibrated-v6.png",
+  "backgroundCandidate": "anon-chat-apricot-background-generated-v1.png",
+  "backgroundExpandPixels": 3,
+  "backgroundFeatherPixels": 1,
+  "background": "anon-chat-apricot-background-calibrated-v6.png",
+  "record": "anon-chat-apricot-layer-processing-v6.json",
+  "reviewNote": "v6 preserves source alpha outside the explicitly bounded hair-edge band. Blue/yellow background residual alpha is removed only within four pixels of the existing silhouette boundary; interior face, eyes, fingers, buttons and body alpha are protected. Figure RGB remains the approved original mother. Static layer candidate; no primary/runtime admission.",
+  "backgroundErasePolygons": [
+    [
+      [
+        1182,
+        567
+      ],
+      [
+        1458,
+        567
+      ],
+      [
+        1458,
+        611
+      ],
+      [
+        1182,
+        611
+      ]
+    ],
+    [
+      [
+        1137,
+        757
+      ],
+      [
+        1284,
+        757
+      ],
+      [
+        1284,
+        810
+      ],
+      [
+        1137,
+        810
+      ]
+    ],
+    [
+      [
+        1189,
+        591
+      ],
+      [
+        1270,
+        589
+      ],
+      [
+        1289,
+        696
+      ],
+      [
+        1283,
+        750
+      ],
+      [
+        1269,
+        768
+      ],
+      [
+        1197,
+        765
+      ],
+      [
+        1193,
+        704
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1183,
+        566
+      ],
+      [
+        1456,
+        566
+      ],
+      [
+        1456,
+        601
+      ],
+      [
+        1183,
+        601
+      ]
+    ],
+    [
+      [
+        1138,
+        756
+      ],
+      [
+        1207,
+        756
+      ],
+      [
+        1207,
+        790
+      ],
+      [
+        1138,
+        790
+      ]
+    ],
+    [
+      [
+        1192,
+        773
+      ],
+      [
+        1282,
+        773
+      ],
+      [
+        1282,
+        807
+      ],
+      [
+        1192,
+        807
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "anon-chat-apricot-shadow-calibrated-v6.png",
+  "castShadowPolygons": [
+    [
+      [
+        1189,
+        591
+      ],
+      [
+        1270,
+        589
+      ],
+      [
+        1289,
+        696
+      ],
+      [
+        1283,
+        750
+      ],
+      [
+        1269,
+        768
+      ],
+      [
+        1197,
+        765
+      ],
+      [
+        1193,
+        704
+      ]
+    ]
+  ],
+  "hairBackgroundExclusion": {
+    "sourceMatte": "anon-chat-apricot-mask-generated-v1.png",
+    "region": [
+      1140,
+      225,
+      1460,
+      530
+    ],
+    "blueOverRed": 5,
+    "greenOverBlue": 45,
+    "redOverBlue": 55,
+    "edgePixels": 4
+  }
+}

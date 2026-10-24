@@ -1,0 +1,37 @@
+{
+  "createdAtUtc": "2026-10-24T19:03:29.312747+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "useCase": "lighting-weather",
+  "character": "rana",
+  "activity": "study",
+  "theme": "rain",
+  "inputs": [
+    {
+      "file": "rana-study-apricot-mother-candidate-v2.png",
+      "sha256": "fb66bbcfffc5f3d42b421c8769cc53ae7f1b605246a68187f5043435eabbe205",
+      "role": "sole editable target; primary-reviewed correct complete supported warm mother"
+    },
+    {
+      "file": "../room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "primary-reviewed clean lighting and sky reference only"
+    }
+  ],
+  "file": "rana-study-rain-mother-candidate-v1.png",
+  "sha256": "acf48bb56956f9e2001c49649c3f411146aa9db6b521ed142a0e51e5b9f0273a",
+  "width": 1536,
+  "height": 1024,
+  "prompt": "rana-study-rain-prompt.txt",
+  "promptSha256": "dff6f271f4ba0fbef34b1633d0538287cbd70de6048f7cd93d5ea1ebdf086200",
+  "promptEncoding": "UTF-8 exact submitted prompt with final newline",
+  "originalGeneratedFile": "exec-08c1328b-0f46-4364-88b9-5e1de26c5904.png",
+  "executionId": null,
+  "executionIdEvidence": "Builtin result exposed the generated PNG basename but no separate execution ID.",
+  "designerPersonallyViewed": true,
+  "designerObservation": "Viewed complete rain-night room; original study pose, hands at the paper, chair support and both full boots remain. Left room has low ambient darkness without daytime leaf patches; existing lamp supplies warm task light. Mother candidate only, not layer/runtime evidence.",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  }
+}

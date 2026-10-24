@@ -161,12 +161,17 @@ export class StudyCompanionService {
    * question, learner lines or teaching body. Actual reading and operations
    * still reopen the original owner and its asynchronous material boundary. */
   currentMetadata(handle: ScopeHandle, id: string) {
-    this.scope(handle);
-    const record = this.repo.workArtifactRecords(handle, 'study_companion', { id, limit: 1 })[0];
-    if (!record || !['active', 'parked', 'closed'].includes(record.status)
-      || !stateSchema.safeParse(record.data).success
-      || !this.currentSourceVersion(handle, { id: record.id, revision: record.revision })) return;
-    return { id: record.id, revision: record.revision, status: record.status };
+    try {
+      this.scope(handle);
+      const record = this.repo.workArtifactRecords(handle, 'study_companion', { id, limit: 1 })[0];
+      if (!record || !['active', 'parked', 'closed'].includes(record.status)
+        || !stateSchema.safeParse(record.data).success
+        || !this.currentSourceVersion(handle, { id: record.id, revision: record.revision })) return;
+      return { id: record.id, revision: record.revision, status: record.status };
+    } catch (error) {
+      if (error instanceof HarnessError) return;
+      throw error;
+    }
   }
 
   /** Historical assistance keeps its actual question identity and sources.

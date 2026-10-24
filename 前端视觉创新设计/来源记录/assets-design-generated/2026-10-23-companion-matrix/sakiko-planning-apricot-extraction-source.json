@@ -5,7 +5,7 @@
   "createdOn": "2026-10-23",
   "tool": "built-in image_gen.imagegen",
   "mother": {
-    "file": "sakiko-planning-apricot.png",
+    "file": "../../../运行素材/companion/scenes/sakiko-planning-apricot.png",
     "sha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11",
     "soleVisualInputForBothCalls": true,
     "primaryExtractionApproval": "primary-prototype-reviews.json:planning"
@@ -77,10 +77,10 @@
     "actualMotherPrompt": "sakiko-planning-apricot-prompt.txt",
     "actualMotherPromptSha256": "fb6e88986563c6d268d5d106bab399f8772d95ba906d1e8449f295bf4272e6b6",
     "outputs": {
-      "figure": "sakiko-planning-apricot-figure-calibrated-v6.png",
-      "mask": "sakiko-planning-apricot-mask-calibrated-v6.png",
-      "background": "sakiko-planning-apricot-background-calibrated-v6.png",
-      "shadow": "sakiko-planning-apricot-shadow-calibrated-v6.png"
+      "figure": "../../../运行素材/companion/scenes/sakiko-planning-apricot-figure-calibrated-v6.png",
+      "mask": "../../../运行素材/companion/scenes/sakiko-planning-apricot-mask-calibrated-v6.png",
+      "background": "../../../运行素材/companion/scenes/sakiko-planning-apricot-background-calibrated-v6.png",
+      "shadow": "../../../运行素材/companion/scenes/sakiko-planning-apricot-shadow-calibrated-v6.png"
     },
     "producerViewed": [
       "original full mother",

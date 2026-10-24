@@ -1,0 +1,20 @@
+{
+  "mother": "taki-attention-apricot-mother-candidate-v2.png",
+  "motherSha256": "23c79a3ce36b887e2c2f57f37558cbe5ace84014c9a03524e31872028004a2f5",
+  "sourceAlpha": "taki-attention-apricot-mask-candidate-v1.png",
+  "sourceAlphaSha256": "ca49625ae55dae71a08dcbaf1740dee378e79eff33129d266fb270f32375822b",
+  "sourceAlphaMode": "luminance",
+  "inputAlphaLow": 45,
+  "inputAlphaHigh": 240,
+  "edgeDifference": {
+    "background": "taki-attention-apricot-background-candidate-v1.png",
+    "backgroundSha256": "0e93640fc134feb24fd860dedd8183ae7707678d3f320231b67bc8874eca80f7",
+    "edgePixels": 2,
+    "differenceLow": 5,
+    "differenceHigh": 18
+  },
+  "minimumVisibleAlpha": 12,
+  "removeIslandsSmallerThan": 3,
+  "output": "taki-attention-apricot-head-alpha-calibrated-v5.png",
+  "record": "taki-attention-apricot-head-alpha-production-v5.json"
+}

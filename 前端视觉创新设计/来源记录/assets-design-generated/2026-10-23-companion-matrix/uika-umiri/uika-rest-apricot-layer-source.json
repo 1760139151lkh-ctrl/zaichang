@@ -15,7 +15,7 @@
     {
       "part": "mask",
       "executionId": "exec-8194fc69-9972-4465-b5c8-60566f199a08",
-      "promptFile": "uika-rest-apricot-mask-prompt.txt",
+      "promptFile": "uika-rest-apricot-mask-prompt-submitted.txt",
       "prompt": "Use case: precise-object-edit. Technical opaque BLACK/WHITE source segmentation, full 1536 x 1024 canvas, no transparency.\nONLY INPUT is the primary-approved Uika REST apricot mother v1. Recolor source-visible person pixels IN PLACE: Uika WHITE, every room/furniture/environment pixel BLACK. Trace the exact original small far-right side-back seated person, do not redraw anatomy, enlarge, recenter, move, crop, zoom or change any pose. This is a registered matte for original mother RGB, not a new portrait.\nLocation guides only: bob/head x1305..1415,y295..389; back/white tee x1297..1414,y379..490; folded taupe skirt on bench approximately x1159..1416,y486..581; two worn white socks/feet across the cushion around x1232..1337,y548..589; original supporting right arm/palm ends approximately x1470,y583. Trace the exact source contours, not boxes. Preserve the face/neck profile, all hair tips, both visible arms/hands/fingers, all actual skirt folds/hem and both source-visible socked feet as solid WHITE irrespective of shadow/color.\nBLACK excludes every cushion, bench wood, blue plaid/floral pillows, draped knitted throw, desk/chair/lamp/cup/book, window/curtain/lake/plants, rear-left furnishings, floor/rug and all cast/contact shadows. The pair of EMPTY CANVAS SNEAKERS on the floor at x1195..1295,y720..774 is ENVIRONMENT: keep them BLACK, they are not worn by the figure and must not follow her. No white region on those empty shoes. Actual gaps around folded feet, skirt hem, supporting palm/fingers and pillows remain black. Do not include a pillow wedge with the back, weave with her palm, a bench/cushion strip under her skirt or imaginary hidden limbs.\nOnly narrow antialiasing on the original silhouette edge. Solid opaque black/white, no color, gray glow, blurry shadow, internal face/cloth drawing, text/UI/logo/watermark/label/inset/border/arrows. Return one full same-size registered matte, not a new image of the girl.\n",
       "status": "rejected-registration",
       "designerObservation": "Model enlarged/repositioned person: crown around y132 instead of mother y296; skirt extends to x997 rather than1159. Cannot transform back or use this mask as future input.",
@@ -26,12 +26,18 @@
         "width": 1536,
         "height": 1024,
         "mode": "RGB"
-      }
+      },
+      "actualPrompt": "Use case: precise-object-edit. Technical opaque BLACK/WHITE source segmentation, full 1536 x 1024 canvas, no transparency.\nONLY INPUT is the primary-approved Uika REST apricot mother v1. Recolor source-visible person pixels IN PLACE: Uika WHITE, every room/furniture/environment pixel BLACK. Trace the exact original small far-right side-back seated person, do not redraw anatomy, enlarge, recenter, move, crop, zoom or change any pose. This is a registered matte for original mother RGB, not a new portrait.\nLocation guides only: bob/head x1305..1415,y295..389; back/white tee x1297..1414,y379..490; folded taupe skirt on bench approximately x1159..1416,y486..581; two worn white socks/feet across the cushion around x1232..1337,y548..589; original supporting right arm/palm ends approximately x1470,y583. Trace the exact source contours, not boxes. Preserve the face/neck profile, all hair tips, both visible arms/hands/fingers, all actual skirt folds/hem and both source-visible socked feet as solid WHITE irrespective of shadow/color.\nBLACK excludes every cushion, bench wood, blue plaid/floral pillows, draped knitted throw, desk/chair/lamp/cup/book, window/curtain/lake/plants, rear-left furnishings, floor/rug and all cast/contact shadows. The pair of EMPTY CANVAS SNEAKERS on the floor at x1195..1295,y720..774 is ENVIRONMENT: keep them BLACK, they are not worn by the figure and must not follow her. No white region on those empty shoes. Actual gaps around folded feet, skirt hem, supporting palm/fingers and pillows remain black. Do not include a pillow wedge with the back, weave with her palm, a bench/cushion strip under her skirt or imaginary hidden limbs.\nOnly narrow antialiasing on the original silhouette edge. Solid opaque black/white, no color, gray glow, blurry shadow, internal face/cloth drawing, text/UI/logo/watermark/label/inset/border/arrows. Return one full same-size registered matte, not a new image of the girl.\n",
+      "actualPromptSha256": "44c56b9a1feb8c1cb83b4d052479a015fd12cd699e2e8aaa75aa6ed75adf0309",
+      "promptSha256": "44c56b9a1feb8c1cb83b4d052479a015fd12cd699e2e8aaa75aa6ed75adf0309",
+      "promptFileSha256": "44c56b9a1feb8c1cb83b4d052479a015fd12cd699e2e8aaa75aa6ed75adf0309",
+      "draftPromptFile": "uika-rest-apricot-mask-prompt.txt",
+      "draftPromptFileSha256": "61b28453bfe65af20e6bba3f4a015557fea5b6f3437b345138dcef42b7282ca2"
     },
     {
       "part": "mask",
       "executionId": "exec-ffabe5ca-8378-49c0-8cb0-6743f19c905f",
-      "promptFile": "uika-rest-apricot-mask-v2-prompt.txt",
+      "promptFile": "uika-rest-apricot-mask-v2-prompt-submitted.txt",
       "prompt": "Use case: precise-object-edit. EXACT IN-PLACE RECOLORING, not a drawing task. Return opaque black/white 1536 x 1024.\nOnly image 1 is the approved complete Uika REST source mother. Keep the source coordinate registration exactly. Make every original source-visible person pixel pure WHITE, every other pixel pure BLACK. DO NOT enlarge, raise, move, rotate, crop or redraw any part of her. This is tracing the existing pixels, not painting a larger silhouette.\nCRITICAL ABSOLUTE CANVAS ANCHORS: the entire small person fits inside x=1155..1475, y=294..590. Her crown is at source y≈297, NOT y=130 or200; leftmost skirt hem is x≈1160, NOT x=1000; final sock/palm contacts are y≈583, NOT y=620. The SOURCE FIGURE is only about 315px wide and 292px tall in this full 1536x1024 image. ALL pixels above y=292, below y=592 and left of x=1153 are BLACK. All four corners and the central room are BLACK. These bounds constrain the original source, not a rectangle to fill. Trace the actual visible small side-back body inside them exactly, preserving its original pose and size.\nWhite includes original small short bob/profile/neck, white T-shirt/back, visible arms/hands/fingers, complete taupe-gray folded long skirt and hem, both source-visible socked feet on the cushion. Black includes every blue plaid/floral pillow, bench/cushion/wood/knitted throw, room/window/lake/plants/curtains, desk/chair/lamp/cup, floor/rug and all shadows. The pair of EMPTY SNEAKERS on the floor around x1195..1295,y720..774 MUST BE BLACK environment, not white worn shoes. Preserve real air gaps around arm/waist, fingers, folded skirt/socks and cushion; no invented hidden anatomy, no pillow wedge or bench strip merged with her.\nOnly a narrow antialias at the exact source boundary. No color, gray interior, glow, shadow, new face/cloth drawing, text/UI/logo/watermark/border/inset/arrow. Keep source registration: never a new larger portrait. Original mother RGB will later carry this mask without resize or translation.\n",
       "status": "generated-pending-alpha-calibration",
       "output": {
@@ -41,7 +47,13 @@
         "width": 1536,
         "height": 1024,
         "mode": "RGB"
-      }
+      },
+      "actualPrompt": "Use case: precise-object-edit. EXACT IN-PLACE RECOLORING, not a drawing task. Return opaque black/white 1536 x 1024.\nOnly image 1 is the approved complete Uika REST source mother. Keep the source coordinate registration exactly. Make every original source-visible person pixel pure WHITE, every other pixel pure BLACK. DO NOT enlarge, raise, move, rotate, crop or redraw any part of her. This is tracing the existing pixels, not painting a larger silhouette.\nCRITICAL ABSOLUTE CANVAS ANCHORS: the entire small person fits inside x=1155..1475, y=294..590. Her crown is at source y≈297, NOT y=130 or200; leftmost skirt hem is x≈1160, NOT x=1000; final sock/palm contacts are y≈583, NOT y=620. The SOURCE FIGURE is only about 315px wide and 292px tall in this full 1536x1024 image. ALL pixels above y=292, below y=592 and left of x=1153 are BLACK. All four corners and the central room are BLACK. These bounds constrain the original source, not a rectangle to fill. Trace the actual visible small side-back body inside them exactly, preserving its original pose and size.\nWhite includes original small short bob/profile/neck, white T-shirt/back, visible arms/hands/fingers, complete taupe-gray folded long skirt and hem, both source-visible socked feet on the cushion. Black includes every blue plaid/floral pillow, bench/cushion/wood/knitted throw, room/window/lake/plants/curtains, desk/chair/lamp/cup, floor/rug and all shadows. The pair of EMPTY SNEAKERS on the floor around x1195..1295,y720..774 MUST BE BLACK environment, not white worn shoes. Preserve real air gaps around arm/waist, fingers, folded skirt/socks and cushion; no invented hidden anatomy, no pillow wedge or bench strip merged with her.\nOnly a narrow antialias at the exact source boundary. No color, gray interior, glow, shadow, new face/cloth drawing, text/UI/logo/watermark/border/inset/arrow. Keep source registration: never a new larger portrait. Original mother RGB will later carry this mask without resize or translation.\n",
+      "actualPromptSha256": "73862be9ab3cad1049ebcf4b6103831e7c28bb853da636f0e46808c1cf4cc54d",
+      "promptSha256": "73862be9ab3cad1049ebcf4b6103831e7c28bb853da636f0e46808c1cf4cc54d",
+      "promptFileSha256": "73862be9ab3cad1049ebcf4b6103831e7c28bb853da636f0e46808c1cf4cc54d",
+      "draftPromptFile": "uika-rest-apricot-mask-v2-prompt.txt",
+      "draftPromptFileSha256": "3763ab5cf105cfadf000a807a866a0d6b911982cd6e94bea805906376a760a1e"
     },
     {
       "part": "background",
@@ -74,8 +86,8 @@
   "runtimeAccepted": false,
   "recordedAt": "2026-10-24T11:04:17.092592+00:00",
   "deterministicCandidate": {
-    "parameters": "uika-rest-apricot-layer-parameters-v3.json",
-    "processing": "uika-rest-apricot-layer-processing-v3.json",
+    "parameters": "uika-rest-apricot-layer-parameters-v4.json",
+    "processing": "uika-rest-apricot-layer-processing-v4.json",
     "scene": "uika-rest-apricot.scene.json",
     "figureRgbPolicy": "Entire original mother RGB unchanged; only visibility alpha and source-matching empty-room/shadow layers derived.",
     "ownership": "Visible person and worn socks/skirt belong to figure; two detached floor sneakers, furniture, cushions/pillows and knitted throw belong to room.",
@@ -105,8 +117,8 @@
   "finalLayerReview": {
     "scope": "producer visual candidate review only; primary/runtime still pending",
     "scene": "uika-rest-apricot.scene.json",
-    "parameters": "uika-rest-apricot-layer-parameters-v3.json",
-    "processing": "uika-rest-apricot-layer-processing-v3.json",
+    "parameters": "uika-rest-apricot-layer-parameters-v4.json",
+    "processing": "uika-rest-apricot-layer-processing-v4.json",
     "personallyViewed": [
       "full original mother",
       "original-coordinate body/room edge details",
@@ -114,13 +126,13 @@
       "matching full room at original coordinates",
       "complete empty background"
     ],
-    "observation": "Source-visible folded socks/cloth and support palm retained. False left cushion strip excluded; actual opening between support arm and torso remains transparent. Entire pose stays fixed to the original bench, with detached floor sneakers outside the figure.",
+    "observation": "Source-visible folded socks/cloth and support palm retained. False left cushion strip excluded; actual opening between support arm and torso remains transparent. Entire pose stays fixed to the original bench, with detached floor sneakers outside the figure. Independent dark-ground review additionally located false internal contact cracks; these were repaired with alpha only and personally rechecked against the original forearm or sock/skirt source contact. Actual source room openings remain transparent.",
     "rgbEvidence": {
       "motherRgbSha256": "f062fd20fc90fc2dae51d74714697d1539db0ab674f5085336ae23a445bc60a4",
       "figureRgbSha256": "f062fd20fc90fc2dae51d74714697d1539db0ab674f5085336ae23a445bc60a4",
       "identityTransform": true
     },
-    "privateEvidence": ".test-data/uika-listening-rest-layer-review/rest-v3-{light,dark,empty,room}.png",
+    "privateEvidence": ".test-data/uika-listening-rest-layer-review/rest-v4-{light,dark,empty,room}.png",
     "approvedByPrimary": false,
     "runtimeAccepted": false
   }

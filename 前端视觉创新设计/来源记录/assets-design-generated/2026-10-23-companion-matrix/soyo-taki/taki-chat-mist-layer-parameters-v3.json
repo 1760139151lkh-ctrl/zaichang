@@ -1,0 +1,166 @@
+{
+  "mother": "taki-chat-mist-mother-candidate-v1.png",
+  "motherSha256": "e3fc520bcca02e7c72dcee83ea818a288a89676582dfd0870cfb31b86a7261c3",
+  "matte": "taki-chat-mist-mask-calibrated-v2.png",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        1195,
+        386
+      ],
+      [
+        1198,
+        385
+      ],
+      [
+        1198,
+        391
+      ],
+      [
+        1197,
+        396
+      ],
+      [
+        1195,
+        404
+      ],
+      [
+        1194,
+        404
+      ],
+      [
+        1194,
+        395
+      ]
+    ]
+  ],
+  "localColorMatteRefinement": null,
+  "backgroundCandidate": "taki-chat-mist-background-generated-v1.png",
+  "background": "taki-chat-mist-background-calibrated-v2.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1089,
+        735
+      ],
+      [
+        1187,
+        735
+      ],
+      [
+        1190,
+        779
+      ],
+      [
+        1087,
+        779
+      ]
+    ],
+    [
+      [
+        1235,
+        751
+      ],
+      [
+        1318,
+        751
+      ],
+      [
+        1328,
+        805
+      ],
+      [
+        1235,
+        805
+      ]
+    ],
+    [
+      [
+        1180,
+        578
+      ],
+      [
+        1381,
+        578
+      ],
+      [
+        1381,
+        622
+      ],
+      [
+        1180,
+        622
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1087,
+        736
+      ],
+      [
+        1184,
+        736
+      ],
+      [
+        1191,
+        778
+      ],
+      [
+        1086,
+        778
+      ]
+    ],
+    [
+      [
+        1234,
+        751
+      ],
+      [
+        1318,
+        751
+      ],
+      [
+        1326,
+        803
+      ],
+      [
+        1234,
+        803
+      ]
+    ],
+    [
+      [
+        1180,
+        573
+      ],
+      [
+        1381,
+        573
+      ],
+      [
+        1381,
+        624
+      ],
+      [
+        1180,
+        624
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "taki-chat-mist-shadow-calibrated-v2.png",
+  "figure": "taki-chat-mist-figure-calibrated-v3.png",
+  "mask": "taki-chat-mist-mask-calibrated-v3.png",
+  "record": "taki-chat-mist-layer-processing-v3.json",
+  "reviewNote": "Own primary-reviewed full themed mother supplies every RGB pixel. Warm same-pose soft alpha is only an explicit initialization; own head RGB refines local edge and matching new background/shadow are independent. No RGB/pose/body redraw or independent resize. Primary layer and actual Stage remain pending. Direct dark-background inspection identified bright cyan room fragments at the outer hair; explicit original-coordinate soft alpha cleanup v2 removes only that room color and preserves dark clothing/hair and warm face RGB. A directly compared 6x original shows the remaining narrow blue area is window between two real dark strands; the explicit7-vertex original-coordinate air polygon clears that gap only. Background and contact shadow bytes stay identical to v2, which remains their sole canonical file.",
+  "excludeWarmRoomRegions": []
+}

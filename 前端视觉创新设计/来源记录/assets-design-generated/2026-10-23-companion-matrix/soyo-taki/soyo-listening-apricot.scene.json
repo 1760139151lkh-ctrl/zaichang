@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-listening-apricot-room4",
+  "character": "soyo",
+  "activity": "listening",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "soyo-listening-apricot-mother-candidate-v2.png",
+  "background": "soyo-listening-apricot-background-calibrated-v24.png",
+  "figure": "soyo-listening-apricot-figure-calibrated-v24.png",
+  "mask": "soyo-listening-apricot-mask-calibrated-v24.png",
+  "shadow": "soyo-listening-apricot-shadow-calibrated-v24.png",
+  "seat": [
+    0.8821614583333334,
+    0.5537109375
+  ],
+  "ground": [
+    0.8053385416666666,
+    0.56640625
+  ],
+  "bodyBounds": [
+    0.779296875,
+    0.2509765625,
+    0.9401041666666666,
+    0.5732421875
+  ],
+  "safeTextBoundary": 0.7688802083333334,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "87.240% 27.051%, 85.872% 26.855%, 84.896% 27.344%, 84.115% 28.223%, 83.138% 30.371%, 82.747% 32.520%, 82.878% 33.105%, 83.073% 31.543%, 83.138% 33.398%, 83.073% 33.984%, 82.682% 34.473%, 82.943% 34.570%, 83.203% 33.887%, 83.138% 36.328%, 81.380% 37.891%, 80.924% 39.551%, 81.185% 38.379%, 81.315% 38.770%, 81.510% 37.988%, 82.096% 37.402%, 80.924% 40.039%, 80.208% 40.820%, 79.818% 41.895%, 79.883% 43.066%, 80.599% 43.848%, 80.924% 43.652%, 80.990% 43.945%, 80.664% 45.312%, 80.664% 44.727%, 79.688% 47.363%, 79.362% 49.512%, 78.451% 51.465%, 78.711% 52.539%, 77.995% 53.711%, 77.995% 54.102%, 79.036% 54.199%, 79.297% 54.590%, 78.060% 56.055%, 78.255% 56.738%, 80.469% 57.129%, 82.747% 56.445%, 82.747% 54.297%, 83.724% 51.465%, 82.878% 54.395%, 83.203% 54.883%, 87.500% 55.762%, 90.039% 55.469%, 90.430% 54.688%, 91.016% 55.957%, 92.253% 56.250%, 91.797% 55.664%, 92.773% 55.762%, 93.164% 56.250%, 93.815% 56.055%, 93.034% 54.883%, 91.536% 54.395%, 91.602% 53.906%, 91.211% 52.637%, 91.471% 51.074%, 90.951% 50.000%, 90.234% 47.168%, 90.299% 46.777%, 90.495% 46.875%, 90.234% 45.898%, 90.299% 44.629%, 90.560% 44.043%, 90.755% 44.531%, 90.625% 45.605%, 90.755% 45.312%, 90.885% 45.703%, 90.885% 44.727%, 91.211% 45.508%, 91.471% 45.312%, 91.667% 45.703%, 92.057% 45.605%, 91.536% 45.312%, 91.536% 44.922%, 91.081% 44.922%, 90.885% 44.434%, 90.951% 43.164%, 91.276% 42.969%, 91.406% 42.285%, 91.536% 42.969%, 91.341% 40.820%, 92.253% 43.262%, 92.253% 44.141%, 91.862% 44.922%, 92.318% 44.141%, 92.318% 42.969%, 91.536% 40.820%, 91.602% 39.551%, 91.406% 38.867%, 89.258% 35.840%, 88.997% 35.156%, 88.802% 33.008%, 89.323% 32.617%, 89.388% 32.031%, 89.714% 32.520%, 89.323% 31.934%, 89.453% 31.836%, 89.128% 30.957%, 89.062% 29.688%, 88.021% 27.637%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "production": "soyo-listening-apricot-layer-processing-v24.json",
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Second producer review confirmed source-coordinate upper mullion and lower pillow pieces inside the true hair loop; original actual outer loop retained. Alpha v24 restores 239 original opaque sleeve highlight/cuff pixels incorrectly cut by the raw matte. Parent v21 overbroad cut rejected, never an adopted input. Two empty floor shoes remain room-owned. All source candidates remain Primary/runtime pending; fixed original support travel0.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json",
+    "runtimeAccepted": false,
+    "producerVisualReview": "Original full mother, source-coordinate detail, selected light/dark alpha, complete empty room and original-coordinate full-room recomposition personally inspected by role_matrix_settings; normal Stage/runtime pending."
+  }
+}

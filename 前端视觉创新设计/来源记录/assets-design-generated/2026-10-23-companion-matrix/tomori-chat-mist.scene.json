@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-chat-mist-room4",
+  "character": "tomori",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "width": 1536,
+  "height": 1024,
+  "mother": "tomori-chat-mist-mother-candidate.png",
+  "background": "tomori-chat-mist-background-calibrated-v3.png",
+  "figure": "tomori-chat-mist-figure-calibrated-v3.png",
+  "mask": "tomori-chat-mist-mask-calibrated-v3.png",
+  "shadow": "tomori-chat-mist-shadow-calibrated-v3.png",
+  "seat": [
+    0.8658854166666666,
+    0.57421875
+  ],
+  "ground": [
+    0.79296875,
+    0.7626953125
+  ],
+  "bodyBounds": [
+    0.7532552083333334,
+    0.2646484375,
+    0.9375,
+    0.765625
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "85.612% 26.465%, 83.203% 27.539%, 81.641% 31.348%, 81.641% 34.473%, 82.096% 35.352%, 82.357% 34.570%, 83.268% 36.523%, 81.380% 37.500%, 81.055% 38.477%, 80.469% 51.270%, 78.125% 55.176%, 77.409% 55.176%, 77.930% 56.445%, 78.711% 56.836%, 77.604% 62.012%, 76.823% 70.410%, 75.326% 75.098%, 76.107% 75.781%, 77.409% 75.488%, 78.190% 76.367%, 79.492% 76.465%, 82.096% 75.000%, 82.031% 69.922%, 83.464% 62.500%, 83.268% 57.422%, 85.677% 57.324%, 87.174% 57.910%, 88.932% 57.324%, 89.974% 55.957%, 90.560% 57.129%, 93.685% 57.129%, 92.904% 55.859%, 91.276% 55.469%, 89.714% 46.777%, 89.128% 38.281%, 86.979% 36.426%, 88.216% 34.668%, 88.216% 30.371%, 87.435% 27.832%",
+  "travel": 0.0078125,
+  "slope": 0.08,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerStage": "candidate",
+    "producerNote": "Correct complete theme mother and actual prompt already primary-approved; exact original RGB layer, source contour/contact, anchors and short range require independent primary layer review. Not runtime-admitted."
+  },
+  "calibrationObservation": {
+    "seatPixels": [
+      1330,
+      588
+    ],
+    "groundPixels": [
+      1218,
+      781
+    ],
+    "shortRangePixels": 12,
+    "note": "Same original chat geometry: actual cushion/skirt and whole front loafer contact. All-source theme illumination retained; final live Stage remains pending."
+  },
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-mist-layer-processing-v3.json"
+}

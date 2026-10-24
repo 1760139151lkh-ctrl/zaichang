@@ -1,0 +1,360 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "tomori-chat-rain-layer-parameters-v3.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "tomori-chat-rain-mother-candidate.png",
+  "motherSha256": "aa5633a61d78f05ffe799975ece0a8f70d1e8007a0ac5243d11601837e03d00e",
+  "matte": "tomori-chat-rain-matte-registered-v3.png",
+  "matteSha256": "167f7d90b3957dea399f055dfd9f902e9efacd2a6f54ac5a0603356155e684af",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [
+    [
+      [
+        1371,
+        419
+      ],
+      [
+        1375,
+        419
+      ],
+      [
+        1376,
+        432
+      ],
+      [
+        1373,
+        433
+      ],
+      [
+        1371,
+        426
+      ]
+    ]
+  ],
+  "excludePolygons": [
+    [
+      [
+        1368,
+        340
+      ],
+      [
+        1373,
+        340
+      ],
+      [
+        1373,
+        345
+      ],
+      [
+        1368,
+        345
+      ]
+    ],
+    [
+      [
+        1379,
+        344
+      ],
+      [
+        1384,
+        344
+      ],
+      [
+        1384,
+        349
+      ],
+      [
+        1379,
+        349
+      ]
+    ],
+    [
+      [
+        1370,
+        352
+      ],
+      [
+        1376,
+        352
+      ],
+      [
+        1376,
+        357
+      ],
+      [
+        1370,
+        357
+      ]
+    ],
+    [
+      [
+        1368,
+        366
+      ],
+      [
+        1373,
+        366
+      ],
+      [
+        1373,
+        372
+      ],
+      [
+        1368,
+        372
+      ]
+    ],
+    [
+      [
+        1254,
+        370
+      ],
+      [
+        1264,
+        370
+      ],
+      [
+        1264,
+        377
+      ],
+      [
+        1254,
+        377
+      ]
+    ],
+    [
+      [
+        1375,
+        374
+      ],
+      [
+        1380,
+        374
+      ],
+      [
+        1380,
+        380
+      ],
+      [
+        1375,
+        380
+      ]
+    ],
+    [
+      [
+        1370,
+        378
+      ],
+      [
+        1375,
+        378
+      ],
+      [
+        1375,
+        383
+      ],
+      [
+        1370,
+        383
+      ]
+    ],
+    [
+      [
+        1371,
+        393
+      ],
+      [
+        1376,
+        393
+      ],
+      [
+        1376,
+        398
+      ],
+      [
+        1371,
+        398
+      ]
+    ],
+    [
+      [
+        1232,
+        433
+      ],
+      [
+        1237,
+        433
+      ],
+      [
+        1237,
+        438
+      ],
+      [
+        1232,
+        438
+      ]
+    ],
+    [
+      [
+        1449,
+        581
+      ],
+      [
+        1455,
+        581
+      ],
+      [
+        1455,
+        586
+      ],
+      [
+        1449,
+        586
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 3558,
+  "alphaNonzeroPixels": 55951,
+  "alphaBounds": [
+    1157,
+    269,
+    1438,
+    784
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "11871c85a6290ddce6c45f2ea556223c7d2a9f89cf8eb4158d586c6c17c2a498",
+  "figureRgbSha256": "11871c85a6290ddce6c45f2ea556223c7d2a9f89cf8eb4158d586c6c17c2a498",
+  "background": {
+    "candidate": "tomori-chat-rain-background-generated-v1.png",
+    "candidateSha256": "fbc19268d6eed94d5a51a280dd95e5a432a25e267b33df4c76b4199c958eaa9a",
+    "expandPixels": 10,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          1148,
+          717
+        ],
+        [
+          1285,
+          717
+        ],
+        [
+          1285,
+          798
+        ],
+        [
+          1148,
+          798
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 88213,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1148,
+          717
+        ],
+        [
+          1285,
+          717
+        ],
+        [
+          1285,
+          798
+        ],
+        [
+          1148,
+          798
+        ]
+      ],
+      [
+        [
+          1180,
+          560
+        ],
+        [
+          1452,
+          560
+        ],
+        [
+          1452,
+          608
+        ],
+        [
+          1180,
+          608
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "tomori-chat-rain-figure-calibrated-v3.png",
+      "bytes": 2308291,
+      "sha256": "424387641d7101080a17796b3031dd1878c8d607e1fd03bbe6cd3b559dbb1d50"
+    },
+    {
+      "file": "tomori-chat-rain-mask-calibrated-v3.png",
+      "bytes": 17956,
+      "sha256": "1e306c66c1cd7c7426cde546ae9e714a6ac33a60acd290d7826543b9d33bf0d4"
+    },
+    {
+      "file": "tomori-chat-rain-background-calibrated-v3.png",
+      "bytes": 2006662,
+      "sha256": "bb93d475faa5aa6f6e102d06fd418bc661c4154eb45ad9474c31311c59c6a859"
+    },
+    {
+      "file": "tomori-chat-rain-shadow-calibrated-v3.png",
+      "bytes": 42935,
+      "sha256": "d290eae3b4fd7238529a588a37cdfb4267b96982ba8ab7187ddce0df8da4c988"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  },
+  "mattePreparation": {
+    "processor": "tomori-matte-registration.py",
+    "processorSha256": "89219d225d3f435f5b38b5d0b161b17deec6e83530cb5a84fcae142564b2dda7",
+    "parameters": "tomori-chat-rain-layer-parameters-v3.json",
+    "parametersSha256": "fa6b88688940d781b9814815a2c2f238948ae66c913efe7b198e4200dc6f55fe",
+    "proposalSource": "tomori-chat-rain-matte-layer-source-v1.json",
+    "backgroundSource": "tomori-chat-rain-background-layer-source-v1.json",
+    "dependencies": {
+      "Pillow": "12.2.0",
+      "NumPy": "2.4.6",
+      "OpenCV": "4.13.0"
+    },
+    "transform": "Only alpha proposal registered/refined and interior cloth-alpha gap filled; original source RGB untouched.",
+    "alphaRegionCaps": []
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-approved-mother-layer-generation",
+  "date": "2026-10-24",
+  "mother": {
+    "file": "mutsumi-planning-apricot-mother-candidate-v1.png",
+    "sha256": "ebcd02b354a1661687afdd2e9a92d6c3b7531bc7555a98eb0563516eff83ddd1"
+  },
+  "motherApprovalRecord": "primary-other-mother-reviews.json",
+  "tool": "image_gen.imagegen (built-in)",
+  "generations": [
+    {
+      "kind": "matching clean background v1",
+      "prompt": {
+        "file": "mutsumi-planning-apricot-background-v1-prompt.txt",
+        "sha256": "b27541f76a877478d697608d218ce1169cff3848594bb465c9ee1f878bfd7421"
+      },
+      "inputs": [
+        {
+          "file": "mutsumi-planning-apricot-mother-candidate-v1.png",
+          "sha256": "ebcd02b354a1661687afdd2e9a92d6c3b7531bc7555a98eb0563516eff83ddd1"
+        }
+      ],
+      "output": {
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-290f80b5-31c4-44bb-ac7a-f55d733202f2.png",
+        "sha256": "d2981c39546a4a47a7e0dec5867784cb5811d6fe57ec0f31a31dacc6e2463ad6"
+      },
+      "selectedForProcessing": false,
+      "designerObservation": "Rejected: extra hidden-area book stack appeared; not copied/adopted."
+    },
+    {
+      "kind": "registered person mask v1",
+      "prompt": {
+        "file": "mutsumi-planning-apricot-mask-v1-prompt.txt",
+        "sha256": "7a6311262540cb422f54a1f5eb880d6eb8108e945be8226d8bd37d982969127d"
+      },
+      "inputs": [
+        {
+          "file": "mutsumi-planning-apricot-mother-candidate-v1.png",
+          "sha256": "ebcd02b354a1661687afdd2e9a92d6c3b7531bc7555a98eb0563516eff83ddd1"
+        }
+      ],
+      "output": {
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-c0ec3c44-3ed2-458a-9f2f-406c17f59903.png",
+        "sha256": "470caeb5467128056d796cb09f0e59453380caabe146be39a7143219968c980a",
+        "file": "mutsumi-planning-apricot-mask-candidate-v1.png"
+      },
+      "selectedForProcessing": true,
+      "designerObservation": "Full mask personally viewed, original position but source chair occlusion/hair overdraw/fabric line holes need original-coordinate alpha calibration. No geometry transform."
+    },
+    {
+      "kind": "matching clean background v2",
+      "prompt": {
+        "file": "mutsumi-planning-apricot-background-v2-prompt.txt",
+        "sha256": "eb39a6309500c4646c0e0ed60db4843269a3201634d8d9f27c7b98231b663ef9"
+      },
+      "inputs": [
+        {
+          "file": "mutsumi-planning-apricot-mother-candidate-v1.png",
+          "sha256": "ebcd02b354a1661687afdd2e9a92d6c3b7531bc7555a98eb0563516eff83ddd1"
+        }
+      ],
+      "output": {
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-572aea6c-cac9-4a09-82be-00cb5934b22b.png",
+        "sha256": "9ea5576a365c26b29abdb44a9937e3e76f20bcd2c3725cd143a7be0a28a2255c",
+        "file": "mutsumi-planning-apricot-background-candidate-v2.png"
+      },
+      "selectedForProcessing": true,
+      "designerObservation": "Full image personally viewed: exactly two cards and one original dark book; extra stack removed, original occupied-chair direction/footprint retained."
+    }
+  ],
+  "review": {
+    "approvedByPrimary": false,
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false
+  }
+}

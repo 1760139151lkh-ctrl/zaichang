@@ -1,0 +1,282 @@
+{
+  "mother": "tomori-attention-apricot-mother.png",
+  "motherSha256": "06c582ace8f0cb0c6079ed89c6a1defd3bbb9e05525b7c3af11b4e364499e1f7",
+  "matte": "tomori-attention-matte-registered-v1.png",
+  "matteRegistration": {
+    "proposal": "tomori-attention-matte-generated-v1.png",
+    "proposalSha256": "8efb74fc1705264ef5ddea05a85545336a3d70458f7c911b2d59d4c490a90c29",
+    "sourceBounds": [
+      1104,
+      295,
+      1400,
+      782
+    ],
+    "targetBounds": [
+      1104,
+      295,
+      1400,
+      782
+    ]
+  },
+  "registeredRefinement": {
+    "uncertainBandPixels": 16,
+    "edgeFeatherPixels": 0.6,
+    "foregroundPolygons": [
+      [
+        [
+          1284,
+          354
+        ],
+        [
+          1288,
+          354
+        ],
+        [
+          1288,
+          358
+        ],
+        [
+          1284,
+          358
+        ]
+      ],
+      [
+        [
+          1275,
+          474
+        ],
+        [
+          1279,
+          474
+        ],
+        [
+          1279,
+          478
+        ],
+        [
+          1275,
+          478
+        ]
+      ],
+      [
+        [
+          1130,
+          442
+        ],
+        [
+          1134,
+          442
+        ],
+        [
+          1134,
+          446
+        ],
+        [
+          1130,
+          446
+        ]
+      ],
+      [
+        [
+          1157,
+          450
+        ],
+        [
+          1161,
+          450
+        ],
+        [
+          1161,
+          454
+        ],
+        [
+          1157,
+          454
+        ]
+      ],
+      [
+        [
+          1370,
+          574
+        ],
+        [
+          1374,
+          574
+        ],
+        [
+          1374,
+          578
+        ],
+        [
+          1370,
+          578
+        ]
+      ],
+      [
+        [
+          1206,
+          574
+        ],
+        [
+          1210,
+          574
+        ],
+        [
+          1210,
+          578
+        ],
+        [
+          1206,
+          578
+        ]
+      ],
+      [
+        [
+          1150,
+          690
+        ],
+        [
+          1154,
+          690
+        ],
+        [
+          1154,
+          694
+        ],
+        [
+          1150,
+          694
+        ]
+      ],
+      [
+        [
+          1221,
+          688
+        ],
+        [
+          1225,
+          688
+        ],
+        [
+          1225,
+          692
+        ],
+        [
+          1221,
+          692
+        ]
+      ],
+      [
+        [
+          1132,
+          759
+        ],
+        [
+          1136,
+          759
+        ],
+        [
+          1136,
+          763
+        ],
+        [
+          1132,
+          763
+        ]
+      ],
+      [
+        [
+          1195,
+          763
+        ],
+        [
+          1199,
+          763
+        ],
+        [
+          1199,
+          767
+        ],
+        [
+          1195,
+          767
+        ]
+      ]
+    ],
+    "backgroundPolygons": []
+  },
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "tomori-attention-figure-calibrated-v1.png",
+  "mask": "tomori-attention-mask-calibrated-v1.png",
+  "backgroundCandidate": "tomori-attention-background-generated-v1.png",
+  "background": "tomori-attention-background-calibrated-v1.png",
+  "backgroundExpandPixels": 10,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1092,
+        726
+      ],
+      [
+        1247,
+        726
+      ],
+      [
+        1247,
+        798
+      ],
+      [
+        1092,
+        798
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1092,
+        726
+      ],
+      [
+        1247,
+        726
+      ],
+      [
+        1247,
+        798
+      ],
+      [
+        1092,
+        798
+      ]
+    ],
+    [
+      [
+        1157,
+        548
+      ],
+      [
+        1408,
+        548
+      ],
+      [
+        1408,
+        609
+      ],
+      [
+        1157,
+        609
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "tomori-attention-shadow-calibrated-v1.png",
+  "record": "tomori-attention-layer-processing-v1.json",
+  "reviewNote": "Original mother RGB only, no pose/body repaint. Generated alpha stays source-canvas then source-colour segmentation establishes actual contour. All outputs remain candidates pending edge/contact inspection and primary acceptance."
+}

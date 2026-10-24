@@ -1,0 +1,66 @@
+{
+  "recordType": "original-scene-selected-layer-source",
+  "date": "2026-10-24",
+  "scene": "mutsumi-play-apricot.scene.json",
+  "sceneSha256": "00953e147a8c4ebb444dc4ed0f9bf4e70cd4cdefdf371eb9b9f3237d1bcfb084",
+  "selected": {
+    "mother": {
+      "file": "mutsumi-play-apricot-mother-candidate-v2.png",
+      "sha256": "bddfde972af4dc64865025af3035883e0a1e15497e17ed52bc9ef9a7e6d058df",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "file": "mutsumi-play-apricot-background-candidate-v1.png",
+      "sha256": "23496d18cee1c145ee81938e7edbe261e233c0f19d2f11906c453b824a80bab0",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figure": {
+      "file": "mutsumi-play-apricot-figure-calibrated-v2.png",
+      "sha256": "972f921bd6c1611ecbe08a3f98017da94cdacde53c5a2830c23f9b05c367ef6f",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "mask": {
+      "file": "mutsumi-play-apricot-mask-calibrated-v2.png",
+      "sha256": "84ca6b5c11eb140f1bd8496e3173eab98771e7bc6c9bf4fd5fb56e6294221d7f",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "shadow": {
+      "file": "mutsumi-play-apricot-shadow-calibrated-v2.png",
+      "sha256": "ec8a98b2438418145b16e6a35960dacaf7c16565532a56dde5264492f71d3350",
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "extractionGenerations": "mutsumi-play-apricot-extraction-source.json",
+  "productionParameters": [
+    "mutsumi-play-apricot-layer-parameters-v1.json",
+    "mutsumi-play-apricot-layer-parameters-v2.json"
+  ],
+  "figureProduction": "mutsumi-play-apricot-layer-processing-v2.json",
+  "rgbMethod": "Entire original mother RGB payload, identity canvas, alpha-only visibility; no face/body/pose repaint",
+  "motherRgbByteSha256": "5b99b18dcde8c6915089c923b44accb30909cbaa088286ce06a550c3ae74e388",
+  "figureRgbByteSha256": "5b99b18dcde8c6915089c923b44accb30909cbaa088286ce06a550c3ae74e388",
+  "actualRgbPayloadEqual": true,
+  "selectedBackgroundMethod": "Complete matching same-mother clean background selected, preserving actual bench/cushion/desk and original prop count. Partial processed BG is diagnostic only to avoid original foot cast-shadow floor patches outside alpha; separate normal source-over3px contact shadow remains original support only.",
+  "designerObservation": "Original genuine forward torso lean, seat/low supporting palm and staggered complete floor shoes form original balance. Tiny held folded paper leaf belongs actor, static outdoor plants do not. Correct Primary motherV2 has plain neckline/no retired V1 jewelry. Generated maskv1 enlarged/upshifted head rejected/notcopied; registered v2 seed plus full original-RGB matte. v2 excludes actual orange window-post strip in original rear-hair gap only. All body/face/pose/RGB remain original; finest strand/background mix for Primary optical judgment. Travel0 preserves original multi-contact reach. Primary/actual Stage pending. Personally viewed original/full actual prompt, raw generations, final deep/light/fullroom/empty and isolated shadow; RGB equality does not substitute Primary optical review.",
+  "review": {
+    "approvedByPrimary": false,
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false,
+    "integrated": false
+  }
+}

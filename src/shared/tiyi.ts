@@ -68,7 +68,7 @@ export interface TiyiReadArgs {
   end?: number;
   period?: 'WEEK' | 'MONTH' | 'TERM';
   validStatus?: -1 | 0 | 1;
-  subpage?: 'results' | 'schedule' | 'feedback' | 'records' | 'mine' | 'attendance' | 'orders' | 'buddies' | 'training' | 'reservation' | 'art_reservation';
+  subpage?: 'results' | 'schedule' | 'feedback' | 'records' | 'mine' | 'attendance' | 'orders' | 'buddies' | 'training' | 'reservation' | 'art_reservation' | 'certificates';
 }
 
 export interface TiyiConnectorState {
@@ -94,6 +94,10 @@ export interface TiyiObservation {
   fetchedAt?: string;
   observedAt: string;
   snapshotId?: string;
+  /** Reader payloads use recordRead/personalRecordRead for an actual completed
+   * personal query, including a school's explicit empty result. Existence is
+   * expressed separately by readState, recordCount and the returned list.
+   * Public catalogues/live counts and unread/denied queries keep both false. */
   data?: unknown;
   coverage: {
     complete: boolean;
@@ -104,7 +108,7 @@ export interface TiyiObservation {
     next?: { snapshotId: string; offset: number; pointer?: string };
     upstreamPagination?: 'whole_response' | 'paged_response' | 'unknown';
     /** A new school query, never a continuation within this saved response. */
-    upstreamNext?: { resource: 'venues' | 'training'; subpage?: 'orders' | 'training'; upstreamPage: number };
+    upstreamNext?: { resource: 'venues' | 'training' | 'counselling' | 'venue_entries'; subpage?: 'orders' | 'training' | 'records'; upstreamPage: number; termId?: string };
     venueSelection?: {
       resource: 'venues';
       subpage: 'reservation' | 'art_reservation';
@@ -120,6 +124,8 @@ export interface TiyiObservation {
     navigationOnly?: boolean;
     /** JSON pointer within this immutable source response, never an API URL. */
     pointer?: string;
+    /** The immutable source is the authenticated owner's venue profile. */
+    profileRead?: boolean;
   };
   error?: { code: string; message: string; httpStatus?: number; diagnosticsSaved?: boolean };
   note?: string;

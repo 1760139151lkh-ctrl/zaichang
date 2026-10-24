@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-study-apricot-room4",
+  "character": "tomori",
+  "activity": "study",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "tomori-study-apricot-v3-mother.png",
+  "background": "tomori-study-background-calibrated-v7.png",
+  "figure": "tomori-study-figure-calibrated-v7.png",
+  "mask": "tomori-study-mask-calibrated-v7.png",
+  "shadow": "tomori-study-shadow-calibrated-v7.png",
+  "seat": [
+    0.859375,
+    0.5693359375
+  ],
+  "ground": [
+    0.7903645833333334,
+    0.7509765625
+  ],
+  "bodyBounds": [
+    0.7141927083333334,
+    0.3359375,
+    0.8958333333333334,
+    0.75390625
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "80.273% 33.691%, 78.32% 34.277%, 77.214% 36.719%, 76.953% 39.355%, 77.604% 41.113%, 77.539% 42.773%, 77.865% 42.578%, 78.32% 43.457%, 78.971% 43.066%, 78.971% 50.586%, 77.344% 51.172%, 76.302% 50.488%, 76.172% 49.316%, 75.781% 51.855%, 76.107% 52.539%, 76.302% 52.246%, 76.432% 53.223%, 74.349% 54.199%, 76.823% 54.785%, 75.846% 56.445%, 76.302% 57.227%, 74.154% 68.945%, 71.94% 72.168%, 72.201% 72.559%, 71.615% 72.461%, 71.484% 73.73%, 73.763% 73.926%, 74.479% 72.949%, 75.781% 72.754%, 75.456% 69.141%, 77.344% 62.891%, 78.06% 58.398%, 79.167% 69.434%, 78.906% 70.801%, 76.693% 73.438%, 76.497% 74.609%, 77.214% 75.195%, 78.906% 75.0%, 81.055% 73.73%, 80.469% 69.531%, 80.794% 61.816%, 80.208% 58.301%, 82.422% 58.203%, 83.464% 58.887%, 87.956% 57.617%, 88.997% 56.738%, 88.216% 56.543%, 88.607% 56.348%, 88.216% 56.25%, 87.63% 51.953%, 87.044% 50.391%, 86.719% 50.586%, 86.068% 45.41%, 85.938% 45.898%, 85.221% 42.578%, 84.701% 42.676%, 83.203% 41.309%, 83.138% 41.699%, 82.682% 40.918%, 83.073% 40.137%, 83.073% 38.184%, 82.161% 35.742%",
+  "travel": 0.005208333333333333,
+  "slope": 0.08,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerStage": "candidate",
+    "producerNote": "Parent primary must review source/matte/contact and independently confirm these measured source anchors and short bench-tangent range. No runtime admission or physical motion claim."
+  },
+  "calibrationObservation": {
+    "seatPixels": [
+      1320,
+      583
+    ],
+    "groundPixels": [
+      1214,
+      769
+    ],
+    "shortRangePixels": 8,
+    "note": "Seat is source cushion/skirt support; ground is front whole-loafer contact. Candidate values, not copied legacy defaults. Actual Stage still pending."
+  },
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-study-layer-processing-v7.json"
+}

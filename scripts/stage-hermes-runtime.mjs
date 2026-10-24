@@ -12,6 +12,58 @@ const head = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: source, encoding:
 if (head !== lock.commit) throw new Error('Runtime source is not the pinned Hermes revision.');
 const installed = JSON.parse(fs.readFileSync('.runtime/hermes-install.json', 'utf8'));
 const hash = file => createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+const tiyiRuntimeFiles = ['connector.py', ...['__init__', 'common', 'study', 'fitness', 'community'].map(name => `tiyi_modules/${name}.py`)];
+const tiyiRuntime = Object.fromEntries(tiyiRuntimeFiles.map(relative => {
+  const file = path.join(project, 'dist-electron/tiyi-runtime', relative);
+  if (!fs.existsSync(file)) throw new Error('Tiyi runtime is incomplete; run the desktop build first: ' + relative);
+  return [relative, hash(file)];
+}));
+const tiyiSigningRoot = path.join(fs.realpathSync(project), 'dist-electron/tiyi-runtime/signing-dependencies');
+const expectedSigningRoot = path.join(fs.realpathSync(project), 'dist-electron/tiyi-runtime/signing-dependencies');
+if (fs.realpathSync(tiyiSigningRoot) !== expectedSigningRoot)
+  throw new Error('Tiyi signing runtime escaped its exact project resource folder.');
+const tiyiSigningManifest = fs.realpathSync(path.join(tiyiSigningRoot, 'manifest.json'));
+if (!tiyiSigningManifest.startsWith(expectedSigningRoot + path.sep))
+  throw new Error('Tiyi signing manifest escaped its resource folder.');
+const tiyiSigningRuntime = JSON.parse(fs.readFileSync(tiyiSigningManifest, 'utf8'));
+const signingFiles = new Set(['manifest.json']);
+for (const item of tiyiSigningRuntime.files) {
+  if (typeof item.path !== 'string' || !item.path || item.path.includes('\\') || path.win32.parse(item.path).root
+    || item.path.split('/').some(part => !part || part === '.' || part === '..'))
+    throw new Error('Tiyi signing runtime has an invalid resource path.');
+  const file = fs.realpathSync(path.join(tiyiSigningRoot, item.path));
+  if (!file.startsWith(expectedSigningRoot + path.sep) || hash(file) !== item.sha256)
+    throw new Error('Tiyi signing runtime does not match its staged manifest.');
+  signingFiles.add(item.path);
+  const parts = item.path.split('/');
+  for (let index = 1; index < parts.length; index++) signingFiles.add(parts.slice(0, index).join('/') + '/');
+}
+const signingTreeFiles = new Set(), signingDirectories = [tiyiSigningRoot];
+while (signingDirectories.length) {
+  const directory = signingDirectories.pop();
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    const file = path.join(directory, entry.name), real = fs.realpathSync(file);
+    if (entry.isSymbolicLink() || real !== file || !real.startsWith(expectedSigningRoot + path.sep))
+      throw new Error('Tiyi signing runtime contains a redirected path.');
+    if (entry.isDirectory()) {
+      signingTreeFiles.add(path.relative(tiyiSigningRoot, file).split(path.sep).join('/') + '/');
+      signingDirectories.push(file);
+    }
+    else if (entry.isFile()) signingTreeFiles.add(path.relative(tiyiSigningRoot, file).split(path.sep).join('/'));
+    else throw new Error('Tiyi signing runtime contains a non-file entry.');
+  }
+}
+if (signingTreeFiles.size !== signingFiles.size || [...signingTreeFiles].some(file => !signingFiles.has(file)))
+  throw new Error('Tiyi signing runtime tree differs from its manifest.');
+if (!fs.existsSync(path.join(project, 'dist-electron/zju-runtime/scripts/zju.py')))
+  throw new Error('Campus runtime is incomplete; run the desktop build first.');
+const zjuRoot = path.join(project, 'dist-electron/zju-runtime');
+const zjuSource = JSON.parse(fs.readFileSync(path.join(zjuRoot, 'upstream.json'), 'utf8'));
+const zjuRuntime = Object.fromEntries([...zjuSource.files.map(file => file.path), 'upstream.json', 'CONNECTOR.md'].map(relative => {
+  const file = path.resolve(zjuRoot, relative);
+  if (!file.startsWith(zjuRoot + path.sep) || !fs.existsSync(file)) throw new Error('Campus runtime file is missing.');
+  return [relative, hash(file)];
+}));
 for (const patch of installed.patches) if (hash(path.join(source, patch.file)) !== patch.sha256) throw new Error('Unrecorded adapter changes: ' + patch.file);
 const changedFiles = execFileSync('git', ['diff', '--name-only'], { cwd: source, encoding: 'utf8', windowsHide: true }).trim().split(/\r?\n/).filter(Boolean);
 if (changedFiles.some(file => !installed.patches.some(patch => patch.file === file))) throw new Error('Unreviewed changes in pinned runtime source.');
@@ -49,7 +101,7 @@ fs.copyFileSync(path.join(materialRuntime.path, 'node_modules/pdfjs-dist/LICENSE
 fs.copyFileSync(path.join(materialRuntime.path, 'node_modules/@napi-rs/canvas/LICENSE'), 'licenses/Canvas-MIT.txt');
 const info = JSON.parse(execFileSync(path.join(pyTarget, 'python.exe'), ['-I', '-B', '-c', 'import sys,json,openai,httpx; print(json.dumps({"python":sys.version,"base":sys.base_prefix,"openai":openai.__version__}))'], { cwd: target, encoding: 'utf8', windowsHide: true }));
 if (!path.resolve(info.base).startsWith(path.resolve(pyTarget))) throw new Error('Staged Python unexpectedly relies on the machine installation.');
-const manifest = { createdAt: new Date().toISOString(), target, lock, python: info, copiedSourceFiles, sourceSelection: 'git-tracked pinned source plus verified patches; no untracked data or environment files', sidecarSha256: hash('runtime/hermes/sidecar.py'), patches: installed.patches, dependencyLockSha256: hash(path.join(source, 'uv.lock')), containsPrivateData: false, note: 'Static interpreter, pinned source and locked libraries only. No app database, model credential or user conversation is packaged.' };
+const manifest = { createdAt: new Date().toISOString(), target, lock, python: info, copiedSourceFiles, tiyiRuntime, tiyiSigningRuntime, zjuRuntime, sourceSelection: 'git-tracked pinned source plus verified patches; no untracked data or environment files', sidecarSha256: hash('runtime/hermes/sidecar.py'), patches: installed.patches, dependencyLockSha256: hash(path.join(source, 'uv.lock')), containsPrivateData: false, note: 'Static interpreter, pinned source and locked libraries only. No app database, model credential or user conversation is packaged.' };
 fs.writeFileSync(path.join(target, 'manifest.json'), JSON.stringify(manifest, null, 2));
 const stageReport = path.resolve(process.env.ZAICHANG_RUNTIME_STAGE_REPORT || 'build/package-report');
 fs.mkdirSync(stageReport, { recursive: true });

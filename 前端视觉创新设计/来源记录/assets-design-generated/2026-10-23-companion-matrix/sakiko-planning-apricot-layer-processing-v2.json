@@ -2,7 +2,7 @@
   "recordType": "deterministic-scene-layer-production",
   "parameters": "sakiko-planning-apricot-layer-parameters-v2.json",
   "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
-  "mother": "sakiko-planning-apricot.png",
+  "mother": "../../../运行素材/companion/scenes/sakiko-planning-apricot.png",
   "motherSha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11",
   "matte": "sakiko-planning-apricot-mask-generated-v1.png",
   "matteSha256": "11c90cbc8a7123d527a1f2383c1cc86a55114438e9d4355af95d39d2f02709a4",

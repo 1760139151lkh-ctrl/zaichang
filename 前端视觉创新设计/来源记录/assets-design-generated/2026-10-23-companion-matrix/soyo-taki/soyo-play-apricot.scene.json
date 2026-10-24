@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-play-apricot-room4",
+  "character": "soyo",
+  "activity": "play",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "soyo-play-apricot-mother-candidate-v1.png",
+  "background": "soyo-play-apricot-background-calibrated-v14.png",
+  "figure": "soyo-play-apricot-figure-calibrated-v14.png",
+  "mask": "soyo-play-apricot-mask-calibrated-v14.png",
+  "shadow": "soyo-play-apricot-shadow-calibrated-v14.png",
+  "seat": [
+    0.8626302083333334,
+    0.599609375
+  ],
+  "ground": [
+    0.7115885416666666,
+    0.86328125
+  ],
+  "bodyBounds": [
+    0.693359375,
+    0.232421875,
+    0.935546875,
+    0.8701171875
+  ],
+  "safeTextBoundary": 0.68359375,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "78.12% 22.95%, 85.35% 22.56%, 89.26% 26.56%, 90.82% 32.13%, 92.51% 37.99%, 92.97% 44.04%, 90.95% 51.56%, 91.15% 55.66%, 93.88% 57.91%, 93.75% 59.96%, 89.06% 60.45%, 88.35% 63.67%, 83.33% 63.96%, 82.94% 69.63%, 81.25% 75.78%, 81.32% 79.49%, 78.58% 81.45%, 75.65% 80.37%, 74.54% 82.52%, 74.22% 85.84%, 71.68% 87.89%, 69.14% 86.82%, 68.68% 84.38%, 70.83% 78.81%, 71.68% 72.27%, 73.89% 63.96%, 73.11% 60.35%, 73.18% 56.84%, 76.82% 53.22%, 79.23% 50.78%, 80.08% 47.75%, 78.71% 48.93%, 76.82% 48.24%, 76.17% 45.51%, 75.91% 42.68%, 76.95% 39.06%, 76.76% 33.50%, 76.56% 28.71%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "production": "soyo-play-apricot-layer-processing-v14.json",
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Second producer review attenuated only cool original sky fragments inside the inspected outer-left hair gap. Held bookmark stays actor-owned; original RGB unchanged. All source candidates remain Primary/runtime pending; fixed original support travel0.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json",
+    "runtimeAccepted": false,
+    "producerVisualReview": "Original full mother, source-coordinate detail, selected light/dark alpha, complete empty room and original-coordinate full-room recomposition personally inspected by role_matrix_settings; normal Stage/runtime pending."
+  }
+}

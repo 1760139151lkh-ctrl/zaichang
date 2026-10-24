@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "taki",
+  "activity": "chat",
+  "palette": "mist",
+  "layer": "background",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-315d9706-969c-4b3f-a84f-a692ac4a6f94",
+  "prompt": "taki-chat-mist-background-prompt-v1.txt",
+  "promptSha256": "f8844711906704ea66cd441476910c52a7b27f7ff2e02f188c06722ee35abed1",
+  "inputs": [
+    {
+      "file": "taki-chat-mist-mother-candidate-v1.png",
+      "sha256": "e3fc520bcca02e7c72dcee83ea818a288a89676582dfd0870cfb31b86a7261c3",
+      "role": "sole exact primary-reviewed correct complete same-scene theme mother"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-315d9706-969c-4b3f-a84f-a692ac4a6f94.png",
+  "output": {
+    "file": "taki-chat-mist-background-generated-v1.png",
+    "sha256": "dcfa233f33c5a71076bafc9b46fdaf5b79504e6c7877a3c1497057740b4e41cd",
+    "bytes": 2117435,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "clean-background-candidate-for-registration",
+  "review": {
+    "producerViewed": "Complete actual clean background personally viewed with the exact original same-theme mother; no visible person, hair or shoe left. Final local registration/composite remains to inspect.",
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

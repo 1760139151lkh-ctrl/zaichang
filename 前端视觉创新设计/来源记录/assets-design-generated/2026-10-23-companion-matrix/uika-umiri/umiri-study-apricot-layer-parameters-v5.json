@@ -1,0 +1,217 @@
+{
+  "mother": "umiri-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "cb2b45dedddb45a558b4ed49ed28faadddd84aec01c4f10df25b0c9884d71847",
+  "matte": "umiri-study-apricot-figure-calibrated-v4.png",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "umiri-study-apricot-figure-calibrated-v5.png",
+  "mask": "umiri-study-apricot-mask-calibrated-v5.png",
+  "backgroundCandidate": "umiri-study-apricot-background-raw-v1.png",
+  "backgroundExpandPixels": 5,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        887,
+        681
+      ],
+      [
+        1029,
+        678
+      ],
+      [
+        1032,
+        742
+      ],
+      [
+        887,
+        742
+      ]
+    ],
+    [
+      [
+        866,
+        494
+      ],
+      [
+        939,
+        494
+      ],
+      [
+        944,
+        536
+      ],
+      [
+        866,
+        536
+      ]
+    ],
+    [
+      [
+        935,
+        537
+      ],
+      [
+        1025,
+        537
+      ],
+      [
+        1025,
+        650
+      ],
+      [
+        935,
+        650
+      ]
+    ]
+  ],
+  "background": "umiri-study-apricot-background-calibrated-v5.png",
+  "record": "umiri-study-apricot-layer-processing-v5.json",
+  "reviewNote": "v5 freezes inspected v4 body alpha/RGB and clears the observed old personal gray cast shadow on the plain wall beneath the desk (x935..1025,y537..650) using this same-mother clean BG. Narrow source-contact shadow retained; primary/runtime pending.",
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          805,
+          514
+        ],
+        [
+          826,
+          514
+        ],
+        [
+          836,
+          584
+        ],
+        [
+          805,
+          584
+        ]
+      ],
+      "redMin": 150,
+      "redOverGreen": 20,
+      "redOverBlue": 35
+    },
+    {
+      "polygon": [
+        [
+          892,
+          645
+        ],
+        [
+          1026,
+          645
+        ],
+        [
+          1026,
+          729
+        ],
+        [
+          892,
+          729
+        ]
+      ],
+      "redMin": 100,
+      "redOverGreen": 25,
+      "redOverBlue": 50
+    }
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        895,
+        707
+      ],
+      [
+        972,
+        707
+      ],
+      [
+        975,
+        731
+      ],
+      [
+        895,
+        731
+      ]
+    ],
+    [
+      [
+        947,
+        692
+      ],
+      [
+        1026,
+        692
+      ],
+      [
+        1026,
+        724
+      ],
+      [
+        947,
+        724
+      ]
+    ],
+    [
+      [
+        820,
+        561
+      ],
+      [
+        927,
+        561
+      ],
+      [
+        927,
+        594
+      ],
+      [
+        820,
+        594
+      ]
+    ],
+    [
+      [
+        878,
+        477
+      ],
+      [
+        946,
+        477
+      ],
+      [
+        946,
+        503
+      ],
+      [
+        878,
+        503
+      ]
+    ],
+    [
+      [
+        945,
+        465
+      ],
+      [
+        1007,
+        465
+      ],
+      [
+        1007,
+        494
+      ],
+      [
+        945,
+        494
+      ]
+    ]
+  ],
+  "contactShadowEdgePixels": 3,
+  "contactShadowFeatherPixels": 0.6,
+  "shadow": "umiri-study-apricot-shadow-calibrated-v5.png"
+}

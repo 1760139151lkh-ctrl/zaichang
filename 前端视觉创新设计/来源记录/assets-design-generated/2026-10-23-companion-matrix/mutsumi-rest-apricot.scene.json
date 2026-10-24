@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "mutsumi-rest-apricot-room4",
+  "character": "mutsumi",
+  "activity": "rest",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "mutsumi-rest-apricot-mother-candidate-v1.png",
+  "background": "mutsumi-rest-apricot-background-calibrated-v5.png",
+  "figure": "mutsumi-rest-apricot-figure-calibrated-v5.png",
+  "mask": "mutsumi-rest-apricot-mask-calibrated-v5.png",
+  "shadow": "mutsumi-rest-apricot-shadow-calibrated-v5.png",
+  "seat": [
+    0.8802083333333334,
+    0.5625
+  ],
+  "ground": [
+    0.8515625,
+    0.5859375
+  ],
+  "bodyBounds": [
+    0.755859375,
+    0.2744140625,
+    0.958984375,
+    0.5908203125
+  ],
+  "safeTextBoundary": 0.65,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "91.2109% 28.2227%, 90.1042% 27.5391%, 88.6719% 27.9297%, 87.8906% 28.6133%, 87.5000% 29.1992%, 86.9792% 30.5664%, 87.0443% 31.5430%, 87.3698% 32.2266%, 87.3047% 33.2031%, 87.4349% 33.3984%, 87.4349% 34.5703%, 87.6302% 34.8633%, 87.6302% 35.6445%, 87.8255% 35.9375%, 88.0208% 35.9375%, 88.1510% 36.4258%, 88.2813% 36.2305%, 88.5417% 36.3281%, 88.6068% 37.1094%, 88.3464% 37.5000%, 88.2161% 37.4023%, 88.3464% 38.1836%, 87.6953% 39.1602%, 87.1745% 41.1133%, 86.4583% 42.7734%, 86.5234% 44.2383%, 86.3932% 44.7266%, 86.1328% 44.9219%, 86.0677% 45.2148%, 86.1979% 45.1172%, 86.2630% 45.3125%, 85.4167% 46.7773%, 85.0911% 46.7773%, 84.5052% 47.5586%, 83.7240% 47.8516%, 83.2682% 48.2422%, 82.9427% 48.3398%, 82.8125% 48.0469%, 82.4219% 47.8516%, 81.8359% 47.8516%, 81.4453% 48.2422%, 81.4453% 48.5352%, 81.1198% 49.0234%, 81.1198% 49.4141%, 80.0781% 49.4141%, 79.4922% 49.8047%, 78.3854% 50.0000%, 76.1068% 50.9766%, 75.6510% 52.0508%, 75.6510% 53.3203%, 76.1068% 54.1992%, 77.0182% 54.7852%, 77.4089% 54.7852%, 77.6693% 55.1758%, 80.8594% 56.0547%, 83.8542% 57.8125%, 84.8958% 58.8867%, 85.4818% 58.8867%, 85.6120% 58.6914%, 85.5469% 57.4219%, 85.6771% 57.2266%, 86.9141% 57.1289%, 87.7604% 56.8359%, 89.5182% 56.7383%, 90.6250% 56.2500%, 90.2995% 54.9805%, 90.3646% 52.2461%, 90.4948% 51.6602%, 90.4297% 49.9023%, 90.9505% 49.5117%, 91.0807% 50.3906%, 91.0156% 54.1016%, 91.1458% 54.5898%, 91.0156% 54.8828%, 91.0156% 55.9570%, 91.8620% 55.9570%, 92.0573% 56.4453%, 92.5781% 56.6406%, 92.9688% 56.5430%, 94.0104% 56.7383%, 94.0755% 56.9336%, 94.5313% 56.9336%, 94.6615% 56.7383%, 94.0104% 56.0547%, 93.5547% 55.9570%, 93.2943% 55.1758%, 92.6432% 55.0781%, 93.0339% 54.1016%, 93.0339% 53.1250%, 92.7734% 52.3438%, 92.7734% 49.6094%, 92.9688% 49.1211%, 92.7734% 48.9258%, 93.2292% 47.8516%, 93.9453% 46.8750%, 95.0521% 46.5820%, 95.6380% 45.7031%, 95.6380% 44.7266%, 95.7682% 44.5313%, 95.7031% 44.2383%, 95.1823% 43.6523%, 95.3776% 43.4570%, 94.9219% 42.2852%, 94.2057% 41.4063%, 94.2057% 41.1133%, 93.2943% 39.0625%, 92.5781% 35.3516%, 92.3828% 30.9570%, 92.1224% 30.6641%, 91.7969% 29.2969%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "runtimeAccepted": false,
+    "runtimeReviewRecord": "primary-runtime-reviews.json",
+    "producerNote": "Original side/back lake-facing rest. Folded thigh/sock/foot on cushion, rear palm and hips supported, original far leg naturally hidden and never painted. Both detached empty loafers remain static original roomRGB; actor alpha ends605 and excludes floor shoes. Enlarged/upshifted Imagegen maskv1 rejected, never used as input or matte. SourceRGB/BG trimap, exact original body/skin/arm regions, original-blue-pillow/leaf holes and actual front hair/arm boundary calibrated in alpha only. Rear sleeve continuity and actual exposed thigh/complete foot restored from correct original alpha, no anatomy/RGB repaint. Fine edge/strand remains Primary optical judgment. Fixed travel0. Primary/real Stage pending."
+  },
+  "production": "mutsumi-rest-apricot-layer-processing-v5.json"
+}

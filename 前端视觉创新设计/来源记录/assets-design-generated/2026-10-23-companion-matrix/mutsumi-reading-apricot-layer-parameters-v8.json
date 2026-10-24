@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "mother": "mutsumi-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+  "matte": "mutsumi-reading-apricot-mask-calibrated-v7.png",
+  "matteSha256": "a08e076adaa4b95134587bde76daad9e000a27e0a2f917c1e93fb8163434ca09",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "mutsumi-reading-apricot-figure-calibrated-v8.png",
+  "mask": "mutsumi-reading-apricot-mask-calibrated-v8.png",
+  "backgroundCandidate": "mutsumi-reading-apricot-background-candidate-v1.png",
+  "background": "mutsumi-reading-apricot-background-calibrated-v8.png",
+  "shadow": "mutsumi-reading-apricot-shadow-calibrated-v8.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1040,
+        713
+      ],
+      [
+        1194,
+        716
+      ],
+      [
+        1207,
+        766
+      ],
+      [
+        1032,
+        765
+      ]
+    ],
+    [
+      [
+        1147,
+        594
+      ],
+      [
+        1347,
+        609
+      ],
+      [
+        1314,
+        724
+      ],
+      [
+        1160,
+        724
+      ]
+    ],
+    [
+      [
+        1310,
+        300
+      ],
+      [
+        1410,
+        295
+      ],
+      [
+        1439,
+        338
+      ],
+      [
+        1479,
+        409
+      ],
+      [
+        1490,
+        477
+      ],
+      [
+        1459,
+        533
+      ],
+      [
+        1430,
+        563
+      ],
+      [
+        1398,
+        584
+      ],
+      [
+        1304,
+        552
+      ],
+      [
+        1300,
+        425
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1035,
+        719
+      ],
+      [
+        1104,
+        711
+      ],
+      [
+        1114,
+        738
+      ],
+      [
+        1040,
+        744
+      ]
+    ],
+    [
+      [
+        1096,
+        737
+      ],
+      [
+        1187,
+        728
+      ],
+      [
+        1193,
+        755
+      ],
+      [
+        1100,
+        758
+      ]
+    ],
+    [
+      [
+        1257,
+        587
+      ],
+      [
+        1372,
+        579
+      ],
+      [
+        1380,
+        609
+      ],
+      [
+        1265,
+        620
+      ]
+    ],
+    [
+      [
+        1408,
+        455
+      ],
+      [
+        1463,
+        448
+      ],
+      [
+        1447,
+        570
+      ],
+      [
+        1390,
+        574
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [],
+  "includePolygons": [],
+  "alphaPolygonRepairs": [],
+  "record": "mutsumi-reading-apricot-layer-processing-v8.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "All visible figure RGB comes from original approved mother. Displaced Imagegen masks explicitly rejected and not used. Alpha produced from original-canvas observed contour + matching-BG difference trimap in mutsumi-source-matte.py; source-alpha-v1.json records production. Held lap book is body-owned; blue plaid/floral support pillows are room BG, fixed reclined-back posture. v1 original-coordinate matte had observed false cushion/window and reading-leg exclusion. v2 replaces those uncertain seeds with explicitly observed original-body / room seeds; no generated drifting matte used. v3 source-alpha repairs only personally observed original skin/navy leg/page and exact room-color ROIs; parameters/processor in source-alpha-v3.json. Entire figure RGB remains original. v7 matching-BG registration clears the whole personally observed original hair envelope, including fine strands rejected by earlier alpha, so no old hair outline remains in empty BG. Figure RGB is unchanged; no foreground person is painted. Parent independent final v7 light/room inspection found original near-sock outer edge pixel flakes/nibbled boundary. v8 refines alpha only in actual original navy lower-leg ROI against original RGB, preserving both original legs and their true gap. No head/book/skirt/body RGB or geometry changes.",
+  "localColorMatteRefinement": {
+    "region": [
+      1110,
+      598,
+      1239,
+      724
+    ],
+    "seedThreshold": 110,
+    "uncertainBandPixels": 4,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.35
+  }
+}

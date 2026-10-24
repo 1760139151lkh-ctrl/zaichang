@@ -1,0 +1,31 @@
+{
+  "recordType": "local-original-coordinate-alpha-refinement",
+  "script": "soyo-listening-apricot-alpha-local-v15.py",
+  "scriptSha256": "31fcf09daebe25d7cd27a1f3063689806e869a046b29a2f0ea1dd820a440e6ed",
+  "parameters": "soyo-listening-apricot-alpha-local-parameters-v15.json",
+  "parametersSha256": "c93af7f46188ef857de1648358fab306c492b6892725973a4d42a842811353d9",
+  "inputs": [
+    {
+      "file": "soyo-listening-apricot-mother-candidate-v2.png",
+      "sha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4"
+    },
+    {
+      "file": "soyo-listening-apricot-mask-calibrated-v13.png",
+      "sha256": "f35bcb2b2feca33b529f7b1e393b70759422bbbbd6afd6c22112a1ce44e0d0de"
+    }
+  ],
+  "output": "soyo-listening-apricot-alpha-local-v15.png",
+  "outputSha256": "ebe2b70ddf5317f9d4550db613cf7ad65fb1d1319a8ca5deec4880dde1995c4e",
+  "region": [
+    1375,
+    405,
+    1410,
+    482
+  ],
+  "rgbRepaint": false,
+  "geometryTransform": "identity",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

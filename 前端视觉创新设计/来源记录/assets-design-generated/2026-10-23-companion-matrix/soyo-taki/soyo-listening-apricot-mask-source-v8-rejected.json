@@ -1,0 +1,29 @@
+{
+  "recordType": "image-generation-source",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-b4de628d-776e-49e8-8291-75a55eb53c10",
+  "prompt": "soyo-listening-apricot-mask-prompt-v8.txt",
+  "promptSha256": "ccaac63bc7d37f065185d61f983028bcaf25427f44068df4757772df0b4f1586",
+  "inputs": [
+    {
+      "file": "soyo-listening-apricot-mother-candidate-v2.png",
+      "sha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4",
+      "role": "sole correct approved mother; no wrong image input"
+    }
+  ],
+  "output": {
+    "file": "soyo-listening-apricot-mask-generated-v8-rejected.png",
+    "sha256": "4a39025ed52eb840f0382c21b7d62fc19a6f753cea91a47a3bac6af85d00bd68",
+    "size": [
+      1536,
+      1024
+    ],
+    "bytes": 347214
+  },
+  "review": {
+    "producerDecision": "rejected",
+    "reason": "Mask visibly enlarges and shifts upper body: head starts around y235 rather than original y277; wrong scalp/shoulder/knee coordinates. Not used for extraction or future generation.",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

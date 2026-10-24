@@ -1,0 +1,18 @@
+{
+  "recordType": "deterministic-original-coordinate-alpha-production",
+  "processor": "soyo-warm-layer-production.py",
+  "processorSha256": "32c5d9520738f9d129e167672b2f33ca2a0a3679a2f9b60a3cfc5138ea4b45bf",
+  "parameters": "soyo-play-apricot-alpha-parameters-v1.json",
+  "parametersSha256": "335da3eaa2f53ccf17fd4085bed321db0f963574b77fa9aa24e8827f5b78faa3",
+  "OpenCV": "4.13.0",
+  "mother": "soyo-play-apricot-mother-candidate-v1.png",
+  "motherSha256": "81e654d671e5da16986fe32fe6e742c12042c684cad689f59885706eb29cc1f4",
+  "backgroundCue": "soyo-play-apricot-background-candidate-v1.png",
+  "backgroundCueSha256": "f9453f7cbd61adbad66527365bad4f87c62fdb470d880ab97c2dc50d8e63594b",
+  "alpha": "soyo-play-apricot-alpha-original-v1.png",
+  "alphaSha256": "c4b0af60b02aef52cdb6752232819745b4f5b5f047480bd2b73e544d3f3847c1",
+  "geometryTransform": "identity",
+  "rgbRepaint": false,
+  "primaryLayerReview": "pending",
+  "runtimeAccepted": false
+}

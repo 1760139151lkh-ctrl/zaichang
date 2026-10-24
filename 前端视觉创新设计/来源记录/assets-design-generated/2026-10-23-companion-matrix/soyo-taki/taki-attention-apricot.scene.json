@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "taki-attention-apricot-room4",
+  "character": "taki",
+  "activity": "attention",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "taki-attention-apricot-mother-candidate-v2.png",
+  "background": "taki-attention-apricot-background-calibrated-v5.png",
+  "figure": "taki-attention-apricot-figure-calibrated-v5.png",
+  "mask": "taki-attention-apricot-mask-calibrated-v5.png",
+  "shadow": "taki-attention-apricot-shadow-calibrated-v5.png",
+  "seat": [
+    0.6145833333333334,
+    0.5732421875
+  ],
+  "ground": [
+    0.6822916666666666,
+    0.7109375
+  ],
+  "bodyBounds": [
+    0.5494791666666666,
+    0.2998046875,
+    0.6985677083333334,
+    0.7158203125
+  ],
+  "safeTextBoundary": 0.53,
+  "support": "desk-chair",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": false,
+  "hitPolygon": "61.198% 29.297%, 64.714% 29.297%, 66.341% 33.203%, 65.690% 38.086%, 65.690% 41.992%, 66.602% 46.484%, 65.169% 48.340%, 65.104% 50.391%, 66.406% 52.246%, 67.708% 58.203%, 68.229% 62.598%, 70.182% 67.969%, 70.573% 72.168%, 67.448% 72.363%, 65.430% 70.117%, 64.518% 67.383%, 63.672% 67.969%, 65.234% 70.313%, 65.234% 72.070%, 61.198% 71.973%, 60.612% 68.359%, 61.589% 64.258%, 61.458% 60.645%, 61.263% 58.398%, 58.724% 58.398%, 57.031% 56.152%, 56.966% 51.074%, 55.469% 48.438%, 54.297% 46.680%, 54.688% 41.992%, 56.510% 38.379%, 58.854% 33.203%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "production": "taki-attention-apricot-layer-processing-v5.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "producerNote": "Original desk-chair/table occlusion retained, held pencil belongs to actor; desk paper and folded bench card stay with room. Fixed desk/hand contact and two shoes, travel 0; hidden body not completed.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "recordType": "deterministic-observed-source-alpha-repair",
+  "script": "mutsumi-observed-alpha-repairs.py",
+  "scriptSha256": "cbc919e11e9e658ab6561fd4bcf346b14d25cab66e569428baca52f5bf70ff83",
+  "parameters": "mutsumi-reading-apricot-alpha-repair-parameters-v9.json",
+  "parametersSha256": "db5f062b09e4e41c23ae617ccddd5bb2ed99bbde18fa000771be91b60bafae55",
+  "mother": "mutsumi-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+  "inputAlpha": "mutsumi-reading-apricot-source-alpha-v6.png",
+  "inputAlphaSha256": "3d8ef186b17caa2e2470185a4f9cecf1e2eeb555524a5246d113dbe4766f77f5",
+  "outputAlpha": "mutsumi-reading-apricot-source-alpha-v9.png",
+  "outputAlphaSha256": "4936735945027ac53839484d46dce23816d7124be052a13a744d09e46b68f32f",
+  "rules": [
+    {
+      "purpose": "Original coordinate grid confirms this rectangle contains only original navy sock shins and warm wooden background, not skin/shoe/book; remove fragmented previous matte here only.",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1140,
+          630
+        ],
+        [
+          1223,
+          630
+        ],
+        [
+          1223,
+          691
+        ],
+        [
+          1140,
+          691
+        ]
+      ],
+      "channels": [],
+      "differences": []
+    },
+    {
+      "purpose": "Restore the actual original continuous navy cloth silhouette from original RGB, preserving the true gap; no drawing of a new leg.",
+      "mode": "include",
+      "polygon": [
+        [
+          1140,
+          630
+        ],
+        [
+          1223,
+          630
+        ],
+        [
+          1223,
+          691
+        ],
+        [
+          1140,
+          691
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          0,
+          140
+        ],
+        [
+          1,
+          0,
+          140
+        ],
+        [
+          2,
+          0,
+          140
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          2,
+          -30,
+          14
+        ],
+        [
+          2,
+          1,
+          -1,
+          30
+        ]
+      ]
+    }
+  ],
+  "explicitOriginalRoomExclusions": [],
+  "method": "Only original-canvas alpha visibility corrected inside personally observed RGB/room ROIs; no body/RGB redraw, warp or hidden anatomy completion.",
+  "review": {
+    "primaryLayer": "pending",
+    "runtime": "not registered or exercised"
+  }
+}

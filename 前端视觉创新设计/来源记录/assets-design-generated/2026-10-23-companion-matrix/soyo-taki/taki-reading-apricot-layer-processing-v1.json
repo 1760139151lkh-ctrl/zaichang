@@ -1,0 +1,485 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "taki-reading-apricot-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "taki-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "950b6f05f48f6b0ca0335bdffb0468379b95e95576e1afd8da487be488f5314b",
+  "matte": "taki-reading-apricot-alpha-calibrated-v1.png",
+  "matteSha256": "ccab0f017d8588858b642bcf2e264ab0b99670a9e114326ab459911da933438c",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 245,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 0,
+  "alphaNonzeroPixels": 34104,
+  "alphaBounds": [
+    773,
+    320,
+    1064,
+    720
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "e42d888424281a025f05c602ebb68fe9b102c7755cdebce3509c8758e6317ec8",
+  "figureRgbSha256": "e42d888424281a025f05c602ebb68fe9b102c7755cdebce3509c8758e6317ec8",
+  "background": {
+    "candidate": "taki-reading-apricot-background-generated-v1.png",
+    "candidateSha256": "bdca28cf9b164343d9eaa9e38eae488d9b17022aed4ae7965972b6ba8b3ac2ff",
+    "expandPixels": 5,
+    "featherPixels": 1.2,
+    "additionalErasePolygons": [
+      [
+        [
+          944,
+          681
+        ],
+        [
+          1070,
+          681
+        ],
+        [
+          1088,
+          758
+        ],
+        [
+          940,
+          758
+        ]
+      ],
+      [
+        [
+          842,
+          326
+        ],
+        [
+          832,
+          337
+        ],
+        [
+          810,
+          387
+        ],
+        [
+          792,
+          411
+        ],
+        [
+          775,
+          448
+        ],
+        [
+          784,
+          438
+        ],
+        [
+          781,
+          463
+        ],
+        [
+          788,
+          474
+        ],
+        [
+          789,
+          460
+        ],
+        [
+          794,
+          475
+        ],
+        [
+          768,
+          473
+        ],
+        [
+          785,
+          575
+        ],
+        [
+          793,
+          586
+        ],
+        [
+          773,
+          700
+        ],
+        [
+          781,
+          696
+        ],
+        [
+          803,
+          605
+        ],
+        [
+          827,
+          612
+        ],
+        [
+          814,
+          715
+        ],
+        [
+          817,
+          720
+        ],
+        [
+          823,
+          715
+        ],
+        [
+          842,
+          614
+        ],
+        [
+          901,
+          611
+        ],
+        [
+          904,
+          684
+        ],
+        [
+          908,
+          691
+        ],
+        [
+          911,
+          610
+        ],
+        [
+          928,
+          608
+        ],
+        [
+          939,
+          713
+        ],
+        [
+          945,
+          715
+        ],
+        [
+          941,
+          593
+        ],
+        [
+          947,
+          589
+        ],
+        [
+          947,
+          580
+        ],
+        [
+          930,
+          575
+        ],
+        [
+          956,
+          573
+        ],
+        [
+          961,
+          578
+        ],
+        [
+          955,
+          613
+        ],
+        [
+          964,
+          662
+        ],
+        [
+          958,
+          714
+        ],
+        [
+          973,
+          716
+        ],
+        [
+          979,
+          711
+        ],
+        [
+          993,
+          718
+        ],
+        [
+          1020,
+          716
+        ],
+        [
+          1022,
+          704
+        ],
+        [
+          1035,
+          710
+        ],
+        [
+          1061,
+          709
+        ],
+        [
+          1058,
+          697
+        ],
+        [
+          1045,
+          695
+        ],
+        [
+          1021,
+          671
+        ],
+        [
+          991,
+          549
+        ],
+        [
+          981,
+          543
+        ],
+        [
+          948,
+          537
+        ],
+        [
+          946,
+          533
+        ],
+        [
+          900,
+          528
+        ],
+        [
+          889,
+          515
+        ],
+        [
+          910,
+          508
+        ],
+        [
+          917,
+          494
+        ],
+        [
+          935,
+          491
+        ],
+        [
+          987,
+          461
+        ],
+        [
+          984,
+          449
+        ],
+        [
+          978,
+          445
+        ],
+        [
+          963,
+          450
+        ],
+        [
+          958,
+          440
+        ],
+        [
+          951,
+          437
+        ],
+        [
+          907,
+          464
+        ],
+        [
+          889,
+          470
+        ],
+        [
+          887,
+          451
+        ],
+        [
+          871,
+          425
+        ],
+        [
+          869,
+          428
+        ],
+        [
+          867,
+          404
+        ],
+        [
+          875,
+          406
+        ],
+        [
+          890,
+          391
+        ],
+        [
+          887,
+          381
+        ],
+        [
+          893,
+          374
+        ],
+        [
+          892,
+          380
+        ],
+        [
+          900,
+          376
+        ],
+        [
+          902,
+          380
+        ],
+        [
+          906,
+          362
+        ],
+        [
+          905,
+          376
+        ],
+        [
+          906,
+          357
+        ],
+        [
+          898,
+          338
+        ],
+        [
+          878,
+          323
+        ],
+        [
+          863,
+          320
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 76334,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          830,
+          570
+        ],
+        [
+          956,
+          570
+        ],
+        [
+          956,
+          608
+        ],
+        [
+          830,
+          608
+        ]
+      ],
+      [
+        [
+          950,
+          681
+        ],
+        [
+          1070,
+          681
+        ],
+        [
+          1070,
+          735
+        ],
+        [
+          950,
+          735
+        ]
+      ],
+      [
+        [
+          908,
+          470
+        ],
+        [
+          989,
+          470
+        ],
+        [
+          989,
+          498
+        ],
+        [
+          908,
+          498
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "taki-reading-apricot-figure-calibrated-v1.png",
+      "bytes": 2436834,
+      "sha256": "69e47b0db03a20ddd048c6995d061713e9df8da6798217e96bf3e1a5f5b69016"
+    },
+    {
+      "file": "taki-reading-apricot-mask-calibrated-v1.png",
+      "bytes": 23144,
+      "sha256": "d99c2ffd20e742c721fdee4869b2ab7c390a31ab1d45efb0d57c13a3d8423842"
+    },
+    {
+      "file": "taki-reading-apricot-background-calibrated-v1.png",
+      "bytes": 2108919,
+      "sha256": "95490c0777483676e2965b1da427ff02e593da46da0d16818d1289ed2dd8ebd8"
+    },
+    {
+      "file": "taki-reading-apricot-shadow-calibrated-v1.png",
+      "bytes": 45610,
+      "sha256": "b0f42beee44e0acdbf10146176951b7395fb19fa0b87c69afe5db785193a30b0"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

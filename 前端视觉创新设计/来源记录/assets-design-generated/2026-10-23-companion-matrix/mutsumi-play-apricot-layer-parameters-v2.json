@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "mother": "mutsumi-play-apricot-mother-candidate-v2.png",
+  "motherSha256": "bddfde972af4dc64865025af3035883e0a1e15497e17ed52bc9ef9a7e6d058df",
+  "matte": "mutsumi-play-apricot-mask-calibrated-v1.png",
+  "matteSha256": "d0465d3a9a1e7ab5f91cfe588409fdb0eb8fcdf981bea67d47b18c1d2215fc9f",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "mutsumi-play-apricot-figure-calibrated-v2.png",
+  "mask": "mutsumi-play-apricot-mask-calibrated-v2.png",
+  "backgroundCandidate": "mutsumi-play-apricot-background-candidate-v1.png",
+  "background": "mutsumi-play-apricot-background-calibrated-v2.png",
+  "shadow": "mutsumi-play-apricot-shadow-calibrated-v2.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1070,
+        771
+      ],
+      [
+        1147,
+        768
+      ],
+      [
+        1152,
+        817
+      ],
+      [
+        1070,
+        817
+      ]
+    ],
+    [
+      [
+        1173,
+        804
+      ],
+      [
+        1251,
+        802
+      ],
+      [
+        1256,
+        850
+      ],
+      [
+        1171,
+        851
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1070,
+        771
+      ],
+      [
+        1147,
+        768
+      ],
+      [
+        1152,
+        817
+      ],
+      [
+        1070,
+        817
+      ]
+    ],
+    [
+      [
+        1173,
+        804
+      ],
+      [
+        1251,
+        802
+      ],
+      [
+        1256,
+        850
+      ],
+      [
+        1171,
+        851
+      ]
+    ],
+    [
+      [
+        1135,
+        583
+      ],
+      [
+        1403,
+        583
+      ],
+      [
+        1417,
+        647
+      ],
+      [
+        1130,
+        644
+      ]
+    ],
+    [
+      [
+        1358,
+        582
+      ],
+      [
+        1438,
+        583
+      ],
+      [
+        1441,
+        609
+      ],
+      [
+        1356,
+        608
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [],
+  "includePolygons": [],
+  "alphaPolygonRepairs": [],
+  "record": "mutsumi-play-apricot-layer-processing-v2.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "Correct Primary motherV2 with one held paper leaf and plain sailor neckline. Maskv1 enlarged/upshifted head, rejected/notcopied/notused; registered maskv2 used only alpha seed, full originalRGB refinement. Held tiny paper leaf belongs actor; static foliage is room. No body/RGB paint. Fixed hip/hand/feet contacts, travel0. Primary/runtime pending. v2 source actual orange window post between rear mint hair strands excluded only in original hair/window gap; no badge/skin/body affected, original RGB unchanged.",
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          1370,
+          378
+        ],
+        [
+          1426,
+          378
+        ],
+        [
+          1426,
+          539
+        ],
+        [
+          1370,
+          539
+        ]
+      ],
+      "redMin": 140,
+      "redOverGreen": 40,
+      "redOverBlue": 55
+    }
+  ]
+}

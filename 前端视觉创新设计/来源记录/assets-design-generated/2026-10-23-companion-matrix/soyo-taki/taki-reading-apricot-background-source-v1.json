@@ -1,0 +1,29 @@
+{
+  "recordType": "image-generation-source",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-88fe15ce-44bb-4a47-9d4c-c615c70dcc7c",
+  "prompt": "taki-reading-apricot-background-prompt-v1.txt",
+  "promptSha256": "baa683740557995b83802fb8a001f0990d28d69930eadf0072c956e9058a8833",
+  "inputs": [
+    {
+      "file": "taki-reading-apricot-mother-candidate-v2.png",
+      "sha256": "950b6f05f48f6b0ca0335bdffb0468379b95e95576e1afd8da487be488f5314b",
+      "role": "sole correct original primary-approved mother; remove person and held objects, preserve all stationary room objects"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16e45-e592-7451-9d06-1779d8efd536/exec-88fe15ce-44bb-4a47-9d4c-c615c70dcc7c.png",
+  "output": {
+    "file": "taki-reading-apricot-background-generated-v1.png",
+    "sha256": "bdca28cf9b164343d9eaa9e38eae488d9b17022aed4ae7965972b6ba8b3ac2ff",
+    "bytes": 2159084,
+    "size": [
+      1536,
+      1024
+    ]
+  },
+  "review": {
+    "producerViewed": "whole returned original-canvas clean background displayed; local registration still pending",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

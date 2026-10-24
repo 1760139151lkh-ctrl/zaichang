@@ -1,0 +1,106 @@
+{
+  "recordType": "original-coordinate-alpha-production",
+  "processor": "refine-soyo-listening-hair-alpha-v22.py",
+  "processorSha256": "72f10d6a55bcfb689720cf0bbad68d3eb87b6a1bbb1675aeb291edb224059532",
+  "method": "Clear confirmed room pixels inside the original Soyo hair loop only.\n\nThe previous parent v21 polygon reached the real returning outer hair and was\nrejected. This production starts again from the unchanged selected v20 mask;\nthe rejected v21 is not an input. All original RGB remains untouched.\n",
+  "input": "soyo-listening-apricot-mask-calibrated-v20.png",
+  "inputSha256": "e3650c789e8354acde00b7f8309323e72807fb96cecc518a581150908060cea9",
+  "output": "soyo-listening-apricot-parent-hair-alpha-v22.png",
+  "outputSha256": "771b2dacf67c60b0a7234e4596b2be5efe6996ecd2acbb77c700818510759112",
+  "confirmedAirPolygons": [
+    [
+      [
+        1404,
+        424
+      ],
+      [
+        1407,
+        424
+      ],
+      [
+        1407,
+        440
+      ],
+      [
+        1404,
+        440
+      ]
+    ],
+    [
+      [
+        1412,
+        441
+      ],
+      [
+        1415,
+        441
+      ],
+      [
+        1415,
+        445
+      ],
+      [
+        1412,
+        445
+      ]
+    ],
+    [
+      [
+        1412,
+        448
+      ],
+      [
+        1414,
+        448
+      ],
+      [
+        1414,
+        451
+      ],
+      [
+        1412,
+        451
+      ]
+    ],
+    [
+      [
+        1400,
+        465
+      ],
+      [
+        1404,
+        465
+      ],
+      [
+        1404,
+        468
+      ],
+      [
+        1400,
+        468
+      ]
+    ],
+    [
+      [
+        1406,
+        465
+      ],
+      [
+        1421,
+        465
+      ],
+      [
+        1421,
+        470
+      ],
+      [
+        1406,
+        470
+      ]
+    ]
+  ],
+  "changedAlphaPixels": 105,
+  "rgbModified": false,
+  "primaryLayerReview": "pending",
+  "runtimeAccepted": false
+}

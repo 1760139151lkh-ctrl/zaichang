@@ -1,0 +1,25 @@
+{
+  "recordType": "image-generation-source",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-c30e7ff8-4609-4362-a147-3aa540d1a366",
+  "prompt": "taki-play-apricot-mask-prompt-v1.txt",
+  "promptSha256": "736686889307b128aba506d20966a33fcb61bc0337c878d2d96a2c5eebe26fa2",
+  "inputs": [
+    {
+      "file": "taki-play-apricot-mother-candidate-v1.png",
+      "sha256": "bf2bb6c780f72c03b65169347d1deafe8c178afe1a9bf6509848dc239321d0f9",
+      "role": "sole correct original primary-approved mother; coordinate-locked semantic visible-person matte"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16e45-e592-7451-9d06-1779d8efd536/exec-c30e7ff8-4609-4362-a147-3aa540d1a366.png",
+  "output": {
+    "file": "taki-play-apricot-mask-generated-v1.png",
+    "sha256": "21a2fae29cfb5eb2914ae19317321085f79779a6d056149b472359d3fce1640e",
+    "bytes": 348869
+  },
+  "review": {
+    "producerDecision": "same-coordinate body candidate, but mask wrongly includes the stationary chair; require original-coordinate chair exclusion before any adoption",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

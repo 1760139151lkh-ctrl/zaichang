@@ -1,0 +1,21 @@
+{
+  "mother": "soyo-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4",
+  "sourceAlpha": "soyo-listening-apricot-mask-calibrated-v16.png",
+  "confirmedRoomColumns": [
+    [
+      1401,
+      445,
+      1403,
+      477
+    ],
+    [
+      1405,
+      445,
+      1407,
+      477
+    ]
+  ],
+  "output": "soyo-listening-apricot-alpha-window-columns-v17.png",
+  "record": "soyo-listening-apricot-alpha-window-columns-source-v17.json"
+}

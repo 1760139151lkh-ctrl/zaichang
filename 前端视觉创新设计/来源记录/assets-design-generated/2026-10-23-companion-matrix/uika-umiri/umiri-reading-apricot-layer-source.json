@@ -11,7 +11,7 @@
     {
       "purpose": "mask-v1-rejected",
       "executionId": "exec-fd1df714-c6b3-4a3e-8ac9-fd799b7927e5",
-      "promptFile": "umiri-reading-apricot-mask-prompt.txt",
+      "promptFile": "umiri-reading-apricot-mask-prompt-submitted.txt",
       "actualPrompt": "Use case: background-extraction\nAsset type: same-canvas visible-only person-and-held-book segmentation matte.\nImage 1 is the sole approved edit target, the Umiri reading v2 mother. Return one fully opaque black-and-white segmentation image at exactly 1536 x 1024. Preserve every original position, scale, pose, silhouette and occlusion. Do not crop, zoom, translate, rotate, complete hidden anatomy or redesign any content.\nMake WHITE all actually visible Umiri pixels: dark shoulder-length hair and fine tips, face/ears/neck, black leather jacket including sleeves and cuffs, red top, gray pleated skirt with its full visible hem, both bare legs, socks if visible, and both complete black lace-up platform boots including all dark uppers, laces, soles and heels. Include both hands: the left hand holding the open book on her lap, and the right supporting hand and all visible fingers pressed on the seat behind her. Include the ENTIRE real open book held on her lap, all pages and covers to their outer silhouette. White interiors must be solid even for black fabric, hair, boots or dark book covers. Preserve actual small gaps between limbs, book/body and hair where background is visible as black.\nMake BLACK the whole room and every separate environment object: window, view, desk/chair, lamp/cup/desk book, window bench cushion and wooden base, both pillows, blanket, floorboards and all personal/environment shadows. The supporting palm does not make the cushion beneath it white; the skirt does not make bench fabric white. Keep the exact original visible occlusion, without making up hidden hip/hand/leg parts. No background patches around hair or boots. No grayscale body rendering; gray only for a thin soft antialiased contour. Full-canvas opaque matte only, not a portrait or standalone transparent sticker, no text or comparison panel.",
       "transparentBackground": false,
       "output": {
@@ -24,12 +24,16 @@
         ],
         "mode": "RGB"
       },
-      "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-fd1df714-c6b3-4a3e-8ac9-fd799b7927e5.png"
+      "draftPromptFile": "umiri-reading-apricot-mask-prompt.txt",
+      "draftPromptFileSha256": "21b6035f5ca0d9b92cd9edfd0a7594d97d80da6819175f0a61b8eed9483211bf",
+      "actualPromptSha256": "774612d7386fe1b71e4c826290ab994671a407f72319c503af0cfb1f3894a71f",
+      "promptSha256": "774612d7386fe1b71e4c826290ab994671a407f72319c503af0cfb1f3894a71f",
+      "promptFileMatchesActualToolInput": true
     },
     {
       "purpose": "background",
       "executionId": "exec-9020dea6-d5d9-4887-85de-595a4c156501",
-      "promptFile": "umiri-reading-apricot-background-prompt.txt",
+      "promptFile": "umiri-reading-apricot-background-prompt-submitted.txt",
       "actualPrompt": "Use case: precise-object-edit\nAsset type: this approved reading mother's matching clean room background plate.\nImage 1 is the sole edit target, Umiri reading v2. Remove only Umiri, her entire actually held open lap book, both hands including the supporting palm, all hair/clothes/body/legs/both boots, and her small personal contact/cast shadows on the bench and floor. Reconstruct only the revealed local environment. Keep the exact full 1536 x 1024 canvas, camera, scale, perspective and original position of every piece of furniture. No crop, zoom, translation, rotation, new person or added prop.\nThe window bench cushion, its wooden base, blue checked and floral pillows, and knitted blanket remain at their exact original sizes and positions. Reconstruct only the cushion/fabric previously hidden by her hip, book, legs and palm, keeping the cushion's original seams, thickness and warm illumination. Preserve all visible pillows and blanket without moving them into the emptied seat. Keep the original desk/chair and its existing book, lamp and cup, the entire window landscape, curtains, shelves/plants/left desk/chair, wall picture, floorboard geometry, sunlight/foliage patterns and rug unchanged. Do not substitute another room layout.\nMatch this mother's warm apricot daylight and delicate illustration texture. No ghost hair, skin, jacket, skirt, lap book, shoes, supporting palm, personal body/sole shadow, person-shaped blur or reflection. Do not intentionally modify unaffected pixels. This is a matching layer behind the original character pixels at their exact original coordinates. One coherent empty full room, no comparison collage, no text or watermark.",
       "transparentBackground": false,
       "output": {
@@ -42,12 +46,16 @@
         ],
         "mode": "RGB"
       },
-      "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-9020dea6-d5d9-4887-85de-595a4c156501.png"
+      "draftPromptFile": "umiri-reading-apricot-background-prompt.txt",
+      "draftPromptFileSha256": "8f843ae5666cb3f8e5eb96edd1202816c01187e0b6812c18f9116c2ab44aa27f",
+      "actualPromptSha256": "1836db04720fd02dbc6459f8f9e43749d55bfdc4c73f74960b9c3e94bd88453d",
+      "promptSha256": "1836db04720fd02dbc6459f8f9e43749d55bfdc4c73f74960b9c3e94bd88453d",
+      "promptFileMatchesActualToolInput": true
     },
     {
       "purpose": "mask-v2-candidate",
       "executionId": "exec-54087c3d-8f00-4831-8cca-444e6b2abcf5",
-      "promptFile": "umiri-reading-apricot-mask-v2-prompt.txt",
+      "promptFile": "umiri-reading-apricot-mask-v2-prompt-submitted.txt",
       "actualPrompt": "Use case: background-extraction\nAsset type: exact original-coordinate black-white semantic matte, not a new drawing.\nEdit target: ONLY the supplied approved Umiri reading v2 image. Convert the existing room pixels to opaque black and the existing visible woman plus her real held open lap book pixels to opaque white, at their ORIGINAL coordinates. Do not redraw, enlarge, reduce, center, reframe, crop, translate, straighten or re-pose the woman. Preserve the full 1536 x 1024 canvas and original empty margins exactly.\nSpatial checkpoints from this target, to PREVENT scaling drift: crown is around x1284/y278; whole visible woman-and-book spans approximately x1095..1437 and y277..775. The open lap book is approximately x1187..1298 and y469..532. Her supporting right palm is around x1390..1435/y575..583; it must not slide to the right. Her leftmost boot sole is near x1095..1145/y749..758; the other boot sole near x1172..1254/y762..775. These checkpoints describe the original source, not permission to distort a shape to fit a rectangle. Maintain every contour's relative position, including book/arms/legs.\nWhite = all visible dark hair and wisps, face/neck, black jacket/sleeves/cuffs, red top, gray pleated skirt/hem, both entire legs, both complete black boots with all uppers/laces/soles/heels, the book-holding hand, the supporting hand and all its visible fingers, plus the ENTIRE actual open lap book and covers. Solid white interior regardless of original darkness; gray only for soft one-pixel antialiased edges. Keep existing gaps between hair/arms/legs/book and body black where actual room appears.\nBlack = all room pixels: every window/view, desk/chair and desktop objects/book, bench cushion and wood, pillows, blanket, floor, all cast/contact shadows. Do not include a patch of cushion below the hip or supporting palm. Do not complete hidden anatomy or add a held object. Return only the exact original-position opaque segmentation matte; no portrait crop, no extra margins, no separate panels, no transparency.",
       "transparentBackground": false,
       "output": {
@@ -60,7 +68,11 @@
         ],
         "mode": "RGB"
       },
-      "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-54087c3d-8f00-4831-8cca-444e6b2abcf5.png"
+      "draftPromptFile": "umiri-reading-apricot-mask-v2-prompt.txt",
+      "draftPromptFileSha256": "1584f2f1df85e816d5e474fde2b098776300e0054e822447f2bdacd7152da597",
+      "actualPromptSha256": "f5e3ccbfdcf4d1c986ee22ca7821659b2369f8309d8994f7a12530252e06f470",
+      "promptSha256": "f5e3ccbfdcf4d1c986ee22ca7821659b2369f8309d8994f7a12530252e06f470",
+      "promptFileMatchesActualToolInput": true
     }
   ],
   "designerReview": {
@@ -72,28 +84,28 @@
   "runtimeAccepted": false,
   "layerProduction": {
     "status": "designer-reviewed candidate; primary pending",
-    "selectedParameters": "umiri-reading-apricot-layer-parameters-v5.json",
-    "selectedProcessingRecord": "umiri-reading-apricot-layer-processing-v5.json",
+    "selectedParameters": "umiri-reading-apricot-layer-parameters-v6.json",
+    "selectedProcessingRecord": "umiri-reading-apricot-layer-processing-v6.json",
     "matteRefinement": "umiri-reading-apricot-matte-refinement-v2.json",
     "contactRefinement": "umiri-reading-apricot-contact-refinement-v1.json",
     "productionTool": "../extract-scene-layers.py",
-    "productionToolSha256": "f9a11baa1d7cf915c69341ffd18cea7a8e7d23318a8ea53be56d51775ae80bc0",
+    "productionToolSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
     "transform": "identity for production; no crop/scale/translation/warp",
     "outputs": [
       {
-        "file": "umiri-reading-apricot-figure-calibrated-v5.png",
+        "file": "umiri-reading-apricot-figure-calibrated-v6.png",
         "bytes": 2437284,
         "sha256": "d16062a5af9a87e5c55a46ee40ba5c9a942c399f06d2e521543d2d182ed1f38c"
       },
       {
-        "file": "umiri-reading-apricot-mask-calibrated-v5.png",
+        "file": "umiri-reading-apricot-mask-calibrated-v6.png",
         "bytes": 34167,
         "sha256": "dc1ee296257b25d6094a174f3ffd04ad19b5a2fbfaf8bd8c87ab283cfae76d71"
       },
       {
-        "file": "umiri-reading-apricot-background-calibrated-v5.png",
-        "bytes": 2091735,
-        "sha256": "0b940e43af1a5553351ef0c2ded8f92ed7fbc4504d0beccf4849fd9093b76c91"
+        "file": "umiri-reading-apricot-background-calibrated-v6.png",
+        "bytes": 2091644,
+        "sha256": "6ed5c3088463f083e35330390e8e798e2da026480949acd858182eda2930e0f4"
       },
       {
         "file": "umiri-reading-apricot-shadow-candidate-v5.png",
@@ -153,9 +165,26 @@
       "Final complete light and dark backings, enlarged detail, clean background and full original-position recomposition viewed. Complete held book, both hands, gray skirt/hem, legs/socks/boots retained; pillow pixels above supporting palm and outer sky/cloud/book-page fringe removed locally.",
       "Broad residual-shadow ROIs v1/v2 brought floor light texture/heel boxes into light backing; rejected. Final normal source-over shadow support follows each actual visible lower contour inside manually selected sole/heel/hip/skirt/palm ROIs, one pixel below edge through two more pixels with 0.5px feather. Final light/dark backing no floor rectangles observed.",
       "Final v5 static offsets -8px and +8px viewed only to inspect ghosts, registration and cutoff; no duplicate old woman/book or leg cast shape observed. Palm shifts toward cushion/pillow boundary, so this does not prove physical attachment or valid travel.",
-      "Final v4 full clean-background view revealed old personal leg cast shadows on wooden bench front. V5 explicitly clears the manually observed [1160,596,1295,756] local region using the same-mother generated empty plate. V5 complete empty room, original-position recomposition, both short offsets and final light/dark full/detail viewed again; old leg cast shapes no longer seen."
+      "Final v4 full clean-background view revealed old personal leg cast shadows on wooden bench front. V5 explicitly clears the manually observed [1160,596,1295,756] local region using the same-mother generated empty plate. V5 complete empty room, original-position recomposition, both short offsets and final light/dark full/detail viewed again; old leg cast shapes no longer seen.",
+      "Independent review found a small dark original knee-adjacent remnant at x1159-1165,y555-565 in calibrated v5 empty background; raw empty v1 is clean here. V6 adds only the explicit local background erase polygon [[1157,553],[1166,553],[1166,565],[1157,565]] with the existing 5px expansion/1px feather. Actual changed background bounds [1150,547,1169,574], 360 pixels. Figure/mask v6 output bytes are exactly v5; source scene explicitly selects original v5 contact-shadow bytes. The unused actual v6 helper shadow has identical alpha/nontransparent RGB; only 105 fully transparent RGB pixels differ. Full final v6 light/dark, clean empty and original-position room composite personally viewed; mark absent, no new seam observed. Primary/Stage pending."
     ],
-    "reviewImages": [
+    "rejectedOrSuperseded": {
+      "rawMaskV1": "Rejected overall enlarged/shifted silhouette; never used as reference or production alpha.",
+      "layerV1V2": "Rejected broad shadow ROIs carrying floor light texture/heel rectangle fragments.",
+      "layerV3": "Superseded only by final head-cloud fringe alpha cleanup in v4; lower contacts unchanged.",
+      "layerV4": "Final full clean-BG view found old personal leg cast shadows on wooden bench front, previously hidden in original-position recomposition. Superseded by v5 local same-mother background clearing; figure/mask unchanged.",
+      "layerV5": "Superseded only for the independently observed knee-adjacent small old dark remnant in empty background. V6 retains the same figure/mask and exact contact-shadow bytes."
+    },
+    "contactShadowMode": "separate normal source-over RGBA residual; never multiply or floor RGB patch",
+    "remaining": [
+      "Primary independently inspect final layers and separate contact shadow candidate.",
+      "Travel=0: right palm, hip and two boots retain their fixed source support.",
+      "No actual Stage, motion, pointer, keyboard or app interaction verified; source scene remains candidate only."
+    ],
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false,
+    "integrated": false,
+    "previousReviewImages": [
       "umiri-reading-apricot-review-light-v5.png",
       "umiri-reading-apricot-review-dark-v5.png",
       "umiri-reading-apricot-review-light-detail-v5.png",
@@ -164,20 +193,48 @@
       "umiri-reading-apricot-review-offset-left-8px-v5.png",
       "umiri-reading-apricot-review-offset-right-8px-v5.png"
     ],
-    "rejectedOrSuperseded": {
-      "rawMaskV1": "Rejected overall enlarged/shifted silhouette; never used as reference or production alpha.",
-      "layerV1V2": "Rejected broad shadow ROIs carrying floor light texture/heel rectangle fragments.",
-      "layerV3": "Superseded only by final head-cloud fringe alpha cleanup in v4; lower contacts unchanged.",
-      "layerV4": "Final full clean-BG view found old personal leg cast shadows on wooden bench front, previously hidden in original-position recomposition. Superseded by v5 local same-mother background clearing; figure/mask unchanged."
+    "localReviewEvidence": {
+      "visibility": "ignored diagnostic images; no runtime dependency",
+      "files": [
+        ".test-data/umiri-layer-finish/final-umiri-reading-v6-light.png",
+        ".test-data/umiri-layer-finish/final-umiri-reading-v6-dark.png",
+        ".test-data/umiri-layer-finish/final-umiri-reading-v6-empty.png",
+        ".test-data/umiri-layer-finish/final-umiri-reading-v6-room.png",
+        ".test-data/umiri-independent-layer-review/reading-v6-correction-compare.png"
+      ]
     },
-    "contactShadowMode": "separate normal source-over RGBA residual; never multiply or floor RGB patch",
-    "remaining": [
-      "Primary independently inspect head/finger/book/sole edges and separate contact shadow candidate.",
-      "Recommend travel=0: right palm, hip and two boots each have a fixed support; static pixel shifts are not evidence of valid physical movement.",
-      "No Stage, motion, pointer, keyboard or actual app interaction verified; no scene/manifest/runtime registration."
-    ],
-    "primaryLayerReview": "pending",
-    "runtimeAccepted": false,
-    "integrated": false
+    "outputSelection": {
+      "method": "New v6 figure/mask/background plus unchanged original v5 contact shadow; mixed-version identity is explicit.",
+      "selectedOutputs": [
+        {
+          "file": "umiri-reading-apricot-figure-calibrated-v6.png",
+          "bytes": 2437284,
+          "sha256": "d16062a5af9a87e5c55a46ee40ba5c9a942c399f06d2e521543d2d182ed1f38c"
+        },
+        {
+          "file": "umiri-reading-apricot-mask-calibrated-v6.png",
+          "bytes": 34167,
+          "sha256": "dc1ee296257b25d6094a174f3ffd04ad19b5a2fbfaf8bd8c87ab283cfae76d71"
+        },
+        {
+          "file": "umiri-reading-apricot-background-calibrated-v6.png",
+          "bytes": 2091644,
+          "sha256": "6ed5c3088463f083e35330390e8e798e2da026480949acd858182eda2930e0f4"
+        },
+        {
+          "file": "umiri-reading-apricot-shadow-candidate-v5.png",
+          "bytes": 29604,
+          "sha256": "3fb98c104fc4678109f48614b559314f9dd71d74d3435135483ba2f822858e08"
+        }
+      ],
+      "unusedOutputs": [
+        {
+          "file": "umiri-reading-apricot-shadow-candidate-v6.png",
+          "bytes": 29771,
+          "sha256": "149c1d5a3c12223479aeaccc32cfb2ef946ed2c7897b46182d5c8066a6991111",
+          "reason": "Helper-recomputed shadow differs only in 105 fully transparent RGB pixels; alpha and all nontransparent RGB unchanged. Preserve already inspected v5 source bytes."
+        }
+      ]
+    }
   }
 }

@@ -1,0 +1,104 @@
+{
+  "mother": "taki-attention-apricot-mother-candidate-v2.png",
+  "motherSha256": "23c79a3ce36b887e2c2f57f37558cbe5ace84014c9a03524e31872028004a2f5",
+  "sourceAlpha": "taki-attention-apricot-figure-calibrated-v3.png",
+  "sourceAlphaSha256": "6ffcf0868293cd12c5ae319bbfe629f7884e29790419661881bd43dd0e1141f3",
+  "softOriginalPixelInclusions": [
+    [
+      [
+        878,
+        507
+      ],
+      [
+        889,
+        508
+      ],
+      [
+        905,
+        510
+      ],
+      [
+        922,
+        513
+      ],
+      [
+        938,
+        513
+      ],
+      [
+        943,
+        520
+      ],
+      [
+        947,
+        525
+      ],
+      [
+        957,
+        531
+      ],
+      [
+        977,
+        535
+      ],
+      [
+        987,
+        539
+      ],
+      [
+        991,
+        544
+      ],
+      [
+        975,
+        544
+      ],
+      [
+        960,
+        544
+      ],
+      [
+        946,
+        552
+      ],
+      [
+        935,
+        563
+      ],
+      [
+        925,
+        575
+      ],
+      [
+        912,
+        585
+      ],
+      [
+        902,
+        588
+      ],
+      [
+        895,
+        581
+      ],
+      [
+        891,
+        565
+      ],
+      [
+        887,
+        549
+      ],
+      [
+        884,
+        534
+      ],
+      [
+        880,
+        519
+      ]
+    ]
+  ],
+  "output": "taki-attention-apricot-alpha-calibrated-v4.png",
+  "record": "taki-attention-apricot-alpha-production-v4.json"
+}

@@ -8,6 +8,7 @@ export interface WorkoutMapFix {
   accuracy: number | null;
   source: string;
   provenance?: 'device' | 'simulated' | 'unknown';
+  mock?: boolean | null;
 }
 
 export interface WorkoutRoadCandidate {
@@ -32,6 +33,10 @@ export interface WorkoutVenueObservation {
   geometryBasis: 'source-track-area' | 'source-venue-outline';
   nominalLapM: number | null;
   nominalLapBasis: string;
+  /** Public map reference only, never a measured or certified lap length. */
+  referenceLoopM?: number | null;
+  referenceLoopBasis?: string;
+  venueSourceLocator?: string;
   sourceLocator: string;
   /** A venue overlap cannot identify a lane, completed lap or school credit. */
   lapCount: null;
@@ -43,6 +48,7 @@ export interface WorkoutMapMatch {
   reason: 'one-candidate' | 'multiple-candidates' | 'no-recorded-road' | 'accuracy-missing'
     | 'accuracy-too-wide' | 'invalid-fix' | 'outside-map' | 'map-unavailable';
   mapVersion: string;
+  mapLabel?: string;
   mapSourceDate: string;
   networkSha256: string | null;
   geographySha256: string | null;

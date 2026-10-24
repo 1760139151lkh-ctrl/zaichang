@@ -35,6 +35,8 @@ public final class LocationService extends Service implements LocationListener {
     private boolean simulated;
     private long leaseUntil;
     private int subscriptions;
+    private boolean gpsSubscribed;
+    private boolean networkSubscribed;
     private StepReader steps;
     static void renewLease(String session) { if (activeService != null && activeService.session.equals(session)) activeService.leaseUntil = SystemClock.elapsedRealtime() + 20000; }
     static int subscriptionCount(String session) { return activeService != null && activeService.session.equals(session) ? activeService.subscriptions : 0; }
@@ -50,7 +52,10 @@ public final class LocationService extends Service implements LocationListener {
     @Override public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent == null) { stopSelf(); return START_NOT_STICKY; }
         String incoming = intent.getStringExtra("session");
-        if (incoming == null || !BridgeState.owns(this, incoming, intent.getStringExtra("workoutId"))) { stopSelf(); return START_NOT_STICKY; }
+        if (incoming == null || BridgeState.cancelled(this, incoming) || !BridgeState.owns(this, incoming, intent.getStringExtra("workoutId"))) {
+            if (session.isEmpty() || !BridgeState.active(this, session)) stopSelf();
+            return START_NOT_STICKY;
+        }
         if (incoming.equals(session) && manager != null) return START_NOT_STICKY;
         release(); session = incoming; sequence = 0; while (fixes.length() > 0) fixes.remove(0);
         activeService = this; renewLease(session);
@@ -71,7 +76,12 @@ public final class LocationService extends Service implements LocationListener {
         int providers = 0;
         try {
             for (String provider : new String[]{LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER}) {
-                if (manager.isProviderEnabled(provider)) { manager.requestLocationUpdates(provider, 1000, 0, this, Looper.getMainLooper()); subscriptions = ++providers; }
+                if (manager.isProviderEnabled(provider)) {
+                    manager.requestLocationUpdates(provider, 1000, 0, this, Looper.getMainLooper());
+                    if (provider.equals(LocationManager.GPS_PROVIDER)) gpsSubscribed = true;
+                    if (provider.equals(LocationManager.NETWORK_PROVIDER)) networkSubscribed = true;
+                    subscriptions = ++providers;
+                }
             }
             subscriptions = providers;
             status = providers > 0 ? "listening" : "unavailable";
@@ -110,12 +120,18 @@ public final class LocationService extends Service implements LocationListener {
         } catch (Exception invalid) { status = "unavailable"; reason = "设备返回的位置不完整。"; publish(); }
     }
     @Override public void onProviderEnabled(String provider) { status = "listening"; reason = "设备位置来源已恢复。"; publish(); }
-    @Override public void onProviderDisabled(String provider) { status = "unavailable"; reason = "设备位置来源已关闭，等待恢复。"; publish(); }
+    @Override public void onProviderDisabled(String provider) {
+        boolean available = manager != null && (gpsSubscribed && manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+            || networkSubscribed && manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
+        status = available ? "listening" : "unavailable";
+        reason = available ? "正在等待设备提供位置。" : "设备位置来源已关闭，等待恢复。";
+        publish();
+    }
     @Override public void onStatusChanged(String provider, int state, Bundle extras) { }
     private void publish() { BridgeState.write(this, session, status, reason, fixes); }
     private void release() {
         handler.removeCallbacks(heartbeat);
-        try { if (manager != null) { manager.removeUpdates(this); manager = null; } subscriptions = 0; }
+        try { if (manager != null) { manager.removeUpdates(this); manager = null; } subscriptions = 0; gpsSubscribed = false; networkSubscribed = false; }
         finally { if (steps != null) { steps.release(); steps = null; } }
     }
     @Override public void onDestroy() {

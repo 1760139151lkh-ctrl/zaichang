@@ -41,6 +41,8 @@ runtime/hermes/  锁定Python主循环与宿主适配
 prompts/         实际产品行为输入，不是研究材料归档
 assets/map-v2/   公共地理/地点/道路/模型数据（内部格式campus-map/v3）
 apps/review-web/ 仅公共地图预览，复用同一地图实现
+apps/location-bridge/ 原生位置桥，原始观察归桌面同一运动 owner
+runtime/tiyi/ 体艺可选签名组件所需公开依赖的固定来源清单
 前端视觉创新设计/ 生成设计、艺术资产、来源与本轮逐图评鉴
 scripts/ tests/ 既有构建、校验及机制检查
 docs/          产品契约、架构、当前证据与历史资料
@@ -78,6 +80,7 @@ docs/          产品契约、架构、当前证据与历史资料
 | 商量、学习与持续事项 | `runtime/work.ts`、`collaboration.ts`、`planning-intents.ts`等原owner，尝试/建议/接受/结果分别保存 |
 | 安排、动作与提醒 | Agenda、ActionRuntime、ReminderRuntime、修订与派发/结果回执 |
 | 校园记录 | domain storage与真实连接器，账号来源、保存快照、时效和用途分别核验 |
+| 本地运动 | `runtime/workout-session.ts` 唯一运动 owner；原生桥、加密恢复、同一地图私人图层与有限伴跑摘要 |
 | 准备/托付 | `attention.ts`、`cooperation.ts`、原work与release存储；期限、渠道、展示/打开独立 |
 | 共创插画临时引用 | `shared/scene-transfer.ts`、`DiscussionSceneView.tsx`、原 `App.selectScene`；`runtime/scenes.ts`/`discussion-scene.ts` 核原 frame/分支/版本与来源，`interaction-control-context.ts` 保作品身份，拖入不另存作品或假定位 |
 | 地图 | MapService的公共数据；个人地点配置/位置proof另受当前范围约束 |
@@ -111,7 +114,9 @@ docs/          产品契约、架构、当前证据与历史资料
 | 通用交互作品 | `shared/interactive-library.ts/interactive-program.ts`、`main/runtime/interactive-program*.ts`、`renderer/presentation/InteractiveProgramView.tsx/interactive-*.tsx/program-local-state.ts` |
 | 消息内画面与局部焦点 | `renderer/presentation/AssistantPresentation.tsx`、`LocalTextFocus.tsx`、`FocusContextChip.tsx`与原App引用链 |
 | 地图 | `main/mapService.ts/mapProfile.ts`、`shared/map*.ts`、`renderer/map/CampusMap.tsx（导出MapSurface）/ConversationMap.tsx/map-engine.ts/planar-map.ts`；`scripts/map-engine-loader.ts`供桌面与review共用按需载入入口；资产`assets/map-v2` |
+| 私人运动地图与陪跑 | 桌面 `renderer/map/DesktopMapSheet.tsx → WorkoutControls.tsx/desktop-workout-layer.ts` 投到原相机；`main/runtime/workout-session.ts/workout-native.ts/workout-storage.ts` 持有原始记录，`capabilities/workout.ts` 只给有限语义摘要；公共入口仍直接导入共享 `CampusMap` |
 | 天气、空气与校园 | `main/capabilities/weather.ts/air-quality.ts`与校园adapter、`storage/domains.ts`；`CampusDaySchedule.tsx`、`presentation/CampusAcademicView.tsx`显示宿主投影 |
+| 教务与体艺连接 | `main/zjuAdapter.ts → integrations/zju/scripts/zju.py`；`main/tiyiAdapter.ts → integrations/tiyi_connector.py/tiyi_modules`，各自沿原认证、快照和分页；运行源码随应用分发，账号与原响应不分发 |
 | 对外草稿/公开展示 | `runtime/release-store.ts/release-composer.ts/release-projection.ts/redaction.ts`、`LifePanels.tsx`；不自动外发 |
 
 ## 关键集成边界

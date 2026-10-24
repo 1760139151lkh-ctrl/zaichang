@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-play-apricot-room4",
+  "character": "tomori",
+  "activity": "play",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "tomori-play-apricot-mother.png",
+  "background": "tomori-play-background-calibrated-v6.png",
+  "figure": "tomori-play-figure-calibrated-v6.png",
+  "mask": "tomori-play-mask-calibrated-v6.png",
+  "shadow": "tomori-play-shadow-calibrated-v6.png",
+  "seat": [
+    0.7239583333333334,
+    0.8974609375
+  ],
+  "ground": [
+    0.7239583333333334,
+    0.8974609375
+  ],
+  "bodyBounds": [
+    0.6041666666666666,
+    0.3564453125,
+    0.8515625,
+    0.9111328125
+  ],
+  "safeTextBoundary": 0.58,
+  "support": "floor",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "77.865% 35.645%, 75.521% 37.305%, 72.396% 43.750%, 72.331% 46.777%, 72.656% 45.996%, 73.047% 48.047%, 73.242% 47.461%, 73.372% 48.242%, 69.206% 52.051%, 68.685% 54.297%, 68.229% 62.109%, 65.234% 68.555%, 63.737% 74.902%, 61.719% 76.270%, 60.417% 83.301%, 61.328% 85.449%, 63.607% 85.742%, 63.867% 85.254%, 63.542% 82.910%, 64.193% 81.836%, 68.880% 87.207%, 72.656% 89.844%, 74.219% 89.844%, 75.000% 89.355%, 75.911% 87.500%, 75.716% 85.059%, 74.284% 80.566%, 76.432% 79.004%, 77.604% 76.367%, 77.604% 80.859%, 76.367% 85.059%, 76.302% 88.281%, 77.539% 89.160%, 78.320% 88.965%, 79.948% 90.723%, 81.576% 91.016%, 83.008% 90.332%, 82.617% 87.793%, 81.510% 87.012%, 82.227% 87.891%, 80.859% 87.500%, 80.729% 87.012%, 81.315% 86.719%, 79.622% 84.180%, 79.557% 82.812%, 82.682% 69.434%, 82.422% 66.699%, 81.510% 65.137%, 83.008% 62.207%, 83.073% 58.887%, 84.635% 57.520%, 85.091% 55.957%, 83.984% 54.395%, 84.635% 54.004%, 84.049% 53.223%, 79.688% 55.176%, 79.297% 52.539%, 80.599% 51.465%, 80.078% 52.734%, 80.599% 52.734%, 82.943% 47.559%, 82.943% 50.000%, 81.576% 52.734%, 82.747% 51.270%, 83.203% 49.805%, 83.529% 45.898%, 83.268% 41.406%, 82.357% 38.672%, 80.859% 36.914%",
+  "travel": 0.0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerStage": "candidate",
+    "producerNote": "Primary must inspect source/matte/contact and measured anchors. No runtime admission or live physical motion claim."
+  },
+  "calibrationObservation": {
+    "seatPixels": [
+      1112,
+      919
+    ],
+    "groundPixels": [
+      1112,
+      919
+    ],
+    "shortRangePixels": 0,
+    "note": "Actual weight-bearing knee on original rug; peer floor-contract owner independently checked the same point. Original fine flyaway alpha is capped locally to retain unmodified preblended RGB without an opaque background-colour ribbon."
+  },
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-play-layer-processing-v6.json",
+  "floorContact": "kneeling"
+}

@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "tomori",
+  "activity": "rest",
+  "light": "apricot",
+  "layer": "background",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-cb98fc64-0111-49af-8456-ce3452ed17fd",
+  "inputs": [
+    {
+      "file": "tomori-rest-apricot-mother.png",
+      "role": "primary_approved_correct_complete_mother_only",
+      "sha256": "b0f751e5feeff86ddbb8074945a9564487d4d60da05b4955137f2481a972fd90"
+    }
+  ],
+  "prompt": "tomori-rest-background-layer-prompt-v1.txt",
+  "promptSha256": "f0d8f7cec0d1921311ecf6e6759a522abd12a522685c1981f5b8ab38b93a187b",
+  "output": {
+    "file": "tomori-rest-background-generated-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2116136,
+    "sha256": "a9debf36d22dc7ee00132f3835118341f73229b8997090e092f57b4d2ea7ba1e"
+  },
+  "review": {
+    "designerViewed": "complete output",
+    "designerStatus": "candidate",
+    "primary": "pending",
+    "runtime": "not used"
+  },
+  "designerObservation": "Complete empty-room candidate viewed; original furniture and source-side props appear retained. Only original-source character patches may use this generated background, not a global room replacement."
+}

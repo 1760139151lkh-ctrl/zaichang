@@ -82,7 +82,8 @@ import type { PreparationFocusContext, PreparationFocusReference, SharedMatterVi
 import type { Action, ActionEffectRef, Draft, Memory, Message, NavigationTarget, ReleaseArtifact, State } from '../shared/types';
 import { LIMITS } from '../shared/limits';
 import { emptyRoute, type MapRouteResult } from '../shared/map-v2';
-import { MapRouteCard, MapSheet, type MapContextHandoff } from './map/CampusMap';
+import { MapRouteCard, type MapContextHandoff } from './map/CampusMap';
+import { MapSheet } from './map/DesktopMapSheet';
 import { ConversationMap, clearConversationMapViews } from './map/ConversationMap';
 import { AssistantPresentation, PresentationActivity } from './presentation/AssistantPresentation';
 import { flushProgramLocalStates } from './presentation/program-local-state';
@@ -405,7 +406,7 @@ export function App() {
       const branch = scene.branches.find(branch => branch.id === value.optionId);
       setSceneSelectionLabel(branch ? `关于「${branch.title}」` : '接着这个想法聊');
     }else if(value.kind === 'discussion_artwork' && value.artwork && scene.kind === 'discussion') {
-      setSceneSelectionLabel(`以「${discussionArtworkLabel(value.artwork.assetId)}」接着写`);
+      setSceneSelectionLabel(`作品里的「${discussionArtworkLabel(value.artwork.assetId)}」`);
       requestAnimationFrame(() => {
         if (request === sceneSelectionRequest.current && selectedSession === sessionRef.current && boundary === boundaryRevision.current
           && gesture === readingGesture.current && !navigationPending.current) inputRef.current?.focus({ preventScroll: true });
@@ -2866,6 +2867,7 @@ function MessageView({
             )}
             {m.steps
               .filter((s) => !m.obligations.some((o) => o.title === s.title))
+              .filter((s) => !(m.hostStatus?.code === 'scope_expired' && s.id.startsWith('host-failure:')))
               .map((s) => (
                 <div className={`step ${s.status}`} key={s.id}>
                   {s.status === 'running' ? (

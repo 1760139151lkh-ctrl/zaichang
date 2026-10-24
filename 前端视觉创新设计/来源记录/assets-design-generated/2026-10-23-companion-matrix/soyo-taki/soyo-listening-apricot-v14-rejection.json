@@ -1,0 +1,9 @@
+{
+  "decision": "rejected",
+  "reason": "Explicit air-gap polygon visibly removes true original hair in a rectangular notch; not used for final alpha or runtime.",
+  "originalOutputRelocation": {
+    "from": "soyo-listening-apricot-shadow-calibrated-v13.png",
+    "to": "soyo-listening-apricot-shadow-rejected-v14.png"
+  },
+  "originalBodyUnchanged": true
+}

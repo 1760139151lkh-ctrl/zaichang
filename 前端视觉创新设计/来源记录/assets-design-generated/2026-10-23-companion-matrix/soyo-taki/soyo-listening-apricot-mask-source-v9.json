@@ -1,0 +1,24 @@
+{
+  "recordType": "image-generation-source",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-5e044fc7-aa47-4540-a074-b1fcbceceff4",
+  "prompt": "soyo-listening-apricot-mask-prompt-v9.txt",
+  "promptSha256": "ff53279ac9903869a44353084c8dfad83bc1a5aafc5792e8305d927444f79172",
+  "inputs": [
+    {
+      "file": "soyo-listening-apricot-mother-candidate-v2.png",
+      "sha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4",
+      "role": "sole correct approved mother; failed masks not included"
+    }
+  ],
+  "output": {
+    "file": "soyo-listening-apricot-mask-generated-v9.png",
+    "sha256": "ff6c092a833a134d996a551153ae3374e4ec06f074efed64fbe8c3f8188f8da1",
+    "bytes": 370818
+  },
+  "review": {
+    "producerDecision": "coordinate overlay pending",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

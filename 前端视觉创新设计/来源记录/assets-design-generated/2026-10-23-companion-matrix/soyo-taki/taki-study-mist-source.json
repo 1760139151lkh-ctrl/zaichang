@@ -1,0 +1,40 @@
+{
+  "recordType": "image-generation-source",
+  "character": "taki",
+  "activity": "study",
+  "palette": "mist",
+  "light": "morning",
+  "generatedOn": "2026-10-24",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-9279be5b-f59c-46d8-b822-39e959f26d36",
+  "prompt": "taki-study-mist-prompt.txt",
+  "promptSha256": "0e116f2ba7fafe901f77472f9e52c9c08693e0c9f9820f2a4f1fd08d6ab3f0be",
+  "inputs": [
+    {
+      "file": "taki-study-apricot-mother-candidate-v1.png",
+      "sha256": "49515d600d10286f1af4f808fbf285f4e2abfd1cabd05d6b319f3fdcbd6d0166",
+      "role": "sole editable target: primary-reviewed correct complete warm mother; identity, pose, body and furniture geometry"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "primary-reviewed empty target lighting/sky reference only; no person or replacement chair"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-9279be5b-f59c-46d8-b822-39e959f26d36.png",
+  "output": {
+    "file": "taki-study-mist-mother-candidate-v1.png",
+    "sha256": "a8a8bf13e5a66b0f16198e07160a79ef9eeed09bd4bc79ca39f9f4dc155dc5e2",
+    "bytes": 2076228,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "complete-mother-candidate-awaiting-primary",
+  "review": {
+    "producerViewed": "Complete original output personally viewed against approved warm study mother and exact empty target plate.",
+    "primary": "pending",
+    "layers": "not extracted",
+    "runtime": "not registered or accepted"
+  },
+  "producerObservation": "Focused side/back writing at same real desk chair retained, natural chair-back/front-leg occlusion preserved without completing hidden limbs. Actual supported hand/pencil contact and visible knees/socks/shoes remain coherent. Whole-room theme light is natural, violet sun/lake axisnear1007/1003, rainy left corner quiet. Fixed contact requires its own matching background and travel0. Primary/layer/runtime review remains separate."
+}

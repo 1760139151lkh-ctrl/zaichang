@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "mother": "nyamu-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "5a8e11981cd588f7274b848cf661b2eee415a6a63103cea342d8d660c9409579",
+  "matte": "nyamu-study-apricot-mask-candidate-v1.png",
+  "matteSha256": "e201672c8cb8f56e588e8873ab4463ad746223f8a0455f2d1cd0f541ccf89cb4",
+  "alphaSource": "luminance", "alphaLow": 8, "alphaHigh": 247,
+  "figure": "nyamu-study-apricot-figure-calibrated-v1.png",
+  "mask": "nyamu-study-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "nyamu-study-apricot-background-candidate-v1.png",
+  "background": "nyamu-study-apricot-background-calibrated-v1.png",
+  "shadow": "nyamu-study-apricot-shadow-calibrated-v1.png",
+  "backgroundExpandPixels": 6, "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [[[929,678],[1057,678],[1062,716],[927,716]]],
+  "contactShadowPolygons": [
+    [[932,685],[982,683],[987,704],[929,706]],
+    [[990,689],[1054,686],[1058,711],[988,714]],
+    [[845,558],[941,556],[946,579],[846,581]],
+    [[927,476],[991,470],[998,494],[933,499]]
+  ],
+  "contactShadowFeatherPixels": 1, "contactShadowEdgePixels": 3,
+  "excludePolygons": [], "includePolygons": [], "alphaPolygonRepairs": [],
+  "record": "nyamu-study-apricot-layer-processing-v1.json",
+  "review": {"approvedByPrimary": false, "runtimeAccepted": false},
+  "producerNote": "Raw original-coordinate matte only. Inspect original chair/table occlusions, dark straps and fine bob before any candidate admission. No RGB/geometry changes; exact original mother remains RGB owner."
+}

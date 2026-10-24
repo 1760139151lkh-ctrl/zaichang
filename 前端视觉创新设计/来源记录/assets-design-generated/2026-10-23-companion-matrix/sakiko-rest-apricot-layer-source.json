@@ -1,6 +1,6 @@
 {
   "parameters": "sakiko-rest-apricot-calibration-v6.json",
-  "figure": "sakiko-rest-apricot-figure-calibrated-v4.png",
+  "figure": "../../../运行素材/companion/scenes/sakiko-rest-apricot-figure-calibrated-v7.png",
   "figureSha256": "f5b2f8de82beca9c3d1acf6147f740676a014a7789ebe7f2725a20d5e601979c",
   "mask": "sakiko-rest-apricot-alpha-calibrated-v6.png",
   "maskSha256": "73ab28146295d1976a9d261d2ef40e2f480a0389383bad0ecfac29acf4ea9981",
@@ -15,7 +15,7 @@
     746
   ],
   "alphaNonzero": 54731,
-  "rgbSource": "sakiko-rest-apricot-mother.png",
+  "rgbSource": "../../../运行素材/companion/scenes/sakiko-rest-apricot-mother.png",
   "registeredBackground": {
     "background": "sakiko-rest-apricot-background-calibrated-v5.png",
     "backgroundSha256": "38f918d81fd031345a0777a1ca3fca0bf446c5f113fe8daa2faf5fa390f0f6d4"

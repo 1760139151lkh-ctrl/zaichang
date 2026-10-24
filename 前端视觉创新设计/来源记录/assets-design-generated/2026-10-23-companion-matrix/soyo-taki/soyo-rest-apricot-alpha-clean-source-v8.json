@@ -1,0 +1,19 @@
+{
+  "recordType": "deterministic-original-alpha-cleanup",
+  "processor": "soyo-refine-original-alpha.py",
+  "processorSha256": "51de2c3b6208be5488f66119d63b87f22b0950c1207a78157d6e5d96bb455e4a",
+  "parameters": "soyo-rest-apricot-alpha-clean-parameters-v8.json",
+  "parametersSha256": "df1867e5c1f6afbf15eede60bb540415ad38c1b4a229796d09107cedb37abbe7",
+  "mother": "soyo-rest-apricot-mother-candidate-v1.png",
+  "motherSha256": "c1be74d29d85a6ac0a2976acdcb3632fe625d46fef9535ca6ed6f33eabeb6e61",
+  "sourceAlpha": "soyo-rest-apricot-figure-calibrated-v7.png",
+  "sourceAlphaSha256": "71d122dac85a25324dda9d1b2344eace54a5ccd6b3591dc1ac733c000f4f712a",
+  "output": "soyo-rest-apricot-alpha-clean-v8.png",
+  "outputSha256": "0d03b6063d0490c0d7962185229b62189a3b96f6ae9d71da1fc9178e405754cb",
+  "originalRgbModified": false,
+  "geometryTransform": "identity",
+  "review": {
+    "primary": "pending",
+    "runtimeAccepted": false
+  }
+}

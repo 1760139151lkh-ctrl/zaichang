@@ -1,0 +1,37 @@
+{
+  "createdOn": "2026-10-24",
+  "tool": "built-in image_gen.imagegen",
+  "useCase": "lighting-weather",
+  "character": "rana",
+  "activity": "study",
+  "theme": "mist",
+  "inputs": [
+    {
+      "file": "rana-study-apricot-mother-candidate-v2.png",
+      "sha256": "fb66bbcfffc5f3d42b421c8769cc53ae7f1b605246a68187f5043435eabbe205",
+      "role": "sole editable target; primary-reviewed correct supported complete warm mother"
+    },
+    {
+      "file": "../room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "primary-reviewed clean lighting/sky reference only"
+    }
+  ],
+  "file": "rana-study-mist-mother-candidate-v1.png",
+  "sha256": "b9352264dff34c4a299e61b55331444a9b8bae6e7a46e101ff9222084014d74a",
+  "width": 1536,
+  "height": 1024,
+  "prompt": "rana-study-mist-prompt.txt",
+  "promptSha256": "5cbfca46fd5fe1520d286d51bce2707c157a6cb281b91b7386782f226fcf27bc",
+  "promptEncoding": "UTF-8 exact submitted prompt with final newline",
+  "originalGeneratedFile": "exec-3a7ac8c8-f213-4f4a-b1a9-22a514ab6316.png",
+  "executionId": null,
+  "executionIdEvidence": "The builtin result exposed a generated PNG basename, not a separate execution ID.",
+  "designerPersonallyViewed": true,
+  "designerObservation": "Complete mist relighting with matching cool diffuse daylight and lamp off; original forward side-sit, down-gaze, chair/desk hand contacts and both full boots remain supported. This is a mother candidate only, not layer/runtime evidence.",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  }
+}

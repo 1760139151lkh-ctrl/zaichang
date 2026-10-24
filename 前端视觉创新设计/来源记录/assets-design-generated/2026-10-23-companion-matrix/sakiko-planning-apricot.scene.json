@@ -1,43 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "sakiko-planning-apricot-room4",
-  "character": "sakiko",
-  "activity": "planning",
-  "light": "morning",
-  "palette": "apricot",
-  "width": 1536,
-  "height": 1024,
-  "mother": "sakiko-planning-apricot.png",
-  "background": "sakiko-planning-apricot-background-calibrated-v6.png",
-  "figure": "sakiko-planning-apricot-figure-calibrated-v6.png",
-  "mask": "sakiko-planning-apricot-mask-calibrated-v6.png",
-  "seat": [
-    0.5963541667,
-    0.576171875
-  ],
-  "ground": [
-    0.6510416667,
-    0.736328125
-  ],
-  "bodyBounds": [
-    0.5338541667,
-    0.2978515625,
-    0.7135416667,
-    0.744140625
-  ],
-  "safeTextBoundary": 0.64,
-  "support": "desk-chair",
-  "contactShadow": {
-    "mode": "separate"
-  },
-  "contourComplete": true,
-  "hitPolygon": "59% 30%, 63% 30%, 65% 35%, 64% 44%, 69% 45%, 70% 48%, 67% 50%, 64% 50%, 65% 55%, 67% 57%, 68% 69%, 71% 72%, 71% 74%, 68% 74%, 66% 73%, 64% 74%, 63% 72%, 63% 62%, 61% 60%, 57% 59%, 55% 52%, 54% 48%, 54% 43%, 56% 35%",
-  "travel": 0,
-  "slope": 0,
-  "perspective": 0,
-  "production": "sakiko-planning-apricot-layer-processing-v6.json",
-  "parameters": "sakiko-planning-apricot-layer-parameters-v6.json",
-  "review": {
+  "recordType": "canonical-scene-reference",
+  "canonicalScene": "前端视觉创新设计/运行素材/companion/scenes/sakiko-planning-apricot.scene.json",
+  "originalCandidateSha256": "8debe94852ad82884b7e4ecaa154ed75f9702711f011108569cd902891b53c23",
+  "originalProducerReview": {
     "approvedByPrimary": false,
     "motherApprovalRecord": "primary-prototype-reviews.json",
     "layerReview": "awaiting-primary-registration",
@@ -50,5 +16,7 @@
       "runtime": "not registered or exercised"
     }
   },
-  "shadow": "sakiko-planning-apricot-shadow-calibrated-v6.png"
+  "production": "sakiko-planning-apricot-layer-processing-v6.json",
+  "parameters": "sakiko-planning-apricot-layer-parameters-v6.json",
+  "note": "Root-admitted visible contract and PNG bytes unchanged; sole canonical scene registration is in runtime. No runtime acceptance inferred."
 }

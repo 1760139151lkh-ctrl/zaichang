@@ -1,0 +1,51 @@
+{
+  "recordType": "original-coordinate-alpha-production",
+  "processor": "refine-soyo-listening-hair-alpha-v23.py",
+  "processorSha256": "93f100617347a25e8aea3084a5846c60ed35bc1301a418ee4229a29e638641fb",
+  "input": "soyo-listening-apricot-mask-calibrated-v22.png",
+  "inputSha256": "b0aaf7107ff0dddf24cbc020bcbb7b5bfb1f7905d4cdf61ff1e52d944e949a77",
+  "output": "soyo-listening-apricot-parent-hair-alpha-v23.png",
+  "outputSha256": "54f719b4083bc543660e1e606997315d42e6802c22e972700f506dbcb4877669",
+  "confirmedAirPolygon": [
+    [
+      1404,
+      425
+    ],
+    [
+      1407,
+      425
+    ],
+    [
+      1407,
+      440
+    ],
+    [
+      1400,
+      440
+    ],
+    [
+      1400,
+      439
+    ],
+    [
+      1401,
+      438
+    ],
+    [
+      1402,
+      436
+    ],
+    [
+      1403,
+      433
+    ],
+    [
+      1404,
+      430
+    ]
+  ],
+  "changedAlphaPixels": 20,
+  "rgbModified": false,
+  "primaryLayerReview": "pending",
+  "runtimeAccepted": false
+}

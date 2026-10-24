@@ -1,0 +1,16 @@
+{
+  "recordType": "deterministic-observed-original-alpha-production",
+  "processor": "soyo-planning-apricot-contour-production.py",
+  "processorSha256": "8f365550af315411b267aaae0d2a0c090f82846dec536f28fc668a8d6dcdb7da",
+  "parameters": "soyo-planning-apricot-contour-parameters-v2.json",
+  "parametersSha256": "843b00ffcd6057cf92d8705bba11d875ecf95c78a5a6eebac25339cd624fdafa",
+  "motherSha256": "e002a836c881d736966bce3a254de9ef5e4a0417efc5b260eaeaea64d85904d6",
+  "output": "soyo-planning-apricot-observed-contour-v2.png",
+  "outputSha256": "859f2e7492fcf1a7d8d67cdebfa48da73c84f389efa00f12a8d37309320ec7a6",
+  "transform": "identity",
+  "rgbRepaint": false,
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

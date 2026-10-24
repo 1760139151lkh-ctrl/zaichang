@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "soyo",
+  "activity": "chat",
+  "palette": "rain",
+  "layer": "background",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-263db694-fd11-4f50-925b-ea5b7e52baba",
+  "prompt": "soyo-chat-rain-background-prompt-v1.txt",
+  "promptSha256": "bb16dc310d044beffb7d8d037d964ea9fdbf56c2e9b1823af7d29b04cd01125e",
+  "inputs": [
+    {
+      "file": "soyo-chat-rain-mother-candidate-v1.png",
+      "sha256": "130d8136ac3d77c8618f5cc7a772fb01bd9882efa2a44e44a018c5069b12b4ef",
+      "role": "sole exact primary-reviewed correct complete same-scene theme mother"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16cce-453d-7650-b67b-b373d16a0f93/exec-263db694-fd11-4f50-925b-ea5b7e52baba.png",
+  "output": {
+    "file": "soyo-chat-rain-background-generated-v1.png",
+    "sha256": "11b08e7ba3c00e87c3f667e8c4f9b42a56913a89ed509cf9b68bedea0cc0b15c",
+    "bytes": 2023267,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerStatus": "clean-background-candidate-for-registration",
+  "review": {
+    "producerViewed": "Complete actual clean background personally viewed with the exact original same-theme mother; no visible person, hair or shoe left. Final local registration/composite remains to inspect.",
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

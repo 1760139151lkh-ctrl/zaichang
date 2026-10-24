@@ -25,7 +25,10 @@
         "height": 1024,
         "mode": "RGB"
       },
-      "designerObservation": "Rejected: silhouette enlarged/repositioned; no later input uses it."
+      "designerObservation": "Rejected: silhouette enlarged/repositioned; no later input uses it.",
+      "actualPromptSha256": "5f591cd023e86c2e98e3b20916f21522010c76e3800a5096243dc5edcfce3187",
+      "promptSha256": "5f591cd023e86c2e98e3b20916f21522010c76e3800a5096243dc5edcfce3187",
+      "promptFileMatchesActualToolInput": true
     },
     {
       "part": "mask-v2",
@@ -40,7 +43,10 @@
         "height": 1024,
         "mode": "RGB"
       },
-      "designerObservation": "Source location approximately restored; per-source alpha calibration and original-RGB review required."
+      "designerObservation": "Source location approximately restored; per-source alpha calibration and original-RGB review required.",
+      "actualPromptSha256": "e0c01bd14c23e57f80bec81bb6485b029445476870034a8827685c19adac73f3",
+      "promptSha256": "e0c01bd14c23e57f80bec81bb6485b029445476870034a8827685c19adac73f3",
+      "promptFileMatchesActualToolInput": true
     },
     {
       "part": "background",
@@ -55,7 +61,10 @@
         "height": 1024,
         "mode": "RGB"
       },
-      "designerObservation": "Generated matching empty plate; local original-RGB/background review required."
+      "designerObservation": "Generated matching empty plate; local original-RGB/background review required.",
+      "actualPromptSha256": "e15c41fe7f80eacda6ac41829e7c748f346fad5a85c95f3fba8888ad542497c7",
+      "promptSha256": "e15c41fe7f80eacda6ac41829e7c748f346fad5a85c95f3fba8888ad542497c7",
+      "promptFileMatchesActualToolInput": true
     }
   ],
   "primaryReview": {

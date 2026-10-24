@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-approved-mother-layer-generation",
+  "date": "2026-10-24",
+  "mother": {
+    "file": "nyamu-rest-apricot-mother-candidate-v1.png",
+    "sha256": "c6264d37f43bef35ee7aad4108a49b6cc977b3bba98c74233ea4aff967926fd8"
+  },
+  "motherApprovalRecord": "primary-other-mother-reviews.json",
+  "tool": "image_gen.imagegen (built-in)",
+  "generations": [
+    {
+      "kind": "matching background v1",
+      "prompt": {
+        "file": "nyamu-rest-apricot-background-v1-prompt.txt",
+        "sha256": "3f63c4e79a0b30e5e4fbac9c6cc937189faa057b3f0954c0664e00d644a41798"
+      },
+      "inputs": [
+        {
+          "file": "nyamu-rest-apricot-mother-candidate-v1.png",
+          "sha256": "c6264d37f43bef35ee7aad4108a49b6cc977b3bba98c74233ea4aff967926fd8"
+        }
+      ],
+      "output": {
+        "file": "nyamu-rest-apricot-background-candidate-v1.png",
+        "sha256": "18712b4a3feb84e7fcadf80f3ee02ff791fdc15963bdde1f6e0431cc0171e316",
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-435916e2-6bcd-43dc-a5b2-39cfdebd93d1.png"
+      },
+      "selectedForProcessing": true,
+      "designerObservation": "Full exact room personally viewed; original bench/furniture props preserved, original actor and held prop/worn shoes removed only. Selected full matching BG, no partial floor tile."
+    },
+    {
+      "kind": "mask v1",
+      "prompt": {
+        "file": "nyamu-rest-apricot-mask-v1-prompt.txt",
+        "sha256": "9e4b096eb5d9ae5673c2d873b33ff3c8edef50f4ebd7e7565707f74a732d8115"
+      },
+      "inputs": [
+        {
+          "file": "nyamu-rest-apricot-mother-candidate-v1.png",
+          "sha256": "c6264d37f43bef35ee7aad4108a49b6cc977b3bba98c74233ea4aff967926fd8"
+        }
+      ],
+      "output": {
+        "sha256": "a13b4a2f4c2bee9c375238ace019a9acb78d83db9214964613c7e3fba8003f39",
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-c2eb6fd6-4118-4f44-a0e3-516416447149.png"
+      },
+      "selectedForProcessing": false,
+      "designerObservation": "Rejected: headtop270 vsactual296, enlarged/upshifted head; not copied or used as matte/input."
+    },
+    {
+      "kind": "registered mask v2",
+      "prompt": {
+        "file": "nyamu-rest-apricot-mask-v2-prompt.txt",
+        "sha256": "bf91027d81f7fdcf9596cd1b867c824b297f5775eeb118616475e0737e63f77d"
+      },
+      "inputs": [
+        {
+          "file": "nyamu-rest-apricot-mother-candidate-v1.png",
+          "sha256": "c6264d37f43bef35ee7aad4108a49b6cc977b3bba98c74233ea4aff967926fd8"
+        }
+      ],
+      "output": {
+        "file": "nyamu-rest-apricot-mask-candidate-v2.png",
+        "sha256": "a7f60534997a805ef5566804025947248cc0782801e4aa33db54aee5375db0de",
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-1c57f9b6-28b2-4bcd-80a0-cf5f634f0f9f.png"
+      },
+      "selectedForProcessing": true,
+      "designerObservation": "Full source position personally compared: original head/shoulder/palm/sole coordinates retained. Final alpha calibrated using original body RGB only; raw mask never redraws body."
+    }
+  ],
+  "review": {
+    "approvedByPrimary": false,
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false
+  }
+}

@@ -46,6 +46,7 @@
 !/runtime/hermes/lock.json
 !/runtime/hermes/sidecar.py
 !/runtime/embedding/lock.json
+!/runtime/tiyi/signing-lock.json
 !/scripts/embedding-runtime.mjs
 !/scripts/inspect-prompt.mjs
 !/scripts/inspect-prompt-entry.ts
@@ -90,6 +91,7 @@
 !/scripts/setup-hermes.mjs
 !/scripts/smoke.mjs
 !/scripts/stage-hermes-runtime.mjs
+!/scripts/stage-tiyi-signing.py
 !/scripts/test-environment.mjs
 !/scripts/run-luna-test.mjs
 !/scripts/with-deepseek-key.ps1

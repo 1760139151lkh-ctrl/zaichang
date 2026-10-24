@@ -1,0 +1,86 @@
+{
+  "recordType": "source-observed-front-hair-arm-gap-alpha",
+  "script": "mutsumi-rest-apricot-refine-hair-v5.py",
+  "scriptSha256": "54a6e9bd8d39878356ff580dc5afb64f5d20eb5bbb45d0a0307415fee9db91f5",
+  "inputAlpha": "mutsumi-rest-apricot-mask-calibrated-v4.png",
+  "inputAlphaSha256": "2fbe7fa8a70fa056c88460b2abedcb61fdba937b3fa7245dcbac409a1619372d",
+  "originalSourceRegion": [
+    1295,
+    380,
+    1355,
+    479
+  ],
+  "observedActualBodyBoundary": [
+    [
+      1355,
+      380
+    ],
+    [
+      1355,
+      479
+    ],
+    [
+      1313,
+      479
+    ],
+    [
+      1320,
+      470
+    ],
+    [
+      1324,
+      460
+    ],
+    [
+      1330,
+      450
+    ],
+    [
+      1328,
+      440
+    ],
+    [
+      1334,
+      430
+    ],
+    [
+      1340,
+      420
+    ],
+    [
+      1344,
+      405
+    ],
+    [
+      1348,
+      392
+    ]
+  ],
+  "observedActualFineStrands": [
+    [
+      [
+        1344,
+        380
+      ],
+      [
+        1334,
+        391
+      ],
+      [
+        1327,
+        406
+      ],
+      [
+        1333,
+        421
+      ]
+    ]
+  ],
+  "method": "Original source coordinate-grid shows cream/yellow window leaves around the thin front hair and real navy arm. Intersect only that local alpha with actual source body boundary plus narrow original fine strand bands, excluding room between them. Entire original RGB unchanged, no new body or strand RGB painted.",
+  "outputAlpha": "mutsumi-rest-apricot-source-alpha-v5.png",
+  "outputAlphaSha256": "318904e578917dd4601b9e6bc896f419ce51612b58e079da9f9d774861234724",
+  "review": {
+    "primary": "pending",
+    "runtime": "not registered"
+  }
+}

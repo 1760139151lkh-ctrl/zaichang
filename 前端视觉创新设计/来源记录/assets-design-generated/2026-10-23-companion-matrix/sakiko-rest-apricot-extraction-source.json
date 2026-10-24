@@ -11,14 +11,14 @@
   "activity": "rest",
   "palette": "apricot",
   "mother": {
-    "file": "sakiko-rest-apricot-mother.png",
+    "file": "../../../运行素材/companion/scenes/sakiko-rest-apricot-mother.png",
     "sha256": "ffdf5ac11d9d25da5347120dd7b5f19bf68a6211c991c373e1c6d2f623cebfbf"
   },
   "calls": [
     {
       "purpose": "white-body/black-room segmentation",
       "prompt": "sakiko-rest-apricot-mask-prompt.txt",
-      "input": "sakiko-rest-apricot-mother.png",
+      "input": "../../../运行素材/companion/scenes/sakiko-rest-apricot-mother.png",
       "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-f183ab4e-df14-46e9-8482-80571935a84d.png",
       "sha256": "5d614d9503ac4df2aab83e9d7c3565065df0035922cf97b5fb1e1d991c148e05",
       "mode": "RGB",
@@ -27,7 +27,7 @@
     {
       "purpose": "matching background by removing seated person and worn shoes",
       "prompt": "sakiko-rest-apricot-background-prompt.txt",
-      "input": "sakiko-rest-apricot-mother.png",
+      "input": "../../../运行素材/companion/scenes/sakiko-rest-apricot-mother.png",
       "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-0eff5f4f-5c65-4907-9425-5c25209857ec.png",
       "sha256": "8e9a1cbf81bd3901ecd0a5400388a1f83f0689ad2926dada97768256cc08dd1e",
       "mode": "RGB",
@@ -37,7 +37,7 @@
     {
       "purpose": "segmentation retry using original exact-location instruction",
       "prompt": "sakiko-rest-apricot-mask-v2-prompt.txt",
-      "input": "sakiko-rest-apricot-mother.png",
+      "input": "../../../运行素材/companion/scenes/sakiko-rest-apricot-mother.png",
       "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-75c83e65-ef1d-44a5-b5c4-cbec391abdb6.png",
       "sha256": "c1853085b2131d98759148cf5609ca937da3989f8d4fa06a6770ed3a7e631668",
       "mode": "RGB",
@@ -46,7 +46,7 @@
     {
       "purpose": "transparent extraction directly from original mother",
       "prompt": "sakiko-rest-apricot-cutout-prompt.txt",
-      "input": "sakiko-rest-apricot-mother.png",
+      "input": "../../../运行素材/companion/scenes/sakiko-rest-apricot-mother.png",
       "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-e5d5b77a-a7cb-4bbd-baa6-c01505ebeb32.png",
       "sha256": "891962b1af065c8f354953094084635601ec7f37e0c8d359bd871acd28bcba31",
       "mode": "RGBA",
@@ -55,7 +55,7 @@
     {
       "purpose": "short Chinese strict original-coordinate segmentation",
       "prompt": "sakiko-rest-apricot-mask-v3-prompt.txt",
-      "input": "sakiko-rest-apricot-mother.png",
+      "input": "../../../运行素材/companion/scenes/sakiko-rest-apricot-mother.png",
       "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-1b1eac13-cb2f-4c6a-8d10-d7fb81a3f7f4.png",
       "sha256": "a721b56b42b1cd7d8c467e5be8ddaad75102529069f2b095f445541a0c3d114c",
       "mode": "RGB",
@@ -65,7 +65,7 @@
     {
       "purpose": "targeted window-leaf exclusion retry from original mother",
       "prompt": "sakiko-rest-apricot-mask-v4-prompt.txt",
-      "input": "sakiko-rest-apricot-mother.png",
+      "input": "../../../运行素材/companion/scenes/sakiko-rest-apricot-mother.png",
       "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-897762b3-1fdd-436a-95e9-5f7ca3f074bf.png",
       "sha256": "b0c940c80a2bbd62282a276427d8c0d7fc9f57933adaf0d0c8200820ab2e9f0f",
       "mode": "RGB",
@@ -89,7 +89,7 @@
     "parameters": "sakiko-rest-apricot-calibration-v6.json",
     "processingSource": "sakiko-rest-apricot-layer-source.json",
     "script": "listening-rest-layer-calibration.py",
-    "figure": "sakiko-rest-apricot-figure-calibrated-v4.png",
+    "figure": "../../../运行素材/companion/scenes/sakiko-rest-apricot-figure-calibrated-v7.png",
     "alpha": "sakiko-rest-apricot-alpha-calibrated-v6.png",
     "background": "sakiko-rest-apricot-background-calibrated-v5.png",
     "environment": {
@@ -117,10 +117,10 @@
     "actualMotherPrompt": "sakiko-rest-apricot-prompt.txt",
     "actualMotherPromptSha256": "8583efe811a0ecc0c311f56b1a46d6fbf9db7fb0c3c968dc1c1a2c0e7b786174",
     "outputs": {
-      "figure": "sakiko-rest-apricot-figure-calibrated-v7.png",
-      "mask": "sakiko-rest-apricot-mask-calibrated-v7.png",
-      "background": "sakiko-rest-apricot-background-calibrated-v7.png",
-      "shadow": "sakiko-rest-apricot-shadow-calibrated-v7.png"
+      "figure": "../../../运行素材/companion/scenes/sakiko-rest-apricot-figure-calibrated-v7.png",
+      "mask": "../../../运行素材/companion/scenes/sakiko-rest-apricot-mask-calibrated-v7.png",
+      "background": "../../../运行素材/companion/scenes/sakiko-rest-apricot-background-calibrated-v7.png",
+      "shadow": "../../../运行素材/companion/scenes/sakiko-rest-apricot-shadow-calibrated-v7.png"
     },
     "producerViewed": [
       "original full mother",

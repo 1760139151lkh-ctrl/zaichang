@@ -1,0 +1,19 @@
+{
+  "mother": "soyo-rest-apricot-mother-candidate-v1.png",
+  "motherSha256": "c1be74d29d85a6ac0a2976acdcb3632fe625d46fef9535ca6ed6f33eabeb6e61",
+  "sourceAlpha": "soyo-rest-apricot-figure-calibrated-v7.png",
+  "sourceAlphaSha256": "71d122dac85a25324dda9d1b2344eace54a5ccd6b3591dc1ac733c000f4f712a",
+  "roomColorExclusions": [],
+  "originalPixelInclusions": [],
+  "output": "soyo-rest-apricot-alpha-clean-v8.png",
+  "record": "soyo-rest-apricot-alpha-clean-source-v8.json",
+  "explicitRoomExclusions": [],
+  "fillInteriorHolesWithin": [
+    [
+      1190,
+      555,
+      1220,
+      580
+    ]
+  ]
+}

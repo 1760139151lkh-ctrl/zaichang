@@ -1,5 +1,5 @@
 {
-  "mother": "sakiko-listening-apricot-mother.png",
+  "mother": "../../../运行素材/companion/scenes/sakiko-listening-apricot-mother.png",
   "motherSha256": "a35aaa3549a04cf9f6fa7e478224f53afdcbfd1f133f6570a643191916189bb1",
   "matte": "sakiko-listening-apricot-figure-calibrated-v8.png",
   "alphaSource": "alpha",
@@ -59,8 +59,8 @@
       "mode": "intersect"
     }
   ],
-  "figure": "sakiko-listening-apricot-figure-calibrated-v11.png",
-  "mask": "sakiko-listening-apricot-mask-calibrated-v11.png",
+  "figure": "../../../运行素材/companion/scenes/sakiko-listening-apricot-figure-calibrated-v11.png",
+  "mask": "../../../运行素材/companion/scenes/sakiko-listening-apricot-mask-calibrated-v11.png",
   "backgroundCandidate": "sakiko-listening-apricot-background.png",
   "backgroundExpandPixels": 6,
   "backgroundFeatherPixels": 1.2,
@@ -128,7 +128,7 @@
       ]
     ]
   ],
-  "background": "sakiko-listening-apricot-background-calibrated-v11.png",
+  "background": "../../../运行素材/companion/scenes/sakiko-listening-apricot-background-calibrated-v11.png",
   "record": "sakiko-listening-apricot-layer-processing-v11.json",
   "contactShadowPolygons": [
     [
@@ -204,7 +204,7 @@
   ],
   "contactShadowFeatherPixels": 1,
   "contactShadowEdgePixels": 3,
-  "shadow": "sakiko-listening-apricot-shadow-calibrated-v11.png",
+  "shadow": "../../../运行素材/companion/scenes/sakiko-listening-apricot-shadow-calibrated-v11.png",
   "reviewNote": "v11 also removes the four-row sky fringe immediately above the corrected original ribbon. Its bounds are entirely outside the original bow/head outline. Original v8 alpha is only reduced in explicit source-coordinate ribbon/sky regions; no foreground is added. Entire source RGB and all pose/contact parameters are unchanged. Primary and runtime review remain pending.",
   "excludePolygons": [
     [

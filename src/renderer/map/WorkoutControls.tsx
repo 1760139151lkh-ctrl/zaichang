@@ -1,7 +1,10 @@
 import { useEffect, useId, useRef, useState } from 'react';
-import { Activity, Bike, Footprints, Pause, Play, RefreshCw, Square, X } from 'lucide-react';
+import { Activity, Bike, Footprints, LocateFixed, Pause, Play, RefreshCw, Route, Square, X } from 'lucide-react';
 import type { WorkoutDeviceChoice } from '../../shared/types';
 import type { WorkoutPendingStop, WorkoutRetention, WorkoutSessionRecord, WorkoutSport, WorkoutState } from '../../shared/workout';
+import type { CampusMapEngine } from './map-engine';
+import { DesktopWorkoutLayer, workoutMapCurrent } from './desktop-workout-layer';
+import { inBounds } from '../../shared/map-routing';
 import './workout.css';
 
 const api = window.zaichang;
@@ -30,7 +33,7 @@ function signalReason(session: WorkoutSessionRecord) {
   if (point?.quality === 'accuracy') return point.raw.accuracy === null ? '这次位置没有精度信息，尚未计入里程。'
     : `位置精度约 ${Math.round(point.raw.accuracy)} 米，这次位置未计入里程。`;
   if (point?.quality === 'outlier') return '这次位置跳动较大，未计入里程。';
-  if (point?.quality === 'stale') return '这次位置时间太旧或与电脑不同步，未计入里程。';
+  if (point?.quality === 'stale') return '这次位置的时间没对上，没有计入里程。';
   if (point?.quality === 'source-change') return '位置来源有变化，已从新一段重新记录。';
   if (point?.quality === 'invalid') return '这次位置无法用于计算里程。';
   if (point?.quality === 'timestamp' || point && session.signal === 'weak') return '正在等待新的位置，暂时无法计算当前配速。';
@@ -64,12 +67,15 @@ function readableError(error: unknown) {
 }
 
 /** Private controls for the native owner. Timers and metrics are always read back from it. */
-export function WorkoutControls() {
+export function WorkoutControls({ engine, mapOnly = false }: { engine?: CampusMapEngine; mapOnly?: boolean }) {
   const panelId = useId();
   const trigger = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
   const [state, setState] = useState<WorkoutState>();
+  const stateRef = useRef(state);
+  stateRef.current = state;
+  const mapLayer = useRef<DesktopWorkoutLayer | undefined>(undefined);
   const [devices, setDevices] = useState<WorkoutDeviceChoice[]>([]);
   const [device, setDevice] = useState('');
   const [cleanupDevice, setCleanupDevice] = useState('');
@@ -96,6 +102,8 @@ export function WorkoutControls() {
   const producer = session?.recordingSource && devices.find(candidate => candidate.source === session.recordingSource!.source
     && (session.recordingSource!.deviceId ? candidate.deviceId === session.recordingSource!.deviceId : candidate.source === 'windows'));
   const current = session?.points.at(-1)?.raw;
+  const mapPoint = workoutMapCurrent(session);
+  const pointOnMap = !!engine && !!mapPoint && inBounds(mapPoint.raw.coordinate, engine.data.manifest.bounds);
   const live = session?.status === 'recording' || session?.status === 'paused';
   const stopUnconfirmed = !!session && session.status !== 'recording' && session.stream.status !== 'stopped';
   const settlingStop = stopUnconfirmed && ['暂停中', '结束中', '停止中'].includes(busy);
@@ -123,6 +131,14 @@ export function WorkoutControls() {
     void readState().catch(failure => { if (mounted.current) setError(readableError(failure)); });
     return () => { mounted.current = false; deviceRequest.current++; unsubscribe(); };
   }, []);
+  useEffect(() => {
+    if (!engine) return;
+    const layer = new DesktopWorkoutLayer(engine);
+    mapLayer.current = layer;
+    layer.update(stateRef.current);
+    return () => { layer.dispose(); if (mapLayer.current === layer) mapLayer.current = undefined; };
+  }, [engine]);
+  useEffect(() => { mapLayer.current?.update(state); }, [state]);
   useEffect(() => {
     if (!open) return;
     setError('');
@@ -183,11 +199,12 @@ export function WorkoutControls() {
   const source = session?.provenance === 'simulated' || current?.provenance === 'simulated' || !current && producer?.provenance === 'simulated'
     ? '模拟位置' : session?.provenance === 'device' ? '设备位置' : '位置来源尚未确认';
 
+  if (mapOnly) return null;
   return <div className="workout-controls" onKeyDown={event => {
     if (event.key === 'Escape' && open) { event.preventDefault(); event.stopPropagation(); close(); }
   }}>
     <button ref={trigger} type="button" className="workout-trigger" aria-expanded={open} aria-controls={panelId}
-      onClick={() => open ? close() : setOpen(true)}><Activity size={15} /><span>{pendingStop ? pendingStop.stream.status === 'stopped' ? '完成清理' : '停止定位' : live ? session.status === 'paused' ? '运动已暂停' : '运动记录中' : '运动'}</span></button>
+      onClick={() => open ? close() : setOpen(true)}><Activity size={15} /><span>{pendingStop ? pendingStop.stream.status === 'stopped' ? '完成清理' : '停止定位' : live ? session.status === 'paused' ? '运动已暂停' : '运动记录中' : '运动'}</span>{live && <output className="workout-trigger-distance">{(session.metrics.distanceMeters / 1000).toFixed(2)}<small>公里</small></output>}</button>
     {open && <section ref={panel} id={panelId} className="workout-panel campus-v2-obstruction" tabIndex={-1} aria-label="运动记录" aria-busy={locked}>
       <header className="workout-head"><div><Icon size={20} /><strong>{form ? '记录一次运动' : session ? sports[session.sport] : '运动记录'}</strong>
         {session && !form && <span>{settlingStop ? '正在停止定位' : statusLabel(session)}</span>}</div><button type="button" aria-label="收起运动记录" onClick={close}><X size={18} /></button></header>
@@ -226,13 +243,17 @@ export function WorkoutControls() {
       </form>}
       {session && !form && <>
         <p className="workout-source">{current?.deviceLabel || producer?.deviceLabel || '定位设备'} · {source}</p>
+        {pointOnMap && <div className="workout-map-actions"><button type="button" onClick={() => { close(); mapLayer.current?.overview(); }}><Route size={15} />查看轨迹</button><button type="button" onClick={() => { close(); mapLayer.current?.locate(); }}><LocateFixed size={15} />回到位置</button></div>}
+        {engine && mapPoint && !pointOnMap && <p className="workout-note">上次记录的位置在这张校园地图之外。</p>}
         <div className="workout-distance"><output aria-live="off">{(session.metrics.distanceMeters / 1000).toFixed(2)}</output><span>公里</span></div>
         <dl className="workout-metrics"><div><dt>记录用时</dt><dd>{duration(session.metrics.elapsedActiveMs)}</dd></div><div><dt>{session.status === 'finished' ? '平均配速' : '当前配速'}</dt><dd>{pace(session.status === 'finished' ? session.metrics.averagePaceSecondsPerKm : session.metrics.paceSecondsPerKm)}<small>{(session.status === 'finished' ? session.metrics.averagePaceSecondsPerKm : session.metrics.paceSecondsPerKm) !== null ? '/公里' : '未知'}</small></dd></div></dl>
         {session.pauseDetail && <p className="workout-note">{session.pauseDetail}</p>}
         {session.status === 'recording' && session.signal !== 'good' && <p className="workout-note">{signalReason(session)}</p>}
         {stopUnconfirmed && !settlingStop && <p className="workout-note" role="status">{session.stream.reason}</p>}
         {session.persistence.status !== 'encrypted-local' && <p className="workout-note">{retentionLabel(session)}</p>}
-        <details className="workout-record-details"><summary>本次记录</summary><dl><div><dt>可信时间</dt><dd>{duration(session.metrics.trustedActiveMs)}</dd></div><div><dt>平均配速</dt><dd>{pace(session.metrics.averagePaceSecondsPerKm)}</dd></div><div><dt>步频</dt><dd>{session.metrics.cadenceStepsPerMinute === null ? '未知' : `${Math.round(session.metrics.cadenceStepsPerMinute)} 步/分钟`}{cadenceNote(session) && <small>{cadenceNote(session)}</small>}</dd></div><div><dt>记录保留</dt><dd>{retentionLabel(session)}</dd></div></dl><p>本机运动记录，未提交学校。</p></details>
+        <details className="workout-record-details"><summary>本次记录</summary><dl><div><dt>定位计入用时</dt><dd>{duration(session.metrics.trustedActiveMs)}</dd></div><div><dt>平均配速</dt><dd>{pace(session.metrics.averagePaceSecondsPerKm)}</dd></div><div><dt>步频</dt><dd>{session.metrics.cadenceStepsPerMinute === null ? '未知' : `${Math.round(session.metrics.cadenceStepsPerMinute)} 步/分钟`}{cadenceNote(session) && <small>{cadenceNote(session)}</small>}</dd></div><div><dt>记录保留</dt><dd>{retentionLabel(session)}</dd></div></dl>
+          {session.splits.length > 0 && <ol className="workout-splits" aria-label="每公里记录">{session.splits.map(split => <li key={split.kilometer}><span>{split.kilometer} 公里</span><span>{pace(split.paceSecondsPerKm)}<small>/公里</small></span></li>)}</ol>}
+          <p>本机运动记录，未提交学校。</p></details>
         <div className="workout-actions">{session.status === 'recording' && <button className="workout-primary" type="button" disabled={locked} onClick={() => reference && void act('暂停中', () => api.workoutPause(reference))}><Pause size={16} />{busy || '暂停'}</button>}
           {stopUnconfirmed && <button className="workout-primary" type="button" disabled={locked} onClick={() => reference && void act('停止中', () => session.status === 'finished' ? api.workoutFinish(reference) : api.workoutPause(reference))}>{busy || '重试停止定位'}</button>}
           {session.status === 'paused' && !stopUnconfirmed && <button className="workout-primary" type="button" disabled={locked || !chosenDevice} onClick={() => reference && chosenDevice && void act('继续中', () => api.workoutResume({ ...reference, device: chosenDevice }))}><Play size={16} />{busy || '继续记录'}</button>}

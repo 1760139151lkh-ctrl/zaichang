@@ -1,0 +1,131 @@
+{
+  "mother": "soyo-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4",
+  "matte": "soyo-listening-apricot-alpha-clean-v18.png",
+  "alphaSource": "luminance",
+  "alphaLow": 3,
+  "alphaHigh": 252,
+  "figure": "soyo-listening-apricot-figure-calibrated-v18.png",
+  "mask": "soyo-listening-apricot-mask-calibrated-v18.png",
+  "backgroundCandidate": "soyo-listening-apricot-background-candidate-v1.png",
+  "background": "soyo-listening-apricot-background-calibrated-v18.png",
+  "backgroundExpandPixels": 4,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1277,
+        267
+      ],
+      [
+        1358,
+        268
+      ],
+      [
+        1398,
+        316
+      ],
+      [
+        1425,
+        394
+      ],
+      [
+        1430,
+        483
+      ],
+      [
+        1415,
+        526
+      ],
+      [
+        1448,
+        572
+      ],
+      [
+        1438,
+        591
+      ],
+      [
+        1367,
+        575
+      ],
+      [
+        1267,
+        584
+      ],
+      [
+        1190,
+        596
+      ],
+      [
+        1187,
+        560
+      ],
+      [
+        1197,
+        517
+      ],
+      [
+        1217,
+        465
+      ],
+      [
+        1212,
+        421
+      ],
+      [
+        1247,
+        384
+      ],
+      [
+        1267,
+        356
+      ]
+    ],
+    [
+      [
+        1306,
+        251
+      ],
+      [
+        1353,
+        251
+      ],
+      [
+        1353,
+        281
+      ],
+      [
+        1306,
+        281
+      ]
+    ]
+  ],
+  "shadow": "soyo-listening-apricot-shadow-calibrated-v18.png",
+  "contactShadowPolygons": [
+    [
+      [
+        1190,
+        530
+      ],
+      [
+        1450,
+        530
+      ],
+      [
+        1450,
+        600
+      ],
+      [
+        1190,
+        600
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "record": "soyo-listening-apricot-layer-processing-v18.json",
+  "alphaPolygonRepairs": [],
+  "excludePolygons": [],
+  "reviewNote": "Only the two actual background-only short mullion segments at x1400..1409 y445..457 and y466..476 are cleared; lower returning original curved flyaway at y458..465 is preserved. No broad rectangle across real main hair. Original RGB retained; primary/runtime pending."
+}

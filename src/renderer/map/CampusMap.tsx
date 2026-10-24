@@ -40,7 +40,6 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import './map.css';
 import './map-surface.css';
 import { WindowControls } from '../ui';
-import { WorkoutControls } from './WorkoutControls';
 
 const api = window.zaichang;
 const dataCaches = new Map<boolean, MapData>();
@@ -170,6 +169,7 @@ export function MapSurface({
   returnLabel = '返回对话',
   reviewScene,
   reviewControls,
+  footerControls,
   inline = false,
   publicOnly = false,
   memory = standaloneMemory,
@@ -186,6 +186,7 @@ export function MapSurface({
   returnLabel?: string;
   reviewScene?: 'overview' | 'top-down' | 'oblique' | 'route-demo' | 'building-focus';
   reviewControls?: ReactNode;
+  footerControls?: ReactNode;
   inline?: boolean;
   publicOnly?: boolean;
   memory?: MapSurfaceMemory;
@@ -1098,7 +1099,7 @@ export function MapSurface({
           >
             {locationLabel(location)}
           </button>
-          {!publicOnly && !inline && <WorkoutControls />}
+          {!publicOnly && footerControls}
           <button
             className="campus-v2-help"
             aria-label="地图操作说明"

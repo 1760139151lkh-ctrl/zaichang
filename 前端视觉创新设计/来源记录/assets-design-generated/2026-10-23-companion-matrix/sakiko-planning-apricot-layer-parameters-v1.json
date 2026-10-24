@@ -1,5 +1,5 @@
 {
-  "mother": "sakiko-planning-apricot.png",
+  "mother": "../../../运行素材/companion/scenes/sakiko-planning-apricot.png",
   "motherSha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11",
   "matte": "sakiko-planning-apricot-mask-generated-v1.png",
   "alphaSource": "luminance",

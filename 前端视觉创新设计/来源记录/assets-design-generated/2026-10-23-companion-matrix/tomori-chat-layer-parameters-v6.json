@@ -1,0 +1,285 @@
+{
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "backgroundExpandPixels": 10,
+  "backgroundFeatherPixels": 2,
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "mother": "tomori-chat-apricot-mother.png",
+  "motherSha256": "7e2d61d5874ede02beba0808b329b18922dfe6b3f20f2d923a9c2ea4c22978d9",
+  "matte": "tomori-chat-mask-calibrated-v4.png",
+  "backgroundErasePolygons": [
+    [
+      [
+        1147,
+        725
+      ],
+      [
+        1275,
+        725
+      ],
+      [
+        1275,
+        798
+      ],
+      [
+        1147,
+        798
+      ]
+    ],
+    [
+      [
+        1180,
+        563
+      ],
+      [
+        1445,
+        563
+      ],
+      [
+        1445,
+        604
+      ],
+      [
+        1180,
+        604
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1155,
+        753
+      ],
+      [
+        1188,
+        746
+      ],
+      [
+        1262,
+        754
+      ],
+      [
+        1270,
+        786
+      ],
+      [
+        1162,
+        789
+      ]
+    ]
+  ],
+  "figure": "tomori-chat-figure-calibrated-v6.png",
+  "mask": "tomori-chat-mask-calibrated-v6.png",
+  "backgroundCandidate": "tomori-chat-background-generated-v1.png",
+  "background": "tomori-chat-background-calibrated-v6.png",
+  "shadow": "tomori-chat-shadow-calibrated-v6.png",
+  "record": "tomori-chat-layer-processing-v6.json",
+  "reviewNote": "Only the named original cloth-edge ROIs receive a 4x supersampled contour polygon (1.2px simplification) intersected with existing alpha as the final stage; no following GrabCut/global erosion/blur, no RGB repaint. Fine hair/hands/feet and the source-bright rear blazer panel are outside these cloth ROIs. Primary review pending.",
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1363,
+        382,
+        1404,
+        576
+      ],
+      "polygon": [
+        [
+          1363,
+          388
+        ],
+        [
+          1363,
+          575
+        ],
+        [
+          1403,
+          575
+        ],
+        [
+          1403,
+          571
+        ],
+        [
+          1401,
+          570
+        ],
+        [
+          1403,
+          568
+        ],
+        [
+          1401,
+          566
+        ],
+        [
+          1403,
+          560
+        ],
+        [
+          1398,
+          549
+        ],
+        [
+          1397,
+          540
+        ],
+        [
+          1393,
+          540
+        ],
+        [
+          1385,
+          531
+        ],
+        [
+          1386,
+          529
+        ],
+        [
+          1392,
+          535
+        ],
+        [
+          1390,
+          521
+        ],
+        [
+          1383,
+          503
+        ],
+        [
+          1384,
+          494
+        ],
+        [
+          1381,
+          491
+        ],
+        [
+          1383,
+          486
+        ],
+        [
+          1377,
+          480
+        ],
+        [
+          1372,
+          470
+        ],
+        [
+          1374,
+          468
+        ],
+        [
+          1379,
+          477
+        ],
+        [
+          1378,
+          461
+        ],
+        [
+          1370,
+          431
+        ],
+        [
+          1371,
+          421
+        ],
+        [
+          1369,
+          395
+        ],
+        [
+          1365,
+          390
+        ],
+        [
+          1367,
+          388
+        ]
+      ],
+      "mode": "intersect",
+      "featherPixels": 0
+    },
+    {
+      "region": [
+        1231,
+        386,
+        1257,
+        514
+      ],
+      "polygon": [
+        [
+          1256,
+          386
+        ],
+        [
+          1249,
+          386
+        ],
+        [
+          1246,
+          391
+        ],
+        [
+          1244,
+          401
+        ],
+        [
+          1245,
+          430
+        ],
+        [
+          1243,
+          439
+        ],
+        [
+          1243,
+          477
+        ],
+        [
+          1239,
+          481
+        ],
+        [
+          1238,
+          480
+        ],
+        [
+          1238,
+          489
+        ],
+        [
+          1240,
+          487
+        ],
+        [
+          1241,
+          488
+        ],
+        [
+          1238,
+          500
+        ],
+        [
+          1238,
+          513
+        ],
+        [
+          1256,
+          513
+        ]
+      ],
+      "mode": "intersect",
+      "featherPixels": 0
+    }
+  ]
+}

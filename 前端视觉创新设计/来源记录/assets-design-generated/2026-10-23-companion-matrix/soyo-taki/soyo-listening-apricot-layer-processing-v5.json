@@ -1,0 +1,211 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "soyo-listening-apricot-layer-parameters-v5.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "soyo-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4",
+  "matte": "soyo-listening-apricot-mask-calibrated-v3.png",
+  "matteSha256": "319ca27230331c5ac1a9f40316a8a1d96972aed5f41b54037ad155bd6ef7c0a4",
+  "matteRegionOverrides": [
+    {
+      "file": "soyo-listening-apricot-head-difference-v5.png",
+      "sha256": "63ab5d2e7f0490c371cc4cda025bb68e6e43006f5519716c8370d9796e274ccc",
+      "alphaSource": "luminance",
+      "region": [
+        1220,
+        270,
+        1428,
+        475
+      ]
+    }
+  ],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "alpha",
+  "alphaLow": 3,
+  "alphaHigh": 252,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          1390,
+          475
+        ],
+        [
+          1425,
+          475
+        ],
+        [
+          1425,
+          526
+        ],
+        [
+          1390,
+          526
+        ]
+      ],
+      "redMin": 120,
+      "redOverGreen": 15,
+      "redOverBlue": 35
+    }
+  ],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 189,
+  "alphaNonzeroPixels": 42764,
+  "alphaBounds": [
+    1196,
+    277,
+    1443,
+    587
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "b3684753ef50dd1edd77bc727b427497264e7c45c7da17a8b92153c27d43d2dc",
+  "figureRgbSha256": "b3684753ef50dd1edd77bc727b427497264e7c45c7da17a8b92153c27d43d2dc",
+  "background": {
+    "candidate": "soyo-listening-apricot-background-candidate-v1.png",
+    "candidateSha256": "fe3c835ebaee12f07471ccbb6e060386a56c1a12ac4c8087abceae6a14a21009",
+    "expandPixels": 4,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          1277,
+          267
+        ],
+        [
+          1358,
+          268
+        ],
+        [
+          1398,
+          316
+        ],
+        [
+          1425,
+          394
+        ],
+        [
+          1430,
+          483
+        ],
+        [
+          1415,
+          526
+        ],
+        [
+          1448,
+          572
+        ],
+        [
+          1438,
+          591
+        ],
+        [
+          1367,
+          575
+        ],
+        [
+          1267,
+          584
+        ],
+        [
+          1190,
+          596
+        ],
+        [
+          1187,
+          560
+        ],
+        [
+          1197,
+          517
+        ],
+        [
+          1217,
+          465
+        ],
+        [
+          1212,
+          421
+        ],
+        [
+          1247,
+          384
+        ],
+        [
+          1267,
+          356
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 65714,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1190,
+          530
+        ],
+        [
+          1450,
+          530
+        ],
+        [
+          1450,
+          600
+        ],
+        [
+          1190,
+          600
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "soyo-listening-apricot-figure-calibrated-v5.png",
+      "bytes": 2439911,
+      "sha256": "1300ace7110765fb75915d29ceeb69b02c45adb49abafa79017acddc4963ff4b"
+    },
+    {
+      "file": "soyo-listening-apricot-mask-calibrated-v5.png",
+      "bytes": 12458,
+      "sha256": "3fc53255fb3fe6a123a5717b2d47dc228730f426308030af86a72fdcc4660300"
+    },
+    {
+      "file": "soyo-listening-apricot-background-calibrated-v5.png",
+      "bytes": 2114127,
+      "sha256": "845297e9175eca4e30e78ca6c2417f92c05337014176021dff8130a0ecaf148e"
+    },
+    {
+      "file": "soyo-listening-apricot-shadow-calibrated-v5.png",
+      "bytes": 36109,
+      "sha256": "827fb935e795265689b66dcf71cab9987fa1e6eb83e031fa159178a9e7512cb4"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

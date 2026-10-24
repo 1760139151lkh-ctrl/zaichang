@@ -1,0 +1,264 @@
+{
+  "mother": "tomori-listening-apricot-v2-mother.png",
+  "motherSha256": "5e7191c4c0aacd44ba34a9ecafa796cd77bf7592dbbe763acf6b175ee9d12428",
+  "matte": "tomori-listening-matte-registered-v1.png",
+  "matteRegistration": {
+    "proposal": "tomori-listening-matte-generated-v1.png",
+    "proposalSha256": "63171e01352605f362c244b079ce5664e758e5cf92bbf72236b356854f8c5583",
+    "sourceBounds": [
+      1127,
+      316,
+      1497,
+      776
+    ],
+    "targetBounds": [
+      1127,
+      316,
+      1497,
+      776
+    ]
+  },
+  "registeredRefinement": {
+    "uncertainBandPixels": 16,
+    "edgeFeatherPixels": 0.6,
+    "foregroundPolygons": [
+      [
+        [
+          1369,
+          367
+        ],
+        [
+          1373,
+          367
+        ],
+        [
+          1373,
+          371
+        ],
+        [
+          1369,
+          371
+        ]
+      ],
+      [
+        [
+          1341,
+          486
+        ],
+        [
+          1345,
+          486
+        ],
+        [
+          1345,
+          490
+        ],
+        [
+          1341,
+          490
+        ]
+      ],
+      [
+        [
+          1322,
+          559
+        ],
+        [
+          1326,
+          559
+        ],
+        [
+          1326,
+          563
+        ],
+        [
+          1322,
+          563
+        ]
+      ],
+      [
+        [
+          1460,
+          573
+        ],
+        [
+          1464,
+          573
+        ],
+        [
+          1464,
+          577
+        ],
+        [
+          1460,
+          577
+        ]
+      ],
+      [
+        [
+          1242,
+          582
+        ],
+        [
+          1246,
+          582
+        ],
+        [
+          1246,
+          586
+        ],
+        [
+          1242,
+          586
+        ]
+      ],
+      [
+        [
+          1172,
+          685
+        ],
+        [
+          1176,
+          685
+        ],
+        [
+          1176,
+          689
+        ],
+        [
+          1172,
+          689
+        ]
+      ],
+      [
+        [
+          1236,
+          687
+        ],
+        [
+          1240,
+          687
+        ],
+        [
+          1240,
+          691
+        ],
+        [
+          1236,
+          691
+        ]
+      ],
+      [
+        [
+          1146,
+          746
+        ],
+        [
+          1150,
+          746
+        ],
+        [
+          1150,
+          750
+        ],
+        [
+          1146,
+          750
+        ]
+      ],
+      [
+        [
+          1205,
+          753
+        ],
+        [
+          1209,
+          753
+        ],
+        [
+          1209,
+          757
+        ],
+        [
+          1205,
+          757
+        ]
+      ]
+    ],
+    "backgroundPolygons": []
+  },
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "tomori-listening-figure-calibrated-v1.png",
+  "mask": "tomori-listening-mask-calibrated-v1.png",
+  "backgroundCandidate": "tomori-listening-background-generated-v1.png",
+  "background": "tomori-listening-background-calibrated-v1.png",
+  "backgroundExpandPixels": 10,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1117,
+        716
+      ],
+      [
+        1259,
+        716
+      ],
+      [
+        1259,
+        793
+      ],
+      [
+        1117,
+        793
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1117,
+        716
+      ],
+      [
+        1259,
+        716
+      ],
+      [
+        1259,
+        793
+      ],
+      [
+        1117,
+        793
+      ]
+    ],
+    [
+      [
+        1180,
+        552
+      ],
+      [
+        1505,
+        552
+      ],
+      [
+        1505,
+        610
+      ],
+      [
+        1180,
+        610
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "tomori-listening-shadow-calibrated-v1.png",
+  "record": "tomori-listening-layer-processing-v1.json",
+  "reviewNote": "Original mother RGB only, no pose/body repaint. Generated alpha stays source-canvas then source-colour segmentation establishes actual contour. All outputs remain candidates pending edge/contact inspection and primary acceptance."
+}

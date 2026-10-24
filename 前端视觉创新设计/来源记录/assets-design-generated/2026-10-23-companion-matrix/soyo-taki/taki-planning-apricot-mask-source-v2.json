@@ -1,0 +1,25 @@
+{
+  "recordType": "image-generation-source",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-96d5cc26-18cc-4661-bbdf-9073c9b32c71",
+  "prompt": "taki-planning-apricot-mask-prompt-v2.txt",
+  "promptSha256": "86e3bd664808294eb466b8e4403bcd885dc1d6ca5142d034511703cd4885353a",
+  "inputs": [
+    {
+      "file": "taki-planning-apricot-mother-candidate-v1.png",
+      "sha256": "f0fa68c1f8f0257063bdae886dd258b415af26e127382e8c2bb3b95f6f7050ff",
+      "role": "sole correct approved complete original mother; no failed mask input"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16e45-e592-7451-9d06-1779d8efd536/exec-96d5cc26-18cc-4661-bbdf-9073c9b32c71.png",
+  "output": {
+    "file": "taki-planning-apricot-mask-generated-v2.png",
+    "sha256": "6293546602f677494d60f87bd2639ad8dd10527ae59ec6b96ef668a3c4daaf83",
+    "bytes": 401017
+  },
+  "review": {
+    "producerDecision": "whole candidate displayed; original-RGB coordinate overlay follows",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

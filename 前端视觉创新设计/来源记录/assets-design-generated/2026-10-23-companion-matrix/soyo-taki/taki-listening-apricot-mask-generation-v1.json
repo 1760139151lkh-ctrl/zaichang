@@ -1,0 +1,27 @@
+{
+  "recordType": "built-in-image-generation-source",
+  "tool": "image_gen.imagegen",
+  "operation": "monochrome original-coordinate alpha matte",
+  "input": "taki-listening-apricot-mother-candidate-v1.png",
+  "inputSha256": "d8369e39dc109457df147611494e1741c86512e2bcfc579c92050efb0d134bbb",
+  "inputRole": "sole correct primary-approved complete mother",
+  "prompt": "taki-listening-apricot-mask-prompt-v1.txt",
+  "promptFileSha256": "9e152ce1189b4f2294aa35acfffe36d5c2574d447288e9aaea5a32b5da0868f4",
+  "output": "taki-listening-apricot-mask-candidate-v1.png",
+  "producerReview": "pending",
+  "primaryReview": "pending",
+  "runtimeAccepted": false,
+  "outputSha256": "9a54759b1b60575061e1a30730afe885cf1eedd3f0ae036a1e696572592f0f2e",
+  "bytes": 367521,
+  "canvas": [
+    1536,
+    1024
+  ],
+  "toolDefaultOutput": "generated_images/01a16e45-3c23-7790-a62d-04bd03b674e2/exec-23ad6650-2436-4ddd-9cfc-f5c8bb0ef66f.png",
+  "executionId": "exec-23ad6650-2436-4ddd-9cfc-f5c8bb0ef66f",
+  "toolPromptTextSha256": "47bcc2a8eb681fd186e1de9e014fc3841e67b4768c59c68cd5834b6012cf923b",
+  "actualToolArguments": {
+    "referencedImageCount": 1,
+    "transparent_background": false
+  }
+}

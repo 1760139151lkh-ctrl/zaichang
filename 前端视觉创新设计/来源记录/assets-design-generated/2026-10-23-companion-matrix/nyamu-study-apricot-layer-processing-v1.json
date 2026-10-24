@@ -1,0 +1,177 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "nyamu-study-apricot-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "db43d023c12a40c4ae145b261f4d4a5fdd83577ac0df4bf80b6359329487b5e0",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "nyamu-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "5a8e11981cd588f7274b848cf661b2eee415a6a63103cea342d8d660c9409579",
+  "matte": "nyamu-study-apricot-mask-candidate-v1.png",
+  "matteSha256": "e201672c8cb8f56e588e8873ab4463ad746223f8a0455f2d1cd0f541ccf89cb4",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 97574,
+  "alphaNonzeroPixels": 33373,
+  "alphaBounds": [
+    828,
+    304,
+    1052,
+    706
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "1e15a609398fe782467de082ef4c3aaa5b627322a2c87ba7bbdbb7c2fd59df15",
+  "figureRgbSha256": "1e15a609398fe782467de082ef4c3aaa5b627322a2c87ba7bbdbb7c2fd59df15",
+  "background": {
+    "candidate": "nyamu-study-apricot-background-candidate-v1.png",
+    "candidateSha256": "7f6da477226a8c34e39cb43f87fcc404caef78bcbde5091ad1a9f65f72e78bd8",
+    "expandPixels": 6,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          929,
+          678
+        ],
+        [
+          1057,
+          678
+        ],
+        [
+          1062,
+          716
+        ],
+        [
+          927,
+          716
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 52795,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          932,
+          685
+        ],
+        [
+          982,
+          683
+        ],
+        [
+          987,
+          704
+        ],
+        [
+          929,
+          706
+        ]
+      ],
+      [
+        [
+          990,
+          689
+        ],
+        [
+          1054,
+          686
+        ],
+        [
+          1058,
+          711
+        ],
+        [
+          988,
+          714
+        ]
+      ],
+      [
+        [
+          845,
+          558
+        ],
+        [
+          941,
+          556
+        ],
+        [
+          946,
+          579
+        ],
+        [
+          846,
+          581
+        ]
+      ],
+      [
+        [
+          927,
+          476
+        ],
+        [
+          991,
+          470
+        ],
+        [
+          998,
+          494
+        ],
+        [
+          933,
+          499
+        ]
+      ]
+    ],
+    "featherPixels": 1,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "nyamu-study-apricot-figure-calibrated-v1.png",
+      "bytes": 2393948,
+      "sha256": "6a1bc28b62719f4137f303e31a083171a146606b3cf56a0712bc1f0656445339"
+    },
+    {
+      "file": "nyamu-study-apricot-mask-calibrated-v1.png",
+      "bytes": 25304,
+      "sha256": "31b24257d7c02498cfaa9a5299f43cd93e851a93fbce8c1f147cda8923cb163b"
+    },
+    {
+      "file": "nyamu-study-apricot-background-calibrated-v1.png",
+      "bytes": 2071433,
+      "sha256": "a0e48db3b5791fbc5c66a6f2336149bb625efdf36fb68244b554bbab33ef1af5"
+    },
+    {
+      "file": "nyamu-study-apricot-shadow-calibrated-v1.png",
+      "bytes": 29340,
+      "sha256": "7aa837c7af958127a1e0bb07b5c99a317f94039e6df404d098ac606f795081b9"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

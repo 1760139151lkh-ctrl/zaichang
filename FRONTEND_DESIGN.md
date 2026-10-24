@@ -46,6 +46,8 @@
 
 站立、跪坐等合格姿态可以直接由地面支承，不虚标成椅子。登记使用 `support: floor`，注明 `floorContact: feet` 或 `kneeling`，将 `seat` 与 `ground` 同指母图中的真实接触点作为变换支点；当前仅支持原位展示，`travel`、`slope`、`perspective` 均为零。坐垫上的抱膝与折腿仍归原坐垫支承，不强迫鞋或袜脚移到地面。类型准入不代替逐图分层与实机审查。
 
+运行审查独立保存在矩阵的 `primary-runtime-reviews.json`，同时绑定母图 SHA、实际采用的场景字段与 PNG 字节组成的 `bundleSha256`，以及 `companion-scenes.tsx`、`companion.css`、`motion/use-spring.ts` 当前源码组成的 `stageEngineSha256`。素材或渲染引擎改变后，旧运行结论保留为历史，当前格重新待审；单纯来源指针与评审文字变化不改变素材 bundle。人物实际清晰度、接触、拖动与恢复仍由主代理在集成界面亲验，源码哈希本身不证明体验通过。
+
 这是一条本项目的强制经验工作流。不能把“GPT Image必然基于扩散模型且只能局部像素修补”写成已知技术事实；已核官方资料和未知范围见[原始Prompt移交](前端视觉创新设计/2026-10-23-深度评鉴/原始Prompt移交.md)。
 
 ## 窗景、家具与生活气息

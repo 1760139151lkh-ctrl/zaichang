@@ -1,0 +1,336 @@
+{
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        1276,
+        352
+      ],
+      [
+        1299,
+        352
+      ],
+      [
+        1299,
+        368
+      ],
+      [
+        1276,
+        368
+      ]
+    ]
+  ],
+  "backgroundExpandPixels": 10,
+  "backgroundFeatherPixels": 2,
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "mother": "tomori-study-apricot-v3-mother.png",
+  "motherSha256": "33e690f698cc4856872804014c6285620ec176ce5fe2ae6000887e4c74d3954f",
+  "matte": "tomori-study-mask-calibrated-v5.png",
+  "backgroundErasePolygons": [
+    [
+      [
+        1088,
+        721
+      ],
+      [
+        1261,
+        721
+      ],
+      [
+        1261,
+        786
+      ],
+      [
+        1088,
+        786
+      ]
+    ],
+    [
+      [
+        1132,
+        543
+      ],
+      [
+        1377,
+        543
+      ],
+      [
+        1377,
+        608
+      ],
+      [
+        1132,
+        608
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1097,
+        744
+      ],
+      [
+        1136,
+        738
+      ],
+      [
+        1244,
+        745
+      ],
+      [
+        1254,
+        778
+      ],
+      [
+        1101,
+        778
+      ]
+    ]
+  ],
+  "figure": "tomori-study-figure-calibrated-v6.png",
+  "mask": "tomori-study-mask-calibrated-v6.png",
+  "backgroundCandidate": "tomori-study-background-generated-v1.png",
+  "background": "tomori-study-background-calibrated-v6.png",
+  "shadow": "tomori-study-shadow-calibrated-v6.png",
+  "record": "tomori-study-layer-processing-v6.json",
+  "reviewNote": "Only the named original cloth-edge ROIs receive a 4x supersampled contour polygon (1.2px simplification) intersected with existing alpha as the final stage; no following GrabCut/global erosion/blur, no RGB repaint. Fine hair/hands/feet and the source-bright rear blazer panel are outside these cloth ROIs. Primary review pending.",
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1282,
+        420,
+        1354,
+        545
+      ],
+      "polygon": [
+        [
+          1282,
+          426
+        ],
+        [
+          1282,
+          544
+        ],
+        [
+          1350,
+          544
+        ],
+        [
+          1346,
+          531
+        ],
+        [
+          1336,
+          514
+        ],
+        [
+          1335,
+          520
+        ],
+        [
+          1332,
+          518
+        ],
+        [
+          1334,
+          517
+        ],
+        [
+          1334,
+          513
+        ],
+        [
+          1329,
+          508
+        ],
+        [
+          1331,
+          507
+        ],
+        [
+          1331,
+          501
+        ],
+        [
+          1327,
+          489
+        ],
+        [
+          1323,
+          483
+        ],
+        [
+          1322,
+          462
+        ],
+        [
+          1320,
+          470
+        ],
+        [
+          1317,
+          467
+        ],
+        [
+          1316,
+          455
+        ],
+        [
+          1313,
+          450
+        ],
+        [
+          1310,
+          437
+        ],
+        [
+          1308,
+          435
+        ],
+        [
+          1302,
+          437
+        ],
+        [
+          1289,
+          430
+        ],
+        [
+          1286,
+          430
+        ]
+      ],
+      "mode": "intersect",
+      "featherPixels": 0
+    },
+    {
+      "region": [
+        1187,
+        434,
+        1233,
+        520
+      ],
+      "polygon": [
+        [
+          1191,
+          434
+        ],
+        [
+          1191,
+          439
+        ],
+        [
+          1196,
+          436
+        ],
+        [
+          1200,
+          443
+        ],
+        [
+          1204,
+          446
+        ],
+        [
+          1208,
+          442
+        ],
+        [
+          1210,
+          445
+        ],
+        [
+          1210,
+          442
+        ],
+        [
+          1212,
+          440
+        ],
+        [
+          1213,
+          441
+        ],
+        [
+          1213,
+          471
+        ],
+        [
+          1216,
+          479
+        ],
+        [
+          1214,
+          490
+        ],
+        [
+          1215,
+          502
+        ],
+        [
+          1212,
+          505
+        ],
+        [
+          1212,
+          511
+        ],
+        [
+          1213,
+          510
+        ],
+        [
+          1214,
+          513
+        ],
+        [
+          1209,
+          515
+        ],
+        [
+          1213,
+          517
+        ],
+        [
+          1212,
+          519
+        ],
+        [
+          1200,
+          519
+        ],
+        [
+          1232,
+          519
+        ],
+        [
+          1232,
+          434
+        ],
+        [
+          1220,
+          434
+        ],
+        [
+          1222,
+          435
+        ],
+        [
+          1215,
+          439
+        ],
+        [
+          1214,
+          434
+        ]
+      ],
+      "mode": "intersect",
+      "featherPixels": 0
+    }
+  ]
+}

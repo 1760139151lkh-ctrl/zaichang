@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "id": "umiri-study-apricot-source-room",
+  "character": "umiri",
+  "activity": "study",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "umiri-study-apricot-mother-candidate-v1.png",
+  "background": "umiri-study-apricot-background-calibrated-v5.png",
+  "figure": "umiri-study-apricot-figure-calibrated-v5.png",
+  "mask": "umiri-study-apricot-mask-calibrated-v5.png",
+  "shadow": "umiri-study-apricot-shadow-calibrated-v5.png",
+  "seat": [
+    0.560546875,
+    0.5615234375
+  ],
+  "ground": [
+    0.6119791666666666,
+    0.705078125
+  ],
+  "bodyBounds": [
+    0.5188802083333334,
+    0.3037109375,
+    0.6634114583333334,
+    0.7080078125
+  ],
+  "safeTextBoundary": 0.499349,
+  "support": "desk-chair",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "58.203% 30.469%, 57.422% 30.957%, 55.534% 33.008%, 55.143% 33.691%, 55.013% 34.375%, 54.362% 34.863%, 54.297% 35.254%, 54.688% 34.766%, 54.883% 34.863%, 54.362% 36.133%, 54.362% 37.109%, 54.036% 37.207%, 53.516% 37.988%, 53.190% 40.137%, 53.385% 40.039%, 53.451% 40.234%, 52.669% 42.578%, 52.344% 44.336%, 52.344% 45.508%, 51.953% 46.484%, 52.344% 47.559%, 52.539% 48.730%, 52.865% 48.828%, 54.167% 56.445%, 54.362% 56.641%, 55.469% 56.641%, 55.990% 56.348%, 56.185% 56.445%, 56.836% 55.957%, 60.026% 55.859%, 59.310% 58.301%, 59.180% 64.355%, 58.464% 67.969%, 58.464% 69.727%, 59.440% 70.020%, 59.570% 69.727%, 59.766% 69.824%, 60.026% 69.531%, 60.221% 70.215%, 60.677% 70.508%, 62.370% 70.605%, 62.891% 70.215%, 62.891% 69.238%, 63.216% 68.848%, 63.737% 68.848%, 63.932% 69.336%, 64.714% 69.629%, 66.016% 69.531%, 66.276% 69.141%, 66.276% 68.555%, 65.951% 67.383%, 65.039% 66.992%, 64.062% 65.234%, 63.802% 64.355%, 63.672% 62.207%, 63.802% 62.207%, 63.997% 63.184%, 63.997% 62.012%, 63.411% 60.254%, 63.151% 54.883%, 62.891% 53.516%, 62.370% 52.930%, 60.156% 52.148%, 59.896% 51.855%, 57.682% 51.465%, 57.357% 50.977%, 57.096% 49.902%, 57.357% 48.535%, 57.878% 48.340%, 60.352% 48.438%, 60.742% 48.047%, 61.263% 48.242%, 60.938% 47.656%, 61.719% 46.973%, 62.370% 46.875%, 63.737% 47.461%, 63.997% 46.973%, 64.388% 47.363%, 64.909% 47.461%, 64.323% 46.094%, 63.672% 45.703%, 61.849% 45.703%, 61.654% 45.312%, 60.547% 45.215%, 59.635% 44.336%, 58.984% 41.504%, 59.115% 41.211%, 59.505% 41.699%, 59.310% 41.113%, 59.180% 39.062%, 59.635% 38.574%, 59.896% 38.574%, 59.635% 39.746%, 59.831% 39.160%, 59.896% 40.137%, 59.701% 41.113%, 59.961% 40.527%, 60.091% 41.309%, 59.961% 41.797%, 59.701% 41.992%, 59.961% 41.992%, 60.221% 41.309%, 60.221% 40.332%, 60.352% 40.723%, 60.221% 40.137%, 60.221% 39.160%, 60.417% 38.574%, 60.352% 37.891%, 60.612% 37.695%, 60.807% 37.891%, 61.068% 37.793%, 61.263% 36.523%, 61.523% 36.621%, 61.654% 33.594%, 61.523% 33.594%, 61.523% 34.375%, 61.068% 32.617%, 61.133% 32.422%, 60.807% 32.422%, 60.742% 31.738%, 60.091% 30.957%, 59.115% 30.371%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "production": "umiri-study-apricot-layer-processing-v5.json",
+  "parameters": "umiri-study-apricot-layer-parameters-v5.json",
+  "review": {
+    "approvedByPrimary": false,
+    "stage": "candidate-awaiting-primary-layer-review",
+    "motherApprovalRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-other-mother-reviews.json",
+    "producerNote": "Original mother RGB retained. Each pose has independent visible source contact points and alpha contour. Fixed chair/palm/desk anchors do not admit arbitrary image translation. Only short bench travel on play remains a static candidate; original Stage must be reviewed by Root.",
+    "runtimeAccepted": false
+  },
+  "calibrationNotes": {
+    "pointSpace": "original mother pixels, normalized only for Stage",
+    "seatPixelCandidate": [
+      861,
+      575
+    ],
+    "groundPixelCandidate": [
+      940,
+      722
+    ],
+    "textBoundaryMeaning": "Free left part of the mother canvas; actual quiet framing uses full body bounds and the single shared camera. Not a claim about global UI text width.",
+    "primaryCalibrationReview": "pending"
+  }
+}

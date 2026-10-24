@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-approved-mother-layer-generation",
+  "date": "2026-10-24",
+  "mother": {
+    "file": "mutsumi-play-apricot-mother-candidate-v2.png",
+    "sha256": "bddfde972af4dc64865025af3035883e0a1e15497e17ed52bc9ef9a7e6d058df"
+  },
+  "motherApprovalRecord": "primary-other-mother-reviews.json",
+  "tool": "image_gen.imagegen (built-in)",
+  "generations": [
+    {
+      "kind": "matching background v1",
+      "prompt": {
+        "file": "mutsumi-play-apricot-background-v1-prompt.txt",
+        "sha256": "964349c917c685f4a2b94ac4e84047edfb3e09a2d3016d69c1e66589eb43c0fd"
+      },
+      "inputs": [
+        {
+          "file": "mutsumi-play-apricot-mother-candidate-v2.png",
+          "sha256": "bddfde972af4dc64865025af3035883e0a1e15497e17ed52bc9ef9a7e6d058df"
+        }
+      ],
+      "output": {
+        "file": "mutsumi-play-apricot-background-candidate-v1.png",
+        "sha256": "23496d18cee1c145ee81938e7edbe261e233c0f19d2f11906c453b824a80bab0",
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-0f3a2883-6583-43fe-bf3b-c38b86fd4c52.png"
+      },
+      "selectedForProcessing": true,
+      "designerObservation": "Full exact room personally viewed; original bench/furniture props preserved, original actor and held prop/worn shoes removed only. Selected full matching BG, no partial floor tile."
+    },
+    {
+      "kind": "mask v1",
+      "prompt": {
+        "file": "mutsumi-play-apricot-mask-v1-prompt.txt",
+        "sha256": "5611ebbc9d74094adc9f327711b7134855338e5643491d6127f217c2386d2d07"
+      },
+      "inputs": [
+        {
+          "file": "mutsumi-play-apricot-mother-candidate-v2.png",
+          "sha256": "bddfde972af4dc64865025af3035883e0a1e15497e17ed52bc9ef9a7e6d058df"
+        }
+      ],
+      "output": {
+        "sha256": "4a66d85f9df574934d53232e532c2bf35d4e6f7e30da7cf2dd4a24e9c1a9cbe3",
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-db0e91ad-1a2d-4ab6-9847-510a8b32c5f4.png"
+      },
+      "selectedForProcessing": false,
+      "designerObservation": "Rejected: head top222 vsactual248, enlarged/upshifted head; not copied or used as matte/input."
+    },
+    {
+      "kind": "registered mask v2",
+      "prompt": {
+        "file": "mutsumi-play-apricot-mask-v2-prompt.txt",
+        "sha256": "14de075aff2c7e17d1ee88005f8ee16dfe55e1e03b6d217d0d00f6bdce51d0b7"
+      },
+      "inputs": [
+        {
+          "file": "mutsumi-play-apricot-mother-candidate-v2.png",
+          "sha256": "bddfde972af4dc64865025af3035883e0a1e15497e17ed52bc9ef9a7e6d058df"
+        }
+      ],
+      "output": {
+        "file": "mutsumi-play-apricot-mask-candidate-v2.png",
+        "sha256": "fb0ad785fdc6d6c2989c21304ec311be86fc61ce445c9dd7cdc08f7e6c367e85",
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-2549c118-65af-4c5d-b84b-863522b09f3b.png"
+      },
+      "selectedForProcessing": true,
+      "designerObservation": "Full source position personally compared: original head/shoulder/palm/sole coordinates retained. Final alpha calibrated using original body RGB only; raw mask never redraws body."
+    }
+  ],
+  "review": {
+    "approvedByPrimary": false,
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false
+  }
+}

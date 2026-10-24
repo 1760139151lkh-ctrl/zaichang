@@ -1,0 +1,371 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "tomori-play-layer-parameters-v5.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "tomori-play-apricot-mother.png",
+  "motherSha256": "7d516b243573ea7cc80cbd6c720eee823dbc0ed4096cf9b7f81e9d65e26de63d",
+  "matte": "tomori-play-matte-registered-v5.png",
+  "matteSha256": "998541f6d7033bac0d9a7c1d63f0c8330f80fd89247da45bc55d1485d25da5de",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        1134,
+        397
+      ],
+      [
+        1142,
+        397
+      ],
+      [
+        1142,
+        403
+      ],
+      [
+        1134,
+        403
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1240,
+        488,
+        1285,
+        541
+      ],
+      "polygon": [
+        [
+          1238,
+          486
+        ],
+        [
+          1287,
+          486
+        ],
+        [
+          1287,
+          488
+        ],
+        [
+          1281,
+          488
+        ],
+        [
+          1281,
+          497
+        ],
+        [
+          1280,
+          503
+        ],
+        [
+          1278,
+          511
+        ],
+        [
+          1275,
+          518
+        ],
+        [
+          1271,
+          525
+        ],
+        [
+          1265,
+          531
+        ],
+        [
+          1259,
+          537
+        ],
+        [
+          1253,
+          541
+        ],
+        [
+          1252,
+          539
+        ],
+        [
+          1257,
+          534
+        ],
+        [
+          1262,
+          528
+        ],
+        [
+          1268,
+          522
+        ],
+        [
+          1272,
+          516
+        ],
+        [
+          1275,
+          509
+        ],
+        [
+          1277,
+          502
+        ],
+        [
+          1278,
+          495
+        ],
+        [
+          1277,
+          490
+        ],
+        [
+          1271,
+          491
+        ],
+        [
+          1267,
+          500
+        ],
+        [
+          1260,
+          509
+        ],
+        [
+          1252,
+          519
+        ],
+        [
+          1244,
+          529
+        ],
+        [
+          1238,
+          536
+        ],
+        [
+          1238,
+          543
+        ]
+      ],
+      "mode": "intersect",
+      "featherPixels": 0
+    },
+    {
+      "region": [
+        1277,
+        416,
+        1287,
+        490
+      ],
+      "polygon": [
+        [
+          1275,
+          414
+        ],
+        [
+          1281,
+          414
+        ],
+        [
+          1283,
+          437
+        ],
+        [
+          1285,
+          453
+        ],
+        [
+          1285,
+          468
+        ],
+        [
+          1283,
+          483
+        ],
+        [
+          1281,
+          492
+        ],
+        [
+          1279,
+          492
+        ],
+        [
+          1281,
+          481
+        ],
+        [
+          1283,
+          466
+        ],
+        [
+          1282,
+          452
+        ],
+        [
+          1280,
+          437
+        ],
+        [
+          1278,
+          425
+        ],
+        [
+          1275,
+          422
+        ]
+      ],
+      "mode": "intersect",
+      "featherPixels": 0
+    }
+  ],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 4039,
+  "alphaNonzeroPixels": 117246,
+  "alphaBounds": [
+    928,
+    365,
+    1308,
+    933
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "f891d4c47e667eb846d37774e8d4184fb99e49abd37bf81c2729919af563ed45",
+  "figureRgbSha256": "f891d4c47e667eb846d37774e8d4184fb99e49abd37bf81c2729919af563ed45",
+  "background": {
+    "candidate": "tomori-play-background-generated-v1.png",
+    "candidateSha256": "18792cbe74a888a5e3fce4ec3179112e3761dcf5dcb5ff830f13ac6a9a6b69cd",
+    "expandPixels": 10,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          904,
+          804
+        ],
+        [
+          1330,
+          804
+        ],
+        [
+          1330,
+          952
+        ],
+        [
+          904,
+          952
+        ]
+      ],
+      [
+        [
+          1252,
+          487
+        ],
+        [
+          1283,
+          487
+        ],
+        [
+          1283,
+          541
+        ],
+        [
+          1252,
+          541
+        ]
+      ],
+      [
+        [
+          1277,
+          416
+        ],
+        [
+          1287,
+          416
+        ],
+        [
+          1287,
+          492
+        ],
+        [
+          1277,
+          492
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 185824,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          904,
+          804
+        ],
+        [
+          1330,
+          804
+        ],
+        [
+          1330,
+          952
+        ],
+        [
+          904,
+          952
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "tomori-play-figure-calibrated-v5.png",
+      "bytes": 2449546,
+      "sha256": "a4bf3a2eee3b5103a87145d3bec9343485d5e0ab07ea2fdeef9994a025d03f71"
+    },
+    {
+      "file": "tomori-play-mask-calibrated-v5.png",
+      "bytes": 22882,
+      "sha256": "d3ddc19c205fd124f429d6940c55a005379f949411ba557d6d38950b8ad411f5"
+    },
+    {
+      "file": "tomori-play-background-calibrated-v5.png",
+      "bytes": 2093120,
+      "sha256": "487335cb8c63884f1a2e8ad4370504324363b35c518414dc4242e4dfa2feca77"
+    },
+    {
+      "file": "tomori-play-shadow-calibrated-v5.png",
+      "bytes": 70152,
+      "sha256": "8344d86a3b13566f846e7888ac9d4c38a129242c7d6cc3293b927bdf2cb0bb7b"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

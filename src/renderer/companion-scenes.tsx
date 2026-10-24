@@ -33,6 +33,16 @@ export interface CompanionSceneArtwork extends SceneCalibration {
   width: number;
   height: number;
 }
+export interface SceneTransferChoice {
+  sceneId: string;
+  moment: Exclude<CompanionMoment, 'night'>;
+  positionKey: string;
+  position: number;
+}
+export interface SceneTransferTarget extends SceneTransferChoice {
+  artwork: CompanionSceneArtwork;
+  label: string;
+}
 
 // Every layer has the mother's complete canvas. No layer independently covers
 // the viewport, and a tight portrait is never fitted into this coordinate space.
@@ -132,16 +142,41 @@ function seatPositionBounds(artwork: CompanionSceneArtwork): readonly [number, n
   return minimum <= maximum ? [minimum, maximum] : [0, 0];
 }
 
-export function companionSceneArtwork(character: string, moment: CompanionMoment = 'chat', light: SceneLight = 'morning', palette: AppearancePalette = 'apricot'): CompanionSceneArtwork | undefined {
-  const activity = moment === 'night' ? 'chat' : moment;
-  const registration = registrations.find(item => item.character === character && item.activity === activity && item.light === light && item.palette === palette);
-  if (registration) return {
-    ...registration, contactShadow: registration.contactShadow.mode, positionKey: `${character}-${activity}`,
+function registeredArtwork(registration: SceneRegistration): CompanionSceneArtwork {
+  return {
+    ...registration, contactShadow: registration.contactShadow.mode, positionKey: `${registration.character}-${registration.activity}`,
     mother: registeredFile(registration.mother)!, background: registeredFile(registration.background),
     figure: registeredFile(registration.figure), mask: registeredFile(registration.mask),
     shadow: registration.contactShadow.mode === 'separate' ? registeredFile(registration.shadow) : undefined,
     foreground: registeredFile(registration.foreground),
   };
+}
+export function companionRegisteredSceneArtwork(sceneId: string, character: string, light: SceneLight, palette: AppearancePalette): CompanionSceneArtwork | undefined {
+  const registration = registrations.find(item => item.id === sceneId && item.character === character && item.light === light && item.palette === palette);
+  return registration && registeredArtwork(registration);
+}
+export function companionSceneTransferTargets(character: string, current: CompanionSceneArtwork, light: SceneLight, palette: AppearancePalette,
+  positions: Record<string, number>, semanticMoment: CompanionMoment): SceneTransferTarget[] {
+  if (!registrations.some(item => item.id === current.id && item.character === character && item.light === light && item.palette === palette)) return [];
+  const matching = registrations.filter(item => item.character === character && item.light === light && item.palette === palette && item.support !== current.support);
+  const result: SceneTransferTarget[] = [];
+  for (const support of ['window-seat', 'desk-chair', 'sofa', 'floor'] as const) {
+    const candidates = matching.filter(item => item.support === support);
+    const preferred = support === 'desk-chair' ? ['study', 'planning'] : support === 'window-seat' ? [semanticMoment === 'reading' ? 'reading' : 'chat', 'reading', 'rest'] : ['rest', 'chat', 'play'];
+    const selected = preferred.map(activity => candidates.find(item => item.activity === activity)).find(Boolean) ?? candidates[0];
+    if (!selected) continue;
+    const artwork = registeredArtwork(selected), bounds = seatPositionBounds(artwork);
+    result.push({ artwork, sceneId: selected.id, moment: selected.activity, positionKey: artwork.positionKey,
+      position: Math.max(bounds[0], Math.min(bounds[1], positions[artwork.positionKey] ?? positions[artwork.id] ?? 0)),
+      label: support === 'desk-chair' ? '桌边' : support === 'sofa' ? '沙发上' : support === 'floor' ? '地面上' : '窗边' });
+  }
+  return result;
+}
+
+export function companionSceneArtwork(character: string, moment: CompanionMoment = 'chat', light: SceneLight = 'morning', palette: AppearancePalette = 'apricot'): CompanionSceneArtwork | undefined {
+  const activity = moment === 'night' ? 'chat' : moment;
+  const registration = registrations.find(item => item.character === character && item.activity === activity && item.light === light && item.palette === palette);
+  if (registration) return registeredArtwork(registration);
   const candidates = [...new Set([
     `${character}-${activity}-${light}-${palette}`,
     ...(light === 'night' && activity === 'chat' && palette === 'rain' ? [`${character}-night`] : []),
@@ -175,11 +210,14 @@ export function companionScenePortrait(character: string) {
 }
 
 /** Position follows a calibrated support surface; floor poses stay at their contact pivot. */
-export function CompanionSceneStage({ artwork, name, position, onCommit, showFigure = true, interactive = true, quiet = false, reducedMotion = false, previewOnly = false }: {
+export function CompanionSceneStage({ artwork, name, position, onCommit, transferTargets = [], transferScope, onTransferCommit, showFigure = true, interactive = true, quiet = false, reducedMotion = false, previewOnly = false }: {
   artwork: CompanionSceneArtwork;
   name: string;
   position: number;
   onCommit: (position: number) => void;
+  transferTargets?: readonly SceneTransferTarget[];
+  transferScope?: string;
+  onTransferCommit?: (choice: SceneTransferChoice, origin: { sceneId: string; position: number }) => void;
   showFigure?: boolean;
   interactive?: boolean;
   quiet?: boolean;
@@ -202,28 +240,45 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, showFig
   const [failedLayer, setFailedLayer] = useState(false);
   const [failedMother, setFailedMother] = useState(false);
   const [saveError, setSaveError] = useState(false);
-  const latest = useRef({ onCommit, position, artwork, quiet, previewOnly });
-  latest.current = { onCommit, position, artwork, quiet, previewOnly };
+  const [targetsOpen, setTargetsOpen] = useState(false);
+  const targetsOpenRef = useRef(false);
+  targetsOpenRef.current = targetsOpen;
+  const [hoveredTarget, setHoveredTarget] = useState<string>();
+  const hoveredTargetRef = useRef<string | undefined>(undefined);
+  const targetButtons = useRef(new Map<string, HTMLButtonElement>());
+  const transferEntry = useRef<HTMLButtonElement>(null);
+  const confirmTransfer = useRef<HTMLButtonElement>(null);
+  const [transferError, setTransferError] = useState('');
+  const [pendingTransfer, setPendingTransfer] = useState<{ target: SceneTransferTarget; origin: { sceneId: string; position: number }; scope?: string }>();
+  const pendingTransferRef = useRef(pendingTransfer);
+  pendingTransferRef.current = pendingTransfer;
+  const shown = pendingTransfer?.target.artwork ?? artwork;
+  const shownBounds = seatPositionBounds(shown);
+  const shownPosition = pendingTransfer ? Math.max(shownBounds[0], Math.min(shownBounds[1], pendingTransfer.target.position)) : value;
+  const latest = useRef({ onCommit, position, artwork, quiet, previewOnly, transferTargets, transferScope, onTransferCommit });
+  latest.current = { onCommit, position, artwork, quiet, previewOnly, transferTargets, transferScope, onTransferCommit };
   const gesture = useRef<{ pointerId: number; x: number; y: number; origin: number; savedOrigin: number; scale: number; tangentX: number; tangentY: number; sampledAt: number; sampledValue: number; velocity: number;
-    assetId: string; previewOnly: boolean; onCommit: (position: number) => void } | undefined>(undefined);
+    assetId: string; previewOnly: boolean; onCommit: (position: number) => void; distance: number; transferIntent: boolean } | undefined>(undefined);
   const keyboardOrigin = useRef<number | undefined>(undefined);
   const pendingOrigin = useRef<number | undefined>(undefined);
   const pendingTarget = useRef<number | undefined>(undefined);
-  const layered = !!artwork.background && (!!artwork.figure || !!artwork.mask) && !failedLayer;
-  const canMove = interactive && showFigure && layered && artwork.contourComplete && bounds[1] - bounds[0] > .0001;
+  const layered = !!shown.background && (!!shown.figure || !!shown.mask) && !failedLayer;
+  const canSlide = interactive && showFigure && layered && !failedMother && !pendingTransfer && artwork.contourComplete && bounds[1] - bounds[0] > .0001;
+  const canTransfer = interactive && showFigure && layered && !failedMother && !pendingTransfer && !!onTransferCommit && transferTargets.length > 0;
+  const canMove = canSlide || canTransfer;
   // The room and every layer share this one camera. Content retreat changes
   // the room's framing, never the aspect ratio of the person or furniture.
-  const fullScale = size.height / artwork.height;
+  const fullScale = size.height / shown.height;
   // Clear the whole legal seat interval. Framing must stay fixed while a
   // pointer controls the person, including wide poses beside a narrow paper.
-  const bodyLeft = Math.min(...bounds.map(at => artwork.bodyBounds[0]
-    + at * (artwork.travel + (artwork.bodyBounds[0] - artwork.seat[0]) * artwork.perspective)));
+  const bodyLeft = Math.min(...shownBounds.map(at => shown.bodyBounds[0]
+    + at * (shown.travel + (shown.bodyBounds[0] - shown.seat[0]) * shown.perspective)));
   const paperEdge = 44 + Math.min(800, Math.max(0, size.width - 330));
-  const clearScale = Math.max(0, size.width - paperEdge - 24) / ((1 - bodyLeft) * artwork.width);
-  const sideScale = Math.min(fullScale, Math.max(360, size.height * .7) / artwork.height, clearScale);
+  const clearScale = Math.max(0, size.width - paperEdge - 24) / ((1 - bodyLeft) * shown.width);
+  const sideScale = Math.min(fullScale, Math.max(360, size.height * .7) / shown.height, clearScale);
   const scale = fullScale + (sideScale - fullScale) * retreat.value;
-  const stageX = size.width - artwork.width * scale;
-  const stageY = (size.height - artwork.height * scale) * .5 * retreat.value;
+  const stageX = size.width - shown.width * scale;
+  const stageY = (size.height - shown.height * scale) * .5 * retreat.value;
   const apply = (next: number, velocity = 0) => spring.set(legal(next), velocity);
   function commit(next: number) {
     try { latest.current.onCommit(next); setSaveError(false); }
@@ -247,19 +302,49 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, showFig
     settle(origin, spring.get().velocity, false);
     if (latest.current.previewOnly) commit(legal(origin));
   }
+  function closeTransfer(restoreFocus = false) {
+    pendingTransferRef.current = undefined;
+    setPendingTransfer(undefined); setTargetsOpen(false); setHoveredTarget(undefined); hoveredTargetRef.current = undefined; setTransferError('');
+    if (restoreFocus) requestAnimationFrame(() => (transferEntry.current ?? handle.current)?.focus({ preventScroll: true }));
+  }
+  function previewTransfer(target: SceneTransferTarget) {
+    const current = latest.current;
+    const valid = current.transferTargets.find(item => item.sceneId === target.sceneId);
+    if (!valid || !current.onTransferCommit) return;
+    finish(true); cancelKeyboard(); cancelPending();
+    const next = { target: valid, origin: { sceneId: current.artwork.id, position: current.position }, scope: current.transferScope };
+    pendingTransferRef.current = next; setPendingTransfer(next); setTargetsOpen(false); setHoveredTarget(undefined); hoveredTargetRef.current = undefined; setTransferError('');
+  }
+  function acceptTransfer() {
+    const pending = pendingTransferRef.current, current = latest.current;
+    if (!pending || failedLayer || failedMother) return;
+    if (pending.origin.sceneId !== current.artwork.id || pending.scope !== current.transferScope || !current.transferTargets.some(item => item.sceneId === pending.target.sceneId)) {
+      closeTransfer(true); return;
+    }
+    try {
+      const { sceneId, moment, positionKey, position } = pending.target;
+      current.onTransferCommit?.({ sceneId, moment, positionKey, position }, pending.origin);
+      closeTransfer(true);
+    } catch (problem) {
+      setTransferError(problem instanceof Error ? problem.message : '这个位置暂时没能留下，试看的样子还在。');
+    }
+  }
   function finish(cancel: boolean) {
     const active = gesture.current;
     if (!active) return;
     cancel ||= active.assetId !== latest.current.artwork.id;
     gesture.current = undefined;
     setMoving(false);
-    if (cancel) {
+    const transfer = !cancel && active.distance >= 8 ? latest.current.transferTargets.find(item => item.sceneId === hoveredTargetRef.current) : undefined;
+    setTargetsOpen(false); setHoveredTarget(undefined); hoveredTargetRef.current = undefined;
+    if (cancel || transfer || active.transferIntent || currentBounds.current[1] - currentBounds.current[0] <= .0001) {
       settle(active.savedOrigin, spring.get().velocity, false);
       if (active.previewOnly) active.onCommit(active.savedOrigin);
     }
     else settle(spring.get().value, performance.now() - active.sampledAt < 100 ? active.velocity : 0);
     retreat.animate(latest.current.quiet ? 1 : 0);
     if (handle.current?.hasPointerCapture(active.pointerId)) handle.current.releasePointerCapture(active.pointerId);
+    if (transfer) previewTransfer(transfer);
   }
   function cancelKeyboard() {
     if (keyboardOrigin.current === undefined) return;
@@ -278,7 +363,7 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, showFig
     const initialSize = element.getBoundingClientRect();
     setSize({ width: initialSize.width, height: initialSize.height });
     const observer = new ResizeObserver(([entry]) => {
-      finish(true);
+      finish(true); closeTransfer();
       setSize({ width: entry.contentRect.width, height: entry.contentRect.height });
     });
     observer.observe(element);
@@ -286,27 +371,43 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, showFig
   }, []);
   useLayoutEffect(() => {
     finish(true); keyboardOrigin.current = undefined; pendingOrigin.current = undefined; pendingTarget.current = undefined;
-    setFailedLayer(false); setFailedMother(false); setSaveError(false); apply(position);
-  }, [artwork.id]);
+    closeTransfer(); setFailedLayer(false); setFailedMother(false); setSaveError(false); apply(position);
+  }, [artwork.id, transferScope]);
   useEffect(() => {
+    setFailedLayer(false); setFailedMother(false);
+  }, [shown.id]);
+  useEffect(() => {
+    if (!pendingTransfer) return;
+    const frame = requestAnimationFrame(() => confirmTransfer.current?.focus({ preventScroll: true }));
+    return () => cancelAnimationFrame(frame);
+  }, [pendingTransfer?.target.sceneId]);
+  useEffect(() => {
+    if ((!interactive || !showFigure) && pendingTransferRef.current) closeTransfer();
+  }, [interactive, showFigure]);
+  useEffect(() => {
+    if (pendingTransferRef.current && pendingTransferRef.current.origin.position !== position) closeTransfer();
     if (!gesture.current && keyboardOrigin.current === undefined) {
       if (previewOnly && pendingOrigin.current !== undefined && pendingTarget.current === legal(position)) return;
       pendingOrigin.current = undefined; pendingTarget.current = undefined; spring.animate(legal(position));
     }
   }, [position]);
-  useEffect(() => { finish(true); cancelKeyboard(); cancelPending(); retreat.animate(quiet ? 1 : 0); }, [quiet]);
+  useEffect(() => { finish(true); cancelKeyboard(); cancelPending(); closeTransfer(); retreat.animate(quiet ? 1 : 0); }, [quiet]);
   useEffect(() => {
     const escape = (event: globalThis.KeyboardEvent) => {
       if (event.isComposing) return;
-      if (event.key === 'Escape' && (gesture.current || keyboardOrigin.current !== undefined || pendingOrigin.current !== undefined)) {
-        event.preventDefault(); event.stopPropagation(); finish(true); cancelKeyboard(); cancelPending();
+      if (event.key === 'Escape' && (gesture.current || keyboardOrigin.current !== undefined || pendingOrigin.current !== undefined || pendingTransferRef.current || targetsOpenRef.current)) {
+        event.preventDefault(); event.stopPropagation(); finish(true); cancelKeyboard(); cancelPending(); closeTransfer(true);
       }
     };
-    const blur = () => { cancelKeyboard(); finish(true); cancelPending(); };
+    const blur = () => { cancelKeyboard(); finish(true); cancelPending(); closeTransfer(); };
     window.addEventListener('keydown', escape, true); window.addEventListener('blur', blur);
-    const hidden = () => { if (document.hidden) { finish(true); cancelKeyboard(); cancelPending(); } };
+    const hidden = () => { if (document.hidden) { finish(true); cancelKeyboard(); cancelPending(); closeTransfer(); } };
     document.addEventListener('visibilitychange', hidden);
-    return () => { window.removeEventListener('keydown', escape, true); window.removeEventListener('blur', blur); document.removeEventListener('visibilitychange', hidden); };
+    return () => {
+      gesture.current = undefined; pendingTransferRef.current = undefined; pendingOrigin.current = undefined; pendingTarget.current = undefined;
+      spring.stop(); retreat.stop();
+      window.removeEventListener('keydown', escape, true); window.removeEventListener('blur', blur); document.removeEventListener('visibilitychange', hidden);
+    };
   }, []);
   function begin(event: PointerEvent<HTMLDivElement>) {
     if (!canMove || gesture.current || event.button !== 0 || !event.isPrimary || !scale) return;
@@ -320,21 +421,32 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, showFig
     const originalX = (worldX - artwork.seat[0] * artwork.width - u * artwork.travel * artwork.width) / (1 + u * artwork.perspective);
     const originalY = (worldY - artwork.seat[1] * artwork.height - u * artwork.travel * artwork.width * artwork.slope) / (1 + u * artwork.perspective);
     gesture.current = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, origin: u, savedOrigin: legal(latest.current.position), scale,
-      assetId: artwork.id, previewOnly, onCommit: latest.current.onCommit,
+      assetId: artwork.id, previewOnly, onCommit: latest.current.onCommit, distance: 0, transferIntent: false,
       sampledAt: performance.now(), sampledValue: u, velocity: snapshot.velocity,
       tangentX: artwork.travel * artwork.width + artwork.perspective * originalX,
       tangentY: artwork.travel * artwork.width * artwork.slope + artwork.perspective * originalY };
 
-    setMoving(true);
+    setMoving(true); setTargetsOpen(canTransfer); setTransferError('');
   }
   function move(event: PointerEvent<HTMLDivElement>) {
     const active = gesture.current;
     if (!active || active.pointerId !== event.pointerId) return;
     event.preventDefault();
+    active.distance = Math.hypot(event.clientX - active.x, event.clientY - active.y);
+    const hovered = latest.current.transferTargets.find(target => {
+      const rect = targetButtons.current.get(target.sceneId)?.getBoundingClientRect();
+      return rect && event.clientX >= rect.left - 14 && event.clientX <= rect.right + 14 && event.clientY >= rect.top - 14 && event.clientY <= rect.bottom + 14;
+    });
+    hoveredTargetRef.current = hovered?.sceneId; setHoveredTarget(hovered?.sceneId);
+    active.transferIntent ||= canTransfer && active.distance > 44;
+    if (active.transferIntent) { apply(active.savedOrigin); return; }
+    if (!canSlide || hovered) return;
     // Project both pointer axes onto the actual seat's tangent. The character
     // remains on the seat even if the hand moves vertically off the surface.
     const dx = (event.clientX - active.x) / active.scale, dy = (event.clientY - active.y) / active.scale;
-    const delta = (dx * active.tangentX + dy * active.tangentY) / (active.tangentX ** 2 + active.tangentY ** 2);
+    const tangentLength = active.tangentX ** 2 + active.tangentY ** 2;
+    if (tangentLength <= .00001) return;
+    const delta = (dx * active.tangentX + dy * active.tangentY) / tangentLength;
     const next = legal(active.origin + delta), now = performance.now(), elapsed = (now - active.sampledAt) / 1000;
     const velocity = elapsed > 0 ? (next - active.sampledValue) / elapsed : active.velocity;
     active.velocity = Math.max(-8, Math.min(8, velocity)); active.sampledAt = now; active.sampledValue = next;
@@ -342,11 +454,16 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, showFig
   }
   function keyDown(event: KeyboardEvent<HTMLDivElement>) {
     if (!canMove) return;
+    if (canTransfer && (event.key === ' ' || event.key === 'Enter' && keyboardOrigin.current === undefined)) {
+      event.preventDefault(); event.stopPropagation(); setTargetsOpen(true);
+      requestAnimationFrame(() => targetButtons.current.values().next().value?.focus({ preventScroll: true })); return;
+    }
     if (event.key === 'Escape' && keyboardOrigin.current !== undefined) {
       event.preventDefault(); event.stopPropagation();
       cancelKeyboard(); return;
     }
     if (event.key === 'Enter') { event.preventDefault(); acceptKeyboard(); return; }
+    if (!canSlide) return;
     const current = spring.get().value;
     const step = event.shiftKey ? .015 : .08;
     const next = ['ArrowLeft', 'ArrowUp'].includes(event.key) ? current - step
@@ -355,52 +472,73 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, showFig
     if (next === undefined) return;
     event.preventDefault(); keyboardOrigin.current ??= legal(latest.current.position); spring.stop(); apply(next);
   }
-  const focusPoints = artwork.hitPolygon.replace(/([\d.]+)% ([\d.]+)%/g, (_, x, y) => `${Number(x) / 100 * artwork.width},${Number(y) / 100 * artwork.height}`).replaceAll(', ', ' ');
-  const dx = value * artwork.travel * artwork.width;
+  const focusPoints = shown.hitPolygon.replace(/([\d.]+)% ([\d.]+)%/g, (_, x, y) => `${Number(x) / 100 * shown.width},${Number(y) / 100 * shown.height}`).replaceAll(', ', ' ');
+  const dx = shownPosition * shown.travel * shown.width;
   const actorStyle: CSSProperties = {
-    transformOrigin: `${artwork.seat[0] * 100}% ${artwork.seat[1] * 100}%`,
-    transform: `translate(${dx}px, ${dx * artwork.slope}px) scale(${1 + value * artwork.perspective})`,
+    transformOrigin: `${shown.seat[0] * 100}% ${shown.seat[1] * 100}%`,
+    transform: `translate(${dx}px, ${dx * shown.slope}px) scale(${1 + shownPosition * shown.perspective})`,
   };
   const verifyLayer = (image: HTMLImageElement) => {
-    if (image.naturalWidth !== artwork.width || image.naturalHeight !== artwork.height) setFailedLayer(true);
+    if (image.naturalWidth !== shown.width || image.naturalHeight !== shown.height) setFailedLayer(true);
   };
-  const seatName = artwork.support === 'floor' ? '地面上' : artwork.support === 'desk-chair' ? '桌边' : artwork.support === 'sofa' ? '沙发上' : '窗边';
-  return <div ref={viewport} className={`scene-stage-viewport${moving ? ' is-moving' : ''}`} data-scene={artwork.id} data-light={artwork.light} data-art-palette={artwork.palette} data-support={artwork.support} data-layered={layered}>
-    <img src={artwork.mother} alt="" hidden style={{ display: 'none' }} onLoad={event => {
-      if (event.currentTarget.naturalWidth !== artwork.width || event.currentTarget.naturalHeight !== artwork.height) setFailedMother(true);
+  const seatName = shown.support === 'floor' ? '地面上' : shown.support === 'desk-chair' ? '桌边' : shown.support === 'sofa' ? '沙发上' : '窗边';
+  return <div ref={viewport} className={`scene-stage-viewport${moving ? ' is-moving' : ''}${pendingTransfer ? ' is-trying-place' : ''}`} data-scene={shown.id} data-light={shown.light} data-art-palette={shown.palette} data-support={shown.support} data-layered={layered}>
+    <img key={shown.id} src={shown.mother} alt="" hidden style={{ display: 'none' }} onLoad={event => {
+      if (event.currentTarget.naturalWidth !== shown.width || event.currentTarget.naturalHeight !== shown.height) setFailedMother(true);
     }} onError={() => setFailedMother(true)} />
-    {!artwork.figure && artwork.mask && <img src={artwork.mask} alt="" hidden style={{ display: 'none' }}
+    {!shown.figure && shown.mask && <img src={shown.mask} alt="" hidden style={{ display: 'none' }}
       onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} />}
-    {!failedMother && <div className="scene-canvas" style={{ width: artwork.width, height: artwork.height,
+    {!failedMother && <div key={shown.id} className="scene-canvas" style={{ width: shown.width, height: shown.height,
       transform: `translate(${stageX}px, ${stageY}px) scale(${scale})` }}>
       {layered ? <>
-        <img className="scene-layer" src={artwork.background} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} />
+        <img className="scene-layer" src={shown.background} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} />
         {showFigure && <div className="scene-actor-layer" style={actorStyle}>
-          {artwork.shadow && <img className="scene-layer" src={artwork.shadow} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} />}
-          {artwork.figure ? <img className="scene-layer" src={artwork.figure} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} /> : <svg className="scene-layer" viewBox={`0 0 ${artwork.width} ${artwork.height}`} aria-hidden="true">
+          {shown.shadow && <img className="scene-layer" src={shown.shadow} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} />}
+          {shown.figure ? <img className="scene-layer" src={shown.figure} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} /> : <svg className="scene-layer" viewBox={`0 0 ${shown.width} ${shown.height}`} aria-hidden="true">
             <defs>
               <filter id={`${svgId}-alpha`} colorInterpolationFilters="sRGB">
                 <feComponentTransfer><feFuncA type="table" tableValues="0 0 0 0 0 0 0 0 1 1 1" /></feComponentTransfer>
               </filter>
-              <mask id={`${svgId}-figure`} maskUnits="userSpaceOnUse" x="0" y="0" width={artwork.width} height={artwork.height} style={{ maskType: 'alpha' }}>
-                <image href={artwork.mask} width={artwork.width} height={artwork.height} preserveAspectRatio="none" filter={`url(#${svgId}-alpha)`} onError={() => setFailedLayer(true)} />
+              <mask id={`${svgId}-figure`} maskUnits="userSpaceOnUse" x="0" y="0" width={shown.width} height={shown.height} style={{ maskType: 'alpha' }}>
+                <image href={shown.mask} width={shown.width} height={shown.height} preserveAspectRatio="none" filter={`url(#${svgId}-alpha)`} onError={() => setFailedLayer(true)} />
               </mask>
             </defs>
-            <image href={artwork.mother} width={artwork.width} height={artwork.height} preserveAspectRatio="none" mask={`url(#${svgId}-figure)`} onError={() => setFailedLayer(true)} />
+            <image href={shown.mother} width={shown.width} height={shown.height} preserveAspectRatio="none" mask={`url(#${svgId}-figure)`} onError={() => setFailedLayer(true)} />
           </svg>}
-          {canMove && <div ref={handle} className="scene-character-grab" role="slider" tabIndex={0}
-            aria-label={`${name}在${seatName}的位置`} aria-orientation="horizontal" aria-valuemin={Math.round(bounds[0] * 100)} aria-valuemax={Math.round(bounds[1] * 100)} aria-describedby={instructionsId}
-            aria-valuenow={Math.round(value * 100)} aria-valuetext={Math.abs(value) < .05 ? '原来的位置' : value < 0 ? '座位左侧' : '座位右侧'}
-            title="拖动，换个舒服的位置；双击回到原处"
-            style={{ inset: 0, clipPath: `polygon(${artwork.hitPolygon})` }}
+          {canMove && <div ref={handle} className="scene-character-grab" role={canSlide ? 'slider' : 'button'} tabIndex={0}
+            aria-label={`${name}在${seatName}的位置`} aria-orientation={canSlide ? 'horizontal' : undefined} aria-valuemin={canSlide ? Math.round(bounds[0] * 100) : undefined} aria-valuemax={canSlide ? Math.round(bounds[1] * 100) : undefined} aria-describedby={instructionsId}
+            aria-valuenow={canSlide ? Math.round(value * 100) : undefined} aria-valuetext={canSlide ? Math.abs(value) < .05 ? '原来的位置' : value < 0 ? '座位左侧' : '座位右侧' : undefined}
+            title={canTransfer ? '拖到家具，先看看新的坐姿' : '拖动，换个舒服的位置；双击回到原处'}
+            style={{ inset: 0, clipPath: `polygon(${shown.hitPolygon})` }}
             onPointerDown={begin} onPointerMove={move} onPointerUp={event => { if (gesture.current?.pointerId === event.pointerId) finish(false); }} onPointerCancel={event => { if (gesture.current?.pointerId === event.pointerId) finish(true); }} onLostPointerCapture={event => { if (gesture.current?.pointerId === event.pointerId) finish(true); }}
-            onDoubleClick={() => { keyboardOrigin.current = undefined; settle(0); }} onKeyDown={keyDown}
+            onDoubleClick={() => { if (canSlide) { keyboardOrigin.current = undefined; settle(0); } }} onKeyDown={keyDown}
             onBlur={() => { acceptKeyboard(); finish(true); }} />}
-          {canMove && <span id={instructionsId} className="sr-only">方向键调整位置，Shift加方向键微调；回车留下这个位置，Escape取消。双击回到原处。</span>}
-          {canMove && <svg className="scene-focus-ring" viewBox={`0 0 ${artwork.width} ${artwork.height}`} aria-hidden="true"><polygon points={focusPoints} /></svg>}
+          {canMove && <span id={instructionsId} className="sr-only">{canSlide ? '方向键调整位置，Shift加方向键微调；回车留下这个位置。' : ''}{canTransfer ? '空格或回车选择另一处家具，先试坐再决定。' : ''}Escape取消。</span>}
+          {canMove && <svg className="scene-focus-ring" viewBox={`0 0 ${shown.width} ${shown.height}`} aria-hidden="true"><polygon points={focusPoints} /></svg>}
         </div>}
-        {artwork.foreground && <img className="scene-layer scene-foreground" src={artwork.foreground} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} />}
-      </> : showFigure ? <img className="scene-layer" src={artwork.mother} alt="" draggable={false} onError={() => setFailedMother(true)} /> : null}
+        {shown.foreground && <img className="scene-layer scene-foreground" src={shown.foreground} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={() => setFailedLayer(true)} />}
+      </> : showFigure ? <img className="scene-layer" src={shown.mother} alt="" draggable={false} onError={() => setFailedMother(true)} /> : null}
+    </div>}
+    {(canTransfer || pendingTransfer) && <div className="scene-transfer-ui" data-open={targetsOpen}>
+      {canTransfer && !pendingTransfer && <button ref={transferEntry} type="button" className="scene-transfer-entry" aria-expanded={targetsOpen}
+        onClick={() => { cancelKeyboard(); finish(true); cancelPending(); setTargetsOpen(!targetsOpenRef.current); }}>
+        换个位置
+      </button>}
+      {targetsOpen && !pendingTransfer && <div className="scene-transfer-targets" role="group" aria-label="想坐在哪里">
+        {transferTargets.map(target => {
+          const left = Math.max(Math.min(70, size.width / 2), Math.min(size.width - Math.min(70, size.width / 2), stageX + target.artwork.seat[0] * target.artwork.width * scale));
+          const top = Math.max(46, Math.min(size.height - 72, stageY + target.artwork.seat[1] * target.artwork.height * scale - 34));
+          return <button key={target.sceneId} ref={element => { if (element) targetButtons.current.set(target.sceneId, element); else targetButtons.current.delete(target.sceneId); }} type="button"
+            className={`scene-transfer-target${hoveredTarget === target.sceneId ? ' is-over' : ''}`} style={{ left, top }} aria-label={`先试坐${target.label}`}
+            onClick={() => previewTransfer(target)}>{target.label}</button>;
+        })}
+      </div>}
+      {pendingTransfer && <div className="scene-transfer-preview" role="group" aria-label={`试坐${pendingTransfer.target.label}`}>
+        <span>{pendingTransfer.target.label}</span>
+        <button type="button" onClick={() => closeTransfer(true)}>先不换</button>
+        <button ref={confirmTransfer} type="button" className="scene-transfer-accept" disabled={failedLayer || failedMother} onClick={acceptTransfer}>就坐这里</button>
+        {(transferError || failedLayer || failedMother) && <p role="alert">{transferError || '这里的画面暂时没打开，先回原处再试一次吧。'}</p>}
+      </div>}
     </div>}
     {saveError && <p className="scene-position-problem" role="alert">刚才的位置没能留下，先回到原处了。再试一次吧。</p>}
   </div>;

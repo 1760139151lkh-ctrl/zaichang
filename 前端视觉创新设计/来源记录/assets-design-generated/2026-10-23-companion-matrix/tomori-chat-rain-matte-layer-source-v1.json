@@ -1,0 +1,33 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "tomori",
+  "activity": "chat",
+  "light": "rain",
+  "layer": "matte",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-4c3b422e-3137-4df9-bc90-08ae14180a59",
+  "inputs": [
+    {
+      "file": "tomori-chat-rain-mother-candidate.png",
+      "role": "primary_approved_correct_complete_mother_only",
+      "sha256": "aa5633a61d78f05ffe799975ece0a8f70d1e8007a0ac5243d11601837e03d00e"
+    }
+  ],
+  "prompt": "tomori-chat-rain-matte-layer-prompt-v1.txt",
+  "promptSha256": "2e071a85cebbcd867d0b0ea4dafd4d6d6364d140e8c183227e77308e6e3df7c1",
+  "output": {
+    "file": "tomori-chat-rain-matte-generated-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 363836,
+    "sha256": "230d8dd964ab20033795d73a9bb9bb52f3cbd5a237e37b473def737538cb3aed"
+  },
+  "review": {
+    "designerViewed": "complete output",
+    "designerStatus": "pending_source_pixel_calibration",
+    "primary": "pending",
+    "runtime": "not used"
+  },
+  "designerObservation": "Technical generated silhouette provides no figure RGB; exact original-source alpha registration and edge inspection remain required.",
+  "calibratedCandidateRecord": "tomori-chat-rain-layer-processing-v3.json"
+}

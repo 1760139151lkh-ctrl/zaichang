@@ -1,0 +1,179 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "mutsumi-rest-apricot-layer-parameters-v5.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "mutsumi-rest-apricot-mother-candidate-v1.png",
+  "motherSha256": "8284c773c9ace87cd0bc9fc3d476a5d23442bd2fbfb9db2b640552e1671fd5b6",
+  "matte": "mutsumi-rest-apricot-source-alpha-v5.png",
+  "matteSha256": "318904e578917dd4601b9e6bc896f419ce51612b58e079da9f9d774861234724",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 164,
+  "alphaNonzeroPixels": 42109,
+  "alphaBounds": [
+    1161,
+    281,
+    1473,
+    605
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "431d443fc0c971efeecf26a57eff6c9275daa390763a079953b2651da5f0e86a",
+  "figureRgbSha256": "431d443fc0c971efeecf26a57eff6c9275daa390763a079953b2651da5f0e86a",
+  "background": {
+    "candidate": "mutsumi-rest-apricot-background-candidate-v1.png",
+    "candidateSha256": "1429eb3e6cbfaa012a85f02193dcb1169cecc755b716c4e89cd5d6b8fa28eda5",
+    "expandPixels": 6,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          1148,
+          269
+        ],
+        [
+          1480,
+          269
+        ],
+        [
+          1485,
+          612
+        ],
+        [
+          1149,
+          612
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 124526,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1161,
+          540
+        ],
+        [
+          1221,
+          542
+        ],
+        [
+          1277,
+          562
+        ],
+        [
+          1325,
+          590
+        ],
+        [
+          1322,
+          612
+        ],
+        [
+          1296,
+          612
+        ],
+        [
+          1257,
+          587
+        ],
+        [
+          1183,
+          575
+        ],
+        [
+          1154,
+          560
+        ]
+      ],
+      [
+        [
+          1308,
+          564
+        ],
+        [
+          1412,
+          561
+        ],
+        [
+          1418,
+          592
+        ],
+        [
+          1311,
+          594
+        ]
+      ],
+      [
+        [
+          1411,
+          566
+        ],
+        [
+          1461,
+          565
+        ],
+        [
+          1463,
+          589
+        ],
+        [
+          1408,
+          590
+        ]
+      ]
+    ],
+    "featherPixels": 1,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "mutsumi-rest-apricot-figure-calibrated-v5.png",
+      "bytes": 2439160,
+      "sha256": "21f4c9f30ce4c43271e7c983758d86c56d8c3b0b6e46def9da4d8cec1e5a5b18"
+    },
+    {
+      "file": "mutsumi-rest-apricot-mask-calibrated-v5.png",
+      "bytes": 12949,
+      "sha256": "d8e6737be34845c41b3f4c7e2a2375b92025cad1c112bdbe4c0307229b3ed126"
+    },
+    {
+      "file": "mutsumi-rest-apricot-background-calibrated-v5.png",
+      "bytes": 2119069,
+      "sha256": "efe10880d1857f00717da7971a2784d41525391e7ad4135e09fb6c2fba062498"
+    },
+    {
+      "file": "mutsumi-rest-apricot-shadow-calibrated-v5.png",
+      "bytes": 63818,
+      "sha256": "eb563bfbf4987b75bff3fe3791dde9d0ff2cc9838ab2422ae63798446a209557"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "recordType": "original-scene-alpha-only-hair-arc-completion",
+  "script": "mutsumi-listening-apricot-refine-hair-v10.py",
+  "scriptSha256": "b1bcfbde42be2d1fdbce160911ed311d28fbdfe3e62d7064c793a06d11348aba",
+  "mother": "mutsumi-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+  "inputAlpha": "mutsumi-listening-apricot-source-alpha-v9.png",
+  "inputAlphaSha256": "c21a80db897c93a3282606a701a5d36d3f346c1238c8f73b56886eae6a61783e",
+  "region": [
+    1360,
+    380,
+    1425,
+    522
+  ],
+  "sourceObservedArc": [
+    [
+      1365,
+      383
+    ],
+    [
+      1374,
+      392
+    ],
+    [
+      1380,
+      400
+    ],
+    [
+      1386,
+      410
+    ],
+    [
+      1392,
+      420
+    ],
+    [
+      1399,
+      430
+    ],
+    [
+      1405,
+      440
+    ],
+    [
+      1410,
+      450
+    ],
+    [
+      1414,
+      460
+    ],
+    [
+      1418,
+      470
+    ],
+    [
+      1419,
+      480
+    ],
+    [
+      1419,
+      488
+    ],
+    [
+      1415,
+      501
+    ],
+    [
+      1408,
+      512
+    ],
+    [
+      1397,
+      519
+    ]
+  ],
+  "method": "Add only source-visible fine hair along the traced original arc, including its connection behind the shoulder. Original antialiased RGB is retained unchanged; coverage uses source brightness within a 2.25px band. No body/color repaint or geometry transform.",
+  "outputAlpha": "mutsumi-listening-apricot-source-alpha-v10.png",
+  "outputAlphaSha256": "c5e880e2b7f458ef0b1feb2e2c0d5cc70591a155ba191c55d6d4322cbe61d6a8",
+  "review": {
+    "primary": "pending",
+    "runtime": "not registered"
+  }
+}

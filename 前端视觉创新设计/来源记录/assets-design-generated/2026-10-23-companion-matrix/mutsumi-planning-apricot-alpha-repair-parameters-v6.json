@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "mother": "mutsumi-planning-apricot-mother-candidate-v1.png",
+  "motherSha256": "ebcd02b354a1661687afdd2e9a92d6c3b7531bc7555a98eb0563516eff83ddd1",
+  "inputAlpha": "mutsumi-planning-apricot-source-alpha-v5.png",
+  "inputAlphaSha256": "eda696a309dec43f209953495cefe6c75aee3422bb2692c47ac18e662f20bb45",
+  "observedOriginalColorRules": [
+    {
+      "purpose": "Actual source pixels818,525/818,530 are near-white original foreground chair sunlit fabric, not navy dress. This exact below-hair left-waist ROI contains original dark navy body or warm chair only; remove bright chair including nearly neutral sunlight.",
+      "mode": "exclude",
+      "polygon": [
+        [
+          800,
+          500
+        ],
+        [
+          837,
+          500
+        ],
+        [
+          837,
+          622
+        ],
+        [
+          800,
+          622
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          140,
+          255
+        ]
+      ],
+      "differences": []
+    },
+    {
+      "purpose": "Remove original warm chair-edge mixtures in the same personally observed ROI; genuine dark navy fails red/light and warm-brown difference.",
+      "mode": "exclude",
+      "polygon": [
+        [
+          800,
+          500
+        ],
+        [
+          837,
+          500
+        ],
+        [
+          837,
+          622
+        ],
+        [
+          800,
+          622
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          80,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          1,
+          15,
+          255
+        ],
+        [
+          0,
+          2,
+          20,
+          255
+        ]
+      ]
+    }
+  ],
+  "outputAlpha": "mutsumi-planning-apricot-source-alpha-v6.png",
+  "record": "mutsumi-planning-apricot-source-alpha-v6.json"
+}

@@ -1,0 +1,445 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "tomori-play-layer-parameters-v6.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "tomori-play-apricot-mother.png",
+  "motherSha256": "7d516b243573ea7cc80cbd6c720eee823dbc0ed4096cf9b7f81e9d65e26de63d",
+  "matte": "tomori-play-matte-registered-v6.png",
+  "matteSha256": "ec1b949181f0c2254cf5207e273ce739975618d933c03b66579470af5aa760d8",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        1134,
+        397
+      ],
+      [
+        1142,
+        397
+      ],
+      [
+        1142,
+        403
+      ],
+      [
+        1134,
+        403
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1240,
+        488,
+        1285,
+        541
+      ],
+      "polygon": [
+        [
+          1238,
+          486
+        ],
+        [
+          1287,
+          486
+        ],
+        [
+          1287,
+          488
+        ],
+        [
+          1281,
+          488
+        ],
+        [
+          1281,
+          497
+        ],
+        [
+          1280,
+          503
+        ],
+        [
+          1278,
+          511
+        ],
+        [
+          1275,
+          518
+        ],
+        [
+          1271,
+          525
+        ],
+        [
+          1265,
+          531
+        ],
+        [
+          1259,
+          537
+        ],
+        [
+          1253,
+          541
+        ],
+        [
+          1252,
+          539
+        ],
+        [
+          1257,
+          534
+        ],
+        [
+          1262,
+          528
+        ],
+        [
+          1268,
+          522
+        ],
+        [
+          1272,
+          516
+        ],
+        [
+          1275,
+          509
+        ],
+        [
+          1277,
+          502
+        ],
+        [
+          1278,
+          495
+        ],
+        [
+          1277,
+          490
+        ],
+        [
+          1271,
+          491
+        ],
+        [
+          1267,
+          500
+        ],
+        [
+          1260,
+          509
+        ],
+        [
+          1252,
+          519
+        ],
+        [
+          1244,
+          529
+        ],
+        [
+          1238,
+          536
+        ],
+        [
+          1238,
+          543
+        ]
+      ],
+      "mode": "intersect",
+      "featherPixels": 0
+    },
+    {
+      "region": [
+        1277,
+        416,
+        1287,
+        490
+      ],
+      "polygon": [
+        [
+          1277,
+          418
+        ],
+        [
+          1278,
+          418
+        ],
+        [
+          1280,
+          435
+        ],
+        [
+          1282,
+          452
+        ],
+        [
+          1283,
+          466
+        ],
+        [
+          1282,
+          480
+        ],
+        [
+          1280,
+          491
+        ],
+        [
+          1279,
+          491
+        ],
+        [
+          1281,
+          480
+        ],
+        [
+          1282,
+          466
+        ],
+        [
+          1281,
+          452
+        ],
+        [
+          1279,
+          436
+        ],
+        [
+          1276,
+          419
+        ]
+      ],
+      "mode": "intersect",
+      "featherPixels": 0
+    }
+  ],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 3950,
+  "alphaNonzeroPixels": 117135,
+  "alphaBounds": [
+    928,
+    365,
+    1308,
+    933
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "f891d4c47e667eb846d37774e8d4184fb99e49abd37bf81c2729919af563ed45",
+  "figureRgbSha256": "f891d4c47e667eb846d37774e8d4184fb99e49abd37bf81c2729919af563ed45",
+  "background": {
+    "candidate": "tomori-play-background-generated-v1.png",
+    "candidateSha256": "18792cbe74a888a5e3fce4ec3179112e3761dcf5dcb5ff830f13ac6a9a6b69cd",
+    "expandPixels": 10,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          904,
+          804
+        ],
+        [
+          1330,
+          804
+        ],
+        [
+          1330,
+          952
+        ],
+        [
+          904,
+          952
+        ]
+      ],
+      [
+        [
+          1252,
+          487
+        ],
+        [
+          1283,
+          487
+        ],
+        [
+          1283,
+          541
+        ],
+        [
+          1252,
+          541
+        ]
+      ],
+      [
+        [
+          1277,
+          416
+        ],
+        [
+          1287,
+          416
+        ],
+        [
+          1287,
+          492
+        ],
+        [
+          1277,
+          492
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 185841,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          904,
+          804
+        ],
+        [
+          1330,
+          804
+        ],
+        [
+          1330,
+          952
+        ],
+        [
+          904,
+          952
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "tomori-play-figure-calibrated-v6.png",
+      "bytes": 2449299,
+      "sha256": "967a96b5fae6bb529bd7a2a645f714a0b612432d45187a90861117f3ad3d14a3"
+    },
+    {
+      "file": "tomori-play-mask-calibrated-v6.png",
+      "bytes": 22501,
+      "sha256": "66521f18b582b419fe4f288d0c59fe27fbb07eb7d1f5cab464cc6d2e7116ad4f"
+    },
+    {
+      "file": "tomori-play-background-calibrated-v6.png",
+      "bytes": 2093132,
+      "sha256": "d6024b30ba525f8ea31ca8288ad9d60970f268515f9211d8101e8fde4d52d45d"
+    },
+    {
+      "file": "tomori-play-shadow-calibrated-v6.png",
+      "bytes": 70186,
+      "sha256": "eeeabf9e47c38c4314332c5b299b797dc2808dbd6526353453cc9559c19bed1b"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  },
+  "mattePreparation": {
+    "processor": "tomori-matte-registration.py",
+    "processorSha256": "89219d225d3f435f5b38b5d0b161b17deec6e83530cb5a84fcae142564b2dda7",
+    "parameters": "tomori-play-layer-parameters-v6.json",
+    "parametersSha256": "ca1600c8765f657f03021f39d247f43d383796a5038dcfc55e06242c5750c2de",
+    "proposalSource": "tomori-play-matte-layer-source-v1.json",
+    "backgroundSource": "tomori-play-background-layer-source-v1.json",
+    "dependencies": {
+      "Pillow": "12.2.0",
+      "NumPy": "2.4.6",
+      "OpenCV": "4.13.0"
+    },
+    "transform": "Only generated matte proposal registered, then original-source-colour GrabCut and explicit local alpha caps; source RGB never transformed or repainted.",
+    "alphaRegionCaps": [
+      {
+        "polygon": [
+          [
+            1288,
+            414
+          ],
+          [
+            1288,
+            542
+          ],
+          [
+            1252,
+            542
+          ],
+          [
+            1252,
+            535
+          ],
+          [
+            1260,
+            527
+          ],
+          [
+            1267,
+            518
+          ],
+          [
+            1272,
+            509
+          ],
+          [
+            1276,
+            499
+          ],
+          [
+            1278,
+            490
+          ],
+          [
+            1277,
+            480
+          ],
+          [
+            1275,
+            470
+          ],
+          [
+            1277,
+            450
+          ],
+          [
+            1278,
+            430
+          ],
+          [
+            1275,
+            414
+          ]
+        ],
+        "maximumAlpha": 70,
+        "reason": "Very fine source hair is already blended with the warm room; cap only this original flyaway/rim alpha so unmodified source RGB does not create an opaque white/background-colour ribbon."
+      }
+    ]
+  }
+}

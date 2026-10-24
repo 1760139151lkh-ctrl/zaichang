@@ -1,0 +1,395 @@
+{
+  "mother": "tomori-reading-apricot-mother.png",
+  "motherSha256": "e86706be55da3cc2a2072327f6e9543d867b06149d45fc8ca2bb275163b6fa36",
+  "matte": "tomori-reading-matte-registered-v4.png",
+  "matteRegistration": {
+    "proposal": "tomori-reading-matte-generated-v1.png",
+    "proposalSha256": "c4cf5e4ae9fe0745324997ab03d07493afe787b0740d4e2521aa373e1378cbc8",
+    "sourceBounds": [
+      643,
+      90,
+      1408,
+      897
+    ],
+    "targetBounds": [
+      1029,
+      320,
+      1433,
+      762
+    ]
+  },
+  "registeredRefinement": {
+    "uncertainBandPixels": 16,
+    "edgeFeatherPixels": 0.6,
+    "foregroundPolygons": [
+      [
+        [
+          1344,
+          356
+        ],
+        [
+          1365,
+          356
+        ],
+        [
+          1365,
+          386
+        ],
+        [
+          1344,
+          386
+        ]
+      ],
+      [
+        [
+          1350,
+          447
+        ],
+        [
+          1388,
+          455
+        ],
+        [
+          1384,
+          490
+        ],
+        [
+          1345,
+          483
+        ]
+      ],
+      [
+        [
+          1344,
+          518
+        ],
+        [
+          1356,
+          519
+        ],
+        [
+          1354,
+          528
+        ],
+        [
+          1343,
+          525
+        ]
+      ],
+      [
+        [
+          1245,
+          479
+        ],
+        [
+          1261,
+          479
+        ],
+        [
+          1261,
+          488
+        ],
+        [
+          1245,
+          488
+        ]
+      ],
+      [
+        [
+          1261,
+          505
+        ],
+        [
+          1295,
+          511
+        ],
+        [
+          1290,
+          519
+        ],
+        [
+          1260,
+          512
+        ]
+      ],
+      [
+        [
+          1195,
+          538
+        ],
+        [
+          1225,
+          540
+        ],
+        [
+          1221,
+          562
+        ],
+        [
+          1198,
+          560
+        ]
+      ],
+      [
+        [
+          1112,
+          650
+        ],
+        [
+          1114,
+          653
+        ],
+        [
+          1102,
+          678
+        ],
+        [
+          1098,
+          675
+        ]
+      ],
+      [
+        [
+          1164,
+          648
+        ],
+        [
+          1168,
+          652
+        ],
+        [
+          1152,
+          678
+        ],
+        [
+          1149,
+          676
+        ]
+      ],
+      [
+        [
+          1050,
+          723
+        ],
+        [
+          1075,
+          725
+        ],
+        [
+          1070,
+          735
+        ],
+        [
+          1046,
+          732
+        ]
+      ],
+      [
+        [
+          1096,
+          739
+        ],
+        [
+          1133,
+          740
+        ],
+        [
+          1126,
+          750
+        ],
+        [
+          1095,
+          747
+        ]
+      ],
+      [
+        [
+          1359,
+          414
+        ],
+        [
+          1367,
+          411
+        ],
+        [
+          1373,
+          422
+        ],
+        [
+          1366,
+          430
+        ],
+        [
+          1359,
+          428
+        ]
+      ]
+    ],
+    "backgroundPolygons": [
+      [
+        [
+          1412,
+          544
+        ],
+        [
+          1434,
+          544
+        ],
+        [
+          1434,
+          593
+        ],
+        [
+          1412,
+          593
+        ]
+      ],
+      [
+        [
+          1396,
+          554
+        ],
+        [
+          1406,
+          554
+        ],
+        [
+          1408,
+          580
+        ],
+        [
+          1394,
+          583
+        ]
+      ]
+    ]
+  },
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "tomori-reading-figure-calibrated-v4.png",
+  "mask": "tomori-reading-mask-calibrated-v4.png",
+  "backgroundCandidate": "tomori-reading-background-generated-v1.png",
+  "background": "tomori-reading-background-calibrated-v4.png",
+  "backgroundExpandPixels": 10,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1020,
+        706
+      ],
+      [
+        1175,
+        706
+      ],
+      [
+        1175,
+        778
+      ],
+      [
+        1020,
+        778
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1028,
+        722
+      ],
+      [
+        1072,
+        713
+      ],
+      [
+        1162,
+        738
+      ],
+      [
+        1168,
+        761
+      ],
+      [
+        1050,
+        765
+      ]
+    ],
+    [
+      [
+        1275,
+        573
+      ],
+      [
+        1427,
+        573
+      ],
+      [
+        1427,
+        598
+      ],
+      [
+        1275,
+        598
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "tomori-reading-shadow-calibrated-v4.png",
+  "record": "tomori-reading-layer-processing-v4.json",
+  "reviewNote": "Reading's original jacket/pillow notch is intersected by a precise source-contour ROI after segmentation; rest preserves actual pale cuff and skin bridge through explicit source-pixel seeds. No body repaint or arbitrary alpha RGB.",
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1380,
+        548,
+        1418,
+        592
+      ],
+      "polygon": [
+        [
+          1378,
+          546
+        ],
+        [
+          1420,
+          546
+        ],
+        [
+          1420,
+          550
+        ],
+        [
+          1385,
+          552
+        ],
+        [
+          1384,
+          559
+        ],
+        [
+          1386,
+          570
+        ],
+        [
+          1391,
+          580
+        ],
+        [
+          1391,
+          594
+        ],
+        [
+          1378,
+          594
+        ]
+      ],
+      "mode": "intersect",
+      "featherPixels": 0
+    }
+  ]
+}

@@ -1,0 +1,1134 @@
+{
+  "version": 1,
+  "researched_at": "2026-09-09",
+  "scope": "authenticated_self_read_only",
+  "sources": {
+    "celechron": "https://github.com/Celechron/Celechron/tree/94e0ca63ed961febf4d852bcdf81cfa8bdc653bd/lib/http/zjuServices",
+    "live": "https://github.com/5dbwat4/ZJU-live-better/tree/d63adc8c9cd463437bb423d57d2ba396dc990bf1",
+    "login": "https://github.com/5dbwat4/login-ZJU/tree/30fbf22f6361f322f3dc0f23c54062ae61d90763/src",
+    "booking": "https://booking.lib.zju.edu.cn/h5/assets/index.1782805514175.js",
+    "elife": "https://elife.zju.edu.cn/plat-pc/js/app.9f185a5e.js",
+    "library": "http://m.lib.zju.edu.cn/static/js/index.1786369599503.js",
+    "eta": "https://eta.zju.edu.cn/assets/js/app.2c3bea14.js",
+    "classroom": "https://classroom.zju.edu.cn/static/js/app.5e765d753b1abdbfdc0c.js",
+    "official_sso": "https://itc.zju.edu.cn/tysfrzyyjrsq/list.htm",
+    "official_portal": "https://service.zju.edu.cn/_s2/anonymous_sy/main.psp"
+  },
+  "commits": {
+    "Celechron": "94e0ca63ed961febf4d852bcdf81cfa8bdc653bd",
+    "login-ZJU": "30fbf22f6361f322f3dc0f23c54062ae61d90763",
+    "ZJU-live-better": "d63adc8c9cd463437bb423d57d2ba396dc990bf1",
+    "ZJU-API-Docs": "46a475b0e9614289807821dcebe46241fdaa8c5f"
+  },
+  "services": {
+    "courses": {
+      "host": "courses.zju.edu.cn",
+      "title": "学在浙大"
+    },
+    "zdbk": {
+      "host": "zdbk.zju.edu.cn",
+      "title": "本科教务"
+    },
+    "grs": {
+      "host": "yjsy.zju.edu.cn",
+      "title": "研究生院"
+    },
+    "sztz": {
+      "host": "sztz.zju.edu.cn",
+      "title": "素质拓展"
+    },
+    "ecard": {
+      "host": "elife.zju.edu.cn",
+      "title": "校园卡 / 校园生活"
+    },
+    "booking": {
+      "host": "booking.lib.zju.edu.cn",
+      "title": "图书馆预约"
+    },
+    "classroom": {
+      "host": "education.cmc.zju.edu.cn",
+      "title": "智云课堂"
+    },
+    "library": {
+      "host": "api.lib.zju.edu.cn",
+      "title": "图书借阅"
+    },
+    "eta": {
+      "host": "eta.zju.edu.cn",
+      "title": "ETA 三全育人"
+    }
+  },
+  "endpoints": [
+    {
+      "id": "courses.semesters",
+      "title": "我的学期",
+      "service": "courses",
+      "url": "https://courses.zju.edu.cn/api/my-semesters?fields=id,name,sort,is_active,code",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "semesters"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/5dbwat4/ZJU-live-better/blob/d63adc8c9cd463437bb423d57d2ba396dc990bf1/courses.zju/reliableTodolist.js",
+      "note": "",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:02.096416+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "courses.list",
+      "title": "我的课程与教学班",
+      "service": "courses",
+      "url": "https://courses.zju.edu.cn/api/my-courses",
+      "method": "POST",
+      "encoding": "json",
+      "extract": [
+        "courses"
+      ],
+      "params": {},
+      "defaults": {
+        "fields": "id,name,course_code,semester_id,start_date,end_date,credit,classroom_schedule",
+        "conditions": {
+          "status": [
+            "ongoing",
+            "notStarted",
+            "closed"
+          ],
+          "keyword": "",
+          "classify_type": "recently_started",
+          "display_studio_list": false
+        },
+        "showScorePassedStatus": false
+      },
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/5dbwat4/ZJU-live-better/blob/d63adc8c9cd463437bb423d57d2ba396dc990bf1/shared/choose-a-course.js",
+      "note": "",
+      "scope": "self",
+      "paging": {
+        "page": "page",
+        "size": "page_size"
+      },
+      "verification": {
+        "checked_at": "2026-09-09T03:41:02.818893+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "courses.todos",
+      "title": "作业与待办截止时间",
+      "service": "courses",
+      "url": "https://courses.zju.edu.cn/api/todos",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "todo_list"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/Celechron/Celechron/blob/94e0ca63ed961febf4d852bcdf81cfa8bdc653bd/lib/http/zjuServices/courses.dart",
+      "note": "保留服务端字段；缺少 todo_list 时报告结构变化，不解释为无待办。",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:02.999063+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "empty"
+      }
+    },
+    {
+      "id": "courses.activities",
+      "title": "课程活动与学习资料目录",
+      "service": "courses",
+      "url": "https://courses.zju.edu.cn/api/courses/{course_id}/activities",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "activities"
+      ],
+      "params": {
+        "course_id": "required:int"
+      },
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/5dbwat4/ZJU-live-better/blob/d63adc8c9cd463437bb423d57d2ba396dc990bf1/courses.zju/materialDown.js",
+      "note": "",
+      "scope": "own_course",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:04.671497+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "courses.activity_scores",
+      "title": "我的活动完成与作业分数",
+      "service": "courses",
+      "url": "https://courses.zju.edu.cn/api/course/{course_id}/activity-reads-for-user",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "activity_reads"
+      ],
+      "params": {
+        "course_id": "required:int"
+      },
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/5dbwat4/ZJU-live-better/blob/d63adc8c9cd463437bb423d57d2ba396dc990bf1/courses.zju/scores.js",
+      "note": "",
+      "scope": "own_course",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:05.884072+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "courses.homeworks",
+      "title": "作业活动标题",
+      "service": "courses",
+      "url": "https://courses.zju.edu.cn/api/course/{course_id}/homework-scores?fields=id,title",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "homework_activities"
+      ],
+      "params": {
+        "course_id": "required:int"
+      },
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/5dbwat4/ZJU-live-better/blob/d63adc8c9cd463437bb423d57d2ba396dc990bf1/courses.zju/scores.js",
+      "note": "",
+      "scope": "own_course",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:07.150318+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "courses.exam_scores",
+      "title": "我的课程测验分数",
+      "service": "courses",
+      "url": "https://courses.zju.edu.cn/api/courses/{course_id}/exam-scores?no-intercept=true",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "exam_scores"
+      ],
+      "params": {
+        "course_id": "required:int"
+      },
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/5dbwat4/ZJU-live-better/blob/d63adc8c9cd463437bb423d57d2ba396dc990bf1/courses.zju/scores.js",
+      "note": "",
+      "scope": "own_course",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:08.364166+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "empty"
+      }
+    },
+    {
+      "id": "courses.exams",
+      "title": "课程测验安排",
+      "service": "courses",
+      "url": "https://courses.zju.edu.cn/api/courses/{course_id}/exams",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "exams"
+      ],
+      "params": {
+        "course_id": "required:int"
+      },
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/5dbwat4/ZJU-live-better/blob/d63adc8c9cd463437bb423d57d2ba396dc990bf1/courses.zju/scores.js",
+      "note": "",
+      "scope": "own_course",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:09.649867+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "empty"
+      }
+    },
+    {
+      "id": "zdbk.timetable",
+      "title": "本科课表",
+      "service": "zdbk",
+      "url": "https://zdbk.zju.edu.cn/jwglxt/kbcx/xskbcx_cxXsKb.html",
+      "method": "POST",
+      "encoding": "form",
+      "extract": [
+        "kbList"
+      ],
+      "params": {
+        "xnm": "required:yearrange",
+        "xqm": "required:season",
+        "captcha_value": "str"
+      },
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/Celechron/Celechron/blob/94e0ca63ed961febf4d852bcdf81cfa8bdc653bd/lib/http/zjuServices/zdbk.dart",
+      "note": "",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:11.292939+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "zdbk.grades",
+      "title": "本科历年成绩",
+      "service": "zdbk",
+      "url": "https://zdbk.zju.edu.cn/jwglxt/cxdy/xscjcx_cxXscjIndex.html?doType=query",
+      "method": "POST",
+      "encoding": "form",
+      "extract": [
+        "items"
+      ],
+      "params": {
+        "xnm": "year",
+        "xqm": "int",
+        "captcha_value": "str"
+      },
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/Celechron/Celechron/blob/94e0ca63ed961febf4d852bcdf81cfa8bdc653bd/lib/http/zjuServices/zdbk.dart",
+      "note": "",
+      "scope": "self",
+      "paging": {
+        "page": "queryModel.currentPage",
+        "size": "queryModel.showCount"
+      },
+      "verification": {
+        "checked_at": "2026-09-09T03:41:11.544112+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "zdbk.major",
+      "title": "主修课程与修读成绩",
+      "service": "zdbk",
+      "url": "https://zdbk.zju.edu.cn/jwglxt/zycjtj/xszgkc_cxXsZgkcIndex.html?doType=query",
+      "method": "POST",
+      "encoding": "form",
+      "extract": [
+        "items"
+      ],
+      "params": {
+        "xnm": "year",
+        "xqm": "int",
+        "captcha_value": "str"
+      },
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/Celechron/Celechron/blob/94e0ca63ed961febf4d852bcdf81cfa8bdc653bd/lib/http/zjuServices/zdbk.dart",
+      "note": "",
+      "scope": "self",
+      "paging": {
+        "page": "queryModel.currentPage",
+        "size": "queryModel.showCount"
+      },
+      "verification": {
+        "checked_at": "2026-09-09T03:41:11.777574+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "empty"
+      }
+    },
+    {
+      "id": "zdbk.exams",
+      "title": "本科考试安排",
+      "service": "zdbk",
+      "url": "https://zdbk.zju.edu.cn/jwglxt/xskscx/kscx_cxXsgrksIndex.html?doType=query",
+      "method": "POST",
+      "encoding": "form",
+      "extract": [
+        "items"
+      ],
+      "params": {
+        "xnm": "year",
+        "xqm": "int",
+        "captcha_value": "str"
+      },
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/Celechron/Celechron/blob/94e0ca63ed961febf4d852bcdf81cfa8bdc653bd/lib/http/zjuServices/zdbk.dart",
+      "note": "",
+      "scope": "self",
+      "paging": {
+        "page": "queryModel.currentPage",
+        "size": "queryModel.showCount"
+      },
+      "verification": {
+        "checked_at": "2026-09-09T03:41:11.992753+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "grs.timetable",
+      "title": "研究生课表",
+      "service": "grs",
+      "url": "https://yjsy.zju.edu.cn/dataapi/py/pyKcbj/queryXskbByLoginUser",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "result.kcbMap"
+      ],
+      "params": {
+        "xn": "required:year",
+        "pkxq": "required:int"
+      },
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/Celechron/Celechron/blob/94e0ca63ed961febf4d852bcdf81cfa8bdc653bd/lib/http/zjuServices/grs_new.dart",
+      "note": "",
+      "scope": "self",
+      "paging": null,
+      "empty_map_is_empty": true,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:12.621068+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "empty"
+      }
+    },
+    {
+      "id": "grs.grades",
+      "title": "研究生选课与成绩",
+      "service": "grs",
+      "url": "https://yjsy.zju.edu.cn/dataapi/py/pyXsxk/queryXsxkByXnxqXs",
+      "method": "POST",
+      "encoding": "query",
+      "extract": [
+        "result.xxjhnList"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/Celechron/Celechron/blob/94e0ca63ed961febf4d852bcdf81cfa8bdc653bd/lib/http/zjuServices/grs_new.dart",
+      "note": "成功响应中 xxjhnList 为 null 时按无记录处理；缺少字段仍报错。",
+      "scope": "self",
+      "paging": null,
+      "nullable_paths": [
+        "result.xxjhnList"
+      ],
+      "verification": {
+        "checked_at": "2026-09-09T03:41:12.823162+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "empty"
+      }
+    },
+    {
+      "id": "grs.exams",
+      "title": "研究生考试安排",
+      "service": "grs",
+      "url": "https://yjsy.zju.edu.cn/dataapi/py/pyKsxsxx/queryPageByXs",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "result.records",
+        "result"
+      ],
+      "params": {
+        "xn": "required:year",
+        "xq": "required:int"
+      },
+      "defaults": {
+        "dm": "py_grks",
+        "mode": 2,
+        "role": 1,
+        "column": "createTime",
+        "order": "desc",
+        "queryMode": 1,
+        "field": "id,,kcbh,kcmc,rq,ksTime,xn,xq_dictText,ksdd,zwh"
+      },
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/Celechron/Celechron/blob/94e0ca63ed961febf4d852bcdf81cfa8bdc653bd/lib/http/zjuServices/grs_new.dart",
+      "note": "",
+      "scope": "self",
+      "paging": {
+        "page": "pageNo",
+        "size": "pageSize"
+      },
+      "verification": {
+        "checked_at": "2026-09-09T03:41:12.998603+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "empty"
+      }
+    },
+    {
+      "id": "sztz.profile",
+      "title": "素拓个人信息",
+      "service": "sztz",
+      "url": "https://sztz.zju.edu.cn/dekt/student/home/getMyInfo",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "extend.myInfo"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/Celechron/Celechron/blob/94e0ca63ed961febf4d852bcdf81cfa8bdc653bd/lib/http/zjuServices/sztz.dart",
+      "note": "",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:14.090901+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "sztz.practice",
+      "title": "素拓申请与实践记录",
+      "service": "sztz",
+      "url": "https://sztz.zju.edu.cn/dekt/student/home/getSqjl",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "data"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/Celechron/Celechron/blob/94e0ca63ed961febf4d852bcdf81cfa8bdc653bd/lib/http/zjuServices/sztz.dart",
+      "note": "GET，无需指定他人学号。",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:14.294110+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "ecard.cards",
+      "title": "校园卡账户与余额",
+      "service": "ecard",
+      "url": "https://elife.zju.edu.cn/berserker-app/ykt/tsm/getCampusCards",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "data.card"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://elife.zju.edu.cn/plat-pc/js/app.9f185a5e.js",
+      "note": "",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:15.972449+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "ecard.profile",
+      "title": "校园卡平台个人资料",
+      "service": "ecard",
+      "url": "https://elife.zju.edu.cn/berserker-base/user",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "data"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://elife.zju.edu.cn/plat-pc/js/app.9f185a5e.js",
+      "note": "",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:16.154629+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "ecard.transactions",
+      "title": "个人消费流水",
+      "service": "ecard",
+      "url": "https://elife.zju.edu.cn/berserker-search/search/personal/turnover",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "data.records"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://elife.zju.edu.cn/plat-pc/js/app.9f185a5e.js",
+      "note": "真实账号已收到个人流水分页结构；限量读取，不指定他人账户。",
+      "scope": "self",
+      "paging": {
+        "page": "current",
+        "size": "size"
+      },
+      "verification": {
+        "checked_at": "2026-09-09T03:41:16.371709+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "ecard.spending",
+      "title": "个人消费汇总",
+      "service": "ecard",
+      "url": "https://elife.zju.edu.cn/berserker-search/statistics/turnover/sum/user",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "data"
+      ],
+      "params": {
+        "dateStr": "required:month"
+      },
+      "defaults": {
+        "dateType": "month",
+        "statisticsDateStr": "day",
+        "type": 2,
+        "synAccessSource": "h5"
+      },
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://elife.zju.edu.cn/plat-pc/js/app.9f185a5e.js",
+      "note": "按月取每日支出统计；日期键与金额保留源值，单位须按官方界面对照。参数已用浙大本人账号验证。",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:16.585083+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "ecard.schedules",
+      "title": "校园生活平台日程",
+      "service": "ecard",
+      "url": "https://elife.zju.edu.cn/berserker-schedule/schedule/info/list",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "data"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://elife.zju.edu.cn/plat-pc/js/app.9f185a5e.js",
+      "note": "无过滤参数读取本人日程；本账号初次验证为空列表。",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:16.787957+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "empty"
+      }
+    },
+    {
+      "id": "ecard.messages",
+      "title": "校园生活应用消息",
+      "service": "ecard",
+      "url": "https://elife.zju.edu.cn/berserker-app/message/getAppMessage",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "data.records"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://elife.zju.edu.cn/plat-pc/js/app.9f185a5e.js",
+      "note": "消息页面分包确认 current/size 分页。",
+      "scope": "self",
+      "paging": {
+        "page": "current",
+        "size": "size"
+      },
+      "verification": {
+        "checked_at": "2026-09-09T03:41:16.991955+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "empty"
+      }
+    },
+    {
+      "id": "ecard.apps",
+      "title": "我的校园生活应用",
+      "service": "ecard",
+      "url": "https://elife.zju.edu.cn/berserker-app/app/myApp?appType=pc",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "data"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://elife.zju.edu.cn/plat-pc/js/app.9f185a5e.js",
+      "note": "",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:17.175170+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "empty"
+      }
+    },
+    {
+      "id": "booking.profile",
+      "title": "图书馆预约账户状态",
+      "service": "booking",
+      "url": "https://booking.lib.zju.edu.cn/api/Member/my",
+      "method": "POST",
+      "encoding": "json",
+      "extract": [
+        "data",
+        "member"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://booking.lib.zju.edu.cn/h5/assets/index.1782805514175.js",
+      "note": "",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:18.622431+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "booking.seats",
+      "title": "我的座位预约",
+      "service": "booking",
+      "url": "https://booking.lib.zju.edu.cn/api/Member/seat",
+      "method": "POST",
+      "encoding": "json",
+      "extract": [
+        "data.data",
+        "data.list",
+        "data"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://booking.lib.zju.edu.cn/h5/assets/index.1782805514175.js",
+      "note": "分页参数由当前 my/seat.vue 和 my/seminar.vue 分包确认。",
+      "scope": "self",
+      "paging": {
+        "page": "page",
+        "size": "limit"
+      },
+      "verification": {
+        "checked_at": "2026-09-09T03:41:18.957023+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "booking.seminars",
+      "title": "我的研讨间预约",
+      "service": "booking",
+      "url": "https://booking.lib.zju.edu.cn/api/Member/seminar",
+      "method": "POST",
+      "encoding": "json",
+      "extract": [
+        "data.list",
+        "data"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://booking.lib.zju.edu.cn/h5/assets/index.1782805514175.js",
+      "note": "分页参数由当前 my/seat.vue 和 my/seminar.vue 分包确认。",
+      "scope": "self",
+      "paging": {
+        "page": "page",
+        "size": "limit"
+      },
+      "verification": {
+        "checked_at": "2026-09-09T03:41:19.476064+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "empty"
+      }
+    },
+    {
+      "id": "booking.rooms",
+      "title": "我的房间预约",
+      "service": "booking",
+      "url": "https://booking.lib.zju.edu.cn/api/Room/mylist",
+      "method": "POST",
+      "encoding": "json",
+      "extract": [
+        "data"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://booking.lib.zju.edu.cn/h5/assets/index.1782805514175.js",
+      "note": "无过滤参数读取本人房间预约；本账号初次验证为空列表。",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:19.772004+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "empty"
+      }
+    },
+    {
+      "id": "booking.violations",
+      "title": "预约违约记录",
+      "service": "booking",
+      "url": "https://booking.lib.zju.edu.cn/api/Member/reneges",
+      "method": "POST",
+      "encoding": "json",
+      "extract": [
+        "data.data",
+        "data"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://booking.lib.zju.edu.cn/h5/assets/index.1782805514175.js",
+      "note": "真实账号确认分页结构；当前范围为本人的全部预约违约记录。",
+      "scope": "self",
+      "paging": {
+        "page": "page",
+        "size": "limit"
+      },
+      "verification": {
+        "checked_at": "2026-09-09T03:41:20.010024+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "booking.entries",
+      "title": "个人入馆记录",
+      "service": "booking",
+      "url": "https://booking.lib.zju.edu.cn/api/Study/EntranceDetail",
+      "method": "POST",
+      "encoding": "json",
+      "extract": [
+        "data"
+      ],
+      "params": {
+        "date": "required:date",
+        "lib": "str"
+      },
+      "defaults": {
+        "lib": ""
+      },
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://booking.lib.zju.edu.cn/h5/assets/index.1782805514175.js",
+      "note": "InLibrary 页面确认 lib/date；无服务端分页。",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:20.264276+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "empty"
+      }
+    },
+    {
+      "id": "booking.duration",
+      "title": "个人入馆时长",
+      "service": "booking",
+      "url": "https://booking.lib.zju.edu.cn/api/Study/EntranceLengthDetail",
+      "method": "POST",
+      "encoding": "json",
+      "extract": [
+        "data"
+      ],
+      "params": {
+        "begdate": "required:date",
+        "enddate": "required:date",
+        "lib": "str"
+      },
+      "defaults": {
+        "lib": ""
+      },
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://booking.lib.zju.edu.cn/h5/assets/index.1782805514175.js",
+      "note": "原始顶层 chart/totaltime 也在响应元数据中保留。",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:20.682576+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "empty"
+      }
+    },
+    {
+      "id": "booking.study_seats",
+      "title": "我的学习空间预约记录",
+      "service": "booking",
+      "url": "https://booking.lib.zju.edu.cn/api/Study/StudyBookDetail",
+      "method": "POST",
+      "encoding": "json",
+      "extract": [
+        "data"
+      ],
+      "params": {
+        "type": "required:int"
+      },
+      "defaults": {},
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://booking.lib.zju.edu.cn/h5/assets/index.1782805514175.js",
+      "note": "当前页面 type=3 或 4；含义按登录后界面核验。",
+      "scope": "self",
+      "paging": {
+        "page": "page",
+        "size": "count"
+      },
+      "verification": {
+        "checked_at": "2026-09-09T03:41:20.913964+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "empty"
+      }
+    },
+    {
+      "id": "classroom.courses",
+      "title": "我的智云课程",
+      "service": "classroom",
+      "url": "https://education.cmc.zju.edu.cn/personal/courseapi/vlabpassportapi/v1/account-profile/course",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "params.result.data",
+        "result.data"
+      ],
+      "params": {},
+      "defaults": {
+        "force_mycourse": 1
+      },
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://classroom.zju.edu.cn/static/js/app.5e765d753b1abdbfdc0c.js",
+      "note": "",
+      "scope": "self",
+      "paging": {
+        "page": "nowpage",
+        "size": "per-page"
+      },
+      "verification": {
+        "checked_at": "2026-09-09T03:41:22.853419+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "classroom.catalogue",
+      "title": "已选智云课程录播目录",
+      "service": "classroom",
+      "url": "https://yjapi.cmc.zju.edu.cn/courseapi/v2/course/catalogue",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "result.data"
+      ],
+      "params": {
+        "course_id": "required:int"
+      },
+      "defaults": {},
+      "status": "verified",
+      "evidence": "public_client_source",
+      "source": "https://github.com/5dbwat4/ZJU-live-better/blob/d63adc8c9cd463437bb423d57d2ba396dc990bf1/classroom.zju/getVideoURL.js",
+      "note": "",
+      "scope": "own_classroom_course",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:23.545779+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "library.loans",
+      "title": "当前借阅、到期时间、预约图书",
+      "service": "library",
+      "url": "https://api.lib.zju.edu.cn/aleph/bor_info",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        ""
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "transport_unverified",
+      "evidence": "official_frontend",
+      "source": "http://m.lib.zju.edu.cn/static/js/index.1786369599503.js",
+      "note": "官方移动前端使用 http://api.lib.zju.edu.cn；本次 HTTPS 连接失败。仅登记，不向 HTTP 发送账号、token 或借阅数据。",
+      "scope": "self",
+      "paging": null
+    },
+    {
+      "id": "library.history",
+      "title": "历史借阅",
+      "service": "library",
+      "url": "https://api.lib.zju.edu.cn/aleph/loan_history",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        ""
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "transport_unverified",
+      "evidence": "official_frontend",
+      "source": "http://m.lib.zju.edu.cn/static/js/index.1786369599503.js",
+      "note": "官方移动前端使用 http://api.lib.zju.edu.cn；本次 HTTPS 连接失败。仅登记，不向 HTTP 发送账号、token 或借阅数据。",
+      "scope": "self",
+      "paging": null
+    },
+    {
+      "id": "library.reader",
+      "title": "读者账户信息",
+      "service": "library",
+      "url": "https://api.lib.zju.edu.cn/aleph/bor-auth?CON_LNG=chi",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        ""
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "transport_unverified",
+      "evidence": "official_frontend",
+      "source": "http://m.lib.zju.edu.cn/static/js/index.1786369599503.js",
+      "note": "官方移动前端使用 http://api.lib.zju.edu.cn；本次 HTTPS 连接失败。仅登记，不向 HTTP 发送账号、token 或借阅数据。",
+      "scope": "self",
+      "paging": null
+    },
+    {
+      "id": "eta.profile",
+      "title": "ETA 当前登录者信息",
+      "service": "eta",
+      "url": "https://eta.zju.edu.cn/zftal-xgxt-web/teacher/xtgl/login/getCurrentUser.zf",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "data"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://eta.zju.edu.cn/assets/js/app.2c3bea14.js",
+      "note": "本人认证已验证；只使用当前用户、当前角色和个人模块接口，不切换角色。",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:42:39.270164+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "eta.roles",
+      "title": "ETA 当前账号角色",
+      "service": "eta",
+      "url": "https://eta.zju.edu.cn/zftal-xgxt-web/teacher/xtgl/index/getUserRoleInfo.zf",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "data"
+      ],
+      "params": {},
+      "defaults": {},
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://eta.zju.edu.cn/assets/js/app.2c3bea14.js",
+      "note": "本人认证已验证；只使用当前用户、当前角色和个人模块接口，不切换角色。",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:42:39.450863+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    },
+    {
+      "id": "eta.modules",
+      "title": "ETA 个人信息模块目录",
+      "service": "eta",
+      "url": "https://eta.zju.edu.cn/zftal-xgxt-web/teacher/xshx/commonGrxx.zf",
+      "method": "GET",
+      "encoding": "query",
+      "extract": [
+        "data.modules"
+      ],
+      "params": {},
+      "defaults": {
+        "path": "grxx"
+      },
+      "status": "verified",
+      "evidence": "official_frontend",
+      "source": "https://eta.zju.edu.cn/assets/js/app.2c3bea14.js",
+      "note": "本人认证已验证；只使用当前用户、当前角色和个人模块接口，不切换角色。",
+      "scope": "self",
+      "paging": null,
+      "verification": {
+        "checked_at": "2026-09-09T03:41:54.892761+00:00",
+        "validation_scope": "authenticated_read_and_structure",
+        "result_kind": "nonempty"
+      }
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "recordType": "original-scene-selected-layer-source",
+  "date": "2026-10-24",
+  "scene": "nyamu-study-apricot.scene.json",
+  "sceneSha256": "5d7dd5fd85e6dda43404ab32b60cf56dc6aaaacd514e64c52ea13ea2a2681bbe",
+  "selected": {
+    "mother": {
+      "file": "nyamu-study-apricot-mother-candidate-v1.png",
+      "sha256": "5a8e11981cd588f7274b848cf661b2eee415a6a63103cea342d8d660c9409579",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "file": "nyamu-study-apricot-background-candidate-v1.png",
+      "sha256": "7f6da477226a8c34e39cb43f87fcc404caef78bcbde5091ad1a9f65f72e78bd8",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figure": {
+      "file": "nyamu-study-apricot-figure-calibrated-v3.png",
+      "sha256": "3ea3235eebb402407406a6a20a8ebe49f77e2cdbf26d056525163e108778038d",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "mask": {
+      "file": "nyamu-study-apricot-mask-calibrated-v3.png",
+      "sha256": "34eae923d7a917377cbd54b74f486bc7fb0fa47c96446c059bdd78c526f961fb",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "shadow": {
+      "file": "nyamu-study-apricot-shadow-calibrated-v3.png",
+      "sha256": "3779af45c194ce66776258a59774604d98e52919bc2434431fc0417da2b763d4",
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "extractionGenerations": "nyamu-study-apricot-extraction-source.json",
+  "productionParameters": [
+    "nyamu-study-apricot-layer-parameters-v1.json",
+    "nyamu-study-apricot-layer-parameters-v2.json",
+    "nyamu-study-apricot-layer-parameters-v3.json"
+  ],
+  "figureProduction": "nyamu-study-apricot-layer-processing-v3.json",
+  "rgbMethod": "Entire original motherRGB payload, identity canvas, alpha-only visibility; no face/body/pose repaint",
+  "motherRgbByteSha256": "1e15a609398fe782467de082ef4c3aaa5b627322a2c87ba7bbdbb7c2fd59df15",
+  "figureRgbByteSha256": "1e15a609398fe782467de082ef4c3aaa5b627322a2c87ba7bbdbb7c2fd59df15",
+  "actualRgbPayloadEqual": true,
+  "selectedBackgroundMethod": "Complete matching clean background generated from sole correct Primary-approved mother. Partial processed background not selected because original wall cast-shadow outside alpha remained. Foreground furniture preserved by same matching plate + exact visible alpha occlusion.",
+  "designerObservation": "Personally viewed original/full actual prompt, generated matchingBG and registered mask, raw/refined/final deep/light/room, original far-ankle/figure enlarged, skirt hem and held pencil crops. Removed chair wood from alpha while preserving original black far heel and forefoot as actual separated fragments; restored black shoulder/ankle straps and visible eye, original pencil shaft. Fixed table pose, no translation. Fine bob remains original raw visible outline. Final full room/empty/shadow review and Primary review separate.",
+  "review": {
+    "approvedByPrimary": false,
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false,
+    "integrated": false
+  }
+}

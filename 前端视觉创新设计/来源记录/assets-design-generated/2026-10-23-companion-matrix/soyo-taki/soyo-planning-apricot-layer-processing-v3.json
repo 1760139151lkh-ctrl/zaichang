@@ -1,0 +1,418 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "soyo-planning-apricot-layer-parameters-v3.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": "4.13.0"
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "soyo-planning-apricot-mother-candidate-v2.png",
+  "motherSha256": "e002a836c881d736966bce3a254de9ef5e4a0417efc5b260eaeaea64d85904d6",
+  "matte": "soyo-planning-apricot-observed-contour-v2.png",
+  "matteSha256": "859f2e7492fcf1a7d8d67cdebfa48da73c84f389efa00f12a8d37309320ec7a6",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": {
+    "region": [
+      634,
+      290,
+      996,
+      787
+    ],
+    "seedThreshold": 100,
+    "uncertainBandPixels": 10,
+    "iterations": 6,
+    "edgeFeatherPixels": 0.35
+  },
+  "alphaChangedPixels": 13357,
+  "alphaNonzeroPixels": 50801,
+  "alphaBounds": [
+    640,
+    298,
+    945,
+    781
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "aa021e9a358ad0ba9852d91ef4c85907e1ef28f2219ebccb0eae012201394265",
+  "figureRgbSha256": "aa021e9a358ad0ba9852d91ef4c85907e1ef28f2219ebccb0eae012201394265",
+  "background": {
+    "candidate": "soyo-planning-apricot-background-generated-v1.png",
+    "candidateSha256": "b2e5905cdbaaa27223e6f4a056ac5bc1f1222afa128ffe3b45e5529a2aaa7aba",
+    "expandPixels": 5,
+    "featherPixels": 1.1,
+    "additionalErasePolygons": [
+      [
+        [
+          870,
+          292
+        ],
+        [
+          907,
+          305
+        ],
+        [
+          931,
+          332
+        ],
+        [
+          935,
+          357
+        ],
+        [
+          917,
+          389
+        ],
+        [
+          916,
+          415
+        ],
+        [
+          923,
+          446
+        ],
+        [
+          919,
+          462
+        ],
+        [
+          937,
+          475
+        ],
+        [
+          960,
+          476
+        ],
+        [
+          981,
+          489
+        ],
+        [
+          992,
+          502
+        ],
+        [
+          979,
+          506
+        ],
+        [
+          954,
+          503
+        ],
+        [
+          934,
+          509
+        ],
+        [
+          902,
+          514
+        ],
+        [
+          886,
+          508
+        ],
+        [
+          880,
+          517
+        ],
+        [
+          892,
+          550
+        ],
+        [
+          891,
+          590
+        ],
+        [
+          872,
+          613
+        ],
+        [
+          843,
+          626
+        ],
+        [
+          823,
+          618
+        ],
+        [
+          789,
+          597
+        ],
+        [
+          783,
+          635
+        ],
+        [
+          764,
+          673
+        ],
+        [
+          753,
+          706
+        ],
+        [
+          750,
+          734
+        ],
+        [
+          756,
+          762
+        ],
+        [
+          745,
+          780
+        ],
+        [
+          708,
+          784
+        ],
+        [
+          683,
+          779
+        ],
+        [
+          681,
+          764
+        ],
+        [
+          699,
+          749
+        ],
+        [
+          715,
+          726
+        ],
+        [
+          727,
+          683
+        ],
+        [
+          733,
+          652
+        ],
+        [
+          735,
+          641
+        ],
+        [
+          713,
+          675
+        ],
+        [
+          706,
+          700
+        ],
+        [
+          696,
+          723
+        ],
+        [
+          695,
+          748
+        ],
+        [
+          686,
+          761
+        ],
+        [
+          656,
+          769
+        ],
+        [
+          639,
+          765
+        ],
+        [
+          637,
+          754
+        ],
+        [
+          642,
+          741
+        ],
+        [
+          659,
+          725
+        ],
+        [
+          678,
+          686
+        ],
+        [
+          695,
+          649
+        ],
+        [
+          706,
+          623
+        ],
+        [
+          708,
+          606
+        ],
+        [
+          714,
+          578
+        ],
+        [
+          735,
+          557
+        ],
+        [
+          757,
+          539
+        ],
+        [
+          771,
+          521
+        ],
+        [
+          763,
+          498
+        ],
+        [
+          760,
+          479
+        ],
+        [
+          748,
+          471
+        ],
+        [
+          744,
+          449
+        ],
+        [
+          754,
+          428
+        ],
+        [
+          777,
+          412
+        ],
+        [
+          796,
+          399
+        ],
+        [
+          809,
+          368
+        ],
+        [
+          820,
+          330
+        ],
+        [
+          842,
+          307
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 74080,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          635,
+          736
+        ],
+        [
+          760,
+          736
+        ],
+        [
+          760,
+          792
+        ],
+        [
+          635,
+          792
+        ]
+      ],
+      [
+        [
+          778,
+          579
+        ],
+        [
+          896,
+          579
+        ],
+        [
+          896,
+          633
+        ],
+        [
+          778,
+          633
+        ]
+      ],
+      [
+        [
+          937,
+          486
+        ],
+        [
+          994,
+          486
+        ],
+        [
+          994,
+          509
+        ],
+        [
+          937,
+          509
+        ]
+      ]
+    ],
+    "featherPixels": 1,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "soyo-planning-apricot-figure-calibrated-v3.png",
+      "bytes": 2393115,
+      "sha256": "1a6c27430d1f191ad42b93139d439f0ccc8647743591a3fdcc16bb58c8067d10"
+    },
+    {
+      "file": "soyo-planning-apricot-mask-calibrated-v3.png",
+      "bytes": 14602,
+      "sha256": "006f494c3fc3c65b3a0bbd3b03b43419bd84164476a4a7f059845269597a4965"
+    },
+    {
+      "file": "soyo-planning-apricot-background-calibrated-v3.png",
+      "bytes": 2060585,
+      "sha256": "a84dbbad20fa9afa164d39b81926b3e52bb78f14e75fe416462539763d5fbb2a"
+    },
+    {
+      "file": "soyo-planning-apricot-shadow-calibrated-v3.png",
+      "bytes": 35544,
+      "sha256": "22839a7fe63bb765f96ba7b254e8ce105034c3d89e151d8c594814a0430e5c2b"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

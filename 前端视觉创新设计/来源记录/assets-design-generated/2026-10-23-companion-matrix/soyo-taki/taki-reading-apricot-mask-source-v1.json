@@ -1,0 +1,25 @@
+{
+  "recordType": "image-generation-source",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-9bcab6c3-8150-4241-8894-ca65e1aa9baf",
+  "prompt": "taki-reading-apricot-mask-prompt-v1.txt",
+  "promptSha256": "d2b5aa94572d81465943e2b842eae5827faad892ebb3ffb0b3e262ef56c2d6a4",
+  "inputs": [
+    {
+      "file": "taki-reading-apricot-mother-candidate-v2.png",
+      "sha256": "950b6f05f48f6b0ca0335bdffb0468379b95e95576e1afd8da487be488f5314b",
+      "role": "sole correct original primary-approved mother; coordinate-locked semantic visible-person matte"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16e45-e592-7451-9d06-1779d8efd536/exec-9bcab6c3-8150-4241-8894-ca65e1aa9baf.png",
+  "output": {
+    "file": "taki-reading-apricot-mask-generated-v1.png",
+    "sha256": "3e3a205d42dc34ee4d9306b686d6ae0d344c47d2de7ee282f3654d344225df77",
+    "bytes": 345118
+  },
+  "review": {
+    "producerDecision": "same-coordinate body candidate, but mask wrongly includes the stationary chair; require original-coordinate chair exclusion before any adoption",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

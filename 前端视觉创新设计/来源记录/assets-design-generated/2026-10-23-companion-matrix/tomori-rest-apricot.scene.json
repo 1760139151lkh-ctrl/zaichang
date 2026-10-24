@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-rest-apricot-room4",
+  "character": "tomori",
+  "activity": "rest",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "tomori-rest-apricot-mother.png",
+  "background": "tomori-rest-background-calibrated-v5.png",
+  "figure": "tomori-rest-figure-calibrated-v5.png",
+  "mask": "tomori-rest-mask-calibrated-v5.png",
+  "shadow": "tomori-rest-shadow-calibrated-v5.png",
+  "seat": [
+    0.8255208333333334,
+    0.5673828125
+  ],
+  "ground": [
+    0.7565104166666666,
+    0.724609375
+  ],
+  "bodyBounds": [
+    0.6946614583333334,
+    0.291015625,
+    0.9088541666666666,
+    0.7275390625
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "86.784% 29.590%, 84.635% 29.102%, 83.398% 29.785%, 82.878% 30.762%, 82.487% 32.910%, 82.878% 33.887%, 82.357% 34.863%, 82.812% 36.816%, 84.245% 37.695%, 82.422% 39.355%, 81.771% 45.508%, 79.883% 48.926%, 78.646% 50.000%, 78.711% 51.270%, 78.320% 50.293%, 77.148% 50.586%, 76.628% 52.441%, 74.740% 53.223%, 73.893% 60.645%, 72.656% 66.797%, 71.615% 68.652%, 69.596% 69.824%, 69.531% 71.387%, 73.503% 71.289%, 73.698% 72.656%, 77.279% 72.363%, 78.516% 71.484%, 77.669% 66.797%, 77.930% 59.180%, 77.474% 56.152%, 79.232% 55.957%, 82.031% 57.520%, 82.943% 56.738%, 87.044% 55.859%, 87.174% 52.441%, 86.719% 47.461%, 87.760% 54.297%, 88.607% 55.566%, 90.820% 55.664%, 89.258% 54.297%, 88.411% 47.266%, 88.086% 47.168%, 87.891% 39.746%, 86.263% 37.793%, 88.086% 35.840%, 87.760% 31.934%",
+  "travel": 0.0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerStage": "candidate",
+    "producerNote": "Primary must inspect source/matte/contact and measured anchors. No runtime admission or live physical motion claim."
+  },
+  "calibrationObservation": {
+    "seatPixels": [
+      1268,
+      581
+    ],
+    "groundPixels": [
+      1162,
+      742
+    ],
+    "shortRangePixels": 0,
+    "note": "Right palm rests on the closed blue book fixed on the cushion, so this pose has zero travel. Original cuff/wrist/skin are preserved and background lake/book spill excluded; no live Stage claim."
+  },
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-rest-layer-processing-v5.json"
+}

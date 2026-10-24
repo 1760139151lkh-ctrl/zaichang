@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "platform": "windows-x64",
+  "packages": [
+    {
+      "distribution": "pycryptodome",
+      "version": "3.23.0",
+      "module": "Crypto",
+      "wheel": "pycryptodome-3.23.0-cp37-abi3-win_amd64.whl",
+      "url": "https://files.pythonhosted.org/packages/54/2f/e97a1b8294db0daaa87012c24a7bb714147c7ade7656973fd6c736b484ff/pycryptodome-3.23.0-cp37-abi3-win_amd64.whl",
+      "sha256": "c75b52aacc6c0c260f204cbdd834f76edc9fb0d8e0da9fbf8352ef58202564e2",
+      "metadata": "pycryptodome-3.23.0.dist-info",
+      "license": "BSD-2-Clause AND public-domain"
+    },
+    {
+      "distribution": "pyelftools",
+      "version": "0.33",
+      "module": "elftools",
+      "wheel": "pyelftools-0.33-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/46/2a/f9697576603dae937727827505a6126a066affb227034e77e6f9068910da/pyelftools-0.33-py3-none-any.whl",
+      "sha256": "f215ad5f47d3f1373a21496a6c9e0707c622840d0622f23ff7ce08678b020036",
+      "metadata": "pyelftools-0.33.dist-info",
+      "license": "public-domain; bundled construct is MIT"
+    }
+  ],
+  "additionalLicenses": [
+    {
+      "path": "licenses/pyelftools-construct-MIT.txt",
+      "url": "https://raw.githubusercontent.com/eliben/pyelftools/v0.33/elftools/construct/LICENSE",
+      "sha256": "f8d0c347a0dcc6ebe1671640dfae8d2411b6ded892e06a6764f8208b218b2af4"
+    }
+  ],
+  "note": "Only open-source Python dependencies. The separately installed signing component, original APK library, certificate and all account data are excluded."
+}

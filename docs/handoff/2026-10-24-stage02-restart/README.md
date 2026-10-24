@@ -42,10 +42,21 @@
   - **浙大体艺纯直连与场馆登录**：`src/shared/tiyi.ts`、`src/main/tiyiAdapter.ts`、`src/main/integrations/tiyi_connector.py`、`src/main/tiyiSchoolSession.ts`、`src/main/capabilities/tiyi.ts`、`src/renderer/TiyiConnection.tsx`、`src/renderer/tiyi-connection.css`。
     - *2026-10-24 已攻克*：`tiyi_connector.py` 已修复为 HTTPS UAA 登录（`zjuam.zju.edu.cn/cas/login`）+ 官方 HTTP 业务基址（`http://www.tyys.zju.edu.cn/cgapp-server/` 与 `/ptm/`，显式 `ProxyHandler({})` 直连免 WebVPN），并补齐了场馆两步独立令牌交换（`/venue-server/api/app/login/init` + `/api/login`），已跑通 `profile`、`terms`、`summary`、`records`、`venues/orders` 与场馆目录/时段。
   - **实时运动与定位桥**：`src/shared/workout.ts`、`src/shared/workout-source.ts`、`src/shared/map-workout.ts`、`src/main/runtime/workout-session.ts`、`src/main/runtime/workout-native.ts`、`src/main/runtime/workout-storage.ts`、`src/main/runtime/workout-cadence.ts`、`src/main/device-location.ts`、`src/main/ios-location.ts`、`src/main/map-workout.ts`、`src/main/capabilities/workout.ts`、`src/renderer/map/WorkoutControls.tsx`、`src/renderer/map/workout.css`、`apps/location-bridge/{android,ios}`。
-- **Stage 02 必须由 8 路重装子代理彻底攻克的三大核心任务**：
-  1. **打通体艺剩余 14 个子模块的真实内嵌数据接口**：目前 `tiyi_connector.py` L693–705 对 `study_records`（修学记录）、`counselling`（辅导站 13 学期切换）、`counts`（次数查询 13 学期切换）、`fitness_attendance`（身体素质课考勤）、`fitness`（体测成绩/预约/反馈）、`teams`（运动队/考勤）、`competitions`（我的比赛）、`venue_entries`（场馆出入记录）、`venue_live`（场地实况）、`feedback`（意见反馈）、`graduation_courses`（体测与锻炼课）、`graduation_report`（毕业体艺报告）、`westward`（西迁活动）、`codoon`（咕咚）仍只返回外层 HTML 空壳（`recordRead: False`）。必须解析并调用这些子系统（`/cts`、`/ms`、`/pft`、`/gms`、`/club2`、`/westward`、`/ggtypt`）的内嵌脚本 API 与学期参数查询，拿到真实个人记录！
-  2. **把实时 GPS 运动轨迹画上 `CampusMap`**：将 `WorkoutState.session.points` 实时接入 `src/renderer/CampusMap.tsx` 与 `src/renderer/map/map-engine.ts`，在地图表面渲染暖金实时轨迹线、当前位置呼吸光点、精度半径圈与每公里分段点（同时确保 `apps/review-web` 公共地图物理隔离私人运动层）。
-  3. **重塑 `workout.current` 的校园场地感知与伴侣人味**：在 `src/main/capabilities/workout.ts` 中安全投影 `CampusWorkoutMatcher` 匹配的校内场馆/路段名称（如「紫金港东田径场」「启真湖步道」，不外泄原始经纬度），并彻底重写那段「设备观察不能证明本人正在移动……不会启动持续陪跑」的冷水黑话，让祥子/睦真正像陪在你身边的伴侣一样关心你的跑步状态！
+- **Stage 02 终极巩固与超高一体化 Super App 升级版攻坚任务（严禁草率收尾，全面破界做深）**：
+  1. **打通体艺 19 项深层真实接口与真机/模拟器打卡通路**：
+     - 解析并调用剩余 14 个模块的内嵌脚本与 AJAX API（修学记录、辅导站/次数 13 学期明细、体测单项成绩与预约、运动队考勤、比赛、场馆闸机、实时人数、毕业报告），彻底消灭 `recordRead: False` 空壳；
+     - 吸收独立体艺电脑端（`mobile_api.rs`）协议，逆向打通体育打卡通路（`sporttype`、`prejudgment`、`savesports`）与防作弊规则库（配速 3'00"~9'00"/km、步频区间、路径点覆盖），实现与 MuMu 模拟器（`net.crigh.mysport` + `cn.zaichang.location`）及电脑版体艺的双端打卡闭环验证！
+  2. **前端破界：CampusMap 实时暖金发光轨迹与 Spring 细腻动态运镜**：
+     - 在 `CampusMap.tsx` 与 `map-engine.ts` 中渲染温润发光的暖金荧光跑步轨迹、呼吸脉冲点、精度圈与每公里里程碑胶囊；
+     - 实现物理弹簧相机跟随与可打断拖拽手感（公共地图 100% 物理隔离私人轨迹）。
+  3. **打造桌面置顶 Mini Floating Companion HUD 伴跑灵动岛与多端视窗**：
+     - 拒绝局限在聊天框里！开发极轻量、透明置顶的 Mini 伴跑岛（可穿透悬浮在 MuMu 模拟器或其他窗口之上），实时展示大字号配速、步频、心率、用时、里程与角色动态呼吸头像，并支持手机端/局域网 Web 同步大字仪表盘。
+  4. **全天候伴跑三部曲（跑前、跑中、跑后）的无缝主动关怀**：
+     - **跑前**：结合天气/课表的主动约跑推演、学期 48 次阳光长跑进度分析、OpenUI 动态热身拉伸指南、水分与装备细致叮嘱；
+     - **跑中**：每公里分段语音/微文字播报、掉速温柔打气、无氧冲刺心率预警、校园语义地标识别（东操、启真湖）；
+     - **跑后**：Cooldown 慢走恢复防骤停受凉、历史生理与体能多维比对分析、校方打卡回执确认与学期达标印章盖章。
+  5. **MyGO!!!!! & Ave Mujica 十角色「温柔乡」伴跑多模态灵魂演出**：
+     - 丰川祥子（叫用户「老公/小灰灰」、傲娇严谨却满心牵挂）、若叶睦（字少真切、蹲下系鞋带、递毛巾、呼吸节奏指引）、灯、爱音、乐奈、爽世、立希、初华、海铃、喵梦十人十色在跑前、跑中、跑后的专属台词与微表情，100% 根除「设备观察不能证明本人在动」等一切工程人机黑话！
 
 ### 3. 并发前端已落地的未提交代码（后端阶段严禁破坏，Stage 08–11 直接接力深化）
 - 已存在于工作区：`src/renderer/SourceBookmarkTray.tsx`、`src/main/runtime/source-bookmark-native.ts`、`src/renderer/StudySceneView.tsx`（书签拖入接收）、`src/renderer/FocusLamp.tsx`、`src/main/runtime/focus-session.ts`、`src/renderer/ReturnBookmark.tsx`、`src/main/runtime/workspace-return.ts`、`src/renderer/EntrustedRevision.tsx`、`src/renderer/motion/use-spring.ts`、`src/renderer/motion/use-split-motion.ts`、`src/renderer/companion-scenes.tsx`（含祥子 5 姿态 `.scene.json`）及 `src/renderer/InteractiveProgramView.tsx`。

@@ -1,0 +1,136 @@
+{
+  "recordType": "original-scene-alpha-only-hair-refinement",
+  "script": "mutsumi-listening-apricot-refine-hair-v9.py",
+  "scriptSha256": "0830229453704d8b60315025be1fb786d706f7c18029a94f690c30cb17fc5d40",
+  "mother": "mutsumi-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+  "inputAlpha": "mutsumi-listening-apricot-source-alpha-v7.png",
+  "inputAlphaSha256": "de3feda8049d110440fb8c558b9d801905422248d11d6e179ab512ba762126fd",
+  "region": [
+    1385,
+    420,
+    1425,
+    538
+  ],
+  "observedMainHairPanel": [
+    [
+      1370,
+      416
+    ],
+    [
+      1378,
+      431
+    ],
+    [
+      1385,
+      452
+    ],
+    [
+      1393,
+      480
+    ],
+    [
+      1397,
+      500
+    ],
+    [
+      1392,
+      519
+    ],
+    [
+      1384,
+      536
+    ],
+    [
+      1376,
+      546
+    ],
+    [
+      1373,
+      539
+    ],
+    [
+      1385,
+      518
+    ],
+    [
+      1389,
+      498
+    ],
+    [
+      1381,
+      475
+    ],
+    [
+      1373,
+      453
+    ]
+  ],
+  "observedFineArc": [
+    [
+      1392,
+      420
+    ],
+    [
+      1401,
+      436
+    ],
+    [
+      1410,
+      454
+    ],
+    [
+      1417,
+      472
+    ],
+    [
+      1419,
+      488
+    ],
+    [
+      1415,
+      501
+    ],
+    [
+      1408,
+      512
+    ],
+    [
+      1397,
+      519
+    ]
+  ],
+  "preservedOriginalCloth": [
+    [
+      1385,
+      508
+    ],
+    [
+      1388,
+      514
+    ],
+    [
+      1394,
+      521
+    ],
+    [
+      1399,
+      531
+    ],
+    [
+      1399,
+      538
+    ],
+    [
+      1385,
+      538
+    ]
+  ],
+  "method": "Original source RGB unchanged. Within the observed rear-hair/window gap, discard original orange post/blue cushion contamination, preserve continuous antialiased bright hair and original white piping/navy sleeve. No figure geometry or RGB paint.",
+  "outputAlpha": "mutsumi-listening-apricot-source-alpha-v9.png",
+  "outputAlphaSha256": "c21a80db897c93a3282606a701a5d36d3f346c1238c8f73b56886eae6a61783e",
+  "review": {
+    "primary": "pending",
+    "runtime": "not registered"
+  }
+}

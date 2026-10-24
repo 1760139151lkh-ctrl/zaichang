@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "id": "umiri-planning-apricot-source-room",
+  "character": "umiri",
+  "activity": "planning",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "umiri-planning-apricot-mother-candidate-v2.png",
+  "background": "umiri-planning-apricot-background-calibrated-v4.png",
+  "figure": "umiri-planning-apricot-figure-calibrated-v4.png",
+  "mask": "umiri-planning-apricot-mask-calibrated-v4.png",
+  "shadow": "umiri-planning-apricot-shadow-candidate-v4.png",
+  "seat": [
+    0.5670572916666666,
+    0.5888671875
+  ],
+  "ground": [
+    0.681640625,
+    0.736328125
+  ],
+  "bodyBounds": [
+    0.505859375,
+    0.2880859375,
+    0.7063802083333334,
+    0.7421875
+  ],
+  "safeTextBoundary": 0.486328,
+  "support": "desk-chair",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "53.320% 29.492%, 52.409% 30.664%, 51.367% 33.691%, 51.367% 34.082%, 51.042% 34.668%, 50.846% 35.938%, 50.977% 34.961%, 51.432% 33.984%, 51.367% 35.645%, 50.977% 37.012%, 50.781% 37.305%, 50.651% 37.109%, 50.586% 38.477%, 50.846% 37.402%, 50.977% 39.062%, 51.107% 39.355%, 51.042% 38.965%, 51.367% 39.258%, 51.367% 40.039%, 51.107% 40.430%, 51.953% 40.039%, 52.148% 39.551%, 52.409% 39.844%, 52.409% 40.137%, 51.888% 40.820%, 52.279% 40.625%, 52.604% 40.137%, 52.734% 40.332%, 52.799% 39.648%, 53.125% 40.527%, 52.669% 42.480%, 52.734% 44.336%, 52.214% 46.875%, 52.148% 48.242%, 52.344% 48.926%, 52.799% 49.023%, 53.385% 49.707%, 53.776% 50.781%, 55.339% 58.984%, 55.729% 59.277%, 57.943% 59.570%, 58.919% 58.984%, 59.635% 58.984%, 60.091% 58.496%, 61.914% 57.715%, 61.979% 58.594%, 62.305% 59.180%, 62.305% 59.961%, 62.109% 60.254%, 62.044% 62.305%, 62.174% 63.477%, 62.044% 64.551%, 62.305% 66.602%, 61.849% 68.750%, 61.719% 71.094%, 62.305% 71.484%, 63.542% 71.191%, 63.607% 70.215%, 63.932% 70.703%, 64.518% 70.996%, 65.560% 70.801%, 65.495% 73.633%, 66.016% 73.926%, 67.318% 73.730%, 67.383% 72.754%, 67.643% 72.754%, 67.773% 73.145%, 68.490% 73.535%, 69.466% 73.438%, 70.573% 72.656%, 70.573% 71.973%, 70.247% 70.801%, 70.052% 70.508%, 69.010% 70.508%, 67.969% 69.238%, 67.969% 68.555%, 67.643% 67.480%, 67.904% 67.188%, 67.904% 66.602%, 67.578% 66.016%, 66.992% 65.527%, 66.927% 65.039%, 66.732% 65.137%, 66.471% 64.746%, 64.714% 54.297%, 64.323% 53.711%, 63.867% 53.516%, 62.174% 53.613%, 61.719% 53.320%, 59.831% 53.027%, 60.221% 51.758%, 60.677% 51.660%, 61.523% 50.586%, 62.044% 50.488%, 62.305% 50.195%, 61.849% 49.316%, 61.263% 48.730%, 60.547% 49.121%, 59.896% 50.293%, 58.268% 50.098%, 58.138% 49.902%, 58.203% 49.414%, 59.896% 48.828%, 60.091% 48.242%, 60.026% 47.656%, 60.286% 47.363%, 61.589% 47.754%, 62.695% 47.754%, 62.891% 47.363%, 63.151% 47.363%, 63.346% 47.070%, 63.151% 46.680%, 61.458% 45.996%, 61.328% 45.703%, 61.914% 45.410%, 61.914% 45.020%, 60.547% 45.410%, 59.961% 46.191%, 59.701% 46.094%, 58.268% 46.582%, 58.333% 44.238%, 57.292% 41.992%, 56.576% 39.941%, 56.901% 39.453%, 56.771% 39.258%, 56.966% 38.477%, 57.161% 38.672%, 57.031% 39.258%, 57.227% 39.844%, 57.292% 38.965%, 57.682% 38.281%, 57.552% 39.355%, 57.812% 39.062%, 58.138% 36.914%, 58.333% 37.598%, 58.268% 38.184%, 58.333% 36.719%, 58.073% 35.156%, 58.268% 35.156%, 58.464% 35.645%, 58.464% 36.621%, 58.529% 35.742%, 58.333% 34.766%, 58.594% 34.766%, 58.268% 34.375%, 58.008% 32.715%, 58.073% 32.520%, 58.203% 32.715%, 58.333% 33.691%, 58.529% 33.691%, 58.203% 32.031%, 56.966% 30.078%, 55.990% 29.199%, 55.143% 28.809%, 54.492% 28.809%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "production": "umiri-planning-apricot-layer-processing-v4.json",
+  "parameters": "umiri-planning-apricot-layer-parameters-v4.json",
+  "review": {
+    "approvedByPrimary": false,
+    "stage": "candidate-awaiting-primary-layer-review",
+    "motherApprovalRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-other-mother-reviews.json",
+    "producerNote": "Original mother RGB retained. Each pose has independent visible source contact points and alpha contour. Fixed chair/palm/desk anchors do not admit arbitrary image translation. Only short bench travel on play remains a static candidate; original Stage must be reviewed by Root.",
+    "runtimeAccepted": false
+  },
+  "calibrationNotes": {
+    "pointSpace": "original mother pixels, normalized only for Stage",
+    "seatPixelCandidate": [
+      871,
+      603
+    ],
+    "groundPixelCandidate": [
+      1047,
+      754
+    ],
+    "textBoundaryMeaning": "Free left part of the mother canvas; actual quiet framing uses full body bounds and the single shared camera. Not a claim about global UI text width.",
+    "primaryCalibrationReview": "pending"
+  }
+}

@@ -2,6 +2,8 @@
 
 这是桌面在场运动会话的原生位置提供器。它不是完整手机版，也不读取或上传学校体育记录。无网络权限，只经用户已授权的 ADB 调试连接把系统位置交给桌面唯一的 `WorkoutSessionKernel`。
 
+0.1.4 保留更早到达的停止请求：即使开始界面还没接到请求，也先记住该订阅已关闭；迟到的服务请求不再停止另一次健康运动。GPS 与 network 中仍有可用来源时，关闭另一来源也不会误把整次定位判成中断。
+
 Android 正常申请前台精确/粗略位置权限，由 `LocationManager.requestLocationUpdates` 订阅 GPS 与 network。每个原始点保留 WGS84 坐标、系统采集 epoch 时刻、设备单调时钟、精度（Android 报告的 68% 水平精度半径）、可选海拔/速度/方向、安装级设备身份、provider 和系统 `isMock`。模拟器身份或模拟输入会使 `provenance` 保持 `simulated`，即使系统返回 `isMock=false` 也不会变成真实运动。
 
 0.1.3 同时交付当前设备开机时钟，桌面先核对每点报告的 elapsed realtime 是否落在本次开机范围内。MuMu 实际出现过 GPS 把 epoch 量级的数值放入该字段、network 却正常报告 uptime 的情况；原值保存在同一轨迹点的 `reportedElapsedRealtimeMs`，`clockQuality` 说明范围核对结果。超范围值不成为可计算的 `elapsedRealtimeMs`，也不减去一个猜测的偏移量；会话保留原采集时刻，继续由唯一运动 owner 核对时间顺序。旧桥没有提供开机范围时保留原报告并标为 `unverified`，不猜测它是可比较的单调时间。

@@ -2567,7 +2567,7 @@ export class Harness {
         ['pending', 'running'].includes(o.status) ? { ...o, status: 'blocked' } : o,
       );
       const technicalDetail = redactCredentials(error instanceof Error ? error.message : friendlyError(error));
-      if (!sourceInvalidated && !controller.signal.aborted && technicalDetail && technicalDetail !== text
+      if (!sourceInvalidated && !controller.signal.aborted && !scopeExpired && technicalDetail && technicalDetail !== text
         && !message.steps.some(item => item.detail === technicalDetail))
         message.steps.push({ id: `host-failure:${contract.id}`, title: '未完成的处理', status: 'blocked', detail: technicalDetail });
     } finally {

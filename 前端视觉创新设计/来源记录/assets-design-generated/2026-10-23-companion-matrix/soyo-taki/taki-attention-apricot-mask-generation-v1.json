@@ -1,0 +1,39 @@
+{
+  "recordType": "built-in-image-generation-source",
+  "tool": "image_gen.imagegen",
+  "operation": "monochrome original-coordinate alpha matte",
+  "input": "taki-attention-apricot-mother-candidate-v2.png",
+  "inputSha256": "23c79a3ce36b887e2c2f57f37558cbe5ace84014c9a03524e31872028004a2f5",
+  "inputRole": "sole correct primary-approved complete mother",
+  "prompt": "taki-attention-apricot-mask-prompt-v1.txt",
+  "promptFileSha256": "3768d0f845be5e20474c570baf75c861fa46e679add588da6d04cc3cf84f28bd",
+  "output": "taki-attention-apricot-mask-candidate-v1.png",
+  "producerReview": "Complete mask remains rejected. The exact original-position person-only head ROI x840..1018,y300..454 was separately overlaid on original RGB and visually qualified, then only its boundary alpha calibrated. No furniture ROI is adopted; never used as imagegen input.",
+  "primaryReview": "pending",
+  "runtimeAccepted": false,
+  "outputSha256": "ca49625ae55dae71a08dcbaf1740dee378e79eff33129d266fb270f32375822b",
+  "bytes": 425523,
+  "canvas": [
+    1536,
+    1024
+  ],
+  "toolDefaultOutput": "generated_images/01a16e45-3c23-7790-a62d-04bd03b674e2/exec-5e7b77b8-d87d-40e8-b9a2-8cade37748db.png",
+  "executionId": "exec-5e7b77b8-d87d-40e8-b9a2-8cade37748db",
+  "toolPromptTextSha256": "e96bed0057ab242116feaee24d07690feb16504861bd9e5a9ce71a6cd9ccdc4c",
+  "actualToolArguments": {
+    "referencedImageCount": 1,
+    "transparent_background": false
+  },
+  "adopted": false,
+  "initialFullMaskDecision": "rejected as complete matte: includes furniture",
+  "partialUse": {
+    "region": [
+      840,
+      300,
+      1018,
+      454
+    ],
+    "purpose": "aligned original head alpha only; full mask rejected",
+    "alphaProduction": "taki-attention-apricot-head-alpha-production-v5.json"
+  }
+}

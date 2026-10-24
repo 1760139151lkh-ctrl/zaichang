@@ -45,3 +45,5 @@
 2026-10-24续作：两人的三主题chat门图已逐张生成并由制作者亲看，真实双输入和实际Prompt见`chat-theme-gates-index.json`；尚不代签主代理。暖chat原景层候选分别为Soyo-v2与Taki-v8，两张study为figure/mask-v4、matching背景/接触影-v5，入口为本目录四份`.scene.json`，均保持`approvedByPrimary:false`，尚无运行验收。study的椅背/前腿遮挡真实保留、行程为0；没有补绘被挡身体。图层全RGB取原母像素，精校只作用于alpha与原场景背景去人范围，处理链与参数随资产保存。位移/缩放或输出灰度人物的失败生成蒙版有独立拒绝记录，未被用作alpha或后续输入。
 
 十人身份头像另从各自已经主审的暖chat完整母图按同一头肩尺度裁取；入口为上一层`portrait-crops.json`和`portrait-production.json`。这些头像不依赖某套动作图层是否获准，也不增加主题/姿态覆盖数。原像素裁切与实际gallery/头像验收分别记录；自定义昵称、收藏、相处方式及旧用户图片仍归原owner。
+
+2026-10-24母图矩阵：两人各8活动×4主题的64份当前完整母图候选均已实际生成并由制作者逐张看过，入口为`mother-candidates-all-themes-index.json`。暖16与chat六个主题门图得到Root亲看及actualprompt正式准许；新42份其余活动主题候选仍待Root主审，不代表合格图层或运行覆盖。Taki listening暮色v1因窗榻/上身下移退回，当前v2从正确暖母与空暮景重生；Soyo play夜雨v1/v2因窗外塔楼偏移退回，当前v3仅输入已审夜雨空房、完整文字重绘新支承姿态。实际调用输入与Prompt分别保真，失败图没有作为后续输入。新夜雨play有自己的新人体位置，不能继承暖杏锚点。

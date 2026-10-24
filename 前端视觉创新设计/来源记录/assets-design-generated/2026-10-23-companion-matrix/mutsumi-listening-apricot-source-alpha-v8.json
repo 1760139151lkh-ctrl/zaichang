@@ -1,0 +1,111 @@
+{
+  "recordType": "original-scene-alpha-only-hair-refinement",
+  "script": "mutsumi-listening-apricot-refine-hair-v8.py",
+  "scriptSha256": "7cbdc7b6ec52a08b3245093c1ccb01b421145a785a59e6d448285782300b4dc3",
+  "mother": "mutsumi-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "eeb2f7953f39ba44844ac05d4b7bcf2b000fca738ecb0bd1a93ca3b614f190dc",
+  "inputAlpha": "mutsumi-listening-apricot-source-alpha-v7.png",
+  "inputAlphaSha256": "de3feda8049d110440fb8c558b9d801905422248d11d6e179ab512ba762126fd",
+  "region": [
+    1385,
+    420,
+    1425,
+    538
+  ],
+  "observedMainHairPanel": [
+    [
+      1370,
+      416
+    ],
+    [
+      1378,
+      431
+    ],
+    [
+      1385,
+      452
+    ],
+    [
+      1393,
+      480
+    ],
+    [
+      1397,
+      500
+    ],
+    [
+      1392,
+      519
+    ],
+    [
+      1384,
+      536
+    ],
+    [
+      1376,
+      546
+    ],
+    [
+      1373,
+      539
+    ],
+    [
+      1385,
+      518
+    ],
+    [
+      1389,
+      498
+    ],
+    [
+      1381,
+      475
+    ],
+    [
+      1373,
+      453
+    ]
+  ],
+  "observedFineArc": [
+    [
+      1392,
+      420
+    ],
+    [
+      1401,
+      436
+    ],
+    [
+      1410,
+      454
+    ],
+    [
+      1417,
+      472
+    ],
+    [
+      1419,
+      488
+    ],
+    [
+      1415,
+      501
+    ],
+    [
+      1408,
+      512
+    ],
+    [
+      1397,
+      519
+    ]
+  ],
+  "arcBandPixels": 3,
+  "method": "Only the observed rear hair/window/pillow gap is rematted using original RGB inside the source-traced main hair panel and fine bright arc. Orange window post and blue cushion remain background. Original navy cloth alpha retained; no body or hair RGB painted, shifted or resized.",
+  "outputAlpha": "mutsumi-listening-apricot-source-alpha-v8.png",
+  "outputAlphaSha256": "166ebed01a6115135394a3a4db2cb3c251225b88171955ace3e9c6574e91cde0",
+  "review": {
+    "primary": "pending",
+    "runtime": "not registered"
+  }
+}

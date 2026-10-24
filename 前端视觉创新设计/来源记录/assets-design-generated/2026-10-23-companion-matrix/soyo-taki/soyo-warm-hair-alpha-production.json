@@ -1,0 +1,161 @@
+{
+  "recordType": "original-coordinate-alpha-production",
+  "processor": "refine-soyo-warm-hair-alpha.py",
+  "processorSha256": "acd0654ca509a69c8cb368101e649462ca4334d709913ae01ef399b1e801034c",
+  "method": "Local original-coordinate hair/air alpha cleanup after second visual review.\n\nThe listening hair loop contained bright window-mullion/pillow remnants. The\nplay outer hair carried small cool sky fragments. Only alpha changes here;\nevery RGB byte remains the approved full mother image's original payload.\n",
+  "entries": [
+    {
+      "activity": "listening",
+      "input": "soyo-listening-apricot-mask-calibrated-v20.png",
+      "inputSha256": "e3650c789e8354acde00b7f8309323e72807fb96cecc518a581150908060cea9",
+      "output": "soyo-listening-apricot-parent-hair-alpha-v21.png",
+      "outputSha256": "428d8ff5103747ca6da811dada0584ede3879dd592e537779daedff67019e1d8",
+      "confirmedAirPolygons": [
+        [
+          [
+            1408,
+            421
+          ],
+          [
+            1410,
+            424
+          ],
+          [
+            1415,
+            431
+          ],
+          [
+            1417,
+            438
+          ],
+          [
+            1418,
+            445
+          ],
+          [
+            1418,
+            452
+          ],
+          [
+            1416,
+            458
+          ],
+          [
+            1411,
+            461
+          ],
+          [
+            1406,
+            462
+          ],
+          [
+            1403,
+            461
+          ],
+          [
+            1399,
+            458
+          ],
+          [
+            1397,
+            454
+          ],
+          [
+            1397,
+            450
+          ],
+          [
+            1396,
+            446
+          ],
+          [
+            1397,
+            443
+          ],
+          [
+            1401,
+            440
+          ],
+          [
+            1404,
+            435
+          ],
+          [
+            1405,
+            430
+          ],
+          [
+            1405,
+            425
+          ]
+        ],
+        [
+          [
+            1398,
+            467
+          ],
+          [
+            1407,
+            467
+          ],
+          [
+            1411,
+            465
+          ],
+          [
+            1425,
+            466
+          ],
+          [
+            1425,
+            507
+          ],
+          [
+            1398,
+            507
+          ]
+        ]
+      ],
+      "changedAlphaPixels": 308,
+      "producerReview": {
+        "status": "rejected",
+        "reason": "Air polygon reached the real returning outer hair loop; v21 never used as an input to selected later alpha.",
+        "selectedSuccessor": "soyo-listening-apricot-figure-calibrated-v24.png"
+      }
+    },
+    {
+      "activity": "play",
+      "input": "soyo-play-apricot-mask-calibrated-v12.png",
+      "inputSha256": "c4a3f35bb3e9e1476022b2cb80b027438e94c275d8c3d686eeec801cdfed554d",
+      "output": "soyo-play-apricot-parent-hair-alpha-v14.png",
+      "outputSha256": "e837a8e36c0e771d82f70d75e0073568b89bac0b6e549124e7881e78b21d401d",
+      "originalRgbCoolAirRegion": [
+        [
+          1169,
+          265
+        ],
+        [
+          1230,
+          265
+        ],
+        [
+          1230,
+          405
+        ],
+        [
+          1169,
+          405
+        ]
+      ],
+      "changedAlphaPixels": 184,
+      "producerReview": {
+        "status": "selected-source-candidate",
+        "primaryLayerReview": "pending",
+        "runtimeAccepted": false
+      }
+    }
+  ],
+  "rgbModified": false,
+  "primaryLayerReview": "pending",
+  "runtimeAccepted": false
+}

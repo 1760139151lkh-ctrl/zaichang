@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "mother": "nyamu-planning-apricot-mother-candidate-v2.png",
+  "motherSha256": "2520ef07069e0ec07b4cc2de51181f072626ce9f8f06a83ddf401c7e4ac24c27",
+  "matte": "nyamu-planning-apricot-mask-candidate-v2.png",
+  "matteSha256": "76fca2e6369d61bdf8f6a56d097d5de628ce40d76a823e5789930bfadc5da066",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "nyamu-planning-apricot-figure-calibrated-v1.png",
+  "mask": "nyamu-planning-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "nyamu-planning-apricot-background-candidate-v2.png",
+  "background": "nyamu-planning-apricot-background-calibrated-v1.png",
+  "shadow": "nyamu-planning-apricot-shadow-calibrated-v1.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        904,
+        718
+      ],
+      [
+        979,
+        716
+      ],
+      [
+        981,
+        755
+      ],
+      [
+        902,
+        758
+      ]
+    ],
+    [
+      [
+        974,
+        715
+      ],
+      [
+        1045,
+        714
+      ],
+      [
+        1048,
+        751
+      ],
+      [
+        973,
+        752
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        904,
+        718
+      ],
+      [
+        979,
+        716
+      ],
+      [
+        981,
+        755
+      ],
+      [
+        902,
+        758
+      ]
+    ],
+    [
+      [
+        974,
+        715
+      ],
+      [
+        1045,
+        714
+      ],
+      [
+        1048,
+        751
+      ],
+      [
+        973,
+        752
+      ]
+    ],
+    [
+      [
+        824,
+        582
+      ],
+      [
+        948,
+        577
+      ],
+      [
+        953,
+        607
+      ],
+      [
+        823,
+        612
+      ]
+    ],
+    [
+      [
+        902,
+        480
+      ],
+      [
+        1021,
+        481
+      ],
+      [
+        1027,
+        504
+      ],
+      [
+        902,
+        509
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [],
+  "includePolygons": [
+    [
+      [
+        906,
+        356
+      ],
+      [
+        931,
+        355
+      ],
+      [
+        945,
+        373
+      ],
+      [
+        930,
+        395
+      ],
+      [
+        912,
+        389
+      ]
+    ]
+  ],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": {
+    "region": [
+      818,
+      302,
+      1048,
+      755
+    ],
+    "seedThreshold": 110,
+    "uncertainBandPixels": 4,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.3
+  },
+  "record": "nyamu-planning-apricot-layer-processing-v1.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "Raw maskv1 enlarged girl and included whole chair, rejected and never used as matte/input. v2 is registered original person only. Body RGB original; exact source color refinement corrects eye/straps, does not draw anatomy. Matching fullBGv2 keeps original chair orientation and exact two original cards; v1 added tabletop object(s), rejected. Multiple desk/seat/shoe supports require travel0. All Primary/runtime review pending."
+}

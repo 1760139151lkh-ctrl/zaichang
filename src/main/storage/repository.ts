@@ -101,7 +101,7 @@ const sourceContextProjection = (raw: unknown) => raw === null || raw === undefi
   : { sourceContext: evidenceSchema.shape.sourceContext.parse(JSON.parse(String(raw))) };
 /** Done keeps its existing contract. Interrupted replies expose only their
  * saved public prefix, with the original host receipt still required. */
-const assistantReplyStatusSql = (alias = 'm') => `((COALESCE(json_extract(${alias}.payload,'$.hostStatus.code'),'')!='source_changed'
+export const assistantReplyStatusSql = (alias = 'm') => `((COALESCE(json_extract(${alias}.payload,'$.hostStatus.code'),'')!='source_changed'
   OR length(${alias}.content)>0) AND (json_extract(${alias}.payload,'$.status')='done' OR (
   json_extract(${alias}.payload,'$.status') IN ('cancelled','error') AND length(trim(${alias}.content))>0
   AND json_type(${alias}.payload,'$.contextReceipt')='object'

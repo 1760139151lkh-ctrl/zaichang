@@ -1,0 +1,205 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "soyo-reading-apricot-layer-parameters-v2.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "soyo-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "68b71f572a6566147acf1bbe104cd05a1bc6e9194ea01039a3e40b785e60f23e",
+  "matte": "soyo-reading-apricot-alpha-original-v1.png",
+  "matteSha256": "a25116b9af8f844f85611d360755580dbe05b1cdd694b74a69d27bdd80797aa3",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 3,
+  "alphaHigh": 252,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 83,
+  "alphaNonzeroPixels": 56577,
+  "alphaBounds": [
+    1109,
+    293,
+    1417,
+    767
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "bec38b4bd120a73e5b4ce459905741bb5034a0783a28a053103682f944922c7b",
+  "figureRgbSha256": "bec38b4bd120a73e5b4ce459905741bb5034a0783a28a053103682f944922c7b",
+  "background": {
+    "candidate": "soyo-reading-apricot-background-candidate-v1.png",
+    "candidateSha256": "7af62c09b0aef7adf1a208f2dedd310dc442a6a33ba30d54001d186d578bc7fe",
+    "expandPixels": 4,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          1270,
+          285
+        ],
+        [
+          1340,
+          282
+        ],
+        [
+          1390,
+          317
+        ],
+        [
+          1437,
+          393
+        ],
+        [
+          1452,
+          495
+        ],
+        [
+          1407,
+          588
+        ],
+        [
+          1310,
+          628
+        ],
+        [
+          1255,
+          633
+        ],
+        [
+          1225,
+          739
+        ],
+        [
+          1208,
+          771
+        ],
+        [
+          1105,
+          764
+        ],
+        [
+          1103,
+          726
+        ],
+        [
+          1136,
+          682
+        ],
+        [
+          1170,
+          604
+        ],
+        [
+          1181,
+          546
+        ],
+        [
+          1192,
+          518
+        ],
+        [
+          1190,
+          476
+        ],
+        [
+          1240,
+          481
+        ],
+        [
+          1260,
+          430
+        ],
+        [
+          1250,
+          350
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 91513,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1170,
+          548
+        ],
+        [
+          1440,
+          548
+        ],
+        [
+          1440,
+          634
+        ],
+        [
+          1170,
+          634
+        ]
+      ],
+      [
+        [
+          1095,
+          720
+        ],
+        [
+          1225,
+          720
+        ],
+        [
+          1225,
+          780
+        ],
+        [
+          1095,
+          780
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "soyo-reading-apricot-figure-calibrated-v2.png",
+      "bytes": 2450026,
+      "sha256": "a5b4dfc1e95694e3fe94922c7d10b2d99d53c5f16e2cb10db72de977f0d509ba"
+    },
+    {
+      "file": "soyo-reading-apricot-mask-calibrated-v2.png",
+      "bytes": 15233,
+      "sha256": "9000d77f6e4754737ca2fc9a7d66788b2c9d1b01592db4bc72f6609daa0da5ac"
+    },
+    {
+      "file": "soyo-reading-apricot-background-calibrated-v2.png",
+      "bytes": 2113749,
+      "sha256": "edd6904a895af0e87017757bb25a4d16e23313dd3811a18e4c1dfc4eafb08a2a"
+    },
+    {
+      "file": "soyo-reading-apricot-shadow-calibrated-v2.png",
+      "bytes": 42628,
+      "sha256": "82af02a98aa080d1a4e8b118e48c015585f92fdbfb2a209d4117c8d40570c1b0"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

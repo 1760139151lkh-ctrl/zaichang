@@ -1,0 +1,27 @@
+{
+  "recordType": "built-in-image-generation-source",
+  "tool": "image_gen.imagegen",
+  "operation": "monochrome original-coordinate alpha matte",
+  "input": "taki-rest-apricot-mother-candidate-v1.png",
+  "inputSha256": "c946307e511b2a1f60652c04ec44e00a4a6d4c23ad3ded44043587f708983ee4",
+  "inputRole": "sole correct primary-approved complete mother",
+  "prompt": "taki-rest-apricot-mask-prompt-v1.txt",
+  "promptFileSha256": "bfab66ed853be75988ecafe22387570bb5d631968f60cf0a59e6a2bfa8e5c082",
+  "output": "taki-rest-apricot-mask-candidate-v1.png",
+  "producerReview": "pending",
+  "primaryReview": "pending",
+  "runtimeAccepted": false,
+  "outputSha256": "108e8daad822bd63b2dc7314b31fc3f6395f6b2b584e4be43149ff5f3752f466",
+  "bytes": 346275,
+  "canvas": [
+    1536,
+    1024
+  ],
+  "toolDefaultOutput": "generated_images/01a16e45-3c23-7790-a62d-04bd03b674e2/exec-15a4aabe-d6e5-4fd4-afb7-35fd6e39c25c.png",
+  "executionId": "exec-15a4aabe-d6e5-4fd4-afb7-35fd6e39c25c",
+  "toolPromptTextSha256": "5d2ffcfcdc1d4aba6bd5103421f913160d77289c3d62d4d49d80a9387c32a305",
+  "actualToolArguments": {
+    "referencedImageCount": 1,
+    "transparent_background": false
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "mother": "taki-play-apricot-mother-candidate-v1.png",
+  "motherSha256": "bf2bb6c780f72c03b65169347d1deafe8c178afe1a9bf6509848dc239321d0f9",
+  "rawMask": "taki-play-apricot-mask-generated-v1.png",
+  "rawMaskSha256": "21a2fae29cfb5eb2914ae19317321085f79779a6d056149b472359d3fce1640e",
+  "background": "taki-play-apricot-background-generated-v1.png",
+  "backgroundSha256": "3aad9bf80b03bc9be37e173ff3072d63d5d15633de8d4ad479d9a3aec1e5e0ec",
+  "chairDifferenceRegions": [
+    [
+      690,
+      478,
+      867,
+      716
+    ]
+  ],
+  "preserveHeldObjectRegions": [
+    [
+      855,
+      410,
+      933,
+      503
+    ]
+  ],
+  "explicitRoomPolygons": [
+    [
+      [
+        698,
+        481
+      ],
+      [
+        720,
+        487
+      ],
+      [
+        738,
+        493
+      ],
+      [
+        746,
+        504
+      ],
+      [
+        756,
+        537
+      ],
+      [
+        766,
+        570
+      ],
+      [
+        775,
+        584
+      ],
+      [
+        785,
+        591
+      ],
+      [
+        721,
+        592
+      ],
+      [
+        710,
+        583
+      ],
+      [
+        704,
+        549
+      ],
+      [
+        699,
+        512
+      ]
+    ],
+    [
+      [
+        680,
+        597
+      ],
+      [
+        839,
+        597
+      ],
+      [
+        839,
+        733
+      ],
+      [
+        680,
+        733
+      ]
+    ],
+    [
+      [
+        839,
+        599
+      ],
+      [
+        855,
+        599
+      ],
+      [
+        855,
+        665
+      ],
+      [
+        839,
+        665
+      ]
+    ]
+  ],
+  "output": "taki-play-apricot-alpha-calibrated-v1.png",
+  "record": "taki-play-apricot-alpha-production-v1.json"
+}

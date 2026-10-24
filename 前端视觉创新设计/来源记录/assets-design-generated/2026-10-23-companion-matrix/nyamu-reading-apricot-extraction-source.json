@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-approved-mother-layer-generation",
+  "date": "2026-10-24",
+  "mother": {
+    "file": "nyamu-reading-apricot-mother-candidate-v1.png",
+    "sha256": "679651a0af996b08b6be27a01aff2dd5d4ce21f7ee03cd41db8f0231329e903b"
+  },
+  "motherApprovalRecord": "primary-other-mother-reviews.json",
+  "tool": "image_gen.imagegen (built-in)",
+  "generations": [
+    {
+      "kind": "matching full RGB background",
+      "prompt": {
+        "file": "nyamu-reading-apricot-background-v1-prompt.txt",
+        "sha256": "a03a8bcdb5b27b0e3420eafb5681be63442c249ac3bd5a3d510a9e15c947f814"
+      },
+      "inputs": [
+        {
+          "file": "nyamu-reading-apricot-mother-candidate-v1.png",
+          "sha256": "679651a0af996b08b6be27a01aff2dd5d4ce21f7ee03cd41db8f0231329e903b"
+        }
+      ],
+      "output": {
+        "file": "nyamu-reading-apricot-background-candidate-v1.png",
+        "sha256": "cf7ef869590ade77b637160285962aa18fcfe140e2e5abf975b24f083ca990cb",
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-61992a56-2e43-4c00-a62e-015b75dc7436.png"
+      },
+      "designerObservation": "Full exact canvas personally viewed. Correct original chair footprint/orientation/back/legs, room and original daylight retained. Character and held book removed."
+    },
+    {
+      "kind": "registered mask raw candidate",
+      "prompt": {
+        "file": "nyamu-reading-apricot-mask-v1-prompt.txt",
+        "sha256": "5020fae6fd02930f98a1be4c62607232fb39f1b999d9489ee3ad94607edffeb5"
+      },
+      "inputs": [
+        {
+          "file": "nyamu-reading-apricot-mother-candidate-v1.png",
+          "sha256": "679651a0af996b08b6be27a01aff2dd5d4ce21f7ee03cd41db8f0231329e903b"
+        }
+      ],
+      "output": {
+        "file": "nyamu-reading-apricot-mask-candidate-v1.png",
+        "sha256": "f3e30933a93a38f9c1fc09bf5001563bdbd7819179ff4c368a8465ee13f5eb94",
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-d8927ed1-8351-4089-be2f-a71a9872108a.png"
+      },
+      "designerObservation": "Full mask personally viewed; same figure position, but dark skirt/eye/strap line-art holes and slight fine head boundary drift require source-pixel matte calibration. Raw candidate not used as finished alpha."
+    }
+  ],
+  "review": {
+    "approvedByPrimary": false,
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false
+  }
+}

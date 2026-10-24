@@ -8,8 +8,9 @@ import readingMorning from '../../前端视觉创新设计/运行素材/companio
 import readingDusk from '../../前端视觉创新设计/运行素材/companion/reading-dusk.png';
 import readingNight from '../../前端视觉创新设计/运行素材/companion/reading-night.png';
 import { companionMoment, type CompanionMoment } from './companion-variants';
-import { CompanionSceneStage, companionSceneArtwork, companionScenePortrait, companionPaletteLight, type SceneCharacter } from './companion-scenes';
-import { useAppearance, type AppearancePalette } from './appearance';
+import { companionActivities } from '../shared/companion-activity';
+import { CompanionSceneStage, companionSceneArtwork, companionScenePortrait, companionPaletteLight, companionRegisteredSceneArtwork, companionSceneTransferTargets, type SceneCharacter, type SceneTransferChoice } from './companion-scenes';
+import { APPEARANCE_PALETTES, readAppearance, useAppearance, type AppearancePalette } from './appearance';
 import './companion.css';
 
 export type { CompanionMoment } from './companion-variants';
@@ -51,8 +52,11 @@ interface CompanionState extends CompanionPreference {
   favorites: CharacterId[];
   names: Record<string, string>;
   scenePositions: Record<string, number>;
+  sceneChoices: Record<string, string>;
   retiredFavorites: string[];
 }
+export interface SceneChoiceExpected { currentChoice?: string; sceneId: string; position: number }
+interface CompanionExpected { preference: CompanionPreference; positions: Record<string, number>; choices?: Record<string, string> }
 const preferenceKey = 'zaichang.companion.v1';
 const imageKey = 'zaichang.companion.image.v1';
 const imageNameKey = 'zaichang.companion.image-name.v1';
@@ -63,9 +67,42 @@ const validImage = (image: unknown): image is string => typeof image === 'string
 const defaults: CompanionPreference = {
   character: 'sakiko', presence: 'window', light: 'morning', reducedMotion: false, scale: 1, position: 50, verticalPosition: 100,
 };
-const emptyState = (): CompanionState => ({ ...defaults, pictures: [], favorites: [], names: {}, scenePositions: {}, retiredFavorites: [] });
+const emptyState = (): CompanionState => ({ ...defaults, pictures: [], favorites: [], names: {}, scenePositions: {}, sceneChoices: {}, retiredFavorites: [] });
 const retiredCharacters = ['mio', 'haruka', 'saku', 'nagi'];
 const knownCharacter = (id: unknown): id is CharacterId => typeof id === 'string' && (id === 'light' || characterSlots.some(item => item.id === id) || /^custom:[a-zA-Z0-9-]{1,80}$/.test(id));
+export function companionSceneChoiceKey(character: string, moment: CompanionMoment, palette: AppearancePalette) {
+  return `${character}-${moment === 'night' ? 'chat' : moment}-${palette}`;
+}
+function choiceScope(key: string) {
+  const parts = /^([a-z]+)-([a-z]+)-([a-z]+)$/.exec(key);
+  if (!parts || !characterSlots.some(item => item.id === parts[1])
+    || !companionActivities.includes(parts[2] as typeof companionActivities[number])
+    || !APPEARANCE_PALETTES.some(item => item.id === parts[3])) return undefined;
+  return { character: parts[1] as SceneCharacter, moment: parts[2] as Exclude<CompanionMoment, 'night'>, palette: parts[3] as AppearancePalette };
+}
+function registeredChoice(key: string, sceneId: unknown) {
+  const scope = choiceScope(key);
+  return scope && typeof sceneId === 'string' && /^[a-z0-9-]{1,100}$/.test(sceneId)
+    ? companionRegisteredSceneArtwork(sceneId, scope.character, companionPaletteLight(scope.palette), scope.palette) : undefined;
+}
+function checkedSceneChoice(value: CompanionState, key: string, choice: SceneTransferChoice, expected?: SceneChoiceExpected) {
+  const scope = choiceScope(key);
+  const target = registeredChoice(key, choice.sceneId);
+  if (!scope || value.character !== scope.character || !target || !Number.isFinite(choice.position)
+    || target.positionKey !== choice.positionKey || choice.positionKey !== `${scope.character}-${choice.moment}`)
+    throw new Error('这个坐姿现在还不能采用，原来的位置还在。');
+  const selected = value.sceneChoices[key];
+  const original = selected ? registeredChoice(key, selected)
+    : companionSceneArtwork(scope.character, scope.moment, companionPaletteLight(scope.palette), scope.palette);
+  const source = original && companionRegisteredSceneArtwork(original.id, scope.character, companionPaletteLight(scope.palette), scope.palette);
+  const sourcePosition = source ? value.scenePositions[source.positionKey] ?? value.scenePositions[source.id] ?? 0 : 0;
+  if (!source || expected && (selected !== expected.currentChoice || source.id !== expected.sceneId || sourcePosition !== expected.position))
+    throw new Error('这里的坐姿刚在另一处改过。原来的选择还在，看看现在的样子再决定。');
+  const targets = companionSceneTransferTargets(scope.character, source, companionPaletteLight(scope.palette), scope.palette, value.scenePositions, scope.moment);
+  if (!targets.some((item: SceneTransferChoice) => item.sceneId === choice.sceneId && item.moment === choice.moment && item.positionKey === choice.positionKey))
+    throw new Error('这个地方现在还不能坐，原来的位置还在。');
+  return { ...choice, position: target.travel === 0 ? 0 : Math.max(-1, Math.min(1, choice.position)) };
+}
 function preference(value: any): CompanionPreference {
   return {
     character: knownCharacter(value?.character) ? value.character : defaults.character,
@@ -83,7 +120,7 @@ function readCompanion(): CompanionState {
     if (raw) {
       const stored = JSON.parse(raw);
       if (stored.version !== 2) return emptyState();
-      const result: CompanionState = { ...preference(stored), pictures: [], favorites: [], names: {}, scenePositions: {}, retiredFavorites: [] };
+      const result: CompanionState = { ...preference(stored), pictures: [], favorites: [], names: {}, scenePositions: {}, sceneChoices: {}, retiredFavorites: [] };
       for (const item of Array.isArray(stored.pictures) ? stored.pictures.slice(0, pictureLimit) : []) {
         const image = item.legacy ? localStorage.getItem(imageKey) : item.image;
         if (knownCharacter(item.id) && item.id.startsWith('custom:') && validImage(image) && !result.pictures.some(picture => picture.id === item.id))
@@ -98,6 +135,10 @@ function readCompanion(): CompanionState {
       result.retiredFavorites = [...new Set([...(Array.isArray(stored.retiredFavorites) ? stored.retiredFavorites : []), ...(Array.isArray(stored.favorites) ? stored.favorites : [])].filter((id: unknown): id is string => typeof id === 'string' && retiredCharacters.includes(id)))];
       if (stored.scenePositions && typeof stored.scenePositions === 'object') for (const [id, position] of Object.entries(stored.scenePositions).slice(0, 100)) {
         if (/^[a-z0-9-]{1,100}$/.test(id) && typeof position === 'number' && Number.isFinite(position)) result.scenePositions[id] = Math.max(-1, Math.min(1, position));
+      }
+      if (stored.sceneChoices && typeof stored.sceneChoices === 'object') for (const [key, sceneId] of Object.entries(stored.sceneChoices)) {
+        if (Object.keys(result.sceneChoices).length >= 320) break;
+        if (registeredChoice(key, sceneId)) result.sceneChoices[key] = sceneId as string;
       }
       return result;
     }
@@ -121,12 +162,13 @@ export function prefersQuietMotion() {
 
 const CompanionContext = createContext<{
   value: CompanionState;
-  update: (patch: Partial<CompanionPreference>, positions?: Record<string, number>, expected?: { preference: CompanionPreference; positions: Record<string, number> }) => void;
+  update: (patch: Partial<CompanionPreference>, positions?: Record<string, number>, expected?: CompanionExpected, choicesPatch?: Record<string, string>) => void;
   setPicture: (dataUrl: string, name: string, select?: boolean) => `custom:${string}`;
   removePicture: (id: CharacterId) => void;
   rename: (id: CharacterId, name: string) => void;
   toggleFavorite: (id: CharacterId) => void;
   setScenePosition: (sceneId: string, position: number) => void;
+  setSceneChoice: (scope: string, choice: SceneTransferChoice, expected?: SceneChoiceExpected) => void;
   reset: () => void;
 } | null>(null);
 
@@ -140,10 +182,11 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
     document.documentElement.dataset.motion = next.reducedMotion ? 'reduced' : 'full';
     setValue(next);
   }, []);
-  const update = useCallback((patch: Partial<CompanionPreference>, positions?: Record<string, number>, expected?: { preference: CompanionPreference; positions: Record<string, number> }) => {
+  const update = useCallback((patch: Partial<CompanionPreference>, positions?: Record<string, number>, expected?: CompanionExpected, choicesPatch?: Record<string, string>) => {
     const current = readCompanion();
     if (expected && ((Object.keys(expected.preference) as (keyof CompanionPreference)[]).some(key => current[key] !== expected.preference[key])
-      || [...new Set([...Object.keys(current.scenePositions), ...Object.keys(expected.positions)])].some(key => current.scenePositions[key] !== expected.positions[key]))) {
+      || [...new Set([...Object.keys(current.scenePositions), ...Object.keys(expected.positions)])].some(key => current.scenePositions[key] !== expected.positions[key])
+      || expected.choices && [...new Set([...Object.keys(current.sceneChoices), ...Object.keys(expected.choices)])].some(key => current.sceneChoices[key] !== expected.choices![key]))) {
       setValue(current);
       document.documentElement.dataset.motion = current.reducedMotion ? 'reduced' : 'full';
       throw new Error('这里的选择刚在另一处改过。试看的样子还在，看看新选择后再决定。');
@@ -152,7 +195,13 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
     if (positions) for (const [key, position] of Object.entries(positions)) {
       if (/^[a-z0-9-]{1,100}$/.test(key) && Number.isFinite(position)) scenePositions[key] = Math.max(-1, Math.min(1, position));
     }
-    const next = { ...current, ...preference({ ...current, ...patch }), scenePositions };
+    const sceneChoices = { ...current.sceneChoices };
+    if (choicesPatch) for (const [key, sceneId] of Object.entries(choicesPatch)) {
+      if (!registeredChoice(key, sceneId)) throw new Error('有一个坐姿现在还不能采用，试看的样子还在。');
+      sceneChoices[key] = sceneId;
+    }
+    if (Object.keys(sceneChoices).length > 320) throw new Error('这些坐姿选择暂时还不能一起留下，原来的选择还在。');
+    const next = { ...current, ...preference({ ...current, ...patch }), scenePositions, sceneChoices };
     if (next.character.startsWith('custom:') && !next.pictures.some(item => item.id === next.character)) throw new Error('这张图片已经不在收藏里了，选另一张吧。');
     commit(next);
   }, [commit]);
@@ -189,6 +238,17 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
     const current = readCompanion();
     commit({ ...current, scenePositions: { ...current.scenePositions, [sceneId]: Math.max(-1, Math.min(1, position)) } });
   }, [commit]);
+  const setSceneChoice = useCallback((scope: string, choice: SceneTransferChoice, expected?: SceneChoiceExpected) => {
+    const current = readCompanion();
+    const parsed = choiceScope(scope);
+    if (!parsed || readAppearance().palette !== parsed.palette || current.presence !== 'window')
+      throw new Error('这里的样子刚换过。原来的选择还在，看看现在的房间再决定。');
+    const selected = checkedSceneChoice(current, scope, choice, expected);
+    const sceneChoices = { ...current.sceneChoices, [scope]: selected.sceneId };
+    if (Object.keys(sceneChoices).length > 320) throw new Error('这些坐姿选择暂时还不能一起留下，原来的选择还在。');
+    commit({ ...current, sceneChoices,
+      scenePositions: { ...current.scenePositions, [selected.positionKey]: selected.position } });
+  }, [commit]);
   const reset = useCallback(() => {
     // Keep an empty v2 record: even if old-key cleanup fails, legacy images cannot
     // be rediscovered after the user clears their data.
@@ -204,7 +264,7 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
     window.addEventListener('storage', changed);
     return () => window.removeEventListener('storage', changed);
   }, []);
-  const context = useMemo(() => ({ value, update, setPicture, removePicture, rename, toggleFavorite, setScenePosition, reset }), [value, update, setPicture, removePicture, rename, toggleFavorite, setScenePosition, reset]);
+  const context = useMemo(() => ({ value, update, setPicture, removePicture, rename, toggleFavorite, setScenePosition, setSceneChoice, reset }), [value, update, setPicture, removePicture, rename, toggleFavorite, setScenePosition, setSceneChoice, reset]);
   return <CompanionContext.Provider value={context}>{children}</CompanionContext.Provider>;
 }
 export function useCompanion() {
@@ -214,12 +274,15 @@ export function useCompanion() {
 }
 /** A setting can try a room and move its character without changing the saved
  * room. The real provider remains the single owner of local preferences. */
-export function CompanionPreviewProvider({ preference: preview, positions, onPositionChange, children }: {
-  preference: CompanionPreference; positions: Record<string, number>;
-  onPositionChange: (key: string, position: number) => void; children: ReactNode;
+export function CompanionPreviewProvider({ preference: preview, positions, choices, onPositionChange, onSceneChoiceChange, children }: {
+  preference: CompanionPreference; positions: Record<string, number>; choices: Record<string, string>;
+  onPositionChange: (key: string, position: number) => void;
+  onSceneChoiceChange: (scope: string, choice: SceneTransferChoice) => void; children: ReactNode;
 }) {
   const current = useCompanion();
-  return <CompanionContext.Provider value={{ ...current, value: { ...current.value, ...preview, scenePositions: positions }, setScenePosition: onPositionChange }}>{children}</CompanionContext.Provider>;
+  const value = { ...current.value, ...preview, scenePositions: positions, sceneChoices: choices };
+  return <CompanionContext.Provider value={{ ...current, value, setScenePosition: onPositionChange,
+    setSceneChoice: (scope, choice, expected) => onSceneChoiceChange(scope, checkedSceneChoice(value, scope, choice, expected)) }}>{children}</CompanionContext.Provider>;
 }
 function selectedPicture(value: CompanionState, moment: CompanionMoment = 'chat', palette: AppearancePalette = 'apricot') {
   return value.character.startsWith('custom:') ? value.pictures.find(item => item.id === value.character)?.image
@@ -401,13 +464,18 @@ function CompanionFigure({ image, name, placement, interaction, onError }: {
 }
 
 export function CompanionScene({ preview = false, quiet = false, immersive = false, moment, placement, interaction, paletteOverride }: { preview?: boolean; quiet?: boolean; immersive?: boolean; moment?: CompanionMoment; placement?: CompanionPlacement; interaction?: PlacementInteraction; paletteOverride?: AppearancePalette }) {
-  const { value, setScenePosition } = useCompanion();
+  const { value, setScenePosition, setSceneChoice } = useCompanion();
   const [appearance] = useAppearance();
   const palette = paletteOverride ?? appearance.palette;
   const light = value.character === 'light' || value.character.startsWith('custom:') ? value.light : companionPaletteLight(palette);
-  const sceneMoment = moment ?? (immersive ? 'rest' : companionMoment({ reading: quiet && !preview, night: light === 'night' }));
-  const artwork = companionSceneArtwork(value.character, sceneMoment, light, palette);
-  const image = selectedPicture(value, sceneMoment, palette);
+  const semanticMoment = moment ?? (immersive ? 'rest' : companionMoment({ reading: quiet && !preview, night: light === 'night' }));
+  const semanticActivity = semanticMoment === 'night' ? 'chat' : semanticMoment;
+  const scope = companionSceneChoiceKey(value.character, semanticMoment, palette);
+  const chosenArtwork = registeredChoice(scope, value.sceneChoices[scope]);
+  const artwork = chosenArtwork ?? companionSceneArtwork(value.character, semanticMoment, light, palette);
+  const sceneMoment = chosenArtwork ? chosenArtwork.positionKey.slice(value.character.length + 1) as CompanionMoment : semanticMoment;
+  const image = value.character.startsWith('custom:') ? selectedPicture(value, semanticMoment, palette) : artwork?.mother;
+  const transferTargets = artwork ? companionSceneTransferTargets(value.character, artwork, light, palette, value.scenePositions, semanticActivity) : [];
   const showFigure = !!image && (immersive || value.presence === 'window') && value.presence !== 'hidden';
   const readingRoom = quiet && !preview && !value.character.startsWith('custom:');
   const [failed, setFailed] = useState(false);
@@ -417,7 +485,9 @@ export function CompanionScene({ preview = false, quiet = false, immersive = fal
   return <div className={`companion-scene ${preview ? 'is-preview' : ''} ${quiet || (preview && value.presence !== 'window') ? 'is-quiet' : ''} ${immersive ? 'is-immersive' : ''} ${value.character.startsWith('custom:') ? 'has-custom-art' : ''} ${scene ? 'has-scene-art' : ''}`} data-light={light} data-moment={sceneMoment} aria-hidden={scene && showFigure ? undefined : editable ? undefined : true}>
     {scene ? <>
       <CompanionSceneStage artwork={artwork} name={companionName(value)} position={value.scenePositions[artwork.positionKey] ?? value.scenePositions[artwork.id] ?? 0}
-        onCommit={position => setScenePosition(artwork.positionKey, position)} showFigure={showFigure} interactive={showFigure} quiet={quiet && !preview} reducedMotion={value.reducedMotion} previewOnly={preview} />
+        onCommit={position => setScenePosition(artwork.positionKey, position)} transferTargets={transferTargets} transferScope={scope}
+        onTransferCommit={(choice: SceneTransferChoice, origin: Pick<SceneChoiceExpected, 'sceneId' | 'position'>) => setSceneChoice(scope, choice, { ...origin, currentChoice: value.sceneChoices[scope] })}
+        showFigure={showFigure} interactive={showFigure} quiet={quiet && !preview} reducedMotion={value.reducedMotion} previewOnly={preview} />
       <div className="scene-content-wash" />
     </> : <>
       <div className="window-room room-day" style={{ backgroundImage: `url(${light === 'dusk'

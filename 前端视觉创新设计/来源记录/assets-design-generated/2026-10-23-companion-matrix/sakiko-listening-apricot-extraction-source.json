@@ -11,14 +11,14 @@
   "activity": "listening",
   "palette": "apricot",
   "mother": {
-    "file": "sakiko-listening-apricot-mother.png",
+    "file": "../../../运行素材/companion/scenes/sakiko-listening-apricot-mother.png",
     "sha256": "a35aaa3549a04cf9f6fa7e478224f53afdcbfd1f133f6570a643191916189bb1"
   },
   "calls": [
     {
       "purpose": "white-body/black-room segmentation",
       "prompt": "sakiko-listening-apricot-mask-prompt.txt",
-      "input": "sakiko-listening-apricot-mother.png",
+      "input": "../../../运行素材/companion/scenes/sakiko-listening-apricot-mother.png",
       "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-bfd9c198-8e27-4fd8-91e6-83dceba69378.png",
       "sha256": "35fc64eada895126f6aca1b0180fe5d3ef773792343bd182125b9cebbeead425",
       "mode": "RGB",
@@ -28,7 +28,7 @@
     {
       "purpose": "matching background by removing seated person; keep detached floor shoes",
       "prompt": "sakiko-listening-apricot-background-prompt.txt",
-      "input": "sakiko-listening-apricot-mother.png",
+      "input": "../../../运行素材/companion/scenes/sakiko-listening-apricot-mother.png",
       "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-7a9d6a42-31e0-49c4-b01c-9abfac39dfc4.png",
       "sha256": "af9cfb8dd2ed3eb36933fe6f19040661aab5f6dd0b60d33c7bdf554c273e605b",
       "mode": "RGB",
@@ -38,7 +38,7 @@
     {
       "purpose": "targeted segmentation retry from original mother, no previous wrong image input",
       "prompt": "sakiko-listening-apricot-mask-v2-prompt.txt",
-      "input": "sakiko-listening-apricot-mother.png",
+      "input": "../../../运行素材/companion/scenes/sakiko-listening-apricot-mother.png",
       "output": "generated_images/01a16921-75e9-7631-b7b1-354943e84631/exec-499d4fe8-1297-47df-bccf-0442f7195878.png",
       "sha256": "73ef1c69fb003d915ddadfccf1a5ec10493930c16ae662908680efddd31cf21c",
       "mode": "RGB",
@@ -113,10 +113,10 @@
     "actualMotherPrompt": "sakiko-listening-apricot-prompt.txt",
     "actualMotherPromptSha256": "0e8113e4ffacefeb621fd6eda46861dc04ac49fb5fdd8046594c24cbd020848d",
     "outputs": {
-      "figure": "sakiko-listening-apricot-figure-calibrated-v11.png",
-      "mask": "sakiko-listening-apricot-mask-calibrated-v11.png",
-      "background": "sakiko-listening-apricot-background-calibrated-v11.png",
-      "shadow": "sakiko-listening-apricot-shadow-calibrated-v11.png"
+      "figure": "../../../运行素材/companion/scenes/sakiko-listening-apricot-figure-calibrated-v11.png",
+      "mask": "../../../运行素材/companion/scenes/sakiko-listening-apricot-mask-calibrated-v11.png",
+      "background": "../../../运行素材/companion/scenes/sakiko-listening-apricot-background-calibrated-v11.png",
+      "shadow": "../../../运行素材/companion/scenes/sakiko-listening-apricot-shadow-calibrated-v11.png"
     },
     "producerViewed": [
       "original full mother",

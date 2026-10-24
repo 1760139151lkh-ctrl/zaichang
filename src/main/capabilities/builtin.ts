@@ -120,6 +120,7 @@ const campusAccountOutput = z
   .object({
     domain: z.string(),
     records: z.array(jsonObject),
+    policyMeanings: jsonObject.optional(),
     conflicts: z.array(jsonObject).optional(),
     source: z.string(),
     institutionId: z.string(),
@@ -688,6 +689,7 @@ export function registerBuiltins(
           data: {
             domain: args.domain,
             records: deliveredRecords,
+            ...(result.policyMeanings ? { policyMeanings: result.policyMeanings } : {}),
             ...(truncated.value ? { truncated_for_model: true } : {}),
             ...(result.nested_values_truncated === true ? { nested_values_truncated: true } : {}),
             source: '浙江大学本人账号',

@@ -1,0 +1,248 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "mutsumi-reading-apricot-layer-parameters-v8.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": "4.13.0"
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "mutsumi-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+  "matte": "mutsumi-reading-apricot-mask-calibrated-v7.png",
+  "matteSha256": "a08e076adaa4b95134587bde76daad9e000a27e0a2f917c1e93fb8163434ca09",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1110,
+      598,
+      1239,
+      724
+    ],
+    "seedThreshold": 110,
+    "uncertainBandPixels": 4,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.35
+  },
+  "alphaChangedPixels": 1737,
+  "alphaNonzeroPixels": 55696,
+  "alphaBounds": [
+    1039,
+    306,
+    1474,
+    751
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "01ebffb988cfd85a93ba2a0e5171e15d7b3347bde7ad87264ed6aaec4801f41f",
+  "figureRgbSha256": "01ebffb988cfd85a93ba2a0e5171e15d7b3347bde7ad87264ed6aaec4801f41f",
+  "background": {
+    "candidate": "mutsumi-reading-apricot-background-candidate-v1.png",
+    "candidateSha256": "d8ab8545fd9502694d9d37309ceb9ff5778f882d5d3b689c9a00e90ca9a88935",
+    "expandPixels": 6,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          1040,
+          713
+        ],
+        [
+          1194,
+          716
+        ],
+        [
+          1207,
+          766
+        ],
+        [
+          1032,
+          765
+        ]
+      ],
+      [
+        [
+          1147,
+          594
+        ],
+        [
+          1347,
+          609
+        ],
+        [
+          1314,
+          724
+        ],
+        [
+          1160,
+          724
+        ]
+      ],
+      [
+        [
+          1310,
+          300
+        ],
+        [
+          1410,
+          295
+        ],
+        [
+          1439,
+          338
+        ],
+        [
+          1479,
+          409
+        ],
+        [
+          1490,
+          477
+        ],
+        [
+          1459,
+          533
+        ],
+        [
+          1430,
+          563
+        ],
+        [
+          1398,
+          584
+        ],
+        [
+          1304,
+          552
+        ],
+        [
+          1300,
+          425
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 108018,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1035,
+          719
+        ],
+        [
+          1104,
+          711
+        ],
+        [
+          1114,
+          738
+        ],
+        [
+          1040,
+          744
+        ]
+      ],
+      [
+        [
+          1096,
+          737
+        ],
+        [
+          1187,
+          728
+        ],
+        [
+          1193,
+          755
+        ],
+        [
+          1100,
+          758
+        ]
+      ],
+      [
+        [
+          1257,
+          587
+        ],
+        [
+          1372,
+          579
+        ],
+        [
+          1380,
+          609
+        ],
+        [
+          1265,
+          620
+        ]
+      ],
+      [
+        [
+          1408,
+          455
+        ],
+        [
+          1463,
+          448
+        ],
+        [
+          1447,
+          570
+        ],
+        [
+          1390,
+          574
+        ]
+      ]
+    ],
+    "featherPixels": 1,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "mutsumi-reading-apricot-figure-calibrated-v8.png",
+      "bytes": 2400033,
+      "sha256": "ceefc47a8cbfb55a3f74dbb0090c0c35de4ab3b1bf4e4a7a7a5120a8e981c4e7"
+    },
+    {
+      "file": "mutsumi-reading-apricot-mask-calibrated-v8.png",
+      "bytes": 16210,
+      "sha256": "874ccfbd1ea6cb63c205af9e613f49e53228d8ca2c6ccf3f76df0e4df831e918"
+    },
+    {
+      "file": "mutsumi-reading-apricot-background-calibrated-v8.png",
+      "bytes": 2065770,
+      "sha256": "ab625e056320ed12aeefcdd4b0691027f3d7d735c74169fe68a9944c29323fa4"
+    },
+    {
+      "file": "mutsumi-reading-apricot-shadow-calibrated-v8.png",
+      "bytes": 48130,
+      "sha256": "8edc67802e048b13ecb9b8f068dfcefb29730c36aaea456fcae6976203f74d46"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

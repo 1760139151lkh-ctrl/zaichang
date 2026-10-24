@@ -1,0 +1,153 @@
+{
+  "mother": "taki-chat-violet-mother-candidate-v1.png",
+  "motherSha256": "624b0ffe0243da578e831d38e40ba7283433e3375c6a81a6e792c6d51cc137ab",
+  "matte": "taki-chat-violet-mask-calibrated-v1.png",
+  "alphaSource": "alpha",
+  "alphaLow": 0,
+  "alphaHigh": 255,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "localColorMatteRefinement": null,
+  "backgroundCandidate": "taki-chat-violet-background-generated-v1.png",
+  "background": "taki-chat-violet-background-calibrated-v2.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1089,
+        735
+      ],
+      [
+        1187,
+        735
+      ],
+      [
+        1190,
+        779
+      ],
+      [
+        1087,
+        779
+      ]
+    ],
+    [
+      [
+        1235,
+        751
+      ],
+      [
+        1318,
+        751
+      ],
+      [
+        1328,
+        805
+      ],
+      [
+        1235,
+        805
+      ]
+    ],
+    [
+      [
+        1180,
+        578
+      ],
+      [
+        1381,
+        578
+      ],
+      [
+        1381,
+        622
+      ],
+      [
+        1180,
+        622
+      ]
+    ],
+    [
+      [
+        1155,
+        306
+      ],
+      [
+        1393,
+        306
+      ],
+      [
+        1393,
+        548
+      ],
+      [
+        1155,
+        548
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1087,
+        736
+      ],
+      [
+        1184,
+        736
+      ],
+      [
+        1191,
+        778
+      ],
+      [
+        1086,
+        778
+      ]
+    ],
+    [
+      [
+        1234,
+        751
+      ],
+      [
+        1318,
+        751
+      ],
+      [
+        1326,
+        803
+      ],
+      [
+        1234,
+        803
+      ]
+    ],
+    [
+      [
+        1180,
+        573
+      ],
+      [
+        1381,
+        573
+      ],
+      [
+        1381,
+        624
+      ],
+      [
+        1180,
+        624
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "taki-chat-violet-shadow-calibrated-v2.png",
+  "figure": "taki-chat-violet-figure-calibrated-v1.png",
+  "mask": "taki-chat-violet-mask-calibrated-v1.png",
+  "record": "taki-chat-violet-layer-processing-v2.json",
+  "reviewNote": "Own complete mother supplies original RGB. Already calibrated alpha is preserved exactly (0..255 range); complete observed hair footprint is cleared using this mother matching generated BG. Newly versioned normal source-over contact shadow is recomputed against the new BG. No RGB/body/pose redraw or independent actor transform. Primary layer and runtime remain pending.",
+  "excludeWarmRoomRegions": []
+}

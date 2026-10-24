@@ -1,0 +1,25 @@
+{
+  "recordType": "image-generation-source",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-0dc9bb59-ed25-4d99-975e-8f36afbbf019",
+  "prompt": "taki-planning-apricot-mask-prompt-v1.txt",
+  "promptSha256": "c58dd9eaedaffd35d7d0ef005ba336aa8b9ad9b10373bc9a6c90936f1fa44e37",
+  "inputs": [
+    {
+      "file": "taki-planning-apricot-mother-candidate-v1.png",
+      "sha256": "f0fa68c1f8f0257063bdae886dd258b415af26e127382e8c2bb3b95f6f7050ff",
+      "role": "sole correct original primary-approved mother; coordinate-locked semantic visible-person matte"
+    }
+  ],
+  "defaultOutput": "generated_images/01a16e45-e592-7451-9d06-1779d8efd536/exec-0dc9bb59-ed25-4d99-975e-8f36afbbf019.png",
+  "output": {
+    "file": "taki-planning-apricot-mask-generated-v1.png",
+    "sha256": "36c5bb60950a7ac260bc5cede5572b8dce1ba953a34a20fec79a87f7bf5bd04b",
+    "bytes": 372924
+  },
+  "review": {
+    "producerDecision": "rejected: visible upper/lower body coordinate/scale mismatch; not used for extraction or future image input",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

@@ -1,0 +1,1114 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-canvas-companion-layer-candidate-pack",
+  "character": "uika",
+  "theme": "apricot",
+  "authority": "Candidate source assets only. Root must personally inspect exact files/prompts and original Stage before any primary/runtime admission. No renderer registration or acceptance is inferred from this pack.",
+  "items": [
+    {
+      "activity": "chat",
+      "scene": "uika-chat-apricot.scene.json",
+      "parameters": "uika-chat-apricot-layer-parameters-v5.json",
+      "parametersSha256": "b85dc06ebec4146cc4767e50ffb2ee268270ea2589ea82190b07f25c2825c0a6",
+      "processing": "uika-chat-apricot-layer-processing-v5.json",
+      "processingSha256": "6bf715b0f6f7e4938e3ad90f7bc91fa4ab2d6add750260dec3b275f6d748804b",
+      "mother": {
+        "file": "uika-chat-apricot-mother-candidate-v1.png",
+        "sha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c",
+        "bytes": 2170043
+      },
+      "motherRgbSha256": "0e989ba2b22ca087f21fe846849e6b28d0ef7fbafa364241d00c237b4691263d",
+      "figureRgbSha256": "0e989ba2b22ca087f21fe846849e6b28d0ef7fbafa364241d00c237b4691263d",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "uika-chat-apricot-figure-calibrated-v5.png",
+          "bytes": 2440882,
+          "sha256": "cea28ccc5d752a2acc327437ada1752b4f3751a662de4eeed9543992b1269729"
+        },
+        {
+          "layer": "mask",
+          "file": "uika-chat-apricot-mask-calibrated-v5.png",
+          "bytes": 31745,
+          "sha256": "bb0322774511e0b37e801039246689eb45df4296783144ed3825b842dd2ec090"
+        },
+        {
+          "layer": "background",
+          "file": "uika-chat-apricot-background-calibrated-v5.png",
+          "bytes": 2093637,
+          "sha256": "861058f0ce0c29ab3e3ec9bcceef9b83030d9983a806151856c091be563390f2"
+        },
+        {
+          "layer": "shadow",
+          "file": "uika-chat-apricot-shadow-calibrated-v5.png",
+          "bytes": 42717,
+          "sha256": "0da4a25dfee45d9aa766d916800a080a3bfee6def6d97012977edbbb8bf4c3a1"
+        }
+      ],
+      "processingInputs": [
+        {
+          "role": "matte",
+          "file": "uika-chat-apricot-matte-prepared-v1.png",
+          "sha256": "394c58ca162c2d94062c5be5f0604c77680c37c5994e376701865cc3fa80ee94"
+        },
+        {
+          "role": "matching-background",
+          "file": "uika-chat-apricot-background-pillow-calibrated-v2.png",
+          "sha256": "7d3d56aaae6c5fa6dd5255ebbb3ca2989e3c8cffa0585da9e4f4676d3ed93b9a"
+        }
+      ],
+      "actualCallSources": [
+        "uika-chat-apricot-layer-source.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "uika-chat-apricot-mask-prompt.txt",
+          "actualPromptSha256": "c9f38e5b2bca77259dcfe96ac11b7c98107d699ecae9907d63c386273576152e",
+          "promptFileSha256": "c9f38e5b2bca77259dcfe96ac11b7c98107d699ecae9907d63c386273576152e",
+          "bytes": 2306,
+          "part": "mask",
+          "executionId": "exec-031f4107-5633-4b60-8d19-e95e996838ae",
+          "source": "uika-chat-apricot-layer-source.json",
+          "actualPromptField": "prompt",
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "file": "uika-chat-apricot-background-prompt.txt",
+          "actualPromptSha256": "7ac941942cf337272fa865c21eaa388a08b9c086833e94662686710fae0b5439",
+          "promptFileSha256": "7ac941942cf337272fa865c21eaa388a08b9c086833e94662686710fae0b5439",
+          "bytes": 1475,
+          "part": "background",
+          "executionId": "exec-67180935-1f1f-4c6c-809a-edef723e6032",
+          "source": "uika-chat-apricot-layer-source.json",
+          "actualPromptField": "prompt",
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "calls": [
+        {
+          "source": "uika-chat-apricot-layer-source.json",
+          "callIndex": 0,
+          "executionId": "exec-031f4107-5633-4b60-8d19-e95e996838ae",
+          "part": "mask",
+          "actualPromptField": "prompt",
+          "promptFile": "uika-chat-apricot-mask-prompt.txt",
+          "actualPromptSha256": "c9f38e5b2bca77259dcfe96ac11b7c98107d699ecae9907d63c386273576152e",
+          "promptFileSha256": "c9f38e5b2bca77259dcfe96ac11b7c98107d699ecae9907d63c386273576152e",
+          "promptBytes": 2306,
+          "output": {
+            "file": "uika-chat-apricot-mask-generated-v1.png",
+            "sha256": "5fec0916781edf85b9520b243edb333774212e12af7ec4f3a78bde7963d68ed4",
+            "bytes": 372276
+          },
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "source": "uika-chat-apricot-layer-source.json",
+          "callIndex": 1,
+          "executionId": "exec-67180935-1f1f-4c6c-809a-edef723e6032",
+          "part": "background",
+          "actualPromptField": "prompt",
+          "promptFile": "uika-chat-apricot-background-prompt.txt",
+          "actualPromptSha256": "7ac941942cf337272fa865c21eaa388a08b9c086833e94662686710fae0b5439",
+          "promptFileSha256": "7ac941942cf337272fa865c21eaa388a08b9c086833e94662686710fae0b5439",
+          "promptBytes": 1475,
+          "output": {
+            "file": "uika-chat-apricot-background-generated-v1.png",
+            "sha256": "a96a177b231e82b70ca553024cd0e4a2ae5505ad450bba85b559f87ef1126c8a",
+            "bytes": 2132244
+          },
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "support": "window-seat",
+      "travel": 0.0078125,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background",
+        "short static original-room endpoints; not runtime motion"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "study",
+      "scene": "uika-study-apricot.scene.json",
+      "parameters": "uika-study-apricot-layer-parameters-v12.json",
+      "parametersSha256": "13485b7303ee3de8e7c890cb62972d76537d254a389ad5998241474a1a44c8dd",
+      "processing": "uika-study-apricot-layer-processing-v12.json",
+      "processingSha256": "ed33e6a8026393204caffc7866a63e9b6b61f0f26bba264791faa039f5c5cd2a",
+      "mother": {
+        "file": "uika-study-apricot-mother-candidate-v1.png",
+        "sha256": "45509650cd2cba9787a5e9c2f6778006b0bb5144a147a896e37706dff28487c0",
+        "bytes": 2187698
+      },
+      "motherRgbSha256": "e36f1c998a67fdd31016f7f1e9802b97c7cb550ef4a9fbf3424b32a2b11df36c",
+      "figureRgbSha256": "e36f1c998a67fdd31016f7f1e9802b97c7cb550ef4a9fbf3424b32a2b11df36c",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "uika-study-apricot-figure-calibrated-v12.png",
+          "bytes": 2446052,
+          "sha256": "5ca26ae635445c047eaed864883781be273ba2481ecaa0b9eff81cdb3913ee54"
+        },
+        {
+          "layer": "mask",
+          "file": "uika-study-apricot-mask-calibrated-v12.png",
+          "bytes": 23926,
+          "sha256": "be3e89555432ba72b4e4d1fea04639adb1897ab215d5804d0db5109c76841b09"
+        },
+        {
+          "layer": "background",
+          "file": "uika-study-apricot-background-calibrated-v12.png",
+          "bytes": 2121934,
+          "sha256": "d91bbf5b7ef1ab98e3d7754ce0d9e3232f5bd2ab8a32d67cc581aa123cea58fb"
+        },
+        {
+          "layer": "shadow",
+          "file": "uika-study-apricot-shadow-calibrated-v12.png",
+          "bytes": 31926,
+          "sha256": "17f1cf9db8790466c1946293c6ea6be3a38d26e815897345393da97fd1772864"
+        }
+      ],
+      "processingInputs": [
+        {
+          "role": "matte",
+          "file": "uika-study-apricot-mask-local-color-v5.png",
+          "sha256": "fa13904e1ca93d8d80b014d7af9fc5cb291310e250020dbac056f19baa6c8756"
+        },
+        {
+          "role": "matching-background",
+          "file": "uika-study-apricot-background-raw-v1.png",
+          "sha256": "a7d8f91663bfd8fe1bc4da942ec4c69fb791c9320af9d0c2143ec33c526fc9fc"
+        }
+      ],
+      "actualCallSources": [
+        "uika-study-apricot-layer-source.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "uika-study-apricot-mask-prompt-submitted.txt",
+          "actualPromptSha256": "697fd5b838b60187b1e2e6220d36fe181e767683520e18954175ba8d92e7515e",
+          "promptFileSha256": "697fd5b838b60187b1e2e6220d36fe181e767683520e18954175ba8d92e7515e",
+          "bytes": 1761,
+          "part": "mask",
+          "executionId": "exec-8ddec3d8-edce-487c-83ba-b7320eb57f89",
+          "source": "uika-study-apricot-layer-source.json",
+          "actualPromptField": "actualPrompt",
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "file": "uika-study-apricot-background-prompt-submitted.txt",
+          "actualPromptSha256": "a7a63206e442f974f76f44689c473a02405e22a024423f5809942479f82a0e6a",
+          "promptFileSha256": "a7a63206e442f974f76f44689c473a02405e22a024423f5809942479f82a0e6a",
+          "bytes": 1708,
+          "part": "background",
+          "executionId": "exec-20059018-68b7-4496-b452-83b8fdcb895c",
+          "source": "uika-study-apricot-layer-source.json",
+          "actualPromptField": "actualPrompt",
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "calls": [
+        {
+          "source": "uika-study-apricot-layer-source.json",
+          "callIndex": 0,
+          "executionId": "exec-8ddec3d8-edce-487c-83ba-b7320eb57f89",
+          "part": "mask",
+          "actualPromptField": "actualPrompt",
+          "promptFile": "uika-study-apricot-mask-prompt-submitted.txt",
+          "actualPromptSha256": "697fd5b838b60187b1e2e6220d36fe181e767683520e18954175ba8d92e7515e",
+          "promptFileSha256": "697fd5b838b60187b1e2e6220d36fe181e767683520e18954175ba8d92e7515e",
+          "promptBytes": 1761,
+          "output": {
+            "file": "uika-study-apricot-mask-raw-v1.png",
+            "sha256": "e7424fd235fe6ab2f2ec0bb815043fd56c5d15ea2cdef8d3742b94b84d634857",
+            "bytes": 354700
+          },
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "source": "uika-study-apricot-layer-source.json",
+          "callIndex": 1,
+          "executionId": "exec-20059018-68b7-4496-b452-83b8fdcb895c",
+          "part": "background",
+          "actualPromptField": "actualPrompt",
+          "promptFile": "uika-study-apricot-background-prompt-submitted.txt",
+          "actualPromptSha256": "a7a63206e442f974f76f44689c473a02405e22a024423f5809942479f82a0e6a",
+          "promptFileSha256": "a7a63206e442f974f76f44689c473a02405e22a024423f5809942479f82a0e6a",
+          "promptBytes": 1708,
+          "output": {
+            "file": "uika-study-apricot-background-raw-v1.png",
+            "sha256": "a7d8f91663bfd8fe1bc4da942ec4c69fb791c9320af9d0c2143ec33c526fc9fc",
+            "bytes": 2163335
+          },
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "support": "desk-chair",
+      "travel": 0,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "reading",
+      "scene": "uika-reading-apricot.scene.json",
+      "parameters": "uika-reading-apricot-layer-parameters-v5.json",
+      "parametersSha256": "a31fc2ecc1fd4180e8e83f985e3a245c8e807cf8129c8747070e6a92125d3726",
+      "processing": "uika-reading-apricot-layer-processing-v5.json",
+      "processingSha256": "fefd8d317857d3136d44c324f6e5353c2bdf784dda4b7a245d31c05de8ba1e52",
+      "mother": {
+        "file": "uika-reading-apricot-mother-candidate-v1.png",
+        "sha256": "31046bee457ec77259616037f8a6841acdfaba233f225194b84bc4a5bab0da15",
+        "bytes": 2196161
+      },
+      "motherRgbSha256": "facdd01f049675f810647854fa6fed3c0c1d69dbd6562a33cbcd2cc638be2b0e",
+      "figureRgbSha256": "facdd01f049675f810647854fa6fed3c0c1d69dbd6562a33cbcd2cc638be2b0e",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "uika-reading-apricot-figure-calibrated-v5.png",
+          "bytes": 2458161,
+          "sha256": "8b0a430365c9357884b34594778b44972f48415170be35550f447bc0d07c5532"
+        },
+        {
+          "layer": "mask",
+          "file": "uika-reading-apricot-mask-calibrated-v5.png",
+          "bytes": 30531,
+          "sha256": "8362a49886eee6af8c0a3b04545416157960b402baa8940c124b804256559c93"
+        },
+        {
+          "layer": "background",
+          "file": "uika-reading-apricot-background-calibrated-v5.png",
+          "bytes": 2116139,
+          "sha256": "5d2a7835d0d5b9b85540f71204dc7bdc8ce26f2e957d80f548b6de7e0de6a547"
+        },
+        {
+          "layer": "shadow",
+          "file": "uika-reading-apricot-shadow-calibrated-v5.png",
+          "bytes": 37059,
+          "sha256": "b59ed0a4fddfa1f8feb2a74ba2723a83ce0eddf98696e680575c12a4ef5e23c0"
+        }
+      ],
+      "processingInputs": [
+        {
+          "role": "matte",
+          "file": "uika-reading-apricot-matte-prepared-v1.png",
+          "sha256": "e58172546b4da9dfe0a78e6c8f0849d6b38dc178e59c56cdcabe10445bd47d0c"
+        },
+        {
+          "role": "matching-background",
+          "file": "uika-reading-apricot-background-generated-v1.png",
+          "sha256": "c7267f9edf190d2cbc390cdfc8c6858fbd6f130ecb816e09364053b8d167fe6c"
+        }
+      ],
+      "actualCallSources": [
+        "uika-reading-apricot-layer-source.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "uika-reading-apricot-mask-prompt.txt",
+          "actualPromptSha256": "836377de844c87e52c92162939d4eea6d65aa2ca05825cedb611a31cacd9a5e5",
+          "promptFileSha256": "836377de844c87e52c92162939d4eea6d65aa2ca05825cedb611a31cacd9a5e5",
+          "bytes": 1932,
+          "part": "mask",
+          "executionId": "exec-0f37ffa6-ecd6-4fb1-8331-57e64e14a443",
+          "source": "uika-reading-apricot-layer-source.json",
+          "actualPromptField": "prompt",
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "file": "uika-reading-apricot-background-prompt.txt",
+          "actualPromptSha256": "3443617101cbc351cd210d817f6fefa6e83834f7bf4c498322ce4f44a77dc6dd",
+          "promptFileSha256": "3443617101cbc351cd210d817f6fefa6e83834f7bf4c498322ce4f44a77dc6dd",
+          "bytes": 1314,
+          "part": "background",
+          "executionId": "exec-df56182f-bdd5-477c-9b26-7cbcf25dfe59",
+          "source": "uika-reading-apricot-layer-source.json",
+          "actualPromptField": "prompt",
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "calls": [
+        {
+          "source": "uika-reading-apricot-layer-source.json",
+          "callIndex": 0,
+          "executionId": "exec-0f37ffa6-ecd6-4fb1-8331-57e64e14a443",
+          "part": "mask",
+          "actualPromptField": "prompt",
+          "promptFile": "uika-reading-apricot-mask-prompt.txt",
+          "actualPromptSha256": "836377de844c87e52c92162939d4eea6d65aa2ca05825cedb611a31cacd9a5e5",
+          "promptFileSha256": "836377de844c87e52c92162939d4eea6d65aa2ca05825cedb611a31cacd9a5e5",
+          "promptBytes": 1932,
+          "output": {
+            "file": "uika-reading-apricot-mask-generated-v1.png",
+            "sha256": "f1cfe51dffb656545486b31d0e21f810520c1831d94ded351df24bee44451d0c",
+            "bytes": 386022
+          },
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "source": "uika-reading-apricot-layer-source.json",
+          "callIndex": 1,
+          "executionId": "exec-df56182f-bdd5-477c-9b26-7cbcf25dfe59",
+          "part": "background",
+          "actualPromptField": "prompt",
+          "promptFile": "uika-reading-apricot-background-prompt.txt",
+          "actualPromptSha256": "3443617101cbc351cd210d817f6fefa6e83834f7bf4c498322ce4f44a77dc6dd",
+          "promptFileSha256": "3443617101cbc351cd210d817f6fefa6e83834f7bf4c498322ce4f44a77dc6dd",
+          "promptBytes": 1314,
+          "output": {
+            "file": "uika-reading-apricot-background-generated-v1.png",
+            "sha256": "c7267f9edf190d2cbc390cdfc8c6858fbd6f130ecb816e09364053b8d167fe6c",
+            "bytes": 2137306
+          },
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "support": "window-seat",
+      "travel": 0,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "finalLayerSelectionSource": "uika-reading-apricot-layer-final-v5-source.json"
+    },
+    {
+      "activity": "planning",
+      "scene": "uika-planning-apricot.scene.json",
+      "parameters": "uika-planning-apricot-layer-parameters-v7.json",
+      "parametersSha256": "a775ddf87319feabf5f201b2847c5f2ffe3ce55c014c4edac66ac04cfc0479f3",
+      "processing": "uika-planning-apricot-layer-processing-v7.json",
+      "processingSha256": "ea56fa764507e11435ba2a7a9251eed147b005c845395f244480883d9f34c1e2",
+      "mother": {
+        "file": "uika-planning-apricot-mother-candidate-v3.png",
+        "sha256": "767aab09d7596550438a1e3ef5ff01e578b4a635cc548b104bd773f211361e1b",
+        "bytes": 2177808
+      },
+      "motherRgbSha256": "74e65a1d6db54004f30d238e2ce57a638ff85dfc33ec7f876a3dd5a83e9a43b6",
+      "figureRgbSha256": "74e65a1d6db54004f30d238e2ce57a638ff85dfc33ec7f876a3dd5a83e9a43b6",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "uika-planning-apricot-figure-calibrated-v7.png",
+          "bytes": 2443476,
+          "sha256": "c5ce341151af155a8a2dbee7c9f283d0d9011e3a9986b7bb40ad35d81c70f0ad"
+        },
+        {
+          "layer": "mask",
+          "file": "uika-planning-apricot-mask-calibrated-v7.png",
+          "bytes": 26754,
+          "sha256": "76de81cb1fc50b2b1bd875ab32db8a4d2dca77e1f882b6f6978750968057b16c"
+        },
+        {
+          "layer": "background",
+          "file": "uika-planning-apricot-background-calibrated-v7.png",
+          "bytes": 2105235,
+          "sha256": "88db8717ba601355eb13efe3a289f558484c44f580c4a39a851ea7ca24abc0c6"
+        },
+        {
+          "layer": "shadow",
+          "file": "uika-planning-apricot-shadow-calibrated-v7.png",
+          "bytes": 37223,
+          "sha256": "d9a41475c8d1628dbe9e44a5ec921ac33a5d1e58ad6dfe2d596ca2d314ec374e"
+        }
+      ],
+      "processingInputs": [
+        {
+          "role": "matte",
+          "file": "uika-planning-apricot-matte-prepared-v4.png",
+          "sha256": "0d3430f5f9f8c79e9d046a547910fd2203497dad983f3ec3c5dba92a86e9526a"
+        },
+        {
+          "role": "matching-background",
+          "file": "uika-planning-apricot-background-generated-v2.png",
+          "sha256": "cd7791fd60026a5878915ddb28d9b2a9b37d979b73b8b50b0222e7eb4737bfe8"
+        }
+      ],
+      "actualCallSources": [
+        "uika-planning-apricot-layer-source.json",
+        "uika-planning-apricot-background-v2-source.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "uika-planning-apricot-mask-prompt-submitted.txt",
+          "actualPromptSha256": "5e11a699890003e1a94912510a54864c5582ef2e90c3b824bd16acb1d30d8e69",
+          "promptFileSha256": "5e11a699890003e1a94912510a54864c5582ef2e90c3b824bd16acb1d30d8e69",
+          "bytes": 2230,
+          "part": "mask",
+          "executionId": "exec-df1caa4b-807e-43b6-a221-0e0f63b7d2de",
+          "source": "uika-planning-apricot-layer-source.json",
+          "actualPromptField": "actualPrompt",
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "file": "uika-planning-apricot-background-prompt-submitted.txt",
+          "actualPromptSha256": "be078b757c3edda6bb3389be59a24ad12cf4e6a0063686e1ce2b2439bf470de0",
+          "promptFileSha256": "be078b757c3edda6bb3389be59a24ad12cf4e6a0063686e1ce2b2439bf470de0",
+          "bytes": 1562,
+          "part": "background",
+          "executionId": "exec-d32343fd-97ed-474f-ac1e-935447011af6",
+          "source": "uika-planning-apricot-layer-source.json",
+          "actualPromptField": "actualPrompt",
+          "selection": "superseded original background call; final uses fresh v2"
+        },
+        {
+          "file": "uika-planning-apricot-background-v2-prompt-submitted.txt",
+          "actualPromptSha256": "d150b69deec51bed73d69b9a20584357d54b05319497ab279e779c4de0c2adac",
+          "promptFileSha256": "d150b69deec51bed73d69b9a20584357d54b05319497ab279e779c4de0c2adac",
+          "bytes": 2390,
+          "part": "background",
+          "executionId": "exec-5131cc88-a3a0-4a25-909c-4e425287bc69",
+          "source": "uika-planning-apricot-background-v2-source.json",
+          "actualPromptField": "actualPrompt",
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "calls": [
+        {
+          "source": "uika-planning-apricot-layer-source.json",
+          "callIndex": 0,
+          "executionId": "exec-df1caa4b-807e-43b6-a221-0e0f63b7d2de",
+          "part": "mask",
+          "actualPromptField": "actualPrompt",
+          "promptFile": "uika-planning-apricot-mask-prompt-submitted.txt",
+          "actualPromptSha256": "5e11a699890003e1a94912510a54864c5582ef2e90c3b824bd16acb1d30d8e69",
+          "promptFileSha256": "5e11a699890003e1a94912510a54864c5582ef2e90c3b824bd16acb1d30d8e69",
+          "promptBytes": 2230,
+          "output": {
+            "file": "uika-planning-apricot-mask-generated-v1.png",
+            "sha256": "8addf8ba06051a4716d111918f975a1a3a3d004277c65464094b2492f62fc65b",
+            "bytes": 345295
+          },
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "source": "uika-planning-apricot-layer-source.json",
+          "callIndex": 1,
+          "executionId": "exec-d32343fd-97ed-474f-ac1e-935447011af6",
+          "part": "background",
+          "actualPromptField": "actualPrompt",
+          "promptFile": "uika-planning-apricot-background-prompt-submitted.txt",
+          "actualPromptSha256": "be078b757c3edda6bb3389be59a24ad12cf4e6a0063686e1ce2b2439bf470de0",
+          "promptFileSha256": "be078b757c3edda6bb3389be59a24ad12cf4e6a0063686e1ce2b2439bf470de0",
+          "promptBytes": 1562,
+          "output": {
+            "file": "uika-planning-apricot-background-generated-v1.png",
+            "sha256": "7147836a441d73045e010fa382f58ad898d522675c2207feceaa26a8250e5953",
+            "bytes": 2118567
+          },
+          "selection": "superseded original background call; final uses fresh v2"
+        },
+        {
+          "source": "uika-planning-apricot-background-v2-source.json",
+          "callIndex": null,
+          "executionId": "exec-5131cc88-a3a0-4a25-909c-4e425287bc69",
+          "part": "background",
+          "actualPromptField": "actualPrompt",
+          "promptFile": "uika-planning-apricot-background-v2-prompt-submitted.txt",
+          "actualPromptSha256": "d150b69deec51bed73d69b9a20584357d54b05319497ab279e779c4de0c2adac",
+          "promptFileSha256": "d150b69deec51bed73d69b9a20584357d54b05319497ab279e779c4de0c2adac",
+          "promptBytes": 2390,
+          "output": {
+            "file": "uika-planning-apricot-background-generated-v2.png",
+            "sha256": "cd7791fd60026a5878915ddb28d9b2a9b37d979b73b8b50b0222e7eb4737bfe8",
+            "bytes": 2134532
+          },
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "support": "desk-chair",
+      "travel": 0,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "finalLayerSelectionSource": "uika-planning-apricot-layer-final-v7-source.json"
+    },
+    {
+      "activity": "listening",
+      "scene": "uika-listening-apricot.scene.json",
+      "parameters": "uika-listening-apricot-layer-parameters-v5.json",
+      "parametersSha256": "246f25e4ad6ad4437d904c4f9eebd50a8ae8c9c8692cbebae9c626fc0eed5680",
+      "processing": "uika-listening-apricot-layer-processing-v5.json",
+      "processingSha256": "2e3d06448d42605a77af8817a6575de9725713525d3e5be5ff796f2b6c65b1ed",
+      "mother": {
+        "file": "uika-listening-apricot-mother-candidate-v1.png",
+        "sha256": "15a28c195ddba558286dbba8025fa0669239f6d98dbce7becb40ffcc87dd4db8",
+        "bytes": 2182645
+      },
+      "motherRgbSha256": "81efc651651c6aea6010e03404d5c2776a5ea9df1c91459a2ccc7a7c78c60858",
+      "figureRgbSha256": "81efc651651c6aea6010e03404d5c2776a5ea9df1c91459a2ccc7a7c78c60858",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "uika-listening-apricot-figure-calibrated-v5.png",
+          "bytes": 2442221,
+          "sha256": "e114c2248f67b085c0840311c12ec4c872c7497958ee1dbe1a0d9c56d748f025"
+        },
+        {
+          "layer": "mask",
+          "file": "uika-listening-apricot-mask-calibrated-v5.png",
+          "bytes": 18746,
+          "sha256": "bc13786108dcb34230ad4364e4de7f5c2770bd9ef2a85d5b1388cc4bf56ce83e"
+        },
+        {
+          "layer": "background",
+          "file": "uika-listening-apricot-background-calibrated-v5.png",
+          "bytes": 2117631,
+          "sha256": "8b8620c471eba3f7eaea63c28fc51db5905c11ef148c1f300f84c4109c476a84"
+        },
+        {
+          "layer": "shadow",
+          "file": "uika-listening-apricot-shadow-calibrated-v5.png",
+          "bytes": 34311,
+          "sha256": "ad4b3cc8e757b8c07bb6076510736d5b64904910197f1bbfa1226808fd2e2144"
+        }
+      ],
+      "processingInputs": [
+        {
+          "role": "matte",
+          "file": "uika-listening-apricot-figure-calibrated-v4.png",
+          "sha256": "b393ff3e94d40fc27c696b6cebe18508537b2f069f611b30cba97b7aa1944c0b"
+        },
+        {
+          "role": "matching-background",
+          "file": "uika-listening-apricot-background-generated-v1.png",
+          "sha256": "99a13bb48d0d7f8b242d5c29fb273eeb20bdd16975ef2cc98fa45876fe3d7f79"
+        }
+      ],
+      "actualCallSources": [
+        "uika-listening-apricot-layer-source.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "uika-listening-apricot-mask-submitted-prompt.txt",
+          "actualPromptSha256": "3ef31b390077f1f664b6d13e5ee19a9e59ad9669fe3fa40dbd15306fc09b7502",
+          "promptFileSha256": "3ef31b390077f1f664b6d13e5ee19a9e59ad9669fe3fa40dbd15306fc09b7502",
+          "bytes": 2383,
+          "part": "mask",
+          "executionId": "exec-e9227ac4-e116-4efd-9b11-11dfb8815658",
+          "source": "uika-listening-apricot-layer-source.json",
+          "actualPromptField": "actualPrompt",
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "file": "uika-listening-apricot-background-submitted-prompt.txt",
+          "actualPromptSha256": "02c85b230eeb01b3addd65c76902c5429233a4d6f0f3eacf6592d97bb7f6c2e9",
+          "promptFileSha256": "02c85b230eeb01b3addd65c76902c5429233a4d6f0f3eacf6592d97bb7f6c2e9",
+          "bytes": 2266,
+          "part": "background",
+          "executionId": "exec-c5fb0b44-092f-487b-a3c0-3fc7913b89b5",
+          "source": "uika-listening-apricot-layer-source.json",
+          "actualPromptField": "actualPrompt",
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "calls": [
+        {
+          "source": "uika-listening-apricot-layer-source.json",
+          "callIndex": 0,
+          "executionId": "exec-e9227ac4-e116-4efd-9b11-11dfb8815658",
+          "part": "mask",
+          "actualPromptField": "actualPrompt",
+          "promptFile": "uika-listening-apricot-mask-submitted-prompt.txt",
+          "actualPromptSha256": "3ef31b390077f1f664b6d13e5ee19a9e59ad9669fe3fa40dbd15306fc09b7502",
+          "promptFileSha256": "3ef31b390077f1f664b6d13e5ee19a9e59ad9669fe3fa40dbd15306fc09b7502",
+          "promptBytes": 2383,
+          "output": {
+            "file": "uika-listening-apricot-mask-generated-v1.png",
+            "sha256": "ab77cd918832fb05322c03f7b2a080fc467c9d955530f85aed62673094899d16",
+            "bytes": 331595
+          },
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "source": "uika-listening-apricot-layer-source.json",
+          "callIndex": 1,
+          "executionId": "exec-c5fb0b44-092f-487b-a3c0-3fc7913b89b5",
+          "part": "background",
+          "actualPromptField": "actualPrompt",
+          "promptFile": "uika-listening-apricot-background-submitted-prompt.txt",
+          "actualPromptSha256": "02c85b230eeb01b3addd65c76902c5429233a4d6f0f3eacf6592d97bb7f6c2e9",
+          "promptFileSha256": "02c85b230eeb01b3addd65c76902c5429233a4d6f0f3eacf6592d97bb7f6c2e9",
+          "promptBytes": 2266,
+          "output": {
+            "file": "uika-listening-apricot-background-generated-v1.png",
+            "sha256": "99a13bb48d0d7f8b242d5c29fb273eeb20bdd16975ef2cc98fa45876fe3d7f79",
+            "bytes": 2150653
+          },
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "support": "window-seat",
+      "travel": 0.005208333333333333,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background",
+        "short static original-room endpoints; not runtime motion"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "rest",
+      "scene": "uika-rest-apricot.scene.json",
+      "parameters": "uika-rest-apricot-layer-parameters-v4.json",
+      "parametersSha256": "d429bdc490d3b08f565aaf2a826e6f5cb732425c2892b681904c2a12c5760112",
+      "processing": "uika-rest-apricot-layer-processing-v4.json",
+      "processingSha256": "ff78541fde15445bae2838369531350fbbc6a6836ba6c5b1cf2966720a908046",
+      "mother": {
+        "file": "uika-rest-apricot-mother-candidate-v1.png",
+        "sha256": "c90f589bdd923d6b5520eaec6368fd6b27ade6627bf0c39288b4b9852aee551c",
+        "bytes": 2177252
+      },
+      "motherRgbSha256": "f062fd20fc90fc2dae51d74714697d1539db0ab674f5085336ae23a445bc60a4",
+      "figureRgbSha256": "f062fd20fc90fc2dae51d74714697d1539db0ab674f5085336ae23a445bc60a4",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "uika-rest-apricot-figure-calibrated-v4.png",
+          "bytes": 2439914,
+          "sha256": "132174ae6237262dec9912de52e45c0140dbbfd92fb16ba3a7aafea74abc7d61"
+        },
+        {
+          "layer": "mask",
+          "file": "uika-rest-apricot-mask-calibrated-v4.png",
+          "bytes": 20553,
+          "sha256": "a792bc45f3092e089ea76bac4ba8f08123192322a714236f59e4d6990d955ba8"
+        },
+        {
+          "layer": "background",
+          "file": "uika-rest-apricot-background-calibrated-v4.png",
+          "bytes": 2120437,
+          "sha256": "00632ba31e6e31264b435b5fb3f922dc8ad27fe7133b5e3f03de48fd1d530ae7"
+        },
+        {
+          "layer": "shadow",
+          "file": "uika-rest-apricot-shadow-calibrated-v4.png",
+          "bytes": 33173,
+          "sha256": "dd569fedf56595895a7a480fdb8d8cd5bf19da71dce62fb140e5452b57ffca36"
+        }
+      ],
+      "processingInputs": [
+        {
+          "role": "matte",
+          "file": "uika-rest-apricot-figure-calibrated-v3.png",
+          "sha256": "c96e5e62e94df2960d227d53bc5912a501b62c55cbbb47b3d1235c1155025ecb"
+        },
+        {
+          "role": "matching-background",
+          "file": "uika-rest-apricot-background-generated-v1.png",
+          "sha256": "dc628abbe86ecf7d5d22efd82c361f0def1d3aeceef379a349345eb0b3844b08"
+        }
+      ],
+      "actualCallSources": [
+        "uika-rest-apricot-layer-source.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "uika-rest-apricot-mask-prompt-submitted.txt",
+          "actualPromptSha256": "44c56b9a1feb8c1cb83b4d052479a015fd12cd699e2e8aaa75aa6ed75adf0309",
+          "promptFileSha256": "44c56b9a1feb8c1cb83b4d052479a015fd12cd699e2e8aaa75aa6ed75adf0309",
+          "bytes": 1943,
+          "part": "mask",
+          "executionId": "exec-8194fc69-9972-4465-b5c8-60566f199a08",
+          "source": "uika-rest-apricot-layer-source.json",
+          "actualPromptField": "actualPrompt",
+          "selection": "rejected original mask call; retained history only"
+        },
+        {
+          "file": "uika-rest-apricot-mask-v2-prompt-submitted.txt",
+          "actualPromptSha256": "73862be9ab3cad1049ebcf4b6103831e7c28bb853da636f0e46808c1cf4cc54d",
+          "promptFileSha256": "73862be9ab3cad1049ebcf4b6103831e7c28bb853da636f0e46808c1cf4cc54d",
+          "bytes": 2004,
+          "part": "mask",
+          "executionId": "exec-ffabe5ca-8378-49c0-8cb0-6743f19c905f",
+          "source": "uika-rest-apricot-layer-source.json",
+          "actualPromptField": "actualPrompt",
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "file": "uika-rest-apricot-background-submitted-prompt.txt",
+          "actualPromptSha256": "5e9cb418bf607e7282b2177132b8de742a0a7f2b209602c9500adb8b2f829746",
+          "promptFileSha256": "5e9cb418bf607e7282b2177132b8de742a0a7f2b209602c9500adb8b2f829746",
+          "bytes": 1716,
+          "part": "background",
+          "executionId": "exec-8ef68e79-d652-452a-869a-f46748e7b694",
+          "source": "uika-rest-apricot-layer-source.json",
+          "actualPromptField": "actualPrompt",
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "calls": [
+        {
+          "source": "uika-rest-apricot-layer-source.json",
+          "callIndex": 0,
+          "executionId": "exec-8194fc69-9972-4465-b5c8-60566f199a08",
+          "part": "mask",
+          "actualPromptField": "actualPrompt",
+          "promptFile": "uika-rest-apricot-mask-prompt-submitted.txt",
+          "actualPromptSha256": "44c56b9a1feb8c1cb83b4d052479a015fd12cd699e2e8aaa75aa6ed75adf0309",
+          "promptFileSha256": "44c56b9a1feb8c1cb83b4d052479a015fd12cd699e2e8aaa75aa6ed75adf0309",
+          "promptBytes": 1943,
+          "output": {
+            "file": "uika-rest-apricot-mask-generated-v1.png",
+            "sha256": "918338a57da3a053f5463089cd2ef905750d2d3ad4e341ed03e8f7e00ef94732",
+            "bytes": 372719
+          },
+          "selection": "rejected original mask call; retained history only"
+        },
+        {
+          "source": "uika-rest-apricot-layer-source.json",
+          "callIndex": 1,
+          "executionId": "exec-ffabe5ca-8378-49c0-8cb0-6743f19c905f",
+          "part": "mask",
+          "actualPromptField": "actualPrompt",
+          "promptFile": "uika-rest-apricot-mask-v2-prompt-submitted.txt",
+          "actualPromptSha256": "73862be9ab3cad1049ebcf4b6103831e7c28bb853da636f0e46808c1cf4cc54d",
+          "promptFileSha256": "73862be9ab3cad1049ebcf4b6103831e7c28bb853da636f0e46808c1cf4cc54d",
+          "promptBytes": 2004,
+          "output": {
+            "file": "uika-rest-apricot-mask-generated-v2.png",
+            "sha256": "34041b655b9ac6fa3110ce2805a692a606a7535e7c20f4255dd9a06f1589a178",
+            "bytes": 323558
+          },
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "source": "uika-rest-apricot-layer-source.json",
+          "callIndex": 2,
+          "executionId": "exec-8ef68e79-d652-452a-869a-f46748e7b694",
+          "part": "background",
+          "actualPromptField": "actualPrompt",
+          "promptFile": "uika-rest-apricot-background-submitted-prompt.txt",
+          "actualPromptSha256": "5e9cb418bf607e7282b2177132b8de742a0a7f2b209602c9500adb8b2f829746",
+          "promptFileSha256": "5e9cb418bf607e7282b2177132b8de742a0a7f2b209602c9500adb8b2f829746",
+          "promptBytes": 1716,
+          "output": {
+            "file": "uika-rest-apricot-background-generated-v1.png",
+            "sha256": "dc628abbe86ecf7d5d22efd82c361f0def1d3aeceef379a349345eb0b3844b08",
+            "bytes": 2124029
+          },
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "support": "window-seat",
+      "travel": 0,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "play",
+      "scene": "uika-play-apricot.scene.json",
+      "parameters": "uika-play-apricot-layer-parameters-v10.json",
+      "parametersSha256": "c2779781f57a2a470a463e499cd474c891c76454ec75d79c559245909fe903f4",
+      "processing": "uika-play-apricot-layer-processing-v10.json",
+      "processingSha256": "cf0d3b19f8093392f9b28db53929441cc216e9e1f5c71b548a2dccdeaecbcce8",
+      "mother": {
+        "file": "uika-play-apricot-mother-candidate-v1.png",
+        "sha256": "5217e87de50ac8ff072d231a2cc07d985303cbc4f034a97355f0d98bb6a53454",
+        "bytes": 2168335
+      },
+      "motherRgbSha256": "aefbe491eb1c764f8be9a20f317ac58206c1eb7ab54d2d75dfc5c3f4467ab4f2",
+      "figureRgbSha256": "aefbe491eb1c764f8be9a20f317ac58206c1eb7ab54d2d75dfc5c3f4467ab4f2",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "uika-play-apricot-figure-calibrated-v10.png",
+          "bytes": 2433880,
+          "sha256": "edb1ca687a7128d19f74dc4ddea0a8672c97eb740ddfe84764366abbb2fc8932"
+        },
+        {
+          "layer": "mask",
+          "file": "uika-play-apricot-mask-calibrated-v10.png",
+          "bytes": 23517,
+          "sha256": "a3be65e85997c0c3aa88ab0c8130552ae2c2f7a1345b809e9d32f293fdac086b"
+        },
+        {
+          "layer": "background",
+          "file": "uika-play-apricot-background-calibrated-v10.png",
+          "bytes": 2089055,
+          "sha256": "395248c1a14d27d6e4e1ba6262ce1bf35a1c87f0cb6ec5d6b7bc1ab633d92362"
+        },
+        {
+          "layer": "shadow",
+          "file": "uika-play-apricot-shadow-calibrated-v10.png",
+          "bytes": 45519,
+          "sha256": "b577a8118faf5986931733cf90b3b96a1e81bd543c0e20788183bb5f20c40930"
+        }
+      ],
+      "processingInputs": [
+        {
+          "role": "matte",
+          "file": "uika-play-apricot-matte-source-gap-repaired-v10.png",
+          "sha256": "a3be65e85997c0c3aa88ab0c8130552ae2c2f7a1345b809e9d32f293fdac086b"
+        },
+        {
+          "role": "matching-background",
+          "file": "uika-play-apricot-background-generated-v1.png",
+          "sha256": "78874fb0caea5a250fb564a801c9a0f2102fd53c5fa1e13354123306cb9dafae"
+        }
+      ],
+      "actualCallSources": [
+        "uika-play-apricot-layer-source.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "uika-play-apricot-mask-submitted-prompt.txt",
+          "actualPromptSha256": "17afcf38e4bf22f37ea2b3e11f95291377245d3ae76da3db06f7c66f4677ade0",
+          "promptFileSha256": "17afcf38e4bf22f37ea2b3e11f95291377245d3ae76da3db06f7c66f4677ade0",
+          "bytes": 2387,
+          "part": "mask",
+          "executionId": "exec-f14ec1e3-de68-4ff7-912a-a44c3fca51d4",
+          "source": "uika-play-apricot-layer-source.json",
+          "actualPromptField": "actualPrompt",
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "file": "uika-play-apricot-background-submitted-prompt.txt",
+          "actualPromptSha256": "347616b7ed306402f5b967a1566d72e8b578cc2a386530068f8ef287bc25298b",
+          "promptFileSha256": "347616b7ed306402f5b967a1566d72e8b578cc2a386530068f8ef287bc25298b",
+          "bytes": 2270,
+          "part": "background",
+          "executionId": "exec-0869e0aa-95e7-498b-8fa0-407be3a54218",
+          "source": "uika-play-apricot-layer-source.json",
+          "actualPromptField": "actualPrompt",
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "calls": [
+        {
+          "source": "uika-play-apricot-layer-source.json",
+          "callIndex": 0,
+          "executionId": "exec-f14ec1e3-de68-4ff7-912a-a44c3fca51d4",
+          "part": "mask",
+          "actualPromptField": "actualPrompt",
+          "promptFile": "uika-play-apricot-mask-submitted-prompt.txt",
+          "actualPromptSha256": "17afcf38e4bf22f37ea2b3e11f95291377245d3ae76da3db06f7c66f4677ade0",
+          "promptFileSha256": "17afcf38e4bf22f37ea2b3e11f95291377245d3ae76da3db06f7c66f4677ade0",
+          "promptBytes": 2387,
+          "output": {
+            "file": "uika-play-apricot-mask-generated-v1.png",
+            "sha256": "ea1efe6ca947ee698d20b5cb69068137d8d8b37b1f30ab285b9e41818f794ef2",
+            "bytes": 379920
+          },
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "source": "uika-play-apricot-layer-source.json",
+          "callIndex": 1,
+          "executionId": "exec-0869e0aa-95e7-498b-8fa0-407be3a54218",
+          "part": "background",
+          "actualPromptField": "actualPrompt",
+          "promptFile": "uika-play-apricot-background-submitted-prompt.txt",
+          "actualPromptSha256": "347616b7ed306402f5b967a1566d72e8b578cc2a386530068f8ef287bc25298b",
+          "promptFileSha256": "347616b7ed306402f5b967a1566d72e8b578cc2a386530068f8ef287bc25298b",
+          "promptBytes": 2270,
+          "output": {
+            "file": "uika-play-apricot-background-generated-v1.png",
+            "sha256": "78874fb0caea5a250fb564a801c9a0f2102fd53c5fa1e13354123306cb9dafae",
+            "bytes": 2123692
+          },
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "support": "window-seat",
+      "travel": 0.005208333333333333,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background",
+        "short static original-room endpoints; not runtime motion"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "attention",
+      "scene": "uika-attention-apricot.scene.json",
+      "parameters": "uika-attention-apricot-layer-parameters-v7.json",
+      "parametersSha256": "c2bd0420b53f935cbd4a0804fe2ac2ea044f50840d2259c536c4d63229a4b2d3",
+      "processing": "uika-attention-apricot-layer-processing-v7.json",
+      "processingSha256": "34ddfc4378473639056093f5af0e1ea2b4512bbfe199e68f5e2dc4c2c22f049d",
+      "mother": {
+        "file": "uika-attention-apricot-mother-candidate-v1.png",
+        "sha256": "9cae27d5754d32654b120910faacaf65077e09499224f2668d912994ee2b78ed",
+        "bytes": 2172725
+      },
+      "motherRgbSha256": "d6de36aedc066bcfdf68ba6a313cd1293dbadfec47db4fc7161f9f792fdf7291",
+      "figureRgbSha256": "d6de36aedc066bcfdf68ba6a313cd1293dbadfec47db4fc7161f9f792fdf7291",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "artwork": [
+        {
+          "layer": "figure",
+          "file": "uika-attention-apricot-figure-calibrated-v7.png",
+          "bytes": 2430445,
+          "sha256": "80790ce089da921442402ffe990a93100089aaa0040921e3c3b8c3e5ca145e7c"
+        },
+        {
+          "layer": "mask",
+          "file": "uika-attention-apricot-mask-calibrated-v7.png",
+          "bytes": 25744,
+          "sha256": "1d68752920c57efbb0e5b1e5593aa8555ecb7fcaccdfc89b175be8b29d08990b"
+        },
+        {
+          "layer": "background",
+          "file": "uika-attention-apricot-background-calibrated-v7.png",
+          "bytes": 2092357,
+          "sha256": "9a111ae834a2b4b6204eb1df0a9612a9f00a8cf8211bfa959e112e7e4ebf48c9"
+        },
+        {
+          "layer": "shadow",
+          "file": "uika-attention-apricot-shadow-calibrated-v7.png",
+          "bytes": 49481,
+          "sha256": "5a0407da3224fd89af70346e9de1b088780153750240a1a7b903101b199185be"
+        }
+      ],
+      "processingInputs": [
+        {
+          "role": "matte",
+          "file": "uika-attention-apricot-matte-source-gap-repaired-v7.png",
+          "sha256": "a57903ee44e442281a1e76407973eec8e629ba70f13ab27ca1337a7157860a04"
+        },
+        {
+          "role": "matching-background",
+          "file": "uika-attention-apricot-background-generated-v1.png",
+          "sha256": "e76a49b26094394ad59bf7047fe791ea74a6f1053ea67406800c355c1772c3f8"
+        }
+      ],
+      "actualCallSources": [
+        "uika-attention-apricot-layer-source.json"
+      ],
+      "actualPromptFiles": [
+        {
+          "file": "uika-attention-apricot-mask-submitted-prompt.txt",
+          "actualPromptSha256": "d8e3da2c00f2f6fe61d8570f1267989f86c28e7c52c142c032fef96e302080f0",
+          "promptFileSha256": "d8e3da2c00f2f6fe61d8570f1267989f86c28e7c52c142c032fef96e302080f0",
+          "bytes": 2387,
+          "part": "mask",
+          "executionId": "exec-3d2b957f-f78b-49ff-8d14-9e887c4259bd",
+          "source": "uika-attention-apricot-layer-source.json",
+          "actualPromptField": "actualPrompt",
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "file": "uika-attention-apricot-background-submitted-prompt.txt",
+          "actualPromptSha256": "78acf6b0aadc374edf41980165b9815a2754543e950ff8d4ac83582f7e9376b2",
+          "promptFileSha256": "78acf6b0aadc374edf41980165b9815a2754543e950ff8d4ac83582f7e9376b2",
+          "bytes": 2270,
+          "part": "background",
+          "executionId": "exec-35989210-b303-416f-a88d-047e98582253",
+          "source": "uika-attention-apricot-layer-source.json",
+          "actualPromptField": "actualPrompt",
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "calls": [
+        {
+          "source": "uika-attention-apricot-layer-source.json",
+          "callIndex": 0,
+          "executionId": "exec-3d2b957f-f78b-49ff-8d14-9e887c4259bd",
+          "part": "mask",
+          "actualPromptField": "actualPrompt",
+          "promptFile": "uika-attention-apricot-mask-submitted-prompt.txt",
+          "actualPromptSha256": "d8e3da2c00f2f6fe61d8570f1267989f86c28e7c52c142c032fef96e302080f0",
+          "promptFileSha256": "d8e3da2c00f2f6fe61d8570f1267989f86c28e7c52c142c032fef96e302080f0",
+          "promptBytes": 2387,
+          "output": {
+            "file": "uika-attention-apricot-mask-generated-v1.png",
+            "sha256": "6f6a74b19794d3e8fdf47b35882393ba44ca3706136ba9b4317fa778a047a125",
+            "bytes": 387397
+          },
+          "selection": "source for final selected calibrated layers"
+        },
+        {
+          "source": "uika-attention-apricot-layer-source.json",
+          "callIndex": 1,
+          "executionId": "exec-35989210-b303-416f-a88d-047e98582253",
+          "part": "background",
+          "actualPromptField": "actualPrompt",
+          "promptFile": "uika-attention-apricot-background-submitted-prompt.txt",
+          "actualPromptSha256": "78acf6b0aadc374edf41980165b9815a2754543e950ff8d4ac83582f7e9376b2",
+          "promptFileSha256": "78acf6b0aadc374edf41980165b9815a2754543e950ff8d4ac83582f7e9376b2",
+          "promptBytes": 2270,
+          "output": {
+            "file": "uika-attention-apricot-background-generated-v1.png",
+            "sha256": "e76a49b26094394ad59bf7047fe791ea74a6f1053ea67406800c355c1772c3f8",
+            "bytes": 2106556
+          },
+          "selection": "source for final selected calibrated layers"
+        }
+      ],
+      "support": "window-seat",
+      "travel": 0.005208333333333333,
+      "producerViewed": [
+        "full light",
+        "full dark",
+        "same original room composite",
+        "complete empty background",
+        "short static original-room endpoints; not runtime motion"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "rejectedOrSuperseded": "Actual call history remains in each source. Rest raw mask v1 is rejected for misregistration; v2 is retained as the source for calibrated alpha. Planning generated background v1 is superseded by the actual fresh v2 call, while fixed desk papers remain background-owned. Play v9 source-gap calibration is superseded by v10; the entire prior layerProduction block and previous selected fields are retained. Submitted prompt files are exact actual-call UTF-8 bytes; original draft byte identities are retained separately.",
+  "runtimeDirectoryCopied": false
+}

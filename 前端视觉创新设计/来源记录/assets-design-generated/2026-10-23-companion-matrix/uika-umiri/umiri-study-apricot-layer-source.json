@@ -11,7 +11,7 @@
     {
       "purpose": "mask",
       "executionId": "exec-23c2d853-ed10-4d18-a062-b2b6acc2946e",
-      "promptFile": "umiri-study-apricot-mask-prompt.txt",
+      "promptFile": "umiri-study-apricot-mask-prompt-submitted.txt",
       "actualPrompt": "Use case: background-extraction\nAsset type: original-position semantic segmentation matte for the approved Umiri study illustration.\nImage 1 is the sole edit target. Produce one fully opaque black-and-white segmentation matte at the exact original 1536 x 1024 full canvas. Keep the woman's exact original position, scale, posture, silhouette and visible occlusion; no crop, zoom, translation, rotation, reposing, anatomy completion or redesign.\nAll visible person pixels must be WHITE, regardless of their original darkness: Umiri's shoulder-length dark hair including fine tips, face/ears/neck, entire black jacket and red top, gray short skirt, both bare legs, both complete black lace-up platform boots including their uppers, laces, soles and heels, BOTH visible forearms and BOTH hands/fingers touching and pointing along the paper. White interiors must be completely solid even on black clothes, black hair and black boots; do not mistake dark material for background. Preserve the actual gaps between legs and between forearms and body as black where room is visible.\nAll non-person pixels must be BLACK: the upholstered chair back/seat and wooden legs, desk and its edges/legs, the paper/book resting on the desk, cup/lamp, window/scenery, walls, floor and all cast or contact shadows. Where the chair occludes her left hip/skirt, retain that exact visible-only person contour and leave chair black. Her hands do not turn the paper underneath white. Do not include desk-edge or chair-seat fragments. Do not invent a held pen or other object. No grayscale body texture; gray is only a thin soft antialiased contour. Return a full-canvas opaque room-black/person-white matte, not a portrait or transparent cutout, with no text or extra panel.",
       "transparentBackground": false,
       "output": {
@@ -24,12 +24,17 @@
         ],
         "mode": "RGB"
       },
-      "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-23c2d853-ed10-4d18-a062-b2b6acc2946e.png"
+      "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-23c2d853-ed10-4d18-a062-b2b6acc2946e.png",
+      "draftPromptFile": "umiri-study-apricot-mask-prompt.txt",
+      "draftPromptFileSha256": "938d9913dcb7e1f7ade77813e4928f0dd30c75bcd80e39435402966d8fcac0c2",
+      "actualPromptSha256": "5ca96cf8d1dce84771abafb1cb3aa325f9596e63d380e735bdc353123af3d31d",
+      "promptSha256": "5ca96cf8d1dce84771abafb1cb3aa325f9596e63d380e735bdc353123af3d31d",
+      "promptFileMatchesActualToolInput": true
     },
     {
       "purpose": "background",
       "executionId": "exec-20396490-f5b2-40c0-84e1-f5152ea29b0c",
-      "promptFile": "umiri-study-apricot-background-prompt.txt",
+      "promptFile": "umiri-study-apricot-background-prompt-submitted.txt",
       "actualPrompt": "Use case: precise-object-edit\nAsset type: matching clean room background for the approved Umiri study mother.\nImage 1 is the sole edit target. Remove only the seated young woman Umiri: all her dark hair, face/body, black jacket/red top/gray skirt, both bare legs, both black boots, both hands and forearms, and her small personal body/boot contact shadows. Reconstruct only the local room surfaces revealed behind her. Keep the exact full 1536 x 1024 canvas, camera, framing, perspective, furniture scale and positions. No crop, zoom, shift, rotation, new person or added object.\nPreserve the original desk, both paper/book surfaces she was touching, cup, lamp and other desk objects precisely at their original size, angle and position. Preserve the original upholstered chair back, seat and wooden legs; complete only the parts previously hidden by her without rotating, moving, shrinking or enlarging this chair. Preserve the original right window bench, pillows/blanket, left desk/chair/shelves/plants, curtains, wall picture, rug, floorboard geometry, sunlight patterns and the complete window landscape. Do not replace this specific mother's desk/chair arrangement with another room layout.\nMatch the original warm apricot daylight, delicate painted texture, wood grain and existing furniture shadows in the tiny revealed regions. No ghost hair, jacket, skirt, legs, shoes, skin, body-shaped blur, boot silhouettes, personal reflection or residual personal contact shadow. Do not intentionally alter unaffected pixels. This will sit behind the original same-position figure RGB, so spatial registration matters more than novelty. One coherent empty full room, no comparison panels, no text or watermark.",
       "transparentBackground": false,
       "output": {
@@ -42,7 +47,12 @@
         ],
         "mode": "RGB"
       },
-      "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-20396490-f5b2-40c0-84e1-f5152ea29b0c.png"
+      "defaultOutput": "generated_images/01a16ac3-83d1-74c0-8a94-0a40bb75f7fb/exec-20396490-f5b2-40c0-84e1-f5152ea29b0c.png",
+      "draftPromptFile": "umiri-study-apricot-background-prompt.txt",
+      "draftPromptFileSha256": "88bdfbf0d1ce3edbe0a70f6703e6d802c809df89f83ed4904d447b40d929cecd",
+      "actualPromptSha256": "42999c4b6d914aa2545d24366ebc1560e9771ca5befe1444615b266b1270f787",
+      "promptSha256": "42999c4b6d914aa2545d24366ebc1560e9771ca5befe1444615b266b1270f787",
+      "promptFileMatchesActualToolInput": true
     }
   ],
   "designerReview": {

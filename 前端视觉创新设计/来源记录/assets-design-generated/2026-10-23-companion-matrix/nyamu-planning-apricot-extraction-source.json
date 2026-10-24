@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-approved-mother-layer-generation",
+  "date": "2026-10-24",
+  "mother": {
+    "file": "nyamu-planning-apricot-mother-candidate-v2.png",
+    "sha256": "2520ef07069e0ec07b4cc2de51181f072626ce9f8f06a83ddf401c7e4ac24c27"
+  },
+  "motherApprovalRecord": "primary-other-mother-reviews.json",
+  "tool": "image_gen.imagegen (built-in)",
+  "generations": [
+    {
+      "kind": "matching clean background v1",
+      "prompt": {
+        "file": "nyamu-planning-apricot-background-v1-prompt.txt",
+        "sha256": "4b22cbece4a83af3201ae38318556ba2dbe2300f55c72eaa251b23e65b307d64"
+      },
+      "inputs": [
+        {
+          "file": "nyamu-planning-apricot-mother-candidate-v2.png",
+          "sha256": "2520ef07069e0ec07b4cc2de51181f072626ce9f8f06a83ddf401c7e4ac24c27"
+        }
+      ],
+      "output": {
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-39043dab-8b42-431a-b8f7-e6dbca68e076.png",
+        "sha256": "0389ecd989dca7ff8119e342bb05eb10226c7c8dffe8734ea6c06e28223de68e"
+      },
+      "selectedForProcessing": false,
+      "designerObservation": "Rejected: third desktop card added under removed body; not copied/adopted."
+    },
+    {
+      "kind": "registered person mask v1",
+      "prompt": {
+        "file": "nyamu-planning-apricot-mask-v1-prompt.txt",
+        "sha256": "5430b5e6dedcba25a6a16514f2b3276275a8f6048ae93297f11aa4ac18387cfa"
+      },
+      "inputs": [
+        {
+          "file": "nyamu-planning-apricot-mother-candidate-v2.png",
+          "sha256": "2520ef07069e0ec07b4cc2de51181f072626ce9f8f06a83ddf401c7e4ac24c27"
+        }
+      ],
+      "output": {
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-46c5db45-1102-43fd-b709-61e3f9b0e8f4.png",
+        "sha256": "68273c0971ae877e3129d93d932ba1aa59748956e2554ba6eeefe6aa41118934"
+      },
+      "selectedForProcessing": false,
+      "designerObservation": "Rejected: white chair included and girl enlarged/upshifted; never copied as workspace matte or fed into image generation."
+    },
+    {
+      "kind": "matching clean background v2",
+      "prompt": {
+        "file": "nyamu-planning-apricot-background-v2-prompt.txt",
+        "sha256": "b6118eab958f65af344d1ed53321cb13c358436d935d52f72113bfabec993205"
+      },
+      "inputs": [
+        {
+          "file": "nyamu-planning-apricot-mother-candidate-v2.png",
+          "sha256": "2520ef07069e0ec07b4cc2de51181f072626ce9f8f06a83ddf401c7e4ac24c27"
+        }
+      ],
+      "output": {
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-3f657299-e5ec-4f2c-84ef-92b73b77a4ec.png",
+        "sha256": "98ee3932e0bb77a46da9c0ddd3679264f5e85d47f890fe1004cf6ee2307031c3",
+        "file": "nyamu-planning-apricot-background-candidate-v2.png"
+      },
+      "selectedForProcessing": true,
+      "designerObservation": "Full image personally viewed: exactly two source cards, no extra book, original occupied-chair direction/footprint retained."
+    },
+    {
+      "kind": "registered person mask v2",
+      "prompt": {
+        "file": "nyamu-planning-apricot-mask-v2-prompt.txt",
+        "sha256": "21fcdaea6049360cfb3a01544a864d3050e7d4aa70f1d8a8c0cef6424eb50d67"
+      },
+      "inputs": [
+        {
+          "file": "nyamu-planning-apricot-mother-candidate-v2.png",
+          "sha256": "2520ef07069e0ec07b4cc2de51181f072626ce9f8f06a83ddf401c7e4ac24c27"
+        }
+      ],
+      "output": {
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-1498ffe9-c1b0-442e-9463-cd10b08daf9b.png",
+        "sha256": "76fca2e6369d61bdf8f6a56d097d5de628ce40d76a823e5789930bfadc5da066",
+        "file": "nyamu-planning-apricot-mask-candidate-v2.png"
+      },
+      "selectedForProcessing": true,
+      "designerObservation": "Full canvas personally viewed; original position, chair excluded. Eye/strap holes and true source hair edge/neck gap calibrated from original RGB only."
+    }
+  ],
+  "review": {
+    "approvedByPrimary": false,
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false
+  }
+}

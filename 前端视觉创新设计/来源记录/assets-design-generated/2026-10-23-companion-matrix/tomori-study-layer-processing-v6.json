@@ -1,0 +1,397 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "tomori-study-layer-parameters-v6.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "db43d023c12a40c4ae145b261f4d4a5fdd83577ac0df4bf80b6359329487b5e0",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "tomori-study-apricot-v3-mother.png",
+  "motherSha256": "33e690f698cc4856872804014c6285620ec176ce5fe2ae6000887e4c74d3954f",
+  "matte": "tomori-study-mask-calibrated-v5.png",
+  "matteSha256": "fb68e592f2abd51fcb7ce917aded773764bf5d113e04bad3f6a1e8e74d6832c6",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        1276,
+        352
+      ],
+      [
+        1299,
+        352
+      ],
+      [
+        1299,
+        368
+      ],
+      [
+        1276,
+        368
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [
+    {
+      "region": [
+        1282,
+        420,
+        1354,
+        545
+      ],
+      "polygon": [
+        [
+          1282,
+          426
+        ],
+        [
+          1282,
+          544
+        ],
+        [
+          1350,
+          544
+        ],
+        [
+          1346,
+          531
+        ],
+        [
+          1336,
+          514
+        ],
+        [
+          1335,
+          520
+        ],
+        [
+          1332,
+          518
+        ],
+        [
+          1334,
+          517
+        ],
+        [
+          1334,
+          513
+        ],
+        [
+          1329,
+          508
+        ],
+        [
+          1331,
+          507
+        ],
+        [
+          1331,
+          501
+        ],
+        [
+          1327,
+          489
+        ],
+        [
+          1323,
+          483
+        ],
+        [
+          1322,
+          462
+        ],
+        [
+          1320,
+          470
+        ],
+        [
+          1317,
+          467
+        ],
+        [
+          1316,
+          455
+        ],
+        [
+          1313,
+          450
+        ],
+        [
+          1310,
+          437
+        ],
+        [
+          1308,
+          435
+        ],
+        [
+          1302,
+          437
+        ],
+        [
+          1289,
+          430
+        ],
+        [
+          1286,
+          430
+        ]
+      ],
+      "mode": "intersect",
+      "featherPixels": 0
+    },
+    {
+      "region": [
+        1187,
+        434,
+        1233,
+        520
+      ],
+      "polygon": [
+        [
+          1191,
+          434
+        ],
+        [
+          1191,
+          439
+        ],
+        [
+          1196,
+          436
+        ],
+        [
+          1200,
+          443
+        ],
+        [
+          1204,
+          446
+        ],
+        [
+          1208,
+          442
+        ],
+        [
+          1210,
+          445
+        ],
+        [
+          1210,
+          442
+        ],
+        [
+          1212,
+          440
+        ],
+        [
+          1213,
+          441
+        ],
+        [
+          1213,
+          471
+        ],
+        [
+          1216,
+          479
+        ],
+        [
+          1214,
+          490
+        ],
+        [
+          1215,
+          502
+        ],
+        [
+          1212,
+          505
+        ],
+        [
+          1212,
+          511
+        ],
+        [
+          1213,
+          510
+        ],
+        [
+          1214,
+          513
+        ],
+        [
+          1209,
+          515
+        ],
+        [
+          1213,
+          517
+        ],
+        [
+          1212,
+          519
+        ],
+        [
+          1200,
+          519
+        ],
+        [
+          1232,
+          519
+        ],
+        [
+          1232,
+          434
+        ],
+        [
+          1220,
+          434
+        ],
+        [
+          1222,
+          435
+        ],
+        [
+          1215,
+          439
+        ],
+        [
+          1214,
+          434
+        ]
+      ],
+      "mode": "intersect",
+      "featherPixels": 0
+    }
+  ],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 757,
+  "alphaNonzeroPixels": 43714,
+  "alphaBounds": [
+    1097,
+    344,
+    1376,
+    772
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "f71dbfa7c005a7bab16158e7c1053c962c5fbf35e73d54339b73e8f4d6a747c3",
+  "figureRgbSha256": "f71dbfa7c005a7bab16158e7c1053c962c5fbf35e73d54339b73e8f4d6a747c3",
+  "background": {
+    "candidate": "tomori-study-background-generated-v1.png",
+    "candidateSha256": "d8d2d142a5cf5af5c3ffdf656ec074e5e7e9d5b92c0f3b6284c8a527f61b35fe",
+    "expandPixels": 10,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          1088,
+          721
+        ],
+        [
+          1261,
+          721
+        ],
+        [
+          1261,
+          786
+        ],
+        [
+          1088,
+          786
+        ]
+      ],
+      [
+        [
+          1132,
+          543
+        ],
+        [
+          1377,
+          543
+        ],
+        [
+          1377,
+          608
+        ],
+        [
+          1132,
+          608
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 79941,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1097,
+          744
+        ],
+        [
+          1136,
+          738
+        ],
+        [
+          1244,
+          745
+        ],
+        [
+          1254,
+          778
+        ],
+        [
+          1101,
+          778
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "tomori-study-figure-calibrated-v6.png",
+      "bytes": 2453008,
+      "sha256": "3237c417e2c22045e268c1c0bf764c003d2b4bf354266eaf849a43f8f0a52012"
+    },
+    {
+      "file": "tomori-study-mask-calibrated-v6.png",
+      "bytes": 18651,
+      "sha256": "b542ee6e467a42723e6f1f5e942a448492783be201a8181f96210e7ff3831917"
+    },
+    {
+      "file": "tomori-study-background-calibrated-v6.png",
+      "bytes": 2116401,
+      "sha256": "0b063ed75fe67a7c4a4dd8cf6d257e79f9e1069c8873997e73439171c21d8c23"
+    },
+    {
+      "file": "tomori-study-shadow-calibrated-v6.png",
+      "bytes": 35975,
+      "sha256": "30786d41aeed41b958053836f0b49c8a6fc6c68cf369178a2b58913e4340e3a6"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

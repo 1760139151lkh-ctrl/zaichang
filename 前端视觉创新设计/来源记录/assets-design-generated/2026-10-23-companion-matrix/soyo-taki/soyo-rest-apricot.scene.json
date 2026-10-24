@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-rest-apricot-room4",
+  "character": "soyo",
+  "activity": "rest",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "soyo-rest-apricot-mother-candidate-v1.png",
+  "background": "soyo-rest-apricot-background-calibrated-v9.png",
+  "figure": "soyo-rest-apricot-figure-calibrated-v9.png",
+  "mask": "soyo-rest-apricot-mask-calibrated-v9.png",
+  "shadow": "soyo-rest-apricot-shadow-calibrated-v9.png",
+  "seat": [
+    0.8626302083333334,
+    0.5693359375
+  ],
+  "ground": [
+    0.7584635416666666,
+    0.7265625
+  ],
+  "bodyBounds": [
+    0.7018229166666666,
+    0.27734375,
+    0.9290364583333334,
+    0.7353515625
+  ],
+  "safeTextBoundary": 0.6920572916666666,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "82.68% 26.95%, 87.57% 26.56%, 89.91% 29.30%, 90.49% 35.94%, 92.06% 40.53%, 91.80% 46.19%, 90.76% 49.71%, 91.41% 53.52%, 93.82% 56.05%, 93.29% 57.52%, 90.30% 57.03%, 84.96% 58.79%, 80.40% 59.28%, 79.10% 61.13%, 79.56% 70.02%, 79.30% 73.54%, 73.37% 73.83%, 69.73% 72.85%, 69.53% 70.70%, 71.88% 68.95%, 72.98% 65.72%, 74.80% 58.01%, 75.33% 53.52%, 77.47% 51.37%, 80.08% 50.20%, 81.51% 45.80%, 82.29% 41.02%, 82.23% 35.64%, 81.84% 31.54%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "production": "soyo-rest-apricot-layer-processing-v9.json",
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "../primary-other-mother-reviews.json",
+    "layerReview": "pending",
+    "runtimeAccepted": false,
+    "producerNote": "Original RGB and exact seated/hand/sole contacts retained. Fixed support position (travel 0); no unobserved hidden contour or arbitrary repositioning is promised.",
+    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json",
+    "producerVisualReview": "Current selected original mother, full actual prompt, light/dark alpha, matching empty room and original-coordinate recomposition personally viewed by soyo_warm_layers; primary and normal Stage/runtime pending."
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "mother": "soyo-chat-mist-mother-candidate-v1.png",
+  "motherSha256": "f071989d921ca9a23bd07c8d9e78a5aada62d7fb9256ec71cdd8c057a4c12ece",
+  "matte": "soyo-chat-mist-original-blue-gap-alpha-v2.png",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "localColorMatteRefinement": null,
+  "backgroundCandidate": "soyo-chat-mist-background-generated-v1.png",
+  "background": "soyo-chat-mist-background-calibrated-v2.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1157,
+        741
+      ],
+      [
+        1284,
+        741
+      ],
+      [
+        1301,
+        794
+      ],
+      [
+        1163,
+        794
+      ]
+    ],
+    [
+      [
+        1165,
+        576
+      ],
+      [
+        1385,
+        576
+      ],
+      [
+        1385,
+        622
+      ],
+      [
+        1165,
+        622
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1167,
+        744
+      ],
+      [
+        1291,
+        744
+      ],
+      [
+        1300,
+        791
+      ],
+      [
+        1162,
+        791
+      ]
+    ],
+    [
+      [
+        1170,
+        570
+      ],
+      [
+        1384,
+        570
+      ],
+      [
+        1384,
+        622
+      ],
+      [
+        1170,
+        622
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "soyo-chat-mist-shadow-calibrated-v1.png",
+  "figure": "soyo-chat-mist-figure-calibrated-v2.png",
+  "mask": "soyo-chat-mist-mask-calibrated-v2.png",
+  "record": "soyo-chat-mist-layer-processing-v2.json",
+  "reviewNote": "Own primary-reviewed full themed mother supplies every RGB pixel. Warm same-pose soft alpha is only an explicit initialization; own head RGB refines local edge and matching new background/shadow are independent. No RGB/pose/body redraw or independent resize. Primary layer and actual Stage remain pending. Direct dark-background inspection identified bright cyan room fragments at the outer hair; explicit original-coordinate soft alpha cleanup v2 removes only that room color and preserves dark clothing/hair and warm face RGB. Contact shadow bytes are identical to v1, so the same canonical v1 file is retained without duplicatePNG.",
+  "excludeWarmRoomRegions": []
+}

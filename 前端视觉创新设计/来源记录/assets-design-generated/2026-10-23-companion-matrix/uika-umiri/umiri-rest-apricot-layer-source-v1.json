@@ -58,7 +58,9 @@
       },
       "designerViewed": "full original result; alpha/background still requires precise calibration and light/dark/room review",
       "designerStatus": "candidate-needs-original-pixel-refinement",
-      "designerObservation": "Fresh source-only mask restores full shoe extent and supporting palm near source coordinates; precise matte refinement still needed."
+      "designerObservation": "Fresh source-only mask restores full shoe extent and supporting palm near source coordinates; precise matte refinement still needed.",
+      "actualPromptSha256": "c443a7790c273980053443eaf9d9e71da29cb6bc4561365564f64ccc162e2d95",
+      "promptFileMatchesActualToolInput": true
     }
   ],
   "review": {

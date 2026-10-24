@@ -1,0 +1,101 @@
+{
+  "mother": "soyo-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "68b71f572a6566147acf1bbe104cd05a1bc6e9194ea01039a3e40b785e60f23e",
+  "baseAlpha": "soyo-reading-apricot-mask-calibrated-v4.png",
+  "backgroundAirGapRegions": [
+    [
+      1265,
+      378,
+      1293,
+      477
+    ],
+    [
+      1390,
+      460,
+      1440,
+      523
+    ]
+  ],
+  "paleWindowRegions": [
+    [
+      1265,
+      380,
+      1293,
+      477
+    ],
+    [
+      1410,
+      409,
+      1442,
+      460
+    ]
+  ],
+  "legRows": [
+    [
+      638,
+      1173,
+      1199,
+      1202,
+      1240
+    ],
+    [
+      650,
+      1168,
+      1192.5,
+      1197,
+      1232
+    ],
+    [
+      660,
+      1163,
+      1186.5,
+      1192,
+      1226
+    ],
+    [
+      670,
+      1159,
+      1181,
+      1186,
+      1219.5
+    ],
+    [
+      680,
+      1154,
+      1176,
+      1181,
+      1213.5
+    ],
+    [
+      690,
+      1147,
+      1175.5,
+      1176.5,
+      1208
+    ],
+    [
+      698,
+      1143,
+      1178,
+      1174,
+      1204.8
+    ],
+    [
+      708,
+      1136,
+      1177,
+      1170.5,
+      1202.5
+    ],
+    [
+      718,
+      1126,
+      1172.5,
+      1161,
+      1202.5
+    ]
+  ],
+  "edgeWidth": 1.4,
+  "output": "soyo-reading-apricot-alpha-refined-v5.png",
+  "record": "soyo-reading-apricot-alpha-refinement-v5.json"
+}

@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "mother": "mutsumi-reading-apricot-mother-candidate-v2.png",
+  "motherSha256": "30aeb37365c1b9e95c6d1024d60d1b2d259f13d33d0f83d81ef54e589960adee",
+  "inputAlpha": "mutsumi-reading-apricot-source-alpha-v6.png",
+  "inputAlphaSha256": "3d8ef186b17caa2e2470185a4f9cecf1e2eeb555524a5246d113dbe4766f77f5",
+  "observedOriginalColorRules": [
+    {
+      "purpose": "Original coordinate grid confirms this rectangle contains only original navy sock shins and warm wooden background, not skin/shoe/book; remove fragmented previous matte here only.",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1140,
+          630
+        ],
+        [
+          1223,
+          630
+        ],
+        [
+          1223,
+          691
+        ],
+        [
+          1140,
+          691
+        ]
+      ],
+      "channels": [],
+      "differences": []
+    },
+    {
+      "purpose": "Restore the actual original continuous navy cloth silhouette from original RGB, preserving the true gap; no drawing of a new leg.",
+      "mode": "include",
+      "polygon": [
+        [
+          1140,
+          630
+        ],
+        [
+          1223,
+          630
+        ],
+        [
+          1223,
+          691
+        ],
+        [
+          1140,
+          691
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          0,
+          140
+        ],
+        [
+          1,
+          0,
+          140
+        ],
+        [
+          2,
+          0,
+          140
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          2,
+          -30,
+          14
+        ],
+        [
+          2,
+          1,
+          -1,
+          30
+        ]
+      ]
+    }
+  ],
+  "explicitOriginalRoomExclusions": [],
+  "outputAlpha": "mutsumi-reading-apricot-source-alpha-v9.png",
+  "record": "mutsumi-reading-apricot-source-alpha-v9.json"
+}

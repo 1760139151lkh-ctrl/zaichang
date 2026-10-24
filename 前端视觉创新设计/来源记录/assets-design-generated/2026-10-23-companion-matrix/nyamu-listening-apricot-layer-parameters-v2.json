@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "mother": "nyamu-listening-apricot-mother-candidate-v1.png",
+  "motherSha256": "823f7606e5add858c9834ea290822cc78e0b0c3ae1309f367bd2a2bf1d862b6e",
+  "matte": "nyamu-listening-apricot-source-alpha-v2.png",
+  "matteSha256": "70318e5df2fad089d5e9b283034d5ecdd953947f31ed7dc891f9b070472af30e",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "nyamu-listening-apricot-figure-calibrated-v2.png",
+  "mask": "nyamu-listening-apricot-mask-calibrated-v2.png",
+  "backgroundCandidate": "nyamu-listening-apricot-background-candidate-v1.png",
+  "background": "nyamu-listening-apricot-background-calibrated-v2.png",
+  "shadow": "nyamu-listening-apricot-shadow-calibrated-v2.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1123,
+        730
+      ],
+      [
+        1314,
+        730
+      ],
+      [
+        1318,
+        789
+      ],
+      [
+        1121,
+        789
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1129,
+        738
+      ],
+      [
+        1207,
+        738
+      ],
+      [
+        1213,
+        782
+      ],
+      [
+        1128,
+        782
+      ]
+    ],
+    [
+      [
+        1230,
+        740
+      ],
+      [
+        1304,
+        741
+      ],
+      [
+        1308,
+        786
+      ],
+      [
+        1228,
+        786
+      ]
+    ],
+    [
+      [
+        1167,
+        557
+      ],
+      [
+        1390,
+        560
+      ],
+      [
+        1397,
+        603
+      ],
+      [
+        1164,
+        602
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [],
+  "includePolygons": [],
+  "alphaPolygonRepairs": [],
+  "record": "nyamu-listening-apricot-layer-processing-v2.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "Registered same-canvas raw generated person mask. Full original-RGB local alpha refinement restores actual dark straps/face/hand/clothing and rejects background; source RGB unchanged. Hips on original cushion and both complete shoe contacts remain original, no furniture carried. Fixed multi-contact pose, travel0. Primary/runtime pending. v2 source-purple fine bob edge retained; actual blue window in bob/neck gap excluded. Original RGB unchanged."
+}

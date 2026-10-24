@@ -9,9 +9,9 @@
     "OpenCV": null
   },
   "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
-  "mother": "sakiko-planning-apricot.png",
+  "mother": "../../../运行素材/companion/scenes/sakiko-planning-apricot.png",
   "motherSha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11",
-  "matte": "sakiko-planning-apricot-figure-calibrated-v5.png",
+  "matte": "../../../运行素材/companion/scenes/sakiko-planning-apricot-figure-calibrated-v6.png",
   "matteSha256": "b1d550b9916b485bcd65aae3465ec145b20de951f52ea63998e014dc1f537d85",
   "matteRegionOverrides": [],
   "canvas": [
@@ -248,24 +248,28 @@
   },
   "outputs": [
     {
-      "file": "sakiko-planning-apricot-figure-calibrated-v6.png",
+      "file": "../../../运行素材/companion/scenes/sakiko-planning-apricot-figure-calibrated-v6.png",
       "bytes": 2407569,
-      "sha256": "b1d550b9916b485bcd65aae3465ec145b20de951f52ea63998e014dc1f537d85"
+      "sha256": "b1d550b9916b485bcd65aae3465ec145b20de951f52ea63998e014dc1f537d85",
+      "originalOutputBasename": "sakiko-planning-apricot-figure-calibrated-v6.png"
     },
     {
-      "file": "sakiko-planning-apricot-mask-calibrated-v6.png",
+      "file": "../../../运行素材/companion/scenes/sakiko-planning-apricot-mask-calibrated-v6.png",
       "bytes": 31480,
-      "sha256": "362f63b0088a1cd34827f02e03634c7b69ad75165536e56e2ff9c7e7b530e8fc"
+      "sha256": "362f63b0088a1cd34827f02e03634c7b69ad75165536e56e2ff9c7e7b530e8fc",
+      "originalOutputBasename": "sakiko-planning-apricot-mask-calibrated-v6.png"
     },
     {
-      "file": "sakiko-planning-apricot-background-calibrated-v6.png",
+      "file": "../../../运行素材/companion/scenes/sakiko-planning-apricot-background-calibrated-v6.png",
       "bytes": 2060577,
-      "sha256": "fddcc81c23ce44d9ded09bcbd6f25c9242c4e22726de22a8876695ca1c9e2569"
+      "sha256": "fddcc81c23ce44d9ded09bcbd6f25c9242c4e22726de22a8876695ca1c9e2569",
+      "originalOutputBasename": "sakiko-planning-apricot-background-calibrated-v6.png"
     },
     {
-      "file": "sakiko-planning-apricot-shadow-calibrated-v6.png",
+      "file": "../../../运行素材/companion/scenes/sakiko-planning-apricot-shadow-calibrated-v6.png",
       "bytes": 35680,
-      "sha256": "e72370d1c7ca97fea9154c69636e8f961e7478500963b3b2d58126418f54086d"
+      "sha256": "e72370d1c7ca97fea9154c69636e8f961e7478500963b3b2d58126418f54086d",
+      "originalOutputBasename": "sakiko-planning-apricot-shadow-calibrated-v6.png"
     }
   ],
   "review": {

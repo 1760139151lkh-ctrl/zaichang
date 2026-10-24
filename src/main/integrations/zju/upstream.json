@@ -1,0 +1,96 @@
+{
+  "source": "zju-student-info read-only connector",
+  "academic_source": {
+    "repository": "https://github.com/Celechron/Celechron",
+    "commit": "94e0ca63ed961febf4d852bcdf81cfa8bdc653bd",
+    "license": "GPL-3.0"
+  },
+  "imported_at": "2026-10-24",
+  "files": [
+    {
+      "path": "scripts/academic_calendar.py",
+      "sha256": "543fedb76c95080f2662138ff09254d1569ac41c909d736fee5cb8438b00cb31",
+      "bytes": 10132
+    },
+    {
+      "path": "scripts/academic_models.py",
+      "sha256": "d22cc0eef3d7225fb2038f2f59b189882bac57772a4a7e02f7917b1583d8fa1f",
+      "bytes": 15104,
+      "upstream_sha256": "dc9fee83e8a91d8ab4293b634233afda29a04b38c3697430daae9d948e47e1a6",
+      "modification": "The unresolved date/time quality label no longer implies that the university has not published it; grade formulas and values are unchanged."
+    },
+    {
+      "path": "scripts/academic_service.py",
+      "sha256": "8921a97c024b412ed54a74ded2b7ae857323614065ddd00d2a33c802f1ca7231",
+      "bytes": 11894
+    },
+    {
+      "path": "scripts/client.py",
+      "sha256": "9ee4ff56b1729973dbb998233cac266f72b001c393ef0f92fec44899686e25df",
+      "bytes": 20762
+    },
+    {
+      "path": "scripts/complete_data.py",
+      "sha256": "beee1b38d43a1879c000b03fbd59e79eeb70b63d3580324fcdfc38bf30d21588",
+      "bytes": 9973
+    },
+    {
+      "path": "scripts/field_guide.py",
+      "sha256": "9b400b3dce5478038ad080d7baca09a3b18f40c1dae120f76d6cb1a73b22c2b9",
+      "bytes": 7672
+    },
+    {
+      "path": "scripts/quick_query.py",
+      "sha256": "90870db5930cab14b0e11cd05fcf35f9d579d02c43d926d67b0a651f41a41255",
+      "bytes": 8872,
+      "upstream_sha256": "4a356cc7a846a674e802857cbc6e4b5c2a2f83cc8249091012bd129c42f8439e",
+      "modification": "Exam resource wording describes missing returned times without inferring publication status."
+    },
+    {
+      "path": "scripts/snapshot_history.py",
+      "sha256": "97e6e9c731c2b71d035c6682943c76f1ccdd4620d300e915f4a4e390aeef9918",
+      "bytes": 5200
+    },
+    {
+      "path": "scripts/student_query.py",
+      "sha256": "0bab7e0dad57412f585ee7275a6c4a3f7c96c38bfcb83983d959effdfea0104b",
+      "bytes": 26256
+    },
+    {
+      "path": "scripts/vault.py",
+      "sha256": "b1f7c6ea1855b3522c2636577d9e06fa5cb8bcb7d9f61e85d3f1e173c24edb35",
+      "bytes": 3785
+    },
+    {
+      "path": "scripts/zju.py",
+      "sha256": "11884ff32a39772c3bf717a160ead5795c00ff275c8a7fbae49f759bb670ece1",
+      "bytes": 17073
+    },
+    {
+      "path": "references/endpoints.json",
+      "sha256": "c3c51f6e0fbf41d1eb7b879900d1525ffca54ffbfeea8dfba2acc39101e795e2",
+      "bytes": 37227
+    },
+    {
+      "path": "references/model-schema.json",
+      "sha256": "ea350240af884ce2493dcfceb00c5cb19ffadc1f473be31b23ce7a298fc9053f",
+      "bytes": 8930
+    },
+    {
+      "path": "references/calendars/2026-2027-1.json",
+      "sha256": "b60df5e9c17241705c3b212c803cb8e93d2d19b2074e43586b28c37ac5cf3649",
+      "bytes": 1930
+    },
+    {
+      "path": "references/source-attribution.md",
+      "sha256": "00033a0a851de9e79b94914d78d437bbb1fadd55724550f2a345b099186b1af3",
+      "bytes": 523
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "230184f60bae2feaf244f10a8bac053c8ff33a183bcc365b4d8b876d2b7f4809",
+      "bytes": 35823
+    }
+  ],
+  "selection": "Runtime Python and public protocol/schema/calendar references only; no credentials, encrypted bundles, user profile, verification snapshots, tests or caches."
+}

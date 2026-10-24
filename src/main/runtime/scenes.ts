@@ -1,5 +1,6 @@
 import { createHash, randomUUID } from 'node:crypto';
 import type { Store } from '../store';
+import { assistantReplyStatusSql } from '../storage/repository';
 import type { PolicyKernel } from './policy';
 import { HarnessError, workSourceBindingSchema, type ScopeHandle, type CampusSavedReadingProof } from '../../shared/harness';
 import type { MapRouteResult } from '../../shared/map-v2';
@@ -579,7 +580,7 @@ export class SceneService {
       json_extract(s.value,'$.matter.needsReview') AS needs_review,json_extract(s.value,'$.createdAt') AS created_at,
       json_extract(s.value,'$.provenance.sourceBinding') AS source_binding
       FROM messages m JOIN json_each(m.payload,'$.scenes') s WHERE m.session_id=? AND m.role='assistant'
-      AND json_extract(m.payload,'$.status')='done' AND json_extract(s.value,'$.sessionId')=?
+      AND ${assistantReplyStatusSql()} AND json_extract(s.value,'$.sessionId')=?
       AND json_extract(s.value,'$.kind')='discussion' AND json_extract(s.value,'$.id')=? AND json_extract(s.value,'$.revision')=?
       AND json_extract(s.value,'$.source.sourceId')='work:self'
       AND EXISTS(SELECT 1 FROM json_each(s.value,'$.artwork') art WHERE json_extract(art.value,'$.assetId')=?

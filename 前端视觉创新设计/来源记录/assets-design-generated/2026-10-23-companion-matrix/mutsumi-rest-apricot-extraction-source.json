@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-approved-mother-layer-generation",
+  "date": "2026-10-24",
+  "mother": {
+    "file": "mutsumi-rest-apricot-mother-candidate-v1.png",
+    "sha256": "8284c773c9ace87cd0bc9fc3d476a5d23442bd2fbfb9db2b640552e1671fd5b6"
+  },
+  "motherApprovalRecord": "primary-other-mother-reviews.json",
+  "tool": "image_gen.imagegen (built-in)",
+  "generations": [
+    {
+      "kind": "matching background v1",
+      "prompt": {
+        "file": "mutsumi-rest-apricot-background-v1-prompt.txt",
+        "sha256": "c1d46ed2d17bc81b9dadef617d13ec6193960f67dddcdf7f9bc64e8ef1b7367b"
+      },
+      "output": {
+        "file": "mutsumi-rest-apricot-background-candidate-v1.png",
+        "sha256": "1429eb3e6cbfaa012a85f02193dcb1169cecc755b716c4e89cd5d6b8fa28eda5",
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-2aca7a0a-6d13-4849-b897-65eea850249d.png"
+      },
+      "selectedForProcessing": true,
+      "designerObservation": "Original exact room/bench preserved and both empty floor shoes retained. Final partial replacement keeps original entire floor/shoe RGB unchanged; no floor shoe belongs actor.",
+      "inputs": [
+        {
+          "file": "mutsumi-rest-apricot-mother-candidate-v1.png",
+          "sha256": "8284c773c9ace87cd0bc9fc3d476a5d23442bd2fbfb9db2b640552e1671fd5b6"
+        }
+      ]
+    },
+    {
+      "kind": "mask v1",
+      "prompt": {
+        "file": "mutsumi-rest-apricot-mask-v1-prompt.txt",
+        "sha256": "2a0c0eca0cdb8353fdc97a8f8ff24f2c3a3bf75afcdd50891a4d3a88f5de371e"
+      },
+      "output": {
+        "sha256": "033c5273073401079b6cca328fbcdc4f6fa9212237219787a7797e841414cdb6",
+        "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-149ee947-2978-4afe-b4ac-d5273a0f0b79.png"
+      },
+      "selectedForProcessing": false,
+      "designerObservation": "Rejected enlarged/upshifted mask: generated head top218 vs actual281. Not copied into workspace, never used as alpha/matte/generation input. OriginalRGB+matchingBG/source-coordinate trimap used instead.",
+      "inputs": [
+        {
+          "file": "mutsumi-rest-apricot-mother-candidate-v1.png",
+          "sha256": "8284c773c9ace87cd0bc9fc3d476a5d23442bd2fbfb9db2b640552e1671fd5b6"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "approvedByPrimary": false,
+    "primaryLayerReview": "pending",
+    "runtimeAccepted": false
+  }
+}

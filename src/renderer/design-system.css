@@ -2313,9 +2313,6 @@ summary::marker {
 .action-eyebrow {
   color: var(--text-secondary);
 }
-.action-caption {
-  font-size: 12px;
-}
 .message-recovery {
   display: flex;
   flex-wrap: wrap;
@@ -2406,10 +2403,6 @@ summary::marker {
   align-items: center;
   gap: 10px;
   margin: 19px 0 8px;
-}
-.action-caption {
-  color: var(--text-tertiary);
-  font-size: 10px;
 }
 .action-conditions {
   margin-top: 8px;

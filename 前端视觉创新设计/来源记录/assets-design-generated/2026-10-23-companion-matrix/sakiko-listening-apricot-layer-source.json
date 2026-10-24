@@ -15,7 +15,7 @@
     586
   ],
   "alphaNonzero": 48716,
-  "rgbSource": "sakiko-listening-apricot-mother.png",
+  "rgbSource": "../../../运行素材/companion/scenes/sakiko-listening-apricot-mother.png",
   "registeredBackground": {
     "background": "sakiko-listening-apricot-background-calibrated-v7.png",
     "backgroundSha256": "ff6141795a0fecb732b6923519841d358245a5cacff983b64656fd610d116d15"

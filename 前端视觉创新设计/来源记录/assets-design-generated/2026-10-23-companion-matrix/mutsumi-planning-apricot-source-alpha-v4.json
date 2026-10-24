@@ -1,0 +1,64 @@
+{
+  "recordType": "original-visible-hair-ribbon-alpha",
+  "script": "mutsumi-planning-apricot-refine-hair-v4.py",
+  "scriptSha256": "6e4a1b8b0df4ede624f2f31d504e4b1eb8403b77837e3f5f37a057c6db1a49ff",
+  "inputAlpha": "mutsumi-planning-apricot-source-alpha-v3.png",
+  "inputAlphaSha256": "0020251d34abe797ea237e1329314dcde80a37d7bccf1e16d6b3e12d198eee4a",
+  "stableAlpha": "mutsumi-planning-apricot-mask-calibrated-v1.png",
+  "stableAlphaSha256": "8ecf6580870a7e5d6dedf268dfd447d154887566e326e86ad687b019b990b4cc",
+  "sourceObservedRegion": [
+    913,
+    392,
+    937,
+    461
+  ],
+  "sourceObservedHairRibbon": [
+    [
+      916,
+      393
+    ],
+    [
+      921,
+      394
+    ],
+    [
+      918,
+      415
+    ],
+    [
+      919,
+      429
+    ],
+    [
+      921,
+      444
+    ],
+    [
+      925,
+      454
+    ],
+    [
+      921,
+      452
+    ],
+    [
+      917,
+      441
+    ],
+    [
+      914,
+      423
+    ],
+    [
+      913,
+      407
+    ]
+  ],
+  "method": "Source 8x original coordinate crop identified the actual continuous front mint/gold hair ribbon at x913..925, not the v3 trial's sparse room-colored x924..932 curve. Reset only that small ROI to stable source matte and retain the actual original visible ribbon with antialiased alpha. Original RGB and anatomy unchanged.",
+  "outputAlpha": "mutsumi-planning-apricot-source-alpha-v4.png",
+  "outputAlphaSha256": "52f4cb6415e61acd51017e69c1b7464a48652e1a696d35c2d6154d90fe9260bf",
+  "review": {
+    "primary": "pending",
+    "runtime": "not registered"
+  }
+}

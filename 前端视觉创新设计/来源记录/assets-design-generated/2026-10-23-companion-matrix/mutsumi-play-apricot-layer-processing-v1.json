@@ -1,0 +1,206 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "mutsumi-play-apricot-layer-parameters-v1.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": "4.13.0"
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "mutsumi-play-apricot-mother-candidate-v2.png",
+  "motherSha256": "bddfde972af4dc64865025af3035883e0a1e15497e17ed52bc9ef9a7e6d058df",
+  "matte": "mutsumi-play-apricot-mask-candidate-v2.png",
+  "matteSha256": "fb0ad785fdc6d6c2989c21304ec311be86fc61ce445c9dd7cdc08f7e6c367e85",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1060,
+      238,
+      1445,
+      850
+    ],
+    "seedThreshold": 110,
+    "uncertainBandPixels": 4,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.3
+  },
+  "alphaChangedPixels": 168615,
+  "alphaNonzeroPixels": 81158,
+  "alphaBounds": [
+    1075,
+    246,
+    1418,
+    844
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "5b99b18dcde8c6915089c923b44accb30909cbaa088286ce06a550c3ae74e388",
+  "figureRgbSha256": "5b99b18dcde8c6915089c923b44accb30909cbaa088286ce06a550c3ae74e388",
+  "background": {
+    "candidate": "mutsumi-play-apricot-background-candidate-v1.png",
+    "candidateSha256": "23496d18cee1c145ee81938e7edbe261e233c0f19d2f11906c453b824a80bab0",
+    "expandPixels": 6,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          1070,
+          771
+        ],
+        [
+          1147,
+          768
+        ],
+        [
+          1152,
+          817
+        ],
+        [
+          1070,
+          817
+        ]
+      ],
+      [
+        [
+          1173,
+          804
+        ],
+        [
+          1251,
+          802
+        ],
+        [
+          1256,
+          850
+        ],
+        [
+          1171,
+          851
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 104299,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1070,
+          771
+        ],
+        [
+          1147,
+          768
+        ],
+        [
+          1152,
+          817
+        ],
+        [
+          1070,
+          817
+        ]
+      ],
+      [
+        [
+          1173,
+          804
+        ],
+        [
+          1251,
+          802
+        ],
+        [
+          1256,
+          850
+        ],
+        [
+          1171,
+          851
+        ]
+      ],
+      [
+        [
+          1135,
+          583
+        ],
+        [
+          1403,
+          583
+        ],
+        [
+          1417,
+          647
+        ],
+        [
+          1130,
+          644
+        ]
+      ],
+      [
+        [
+          1358,
+          582
+        ],
+        [
+          1438,
+          583
+        ],
+        [
+          1441,
+          609
+        ],
+        [
+          1356,
+          608
+        ]
+      ]
+    ],
+    "featherPixels": 1,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "mutsumi-play-apricot-figure-calibrated-v1.png",
+      "bytes": 2397353,
+      "sha256": "599a759b8b3910bbfa1c564d49b3d50b705a2cb2fe29707247921a2f0eb2705b"
+    },
+    {
+      "file": "mutsumi-play-apricot-mask-calibrated-v1.png",
+      "bytes": 14615,
+      "sha256": "d0465d3a9a1e7ab5f91cfe588409fdb0eb8fcdf981bea67d47b18c1d2215fc9f"
+    },
+    {
+      "file": "mutsumi-play-apricot-background-calibrated-v1.png",
+      "bytes": 2058090,
+      "sha256": "e95a681b348b9fbb1c97dd4e895db7d7759468834ecc919cd5fdc36d7ee2c580"
+    },
+    {
+      "file": "mutsumi-play-apricot-shadow-calibrated-v1.png",
+      "bytes": 47270,
+      "sha256": "61ff800f5556e20638cd60b77fa64ec842021f3d4d7a1b2be2637a20d74ecd47"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

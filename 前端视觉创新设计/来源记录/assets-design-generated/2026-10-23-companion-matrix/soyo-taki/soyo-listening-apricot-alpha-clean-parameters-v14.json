@@ -1,0 +1,34 @@
+{
+  "mother": "soyo-listening-apricot-mother-candidate-v2.png",
+  "motherSha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4",
+  "sourceAlpha": "soyo-listening-apricot-mask-calibrated-v13.png",
+  "sourceAlphaSha256": "f35bcb2b2feca33b529f7b1e393b70759422bbbbd6afd6c22112a1ce44e0d0de",
+  "explicitRoomExclusions": [
+    [
+      [
+        1393,
+        444
+      ],
+      [
+        1406,
+        444
+      ],
+      [
+        1406,
+        469
+      ],
+      [
+        1391,
+        469
+      ],
+      [
+        1388,
+        457
+      ]
+    ]
+  ],
+  "minimumVisibleAlpha": 12,
+  "removeIslandsSmallerThan": 8,
+  "output": "soyo-listening-apricot-alpha-clean-v14.png",
+  "record": "soyo-listening-apricot-alpha-clean-source-v14.json"
+}

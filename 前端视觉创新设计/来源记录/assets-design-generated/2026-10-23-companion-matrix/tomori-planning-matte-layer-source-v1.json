@@ -1,0 +1,32 @@
+{
+  "recordType": "image-generation-layer-source",
+  "character": "tomori",
+  "activity": "planning",
+  "light": "apricot",
+  "layer": "matte",
+  "tool": "image_gen.imagegen",
+  "executionId": "exec-1056c738-822f-499f-8d06-9ac1e93a66e8",
+  "inputs": [
+    {
+      "file": "tomori-planning-apricot-v2-mother.png",
+      "role": "primary_approved_correct_complete_mother_only",
+      "sha256": "5347c9bd9992cc514203294e4b1cbea93e0dacbd012b97f8db8a2aaef98569de"
+    }
+  ],
+  "prompt": "tomori-planning-matte-layer-prompt-v1.txt",
+  "promptSha256": "04dccbc4b427be0ffee7297be71b57bf27287d92c3d976a9d484449dea6ab8f7",
+  "output": {
+    "file": "tomori-planning-matte-generated-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 421086,
+    "sha256": "bba2cb17581e1f09050cddbbb792e3ebc4cac36202ec3ed7440e7d0fdc1a346c"
+  },
+  "review": {
+    "designerViewed": "complete output",
+    "designerStatus": "pending_source_pixel_calibration",
+    "primary": "pending",
+    "runtime": "not used"
+  },
+  "designerObservation": "Technical generated silhouette provides no figure RGB; actual original-source alpha registration and detailed edge inspection are still required."
+}

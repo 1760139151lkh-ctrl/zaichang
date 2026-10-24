@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "mother": "mutsumi-rest-apricot-mother-candidate-v1.png",
+  "motherSha256": "8284c773c9ace87cd0bc9fc3d476a5d23442bd2fbfb9db2b640552e1671fd5b6",
+  "inputAlpha": "mutsumi-rest-apricot-source-alpha-v2.png",
+  "inputAlphaSha256": "a88ce077d258e1e2b4535fc7834cd59895e9d693e6a4ce01846c6533ffde9155",
+  "observedOriginalColorRules": [
+    {
+      "purpose": "Actual original rear sleeve navy at the side of torso must not be mistaken for pillow hole; retain only original navy, not blue check pillow or skin outside source silhouette.",
+      "mode": "include",
+      "polygon": [
+        [
+          1398,
+          503
+        ],
+        [
+          1435,
+          503
+        ],
+        [
+          1435,
+          573
+        ],
+        [
+          1398,
+          573
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          0,
+          145
+        ],
+        [
+          1,
+          0,
+          135
+        ],
+        [
+          2,
+          0,
+          145
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          1,
+          -4,
+          30
+        ],
+        [
+          2,
+          1,
+          -4,
+          25
+        ]
+      ]
+    },
+    {
+      "purpose": "Actual source bright yellow leaves beside front hair/arm are static window background; this ROI contains navy/pale hair, no skin.",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1300,
+          416
+        ],
+        [
+          1328,
+          416
+        ],
+        [
+          1328,
+          481
+        ],
+        [
+          1300,
+          481
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          140,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          1,
+          5,
+          255
+        ],
+        [
+          1,
+          2,
+          50,
+          255
+        ]
+      ]
+    },
+    {
+      "purpose": "Actual source yellow leaves below ear/neck, distinguished from original pale hair and real warm skin by high green-minus-blue.",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1335,
+          368
+        ],
+        [
+          1360,
+          368
+        ],
+        [
+          1360,
+          392
+        ],
+        [
+          1335,
+          392
+        ]
+      ],
+      "channels": [
+        [
+          0,
+          140,
+          255
+        ]
+      ],
+      "differences": [
+        [
+          0,
+          1,
+          0,
+          255
+        ],
+        [
+          1,
+          2,
+          50,
+          255
+        ]
+      ]
+    },
+    {
+      "purpose": "Actual source blue window pixels beside front arm; navy and pale mint hair do not have this blue-sky relation.",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1300,
+          405
+        ],
+        [
+          1332,
+          405
+        ],
+        [
+          1332,
+          476
+        ],
+        [
+          1300,
+          476
+        ]
+      ],
+      "channels": [],
+      "differences": [
+        [
+          1,
+          0,
+          8,
+          255
+        ],
+        [
+          2,
+          1,
+          0,
+          255
+        ]
+      ]
+    },
+    {
+      "purpose": "Actual source blue pillow behind lower rear hair, not a hair highlight.",
+      "mode": "exclude",
+      "polygon": [
+        [
+          1410,
+          463
+        ],
+        [
+          1475,
+          463
+        ],
+        [
+          1475,
+          519
+        ],
+        [
+          1410,
+          519
+        ]
+      ],
+      "channels": [],
+      "differences": [
+        [
+          1,
+          0,
+          4,
+          255
+        ],
+        [
+          2,
+          1,
+          -5,
+          255
+        ]
+      ]
+    }
+  ],
+  "outputAlpha": "mutsumi-rest-apricot-source-alpha-v3.png",
+  "record": "mutsumi-rest-apricot-source-alpha-v3.json"
+}

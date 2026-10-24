@@ -1,0 +1,6 @@
+{
+  "decision": "rejected",
+  "reason": "Local GrabCut drops genuine hair strands and creates a disconnected curl; v13 remains better and is the next input alpha for narrow window-line cleanup.",
+  "rgbRepaint": false,
+  "runtimeAccepted": false
+}

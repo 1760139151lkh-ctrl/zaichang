@@ -501,12 +501,14 @@ export function NotesPanel({
     setBusy(true);
     try {
       const note = await readAll(id);
+      if (!mounted.current || token !== request.current || !stillRequested()) return false;
       const kept = !draft && note.state === 'active' && typeof bridge.notesDraft === 'function'
         ? await bridge.notesDraft({ operation: 'read', key: id }) : undefined;
-      if (kept) { draftEpoch.current = kept.epoch; if (kept.draft) savedDrafts.current.set(id, kept.draft); }
+      if (!mounted.current || token !== request.current || !stillRequested()) return false;
       const original = kept?.draft?.baseRevision && kept.draft.baseRevision !== note.revision
         ? await readAll(id, kept.draft.baseRevision) : note;
       if (mounted.current && token === request.current && stillRequested()) {
+        if (kept) { draftEpoch.current = kept.epoch; if (kept.draft) savedDrafts.current.set(id, kept.draft); }
         const resumed = note.state === 'active' ? draft || (kept?.draft ? { note: original,
           title: kept.draft.title, body: kept.draft.body } : undefined) : undefined;
         setEditor(resumed || editable(note));
@@ -680,7 +682,18 @@ export function NotesPanel({
       requestAnimationFrame(() => {
         if (!current()) return;
         const control = host.current?.querySelector<HTMLTextAreaElement>('textarea.notes-body');
-        if (!control) return;
+        const opened = editorCurrent.current;
+        if (!control || !opened?.note || opened.note.id !== source.id || control.value !== opened.body) return;
+        if (isDirty(opened)) {
+          setReceipt('你刚写下的内容还在，先接着这一版。');
+          control.focus({ preventScroll: true });
+          return;
+        }
+        if (opened.note.state !== 'active' || opened.note.revision !== source.revision || opened.note.sha256 !== source.sha256) {
+          setReceipt(opened.note.state === 'deleted' ? '这页已收起来，原句没有重新选中。' : '这一页后来改过，这里是现在的内容。');
+          control.focus({ preventScroll: true });
+          return;
+        }
         const points = Array.from(control.value), start = points.slice(0, source.start).join('').length,
           end = points.slice(0, source.end).join('').length;
         revealNoteMatch(control, start, end);

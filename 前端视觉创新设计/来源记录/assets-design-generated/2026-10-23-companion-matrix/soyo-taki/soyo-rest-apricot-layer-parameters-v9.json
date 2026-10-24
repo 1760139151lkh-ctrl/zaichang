@@ -1,0 +1,176 @@
+{
+  "mother": "soyo-rest-apricot-mother-candidate-v1.png",
+  "motherSha256": "c1be74d29d85a6ac0a2976acdcb3632fe625d46fef9535ca6ed6f33eabeb6e61",
+  "matte": "soyo-rest-apricot-alpha-clean-v9.png",
+  "alphaSource": "luminance",
+  "alphaLow": 3,
+  "alphaHigh": 252,
+  "figure": "soyo-rest-apricot-figure-calibrated-v9.png",
+  "mask": "soyo-rest-apricot-mask-calibrated-v9.png",
+  "backgroundCandidate": "soyo-rest-apricot-background-candidate-v1.png",
+  "background": "soyo-rest-apricot-background-calibrated-v9.png",
+  "backgroundExpandPixels": 4,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1270,
+        276
+      ],
+      [
+        1345,
+        272
+      ],
+      [
+        1381,
+        300
+      ],
+      [
+        1390,
+        368
+      ],
+      [
+        1414,
+        415
+      ],
+      [
+        1410,
+        473
+      ],
+      [
+        1394,
+        509
+      ],
+      [
+        1404,
+        548
+      ],
+      [
+        1441,
+        574
+      ],
+      [
+        1433,
+        589
+      ],
+      [
+        1387,
+        584
+      ],
+      [
+        1305,
+        602
+      ],
+      [
+        1235,
+        607
+      ],
+      [
+        1215,
+        626
+      ],
+      [
+        1222,
+        717
+      ],
+      [
+        1218,
+        753
+      ],
+      [
+        1127,
+        756
+      ],
+      [
+        1071,
+        746
+      ],
+      [
+        1068,
+        724
+      ],
+      [
+        1104,
+        706
+      ],
+      [
+        1121,
+        673
+      ],
+      [
+        1149,
+        594
+      ],
+      [
+        1157,
+        548
+      ],
+      [
+        1190,
+        526
+      ],
+      [
+        1230,
+        514
+      ],
+      [
+        1252,
+        469
+      ],
+      [
+        1264,
+        420
+      ],
+      [
+        1263,
+        365
+      ],
+      [
+        1257,
+        323
+      ]
+    ]
+  ],
+  "shadow": "soyo-rest-apricot-shadow-calibrated-v9.png",
+  "contactShadowPolygons": [
+    [
+      [
+        1160,
+        540
+      ],
+      [
+        1445,
+        540
+      ],
+      [
+        1445,
+        620
+      ],
+      [
+        1160,
+        620
+      ]
+    ],
+    [
+      [
+        1060,
+        700
+      ],
+      [
+        1230,
+        700
+      ],
+      [
+        1230,
+        765
+      ],
+      [
+        1060,
+        765
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "record": "soyo-rest-apricot-layer-processing-v9.json"
+}

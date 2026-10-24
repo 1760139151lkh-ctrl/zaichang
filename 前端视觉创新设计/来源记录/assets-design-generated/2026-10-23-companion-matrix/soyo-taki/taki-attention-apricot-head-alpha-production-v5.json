@@ -1,0 +1,19 @@
+{
+  "recordType": "deterministic-original-alpha-calibration",
+  "processor": "taki-warm-layer-production.py",
+  "processorSha256": "dcf253562f578fe6d6c84fc08563dc72a3d21d9f81a6d97c4d483361b27c2f0d",
+  "parameters": "taki-attention-apricot-head-alpha-parameters-v5.json",
+  "parametersSha256": "686896c06fa564edcf9707af2e6ef93e6676d234efe810326ccb3a2fde29680a",
+  "mother": "taki-attention-apricot-mother-candidate-v2.png",
+  "motherSha256": "23c79a3ce36b887e2c2f57f37558cbe5ace84014c9a03524e31872028004a2f5",
+  "sourceAlpha": "taki-attention-apricot-mask-candidate-v1.png",
+  "sourceAlphaSha256": "ca49625ae55dae71a08dcbaf1740dee378e79eff33129d266fb270f32375822b",
+  "output": "taki-attention-apricot-head-alpha-calibrated-v5.png",
+  "outputSha256": "847bab1be369d21b3aafc60d284ec905e37a75f50bdb526dfb340c3fd0782cd3",
+  "geometryTransform": "identity",
+  "originalRgbModified": false,
+  "review": {
+    "primary": "pending",
+    "runtimeAccepted": false
+  }
+}

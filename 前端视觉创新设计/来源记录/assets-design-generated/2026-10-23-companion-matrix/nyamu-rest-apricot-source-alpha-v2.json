@@ -1,0 +1,30 @@
+{
+  "recordType": "original-RGB-purple-bob-and-arm-gap-alpha",
+  "script": "nyamu-rest-apricot-refine-head-v2.py",
+  "scriptSha256": "28f0d05e4e5935babe201cf0ad802a16410de39541b7f4a4d5b8d799a3212798",
+  "mother": "nyamu-rest-apricot-mother-candidate-v1.png",
+  "motherSha256": "c6264d37f43bef35ee7aad4108a49b6cc977b3bba98c74233ea4aff967926fd8",
+  "inputAlpha": "nyamu-rest-apricot-mask-calibrated-v1.png",
+  "inputAlphaSha256": "e40e25cbd1fa494ce8ae33e34135846306d22887d616c2579c42ed64d305f0e5",
+  "registeredMask": "nyamu-rest-apricot-mask-candidate-v2.png",
+  "registeredMaskSha256": "a7f60534997a805ef5566804025947248cc0782801e4aa33db54aee5375db0de",
+  "originalHairRegion": [
+    1278,
+    288,
+    1405,
+    406
+  ],
+  "originalPillowGapRegion": [
+    1359,
+    488,
+    1400,
+    580
+  ],
+  "method": "Stable original-RGB full body alpha retains fine bob only where exact original RGB is purple/pink and excludes actual blue check pillow in rear arm/torso air gap. No source skin/body/pose/color painted or moved.",
+  "outputAlpha": "nyamu-rest-apricot-source-alpha-v2.png",
+  "outputAlphaSha256": "41fe25359512a2bcd4d6ad3d61b006b75123377a740190b81c8a88a363e0e43a",
+  "review": {
+    "primary": "pending",
+    "runtime": "not registered"
+  }
+}

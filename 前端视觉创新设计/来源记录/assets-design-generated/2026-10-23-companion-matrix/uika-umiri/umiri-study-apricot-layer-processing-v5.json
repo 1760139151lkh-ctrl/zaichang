@@ -1,0 +1,278 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "umiri-study-apricot-layer-parameters-v5.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "umiri-study-apricot-mother-candidate-v1.png",
+  "motherSha256": "cb2b45dedddb45a558b4ed49ed28faadddd84aec01c4f10df25b0c9884d71847",
+  "matte": "umiri-study-apricot-figure-calibrated-v4.png",
+  "matteSha256": "2887a600b50ec87fd64607174c6ba0dd56f4d403a739a17515f9e61f209d9551",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "excludeWarmRoomRegions": [
+    {
+      "polygon": [
+        [
+          805,
+          514
+        ],
+        [
+          826,
+          514
+        ],
+        [
+          836,
+          584
+        ],
+        [
+          805,
+          584
+        ]
+      ],
+      "redMin": 150,
+      "redOverGreen": 20,
+      "redOverBlue": 35
+    },
+    {
+      "polygon": [
+        [
+          892,
+          645
+        ],
+        [
+          1026,
+          645
+        ],
+        [
+          1026,
+          729
+        ],
+        [
+          892,
+          729
+        ]
+      ],
+      "redMin": 100,
+      "redOverGreen": 25,
+      "redOverBlue": 50
+    }
+  ],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 0,
+  "alphaNonzeroPixels": 38862,
+  "alphaBounds": [
+    797,
+    311,
+    1019,
+    725
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "5bed3d09f8493ba9c73de8e284f58f9611645ce19787a165ecd2bc3a7ea0c590",
+  "figureRgbSha256": "5bed3d09f8493ba9c73de8e284f58f9611645ce19787a165ecd2bc3a7ea0c590",
+  "background": {
+    "candidate": "umiri-study-apricot-background-raw-v1.png",
+    "candidateSha256": "2ac82c1aa66e9b80044a5e91e1eb78e65505c8eb0695aada1f608c21d9a4db3c",
+    "expandPixels": 5,
+    "featherPixels": 1,
+    "additionalErasePolygons": [
+      [
+        [
+          887,
+          681
+        ],
+        [
+          1029,
+          678
+        ],
+        [
+          1032,
+          742
+        ],
+        [
+          887,
+          742
+        ]
+      ],
+      [
+        [
+          866,
+          494
+        ],
+        [
+          939,
+          494
+        ],
+        [
+          944,
+          536
+        ],
+        [
+          866,
+          536
+        ]
+      ],
+      [
+        [
+          935,
+          537
+        ],
+        [
+          1025,
+          537
+        ],
+        [
+          1025,
+          650
+        ],
+        [
+          935,
+          650
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 65026,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          895,
+          707
+        ],
+        [
+          972,
+          707
+        ],
+        [
+          975,
+          731
+        ],
+        [
+          895,
+          731
+        ]
+      ],
+      [
+        [
+          947,
+          692
+        ],
+        [
+          1026,
+          692
+        ],
+        [
+          1026,
+          724
+        ],
+        [
+          947,
+          724
+        ]
+      ],
+      [
+        [
+          820,
+          561
+        ],
+        [
+          927,
+          561
+        ],
+        [
+          927,
+          594
+        ],
+        [
+          820,
+          594
+        ]
+      ],
+      [
+        [
+          878,
+          477
+        ],
+        [
+          946,
+          477
+        ],
+        [
+          946,
+          503
+        ],
+        [
+          878,
+          503
+        ]
+      ],
+      [
+        [
+          945,
+          465
+        ],
+        [
+          1007,
+          465
+        ],
+        [
+          1007,
+          494
+        ],
+        [
+          945,
+          494
+        ]
+      ]
+    ],
+    "featherPixels": 0.6,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "umiri-study-apricot-figure-calibrated-v5.png",
+      "bytes": 2418629,
+      "sha256": "2887a600b50ec87fd64607174c6ba0dd56f4d403a739a17515f9e61f209d9551"
+    },
+    {
+      "file": "umiri-study-apricot-mask-calibrated-v5.png",
+      "bytes": 26034,
+      "sha256": "2557355b2ed3db5b86a18f2f68f5de1fb241cbb617ba40fd3cf8485f11952cb1"
+    },
+    {
+      "file": "umiri-study-apricot-background-calibrated-v5.png",
+      "bytes": 2085052,
+      "sha256": "5fe0b861958649e6d77d6d6f8ee5ee5477775c6c0ef11782673f38539552844e"
+    },
+    {
+      "file": "umiri-study-apricot-shadow-calibrated-v5.png",
+      "bytes": 31752,
+      "sha256": "29f5eb8637316de56eaf9d4468a288de1775c5f949e153e42956c4fe9d0c1469"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

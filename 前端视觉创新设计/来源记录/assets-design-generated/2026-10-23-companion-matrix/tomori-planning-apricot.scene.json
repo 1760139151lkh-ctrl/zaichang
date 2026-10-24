@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-planning-apricot-room4",
+  "character": "tomori",
+  "activity": "planning",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "tomori-planning-apricot-v2-mother.png",
+  "background": "tomori-planning-background-calibrated-v5.png",
+  "figure": "tomori-planning-figure-calibrated-v5.png",
+  "mask": "tomori-planning-mask-calibrated-v5.png",
+  "shadow": "tomori-planning-shadow-calibrated-v5.png",
+  "seat": [
+    0.8326822916666666,
+    0.8955078125
+  ],
+  "ground": [
+    0.8326822916666666,
+    0.8955078125
+  ],
+  "bodyBounds": [
+    0.6861979166666666,
+    0.134765625,
+    0.8606770833333334,
+    0.8994140625
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "floor",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "77.799% 13.477%, 75.846% 14.648%, 74.154% 17.969%, 73.958% 20.996%, 74.544% 24.512%, 74.089% 23.730%, 73.958% 21.484%, 73.958% 23.926%, 74.935% 26.172%, 74.870% 24.805%, 75.260% 26.465%, 76.172% 26.855%, 74.870% 29.297%, 73.633% 35.938%, 73.177% 36.328%, 68.620% 34.863%, 72.396% 38.477%, 72.396% 39.062%, 74.154% 39.453%, 75.391% 41.016%, 74.023% 45.898%, 72.852% 54.004%, 72.982% 54.590%, 75.260% 56.055%, 76.758% 64.453%, 77.865% 79.785%, 77.083% 82.129%, 75.065% 83.887%, 74.544% 85.547%, 76.497% 86.328%, 79.948% 84.570%, 79.492% 79.492%, 79.492% 66.211%, 82.422% 76.660%, 83.333% 81.445%, 83.203% 83.887%, 80.924% 87.695%, 80.729% 89.160%, 82.682% 89.844%, 84.310% 89.160%, 86.003% 86.914%, 85.612% 83.301%, 84.440% 78.516%, 83.659% 69.531%, 81.641% 63.574%, 82.422% 55.664%, 84.049% 55.078%, 84.635% 54.102%, 83.268% 49.805%, 82.943% 47.559%, 83.268% 46.094%, 82.031% 41.113%, 82.943% 40.137%, 83.268% 34.863%, 84.115% 32.715%, 84.440% 28.125%, 84.115% 26.660%, 82.031% 25.684%, 81.185% 24.512%, 80.990% 25.098%, 80.729% 24.805%, 80.990% 23.438%, 82.487% 21.777%, 82.031% 19.434%, 79.753% 14.258%",
+  "travel": 0.0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerStage": "candidate",
+    "producerNote": "Primary must inspect source/matte/contact and measured anchors. No runtime admission or live physical motion claim."
+  },
+  "calibrationObservation": {
+    "seatPixels": [
+      1279,
+      917
+    ],
+    "groundPixels": [
+      1279,
+      917
+    ],
+    "shortRangePixels": 0,
+    "note": "Source front whole-loafer contact; peer floor-contract owner independently checked the same point. Fixed stance, not a seat pose."
+  },
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-planning-layer-processing-v5.json",
+  "floorContact": "feet"
+}

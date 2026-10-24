@@ -1,0 +1,313 @@
+{
+  "mother": "tomori-rest-apricot-mother.png",
+  "motherSha256": "b0f751e5feeff86ddbb8074945a9564487d4d60da05b4955137f2481a972fd90",
+  "matte": "tomori-rest-matte-registered-v3.png",
+  "matteRegistration": {
+    "proposal": "tomori-rest-matte-generated-v1.png",
+    "proposalSha256": "05453c8d3d6b12787a26e3017788488448343ee4fed223b962877b62f88b9cc7",
+    "sourceBounds": [
+      710,
+      69,
+      1386,
+      930
+    ],
+    "targetBounds": [
+      1068,
+      296,
+      1398,
+      745
+    ]
+  },
+  "registeredRefinement": {
+    "uncertainBandPixels": 16,
+    "edgeFeatherPixels": 0.6,
+    "foregroundPolygons": [
+      [
+        [
+          1305,
+          320
+        ],
+        [
+          1335,
+          320
+        ],
+        [
+          1335,
+          350
+        ],
+        [
+          1305,
+          350
+        ]
+      ],
+      [
+        [
+          1305,
+          416
+        ],
+        [
+          1330,
+          418
+        ],
+        [
+          1332,
+          482
+        ],
+        [
+          1292,
+          481
+        ]
+      ],
+      [
+        [
+          1180,
+          529
+        ],
+        [
+          1192,
+          527
+        ],
+        [
+          1195,
+          532
+        ],
+        [
+          1183,
+          535
+        ]
+      ],
+      [
+        [
+          1371,
+          562
+        ],
+        [
+          1388,
+          564
+        ],
+        [
+          1392,
+          570
+        ],
+        [
+          1375,
+          570
+        ]
+      ],
+      [
+        [
+          1240,
+          550
+        ],
+        [
+          1290,
+          552
+        ],
+        [
+          1285,
+          570
+        ],
+        [
+          1235,
+          564
+        ]
+      ],
+      [
+        [
+          1140,
+          650
+        ],
+        [
+          1145,
+          650
+        ],
+        [
+          1131,
+          679
+        ],
+        [
+          1127,
+          679
+        ]
+      ],
+      [
+        [
+          1181,
+          651
+        ],
+        [
+          1190,
+          652
+        ],
+        [
+          1191,
+          681
+        ],
+        [
+          1181,
+          682
+        ]
+      ],
+      [
+        [
+          1083,
+          715
+        ],
+        [
+          1112,
+          713
+        ],
+        [
+          1120,
+          723
+        ],
+        [
+          1082,
+          724
+        ]
+      ],
+      [
+        [
+          1148,
+          729
+        ],
+        [
+          1180,
+          724
+        ],
+        [
+          1188,
+          737
+        ],
+        [
+          1151,
+          740
+        ]
+      ]
+    ],
+    "backgroundPolygons": [
+      [
+        [
+          1335,
+          582
+        ],
+        [
+          1405,
+          582
+        ],
+        [
+          1405,
+          595
+        ],
+        [
+          1335,
+          595
+        ]
+      ],
+      [
+        [
+          1338,
+          578
+        ],
+        [
+          1376,
+          572
+        ],
+        [
+          1410,
+          575
+        ],
+        [
+          1412,
+          586
+        ],
+        [
+          1377,
+          591
+        ],
+        [
+          1334,
+          582
+        ]
+      ]
+    ]
+  },
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "tomori-rest-figure-calibrated-v3.png",
+  "mask": "tomori-rest-mask-calibrated-v3.png",
+  "backgroundCandidate": "tomori-rest-background-generated-v1.png",
+  "background": "tomori-rest-background-calibrated-v3.png",
+  "backgroundExpandPixels": 10,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1058,
+        697
+      ],
+      [
+        1222,
+        697
+      ],
+      [
+        1222,
+        758
+      ],
+      [
+        1058,
+        758
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1065,
+        711
+      ],
+      [
+        1115,
+        702
+      ],
+      [
+        1202,
+        725
+      ],
+      [
+        1209,
+        749
+      ],
+      [
+        1080,
+        748
+      ]
+    ],
+    [
+      [
+        1200,
+        566
+      ],
+      [
+        1347,
+        566
+      ],
+      [
+        1358,
+        592
+      ],
+      [
+        1196,
+        592
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "tomori-rest-shadow-calibrated-v3.png",
+  "record": "tomori-rest-layer-processing-v3.json",
+  "reviewNote": "Original-source fixed pillow/book ROI explicitly stays background. Source clothes, hand, neck, dark socks and shoes remain original RGB. No new body pixels or geometry; candidate still needs visual review."
+}

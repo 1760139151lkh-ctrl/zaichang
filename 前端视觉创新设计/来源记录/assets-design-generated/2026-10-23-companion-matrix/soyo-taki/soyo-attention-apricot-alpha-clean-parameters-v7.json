@@ -1,0 +1,16 @@
+{
+  "mother": "soyo-attention-apricot-mother-candidate-v1.png",
+  "motherSha256": "c854bfeb6cc56482357a1fbf64ba020b6e42a52cdbe6240157ac89466852784e",
+  "sourceAlpha": "soyo-attention-apricot-mask-candidate-v1.png",
+  "sourceAlphaSha256": "3572a3489e7765142fa3d2e2fe1cab3a923d932194072d24a635605e89664f55",
+  "sourceAlphaMode": "luminance",
+  "edgeDifference": {
+    "background": "soyo-attention-apricot-background-candidate-v1.png",
+    "backgroundSha256": "e03d4a4c6b8233efe7b55ea7d204d30d6f3467658c93b8148967ba83fdfed37e",
+    "edgePixels": 3,
+    "differenceLow": 7,
+    "differenceHigh": 23
+  },
+  "output": "soyo-attention-apricot-alpha-clean-v7.png",
+  "record": "soyo-attention-apricot-alpha-clean-source-v7.json"
+}

@@ -1,0 +1,27 @@
+{
+  "recordType": "built-in-image-generation-source",
+  "tool": "image_gen.imagegen",
+  "operation": "precise-object-edit",
+  "input": "taki-rest-apricot-mother-candidate-v1.png",
+  "inputSha256": "c946307e511b2a1f60652c04ec44e00a4a6d4c23ad3ded44043587f708983ee4",
+  "inputRole": "sole correct primary-approved complete mother",
+  "prompt": "taki-rest-apricot-background-prompt-v1.txt",
+  "promptFileSha256": "ffac473406ecc95a483aff50a1fb47fb9fddc438d1a0594c27d89e128b92d2d1",
+  "output": "taki-rest-apricot-background-candidate-v1.png",
+  "producerReview": "pending",
+  "primaryReview": "pending",
+  "runtimeAccepted": false,
+  "outputSha256": "effd2b0a4f9c64d726093ea8318a70585f3b2b732ea2f7a1404a87dedd86d510",
+  "bytes": 2135156,
+  "canvas": [
+    1536,
+    1024
+  ],
+  "toolDefaultOutput": "generated_images/01a16e45-3c23-7790-a62d-04bd03b674e2/exec-663a9321-c428-4961-9e46-c0ded028a670.png",
+  "executionId": "exec-663a9321-c428-4961-9e46-c0ded028a670",
+  "toolPromptTextSha256": "387721b4cfc13f9c824d47d64741360c5da3f6c5363179af9f5aeb5a0d3ce7a5",
+  "actualToolArguments": {
+    "referencedImageCount": 1,
+    "transparent_background": false
+  }
+}

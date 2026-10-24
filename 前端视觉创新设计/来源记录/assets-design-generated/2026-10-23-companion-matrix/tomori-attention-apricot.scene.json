@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-attention-apricot-room4",
+  "character": "tomori",
+  "activity": "attention",
+  "light": "morning",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "tomori-attention-apricot-mother.png",
+  "background": "tomori-attention-background-calibrated-v2.png",
+  "figure": "tomori-attention-figure-calibrated-v2.png",
+  "mask": "tomori-attention-mask-calibrated-v2.png",
+  "shadow": "tomori-attention-shadow-calibrated-v2.png",
+  "seat": [
+    0.828125,
+    0.572265625
+  ],
+  "ground": [
+    0.7734375,
+    0.7607421875
+  ],
+  "bodyBounds": [
+    0.7213541666666666,
+    0.287109375,
+    0.91015625,
+    0.765625
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "85.286% 28.906%, 83.398% 28.906%, 81.510% 30.566%, 80.469% 35.059%, 80.924% 34.668%, 80.729% 37.207%, 80.990% 36.914%, 81.771% 38.477%, 79.818% 39.160%, 79.362% 41.016%, 78.125% 42.676%, 76.367% 43.457%, 72.982% 41.895%, 72.461% 43.164%, 74.089% 44.141%, 76.107% 46.875%, 77.995% 46.680%, 80.013% 44.434%, 79.883% 47.559%, 77.018% 53.516%, 75.781% 54.980%, 76.172% 55.859%, 77.214% 55.762%, 77.279% 56.250%, 75.586% 61.426%, 73.763% 71.094%, 72.266% 74.512%, 72.135% 75.684%, 72.461% 76.172%, 74.023% 76.172%, 75.326% 74.512%, 75.586% 69.434%, 78.841% 59.180%, 79.167% 60.254%, 78.385% 67.969%, 77.539% 71.582%, 75.716% 74.902%, 75.651% 75.879%, 76.237% 76.465%, 77.930% 76.172%, 79.557% 74.512%, 79.492% 70.117%, 81.250% 63.086%, 81.641% 57.617%, 85.742% 57.324%, 87.109% 56.641%, 87.565% 55.762%, 88.346% 56.836%, 90.951% 56.641%, 90.104% 55.566%, 88.737% 55.078%, 87.956% 52.051%, 86.914% 45.215%, 87.044% 40.723%, 85.417% 39.062%, 86.979% 37.500%, 87.370% 32.129%, 86.784% 30.371%",
+  "travel": 0.00390625,
+  "slope": 0.08,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-other-mother-reviews.json",
+    "layerStage": "candidate",
+    "producerNote": "Primary must inspect source/matte/contact and measured anchors. No runtime admission or live physical motion claim."
+  },
+  "calibrationObservation": {
+    "seatPixels": [
+      1272,
+      586
+    ],
+    "groundPixels": [
+      1188,
+      779
+    ],
+    "shortRangePixels": 6,
+    "note": "Source cushion/skirt contact and front loafer. Offered pale paper card is the original held object, kept with the source person."
+  },
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-attention-layer-processing-v2.json"
+}

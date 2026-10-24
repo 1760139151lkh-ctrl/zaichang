@@ -1,0 +1,214 @@
+{
+  "recordType": "deterministic-scene-layer-production",
+  "parameters": "tomori-chat-mist-layer-parameters-v2.json",
+  "processor": "extract-scene-layers.py",
+  "processorSha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "NumPy": "2.4.6",
+    "OpenCV": null
+  },
+  "authorization": "User explicitly allowed precise original-scene layering on 2026-10-23; alpha/matte, background noise and registration only, no anatomy/face/pose repaint.",
+  "mother": "tomori-chat-mist-mother-candidate.png",
+  "motherSha256": "7b486d6f2ede9fe4a9dd54515eb10ab5bd8a50c450804c7e4a3cdc3e5a12281d",
+  "matte": "tomori-chat-mist-matte-registered-v2.png",
+  "matteSha256": "9d14d8130fb22ca515f1a74a80fa66cc2e73dd66ebcfae7a50f9654d8752d7d3",
+  "matteRegionOverrides": [],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "transform": "identity; no resize/translation/warp",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [
+    [
+      [
+        1394,
+        511
+      ],
+      [
+        1399,
+        511
+      ],
+      [
+        1399,
+        516
+      ],
+      [
+        1394,
+        516
+      ]
+    ],
+    [
+      [
+        1392,
+        515
+      ],
+      [
+        1398,
+        515
+      ],
+      [
+        1398,
+        522
+      ],
+      [
+        1392,
+        522
+      ]
+    ],
+    [
+      [
+        1447,
+        583
+      ],
+      [
+        1454,
+        583
+      ],
+      [
+        1454,
+        588
+      ],
+      [
+        1447,
+        588
+      ]
+    ],
+    [
+      [
+        1414,
+        591
+      ],
+      [
+        1420,
+        591
+      ],
+      [
+        1420,
+        597
+      ],
+      [
+        1414,
+        597
+      ]
+    ]
+  ],
+  "excludeWarmRoomRegions": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": null,
+  "alphaChangedPixels": 3265,
+  "alphaNonzeroPixels": 55271,
+  "alphaBounds": [
+    1157,
+    271,
+    1449,
+    784
+  ],
+  "rgbMethod": "Entire RGB payload taken from original mother; only alpha changes visibility.",
+  "motherRgbSha256": "8f32131b97f0165f8efbb56074f18de802809a2fb60c70d309fa3d69dc10492a",
+  "figureRgbSha256": "8f32131b97f0165f8efbb56074f18de802809a2fb60c70d309fa3d69dc10492a",
+  "background": {
+    "candidate": "tomori-chat-mist-background-generated-v1.png",
+    "candidateSha256": "bf65ace8924f5a6d6301392230e0acd8489ad065319189f4b69f6c22a250dd50",
+    "expandPixels": 10,
+    "featherPixels": 2,
+    "additionalErasePolygons": [
+      [
+        [
+          1148,
+          717
+        ],
+        [
+          1285,
+          717
+        ],
+        [
+          1285,
+          798
+        ],
+        [
+          1148,
+          798
+        ]
+      ]
+    ],
+    "originalPixelPreservePolygons": [],
+    "changedPixels": 86470,
+    "method": "Mother RGB retained outside the explicitly grown/feathered character patch; only that patch uses this mother's generated clean background."
+  },
+  "contactShadow": {
+    "mode": "normal source-over RGBA residual",
+    "polygons": [
+      [
+        [
+          1148,
+          717
+        ],
+        [
+          1285,
+          717
+        ],
+        [
+          1285,
+          798
+        ],
+        [
+          1148,
+          798
+        ]
+      ],
+      [
+        [
+          1180,
+          560
+        ],
+        [
+          1452,
+          560
+        ],
+        [
+          1452,
+          608
+        ],
+        [
+          1180,
+          608
+        ]
+      ]
+    ],
+    "featherPixels": 1.2,
+    "maximumDistanceFromFigurePixels": 3,
+    "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+  },
+  "outputs": [
+    {
+      "file": "tomori-chat-mist-figure-calibrated-v2.png",
+      "bytes": 2286353,
+      "sha256": "2cc4533ee4cc689523991c0a289f2af751978a74457c5a596bf520887ba3622d"
+    },
+    {
+      "file": "tomori-chat-mist-mask-calibrated-v2.png",
+      "bytes": 17906,
+      "sha256": "a34298fd971699f4d1c6fbe00210aef4d058e9a3c54d3d3ad3c88ad3b5bb23fa"
+    },
+    {
+      "file": "tomori-chat-mist-background-calibrated-v2.png",
+      "bytes": 1980506,
+      "sha256": "48b19cb36fd5091bca8c7d9f334b101e01c91460e98f14e62d10393f868fa6be"
+    },
+    {
+      "file": "tomori-chat-mist-shadow-calibrated-v2.png",
+      "bytes": 42264,
+      "sha256": "e408f780894ad7753859d1119a92751a4522e29baf2f6f3f605f639df44f3293"
+    }
+  ],
+  "review": {
+    "primaryLayerReview": "pending",
+    "integrated": false,
+    "runtimeAccepted": false
+  }
+}

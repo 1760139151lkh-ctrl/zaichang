@@ -1,0 +1,110 @@
+{
+  "mother": "soyo-chat-rain-mother-candidate-v1.png",
+  "motherSha256": "130d8136ac3d77c8618f5cc7a772fb01bd9882efa2a44e44a018c5069b12b4ef",
+  "matte": "soyo-chat-apricot-mask-calibrated-v2.png",
+  "alphaSource": "alpha",
+  "alphaLow": 8,
+  "alphaHigh": 250,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "localColorMatteRefinement": {
+    "region": [
+      1160,
+      270,
+      1405,
+      450
+    ],
+    "seedThreshold": 80,
+    "uncertainBandPixels": 3,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.35
+  },
+  "backgroundCandidate": "soyo-chat-rain-background-generated-v1.png",
+  "background": "soyo-chat-rain-background-calibrated-v1.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1157,
+        741
+      ],
+      [
+        1284,
+        741
+      ],
+      [
+        1301,
+        794
+      ],
+      [
+        1163,
+        794
+      ]
+    ],
+    [
+      [
+        1165,
+        576
+      ],
+      [
+        1385,
+        576
+      ],
+      [
+        1385,
+        622
+      ],
+      [
+        1165,
+        622
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1167,
+        744
+      ],
+      [
+        1291,
+        744
+      ],
+      [
+        1300,
+        791
+      ],
+      [
+        1162,
+        791
+      ]
+    ],
+    [
+      [
+        1170,
+        570
+      ],
+      [
+        1384,
+        570
+      ],
+      [
+        1384,
+        622
+      ],
+      [
+        1170,
+        622
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "soyo-chat-rain-shadow-calibrated-v1.png",
+  "figure": "soyo-chat-rain-figure-calibrated-v1.png",
+  "mask": "soyo-chat-rain-mask-calibrated-v1.png",
+  "record": "soyo-chat-rain-layer-processing-v1.json",
+  "reviewNote": "Own primary-reviewed full themed mother supplies every RGB pixel. Warm same-pose soft alpha is only an explicit initialization; own head RGB refines local edge and matching new background/shadow are independent. No RGB/pose/body redraw or independent resize. Primary layer and actual Stage remain pending.",
+  "excludeWarmRoomRegions": []
+}

@@ -1,0 +1,29 @@
+{
+  "recordType": "original-coordinate-alpha-refinement",
+  "script": "soyo-listening-apricot-alpha-refine-v7.py",
+  "scriptSha256": "9d866f81ee76c69805333e9b804fba7dbfdd76b05491cf1980fb28994d7e859f",
+  "parameters": "soyo-listening-apricot-alpha-refinement-parameters-v7.json",
+  "parametersSha256": "15d12c811cc05fe08a853136e3131cdf8801bfbb13b80eb8ae2287f0d4914a12",
+  "inputs": [
+    {
+      "file": "soyo-listening-apricot-mother-candidate-v2.png",
+      "sha256": "a40505d14d142b608ed50b76de82c80b07ba144e21529f225561161181b5ced4"
+    },
+    {
+      "file": "soyo-listening-apricot-mask-calibrated-v5.png",
+      "sha256": "3fc53255fb3fe6a123a5717b2d47dc228730f426308030af86a72fdcc4660300"
+    },
+    {
+      "file": "soyo-listening-apricot-mask-calibrated-v4.png",
+      "sha256": "a462f18aaae1996fec68cb0fc905942985a5331b40470698207f78842971b491"
+    }
+  ],
+  "output": "soyo-listening-apricot-alpha-refined-v7.png",
+  "outputSha256": "190c9a924f958345ab6cfb2b8f642983adaaacc1483de8b093c4d6afeded7973",
+  "rgbChanged": false,
+  "transform": "identity",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

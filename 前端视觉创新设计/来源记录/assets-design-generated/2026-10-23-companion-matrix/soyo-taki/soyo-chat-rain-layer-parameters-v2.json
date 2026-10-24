@@ -1,0 +1,117 @@
+{
+  "mother": "soyo-chat-rain-mother-candidate-v1.png",
+  "motherSha256": "130d8136ac3d77c8618f5cc7a772fb01bd9882efa2a44e44a018c5069b12b4ef",
+  "matte": "soyo-chat-rain-mask-calibrated-v1.png",
+  "alphaSource": "alpha",
+  "alphaLow": 0,
+  "alphaHigh": 255,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "localColorMatteRefinement": null,
+  "backgroundCandidate": "soyo-chat-rain-background-generated-v1.png",
+  "background": "soyo-chat-rain-background-calibrated-v2.png",
+  "backgroundExpandPixels": 7,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1157,
+        741
+      ],
+      [
+        1284,
+        741
+      ],
+      [
+        1301,
+        794
+      ],
+      [
+        1163,
+        794
+      ]
+    ],
+    [
+      [
+        1165,
+        576
+      ],
+      [
+        1385,
+        576
+      ],
+      [
+        1385,
+        622
+      ],
+      [
+        1165,
+        622
+      ]
+    ],
+    [
+      [
+        1209,
+        271
+      ],
+      [
+        1407,
+        271
+      ],
+      [
+        1407,
+        516
+      ],
+      [
+        1209,
+        516
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1167,
+        744
+      ],
+      [
+        1291,
+        744
+      ],
+      [
+        1300,
+        791
+      ],
+      [
+        1162,
+        791
+      ]
+    ],
+    [
+      [
+        1170,
+        570
+      ],
+      [
+        1384,
+        570
+      ],
+      [
+        1384,
+        622
+      ],
+      [
+        1170,
+        622
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "soyo-chat-rain-shadow-calibrated-v2.png",
+  "figure": "soyo-chat-rain-figure-calibrated-v1.png",
+  "mask": "soyo-chat-rain-mask-calibrated-v1.png",
+  "record": "soyo-chat-rain-layer-processing-v2.json",
+  "reviewNote": "Own complete mother supplies original RGB. Already calibrated alpha is preserved exactly (0..255 range); complete observed hair footprint is cleared using this mother matching generated BG. Newly versioned normal source-over contact shadow is recomputed against the new BG. No RGB/body/pose redraw or independent actor transform. Primary layer and runtime remain pending.",
+  "excludeWarmRoomRegions": []
+}

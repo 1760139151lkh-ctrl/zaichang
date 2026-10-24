@@ -41,8 +41,9 @@ export function CalendarHandoff({ date, timeZone }: { date: string; timeZone: st
       if (!busy && !root.current?.contains(event.target as Node)) setOpen(false);
     };
     const escape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && !busy) {
-        event.preventDefault(); event.stopPropagation(); setOpen(false); trigger.current?.focus();
+      if (event.key === 'Escape') {
+        event.preventDefault(); event.stopPropagation();
+        if (!busy) { setOpen(false); trigger.current?.focus(); }
       }
     };
     document.addEventListener('pointerdown', outside);

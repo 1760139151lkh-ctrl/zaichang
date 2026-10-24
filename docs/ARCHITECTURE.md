@@ -213,7 +213,7 @@ flowchart LR
 
 执行scope的初签从控制核准后的`policy.ingress`起算。仅Luna代测的新主前台使用独立可信`HostIngressExecution`签发900000ms；它不进入Controls、Bridge或工具JSON，生产DeepSeek及全局hostScope默认仍为240000ms。child截止取父截止与自身新签240000ms的较早者，实际取消信号也随之缩短；不自动续签或恢复旧scope，父模型单call最长600秒、模型RPC610秒，普通工具／child RPC175秒；隐私epoch／来源／版本／停止与原scope到期各自保留。结束收据只记安全原因、初签scopeExpiresAt和endedAt，子scope提前截止不冒充root过期；该机制尚无独立自然语言执行时限解析，也不是点击发送起总15分钟的承诺。源码接入及其检查不代替新attempt的实际结果。
 
-校园个人查询经 [`zjuAdapter.ts`](../src/main/zjuAdapter.ts) 调用用户另行安装并授权的 `ZAICHANG_ZJU_SOURCE` 进程；仓库不自带账号授权。导入快照、账号实时读取和公共参考资料分别报告来源、覆盖与时效。天气使用明确公开参考地点的预报，Windows 设备定位另有共享许可和质量信息，均不能当作手机实时位置或校园现场观测。
+校园个人查询经 [`zjuAdapter.ts`](../src/main/zjuAdapter.ts) 调用随应用分发的 [`integrations/zju`](../src/main/integrations/zju/) 连接器和独立 Python；显式设置的 `ZAICHANG_ZJU_SOURCE` 仍可选择原兼容安装。分发目录只有运行源码、公共配置和上游许可/修订清单，不包含账号授权或个人快照。导入快照、账号实时读取和公共参考资料分别报告来源、覆盖与时效。天气使用明确公开参考地点的预报，Windows 设备定位另有共享许可和质量信息，均不能当作手机实时位置或校园现场观测。
 
 学业刷新沿原连接器区分资源刷新和显式总览全采。`campusAcademicAcquisition` 给原用途核验说明实际采集源，以及本机重新归一化旧完整学业快照的处理范围；窄网络采集不豁免旧敏感资料的用途门。lookup／query 复用原 quick 资源刷新，在可核同账号、同学期 latest 基线上采集对应来源，保留其他源的旧采集时间；缺基线不转为全采。固定快照／版本与刷新不能混用，新结果仍经当前账号、来源质量、head 与原快照证明校验，续页保留原查询条件。原 CLI 没有 expected-base CAS，前后校验不是跨进程原子锁。
 
@@ -446,11 +446,17 @@ review-web 入口显式传递 `publicOnly`，不挂载运动控件，也不提�
 
 Android 的原单调时钟报告与可比较时钟分列；设备报告超出本次开机范围时保留原值并标明未知，不猜偏移。GPS 与 network 的全部原观察仍归同一运动 owner，派生计算按同设备、同 boot、新鲜度与报告精度选择；未选点有独立原因，来源切换断段。可靠静止的自动暂停复用原暂停与真停采，继续只由明确操作开启。
 
-`workout.current` 只从该 owner 读取一刻的有限摘要，按实际用途及本人/现实/私下来源约束进入原 Harness；不含坐标、轨迹和设备身份，不创建后台陪跑循环。学校体艺由 [`TiyiAdapter`](../src/main/tiyiAdapter.ts) 与独立连接器持有认证和加密原响应，Broker 只取得分页去标投影。功能目录、学校网页、实际本人记录与学校有效次数分别表明真实覆盖，不以本地运动或实践积分替代学校回执。
+iOS 模拟桥保留 CoreLocation 原始测量时间；同一次命令、订阅与原生进程的回执另存宿主发送/接收时刻和单调耗时，形成有界的设备/宿主时钟关系。共用 [`workoutFixTime`](../src/shared/workout.ts) 推导测量时刻与年龄区间，不覆写原始时刻。超过十秒的通信窗口、墙钟与单调耗时差超过 250ms、旧命令或进程身份不符均不采纳；原五秒未来与三十秒过期限制保留。Kernel 在同一时钟身份内收紧相交区间，不相交时拒绝该点并断段；切换来源重新建立基线，不补跨来源距离。地图与伴跑摘要使用同一规则，以年龄上界核十五秒新鲜度。
+
+[`DesktopMapSheet`](../src/renderer/map/DesktopMapSheet.tsx) 在桌面入口组合原共享地图与私人运动控件；[`desktop-workout-layer`](../src/renderer/map/desktop-workout-layer.ts) 将同一 owner 的测点投到原相机，绘制接受轨迹、弱信号段、测量精度圈、当前位置与公里标记。新测点不接管用户相机。共享 `CampusMap` 只接收通用控件槽和 engine 回调，`apps/review-web` 不导入运动模块、私人 IPC 或运动状态。
+
+`workout.current` 从该 owner 读取地图仍保留的同一运动摘要，包括暂停或结束状态；按实际用途及本人/现实/私下来源约束进入原 Harness。校园位置仅投影场馆/道路候选名称、匹配来源与新鲜度，区分校方名义跑道长度和 OSM 参考线；不含坐标、轨迹和设备身份，不创建后台陪跑循环。学校体艺由 [`TiyiAdapter`](../src/main/tiyiAdapter.ts) 与独立连接器持有认证和加密原响应，Broker 只取得分页去标投影。功能目录、学校网页、实际本人记录与学校有效次数分别表明真实覆盖，不以本地运动或实践积分替代学校回执。
 
 体艺直连与 WebVPN 是用户明确选择的连接方式，选择保存在原宿主 SQLite 元数据中；方式元数据自身不签发读取许可，也不证明登录仍有效。原许可的保存与撤回继续归 PolicyKernel，认证状态重新核查。WebVPN 使用产品自己的持久 Session，不复制外部浏览器 Cookie；校园总权限与体艺子权限分别核查。场馆学校分页是新的观察，原 snapshotId/pointer 续读仍只回到同一加密响应；两种继续入口不混成固定历史版本。
 
 体艺 direct 连接器保留学校原 HTTP 业务协议及 CAS service，UAA 后端请求限 HTTPS 既有登录/公钥路径，显式不使用环境或系统 HTTP 代理。业务 URL 限既有学校域和模块/精确场馆地址。场馆原生会话先经初始化与空表单登录换取本次 Connection 的独立 token，校验同一账号；原生 token、场馆 token 与 OAuth 交换值不混用、不作为记录投影。可选宿主通道仅为这两条精确认证路径增加方法和头部范围，不增加预约或支付能力。当前直连实据见[修复记录](evidence/2026-10-24-tiyi-direct-repair.md)。
+
+[`tiyi_modules`](../src/main/integrations/tiyi_modules/) 将学业考勤、体测毕业、队伍赛事与场馆活动分成数据读取模块，共用原 Connection、认证和响应 owner。只读 POST 限辅导站/入场流水的固定路径与三个查询字段；学校续页形成新观察，保存续页固定原 snapshot、正文位置与查询条件。本人数据层返回明确空列表仍是完成读取，另以 `no_records` 表达空结果；公共目录/人数实况、权限拒绝、服务错误和未返回报告不能冒充个人记录已读。签名组件仍由用户另行安装；其两个公开 Python 依赖按 [`signing-lock.json`](../runtime/tiyi/signing-lock.json) 的官方地址、版本、哈希和许可单独分发，不修改 Hermes 锁，也不打包学校 APK、凭据或原响应。
 
 ## 生产传输、代测和部署边界
 

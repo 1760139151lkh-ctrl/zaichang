@@ -1,0 +1,286 @@
+{
+  "mother": "tomori-reading-apricot-mother.png",
+  "motherSha256": "e86706be55da3cc2a2072327f6e9543d867b06149d45fc8ca2bb275163b6fa36",
+  "matte": "tomori-reading-matte-registered-v1.png",
+  "matteRegistration": {
+    "proposal": "tomori-reading-matte-generated-v1.png",
+    "proposalSha256": "c4cf5e4ae9fe0745324997ab03d07493afe787b0740d4e2521aa373e1378cbc8",
+    "sourceBounds": [
+      643,
+      90,
+      1408,
+      897
+    ],
+    "targetBounds": [
+      1029,
+      320,
+      1433,
+      762
+    ]
+  },
+  "registeredRefinement": {
+    "uncertainBandPixels": 16,
+    "edgeFeatherPixels": 0.6,
+    "foregroundPolygons": [
+      [
+        [
+          1344,
+          356
+        ],
+        [
+          1365,
+          356
+        ],
+        [
+          1365,
+          386
+        ],
+        [
+          1344,
+          386
+        ]
+      ],
+      [
+        [
+          1350,
+          447
+        ],
+        [
+          1388,
+          455
+        ],
+        [
+          1384,
+          490
+        ],
+        [
+          1345,
+          483
+        ]
+      ],
+      [
+        [
+          1344,
+          518
+        ],
+        [
+          1356,
+          519
+        ],
+        [
+          1354,
+          528
+        ],
+        [
+          1343,
+          525
+        ]
+      ],
+      [
+        [
+          1245,
+          479
+        ],
+        [
+          1261,
+          479
+        ],
+        [
+          1261,
+          488
+        ],
+        [
+          1245,
+          488
+        ]
+      ],
+      [
+        [
+          1261,
+          505
+        ],
+        [
+          1295,
+          511
+        ],
+        [
+          1290,
+          519
+        ],
+        [
+          1260,
+          512
+        ]
+      ],
+      [
+        [
+          1195,
+          538
+        ],
+        [
+          1225,
+          540
+        ],
+        [
+          1221,
+          562
+        ],
+        [
+          1198,
+          560
+        ]
+      ],
+      [
+        [
+          1100,
+          650
+        ],
+        [
+          1108,
+          653
+        ],
+        [
+          1102,
+          678
+        ],
+        [
+          1095,
+          675
+        ]
+      ],
+      [
+        [
+          1153,
+          648
+        ],
+        [
+          1161,
+          652
+        ],
+        [
+          1152,
+          678
+        ],
+        [
+          1146,
+          676
+        ]
+      ],
+      [
+        [
+          1050,
+          723
+        ],
+        [
+          1075,
+          725
+        ],
+        [
+          1070,
+          735
+        ],
+        [
+          1046,
+          732
+        ]
+      ],
+      [
+        [
+          1096,
+          739
+        ],
+        [
+          1133,
+          740
+        ],
+        [
+          1126,
+          750
+        ],
+        [
+          1095,
+          747
+        ]
+      ]
+    ],
+    "backgroundPolygons": []
+  },
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 248,
+  "includePolygons": [],
+  "excludePolygons": [],
+  "figure": "tomori-reading-figure-calibrated-v1.png",
+  "mask": "tomori-reading-mask-calibrated-v1.png",
+  "backgroundCandidate": "tomori-reading-background-generated-v1.png",
+  "background": "tomori-reading-background-calibrated-v1.png",
+  "backgroundExpandPixels": 10,
+  "backgroundFeatherPixels": 2,
+  "backgroundErasePolygons": [
+    [
+      [
+        1020,
+        706
+      ],
+      [
+        1175,
+        706
+      ],
+      [
+        1175,
+        778
+      ],
+      [
+        1020,
+        778
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1028,
+        722
+      ],
+      [
+        1072,
+        713
+      ],
+      [
+        1162,
+        738
+      ],
+      [
+        1168,
+        761
+      ],
+      [
+        1050,
+        765
+      ]
+    ],
+    [
+      [
+        1275,
+        573
+      ],
+      [
+        1427,
+        573
+      ],
+      [
+        1427,
+        598
+      ],
+      [
+        1275,
+        598
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1.2,
+  "contactShadowEdgePixels": 3,
+  "shadow": "tomori-reading-shadow-calibrated-v1.png",
+  "record": "tomori-reading-layer-processing-v1.json",
+  "reviewNote": "Generated matte proposal registered/refined with named original interior pixels. Only alpha changes; no figure RGB repaint or pose repair. First source-layer candidate requires visual review."
+}

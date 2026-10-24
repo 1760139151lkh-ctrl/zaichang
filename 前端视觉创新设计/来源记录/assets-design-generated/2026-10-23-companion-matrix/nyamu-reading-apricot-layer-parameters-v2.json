@@ -1,0 +1,247 @@
+{
+  "schemaVersion": 1,
+  "mother": "nyamu-reading-apricot-mother-candidate-v1.png",
+  "motherSha256": "679651a0af996b08b6be27a01aff2dd5d4ce21f7ee03cd41db8f0231329e903b",
+  "matte": "nyamu-reading-apricot-mask-candidate-v1.png",
+  "matteSha256": "f3e30933a93a38f9c1fc09bf5001563bdbd7819179ff4c368a8465ee13f5eb94",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "nyamu-reading-apricot-figure-calibrated-v2.png",
+  "mask": "nyamu-reading-apricot-mask-calibrated-v2.png",
+  "backgroundCandidate": "nyamu-reading-apricot-background-candidate-v1.png",
+  "background": "nyamu-reading-apricot-background-calibrated-v2.png",
+  "shadow": "nyamu-reading-apricot-shadow-calibrated-v2.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        913,
+        702
+      ],
+      [
+        1057,
+        694
+      ],
+      [
+        1063,
+        780
+      ],
+      [
+        911,
+        784
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        919,
+        740
+      ],
+      [
+        987,
+        741
+      ],
+      [
+        996,
+        774
+      ],
+      [
+        919,
+        778
+      ]
+    ],
+    [
+      [
+        985,
+        731
+      ],
+      [
+        1048,
+        729
+      ],
+      [
+        1054,
+        769
+      ],
+      [
+        982,
+        773
+      ]
+    ],
+    [
+      [
+        783,
+        581
+      ],
+      [
+        893,
+        578
+      ],
+      [
+        900,
+        609
+      ],
+      [
+        782,
+        610
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "includePolygons": [
+    [
+      [
+        819,
+        346
+      ],
+      [
+        851,
+        334
+      ],
+      [
+        878,
+        339
+      ],
+      [
+        889,
+        358
+      ],
+      [
+        890,
+        390
+      ],
+      [
+        880,
+        411
+      ],
+      [
+        861,
+        419
+      ],
+      [
+        838,
+        411
+      ],
+      [
+        819,
+        389
+      ]
+    ],
+    [
+      [
+        812,
+        546
+      ],
+      [
+        851,
+        545
+      ],
+      [
+        873,
+        558
+      ],
+      [
+        895,
+        561
+      ],
+      [
+        911,
+        566
+      ],
+      [
+        882,
+        578
+      ],
+      [
+        870,
+        591
+      ],
+      [
+        809,
+        589
+      ]
+    ],
+    [
+      [
+        835,
+        406
+      ],
+      [
+        862,
+        407
+      ],
+      [
+        869,
+        423
+      ],
+      [
+        860,
+        435
+      ],
+      [
+        838,
+        430
+      ]
+    ],
+    [
+      [
+        811,
+        430
+      ],
+      [
+        815,
+        430
+      ],
+      [
+        825,
+        457
+      ],
+      [
+        822,
+        458
+      ]
+    ],
+    [
+      [
+        859,
+        428
+      ],
+      [
+        863,
+        429
+      ],
+      [
+        873,
+        457
+      ],
+      [
+        870,
+        457
+      ]
+    ]
+  ],
+  "excludePolygons": [],
+  "alphaPolygonRepairs": [],
+  "localColorMatteRefinement": {
+    "region": [
+      770,
+      310,
+      1055,
+      780
+    ],
+    "seedThreshold": 12,
+    "uncertainBandPixels": 4,
+    "iterations": 4,
+    "edgeFeatherPixels": 0.3
+  },
+  "record": "nyamu-reading-apricot-layer-processing-v2.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "Same-canvas generated mask was position-correct but retained black fabric/face line art; source-visible conservative head/skirt interiors set opaque before original-RGB body-only refinement. Fine hair edge remains registered raw alpha. All RGB from approved mother; no pose/body repaint. Full same-mother matching background remains a separately reviewed candidate, not registered. Fixed chair-back/seat/two-floor-shoe support requires travel0. v1 body-only ROI cut source hair/choker at its upper crop boundary, rejected. v2 refines full original canvas figure ROI with actual source neck/strap interior seeds; head background sky halo and mask registration corrected from original RGB, no geometry shift."
+}

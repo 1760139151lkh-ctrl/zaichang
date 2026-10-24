@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "mother": "mutsumi-rest-apricot-mother-candidate-v1.png",
+  "motherSha256": "8284c773c9ace87cd0bc9fc3d476a5d23442bd2fbfb9db2b640552e1671fd5b6",
+  "matte": "mutsumi-rest-apricot-source-alpha-v1.png",
+  "matteSha256": "edc10126829ff80a0a9c6331dbfc630c52bbeafb013989f845d788bd050ce5e1",
+  "alphaSource": "luminance",
+  "alphaLow": 8,
+  "alphaHigh": 247,
+  "figure": "mutsumi-rest-apricot-figure-calibrated-v1.png",
+  "mask": "mutsumi-rest-apricot-mask-calibrated-v1.png",
+  "backgroundCandidate": "mutsumi-rest-apricot-background-candidate-v1.png",
+  "background": "mutsumi-rest-apricot-background-calibrated-v1.png",
+  "shadow": "mutsumi-rest-apricot-shadow-calibrated-v1.png",
+  "backgroundExpandPixels": 6,
+  "backgroundFeatherPixels": 1,
+  "backgroundErasePolygons": [
+    [
+      [
+        1148,
+        269
+      ],
+      [
+        1480,
+        269
+      ],
+      [
+        1485,
+        612
+      ],
+      [
+        1149,
+        612
+      ]
+    ]
+  ],
+  "contactShadowPolygons": [
+    [
+      [
+        1161,
+        540
+      ],
+      [
+        1221,
+        542
+      ],
+      [
+        1277,
+        562
+      ],
+      [
+        1325,
+        590
+      ],
+      [
+        1322,
+        612
+      ],
+      [
+        1296,
+        612
+      ],
+      [
+        1257,
+        587
+      ],
+      [
+        1183,
+        575
+      ],
+      [
+        1154,
+        560
+      ]
+    ],
+    [
+      [
+        1308,
+        564
+      ],
+      [
+        1412,
+        561
+      ],
+      [
+        1418,
+        592
+      ],
+      [
+        1311,
+        594
+      ]
+    ],
+    [
+      [
+        1411,
+        566
+      ],
+      [
+        1461,
+        565
+      ],
+      [
+        1463,
+        589
+      ],
+      [
+        1408,
+        590
+      ]
+    ]
+  ],
+  "contactShadowFeatherPixels": 1,
+  "contactShadowEdgePixels": 3,
+  "excludePolygons": [],
+  "includePolygons": [],
+  "alphaPolygonRepairs": [],
+  "record": "mutsumi-rest-apricot-layer-processing-v1.json",
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "producerNote": "Imagegen maskv1 enlarged/upshifted figure, rejected/not used as alpha or generation input. Original RGB plus same-mother matching BG and personally observed source-canvas trimap/room holes only. Both detached floor shoes are static room, outside actor alpha. No hidden far leg paint; real original support preserved. Fixed multi-contact pose, travel0. Primary/runtime pending."
+}

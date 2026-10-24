@@ -1,0 +1,35 @@
+{
+  "recordType": "original-coordinate-taki-desk-alpha-production",
+  "processor": "taki-reading-apricot-alpha-production.py",
+  "processorSha256": "957292b69b0b05dbc41c29467f552071ef5060828b0d1d9dee8ac270f162433e",
+  "parameters": "taki-planning-apricot-alpha-parameters-v1.json",
+  "parametersSha256": "70dac46f6a85b059bd4606dc1cb441a04aa7a2517a6e8ed95ff170969dad3b20",
+  "inputs": [
+    {
+      "file": "taki-planning-apricot-mother-candidate-v1.png",
+      "sha256": "f0fa68c1f8f0257063bdae886dd258b415af26e127382e8c2bb3b95f6f7050ff"
+    },
+    {
+      "file": "taki-planning-apricot-mask-generated-v2.png",
+      "sha256": "6293546602f677494d60f87bd2639ad8dd10527ae59ec6b96ef668a3c4daaf83"
+    },
+    {
+      "file": "taki-planning-apricot-background-generated-v1.png",
+      "sha256": "11df2a165bff6d1e1b7d3d7a7b179a27830df5c3c244e19b31db53f51f82237d"
+    }
+  ],
+  "output": "taki-planning-apricot-alpha-calibrated-v1.png",
+  "outputSha256": "a505aeee7f96224c6e24c90753990b7c2aabcda199edb7f772c9623996a790b4",
+  "alphaBounds": [
+    761,
+    309,
+    1027,
+    760
+  ],
+  "geometryTransform": "identity",
+  "rgbRepaint": false,
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  }
+}

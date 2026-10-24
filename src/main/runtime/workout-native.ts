@@ -37,7 +37,7 @@ export class NativeWorkoutService {
             this.stream = this.location.createWorkoutStream({ ...identity.recordingSource, workoutId: identity.id });
           }
           const stream = this.stream;
-          await stream?.stop();
+          await stream?.stop(identity);
           if (this.stream === stream) this.stream = undefined;
         },
       },
@@ -83,7 +83,6 @@ export class NativeWorkoutService {
   }
 
   private async select(raw?: WorkoutDeviceSelection, collection = true) {
-    if (!raw && this.selected) return;
     if (!raw) throw new Error('先选一下用于定位的设备，再继续这次运动。');
     const choice = deviceInput.parse(raw);
     if (choice.source === 'windows') {
@@ -122,7 +121,8 @@ export class NativeWorkoutService {
     const previous = this.selected;
     this.selecting = true;
     try {
-      await this.select(input.device); this.assertAccess();
+      const source = input.device || this.owner.getState().session?.recordingSource;
+      await this.select(source); this.assertAccess();
       return await this.owner.resume({ id: input.id, expectedRevision: input.expectedRevision, recordingSource: this.selected });
     } catch (error) { this.selected = previous; throw error; }
     finally { this.selecting = false; }

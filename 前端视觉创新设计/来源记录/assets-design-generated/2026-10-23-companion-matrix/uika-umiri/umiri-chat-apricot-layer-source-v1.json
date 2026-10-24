@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-layer-generation",
+  "character": "umiri",
+  "activity": "chat",
+  "theme": "apricot",
+  "tool": "image_gen.imagegen",
+  "input": {
+    "file": "umiri-chat-apricot-mother-candidate-v2.png",
+    "sha256": "beb0028df130f510fce228bd127495d0375ecf8998c81a50137617e4482af8ee",
+    "role": "sole primary-approved complete correct mother; same-canvas separation only"
+  },
+  "calls": [
+    {
+      "part": "background",
+      "executionId": "exec-9df68df7-5041-482a-98c6-a50dd6fd69c0",
+      "promptFile": "umiri-chat-apricot-background-generated-v2-prompt.txt",
+      "promptSha256": "f16ea15a2e3f5156fb9c2bbb79a1608d58a3363f07ac9a32509f46c990bcd52f",
+      "actualPrompt": "Use case: precise-object-edit. Technical same-canvas CLEAN BACKGROUND EXTRACTION, NOT a new composition.\nONLY INPUT is the primary-approved Umiri chat apricot mother v2, 1536 x 1024. Remove ONLY the existing person Umiri, her worn clothing/platform boots and her narrow local body/palm/foot contact shadows. Reconstruct the chair cushion/back, original desk area and floor directly behind her as a plausible EMPTY version of THIS SAME mother.\nCRITICAL FURNITURE REGISTRATION: the chair stays at the EXACT outward-turned angle, size, cushion/back position and foot positions shown IN THIS MOTHER. Do not restore the orientation from an earlier empty room. Preserve the actual desk width/position, lamp/cup/book, bench/pillows/throw and every other room object and seam. Same full 1536x1024 canvas, camera, window with all four connected corners, curtains, lake/campus view, rear-left table/chair/bookshelves/framed drawing, rug/floor lines and morning light. Keep source pixels outside the removed person's small footprint in place. No chair enlargement, forward move, table widening, new prop, crop or zoom.\nThe cushion may relax where her hips were, but the existing physical chair stays the same object. Remove all hair/skin/finger/skirt/boot remnants and human-shaped shadows; no silhouette, ghost, floating clothes or leftover shoe. Do not change the room's color or lighting, paint an empty wall, use a white gradient or redesign it. Background remains opaque. No text/UI/logo/watermark/arrow/border/inset. Return the complete same-size locally repaired EMPTY scene.\nEXPOSED DESKTOP OBJECT COUNT: newly revealed left/rear desk wood around x830..948,y475..507 must stay BARE GOLDEN WOOD. Do not add an extra beige closed book, pad, notebook, new paper or stationery in that former torso region, especially near x875..935,y482..495. Keep only the actual original blue book already visible toward the right, the actual cup and original lamp at their exact source positions. Do not invent an object just because the person had hidden that part of the desk. Preserve the exact source outward-turned chair angle/back/seat/legs; do not restore the older clean-room chair pose. The only input is the correct original full mother, never a previous failed empty-room extraction.",
+      "output": {
+        "file": "umiri-chat-apricot-background-generated-v2.png",
+        "sha256": "110e6dfcdd299aa2a1c95d841664ca81b6bbee83d092fa1a5aad2d256240210a",
+        "bytes": 2065131,
+        "width": 1536,
+        "height": 1024
+      },
+      "designerViewed": "full original result; alpha/background still requires precise calibration and light/dark/room review",
+      "designerObservation": "Full result viewed: exposed left/rear desktop is bare wood, only original blue book/cup/lamp retained; original outward-turned chair and full room preserved. Matching original-RGB patch review still pending.",
+      "actualPromptSha256": "f16ea15a2e3f5156fb9c2bbb79a1608d58a3363f07ac9a32509f46c990bcd52f",
+      "promptFileMatchesActualToolInput": true
+    }
+  ],
+  "review": {
+    "primary": "pending",
+    "runtime": "not integrated or accepted"
+  },
+  "previousLayerSource": "umiri-chat-apricot-layer-source.json"
+}
