@@ -89,5 +89,28 @@
     },
     "primaryLayerApproval": false,
     "runtimeAccepted": false
+  },
+  "finalLayerReview": {
+    "scope": "producer visual candidate review only; primary/runtime still pending",
+    "scene": "uika-listening-apricot.scene.json",
+    "parameters": "uika-listening-apricot-layer-parameters-v4.json",
+    "processing": "uika-listening-apricot-layer-processing-v4.json",
+    "personallyViewed": [
+      "full original mother",
+      "original-coordinate body/room edge details",
+      "full light and dark composites",
+      "matching full room at original coordinates",
+      "complete empty background",
+      "static +/-8px bench-tangent endpoints with dy=.06dx"
+    ],
+    "observation": "Real taupe skirt between the socked feet is retained instead of the generated false-air cutouts; forearm interior is opaque. The small far-right blue pillow corner has been excluded along the original hem seam. Both detached floor sneakers stay stationary in the room. Candidate short bench-only range stays over the existing support.",
+    "rgbEvidence": {
+      "motherRgbSha256": "81efc651651c6aea6010e03404d5c2776a5ea9df1c91459a2ccc7a7c78c60858",
+      "figureRgbSha256": "81efc651651c6aea6010e03404d5c2776a5ea9df1c91459a2ccc7a7c78c60858",
+      "identityTransform": true
+    },
+    "privateEvidence": ".test-data/uika-listening-rest-layer-review/listening-v4-{light,dark,empty,room}.png",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
   }
 }

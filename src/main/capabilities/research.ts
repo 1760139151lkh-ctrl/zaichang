@@ -213,7 +213,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
           throw new HarnessError('research_query_view', 'query用于find的原文定位或links的目录筛选；其他读取方式按原页码和片段范围继续。');
       }
       if (name === 'research.search') {
-        if (hasCredentials(args.query) || /https?:\/\/\S+[?#]\S+/i.test(args.query)) throw new HarnessError('search_disclosure', '公开检索词不能携带登录信息或私密链接参数。');
+        if (hasCredentials(args.query) || /https?:\/\/\S+[?#]\S+/i.test(args.query)) throw new HarnessError('search_disclosure', '这次关键词里带了登录信息或带参数的链接，还没发往公开搜索；可以只用主题、标题或发布方来找。');
         const domains: string[] = args.domains || [];
         const query = domains.length ? `(${domains.map(domain => 'site:' + domain).join(' OR ')}) ${args.query}` : args.query;
         const url = new URL('https://www.bing.com/search'); url.searchParams.set('q', query); url.searchParams.set('format', 'rss');
@@ -296,14 +296,14 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
         const image = images.get(args.resourceId);
         if (!image || image.scopeId !== context.scope.id || image.epoch !== scope.privacyEpoch)
           throw new HarnessError('resource_expired', '这张图片已经不在当前读取范围里，可以从原出处重新取回。');
-        if (args.url && new URL(args.url).href !== image.url) throw new HarnessError('resource_url_mismatch', '图片句柄与网址不是同一来源。');
+        if (args.url && new URL(args.url).href !== image.url) throw new HarnessError('resource_url_mismatch', '这次图片地址与刚才打开的原图没有对上。继续看原图可只带resourceId，换图时用新图的url重新打开。');
         if (args.view !== 'image') return { status: 'unsupported', sourceId, simulated: false,
           data: { resourceId: image.id, representation: 'raster_image', read: imageResult(image, false).data.read }, coverage: { complete: false, scope: image.url } };
         context.onVisualPrepared?.(image.id);
         return imageResult(image, true);
       }
       const readPdf = async (resourceId: string) => {
-        if (!materials) throw new HarnessError('public_type_unsupported', 'PDF读取组件尚未接入。');
+        if (!materials) throw new HarnessError('public_type_unsupported', '这次还没有可用的PDF阅读入口，可以找同一内容的网页或文字版继续。');
         if (args.view === 'images' || args.view === 'links') return { status: 'unsupported', sourceId, simulated: false, reason: 'images和links用于静态网页目录；这份PDF可以按页读取文字、表格候选或view=image的真实像素。' };
         const result = await materials.invokePublic(context.scope, args.view === 'image' ? 'materials.observe' : args.view === 'table' ? 'materials.table' : args.view === 'find' ? 'materials.find' : 'materials.read',
           { resourceId, page: args.page, offset: args.offset, limit: args.view === 'find' ? Math.min(args.limit, 12) : args.limit,
@@ -316,7 +316,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
       };
       if (args.resourceId?.startsWith('material-')) return readPdf(args.resourceId);
       let material = args.resourceId ? cache.get(args.resourceId) : undefined;
-      if (args.resourceId && (!material || material.epoch !== scope.privacyEpoch || material.scopeId !== context.scope.id)) throw new HarnessError('resource_expired', '这份读取缓存不属于当前范围，请重新读取来源。');
+      if (args.resourceId && (!material || material.epoch !== scope.privacyEpoch || material.scopeId !== context.scope.id)) throw new HarnessError('resource_expired', '刚才那版资料已不在这次可读范围里，可以沿原url重新打开，再接着读。');
       if (material && args.url && new URL(args.url).href !== material.url) throw new HarnessError('resource_url_mismatch', '续读句柄与所给网址不一致；继续同版只传resourceId，读取新来源请单独传url。');
       if (!material) {
         if (!args.url || hasCredentials(args.url)) throw new HarnessError('resource_url', '需要一个没有凭据的公开HTTPS来源。');
@@ -324,7 +324,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
         if (!response.ok) return { status: 'failed', sourceId, reason: `原来源未读取成功（HTTP ${response.status}）。`, simulated: false,
           data: { httpStatus: response.status, finalUrl: response.url || args.url, contentType: response.headers.get('content-type') || '', targetBodyVerified: false } };
         if (/^application\/pdf(?:;|$)/i.test(response.headers.get('content-type') || '')) {
-          if (!materials) throw new HarnessError('public_type_unsupported', 'PDF读取组件尚未接入。');
+          if (!materials) throw new HarnessError('public_type_unsupported', '这次还没有可用的PDF阅读入口，可以找同一内容的网页或文字版继续。');
           const bytes = Buffer.from(await response.arrayBuffer());
           const resourceId = materials.publicPdf(context.scope, bytes, response.url || args.url, new URL(response.url || args.url).pathname.split('/').at(-1) || '公开PDF', { httpStatus: response.status, contentType: response.headers.get('content-type') || '' });
           return readPdf(resourceId);
@@ -359,7 +359,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
       const textVersion = { sha256Basis: 'decoded_source_utf8', textDecoding: material.textDecoding };
       if (args.view === 'find') {
         const points = Array.from(material.text), offset = args.offset, query = args.query as string, queryPoints = Array.from(query);
-        if (offset > points.length) throw new HarnessError('resource_range', '寻找的起点超出这一版已提取的原文范围。');
+        if (offset > points.length) throw new HarnessError('resource_range', '这次寻找的起点已经超过这版文字末尾，可以从offset=0重新找，或沿原资料打开其他页面。');
         const limit = Math.min(args.limit, 12), matches = [];
         let position = points.slice(0, offset).join('').length, nextOffset: number | null = null;
         while (position <= material.text.length) {
@@ -406,7 +406,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
         while (items.length > 1 && Buffer.byteLength(JSON.stringify(items)) > 64000) items.pop();
         const end = offset + items.length, nextOffset = end < links.length ? end : null;
         if (offset > links.length) return { status: 'not_found', sourceId, simulated: false,
-          data: { linkCatalog: linkCatalog(offset, null) }, reason: '链接目录偏移超出这一版已提取的候选数量。' };
+          data: { linkCatalog: linkCatalog(offset, null) }, reason: '这次起点已经超过这版网页的链接目录，可以用同一resourceId、view=links和offset=0回到第一页。' };
         return { status: nextOffset === null ? 'fresh' : 'partial', sourceId, fetchedAt: material.fetchedAt, simulated: false, delivery: { kind: 'page', complete: true },
           data: { ...textVersion, resourceId: material.id, url: material.url, title: material.title, sha256: material.hash,
             links: items, linkCatalog: linkCatalog(offset, nextOffset, limit), authority: 'declared_link_candidates_not_target_bodies' },
@@ -427,14 +427,14 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
       };
       if (args.view === 'images') {
         if (!material.html) return { status: 'unsupported', sourceId, simulated: false, reason: '这份资料不是HTML网页，没有网页图片目录。' };
-        if (imageOffset > candidates.length) return { status: 'not_found', sourceId, simulated: false, data: { imageCatalog }, reason: '图片目录偏移超出这一版已提取的候选数量。' };
+        if (imageOffset > candidates.length) return { status: 'not_found', sourceId, simulated: false, data: { imageCatalog }, reason: '这次起点已经超过这版网页的图片目录，可以用同一resourceId、view=images和offset=0回到第一页。' };
         return { status: imageEnd < candidates.length ? 'partial' : 'fresh', sourceId, fetchedAt: material.fetchedAt, simulated: false, delivery: { kind: 'page', complete: true },
           data: { ...textVersion, resourceId: material.id, url: material.url, title: material.title, images: candidates.slice(imageOffset, imageEnd), imageCatalog },
           coverage: { complete: imageOffset === 0 && imageEnd === candidates.length, scope: 'declared static webpage image candidates' } };
       }
       const points = Array.from(material.text), end = Math.min(points.length, args.offset + args.limit);
       if (args.offset > points.length) return { status: 'not_found', sourceId, simulated: false,
-        data: { resourceId: material.id, url: material.url, offset: args.offset, total: points.length }, reason: '文字偏移超出这一版已提取的原文范围。' };
+        data: { resourceId: material.id, url: material.url, offset: args.offset, total: points.length }, reason: '这次起点已经超过这版文字末尾，可以保留同一resourceId，从offset=0读起，或用view=find找那段原句。' };
       const complete = args.offset === 0 && end === points.length;
       return { status: complete ? 'fresh' : 'partial', sourceId, fetchedAt: material.fetchedAt, simulated: false, delivery: { kind: 'page', complete: true }, ...(material.staticComplete ? {} : { reason: '这次读到了页面直接提供的文字，另行加载的正文还没有打开。' }),
         data: { ...textVersion, resourceId: material.id, url: material.url, title: material.title, sha256: material.hash, text: points.slice(args.offset, end).join(''), offset: args.offset, nextOffset: end < points.length ? end : null,

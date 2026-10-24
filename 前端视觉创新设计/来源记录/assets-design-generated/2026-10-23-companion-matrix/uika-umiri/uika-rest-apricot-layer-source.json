@@ -101,5 +101,27 @@
     },
     "primaryLayerApproval": false,
     "runtimeAccepted": false
+  },
+  "finalLayerReview": {
+    "scope": "producer visual candidate review only; primary/runtime still pending",
+    "scene": "uika-rest-apricot.scene.json",
+    "parameters": "uika-rest-apricot-layer-parameters-v3.json",
+    "processing": "uika-rest-apricot-layer-processing-v3.json",
+    "personallyViewed": [
+      "full original mother",
+      "original-coordinate body/room edge details",
+      "full light and dark composites",
+      "matching full room at original coordinates",
+      "complete empty background"
+    ],
+    "observation": "Source-visible folded socks/cloth and support palm retained. False left cushion strip excluded; actual opening between support arm and torso remains transparent. Entire pose stays fixed to the original bench, with detached floor sneakers outside the figure.",
+    "rgbEvidence": {
+      "motherRgbSha256": "f062fd20fc90fc2dae51d74714697d1539db0ab674f5085336ae23a445bc60a4",
+      "figureRgbSha256": "f062fd20fc90fc2dae51d74714697d1539db0ab674f5085336ae23a445bc60a4",
+      "identityTransform": true
+    },
+    "privateEvidence": ".test-data/uika-listening-rest-layer-review/rest-v3-{light,dark,empty,room}.png",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
   }
 }

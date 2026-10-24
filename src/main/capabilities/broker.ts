@@ -311,7 +311,7 @@ export class CapabilityBroker {
   }
   validateArguments(name: string, args: unknown) {
     const entry = this.capabilities.get(name);
-    if (!entry) throw new HarnessError('unsupported', '能力尚未登记。');
+    if (!entry) throw new HarnessError('unsupported', '当前目录里没有这个做法，可以沿look_up的capability目录按用途再找。');
     return entry.definition.input.parse(args);
   }
   discover(handle: ScopeHandle) {
@@ -358,10 +358,17 @@ export class CapabilityBroker {
         source: 'capability', ...(query ? { query } : {}), offset: nextOffset, limit,
       } } } : {}),
       ...(normalized ? { browse: { tool: 'look_up', arguments: { source: 'capability', offset: 0, limit } } } : {}),
+      ...(offset > 0 ? { restart: { tool: 'look_up', arguments: {
+        source: 'capability', ...(query ? { query } : {}), offset: 0, limit,
+      } } } : {}),
       coverage: { query, matchingOnly: !!normalized, offset, returned: items.length, totalMatches: rows.length,
-        meaning: rows.length
-          ? `找到${rows.length}种相关做法，本页列出${items.length}种；每项都留着展开用法的入口。${nextOffset !== null ? '还有下一页。' : '这份目录已翻到末页。'}每项旁边保留这次是否可用、来源是否连接的实际情况。`
-          : '这次没找到相近做法，可以换个用途再找，或从完整目录里看看。' },
+        meaning: items.length
+          ? `找到${rows.length}种相关做法，本页列出${items.length}种；沿每项入口看具体读法与连接情况。${nextOffset !== null ? '还有下一页。' : '这一页是这次查找的最后一页。'}`
+          : rows.length
+            ? `这次找到${rows.length}种做法，当前起点已经超出目录。沿restart回到这次查找的第一页。`
+            : normalized
+              ? '这次没找到相近做法，可以换个用途再找，或沿browse看看完整目录。'
+              : '目前这份目录是空的。已经提供的其他工具仍在原入口，校园和天气的连接情况也可在连接与偏好里查看。' },
     };
   }
   detail(handle: ScopeHandle, name: string) {
@@ -438,7 +445,7 @@ export class CapabilityBroker {
       return {
         status: 'unsupported',
         sourceId: 'unregistered',
-        reason: '这项能力尚未接入。',
+        reason: '当前目录里没有这项做法，可以沿look_up的capability目录按用途再找，已经取得的资料仍可继续用。',
         simulated: false,
       };
     const { definition: d, provider } = entry,
@@ -450,21 +457,21 @@ export class CapabilityBroker {
       allowReadBackoff = s.retention !== 'session_only';
       for (const grant of d.requiredScopes) this.policy.require(handle, grant);
       if (!s.sources.includes(m.sourceId))
-        throw new HarnessError('source_forbidden', '此来源不在当前资料范围内。');
+        throw new HarnessError('source_forbidden', '这份来源这次没有开放读取，可以先用当前范围内的资料继续。');
       const subject =
         s.subjectId === s.principalId ? 'self' : s.subjectId.startsWith('fictional:') ? 'fictional' : 'other';
       if (!d.subjects.includes(subject) || !d.worlds.includes(s.worldId === 'real' ? 'real' : 'scenario'))
-        throw new HarnessError('scope_mismatch', '能力不适用于当前主体或世界。');
+        throw new HarnessError('scope_mismatch', '这项做法与眼前正在谈的人或情境没有对应上，可以回到原事项选择合适的资料。');
       if (!m.platforms.includes(process.platform) && !m.platforms.includes('*'))
         return {
           status: 'unsupported',
           sourceId: m.sourceId,
-          reason: '当前设备不支持这项能力。',
+          reason: '这台设备还没有这项做法的入口，可以在目录里看看其他已连接的来源。',
           simulated: m.simulated,
         };
       if (d.effect !== 'read' && !options.actionAttempt && !options.inspectKey && !options.cancelKey)
-        throw new HarnessError('approval_required', '请先确认具体动作。');
-      if (s.child && d.effect !== 'read') throw new HarnessError('child_write', '只读子任务不能执行动作。');
+        throw new HarnessError('approval_required', '这项修改还没对应到一份具体行动。沿原行动入口继续，那里会保留已说清的安排和实际结果。');
+      if (s.child && d.effect !== 'read') throw new HarnessError('child_write', '这次分头查资料只带了读取入口，实际修改交回原事项继续。');
       const checkedArguments = d.input.safeParse(args);
       if (!checkedArguments.success) {
         throw new CapabilityValidationError('arguments', checkedArguments.error);
@@ -485,7 +492,7 @@ export class CapabilityBroker {
           action.capability !== name ||
           canonical(action.arguments) !== canonical(parsed)
         )
-          throw new HarnessError('invalid_attempt', '执行凭据与实际参数不匹配。');
+          throw new HarnessError('invalid_attempt', '这次要改的内容与原行动没有对上，原结果保留着；可以先回看同一行动再继续。');
         this.assertContract(name, action.capabilityContract);
       }
       if (options.inspectKey || options.cancelKey) {
@@ -501,7 +508,7 @@ export class CapabilityBroker {
             name,
             options.inspectKey || options.cancelKey!,
           );
-        if (!row) throw new HarnessError('invalid_attempt', '核查标识不属于当前获准的动作。');
+        if (!row) throw new HarnessError('invalid_attempt', '这次没有找到对应的原行动，可以先找回那份安排，再沿它自己的入口核对或撤回。');
         this.assertContract(name, JSON.parse(String(row.payload)).capabilityContract);
       }
       const domainRevision = this.policy.repo.domainRevision;
@@ -536,11 +543,11 @@ export class CapabilityBroker {
       const reuse = (value: CapabilityResult, cache: 'hit' | 'shared' | 'miss') => {
         signal.throwIfAborted();
         this.policy.validate(handle);
-        if (this.capabilities.get(name) !== entry) throw new HarnessError('provider_changed', '来源版本已改变，请重新查询。');
+        if (this.capabilities.get(name) !== entry) throw new HarnessError('provider_changed', '这份来源的读法刚刚换了，可以重新展开当前用法再接着查。');
         if (d.effect === 'read' && this.policy.repo.domainRevision !== domainRevision)
-          throw new HarnessError('source_changed', '资料版本已改变，请按最新状态重新查询。');
+          throw new HarnessError('source_changed', '读取期间资料更新了，这次结果先放下；沿原查询重新读，就能接上当前内容。');
         const result = structuredClone(value), bytes = Buffer.byteLength(JSON.stringify(result));
-        if (bytes > d.maxBytes) throw new HarnessError('output_budget', '来源内容过大，请缩小查询。');
+        if (bytes > d.maxBytes) throw new HarnessError('output_budget', '这次返回的资料太长，还没能完整带回来。可以按日期、类别或较短片段分开读，保留原来的查询目标。');
         budget.bytes += bytes;
         if (result.status === 'fresh' && result.expiresAt && Date.parse(result.expiresAt) <= Date.parse(this.policy.repo.clock.now())) result.status = 'stale';
         if (cache !== 'miss') this.audit({ id: attemptId, capability: name, providerId: m.id, version: d.version, status: result.status, scopeId: handle.id, simulated: m.simulated, bytes, cache });
@@ -560,7 +567,9 @@ export class CapabilityBroker {
       if (existing && !existing.controller.signal.aborted) return reuse(await this.waitFor(existing, signal), 'shared');
       const controller = new AbortController();
       const timer = setTimeout(
-        () => controller.abort(new HarnessError('provider_timeout', '来源读取超时。')),
+        () => controller.abort(new HarnessError('provider_timeout', d.effect === 'read'
+          ? '这份来源等到现在还没返回，其他已读资料仍可继续用；稍后可沿同一查询重新读取。'
+          : '这次还没收到办理结果，是否办成要沿原行动核对；原安排与这次要办的内容都还留着。')),
         d.timeoutMs,
       );
       this.active.add(controller);
@@ -609,17 +618,17 @@ export class CapabilityBroker {
           } else raw = await bounded(() => provider.invoke(name, parsed, invocation));
           controller.signal.throwIfAborted();
           this.policy.validate(handle);
-          if (this.capabilities.get(name) !== entry) throw new HarnessError('provider_changed', '来源版本已改变，请重新查询。');
+          if (this.capabilities.get(name) !== entry) throw new HarnessError('provider_changed', '这份来源的读法刚刚换了，可以重新展开当前用法再接着查。');
           const bytes = Buffer.byteLength(JSON.stringify(raw));
           if (bytes > d.maxBytes)
-            throw new HarnessError('output_budget', '来源内容过大，请缩小查询。');
+            throw new HarnessError('output_budget', '这次返回的资料太长，还没能完整带回来。可以按日期、类别或较短片段分开读，保留原来的查询目标。');
           const checkedResult = resultSchema.safeParse(raw);
           if (!checkedResult.success) {
             throw new CapabilityValidationError('result', checkedResult.error);
           }
           const result = checkedResult.data as CapabilityResult;
           if (result.sourceId !== m.sourceId || result.simulated !== m.simulated)
-            throw new HarnessError('provenance_mismatch', '来源或模拟状态不符合登记信息。');
+            throw new HarnessError('provenance_mismatch', '这次返回的出处或资料类型与原来源没有对上，暂时还没有可采用的结果；可以回到原来源重新核对。');
           if (result.data !== undefined) {
             const checkedData = d.output.safeParse(result.data);
             if (!checkedData.success) {
@@ -636,7 +645,7 @@ export class CapabilityBroker {
           if (result.status === 'known_absent' && result.coverage?.complete !== true)
             throw new HarnessError('incomplete_absence', '这份资料还没看全，空白部分仍可能有安排或条件；可以沿原查询继续读取。');
           if (d.effect === 'read' && this.policy.repo.domainRevision !== domainRevision)
-            throw new HarnessError('source_changed', '资料版本已改变，请按最新状态重新查询。');
+            throw new HarnessError('source_changed', '读取期间资料更新了，这次结果先放下；沿原查询重新读，就能接上当前内容。');
           if (d.effect === 'read' && s.retention !== 'session_only' && result.status === 'fresh' && result.expiresAt && this.inFlight.get(flightKey) === flight) {
             this.cached.set(key, structuredClone(result));
             while (this.cached.size > 64) this.cached.delete(this.cached.keys().next().value!);

@@ -63,55 +63,59 @@
   },
   "layerProduction": {
     "status": "designer-reviewed candidate; primary layer and runtime review pending",
-    "selectedParameters": "uika-attention-apricot-layer-parameters-v5.json",
-    "selectedProcessingRecord": "uika-attention-apricot-layer-processing-v5.json",
+    "selectedParameters": "uika-attention-apricot-layer-parameters-v7.json",
+    "selectedProcessingRecord": "uika-attention-apricot-layer-processing-v7.json",
     "scene": "uika-attention-apricot.scene.json",
     "matteCalibrationRecords": [
       "uika-attention-apricot-matte-calibration-v4.json",
-      "uika-attention-apricot-matte-calibration-v5.json"
+      "uika-attention-apricot-matte-calibration-v5.json",
+      "uika-attention-apricot-source-gap-calibration-v6.json",
+      "uika-attention-apricot-source-gap-calibration-v7.json"
     ],
     "outputs": [
       {
-        "file": "uika-attention-apricot-figure-calibrated-v5.png",
-        "bytes": 2430530,
-        "sha256": "4852f1a764f0667313e33d4bbad548671f520796e1e86f14706da3a31679d7ba"
+        "file": "uika-attention-apricot-figure-calibrated-v7.png",
+        "bytes": 2430445,
+        "sha256": "80790ce089da921442402ffe990a93100089aaa0040921e3c3b8c3e5ca145e7c"
       },
       {
-        "file": "uika-attention-apricot-mask-calibrated-v5.png",
-        "bytes": 25959,
-        "sha256": "58c328ae12db2446b9b78e16a3e1a8a5fbfc23490dc7590099cff01c87a1441e"
+        "file": "uika-attention-apricot-mask-calibrated-v7.png",
+        "bytes": 25744,
+        "sha256": "1d68752920c57efbb0e5b1e5593aa8555ecb7fcaccdfc89b175be8b29d08990b"
       },
       {
-        "file": "uika-attention-apricot-background-calibrated-v5.png",
-        "bytes": 2092490,
-        "sha256": "61be0c7615b88863162109724a4f5e61b11f70f6a2275f8712058aba137bded5"
+        "file": "uika-attention-apricot-background-calibrated-v7.png",
+        "bytes": 2092357,
+        "sha256": "9a111ae834a2b4b6204eb1df0a9612a9f00a8cf8211bfa959e112e7e4ebf48c9"
       },
       {
-        "file": "uika-attention-apricot-shadow-calibrated-v5.png",
-        "bytes": 49460,
-        "sha256": "87ce667fd33c5e02857d98eeb0b82da5a0daf2e9102ab45fa62f202dd3567aa1"
+        "file": "uika-attention-apricot-shadow-calibrated-v7.png",
+        "bytes": 49481,
+        "sha256": "5a0407da3224fd89af70346e9de1b088780153750240a1a7b903101b199185be"
       }
     ],
     "motherRgbSha256": "d6de36aedc066bcfdf68ba6a313cd1293dbadfec47db4fc7161f9f792fdf7291",
     "figureRgbSha256": "d6de36aedc066bcfdf68ba6a313cd1293dbadfec47db4fc7161f9f792fdf7291",
     "transform": "identity; no resize/translation/warp",
     "designerObserved": [
-      "Independent source calibration: approx visible hip/cushion contact (1338,582), near shoe sole (1204,781). Actual offered ivory bookmark, all real fingers, support palm and both worn shoes belong to figure. Paper is held in front of original shirt, therefore no false rectangular alpha hole behind it; internal printed/contour lines are opaque. Only 8px each side along the same bench seam is proposed; contact remains over the same cushion/floor corridor. Fine source hair retained, blue sky and saturated gold leaf contamination excluded locally. Separate original shoe/hip/support-palm contact residual, 3px near figure. Static endpoints personally viewed; no runtime acceptance."
+      "Independent source calibration: approx visible hip/cushion contact (1338,582), near shoe sole (1204,781). Actual offered ivory bookmark, all real fingers, support palm and both worn shoes belong to figure. Paper is held in front of original shirt, therefore no false rectangular alpha hole behind it; internal printed/contour lines are opaque. Only 8px each side along the same bench seam is proposed; contact remains over the same cushion/floor corridor. Fine source hair retained, blue sky and saturated gold leaf contamination excluded locally. Final original-source comparison found the real rear skirt tail between calves, around x1185..1215,y668..721, omitted by raw matte. Actual opaque cloth restored along original outer hem; matching empty BG now clears its former tiny blue-gray remnant. Separate original shoe/hip/support-palm contact residual, 3px near figure. Static endpoints personally viewed; no runtime acceptance."
     ],
     "reviewImagesPrivateDirectory": ".test-data/uika-play-attention-layer-review",
     "reviewImages": [
-      "attention-v5-light.png",
-      "attention-v5-dark.png",
-      "attention-v5-empty.png",
-      "attention-v5-room-dx0.png",
-      "attention-v5-room-dx-8.png",
-      "attention-v5-room-dx8.png"
+      "attention-v7-light.png",
+      "attention-v7-dark.png",
+      "attention-v7-empty.png",
+      "attention-v7-room-dx0.png",
+      "attention-v7-room-dx-8.png",
+      "attention-v7-room-dx8.png"
     ],
     "superseded": {
       "v1": "Initial explicit fills; attention paper repair wrongly cleared shirt behind it, play crown notch/sky remained; rejected.",
       "v2": "Correct internal hand/paper ownership; remaining source sky/leaf fringe; intermediate only.",
       "v3": "Rejected head local-color refinement removed genuine fine hair and admitted adjacent leaf pixels.",
-      "v4": "Soft source matte retained; play crown bright-hair color threshold produced pinholes; intermediate only."
+      "v4": "Soft source matte retained; play crown bright-hair color threshold produced pinholes; intermediate only.",
+      "v5": "Actual rear skirt tail omitted; tiny uncovered tail remnant left in empty BG.",
+      "v6": "Color confidence pitted actual opaque fabric; rejected in favor of original outer-seam alpha v7."
     },
     "remaining": [
       "Primary must inspect final fine hair, original hand/prop boundaries and contact shadows before layer admission.",
@@ -119,6 +123,75 @@
     ],
     "primaryLayerReview": "pending",
     "runtimeAccepted": false,
-    "integrated": false
-  }
+    "integrated": false,
+    "sourceGapReview": {
+      "evidenceDirectory": ".test-data/uika-play-attention-layer-review",
+      "originalCrop": "attention-tail-source-grid.png",
+      "finalRoom": "attention-v7-room-dx0.png",
+      "finalEmptyCrop": "attention-mark-empty-v7.png",
+      "finding": "Independent source calibration: approx visible hip/cushion contact (1338,582), near shoe sole (1204,781). Actual offered ivory bookmark, all real fingers, support palm and both worn shoes belong to figure. Paper is held in front of original shirt, therefore no false rectangular alpha hole behind it; internal printed/contour lines are opaque. Only 8px each side along the same bench seam is proposed; contact remains over the same cushion/floor corridor. Fine source hair retained, blue sky and saturated gold leaf contamination excluded locally. Final original-source comparison found the real rear skirt tail between calves, around x1185..1215,y668..721, omitted by raw matte. Actual opaque cloth restored along original outer hem; matching empty BG now clears its former tiny blue-gray remnant. Separate original shoe/hip/support-palm contact residual, 3px near figure. Static endpoints personally viewed; no runtime acceptance."
+    }
+  },
+  "layerProductionHistory": [
+    {
+      "status": "designer-reviewed candidate; primary layer and runtime review pending",
+      "selectedParameters": "uika-attention-apricot-layer-parameters-v5.json",
+      "selectedProcessingRecord": "uika-attention-apricot-layer-processing-v5.json",
+      "scene": "uika-attention-apricot.scene.json",
+      "matteCalibrationRecords": [
+        "uika-attention-apricot-matte-calibration-v4.json",
+        "uika-attention-apricot-matte-calibration-v5.json"
+      ],
+      "outputs": [
+        {
+          "file": "uika-attention-apricot-figure-calibrated-v5.png",
+          "bytes": 2430530,
+          "sha256": "4852f1a764f0667313e33d4bbad548671f520796e1e86f14706da3a31679d7ba"
+        },
+        {
+          "file": "uika-attention-apricot-mask-calibrated-v5.png",
+          "bytes": 25959,
+          "sha256": "58c328ae12db2446b9b78e16a3e1a8a5fbfc23490dc7590099cff01c87a1441e"
+        },
+        {
+          "file": "uika-attention-apricot-background-calibrated-v5.png",
+          "bytes": 2092490,
+          "sha256": "61be0c7615b88863162109724a4f5e61b11f70f6a2275f8712058aba137bded5"
+        },
+        {
+          "file": "uika-attention-apricot-shadow-calibrated-v5.png",
+          "bytes": 49460,
+          "sha256": "87ce667fd33c5e02857d98eeb0b82da5a0daf2e9102ab45fa62f202dd3567aa1"
+        }
+      ],
+      "motherRgbSha256": "d6de36aedc066bcfdf68ba6a313cd1293dbadfec47db4fc7161f9f792fdf7291",
+      "figureRgbSha256": "d6de36aedc066bcfdf68ba6a313cd1293dbadfec47db4fc7161f9f792fdf7291",
+      "transform": "identity; no resize/translation/warp",
+      "designerObserved": [
+        "Independent source calibration: approx visible hip/cushion contact (1338,582), near shoe sole (1204,781). Actual offered ivory bookmark, all real fingers, support palm and both worn shoes belong to figure. Paper is held in front of original shirt, therefore no false rectangular alpha hole behind it; internal printed/contour lines are opaque. Only 8px each side along the same bench seam is proposed; contact remains over the same cushion/floor corridor. Fine source hair retained, blue sky and saturated gold leaf contamination excluded locally. Separate original shoe/hip/support-palm contact residual, 3px near figure. Static endpoints personally viewed; no runtime acceptance."
+      ],
+      "reviewImagesPrivateDirectory": ".test-data/uika-play-attention-layer-review",
+      "reviewImages": [
+        "attention-v5-light.png",
+        "attention-v5-dark.png",
+        "attention-v5-empty.png",
+        "attention-v5-room-dx0.png",
+        "attention-v5-room-dx-8.png",
+        "attention-v5-room-dx8.png"
+      ],
+      "superseded": {
+        "v1": "Initial explicit fills; attention paper repair wrongly cleared shirt behind it, play crown notch/sky remained; rejected.",
+        "v2": "Correct internal hand/paper ownership; remaining source sky/leaf fringe; intermediate only.",
+        "v3": "Rejected head local-color refinement removed genuine fine hair and admitted adjacent leaf pixels.",
+        "v4": "Soft source matte retained; play crown bright-hair color threshold produced pinholes; intermediate only."
+      },
+      "remaining": [
+        "Primary must inspect final fine hair, original hand/prop boundaries and contact shadows before layer admission.",
+        "Static 8px endpoints do not establish real Stage, keyboard, spring or interruption behavior."
+      ],
+      "primaryLayerReview": "pending",
+      "runtimeAccepted": false,
+      "integrated": false
+    }
+  ]
 }

@@ -70,7 +70,7 @@ const TOOL_INTRODUCTIONS: Record<string, string> = {
   update_collaboration: '记下这件事已经聊清什么、还有什么没办、刚才试得怎样，以及后来改了什么。确定的内容与暂时猜想各自保留；对方明确选中或撤回一种做法时用choose。讲题、即兴共写和接着讨论，可以把实际内容直接写在当前回复里；另要独立成稿或保留原生纸时，再连回那份成果。真正保存安排沿原行动继续。',
   prepare_release: '对方明确要单独的稿页、稿件版本，或要交给具体收件人的正文时，沿原话准备这份稿件，保留读者、用途和可用材料。已有稿件可用真实priorArtifactId接回；写忙闲时带具体from/to。正文会在独立稿页里呈现，你可以接着聊内容与修改。平常讲题、即兴共写和私下讨论，可以直接在当前回复里完成；要怎样交付，沿对方这次的需要来。',
   prepare_action: '把明确托付的本地安排办好，或把尚在商量的安排做成可接受的建议卡。整份规划沿原planId递出，单项托付保留真实日期和提醒时刻；时长还未知时留空。结果会说明现在是建议已备好、安排已保存，还是还差哪一步。',
-  look_up: '查眼前需要的原资料：校园课程与成绩、已存安排、天气、地图或以前的原话。source选择来源；找其他读法时用capability目录，describeOnly展开说明，再带arguments读取。日期与下一页沿来源给出的地址继续，返回的sceneRef可直接摊开。跨来源一起看安排时可找situation.read，单次最多31天。',
+  look_up: '查眼前需要的原资料：校园课程与成绩、已存安排、天气、地图或以前的原话。source选择来源；想找其他资料时用capability目录，describeOnly看读法，再带arguments读取。一种说法没找到时，可以换词或沿browse翻目录。日期与下一页沿原资料的地址继续，返回的sceneRef可直接摊开。跨来源一起看安排可找situation.read，一次最多31天。',
   manage_attention: '记住对方托付你照看的事，也能暂停、停止、改成只提醒一次，或记下这次提醒合不合适。沿原托付继续，保留他说的期限、提醒方式和停止条件；明确时刻放wakeAt，相对日期随当天重算。预约或发送消息沿各自的行动办理。',
   restore_collaboration: '接回没聊完或没办完的事，找回原话、当时的理解和后来改变的条件。默认看当前会话；有原话地址时用source_related找相关事项与方法，再沿正文和下一页继续。规划条件可用planning_intent回读。找到线索后再判断眼前是否还用得上。',
   inspect_help: '翻回已经准备的材料、照看的事项和相处约定。可以按关键词、关联事项、状态或日期找，再沿原id读正文和来由。已有材料仍合用时，decide_help可以把它带回当前交流；实际送到哪一步会分别留下记录。',
@@ -143,10 +143,17 @@ export function deferredToolCatalog(all: readonly ToolSpec[], options: {
       ...(query ? { query } : {}), ...(options.family ? { family: options.family } : {}), offset: nextOffset, limit,
     } } } : {}),
     ...(normalized || options.family ? { browse: { tool: USE_TOOL, arguments: { offset: 0, limit } } } : {}),
+    ...(offset > 0 ? { restart: { tool: USE_TOOL, arguments: {
+      ...(query ? { query } : {}), ...(options.family ? { family: options.family } : {}), offset: 0, limit,
+    } } } : {}),
     coverage: { query, family: options.family || null, matchingOnly: !!normalized, offset, returned: items.length, totalMatches: rows.length,
-      meaning: rows.length
-        ? `找到${rows.length}种相关做法，这一页列出${items.length}种。沿每项入口看完整用法。${nextOffset !== null ? '还有下一页可接着翻。' : '这份目录已翻到末页。'}`
-        : '这次的用途还没找到相近做法，可以换个说法，或从完整目录里看看。' },
+      meaning: items.length
+        ? `找到${rows.length}种相关做法，这一页列出${items.length}种。沿每项入口看完整用法。${nextOffset !== null ? '还有下一页可接着翻。' : '这一页是这次查找的最后一页。'}`
+        : rows.length
+          ? `这次找到${rows.length}种做法，当前起点已经超出目录。沿restart回到这次查找的第一页。`
+          : normalized || options.family
+            ? '这个用途还没找到相近做法。可以换个说法，或沿browse看看其他做法；公开资料、天气、校园和地图在look_up里找。'
+            : '这次没有另外收在这里的专门工具，可以接着用当前直接提供的工具；资料来源还可从look_up查找。' },
   };
 }
 
@@ -169,7 +176,7 @@ export function modelToolSurface(all: ToolSpec[], promoted: ReadonlySet<Deferred
   });
   const gateway: ToolSpec = { type: 'function', function: {
     name: USE_TOOL,
-    description: `想找做法，用query描述用途，或用family缩小范围；不填时浏览专门目录，没找到可以换词或继续翻页。所有当前工具都可只填name看完整用法。专门工具已知怎样填写时，把name和arguments一起交来就能办；常用工具仍从原入口执行。手边例如${examples.join('、')}，资料或画面给出的专门工具入口也从这里继续。公开资料、天气、校园和地图沿look_up查找。`,
+    description: `想找做法，用query说想做什么，或用family选一类；留空可浏览专门目录。有下一页时会留下入口，没找到可换词或沿browse继续找；翻过头可沿restart回到第一页。只填name能看当前任一工具的完整用法；用专门工具时把name和arguments一起交来，常用工具从原入口执行。手边例如${examples.join('、')}，资料或画面给出的专门工具地址也从这里接着用。公开资料、天气、校园和地图沿look_up查找。`,
     parameters: { type: 'object', properties: {
       name: { type: 'string', enum: all.map(spec => spec.function.name), description: '精确工具名，读取完整用法；省略时搜索或浏览专门目录。' },
       query: { type: 'string', maxLength: 300, description: '想找的用途或工具名；用来找说明，具体资料仍沿原有范围阅读。' },

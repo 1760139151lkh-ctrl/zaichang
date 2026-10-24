@@ -57,10 +57,10 @@ function decodedBody(raw: RawResponse, maximum: number) {
     if (encoding === 'gzip') return gunzipSync(raw.body, { maxOutputLength: maximum });
     if (encoding === 'deflate') return inflateSync(raw.body, { maxOutputLength: maximum });
     if (encoding === 'br') return brotliDecompressSync(raw.body, { maxOutputLength: maximum });
-    if (encoding && encoding !== 'identity') throw new HarnessError('public_encoding', '资料压缩格式不可读取。');
+    if (encoding && encoding !== 'identity') throw new HarnessError('public_encoding', '这份资料用了目前打不开的压缩格式，可以换原网页或未压缩的下载地址继续。');
     return raw.body;
   } catch (error) {
-    if ((error as any)?.code === 'ERR_BUFFER_TOO_LARGE') throw new HarnessError('public_body_limit', '资料解压后超过读取上限。');
+    if ((error as any)?.code === 'ERR_BUFFER_TOO_LARGE') throw new HarnessError('public_body_limit', '这份资料解压后太大，还没能打开；可以找原网页、单章或较小的文件继续。');
     throw error;
   }
 }
@@ -115,9 +115,9 @@ async function localAddresses(host: string, signal?: AbortSignal) {
 function requestEndpoint(url: URL, addresses: Address[] | undefined, signal: AbortSignal, route = currentRoute(url), dns = false): Promise<RawResponse> {
   signal.throwIfAborted();
   if (addresses && (!addresses.length || addresses.some(item => !publicAddress(item.address) || isIP(item.address) !== item.family)))
-    throw new HarnessError('public_address_forbidden', '目标解析到了非公开网络，读取已停止。');
+    throw new HarnessError('public_address_forbidden', '这个网址实际指向内网，公开网页入口没有打开它；校园登录资料可以从校园连接继续。');
   if (!addresses && (!dns || url.origin !== 'https://cloudflare-dns.com' || url.pathname !== '/dns-query' || !route.proxy))
-    throw new HarnessError('public_dns', '公开读取没有取得可固定的目标地址。');
+    throw new HarnessError('public_dns', '这次还没找到这个网站可连接的公网地址，原页尚未打开；可以换原发布方的其他公开链接继续。');
   const originalHost = url.hostname.replace(/^\[|\]$/g, '');
   const transport = new URL(url);
   if (addresses) transport.hostname = addresses[0].family === 6 ? `[${addresses[0].address}]` : addresses[0].address;
@@ -167,7 +167,7 @@ async function resolvePublic(host: string, signal?: AbortSignal): Promise<Addres
   try { local = await localAddresses(host, signal); }
   catch (error) {
     signal?.throwIfAborted();
-    if (!['ENOTFOUND', 'EAI_AGAIN', 'ESERVFAIL'].includes(String((error as any)?.code))) throw new HarnessError('public_dns', '公开域名解析暂不可用。');
+    if (!['ENOTFOUND', 'EAI_AGAIN', 'ESERVFAIL'].includes(String((error as any)?.code))) throw new HarnessError('public_dns', '这次网络还没查到网站地址，原页尚未打开；可以稍后沿原链接再读，或先读其他来源。');
   }
   // Private/mixed local answers cannot be washed into a public answer. Only
   // the established all-Fake-IP exception may cross this rejection boundary.
@@ -189,15 +189,15 @@ async function resolvePublic(host: string, signal?: AbortSignal): Promise<Addres
   const raw = await requestEndpoint(url, bootstrap, deadline, route, true);
   deadline.throwIfAborted();
   if (raw.status !== 200 || !/^application\/(?:dns-json|json)(?:;|$)/i.test(raw.headers['content-type'] || ''))
-    throw new HarnessError('public_dns', '没有取得固定DNS服务的有效响应。');
+    throw new HarnessError('public_dns', '查询网站地址时没有收到有效响应，原页尚未打开；可以先读其他来源，稍后沿原链接继续。');
   let data: any;
   try { data = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(decodedBody(raw, 20000))); }
-  catch { throw new HarnessError('public_dns', '没有取得固定DNS服务的有效解析。'); }
+  catch { throw new HarnessError('public_dns', '网站地址查询返回的内容还没读清，原页尚未打开；可以稍后沿原链接继续。'); }
   if (data.Status !== 0 || !Array.isArray(data.Question) || data.Question.length !== 1 || data.Question[0]?.type !== 1 || typeof data.Question[0]?.name !== 'string' || data.Question[0].name.replace(/\.$/, '').toLowerCase() !== host.toLowerCase() || !Array.isArray(data.Answer))
-    throw new HarnessError('public_dns', '没有取得此公开域名的有效解析。');
+    throw new HarnessError('public_dns', '这次没有查到这个网站的有效地址，原页尚未打开；可以核对网址或改读原发布方的其他链接。');
   const answers = data.Answer.filter((answer: any) => answer.type === 1);
   if (!answers.length || answers.some((answer: any) => typeof answer.data !== 'string' || isIP(answer.data) !== 4))
-    throw new HarnessError('public_dns', '没有取得此公开域名的有效地址。');
+    throw new HarnessError('public_dns', '这次没有查到这个网站可连接的地址，原页尚未打开；可以先读其他公开来源。');
   return answers.map((answer: any) => ({ address: answer.data, family: 4 }));
 }
 const defaultPorts: PublicNetworkPorts = { resolve: resolvePublic, request: (url, addresses, signal) => requestEndpoint(url, addresses, signal) };
@@ -207,25 +207,25 @@ export async function publicFetch(input: string, signal: AbortSignal, ports: Pub
   for (let redirects = 0; redirects <= 3; redirects++) {
     signal.throwIfAborted();
     const addresses = await ports.resolve(url.hostname.replace(/^\[|\]$/g, ''), signal);
-    if (!addresses.length || addresses.some(item => !publicAddress(item.address))) throw new HarnessError('public_address_forbidden', '目标解析到了非公开网络，读取已停止。');
+    if (!addresses.length || addresses.some(item => !publicAddress(item.address))) throw new HarnessError('public_address_forbidden', '这个网址没有对应到可读取的公网地址，原页尚未打开；校园登录资料可以从校园连接继续。');
     const raw = await ports.request(url, addresses, signal);
     signal.throwIfAborted();
     if ([301, 302, 303, 307, 308].includes(raw.status)) {
-      if (!raw.headers.location || redirects === 3) throw new HarnessError('public_redirect_limit', '重定向过多或目标缺失。');
+      if (!raw.headers.location || redirects === 3) throw new HarnessError('public_redirect_limit', '这个链接连续跳转，仍没到可读的原页；可以从原发布方找正文的直接链接。');
       url = publicResourceUrl(new URL(raw.headers.location, url).href); continue;
     }
     // Error pages need not have a supported media type. Preserve the HTTP
     // outcome for the caller without returning an untrusted error body as data.
     if (raw.status < 200 || raw.status >= 300) {
       if (!Number.isInteger(raw.status) || raw.status < 200 || raw.status > 599)
-        throw new HarnessError('public_response_status', '来源没有返回有效的HTTP状态。');
+        throw new HarnessError('public_response_status', '这个网站的响应还没能读成网页结果，原页尚未打开；可以换它的正文链接或其他公开来源继续。');
       const response = new Response(null, { status: raw.status, headers: raw.headers['content-type'] ? { 'content-type': raw.headers['content-type'] } : {} });
       Object.defineProperty(response, 'url', { value: url.href });
       return response;
     }
-    if (!allowedTypes.test(raw.headers['content-type'] || '')) throw new HarnessError('public_type_unsupported', '当前公开读取支持网页、文字/结构化文字、PDF和常见图片；此文件类型尚未接入。');
+    if (!allowedTypes.test(raw.headers['content-type'] || '')) throw new HarnessError('public_type_unsupported', '这个链接返回的文件类型暂时打不开，可以找同一内容的网页、文字、PDF或常见图片版本继续。');
     const maximum = bodyLimit(raw.headers['content-type'] || '');
-    if (raw.body.length > maximum) throw new HarnessError('public_body_limit', '资料超过读取上限。');
+    if (raw.body.length > maximum) throw new HarnessError('public_body_limit', '这份资料太大，还没能打开；可以找原网页、单章或较小的文件继续。');
     const body = decodedBody(raw, maximum);
     if (/^application\/pdf(?:;|$)/i.test(raw.headers['content-type'] || '') && !body.subarray(0, 5).equals(Buffer.from('%PDF-')))
       throw new HarnessError('public_type_unsupported', '来源标成PDF，实际收到的内容却不是PDF格式，这次没能打开。');
@@ -235,5 +235,5 @@ export async function publicFetch(input: string, signal: AbortSignal, ports: Pub
     Object.defineProperty(response, 'url', { value: url.href });
     return response;
   }
-  throw new HarnessError('public_redirect_limit', '重定向超过上限。');
+  throw new HarnessError('public_redirect_limit', '这个链接连续跳转，仍没到可读的原页；可以从原发布方找正文的直接链接。');
 }

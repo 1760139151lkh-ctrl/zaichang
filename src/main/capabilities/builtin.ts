@@ -363,8 +363,8 @@ export function registerBuiltins(
     }).strict(), jsonObject, ['evidence:read'], { version: '3', timeoutMs: 90000, worlds: ['real'], displayName: '一起看看近日安排', description: '把最多31天里的已存安排、已经答应的事、当前目标与可读校园安排放在一起，方便商量接下来怎么过。校园已连接时会接回原资料，必要时补齐缺少的学期；每项保留当地时间、来源与还没看全的部分。精力和意愿等对方来说。只想看某份课表或考试时，直接用campus.lookup或campus.query读原清单，返回的画面地址可直接展示。' })]),
     invoke: async (_name, args, ctx) => {
       const scope = policy.validate(ctx.scope), now = repo.clock.now();
-      if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self') throw new HarnessError('situation_scope', '个人情境只在本人的现实私有范围内读取。');
-      if (Date.parse(args.to) <= Date.parse(args.from) || Date.parse(args.to) - Date.parse(args.from) > 31 * 86400000) throw new HarnessError('time_window', '情境读取须给出有效时间窗，单次不超过31天。');
+      if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self') throw new HarnessError('situation_scope', '这里接的是本人私下商量的真实安排；其他人的安排或假设情节可以在各自的事项里继续谈。');
+      if (Date.parse(args.to) <= Date.parse(args.from) || Date.parse(args.to) - Date.parse(args.from) > 31 * 86400000) throw new HarnessError('time_window', '这次需要明确从什么时候看到什么时候，结束放在开始之后；一次可看31天，更长的日子可以分段接着看。');
       const campusSnapshot = await planning.readCampus(scope, args.from, args.to, ctx.signal);
       policy.validate(ctx.scope);
       const campusCalendar = campusSnapshot ? { ...campusConstraintSummary(campusSnapshot),
@@ -433,16 +433,16 @@ export function registerBuiltins(
     ]),
     invoke: async (name, args, ctx) => {
       if (name === 'local.agenda.save' || name === 'local.agenda.change')
-        throw new HarnessError('transaction_required', '本地安排必须由受控事务提交。');
+        throw new HarnessError('transaction_required', '保存安排沿prepare_action继续；已存安排的修改沿原行动办理，这样实际结果和撤回入口都能留在同一处。');
       policy.validate(ctx.scope);
       if (name === 'planning.compare') {
         const scope = policy.validate(ctx.scope), input = planningComparisonInput.parse(args);
         if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self' || !scope.sources.includes('local-agenda'))
-          throw new HarnessError('planning_scope', '生活安排比较需要本人当前允许的日历范围。');
+          throw new HarnessError('planning_scope', '这次还没有读到本人日历，暂时算不出真实空档；可以先接回当前允许的日历，再比较这几种安排。');
         const campus = await planning.readCampus(scope, input.draft.from, input.draft.to, ctx.signal);
         ctx.signal.throwIfAborted(); policy.validate(ctx.scope);
         if (campus && !planning.campusCurrent(scope, campus))
-          throw new HarnessError('planning_campus_changed', '校园安排快照已变化，先回读再比较。');
+          throw new HarnessError('planning_campus_changed', '比较期间学校安排更新了，可以重新读一遍，再用同一份当前资料比较这几种过法。');
         const items = repo.db.prepare('SELECT payload FROM agenda').all().map(row => JSON.parse(String(row.payload)));
         const currentInput = campus ? { ...input, draft: { ...input.draft, busy: [...input.draft.busy, ...campus.busy],
           sourceCoverage: [...input.draft.sourceCoverage, campus.coverage] } } : input;
@@ -514,7 +514,7 @@ export function registerBuiltins(
         return {
           status: 'not_connected',
           sourceId,
-          reason: connector?.reason || '还没有连接浙大校园账号。',
+          reason: connector?.reason || '还没有连接浙大校园账号，可以在“连接与偏好 → 校园资料”登录；已有导入材料可从campus.imported_lookup继续读。',
           simulated: false,
         };
       if (name === 'campus.query') {
@@ -552,7 +552,7 @@ export function registerBuiltins(
         return {
           status: 'forbidden',
           sourceId,
-          reason: '请先在校园资料中登录浙大账号。',
+          reason: '校园账号还没登录，可以在“连接与偏好 → 校园资料”接上；已有导入材料可从campus.imported_lookup继续读。',
           simulated: false,
         };
       if (name === 'campus.overview') {
@@ -881,7 +881,7 @@ export function registerBuiltins(
               const nearby = publicMap.nearbyWalkablePlaces(point.id);
               return { ...projectWalkingSearchPoint(point), ...(nearby.length ? { nearbyWalkablePlaces: nearby.map(candidate => ({
                 ...candidate, point: projectWalkingSearchPoint(candidate.point),
-                meaning: '这是附近另一个有自己名字和来源的可选落点，距离按两处公共参考点直量。connectedBridgeNames来自接入路网中的实际桥段名。选它试路时会换成这个终点；实际路程和接入估计继续由map.route计算。',
+                meaning: '这是附近另一处有自己名字和出处的落点，所列距离是两处参考点间的直线。桥名来自已记录的道路；选这处试路时，它会成为新的终点，走多少路再由map.route算。',
               })) } : {}) };
             }) }
             : name === 'map.route'
@@ -921,12 +921,12 @@ export function registerBuiltins(
         version: '2', displayName: '看看那里的空气预报', description: '按公开地点查PM2.5、PM10及美国、欧洲两种AQI预报，默认未来24小时，也可选当地今天起五天里的时段。结果会写明预报地点、时段与指数制式，方便结合当天实际感受商量出门安排。',
       }),
     ], ['api.open-meteo.com', 'air-quality-api.open-meteo.com']),
-    connectionStatus: () => ({ connected: connections.weatherEnabled(), reason: connections.weatherEnabled() ? undefined : '天气查询未开启。' }),
+    connectionStatus: () => ({ connected: connections.weatherEnabled(), reason: connections.weatherEnabled() ? undefined : '天气查询还没开启，可以在连接与偏好里打开。' }),
     invoke: async (name, args, ctx) => {
-      if (!connections.weatherEnabled()) return { status: 'forbidden', sourceId: 'weather:open-meteo', reason: '天气查询未开启。', simulated: false };
+      if (!connections.weatherEnabled()) return { status: 'forbidden', sourceId: 'weather:open-meteo', reason: '天气查询还没开启，可以在连接与偏好里打开；已经查到的路线和安排仍可接着看。', simulated: false };
       if (name === 'air_quality.lookup') {
         const query = airQualityRequest(args, repo.clock.now()), response = await ctx.request(query.url.toString());
-        if (!response.ok) throw new HarnessError('air_quality_failed', '空气质量服务未完成查询。');
+        if (!response.ok) throw new HarnessError('air_quality_failed', `空气质量来源这次没有返回预报（HTTP ${response.status}），已有的天气和路线仍可接着看；稍后可沿同一地点与时段再查。`);
         const now = repo.clock.now(), result = airQualityResult(query, await response.json(), now);
         return { status: result.complete ? 'fresh' : 'partial', sourceId: 'weather:open-meteo', data: result.data,
           fetchedAt: now, expiresAt: new Date(Date.parse(now) + 1800000).toISOString(), simulated: false,
@@ -934,7 +934,7 @@ export function registerBuiltins(
           ...(result.complete ? {} : { reason: '这段时间有些小时还缺数据，已拿到的小时值保留在结果里。可以先看已有部分，或换一个较短时段继续查。' }) };
       }
       const query = weatherRequest(args, repo.clock.now()), response = await ctx.request(query.url.toString());
-      if (!response.ok) throw new HarnessError('weather_failed', '天气服务未完成查询。');
+      if (!response.ok) throw new HarnessError('weather_failed', `天气来源这次没有返回预报（HTTP ${response.status}），已有路线和安排仍可接着看；稍后可沿同一地点与时段再查。`);
       const observedAt = repo.clock.now(), result = weatherResult(query, await response.json(), observedAt);
       return { status: result.complete ? 'fresh' : 'partial', sourceId: 'weather:open-meteo', data: result.data,
         fetchedAt: observedAt, expiresAt: new Date(Math.min(Date.parse(observedAt) + 1800000, Date.parse(dayBounds(dateInZone(observedAt, query.location.timeZone), query.location.timeZone).to))).toISOString(),

@@ -8,10 +8,10 @@
   "width": 1536,
   "height": 1024,
   "mother": "uika-attention-apricot-mother-candidate-v1.png",
-  "background": "uika-attention-apricot-background-calibrated-v5.png",
-  "figure": "uika-attention-apricot-figure-calibrated-v5.png",
-  "mask": "uika-attention-apricot-mask-calibrated-v5.png",
-  "shadow": "uika-attention-apricot-shadow-calibrated-v5.png",
+  "background": "uika-attention-apricot-background-calibrated-v7.png",
+  "figure": "uika-attention-apricot-figure-calibrated-v7.png",
+  "mask": "uika-attention-apricot-mask-calibrated-v7.png",
+  "shadow": "uika-attention-apricot-shadow-calibrated-v7.png",
   "seat": [
     0.87109375,
     0.568359375
@@ -42,8 +42,8 @@
     "layerReview": "pending",
     "runtimeAccepted": false,
     "runtimeReviewRecord": "../primary-runtime-reviews.json",
-    "producerNote": "Independent source calibration: approx visible hip/cushion contact (1338,582), near shoe sole (1204,781). Actual offered ivory bookmark, all real fingers, support palm and both worn shoes belong to figure. Paper is held in front of original shirt, therefore no false rectangular alpha hole behind it; internal printed/contour lines are opaque. Only 8px each side along the same bench seam is proposed; contact remains over the same cushion/floor corridor. Fine source hair retained, blue sky and saturated gold leaf contamination excluded locally. Separate original shoe/hip/support-palm contact residual, 3px near figure. Static endpoints personally viewed; no runtime acceptance."
+    "producerNote": "Independent source calibration: approx visible hip/cushion contact (1338,582), near shoe sole (1204,781). Actual offered ivory bookmark, all real fingers, support palm and both worn shoes belong to figure. Paper is held in front of original shirt, therefore no false rectangular alpha hole behind it; internal printed/contour lines are opaque. Only 8px each side along the same bench seam is proposed; contact remains over the same cushion/floor corridor. Fine source hair retained, blue sky and saturated gold leaf contamination excluded locally. Final original-source comparison found the real rear skirt tail between calves, around x1185..1215,y668..721, omitted by raw matte. Actual opaque cloth restored along original outer hem; matching empty BG now clears its former tiny blue-gray remnant. Separate original shoe/hip/support-palm contact residual, 3px near figure. Static endpoints personally viewed; no runtime acceptance."
   },
-  "production": "uika-attention-apricot-layer-processing-v5.json",
-  "parameters": "uika-attention-apricot-layer-parameters-v5.json"
+  "production": "uika-attention-apricot-layer-processing-v7.json",
+  "parameters": "uika-attention-apricot-layer-parameters-v7.json"
 }

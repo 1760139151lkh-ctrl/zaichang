@@ -399,6 +399,9 @@ export class ToolRegistry {
           ? '这个工具这次已经直接提供，从原入口继续就好。'
           : '这次的专门目录里没找到这个工具，可以沿下面的入口重新找用途，也可以用look_up找其他资料来源的做法。',
         discover: { tool: USE_TOOL, arguments: {} },
+        ...(!spec && available.some(item => item.function.name === 'look_up') ? {
+          capabilityCatalog: { tool: 'look_up', arguments: { source: 'capability' } },
+        } : {}),
         ...(spec ? { directTool: name, continuation: { tool: name, arguments: request.arguments } } : {}),
       });
       return this.execute(name, JSON.stringify(request.arguments), toolCallId, signal);
