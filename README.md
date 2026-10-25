@@ -6,6 +6,8 @@
 
 **当前入口：** [项目导航](PROJECT_NAVIGATION.md) · [协作规则](AGENTS.md) · [当前状态](docs/CURRENT_STATUS.md) · [产品契约](docs/PRODUCT_CONTRACT.md) · [运行架构](docs/ARCHITECTURE.md)
 
+**完整核心技能：** [前端设计](核心技能/前端设计/SKILL.md) · [后端设计](核心技能/后端设计/SKILL.md) · [Gemini 视频生成](核心技能/Gemini视频生成/SKILL.md) · [技能目录与完整内容说明](核心技能/README.md)。三份技能均包含全部参考文件。
+
 **完整接手：** [先全貌与第一阶段、再重开第二阶段的交接包](docs/handoff/2026-10-24-stage02-restart/README.md) · [新聊天启动提示词](docs/handoff/2026-10-24-stage02-restart/新聊天启动提示词.md)。当前仍在第二阶段；新主代理先完整亲读第一阶段全部相关材料，再带全新八路从第二阶段开头做深。
 
 **视觉资料与后续深化：** [深度评鉴总入口](前端视觉创新设计/2026-10-23-深度评鉴/README.md) · [全量逐图评鉴](前端视觉创新设计/2026-10-23-深度评鉴/全量图稿评鉴.md) · [逐页手术单](前端视觉创新设计/2026-10-23-深度评鉴/逐页手术单.md) · [完整接力提示词](前端视觉创新设计/2026-10-23-深度评鉴/下一阶段深度优化与创新延拓提示词.md)
@@ -41,6 +43,7 @@ Electron main 管理 SQLite、凭据、权限和动作；React renderer 通过�
 Node **24.18.0**、npm **11.16.0**；桌面目标 Windows x64。Hermes **0.21.2**、Python **3.13**，具体依赖以锁文件为准。
 
 ```sh
+git lfs pull
 npm ci
 npm run setup
 npm run dev

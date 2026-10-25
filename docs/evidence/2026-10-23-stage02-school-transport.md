@@ -58,7 +58,7 @@
 
 随后主代理重新构建，在正常 Electron 的实际体艺卡片中再次执行 `refreshGateway: true`，画面显示“在场的学校 WebVPN 会话需要登录”，不再显示 `unavailable`。这次没有弹出登录窗，也没有读取任何其他浏览器的 Cookie。同一入口的原失败触发已重新核查并恢复。该次没有在 stdout 读取 HTTP 状态或 `Location`，所以不将它写作亲见原始 302 回复。
 
-另以独立空 Electron 资料目录启动正常产品进程，通过已有 preload Bridge 逐步复核主进程边界，没有注入替身或新增运行器：
+另以独立空 Electron 资料目录启动正常产品进程，通过已有 preload Bridge 逐步复核主进程边界，没有使用替身或新增运行器：
 
 - 关闭 `campus:read` 后，`tiyiConnect` 即交回“校园资料的读取已关闭”，自有窗口仍为一个，`readAllowed` 为 false。该早退分支位于个人服务调用之前。
 - 单独重新开启 `campus:read` 后，`readAllowed` 仍为 false，没有自动授予体艺子权限。

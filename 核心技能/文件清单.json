@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "note": "全部正文及配套文件；仓库绝对链接改为相对链接，并修正四个已迁移源码文件名。",
+  "files": [
+    {
+      "path": "前端设计/SKILL.md",
+      "bytes": 21883,
+      "sha256": "207e23ec0f8383ed59491c7e06c783628cf3a282d5a9f8802954d1da6a4abfb3"
+    },
+    {
+      "path": "前端设计/references/01-soul-and-personas.md",
+      "bytes": 8177,
+      "sha256": "18a5e3bc4ad4da4e7cbf4bbba1a9fe0842575390ec7df8771ea64003c1a57f31"
+    },
+    {
+      "path": "前端设计/references/02-visual-matrix-and-imagegen.md",
+      "bytes": 8568,
+      "sha256": "3e7409475bc6037b4c60c9e12516af4a53b1e6351535bc7834ded4b94f17ca59"
+    },
+    {
+      "path": "前端设计/references/03-spatial-craft-and-alignment.md",
+      "bytes": 8334,
+      "sha256": "952b089d5e35e42d34503caa088ef49cc969e0f9d8ee6ff9e3efcfc8791184a2"
+    },
+    {
+      "path": "前端设计/references/04-motion-openui-and-direct-manipulation.md",
+      "bytes": 6797,
+      "sha256": "530e2fee5c8e5ccb3f08c820f4e2020f56cbc5e7826d530f4444da2078354636"
+    },
+    {
+      "path": "前端设计/references/05-architecture-synergy-and-verification.md",
+      "bytes": 7407,
+      "sha256": "1eae5b2ba29cad84e740616e1ac5779388acfd5195387a32956a9c8f23a2a787"
+    },
+    {
+      "path": "后端设计/SKILL.md",
+      "bytes": 22670,
+      "sha256": "9c8363572ec27c82b5617f4d4219fb3d20a9bbe03f6127363d1726dd75c7ede3"
+    },
+    {
+      "path": "后端设计/references/extensions-and-evaluation.md",
+      "bytes": 14118,
+      "sha256": "7b1e8b2989d232456415dafab74dba80bd5a33ffcbd891b29bfb204763a2ca82"
+    },
+    {
+      "path": "后端设计/references/harness-and-agency.md",
+      "bytes": 11463,
+      "sha256": "de95a4502f304a463ca256d573672cb063a05fa3909730fc415cdb4df72e8602"
+    },
+    {
+      "path": "后端设计/references/memory-and-continuity.md",
+      "bytes": 11110,
+      "sha256": "13d5cd6521ce97c70d1014518d1f0b0ff92843fc35a7836da630bea45b9d8e26"
+    },
+    {
+      "path": "后端设计/references/openui-spatial-and-cross-module.md",
+      "bytes": 10314,
+      "sha256": "bc6d8862b3cf114bf9230377cc39f0e3647fd67bf148e7b191372919bdd9d227"
+    },
+    {
+      "path": "后端设计/references/persona-proactivity-and-rhythm.md",
+      "bytes": 11596,
+      "sha256": "7df95f52edad55e26dc10238e186f91d1d777c1c5899e7be7345dfa1d9da6c33"
+    },
+    {
+      "path": "Gemini视频生成/SKILL.md",
+      "bytes": 5412,
+      "sha256": "1989fea90dfcd2c202dc25b7b3be0f60afb6702441ed99c66423b71c15186987"
+    },
+    {
+      "path": "Gemini视频生成/references/continuity-and-direction.md",
+      "bytes": 5529,
+      "sha256": "f410c874cccec1fc0da988dd210e751c93274582db2d0fcbd54e695f7e4e75aa"
+    },
+    {
+      "path": "Gemini视频生成/references/creative-recipes.md",
+      "bytes": 6370,
+      "sha256": "7518d4984e0b434c1daa6acc33848fa632b17931c418346b28ed86ad047ea250"
+    },
+    {
+      "path": "Gemini视频生成/references/github-research-index.md",
+      "bytes": 7289,
+      "sha256": "4398c55810e03ce27483d82e22a157f26410802d78d9915cf064b813f64c4e16"
+    },
+    {
+      "path": "Gemini视频生成/references/postproduction-and-review.md",
+      "bytes": 4864,
+      "sha256": "eeacdcc26f711616ed0fedce76bc3cc98d7a2fede08d0cece03df954c7fe066e"
+    },
+    {
+      "path": "Gemini视频生成/references/product-hero-and-posters.md",
+      "bytes": 4243,
+      "sha256": "f340c9b5a5b0a21580f012a8a4a667e8bf72c32322889a2ca92b65dd65dd33aa"
+    },
+    {
+      "path": "Gemini视频生成/references/prompt-controls.md",
+      "bytes": 8974,
+      "sha256": "11ae3845e4756f56d768bc00a601559f7ea9268d4f4f8c15d19581fb742e714d"
+    },
+    {
+      "path": "Gemini视频生成/references/seamless-loops.md",
+      "bytes": 5334,
+      "sha256": "b6d3500c03bfd82446d76d50eee291db46254c91b3056d7badb73cc0d0bbdc22"
+    },
+    {
+      "path": "Gemini视频生成/references/web-capabilities.md",
+      "bytes": 7171,
+      "sha256": "438466783efbec622aed87b3a723a39c3c10a3cf06ffe02806a07f5fef385cbf"
+    },
+    {
+      "path": "Gemini视频生成/setup-status.md",
+      "bytes": 2248,
+      "sha256": "d9306a6b6176c54b8b68f439a07ddfcb89a06f8055fe3b084b5e67d774ed9b4a"
+    }
+  ]
+}

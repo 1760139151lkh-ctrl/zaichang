@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "files": [
+    {
+      "path": "artifacts/harness-review/zaichang-harness-minimal-core.zip",
+      "bytes": 543209,
+      "sha256": "ddb2409de01aec443b44c667a8d0c9456f769d4f62cd4f1e612b320a65194b61"
+    },
+    {
+      "path": "artifacts/map-v2/walking-oracle.lp.gz",
+      "bytes": 301450,
+      "sha256": "9e123323c42318c9b57fd43f7ee3bc0057656d5ed1df08df189837ba4552f2d0"
+    },
+    {
+      "path": "artifacts/map-v3/full-refinement/before-refinement.zip",
+      "bytes": 6458858,
+      "sha256": "e07f7f2f9eee9852f4e60a063d1b4f3eece3784d26509174efecef2cc857825c"
+    },
+    {
+      "path": "artifacts/project-audit/20261002-01a0fc52/legacy-release-root/在场-项目全信息-减法包-2026-09-20.zip",
+      "bytes": 7001791,
+      "sha256": "0954c51f6d8b5e864bbc6435be9ebcfc2046168713d6a29cc617d7339b3e8d74"
+    },
+    {
+      "path": "artifacts/project-audit/20261002-01a0fc52/root-probes.zip",
+      "bytes": 499641,
+      "sha256": "ad771b2c9412d972980f0a44cf7d8e93e4f721e88893a497fb67ed998c3dc1d2"
+    },
+    {
+      "path": "runtime/materials/packages/napi-rs-canvas-0.1.100.tgz",
+      "bytes": 32310,
+      "sha256": "ec7dc504d4ade7fd36846d16643e50eed5c914335f3a86b6a2a8d632391e5bfa"
+    },
+    {
+      "path": "runtime/materials/packages/napi-rs-canvas-win32-x64-msvc-0.1.100.tgz",
+      "bytes": 15227291,
+      "sha256": "47c85e567d79d6f9291821071a38d7861ed0ead22fbffe1369278f63f3ad5c8d"
+    },
+    {
+      "path": "runtime/materials/packages/pdfjs-dist-5.6.205.tgz",
+      "bytes": 10379573,
+      "sha256": "73d5a5602ee7ce09b74585e119d2b47f178e9d9a91ec73e04881af92420b15ce"
+    },
+    {
+      "path": "work/codex-deep-review-20261021/在场-Opus深度重构-完整交接包-20261021/sources/original/project_sources/02-zaichang-student-harness.zip",
+      "bytes": 237982,
+      "sha256": "b9ec0e365c6862d761a50eab3c02156e438f1d30e3a4e5f812bfe01f41dd1ea6"
+    },
+    {
+      "path": "work/codex-deep-review-20261021/在场-Opus深度重构-完整交接包-20261021/sources/original/upload/zaichang-student-harness-prompt-pack-2026-10-18.zip",
+      "bytes": 233749,
+      "sha256": "c43c1c4dd02f2212a5f413ca33abad819902cc6169aea7e9f3c0c232c61a2b05"
+    },
+    {
+      "path": "work/codex-deep-review-20261021/在场-Opus深度重构-完整交接包-20261021/sources/original/upload/在场-Gemini人格与主动陪伴-提示词包-20261019.zip",
+      "bytes": 16279762,
+      "sha256": "f5178d797fc94436e79cf49b7574297d569a74c04a5d53a9a8fb04988236f536"
+    },
+    {
+      "path": "work/deep-refactor-20261022/handoff/在场-Opus深度重构-完整交接包-20261021/sources/original/project_sources/02-zaichang-student-harness.zip",
+      "bytes": 237982,
+      "sha256": "b9ec0e365c6862d761a50eab3c02156e438f1d30e3a4e5f812bfe01f41dd1ea6"
+    },
+    {
+      "path": "work/deep-refactor-20261022/handoff/在场-Opus深度重构-完整交接包-20261021/sources/original/upload/zaichang-student-harness-prompt-pack-2026-10-18.zip",
+      "bytes": 233749,
+      "sha256": "c43c1c4dd02f2212a5f413ca33abad819902cc6169aea7e9f3c0c232c61a2b05"
+    },
+    {
+      "path": "work/deep-refactor-20261022/handoff/在场-Opus深度重构-完整交接包-20261021/sources/original/upload/在场-Gemini人格与主动陪伴-提示词包-20261019.zip",
+      "bytes": 16279762,
+      "sha256": "f5178d797fc94436e79cf49b7574297d569a74c04a5d53a9a8fb04988236f536"
+    },
+    {
+      "path": "work/goal-research-20261021-root/package/在场-Opus深度重构-完整交接包-20261021/sources/original/project_sources/02-zaichang-student-harness.zip",
+      "bytes": 237982,
+      "sha256": "b9ec0e365c6862d761a50eab3c02156e438f1d30e3a4e5f812bfe01f41dd1ea6"
+    },
+    {
+      "path": "work/goal-research-20261021-root/package/在场-Opus深度重构-完整交接包-20261021/sources/original/upload/zaichang-student-harness-prompt-pack-2026-10-18.zip",
+      "bytes": 233749,
+      "sha256": "c43c1c4dd02f2212a5f413ca33abad819902cc6169aea7e9f3c0c232c61a2b05"
+    },
+    {
+      "path": "work/goal-research-20261021-root/package/在场-Opus深度重构-完整交接包-20261021/sources/original/upload/在场-Gemini人格与主动陪伴-提示词包-20261019.zip",
+      "bytes": 16279762,
+      "sha256": "f5178d797fc94436e79cf49b7574297d569a74c04a5d53a9a8fb04988236f536"
+    },
+    {
+      "path": "work/opus-continuation-20261021/materials/在场-Opus深度重构-完整交接包-20261021/sources/original/project_sources/02-zaichang-student-harness.zip",
+      "bytes": 237982,
+      "sha256": "b9ec0e365c6862d761a50eab3c02156e438f1d30e3a4e5f812bfe01f41dd1ea6"
+    },
+    {
+      "path": "work/opus-continuation-20261021/materials/在场-Opus深度重构-完整交接包-20261021/sources/original/upload/zaichang-student-harness-prompt-pack-2026-10-18.zip",
+      "bytes": 233749,
+      "sha256": "c43c1c4dd02f2212a5f413ca33abad819902cc6169aea7e9f3c0c232c61a2b05"
+    },
+    {
+      "path": "work/opus-continuation-20261021/materials/在场-Opus深度重构-完整交接包-20261021/sources/original/upload/在场-Gemini人格与主动陪伴-提示词包-20261019.zip",
+      "bytes": 16279762,
+      "sha256": "f5178d797fc94436e79cf49b7574297d569a74c04a5d53a9a8fb04988236f536"
+    },
+    {
+      "path": "work/skill-development/map-engineering-01a1128f/map-engineering-v1.0.0.zip",
+      "bytes": 109070,
+      "sha256": "813be3fdf4e87d2eea28c61998b31aa073d10bd740fec063894cf436c3f7d65f"
+    },
+    {
+      "path": "zaichang-student-harness-prompt-pack-2026-10-18.zip",
+      "bytes": 233749,
+      "sha256": "c43c1c4dd02f2212a5f413ca33abad819902cc6169aea7e9f3c0c232c61a2b05"
+    },
+    {
+      "path": "zaichang-student-harness-prompt-pack-2026-10-18/zaichang-student-harness.zip",
+      "bytes": 237982,
+      "sha256": "b9ec0e365c6862d761a50eab3c02156e438f1d30e3a4e5f812bfe01f41dd1ea6"
+    },
+    {
+      "path": "在场-Gemini人格与主动陪伴-提示词包-20261019.zip",
+      "bytes": 16279762,
+      "sha256": "f5178d797fc94436e79cf49b7574297d569a74c04a5d53a9a8fb04988236f536"
+    },
+    {
+      "path": "在场-手机驻留式演进-v2-研究与Codex实施包.zip",
+      "bytes": 72375,
+      "sha256": "744aed49e0bc2d91f3f6b8866e96475704e70c620fa334166f06c17f88758c7d"
+    },
+    {
+      "path": "紫金港地图_Codex研究驱动执行包_v1.zip",
+      "bytes": 165720,
+      "sha256": "6541a46156a8f8bce3cb4792f7e0cb3a216918ad3066ea77bf172d0f553d72c5"
+    },
+    {
+      "path": "assets/map-v2/source.osm.json.gz",
+      "bytes": 364167,
+      "sha256": "e321f5a64310e470e084853a387ec9063de5237fd36c27b970662ef929e13d29"
+    },
+    {
+      "path": "docs/source-materials/2026-10-18/harness-prompt-pack.zip",
+      "bytes": 233749,
+      "sha256": "c43c1c4dd02f2212a5f413ca33abad819902cc6169aea7e9f3c0c232c61a2b05"
+    }
+  ]
+}

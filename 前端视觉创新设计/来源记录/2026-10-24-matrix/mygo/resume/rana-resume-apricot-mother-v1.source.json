@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordType": "complete-companion-mother-generation",
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "character": "rana",
+  "activity": "resume",
+  "theme": "apricot",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-62adcb13-2a5f-47ac-a41a-77c42018272e",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "originalOutput": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-62adcb13-2a5f-47ac-a41a-77c42018272e.png",
+  "prompt": "rana-resume-apricot-mother-v1.prompt.txt",
+  "promptFileSha256": "aab96172663c664371c7578d3330f3e475bcaabb501377379a8e43ec5143bb64",
+  "submittedPromptTransform": "Read prompt file as UTF-8; trimEnd only, exactly as submitted to the built-in tool.",
+  "submittedPromptSha256": "d71b0a7409ad847742e2a9b274008d26c7dedc348d7bef9d9d6a2874aab30cd6",
+  "inputs": [
+    {
+      "file": "../../../assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+      "role": "sole image input: approved clean empty room; fixed camera, room geometry and apricot light"
+    }
+  ],
+  "characterPixelsProvided": false,
+  "priorMotherPixelsProvided": false,
+  "identitySources": [
+    { "url": "https://anime.bang-dream.com/mygo/character/rana/", "readOn": "2026-10-24", "retrieval": "official indexed full profile text; direct open returned 503, not treated as absence" },
+    { "projectFile": "src/shared/persona-portrayals.ts", "characterId": "rana", "version": "2026-10-24.2" }
+  ],
+  "identityBoundary": "Original identity, different eye colors and established casual clothes guide text only. The paused-guitar return is a project original companionship moment, not a claim that Rana has played for, recorded or completed anything for the visitor.",
+  "designAim": "An interested look rises out of her own relaxed guitar rhythm. The right hand rests on strings near the bridge, the left loosely supports the neck; she makes a little silence rather than performing a greeting.",
+  "output": {
+    "file": "rana-resume-apricot-mother-v1.png",
+    "sha256": "54dd1803e9ff81797c1b3ad69ee36a92b3cde58072705e21f7869a38d17717cb",
+    "bytes": 2154918,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerObservation": "Full original personally viewed. Short white bob, viewer-left gold/right blue eye, black loose top over white sleeves/shorts and complete black lace-up boots retained. Cream single-cut guitar rests across thighs, neck/headstock remain within right-side space, two real hands meet neck and bridge/string area. Her chin/eyes lift with mild recognition rather than a wave. Both separate legs/knees/boots are visible below the supported instrument; feet meet floor, hips meet bench. Guitar strings/tuners and hand precision still deserve primary close review; no instrument performance or sound result is claimed.",
+  "review": { "producerViewedFullOriginal": true, "primaryViewed": false, "primaryApproved": false, "layersAccepted": false, "runtimeAccepted": false },
+  "status": "complete mother candidate awaiting primary review; no theme expansion yet"
+}

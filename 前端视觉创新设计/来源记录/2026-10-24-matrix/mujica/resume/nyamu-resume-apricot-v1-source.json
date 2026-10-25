@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "nyamu",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "apricot",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "nyamu-resume-apricot-v1-prompt.txt",
+  "promptFileSha256": "5a25090a6a4bee7259dbc32e9de99e73a774b826e9044e36b40f94ae10aba808",
+  "submittedPrompt": "Exact UTF-8 promptFile contents with trailing newline trimmed.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "role": "sole clean empty room4 spatial and lighting input; no character image",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "nyamu-resume-apricot-mother-candidate-v1.png",
+    "toolOriginalPath": "$CODEX_HOME/generated_images/01a1702e-1e74-7ac0-9f86-f1d6b1ffcf30/exec-2e265fd7-659d-4367-a749-5f5b0c70b1c8.png",
+    "sha256": "b7765ffeb01d9c99848f99d2ed08c076d4179b549123fb7141f1d56c8d014a91",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "bytes": 2143891,
+    "promptSha256": "5a25090a6a4bee7259dbc32e9de99e73a774b826e9044e36b40f94ae10aba808"
+  },
+  "generationDesignReview": "Mutual review selected weight returning from a forward lean, paper object held close to her own lap, not another offering/wave. Independent skeleton from clean room only.",
+  "observedAnchors": {
+    "coordinateSpace": "normalized original canvas; approximate producer observation, not final runtime calibration",
+    "support": "right-window-bench",
+    "seat": [
+      0.865,
+      0.571
+    ],
+    "groundLeft": [
+      0.734,
+      0.755
+    ],
+    "groundRight": [
+      0.814,
+      0.772
+    ],
+    "proposedTravel": 0,
+    "objects": {
+      "paperStar": "small purple folded paper in hand at own thigh; remains figure-owned",
+      "room": "cushions, throw, desk and chairs remain background"
+    }
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "producerObservation": "Full young purple-bob Nyamu, gray ruffled blouse/black skirt/choker/ankle shoes. Complete knees, calves, ankle straps and soles, rear palm on original cushion. Paper stays near her own thigh; restrained eye contact rather than a wave or laugh. The requested return from forward lean is subtle in this static result; primary should compare against chat rather than count prop change as a new spatial action.",
+    "approvedByPrimary": false,
+    "layers": "not extracted",
+    "runtimeAccepted": false,
+    "producerRecommendation": "reject-for-resume-action-distinction; not a primary approval decision",
+    "mutualReview": "Compared directly with nyamu-chat-apricot-mother-candidate-v1.png: pelvis/chest orientation, head tilt, rear support palm and silhouette remain too similar; paper star is the main difference. Anatomy is not the rejection cause. Do not use as a figure input or theme expansion master."
+  },
+  "identityBasis": {
+    "officialProfile": "https://anime.bang-dream.com/avemujica/character/nyamu/",
+    "textVerifiedOn": "2026-10-24",
+    "boundary": "Official profile supports identity/background; this university-companion resume moment is project-original. No official or third-party character pixels were image inputs."
+  }
+}

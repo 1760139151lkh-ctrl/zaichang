@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "primary-agent",
+  "sessionId": "01a16fb3-8f8d-7c72-a744-a441e8907c91",
+  "date": "2026-10-24",
+  "method": "Individually displayed original images, not a contact sheet. Acceptance is limited to the stated visual/interaction scope.",
+  "runtimeAccepted": false,
+  "entries": [
+    {
+      "file": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: youthful identity, hip/furniture support, continuous lower limbs, complete feet and source lighting. Layer alignment and current runtime remain separate.",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1"
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: youthful identity, hip/furniture support, continuous lower limbs, complete feet and source lighting. Layer alignment and current runtime remain separate.",
+      "sha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1"
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: youthful identity, hip/furniture support, continuous lower limbs, complete feet and source lighting. Layer alignment and current runtime remain separate.",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b"
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/companion/scenes/sakiko-planning-apricot.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: youthful identity, hip/furniture support, continuous lower limbs, complete feet and source lighting. Layer alignment and current runtime remain separate.",
+      "sha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11"
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/companion/scenes/sakiko-listening-apricot-mother.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: youthful identity, hip/furniture support, continuous lower limbs, complete feet and source lighting. Layer alignment and current runtime remain separate.",
+      "sha256": "a35aaa3549a04cf9f6fa7e478224f53afdcbfd1f133f6570a643191916189bb1"
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot-mother.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: youthful identity, hip/furniture support, continuous lower limbs, complete feet and source lighting. Layer alignment and current runtime remain separate.",
+      "sha256": "ffdf5ac11d9d25da5347120dd7b5f19bf68a6211c991c373e1c6d2f623cebfbf"
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/companion/scenes/sakiko-play-apricot-v4-mother.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: youthful identity, hip/furniture support, continuous lower limbs, complete feet and source lighting. Layer alignment and current runtime remain separate.",
+      "sha256": "c81824391b45219eb973c49fc435e5040daa1c310c5f3ad0a4b60adf044f96f3"
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/companion/scenes/sakiko-attention-apricot-v4-mother.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: youthful identity, hip/furniture support, continuous lower limbs, complete feet and source lighting. Layer alignment and current runtime remain separate.",
+      "sha256": "5631cdd842797d1e46b898b9e5914f250cb5d66e8a058878eee2547e1f707017"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-mist-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view; whole-room relighting and source seated support. No layer/runtime admission.",
+      "sha256": "bda7f03d62e096dbc892b8d1e5b7fed446a3b3886d8255f70bbe2fb5db45efd0"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-violet-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view; whole-room relighting and source seated support. No layer/runtime admission.",
+      "sha256": "8e9b860772095ed911c4c257d6d6769e5c5064f4c793e325e65eadc9e79e1e88"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-rain-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view; whole-room relighting and source seated support. No layer/runtime admission.",
+      "sha256": "a57a3b22791dd9525d9e1dc565fe76866edb7c4d067e3cb94d67e6dfb06628a6"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-study-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "2e9a7c010f52939149c5a93b43eb3f1ab996f9ed25bbcbaa3a7522038b1f9fbe"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-reading-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "ab281c84f38b313452d13e14cb2f06f98319a619223f744ada27b562b5bcb0c5"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-planning-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "74aae35f25cf35d0c1c34ca150e650956bd60218a8e759d15ad44abbb41adc4e"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-listening-apricot-mother-candidate-v2.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "352fc80272d9ae4e224225980bd270b2481516dbd32c0b7a0dc5814e8c3457bb"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-rest-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "55d2d4d6873bb1089bef893e5fe4e9d953a3e8d1eca651d50a575532e8c0ffbd"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-play-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "520fc3043a78335d838c1cc9e831ea5b99b2d2865e86580e156de346efd5bd81"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-attention-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "f695acaaabfb0395d5b0f33a649fa9bb2d3fefeac454d15d1146d31066550b3d"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-study-apricot-mother-candidate-v2.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "fb66bbcfffc5f3d42b421c8769cc53ae7f1b605246a68187f5043435eabbe205"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-reading-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "23b3b23ce749b7cdc1d5a31616ac1f45b53a7d0bd1694787bc1895736933df8e"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-planning-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "bd7dc06d03e6f576af6f0b261caff31c4abb790d340b161020ce0ad610bc4ce9"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-listening-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "003c65c7172f9c5083f248e58436400c5f0bd22e6904ae47b25d50e5c5c000b7"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-rest-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "ec8691c20d844b33cbe0bd31042bd9985d70be75d6770ca0de6cbc557e8d2ea7"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-play-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "50744be0906941af37756061c3cc3b1f425f39e0a69036912533751037afb311"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-attention-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: independent activity supports and full lower limbs. Removed boots must stay in the background. Chair scenes need their own source background and Stage framing.",
+      "sha256": "cb0b50da63a832bb76915690e538ac3aae157e2d40c84a6ba467c6ea49dda672"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: supported seated pelvis, hands/book continuity and complete shoes. Existing v5 layers not yet admitted.",
+      "sha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-reading-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original view: supported seated pelvis, hands/book continuity and complete shoes. Existing v5 layers not yet admitted.",
+      "sha256": "31046bee457ec77259616037f8a6841acdfaba233f225194b84bc4a5bab0da15"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/sakiko/sakiko-resume-apricot-mother-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct generated-image view: natural turn toward the returning person, book carried on lap, hip and shoes supported. No body freezing for other characters.",
+      "sha256": "4f6cbda7f205da55b6f50bfa355a45d487b320a1529794f44e18f477129fdee8"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-recovered/nyamu-attention-apricot-background-recovered-v1.png",
+      "kind": "background",
+      "decision": "retained-B-candidate",
+      "scope": "Direct original view. Recovered same-source clean background; original mother, mask, contact shadow and runtime admission remain independent.",
+      "sha256": "900f9c156c8aa16cab463e5295861638634e338d22c001edcf5bf0cf2995513b"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-recovered/nyamu-play-apricot-background-recovered-v1.png",
+      "kind": "background",
+      "decision": "retained-B-candidate",
+      "scope": "Direct original view. Recovered same-source clean background; original mother, mask, contact shadow and runtime admission remain independent.",
+      "sha256": "5f9cfb51fcc0aa72c18d093f6019b2e750684c8e277356ed30cd826a6f6f7bb6"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-recovered/mutsumi-attention-apricot-background-recovered-v1.png",
+      "kind": "background",
+      "decision": "retained-B-candidate",
+      "scope": "Direct original view. Recovered same-source clean background; original mother, mask, contact shadow and runtime admission remain independent.",
+      "sha256": "d172787d612b90b83888ec456798fb023f9a5bf32a8f543b1c91fdbe142e3649"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-recovered/soyo-study-violet-background-recovered-v1.png",
+      "kind": "background",
+      "decision": "retained-B-candidate",
+      "scope": "Direct original view. Recovered same-source clean background; original mother, mask, contact shadow and runtime admission remain independent.",
+      "sha256": "252c5105e6baab734f43b435439b1e328a854fd0fd5d0f6caeb1826a3fe38564"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/settings/personality-review-apricot-v1.png",
+      "kind": "ui-design",
+      "decision": "accepted-interaction-relationship",
+      "scope": "Editable candidate, preserve agreed address, explicit draft replacement, read-only comparison. Global navigation and wallpaper are not adopted; no runtime acceptance.",
+      "sha256": "dce448a2be64602209d49002dd8271cc8c88c929f57f175d52464f9746f0e121"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/settings/personality-recovery-apricot-v2.png",
+      "kind": "ui-design",
+      "decision": "accepted-interaction-relationship",
+      "scope": "Editable candidate, preserve agreed address, explicit draft replacement, read-only comparison. Global navigation and wallpaper are not adopted; no runtime acceptance.",
+      "sha256": "6fb77de6b193a6c8c0f334e789bdf174142e0c7f01bfd16fcfcf3562f219d6cb"
+    },
+    {
+      "file": "前端视觉创新设计/补充图稿/2026-10-24-matrix/openui/openui-local-conflict-recovery-v3.png",
+      "kind": "ui-design",
+      "decision": "accepted-interaction-relationship",
+      "scope": "Direct original view: opposite sine components sum to zero at phase pi; local recovery actions and original composer. Runtime Curve remains authoritative; no runtime acceptance.",
+      "sha256": "c6a835b58adf4354379996597efd9702f386b7627a9da58939b32f3affc2577b"
+    }
+  ]
+}

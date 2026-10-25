@@ -1,0 +1,962 @@
+{
+  "schema_version": 1,
+  "repository": "1760139151lkh-ctrl/zaichang",
+  "ref": "8cdd754f6355de11d9d0d6bb367d6a66cbf7c330",
+  "image_path_count": 136,
+  "counting_rule": "按路径计数，含SVG；未按图像内容去重。",
+  "images": [
+    {
+      "path": "assets/brand/icon.png",
+      "bytes": 9475,
+      "git_blob_sha1": "d2a58a3e24b740032c2c11c2b81b3c4d6f567a5b",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/brand/icon.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/brand/mark.svg",
+      "bytes": 288,
+      "git_blob_sha1": "ee20abdd33d77140f0a55ed52a346bed33825717",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/brand/mark.svg",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-111fa686-3524-4e0d-ba6c-868954d9936f.png",
+      "bytes": 2254210,
+      "git_blob_sha1": "6b140586e089797ed0b735007a0f3b57e4dbca5b",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-111fa686-3524-4e0d-ba6c-868954d9936f.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-1c7fefe2-e66a-49af-8e09-c0c9c16b804a.png",
+      "bytes": 2207970,
+      "git_blob_sha1": "0209c6a5f61bf64b9ce00b345eded8fb2aedda84",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-1c7fefe2-e66a-49af-8e09-c0c9c16b804a.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-28be50c2-0963-4d72-8a72-709828a17db6.png",
+      "bytes": 2143867,
+      "git_blob_sha1": "b44f9dc86d4a1a8766c22635a8f5e6ae93829d04",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-28be50c2-0963-4d72-8a72-709828a17db6.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-2fdedfd6-edf5-47b2-a068-aa848b3b1bec.png",
+      "bytes": 1500985,
+      "git_blob_sha1": "f3617d4f9a5de1d9bfb2034e840bcdb63416638d",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-2fdedfd6-edf5-47b2-a068-aa848b3b1bec.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-42a56e62-c5c1-4c14-bb35-6fa7fef449b8.png",
+      "bytes": 1511912,
+      "git_blob_sha1": "338a8952312cb05d658021c108bdc720a8bbf276",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-42a56e62-c5c1-4c14-bb35-6fa7fef449b8.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-48676988-80cb-4425-9dae-e558cda7c0c0.png",
+      "bytes": 1680329,
+      "git_blob_sha1": "ba263216b6eb21f287fec6ab648add5c04d9c1d8",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-48676988-80cb-4425-9dae-e558cda7c0c0.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-5102ff9e-d4f8-4eef-be65-4832c37fec02.png",
+      "bytes": 1607006,
+      "git_blob_sha1": "6b3ab33b3b7e17251a25efa623be87029f238667",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-5102ff9e-d4f8-4eef-be65-4832c37fec02.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-514c4e42-cc8a-43e7-81a1-92979cfcad07.png",
+      "bytes": 1349912,
+      "git_blob_sha1": "ebf60181accc9bc7d9353b8060a69c4f4eb830ab",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-514c4e42-cc8a-43e7-81a1-92979cfcad07.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-5a94ffb5-c554-4d08-aa7d-959cc3e5c10e.png",
+      "bytes": 1455597,
+      "git_blob_sha1": "686576a6b2d5755f89f4035c41e8bb4b417eaabf",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-5a94ffb5-c554-4d08-aa7d-959cc3e5c10e.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-66fe4698-9ce7-47af-a466-a5e836a8ef1f.png",
+      "bytes": 1630788,
+      "git_blob_sha1": "45a1ee2ad2ef60f40b6f53d86cadc0dde8b52c50",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-66fe4698-9ce7-47af-a466-a5e836a8ef1f.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-91958a11-422d-4d52-aa81-66e32c6e148f.png",
+      "bytes": 2185979,
+      "git_blob_sha1": "b0fff43a081598ad9672592dd45cb651ac0e0250",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-91958a11-422d-4d52-aa81-66e32c6e148f.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-9b96de9d-73cc-44f3-b423-63b122244288.png",
+      "bytes": 1432705,
+      "git_blob_sha1": "c956fb5077561f8c4dcc6a75b62a5fe13bc24033",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-9b96de9d-73cc-44f3-b423-63b122244288.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-a1105e9b-c9be-49b2-938e-2d146593035a.png",
+      "bytes": 1295869,
+      "git_blob_sha1": "a11c81cfab4b3d2d844efb078bbd831ab696c65a",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-a1105e9b-c9be-49b2-938e-2d146593035a.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-a8b9c080-b082-4e35-8309-4656a8b4204d.png",
+      "bytes": 1643394,
+      "git_blob_sha1": "4e7c359763f6a5bc69dcd13fdefb54aa8e1d6142",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-a8b9c080-b082-4e35-8309-4656a8b4204d.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-aa7f3078-71a8-48d2-ac28-34d1409cb04a.png",
+      "bytes": 2658526,
+      "git_blob_sha1": "85c53279cc1f3c8ae56e3fbaab400d258685d141",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-aa7f3078-71a8-48d2-ac28-34d1409cb04a.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-b4fc539d-ed78-4b02-b5d6-0d7d2016ae53.png",
+      "bytes": 1645486,
+      "git_blob_sha1": "58d8de817aecce40c74390e310f2339844dcadec",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-b4fc539d-ed78-4b02-b5d6-0d7d2016ae53.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-baea157a-ac40-463e-80d2-aa6bd25b1a7c.png",
+      "bytes": 2156289,
+      "git_blob_sha1": "8f8025cfed40eed1f557c3ff92294112dd9eadd6",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-baea157a-ac40-463e-80d2-aa6bd25b1a7c.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-cb5eb2e5-c978-4a83-8a63-878336a7cddb.png",
+      "bytes": 1780807,
+      "git_blob_sha1": "a3002cda6fe05a611a9efef516921db71ffd5f19",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-cb5eb2e5-c978-4a83-8a63-878336a7cddb.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-cbad3b75-bc71-485f-911d-f2bfebc1ac9e.png",
+      "bytes": 1683326,
+      "git_blob_sha1": "bd6735441229a9ee5936ccb9823803749ad6d89a",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-cbad3b75-bc71-485f-911d-f2bfebc1ac9e.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-ce52f4d8-e606-4bae-9f1f-d90457c394e4.png",
+      "bytes": 2182667,
+      "git_blob_sha1": "442041a746c7e99293ad70c7a3dc10a6d7cb2c38",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-ce52f4d8-e606-4bae-9f1f-d90457c394e4.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-d0f00b80-d5d9-4da4-9764-ca62ccab58ad.png",
+      "bytes": 1262408,
+      "git_blob_sha1": "c855b29e7723b7be15a256bc9e4f273b955043aa",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-d0f00b80-d5d9-4da4-9764-ca62ccab58ad.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-d7450df6-e677-4917-85b9-865f172dba90.png",
+      "bytes": 1218041,
+      "git_blob_sha1": "0c20a04258bcf53e3ce94e8faf92d02f71d9b732",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-d7450df6-e677-4917-85b9-865f172dba90.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-dd25c510-fafd-4534-a9cb-192c826c0520.png",
+      "bytes": 2086939,
+      "git_blob_sha1": "36277f9de02676a0220a3effe9086402302e2e78",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-dd25c510-fafd-4534-a9cb-192c826c0520.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-e670166c-8827-4847-bfe0-490dc6ebc783.png",
+      "bytes": 1406878,
+      "git_blob_sha1": "dc7793287203acd3a5b054b78e0c206b406652ee",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-e670166c-8827-4847-bfe0-490dc6ebc783.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-e9aed088-a385-4ffb-951f-670afe3fa8f2.png",
+      "bytes": 2208626,
+      "git_blob_sha1": "fd93f81da335fed2d23abdb042fab2207bdf07a8",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-e9aed088-a385-4ffb-951f-670afe3fa8f2.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-fa1748fc-680d-4526-aeb7-64531ad77cfb.png",
+      "bytes": 1532450,
+      "git_blob_sha1": "6c45918ce034e4c265487eff9cc2c2de3d507052",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-fa1748fc-680d-4526-aeb7-64531ad77cfb.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-fd3e97d6-9cda-4238-86dd-a60d59bc5964.png",
+      "bytes": 1922305,
+      "git_blob_sha1": "47adf5ca4e2364c1e816d12aeeea6993c5f0cfe7",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-fd3e97d6-9cda-4238-86dd-a60d59bc5964.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-fea2add7-9099-46b8-8d2a-e91d32248983.png",
+      "bytes": 1472634,
+      "git_blob_sha1": "468f71c8991c499f0ccd472f0923f8a07bd5861f",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-fea2add7-9099-46b8-8d2a-e91d32248983.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-ffc76d1e-0c63-42b9-8fc1-a59906ed2c4a.png",
+      "bytes": 1896423,
+      "git_blob_sha1": "5da749b88e1ec50be3d54a616732e6e21b5ccbc9",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/01a14ed0-bc5b-7403-9599-b0c0f3c19589/exec-ffc76d1e-0c63-42b9-8fc1-a59906ed2c4a.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-campus-day/campus-day-a.png",
+      "bytes": 1655536,
+      "git_blob_sha1": "4e7d541ce9965edd1d61f7d415559c38280bba54",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-campus-day/campus-day-a.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-campus-day/campus-day-b.png",
+      "bytes": 1657785,
+      "git_blob_sha1": "4e009d9229c9a63c449c3f8693e04cdc6141bce9",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-campus-day/campus-day-b.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-chosen-windows/chosen-windows-a.png",
+      "bytes": 1428481,
+      "git_blob_sha1": "b17bc30e46510c5cc264e9ad82434a184add733b",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-chosen-windows/chosen-windows-a.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-chosen-windows/chosen-windows-b.png",
+      "bytes": 1406754,
+      "git_blob_sha1": "262dde8d451c6d54c7543c43e38827e45455f2ff",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-chosen-windows/chosen-windows-b.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-chosen-windows/reference-current.png",
+      "bytes": 461180,
+      "git_blob_sha1": "5af189ba5a929193c9693e4887353b7c8228d803",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-chosen-windows/reference-current.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-companion-evolution/calendar.png",
+      "bytes": 1584767,
+      "git_blob_sha1": "bdb7df4c15dae6c01f82533b0e9ef8700aa49a8c",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-companion-evolution/calendar.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-companion-evolution/environment.png",
+      "bytes": 1550587,
+      "git_blob_sha1": "227e3541e2e9a807f159f092d06466d35c2fa68a",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-companion-evolution/environment.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-companion-evolution/persona.png",
+      "bytes": 1981405,
+      "git_blob_sha1": "3a8a693a09770e7de22221b90224222249d917a8",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-companion-evolution/persona.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-companion-evolution/planning.png",
+      "bytes": 1655167,
+      "git_blob_sha1": "34fc0b5072e20d2b57e50a03008098f228fd11ad",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-companion-evolution/planning.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-companion-session/companion-session-ab.png",
+      "bytes": 1754549,
+      "git_blob_sha1": "93006dd6eb3e34ec8d4d30cd6713049d691d377c",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-companion-session/companion-session-ab.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-continuation/campus-conversation-results.png",
+      "bytes": 1515062,
+      "git_blob_sha1": "6ac3171615ccf42fe8f1cd6ed8f78f2bab6d18aa",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-continuation/campus-conversation-results.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-continuation/companion-gallery.png",
+      "bytes": 2010761,
+      "git_blob_sha1": "66382672aa91e1af3b142bf0059ed056c8b47b14",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-continuation/companion-gallery.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-continuation/conversation-interruption-and-draft-return.png",
+      "bytes": 1718658,
+      "git_blob_sha1": "e0b6a31e1aff89ef007a194964bc5fc2f3ba3258",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-continuation/conversation-interruption-and-draft-return.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-continuation/document-open-recovery.png",
+      "bytes": 1697563,
+      "git_blob_sha1": "650dc511f07b151665b55475376f68c757c33721",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-continuation/document-open-recovery.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-continuation/entrusted-detail.png",
+      "bytes": 1872052,
+      "git_blob_sha1": "83dc8d88011f33a40838d9a96c67f5a6276e206d",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-continuation/entrusted-detail.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-continuation/first-arrival-and-connection.png",
+      "bytes": 1757114,
+      "git_blob_sha1": "b8cdc5b52747fc50de69db532dfe4130fde88450",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-continuation/first-arrival-and-connection.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-continuation/learning-workspace.png",
+      "bytes": 1723351,
+      "git_blob_sha1": "f51565d3cc96f7a91859ce24987a1caf7edc9d4a",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-continuation/learning-workspace.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-continuation/map-recovery.png",
+      "bytes": 1883481,
+      "git_blob_sha1": "dfb20f1712cba264343fef12fe6918f710f08dd8",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-continuation/map-recovery.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-continuation/plan-reschedule.png",
+      "bytes": 1485691,
+      "git_blob_sha1": "3706648520df5033e55b28a8cd48c7a302de098b",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-continuation/plan-reschedule.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-continuation/reading-rhythm-preferences.png",
+      "bytes": 1651584,
+      "git_blob_sha1": "e1625d3628e35333698ba54cedc58d36d22b259d",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-continuation/reading-rhythm-preferences.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-continuation/source-revisit-scoped-recall.png",
+      "bytes": 1561468,
+      "git_blob_sha1": "6618dd3ed4addf015c09e831e3493fa1c0ac7f8e",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-continuation/source-revisit-scoped-recall.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-curiosity-invitation/content-first-play.png",
+      "bytes": 1875246,
+      "git_blob_sha1": "2bb71c846299a036c843ccd17d17bbe128c55e8e",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-curiosity-invitation/content-first-play.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-personal-memory/daily-rhythm-a.png",
+      "bytes": 1665045,
+      "git_blob_sha1": "5b97fe00dd9a296f9ad3b9ab39817337389a4d49",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-personal-memory/daily-rhythm-a.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-personal-memory/daily-rhythm-b.png",
+      "bytes": 1868686,
+      "git_blob_sha1": "4cdb78012d90d39f9cfa1a776f3bc7fb9a3c25b5",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-personal-memory/daily-rhythm-b.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-planning-comparison/planning-one-day-v2.png",
+      "bytes": 1639870,
+      "git_blob_sha1": "7e3642334313203cc388ed0c3ac82ac63be10a2a",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-planning-comparison/planning-one-day-v2.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-planning-comparison/planning-one-day.png",
+      "bytes": 1689520,
+      "git_blob_sha1": "eb29dbd941fc836535cd3c2ed6f046e750edc608",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-planning-comparison/planning-one-day.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-planning-continuity/planning-continuity-a.png",
+      "bytes": 1383711,
+      "git_blob_sha1": "1a325afc54b86195403cf14d572d9ddc17fceb39",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-planning-continuity/planning-continuity-a.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-planning-continuity/planning-continuity-b.png",
+      "bytes": 1365604,
+      "git_blob_sha1": "1164cb38d3b839f5ba7fc3ea0177def9a89bd0bd",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-planning-continuity/planning-continuity-b.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-reflective-letter/letter-conversation.png",
+      "bytes": 1792002,
+      "git_blob_sha1": "60ac642a13428caae5f7abb07a39e16eea266a12",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-reflective-letter/letter-conversation.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-shared-discussion/discussion-ab.png",
+      "bytes": 1983066,
+      "git_blob_sha1": "1fb1b400aac29adbca49e7eb66639e0eb5f72a40",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-shared-discussion/discussion-ab.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-study-paper/study-paper.png",
+      "bytes": 1826187,
+      "git_blob_sha1": "01517e1f5c755216c3677a054c6b70ea5d3ceef3",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-study-paper/study-paper.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-windowlight/entrusted-living-detail.png",
+      "bytes": 1553081,
+      "git_blob_sha1": "dc4f19d0e35f4812cabc27a68aec71ac9abfa4c3",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-windowlight/entrusted-living-detail.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-windowlight/find-the-original-words.png",
+      "bytes": 1552427,
+      "git_blob_sha1": "bae63c27c7570deabbbaadb60474820552e0c8e8",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-windowlight/find-the-original-words.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-18-windowlight/understanding-can-change.png",
+      "bytes": 1532038,
+      "git_blob_sha1": "7a2ba58625bdd7fc4fd1ac0a0f95af40b99ed95b",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-18-windowlight/understanding-can-change.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-19-campus-academic/campus-academic-reading.png",
+      "bytes": 1445172,
+      "git_blob_sha1": "c009be98e3e058c770e7a43a9e28ae869e39ae9c",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-19-campus-academic/campus-academic-reading.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-19-explorable-study/explorable-study-function.png",
+      "bytes": 1786709,
+      "git_blob_sha1": "2b25a5a5997a39f67a7f351a9b7f7060fc41c6e8",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-19-explorable-study/explorable-study-function.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-19-explorable-study/explorable-study.png",
+      "bytes": 1897046,
+      "git_blob_sha1": "dd240f7cbe306bd2671a656e7aeaae97975653cc",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-19-explorable-study/explorable-study.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-19-expression-rehearsal/rehearsal-conversation.png",
+      "bytes": 1667835,
+      "git_blob_sha1": "2ebe8c396539c7773505a065269ba4de665c0412",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-19-expression-rehearsal/rehearsal-conversation.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-19-note-reading/note-reading.png",
+      "bytes": 2100742,
+      "git_blob_sha1": "104797976e8c6e7237a8de81db32a3aec2836dd8",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-19-note-reading/note-reading.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/design/generated/2026-10-19-story-setting/story-on-one-map.png",
+      "bytes": 2140372,
+      "git_blob_sha1": "2d026b1dc544d639d9f8f61d3d6319a50bafaf1b",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/design/generated/2026-10-19-story-setting/story-on-one-map.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/ui/companion-session-paper.png",
+      "bytes": 2364855,
+      "git_blob_sha1": "a3f1a1184f5be8d17e460095939287523c32f847",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/ui/companion-session-paper.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "assets/ui/study/paper-texture.png",
+      "bytes": 1867657,
+      "git_blob_sha1": "ac6208330b52a9fa5d578bb572d2599622063fc4",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/assets/ui/study/paper-texture.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/companion/dusk.png",
+      "bytes": 2208626,
+      "git_blob_sha1": "fd93f81da335fed2d23abdb042fab2207bdf07a8",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/companion/dusk.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/companion/haruka.png",
+      "bytes": 2182667,
+      "git_blob_sha1": "442041a746c7e99293ad70c7a3dc10a6d7cb2c38",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/companion/haruka.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/companion/mio.png",
+      "bytes": 2254210,
+      "git_blob_sha1": "6b140586e089797ed0b735007a0f3b57e4dbca5b",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/companion/mio.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/companion/morning.png",
+      "bytes": 2143867,
+      "git_blob_sha1": "b44f9dc86d4a1a8766c22635a8f5e6ae93829d04",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/companion/morning.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/companion/mutsumi.png",
+      "bytes": 1451380,
+      "git_blob_sha1": "554e12d42ce0f2ac133a649928c30f039f05f41d",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/companion/mutsumi.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/companion/nagi.png",
+      "bytes": 1904257,
+      "git_blob_sha1": "418d7c56ace184b70a1f1e938b2285e33518746a",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/companion/nagi.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/companion/night.png",
+      "bytes": 2086939,
+      "git_blob_sha1": "36277f9de02676a0220a3effe9086402302e2e78",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/companion/night.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/companion/reading-dusk.png",
+      "bytes": 2082541,
+      "git_blob_sha1": "f1ac41f40e7bef19779c2f8a34bb023a52e814d1",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/companion/reading-dusk.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/companion/reading-morning.png",
+      "bytes": 2014462,
+      "git_blob_sha1": "1e86579f81c3f72eb1dafd1531f6e9aeecdfb006",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/companion/reading-morning.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/companion/reading-night.png",
+      "bytes": 1922295,
+      "git_blob_sha1": "44001a8f1ee070e2393b42fbc336ec1dc9af5c10",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/companion/reading-night.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/companion/sakiko.png",
+      "bytes": 1884998,
+      "git_blob_sha1": "75c89e37e4c093419b2d89ec09b86561bd344f9b",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/companion/sakiko.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/companion/saku.png",
+      "bytes": 1896423,
+      "git_blob_sha1": "5da749b88e1ec50be3d54a616732e6e21b5ccbc9",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/companion/saku.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/curiosity/manuscript-paper.png",
+      "bytes": 1946462,
+      "git_blob_sha1": "1c8d36441196877712646020b9b44d1bc8306227",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/curiosity/manuscript-paper.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/discussion/lamp-letter.png",
+      "bytes": 2620002,
+      "git_blob_sha1": "37b8df50cec69129045600bdc9a5c321ee05fa5d",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/discussion/lamp-letter.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/discussion/night-bridge.png",
+      "bytes": 2640872,
+      "git_blob_sha1": "d218967f1274522dae6611f667a2b32d9ca58215",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/discussion/night-bridge.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/letter/paper-surface.png",
+      "bytes": 2050315,
+      "git_blob_sha1": "97b8fcd7594e2448ef9b787c1f1c814f422fc69e",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/letter/paper-surface.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/rehearsal/gold-sprig.png",
+      "bytes": 1539591,
+      "git_blob_sha1": "69c9076e71b76185b9712f6d7ccb6a3097bc4a21",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/rehearsal/gold-sprig.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "src/renderer/assets/rehearsal/paper-surface.png",
+      "bytes": 2350288,
+      "git_blob_sha1": "2031093f52b6fdbe43b5240c72c768f6b97ad8b3",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/src/renderer/assets/rehearsal/paper-surface.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/东三到西一的沿湖路线-5.png",
+      "bytes": 1478935,
+      "git_blob_sha1": "61f4bc31f88b5594191c7b3a2a42d79fbdd53b10",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E4%B8%9C%E4%B8%89%E5%88%B0%E8%A5%BF%E4%B8%80%E7%9A%84%E6%B2%BF%E6%B9%96%E8%B7%AF%E7%BA%BF-5.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/去西一的路-19.png",
+      "bytes": 1430742,
+      "git_blob_sha1": "22ac9e5a7cbd5c190e882c7785e50ce7d98de59c",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%8E%BB%E8%A5%BF%E4%B8%80%E7%9A%84%E8%B7%AF-19.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/启真湖校园漫游路线图-6.png",
+      "bytes": 2496609,
+      "git_blob_sha1": "a9e3fc3c5e686104173ddf1cd5428bde8c3f1bec",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%90%AF%E7%9C%9F%E6%B9%96%E6%A0%A1%E5%9B%AD%E6%BC%AB%E6%B8%B8%E8%B7%AF%E7%BA%BF%E5%9B%BE-6.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场·关于你-10.png",
+      "bytes": 1435527,
+      "git_blob_sha1": "5c5a34c4ad7a0226a3b04194fc501231a6c2e0e3",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%C2%B7%E5%85%B3%E4%BA%8E%E4%BD%A0-10.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场·留下：一页安静笔记-9.png",
+      "bytes": 1595446,
+      "git_blob_sha1": "9ace21f5199b6f98176f28ec8c81a1b15ed68ec9",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%C2%B7%E7%95%99%E4%B8%8B%EF%BC%9A%E4%B8%80%E9%A1%B5%E5%AE%89%E9%9D%99%E7%AC%94%E8%AE%B0-9.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场四态设计板-20.png",
+      "bytes": 1341281,
+      "git_blob_sha1": "cdd6e3ff93a9caf90f1b37f84b9fcd524a0ffec6",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%E5%9B%9B%E6%80%81%E8%AE%BE%E8%AE%A1%E6%9D%BF-20.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场地图展开与回归分镜-17.png",
+      "bytes": 1807250,
+      "git_blob_sha1": "1c23cf7d7403b32cdc185d7d8b70d0d19bb16e8f",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%E5%9C%B0%E5%9B%BE%E5%B1%95%E5%BC%80%E4%B8%8E%E5%9B%9E%E5%BD%92%E5%88%86%E9%95%9C-17.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场学习桌：一起推导线性微分方程-4.png",
+      "bytes": 1516299,
+      "git_blob_sha1": "3a18f676be02a5a73f028a0574748776cb236f00",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%E5%AD%A6%E4%B9%A0%E6%A1%8C%EF%BC%9A%E4%B8%80%E8%B5%B7%E6%8E%A8%E5%AF%BC%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B-4.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场校园湖畔路线图-22.png",
+      "bytes": 1782388,
+      "git_blob_sha1": "eb34ed060b689df6771ab6239a96ffda9e52e507",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%E6%A0%A1%E5%9B%AD%E6%B9%96%E7%95%94%E8%B7%AF%E7%BA%BF%E5%9B%BE-22.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场的静谧笔记-21.png",
+      "bytes": 1231711,
+      "git_blob_sha1": "a950299a8909d570114c8530fc026ef9fafd829d",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%E7%9A%84%E9%9D%99%E8%B0%A7%E7%AC%94%E8%AE%B0-21.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场首页：慢慢来，我在。-16.png",
+      "bytes": 1469661,
+      "git_blob_sha1": "e9d29ba57433fe7fb640e2c923cadfbd51d86509",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%E9%A6%96%E9%A1%B5%EF%BC%9A%E6%85%A2%E6%85%A2%E6%9D%A5%EF%BC%8C%E6%88%91%E5%9C%A8%E3%80%82-16.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场：今天，慢慢安排-7.png",
+      "bytes": 1418220,
+      "git_blob_sha1": "c12a128b424017e8ea4ae9882a8e37d5846e3f61",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%EF%BC%9A%E4%BB%8A%E5%A4%A9%EF%BC%8C%E6%85%A2%E6%85%A2%E5%AE%89%E6%8E%92-7.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场：初次见面与资料连接-12.png",
+      "bytes": 1464395,
+      "git_blob_sha1": "370376f58ca7d19d875c7cd333b340ab6c7839ef",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%EF%BC%9A%E5%88%9D%E6%AC%A1%E8%A7%81%E9%9D%A2%E4%B8%8E%E8%B5%84%E6%96%99%E8%BF%9E%E6%8E%A5-12.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场：四种从容状态-13.png",
+      "bytes": 1766102,
+      "git_blob_sha1": "bee7560e5815245b9bf5468409ec0c515c736faf",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%EF%BC%9A%E5%9B%9B%E7%A7%8D%E4%BB%8E%E5%AE%B9%E7%8A%B6%E6%80%81-13.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场：慢慢来，我在。-2.png",
+      "bytes": 1563559,
+      "git_blob_sha1": "c33f16a857d8f3d5c92b466fa0739035d96f9932",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%EF%BC%9A%E6%85%A2%E6%85%A2%E6%9D%A5%EF%BC%8C%E6%88%91%E5%9C%A8%E3%80%82-2.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场：我们聊过的常数-8.png",
+      "bytes": 1715682,
+      "git_blob_sha1": "d039878d4e8153f47aaf946dbcebd6892a20ee62",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%EF%BC%9A%E6%88%91%E4%BB%AC%E8%81%8A%E8%BF%87%E7%9A%84%E5%B8%B8%E6%95%B0-8.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场：把安静带在身边-15.png",
+      "bytes": 1690980,
+      "git_blob_sha1": "9f0602edc2ffd5096b61c71d0c81551e8a67fbba",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%EF%BC%9A%E6%8A%8A%E5%AE%89%E9%9D%99%E5%B8%A6%E5%9C%A8%E8%BA%AB%E8%BE%B9-15.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场：按你的节奏-14.png",
+      "bytes": 1233850,
+      "git_blob_sha1": "a6d371bd42f22bf56171db9a089e9ff1d40d97cb",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%EF%BC%9A%E6%8C%89%E4%BD%A0%E7%9A%84%E8%8A%82%E5%A5%8F-14.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场：雨夜倾听-3.png",
+      "bytes": 1828400,
+      "git_blob_sha1": "88e0613d2727311ee745fb293a2d349bfaca2acf",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%EF%BC%9A%E9%9B%A8%E5%A4%9C%E5%80%BE%E5%90%AC-3.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/在场｜标量方程学习界面-18.png",
+      "bytes": 1381221,
+      "git_blob_sha1": "0c9fc19eab843d91f21d95bfadd280b72322174c",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E5%9C%A8%E5%9C%BA%EF%BD%9C%E6%A0%87%E9%87%8F%E6%96%B9%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%95%8C%E9%9D%A2-18.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/晨光里的在场-1.png",
+      "bytes": 1800652,
+      "git_blob_sha1": "01d19da2bdcfe9ba93f5ff54cb1ba10d792e9e48",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E6%99%A8%E5%85%89%E9%87%8C%E7%9A%84%E5%9C%A8%E5%9C%BA-1.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/图片/陪伴与窗边氛围定制-11.png",
+      "bytes": 1948599,
+      "git_blob_sha1": "054e09718974aa4f51beafef125b2ff433e01101",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E5%9B%BE%E7%89%87/%E9%99%AA%E4%BC%B4%E4%B8%8E%E7%AA%97%E8%BE%B9%E6%B0%9B%E5%9B%B4%E5%AE%9A%E5%88%B6-11.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/素材/人物-朔.png",
+      "bytes": 1896423,
+      "git_blob_sha1": "5da749b88e1ec50be3d54a616732e6e21b5ccbc9",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E7%B4%A0%E6%9D%90/%E4%BA%BA%E7%89%A9-%E6%9C%94.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/素材/人物-澪.png",
+      "bytes": 2254210,
+      "git_blob_sha1": "6b140586e089797ed0b735007a0f3b57e4dbca5b",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E7%B4%A0%E6%9D%90/%E4%BA%BA%E7%89%A9-%E6%BE%AA.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/素材/人物-遥.png",
+      "bytes": 2182667,
+      "git_blob_sha1": "442041a746c7e99293ad70c7a3dc10a6d7cb2c38",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E7%B4%A0%E6%9D%90/%E4%BA%BA%E7%89%A9-%E9%81%A5.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/素材/窗景-夜灯.png",
+      "bytes": 2086939,
+      "git_blob_sha1": "36277f9de02676a0220a3effe9086402302e2e78",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E7%B4%A0%E6%9D%90/%E7%AA%97%E6%99%AF-%E5%A4%9C%E7%81%AF.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/素材/窗景-晨光.png",
+      "bytes": 2143867,
+      "git_blob_sha1": "b44f9dc86d4a1a8766c22635a8f5e6ae93829d04",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E7%B4%A0%E6%9D%90/%E7%AA%97%E6%99%AF-%E6%99%A8%E5%85%89.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/素材/窗景-暮色.png",
+      "bytes": 2208626,
+      "git_blob_sha1": "fd93f81da335fed2d23abdb042fab2207bdf07a8",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E7%B4%A0%E6%9D%90/%E7%AA%97%E6%99%AF-%E6%9A%AE%E8%89%B2.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/23-留下的资料.png",
+      "bytes": 1645486,
+      "git_blob_sha1": "58d8de817aecce40c74390e310f2339844dcadec",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/23-%E7%95%99%E4%B8%8B%E7%9A%84%E8%B5%84%E6%96%99.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/24-天气与接着聊.png",
+      "bytes": 1349912,
+      "git_blob_sha1": "ebf60181accc9bc7d9353b8060a69c4f4eb830ab",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/24-%E5%A4%A9%E6%B0%94%E4%B8%8E%E6%8E%A5%E7%9D%80%E8%81%8A.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/25-你交给我的事.png",
+      "bytes": 1780807,
+      "git_blob_sha1": "a3002cda6fe05a611a9efef516921db71ffd5f19",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/25-%E4%BD%A0%E4%BA%A4%E7%BB%99%E6%88%91%E7%9A%84%E4%BA%8B.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/26-这次按你的意思来.png",
+      "bytes": 1500985,
+      "git_blob_sha1": "f3617d4f9a5de1d9bfb2034e840bcdb63416638d",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/26-%E8%BF%99%E6%AC%A1%E6%8C%89%E4%BD%A0%E7%9A%84%E6%84%8F%E6%80%9D%E6%9D%A5.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/27-陪伴的样子.png",
+      "bytes": 1922305,
+      "git_blob_sha1": "47adf5ca4e2364c1e816d12aeeea6993c5f0cfe7",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/27-%E9%99%AA%E4%BC%B4%E7%9A%84%E6%A0%B7%E5%AD%90.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/28-笔记找回与继续.png",
+      "bytes": 1607006,
+      "git_blob_sha1": "6b3ab33b3b7e17251a25efa623be87029f238667",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/28-%E7%AC%94%E8%AE%B0%E6%89%BE%E5%9B%9E%E4%B8%8E%E7%BB%A7%E7%BB%AD.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/29-给别人看与回到私聊.png",
+      "bytes": 1532450,
+      "git_blob_sha1": "6c45918ce034e4c265487eff9cc2c2de3d507052",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/29-%E7%BB%99%E5%88%AB%E4%BA%BA%E7%9C%8B%E4%B8%8E%E5%9B%9E%E5%88%B0%E7%A7%81%E8%81%8A.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/30-把安排挪一挪.png",
+      "bytes": 1432705,
+      "git_blob_sha1": "c956fb5077561f8c4dcc6a75b62a5fe13bc24033",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/30-%E6%8A%8A%E5%AE%89%E6%8E%92%E6%8C%AA%E4%B8%80%E6%8C%AA.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/31-关于你的理解与来源.png",
+      "bytes": 1455597,
+      "git_blob_sha1": "686576a6b2d5755f89f4035c41e8bb4b417eaabf",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/31-%E5%85%B3%E4%BA%8E%E4%BD%A0%E7%9A%84%E7%90%86%E8%A7%A3%E4%B8%8E%E6%9D%A5%E6%BA%90.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/32-日夜安静阅读.png",
+      "bytes": 1643394,
+      "git_blob_sha1": "4e7c359763f6a5bc69dcd13fdefb54aa8e1d6142",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/32-%E6%97%A5%E5%A4%9C%E5%AE%89%E9%9D%99%E9%98%85%E8%AF%BB.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/33-回来与继续.png",
+      "bytes": 1680329,
+      "git_blob_sha1": "ba263216b6eb21f287fec6ab648add5c04d9c1d8",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/33-%E5%9B%9E%E6%9D%A5%E4%B8%8E%E7%BB%A7%E7%BB%AD.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/34-窄窗口里的在场.png",
+      "bytes": 1630788,
+      "git_blob_sha1": "45a1ee2ad2ef60f40b6f53d86cadc0dde8b52c50",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/34-%E7%AA%84%E7%AA%97%E5%8F%A3%E9%87%8C%E7%9A%84%E5%9C%A8%E5%9C%BA.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/35-路线地点与平面地图.png",
+      "bytes": 2156289,
+      "git_blob_sha1": "8f8025cfed40eed1f557c3ff92294112dd9eadd6",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/35-%E8%B7%AF%E7%BA%BF%E5%9C%B0%E7%82%B9%E4%B8%8E%E5%B9%B3%E9%9D%A2%E5%9C%B0%E5%9B%BE.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/36-先坐一会儿.png",
+      "bytes": 2185979,
+      "git_blob_sha1": "b0fff43a081598ad9672592dd45cb651ac0e0250",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/36-%E5%85%88%E5%9D%90%E4%B8%80%E4%BC%9A%E5%84%BF.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/37-怎样相处.png",
+      "bytes": 1683326,
+      "git_blob_sha1": "bd6735441229a9ee5936ccb9823803749ad6d89a",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/37-%E6%80%8E%E6%A0%B7%E7%9B%B8%E5%A4%84.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/38-留在这台电脑里的.png",
+      "bytes": 1406878,
+      "git_blob_sha1": "dc7793287203acd3a5b054b78e0c206b406652ee",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/38-%E7%95%99%E5%9C%A8%E8%BF%99%E5%8F%B0%E7%94%B5%E8%84%91%E9%87%8C%E7%9A%84.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/39-连接与校园资料.png",
+      "bytes": 1295869,
+      "git_blob_sha1": "a11c81cfab4b3d2d844efb078bbd831ab696c65a",
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/%E5%89%8D%E7%AB%AF%E8%A7%86%E8%A7%89%E5%88%9B%E6%96%B0%E8%AE%BE%E8%AE%A1/%E8%A1%A5%E5%85%85%E5%9B%BE%E7%A8%BF/39-%E8%BF%9E%E6%8E%A5%E4%B8%8E%E6%A0%A1%E5%9B%AD%E8%B5%84%E6%96%99.png",
+      "visual_observation": "本轮未取得该仓库图像二进制；仅目录与对应文档定位"
+    }
+  ],
+  "limitation": "GitHub连接本轮文本接口未取得仓库图片二进制。大图内容接口为空/二进制blob不可按UTF-8取回，不把目录阅读冒充看图。请Opus在实际checkout补齐。"
+}

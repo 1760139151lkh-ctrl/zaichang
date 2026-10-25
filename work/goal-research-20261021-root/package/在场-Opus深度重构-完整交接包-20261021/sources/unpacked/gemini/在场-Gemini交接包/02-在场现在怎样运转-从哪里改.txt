@@ -1,0 +1,245 @@
+在场现在怎样运转，改动从哪里进去
+
+Gemini，这一份给你当地图。主信里讲的是我们想过怎样的生活；这里替你把现有文件、真实接线和容易误诊的地方先标出来。下面的入口都对应 2026-10-19 main 的固定提交：
+8cdd754f6355de11d9d0d6bb367d6a66cbf7c330
+
+仓库：
+https://github.com/1760139151lkh-ctrl/zaichang
+固定快照：
+https://github.com/1760139151lkh-ctrl/zaichang/tree/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330
+
+这些是文档和源码审阅所得，不是本次重新启动应用得到的运行结论。你开始改时，请先对照自己实际检出的版本。行号只帮助定位这份快照，后续以函数名和调用关系为准。
+
+一、先把三个时间层对齐
+
+最新 main、仓库记录的真实模型体验、已经发布的 EXE，各有各的覆盖范围。
+
+现在项目版本仍写 0.3.0；Windows v0.3.0 EXE 来自 74e099a2a3e23d0e7fffb075a1c1e22727976004，构建日期为 2026-10-18。当前 main 包含后续多批源码改动，这些改动没有自动进入旧 EXE，也没有自动更新公共地图站点。
+
+docs/CURRENT_STATUS.md 记载的最新正常 Luna 闭环很具体：首次修后回答只读了一次合成本地日历的 local.agenda.read，生成一份原生 PlanningScene(mode=agenda)，该条回答记录的 7 次实际模型响应均为 gpt-6-luna；随后实际点选原安排并追问，完成原对象续问。这个记录能证明那一段路径；角色长期相处、后台人格消息、全部 Scene、真实校园成绩等仍需各自的观察。
+
+旧附件 zaichang-student-harness 的审阅基线是 ba73b049，已经有真正的 Hermes。更早记忆讨论里的迁移建议、旧包只有泛用角色的状态，都请放回各自日期。我们这次读过旧包 00–09、128 个情境、12 条时间线的全部 59 步，以及原记忆讨论。它们很适合理解需求来路，实际改动请落在当前实现上。
+
+先读这些文件会比较顺：
+
+README.md：产品入口、源码与 EXE 的区别。
+AGENTS.md：接续约定、已存在的机制和验证方式。
+PROJECT_NAVIGATION.md：各功能真正的文件和资料归属。
+docs/PROJECT_BASELINE.md：当前全貌。
+docs/PRODUCT_CONTRACT.md：长期产品定位。
+docs/ARCHITECTURE.md：真实调用链与各类数据的管理模块。
+docs/CURRENT_STATUS.md：各批工作分别做过什么、观察过什么。
+docs/CONTINUE_FROM_HERE.md：上一阶段收口和这次接续。
+docs/STUDENT_HARNESS.md、docs/HARNESS_EVOLUTION.md：完整任务与演进。
+docs/CONVERSATION_SCENES.md：对话内动态呈现的能力范围。
+FRONTEND_DESIGN.md：现有界面方向。
+docs/source-materials/2026-10-18/README.md、goal-objective-current-20261018.md、stage-close-and-luna-validation-20261019.md：最近原始目标与实际收尾。
+docs/source-materials/2026-10-18/harness-pack/00-START-HERE.md：旧包入口。
+
+二、真正说话和做事的，是这一条链
+
+界面 App.tsx 与 preload.ts 通过现有 Bridge/IPC 进入 Harness。Harness 协调本轮控制、上下文、工具与取消；Coordinator 和 ContextCompiler 装入当前可用材料。src/main/runtime/hermes.ts 接锁定的 Python Hermes AIAgent，runtime/hermes/sidecar.py 将模型与工具请求交回宿主。模型传输在 provider.ts 或 luna-provider.ts；工具经 ToolRegistry、Coordinator、CapabilityBroker 和原功能模块执行。真正的结果再回到同一主助手，最终通过原消息和有限 Scene 呈现。
+
+产品是 Electron、React、TypeScript、Node SQLite 加 Python Hermes。锁定 Hermes 0.21.2，对应 d595e636c83aa0b9606d4e914e1140ae9c796897。当前记录的运行环境是 Python 3.13、Node 24.18.0、npm 11.16.0；请先沿项目已有锁定依赖。
+
+DeepSeek 是产品默认模型；Luna 是当前实际模型验证通道。Antigravity 里的 Gemini 负责这次开发、研究和文字创作。你写出的设定与修复请进入共享主链，主助手自己的上下文和表达就能受益。
+
+主助手会连续调用工具，必要时也能委托真实只读子调查。控制解析、读取用途、动作核验和完成核查另有有界模型请求，会消耗本轮预算。一个主助手不等于整个请求只调用一次模型；等待的来源请按实际阶段看。
+
+三、完整提示从哪里拼出来
+
+请把“她实际收到什么”当成一次端到端阅读，而非只看角色编辑器。
+
+1. prompts/system.md
+这里已经写了个人生活伙伴、所选人格、自然交流、真实帮助和主动性；末尾也已经要求避免反复报告未做事项。问题并非从来没有写过自然表达。文档中同时仍有“不播报劳动过程”等容易压缩过程交流的措辞，值得和本次愿望一起重新理顺。
+
+2. src/shared/persona.ts
+personaGuidance() 编入角色身份、描述、声音、称呼、背景、表达材料和示例，也附上角色使用约定。它是实际注入入口之一。
+
+3. src/shared/persona-performance.ts
+目前用角色参与方式、同事实多角色原创例句补充表演。请检查这里的文字是否仍把不同人物收敛成同一个谨慎的工作人员。
+
+4. src/shared/persona-portrayals.ts
+保存祥子、睦的有限官方依据、取材范围、项目演绎和资料链接。当前 coverage 是 official_profile_search_excerpt，资料版本 2026-10-18.1。这里有起点，但还不足以代替理解原作场景。
+
+5. src/shared/interaction.ts
+DEFAULT_INTERACTION 为 tone=natural、humor=none、depth=adaptive、initiative=prepare、followup=meaningful_change。
+五轴与角色设定可能彼此拉扯。例如所选人物活泼，另一层却默认不主动开玩笑。请让用户能理解有效设置，并让合理默认真正支持所选相处方式。
+
+6. src/main/runtime/conversation-rhythm.ts
+这是工具途中交流的重要提示层，详情见下节。
+
+7. src/main/harness.ts
+约 963、1131–1141 行附近实际组合 systemPrompt、personaGuidance、interactionGuidance、CONVERSATION_RHYTHM_GUIDANCE，再加入当前范围、对外稿、完成说明等上下文。约 1167–1169 行还会在临近模型预算时改变工具与收尾要求。
+
+8. src/main/runtime/context.ts、coordinator.ts、read-purpose.ts、completion-review.ts
+这些地方形成当前可用前情、事实与来源、工具观察和结束核查。主模型读到的工具 meaning、失败 reason 和来源说明也会影响文风。请保留机器核验所需信息，让主助手理解该怎么自然回应人。
+
+persona 或 system 的一段文字改好了，若后续仍不断注入“没有执行……没有修改……”，实际对话仍可能被拉回原来的口吻。反过来，完成核查目前也已写明不因省略无关权限边界要求返工，不能先假定每次冷硬回答都是它强制出来的。请从一次真实运行的最终组装内容和各次返回意见确认。
+
+四、人物已经有哪些东西，哪里还没一起走
+
+文字预设有五个：warm_senior、lively_partner、calm_adviser、sakiko、mutsumi，另有 custom。头像素材有祥子、睦，以及澪、遥、朔、凪；后四个仅凭名称和画风不能认成另一部作品的角色，先看资产记录和实际设定。
+
+src/shared/persona.ts 的 PersonaCore 已有 name、selfReference、identity、description、voice、address、fictionalBackstory、visualBinding 和示例。字段各有长度限制，示例最多六类：日常、出门、资料缺失、低精力、被拒绝、办事失败。研究资料可以完整留在文档，运行时请提炼成高质量角色核心与按需材料。若要扩展字段或情境，沿现有 schema、校验和编辑路径一起处理。
+
+当前 DEFAULT_PERSONA 来自 migratePersona()，没有旧角色时落到基本空白的 custom：名字是在场，其余身份、声音、称呼和示例为空。默认插画在 src/renderer/companion.tsx，却是 mio。文字人格存在 SQLite 设置中，人物图选择另有本地偏好；这套默认组合可能让新用户看见人物却没真正得到相应声音。截图不能证明该用户当时恰好处于默认状态，请在实际设置里看。
+
+src/renderer/CompanionSettings.tsx 已有采用人物预设与保留原人格的显式选择，能照顾未保存草稿。可以把首次选择做得更易懂、更有用，也保留用户亲自编辑过的相处方式。
+
+src/renderer/PersonaEditor.tsx 已有编辑、预览、保存、导入导出、冲突与恢复。这里的预览展示配置里的例句，不是让真实模型说出来的测试结果。
+
+src/shared/persona.ts、persona-card-import.ts 与 src/main/store.ts 管理版本和兼容。旧配置迁移有意避免把混合私人 guidance 全部变成永远启用的人格。请保持纯角色在关闭个性记忆后仍能工作，个人事实则按实际设置使用。
+
+src/renderer/App.tsx 的助手署名目前有写死的“在场”。请一起考虑当前角色名称、产品品牌和历史消息的关系，避免前面称祥子、后面又像换了说话者；旧消息也不宜仅因今天换角色就被重新归给另一个人。
+
+昵称已有 address 字段和自然相处约定的接线。小灰灰是这位用户喜欢的称呼，其他人有自己的名字。请检查保存、改名、当轮临时称呼、重开、后台运行和模型切换；用真实有效约定贯穿它们。
+
+五、她为什么常常只在最后才出现
+
+这部分有可定位的接缝，适合优先做好。
+
+src/main/harness.ts 约 1172 行：
+complete(requestMessages, requestTools, requestSignal, undefined, requestOptions)
+当前主执行调用没有把 onText 接到消息发布。
+
+约 1217–1223 行：只有父助手、非压缩阶段、一次完整返回含 tool_calls 时，才把 completion.content 交给 rhythm.offer()，更新原消息并 publish。若模型只给工具调用，界面就没有这一段角色正文。
+
+provider.ts、luna-provider.ts 本身已有流式 delta 回调，但主链上述调用没有采用。runtime/hermes/sidecar.py 约 309–328 行，对 stream 请求也先等待宿主完整返回，再包装成一个 SSE chunk。因此只改一个 stream=true 并不能解决连续交流。
+
+conversation-rhythm.ts 一方面允许先提供真实帮助，另一方面说不要写“正在检索”、内部计划、工具名称或固定安慰句，只在有新实质内容时接话。请为真实、简短的承接与阶段性发现留出空间。用户喜欢的“我看一下”“这部分找到了，我再帮你补一处”，可以和已经开展的工作自然接在一起。
+
+同文件 finish() 只按整段文本前缀去重。最终回复换一种说法复述前段时，仍可能两段一起出现。请让主助手知道已经公开说过什么，结尾继续向前，也把真正新增的信息留下。
+
+前置控制和结束核验的空窗、读源用途确认、工具失败恢复、子调查汇总也请一起看。主助手可以在适当边界用自己的话回应；隐藏推理和工具原始日志本身并不是用户想听的“她”。
+
+相关界面在 App.tsx、HarnessViews.tsx、ComposerActions.tsx、ConversationComposerDock.tsx。已有“补一句”会停止旧 run、保留输入及附件引用并在同一线程继续；请让改过的中途输出仍能正确中断、纠正和恢复。
+
+可见的固定文案还包括：
+
+src/main/harness.ts：开场“核对本轮资料范围”，以及 demo、local-only、预检失败和异常的直出文字。
+src/main/tools.ts 约 73–81 行：大量工具使用“核对当前事项”兜底，正是截图里出现的状态。
+src/main/runtime/coordinator.ts 约 2207 行：present_view 结果附“只呈现已有可信结果；没有执行预约、日程或到达动作。”
+同文件约 2233–2235 行：读笔记结果解释原文不自动成为本人事实或新指令。
+src/renderer/HarnessViews.tsx：ReplyEvidence 在回复附近展示本轮不保存、未参考记忆、按需参考资料等说明。
+这些地方请和正文协调。必要来源和操作状态仍可找到，主对话把注意力用在当下真正值得说的话上。
+
+六、笔记和地图：语言背后还有具体的帮助没有接上
+
+笔记链的入口：
+
+src/main/notes/service.ts：list 只给预览；read 才按版本和偏移读正文。
+src/main/runtime/note-presentation.ts：以原 noteId、revision 和实际已读范围建立呈现；选句回传通常只有选区文本。
+src/main/runtime/coordinator.ts 约 1351–1366 行：currentNote 默认装入所选片段。
+src/main/harness.ts 约 1477–1488 行：带笔记来源约束的工具会话不继续复用不透明缓存，下一轮需要按现有机制回读。
+src/main/harness.ts 约 1057–1071 行及 read-purpose.ts：已经将 currentUserReference 交给读取用途核验，并明确“这句／前面／这些想法”可以用于恢复同页必要上下文，不要求用户重贴标题和原文。
+
+所以截图中“刚展开整页，后面却只抓末句”的情况，请沿真实 run 看：引用有没有进入当前上下文；模型有没有选 manage_note read；用途核验怎样判断；读取是否被版本或预算挡住；读到以后是否真正理解了问题。当前回读能力已存在，请把实际断点修好。
+
+地图失败也请分清具体账本：
+前台默认总量约 24,000 估算 tokens、160,000 读取 bytes、20 工具和 20 模型请求，子调查共享预算。CapabilityBroker 还有独立调用及字节限制；工具过长可能另外返回 unknown。模型看见的精简文字与实际读取的整份对象大小也不同。某个原始几何结果、重复读取、无关字段或分页方式都可能值得改善，但截图没有提供是哪一个的运行证据。
+
+天气 DEFAULT_SETTINGS.weatherEnabled=false，提醒 remindersEnabled=false，默认时区 Asia/Shanghai。请看真实用户设置和来源状态，解释当前选择所影响的能力；用户明确给了杭州或校园参考点时，不需要把设备定位当成唯一入口。若已取得一部分帮助，就先把那一部分带回来，再按现有路径恢复剩余工作。
+
+七、我们已经有主动底座，现在要让她真正来找人
+
+持久托付在 manage_attention、attention.ts、cooperation.ts 和原 Work 等模块中保存；来源变化有 journal/cursor/ack。初始发现、新来源变化、时间节点和材料到期可以形成机会。
+
+src/main/runtime/opportunity-scheduler.ts 与 src/main/main.ts 约 891–899 行接单个调度器，按持久 nextReviewAt 唤醒，并以 60 秒对账补足变化。笔记、日历等事件也能唤醒；这不等于每分钟都会请求一次模型。
+
+src/main/harness.ts 约 317–468 行做后台 reviewOpportunities；同一 Hermes 读取和判断，一次取一条机会。前台发来新话时会让后台让路。后台当前大约 9 次模型、12 次工具、120,000 bytes，共享范围内可以真实调查，主要承担只读准备。
+
+现在 prepare/wait/ask/notify/none 已能形成决策与准备产物。历史 Luna 记录里，已有课程地点变化后自主查安排和公共地图、准备路线的例子。请沿这条真实底座继续完成稳定体验。
+
+以下组合会让用户感到“主动没有发生”：
+
+默认 initiative=prepare，模型选择 notify 时会降为 prepare。
+quiet 或 followup=on_request 会停止可选扫描。
+关注默认渠道 in_app，提醒默认关闭。
+后台运行目前没有给原聊天自动追加一条角色消息，主要更新准备区或下次对话上下文。
+coordinator.ts 约 1644 行后台工具白名单未包含 curiosity_invitation、write_reflective_letter 等前台生活创作入口。
+src/main/actions/reminders.ts 约 276–277 行，通知标题固定为“在场 · 有一处变化”或“在场 · 到约定的时间了”，正文固定“打开在场查看详情。”
+可选 OS 通知还有非公开模式、窗口未聚焦等条件；安静时段和频率设置也会影响出现。
+
+请把“接住一句托付—持续去看—形成真实帮助—用所选角色来到原对话—按用户选择通知—打开后能继续”的体验接通。问候、兴趣和亲密关系中的主动也请有实际入口；用户选了这样的相处，它就值得被设计，而不必永远挤进“有截止日期的任务”里。
+
+角色声音进入通知时，请同时照顾预览范围。用户可以希望锁屏只显示简短提示，也可以希望直接听见她的那一句话。正文与准备产物的来源、去重、取消和读回关系沿现有管理模块继续。
+
+目前后台没有普通业务写入、完整邮件连接、手机同步或退出后的常驻宿主。先把当前校园和本地安排上的完整主动体验做实；已有已授权连接可继续用，缺的连接给出具体下一步。窗口不聚焦与整个 Electron 进程退出要分别描述：当前普通关窗会退出应用并清理调度，不能把“没有打开聊天页”与“关闭程序仍会工作”混为一谈。
+
+当前 OS 回执只证明 submitted_to_os，不能据此写成手机已收到、用户已读。实际投递发生到哪一层，就在相应层记录。
+
+八、功能地图：人物声音要跟着这些能力一起走
+
+下面按用户要做的事列现有入口。它们各有证据范围，不是一次编译就全部通过的承诺。
+
+• 记忆与经历
+src/main/runtime/memory-inquiry.ts、context.ts、coordinator.ts；prompts/memory-inquiry.md；memory 与 storage 下原证据、推断、Work 及更正遗忘模块。
+search_context、read_evidence、read_understanding、recall_experience 和真实 delegate 已有路径。请让人物自然找回理由、变化和未完话题，继续保留原文、推断、记录许可及精确撤回的区别。
+
+• 本地语义候选
+当前有 BGE-small-zh-v1.5 q8 资源和候选检索源码，默认 Coordinator 尚不注入 BGE 服务，未据此证明语义效果。旧文档有“未接”的历史说法；请据实写为源码与资源存在、默认未启用的阶段。
+
+• 日程与持续规划
+src/main/actions/calendar.ts、local-calendar.ts、planning*.ts、runtime/planning-conversation*.ts、planning-intents.ts。
+包含 event/todo/deadline/reminder/time_block、时区、重复例外、可用时间、依赖和交通休息、草案比较、逐日预算、部分失败恢复及原对象版本撤回。她能温柔地安排事，也请知道预览、保存成功、现实完成是不同状态。
+
+• 校园课表、考试、成绩
+src/main/zjuAdapter.ts、capabilities/campus-query.ts、campus-saved-source.ts、builtin.ts、runtime/campus-calendar.ts；prompts/campus-tools.md。
+前端 CampusAcademicView.tsx、CampusDaySchedule.tsx。实际能力受认证连接器、用户来源授权与具体资源字段影响；成绩口径、覆盖、日期和变动继续准确。体育类方法存在不等于任何后端都已经返回有效跑步计次。
+
+• 笔记、附件和资料阅读
+src/main/notes/service.ts、materials/service.ts、materials/pdf.ts、runtime/note-presentation.ts。
+TXT/MD/PDF 分页、原文和图像、独立笔记编辑、版本冲突、历史恢复与回收站已有路径。没有通用 OCR 和任意 Office 全格式的承诺。选句后接着聊，请认真读回必要内容。
+
+• 地图、天气、空气与公开研究
+src/main/capabilities/spatial.ts、weather.ts、air-quality.ts、research.ts、public-network.ts、broker.ts；prompts/map-tools.md；地图现有 MapService/MapSurface/WalkingGraph。
+桌面、内嵌和公共地图沿同源机制。保留真实路线条件、参考点、观测时间、相机操作和无 WebGL 回退；人物可以把这些自然讲给人听。
+
+• 一起商量、共做、陪学
+runtime/discussion-scene.ts、companion-session.ts、life-collaboration-tools.ts、life-continuity.ts、companion-continuity.ts，以及 coordinator 注册的原工具。
+前端 DiscussionSceneView、CompanionSessionView、StudySceneView、ExplorableStudyView。已有 listen/tidy/hint/do 等共做方式、原问题和本人尝试的区分。请让“先陪我想想”和“帮我做完”各有真实动作与语气。
+
+• 来信、兴趣、共同创作与关系排练
+runtime/curiosity-scene.ts、relationship-rehearsal*.ts、rehearsal-*.ts 和原作品/来信/相处管理模块。
+前端 LetterMessage、LetterHistoryCard、CuriosityInvitationView、RehearsalSceneView。
+前台已有若干来源绑定与呈现入口；后台能否自然发起请按本轮接线验证。作品中的“我”与用户现实经历各自保留身份。storySetting 正常工具入口目前冻结，没有可用 StorySettingView，请别因后端文件还在就列成已交付页面。
+
+• 助手方法与子调查
+src/main/runtime/skills.ts。当前真实注册是 11 份方法：memory-investigation、document-investigation、schedule-planning、contextual-outing、campus-sports、quiet-initiative、recover-action、persona-expression、continuity-and-return、study-companion、decision-brief。
+部分文档仍写十份，可以随这次导航同步。方法是按需帮助主助手选择做法，读取方法本身不额外赋予业务动作。
+
+九、把所有实际说话的位置逛到
+
+角色选择与设置：
+CompanionSettings.tsx、PersonaEditor.tsx、companion.tsx、SettingsPanel.tsx、shared/persona*.ts、shared/interaction.ts。
+
+聊天与等待：
+App.tsx、HarnessViews.tsx、ConversationComposerDock.tsx、ComposerActions.tsx、RichText.tsx、ui.tsx。
+把署名、自称、前段正文、来源说明、失败和恢复一起看；也检查滚动、选择文字、中途补话与窄窗。
+
+今天、托付和生活工作区：
+Workspace.tsx、LifePanels.tsx、EntrustedPanel.tsx、Navigation.tsx、CalendarHandoff.tsx、CampusDaySchedule.tsx。
+
+笔记、资料和搜索：
+NotesPanel.tsx、MaterialsPanel.tsx、LocalSearchPanel.tsx，以及原页引用、空态、保存、冲突、找回和取消。
+
+对话内 Scene：
+src/renderer/presentation/ 下的 AssistantPresentation、CampusAcademicView、NoteSceneView、LifeSceneViews、DiscussionSceneView、CompanionSessionView、StudySceneView、ExplorableStudyView、CuriosityInvitationView、RehearsalSceneView，以及规划比较组件。
+选句、点击和键盘焦点继续回同一输入位置，原草稿不被模板接话覆盖。
+
+地图：
+src/renderer/map/ 下 ConversationMap、CampusMap 与既有共享地图组件，连着查看提示、缺测、定位选择和路线失败。
+
+先用源码搜索发现候选，再在实际页面看一句话是否真的别扭。现有“保存好了”“留下这些约定”等文字已有自然的方向，保留好的部分。操作名称清楚易找，人物正文有自己的声音，信息密度与页面空间一起照顾。
+
+十、怎样收口比较有用
+
+现有 package.json 提供 npm run check、npm test、npm run test:hermes、npm run build；具体按改动影响用项目已有检查。test:hermes 是锁定引擎加合成宿主回调，不能替代实际 Luna 对话。
+
+相关现有机制检查可以从 tests/harness/conversation-evolution.test.ts、workflow-skills.test.ts、opportunity-scheduler.test.ts、background-delegation.test.ts、attention-controls.test.ts、hermes.test.ts 找起。它们保住调度、来源、取消、原对象和协议等行为；人物像不像，需要看真实生成的对话与使用过程。
+
+04 里准备了少量有代表性的生活片段。请优先用正常应用入口证明角色与原有功能确实一起变好了，再针对仍存在的具体风险补足检查。真实 Luna、实际 UI、确定性机制、外部服务以及未来 DeepSeek，各自写清版本和范围。
+
+我们希望这次交付能带回来几段真实的新对话、一条没有新用户消息也能完成的主动帮助、改好的实际界面，以及接手者能找到的文档。这样，温柔就真正长在产品里面了。
+

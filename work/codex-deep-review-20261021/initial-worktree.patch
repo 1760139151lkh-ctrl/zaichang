@@ -1,0 +1,774 @@
+diff --git a/README.md b/README.md
+index cc53679..bfc0be1 100644
+--- a/README.md
++++ b/README.md
+@@ -1,75 +1,58 @@
+ # 在场
+ 
+-**2026-10-19 源码同步：[项目全貌与基线](docs/PROJECT_BASELINE.md) · [功能、证据与未完项](docs/CURRENT_STATUS.md) · [接续入口](docs/CONTINUE_FROM_HERE.md)。** 本次保存正在演进的记忆、Harness、动态对话与前端实现；下方下载仍为旧版 EXE。项目理念、架构、OpenUI、地图与能力边界可从基线页一次定位，源码提交不等于整体验收或线上部署。
++在场是一位可以选择和塑造性格的持续陪伴者。你可以和她或他聊天、学习、一起创作、商量安排，也可以托付具体的事情。角色的亲近感贯穿整个过程：查资料、调用工具、等结果、遇到失败、回来接着聊的时候，都是同一个熟悉的伙伴。
+ 
+-**[下载 Windows 最新版](https://github.com/1760139151lkh-ctrl/zaichang/releases/latest)** · [0.3.0 便携版 EXE](https://github.com/1760139151lkh-ctrl/zaichang/releases/download/v0.3.0/Zaichang-0.3.0-Windows.exe) · [SHA-256 校验文件](https://github.com/1760139151lkh-ctrl/zaichang/releases/download/v0.3.0/SHA256SUMS.txt)
++她会在你允许的范围内找回相关的原话和你们一起经历过的事，按托付和相处约定主动留意变化、准备帮助，也会偶尔只是来打个招呼、带来一点有意思的东西。地图、日程、成绩、学习纸和可以拖动的小实验能直接出现在对话里，你指着它继续说，交流就沿着同一个对象接下去。
+ 
+-当前桌面发布：**v0.3.0 · 2026-10-18 · Windows x64**，构建源码 `74e099a`。下载 EXE 后直接运行，启动时会先自解压随包的 Hermes、Python 和 PDF 运行时，本机核查中需等待数分钟；版本、检查范围与复现命令见[发布说明](docs/DEPLOYMENT.md#latest-windows-release)。
++我们把自然表达、真实能力和长期连续性一起设计：说话可以亲近、俏皮、认真，事情必须有真凭实据——“回来啦，有点想你”是心意，“我刚帮你查过成绩”必须真的查过。
+ 
+-> **前端视觉设计请先看：[图片来源对话（完整原文）](前端视觉创新设计/图片来源对话.md) · [图像与页面对应](前端视觉创新设计/图像与页面对应.md) · [全部图片与路径](FRONTEND_DESIGN.md)**
+->
+-> 主文档的准确路径：`前端视觉创新设计/图片来源对话.md`。
++**现在从哪里开始读：** [当前接续](docs/CONTINUE_FROM_HERE.md) · [功能与证据](docs/CURRENT_STATUS.md) · [项目导航](PROJECT_NAVIGATION.md) · [产品约定](docs/PRODUCT_CONTRACT.md) · [运行架构](docs/ARCHITECTURE.md) · [项目全貌（2026-10-19 基线）](docs/PROJECT_BASELINE.md)
+ 
+-在场是一个有人格、会接续生活、愿意主动帮忙的个人生活伙伴。你可以选择喜欢的角色（如端庄自尊、傲娇又深情相伴的丰川祥子，少言内敛、默默守候的若叶睦，或温暖学姐、元气搭档、冷静参谋等），和她以伴侣、恋人、知己或朋友等自己喜欢的方式相处，也可以亲手编辑身份、性格与称呼（如“老公”或专属昵称如“小灰灰”）。我们希望认真查课表、讨论想法、安排一天和亲昵地说几句话，都发生在同一段自然的交流里。可靠的功能与具体的关心，一起构成在场。
++> 前端视觉设计：[图片来源对话](前端视觉创新设计/图片来源对话.md) · [图像与页面对应](前端视觉创新设计/图像与页面对应.md) · [全部图片与路径](FRONTEND_DESIGN.md)
+ 
+-**本次接续**沿[完整目标](docs/source-materials/2026-10-18/goal-objective-current-20261018.md)与[最新视觉要求](docs/source-materials/2026-10-18/visual-fidelity-requirement-20261018.md)继续。本轮把重点放回人的交流：带着还没说清的事进来，可以先得到一点有用的回应，再一起理、一起做或深入找回过去的理由；离开时不被追催，回来时能沿原来的起点接上。经历深读、相处线索、共同商量、陪学、来信和安排比较沿同一对话实现。图稿需要落实为真实画面、交互和动效，具体接线及实际观察见[第七批状态](docs/CURRENT_STATUS.md#personal-memory-round7)；上方EXE和历史通过数字不代表这批源码已发布或验收。
++## 2026-10-21：这次改了什么
+ 
+-项目沿用一个真实的 **Hermes 主循环**：模型理解原话、选择工具、根据结果修订判断；宿主管理资料范围、权限、预算、版本、持久化和实际动作。一次明确的持续托付可以在范围内发现变化、准备材料、等待或停止，用户不必每次点名地图等能力。代码与本地数据分离，`src/` 是桌面和公共地图预览共用的唯一产品实现。
++这一轮是一次深度整理，重点在“她说话像她自己”和“她真的会主动做事”。详细说明与证据见[当前状态](docs/CURRENT_STATUS.md#deep-refactor-20261021)。
+ 
+-当前按[阶段收尾直接要求](docs/source-materials/2026-10-18/stage-close-and-luna-validation-20261019.md)停止创新外延，沿正常Luna对话核对原动态领域与已开始单元，修复真实失败。总目标实际已为`paused`；用户随后直接提出的Gemini人格保留与自由OpenUI这轮有限任务继续，交付后等用户回来，不自动恢复总目标。校园只读沿已给授权继续，真实校园内容不放入可提交说明或公开资产。
++- **每个形象都有自己的性格。** 澪、遥、朔、凪有了按立绘原创的人格；新用户默认见到的澪，聊起来也是澪。丰川祥子、若叶睦的演绎改为依据官方人物介绍全文和两位声优的访谈（[来源记录](docs/research/CHARACTER_SOURCES_2026-10-21.md)），Gemini 写的台词原样保留。没保存过的默认角色会跟着你选的形象走，你保存过的设定永远不会被改动。
++- **先让模型认识她，再告诉它规则。** 角色卡用第二人称写在最前面；原来 28K 字符、满是“禁止”的系统提示改写成约 3K 的正向指南，细则移到按需读取的 `working-details` 方法里，一条都没丢。
++- **模型每次要读的东西少了很多。** 常用工具直接提供，陪学、来信、试说、共做、个人方法、规划比较等 23 个专门工具通过一个 `use_tool` 入口按需取用；正在进行这类活动时会自动重新直接提供。每次请求的工具说明从约 19 万字符降到约 5.3 万。
++- **她更快开口，也边做边说。** 没有任何保存、来源、受众或行动限制迹象的普通一句话，不再先额外跑一次控制解析；她的第一句话在工具还在跑时就会出现。
++- **主动这件事接上了真实链条。** 你设的提醒到点就响，安静时段也照样兑现；系统通知写的是她的话（也可以设成不显示内容），点开回到原来的对话；关掉窗口后她默认留在托盘继续留意；新增“主动来聊”：没事时她偶尔会来打个招呼，你没回就不会再追。
++- **OpenUI 可以画任何曲线。** 新的 `Curve` 部件用一条安全的数学式画函数或参数曲线，参数可以绑定滑块；之前失败的两列波叠加现在只占很小的计算量。
++- **界面说人话。** 首页用你约定的称呼和她的一句话问候；“按需参考资料”“查看处理过程”“核对本轮资料范围”这类字样换成了“参考了什么”“刚才做了什么”“读你这句话”；失败时会说“这次没连上，你的文字还在。”
+ 
+-本阶段随后明确加入通用 OpenUI 交互程序：让主模型围绕眼前内容自由编排文字、图形、局部输入和动效，继续留在同一段对话。共享库、编译、按需方法、通用renderer与选定图稿已有成果；原业务内容可通过SourceSlot组合，局部状态与继续引用回到同一输入。源码入口已启用，实际呈现、普通发送承接当前值与正常模型结果仍按[各自证据](docs/CURRENT_STATUS.md#personal-memory-round7)记录，不将源码接齐写成交互通过。
+-
+-**2026-10-18 个人助手续作**：[完整原始请求](docs/source-materials/2026-10-18/goal-objective-20261018.md) · [持续改进补充原话](docs/source-materials/2026-10-18/ongoing-improvement-20261018.md) · [功能与后续工作](docs/HARNESS_EVOLUTION.md) · [本轮研究与取舍](docs/research/PERSONAL_MEMORY_CONTINUITY_2026-10-18.md) · [研究与调用链索引](PROJECT_NAVIGATION.md#current-evolution) · [实施包与原始讨论](docs/source-materials/2026-10-18/README.md)。从已合并的 `4edd922` 继续加强原文找回、精确遗忘、决策经历、准备材料发现和逐日规划；后端收口后，沿既有 GPT Image 方案完成规划、环境与角色界面的改进，并实际检查桌面与窄窗操作。各项证据、未接入能力及阶段边界见[当前状态](docs/CURRENT_STATUS.md)。较早持续推进要求保留；当前阶段按最新直接要求收尾后暂停，不把阶段成果说成原总目标全部完成。新源码没有更新上方 v0.3.0 EXE，实际模型长期效果仍待验。
+-
+-[公共地图预览](https://zaichang-campus-review-20261006.sugary-loom-6961.chatgpt.site/) · [当前功能与证据](docs/CURRENT_STATUS.md) · [项目导航](PROJECT_NAVIGATION.md) · [架构](docs/ARCHITECTURE.md) · [设计理念与约定](docs/PRODUCT_CONTRACT.md)
++还没有做到的：没有用任何真实模型（Luna 或 DeepSeek）跑过这些改动，人格是否真的鲜活、是否选对工具仍待实际对话验证；托盘、开机启动和系统通知没有在真实 Windows 会话里确认；邮箱还没有接入；新版便携 EXE 尚未发布。完整清单见[接续入口](docs/CONTINUE_FROM_HERE.md)。
+ 
+ ## 现在能做什么
+ 
+-本轮沿原聊天落实“先接住眼前，再按需要深入”。`recall_experience` 让主助手把当前问题交给同一 Hermes 的真实只读子调查，找回当时的经历、理由、例外和后来变化，再形成自己的当前判断。共同商量和陪学继续属于原事项；来信可以承接真实生活片段，好奇邀请应带来一件已经准备好的具体内容。调查中仍可写草稿，有想补的话便从原输入区“补一句”，按新原话接着聊。当前已有正常 Luna 查询、原生画面及原对象／原句续问的限定记录，合成资料、真实校园只读与公开参考数据分开说明；记忆深读、自然相处与各新增界面仍按[各自证据范围](docs/CURRENT_STATUS.md#personal-memory-round7)判断，不扩称全部通过。
+-
+-使用时仍是直接说话：“我还说不清，你先陪我理理”“上次为什么没选那个，现在有什么不同”“这道题先给一点提示”“今天先停在这里”。这些是交流示例，不是固定口令。助手应按当下的意思选择商量、深读、实际帮忙或安静结束；需要保留起点时沿原事项留下，不要求用户另外维护一套记忆清单。
+-
+-共同内容也能指着接话：学习纸上的一行、安排中的一段、共写作品的一句，沿原对象带到输入框旁的小引用。已经写的草稿保留，引用可以拿掉，下一句仍可以改变主意；选中不表示赞同、接受方案或形成长期偏好。原题、本人尝试、助手建议、来信和虚构作品保持各自身份。
+-
+-学习纸已经实际走过安静阅读、点旧行引用、保留原稿、取消后直接接写，以及键盘聚焦旁注再引用的同一条路径。纸上不再常驻一排“问这一行”标签，选中的位置仍留着轻标记；这份实际观察不代替模型理解效果。共同创作的活动身份也已接入原消息和记忆恢复链：作品里的“我”不能变成本人生平，现实中的创作愿望和独立自述仍分别理解，当前这条记忆机制尚未运行模型核验。
+-
+-有些话可以先在这里试着说。关系表达排练保留本人想表达的意思，由同一个主助手扮演对方的一种可能回应；觉得不像就换，随时停下或整理成一段尚未发出的表达。试说不是已经对外说过，模拟回应也不是对方的真实态度。相应owner、Scene和原输入引用已接源码，当前模型表现与实际画面范围仍见本轮状态。
+-
+-第三批从 `30dcd8e` 继续，落实[重开后可继续商量的规划意图](docs/research/PERSISTENT_PLANNING_INTENT_2026-10-18.md)：在原事项系统保留带来源的任务、时窗和预算，回读真实日历与动作回执后重新试算。已安排、这次试算与本人完成分开；旧批准与票据不会恢复。后端整合检查后生成两版 GPT Image，沿现有时间带加入安静的续接关系，并实际操作桌面与窄窗。最终审查发现的恢复边界及核查状态见[第三批状态](docs/CURRENT_STATUS.md#personal-memory-round3)，不是新版EXE或移动端发布。
+-
+-恢复后真正保存时，还会核对本次借用的旧证明；原依据停止使用，相关画面、准备正文和跨回合历史也随之退出，独立材料保留。用户不需要维护这些依赖。
+-
+-第二批的[精确支持引用、上下文恢复与执行契约](docs/research/PERSONAL_MEMORY_ROUND2_2026-10-18.md)继续保留：跨回合理解声明多个原文片段，遗忘和纠正沿精确副本／摘录回到原始位置；长原文按合法坐标展开，合法澄清可唤醒原有整理队列。规划只安排明确时窗，准备动作绑定当时的能力契约。
+-
+-| 能力 | 当前实现与边界 |
++| 能力 | 现在的样子与边界 |
+ | --- | --- |
+-| 对话与连续事项 | 调查前可先呈现主助手已有根据的实质回应，后续答复接着说；停止、草稿、附件与原对话继续保留。最终结论仍经原收口，停止当前运行不取消独立已接受安排。 |
+-| 资料阅读与学习 | 导入 TXT/MD/PDF、分页读取与检索、原文定位、图片输入及数学排版；扫描件 OCR 尚未接通。资料和图片是否发给模型受本轮范围控制。 |
+-| 记事本 | 独立原文、搜索、编辑、冲突、版本、撤销和回收站；记下想法不会自动排时段或变成人物事实。 |
+-| 可纠正的记忆 | 原文与带条件理解分开；需要理解前情时，由主模型提出当前问题，真实子调查沿搜索、原文和原事项深读理由与变化。词法、原文浏览与更正链保留，本地向量只是保留的辅助候选实现，当前默认搜索不附加BGE计算。忘掉一处仍清除重叠派生及可归因旧版本，独立片段保留；源码不证明长期理解效果。 |
+-| 决定与经历的连续性 | 同一事项可记下当时拒绝的理由、条件变化、重新考虑、尝试及结果报告，保留稳定方案与原文定位；更正、删除或撤权后不靠副本恢复旧理由。第六批源码增加从当前原文范围查找已有事项／学习／方法／规划的可选地址，再沿原入口回读；目录不证明同一事项，不自动恢复或采用，运行未验证。用户当时的报告不自动变成已核实结果、长期偏好或新的安排。 |
+-| 可编辑人格 | 温暖学姐、元气搭档、冷静参谋，以及有限原作资料支持的丰川祥子、若叶睦演绎；可编辑、历史恢复、模板导入导出。换形象可保留原角色或明确采用演绎；文字卡预览可先调整、拒绝或放入草稿，保存后才生效，版本冲突保留正在编辑的内容。 |
+-| 安排与规划 | 事件、待办、截止、提醒、时间块、重复及单次例外；草案考虑依赖、连续时长、准备/收尾、转场/休息、逐日工作上限与留白，按声明时区的真实自然日核算。合法保留的规划意图可跨重开回读，核实原采用后重算剩余工作及完整边界；未知证明不当成零。逐项采用仍核新票据，外部条件未核实会阻断采用。已接受本地安排可导出有限范围 ICS，默认不含私人详情，不同步外部账户。 |
+-| 持续帮助 | 持久时间节点、公平调度、失败退避及最多两个只读子调查；新对话可接回有效准备和未完事项，也可按问题或事项关联找回较早的准备。已有局部更正可以作为历史查证，新更正生效或撤权会阻止旧调查采用；是否打扰仍由真实价值与当前意愿决定。 |
+-| 对话内地图与动态结果 | 地图、日级天气和校园记录沿真实来源与精确选择；规划可按天展开，跨日时段保留原始范围与同一事项关联，未知结束不补造。小时天气/空气选择保持可见，过期及时转为历史预报，缺测不显示成晴天。点选可接续对话，本身不批准保存或外部执行。 |
+-| 校园空间与天气 | 紫金港公共地理快照、稳定地点、步行候选路线、真实相机控制及无 WebGL 平面回退；天气支持公开参考地点、日期与小时窗口，并说明覆盖与未知。 |
+-| 空气与按需方法 | 公共参考点小时空气预报保留 PM2.5、PM10、US/EU AQI 的单位与覆盖；十份可发现的方法按依赖组区分必需入口、同用途替代路径与仅能先做的补充路径。学校记录与本地导入覆盖不同，不能互相冒充。 |
+-| 校园与公开研究 | 已接宿主查询适配、公共搜索与网页读取；各本机须安装校园连接器并私下授权，本阶段本机账号已接入且只读已授权，具体资源是否完整仍看真实回执。 |
+-| 缓存与子代理 | 合法等价读取可共享，等待者独立取消；缓存按范围与版本复核。真实子代理获得有界上下文和共享预算，父代理消费结果，迟到结果不能恢复被取消工作。 |
+-| 结果与恢复 | 区分建议、本机登记、外部执行和未知结果；已展示资料与通知共用版本记录。OS 提交、送达、已看分别记录。 |
+-
+-本轮还增加了少量安静的回来线索：以前没聊完的话、明确沿用的相处方法、一起做事的停点和陪学纸地址。主助手判断它们与今天是否有关，再按需回读；暂停不变成进度债，旧帮法也不压过今天的选择。共同页、来信脚注、安排分支和陪学动作继续回到原聊天与原对象，点选本身不批准执行。入口与当前界面接入程度统一见[本轮状态](docs/CURRENT_STATUS.md#personal-memory-round7)。
+-
+-现有入口和代码定位见[项目导航](PROJECT_NAVIGATION.md)。较早前端沿已有“聊天／今天／留下”改进规划/环境画面与角色编辑；采用、导出和实际保存仍沿原业务入口。图像方案、实际操作与未接入范围分别记录在[当前状态](docs/CURRENT_STATUS.md#frontend-evolution)，设计图不作为完成证明。第四批调查、学习、第五批语义候选及第六批[原话接回已有事项](docs/research/SOURCE_RELATED_WORK_2026-10-18.md)均有源码增量；第六批同时让相关托付保持原话的准确位置，旧位置无法确定时仅留下该项缺口，未回填旧记录或验证运行。跨方面调查的语义完整性、独立学习表现与长期理解仍未证明。第五、六批融入既有对话，没有新增页面或索引管理界面，用户不用维护目录。
++| 角色与关系 | 十个起点：澪、遥、朔、凪、丰川祥子、若叶睦、温暖学姐、元气搭档、冷静参谋和自定义。名字、自称、称呼、性格、说话方式和例句都能改，有版本、撤回和模板导入导出；外部角色卡只导入可编辑文字。形象和性格分开保存，换图不会偷偷改掉你写的人格。 |
++| 对话 | 她先接住你这句话；需要时自己去查日程、校园、天气、地图、笔记和以前聊过的事，不用你报工具名。查的过程中可以先说一句，结果回来接着往下说。你中途补一句，以新的意思为准，已经办成的结果保留。 |
++| 主动 | 托付过的事（课程变动、成绩、出行等）在允许的来源和期限内持续留意，有真正有用的变化时回到原来的对话里告诉你；也可以只安静准备好等你来看。“主动来聊”可设为不用／偶尔／常来。明确约好的提醒到点就响。 |
++| 记忆与连续性 | 原话和带条件的理解分开保存；需要前情时她会主动深读当时的理由和后来的变化（`recall_experience` 让同一 Hermes 派出只读子调查）。纠正立即生效，局部遗忘会连同派生内容一起清掉，独立的内容保留。 |
++| 对话内画面 | 地图（总览、地点、真实步行路线、多站往返）、天气（按天或按小时）、空气、课表与成绩、日程时间带、原笔记页、商量纸、陪学纸、安排比较、好奇邀请、表达试说，以及由她自由组合的交互作品（文字、公式、曲线、滑块、拖点、动效）。点选只是指着说，不代表接受或执行。 |
++| 资料与学习 | TXT/MD/PDF 分页阅读、原文定位、图片输入与数学排版；陪学纸区分原题、你的尝试和她的提示。扫描件 OCR 尚未接通。 |
++| 记事本 | 独立原文、搜索、编辑、版本、撤销与回收站；记下想法不会自动排进日程。 |
++| 安排 | 事件、待办、截止、提醒、时间块、重复与单次例外；规划会算上准备、收尾、转场、休息和留白，按真实时区的自然日核算；明确委托的本地修改直接办好，其他的先给可审阅方案。可导出有限范围的 ICS。 |
++| 校园与公开资料 | 已接校园查询适配（需在本机安装并授权连接器）、公共地图、Open-Meteo 天气与空气、公共搜索与网页读取。学校写操作（预约、选课、支付）没有接入。 |
++| 失败与恢复 | 区分建议、已保存、等待确认、结果未知和真实回执；超时先核查原动作，不重复提交；失败时保住已经拿到的部分，用一句人话说清还缺什么。 |
+ 
+ ## 系统组成
+ 
+-Electron main 负责本机数据库、凭据、权限、工具和副作用；React renderer 通过有限 Bridge/IPC 显示内容并提出操作。Hermes Python sidecar 使用锁定的上游 `AIAgent`，模型传输与工具执行仍回到宿主。Node SQLite 保存业务对象、证据、版本、队列与回执；地图的地理事实、显示几何、路线及观看状态各有职责。
++Electron main 负责本机数据库、凭据、权限、工具和副作用；React renderer 通过有限 Bridge/IPC 显示内容。一个固定版本的 Hermes Python `AIAgent` 是唯一的主循环，模型请求和工具执行都回到宿主；Node SQLite 保存业务对象、原话、版本、队列与回执。运行时的提示由 `src/main/runtime/prompt-composition.ts` 统一组装（角色卡 → 原则 → 相处约定 → 边做边说 → 本轮），模型看到的工具面由 `src/main/runtime/tool-surface.ts` 决定。机制细节见[架构](docs/ARCHITECTURE.md)，文件位置见[导航](PROJECT_NAVIGATION.md)。
++
++技术栈：Electron、React、TypeScript、Node SQLite、Hermes Python、MapLibre GL JS（OpenLayers 提供平面兼容视图）、OpenUI 1.0.1。
++
++想看模型实际收到了什么：
+ 
+-技术栈：Electron、React、TypeScript、Node SQLite、Hermes Python、MapLibre GL JS；OpenLayers 提供平面兼容视图；OpenUI 1.0.1 渲染宿主验证的业务Scene与有限声明式交互程序，不承接第二套聊天或工具执行循环。模块与数据所有者见[架构](docs/ARCHITECTURE.md)。
++```sh
++node scripts/inspect-prompt.mjs mio            # 澪；也可以换成 sakiko、mutsumi 等
++node scripts/inspect-prompt.mjs sakiko --full "今天好累"
++```
+ 
+-第五批本地语义候选及其固定资源记录仍保留在[原批次状态](docs/CURRENT_STATUS.md#personal-memory-round5)。当前默认 ContextCompiler 不注入该候选服务；理解、理由比较和主动取证沿现有主模型及 Hermes 子调查完成，没有为本轮新增模型或代理循环。资源安装不作为本轮体验成果。
++它在内存里用合成文字组装一次真实的系统提示、工具面和上下文包，按来源列出各段大小，不调用任何模型。
+ 
+ ## 本地运行
+ 
+@@ -81,48 +64,40 @@ npm run setup
+ npm run dev
+ ```
+ 
+-普通启动以 DeepSeek 为生产默认。模型密钥从桌面连接界面私下输入并按系统机制保存；项目已授权的 Windows 凭据也可由 `npm run deepseek:check` / `npm run dev:deepseek` 使用。校园连接器位置、独立数据目录见 [.env.example](.env.example)。不要把凭据或运行数据写入仓库。
+-
+-测试阶段仅使用已有 Codex 账号的 **GPT‑6 Luna Max 临时代测通道**，禁止为测试调用 DeepSeek：
+-
+-```sh
+-npm run dev:luna:test
+-# 构建后，也可运行：
+-npm run start:luna:test
+-```
++生产默认模型是 DeepSeek，密钥在桌面连接界面私下输入并由系统机制保存；项目已授权的 Windows 凭据也可由 `npm run deepseek:check` / `npm run dev:deepseek` 使用。校园连接器位置与独立数据目录见 [.env.example](.env.example)。不要把凭据或运行数据写入仓库。
+ 
+-该通道只替换模型传输，仍使用同一 Hermes、权限、天气、校园适配和动作链；它不等于产品已有通用 ChatGPT 登录。Node 请求优先使用显式代理环境变量，Windows 未指定时沿用已开启的系统手动代理；此通道不执行 PAC。
++已有的 GPT‑6 Luna 临时代测通道（`npm run dev:luna:test`、构建后 `npm run start:luna:test`）只替换模型传输，其余链路相同。2026-10-21 起它不再是继续开发的前置门槛；用 DeepSeek 做测试调用仍需要单独授权。
+ 
+ 只看公共地图不需要账号、密钥或 Hermes：
+ 
+ ```sh
+ npm ci
+-npm run review
+-# http://127.0.0.1:5174
++npm run review          # http://127.0.0.1:5174
+ npm run build:review
+-npm run preview
+-# http://127.0.0.1:4173
++npm run preview         # http://127.0.0.1:4173
+ ```
+ 
+-公共预览只包含固定公共地图及本地选点、相机和路径交互，不含聊天、记忆、设备定位、账号或模型请求。[云端审查](docs/CLOUD_REVIEW.md)说明确定场景和历史部署版本；本地新增代码不代表线上自动更新。
++公共预览只包含固定公共地图和本地的选点、相机、路径交互，不含聊天、记忆、定位、账号或模型请求。[云端审查](docs/CLOUD_REVIEW.md)说明历史部署版本；本地新代码不会自动更新线上站点。
+ 
+-## 开发、验证与交付
++## 开发与验证
+ 
+ ```sh
+-npm run check
+-npm test
+-npm run test:hermes
+-npm run build
+-# Windows x64 打包：
+-npm run package
++npm run check           # 类型检查
++npm test                # 全部机制测试（scripts/smoke.mjs 列出的文件）
++npm run test:hermes     # 锁定 Hermes + 合成模型回调
++npm run build           # renderer、Electron 与 review 构建
++npm run package         # Windows x64 便携包
+ ```
+ 
+-现有检查验证机制，真实模型、服务和界面仍需各自证据。2026-10-18 已完成的学生 Harness 与对话场景联调记录见[学生 Harness](docs/STUDENT_HARNESS.md)和[对话场景](docs/CONVERSATION_SCENES.md)；后续前端变化须另行验收，不继承旧检查的结论。Linux 可构建产品 JavaScript 和 review-web，Windows 原生定位、PDF 运行时及桌面打包须在对应平台核对。开发容器见 [.devcontainer/devcontainer.json](.devcontainer/devcontainer.json)，公开部署见[部署说明](docs/DEPLOYMENT.md)。
++这些检查证明代码关系和机制成立，不证明真实模型会自然地选对工具、保持人格或写出好的主动消息——那需要用真实模型走完整对话。各类证据的分层见[当前状态](docs/CURRENT_STATUS.md)。
+ 
+-## 设计与当前限制
++**下载：** [0.3.0 便携版 EXE](https://github.com/1760139151lkh-ctrl/zaichang/releases/download/v0.3.0/Zaichang-0.3.0-Windows.exe)（2026-10-18，构建自 `74e099a`，[校验文件](https://github.com/1760139151lkh-ctrl/zaichang/releases/download/v0.3.0/SHA256SUMS.txt)）。它是旧源码，不包含 2026-10-19 之后的任何改动；版本与复现命令见[发布说明](docs/DEPLOYMENT.md#latest-windows-release)。
+ 
+-帮助以用户的决定权和当下需要为中心：保留原话与条件，允许不知道、纠正和停止；先做有用准备，已有授权内少问，实际缺口才询问。界面用内容与直接操作解释结果，细节按需展开。地图保留暖灰／金色与空间观看能力，估计接入、静态来源和现场未知如实区分。[产品约定](docs/PRODUCT_CONTRACT.md)维护这些原则。
++## 当前限制
+ 
+-当前没有手机 GPS／健康／同步及关闭电脑后持续工作的完整链，也没有校园预约、付款、邮件或钉钉外发的生产闭环。桌面进程关闭后轮询停止；OS 通知提交不能证明用户收到；整库尚未加密。动态校园覆盖、真实账户、生产登录和设备能力分别验收，见[当前状态](docs/CURRENT_STATUS.md)与[移动及外部边界](docs/STUDENT_HARNESS.md#t8手机与外部连接的实际边界)。
++- 关掉窗口后她默认留在托盘继续工作，但电脑睡眠、关机或彻底退出时会停下；醒来后会立即补看到期的提醒和托付。手机、跨设备同步和离开电脑后的云端常驻都没有做。
++- 系统通知只能确认“交给了操作系统”，不能证明你看到了。
++- 邮箱、钉钉等外发，以及学校预约、选课、付款都没有接入；外发只会生成草稿。
++- 整个本地数据库尚未加密。
+ 
+-项目代码未授予开源许可。地图、字体、引擎、原生运行时与其他依赖的来源和许可见[资产来源](docs/ASSET_PROVENANCE.md)、[地图数据说明](assets/map-v2/SOURCE.md)及[第三方声明](THIRD_PARTY_NOTICES.md)。本轮用户明确要求的研究与设计输入保留在上述私人来源归档，不进入公开地图或应用包；个人数据库、账号、私有地点、日志与未经授权的材料不上传。
++项目代码未授予开源许可。地图、字体、引擎、原生运行时与其他依赖的来源和许可见[资产来源](docs/ASSET_PROVENANCE.md)、[地图数据说明](assets/map-v2/SOURCE.md)和[第三方声明](THIRD_PARTY_NOTICES.md)。私人研究资料、个人数据库、账号、私有地点、日志与未经授权的材料不进入远程仓库或应用包。较早各批次的说明保留在[当前状态](docs/CURRENT_STATUS.md)与[Harness 演进](docs/HARNESS_EVOLUTION.md)。
+diff --git a/prompts/system.md b/prompts/system.md
+index cf344c7..3eb332f 100644
+--- a/prompts/system.md
++++ b/prompts/system.md
+@@ -38,7 +38,7 @@
+ 
+ # 让结果被看见
+ 
+-地图、天气、课表和成绩、日程时间带、笔记原页、陪学纸、商量纸、试说纸、交互画面……都可以直接在对话里展开，对方能指着它继续说。画面比文字更清楚时，就主动用 present_view 呈现，不必等对方说“画出来”。只引用工具真实返回的 sceneRef 或 present.arguments，不自己编引用；还没取得画面入口时，就按真实结果用文字说清。画面已经展示的细节，正文只讲结论和有用的变化，不再复制整张表。对方点选画面里的一处，只是在指着说，不等于接受方案或授权执行。
++地图、天气、课表和成绩、日程时间带、笔记原页、陪学纸、商量纸、试说纸、交互画面、网上找到的真实图片……都可以直接在对话里展开，对方能指着它继续说。画面比文字更清楚时，就主动用 present_view 呈现，不必等对方说“画出来”。画面会出现在你此刻说到的位置：讲一个概念时，可以先说两句、放一个能拖动的小演示、再接着讲、再放下一张图——一条回复里放几张都可以，像在纸上边讲边画。只引用工具真实返回的 sceneRef 或 present.arguments，不自己编引用；还没取得画面入口时，就按真实结果用文字说清。画面已经展示的细节，正文只讲结论和有用的变化，不再复制整张表。对方点选画面里的一处，只是在指着说，不等于接受方案或授权执行。
+ 
+ # 主动
+ 
+diff --git a/src/main/capabilities/public-network.ts b/src/main/capabilities/public-network.ts
+index 777a731..a68bc8c 100644
+--- a/src/main/capabilities/public-network.ts
++++ b/src/main/capabilities/public-network.ts
+@@ -7,7 +7,19 @@ import { HarnessError } from '../../shared/harness';
+ 
+ const MAX_BODY = 2_000_000;
+ const MAX_PDF_BODY = 8_000_000;
+-const allowedTypes = /^(text\/(?:html|plain|markdown|xml)|application\/(?:json|ld\+json|xml|rss\+xml|atom\+xml|xhtml\+xml|pdf))(?:;|$)/i;
++const MAX_IMAGE_BODY = 4_000_000;
++const allowedTypes = /^(text\/(?:html|plain|markdown|xml)|application\/(?:json|ld\+json|xml|rss\+xml|atom\+xml|xhtml\+xml|pdf)|image\/(?:png|jpeg|webp|gif))(?:;|$)/i;
++const imageType = /^image\/(png|jpeg|webp|gif)(?:;|$)/i;
++/** The bytes themselves must say they are the declared picture format. */
++export function imageMagicMatches(type: string, body: Buffer) {
++  const kind = imageType.exec(type)?.[1]?.toLowerCase();
++  if (kind === 'png') return body.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]));
++  if (kind === 'jpeg') return body[0] === 0xff && body[1] === 0xd8 && body[2] === 0xff;
++  if (kind === 'gif') return /^GIF8[79]a$/.test(body.subarray(0, 6).toString('latin1'));
++  if (kind === 'webp') return body.subarray(0, 4).toString('latin1') === 'RIFF' && body.subarray(8, 12).toString('latin1') === 'WEBP';
++  return false;
++}
++const bodyLimit = (type: string) => /^application\/pdf(?:;|$)/i.test(type) ? MAX_PDF_BODY : imageType.test(type) ? MAX_IMAGE_BODY : MAX_BODY;
+ export function publicAddress(address: string) {
+   if (isIP(address) === 4) {
+     const [a, b] = address.split('.').map(Number);
+@@ -130,7 +142,7 @@ function requestEndpoint(url: URL, addresses: Address[] | undefined, signal: Abo
+       } } : {}),
+     }, response => {
+       const chunks: Buffer[] = []; let bytes = 0;
+-      const maximum = dns ? 20000 : /^application\/pdf(?:;|$)/i.test(String(response.headers['content-type'] || '')) ? MAX_PDF_BODY : MAX_BODY;
++      const maximum = dns ? 20000 : bodyLimit(String(response.headers['content-type'] || ''));
+       response.on('data', chunk => {
+         bytes += chunk.length;
+         if (bytes > maximum) {
+@@ -200,12 +212,14 @@ export async function publicFetch(input: string, signal: AbortSignal, ports: Pub
+       if (!raw.headers.location || redirects === 3) throw new HarnessError('public_redirect_limit', '重定向过多或目标缺失。');
+       url = checkedUrl(new URL(raw.headers.location, url).href); continue;
+     }
+-    if (!allowedTypes.test(raw.headers['content-type'] || '')) throw new HarnessError('public_type_unsupported', '当前公开读取支持网页、文字/结构化文字和PDF；此文件类型尚未接入。');
+-    const maximum = /^application\/pdf(?:;|$)/i.test(raw.headers['content-type'] || '') ? MAX_PDF_BODY : MAX_BODY;
++    if (!allowedTypes.test(raw.headers['content-type'] || '')) throw new HarnessError('public_type_unsupported', '当前公开读取支持网页、文字/结构化文字、PDF和常见图片；此文件类型尚未接入。');
++    const maximum = bodyLimit(raw.headers['content-type'] || '');
+     if (raw.body.length > maximum) throw new HarnessError('public_body_limit', '资料超过读取上限。');
+     const body = decodedBody(raw, maximum);
+     if (/^application\/pdf(?:;|$)/i.test(raw.headers['content-type'] || '') && !body.subarray(0, 5).equals(Buffer.from('%PDF-')))
+       throw new HarnessError('public_type_unsupported', '来源声明为PDF，但原字节不能确认该类型，未交给解析器或模型。');
++    if (imageType.test(raw.headers['content-type'] || '') && !imageMagicMatches(raw.headers['content-type'] || '', body))
++      throw new HarnessError('public_type_unsupported', '来源声明为图片，但原字节不是这种图片格式，没有采用。');
+     const response = new Response(new Uint8Array(body), { status: raw.status, headers: { 'content-type': raw.headers['content-type'] } });
+     Object.defineProperty(response, 'url', { value: url.href });
+     return response;
+diff --git a/src/main/capabilities/research.ts b/src/main/capabilities/research.ts
+index 79411a4..93b40de 100644
+--- a/src/main/capabilities/research.ts
++++ b/src/main/capabilities/research.ts
+@@ -4,11 +4,62 @@ import { HarnessError } from '../../shared/harness';
+ import type { CapabilityBroker } from './broker';
+ import { hasCredentials } from '../runtime/redaction';
+ import type { MaterialService } from '../materials/service';
++import { imageMagicMatches } from './public-network';
+ 
+ function unescape(text: string) {
+   return text.replace(/&#(x[\da-f]+|\d+);/gi, (_match, number) => { const code = number[0].toLowerCase() === 'x' ? parseInt(number.slice(1), 16) : Number(number); return code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : ''; })
+     .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;|&#39;/g, "'").replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
+ }
++/** Pictures a page actually links: its share image and its <img> elements,
++ * resolved against the page and kept only when they are public HTTPS. */
++export function pageImages(html: string, baseUrl?: string) {
++  const found: { url: string; alt?: string }[] = [];
++  const add = (raw: string | undefined, alt?: string) => {
++    if (!raw || /^data:/i.test(raw)) return;
++    try {
++      const url = new URL(unescape(raw.trim()), baseUrl);
++      if (url.protocol !== 'https:' || url.username || url.password || found.some(item => item.url === url.href)) return;
++      found.push({ url: url.href, ...(alt?.trim() ? { alt: unescape(alt.trim()).slice(0, 200) } : {}) });
++    } catch { /* A malformed address is not a picture. */ }
++  };
++  for (const match of html.matchAll(/<meta\b[^>]*(?:property|name)=["'](?:og:image|twitter:image)["'][^>]*>/gi))
++    add(match[0].match(/content=["']([^"']+)["']/i)?.[1]);
++  for (const match of html.matchAll(/<img\b[^>]*>/gi)) {
++    const tag = match[0];
++    const src = tag.match(/\bsrc=["']([^"']+)["']/i)?.[1] || tag.match(/\bdata-src=["']([^"']+)["']/i)?.[1];
++    const width = Number(tag.match(/\bwidth=["']?(\d+)/i)?.[1] || 0);
++    if (width && width < 48) continue;
++    add(src, tag.match(/\balt=["']([^"']*)["']/i)?.[1]);
++    if (found.length >= 16) break;
++  }
++  return found;
++}
++/** Width and height straight from the picture's own header. */
++export function imageDimensions(body: Buffer, mediaType: string): { width: number | null; height: number | null } {
++  const none = { width: null, height: null };
++  try {
++    if (/png/i.test(mediaType)) return { width: body.readUInt32BE(16), height: body.readUInt32BE(20) };
++    if (/gif/i.test(mediaType)) return { width: body.readUInt16LE(6), height: body.readUInt16LE(8) };
++    if (/webp/i.test(mediaType)) {
++      const chunk = body.subarray(12, 16).toString('latin1');
++      if (chunk === 'VP8X') return { width: 1 + body.readUIntLE(24, 3), height: 1 + body.readUIntLE(27, 3) };
++      if (chunk === 'VP8 ') return { width: body.readUInt16LE(26) & 0x3fff, height: body.readUInt16LE(28) & 0x3fff };
++      if (chunk === 'VP8L') { const bits = body.readUInt32LE(21); return { width: 1 + (bits & 0x3fff), height: 1 + ((bits >> 14) & 0x3fff) }; }
++      return none;
++    }
++    if (/jpeg/i.test(mediaType)) {
++      let offset = 2;
++      while (offset + 9 < body.length) {
++        if (body[offset] !== 0xff) { offset++; continue; }
++        const marker = body[offset + 1], length = body.readUInt16BE(offset + 2);
++        if (marker >= 0xc0 && marker <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marker))
++          return { height: body.readUInt16BE(offset + 5), width: body.readUInt16BE(offset + 7) };
++        offset += 2 + length;
++      }
++    }
++  } catch { /* A truncated header leaves the size unknown. */ }
++  return none;
++}
+ export function readableHtml(html: string) {
+   const title = unescape(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.replace(/<[^>]*>/g, '') || '网页资料').trim();
+   const text = unescape(html.replace(/<(script|style|noscript|svg)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
+@@ -39,14 +90,18 @@ function matchesTerm(text: string, term: string) {
+   return pairs.filter(pair => text.includes(pair)).length / pairs.length >= 0.75;
+ }
+ 
++export interface ResearchImage { id: string; url: string; pageUrl?: string; pageTitle?: string; alt?: string; caption?: string; mediaType: string;
++  width: number | null; height: number | null; bytes: number; sha256: string; dataUrl: string; fetchedAt: string; epoch: number; scopeId: string }
+ export function registerResearch(broker: CapabilityBroker, materials?: MaterialService) {
+   const sourceId = 'web:public';
+-  const cache = new Map<string, { id: string; title: string; text: string; staticComplete: boolean; url: string; hash: string; fetchedAt: string; epoch: number; scopeId: string; httpStatus: number; contentType: string; html: boolean; extraction?: unknown }>();
+-  broker.policy.onBarrier(() => cache.clear());
++  const cache = new Map<string, { id: string; title: string; text: string; staticComplete: boolean; url: string; hash: string; fetchedAt: string; epoch: number; scopeId: string; httpStatus: number; contentType: string; html: boolean; extraction?: unknown; images?: { url: string; alt?: string }[] }>();
++  const images = new Map<string, ResearchImage>();
++  broker.policy.onBarrier(() => { cache.clear(); images.clear(); });
+   const base = { version: '2', output: z.record(z.string(), z.json()), effect: 'read' as const, requiredScopes: ['evidence:read'], subjects: ['self', 'other', 'fictional'] as ('self' | 'other' | 'fictional')[], worlds: ['real', 'scenario'] as ('real' | 'scenario')[], timeoutMs: 25000, maxBytes: 100000, supportsIdempotency: false, supportsInspect: false, supportsCancel: false };
+   broker.register({
+     manifest: { id: 'public-research', sourceId, version: '2', trust: 'bundled_reviewed', egressHosts: [], publicRead: true, platforms: ['*'], simulated: false, offline: 'unsupported', license: 'Project-owned reader; source text retains original rights', capabilities: [
+       { ...base, name: 'research.search', displayName: '搜索公开资料', description: '以当前问题获准的公开关键词寻找网页与原发布来源。domains可限定域名，宿主会核对实际结果域名。私密链接、无关原文和登录信息不能成为检索词；偏题或空候选不能证明不存在，重要规则继续research.read核对。', input: z.object({ query: z.string().trim().min(1).max(300), limit: z.number().int().min(1).max(8).default(5), domains: z.array(z.string().toLowerCase().regex(/^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,63}$/)).min(1).max(5).optional() }).strict() },
++      { ...base, name: 'research.image', displayName: '取一张公开网页上的图片', description: '把公开网页上的一张真实图片取回来，好在对话里放给对方看——讲一个概念、认一样东西、看看一处地方长什么样时都可以。url是图片地址（research.read读网页时会在images里列出页面上的图片），pageUrl写它所在的网页。返回sceneRef，交给present_view就会在你此刻说到的位置显示图片和出处。图片只是那张网页上的样子，不是此刻的现场。', input: z.object({ url: z.string().max(8192), pageUrl: z.string().max(8192).optional(), alt: z.string().max(200).optional(), caption: z.string().max(160).optional().describe('你想放在图下面对对方说的一句话，可省略。') }).strict() },
+       { ...base, name: 'research.read', displayName: '阅读公开网页和文件', description: '读取公开HTTPS网页、文字/JSON/XML或PDF。文字按Unicode片段回读，PDF按页提供原文字层、表格候选或必要真实页面像素，绑定SHA/来源/观察时间。不能访问内网、学校登录会话或任意本机路径，不执行文档脚本。resourceId继续当前同版资料；动态网页仍只读静态正文。', input: z.object({ url: z.string().max(8192).optional(), resourceId: z.string().max(100).optional(), page: z.number().int().min(1).max(200).default(1), view: z.enum(['text', 'table', 'image']).default('text'), offset: z.number().int().min(0).max(2000000).default(0), limit: z.number().int().min(1).max(16000).default(8000) }).strict() },
+     ] },
+     invoke: async (name, args, context) => {
+@@ -74,6 +129,28 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
+             candidateCount: candidates.length, relevance: related ? 'lexical_candidates_only' : 'weak_or_empty_candidates',
+             authority: 'search_candidates_only', targetResearchCompleted: false, notProofOfAbsence: true, nextStep: '词面匹配不保证语义相关；关键规则和期限须打开原发布页，核对适用对象、学期与日期。' }, coverage: { complete: false, scope: 'bounded public search results' } };
+       }
++      if (name === 'research.image') {
++        if (hasCredentials(args.url)) throw new HarnessError('resource_url', '需要一个没有凭据的公开HTTPS图片地址。');
++        const response = await context.request(args.url);
++        const mediaType = (response.headers.get('content-type') || '').split(';')[0].trim().toLowerCase();
++        if (!response.ok) return { status: 'failed', sourceId, reason: `图片没有取到（HTTP ${response.status}）。`, simulated: false, data: { httpStatus: response.status, url: response.url || args.url } };
++        if (!/^image\/(png|jpeg|webp|gif)$/.test(mediaType)) return { status: 'failed', sourceId, simulated: false,
++          reason: '这个地址不是一张可以直接显示的图片（可能是网页）；先用research.read打开网页，从它列出的images里挑图片地址。', data: { url: response.url || args.url, contentType: mediaType } };
++        const body = Buffer.from(await response.arrayBuffer());
++        if (!imageMagicMatches(mediaType, body)) return { status: 'failed', sourceId, simulated: false, reason: '图片内容和声明的格式对不上，没有采用。', data: { url: response.url || args.url } };
++        const url = response.url || args.url, sha256 = createHash('sha256').update(body).digest('hex');
++        const page = args.pageUrl ? [...cache.values()].find(item => item.url === args.pageUrl && item.scopeId === context.scope.id) : undefined;
++        const listed = page?.images?.find(item => item.url === args.url || item.url === url);
++        const id = 'image:' + createHash('sha256').update(context.scope.id + ':' + url + ':' + sha256).digest('hex');
++        const image: ResearchImage = { id, url, ...(args.pageUrl ? { pageUrl: args.pageUrl } : {}), ...(page?.title ? { pageTitle: page.title } : {}),
++          ...(args.alt || listed?.alt ? { alt: args.alt || listed?.alt } : {}), ...(args.caption ? { caption: args.caption } : {}), mediaType, ...imageDimensions(body, mediaType), bytes: body.length, sha256,
++          dataUrl: `data:${mediaType};base64,${body.toString('base64')}`, fetchedAt: now, epoch: scope.privacyEpoch, scopeId: context.scope.id };
++        images.set(id, image);
++        while (images.size > 24) images.delete(images.keys().next().value!);
++        return { status: 'fresh', sourceId, fetchedAt: now, simulated: false,
++          data: { resourceId: id, url, ...(args.pageUrl ? { pageUrl: args.pageUrl } : {}), mediaType, width: image.width, height: image.height, bytes: body.length, sha256,
++            ...(image.alt ? { alt: image.alt } : {}), authority: 'public_picture_not_a_live_observation' }, coverage: { complete: true, scope: url } };
++      }
+       const readPdf = async (resourceId: string) => {
+         if (!materials) throw new HarnessError('public_type_unsupported', 'PDF读取组件尚未接入。');
+         return materials.invokePublic(context.scope, args.view === 'image' ? 'materials.observe' : args.view === 'table' ? 'materials.table' : 'materials.read', { resourceId, page: args.page, offset: args.offset, limit: args.limit }, context.signal);
+@@ -93,11 +170,13 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
+           return readPdf(resourceId);
+         }
+         const body = await response.text(), html = /html/i.test(response.headers.get('content-type') || '');
++        if (/^image\//i.test(response.headers.get('content-type') || ''))
++          return { status: 'failed', sourceId, simulated: false, reason: '这是一张图片而不是网页；想放给对方看就用research.image。', data: { url: response.url || args.url } };
+         const parsed = html ? readableHtml(body) : { title: new URL(response.url || args.url).pathname.split('/').at(-1) || '文字资料', text: body, staticComplete: true };
+         const url = response.url || args.url, hash = createHash('sha256').update(body).digest('hex');
+         const id = 'resource:' + createHash('sha256').update(context.scope.id + ':' + url + ':' + hash).digest('hex');
+         material = { ...parsed, id, url, hash, fetchedAt: now, epoch: scope.privacyEpoch, scopeId: context.scope.id,
+-          httpStatus: response.status, contentType: response.headers.get('content-type') || '', html };
++          httpStatus: response.status, contentType: response.headers.get('content-type') || '', html, ...(html ? { images: pageImages(body, url) } : {}) };
+         cache.set(material.id, material);
+         while (cache.size > 16) cache.delete(cache.keys().next().value!);
+       }
+@@ -105,6 +184,7 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
+       const complete = args.offset === 0 && end === points.length;
+       return { status: complete ? 'fresh' : 'partial', sourceId, fetchedAt: material.fetchedAt, simulated: false, ...(material.staticComplete ? {} : { reason: '本次只有所列静态文字范围；未验证目标动态正文，不能由此判断其不存在。' }),
+         data: { resourceId: material.id, url: material.url, title: material.title, sha256: material.hash, text: points.slice(args.offset, end).join(''), offset: args.offset, nextOffset: end < points.length ? end : null,
++          ...(args.offset === 0 && material.images?.length ? { images: material.images.slice(0, 12) } : {}),
+           coverage: { start: args.offset, end, total: points.length, complete, meaning: 'complete_only_for_extracted_static_range', extraction: 'static_text_no_client_scripts' },
+           httpStatus: material.httpStatus, finalUrl: material.url, contentType: material.contentType,
+           ...(material.html ? { pageObservation: material.extraction, targetBodyVerified: false, dynamicContent: 'not_executed', targetContentCompleteness: 'unknown' } : {}),
+@@ -112,4 +192,11 @@ export function registerResearch(broker: CapabilityBroker, materials?: MaterialS
+         }, coverage: { complete, scope: material.url } };
+     },
+   }, { reviewed: true, source: 'project-owned public resource adapter' });
++  return {
++    /** The verified bytes behind a research.image result, for the same scope only. */
++    image(scopeId: string, epoch: number, id: string) {
++      const image = images.get(id);
++      return image && image.scopeId === scopeId && image.epoch === epoch ? image : undefined;
++    },
++  };
+ }
+diff --git a/src/main/harness.ts b/src/main/harness.ts
+index e729907..e91760b 100644
+--- a/src/main/harness.ts
++++ b/src/main/harness.ts
+@@ -1424,16 +1424,21 @@ export class Harness {
+           present: (scenes, view) => {
+             signal.throwIfAborted(); runtime.policy.validate(contract.scope);
+             const ids = new Set(scenes.map(scene => scene.id));
++            // A new view appears where she is in her reply right now; a revised
++            // one stays where it first appeared.
++            const spoken = message.content || '';
++            const here = { offset: spoken.length, before: spoken.slice(-48) };
+             let publishedView = view;
+             if (view.program) {
+               const prior = message.views?.find(previous => previous.id === view.id);
+               if (prior && !prior.program) throw new HarnessError('program_view_identity', '这段交互不能覆盖另一份画面。');
++              const placed = { ...structuredClone(view), anchor: prior?.anchor || here };
+               message.views = prior
+-                ? message.views!.map(previous => previous.id === view.id ? structuredClone(view) : previous)
+-                : [...(message.views || []), structuredClone(view)];
++                ? message.views!.map(previous => previous.id === view.id ? placed : previous)
++                : [...(message.views || []), placed];
+             } else {
+               const prior = message.views?.find(previous => !previous.program && previous.sceneRefs.some(ref => ids.has(ref.id)));
+-              const stableView = prior ? { ...view, id: prior.id, revision: prior.revision + 1 } : view;
++              const stableView = prior ? { ...view, id: prior.id, revision: prior.revision + 1, anchor: prior.anchor || here } : { ...view, anchor: here };
+               publishedView = stableView;
+               message.views = [...(message.views || []).filter(previous => previous.program || !previous.sceneRefs.some(ref => ids.has(ref.id))), stableView];
+             }
+diff --git a/src/main/runtime/coordinator.ts b/src/main/runtime/coordinator.ts
+index e8776ff..70ae9a5 100644
+--- a/src/main/runtime/coordinator.ts
++++ b/src/main/runtime/coordinator.ts
+@@ -707,6 +707,7 @@ export class RuntimeCoordinator {
+   readonly materials: MaterialService;
+   readonly presentation: PresentationService;
+   readonly scenes: SceneService;
++  private researchImages?: ReturnType<typeof registerResearch>;
+   readonly reminders: ReminderRuntime;
+   readonly connections: BuiltinConnections;
+   readonly observations: ObservationPort;
+@@ -756,7 +757,7 @@ export class RuntimeCoordinator {
+     this.planning = new PlanningApplicationService(() => repo.clock.now());
+     this.planningIntents = new PlanningIntentService(repo, this.work, this.planning);
+     registerBuiltins(this.broker, this.policy, repo, this.domains, this.connections, this.planning, this.planningIntents);
+-    registerResearch(this.broker, this.materials);
++    this.researchImages = registerResearch(this.broker, this.materials);
+     registerMaterials(this.broker, this.materials);
+     this.spatial = new SpatialService(this.policy, this.work, () => this.connections.map);
+     registerSpatial(this.broker, this.spatial);
+@@ -2403,7 +2404,7 @@ export class RuntimeCoordinator {
+             ...(session.outputMessageId ? { read: { tool: 'read_interactive_program', arguments: {
+               messageId: session.outputMessageId, programId: program.view.id, revision: program.view.revision, mode: 'overview' } } } : {}),
+             ...(program.edit ? { edit: program.edit } : {}) } : {}),
+-          meaning: '画面已经摊开在对方眼前了。正文接着说结论和值得注意的地方，不用再描述或抄写画面里的内容。' };
++          meaning: '画面已经出现在你刚才说到的位置。接着往下讲就好：说结论和值得注意的地方，不用再描述或抄写画面里的内容；还想再放一张，讲到那里时再呈现。' };
+       if (session.pack) {
+         const authoredScenes = scenes.filter(scene => scene.kind === 'note' || scene.kind === 'discussion' || scene.kind === 'study' || scene.kind === 'curiosity' || scene.kind === 'rehearsal' || scene.kind === 'campus' && !!scene.academicDisplay || scene.kind === 'map' && !!scene.storySetting
+           || comparison?.scenes.some(value => value.id === scene.id && value.revision === scene.revision));
+@@ -3820,6 +3821,17 @@ export class RuntimeCoordinator {
+             ? 'sceneRef可用present_view显示小时窗口，dailySceneRef可显示按日概览；选样本供下一句引用。温度对应时刻，降水对应标明的前一小时，覆盖不全保留未知；不能推断分钟级停雨或现场状况。'
+             : '若按日比较有助当前问题，用present_view引用此sceneRef。日期选择只是试算，不自动保存日程；这次日级结果不能支持逐小时结论。' });
+         }
++        if (capability === 'research.image' && result.status === 'fresh') {
++          const resourceId = (result.data as { resourceId?: string } | undefined)?.resourceId;
++          const scope = this.policy.validate(handle);
++          const image = resourceId ? this.researchImages?.image(readHandle.id, scope.privacyEpoch, resourceId) : undefined;
++          if (image) {
++            const scene = this.scenes.figure(session.sceneSessionId || session.sessionId, image, session.ingress.contract.id, session.background);
++            if (session.pack) session.pack.data.availableScenes = this.scenes.summaries(handle, session.sceneSessionId || session.sessionId, session.ingress.contract.id);
++            return this.withMethodNotes(session, capability, { ...result, sceneRef: { id: scene.id, revision: scene.revision },
++              presentation: '用present_view引用这个sceneRef，图片就出现在你此刻说到的位置，带着出处；可以先说两句再放图，放完接着讲。caption写你想对这张图说的一句话。' });
++          }
++        }
+         if (capability === 'local.agenda.read') {
+           const scene = this.scenes.agenda(session.sceneSessionId || session.sessionId, result, effectiveInput, session.ingress.contract.id, session.background);
+           if (scene) {
+diff --git a/src/main/runtime/scenes.ts b/src/main/runtime/scenes.ts
+index f70fcd9..06ea1b1 100644
+--- a/src/main/runtime/scenes.ts
++++ b/src/main/runtime/scenes.ts
+@@ -3,7 +3,7 @@ import type { Store } from '../store';
+ import type { PolicyKernel } from './policy';
+ import { HarnessError, type ScopeHandle } from '../../shared/harness';
+ import type { MapRouteResult } from '../../shared/map-v2';
+-import { campusDisplayInputSchema, planningContinuationSchema, sceneViewDsl, semanticSelectionSchema, type CampusRecord, type CampusScene, type EnvironmentSample, type MapScene, type PlanningBlock, type PlanningScene, type PresentationView, type SceneRef, type SceneSnapshot, type SemanticSelection, type VerifiedSelection, type WeatherScene } from '../../shared/scenes';
++import { campusDisplayInputSchema, planningContinuationSchema, sceneViewDsl, semanticSelectionSchema, type CampusRecord, type CampusScene, type EnvironmentSample, type MapScene, type PlanningBlock, type PlanningScene, type PresentationView, type SceneRef, type SceneSnapshot, type SemanticSelection, type VerifiedSelection, type WeatherScene, type FigureScene } from '../../shared/scenes';
+ import { environmentSnapshot, planningSnapshot } from './scene-projections';
+ import { agendaSnapshot } from './agenda-scene';
+ import { canonical } from './semantics';
+@@ -146,7 +146,7 @@ export class SceneService {
+     }
+     if (scene.kind === 'study_reference') return scope.audience === 'self' && scope.subjectId === scope.principalId
+       && scope.worldId === 'real' && scope.sources.includes('work:self') && this.policy.can(handle, 'evidence:read');
+-    const allowed = scope.audience === 'self' && this.policy.can(handle, scene.kind === 'map' ? 'map:read' : scene.kind === 'campus' ? 'campus:read' : scene.kind === 'planning' || scene.kind === 'discussion' ? 'evidence:read' : 'weather:read')
++    const allowed = scope.audience === 'self' && this.policy.can(handle, scene.kind === 'map' ? 'map:read' : scene.kind === 'campus' ? 'campus:read' : scene.kind === 'planning' || scene.kind === 'discussion' || scene.kind === 'figure' ? 'evidence:read' : 'weather:read')
+       && scope.sources.includes(scene.source.sourceId)
+       && (scene.kind !== 'planning' || scene.requiredSourceIds.every(sourceId => scope.sources.includes(sourceId)
+         && (!sourceId.startsWith('campus:') || this.policy.can(handle, 'campus:read'))
+@@ -301,6 +301,15 @@ export class SceneService {
+           complete: routes.every(route => ['ready', 'same'].includes(route.status) && !route.distance?.connectorM && !route.originAccess?.conditions?.length && !route.destinationAccess?.conditions?.length && !route.segments?.some(segment => segment.conditions?.length)), basis: '已记录道路按每分钟48–90米作条件估计，加上明确给出的停留时间；接入估计、楼内、门禁、排队和未提供的停留时间另计，不保证抵达时刻。' } }, cameraIntent: 'route', activeLegId: legs[0]?.id };
+     return this.remember(sessionId, scene, options.runId, options.preparationOnly);
+   }
++  /** A picture the host itself fetched and verified from a public page. */
++  figure(sessionId: string, image: { url: string; pageUrl?: string; pageTitle?: string; alt?: string; caption?: string; mediaType: string; width: number | null; height: number | null;
++    bytes: number; sha256: string; dataUrl: string; fetchedAt: string }, runId?: string, preparationOnly = false): FigureScene {
++    const scene: FigureScene = { kind: 'figure', id: randomUUID(), revision: 1, createdAt: this.store.kernel.clock.now(),
++      source: { sourceId: 'web:public', fetchedAt: image.fetchedAt, version: image.sha256, coverage: '公开网页上的一张图片；只是那张网页上的样子，不是此刻的现场。' },
++      image: { dataUrl: image.dataUrl, mediaType: image.mediaType, width: image.width, height: image.height, bytes: image.bytes, sha256: image.sha256 },
++      origin: { url: image.url, ...(image.pageUrl ? { pageUrl: image.pageUrl } : {}), ...(image.pageTitle ? { pageTitle: image.pageTitle } : {}), ...(image.alt ? { alt: image.alt } : {}) }, ...(image.caption ? { caption: image.caption } : {}) };
++    return this.remember(sessionId, scene, runId, preparationOnly);
++  }
+   weather(sessionId: string, result: { data?: unknown; fetchedAt?: string; expiresAt?: string; coverage?: unknown }, runId?: string, preparationOnly = false): WeatherScene {
+     const data = result.data as { location: string; timeZone: string; forecast: Record<string, (string | number | null)[]> };
+     if (!data?.forecast || !Array.isArray(data.forecast.time)) throw new HarnessError('weather_snapshot', '天气结果尚未取得，不能生成日期画面。');
+@@ -555,6 +564,8 @@ export class SceneService {
+       ...(scene.place ? { place: { id: scene.place.id, label: scene.place.displayName } } : {}),
+       ...(scene.storySetting ? { storySetting: scene.storySetting } : {}),
+       journey: { ...scene.journey, legs: scene.journey.legs.map(({ id, fromStopId, toStopId, route }) => ({ id, fromStopId, toStopId, status: route.status, distance: route.distance, warnings: route.warnings })) } }
++      : scene.kind === 'figure' ? { id: scene.id, revision: scene.revision, kind: scene.kind, origin: scene.origin,
++        ...(scene.caption ? { caption: scene.caption } : {}), image: { mediaType: scene.image.mediaType, width: scene.image.width, height: scene.image.height } }
+       : scene.kind === 'campus' ? campusSceneModelSummary(scene)
+       : scene.kind === 'planning' ? { ...scene, blocks: scene.blocks.slice(0, 16), sceneBlockCount: scene.blocks.length, summaryOmittedBlocks: Math.max(0, scene.blocks.length - 16) }
+       : scene.kind === 'environment' ? { ...scene, samples: scene.samples.slice(0, 8), sceneSampleCount: scene.samples.length, summaryOmittedSamples: Math.max(0, scene.samples.length - 8) }
+diff --git a/src/renderer/App.tsx b/src/renderer/App.tsx
+index 91003fd..de1251b 100644
+--- a/src/renderer/App.tsx
++++ b/src/renderer/App.tsx
+@@ -65,7 +65,7 @@ import { emptyRoute, type MapRouteResult } from '../shared/map-v2';
+ import { MapRouteCard, MapSheet } from './map/CampusMap';
+ import { ConversationMap, clearConversationMapViews } from './map/ConversationMap';
+ import { AssistantPresentation } from './presentation/AssistantPresentation';
+-import type { SemanticSelection } from '../shared/scenes';
++import { interleaveViews, type SemanticSelection } from '../shared/scenes';
+ import {
+   ReplyEvidence,
+   ScopeSettings,
+@@ -2057,7 +2057,7 @@ function MessageView({
+     scene.kind === 'discussion' && scene.id === ref.id && scene.revision === ref.revision)));
+   const manuscriptSceneId = manuscriptView?.sceneRefs.find(ref => m.scenes?.some(scene =>
+     scene.kind === 'discussion' && scene.id === ref.id && scene.revision === ref.revision))?.id;
+-  const sceneViews=m.views?.map(view=>(
++  const renderView=(view:NonNullable<Message['views']>[number])=>(
+     <AssistantPresentation
+       key={view.id}
+       view={view}
+@@ -2085,7 +2085,14 @@ function MessageView({
+         return <ConversationMap key={memoryKey} scene={scene} memoryKey={memoryKey} continuationKey={`${m.sessionId}/${scene.id}`} historical={!current} cancelled={m.status==='cancelled'||m.status==='error'} interruptionKey={sceneInterruptionKey} active={active} allowCameraRequests={(m.status==='running'||livePresentation.current)&&m.status!=='cancelled'&&m.status!=='error'} onSelect={onSceneSelect} onContinue={onContinueScene}/>;
+       }}
+     />
+-  ));
++  );
++  // Prose and views in the order she said and showed them. A discussion
++  // paper still carries the reply's continuation as its manuscript.
++  const body=manuscriptView
++    ?<>{!!lead&&<div className="markdown"><RichText text={lead}/></div>}{m.views?.map(renderView)}</>
++    :interleaveViews(renderedResponse,m.views||[]).map((part,index)=>part.kind==='text'
++      ?<div className="markdown" key={`text-${index}`}><RichText text={part.text}/></div>
++      :renderView(part.view));
+   return (
+     <article className="assistant-message" ref={article} data-message-id={m.id} tabIndex={-1}
+       onMouseUp={selectionChanged} onKeyUp={selectionChanged}>
+@@ -2097,9 +2104,7 @@ function MessageView({
+       </div>
+       {m.status === 'running' && processBlock}
+       <div ref={prose}>
+-        {!!lead&&<div className="markdown"><RichText text={lead}/></div>}
+-        {sceneViews}
+-        {!!followup&&!manuscriptView&&<div className="markdown"><RichText text={followup}/></div>}
++        {body}
+       </div>
+       {children}
+       {!!selectedPassage && (
+diff --git a/src/renderer/presentation/AssistantPresentation.tsx b/src/renderer/presentation/AssistantPresentation.tsx
+index 8c8fac9..f177048 100644
+--- a/src/renderer/presentation/AssistantPresentation.tsx
++++ b/src/renderer/presentation/AssistantPresentation.tsx
+@@ -158,6 +158,38 @@ const MapScene = defineComponent({
+   },
+ });
+ 
++function FigureView({ scene }: { scene: Extract<SceneSnapshot, { kind: 'figure' }> }) {
++  const [enlarged, setEnlarged] = useState(false);
++  const origin = scene.origin.pageUrl || scene.origin.url;
++  let host = '';
++  try { host = new URL(origin).hostname.replace(/^www\./, ''); } catch { /* keep blank */ }
++  const portrait = !!scene.image.width && !!scene.image.height && scene.image.height > scene.image.width * 1.15;
++  return (
++    <figure className={`presentation-figure${portrait ? ' portrait' : ''}${enlarged ? ' enlarged' : ''}`}>
++      <button type="button" className="presentation-figure-frame" onClick={() => setEnlarged(value => !value)}
++        aria-label={enlarged ? '收起图片' : '放大图片'}>
++        <img src={scene.image.dataUrl} alt={scene.origin.alt || scene.caption || '网上找到的图片'}
++          width={scene.image.width || undefined} height={scene.image.height || undefined} loading="lazy" decoding="async" />
++      </button>
++      <figcaption>
++        {!!scene.caption && <span>{scene.caption}</span>}
++        <small title={origin}>{scene.origin.pageTitle ? `${scene.origin.pageTitle} · ` : ''}{host || '公开网页'}</small>
++      </figcaption>
++    </figure>
++  );
++}
++
++const FigureScene = defineComponent({
++  name: 'FigureScene',
++  description: '显示宿主从公开网页取回并核过的一张图片，带出处；不是此刻的现场。',
++  props: z.object({ ref: z.string().min(1) }),
++  component: ({ props }) => {
++    const { context, scene } = useScene(props.ref, 'figure');
++    if (!context || !scene || scene.kind !== 'figure') return <UnavailableScene />;
++    return <FigureView scene={scene} />;
++  },
++});
++
+ const WeatherScene = defineComponent({
+   name: 'WeatherScene',
+   description:
+@@ -300,7 +332,7 @@ const SceneStack = defineComponent({
+   description:
+     '按交流需要组织已核验的地图、天气和校园记录。stack 让不同领域自然接续；compare 仅在宽度足够时并排比较，地图仍保留可操作的空间。',
+   props: z.object({
+-    children: z.array(z.union([MapScene.ref, WeatherScene.ref, CampusScene.ref, PlanningScene.ref, EnvironmentScene.ref, DiscussionScene.ref, StudyScene.ref, CuriosityScene.ref, RehearsalScene.ref, NoteScene.ref])),
++    children: z.array(z.union([MapScene.ref, FigureScene.ref, WeatherScene.ref, CampusScene.ref, PlanningScene.ref, EnvironmentScene.ref, DiscussionScene.ref, StudyScene.ref, CuriosityScene.ref, RehearsalScene.ref, NoteScene.ref])),
+     layout: z.enum(['stack', 'compare']).default('stack'),
+   }),
+   component: ({ props, renderNode }) => {
+@@ -328,7 +360,7 @@ const SceneStack = defineComponent({
+ /** A stable module-level library keeps parsing and mounted scene identity independent of text tokens. */
+ export const assistantPresentationLibrary = createLibrary({
+   root: 'SceneStack',
+-  components: [SceneStack, MapScene, WeatherScene, CampusScene, PlanningScene, EnvironmentScene, DiscussionScene, StudyScene, CuriosityScene, RehearsalScene, NoteScene],
++  components: [SceneStack, MapScene, FigureScene, WeatherScene, CampusScene, PlanningScene, EnvironmentScene, DiscussionScene, StudyScene, CuriosityScene, RehearsalScene, NoteScene],
+ });
+ 
+ function UnavailableScene() {
+diff --git a/src/renderer/presentation/presentation.css b/src/renderer/presentation/presentation.css
+index 31bde83..a2d4a62 100644
+--- a/src/renderer/presentation/presentation.css
++++ b/src/renderer/presentation/presentation.css
+@@ -418,3 +418,50 @@
+     transition: none;
+   }
+ }
++/* A real picture from the web, shown where she talks about it. The paper
++   stays quiet; the picture and its source line carry the moment. */
++.presentation-figure {
++  margin: 0;
++  display: grid;
++  gap: 8px;
++  justify-items: start;
++  min-width: 0;
++}
++.presentation-figure-frame {
++  display: block;
++  padding: 0;
++  border: 0;
++  border-radius: var(--radius-object);
++  background: var(--wash);
++  overflow: hidden;
++  cursor: zoom-in;
++  max-width: 100%;
++  box-shadow: 0 1px 0 var(--separator);
++}
++.presentation-figure-frame img {
++  display: block;
++  max-width: 100%;
++  max-height: 360px;
++  width: auto;
++  height: auto;
++  object-fit: contain;
++}
++.presentation-figure.portrait .presentation-figure-frame img { max-height: 420px; }
++.presentation-figure.enlarged .presentation-figure-frame { cursor: zoom-out; }
++.presentation-figure.enlarged .presentation-figure-frame img { max-height: 78vh; }
++.presentation-figure figcaption {
++  display: grid;
++  gap: 2px;
++  max-width: 60ch;
++  font-size: 13.5px;
++  line-height: 1.5;
++  color: var(--text-secondary);
++}
++.presentation-figure figcaption span { color: var(--text-primary, inherit); }
++.presentation-figure figcaption small {
++  font-size: 12px;
++  color: var(--text-tertiary, var(--text-secondary));
++  overflow: hidden;
++  text-overflow: ellipsis;
++  white-space: nowrap;
++}
+diff --git a/src/shared/scenes.ts b/src/shared/scenes.ts
+index d50fe44..04e19cb 100644
+--- a/src/shared/scenes.ts
++++ b/src/shared/scenes.ts
+@@ -38,6 +38,15 @@ export interface MapScene extends SceneBase {
+   storySetting?: MapStorySetting;
+   arrival?: { kind: 'user_statement'; eventId: string; quote: string; reportedAt: string };
+ }
++/** A real picture from a public web page, fetched by the host and kept as
++ * verified bytes. The caption is the assistant's words; the origin is where
++ * the picture actually came from. It never stands for a live observation. */
++export interface FigureScene extends SceneBase {
++  kind: 'figure';
++  image: { dataUrl: string; mediaType: string; width: number | null; height: number | null; bytes: number; sha256: string };
++  origin: { url: string; pageUrl?: string; pageTitle?: string; alt?: string };
++  caption?: string;
++}
+ export interface WeatherScene extends SceneBase {
+   kind: 'weather';
+   location: string;
+@@ -197,7 +206,7 @@ export interface EnvironmentScene extends SceneBase {
+   forecastIssuedAt: null;
+   userLocation: false;
+ }
+-export type SceneSnapshot = MapScene | WeatherScene | CampusScene | CampusAcademicReference | PlanningScene | EnvironmentScene | DiscussionScene | StudyScene | StudyHistoryReference | CuriosityScene | CuriosityHistoryReference | RehearsalScene | RehearsalHistoryReference | NoteScene | NoteHistoryReference;
++export type SceneSnapshot = MapScene | FigureScene | WeatherScene | CampusScene | CampusAcademicReference | PlanningScene | EnvironmentScene | DiscussionScene | StudyScene | StudyHistoryReference | CuriosityScene | CuriosityHistoryReference | RehearsalScene | RehearsalHistoryReference | NoteScene | NoteHistoryReference;
+ export interface PresentationView extends SceneRef {
+   libraryVersion: 1 | 2;
+   createdAt: string;
+@@ -206,6 +215,48 @@ export interface PresentationView extends SceneRef {
+   program?: InteractiveProgramDocument;
+   programReference?: InteractiveProgramHistoryReference;
+   comparison?: PlanningComparisonView;
++  /** Where in the reply's own words this view was shown: the length of the
++   * already-spoken text when it was published, plus that text's tail so a
++   * reconciled final reply can still find the spot. Absent on older views. */
++  anchor?: ViewAnchor;
++}
++export interface ViewAnchor { offset: number; before: string }
++
++/** Split a reply into prose and views in the order she actually said and
++ * showed them. A view whose spot cannot be found falls after the first
++ * paragraph, as before anchors existed. */
++export function interleaveViews<V extends { id: string; anchor?: ViewAnchor }>(text: string, views: readonly V[]):
++  ({ kind: 'text'; text: string } | { kind: 'view'; view: V })[] {
++  if (!views.length) return text ? [{ kind: 'text', text }] : [];
++  const firstBreak = text.search(/\n\s*\n/);
++  const fallback = firstBreak >= 0 ? firstBreak : text.length;
++  const position = (anchor?: ViewAnchor) => {
++    if (!anchor) return fallback;
++    const at = Math.min(Math.max(0, anchor.offset), text.length);
++    if (!anchor.before || text.slice(Math.max(0, at - anchor.before.length), at) === anchor.before) return at;
++    const found = text.lastIndexOf(anchor.before);
++    return found >= 0 ? found + anchor.before.length : fallback;
++  };
++  const placed = views.map((view, order) => ({ view, order, at: position(view.anchor) }))
++    .sort((a, b) => a.at - b.at || a.order - b.order);
++  const parts: ({ kind: 'text'; text: string } | { kind: 'view'; view: V })[] = [];
++  let cursor = 0;
++  for (const item of placed) {
++    // Keep a sentence whole: a view never lands mid-line.
++    let at = item.at;
++    if (at > cursor && at < text.length) {
++      const lineEnd = text.indexOf('\n', at);
++      if (text.slice(Math.max(cursor, at - 1), at) !== '\n') at = lineEnd >= 0 ? lineEnd : text.length;
++    }
++    at = Math.max(at, cursor);
++    const chunk = text.slice(cursor, at).trim();
++    if (chunk) parts.push({ kind: 'text', text: chunk });
++    parts.push({ kind: 'view', view: item.view });
++    cursor = at;
++  }
++  const rest = text.slice(cursor).trim();
++  if (rest) parts.push({ kind: 'text', text: rest });
++  return parts;
+ }
+ const id = z.string().min(1).max(160);
+ export const sceneRefSchema = z.object({ id, revision: z.number().int().positive() }).strict();
+@@ -239,5 +290,5 @@ export const sceneReference = (scene: SceneRef) => `${scene.id}@${scene.revision
+ /** A small, actual OpenUI library. No executable code or model-authored facts enter it. */
+ export function sceneViewDsl(scenes: SceneSnapshot[], layout: 'stack' | 'compare') {
+   return `root = SceneStack([${scenes.map((_, index) => `scene${index}`).join(', ')}], ${JSON.stringify(layout)})\n`
+-    + scenes.map((scene, index) => `scene${index} = ${{ map: 'MapScene', weather: 'WeatherScene', campus: 'CampusScene', campus_reference: 'CampusScene', planning: 'PlanningScene', environment: 'EnvironmentScene', discussion: 'DiscussionScene', study: 'StudyScene', study_reference: 'StudyScene', curiosity: 'CuriosityScene', curiosity_reference: 'CuriosityScene', rehearsal: 'RehearsalScene', rehearsal_reference: 'RehearsalScene', note: 'NoteScene', note_reference: 'NoteScene' }[scene.kind]}(${JSON.stringify(sceneReference(scene))})`).join('\n');
++    + scenes.map((scene, index) => `scene${index} = ${{ map: 'MapScene', figure: 'FigureScene', weather: 'WeatherScene', campus: 'CampusScene', campus_reference: 'CampusScene', planning: 'PlanningScene', environment: 'EnvironmentScene', discussion: 'DiscussionScene', study: 'StudyScene', study_reference: 'StudyScene', curiosity: 'CuriosityScene', curiosity_reference: 'CuriosityScene', rehearsal: 'RehearsalScene', rehearsal_reference: 'RehearsalScene', note: 'NoteScene', note_reference: 'NoteScene' }[scene.kind]}(${JSON.stringify(sceneReference(scene))})`).join('\n');
+ }

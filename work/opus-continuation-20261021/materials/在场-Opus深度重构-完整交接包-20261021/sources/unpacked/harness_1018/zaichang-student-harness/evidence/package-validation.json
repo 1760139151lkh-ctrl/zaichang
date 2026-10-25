@@ -1,0 +1,35 @@
+{
+  "validation_kind": "prompt_package_structure_not_product_behavior",
+  "date": "2026-10-18",
+  "passed": true,
+  "scenario_count": 128,
+  "domain_count": 16,
+  "action_modes": {
+    "silence": 25,
+    "offer": 38,
+    "wait": 18,
+    "ask": 16,
+    "correct": 17,
+    "act": 14
+  },
+  "timeline_count": 12,
+  "timeline_step_count": 59,
+  "research_reference_count": 20,
+  "source_manifest_count": 110,
+  "local_link_targets_checked": true,
+  "json_schema_assertions": "scoped to all assertion keywords in provided scenario schema",
+  "future_data_check": "observed_at <= step clock plus separated evaluator fields; semantic review remains necessary",
+  "failures": [],
+  "not_run": [
+    "Electron application",
+    "npm test/build",
+    "production model",
+    "campus APIs",
+    "Android device"
+  ],
+  "design_types_parse": {
+    "command": "node --experimental-strip-types contracts/design-types.ts",
+    "exit_code": 0,
+    "scope": "Node parse/type stripping only; not full TypeScript typecheck or product build"
+  }
+}

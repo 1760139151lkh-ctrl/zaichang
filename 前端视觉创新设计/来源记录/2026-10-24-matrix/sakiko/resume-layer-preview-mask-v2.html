@@ -1,0 +1,23 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>祥子归来 · mask v2 · 未通过</title>
+<style>
+  body { margin:24px; color:#382f2a; background:#e9e3db; font:14px/1.5 system-ui,sans-serif; }
+  main { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+  figure { margin:0; } figcaption { margin:0 0 8px; }
+  .stage { position:relative; aspect-ratio:3/2; overflow:hidden; }
+  .stage img { position:absolute; inset:0; width:100%; height:100%; }
+  .actor { mask-image:url('./sakiko-resume-apricot-mask-v2.png'); mask-mode:luminance; mask-size:100% 100%; mask-repeat:no-repeat; }
+  .light { background:#faf6f0; } .dark { background:#17202c; }
+  .detail { width:550px; height:650px; aspect-ratio:auto; }
+  .detail img { width:1536px; height:1024px; left:-1000px; top:-180px; }
+  .detail .actor { mask-size:1536px 1024px; }
+</style>
+<p>固定版本：mask v2；裙底与掌下带浅灰坐面条、鞋底带宽灰边；主代理未接受。</p><main>
+  <figure><figcaption>完整母图</figcaption><div class="stage"><img src="./sakiko-resume-apricot-mother-v1.png"></div></figure>
+  <figure><figcaption>同画布背景与原母图 RGB + ImageGen 黑白 mask</figcaption><div class="stage"><img src="./sakiko-resume-apricot-background-v1.png"><img class="actor" src="./sakiko-resume-apricot-mother-v1.png"></div></figure>
+  <figure><figcaption>浅底观察</figcaption><div class="stage light"><img class="actor" src="./sakiko-resume-apricot-mother-v1.png"></div></figure>
+  <figure><figcaption>深底观察</figcaption><div class="stage dark"><img class="actor" src="./sakiko-resume-apricot-mother-v1.png"></div></figure>
+  <figure><figcaption>原像素浅底细节</figcaption><div class="stage light detail"><img class="actor" src="./sakiko-resume-apricot-mother-v1.png"></div></figure>
+  <figure><figcaption>原像素深底细节</figcaption><div class="stage dark detail"><img class="actor" src="./sakiko-resume-apricot-mother-v1.png"></div></figure>
+</main>

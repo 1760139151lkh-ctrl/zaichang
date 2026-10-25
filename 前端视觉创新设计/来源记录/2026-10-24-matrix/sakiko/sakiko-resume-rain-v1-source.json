@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "character": "sakiko",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "rain",
+  "light": "night",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "recordedAtUtc": "2026-10-25T01:15:12.293297+00:00",
+  "promptFile": "sakiko-resume-rain-v1-prompt.txt",
+  "prompt": "sakiko-resume-rain-v1-prompt.txt",
+  "promptFileSha256": "7206e95e38653d0d380c4fcbb03611e8cf424a55ebfa1f5118807a040d56bee2",
+  "promptSha256": "7206e95e38653d0d380c4fcbb03611e8cf424a55ebfa1f5118807a040d56bee2",
+  "submittedPrompt": "UTF-8 file contents with leading/trailing whitespace trimmed",
+  "width": 1536,
+  "height": 1024,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "file": "room-rain-candidate-v2.png",
+      "role": "sole clean empty theme room; identity and pose supplied as text",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    }
+  ],
+  "output": {
+    "file": "sakiko-resume-rain-mother-v1.png",
+    "executionId": "a390b34a-abad-40c5-9517-cc18573abc08",
+    "sourceOutput": "generated_images/01a16fb4-beb3-75e2-8677-73edb8072aa0/exec-a390b34a-abad-40c5-9517-cc18573abc08.png",
+    "sha256": "eaac28cd65add943d09cf304afca0f77a4835a3e755092b11be4a07dc0501ea0",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerPersonallyViewed": true,
+  "motherApprovedByPrimary": false,
+  "approvedByPrimary": false,
+  "runtimeAccepted": false,
+  "status": "complete-mother-awaiting-primary-review-and-same-canvas-layers",
+  "observation": "Youthful identity, real cushion/hip and complete knees/shoes, restrained lifted gaze; light matches the corresponding whole-room plate. No layers or runtime admission implied."
+}

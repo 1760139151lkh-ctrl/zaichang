@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Zaichang synthetic scenario corpus v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "dataset_kind",
+    "synthetic",
+    "is_user_profile",
+    "scenarios"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "dataset_kind": {
+      "const": "synthetic_design_and_acceptance_scenarios"
+    },
+    "synthetic": {
+      "const": true
+    },
+    "is_user_profile": {
+      "const": false
+    },
+    "language": {
+      "const": "zh-CN"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "global_assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expected_action_modes": {
+      "type": "object"
+    },
+    "statistics": {
+      "type": "object"
+    },
+    "scenarios": {
+      "type": "array",
+      "minItems": 128,
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "domain",
+          "situation",
+          "goal_conflict",
+          "trigger",
+          "evidence",
+          "expected_action",
+          "example_utterance",
+          "missing_or_counterfactual",
+          "acceptance"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^S[0-9]{3}$"
+          },
+          "domain": {
+            "type": "string",
+            "minLength": 1
+          },
+          "situation": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "goal_conflict": {
+            "type": "string",
+            "minLength": 1
+          },
+          "trigger": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "expected_action": {
+            "type": "object",
+            "required": [
+              "mode",
+              "description"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "mode": {
+                "enum": [
+                  "offer",
+                  "ask",
+                  "act",
+                  "wait",
+                  "silence",
+                  "correct"
+                ]
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "example_utterance": {
+            "type": "string",
+            "minLength": 1
+          },
+          "missing_or_counterfactual": {
+            "type": "string",
+            "minLength": 1
+          },
+          "acceptance": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

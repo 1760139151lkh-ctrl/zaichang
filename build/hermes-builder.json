@@ -1,0 +1,120 @@
+{
+  "appId": "studio.zaichang.desktop",
+  "productName": "在场",
+  "directories": {
+    "output": "release/life-fusion-map-v3-20261005-refinement-r3"
+  },
+  "files": [
+    "dist/**/*",
+    "dist-electron/**/*",
+    "!dist-electron/tiyi-runtime{,/**/*}",
+    "!dist-electron/zju-runtime{,/**/*}",
+    "assets/map-v2/manifest.json",
+    "assets/map-v2/geography.geojson",
+    "assets/map-v2/display-geography.geojson",
+    "assets/map-v2/places.json",
+    "assets/map-v2/network.json",
+    "assets/map-v2/shared-facts.json",
+    "assets/map-v2/venues.json",
+    "assets/map-v2/sports-details.geojson",
+    "assets/map-v2/building-supplement.json",
+    "assets/map-v2/source.osm.json.gz",
+    "前端视觉创新设计/运行素材/brand/window-gold.png",
+    "licenses/**/*",
+    "package.json",
+    "!dist-electron/material-runtime{,/**/*}",
+    "!dist-electron/embedding-runtime{,/**/*}",
+    "!node_modules/pdfjs-dist{,/**/*}",
+    "!node_modules/onnxruntime-node{,/**/*}",
+    "!node_modules/onnxruntime-common{,/**/*}",
+    "!node_modules/@huggingface/tokenizers{,/**/*}",
+    "!node_modules/@napi-rs/canvas{,/**/*}",
+    "!node_modules/@napi-rs/canvas-win32-x64-msvc{,/**/*}"
+  ],
+  "asar": true,
+  "extraResources": [
+    {
+      "from": "dist-electron/tiyi-runtime",
+      "to": "tiyi-runtime",
+      "filter": [
+        "connector.py",
+        "tiyi_modules/__init__.py",
+        "tiyi_modules/common.py",
+        "tiyi_modules/study.py",
+        "tiyi_modules/fitness.py",
+        "tiyi_modules/community.py",
+        "signing-dependencies/**/*"
+      ]
+    },
+    {
+      "from": "dist-electron/zju-runtime",
+      "to": "zju-runtime",
+      "filter": [
+        "scripts/academic_calendar.py",
+        "scripts/academic_models.py",
+        "scripts/academic_service.py",
+        "scripts/client.py",
+        "scripts/complete_data.py",
+        "scripts/field_guide.py",
+        "scripts/quick_query.py",
+        "scripts/snapshot_history.py",
+        "scripts/student_query.py",
+        "scripts/vault.py",
+        "scripts/zju.py",
+        "references/endpoints.json",
+        "references/model-schema.json",
+        "references/calendars/2026-2027-1.json",
+        "references/source-attribution.md",
+        "LICENSE",
+        "upstream.json",
+        "CONNECTOR.md"
+      ]
+    },
+    {
+      "from": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\build\\runtime-staging-1792858838139",
+      "to": "hermes-runtime",
+      "filter": [
+        "**/*",
+        "**/.*",
+        "**/.*/**"
+      ]
+    },
+    {
+      "from": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\build\\material-runtime-staging-1792858845614",
+      "to": "material-runtime",
+      "filter": [
+        "**/*"
+      ]
+    },
+    {
+      "from": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\build\\embedding-runtime-staging-1792858847499",
+      "to": "embedding-runtime",
+      "filter": [
+        "**/*"
+      ]
+    },
+    {
+      "from": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\build\\embedding-runtime-staging-1792858847499\\node_modules",
+      "to": "embedding-runtime/node_modules",
+      "filter": [
+        "**/*"
+      ]
+    },
+    {
+      "from": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\build\\material-runtime-staging-1792858845614\\node_modules",
+      "to": "material-runtime/node_modules",
+      "filter": [
+        "**/*"
+      ]
+    }
+  ],
+  "win": {
+    "target": "portable",
+    "icon": "前端视觉创新设计/运行素材/brand/window-gold.ico",
+    "signAndEditExecutable": true
+  },
+  "portable": {
+    "artifactName": "Zaichang-${version}-Windows.exe"
+  },
+  "electronDist": "node_modules/electron/dist"
+}

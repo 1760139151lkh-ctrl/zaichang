@@ -1,0 +1,147 @@
+02 · 当前仓库、已有能力与值得先追的断点
+
+一、这份研究能证明什么
+本轮通过 GitHub 连接读取了私人仓库 1760139151lkh-ctrl/zaichang 的完整递归文件树和定点源码、文档。读取固定在 8cdd754f6355de11d9d0d6bb367d6a66cbf7c330；文件树返回 748 个条目且未截断。检索和阅读清单见 evidence/repository-read-manifest.json，图片目录见 evidence/repository-image-inventory.json。
+
+“已取得文件”“全文阅读”“定点阅读”“文档自报已实现”“静态代码确认”“当前运行验证”分别记录。本轮没有运行产品，也没有把取得的所有源码逐行审计。以下判断以代码和项目记录支持，推断处明确标出；它们是 Opus 的调查起点，不是假定根因。
+
+本次查看的上传图片共 12 张：Gemini 包内 6 张在场截图、5 张参考产品截图，以及单独上传的波形交互图。原消息里那张图片的路径曾报告不存在，但当前上传目录中实际存在，已打开查看。截图对应哪个构建，需要在实施现场继续确认。
+
+二、版本关系先理顺
+研究时分支对比：
+main：8cdd754f6355de11d9d0d6bb367d6a66cbf7c330。
+codex/personal-memory-continuity-20261018：与 main 相同。
+codex/memory-proactive-harness-20261018：c7cff22884fe9a3050879067dd49012f685d8cfd，落后 main 6 个提交，超前 0。
+design/image-first-checkpoint-20261018：e9f3860f27293ebc656240463a6a7d427a20d064，落后 11，超前 0。
+design/windowlight-continuation-20261018：319a0231d28c1ad0c8d5914319e4d2baac878d91，落后 10，超前 0。
+
+所以，在当时可见的这些远端分支里，没有等待合并的超前提交。附件《后端进展》中“c7cff228 还没合并”属于旧状态。这个结论不覆盖本地未提交工作、未推送分支或其他工作区。
+
+10 月 19 日 Gemini 包记录的研究基线也指向上述主提交。这不能证明 Gemini 后来没有改过，只说明当前远端读到的版本没有反映另一份新提交。请先保护并检查实际工作区中的人物修改。
+
+package.json 仍为 0.3.0；项目文档记录的发布 EXE 来自 74e099a。公共 review-web 只包含公共地图，不是完整助手。请分别记录源码、运行构建、安装包和线上站点，旧快捷方式也可能仍指向旧包。
+
+当前 Hermes 锁定为 0.21.2，commit d595e636c83aa0b9606d4e914e1140ae9c796897；具体以 runtime/hermes/lock.json 为准。当前 @openuidev/react-lang 依赖为 1.0.1，不能拿今天官网的新接口反推旧安装版本已经拥有某能力。
+
+三、请沿这条真实链理解产品
+原聊天输入 App.tsx
+→ preload / main IPC
+→ Harness 的原话控制、范围和本轮准备
+→ ContextCompiler 的原话、当前事项、允许来源、引用与能力
+→ runtime/hermes.ts 与 Python sidecar
+→ 锁定 AIAgent 主循环
+→ 宿主模型传输和工具注册
+→ CapabilityBroker / 领域服务 / 受控子任务
+→ 工具观察回到同一主助手
+→ 必要的结果与来源复核
+→ 同一消息的正文、Scene、View 和后续对象
+→ renderer 里的原聊天、共享地图、纸页与输入引用。
+
+后台从有效托付、业务变化日志或时间节点进入 Attention / OpportunityScheduler，再由同一 Harness 判断和准备。它与前台共享真实状态及执行边界，不是另一个无记忆的定时聊天机器人。
+
+四、已经有什么，请别重做一遍
+
+能力域 | 当前依据与已有能力 | 仍需区别
+主循环与委派 | harness.ts、hermes.ts、sidecar.py；真实工具回路、独立 children、范围和共享预算、父任务消费观察 | 机制存在不证明每次需要时都会自然选择；实现者单人不影响产品委派
+模型与协议 | provider.ts、luna-provider.ts、model-selection.ts；生产和显式代测分开 | 配置型号不等于实际响应型号；无静默切供应商授权
+原话与理解 | memory/service.ts、context-windows.ts、source-lineage.ts；Evidence / Assertion、条件、精确支持、更正、历史与遗忘 | 摘要、候选、解释和本人明确事实不同
+原文找回 | search_context、browse、read_evidence、read_assistant_history、source-related 导航、memoryInquiry | 目录不等于读过正文；没命中不等于从没说过
+语义候选 | semantic-recall 及固定 BGE q8 资源接线 | CURRENT_STATUS 明确默认 ContextCompiler 当前不附加 BGE 候选计算；不能把安装资源说成当前每轮生效
+连续工作 | 原 Work、frame、option、planning_intent、companion_session、study_companion 等 | 各自引用原 owner；不要再复制一套事实库
+笔记和材料 | NotesService、TXT/MD/PDF、原文分页、图像输入与并排材料、局部引用 | 笔记不是个人画像；PDF 无通用 OCR；读取和送模型不同
+校园资料 | ZjuAdapter、campus-query，资源发现、字段、筛选、关联、聚合、分页、history/diff | 要看实际连接、授权、资源版本和覆盖；不是每类学校记录都保证完整
+校园学习材料 | 已有课程发现、learning 活动聚合、作业和考试等读取 | 新增分支不应无声代替旧聚合；成绩不等于独立掌握
+日程 | 本机事件、待办、截止、提醒、时间块、重复与例外、时区、版本和撤销 | 本地写入、ICS 文件、系统日历实导入、外部同步不同
+规划 | availability、preview/draft/recover、准备/转场/休息、每日预算、持续意图与部分采用 | 候选、接受、已保存和外部结果分开；外部来源版本 resolver 仍有缺口
+行动 | ActionRuntime、批准范围、版本、幂等、outbox、回执与未知结果恢复 | 超时先核查；取消不自动撤回已发生后果
+主动 | attention、journal/cursor/ack、机会调度、prepare/wait/ask/notify/none | 有准备不等于用户看见；应用运行不等于退出后仍常驻
+公共研究 | 公共搜索、网页/PDF读取、受控续读句柄 | 搜索摘要不替代关键原文；网页内容不获得执行权
+天气与环境 | 当前已有日期/小时窗口天气与空气资料能力 | 旧 10/18 地图稿“只有日级天气”已过时；日级 Scene 仍不能自己插值出小时或分钟事实
+空间 | 共享 MapService、MapLibre、OpenLayers/Canvas 回退、路网、地点/入口、相机权属 | 估计接入、条件道路、真实入口与到达仍保持来源；设备位置不等于本人当前位置
+动态呈现 | Map、Weather、Campus、Planning、Environment、Discussion、Study、Curiosity、Rehearsal、Note 等组件 | 已注册组件不等于正常模型已经会自主组织全部界面
+共同学习与创作 | 陪学、共做、作品原章、来信、好奇内容和关系排练的源码链 | 多项当前只有源码或有限渲染观察，没有模型长期效果证据
+人物 | PersonaCore、可编辑预设、角色卡文字草稿、显式形象采用、版本冲突保稿 | 形象与文字核心分属 renderer localStorage 和宿主设置
+技能方法 | discover_skills / read_skill，版本、依赖和可用路径 | 当前源码可枚举 11 份 bundled 方法；旧导航仍称 10 份，需按实际注册同步
+直接操作 | 原导航、今天、留下、本机查找、托付控制、笔记与日历、来源更正 | 界面直接修改要成为同一真实状态的输入，不让模型继续用旧投影
+
+五、静态代码定位到的具体接缝
+
+C01 · 默认有形象，文字人格可能从空白开始
+src/shared/persona.ts:88–100 的 emptyCore 从 custom 与空文字起步；migratePersona/default 在约 274–290。src/renderer/companion.tsx:52 的默认外观是 mio。
+这是两个独立状态的静态事实。它提示应测试“全新用户看到一个角色，但真实模型到底收到哪份人格”的路径；并不说明所有用户当前都没有保存角色，也不意味着应强制把所有人改成同一个人格。
+
+C02 · 交互默认值可能收紧了亲近和主动
+src/shared/interaction.ts:11 为 natural / humor none / depth adaptive / initiative prepare / meaningful_change。请观察这些指引与角色核心叠加后的实际提示。用户选择活泼人物时，“none”如何解释，预设是否同时给合适的交互起点，都需要核实。
+src/shared/types.ts:381–382 的天气和提醒默认关闭，请检验初次连接流程能否让用户轻松理解和启用真正想要的能力。默认关闭不授权后台偷偷打开。
+
+C03 · 底层支持文本增量，主执行桥却没有传回调
+provider.ts:233–244 接受 onText，约 379 处理 delta.content。
+harness.ts:1172 调用 complete(..., undefined, requestOptions)。约 1214 的前段发布，在主模型完整返回且还有 tool_calls 时才调用 rhythm.offer。
+sidecar.py:309–328 先等待 model.request 完成，再在 stream 模式把整个 assistant 包成一个 SSE chunk。
+据此可以确认，当前这段主执行链没有逐 token 接通用户可见正文。它仍可在完整的工具轮之间发布内容，不能概括为“完全没有过程交流”。请对照时序追阻塞点，也保住正文、动作完成声明、取消和最终复核的区分。
+
+C04 · 自然的短回应被现有节奏指导收窄
+conversation-rhythm.ts 的指导允许先给实质帮助，但明确排除“正在检索”等占位，只在有新实质内容时接话。这个初衷能防假进度，却可能把有意义的关系性回应一并压掉。
+rhythm.finish 只有完整前缀相同时避免重复，否则把前段和最终文本拼接。语义上的复述未由这个逻辑识别。这是值得复现的重复风险，不能没有运行就断言所有答案都会重复。
+请让真实的接话、内容增量和最终结果有清楚事件语义，不靠删除词语或再加一个改写模型。
+
+C05 · 准备、聊天与通知还没有等同于同一个主动交流闭环
+attention.ts 约 801 处，initiative=prepare 时 notify 会转为 prepare。choice=notify 需要真实新价值与 local_notification 渠道。后台注册工具白名单在 coordinator.ts 约 1644：包括查询、原文、部分管理与 decide_help 等，不包含 curiosity_invitation 和 write_reflective_letter 这些前台创作工具。
+这表明“能在前台写来信/带新鲜事”和“后台真的能主动带来这些内容”不是同一能力。请追任务授权、工具白名单、结果落地、消息追加、曝光/去重与用户接续；不要简单把整个前台工具集放进后台来掩盖职责问题。
+
+C06 · 系统通知当前使用固定文字
+actions/reminders.ts 约 276：标题为“在场 · 到约定的时间了”或“在场 · 有一处变化”，正文为“打开在场查看详情。”
+这是固定通知投递代码，不是角色自己写的消息。请设计能承载角色与真实结果的私聊内容，再按通知预览设置给合适投影。锁屏是否展示细节由用户选择，不能把个性化理解成在锁屏曝光全部私文。
+
+C07 · 动态教学明确局限于 quadratic
+shared/explorable-study.ts:18–22 注释与 schema 明确只接受 quadratic；runtime/explorable-study.ts 沿同一有限模型校验。现有值、曲线、切线由同一声明计算，是值得保留的精确性。
+波叠加、相位、时间动画这类需求超出该契约。请把“可扩展表达能力”作为研究对象，而不只增加一个 sine 专用分支。如何组合数学、解释、滑条、动画、图表与原问题引用，是后端与渲染共同的工作。
+
+C08 · UI 有来源门，也有真实失败历史
+CURRENT_STATUS 第七批记载真实正常日历流程先经历 scene_unavailable，随后出现双 Scene 与正文整表重复，后来修到单次读取及原对象续问。它说明模型工具返回、Scene 身份和呈现去重的接缝曾真正影响体验。
+这些是项目历史记录，不是本轮重新执行。请回当前入口检查同类风险，特别是新领域、工具重复、历史引用和实时更新，别只用脚本手动投影出漂亮页面。
+
+C09 · 提示已经很长，不能继续只往末尾加规则
+prompts/system.md 在本基线共 82 行，很多是很长的密集规则段；实际提示还叠加 persona、interaction、conversation rhythm、当前范围和专用任务指引。
+冷淡、重复和保守的确切成因需要实际提示与时序复现，不能单凭字数判断。请测量实际进入模型的各段，检查冲突、重复、职责错位和规则叠加，给出整理前后的真实可观察差异。
+
+C10 · 一些源码能力尚未开放，不宜列成已经可用
+PROJECT_NAVIGATION 明确 storySetting 的正常工具入口已冻结，没有可用 StorySettingView。BGE 候选也有默认不注入的现状。若本轮要启用，请完成真实消费路径和对应验证；否则保留清楚状态，别让能力清单继续写得比产品更大。
+
+六、截图反映的体验问题，与根因分开看
+在场截图显示：语气反复强调未改动；讨论中以“先停在讨论层”定性；原笔记只被看到片段，答复离具体疑问越来越远；路线/天气调查遇到读取限制后把后续责任推给用户；人物在部分画面压到正文或表格。
+这些是观察，足以定义待修体验。它们没有单独证明是哪一条提示、哪个模型或哪个函数造成，实施时请从最早可见分歧定位。
+
+参考产品的猫形象有持续自称、称呼和语气，进入建议时仍有识别度。借鉴的是人格贯穿交流和开口的轻松感；截图里的特定建议、占卜功能或泛泛夸赞，不自动成为在场的功能或正确答案。
+
+七、画像、文件和测试边界
+仓库当前数据整体加密、移动同步、手机 GPS/健康、邮件或钉钉外发、学校预约/选退课/支付、语音、OCR、通用生产 ChatGPT 登录，都不能从愿景推成已完成。请逐项研究真实接入，按本次授权推进。
+当前历史 212/212、9/9、122 项机制、128 个场景等数字，分别属于旧报告或设计语料，不能写成本轮已通过数量。新一轮验证请记录对应源码与环境。
+
+八、主要源码定位（固定提交，行号只是方便回查）
+所有下列路径前缀为：
+https://github.com/1760139151lkh-ctrl/zaichang/blob/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330/
+
+README.md
+AGENTS.md
+PROJECT_NAVIGATION.md
+docs/PROJECT_BASELINE.md
+docs/CURRENT_STATUS.md
+docs/PRODUCT_CONTRACT.md
+docs/ARCHITECTURE.md
+prompts/system.md
+src/shared/persona.ts
+src/shared/interaction.ts
+src/renderer/companion.tsx
+src/main/provider.ts
+src/main/harness.ts
+runtime/hermes/sidecar.py
+src/main/runtime/conversation-rhythm.ts
+src/main/runtime/attention.ts
+src/main/runtime/coordinator.ts
+src/main/actions/reminders.ts
+src/shared/explorable-study.ts
+src/renderer/presentation/AssistantPresentation.tsx
+
+精确定位与可点击 URL 另见 evidence/code-anchors.json。请在新版本按职责重新定位，而不是硬套这些旧行号。
+

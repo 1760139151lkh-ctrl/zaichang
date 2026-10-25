@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "character": "taki",
+  "sceneCategory": "S9_RESUME",
+  "semanticAction": "welcome-resume",
+  "palette": "apricot",
+  "intendedCanvas": [1536, 1024],
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "executionId": "exec-aade9f95-3d10-49e0-b50d-a55be575e40b",
+  "observedAtUtc": "2026-10-25T00:31:26Z",
+  "localWorkDate": "2026-10-24",
+  "promptFile": "taki-resume-apricot-mother-v1.prompt.txt",
+  "promptFileSha256": "6267dcfc16160031e8d48b73fb3fbc95cd88b9f7be35270cc1a0882c530a8ab4",
+  "submittedPrompt": "UTF-8 contents of promptFile with leading/trailing whitespace trimmed, read by Get-Content -Raw",
+  "inputs": [
+    {
+      "role": "sole visual input; clean empty room, spatial and apricot-light reference",
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/resume/taki-resume-apricot-mother-v1.png",
+    "defaultToolPath": "C:/Users/17601/.codex/generated_images/01a16fb5-6e96-71d2-a0fa-07807b277582/exec-aade9f95-3d10-49e0-b50d-a55be575e40b.png",
+    "sha256": "cc83d2b25be52d462f2328551a132e61615fe9ddbce71129cef749543a73ef2a",
+    "bytes": 2162927,
+    "dimensions": [1536, 1024],
+    "copyMethod": "Copy-Item without image processing; default output retained"
+  },
+  "designBasis": {
+    "profile": "src/shared/persona-portrayals.ts#taki, repository official profile checked 2026-10-24",
+    "officialProfileUrl": "https://anime.bang-dream.com/mygo/character/taki/",
+    "currentRefetch": "web retrieval returned HTTP 503; no new profile claims inferred",
+    "personallyViewedButNotInputs": [
+      "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-chat-apricot-mother-candidate-v1.png",
+      "前端视觉创新设计/来源记录/2026-10-24-matrix/sakiko/sakiko-resume-apricot-mother-v1.png"
+    ],
+    "originalCompanionSituation": "她把自己的练习纸和笔暂搁窗榻，肩膀放松后率直看向归来的人；关切在停下自己的动作，不监督进度。",
+    "peerReviewBeforeGeneration": "recover_visuals suggested keeping the pad on a supported lap/bench and showing welcome through relaxed shoulders without requiring a smile; adopted in the exact prompt. cast_mygo was messaged and its healthy in-flight session was retained; its output review is pending."
+  },
+  "status": "candidate-awaiting-primary-review",
+  "review": {
+    "personallyViewedOutput": true,
+    "approvedByPrimary": false,
+    "runtimeAccepted": false,
+    "observations": "Subagent saw youthful purple-black-haired, purple-eyed Taki with the existing tan/white/red school styling; her right-side hand and small practice pad meet the bench cushion, one hand rests near her own thigh, hips and thighs have cushion support, and both uncrossed complete leg/shoe chains meet the floor. The released-pen gesture is subtle and is not claimed as an animated or completed real action. Room, camera and left content space remain coherent; real drafts/stopping points still belong to product owners."
+  }
+}

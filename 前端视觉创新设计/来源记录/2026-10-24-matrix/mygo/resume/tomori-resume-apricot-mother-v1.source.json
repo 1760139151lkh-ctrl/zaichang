@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordType": "complete-companion-mother-generation",
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "character": "tomori",
+  "activity": "resume",
+  "theme": "apricot",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-8264b5bf-cb73-4e2c-b147-013afc4a71ef",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "originalOutput": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-8264b5bf-cb73-4e2c-b147-013afc4a71ef.png",
+  "prompt": "tomori-resume-apricot-mother-v1.prompt.txt",
+  "promptFileSha256": "37c1c138b10b82edc54ef1f81488f6c10ac39fa3f3dbdb3dcb300836ea220e89",
+  "submittedPromptTransform": "Read prompt file as UTF-8; trimEnd only, exactly as submitted to the built-in tool.",
+  "submittedPromptSha256": "089f6c23ed46784c71b75194a485b1a3eb008cda280a57e55b13d0937949413c",
+  "inputs": [
+    {
+      "file": "../../../assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+      "role": "sole image input: approved clean empty room; fixed camera, room geometry and apricot light"
+    }
+  ],
+  "characterPixelsProvided": false,
+  "priorMotherPixelsProvided": false,
+  "identitySources": [
+    { "url": "https://anime.bang-dream.com/mygo/character/tomori/", "readOn": "2026-10-24", "retrieval": "official indexed full profile text; direct open returned 503, not treated as absence" },
+    { "projectFile": "src/shared/persona-portrayals.ts", "characterId": "tomori", "version": "2026-10-24.2" }
+  ],
+  "identityBoundary": "Original identity and clothing observations guide text only. The return/bookmark moment is an original Zaichang companionship scene, not a canon event or a claim that a user task was completed.",
+  "designAim": "Her shoulders are still gathered from her own reading; after preserving a page with a small bookmark she raises her eyes with earnest, slightly open-mouthed recognition, leaving the visitor free to speak.",
+  "output": {
+    "file": "tomori-resume-apricot-mother-v1.png",
+    "sha256": "517e715d664e10d33dbf8a08cc359aa3f1a59af3e6f6fb127526d56c3f90ee81",
+    "bytes": 2166196,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerObservation": "Full original personally viewed. Short grey bob, muted rose-brown eyes, Haneoka blazer/tie/plaid and youthful face retained. Eyes have lifted toward the visitor, mouth slightly parted; book has real lap support and a low steadying hand, other hand meets cushion. Pelvis/thighs meet bench, two separate knees/shins/ankles continue to complete floor-contact loafers. Original four-sided window, left lived-in depth and right furniture remain coherent. No broad service smile, floating card or task-completion signal. Tiny bookmark visibility and optical activity distinction remain for primary judgement.",
+  "review": { "producerViewedFullOriginal": true, "primaryViewed": false, "primaryApproved": false, "layersAccepted": false, "runtimeAccepted": false },
+  "status": "complete mother candidate awaiting primary review; no theme expansion yet"
+}

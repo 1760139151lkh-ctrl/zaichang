@@ -1,10 +1,14 @@
 {
   "schemaVersion": 1,
   "character": "sakiko",
+  "activity": "resume",
   "sceneCategory": "S9_RESUME",
   "semanticAction": "welcome-resume",
   "palette": "apricot",
-  "intendedCanvas": [1536, 1024],
+  "intendedCanvas": [
+    1536,
+    1024
+  ],
   "tool": "image_gen.imagegen",
   "mode": "built-in",
   "promptFile": "sakiko-resume-apricot-v1-prompt.txt",
@@ -28,13 +32,37 @@
       "outputPath": null,
       "outputSha256": null,
       "modelSessionTerminated": false
+    },
+    {
+      "recordedAtUtc": "2026-10-25T00:42:43.435796+00:00",
+      "status": "successful-image-output",
+      "performedBy": "root",
+      "tool": "image_gen.imagegen",
+      "executionId": "8bf66064-0f04-4221-82c3-4be216a2eeaf",
+      "sourceOutput": "generated_images/01a16fb3-8f8d-7c72-a744-a441e8907c91/exec-8bf66064-0f04-4221-82c3-4be216a2eeaf.png",
+      "outputFile": "sakiko-resume-apricot-mother-v1.png",
+      "sha256": "4f6cbda7f205da55b6f50bfa355a45d487b320a1529794f44e18f477129fdee8",
+      "note": "Recording time, not asserted generation time. Root retried the same full saved prompt after routing repair; first 404 remains independent."
     }
   ],
-  "status": "awaiting-generated-mother",
+  "output": {
+    "file": "sakiko-resume-apricot-mother-v1.png",
+    "sourceOutput": "generated_images/01a16fb3-8f8d-7c72-a744-a441e8907c91/exec-8bf66064-0f04-4221-82c3-4be216a2eeaf.png",
+    "executionId": "8bf66064-0f04-4221-82c3-4be216a2eeaf",
+    "sha256": "4f6cbda7f205da55b6f50bfa355a45d487b320a1529794f44e18f477129fdee8",
+    "width": 1536,
+    "height": 1024,
+    "tool": "image_gen.imagegen",
+    "performedBy": "root; successful retry after tool routing was restored",
+    "prompt": "sakiko-resume-apricot-v1-prompt.txt",
+    "promptMeaning": "same complete saved prompt, trimmed at leading/trailing whitespace, and same sole empty-room input as the failed attempt"
+  },
+  "status": "mother-generated-layers-under-review",
   "review": {
-    "personallyViewedOutput": false,
+    "personallyViewedOutput": true,
+    "motherApprovedByPrimary": true,
     "approvedByPrimary": false,
     "runtimeAccepted": false,
-    "note": "No image was returned. This is a saved design intent, not a completed matrix cell. No CLI/API fallback was invoked."
+    "note": "The first attempt returned no image; its exact 404 is preserved above. Root subsequently generated and personally accepted the complete mother, which this producer also viewed and copied into the project. Layers remain under separate review, and runtime is not accepted. No CLI/API fallback was invoked."
   }
 }

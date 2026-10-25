@@ -1,0 +1,1544 @@
+{
+  "schema_version": 1,
+  "members": [
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/00-给Gemini的一封信.txt",
+      "is_directory": false,
+      "uncompressed_bytes": 15829,
+      "compressed_bytes": 8047,
+      "crc32_hex": "a2a46eb0",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        42,
+        12
+      ],
+      "sha256": "a2d604d721690447bb9ae0552ed985572c1eaf135dedbece868e0648408294c8",
+      "expanded_source_id": "S01.E001",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/00-给Gemini的一封信.txt"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/01-这次具体哪里不对.txt",
+      "is_directory": false,
+      "uncompressed_bytes": 8136,
+      "compressed_bytes": 4352,
+      "crc32_hex": "a07fd347",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        35,
+        6
+      ],
+      "sha256": "79abd1868c92d0eaa3d93f22aadaf7893a84116a39560d19869b7d4961e78186",
+      "expanded_source_id": "S01.E002",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/01-这次具体哪里不对.txt"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/02-在场现在怎样运转-从哪里改.txt",
+      "is_directory": false,
+      "uncompressed_bytes": 23991,
+      "compressed_bytes": 12174,
+      "crc32_hex": "d0f653af",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        48,
+        34
+      ],
+      "sha256": "9002dbb40e2c74f2e010831953642495712a9dc114aeaa129d634c4f4c17dbdf",
+      "expanded_source_id": "S01.E003",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/02-在场现在怎样运转-从哪里改.txt"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/03-角色与主动助手资料入口.txt",
+      "is_directory": false,
+      "uncompressed_bytes": 10794,
+      "compressed_bytes": 5570,
+      "crc32_hex": "98d9612d",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        44,
+        12
+      ],
+      "sha256": "ff835af017b0c59657e3b1ce902de659980d7be38bbe9d6aca4670b9245e03e1",
+      "expanded_source_id": "S01.E004",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/03-角色与主动助手资料入口.txt"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/04-把这些片段聊一遍.txt",
+      "is_directory": false,
+      "uncompressed_bytes": 16601,
+      "compressed_bytes": 8010,
+      "crc32_hex": "654ff1d5",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        48,
+        34
+      ],
+      "sha256": "759dfb172224f4e568e6dc8bd403dbc94ef0004adc489ca2a0a0c96d0f1bf1b3",
+      "expanded_source_id": "S01.E005",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/04-把这些片段聊一遍.txt"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/05-请把这次反馈留在项目里.txt",
+      "is_directory": false,
+      "uncompressed_bytes": 8274,
+      "compressed_bytes": 4577,
+      "crc32_hex": "926beada",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        43,
+        28
+      ],
+      "sha256": "5e69a2d1ec3c69fd3ee026f294020847dda7181a8ae5de92970f9dd71d82bc6c",
+      "expanded_source_id": "S01.E006",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/05-请把这次反馈留在项目里.txt"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/06-阅读依据与交接说明.txt",
+      "is_directory": false,
+      "uncompressed_bytes": 6050,
+      "compressed_bytes": 3276,
+      "crc32_hex": "310cd0ec",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        47,
+        52
+      ],
+      "sha256": "ed4aeda9dc88997b7a9c6bb317521436881982fbfaaa10225d18b1db6b4e7b8a",
+      "expanded_source_id": "S01.E007",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/06-阅读依据与交接说明.txt"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/截图/参考产品/01-安心舍入口.jpg",
+      "is_directory": false,
+      "uncompressed_bytes": 125707,
+      "compressed_bytes": 105119,
+      "crc32_hex": "669b5e12",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        50,
+        2
+      ],
+      "sha256": "86fd3fb5d77ec7ace53ade38b21b75767aa698ca03d209c50a33c039041b4413",
+      "expanded_source_id": "S01.E008",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/截图/参考产品/01-安心舍入口.jpg"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/截图/参考产品/02-小安开场.jpg",
+      "is_directory": false,
+      "uncompressed_bytes": 160281,
+      "compressed_bytes": 146579,
+      "crc32_hex": "6b110eee",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        50,
+        2
+      ],
+      "sha256": "82725bf171197c7615bc28afa0079319a25d92e0961a778854f983fe8097527a",
+      "expanded_source_id": "S01.E009",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/截图/参考产品/02-小安开场.jpg"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/截图/参考产品/03-小安回应.jpg",
+      "is_directory": false,
+      "uncompressed_bytes": 322138,
+      "compressed_bytes": 308525,
+      "crc32_hex": "a741f628",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        50,
+        2
+      ],
+      "sha256": "e49ffc38bee2c5969c8a209192bc829652396f66f02d493e6a4a3869765e8231",
+      "expanded_source_id": "S01.E010",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/截图/参考产品/03-小安回应.jpg"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/截图/参考产品/04-小安接续.jpg",
+      "is_directory": false,
+      "uncompressed_bytes": 264891,
+      "compressed_bytes": 250538,
+      "crc32_hex": "2063dc20",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        50,
+        2
+      ],
+      "sha256": "2ee223f51f1886b460b3e0b75c0f4d126d9643d70ed983286478572778118b7e",
+      "expanded_source_id": "S01.E011",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/截图/参考产品/04-小安接续.jpg"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/截图/参考产品/05-小安收尾.jpg",
+      "is_directory": false,
+      "uncompressed_bytes": 266294,
+      "compressed_bytes": 252558,
+      "crc32_hex": "3593c937",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        50,
+        2
+      ],
+      "sha256": "60e8292f50fdd71572441af8f906cc92096c58e74356fc0e3949a9bb5f6aa6c5",
+      "expanded_source_id": "S01.E012",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/截图/参考产品/05-小安收尾.jpg"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/截图/在场/01-笔记展开.png",
+      "is_directory": false,
+      "uncompressed_bytes": 3747226,
+      "compressed_bytes": 3747452,
+      "crc32_hex": "365f34c2",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        50,
+        2
+      ],
+      "sha256": "c5513c623bd9e08bb107c252031c4fb68614c74720c0020f6e2dcb2033f49d39",
+      "expanded_source_id": "S01.E013",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/01-笔记展开.png"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/截图/在场/02-成绩页结尾.png",
+      "is_directory": false,
+      "uncompressed_bytes": 1811835,
+      "compressed_bytes": 1783180,
+      "crc32_hex": "06c4e88f",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        50,
+        2
+      ],
+      "sha256": "e040bf1debb7eb8e7f46a84d8adffc8d305d40535a17a1c1ee8d3ff3d5bde6ea",
+      "expanded_source_id": "S01.E014",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/02-成绩页结尾.png"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/截图/在场/03-地图天气失败.png",
+      "is_directory": false,
+      "uncompressed_bytes": 2201728,
+      "compressed_bytes": 2198618,
+      "crc32_hex": "e167c69e",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        50,
+        2
+      ],
+      "sha256": "405621ac7fcae1951ff03c145a5da409116bfeb13a4b212a679726faffed8ac6",
+      "expanded_source_id": "S01.E015",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/03-地图天气失败.png"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/截图/在场/04-时间解释.png",
+      "is_directory": false,
+      "uncompressed_bytes": 2692323,
+      "compressed_bytes": 2690152,
+      "crc32_hex": "4b78f73f",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        50,
+        2
+      ],
+      "sha256": "fb17a7def243c656a5bb1f1bb5f195eb0f4efe63f3d8a090492000d95ec1efa4",
+      "expanded_source_id": "S01.E016",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/04-时间解释.png"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/截图/在场/05-讨论进行中.png",
+      "is_directory": false,
+      "uncompressed_bytes": 2301468,
+      "compressed_bytes": 2300605,
+      "crc32_hex": "6d0816f4",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        50,
+        2
+      ],
+      "sha256": "3e46efb292242b79bd6c2083cab459bba30fec4e40ddc00c833f74c6bccc09e2",
+      "expanded_source_id": "S01.E017",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/05-讨论进行中.png"
+    },
+    {
+      "archive_id": "S01",
+      "member_name": "在场-Gemini交接包/截图/在场/06-讨论后续.png",
+      "is_directory": false,
+      "uncompressed_bytes": 2447718,
+      "compressed_bytes": 2446900,
+      "crc32_hex": "4cca1f50",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        19,
+        7,
+        50,
+        2
+      ],
+      "sha256": "c43dc875d3a68e93e7fe4c154de211c469a57f0aa493119b3025c6b5f7620fa0",
+      "expanded_source_id": "S01.E018",
+      "expanded_package_path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/06-讨论后续.png"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/00-START-HERE.md",
+      "is_directory": false,
+      "uncompressed_bytes": 6745,
+      "compressed_bytes": 3657,
+      "crc32_hex": "e3a9c0eb",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        27,
+        38
+      ],
+      "sha256": "b5d55f3ca3e1e25156d749519e89bcd1a52b682137c7f9beb522a97733675318",
+      "expanded_source_id": "S02.E001",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/00-START-HERE.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/01-CODEX-START-PROMPT.md",
+      "is_directory": false,
+      "uncompressed_bytes": 10560,
+      "compressed_bytes": 5898,
+      "crc32_hex": "dc1811fd",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        15,
+        12
+      ],
+      "sha256": "90ffa04996911fbdaf938e50d113dbf369e6cb513764c8fe4db6774d8d060210",
+      "expanded_source_id": "S02.E002",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/01-CODEX-START-PROMPT.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/02-REPOSITORY-AUDIT.md",
+      "is_directory": false,
+      "uncompressed_bytes": 15433,
+      "compressed_bytes": 6893,
+      "crc32_hex": "8dee3563",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        12,
+        54
+      ],
+      "sha256": "5f4498b584fa5dcbb71be985bc08dc9364aa66bd902f6c6fe8c6108ee2e57e06",
+      "expanded_source_id": "S02.E003",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/02-REPOSITORY-AUDIT.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/03-HUMAN-AND-WORLD-MODEL.md",
+      "is_directory": false,
+      "uncompressed_bytes": 22195,
+      "compressed_bytes": 10722,
+      "crc32_hex": "45c2af28",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        6,
+        36
+      ],
+      "sha256": "16afd0cbcdfe8080d7d22282cbc18180a8bd499b7b517b131ec1317b516cd9f4",
+      "expanded_source_id": "S02.E004",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/03-HUMAN-AND-WORLD-MODEL.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/04-HARNESS-DESIGN.md",
+      "is_directory": false,
+      "uncompressed_bytes": 20080,
+      "compressed_bytes": 10449,
+      "crc32_hex": "ec6ee757",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        13,
+        40
+      ],
+      "sha256": "e357e9e5a3e0ccb75cc3b6d15a23309117618f331cca8422a8b0d65a581b3d62",
+      "expanded_source_id": "S02.E005",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/04-HARNESS-DESIGN.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/05-MEMORY-CONTEXT-PERSONA.md",
+      "is_directory": false,
+      "uncompressed_bytes": 15468,
+      "compressed_bytes": 8067,
+      "crc32_hex": "29724339",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        13,
+        40
+      ],
+      "sha256": "7863892ff4275fe9176b23b1c2cb33a2fe9cc9c1eeeae0faf90e532e5339d47f",
+      "expanded_source_id": "S02.E006",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/05-MEMORY-CONTEXT-PERSONA.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/06-IMPLEMENTATION-AND-ACCEPTANCE.md",
+      "is_directory": false,
+      "uncompressed_bytes": 16159,
+      "compressed_bytes": 8495,
+      "crc32_hex": "19a2fa80",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        13,
+        42
+      ],
+      "sha256": "2beef8a5041d531f0bb774694718a5e2a016848babbd2fb19867e48f57df4f9b",
+      "expanded_source_id": "S02.E007",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/06-IMPLEMENTATION-AND-ACCEPTANCE.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/07-RESEARCH-DECISIONS.md",
+      "is_directory": false,
+      "uncompressed_bytes": 45261,
+      "compressed_bytes": 19317,
+      "crc32_hex": "efa4f39b",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        9,
+        48
+      ],
+      "sha256": "0890d51bb660e791e219b59d7856b051af7258f2a4284bbc9e405c45c54f770c",
+      "expanded_source_id": "S02.E008",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/07-RESEARCH-DECISIONS.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/08-SCENARIOS-128.md",
+      "is_directory": false,
+      "uncompressed_bytes": 89132,
+      "compressed_bytes": 30193,
+      "crc32_hex": "20e6cca9",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        6,
+        36
+      ],
+      "sha256": "c1e2f39dfe0e3de2c8d980fca9f193a1d322ff1ac530da3e3db59497d252f9de",
+      "expanded_source_id": "S02.E009",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/08-SCENARIOS-128.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/09-REVIEW-AND-LIMITS.md",
+      "is_directory": false,
+      "uncompressed_bytes": 5895,
+      "compressed_bytes": 3491,
+      "crc32_hex": "b28148d2",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        35,
+        34
+      ],
+      "sha256": "af1d1b3c561a39c57ee09f2ffb82ba12398eb11ab1b20939dfae48f7380e433b",
+      "expanded_source_id": "S02.E010",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/09-REVIEW-AND-LIMITS.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/FILE-MANIFEST.json",
+      "is_directory": false,
+      "uncompressed_bytes": 4639,
+      "compressed_bytes": 1872,
+      "crc32_hex": "f64a545d",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        36,
+        18
+      ],
+      "sha256": "ec1407ed8308768272fed12fb4b91eba73d795864ebba2b12ead9878f3da61e7",
+      "expanded_source_id": "S02.E011",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/FILE-MANIFEST.json"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/contracts/design-types.ts",
+      "is_directory": false,
+      "uncompressed_bytes": 6907,
+      "compressed_bytes": 2585,
+      "crc32_hex": "a18a681c",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        17,
+        16
+      ],
+      "sha256": "87755b475be33fbe51efa2fd534fad8f2874c657c7e7f8090c72698d2ff57aed",
+      "expanded_source_id": "S02.E012",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/contracts/design-types.ts"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/evidence/attachment-intent-audit.md",
+      "is_directory": false,
+      "uncompressed_bytes": 36577,
+      "compressed_bytes": 17417,
+      "crc32_hex": "4c316f26",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        6,
+        32
+      ],
+      "sha256": "134f5b625411a08bee0c6e12f2bcb80209a8134db1901a3552cf598fa7020235",
+      "expanded_source_id": "S02.E013",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/attachment-intent-audit.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/evidence/cloud-restriction-probe.md",
+      "is_directory": false,
+      "uncompressed_bytes": 2526,
+      "compressed_bytes": 1637,
+      "crc32_hex": "1c50f4f2",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        6,
+        34
+      ],
+      "sha256": "6613b123a8a8385e99650f78e9ef8ee76ce1b454e4939017f255e78cab9cb6f2",
+      "expanded_source_id": "S02.E014",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/cloud-restriction-probe.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/evidence/current-memory-attention-audit.md",
+      "is_directory": false,
+      "uncompressed_bytes": 34132,
+      "compressed_bytes": 16350,
+      "crc32_hex": "41eeca77",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        7,
+        24
+      ],
+      "sha256": "678e8f57701acd539b567044747cc09b38bb4335aef73046c3e864f2232c773f",
+      "expanded_source_id": "S02.E015",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/current-memory-attention-audit.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/evidence/implementation-review.md",
+      "is_directory": false,
+      "uncompressed_bytes": 8839,
+      "compressed_bytes": 4874,
+      "crc32_hex": "1b52c852",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        17,
+        48
+      ],
+      "sha256": "3217aeb0be31def401f9c88d9c2001afe45e759ce1eb45c34b8db10c2fe1adb6",
+      "expanded_source_id": "S02.E016",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/implementation-review.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/evidence/package-validation.json",
+      "is_directory": false,
+      "uncompressed_bytes": 1028,
+      "compressed_bytes": 551,
+      "crc32_hex": "3ff4a55f",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        35,
+        34
+      ],
+      "sha256": "d3e0fc31a8cfb86df38e701249d30b03cd53e7f05201e88c56bb0bb0f924e2e6",
+      "expanded_source_id": "S02.E017",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/package-validation.json"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/evidence/probe-cloud-restriction-results.json",
+      "is_directory": false,
+      "uncompressed_bytes": 1012,
+      "compressed_bytes": 559,
+      "crc32_hex": "09c66191",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        6,
+        32
+      ],
+      "sha256": "b1fadad802801995cc5990141fab5ae26125cf2f9de3ebd2725b05013abd90bd",
+      "expanded_source_id": "S02.E018",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/probe-cloud-restriction-results.json"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/evidence/probe-cloud-restriction.cjs",
+      "is_directory": false,
+      "uncompressed_bytes": 2393,
+      "compressed_bytes": 1294,
+      "crc32_hex": "b016d9e1",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        6,
+        32
+      ],
+      "sha256": "6ad227573bee4a191f3b9d9db8ed7b58d58f684c1bc18dbf2d4756339098db5b",
+      "expanded_source_id": "S02.E019",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/probe-cloud-restriction.cjs"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/evidence/repo-retrieval-manifest.json",
+      "is_directory": false,
+      "uncompressed_bytes": 46391,
+      "compressed_bytes": 6382,
+      "crc32_hex": "8bb8014e",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        3,
+        51,
+        54
+      ],
+      "sha256": "6e2c534b2ea786454cc320784763d993889c38c8c066cb36b2a77281b3ccf0c8",
+      "expanded_source_id": "S02.E020",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/repo-retrieval-manifest.json"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/evidence/research-review.md",
+      "is_directory": false,
+      "uncompressed_bytes": 5065,
+      "compressed_bytes": 2927,
+      "crc32_hex": "da18048d",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        10,
+        58
+      ],
+      "sha256": "24a5f4dad1715aebf5bd13e5167f77f73d9a7ad72adb25583d6f4161d9afd02d",
+      "expanded_source_id": "S02.E021",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/research-review.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/evidence/validate-package.py",
+      "is_directory": false,
+      "uncompressed_bytes": 6943,
+      "compressed_bytes": 2555,
+      "crc32_hex": "7c484a91",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        35,
+        32
+      ],
+      "sha256": "916354c66a63b7a769ecc967f56a9ea293784c30b3090f3a6ead0cd45c3744b9",
+      "expanded_source_id": "S02.E022",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/validate-package.py"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/examples/configuration-proposal.json",
+      "is_directory": false,
+      "uncompressed_bytes": 2379,
+      "compressed_bytes": 1304,
+      "crc32_hex": "70f1cd70",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        18,
+        32
+      ],
+      "sha256": "899cdd055fc38542414e53f2b314efeb640de69f538f9765193e49a92c28331e",
+      "expanded_source_id": "S02.E023",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/examples/configuration-proposal.json"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/examples/persona-presets.json",
+      "is_directory": false,
+      "uncompressed_bytes": 4361,
+      "compressed_bytes": 1937,
+      "crc32_hex": "06b8d23c",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        18,
+        32
+      ],
+      "sha256": "cf627c81f2b10e804b51d2a7277462a7771ccfcec7c1fde5772ae5d2bec624d4",
+      "expanded_source_id": "S02.E024",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/examples/persona-presets.json"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/scenarios/scenario-schema.json",
+      "is_directory": false,
+      "uncompressed_bytes": 3144,
+      "compressed_bytes": 680,
+      "crc32_hex": "181e0a67",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        18,
+        32
+      ],
+      "sha256": "ea8134e155ec5b41d4b2e1e848f25b3223746ceaeeb26bff93caf3ceb7eecf30",
+      "expanded_source_id": "S02.E025",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/scenarios/scenario-schema.json"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/scenarios/scenarios.json",
+      "is_directory": false,
+      "uncompressed_bytes": 124976,
+      "compressed_bytes": 33099,
+      "crc32_hex": "1a8a567b",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        6,
+        36
+      ],
+      "sha256": "d906f0ce80ffb6879eb623eba9dffb00daad09057963a435e8eff82b96d1c8e4",
+      "expanded_source_id": "S02.E026",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/scenarios/scenarios.json"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/scenarios/timelines-guide.md",
+      "is_directory": false,
+      "uncompressed_bytes": 8846,
+      "compressed_bytes": 4798,
+      "crc32_hex": "68fa4e42",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        33,
+        32
+      ],
+      "sha256": "ac3b25b3b8fc35cf18f80e6e9c9fcea256a9ebedbe6741b5df3373daa3801ed6",
+      "expanded_source_id": "S02.E027",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/scenarios/timelines-guide.md"
+    },
+    {
+      "archive_id": "S02",
+      "member_name": "zaichang-student-harness/scenarios/timelines.json",
+      "is_directory": false,
+      "uncompressed_bytes": 120906,
+      "compressed_bytes": 20592,
+      "crc32_hex": "3801c1fb",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        4,
+        33,
+        30
+      ],
+      "sha256": "dd9dc2cbbb658dc78e9d6c7079604805351230f1ef489db1ba56cccb41078dbc",
+      "expanded_source_id": "S02.E028",
+      "expanded_package_path": "sources/unpacked/harness_1018/zaichang-student-harness/scenarios/timelines.json"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/",
+      "is_directory": true,
+      "uncompressed_bytes": 0,
+      "compressed_bytes": 0,
+      "crc32_hex": "00000000",
+      "compression_method": 0,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ]
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/00-START-HERE.md",
+      "is_directory": false,
+      "uncompressed_bytes": 6745,
+      "compressed_bytes": 3657,
+      "crc32_hex": "e3a9c0eb",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "b5d55f3ca3e1e25156d749519e89bcd1a52b682137c7f9beb522a97733675318",
+      "payload_alias_source_id": "S02.E001"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/01-CODEX-START-PROMPT.md",
+      "is_directory": false,
+      "uncompressed_bytes": 10560,
+      "compressed_bytes": 5898,
+      "crc32_hex": "dc1811fd",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "90ffa04996911fbdaf938e50d113dbf369e6cb513764c8fe4db6774d8d060210",
+      "payload_alias_source_id": "S02.E002"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/02-REPOSITORY-AUDIT.md",
+      "is_directory": false,
+      "uncompressed_bytes": 15433,
+      "compressed_bytes": 6895,
+      "crc32_hex": "8dee3563",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "5f4498b584fa5dcbb71be985bc08dc9364aa66bd902f6c6fe8c6108ee2e57e06",
+      "payload_alias_source_id": "S02.E003"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/03-HUMAN-AND-WORLD-MODEL.md",
+      "is_directory": false,
+      "uncompressed_bytes": 22195,
+      "compressed_bytes": 10735,
+      "crc32_hex": "45c2af28",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "16afd0cbcdfe8080d7d22282cbc18180a8bd499b7b517b131ec1317b516cd9f4",
+      "payload_alias_source_id": "S02.E004"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/04-HARNESS-DESIGN.md",
+      "is_directory": false,
+      "uncompressed_bytes": 20080,
+      "compressed_bytes": 10449,
+      "crc32_hex": "ec6ee757",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "e357e9e5a3e0ccb75cc3b6d15a23309117618f331cca8422a8b0d65a581b3d62",
+      "payload_alias_source_id": "S02.E005"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/05-MEMORY-CONTEXT-PERSONA.md",
+      "is_directory": false,
+      "uncompressed_bytes": 15468,
+      "compressed_bytes": 8067,
+      "crc32_hex": "29724339",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "7863892ff4275fe9176b23b1c2cb33a2fe9cc9c1eeeae0faf90e532e5339d47f",
+      "payload_alias_source_id": "S02.E006"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/06-IMPLEMENTATION-AND-ACCEPTANCE.md",
+      "is_directory": false,
+      "uncompressed_bytes": 16159,
+      "compressed_bytes": 8495,
+      "crc32_hex": "19a2fa80",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "2beef8a5041d531f0bb774694718a5e2a016848babbd2fb19867e48f57df4f9b",
+      "payload_alias_source_id": "S02.E007"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/07-RESEARCH-DECISIONS.md",
+      "is_directory": false,
+      "uncompressed_bytes": 45261,
+      "compressed_bytes": 19326,
+      "crc32_hex": "efa4f39b",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "0890d51bb660e791e219b59d7856b051af7258f2a4284bbc9e405c45c54f770c",
+      "payload_alias_source_id": "S02.E008"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/08-SCENARIOS-128.md",
+      "is_directory": false,
+      "uncompressed_bytes": 89132,
+      "compressed_bytes": 30286,
+      "crc32_hex": "20e6cca9",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "c1e2f39dfe0e3de2c8d980fca9f193a1d322ff1ac530da3e3db59497d252f9de",
+      "payload_alias_source_id": "S02.E009"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/09-REVIEW-AND-LIMITS.md",
+      "is_directory": false,
+      "uncompressed_bytes": 5895,
+      "compressed_bytes": 3491,
+      "crc32_hex": "b28148d2",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "af1d1b3c561a39c57ee09f2ffb82ba12398eb11ab1b20939dfae48f7380e433b",
+      "payload_alias_source_id": "S02.E010"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/FILE-MANIFEST.json",
+      "is_directory": false,
+      "uncompressed_bytes": 4639,
+      "compressed_bytes": 1886,
+      "crc32_hex": "f64a545d",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "ec1407ed8308768272fed12fb4b91eba73d795864ebba2b12ead9878f3da61e7",
+      "payload_alias_source_id": "S02.E011"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/contracts/",
+      "is_directory": true,
+      "uncompressed_bytes": 0,
+      "compressed_bytes": 0,
+      "crc32_hex": "00000000",
+      "compression_method": 0,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ]
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/contracts/design-types.ts",
+      "is_directory": false,
+      "uncompressed_bytes": 6907,
+      "compressed_bytes": 2585,
+      "crc32_hex": "a18a681c",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "87755b475be33fbe51efa2fd534fad8f2874c657c7e7f8090c72698d2ff57aed",
+      "payload_alias_source_id": "S02.E012"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/evidence/",
+      "is_directory": true,
+      "uncompressed_bytes": 0,
+      "compressed_bytes": 0,
+      "crc32_hex": "00000000",
+      "compression_method": 0,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ]
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/evidence/attachment-intent-audit.md",
+      "is_directory": false,
+      "uncompressed_bytes": 36577,
+      "compressed_bytes": 17441,
+      "crc32_hex": "4c316f26",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "134f5b625411a08bee0c6e12f2bcb80209a8134db1901a3552cf598fa7020235",
+      "payload_alias_source_id": "S02.E013"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/evidence/cloud-restriction-probe.md",
+      "is_directory": false,
+      "uncompressed_bytes": 2526,
+      "compressed_bytes": 1637,
+      "crc32_hex": "1c50f4f2",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "6613b123a8a8385e99650f78e9ef8ee76ce1b454e4939017f255e78cab9cb6f2",
+      "payload_alias_source_id": "S02.E014"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/evidence/current-memory-attention-audit.md",
+      "is_directory": false,
+      "uncompressed_bytes": 34132,
+      "compressed_bytes": 16358,
+      "crc32_hex": "41eeca77",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "678e8f57701acd539b567044747cc09b38bb4335aef73046c3e864f2232c773f",
+      "payload_alias_source_id": "S02.E015"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/evidence/implementation-review.md",
+      "is_directory": false,
+      "uncompressed_bytes": 8839,
+      "compressed_bytes": 4874,
+      "crc32_hex": "1b52c852",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "3217aeb0be31def401f9c88d9c2001afe45e759ce1eb45c34b8db10c2fe1adb6",
+      "payload_alias_source_id": "S02.E016"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/evidence/package-validation.json",
+      "is_directory": false,
+      "uncompressed_bytes": 1028,
+      "compressed_bytes": 551,
+      "crc32_hex": "3ff4a55f",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "d3e0fc31a8cfb86df38e701249d30b03cd53e7f05201e88c56bb0bb0f924e2e6",
+      "payload_alias_source_id": "S02.E017"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/evidence/probe-cloud-restriction-results.json",
+      "is_directory": false,
+      "uncompressed_bytes": 1012,
+      "compressed_bytes": 559,
+      "crc32_hex": "09c66191",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "b1fadad802801995cc5990141fab5ae26125cf2f9de3ebd2725b05013abd90bd",
+      "payload_alias_source_id": "S02.E018"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/evidence/probe-cloud-restriction.cjs",
+      "is_directory": false,
+      "uncompressed_bytes": 2393,
+      "compressed_bytes": 1294,
+      "crc32_hex": "b016d9e1",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "6ad227573bee4a191f3b9d9db8ed7b58d58f684c1bc18dbf2d4756339098db5b",
+      "payload_alias_source_id": "S02.E019"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/evidence/repo-retrieval-manifest.json",
+      "is_directory": false,
+      "uncompressed_bytes": 46391,
+      "compressed_bytes": 6422,
+      "crc32_hex": "8bb8014e",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "6e2c534b2ea786454cc320784763d993889c38c8c066cb36b2a77281b3ccf0c8",
+      "payload_alias_source_id": "S02.E020"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/evidence/research-review.md",
+      "is_directory": false,
+      "uncompressed_bytes": 5065,
+      "compressed_bytes": 2927,
+      "crc32_hex": "da18048d",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "24a5f4dad1715aebf5bd13e5167f77f73d9a7ad72adb25583d6f4161d9afd02d",
+      "payload_alias_source_id": "S02.E021"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/evidence/validate-package.py",
+      "is_directory": false,
+      "uncompressed_bytes": 6943,
+      "compressed_bytes": 2555,
+      "crc32_hex": "7c484a91",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "916354c66a63b7a769ecc967f56a9ea293784c30b3090f3a6ead0cd45c3744b9",
+      "payload_alias_source_id": "S02.E022"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/examples/",
+      "is_directory": true,
+      "uncompressed_bytes": 0,
+      "compressed_bytes": 0,
+      "crc32_hex": "00000000",
+      "compression_method": 0,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ]
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/examples/configuration-proposal.json",
+      "is_directory": false,
+      "uncompressed_bytes": 2379,
+      "compressed_bytes": 1304,
+      "crc32_hex": "70f1cd70",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "899cdd055fc38542414e53f2b314efeb640de69f538f9765193e49a92c28331e",
+      "payload_alias_source_id": "S02.E023"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/examples/persona-presets.json",
+      "is_directory": false,
+      "uncompressed_bytes": 4361,
+      "compressed_bytes": 1937,
+      "crc32_hex": "06b8d23c",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "cf627c81f2b10e804b51d2a7277462a7771ccfcec7c1fde5772ae5d2bec624d4",
+      "payload_alias_source_id": "S02.E024"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/scenarios/",
+      "is_directory": true,
+      "uncompressed_bytes": 0,
+      "compressed_bytes": 0,
+      "crc32_hex": "00000000",
+      "compression_method": 0,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ]
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/scenarios/scenario-schema.json",
+      "is_directory": false,
+      "uncompressed_bytes": 3144,
+      "compressed_bytes": 684,
+      "crc32_hex": "181e0a67",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "ea8134e155ec5b41d4b2e1e848f25b3223746ceaeeb26bff93caf3ceb7eecf30",
+      "payload_alias_source_id": "S02.E025"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/scenarios/scenarios.json",
+      "is_directory": false,
+      "uncompressed_bytes": 124976,
+      "compressed_bytes": 33533,
+      "crc32_hex": "1a8a567b",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "d906f0ce80ffb6879eb623eba9dffb00daad09057963a435e8eff82b96d1c8e4",
+      "payload_alias_source_id": "S02.E026"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/scenarios/timelines-guide.md",
+      "is_directory": false,
+      "uncompressed_bytes": 8846,
+      "compressed_bytes": 4798,
+      "crc32_hex": "68fa4e42",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "ac3b25b3b8fc35cf18f80e6e9c9fcea256a9ebedbe6741b5df3373daa3801ed6",
+      "payload_alias_source_id": "S02.E027"
+    },
+    {
+      "archive_id": "S18",
+      "member_name": "zaichang-student-harness/scenarios/timelines.json",
+      "is_directory": false,
+      "uncompressed_bytes": 120906,
+      "compressed_bytes": 21182,
+      "crc32_hex": "3801c1fb",
+      "compression_method": 8,
+      "archive_timestamp": [
+        2026,
+        10,
+        18,
+        1,
+        42,
+        50
+      ],
+      "sha256": "dd9dc2cbbb658dc78e9d6c7079604805351230f1ef489db1ba56cccb41078dbc",
+      "payload_alias_source_id": "S02.E028"
+    }
+  ],
+  "supplemental_S18_equals_S02_file_payloads": true,
+  "note": "原 ZIP 字节各自保留；S18 与 S02 的文件成员同名同内容，S18 另有目录项。展开未运行任何原包脚本。"
+}

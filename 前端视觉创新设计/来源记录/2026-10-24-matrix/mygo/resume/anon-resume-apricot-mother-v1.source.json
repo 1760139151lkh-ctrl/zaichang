@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordType": "complete-companion-mother-generation",
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "character": "anon",
+  "activity": "resume",
+  "theme": "apricot",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-fdad7a5c-86e6-41b9-b78d-af8c53ede049",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "originalOutput": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-fdad7a5c-86e6-41b9-b78d-af8c53ede049.png",
+  "prompt": "anon-resume-apricot-mother-v1.prompt.txt",
+  "promptFileSha256": "9bf99a0ddb440d34842f189101f3cae26a987f4f07df2e38a272cf6d8508ea23",
+  "submittedPromptTransform": "Read prompt file as UTF-8; trimEnd only, exactly as submitted to the built-in tool.",
+  "submittedPromptSha256": "795a65649b15016c03ead9901855e0147a8587fb5756a18db5dcc95c251f03f9",
+  "inputs": [
+    {
+      "file": "../../../assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+      "role": "sole image input: approved clean empty room; fixed camera, room geometry and apricot light"
+    }
+  ],
+  "characterPixelsProvided": false,
+  "priorMotherPixelsProvided": false,
+  "identitySources": [
+    { "url": "https://anime.bang-dream.com/mygo/character/anon/", "readOn": "2026-10-24", "retrieval": "official indexed full profile text; direct open returned 503, not treated as absence" },
+    { "projectFile": "src/shared/persona-portrayals.ts", "characterId": "anon", "version": "2026-10-24.2" }
+  ],
+  "identityBoundary": "Original identity and Haneoka clothing guide text only. The subdued return greeting is project original; it does not claim a canon encounter, user arrangement or saved task.",
+  "designAim": "Her brightness returns in a small recognition, a quiet half-smile and a restrained open-palm greeting while her other hand keeps real support. No book is used to turn everyone into the same reader.",
+  "output": {
+    "file": "anon-resume-apricot-mother-v1.png",
+    "sha256": "4a5a2a9711ab78401cdc57d243b5cf4042f89eef136eb257fb2fc04ca8b84fd5",
+    "bytes": 2161607,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerObservation": "Full original personally viewed. Long pink hair, blue-grey eyes and the grey blazer/green tie/plaid remain youthful and recognizable. Knees angle left while torso gently opens to the visitor, hand greeting stays close to her own body and support palm meets cushion. Separate continuous legs and complete black loafers meet the floor, seat compression and room light coherent. The generated greeting sits somewhat higher than the requested waist, so primary should judge whether its small wave and shoulder return remain sufficiently quiet/distinct from chat. It is not pre-approved.",
+  "review": { "producerViewedFullOriginal": true, "primaryViewed": false, "primaryApproved": false, "layersAccepted": false, "runtimeAccepted": false },
+  "status": "complete mother candidate awaiting primary review; no theme expansion yet"
+}
