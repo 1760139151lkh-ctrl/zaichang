@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-attention-mist-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-attention-mist-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-attention-apricot-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "output": {
+    "file": "sakiko-attention-mist-mother-candidate-v1.png",
+    "sha256": "0f111350f76dece941adff0bdcdb0ac854d4ffb30e1e3d3aea6d27ca02fe8d49",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-04083681-88b3-4c32-9f7e-e1ada0c93105.png",
+    "executionId": "04083681-88b3-4c32-9f7e-e1ada0c93105"
+  },
+  "designerObservation": "Generated full mother; producer inspection follows. No approval inferred.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "arguments": {
+    "prompt": "Use case: illustration-story. Theme/activity matrix mother: Sakiko mist ATTENTION, full 1536 x 1024.\nSole input / edit target: room-mist-candidate.png, the primary-reviewed CLEAN EMPTY MIST ROOM. It contains no person. No other image or character pixels are inputs. Draw one whole character anew directly in this unchanged room. Preserve canvas, fixed camera, furniture, complete window and environmental details. This is a complete mother, not a cutout or layout sheet.\nTHEME LIGHTING — this replaces any generic light wording below:\nMIST / MORNING: preserve the approved plate's airy pale blue-grey morning daylight, soft lake mist and naturally warm wood. The face, powder-blue hair and navy cloth receive that same cool diffuse window light with a gentle warm wood bounce. Do not turn it into apricot golden sunshine or a blue tint over unrelated lighting.\nNatural responsive posture and this specific activity's weight/gaze relationship matter more than a rigid upright elegance. Do not make every activity a chat skeleton with a different prop. Keep the complete youthful Sakiko identity and clothing, real support/contact, coherent separate limbs and full in-frame extremities.\n\nUse case: illustration-story.\nAsset type: complete same-room mother artwork, 1536 x 1024, for 在场 companion ATTENTION / notice a new object and make room.\nInput image: the sole image input is the primary-reviewed CLEAN EMPTY ROOM. It has no character. Keep the complete room, relatively distant camera, four-sided rectangular window, left rear writing table and shelves/art, right working desk/chair, linen window-bench, floor, rug, curtains, lamp and the provided mist room light at their existing positions and scale. Do not zoom, crop, move furniture or paint another room.\n\nSubject: Sakiko Togawa / 豊川祥子, BanG Dream! Ave Mujica / It's MyGO!!!!!. Faithful youthful 2D anime identity: long powder-blue hair with soft curled side locks and dark navy ribbons, amber-gold eyes, fine delicate youthful anime face, composed and perceptive. Not a generic blue-haired mature fashion model. Fully clothed consistent school styling: dark navy cardigan over a white blouse with its white/light bow, navy-gray plaid knee-length skirt, dark navy knee socks and simple brown loafers. Fine anime lines and soft cel shading integrate with the input room, natural youthful proportions.\n\nAction category ATTENTION / A NEW OBJECT: A small plain ivory folded card has just been placed at the near RIGHT corner of the existing writing desk beside the lamp, around x=1105,y=512. No letters or business content on it. Sakiko notices it and makes physical room for someone else to look. She sits on the RIGHT half of the window-bench, pelvis around x=1340,y=610, with her weight genuinely supported by the linen seat. Move her torso subtly BACK and to the RIGHT, opening a visible space between herself and the working desk. At the same time rotate her shoulders and head clearly LEFT toward the new card, in a strong three-quarter SIDE view rather than a frontal portrait. Her amber eyes look at that desk object, not the viewer and not out the window. Her expression is briefly alert and interested, a small raised attention in the eyes rather than a forced smile or surprise-face. Her right palm rests on the cushion slightly behind her hip around x=1450,y=605, with real load and cushion contact. Her left forearm rests loosely across her lap, the hand open and relaxed as if pausing what she was doing. Empty hands: do not give her a bird, book, cup or a generic chin-rest gesture. This scene must read as a short look toward something newly present while giving it space, not another chat greeting or another offering pose.\n\nSupport, skeleton and legs: the pelvis stays on the bench; the slight backward/right weight shift is carried by her planted supporting hand and seated hip, not by floating. Rotate both thighs naturally toward the LEFT from their separate hips. Two knees remain distinct and uncrossed, with the skirt falling naturally and modestly over the thighs. Her own left hip-thigh-knee-shin-ankle-shoe chain and her own right chain must each be continuous, proportionate and readable. Knees bend and both complete loafers are planted on the floor in front of the bench, staggered enough to see both, not fused or overlapping. No crossed ankles, phantom leg, overlong shin, missing heel or limb through the desk/bench. Show the bench front behind the lower legs and subtle cushion compression at the hip. Keep all five fingers coherent, the relaxed lap hand visibly connected to its forearm, and no unsupported wrist.\n\nComposition: one complete figure, all hair tips/ribbons, both hands, knees, ankles and both shoes wholly inside the same canvas with at least 30px air on right/bottom. Approximate character bounds x=1100..1500,y=245..940. Preserve the complete window corners and the input's usable chair/desk passage. Central-left reading space stays open; neither character nor card reaches left of x=1030. Match the input's the provided mist room's actual light direction and local contact shadows rather than pasting a dark sticker. No extra person, UI, readable text, music notation, watermark, logo, collage, arrows, border, split view or tight crop. The little physical card is fiction and does not claim that a real calendar/note/tool operation happened.\n\nFINAL INVARIANT: room-mist-candidate.png is the only image input. No previous mother/portrait/character reference pixels. Preserve this theme room's whole exposure, camera and geometry; do not turn night into day or apply a flat theme-color skin filter.\n\r\n",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png"
+    ],
+    "transparent_background": false
+  },
+  "originalOutputPath": "C:\\Users\\17601\\.codex\\generated_images\\01a16920-dfda-7da2-af3e-2946cc5b4e68\\exec-04083681-88b3-4c32-9f7e-e1ada0c93105.png",
+  "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a16920-dfda-7da2-af3e-2946cc5b4e68 as C:\\Users\\17601\\.codex\\generated_images\\01a16920-dfda-7da2-af3e-2946cc5b4e68\\exec-04083681-88b3-4c32-9f7e-e1ada0c93105.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+}

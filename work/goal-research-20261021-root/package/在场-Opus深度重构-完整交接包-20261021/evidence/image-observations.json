@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "observed_upload_image_count": 12,
+  "images": [
+    {
+      "source_id": "S16",
+      "path": "sources/original/upload/image(20261021-060426).png",
+      "observation": "已打开观察",
+      "note": "波形叠加示意与参数交互，表达了超出现有 quadratic 的动态教学需要。截图本身不证明在场已能生成。"
+    },
+    {
+      "source_id": "S01.E008",
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/参考产品/01-安心舍入口.jpg",
+      "observation": "已打开观察",
+      "note": "猫形象、自称与称呼、句末语气在连续回应中有识别度。只观察表达与呈现，不把截图建议当已核实事实或复制全部产品功能。"
+    },
+    {
+      "source_id": "S01.E009",
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/参考产品/02-小安开场.jpg",
+      "observation": "已打开观察",
+      "note": "猫形象、自称与称呼、句末语气在连续回应中有识别度。只观察表达与呈现，不把截图建议当已核实事实或复制全部产品功能。"
+    },
+    {
+      "source_id": "S01.E010",
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/参考产品/03-小安回应.jpg",
+      "observation": "已打开观察",
+      "note": "猫形象、自称与称呼、句末语气在连续回应中有识别度。只观察表达与呈现，不把截图建议当已核实事实或复制全部产品功能。"
+    },
+    {
+      "source_id": "S01.E011",
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/参考产品/04-小安接续.jpg",
+      "observation": "已打开观察",
+      "note": "猫形象、自称与称呼、句末语气在连续回应中有识别度。只观察表达与呈现，不把截图建议当已核实事实或复制全部产品功能。"
+    },
+    {
+      "source_id": "S01.E012",
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/参考产品/05-小安收尾.jpg",
+      "observation": "已打开观察",
+      "note": "猫形象、自称与称呼、句末语气在连续回应中有识别度。只观察表达与呈现，不把截图建议当已核实事实或复制全部产品功能。"
+    },
+    {
+      "source_id": "S01.E013",
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/01-笔记展开.png",
+      "observation": "已打开观察",
+      "note": "参照02六及03分析：正文/人物布局、内部流程式措辞、笔记阅读与连续帮助、地图天气失败后的恢复等。截图单独不证明代码根因或所用构建。"
+    },
+    {
+      "source_id": "S01.E014",
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/02-成绩页结尾.png",
+      "observation": "已打开观察",
+      "note": "参照02六及03分析：正文/人物布局、内部流程式措辞、笔记阅读与连续帮助、地图天气失败后的恢复等。截图单独不证明代码根因或所用构建。"
+    },
+    {
+      "source_id": "S01.E015",
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/03-地图天气失败.png",
+      "observation": "已打开观察",
+      "note": "参照02六及03分析：正文/人物布局、内部流程式措辞、笔记阅读与连续帮助、地图天气失败后的恢复等。截图单独不证明代码根因或所用构建。"
+    },
+    {
+      "source_id": "S01.E016",
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/04-时间解释.png",
+      "observation": "已打开观察",
+      "note": "参照02六及03分析：正文/人物布局、内部流程式措辞、笔记阅读与连续帮助、地图天气失败后的恢复等。截图单独不证明代码根因或所用构建。"
+    },
+    {
+      "source_id": "S01.E017",
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/05-讨论进行中.png",
+      "observation": "已打开观察",
+      "note": "参照02六及03分析：正文/人物布局、内部流程式措辞、笔记阅读与连续帮助、地图天气失败后的恢复等。截图单独不证明代码根因或所用构建。"
+    },
+    {
+      "source_id": "S01.E018",
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/06-讨论后续.png",
+      "observation": "已打开观察",
+      "note": "参照02六及03分析：正文/人物布局、内部流程式措辞、笔记阅读与连续帮助、地图天气失败后的恢复等。截图单独不证明代码根因或所用构建。"
+    }
+  ],
+  "note": "原图完整字节在sources；过程使用的缩放观察副本未替换原图。仓库设计图片另见未观测目录。"
+}

@@ -1,0 +1,32 @@
+{
+  "key": "anon/listening/mist",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-24T23:30:22.887Z",
+  "stage": "complete whole-scene lighting edit",
+  "file": "anon-listening-mist-mother-v1.png",
+  "sha256": "87fb823fac39ad20ba7066f5a026cd86e8c7fd0e093f4282abe5f101ba0ea82a",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "originalOutputBasename": "exec-c671f839-82e1-411a-8fb0-470d31f38a70.png",
+  "prompt": "anon-listening-mist-mother-v1.prompt.txt",
+  "inputs": [
+    {
+      "file": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-listening-apricot-mother-candidate-v2.png",
+      "role": "approved apricot complete mother; edit target",
+      "sha256": "352fc80272d9ae4e224225980bd270b2481516dbd32c0b7a0dc5814e8c3457bb"
+    },
+    {
+      "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png",
+      "role": "clean-room light reference only",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "designerPersonallyViewed": true,
+  "primaryMotherReview": "pending_current_root_review",
+  "layers": "not_produced",
+  "runtime": "not_registered",
+  "promptSha256": "ff06681abf8fd67d489c8bde21e448ebb8f7bc513e919921cc629a1603be4864",
+  "designerObservation": "Personally viewed the complete generated original. Quiet open-eyed listening remains; the bent socked foot stays on the cushion, the lowered socked foot is whole, and both removed shoes remain on the floor. Complete requested environment light and natural skin bounce are present, with no split scene, text or UI. Primary approval and integrated layer/runtime remain separate."
+}

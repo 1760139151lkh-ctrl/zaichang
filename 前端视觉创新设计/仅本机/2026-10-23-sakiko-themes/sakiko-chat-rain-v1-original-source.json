@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-chat-rain-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "chat",
+  "palette": "rain",
+  "light": "night",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-chat-rain-v1-actualprompt.txt",
+  "promptSha256": "1eff4e60a5a426f4d65bfe439ee4ed70d8ed16aa606bfd548d36975312fd3f55",
+  "identityBasis": "Sakiko Togawa canon identity supplied as text only; approved apricot activity mothers personally viewed for activity understanding, never supplied as image inputs.",
+  "inputs": [
+    {
+      "file": "room-rain-candidate-v2.png",
+      "role": "primary-reviewed clean EMPTY theme room; sole image input",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "sakiko-chat-rain-mother-candidate-v1.png",
+    "sha256": "a57a3b22791dd9525d9e1dc565fe76866edb7c4d067e3cb94d67e6dfb06628a6",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-5af88db4-b08d-4cb5-ae00-6e3f536e515a.png",
+    "executionId": "5af88db4-b08d-4cb5-ae00-6e3f536e515a"
+  },
+  "designerObservation": "Full mother personally viewed: deep rainy blue window plus warm desk-lamp/wood bounce, no hard daylight leaf shadows; youthful Sakiko's face remains legible, real bench/palm support and two separate complete grounded shoes. Whole room retained. Needs primary review of night exposure and contacts.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "inputOriginalPath": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+  "outputOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a16920-dfda-7da2-af3e-2946cc5b4e68\\exec-5af88db4-b08d-4cb5-ae00-6e3f536e515a.png",
+  "referenced_image_paths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "nyamu",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "apricot",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "nyamu-resume-apricot-v2-prompt.txt",
+  "promptFileSha256": "084ecb912e61a42575745164b7da23c9eec095a9f024d3f990e219ae3abb89cf",
+  "submittedPrompt": "Exact UTF-8 promptFile contents with trailing newline trimmed.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "role": "sole clean empty room4 spatial and lighting input; no rejected v1 or any character image",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "nyamu-resume-apricot-mother-candidate-v2.png",
+    "toolOriginalPath": "$CODEX_HOME/generated_images/01a1702e-1e74-7ac0-9f86-f1d6b1ffcf30/exec-1655a7dd-152f-445a-9b57-1a2fefa8ccd4.png",
+    "sha256": "fe11df2b3080e68bc269dc43a0149f3f0ab05ced35b3629c229cf423d41a671b",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "bytes": 2183416,
+    "promptSha256": "084ecb912e61a42575745164b7da23c9eec095a9f024d3f990e219ae3abb89cf"
+  },
+  "identityBasis": {
+    "officialProfile": "https://anime.bang-dream.com/avemujica/character/nyamu/",
+    "textVerifiedOn": "2026-10-24",
+    "boundary": "Official profile supports identity/background; this university-companion resume moment is project-original. No official or third-party character pixels were image inputs."
+  },
+  "generationDesignReview": "v1 rejected by producer mutual review for near-chat silhouette. v2 from clean room plus text alone: remains in clear hip-forward lean; forearm rests on thigh, only head/eyes lift toward return. V1 supplied neither as image input nor pose template.",
+  "observedAnchors": {
+    "coordinateSpace": "normalized original canvas; approximate producer observation, not final runtime calibration",
+    "support": "right-window-bench; rear palm on cushion and near wrist/palm side visibly at thigh",
+    "seat": [
+      0.843,
+      0.553
+    ],
+    "groundLeft": [
+      0.708,
+      0.74
+    ],
+    "groundRight": [
+      0.781,
+      0.758
+    ],
+    "proposedTravel": 0,
+    "objects": {
+      "paperStar": "small purple folded paper held close to her own knee; wrist/palm side visibly rests at thigh, full forearm contact is not established",
+      "room": "cushions, throw, desk and chairs remain background"
+    }
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "producerObservation": "Forward lean is now visible without relying on the paper object: shoulder center lies clearly left of hip, head lifts toward user while chest remains diagonally toward handwork. Rear palm meets the cushion; near wrist/palm side visibly meets the thigh, but the entire forearm is not clearly resting along it. Both knees lead to separate calves and complete ankle-strap shoes with floor contacts. Original room continuity and youthful anime identity retained. Needs primary independent mother review before theme expansion or extraction.",
+    "approvedByPrimary": false,
+    "layers": "not extracted",
+    "runtimeAccepted": false,
+    "mutualReview": "Second reviewer personally viewed v2: clear new forward-lean silhouette even with paper object hidden; seated hip, rear palm, two knee-ankle-shoe chains coherent, no new definite anatomical defect. Corrected whole-forearm support claim to visible wrist/palm-side contact. Does not replace primary or runtime acceptance."
+  }
+}

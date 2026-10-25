@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "umiri",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "apricot",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "umiri-resume-apricot-v1-prompt.txt",
+  "promptFileSha256": "fa109a1e91d03860dc4f45f099db57b46154d2cc2f089057007a098eb27cdae6",
+  "submittedPrompt": "Exact UTF-8 promptFile contents with trailing newline trimmed.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "role": "sole clean empty room4 spatial and lighting input; no character image",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "umiri-resume-apricot-mother-candidate-v1.png",
+    "toolOriginalPath": "$CODEX_HOME/generated_images/01a1702e-1e74-7ac0-9f86-f1d6b1ffcf30/exec-584a5fb8-14f6-48dc-a403-e1ac978bb7f0.png",
+    "sha256": "da8cda7c86c6dcc5dabd9b0f246b05033944c652ec10ca9cbe9054789ebcc987",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "bytes": 2177253,
+    "promptSha256": "fa109a1e91d03860dc4f45f099db57b46154d2cc2f089057007a098eb27cdae6"
+  },
+  "generationDesignReview": "Mutual review selected mostly unchanged side seat and eyes-first look-back. Knees explicitly point along bench toward open left floor, not backward into the wall; notebook and forearm remain thigh-supported.",
+  "observedAnchors": {
+    "coordinateSpace": "normalized original canvas; approximate producer observation, not final runtime calibration",
+    "support": "right-window-bench",
+    "seat": [
+      0.85,
+      0.562
+    ],
+    "groundLeft": [
+      0.714,
+      0.724
+    ],
+    "groundRight": [
+      0.789,
+      0.733
+    ],
+    "proposedTravel": 0,
+    "objects": {
+      "notebook": "lap-supported small half-open notebook with holding hand; stays figure-owned",
+      "room": "cushions, throw, desk and chairs remain background"
+    }
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "producerObservation": "Young charcoal-haired Umiri with gray-teal eyes, original casual jacket/red top/gray skirt/boots. Pelvis and distinct uncrossed knees remain left-oriented; two calf-to-boot chains and full soles visible. Rear palm meets cushion, notebook sits on thigh rather than outside leg. Calm return gaze with restrained smile. Primary must judge exact character likeness, front/back knee overlap and resume distinction.",
+    "approvedByPrimary": false,
+    "layers": "not extracted",
+    "runtimeAccepted": false
+  },
+  "identityBasis": {
+    "officialProfile": "https://anime.bang-dream.com/avemujica/character/umiri/",
+    "textVerifiedOn": "2026-10-24",
+    "boundary": "Official profile supports identity/background; this university-companion resume moment is project-original. No official or third-party character pixels were image inputs."
+  }
+}

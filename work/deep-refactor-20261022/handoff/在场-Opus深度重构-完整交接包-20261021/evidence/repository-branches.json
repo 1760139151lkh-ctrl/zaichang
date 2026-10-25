@@ -1,0 +1,86 @@
+{
+  "research_date": "2026-10-21",
+  "repository": "1760139151lkh-ctrl/zaichang",
+  "ref": "8cdd754f6355de11d9d0d6bb367d6a66cbf7c330",
+  "branches": [
+    {
+      "name": "codex/memory-proactive-harness-20261018",
+      "commit": {
+        "sha": "c7cff22884fe9a3050879067dd49012f685d8cfd",
+        "url": "https://api.github.com/repos/1760139151lkh-ctrl/zaichang/commits/c7cff22884fe9a3050879067dd49012f685d8cfd"
+      },
+      "protected": false
+    },
+    {
+      "name": "codex/personal-memory-continuity-20261018",
+      "commit": {
+        "sha": "8cdd754f6355de11d9d0d6bb367d6a66cbf7c330",
+        "url": "https://api.github.com/repos/1760139151lkh-ctrl/zaichang/commits/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330"
+      },
+      "protected": false
+    },
+    {
+      "name": "design/image-first-checkpoint-20261018",
+      "commit": {
+        "sha": "e9f3860f27293ebc656240463a6a7d427a20d064",
+        "url": "https://api.github.com/repos/1760139151lkh-ctrl/zaichang/commits/e9f3860f27293ebc656240463a6a7d427a20d064"
+      },
+      "protected": false
+    },
+    {
+      "name": "design/windowlight-continuation-20261018",
+      "commit": {
+        "sha": "319a0231d28c1ad0c8d5914319e4d2baac878d91",
+        "url": "https://api.github.com/repos/1760139151lkh-ctrl/zaichang/commits/319a0231d28c1ad0c8d5914319e4d2baac878d91"
+      },
+      "protected": false
+    },
+    {
+      "name": "main",
+      "commit": {
+        "sha": "8cdd754f6355de11d9d0d6bb367d6a66cbf7c330",
+        "url": "https://api.github.com/repos/1760139151lkh-ctrl/zaichang/commits/8cdd754f6355de11d9d0d6bb367d6a66cbf7c330"
+      },
+      "protected": false
+    }
+  ],
+  "comparisons": [
+    {
+      "name": "codex/memory-proactive-harness-20261018",
+      "sha": "c7cff22884fe9a3050879067dd49012f685d8cfd",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 6,
+      "merge_base": "c7cff22884fe9a3050879067dd49012f685d8cfd",
+      "files": []
+    },
+    {
+      "name": "codex/personal-memory-continuity-20261018",
+      "sha": "8cdd754f6355de11d9d0d6bb367d6a66cbf7c330",
+      "status": "identical",
+      "ahead_by": 0,
+      "behind_by": 0,
+      "merge_base": "8cdd754f6355de11d9d0d6bb367d6a66cbf7c330",
+      "files": []
+    },
+    {
+      "name": "design/image-first-checkpoint-20261018",
+      "sha": "e9f3860f27293ebc656240463a6a7d427a20d064",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 11,
+      "merge_base": "e9f3860f27293ebc656240463a6a7d427a20d064",
+      "files": []
+    },
+    {
+      "name": "design/windowlight-continuation-20261018",
+      "sha": "319a0231d28c1ad0c8d5914319e4d2baac878d91",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 10,
+      "merge_base": "319a0231d28c1ad0c8d5914319e4d2baac878d91",
+      "files": []
+    }
+  ],
+  "scope": "只反映本轮 GitHub 可见远端；不代表本地未提交/未推送的 Gemini 修改。"
+}

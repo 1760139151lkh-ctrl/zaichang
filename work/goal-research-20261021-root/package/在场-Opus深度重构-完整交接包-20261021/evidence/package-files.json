@@ -1,0 +1,491 @@
+{
+  "schema_version": 1,
+  "files": [
+    {
+      "path": "00-从这里开始.txt",
+      "bytes": 4877,
+      "sha256": "5b12480cc6b7897426b4c36abf7674a1efc15a8691f3806e619a8b1f462849bf"
+    },
+    {
+      "path": "01-给Opus的完整委托.txt",
+      "bytes": 23402,
+      "sha256": "047d47438c7cf6011d14443b5dba18d44f78daff7df4905fb5ff2223d6fd4b16"
+    },
+    {
+      "path": "02-当前仓库与实际断点.txt",
+      "bytes": 15021,
+      "sha256": "54e3c2765dce9b138155e911b362f0c46d383eca21ac6064a2760c3866b8672c"
+    },
+    {
+      "path": "03-人格与全过程交流.txt",
+      "bytes": 12181,
+      "sha256": "35d3600920b39645961dc51034926546c25d6b9b33f7867fe5f944145e1b7121"
+    },
+    {
+      "path": "04-记忆与协作连续性.txt",
+      "bytes": 13090,
+      "sha256": "23687f229202407858f232606bc51eaab9a2c53ed8939b515608867bcd2e4623"
+    },
+    {
+      "path": "05-主动陪伴与真实行动.txt",
+      "bytes": 10768,
+      "sha256": "4f19531bbf2311a00ff1dcc9a739782a17afc62bdb2b60d0f1d9f96e6f53851a"
+    },
+    {
+      "path": "06-OpenUI与对话内动态体验.txt",
+      "bytes": 13475,
+      "sha256": "29fa04b02e4540275aab702b650221f833c4b02a647dd92061b44467559a4f55"
+    },
+    {
+      "path": "07-研究来源与方案比较.txt",
+      "bytes": 12988,
+      "sha256": "f3af7f4f21a6389d218f44c924cbc22304e6182fede1348a4474a0b89a2ca8d4"
+    },
+    {
+      "path": "08-分阶段实施与验证.txt",
+      "bytes": 10958,
+      "sha256": "77b7a6931ec509df24e2f086864288a9359a91d7a0ad6063a7a70798cb310de1"
+    },
+    {
+      "path": "09-需求覆盖与旧指令裁决.txt",
+      "bytes": 14137,
+      "sha256": "a3ab931a028255e325e8e46d72b159e7765f3bcde44797d1ad581b7fd04d1a8b"
+    },
+    {
+      "path": "10-项目文档如何接续.txt",
+      "bytes": 7126,
+      "sha256": "12055a46170904acd0e7d412c4397147c968e05d85ce6a63ef64778d69ca9a4d"
+    },
+    {
+      "path": "11-连续体验故事.txt",
+      "bytes": 14510,
+      "sha256": "05173fbfee04a8b0960ebffb1d839aad7d7ab2259c18260ebfb3bd27da30026e"
+    },
+    {
+      "path": "evidence/archive-members.json",
+      "bytes": 45445,
+      "sha256": "7a0f32047eea63f86312913f29bf63915a9178f2dcf079170c4ba3cf7157feb1"
+    },
+    {
+      "path": "evidence/code-anchors.json",
+      "bytes": 52041,
+      "sha256": "2141b7777a32933b5ec652f9bf3ad08e7c7b76c8c13a6e4c00b53c459e247f65"
+    },
+    {
+      "path": "evidence/image-observations.json",
+      "bytes": 4719,
+      "sha256": "934d7c217dad7cf2a7e712bc59485988f7489cc416f191930bcaeabf2cffe125"
+    },
+    {
+      "path": "evidence/old-scenarios-index.json",
+      "bytes": 59118,
+      "sha256": "52476313bfddfa74a8f026342ab72b47f7aac2e5e3e90b430cbf50cea31fb1de"
+    },
+    {
+      "path": "evidence/package-statistics.json",
+      "bytes": 749,
+      "sha256": "743c4d0fa06071b850b547a150d9d1b8d9383a1680d4cc3ef8b10a06c9b7b934"
+    },
+    {
+      "path": "evidence/package-validation.json",
+      "bytes": 1371,
+      "sha256": "0ca6ea46cb424fea24176b841010de1f0b33edea2a1f1352e2b145bb33d68f9e"
+    },
+    {
+      "path": "evidence/repository-branches.json",
+      "bytes": 2892,
+      "sha256": "e220e0bee406dfc67c3367b18a6ae70047b2763e8ffb0268baee6654f4d61dff"
+    },
+    {
+      "path": "evidence/repository-image-inventory.json",
+      "bytes": 70396,
+      "sha256": "1eb713cac56a2be744904ea38f6d247579870a6df0085138d9fb02da2a553d3b"
+    },
+    {
+      "path": "evidence/repository-read-manifest.json",
+      "bytes": 71352,
+      "sha256": "274c89f9ffe4df163f00aeca125cc3092af25aeb04a86c93d4ade94483e2701a"
+    },
+    {
+      "path": "evidence/repository-tree.json",
+      "bytes": 237996,
+      "sha256": "66d35e944997633ac361914bebe6f6b83d89c512a8b99fb13d375b2209ebf900"
+    },
+    {
+      "path": "evidence/requirements.json",
+      "bytes": 267526,
+      "sha256": "f4482dfa3083615ebd6058f00247b2420ef1f5877c698d56720e1c362deee90d"
+    },
+    {
+      "path": "evidence/source-lines.jsonl",
+      "bytes": 4703440,
+      "sha256": "2d8fd13599f61756c377cfa94341d1d13a9a0c3e785b5e992875e3047060a8c6"
+    },
+    {
+      "path": "evidence/source-manifest.json",
+      "bytes": 33599,
+      "sha256": "1c1045134ae5610b9ed68ddaf69554d349aa471b57b0c8a9e6343d242bc1d14e"
+    },
+    {
+      "path": "evidence/source-paragraphs.jsonl",
+      "bytes": 3174955,
+      "sha256": "751e0c7a6e3c9b0a35aeb1701e83e695730629144fc4c4765bfda918e012b1df"
+    },
+    {
+      "path": "evidence/source-sections.json",
+      "bytes": 1103128,
+      "sha256": "0cd2020cd9b5065a797503f3dae95c9927f319e2cae780c78f7934ddc026437e"
+    },
+    {
+      "path": "evidence/text-ledger-summary.json",
+      "bytes": 11642,
+      "sha256": "d756254ef58e008e0484fd31c5b6449ceac0d70749f86a7a42ba66fe42a96ae5"
+    },
+    {
+      "path": "evidence/原始材料全文串读.txt",
+      "bytes": 2002722,
+      "sha256": "1311d7c82d5e6bcd170d5f3604df9b9e769641c7b58aafff3ade458eba625fbd"
+    },
+    {
+      "path": "evidence/来源导航.txt",
+      "bytes": 170514,
+      "sha256": "bcedbd6cf962dd19efa131a2783fc461e2b83af2a9a23800d94dd884d9045df1"
+    },
+    {
+      "path": "evidence/核验与阅读范围.txt",
+      "bytes": 1848,
+      "sha256": "3cd376aa013c70b1f6e62054a9dee369477bcfc1ec60596e4b1c9fa117586884"
+    },
+    {
+      "path": "sources/original/project_sources/01-txt",
+      "bytes": 152427,
+      "sha256": "09202391ebf828224e2a08d5d8609d12aba96969015fce28f12cfd7969fa935a"
+    },
+    {
+      "path": "sources/original/project_sources/02-zaichang-student-harness.zip",
+      "bytes": 237982,
+      "sha256": "b9ec0e365c6862d761a50eab3c02156e438f1d30e3a4e5f812bfe01f41dd1ea6"
+    },
+    {
+      "path": "sources/original/upload/goal-objective(1).md",
+      "bytes": 16791,
+      "sha256": "f10a7a37d545ab9965cd4f47881e5c5cb5f5a1ba6aa1dc6c9335c49add5d6d1f"
+    },
+    {
+      "path": "sources/original/upload/harness讨论(1).md",
+      "bytes": 54484,
+      "sha256": "49c05c901234b4b3eb9aa04196d9658c5a5c8d147ee2bdbfa67da18f1a678c17"
+    },
+    {
+      "path": "sources/original/upload/image(20261021-060426).png",
+      "bytes": 2463814,
+      "sha256": "5688abdf160ce6aeb55a471216b8f009a0e71731f871400e8d6063e71ce2cd63"
+    },
+    {
+      "path": "sources/original/upload/zaichang-student-harness-prompt-pack-2026-10-18.zip",
+      "bytes": 233749,
+      "sha256": "c43c1c4dd02f2212a5f413ca33abad819902cc6169aea7e9f3c0c232c61a2b05"
+    },
+    {
+      "path": "sources/original/upload/产品深度重审与优化_最终指令.txt",
+      "bytes": 57855,
+      "sha256": "e476e1761d3e1f17ce3cff70487d4ee140000385bc377f48d6678c198cbb1bcf"
+    },
+    {
+      "path": "sources/original/upload/后端进展.txt",
+      "bytes": 8981,
+      "sha256": "1df391e6b8ab7fa84dff816f6f9f0a0c43e33c3cc0558471f6d74c79f935f1cc"
+    },
+    {
+      "path": "sources/original/upload/在场-Gemini人格与主动陪伴-提示词包-20261019.zip",
+      "bytes": 16279762,
+      "sha256": "f5178d797fc94436e79cf49b7574297d569a74c04a5d53a9a8fb04988236f536"
+    },
+    {
+      "path": "sources/original/upload/在场-Harness-完整设计与最终实施提示词.md",
+      "bytes": 135336,
+      "sha256": "4633094a71933785b9def326b383b91261e8a9836368ac8d87c7d561f99e859d"
+    },
+    {
+      "path": "sources/original/upload/在场-Harness-广度研究与分支交接-完整稿.md",
+      "bytes": 95510,
+      "sha256": "aed7cf0fa76cf7d81c61b5ca0dc78e8ab176ac75e50c76b12ba00060e0924ab4"
+    },
+    {
+      "path": "sources/original/upload/在场-Harness-最终语义架构.md",
+      "bytes": 110197,
+      "sha256": "144ee15201b9e4f710f20aa56a7944df88aed3a0f7d8eaf5245cb1aeb0224188"
+    },
+    {
+      "path": "sources/original/upload/在场-Harness-理解与行动-完整设计与提示词.md",
+      "bytes": 108812,
+      "sha256": "9cc8a9b173d5f13e3d80576621a3619d7c50e7cb55f1a5e316778846bd8bac40"
+    },
+    {
+      "path": "sources/original/upload/在场-协作记忆与渐进能力-完整交接-20260921.md",
+      "bytes": 99855,
+      "sha256": "54dbdf027b1a15d1a3143961f96a011bbbb102dfd0d668885f74dc5814960596"
+    },
+    {
+      "path": "sources/original/upload/在场-对话内地图与动态界面-Codex完整提示词-20261018.txt",
+      "bytes": 48506,
+      "sha256": "4f209651467c303473e0c418ead6b2595329bdb5de3283952bd1150fb9f5b5aa"
+    },
+    {
+      "path": "sources/original/upload/在场-生活融合-完整设计与实施交接.md",
+      "bytes": 155531,
+      "sha256": "9ea6817f835fdd0bd93bacf76bfd9038509ce7db0e9d9f89ba61da017a7dd32f"
+    },
+    {
+      "path": "sources/original/upload/在场的记忆讨论.txt",
+      "bytes": 152427,
+      "sha256": "09202391ebf828224e2a08d5d8609d12aba96969015fce28f12cfd7969fa935a"
+    },
+    {
+      "path": "sources/original/upload/地图动效.txt",
+      "bytes": 26249,
+      "sha256": "4331b5ea10a88f3714da7f6275c8ba3716f1fed8d587468833efe9617fec1441"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/00-给Gemini的一封信.txt",
+      "bytes": 15829,
+      "sha256": "a2d604d721690447bb9ae0552ed985572c1eaf135dedbece868e0648408294c8"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/01-这次具体哪里不对.txt",
+      "bytes": 8136,
+      "sha256": "79abd1868c92d0eaa3d93f22aadaf7893a84116a39560d19869b7d4961e78186"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/02-在场现在怎样运转-从哪里改.txt",
+      "bytes": 23991,
+      "sha256": "9002dbb40e2c74f2e010831953642495712a9dc114aeaa129d634c4f4c17dbdf"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/03-角色与主动助手资料入口.txt",
+      "bytes": 10794,
+      "sha256": "ff835af017b0c59657e3b1ce902de659980d7be38bbe9d6aca4670b9245e03e1"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/04-把这些片段聊一遍.txt",
+      "bytes": 16601,
+      "sha256": "759dfb172224f4e568e6dc8bd403dbc94ef0004adc489ca2a0a0c96d0f1bf1b3"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/05-请把这次反馈留在项目里.txt",
+      "bytes": 8274,
+      "sha256": "5e69a2d1ec3c69fd3ee026f294020847dda7181a8ae5de92970f9dd71d82bc6c"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/06-阅读依据与交接说明.txt",
+      "bytes": 6050,
+      "sha256": "ed4aeda9dc88997b7a9c6bb317521436881982fbfaaa10225d18b1db6b4e7b8a"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/参考产品/01-安心舍入口.jpg",
+      "bytes": 125707,
+      "sha256": "86fd3fb5d77ec7ace53ade38b21b75767aa698ca03d209c50a33c039041b4413"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/参考产品/02-小安开场.jpg",
+      "bytes": 160281,
+      "sha256": "82725bf171197c7615bc28afa0079319a25d92e0961a778854f983fe8097527a"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/参考产品/03-小安回应.jpg",
+      "bytes": 322138,
+      "sha256": "e49ffc38bee2c5969c8a209192bc829652396f66f02d493e6a4a3869765e8231"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/参考产品/04-小安接续.jpg",
+      "bytes": 264891,
+      "sha256": "2ee223f51f1886b460b3e0b75c0f4d126d9643d70ed983286478572778118b7e"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/参考产品/05-小安收尾.jpg",
+      "bytes": 266294,
+      "sha256": "60e8292f50fdd71572441af8f906cc92096c58e74356fc0e3949a9bb5f6aa6c5"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/01-笔记展开.png",
+      "bytes": 3747226,
+      "sha256": "c5513c623bd9e08bb107c252031c4fb68614c74720c0020f6e2dcb2033f49d39"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/02-成绩页结尾.png",
+      "bytes": 1811835,
+      "sha256": "e040bf1debb7eb8e7f46a84d8adffc8d305d40535a17a1c1ee8d3ff3d5bde6ea"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/03-地图天气失败.png",
+      "bytes": 2201728,
+      "sha256": "405621ac7fcae1951ff03c145a5da409116bfeb13a4b212a679726faffed8ac6"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/04-时间解释.png",
+      "bytes": 2692323,
+      "sha256": "fb17a7def243c656a5bb1f1bb5f195eb0f4efe63f3d8a090492000d95ec1efa4"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/05-讨论进行中.png",
+      "bytes": 2301468,
+      "sha256": "3e46efb292242b79bd6c2083cab459bba30fec4e40ddc00c833f74c6bccc09e2"
+    },
+    {
+      "path": "sources/unpacked/gemini/在场-Gemini交接包/截图/在场/06-讨论后续.png",
+      "bytes": 2447718,
+      "sha256": "c43dc875d3a68e93e7fe4c154de211c469a57f0aa493119b3025c6b5f7620fa0"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/00-START-HERE.md",
+      "bytes": 6745,
+      "sha256": "b5d55f3ca3e1e25156d749519e89bcd1a52b682137c7f9beb522a97733675318"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/01-CODEX-START-PROMPT.md",
+      "bytes": 10560,
+      "sha256": "90ffa04996911fbdaf938e50d113dbf369e6cb513764c8fe4db6774d8d060210"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/02-REPOSITORY-AUDIT.md",
+      "bytes": 15433,
+      "sha256": "5f4498b584fa5dcbb71be985bc08dc9364aa66bd902f6c6fe8c6108ee2e57e06"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/03-HUMAN-AND-WORLD-MODEL.md",
+      "bytes": 22195,
+      "sha256": "16afd0cbcdfe8080d7d22282cbc18180a8bd499b7b517b131ec1317b516cd9f4"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/04-HARNESS-DESIGN.md",
+      "bytes": 20080,
+      "sha256": "e357e9e5a3e0ccb75cc3b6d15a23309117618f331cca8422a8b0d65a581b3d62"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/05-MEMORY-CONTEXT-PERSONA.md",
+      "bytes": 15468,
+      "sha256": "7863892ff4275fe9176b23b1c2cb33a2fe9cc9c1eeeae0faf90e532e5339d47f"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/06-IMPLEMENTATION-AND-ACCEPTANCE.md",
+      "bytes": 16159,
+      "sha256": "2beef8a5041d531f0bb774694718a5e2a016848babbd2fb19867e48f57df4f9b"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/07-RESEARCH-DECISIONS.md",
+      "bytes": 45261,
+      "sha256": "0890d51bb660e791e219b59d7856b051af7258f2a4284bbc9e405c45c54f770c"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/08-SCENARIOS-128.md",
+      "bytes": 89132,
+      "sha256": "c1e2f39dfe0e3de2c8d980fca9f193a1d322ff1ac530da3e3db59497d252f9de"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/09-REVIEW-AND-LIMITS.md",
+      "bytes": 5895,
+      "sha256": "af1d1b3c561a39c57ee09f2ffb82ba12398eb11ab1b20939dfae48f7380e433b"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/FILE-MANIFEST.json",
+      "bytes": 4639,
+      "sha256": "ec1407ed8308768272fed12fb4b91eba73d795864ebba2b12ead9878f3da61e7"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/contracts/design-types.ts",
+      "bytes": 6907,
+      "sha256": "87755b475be33fbe51efa2fd534fad8f2874c657c7e7f8090c72698d2ff57aed"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/attachment-intent-audit.md",
+      "bytes": 36577,
+      "sha256": "134f5b625411a08bee0c6e12f2bcb80209a8134db1901a3552cf598fa7020235"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/cloud-restriction-probe.md",
+      "bytes": 2526,
+      "sha256": "6613b123a8a8385e99650f78e9ef8ee76ce1b454e4939017f255e78cab9cb6f2"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/current-memory-attention-audit.md",
+      "bytes": 34132,
+      "sha256": "678e8f57701acd539b567044747cc09b38bb4335aef73046c3e864f2232c773f"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/implementation-review.md",
+      "bytes": 8839,
+      "sha256": "3217aeb0be31def401f9c88d9c2001afe45e759ce1eb45c34b8db10c2fe1adb6"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/package-validation.json",
+      "bytes": 1028,
+      "sha256": "d3e0fc31a8cfb86df38e701249d30b03cd53e7f05201e88c56bb0bb0f924e2e6"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/probe-cloud-restriction-results.json",
+      "bytes": 1012,
+      "sha256": "b1fadad802801995cc5990141fab5ae26125cf2f9de3ebd2725b05013abd90bd"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/probe-cloud-restriction.cjs",
+      "bytes": 2393,
+      "sha256": "6ad227573bee4a191f3b9d9db8ed7b58d58f684c1bc18dbf2d4756339098db5b"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/repo-retrieval-manifest.json",
+      "bytes": 46391,
+      "sha256": "6e2c534b2ea786454cc320784763d993889c38c8c066cb36b2a77281b3ccf0c8"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/research-review.md",
+      "bytes": 5065,
+      "sha256": "24a5f4dad1715aebf5bd13e5167f77f73d9a7ad72adb25583d6f4161d9afd02d"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/evidence/validate-package.py",
+      "bytes": 6943,
+      "sha256": "916354c66a63b7a769ecc967f56a9ea293784c30b3090f3a6ead0cd45c3744b9"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/examples/configuration-proposal.json",
+      "bytes": 2379,
+      "sha256": "899cdd055fc38542414e53f2b314efeb640de69f538f9765193e49a92c28331e"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/examples/persona-presets.json",
+      "bytes": 4361,
+      "sha256": "cf627c81f2b10e804b51d2a7277462a7771ccfcec7c1fde5772ae5d2bec624d4"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/scenarios/scenario-schema.json",
+      "bytes": 3144,
+      "sha256": "ea8134e155ec5b41d4b2e1e848f25b3223746ceaeeb26bff93caf3ceb7eecf30"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/scenarios/scenarios.json",
+      "bytes": 124976,
+      "sha256": "d906f0ce80ffb6879eb623eba9dffb00daad09057963a435e8eff82b96d1c8e4"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/scenarios/timelines-guide.md",
+      "bytes": 8846,
+      "sha256": "ac3b25b3b8fc35cf18f80e6e9c9fcea256a9ebedbe6741b5df3373daa3801ed6"
+    },
+    {
+      "path": "sources/unpacked/harness_1018/zaichang-student-harness/scenarios/timelines.json",
+      "bytes": 120906,
+      "sha256": "dd9dc2cbbb658dc78e9d6c7079604805351230f1ef489db1ba56cccb41078dbc"
+    },
+    {
+      "path": "sources/本轮用户原话.txt",
+      "bytes": 10078,
+      "sha256": "d962de6777b2c6ee8fd8f4f2d7aa4f31d94559e691bbd9b87c0e116bf4d144d4"
+    },
+    {
+      "path": "verify_package.py",
+      "bytes": 14399,
+      "sha256": "70341105657626dfd579c5b2eb8682708a348e86b23153f53a4d4d5a48394902"
+    }
+  ],
+  "scope": "包括校验结果和所有交付文件，清单自身不纳入自引用哈希。"
+}

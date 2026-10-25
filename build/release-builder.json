@@ -1,0 +1,56 @@
+{
+  "appId": "studio.zaichang.desktop",
+  "productName": "在场",
+  "directories": {
+    "output": "release"
+  },
+  "files": [
+    "dist/**/*",
+    "dist-electron/**/*",
+    "assets/map-v2/manifest.json",
+    "assets/map-v2/geography.geojson",
+    "assets/map-v2/display-geography.geojson",
+    "assets/map-v2/places.json",
+    "assets/map-v2/network.json",
+    "assets/map-v2/shared-facts.json",
+    "assets/map-v2/venues.json",
+    "assets/map-v2/sports-details.geojson",
+    "assets/map-v2/building-supplement.json",
+    "assets/map-v2/source.osm.json.gz",
+    "assets/brand/icon.png",
+    "licenses/**/*",
+    "package.json",
+    "!dist-electron/material-runtime{,/**/*}",
+    "!node_modules/pdfjs-dist{,/**/*}",
+    "!node_modules/@napi-rs/canvas{,/**/*}",
+    "!node_modules/@napi-rs/canvas-win32-x64-msvc{,/**/*}"
+  ],
+  "asar": true,
+  "win": {
+    "target": "portable",
+    "icon": "assets/brand/icon.ico",
+    "signAndEditExecutable": true
+  },
+  "portable": {
+    "artifactName": "Zaichang-${version}-Windows.exe"
+  },
+  "electronDist": "node_modules/electron/dist",
+  "extraResources": [
+    {
+      "from": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\build\\runtime-staging-1792310217331",
+      "to": "hermes-runtime",
+      "filter": [
+        "**/*",
+        "**/.*",
+        "**/.*/**"
+      ]
+    },
+    {
+      "from": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\build\\material-runtime-staging-1792310242242",
+      "to": "material-runtime",
+      "filter": [
+        "**/*"
+      ]
+    }
+  ]
+}

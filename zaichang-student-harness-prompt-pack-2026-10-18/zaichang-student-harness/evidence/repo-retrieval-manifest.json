@@ -1,0 +1,1000 @@
+{
+  "repository": "1760139151lkh-ctrl/zaichang",
+  "commit": "ba73b049089af718d337076364c6db0f98776d4f",
+  "retrieved_at": "2026-10-18",
+  "tree_total": 261,
+  "tree_truncated": false,
+  "scope": "Purpose-selected source snapshot for read-only design review; not a build checkout.",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "blob_sha": "8532218ef8dd8d5cac0947bab2bd772ce1523e16",
+      "upstream_bytes": 2491,
+      "retrieved_characters": 2491,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/AGENTS.md",
+      "verified_blob_sha": "8532218ef8dd8d5cac0947bab2bd772ce1523e16",
+      "sha_matches": true
+    },
+    {
+      "path": "PROJECT_NAVIGATION.md",
+      "blob_sha": "5d044dfd15858c7f26f1b047066724c651c57843",
+      "upstream_bytes": 12289,
+      "retrieved_characters": 12229,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/PROJECT_NAVIGATION.md",
+      "verified_blob_sha": "5d044dfd15858c7f26f1b047066724c651c57843",
+      "sha_matches": true
+    },
+    {
+      "path": "README.md",
+      "blob_sha": "1ee9af6afb6b122b1b4bcb9d0427dffc3605bacc",
+      "upstream_bytes": 2687,
+      "retrieved_characters": 1611,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/README.md",
+      "verified_blob_sha": "1ee9af6afb6b122b1b4bcb9d0427dffc3605bacc",
+      "sha_matches": true
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "blob_sha": "c4c798eaa9aa4ce6b31079d62a06902e7feb738b",
+      "upstream_bytes": 2594,
+      "retrieved_characters": 2594,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/docs/ARCHITECTURE.md",
+      "verified_blob_sha": "c4c798eaa9aa4ce6b31079d62a06902e7feb738b",
+      "sha_matches": true
+    },
+    {
+      "path": "docs/ASSET_PROVENANCE.md",
+      "blob_sha": "d46438768fac94b3323e330074df14aac631ccef",
+      "upstream_bytes": 5661,
+      "retrieved_characters": 5653,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/docs/ASSET_PROVENANCE.md",
+      "verified_blob_sha": "d46438768fac94b3323e330074df14aac631ccef",
+      "sha_matches": true
+    },
+    {
+      "path": "docs/CLOUD_REVIEW.md",
+      "blob_sha": "377a7c9142df6510ff119ac28788e00ac9150a48",
+      "upstream_bytes": 11466,
+      "retrieved_characters": 11099,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/docs/CLOUD_REVIEW.md",
+      "verified_blob_sha": "377a7c9142df6510ff119ac28788e00ac9150a48",
+      "sha_matches": true
+    },
+    {
+      "path": "docs/CURRENT_STATUS.md",
+      "blob_sha": "48da9954858d23b15f3cf90b29c8984d1c91c11b",
+      "upstream_bytes": 28513,
+      "retrieved_characters": 28347,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/docs/CURRENT_STATUS.md",
+      "verified_blob_sha": "48da9954858d23b15f3cf90b29c8984d1c91c11b",
+      "sha_matches": true
+    },
+    {
+      "path": "docs/DEPLOYMENT.md",
+      "blob_sha": "e6ed0d34ede2ba2577983ed55a437d0aaa6b47cb",
+      "upstream_bytes": 1834,
+      "retrieved_characters": 1834,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/docs/DEPLOYMENT.md",
+      "verified_blob_sha": "e6ed0d34ede2ba2577983ed55a437d0aaa6b47cb",
+      "sha_matches": true
+    },
+    {
+      "path": "docs/PRODUCT_CONTRACT.md",
+      "blob_sha": "a3afd0520570a4c404f1fc7b121ca1a55d816ce1",
+      "upstream_bytes": 954,
+      "retrieved_characters": 334,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/docs/PRODUCT_CONTRACT.md",
+      "verified_blob_sha": "a3afd0520570a4c404f1fc7b121ca1a55d816ce1",
+      "sha_matches": true
+    },
+    {
+      "path": "package.json",
+      "blob_sha": "49416579f57b7e144f0b27e32a606b3fac293267",
+      "upstream_bytes": 3419,
+      "retrieved_characters": 3381,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/package.json",
+      "verified_blob_sha": "49416579f57b7e144f0b27e32a606b3fac293267",
+      "sha_matches": true
+    },
+    {
+      "path": "prompts/campus-tools.md",
+      "blob_sha": "e9b527ab1ee9fb9c6fae82f182aaf5bb725d30a6",
+      "upstream_bytes": 2900,
+      "retrieved_characters": 1110,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/prompts/campus-tools.md",
+      "verified_blob_sha": "e9b527ab1ee9fb9c6fae82f182aaf5bb725d30a6",
+      "sha_matches": true
+    },
+    {
+      "path": "prompts/map-tools.md",
+      "blob_sha": "6e6b5846a6ad096582f5c4f73d3a78a93dd5571c",
+      "upstream_bytes": 10666,
+      "retrieved_characters": 4100,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/prompts/map-tools.md",
+      "verified_blob_sha": "6e6b5846a6ad096582f5c4f73d3a78a93dd5571c",
+      "sha_matches": true
+    },
+    {
+      "path": "prompts/system.md",
+      "blob_sha": "d1def482b068f0dfd1ee085df879bb9593d705e3",
+      "upstream_bytes": 9860,
+      "retrieved_characters": 3326,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/prompts/system.md",
+      "verified_blob_sha": "d1def482b068f0dfd1ee085df879bb9593d705e3",
+      "sha_matches": true
+    },
+    {
+      "path": "runtime/hermes/lock.json",
+      "blob_sha": "9ac2be4ebaf52584d20d019e897aa0a1734bbd3a",
+      "upstream_bytes": 260,
+      "retrieved_characters": 260,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/runtime/hermes/lock.json",
+      "verified_blob_sha": "9ac2be4ebaf52584d20d019e897aa0a1734bbd3a",
+      "sha_matches": true
+    },
+    {
+      "path": "runtime/hermes/sidecar.py",
+      "blob_sha": "6102e60e10271e0c85588194c96390eba03005e7",
+      "upstream_bytes": 19442,
+      "retrieved_characters": 19442,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/runtime/hermes/sidecar.py",
+      "verified_blob_sha": "6102e60e10271e0c85588194c96390eba03005e7",
+      "sha_matches": true
+    },
+    {
+      "path": "scripts/build-electron.mjs",
+      "blob_sha": "428bb5beed4d94895093fd1237fc96ee9b8a97eb",
+      "upstream_bytes": 689,
+      "retrieved_characters": 689,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/scripts/build-electron.mjs",
+      "verified_blob_sha": "428bb5beed4d94895093fd1237fc96ee9b8a97eb",
+      "sha_matches": true
+    },
+    {
+      "path": "scripts/setup-hermes.mjs",
+      "blob_sha": "50af4a9d50d5e7b4642977acd18cc20cf9596ca4",
+      "upstream_bytes": 5097,
+      "retrieved_characters": 5097,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/scripts/setup-hermes.mjs",
+      "verified_blob_sha": "50af4a9d50d5e7b4642977acd18cc20cf9596ca4",
+      "sha_matches": true
+    },
+    {
+      "path": "scripts/smoke.mjs",
+      "blob_sha": "bfd280b7c0d3d96f23e373ec5f7d2e92aada939e",
+      "upstream_bytes": 1147,
+      "retrieved_characters": 1147,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/scripts/smoke.mjs",
+      "verified_blob_sha": "bfd280b7c0d3d96f23e373ec5f7d2e92aada939e",
+      "sha_matches": true
+    },
+    {
+      "path": "scripts/stage-hermes-runtime.mjs",
+      "blob_sha": "f1dc453644850cf990adce49b91455e094d080d0",
+      "upstream_bytes": 6330,
+      "retrieved_characters": 6330,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/scripts/stage-hermes-runtime.mjs",
+      "verified_blob_sha": "f1dc453644850cf990adce49b91455e094d080d0",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/actions/availability.ts",
+      "blob_sha": "cadfb48f357eee947cb7b3a3c6e17022231103e4",
+      "upstream_bytes": 2497,
+      "retrieved_characters": 2341,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/actions/availability.ts",
+      "verified_blob_sha": "cadfb48f357eee947cb7b3a3c6e17022231103e4",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/actions/calendar.ts",
+      "blob_sha": "8f756671ea1f801bf683927c5cec78592e9ba35a",
+      "upstream_bytes": 9117,
+      "retrieved_characters": 8769,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/actions/calendar.ts",
+      "verified_blob_sha": "8f756671ea1f801bf683927c5cec78592e9ba35a",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/actions/local-calendar.ts",
+      "blob_sha": "d92c321c0c64ad01e1130ebbf4143cfdbb4000d1",
+      "upstream_bytes": 5199,
+      "retrieved_characters": 4957,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/actions/local-calendar.ts",
+      "verified_blob_sha": "d92c321c0c64ad01e1130ebbf4143cfdbb4000d1",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/actions/reminders.ts",
+      "blob_sha": "596f762756526939228487a1f916cde1a32f4b6d",
+      "upstream_bytes": 15111,
+      "retrieved_characters": 14979,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/actions/reminders.ts",
+      "verified_blob_sha": "596f762756526939228487a1f916cde1a32f4b6d",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/actions/runtime.ts",
+      "blob_sha": "fe159458107149c71229bdac6bd3831d3f452519",
+      "upstream_bytes": 28220,
+      "retrieved_characters": 27356,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/actions/runtime.ts",
+      "verified_blob_sha": "fe159458107149c71229bdac6bd3831d3f452519",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/capabilities/broker.ts",
+      "blob_sha": "111b82ac432465660e548b8e4649a6fb884b0162",
+      "upstream_bytes": 24502,
+      "retrieved_characters": 23714,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/capabilities/broker.ts",
+      "verified_blob_sha": "111b82ac432465660e548b8e4649a6fb884b0162",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/capabilities/builtin.ts",
+      "blob_sha": "77dc365b5e3612905cb575d69e99da731ab12348",
+      "upstream_bytes": 28031,
+      "retrieved_characters": 26813,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/capabilities/builtin.ts",
+      "verified_blob_sha": "77dc365b5e3612905cb575d69e99da731ab12348",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/capabilities/campus-query.ts",
+      "blob_sha": "403a22452c8323eac6ef6e0c1592dafc9f092ff8",
+      "upstream_bytes": 11325,
+      "retrieved_characters": 10463,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/capabilities/campus-query.ts",
+      "verified_blob_sha": "403a22452c8323eac6ef6e0c1592dafc9f092ff8",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/capabilities/campus-reference.ts",
+      "blob_sha": "ad4c7e641daf93824c46d161918178455223692c",
+      "upstream_bytes": 3389,
+      "retrieved_characters": 3285,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/capabilities/campus-reference.ts",
+      "verified_blob_sha": "ad4c7e641daf93824c46d161918178455223692c",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/capabilities/ports.ts",
+      "blob_sha": "6e3d24cff925a8fe31d54fa9f5f23b470c4734b5",
+      "upstream_bytes": 26855,
+      "retrieved_characters": 25817,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/capabilities/ports.ts",
+      "verified_blob_sha": "6e3d24cff925a8fe31d54fa9f5f23b470c4734b5",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/capabilities/public-network.ts",
+      "blob_sha": "777a7318b6022660791cff14ca66b67ca22b9169",
+      "upstream_bytes": 14124,
+      "retrieved_characters": 13482,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/capabilities/public-network.ts",
+      "verified_blob_sha": "777a7318b6022660791cff14ca66b67ca22b9169",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/capabilities/research.ts",
+      "blob_sha": "6c70d4d8c3551e06a1eceab11fc3edd68dcba135",
+      "upstream_bytes": 10021,
+      "retrieved_characters": 9289,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/capabilities/research.ts",
+      "verified_blob_sha": "6c70d4d8c3551e06a1eceab11fc3edd68dcba135",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/capabilities/spatial.ts",
+      "blob_sha": "4baf4dae4154fb2e28c97a269915f60f63af3ae8",
+      "upstream_bytes": 3161,
+      "retrieved_characters": 2625,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/capabilities/spatial.ts",
+      "verified_blob_sha": "4baf4dae4154fb2e28c97a269915f60f63af3ae8",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/demo.ts",
+      "blob_sha": "2efbd3b81e1d954526032d27df1aac37008b68ba",
+      "upstream_bytes": 4985,
+      "retrieved_characters": 3283,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/demo.ts",
+      "verified_blob_sha": "2efbd3b81e1d954526032d27df1aac37008b68ba",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/harness.ts",
+      "blob_sha": "e9bb9206ee4af7086f737c9c0b16ee89ebae5b3b",
+      "upstream_bytes": 95353,
+      "retrieved_characters": 90011,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/harness.ts",
+      "verified_blob_sha": "e9bb9206ee4af7086f737c9c0b16ee89ebae5b3b",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/luna-provider.ts",
+      "blob_sha": "dde81501243db003c57a1fe91da04869c78654f5",
+      "upstream_bytes": 22068,
+      "retrieved_characters": 21542,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/luna-provider.ts",
+      "verified_blob_sha": "dde81501243db003c57a1fe91da04869c78654f5",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/main.ts",
+      "blob_sha": "69bb322b5de95827e539843eb2d34e0838c5d07f",
+      "upstream_bytes": 33631,
+      "retrieved_characters": 32617,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/main.ts",
+      "verified_blob_sha": "69bb322b5de95827e539843eb2d34e0838c5d07f",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/mapBridge.ts",
+      "blob_sha": "96ceb96310f3efedb98f276acbe61a75a18b0cb1",
+      "upstream_bytes": 2703,
+      "retrieved_characters": 2665,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/mapBridge.ts",
+      "verified_blob_sha": "96ceb96310f3efedb98f276acbe61a75a18b0cb1",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/mapLocation.ts",
+      "blob_sha": "b72e64190ce4f8bdec4eba81a82a00d22c960071",
+      "upstream_bytes": 4900,
+      "retrieved_characters": 4428,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/mapLocation.ts",
+      "verified_blob_sha": "b72e64190ce4f8bdec4eba81a82a00d22c960071",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/mapProfile.ts",
+      "blob_sha": "f8c2872f19aeb81de55fa9b1029a2589f4ce8591",
+      "upstream_bytes": 6112,
+      "retrieved_characters": 6074,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/mapProfile.ts",
+      "verified_blob_sha": "f8c2872f19aeb81de55fa9b1029a2589f4ce8591",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/mapService.ts",
+      "blob_sha": "1fda7bace61497cbe650508ded189a921dee92cc",
+      "upstream_bytes": 29316,
+      "retrieved_characters": 27309,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/mapService.ts",
+      "verified_blob_sha": "1fda7bace61497cbe650508ded189a921dee92cc",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/mapStorage.ts",
+      "blob_sha": "fffa100da8d0eaa385647a78021ca80b7dbeaada",
+      "upstream_bytes": 228,
+      "retrieved_characters": 228,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/mapStorage.ts",
+      "verified_blob_sha": "fffa100da8d0eaa385647a78021ca80b7dbeaada",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/materials/pdf.ts",
+      "blob_sha": "9cf5bcefbc98314ae030431f75f638f33142edc7",
+      "upstream_bytes": 11587,
+      "retrieved_characters": 11201,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/materials/pdf.ts",
+      "verified_blob_sha": "9cf5bcefbc98314ae030431f75f638f33142edc7",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/materials/service.ts",
+      "blob_sha": "d64ef67cdb4a4dda6b8269b839092d84c02a7629",
+      "upstream_bytes": 29027,
+      "retrieved_characters": 26997,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/materials/service.ts",
+      "verified_blob_sha": "d64ef67cdb4a4dda6b8269b839092d84c02a7629",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/materials/worker.ts",
+      "blob_sha": "7d5f9f51c284c2cf20936516c19b70726fd34387",
+      "upstream_bytes": 23034,
+      "retrieved_characters": 21892,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/materials/worker.ts",
+      "verified_blob_sha": "7d5f9f51c284c2cf20936516c19b70726fd34387",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/md.d.ts",
+      "blob_sha": "f73d61b396c9c45ae43f02fbd587629524173156",
+      "upstream_bytes": 77,
+      "retrieved_characters": 77,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/md.d.ts",
+      "verified_blob_sha": "f73d61b396c9c45ae43f02fbd587629524173156",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/memory/model.ts",
+      "blob_sha": "90d28eec43ecbfc00ca96c36ad39a4420f91994f",
+      "upstream_bytes": 14853,
+      "retrieved_characters": 10463,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/memory/model.ts",
+      "verified_blob_sha": "90d28eec43ecbfc00ca96c36ad39a4420f91994f",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/memory/service.ts",
+      "blob_sha": "0794c23f53244b25e41e60b10c6996dea664466e",
+      "upstream_bytes": 47875,
+      "retrieved_characters": 46221,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/memory/service.ts",
+      "verified_blob_sha": "0794c23f53244b25e41e60b10c6996dea664466e",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/model-selection.ts",
+      "blob_sha": "4da6b6fa08b78582e3450245d6be6d6450f5d8e9",
+      "upstream_bytes": 594,
+      "retrieved_characters": 594,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/model-selection.ts",
+      "verified_blob_sha": "4da6b6fa08b78582e3450245d6be6d6450f5d8e9",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/preload.ts",
+      "blob_sha": "5355eb7fdb39da9b114c23113562b5083bd8bc29",
+      "upstream_bytes": 4628,
+      "retrieved_characters": 4628,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/preload.ts",
+      "verified_blob_sha": "5355eb7fdb39da9b114c23113562b5083bd8bc29",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/provider.ts",
+      "blob_sha": "c56f4a53d33a2c9085c001b0afa0a5b4366cd389",
+      "upstream_bytes": 20996,
+      "retrieved_characters": 20240,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/provider.ts",
+      "verified_blob_sha": "c56f4a53d33a2c9085c001b0afa0a5b4366cd389",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/action-delegation.ts",
+      "blob_sha": "b144fd755f39fae9ee60a7a78a9431d2c585fd8f",
+      "upstream_bytes": 20275,
+      "retrieved_characters": 14725,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/action-delegation.ts",
+      "verified_blob_sha": "b144fd755f39fae9ee60a7a78a9431d2c585fd8f",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/attention-boundary.ts",
+      "blob_sha": "a32bdb51c24307f99e4ccbe9254a6291c3fca809",
+      "upstream_bytes": 3326,
+      "retrieved_characters": 2430,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/attention-boundary.ts",
+      "verified_blob_sha": "a32bdb51c24307f99e4ccbe9254a6291c3fca809",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/attention.ts",
+      "blob_sha": "f0acef9f9ab563e2982b2714f3dd10b2fa2bf314",
+      "upstream_bytes": 34594,
+      "retrieved_characters": 32594,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/attention.ts",
+      "verified_blob_sha": "f0acef9f9ab563e2982b2714f3dd10b2fa2bf314",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/basis.ts",
+      "blob_sha": "a877decb52ee0a8cc7662fb68425fc424dfe9608",
+      "upstream_bytes": 9267,
+      "retrieved_characters": 8499,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/basis.ts",
+      "verified_blob_sha": "a877decb52ee0a8cc7662fb68425fc424dfe9608",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/collaboration.ts",
+      "blob_sha": "2809410dd7259815dc86bcb2122e9ab857e3aa83",
+      "upstream_bytes": 20776,
+      "retrieved_characters": 19458,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/collaboration.ts",
+      "verified_blob_sha": "2809410dd7259815dc86bcb2122e9ab857e3aa83",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/completion-review.ts",
+      "blob_sha": "2e5c15e5a4f0cc0c3c24a79b2f3d3b2e04109b54",
+      "upstream_bytes": 47910,
+      "retrieved_characters": 29378,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/completion-review.ts",
+      "verified_blob_sha": "2e5c15e5a4f0cc0c3c24a79b2f3d3b2e04109b54",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/context.ts",
+      "blob_sha": "d01b17d191a6d0a5b20229c93541835114ebadbb",
+      "upstream_bytes": 29853,
+      "retrieved_characters": 28253,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/context.ts",
+      "verified_blob_sha": "d01b17d191a6d0a5b20229c93541835114ebadbb",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/controls.ts",
+      "blob_sha": "a24ec51f49a80e567f1c2b85577636b22496ca17",
+      "upstream_bytes": 15865,
+      "retrieved_characters": 15233,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/controls.ts",
+      "verified_blob_sha": "a24ec51f49a80e567f1c2b85577636b22496ca17",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/cooperation.ts",
+      "blob_sha": "10cbbfe824a870f2f19bda9fa4c6910f4e16d34c",
+      "upstream_bytes": 4176,
+      "retrieved_characters": 3998,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/cooperation.ts",
+      "verified_blob_sha": "10cbbfe824a870f2f19bda9fa4c6910f4e16d34c",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/coordinator.ts",
+      "blob_sha": "7887355e5f7804471f556d40e3cdff9ceab8d30c",
+      "upstream_bytes": 151996,
+      "retrieved_characters": 137752,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/coordinator.ts",
+      "verified_blob_sha": "7887355e5f7804471f556d40e3cdff9ceab8d30c",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/discourse.ts",
+      "blob_sha": "2ee2d24f2333ee66f1c0ad389289f9ac09c825f0",
+      "upstream_bytes": 4242,
+      "retrieved_characters": 3908,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/discourse.ts",
+      "verified_blob_sha": "2ee2d24f2333ee66f1c0ad389289f9ac09c825f0",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/hermes.ts",
+      "blob_sha": "b8952c10a0be3313c2ebf9982673d3d709db81ae",
+      "upstream_bytes": 11526,
+      "retrieved_characters": 11186,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/hermes.ts",
+      "verified_blob_sha": "b8952c10a0be3313c2ebf9982673d3d709db81ae",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/model-usage.ts",
+      "blob_sha": "dd01220be7053c2326bd8f7d01f39008c51210f1",
+      "upstream_bytes": 1073,
+      "retrieved_characters": 1073,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/model-usage.ts",
+      "verified_blob_sha": "dd01220be7053c2326bd8f7d01f39008c51210f1",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/observation-review.ts",
+      "blob_sha": "28e7a98f8e5b7d31ae4d48e1071183c9d57928dc",
+      "upstream_bytes": 3877,
+      "retrieved_characters": 3877,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/observation-review.ts",
+      "verified_blob_sha": "28e7a98f8e5b7d31ae4d48e1071183c9d57928dc",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/policy.ts",
+      "blob_sha": "325298497b61e20a4a6ef1b0204715eabf585f94",
+      "upstream_bytes": 22728,
+      "retrieved_characters": 22242,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/policy.ts",
+      "verified_blob_sha": "325298497b61e20a4a6ef1b0204715eabf585f94",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/presentation.ts",
+      "blob_sha": "a3c879b7497b5400aa9cdf41e21243616f434ccb",
+      "upstream_bytes": 10616,
+      "retrieved_characters": 10278,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/presentation.ts",
+      "verified_blob_sha": "a3c879b7497b5400aa9cdf41e21243616f434ccb",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/privacy-control.ts",
+      "blob_sha": "9c4e1df93f4cb20febfcaee6176b6bde077d901e",
+      "upstream_bytes": 2620,
+      "retrieved_characters": 1790,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/privacy-control.ts",
+      "verified_blob_sha": "9c4e1df93f4cb20febfcaee6176b6bde077d901e",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/read-purpose.ts",
+      "blob_sha": "0b7aa256662be9ecb14bd13d5cb39006c0fed297",
+      "upstream_bytes": 7358,
+      "retrieved_characters": 3834,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/read-purpose.ts",
+      "verified_blob_sha": "0b7aa256662be9ecb14bd13d5cb39006c0fed297",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/redaction.ts",
+      "blob_sha": "0c534d4c9fcc6b4924d3aa9a7968c4f8ef273662",
+      "upstream_bytes": 1167,
+      "retrieved_characters": 1149,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/redaction.ts",
+      "verified_blob_sha": "0c534d4c9fcc6b4924d3aa9a7968c4f8ef273662",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/release-composer.ts",
+      "blob_sha": "6dbf6fe10a3be8b9a26004e6dba0a4ac699676d4",
+      "upstream_bytes": 6805,
+      "retrieved_characters": 5695,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/release-composer.ts",
+      "verified_blob_sha": "6dbf6fe10a3be8b9a26004e6dba0a4ac699676d4",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/release-projection.ts",
+      "blob_sha": "f2f8001e2de2dfc2bbf8edf5933b8a207b5dab08",
+      "upstream_bytes": 3897,
+      "retrieved_characters": 2699,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/release-projection.ts",
+      "verified_blob_sha": "f2f8001e2de2dfc2bbf8edf5933b8a207b5dab08",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/release-store.ts",
+      "blob_sha": "3dfad470c2eb3f5083fabe5b2466aaf10883c86a",
+      "upstream_bytes": 4487,
+      "retrieved_characters": 4487,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/release-store.ts",
+      "verified_blob_sha": "3dfad470c2eb3f5083fabe5b2466aaf10883c86a",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/semantics.ts",
+      "blob_sha": "a282a381935e36640bfb62d0e82af74c9ba24708",
+      "upstream_bytes": 5121,
+      "retrieved_characters": 5047,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/semantics.ts",
+      "verified_blob_sha": "a282a381935e36640bfb62d0e82af74c9ba24708",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/spatial.ts",
+      "blob_sha": "e5714de1294d48d0575908011d4b5ad9fa764d29",
+      "upstream_bytes": 12960,
+      "retrieved_characters": 11790,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/spatial.ts",
+      "verified_blob_sha": "e5714de1294d48d0575908011d4b5ad9fa764d29",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/structured-result.ts",
+      "blob_sha": "6f71c441bbb59c71f854f7e08c2f0185287ffc7b",
+      "upstream_bytes": 2194,
+      "retrieved_characters": 1932,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/structured-result.ts",
+      "verified_blob_sha": "6f71c441bbb59c71f854f7e08c2f0185287ffc7b",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/turn-controls.ts",
+      "blob_sha": "ad1802f2d672388c114d9f6fc1aaef1495a3e3b4",
+      "upstream_bytes": 19967,
+      "retrieved_characters": 14365,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/turn-controls.ts",
+      "verified_blob_sha": "ad1802f2d672388c114d9f6fc1aaef1495a3e3b4",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/runtime/work.ts",
+      "blob_sha": "c47d108070129f331459f8a26d9ab053fc34f926",
+      "upstream_bytes": 33884,
+      "retrieved_characters": 33188,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/runtime/work.ts",
+      "verified_blob_sha": "c47d108070129f331459f8a26d9ab053fc34f926",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/storage/domains.ts",
+      "blob_sha": "3091ae10df09f5652ced8377d0217fb05a80c05b",
+      "upstream_bytes": 19382,
+      "retrieved_characters": 19092,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/storage/domains.ts",
+      "verified_blob_sha": "3091ae10df09f5652ced8377d0217fb05a80c05b",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/storage/drafts.ts",
+      "blob_sha": "9dee1f9c8ee45497782f80d5df34f6ad03e4b174",
+      "upstream_bytes": 4280,
+      "retrieved_characters": 4172,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/storage/drafts.ts",
+      "verified_blob_sha": "9dee1f9c8ee45497782f80d5df34f6ad03e4b174",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/storage/repository.ts",
+      "blob_sha": "ed7d65aca2f573ba301d2bb49ec03cea536220e7",
+      "upstream_bytes": 92385,
+      "retrieved_characters": 91297,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/storage/repository.ts",
+      "verified_blob_sha": "ed7d65aca2f573ba301d2bb49ec03cea536220e7",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/store.ts",
+      "blob_sha": "72c285101bb71750245484a6c056632d1f829233",
+      "upstream_bytes": 17455,
+      "retrieved_characters": 17397,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/store.ts",
+      "verified_blob_sha": "72c285101bb71750245484a6c056632d1f829233",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/testBoundary.ts",
+      "blob_sha": "f20c0250345be7601cdc63c355519207fe5776ea",
+      "upstream_bytes": 1268,
+      "retrieved_characters": 1268,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/testBoundary.ts",
+      "verified_blob_sha": "f20c0250345be7601cdc63c355519207fe5776ea",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/tools.ts",
+      "blob_sha": "0c7b1869d27c428c74ca799ba7d98cd468e7a6bf",
+      "upstream_bytes": 7197,
+      "retrieved_characters": 6723,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/tools.ts",
+      "verified_blob_sha": "0c7b1869d27c428c74ca799ba7d98cd468e7a6bf",
+      "sha_matches": true
+    },
+    {
+      "path": "src/main/zjuAdapter.ts",
+      "blob_sha": "8707628156e1947fcb80831b4a83f2fe55ac1988",
+      "upstream_bytes": 50786,
+      "retrieved_characters": 48556,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/main/zjuAdapter.ts",
+      "verified_blob_sha": "8707628156e1947fcb80831b4a83f2fe55ac1988",
+      "sha_matches": true
+    },
+    {
+      "path": "src/renderer/App.tsx",
+      "blob_sha": "c282ab5c474c286404951d19b4bfe183d825e334",
+      "upstream_bytes": 77446,
+      "retrieved_characters": 74732,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/renderer/App.tsx",
+      "verified_blob_sha": "c282ab5c474c286404951d19b4bfe183d825e334",
+      "sha_matches": true
+    },
+    {
+      "path": "src/renderer/HarnessViews.tsx",
+      "blob_sha": "6650f62a0f222846a34e1629326c969e2761a867",
+      "upstream_bytes": 73306,
+      "retrieved_characters": 67401,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/renderer/HarnessViews.tsx",
+      "verified_blob_sha": "6650f62a0f222846a34e1629326c969e2761a867",
+      "sha_matches": true
+    },
+    {
+      "path": "src/renderer/LifePanels.tsx",
+      "blob_sha": "b9e4a4b1f083c216f0141690908334d8ecb77965",
+      "upstream_bytes": 17925,
+      "retrieved_characters": 16951,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/renderer/LifePanels.tsx",
+      "verified_blob_sha": "b9e4a4b1f083c216f0141690908334d8ecb77965",
+      "sha_matches": true
+    },
+    {
+      "path": "src/renderer/Navigation.tsx",
+      "blob_sha": "a7f3c6f0d1680e219f65ed338fe5521c629ea5e7",
+      "upstream_bytes": 5109,
+      "retrieved_characters": 4993,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/renderer/Navigation.tsx",
+      "verified_blob_sha": "a7f3c6f0d1680e219f65ed338fe5521c629ea5e7",
+      "sha_matches": true
+    },
+    {
+      "path": "src/renderer/SettingsPanel.tsx",
+      "blob_sha": "279dc3fad4af3e8d9aa47971a909cb93fe2ecdf0",
+      "upstream_bytes": 34996,
+      "retrieved_characters": 32688,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/renderer/SettingsPanel.tsx",
+      "verified_blob_sha": "279dc3fad4af3e8d9aa47971a909cb93fe2ecdf0",
+      "sha_matches": true
+    },
+    {
+      "path": "src/renderer/Workspace.tsx",
+      "blob_sha": "9ef93ff1fb49a362718ba209f8d710e7ed544794",
+      "upstream_bytes": 7532,
+      "retrieved_characters": 7109,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/renderer/Workspace.tsx",
+      "verified_blob_sha": "9ef93ff1fb49a362718ba209f8d710e7ed544794",
+      "sha_matches": true
+    },
+    {
+      "path": "src/shared/calendar.ts",
+      "blob_sha": "1328e75c4f7f9efb897fd8a04fdb37f9d7121898",
+      "upstream_bytes": 3109,
+      "retrieved_characters": 2943,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/shared/calendar.ts",
+      "verified_blob_sha": "1328e75c4f7f9efb897fd8a04fdb37f9d7121898",
+      "sha_matches": true
+    },
+    {
+      "path": "src/shared/harness.ts",
+      "blob_sha": "7022428bb732a8cfb976989b1ad78d9cd59fe16d",
+      "upstream_bytes": 24269,
+      "retrieved_characters": 24259,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/shared/harness.ts",
+      "verified_blob_sha": "7022428bb732a8cfb976989b1ad78d9cd59fe16d",
+      "sha_matches": true
+    },
+    {
+      "path": "src/shared/interaction.ts",
+      "blob_sha": "acad2caf465656e7604e6e108e579359b6a5827e",
+      "upstream_bytes": 1434,
+      "retrieved_characters": 1094,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/shared/interaction.ts",
+      "verified_blob_sha": "acad2caf465656e7604e6e108e579359b6a5827e",
+      "sha_matches": true
+    },
+    {
+      "path": "src/shared/limits.ts",
+      "blob_sha": "562ebf019b3d0557ea14dac5fa1149ab5a9d010e",
+      "upstream_bytes": 223,
+      "retrieved_characters": 223,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/shared/limits.ts",
+      "verified_blob_sha": "562ebf019b3d0557ea14dac5fa1149ab5a9d010e",
+      "sha_matches": true
+    },
+    {
+      "path": "src/shared/map-names.ts",
+      "blob_sha": "e9017f28f310fd99d869cc442c88e0133ca98a75",
+      "upstream_bytes": 4027,
+      "retrieved_characters": 3880,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/shared/map-names.ts",
+      "verified_blob_sha": "e9017f28f310fd99d869cc442c88e0133ca98a75",
+      "sha_matches": true
+    },
+    {
+      "path": "src/shared/map-routing.ts",
+      "blob_sha": "e57d01ac4e6ee15b37ecebf439a8a0daf64ac750",
+      "upstream_bytes": 5213,
+      "retrieved_characters": 5213,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/shared/map-routing.ts",
+      "verified_blob_sha": "e57d01ac4e6ee15b37ecebf439a8a0daf64ac750",
+      "sha_matches": true
+    },
+    {
+      "path": "src/shared/map-v2.ts",
+      "blob_sha": "fdd334fa5e40d1489709062be1a19c68b8513035",
+      "upstream_bytes": 7181,
+      "retrieved_characters": 7154,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/shared/map-v2.ts",
+      "verified_blob_sha": "fdd334fa5e40d1489709062be1a19c68b8513035",
+      "sha_matches": true
+    },
+    {
+      "path": "src/shared/map-v3.ts",
+      "blob_sha": "0a9b2baa683f639c1650f2183fc368e6731383c0",
+      "upstream_bytes": 15141,
+      "retrieved_characters": 14731,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/shared/map-v3.ts",
+      "verified_blob_sha": "0a9b2baa683f639c1650f2183fc368e6731383c0",
+      "sha_matches": true
+    },
+    {
+      "path": "src/shared/materials.ts",
+      "blob_sha": "f231c55b34757ea3e27df1751cba56fcbd2d1e6d",
+      "upstream_bytes": 1090,
+      "retrieved_characters": 1090,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/shared/materials.ts",
+      "verified_blob_sha": "f231c55b34757ea3e27df1751cba56fcbd2d1e6d",
+      "sha_matches": true
+    },
+    {
+      "path": "src/shared/model-contract.json",
+      "blob_sha": "80b20a3444d1132e794eedfcbde63d5f1041f00b",
+      "upstream_bytes": 122,
+      "retrieved_characters": 118,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/shared/model-contract.json",
+      "verified_blob_sha": "80b20a3444d1132e794eedfcbde63d5f1041f00b",
+      "sha_matches": true
+    },
+    {
+      "path": "src/shared/presentation.ts",
+      "blob_sha": "f9db234dcea18344e43259ef29bc968567ef770c",
+      "upstream_bytes": 1157,
+      "retrieved_characters": 1157,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/shared/presentation.ts",
+      "verified_blob_sha": "f9db234dcea18344e43259ef29bc968567ef770c",
+      "sha_matches": true
+    },
+    {
+      "path": "src/shared/schemas.ts",
+      "blob_sha": "e5fd21595a4f40ff9ce2f4b848809f9fe4f3e413",
+      "upstream_bytes": 3008,
+      "retrieved_characters": 2984,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/shared/schemas.ts",
+      "verified_blob_sha": "e5fd21595a4f40ff9ce2f4b848809f9fe4f3e413",
+      "sha_matches": true
+    },
+    {
+      "path": "src/shared/types.ts",
+      "blob_sha": "beb68119dff697d6b42096c5d8091e9dd6c295e3",
+      "upstream_bytes": 12280,
+      "retrieved_characters": 12280,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/src/shared/types.ts",
+      "verified_blob_sha": "beb68119dff697d6b42096c5d8091e9dd6c295e3",
+      "sha_matches": true
+    },
+    {
+      "path": "tests/core.test.ts",
+      "blob_sha": "b62a184dd0e699e7a01fbfdbd0056f032fbe5d3a",
+      "upstream_bytes": 39552,
+      "retrieved_characters": 36280,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/tests/core.test.ts",
+      "verified_blob_sha": "b62a184dd0e699e7a01fbfdbd0056f032fbe5d3a",
+      "sha_matches": true
+    },
+    {
+      "path": "tests/harness/hermes.test.ts",
+      "blob_sha": "552ac32ea12b5370ab3f9010e677a958ffa6ff27",
+      "upstream_bytes": 16746,
+      "retrieved_characters": 16720,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/tests/harness/hermes.test.ts",
+      "verified_blob_sha": "552ac32ea12b5370ab3f9010e677a958ffa6ff27",
+      "sha_matches": true
+    },
+    {
+      "path": "tests/harness/privacy.test.ts",
+      "blob_sha": "0cacd2001b10cdc7b301fcaa76a28645ea999efd",
+      "upstream_bytes": 14237,
+      "retrieved_characters": 13611,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/tests/harness/privacy.test.ts",
+      "verified_blob_sha": "0cacd2001b10cdc7b301fcaa76a28645ea999efd",
+      "sha_matches": true
+    },
+    {
+      "path": "tests/harness/retention-effects.test.ts",
+      "blob_sha": "8257ed17e3ffab0a7722d60e7b289b5940edf435",
+      "upstream_bytes": 14906,
+      "retrieved_characters": 14430,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/tests/harness/retention-effects.test.ts",
+      "verified_blob_sha": "8257ed17e3ffab0a7722d60e7b289b5940edf435",
+      "sha_matches": true
+    },
+    {
+      "path": "tests/harness/state.test.ts",
+      "blob_sha": "f6dfd0c65d0b9fbacfc4d56dc6adb642f92eb282",
+      "upstream_bytes": 12941,
+      "retrieved_characters": 12609,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/tests/harness/state.test.ts",
+      "verified_blob_sha": "f6dfd0c65d0b9fbacfc4d56dc6adb642f92eb282",
+      "sha_matches": true
+    },
+    {
+      "path": "tests/harness/support.ts",
+      "blob_sha": "f06746c0b85367bd201f33276c80c8c646d56f39",
+      "upstream_bytes": 6468,
+      "retrieved_characters": 6468,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/tests/harness/support.ts",
+      "verified_blob_sha": "f06746c0b85367bd201f33276c80c8c646d56f39",
+      "sha_matches": true
+    },
+    {
+      "path": "tests/harness/unit.test.ts",
+      "blob_sha": "27423355b188b63354ab72a503b26bdeda7ff143",
+      "upstream_bytes": 18085,
+      "retrieved_characters": 16693,
+      "url": "https://github.com/1760139151lkh-ctrl/zaichang/blob/ba73b049089af718d337076364c6db0f98776d4f/tests/harness/unit.test.ts",
+      "verified_blob_sha": "27423355b188b63354ab72a503b26bdeda7ff143",
+      "sha_matches": true
+    }
+  ]
+}

@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 1,
+  "base": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/",
+  "entries": [
+    {
+      "activity": "study",
+      "palette": "mist",
+      "light": "morning",
+      "plate": "room-mist-candidate.png",
+      "inputSha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "sourceActivityPrompt": "sakiko-study-apricot-prompt.txt",
+      "stem": "sakiko-study-mist-v1",
+      "promptName": "sakiko-study-mist-v1-actualprompt.txt",
+      "asset": "sakiko-study-mist-mother-candidate-v1.png"
+    },
+    {
+      "activity": "study",
+      "palette": "violet",
+      "light": "dusk",
+      "plate": "room-violet-candidate.png",
+      "inputSha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "sourceActivityPrompt": "sakiko-study-apricot-prompt.txt",
+      "stem": "sakiko-study-violet-v1",
+      "promptName": "sakiko-study-violet-v1-actualprompt.txt",
+      "asset": "sakiko-study-violet-mother-candidate-v1.png"
+    },
+    {
+      "activity": "study",
+      "palette": "rain",
+      "light": "night",
+      "plate": "room-rain-candidate-v2.png",
+      "inputSha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "sourceActivityPrompt": "sakiko-study-apricot-prompt.txt",
+      "stem": "sakiko-study-rain-v1",
+      "promptName": "sakiko-study-rain-v1-actualprompt.txt",
+      "asset": "sakiko-study-rain-mother-candidate-v1.png"
+    },
+    {
+      "activity": "reading",
+      "palette": "mist",
+      "light": "morning",
+      "plate": "room-mist-candidate.png",
+      "inputSha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "sourceActivityPrompt": "sakiko-reading-apricot-v2-prompt.txt",
+      "stem": "sakiko-reading-mist-v1",
+      "promptName": "sakiko-reading-mist-v1-actualprompt.txt",
+      "asset": "sakiko-reading-mist-mother-candidate-v1.png"
+    },
+    {
+      "activity": "reading",
+      "palette": "violet",
+      "light": "dusk",
+      "plate": "room-violet-candidate.png",
+      "inputSha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "sourceActivityPrompt": "sakiko-reading-apricot-v2-prompt.txt",
+      "stem": "sakiko-reading-violet-v1",
+      "promptName": "sakiko-reading-violet-v1-actualprompt.txt",
+      "asset": "sakiko-reading-violet-mother-candidate-v1.png"
+    },
+    {
+      "activity": "reading",
+      "palette": "rain",
+      "light": "night",
+      "plate": "room-rain-candidate-v2.png",
+      "inputSha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "sourceActivityPrompt": "sakiko-reading-apricot-v2-prompt.txt",
+      "stem": "sakiko-reading-rain-v1",
+      "promptName": "sakiko-reading-rain-v1-actualprompt.txt",
+      "asset": "sakiko-reading-rain-mother-candidate-v1.png"
+    },
+    {
+      "activity": "planning",
+      "palette": "mist",
+      "light": "morning",
+      "plate": "room-mist-candidate.png",
+      "inputSha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "sourceActivityPrompt": "sakiko-planning-apricot-prompt.txt",
+      "stem": "sakiko-planning-mist-v1",
+      "promptName": "sakiko-planning-mist-v1-actualprompt.txt",
+      "asset": "sakiko-planning-mist-mother-candidate-v1.png"
+    },
+    {
+      "activity": "planning",
+      "palette": "violet",
+      "light": "dusk",
+      "plate": "room-violet-candidate.png",
+      "inputSha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "sourceActivityPrompt": "sakiko-planning-apricot-prompt.txt",
+      "stem": "sakiko-planning-violet-v1",
+      "promptName": "sakiko-planning-violet-v1-actualprompt.txt",
+      "asset": "sakiko-planning-violet-mother-candidate-v1.png"
+    },
+    {
+      "activity": "planning",
+      "palette": "rain",
+      "light": "night",
+      "plate": "room-rain-candidate-v2.png",
+      "inputSha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "sourceActivityPrompt": "sakiko-planning-apricot-prompt.txt",
+      "stem": "sakiko-planning-rain-v1",
+      "promptName": "sakiko-planning-rain-v1-actualprompt.txt",
+      "asset": "sakiko-planning-rain-mother-candidate-v1.png"
+    },
+    {
+      "activity": "listening",
+      "palette": "mist",
+      "light": "morning",
+      "plate": "room-mist-candidate.png",
+      "inputSha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "sourceActivityPrompt": "sakiko-listening-apricot-prompt.txt",
+      "stem": "sakiko-listening-mist-v1",
+      "promptName": "sakiko-listening-mist-v1-actualprompt.txt",
+      "asset": "sakiko-listening-mist-mother-candidate-v1.png"
+    },
+    {
+      "activity": "listening",
+      "palette": "violet",
+      "light": "dusk",
+      "plate": "room-violet-candidate.png",
+      "inputSha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "sourceActivityPrompt": "sakiko-listening-apricot-prompt.txt",
+      "stem": "sakiko-listening-violet-v1",
+      "promptName": "sakiko-listening-violet-v1-actualprompt.txt",
+      "asset": "sakiko-listening-violet-mother-candidate-v1.png"
+    },
+    {
+      "activity": "listening",
+      "palette": "rain",
+      "light": "night",
+      "plate": "room-rain-candidate-v2.png",
+      "inputSha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "sourceActivityPrompt": "sakiko-listening-apricot-prompt.txt",
+      "stem": "sakiko-listening-rain-v1",
+      "promptName": "sakiko-listening-rain-v1-actualprompt.txt",
+      "asset": "sakiko-listening-rain-mother-candidate-v1.png"
+    },
+    {
+      "activity": "rest",
+      "palette": "mist",
+      "light": "morning",
+      "plate": "room-mist-candidate.png",
+      "inputSha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "sourceActivityPrompt": "sakiko-rest-apricot-prompt.txt",
+      "stem": "sakiko-rest-mist-v1",
+      "promptName": "sakiko-rest-mist-v1-actualprompt.txt",
+      "asset": "sakiko-rest-mist-mother-candidate-v1.png"
+    },
+    {
+      "activity": "rest",
+      "palette": "violet",
+      "light": "dusk",
+      "plate": "room-violet-candidate.png",
+      "inputSha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "sourceActivityPrompt": "sakiko-rest-apricot-prompt.txt",
+      "stem": "sakiko-rest-violet-v1",
+      "promptName": "sakiko-rest-violet-v1-actualprompt.txt",
+      "asset": "sakiko-rest-violet-mother-candidate-v1.png"
+    },
+    {
+      "activity": "rest",
+      "palette": "rain",
+      "light": "night",
+      "plate": "room-rain-candidate-v2.png",
+      "inputSha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "sourceActivityPrompt": "sakiko-rest-apricot-prompt.txt",
+      "stem": "sakiko-rest-rain-v1",
+      "promptName": "sakiko-rest-rain-v1-actualprompt.txt",
+      "asset": "sakiko-rest-rain-mother-candidate-v1.png"
+    },
+    {
+      "activity": "play",
+      "palette": "mist",
+      "light": "morning",
+      "plate": "room-mist-candidate.png",
+      "inputSha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "sourceActivityPrompt": "sakiko-play-apricot-prompt.txt",
+      "stem": "sakiko-play-mist-v1",
+      "promptName": "sakiko-play-mist-v1-actualprompt.txt",
+      "asset": "sakiko-play-mist-mother-candidate-v1.png"
+    },
+    {
+      "activity": "play",
+      "palette": "violet",
+      "light": "dusk",
+      "plate": "room-violet-candidate.png",
+      "inputSha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "sourceActivityPrompt": "sakiko-play-apricot-prompt.txt",
+      "stem": "sakiko-play-violet-v1",
+      "promptName": "sakiko-play-violet-v1-actualprompt.txt",
+      "asset": "sakiko-play-violet-mother-candidate-v1.png"
+    },
+    {
+      "activity": "play",
+      "palette": "rain",
+      "light": "night",
+      "plate": "room-rain-candidate-v2.png",
+      "inputSha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "sourceActivityPrompt": "sakiko-play-apricot-prompt.txt",
+      "stem": "sakiko-play-rain-v1",
+      "promptName": "sakiko-play-rain-v1-actualprompt.txt",
+      "asset": "sakiko-play-rain-mother-candidate-v1.png"
+    },
+    {
+      "activity": "attention",
+      "palette": "mist",
+      "light": "morning",
+      "plate": "room-mist-candidate.png",
+      "inputSha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "sourceActivityPrompt": "sakiko-attention-apricot-prompt.txt",
+      "stem": "sakiko-attention-mist-v1",
+      "promptName": "sakiko-attention-mist-v1-actualprompt.txt",
+      "asset": "sakiko-attention-mist-mother-candidate-v1.png"
+    },
+    {
+      "activity": "attention",
+      "palette": "violet",
+      "light": "dusk",
+      "plate": "room-violet-candidate.png",
+      "inputSha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "sourceActivityPrompt": "sakiko-attention-apricot-prompt.txt",
+      "stem": "sakiko-attention-violet-v1",
+      "promptName": "sakiko-attention-violet-v1-actualprompt.txt",
+      "asset": "sakiko-attention-violet-mother-candidate-v1.png"
+    },
+    {
+      "activity": "attention",
+      "palette": "rain",
+      "light": "night",
+      "plate": "room-rain-candidate-v2.png",
+      "inputSha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "sourceActivityPrompt": "sakiko-attention-apricot-prompt.txt",
+      "stem": "sakiko-attention-rain-v1",
+      "promptName": "sakiko-attention-rain-v1-actualprompt.txt",
+      "asset": "sakiko-attention-rain-mother-candidate-v1.png"
+    }
+  ]
+}

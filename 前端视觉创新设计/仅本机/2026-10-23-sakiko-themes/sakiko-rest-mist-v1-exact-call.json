@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-rest-mist-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "rest",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-rest-mist-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-rest-apricot-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "output": {
+    "file": "sakiko-rest-mist-mother-candidate-v1.png",
+    "sha256": "8d01618d806afa455fb37c7a129a6ed0ec045e718aba070556e3ee75545e4b2c",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-2ab3d9a2-791c-42cc-9f7b-8ded15ad850d.png",
+    "executionId": "2ab3d9a2-791c-42cc-9f7b-8ded15ad850d"
+  },
+  "designerObservation": "Generated full mother; producer inspection follows. No approval inferred.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "arguments": {
+    "prompt": "Use case: illustration-story. Theme/activity matrix mother: Sakiko mist REST, full 1536 x 1024.\nSole input / edit target: room-mist-candidate.png, the primary-reviewed CLEAN EMPTY MIST ROOM. It contains no person. No other image or character pixels are inputs. Draw one whole character anew directly in this unchanged room. Preserve canvas, fixed camera, furniture, complete window and environmental details. This is a complete mother, not a cutout or layout sheet.\nTHEME LIGHTING — this replaces any generic light wording below:\nMIST / MORNING: preserve the approved plate's airy pale blue-grey morning daylight, soft lake mist and naturally warm wood. The face, powder-blue hair and navy cloth receive that same cool diffuse window light with a gentle warm wood bounce. Do not turn it into apricot golden sunshine or a blue tint over unrelated lighting.\nNatural responsive posture and this specific activity's weight/gaze relationship matter more than a rigid upright elegance. Do not make every activity a chat skeleton with a different prop. Keep the complete youthful Sakiko identity and clothing, real support/contact, coherent separate limbs and full in-frame extremities.\n\nUse case: illustration-story. Asset type: complete same-room mother artwork, 1536 x 1024, for 在场 companion REST / quietly looking out of the window.\nINPUT: the ONLY image input is the approved CLEAN EMPTY ROOM room-mist-candidate.png. There is no character reference image, no previous pose and no faulty mother artwork in the input. Keep the exact complete room, 1536x1024 canvas, fixed level camera, complete rectangular window and outdoor lake view, left rear little desk/shelves/art, right main work desk/chair, bench/cushions/throw, wood floor and the provided mist room light. No crop, zoom, moved furniture, removed chair, redesigned room or added seat. Add ONE character inside it.\n\nCANON IDENTITY AND THE UNCHANGED MATRIX OUTFIT:\nSakiko Togawa / 豊川祥子, BanG Dream! Ave Mujica / It's MyGO!!!!!. Faithful youthful 2D anime identity: long powder-blue hair, soft curled side locks, dark navy ribbons, amber-gold eyes, delicate youthful anime facial proportions and reserved warmth. No mature realistic woman or generic fashion character. The same ordinary fully clothed school outfit: dark navy cardigan over white blouse with its white/light bow, navy-gray plaid knee-length skirt, dark navy knee socks and simple brown loafers. No sensual or glamorous emphasis.\n\nREST MUST REALLY TURN AWAY FROM THE CONVERSATION:\nUse the EXISTING right window-bench. She is seated SIDEWAYS on its right cushion, and her whole pelvis, ribcage, shoulders and head orient diagonally toward the broad WINDOW and lake at upper-left. Her spine is not an upright camera-facing greeting with only a turned face: show a coherent three-quarter SIDE/BACK view of torso, with the back shoulder and flowing blue hair visibly facing the viewer. She quietly looks through the glass at the lake, NOT at the viewer, a book, a phone or an imaginary person. Her chin is lifted just slightly, eyelids relaxed. If an eye is visible in profile, it is amber-gold. The pose is an unhurried moment with no expectation to resume work.\n\nSUPPORTED SKELETON:\nHer pelvis has firm real contact near x=1370,y=590 on the linen seat. Her body rests with a mild natural backward ease against the EXISTING right-end pillow; the torso's relaxed diagonal and turned shoulders are the main action, not a prop substitution.\nHer thighs extend together naturally toward the LEFT/front edge of the seat, knees adjacent but separate near x=1260,y=650. The knees bend and two separate lower legs descend to the wooden FLOOR IN FRONT of the bench. Both complete brown loafers rest on the floor around x=1230..1340,y=835..900 with believable sole contact. This is an ordinary relaxed seated lower body, NOT a crossed-leg or curled-knee listening pose. Maintain clear, modest skirt coverage with ordinary fabric folds.\nBoth hands are visible and idle: the nearer hand rests palm down on the cushion just beside her hip with naturally spread relaxed fingers, and the farther hand lies loosely on her own skirt-covered thigh. No cup, no book, no phone, no pointing gesture, no chin-rest. Hands must have correct finger anatomy, not merge with the skirt or furniture. Each hip-to-thigh-to-knee-to-shin-to-ankle-to-shoe chain is continuous, comparable in length and physically coherent. No rigid twist between waist and pelvis, no limbs through the bench, fused calves, extra legs, missing shoe, floating foot or overlong shin. Use subtle cushion compression at her hips and a small contact shadow.\n\nFULL FRAME, IDENTITY AND INTEGRATION:\nAll hair tips, ribbons, head, shoulders, hands, clothing, knees, ankles and BOTH complete loafers are inside the unchanged frame with clear margin from right and bottom edges. Useful overall figure region x=1130..1490,y=270..950, but anatomy and truthful bench scale take precedence over arbitrary coordinates. Preserve central-left reading space, the main desk/chair and walkable passage; do not hide mistakes with plants, white gradient or giant hair. The room remains a whole coherent space, not a split scene.\nUse fine youthful Japanese anime linework and soft cel shading, with the provided mist room illumination, natural skin and coherent wood/cushion bounce. The blue hair and clothes have correct directional light and soft local shadows, never a floating pasted sticker. No text, formula, UI, watermark, extra person, portrait, standee, duplicate limb or new furniture. A quiet side/back-oriented companion naturally resting toward the real window.\n\nFINAL INVARIANT: room-mist-candidate.png is the only image input. No previous mother/portrait/character reference pixels. Preserve this theme room's whole exposure, camera and geometry; do not turn night into day or apply a flat theme-color skin filter.\n\r\n",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png"
+    ],
+    "transparent_background": false
+  },
+  "originalOutputPath": "C:\\Users\\17601\\.codex\\generated_images\\01a16920-dfda-7da2-af3e-2946cc5b4e68\\exec-2ab3d9a2-791c-42cc-9f7b-8ded15ad850d.png",
+  "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a16920-dfda-7da2-af3e-2946cc5b4e68 as C:\\Users\\17601\\.codex\\generated_images\\01a16920-dfda-7da2-af3e-2946cc5b4e68\\exec-2ab3d9a2-791c-42cc-9f7b-8ded15ad850d.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+}

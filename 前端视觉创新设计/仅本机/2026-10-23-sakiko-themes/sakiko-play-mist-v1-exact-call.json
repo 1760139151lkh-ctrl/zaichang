@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-play-mist-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "play",
+  "palette": "mist",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-play-mist-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-play-apricot-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-mist-candidate.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "output": {
+    "file": "sakiko-play-mist-mother-candidate-v1.png",
+    "sha256": "e9ab0ebe390cd7a13b638f124eb359cdcf30d407b592987ca5600a90d30ca2e6",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-c4ebc9c6-fdd6-4bfc-b341-58f18f102b91.png",
+    "executionId": "c4ebc9c6-fdd6-4bfc-b341-58f18f102b91"
+  },
+  "designerObservation": "Generated full mother; producer inspection follows. No approval inferred.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "arguments": {
+    "prompt": "Use case: illustration-story. Theme/activity matrix mother: Sakiko mist PLAY, full 1536 x 1024.\nSole input / edit target: room-mist-candidate.png, the primary-reviewed CLEAN EMPTY MIST ROOM. It contains no person. No other image or character pixels are inputs. Draw one whole character anew directly in this unchanged room. Preserve canvas, fixed camera, furniture, complete window and environmental details. This is a complete mother, not a cutout or layout sheet.\nTHEME LIGHTING — this replaces any generic light wording below:\nMIST / MORNING: preserve the approved plate's airy pale blue-grey morning daylight, soft lake mist and naturally warm wood. The face, powder-blue hair and navy cloth receive that same cool diffuse window light with a gentle warm wood bounce. Do not turn it into apricot golden sunshine or a blue tint over unrelated lighting.\nNatural responsive posture and this specific activity's weight/gaze relationship matter more than a rigid upright elegance. Do not make every activity a chat skeleton with a different prop. Keep the complete youthful Sakiko identity and clothing, real support/contact, coherent separate limbs and full in-frame extremities.\n\nUse case: illustration-story.\nAsset type: complete same-room mother artwork, 1536 x 1024, for 在场 companion PLAY / small discovery.\nInput image: the only reference is the primary-reviewed CLEAN EMPTY ROOM. It contains no person. Keep its entire room, relatively distant camera, complete rectangular window, left rear table and shelves/art, right work desk and chair, linen window-bench, rug and the provided mist room illumination in exactly their existing positions and scale. Do not zoom, crop, replace the furniture, or invent a second room.\n\nSubject: Sakiko Togawa / 豊川祥子, BanG Dream! Ave Mujica / It's MyGO!!!!!. Faithful youthful 2D anime identity: long powder-blue hair with soft curled side locks and dark navy ribbons, amber-gold eyes, fine delicate youthful anime face. Composed and perceptive, with a little pride and the surprise of a successful tiny creation; no mature fashion-model proportions or makeup. Fully clothed school styling: dark navy cardigan over a white blouse with its white/light bow, navy-gray plaid knee-length skirt, dark navy knee socks and simple brown loafers. Keep the youthful identity, consistent clothing and fine anime linework under the same natural room light.\n\nAction category PLAY / SMALL DISCOVERY: Sakiko has just folded one small ivory paper bird, a private little experiment with rhythm and shape. Seat her on the right window-bench near its left usable cushion, pelvis around x=1265,y=610. Her weight clearly rests on the cushion, which compresses subtly. Unlike an upright chat portrait, she leans her upper torso forward and a little toward her own right, offering the little paper bird toward the viewer with her right hand around x=1110,y=470. The bird is small and clearly paper, resting across relaxed fingertips; five coherent fingers and a believable wrist. Her left hand presses gently into the cushion beside her hip to support the forward shift. Her head follows the offered object, amber eyes lifted toward the person receiving it, mouth with a restrained pleased almost-smile. Do not use a hand propping her chin, a generic tea pose, waving, or another closed book on the lap.\n\nSupport and anatomy: the pelvis remains seated even while the torso leans. Trace two independent continuous limbs from hips to knees to ankles to complete shoes. Knees are naturally staggered, not crossed: one foot is planted slightly ahead on the floor to balance her forward lean, the other planted nearer beneath the knee. Comparable real thigh/shin lengths, neither doubled nor stretched. Both loafers fully visible with soft floor-contact shadows, no floating heel, missing foot or fused socks. Her own thighs and knees remain distinct and appropriately covered by the uniform skirt. The bench front is visibly behind her lower legs, with no limb through furniture. The supporting left palm actually meets the linen cushion; the offering right elbow/forearm is anatomically connected and stays outside the central-left content area.\n\nComposition and invariants: all hair tips, ribbons, hands, paper bird, knees, ankles and both shoes fit inside the same canvas with breathing room. Approximate character bounds x=1060..1470,y=235..950, at least 35px air from the right and bottom edges. The figure/object must not reach left of x=1010; central-left remains available for actual reading UI. Preserve the desk/chair and full rectangular window, including its four connected sides and all corners. No foreground plant or curtain in front of her legs. Match local cushion and floor shadows and the the provided mist room light; she is naturally in the room, never a pasted sticker. No readable words, music notation, UI, logo, watermark, arrows, collage, extra person, duplicate limb or tight crop. The physical paper bird is fiction, not a claimed saved work or completed tool action.\n\nFINAL INVARIANT: room-mist-candidate.png is the only image input. No previous mother/portrait/character reference pixels. Preserve this theme room's whole exposure, camera and geometry; do not turn night into day or apply a flat theme-color skin filter.\n\r\n",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png"
+    ],
+    "transparent_background": false
+  },
+  "originalOutputPath": "C:\\Users\\17601\\.codex\\generated_images\\01a16920-dfda-7da2-af3e-2946cc5b4e68\\exec-c4ebc9c6-fdd6-4bfc-b341-58f18f102b91.png",
+  "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a16920-dfda-7da2-af3e-2946cc5b4e68 as C:\\Users\\17601\\.codex\\generated_images\\01a16920-dfda-7da2-af3e-2946cc5b4e68\\exec-c4ebc9c6-fdd6-4bfc-b341-58f18f102b91.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+}

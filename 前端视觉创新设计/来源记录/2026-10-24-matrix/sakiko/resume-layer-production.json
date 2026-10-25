@@ -1,0 +1,268 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-10-25T01:15:12.293297+00:00",
+  "scope": "ImageGen outputs and actual observations; no image pixels edited by this script",
+  "sourceMother": "sakiko-resume-apricot-mother-v1.png",
+  "artifacts": [
+    {
+      "kind": "background-v1",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "executionId": "33070c99-0e1c-4c64-85dd-92cd49abaa74",
+      "sourceOutput": "generated_images/01a16fb4-beb3-75e2-8677-73edb8072aa0/exec-33070c99-0e1c-4c64-85dd-92cd49abaa74.png",
+      "projectFile": "sakiko-resume-apricot-background-v1.png",
+      "bytes": {
+        "sha256": "65df96a36b403aa9bdadb6851ca4cf1cda5967739112eb30fba985eb9e4fcf88",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "prompt": {
+        "file": "sakiko-resume-apricot-background-v1-prompt.txt",
+        "sha256": "f1f094437437f95a2490d22e9f20213af129d2a73396d6e18f5818cb328d642f",
+        "submission": "UTF-8 file contents with leading/trailing whitespace trimmed"
+      },
+      "inputs": [
+        {
+          "file": "sakiko-resume-apricot-mother-v1.png",
+          "role": "sole approved full-scene edit target"
+        }
+      ],
+      "transparentBackground": false,
+      "status": "candidate",
+      "producerPersonallyViewed": true,
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "observation": "Root viewed background structure as a usable candidate; layers remain unaccepted."
+    },
+    {
+      "kind": "figure-v1",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "executionId": "a189a55e-d686-4297-8aae-e742f2a109f1",
+      "sourceOutput": "generated_images/01a16fb4-beb3-75e2-8677-73edb8072aa0/exec-a189a55e-d686-4297-8aae-e742f2a109f1.png",
+      "projectFile": "sakiko-resume-apricot-figure-v1-rejected.png",
+      "bytes": {
+        "sha256": "a7cad08e08a24dfc36d5cbaff74f934d0c263b96ae3d4053cdfe12ae743ab6ff",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGBA"
+      },
+      "prompt": {
+        "file": "sakiko-resume-apricot-figure-v1-prompt.txt",
+        "sha256": "4143e64ac93820335c03eeb2d14ca1a4f6890cdceb63ea1f3c50523bd2a8e753",
+        "submission": "UTF-8 file contents with leading/trailing whitespace trimmed"
+      },
+      "inputs": [
+        {
+          "file": "sakiko-resume-apricot-mother-v1.png",
+          "role": "sole approved full-scene edit target"
+        }
+      ],
+      "transparentBackground": true,
+      "status": "rejected",
+      "producerPersonallyViewed": true,
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "observation": "Figure enlarged and moved upward; broad luminous alpha halo."
+    },
+    {
+      "kind": "figure-v2",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "executionId": "fed342d8-e73d-4164-b09e-ec5b8f787a36",
+      "sourceOutput": "generated_images/01a16fb4-beb3-75e2-8677-73edb8072aa0/exec-fed342d8-e73d-4164-b09e-ec5b8f787a36.png",
+      "projectFile": null,
+      "bytes": {
+        "sha256": "dbaad00e8ca6448bd27c69f2cec210fb72b6c2202adb99ec5b017789c4972819",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGBA"
+      },
+      "prompt": {
+        "file": "sakiko-resume-apricot-figure-v2-prompt.txt",
+        "sha256": "9f3dd3646d627a5982b9b0e53bae833a4fb0b7452184259db0038ce318cd647c",
+        "submission": "UTF-8 file contents with leading/trailing whitespace trimmed"
+      },
+      "inputs": [
+        {
+          "file": "sakiko-resume-apricot-mother-v1.png",
+          "role": "sole approved full-scene edit target"
+        }
+      ],
+      "transparentBackground": true,
+      "status": "rejected",
+      "producerPersonallyViewed": true,
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "observation": "Explicit landmarks still yielded enlarged figure and broad luminous alpha halo."
+    },
+    {
+      "kind": "mask-v1",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "executionId": "61108110-bfa9-4f32-8282-5f86d0dfab0f",
+      "sourceOutput": "generated_images/01a16fb4-beb3-75e2-8677-73edb8072aa0/exec-61108110-bfa9-4f32-8282-5f86d0dfab0f.png",
+      "projectFile": "sakiko-resume-apricot-mask-v1.png",
+      "bytes": {
+        "sha256": "9988530621a46c99260a015c9b6e0fc322c3de6cc55f1bf8205bc058378e6297",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "prompt": {
+        "file": "sakiko-resume-apricot-mask-v1-prompt.txt",
+        "sha256": "fee36bc72f9d543e065229eac05ff1f26e28382b64ae942c14308c4c88effbf1",
+        "submission": "UTF-8 file contents with leading/trailing whitespace trimmed"
+      },
+      "inputs": [
+        {
+          "file": "sakiko-resume-apricot-mother-v1.png",
+          "role": "sole approved full-scene edit target"
+        }
+      ],
+      "transparentBackground": false,
+      "status": "candidate",
+      "producerPersonallyViewed": true,
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "observation": "Opaque grayscale silhouette retained source coordinates; viewed with original RGB on light/dark/room. No contact-shadow fringe."
+    },
+    {
+      "kind": "mask-v2",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "executionId": "3fe5381e-4044-4025-9b8d-d7e6d32ef529",
+      "sourceOutput": "generated_images/01a16fb4-beb3-75e2-8677-73edb8072aa0/exec-3fe5381e-4044-4025-9b8d-d7e6d32ef529.png",
+      "projectFile": "sakiko-resume-apricot-mask-v2.png",
+      "bytes": {
+        "sha256": "91426ac9da41bb7076161106086cd06b386b6e493623e8206050dfd4a862e537",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "prompt": {
+        "file": "sakiko-resume-apricot-mask-v2-prompt.txt",
+        "sha256": "c1f21865f78f092f503d95ab3e1db4adbcd25b3108f6f672958f8010b975ba02",
+        "submission": "UTF-8 file contents with leading/trailing whitespace trimmed"
+      },
+      "inputs": [
+        {
+          "file": "sakiko-resume-apricot-mask-v1.png",
+          "role": "technical mask edit target"
+        },
+        {
+          "file": "sakiko-resume-apricot-mother-v1.png",
+          "role": "original RGB and registration guide"
+        }
+      ],
+      "transparentBackground": false,
+      "status": "rejected",
+      "producerPersonallyViewed": true,
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "observation": "Primary rejected pale cushion strip beneath skirt/palm and wide grey shoe fringes in actual dark-ground rendering."
+    },
+    {
+      "kind": "figure-v3",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "executionId": "db5df652-30dc-4ed8-8031-80ffea5c1672",
+      "sourceOutput": "generated_images/01a16fb4-beb3-75e2-8677-73edb8072aa0/exec-db5df652-30dc-4ed8-8031-80ffea5c1672.png",
+      "projectFile": null,
+      "bytes": {
+        "sha256": "081298a6b99d4701bcbb053ad96cf911a992391b160508e1dcb4e7789fde3e39",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGBA"
+      },
+      "prompt": {
+        "file": "sakiko-resume-apricot-figure-v3-prompt.txt",
+        "sha256": "7bbe78c551f0aa47a757aee833a937d0c7b4a407f5c64ccab382abae49edc353",
+        "submission": "UTF-8 file contents with leading/trailing whitespace trimmed"
+      },
+      "inputs": [
+        {
+          "file": "sakiko-resume-apricot-mask-v1.png",
+          "role": "technical mask edit target"
+        },
+        {
+          "file": "sakiko-resume-apricot-mother-v1.png",
+          "role": "original RGB and registration guide"
+        }
+      ],
+      "transparentBackground": true,
+      "status": "rejected",
+      "producerPersonallyViewed": true,
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "observation": "Using mask as edit target preserved approximate scale, but broad luminous alpha halo remained; not used."
+    },
+    {
+      "kind": "shadow-v1",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "executionId": "d6088ee3-00b6-4d4f-83fa-78d1deebcf06",
+      "sourceOutput": "generated_images/01a16fb4-beb3-75e2-8677-73edb8072aa0/exec-d6088ee3-00b6-4d4f-83fa-78d1deebcf06.png",
+      "projectFile": "sakiko-resume-apricot-shadow-v1.png",
+      "bytes": {
+        "sha256": "07710cfa2878ba26bc7fb017439cedefe881bc67efaf142fa59868debb2f3e96",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGBA"
+      },
+      "prompt": {
+        "file": "sakiko-resume-apricot-shadow-v1-prompt.txt",
+        "sha256": "0f10e2d4995dc3e065be4111c860eb530dd31abb0242356021209a9a5b6d736f",
+        "submission": "UTF-8 file contents with leading/trailing whitespace trimmed"
+      },
+      "inputs": [
+        {
+          "file": "sakiko-resume-apricot-mother-v1.png",
+          "role": "sole approved full-scene edit target"
+        }
+      ],
+      "transparentBackground": true,
+      "status": "rejected",
+      "producerPersonallyViewed": true,
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "observation": "Actual browser composite showed seat/palm shadows shifted upward and shoe shadows offset; not registered."
+    },
+    {
+      "kind": "shadow-mask-v1",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "executionId": "785da272-03fa-4130-8f1a-d7b4729ea7a9",
+      "sourceOutput": "generated_images/01a16fb4-beb3-75e2-8677-73edb8072aa0/exec-785da272-03fa-4130-8f1a-d7b4729ea7a9.png",
+      "projectFile": "sakiko-resume-apricot-shadow-mask-v1-rejected.png",
+      "bytes": {
+        "sha256": "324a126e9b76836acdc075da4e35cc77394264a7f46aa149277de2026d8803af",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "prompt": {
+        "file": "sakiko-resume-apricot-shadow-mask-v1-prompt.txt",
+        "sha256": "b39c198216a166013b675f574f54e97d738bd254d2065eeab277f0d12aa0116c",
+        "submission": "UTF-8 file contents with leading/trailing whitespace trimmed"
+      },
+      "inputs": [
+        {
+          "file": "sakiko-resume-apricot-mother-v1.png",
+          "role": "source of contact geometry"
+        },
+        {
+          "file": "sakiko-resume-apricot-mask-v1.png",
+          "role": "registered silhouette coordinate guide"
+        }
+      ],
+      "transparentBackground": false,
+      "status": "rejected",
+      "producerPersonallyViewed": true,
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "observation": "Opaque shadow-only map still shifted the upper contact zone; not used. Existing figure mask v2 is being considered only as a dark shadow mask below clean figure mask v1."
+    }
+  ]
+}

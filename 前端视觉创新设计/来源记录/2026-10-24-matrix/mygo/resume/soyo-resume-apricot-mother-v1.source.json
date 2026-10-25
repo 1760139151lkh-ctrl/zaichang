@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "character": "soyo",
+  "sceneCategory": "S9_RESUME",
+  "semanticAction": "welcome-resume",
+  "palette": "apricot",
+  "intendedCanvas": [1536, 1024],
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "executionId": "exec-b1a73300-808b-4f25-b4ae-6f714656e6c5",
+  "observedAtUtc": "2026-10-25T00:31:26Z",
+  "localWorkDate": "2026-10-24",
+  "promptFile": "soyo-resume-apricot-mother-v1.prompt.txt",
+  "promptFileSha256": "3319ebe286e180f066e3b7454413aca9ce96cfbd9c2fbf764f93874dc0754c89",
+  "submittedPrompt": "UTF-8 contents of promptFile with leading/trailing whitespace trimmed, read by Get-Content -Raw",
+  "inputs": [
+    {
+      "role": "sole visual input; clean empty room, spatial and apricot-light reference",
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/resume/soyo-resume-apricot-mother-v1.png",
+    "defaultToolPath": "C:/Users/17601/.codex/generated_images/01a16fb5-6e96-71d2-a0fa-07807b277582/exec-b1a73300-808b-4f25-b4ae-6f714656e6c5.png",
+    "sha256": "4507c3185b2728f196a4d0e3bab947fa14fe6c96cb8451eaec8b0618ef4aaa3e",
+    "bytes": 2169020,
+    "dimensions": [1536, 1024],
+    "copyMethod": "Copy-Item without image processing; default output retained"
+  },
+  "designBasis": {
+    "profile": "src/shared/persona-portrayals.ts#soyo, repository official profile checked 2026-10-24",
+    "officialProfileUrl": "https://anime.bang-dream.com/mygo/character/soyo/",
+    "currentRefetch": "web retrieval returned HTTP 503; no new profile claims inferred",
+    "personallyViewedButNotInputs": [
+      "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-chat-apricot-mother-candidate-v1.png",
+      "前端视觉创新设计/来源记录/2026-10-24-matrix/sakiko/sakiko-resume-apricot-mother-v1.png"
+    ],
+    "originalCompanionSituation": "她先把自己的书页按住，再自然看向归来的人；桌边仍留着位置，不递作业、不催学习。",
+    "peerReviewBeforeGeneration": "recover_visuals suggested fingertips paused at her own page edge, observing the person rather than a mature hostess/service smile; adopted in the exact prompt. cast_mygo was messaged and its healthy in-flight session was retained; its output review is pending."
+  },
+  "status": "candidate-awaiting-primary-review",
+  "review": {
+    "personallyViewedOutput": true,
+    "approvedByPrimary": false,
+    "runtimeAccepted": false,
+    "observations": "Subagent saw a youthful light-brown-haired, blue-eyed Soyo; open book and hands are supported by her lap, seated hips meet the cushion, two complete uncrossed leg/shoe chains reach the floor, room and left content space remain coherent. The generated turn is more front-facing than the proposed shoulder-return. A distinct bookmark is not claimed as verified. This is artwork only, not evidence of restoring a real user stopping point."
+  }
+}

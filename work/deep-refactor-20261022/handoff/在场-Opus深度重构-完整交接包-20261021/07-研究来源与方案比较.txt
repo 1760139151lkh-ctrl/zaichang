@@ -1,0 +1,193 @@
+07 · 研究来源、适用问题与方案比较
+查阅日期：2026-10-21（UTC）。这是问题驱动的资料入口，不是依赖安装清单。
+
+一、怎样使用
+先描述一个在当前产品里观察到的缺口，再找能解释或改善它的一手资料，读到足以影响决定的范围。实现时按项目锁定版本核对 API。公开产品介绍只能支持“官方如此介绍”，不等于我们已试用，也不揭示其未公开内部架构。
+
+本轮对下面各项分别标注读取程度。历史附件里还有更多研究链接，原样保留；未在本轮重新打开的链接不算本轮复核。请不要把链接数量、论文名或竞品能力表当作实现成果。
+
+二、主动助手与持续交流
+
+R01  xAI · Introducing Grok Bot
+https://x.ai/news/introducing-grok-bot
+本轮：打开正文。官网公开介绍跨应用任务、例行工作和持续的主动帮助。
+用途：比较“无新消息也继续工作—交回结果—原对话继续”的完整体验。
+限制：产品方描述；不是本轮实测，不推断其内部调度和记忆实现。
+
+R02  Meta · Introducing Muse, Your Personal AI Agent
+https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/
+本轮：打开并定位正文。介绍持续执行、相关变化和必要时的批准。
+用途：帮助拆清任务、持续运行主体、通知与用户决定之间的关系。
+限制：在场没有因此自动获得云端常驻、账号或移动能力。
+
+R03  Muse · How We Designed Muse
+https://introducing.muse.ai/
+本轮：打开设计正文。内容讨论主对话、多任务与打断、时间/事件触发和个性化表达。
+用途：思考持续关系和工作如何留在同一个入口，而不变成散落的管理页面。
+限制：属于产品设计说明；不复制其全部流程或政策。
+
+三、主循环、上下文与执行
+
+R04  Hermes · Subagent Delegation
+https://hermes-agent.nousresearch.com/docs/user-guide/features/delegation
+本轮：打开正文，读委派、上下文及结果交付部分。当前文档描述独立子上下文和完成投递。
+用途：核对产品子任务的真实独立性、父任务接收与消费、后台交付。
+限制：当前在线文档不同于在场锁定 0.21.2 的契约；文档中的默认工具、并发和网关行为不能直接搬进产品。本轮实施者仍不开子代理。
+
+R05  Hermes · Scheduled Tasks / Cron
+https://hermes-agent.nousresearch.com/docs/user-guide/features/cron/
+本轮：打开正文起始与任务说明。可作为定时运行和交付路径研究入口。
+用途：比较宿主已有 OpportunityScheduler 与框架原生定时职责。
+限制：不能同时放两套调度器各自履约；请查固定版本真实能力，别误开上游独立记忆、终端或会话库。
+
+R06  Anthropic · Effective context engineering for AI agents
+https://www.anthropic.com/research/effective-context-engineering-for-ai-agents
+本轮：打开并读按需上下文、轻量引用、混合策略与长期任务部分。
+用途：支持少量锚点配合自主回读的候选方案；提醒上下文越多不一定越好。
+限制：本文的建议不是在场的既成实现，也不授权用开发子代理。是否减少遗漏、污染与等待，要在本项目验证。
+
+R07  LangGraph · Persistence
+https://docs.langchain.com/oss/python/langgraph/persistence
+本轮：原 durable-execution URL 重定向到此页，已读正文。
+用途：比较线程检查点和跨线程持久状态的职责，检查重启恢复。
+限制：持久化不等于真正后台常驻；这是一份比较材料，不是要求替换 Hermes 或现有 Work / SQLite。
+
+R08  AG-UI · Events
+https://docs.ag-ui.com/concepts/events
+本轮：打开事件分类、运行生命周期、文本/工具/状态分离部分。
+用途：给在场现有事件链一个可比较的参照，重点看消息段、工具阶段、状态增量和取消归属。
+限制：借鉴事件语义即可，不强制迁移协议；事件存在也不代表动作完成或正文可以无条件直出。
+
+四、记忆与检索
+
+R09  Letta · Stateful agents（V1 文档）
+https://docs.letta.com/v1-sdk/concepts/stateful-agents
+本轮：旧 memory URL 重定向到该页，已读核心正文。
+用途：比较可编辑核心块与可回读历史的职责。
+限制：该页明确标为旧 SDK 概念。它的持久化策略不自动满足在场的不保存、删除与范围约定，不能原样移植“全部保存”。
+
+R10  Graphiti 官方仓库
+https://github.com/getzep/graphiti
+本轮：读 README 的时间事实、来源追溯与检索部分。
+用途：参考时效、原始 episode 与派生关系的表达，作为需要图关系时的候选。
+限制：图存储与维护有代价；不因“长期记忆”四个字就迁移全库。默认遥测等部署细节如有采用再按当前源码核对。
+
+R11  LongMemEval 论文
+https://arxiv.org/abs/2410.10813
+作者代码：https://github.com/xiaowu0162/longmemeval
+本轮：读论文摘要与版本信息，未把摘要阅读称为完整复现。
+用途：借信息提取、多会话、时间、更新和无依据时不作答等维度，设计在场的记忆问题。
+限制：它不是人格、真实行动、主动性和 UI 连续性的完整评测。公开成绩不能直接当在场效果。
+
+R12  后续论文线索，待按具体缺口深读
+LongMemEval-V2：https://arxiv.org/abs/2605.12493
+EvalMem：https://arxiv.org/abs/2609.22231
+LeanMem：https://arxiv.org/abs/2608.03463
+本轮：仅取得搜索结果中的论文摘要，没有阅读全文或复现。它们分别提供更长程代理经历、编码/检索/生成分层诊断、按内容性质维护记忆等研究线索。
+用途：当遇到对应问题时再读，不以名称或摘要宣布先进、有效或优于现有实现。特别是失败分层思想可以与现有轨迹核查比较，评分器无需使用论文的多 Agent 形式。
+
+五、OpenUI 与动态内容
+
+R13  OpenUI 官方仓库
+https://github.com/thesysdev/openui
+本轮：打开仓库入口与 README 相关段落；没有审计所有最新源码。
+用途：确认用户指定的是这个开源项目，必要时查安装版本对应实现。
+限制：包版本、语言规范版本和文档发布日期分别看，不能混称最新版已在项目生效。
+
+R14  UI Generation
+https://www.openui.com/docs/build-agents/ui-generation
+本轮：打开正文。官方说明可保留已有 Agent/工具/传输，定义共享组件库并生成说明。
+用途：在原聊天里增强表达，避免重建整套产品。
+限制：页面推荐的服务组合不构成使用某网关或供应商的授权。
+
+R15  Defining Components
+https://www.openui.com/docs/openui-lang/defining-components
+本轮：打开组件定义部分。
+用途：查看名称、说明、schema 与 React 渲染之间的合同。
+限制：类型正确不证明用户看得懂，也不证明数值或引用准确。
+
+R16  Interactivity
+https://www.openui.com/docs/openui-lang/interactivity
+本轮：读 ActionEvent、本地状态、继续交流和持久化部分。
+用途：区分本地立即操作、回到 Agent 的语义选择和真实业务行动；研究恢复。
+限制：组件事件不签发权限，宿主业务入口仍复核。
+
+R17  Incremental Editing
+https://www.openui.com/docs/openui-lang/incremental-editing
+本轮：搜索结果返回完整相关文档段落，读了按 statement 合并、旧状态与流结束再合并的说明。
+用途：减少重生成导致的对象和视图跳变。
+限制：文档示例的合并行为不自动保证当前 React 地图不重挂载；请在真实版本验证。
+
+R18  扩展阅读入口
+System prompts：https://www.openui.com/docs/openui-lang/system-prompts
+Reactive state：https://www.openui.com/docs/openui-lang/reactive-state
+Architecture：https://www.openui.com/docs/openui-lang/architecture
+Tools：https://www.openui.com/docs/build-agents/tools
+本轮：读取搜索结果中的相关文档段落，未完整审计各页。供 Opus 按所选实现继续查。
+用途：模型获知可生成什么、参数如何本地变化、Agent 侧和 UI 侧工具如何分工。
+限制：先核当前依赖，不把所有新特性一次性塞进项目。
+
+六、模型协议
+
+R19  DeepSeek · Thinking Mode
+https://api-docs.deepseek.com/guides/thinking_mode/
+本轮：打开并读参数与工具链说明。当前文档规定携带 tools 的 thinking 请求回传此前 reasoning_content；也说明部分采样参数在 thinking 中的效力限制。
+用途：检查现有 provider 与压缩/续链的协议兼容，避免用调 temperature 解释所有风格问题。
+限制：只维护实际配置对应协议；不因本页自动变更模型或发起 DeepSeek 测试。协议中的推理状态不直接作为用户可见正文或个人记忆。
+
+R20  DeepSeek · Tool Calls / Chat Completions
+https://api-docs.deepseek.com/guides/tool_calls/
+https://api-docs.deepseek.com/api/create-chat-completion/
+本轮：读取搜索结果相关字段和官方链接，未完整逐字段审计。
+用途：实施时复核工具调用 ID、参数增量、返回角色和实际模式。
+限制：OpenAI 兼容形状不等于每个字段、视觉模式或供应商行为完全相同；按当前 endpoint 核查。
+
+七、角色一手来源
+
+R21  官方人物与乐队入口
+https://anime.bang-dream.com/avemujica/character/sakiko/
+https://anime.bang-dream.com/avemujica/character/mutsumi/
+https://anime.bang-dream.com/mygo/character/sakiko/
+https://bang-dream.com/artist/avemujica/
+本轮：搜索索引能返回官方人物资料，部分直接打开返回 404；未声称读到完整可访问人物正文。
+用途：身份、原作阶段和资料导航。请实施者重新寻找可访问官方入口，别把失败链接当成角色研究已结束。
+
+R22  高尾奏音 / 佐佐木李子访谈，Animate Times，2024-04-01
+https://www.animatetimes.com/news/details.php?id=1711341102
+本轮：打开并读关于祥子表现变化与演绎层次的访谈部分。
+用途：人物表达不能只取表面形容词。具体句法和日常演绎仍需更多原作语境。
+限制：演员访谈是理解线索，不能当作用户与角色共同经历。
+
+R23  渡濑结月访谈，Real Sound，2025-01-30
+https://realsound.jp/movie/2025/01/post-1912474.html
+https://realsound.jp/movie/2025/01/post-1912474_2.html
+本轮：读首篇角色演绎部分，并打开第二页。页面标 PR，属于演员一手访谈。
+用途：避免将睦与 Mortis 的差别简单混成统一“安静角色”；按用户选择处理时期与演绎。
+限制：没有在本包长篇转载台词；不以一篇访谈代替完整人物研究。
+
+R24  官方视频和其他角色
+https://www.youtube.com/@bang_dream_official
+本轮：作为原包中保留的官方入口，未观看视频。具体 CM / PV 链接见 Gemini 包 03。
+用途：听节奏、停顿、称呼与情境中的变化。
+限制：请取得实际可读/可看的资料再说看过；其他原创或原作角色也按各自来源研究，不从祥子/睦复制一套模板。
+
+八、比较方案时，请回答实际问题
+角色：保留 Gemini 核心并修提示拼装；重做角色核心；增加末尾改写层。先比较角色一致性、事实变化、额外延迟与维护成本，本包倾向优先修前两者的真实缺口，不预设默认改写层。
+交流：完整工具轮之间发表公共正文；真正增量事件桥；另建假进度或进度模型。前两者可按实际传输组合，后者需要特别证明价值，固定占位不解决陪伴。
+记忆：现有原文/导航加强；本地语义候选；时间/关系图；全量预填。请比较遗漏、错误唤起、纠正与删除、延迟和成本，而不是只看召回榜。
+主动：扩展原 Attention 与同一 Harness；另起独立后台 Agent；使用框架定时或系统任务。先明确状态归属和真实运行主体，避免两套系统重复做事。
+动态 UI：领域组件；可组合声明；隔离交互产物。按精确性、可扩展性、交互恢复和宿主边界比较，避免只在固定例子好看。
+清理代码：按重复责任和实际调用路径收敛；按文件长度机械拆分；大面积重写。请让可观察的简化决定改动，不把改动量当质量。
+
+九、还值得搜索的问题
+如果实现中出现新证据，请继续围绕它查：
+模型为什么没看见/没选中真实能力；
+有证据却没有利用，发生在工具回传、压缩还是主提示；
+主动链在哪个状态失去消费者；
+一项成功操作为何在重开后又做一次；
+同一 UI 引用为何在更新后指错对象；
+某角色在工具阶段为何被统一口吻覆盖；
+复杂数学/交互为何只能靠新专用模板。
+
+读到有用的材料，就把它变成一个可以被验证的取舍。没有必要在开始前把全网研究完，也不要只找到支持已有决定的页面。
+

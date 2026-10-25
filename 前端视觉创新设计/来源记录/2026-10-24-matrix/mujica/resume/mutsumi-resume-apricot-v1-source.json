@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "mutsumi",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "apricot",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "mutsumi-resume-apricot-v1-prompt.txt",
+  "promptFileSha256": "74495f15794d1d7a35a9d8cca82678043bdd53cbf8a2a2c90c8de0f7c220c952",
+  "submittedPrompt": "Exact UTF-8 promptFile contents with trailing newline trimmed.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "role": "sole clean empty room4 spatial and lighting input; no character image",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-resume-apricot-mother-candidate-v1.png",
+    "toolOriginalPath": "$CODEX_HOME/generated_images/01a1702e-1e74-7ac0-9f86-f1d6b1ffcf30/exec-69481516-0d36-4f10-ab58-d07725e21c07.png",
+    "sha256": "c78de272c79fd5041e09e18075837392c8696134ff4aba56004b97b1e63501d8",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "bytes": 2174299,
+    "promptSha256": "74495f15794d1d7a35a9d8cca82678043bdd53cbf8a2a2c90c8de0f7c220c952"
+  },
+  "generationDesignReview": "Before generation, umiri_theme_review challenged shared bench/prop skeleton risk. Selected Mutsumi's eyes-first recognition with almost unchanged chest/hips; independent anatomy from clean room.",
+  "observedAnchors": {
+    "coordinateSpace": "normalized original canvas; approximate producer observation, not final runtime calibration",
+    "support": "right-window-bench",
+    "seat": [
+      0.849,
+      0.572
+    ],
+    "groundLeft": [
+      0.716,
+      0.78
+    ],
+    "groundRight": [
+      0.787,
+      0.792
+    ],
+    "proposedTravel": 0,
+    "objects": {
+      "notebook": "held page contact on thighs; remains with figure",
+      "room": "cushions, throw, desk and chairs remain background"
+    }
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "producerObservation": "Complete youthful anime Mutsumi, both loafers and knee-sock chains visible, sit bones and rear supporting palm meet the original cushion. Right fingertip rests on lap-supported open notebook. Look is small and attentive; shoulders remain quiet. Needs primary own judgment of proportions and activity distinction.",
+    "approvedByPrimary": false,
+    "layers": "not extracted",
+    "runtimeAccepted": false
+  },
+  "identityBasis": {
+    "officialProfile": "https://anime.bang-dream.com/avemujica/character/mutsumi/",
+    "textVerifiedOn": "2026-10-24",
+    "boundary": "Official profile supports identity/background; this university-companion resume moment is project-original. No official or third-party character pixels were image inputs."
+  }
+}

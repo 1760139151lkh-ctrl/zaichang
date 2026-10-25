@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-10-25T01:15:12.293297+00:00",
+  "scope": "unchanged existing files; candidate bundles only",
+  "bundles": [
+    {
+      "character": "sakiko",
+      "activity": "chat",
+      "palette": "mist",
+      "existingScene": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-mist.scene.json",
+      "producerPersonallyViewed": true,
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "promptFullyRead": true,
+      "actualPromptSha256": "3892741f76f7b1fedbec8e83890ef48923cad33beefd77f29af02598916e895d",
+      "sourceRecordedPromptSha256": "3892741f76f7b1fedbec8e83890ef48923cad33beefd77f29af02598916e895d",
+      "files": [
+        {
+          "role": "mother",
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-mist-mother-candidate-v1.png",
+          "sha256": "bda7f03d62e096dbc892b8d1e5b7fed446a3b3886d8255f70bbe2fb5db45efd0",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "role": "background",
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-mist-background-calibrated-v3.png",
+          "sha256": "72c2e9e087d1050d0447bafcdbae7f9ff50deccbc3b1ef8eeda61fb9f32b1c44",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "role": "figure",
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-mist-figure-calibrated-v3.png",
+          "sha256": "36d125212bb0ebd760ba31ab2939cd6234dd1ee8d561db31a20498cc11d12229",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGBA"
+        },
+        {
+          "role": "mask",
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-mist-mask-calibrated-v3.png",
+          "sha256": "fdcb063ce3aaed281fdf30857b3496b2a724949fa39488c2f5eb072acaef7583",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGBA"
+        },
+        {
+          "role": "shadow",
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-mist-shadow-calibrated-v3.png",
+          "sha256": "1b30850a49f286034d1687c973978511eff2591a559cca04d9228f7dacf6af1f",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGBA"
+        }
+      ]
+    },
+    {
+      "character": "sakiko",
+      "activity": "chat",
+      "palette": "violet",
+      "existingScene": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-violet.scene.json",
+      "producerPersonallyViewed": true,
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "promptFullyRead": true,
+      "actualPromptSha256": "732b3f6b1ccdc5a48e20bc762282023cad9ba7f916f38471c43fca4064298000",
+      "sourceRecordedPromptSha256": "732b3f6b1ccdc5a48e20bc762282023cad9ba7f916f38471c43fca4064298000",
+      "files": [
+        {
+          "role": "mother",
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-violet-mother-candidate-v1.png",
+          "sha256": "8e9b860772095ed911c4c257d6d6769e5c5064f4c793e325e65eadc9e79e1e88",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "role": "background",
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-violet-background-calibrated-v9.png",
+          "sha256": "b00b4ce21ffef719216b957415d2efc4434dc6d0b9ef788524b185cf0be940c8",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "role": "figure",
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-violet-figure-calibrated-v9.png",
+          "sha256": "03385581cfb3da476881e7f5998353331d2a003de7d0c17393fc3c3c8931f1f8",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGBA"
+        },
+        {
+          "role": "mask",
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-violet-mask-calibrated-v9.png",
+          "sha256": "e00d31f6bfef729ae0d1abf879f310f616fd964f5493821f461153e4b4e86ddc",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGBA"
+        },
+        {
+          "role": "shadow",
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-violet-shadow-calibrated-v9.png",
+          "sha256": "b73405828fc75f0a1e7c5e418562a807d6fefd70777f608f3e7a897321d29130",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGBA"
+        }
+      ]
+    },
+    {
+      "character": "sakiko",
+      "activity": "chat",
+      "palette": "rain",
+      "existingScene": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-rain.scene.json",
+      "producerPersonallyViewed": true,
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "promptFullyRead": true,
+      "actualPromptSha256": "1eff4e60a5a426f4d65bfe439ee4ed70d8ed16aa606bfd548d36975312fd3f55",
+      "sourceRecordedPromptSha256": "1eff4e60a5a426f4d65bfe439ee4ed70d8ed16aa606bfd548d36975312fd3f55",
+      "files": [
+        {
+          "role": "mother",
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-rain-mother-candidate-v1.png",
+          "sha256": "a57a3b22791dd9525d9e1dc565fe76866edb7c4d067e3cb94d67e6dfb06628a6",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "role": "background",
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-rain-background-calibrated-v3.png",
+          "sha256": "cf93f67e148b635043fe83280256c2c080ab2515435e6433e52791766626fd9e",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "role": "figure",
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-rain-figure-calibrated-v3.png",
+          "sha256": "aabed56f9dbe2030f00ada6c91ad9d98792350e142c6ec539d5eac6975ede55d",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGBA"
+        },
+        {
+          "role": "mask",
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-rain-mask-calibrated-v3.png",
+          "sha256": "52d52240cb7cc39f51e1737eb9028f8d8d2be72b975889309bfdd13be6d3c787",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGBA"
+        },
+        {
+          "role": "shadow",
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-rain-shadow-calibrated-v3.png",
+          "sha256": "0ec5638d52c633c18ef39b9657e1b6b335d9a1cafa8a96970c0a62ec2333347c",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGBA"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-10-21T07:16:12.257918+00:00",
+  "package_integrity_ok": true,
+  "checks": {
+    "archive_directory_entries_verified": 5,
+    "archive_file_members_verified": 74,
+    "code_anchor_metadata_records_verified": 21,
+    "expanded_archive_files_byte_verified": 46,
+    "historical_scenarios_pointers_verified": 128,
+    "historical_timelines_pointers_verified": 12,
+    "line_records_verified": 30053,
+    "line_source_reconstructions_verified": 50,
+    "manual_requirement_index_records_verified": 176,
+    "original_zip_archives_crc_verified": 3,
+    "paragraph_records_verified": 8807,
+    "paragraph_source_reconstructions_verified": 50,
+    "repository_file_metadata_records_verified": 107,
+    "repository_image_metadata_records_verified": 136,
+    "section_pointers_verified": 1934,
+    "source_files_byte_verified": 65,
+    "supplemental_archive_file_aliases_verified": 28
+  },
+  "product_verification_performed": false,
+  "source_scripts_executed": false,
+  "network_used": false,
+  "limits": [
+    "字节一致不证明所有独立语义已被完整理解或实现。",
+    "仓库读取清单校对固定树元信息，仓库图像目录不证明图像已被观察。",
+    "未验证产品、真实模型、真实账号、动态界面交互或长期陪伴表现。"
+  ],
+  "final_file_inventory_checked": false
+}

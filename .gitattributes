@@ -4,6 +4,10 @@
 *.gz binary
 *.png binary
 *.ico binary
+*.zip binary
+*.rar binary
+*.7z binary
+*.tgz binary
 
 # User-provided reference originals and manifests retain their exact bytes.
 docs/source-materials/2026-10-18/** -text
@@ -11,3 +15,16 @@ docs/source-materials/2026-10-18/** -text
 # Preserve every archived image byte, including SVG source line endings.
 前端视觉创新设计/统一图库/原图/** -text
 前端视觉创新设计/来源记录/** -text
+
+# Full-resolution design sources and intermediate review layers use LFS.
+
+# Complete skills and original handoff inputs retain their exact text bytes.
+.agents/skills/** -text
+核心技能/** -text
+zaichang-student-harness-prompt-pack-2026-10-18/** -text
+在场-Gemini人格与主动陪伴-提示词包-20261019/** -text
+在场-Harness-人本协作设计与Codex实施包/** -text
+work/codex-deep-review-20261021/** -text
+work/deep-refactor-20261022/handoff/** -text
+work/goal-research-20261021-root/package/** -text
+work/opus-continuation-20261021/materials/** -text

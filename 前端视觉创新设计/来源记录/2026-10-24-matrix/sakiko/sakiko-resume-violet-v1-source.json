@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "character": "sakiko",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "violet",
+  "light": "dusk",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "recordedAtUtc": "2026-10-25T01:15:12.293297+00:00",
+  "promptFile": "sakiko-resume-violet-v1-prompt.txt",
+  "prompt": "sakiko-resume-violet-v1-prompt.txt",
+  "promptFileSha256": "a914e7eadd53d782f0ffef962cbb972a0b2c6e1892d69a60e556c3db300ca196",
+  "promptSha256": "a914e7eadd53d782f0ffef962cbb972a0b2c6e1892d69a60e556c3db300ca196",
+  "submittedPrompt": "UTF-8 file contents with leading/trailing whitespace trimmed",
+  "width": 1536,
+  "height": 1024,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-violet-candidate.png",
+      "file": "room-violet-candidate.png",
+      "role": "sole clean empty theme room; identity and pose supplied as text",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    }
+  ],
+  "output": {
+    "file": "sakiko-resume-violet-mother-v1.png",
+    "executionId": "e626969b-5418-44f9-8279-0d197ac028c8",
+    "sourceOutput": "generated_images/01a16fb4-beb3-75e2-8677-73edb8072aa0/exec-e626969b-5418-44f9-8279-0d197ac028c8.png",
+    "sha256": "8cecb9f7025665577e3179abf28f92ca4d9477a41c9b156918faaa17c5430ff4",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerPersonallyViewed": true,
+  "motherApprovedByPrimary": false,
+  "approvedByPrimary": false,
+  "runtimeAccepted": false,
+  "status": "complete-mother-awaiting-primary-review-and-same-canvas-layers",
+  "observation": "Youthful identity, real cushion/hip and complete knees/shoes, restrained lifted gaze; light matches the corresponding whole-room plate. No layers or runtime admission implied."
+}

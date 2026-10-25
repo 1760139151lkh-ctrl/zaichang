@@ -1,0 +1,2236 @@
+{
+  "schema_version": 1,
+  "scenarios": [
+    {
+      "id": "OLD.S001",
+      "original_id": "S001",
+      "domain": "学习过程与注意力",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/0",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S002",
+      "original_id": "S002",
+      "domain": "学习过程与注意力",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/1",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S003",
+      "original_id": "S003",
+      "domain": "学习过程与注意力",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/2",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S004",
+      "original_id": "S004",
+      "domain": "学习过程与注意力",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/3",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S005",
+      "original_id": "S005",
+      "domain": "学习过程与注意力",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/4",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S006",
+      "original_id": "S006",
+      "domain": "学习过程与注意力",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/5",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S007",
+      "original_id": "S007",
+      "domain": "学习过程与注意力",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/6",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "人格与交流",
+          "module": "03"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S008",
+      "original_id": "S008",
+      "domain": "学习过程与注意力",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/7",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S009",
+      "original_id": "S009",
+      "domain": "考核、作业与有后果的期限",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/8",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S010",
+      "original_id": "S010",
+      "domain": "考核、作业与有后果的期限",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/9",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S011",
+      "original_id": "S011",
+      "domain": "考核、作业与有后果的期限",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/10",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S012",
+      "original_id": "S012",
+      "domain": "考核、作业与有后果的期限",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/11",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S013",
+      "original_id": "S013",
+      "domain": "考核、作业与有后果的期限",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/12",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S014",
+      "original_id": "S014",
+      "domain": "考核、作业与有后果的期限",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/13",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S015",
+      "original_id": "S015",
+      "domain": "考核、作业与有后果的期限",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/14",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S016",
+      "original_id": "S016",
+      "domain": "考核、作业与有后果的期限",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/15",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S017",
+      "original_id": "S017",
+      "domain": "长期目标、探索与发展",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/16",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S018",
+      "original_id": "S018",
+      "domain": "长期目标、探索与发展",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/17",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S019",
+      "original_id": "S019",
+      "domain": "长期目标、探索与发展",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/18",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S020",
+      "original_id": "S020",
+      "domain": "长期目标、探索与发展",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/19",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S021",
+      "original_id": "S021",
+      "domain": "长期目标、探索与发展",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/20",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S022",
+      "original_id": "S022",
+      "domain": "长期目标、探索与发展",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/21",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S023",
+      "original_id": "S023",
+      "domain": "长期目标、探索与发展",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/22",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S024",
+      "original_id": "S024",
+      "domain": "长期目标、探索与发展",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/23",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S025",
+      "original_id": "S025",
+      "domain": "日程协商与突发重排",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/24",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S026",
+      "original_id": "S026",
+      "domain": "日程协商与突发重排",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/25",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S027",
+      "original_id": "S027",
+      "domain": "日程协商与突发重排",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/26",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S028",
+      "original_id": "S028",
+      "domain": "日程协商与突发重排",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/27",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S029",
+      "original_id": "S029",
+      "domain": "日程协商与突发重排",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/28",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S030",
+      "original_id": "S030",
+      "domain": "日程协商与突发重排",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/29",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S031",
+      "original_id": "S031",
+      "domain": "日程协商与突发重排",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/30",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S032",
+      "original_id": "S032",
+      "domain": "日程协商与突发重排",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/31",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S033",
+      "original_id": "S033",
+      "domain": "社交邀请、表达与边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/32",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S034",
+      "original_id": "S034",
+      "domain": "社交邀请、表达与边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/33",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S035",
+      "original_id": "S035",
+      "domain": "社交邀请、表达与边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/34",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "人格与交流",
+          "module": "03"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S036",
+      "original_id": "S036",
+      "domain": "社交邀请、表达与边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/35",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S037",
+      "original_id": "S037",
+      "domain": "社交邀请、表达与边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/36",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S038",
+      "original_id": "S038",
+      "domain": "社交邀请、表达与边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/37",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S039",
+      "original_id": "S039",
+      "domain": "社交邀请、表达与边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/38",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S040",
+      "original_id": "S040",
+      "domain": "社交邀请、表达与边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/39",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S041",
+      "original_id": "S041",
+      "domain": "同住、归属、互助与关系责任",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/40",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S042",
+      "original_id": "S042",
+      "domain": "同住、归属、互助与关系责任",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/41",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S043",
+      "original_id": "S043",
+      "domain": "同住、归属、互助与关系责任",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/42",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S044",
+      "original_id": "S044",
+      "domain": "同住、归属、互助与关系责任",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/43",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S045",
+      "original_id": "S045",
+      "domain": "同住、归属、互助与关系责任",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/44",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S046",
+      "original_id": "S046",
+      "domain": "同住、归属、互助与关系责任",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/45",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "人格与交流",
+          "module": "03"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S047",
+      "original_id": "S047",
+      "domain": "同住、归属、互助与关系责任",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/46",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S048",
+      "original_id": "S048",
+      "domain": "同住、归属、互助与关系责任",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/47",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S049",
+      "original_id": "S049",
+      "domain": "空间、出行、天气与可达性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/48",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S050",
+      "original_id": "S050",
+      "domain": "空间、出行、天气与可达性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/49",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S051",
+      "original_id": "S051",
+      "domain": "空间、出行、天气与可达性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/50",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S052",
+      "original_id": "S052",
+      "domain": "空间、出行、天气与可达性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/51",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S053",
+      "original_id": "S053",
+      "domain": "空间、出行、天气与可达性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/52",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S054",
+      "original_id": "S054",
+      "domain": "空间、出行、天气与可达性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/53",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S055",
+      "original_id": "S055",
+      "domain": "空间、出行、天气与可达性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/54",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S056",
+      "original_id": "S056",
+      "domain": "空间、出行、天气与可达性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/55",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S057",
+      "original_id": "S057",
+      "domain": "身体需要、休息、运动与自报健康",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/56",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S058",
+      "original_id": "S058",
+      "domain": "身体需要、休息、运动与自报健康",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/57",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S059",
+      "original_id": "S059",
+      "domain": "身体需要、休息、运动与自报健康",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/58",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S060",
+      "original_id": "S060",
+      "domain": "身体需要、休息、运动与自报健康",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/59",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S061",
+      "original_id": "S061",
+      "domain": "身体需要、休息、运动与自报健康",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/60",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S062",
+      "original_id": "S062",
+      "domain": "身体需要、休息、运动与自报健康",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/61",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S063",
+      "original_id": "S063",
+      "domain": "身体需要、休息、运动与自报健康",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/62",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S064",
+      "original_id": "S064",
+      "domain": "身体需要、休息、运动与自报健康",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/63",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S065",
+      "original_id": "S065",
+      "domain": "情绪自述、陪伴与主体选择",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/64",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S066",
+      "original_id": "S066",
+      "domain": "情绪自述、陪伴与主体选择",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/65",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S067",
+      "original_id": "S067",
+      "domain": "情绪自述、陪伴与主体选择",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/66",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S068",
+      "original_id": "S068",
+      "domain": "情绪自述、陪伴与主体选择",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/67",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "人格与交流",
+          "module": "03"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S069",
+      "original_id": "S069",
+      "domain": "情绪自述、陪伴与主体选择",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/68",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S070",
+      "original_id": "S070",
+      "domain": "情绪自述、陪伴与主体选择",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/69",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S071",
+      "original_id": "S071",
+      "domain": "情绪自述、陪伴与主体选择",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/70",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S072",
+      "original_id": "S072",
+      "domain": "情绪自述、陪伴与主体选择",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/71",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "人格与交流",
+          "module": "03"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S073",
+      "original_id": "S073",
+      "domain": "预算、兼职与资源取舍",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/72",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S074",
+      "original_id": "S074",
+      "domain": "预算、兼职与资源取舍",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/73",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S075",
+      "original_id": "S075",
+      "domain": "预算、兼职与资源取舍",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/74",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S076",
+      "original_id": "S076",
+      "domain": "预算、兼职与资源取舍",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/75",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S077",
+      "original_id": "S077",
+      "domain": "预算、兼职与资源取舍",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/76",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S078",
+      "original_id": "S078",
+      "domain": "预算、兼职与资源取舍",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/77",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S079",
+      "original_id": "S079",
+      "domain": "预算、兼职与资源取舍",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/78",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S080",
+      "original_id": "S080",
+      "domain": "预算、兼职与资源取舍",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/79",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S081",
+      "original_id": "S081",
+      "domain": "生活事务、设备与材料准备",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/80",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S082",
+      "original_id": "S082",
+      "domain": "生活事务、设备与材料准备",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/81",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S083",
+      "original_id": "S083",
+      "domain": "生活事务、设备与材料准备",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/82",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S084",
+      "original_id": "S084",
+      "domain": "生活事务、设备与材料准备",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/83",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S085",
+      "original_id": "S085",
+      "domain": "生活事务、设备与材料准备",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/84",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S086",
+      "original_id": "S086",
+      "domain": "生活事务、设备与材料准备",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/85",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S087",
+      "original_id": "S087",
+      "domain": "生活事务、设备与材料准备",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/86",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S088",
+      "original_id": "S088",
+      "domain": "生活事务、设备与材料准备",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/87",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S089",
+      "original_id": "S089",
+      "domain": "校园制度、手续与公共机会",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/88",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S090",
+      "original_id": "S090",
+      "domain": "校园制度、手续与公共机会",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/89",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S091",
+      "original_id": "S091",
+      "domain": "校园制度、手续与公共机会",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/90",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S092",
+      "original_id": "S092",
+      "domain": "校园制度、手续与公共机会",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/91",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S093",
+      "original_id": "S093",
+      "domain": "校园制度、手续与公共机会",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/92",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S094",
+      "original_id": "S094",
+      "domain": "校园制度、手续与公共机会",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/93",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S095",
+      "original_id": "S095",
+      "domain": "校园制度、手续与公共机会",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/94",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S096",
+      "original_id": "S096",
+      "domain": "校园制度、手续与公共机会",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/95",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S097",
+      "original_id": "S097",
+      "domain": "休闲、兴趣、创作与好消息",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/96",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S098",
+      "original_id": "S098",
+      "domain": "休闲、兴趣、创作与好消息",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/97",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "人格与交流",
+          "module": "03"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S099",
+      "original_id": "S099",
+      "domain": "休闲、兴趣、创作与好消息",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/98",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S100",
+      "original_id": "S100",
+      "domain": "休闲、兴趣、创作与好消息",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/99",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        },
+        {
+          "topic": "文档接续",
+          "module": "10"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S101",
+      "original_id": "S101",
+      "domain": "休闲、兴趣、创作与好消息",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/100",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S102",
+      "original_id": "S102",
+      "domain": "休闲、兴趣、创作与好消息",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/101",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": []
+    },
+    {
+      "id": "OLD.S103",
+      "original_id": "S103",
+      "domain": "休闲、兴趣、创作与好消息",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/102",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S104",
+      "original_id": "S104",
+      "domain": "休闲、兴趣、创作与好消息",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/103",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S105",
+      "original_id": "S105",
+      "domain": "可调人格、称呼与互动风格",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/104",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "人格与交流",
+          "module": "03"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S106",
+      "original_id": "S106",
+      "domain": "可调人格、称呼与互动风格",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/105",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "人格与交流",
+          "module": "03"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S107",
+      "original_id": "S107",
+      "domain": "可调人格、称呼与互动风格",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/106",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "人格与交流",
+          "module": "03"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S108",
+      "original_id": "S108",
+      "domain": "可调人格、称呼与互动风格",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/107",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "人格与交流",
+          "module": "03"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S109",
+      "original_id": "S109",
+      "domain": "可调人格、称呼与互动风格",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/108",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "人格与交流",
+          "module": "03"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S110",
+      "original_id": "S110",
+      "domain": "可调人格、称呼与互动风格",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/109",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "人格与交流",
+          "module": "03"
+        },
+        {
+          "topic": "文档接续",
+          "module": "10"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S111",
+      "original_id": "S111",
+      "domain": "可调人格、称呼与互动风格",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/110",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "人格与交流",
+          "module": "03"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S112",
+      "original_id": "S112",
+      "domain": "可调人格、称呼与互动风格",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/111",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "人格与交流",
+          "module": "03"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S113",
+      "original_id": "S113",
+      "domain": "证据、记忆、纠错与信息边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/112",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "人格与交流",
+          "module": "03"
+        },
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S114",
+      "original_id": "S114",
+      "domain": "证据、记忆、纠错与信息边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/113",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S115",
+      "original_id": "S115",
+      "domain": "证据、记忆、纠错与信息边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/114",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S116",
+      "original_id": "S116",
+      "domain": "证据、记忆、纠错与信息边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/115",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S117",
+      "original_id": "S117",
+      "domain": "证据、记忆、纠错与信息边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/116",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S118",
+      "original_id": "S118",
+      "domain": "证据、记忆、纠错与信息边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/117",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S119",
+      "original_id": "S119",
+      "domain": "证据、记忆、纠错与信息边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/118",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S120",
+      "original_id": "S120",
+      "domain": "证据、记忆、纠错与信息边界",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/119",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S121",
+      "original_id": "S121",
+      "domain": "主动协调、能力缺失与多设备一致性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/120",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S122",
+      "original_id": "S122",
+      "domain": "主动协调、能力缺失与多设备一致性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/121",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S123",
+      "original_id": "S123",
+      "domain": "主动协调、能力缺失与多设备一致性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/122",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S124",
+      "original_id": "S124",
+      "domain": "主动协调、能力缺失与多设备一致性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/123",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S125",
+      "original_id": "S125",
+      "domain": "主动协调、能力缺失与多设备一致性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/124",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S126",
+      "original_id": "S126",
+      "domain": "主动协调、能力缺失与多设备一致性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/125",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S127",
+      "original_id": "S127",
+      "domain": "主动协调、能力缺失与多设备一致性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/126",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "动态呈现与前端",
+          "module": "06"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        },
+        {
+          "topic": "实施与验证",
+          "module": "08"
+        }
+      ]
+    },
+    {
+      "id": "OLD.S128",
+      "original_id": "S128",
+      "domain": "主动协调、能力缺失与多设备一致性",
+      "source_id": "S02.E026",
+      "json_pointer": "/scenarios/127",
+      "state": "历史合成设计场景，未经本轮产品执行",
+      "routes": [
+        {
+          "topic": "记忆与共同经历",
+          "module": "04"
+        },
+        {
+          "topic": "主动与行动",
+          "module": "05"
+        },
+        {
+          "topic": "研究与比较",
+          "module": "07"
+        },
+        {
+          "topic": "冲突与来源",
+          "module": "09"
+        }
+      ]
+    }
+  ],
+  "timelines": [
+    {
+      "id": "OLD.TL01",
+      "original_id": "TL01",
+      "title": "调课、约饭、天气后的路线与局部重排",
+      "source_id": "S02.E028",
+      "json_pointer": "/timelines/0",
+      "step_count": 7,
+      "original_validation_level": "current_core",
+      "state": "历史合成目标轨迹，不是本次执行日志"
+    },
+    {
+      "id": "OLD.TL02",
+      "original_id": "TL02",
+      "title": "十二天还需三次运动，有多个窗口并最终完成",
+      "source_id": "S02.E028",
+      "json_pointer": "/timelines/1",
+      "step_count": 7,
+      "original_validation_level": "future_adapter_fixture",
+      "state": "历史合成目标轨迹，不是本次执行日志"
+    },
+    {
+      "id": "OLD.TL03",
+      "original_id": "TL03",
+      "title": "广义托付发现陌生机会，静默准备后在窗口开放时出现",
+      "source_id": "S02.E028",
+      "json_pointer": "/timelines/2",
+      "step_count": 7,
+      "original_validation_level": "future_adapter_fixture",
+      "state": "历史合成目标轨迹，不是本次执行日志"
+    },
+    {
+      "id": "OLD.TL04",
+      "original_id": "TL04",
+      "title": "长原文尾部条件、更正和未来生效共同约束旧记忆",
+      "source_id": "S02.E028",
+      "json_pointer": "/timelines/3",
+      "step_count": 6,
+      "original_validation_level": "current_core",
+      "state": "历史合成目标轨迹，不是本次执行日志"
+    },
+    {
+      "id": "OLD.TL05",
+      "original_id": "TL05",
+      "title": "显式人格、临时情绪与关闭记忆分别生效",
+      "source_id": "S02.E028",
+      "json_pointer": "/timelines/4",
+      "step_count": 4,
+      "original_validation_level": "current_core",
+      "state": "历史合成目标轨迹，不是本次执行日志"
+    },
+    {
+      "id": "OLD.TL06",
+      "original_id": "TL06",
+      "title": "工具缓存随时间、地点与来源权限变化失效",
+      "source_id": "S02.E028",
+      "json_pointer": "/timelines/5",
+      "step_count": 4,
+      "original_validation_level": "current_core",
+      "state": "历史合成目标轨迹，不是本次执行日志"
+    },
+    {
+      "id": "OLD.TL07",
+      "original_id": "TL07",
+      "title": "前台并行委派在撤销后拒绝迟到结果",
+      "source_id": "S02.E028",
+      "json_pointer": "/timelines/6",
+      "step_count": 4,
+      "original_validation_level": "current_core",
+      "state": "历史合成目标轨迹，不是本次执行日志"
+    },
+    {
+      "id": "OLD.TL08",
+      "original_id": "TL08",
+      "title": "十项课程批量upsert、取消、重启与完整快照删除",
+      "source_id": "S02.E028",
+      "json_pointer": "/timelines/7",
+      "step_count": 4,
+      "original_validation_level": "current_core",
+      "state": "历史合成目标轨迹，不是本次执行日志"
+    },
+    {
+      "id": "OLD.TL09",
+      "original_id": "TL09",
+      "title": "提醒跨渠道、重启与unknown回执合并",
+      "source_id": "S02.E028",
+      "json_pointer": "/timelines/8",
+      "step_count": 4,
+      "original_validation_level": "current_core",
+      "state": "历史合成目标轨迹，不是本次执行日志"
+    },
+    {
+      "id": "OLD.TL10",
+      "original_id": "TL10",
+      "title": "手机位置过旧、来源撤销后的明确降级",
+      "source_id": "S02.E028",
+      "json_pointer": "/timelines/9",
+      "step_count": 4,
+      "original_validation_level": "future_adapter_fixture",
+      "state": "历史合成目标轨迹，不是本次执行日志"
+    },
+    {
+      "id": "OLD.TL11",
+      "original_id": "TL11",
+      "title": "记事本想法进入计划草案，接受后可完整撤销",
+      "source_id": "S02.E028",
+      "json_pointer": "/timelines/10",
+      "step_count": 4,
+      "original_validation_level": "current_core",
+      "state": "历史合成目标轨迹，不是本次执行日志"
+    },
+    {
+      "id": "OLD.TL12",
+      "original_id": "TL12",
+      "title": "真实禁传输、禁搜索、禁止外发与谈云技术分层",
+      "source_id": "S02.E028",
+      "json_pointer": "/timelines/11",
+      "step_count": 4,
+      "original_validation_level": "current_core",
+      "state": "历史合成目标轨迹，不是本次执行日志"
+    }
+  ],
+  "timeline_steps": 59,
+  "override_rule": "全部原字段原样在源JSON；执行要求按本轮裁决，不把场景配额或示例台词变成生产分支。"
+}

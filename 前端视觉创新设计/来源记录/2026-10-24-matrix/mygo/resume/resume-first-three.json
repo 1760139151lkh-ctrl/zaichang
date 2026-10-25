@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "purpose": "First warm-apricot resume mothers for Tomori, Anon and Rana; full character-specific moments before theme expansion.",
+  "soleImageInput": {
+    "file": "../../../assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "characterPixelsProvided": false,
+    "previousMotherPixelsProvided": false
+  },
+  "spatialReferenceViewedOnly": "../../sakiko/sakiko-resume-apricot-mother-v1.png",
+  "spatialReferenceUse": "Viewed for room scale, support and content air only; never an ImageGen input or a character-swap base.",
+  "entries": [
+    {
+      "character": "tomori",
+      "activity": "resume",
+      "theme": "apricot",
+      "mother": "tomori-resume-apricot-mother-v1.png",
+      "source": "tomori-resume-apricot-mother-v1.source.json",
+      "prompt": "tomori-resume-apricot-mother-v1.prompt.txt",
+      "sha256": "517e715d664e10d33dbf8a08cc359aa3f1a59af3e6f6fb127526d56c3f90ee81",
+      "moment": "Her own book's place kept, shoulders still gathered, earnest eyes rise to the returned visitor.",
+      "producerViewed": true,
+      "primaryApproved": false
+    },
+    {
+      "character": "anon",
+      "activity": "resume",
+      "theme": "apricot",
+      "mother": "anon-resume-apricot-mother-v1.png",
+      "source": "anon-resume-apricot-mother-v1.source.json",
+      "prompt": "anon-resume-apricot-mother-v1.prompt.txt",
+      "sha256": "4a5a2a9711ab78401cdc57d243b5cf4042f89eef136eb257fb2fc04ca8b84fd5",
+      "moment": "Brightness held in a small close-body greeting and quiet recognition, with no prop or demand to speak.",
+      "producerViewed": true,
+      "primaryApproved": false
+    },
+    {
+      "character": "rana",
+      "activity": "resume",
+      "theme": "apricot",
+      "mother": "rana-resume-apricot-mother-v1.png",
+      "source": "rana-resume-apricot-mother-v1.source.json",
+      "prompt": "rana-resume-apricot-mother-v1.prompt.txt",
+      "sha256": "54dd1803e9ff81797c1b3ad69ee36a92b3cde58072705e21f7869a38d17717cb",
+      "moment": "Her hand pauses on the supported guitar strings, attention turns without a performance smile.",
+      "producerViewed": true,
+      "primaryApproved": false
+    }
+  ],
+  "layerState": "not started; same-canvas extraction follows only after primary acceptance",
+  "runtimeState": "not registered or accepted",
+  "themeState": "mist, violet and rain not generated for these resume mothers yet; waiting for primary review of the warm originals",
+  "privacy": "Only generated empty-room pixels and fictional character text references; no private user records or official character-image pixels were input."
+}

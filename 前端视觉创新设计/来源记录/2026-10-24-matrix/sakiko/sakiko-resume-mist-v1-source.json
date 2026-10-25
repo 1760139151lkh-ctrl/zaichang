@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "character": "sakiko",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "mist",
+  "light": "morning",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "recordedAtUtc": "2026-10-25T01:15:12.293297+00:00",
+  "promptFile": "sakiko-resume-mist-v1-prompt.txt",
+  "prompt": "sakiko-resume-mist-v1-prompt.txt",
+  "promptFileSha256": "65b6ef581f0fe68337728649b9b9407a84d583a5e19199e3d87f68ec1cae951e",
+  "promptSha256": "65b6ef581f0fe68337728649b9b9407a84d583a5e19199e3d87f68ec1cae951e",
+  "submittedPrompt": "UTF-8 file contents with leading/trailing whitespace trimmed",
+  "width": 1536,
+  "height": 1024,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png",
+      "file": "room-mist-candidate.png",
+      "role": "sole clean empty theme room; identity and pose supplied as text",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    }
+  ],
+  "output": {
+    "file": "sakiko-resume-mist-mother-v1.png",
+    "executionId": "143c676c-43b9-46d0-9ba8-f529369765cf",
+    "sourceOutput": "generated_images/01a16fb4-beb3-75e2-8677-73edb8072aa0/exec-143c676c-43b9-46d0-9ba8-f529369765cf.png",
+    "sha256": "2c89eaf224cf1032049e533ebf0879098a1ea7eeb8e6db1fdac00652b772063f",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerPersonallyViewed": true,
+  "motherApprovedByPrimary": false,
+  "approvedByPrimary": false,
+  "runtimeAccepted": false,
+  "status": "complete-mother-awaiting-primary-review-and-same-canvas-layers",
+  "observation": "Youthful identity, real cushion/hip and complete knees/shoes, restrained lifted gaze; light matches the corresponding whole-room plate. No layers or runtime admission implied."
+}

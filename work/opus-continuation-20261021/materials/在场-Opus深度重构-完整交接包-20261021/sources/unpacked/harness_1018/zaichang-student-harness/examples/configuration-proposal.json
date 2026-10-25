@@ -1,0 +1,55 @@
+{
+  "schema_version": "design-1.0",
+  "artifact_kind": "illustrative_configuration_not_drop_in",
+  "synthetic": true,
+  "description": "说明配置责任；实施时映射现有设置，不静默覆盖用户选择。数值需要实际模型/设备测量，未给最优参数承诺。",
+  "persona": {
+    "default_preset": "warm_senior",
+    "preserve_existing_choice": true,
+    "private_legacy_guidance_export": false
+  },
+  "interaction": {
+    "initiative": "prepare",
+    "followup": "meaningful_change",
+    "current_request_overrides_style": true,
+    "fixed_user_reminders_follow_their_contract": true
+  },
+  "mandate": {
+    "initial_active_scopes": [],
+    "creation_basis": "明确自然委托或用户设置；当前任务本身的授权仍正常完成",
+    "derived_focus_rule": "在有效托付与现有来源许可的交集中派生，不逐条反复确认"
+  },
+  "time": {
+    "time_zone": "use_actual_device_or_user_IANA_zone",
+    "store_absolute_instants_with_offset": true,
+    "relative_queries": "resolve_at_run_against_occurrence_and_current_clock"
+  },
+  "event_processing": {
+    "delivery": "durable_cursor_ack_with_retries",
+    "semantic_discovery": "bounded_for_novel_in_scope_events",
+    "priority": "known_near_deadline_then_changed_dependencies_then_discovery",
+    "batch_numbers": "preserve_current_until_measured_then_configure_without_dropping_records",
+    "empty_wakes": "no_model_call_without_relevant_change_or_due_window"
+  },
+  "cache": {
+    "prompt": "provider_model_account_protocol_and_persona_version",
+    "facts": "query_source_location_time_window_permission_data_version_coverage",
+    "stale_is_not_empty": true
+  },
+  "workers": {
+    "engine": "existing_pinned_hermes_delegate",
+    "budget": "shared_host_enforced_parent_budget",
+    "nested_background": "off_until_specific_read_only_use_case_verified",
+    "late_results": "revalidate_before_publish_or_execute"
+  },
+  "runtime": {
+    "current_supported_host": "existing_electron_windows",
+    "mobile_status": "separate_feasibility_and_real_device_milestone",
+    "notification_receipt": "submitted_does_not_prove_delivered_or_seen"
+  },
+  "provider": {
+    "production": "preserve_current_configured_deepseek_choice",
+    "luna_app_server_test": "label_as_test_substitute",
+    "chatgpt_sign_in": "separate_official_app_registration_and_inference_validation"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "key": "anon/rest/mist",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-24T23:46:16.456Z",
+  "stage": "complete whole-scene lighting edit",
+  "file": "anon-rest-mist-mother-v1.png",
+  "sha256": "6f4bdc0b48e64ac44fc108a70a37315f697ebc2fa0f36d4580f52e74ad8a8fd6",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "originalOutputBasename": "exec-78f2a1b9-1c6a-4619-973f-60111cdf1774.png",
+  "prompt": "anon-rest-mist-mother-v1.prompt.txt",
+  "inputs": [
+    {
+      "file": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-rest-apricot-mother-candidate-v1.png",
+      "role": "approved apricot complete mother; edit target"
+    },
+    {
+      "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png",
+      "role": "clean-room light reference only"
+    }
+  ],
+  "designerPersonallyViewed": false,
+  "primaryMotherReview": "pending_current_root_review",
+  "layers": "not_produced",
+  "runtime": "not_registered"
+}

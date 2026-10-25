@@ -1,0 +1,32 @@
+{
+  "repository": "1760139151lkh-ctrl/zaichang",
+  "commit": "ba73b049089af718d337076364c6db0f98776d4f",
+  "probe": "Exact source helper bodies; only hasCredentials stubbed false; no model/API request",
+  "resultMeaning": "cloudBlocked=true is the localCloudRestriction result, not a full application test or a model semantic verdict",
+  "results": [
+    {
+      "text": "不要联网查，直接用我给你的课本讲解。",
+      "cloudBlocked": true
+    },
+    {
+      "text": "不用上网查资料，就依据这道题推导。",
+      "cloudBlocked": false
+    },
+    {
+      "text": "不必解释云端部署，帮我记明天的课程。",
+      "cloudBlocked": true
+    },
+    {
+      "text": "这段只在本机分析，不要发给云模型。",
+      "cloudBlocked": true
+    },
+    {
+      "text": "我的朋友说不要联网，我的问题是求这个积分。",
+      "cloudBlocked": true
+    },
+    {
+      "text": "请根据这道题直接推导。",
+      "cloudBlocked": false
+    }
+  ]
+}

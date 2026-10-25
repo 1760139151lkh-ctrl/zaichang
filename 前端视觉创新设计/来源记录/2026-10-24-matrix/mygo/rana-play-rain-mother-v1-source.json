@@ -1,0 +1,40 @@
+{
+  "createdOn": "2026-10-24",
+  "tool": "built-in image_gen.imagegen",
+  "character": "rana",
+  "activity": "play",
+  "light": "rain",
+  "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-play-rain-mother-v1.png",
+  "sha256": "47c85f890c0374a231c92fd36570851181963c9fbcf6e5787cdfbb03d66b6096",
+  "bytes": 2087178,
+  "width": 1536,
+  "height": 1024,
+  "prompt": "rana-play-rain-mother-v1-prompt.txt",
+  "exactPrompt": "Use case: lighting-weather.\nAsset type: one complete inhabited same-room companion mother artwork for 在场, exactly 1536 x 1024, Rana / play / rain.\nInput image 1 is the PRIMARY-APPROVED complete APRICOT ACTIVITY MOTHER and the edit target. It alone defines the character, exact existing pose, expression, support, props, identity and room/camera geometry.\nInput image 2 is the EMPTY RAIN ROOM reference, for whole-scene lighting/weather ONLY. Do not copy its absence of a person. Retain exactly ONE existing Rana from image 1. This is an independent physical relighting from the apricot mother, never a new pose, pasted character, flat recolor or composition redesign.\n\nLOCK ALL GEOMETRY: Keep exactly the same 1536 x 1024 canvas, camera, perspective, framing, room scale and every furniture/object boundary from image 1: all four connected sides of the lake/campus window, the left rear desk/chair, shelves/books/plants/framed drawing, the right desk/chair/lamp/book/mug, the bench/pillows/throw, rug, floorboards and every furniture foot. Keep the lived-in left half and passage fully intact for live product content. Do not zoom, crop, recenter, enlarge, shrink, move, substitute, add or erase objects. Keep all hair, hands, clothing edges, socks and complete boots within the canvas with the original margins.\nIDENTITY: Rana Kaname / 要楽奈 from BanG Dream! It's MyGO!!!!!; faithful youthful middle-school anime appearance, short silver-white bob, soft straight bangs, her OWN RIGHT eye gold-yellow and OWN LEFT eye clear blue. Eye colors do not exchange when turned; natural far-side occlusion is allowed. Preserve the actual face, ordinary youthful proportions, black distressed short-sleeve outer top over white long sleeves/white shorts and black lace-up ankle boots. Fully clothed ordinary companionship. No adult glamour, cat ears, pet, matcha, generic big care smile or newly imposed sad face.\nPLAY / A LITTLE RHYTHM: Preserve the actual complete acoustic guitar across her lap/thigh, modest natural-wood six-string body, sound hole, strings, short neck and tuning head extending toward room-right. Her own left hand really frets the neck, her own right hand really plucks above the sound hole. Keep those coherent finger/prop contacts exactly. Preserve the actual forward inclined torso, lowered absorbed gaze, two separately traceable thighs/knees/shins and TWO worn black boots planted at their existing slightly different floor depths. Keep the hips seated on the cushion. Do not change the leg arrangement, substitute an electric guitar, hide a foot, paste a guitar onto another pose, or introduce an empty removed boot. Calm absorbed musical interest, not a camera smile, no added sadness.\n\nWHOLE-SCENE LIGHTING:\nRAIN / 夜雨暖金: Change the whole room to a coherent rainy night with warm golden indoor lamplight. Through the identical four-sided window, the same lake/campus/mountains are dark blue silhouettes with subdued distant lit windows and restrained wet lake reflections. Add believable fine rain streaks/droplets on the window glass; the rain remains outside and does not make the room wet. The existing desk lamp is lit, making a gentle warm amber pool on the desk, curtain edge, bench, character, guitar if present and nearby wooden floor; cool blue-gray ambient window fill keeps the far wall, left desk/shelves, hands and boots visible. Recalculate lighting, reflected light, contact and cast shadows throughout the whole scene. Remove all sunny golden leaf patches and daylight sky. Warm wood stays wood, white/silver stays true, black clothes remain detailed; no flat sepia/blue color filter, no neon green UI, no storm spectacle or imposed melancholy.\n\nPreserve the fine 2D youthful Japanese-anime environmental painting, delicate linework, tactile linen/wood and natural material colors. The character, held prop and room must share the same physically coherent light, reflected light, contact shadows and atmospheric time. Preserve all independently traceable hip→thigh→knee→shin→ankle→foot chains, coherent fingers and real support. Do not introduce anatomical repairs from another pose, extra/missing/fused limbs, elongated shins, floating hips/shoes, penetrations, sticker edges or white patches.\nNo UI, interface panels, readable text, labels, arrows, divider, split-screen, watermark, logo, additional person or pet. Return ONE complete naturally inhabited same-size room.",
+  "inputs": [
+    {
+      "role": "primary-approved activity mother edit target",
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-play-apricot-mother-candidate-v1.png",
+      "sha256": "50744be0906941af37756061c3cc3b1f425f39e0a69036912533751037afb311",
+      "primaryApprovedInput": true
+    },
+    {
+      "role": "lighting-weather reference only",
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "originalActivityPrompt": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-play-apricot-prompt.txt",
+  "originalActivitySource": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/remaining-apricot-mother-source.json",
+  "originalGeneratedFile": "generated_images/01a17056-1bea-7950-bd53-35d0fa5180c1/exec-eeeb5cbd-632b-414a-98b7-176c661732ad.png",
+  "executionId": "eeeb5cbd-632b-414a-98b7-176c661732ad",
+  "designerPersonallyViewed": true,
+  "designerObservation": "Complete output personally viewed. Guitar still truly rests on lap/thigh, right hand plucks near sound hole and left hand frets the neck, with original downward absorbed attention. Two complete worn boots remain independently grounded and the original hip/knee/shin relationships persist. Warm lamp light and low cool rainy-window fill illuminate face, white sleeves, silver bob and wood consistently; eyes retain own right gold/left blue. No daytime leaf silhouettes or sun shafts survive, and night did not add sadness or a generic caring smile.",
+  "offeredForPrimaryReview": true,
+  "primaryReview": false,
+  "approvedByPrimary": false,
+  "separated": false,
+  "layers": false,
+  "runtimeAccepted": false,
+  "runtime": false
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "sakiko-study-violet-mother-candidate-v1.png",
+  "character": "sakiko",
+  "activity": "study",
+  "palette": "violet",
+  "light": "dusk",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "sakiko-study-violet-v1-actualprompt.txt",
+  "sourceActivityPrompt": "sakiko-study-apricot-prompt.txt",
+  "identityBasis": "Text-only Sakiko Togawa; no character/mother image input",
+  "inputs": [
+    {
+      "file": "room-violet-candidate.png",
+      "role": "primary-reviewed clean EMPTY theme plate; sole image input",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "sakiko-study-violet-mother-candidate-v1.png",
+    "sha256": "c92a1d13aa46c10a52792138bbe5766ddf1bc4492e6bf677dff6f66faf3effc9",
+    "sourceOutput": "generated_images/01a16920-dfda-7da2-af3e-2946cc5b4e68/exec-3b3635d5-ea57-405c-b99e-cc0ded4e0257.png",
+    "executionId": "3b3635d5-ea57-405c-b99e-cc0ded4e0257"
+  },
+  "designerObservation": "Generated full mother; producer inspection follows. No approval inferred.",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "not started",
+  "runtime": "not registered or verified",
+  "arguments": {
+    "prompt": "Use case: illustration-story. Theme/activity matrix mother: Sakiko violet STUDY, full 1536 x 1024.\nSole input / edit target: room-violet-candidate.png, the primary-reviewed CLEAN EMPTY VIOLET ROOM. It contains no person. No other image or character pixels are inputs. Draw one whole character anew directly in this unchanged room. Preserve canvas, fixed camera, furniture, complete window and environmental details. This is a complete mother, not a cutout or layout sheet.\nTHEME LIGHTING — this replaces any generic light wording below:\nVIOLET / DUSK: preserve the approved plate's real gold-violet sunset outside, lavender-grey ambient shadows, rose-gold window rim and the existing desk lamp's local warm light. The face, hair, clothes and seat contact must share those actual directions; retain natural skin, not a purple skin filter or unchanged bright midday character.\nNatural responsive posture and this specific activity's weight/gaze relationship matter more than a rigid upright elegance. Do not make every activity a chat skeleton with a different prop. Keep the complete youthful Sakiko identity and clothing, real support/contact, coherent separate limbs and full in-frame extremities.\n\nUse case: illustration-story. Asset type: full same-room mother artwork for 在场 hard mathematics co-reading, 1536 x 1024.\nThe ONLY image input is the approved CLEAN EMPTY ROOM room-violet-candidate.png. No character image or previous anatomy is provided. Preserve the complete room, camera, window frame, left little table/shelves/art, right work desk, chair footprint, bench, rug, floor and the provided violet room illumination. This is one inhabited space, no UI.\n\nCharacter identity and wardrobe: Sakiko Togawa / 豊川祥子, BanG Dream! Ave Mujica / It's MyGO!!!!!. Faithful youthful 2D anime identity: long powder-blue hair with soft curled side locks and dark navy ribbons, amber-gold eyes, fine delicate anime face with youthful proportions, reserved, perceptive warmth. Do not substitute a generic blue-haired fashion model or mature realistic woman. Fully clothed faithful school styling: dark navy cardigan over a white blouse with its white/light bow, navy-gray plaid knee-length skirt, dark navy knee socks and simple brown loafers. Ordinary companion scene, no sensual pose or emphasis.\n\nDistinct STUDY action, not chat with a book: Sakiko actually sits on the RIGHT working DESK CHAIR, with her hips centered on its visible padded seat around x=985,y=600. The existing chair remains under the right desk in its footprint, but can be turned slightly diagonally to fit a real seated working posture. Her pelvis/weight are supported by that chair, feet meet the floor; she does NOT sit on the desk or on an invisible stool and does not also sit on the bench.\n\nHer body is in a real side/three-quarter-back seated posture turned toward the existing desk/window, shoulders inclined forward slightly as she studies ONE open paper lying flat on the right writing desk. She looks down at one exact line of this paper, not at the viewer. Her near forearm lies naturally on the desk, hand holding one pencil at the paper; the far hand lightly keeps its page corner still. Wrist/elbow and table top make real contact at consistent height, no floating hands. The paper has a few faint short mathematical marks but NO readable UI or manufactured proof. It is a visual prop only. Her face is seen in youthful profile/three-quarter profile, focused and quietly thoughtful, not smiling at the camera. Soft blue hair falls down the back/outer shoulder, with the long tips inside the canvas and away from the page so she can actually read.\n\nFull anatomy must be inspectable: her own left hip→left thigh→left knee→left shin→left ankle→left complete brown loafer is continuous, with an independently continuous equal-proportioned right leg. Knees are naturally bent in the chair, legs do not cross. Both shins and shoes are visible in the open floor/knee space beside/in front of the desk; shift the knees slightly diagonally to the viewer's RIGHT of the chair if needed so table legs do not hide both feet. The thighs are supported by the padded seat, not suspended; the chair back sits behind her, not through her torso. All furniture and body shares the same mild perspective. No overlong shin, duplicate limbs, bent-through desk, missing fingers or cropped shoes.\n\nSame full 1536 x 1024 canvas; approximate figure region x=930..1210,y=290..820, full head/hair/held pencil/hands/both knees/ankles/shoes with breathing room. The figure's actual scale matches a young person naturally using this chair and the neighboring window bench; do not arbitrarily enlarge or shrink the room. Keep central-left reading air uncluttered by the character. Desk contact means this pose may be a fixed legitimate anchor, not a free-floating draggable sticker. Clear local contact shadows, natural the provided violet room's coherent directional and diffuse light on anime skin/clothes. No extra person, portrait, floating cutout, UI, buttons, labels, logo, watermark, divider or arrows.\n\nFINAL INVARIANT: room-violet-candidate.png is the only image input. No previous mother/portrait/character reference pixels. Preserve this theme room's whole exposure, camera and geometry; do not turn night into day or apply a flat theme-color skin filter.\n\r\n",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-violet-candidate.png"
+    ],
+    "transparent_background": false
+  },
+  "originalOutputPath": "C:\\Users\\17601\\.codex\\generated_images\\01a16920-dfda-7da2-af3e-2946cc5b4e68\\exec-3b3635d5-ea57-405c-b99e-cc0ded4e0257.png",
+  "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a16920-dfda-7da2-af3e-2946cc5b4e68 as C:\\Users\\17601\\.codex\\generated_images\\01a16920-dfda-7da2-af3e-2946cc5b4e68\\exec-3b3635d5-ea57-405c-b99e-cc0ded4e0257.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+}

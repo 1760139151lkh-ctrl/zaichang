@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "uika",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "apricot",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "uika-resume-apricot-v1-prompt.txt",
+  "promptFileSha256": "2d50fa971e6de43d75f6a85384d303fcaeb80a3e6ee17b73981e783ea1d8bf3d",
+  "submittedPrompt": "Exact UTF-8 promptFile contents with trailing newline trimmed.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "role": "sole clean empty room4 spatial and lighting input; no character image",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "uika-resume-apricot-mother-candidate-v1.png",
+    "toolOriginalPath": "$CODEX_HOME/generated_images/01a1702e-1e74-7ac0-9f86-f1d6b1ffcf30/exec-713a7e35-20fd-4468-a047-bd0358c98efe.png",
+    "sha256": "29211468c28e8dd5cb20c50b62851d7b32fa9cd8639dbed4f419335e733c465a",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "bytes": 2146258,
+    "promptSha256": "2d50fa971e6de43d75f6a85384d303fcaeb80a3e6ee17b73981e783ea1d8bf3d"
+  },
+  "generationDesignReview": "Independent body response after mutual review: hips/knees remain left while shoulders open toward the returning person. Thumb/cover/page support explicitly distinguished; no Mutsumi/Sakiko figure input.",
+  "observedAnchors": {
+    "coordinateSpace": "normalized original canvas; approximate producer observation, not final runtime calibration",
+    "support": "right-window-bench",
+    "seat": [
+      0.862,
+      0.551
+    ],
+    "groundLeft": [
+      0.733,
+      0.725
+    ],
+    "groundRight": [
+      0.773,
+      0.737
+    ],
+    "proposedTravel": 0,
+    "objects": {
+      "book": "half-closing dark-blue book, hand and lower edge near thigh; remains with figure",
+      "room": "cushions, throw, desk and chairs remain background"
+    }
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "producerObservation": "Complete youthful short-blond Uika, violet eyes, white tee and long taupe skirt. Lower body remains angled left, shoulders/gaze open toward viewer with small personal expectation. Both independent socks/sneakers, seated skirt and planted rear palm visible. Book has a clear cover/page block and holding hand; no visibly pierced cover. Primary should inspect small pillow/support changes and compare activity distinctness.",
+    "approvedByPrimary": false,
+    "layers": "not extracted",
+    "runtimeAccepted": false
+  },
+  "identityBasis": {
+    "officialProfile": "https://anime.bang-dream.com/avemujica/character/uika/",
+    "textVerifiedOn": "2026-10-24",
+    "boundary": "Official profile supports identity/background; this university-companion resume moment is project-original. No official or third-party character pixels were image inputs."
+  }
+}
