@@ -39,24 +39,24 @@
 
 ## 2. 回合内流式「边做边说」（`ConversationRhythm`）
 
-当用户问一个需要查课表、算地图路线、翻 PDF 或派子代理查记忆的问题时，如果助手先沉默卡顿 8 秒钟再突然蹦出一大段话，活人感就全毁了。
+长耗时工作需要清楚、自然的等待体验；快速查询或用户正在输入时可以安静完成。不要强制每次工具前说半句，不用固定计时器制造思考表演。
 
 ### `ConversationRhythm` 状态机（[`src/main/runtime/conversation-rhythm.ts`](../../../../src/main/runtime/conversation-rhythm.ts)）
 1. **工具调用前自然开口（`beginDraft` → `appendDraft` → `previewDraft`）**：
-   - 主模型在发出 `tool_calls` 的同一轮流式响应中，先自然说出一两句贴合当下情境的话（例如：「这题的积分上限确实容易看走眼，我把刚才那页讲义翻出来核一下——」）。
-   - 宿主以 150ms 节流将这段话经过 `redactCredentials` 和来源核验后实时推送到界面，并在这句话的精确位置（`anchor: { offset, before }`）展开工具或视图生成动效。
+   - 主模型在需要公开说明的调用中，可以在发出 tool_calls 的同轮流式响应里自然说一两句贴合情境的话（例如：「这题的积分上限确实容易看走眼，我把刚才那页讲义翻出来核一下——」）。
+   - 宿主按当前实现的节流策略将这段话经过 `redactCredentials` 和来源核验后实时推送到界面，并在这句话的精确位置（`anchor: { offset, before }`）展开工具或视图生成动效。
 2. **工具调用确认归档（`commitDraft`）**：
-   - 当本轮包含 `tool_calls` 时，刚才流式说出的前段被确认为不可篡改的 `committedPrefix`，并在下一轮模型调用时通过 `continuationContext()` 提醒主模型：「这是你刚才已经对他说出的前段，接下来请顺着往下说，不要重复开头」。
+   - 当本轮包含 `tool_calls` 时，刚才流式说出的前段成为用于自然续接的 `committedPrefix`，下一轮通过 `continuationContext()` 带回已讲内容，请主模型接着说。来源被撤回或事实需纠正时仍须处理失效，不能因“已提交前段”而继续展示旧内容。
 3. **可替换尾段与无缝收尾（`replaceableTail` & `finish`）**：
-   - 最终不带 `tool_calls` 的回复作为 `replaceableTail` 接在已提交前段之后。若触发 `reviewCompletion` 续改，前段与已嵌入的地图/OpenUI 视图纹丝不动，只平滑替换尾段。
+   - 最终不带 `tool_calls` 的回复作为 `replaceableTail` 接在已提交前段之后。正常 `reviewCompletion` 续改保留仍有效的前段与地图/OpenUI，仅更新需要改的尾段；来源失效、用户改选或旧画面版本失效时必须同步撤下或修订相应部分，不追求“纹丝不动”而保留错误。
 4. **来源失效时的安全撤回（`invalidateSources`）**：
    - 若回合中途发生 `privacy_epoch` 屏障或引用的笔记/资料被删改，立即丢弃未确认草稿，不让失效内容残留在气泡中。
 
 ---
 
-## 3. 主动陪伴的双引擎架构（Dual-Drive Proactivity）
+## 3. 两类主动性来源，共用一个主循环
 
-在场的主动性（[`src/main/runtime/opportunity-scheduler.ts`](../../../../src/main/runtime/opportunity-scheduler.ts) & [`src/main/runtime/attention.ts`](../../../../src/main/runtime/attention.ts)）由两条截然不同却彼此配合的脉络驱动：
+在场的主动性（[`src/main/runtime/opportunity-scheduler.ts`](../../../../src/main/runtime/opportunity-scheduler.ts) & [`src/main/runtime/attention.ts`](../../../../src/main/runtime/attention.ts)）由托付与好奇心两类来源驱动，仍进入同一 Hermes 与权限体系，不新增第二智能引擎：
 
 ### 驱动一：托付照看与静默准备（Entrustment Care / `quiet-initiative`）
 当用户留下持续托付（如「如果今晚紫金港不下雨，提醒我去操场跑两圈」「盯一下周三下午有没有空位把实验补完」）：
@@ -94,3 +94,9 @@
 | **外部发送未接通** | `状态：返回未接入（outboundDelivery: not_connected）。` | `草稿已经替你写好留在下面了。我现在还不能直接帮你点发送，你可以看一眼，顺手复制到群里或邮箱。` |
 | **情绪倾诉回应** | `我在听。你可以慢慢说，这一轮先不安排下一步。`（机械模板） | （由角色按自己性格直接接话，如祥子：「先别管那些没做完的事了……过来坐下，慢慢跟我说，到底受什么委屈了？」） |
 | **工具 `meaning` 字段** | `本页构作契约整体提供；完整签名不代表所有参数schema或资料正文已读，也不增加来源、用途或执行许可。` | `这是这一道题的可接续陪学纸。你的尝试与助手的教学内容分开；提供过提示或看过讲解，都不代表已经独立做完。` |
+
+## 5. 人格必须在动作与反馈里保持连续
+
+本页例句是气韵参考，不是模板路由，也不证明现实动作已发生。用户的喜悦、雄心与探索同样值得回应；不把所有相处压成疲惫安慰。现有姿态/活动契约经 [presence-events-and-observation.md](presence-events-and-observation.md) 映射到看向、让位、递出、收回与接续。
+
+准备与 notify 分开，用户输入/撤回立即接管；角色台词、TTS、手势与纸面共用来源有效性。键盘静止不能推断空闲或卡题。换外观保持人格，换人格按 personaRelation 处理亲历边界。

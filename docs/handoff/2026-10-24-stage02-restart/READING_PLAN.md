@@ -1,3 +1,5 @@
+> **2026-10-25 当前路由：** 本文保留10月24日历史分工阅读计划与当时证据，新的接手请用[Codex 启动说明](../2026-10-25-presence-design/CODEX_START.md)和[当前路线图](../../REFACTOR_ROADMAP_2026-10-22.md)。旧“主代理禁读”“必须八路”“85%代码占比”及旧阶段排序不适用于这次任务；主代理亲读、改写、审校，子代理只用于公开 idea 研究。145项未提交、运行会话与能力缺口属于当日快照，不能覆盖用户本机最新成果。技术与健康示例按当前路线图的来源/规则边界重新核实。
+
 # 分段精读与主代理上下文保护计划（Context-Safe Staged Reading Plan）
 
 > **核心纪律**：
@@ -16,7 +18,7 @@
 1. [`docs/REFACTOR_ROADMAP_2026-10-22.md`](../../REFACTOR_ROADMAP_2026-10-22.md)（终极最高行动纲领，含十二阶段防坑预警、8 路子代理分工与结项铁门禁）
 2. [`docs/handoff/2026-10-24-stage02-restart/README.md`](README.md)（当前工作区 145+ 项未提交改动的精确地图与核心缺口）
 3. [`.agents/skills/zaichang-backend-director/SKILL.md`](../../../.agents/skills/zaichang-backend-director/SKILL.md)（后端灵魂、六层记忆、边做边说与反伪证总监技能主文件；其 `references/*.md` 按阶段按需读取）
-4. [`work/successor-20261022/companion-correction-20261022.md`](../../../work/successor-20261022/companion-correction-20261022.md)（用户关于「把她当作活生生的人、彻底根除内外人机话」的核心纠偏）
+4. [2026-10-21补充原话](../../source-materials/2026-10-21/user-supplements.md) 中「角色表达不得被工程口径替代」「友好说明与人格示例继续保留」。旧 `work/successor-20261022/companion-correction-20261022.md` 未在可访问快照中恢复，不能把新链接冒充同一原件。
 
 ---
 

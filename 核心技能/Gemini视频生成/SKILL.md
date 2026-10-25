@@ -18,6 +18,7 @@ description: 使用用户已登录 Google 账号的 Gemini 网页生成、修改
 - 修接缝、导出或验收：读 [后期与成片检查](references/postproduction-and-review.md)。
 - 核查技巧出处及迁移范围：读 [GitHub 研究索引](references/github-research-index.md)。只加载当前任务需要的部分。
 - 核对本机已验证到哪一步：读 [现场接入状态](setup-status.md)。日期记录不是永久权限保证。
+- 为在场制作角色、共同注意、递物或跨页动态：读 [在场制作与代码移交](references/zaichang-production-handoff.md)，同时使用前后端共同契约；不能只交一段不可交互的视频。
 
 ## 执行流程
 
@@ -39,3 +40,7 @@ description: 使用用户已登录 Google 账号的 Gemini 网页生成、修改
 - 新的模型、参数或入口变化，先核对 Google 官方说明和现场，再窄幅更新本技能；不把 API／Flow 能力升级自动记为网页版已有。
 
 这是网页操作技能，不需要 Gemini API Key，也不修改 Codex 自身使用的模型。
+
+## 在场项目的协同入口
+
+2026-10-25 增加项目级移交规范，保留上述网页流程与能力边界。GPT Image 提供经过审核的身份/同景母版与分层；Gemini 网页提供有动作节拍、支撑和收束的导演参考；Codex 负责真实目标、状态回流、打断与降级。先做一个角色的一条完整样片，再扩有效矩阵。仅改写 Skill 或路线图时不启动生成，也不把本段视为已验证成片。

@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-25",
+  "scope": "documentation and skill validation only; no runtime/model/device/generation testing",
+  "checks": {
+    "relativeLinksChecked": 711,
+    "stages": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12"
+    ],
+    "directors": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12"
+    ],
+    "embeddedStarterExact": true,
+    "legacyStarterRedirectExact": true,
+    "mirrorsChecked": 16,
+    "manifestFilesChecked": 27,
+    "readingDocuments": 154,
+    "archiveMembers": 5,
+    "images": 20,
+    "skillMainLines": {
+      ".agents/skills/product-design/SKILL.md": 97,
+      ".agents/skills/project-foundations/SKILL.md": 70,
+      ".agents/skills/project-navigation/SKILL.md": 38,
+      ".agents/skills/zaichang-backend-director/SKILL.md": 190,
+      ".agents/skills/zaichang-frontend-director/SKILL.md": 217,
+      "核心技能/Gemini视频生成/SKILL.md": 46,
+      "核心技能/前端设计/SKILL.md": 217,
+      "核心技能/后端设计/SKILL.md": 190
+    },
+    "gitDiffCheck": true
+  },
+  "warnings": [],
+  "errors": [],
+  "passed": true
+}

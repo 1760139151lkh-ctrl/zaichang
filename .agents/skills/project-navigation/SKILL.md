@@ -32,3 +32,7 @@ description: >-
 交接结果应包含：正确入口与调用关系、职责及数据所有者、A/B 状态、事实与规划的区别、最少缺失信息、适合此次范围的验证及未执行项。按当前文件树直接核对 Markdown 本地链接、锚点、入口与索引覆盖，并核对 `package.json` 中真实存在的命令。本仓库当前没有 `scripts/check-project-docs.mjs`，不要把不存在的脚本写成必跑门槛，也不为文档同步新建测试运行器。文档检查不运行 App、不查账号，不能证明业务功能正确。
 
 重大使命取舍再按需读 [project-foundations](../project-foundations/SKILL.md)；体验设计或评审再读 [product-design](../product-design/SKILL.md)。不要为了路由加载全部资料或新建地图、天气、User 等空 Skill。
+
+## 2026-10-25 共同在场设计入口
+
+涉及用户可见行为、记忆/主动性或角色动态时，共同读取[前端总监](../zaichang-frontend-director/SKILL.md)、[后端总监](../zaichang-backend-director/SKILL.md)及[在场契约](../../../docs/design/PRESENCE_SYSTEM_2026-10-25.md)。只在当前任务范围内应用：本轮主代理亲读与改写，子代理只做公开 idea 研究；旧人数/代码配额与前后端绝对分期不覆盖最新原话。新协议、场景与资产要求标为待实现，不继承历史运行通过。

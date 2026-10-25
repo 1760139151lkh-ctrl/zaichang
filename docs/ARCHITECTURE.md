@@ -1,5 +1,11 @@
 # 运行架构
 
+## 2026-10-25：前后端共同在场的扩展设计
+
+新增[共同在场契约](design/PRESENCE_SYSTEM_2026-10-25.md)与[角色动态制作规范](design/CHARACTER_MOTION_PIPELINE_2026-10-25.md)。沿同一 Hermes、原 Owner 与有限 Bridge，把当前对象/版本/来源投影为看向、让位、递出、摊开、收回、回来、同乐；明确选择与纠正回流原心智，动画帧留在设备。事实、交互、表演时间各自独立，业务不等动画结束。
+
+`PresenceCue`、扩展观察及生产清单是待映射设计，不能冒充现有 IPC。实施优先复用 CompanionActivityHint、CompanionThreadCue、QuoteAnchor、SourceBookmarkReference、SceneSnapshot 和现有 scene calibration；不新增第二聊天循环、情绪数据库或复制事实的全域store。遗忘覆盖字幕、音频、动作与通知投影；多端离线恢复先同步来源围栏。当前实现仍以下文与实际代码为准。
+
 2026-10-21 全系统导读见[项目基线](PROJECT_BASELINE.md#一条对话如何工作)：按当前实现串起输入、有限IPC、ContextCompiler、Hermes、工具与原状态所有者、来源收据、Scene和动作事务。本文保留具体机制；当前可用程度和实际证据不由架构图推定。
 
 当前继续本轮新的深度完善，较早[阶段收尾安排](source-materials/2026-10-18/stage-close-and-luna-validation-20261019.md)保留当时适用范围。以下机制说明不自动成为运行通过记录，实际结果仍回到当前状态。

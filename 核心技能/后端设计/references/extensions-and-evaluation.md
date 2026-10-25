@@ -6,7 +6,7 @@
 
 ## 1. 已实现基线 vs. 未实现/待接入能力全景路线图（`X01–X16`）
 
-为了确保未来接入**手机端（iOS/Android）、平板手写端、实时 GPS、浙大体育打卡官方有效次数核验与写回、邮件/钉钉外部通道、云端/OS 后台守护推送、SQLite 全库静态加密**时，**无需推翻或重写现有的六层记忆与 Harness 内核**，内核已抽象出 **8 大标准扩展端口（8 Kernel Extension Ports）** 与 **16 项演进契约（`X01–X16`）**。
+为了确保未来接入**手机端（iOS/Android）、平板手写端、实时 GPS、浙大体育打卡官方有效次数核验与写回、邮件/钉钉外部通道、云端/OS 后台守护推送、SQLite 全库静态加密**时，**无需推翻或重写现有的六层记忆与 Harness 内核**，以 **8 类扩展职责** 与 **16 项演进契约（X01–X16）**组织设计。下表的旧状态描述属于历史基线，继续执行必须核验当前代码；端口名称不保证已有同名类或完整实现。
 
 ### 1.1 八大内核扩展端口（The 8 Kernel Extension Ports）
 
@@ -26,7 +26,7 @@
 | 编号 | 能力名称 | 当前状态 | 接入契约与绝对护栏（Baked-In Blueprint） |
 | --- | --- | --- | --- |
 | **`X01`** | **移动端实时 GPS 与桌面端位置融合 (`location.current`)** | 桌面端仅支持显式指定起点；移动端 GPS 待接入 | 1. 接入 `ObservationPort` (`location.current`)，必须携带 `{ lat, lng, accuracyMeters, capturedAt, ttlSeconds, precision: 'precise' \| 'coarse' \| 'explicit', source: 'mobile_gps' \| 'desktop_ip' \| 'user_pin' }`。<br>2. **位置隐私铁律**：实时 GPS 仅用于当次寻路或经用户明确托付的近场提醒（如「路过打印店提醒我取材料」），**严禁将高频 GPS 轨迹静默写入长期 `Assertion` 或上传至未授权第三方**。<br>3. 精度不足（如 `accuracyMeters > 150` 或桌面端无定位）或过期时，地图必须诚实退回「待确认起点」，绝不把上次讨论过的教学楼假冒成当前所在位置。 |
-| **`X02`** | **手机端 / 平板端宿主与跨设备因果同步 (`SyncPort`)** | 桌面 Electron 已就绪；手机/平板端待实现 | 1. 手机端负责随时随地的轻量对话、语音倾诉、实时 GPS 路线口袋与锁屏通知；平板端强化 PDF 讲义手写批注与陪学纸演算。<br>2. **同步粒度**：同步 `SourceEvent`、`Assertion`、`Work`（陪学纸/事项）、`Action`（日历）与 `Notes`，每个对象携带 `(deviceId, revision, privacyEpoch)`。<br>3. **遗忘优先定则**：任何一端触发的 `RETRACT / FORGET`（`h_fences` 墓碑）在同步合并时拥有最高优先级，立即清除其他设备上的旧副本与派生缓存；外观分屏等 `localStorage` 界面偏好保持设备本地独立。 |
+| **`X02`** | **手机端 / 平板端宿主与跨设备因果同步 (`SyncPort`)** | 桌面 Electron 已就绪；手机/平板端待实现 | 1. 手机端负责随时随地的轻量对话、语音倾诉、实时 GPS 路线口袋与锁屏通知；平板端强化 PDF 讲义手写批注与陪学纸演算。<br>2. **同步粒度**：同步 `SourceEvent`、`Assertion`、`Work`（陪学纸/事项）、`Action`（日历）与 `Notes`，每个对象携带 `(deviceId, revision, privacyEpoch)`。<br>3. **遗忘优先定则**：任何一端触发的 `RETRACT / FORGET`（`h_fences` 墓碑）在同步合并时拥有最高优先级，当前宿主立即停止消费，在线设备同步屏障后清理；离线设备重连先核验 fence 再恢复旧内容；外观分屏等 `localStorage` 界面偏好保持设备本地独立。 |
 | **`X03`** | **多方忙闲信封与同伴约时间 (`AudienceProjector`)** | 单人 `availability_projection` 已实现；多方信封待扩展 | 对外协作（如与同学约小组讨论、与导师约答疑）时，只导出签名后的忙闲时间窗信封（`BusyFreeEnvelope`：仅含可约区间与缓冲边界），**绝不暴露日历事项名称、地点、课程或私人原因**。 |
 | **`X04`** | **OS 后台守护 / 云端轻量唤醒与移动推送 (`DeliveryPort`)** | 进程内 `OpportunityScheduler` 已实现；跨进程/离线唤醒待接入 | 1. 当前桌面进程退出或电脑睡眠时，UI 与角色必须诚实告知「关掉应用期间无法在后台盯消息或响铃」。<br>2. 未来接入 Windows Service / 移动端 Push 时，后台守护进程仅持有最小化的条件触发器（如定点闹钟或天气阈值），唤醒主内核后再在完整 `PolicyKernel` 校验下生成角色通知。 |
 | **`X05`** | **本机离线模型回答通道 (`local_only` `ModelProvider`)** | `local_only` 零出网拦截已实现；本地推理引擎待挂载 | 当用户在 `ScopeSettings` 选择 `仅留在本机，不发送给模型 (local_only)` 时，当前确定性拦截一切云端请求并安全保存原话；未来挂载本地 Ollama / 端侧模型至 `ModelProvider` 后，可在零出网前提下完成本地摘要、笔记整理与陪伴对话。 |
@@ -36,11 +36,11 @@
 | **`X09`** | **浙大体育打卡官方有效次数 vs 原始记录核验 (`sports`)** | 领域模型与口径分离已实现；官方实时接口待扩展 | **校园痛点铁律**：浙大体育打卡存在「刷了卡但因配速/时长/人脸未通过而不计入有效次数」的情况。后端必须严格区分三个字段：`validCount`（教务/体艺部认定的有效次数）、`rawRecords`（原始打卡流水）、`selfReported`（学生口头说的次数）。在计算「离期末达标还差几次」时，**只以核实过的 `validCount` 为准**，若 `validCount` 未知或过期，必须明确提示核对，绝不拿原始流水或口头记忆充数。 |
 | **`X10`** | **SQLite 全库静态加密与安全导出包 (`StorageProtectionPort`)** | 凭据脱敏与墓碑清理已实现；SQLite 页级加密待接入 | 通过系统级密钥链（Windows DPAPI / macOS Keychain）派生密钥对本地 SQLite 与向量库进行静态加密；导出个人备份包时，自动过滤所有 `status IN ('deleted', 'redacted')` 及 `h_fences` 命中记录。 |
 | **`X11`** | **邮件 / 钉钉 / 课程群外部通知只读接入 (`external_notice`)** | 附件与粘贴文本隔离已实现；自动拉取连接器待接入 | 外部邮件、钉钉群通知或教务公告进入系统时，强制打上 `speaker: 'external'`, `authority: 'untrusted_external_data'`。模型可以从中提取考试地点变更或死线提醒，但**外部文本中的任何指令性语句（Prompt Injection）永远无法获取工具执行权或隐私读取权**。 |
-| **`X12`** | **外部系统真实写入与发送连接器（选课/场地预约/发邮件）** | 事务状态机与草稿隔离已实现；外部写连接器待接入 | 任何对外部系统（发邮件、发群消息、场地预约）的实际写入，必须走 `ReleaseArtifact` 或 `Action` 显式二次确认（绑定收件人、正文哈希与 `expectedRevision`）。网络超时必须进入 `outcome_unknown`，严禁自动重试导致连发多封邮件。 |
+| **`X12`** | **外部系统真实写入与发送连接器（选课/场地预约/发邮件）** | 事务状态机与草稿隔离已实现；外部写连接器待接入 | 任何对外部系统（发邮件、发群消息、场地预约）的实际写入，必须走 ReleaseArtifact 或 Action，绑定正确目标、内容版本与授权；已明确授权且内容未变时不反复确认，范围或内容改变才处理新的授权缺口。网络超时必须进入 `outcome_unknown`，严禁自动重试导致连发多封邮件。 |
 | **`X13`** | **PDF 讲义多模态精细版面与手写公式识别** | 页级文本与裁剪视觉已实现 (`MaterialService`) | 保持 `resourceId + version + page + crop` 强绑定；支持把讲义上的公式截图或手写推导直接锚定到 `StudyCompanionService` 的题目与尝试步骤上。 |
 | **`X14`** | **经用户审阅的个人方法与经验配方 (`PersonalMethods` & `TaskRecipe`)** | `personal-methods.ts` 已实现 | 从多次成功的陪学或排程中提炼出的「个人习惯方法」（如「考前复习喜欢先画章节骨架再刷错题」），必须经用户可见、可编辑、可随时停用，且保留来源证明（`PersonalMethodSources`）。 |
 | **`X15`** | **可穿戴设备睡眠与精力柔和信号 (`wellbeing.signal`)** | 12 维模型槽位已预留；手环/手表连接器待接入 | 未来接入睡眠时长或心率变异性（HRV）时，仅作为排程缓冲与角色温柔关心的柔和参考（「看你昨晚睡得太少，今晚那道难证明题我们先只看个思路好不好？」），**绝不做医疗诊断，也绝不剥夺用户自己决定学不学的权利**。 |
-| **`X16`** | **角色语音合成（TTS）与实时双向语音陪伴 (`Live Voice`)** | OpenUI 乐理合成已实现；角色人声 TTS 待接入 | 语音层直接复用 `ConversationRhythm` 的流式分句节奏——工具调用前先轻声说出前半句，查完资料自然接后半句；语调严格对齐 `PersonaVoice` 与十角色声线特质。 |
+| **`X16`** | **角色语音合成（TTS）与实时双向语音陪伴 (`Live Voice`)** | OpenUI 乐理合成已实现；角色人声 TTS 待接入 | 语音层复用 ConversationRhythm 的真实公开表达与撤回；需要时自然说明，快速查询或用户输入时允许安静，排队音频也要通过来源屏障；语调严格对齐 `PersonaVoice` 与十角色声线特质。 |
 
 ---
 
@@ -72,3 +72,11 @@
 4. **严禁题库作弊（Zero Prompt-Stuffing Iron Law）**：**绝对禁止把失败测试用例的原句、特定人名或硬编码分支写进 System Prompt 或代码正则里**！
 5. **五种未见说法 + 反事实泛化验证（5 Unseen Phrasings + Counterfactuals）**：针对修复点，必须用 5 种完全不同的自然口语表达，加上条件反转的反事实用例（如把「今天累了不跑」反转为「脚好利索了今晚去跑」）验证其真正理解。
 6. **全量回归与诚实记录（Regression & Honest Status）**：运行 `npm run check` 与相关测试集；已验证的写明真实证据，未接通外部硬件/账号的诚实写明当前边界，绝不预填通过。
+
+## 3. 跨端与动态体验的新增验证维度
+
+按用户顺序先 iOS/iPad，后 Android；共享对象语义与审美，适配各平台输入、通知和后台限制。Live Activity 不是无限后台宿主，MuMu 不是 GPS/耗电真机证据。
+
+新增关注：旧 cue 迟到、输入让位、多个动画争同一通道、错场景拼接、视频结束误提交、来源已删但音频仍播、隐藏恢复补播、静态替代虚报动态覆盖。与原 INV/V/Mutants 体系合用，证据按机制、模型、体验、资产、平台分层。
+
+详见路线图 D11/D12 与 [continuous-experience-design.md](continuous-experience-design.md)。验证围绕实际改动，充分后停止无目的加轮。
