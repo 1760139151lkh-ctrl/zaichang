@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "root / primary agent",
+  "recordedAtUtc": "2026-10-25T01:36:39Z",
+  "timeMeaning": "recorded after the primary agent's direct acceptance message; not asserted image generation time",
+  "evidence": "Primary personally viewed fixed-version Chrome preview at resume-layer-preview-mask-v1-shadow-mask-v2.html, original room recomposition and original-pixel light/dark details, and all four complete mothers.",
+  "mothers": [
+    {"file": "sakiko-resume-apricot-mother-v1.png", "sha256": "4f6cbda7f205da55b6f50bfa355a45d487b320a1529794f44e18f477129fdee8", "width": 1536, "height": 1024, "approvedByPrimary": true},
+    {"file": "sakiko-resume-mist-mother-v1.png", "sha256": "2c89eaf224cf1032049e533ebf0879098a1ea7eeb8e6db1fdac00652b772063f", "width": 1536, "height": 1024, "approvedByPrimary": true},
+    {"file": "sakiko-resume-violet-mother-v1.png", "sha256": "8cecb9f7025665577e3179abf28f92ca4d9477a41c9b156918faaa17c5430ff4", "width": 1536, "height": 1024, "approvedByPrimary": true},
+    {"file": "sakiko-resume-rain-mother-v1.png", "sha256": "eaac28cd65add943d09cf304afca0f77a4835a3e755092b11be4a07dc0501ea0", "width": 1536, "height": 1024, "approvedByPrimary": true}
+  ],
+  "apricotLayerAdmission": {
+    "approvedByPrimary": true,
+    "scope": "original position only, travel=0; no arbitrary translation, no runtime acceptance",
+    "files": [
+      {"role": "original RGB mother", "file": "sakiko-resume-apricot-mother-v1.png", "sha256": "4f6cbda7f205da55b6f50bfa355a45d487b320a1529794f44e18f477129fdee8"},
+      {"role": "matching same-canvas background", "file": "sakiko-resume-apricot-background-v1.png", "sha256": "65df96a36b403aa9bdadb6851ca4cf1cda5967739112eb30fba985eb9e4fcf88"},
+      {"role": "luminance figure mask", "file": "sakiko-resume-apricot-mask-v1.png", "sha256": "9988530621a46c99260a015c9b6e0fc322c3de6cc55f1bf8205bc058378e6297"},
+      {"role": "luminance dark shadow mask under the original RGB figure", "file": "sakiko-resume-apricot-mask-v2.png", "sha256": "91426ac9da41bb7076161106086cd06b386b6e493623e8206050dfd4a862e537", "color": "#291c16", "opacity": 0.48}
+    ],
+    "observation": "After final image load, original-pixel light and dark views were clear without the old pale source-RGB seat strip. Original-room recomposition kept hip/bench, palm and both shoe contacts natural.",
+    "runtimeAccepted": false
+  },
+  "otherThemeLayers": "not admitted; independently extract each matching background and figure/shadow mask from its own accepted mother",
+  "rejectionsPreserved": "RGBA figure v1/v2/v3 drift or halo, direct shadow v1 offset, and shadow-only mask v1 offset remain rejected. Figure mask v2 remains rejected as an original-RGB figure mask; only its explicitly reviewed dark-shadow use is admitted."
+}

@@ -35,6 +35,9 @@ export interface CompanionSceneArtwork extends SceneCalibration {
   mask?: string;
   maskMode?: 'alpha' | 'luminance';
   shadow?: string;
+  shadowMode?: 'rgba' | 'luminance';
+  shadowColor?: string;
+  shadowOpacity?: number;
   foreground?: string;
   width: number;
   height: number;
@@ -69,6 +72,9 @@ interface SceneRegistration extends Omit<SceneCalibration, 'contactShadow'> {
   mask?: string;
   maskMode?: 'alpha' | 'luminance';
   shadow?: string;
+  shadowMode?: 'rgba' | 'luminance';
+  shadowColor?: string;
+  shadowOpacity?: number;
   foreground?: string;
   contactShadow: { mode: SceneCalibration['contactShadow'] };
   review: { approvedByPrimary: boolean };
@@ -89,6 +95,11 @@ const registrations = Object.entries(registrationFiles).filter(([, item]) => {
     && (item.maskMode === undefined || ['alpha', 'luminance'].includes(item.maskMode))
     && (item.maskMode !== 'luminance' || registeredFile(item.mask))
     && (!item.shadow || registeredFile(item.shadow)) && (!item.foreground || registeredFile(item.foreground))
+    && (item.shadowMode === undefined || ['rgba', 'luminance'].includes(item.shadowMode))
+    && (item.shadowColor === undefined || /^#[\da-f]{6}$/i.test(item.shadowColor))
+    && (item.shadowOpacity === undefined || unit(item.shadowOpacity))
+    && (item.shadowMode !== 'luminance' || item.contactShadow?.mode === 'separate'
+      && registeredFile(item.shadow) && item.shadowColor !== undefined && item.shadowOpacity !== undefined)
     && Number.isFinite(item.width) && item.width > 0 && Number.isFinite(item.height) && item.height > 0
     && Array.isArray(item.seat) && item.seat.length === 2 && item.seat.every(unit)
     && Array.isArray(item.ground) && item.ground.length === 2 && item.ground.every(unit)
@@ -562,12 +573,19 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
     }} onError={failMother} />
     {!shown.figure && shown.mask && <img key={`mask-${imageKey}`} src={imageSource(shown.mask)} alt="" hidden style={{ display: 'none' }}
       onLoad={event => verifyLayer(event.currentTarget)} onError={failLayer} />}
+    {shown.shadowMode === 'luminance' && shown.shadow && <img key={`shadow-${imageKey}`} src={imageSource(shown.shadow)} alt="" hidden style={{ display: 'none' }}
+      onLoad={event => verifyLayer(event.currentTarget)} onError={failLayer} />}
     {(!failedMother || showEmptyRoom) && <div key={`canvas-${imageKey}`} className="scene-canvas" style={{ width: shown.width, height: shown.height,
       transform: `translate(${stageX}px, ${stageY}px) scale(${scale})` }}>
       {layered || showEmptyRoom ? <>
         <img className="scene-layer" src={imageSource(shown.background)} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={failLayer} />
         {showFigure && motherReady && !failedMother && <div className="scene-actor-layer" style={actorStyle}>
-          {shown.shadow && <img className="scene-layer" src={imageSource(shown.shadow)} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={failLayer} />}
+          {shown.shadow && (shown.shadowMode === 'luminance' ? <svg className="scene-layer" viewBox={`0 0 ${shown.width} ${shown.height}`} aria-hidden="true">
+            <defs><mask id={`${svgId}-contact-shadow`} maskUnits="userSpaceOnUse" x="0" y="0" width={shown.width} height={shown.height} style={{ maskType: 'luminance' }}>
+              <image href={imageSource(shown.shadow)} width={shown.width} height={shown.height} preserveAspectRatio="none" onError={failLayer} />
+            </mask></defs>
+            <rect width={shown.width} height={shown.height} fill={shown.shadowColor ?? '#291c16'} opacity={shown.shadowOpacity ?? .48} mask={`url(#${svgId}-contact-shadow)`} />
+          </svg> : <img className="scene-layer" src={imageSource(shown.shadow)} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={failLayer} />)}
           {shown.figure ? <img className="scene-layer" src={imageSource(shown.figure)} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={failLayer} /> : <svg className="scene-layer" viewBox={`0 0 ${shown.width} ${shown.height}`} aria-hidden="true">
             <defs>
               <filter id={`${svgId}-alpha`} colorInterpolationFilters="sRGB">

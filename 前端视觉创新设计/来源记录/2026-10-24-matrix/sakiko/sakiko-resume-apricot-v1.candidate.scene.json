@@ -28,12 +28,14 @@
   "slope": 0,
   "perspective": 0,
   "review": {
-    "approvedByPrimary": false,
+    "approvedByPrimary": true,
     "motherApprovedByPrimary": true,
-    "stage": "candidate-luminance-bundle-awaiting-primary",
+    "stage": "layer-admission-for-original-stage",
+    "reviewer": "root / primary agent",
+    "approvalRecord": "primary-resume-approval.json",
     "runtimeAccepted": false,
-    "producerObservation": "Original RGB with ImageGen figure mask v1, separate dark fill through ImageGen mask v2; viewed in actual Chrome on light/dark/original room. v2 is rejected as an original-RGB figure mask, and only proposed here as a dark shadow mask beneath v1. Proposed shadowMode/Color/Opacity require primary and renderer acceptance before any registration.",
-    "geometryStatus": "provisional source-space seat/ground/hit coordinates, fixed travel0; no claim of drag or runtime verification"
+    "producerObservation": "Primary accepted original RGB with ImageGen figure mask v1 and a separate #291c16 / 0.48 dark fill through ImageGen mask v2 after original-pixel light/dark and original-room viewing. v2 is rejected as an original-RGB figure mask; only its dark shadow use beneath v1 is admitted. Shared Stage fields confirmed with its owner.",
+    "geometryStatus": "source-space seat/ground/hit coordinates, fixed travel0 original position only; no claim of arbitrary drag or runtime verification"
   },
   "production": "resume-layer-production.json",
   "source": "sakiko-resume-apricot-v1-source.json"

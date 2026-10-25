@@ -1,0 +1,36 @@
+{
+  "createdOn": "2026-10-25T01:33:51.033459+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "character": "rana",
+  "activity": "reading",
+  "light": "violet",
+  "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-violet-mother-v1.png",
+  "sha256": "3ee5f49521bde8bb389d21654db35ae1e98ccfd27db2c550027625ee82036d08",
+  "bytes": 2210373,
+  "width": 1536,
+  "height": 1024,
+  "exactPrompt": "Use case: lighting-weather with faithful character illustration.\nAsset type: ONE complete naturally inhabited same-room mother artwork for 在场, exactly 1536 × 1024, Rana / 要楽奈 / READING / VIOLET.\nInput image 1 is the PRIMARY-REVIEWED COMPLETE APRICOT Rana activity mother: use it as the sole target for figure identity, posture, proportions, furniture support, camera and all room/object geometry. Input image 2 is a CLEAN EMPTY ROOM of the requested theme, for light, time, weather and material illumination reference ONLY. Never copy its empty space over Rana, never borrow its chair geometry if it differs from the activity mother. Re-illuminate the complete scene together; no character cutout, no pasted figure or global color-film effect.\n\nPRESERVE THE REAL SPACE: keep this activity mother's full room4 camera/framing and subject scale; complete connected window frame, lake/campus outline, left rear writing desk and chair, shelves, books, plants and framed drawing, right real work desk, actual chair, lamp fixture, window bench, cushions, throw, rug, dry wooden floor and clear passages. Do not crop, zoom, shift the figure, add furniture, enlarge the character or clear the left living space into a blank wall. Retain all clothing/prop/shoe boundaries and shadows appropriate to actual support, while changing those shadows to the requested physical light.\n\nRana's faithful youthful anime identity: short silver-white bob with straight soft bangs, naturally pale lavender hair-end shadows; her own RIGHT iris is gold-yellow and own LEFT iris is clear blue. Keep intrinsic eye colors consistent through the head's orientation. If the approved side view naturally hides one eye, leave it hidden rather than turning her face to camera. Fine youthful face, specific quiet curiosity and free unforced presence. Keep the loose distressed black short-sleeve outer top over white long sleeves, white shorts, socks and black lace-up ankle boots as actually shown in this activity. Natural white hair, black/white clothing and healthy skin retain local colors under the new light. Ordinary fully clothed companionship; no adult-model face, chibi, cat features, sensual framing, body emphasis or random pet.\n\nREADING: preserve the right-bench, cushion-supported diagonal reading posture. One socked foot stays folded on the cushion, the other foot remains in a complete black lace-up boot resting on the floor. Exactly ONE removed matching empty boot stands on the floor beside the grounded boot. The book rests on the raised thigh and both hands support the book; gaze stays down at the pages. Keep the same hips, legs, back support, book and shoe positions. No extra foot or third boot, no greeting or camera smile.\n\nVIOLET — one coherent late-sunset environment: the lake horizon glows pale apricot and rose, grading into a delicate lavender-violet upper sky. The low sun outside the existing window produces plausible long soft sunset shadows over the same floor and warm side-light on the same figure, while the room's plaster and curtains reflect gentle muted rose and violet. The existing desk lamp may glow softly as twilight comes in. Keep wood, white hair and white fabric locally recognizable, not uniformly purple. The outside campus and window reflections genuinely change with sunset; no color-film overlay and no split-screen.\n\nAnatomical/support review must remain possible: all hair, hands and each visible complete foot/shoe are within the same canvas, no cropped boots. Each visible leg independently traces from hip through thigh/knee/shin/ankle to its correct foot; no fused or duplicated limb, extended shin, floating support, penetrating wood, extra sock or empty boot. Hands keep coherent fingers and real contact with the original support/prop. Keep the approved whole-scene feeling; this is not a pose redesign. Do not add readable writing, labels, new UI/card, divider, split screen, arrows, watermark or logo. Return one complete re-lit mother image.",
+  "inputs": [
+    {
+      "role": "primary-reviewed complete activity mother edit target",
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-reading-apricot-mother-candidate-v1.png",
+      "sha256": "23b3b23ce749b7cdc1d5a31616ac1f45b53a7d0bd1694787bc1895736933df8e"
+    },
+    {
+      "role": "lighting-weather reference only",
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "originalGeneratedFile": "generated_images/01a170a6-8e49-7cd0-a76c-b39ffc076c2e/exec-08a14f73-1758-4f94-b4b5-5d5283a8ad86.png",
+  "executionId": "08a14f73-1758-4f94-b4b5-5d5283a8ad86",
+  "designerPersonallyViewed": true,
+  "designerObservation": "Personally viewed full output. Original bench support, folded white-socked foot, one worn floor boot and exactly one matching empty floor boot retained; book and hands remain at raised thigh. Silver bob and gold/blue eyes remain distinct. Sunset illumination reaches hair, skin, pages, curtains and dry floor with coherent lavender shade; original restrained reading expression remains.",
+  "offeredForPrimaryReview": true,
+  "primaryReview": false,
+  "approvedByPrimary": false,
+  "separated": false,
+  "layers": false,
+  "runtimeAccepted": false,
+  "runtime": false
+}

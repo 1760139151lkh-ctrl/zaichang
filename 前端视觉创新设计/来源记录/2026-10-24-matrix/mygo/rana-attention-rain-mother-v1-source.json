@@ -1,0 +1,38 @@
+{
+  "createdOn": "2026-10-25T01:39:16.605712+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "character": "rana",
+  "activity": "attention",
+  "light": "rain",
+  "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-attention-rain-mother-v1.png",
+  "sha256": "c86766fde86fff65aa934cddf5c8eeb69c021463cf034a20c6e3b237aaa51ca9",
+  "bytes": 2155696,
+  "width": 1536,
+  "height": 1024,
+  "exactPrompt": "Use case: lighting-weather with faithful character illustration.\nAsset type: ONE complete naturally inhabited same-room mother artwork for 在场, exactly 1536 × 1024, Rana / 要楽奈 / ATTENTION / RAIN.\nInput image 1 is the PRIMARY-REVIEWED COMPLETE APRICOT Rana activity mother: use it as the sole target for figure identity, posture, proportions, furniture support, camera and all room/object geometry. Input image 2 is a CLEAN EMPTY ROOM of the requested theme, for light, time, weather and material illumination reference ONLY. Never copy its empty space over Rana, never borrow its chair geometry if it differs from the activity mother. Re-illuminate the complete scene together; no character cutout, no pasted figure or global color-film effect.\n\nPRESERVE THE REAL SPACE: keep this activity mother's full room4 camera/framing and subject scale; complete connected window frame, lake/campus outline, left rear writing desk and chair, shelves, books, plants and framed drawing, right real work desk, actual chair, lamp fixture, window bench, cushions, throw, rug, dry wooden floor and clear passages. Do not crop, zoom, shift the figure, add furniture, enlarge the character or clear the left living space into a blank wall. Retain all clothing/prop/shoe boundaries and shadows appropriate to actual support, while changing those shadows to the requested physical light.\n\nRana's faithful youthful anime identity: short silver-white bob with straight soft bangs, naturally pale lavender hair-end shadows; her own RIGHT iris is gold-yellow and own LEFT iris is clear blue. Keep intrinsic eye colors consistent through the head's orientation. If the approved side view naturally hides one eye, leave it hidden rather than turning her face to camera. Fine youthful face, specific quiet curiosity and free unforced presence. Keep the loose distressed black short-sleeve outer top over white long sleeves, white shorts, socks and black lace-up ankle boots as actually shown in this activity. Natural white hair, black/white clothing and healthy skin retain local colors under the new light. Ordinary fully clothed companionship; no adult-model face, chibi, cat features, sensual framing, body emphasis or random pet.\n\nATTENTION / NOTICING: preserve the approved mother's full standing, weight-bearing posture on the floor to the right of the desk, in front-left of the bench, not seated. One hand really rests on the reachable desk edge, the other arm is relaxed by her side. Her head and heterochromatic eyes turn toward the left-side newly relevant point, without camera eye contact or a surprised greeting grin. Both whole boot/foot chains, the small offset step and weight distribution stay natural and grounded. Do not add a new object, UI card, stool or seat, do not enlarge the figure or change its floor location.\n\nRAIN — one coherent rainy night with warm interior light: the existing desk lamp is on and is the main warm golden light source illuminating the nearby figure, paper or props, curtain folds, bench and wood with plausible light falloff and contact shadows. Outside the same fully framed window, a deep blue rainy night shows fine rain on the glass, a dark reflective lake and a few softly glowing distant campus windows. Cool night skylight supplies restrained ambient fill to the left room so its shelves, writing desk, plants and floor remain readable. Window, room and character must all be re-lit consistently; do not simply darken the daytime picture or add a black/blue overlay. Keep the same everyday engaged expression; rainy night does not mean sadness.\n\nAnatomical/support review must remain possible: all hair, hands and each visible complete foot/shoe are within the same canvas, no cropped boots. Each visible leg independently traces from hip through thigh/knee/shin/ankle to its correct foot; no fused or duplicated limb, extended shin, floating support, penetrating wood, extra sock or empty boot. Hands keep coherent fingers and real contact with the original support/prop. Keep the approved whole-scene feeling; this is not a pose redesign. Do not add readable writing, labels, new UI/card, divider, split screen, arrows, watermark or logo. Return one complete re-lit mother image.",
+  "inputs": [
+    {
+      "role": "primary-reviewed complete activity mother edit target",
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-attention-apricot-mother-candidate-v1.png",
+      "sha256": "cb0b50da63a832bb76915690e538ac3aae157e2d40c84a6ba467c6ea49dda672"
+    },
+    {
+      "role": "lighting-weather reference only",
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "originalGeneratedFile": "generated_images/01a170a6-8e49-7cd0-a76c-b39ffc076c2e/exec-7a7ae4ab-085b-4e32-a585-7f46551c70ff.png",
+  "executionId": "7a7ae4ab-085b-4e32-a585-7f46551c70ff",
+  "designerPersonallyViewed": true,
+  "designerObservation": "Personally viewed whole output. Standing anatomy and desk hand contact remain, but night illumination retains daytime window/foliage projections and the model moved the originally occluded lamp into the visible desk-left area. Rejected as a lighting/geometry candidate; never use this candidate as future image input.",
+  "offeredForPrimaryReview": false,
+  "primaryReview": false,
+  "approvedByPrimary": false,
+  "separated": false,
+  "layers": false,
+  "runtimeAccepted": false,
+  "runtime": false,
+  "designerRejected": true,
+  "candidateIssue": "Moved lamp into visible desk-left area plus residual daytime window/foliage sun projections. Regenerate from reviewed apricot original and clean rain reference only."
+}
